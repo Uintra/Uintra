@@ -265,7 +265,7 @@ namespace Compent.uIntra.Core.Events
 
         public bool CanEditSubscribe(Guid activityId) => !Get(activityId).Subscribers.Any();
 
-        public void Notify(Guid entityId, IIntranetType notificationType)
+        public void Notify(Guid entityId, Enum notificationType)
         {
             var notifierData = GetNotifierData(entityId, notificationType);
 
@@ -275,7 +275,7 @@ namespace Compent.uIntra.Core.Events
             }
         }
 
-        private NotifierData GetNotifierData(Guid entityId, IIntranetType notificationType)
+        private NotifierData GetNotifierData(Guid entityId, Enum notificationType)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
 
@@ -285,9 +285,9 @@ namespace Compent.uIntra.Core.Events
                 ActivityType = ActivityType
             };
 
-            switch (notificationType.Id)
+            switch (notificationType)
             {
-                case (int)NotificationTypeEnum.CommentReplied:
+                case NotificationTypeEnum.CommentReplied:
                     {
                         var comment = _commentsService.Get(entityId);
                         var currentEvent = Get(comment.ActivityId);
@@ -295,7 +295,7 @@ namespace Compent.uIntra.Core.Events
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, currentUser.Id);
                     }
                     break;
-                case (int)NotificationTypeEnum.CommentEdited:
+                case NotificationTypeEnum.CommentEdited:
                     {
                         var comment = _commentsService.Get(entityId);
                         var currentEvent = Get(comment.ActivityId);
@@ -303,7 +303,7 @@ namespace Compent.uIntra.Core.Events
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
                     }
                     break;
-                case (int)NotificationTypeEnum.CommentAdded:
+                case NotificationTypeEnum.CommentAdded:
                     {
                         var comment = _commentsService.Get(entityId);
                         var currentEvent = Get(comment.ActivityId);
@@ -311,14 +311,14 @@ namespace Compent.uIntra.Core.Events
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
                     }
                     break;
-                case (int)NotificationTypeEnum.ActivityLikeAdded:
+                case NotificationTypeEnum.ActivityLikeAdded:
                     {
                         var currentEvent = Get(entityId);
                         data.ReceiverIds = currentEvent.OwnerId.ToEnumerable();
                         data.Value = _notifierDataHelper.GetLikesNotifierDataModel(currentEvent, notificationType, currentUser.Id);
                     }
                     break;
-                case (int)NotificationTypeEnum.CommentLikeAdded:
+                case NotificationTypeEnum.CommentLikeAdded:
                     {
                         var comment = _commentsService.Get(entityId);
                         var currentEvent = Get(comment.ActivityId);
@@ -327,7 +327,7 @@ namespace Compent.uIntra.Core.Events
                     }
                     break;
 
-                case (int)NotificationTypeEnum.BeforeStart:
+                case NotificationTypeEnum.BeforeStart:
                     {
                         var currentEvent = Get(entityId);
                         data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
@@ -335,8 +335,8 @@ namespace Compent.uIntra.Core.Events
                     }
                     break;
 
-                case (int)NotificationTypeEnum.EventHided:
-                case (int)NotificationTypeEnum.EventUpdated:
+                case NotificationTypeEnum.EventHided:
+                case NotificationTypeEnum.EventUpdated:
                     {
                         var currentEvent = Get(entityId);
                         data.ReceiverIds = GetNotifiedSubscribers(currentEvent);

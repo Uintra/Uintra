@@ -6,7 +6,7 @@ namespace uIntra.Notification
 {
     public class ActivityNotifierDataModel : INotifierDataValue, IHaveNotifierId
     {
-        public IIntranetType NotificationType { get; set; }
+        public Enum NotificationType { get; set; }
         public IIntranetType ActivityType { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }

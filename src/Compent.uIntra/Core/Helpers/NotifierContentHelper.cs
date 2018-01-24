@@ -3,7 +3,6 @@ using uIntra.Comments;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
 using uIntra.Notification;
 
 namespace Compent.uIntra.Core.Helpers
@@ -19,7 +18,7 @@ namespace Compent.uIntra.Core.Helpers
             _commentLinkHelper = commentLinkHelper;
         }
 
-        public CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, CommentModel comment, IIntranetType notificationType, Guid notifierId)
+        public CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, CommentModel comment, Enum notificationType, Guid notifierId)
         {
             return new CommentNotifierDataModel
             {
@@ -33,7 +32,7 @@ namespace Compent.uIntra.Core.Helpers
             };
         }
 
-        public ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, IIntranetType notificationType, Guid notifierId)
+        public ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, Enum notificationType, Guid notifierId)
         {
             return new ActivityNotifierDataModel
             {
@@ -47,7 +46,7 @@ namespace Compent.uIntra.Core.Helpers
             };
         }
 
-        public LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, IIntranetType notificationType, Guid notifierId)
+        public LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, Enum notificationType, Guid notifierId)
         {
             return new LikesNotifierDataModel
             {
@@ -62,7 +61,7 @@ namespace Compent.uIntra.Core.Helpers
             };
         }
 
-        public ActivityReminderDataModel GetActivityReminderDataModel(IIntranetActivity activity, IIntranetType activityType)
+        public ActivityReminderDataModel GetActivityReminderDataModel(IIntranetActivity activity, Enum activityType)
         {
             return new ActivityReminderDataModel
             {

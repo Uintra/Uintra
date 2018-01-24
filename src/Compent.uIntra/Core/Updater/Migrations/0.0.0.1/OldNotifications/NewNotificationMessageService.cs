@@ -1,5 +1,4 @@
 using System;
-using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Notification;
@@ -28,7 +27,7 @@ namespace Compent.uIntra.Installer.Migrations
         internal UiNotificationMessage GetUiNotificationMessage(
             Guid receiverId,
             IIntranetType activityType,
-            IIntranetType notificationType,
+            Enum notificationType,
             INotifierDataValue newValue)
         {
             var notificationIdentity = new ActivityEventNotifierIdentity(activityType, notificationType, UiNotifierType);

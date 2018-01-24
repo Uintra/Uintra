@@ -213,7 +213,7 @@ namespace Compent.uIntra.Core.Bulletins
             return Get(activityId).Likes;
         }
 
-        public void Notify(Guid entityId, IIntranetType notificationType)
+        public void Notify(Guid entityId, Enum notificationType)
         {
             var notifierData = GetNotifierData(entityId, notificationType);
             if (notifierData != null)
@@ -232,7 +232,7 @@ namespace Compent.uIntra.Core.Bulletins
             _activityIndex.Index(searchableActivities);
         }
 
-        private NotifierData GetNotifierData(Guid entityId, IIntranetType notificationType)
+        private NotifierData GetNotifierData(Guid entityId, Enum notificationType)
         {
             var data = new NotifierData
             {
@@ -242,9 +242,9 @@ namespace Compent.uIntra.Core.Bulletins
 
             var currentUser = _intranetUserService.GetCurrentUser();
 
-            switch (notificationType.Id)
+            switch (notificationType)
             {
-                case (int)NotificationTypeEnum.ActivityLikeAdded:
+                case NotificationTypeEnum.ActivityLikeAdded:
                     {
                         var bulletinsEntity = Get(entityId);
                         data.ReceiverIds = bulletinsEntity.OwnerId.ToEnumerable();
@@ -252,8 +252,8 @@ namespace Compent.uIntra.Core.Bulletins
                     }
                     break;
 
-                case (int)NotificationTypeEnum.CommentAdded:
-                case (int)NotificationTypeEnum.CommentEdited:
+                case NotificationTypeEnum.CommentAdded:
+                case NotificationTypeEnum.CommentEdited:
                     {
                         var comment = _commentsService.Get(entityId);
                         var bulletinsEntity = Get(comment.ActivityId);
@@ -262,7 +262,7 @@ namespace Compent.uIntra.Core.Bulletins
                     }
                     break;
 
-                case (int)NotificationTypeEnum.CommentReplied:
+                case NotificationTypeEnum.CommentReplied:
                     {
                         var comment = _commentsService.Get(entityId);
                         var bulletinsEntity = Get(comment.ActivityId);
@@ -271,7 +271,7 @@ namespace Compent.uIntra.Core.Bulletins
                     }
                     break;
 
-                case (int)NotificationTypeEnum.CommentLikeAdded:
+                case NotificationTypeEnum.CommentLikeAdded:
                     {
                         var comment = _commentsService.Get(entityId);
                         var bulletinsEntity = Get(comment.ActivityId);

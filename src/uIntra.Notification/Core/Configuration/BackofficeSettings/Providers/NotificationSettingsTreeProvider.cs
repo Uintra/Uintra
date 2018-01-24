@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BCLExtensions.Trees;
 using uIntra.Core.Extensions;
@@ -50,8 +51,8 @@ namespace uIntra.Notification.Configuration
         protected virtual ITree<TreeNodeModel> GetCategoryNode(IIntranetType activityType) =>
             GetNode(activityType.Id, activityType.Name, CategoryIconAlias, CategoryRoutePath);
 
-        protected virtual ITree<TreeNodeModel> GetSettingsNode(IIntranetType notificationType) =>
-            GetNode(notificationType.Id, notificationType.Name, SettingsIconAlias, SettingRoutePath);
+        protected virtual ITree<TreeNodeModel> GetSettingsNode(Enum notificationType) =>
+            GetNode(notificationType.ToInt(), notificationType.ToString(), SettingsIconAlias, SettingRoutePath);
 
         protected virtual ITree<TreeNodeModel> RootNode => GetNode("-1", "root", string.Empty, CategoryRoutePath);
 

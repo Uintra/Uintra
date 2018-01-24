@@ -7,7 +7,7 @@ namespace uIntra.Notification
         where T : INotifierTemplate
     {
         public IntranetType ActivityType { get; set; }
-        public IntranetType NotificationType { get; set; }
+        public Enum NotificationType { get; set; }
         public Enum NotifierType { get; set; }
         public bool IsEnabled { get; set; }
         public string NotificationInfo { get; set; } 

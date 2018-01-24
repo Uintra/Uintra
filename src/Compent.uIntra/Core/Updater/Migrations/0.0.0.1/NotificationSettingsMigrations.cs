@@ -187,9 +187,9 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1
             return message;
         }
 
-        private ActivityEventNotifierIdentity GetActivityEventNotifierIdentity(NotifierTypeEnum notifierType, IntranetActivityTypeEnum activityType, NotificationTypeEnum notificationType)
+        private ActivityEventNotifierIdentity GetActivityEventNotifierIdentity(Enum notifierType, IntranetActivityTypeEnum activityType, Enum notificationType)
         {
-            var activityEventIdentity = new ActivityEventIdentity(_activityTypeProvider.Get(activityType.ToInt()), _notificationTypeProvider.Get(notificationType.ToInt()));
+            var activityEventIdentity = new ActivityEventIdentity(_activityTypeProvider.Get(activityType.ToInt()), notificationType);
             return new ActivityEventNotifierIdentity(activityEventIdentity, notifierType);
         }
     }
