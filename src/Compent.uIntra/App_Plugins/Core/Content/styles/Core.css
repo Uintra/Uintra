@@ -717,10 +717,17 @@ h5{
     width: 41px;
     height: 41px;
     opacity: 0;
-
     cursor: pointer;
     z-index:-1;
     transition: opacity 0.3s ease;
+
+    ._notifications-expanded &,
+    ._notifications-expanded &._visible,
+    ._aside-expanded &,
+    ._aside-expanded &._visible{
+        opacity: 0;
+        z-index:-1;
+    }
 
     &._visible{
         z-index: 200;
