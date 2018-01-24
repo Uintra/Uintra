@@ -8,13 +8,23 @@ namespace uIntra.Core.TypeProviders
 
     public abstract class EnumTypeProviderBase<T> : IEnumTypeProvider where T : struct
     {
-        public virtual Enum Get(int typeId) => GetAll().Single(at => at.ToInt() == typeId);
+        private IEnumerable<Enum> _all;
 
-        public virtual Enum Get(string name) => GetAll().Single(at => at.ToString() == name);
-
-        public virtual IEnumerable<Enum> GetAll()
+        public EnumTypeProviderBase()
         {
-            foreach (var enumRole in Enum.GetValues(typeof(T))) yield return (Enum)enumRole;
+            _all = Enum.GetValues(typeof(T)).Cast<Enum>();
+            TypeIdRelations = _all.ToDictionary(type => type.ToInt());
+            TypeNameRelations = _all.ToDictionary(type => type.ToString());
         }
+
+        public virtual IDictionary<int, Enum> TypeIdRelations { get; }
+
+        public virtual IDictionary<string, Enum> TypeNameRelations { get; }
+
+        public virtual Enum this[int typeId] => TypeIdRelations[typeId];
+
+        public virtual Enum this[string name] => TypeNameRelations[name];
+
+        public virtual IEnumerable<Enum> All => _all;
     }
 }

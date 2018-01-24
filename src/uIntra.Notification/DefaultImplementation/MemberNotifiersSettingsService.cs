@@ -20,8 +20,11 @@ namespace uIntra.Notification
         public IDictionary<Enum, bool> GetForMember(Guid memberId)
         {
             var dbNotifiers = _memberNotifierSettingRepository.FindAll(r => r.MemberId == memberId).ToList();
-            var createdNotifiers = CreateAbsentSettings(memberId, dbNotifiers.Select(e => _notifierTypeProvider.Get(e.NotifierType)));
-            return dbNotifiers.Concat(createdNotifiers).ToDictionary(e => _notifierTypeProvider.Get(e.NotifierType), e => e.IsEnabled);
+            var createdNotifiers = CreateAbsentSettings(
+                memberId,
+                dbNotifiers.Select(e => _notifierTypeProvider[e.NotifierType]),
+                _notifierTypeProvider.All);
+            return dbNotifiers.Concat(createdNotifiers).ToDictionary(e => _notifierTypeProvider[e.NotifierType], e => e.IsEnabled);
         }
 
         public void SetForMember(Guid memberId, Enum notifierType, bool isEnabled)
@@ -42,7 +45,7 @@ namespace uIntra.Notification
                 .GroupBy(e => e.MemberId)
                 .ToDictionary(e => e.Key, e => e
                     .Where(n => n.IsEnabled)
-                    .Select(n => _notifierTypeProvider.Get(n.NotifierType)));
+                    .Select(n => _notifierTypeProvider[n.NotifierType]));
             return result;
         }
 
@@ -50,13 +53,15 @@ namespace uIntra.Notification
         private void SetupAbsentSettings(Guid memberId)
         {
             var dbNotifiers = _memberNotifierSettingRepository.FindAll(r => r.MemberId == memberId).ToList();
-            CreateAbsentSettings(memberId, dbNotifiers.Select(e => _notifierTypeProvider.Get(e.NotifierType)));
+            CreateAbsentSettings(memberId, dbNotifiers.Select(e => _notifierTypeProvider[e.NotifierType]), _notifierTypeProvider.All);
         }
 
-        private IEnumerable<MemberNotifierSetting> CreateAbsentSettings(Guid memberId,
-            IEnumerable<Enum> existingSettings)
+        private IEnumerable<MemberNotifierSetting> CreateAbsentSettings(
+            Guid memberId,
+            IEnumerable<Enum> existingSettings,
+            IEnumerable<Enum> allSettings)
         {
-            var absentSettings = _notifierTypeProvider.GetAll().Except(existingSettings);
+            var absentSettings = _notifierTypeProvider.All.Except(existingSettings);
             var newEntities = absentSettings
                 .Select(s => new MemberNotifierSetting()
                 {

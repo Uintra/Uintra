@@ -1,7 +1,6 @@
 ﻿using System;
 using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
-using uIntra.Core.TypeProviders;
 using uIntra.Notification.Configuration;
 using uIntra.Notification.Core.Sql;
 
@@ -62,12 +61,17 @@ namespace uIntra.Notification
             }
         }
 
-        protected virtual NotificationSetting Find(ActivityEventNotifierIdentity activityEventNotifierIdentity) =>
-            _repository.Find(s =>
-                s.ActivityType == activityEventNotifierIdentity.Event.ActivityType.Id &&
-                s.NotificationType == activityEventNotifierIdentity.Event.NotificationType.Id &&
-                s.NotifierType == activityEventNotifierIdentity.NotifierType.ToInt());
+        protected virtual NotificationSetting Find(ActivityEventNotifierIdentity activityEventNotifierIdentity)
+        {
+            var notifierId = activityEventNotifierIdentity.NotifierType.ToInt();
 
+            return _repository.Find(s =>
+                            s.ActivityType == activityEventNotifierIdentity.Event.ActivityType.Id &&
+                            s.NotificationType == activityEventNotifierIdentity.Event.NotificationType.Id &&
+                            s.NotifierType == notifierId);
+        }
+
+       
         protected virtual (NotificationSetting setting, bool isCreated) FindOrCreateSetting<T>(ActivityEventNotifierIdentity identity)
             where T : INotifierTemplate
         {

@@ -5,8 +5,14 @@ namespace uIntra.Core.TypeProviders
 {
     public interface IEnumTypeProvider
     {
-        Enum Get(int typeId);
-        Enum Get(string name);
-        IEnumerable<Enum> GetAll();
+        IDictionary<int, Enum> TypeIdRelations { get; }
+
+        IDictionary<string, Enum> TypeNameRelations { get; }
+
+        Enum this[int typeId] { get; }
+
+        Enum this[string name] { get; }
+
+        IEnumerable<Enum> All { get; }
     }
 }
