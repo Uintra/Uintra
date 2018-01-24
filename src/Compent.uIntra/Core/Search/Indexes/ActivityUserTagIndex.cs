@@ -16,6 +16,8 @@ namespace Compent.uIntra.Core.Search.Indexes
         public void Update(Guid activityId, IEnumerable<string> tagNames)
         {
             var activity = _activityIndex.Get(activityId);
+            if (activity == null) return;
+
             activity.UserTagNames = tagNames;
             _activityIndex.Index(activity);
         }

@@ -6,7 +6,6 @@ using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Feed;
 using Compent.uIntra.Core.UserTags;
-using Extensions;
 using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
 using uIntra.Core.Links;
@@ -193,9 +192,6 @@ namespace Compent.uIntra.Controllers
                 ((INotifyableService)_eventsService).Notify(id, notificationType);
             }
         }
-
-
-
 
         protected override EventBase MapToEvent(EventCreateModel createModel)
         {
