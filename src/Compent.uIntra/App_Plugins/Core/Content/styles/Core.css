@@ -304,6 +304,7 @@ h5{
 
         @media (--for-tablet-portrait-down) {
             padding-top: 149px;
+            padding-top: 249px;
         }
     }
 }
