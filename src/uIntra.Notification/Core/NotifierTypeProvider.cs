@@ -5,5 +5,6 @@ namespace uIntra.Notification.DefaultImplementation
 {
     public class NotifierTypeProvider : EnumTypeProviderBase<NotifierTypeEnum>, INotifierTypeProvider
     {
+
     }
 }

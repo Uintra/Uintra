@@ -24,6 +24,7 @@ namespace uIntra.Notification
                 memberId,
                 dbNotifiers.Select(e => _notifierTypeProvider[e.NotifierType]),
                 _notifierTypeProvider.All);
+
             return dbNotifiers.Concat(createdNotifiers).ToDictionary(e => _notifierTypeProvider[e.NotifierType], e => e.IsEnabled);
         }
 
@@ -61,7 +62,7 @@ namespace uIntra.Notification
             IEnumerable<Enum> existingSettings,
             IEnumerable<Enum> allSettings)
         {
-            var absentSettings = _notifierTypeProvider.All.Except(existingSettings);
+            var absentSettings = allSettings.Except(existingSettings);
             var newEntities = absentSettings
                 .Select(s => new MemberNotifierSetting()
                 {
