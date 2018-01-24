@@ -248,6 +248,14 @@
                     }
                 }
             }
+            
+            &[data-viewed='false']{
+                background:#f6f6f6;
+
+                .avatar__letter{
+                    background:#fff;
+                }
+            }
 
             &:hover{
                 cursor:pointer;
@@ -261,46 +269,8 @@
                 padding:18px 20px 14px;
                 align-items:center;
 
-                &:first-child{
-                    background:#f6f6f6;
-
-                    .avatar__letter{
-                        background:#fff;
-                    }
-                }
-
                 @media (--for-tablet-portrait-down){
                     align-items:flex-start;
-                }
-            }
-
-            &:after{
-                position:absolute;
-                top:-1px;
-                left:0;
-                right:0;
-                bottom:-1px;
-                background:#eef2fb;
-                display:none;
-                z-index:-1;
-                content:'';
-            }
-
-            &[data-viewed='false']{
-                .notification &{
-                    background:#f6f6f6;
-
-                    .avatar__letter{
-                        background:#fff;
-                    }
-                }
-
-                &:after{
-                    display:block;
-
-                    .notification &{
-                        display:none;
-                    }
                 }
             }
         }
