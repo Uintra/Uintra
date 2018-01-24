@@ -147,6 +147,9 @@ namespace Compent.uIntra.Core.Bulletins
                 _documentIndexer.Index(bulletin.MediaIds);
                 return bulletin;
             }
+
+            if (cachedBulletin == null) return null;
+
             _activityIndex.Delete(id);
             _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
             _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);

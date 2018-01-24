@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.Search.Entities;
-using Extensions;
 using Compent.uIntra.Core.UserTags.Indexers;
+using Extensions;
 using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core;
@@ -168,6 +168,9 @@ namespace Compent.uIntra.Core.News
                 _documentIndexer.Index(news.MediaIds);
                 return news;
             }
+
+            if (cachedNews == null) return null;
+
             _activityIndex.Delete(id);
             _documentIndexer.DeleteFromIndex(cachedNews.MediaIds);
             _mediaHelper.DeleteMedia(cachedNews.MediaIds);
