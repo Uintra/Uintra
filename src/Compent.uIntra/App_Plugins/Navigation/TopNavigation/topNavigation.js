@@ -10,7 +10,6 @@ function initMobileNav() {
     var opener = document.querySelector(".js-menu-opener");
     var closeBtn = document.querySelector(".js-sidebar-close");
     var container = document.querySelector('#sidebar');
-    var overlay = document.querySelector(".js-side-nav__overlay");
 
     if(opener){
         opener.addEventListener('click', () => {

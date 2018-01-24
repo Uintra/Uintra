@@ -206,6 +206,9 @@ namespace Compent.uIntra.Core.Events
                 _documentIndexer.Index(@event.MediaIds);
                 return @event;
             }
+
+            if (cachedEvent == null) return null;
+
             _activityIndex.Delete(id);
             _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
             _mediaHelper.DeleteMedia(cachedEvent.MediaIds);

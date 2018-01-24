@@ -508,7 +508,8 @@
     <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedService.js" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
-    <Content Include="App_Plugins\CentralFeed\loader.gif" />
+    <Content Include="App_Plugins\CentralFeed\loader_greybg.gif" />
+    <Content Include="App_Plugins\CentralFeed\loader_whitebg.gif" />
     <Content Include="App_Plugins\CentralFeed\openCloseCentralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
@@ -1023,6 +1024,7 @@
     <Content Include="Content\fonts\muli-semibold-webfont.woff2" />
     <Content Include="Content\head_css.js" />
     <Content Include="Content\images\calendar.svg" />
+    <Content Include="Content\images\checkmark.svg" />
     <Content Include="Content\images\default-avatar.png" />
     <Content Include="Content\images\group.svg" />
     <Content Include="Content\images\groups.gif" />
@@ -1234,6 +1236,7 @@
     <Content Include="Views\Bulletins\CreationForm.cshtml" />
     <Content Include="Views\Search\SearchResult.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout-output.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

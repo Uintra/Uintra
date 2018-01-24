@@ -4,7 +4,6 @@ using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Events;
 using uIntra.Groups;
-using uIntra.Search;
 
 namespace Compent.uIntra.Core.Events
 {
@@ -44,8 +43,6 @@ namespace Compent.uIntra.Core.Events
             Mapper.CreateMap<Event, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<EventBase, IntranetActivityItemHeaderViewModel>();
 
-            
-
             Mapper.CreateMap<Event, IntranetActivityDetailsHeaderViewModel>()
                 .IncludeBase<EventBase, IntranetActivityDetailsHeaderViewModel>();
 
@@ -68,7 +65,6 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.Subscribers, o => o.Ignore())
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
 
-
             Mapper.CreateMap<EventCreateModel, Event>()
                 .IncludeBase<EventCreateModel, EventBase>()
                 .ForMember(dst => dst.GroupId, o => o.Ignore())
@@ -79,14 +75,6 @@ namespace Compent.uIntra.Core.Events
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
                 .ForMember(dst => dst.SubscribeNotes, o => o.Ignore());
-
-            Mapper.CreateMap<Event, SearchableActivity>()
-                .ForMember(dst => dst.EndDate, o => o.MapFrom(s => s.EndDate))
-                .ForMember(dst => dst.StartDate, o => o.MapFrom(s => s.StartDate))
-                .ForMember(dst => dst.Url, o => o.Ignore())
-                .ForMember(dst => dst.PublishedDate, o => o.Ignore())
-                .ForMember(dst => dst.Type, o => o.Ignore())
-                .IncludeBase<IntranetActivity, SearchableActivity>();
 
             Mapper.CreateMap<Event, ActivityTransferCreateModel>();
 

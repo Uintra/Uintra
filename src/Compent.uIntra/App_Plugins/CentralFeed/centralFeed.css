@@ -217,7 +217,7 @@
         }
 
         &-txt{
-            margin:0 0 21px;
+            margin:0 0 27px;
             line-height:1.4;
 
             &-link{
@@ -707,10 +707,16 @@
 body:not(._show-filters) .filter__body {
     display: none !important;
 }
+
 .tags {
-    margin: 0 0 20px;
+    padding: 29px 0 0 20px;
+    margin: 0 0 23px;
     font-size: 13px;
     line-height: 1.384;
+    .feed__item-txt + &{
+        padding:0;
+    }
+
     &__title{
         display:inline-block;
         vertical-align:middle;
