@@ -61,7 +61,7 @@ namespace uIntra.Core.Controls.LightboxGallery
 
             var ids = mediaIds.ToIntCollection();
             var medias = _umbracoHelper.TypedMedia(ids).ToList();
-            result.GalleryItems = medias.Select(m => MapToMedia(m, medias.Count)).OrderBy(s => s.Type.Id);
+            result.GalleryItems = medias.Select(m => MapToMedia(m, medias.Count)).OrderBy(s => s.Type);
 
             return result;
         }
@@ -77,7 +77,7 @@ namespace uIntra.Core.Controls.LightboxGallery
                 Type = media.GetMediaType()
             };
 
-            if (result.Type.Id == MediaTypeEnum.Image.ToInt())
+            if (result.Type is MediaTypeEnum.Image)
             {
                 result.Height = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaHeight);
                 result.Width = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaWidth);
@@ -96,8 +96,8 @@ namespace uIntra.Core.Controls.LightboxGallery
             var galleryViewModelList = mediasList.Select(m => MapToMedia(m, mediasList.Count)).ToList();
 
             galleryPreviewModel.Links = _linkService.GetLinks(model.ActivityId);
-            galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());
-            galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type.Id != MediaTypeEnum.Image.ToInt());
+            galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type is MediaTypeEnum.Image);
+            galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type is MediaTypeEnum.Image);
             galleryPreviewModel.Images.Skip(model.DisplayedImagesCount).ToList().ForEach(i => i.IsHidden = true);
 
             return galleryPreviewModel;

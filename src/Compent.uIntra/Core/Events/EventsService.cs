@@ -124,7 +124,7 @@ namespace Compent.uIntra.Core.Events
             return IsActual(@event) && @event.CanSubscribe;
         }
 
-        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent.ToInt());
+        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent);
 
         public FeedSettings GetFeedSettings()
         {

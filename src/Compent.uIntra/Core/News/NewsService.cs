@@ -100,7 +100,7 @@ namespace Compent.uIntra.Core.News
 
         public MediaSettings GetMediaSettings()
         {
-            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.NewsContent.ToInt());
+            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.NewsContent);
         }
 
         public override bool CanEdit(IIntranetActivity cached)

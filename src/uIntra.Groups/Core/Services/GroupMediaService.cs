@@ -46,7 +46,7 @@ namespace uIntra.Groups
 
         private IMedia GetOrCreateGroupMediaFolder(Guid groupId)
         {
-            var groupFolderSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent.ToInt(), createFolderIfNotExists: true);
+            var groupFolderSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent, createFolderIfNotExists: true);
 
             var medias = _mediaService.GetChildren(groupFolderSettings.MediaRootId ?? -1);
             var groupFolder = medias.FirstOrDefault(s =>

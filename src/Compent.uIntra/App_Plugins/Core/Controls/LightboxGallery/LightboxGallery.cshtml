@@ -1,10 +1,11 @@
 ﻿@using uIntra.Core
-@using System.Linq
+
 @model uIntra.Core.Controls.LightboxGallery.LightboxGalleryOverviewModel
+
 @{
-    var medias = Model.GalleryItems.ToLookup(m => m.Type.Id);
-    var images = medias[(int)MediaTypeEnum.Image];
-    var documents = medias[(int)MediaTypeEnum.Document];
+    var medias = Model.GalleryItems.ToLookup(m => m.Type);
+    var images = medias[MediaTypeEnum.Image];
+    var documents = medias[MediaTypeEnum.Document];
     var fullSizeClass = images.Count() > 1 ? String.Empty : "_full-size";
 }
 @if (images.Any())
