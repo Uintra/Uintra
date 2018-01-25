@@ -1579,140 +1579,140 @@
     <Content Include="App_Plugins\Members\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCentralFeedPreValues.json">
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCentralFeedPreValues.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCentralFeedPreValues.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCorePreValues.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCorePreValues.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCorePreValues.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCentralFeedPreValues.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCentralFeedPreValues.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCentralFeedPreValues.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCorePreValues.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCorePreValues.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCorePreValues.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\DefaultLocalizations.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\DefaultLocalizations.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\DefaultLocalizations.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\GridPageLayout.cshtml">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\GridPageLayout.cshtml">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\GridPageLayout.cshtml</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\GroupGridPreValues.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\GroupGridPreValues.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\GroupGridPreValues.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\PanelPickerPreValues.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\PanelPickerPreValues.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\PanelPickerPreValues.json</Link>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsDetailsPageGrid.json">
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsDetailsPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsDetailsPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsEditPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsEditPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsEditPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsOverviewPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsOverviewPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsOverviewPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\errorPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\errorPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\errorPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsCreatePageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsCreatePageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsCreatePageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsDetailsPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsDetailsPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsDetailsPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsEditPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsEditPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsEditPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsOverviewPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsOverviewPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsOverviewPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsDetailsPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsDetailsPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsDetailsPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsEditPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsEditPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsEditPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsOverviewPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsOverviewPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsOverviewPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsCreatePageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsCreatePageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsCreatePageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDeactivatedGroupPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDeactivatedGroupPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDeactivatedGroupPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDocumentsPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDocumentsPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDocumentsPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEditPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEditPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEditPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsCreatePageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsCreatePageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsCreatePageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsDetailsPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsDetailsPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsDetailsPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsEditPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsEditPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsEditPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsOverviewPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsOverviewPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsOverviewPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMembersPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMembersPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMembersPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMyGroupsOverviewPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMyGroupsOverviewPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMyGroupsOverviewPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsCreatePageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsCreatePageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsCreatePageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsDetailsPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsDetailsPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsDetailsPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsEditPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsEditPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsEditPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsOverviewPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsOverviewPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsOverviewPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsOverviewPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsOverviewPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsOverviewPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsRoomPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsRoomPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsRoomPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\homePageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\homePageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\homePageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsCreatePageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsCreatePageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsCreatePageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsDetailsPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsDetailsPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsDetailsPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsEditPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsEditPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsEditPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsOverviewPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsOverviewPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsOverviewPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\notificationPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\notificationPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\notificationPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profileEditPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profileEditPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profileEditPageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profilePageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profilePageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profilePageGrid.json</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\searchResultPageGrid.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\searchResultPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\searchResultPageGrid.json</Link>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Compent.uIntra\Views\Shared\_Layout-output.cshtml">
