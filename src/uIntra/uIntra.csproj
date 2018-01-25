@@ -470,6 +470,9 @@
     <Content Include="..\Compent.uIntra\Content\images\calendar.svg">
       <Link>Content\images\calendar.svg</Link>
     </Content>
+    <Content Include="..\Compent.uIntra\Content\images\checkmark.svg">
+      <Link>Content\images\checkmark.svg</Link>
+    </Content>
     <Content Include="..\Compent.uIntra\Content\images\default-avatar.png">
       <Link>Content\images\default-avatar.png</Link>
     </Content>
@@ -1698,6 +1701,11 @@
     </Content>
     <Content Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\searchResultPageGrid.json">
       <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\searchResultPageGrid.json</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\Views\Shared\_Layout-output.cshtml">
+      <Link>Views\Shared\_Layout-output.cshtml</Link>
     </Content>
   </ItemGroup>
   <PropertyGroup>
