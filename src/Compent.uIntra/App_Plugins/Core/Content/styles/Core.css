@@ -233,6 +233,10 @@ h5{
     margin:0 0 15px;
 }
 
+img{
+    vertical-align:top;
+}
+
 .centring{
     max-width:1552px;
     padding:0 20px;
