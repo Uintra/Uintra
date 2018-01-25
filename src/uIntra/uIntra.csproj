@@ -1131,6 +1131,13 @@
       <Link>Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.designer.cs</Link>
       <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801111246169_UserTags.cs">
+      <Link>Persistence\Sql\Migrations\201801111246169_UserTags.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801111246169_UserTags.Designer.cs">
+      <Link>Persistence\Sql\Migrations\201801111246169_UserTags.Designer.cs</Link>
+      <DependentUpon>201801111246169_UserTags.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
     </Compile>
@@ -1146,6 +1153,10 @@
     <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.resx">
       <Link>Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.resx</Link>
       <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801111246169_UserTags.resx">
+      <Link>Persistence\Sql\Migrations\201801111246169_UserTags.resx</Link>
+      <DependentUpon>201801111246169_UserTags.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
