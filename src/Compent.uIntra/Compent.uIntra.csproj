@@ -1402,7 +1402,7 @@
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
     <Compile Include="Core\UmbracoEventsModule.cs" />
-    <EmbeddedResource Include="Core\Updater\GroupStep.cs" />
+    <Compile Include="Core\Updater\GroupStep.cs" />
     <Compile Include="Core\Updater\IMigration.cs" />
     <Compile Include="Core\Updater\IMigrationStep.cs" />
     <Compile Include="Core\Updater\IMigrationStepsResolver.cs" />
