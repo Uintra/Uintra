@@ -9,7 +9,7 @@
     ._details &{
         margin-bottom:36px;
     }
-
+ 
     &__item{
         padding:0;
         position:relative;
@@ -77,7 +77,7 @@
 
         ._full-size &{
             height:auto !important;
-            width: 100%;
+            max-width: 100%;
         }
     }
 
