@@ -113,7 +113,7 @@ namespace Compent.uIntra.Core.Bulletins
         {
             return new FeedSettings
             {
-                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.Bulletins.ToInt()),
+                Type = CentralFeedTypeEnum.Bulletins,
                 Controller = "Bulletins",
                 HasPinnedFilter = false,
                 HasSubscribersFilter = false,

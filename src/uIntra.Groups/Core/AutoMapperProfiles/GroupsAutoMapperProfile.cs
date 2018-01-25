@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using uIntra.CentralFeed;
+using uIntra.Core.Extensions;
+using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Groups.Dashboard;
 using uIntra.Groups.Navigation.Models;
@@ -78,7 +80,8 @@ namespace uIntra.Groups
                .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                .ForMember(d => d.Title, o => o.MapFrom(s => s.Title));
 
-            Mapper.CreateMap<ActivityFeedTabModel, GroupNavigationActivityTabViewModel>();
+            Mapper.CreateMap<ActivityFeedTabModel, GroupNavigationActivityTabViewModel>()
+                .ForMember(d => d.Type, d => d.MapFrom(i => new IntranetType { Id = i.Type.ToInt(), Name = i.Type.ToString() }));
             Mapper.CreateMap<PageTabModel, GroupNavigationPageTabViewModel>()
                 .ForMember(d => d.AlignRight, o => o.Ignore());
 

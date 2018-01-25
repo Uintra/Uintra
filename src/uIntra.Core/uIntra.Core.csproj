@@ -426,7 +426,6 @@
     <Compile Include="Core\Media\IIntranetMediaService.cs" />
     <Compile Include="Core\Media\IntranetMediaService.cs" />
     <Compile Include="Core\Media\Sql\IntranetMediaEntity.cs" />
-    <Compile Include="Core\TypeProviders\IIntranetRoleTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IntranetTypeComparer.cs" />

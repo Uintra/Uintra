@@ -124,7 +124,7 @@ namespace Compent.uIntra.Core.News
         {
             return new FeedSettings
             {
-                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.News.ToInt()),
+                Type = CentralFeedTypeEnum.News,
                 Controller = "News",
                 HasSubscribersFilter = false,
                 HasPinnedFilter = true,

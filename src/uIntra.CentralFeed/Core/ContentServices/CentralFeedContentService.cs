@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using uIntra.CentralFeed.Providers;
+using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
@@ -42,7 +43,7 @@ namespace uIntra.CentralFeed
                 Content = overviewPage,
                 Type = type,
                 IsActive = overviewPage.Id == currentPage.Id,
-                Links = _centralFeedLinkService.GetCreateLinks(type)
+                Links = _centralFeedLinkService.GetCreateLinks(  new IntranetType { Id = type.ToInt(), Name = type.ToString()})
             };
         }
 
@@ -55,7 +56,7 @@ namespace uIntra.CentralFeed
             foreach (var content in _contentProvider.GetRelatedPages())
             {
                 var tabType = GetFeedTabType(content);
-                var activityType = allActivityTypes.SingleOrDefault(a => a.Id == tabType.Id);
+                var activityType = allActivityTypes.SingleOrDefault(a => a.Id == tabType.ToInt());
 
                 if (activityType == null)
                 {
@@ -69,7 +70,7 @@ namespace uIntra.CentralFeed
                     HasSubscribersFilter = settings.HasSubscribersFilter,
                     HasPinnedFilter = settings.HasPinnedFilter,
                     IsActive = content.IsAncestorOrSelf(currentPage),
-                    Links = _centralFeedLinkService.GetCreateLinks(tabType),
+                    Links = _centralFeedLinkService.GetCreateLinks(_activityTypeProvider.Get( tabType.ToInt())),
                 };
             }
         }

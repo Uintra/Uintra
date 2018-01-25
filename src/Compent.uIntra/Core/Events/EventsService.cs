@@ -53,6 +53,7 @@ namespace Compent.uIntra.Core.Events
         private readonly UserTagService _userTagService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivitySubscribeSettingService _activitySubscribeSettingService;
+        private readonly IFeedTypeProvider _feedTypeProvider;
 
         public EventsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -73,7 +74,7 @@ namespace Compent.uIntra.Core.Events
             IActivityLinkService linkService,
             INotifierDataHelper notifierDataHelper,
             UserTagService userTagService,
-            IActivitySubscribeSettingService activitySubscribeSettingService)
+            IActivitySubscribeSettingService activitySubscribeSettingService, IFeedTypeProvider feedTypeProvider)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -92,6 +93,7 @@ namespace Compent.uIntra.Core.Events
             _notifierDataHelper = notifierDataHelper;
             _userTagService = userTagService;
             _activitySubscribeSettingService = activitySubscribeSettingService;
+            _feedTypeProvider = feedTypeProvider;
         }
 
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Events.ToInt());
@@ -130,7 +132,7 @@ namespace Compent.uIntra.Core.Events
         {
             return new FeedSettings
             {
-                Type = ActivityType,
+                Type = _feedTypeProvider[ActivityType.Id],
                 Controller = "Events",
                 HasSubscribersFilter = true,
                 HasPinnedFilter = true,

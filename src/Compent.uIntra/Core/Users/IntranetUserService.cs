@@ -31,13 +31,12 @@ namespace Compent.uIntra.Core.Users
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
-            IIntranetRoleTypeProvider intranetRoleTypeProvider,
             ICacheService cacheService,
             ISqlRepository<GroupMember> groupMemberRepository,
             IElasticUserIndex elasticUserIndex,
             IIntranetUserContentProvider intranetUserContentProvider,
             IUserTagService userTagService)
-            : base(memberService, umbracoContext, umbracoHelper, roleService, intranetRoleTypeProvider, cacheService)
+            : base(memberService, umbracoContext, umbracoHelper, roleService, cacheService)
         {
             _groupMemberRepository = groupMemberRepository;
             _elasticUserIndex = elasticUserIndex;

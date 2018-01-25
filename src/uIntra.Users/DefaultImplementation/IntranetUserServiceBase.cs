@@ -24,7 +24,6 @@ namespace uIntra.Users
         private readonly UmbracoContext _umbracoContext;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IRoleService _roleService;
-        private readonly IIntranetRoleTypeProvider _intranetRoleTypeProvider;
         private readonly ICacheService _cacheService;
 
         protected IntranetUserServiceBase(
@@ -32,14 +31,12 @@ namespace uIntra.Users
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
-            IIntranetRoleTypeProvider intranetRoleTypeProvider,
             ICacheService cacheService)
         {
             _memberService = memberService;
             _umbracoContext = umbracoContext;
             _umbracoHelper = umbracoHelper;
             _roleService = roleService;
-            _intranetRoleTypeProvider = intranetRoleTypeProvider;
             _cacheService = cacheService;
         }
 
@@ -187,12 +184,6 @@ namespace uIntra.Users
         {
             var roles = _memberService.GetAllRoles(member.Id).ToList();
             return _roleService.GetActualRole(roles);
-        }
-
-        protected virtual string GetGroupNameFromRole(int role)
-        {
-            var roleMode = _intranetRoleTypeProvider[role];
-            return roleMode.ToString();
         }
 
         protected virtual string GetUserPhotoOrDefaultAvatar(string userImage)

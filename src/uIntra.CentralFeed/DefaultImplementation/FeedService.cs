@@ -37,23 +37,29 @@ namespace uIntra.CentralFeed
         {
             if (!feedItems.Any())
             {
-                return default(long);
+                return default;
             }
 
             return feedItems.Max(item => item.ModifyDate).Ticks;
         }
 
-        public FeedSettings GetSettings(IIntranetType type)
+        public FeedSettings GetSettings(Enum type)
         {
-            var settings = _cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration()).Single(feedSettings => feedSettings.Type.Id == type.Id);
-            return settings;
+            var settings = _cacheService.GetOrSet(
+                CentralFeedConstants.CentralFeedSettingsCacheKey,
+                GetFeedItemServicesSettings,
+                GetCacheExpiration()).ToList();
+
+
+             var r = settings.Single(feedSettings => feedSettings.Type.Equals(type));
+            return r;
         }
 
         protected virtual FeedSettings GetDefaultTabSetting()
         {
             return new FeedSettings
             {
-                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.All.ToInt()),
+                Type = CentralFeedTypeEnum.All,
                 HasSubscribersFilter = false,
                 HasPinnedFilter = true
             };
