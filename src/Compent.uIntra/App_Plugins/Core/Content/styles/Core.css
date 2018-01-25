@@ -902,7 +902,7 @@ h5{
 }
 .emoji{
     position:absolute;
-    width:313px;
+    
     border:1px solid var(--color-light-gray);
     overflow:hidden;
     background:var(--color-white);
@@ -910,11 +910,8 @@ h5{
     z-index:9999;
     right:auto !important;
     left:50%;
-    margin:0 0 -4px -157px;
-    @media(--for-phone-only){
-        width:262px;
-        margin:0 0 -4px -131px;
-    }
+    width:262px;
+    margin:0 0 -4px -131px;
 
     &__list{
         margin:-20px 0 0 -20px;
