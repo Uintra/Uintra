@@ -16,7 +16,7 @@
         margin:0 0 10px 10px;
         overflow:hidden;
 
-        ._full-size &{
+        &._full-size{
             max-width:100%;
             width:100%;
             max-height:initial;
