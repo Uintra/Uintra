@@ -17,7 +17,7 @@
                     <div class="notification__list-description">
                         <div class="notification__list-row">
                             <div class="clearfix">
-                                @if (notification.Value.IsPinned != null)
+                                @if (notification.Value.IsPinned == true)
                                 {
                                     <span class="pinned__item @(notification.Value.IsPinActual ? "_pinned" : string.Empty)">@Html.Localize("Notifications.Pinned.lbl")</span>
                                 }
