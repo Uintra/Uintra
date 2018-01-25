@@ -1027,7 +1027,6 @@
     <Content Include="Content\images\checkmark.svg" />
     <Content Include="Content\images\default-avatar.png" />
     <Content Include="Content\images\group.svg" />
-    <Content Include="Content\images\groups.gif" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\logo.svg" />
     <Content Include="Content\images\sort.svg" />
@@ -1403,7 +1402,7 @@
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
     <Compile Include="Core\UmbracoEventsModule.cs" />
-    <EmbeddedResource Include="Core\Updater\GroupStep.cs" />
+    <Compile Include="Core\Updater\GroupStep.cs" />
     <Compile Include="Core\Updater\IMigration.cs" />
     <Compile Include="Core\Updater\IMigrationStep.cs" />
     <Compile Include="Core\Updater\IMigrationStepsResolver.cs" />

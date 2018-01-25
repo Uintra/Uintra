@@ -120,19 +120,25 @@ namespace Compent.uIntra.Controllers
         protected override List<BreadcrumbItemViewModel> GetBreadcrumbsItems()
         {
             var result = base.GetBreadcrumbsItems();
+            return _groupHelper.IsGroupRoomPage(CurrentPage) ? GetGroupBreadcrumbsItems(result) : result;
+        }
 
-            if (!_groupHelper.IsGroupRoomPage(CurrentPage)) return result;
-
+        private List<BreadcrumbItemViewModel> GetGroupBreadcrumbsItems(List<BreadcrumbItemViewModel> items)
+        {
             var groupId = Request.QueryString.GetGroupId();
+            var group = _groupService.Get(groupId.Value);
             var groupRoomPageUrl = _groupContentProvider.GetGroupRoomPage().Url;
 
-            var groupRoomItems = result.SkipWhile(el => !el.Url.Equals(groupRoomPageUrl));
+            var groupRoomItem = items.Single(item => item.Url.Equals(groupRoomPageUrl));
+            groupRoomItem.Name = group.Title;
+
+            var groupRoomItems = items.SkipWhile(item => item != groupRoomItem).Where(item => item.IsClickable);
             foreach (var item in groupRoomItems)
             {
                 item.Url = item.Url.AddGroupId(groupId.Value);
             }
 
-            return result;
+            return items;
         }
 
         private ActionResult RenderGroupNavigation()
@@ -168,9 +174,6 @@ namespace Compent.uIntra.Controllers
             return result;
         }
 
-        private bool IsGroupEditPage(IPublishedContent tab, IPublishedContent editPage)
-        {
-            return tab.Id == editPage.Id;
-        }
+        private bool IsGroupEditPage(IPublishedContent tab, IPublishedContent editPage) => tab.Id == editPage.Id;
     }
 }

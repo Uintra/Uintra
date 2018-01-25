@@ -304,6 +304,7 @@ h5{
 
         @media (--for-tablet-portrait-down) {
             padding-top: 149px;
+            padding-top: 249px;
         }
     }
 }
@@ -604,13 +605,18 @@ h5{
         @mixin btn-focus-color #8f8f8f;
 
         &.ajs-ok{
-            color:var(--text-color-dark);
+            background:var(--color-submit);
+            border-color:var(--color-submit);
+            color:var(--color-white);
 
             &:hover,
             &:active,
             &:focus{
-                color: var(--color-submit);
+                background-color:#5c5672;
+                color:var(--color-white);
+                border-color:#5c5672;
             }
+            @mixin btn-focus-color #5c5672;
         }
 
         &[disabled]{
