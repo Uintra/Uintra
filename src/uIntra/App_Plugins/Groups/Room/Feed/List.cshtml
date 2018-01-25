@@ -36,7 +36,11 @@
 
 @if (!Model.Feed.Any())
 {
-    @Html.Localize("CentralFeedList.Empty.lbl")
+    <div class="feed__item">
+        <div class="feed__item-note">
+            <p>@Html.Localize("CentralFeedList.Empty.lbl")</p>
+        </div>
+    </div>
 }
 
 <div class="feed__list">
