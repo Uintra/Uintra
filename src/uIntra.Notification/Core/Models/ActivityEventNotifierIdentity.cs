@@ -1,5 +1,4 @@
 ﻿using System;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification
 {
@@ -8,7 +7,7 @@ namespace uIntra.Notification
         public ActivityEventIdentity Event { get; }
         public Enum NotifierType { get; }
 
-        public ActivityEventNotifierIdentity(IIntranetType activityType, Enum notificationType, Enum notifierType)
+        public ActivityEventNotifierIdentity(Enum activityType, Enum notificationType, Enum notifierType)
             : this(new ActivityEventIdentity(activityType, notificationType), notifierType)
         { }
 

@@ -22,7 +22,7 @@ namespace uIntra.Bulletins
 
         public IntranetActivityItemHeaderViewModel HeaderInfo { get; set; }
 
-        public IIntranetType ActivityType { get; set; }
+        public Enum ActivityType { get; set; }
 
         public IActivityLinks Links { get; set; }
 

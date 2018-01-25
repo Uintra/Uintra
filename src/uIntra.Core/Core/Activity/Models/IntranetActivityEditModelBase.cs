@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using uIntra.Core.Attributes;
 using uIntra.Core.Links;
 using uIntra.Core.ModelBinders;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.Activity
 {
@@ -21,7 +20,7 @@ namespace uIntra.Core.Activity
         [Required]
         public Guid OwnerId { get; set; }
 
-        public IIntranetType ActivityType { get; set; }
+        public Enum ActivityType { get; set; }
 
         [PropertyBinder(typeof(LinksBinder))]
         public IActivityLinks Links { get; set; }

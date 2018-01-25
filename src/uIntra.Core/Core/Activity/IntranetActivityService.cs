@@ -10,9 +10,9 @@ namespace uIntra.Core.Activity
 {
     public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
-        public abstract IIntranetType ActivityType { get; }
+        public abstract Enum ActivityType { get; }
         private const string CacheKey = "ActivityCache";
-        private string ActivityCacheSuffix => $"{ActivityType.Id}";
+        private string ActivityCacheSuffix => $"{ActivityType.ToString()}";
         private readonly IIntranetActivityRepository _activityRepository;
         private readonly ICacheService _cache;
         private readonly IActivityTypeProvider _activityTypeProvider;
@@ -89,7 +89,7 @@ namespace uIntra.Core.Activity
 
         protected virtual Guid Create(IIntranetActivity activity, Action<Guid> afterCreateAction)
         {
-            var newActivity = new IntranetActivityEntity { Type = ActivityType.Id, JsonData = activity.ToJson() };
+            var newActivity = new IntranetActivityEntity { Type = ActivityType.ToInt(), JsonData = activity.ToJson() };
             _activityRepository.Create(newActivity);
             var newActivityId = newActivity.Id;
             _intranetMediaService.Create(newActivityId, activity.MediaIds.JoinToString());
@@ -175,7 +175,7 @@ namespace uIntra.Core.Activity
         {
             var cachedActivity = activity.JsonData.Deserialize<TActivity>();
             cachedActivity.Id = activity.Id;
-            cachedActivity.Type = _activityTypeProvider.Get(activity.Type);
+            cachedActivity.Type = _activityTypeProvider[activity.Type];
             cachedActivity.CreatedDate = activity.CreatedDate;
             cachedActivity.ModifyDate = activity.ModifyDate;
             cachedActivity.IsPinActual = IsPinActual(cachedActivity);

@@ -4,7 +4,6 @@ using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.PagePromotion
 {
@@ -22,7 +21,7 @@ namespace uIntra.Core.PagePromotion
 
         public IntranetActivityItemHeaderViewModel HeaderInfo { get; set; }
 
-        public IIntranetType ActivityType { get; set; }
+        public Enum ActivityType { get; set; }
 
         public string Url { get; set; }
 

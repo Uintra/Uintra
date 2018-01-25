@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Caching;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
 {
@@ -11,13 +9,11 @@ namespace uIntra.CentralFeed
     {
         private readonly IEnumerable<IFeedItemService> _feedItemServices;
         private readonly ICacheService _cacheService;
-        private readonly IFeedTypeProvider _centralFeedTypeProvider;
 
-        protected FeedService(IEnumerable<IFeedItemService> feedItemServices, ICacheService cacheService, IFeedTypeProvider centralFeedTypeProvider)
+        protected FeedService(IEnumerable<IFeedItemService> feedItemServices, ICacheService cacheService)
         {
             _feedItemServices = feedItemServices;
             _cacheService = cacheService;
-            _centralFeedTypeProvider = centralFeedTypeProvider;
         }
 
         private IEnumerable<FeedSettings> GetFeedItemServicesSettings()

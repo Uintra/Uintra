@@ -34,5 +34,12 @@ namespace uIntra.Core.Extensions
                 ? func(value.Value)
                 : (TResult?) null;
         }
+
+
+        public static T DefaultWith<T>(this T? value, Func<T> func)
+            where T : struct
+        {
+            return value ?? func();
+        }
     }
 }

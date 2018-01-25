@@ -1,7 +1,6 @@
 ﻿using System;
 using uIntra.Comments;
 using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Notification;
 
@@ -75,6 +74,6 @@ namespace Compent.uIntra.Core.Helpers
         }
 
         private static string GetNotifierDataTitle(IIntranetActivity activity) 
-            => activity.Type.Id == IntranetActivityTypeEnum.Bulletins.ToInt() ? activity.Description : activity.Title;
+            => activity.Type is IntranetActivityTypeEnum.Bulletins ? activity.Description : activity.Title;
     }
 }

@@ -32,7 +32,7 @@ namespace uIntra.Events
 
         public bool IsPinActual { get; set; }
 
-        public IIntranetType ActivityType { get; set; }
+        public Enum ActivityType { get; set; }
 
         public IActivityLinks Links { get; set; }
 

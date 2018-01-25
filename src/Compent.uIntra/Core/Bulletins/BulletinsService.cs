@@ -92,7 +92,7 @@ namespace Compent.uIntra.Core.Bulletins
             _userTagService = userTagService;
         }
 
-        public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Bulletins.ToInt());
+        public override Enum ActivityType => IntranetActivityTypeEnum.Bulletins;
 
         public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
 

@@ -48,8 +48,8 @@ namespace uIntra.Notification.Configuration
             return categoryNode.WithChildren(children);
         }
 
-        protected virtual ITree<TreeNodeModel> GetCategoryNode(IIntranetType activityType) =>
-            GetNode(activityType.Id, activityType.Name, CategoryIconAlias, CategoryRoutePath);
+        protected virtual ITree<TreeNodeModel> GetCategoryNode(Enum activityType) =>
+            GetNode(activityType.ToInt(), activityType.ToString(), CategoryIconAlias, CategoryRoutePath);
 
         protected virtual ITree<TreeNodeModel> GetSettingsNode(Enum notificationType) =>
             GetNode(notificationType.ToInt(), notificationType.ToString(), SettingsIconAlias, SettingRoutePath);

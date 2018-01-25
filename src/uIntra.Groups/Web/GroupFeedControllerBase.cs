@@ -89,7 +89,7 @@ namespace uIntra.Groups.Web
                 return new EmptyResult();
 
             var activityType = _groupFeedContentContentService.GetCreateActivityType(CurrentPage);
-            var viewModel = GetCreateViewModel(_activityTypeProvider.Get(activityType.ToInt()), groupId);
+            var viewModel = GetCreateViewModel(activityType, groupId);
             return PartialView(CreateViewPath, viewModel);
         }
 
@@ -186,11 +186,10 @@ namespace uIntra.Groups.Web
             return model;
         }
 
-        protected virtual CreateViewModel GetCreateViewModel(IIntranetType activityType, Guid groupId)
+        protected virtual CreateViewModel GetCreateViewModel(Enum activityType, Guid groupId)
         {
             var links = _groupFeedLinkService.GetCreateLinks(activityType, groupId);
-
-            var settings = _groupFeedService.GetSettings(_centralFeedTypeProvider[activityType.Id]);
+            var settings = _groupFeedService.GetSettings(activityType);
 
             return new CreateViewModel
             {
@@ -203,9 +202,7 @@ namespace uIntra.Groups.Web
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
             var links = _groupFeedLinkService.GetLinks(id);
-
-            var type = _centralFeedTypeProvider[service.ActivityType.Id];
-            var settings = _groupFeedService.GetSettings(type);
+            var settings = _groupFeedService.GetSettings(service.ActivityType);
 
             var viewModel = new EditViewModel
             {
@@ -219,13 +216,10 @@ namespace uIntra.Groups.Web
         protected virtual DetailsViewModel GetDetailsViewModel(Guid id, Guid groupId)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
-
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
             IsCurrentUserGroupMember = _groupMemberService.IsGroupMember(groupId, currentUserId);
             var options = GetActivityFeedOptions(id);
-
-            var type = _centralFeedTypeProvider[service.ActivityType.Id];
-            var settings = _groupFeedService.GetSettings(type);
+            var settings = _groupFeedService.GetSettings(service.ActivityType);
 
             var viewModel = new DetailsViewModel
             {

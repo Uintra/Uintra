@@ -4,7 +4,6 @@ using System.Linq;
 using Extensions;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification.Configuration
 {
@@ -13,15 +12,6 @@ namespace uIntra.Notification.Configuration
     /// </summary>
     public class NotificationSettingCategoryProvider : INotificationSettingCategoryProvider
     {
-        private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly INotificationTypeProvider _notificationTypeProvider;
-
-        public NotificationSettingCategoryProvider(IActivityTypeProvider activityTypeProvider, INotificationTypeProvider notificationTypeProvider)
-        {
-            _activityTypeProvider = activityTypeProvider;
-            _notificationTypeProvider = notificationTypeProvider;
-        }
-
         public virtual IEnumerable<NotificationSettingsCategoryDto> GetAvailableCategories()
         {
             return GetBulletinSettings().ToEnumerable().Append(GetNewsSettings()).Append(GetEventSettings());
@@ -39,15 +29,14 @@ namespace uIntra.Notification.Configuration
             var notificationTypes =
                 CommentNotificationTypes.Append(NotificationTypeEnum.ActivityLikeAdded);
 
-            return new NotificationSettingsCategoryDto(GetIntranetType(IntranetActivityTypeEnum.Bulletins), notificationTypes);
+            return new NotificationSettingsCategoryDto(IntranetActivityTypeEnum.Bulletins, notificationTypes);
         }
 
         protected virtual NotificationSettingsCategoryDto GetNewsSettings()
         {
-            var notificationTypes =
-                CommentNotificationTypes.Append(NotificationTypeEnum.ActivityLikeAdded);
+            var notificationTypes = CommentNotificationTypes.Append(NotificationTypeEnum.ActivityLikeAdded);
 
-            return new NotificationSettingsCategoryDto(GetIntranetType(IntranetActivityTypeEnum.News), notificationTypes);
+            return new NotificationSettingsCategoryDto(IntranetActivityTypeEnum.News, notificationTypes);
         }
 
         protected virtual NotificationSettingsCategoryDto GetEventSettings()
@@ -56,18 +45,14 @@ namespace uIntra.Notification.Configuration
             {
                 NotificationTypeEnum.EventUpdated,
                 NotificationTypeEnum.EventHided,
-                NotificationTypeEnum.BeforeStart,
+                NotificationTypeEnum.BeforeStart
             };
 
-            var notificationTypes =
-                eventNotificationTypes
+            var notificationTypes = eventNotificationTypes
                 .Concat(CommentNotificationTypes)
                 .Append(NotificationTypeEnum.ActivityLikeAdded);
 
-            return new NotificationSettingsCategoryDto(GetIntranetType(IntranetActivityTypeEnum.Events), notificationTypes);
+            return new NotificationSettingsCategoryDto(IntranetActivityTypeEnum.Events, notificationTypes);
         }
-
-
-        protected IIntranetType GetIntranetType(IntranetActivityTypeEnum type) => _activityTypeProvider.Get((int)type);
     }
 }

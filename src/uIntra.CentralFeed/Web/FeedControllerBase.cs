@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Extensions;
 using uIntra.Core.Extensions;
 using uIntra.Core.Feed;
-using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Subscribe;
 using Umbraco.Web.Mvc;
@@ -28,7 +27,6 @@ namespace uIntra.CentralFeed.Web
         private readonly IFeedService _feedService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IFeedFilterStateService _feedFilterStateService;
-        private readonly IFeedTypeProvider _centralFeedTypeProvider;
 
         protected FeedControllerBase(
             ISubscribeService subscribeService,
@@ -41,7 +39,6 @@ namespace uIntra.CentralFeed.Web
             _feedService = feedService;
             _intranetUserService = intranetUserService;
             _feedFilterStateService = feedFilterStateService;
-            _centralFeedTypeProvider = centralFeedTypeProvider;
         }
 
 
@@ -84,7 +81,7 @@ namespace uIntra.CentralFeed.Web
             {
                 Activity = i,
                 Options = options,
-                ControllerName = settings[_centralFeedTypeProvider[i.Type.Id]].Controller
+                ControllerName = settings[i.Type].Controller
             };
         }
 
@@ -93,8 +90,8 @@ namespace uIntra.CentralFeed.Web
         protected virtual IEnumerable<Enum> GetInvolvedTypes(IEnumerable<IFeedItem> items)
         {
             return items
-                    .Select(i => _centralFeedTypeProvider[i.Type.Id])
-                    .Distinct();
+                .Select(i => i.Type)
+                .Distinct();
         }
 
         protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, FeedFilterStateModel filterState, FeedSettings settings)
@@ -104,7 +101,9 @@ namespace uIntra.CentralFeed.Web
 
             if (filterState.ShowSubscribed.GetValueOrDefault() && settings.HasSubscribersFilter)
             {
-                result = feedItems.Where(i => i is ISubscribable subscribable && _subscribeService.IsSubscribed(_intranetUserService.GetCurrentUser().Id, subscribable));
+                result = feedItems.Where(i =>
+                    i is ISubscribable subscribable &&
+                    _subscribeService.IsSubscribed(_intranetUserService.GetCurrentUser().Id, subscribable));
             }
 
             if (filterState.ShowPinned.GetValueOrDefault() && settings.HasPinnedFilter)

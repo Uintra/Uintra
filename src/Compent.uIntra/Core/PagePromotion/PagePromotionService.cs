@@ -52,7 +52,7 @@ namespace Compent.uIntra.Core.PagePromotion
             _documentIndexer = documentIndexer;
         }
 
-        public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.PagePromotion.ToInt());
+        public override Enum ActivityType => IntranetActivityTypeEnum.PagePromotion;
 
         public FeedSettings GetFeedSettings()
         {

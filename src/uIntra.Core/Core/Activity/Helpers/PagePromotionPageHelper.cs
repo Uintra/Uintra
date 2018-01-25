@@ -6,11 +6,11 @@ namespace uIntra.Core.Activity
 {
     public class PagePromotionPageHelper : IActivityPageHelper
     {
-        public IIntranetType ActivityType { get; }
+        public Enum ActivityType { get; }
 
         private readonly IPagePromotionService<PagePromotionBase> _pagePromotionService;
 
-        public PagePromotionPageHelper(IIntranetType activityType, IPagePromotionService<PagePromotionBase> pagePromotionService)
+        public PagePromotionPageHelper(Enum activityType, IPagePromotionService<PagePromotionBase> pagePromotionService)
         {
             ActivityType = activityType;
 

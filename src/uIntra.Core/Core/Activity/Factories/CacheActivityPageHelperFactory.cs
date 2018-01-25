@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
+using Extensions;
 using uIntra.Core.Extensions;
 using uIntra.Core.PagePromotion;
-using uIntra.Core.TypeProviders;
 using Umbraco.Web;
 
 namespace uIntra.Core.Activity
@@ -27,22 +28,22 @@ namespace uIntra.Core.Activity
             _feedActivitiesXPath = feedActivitiesXPath;
         }
 
-        public IActivityPageHelper GetHelper(IIntranetType type)
+        public IActivityPageHelper GetHelper(Enum type)
         {
-            var xPath = _feedActivitiesXPath;
-            string cacheKey = GetCacheKey(type, xPath);
+            var xPath = _feedActivitiesXPath.AsList();
+            var cacheKey = GetCacheKey(type, xPath);
             if (!_cache.ContainsKey(cacheKey))
                 return _cache[cacheKey] = CreateNewHelper(type, xPath);
             return _cache[cacheKey];
         }
 
-        private string GetCacheKey(IIntranetType type, IEnumerable<string> xPath) => $"{type.Name}{xPath.JoinToString("")}";
+        private string GetCacheKey(Enum type, IEnumerable<string> xPath) => $"{type.ToString()}{xPath.JoinToString("")}";
 
-        private IActivityPageHelper CreateNewHelper(IIntranetType type, IEnumerable<string> baseXPath)
+        private IActivityPageHelper CreateNewHelper(Enum type, IEnumerable<string> baseXPath)
         {
-            switch (type.Id)
+            switch (type)
             {
-                case (int)IntranetActivityTypeEnum.PagePromotion:
+                case IntranetActivityTypeEnum.PagePromotion:
                     return new PagePromotionPageHelper(type, _pagePromotionService);
 
                 default:

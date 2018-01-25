@@ -1,7 +1,6 @@
 using System;
 using uIntra.Core.Activity;
 using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
 {
@@ -18,6 +17,6 @@ namespace uIntra.CentralFeed
 
         protected virtual string GetProfileLink(Guid userId) => _profileLinkProvider.GetProfileLink(userId);
 
-        protected IActivityPageHelper GetPageHelper(IIntranetType type) => _pageHelperFactory.GetHelper(type);
+        protected IActivityPageHelper GetPageHelper(Enum type) => _pageHelperFactory.GetHelper(type);
     }
 }

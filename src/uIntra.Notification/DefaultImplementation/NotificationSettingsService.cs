@@ -65,9 +65,10 @@ namespace uIntra.Notification
         {
             var notifierId = activityEventNotifierIdentity.NotifierType.ToInt();
             var notificationId = activityEventNotifierIdentity.Event.NotificationType.ToInt();
+            var activityId = activityEventNotifierIdentity.Event.NotificationType.ToInt();
 
             return _repository.Find(s =>
-                            s.ActivityType == activityEventNotifierIdentity.Event.ActivityType.Id &&
+                            s.ActivityType == activityId &&
                             s.NotificationType == notificationId &&
                             s.NotifierType == notifierId);
         }
@@ -89,7 +90,7 @@ namespace uIntra.Notification
             {
                 Id = Guid.NewGuid(),
                 NotifierType = identity.NotifierType.ToInt(),
-                ActivityType = identity.Event.ActivityType.Id,
+                ActivityType = identity.Event.ActivityType.ToInt(),
                 NotificationType = identity.Event.NotificationType.ToInt(),
                 IsEnabled = true,
                 JsonData = defaults.Template.ToJson()

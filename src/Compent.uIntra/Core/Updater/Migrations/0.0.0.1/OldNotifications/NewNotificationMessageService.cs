@@ -11,14 +11,15 @@ namespace Compent.uIntra.Installer.Migrations
     {
         private readonly INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> _notificationModelMapper;
         private readonly INotificationSettingsService _notificationSettingsService;
-        private readonly INotifierTypeProvider _notifierTypeProvider;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
-        public NewNotificationMessageService(INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> notificationModelMapper, INotificationSettingsService notificationSettingsService, INotifierTypeProvider notifierTypeProvider, IIntranetUserService<IIntranetUser> intranetUserService)
+        public NewNotificationMessageService(
+            INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> notificationModelMapper,
+            INotificationSettingsService notificationSettingsService,
+            IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _notificationModelMapper = notificationModelMapper;
             _notificationSettingsService = notificationSettingsService;
-            _notifierTypeProvider = notifierTypeProvider;
             _intranetUserService = intranetUserService;
         }
 
@@ -26,7 +27,7 @@ namespace Compent.uIntra.Installer.Migrations
 
         internal UiNotificationMessage GetUiNotificationMessage(
             Guid receiverId,
-            IIntranetType activityType,
+            Enum activityType,
             Enum notificationType,
             INotifierDataValue newValue)
         {

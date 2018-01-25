@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Extensions;
 using uIntra.Core.Activity;
 using uIntra.Core.Attributes;
 using uIntra.Core.Extensions;
@@ -10,7 +11,6 @@ using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Subscribe;
-using Umbraco.Web;
 
 namespace uIntra.CentralFeed.Web
 {
@@ -23,7 +23,6 @@ namespace uIntra.CentralFeed.Web
         private readonly ICentralFeedLinkService _centralFeedLinkService;
         private readonly IFeedFilterStateService _feedFilterStateService;
         private readonly IPermissionsService _permissionsService;
-        private readonly IActivityTypeProvider _activityTypeProvider;
 
         protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/Overview.cshtml";
         protected override string DetailsViewPath => "~/App_Plugins/CentralFeed/View/Details.cshtml";
@@ -54,7 +53,6 @@ namespace uIntra.CentralFeed.Web
             _feedFilterStateService = feedFilterStateService;
             _permissionsService = permissionsService;
             _activitiesServiceFactory = activitiesServiceFactory;
-            _activityTypeProvider = activityTypeProvider;
         }
 
         #region Actions
@@ -139,7 +137,10 @@ namespace uIntra.CentralFeed.Web
             var take = model.Page * ItemsPerPage;
             var pagedItemsList = SortForFeed(filteredItems, centralFeedType).Take(take).ToList();
 
-            var settings = _centralFeedService.GetAllSettings();
+            var settings = _centralFeedService
+                .GetAllSettings()
+                .AsList();
+
             var tabSettings = settings
                 .Single(s => s.Type.ToInt() == model.TypeId)
                 .Map<FeedTabSettings>();
@@ -174,7 +175,7 @@ namespace uIntra.CentralFeed.Web
             {
                 Tabs = activityTabs,
                 TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs)
-                    .Where(tab => _permissionsService.IsCurrentUserHasAccess(_activityTypeProvider.Get(tab.Type.ToInt()), IntranetActivityActionEnum.Create)),
+                    .Where(tab => _permissionsService.IsCurrentUserHasAccess(tab.Type, IntranetActivityActionEnum.Create)),
                 CurrentType = tabType,
                 IsFiltersOpened = centralFeedState.IsFiltersOpened
             };
@@ -221,8 +222,7 @@ namespace uIntra.CentralFeed.Web
                 var items = _centralFeedService.GetFeed().OrderByDescending(item => item.PublishDate);
                 return items;
             }
-            var aTabType = _activityTypeProvider.Get(type.ToInt());
-            return _centralFeedService.GetFeed(aTabType);
+            return _centralFeedService.GetFeed(type);
         }
 
 
@@ -230,7 +230,7 @@ namespace uIntra.CentralFeed.Web
         {
             var result = _centralFeedContentService
                 .GetTabs(CurrentPage)
-                .Single(el => el.Type == activitiesType)
+                .Single(el => Equals(el.Type, activitiesType))
                 .Map<ActivityFeedTabViewModel>();
             return result;
         }
@@ -238,7 +238,7 @@ namespace uIntra.CentralFeed.Web
         private IEnumerable<IFeedItem> FilterLatestActivities(IEnumerable<IFeedItem> activities)
         {
             var settings = _centralFeedService.GetAllSettings().Where(s => !s.ExcludeFromLatestActivities).Select(s => s.Type);
-            var items = activities.Join(settings, item => item.Type.Id, type => type.ToInt(), (item, _) => item);
+            var items = activities.Join(settings, item => item.Type, type => type, (item, _) => item);
 
             return items;
         }
@@ -246,7 +246,7 @@ namespace uIntra.CentralFeed.Web
         // TODO : duplication
         protected virtual CreateViewModel GetCreateViewModel(Enum activityType)
         {
-            var links = _centralFeedLinkService.GetCreateLinks(_activityTypeProvider.Get(activityType.ToInt()));
+            var links = _centralFeedLinkService.GetCreateLinks(activityType);
             var settings = _centralFeedService.GetSettings(activityType);
 
             return new CreateViewModel()
@@ -260,9 +260,7 @@ namespace uIntra.CentralFeed.Web
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
             var links = _centralFeedLinkService.GetLinks(id);
-
-            var type = _centralFeedTypeProvider[service.ActivityType.Id];
-            var settings = _centralFeedService.GetSettings(type);
+            var settings = _centralFeedService.GetSettings(service.ActivityType);
 
             var viewModel = new EditViewModel()
             {
@@ -277,9 +275,7 @@ namespace uIntra.CentralFeed.Web
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
             var options = GetActivityFeedOptions(id);
-
-            var type = _centralFeedTypeProvider[service.ActivityType.Id];
-            var settings = _centralFeedService.GetSettings(type);
+            var settings = _centralFeedService.GetSettings(service.ActivityType);
 
             var viewModel = new DetailsViewModel()
             {

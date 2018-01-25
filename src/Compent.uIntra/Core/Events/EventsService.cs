@@ -96,7 +96,7 @@ namespace Compent.uIntra.Core.Events
             _feedTypeProvider = feedTypeProvider;
         }
 
-        public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Events.ToInt());
+        public override Enum ActivityType => IntranetActivityTypeEnum.Events;
 
         public IEnumerable<Event> GetPastEvents()
         {
@@ -132,7 +132,7 @@ namespace Compent.uIntra.Core.Events
         {
             return new FeedSettings
             {
-                Type = _feedTypeProvider[ActivityType.Id],
+                Type = _feedTypeProvider[ActivityType.ToInt()],
                 Controller = "Events",
                 HasSubscribersFilter = true,
                 HasPinnedFilter = true

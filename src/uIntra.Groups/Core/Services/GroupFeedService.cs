@@ -4,7 +4,6 @@ using System.Linq;
 using Extensions;
 using uIntra.CentralFeed;
 using uIntra.Core.Caching;
-using uIntra.Core.Extensions;
 
 namespace uIntra.Groups
 {
@@ -15,10 +14,9 @@ namespace uIntra.Groups
 
         public GroupFeedService(
             ICacheService cacheService,
-            IFeedTypeProvider centralFeedTypeProvider,
             IEnumerable<IFeedItemService> feedItemServices,
             IGroupActivityService groupActivityService)
-            : base(feedItemServices, cacheService, centralFeedTypeProvider)
+            : base(feedItemServices, cacheService)
         {
             _feedItemServices = feedItemServices;
             _groupActivityService = groupActivityService;

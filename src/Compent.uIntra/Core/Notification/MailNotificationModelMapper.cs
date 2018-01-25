@@ -31,7 +31,7 @@ namespace Compent.uIntra.Core.Notification
                      {
                         (Url, model.Url),
                         (ActivityTitle, GetHtmlLink(GetTitle(model.ActivityType, model.Title), model.Url)),
-                        (ActivityType, model.ActivityType.Name),
+                        (ActivityType, model.ActivityType.ToString()),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
                         (NotifierFullName, receiver.DisplayedName)
                     };
@@ -41,7 +41,7 @@ namespace Compent.uIntra.Core.Notification
                     {
                         (Url, model.Url),
                         (ActivityTitle, GetHtmlLink(GetTitle(model.ActivityType, model.Title), model.Url)),
-                        (ActivityType, model.ActivityType.Name),
+                        (ActivityType, model.ActivityType.ToString()),
                         (StartDate, model.StartDate.ToShortDateString())
                     };
                     break;
@@ -58,7 +58,7 @@ namespace Compent.uIntra.Core.Notification
                     {
                         (Url, model.Url),
                         (ActivityTitle, GetHtmlLink(GetTitle(model.ActivityType, model.Title), model.Url)),
-                        (ActivityType, model.ActivityType.Name),
+                        (ActivityType, model.ActivityType.ToString()),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
                         (CreatedDate, model.CreatedDate.ToShortDateString())
                     };
@@ -79,7 +79,7 @@ namespace Compent.uIntra.Core.Notification
 
         private static string GetHtmlLink(string title, string url) => $"<a href=\"{url.ToAbsoluteUrl()}\">{title}</a>";
 
-        private static string GetTitle(IIntranetType activityType, string title)
-            => activityType.Id == IntranetActivityTypeEnum.Bulletins.ToInt() ? title?.StripHtml().TrimByWordEnd(100) : title;
+        private static string GetTitle(Enum activityType, string title)
+            => activityType is IntranetActivityTypeEnum.Bulletins ? title?.StripHtml().TrimByWordEnd(100) : title;
     }
 }

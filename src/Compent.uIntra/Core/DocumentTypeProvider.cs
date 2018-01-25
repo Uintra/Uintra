@@ -1,4 +1,5 @@
-﻿using Compent.uIntra.Core.Constants;
+﻿using System;
+using Compent.uIntra.Core.Constants;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.TypeProviders;
@@ -25,48 +26,48 @@ namespace Compent.uIntra.Core
 
         public string GetErrorPage() => DocumentTypeAliasConstants.ErrorPage;
 
-        public virtual string GetOverviewPage(IIntranetType type)
+        public virtual string GetOverviewPage(Enum type)
         {
-            switch (type.Id)
+            switch (type)
             {
-                case (int)IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsOverviewPage;
-                case (int)IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsOverviewPage;
-                case (int)IntranetActivityTypeEnum.Bulletins: return DocumentTypeAliasConstants.BulletinsOverviewPage;
+                case IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsOverviewPage;
+                case IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsOverviewPage;
+                case IntranetActivityTypeEnum.Bulletins: return DocumentTypeAliasConstants.BulletinsOverviewPage;
                 default:
                     return null;
             }
         }
 
-        public virtual string GetEditPage(IIntranetType type)
+        public virtual string GetEditPage(Enum type)
         {
-            switch (type.Id)
+            switch (type)
             {
-                case (int)IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsEditPage;
-                case (int)IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsEditPage;
-                case (int)IntranetActivityTypeEnum.Bulletins: return DocumentTypeAliasConstants.BulletinsEditPage;
+                case IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsEditPage;
+                case IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsEditPage;
+                case IntranetActivityTypeEnum.Bulletins: return DocumentTypeAliasConstants.BulletinsEditPage;
                 default:
                     return null;
             }
         }
 
-        public virtual string GetDetailsPage(IIntranetType type)
+        public virtual string GetDetailsPage(Enum type)
         {
-            switch (type.Id)
+            switch (type)
             {
-                case (int)IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsDetailsPage;
-                case (int)IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsDetailsPage;
-                case (int)IntranetActivityTypeEnum.Bulletins: return DocumentTypeAliasConstants.BulletinsDetailsPage;
+                case IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsDetailsPage;
+                case IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsDetailsPage;
+                case IntranetActivityTypeEnum.Bulletins: return DocumentTypeAliasConstants.BulletinsDetailsPage;
                 default:
                     return null;
             }
         }
 
-        public virtual string GetCreatePage(IIntranetType type)
+        public virtual string GetCreatePage(Enum type)
         {
-            switch (type.Id)
+            switch (type)
             {
-                case (int)IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsCreatePage;
-                case (int)IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsCreatePage;
+                case IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsCreatePage;
+                case IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsCreatePage;
                 default:
                     return null;
             }

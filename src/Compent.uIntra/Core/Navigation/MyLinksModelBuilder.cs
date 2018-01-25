@@ -84,7 +84,7 @@ namespace Compent.uIntra.Core.Navigation
 
             var activity = service.Get(entityId);
 
-            if (activity.Type.Id == IntranetActivityTypeEnum.Bulletins.ToInt())
+            if (activity.Type is IntranetActivityTypeEnum.Bulletins)
             {
                 var lengthForPreview = _navigationApplicationSettings.MyLinksBulletinsTitleLength;
                 var description = activity.Description.RemoveHtmlTags();

@@ -128,7 +128,7 @@ namespace uIntra.News.Web
             {
                 PublishDate = DateTime.UtcNow,
                 OwnerId = _intranetUserService.GetCurrentUser().Id,
-                ActivityType = _activityTypeProvider.Get(ActivityTypeId),
+                ActivityType = _activityTypeProvider[ActivityTypeId],
                 Links = links,
                 MediaRootId = mediaSettings.MediaRootId
             };

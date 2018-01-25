@@ -17,7 +17,6 @@ namespace uIntra.Groups
         private readonly IGroupService _groupService;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
         private readonly IGroupContentProvider _contentProvider;
-        private readonly IActivityTypeProvider _activityTypeProvider;
 
         protected override string FeedPluginAlias { get; } = GroupFeedPluginAlias;
         protected override string ActivityCreatePluginAlias { get; } = GroupActivityCreatePluginAlias;
@@ -27,14 +26,12 @@ namespace uIntra.Groups
             IGridHelper gridHelper,
             IGroupService groupService,
             IGroupFeedLinkService groupFeedLinkService,
-            IGroupContentProvider contentProvider,
-            IActivityTypeProvider activityTypeProvider)
+            IGroupContentProvider contentProvider)
               : base(feedTypeProvider, gridHelper)
         {
             _groupService = groupService;
             _groupFeedLinkService = groupFeedLinkService;
             _contentProvider = contentProvider;
-            _activityTypeProvider = activityTypeProvider;
         }
 
         public ActivityFeedTabModel GetMainFeedTab(IPublishedContent currentPage, Guid groupId)
@@ -46,7 +43,7 @@ namespace uIntra.Groups
                 Content = groupRoom,
                 Type = type,
                 IsActive = groupRoom.Id == currentPage.Id,
-                Links = _groupFeedLinkService.GetCreateLinks(_activityTypeProvider.Get(type.ToInt()), groupId)
+                Links = _groupFeedLinkService.GetCreateLinks(type, groupId)
             };
             return result;
         }
@@ -59,14 +56,14 @@ namespace uIntra.Groups
             {
                 var tabType = GetFeedTabType(content);
 
-                if (tabType is IntranetActivityTypeEnum activityType)
+                if (tabType is IntranetActivityTypeEnum)
                 {
                     var tab = new ActivityFeedTabModel
                     {
                         Content = content,
                         Type = tabType,
                         IsActive = content.IsAncestorOrSelf(currentPage),
-                        Links = _groupFeedLinkService.GetCreateLinks(_activityTypeProvider.Get( tabType.ToInt()), groupId)
+                        Links = _groupFeedLinkService.GetCreateLinks(tabType, groupId)
                     };
 
                     yield return tab;

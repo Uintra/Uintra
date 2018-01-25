@@ -96,7 +96,7 @@ namespace Compent.uIntra.Core.News
         }
 
         protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
-        public override IIntranetType ActivityType => _activityTypeProvider.Get((int)IntranetActivityTypeEnum.News);
+        public override Enum ActivityType => IntranetActivityTypeEnum.News;
 
         public MediaSettings GetMediaSettings()
         {
