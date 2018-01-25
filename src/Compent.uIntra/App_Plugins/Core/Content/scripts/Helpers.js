@@ -107,63 +107,63 @@ var helpers = {
         var emoji = {
             "happy": {
                 "shortcode": ":)",
-                "translation": "lykkelig"
+                "translation": "Smile"
             },
             "great": {
-                "shortcode": ":great",
-                "translation": "store"
+                "shortcode": ":+1",
+                "translation": "Like"
             },
             "laughing": {
                 "shortcode": ":D",
-                "translation": "griner"
+                "translation": "Laugh"
             },
             "surprised": {
-                "shortcode": ":surprised",
-                "translation": "overrasket"
+                "shortcode": ":o",
+                "translation": "Surprised"
             },
             "wink": {
                 "shortcode": ";)",
-                "translation": "blinke"
+                "translation": "Wink"
             },
             "hungry": {
-                "shortcode": ":hungry",
-                "translation": "sulten"
+                "shortcode": ":p",
+                "translation": "Cheeky"
             },
             "inlove": {
-                "shortcode": ":inlove",
-                "translation": "forelsket"
+                "shortcode": ":x",
+                "translation": "Heart eyes"
             },
             "party": {
-                "shortcode": ":party",
-                "translation": "parti"
+                "shortcode": "<o)",
+                "translation": "Party"
             },
             "relaxed": {
-                "shortcode": ":relaxed",
-                "translation": "afslappet"
+                "shortcode": ":-)",
+                "translation": "Happy"
             },
             "sad": {
                 "shortcode": ":(",
-                "translation": "trist"
+                "translation": "Smilies"
             },
             "angry": {
-                "shortcode": ":angry",
-                "translation": "vred"
+                "shortcode": ":<",
+                "translation": "Angry"
             },
             "sick": {
-                "shortcode": ":sick",
-                "translation": "syg"
+                "shortcode": ":/",
+                "translation": "Ill"
             },
             "skeptical": {
-                "shortcode": ":skeptical",
-                "translation": "skeptisk"
+                "shortcode": ":^)",
+                "translation": "Wondering"
             },
             "sleeping": {
-                "shortcode": ":sleeping",
-                "translation": "sovende"
+                "shortcode": "|-)",
+                "translation": "Sleepy"
             },
             "neutral": {
-                "shortcode": ":neutral",
-                "translation": "neutral"
+                "shortcode": ":|",
+                "translation": "Speechless"
             }
         },
         body,
