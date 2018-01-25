@@ -24,6 +24,6 @@ namespace uIntra.Search
         void Save(IEnumerable<T> documents);
         void Delete(object id);
         void EnsureMappingExist();
-        void DeleteAllByType(IIntranetType type);
+        void DeleteAllByType(Enum type);
     }
 }

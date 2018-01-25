@@ -4,7 +4,7 @@ using uIntra.Search;
 
 namespace Compent.uIntra.Core.Search
 {
-    class UintraSearchableTypeProvider: IntranetTypeProviderBase<UintraSearchableTypeEnum>, ISearchableTypeProvider
+    class UintraSearchableTypeProvider: EnumTypeProviderBase<UintraSearchableTypeEnum>, ISearchableTypeProvider
     {
     }
 }

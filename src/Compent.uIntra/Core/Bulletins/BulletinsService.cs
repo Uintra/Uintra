@@ -205,9 +205,7 @@ namespace Compent.uIntra.Core.Bulletins
         {
             var activities = GetAll().Where(IsCacheable);
             var searchableActivities = activities.Select(Map);
-
-            var searchableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.Bulletins.ToInt());
-            _activityIndex.DeleteByType(searchableType);
+            _activityIndex.DeleteByType(UintraSearchableTypeEnum.Bulletins);
             _activityIndex.Index(searchableActivities);
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Compent.uIntra.Core.Search;
@@ -38,7 +39,7 @@ namespace Compent.uIntra.Controllers
         [HttpPost]
         public override PartialViewResult Search(SearchFilterModel model)
         {
-            var searchableTypeIds = model.Types.Count > 0 ? model.Types : GetSearchableTypes().Select(t => t.Id);
+            var searchableTypeIds = model.Types.Count > 0 ? model.Types : GetSearchableTypes().Select(t => t.ToInt());
 
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {
@@ -55,24 +56,20 @@ namespace Compent.uIntra.Controllers
             return PartialView(SearchResultViewPath, resultModel);
         }
 
-        protected override IEnumerable<IIntranetType> GetAutoCompleteSearchableTypes()
+        protected override IEnumerable<Enum> GetAutoCompleteSearchableTypes()
         {
             var types = GetUintraSearchableTypes().ToList();
-            types.Add(new IntranetType()
-            {
-                Id = (int) UintraSearchableTypeEnum.Tag,
-                Name = UintraSearchableTypeEnum.Tag.ToString()
-            });
+            types.Add(UintraSearchableTypeEnum.Tag);
 
             return types;
         }
 
-        protected override IEnumerable<IIntranetType> GetFilterItemTypes()
+        protected override IEnumerable<Enum> GetFilterItemTypes()
         {
             return GetSearchableTypes();
         }
 
-        protected override IEnumerable<IIntranetType> GetSearchableTypes()
+        protected override IEnumerable<Enum> GetSearchableTypes()
         {
             return GetUintraSearchableTypes();
         }
@@ -82,21 +79,21 @@ namespace Compent.uIntra.Controllers
             var searchResultViewModels = searchResult.Documents.Select(d =>
             {
                 var resultItem = d.Map<UintraSearchResultViewModel>();
-                resultItem.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider.Get(d.Type).Name}");
+                resultItem.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider[d.Type].ToString()}");
                 return resultItem;
             }).ToList();
 
             var filterItems = GetSearchableTypes().GroupJoin(
                 searchResult.TypeFacets,
-                type => type.Id,
+                type => type.ToInt(),
                 facet => int.Parse(facet.Name),
                 (type, facets) =>
                 {
                     var facet = facets.FirstOrDefault();
                     return new SearchFilterItemViewModel
                     {
-                        Id = type.Id,
-                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.Name}", facet != null ? (int) facet.Count : default)
+                        Id = type.ToInt(),
+                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.ToString()}", facet != null ? (int) facet.Count : default)
                     };
                 }
             );
@@ -118,7 +115,7 @@ namespace Compent.uIntra.Controllers
             var result = searchResults.Select(searchResult =>
             {
                 var model = searchResult.Map<UintraSearchAutocompleteResultViewModel>();
-                model.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider.Get(searchResult.Type).Name}");
+                model.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider[searchResult.Type].ToString()}");
                 if (searchResult is SearchableUser user)
                 {
                     var email = new SearchInfoListItemModel {Name = "Email", Value = user.Email};
@@ -132,9 +129,9 @@ namespace Compent.uIntra.Controllers
             return result;
         }
 
-        private IEnumerable<IIntranetType> GetUintraSearchableTypes()
+        private IEnumerable<Enum> GetUintraSearchableTypes()
         {
-            return new[]
+            return new Enum[]
             {
                 UintraSearchableTypeEnum.News,
                 UintraSearchableTypeEnum.Events,
@@ -142,11 +139,7 @@ namespace Compent.uIntra.Controllers
                 UintraSearchableTypeEnum.Content,
                 UintraSearchableTypeEnum.Document,
                 UintraSearchableTypeEnum.User
-            }.Select(t => new IntranetType
-            {
-                Id = (int) t,
-                Name = t.ToString()
-            });
+            };
         }
     }
 }

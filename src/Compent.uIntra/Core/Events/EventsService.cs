@@ -375,9 +375,7 @@ namespace Compent.uIntra.Core.Events
         {
             var activities = GetAll().Where(IsCacheable);
             var searchableActivities = activities.Select(Map);
-
-            var searchableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.Events.ToInt());
-            _activityIndex.DeleteByType(searchableType);
+            _activityIndex.DeleteByType(UintraSearchableTypeEnum.Events);
             _activityIndex.Index(searchableActivities);
         }
 

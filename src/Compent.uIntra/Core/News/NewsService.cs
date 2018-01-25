@@ -232,9 +232,7 @@ namespace Compent.uIntra.Core.News
         {
             var activities = GetAll().Where(IsInCache);
             var searchableActivities = activities.Select(Map);
-
-            var seachableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.News.ToInt());
-            _activityIndex.DeleteByType(seachableType);
+            _activityIndex.DeleteByType(UintraSearchableTypeEnum.News);
             _activityIndex.Index(searchableActivities);
         }
 

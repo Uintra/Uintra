@@ -164,11 +164,11 @@ namespace uIntra.Search
             }
         }
 
-        public void DeleteAllByType(IIntranetType type)
+        public void DeleteAllByType(Enum type)
         {
             var deleteQuery = new DeleteByQueryDescriptor<T>(Indices.Parse(IndexName))
                 .Type(Types.Parse(GetTypeName()))
-                .Query(q => q.Term(t => t.Field(f => f.Type).Value(type.Id)));
+                .Query(q => q.Term(t => t.Field(f => f.Type).Value(type.ToInt())));
 
             var response = Client.DeleteByQuery(deleteQuery);
 
