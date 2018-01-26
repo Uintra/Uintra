@@ -1,6 +1,7 @@
 #addin "nuget:https://www.nuget.org/api/v2/?package=Cake.Npm"
 #addin "nuget:https://www.nuget.org/api/v2/?package=Cake.Git"
 #addin "nuget:https://www.nuget.org/api/v2/?package=Cake.Webpack"
+#load helpers.cake
 
 // ARGUMENTS
 var target = Argument<string>("target", "Default");
@@ -8,23 +9,14 @@ var configuration = Argument<string>("configuration", "Release");
 
 // GLOBAL VARIABLES
 var packagesLocation = "C:/inetpub/Nuget/Packages";
-var uIntraProjectFileName = "uIntra.csproj";
-var compentUintraProjectFileName = "Compent.uIntra.csproj";
 
-var uIntraProject = GetFiles("../**/" + uIntraProjectFileName).SingleOrDefault();
-if(uIntraProject == null){
-     throw new Exception("Could not find project file - " + uIntraProjectFileName);
-}
-var uIntraProjectPath = uIntraProject.GetDirectory();
+string projectName = GetProjectName(target);
 
-var compentUintraProject = GetFiles("../**/" + compentUintraProjectFileName).SingleOrDefault();
-if(compentUintraProject == null){
-     throw new Exception("Could not find project file - " + compentUintraProjectFileName);
-}
-var compentUintraProjectPath = compentUintraProject.GetDirectory();
+Information($"Project name is {projectName}");
+Information($"Configuration is {configuration}");
 
-var gitRootPath = GitFindRootFromPath(uIntraProjectPath);
-var nugetPackageDir = uIntraProjectPath + "/bin/" + configuration;
+var project = GetBuildProject(projectName, configuration);
+var compentUIntraProject = GetBuildProject(CompentUintraProjectFileName, configuration);
 
 // SETUP / TEARDOWN
 Setup(() =>
@@ -44,17 +36,20 @@ Task("Clean")
     .Description("Cleans all directories that are used during the build process.")
     .Does(() =>
 {
-    Information("Cleaning {0}", uIntraProjectPath);
+    Information("Cleaning {0}", project.Directory);
 
-    CleanDirectories(uIntraProjectPath + "/**/bin/" + configuration);
-    CleanDirectories(uIntraProjectPath + "/**/obj/" + configuration); 
+    CleanDirectories($"{project.Directory}/**/bin/{configuration}");
+    CleanDirectories($"{project.Directory}/**/obj/{configuration}");
+
+    DeleteDirectoryIfExists($"{project.Directory}/umbraco");
+    DeleteDirectoryIfExists($"{project.Directory}/umbraco_client");
 });
 
 Task("NuGet-Restore-Packages")
     .Description("Restores all the NuGet packages that are used by the specified project.")
     .Does(() =>
 {
-    Information("Restoring {0}...", uIntraProjectPath);
+    Information("Restoring {0}...", project.Directory);
 
     var nugetConfig = GetFiles("../**/NuGet.Config").SingleOrDefault();
     if(nugetConfig == null){
@@ -62,19 +57,56 @@ Task("NuGet-Restore-Packages")
     }
 
     var nuGetRestoreSettings = new NuGetRestoreSettings { ConfigFile  = nugetConfig };
-    NuGetRestore(uIntraProject, nuGetRestoreSettings);
+    NuGetRestore(project.File, nuGetRestoreSettings);
 });
 
 Task("Build")
     .Description("Builds all the different parts of the project.")
     .Does(() =>
 {
-     Information("Building {0}", uIntraProject);
-        MSBuild(uIntraProject, settings =>
+    Information("Building {0}", project.File);
+        MSBuild(project.File, settings =>
             settings.SetPlatformTarget(PlatformTarget.MSIL)
-					.UseToolVersion(MSBuildToolVersion.VS2017)
+					.UseToolVersion(MSBuildToolVersion.Default)
                 .WithTarget("Build")
                 .SetConfiguration(configuration));
+});
+
+Task("DeployOnBuild")
+    .Description("Build and deploy")
+    .Does(() => 
+{
+    Information("Build and deploy {0}", project.File);
+
+    DeleteDirectoryIfExists(project.DeploymentDirectory.ToString());
+
+    MSBuild(project.File, settings =>
+            settings
+                .SetPlatformTarget(PlatformTarget.MSIL)
+				.UseToolVersion(MSBuildToolVersion.Default)
+                .WithTarget("Build")
+                .SetConfiguration(configuration)
+                .WithProperty("OutDir", project.DeploymentDirectory.ToString())
+                .WithProperty("DeployOnBuild", "true")
+                );
+
+    CopyDirectory($"{project.Directory}/build", $"{project.DeploymentSourceDirectory}/build");
+    CopyDirectory($"{project.Directory}/umbraco", $"{project.DeploymentSourceDirectory}/umbraco");
+    CopyDirectory($"{project.Directory}/umbraco_client", $"{project.DeploymentSourceDirectory}/umbraco_client");
+
+    var assemblyInfo = ParseAssemblyInfo($"{project.Directory}/Properties/AssemblyInfo.cs");
+    var deploymentPackage = $"uIntra.{assemblyInfo.AssemblyVersion}.zip";
+    var deploymentPackageFile = new FilePath(deploymentPackage);
+
+    Zip(project.DeploymentSourceDirectory, deploymentPackage);
+
+    var deploymentRelativePath = @"temp\uIntra\ManualInstallation";
+    var deploymentDestination = $@"\\192.168.200.2\{deploymentRelativePath}";
+
+    CopyFileToDirectory(deploymentPackageFile, deploymentDestination);
+    DeleteFile(deploymentPackageFile);
+
+    Information($@"Download package by link: \\136.243.176.173\{deploymentRelativePath}\{deploymentPackage}");
 });
 
 Task("Npm-Install")
@@ -84,7 +116,7 @@ Task("Npm-Install")
 
     var installSettings = new NpmInstallSettings();
     installSettings.LogLevel = NpmLogLevel.Info;
-    installSettings.WorkingDirectory = compentUintraProjectPath;
+    installSettings.WorkingDirectory = compentUIntraProject.Directory;
 
     NpmInstall(installSettings);
 });
@@ -93,8 +125,9 @@ Task("Webpack")
     .Does(() =>
 {
     Information("Running webpack...");
+    DeleteDirectoryIfExists($"{project.Directory}/build");
     Webpack
-        .FromPath(compentUintraProjectPath)
+        .FromPath(compentUIntraProject.Directory)
         .Global(s => s.WithArguments("--optimize-minimize"));     
 });
 
@@ -105,11 +138,11 @@ Task("NuGet-Pack")
 
     var nuGetPackSettings = new NuGetPackSettings 
     {
-        OutputDirectory = nugetPackageDir,
+        OutputDirectory = project.NugetDirectoryPath,
         ArgumentCustomization = args => args.Append("-Prop Configuration=" + configuration)
     };
 
-    NuGetPack(uIntraProjectPath + "/" + uIntraProjectFileName, nuGetPackSettings);
+    NuGetPack(project.Directory + "/" + project.File, nuGetPackSettings);
 });
 
 Task("Copy-Package-To-Packages-Location")
@@ -117,7 +150,7 @@ Task("Copy-Package-To-Packages-Location")
 {
     Information("Copying package to package location...");
 
-    var nugetPackage = GetFiles(nugetPackageDir + "/*.nupkg").SingleOrDefault();
+    var nugetPackage = GetFiles(project.NugetDirectoryPath + "/*.nupkg").SingleOrDefault();
     if(nugetPackage == null)
     {
         throw new Exception("Could not find nupkg file.");
@@ -131,19 +164,19 @@ Task("Add-Git-Tag")
 {
     Information("Adding git tag...");
 
-    var nugetPackage = GetFiles(nugetPackageDir + "/*.nupkg").SingleOrDefault();
+    var nugetPackage = GetFiles(project.NugetDirectoryPath + "/*.nupkg").SingleOrDefault();
     if(nugetPackage == null)
     {
          throw new Exception("Could not find nupkg file.");
     }
 
     var tag = nugetPackage.GetFilenameWithoutExtension().ToString();
-    GitTag(gitRootPath, tag);
+    GitTag(project.GitDirectory, tag);
     StartProcess("git", "push origin " + tag);
 });
 
 // TARGETS
-Task("Default")
+Task(DefaultTargetKey)
     .Description("This is the default task which will be ran if no specific target is passed in.")
     .IsDependentOn("Clean")
     .IsDependentOn("NuGet-Restore-Packages")
@@ -153,6 +186,14 @@ Task("Default")
     .IsDependentOn("NuGet-Pack")
     .IsDependentOn("Copy-Package-To-Packages-Location")
     .IsDependentOn("Add-Git-Tag");
+
+Task(ManualInstallationPackageTargetKey)
+    .Description("This is the ManualInstallationPackage task which creates uIntra for manual installation")
+    .IsDependentOn("Clean")
+    .IsDependentOn("NuGet-Restore-Packages")
+    .IsDependentOn("Npm-Install")
+    .IsDependentOn("Webpack")
+    .IsDependentOn("DeployOnBuild");
 
 // EXECUTION
 RunTarget(target);
