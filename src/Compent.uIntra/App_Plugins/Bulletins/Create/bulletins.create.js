@@ -51,8 +51,6 @@ function initEditor() {
         }
     });
 
-    var toolbar = editor.getModule('toolbar');
-
     editor.on('text-change', function () {
         sentButton.disabled = !isEdited();
     });
