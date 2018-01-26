@@ -169,17 +169,19 @@ Task("Copy-Package-To-Hetzner")
     Information("Zipping package to package location...");
     var deploymentRelativePath = @"temp\uIntra\Packages";
     var packagesLocation = $@"{hetznerWebIp}\{deploymentRelativePath}";
+    Information($"AssemblyInfoPath: {project.AssemblyInfoPath}");
     var assemblyInfo = ParseAssemblyInfo(project.AssemblyInfoPath);
     var deploymentPackage = $"uIntraPackages.{assemblyInfo.AssemblyVersion}.zip";
     var deploymentPackageFile = new FilePath(deploymentPackage);
 
-    Zip(project.NugetDirectoryPath, deploymentPackage, "./*.nupkg");
+    Information($"Zipping: {project.NugetDirectoryPath}");
+    Zip(project.NugetDirectoryPath, deploymentPackage, "*.nupkg");
 
     Information("Copying package to package location...");
     CopyFileToDirectory(deploymentPackageFile, packagesLocation);
     DeleteFile(deploymentPackageFile);
 
-     Information($@"Download package by link: \\136.243.176.173\{deploymentRelativePath}\{deploymentPackage}");
+    Information($@"Download package by link: \\136.243.176.173\{deploymentRelativePath}\{deploymentPackage}");
 });
 
 Task("Add-Git-Tag")
