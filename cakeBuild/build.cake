@@ -184,12 +184,6 @@ Task("Add-Git-Tag")
     StartProcess("git", "push origin " + tag);
 });
 
-Task("Test")
-    .Does(() =>
-{
-    Zip(project.NugetDirectoryPath, deploymentPackage, "*.nupkg");
-});
-
 // TARGETS
 Task(DefaultTargetKey)
     .Description("This is the default task which will be ran if no specific target is passed in.")
