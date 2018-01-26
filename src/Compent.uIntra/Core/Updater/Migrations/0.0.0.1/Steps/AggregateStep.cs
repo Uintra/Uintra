@@ -2,13 +2,17 @@
 using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
 using Compent.uIntra.Installer.Migrations;
+using Compent.uIntra.Installer.Migrations.OldSubscribeSettings;
 using EmailWorker.Data.Services.Interfaces;
 using Extensions;
 using uIntra.Bulletins;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Installer;
+using uIntra.Core.MigrationHistories;
 using uIntra.Core.User;
 using uIntra.Events;
 using uIntra.News;
@@ -17,21 +21,17 @@ using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
 using static Compent.uIntra.Core.Updater.ExecutionResult;
-using Compent.uIntra.Installer.Migrations.OldSubscribeSettings;
 
 namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class AggregateStep : IMigrationStep
     {
-        private readonly Version TaggingUIntraVersion = new Version("0.2.14.0");
-        private readonly Version MoveMyGroupsDocTypeMigrationVersion = new Version("0.2.20.0");
-        private readonly Version UpdateDataFolderNamesMigrationVersion = new Version("0.2.25.0");
-
         public ExecutionResult Execute()
         {
+            var migrationHistoryService = DependencyResolver.Current.GetService<IMigrationHistoryService>();
+            var installedMigration = migrationHistoryService.GetLast();
+
             SetCurrentCulture();
             AddDefaultMailSettings();
             InitMigration();
@@ -40,33 +40,29 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
                 NavigationInstallationConstants.DocumentTypeAliases.NavigationComposition);
 
             FixEmptyOwners();
-            var notificationSettingsMigrations = new NotificationSettingsMigrations();
-            notificationSettingsMigrations.Execute();
+
+            if (installedMigration != null)
+            {
+                new NotificationSettingsMigrations().Execute();
+            }
 
             var uiNotificationMigration = DependencyResolver.Current.GetService<OldUiNotificationMigration>();
             uiNotificationMigration.Execute();
+
             DeleteExistedMailTemplates();
 
-            var pagePromotionMigration = new PagePromotionMigration();
-            pagePromotionMigration.Execute();
+            new PagePromotionMigration().Execute();
 
             InstallationStepsHelper.InheritCompositionForPage(
                 CoreInstallationConstants.DocumentTypeAliases.ContentPage,
                 PagePromotionInstallationConstants.DocumentTypeAliases.PagePromotionComposition);
 
-            var eventPublishDateMigration = new EventPublishDateMigration();
-            eventPublishDateMigration.Execute();
-
-            var oldSubscribeSettingsMigration = new OldSubscribeSettingsMigration();
-            oldSubscribeSettingsMigration.Execute();
-
-            var moveMyGroupsDocTypeMigration = new MoveMyGroupsOverviewDocTypeMigration();
-            moveMyGroupsDocTypeMigration.Execute();
-
-            var taggingMigration = new TaggingMigration();
-            taggingMigration.Execute();
-
+            new EventPublishDateMigration().Execute();
+            new OldSubscribeSettingsMigration().Execute();
+            new MoveMyGroupsOverviewDocTypeMigration().Execute();
+            new TaggingMigration().Execute();
             new UpdateDataFolderNamesMigration().Execute();
+
             AddDefaultMailSettings();
             return Success;
         }

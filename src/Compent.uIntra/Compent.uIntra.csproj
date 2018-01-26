@@ -1421,7 +1421,6 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\UsersInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\InstallationStepsHelper.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Migration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.0.0.1\NotificationSettingsMigrations.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\OldNotifications\Helpers.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\OldNotifications\NewNotificationMessageService.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\OldNotifications\NewNotifierDataValueProvider.cs" />
@@ -1528,7 +1527,6 @@
     <Folder Include="App_Plugins\SentMails\dashboard\css\" />
     <Folder Include="App_Plugins\SentMails\data\" />
     <Folder Include="App_Plugins\SentMails\shared\" />
-    <Folder Include="Core\Updater\Migrations\0.0.0.1\Steps\OldNotifications\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.BaseControls\uIntra.BaseControls.csproj">
