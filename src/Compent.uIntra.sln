@@ -68,6 +68,7 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 		DebugWithDll|Any CPU = DebugWithDll|Any CPU
 		Dev|Any CPU = Dev|Any CPU
+		ManualInstallation|Any CPU = ManualInstallation|Any CPU
 		PublicNuget|Any CPU = PublicNuget|Any CPU
 		QA|Any CPU = QA|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -79,6 +80,8 @@ Global
 		{2E4A8B55-37F6-46A8-B108-30E346870720}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{2E4A8B55-37F6-46A8-B108-30E346870720}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{2E4A8B55-37F6-46A8-B108-30E346870720}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{2E4A8B55-37F6-46A8-B108-30E346870720}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{2E4A8B55-37F6-46A8-B108-30E346870720}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{2E4A8B55-37F6-46A8-B108-30E346870720}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{2E4A8B55-37F6-46A8-B108-30E346870720}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{2E4A8B55-37F6-46A8-B108-30E346870720}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -91,6 +94,8 @@ Global
 		{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -103,6 +108,8 @@ Global
 		{B99F0F05-598C-4F4A-A972-7282DCF9FED8}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{B99F0F05-598C-4F4A-A972-7282DCF9FED8}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{B99F0F05-598C-4F4A-A972-7282DCF9FED8}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{B99F0F05-598C-4F4A-A972-7282DCF9FED8}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{B99F0F05-598C-4F4A-A972-7282DCF9FED8}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{B99F0F05-598C-4F4A-A972-7282DCF9FED8}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{B99F0F05-598C-4F4A-A972-7282DCF9FED8}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{B99F0F05-598C-4F4A-A972-7282DCF9FED8}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -115,6 +122,8 @@ Global
 		{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -127,6 +136,8 @@ Global
 		{DB9791BC-0224-42E3-BD2B-1F18C15A181E}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{DB9791BC-0224-42E3-BD2B-1F18C15A181E}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{DB9791BC-0224-42E3-BD2B-1F18C15A181E}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{DB9791BC-0224-42E3-BD2B-1F18C15A181E}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{DB9791BC-0224-42E3-BD2B-1F18C15A181E}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{DB9791BC-0224-42E3-BD2B-1F18C15A181E}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{DB9791BC-0224-42E3-BD2B-1F18C15A181E}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{DB9791BC-0224-42E3-BD2B-1F18C15A181E}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -139,6 +150,8 @@ Global
 		{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{A15F1032-FAA1-42AA-9BD7-1A3EDD118811}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -151,6 +164,8 @@ Global
 		{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -163,6 +178,8 @@ Global
 		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -175,6 +192,8 @@ Global
 		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
 		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.Dev|Any CPU.Build.0 = Dev|Any CPU
+		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{469DC179-83EE-4696-9D36-2173E4BEAFDA}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -187,6 +206,8 @@ Global
 		{774EBA5A-679C-401D-B3F1-130562785C60}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{774EBA5A-679C-401D-B3F1-130562785C60}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{774EBA5A-679C-401D-B3F1-130562785C60}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{774EBA5A-679C-401D-B3F1-130562785C60}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{774EBA5A-679C-401D-B3F1-130562785C60}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{774EBA5A-679C-401D-B3F1-130562785C60}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{774EBA5A-679C-401D-B3F1-130562785C60}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{774EBA5A-679C-401D-B3F1-130562785C60}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -199,6 +220,8 @@ Global
 		{3E868F15-AC47-4962-A6A5-C9084752DDE9}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{3E868F15-AC47-4962-A6A5-C9084752DDE9}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{3E868F15-AC47-4962-A6A5-C9084752DDE9}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{3E868F15-AC47-4962-A6A5-C9084752DDE9}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{3E868F15-AC47-4962-A6A5-C9084752DDE9}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{3E868F15-AC47-4962-A6A5-C9084752DDE9}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{3E868F15-AC47-4962-A6A5-C9084752DDE9}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{3E868F15-AC47-4962-A6A5-C9084752DDE9}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -211,6 +234,8 @@ Global
 		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -223,6 +248,8 @@ Global
 		{D5590777-B149-467F-829A-E901A9462E72}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{D5590777-B149-467F-829A-E901A9462E72}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{D5590777-B149-467F-829A-E901A9462E72}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{D5590777-B149-467F-829A-E901A9462E72}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{D5590777-B149-467F-829A-E901A9462E72}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{D5590777-B149-467F-829A-E901A9462E72}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{D5590777-B149-467F-829A-E901A9462E72}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{D5590777-B149-467F-829A-E901A9462E72}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -235,6 +262,8 @@ Global
 		{2167C278-86ED-451B-8D2C-01774532B4E8}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{2167C278-86ED-451B-8D2C-01774532B4E8}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{2167C278-86ED-451B-8D2C-01774532B4E8}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{2167C278-86ED-451B-8D2C-01774532B4E8}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{2167C278-86ED-451B-8D2C-01774532B4E8}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{2167C278-86ED-451B-8D2C-01774532B4E8}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{2167C278-86ED-451B-8D2C-01774532B4E8}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{2167C278-86ED-451B-8D2C-01774532B4E8}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -247,6 +276,8 @@ Global
 		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{D8101E4C-5345-4B54-9766-DBD2BBE7030C}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -259,6 +290,8 @@ Global
 		{4D9F910E-24E0-43B3-BCCB-FEF527D5FF2F}.DebugWithDll|Any CPU.Build.0 = DebugWithDll|Any CPU
 		{4D9F910E-24E0-43B3-BCCB-FEF527D5FF2F}.Dev|Any CPU.ActiveCfg = Release|Any CPU
 		{4D9F910E-24E0-43B3-BCCB-FEF527D5FF2F}.Dev|Any CPU.Build.0 = Release|Any CPU
+		{4D9F910E-24E0-43B3-BCCB-FEF527D5FF2F}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{4D9F910E-24E0-43B3-BCCB-FEF527D5FF2F}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{4D9F910E-24E0-43B3-BCCB-FEF527D5FF2F}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{4D9F910E-24E0-43B3-BCCB-FEF527D5FF2F}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{4D9F910E-24E0-43B3-BCCB-FEF527D5FF2F}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -271,6 +304,7 @@ Global
 		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.DebugWithDll|Any CPU.Build.0 = Debug|Any CPU
 		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
 		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.Dev|Any CPU.Build.0 = Dev|Any CPU
+		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.ManualInstallation|Any CPU.ActiveCfg = Release|Any CPU
 		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.QA|Any CPU.ActiveCfg = Release|Any CPU
@@ -282,6 +316,8 @@ Global
 		{B690420E-AF06-4B17-93F7-A04362A1CD3D}.DebugWithDll|Any CPU.Build.0 = Debug|Any CPU
 		{B690420E-AF06-4B17-93F7-A04362A1CD3D}.Dev|Any CPU.ActiveCfg = Debug|Any CPU
 		{B690420E-AF06-4B17-93F7-A04362A1CD3D}.Dev|Any CPU.Build.0 = Debug|Any CPU
+		{B690420E-AF06-4B17-93F7-A04362A1CD3D}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{B690420E-AF06-4B17-93F7-A04362A1CD3D}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{B690420E-AF06-4B17-93F7-A04362A1CD3D}.PublicNuget|Any CPU.ActiveCfg = Release|Any CPU
 		{B690420E-AF06-4B17-93F7-A04362A1CD3D}.PublicNuget|Any CPU.Build.0 = Release|Any CPU
 		{B690420E-AF06-4B17-93F7-A04362A1CD3D}.QA|Any CPU.ActiveCfg = QA|Any CPU
@@ -294,6 +330,8 @@ Global
 		{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}.DebugWithDll|Any CPU.Build.0 = Debug|Any CPU
 		{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}.Dev|Any CPU.ActiveCfg = Debug|Any CPU
 		{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}.Dev|Any CPU.Build.0 = Debug|Any CPU
+		{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}.ManualInstallation|Any CPU.ActiveCfg = ManualInstallation|Any CPU
+		{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}.ManualInstallation|Any CPU.Build.0 = ManualInstallation|Any CPU
 		{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}.PublicNuget|Any CPU.ActiveCfg = Release|Any CPU
 		{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}.PublicNuget|Any CPU.Build.0 = Release|Any CPU
 		{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}.QA|Any CPU.ActiveCfg = Release|Any CPU

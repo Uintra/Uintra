@@ -40,6 +40,8 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <TransformWebConfigEnabled>False</TransformWebConfigEnabled>
+    <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
@@ -1122,7 +1124,14 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.resx">
       <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="App_Plugins\web.config">
+      <TransformOnBuild>false</TransformOnBuild>
+    </Content>
     <None Include="config\umbracoSettings.Debug.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="config\umbracoSettings.ManualInstallation.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
@@ -1214,6 +1223,9 @@
     <Content Include="Views\PagePromotion\ItemView.cshtml" />
     <Content Include="Views\Groups\GroupNavigation.cshtml" />
     <None Include="Web.DebugWithDll.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.ManualInstallation.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.PublicNuget.config">
@@ -1532,6 +1544,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PublicNuget|AnyCPU'">
+    <TransformWebConfigEnabled>False</TransformWebConfigEnabled>
+    <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -1542,6 +1556,18 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ManualInstallation|AnyCPU'">
+    <TransformWebConfigEnabled>False</TransformWebConfigEnabled>
+    <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DISABLE_LICENCE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
