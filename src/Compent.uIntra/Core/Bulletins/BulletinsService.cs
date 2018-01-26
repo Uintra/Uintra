@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.Helpers;
+using Compent.uIntra.Core.Search.Entities;
+using Compent.uIntra.Core.UserTags.Indexers;
 using Extensions;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
@@ -21,6 +23,7 @@ using uIntra.Notification.Base;
 using uIntra.Notification.Configuration;
 using uIntra.Search;
 using uIntra.Subscribe;
+using uIntra.Tagging.UserTags;
 
 namespace Compent.uIntra.Core.Bulletins
 {
@@ -40,13 +43,14 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly INotificationsService _notificationService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
-        private readonly IElasticActivityIndex _activityIndex;
+        private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IMediaHelper _mediaHelper;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
+        private readonly UserTagService _userTagService;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -59,14 +63,15 @@ namespace Compent.uIntra.Core.Bulletins
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,
             IFeedTypeProvider centralFeedTypeProvider,
-            IElasticActivityIndex activityIndex,
+            IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             ISearchableTypeProvider searchableTypeProvider,
             IMediaHelper mediaHelper,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
-            INotifierDataHelper notifierDataHelper)
+            INotifierDataHelper notifierDataHelper,
+            UserTagService userTagService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
         {
             _intranetUserService = intranetUserService;
@@ -84,16 +89,12 @@ namespace Compent.uIntra.Core.Bulletins
             _groupActivityService = groupActivityService;
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
+            _userTagService = userTagService;
         }
-
 
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Bulletins.ToInt());
 
-
-        public MediaSettings GetMediaSettings()
-        {
-            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent.ToInt());
-        }
+        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent.ToInt());
 
         protected override void UpdateCache()
         {
@@ -101,22 +102,12 @@ namespace Compent.uIntra.Core.Bulletins
             FillIndex();
         }
 
-        public override bool CanEdit(IIntranetActivity cached)
-        {
-            var result = CanPerform(cached, IntranetActivityActionEnum.Edit);
-            return result;
-        }
+        public override bool CanEdit(IIntranetActivity cached) => CanPerform(cached, IntranetActivityActionEnum.Edit);
 
-        public bool CanDelete(IIntranetActivity cached)
-        {
-            var result = CanPerform(cached, IntranetActivityActionEnum.Delete);
-            return result;
-        }
+        public bool CanDelete(IIntranetActivity cached) => CanPerform(cached, IntranetActivityActionEnum.Delete);
 
-        public bool IsActual(Bulletin activity)
-        {
-            return base.IsActual(activity) && activity.PublishDate.Date <= DateTime.Now.Date;
-        }
+        public bool IsActual(Bulletin activity) =>
+            base.IsActual(activity) && activity.PublishDate.Date <= DateTime.Now.Date;
 
         public FeedSettings GetFeedSettings()
         {
@@ -129,11 +120,7 @@ namespace Compent.uIntra.Core.Bulletins
             };
         }
 
-        public IEnumerable<IFeedItem> GetItems()
-        {
-            var items = GetOrderedActualItems();
-            return items;
-        }
+        public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
 
         private IOrderedEnumerable<Bulletin> GetOrderedActualItems() =>
             GetManyActual().OrderByDescending(i => i.PublishDate);
@@ -154,20 +141,22 @@ namespace Compent.uIntra.Core.Bulletins
         {
             var cachedBulletin = Get(id);
             var bulletin = base.UpdateCachedEntity(id);
-            if (IsBulletinHidden(bulletin))
+            if (IsCacheable(bulletin))
             {
-                _activityIndex.Delete(id);
-                _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
-                _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);
-                return null;
+                _activityIndex.Index(Map(bulletin));
+                _documentIndexer.Index(bulletin.MediaIds);
+                return bulletin;
             }
 
-            _activityIndex.Index(Map(bulletin));
-            _documentIndexer.Index(bulletin.MediaIds);
-            return bulletin;
+            if (cachedBulletin == null) return null;
+
+            _activityIndex.Delete(id);
+            _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
+            _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);
+            return null;
         }
 
-        public Comment CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        public CommentModel CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var comment = _commentsService.Create(userId, activityId, text, parentId);
             UpdateCachedEntity(comment.ActivityId);
@@ -187,10 +176,7 @@ namespace Compent.uIntra.Core.Bulletins
             UpdateCachedEntity(comment.ActivityId);
         }
 
-        public ICommentable GetCommentsInfo(Guid activityId)
-        {
-            return Get(activityId);
-        }
+        public ICommentable GetCommentsInfo(Guid activityId) => Get(activityId);
 
         public ILikeable Add(Guid userId, Guid activityId)
         {
@@ -204,10 +190,7 @@ namespace Compent.uIntra.Core.Bulletins
             return UpdateCachedEntity(activityId);
         }
 
-        public IEnumerable<LikeModel> GetLikes(Guid activityId)
-        {
-            return Get(activityId).Likes;
-        }
+        public IEnumerable<LikeModel> GetLikes(Guid activityId) => Get(activityId).Likes;
 
         public void Notify(Guid entityId, IIntranetType notificationType)
         {
@@ -220,10 +203,10 @@ namespace Compent.uIntra.Core.Bulletins
 
         public void FillIndex()
         {
-            var activities = GetAll().Where(s => !IsBulletinHidden(s));
+            var activities = GetAll().Where(IsCacheable);
             var searchableActivities = activities.Select(Map);
 
-            var searchableType = _searchableTypeProvider.Get(SearchableTypeEnum.Bulletins.ToInt());
+            var searchableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.Bulletins.ToInt());
             _activityIndex.DeleteByType(searchableType);
             _activityIndex.Index(searchableActivities);
         }
@@ -303,10 +286,7 @@ namespace Compent.uIntra.Core.Bulletins
             var currentUser = _intranetUserService.GetCurrentUser();
 
             var isWebmaster = _permissionsService.IsUserWebmaster(currentUser);
-            if (isWebmaster)
-            {
-                return true;
-            }
+            if (isWebmaster) return true;
 
             var ownerId = Get(cached.Id).OwnerId;
             var isOwner = ownerId == currentUser.Id;
@@ -315,15 +295,19 @@ namespace Compent.uIntra.Core.Bulletins
             return isOwner && isUserHasPermissions;
         }
 
-        private bool IsBulletinHidden(Bulletin bulletin)
-        {
-            return bulletin == null || bulletin.IsHidden;
-        }
+        private bool IsBulletinHidden(Bulletin bulletin) => bulletin == null || bulletin.IsHidden;
 
-        private SearchableActivity Map(Bulletin bulletin)
+        private bool IsCacheable(Bulletin bulletin) =>
+            !IsBulletinHidden(bulletin) && IsActualPublishDate(bulletin);
+
+        private bool IsActualPublishDate(Bulletin bulletin) =>
+            DateTime.Compare(bulletin.PublishDate, DateTime.Now) <= 0;
+
+        private SearchableUintraActivity Map(Bulletin bulletin)
         {
-            var searchableActivity = bulletin.Map<SearchableActivity>();
+            var searchableActivity = bulletin.Map<SearchableUintraActivity>();
             searchableActivity.Url = _linkService.GetLinks(bulletin.Id).Details;
+            searchableActivity.UserTagNames = _userTagService.Get(bulletin.Id).Select(t => t.Text);
             return searchableActivity;
         }
     }

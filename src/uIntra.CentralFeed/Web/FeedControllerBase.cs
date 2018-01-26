@@ -96,20 +96,17 @@ namespace uIntra.CentralFeed.Web
 
         protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, FeedFilterStateModel filterState, FeedSettings settings)
         {
-            var feedItems = items as IList<IFeedItem> ?? items.ToList();
-            var result = feedItems.AsEnumerable();
-
             if (filterState.ShowSubscribed.GetValueOrDefault() && settings.HasSubscribersFilter)
             {
-                result = feedItems.Where(i => i is ISubscribable subscribable && _subscribeService.IsSubscribed(_intranetUserService.GetCurrentUser().Id, subscribable));
+                items = items.Where(i => i is ISubscribable && _subscribeService.IsSubscribed(_intranetUserService.GetCurrentUser().Id, (ISubscribable)i));
             }
 
             if (filterState.ShowPinned.GetValueOrDefault() && settings.HasPinnedFilter)
             {
-                result = feedItems.Where(i => i.IsPinned);
+                items = items.Where(i => i.IsPinned);
             }
 
-            return result;
+            return items;
         }
 
         protected virtual IList<IFeedItem> SortForFeed(IEnumerable<IFeedItem> items, IIntranetType type)

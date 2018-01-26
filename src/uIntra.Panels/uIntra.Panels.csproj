@@ -319,8 +319,6 @@
     </Compile>
     <Compile Include="Core\Models\DocumentPanelMediaViewModel.cs" />
     <Compile Include="Core\PanelsConstants.cs" />
-    <Compile Include="Installer\PanelsInstallationConstants.cs" />
-    <Compile Include="Installer\Migrations\PanelsInstallationStep_0_0_1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -330,7 +328,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="Installer\PreValues\PanelPickerPreValues.json" />
     <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
     <None Include="packages.config" />
   </ItemGroup>

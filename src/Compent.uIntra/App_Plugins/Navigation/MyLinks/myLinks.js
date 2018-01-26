@@ -15,11 +15,11 @@ var controller = {
         var currentLinkId = addControlBtn.dataset.mylinkId;
         var className = '_disabled';
         var myLinksState = helpers.localStorage.getItem("myLinks") || {};
-        var opener = $('.js-mylinks__opener');
+        var $opener = $('.js-mylinks__opener');
         var activeClass = '_expand';
-        var myLinksItem = $(".js-mylinks__item");
+        var $myLinksItem = $(".js-mylinks__item");
 
-        opener.on('click', function (e) {
+        $opener.on('click', function (e) {
             toggleLinks(this);
         });
 
@@ -49,6 +49,7 @@ var controller = {
             }
         });
 
+        $opener.toggleClass("_hide", container.childElementCount == 0);
         initRemoveLinks(container);
         addControlBtn.addEventListener('click', function (e) {
             e.preventDefault();
@@ -56,8 +57,8 @@ var controller = {
             ajax.PostJson(this.dataset.url, { contentId: this.dataset.contentId }, function (data) {
                 currentLinkId = data.Id;
                 reloadList(container);
-                if (!myLinksItem.hasClass(activeClass)) {
-                    myLinksItem.addClass(activeClass);
+                if (!$myLinksItem.hasClass(activeClass)) {
+                    $myLinksItem.addClass(activeClass);
                     myLinksState[currentLinkId] = true;
                     helpers.localStorage.setItem("myLinks", myLinksState);
                 }
@@ -109,6 +110,7 @@ var controller = {
         function reloadList(container) {
             ajax.Get(container.dataset.url, function (data) {
                 container.innerHTML = data;
+                $opener.toggleClass("_hide", container.childElementCount == 0);
                 initRemoveLinks(container);
             });
         }

@@ -22,34 +22,42 @@
             {
                 var section = grid.sections[i];
                 sectionOffsetNumber -= int.Parse(section.grid.ToString());
-                var renderOffset = grid.sections.Count > 1 && i == grid.sections.Count - 1;
+                var isRenderOffsetRequared = grid.sections.Count > 1 && i == grid.sections.Count - 1;
 
-                <div class="col-md-@(section.grid) @(renderOffset ? "sidebar" : "" )">
-                    @foreach (var row in section.rows)
-                    {
-                        <div class="row">
-                            @foreach (var area in row.areas)
-                            {
-                                <div class="col-md-@area.grid">
-                                    <div @RenderElementAttributes(area)>
-                                        @foreach (var control in area.controls)
-                                        {
-                                            if (control != null && control.editor != null && control.editor.view != null)
+                if (isRenderOffsetRequared && IsEmptySection(section))
+                {
+                    continue;
+                }
+
+                    <div class="col-md-@(section.grid) @(isRenderOffsetRequared ? "aside" : "")">
+                        @foreach (var row in section.rows)
+                        {
+
+                            <div class="row">
+                                @foreach (var area in row.areas)
+                                {
+                                    <div class="col-md-@area.grid">
+                                        <div @RenderElementAttributes(area)>
+                                            @foreach (var control in area.controls)
                                             {
-                                                string editor = EditorPath(control);
-                                                @RenderControl(editor, control)
+                                                if (control != null && control.editor != null && control.editor.view != null)
+                                                {
+                                                    string editor = EditorPath(control);
+                                                    @RenderControl(editor, control)
+                                                }
                                             }
-                                        }
+                                        </div>
                                     </div>
-                                </div>
-                            }
-                        </div>
-                    }
-                </div>
+                                }
+                            </div>
+                        }
+                    </div>
             }
-        }
+            }
     </div>
-}
+ }
+
+
 
 @helper RenderControl(string partialViewName, dynamic control)
     {
@@ -91,6 +99,12 @@
 }
 
 @functions {
+    public static bool IsEmptySection(dynamic section)
+    {
+        return section.rows[0].areas[0].controls.Count == 0;
+    }
+
+
     public static MvcHtmlString RenderElementAttributes(dynamic contentItem)
     {
         var attrs = new List<string>();

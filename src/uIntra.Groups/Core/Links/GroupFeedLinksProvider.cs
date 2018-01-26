@@ -20,6 +20,7 @@ namespace uIntra.Groups
 
             return new ActivityLinks
             {
+                Feed = helper.GetFeedUrl()?.AddGroupId(activity.GroupId),
                 Overview = helper.GetOverviewPageUrl().AddGroupId(activity.GroupId),
                 Create = helper.GetCreatePageUrl()?.AddGroupId(activity.GroupId),
                 Details = helper.GetDetailsPageUrl(activity.Id).AddGroupId(activity.GroupId),
@@ -35,6 +36,7 @@ namespace uIntra.Groups
 
             return new ActivityCreateLinks
             {
+                Feed = helper.GetFeedUrl()?.AddGroupId(model.GroupId),
                 Overview = helper.GetOverviewPageUrl().AddGroupId(model.GroupId),
                 Create = helper.GetCreatePageUrl()?.AddGroupId(model.GroupId),
                 Owner = GetProfileLink(model.OwnerId),

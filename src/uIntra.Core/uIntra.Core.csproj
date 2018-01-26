@@ -393,11 +393,13 @@
     <Compile Include="Core\Jobs\Configuration\JobSettingsConfiguration.cs" />
     <Compile Include="Core\Jobs\Enums\JobRunTypeEnum.cs" />
     <Compile Include="Core\Jobs\JobConfiguration.cs" />
+    <Compile Include="Core\Jobs\IntranetJobFactory.cs" />
     <Compile Include="Core\Jobs\JobsRegistry.cs" />
     <Compile Include="Core\Jobs\Models\IIntranetJob.cs" />
     <Compile Include="Core\Jobs\Models\BaseIntranetJob.cs" />
     <Compile Include="Core\Jobs\Enums\JobTimeTypeEnum.cs" />
     <Compile Include="Core\Jobs\UpdateActivityCacheJob.cs" />
+    <Compile Include="Core\LabeledIdentity.cs" />
     <Compile Include="Core\PagePromotion\AutoMapperProfiles\PagePromotionAutoMapperProfile.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionBase.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionConfig.cs" />
@@ -418,7 +420,11 @@
     <Compile Include="Core\Media\IImageHelper.cs" />
     <Compile Include="Core\Media\ImageHelper.cs" />
     <Compile Include="Core\Providers\ContentProviderBase.cs" />
-    <Compile Include="Core\UmbracoEventServices\IUmbracoEventService.cs" />
+    <Compile Include="Core\Providers\IXPathProvider.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoContentPublishedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoContentTrashedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoContentUnPublishedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMediaTrashedEventService.cs" />
     <Compile Include="Core\MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Core\MigrationHistories\IMigrationHistoryService.cs" />
     <Compile Include="Core\MigrationHistories\MigrationHistoryService.cs" />
@@ -448,6 +454,8 @@
     <Compile Include="Core\Persistence\uIntraTableAttribute.cs" />
     <Compile Include="Core\TypeProviders\MediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\MediaTypeProvider.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMediaSavedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberDeletingEventService.cs" />
     <Compile Include="Core\User\Controllers\IntranetUserController.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityOwnerEditModel.cs" />
     <Compile Include="Core\User\IHaveOwner.cs" />
@@ -463,14 +471,6 @@
     <Compile Include="Core\Utils\EmbeddedResourceService.cs" />
     <Compile Include="Core\Utils\EmbeddedResourcesUtils.cs" />
     <Compile Include="Core\Utils\IEmbeddedResourceService.cs" />
-    <Compile Include="Installer\BasePageWithDefaultGridCreateModel.cs" />
-    <Compile Include="Installer\Constants\CoreInstallationConstants.cs" />
-    <Compile Include="Installer\Constants\InstallationVersionConstrants.cs" />
-    <Compile Include="Installer\IIntranetInstallationStep.cs" />
-    <Compile Include="Installer\InstallationStepsHelper.cs" />
-    <Compile Include="Installer\IntranetInstaller.cs" />
-    <Compile Include="Installer\Migrations\HeadingInstallationStep_0_2_2_10.cs" />
-    <Compile Include="Installer\Migrations\CoreInstallationStep_0_0_1.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
     <Compile Include="Web\CacheController.cs" />
@@ -572,9 +572,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="Installer\PreValues\DefaultGridPreValues.json" />
-    <EmbeddedResource Include="Installer\PreValues\ContentGridPreValues.json" />
-    <EmbeddedResource Include="Installer\PreValues\GridPageLayout.cshtml" />
     <Content Include="Config\Dashboard.config.install.xdt" />
     <Content Include="Config\Dashboard.config.uninstall.xdt" />
     <None Include="packages.config">

@@ -407,9 +407,6 @@
     <Content Include="Config\splashes\booting.aspx" />
     <Content Include="Config\splashes\noNodes.aspx" />
     <None Include="app.config" />
-    <None Include="Installer\PreValues\ContentGridPreValues.json" />
-    <None Include="Installer\PreValues\DefaultGridPreValues.json" />
-    <None Include="Installer\PreValues\GridPageLayout.cshtml" />
     <None Include="packages.config" />
     <None Include="uIntra.CentralFeed.nuspec" />
   </ItemGroup>

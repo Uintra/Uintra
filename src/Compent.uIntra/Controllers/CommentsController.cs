@@ -39,7 +39,7 @@ namespace Compent.uIntra.Controllers
             _notificationTypeProvider = notificationTypeProvider;
         }
 
-        protected override void OnCommentCreated(Comment comment)
+        protected override void OnCommentCreated(CommentModel comment)
         {
             if (IsForPagePromotion(comment.ActivityId)) return;
 
@@ -55,7 +55,7 @@ namespace Compent.uIntra.Controllers
             }
         }
 
-        protected override void OnCommentEdited(Comment comment)
+        protected override void OnCommentEdited(CommentModel comment)
         {
             if (IsForPagePromotion(comment.ActivityId)) return;
 

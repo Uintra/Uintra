@@ -5,7 +5,6 @@ using uIntra.Core.Activity;
 using uIntra.Groups;
 using uIntra.News;
 using uIntra.News.Dashboard;
-using uIntra.Search;
 
 namespace Compent.uIntra.Core.News
 {
@@ -23,19 +22,17 @@ namespace Compent.uIntra.Core.News
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
 
+            Mapper.CreateMap<NewsEditModel, NewsExtendedEditModel>()
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
+
+            Mapper.CreateMap<NewsCreateModel, NewsExtendedCreateModel>()
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
+
             Mapper.CreateMap<Entities.News, NewsBackofficeViewModel>()
                 .IncludeBase<NewsBase, NewsBackofficeViewModel>();
 
             Mapper.CreateMap<Entities.News, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<NewsBase, IntranetActivityItemHeaderViewModel>();
-
-            Mapper.CreateMap<Entities.News, SearchableActivity>()
-                .ForMember(dst => dst.StartDate, o => o.Ignore())
-                .ForMember(dst => dst.EndDate, o => o.Ignore())
-                .ForMember(dst => dst.Url, o => o.Ignore())
-                .ForMember(dst => dst.Type, o => o.Ignore())
-                .ForMember(d => d.PublishedDate, o => o.MapFrom(s => s.PublishDate))
-                .IncludeBase<IntranetActivity, SearchableActivity>();
 
             Mapper.CreateMap<Entities.News, ActivityTransferCreateModel>();
 

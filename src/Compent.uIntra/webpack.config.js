@@ -2,6 +2,7 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require("webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env) => {
     const isDev = !(env && env.prod);
@@ -14,7 +15,8 @@ module.exports = (env) => {
         },
         output: {
             path: path.join(__dirname, 'build'),
-            filename: '[name].js'
+            filename: '[name].js',
+            publicPath: '/build/'
         },
         module: {
             loaders: [
@@ -53,6 +55,16 @@ module.exports = (env) => {
             new webpack.ProvidePlugin({
                 $: 'jquery',
                 jQuery: 'jquery'
+            }),
+            new HtmlWebpackPlugin({
+                filename: '../Views/Shared/_Layout-output.cshtml',
+                template: './Views/Shared/_Layout.cshtml',
+                chunks:['vendors', 'head_css', 'app'],
+                inject: false,
+                hash:true,
+                minify: {
+                    removeComments:true
+                }
             })
         ],
         stats: {

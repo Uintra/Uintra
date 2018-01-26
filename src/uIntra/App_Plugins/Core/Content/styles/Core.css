@@ -146,7 +146,7 @@
 }
 
 ._hide {
-	display: none;
+	display: none !important;
 }
 
 ._for-desktop{
@@ -304,6 +304,7 @@ h5{
 
         @media (--for-tablet-portrait-down) {
             padding-top: 149px;
+            padding-top: 249px;
         }
     }
 }
@@ -321,11 +322,9 @@ h5{
         position: fixed;
         top: 0;
         left: 0;
-        width:calc(100% - 60px);
-        transform:translate(-101%, 0);
         bottom: 0;
-        background: var(--header-bg);
-        padding:0;
+        transform:translate(-100%, 0);
+        width:100%;
         height: auto;
         transition: transform linear 250ms;
         z-index:9999;
@@ -376,6 +375,26 @@ h5{
     }
 }
 
+.sidebar-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 6;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    color: var(--color-white);
+    font-size: 26px;
+    font-weight: bold;
+    padding: 17px;
+    &:hover,
+    &:active,
+    &:focus{
+        color: var(--color-white);
+        text-decoration:none;
+    }
+}
+
 #header {
 	position:fixed;
 	z-index:13;
@@ -398,7 +417,7 @@ h5{
             right: 0;
             bottom: 0;
             background:var(--header-bg);
-            z-index: 2;
+            z-index: 12;
             content: '';
         }
 
@@ -425,7 +444,7 @@ h5{
     top: 0;
     left: 20px;
     padding: 16px 0;
-    z-index: 2;
+    z-index: 12;
 
     @media (--for-tablet-portrait-down){
         &{
@@ -443,7 +462,7 @@ h5{
     min-height:190px;
 
     @media (--for-tablet-portrait-down) {
-        padding: 0;
+        padding: 0 0 46px;
         overflow: visible;
         position:static;
 
@@ -494,7 +513,11 @@ h5{
     }
 }
 
-
+.content {
+    &__loader{
+        margin:0 0 44px;
+    }
+}
 .content:not(._central-feed) {
     padding: 26px 21px 10px;
     background: var(--color-white);
@@ -554,7 +577,7 @@ h5{
 
     .ajs-button {
         background: var(--color-white);
-        color: #555;
+        color: var(--text-color-dark);
         border: 1px solid #8f8f8f;
         border-radius: 20px;
         display: inline-block;
@@ -570,25 +593,30 @@ h5{
         position: relative;
         text-transform: uppercase;
         min-height: 0;
-
+        
         &:hover,
         &:active,
         &:focus{
-            background-color: #dedede;
-            color: var(--text-color-dark);
-            text-decoration: none;
+            border-color:var(--color-submit);
+            color:var(--color-submit);
+            text-decoration:none;
         }
 
         @mixin btn-focus-color #8f8f8f;
 
         &.ajs-ok{
-            color:#555;
+            background:var(--color-submit);
+            border-color:var(--color-submit);
+            color:var(--color-white);
 
             &:hover,
             &:active,
             &:focus{
-                color: var(--text-color-dark);
+                background-color:#5c5672;
+                color:var(--color-white);
+                border-color:#5c5672;
             }
+            @mixin btn-focus-color #5c5672;
         }
 
         &[disabled]{
@@ -695,10 +723,17 @@ h5{
     width: 41px;
     height: 41px;
     opacity: 0;
-
     cursor: pointer;
     z-index:-1;
     transition: opacity 0.3s ease;
+
+    ._notifications-expanded &,
+    ._notifications-expanded &._visible,
+    ._aside-expanded &,
+    ._aside-expanded &._visible{
+        opacity: 0;
+        z-index:-1;
+    }
 
     &._visible{
         z-index: 200;
@@ -731,6 +766,10 @@ h5{
     ._profile &{
         width: 100px;
         height: 100px;
+        @media(--for-phone-only){
+            width: 60px;
+            height: 60px;
+        }
     }    
 
     .comments__list &,
@@ -784,7 +823,6 @@ h5{
         display:flex;
         justify-content: center;
         align-items:center;
-        padding:0 0 0 3px;
     }
 }
 
@@ -864,26 +902,16 @@ h5{
 }
 .emoji{
     position:absolute;
-    width:313px;
+    
     border:1px solid var(--color-light-gray);
     overflow:hidden;
     background:var(--color-white);
     bottom:100%;
-    margin:0 0 -9px;
     z-index:9999;
-
-    .form &,
-    .comments &{
-        bottom:auto;
-        top:100%;
-        margin:0;
-        transform:translate(calc(100% - 28px));
-
-        &._in-top{
-            bottom: 100%;
-            top: auto;
-        }
-    }
+    right:auto !important;
+    left:50%;
+    width:262px;
+    margin:0 0 -4px -131px;
 
     &__list{
         margin:-20px 0 0 -20px;
@@ -908,6 +936,7 @@ h5{
 
 .ql-container .ql-editor img{
     margin:0 4px;
+    vertical-align:top;
 }
 
 /* end emoji styles */
@@ -924,6 +953,7 @@ h5{
         height:149px;
         overflow:auto;
         font:13px/22px var(--font-general);
+        color:var(--text-color-dark);
     }
 
     .ql-tooltip {

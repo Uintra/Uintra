@@ -7,9 +7,7 @@ using static uIntra.Core.Constants.UmbracoAliases.Media;
 
 namespace uIntra.Search
 {
-    public class SearchMediaEventService : 
-        IUmbracoEventService<IMediaService, SaveEventArgs<IMedia>>,
-        IUmbracoEventService<IMediaService, MoveEventArgs<IMedia>>
+    public class SearchMediaEventService : IUmbracoMediaSavedEventService, IUmbracoMediaTrashedEventService
     {
         private readonly IDocumentIndexer _documentIndexer;
 
@@ -18,7 +16,7 @@ namespace uIntra.Search
             _documentIndexer = documentIndexer;
         }
 
-        public void Process(IMediaService sender, SaveEventArgs<IMedia> args)
+        public void ProcessMediaSaved(IMediaService sender, SaveEventArgs<IMedia> args)
         {
             var actualMedia = args
                 .SavedEntities
@@ -32,7 +30,7 @@ namespace uIntra.Search
             }
         }
 
-        public void Process(IMediaService sender, MoveEventArgs<IMedia> args)
+        public void ProcessMediaTrashed(IMediaService sender, MoveEventArgs<IMedia> args)
         {
             args.MoveInfoCollection
                 .Select(i => i.Entity.Id)

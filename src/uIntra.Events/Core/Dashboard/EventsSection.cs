@@ -6,7 +6,7 @@ namespace uIntra.Events.Dashboard
     {
         protected const string Alias = "events";
         protected const string Name = "events";
-        protected const string Icon = "icon-calendar-alt _events-section-color";
+        protected const string Icon = "icon-calendar-alt color-red";
 
         public static void AddSectionToAllUsers(ApplicationContext applicationContext)
         {

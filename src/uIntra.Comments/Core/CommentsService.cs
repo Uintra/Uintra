@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using uIntra.Core.Extensions;
 using uIntra.Core.Persistence;
 
 namespace uIntra.Comments
@@ -13,14 +14,16 @@ namespace uIntra.Comments
             _commentsRepository = commentsRepository;
         }
 
-        public virtual Comment Get(Guid id)
+        public virtual CommentModel Get(Guid id)
         {
-            return _commentsRepository.Get(id);
+            return _commentsRepository.Get(id).Map<CommentModel>();
         }
 
-        public virtual IEnumerable<Comment> GetMany(Guid activityId)
+        public virtual IEnumerable<CommentModel> GetMany(Guid activityId)
         {
-            return _commentsRepository.FindAll(comment => comment.ActivityId == activityId);
+            return _commentsRepository
+                .FindAll(comment => comment.ActivityId == activityId)
+                .Map<IEnumerable<CommentModel>>();
         }
 
         public virtual int GetCount(Guid activityId)
@@ -29,27 +32,27 @@ namespace uIntra.Comments
             return (int)count;
         }
 
-        public virtual bool CanEdit(Comment comment, Guid editorId)
+        public virtual bool CanEdit(CommentModel comment, Guid editorId)
         {
             return comment.UserId == editorId;
         }
 
-        public virtual bool CanDelete(Comment comment, Guid editorId)
+        public virtual bool CanDelete(CommentModel comment, Guid editorId)
         {
             return comment.UserId == editorId;
         }
 
-        public virtual bool WasChanged(Comment comment)
+        public virtual bool WasChanged(CommentModel comment)
         {
             return comment.CreatedDate != comment.ModifyDate;
         }
 
-        public virtual bool IsReply(Comment comment)
+        public virtual bool IsReply(CommentModel comment)
         {
             return comment.ParentId.HasValue;
         }
 
-        public virtual Comment Create(Guid userId, Guid activityId, string text, Guid? parentId)
+        public virtual CommentModel Create(Guid userId, Guid activityId, string text, Guid? parentId)
         {
             var entity = new Comment
             {
@@ -62,17 +65,17 @@ namespace uIntra.Comments
 
             entity.CreatedDate = entity.ModifyDate = DateTime.Now.ToUniversalTime();
             _commentsRepository.Add(entity);
-            return entity;
+            return entity.Map<CommentModel>();
         }
 
-        public virtual Comment Update(Guid id, string text)
+        public virtual CommentModel Update(Guid id, string text)
         {
             var comment = _commentsRepository.Get(id);
 
             comment.ModifyDate = DateTime.Now.ToUniversalTime();
             comment.Text = text;
             _commentsRepository.Update(comment);
-            return comment;
+            return comment.Map<CommentModel>();
         }
 
         public virtual void Delete(Guid id)

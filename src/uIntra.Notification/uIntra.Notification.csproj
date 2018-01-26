@@ -439,8 +439,6 @@
     <Compile Include="DefaultImplementation\ReminderJob.cs" />
     <Compile Include="DefaultImplementation\ReminderService.cs" />
     <Compile Include="DefaultImplementation\UiNotificationsService.cs" />
-    <Compile Include="Installer\NotificationInstallationConstants.cs" />
-    <Compile Include="Installer\Migrations\NotificationInstallationStep_0_0_1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\MemberNotifierSettingsControllerBase.cs" />
     <Compile Include="Web\NotificationControllerBase.cs" />

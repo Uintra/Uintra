@@ -10,7 +10,7 @@ namespace uIntra.Core.Jobs
 
         public UpdateActivityCacheJob(IEnumerable<IIntranetActivityService<IIntranetActivity>> activityServices)
         {
-            _activityServices = activityServices;
+            _activityServices = activityServices;            
         }       
 
         public override void Action()

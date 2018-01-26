@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Web.Mvc;
 using Extensions;
 using FluentScheduler;
@@ -22,20 +23,22 @@ namespace uIntra.Core.Jobs
 
         public void SetupJobs()
         {
-            var baseIntranetJobs = DependencyResolver.Current.GetServices<BaseIntranetJob>();
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
-            foreach (var baseJob in baseIntranetJobs)
+            var types = assemblies.Select(assembly => assembly.GetTypes().Where(s => typeof(BaseIntranetJob).IsAssignableFrom(s) && s != typeof(BaseIntranetJob)))
+                .SelectMany(t => t);
+
+            foreach (var type in types)
             {
+                dynamic baseJob = DependencyResolver.Current.GetService(type);
+
                 JobConfiguration jobConfiguration = GetConfiguration(baseJob.GetType().Name);
 
                 VailidateConfiguration(jobConfiguration);
 
                 if (jobConfiguration.Enabled)
                 {
-                    var schedule = Schedule(() =>
-                    {
-                        baseJob.Action();
-                    });
+                    var schedule = AddJob(baseJob);
 
                     if (jobConfiguration.RunType == JobRunTypeEnum.RunOnceAtDate)
                     {
@@ -47,6 +50,11 @@ namespace uIntra.Core.Jobs
                     ResolveTimeType(timeUnit, jobConfiguration);
                 }
             }
+        }
+
+        private Schedule AddJob<T>(T job) where T : IJob
+        {
+            return Schedule<T>();
         }
 
         private JobConfiguration GetConfiguration(string jobName)
@@ -74,7 +82,7 @@ namespace uIntra.Core.Jobs
                 case JobRunTypeEnum.RunOnceIn:
                     return schedule.ToRunOnceIn(time);
                 default:
-                    throw new Exception($"Unexpected job run type - {configuration.RunType}");
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -119,6 +127,5 @@ namespace uIntra.Core.Jobs
                 throw new Exception($"Job with run type - {configuration.RunType} should have date value");
             }
         }
-
     }
 }

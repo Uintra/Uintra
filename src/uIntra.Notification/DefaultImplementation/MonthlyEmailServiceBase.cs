@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BCLExtensions;
+using Extensions;
 using uIntra.Core.Activity;
 using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Exceptions;
@@ -33,31 +35,53 @@ namespace uIntra.Notification
 
         public void SendEmail()
         {
-            if (DateTime.Now.Day == _applicationSettings.MonthlyEmailJobDay)
+            var currentDate = DateTime.Now;
+
+            if (currentDate.Day != _applicationSettings.MonthlyEmailJobDay) return;
+
+            var allUsers = _intranetUserService.GetAll();
+            var monthlyMails = allUsers
+                .Select(user => GetUserActivitiesFilteredByUserTags(user.Id).Map(userActivities => TryGetMonthlyMail(userActivities, user)))
+                .ToList();
+
+            foreach (var monthlyMail in monthlyMails)
             {
-                var users = _intranetUserService.GetAll();
-                foreach (var user in users)
+                monthlyMail.Do(some: mail =>
                 {
                     try
                     {
-                        var activities = GetUserActivitiesFilteredByUserTags(user.Id);
-                        if (activities.Any())
-                        {
-                            string activityListString = GetActivityListString(activities);
-                            var monthlyMail = GetMonthlyMailModel<MonthlyMailBase>(activityListString, user);
-                            _mailService.SendMailByTypeAndDay(monthlyMail, user.Email , DateTime.Now, NotificationTypeEnum.MonthlyMail);
-                        }
+                        _mailService.SendMailByTypeAndDay(
+                            mail.monthlyMail,
+                            mail.user.Email,
+                            currentDate,
+                            NotificationTypeEnum.MonthlyMail);
                     }
                     catch (Exception ex)
                     {
                         _logger.Log(ex);
                     }
-
-                }
+                });
             }
         }
 
-        protected abstract List<Tuple<IIntranetActivity, string>> GetUserActivitiesFilteredByUserTags(Guid userId);        
+        protected (IIntranetUser user, MonthlyMailBase monthlyMail)? TryGetMonthlyMail(
+            IEnumerable<(IIntranetActivity activity, string detailsLink)> activities,
+            IIntranetUser user)
+        {
+            var activityList = activities.AsList();
+            if (activityList.Any())
+            {
+                var activityListString = GetActivityListString(activityList);
+                var monthlyMail = GetMonthlyMailModel<MonthlyMailBase>(activityListString, user);
+                return (user, monthlyMail);
+            }
+            else
+            {
+                return default;
+            }          
+        }
+
+        protected abstract IEnumerable<(IIntranetActivity activity, string detailsLink)> GetUserActivitiesFilteredByUserTags(Guid userId);        
 
         protected virtual T GetMonthlyMailModel<T>(string userActivities, IIntranetUser user) where T: MonthlyMailBase, new()
         {
@@ -70,15 +94,11 @@ namespace uIntra.Notification
             };
         }
 
-        private string GetActivityListString(IEnumerable<Tuple<IIntranetActivity, string>> activities)
-        {
-            var builder = new StringBuilder();
-            foreach (var activity in activities)
-            {
-                builder.AppendLine($"<a href='{activity.Item2}'>{activity.Item1.Title}</a></br>");
-            }
-            return builder.ToString();
-        }
+        private string GetActivityListString(IEnumerable<(IIntranetActivity activity, string link)> activities) => activities
+            .Aggregate(
+                new StringBuilder(),
+                (builder, activity) => builder.AppendLine($"<a href='{activity.link}'>{activity.activity.Title}</a></br>"))
+            .ToString();
 
     }
 }

@@ -339,8 +339,6 @@
     <Compile Include="Core\Models\ComingEventsPanelViewModel.cs" />
     <Compile Include="Core\Models\ComingEventViewModel.cs" />
     <Compile Include="Core\Models\EventPreviewViewModel.cs" />
-    <Compile Include="Installer\EventsInstallationConstants.cs" />
-    <Compile Include="Installer\Migrations\EventsInstallationStep_0_0_1.cs" />
     <Compile Include="Web\EventsControllerBase.cs" />
     <Compile Include="Core\AutoMapperProfiles\EventsAutoMapperProfile.cs" />
     <Compile Include="Core\EventBase.cs" />

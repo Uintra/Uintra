@@ -1,7 +1,7 @@
 ﻿.search-result{
     background:var(--color-white);
     box-shadow:0 0 2px rgba(0,0,0,0.2);
-    padding:37px 20px 1px;
+    padding:37px 20px 48px;
 
     @media (--for-tablet-portrait-down){
         margin:0 -20px;
@@ -47,29 +47,6 @@
 
         .select2{
             width:100% !important;
-            width:100%;
-        }
-
-        .select2-selection{
-            border-color:var(--color-light-gray) !important;
-            padding:8px 10px 9px;
-            border-radius:0 !important;
-            background:none !important;
-
-            &__rendered{
-                vertical-align:top;
-            }
-
-            &__choice{
-                margin-top:3px !important;
-            }
-        }
-
-        &-placeholder{
-            position:absolute;
-            top:13px;
-            left:10px;
-            color:#999;
         }
     }
 
@@ -80,8 +57,8 @@
     }
 
     &__item{
-        margin:0 -15px 14px;
-        padding:15px;
+        margin:0 0 14px;
+        padding:15px 0;
         font-size:16px;
         line-height:22px;
         position:relative;

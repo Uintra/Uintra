@@ -55,10 +55,7 @@ namespace uIntra.Comments.Web
                 return OverView(model.ActivityId);
             }
 
-            if (IsForPagePromotion(model.ActivityId))
-            {
-                return AddActivityComment(model);
-            }
+            if (IsForPagePromotion(model.ActivityId)) return AddActivityComment(model);
 
             if (_umbracoContentHelper.IsForContentPage(model.ActivityId))
             {
@@ -79,10 +76,7 @@ namespace uIntra.Comments.Web
                 return OverView(model.Id);
             }
 
-            if (IsForPagePromotion(comment.ActivityId))
-            {
-                return EditActivityComment(model, comment);
-            }
+            if (IsForPagePromotion(comment.ActivityId)) return EditActivityComment(model, comment);
 
             if (_umbracoContentHelper.IsForContentPage(comment.ActivityId))
             {
@@ -104,10 +98,7 @@ namespace uIntra.Comments.Web
                 return OverView(comment.ActivityId);
             }
 
-            if (IsForPagePromotion(comment.ActivityId))
-            {
-                return RemoveActivityComment(comment);
-            }
+            if (IsForPagePromotion(comment.ActivityId)) return RemoveActivityComment(comment);
 
             if (_umbracoContentHelper.IsForContentPage(comment.ActivityId))
             {
@@ -178,7 +169,7 @@ namespace uIntra.Comments.Web
             return OverView(model.ActivityId);
         }
 
-        protected virtual PartialViewResult EditActivityComment(CommentEditModel model, Comment comment)
+        protected virtual PartialViewResult EditActivityComment(CommentEditModel model, CommentModel comment)
         {
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.UpdateComment(model.Id, model.Text);
@@ -186,7 +177,7 @@ namespace uIntra.Comments.Web
             return OverView(comment.ActivityId);
         }
 
-        protected virtual PartialViewResult RemoveActivityComment(Comment comment)
+        protected virtual PartialViewResult RemoveActivityComment(CommentModel comment)
         {
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
             service.DeleteComment(comment.Id);
@@ -199,7 +190,7 @@ namespace uIntra.Comments.Web
             return OverView(activityId, _commentsService.GetMany(activityId));
         }
 
-        protected virtual PartialViewResult OverView(Guid activityId, IEnumerable<Comment> comments, bool isReadOnly = false)
+        protected virtual PartialViewResult OverView(Guid activityId, IEnumerable<CommentModel> comments, bool isReadOnly = false)
         {
             var model = new CommentsOverviewModel
             {
@@ -212,10 +203,10 @@ namespace uIntra.Comments.Web
             return PartialView(OverviewViewPath, model);
         }
 
-        protected virtual IEnumerable<CommentViewModel> GetCommentViews(IEnumerable<Comment> comments)
+        protected virtual IEnumerable<CommentViewModel> GetCommentViews(IEnumerable<CommentModel> comments)
         {
             comments = comments.OrderBy(c => c.CreatedDate);
-            var commentsList = comments as List<Comment> ?? comments.ToList();
+            var commentsList = comments as List<CommentModel> ?? comments.ToList();
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
             var creators = _intranetUserService.GetAll().ToList();
             var replies = commentsList.FindAll(_commentsService.IsReply);
@@ -229,7 +220,7 @@ namespace uIntra.Comments.Web
             }
         }
 
-        protected virtual CommentViewModel GetCommentView(Comment comment, Guid currentUserId, IIntranetUser creator)
+        protected virtual CommentViewModel GetCommentView(CommentModel comment, Guid currentUserId, IIntranetUser creator)
         {
             var model = comment.Map<CommentViewModel>();
             model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate : default(DateTime?);
@@ -245,7 +236,7 @@ namespace uIntra.Comments.Web
         protected virtual bool IsForPagePromotion(Guid entityId)
         {
             var content = _umbracoHelper.TypedContent(entityId);
-            return content != null && PagePromotionHelper.IsPagePromotion(content);
+            return content != null && PagePromotionHelper.IsPagePromotion(content) && PagePromotionHelper.IsPromoted(content);
         }
 
         protected virtual string GetOverviewElementId(Guid activityId)
@@ -253,12 +244,12 @@ namespace uIntra.Comments.Web
             return $"js-comments-overview-{activityId}";
         }
 
-        protected virtual void OnCommentCreated(Comment comment)
+        protected virtual void OnCommentCreated(CommentModel comment)
         {
 
         }
 
-        protected virtual void OnCommentEdited(Comment comment)
+        protected virtual void OnCommentEdited(CommentModel comment)
         {
         }
     }

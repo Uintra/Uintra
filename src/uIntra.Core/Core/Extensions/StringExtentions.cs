@@ -22,6 +22,11 @@ namespace uIntra.Core.Extensions
             return str.Substring(str.IndexOf(substring) + substring.Length);
         }
 
+        public static string AddQueryParameter(this string url, string query)
+        {
+            return url.AddParameter("query", query);
+        }
+
         public static IEnumerable<int> ToIntCollection(this string str)
         {
             return str.IsNullOrEmpty() ? Enumerable.Empty<int>() : str.Split(',').Where(s => s.HasValue()).Select(int.Parse);
@@ -138,5 +143,25 @@ namespace uIntra.Core.Extensions
 
         public static string ReplaceLineBreaksForHtml(this string src)
             => src.IsNullOrEmpty() ? string.Empty : src.Replace("\r\n", "<br />").Replace("\n", "<br />").Replace("\r", "<br />");
+
+        public static IEnumerable<TResult> ParseStringCollection<TResult>(this string collection, Func<string, TResult> parserFunc, char separator = ',')
+        {
+            return collection.SplitBySeparator(separator).Select(parserFunc);
+        }
+
+        public static IEnumerable<string> SplitBySeparator(this string str, char separator)
+        {
+            if (str.IsNullOrEmpty())
+            {
+                return Enumerable.Empty<string>();
+            }
+
+            return str.Split(separator);
+        }
+
+        public static IEnumerable<TResult> ParseStringCollection<TResult>(this IEnumerable<string> collection, Func<string, TResult> parserFunc, char separator = ',')
+        {
+            return collection.SelectMany(col => col.ParseStringCollection(parserFunc, separator));
+        }
     }
 }

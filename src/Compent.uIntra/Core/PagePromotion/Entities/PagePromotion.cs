@@ -9,7 +9,7 @@ namespace Compent.uIntra.Core.PagePromotion.Entities
 {
     public class PagePromotion : PagePromotionBase, IFeedItem, ICommentable, ILikeable
     {
-        public IEnumerable<Comment> Comments { get; set; } = Enumerable.Empty<Comment>();
+        public IEnumerable<CommentModel> Comments { get; set; } = Enumerable.Empty<CommentModel>();
 
         public IEnumerable<LikeModel> Likes { get; set; } = Enumerable.Empty<LikeModel>();
 

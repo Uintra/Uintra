@@ -1,0 +1,62 @@
+﻿@using System.Web.Mvc.Html
+@using Umbraco.Web
+@using uIntra.Core.Extensions
+@model  Compent.uIntra.Core.Bulletins.BulletinExtendedCreateModel
+
+<div class="bulletin__btn-holder _for-mobile">
+    <a class="bulletin__btn-expand js-expand-bulletin">@Html.Localize("BulletinsCreate.MobileBtn.lbl")</a>
+</div>
+<div class="create-bulletin js-create-bulletin" data-message="@Html.Localize("Common.AreYouSure")">
+    <div class="create-bulletin__dimmed-bg js-create-bulletin__dimmed-bg"></div>
+    <div class="create-bulletin__form">
+        @using (Html.BeginUmbracoForm("CreateExtended", "Bulletins", FormMethod.Post))
+    {
+        <div class="create-bulletin__user">
+            <header class="feed__item-heading clearfix">
+                @Html.Action("Photo", "User", new { user = Model.Creator })
+                <div class="feed__item-title-holder js-create-bulletin__user hidden">
+                    <h2 class="feed__item-title">
+                        @Model.Creator.DisplayedName
+                    </h2>
+                    <p class="feed__item-meta">
+                        @foreach (var date in Model.Dates)
+                    {
+                        <span class="feed__item-date">@date</span>
+                        <span class="feed__item-divider"> - </span>
+                }
+                        <span class="feed__item-category">@Html.Localize(Model.ActivityType.Name)</span>
+                    </p>
+                </div>
+            </header>
+        </div>
+        <div class="create-bulletin__tags">
+            @Html.Action("TagPicker", "UserTags", new { })
+        </div>
+        <div class="dropzone">
+            <div class="dropzone-previews js-dropzone-previews hidden"></div>
+        </div>
+        <div class="create-bulletin__description js-create-bulletin__description"
+             data-placeholder="@Html.Localize("BulletinsCreate.FormPlaceholder.lbl")"></div>
+        <input type="hidden" class="js-create-bulletin__description-hidden" name="@nameof(Model.Description)" />
+        <button class="create-bulletin__close js-create-bulletin__close hidden">X</button>
+        <div class="create-bulletin__toolbar ql-toolbar ql-snow js-create-bulletin__toolbar hidden">
+            <span class="ql-formats">
+                <button type="button" class="ql-bold" title="bold"></button>
+                <button type="button" class="ql-italic" title="italic"></button>
+                <button type="button" class="ql-link" title="link"></button>
+                <button type="button" class="ql-emoji" title="emoji"></button>
+            </span>
+            <span class="ql-formats">
+                <button type="button" class="js-dropzone _upload" data-allowed="@Model.AllowedMediaExtensions" data-remove-text="@Html.Localize("FileUploadView.RemoveFile.lbl")">
+                    @Html.Localize("FileUploadView.File.lbl")
+                </button>
+                <input type="hidden" class="js-new-media" name="@nameof(Model.NewMedia)" />
+            </span>
+            <span class="ql-formats">
+                <button class="_send js-toolbar__send-button" disabled="disabled">@Html.Localize("BulletinsCreate.Post.lbl")</button>
+            </span>
+        </div>
+        <input type="hidden" name="@nameof(Model.MediaRootId)" value="@Model.MediaRootId" />
+}
+    </div>
+</div>

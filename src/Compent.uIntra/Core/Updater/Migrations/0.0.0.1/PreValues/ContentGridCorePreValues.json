@@ -1,0 +1,115 @@
+{
+  "items": {
+    "styles": [
+      {
+        "label": "Set a background image",
+        "description": "Set a row background",
+        "key": "background-image",
+        "view": "imagepicker",
+        "modifier": "url({0})"
+      }
+    ],
+    "config": [
+      {
+        "label": "Class",
+        "description": "Set a css class",
+        "key": "class",
+        "view": "textstring"
+      }
+    ],
+    "columns": 12,
+    "templates": [
+      {
+        "name": "",
+        "sections": [
+          {
+            "grid": 8
+          },
+          {
+            "grid": 4,
+            "allowAll": false,
+            "allowed": [
+              "One column row"
+            ]
+          }
+        ]
+      }
+    ],
+    "layouts": [
+      {
+        "name": "One column row",
+        "areas": [
+          {
+            "grid": 12,
+            "allowAll": false,
+            "allowed": [
+              "custom.ContentPanel",
+              "custom.GlobalPanelPicker",
+              "custom.ComingEvents",
+              "custom.DocumentLibraryPanel",
+              "custom.Comments",
+              "custom.Likes",
+              "custom.FaqPanel",
+              "custom.UsersTags"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Two column row",
+        "areas": [
+          {
+            "grid": 6,
+            "allowAll": false,
+            "allowed": [
+              "custom.ContentPanel",
+              "custom.GlobalPanelPicker",
+              "custom.ComingEvents",
+              "custom.DocumentLibraryPanel",
+              "custom.Comments",
+              "custom.Likes",
+              "custom.FaqPanel",
+              "custom.UsersTags"
+            ]
+          },
+          {
+            "grid": 6,
+            "allowAll": false,
+            "allowed": [
+              "custom.ContentPanel",
+              "custom.GlobalPanelPicker",
+              "custom.ComingEvents",
+              "custom.DocumentLibraryPanel",
+              "custom.FaqPanel",
+              "custom.UsersTags"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "rte": {
+    "toolbar": [
+      "code",
+      "styleselect",
+      "bold",
+      "italic",
+      "alignleft",
+      "aligncenter",
+      "alignright",
+      "bullist",
+      "numlist",
+      "outdent",
+      "indent",
+      "link",
+      "umbmediapicker",
+      "umbmacro",
+      "umbembeddialog"
+    ],
+    "stylesheets": [ ],
+    "dimensions": {
+      "height": 500
+    },
+    "maxImageSize": 500
+  }
+}

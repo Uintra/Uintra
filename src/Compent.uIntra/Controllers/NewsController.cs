@@ -16,6 +16,8 @@ using uIntra.Groups.Extensions;
 using uIntra.News;
 using uIntra.News.Web;
 using uIntra.Search;
+using Compent.uIntra.Core.UserTags;
+using uIntra.Tagging.UserTags;
 
 namespace Compent.uIntra.Controllers
 {
@@ -29,6 +31,8 @@ namespace Compent.uIntra.Controllers
         private readonly INewsService<News> _newsService;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IGroupActivityService _groupActivityService;
+        private readonly UserTagService _userTagService;
+        private readonly IActivityTagsHelper _activityTagsHelper;
 
         public NewsController(
             IIntranetUserService<IIntranetUser> intranetUserService,
@@ -37,12 +41,17 @@ namespace Compent.uIntra.Controllers
             IIntranetUserContentProvider intranetUserContentProvider,
             IActivityTypeProvider activityTypeProvider, 
             IDocumentIndexer documentIndexer,
-            IGroupActivityService groupActivityService)
-            : base(intranetUserService, newsService, mediaHelper, activityTypeProvider)
+            IGroupActivityService groupActivityService,
+            UserTagService userTagService,
+            IActivityTagsHelper activityTagsHelper,
+            IActivityLinkService activityLinkService)
+            : base(intranetUserService, newsService, mediaHelper, activityTypeProvider, activityLinkService)
         {
             _newsService = newsService;
             _documentIndexer = documentIndexer;
             _groupActivityService = groupActivityService;
+            _userTagService = userTagService;
+            _activityTagsHelper = activityTagsHelper;
         }
 
         public ActionResult FeedItem(News item, ActivityFeedOptionsWithGroups options)
@@ -50,6 +59,8 @@ namespace Compent.uIntra.Controllers
             var extendedModel = GetItemViewModel(item, options);
             return PartialView(ItemViewPath, extendedModel);
         }
+
+
 
         private NewsExtendedItemViewModel GetItemViewModel(News item, ActivityFeedOptionsWithGroups options)
         {
@@ -69,6 +80,39 @@ namespace Compent.uIntra.Controllers
         {
             NewsPreviewViewModel viewModel = GetPreviewViewModel(item, links);
             return PartialView(PreviewItemViewPath, viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult EditExtended(NewsExtendedEditModel editModel)
+        {
+            return Edit(editModel);
+        }
+
+        [HttpPost]
+        public ActionResult CreateExtended(NewsExtendedCreateModel createModel)
+        {
+            return Create(createModel);
+        }
+
+        protected override NewsEditModel GetEditViewModel(NewsBase news, ActivityLinks links)
+        {
+            var extendedModel = base.GetEditViewModel(news, links).Map<NewsExtendedEditModel>();
+            //extendedModel.TagIdsData = _userTagService.GetRelatedTags(extendedModel.Id).JoinToString();
+            return extendedModel;
+        }
+
+        protected override NewsCreateModel GetCreateModel(IActivityCreateLinks links)
+        {
+            var extendedModel = base.GetCreateModel(links).Map<NewsExtendedCreateModel>();
+            return extendedModel;
+        }
+
+        protected override void OnNewsEdited(NewsBase news, NewsEditModel model)
+        {
+            if (model is NewsExtendedEditModel extendedModel)
+            {
+                _activityTagsHelper.ReplaceTags(news.Id, extendedModel.TagIdsData);
+            }
         }
 
         protected override NewsViewModel GetViewModel(NewsBase news)
@@ -94,6 +138,10 @@ namespace Compent.uIntra.Controllers
                 _groupActivityService.AddRelation(groupId.Value, activityId);
                 var news = _newsService.Get(activityId);
                 news.GroupId = groupId;
+            }
+            if (model is NewsExtendedCreateModel extendedModel)
+            {
+                _activityTagsHelper.ReplaceTags(activityId, extendedModel.TagIdsData);
             }
         }
     }

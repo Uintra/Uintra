@@ -172,27 +172,25 @@ let initDatePickers = function () {
     let start = helpers.initDatePicker(holder, '#js-start-date', '#js-start-date-value');
     let end = helpers.initDatePicker(holder, '#js-end-date', '#js-end-date-value');
     let publish = helpers.initDatePicker(holder, '#js-publish-date', '#js-publish-date-value');
-    let pin = pinActivity.initPinDate(holder);
+    let pin = pinActivity.initPinDate(holder, publish.selectedDates[0]);
 
     function startOnChange(newDates) {
         let newDate = newDates[0];
         let endDate = end.selectedDates[0];
         if (endDate != null && endDate < new Date(newDate)) {
             end.setDate(newDate);
-            pin.setDate(newDate);
         }
         end.set('minDate', newDate);
-        pin.setDate(newDate);
+    }
+
+    function publishOnChange(newDates) {
+        var newDate = newDates[0];
+        pin.setDate(newDate, true);
         pin.set('minDate', newDate);
     }
 
-    function endOnChange(newDates) {
-        var newDate = newDates[0];
-        pin.setDate(newDate);
-    }
-
     start.config.onChange.push(startOnChange);
-    end.config.onChange.push(endOnChange);
+    publish.config.onChange.push(publishOnChange);
 }
 
 let controller = {

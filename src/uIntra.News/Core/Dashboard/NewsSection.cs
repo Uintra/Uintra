@@ -6,7 +6,7 @@ namespace uIntra.News.Dashboard
     {
         protected const string Alias = "news";
         protected const string Name = "News";
-        protected const string Icon = "icon-newspaper-alt _news-section-color";
+        protected const string Icon = "icon-newspaper-alt color-red";
 
         public static void AddSectionToAllUsers(ApplicationContext applicationContext)
         {
