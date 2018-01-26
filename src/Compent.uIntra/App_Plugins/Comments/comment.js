@@ -5,20 +5,6 @@ require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 require("./../Core/Content/libs/jquery.validate.unobtrusive.min.js");
 require("./comments.css");
 
-const quillOptions = {
-    theme: 'snow',
-    modules: {
-        toolbar: [['bold', 'italic', 'underline'], ['link'], ['emoji']]
-    }
-    /*modules: {
-        toolbar: {
-            container: toolbarSelector
-        }
-    },
-    theme: 'snow',
-    placeholder: 'Tilføj kommentar'*/
-};
-
 var initSubmitButton  = function(holder) {
     var createControls = holder.find('.js-comment-create');
     createControls.each(function () {
@@ -50,10 +36,9 @@ var initCreateControl = function (holder) {
 
         var dataStorage = $this.find('.js-hidden-comment-create-description')[0];
         var descriptionElem = $this.find('.js-comment-create-description')[0];
-        var quill = helpers.initQuill(descriptionElem, dataStorage, quillOptions);
+        var quill = helpers.initQuill(descriptionElem, dataStorage);
         var button = $this.find('.js-comment-create-btn');
         var toolbarBtns = $this.find('.ql-formats button');
-        let emojiContainer = $this.find(".js-emoji");
 
         toolbarBtns.each(function(){
             var className = $(this).attr('class').split("-");
@@ -67,11 +52,6 @@ var initCreateControl = function (holder) {
 
         quill.setText('');
         dataStorage.value = '';
-
-        if(emojiContainer.length <= 0){
-            helpers.initSmiles(quill, quill.getModule('toolbar').container);
-            emojiContainer = true;
-        }
     });
 };
 
@@ -85,17 +65,12 @@ var initEdit = function (holder) {
 
     var editControlContainer = findControl(holder, '.js-comment-editContainer');
     var descriptionControl = findControl(holder, '.js-comment-description');
-    let emojiContainer = findControl(editControlContainer, '.js-emoji')[0];
 
     editlink.on('click', function () {
         editlink.hide();
         hideEditlink.show();
         descriptionControl.hide();
         editControlContainer.show();
-        if(!emojiContainer || emojiContainer.length <= 0){
-            helpers.initSmiles(quill, quill.getModule('toolbar').container);
-            emojiContainer = true;
-        }
     });
 
     hideEditlink.on('click', function () {
@@ -107,7 +82,7 @@ var initEdit = function (holder) {
 
     var dataStorage = findControl(holder, '.js-hidden-comment-edit-description')[0];
     var descriptionElem = findControl(holder, '.js-comment-edit-description')[0];
-    var quill = helpers.initQuill(descriptionElem, dataStorage, quillOptions);
+    var quill = helpers.initQuill(descriptionElem, dataStorage);
     var button = holder.find('.js-comment-edit-btn');
     var form = holder.find('.js-comment-edit');
     
@@ -143,17 +118,12 @@ var initReply = function (holder) {
     }
 
     var commentReply = findControl(holder, '.js-comment-reply');
-    let emojiContainer = findControl(commentReply, ".js-emoji")[0];
 
     showReplyLink.on('click', function () {
         showReplyLink.hide();
         hideReplyLink.show();
         commentReply.show();
         scrollToComment($(this));
-        if(!emojiContainer || emojiContainer.length <= 0){
-            helpers.initSmiles(quill, quill.getModule('toolbar').container);
-            emojiContainer = true;
-        }
     });
 
     hideReplyLink.on('click', function () {
@@ -164,7 +134,7 @@ var initReply = function (holder) {
 
     var dataStorage = findControl(holder, '.js-hidden-comment-create-description')[0];
     var descriptionElem = findControl(holder, '.js-comment-create-description')[0];
-    var quill = helpers.initQuill(descriptionElem, dataStorage, quillOptions);
+    var quill = helpers.initQuill(descriptionElem, dataStorage);
     var button = holder.find('.js-comment-create-btn');
 
     var toolbarBtns = commentReply.find('.ql-formats button');

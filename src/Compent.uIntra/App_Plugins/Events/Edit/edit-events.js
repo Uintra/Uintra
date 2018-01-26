@@ -84,15 +84,14 @@ let initDescriptionControl = function () {
         placeholder: dataStorage.first().data('placeholder') || '',
         modules: {
             toolbar: toolbarOptions
-        },
-        theme: 'snow'
+        }
     });
 
-    let emojiContainer = editor.container.querySelector(".js-emoji");
-    if (!emojiContainer) {
-        helpers.initSmiles(editor, editor.getModule('toolbar').container);
-        emojiContainer = true;
-    }
+    //let emojiContainer = editor.container.querySelector(".js-emoji");
+    //if (!emojiContainer) {
+    //    helpers.initSmiles(editor, editor.getModule('toolbar').container);
+    //    emojiContainer = true;
+    //}
 
     editor.on('text-change', function () {
         if (!editor.getText().trim()) {
