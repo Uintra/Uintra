@@ -147,10 +147,10 @@ Task("NuGet-Pack")
 });
 
 Task("Copy-Package-To-Gallery")
-    .WithCriteria(isLocalNugetBuild)
     .Does(() =>
 {
-    var packagesLocation = "C:/inetpub/Nuget/Packages";
+    var deploymentRelativePath = @"temp\uIntra\Packages";
+    var packagesLocation = isLocalNugetBuild ? "C:/inetpub/Nuget/Packages" : $@"{hetznerWebIp}\{deploymentRelativePath}";
     Information("Copying package to package location...");
 
     var nugetPackage = GetFiles(project.NugetDirectoryPath + "/*.nupkg").SingleOrDefault();
@@ -160,28 +160,11 @@ Task("Copy-Package-To-Gallery")
     }
 
     CopyFileToDirectory(nugetPackage, packagesLocation);
-});
 
-Task("Copy-Package-To-Hetzner")
-    .WithCriteria(!isLocalNugetBuild)
-    .Does(() =>
-{
-    Information("Zipping package to package location...");
-    var deploymentRelativePath = @"temp\uIntra\Packages";
-    var packagesLocation = $@"{hetznerWebIp}\{deploymentRelativePath}";
-    Information($"AssemblyInfoPath: {project.AssemblyInfoPath}");
-    var assemblyInfo = ParseAssemblyInfo(project.AssemblyInfoPath);
-    var deploymentPackage = $"uIntraPackages.{assemblyInfo.AssemblyVersion}.zip";
-    var deploymentPackageFile = new FilePath(deploymentPackage);
-
-    Information($"Zipping: {project.NugetDirectoryPath}");
-    Zip(project.NugetDirectoryPath, deploymentPackage, "*.nupkg");
-
-    Information("Copying package to package location...");
-    CopyFileToDirectory(deploymentPackageFile, packagesLocation);
-    DeleteFile(deploymentPackageFile);
-
-    Information($@"Download package by link: \\136.243.176.173\{deploymentRelativePath}\{deploymentPackage}");
+    if(!isLocalNugetBuild)
+    {
+        Information($@"Download package by link: \\136.243.176.173\{deploymentRelativePath}\{nugetPackage.GetFilename()}");
+    }
 });
 
 Task("Add-Git-Tag")
@@ -201,6 +184,12 @@ Task("Add-Git-Tag")
     StartProcess("git", "push origin " + tag);
 });
 
+Task("Test")
+    .Does(() =>
+{
+    Zip(project.NugetDirectoryPath, deploymentPackage, "*.nupkg");
+});
+
 // TARGETS
 Task(DefaultTargetKey)
     .Description("This is the default task which will be ran if no specific target is passed in.")
@@ -210,7 +199,6 @@ Task(DefaultTargetKey)
     .IsDependentOn("Npm-Install")
     .IsDependentOn("Webpack")
     .IsDependentOn("NuGet-Pack")
-    .IsDependentOn("Copy-Package-To-Hetzner")
     .IsDependentOn("Copy-Package-To-Gallery")
     .IsDependentOn("Add-Git-Tag");
 
