@@ -8,7 +8,8 @@ var target = Argument<string>("target", "Default");
 var configuration = Argument<string>("configuration", "Release");
 
 // GLOBAL VARIABLES
-var packagesLocation = "C:/inetpub/Nuget/Packages";
+var isLocalNugetBuild = target == DefaultTargetKey && configuration == "Release";
+var hetznerWebIp = @"\\192.168.200.2";
 
 string projectName = GetProjectName(target);
 
@@ -94,14 +95,14 @@ Task("DeployOnBuild")
     CopyDirectory($"{project.Directory}/umbraco", $"{project.DeploymentSourceDirectory}/umbraco");
     CopyDirectory($"{project.Directory}/umbraco_client", $"{project.DeploymentSourceDirectory}/umbraco_client");
 
-    var assemblyInfo = ParseAssemblyInfo($"{project.Directory}/Properties/AssemblyInfo.cs");
+    var assemblyInfo = ParseAssemblyInfo(project.AssemblyInfoPath);
     var deploymentPackage = $"uIntra.{assemblyInfo.AssemblyVersion}.zip";
     var deploymentPackageFile = new FilePath(deploymentPackage);
 
     Zip(project.DeploymentSourceDirectory, deploymentPackage);
 
     var deploymentRelativePath = @"temp\uIntra\ManualInstallation";
-    var deploymentDestination = $@"\\192.168.200.2\{deploymentRelativePath}";
+    var deploymentDestination = $@"{hetznerWebIp}\{deploymentRelativePath}";
 
     CopyFileToDirectory(deploymentPackageFile, deploymentDestination);
     DeleteFile(deploymentPackageFile);
@@ -141,13 +142,15 @@ Task("NuGet-Pack")
         OutputDirectory = project.NugetDirectoryPath,
         ArgumentCustomization = args => args.Append("-Prop Configuration=" + configuration)
     };
-
-    NuGetPack(project.Directory + "/" + project.File, nuGetPackSettings);
+    
+    NuGetPack(project.File, nuGetPackSettings);
 });
 
-Task("Copy-Package-To-Packages-Location")
+Task("Copy-Package-To-Gallery")
+    .WithCriteria(isLocalNugetBuild)
     .Does(() =>
 {
+    var packagesLocation = "C:/inetpub/Nuget/Packages";
     Information("Copying package to package location...");
 
     var nugetPackage = GetFiles(project.NugetDirectoryPath + "/*.nupkg").SingleOrDefault();
@@ -159,7 +162,28 @@ Task("Copy-Package-To-Packages-Location")
     CopyFileToDirectory(nugetPackage, packagesLocation);
 });
 
+Task("Copy-Package-To-Hetzner")
+    .WithCriteria(!isLocalNugetBuild)
+    .Does(() =>
+{
+    Information("Zipping package to package location...");
+    var deploymentRelativePath = @"temp\uIntra\Packages";
+    var packagesLocation = $@"{hetznerWebIp}\{deploymentRelativePath}";
+    var assemblyInfo = ParseAssemblyInfo(project.AssemblyInfoPath);
+    var deploymentPackage = $"uIntraPackages.{assemblyInfo.AssemblyVersion}.zip";
+    var deploymentPackageFile = new FilePath(deploymentPackage);
+
+    Zip(project.NugetDirectoryPath, deploymentPackage, "./*.nupkg");
+
+    Information("Copying package to package location...");
+    CopyFileToDirectory(deploymentPackageFile, packagesLocation);
+    DeleteFile(deploymentPackageFile);
+
+     Information($@"Download package by link: \\136.243.176.173\{deploymentRelativePath}\{deploymentPackage}");
+});
+
 Task("Add-Git-Tag")
+    .WithCriteria(isLocalNugetBuild)
     .Does(() =>
 {
     Information("Adding git tag...");
@@ -184,7 +208,8 @@ Task(DefaultTargetKey)
     .IsDependentOn("Npm-Install")
     .IsDependentOn("Webpack")
     .IsDependentOn("NuGet-Pack")
-    .IsDependentOn("Copy-Package-To-Packages-Location")
+    .IsDependentOn("Copy-Package-To-Hetzner")
+    .IsDependentOn("Copy-Package-To-Gallery")
     .IsDependentOn("Add-Git-Tag");
 
 Task(ManualInstallationPackageTargetKey)

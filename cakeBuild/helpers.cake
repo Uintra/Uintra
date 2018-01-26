@@ -17,6 +17,8 @@ public class BuildProject
     public DirectoryPath DeploymentSourceDirectory { get; set; }
 
     public string NugetDirectoryPath { get; set; }
+
+    public string AssemblyInfoPath { get; set; }
 }
 
 BuildProject GetBuildProject(string projectName, string configuration){
@@ -34,7 +36,8 @@ BuildProject GetBuildProject(string projectName, string configuration){
         GitDirectory = GitFindRootFromPath(directory),
         NugetDirectoryPath = $"{directory}/bin/{configuration}",
         DeploymentDirectory = deploymentDirectory,
-        DeploymentSourceDirectory = new DirectoryPath($"{deploymentDirectory}/_PublishedWebsites/{projectName}")
+        DeploymentSourceDirectory = new DirectoryPath($"{deploymentDirectory}/_PublishedWebsites/{projectName}"),
+        AssemblyInfoPath = $"{directory}/Properties/AssemblyInfo.cs"
     };
 }
 
