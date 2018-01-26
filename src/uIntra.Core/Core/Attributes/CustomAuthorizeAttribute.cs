@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using Umbraco.Core;
 
 namespace uIntra.Core.Attributes
 {
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
-        private const string UmbracoIdentifier = "umbraco";
+        private static readonly string[] UmbracoIdentifier = { "install", "umbraco" };
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
@@ -14,6 +15,6 @@ namespace uIntra.Core.Attributes
             base.OnAuthorization(filterContext);
         }
 
-        private static bool IsUriAllowed(Uri uri) => uri.Segments.Any(s => s.Contains(UmbracoIdentifier));
+        private static bool IsUriAllowed(Uri uri) => uri.Segments.Any(s => s.ContainsAny(UmbracoIdentifier));
     }
 }
