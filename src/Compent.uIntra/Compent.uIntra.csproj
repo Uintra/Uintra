@@ -40,7 +40,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <TransformWebConfigEnabled>False</TransformWebConfigEnabled>
     <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -1529,6 +1528,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'QA|AnyCPU' ">
+    <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DISABLE_LICENCE</DefineConstants>
     <LangVersion>latest</LangVersion>
@@ -1544,7 +1544,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PublicNuget|AnyCPU'">
-    <TransformWebConfigEnabled>False</TransformWebConfigEnabled>
     <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -1557,7 +1556,6 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ManualInstallation|AnyCPU'">
-    <TransformWebConfigEnabled>False</TransformWebConfigEnabled>
     <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE;DISABLE_LICENCE</DefineConstants>
