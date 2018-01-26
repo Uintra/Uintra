@@ -22,7 +22,6 @@ var initSubmitButton  = function(holder) {
 var initCreateControl = function (holder) {
     var createControls = holder.find('.js-comment-create');
 
-
     createControls.each(function () {
         var $this = $(this);
 
@@ -86,7 +85,6 @@ var initEdit = function (holder) {
     var button = holder.find('.js-comment-edit-btn');
     var form = holder.find('.js-comment-edit');
     
-
     button.click(function (event) {
         if (!form.valid()) {
             return;

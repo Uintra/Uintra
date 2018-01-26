@@ -34,18 +34,35 @@ const helpers = {
 
         if (typeof options == 'undefined') {
             settings.modules = {
-                toolbar: [['bold', 'italic', 'underline'], ['link'], ['emoji']]
+                toolbar: {
+                    container: [['bold', 'italic', 'underline'], ['link'], ['emoji']]
+                }
             };
-
-            settings.handlers = {
-                'emoji': function () { }
-            }
         }
         else {
             $.extend(settings, options);
         }
 
         let quill = new Quill(source, settings);
+        let toolbar = quill.getModule('toolbar');
+
+        //override default link handler
+        toolbar.addHandler('link', function (value) {
+            if (value) {
+                let range = this.quill.getSelection();
+                if (range == null || range.length == 0) return;
+                let preview = this.quill.getText(range);
+                let tooltip = this.quill.theme.tooltip;
+                if (/^\S+@\S+\.\S+$/.test(preview) && preview.indexOf('mailto:') !== 0) {
+                    preview = 'mailto:' + preview;
+                    tooltip.edit('link', preview);
+                } else {
+                    tooltip.edit('link', '');
+                }
+            } else {
+                this.quill.format('link', false);
+            }
+        });
 
         quill.on('text-change', (delta, oldDelta, source) => {
             var n = quill.container.querySelectorAll("img").length;
@@ -118,7 +135,13 @@ const helpers = {
             return delta;
         });
 
-        helpers.initSmiles(quill, quill.getModule('toolbar').container);
+        //init emoji smiles
+        helpers.initSmiles(quill, toolbar.container);
+
+        //override link's tooltip placeholder
+        const tooltip = quill.theme.tooltip;
+        let input = tooltip.root.querySelector("input[data-link]");
+        input.dataset.link = location.host;
 
         return quill;
     },

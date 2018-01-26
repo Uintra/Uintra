@@ -87,12 +87,6 @@ let initDescriptionControl = function () {
         }
     });
 
-    //let emojiContainer = editor.container.querySelector(".js-emoji");
-    //if (!emojiContainer) {
-    //    helpers.initSmiles(editor, editor.getModule('toolbar').container);
-    //    emojiContainer = true;
-    //}
-
     editor.on('text-change', function () {
         if (!editor.getText().trim()) {
             dataStorage.val('');
