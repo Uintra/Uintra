@@ -9,14 +9,14 @@
     ._details &{
         margin-bottom:36px;
     }
-
+ 
     &__item{
         padding:0;
         position:relative;
         margin:0 0 10px 10px;
         overflow:hidden;
 
-        ._full-size &{
+        &._full-size{
             max-width:100%;
             width:100%;
             max-height:initial;
@@ -77,7 +77,7 @@
 
         ._full-size &{
             height:auto !important;
-            width: 100%;
+            max-width: 100%;
         }
     }
 

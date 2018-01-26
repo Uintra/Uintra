@@ -3,7 +3,10 @@
 <applications xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <add alias="news" name="News" icon="icon-newspaper-alt color-red" sortOrder="0" xdt:Locator="Condition(@alias='news')" xdt:Transform="InsertIfMissing"/>
   <add alias="events" name="Events" icon="icon-calendar-alt color-red" sortOrder="0" xdt:Locator="Condition(@alias='events')" xdt:Transform="InsertIfMissing"/>
+  
+  <add alias="bulletins" xdt:Locator="Condition(@alias='bulletins')" xdt:Transform="Remove"/>
   <add alias="bulletins" name="Bulletins" icon="icon-notepad color-red" sortOrder="0" xdt:Locator="Condition(@alias='bulletins')" xdt:Transform="InsertIfMissing"/>
+  
   <add alias="NotificationSettings" name="NotificationSettings" icon="icon-timer color-red" sortOrder="0" xdt:Locator="Condition(@alias='NotificationSettings')" xdt:Transform="InsertIfMissing"/>
   <add alias="groups" name="Groups" icon="icon-chat color-red" sortOrder="0" xdt:Locator="Condition(@alias='groups')" xdt:Transform="InsertIfMissing"/>
   <add alias="SentMails" name="Sent Mails" icon="icon-message color-red" sortOrder="0" xdt:Locator="Condition(@alias='SentMails')" xdt:Transform="InsertIfMissing"/>

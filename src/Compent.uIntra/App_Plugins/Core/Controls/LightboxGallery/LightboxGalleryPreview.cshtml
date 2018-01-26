@@ -5,11 +5,11 @@
     var fullSizeClass = Model.Images.Count() > 1 ? String.Empty : "_full-size";
 }
 
-<ul class="gallery js-lightbox-gallery clearfix @fullSizeClass">
+<ul class="gallery js-lightbox-gallery clearfix">
     @foreach (var image in Model.Images)
     {
         var originalSize = $"{image.Width}x{image.Height}";
-        <li class="gallery__item" style="@(image.IsHidden ? "display:none;" : string.Empty)">
+        <li class="gallery__item  @fullSizeClass" style="@(image.IsHidden ? "display:none;" : string.Empty)">
             <img class="gallery__image" src="@image.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@image.Url" height="100" />
         </li>
     }

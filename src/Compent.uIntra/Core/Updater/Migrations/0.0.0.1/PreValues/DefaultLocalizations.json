@@ -1,397 +1,17 @@
 [
   {
-    "Key": "LeftNavigationUserMenu.ViewProfile.lbl",
-    "Translations": { "en-US": "View profile" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupMembers.Table.Name.lbl",
-    "Translations": { "en-US": "Name" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "MyLinks.Add.lbl",
-    "Translations": { "en-US": "Add to My Links" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "IdeasList.HasGroup.lbl",
-    "Translations": { "en-US": "Group" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Common.AreYouSure.Ok",
-    "Translations": { "en-US": "Yes" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "News",
-    "Translations": { "en-US": "News" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupInfo.MembersCount",
-    "Translations": { "en-US": "Members count" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.PublishDateRequired.lbl",
-    "Translations": { "en-US": "Publish date required" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupMembers.Title",
-    "Translations": { "en-US": "Title" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Pin.Activity.lbl",
-    "Translations": { "en-US": "Set as important" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "SubscribeSettings.CanSubscribe.lbl",
-    "Translations": { "en-US": "Event participation" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "SubscribeView.Unsubscribe.lnk",
-    "Translations": { "en-US": "Unsubscribe" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Events.Description.placeholder",
-    "Translations": { "en-US": "Description" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "UserTagsView.Title.lbl",
-    "Translations": { "en-US": "This activity is tagged" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Pin.AcceptPin.lbl",
-    "Translations": { "en-US": "Accept" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "DeactivatedGroupPage.GroupWasDisabled.lbl",
-    "Translations": { "en-US": "Group was hidden" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupRoom.Navigation.All.lbl",
-    "Translations": { "en-US": "All" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Pin.SetPinned.lbl",
-    "Translations": { "en-US": "Set as important" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Search.Content",
-    "Translations": { "en-US": "Content" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "SearchBox.Empty.lbl",
-    "Translations": { "en-US": "Try to find something else" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CreateIGroup.DescriptionRequired.lbl",
-    "Translations": { "en-US": "A description is required" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsItemView.Pinned.lbl",
-    "Translations": { "en-US": "Important" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupMembers.Table.GroupMember.lbl",
-    "Translations": { "en-US": "Group member" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Events.Title.placeholder",
-    "Translations": { "en-US": "Title" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Search.Filter.All.lbl",
-    "Translations": { "en-US": "All" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Search.Filter.Events",
-    "Translations": { "en-US": "Events" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "DetailsView.GoBal.lbl",
-    "Translations": { "en-US": "Go back" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Comments.Empty.lbl",
-    "Translations": { "en-US": "Comments" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Search.Filter.Document",
-    "Translations": { "en-US": "Documents" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Common.NotifyAllSubscribers",
-    "Translations": { "en-US": "Would you like to notify all subscribers about this change?" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupActivity.lbl",
-    "Translations": { "en-US": "Group" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
     "Key": "CommentsView.ModifyDate.lbl",
     "Translations": { "en-US": "Edited at" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "GroupEdit.PageTitle.lbl",
-    "Translations": { "en-US": "Page title" },
+    "Key": "Common.NotifyAllSubscribers.Title",
+    "Translations": { "en-US": "Confirm" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "CentralFeedList.ShowSubscribed.chkbx",
-    "Translations": { "en-US": "Show Subscribed" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Common.NotifyAllSubscribers.Cancel",
-    "Translations": { "en-US": "Cancel" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Search.Filter.News",
-    "Translations": { "en-US": "News" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "TopNavigation.EditProfile.lbl",
-    "Translations": { "en-US": "Edit profile" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsEdit.Title.lbl",
-    "Translations": { "en-US": "Title" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupMembers.Delete.Text.lbl",
-    "Translations": { "en-US": "Delete" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Search.Bulletins",
-    "Translations": { "en-US": "Bulletin" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "DetailsView.Important.lbl",
-    "Translations": { "en-US": "Important" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "All",
-    "Translations": { "en-US": "All" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Login.Validation.UserNotValid",
-    "Translations": { "en-US": "User not valid" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "LightboxGallery.Count.lbl",
-    "Translations": { "en-US": "File(s) added" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "DetailsView.GoToList.lbl",
-    "Translations": { "en-US": "Go to list" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "TopNavigation.Logout.lbl",
-    "Translations": { "en-US": "Logout" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupCreate.Description.lbl",
-    "Translations": { "en-US": "Description" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Search.Document",
-    "Translations": { "en-US": "Document" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CentralFeedList.OpenFilters.lbl",
-    "Translations": { "en-US": "FILTER" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsCreate.UnpublishDate.lbl",
-    "Translations": { "en-US": "Unpublish date" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Last Name",
-    "Translations": { "en-US": "" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CommentsView.Delete.lbl",
-    "Translations": { "en-US": "Delete" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NotificationPreview.ShowAllNotifications.lbl",
-    "Translations": { "en-US": "See all notifications" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Login.Password.Required",
-    "Translations": { "en-US": "Required" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "BrowserCompatibility.Notification.Message",
-    "Translations": { "en-US": "NB! Your browser is not fully compatible with the current version of Intranet." },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Search.News",
-    "Translations": { "en-US": "News" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "TopNavigation.LoginToUmbraco.lbl",
-    "Translations": { "en-US": "Login to Umbraco" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupInfo.Unsubscribe.Message.lnk",
-    "Translations": { "en-US": "Are you sure?" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "SystemLinks.Menu.lbl",
-    "Translations": { "en-US": "System Links Block" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "UserTagsPicker.AddTags.lbl",
-    "Translations": { "en-US": "Tag(s)" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Pin.AcceptPinText.lbl",
-    "Translations": { "en-US": "Note: Checking the post as \"Important\" will give the post a visual \"Important\" marker and pin the post on the top of the feed. In \"Set date for Unpin\" the date for when the post will be unpinned can be chosen, if nothing is chosen, the post remains pinned indefinitely. The post remains \"Important\" no matter if it is pinned or not." },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CreateGroup.TitleRequired.lbl",
-    "Translations": { "en-US": "A title is required" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupCreate.GroupImage.note",
-    "Translations": { "en-US": "" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CreateEvents.TitleMaxLength.lbl",
-    "Translations": { "en-US": "The title is must be shorter than {0} characters" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupCreate.GroupTitle.lbl",
-    "Translations": { "en-US": "GroupTitle" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CommentsOverView.AddComment.lbl",
-    "Translations": { "en-US": "Add comment" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsEdit.UploadFiles.lbl",
-    "Translations": { "en-US": "File(s)" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Likes.Title.lbl",
-    "Translations": { "en-US": "Likes" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CommentLikeAdded",
-    "Translations": { "en-US": "liked your comment" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EVENTITEMVIEW.PINNED.LBL",
-    "Translations": { "en-US": "Important" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CommentEdited",
-    "Translations": { "en-US": "edited comment" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "buy HTTPS licence for this domain right?\n\n\n\n#CentralFeedList.Empty.lbl",
-    "Translations": { "en-US": "No activities yet" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Login.Login.ph",
-    "Translations": { "en-US": "Login" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "SearchBox.SeeAll.lnk",
-    "Translations": { "en-US": "See all search results" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "SubscribersOverView.Title.lbl",
-    "Translations": { "en-US": "List of subscribed users" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupCreate.FormTitle.lbl",
-    "Translations": { "en-US": "Create Group" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Profile.DeletePhotoConfirm.lbl",
-    "Translations": { "en-US": "Are you sure you want to remove this profile picture" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Commentsview.HideBtn.Text",
-    "Translations": { "en-US": "Cancel" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Profile.UploadNewPhoto.lbl",
-    "Translations": { "en-US": "Upload Photo" },
+    "Key": "Links.Menu.lbl",
+    "Translations": { "en-US": "My Links" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -400,28 +20,8 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "UserTagsPicker.Placeholder.lbl",
-    "Translations": { "en-US": "Tags" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "SubscribeSettings.SubscribeNotes.lbl",
-    "Translations": { "en-US": "Make it possible for people to subscribe to your event" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "PagePromotion.ContentPage",
-    "Translations": { "en-US": "Promotion" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupEdit.Hide.btn",
-    "Translations": { "en-US": "Hide" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupInfo.Unsubscribe.lnk",
-    "Translations": { "en-US": "Unsubscribe" },
+    "Key": "CommentsOverView.EditComment.btn",
+    "Translations": { "en-US": "Save" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -430,8 +30,448 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
+    "Key": "GroupCreate.FormTitle.lbl",
+    "Translations": { "en-US": "Create Group" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsItemView.Pinned.lbl",
+    "Translations": { "en-US": "Important" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupRoom.Navigation.All.lbl",
+    "Translations": { "en-US": "All" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CommentReplied",
+    "Translations": { "en-US": "replied on your comment" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Search.Events",
+    "Translations": { "en-US": "Event" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
     "Key": "Groups.Create.lbl",
     "Translations": { "en-US": "Create group" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Search.User",
+    "Translations": { "en-US": "User" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NotificationPreview.ShowAllNotifications.lbl",
+    "Translations": { "en-US": "See all notifications" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Commentsview.HideBtn.Text",
+    "Translations": { "en-US": "Cancel" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "DetailsView.GoBal.lbl",
+    "Translations": { "en-US": "Go back" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CentralFeedList.ShowSubscribed.chkbx",
+    "Translations": { "en-US": "Show Subscribed" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.PublishDateRequired.lbl",
+    "Translations": { "en-US": "Publish date required" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupMembers.Table.Role.lbl",
+    "Translations": { "en-US": "Role" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Pin.AcceptPinText.lbl",
+    "Translations": { "en-US": "Note: Checking the post as \"Important\" will give the post a visual \"Important\" marker and pin the post on the top of the feed. In \"Set date for Unpin\" the date for when the post will be unpinned can be chosen, if nothing is chosen, the post remains pinned indefinitely. The post remains \"Important\" no matter if it is pinned or not." },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CommentsOverView.ReadOnlyMessage.lbl",
+    "Translations": { "en-US": "Only subscribed person can comment activity in the group" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupInfo.IsSubscribed.lbl",
+    "Translations": { "en-US": "You are subscribed" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "SystemLinks.Menu.lbl",
+    "Translations": { "en-US": "System Links Block" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupMembers.Table.GroupAdmin.lbl",
+    "Translations": { "en-US": "Group admin" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupEdit.Update.btn",
+    "Translations": { "en-US": "Save" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CommentsCreate.AddComment.btn",
+    "Translations": { "en-US": "Send" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CommentsView.Delete.lbl",
+    "Translations": { "en-US": "Delete" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupsList.isMember",
+    "Translations": { "en-US": "Member" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Search.OnlyPinned",
+    "Translations": { "en-US": "Only pinned" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "ActivityItemHeader.Creator.Inactive.lbl",
+    "Translations": { "en-US": "Inactive" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CreateEvents.DescriptionRequired.lbl",
+    "Translations": { "en-US": "A description is required" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "LeftNavigationUserMenu.ViewProfile.lbl",
+    "Translations": { "en-US": "View profile" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "##CommentsView.HideBtn.Text##",
+    "Translations": { "en-US": "Cancel" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Profile.Save.btn",
+    "Translations": { "en-US": "Save" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Notifications.EmptyNotificationList.lbl",
+    "Translations": { "en-US": "There are no notifications yet" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "MyLinks.Add.lbl",
+    "Translations": { "en-US": "Add to My Links" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "ComingEvents.SeeAll.btn",
+    "Translations": { "en-US": "See all" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Events.Title.placeholder",
+    "Translations": { "en-US": "Title" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Search.Document",
+    "Translations": { "en-US": "Document" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CentralFeed.CreateLink_Events.lnk",
+    "Translations": { "en-US": "Create Event" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "SearchBox.Empty.lbl",
+    "Translations": { "en-US": "Try to find something else" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsEdit.Edit.btn",
+    "Translations": { "en-US": "Save" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "SearchResult.Count.lbl",
+    "Translations": { "en-US": "We found {0} results!" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Groups.Menu.lbl",
+    "Translations": { "en-US": "Groups" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupInfo.Unsubscribe.lnk",
+    "Translations": { "en-US": "Unsubscribe" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupCreate.GroupImage.note",
+    "Translations": { "en-US": "" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsCreate.PublishDateRequired.lbl",
+    "Translations": { "en-US": "Publish date required" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsEdit.TitleRequired.btn",
+    "Translations": { "en-US": "A title is required" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Likes.ReadonlyClick.Message.lbl",
+    "Translations": { "en-US": "Only subscribed person can like activity in the group" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CentralFeedList.ShowPinned.chkbx",
+    "Translations": { "en-US": "Show only Important" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Search.News",
+    "Translations": { "en-US": "News" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupActivity.lbl",
+    "Translations": { "en-US": "Group" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "BrowserCompatibility.Notification.Message",
+    "Translations": { "en-US": "NB! Your browser is not fully compatible with the current version of Intranet." },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Common.NotifyAllSubscribers",
+    "Translations": { "en-US": "Would you like to notify subscribers about changes?" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Common.NotifyAllSubscribers.Cancel",
+    "Translations": { "en-US": "Cancel" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CentralFeed.IsSubscribed.lbl",
+    "Translations": { "en-US": "Subscribed" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Last Name",
+    "Translations": { "en-US": "" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Search.Content",
+    "Translations": { "en-US": "Content" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsEdit.DescriptionRequired.btn",
+    "Translations": { "en-US": "A description is required" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "SubscribeView.NotificationIsEnabled.lbl",
+    "Translations": { "en-US": "Check to disable notifications" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupCreate.Create.btn",
+    "Translations": { "en-US": "Create" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "All",
+    "Translations": { "en-US": "All" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "TopNavigation.MagicLink.lbl",
+    "Translations": { "en-US": "Umbraco magic is here, just click!" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "LightboxGallery.Count.lbl",
+    "Translations": { "en-US": "File(s) added" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupMembers.Table.Name.lbl",
+    "Translations": { "en-US": "Name" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Profile.UploadNewPhoto.lbl",
+    "Translations": { "en-US": "Upload Photo" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupEdit.Description.lbl",
+    "Translations": { "en-US": "Description" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Login.Login.ph",
+    "Translations": { "en-US": "Login" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupCreate.GroupTitle.lbl",
+    "Translations": { "en-US": "Group title" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Pin.AcceptPin.lbl",
+    "Translations": { "en-US": "Accept" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "TopNavigation.LoginToUmbraco.lbl",
+    "Translations": { "en-US": "Login to Umbraco" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Events",
+    "Translations": { "en-US": "Events" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupInfo.Subscribe.lnk",
+    "Translations": { "en-US": "Subscribe" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "SearchBox.Placeholder.lbl",
+    "Translations": { "en-US": "Search" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Common.AreYouSure.Ok",
+    "Translations": { "en-US": "Yes" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsEditPage.PublishDateRequired.lbl",
+    "Translations": { "en-US": "A publishing date is required" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupMembers.Table.GroupMember.lbl",
+    "Translations": { "en-US": "Group member" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Search.Filter.Content",
+    "Translations": { "en-US": "Content" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Search.Filter.Document",
+    "Translations": { "en-US": "Documents" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "DetailsView.Important.lbl",
+    "Translations": { "en-US": "Important" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupMembers.Delete.ConfirmCancel.btn",
+    "Translations": { "en-US": "Cancel" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Profile.DeletePhotoConfirm.lbl",
+    "Translations": { "en-US": "Are you sure you want to remove this profile picture" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CreateActivity.EndPinDateRequired.lbl",
+    "Translations": { "en-US": "Endpin date required" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Login.Login.Required",
+    "Translations": { "en-US": "Required" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "TopNavigation.Logout.lbl",
+    "Translations": { "en-US": "Logout" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Events.Description.placeholder",
+    "Translations": { "en-US": "" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "SubscribeSettings.SubscribeNotesMaxLength.lbl",
+    "Translations": { "en-US": "Subscribe notes are must be shorter than {0} characters" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "TopNavigation.EditProfile.lbl",
+    "Translations": { "en-US": "Edit profile" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupInfo.CreatorName",
+    "Translations": { "en-US": "Created by" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Notifications.Pinned.lbl",
+    "Translations": { "en-US": "Important" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "BulletinsEdit.UploadFiles.lbl",
+    "Translations": { "en-US": "File(s)" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "UserTagsPicker.Placeholder.lbl",
+    "Translations": { "en-US": "Tags" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.CanSubscribe.lbl",
+    "Translations": { "en-US": "It should be possible to subscribe" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "SearchBox.SeeAll.lnk",
+    "Translations": { "en-US": "See all search results" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsEdit.Title.lbl",
+    "Translations": { "en-US": "Title" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -445,238 +485,38 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "NewsEdit.Creator.lbl",
-    "Translations": { "en-US": "Creator" },
+    "Key": "NewsEditPage.Title.lbl",
+    "Translations": { "en-US": "Edit News" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "EventsEdit.CanSubscribe.lbl",
-    "Translations": { "en-US": "It should be possible to subscribe" },
+    "Key": "PagePromotion.ContentPage",
+    "Translations": { "en-US": "Promotion" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "CreateNews.TitleMaxLength.lbl",
-    "Translations": { "en-US": "The title is must be shorter than {0} characters" },
+    "Key": "NewsEdit.UploadFiles.lbl",
+    "Translations": { "en-US": "File(s)" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "GroupMembers.Table.Email.lbl",
-    "Translations": { "en-US": "Email" },
+    "Key": "GroupMembers.Delete.Text.lbl",
+    "Translations": { "en-US": "Delete" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "Notifications.EmptyNotificationList.lbl",
-    "Translations": { "en-US": "There are no notifications yet" },
+    "Key": "GroupEdit.Title.lbl",
+    "Translations": { "en-US": "Title" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "Bulletins",
-    "Translations": { "en-US": "Bulletins" },
+    "Key": "IdeasList.HasGroup.lbl",
+    "Translations": { "en-US": "Group" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "SubscribeView.NotificationIsEnabled.lbl",
-    "Translations": { "en-US": "Check to disable notifications" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "DetailsView.Edit.lbl",
-    "Translations": { "en-US": "Edit" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CommentsView.Reply.lnk",
-    "Translations": { "en-US": "Reply" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CreateEvents.DescriptionRequired.lbl",
-    "Translations": { "en-US": "A description is required" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupCreate.GroupImage.lbl",
-    "Translations": { "en-US": "GroupImage" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CentralFeedList.ShowPinned.chkbx",
-    "Translations": { "en-US": "Show posts marked Important" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Profile.EmailNotifications.lbl",
-    "Translations": { "en-US": "Do not send me email notifications" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CentralFeedList.ClearFilters.btn",
-    "Translations": { "en-US": "Clear Filters" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "ActivityItemHeader.Creator.Inactive.lbl",
-    "Translations": { "en-US": "Inactive" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Search.OnlyPinned",
-    "Translations": { "en-US": "Only pinned" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Search.Events",
-    "Translations": { "en-US": "Event" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "SearchResult.Count.lbl",
-    "Translations": { "en-US": "We found {0} results!" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Profile.FirstName.lbl",
-    "Translations": { "en-US": "First name" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "SearchResult.Loading.lbl",
-    "Translations": { "en-US": "Loading" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "SearchBox.Placeholder.lbl",
-    "Translations": { "en-US": "Search" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupEdit.Description.lbl",
-    "Translations": { "en-US": "Description" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupsList.isMember",
-    "Translations": { "en-US": "Member" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "SubscribeSettings.SubscribeNotesMaxLength.lbl",
-    "Translations": { "en-US": "Subscribe notes are must be shorter than {0} characters" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Login.Login.Required",
-    "Translations": { "en-US": "Required" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CreateNews.TitleRequired.lbl",
+    "Key": "CreateGroup.TitleRequired.lbl",
     "Translations": { "en-US": "A title is required" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Common.NotifyAllSubscribers.Title",
-    "Translations": { "en-US": "Confirm" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CommentAdded",
-    "Translations": { "en-US": "added a comment" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Search.Filter.Content",
-    "Translations": { "en-US": "Content" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "SubscribeView.NotificationIsDisabled.lbl",
-    "Translations": { "en-US": "Uncheck to enable notifications" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsEdit.DescriptionRequired.btn",
-    "Translations": { "en-US": "A description is required" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupInfo.CreatorName",
-    "Translations": { "en-US": "Creator name" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Profile.NotifierSettings.Confirmation.lbl",
-    "Translations": { "en-US": "Confirmation" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsEdit.PublishDate.lbl",
-    "Translations": { "en-US": "Publish date" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Profile.FirstName.Placeholder",
-    "Translations": { "en-US": "Enter your first name" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CommentReplied",
-    "Translations": { "en-US": "replied on your comment" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupInfo.Unsubscribe.Title.lnk",
-    "Translations": { "en-US": "Unsubscribe confirmation" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupEdit.Update.btn",
-    "Translations": { "en-US": "Update" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "TopNavigation.MagicLink.lbl",
-    "Translations": { "en-US": "Umbraco magic is here, just click!" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Content",
-    "Translations": { "en-US": "Content" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsEdit.Description.lbl",
-    "Translations": { "en-US": "Description" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Groups.Menu.lbl",
-    "Translations": { "en-US": "Groups" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Links.Menu.lbl",
-    "Translations": { "en-US": "My Links" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CentralFeed.CreateLink_Events.lnk",
-    "Translations": { "en-US": "Create Event" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "ComingEvents.SeeAll.btn",
-    "Translations": { "en-US": "See all" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Profile.LastName.Placeholder",
-    "Translations": { "en-US": "Enter your last name" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CommentsOverView.Title.lbl",
-    "Translations": { "en-US": "Comments" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -685,48 +525,33 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "CentralFeed.CreateLink_News.lnk",
-    "Translations": { "en-US": "Create News" },
+    "Key": "Search.Filter.All.lbl",
+    "Translations": { "en-US": "All" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "EventUpdated",
-    "Translations": { "en-US": "An event has been updated" },
+    "Key": "CreateEvents.TitleRequired.lbl",
+    "Translations": { "en-US": "A title is required" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "NewsEdit.PublishDateRequired.lbl",
-    "Translations": { "en-US": "Publish date required" },
+    "Key": "Bulletins",
+    "Translations": { "en-US": "Bulletins" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "CommentsView.Edit.lbl",
-    "Translations": { "en-US": "Edit" },
+    "Key": "GroupInfo.MembersCount",
+    "Translations": { "en-US": "Members count" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "CentralFeedList.Empty.lbl",
-    "Translations": { "en-US": "Nothing has been posted yet!" },
+    "Key": "Search.Filter.Events",
+    "Translations": { "en-US": "Events" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "BulletinsEdit.UploadFiles.lbl",
-    "Translations": { "en-US": "File(s)" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupEdit.GroupImage.lbl",
-    "Translations": { "en-US": "Group image" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CommentsCreate.AddComment.btn",
-    "Translations": { "en-US": "Send" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.StartDateRequired.lbl",
-    "Translations": { "en-US": "Start date required" },
+    "Key": "SubscribeView.NotificationIsDisabled.lbl",
+    "Translations": { "en-US": "Uncheck to enable notifications" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -735,38 +560,28 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "GroupMembers.Delete.ConfirmCancel.btn",
-    "Translations": { "en-US": "Cancel" },
+    "Key": "NewsCreate.UnpublishDate.lbl",
+    "Translations": { "en-US": "Unpublish date" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "CommentsOverView.EditComment.btn",
-    "Translations": { "en-US": "Save" },
+    "Key": "CentralFeedList.OpenFilters.lbl",
+    "Translations": { "en-US": "FILTER" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "SearchResult.YouSearchedFor.lbl",
-    "Translations": { "en-US": "You searched for \"{0}\"." },
+    "Key": "GroupInfo.Unsubscribe.Message.lnk",
+    "Translations": { "en-US": "Are you sure?" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "Notifications.Pinned.lbl",
-    "Translations": { "en-US": "Important" },
+    "Key": "Profile.EmailNotifications.lbl",
+    "Translations": { "en-US": "Do not send me email notifications" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "NewsEditPage.PublishDateRequired.lbl",
-    "Translations": { "en-US": "A publishing date is required" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupInfo.Subscribe.lnk",
-    "Translations": { "en-US": "Subscribe" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupMembers.Table.Role.lbl",
-    "Translations": { "en-US": "Role" },
+    "Key": "Likes.Title.lbl",
+    "Translations": { "en-US": "Likes" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -775,13 +590,268 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
+    "Key": "CentralFeedList.ClearFilters.btn",
+    "Translations": { "en-US": "Clear Filters" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Login.Validation.UserNotValid",
+    "Translations": { "en-US": "User not valid" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CentralFeed.CreateLink_News.lnk",
+    "Translations": { "en-US": "Create News" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupRoom.Label",
+    "Translations": { "en-US": "Group" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
     "Key": "Search.Filter.OnlyPinned.chkbx",
     "Translations": { "en-US": "Show only pinned" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "CentralFeed.IsSubscribed.lbl",
-    "Translations": { "en-US": "Subscribed" },
+    "Key": "GroupMembers.Table.Email.lbl",
+    "Translations": { "en-US": "Email" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupInfo.Unsubscribe.Title.lnk",
+    "Translations": { "en-US": "Unsubscribe confirmation" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Pin.SetPinned.lbl",
+    "Translations": { "en-US": "Set as important" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupEdit.Hide.btn",
+    "Translations": { "en-US": "Hide" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "SubscribeSettings.SubscribeNotes.lbl",
+    "Translations": { "en-US": "" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CreateNews.TitleRequired.lbl",
+    "Translations": { "en-US": "A title is required" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsEdit.PublishDateRequired.lbl",
+    "Translations": { "en-US": "Publish date required" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Search.Filter.News",
+    "Translations": { "en-US": "News" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Search.Bulletins",
+    "Translations": { "en-US": "Bulletin" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupMembers.Title",
+    "Translations": { "en-US": "Title" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CommentsView.Edit.lbl",
+    "Translations": { "en-US": "Edit" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "SearchResult.Loading.lbl",
+    "Translations": { "en-US": "Loading" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CentralFeedList.Empty.lbl",
+    "Translations": { "en-US": "Nothing has been posted yet!" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "buy HTTPS licence for this domain right?\n\n\n\n#CentralFeedList.Empty.lbl",
+    "Translations": { "en-US": "No activities yet" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CommentEdited",
+    "Translations": { "en-US": "edited comment" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Profile.LastName.lbl",
+    "Translations": { "en-US": "Last name" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventUpdated",
+    "Translations": { "en-US": "An event has been updated" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CreateNews.DescriptionRequired.lbl",
+    "Translations": { "en-US": "A description is required" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CreateEvents.TitleMaxLength.lbl",
+    "Translations": { "en-US": "The title is must be shorter than {0} characters" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Profile.FirstName.lbl",
+    "Translations": { "en-US": "First name" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupMembers.Delete.Confirm.btn",
+    "Translations": { "en-US": "Confirm" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CreateNews.TitleMaxLength.lbl",
+    "Translations": { "en-US": "The title is must be shorter than {0} characters" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsEdit.TitleMaxLength.btn",
+    "Translations": { "en-US": "The title is must be shorter than {0} characters" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CreateIGroup.DescriptionRequired.lbl",
+    "Translations": { "en-US": "A description is required" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "SearchResult.YouSearchedFor.lbl",
+    "Translations": { "en-US": "You searched for \"{0}\"." },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupCreate.GroupImage.lbl",
+    "Translations": { "en-US": "GroupImage" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CommentsView.Reply.lnk",
+    "Translations": { "en-US": "Reply" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "DeactivatedGroupPage.GroupWasDisabled.lbl",
+    "Translations": { "en-US": "Group was hidden" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Profile.NotifierSettings.Confirmation.lbl",
+    "Translations": { "en-US": "Are you sure?" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EVENTITEMVIEW.PINNED.LBL",
+    "Translations": { "en-US": "Important" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "SubscribersOverView.Title.lbl",
+    "Translations": { "en-US": "List of subscribed users" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsEdit.Description.lbl",
+    "Translations": { "en-US": "Description" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Likes.ReadonlyClick.Title.lbl",
+    "Translations": { "en-US": "Likes" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Events.ComingEvents.Empty.lbl",
+    "Translations": { "en-US": "There are no upcoming events" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "DetailsView.Edit.lbl",
+    "Translations": { "en-US": "Edit" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Common.AreYouSure",
+    "Translations": { "en-US": "Are you sure?" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupEdit.GroupImage.note",
+    "Translations": { "en-US": "" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "SubscribeView.Unsubscribe.lnk",
+    "Translations": { "en-US": "Unsubscribe" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "UserTagsView.Title.lbl",
+    "Translations": { "en-US": "This activity is tagged" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupCreate.Description.lbl",
+    "Translations": { "en-US": "Description" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsEdit.Creator.lbl",
+    "Translations": { "en-US": "Creator" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.StartDateRequired.lbl",
+    "Translations": { "en-US": "Start date required" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "News",
+    "Translations": { "en-US": "News" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Comments.ReadonlyClick.Title.lbl",
+    "Translations": { "en-US": "Notification" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CommentLikeAdded",
+    "Translations": { "en-US": "liked your comment" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CommentsOverView.Title.lbl",
+    "Translations": { "en-US": "Comments" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Login.Password.ph",
+    "Translations": { "en-US": "Password" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "SubscribeSettings.CanSubscribe.lbl",
+    "Translations": { "en-US": "Make it possible for people to subscribe to your event" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -795,200 +865,68 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "GroupMembers.Delete.Confirm.btn",
-    "Translations": { "en-US": "Confirm" },
+    "Key": "CommentAdded",
+    "Translations": { "en-US": "added a comment" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "GroupEdit.GroupImage.note",
+    "Key": "Pin.Activity.lbl",
+    "Translations": { "en-US": "Set as important" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsEdit.PublishDate.lbl",
+    "Translations": { "en-US": "Publish date" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Comments.Empty.lbl",
+    "Translations": { "en-US": "Comments" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "CommentsOverView.AddComment.lbl",
+    "Translations": { "en-US": "Add comment" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "UserTagsPicker.AddTags.lbl",
+    "Translations": { "en-US": "Tag(s)" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Login.Password.Required",
+    "Translations": { "en-US": "Required" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "DetailsView.GoToList.lbl",
+    "Translations": { "en-US": "Go to list" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Content",
+    "Translations": { "en-US": "Content" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Profile.LastName.Placeholder",
+    "Translations": { "en-US": "Enter your last name" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "GroupEdit.GroupImage.lbl",
     "Translations": { "en-US": "Group image" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "CreateNews.DescriptionRequired.lbl",
-    "Translations": { "en-US": "A description is required" },
+    "Key": "GroupEdit.PageTitle.lbl",
+    "Translations": { "en-US": "Edit group settings" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "Search.User",
-    "Translations": { "en-US": "User" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Common.AreYouSure",
-    "Translations": { "en-US": "Are you sure?" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Profile.LastName.lbl",
-    "Translations": { "en-US": "Last name" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Events",
-    "Translations": { "en-US": "Events" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "##CommentsView.HideBtn.Text##",
-    "Translations": { "en-US": "Cancel" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Events.ComingEvents.Empty.lbl",
-    "Translations": { "en-US": "There are no upcoming events" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Comments.ReadonlyClick.Title.lbl",
-    "Translations": { "en-US": "Notification" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupCreate.Create.btn",
-    "Translations": { "en-US": "Create" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupMembers.Table.GroupAdmin.lbl",
-    "Translations": { "en-US": "Group admin" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CreateActivity.EndPinDateRequired.lbl",
-    "Translations": { "en-US": "Endpin date required" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsEditPage.Title.lbl",
-    "Translations": { "en-US": "Edit News" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupRoom.Label",
-    "Translations": { "en-US": "Group Room" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsEdit.TitleRequired.btn",
-    "Translations": { "en-US": "A title is required" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupInfo.IsSubscribed.lbl",
-    "Translations": { "en-US": "You are subscribed" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CommentsOverView.ReadOnlyMessage.lbl",
-    "Translations": { "en-US": "Only subscribed person can comment activity in the group" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "CreateEvents.TitleRequired.lbl",
-    "Translations": { "en-US": "A title is required" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Profile.Save.btn",
-    "Translations": { "en-US": "Save" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsEdit.Edit.btn",
-    "Translations": { "en-US": "Save" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsEdit.TitleMaxLength.btn",
-    "Translations": { "en-US": "The title is must be shorter than {0} characters" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "GroupEdit.Title.lbl",
-    "Translations": { "en-US": "Title" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Login.Password.ph",
-    "Translations": { "en-US": "Password" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsCreate.PublishDateRequired.lbl",
-    "Translations": { "en-US": "Publish date required" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsCreate.EndDate.lbl",
-    "Translations": { "en-US": "Event end date and time" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.Hide.btn",
-    "Translations": { "en-US": "Hide Event" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "BulletinsEdit.Title.lbl",
-    "Translations": { "en-US": "Edit Bulletin" },
-    "ParentKey": "Bulletins",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "SubscribeView.Subscribe.lnk",
-    "Translations": { "en-US": "Subscribe" },
-    "ParentKey": "DetailsView.Edit.lbl",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.Description.lbl",
-    "Translations": { "en-US": "Description" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.EndDateShouldBeGreaterThanStartDate.lbl",
-    "Translations": { "en-US": "The end date and time must be later than the start date and time" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.Title.lbl",
-    "Translations": { "en-US": "Title" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.UploadFiles.lbl",
-    "Translations": { "en-US": "File(s)" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsCreate.LocationAddressPlaceholder.lbl",
-    "Translations": { "en-US": "Enter address" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.LocationTitleMaxLength.lbl",
-    "Translations": { "en-US": "The location title is must be shorter than {0} characters" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Common.Cancel.lnk",
-    "Translations": { "en-US": "Cancel" },
-    "ParentKey": "Bulletins",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsCreate.UploadFiles.lbl",
-    "Translations": { "en-US": "Drop files and images here or click to upload." },
-    "ParentKey": "Events",
+    "Key": "Profile.FirstName.Placeholder",
+    "Translations": { "en-US": "Enter your first name" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -998,242 +936,8 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "EventsEdit.Creator.lbl",
-    "Translations": { "en-US": "Creator" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsCreate.CanSubscribe.lbl",
-    "Translations": { "en-US": "It should be possible to subscribe" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.EndDate.lbl",
-    "Translations": { "en-US": "Event end date and time" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "FileUploadView.File.lbl",
-    "Translations": { "en-US": "File" },
-    "ParentKey": "Bulletins",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsCreate.Title.lbl",
-    "Translations": { "en-US": "Title" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.DescriptionRequired.lbl",
-    "Translations": { "en-US": "A description is required" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.LocationAddressPlaceholder.lbl",
-    "Translations": { "en-US": "Enter address" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.LocationAddressMaxLength.lbl",
-    "Translations": { "en-US": "The location address is must be shorter than {0} characters" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "BulletinsEdit.Edit.btn",
-    "Translations": { "en-US": "Save" },
-    "ParentKey": "Bulletins",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsCreate.StartDate.lbl",
-    "Translations": { "en-US": "Event start date and time" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "BulletinsCreate.MobileBtn.lbl",
-    "Translations": { "en-US": "Write bulletin" },
-    "ParentKey": "Bulletins",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdir.StartDate.lbl",
-    "Translations": { "en-US": "Event start date and time" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.LocationAddress.lbl",
-    "Translations": { "en-US": "Location address" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.EndDateRequired.lbl",
-    "Translations": { "en-US": "An end date is required" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "BulletinsCreate.ExpandBulletin.lbl",
-    "Translations": { "en-US": "Send" },
-    "ParentKey": "Bulletins",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "BulletinsEdit.Delete.btn",
-    "Translations": { "en-US": "Delete" },
-    "ParentKey": "Bulletins",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "BulletinsEdit.Description.lbl",
-    "Translations": { "en-US": "Description" },
-    "ParentKey": "Bulletins",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsItemView.Pinned.lbl",
-    "Translations": { "en-US": "Important" },
-    "ParentKey": "News",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsCreate.LocationAddress.lbl",
-    "Translations": { "en-US": "Location address" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.Edit.btn",
-    "Translations": { "en-US": "Save" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.TitleRequired.lbl",
-    "Translations": { "en-US": "A title is required" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEditPage.Title.lbl",
-    "Translations": { "en-US": "Edit Event" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsCreatePage.Title.lbl",
-    "Translations": { "en-US": "News" },
-    "ParentKey": "News",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "BulletinsCreate.Post.lbl",
-    "Translations": { "en-US": "Send" },
-    "ParentKey": "Bulletins",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Common.NotifyAllSubscribers.No",
-    "Translations": { "en-US": "No" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.StartDate.lbl",
-    "Translations": { "en-US": "Event start date and time" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsCreate.LocationTitleMaxLength.lbl",
-    "Translations": { "en-US": "The location title is must be shorter than {0} characters" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsCreate.Description.lbl",
-    "Translations": { "en-US": "News description" },
-    "ParentKey": "News",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.PublishDate.lbl",
-    "Translations": { "en-US": "Event publish date and time" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsCreate.LocationTitle.lbl",
-    "Translations": { "en-US": "Location title" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsCreate.LocationAddressMaxLength.lbl",
-    "Translations": { "en-US": "The location address is must be shorter than {0} characters" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "FileUploadView.UploadFiles.lbl",
-    "Translations": { "en-US": "Drop files and images here or click to upload." },
-    "ParentKey": "Bulletins",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsCreate.LocationTitlePlaceholder.lbl",
-    "Translations": { "en-US": "Enter name of the location" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Common.NotifyAllSubscribers.Yes",
-    "Translations": { "en-US": "Yes" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.LocationTitlePlaceholder.lbl",
-    "Translations": { "en-US": "Enter name of the location" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsEdit.LocationTitle.lbl",
-    "Translations": { "en-US": "Location title" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EventsCreatePage.Title.lbl",
-    "Translations": { "en-US": "Create Event" },
-    "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsCreate.Creator.lbl",
-    "Translations": { "en-US": "News author" },
-    "ParentKey": "News",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
     "Key": "FileUploadView.RemoveFile.lbl",
     "Translations": { "en-US": "Remove file" },
-    "ParentKey": "Bulletins",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "BulletinsCreate.FormPlaceholder.lbl",
-    "Translations": { "en-US": "Write a message, post a photo or share a document" },
     "ParentKey": "Bulletins",
     "UpdateDate": "0001-01-01T00:00:00"
   },
@@ -1244,9 +948,105 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "NewsCreate.Title.lbl",
+    "Key": "BulletinsEdit.Title.lbl",
+    "Translations": { "en-US": "Edit Bulletin" },
+    "ParentKey": "Bulletins",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdir.StartDate.lbl",
+    "Translations": { "en-US": "Event start date and time" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.Creator.lbl",
+    "Translations": { "en-US": "Creator" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Common.Cancel.lnk",
+    "Translations": { "en-US": "Cancel" },
+    "ParentKey": "Bulletins",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsCreate.LocationTitlePlaceholder.lbl",
+    "Translations": { "en-US": "Enter name of the location" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.TitleRequired.lbl",
+    "Translations": { "en-US": "A title is required" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.EndDate.lbl",
+    "Translations": { "en-US": "Event end date and time" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "BulletinsEdit.Edit.btn",
+    "Translations": { "en-US": "Save" },
+    "ParentKey": "Bulletins",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.UploadFiles.lbl",
+    "Translations": { "en-US": "File(s)" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsCreate.PublishDate.lbl",
+    "Translations": { "en-US": "Event publish date and time" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.EndDateRequired.lbl",
+    "Translations": { "en-US": "An end date is required" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.Edit.btn",
+    "Translations": { "en-US": "Update" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.StartDate.lbl",
+    "Translations": { "en-US": "Event start date and time" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsCreate.Title.lbl",
     "Translations": { "en-US": "Title" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsCreate.Creator.lbl",
+    "Translations": { "en-US": "News author" },
     "ParentKey": "News",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "SubscribeView.Subscribe.lnk",
+    "Translations": { "en-US": "Subscribe" },
+    "ParentKey": "DetailsView.Edit.lbl",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEditPage.Title.lbl",
+    "Translations": { "en-US": "Edit Event" },
+    "ParentKey": "Events",
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -1256,8 +1056,98 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "EventsCreate.PublishDate.lbl",
+    "Key": "EventsCreate.StartDate.lbl",
+    "Translations": { "en-US": "Event start date and time" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.Title.lbl",
+    "Translations": { "en-US": "Title" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "BulletinsCreate.MobileBtn.lbl",
+    "Translations": { "en-US": "Write bulletin" },
+    "ParentKey": "Bulletins",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.EndDateShouldBeGreaterThanStartDate.lbl",
+    "Translations": { "en-US": "The end date and time must be later than the start date and time" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsCreatePage.Title.lbl",
+    "Translations": { "en-US": "News" },
+    "ParentKey": "News",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.PublishDate.lbl",
     "Translations": { "en-US": "Event publish date and time" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "BulletinsCreate.ExpandBulletin.lbl",
+    "Translations": { "en-US": "Send" },
+    "ParentKey": "Bulletins",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsCreate.UploadFiles.lbl",
+    "Translations": { "en-US": "Drop files and images here or click to upload." },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsCreate.Title.lbl",
+    "Translations": { "en-US": "Title" },
+    "ParentKey": "News",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsCreate.Create.btn",
+    "Translations": { "en-US": "Create" },
+    "ParentKey": "News",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "BulletinsEdit.Description.lbl",
+    "Translations": { "en-US": "Description" },
+    "ParentKey": "Bulletins",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsCreate.LocationAddressPlaceholder.lbl",
+    "Translations": { "en-US": "Enter address" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsCreatePage.Title.lbl",
+    "Translations": { "en-US": "Create Event" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "BulletinsCreate.Post.lbl",
+    "Translations": { "en-US": "Send" },
+    "ParentKey": "Bulletins",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.LocationTitlePlaceholder.lbl",
+    "Translations": { "en-US": "Enter name of the location" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsCreate.EndDate.lbl",
+    "Translations": { "en-US": "Event end date and time" },
     "ParentKey": "Events",
     "UpdateDate": "0001-01-01T00:00:00"
   },
@@ -1268,14 +1158,134 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "NewsCreate.Create.btn",
-    "Translations": { "en-US": "Create" },
+    "Key": "EventsEdit.LocationAddress.lbl",
+    "Translations": { "en-US": "Location address" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsItemView.Pinned.lbl",
+    "Translations": { "en-US": "Important" },
     "ParentKey": "News",
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
     "Key": "EventsCreate.Description.lbl",
     "Translations": { "en-US": "Description" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "FileUploadView.UploadFiles.lbl",
+    "Translations": { "en-US": "Drop files and images here or click to upload." },
+    "ParentKey": "Bulletins",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsCreate.LocationTitle.lbl",
+    "Translations": { "en-US": "Location title" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "BulletinsCreate.FormPlaceholder.lbl",
+    "Translations": { "en-US": "Write a message, post a photo or share a document" },
+    "ParentKey": "Bulletins",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsCreate.Description.lbl",
+    "Translations": { "en-US": "News description" },
+    "ParentKey": "News",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.DescriptionRequired.lbl",
+    "Translations": { "en-US": "A description is required" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "FileUploadView.File.lbl",
+    "Translations": { "en-US": "File" },
+    "ParentKey": "Bulletins",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsCreate.CanSubscribe.lbl",
+    "Translations": { "en-US": "It should be possible to subscribe" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Common.NotifyAllSubscribers.No",
+    "Translations": { "en-US": "No" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.LocationAddressMaxLength.lbl",
+    "Translations": { "en-US": "The location address is must be shorter than {0} characters" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsCreate.LocationTitleMaxLength.lbl",
+    "Translations": { "en-US": "The location title is must be shorter than {0} characters" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.Hide.btn",
+    "Translations": { "en-US": "Hide Event" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.LocationTitleMaxLength.lbl",
+    "Translations": { "en-US": "The location title is must be shorter than {0} characters" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.LocationTitle.lbl",
+    "Translations": { "en-US": "Location title" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Common.NotifyAllSubscribers.Yes",
+    "Translations": { "en-US": "Yes" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsCreate.LocationAddress.lbl",
+    "Translations": { "en-US": "Location address" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.Description.lbl",
+    "Translations": { "en-US": "Description" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "BulletinsEdit.Delete.btn",
+    "Translations": { "en-US": "Delete" },
+    "ParentKey": "Bulletins",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsCreate.LocationAddressMaxLength.lbl",
+    "Translations": { "en-US": "The location address is must be shorter than {0} characters" },
+    "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsEdit.LocationAddressPlaceholder.lbl",
+    "Translations": { "en-US": "Enter address" },
     "ParentKey": "Events",
     "UpdateDate": "0001-01-01T00:00:00"
   }

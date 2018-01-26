@@ -105,65 +105,65 @@ var helpers = {
     },
     initSmiles: function(container, toolbar, index){
         var emoji = {
-            "happy": {
+            "smile": {
                 "shortcode": ":)",
-                "translation": "lykkelig"
-            },
-            "great": {
-                "shortcode": ":great",
-                "translation": "store"
-            },
-            "laughing": {
-                "shortcode": ":D",
-                "translation": "griner"
-            },
-            "surprised": {
-                "shortcode": ":surprised",
-                "translation": "overrasket"
-            },
-            "wink": {
-                "shortcode": ";)",
-                "translation": "blinke"
-            },
-            "hungry": {
-                "shortcode": ":hungry",
-                "translation": "sulten"
-            },
-            "inlove": {
-                "shortcode": ":inlove",
-                "translation": "forelsket"
-            },
-            "party": {
-                "shortcode": ":party",
-                "translation": "parti"
-            },
-            "relaxed": {
-                "shortcode": ":relaxed",
-                "translation": "afslappet"
+                "translation": "Smile"
             },
             "sad": {
                 "shortcode": ":(",
-                "translation": "trist"
+                "translation": "Sad"
+            },
+            "wink": {
+                "shortcode": ";)",
+                "translation": "Wink"
+            },
+            "shocked": {
+                "shortcode": ":|",
+                "translation": "Shocked"
+            },
+            "tease": {
+                "shortcode": ":p",
+                "translation": "Tease"
+            },
+            "funny": {
+                "shortcode": ":D",
+                "translation": "Funny"
             },
             "angry": {
-                "shortcode": ":angry",
-                "translation": "vred"
-            },
-            "sick": {
-                "shortcode": ":sick",
-                "translation": "syg"
+                "shortcode": ":<",
+                "translation": "Angry"
             },
             "skeptical": {
-                "shortcode": ":skeptical",
-                "translation": "skeptisk"
+                "shortcode": ":^)",
+                "translation": "Skeptical"
             },
-            "sleeping": {
-                "shortcode": ":sleeping",
-                "translation": "sovende"
+            "surprised": {
+                "shortcode": ":o",
+                "translation": "Surprised"
             },
-            "neutral": {
-                "shortcode": ":neutral",
-                "translation": "neutral"
+            "great": {
+                "shortcode": ":+1",
+                "translation": "Great"
+            },
+            "joy": {
+                "shortcode": ":-)",
+                "translation": "Joy"
+            },
+            "love": {
+                "shortcode": ":x",
+                "translation": "Love"
+            },
+            "party": {
+                "shortcode": "<o)",
+                "translation": "Party"
+            },
+            "fever": {
+                "shortcode": ":/",
+                "translation": "Fever"
+            },
+            "sleepy": {
+                "shortcode": "|-)",
+                "translation": "Sleepy"
             }
         },
         body,
