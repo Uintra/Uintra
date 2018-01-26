@@ -574,7 +574,10 @@
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\angry.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\great.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\love.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.png" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.svg">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\tease.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\funny.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\shocked.svg" />
@@ -584,7 +587,6 @@
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\fever.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\skeptical.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\sleepy.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.png" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\surprised.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\wink.svg" />
     <Content Include="App_Plugins\Core\Content\styles\forms.css" />
