@@ -11,20 +11,7 @@ function initEditor() {
     descriptionElem = holder.querySelector(".js-edit-bulletin__description");
     let dataStorage = holder.querySelector(".js-edit-bulletin__description-hidden");
 
-    editor = helpers.initQuill(descriptionElem, dataStorage, {
-        theme: 'snow',
-        modules: {
-            toolbar: [
-                ['bold', 'italic', 'link'],
-                ['emoji']
-            ]
-        }
-    });
-    let emojiContainer = editor.container.querySelector(".js-emoji");
-    if (!emojiContainer) {
-        helpers.initSmiles(editor, editor.getModule('toolbar').container);
-        emojiContainer = true;
-    }
+    editor = helpers.initQuill(descriptionElem, dataStorage);
 
     editor.on('text-change', function () {
         if (editor.getLength() > 1 && descriptionElem.classList.contains('input-validation-error')) {

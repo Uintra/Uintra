@@ -24,7 +24,7 @@
             @if (!string.IsNullOrEmpty(Model.Photo))
             {
                 <div class="avatar avatar--square">
-                    <img class="avatar__img" src="@Model.Photo?width=100" />
+                    <img class="avatar__img" src="@Model.Photo?width=100&height=100&mode=crop" width="100" alt="avatar" />
 
                     <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo"></span>
                 </div>
@@ -44,13 +44,13 @@
             <div class="check">
                 <label class="check__label">
                     @Html.CheckBox("js-member-notifier-setting",
-                Model.MemberNotifierSettings[NotifierTypeEnum.EmailNotifier],
-                new
-                {
-                    notifiertype = NotifierTypeEnum.EmailNotifier,
-                    @class = "check__box",
-                    dataConfirmMessage = @Html.Localize("Profile.NotifierSettings.Confirmation.lbl")
-                })
+                     Model.MemberNotifierSettings[NotifierTypeEnum.EmailNotifier],
+                     new
+                     {
+                         notifiertype = NotifierTypeEnum.EmailNotifier,
+                         @class = "check__box",
+                         dataConfirmMessage = @Html.Localize("Profile.NotifierSettings.Confirmation.lbl")
+                     })
                     <span class="check__fake-input icon-check"></span>
                     <span class="check__fake-label">@Html.Localize("Profile.EmailNotifications.lbl")</span>
                 </label>
@@ -62,5 +62,4 @@
         </div>
         @Html.ValidationSummary()
     }
-    
 </div>

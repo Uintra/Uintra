@@ -6,7 +6,7 @@ namespace uIntra.Bulletins
     {
         protected const string Alias = "bulletins";
         protected const string Name = "Bulletins";
-        protected const string Icon = "icon-notepad _bulletins-section-color";
+        protected const string Icon = "icon-notepad color-red";
 
         public static void AddSectionToAllUsers(ApplicationContext applicationContext)
         {

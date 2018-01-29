@@ -73,6 +73,16 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ManualInstallation|AnyCPU'">
+    <OutputPath>bin\ManualInstallation\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
@@ -429,8 +439,6 @@
     <Compile Include="DefaultImplementation\ReminderJob.cs" />
     <Compile Include="DefaultImplementation\ReminderService.cs" />
     <Compile Include="DefaultImplementation\UiNotificationsService.cs" />
-    <Compile Include="Installer\NotificationInstallationConstants.cs" />
-    <Compile Include="Installer\Migrations\NotificationInstallationStep_0_0_1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\MemberNotifierSettingsControllerBase.cs" />
     <Compile Include="Web\NotificationControllerBase.cs" />

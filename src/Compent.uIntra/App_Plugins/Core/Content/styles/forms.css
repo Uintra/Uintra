@@ -39,7 +39,7 @@
         -webkit-appearance: none;
 
         &::placeholder{
-            color:#999;
+            color:#aaa;
             opacity:1;
         }
 

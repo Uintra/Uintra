@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using Extensions;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Attributes;
@@ -82,12 +83,12 @@ namespace uIntra.Events.Web
 
         protected virtual (IList<ComingEventViewModel> events, int totalCount) GetComingEvents(int eventsAmount)
         {
-            var events = _eventsService.GetComingEvents(DateTime.UtcNow).ToList();
-            var filteredEvents = events.Take(eventsAmount).ToList();
+            var events = GetComingEvents(DateTime.Now).AsList();
 
-            var ownersDictionary = _intranetUserService.GetMany(filteredEvents.Select(e => e.OwnerId)).ToDictionary(c => c.Id);
+            var ownersDictionary = _intranetUserService.GetMany(events.Select(e => e.OwnerId)).ToDictionary(c => c.Id);
 
-            var comingEvents = filteredEvents
+            var comingEvents = events
+                .Take(eventsAmount)
                 .Select(@event =>
                 {
                     var viewModel = @event.Map<ComingEventViewModel>();
@@ -99,6 +100,8 @@ namespace uIntra.Events.Web
 
             return (comingEvents, events.Count);
         }
+
+        protected virtual IEnumerable<EventBase> GetComingEvents(DateTime startDate) => _eventsService.GetComingEvents(startDate);
 
         [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
         public virtual ActionResult Create(ActivityCreateLinks links)
@@ -120,7 +123,7 @@ namespace uIntra.Events.Web
             var activityId = _eventsService.Create(@event);
             OnEventCreated(activityId, createModel);
 
-            var redirectUrl = createModel.Links.DetailsNoId.AddIdParameter(activityId);
+            var redirectUrl = _activityLinkService.GetLinks(activityId).Details;
             return Redirect(redirectUrl);
         }
 
@@ -200,11 +203,6 @@ namespace uIntra.Events.Web
                 ActivityType = @event.Type,
                 Links = links
             };
-        }
-
-        protected virtual IEnumerable<EventBase> GetComingEvents(DateTime fromDate)
-        {
-            return _eventsService.GetComingEvents(fromDate);
         }
 
         protected virtual EventBase MapEditModel(EventEditModel saveModel)

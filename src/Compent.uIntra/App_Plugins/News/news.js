@@ -51,15 +51,8 @@ var initDescriptionControl = function (holder) {
     var editor = helpers.initQuill(descriptionElem[0], dataStorage[0], {
         modules: {
             toolbar: toolbarOptions
-        },
-        theme: 'snow'
+        }
     });
-
-    let emojiContainer = editor.container.querySelector(".js-emoji");
-    if (!emojiContainer) {
-        helpers.initSmiles(editor, editor.getModule('toolbar').container);
-        emojiContainer = true;
-    }
 
     editor.on('text-change', function () {
         if (editor.getLength() > 1 && descriptionElem.hasClass('input-validation-error')) {
@@ -69,14 +62,13 @@ var initDescriptionControl = function (holder) {
 
     btn.click(function () {
         descriptionElem.toggleClass("input-validation-error", editor.getLength() <= 1);
-
     });
 };
 
 var initDates = function (holder) {
     let publish = helpers.initDatePicker(holder, "#js-publish-date", "#js-publish-date-value");
     let unpublish = helpers.initDatePicker(holder, "#js-unpublish-date", "#js-unpublish-date-value");
-    let pin = pinActivity.initPinDate(holder);
+    let pin = pinActivity.initPinDate(holder, publish.selectedDates[0]);
 
     publish.config.onChange.push(publishDateChanged);
 

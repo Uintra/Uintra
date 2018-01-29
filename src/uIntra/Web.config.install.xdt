@@ -17,10 +17,11 @@
     <add key="Umbraco.ModelsBuilder.ModelsDirectory" value="~/Core/UmbracoModelsBuilders" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.ModelsDirectory')" xdt:Transform="InsertIfMissing"/>
 
     <add key="DefaultAvatarPath" value="/Content/images/default-avatar.png" xdt:Locator="Condition(@key='DefaultAvatarPath')" xdt:Transform="InsertIfMissing" />
-    <add key="NotWebMasterRole.DisabledDocumentTypes" value="likesPage, commentsPage, commentsEditPage, subscribePage" xdt:Locator="Condition(@key='NotWebMasterRole.DisabledDocumentTypes')" xdt:Transform="InsertIfMissing" />
-    <add key="PinDaysRangeStart" value="0" xdt:Locator="Condition(@key='PinDaysRangeStart')" xdt:Transform="InsertIfMissing"/>
-    <add key="PinDaysRangeEnd" value="30" xdt:Locator="Condition(@key='PinDaysRangeEnd')" xdt:Transform="InsertIfMissing"/>
     <add key="Search.IndexingDocumentTypes" value="doc,docx,pdf,ppt,pptx,odf" xdt:Locator="Condition(@key='Search.IndexingDocumentTypes')" xdt:Transform="InsertIfMissing"/>
+    <add key="Search.TitleScore" value="1.5" xdt:Locator="Condition(@key='Search.TitleScore')" xdt:Transform="InsertIfMissing"/>
+    <add key="Search.UserNameScore" value="3" xdt:Locator="Condition(@key='Search.UserNameScore')" xdt:Transform="InsertIfMissing"/>
+    <add key="Search.UserEmailScore" value="3" xdt:Locator="Condition(@key='Search.UserEmailScore')" xdt:Transform="InsertIfMissing"/>
+    <add key="Search.UserPhoneScore" value="3" xdt:Locator="Condition(@key='Search.UserPhoneScore')" xdt:Transform="InsertIfMissing"/>
   </appSettings>
 
   <elasticConfiguration url="http://localhost:9200" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>

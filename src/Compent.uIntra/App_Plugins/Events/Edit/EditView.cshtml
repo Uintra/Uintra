@@ -93,7 +93,7 @@
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
             <input class="btn _submit js-disable-submit" type="button" value="@Html.Localize("EventsEdit.Edit.btn")" />
             <input class="btn _submit js-event-hide" type="button" value="@Html.Localize("EventsEdit.Hide.btn")" data-id="@Model.Id" data-title="@Html.Localize("Common.NotifyAllSubscribers.Title")" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")" data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" data-return-url="@Model.Links.Overview" />
-            <a class="btn _default" href="@(Context.GetBackLink(Model.Links.Details))">@Html.Localize("Common.Cancel.lnk")</a>
+            <a class="btn" href="@(Context.GetBackLink(Model.Links.Details))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
      }
 </div>

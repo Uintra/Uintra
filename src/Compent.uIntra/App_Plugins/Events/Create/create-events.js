@@ -42,7 +42,7 @@ var initDescriptionControl = function () {
     var toolbarOptions = [
         [{ 'header': [1, 2, 3, false] }],
         ['bold', 'italic', 'underline', 'link'],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
         ['emoji'],
         ['clean']
     ];
@@ -51,16 +51,8 @@ var initDescriptionControl = function () {
         placeholder: dataStorage.first().data('placeholder') || '',
         modules: {
             toolbar: toolbarOptions
-        },
-        theme: 'snow'
+        }
     });
-
-    let emojiContainer = editor.container.querySelector(".js-emoji");
-
-    if(!emojiContainer){
-        helpers.initSmiles(editor, editor.getModule('toolbar').container);
-        emojiContainer = true;
-    }
 
     editor.on('text-change', function () {
         if (editor.getLength() > 1 && descriptionElem.hasClass('input-validation-error')) {
@@ -87,19 +79,18 @@ var initDatePickers = function () {
         if (endDate != null && endDate < new Date(newDate)) {
             end.setDate(newDate);
         }
-        
+
         end.set('minDate', newDate);
-        pin.setDate(newDate);
+    }
+
+    function publishOnChange(newDates) {
+        var newDate = newDates[0];
+        pin.setDate(newDate, true);
         pin.set('minDate', newDate);
     }
 
-    function endOnChange(newDates) {
-        var newDate = newDates[0];
-        pin.setDate(newDate);
-    }
-
     start.config.onChange.push(startOnChange);
-    end.config.onChange.push(endOnChange);
+    publish.config.onChange.push(publishOnChange);
 }
 
 var controller = {

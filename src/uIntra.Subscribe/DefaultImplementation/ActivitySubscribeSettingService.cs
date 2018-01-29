@@ -40,6 +40,11 @@ namespace uIntra.Subscribe
             _activitySubscribeSettingRepository.Update(updateSetting);
         }
 
+        public virtual void Delete(Guid activityId)
+        {
+            _activitySubscribeSettingRepository.Delete(setting => setting.ActivityId == activityId);
+        }
+
         public virtual void FillSubscribeSettings(ISubscribeSettings activity)
         {
             var settings = Get(activity.Id);

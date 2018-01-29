@@ -15,11 +15,7 @@
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="description">@Html.Localize("GroupCreate.Description.lbl") <span class="form__required">*</span></label>
-            <div id="description">
-                @Html.Raw(Model.Description)
-            </div>
-            <input type="hidden" id="js-hidden-description-container" name="description" value="@(Model.Description)"
-                   data-val-required="@Html.Localize("CreateIGroup.DescriptionRequired.lbl")" data-val="true" />
+            <textarea class="form__textarea" name="description" data-val-required="@Html.Localize("CreateIGroup.DescriptionRequired.lbl")" data-val="true">@Model.Description</textarea>
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("GroupCreate.GroupImage.lbl")</label>

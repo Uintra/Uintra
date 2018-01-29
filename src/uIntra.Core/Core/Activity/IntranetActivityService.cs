@@ -22,8 +22,7 @@ namespace uIntra.Core.Activity
             IIntranetActivityRepository activityRepository,
             ICacheService cache,
             IActivityTypeProvider activityTypeProvider,
-            IIntranetMediaService intranetMediaService
-            )
+            IIntranetMediaService intranetMediaService)
         {
             _activityRepository = activityRepository;
             _cache = cache;
@@ -86,10 +85,7 @@ namespace uIntra.Core.Activity
             return true;
         }
 
-        public virtual Guid Create(IIntranetActivity activity)
-        {
-            return Create(activity, null);
-        }
+        public virtual Guid Create(IIntranetActivity activity) => Create(activity, null);
 
         protected virtual Guid Create(IIntranetActivity activity, Action<Guid> afterCreateAction)
         {
@@ -104,10 +100,7 @@ namespace uIntra.Core.Activity
             return newActivityId;
         }
 
-        public virtual void Save(IIntranetActivity activity)
-        {
-            Save(activity, null);
-        }
+        public virtual void Save(IIntranetActivity activity) => Save(activity, null);
 
         protected virtual void Save(IIntranetActivity activity, Action<IIntranetActivity> afterSaveAction)
         {
@@ -117,14 +110,14 @@ namespace uIntra.Core.Activity
             _intranetMediaService.Update(activity.Id, activity.MediaIds.JoinToString());
 
             afterSaveAction?.Invoke(activity);
-
             UpdateCachedEntity(activity.Id);
         }
 
-        public void Delete(Guid id)
+        public virtual void Delete(Guid id)
         {
             _activityRepository.Delete(id);
             _intranetMediaService.Delete(id);
+
             UpdateCachedEntity(id);
         }
 

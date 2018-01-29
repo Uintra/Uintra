@@ -67,6 +67,16 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ManualInstallation|AnyCPU'">
+    <OutputPath>bin\ManualInstallation\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
@@ -309,8 +319,6 @@
     </Compile>
     <Compile Include="Core\Models\DocumentPanelMediaViewModel.cs" />
     <Compile Include="Core\PanelsConstants.cs" />
-    <Compile Include="Installer\PanelsInstallationConstants.cs" />
-    <Compile Include="Installer\Migrations\PanelsInstallationStep_0_0_1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -320,7 +328,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="Installer\PreValues\PanelPickerPreValues.json" />
     <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
     <None Include="packages.config" />
   </ItemGroup>

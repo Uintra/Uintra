@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <applications xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <add alias="events" name="Events" icon="icon-calendar-alt _events-section-color" sortOrder="1" xdt:Locator="Match(alias)" xdt:Transform="Remove"/>
-  <add alias="news" name="News" icon="icon-newspaper-alt _news-section-color" sortOrder="1" xdt:Locator="Match(alias)" xdt:Transform="Remove"/>
-  <add alias="SentMails" name="Sent Mails" icon="icon-message" sortOrder="10" xdt:Locator="Match(alias)" xdt:Transform="Remove"/>
-  <add alias="Localization" name="Localization" icon="icon-file-cabinet" sortOrder="30" xdt:Locator="Match(alias)" xdt:Transform="Remove"/>
-  <add alias="bulletins" name="Bulletins" icon="icon-notepad _bulletins-section-color" sortOrder="1" xdt:Locator="Match(alias)" xdt:Transform="Remove"/>
-  <add alias="groups" name="Groups" icon="icon-chat _groups-section-color" sortOrder="1" xdt:Locator="Match(alias)" xdt:Transform="Remove"/>
+  <add alias="news" name="News" icon="icon-newspaper-alt color-red" sortOrder="0" xdt:Locator="Condition(@alias='news')" xdt:Transform="Remove"/>
+  <add alias="events" name="Events" icon="icon-calendar-alt color-red" sortOrder="0" xdt:Locator="Condition(@alias='events')" xdt:Transform="Remove"/>
+  <add alias="bulletins" name="Bulletins" icon="icon-notepad color-red" sortOrder="0" xdt:Locator="Condition(@alias='bulletins')" xdt:Transform="Remove"/>
+  <add alias="NotificationSettings" name="NotificationSettings" icon="icon-timer color-red" sortOrder="0" xdt:Locator="Condition(@alias='NotificationSettings')" xdt:Transform="Remove"/>
+  <add alias="groups" name="Groups" icon="icon-chat color-red" sortOrder="0" xdt:Locator="Condition(@alias='groups')" xdt:Transform="Remove"/>
+  <add alias="SentMails" name="Sent Mails" icon="icon-message color-red" sortOrder="0" xdt:Locator="Condition(@alias='SentMails')" xdt:Transform="Remove"/>
+  <add alias="Localization" name="Localization" icon="icon-file-cabinet color-red" sortOrder="0" xdt:Locator="Condition(@alias='Localization')" xdt:Transform="Remove"/>
 </applications>

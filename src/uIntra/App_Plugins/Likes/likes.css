@@ -108,7 +108,7 @@
         width:200px;
         margin:0 0 0 -10px;
         background:rgba(0,0,0,0.8);
-        border-radius:5px;
+        border-radius:2px;
         color:var(--color-white);
         opacity:0;
         z-index: 999;
