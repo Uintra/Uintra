@@ -1146,6 +1146,7 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201801291124063_LinkPreview.resx">
       <DependentUpon>201801291124063_LinkPreview.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="config\LinkDetection.config" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

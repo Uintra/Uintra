@@ -482,6 +482,7 @@
     <Compile Include="Core\User\Role.cs" />
     <Compile Include="Core\Utils\EmbeddedResourceService.cs" />
     <Compile Include="Core\Utils\EmbeddedResourcesUtils.cs" />
+    <Compile Include="Core\Utils\FileSystemUtils.cs" />
     <Compile Include="Core\Utils\HttpHelper.cs" />
     <Compile Include="Core\Utils\IEmbeddedResourceService.cs" />
     <Compile Include="Core\Utils\IHttpHelper.cs" />
