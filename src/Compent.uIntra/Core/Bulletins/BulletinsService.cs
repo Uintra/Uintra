@@ -41,11 +41,8 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly ISubscribeService _subscribeService;
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
-        private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
-        private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IMediaHelper _mediaHelper;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
@@ -62,10 +59,8 @@ namespace Compent.uIntra.Core.Bulletins
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,
-            IFeedTypeProvider centralFeedTypeProvider,
             IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
-            ISearchableTypeProvider searchableTypeProvider,
             IMediaHelper mediaHelper,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
@@ -80,11 +75,8 @@ namespace Compent.uIntra.Core.Bulletins
             _permissionsService = permissionsService;
             _subscribeService = subscribeService;
             _notificationService = notificationService;
-            _activityTypeProvider = activityTypeProvider;
-            _centralFeedTypeProvider = centralFeedTypeProvider;
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
-            _searchableTypeProvider = searchableTypeProvider;
             _mediaHelper = mediaHelper;
             _groupActivityService = groupActivityService;
             _linkService = linkService;

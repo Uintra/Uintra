@@ -46,8 +46,6 @@ namespace Compent.uIntra.Core.Events
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
-        private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
         private readonly UserTagService _userTagService;
@@ -68,7 +66,6 @@ namespace Compent.uIntra.Core.Events
             IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
-            ISearchableTypeProvider searchableTypeProvider,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
@@ -86,8 +83,6 @@ namespace Compent.uIntra.Core.Events
             _mediaHelper = mediaHelper;
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
-            _activityTypeProvider = activityTypeProvider;
-            _searchableTypeProvider = searchableTypeProvider;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
