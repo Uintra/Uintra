@@ -3,11 +3,6 @@ import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 
 var holder;
  
-var initDescriptionControl = function () {    
-    helpers.initActivityDescription(holder, '#js-hidden-description-container', '#description', '.js-submit');    
-}
-
-
 var controller = {
     init: function () {
         holder = $('#js-group-create-page');
@@ -16,7 +11,6 @@ var controller = {
             return;
         }
             
-        initDescriptionControl();
         fileUploadController.init(holder);
     }
 }

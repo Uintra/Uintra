@@ -3,7 +3,8 @@
 @model uIntra.Navigation.TopNavigationViewModel
 
 @{
-    var userAvatar = Model.CurrentUser.Photo.HasValue() ? "_with-avatar" : "";
+    var userAvatarClass = Model.CurrentUser.Photo.HasValue() ? "_with-avatar" : string.Empty;
+    var userAvatar = Model.CurrentUser.Photo.HasValue() ? $"{Model.CurrentUser.Photo}?width=30&height=30&mode=crop" : string.Empty;
 }
 
 <div class="menu _for-mobile">
@@ -21,9 +22,9 @@
         </div>
         <div class="col-md-4 _for-desktop">
             <div class="user">
-                <a class="user__opener icon-user @userAvatar">
+                <a class="user__opener icon-user @userAvatarClass">
                     <div class="user__avatar">
-                        <img class="user__avatar-img" src="@Model.CurrentUser.Photo?width=30&height=30&mode=crop" width="30">
+                        <img class="user__avatar-img" src="@userAvatar" width="30">
                     </div>
                     <span class="user__opener-arrow"></span>
                     <div class="greeting">

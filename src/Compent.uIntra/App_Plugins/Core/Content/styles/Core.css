@@ -906,6 +906,7 @@ img{
 }
 .emoji{
     position:absolute;
+    
     border:1px solid var(--color-light-gray);
     overflow:hidden;
     background:var(--color-white);

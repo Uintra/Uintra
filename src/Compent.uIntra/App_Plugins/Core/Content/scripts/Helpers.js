@@ -206,6 +206,14 @@ const helpers = {
             "sleepy": {
                 "shortcode": "|-)",
                 "translation": "Sleepy"
+            },
+            "fever": {
+                "shortcode": ":/",
+                "translation": "Fever"
+            },
+            "sleepy": {
+                "shortcode": "|-)",
+                "translation": "Sleepy"
             }
         };
         const body = document.querySelector('body');

@@ -1,4 +1,9 @@
 ﻿.form{
+    &._profile{
+        @media(--for-tablet-portrait-down){
+            margin:20px 0 0;
+        }
+    }
 	&__header{
 		display: flex;
 	}

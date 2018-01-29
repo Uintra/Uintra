@@ -96,7 +96,7 @@ namespace Compent.uIntra.Controllers
                     return new SearchFilterItemViewModel
                     {
                         Id = type.Id,
-                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.Name}", facet != null ? (int) facet.Count : default)
+                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.Name}", facet != null ? (int) facet.Count : default(int))
                     };
                 }
             );

@@ -11,8 +11,9 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent uIntra</tags>
     <dependencies>
-      <dependency id="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" version="1.0.3" />
       <dependency id="Elmah.MVC" version="2.0.0" />
+      <dependency id="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" version="1.0.8" />
+      <dependency id="Microsoft.Net.Compilers" version="2.4.0" />
     </dependencies>
   </metadata>
 </package>

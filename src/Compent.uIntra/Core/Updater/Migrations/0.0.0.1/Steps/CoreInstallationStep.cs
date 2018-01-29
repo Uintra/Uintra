@@ -13,8 +13,8 @@ using uIntra.Core.Media;
 using uIntra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
-using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.CoreInstallationConstants;
 using static Compent.uIntra.Core.Updater.ExecutionResult;
+using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.CoreInstallationConstants;
 
 namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 {
@@ -98,6 +98,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
             var embeddedResourceFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.Core.Updater.Migrations._0._0._0._1.PreValues.DefaultGridCorePreValues.json";
             InstallationStepsHelper.CreateGrid(DataTypeNames.DefaultGrid, embeddedResourceFileName);
         }
+
         private void CreateContentGridDataType()
         {
             var embeddedResourceFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.Core.Updater.Migrations._0._0._0._1.PreValues.ContentGridCorePreValues.json";
@@ -196,7 +197,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 
             gridPageLayoutTemplate = new Template(alias, alias);
 
-            var layoutEmbeddedResourceFileName = "Compent.uIntra.Core.Updater.Migrations._0._0._0._1.PreValues.GridPageLayout.cshtml";
+            var layoutEmbeddedResourceFileName = "uIntra.Core.Updater.Migrations._0._0._0._1.PreValues.GridPageLayout.cshtml"; //TODO use Assembly.GetExecutingAssembly()
             gridPageLayoutTemplate.Content = EmbeddedResourcesUtils.ReadResourceContent(layoutEmbeddedResourceFileName);
 
             fileService.SaveTemplate(gridPageLayoutTemplate);

@@ -18,6 +18,10 @@
 
     <add key="DefaultAvatarPath" value="/Content/images/default-avatar.png" xdt:Locator="Condition(@key='DefaultAvatarPath')" xdt:Transform="InsertIfMissing" />
     <add key="Search.IndexingDocumentTypes" value="doc,docx,pdf,ppt,pptx,odf" xdt:Locator="Condition(@key='Search.IndexingDocumentTypes')" xdt:Transform="InsertIfMissing"/>
+    <add key="Search.TitleScore" value="1.5" xdt:Locator="Condition(@key='Search.TitleScore')" xdt:Transform="InsertIfMissing"/>
+    <add key="Search.UserNameScore" value="3" xdt:Locator="Condition(@key='Search.UserNameScore')" xdt:Transform="InsertIfMissing"/>
+    <add key="Search.UserEmailScore" value="3" xdt:Locator="Condition(@key='Search.UserEmailScore')" xdt:Transform="InsertIfMissing"/>
+    <add key="Search.UserPhoneScore" value="3" xdt:Locator="Condition(@key='Search.UserPhoneScore')" xdt:Transform="InsertIfMissing"/>
   </appSettings>
 
   <elasticConfiguration url="http://localhost:9200" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>
