@@ -26,6 +26,10 @@
         </p>
     </div>
 </header>
+@if (Model.Location != null)
+{
+    @Html.Action("HeaderLink", "ActivityLocation", new { location = Model.Location })
+}
 @if (Model.Title.HasValue())
 {
     <h2 class="feed__item-title">@Model.Title</h2>

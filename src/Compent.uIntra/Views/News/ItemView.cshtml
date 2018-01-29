@@ -12,18 +12,7 @@
         {
             <span class="pinned__item">@Html.Localize("NewsItemView.Pinned.lbl")</span>
         }
-
-        @if (Model.Location != null)
-        {
-            <div class="with-address">
-                @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
-                @Html.Action("HeaderLink", "ActivityLocation", new { location = Model.Location })
-            </div>
-        }
-        else
-        {
-            @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
-        }
+        @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
     </div>
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(Model.Description))
