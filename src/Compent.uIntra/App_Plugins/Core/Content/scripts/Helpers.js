@@ -238,7 +238,7 @@ const helpers = {
 
             emojiListItem.addEventListener('click', function (event) {
                 CopyClipboard(getHTML(event.target));
-                emojiContainer.classList.add("hidden");
+                //emojiContainer.classList.add("hidden");
             });
 
             emojiListImage = document.createElement("img");
