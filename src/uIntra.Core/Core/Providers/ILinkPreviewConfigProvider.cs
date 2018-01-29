@@ -1,4 +1,6 @@
-﻿namespace uIntra.Core
+﻿using System.Collections.Generic;
+
+namespace uIntra.Core
 {
     public interface ILinkPreviewConfigProvider
     {
@@ -7,9 +9,9 @@
 
     public class FooBananaConfig
     {
-        public string UrlRegex { get; }
+        public IEnumerable<string> UrlRegex { get; }
 
-        public FooBananaConfig(string urlRegex)
+        public FooBananaConfig(IEnumerable<string> urlRegex)
         {
             UrlRegex = urlRegex;
         }

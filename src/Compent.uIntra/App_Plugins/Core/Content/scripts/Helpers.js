@@ -1,12 +1,23 @@
 ﻿const Quill = require('quill');
 const Delta = require('quill-delta');
-const Dotdotdot = require('dotdotdot');
 const Flatpickr = require('flatpickr');
+const Ajax = require('./Ajax');
 
 require('simple-scrollbar');
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
 
+var urlDetectRegexes = [];
+
+Ajax.default.Get('/umbraco/api/LinkPreviewApi/config',
+    function (data) {
+        var regexes = JSON.parse(data).urlRegex.map(r => new RegExp(r));
+        urlDetectRegexes = regexes;
+    });
+
+function matchUponMultiple(regexes, text) {
+    return regexes.map(regex => text.match(regex)).find(m => m !== null);
+}
 
 const easeInOutQuad = function (t, b, c, d) {
     t /= d / 2;
@@ -81,18 +92,14 @@ const helpers = {
                 return;
             }
             dataStorage.value = quill.container.firstChild.innerHTML;
-
-            var regexes = [
-                /https?:\/\/[^\s]+$/
-            ];
+            
             if (delta.ops.length === 2 && delta.ops[0].retain && isWhitespace(delta.ops[1].insert)) {
                 var endRetain = delta.ops[0].retain;
                 var text = quill.getText().substr(0, endRetain);
-                var match = regexes.map(regex => text.match(regex)).find(m => m !== null);
+                var matches = matchUponMultiple(urlDetectRegexes, text);
 
-
-                if (match) {
-                    var url = match[0];
+                if (matches) {
+                    var url = matches[0];
                     triggerLinkDetectedEvent(url);
 
                     var ops = [];
@@ -125,22 +132,22 @@ const helpers = {
         });
 
         quill.clipboard.addMatcher(Node.TEXT_NODE, function (node, delta) {
-            var regex = /https?:\/\/[^\s]+/g;
             if (typeof (node.data) !== 'string') return;
-            var matches = node.data.match(regex);
+            var text = node.data;
+
+            var matches = matchUponMultiple(urlDetectRegexes, text);
 
             if (matches && matches.length > 0) {
                 var ops = [];
-                var str = node.data;
                 matches.forEach(function (match) {
                     triggerLinkDetectedEvent(match);
-                    var split = str.split(match);
+                    var split = text.split(match);
                     var beforeLink = split.shift();
                     ops.push({ insert: beforeLink });
                     ops.push({ insert: match, attributes: { link: match } });
-                    str = split.join(match);
+                    text = split.join(match);
                 });
-                ops.push({ insert: str });
+                ops.push({ insert: text });
                 delta.ops = ops;
             }
 

@@ -4,6 +4,6 @@ namespace Compent.uIntra.Core
 {
     public class LinkPreviewConfigProvider : ILinkPreviewConfigProvider
     {
-        public FooBananaConfig Config { get; } = new FooBananaConfig(@"https?:\/\/[^\s]+$");
+        public FooBananaConfig Config { get; } = new FooBananaConfig(new[] {@"https?:\/\/[^\s]+$"});
     }
 }
