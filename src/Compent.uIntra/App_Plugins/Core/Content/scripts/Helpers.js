@@ -167,6 +167,7 @@ const helpers = {
                 "shortcode": ":p",
                 "translation": "Tease"
             },
+
             "funny": {
                 "shortcode": ":D",
                 "translation": "Funny"
@@ -187,6 +188,7 @@ const helpers = {
                 "shortcode": ":+1",
                 "translation": "Great"
             },
+
             "joy": {
                 "shortcode": ":-)",
                 "translation": "Joy"
@@ -200,15 +202,7 @@ const helpers = {
                 "translation": "Party"
             },
             "fever": {
-                "shortcode": ":/",
-                "translation": "Fever"
-            },
-            "sleepy": {
-                "shortcode": "|-)",
-                "translation": "Sleepy"
-            },
-            "fever": {
-                "shortcode": ":/",
+                "shortcode": "fever",
                 "translation": "Fever"
             },
             "sleepy": {
