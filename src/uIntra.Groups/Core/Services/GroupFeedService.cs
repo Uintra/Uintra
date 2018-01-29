@@ -25,7 +25,7 @@ namespace uIntra.Groups
         public IEnumerable<IFeedItem> GetFeed(Enum type, Guid groupId)
         {
             return GetFeed(groupId)
-                .Where(i => i.Type == type);
+                .Where(i => Equals(i.Type, type));
         }
 
         public IEnumerable<IFeedItem> GetFeed(Guid groupId)
@@ -38,7 +38,7 @@ namespace uIntra.Groups
         public IEnumerable<IFeedItem> GetFeed(Enum type, IEnumerable<Guid> groupIds)
         {
             return GetFeed(groupIds)
-                .Where(i => i.Type == type);  
+                .Where(i => Equals(i.Type, type));  
         }
 
         public IEnumerable<IFeedItem> GetFeed(IEnumerable<Guid> groupIds)
