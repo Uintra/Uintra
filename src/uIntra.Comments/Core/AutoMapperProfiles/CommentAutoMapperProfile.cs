@@ -9,6 +9,7 @@ namespace uIntra.Comments
             Mapper.CreateMap<Comment, CommentModel>();
 
             Mapper.CreateMap<CommentModel, CommentViewModel>()
+                .ForMember(dst => dst.LinkPreview, o => o.Ignore())
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.CreatorProfileUrl, o => o.Ignore())
                 .ForMember(dst => dst.CanDelete, o => o.Ignore())

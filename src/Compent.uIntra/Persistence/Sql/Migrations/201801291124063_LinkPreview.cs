@@ -22,13 +22,13 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
                 .PrimaryKey(t => t.Id);
 
             CreateTable(
-                "dbo.uIntra_CommentToLinkPreview",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    CommentId = c.Guid(nullable: false),
-                    LinkPreviewId = c.Int(nullable: false),
-                })
+                    "dbo.uIntra_CommentToLinkPreview",
+                    c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        CommentId = c.Guid(nullable: false),
+                        LinkPreviewId = c.Int(nullable: false),
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.uIntra_Comment", t => t.CommentId, name: "FK_CommentToLinkPreview_Comment_Id")
                 .ForeignKey("dbo.uIntra_LinkPreview", t => t.LinkPreviewId, name: "FK_CommentToLinkPreview_LinkPreview_Id")
