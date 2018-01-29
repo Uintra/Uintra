@@ -906,18 +906,23 @@ img{
 }
 .emoji{
     position:absolute;
-    
+    bottom:100%;
     border:1px solid var(--color-light-gray);
-    overflow:hidden;
     background:var(--color-white);
     z-index:9999;
-    top:100%;
     width:262px;
-    margin:0;
+    margin:0 0 -10px;
+    padding:10px 9px 9px 10px;
+    overflow:hidden;
+
+    @media(--for-tablet-portrait-down){
+        left:50%;
+        margin:0 0 -10px -131px;
+    }
 
     &__list{
         margin:-20px 0 0 -20px;
-        padding:10px 9px 9px 10px;
+        padding:0;
         list-style:none;
         overflow:hidden;
 
