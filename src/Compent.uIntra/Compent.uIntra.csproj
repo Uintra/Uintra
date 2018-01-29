@@ -40,6 +40,7 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
@@ -572,20 +573,19 @@
     <Content Include="App_Plugins\Core\Content\scripts\ValidationExtensions.js" />
     <Content Include="App_Plugins\Core\Content\styles\Core.css" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\angry.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\emoji.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\great.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\happy.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\hungry.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\inlove.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\laughing.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\neutral.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\party.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\relaxed.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\sad.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\sick.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\skeptical.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\sleeping.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.png" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\love.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\tease.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\funny.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\shocked.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\party.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\joy.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\sad.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\fever.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\skeptical.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\sleepy.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\surprised.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\wink.svg" />
     <Content Include="App_Plugins\Core\Content\styles\forms.css" />
@@ -1128,11 +1128,18 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201801111246169_UserTags.resx">
       <DependentUpon>201801111246169_UserTags.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="App_Plugins\web.config">
+      <TransformOnBuild>false</TransformOnBuild>
+    </Content>
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="config\umbracoSettings.ManualInstallation.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
@@ -1237,6 +1244,9 @@
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\Shared\_Layout-output.cshtml" />
     <None Include="Web.DebugWithDll.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.ManualInstallation.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.PublicNuget.config">
@@ -1616,6 +1626,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'QA|AnyCPU' ">
+    <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DISABLE_LICENCE</DefineConstants>
     <LangVersion>latest</LangVersion>
@@ -1631,6 +1642,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PublicNuget|AnyCPU'">
+    <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -1641,6 +1653,17 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ManualInstallation|AnyCPU'">
+    <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DISABLE_LICENCE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
