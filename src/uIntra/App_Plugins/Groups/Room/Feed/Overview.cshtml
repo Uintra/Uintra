@@ -40,7 +40,7 @@
         @using (Html.BeginUmbracoForm("List", "GroupFeed", null,
             new Dictionary<string, object> {{"class", "js-ajax-form"}, {"data-append-to", ".js-feed-listContainer"}}))
         {
-            <div class="content__loader js-loading-status" style="display: none;"><img src="~/App_Plugins/CentralFeed/loader.gif" width="50" height="50"/>
+            <div class="content__loader js-loading-status" style="display: none;"><img src="~/App_Plugins/CentralFeed/loader_greybg.gif" width="50" height="50" alt="loader"/>
             </div>
             <input type="hidden" name="typeId" value="@Model.CurrentType.Id" />
             <input type="hidden" name="page"/>

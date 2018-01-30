@@ -167,6 +167,7 @@ const helpers = {
                 "shortcode": ":p",
                 "translation": "Tease"
             },
+
             "funny": {
                 "shortcode": ":D",
                 "translation": "Funny"
@@ -187,6 +188,7 @@ const helpers = {
                 "shortcode": ":+1",
                 "translation": "Great"
             },
+
             "joy": {
                 "shortcode": ":-)",
                 "translation": "Joy"
@@ -200,7 +202,7 @@ const helpers = {
                 "translation": "Party"
             },
             "fever": {
-                "shortcode": ":/",
+                "shortcode": "fever",
                 "translation": "Fever"
             },
             "sleepy": {
@@ -230,7 +232,6 @@ const helpers = {
 
             emojiListItem.addEventListener('click', function (event) {
                 CopyClipboard(getHTML(event.target));
-                emojiContainer.classList.add("hidden");
             });
 
             emojiListImage = document.createElement("img");

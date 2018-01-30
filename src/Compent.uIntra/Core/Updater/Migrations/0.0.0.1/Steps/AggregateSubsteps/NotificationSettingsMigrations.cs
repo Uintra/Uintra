@@ -58,7 +58,6 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
 
         public void Execute()
         {
-            
             ImportExistedEmailNotificationSettings();
             ImportExistedUiNotificationSettings();
         }

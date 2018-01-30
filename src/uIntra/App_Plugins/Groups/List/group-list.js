@@ -1,13 +1,14 @@
 ﻿import helpers from "./../../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../../Core/Content/scripts/UmbracoAjaxForm";
 
-var scrollTo = helpers.scrollTo;
-var localStorage = helpers.localStorage;
+let scrollTo = helpers.scrollTo;
+let localStorage = helpers.localStorage;
+let infinityScroll = helpers.infiniteScrollFactory;
 
-var formController;
-var holder = document.querySelector('.js-groups-overview');
+let formController;
+let holder = document.querySelector('.js-groups-overview');
 
-var state = {
+let state = {
     get page() {
         return holder.querySelector('input[name="page"]').value || 1;
     },
@@ -22,7 +23,7 @@ var state = {
 function reload(skipLoadingStatus) {
     !skipLoadingStatus && showLoadingStatus();
     saveState();
-    var promise = formController.reload();
+    let promise = formController.reload();
     promise.then(hideLoadingStatus);
     promise.catch(hideLoadingStatus);
     return promise;
@@ -37,12 +38,12 @@ function scrollPrevented() {
 }
 
 function showLoadingStatus() {
-    var loadingElem = document.querySelector(".js-loading-status");
+    let loadingElem = document.querySelector(".js-loading-status");
     loadingElem && (loadingElem.style.display = "block");
 }
 
 function hideLoadingStatus() {
-    var loadingElem = document.querySelector(".js-loading-status");
+    let loadingElem = document.querySelector(".js-loading-status");
     loadingElem && (loadingElem.style.display = "none");
 }
 
@@ -53,17 +54,17 @@ function hideLoadingStatus() {
 //        return;
 //    }
 //    state.page++;
-//    var promise = reload();
+//    let promise = reload();
 //    promise.then(done, done);
 //}
 
 function restoreState() {
-    var hash = (window.location.hash || "").replace("#", "");
+    let hash = (window.location.hash || "").replace("#", "");
     if (hash) {
-        var savedState = localStorage.getItem(state.storageName);
+        let savedState = localStorage.getItem(state.storageName);
         state.page = (savedState || {}).page || 1;
         reload().then(function () {
-            var elem = document.querySelector('[data-anchor="' + hash + '"]');
+            let elem = document.querySelector('[data-anchor="' + hash + '"]');
             if (!elem) return;
             scrollTo(document.body, elem.offsetTop, 300);
             window.history.pushState("", document.title, window.location.pathname);
@@ -72,13 +73,26 @@ function restoreState() {
         localStorage.removeItem(state.storageName);
     }
 
-}      
+}
 
-var controller = {
+function initInfinityScroll() {
+    formController = umbracoAjaxForm($(holder).find("form.js-ajax-form")[0]);
+
+    infinityScroll({
+        storageName: "groupsList",
+        loaderSelector: '.js-loading-status',
+        $container: $(formController.form),
+        reload: formController.reload
+    });
+}
+
+let controller = {
     init: function() {
         if (!holder) return;
         formController = umbracoAjaxForm(holder.querySelector("form.js-ajax-form"));
+        
         restoreState();
+        initInfinityScroll();
     }
 }
 

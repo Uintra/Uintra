@@ -1,11 +1,11 @@
-﻿using uIntra.Core.Constants;
+﻿using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using uIntra.Core.Constants;
 using uIntra.Core.Installer;
 using Umbraco.Core;
 using Umbraco.Core.Models;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
-using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.GroupsInstallationConstants;
 using static Compent.uIntra.Core.Updater.ExecutionResult;
+using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.GroupsInstallationConstants;
 
 namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 {
@@ -35,7 +35,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 
         private void CreateGroupGridDataType()
         {
-            var embeddedResourceFileName = "Compent.uIntra.Core.Updater.Migrations._0._0._0._1.PreValues.GroupGridPreValues.json";
+            var embeddedResourceFileName = "uIntra.Core.Updater.Migrations._0._0._0._1.PreValues.GroupGridPreValues.json"; //TODO use Assembly.GetExecutingAssembly()
             InstallationStepsHelper.CreateGrid(DataTypeNames.GroupGrid, embeddedResourceFileName);
         }
 

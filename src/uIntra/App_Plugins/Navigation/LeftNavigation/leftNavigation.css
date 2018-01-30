@@ -16,11 +16,11 @@
         padding:50px 32px 0 0;
 
         @media (--for-tablet-portrait-down){
-            padding:0;
+            padding:0 60px 0 0;
             height:calc(100vh - 60px);
             overflow-x:hidden;
             overflow-y:auto;
-            background:var(--color-white);
+            background:#f6f6f6;
         }
     }
 }
@@ -60,17 +60,27 @@
 
     &--profile{
         display:none;
+        position:relative;
 
         @media (--for-tablet-portrait-down) {
             border-top:none;
-            border-bottom:2px solid #f6f6f6;
-            margin:0 0 40px;
-            padding:14px 0 22px 0;
+            /*border-bottom:2px solid #f6f6f6;
+            margin:0 0 40px;*/
+            padding:14px 0 62px 0;
             display:block;
 
             .icon-logout{
                 display:none !important;
             }
+        }
+        &:before{
+            content:'';
+            position:absolute;
+            left:0;
+            right:0;
+            bottom:40px;
+            height:1px;
+            background:#f6f6f6;
         }
     }
 
@@ -230,7 +240,7 @@
         margin:0;
         padding:0;
         list-style:none;
-        font-family:var(--font-general);
+        font-weight:normal;
         border-top:none;
     }
 
