@@ -580,7 +580,6 @@
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\tease.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\funny.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\shocked.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.png" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.svg">
       <SubType>Designer</SubType>
     </Content>
