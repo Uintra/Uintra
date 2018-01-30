@@ -16,7 +16,7 @@ namespace Compent.uIntra.Core
             _section = (LinkDetectionConfigurationSection) ConfigurationManager.GetSection(LinkDetectionConfigurationSection.SectionName);
         }
 
-        public FooBananaConfig Config => new FooBananaConfig(new[] {@"https?:\/\/[^\s]+$"});
+        public FooBananaConfig Config => new FooBananaConfig(_section.Regexes.Select(r => r.Key));
     }
 
     public class DetectionRegex : ConfigurationElement
@@ -38,10 +38,13 @@ namespace Compent.uIntra.Core
             return ((DetectionRegex)element).Key;
         }
 
-        public new IEnumerator<DetectionRegex> GetEnumerator()
+        IEnumerator<DetectionRegex> IEnumerable<DetectionRegex>.GetEnumerator()
         {
-            throw new System.NotImplementedException();
-            //return (from i in Enumerable.Range(0, Count) select this[i]).GetEnumerator();
+            var baseEnumerator = base.GetEnumerator();
+            while (baseEnumerator.MoveNext())
+            {
+                yield return (DetectionRegex)baseEnumerator.Current;
+            }
         }
     }
 
