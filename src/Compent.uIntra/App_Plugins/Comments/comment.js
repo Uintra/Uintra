@@ -54,7 +54,9 @@ var initCreateControl = function (holder) {
                 function (data) {
                     console.log(data);
                     var imageElem = getImageElem(data);
+                    var hiddenSaveElem = getHiddenSaveElem(data);
                     $this.append(imageElem);
+                    $this.append(hiddenSaveElem);
                 });
         }
 
@@ -69,6 +71,20 @@ var initCreateControl = function (holder) {
             divElem.appendChild(descriptionElem);
 
             return divElem;
+        }
+
+        function getHiddenSaveElem(data) {
+            return createHiddenInput('linkPreviewId', data.id);
+        }
+
+        function createHiddenInput(name, value) {
+            var input = document.createElement('input');
+
+            input.setAttribute('type', 'hidden');
+            input.setAttribute('name', name);
+            input.setAttribute('value', value);
+
+            return input;
         }
 
         function createImg(imageUri) {

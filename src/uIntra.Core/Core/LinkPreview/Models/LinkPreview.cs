@@ -4,6 +4,8 @@ namespace uIntra.Core.LinkPreview
 {
     public class LinkPreview
     {
+        public int Id { get; set; }
+
         public Uri Uri { get; set; }
 
         public string Title { get; set; }

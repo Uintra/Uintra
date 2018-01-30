@@ -167,6 +167,11 @@ namespace uIntra.Comments.Web
             var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
             OnCommentCreated(comment);
 
+            if (model.LinkPreviewId.HasValue)
+            {
+                _commentsService.SaveLinkPreview(comment.Id, model.LinkPreviewId.Value);
+            }
+
             return OverView(model.ActivityId);
         }
 
