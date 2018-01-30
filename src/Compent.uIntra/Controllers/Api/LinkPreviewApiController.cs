@@ -6,7 +6,8 @@ namespace Compent.uIntra.Controllers.Api
 {
     public class LinkPreviewApiController : LinkPreviewApiControllerBase
     {
-        public LinkPreviewApiController(ILinkPreviewService linkPreviewService, ILinkPreviewConfigProvider configProvider) : base(linkPreviewService, configProvider)
+        public LinkPreviewApiController(ILinkPreviewService linkPreviewService, ILinkPreviewConfigProvider configProvider) 
+            : base(linkPreviewService, configProvider)
         {
         }
     }

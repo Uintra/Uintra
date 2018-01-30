@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
+using uIntra.Core.LinkPreview;
 using uIntra.Core.Links;
 using uIntra.Core.PagePromotion;
 using uIntra.Core.User;
@@ -230,6 +231,7 @@ namespace uIntra.Comments.Web
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             model.CreatorProfileUrl = _profileLinkProvider.GetProfileLink(creator);
+            model.LinkPreview = comment.LinkPreview.Map<LinkPreviewViewModel>();
             return model;
         }
 

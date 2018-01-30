@@ -37,11 +37,14 @@ var initCreateControl = function (holder) {
         var descriptionElem = $this.find('.js-comment-create-description')[0];
         var quill = helpers.initQuill(descriptionElem, dataStorage);
 
-        quill.onLinkDetected(function(link) {
-            showLinkPreview(link);
+        var isOneLinkDetected = false;
+
+        quill.onLinkDetected(function (link) {
+            if (!isOneLinkDetected) {
+                showLinkPreview(link);
+                isOneLinkDetected = true;
+            }
         });
-
-
 
         var button = $this.find('.js-comment-create-btn');
         var toolbarBtns = $this.find('.ql-formats button');
