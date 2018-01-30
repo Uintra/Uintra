@@ -23,6 +23,7 @@ using Compent.uIntra.Core.Handlers;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.IoC;
 using Compent.uIntra.Core.Licence;
+using Compent.uIntra.Core.LinkPreview.Config;
 using Compent.uIntra.Core.Navigation;
 using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;

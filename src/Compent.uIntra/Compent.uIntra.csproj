@@ -1356,7 +1356,8 @@
     <Compile Include="Core\Licence\LicenceServiceConnection.cs" />
     <Compile Include="Core\Licence\ValidateLicenceService.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
-    <Compile Include="Core\LinkPreviewConfigProvider.cs" />
+    <Compile Include="Core\LinkPreview\Config\LinkDetectionConfigurationSection.cs" />
+    <Compile Include="Core\LinkPreview\Config\LinkPreviewConfigProvider.cs" />
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\MemberServiceHelper.cs" />
     <Compile Include="Core\Navigation\MyLinksModelBuilder.cs" />

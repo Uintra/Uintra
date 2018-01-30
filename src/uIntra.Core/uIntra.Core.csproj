@@ -407,7 +407,7 @@
     <Compile Include="Core\Jobs\Models\BaseIntranetJob.cs" />
     <Compile Include="Core\Jobs\Enums\JobTimeTypeEnum.cs" />
     <Compile Include="Core\Jobs\UpdateActivityCacheJob.cs" />
-    <Compile Include="Core\LinkPreview\LinkPreviewConfiguration.cs" />
+    <Compile Include="Core\LinkPreview\Configuration\LinkPreviewConfiguration.cs" />
     <Compile Include="Core\LinkPreview\Models\LinkPreviewViewModel.cs" />
     <Compile Include="Core\LinkPreview\Sql\LinkPreviewEntity.cs" />
     <Compile Include="Core\LabeledIdentity.cs" />
@@ -433,6 +433,7 @@
     <Compile Include="Core\Providers\ContentProviderBase.cs" />
     <Compile Include="Core\Providers\ILinkPreviewConfigProvider.cs" />
     <Compile Include="Core\Providers\IXPathProvider.cs" />
+    <Compile Include="Core\LinkPreview\Configuration\LinkDetectionConfig.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentPublishedEventService.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentTrashedEventService.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentUnPublishedEventService.cs" />

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
 using Compent.LinkPreview.Client;
+using uIntra.Core.LinkPreview;
 using Umbraco.Web.WebApi;
 
 namespace uIntra.Core.Web
@@ -23,7 +24,7 @@ namespace uIntra.Core.Web
         }
 
         [HttpGet, AllowAnonymous]
-        public FooBananaConfig Config()
+        public LinkDetectionConfig Config()
         {
             return _configProvider.Config;
         }

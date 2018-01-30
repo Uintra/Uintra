@@ -9,10 +9,5 @@ namespace uIntra.Core.LinkPreview
         private const string SectionName = "linkPreviewServiceUri";
 
         public Uri ServiceUri => new Uri(ConfigurationManager.AppSettings[SectionName]);
-
-        private class LinkPreviewConfig
-        {
-            
-        }
     }
 }
