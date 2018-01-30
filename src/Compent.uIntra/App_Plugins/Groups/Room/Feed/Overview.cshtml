@@ -12,7 +12,7 @@
             @foreach (var typeModel in Model.TabsWithCreateUrl)
             {
                 <li class="feed-create__frame">
-                    <a class="btn" href="@typeModel.Links.Create">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.Name}.lnk")</a>
+                    <a class="btn" href="@typeModel.Links.Create">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.ToString()}.lnk")</a>
                 </li>
             }
 
@@ -29,8 +29,8 @@
             <ul class="feed-links js-feed-links">
                 @foreach (var tabModel in Model.Tabs)
                 {
-                    <li class="feed-links__frame js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.Id" data-page-url="@tabModel.Links.Overview">
-                        <a class="feed-links__item" href="@tabModel.Links.Overview">@Html.Localize(tabModel.Type.Name)</a>
+                    <li class="feed-links__frame js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.ToInt()" data-page-url="@tabModel.Links.Overview">
+                        <a class="feed-links__item" href="@tabModel.Links.Overview">@Html.Localize(tabModel.Type.ToString())</a>
                     </li>
                 }
             </ul>
@@ -42,7 +42,7 @@
         {
             <div class="content__loader js-loading-status" style="display: none;"><img src="~/App_Plugins/CentralFeed/loader_greybg.gif" width="50" height="50" alt="loader"/>
             </div>
-            <input type="hidden" name="typeId" value="@Model.CurrentType.Id" />
+            <input type="hidden" name="typeId" value="@Model.CurrentType.ToInt()" />
             <input type="hidden" name="page"/>
             <div class="tab-content js-feed-listContainer">
                 @{Html.RenderAction("List", "GroupFeed",

@@ -66,7 +66,7 @@ namespace uIntra.CentralFeed.Web
         protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items, IEnumerable<FeedSettings> settings)
         {
             var activitySettings = settings
-                .ToDictionary(s => s.Type);
+                .ToDictionary(s => s.Type.ToInt());
 
             var result = items
                 .Select(i => MapFeedItemToViewModel(i, activitySettings));
@@ -74,14 +74,14 @@ namespace uIntra.CentralFeed.Web
             return result;
         }
 
-        protected virtual FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<Enum, FeedSettings> settings)
+        protected virtual FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<int, FeedSettings> settings)
         {
             ActivityFeedOptions options = GetActivityFeedOptions(i.Id);
             return new FeedItemViewModel()
             {
                 Activity = i,
                 Options = options,
-                ControllerName = settings[i.Type].Controller
+                ControllerName = settings[i.Type.ToInt()].Controller
             };
         }
 
