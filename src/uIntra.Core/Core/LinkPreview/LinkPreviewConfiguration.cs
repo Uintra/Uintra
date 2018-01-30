@@ -6,7 +6,13 @@ namespace uIntra.Core.LinkPreview
 {
     public class LinkPreviewConfiguration : ILinkPreviewConfiguration
     {
-        private const string ConfigKey = "linkPreviewServiceUri";
-        public Uri ServiceUri => new Uri(ConfigurationManager.AppSettings[ConfigKey]);
+        private const string SectionName = "linkDetectionConfiguration";
+
+        public Uri ServiceUri => new Uri(ConfigurationManager.AppSettings[""]);
+
+        private class LinkPreviewConfig
+        {
+            
+        }
     }
 }
