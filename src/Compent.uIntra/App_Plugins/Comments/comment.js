@@ -118,6 +118,7 @@ var initCreateControl = function (holder) {
 };
 
 var initEdit = function (holder) {
+    var editPreviewContainer = findControl(holder, '.js-comment-preview-edit');
     var editlink = findControl(holder, '.js-comment-editlink');
     var hideEditlink = findControl(holder, '.js-comment-hideEditLink');
 
@@ -129,6 +130,7 @@ var initEdit = function (holder) {
     var descriptionControl = findControl(holder, '.js-comment-description');
 
     editlink.on('click', function () {
+        editPreviewContainer.show();
         editlink.hide();
         hideEditlink.show();
         descriptionControl.hide();
