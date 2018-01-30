@@ -36,6 +36,15 @@ namespace uIntra.Comments
             _previewRelationRepository.Add(entity);
         }
 
+        public void RemovePreviewRelations(Guid commentId)
+        {
+            var relations = _previewRelationRepository.FindAll(r => r.CommentId == commentId).ToList();
+            var previewIds = relations.Select(r => r.LinkPreviewId).ToList();
+            _previewRelationRepository.Delete(relations);
+            _previewRepository.Delete(preview => previewIds.Contains(preview.Id));
+
+        }
+
         public virtual CommentModel Get(Guid id)
         {
             var comment = _commentsRepository.Get(id);
