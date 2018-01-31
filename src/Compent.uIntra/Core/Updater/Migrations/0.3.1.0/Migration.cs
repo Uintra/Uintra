@@ -22,7 +22,8 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._3._1._0
             get
             {
                 yield return Resolve<UserTagsInstallationStep>();
-                yield return Resolve<UpdateDataFolderNamesMigrationInstallationStep>();                
+                yield return Resolve<UpdateDataFolderNamesMigrationInstallationStep>();
+                yield return Resolve<NotificationsMigrationStep>();
             }
         }
     }
