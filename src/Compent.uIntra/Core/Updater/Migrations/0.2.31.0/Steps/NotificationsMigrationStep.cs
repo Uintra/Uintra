@@ -1,10 +1,8 @@
-﻿using System;
-using System.Web.Helpers;
+﻿using System.Web.Helpers;
 using Localization.Umbraco.Extensions;
 using uIntra.Core.Persistence;
-using static Compent.uIntra.Core.Updater.ExecutionResult;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._3._1._0.Steps
+namespace Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Steps
 {
     public class NotificationsMigrationStep :IMigrationStep
     {
@@ -38,7 +36,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._3._1._0.Steps
             
             _notificationsRepository.Update(notifications);
 
-            return Success;
+            return ExecutionResult.Success;
         }
 
         public void Undo()
