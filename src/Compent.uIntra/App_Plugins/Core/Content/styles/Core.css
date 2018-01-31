@@ -884,6 +884,7 @@ img{
 
         .ql-formats{
             margin-right:0;
+            float:left;
         }
     }
 
@@ -896,12 +897,6 @@ img{
     }
 }
 
-
-/*.ql-emoji{
-    &:after{
-        content:url(/App_Plugins/Core/Content/styles/emoji-data/emoji.svg);
-    }
-}*/
 .emoji{
     position:absolute;
     bottom:100%;
