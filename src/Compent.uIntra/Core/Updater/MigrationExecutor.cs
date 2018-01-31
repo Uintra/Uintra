@@ -25,15 +25,16 @@ namespace Compent.uIntra.Core.Updater
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            var allMigrations = GetAllMigrations();
-            var migrationsSequence = GetMissingMigrations(allMigrations).ToList();
-            var migrationStepsSequence = migrationsSequence.SelectMany(m => m.Steps);
+            var allMigrations = GetAllMigrations().OrderBy(m => m.Version);
+            var getLastMigration = _migrationHistoryService.GetLast();
+            var allSteps = GetAllSteps(allMigrations);
+            var missingSteps = GetMissingSteps(allSteps, getLastMigration).ToList();
 
-            var (executionResult, stepHistory) = TryExecuteSteps(migrationStepsSequence);
+            var (executionResult, stepHistory) = TryExecuteSteps(missingSteps);
 
             if (executionResult.Type is ExecutionResultType.Failure)
             {
-                var undoExecutionResult = UndoSteps(stepHistory);
+                var undoExecutionResult = UndoSteps(stepHistory.Select(s => s.step));
                 if (undoExecutionResult.Type is ExecutionResultType.Failure)
                 {
                     _exceptionLogger.Log(undoExecutionResult.Exception);
@@ -41,7 +42,7 @@ namespace Compent.uIntra.Core.Updater
             }
             else
             {
-                SaveMigrationsHistory(migrationsSequence.Select(m => m.Version));
+                SaveMigrationsHistory(stepHistory);
             }
         }
 
@@ -50,27 +51,32 @@ namespace Compent.uIntra.Core.Updater
                 .GetServices(typeof(IMigration))
                 .Cast<IMigration>();
 
-        private IEnumerable<IMigration> GetMissingMigrations(IEnumerable<IMigration> migrations)
-        {
-            var orderedMigrations = migrations.OrderBy(m => m.Version);
+        private IEnumerable<(Version migrationVersion, IMigrationStep step)> GetAllSteps(IOrderedEnumerable<IMigration> migrations)=>
+            migrations.SelectMany(migration => migration.Steps.Select(step => (migration.Version, step)));
 
-            switch (_migrationHistoryService.GetLast())
+        private IEnumerable<(Version migrationVersion, IMigrationStep step)> GetMissingSteps(
+            IEnumerable<(Version migrationVersion, IMigrationStep step)> steps,
+            MigrationHistory lastMigration)
+        {
+            switch (lastMigration)
             {
-                case MigrationHistory version:
-                    var lastVersion = new Version(version.Version);
-                    return orderedMigrations.SkipWhile(m => m.Version <= lastVersion);
+                case MigrationHistory history:
+                    return steps
+                        .SkipWhile(s => s.step.GetType().ToString() != history.Name)
+                        .Skip(1);
                 case null:
-                    return orderedMigrations;
+                    return steps;
             }
         }
 
-        private (ExecutionResult excutionResult, Stack<IMigrationStep> stepHistory) TryExecuteSteps(IEnumerable<IMigrationStep> migrationSteps)
+        private static (ExecutionResult excutionResult, Stack<(Version migrationVersion, IMigrationStep step)> stepHistory) TryExecuteSteps(
+             IEnumerable<(Version migrationVersion, IMigrationStep step)> migrationSteps)
         {
-            var stepHistory = new Stack<IMigrationStep>();
+            var stepHistory = new Stack<(Version migrationVersion, IMigrationStep step)>();
 
             foreach (var migrationStep in migrationSteps)
             {
-                var stepExecutionResult = migrationStep.Execute();
+                var stepExecutionResult = migrationStep.step.Execute();
                 switch (stepExecutionResult.Type)
                 {
                     case ExecutionResultType.Success:
@@ -102,12 +108,11 @@ namespace Compent.uIntra.Core.Updater
             }
         }
 
-        private void SaveMigrationsHistory(IEnumerable<Version> versions)
+        private void SaveMigrationsHistory(IEnumerable<(Version migrationVersion, IMigrationStep step)> versions)
         {
             versions
-                .Select(ver => ver.ToString())
                 .ToList()
-                .ForEach(_migrationHistoryService.Create);
+                .ForEach( s=> _migrationHistoryService.Create(s.step.GetType().Name, s.migrationVersion));
         }
     }
 }
