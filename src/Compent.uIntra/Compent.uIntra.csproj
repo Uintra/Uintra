@@ -1141,30 +1141,6 @@
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
-    <None Include="config\umbracoSettings.Debug.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.ManualInstallation.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.DebugWithDll.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.Dev.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.PublicNuget.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.Release.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
     <Content Include="Media\Web.config" />
     <Content Include="Content\fonts\muli-italic.woff" />
     <Content Include="Content\fonts\muli-italic.woff2" />
@@ -1224,7 +1200,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="config\umbracoSettings.config">
-      <TransformOnBuild>true</TransformOnBuild>
+      <TransformOnBuild>false</TransformOnBuild>
     </Content>
     <None Include="Properties\PublishProfiles\groups_qa.pubxml">
       <SubType>Designer</SubType>
