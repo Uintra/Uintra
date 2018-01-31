@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using uIntra.CentralFeed.Providers;
+using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
 using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
@@ -55,7 +56,7 @@ namespace uIntra.CentralFeed
             foreach (var content in _contentProvider.GetRelatedPages())
             {
                 var tabType = GetFeedTabType(content);
-                var activityType = allActivityTypes.SingleOrDefault(a => Equals(a, tabType));
+                var activityType = allActivityTypes.SingleOrDefault(a => Equals(a.ToInt(), tabType.ToInt()));
 
                 if (activityType == null)
                 {

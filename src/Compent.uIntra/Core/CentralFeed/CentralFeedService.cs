@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.CentralFeed;
 using uIntra.Core.Caching;
+using uIntra.Core.Extensions;
 using uIntra.Groups;
 
 namespace Compent.uIntra.Core.CentralFeed
@@ -21,7 +22,7 @@ namespace Compent.uIntra.Core.CentralFeed
 
         public IEnumerable<IFeedItem> GetFeed(Enum type)
         {
-            var service = _feedItemServices.Single(s => Equals(s.ActivityType, type));
+            var service = _feedItemServices.Single(s => Equals(s.ActivityType.ToInt(), type.ToInt()));
             return service.GetItems().Where(IsCentralFeedActivity);
         }
 
