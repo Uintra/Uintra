@@ -1126,30 +1126,6 @@
     <Content Include="App_Plugins\web.config">
       <TransformOnBuild>false</TransformOnBuild>
     </Content>
-    <None Include="config\umbracoSettings.Debug.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.ManualInstallation.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.DebugWithDll.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.Dev.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.PublicNuget.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.Release.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
     <EmbeddedResource Include="Installer\PreValues\DefaultLocalizations.json" />
     <EmbeddedResource Include="Installer\ContentPageJsons\groupsOverviewPageGrid.json" />
     <EmbeddedResource Include="Installer\ContentPageJsons\groupsCreatePageGrid.json" />
@@ -1199,7 +1175,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="config\umbracoSettings.config">
-      <TransformOnBuild>true</TransformOnBuild>
+      <TransformOnBuild>false</TransformOnBuild>
     </Content>
     <EmbeddedResource Include="Installer\ContentPageJsons\bulletinsDetailsPageGrid.json" />
     <EmbeddedResource Include="Installer\ContentPageJsons\bulletinsEditPageGrid.json" />

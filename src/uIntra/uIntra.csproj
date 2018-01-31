@@ -1045,8 +1045,6 @@
     <Content Include="config\Dashboard.config.uninstall.xdt" />
     <Content Include="config\trees.config.install.xdt" />
     <Content Include="config\trees.config.uninstall.xdt" />
-    <Content Include="config\umbracoSettings.config.install.xdt" />
-    <Content Include="config\umbracoSettings.config.uninstall.xdt" />
     <Content Include="config\Lang\da-DK.user.xml.install.xdt" />
     <Content Include="config\Lang\da-DK.user.xml.uninstall.xdt" />
     <Content Include="config\Lang\en-GB.user.xml.install.xdt" />
