@@ -75,9 +75,28 @@
             display:block;
         }
     }
-	&__description {
-		border: none !important;
-	}
+
+    .quill--custom{
+        .ql-toolbar.ql-snow + .ql-container.ql-snow,
+        .ql-container.ql-snow {
+            border:none;
+        }
+
+        .ql-toolbar{
+            margin-right:20px;
+        }
+
+        .btn{
+            right:20px;
+        }
+    }
+
+    &._expanded .quill--custom{
+        .ql-toolbar.ql-snow + .ql-container.ql-snow,
+        .ql-container.ql-snow {
+            border-bottom:1px solid #d6d6d6;
+        }
+    }
 
 	.ql-container .ql-editor {
 		height: auto;
@@ -146,7 +165,7 @@
 		}
 	}
 
-	&__toolbar.ql-toolbar{
+	/*&__toolbar.ql-toolbar{
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
@@ -244,7 +263,7 @@
                 }
             }
 		}
-	}
+	}*/
 
     .dropzone{
         border:none !important;

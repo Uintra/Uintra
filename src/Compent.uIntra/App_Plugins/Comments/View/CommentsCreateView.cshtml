@@ -3,9 +3,9 @@
 @using uIntra.Core.Extensions
 @model uIntra.Comments.CommentCreateModel
 
-@using (Ajax.BeginForm("Add", "Comments", new AjaxOptions { UpdateTargetId = Model.UpdateElementId, InsertionMode = InsertionMode.ReplaceWith, HttpMethod = "POST", OnComplete = $"new uIntra.methods.CommentOverview('#{Model.UpdateElementId}');" }, new { @class = "comments__form js-comment-create", data_parentid = Model.ParentId }))
+@using (Ajax.BeginForm("Add", "Comments", new AjaxOptions { UpdateTargetId = Model.UpdateElementId, InsertionMode = InsertionMode.ReplaceWith, HttpMethod = "POST", OnComplete = $"new uIntra.methods.CommentOverview('#{Model.UpdateElementId}');" }, new { @class = "comments__form quill--custom js-comment-create", data_parentid = Model.ParentId }))
 {
-    <div class="comments__form-field">
+    <div class="comments__form-field quill--custom-container">
         <div class="js-comment-create-description"></div>
     </div>
     @Html.ValidationMessageFor(model => model.Text)
@@ -20,8 +20,8 @@
             <button type="button" class="ql-emoji" title="emoji"></button>
         </span>
         <span class="ql-formats">
-            <button disabled="disabled" class="btn btn-black js-comment-create-btn js-disable-submit" type="button">@Html.Localize("CommentsCreate.AddComment.btn")</button>
+            <button disabled="disabled" class="btn _submit js-comment-create-btn js-disable-submit" type="button">@Html.Localize("CommentsCreate.AddComment.btn")</button>
         </span>
     </div>*@
-    <button disabled="disabled" class="btn btn-black js-comment-create-btn js-disable-submit" type="button">@Html.Localize("CommentsCreate.AddComment.btn")</button>
+    <button disabled="disabled" class="btn _submit js-comment-create-btn js-disable-submit" type="button">@Html.Localize("CommentsCreate.AddComment.btn")</button>
 }

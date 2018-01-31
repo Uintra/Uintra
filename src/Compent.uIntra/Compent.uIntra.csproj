@@ -541,6 +541,15 @@
     <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.js" />
     <Content Include="App_Plugins\Core\Content\backoffice\EditorConfig\editorConfigService.js" />
     <Content Include="App_Plugins\Core\Content\images\arrow-left.svg" />
+    <Content Include="App_Plugins\Core\Content\images\attachment-custom-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\attachment-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\attachment.svg" />
+    <Content Include="App_Plugins\Core\Content\images\emoji-custom-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\emoji-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\emoji.svg" />
+    <Content Include="App_Plugins\Core\Content\images\link-custom-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\link-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\link.svg" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\css\bootstrap.min.css" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
