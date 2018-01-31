@@ -1,43 +1,50 @@
 ﻿using System.Linq;
-using System.Web;
 using Compent.uIntra.Core.Constants;
 using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
-using uIntra.Core.Extensions;
 using uIntra.Core.Installer;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using static Compent.uIntra.Installer.Migrations.TaggingInstallationConstants;
+using static Compent.uIntra.Core.Updater.Migrations._0._3._1._0.Constants.TaggingInstallationConstants;
 
-namespace Compent.uIntra.Installer.Migrations
+namespace Compent.uIntra.Core.Updater.Migrations._0._3._1._0.Steps
 {
-    public class TaggingMigration
+    public class UserTagsInstallationStep : IMigrationStep
     {
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IContentService _contentService;
 
-        public TaggingMigration()
+        public UserTagsInstallationStep(UmbracoHelper umbracoHelper, IContentService contentService)
         {
-            _umbracoHelper = HttpContext.Current.GetService<UmbracoHelper>(); ;
-            _contentService = ApplicationContext.Current.Services.ContentService;
+            _umbracoHelper = umbracoHelper;
+            _contentService = contentService;
         }
 
-        public void Execute()
+        ExecutionResult IMigrationStep.Execute()
         {
             CreateUserTagDocumentType();
             CreateUserTagsFolderDocumentType();
 
             CreateUserTagsFolder();
+
+            return ExecutionResult.Success;
         }
 
+        public void Undo()
+        {
+            throw new System.NotImplementedException();
+        }
         private void CreateUserTagDocumentType()
         {
             var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
             var userTagDocumentType = contentTypeService.GetContentType(DocumentTypeAliases.UserTag);
             if (userTagDocumentType != null) return;
 
-            var dataContentFolder = contentTypeService.GetContentTypeContainers(CoreInstallationConstants.DocumentTypesContainerNames.DataContent, 1).First();
+            var dataContentFolder = contentTypeService.GetContentTypeContainers(
+                folderName: CoreInstallationConstants.DocumentTypesContainerNames.DataContent, 
+                level:1)
+                .First();
 
             userTagDocumentType = new ContentType(dataContentFolder.Id)
             {
@@ -93,5 +100,6 @@ namespace Compent.uIntra.Installer.Migrations
 
             _contentService.SaveAndPublishWithStatus(content);
         }
+
     }
 }

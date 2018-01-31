@@ -1,5 +1,5 @@
 ﻿
-namespace Compent.uIntra.Installer.Migrations
+namespace Compent.uIntra.Core.Updater.Migrations._0._3._1._0.Constants
 {
     public class TaggingInstallationConstants
     {
