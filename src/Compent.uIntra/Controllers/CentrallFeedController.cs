@@ -39,7 +39,8 @@ namespace Compent.uIntra.Controllers
             UmbracoHelper umbracoHelper,
             IFeedActivityHelper feedActivityHelper1,
             IActivityTypeProvider activityTypeProvider)
-            : base(centralFeedService,
+            : base(
+                  centralFeedService,
                   centralFeedContentService,
                   activitiesServiceFactory,
                   subscribeService,

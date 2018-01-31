@@ -580,7 +580,6 @@
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\tease.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\funny.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\shocked.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.png" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.svg">
       <SubType>Designer</SubType>
     </Content>
@@ -1435,7 +1434,6 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\NotificationInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\PanelsInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\SearchInstallationConstants.cs" />
-    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\TaggingInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\UsersInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\InstallationStepsHelper.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Migration.cs" />
@@ -1454,9 +1452,7 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\OldSubscribeSettingsMigration.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\PagePromotionInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\PagePromotionMigration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\TaggingMigration.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\UmbracoContentMigration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\UpdateDataFolderNamesMigration.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\BulletinsInstallationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\CoreInstallationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\EventsInstallationStep.cs" />
@@ -1469,6 +1465,11 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\PanelsInsatllationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\SearchInstallationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\UsersInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.1.0\Constants\TaggingInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.1.0\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\NotificationsMigrationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\UpdateDataFolderNamesMigrationInstallationStep .cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\UserTagsInstallationStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />

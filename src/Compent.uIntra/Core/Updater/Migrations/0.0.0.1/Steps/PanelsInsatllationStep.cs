@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Installer;
@@ -33,7 +34,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
             var panelPickerDataType = dataTypeService.GetDataTypeDefinitionByName(DataTypeNames.PanelPicker);
             if (panelPickerDataType != null) return;
 
-            var jsonValue = EmbeddedResourcesUtils.ReadResourceContent("uIntra.Core.Updater.Migrations._0._0._0._1.PreValues.PanelPickerPreValues.json"); //TODO use Assembly.GetExecutingAssembly()
+            var jsonValue = EmbeddedResourcesUtils.ReadResourceContent($"{Assembly.GetExecutingAssembly().GetName().Name}.Core.Updater.Migrations._0._0._0._1.PreValues.PanelPickerPreValues.json");
             var jsonPrevalues = JObject.Parse(jsonValue);
 
             panelPickerDataType = new DataTypeDefinition(-1, DataTypePropertyEditors.PanelPicker)

@@ -197,7 +197,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 
             gridPageLayoutTemplate = new Template(alias, alias);
 
-            var layoutEmbeddedResourceFileName = "uIntra.Core.Updater.Migrations._0._0._0._1.PreValues.GridPageLayout.cshtml"; //TODO use Assembly.GetExecutingAssembly()
+            var layoutEmbeddedResourceFileName = $"{ Assembly.GetExecutingAssembly().GetName().Name}.Core.Updater.Migrations._0._0._0._1.PreValues.GridPageLayout.cshtml";
             gridPageLayoutTemplate.Content = EmbeddedResourcesUtils.ReadResourceContent(layoutEmbeddedResourceFileName);
 
             fileService.SaveTemplate(gridPageLayoutTemplate);

@@ -11,15 +11,18 @@ namespace uIntra.Groups
     {
         private readonly IEnumerable<IFeedItemService> _feedItemServices;
         private readonly IGroupActivityService _groupActivityService;
+        private readonly IGroupService _groupService;
 
         public GroupFeedService(
             ICacheService cacheService,
             IEnumerable<IFeedItemService> feedItemServices,
-            IGroupActivityService groupActivityService)
+            IGroupActivityService groupActivityService,
+            IGroupService groupService)
             : base(feedItemServices, cacheService)
         {
             _feedItemServices = feedItemServices;
             _groupActivityService = groupActivityService;
+            _groupService = groupService;
         }
 
         public IEnumerable<IFeedItem> GetFeed(Enum type, Guid groupId)
@@ -51,12 +54,9 @@ namespace uIntra.Groups
         private bool IsGroupActivity(IEnumerable<Guid> groupIds, IFeedItem item)
         {
             var assignedGroupId = _groupActivityService.GetGroupId(item.Id);
-            return assignedGroupId.HasValue && groupIds.Contains(assignedGroupId.Value);
+            return assignedGroupId.HasValue && groupIds.Contains(assignedGroupId.Value) && !_groupService.Get(assignedGroupId.Value).IsHidden;
         }
 
-        private bool IsGroupActivity(Guid groupId, IFeedItem item)
-        {
-            return IsGroupActivity(groupId.ToEnumerable(), item);
-        }
+        private bool IsGroupActivity(Guid groupId, IFeedItem item) => IsGroupActivity(groupId.ToEnumerable(), item);
     }
 }
