@@ -582,7 +582,6 @@
     <Content Include="App_Plugins\Core\Content\scripts\ValidationExtensions.js" />
     <Content Include="App_Plugins\Core\Content\styles\Core.css" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\angry.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\emoji.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\great.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\love.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.svg" />

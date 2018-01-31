@@ -47,13 +47,10 @@
                     </span>
                     <span class="ql-formats">
                         <button type="button" class="js-dropzone _upload" data-allowed="@Model.AllowedMediaExtensions" data-remove-text="@Html.Localize("FileUploadView.RemoveFile.lbl")">
-                            @Html.Localize("FileUploadView.File.lbl")
+                            @*@Html.Localize("FileUploadView.File.lbl")*@
                         </button>
                         <input type="hidden" class="js-new-media" name="@nameof(Model.NewMedia)" />
                     </span>
-                    @*<span class="ql-formats">
-                        <button class="btn _submit _send js-toolbar__send-button" disabled="disabled">@Html.Localize("BulletinsCreate.Post.lbl")</button>
-                    </span>*@
                 </div>
             </div>
             <button class="btn _submit _send js-toolbar__send-button hidden" disabled="disabled">@Html.Localize("BulletinsCreate.Post.lbl")</button>

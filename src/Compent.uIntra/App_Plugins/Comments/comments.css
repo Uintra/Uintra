@@ -233,37 +233,7 @@
         .comments__list &{
             margin:0;
         }
-
-        /*&-field{
-            display:flex;
-            flex-direction:column;
-            flex-wrap:wrap;
-            margin:0 0 10px;
-        }
-
-	    .btn {
-            position:absolute;
-            bottom:0;
-            right:0;
-            margin:0;
-		    @media (--for-tablet-portrait-down) {
-			    display: inline-block !important;
-		    }
-	    }*/
     }
-
-    /*.ql-toolbar{
-        order:1;
-        align-self:flex-end;
-        padding:0 87px 0 0;
-        border:0;
-    }
-
-    .ql-toolbar.ql-snow + .ql-container.ql-snow,
-    .ql-container.ql-snow{
-        border:1px solid #d6d6d6;
-        margin:0 0 10px;
-    }*/
 
     &__reply {
         color: var(--text-color-dark);
