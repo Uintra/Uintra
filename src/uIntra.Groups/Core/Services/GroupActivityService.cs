@@ -32,9 +32,7 @@ namespace uIntra.Groups
 
         public Guid? GetGroupId(Guid activityId)
         {
-            return _groupActivityRepository
-                .Find(rel => rel.ActivityId == activityId)?
-                .GroupId;
+            return _groupActivityRepository.Find(rel => rel.ActivityId == activityId)?.GroupId;
         }
     }
 }
