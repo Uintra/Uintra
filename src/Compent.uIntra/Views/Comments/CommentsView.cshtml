@@ -76,7 +76,7 @@
         @if (Model.CanEdit)
         {
         <div class="comments__list-text js-comment-editContainer" style="display: none">
-            @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId })
+            @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditViewModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId })
         </div>
         }
 

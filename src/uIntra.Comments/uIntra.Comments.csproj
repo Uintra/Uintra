@@ -358,6 +358,7 @@
     <Compile Include="Core\Links\ICommentLinkHelper.cs" />
     <Compile Include="Core\Models\CommentCreateModel.cs" />
     <Compile Include="Core\Models\CommentEditModel.cs" />
+    <Compile Include="Core\Models\CommentEditViewModel.cs" />
     <Compile Include="Core\Models\CommentModel.cs" />
     <Compile Include="Core\Models\CommentPreviewModel.cs" />
     <Compile Include="Core\Models\CommentsListModel.cs" />

@@ -131,7 +131,7 @@ namespace uIntra.Comments.Web
         public virtual PartialViewResult EditView(Guid id, string updateElementId)
         {
             var comment = _commentsService.Get(id);
-            var model = new CommentEditModel
+            var model = new CommentEditViewModel
             {
                 Id = id,
                 Text = comment.Text,
