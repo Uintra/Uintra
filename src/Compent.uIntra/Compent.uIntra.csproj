@@ -1465,11 +1465,11 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\PanelsInsatllationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\SearchInstallationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\UsersInstallationStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Constants\TaggingInstallationConstants.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Migration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\NotificationsMigrationStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\UpdateDataFolderNamesMigrationInstallationStep .cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\UserTagsInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\TaggingInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UpdateDataFolderNamesMigrationInstallationStep .cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UserTagsInstallationStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />

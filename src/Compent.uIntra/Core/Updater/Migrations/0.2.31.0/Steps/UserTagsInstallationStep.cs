@@ -1,14 +1,14 @@
 ﻿using System.Linq;
 using Compent.uIntra.Core.Constants;
 using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Constants;
 using uIntra.Core.Installer;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using static Compent.uIntra.Core.Updater.Migrations._0._3._1._0.Constants.TaggingInstallationConstants;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._3._1._0.Steps
+namespace Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Steps
 {
     public class UserTagsInstallationStep : IMigrationStep
     {
@@ -38,7 +38,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._3._1._0.Steps
         private void CreateUserTagDocumentType()
         {
             var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
-            var userTagDocumentType = contentTypeService.GetContentType(DocumentTypeAliases.UserTag);
+            var userTagDocumentType = contentTypeService.GetContentType(TaggingInstallationConstants.DocumentTypeAliases.UserTag);
             if (userTagDocumentType != null) return;
 
             var dataContentFolder = contentTypeService.GetContentTypeContainers(
@@ -48,12 +48,12 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._3._1._0.Steps
 
             userTagDocumentType = new ContentType(dataContentFolder.Id)
             {
-                Name = DocumentTypeNames.UserTag,
-                Alias = DocumentTypeAliases.UserTag,
-                Icon = DocumentTypeIcons.UserTag
+                Name = TaggingInstallationConstants.DocumentTypeNames.UserTag,
+                Alias = TaggingInstallationConstants.DocumentTypeAliases.UserTag,
+                Icon = TaggingInstallationConstants.DocumentTypeIcons.UserTag
             };
 
-            userTagDocumentType.AddPropertyGroup(DocumentTypeTabNames.Content);
+            userTagDocumentType.AddPropertyGroup(TaggingInstallationConstants.DocumentTypeTabNames.Content);
 
             var textProperty = new PropertyType("Umbraco.Textbox", DataTypeDatabaseType.Nvarchar)
             {
@@ -62,7 +62,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._3._1._0.Steps
                 Mandatory = true
             };
 
-            userTagDocumentType.AddPropertyType(textProperty, DocumentTypeTabNames.Content);
+            userTagDocumentType.AddPropertyType(textProperty, TaggingInstallationConstants.DocumentTypeTabNames.Content);
 
             contentTypeService.Save(userTagDocumentType);
         }
@@ -71,32 +71,32 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._3._1._0.Steps
         {
             var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
 
-            var dataFolderDocType = contentTypeService.GetContentType(DocumentTypeAliases.UserTagFolder);
+            var dataFolderDocType = contentTypeService.GetContentType(TaggingInstallationConstants.DocumentTypeAliases.UserTagFolder);
             if (dataFolderDocType != null) return;
 
             var folder = contentTypeService.GetContentTypeContainers(CoreInstallationConstants.DocumentTypesContainerNames.Folders, 1).First();
             dataFolderDocType = new ContentType(folder.Id)
             {
-                Name = DocumentTypeNames.UserTagFolder,
-                Alias = DocumentTypeAliases.UserTagFolder
+                Name = TaggingInstallationConstants.DocumentTypeNames.UserTagFolder,
+                Alias = TaggingInstallationConstants.DocumentTypeAliases.UserTagFolder
             };
 
             contentTypeService.Save(dataFolderDocType);
 
-            InstallationStepsHelper.AddAllowedChildNode(DocumentTypeAliases.UserTagFolder, DocumentTypeAliases.UserTag);
-            InstallationStepsHelper.AddAllowedChildNode("dataFolder", DocumentTypeAliases.UserTagFolder);
+            InstallationStepsHelper.AddAllowedChildNode(TaggingInstallationConstants.DocumentTypeAliases.UserTagFolder, TaggingInstallationConstants.DocumentTypeAliases.UserTag);
+            InstallationStepsHelper.AddAllowedChildNode("dataFolder", TaggingInstallationConstants.DocumentTypeAliases.UserTagFolder);
         }
 
 
         private void CreateUserTagsFolder()
         {
             var dataFolder = _umbracoHelper.TypedContentAtRoot().Single(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.DataFolder));
-            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliases.UserTagFolder)))
+            if (dataFolder.Children.Any(el => el.DocumentTypeAlias.Equals(TaggingInstallationConstants.DocumentTypeAliases.UserTagFolder)))
             {
                 return;
             }
 
-            var content = _contentService.CreateContentWithIdentity(ContentDefaultName.UserTagFolder, dataFolder.Id, DocumentTypeAliases.UserTagFolder);
+            var content = _contentService.CreateContentWithIdentity(TaggingInstallationConstants.ContentDefaultName.UserTagFolder, dataFolder.Id, TaggingInstallationConstants.DocumentTypeAliases.UserTagFolder);
 
             _contentService.SaveAndPublishWithStatus(content);
         }
