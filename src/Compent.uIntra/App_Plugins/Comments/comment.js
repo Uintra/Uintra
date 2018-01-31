@@ -118,9 +118,12 @@ var initCreateControl = function (holder) {
 };
 
 var initEdit = function (holder) {
-    var editPreviewContainer = findControl(holder, '.js-comment-preview-edit');
+    var linkPreviewContainer = findControl(holder, '.js-comment-link-preview-container');
     var editlink = findControl(holder, '.js-comment-editlink');
     var hideEditlink = findControl(holder, '.js-comment-hideEditLink');
+    var removeLinkPreviewButton = findControl(holder, '.js-link-preview-remove-preview');
+    var linkPreviewIdContainer = findControl(holder, 'input[name="linkPreviewId"]')[0];
+    var linkPreviewEditContainer = findControl(holder, '.js-link-preview-edit-preview-container');
 
     if (editlink.length === 0 || hideEditlink.length === 0) {
         return;
@@ -129,8 +132,13 @@ var initEdit = function (holder) {
     var editControlContainer = findControl(holder, '.js-comment-editContainer');
     var descriptionControl = findControl(holder, '.js-comment-description');
 
+    removeLinkPreviewButton.on('click', function () {
+        linkPreviewIdContainer.value = null;
+        linkPreviewEditContainer.hide();
+    });
+
     editlink.on('click', function () {
-        editPreviewContainer.show();
+        linkPreviewContainer.hide();
         editlink.hide();
         hideEditlink.show();
         descriptionControl.hide();
@@ -138,6 +146,7 @@ var initEdit = function (holder) {
     });
 
     hideEditlink.on('click', function () {
+        linkPreviewContainer.show();
         editlink.show();
         hideEditlink.hide();
         descriptionControl.show();

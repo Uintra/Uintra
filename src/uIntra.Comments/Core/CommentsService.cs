@@ -32,6 +32,7 @@ namespace uIntra.Comments
 
         public void SaveLinkPreview(Guid commentId, int previewId)
         {
+            RemovePreviewRelations(commentId);
             var entity = new CommentToLinkPreviewEntity {CommentId = commentId, LinkPreviewId = previewId};
             _previewRelationRepository.Add(entity);
         }

@@ -15,9 +15,17 @@
     <button disabled="disabled" class="btn _submit js-comment-edit-btn js-disable-submit" type="button">@Html.Localize("CommentsOverView.EditComment.btn")</button>
     <input class="btn js-comment-hideEditLink" type="button" value="@Html.Localize("CommentsView.HideBtn.text")" />
     @Html.ValidationMessageFor(model => model.Text)
-    
-    <div class="js-comment-preview-edit">        
-    </div>
 
-    <h1>GO AWAY, DIRTY BANANA</h1>
+    if (Model.LinkPreview != null)
+    {
+        <input type="hidden" name="linkPreviewId" value="@Model.LinkPreview.Id" />
+        <div class="js-link-preview-edit-preview-container">
+            <button type="button" class="js-link-preview-remove-preview">X</button>
+            <div style="border-style: dotted;">
+                <h2>@Model.LinkPreview.Title</h2>
+                <p>@Model.LinkPreview.Description</p>
+                <img src="@Model.LinkPreview.ImageUri" style="width: 512px; height: 440px;" />
+            </div>
+        </div>
+    }
 }
