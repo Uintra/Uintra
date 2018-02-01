@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
-<settings xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <scheduledTasks>
-    <task alias="reminderJob" log="true" interval="86400" url="http://localhost/umbraco/api/NotificationJob/RunReminderJob" xdt:Locator="Condition(@alias='reminderJob')" xdt:Transform="InsertIfMissing"/>
-    <task alias="sentMailsJob" log="true" interval="60" url="http://localhost/umbraco/api/NotificationJob/RunMailJob" xdt:Locator="Condition(@alias='sentMailsJob')" xdt:Transform="InsertIfMissing"/>
-    <task alias="monthlyEmailJob" log="true" interval="86400" url="http://uintra.local.compent.dk/umbraco/api/MonthlyEmailApi/SendMonthlyEmail" xdt:Locator="Condition(@alias='monthlyEmailJob')" xdt:Transform="InsertIfMissing"/>
-  </scheduledTasks>
-</settings>

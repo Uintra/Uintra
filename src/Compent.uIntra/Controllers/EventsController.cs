@@ -37,6 +37,8 @@ namespace Compent.uIntra.Controllers
         private readonly INotificationTypeProvider _notificationTypeProvider;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityTagsHelper _activityTagsHelper;
+        private readonly IActivityLinkService _activityLinkService;
+        private readonly IGroupMemberService _groupMemberService;
 
         public EventsController(
             IEventsService<Event> eventsService,
@@ -51,7 +53,8 @@ namespace Compent.uIntra.Controllers
             IGroupActivityService groupActivityService,
             IActivityLinkService activityLinkService,
             UserTagService userTagService,
-            IActivityTagsHelper activityTagsHelper)
+            IActivityTagsHelper activityTagsHelper,
+            IGroupMemberService groupMemberService)
             : base(eventsService, mediaHelper, intranetUserService, activityTypeProvider, activityLinkService)
         {
             _eventsService = eventsService;
@@ -61,6 +64,8 @@ namespace Compent.uIntra.Controllers
             _notificationTypeProvider = notificationTypeProvider;
             _groupActivityService = groupActivityService;
             _activityTagsHelper = activityTagsHelper;
+            _activityLinkService = activityLinkService;
+            _groupMemberService = groupMemberService;
         }
 
         [HttpPost]
@@ -68,6 +73,18 @@ namespace Compent.uIntra.Controllers
 
         [HttpPost]
         public ActionResult EditExtended(EventExtendedEditModel editModel) => Edit(editModel);
+
+        protected override IEnumerable<EventBase> GetComingEvents(DateTime endDate)
+        {
+            var currentUser = _intranetUserService.GetCurrentUser();
+            var events = _eventsService.GetComingEvents(endDate);
+
+            bool IsNotGroupEventOrUserInGroup(Event @event) =>
+                !@event.GroupId.HasValue ||
+                _groupMemberService.IsGroupMember(@event.GroupId.Value, currentUser.Id);
+
+            return events.Where(IsNotGroupEventOrUserInGroup);
+        }
 
         public ActionResult FeedItem(Event item, ActivityFeedOptionsWithGroups options)
         {
@@ -175,9 +192,6 @@ namespace Compent.uIntra.Controllers
                 ((INotifyableService)_eventsService).Notify(id, notificationType);
             }
         }
-
-
-
 
         protected override EventBase MapToEvent(EventCreateModel createModel)
         {

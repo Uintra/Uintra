@@ -15,11 +15,11 @@ var controller = {
         var currentLinkId = addControlBtn.dataset.mylinkId;
         var className = '_disabled';
         var myLinksState = helpers.localStorage.getItem("myLinks") || {};
-        var opener = $('.js-mylinks__opener');
+        var $opener = $('.js-mylinks__opener');
         var activeClass = '_expand';
-        var myLinksItem = $(".js-mylinks__item");
+        var $myLinksItem = $(".js-mylinks__item");
 
-        opener.on('click', function (e) {
+        $opener.on('click', function (e) {
             toggleLinks(this);
         });
 
@@ -49,15 +49,17 @@ var controller = {
             }
         });
 
+        $opener.toggleClass("_hide", container.childElementCount == 0);
         initRemoveLinks(container);
         addControlBtn.addEventListener('click', function (e) {
             e.preventDefault();
-
-            ajax.PostJson(this.dataset.url, { contentId: this.dataset.contentId }, function (data) {
+            let data = { contentId: this.dataset.contentId };
+            let url = this.dataset.url;
+            ajax.post(url, data).then(function (data) {
                 currentLinkId = data.Id;
                 reloadList(container);
-                if (!myLinksItem.hasClass(activeClass)) {
-                    myLinksItem.addClass(activeClass);
+                if (!$myLinksItem.hasClass(activeClass)) {
+                    $myLinksItem.addClass(activeClass);
                     myLinksState[currentLinkId] = true;
                     helpers.localStorage.setItem("myLinks", myLinksState);
                 }
@@ -96,7 +98,7 @@ var controller = {
                     e.preventDefault();
                     var link = this;
                     var url = this.dataset.url;
-                    ajax.Delete(url, function () {
+                    ajax.delete(url).then(function () {
                         reloadList(container);
                         if (link.dataset.id == currentLinkId) {
                             addControlBtn.classList.toggle(className);
@@ -107,8 +109,10 @@ var controller = {
         }
 
         function reloadList(container) {
-            ajax.Get(container.dataset.url, function (data) {
+            ajax.get(container.dataset.url).then(function (response) {
+                let data = response.data;
                 container.innerHTML = data;
+                $opener.toggleClass("_hide", container.childElementCount == 0);
                 initRemoveLinks(container);
             });
         }

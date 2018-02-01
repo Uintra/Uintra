@@ -106,8 +106,8 @@ namespace Compent.uIntra.Core.Events
         public IEnumerable<Event> GetComingEvents(DateTime fromDate)
         {
             var events = GetAll()
-                .Where(e => e.StartDate > fromDate)
-                .OrderBy(e => e.PublishDate);
+                .Where(e => e.StartDate > fromDate && IsActualPublishDate(e))
+                .OrderBy(e => e.StartDate);
             return events;
         }
 
@@ -135,7 +135,7 @@ namespace Compent.uIntra.Core.Events
                 Type = ActivityType,
                 Controller = "Events",
                 HasSubscribersFilter = true,
-                HasPinnedFilter = true,
+                HasPinnedFilter = true
             };
         }
 
@@ -208,10 +208,18 @@ namespace Compent.uIntra.Core.Events
                 _documentIndexer.Index(@event.MediaIds);
                 return @event;
             }
+
+            if (cachedEvent == null) return null;
+
             _activityIndex.Delete(id);
             _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
             _mediaHelper.DeleteMedia(cachedEvent.MediaIds);
             return null;
+        }
+
+        public override bool IsActual(IIntranetActivity activity)
+        {
+            return base.IsActual(activity) && IsActualPublishDate((Event)activity);
         }
 
         public void UnSubscribe(Guid userId, Guid activityId)

@@ -34,9 +34,9 @@ var pinActivity = {
 
         switchPinControlDisabledProp();
     },
-    initPinDate: function (holder) {
+    initPinDate: function (holder, minDate) {
         var pinDate = helpers.initDatePicker(holder, ".js-endpin-date", ".js-endpin-date-value");
-        pinDate.set('minDate', new Date());
+        pinDate.set('minDate', minDate || new Date());
 
         var clearEndPinDateBtn = holder.find('.js-clear-endpin-date');
         clearEndPinDateBtn.click(function () {

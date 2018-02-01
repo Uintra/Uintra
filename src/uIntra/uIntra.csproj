@@ -64,6 +64,9 @@
     <Reference Include="businesslogic, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\businesslogic.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="ClientDependency.Core, Version=1.9.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\ClientDependency.1.9.2\lib\net45\ClientDependency.Core.dll</HintPath>
@@ -237,17 +240,23 @@
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ninject">
-      <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Web.Common">
-      <HintPath>..\..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ninject.Extensions.Conventions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Extensions.Conventions.3.3.0\lib\net45\Ninject.Extensions.Conventions.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Web.Mvc">
-      <HintPath>..\..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ninject.Extensions.Factory, Version=3.3.2.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Extensions.Factory.3.3.2\lib\net45\Ninject.Extensions.Factory.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Web.Common.3.3.0\lib\net45\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Web.Common.WebHost.3.3.0\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -324,53 +333,53 @@
     <Reference Include="uIntra.BaseControls, Version=2.4.2.9, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.BaseControls.2.4.2.9\lib\net452\uIntra.BaseControls.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.3.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Bulletins.0.3.3\lib\net452\uIntra.Bulletins.dll</HintPath>
+    <Reference Include="uIntra.Bulletins, Version=0.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Bulletins.0.3.4\lib\net452\uIntra.Bulletins.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.3.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.CentralFeed.1.3.5\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    <Reference Include="uIntra.CentralFeed, Version=1.3.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.CentralFeed.1.3.6\lib\net452\uIntra.CentralFeed.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Comments, Version=1.1.12.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Comments.1.1.12\lib\net452\uIntra.Comments.dll</HintPath>
+    <Reference Include="uIntra.Comments, Version=1.1.13.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Comments.1.1.13\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.4.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.4.10\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.4.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.4.11\lib\net452\uIntra.Core.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Events.1.5.4\lib\net452\uIntra.Events.dll</HintPath>
+    <Reference Include="uIntra.Events, Version=1.5.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Events.1.5.5\lib\net452\uIntra.Events.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Groups, Version=0.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Groups.0.2.3\lib\net452\uIntra.Groups.dll</HintPath>
+    <Reference Include="uIntra.Groups, Version=0.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Groups.0.2.4\lib\net452\uIntra.Groups.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Likes, Version=1.1.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Likes.1.1.10\lib\net452\uIntra.Likes.dll</HintPath>
+    <Reference Include="uIntra.Likes, Version=1.1.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Likes.1.1.11\lib\net452\uIntra.Likes.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Navigation, Version=1.2.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Navigation.1.2.11\lib\net452\uIntra.Navigation.dll</HintPath>
+    <Reference Include="uIntra.Navigation, Version=1.2.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Navigation.1.2.12\lib\net452\uIntra.Navigation.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.News, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.News.1.3.3\lib\net452\uIntra.News.dll</HintPath>
+    <Reference Include="uIntra.News, Version=1.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.News.1.3.4\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.3.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.3.7\lib\net452\uIntra.Notification.dll</HintPath>
+    <Reference Include="uIntra.Notification, Version=1.3.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Notification.1.3.8\lib\net452\uIntra.Notification.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Panels, Version=2.1.13.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Panels.2.1.13\lib\net452\uIntra.Panels.dll</HintPath>
+    <Reference Include="uIntra.Panels, Version=2.1.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Panels.2.1.14\lib\net452\uIntra.Panels.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Search, Version=0.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Search.0.2.3\lib\net452\uIntra.Search.dll</HintPath>
+    <Reference Include="uIntra.Search, Version=0.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Search.0.2.4\lib\net452\uIntra.Search.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Subscribe, Version=1.1.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Subscribe.1.1.10\lib\net452\uIntra.Subscribe.dll</HintPath>
+    <Reference Include="uIntra.Subscribe, Version=1.1.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Subscribe.1.1.11\lib\net452\uIntra.Subscribe.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Tagging, Version=1.1.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Tagging.1.1.10\lib\net452\uIntra.Tagging.dll</HintPath>
+    <Reference Include="uIntra.Tagging, Version=1.1.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Tagging.1.1.11\lib\net452\uIntra.Tagging.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Users, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Users.1.6.4\lib\net452\uIntra.Users.dll</HintPath>
+    <Reference Include="uIntra.Users, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Users.1.6.5\lib\net452\uIntra.Users.dll</HintPath>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.dll</HintPath>
@@ -460,6 +469,9 @@
     </Content>
     <Content Include="..\Compent.uIntra\Content\images\calendar.svg">
       <Link>Content\images\calendar.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\images\checkmark.svg">
+      <Link>Content\images\checkmark.svg</Link>
     </Content>
     <Content Include="..\Compent.uIntra\Content\images\default-avatar.png">
       <Link>Content\images\default-avatar.png</Link>
@@ -600,7 +612,8 @@
     <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedService.js" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
-    <Content Include="App_Plugins\CentralFeed\loader.gif" />
+    <Content Include="App_Plugins\CentralFeed\loader_greybg.gif" />
+    <Content Include="App_Plugins\CentralFeed\loader_whitebg.gif" />
     <Content Include="App_Plugins\CentralFeed\openCloseCentralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
     <Content Include="App_Plugins\Comments\comment.js" />
@@ -645,6 +658,7 @@
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\hungry.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\inlove.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\laughing.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\neutral.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\party.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\relaxed.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\sad.svg" />
@@ -1006,16 +1020,15 @@
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
-    <Content Include="App_Plugins\Tagging\dummy.txt" />
-    <Content Include="App_Plugins\Tagging\taggle.css" />
-    <Content Include="App_Plugins\Tagging\tags.css" />
-    <Content Include="App_Plugins\Tagging\tags.js" />
-    <Content Include="App_Plugins\Tagging\tagsEdit.js" />
-    <Content Include="App_Plugins\Tagging\tagsView.js" />
     <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.controller.js" />
     <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.html" />
     <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.html" />
     <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.js" />
+    <Content Include="App_Plugins\UsersTags\backoffice\users-tags.overlay.html" />
+    <Content Include="App_Plugins\UsersTags\backoffice\users-tags.view.html" />
+    <Content Include="App_Plugins\UsersTags\backoffice\usersTagsController.js" />
+    <Content Include="App_Plugins\UsersTags\backoffice\usersTagsService.js" />
+    <Content Include="App_Plugins\UsersTags\userTags.js" />
     <Content Include="App_Plugins\Users\Login\login.css" />
     <Content Include="App_Plugins\Users\Login\logo.png" />
     <Content Include="App_Plugins\Users\Profile\profile.css" />
@@ -1045,8 +1058,6 @@
     <Content Include="config\Dashboard.config.uninstall.xdt" />
     <Content Include="config\trees.config.install.xdt" />
     <Content Include="config\trees.config.uninstall.xdt" />
-    <Content Include="config\umbracoSettings.config.install.xdt" />
-    <Content Include="config\umbracoSettings.config.uninstall.xdt" />
     <Content Include="config\Lang\da-DK.user.xml.install.xdt" />
     <Content Include="config\Lang\da-DK.user.xml.uninstall.xdt" />
     <Content Include="config\Lang\en-GB.user.xml.install.xdt" />
@@ -1079,150 +1090,6 @@
     <Content Include="..\Compent.uIntra\Views\**\*">
       <Link>Views\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Content>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsDetailsPageGrid.json">
-      <Link>Installer\ContentPageJsons\bulletinsDetailsPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsEditPageGrid.json">
-      <Link>Installer\ContentPageJsons\bulletinsEditPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\bulletinsOverviewPageGrid.json">
-      <Link>Installer\ContentPageJsons\bulletinsOverviewPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\errorPageGrid.json">
-      <Link>Installer\ContentPageJsons\errorPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsCreatePageGrid.json">
-      <Link>Installer\ContentPageJsons\eventsCreatePageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsDetailsPageGrid.json">
-      <Link>Installer\ContentPageJsons\eventsDetailsPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsEditPageGrid.json">
-      <Link>Installer\ContentPageJsons\eventsEditPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\eventsOverviewPageGrid.json">
-      <Link>Installer\ContentPageJsons\eventsOverviewPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsBulletinsDetailsPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsBulletinsDetailsPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsBulletinsEditPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsBulletinsEditPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsBulletinsOverviewPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsBulletinsOverviewPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsCreatePageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsCreatePageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsDeactivatedGroupPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsDeactivatedGroupPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsDocumentsPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsDocumentsPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsEditPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsEditPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsEventsCreatePageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsEventsCreatePageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsEventsDetailsPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsEventsDetailsPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsEventsEditPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsEventsEditPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsEventsOverviewPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsEventsOverviewPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsMembersPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsMembersPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsMyGroupsOverviewPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsMyGroupsOverviewPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsNewsCreatePageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsNewsCreatePageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsNewsDetailsPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsNewsDetailsPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsNewsEditPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsNewsEditPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsNewsOverviewPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsNewsOverviewPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsOverviewPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsOverviewPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\groupsRoomPageGrid.json">
-      <Link>Installer\ContentPageJsons\groupsRoomPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\homePageGrid.json">
-      <Link>Installer\ContentPageJsons\homePageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsCreatePageGrid.json">
-      <Link>Installer\ContentPageJsons\newsCreatePageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsDetailsPageGrid.json">
-      <Link>Installer\ContentPageJsons\newsDetailsPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsEditPageGrid.json">
-      <Link>Installer\ContentPageJsons\newsEditPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\newsOverviewPageGrid.json">
-      <Link>Installer\ContentPageJsons\newsOverviewPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\notificationPageGrid.json">
-      <Link>Installer\ContentPageJsons\notificationPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\profileEditPageGrid.json">
-      <Link>Installer\ContentPageJsons\profileEditPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\profilePageGrid.json">
-      <Link>Installer\ContentPageJsons\profilePageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\ContentPageJsons\searchResultPageGrid.json">
-      <Link>Installer\ContentPageJsons\searchResultPageGrid.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\DefaultLocalizationsMigration.cs">
-      <Link>Installer\DefaultLocalizationsMigration.cs</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\MainInstaller.cs">
-      <Link>Installer\MainInstaller.cs</Link>
-    </EmbeddedResource>
-    <Compile Include="..\Compent.uIntra\Installer\Migrations\EventPublishDateMigration.cs">
-      <Link>Installer\Migrations\EventPublishDateMigration.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Installer\Migrations\MoveMyGroupsOverviewDocTypeMigration.cs">
-      <Link>Installer\Migrations\MoveMyGroupsOverviewDocTypeMigration.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Installer\Migrations\NotificationSettingsMigrations.cs">
-      <Link>Installer\Migrations\NotificationSettingsMigrations.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Installer\Migrations\OldNotifications\Helpers.cs">
-      <Link>Installer\Migrations\OldNotifications\Helpers.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Installer\Migrations\OldNotifications\NewNotificationMessageService.cs">
-      <Link>Installer\Migrations\OldNotifications\NewNotificationMessageService.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Installer\Migrations\OldNotifications\NewNotifierDataValueProvider.cs">
-      <Link>Installer\Migrations\OldNotifications\NewNotifierDataValueProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Installer\Migrations\OldNotifications\OldNotifierData.cs">
-      <Link>Installer\Migrations\OldNotifications\OldNotifierData.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Installer\Migrations\OldNotifications\OldUiNotificationMigration.cs">
-      <Link>Installer\Migrations\OldNotifications\OldUiNotificationMigration.cs</Link>
-    </Compile>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\PreValues\DefaultLocalizations.json">
-      <Link>Installer\PreValues\DefaultLocalizations.json</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Compent.uIntra\Installer\UmbracoContentMigration.cs">
-      <Link>Installer\UmbracoContentMigration.cs</Link>
-    </EmbeddedResource>
     <Content Include="..\Compent.uIntra\App_Start\NinjectWebCommon.cs">
       <Link>App_Start\NinjectWebCommon.cs</Link>
     </Content>
@@ -1235,27 +1102,6 @@
     <Content Include="..\Compent.uIntra\Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Content>
-    <Compile Include="..\Compent.uIntra\Installer\DefaultLocalizationsMigration.cs">
-      <Link>Installer\DefaultLocalizationsMigration.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Installer\MainInstaller.cs">
-      <Link>Installer\MainInstaller.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Installer\Migrations\OldSubscribeSettings\OldEventBase.cs">
-      <Link>Installer\Migrations\OldSubscribeSettings\OldEventBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Installer\Migrations\OldSubscribeSettings\OldSubscribeSettingsMigration.cs">
-      <Link>Installer\Migrations\OldSubscribeSettings\OldSubscribeSettingsMigration.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Installer\Migrations\PagePromotionInstallationConstants.cs">
-      <Link>Installer\Migrations\PagePromotionInstallationConstants.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Installer\Migrations\PagePromotionMigration.cs">
-      <Link>Installer\Migrations\PagePromotionMigration.cs</Link>
-    </Compile>
-    <Compile Include="..\Compent.uIntra\Installer\UmbracoContentMigration.cs">
-      <Link>Installer\UmbracoContentMigration.cs</Link>
-    </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\DbContextFactory.cs">
       <Link>Persistence\Sql\DbContextFactory.cs</Link>
     </Compile>
@@ -1283,6 +1129,13 @@
       <Link>Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.designer.cs</Link>
       <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801111246169_UserTags.cs">
+      <Link>Persistence\Sql\Migrations\201801111246169_UserTags.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801111246169_UserTags.Designer.cs">
+      <Link>Persistence\Sql\Migrations\201801111246169_UserTags.Designer.cs</Link>
+      <DependentUpon>201801111246169_UserTags.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
     </Compile>
@@ -1298,6 +1151,10 @@
     <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.resx">
       <Link>Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.resx</Link>
       <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801111246169_UserTags.resx">
+      <Link>Persistence\Sql\Migrations\201801111246169_UserTags.resx</Link>
+      <DependentUpon>201801111246169_UserTags.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -1696,10 +1553,10 @@
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Tagging\Views\TagsView.cshtml" />
+    <Content Include="App_Plugins\UsersTags\Views\TagPicker.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Tagging\Views\TagsEditView.cshtml" />
+    <Content Include="App_Plugins\UsersTags\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
@@ -1718,6 +1575,147 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Members\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCentralFeedPreValues.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCentralFeedPreValues.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCorePreValues.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCorePreValues.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCentralFeedPreValues.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCentralFeedPreValues.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCorePreValues.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCorePreValues.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\DefaultLocalizations.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\DefaultLocalizations.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\GridPageLayout.cshtml">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\GridPageLayout.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\GroupGridPreValues.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\GroupGridPreValues.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\PanelPickerPreValues.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\PanelPickerPreValues.json</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsDetailsPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsDetailsPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsEditPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsOverviewPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\errorPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\errorPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsCreatePageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsCreatePageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsDetailsPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsDetailsPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsEditPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsOverviewPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsDetailsPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsDetailsPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsEditPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsOverviewPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsCreatePageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsCreatePageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDeactivatedGroupPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDeactivatedGroupPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDocumentsPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDocumentsPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEditPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsCreatePageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsCreatePageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsDetailsPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsDetailsPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsEditPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsOverviewPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMembersPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMembersPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMyGroupsOverviewPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMyGroupsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsCreatePageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsCreatePageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsDetailsPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsDetailsPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsEditPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsOverviewPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsOverviewPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsRoomPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsRoomPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\homePageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\homePageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsCreatePageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsCreatePageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsDetailsPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsDetailsPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsEditPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsOverviewPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsOverviewPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\notificationPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\notificationPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profileEditPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profileEditPageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profilePageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profilePageGrid.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\searchResultPageGrid.json">
+      <Link>Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\searchResultPageGrid.json</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Compent.uIntra\Views\Shared\_Layout-output.cshtml">
+      <Link>Views\Shared\_Layout-output.cshtml</Link>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

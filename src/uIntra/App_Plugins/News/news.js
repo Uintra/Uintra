@@ -76,7 +76,7 @@ var initDescriptionControl = function (holder) {
 var initDates = function (holder) {
     let publish = helpers.initDatePicker(holder, "#js-publish-date", "#js-publish-date-value");
     let unpublish = helpers.initDatePicker(holder, "#js-unpublish-date", "#js-unpublish-date-value");
-    let pin = pinActivity.initPinDate(holder);
+    let pin = pinActivity.initPinDate(holder, publish.selectedDates[0]);
 
     publish.config.onChange.push(publishDateChanged);
 

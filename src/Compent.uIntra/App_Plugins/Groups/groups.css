@@ -128,7 +128,7 @@
 
         &-title{
             font:bold 18px/22px var(--font-general);
-            margin:0 40px 10px 0;
+            margin:0 40px 9px 0;
             overflow:hidden;
             white-space:nowrap;
             text-overflow:ellipsis;
@@ -149,7 +149,7 @@
         &-txt{
             font-size:16px;
             line-height:22px;
-            margin:0 0 10px;
+            margin:0 0 19px;
             max-height:66px;
             overflow:hidden;
             display: -webkit-box;
@@ -170,28 +170,23 @@
 
         &-meta{
             font-size:13px;
-            padding:0 10px 0 0;
             margin:0;
+            color:#888;
 
             &-count{
                 float:left;
                 font-weight:normal;
                 margin:0 5px 0 0;
-
-                &:after{
-                    content:' - ';
-                }
             }
         }
     }
 
     &__member{
         position:absolute;
-        top:14px;
-        right:34px;
-        width:18px;
-        opacity:0.5;
-        cursor:pointer;
+        top:19px;
+        right:35px;
+        width:20px;
+        opacity:0.2;
 
         @media (--for-tablet-portrait-down){
             top:8px;

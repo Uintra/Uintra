@@ -24,28 +24,12 @@
                 </div>
                 @if (!string.IsNullOrEmpty(Model.Photo))
     {
-            @*<div class="form__avatar-holder">
-        <div class="form__avatar">
-            <img class="form__avatar-img" style="width: 100px;" src="@Model.Photo" />
-        </div>
-        <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo"></span>
-    </div>*@
             <div class="avatar avatar--square">
-                <img class="avatar__img" src="@Model.Photo?width=100&height=100&mode=crop" width="100" />
+                <img class="avatar__img" src="@Model.Photo?width=100&height=100&mode=crop" width="100" alt="avatar" />
 
                 <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo"></span>
             </div>
 }
-                @*<div class="form__meta">
-                    <div class="row">
-                        <div class="col-md-6">
-                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form__input" })
-                        </div>
-                        <div class="col-md-6">
-                            @Html.TextBoxFor(m => m.LastName, new { @class = "form__input" })
-                        </div>
-                    </div>
-                </div>*@
                 <div class="form__meta">
                     <div class="form__row">
                         <label class="form__label">@Html.Localize("Profile.FirstName.lbl")</label>

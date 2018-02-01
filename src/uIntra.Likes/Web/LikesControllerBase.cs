@@ -70,7 +70,7 @@ namespace uIntra.Likes.Web
             if (IsForContentPage(model))
             {
                 _likesService.Add(GetCurrentUserId(), model.ActivityId);
-                return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId);
+                return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId, showTitle: true);
             }
 
             var activityLikeInfo = AddActivityLike(model.ActivityId);
@@ -95,7 +95,7 @@ namespace uIntra.Likes.Web
             if (IsForContentPage(model))
             {
                 _likesService.Remove(GetCurrentUserId(), model.ActivityId);
-                return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId);
+                return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId, showTitle: true);
             }
 
             var activityLikeInfo = RemoveActivityLike(model.ActivityId);
@@ -110,7 +110,7 @@ namespace uIntra.Likes.Web
         protected virtual bool IsForPagePromotion(AddRemoveLikeModel model)
         {
             var content = _umbracoHelper.TypedContent(model.ActivityId);
-            return content != null && PagePromotionHelper.IsPagePromotion(content);
+            return content != null && PagePromotionHelper.IsPagePromotion(content) && PagePromotionHelper.IsPromoted(content);
         }
 
         protected virtual bool IsForContentPage(AddRemoveLikeModel model)

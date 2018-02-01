@@ -69,6 +69,16 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ManualInstallation|AnyCPU'">
+    <OutputPath>bin\ManualInstallation\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -329,8 +339,6 @@
     <Compile Include="Core\Models\ComingEventsPanelViewModel.cs" />
     <Compile Include="Core\Models\ComingEventViewModel.cs" />
     <Compile Include="Core\Models\EventPreviewViewModel.cs" />
-    <Compile Include="Installer\EventsInstallationConstants.cs" />
-    <Compile Include="Installer\Migrations\EventsInstallationStep_0_0_1.cs" />
     <Compile Include="Web\EventsControllerBase.cs" />
     <Compile Include="Core\AutoMapperProfiles\EventsAutoMapperProfile.cs" />
     <Compile Include="Core\EventBase.cs" />

@@ -43,6 +43,16 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ManualInstallation|AnyCPU'">
+    <OutputPath>bin\ManualInstallation\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
@@ -352,14 +362,12 @@
     <Compile Include="Core\Sql\Group.cs" />
     <Compile Include="Core\Sql\GroupActivityRelation.cs" />
     <Compile Include="Core\Services\GroupMemberServiceBase.cs" />
-    <Compile Include="Installer\GroupsInstallationConstants.cs" />
     <Compile Include="Core\AutoMapperProfiles\GroupsAutoMapperProfile.cs" />
     <Compile Include="Core\Services\GroupService.cs" />
     <Compile Include="Core\IGroupable.cs" />
     <Compile Include="Core\Services\IGroupDocumentsService.cs" />
     <Compile Include="Core\Services\IGroupMemberService.cs" />
     <Compile Include="Core\Services\IGroupService.cs" />
-    <Compile Include="Installer\Migrations\GroupsInstallationStep_0_0_1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Models\GroupModel.cs" />
     <Compile Include="Core\Sql\GroupDocument.cs" />
@@ -380,7 +388,6 @@
     <None Include="Config\Lang\en-GB.user.xml.uninstall.xdt" />
     <None Include="Config\Lang\en-US.user.xml.install.xdt" />
     <None Include="Config\Lang\en-US.user.xml.uninstall.xdt" />
-    <EmbeddedResource Include="Installer\PreValues\GroupGridPreValues.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Groups.nuspec" />
   </ItemGroup>

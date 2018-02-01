@@ -69,6 +69,16 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ManualInstallation|AnyCPU'">
+    <OutputPath>bin\ManualInstallation\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -467,14 +477,6 @@
     <Compile Include="Core\Utils\EmbeddedResourceService.cs" />
     <Compile Include="Core\Utils\EmbeddedResourcesUtils.cs" />
     <Compile Include="Core\Utils\IEmbeddedResourceService.cs" />
-    <Compile Include="Installer\BasePageWithDefaultGridCreateModel.cs" />
-    <Compile Include="Installer\Constants\CoreInstallationConstants.cs" />
-    <Compile Include="Installer\Constants\InstallationVersionConstrants.cs" />
-    <Compile Include="Installer\IIntranetInstallationStep.cs" />
-    <Compile Include="Installer\InstallationStepsHelper.cs" />
-    <Compile Include="Installer\IntranetInstaller.cs" />
-    <Compile Include="Installer\Migrations\HeadingInstallationStep_0_2_2_10.cs" />
-    <Compile Include="Installer\Migrations\CoreInstallationStep_0_0_1.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Core\Location\Models\ActivityLocationEditModel.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
@@ -578,9 +580,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="Installer\PreValues\DefaultGridPreValues.json" />
-    <EmbeddedResource Include="Installer\PreValues\ContentGridPreValues.json" />
-    <EmbeddedResource Include="Installer\PreValues\GridPageLayout.cshtml" />
     <Content Include="Config\Dashboard.config.install.xdt" />
     <Content Include="Config\Dashboard.config.uninstall.xdt" />
     <None Include="packages.config">

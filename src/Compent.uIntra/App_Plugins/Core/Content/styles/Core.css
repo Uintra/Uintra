@@ -1,5 +1,6 @@
 @import "libs.css";
 @import "forms.css";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:600,600i');
 
 @define-mixin btn-focus-color $color {
     &:focus,
@@ -146,7 +147,7 @@
 }
 
 ._hide {
-	display: none;
+	display: none !important;
 }
 
 ._for-desktop{
@@ -233,6 +234,10 @@ h5{
     margin:0 0 15px;
 }
 
+img{
+    vertical-align:top;
+}
+
 .centring{
     max-width:1552px;
     padding:0 20px;
@@ -304,6 +309,7 @@ h5{
 
         @media (--for-tablet-portrait-down) {
             padding-top: 149px;
+            padding-top: 249px;
         }
     }
 }
@@ -321,11 +327,9 @@ h5{
         position: fixed;
         top: 0;
         left: 0;
-        width:calc(100% - 60px);
-        transform:translate(-101%, 0);
         bottom: 0;
-        background: var(--header-bg);
-        padding:0;
+        transform:translate(-100%, 0);
+        width:100%;
         height: auto;
         transition: transform linear 250ms;
         z-index:9999;
@@ -373,6 +377,26 @@ h5{
             opacity:1;
             visibility:visible;
         }
+    }
+}
+
+.sidebar-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 6;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    color: var(--color-white);
+    font-size: 26px;
+    font-weight: bold;
+    padding: 17px;
+    &:hover,
+    &:active,
+    &:focus{
+        color: var(--color-white);
+        text-decoration:none;
     }
 }
 
@@ -494,7 +518,11 @@ h5{
     }
 }
 
-
+.content {
+    &__loader{
+        margin:0 0 44px;
+    }
+}
 .content:not(._central-feed) {
     padding: 26px 21px 10px;
     background: var(--color-white);
@@ -582,13 +610,18 @@ h5{
         @mixin btn-focus-color #8f8f8f;
 
         &.ajs-ok{
-            color:var(--text-color-dark);
+            background:var(--color-submit);
+            border-color:var(--color-submit);
+            color:var(--color-white);
 
             &:hover,
             &:active,
             &:focus{
-                color: var(--color-submit);
+                background-color:#5c5672;
+                color:var(--color-white);
+                border-color:#5c5672;
             }
+            @mixin btn-focus-color #5c5672;
         }
 
         &[disabled]{
@@ -695,10 +728,17 @@ h5{
     width: 41px;
     height: 41px;
     opacity: 0;
-
     cursor: pointer;
     z-index:-1;
     transition: opacity 0.3s ease;
+
+    ._notifications-expanded &,
+    ._notifications-expanded &._visible,
+    ._aside-expanded &,
+    ._aside-expanded &._visible{
+        opacity: 0;
+        z-index:-1;
+    }
 
     &._visible{
         z-index: 200;
@@ -838,59 +878,44 @@ h5{
 /*end pin-info*/
 
 /* emoji styles */
-.ql-toolbar.ql-snow{
-    position:relative;
+.ql-toolbar{
+    &.ql-snow{
+        position:relative;
 
-    .ql-formats{
-        margin-right:0;
-    }
-}
-
-.ql-emoji{
-    position:relative;
-
-    .create-bulletin &{
-        min-width:30px !important;
-
-        &:after{
-            top:6px;
-            left:6px;
+        .ql-formats{
+            margin-right:0;
+            float:left;
         }
     }
 
-    &:after{
-        position:absolute;
-        top:4px;
-        left:6px;
-        content:url(/App_Plugins/Core/Content/styles/emoji-data/smile.png);
+    button{
+        &:before{
+            background-size:cover;
+            display:block;
+            margin:0 auto;
+        }
     }
 }
+
 .emoji{
     position:absolute;
-    width:313px;
-    border:1px solid var(--color-light-gray);
-    overflow:hidden;
-    background:var(--color-white);
     bottom:100%;
-    margin:0 0 -9px;
+    border:1px solid var(--color-light-gray);
+    background:var(--color-white);
     z-index:9999;
+    width:262px;
+    margin:0 0 -10px;
+    padding:10px 9px 9px 10px;
+    overflow:hidden;
 
-    .form &,
-    .comments &{
-        bottom:auto;
-        top:100%;
-        margin:0;
-        transform:translate(calc(100% - 28px));
-
-        &._in-top{
-            bottom: 100%;
-            top: auto;
-        }
+    @media(--for-tablet-portrait-down){
+        left:50%;
+        margin:0 0 -10px -131px;
     }
 
     &__list{
         margin:-20px 0 0 -20px;
-        padding:10px 9px 9px 10px;
+        padding:0;
         list-style:none;
         overflow:hidden;
 
@@ -911,6 +936,7 @@ h5{
 
 .ql-container .ql-editor img{
     margin:0 4px;
+    vertical-align:top;
 }
 
 /* end emoji styles */
@@ -927,6 +953,7 @@ h5{
         height:149px;
         overflow:auto;
         font:13px/22px var(--font-general);
+        color:var(--text-color-dark);
     }
 
     .ql-tooltip {
@@ -1127,3 +1154,213 @@ h5{
 }
 
 /* end libs override styles */
+
+.quill--custom {
+    &-container{
+        display:flex;
+        flex-direction:column;
+        flex-wrap:wrap;
+    }
+
+	.btn {
+        position:absolute;
+        bottom:0;
+        right:0;
+        margin:0 0 10px;
+
+		@media (--for-tablet-portrait-down) {
+			display:block !important;
+		}
+	}
+
+    .ql-toolbar{
+        order:1;
+        align-self:flex-end;
+        padding:0 87px 0 0;
+        border:0;
+        margin:0 0 0 -10px;
+
+        @media (--for-phone-only){
+            padding:0 75px 0 0;
+        }
+    }
+    
+    .ql-toolbar.ql-snow + .ql-container.ql-snow,
+    .ql-container.ql-snow{
+        border:1px solid #d6d6d6;
+        margin:0 0 10px;
+    }
+
+    .ql-container{
+        .ql-editor {
+            height: 60px;
+        }
+    } 
+
+    .ql-toolbar {
+        button{
+            width:30px;
+            height:30px;
+            border-radius:50%;
+            border:1px solid #d6d6d6;
+            padding:5px;
+            color:#333;
+            background:#fff;
+            margin:0 0 10px 10px;
+            transition: background, color 0.3s;
+            display: flex;
+            align-items: center;
+
+            &:hover,
+            &:active,
+            &:focus{
+                color:#fff;
+                background:#938ea1;
+                border-color:#938ea1;
+            }
+
+            &:before{
+                transition: background-image 0.3s;
+            }
+        } 
+    }
+    
+}
+
+.ql-emoji{
+    &:before{
+        content:'';
+        width:18px;
+        height:18px;
+        background-image:url(/App_Plugins/Core/Content/images/emoji.svg);
+    }
+
+    &:hover{
+        &:before{
+            background-image:url(/App_Plugins/Core/Content/images/emoji-hover.svg);
+        }
+    }
+
+    .quill--custom &{
+        &:hover{
+            &:before{
+                background-image:url(/App_Plugins/Core/Content/images/emoji-custom-hover.svg);
+            }
+        }
+    }
+
+    svg {
+        display:none;
+    }
+}
+
+.ql-link {
+    &:before{
+        content:'';
+        width:12px;
+        height:12px;
+        background-image:url(/App_Plugins/Core/Content/images/link.svg);
+    }
+
+    &:hover{
+        &:before{
+            background-image:url(/App_Plugins/Core/Content/images/link-hover.svg);
+        }
+    }
+
+    .quill--custom &{
+        &:hover{
+            &:before{
+                background-image:url(/App_Plugins/Core/Content/images/link-custom-hover.svg);
+            }
+        }
+    }
+
+    svg {
+        display:none;
+    }
+}
+
+.ql-formats ._upload{
+    &:before{
+        content:'';
+        width:15px;
+        height:15px;
+        background-image:url(/App_Plugins/Core/Content/images/attachment.svg);
+    }
+
+    &:hover{
+        &:before{
+            background-image:url(/App_Plugins/Core/Content/images/attachment-hover.svg);
+        }
+    }
+
+    .quill--custom &{
+        &:hover{
+            &:before{
+                background-image:url(/App_Plugins/Core/Content/images/attachment-custom-hover.svg);
+            }
+        }
+    }
+}
+
+.ql-bold{
+    &:before{
+        font: 600 14px/18px 'Open Sans', Arial, Helvetica, sans-serif;
+        content:'B';
+        width:20px;
+        height:20px;
+        background-image:none;
+    }
+
+    .quill--custom &{
+        &:hover{
+            color:#fff;
+        }
+    }
+
+    svg {
+        display:none;
+    }
+}
+
+.ql-italic{
+    &:before{
+        font:600 italic 14px/18px 'Open Sans', Arial, Helvetica, sans-serif;
+        content:'i';
+        width:20px;
+        height:20px;
+        background-image:none;
+    }
+
+    .quill--custom &{
+        &:hover{
+            color:#fff;
+        }
+    }
+
+    svg {
+        display:none;
+    }
+}
+
+.ql-underline{
+    &:before{
+        font:600 14px/18px 'Open Sans', Arial, Helvetica, sans-serif;
+        content:'U';
+        width:20px;
+        height:20px;
+        background-image:none;
+        text-decoration:underline;
+    }
+
+    .quill--custom &{
+        &:hover{
+            color:#fff;
+        }
+    }
+
+    svg {
+        display:none;
+    }
+}

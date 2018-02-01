@@ -464,7 +464,7 @@
             transition: transform linear 300ms;
             transform: translate(0, -100%);
             background: #f6f6f6;
-            padding-top: 70px;
+            padding-top: 50px;
             overflow:hidden;
             overflow-y: auto;
             height:calc(100vh - 60px);

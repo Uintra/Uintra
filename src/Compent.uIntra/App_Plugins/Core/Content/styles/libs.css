@@ -48,7 +48,7 @@
 	box-sizing: border-box;
 	border: none;
 	font-size: 100%;
-	margin-top: 11px;
+	margin-top: 12px;
 	padding: 0; }
 .select2-container .select2-search--inline .select2-search__field::-webkit-search-cancel-button {
 	-webkit-appearance: none; }
@@ -136,14 +136,14 @@
 	background-color: #fff;
 	border: 1px solid #ccc; }
 .select2-container--default .select2-selection--single .select2-selection__rendered {
-	color: #444;
+	color: #555;
 	line-height: 43px; }
 .select2-container--default .select2-selection--single .select2-selection__clear {
 	cursor: pointer;
 	float: right;
 	font-weight: bold; }
 .select2-container--default .select2-selection--single .select2-selection__placeholder {
-	color: #999; }
+	color: #aaa; }
 .select2-container--default .select2-selection--single .select2-selection__arrow {
 	position: absolute;
 	top: 0;
@@ -221,7 +221,7 @@
 	position:absolute;
     top:50%;
     right:0;
-    color: #999;
+    color: #aaa;
 	margin-top: -9px;
 	float: left; }
 .select2-container--default .select2-selection--multiple .select2-selection__clear {
@@ -289,6 +289,9 @@
 	box-shadow: none;
 	-webkit-appearance: textfield; }
 
+.select2-container--default .select2-search--inline .select2-search__field::placeholder{
+    color:#aaa; }
+
 .select2-container--default .select2-results > .select2-results__options {
 	max-height: 200px;
 	overflow-y: auto; }
@@ -298,9 +301,6 @@
 
 .select2-container--default .select2-results__option[aria-disabled=true] {
 	color: #999; }
-
-.select2-container--default .select2-results__option[aria-selected=true] {
-	background-color: #ddd; }
 
 .select2-container--default .select2-results__option .select2-results__option {
 	padding-left: 1em; }
@@ -325,6 +325,15 @@
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
 	background-color: #5c5c5c;
 	color: white; }
+
+.select2-container--default .select2-results__option--highlighted[aria-selected=true],
+.select2-container--default .select2-results__option[aria-selected=true] {
+    /*background-color: #ddd;*/
+    background: none;
+    color: #ccc;
+    pointer-events: none;
+    cursor: default;
+}
 
 .select2-container--default .select2-results__group {
 	cursor: default;
@@ -352,7 +361,7 @@
 	font-weight: bold;
 	margin-right: 10px; }
 .select2-container--classic .select2-selection--single .select2-selection__placeholder {
-	color: #999; }
+	color: #aaa; }
 .select2-container--classic .select2-selection--single .select2-selection__arrow {
 	background-color: #ddd;
 	border: none;

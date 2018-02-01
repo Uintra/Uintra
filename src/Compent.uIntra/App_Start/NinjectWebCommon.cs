@@ -31,6 +31,7 @@ using Compent.uIntra.Core.Search.Entities;
 using Compent.uIntra.Core.Search.Entities.Mappings;
 using Compent.uIntra.Core.Search.Indexes;
 using Compent.uIntra.Core.Subscribe;
+using Compent.uIntra.Core.Updater;
 using Compent.uIntra.Core.Users;
 using Compent.uIntra.Core.UserTags;
 using Compent.uIntra.Core.UserTags.Indexers;
@@ -48,7 +49,9 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Nest;
 using Newtonsoft.Json.Serialization;
 using Ninject;
+using Ninject.Extensions.Conventions;
 using Ninject.Web.Common;
+using Ninject.Web.Common.WebHost;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.CentralFeed.Providers;
@@ -185,6 +188,16 @@ namespace Compent.uIntra
 
         private static void RegisterServices(IKernel kernel)
         {
+            //migration
+            kernel.Bind(x => x.FromAssemblyContaining<IMigration>()
+                .SelectAllClasses()
+                .InheritedFrom(typeof(IMigration))
+                .BindSingleInterface());
+
+            kernel.Bind<IMigrationStepsResolver>().To<MigrationStepsResolver>().InRequestScope();
+
+            //security
+
             kernel.Bind<IBrowserCompatibilityConfigurationSection>().ToMethod(s => BrowserCompatibilityConfigurationSection.Configuration).InSingletonScope();
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IJobSettingsConfiguration>().ToMethod(s => JobSettingsConfiguration.Configure).InSingletonScope();

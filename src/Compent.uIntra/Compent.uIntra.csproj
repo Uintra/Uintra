@@ -40,6 +40,7 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
@@ -63,6 +64,9 @@
     </Reference>
     <Reference Include="businesslogic, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\businesslogic.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="ClientDependency.Core, Version=1.9.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -234,17 +238,23 @@
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ninject">
-      <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Web.Common">
-      <HintPath>..\..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ninject.Extensions.Conventions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Extensions.Conventions.3.3.0\lib\net45\Ninject.Extensions.Conventions.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Web.Mvc">
-      <HintPath>..\..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ninject.Extensions.Factory, Version=3.3.2.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Extensions.Factory.3.3.2\lib\net45\Ninject.Extensions.Factory.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Web.Common.3.3.0\lib\net45\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Web.Common.WebHost.3.3.0\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -499,7 +509,8 @@
     <Content Include="App_Plugins\CentralFeed\backoffice\centralFeedService.js" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.css" />
     <Content Include="App_Plugins\CentralFeed\centralFeed.js" />
-    <Content Include="App_Plugins\CentralFeed\loader.gif" />
+    <Content Include="App_Plugins\CentralFeed\loader_greybg.gif" />
+    <Content Include="App_Plugins\CentralFeed\loader_whitebg.gif" />
     <Content Include="App_Plugins\CentralFeed\openCloseCentralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
@@ -537,6 +548,15 @@
     <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.js" />
     <Content Include="App_Plugins\Core\Content\backoffice\EditorConfig\editorConfigService.js" />
     <Content Include="App_Plugins\Core\Content\images\arrow-left.svg" />
+    <Content Include="App_Plugins\Core\Content\images\attachment-custom-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\attachment-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\attachment.svg" />
+    <Content Include="App_Plugins\Core\Content\images\emoji-custom-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\emoji-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\emoji.svg" />
+    <Content Include="App_Plugins\Core\Content\images\link-custom-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\link-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\link.svg" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\css\bootstrap.min.css" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
@@ -570,19 +590,23 @@
     <Content Include="App_Plugins\Core\Content\styles\Core.css" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\angry.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\great.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\happy.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\hungry.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\inlove.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\laughing.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\neutral.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\party.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\relaxed.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\sad.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\sick.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\skeptical.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\sleeping.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.png" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\love.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\tease.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\funny.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\shocked.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.svg">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\tease.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\funny.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\shocked.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\party.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\joy.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\sad.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\fever.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\skeptical.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\sleepy.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\surprised.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\wink.svg" />
     <Content Include="App_Plugins\Core\Content\styles\forms.css" />
@@ -1021,9 +1045,9 @@
     <Content Include="Content\fonts\muli-semibold-webfont.woff2" />
     <Content Include="Content\head_css.js" />
     <Content Include="Content\images\calendar.svg" />
+    <Content Include="Content\images\checkmark.svg" />
     <Content Include="Content\images\default-avatar.png" />
     <Content Include="Content\images\group.svg" />
-    <Content Include="Content\images\groups.gif" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\logo.svg" />
     <Content Include="Content\images\sort.svg" />
@@ -1172,6 +1196,50 @@
     <Content Include="Media\Web.config" />
     <Content Include="Content\fonts\muli-italic.woff" />
     <Content Include="Content\fonts\muli-italic.woff2" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCentralFeedPreValues.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCorePreValues.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\bulletinsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\errorPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsCreatePageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\eventsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsBulletinsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsCreatePageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDeactivatedGroupPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsDocumentsPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsCreatePageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsEventsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMembersPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsMyGroupsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsCreatePageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsNewsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\groupsRoomPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\homePageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsCreatePageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsDetailsPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\newsOverviewPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\notificationPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profileEditPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\profilePageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentPageJsons\searchResultPageGrid.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCentralFeedPreValues.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\DefaultGridCorePreValues.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\DefaultLocalizations.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\GridPageLayout.cshtml" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\GroupGridPreValues.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\PanelPickerPreValues.json" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1180,29 +1248,12 @@
     <Content Include="Views\Navigation\TopNavigation\Navigation.cshtml" />
     <Content Include="Views\Bulletins\DetailsView.cshtml" />
     <Content Include="Views\Bulletins\ItemView.cshtml" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\homePageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\notificationPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\profilePageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\profileEditPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\searchResultPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\newsOverviewPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\newsCreatePageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\newsEditPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\newsDetailsPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\eventsCreatePageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\eventsDetailsPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\eventsEditPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\eventsOverviewPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\errorPageGrid.json" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="config\umbracoSettings.config">
-      <TransformOnBuild>true</TransformOnBuild>
+      <TransformOnBuild>false</TransformOnBuild>
     </Content>
-    <EmbeddedResource Include="Installer\ContentPageJsons\bulletinsDetailsPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\bulletinsEditPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\bulletinsOverviewPageGrid.json" />
     <None Include="Properties\PublishProfiles\groups_qa.pubxml">
       <SubType>Designer</SubType>
     </None>
@@ -1225,7 +1276,11 @@
     <Content Include="Views\Bulletins\CreationForm.cshtml" />
     <Content Include="Views\Search\SearchResult.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout-output.cshtml" />
     <None Include="Web.DebugWithDll.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.ManualInstallation.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.PublicNuget.config">
@@ -1392,6 +1447,59 @@
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
     <Compile Include="Core\UmbracoEventsModule.cs" />
+    <Compile Include="Core\Updater\GroupStep.cs" />
+    <Compile Include="Core\Updater\IMigration.cs" />
+    <Compile Include="Core\Updater\IMigrationStep.cs" />
+    <Compile Include="Core\Updater\IMigrationStepsResolver.cs" />
+    <Compile Include="Core\Updater\MigrationExecutor.cs" />
+    <Compile Include="Core\Updater\MigrationStepsResolver.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\BulletinsInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\CoreInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\EventsInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\GroupsInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\MailInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\NavigationInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\NewsInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\NotificationInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\PanelsInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\SearchInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\UsersInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\InstallationStepsHelper.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\OldNotifications\Helpers.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\OldNotifications\NewNotificationMessageService.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\OldNotifications\NewNotifierDataValueProvider.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\OldNotifications\OldNotifierData.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\OldNotifications\OldUiNotificationMigration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\BasePageWithDefaultGridCreateModel.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\DefaultLocalizationsMigration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\EventPublishDateMigration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\MoveMyGroupsOverviewDocTypeMigration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\NotificationSettingsMigrations.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\OldEventBase.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\OldSubscribeSettingsMigration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\PagePromotionInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\PagePromotionMigration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\UmbracoContentMigration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\BulletinsInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\CoreInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\EventsInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\GroupsInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\HeadingInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\MediaSearchInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\NavigationInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\NewsInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\NotificationInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\PanelsInsatllationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\SearchInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\UsersInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\TaggingInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UpdateDataFolderNamesMigrationInstallationStep .cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\AddMemberCounterTranslationsStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UserTagsInstallationStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
@@ -1410,24 +1518,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Installer\MainInstaller.cs" />
-    <Compile Include="Installer\DefaultLocalizationsMigration.cs" />
-    <Compile Include="Installer\Migrations\MailInstallationConstants.cs" />
-    <Compile Include="Installer\Migrations\UpdateDataFolderNamesMigration.cs" />
-    <Compile Include="Installer\Migrations\MoveMyGroupsOverviewDocTypeMigration.cs" />
-    <Compile Include="Installer\Migrations\OldSubscribeSettings\OldEventBase.cs" />
-    <Compile Include="Installer\Migrations\OldSubscribeSettings\OldSubscribeSettingsMigration.cs" />
-    <Compile Include="Installer\Migrations\EventPublishDateMigration.cs" />
-    <Compile Include="Installer\Migrations\NotificationSettingsMigrations.cs" />
-    <Compile Include="Installer\Migrations\OldNotifications\Helpers.cs" />
-    <Compile Include="Installer\Migrations\OldNotifications\NewNotificationMessageService.cs" />
-    <Compile Include="Installer\Migrations\OldNotifications\NewNotifierDataValueProvider.cs" />
-    <Compile Include="Installer\Migrations\OldNotifications\OldNotifierData.cs" />
-    <Compile Include="Installer\Migrations\OldNotifications\OldUiNotificationMigration.cs" />
-    <Compile Include="Installer\Migrations\PagePromotionInstallationConstants.cs" />
-    <Compile Include="Installer\Migrations\PagePromotionMigration.cs" />
-    <Compile Include="Installer\Migrations\TaggingInstallationConstants.cs" />
-    <Compile Include="Installer\Migrations\TaggingMigration.cs" />
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.cs" />
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.Designer.cs">
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
@@ -1452,7 +1542,6 @@
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
     <Compile Include="Persistence\Sql\DbObjectContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Installer\UmbracoContentMigration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -1577,6 +1666,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'QA|AnyCPU' ">
+    <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DISABLE_LICENCE</DefineConstants>
     <LangVersion>latest</LangVersion>
@@ -1592,6 +1682,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PublicNuget|AnyCPU'">
+    <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -1602,6 +1693,17 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ManualInstallation|AnyCPU'">
+    <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DISABLE_LICENCE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />

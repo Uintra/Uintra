@@ -17,7 +17,7 @@
             }
             <span class="tabset__group-label"> - @Html.Localize("GroupRoom.Label")</span>
         </h1>
-        <div class="tabset__inner _for-desktop">
+        <div class="tabset__inner">
             <ul class="tabset__navigation _groups clearfix js-feed-links">
                 @foreach (var tab in Model.ActivityTabs)
                 {
@@ -29,7 +29,7 @@
                 }
                 @foreach (var tab in Model.PageTabs)
                 {
-                    <li class="tabset__navigation-item @(tab.IsActive ? "_active" : "") @(tab.AlignRight ? "_right _for-desktop" : "")">
+                    <li class="tabset__navigation-item @(tab.IsActive ? "_active" : "") @(tab.AlignRight ? "_right" : "")">
                         <a class="tabset__navigation-link " href="@tab.Link">
                             @tab.Title
                         </a>

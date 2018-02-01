@@ -38,7 +38,8 @@ namespace Compent.uIntra.Controllers
             IPermissionsService permissionsService,
             UmbracoHelper umbracoHelper,
             IFeedActivityHelper feedActivityHelper1)
-            : base(centralFeedService,
+            : base(
+                  centralFeedService,
                   centralFeedContentService,
                   activitiesServiceFactory,
                   subscribeService,

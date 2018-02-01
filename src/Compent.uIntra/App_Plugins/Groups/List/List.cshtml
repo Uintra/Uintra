@@ -7,11 +7,11 @@
     {
         <li data-anchor="@group.Id" class="groups__list-item ">
             <a class="groups__list-link" href="@group.GroupUrl">
-                
+
                 @if (group.HasImage)
                 {
                     <div class="groups__list-image">
-                        <img class="img-responsive" src="@group.GroupImageUrl" />
+                        <img class="img-responsive" src="@group.GroupImageUrl" alt="group image" />
                     </div>
                 }
                 else
@@ -28,7 +28,7 @@
                     @if (group.IsMember)
                     {
                         <span class="groups__member">
-                            <img src="~/Content/images/groups.gif">
+                            <img src="~/Content/images/checkmark.svg">
                             <em class="groups__member-tooltip">@Html.Localize("GroupsList.isMember")</em>
                         </span>
                     }
@@ -37,9 +37,8 @@
                     <dl class="groups__list-meta">
                         @if (group.MembersCount > 0)
                         {
-                            <dt class="groups__list-meta-count"><span>@group.MembersCount</span> @Html.Localize("GroupInfo.MembersCount")</dt>
+                            <dt class="groups__list-meta-count"><span>@group.MembersCount</span> @(Html.Localize(group.MembersCount > 1 ? "GroupInfo.MembersCount.lbl" : "GroupInfo.OneMemberCount.lbl"))</dt>
                         }
-                        <dd class="groups__list-meta-name">@Html.Localize("GroupInfo.CreatorName") <span class="groups__list-meta-name-title">@group.Creator.DisplayedName</span></dd>
                     </dl>
                 </div>
             </a>

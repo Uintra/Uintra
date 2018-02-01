@@ -60,7 +60,6 @@ namespace Compent.uIntra.Core.Navigation
                 (link, content) => new MyLinkItemModel
                 {
                     Id = link.Id,
-                    ContentId = link.ContentId,
                     Name = link.ActivityId.HasValue ? GetLinkName(link.ActivityId.Value) : GetNavigationName(content),
                     Url = GetUrl(link, content)
                 });

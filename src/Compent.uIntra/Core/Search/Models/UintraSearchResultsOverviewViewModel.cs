@@ -14,6 +14,8 @@ namespace Compent.uIntra.Core.Search.Models
 
         public int ResultsCount { get; set; }
 
+        public bool BlockScrolling { get; set; }
+
         public string AllTypesPlaceholder { get; set; }
     }
 }

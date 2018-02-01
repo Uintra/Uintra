@@ -160,6 +160,10 @@ var helpers = {
             "sleeping": {
                 "shortcode": ":sleeping",
                 "translation": "sovende"
+            },
+            "neutral": {
+                "shortcode": ":neutral",
+                "translation": "neutral"
             }
         },
         body,

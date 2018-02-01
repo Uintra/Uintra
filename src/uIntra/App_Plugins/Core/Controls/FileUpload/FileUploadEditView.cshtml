@@ -18,22 +18,21 @@
             </li>
         }
     </ul>
-    <input type="hidden" name="media" value="@existedIds"/>
+    <input type="hidden" name="media" value="@existedIds" />
 </div>
 @{Html.RenderAction("Uploader", "FileUpload", Model.Settings);}
 
 
-@helper RenderFileView(FileViewModel file)
-{
+@helper RenderFileView(FileViewModel file){
     switch (file.Type.Id)
     {
-        case (int) MediaTypeEnum.Image:
-                <img src="@file.Url" />
+        case (int)MediaTypeEnum.Image:
+            <img src="@file.Url" />
             break;
-        case (int) MediaTypeEnum.Document:
-                <a href="@file.Url" target="_blank">
-                    <span class="file-extension __@file.Extension"></span>
-                </a>
+        case (int)MediaTypeEnum.Document:
+            <a href="@file.Url" target="_blank">
+                <span class="file-extension __@file.Extension"></span>
+            </a>
             break;
     }
 }

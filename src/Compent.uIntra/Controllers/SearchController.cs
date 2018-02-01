@@ -36,7 +36,6 @@ namespace Compent.uIntra.Controllers
         }
 
         [HttpPost]
-
         public override PartialViewResult Search(SearchFilterModel model)
         {
             var searchableTypeIds = model.Types.Count > 0 ? model.Types : GetSearchableTypes().Select(t => t.Id);
@@ -97,7 +96,7 @@ namespace Compent.uIntra.Controllers
                     return new SearchFilterItemViewModel
                     {
                         Id = type.Id,
-                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.Name}", facet != null ? (int) facet.Count : default)
+                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.Name}", facet != null ? (int) facet.Count : default(int))
                     };
                 }
             );
@@ -107,7 +106,8 @@ namespace Compent.uIntra.Controllers
                 Results = searchResultViewModels,
                 ResultsCount = (int) searchResult.TotalHits,
                 FilterItems = filterItems,
-                AllTypesPlaceholder = GetLabelWithCount("Search.Filter.All.lbl", (int) searchResult.TotalHits)
+                AllTypesPlaceholder = GetLabelWithCount("Search.Filter.All.lbl", (int) searchResult.TotalHits),
+                BlockScrolling = searchResult.TotalHits <= searchResultViewModels.Count
             };
 
             return result;

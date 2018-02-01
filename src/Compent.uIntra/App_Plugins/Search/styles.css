@@ -1,7 +1,7 @@
 ﻿.search-result{
     background:var(--color-white);
     box-shadow:0 0 2px rgba(0,0,0,0.2);
-    padding:37px 20px 1px;
+    padding:37px 20px 48px;
 
     @media (--for-tablet-portrait-down){
         margin:0 -20px;

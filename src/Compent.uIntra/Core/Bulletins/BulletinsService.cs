@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.Search.Entities;
-using Extensions;
 using Compent.uIntra.Core.UserTags.Indexers;
+using Extensions;
 using uIntra.Bulletins;
 using uIntra.CentralFeed;
 using uIntra.Comments;
@@ -94,14 +94,9 @@ namespace Compent.uIntra.Core.Bulletins
             _userTagService = userTagService;
         }
 
-
         public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Bulletins.ToInt());
 
-
-        public MediaSettings GetMediaSettings()
-        {
-            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent.ToInt());
-        }
+        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent.ToInt());
 
         protected override void UpdateCache()
         {
@@ -109,22 +104,12 @@ namespace Compent.uIntra.Core.Bulletins
             FillIndex();
         }
 
-        public override bool CanEdit(IIntranetActivity cached)
-        {
-            var result = CanPerform(cached, IntranetActivityActionEnum.Edit);
-            return result;
-        }
+        public override bool CanEdit(IIntranetActivity cached) => CanPerform(cached, IntranetActivityActionEnum.Edit);
 
-        public bool CanDelete(IIntranetActivity cached)
-        {
-            var result = CanPerform(cached, IntranetActivityActionEnum.Delete);
-            return result;
-        }
+        public bool CanDelete(IIntranetActivity cached) => CanPerform(cached, IntranetActivityActionEnum.Delete);
 
-        public bool IsActual(Bulletin activity)
-        {
-            return base.IsActual(activity) && activity.PublishDate.Date <= DateTime.Now.Date;
-        }
+        public bool IsActual(Bulletin activity) =>
+            base.IsActual(activity) && activity.PublishDate.Date <= DateTime.Now.Date;
 
         public FeedSettings GetFeedSettings()
         {
@@ -137,11 +122,7 @@ namespace Compent.uIntra.Core.Bulletins
             };
         }
 
-        public IEnumerable<IFeedItem> GetItems()
-        {
-            var items = GetOrderedActualItems();
-            return items;
-        }
+        public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
 
         private IOrderedEnumerable<Bulletin> GetOrderedActualItems() =>
             GetManyActual().OrderByDescending(i => i.PublishDate);
@@ -168,6 +149,9 @@ namespace Compent.uIntra.Core.Bulletins
                 _documentIndexer.Index(bulletin.MediaIds);
                 return bulletin;
             }
+
+            if (cachedBulletin == null) return null;
+
             _activityIndex.Delete(id);
             _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
             _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);
@@ -194,10 +178,7 @@ namespace Compent.uIntra.Core.Bulletins
             UpdateCachedEntity(comment.ActivityId);
         }
 
-        public ICommentable GetCommentsInfo(Guid activityId)
-        {
-            return Get(activityId);
-        }
+        public ICommentable GetCommentsInfo(Guid activityId) => Get(activityId);
 
         public ILikeable Add(Guid userId, Guid activityId)
         {
@@ -211,10 +192,7 @@ namespace Compent.uIntra.Core.Bulletins
             return UpdateCachedEntity(activityId);
         }
 
-        public IEnumerable<LikeModel> GetLikes(Guid activityId)
-        {
-            return Get(activityId).Likes;
-        }
+        public IEnumerable<LikeModel> GetLikes(Guid activityId) => Get(activityId).Likes;
 
         public void Notify(Guid entityId, IIntranetType notificationType)
         {
@@ -310,10 +288,7 @@ namespace Compent.uIntra.Core.Bulletins
             var currentUser = _intranetUserService.GetCurrentUser();
 
             var isWebmaster = _permissionsService.IsUserWebmaster(currentUser);
-            if (isWebmaster)
-            {
-                return true;
-            }
+            if (isWebmaster) return true;
 
             var ownerId = Get(cached.Id).OwnerId;
             var isOwner = ownerId == currentUser.Id;
@@ -322,20 +297,13 @@ namespace Compent.uIntra.Core.Bulletins
             return isOwner && isUserHasPermissions;
         }
 
-        private bool IsBulletinHidden(Bulletin bulletin)
-        {
-            return bulletin == null || bulletin.IsHidden;
-        }
+        private bool IsBulletinHidden(Bulletin bulletin) => bulletin == null || bulletin.IsHidden;
 
-        private bool IsCacheable(Bulletin bulletin)
-        {
-            return !IsBulletinHidden(bulletin) && IsActualPublishDate(bulletin);
-        }
+        private bool IsCacheable(Bulletin bulletin) =>
+            !IsBulletinHidden(bulletin) && IsActualPublishDate(bulletin);
 
-        private bool IsActualPublishDate(Bulletin bulletin)
-        {
-            return DateTime.Compare(bulletin.PublishDate, DateTime.Now) <= 0;
-        }
+        private bool IsActualPublishDate(Bulletin bulletin) =>
+            DateTime.Compare(bulletin.PublishDate, DateTime.Now) <= 0;
 
         private SearchableUintraActivity Map(Bulletin bulletin)
         {
