@@ -1257,6 +1257,7 @@
     <Content Include="Views\Search\SearchResult.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\Shared\_Layout-output.cshtml" />
+    <Content Include="Views\Events\DetailsHeader.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
