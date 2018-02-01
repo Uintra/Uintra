@@ -64,7 +64,7 @@ namespace Compent.uIntra.Core.Updater
             {
                 case MigrationHistory history when new Version(history.Version) <= _lastLegacyMigrationVersion:
                     return steps
-                        .SkipWhile(s => s.migrationVersion <= new Version(history.Version));
+                        .SkipWhile(s => s.migrationVersion <= _lastLegacyMigrationVersion);
                 case MigrationHistory history:
                     return steps
                         .SkipWhile(s => s.step.GetType().ToString() != history.Name)
