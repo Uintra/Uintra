@@ -541,6 +541,15 @@
     <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.js" />
     <Content Include="App_Plugins\Core\Content\backoffice\EditorConfig\editorConfigService.js" />
     <Content Include="App_Plugins\Core\Content\images\arrow-left.svg" />
+    <Content Include="App_Plugins\Core\Content\images\attachment-custom-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\attachment-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\attachment.svg" />
+    <Content Include="App_Plugins\Core\Content\images\emoji-custom-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\emoji-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\emoji.svg" />
+    <Content Include="App_Plugins\Core\Content\images\link-custom-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\link-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\link.svg" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\css\bootstrap.min.css" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
@@ -573,7 +582,6 @@
     <Content Include="App_Plugins\Core\Content\scripts\ValidationExtensions.js" />
     <Content Include="App_Plugins\Core\Content\styles\Core.css" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\angry.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\emoji.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\great.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\love.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.svg" />
@@ -1141,30 +1149,6 @@
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
-    <None Include="config\umbracoSettings.Debug.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.ManualInstallation.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.DebugWithDll.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.Dev.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.PublicNuget.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.Release.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
     <Content Include="Media\Web.config" />
     <Content Include="Content\fonts\muli-italic.woff" />
     <Content Include="Content\fonts\muli-italic.woff2" />
@@ -1224,7 +1208,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="config\umbracoSettings.config">
-      <TransformOnBuild>true</TransformOnBuild>
+      <TransformOnBuild>false</TransformOnBuild>
     </Content>
     <None Include="Properties\PublishProfiles\groups_qa.pubxml">
       <SubType>Designer</SubType>
@@ -1465,11 +1449,12 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\PanelsInsatllationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\SearchInstallationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\UsersInstallationStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Constants\TaggingInstallationConstants.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Migration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\NotificationsMigrationStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\UpdateDataFolderNamesMigrationInstallationStep .cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\UserTagsInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\TaggingInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UpdateDataFolderNamesMigrationInstallationStep .cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\ChangeMemberCounterTranslationsStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UserTagsInstallationStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />

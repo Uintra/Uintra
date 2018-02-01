@@ -17,8 +17,7 @@ namespace uIntra.Core.MigrationHistories
 
         public MigrationHistory GetLast() => _migrationHistoryRepository
             .GetAll()
-            .OrderBy(m => m.Version)
-            .ThenBy(m => m.CreateDate)
+            .OrderByDescending(m => m.CreateDate)
             .FirstOrDefault();
 
         public void Create(string name, Version version)
