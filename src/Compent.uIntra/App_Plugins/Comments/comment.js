@@ -63,7 +63,14 @@ var initCreateControl = function (holder) {
             var divElem = document.createElement('div');
             divElem.className += "link-preview";
 
-            divElem.innerHTML = '<h3><a href="data.uri">' + data.title + '</a></h3><p>' + data.description + '</p><div class="link-preview-image"><img src="' + data.imageUri +'" /></div>'
+            divElem.innerHTML = 
+                `<h3>
+                     <a href="${data.uri}">${data.title}</a>
+                 </h3>
+                 <p>${data.description}</p>
+                 <div class="link-preview-image">
+                     <img src="${data.imageUri}" />
+                 </div>`;
 
             return divElem;
         }
