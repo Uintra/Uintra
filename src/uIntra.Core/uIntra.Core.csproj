@@ -438,13 +438,8 @@
     <Compile Include="Core\Media\Sql\IntranetMediaEntity.cs" />
     <Compile Include="Core\TypeProviders\IMediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaTypeProvider.cs" />
-    <Compile Include="Core\TypeProviders\IntranetTypeComparer.cs" />
-    <Compile Include="Core\TypeProviders\IntranetTypeProviderBase.cs" />
-    <Compile Include="Core\TypeProviders\IntranetType.cs" />
     <Compile Include="Core\TypeProviders\ActivityTypeProvider.cs" />
-    <Compile Include="Core\TypeProviders\IIntranetType.cs" />
     <Compile Include="Core\TypeProviders\IActivityTypeProvider.cs" />
-    <Compile Include="Core\TypeProviders\IIntranetTypeProvider.cs" />
     <Compile Include="Core\Attributes\GreaterThanAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredIfAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredIfEmptyAttribute.cs" />

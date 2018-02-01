@@ -1,7 +1,5 @@
 ﻿using System;
 using uIntra.Comments;
-using uIntra.Core.Activity;
-using uIntra.Core.TypeProviders;
 
 namespace Compent.uIntra.Core.Comments
 {
@@ -13,15 +11,6 @@ namespace Compent.uIntra.Core.Comments
         private enum DummyType
         {
             CustomCommentableService = Int32.MaxValue
-        }
-
-        private static IIntranetType GetDummyType()
-        {
-            return new IntranetType
-            {
-                Id = Int32.MaxValue,
-                Name = typeof(CustomCommentableService).Name
-            };
         }
 
         private readonly ICommentsService _commentsService;

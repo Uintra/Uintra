@@ -80,8 +80,8 @@ namespace uIntra.Groups
                .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                .ForMember(d => d.Title, o => o.MapFrom(s => s.Title));
 
-            Mapper.CreateMap<ActivityFeedTabModel, GroupNavigationActivityTabViewModel>()
-                .ForMember(d => d.Type, d => d.MapFrom(i => new IntranetType { Id = i.Type.ToInt(), Name = i.Type.ToString() }));
+            Mapper.CreateMap<ActivityFeedTabModel, GroupNavigationActivityTabViewModel>();
+
             Mapper.CreateMap<PageTabModel, GroupNavigationPageTabViewModel>()
                 .ForMember(d => d.AlignRight, o => o.Ignore());
 
