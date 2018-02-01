@@ -14,5 +14,6 @@ namespace uIntra.Events.Dashboard
         public DateTime PublishDate { get; set; }
         public bool IsHidden { get; set; }
         public ActivityLocationEditModel Location { get; set; }
+        public string LocationTitle { get; set; }
     }
 }

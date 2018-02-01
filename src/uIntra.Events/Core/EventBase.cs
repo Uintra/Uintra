@@ -1,7 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
 using uIntra.Core.Activity;
-using uIntra.Core.Location;
 using uIntra.Core.User;
 
 namespace uIntra.Events
@@ -14,5 +12,6 @@ namespace uIntra.Events
         public Guid CreatorId { get; set; }
         public Guid OwnerId { get; set; }
         public int? UmbracoCreatorId { get; set; }
+        public string LocationTitle { get; set; }
     }
 }

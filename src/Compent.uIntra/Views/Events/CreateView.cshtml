@@ -58,6 +58,11 @@
             <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("EventsCreate.PublishDateRequired.lbl")" data-val="true" />
             <span class="form__clear icon-close js-clear-date hide"></span>
         </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="locationTitle">@Html.Localize("EventsEdit.LocationTitle.lbl")</label>
+            <input class="form__input" id="locationTitle" type="text" name="locationTitle" value="@(Model.LocationTitle)" placeholder="@Html.Localize("EventsEdit.LocationTitlePlaceholder.lbl")"
+                   data-val-length-max="200" data-val-length="@string.Format(Html.Localize("EventsEdit.LocationTitleMaxLength.lbl"), 200)" data-val="true" />
+        </div>
         <div class="form__row">
             @Html.Label("Location", Html.Localize("EventsCreate.Location.lbl"), new { @class = "form__label" })
             @Html.Action("Edit", "ActivityLocation")

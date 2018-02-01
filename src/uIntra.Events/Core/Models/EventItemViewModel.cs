@@ -39,6 +39,8 @@ namespace uIntra.Events
 
         public bool IsReadOnly { get; set; }
 
+        public string LocationTitle { get; set; }
+
         public ActivityLocation Location { get; set; }
     }
 }
