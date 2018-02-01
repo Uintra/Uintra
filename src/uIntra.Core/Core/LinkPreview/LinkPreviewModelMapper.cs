@@ -17,6 +17,7 @@ namespace uIntra.Core.LinkPreview
             var result = new LinkPreview
             {
                 Id = entity.Id,
+                Uri = new System.Uri(entity.Uri),
                 Title = entity.Title,
                 Description = GetLongest(entity.OgDescription, entity.Description),
                 ImageUri = _uriProvider.GetImageUri(entity.ImageId),
