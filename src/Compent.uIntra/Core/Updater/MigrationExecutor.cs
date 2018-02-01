@@ -15,6 +15,7 @@ namespace Compent.uIntra.Core.Updater
         private readonly IDependencyResolver _dependencyResolver;
         private readonly IMigrationHistoryService _migrationHistoryService;
         private readonly IExceptionLogger _exceptionLogger;
+        private readonly Version _lastLegacyMigrationVersion = new Version("0.2.30.0");
 
         public MigrationHandler()
         {
@@ -58,8 +59,12 @@ namespace Compent.uIntra.Core.Updater
             IEnumerable<(Version migrationVersion, IMigrationStep step)> steps,
             MigrationHistory lastMigration)
         {
+
             switch (lastMigration)
             {
+                case MigrationHistory history when new Version(history.Version) <= _lastLegacyMigrationVersion:
+                    return steps
+                        .SkipWhile(s => s.migrationVersion <= new Version(history.Version));
                 case MigrationHistory history:
                     return steps
                         .SkipWhile(s => s.step.GetType().ToString() != history.Name)
