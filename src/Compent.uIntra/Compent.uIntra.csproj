@@ -1173,26 +1173,6 @@
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <EmbeddedResource Include="Installer\PreValues\DefaultLocalizations.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsOverviewPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsCreatePageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsMyGroupsOverviewPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsMembersPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsRoomPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsEditPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsDeactivatedGroupPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsDocumentsPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsBulletinsDetailsPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsBulletinsEditPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsBulletinsOverviewPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsEventsCreatePageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsEventsDetailsPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsEventsEditPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsEventsOverviewPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsNewsCreatePageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsNewsDetailsPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsNewsEditPageGrid.json" />
-    <EmbeddedResource Include="Installer\ContentPageJsons\groupsNewsOverviewPageGrid.json" />
     <Content Include="Media\Web.config" />
     <Content Include="Content\fonts\muli-italic.woff" />
     <Content Include="Content\fonts\muli-italic.woff2" />
