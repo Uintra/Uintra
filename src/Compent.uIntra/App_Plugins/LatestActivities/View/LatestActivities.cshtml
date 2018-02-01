@@ -14,7 +14,7 @@
             Html.RenderAction("PreviewItem", item.ControllerName, new { item = item.Activity, links = item.Options.Links });
         }
     </div>
-    @Html.Hidden("typeId", Model.Tab.Type.Id)
+    @Html.Hidden("typeId", Model.Tab.Type.ToInt())
 
     @if (Model.ShowSeeAllButton)
     {

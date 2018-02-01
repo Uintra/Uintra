@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Caching;
+using uIntra.Core.Extensions;
 
 namespace uIntra.CentralFeed
 {
@@ -47,7 +48,7 @@ namespace uIntra.CentralFeed
                 GetCacheExpiration()).ToList();
 
 
-             var r = settings.Single(feedSettings => feedSettings.Type.Equals(type));
+            var r = settings.Single(feedSettings => Equals(feedSettings.Type.ToInt(), type.ToInt()));
             return r;
         }
 
