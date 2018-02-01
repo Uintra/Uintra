@@ -129,7 +129,8 @@ function sentButtonClickHandler(event) {
     let form = umbracoAjaxForm(holder.querySelector('form'));
   
     let promise = form.submit();
-    promise.then(function(data) {
+    promise.then(function (response) {
+        let data = response.data;
         if (data.IsSuccess) {
             window.location.hash = data.Id;
 
