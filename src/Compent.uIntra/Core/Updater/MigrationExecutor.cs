@@ -43,7 +43,7 @@ namespace Compent.uIntra.Core.Updater
             }
             else
             {
-                SaveMigrationsHistory(stepHistory);
+                SaveMigrationsHistory(stepHistory.Reverse());
             }
         }
 
