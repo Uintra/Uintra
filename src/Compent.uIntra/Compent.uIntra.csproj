@@ -1453,6 +1453,7 @@
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UpdateDataFolderNamesMigrationInstallationStep .cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\ChangeMemberCounterTranslationsStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UserTagsInstallationStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
