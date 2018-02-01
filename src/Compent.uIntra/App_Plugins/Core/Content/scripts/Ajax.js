@@ -1,10 +1,20 @@
 ﻿const axios = require('axios');
 
-var ajax = {
-    get: url => axios.get(url),
-    post: (url, data) => axios.post(url, data),
-    put: (url, data) => axios.put(url, data),
-    delete: (url, data) => axios.delete(url, data)
+let config = {
+    transformResponse: [function (data) {        
+        try {
+            return JSON.parse(data);
+        } catch (e) {
+            return data;
+        }
+    }]
+}
+
+let ajax = {
+    get: url => axios.get(url, config),
+    post: (url, data) => axios.post(url, data, config),
+    put: (url, data) => axios.put(url, data, config),
+    delete: (url, data) => axios.delete(url, data, config)
 }
 
 export default ajax;
