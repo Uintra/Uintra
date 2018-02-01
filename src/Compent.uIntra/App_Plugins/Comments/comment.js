@@ -52,23 +52,18 @@ var initCreateControl = function (holder) {
         function showLinkPreview(link) {
             $.get('/umbraco/api/LinkPreviewApi/Preview?url=' + link,
                 function (data) {
-                    console.log(data);
                     var imageElem = getImageElem(data);
                     var hiddenSaveElem = getHiddenSaveElem(data);
                     $this.append(imageElem);
                     $this.append(hiddenSaveElem);
                 });
         }
-
+        
         function getImageElem(data) {
-            var titleElem = createParagraph(data.title);
-            var descriptionElem = createParagraph(data.description);
-            var imgElem = createImg(data.imageUri);
-
             var divElem = document.createElement('div');
-            divElem.appendChild(imgElem);
-            divElem.appendChild(titleElem);
-            divElem.appendChild(descriptionElem);
+            divElem.className += "link-preview";
+
+            divElem.innerHTML = '<h3><a href="data.uri">' + data.title + '</a></h3><p>' + data.description + '</p><div class="link-preview-image"><img src="' + data.imageUri +'" /></div>'
 
             return divElem;
         }
