@@ -166,6 +166,9 @@
       <HintPath>..\..\packages\Markdown.1.14.7\lib\net45\MarkdownSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MediaToolkit, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MediaToolkit.1.1.0.1\lib\net40\MediaToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=1.0.1559.20655, Culture=neutral">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
@@ -583,9 +586,7 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Media\UmbracoEventServices\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="..\Compent.uIntra\App_Plugins\Core\**\*">
       <Link>App_Plugins\Core\%(RecursiveDir)%(FileName)%(Extension)</Link>
