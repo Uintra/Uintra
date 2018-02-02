@@ -35,6 +35,15 @@ var initCreateControl = function (holder) {
 
         var dataStorage = $this.find('.js-hidden-comment-create-description')[0];
         var descriptionElem = $this.find('.js-comment-create-description')[0];
+        /*var toolbarSelector = document.querySelector(".js-create-bulletin__toolbar");
+        var quill = helpers.initQuill(descriptionElem, dataStorage, {
+            placeholder: description.dataset["placeholder"],
+            modules: {
+                toolbar: {
+                    container: toolbarSelector
+                }
+            }
+        });*/
         var quill = helpers.initQuill(descriptionElem, dataStorage);
 
         var isOneLinkDetected = false;
@@ -157,6 +166,7 @@ var initEdit = function (holder) {
 
     var dataStorage = findControl(holder, '.js-hidden-comment-edit-description')[0];
     var descriptionElem = findControl(holder, '.js-comment-edit-description')[0];
+
     var quill = helpers.initQuill(descriptionElem, dataStorage);
     var button = holder.find('.js-comment-edit-btn');
     var form = holder.find('.js-comment-edit');
@@ -208,6 +218,7 @@ var initReply = function (holder) {
 
     var dataStorage = findControl(holder, '.js-hidden-comment-create-description')[0];
     var descriptionElem = findControl(holder, '.js-comment-create-description')[0];
+
     var quill = helpers.initQuill(descriptionElem, dataStorage);
     var button = holder.find('.js-comment-create-btn');
 

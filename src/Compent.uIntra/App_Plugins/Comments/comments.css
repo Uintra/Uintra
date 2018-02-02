@@ -228,6 +228,8 @@
     }
 
     &__form{
+        position:relative;
+
         .comments__list &{
             margin:0;
         }

@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
-<settings xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <scheduledTasks>
-    <task alias="reminderJob" log="true" interval="86400" url="http://localhost/umbraco/api/NotificationJob/RunReminderJob" xdt:Locator="Condition(@alias='reminderJob')" xdt:Transform="Remove"/>
-    <task alias="sentMailsJob" log="true" interval="60" url="http://localhost/umbraco/api/NotificationJob/RunMailJob" xdt:Locator="Condition(@alias='sentMailsJob')" xdt:Transform="Remove"/>
-  </scheduledTasks>
-</settings>

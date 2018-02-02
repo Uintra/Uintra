@@ -60,8 +60,6 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
             new EventPublishDateMigration().Execute();
             new OldSubscribeSettingsMigration().Execute();
             new MoveMyGroupsOverviewDocTypeMigration().Execute();
-            new TaggingMigration().Execute();
-            new UpdateDataFolderNamesMigration().Execute();
 
             AddDefaultMailSettings();
             return Success;

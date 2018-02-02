@@ -5,7 +5,7 @@
 @model Compent.uIntra.Core.News.Models.NewsExtendedCreateModel
 
 <div class="form js-check-before-unload" id="js-news-create-page">
-    @using (Html.BeginUmbracoForm("Create", "News", FormMethod.Post, new { id = "form" }))
+    @using (Html.BeginUmbracoForm("CreateExtended", "News", FormMethod.Post, new { id = "form" }))
     {
         <h1 class="form__title">@Html.Localize("NewsCreatePage.Title.lbl")</h1>
         <div class="form__row clearfix">

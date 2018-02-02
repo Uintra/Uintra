@@ -177,10 +177,6 @@
                 float:left;
                 font-weight:normal;
                 margin:0 5px 0 0;
-
-                &:after{
-                    content:' - ';
-                }
             }
         }
     }

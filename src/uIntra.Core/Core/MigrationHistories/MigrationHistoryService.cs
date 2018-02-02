@@ -7,7 +7,6 @@ namespace uIntra.Core.MigrationHistories
 {
     public class MigrationHistoryService : IMigrationHistoryService
     {
-        private const string MigrationHistoryName = "uIntra";
 
         private readonly ISqlRepository<int, MigrationHistory> _migrationHistoryRepository;
 
@@ -16,17 +15,17 @@ namespace uIntra.Core.MigrationHistories
             _migrationHistoryRepository = migrationHistoryRepository;
         }
 
-        public MigrationHistory GetLast()
-        {
-            return _migrationHistoryRepository.GetAll().OrderByDescending(mh => new Version(mh.Version)).FirstOrDefault();
-        }
+        public MigrationHistory GetLast() => _migrationHistoryRepository
+            .GetAll()
+            .OrderByDescending(m => m.CreateDate)
+            .FirstOrDefault();
 
-        public void Create(string version)
+        public void Create(string name, Version version)
         {
             var migrationHistory = new MigrationHistory
             {
-                Name = MigrationHistoryName,
-                Version = version,
+                Name = name,
+                Version = version.ToString(),
                 CreateDate = DateTime.Now
             };
 

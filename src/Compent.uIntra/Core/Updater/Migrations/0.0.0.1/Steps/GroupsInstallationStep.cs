@@ -1,4 +1,5 @@
-﻿using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
+﻿using System.Reflection;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
 using uIntra.Core.Constants;
 using uIntra.Core.Installer;
@@ -35,7 +36,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 
         private void CreateGroupGridDataType()
         {
-            var embeddedResourceFileName = "uIntra.Core.Updater.Migrations._0._0._0._1.PreValues.GroupGridPreValues.json"; //TODO use Assembly.GetExecutingAssembly()
+            var embeddedResourceFileName = $"{ Assembly.GetExecutingAssembly().GetName().Name}.Core.Updater.Migrations._0._0._0._1.PreValues.GroupGridPreValues.json";
             InstallationStepsHelper.CreateGrid(DataTypeNames.GroupGrid, embeddedResourceFileName);
         }
 
