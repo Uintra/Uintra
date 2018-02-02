@@ -388,11 +388,6 @@
 		}
 	}
 
-
-     .link-preview-title{
-         padding:0;
-     }
-
     p{
         margin:0 0 19px;
      }
@@ -408,6 +403,12 @@
 
         @media (--for-phone-only){
             max-width: 100%;
+        }
+    }
+
+    &--edit{
+        .link-preview-title{
+            padding:0 21px 0 0;
         }
     }
 }
