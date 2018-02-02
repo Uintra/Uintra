@@ -111,6 +111,11 @@
     &__date{
         display:flex;
         padding-bottom:11px;
+        line-height:25px;
+
+        @media (--for-tablet-portrait-down){
+            line-height:22px;
+        }
     }
 
     &__day{
