@@ -37,11 +37,11 @@
                         </div>
                     </div>
                 }
-            </div>
-            <div>
-                @Model.LocationTitle
-                @Model.Location.Address
-                @Model.Location.ShortAddress
+                <div class="location">
+                    <strong class="location__title">@Model.LocationTitle</strong>
+                    <span class="location__info">@Model.Location.Address</span>
+                    <span class="location__info">@Model.Location.ShortAddress</span>
+                </div>
             </div>
             @if (!Model.IsReadOnly && Model.CanSubscribe)
             {
