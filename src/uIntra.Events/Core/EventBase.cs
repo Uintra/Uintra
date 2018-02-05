@@ -13,6 +13,5 @@ namespace uIntra.Events
         public Guid OwnerId { get; set; }
         public int? UmbracoCreatorId { get; set; }
         public string LocationTitle { get; set; }
-        public string LocationAddress { get; set; } 
     }
 }

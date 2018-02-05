@@ -11,23 +11,27 @@
         <p class="feed__item-meta">
             @foreach (var date in Model.Dates)
             {
-                <span class="feed__item-date">@date</span> 
+                <span class="feed__item-date">@date</span>
                 <span class="feed__item-divider"> - </span>
             }
             <span class="feed__item-category">@Html.Localize(Model.Type.Name)@(Model.Owner != null ? "," : string.Empty)</span>
             @if (Model.Owner != null)
             {
-                <a href="@Model.Links.Owner">
-                    <span class="feed__item-name">@Model.Owner.DisplayedName</span>
+                <a href="@Model.Links.Owner" class="feed__item-name">
+                    <span>@Model.Owner.DisplayedName</span>
                 </a>
             }
+            @if (Model.Location != null)
+            {
+                @Html.Action("HeaderLink", "ActivityLocation", new { location = Model.Location })
+            }
             <span class="feed__item-inactive">[@Html.Localize("ActivityItemHeader.Creator.Inactive.lbl")]</span>
-            
+
             @if (Model.GroupInfo.HasValue)
             {
                 <span class="feed__item-divider"> > </span>
                 <a href="@Model.GroupInfo.Value.Url">
-                    <span>@Model.GroupInfo.Value.Title</span>                    
+                    <span>@Model.GroupInfo.Value.Title</span>
                     <span class="feed__item-group">
                         <img src="~/Content/images/group.svg">
                         <em class="feed__item-tooltip">@Html.Localize("GroupActivity.lbl")</em>

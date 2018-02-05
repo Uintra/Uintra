@@ -11,6 +11,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
+using uIntra.Core.Location;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -72,9 +73,10 @@ namespace Compent.uIntra.Core.Events
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
             INotifierDataHelper notifierDataHelper,
+            IActivityLocationService activityLocationService, 
             UserTagService userTagService,
             IActivitySubscribeSettingService activitySubscribeSettingService)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;

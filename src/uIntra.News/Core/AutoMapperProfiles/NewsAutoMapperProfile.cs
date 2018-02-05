@@ -2,6 +2,7 @@ using AutoMapper;
 using Extensions;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
+using uIntra.Core.Location;
 using uIntra.News.Dashboard;
 
 namespace uIntra.News

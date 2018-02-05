@@ -67,10 +67,9 @@
             <input class="form__input" id="locationTitle" type="text" name="locationTitle" value="@(Model.LocationTitle)" placeholder="@Html.Localize("EventsEdit.LocationTitlePlaceholder.lbl")"
                    data-val-length-max="200" data-val-length="@string.Format(Html.Localize("EventsEdit.LocationTitleMaxLength.lbl"), 200)" data-val="true" />
         </div>
-        <div class="form__row clearfix">
-            <label class="form__label" for="locationAddress">@Html.Localize("EventsEdit.LocationAddress.lbl")</label>
-            <input class="form__input" id="locationAddress" type="text" name="locationAddress" value="@(Model.LocationAddress)" placeholder="@Html.Localize("EventsEdit.LocationAddressPlaceholder.lbl")"
-                   data-val-length-max="200" data-val-length="@string.Format(Html.Localize("EventsEdit.LocationAddressMaxLength.lbl"), 200)" data-val="true" />
+        <div class="form__row">
+            @Html.Label("Location", Html.Localize("EventsEdit.Location.lbl"), new { @class = "form__label" })
+            @Html.Action("Edit", "ActivityLocation", new { location = Model.Location })
         </div>
         <div class="form__row clearfix">
             @Html.Action("PinActivity", "Activity", new { isPinned = Model.IsPinned, endPinDate = Model.EndPinDate })

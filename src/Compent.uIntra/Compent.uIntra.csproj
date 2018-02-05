@@ -537,8 +537,15 @@
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+    <Content Include="App_Plugins\Core\ActivityLocation\activityLocation.js" />
+    <Content Include="App_Plugins\Core\ActivityLocation\activityLocationEdit.js" />
+    <Content Include="App_Plugins\Core\ActivityLocation\backoffice\location-edit.css" />
+    <Content Include="App_Plugins\Core\ActivityLocation\backoffice\location-edit.directive.js" />
+    <Content Include="App_Plugins\Core\ActivityLocation\backoffice\location-edit.html" />
+    <Content Include="App_Plugins\Core\ActivityLocation\Edit\styles.css" />
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
+    <Content Include="App_Plugins\Core\ActivityLocation\Edit\edit.js" />
     <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
     <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibility.js" />
     <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml" />
@@ -1142,7 +1149,8 @@
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
     <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\ActivitySubscribeSettingsView.cshtml" />
+    <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <EmbeddedResource Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.resx">
       <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
@@ -1150,13 +1158,29 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201801111246169_UserTags.resx">
       <DependentUpon>201801111246169_UserTags.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="App_Plugins\web.config">
-      <TransformOnBuild>false</TransformOnBuild>
-    </Content>
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201801191040358_ActivityLocation.resx">
+      <DependentUpon>201801191040358_ActivityLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="config\umbracoSettings.Debug.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="config\umbracoSettings.DebugWithDll.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="config\umbracoSettings.Dev.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="config\umbracoSettings.PublicNuget.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="config\umbracoSettings.Release.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
     <Content Include="Media\Web.config" />
     <Content Include="Content\fonts\muli-italic.woff" />
     <Content Include="Content\fonts\muli-italic.woff2" />
@@ -1241,6 +1265,7 @@
     <Content Include="Views\Search\SearchResult.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\Shared\_Layout-output.cshtml" />
+    <Content Include="Views\Events\DetailsHeader.cshtml" />
     <None Include="Web.DebugWithDll.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1258,6 +1283,7 @@
   <ItemGroup>
     <Compile Include="App_Start\ElmahMvc_Start.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
+    <Compile Include="Controllers\ActivityLocationController.cs" />
     <Compile Include="Controllers\Api\EditorConfigController.cs" />
     <Compile Include="Controllers\Api\LinkPreviewApiController.cs" />
     <Compile Include="Controllers\Api\MemberApiController.cs" />
@@ -1503,6 +1529,10 @@
     <Compile Include="Persistence\Sql\Migrations\201801291124063_LinkPreview.cs" />
     <Compile Include="Persistence\Sql\Migrations\201801291124063_LinkPreview.Designer.cs">
       <DependentUpon>201801291124063_LinkPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201801191040358_ActivityLocation.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201801191040358_ActivityLocation.Designer.cs">
+      <DependentUpon>201801191040358_ActivityLocation.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

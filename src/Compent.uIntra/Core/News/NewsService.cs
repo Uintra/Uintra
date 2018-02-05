@@ -12,6 +12,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
+using uIntra.Core.Location;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -52,7 +53,8 @@ namespace Compent.uIntra.Core.News
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
-        private readonly UserTagService _userTagService;
+        private readonly IUserTagService _userTagService;
+        private readonly IActivityLocationService _activityLocationService;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -73,8 +75,9 @@ namespace Compent.uIntra.Core.News
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
             INotifierDataHelper notifierDataHelper,
-            UserTagService userTagService)
-            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService)
+            IActivityLocationService activityLocationService,
+            IUserTagService userTagService)
+            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService, activityLocationService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -93,6 +96,7 @@ namespace Compent.uIntra.Core.News
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
             _userTagService = userTagService;
+            _activityLocationService = activityLocationService;
         }
 
         protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
@@ -145,6 +149,7 @@ namespace Compent.uIntra.Core.News
             foreach (var activity in cached)
             {
                 var entity = activity;
+                entity.Location = _activityLocationService.Get(entity.Id);
                 entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);

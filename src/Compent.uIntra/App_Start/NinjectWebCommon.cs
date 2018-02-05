@@ -82,6 +82,7 @@ using uIntra.Core.UmbracoEventServices;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Core.Utils;
+using uIntra.Core.Location;
 using uIntra.Core.LinkPreview;
 using uIntra.Events;
 using uIntra.Groups;
@@ -337,6 +338,9 @@ namespace Compent.uIntra
             kernel.Bind<ISystemLinksModelBuilder>().To<SystemLinksModelBuilder>().InRequestScope();
             kernel.Bind<ISystemLinksService>().To<SystemLinksService>().InRequestScope();
             kernel.Bind<IEqualityComparer<MyLinkItemModel>>().To<MyLinkItemModelComparer>().InSingletonScope();
+
+            // ActivityLocation
+            kernel.Bind<IActivityLocationService>().To<ActivityLocationService>();
 
             // Notifications
             kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()

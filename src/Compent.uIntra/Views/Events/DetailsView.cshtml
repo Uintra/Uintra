@@ -13,7 +13,7 @@
         <a class="link__back" href="@Model.Links.Feed">@Html.Localize("DetailsView.GoToList.lbl")</a>
     </div>
     <div class="feed__item _details">
-        @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
+        @Html.Action("DetailsHeader", "Events", new { header = Model.HeaderInfo })
         <div class="event-details">
             <time class="date date--event-details" datetime="@Model.StartDate"><span class="date__day">@Model.StartDate.ToString("dd")</span> @Model.StartDate.ToString("MMM")</time>
             <div class="event-details__text">
@@ -37,21 +37,12 @@
                         </div>
                     </div>
                 }
-                @if (Model.LocationTitle.HasValue() || Model.LocationAddress.HasValue())
-                {
-                    <p>
-                        @if (Model.LocationTitle.HasValue())
-                        {
-                            @Model.LocationTitle <br />
-                        }
-                        @if (Model.LocationAddress.HasValue())
-                        {
-                            @Model.LocationAddress
-                        }
-                    </p>
-                }
+                <div class="location">
+                    <strong class="location__title">@Model.LocationTitle</strong>
+                    <span class="location__info">@Model.Location.Address</span>
+                    <span class="location__info">@Model.Location.ShortAddress</span>
+                </div>
             </div>
-
             @if (!Model.IsReadOnly && Model.CanSubscribe)
             {
                 <div class="event-details__subscribe">

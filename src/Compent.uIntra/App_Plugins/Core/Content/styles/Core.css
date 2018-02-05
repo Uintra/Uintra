@@ -1,6 +1,6 @@
 @import "libs.css";
 @import "forms.css";
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:600,600i');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:600,600i,700');
 
 @define-mixin btn-focus-color $color {
     &:focus,
@@ -524,7 +524,7 @@ img{
     }
 }
 .content:not(._central-feed) {
-    padding: 26px 21px 10px;
+    padding: 26px 20px 10px;
     background: var(--color-white);
     box-shadow: 0 0 2px rgba(0,0,0,0.2);
 
