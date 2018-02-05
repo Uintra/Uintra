@@ -2,7 +2,8 @@
 @using uIntra.Core
 @using uIntra.Core.Controls.FileUpload
 @using uIntra.Core.Extensions
-@inherits Umbraco.Web.Mvc.UmbracoViewPage<uIntra.Core.Controls.FileUpload.FileUploadEditViewModel>
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<FileUploadEditViewModel>
+
 @{
     var existedIds = Model.Files.Select(s => s.Id.ToString()).JoinWithComma();
 }
@@ -27,9 +28,10 @@
     switch (file.Type.Id)
     {
         case (int)MediaTypeEnum.Image:
+        case (int)MediaTypeEnum.Video:
             <img src="@file.Url" />
             break;
-        case (int)MediaTypeEnum.Document:
+        default:
             <a href="@file.Url" target="_blank">
                 <span class="file-extension __@file.Extension"></span>
             </a>

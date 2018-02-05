@@ -524,7 +524,7 @@
     <Compile Include="Core\Configuration\ConfigurationProvider.cs" />
     <Compile Include="Core\Configuration\IConfigurationProvider.cs" />
     <Compile Include="Core\Controls\FileUpload\FileController.cs" />
-    <Compile Include="Core\Controls\FileUpload\FileUploadController.cs" />
+    <Compile Include="Core\Controls\FileUpload\FileUploadControllerBase.cs" />
     <Compile Include="Core\Controls\FileUpload\FileUploadEditViewModel.cs" />
     <Compile Include="Core\Controls\FileUpload\FileUploadSettings.cs" />
     <Compile Include="Core\Controls\FileUpload\FileViewModel.cs" />

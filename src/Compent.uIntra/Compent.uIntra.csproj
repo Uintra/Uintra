@@ -1262,6 +1262,7 @@
     <Compile Include="Controllers\BulletinsSectionController.cs" />
     <Compile Include="Controllers\CentrallFeedController.cs" />
     <Compile Include="Controllers\EventsSectionController.cs" />
+    <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\GroupFeedController.cs" />
     <Compile Include="Controllers\GroupsSectionController.cs" />
