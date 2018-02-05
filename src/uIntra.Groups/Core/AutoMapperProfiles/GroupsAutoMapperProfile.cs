@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using uIntra.CentralFeed;
-using uIntra.Core.User;
 using uIntra.Groups.Dashboard;
 using uIntra.Groups.Navigation.Models;
 using uIntra.Groups.Sql;
