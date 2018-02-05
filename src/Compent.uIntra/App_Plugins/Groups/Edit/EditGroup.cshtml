@@ -19,21 +19,19 @@
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("GroupEdit.GroupImage.lbl")</label>
-            <span class="form__note">@Html.Localize("GroupEdit.GroupImage.note")</span>
+            @*<span class="form__note">@Html.Localize("GroupEdit.GroupImage.note")</span>*@
             @{
                 var settings = new FileUploadSettings { AllowedExtensions = Model.AllowedMediaExtensions, MaxFilesCount = 1 };
                 Html.RenderAction("Editor", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
         </div>
-        <div class="form__row clearfix">
-            @Html.ValidationSummary()
-        </div>
-        <div class="form__row clearfix">
+        @Html.ValidationSummary()
+        <div class="form__row form__row--top-indent clearfix">
             @Html.HiddenFor(s => s.CreatorId)
             @Html.HiddenFor(s => s.MediaRootId)
             <input type="hidden" name="id" value="@Model.Id" />
             <input class="btn _submit js-submit" type="submit" value="@Html.Localize("GroupEdit.Update.btn")" />
             <input class="btn js-group-hide" type="button" value="@Html.Localize("GroupEdit.Hide.btn")" data-id="@Model.Id" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")" data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" />
         </div>
-                }
+    }
 </div>
