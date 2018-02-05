@@ -57,10 +57,14 @@
         </div>
         @Html.Action("TagPicker", "UserTags", new { entityId = Model.Id })
         <div class="form__row clearfix">
-            <label class="form__label" for="js-publish-date">@Html.Localize("EventsEdit.PublishDate.lbl")</label>
-            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
-            <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("EventsEdit.PublishDateRequired.lbl")" data-val="true" />
-            <span class="form__clear icon-close js-clear-date hide"></span>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="form__label" for="js-publish-date">@Html.Localize("EventsEdit.PublishDate.lbl")</label>
+                    <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
+                    <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("EventsEdit.PublishDateRequired.lbl")" data-val="true" />
+                    <span class="form__clear icon-close js-clear-date hide"></span>
+                </div>
+            </div>
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="locationTitle">@Html.Localize("EventsEdit.LocationTitle.lbl")</label>
