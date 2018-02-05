@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
@@ -7,6 +6,7 @@ using Extensions;
 using MediaToolkit;
 using MediaToolkit.Model;
 using MediaToolkit.Options;
+using uIntra.Core.ApplicationSettings;
 using uIntra.Core.Constants;
 using Umbraco.Core.Models;
 
@@ -14,13 +14,18 @@ namespace uIntra.Core.Media
 {
     public class VideoHelper : IVideoHelper
     {
-        private List<string> VideoExtensions = new List<string> { "mp4", "avi" };
+        private const string ThumbnailFileExtension = ".jpg";
 
-        private const string ThumbnailFileExtensions = ".jpg";
+        private readonly IApplicationSettings _applicationSettings;
+
+        public VideoHelper(IApplicationSettings applicationSettings)
+        {
+            _applicationSettings = applicationSettings;
+        }
 
         public bool IsVideo(string fileExtension)
         {
-            return VideoExtensions.Contains(fileExtension.TrimStart('.'));
+            return _applicationSettings.VideoFileTypes.Contains(fileExtension.TrimStart('.'));
         }
 
         public string CreateThumbnail(IMedia media)
@@ -30,7 +35,7 @@ namespace uIntra.Core.Media
 
             var directoryName = Path.GetDirectoryName(fileFullPath);
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileFullPath);
-            var outputFileFullPath = Path.Combine(directoryName, $"{fileNameWithoutExtension}{ThumbnailFileExtensions}");
+            var outputFileFullPath = Path.Combine(directoryName, $"{fileNameWithoutExtension}{ThumbnailFileExtension}");
 
             using (var engine = new Engine())
             {
@@ -40,7 +45,6 @@ namespace uIntra.Core.Media
                 engine.GetMetadata(inputMediaFile);
 
                 var options = new ConversionOptions { Seek = TimeSpan.FromSeconds(inputMediaFile.Metadata.Duration.TotalSeconds / 2) };
-
                 engine.GetThumbnail(inputMediaFile, outputMediaFile, options);
 
                 return GetThumbnailUrl(fileUrl);
@@ -49,8 +53,8 @@ namespace uIntra.Core.Media
 
         public VideoSizeMetadataModel GetSizeMetadata(IMedia media)
         {
-            var filePath = media.GetValue<string>(UmbracoAliases.Media.UmbracoFilePropertyAlias);
-            var fileFullPath = HostingEnvironment.MapPath(filePath);
+            var fileUrl = media.GetValue<string>(UmbracoAliases.Media.UmbracoFilePropertyAlias);
+            var fileFullPath = HostingEnvironment.MapPath(fileUrl);
 
             var inputMediaFile = new MediaFile { Filename = fileFullPath };
 
@@ -75,7 +79,7 @@ namespace uIntra.Core.Media
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 
             urlSegments.Remove(fileName);
-            urlSegments.Add($"{fileNameWithoutExtension}{ThumbnailFileExtensions}");
+            urlSegments.Add($"{fileNameWithoutExtension}{ThumbnailFileExtension}");
 
             return $"/{urlSegments.JoinWith("/")}";
         }
