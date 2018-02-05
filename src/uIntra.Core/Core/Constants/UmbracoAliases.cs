@@ -10,6 +10,7 @@
             public const string ImageTypeAlias = "Image";
             public const string FolderTypeAlias = "Folder";
             public const string FileTypeAlias = "File";
+            public const string VideoTypeAlias = "video";
 
             public const string UmbracoFilePropertyAlias = "umbracoFile";
 

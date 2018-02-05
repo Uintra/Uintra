@@ -20,12 +20,14 @@ namespace uIntra.Core.Controls.LightboxGallery
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IActivityLinkService _linkService;
         private readonly IImageHelper _imageHelper;
+        private readonly IVideoHelper _videoHelper;
 
-        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper, IActivityLinkService linkService, IImageHelper imageHelper)
+        protected LightboxGalleryControllerBase(UmbracoHelper umbracoHelper, IActivityLinkService linkService, IImageHelper imageHelper, IVideoHelper videoHelper)
         {
             _umbracoHelper = umbracoHelper;
             _linkService = linkService;
             _imageHelper = imageHelper;
+            _videoHelper = videoHelper;
         }
 
         public virtual ActionResult RenderGallery(string mediaIds)
@@ -66,8 +68,8 @@ namespace uIntra.Core.Controls.LightboxGallery
             MapPreviewUrl(galleryViewModelList);
 
             galleryPreviewModel.Links = _linkService.GetLinks(model.ActivityId);
-            galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());
-            galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type.Id != MediaTypeEnum.Image.ToInt());
+            galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt() || m.Type.Id == MediaTypeEnum.Video.ToInt());
+            galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type.Id == MediaTypeEnum.Document.ToInt());
             galleryPreviewModel.Images.Skip(model.DisplayedImagesCount).ToList().ForEach(i => i.IsHidden = true);
 
             return galleryPreviewModel;
@@ -88,6 +90,13 @@ namespace uIntra.Core.Controls.LightboxGallery
             {
                 result.Height = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaHeight);
                 result.Width = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaWidth);
+            }
+
+            if (result.Type.Id == MediaTypeEnum.Video.ToInt())
+            {
+                result.PreviewUrl = _videoHelper.GetThumbnail(media); //TODO save Thumbnail url in media
+                result.Height = media.GetPropertyValue<int>("videoHeight");
+                result.Width = media.GetPropertyValue<int>("videoWidth");
             }
 
             return result;

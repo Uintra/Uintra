@@ -4,6 +4,7 @@
     {
         Image,
         Document,
-        Folder
+        Folder,
+        Video
     }
 }

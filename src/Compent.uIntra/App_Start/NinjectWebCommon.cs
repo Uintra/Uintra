@@ -416,6 +416,7 @@ namespace Compent.uIntra
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
             
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
+            kernel.Bind<IVideoHelper>().To<VideoHelper>().InRequestScope();
             kernel.Bind<INotifierDataHelper>().To<NotifierDataHelper>().InRequestScope();
 
             //Jobs 

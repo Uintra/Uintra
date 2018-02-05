@@ -403,6 +403,9 @@
     <Compile Include="Core\Jobs\Enums\JobTimeTypeEnum.cs" />
     <Compile Include="Core\Jobs\UpdateActivityCacheJob.cs" />
     <Compile Include="Core\LabeledIdentity.cs" />
+    <Compile Include="Core\Media\IVideoHelper.cs" />
+    <Compile Include="Core\Media\VideoHelper.cs" />
+    <Compile Include="Core\Media\VideoSizeMetadataModel.cs" />
     <Compile Include="Core\PagePromotion\AutoMapperProfiles\PagePromotionAutoMapperProfile.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionBase.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionConfig.cs" />

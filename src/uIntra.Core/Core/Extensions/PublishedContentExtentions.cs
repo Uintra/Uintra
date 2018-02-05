@@ -67,6 +67,8 @@ namespace uIntra.Core.Extensions
                     return mediaTypeProvider.Get(MediaTypeEnum.Image.ToInt());
                 case UmbracoAliases.Media.FileTypeAlias:
                     return mediaTypeProvider.Get(MediaTypeEnum.Document.ToInt());
+                case UmbracoAliases.Media.VideoTypeAlias:
+                    return mediaTypeProvider.Get(MediaTypeEnum.Video.ToInt());
                 default:
                     throw new NotImplementedException();
 
