@@ -322,6 +322,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Panels\TableEditor\css\table-editor.css" />
+    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-column-control.directive.js" />
+    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-row-control.directive.js" />
+    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor.controller.js" />
+    <Content Include="App_Plugins\Panels\TableEditor\views\table-editor.html" />
     <Content Include="uIntra.Panels.nuspec">
       <SubType>Designer</SubType>
     </Content>
@@ -329,6 +334,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
+    <None Include="App_Plugins\Panels\TableEditor\package.manifest" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
