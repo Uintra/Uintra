@@ -1,7 +1,7 @@
 ﻿const Quill = require('quill');
 const Delta = require('quill-delta');
 const Flatpickr = require('flatpickr');
-const Ajax = require('./Ajax');
+import ajax from './Ajax';
 
 require('simple-scrollbar');
 require('flatpickr/dist/flatpickr.min.css');
@@ -9,9 +9,9 @@ require('quill/dist/quill.snow.css');
 
 var urlDetectRegexes = [];
 
-Ajax.default.Get('/umbraco/api/LinkPreviewApi/config',
-    function (data) {
-        var regexes = JSON.parse(data).urlRegex.map(r => new RegExp(r));
+ajax.get('/umbraco/api/LinkPreviewApi/config')
+    .then(function (response) {
+        var regexes = response.data.urlRegex.map(r => new RegExp(r));
         urlDetectRegexes = regexes;
     });
 

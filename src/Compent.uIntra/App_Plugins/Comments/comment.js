@@ -1,4 +1,5 @@
 ﻿import helpers from "./../Core/Content/scripts/Helpers";
+import ajax from './../Core/Content/scripts/Ajax';
 
 require("./../Core/Content/libs/jquery.validate.min.js");
 require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
@@ -59,8 +60,8 @@ var initCreateControl = function (holder) {
         var toolbarBtns = $this.find('.ql-formats button');
 
         function showLinkPreview(link) {
-            $.get('/umbraco/api/LinkPreviewApi/Preview?url=' + link,
-                function (data) {
+            ajax.get('/umbraco/api/LinkPreviewApi/Preview?url=' + link)
+                .then(function (data) {
                     var imageElem = getImageElem(data);
                     var hiddenSaveElem = getHiddenSaveElem(data);
                     $this.append(imageElem);
