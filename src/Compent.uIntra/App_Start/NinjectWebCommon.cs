@@ -80,6 +80,7 @@ using uIntra.Core.UmbracoEventServices;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Core.Utils;
+using uIntra.Core.Location;
 using uIntra.Events;
 using uIntra.Groups;
 using uIntra.Groups.Permissions;
@@ -333,6 +334,9 @@ namespace Compent.uIntra
             kernel.Bind<ISystemLinksService>().To<SystemLinksService>().InRequestScope();
             kernel.Bind<IEqualityComparer<MyLinkItemModel>>().To<MyLinkItemModelComparer>().InSingletonScope();
 
+            // ActivityLocation
+            kernel.Bind<IActivityLocationService>().To<ActivityLocationService>();
+
             // Notifications
             kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()
                 .WithConstructorArgument(typeof(string), "~/App_Plugins/Notification/config/notificationConfiguration.json");
@@ -409,8 +413,8 @@ namespace Compent.uIntra
             kernel.Bind<IUmbracoMediaSavedEventService>().To<SearchMediaEventService>().InRequestScope();
             kernel.Bind<IUmbracoMemberDeletingEventService>().To<MemberEventService>().InRequestScope();
             kernel.Bind<IUmbracoContentTrashedEventService>().To<DeleteUserTagHandler>().InRequestScope();
-
-            kernel.Bind<IUmbracoContentPublishedEventService>().To<ContentPageRelationHandler>();
+            kernel.Bind<IUmbracoContentPublishedEventService>().To<ContentPageRelationHandler>().InRequestScope();
+            kernel.Bind<IUmbracoContentTrashedEventService>().To<ContentPageRelationHandler>().InRequestScope();
 
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();

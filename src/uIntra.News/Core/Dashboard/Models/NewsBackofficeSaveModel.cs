@@ -1,4 +1,5 @@
 ﻿using System;
+using uIntra.Core.Location;
 
 namespace uIntra.News.Dashboard
 {
@@ -12,5 +13,6 @@ namespace uIntra.News.Dashboard
         public DateTime PublishDate { get; set; }
         public DateTime? UnpublishDate { get; set; }
         public bool IsHidden { get; set; }
+        public ActivityLocationEditModel Location { get; set; }
     }
 }

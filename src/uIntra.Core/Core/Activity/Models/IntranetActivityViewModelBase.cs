@@ -1,5 +1,6 @@
 ﻿using System;
 using uIntra.Core.Links;
+using uIntra.Core.Location;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.Activity
@@ -13,5 +14,6 @@ namespace uIntra.Core.Activity
         public IIntranetType ActivityType { get; set; }
         public IActivityLinks Links { get; set; }
         public bool IsReadOnly { get; set; }
+        public ActivityLocation Location { get; set; }
     }
 }

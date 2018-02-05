@@ -368,6 +368,10 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Location\AutoMapperProfiles\LocationAutoMapperProfile.cs" />
+    <Compile Include="Core\Location\Entities\ActivityLocationEntity.cs" />
+    <Compile Include="Core\Location\IActivityWithLocation.cs" />
+    <Compile Include="Core\Location\Models\ActivityLocation.cs" />
     <Compile Include="Core\Activity\Helpers\ActivityPageHelper.cs" />
     <Compile Include="Core\Activity\Helpers\ActivityTypeHelper.cs" />
     <Compile Include="Core\Activity\Factories\CacheActivityPageHelperFactory.cs" />
@@ -402,6 +406,8 @@
     <Compile Include="Core\Jobs\Models\BaseIntranetJob.cs" />
     <Compile Include="Core\Jobs\Enums\JobTimeTypeEnum.cs" />
     <Compile Include="Core\Jobs\UpdateActivityCacheJob.cs" />
+    <Compile Include="Core\Location\Services\ActivityLocationService.cs" />
+    <Compile Include="Core\Location\Services\IActivityLocationService.cs" />
     <Compile Include="Core\LabeledIdentity.cs" />
     <Compile Include="Core\Media\IVideoHelper.cs" />
     <Compile Include="Core\Media\VideoHelper.cs" />
@@ -478,10 +484,12 @@
     <Compile Include="Core\Utils\EmbeddedResourcesUtils.cs" />
     <Compile Include="Core\Utils\IEmbeddedResourceService.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
+    <Compile Include="Core\Location\Models\ActivityLocationEditModel.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
     <Compile Include="Web\CacheController.cs" />
     <Compile Include="Web\EditorConfigControllerBase.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\GridEditorConfig.cs" />
+    <Compile Include="Web\ActivityLocationControllerBase.cs" />
     <Compile Include="Web\PagePromotionControllerBase.cs" />
     <Compile Include="Web\RteConfigControllerBase.cs" />
     <Compile Include="Web\UserControllerBase.cs" />

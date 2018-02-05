@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using uIntra.Core.Attributes;
 using uIntra.Core.Links;
+using uIntra.Core.Location;
 using uIntra.Core.ModelBinders;
 using uIntra.Core.TypeProviders;
 
@@ -25,5 +26,7 @@ namespace uIntra.Core.Activity
 
         [PropertyBinder(typeof(LinksBinder))]
         public IActivityLinks Links { get; set; }
+
+        public ActivityLocationEditModel Location { get; set; }
     }
 }

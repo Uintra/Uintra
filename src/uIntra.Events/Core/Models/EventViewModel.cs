@@ -13,6 +13,5 @@ namespace uIntra.Events
         public bool CanSubscribe { get; set; }
         public string SubscribeNotes { get; set; }
         public string LocationTitle { get; set; }
-        public string LocationAddress { get; set; }
     }
 }

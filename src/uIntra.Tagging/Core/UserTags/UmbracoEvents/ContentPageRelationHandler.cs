@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using uIntra.Core.Grid;
+using uIntra.Core.PagePromotion;
 using uIntra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
@@ -15,11 +16,13 @@ namespace uIntra.Tagging.UserTags
     {
         private readonly IUserTagService _userTagService;
         private readonly IGridHelper _gridHelper;
+        private readonly IPagePromotionService<PagePromotionBase> _pagePromotionService;
 
-        public ContentPageRelationHandler(IUserTagService userTagService, IGridHelper gridHelper)
+        public ContentPageRelationHandler(IUserTagService userTagService, IGridHelper gridHelper, IPagePromotionService<PagePromotionBase> pagePromotionService)
         {
             _userTagService = userTagService;
             _gridHelper = gridHelper;
+            _pagePromotionService = pagePromotionService;
         }
 
         public void ProcessContentPublished(IPublishingStrategy sender, PublishEventArgs<IContent> args)
@@ -65,13 +68,27 @@ namespace uIntra.Tagging.UserTags
 
         public void ProcessContentTrashed(IContentService sender, MoveEventArgs<IContent> args)
         {
-            var content = args.MoveInfoCollection.Select(info => info.Entity);
+            var content = args.MoveInfoCollection.Select(info => info.Entity).ToList();
             var contentPagesWithTags = ParseUserTags(content);
 
             foreach (var (_, _, entityId) in contentPagesWithTags)
             {
                 _userTagService.DeleteAllFor(entityId);
             }
+
+            ProcessPromotions(content);
+        }
+
+        private void ProcessPromotions(IEnumerable<IContent> content)
+        {
+            var promotionIds = _pagePromotionService.GetAll(true).Select(p => p.Id);
+
+            var promotionIdsToDelete = promotionIds.Intersect(content.Select(c => c.Key)).ToList();
+
+            promotionIdsToDelete.ForEach(p =>
+            {
+                _pagePromotionService.Delete(p);
+            });
         }
     }
 }

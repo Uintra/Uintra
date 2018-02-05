@@ -6,6 +6,7 @@ using Compent.uIntra.Core.Activity.Models;
 using Compent.uIntra.Core.Events;
 using Compent.uIntra.Core.Feed;
 using Compent.uIntra.Core.UserTags;
+using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Core.Grid;
 using uIntra.Core.Links;
@@ -29,6 +30,7 @@ namespace Compent.uIntra.Controllers
         protected override string CreateViewPath => "~/Views/Events/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/Events/EditView.cshtml";
         protected override string ItemViewPath => "~/Views/Events/ItemView.cshtml";
+        private string DetailsHeaderViewPath => "~/Views/Events/DetailsHeader.cshtml";      
 
         private readonly IEventsService<Event> _eventsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
@@ -37,7 +39,6 @@ namespace Compent.uIntra.Controllers
         private readonly INotificationTypeProvider _notificationTypeProvider;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityTagsHelper _activityTagsHelper;
-        private readonly IActivityLinkService _activityLinkService;
         private readonly IGroupMemberService _groupMemberService;
 
         public EventsController(
@@ -64,8 +65,12 @@ namespace Compent.uIntra.Controllers
             _notificationTypeProvider = notificationTypeProvider;
             _groupActivityService = groupActivityService;
             _activityTagsHelper = activityTagsHelper;
-            _activityLinkService = activityLinkService;
             _groupMemberService = groupMemberService;
+        }
+
+        public virtual ActionResult DetailsHeader(IntranetActivityDetailsHeaderViewModel header)
+        {
+            return PartialView(DetailsHeaderViewPath, header);
         }
 
         [HttpPost]
