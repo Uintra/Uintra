@@ -61,7 +61,8 @@ var initCreateControl = function (holder) {
 
         function showLinkPreview(link) {
             ajax.get('/umbraco/api/LinkPreviewApi/Preview?url=' + link)
-                .then(function (data) {
+                .then(function (response) {
+                    var data = response.data;
                     var imageElem = getImageElem(data);
                     var hiddenSaveElem = getHiddenSaveElem(data);
                     $this.append(imageElem);
