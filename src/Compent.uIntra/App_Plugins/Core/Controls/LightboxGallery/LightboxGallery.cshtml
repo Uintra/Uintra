@@ -1,31 +1,32 @@
 ﻿@using uIntra.Core
-@using System.Linq
+@using uIntra.Core.Extensions
 @model uIntra.Core.Controls.LightboxGallery.LightboxGalleryOverviewModel
+
 @{
-    var medias = Model.GalleryItems.ToLookup(m => m.Type.Id);
-    var images = medias[(int)MediaTypeEnum.Image];
-    var documents = medias[(int)MediaTypeEnum.Document];
-    var fullSizeClass = images.Count() > 1 ? String.Empty : "_full-size";
+    var fullSizeClass = Model.Medias.Count() > 1 ? string.Empty : "_full-size";
 }
-@if (images.Any())
+
+@if (Model.Medias.Any())
 {
     <ul id="js-lightbox-gallery" class="gallery js-lightbox-gallery @fullSizeClass">
-        @foreach (var image in images)
+        @foreach (var media in Model.Medias)
         {
-            var originalSize = $"{image.Width}x{image.Height}";
+            var originalSize = $"{media.Width}x{media.Height}";
+            var videoClass = media.Type.Id == MediaTypeEnum.Video.ToInt() ? "video" : string.Empty;
+
             <li class="gallery__item">
-                <img class="gallery__image" src="@image.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@image.Url" height="100" />
+                <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" height="100" />
             </li>
         }
     </ul>
 }
 
-@if (documents.Any())
+@if (Model.OtherFiles.Any())
 {
     <h3 class="feed__item-subtitle">Vedhæftede dokumenter:</h3>
 
     <ul class="documents-list">
-        @foreach (var document in documents)
+        @foreach (var document in Model.OtherFiles)
         {
             <li class="documents-list__item">
                 <a class="documents-list__link" href="@document.Url" target="_blank">

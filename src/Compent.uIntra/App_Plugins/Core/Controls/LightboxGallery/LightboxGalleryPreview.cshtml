@@ -1,21 +1,24 @@
-﻿@using uIntra.Core.Extensions
+﻿@using uIntra.Core
+@using uIntra.Core.Extensions
 @model uIntra.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
 
-@{ 
-    var fullSizeClass = Model.Images.Count() > 1 ? String.Empty : "_full-size";
+@{
+    var fullSizeClass = Model.Medias.Count() > 1 ? string.Empty : "_full-size";
 }
 
 <ul class="gallery js-lightbox-gallery clearfix">
-    @foreach (var image in Model.Images)
+    @foreach (var media in Model.Medias)
     {
-        var originalSize = $"{image.Width}x{image.Height}";
-        <li class="gallery__item  @fullSizeClass" style="@(image.IsHidden ? "display:none;" : string.Empty)">
-            <img class="gallery__image" src="@image.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@image.Url" height="100" />
+        var originalSize = $"{media.Width}x{media.Height}";
+        var videoClass = media.Type.Id == MediaTypeEnum.Video.ToInt() ? "video" : string.Empty;
+
+        <li class="gallery__item @fullSizeClass" style="@(media.IsHidden ? "display:none;" : string.Empty)">
+            <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" height="100" />
         </li>
     }
     @if (Model.OtherFiles.Any())
     {
-        <li class="gallery__item _attachments ">
+        <li class="gallery__item _attachments">
             <a class="gallery__item-link" href="@Model.Links.Details">
                 <img class="gallery__image" src="~/App_Plugins/Core/Controls/LightboxGallery/icon-doc.png" width="20" height="27" />
                 <span class="gallery__count">@Model.OtherFiles.Count() @Html.Localize("LightboxGallery.Count.lbl")</span>

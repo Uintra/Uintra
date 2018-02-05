@@ -83,7 +83,7 @@ namespace uIntra.Core.Media
 
             if (mediaTypeAlias == VideoTypeAlias)
             {
-                SaveVideoAdditionProperties(media);
+                SaveVideoProperties(media);
             }
 
             _mediaService.Save(media);
@@ -232,7 +232,7 @@ namespace uIntra.Core.Media
             return _umbracoHelper.TypedMedia(mediaFolder.Id);
         }
 
-        private void SaveVideoAdditionProperties(IMedia media)
+        private void SaveVideoProperties(IMedia media)
         {
             var thumbnailUrl = _videoHelper.CreateThumbnail(media);
             media.SetValue(UmbracoAliases.Video.ThumbnailUrlPropertyAlias, thumbnailUrl);
