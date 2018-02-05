@@ -85,11 +85,11 @@
           }
     }
 
-    &__note{
+    /*&__note{
         display:block;
         font-size:13px;
         padding:4px 0 14px;
-    }
+    }*/
 
     &__clear{
         position:absolute;

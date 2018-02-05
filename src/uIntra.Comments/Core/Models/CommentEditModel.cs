@@ -12,5 +12,7 @@ namespace uIntra.Comments
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "*"), AllowHtml]
         public string Text { get; set; }
+
+        public int? LinkPreviewId { get; set; }
     }
 }
