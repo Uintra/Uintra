@@ -94,9 +94,9 @@ namespace uIntra.Core.Controls.LightboxGallery
 
             if (result.Type.Id == MediaTypeEnum.Video.ToInt())
             {
-                result.PreviewUrl = _videoHelper.GetThumbnail(media); //TODO save Thumbnail url in media
-                result.Height = media.GetPropertyValue<int>("videoHeight");
-                result.Width = media.GetPropertyValue<int>("videoWidth");
+                result.PreviewUrl = media.GetPropertyValue<string>(UmbracoAliases.Video.ThumbnailUrlPropertyAlias);
+                result.Height = media.GetPropertyValue<int>(UmbracoAliases.Video.VideoHeightPropertyAlias);
+                result.Width = media.GetPropertyValue<int>(UmbracoAliases.Video.VideoWidthPropertyAlias);
             }
 
             return result;
@@ -104,7 +104,7 @@ namespace uIntra.Core.Controls.LightboxGallery
 
         protected void MapPreviewUrl(List<LightboxGalleryItemViewModel> galleryItems)
         {
-            var imageItems = galleryItems.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());
+            var imageItems = galleryItems.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt() || m.Type.Id == MediaTypeEnum.Video.ToInt());
 
             foreach (var item in imageItems)
             {

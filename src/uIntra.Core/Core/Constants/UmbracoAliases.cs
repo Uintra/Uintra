@@ -23,6 +23,13 @@
             public const string UseInSearchPropertyAlias = "useInSearch";
         }
 
+        public static class Video
+        {
+            public const string ThumbnailUrlPropertyAlias = "thumbnailUrl";
+            public const string VideoHeightPropertyAlias = "videoHeight";
+            public const string VideoWidthPropertyAlias = "videoWidth";
+        }
+
         public static class ImagePresets
         {
             public const string Thumbnail = "thumbnail";         

@@ -9,7 +9,6 @@ using MediaToolkit.Model;
 using MediaToolkit.Options;
 using uIntra.Core.Constants;
 using Umbraco.Core.Models;
-using Umbraco.Web;
 
 namespace uIntra.Core.Media
 {
@@ -19,21 +18,15 @@ namespace uIntra.Core.Media
 
         private const string ThumbnailFileExtensions = ".jpg";
 
-        public bool IsVideo(IMedia media)
-        {
-            var mediaExtension = media.GetValue<string>(UmbracoAliases.Media.MediaExtension);
-            return IsVideo(mediaExtension);
-        }
-
         public bool IsVideo(string fileExtension)
         {
             return VideoExtensions.Contains(fileExtension.TrimStart('.'));
         }
 
-        public void CreateThumbnail(IMedia media)
+        public string CreateThumbnail(IMedia media)
         {
-            var filePath = media.GetValue<string>(UmbracoAliases.Media.UmbracoFilePropertyAlias);
-            var fileFullPath = HostingEnvironment.MapPath(filePath);
+            var fileUrl = media.GetValue<string>(UmbracoAliases.Media.UmbracoFilePropertyAlias);
+            var fileFullPath = HostingEnvironment.MapPath(fileUrl);
 
             var directoryName = Path.GetDirectoryName(fileFullPath);
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileFullPath);
@@ -49,21 +42,9 @@ namespace uIntra.Core.Media
                 var options = new ConversionOptions { Seek = TimeSpan.FromSeconds(inputMediaFile.Metadata.Duration.TotalSeconds / 2) };
 
                 engine.GetThumbnail(inputMediaFile, outputMediaFile, options);
+
+                return GetThumbnailUrl(fileUrl);
             }
-        }
-
-        public string GetThumbnail(IPublishedContent media)
-        {
-            var filePath = media.GetPropertyValue<string>(UmbracoAliases.Media.UmbracoFilePropertyAlias);
-            var fileFullPath = HostingEnvironment.MapPath(filePath);
-
-            var directoryName = Path.GetDirectoryName(fileFullPath);
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileFullPath);
-            var outputFileFullPath = Path.Combine(directoryName, $"{fileNameWithoutExtension}{ThumbnailFileExtensions}");
-
-            var virtualPath = outputFileFullPath.Replace(HostingEnvironment.ApplicationPhysicalPath, string.Empty).Replace(@"\", "/");
-
-            return $"/{virtualPath}";
         }
 
         public VideoSizeMetadataModel GetSizeMetadata(IMedia media)
@@ -85,6 +66,18 @@ namespace uIntra.Core.Media
                     Height = sizeMetadata[1]
                 };
             }
+        }
+
+        private static string GetThumbnailUrl(string videoUrl)
+        {
+            var urlSegments = videoUrl.SplitBy("/").ToList();
+            var fileName = urlSegments.Last();
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+
+            urlSegments.Remove(fileName);
+            urlSegments.Add($"{fileNameWithoutExtension}{ThumbnailFileExtensions}");
+
+            return $"/{urlSegments.JoinWith("/")}";
         }
     }
 }
