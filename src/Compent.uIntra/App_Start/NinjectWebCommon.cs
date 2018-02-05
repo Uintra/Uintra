@@ -413,8 +413,8 @@ namespace Compent.uIntra
             kernel.Bind<IUmbracoMediaSavedEventService>().To<SearchMediaEventService>().InRequestScope();
             kernel.Bind<IUmbracoMemberDeletingEventService>().To<MemberEventService>().InRequestScope();
             kernel.Bind<IUmbracoContentTrashedEventService>().To<DeleteUserTagHandler>().InRequestScope();
-
-            kernel.Bind<IUmbracoContentPublishedEventService>().To<ContentPageRelationHandler>();
+            kernel.Bind<IUmbracoContentPublishedEventService>().To<ContentPageRelationHandler>().InRequestScope();
+            kernel.Bind<IUmbracoContentTrashedEventService>().To<ContentPageRelationHandler>().InRequestScope();
 
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
