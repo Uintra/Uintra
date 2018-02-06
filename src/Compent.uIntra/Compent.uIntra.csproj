@@ -565,6 +565,7 @@
     <Content Include="App_Plugins\Core\Content\images\link-custom-hover.svg" />
     <Content Include="App_Plugins\Core\Content\images\link-hover.svg" />
     <Content Include="App_Plugins\Core\Content\images\link.svg" />
+    <Content Include="App_Plugins\Core\Content\images\videoplay.svg" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\css\bootstrap.min.css" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
