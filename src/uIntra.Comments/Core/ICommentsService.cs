@@ -19,7 +19,7 @@ namespace uIntra.Comments
 
         bool IsReply(CommentModel comment);
 
-        CommentModel Create(Guid userId, Guid activityId, string text, Guid? parentId);
+        CommentModel Create(CommentDto dto);
 
         CommentModel Update(Guid id, string text);
 

@@ -251,10 +251,10 @@ namespace Compent.uIntra.Core.Events
             return Get(activityId).Likes;
         }
 
-        public CommentModel CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        public CommentModel CreateComment(CommentDto dto)
         {
-            var comment = _commentsService.Create(userId, activityId, text, parentId);
-            UpdateCachedEntity(activityId);
+            var comment = _commentsService.Create(dto);
+            UpdateCachedEntity(comment.ActivityId);
             return comment;
         }
 

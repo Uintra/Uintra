@@ -100,20 +100,26 @@ namespace uIntra.Comments
             return comment.ParentId.HasValue;
         }
 
-        public virtual CommentModel Create(Guid userId, Guid activityId, string text, Guid? parentId)
+        public virtual CommentModel Create(CommentDto dto)
+        {
+            var entity = Map(dto);
+            entity.CreatedDate = entity.ModifyDate = DateTime.Now.ToUniversalTime();
+            _commentsRepository.Add(entity);
+            return entity.Map<CommentModel>();
+        }
+
+        private Comment Map(CommentDto dto)
         {
             var entity = new Comment
             {
                 Id = Guid.NewGuid(),
-                ActivityId = activityId,
-                UserId = userId,
-                Text = text,
-                ParentId = parentId
+                ActivityId = dto.ActivityId,
+                UserId = dto.UserId,
+                Text = dto.Text,
+                ParentId = dto.ParentId
             };
 
-            entity.CreatedDate = entity.ModifyDate = DateTime.Now.ToUniversalTime();
-            _commentsRepository.Add(entity);
-            return entity.Map<CommentModel>();
+            return entity;
         }
 
         public virtual CommentModel Update(Guid id, string text)
