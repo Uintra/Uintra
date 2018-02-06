@@ -1288,7 +1288,7 @@
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\ActivityLocationController.cs" />
     <Compile Include="Controllers\Api\EditorConfigController.cs" />
-    <Compile Include="Controllers\Api\LinkPreviewApiController.cs" />
+    <Compile Include="Controllers\Api\LinkPreviewController.cs" />
     <Compile Include="Controllers\Api\MemberApiController.cs" />
     <Compile Include="Controllers\Api\MonthlyEmailApiController.cs" />
     <Compile Include="Controllers\Api\NotificationSettingsApiController.cs" />

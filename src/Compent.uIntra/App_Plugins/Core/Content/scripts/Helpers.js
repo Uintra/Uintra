@@ -9,7 +9,7 @@ require('quill/dist/quill.snow.css');
 
 var urlDetectRegexes = [];
 
-ajax.get('/umbraco/api/LinkPreviewApi/config')
+ajax.get('/umbraco/api/LinkPreview/config')
     .then(function (response) {
         var regexes = response.data.urlRegex.map(r => new RegExp(r));
         urlDetectRegexes = regexes;

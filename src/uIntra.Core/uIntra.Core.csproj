@@ -497,7 +497,7 @@
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Core\Location\Models\ActivityLocationEditModel.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
-    <Compile Include="Web\LinkPreviewApiControllerBase.cs" />
+    <Compile Include="Web\LinkPreviewControllerBase.cs" />
     <Compile Include="Web\CacheController.cs" />
     <Compile Include="Web\EditorConfigControllerBase.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\GridEditorConfig.cs" />

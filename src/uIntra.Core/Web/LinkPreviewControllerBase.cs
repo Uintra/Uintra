@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
 using Compent.LinkPreview.Client;
 using uIntra.Core.LinkPreview;
@@ -9,14 +8,14 @@ using Umbraco.Web.WebApi;
 
 namespace uIntra.Core.Web
 {
-    public abstract class LinkPreviewApiControllerBase : UmbracoApiController
+    public abstract class LinkPreviewControllerBase : UmbracoApiController
     {
         private readonly ILinkPreviewService _linkPreviewService;
         private readonly ILinkPreviewConfigProvider _configProvider;
         private readonly ISqlRepository<int, LinkPreviewEntity> _previewRepository;
         private readonly LinkPreviewModelMapper _linkPreviewModelMapper;
 
-        protected LinkPreviewApiControllerBase(ILinkPreviewService linkPreviewService,
+        protected LinkPreviewControllerBase(ILinkPreviewService linkPreviewService,
             ILinkPreviewConfigProvider configProvider,
             ISqlRepository<int, LinkPreviewEntity> previewRepository, LinkPreviewModelMapper linkPreviewModelMapper)
         {
