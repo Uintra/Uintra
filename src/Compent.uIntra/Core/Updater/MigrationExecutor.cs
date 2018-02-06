@@ -31,7 +31,7 @@ namespace Compent.uIntra.Core.Updater
             var allHistory = _migrationHistoryService.GetAll();
             var allSteps = GetAllSteps(allMigrations);
 
-            var missingSteps = GetMissingSteps(allSteps, allHistory).ToList();
+            var missingSteps = GetSteps(allSteps, allHistory).ToList();
 
             var (stepHistory, executionResult) = IterateSteps(missingSteps, TryExecute);
 
@@ -83,7 +83,7 @@ namespace Compent.uIntra.Core.Updater
         private static IEnumerable<(Version migrationVersion, IMigrationStep step)> GetAllSteps(IOrderedEnumerable<IMigration> migrations) =>
             migrations.SelectMany(migration => migration.Steps.Select(step => (migration.Version, step)));
 
-        private static IEnumerable<(Version migrationVersion, IMigrationStep step)> GetMissingSteps(
+        private static IEnumerable<(Version migrationVersion, IMigrationStep step)> GetSteps(
             IEnumerable<(Version migrationVersion, IMigrationStep step)> allSteps,
             IOrderedEnumerable<MigrationHistory> allHistory)
         {
@@ -94,17 +94,17 @@ namespace Compent.uIntra.Core.Updater
                 case MigrationHistory history when new Version(history.Version) <= LastLegacyMigrationVersion:
                     return allSteps.SkipWhile(s => s.migrationVersion <= LastLegacyMigrationVersion);
                 case MigrationHistory _:
-                    return GetMissingStepsd(allSteps, allHistoryList);
+                    return GetMissingSteps(allSteps, allHistoryList);
                 case null:
                     return allSteps;
             }
         }
 
-        private static IEnumerable<(Version migrationVersion, IMigrationStep step)> GetMissingStepsd(
+        private static IEnumerable<(Version migrationVersion, IMigrationStep step)> GetMissingSteps(
             IEnumerable<(Version migrationVersion, IMigrationStep step)> allSteps,
             IEnumerable<MigrationHistory> allHistory)
         {
-            var installedSteps = new HashSet<string>(allHistory.Select(h => h.Name));
+            var installedSteps = new List<string>(allHistory.Select(h => h.Name));
             return allSteps.Where(s => !installedSteps.Contains(StepIdentity(s.step)));
         }
 
