@@ -63,6 +63,8 @@
             if (address.types[0] == "locality")
                 shortAddressHolder.value = address.long_name;
         }
+        $(addressHolder).change();
+        $(shortAddressHolder).change();
     }
 
     addressHolder.addEventListener("keypress", function (event) {

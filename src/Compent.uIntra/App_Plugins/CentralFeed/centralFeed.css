@@ -304,22 +304,24 @@
             }
 
             &-list{
-                margin:0 0 10px -26px;
+                margin:0 0 0 -26px;
                 padding:0;
                 list-style:none;
-                letter-spacing:-4px;
+                &:after{
+                    content:'';
+                    display:block;
+                    clear:both;
+                }
 
                 &-item{
                     float:left;
-                    vertical-align:top;
-                    letter-spacing:0;
                     padding:0 0 10px 26px;
                     max-width:33.3%;
                     position:relative;
                 }
 
-                &-image{
-                    max-width:100%;
+                img{
+                    width:100%;
                 }
             }
 

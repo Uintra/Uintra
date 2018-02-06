@@ -61,10 +61,8 @@
                 Html.RenderAction("Editor", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
         </div>
-        <div class="form__row clearfix">
-            @Html.ValidationSummary()
-        </div>
-        <div class="form__row clearfix">
+        @Html.ValidationSummary()
+        <div class="form__row form__row--top-indent clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
             @Html.PassLinks(Model.Links)
             <input class="btn _submit js-disable-submit" type="submit" value="@Html.Localize("NewsEdit.Edit.btn")" />

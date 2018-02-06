@@ -1,4 +1,5 @@
 ﻿import helpers from "./../Core/Content/scripts/Helpers";
+import ajax from './../Core/Content/scripts/Ajax';
 
 require("./../Core/Content/libs/jquery.validate.min.js");
 require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
@@ -45,8 +46,74 @@ var initCreateControl = function (holder) {
             }
         });*/
         var quill = helpers.initQuill(descriptionElem, dataStorage);
+
+        var isOneLinkDetected = false;
+
+        quill.onLinkDetected(function (link) {
+            if (!isOneLinkDetected) {
+                showLinkPreview(link);
+                isOneLinkDetected = true;
+            }
+        });
+
         var button = $this.find('.js-comment-create-btn');
         var toolbarBtns = $this.find('.ql-formats button');
+
+        function showLinkPreview(link) {
+            ajax.get('/umbraco/api/LinkPreviewApi/Preview?url=' + link)
+                .then(function (response) {
+                    var data = response.data;
+                    var imageElem = getImageElem(data);
+                    var hiddenSaveElem = getHiddenSaveElem(data);
+                    $this.append(imageElem);
+                    $this.append(hiddenSaveElem);
+                });
+        }
+        
+        function getImageElem(data) {
+            var divElem = document.createElement('div');
+            divElem.className += "link-preview";
+
+            divElem.innerHTML = 
+                `<h3>
+                     <a href="${data.uri}">${data.title}</a>
+                 </h3>
+                 <p>${data.description}</p>
+                 <div class="link-preview-image">
+                     <img src="${data.imageUri}" />
+                 </div>`;
+
+            return divElem;
+        }
+
+        function getHiddenSaveElem(data) {
+            return createHiddenInput('linkPreviewId', data.id);
+        }
+
+        function createHiddenInput(name, value) {
+            var input = document.createElement('input');
+
+            input.setAttribute('type', 'hidden');
+            input.setAttribute('name', name);
+            input.setAttribute('value', value);
+
+            return input;
+        }
+
+        function createImg(imageUri) {
+            var imgElem = document.createElement('img');
+            var srcAttr = document.createAttribute('src');
+            srcAttr.value = imageUri;
+            imgElem.setAttributeNode(srcAttr);
+            return imgElem;
+        }
+
+        function createParagraph(content) {
+            var paragraph = document.createElement('p');
+            var contentNode = document.createTextNode(content);
+            paragraph.appendChild(contentNode);
+            return paragraph;
+        }
 
         toolbarBtns.each(function(){
             var className = $(this).attr('class').split("-");
@@ -64,8 +131,12 @@ var initCreateControl = function (holder) {
 };
 
 var initEdit = function (holder) {
+    var linkPreviewContainer = findControl(holder, '.js-comment-link-preview-container');
     var editlink = findControl(holder, '.js-comment-editlink');
     var hideEditlink = findControl(holder, '.js-comment-hideEditLink');
+    var removeLinkPreviewButton = findControl(holder, '.js-link-preview-remove-preview');
+    var linkPreviewIdContainer = findControl(holder, 'input[name="linkPreviewId"]')[0];
+    var linkPreviewEditContainer = findControl(holder, '.js-link-preview-edit-preview-container');
 
     if (editlink.length === 0 || hideEditlink.length === 0) {
         return;
@@ -74,7 +145,13 @@ var initEdit = function (holder) {
     var editControlContainer = findControl(holder, '.js-comment-editContainer');
     var descriptionControl = findControl(holder, '.js-comment-description');
 
+    removeLinkPreviewButton.on('click', function () {
+        linkPreviewIdContainer.value = null;
+        linkPreviewEditContainer.hide();
+    });
+
     editlink.on('click', function () {
+        linkPreviewContainer.hide();
         editlink.hide();
         hideEditlink.show();
         descriptionControl.hide();
@@ -82,6 +159,7 @@ var initEdit = function (holder) {
     });
 
     hideEditlink.on('click', function () {
+        linkPreviewContainer.show();
         editlink.show();
         hideEditlink.hide();
         descriptionControl.show();
@@ -190,6 +268,10 @@ function findControl(holder, selector) {
 }
 
 function quillTextChangeEventHandler(quill, button, delta, oldDelta, source) {
+    setButtonDisableState(quill, button);
+}
+
+function setButtonDisableState(quill, button) {
     var n = quill.container.querySelectorAll("img").length;
     if (quill.getText().trim().length > 0 || n > 0) {
         button.removeAttr("disabled");

@@ -30,5 +30,9 @@ namespace uIntra.Comments
         string GetCommentViewId(Guid commentId);
 
         bool IsExistsUserComment(Guid activityId, Guid userId);
+
+        void SaveLinkPreview(Guid commentId, int previewId);
+
+        void RemovePreviewRelations(Guid commentId);
     }
 }
