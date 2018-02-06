@@ -443,6 +443,7 @@
     <Compile Include="Core\Providers\IXPathProvider.cs" />
     <Compile Include="Core\TypeProviders\EnumTypeProviderBase.cs" />
     <Compile Include="Core\LinkPreview\Configuration\LinkDetectionConfig.cs" />
+    <Compile Include="Core\TypeProviders\EnumTypeProviderExtensions.cs" />
     <Compile Include="Core\TypeProviders\IEnumTypeProvider.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentPublishedEventService.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentTrashedEventService.cs" />

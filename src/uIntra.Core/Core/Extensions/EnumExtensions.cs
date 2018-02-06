@@ -18,10 +18,7 @@ namespace uIntra.Core.Extensions
             return enm.ToString().ToLower();
         }
 
-        public static int ToInt(this Enum enm)
-        {
-            return (int) (object) enm;
-        }
+        public static int ToInt(this Enum enm) => Convert.ToInt32(enm);
 
         public static T? ToEnum<T>(this int a)
             where T : struct
