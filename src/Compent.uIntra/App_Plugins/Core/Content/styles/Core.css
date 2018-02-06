@@ -1163,10 +1163,8 @@ img{
     }
 
 	.btn {
-        position:absolute;
-        bottom:0;
-        right:0;
-        margin:0 0 10px;
+        float:right;
+        margin:-50px 0 10px;
 
 		@media (--for-tablet-portrait-down) {
 			display:block !important;
