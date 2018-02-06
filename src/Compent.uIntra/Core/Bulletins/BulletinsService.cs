@@ -158,7 +158,7 @@ namespace Compent.uIntra.Core.Bulletins
             return null;
         }
 
-        public CommentModel CreateComment(CommentDto dto)
+        public CommentModel CreateComment(CommentCreateDto dto)
         {
             var comment = _commentsService.Create(dto);
             UpdateCachedEntity(comment.ActivityId);

@@ -89,7 +89,7 @@ namespace Compent.uIntra.Core.PagePromotion
             return Get(activityId);
         }
 
-        public CommentModel CreateComment(CommentDto dto)
+        public CommentModel CreateComment(CommentCreateDto dto)
         {
             var comment = _commentsService.Create(dto);
             UpdateCachedEntity(comment.ActivityId);

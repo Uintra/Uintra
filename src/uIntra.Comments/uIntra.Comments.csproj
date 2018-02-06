@@ -357,7 +357,7 @@
     <Compile Include="Core\Links\CommentLinkHelper.cs" />
     <Compile Include="Core\Links\ICommentLinkHelper.cs" />
     <Compile Include="Core\Models\CommentCreateModel.cs" />
-    <Compile Include="Core\Models\CommentDto.cs" />
+    <Compile Include="Core\Models\CommentCreateDto.cs" />
     <Compile Include="Core\Models\CommentEditModel.cs" />
     <Compile Include="Core\Models\CommentEditViewModel.cs" />
     <Compile Include="Core\Models\CommentModel.cs" />

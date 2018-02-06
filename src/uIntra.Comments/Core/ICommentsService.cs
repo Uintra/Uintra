@@ -19,9 +19,9 @@ namespace uIntra.Comments
 
         bool IsReply(CommentModel comment);
 
-        CommentModel Create(CommentDto dto);
+        CommentModel Create(CommentCreateDto dto);
 
-        CommentModel Update(Guid id, string text);
+        CommentModel Update(Guid id, string text, int? linkPreviewId);
 
         void Delete(Guid id);
 

@@ -104,7 +104,7 @@ namespace uIntra.Comments
             return comment.ParentId.HasValue;
         }
 
-        public virtual CommentModel Create(CommentDto dto)
+        public virtual CommentModel Create(CommentCreateDto dto)
         {
             var entity = Map(dto);
             entity.CreatedDate = entity.ModifyDate = DateTime.Now.ToUniversalTime();
@@ -116,7 +116,7 @@ namespace uIntra.Comments
             return entity.Map<CommentModel>();
         }
 
-        private Comment Map(CommentDto dto)
+        private Comment Map(CommentCreateDto dto)
         {
             var entity = new Comment
             {

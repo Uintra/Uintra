@@ -5,9 +5,9 @@ namespace uIntra.Comments
 {
     public interface ICommentableService : ITypedService
     {
-        CommentModel CreateComment(CommentDto dto);
+        CommentModel CreateComment(CommentCreateDto dto);
 
-        void UpdateComment(Guid id, string text);
+        void UpdateComment(Guid id, string text, int? linkPreviewId);
 
         void DeleteComment(Guid id);
         

@@ -165,7 +165,7 @@ namespace uIntra.Comments.Web
             return PartialView(ViewPath, viewModel);
         }
 
-        protected virtual PartialViewResult AddActivityComment(CommentDto dto)
+        protected virtual PartialViewResult AddActivityComment(CommentCreateDto dto)
         {
             var service = _activitiesServiceFactory.GetService<ICommentableService>(dto.ActivityId);
             var comment = service.CreateComment(dto);
@@ -238,10 +238,10 @@ namespace uIntra.Comments.Web
             return model;
         }
 
-        protected virtual CommentDto Map(CommentCreateModel createModel)
+        protected virtual CommentCreateDto Map(CommentCreateModel createModel)
         {
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
-            var dto = new CommentDto(currentUserId,
+            var dto = new CommentCreateDto(currentUserId,
                 createModel.ActivityId,
                 createModel.Text,
                 createModel.ParentId,

@@ -25,7 +25,7 @@ namespace Compent.uIntra.Core.Comments
             _commentsService = commentsService;
         }
 
-        public CommentModel CreateComment(CommentDto dto)
+        public CommentModel CreateComment(CommentCreateDto dto)
         {
             var comment = _commentsService.Create(dto);
             return comment;
