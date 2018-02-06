@@ -78,14 +78,6 @@ namespace uIntra.Comments.Web
             {
                 return OverView(model.Id);
             }
-            if (!model.LinkPreviewId.HasValue)
-            {
-                _commentsService.RemovePreviewRelations(model.Id);
-            }
-            else
-            {
-                _commentsService.SaveLinkPreview(model.Id, model.LinkPreviewId.Value);
-            }
 
             if (IsForPagePromotion(comment.ActivityId)) return EditActivityComment(model, comment);
 
