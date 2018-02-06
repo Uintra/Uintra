@@ -26,7 +26,7 @@ namespace uIntra.Core.Web
             _linkPreviewModelMapper = linkPreviewModelMapper;
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         public async Task<LinkPreview.LinkPreview> Preview(string url)
         {
             var result = await _linkPreviewService.GetLinkPreview(url);
@@ -51,7 +51,7 @@ namespace uIntra.Core.Web
             return entity;
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         public LinkDetectionConfig Config()
         {
             return _configProvider.Config;
