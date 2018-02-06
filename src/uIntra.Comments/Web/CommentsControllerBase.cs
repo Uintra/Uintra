@@ -103,8 +103,6 @@ namespace uIntra.Comments.Web
                 return OverView(comment.ActivityId);
             }
 
-            _commentsService.RemovePreviewRelations(id);
-
             if (IsForPagePromotion(comment.ActivityId)) return RemoveActivityComment(comment);
 
             if (_umbracoContentHelper.IsForContentPage(comment.ActivityId))
