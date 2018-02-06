@@ -91,9 +91,9 @@
         }
 
         .btn{
-            right:20px;
+            margin:-40px 20px 10px 0;
             @media(--for-phone-only){
-                right:7px;
+                margin:-40px 7px 10px 0;
             }
         }
     }

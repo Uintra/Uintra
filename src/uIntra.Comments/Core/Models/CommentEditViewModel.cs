@@ -1,4 +1,5 @@
 ﻿using System;
+using uIntra.Core.LinkPreview;
 
 namespace uIntra.Comments
 {
@@ -7,5 +8,6 @@ namespace uIntra.Comments
         public string UpdateElementId { get; set; }
         public Guid Id { get; set; }
         public string Text { get; set; }
+        public LinkPreviewViewModel LinkPreview { get; set; }
     }
 }

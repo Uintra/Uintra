@@ -108,6 +108,15 @@
     <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Compent.LinkPreview.Client, Version=0.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Client.0.0.2\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.LinkPreview.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Core.1.0.0\lib\net452\Compent.LinkPreview.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.LinkPreview.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Utils.1.0.0\lib\net452\Compent.LinkPreview.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="controls, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\controls.dll</HintPath>
     </Reference>
@@ -228,8 +237,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -406,6 +414,11 @@
     <Compile Include="Core\Jobs\Models\BaseIntranetJob.cs" />
     <Compile Include="Core\Jobs\Enums\JobTimeTypeEnum.cs" />
     <Compile Include="Core\Jobs\UpdateActivityCacheJob.cs" />
+    <Compile Include="Core\LinkPreview\Configuration\LinkPreviewConfiguration.cs" />
+    <Compile Include="Core\LinkPreview\LinkPreviewModelMapper.cs" />
+    <Compile Include="Core\LinkPreview\Models\LinkPreview.cs" />
+    <Compile Include="Core\LinkPreview\Models\LinkPreviewViewModel.cs" />
+    <Compile Include="Core\LinkPreview\Sql\LinkPreviewEntity.cs" />
     <Compile Include="Core\Location\Services\ActivityLocationService.cs" />
     <Compile Include="Core\Location\Services\IActivityLocationService.cs" />
     <Compile Include="Core\LabeledIdentity.cs" />
@@ -432,7 +445,9 @@
     <Compile Include="Core\Media\IImageHelper.cs" />
     <Compile Include="Core\Media\ImageHelper.cs" />
     <Compile Include="Core\Providers\ContentProviderBase.cs" />
+    <Compile Include="Core\Providers\ILinkPreviewConfigProvider.cs" />
     <Compile Include="Core\Providers\IXPathProvider.cs" />
+    <Compile Include="Core\LinkPreview\Configuration\LinkDetectionConfig.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentPublishedEventService.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentTrashedEventService.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentUnPublishedEventService.cs" />
@@ -482,10 +497,13 @@
     <Compile Include="Core\User\Role.cs" />
     <Compile Include="Core\Utils\EmbeddedResourceService.cs" />
     <Compile Include="Core\Utils\EmbeddedResourcesUtils.cs" />
+    <Compile Include="Core\Utils\HttpHelper.cs" />
     <Compile Include="Core\Utils\IEmbeddedResourceService.cs" />
+    <Compile Include="Core\Utils\IHttpHelper.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Core\Location\Models\ActivityLocationEditModel.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
+    <Compile Include="Web\LinkPreviewApiControllerBase.cs" />
     <Compile Include="Web\CacheController.cs" />
     <Compile Include="Web\EditorConfigControllerBase.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\GridEditorConfig.cs" />
