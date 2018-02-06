@@ -319,6 +319,26 @@
     </Compile>
     <Compile Include="Core\Models\DocumentPanelMediaViewModel.cs" />
     <Compile Include="Core\PanelsConstants.cs" />
+    <Compile Include="Core\TableEditor\HtmlHelpers\TableComponent.cs" />
+    <Compile Include="Core\TableEditor\ModelBuilders\ITableEditorModelBuilder.cs" />
+    <Compile Include="Core\TableEditor\ModelBuilders\TableEditorModelBuilder.cs" />
+    <Compile Include="Core\TableEditor\Models\CellModel.cs" />
+    <Compile Include="Core\TableEditor\Models\CellViewModel.cs" />
+    <Compile Include="Core\TableEditor\Models\TableEditorModel.cs" />
+    <Compile Include="Core\TableEditor\Models\TableEditorViewModel.cs" />
+    <Compile Include="Core\TableEditor\PresentationBuilders\ITableEditorPresentationBuilder.cs" />
+    <Compile Include="Core\TableEditor\PresentationBuilders\TableEditorPresentationBuilder.cs" />
+    <Compile Include="Core\TablePanel\Controllers\TablePanelController.cs" />
+    <Compile Include="Core\TablePanel\ModelBuilders\ITablePanelColorsModelBuilder.cs" />
+    <Compile Include="Core\TablePanel\ModelBuilders\ITablePanelModelBuilder.cs" />
+    <Compile Include="Core\TablePanel\ModelBuilders\TablePanelModelBuilder.cs" />
+    <Compile Include="Core\TablePanel\Models\TableBehaviorViewModel.cs" />
+    <Compile Include="Core\TablePanel\Models\TablePanelColorsModel.cs" />
+    <Compile Include="Core\TablePanel\Models\TablePanelColorsViewModel.cs" />
+    <Compile Include="Core\TablePanel\Models\TablePanelModel.cs" />
+    <Compile Include="Core\TablePanel\Models\TablePanelViewModel.cs" />
+    <Compile Include="Core\TablePanel\PresentationBuilders\ITablePanelPresentationBuilder.cs" />
+    <Compile Include="Core\TablePanel\PresentationBuilders\TablePanelPresentationBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -327,6 +347,7 @@
     <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-row-control.directive.js" />
     <Content Include="App_Plugins\Panels\TableEditor\js\table-editor.controller.js" />
     <Content Include="App_Plugins\Panels\TableEditor\views\table-editor.html" />
+    <Content Include="Core\TablePanel\Css\style.css" />
     <Content Include="uIntra.Panels.nuspec">
       <SubType>Designer</SubType>
     </Content>
@@ -335,6 +356,8 @@
     <None Include="app.config" />
     <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
     <None Include="App_Plugins\Panels\TableEditor\package.manifest" />
+    <None Include="Core\TableEditor\View\TableEditor.cshtml" />
+    <None Include="Core\TablePanel\Views\TablePanel.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -357,6 +380,7 @@
       <Link>App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json</Link>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>

@@ -98,6 +98,7 @@ using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Notification.DefaultImplementation;
 using uIntra.Notification.Jobs;
+using uIntra.Panels.Core.TableEditor.ModelBuilders;
 using uIntra.Search;
 using uIntra.Search.Configuration;
 using uIntra.Subscribe;
@@ -428,6 +429,8 @@ namespace Compent.uIntra
             kernel.Bind<SendEmailJob>().ToSelf().InRequestScope();
             kernel.Bind<UpdateActivityCacheJob>().ToSelf().InRequestScope();
             kernel.Bind<IJobFactory>().To<IntranetJobFactory>().InRequestScope();
+
+            kernel.Bind<ITableEditorModelBuilder>().To<TableEditorModelBuilder>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
