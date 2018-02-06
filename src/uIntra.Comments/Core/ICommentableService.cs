@@ -7,7 +7,7 @@ namespace uIntra.Comments
     {
         CommentModel CreateComment(CommentCreateDto dto);
 
-        void UpdateComment(Guid id, string text, int? linkPreviewId);
+        void UpdateComment(CommentEditDto dto);
 
         void DeleteComment(Guid id);
         

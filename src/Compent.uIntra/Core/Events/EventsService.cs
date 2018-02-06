@@ -258,9 +258,9 @@ namespace Compent.uIntra.Core.Events
             return comment;
         }
 
-        public void UpdateComment(Guid id, string text)
+        public void UpdateComment(CommentEditDto dto)
         {
-            var comment = _commentsService.Update(id, text);
+            var comment = _commentsService.Update(dto);
             UpdateCachedEntity(comment.ActivityId);
         }
 

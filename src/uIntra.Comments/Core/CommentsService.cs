@@ -130,21 +130,21 @@ namespace uIntra.Comments
             return entity;
         }
 
-        public virtual CommentModel Update(Guid id, string text, int? linkPreviewId)
+        public virtual CommentModel Update(CommentEditDto dto)
         {
-            var comment = _commentsRepository.Get(id);
+            var comment = _commentsRepository.Get(dto.Id);
 
             comment.ModifyDate = DateTime.Now.ToUniversalTime();
-            comment.Text = text;
+            comment.Text = dto.Text;
             _commentsRepository.Update(comment);
 
-            if (linkPreviewId.HasValue)
+            if (dto.LinkPreviewId.HasValue)
             {
-                SaveLinkPreview(id, linkPreviewId.Value);
+                SaveLinkPreview(dto.Id, dto.LinkPreviewId.Value);
             }
             else
             {
-                RemovePreviewRelations(id);
+                RemovePreviewRelations(dto.Id);
             }
 
             return comment.Map<CommentModel>();

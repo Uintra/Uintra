@@ -21,7 +21,7 @@ namespace uIntra.Comments
 
         CommentModel Create(CommentCreateDto dto);
 
-        CommentModel Update(Guid id, string text, int? linkPreviewId);
+        CommentModel Update(CommentEditDto dto);
 
         void Delete(Guid id);
 

@@ -79,15 +79,17 @@ namespace uIntra.Comments.Web
                 return OverView(model.Id);
             }
 
-            if (IsForPagePromotion(comment.ActivityId)) return EditActivityComment(model, comment);
+            var editDto = Map(model);
+
+            if (IsForPagePromotion(comment.ActivityId)) return EditActivityComment(editDto, comment);
 
             if (_umbracoContentHelper.IsForContentPage(comment.ActivityId))
             {
-                _customCommentableService.UpdateComment(model.Id, model.Text);
+                _customCommentableService.UpdateComment(editDto);
                 return OverView(comment.ActivityId);
             }
 
-            return EditActivityComment(model, comment);
+            return EditActivityComment(editDto, comment);
         }
 
         [HttpDelete]
@@ -173,10 +175,10 @@ namespace uIntra.Comments.Web
             return OverView(dto.ActivityId);
         }
 
-        protected virtual PartialViewResult EditActivityComment(CommentEditModel model, CommentModel comment)
+        protected virtual PartialViewResult EditActivityComment(CommentEditDto editDto, CommentModel comment)
         {
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
-            service.UpdateComment(model.Id, model.Text);
+            service.UpdateComment(editDto);
             OnCommentEdited(comment);
             return OverView(comment.ActivityId);
         }
@@ -248,6 +250,12 @@ namespace uIntra.Comments.Web
                 createModel.LinkPreviewId
             );
 
+            return dto;
+        }
+
+        protected virtual CommentEditDto Map(CommentEditModel editModel)
+        {
+            var dto = new CommentEditDto(editModel.Id, editModel.Text, editModel.LinkPreviewId);
             return dto;
         }
 

@@ -31,9 +31,9 @@ namespace Compent.uIntra.Core.Comments
             return comment;
         }
 
-        public void UpdateComment(Guid id, string text)
+        public void UpdateComment(CommentEditDto dto)
         {
-            _commentsService.Update(id, text);
+            _commentsService.Update(dto);
         }
 
         public void DeleteComment(Guid id)
