@@ -21,14 +21,12 @@ namespace Compent.uIntra.Core.Updater
         }
 
         public static ExecutionResult Success => new ExecutionResult(ExecutionResultType.Success);
-        public static ExecutionResult Skipped => new ExecutionResult(ExecutionResultType.Skipped);
         public static ExecutionResult Failure(Exception exception) => new ExecutionResult(ExecutionResultType.Failure, exception);
     }
 
     public enum ExecutionResultType
     {
         Success,
-        Failure,
-        Skipped
+        Failure
     }
 }
