@@ -82,6 +82,7 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id));
 
             Mapper.CreateMap<BulletinsBackofficeCreateModel, BulletinBase>()
+                .ForMember(dst => dst.Location, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
@@ -100,6 +101,7 @@ namespace uIntra.Bulletins
                 });
 
             Mapper.CreateMap<BulletinsBackofficeSaveModel, BulletinBase>()
+                .ForMember(dst => dst.Location, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())

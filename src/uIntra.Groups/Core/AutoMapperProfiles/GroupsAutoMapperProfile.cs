@@ -2,7 +2,6 @@
 using uIntra.CentralFeed;
 using uIntra.Core.Extensions;
 using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
 using uIntra.Groups.Dashboard;
 using uIntra.Groups.Navigation.Models;
 using uIntra.Groups.Sql;

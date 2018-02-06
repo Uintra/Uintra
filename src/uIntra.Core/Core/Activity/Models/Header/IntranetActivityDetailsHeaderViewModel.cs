@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Links;
+using uIntra.Core.Location;
 using uIntra.Core.User;
 
 namespace uIntra.Core.Activity
@@ -13,5 +14,6 @@ namespace uIntra.Core.Activity
         public IIntranetUser Owner { get; set; }
         public IEnumerable<string> Dates { get; set; } = Enumerable.Empty<string>();
         public IActivityLinks Links { get; set; }
+        public ActivityLocation Location { get; set; }
     }
 }

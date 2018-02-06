@@ -1,5 +1,6 @@
 ﻿using uIntra.Core.Activity;
 using uIntra.Core.Caching;
+using uIntra.Core.Location;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 
@@ -11,8 +12,9 @@ namespace uIntra.Bulletins
             IIntranetActivityRepository activityRepository,
             ICacheService cache,
             IActivityTypeProvider activityTypeProvider,
-            IIntranetMediaService intranetMediaService) 
-            : base(activityRepository, cache, activityTypeProvider, intranetMediaService)
+            IIntranetMediaService intranetMediaService,
+            IActivityLocationService activityLocationService) 
+            : base(activityRepository, cache, activityTypeProvider, intranetMediaService, activityLocationService)
         {
         }
     }

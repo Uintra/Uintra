@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using uIntra.Core.Location;
 
 namespace uIntra.Core.Activity
 {
-    public interface IIntranetActivity
+    public interface IIntranetActivity : IHaveLocation
     {
         Guid Id { get; set; }
         Enum Type { get; set; }

@@ -6,6 +6,8 @@ using uIntra.CentralFeed;
 using uIntra.Comments;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Jobs.AutoMapperProfiles;
+using uIntra.Core.Location;
+using uIntra.Core.LinkPreview;
 using uIntra.Core.PagePromotion;
 using uIntra.Events;
 using uIntra.Groups;
@@ -51,6 +53,7 @@ namespace Compent.uIntra
             Mapper.AddProfile<UserTagsAutoMapperProfile>();
             Mapper.AddProfile<SubscribeAutoMapperProfiles>();
             Mapper.AddProfile<SubscribeSettingAutoMapperProfiles>();
+            Mapper.AddProfile<LocationAutoMapperProfile>();
 
             var typeMaps = Mapper.GetAllTypeMaps();
 

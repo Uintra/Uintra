@@ -129,7 +129,8 @@ function sentButtonClickHandler(event) {
     let form = umbracoAjaxForm(holder.querySelector('form'));
   
     let promise = form.submit();
-    promise.then(function(data) {
+    promise.then(function (response) {
+        let data = response.data;
         if (data.IsSuccess) {
             window.location.hash = data.Id;
 
@@ -169,6 +170,7 @@ function initMobile(){
 function show() {
     setGlobalEventShow();
     bulletin.classList.add("_expanded");
+    body.style.overflow = 'hidden';
     toolbar.classList.remove("hidden");
     header.classList.remove("hidden");
     closeBulletinBtn.classList.remove("hidden");
@@ -185,6 +187,7 @@ function hide(event) {
     if(event && event.target == closeBulletinBtn){event.preventDefault();}
     setGlobalEventHide();
     bulletin.classList.remove("_expanded");
+    body.style.overflow = '';
     toolbar.classList.add("hidden");
     header.classList.add("hidden");
     closeBulletinBtn.classList.add("hidden");

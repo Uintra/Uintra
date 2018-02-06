@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Compent.LinkPreview.Client;
 using Compent.uIntra;
 using Compent.uIntra.Core;
 using Compent.uIntra.Core.Activity;
@@ -22,6 +23,7 @@ using Compent.uIntra.Core.Handlers;
 using Compent.uIntra.Core.Helpers;
 using Compent.uIntra.Core.IoC;
 using Compent.uIntra.Core.Licence;
+using Compent.uIntra.Core.LinkPreview.Config;
 using Compent.uIntra.Core.Navigation;
 using Compent.uIntra.Core.News;
 using Compent.uIntra.Core.Notification;
@@ -80,6 +82,8 @@ using uIntra.Core.UmbracoEventServices;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Core.Utils;
+using uIntra.Core.Location;
+using uIntra.Core.LinkPreview;
 using uIntra.Events;
 using uIntra.Groups;
 using uIntra.Groups.Permissions;
@@ -240,6 +244,8 @@ namespace Compent.uIntra
             kernel.Bind<IIntranetMediaService>().To<IntranetMediaService>().InRequestScope();
             kernel.Bind<IEditorConfigProvider>().To<IntranetEditorConfigProvider>().InRequestScope();
             kernel.Bind<IEmbeddedResourceService>().To<EmbeddedResourceService>().InRequestScope();
+            kernel.Bind<IHttpHelper>().To<HttpHelper>().InRequestScope().DisposeIfDisposable();
+            
 
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
@@ -333,6 +339,9 @@ namespace Compent.uIntra
             kernel.Bind<ISystemLinksService>().To<SystemLinksService>().InRequestScope();
             kernel.Bind<IEqualityComparer<MyLinkItemModel>>().To<MyLinkItemModelComparer>().InSingletonScope();
 
+            // ActivityLocation
+            kernel.Bind<IActivityLocationService>().To<ActivityLocationService>();
+
             // Notifications
             kernel.Bind<IConfigurationProvider<NotificationConfiguration>>().To<NotificationConfigurationProvider>().InSingletonScope()
                 .WithConstructorArgument(typeof(string), "~/App_Plugins/Notification/config/notificationConfiguration.json");
@@ -364,6 +373,13 @@ namespace Compent.uIntra
             kernel.Bind<IUserTagService>().To<UserTagService>().InRequestScope();
             kernel.Bind<IActivityTagsHelper>().To<ActivityTagsHelper>().InRequestScope();
             
+            // Link preview
+            kernel.Bind<ILinkPreviewService>().To<LinkPreviewService>().InRequestScope();
+            kernel.Bind<ILinkPreviewDataProvider>().To<LinkPreviewDataProvider>().InRequestScope();
+            kernel.Bind<ILinkPreviewConfiguration>().To<LinkPreviewConfiguration>().InRequestScope();
+            kernel.Bind<IUriProvider>().To<UriProvider>();
+            kernel.Bind<ILinkPreviewConfigProvider>().To<LinkPreviewConfigProvider>();
+
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
 
@@ -408,8 +424,8 @@ namespace Compent.uIntra
             kernel.Bind<IUmbracoMediaSavedEventService>().To<SearchMediaEventService>().InRequestScope();
             kernel.Bind<IUmbracoMemberDeletingEventService>().To<MemberEventService>().InRequestScope();
             kernel.Bind<IUmbracoContentTrashedEventService>().To<DeleteUserTagHandler>().InRequestScope();
-
-            kernel.Bind<IUmbracoContentPublishedEventService>().To<ContentPageRelationHandler>();
+            kernel.Bind<IUmbracoContentPublishedEventService>().To<ContentPageRelationHandler>().InRequestScope();
+            kernel.Bind<IUmbracoContentTrashedEventService>().To<ContentPageRelationHandler>().InRequestScope();
 
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();

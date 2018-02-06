@@ -4,6 +4,7 @@ using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Links;
+using uIntra.Core.Location;
 using uIntra.Core.TypeProviders;
 
 namespace uIntra.Events
@@ -37,5 +38,9 @@ namespace uIntra.Events
         public IActivityLinks Links { get; set; }
 
         public bool IsReadOnly { get; set; }
+
+        public string LocationTitle { get; set; }
+
+        public ActivityLocation Location { get; set; }
     }
 }

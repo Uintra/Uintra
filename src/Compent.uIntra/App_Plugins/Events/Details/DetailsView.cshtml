@@ -37,18 +37,13 @@
                         </div>
                     </div>
                 }
-                @if (Model.LocationTitle.HasValue() || Model.LocationAddress.HasValue())
+                @if (Model.Location != null)
                 {
-                    <p>
-                        @if (Model.LocationTitle.HasValue())
-                        {
-                            @Model.LocationTitle <br />
-                        }
-                        @if (Model.LocationAddress.HasValue())
-                        {
-                            @Model.LocationAddress
-                        }
-                    </p>
+                    <div class="location">
+                        <strong class="location__title">@Model.LocationTitle</strong>
+                        <span class="location__info">@Model.Location.Address</span>
+                        <span class="location__info">@Model.Location.ShortAddress</span>
+                    </div>
                 }
             </div>
         </div>

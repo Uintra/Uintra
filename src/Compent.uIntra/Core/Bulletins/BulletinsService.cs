@@ -12,6 +12,7 @@ using uIntra.Core.Activity;
 using uIntra.Core.Caching;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
+using uIntra.Core.Location;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
@@ -47,7 +48,7 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
-        private readonly UserTagService _userTagService;
+        private readonly IUserTagService _userTagService;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -66,8 +67,9 @@ namespace Compent.uIntra.Core.Bulletins
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
             INotifierDataHelper notifierDataHelper,
-            UserTagService userTagService)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService)
+            IActivityLocationService activityLocationService,
+            IUserTagService userTagService)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;

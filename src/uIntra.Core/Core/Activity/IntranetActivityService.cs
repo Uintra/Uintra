@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Caching;
 using uIntra.Core.Extensions;
+using uIntra.Core.Location;
 using uIntra.Core.Media;
 using uIntra.Core.TypeProviders;
 
@@ -17,17 +18,20 @@ namespace uIntra.Core.Activity
         private readonly ICacheService _cache;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IIntranetMediaService _intranetMediaService;
+        private readonly IActivityLocationService _activityLocationService;
 
         protected IntranetActivityService(
             IIntranetActivityRepository activityRepository,
             ICacheService cache,
             IActivityTypeProvider activityTypeProvider,
-            IIntranetMediaService intranetMediaService)
+            IIntranetMediaService intranetMediaService,
+            IActivityLocationService activityLocationService)
         {
             _activityRepository = activityRepository;
             _cache = cache;
             _activityTypeProvider = activityTypeProvider;
             _intranetMediaService = intranetMediaService;
+            _activityLocationService = activityLocationService;
         }
 
         public TActivity Get(Guid id)
@@ -92,6 +96,8 @@ namespace uIntra.Core.Activity
             var newActivity = new IntranetActivityEntity { Type = ActivityType.ToInt(), JsonData = activity.ToJson() };
             _activityRepository.Create(newActivity);
             var newActivityId = newActivity.Id;
+
+            _activityLocationService.Set(newActivityId, activity.Location);
             _intranetMediaService.Create(newActivityId, activity.MediaIds.JoinToString());
 
             afterCreateAction?.Invoke(newActivityId);
@@ -106,6 +112,8 @@ namespace uIntra.Core.Activity
         {
             var entity = _activityRepository.Get(activity.Id);
             entity.JsonData = activity.ToJson();
+
+            _activityLocationService.Set(activity.Id, activity.Location);
             _activityRepository.Update(entity);
             _intranetMediaService.Update(activity.Id, activity.MediaIds.JoinToString());
 
@@ -115,6 +123,7 @@ namespace uIntra.Core.Activity
 
         public virtual void Delete(Guid id)
         {
+            _activityLocationService.DeleteForActivity(id);
             _activityRepository.Delete(id);
             _intranetMediaService.Delete(id);
 
@@ -180,6 +189,7 @@ namespace uIntra.Core.Activity
             cachedActivity.ModifyDate = activity.ModifyDate;
             cachedActivity.IsPinActual = IsPinActual(cachedActivity);
             cachedActivity.MediaIds = _intranetMediaService.GetEntityMedia(cachedActivity.Id);
+            cachedActivity.Location = _activityLocationService.Get(activity.Id);
             return cachedActivity;
         }
 

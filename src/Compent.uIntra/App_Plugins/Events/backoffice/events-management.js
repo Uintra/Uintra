@@ -79,7 +79,7 @@
             self.selected.startDate = self.selected.startDate || new Date().toISOString();
             self.selected.endDate = self.selected.endDate || new Date().toISOString();
             self.selected.publishDate = self.selected.publishDate || new Date().toISOString();
-
+            
             self.config.endDate.minDate = self.selected.startDate;
         }
 

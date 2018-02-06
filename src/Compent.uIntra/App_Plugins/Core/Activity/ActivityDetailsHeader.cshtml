@@ -18,9 +18,13 @@
             <span class="feed__item-category">@Html.Localize(Model.Type.ToString())@(Model.Owner != null ? "," : string.Empty)</span>
             @if (Model.Owner != null)
             {
-                <a href="@Model.Links.Owner">
-                    <span class="feed__item-name">@Model.Owner.DisplayedName</span>
+                <a href="@Model.Links.Owner" class="feed__item-name">
+                    <span>@Model.Owner.DisplayedName</span>
                 </a>
+            }
+            @if (Model.Location != null)
+            {
+                @Html.Action("HeaderLink", "ActivityLocation", new { location = Model.Location })
             }
             <span class="feed__item-inactive">[@Html.Localize("ActivityItemHeader.Creator.Inactive.lbl")]</span>
         </p>

@@ -1,5 +1,6 @@
 ﻿using System;
 using uIntra.Core.Activity;
+using uIntra.Core.Location;
 
 namespace uIntra.News
 {
