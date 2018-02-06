@@ -1,66 +1,26 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using Compent.LinkPreview.Client;
 using uIntra.Core.Extensions;
-using uIntra.Core.LinkPreview;
-using uIntra.Core.LinkPreview.Sql;
 using uIntra.Core.Persistence;
-using LinkPreview = uIntra.Core.LinkPreview.LinkPreview;
 
 namespace uIntra.Comments
 {
     public class CommentsService : ICommentsService
     {
         private readonly ISqlRepository<Guid, Comment> _commentsRepository;
+        private readonly ICommentLinkPreviewService _commentLinkPreviewService;
 
-        // TODO: move link preview logic to the separate service
-
-        private readonly ISqlRepository<int, CommentToLinkPreviewEntity> _previewRelationRepository;
-        private readonly ISqlRepository<int, LinkPreviewEntity> _previewRepository;
-        private readonly LinkPreviewModelMapper _linkPreviewModelMapper;
-
-        public CommentsService(ISqlRepository<Guid, Comment> commentsRepository, 
-            ISqlRepository<int, CommentToLinkPreviewEntity> previewRelationRepository,
-            ISqlRepository<int, LinkPreviewEntity> previewRepository, LinkPreviewModelMapper linkPreviewModelMapper)
+        public CommentsService(ISqlRepository<Guid, Comment> commentsRepository, ICommentLinkPreviewService commentLinkPreviewService)
         {
             _commentsRepository = commentsRepository;
-            _previewRelationRepository = previewRelationRepository;
-            _previewRepository = previewRepository;
-            _linkPreviewModelMapper = linkPreviewModelMapper;
-        }
-
-        public void SaveLinkPreview(Guid commentId, int previewId)
-        {
-            RemovePreviewRelations(commentId);
-            AddLinkPreview(commentId, previewId);
-        }
-
-        public void AddLinkPreview(Guid commentId, int previewId)
-        {
-            var entity = new CommentToLinkPreviewEntity { CommentId = commentId, LinkPreviewId = previewId };
-            _previewRelationRepository.Add(entity);
-        }
-
-        public void RemovePreviewRelations(Guid commentId)
-        {
-            var relations = _previewRelationRepository.FindAll(r => r.CommentId == commentId).ToList();
-            var previewIds = relations.Select(r => r.LinkPreviewId).ToList();
-            _previewRelationRepository.Delete(relations);
-            _previewRepository.Delete(preview => previewIds.Contains(preview.Id));
+            _commentLinkPreviewService = commentLinkPreviewService;
         }
 
         public virtual CommentModel Get(Guid id)
         {
             var comment = _commentsRepository.Get(id);
             return Map(comment);
-        }
-
-        private LinkPreview GetCommentsLinkPreview(Guid id)
-        {
-            var previewIds = _previewRelationRepository.FindAll(r => r.CommentId == id).Select(r => r.LinkPreviewId);
-            var preview = _previewRepository.GetMany(previewIds).Select(_linkPreviewModelMapper.MapPreview).SingleOrDefault();
-            return preview;
         }
 
         public virtual IEnumerable<CommentModel> GetMany(Guid activityId)
@@ -73,7 +33,7 @@ namespace uIntra.Comments
         private CommentModel Map(Comment entity)
         {
             var model = entity.Map<CommentModel>();
-            var preview = GetCommentsLinkPreview(entity.Id);
+            var preview = _commentLinkPreviewService.GetCommentsLinkPreview(entity.Id);
             model.LinkPreview = preview;
             return model;
         }
@@ -111,7 +71,7 @@ namespace uIntra.Comments
             _commentsRepository.Add(entity);
             if (dto.LinkPreviewId.HasValue)
             {
-                AddLinkPreview(entity.Id, dto.LinkPreviewId.Value);
+                _commentLinkPreviewService.AddLinkPreview(entity.Id, dto.LinkPreviewId.Value);
             }
             return entity.Map<CommentModel>();
         }
@@ -140,11 +100,11 @@ namespace uIntra.Comments
 
             if (dto.LinkPreviewId.HasValue)
             {
-                SaveLinkPreview(dto.Id, dto.LinkPreviewId.Value);
+                _commentLinkPreviewService.UpdateLinkPreview(dto.Id, dto.LinkPreviewId.Value);
             }
             else
             {
-                RemovePreviewRelations(dto.Id);
+                _commentLinkPreviewService.RemovePreviewRelations(dto.Id);
             }
 
             return comment.Map<CommentModel>();
@@ -168,7 +128,7 @@ namespace uIntra.Comments
             }
 
             _commentsRepository.Delete(comment);
-            RemovePreviewRelations(comment.Id);
+            _commentLinkPreviewService.RemovePreviewRelations(comment.Id);
         }
 
         private IList<Comment> GetReplies(Comment comment)

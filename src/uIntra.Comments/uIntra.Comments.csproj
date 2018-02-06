@@ -350,9 +350,11 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\AutoMapperProfiles\CommentAutoMapperProfile.cs" />
+    <Compile Include="Core\Services\CommentLinkPreviewService.cs" />
     <Compile Include="Core\Services\CommentsService.cs" />
     <Compile Include="Core\Services\ICommentable.cs" />
     <Compile Include="Core\Services\ICommentableService.cs" />
+    <Compile Include="Core\Services\ICommentLinkPreviewService.cs" />
     <Compile Include="Core\Services\ICommentsService.cs" />
     <Compile Include="Core\Links\CommentLinkHelper.cs" />
     <Compile Include="Core\Links\ICommentLinkHelper.cs" />
