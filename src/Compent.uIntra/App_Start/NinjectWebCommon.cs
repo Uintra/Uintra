@@ -102,6 +102,9 @@ using uIntra.Notification.Configuration;
 using uIntra.Notification.DefaultImplementation;
 using uIntra.Notification.Jobs;
 using uIntra.Panels.Core.TableEditor.ModelBuilders;
+using uIntra.Panels.Core.TableEditor.PresentationBuilders;
+using uIntra.Panels.Core.TablePanel.ModelBuilders;
+using uIntra.Panels.Core.TablePanel.PresentationBuilders;
 using uIntra.Search;
 using uIntra.Search.Configuration;
 using uIntra.Subscribe;
@@ -246,7 +249,15 @@ namespace Compent.uIntra
             kernel.Bind<IEditorConfigProvider>().To<IntranetEditorConfigProvider>().InRequestScope();
             kernel.Bind<IEmbeddedResourceService>().To<EmbeddedResourceService>().InRequestScope();
             kernel.Bind<IHttpHelper>().To<HttpHelper>().InRequestScope().DisposeIfDisposable();
-            
+
+            kernel.Bind<ITablePanelPresentationBuilder>().To<TablePanelPresentationBuilder>().InRequestScope();
+            kernel.Bind<ITableEditorPresentationBuilder>().To<TableEditorPresentationBuilder>().InRequestScope();
+            kernel.Bind<ITableEditorModelBuilder>().To<TableEditorModelBuilder>().InRequestScope();
+            kernel.Bind<ITablePanelColorsModelBuilder>().To<TablePanelColorsModelBuilder>().InRequestScope();
+            kernel.Bind<ITablePanelModelBuilder>().To<TablePanelModelBuilder>().InRequestScope();
+
+
+
 
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
@@ -440,9 +451,7 @@ namespace Compent.uIntra
             kernel.Bind<MontlyMailJob>().ToSelf().InRequestScope();
             kernel.Bind<SendEmailJob>().ToSelf().InRequestScope();
             kernel.Bind<UpdateActivityCacheJob>().ToSelf().InRequestScope();
-            kernel.Bind<IJobFactory>().To<IntranetJobFactory>().InRequestScope();
-
-            kernel.Bind<ITableEditorModelBuilder>().To<TableEditorModelBuilder>().InRequestScope();
+            kernel.Bind<IJobFactory>().To<IntranetJobFactory>().InRequestScope();            
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)

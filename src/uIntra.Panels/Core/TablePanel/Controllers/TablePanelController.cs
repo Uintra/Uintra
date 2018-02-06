@@ -6,7 +6,7 @@ using Umbraco.Web.Mvc;
 
 namespace uIntra.Panels.Core.TablePanel.Controllers
 {
-    public class TablePanelController: SurfaceController
+    public class TablePanelController : SurfaceController
     {
         protected virtual string ViewPath => @"\uIntra.Panels\Core\TablePanel\Views\TablePanel.cshtml";
         private readonly ITablePanelPresentationBuilder _tablePanelPresentationBuilder;
@@ -27,9 +27,9 @@ namespace uIntra.Panels.Core.TablePanel.Controllers
             return PartialView(ViewPath, result);
         }
 
-        public virtual ActionResult Render(int id)
+        public virtual ActionResult Render()
         {
-            var publishedContent = _umbracoHelper.TypedContent(id);
+            var publishedContent = _umbracoHelper.TypedContent(CurrentPage.Id);
             if (publishedContent == null)
             {
                 return new EmptyResult();

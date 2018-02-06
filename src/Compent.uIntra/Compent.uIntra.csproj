@@ -953,6 +953,11 @@
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.html" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js" />
     <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\TableEditor\css\table-editor.css" />
+    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-column-control.directive.js" />
+    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-row-control.directive.js" />
+    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor.controller.js" />
+    <Content Include="App_Plugins\Panels\TableEditor\views\table-editor.html" />
     <Content Include="App_Plugins\Search\backoffice\developerelasticsearch.html" />
     <Content Include="App_Plugins\Search\Controls\search-box.js" />
     <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
