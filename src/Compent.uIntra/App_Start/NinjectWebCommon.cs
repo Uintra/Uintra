@@ -7,7 +7,8 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Compent.LinkPreview.Client;
+using Compent.LinkPreview.HttpClient;
+using Compent.LinkPreview.Infrastructure;
 using Compent.uIntra;
 using Compent.uIntra.Core;
 using Compent.uIntra.Core.Activity;
@@ -380,6 +381,8 @@ namespace Compent.uIntra
             kernel.Bind<ILinkPreviewConfiguration>().To<LinkPreviewConfiguration>().InRequestScope();
             kernel.Bind<IUriProvider>().To<UriProvider>();
             kernel.Bind<ILinkPreviewConfigProvider>().To<LinkPreviewConfigProvider>();
+            kernel.Bind<IHttpService>().To<HttpService>();            
+            kernel.Bind<LinkPreviewModelMapper>().ToSelf();
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();

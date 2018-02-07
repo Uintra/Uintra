@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
-using Compent.LinkPreview.Client;
+using Compent.LinkPreview.HttpClient;
 using uIntra.Core.Extensions;
 using uIntra.Core.LinkPreview;
 using uIntra.Core.LinkPreview.Sql;
@@ -37,7 +37,7 @@ namespace uIntra.Core.Web
             return model;
         }
 
-        private LinkPreviewEntity Map(Compent.LinkPreview.Client.LinkPreview model, string url)
+        private LinkPreviewEntity Map(Compent.LinkPreview.HttpClient.LinkPreview model, string url)
         {
             var entity = model.Map<LinkPreviewEntity>();
             entity.Uri = url;
