@@ -256,45 +256,13 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 
         private void AddIsDeletedProperty()
         {
-            var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
             var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
 
             var imageType = contentTypeService.GetMediaType(UmbracoAliases.Media.ImageTypeAlias);
             var fileType = contentTypeService.GetMediaType(UmbracoAliases.Media.FileTypeAlias);
 
-            var dataType = dataTypeService.GetDataTypeDefinitionByName(UmbracoAliases.Media.IsDeletedDataTypeDefinitionName);
-            if (dataType == null)
-            {
-                dataType = new DataTypeDefinition("Umbraco.TrueFalse")
-                {
-                    Name = UmbracoAliases.Media.IsDeletedDataTypeDefinitionName
-                };
-
-                dataTypeService.Save(dataType);
-            }
-
-            var imageIsDeletedPropertyType = GetIsDeletedPropertyType(dataType);
-            if (!imageType.PropertyTypeExists(imageIsDeletedPropertyType.Alias))
-            {
-                imageType.AddPropertyType(imageIsDeletedPropertyType);
-                contentTypeService.Save(imageType);
-            }
-
-            var fileIsDeletedPropertyType = GetIsDeletedPropertyType(dataType);
-            if (!fileType.PropertyTypeExists(fileIsDeletedPropertyType.Alias))
-            {
-                fileType.AddPropertyType(fileIsDeletedPropertyType);
-                contentTypeService.Save(fileType);
-            }
-        }
-
-        private PropertyType GetIsDeletedPropertyType(IDataTypeDefinition dataType)
-        {
-            return new PropertyType(dataType)
-            {
-                Name = "Is deleted",
-                Alias = UmbracoAliases.Media.IsDeletedPropertyTypeAlias
-            };
+            InstallationStepsHelper.AddIsDeletedProperty(imageType);
+            InstallationStepsHelper.AddIsDeletedProperty(fileType);
         }
 
         private void CreateMediaFolderTypeDataType()
@@ -380,28 +348,8 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
             var imageType = contentTypeService.GetMediaType(UmbracoAliases.Media.ImageTypeAlias);
             var fileType = contentTypeService.GetMediaType(UmbracoAliases.Media.FileTypeAlias);
 
-            var imageIntranetUserId = GetIntranetUserIdPropertyType();
-            if (!imageType.PropertyTypeExists(imageIntranetUserId.Alias))
-            {
-                imageType.AddPropertyType(imageIntranetUserId);
-                contentTypeService.Save(imageType);
-            }
-
-            var fileIntranetUserId = GetIntranetUserIdPropertyType();
-            if (!fileType.PropertyTypeExists(fileIntranetUserId.Alias))
-            {
-                fileType.AddPropertyType(fileIntranetUserId);
-                contentTypeService.Save(fileType);
-            }
-        }
-
-        private PropertyType GetIntranetUserIdPropertyType()
-        {
-            return new PropertyType("Umbraco.NoEdit", DataTypeDatabaseType.Nvarchar)
-            {
-                Name = "Intranet user id",
-                Alias = IntranetConstants.IntranetCreatorId
-            };
+            InstallationStepsHelper.AddIntranetUserIdProperty(imageType);
+            InstallationStepsHelper.AddIntranetUserIdProperty(fileType);
         }
     }
 }

@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps;
 using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
-using Newtonsoft.Json.Linq;
 using Extensions;
+using Newtonsoft.Json.Linq;
+using uIntra.Core.Constants;
 using uIntra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
@@ -135,6 +135,60 @@ namespace uIntra.Core.Installer
             };
 
             return gridProperty;
+        }
+
+        public static void AddIsDeletedProperty(IMediaType mediaType)
+        {
+            var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
+            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+
+            var deletedDataTypeDefinition = dataTypeService.GetDataTypeDefinitionByName(UmbracoAliases.Media.IsDeletedDataTypeDefinitionName);
+            if (deletedDataTypeDefinition == null)
+            {
+                deletedDataTypeDefinition = new DataTypeDefinition("Umbraco.TrueFalse")
+                {
+                    Name = UmbracoAliases.Media.IsDeletedDataTypeDefinitionName
+                };
+
+                dataTypeService.Save(deletedDataTypeDefinition);
+            }
+
+            var imageIsDeletedPropertyType = GetIsDeletedPropertyType(deletedDataTypeDefinition);
+
+            if (mediaType.PropertyTypeExists(imageIsDeletedPropertyType.Alias)) return;
+
+            mediaType.AddPropertyType(imageIsDeletedPropertyType);
+            contentService.Save(mediaType);
+        }
+
+        public static void AddIntranetUserIdProperty(IMediaType mediaType)
+        {
+            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+
+            var intranetUserIdPropertyType = GetIntranetUserIdPropertyType();
+
+            if (mediaType.PropertyTypeExists(intranetUserIdPropertyType.Alias)) return;
+
+            mediaType.AddPropertyType(intranetUserIdPropertyType);
+            contentService.Save(mediaType);
+        }
+
+        private static PropertyType GetIsDeletedPropertyType(IDataTypeDefinition dataType)
+        {
+            return new PropertyType(dataType)
+            {
+                Name = "Is deleted",
+                Alias = UmbracoAliases.Media.IsDeletedPropertyTypeAlias
+            };
+        }
+
+        private static PropertyType GetIntranetUserIdPropertyType()
+        {
+            return new PropertyType("Umbraco.NoEdit", DataTypeDatabaseType.Nvarchar)
+            {
+                Name = "Intranet user id",
+                Alias = IntranetConstants.IntranetCreatorId
+            };
         }
 
         private static IContentType CreatePageDocTypeWithGrid(BasePageWithDefaultGridCreateModel model, string basePageTypeAlias)
