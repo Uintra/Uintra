@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using uIntra.Core;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
+using uIntra.Core.LinkPreview;
 using uIntra.Core.Links;
 using uIntra.Core.PagePromotion;
 using uIntra.Core.User;
@@ -75,6 +76,14 @@ namespace uIntra.Comments.Web
             {
                 return OverView(model.Id);
             }
+            if (!model.LinkPreviewId.HasValue)
+            {
+                _commentsService.RemovePreviewRelations(model.Id);
+            }
+            else
+            {
+                _commentsService.SaveLinkPreview(model.Id, model.LinkPreviewId.Value);
+            }
 
             if (IsForPagePromotion(comment.ActivityId)) return EditActivityComment(model, comment);
 
@@ -97,6 +106,8 @@ namespace uIntra.Comments.Web
             {
                 return OverView(comment.ActivityId);
             }
+
+            _commentsService.RemovePreviewRelations(id);
 
             if (IsForPagePromotion(comment.ActivityId)) return RemoveActivityComment(comment);
 
@@ -166,6 +177,11 @@ namespace uIntra.Comments.Web
             var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
             OnCommentCreated(comment);
 
+            if (model.LinkPreviewId.HasValue)
+            {
+                _commentsService.SaveLinkPreview(comment.Id, model.LinkPreviewId.Value);
+            }
+
             return OverView(model.ActivityId);
         }
 
@@ -230,6 +246,7 @@ namespace uIntra.Comments.Web
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             model.CreatorProfileUrl = _profileLinkProvider.GetProfileLink(creator);
+            model.LinkPreview = comment.LinkPreview.Map<LinkPreviewViewModel>();
             return model;
         }
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using uIntra.Comments;
 using uIntra.Core.Activity;
+using uIntra.Core.LinkPreview.Sql;
 using uIntra.Core.Location.Entities;
 using uIntra.Core.Media;
 using uIntra.Core.MigrationHistories.Sql;
@@ -54,6 +55,9 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<ActivitySubscribeSetting> ActivitySubscribeSettings { get; set; }
         public DbSet<UserTagRelation> UserTagRelations { get; set; }
         
+        public DbSet<LinkPreviewEntity> LinkPreview { get; set; }
+        public DbSet<CommentToLinkPreviewEntity> CommentToLinkPreview { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
