@@ -83,7 +83,7 @@ namespace Compent.uIntra.Core.Updater
         {
             var allHistoryList = allHistory.AsList();
 
-            var lastHistory = allHistoryList.OrderBy(m => m.CreateDate).FirstOrDefault();
+            var lastHistory = allHistoryList.OrderByDescending(m => m.CreateDate).FirstOrDefault();
 
             switch (lastHistory)
             {
