@@ -58,7 +58,7 @@ var initCreateControl = function (holder) {
 
         var button = $this.find('.js-comment-create-btn');
         var toolbarBtns = $this.find('.ql-formats button');
-
+        
         function showLinkPreview(link) {
             ajax.get('/umbraco/api/LinkPreview/Preview?url=' + link)
                 .then(function (response) {
@@ -67,25 +67,40 @@ var initCreateControl = function (holder) {
                     var hiddenSaveElem = getHiddenSaveElem(data);
                     $this.append(imageElem);
                     $this.append(hiddenSaveElem);
+
+                    var removeLinkPreview = function (e) {
+                        if (e.target.classList.contains('js-link-preview-remove-preview')) {
+                            imageElem.parentNode.removeChild(imageElem);
+                            imageElem.removeEventListener('click', removeLinkPreview);
+                            imageElem = null;
+
+                            hiddenSaveElem.parentNode.removeChild(hiddenSaveElem);
+                        }
+                    };
+
+                    imageElem.addEventListener('click', removeLinkPreview);
+
                 })
                 .catch(err => {
                     // Ignore error and do not crash if server returns non-success code
                 });
         }
+
         
         function getImageElem(data) {
             var divElem = document.createElement('div');
             divElem.className += "link-preview";
 
             divElem.innerHTML = 
-                `<h3>
+                `<button type="button" class="link-preview-close js-link-preview-remove-preview">X</button>
+                <h3>
                      <a href="${data.uri}">${data.title}</a>
                  </h3>
                  <p>${data.description}</p>
                  <div class="link-preview-image">
                      <img src="${data.imageUri}" />
                  </div>`;
-
+            
             return divElem;
         }
 
