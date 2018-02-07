@@ -43,7 +43,10 @@ namespace uIntra.Comments
             var relations = _previewRelationRepository.FindAll(r => r.CommentId == commentId).ToList();
             var previewIds = relations.Select(r => r.LinkPreviewId).ToList();
             _previewRelationRepository.Delete(relations);
-            _previewRepository.Delete(preview => previewIds.Contains(preview.Id));
+            foreach (var previewId in previewIds)
+            {
+                _previewRepository.Delete(previewId);
+            }
         }
     }
 }
