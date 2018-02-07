@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
 using Compent.LinkPreview.Client;
+using uIntra.Core.Extensions;
 using uIntra.Core.LinkPreview;
 using uIntra.Core.LinkPreview.Sql;
 using uIntra.Core.Persistence;
@@ -38,15 +39,8 @@ namespace uIntra.Core.Web
 
         private LinkPreviewEntity Map(Compent.LinkPreview.Client.LinkPreview model, string url)
         {
-            var entity = new LinkPreviewEntity
-            {
-                Uri = url,
-                Title = model.Title,
-                Description = model.Description,
-                ImageId = model.ImageId,
-                FaviconId = model.FaviconId
-            };
-
+            var entity = model.Map<LinkPreviewEntity>();
+            entity.Uri = url;
             return entity;
         }
 

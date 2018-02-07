@@ -54,6 +54,7 @@ namespace Compent.uIntra
             Mapper.AddProfile<SubscribeAutoMapperProfiles>();
             Mapper.AddProfile<SubscribeSettingAutoMapperProfiles>();
             Mapper.AddProfile<LocationAutoMapperProfile>();
+            Mapper.AddProfile<LinkPreviewAutoMapperProfile>();
 
             var typeMaps = Mapper.GetAllTypeMaps();
 
