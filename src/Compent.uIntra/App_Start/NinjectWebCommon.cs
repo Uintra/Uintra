@@ -248,6 +248,7 @@ namespace Compent.uIntra
             
 
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
+            kernel.Bind<ICommentLinkPreviewService>().To<CommentLinkPreviewService>().InRequestScope();            
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
             kernel.Bind<ICommentableService>().To<CustomCommentableService>().InRequestScope();
             kernel.Bind<ICommentLinkHelper>().To<CommentLinkHelper>().InRequestScope();

@@ -1,62 +1,26 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using Compent.LinkPreview.Client;
 using uIntra.Core.Extensions;
-using uIntra.Core.LinkPreview;
-using uIntra.Core.LinkPreview.Sql;
 using uIntra.Core.Persistence;
-using LinkPreview = uIntra.Core.LinkPreview.LinkPreview;
 
 namespace uIntra.Comments
 {
     public class CommentsService : ICommentsService
     {
         private readonly ISqlRepository<Guid, Comment> _commentsRepository;
+        private readonly ICommentLinkPreviewService _commentLinkPreviewService;
 
-        // TODO: move link preview logic to the separate service
-
-        private readonly ISqlRepository<int, CommentToLinkPreviewEntity> _previewRelationRepository;
-        private readonly ISqlRepository<int, LinkPreviewEntity> _previewRepository;
-        private readonly LinkPreviewModelMapper _linkPreviewModelMapper;
-
-        public CommentsService(ISqlRepository<Guid, Comment> commentsRepository, 
-            ISqlRepository<int, CommentToLinkPreviewEntity> previewRelationRepository,
-            ISqlRepository<int, LinkPreviewEntity> previewRepository, LinkPreviewModelMapper linkPreviewModelMapper)
+        public CommentsService(ISqlRepository<Guid, Comment> commentsRepository, ICommentLinkPreviewService commentLinkPreviewService)
         {
             _commentsRepository = commentsRepository;
-            _previewRelationRepository = previewRelationRepository;
-            _previewRepository = previewRepository;
-            _linkPreviewModelMapper = linkPreviewModelMapper;
-        }
-
-        public void SaveLinkPreview(Guid commentId, int previewId)
-        {
-            RemovePreviewRelations(commentId);
-            var entity = new CommentToLinkPreviewEntity {CommentId = commentId, LinkPreviewId = previewId};
-            _previewRelationRepository.Add(entity);
-        }
-
-        public void RemovePreviewRelations(Guid commentId)
-        {
-            var relations = _previewRelationRepository.FindAll(r => r.CommentId == commentId).ToList();
-            var previewIds = relations.Select(r => r.LinkPreviewId).ToList();
-            _previewRelationRepository.Delete(relations);
-            _previewRepository.Delete(preview => previewIds.Contains(preview.Id));
-
+            _commentLinkPreviewService = commentLinkPreviewService;
         }
 
         public virtual CommentModel Get(Guid id)
         {
             var comment = _commentsRepository.Get(id);
             return Map(comment);
-        }
-
-        private LinkPreview GetCommentsLinkPreview(Guid id)
-        {
-            var previewIds = _previewRelationRepository.FindAll(r => r.CommentId == id).Select(r => r.LinkPreviewId);
-            var preview = _previewRepository.GetMany(previewIds).Select(_linkPreviewModelMapper.MapPreview).SingleOrDefault();
-            return preview;
         }
 
         public virtual IEnumerable<CommentModel> GetMany(Guid activityId)
@@ -69,7 +33,7 @@ namespace uIntra.Comments
         private CommentModel Map(Comment entity)
         {
             var model = entity.Map<CommentModel>();
-            var preview = GetCommentsLinkPreview(entity.Id);
+            var preview = _commentLinkPreviewService.GetCommentsLinkPreview(entity.Id);
             model.LinkPreview = preview;
             return model;
         }
@@ -100,43 +64,76 @@ namespace uIntra.Comments
             return comment.ParentId.HasValue;
         }
 
-        public virtual CommentModel Create(Guid userId, Guid activityId, string text, Guid? parentId)
+        public virtual CommentModel Create(CommentCreateDto dto)
+        {
+            var entity = Map(dto);
+            entity.CreatedDate = entity.ModifyDate = DateTime.Now.ToUniversalTime();
+            _commentsRepository.Add(entity);
+            if (dto.LinkPreviewId.HasValue)
+            {
+                _commentLinkPreviewService.AddLinkPreview(entity.Id, dto.LinkPreviewId.Value);
+            }
+            return entity.Map<CommentModel>();
+        }
+
+        private Comment Map(CommentCreateDto dto)
         {
             var entity = new Comment
             {
                 Id = Guid.NewGuid(),
-                ActivityId = activityId,
-                UserId = userId,
-                Text = text,
-                ParentId = parentId
+                ActivityId = dto.ActivityId,
+                UserId = dto.UserId,
+                Text = dto.Text,
+                ParentId = dto.ParentId
             };
 
-            entity.CreatedDate = entity.ModifyDate = DateTime.Now.ToUniversalTime();
-            _commentsRepository.Add(entity);
-            return entity.Map<CommentModel>();
+            return entity;
         }
 
-        public virtual CommentModel Update(Guid id, string text)
+        public virtual CommentModel Update(CommentEditDto dto)
         {
-            var comment = _commentsRepository.Get(id);
+            var comment = _commentsRepository.Get(dto.Id);
 
             comment.ModifyDate = DateTime.Now.ToUniversalTime();
-            comment.Text = text;
+            comment.Text = dto.Text;
             _commentsRepository.Update(comment);
+
+            if (dto.LinkPreviewId.HasValue)
+            {
+                _commentLinkPreviewService.UpdateLinkPreview(dto.Id, dto.LinkPreviewId.Value);
+            }
+            else
+            {
+                _commentLinkPreviewService.RemovePreviewRelations(dto.Id);
+            }
+
             return comment.Map<CommentModel>();
         }
 
         public virtual void Delete(Guid id)
         {
             var comment = _commentsRepository.Get(id);
+            Delete(comment);
+        }
 
+        protected virtual void Delete(Comment comment)
+        {
             if (comment.ParentId == null)
             {
-                var replies = _commentsRepository.FindAll(c => c.ParentId == id);
-                _commentsRepository.Delete(replies);
+                var replies = GetReplies(comment);
+                foreach (var reply in replies)
+                {
+                    Delete(reply);
+                }
             }
 
+            _commentLinkPreviewService.RemovePreviewRelations(comment.Id);
             _commentsRepository.Delete(comment);
+        }
+
+        private IList<Comment> GetReplies(Comment comment)
+        {
+            return _commentsRepository.FindAll(c => c.ParentId == comment.Id);
         }
 
         public virtual void FillComments(ICommentable entity)

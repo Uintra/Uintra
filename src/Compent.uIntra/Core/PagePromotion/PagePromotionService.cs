@@ -86,16 +86,16 @@ namespace Compent.uIntra.Core.PagePromotion
             return Get(activityId);
         }
 
-        public CommentModel CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        public CommentModel CreateComment(CommentCreateDto dto)
         {
-            var comment = _commentsService.Create(userId, activityId, text, parentId);
+            var comment = _commentsService.Create(dto);
             UpdateCachedEntity(comment.ActivityId);
             return comment;
         }
 
-        public void UpdateComment(Guid id, string text)
+        public void UpdateComment(CommentEditDto dto)
         {
-            var comment = _commentsService.Update(id, text);
+            var comment = _commentsService.Update(dto);
             UpdateCachedEntity(comment.ActivityId);
         }
 

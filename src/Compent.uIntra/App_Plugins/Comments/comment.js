@@ -60,7 +60,7 @@ var initCreateControl = function (holder) {
         var toolbarBtns = $this.find('.ql-formats button');
 
         function showLinkPreview(link) {
-            ajax.get('/umbraco/api/LinkPreviewApi/Preview?url=' + link)
+            ajax.get('/umbraco/api/LinkPreview/Preview?url=' + link)
                 .then(function (response) {
                     var data = response.data;
                     var imageElem = getImageElem(data);

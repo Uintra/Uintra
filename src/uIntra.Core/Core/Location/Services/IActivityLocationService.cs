@@ -1,5 +1,4 @@
 ﻿using System;
-using uIntra.Core.Activity;
 
 namespace uIntra.Core.Location
 {

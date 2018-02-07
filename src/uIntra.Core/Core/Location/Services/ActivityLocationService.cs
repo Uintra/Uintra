@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
 using uIntra.Core.Location.Entities;
 using uIntra.Core.Persistence;
