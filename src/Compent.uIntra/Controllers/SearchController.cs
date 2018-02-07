@@ -58,24 +58,18 @@ namespace Compent.uIntra.Controllers
         protected override IEnumerable<IIntranetType> GetAutoCompleteSearchableTypes()
         {
             var types = GetUintraSearchableTypes().ToList();
-            types.Add(new IntranetType()
+            types.Add(new IntranetType
             {
-                Id = (int) UintraSearchableTypeEnum.Tag,
+                Id = (int)UintraSearchableTypeEnum.Tag,
                 Name = UintraSearchableTypeEnum.Tag.ToString()
             });
 
             return types;
         }
 
-        protected override IEnumerable<IIntranetType> GetFilterItemTypes()
-        {
-            return GetSearchableTypes();
-        }
+        protected override IEnumerable<IIntranetType> GetFilterItemTypes() => GetSearchableTypes();
 
-        protected override IEnumerable<IIntranetType> GetSearchableTypes()
-        {
-            return GetUintraSearchableTypes();
-        }
+        protected override IEnumerable<IIntranetType> GetSearchableTypes() => GetUintraSearchableTypes();
 
         private UintraSearchResultsOverviewViewModel GetUintraSearchResultsOverviewModel(SearchResult<SearchableBase> searchResult)
         {
@@ -96,17 +90,16 @@ namespace Compent.uIntra.Controllers
                     return new SearchFilterItemViewModel
                     {
                         Id = type.Id,
-                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.Name}", facet != null ? (int) facet.Count : default(int))
+                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.Name}", facet != null ? (int)facet.Count : default(int))
                     };
-                }
-            );
+                });
 
             var result = new UintraSearchResultsOverviewViewModel
             {
                 Results = searchResultViewModels,
-                ResultsCount = (int) searchResult.TotalHits,
+                ResultsCount = (int)searchResult.TotalHits,
                 FilterItems = filterItems,
-                AllTypesPlaceholder = GetLabelWithCount("Search.Filter.All.lbl", (int) searchResult.TotalHits),
+                AllTypesPlaceholder = GetLabelWithCount("Search.Filter.All.lbl", (int)searchResult.TotalHits),
                 BlockScrolling = searchResult.TotalHits <= searchResultViewModels.Count
             };
 
@@ -121,9 +114,9 @@ namespace Compent.uIntra.Controllers
                 model.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider.Get(searchResult.Type).Name}");
                 if (searchResult is SearchableUser user)
                 {
-                    var email = new SearchInfoListItemModel {Name = "Email", Value = user.Email};
-                    var photo = new SearchInfoListItemModel {Name = "Photo", Value = user.Photo};
-                    model.AdditionalInfo = new List<SearchInfoListItemModel> {email, photo};
+                    var email = new SearchInfoListItemModel { Name = "Email", Value = user.Email };
+                    var photo = new SearchInfoListItemModel { Name = "Photo", Value = user.Photo };
+                    model.AdditionalInfo = new List<SearchInfoListItemModel> { email, photo };
                 }
 
                 return model;
@@ -144,7 +137,7 @@ namespace Compent.uIntra.Controllers
                 UintraSearchableTypeEnum.User
             }.Select(t => new IntranetType
             {
-                Id = (int) t,
+                Id = (int)t,
                 Name = t.ToString()
             });
         }
