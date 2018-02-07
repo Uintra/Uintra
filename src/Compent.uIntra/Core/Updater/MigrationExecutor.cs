@@ -79,7 +79,7 @@ namespace Compent.uIntra.Core.Updater
 
         private static IEnumerable<(Version migrationVersion, IMigrationStep step)> GetSteps(
             IEnumerable<(Version migrationVersion, IMigrationStep step)> allSteps,
-            IOrderedEnumerable<MigrationHistory> allHistory)
+            IEnumerable<MigrationHistory> allHistory)
         {
             var allHistoryList = allHistory.AsList();
 
@@ -89,8 +89,8 @@ namespace Compent.uIntra.Core.Updater
             {
                 case MigrationHistory history when new Version(history.Version) <= LastLegacyMigrationVersion:
                     return allSteps.SkipWhile(s => s.migrationVersion <= LastLegacyMigrationVersion);
-                case MigrationHistory _:
-                    var lastHistoryVersion = new Version(lastHistory.Version);
+                case MigrationHistory history:
+                    var lastHistoryVersion = new Version(history.Version);
                     return GetMissingSteps(allSteps, allHistoryList, lastHistoryVersion);
                 case null:
                     return allSteps;
@@ -101,8 +101,13 @@ namespace Compent.uIntra.Core.Updater
             IEnumerable<(Version migrationVersion, IMigrationStep step)> allSteps,
             IEnumerable<MigrationHistory> allHistory, Version lastHistoryVersion)
         {
-            var installedSteps = new List<string>(allHistory.Select(h => h.Name));
-            var result = allSteps.Where(s => s.migrationVersion >= lastHistoryVersion && !installedSteps.Contains(StepIdentity(s.step)));
+            var historyFilteredByVersion = allHistory.Where(s => new Version(s.Version) >= lastHistoryVersion);
+            var stepsFilteredByVersion = allSteps.Where(s => s.migrationVersion >= lastHistoryVersion);
+
+            var installedStepsNames = new List<string>(historyFilteredByVersion.Select(h => h.Name));
+
+            var result = stepsFilteredByVersion.Where(s => !installedStepsNames.Contains(StepIdentity(s.step)));
+
             return result;
         }
 

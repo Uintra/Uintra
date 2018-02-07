@@ -21,10 +21,9 @@ namespace uIntra.Core.MigrationHistories
             .OrderByDescending(m => m.CreateDate)
             .FirstOrDefault();
 
-        public IOrderedEnumerable<MigrationHistory> GetAll() => _migrationHistoryRepository
+        public List<MigrationHistory> GetAll() => _migrationHistoryRepository
             .GetAll()
-            .ToList()
-            .OrderByDescending(m => m.CreateDate);
+            .ToList();
 
         public void Create(string name, Version version)
         {
