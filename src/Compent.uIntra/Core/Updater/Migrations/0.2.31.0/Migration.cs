@@ -25,6 +25,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._2._31._0
                 yield return Resolve<UpdateDataFolderNamesMigrationInstallationStep>();
                 yield return Resolve<NotificationsMigrationStep>();
                 yield return Resolve<AddMemberCounterTranslationsStep>();
+                yield return Resolve<AddGalleryAttachedDocumentsTranslationStep>();
             }
         }
     }
