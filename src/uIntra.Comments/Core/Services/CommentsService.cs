@@ -127,8 +127,8 @@ namespace uIntra.Comments
                 }
             }
 
-            _commentsRepository.Delete(comment);
             _commentLinkPreviewService.RemovePreviewRelations(comment.Id);
+            _commentsRepository.Delete(comment);
         }
 
         private IList<Comment> GetReplies(Comment comment)
