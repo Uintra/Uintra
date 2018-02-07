@@ -90,7 +90,6 @@
             }
 
             self.selected.ownerId = self.selected.owner.id;
-
             if (self.selected.id == null) {
                 create(self.selected);
             } else {

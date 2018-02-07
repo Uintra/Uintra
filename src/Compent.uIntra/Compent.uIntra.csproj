@@ -1415,6 +1415,7 @@
     <Compile Include="Core\PagePromotion\PagePromotionService.cs" />
     <Compile Include="Core\Search\Entities\Mappings\SearchableTagMap.cs" />
     <Compile Include="Core\Search\Entities\Mappings\SearchableUintraActivityMap.cs" />
+    <Compile Include="Core\Search\Entities\Mappings\SearchableUserMap.cs" />
     <Compile Include="Core\Search\Entities\SearchableTag.cs" />
     <Compile Include="Core\Search\Entities\SearchableUintraActivity.cs" />
     <Compile Include="Core\Search\Entities\SearchableUintraContent.cs" />

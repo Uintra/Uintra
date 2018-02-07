@@ -64,15 +64,9 @@ namespace Compent.uIntra.Controllers
             return types;
         }
 
-        protected override IEnumerable<Enum> GetFilterItemTypes()
-        {
-            return GetSearchableTypes();
-        }
+        protected override IEnumerable<Enum> GetFilterItemTypes() => GetSearchableTypes();
 
-        protected override IEnumerable<Enum> GetSearchableTypes()
-        {
-            return GetUintraSearchableTypes();
-        }
+        protected override IEnumerable<Enum> GetSearchableTypes() => GetUintraSearchableTypes();
 
         private UintraSearchResultsOverviewViewModel GetUintraSearchResultsOverviewModel(SearchResult<SearchableBase> searchResult)
         {
