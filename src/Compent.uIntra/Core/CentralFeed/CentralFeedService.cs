@@ -14,7 +14,7 @@ namespace Compent.uIntra.Core.CentralFeed
 
         public CentralFeedService(
             IEnumerable<IFeedItemService> feedItemServices,
-            ICacheService cacheService) 
+            ICacheService cacheService)
             : base(feedItemServices, cacheService)
         {
             _feedItemServices = feedItemServices;
@@ -22,7 +22,7 @@ namespace Compent.uIntra.Core.CentralFeed
 
         public IEnumerable<IFeedItem> GetFeed(Enum type)
         {
-            var service = _feedItemServices.Single(s => Equals(s.ActivityType.ToInt(), type.ToInt()));
+            var service = _feedItemServices.Single(s => s.ActivityType.ToInt() == type.ToInt());
             return service.GetItems().Where(IsCentralFeedActivity);
         }
 
@@ -32,7 +32,7 @@ namespace Compent.uIntra.Core.CentralFeed
             return items.Where(IsCentralFeedActivity);
         }
 
-        private bool IsCentralFeedActivity(IFeedItem item) => 
+        private bool IsCentralFeedActivity(IFeedItem item) =>
             (item as IGroupActivity)?.GroupId == null;
     }
 }

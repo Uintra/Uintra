@@ -18,14 +18,14 @@ namespace uIntra.Core.Extensions
             return enm.ToString().ToLower();
         }
 
-        public static int ToInt(this Enum enm) => Convert.ToInt32(enm);
+        public static int ToInt(this Enum enm) => (int) (object) enm;
 
         public static T? ToEnum<T>(this int a)
             where T : struct
         {
             if (Enum.IsDefined(typeof(T), a))
             {
-                return (T)Enum.Parse(typeof(T), a.ToString());
+                return (T) Enum.Parse(typeof(T), a.ToString());
             }
 
             return default(T?);
@@ -35,9 +35,9 @@ namespace uIntra.Core.Extensions
             where TAttribute : Attribute
         {
             return enumValue.GetType()
-                            .GetMember(enumValue.ToString())
-                            .First()
-                            .GetCustomAttribute<TAttribute>();
+                .GetMember(enumValue.ToString())
+                .First()
+                .GetCustomAttribute<TAttribute>();
         }
 
         public static IEnumerable<T> GetEnumCases<T>() where T : struct, IConvertible

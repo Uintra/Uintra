@@ -56,7 +56,7 @@ namespace uIntra.CentralFeed
             foreach (var content in _contentProvider.GetRelatedPages())
             {
                 var tabType = GetFeedTabType(content);
-                var activityType = allActivityTypes.SingleOrDefault(a => Equals(a.ToInt(), tabType.ToInt()));
+                var activityType = allActivityTypes.SingleOrDefault(a => a.ToInt() == tabType.ToInt());
 
                 if (activityType == null)
                 {

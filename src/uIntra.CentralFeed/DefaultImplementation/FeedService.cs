@@ -20,7 +20,7 @@ namespace uIntra.CentralFeed
         private IEnumerable<FeedSettings> GetFeedItemServicesSettings()
         {
             var settings = _feedItemServices.Select(service => service.GetFeedSettings()).ToList();
-            settings.Add(GetDefaultTabSetting());            
+            settings.Add(GetDefaultTabSetting());
             return settings;
         }
 
@@ -48,7 +48,7 @@ namespace uIntra.CentralFeed
                 GetCacheExpiration()).ToList();
 
 
-            var r = settings.Single(feedSettings => Equals(feedSettings.Type.ToInt(), type.ToInt()));
+            var r = settings.Single(feedSettings => feedSettings.Type.ToInt() == type.ToInt());
             return r;
         }
 
