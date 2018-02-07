@@ -67,6 +67,9 @@ var initCreateControl = function (holder) {
                     var hiddenSaveElem = getHiddenSaveElem(data);
                     $this.append(imageElem);
                     $this.append(hiddenSaveElem);
+                })
+                .catch(err => {
+                    // Ignore error and do not crash if server returns non-success code
                 });
         }
         
