@@ -403,7 +403,7 @@ namespace Compent.uIntra
             kernel.Bind<ICookieProvider>().To<CookieProvider>().InRequestScope();
 
             kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
-            kernel.Bind<INotifierTypeProvider>().To<NotifierTypeProvider>().InRequestScope();
+            kernel.Bind<INotifierTypeProvider>().To<NotifierTypeProvider>().InSingletonScope();
             kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InRequestScope();
             kernel.Bind<IFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
 
@@ -416,10 +416,9 @@ namespace Compent.uIntra
             kernel.Bind<IGroupMediaService>().To<GroupMediaService>().InRequestScope();
             kernel.Bind<IProfileLinkProvider>().To<ProfileLinkProvider>().InRequestScope();
 
-            kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InRequestScope();
+            kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InSingletonScope();
             kernel.Bind<ISearchableTypeProvider>().To<UintraSearchableTypeProvider>().InRequestScope();
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
-            kernel.Bind<IIntranetRoleTypeProvider>().To<IntranetRoleTypeProvider>().InRequestScope();
 
             //umbraco events subscriptions
             kernel.Bind<IUmbracoContentPublishedEventService>().To<SearchContentEventService>().InRequestScope();

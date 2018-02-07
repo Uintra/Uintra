@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
 
 namespace uIntra.Search
 {
@@ -16,7 +17,7 @@ namespace uIntra.Search
                 .ForMember(dst => dst.Description, o => o.MapFrom(el => el.Description))
                 .AfterMap((src, dst) =>
                 {
-                    dst.Type = src.Type.Id;
+                    dst.Type = src.Type.ToInt();
                 });
 
             base.Configure();

@@ -112,8 +112,7 @@ namespace uIntra.Navigation.Web
         protected bool IsActivityLink(int contentId)
         {
             var page = _umbracoHelper.TypedContent(contentId);
-            var activityTypes = _activityTypeProvider.GetAll();
-            foreach (var type in activityTypes)
+            foreach (var type in _activityTypeProvider.All)
             {
                 if (page.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetDetailsPage(type)) ||
                     page.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetEditPage(type)))

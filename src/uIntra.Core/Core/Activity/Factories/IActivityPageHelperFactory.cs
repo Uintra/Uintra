@@ -1,9 +1,9 @@
-using uIntra.Core.TypeProviders;
+using System;
 
 namespace uIntra.Core.Activity
 {
     public interface IActivityPageHelperFactory
     {
-        IActivityPageHelper GetHelper(IIntranetType type);
+        IActivityPageHelper GetHelper(Enum type);
     }
 }

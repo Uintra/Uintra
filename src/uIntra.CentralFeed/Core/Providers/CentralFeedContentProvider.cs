@@ -28,7 +28,7 @@ namespace uIntra.CentralFeed.Providers
         public override IEnumerable<IPublishedContent> GetRelatedPages()
         {
             var activityAliases = _activityTypeProvider
-                .GetAll()
+                .All
                 .Select(_documentTypeAliasProvider.GetOverviewPage)
                 .ToArray();
             return GetOverviewPage().Children.Where(c => c.DocumentTypeAlias.In(activityAliases));

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Activity;
 using uIntra.Core.Exceptions;
-using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
 namespace uIntra.Core.User.Permissions
@@ -53,12 +52,12 @@ namespace uIntra.Core.User.Permissions
             return roleConfiguration.Permissions.Select(s => s.Key);
         }
 
-        public virtual string GetPermissionFromTypeAndAction(IIntranetType activityType, IntranetActivityActionEnum action)
+        public virtual string GetPermissionFromTypeAndAction(Enum activityType, IntranetActivityActionEnum action)
         {
-            return $"{activityType.Name}{action}";
+            return $"{activityType.ToString()}{action}";
         }
 
-        public virtual bool IsCurrentUserHasAccess(IIntranetType activityType, IntranetActivityActionEnum action, Guid? activityId = null)
+        public virtual bool IsCurrentUserHasAccess(Enum activityType, IntranetActivityActionEnum action, Guid? activityId = null)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
 
@@ -71,7 +70,7 @@ namespace uIntra.Core.User.Permissions
             return result;
         }
 
-        public virtual bool IsUserHasAccess(IIntranetUser user, IIntranetType activityType, IntranetActivityActionEnum action, Guid? activityId = null)
+        public virtual bool IsUserHasAccess(IIntranetUser user, Enum activityType, IntranetActivityActionEnum action, Guid? activityId = null)
         {
             if (user == null)
             {
@@ -83,12 +82,12 @@ namespace uIntra.Core.User.Permissions
                 return true;
             }
 
-            var permission = $"{activityType.Name}{action}";
+            var permission = $"{activityType.ToString()}{action}";
             var userHasPermissions = IsRoleHasPermissions(user.Role, permission);
 
             if (userHasPermissions && activityId.HasValue)
             {
-                var service = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(activityType.Id);
+                var service = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(activityType);
                 var activity = service.Get(activityId.Value);
 
                 if (activity is IHaveOwner owner)

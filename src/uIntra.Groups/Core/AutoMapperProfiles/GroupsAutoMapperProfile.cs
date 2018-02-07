@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using uIntra.CentralFeed;
+using uIntra.Core.Extensions;
+using uIntra.Core.TypeProviders;
 using uIntra.Groups.Dashboard;
 using uIntra.Groups.Navigation.Models;
 using uIntra.Groups.Sql;
@@ -78,6 +80,7 @@ namespace uIntra.Groups
                .ForMember(d => d.Title, o => o.MapFrom(s => s.Title));
 
             Mapper.CreateMap<ActivityFeedTabModel, GroupNavigationActivityTabViewModel>();
+
             Mapper.CreateMap<PageTabModel, GroupNavigationPageTabViewModel>()
                 .ForMember(d => d.AlignRight, o => o.Ignore());
 

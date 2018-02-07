@@ -1,5 +1,4 @@
 ﻿using System;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
 {
@@ -9,7 +8,7 @@ namespace uIntra.CentralFeed
 
         Guid OwnerId { get; set; }
 
-        IIntranetType Type { get; }
+        Enum Type { get; }
 
         DateTime PublishDate { get; }
 

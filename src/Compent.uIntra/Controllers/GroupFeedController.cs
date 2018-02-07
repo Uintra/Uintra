@@ -27,14 +27,28 @@ namespace Compent.uIntra.Controllers
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService,
-            IFeedFilterStateService feedFilterStateService) 
-            : base(subscribeService, groupFeedService, activitiesServiceFactory, intranetUserContentProvider, centralFeedTypeProvider, intranetUserService, groupFeedContentContentService, groupFeedLinkProvider, groupFeedLinkService, groupMemberService, feedFilterStateService)
+            IFeedFilterStateService feedFilterStateService,
+            IActivityTypeProvider activityTypeProvider) 
+            : base(subscribeService,
+                  groupFeedService, 
+                  activitiesServiceFactory,
+                  intranetUserContentProvider,
+                  centralFeedTypeProvider,
+                  intranetUserService, 
+                  groupFeedContentContentService,
+                  groupFeedLinkProvider,
+                  groupFeedLinkService,
+                  groupMemberService,
+                  feedFilterStateService,
+                  activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
         }
 
-        protected override FeedListViewModel GetFeedListViewModel(GroupFeedListModel model, List<IFeedItem> filteredItems,
-            IIntranetType centralFeedType)
+        protected override FeedListViewModel GetFeedListViewModel(
+            GroupFeedListModel model,
+            List<IFeedItem> filteredItems,
+            Enum centralFeedType)
         {
             var result = base.GetFeedListViewModel(model, filteredItems, centralFeedType);
             var currentUser = _intranetUserService.GetCurrentUser();

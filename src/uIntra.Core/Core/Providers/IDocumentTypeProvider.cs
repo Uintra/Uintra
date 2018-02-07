@@ -1,4 +1,4 @@
-﻿using uIntra.Core.TypeProviders;
+﻿using System;
 
 namespace uIntra.Core
 {
@@ -14,10 +14,10 @@ namespace uIntra.Core
         string GetHomePage();
         string GetErrorPage();
 
-        string GetOverviewPage(IIntranetType type);
-        string GetEditPage(IIntranetType type);
-        string GetDetailsPage(IIntranetType type);
-        string GetCreatePage(IIntranetType type);
+        string GetOverviewPage(Enum type);
+        string GetEditPage(Enum type);
+        string GetDetailsPage(Enum type);
+        string GetCreatePage(Enum type);
 
         string GetMailTemplateFolder();
         string GetMailTemplate();

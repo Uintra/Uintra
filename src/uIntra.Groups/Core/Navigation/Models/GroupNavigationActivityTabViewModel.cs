@@ -1,11 +1,11 @@
-﻿using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
+﻿using System;
+using uIntra.Core.Links;
 
 namespace uIntra.Groups
 {
     public class GroupNavigationActivityTabViewModel : GroupNavigationTabViewModelBase
     {
-        public IIntranetType Type { get; set; }        
+        public Enum Type { get; set; }        
         public IActivityCreateLinks Links { get; set; }
     }
 }

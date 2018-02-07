@@ -1,21 +1,16 @@
 ﻿using System;
 using uIntra.Comments;
-using uIntra.Core.TypeProviders;
 
 namespace Compent.uIntra.Core.Comments
 {
     public class CustomCommentableService : ICustomCommentableService
     {
-        // TODO: remove this contract after decoupling comments from activities
-        public IIntranetType ActivityType { get; } = GetDummyType();
 
-        private static IIntranetType GetDummyType()
+        // TODO: remove this contract after decoupling comments from activities
+        public Enum ActivityType { get; } = DummyType.CustomCommentableService;
+        private enum DummyType
         {
-            return new IntranetType
-            {
-                Id = Int32.MaxValue,
-                Name = typeof(CustomCommentableService).Name
-            };
+            CustomCommentableService = Int32.MaxValue
         }
 
         private readonly ICommentsService _commentsService;

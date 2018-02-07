@@ -32,12 +32,7 @@ namespace uIntra.Core.Web
             model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
             model.HeaderInfo.Owner = _userService.Get(item.CreatorId);
             model.HeaderInfo.Links = links;
-
-            model.HeaderInfo.Type = new IntranetType
-            {
-                Id = item.Type.Id,
-                Name = $"{PagePromotionTranslationPrefix}{item.PageAlias.ToFirstUpper()}"
-            };
+            model.HeaderInfo.Type = item.Type;
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {

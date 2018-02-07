@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using uIntra.Core.Activity;
-using uIntra.Core.TypeProviders;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 
@@ -11,13 +11,13 @@ namespace uIntra.Core.Extensions
     public static class PermissionsExtensions
     {
         public static bool IsRoleHasPermissions(this IPermissionsService service, IRole role,
-            IEnumerable<KeyValuePair<IIntranetType, IntranetActivityActionEnum>> collection)
+            IEnumerable<KeyValuePair<Enum, IntranetActivityActionEnum>> collection)
         {
             var permissions = collection.Select(s => service.GetPermissionFromTypeAndAction(s.Key, s.Value)).ToArray();
             return service.IsRoleHasPermissions(role, permissions);
         }
 
-        public static bool IsRoleHasPermissions(this IPermissionsService service, IRole role, IIntranetType activityType, IntranetActivityActionEnum action)
+        public static bool IsRoleHasPermissions(this IPermissionsService service, IRole role, Enum activityType, IntranetActivityActionEnum action)
         {
             var permission = service.GetPermissionFromTypeAndAction(activityType, action);
             return service.IsRoleHasPermissions(role, permission);
@@ -30,14 +30,14 @@ namespace uIntra.Core.Extensions
             return IsCurrentUserHasPermission(permissionsService, permissions);
         }
 
-        public static bool IsCurrentUserHasPermission(IIntranetType activityType, IntranetActivityActionEnum action)
+        public static bool IsCurrentUserHasPermission(Enum activityType, IntranetActivityActionEnum action)
         {
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
             var permission = permissionsService.GetPermissionFromTypeAndAction(activityType, action);
             return IsCurrentUserHasPermission(permissionsService, permission);
         }
 
-        public static bool IsCurrentUserHasPermission(IEnumerable<KeyValuePair<IIntranetType, IntranetActivityActionEnum>> collection)
+        public static bool IsCurrentUserHasPermission(IEnumerable<KeyValuePair<Enum, IntranetActivityActionEnum>> collection)
         {
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
             var permissions = collection.Select(s => permissionsService.GetPermissionFromTypeAndAction(s.Key, s.Value)).ToArray();

@@ -14,7 +14,7 @@
                 <span class="feed__item-date">@date</span>
                 <span class="feed__item-divider"> - </span>
             }
-            <span class="feed__item-category">@Html.Localize(Model.Type.Name)@(Model.Owner != null ? "," : string.Empty)</span>
+            <span class="feed__item-category">@Html.Localize(Model.Type.ToString())@(Model.Owner != null ? "," : string.Empty)</span>
             @if (Model.Owner != null)
             {
                 <a href="@Model.Links.Owner" class="feed__item-name">

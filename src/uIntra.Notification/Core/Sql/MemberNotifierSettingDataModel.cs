@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using uIntra.Core.Persistence;
-using uIntra.Notification.Configuration;
 
 namespace uIntra.Notification
 {
@@ -14,7 +13,7 @@ namespace uIntra.Notification
         public override Guid Id { get; set; }
 
         public Guid MemberId { get; set; }
-        public NotifierTypeEnum NotifierType { get; set; }
+        public int NotifierType { get; set; }
         public bool IsEnabled { get; set; }
     }
 }

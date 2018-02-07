@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using uIntra.Core.TypeProviders;
+﻿using System;
+using System.Collections.Generic;
 
 namespace uIntra.CentralFeed
 {
@@ -7,7 +7,7 @@ namespace uIntra.CentralFeed
     {
         public IEnumerable<ActivityFeedTabViewModel> Tabs { get; set; }
         public IEnumerable<ActivityFeedTabViewModel> TabsWithCreateUrl { get; set; }
-        public IIntranetType CurrentType { get; set; }
+        public Enum CurrentType { get; set; }
         public bool IsFiltersOpened { get; set; }
     }
 }

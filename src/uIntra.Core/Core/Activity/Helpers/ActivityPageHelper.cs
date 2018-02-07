@@ -10,14 +10,14 @@ namespace uIntra.Core.Activity
 {
     public class ActivityPageHelper : IActivityPageHelper
     {
-        public IIntranetType ActivityType { get; }
+        public Enum ActivityType { get; }
 
         private readonly IEnumerable<string> _activityXPath;
         private readonly string[] _baseXPath;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _aliasProvider;
 
-        public ActivityPageHelper(IIntranetType activityType, IEnumerable<string> baseXPath, UmbracoHelper umbracoHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
+        public ActivityPageHelper(Enum activityType, IEnumerable<string> baseXPath, UmbracoHelper umbracoHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
         {
             _umbracoHelper = umbracoHelper;
             _aliasProvider = documentTypeAliasProvider;

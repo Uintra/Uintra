@@ -37,7 +37,7 @@ namespace uIntra.Notification
                     Date = DateTime.UtcNow,
                     IsNotified = false,
                     IsViewed = false,
-                    Type = el.NotificationType.Id,
+                    Type = el.NotificationType.ToInt(),
                     Value = new { el.Message, el.Url, el.NotifierId, el.IsPinned, el.IsPinActual }.ToJson(),
                     ReceiverId = el.ReceiverId
                 });

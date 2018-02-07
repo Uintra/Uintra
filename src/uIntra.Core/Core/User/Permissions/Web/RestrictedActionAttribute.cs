@@ -40,7 +40,7 @@ namespace uIntra.Core.User.Permissions.Web
 
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
             var provider = HttpContext.Current.GetService<IActivityTypeProvider>();
-            var isUserHasAccess = permissionsService.IsCurrentUserHasAccess(provider.Get(_activityTypeId), _action, activityId);
+            var isUserHasAccess = permissionsService.IsCurrentUserHasAccess(provider[_activityTypeId], _action, activityId);
 
             if (!isUserHasAccess)
             {

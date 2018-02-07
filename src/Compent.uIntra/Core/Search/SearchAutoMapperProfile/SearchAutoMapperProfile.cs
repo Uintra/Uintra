@@ -129,7 +129,7 @@ namespace Compent.uIntra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.TagsHighlighted, src => src.Ignore())
                 .ForMember(dst => dst.Type, src => src.Ignore())
                 .ForMember(dst => dst.UserTagNames, src => src.Ignore())
-                .AfterMap((src, dst) => { dst.Type = src.Type.Id; });
+                .AfterMap((src, dst) => { dst.Type = src.Type.ToInt(); });
 
             Mapper.CreateMap<Bulletin, SearchableActivity>()
                 .IncludeBase<IntranetActivity, SearchableActivity>()

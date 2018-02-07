@@ -13,9 +13,10 @@ using uIntra.Notification;
 using uIntra.Notification.Configuration;
 using uIntra.Notification.Constants;
 using Umbraco.Core.Models;
+using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
+namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1
 {
     public class NotificationSettingsMigrations 
     {
@@ -50,6 +51,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
         private readonly INotifierTypeProvider _notifierTypeProvider = DependencyResolver.Current.GetService<INotifierTypeProvider>();
         private readonly IExceptionLogger _exceptionLogger = DependencyResolver.Current.GetService<IExceptionLogger>();
         private readonly IIntranetLocalizationService _localizationService = DependencyResolver.Current.GetService<IIntranetLocalizationService>();
+        private readonly IContentService contentService = DependencyResolver.Current.GetService<IContentService>();
 
         public NotificationSettingsMigrations()
         {
@@ -58,6 +60,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
 
         public void Execute()
         {
+            
             ImportExistedEmailNotificationSettings();
             ImportExistedUiNotificationSettings();
         }
@@ -184,7 +187,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
             return message;
         }
 
-        private ActivityEventNotifierIdentity GetActivityEventNotifierIdentity(NotifierTypeEnum notifierType, IntranetActivityTypeEnum activityType, Enum notificationType)
+        private ActivityEventNotifierIdentity GetActivityEventNotifierIdentity(Enum notifierType, Enum activityType, Enum notificationType)
         {
             var activityEventIdentity = new ActivityEventIdentity(activityType, notificationType);
             return new ActivityEventNotifierIdentity(activityEventIdentity, notifierType);

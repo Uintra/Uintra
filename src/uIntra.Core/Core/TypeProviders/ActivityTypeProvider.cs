@@ -2,7 +2,7 @@
 
 namespace uIntra.Core.TypeProviders
 {
-    public class ActivityTypeProvider : IntranetTypeProviderBase<IntranetActivityTypeEnum>, IActivityTypeProvider
+    public class ActivityTypeProvider : EnumTypeProviderBase<IntranetActivityTypeEnum>, IActivityTypeProvider
     {
     }
 }
