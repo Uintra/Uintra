@@ -1,13 +1,15 @@
 using System;
+using uIntra.Core.Activity;
+using uIntra.Notification.Configuration;
 
 namespace uIntra.Notification
 {
     public class NotifierSettingSaveModel<T>
         where T : INotifierTemplate
     {
-        public Enum ActivityType { get; set; }
-        public Enum NotificationType { get; set; }
-        public Enum NotifierType { get; set; }
+        public IntranetActivityTypeEnum ActivityType { get; set; }
+        public NotificationTypeEnum NotificationType { get; set; }
+        public NotifierTypeEnum NotifierType { get; set; }
         public bool IsEnabled { get; set; }
         public string NotificationInfo { get; set; } 
         public T Template { get; set; }
