@@ -112,7 +112,7 @@ namespace uIntra.Groups.Web
         public ActionResult Create()
         {
             var createGroupModel = new GroupCreateModel();
-            var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent.ToInt(), true);
+            var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent, true);
 
             createGroupModel.MediaRootId = mediaSettings.MediaRootId;
             createGroupModel.CreatorId = _userService.GetCurrentUserId();
@@ -294,7 +294,7 @@ namespace uIntra.Groups.Web
             }
 
             var model = group.Map<GroupEditModel>();
-            var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent.ToInt());
+            var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent);
             model.MediaRootId = mediaSettings.MediaRootId;
             model.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
             return model;

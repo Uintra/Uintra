@@ -32,11 +32,7 @@ namespace Compent.uIntra.Controllers
             var extendedModel = model.Map<PagePromotionExtendedItemViewModel>();
 
             extendedModel.HeaderInfo = model.HeaderInfo.Map<ExtendedItemHeaderViewModel>();
-            model.HeaderInfo.Type = new IntranetType
-            {
-                Id = item.Type.Id,
-                Name = $"{PagePromotionTranslationPrefix}{item.PageAlias.ToFirstUpper()}"
-            };
+            model.HeaderInfo.Type = item.Type;
 
             extendedModel.LikesInfo = item;
             extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;

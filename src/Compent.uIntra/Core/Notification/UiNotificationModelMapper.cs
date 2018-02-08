@@ -34,7 +34,7 @@ namespace Compent.uIntra.Core.Notification
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
-                        (ActivityType, model.ActivityType.Name),
+                        (ActivityType, model.ActivityType.ToString()),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
                         (NotifierFullName, receiver.DisplayedName)
                     };
@@ -45,7 +45,7 @@ namespace Compent.uIntra.Core.Notification
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
-                        (ActivityType, model.ActivityType.Name),
+                        (ActivityType, model.ActivityType.ToString()),
                         (StartDate, model.StartDate.ToShortDateString())
                     };
                     break;
@@ -66,7 +66,7 @@ namespace Compent.uIntra.Core.Notification
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
-                        (ActivityType, model.ActivityType.Name),
+                        (ActivityType, model.ActivityType.ToString()),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
                         (CreatedDate, model.CreatedDate.ToShortDateString())
                     };

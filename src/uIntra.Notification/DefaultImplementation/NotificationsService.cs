@@ -28,7 +28,7 @@ namespace uIntra.Notification
             var allReceiversIds = data.ReceiverIds.ToList();
             var allReceiversNotifiersSettings = _memberNotifiersSettingsService.GetForMembers(allReceiversIds);
 
-            (IEnumerable<Guid> receiverIds, bool isNotEmpty) GetReceiverIdsForNotifier(NotifierTypeEnum notifierType)
+            (IEnumerable<Guid> receiverIds, bool isNotEmpty) GetReceiverIdsForNotifier(Enum notifierType)
             {
                 var ids = allReceiversIds
                     .Where(receiverId => allReceiversNotifiersSettings[receiverId].Contains(notifierType))

@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using uIntra.Core.Extensions;
 using uIntra.Core.Location;
 using Umbraco.Web.Mvc;
 

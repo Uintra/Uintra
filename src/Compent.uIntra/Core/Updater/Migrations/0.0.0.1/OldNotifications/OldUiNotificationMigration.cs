@@ -68,19 +68,23 @@ namespace Compent.uIntra.Installer.Migrations
             return (isValid: true, notification);
         }
 
-        private NotificationValue MapToNewNotificationValue((global::uIntra.Notification.Notification item, OldNotifierData data) notification)
+        private NotificationValue MapToNewNotificationValue((Notification item, OldNotifierData data) notification)
         {
             Guid activityId = ParseActivityId(notification.data.Url);
 
             var activityService =
-                _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(notification.data.ActivityType.Id);
+                _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(notification.data.ActivityType);
 
             var activity = activityService.Get(activityId);
 
-            var notificationType = _notificationTypeProvider.Get(notification.item.Type);
+            var notificationType = _notificationTypeProvider[notification.item.Type];
 
             var newValue = _newNotifierDataValueProvider.GetNotifierDataValue(notification.data, activity, notificationType);
-            var message = _newNotificationMessageService.GetUiNotificationMessage(notification.item.ReceiverId, notification.data.ActivityType, notificationType, newValue);
+            var message = _newNotificationMessageService.GetUiNotificationMessage(
+                notification.item.ReceiverId,
+                notification.data.ActivityType,
+                notificationType,
+                newValue);
 
             return new NotificationValue
             {

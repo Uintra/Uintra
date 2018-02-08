@@ -7,7 +7,8 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Compent.LinkPreview.Client;
+using Compent.LinkPreview.HttpClient;
+using Compent.LinkPreview.Infrastructure;
 using Compent.uIntra;
 using Compent.uIntra.Core;
 using Compent.uIntra.Core.Activity;
@@ -70,8 +71,10 @@ using uIntra.Core.Exceptions;
 using uIntra.Core.Grid;
 using uIntra.Core.Jobs;
 using uIntra.Core.Jobs.Configuration;
+using uIntra.Core.LinkPreview;
 using uIntra.Core.Links;
 using uIntra.Core.Localization;
+using uIntra.Core.Location;
 using uIntra.Core.Media;
 using uIntra.Core.MigrationHistories;
 using uIntra.Core.ModelBinders;
@@ -82,8 +85,6 @@ using uIntra.Core.UmbracoEventServices;
 using uIntra.Core.User;
 using uIntra.Core.User.Permissions;
 using uIntra.Core.Utils;
-using uIntra.Core.Location;
-using uIntra.Core.LinkPreview;
 using uIntra.Events;
 using uIntra.Groups;
 using uIntra.Groups.Permissions;
@@ -251,6 +252,7 @@ namespace Compent.uIntra
             kernel.Bind<ITableCellBuilder>().To<TableCellBuilder>().InRequestScope();            
 
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
+            kernel.Bind<ICommentLinkPreviewService>().To<CommentLinkPreviewService>().InRequestScope();            
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
             kernel.Bind<ICommentableService>().To<CustomCommentableService>().InRequestScope();
             kernel.Bind<ICommentLinkHelper>().To<CommentLinkHelper>().InRequestScope();
@@ -382,6 +384,8 @@ namespace Compent.uIntra
             kernel.Bind<ILinkPreviewConfiguration>().To<LinkPreviewConfiguration>().InRequestScope();
             kernel.Bind<IUriProvider>().To<UriProvider>();
             kernel.Bind<ILinkPreviewConfigProvider>().To<LinkPreviewConfigProvider>();
+            kernel.Bind<IHttpService>().To<HttpService>();            
+            kernel.Bind<LinkPreviewModelMapper>().ToSelf();
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
@@ -402,7 +406,7 @@ namespace Compent.uIntra
             kernel.Bind<ICookieProvider>().To<CookieProvider>().InRequestScope();
 
             kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
-            kernel.Bind<INotifierTypeProvider>().To<NotifierTypeProvider>().InRequestScope();
+            kernel.Bind<INotifierTypeProvider>().To<NotifierTypeProvider>().InSingletonScope();
             kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InRequestScope();
             kernel.Bind<IFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
 
@@ -415,10 +419,9 @@ namespace Compent.uIntra
             kernel.Bind<IGroupMediaService>().To<GroupMediaService>().InRequestScope();
             kernel.Bind<IProfileLinkProvider>().To<ProfileLinkProvider>().InRequestScope();
 
-            kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InRequestScope();
+            kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InSingletonScope();
             kernel.Bind<ISearchableTypeProvider>().To<UintraSearchableTypeProvider>().InRequestScope();
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
-            kernel.Bind<IIntranetRoleTypeProvider>().To<IntranetRoleTypeProvider>().InRequestScope();
 
             //umbraco events subscriptions
             kernel.Bind<IUmbracoContentPublishedEventService>().To<SearchContentEventService>().InRequestScope();
@@ -495,6 +498,7 @@ namespace Compent.uIntra
             kernel.Bind(typeof(PropertiesDescriptor<SearchableContent>)).To<SearchableContentMap>().InSingletonScope();
             kernel.Bind(typeof(PropertiesDescriptor<SearchableDocument>)).To<SearchableDocumentMap>().InSingletonScope();
             kernel.Bind(typeof(PropertiesDescriptor<SearchableTag>)).To<SearchableTagMap>().InSingletonScope();
+            kernel.Bind(typeof(PropertiesDescriptor<SearchableUser>)).To<SearchableUserMap>().InSingletonScope();
             kernel.Bind<IElasticActivityIndex>().To<ElasticActivityIndex>().InRequestScope();
             kernel.Bind<IElasticUintraActivityIndex>().To<ElasticUintraActivityIndex>().InRequestScope();
             kernel.Bind<IElasticContentIndex>().To<ElasticContentIndex>().InRequestScope();

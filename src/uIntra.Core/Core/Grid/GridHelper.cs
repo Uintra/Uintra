@@ -2,7 +2,6 @@
 using System.Linq;
 using ClientDependency.Core;
 using Newtonsoft.Json.Linq;
-using uIntra.Core.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 

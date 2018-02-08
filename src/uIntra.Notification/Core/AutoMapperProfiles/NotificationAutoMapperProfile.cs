@@ -17,7 +17,7 @@ namespace uIntra.Notification
                 .AfterMap((src, dst) =>
                 {
                     var notificationTypeProvider = HttpContext.Current.GetService<INotificationTypeProvider>();
-                    dst.Type = notificationTypeProvider.Get(src.Type);
+                    dst.Type = notificationTypeProvider[src.Type];
                 });
 
 

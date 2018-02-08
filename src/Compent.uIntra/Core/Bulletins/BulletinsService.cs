@@ -42,11 +42,8 @@ namespace Compent.uIntra.Core.Bulletins
         private readonly ISubscribeService _subscribeService;
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
-        private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
-        private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IMediaHelper _mediaHelper;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
@@ -63,10 +60,8 @@ namespace Compent.uIntra.Core.Bulletins
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,
-            IFeedTypeProvider centralFeedTypeProvider,
             IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
-            ISearchableTypeProvider searchableTypeProvider,
             IMediaHelper mediaHelper,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
@@ -82,11 +77,8 @@ namespace Compent.uIntra.Core.Bulletins
             _permissionsService = permissionsService;
             _subscribeService = subscribeService;
             _notificationService = notificationService;
-            _activityTypeProvider = activityTypeProvider;
-            _centralFeedTypeProvider = centralFeedTypeProvider;
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
-            _searchableTypeProvider = searchableTypeProvider;
             _mediaHelper = mediaHelper;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
@@ -94,9 +86,9 @@ namespace Compent.uIntra.Core.Bulletins
             _userTagService = userTagService;
         }
 
-        public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Bulletins.ToInt());
+        public override Enum ActivityType => IntranetActivityTypeEnum.Bulletins;
 
-        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent.ToInt());
+        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
 
         protected override void UpdateCache()
         {
@@ -115,7 +107,7 @@ namespace Compent.uIntra.Core.Bulletins
         {
             return new FeedSettings
             {
-                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.Bulletins.ToInt()),
+                Type = CentralFeedTypeEnum.Bulletins,
                 Controller = "Bulletins",
                 HasPinnedFilter = false,
                 HasSubscribersFilter = false,
@@ -158,16 +150,16 @@ namespace Compent.uIntra.Core.Bulletins
             return null;
         }
 
-        public CommentModel CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        public CommentModel CreateComment(CommentCreateDto dto)
         {
-            var comment = _commentsService.Create(userId, activityId, text, parentId);
+            var comment = _commentsService.Create(dto);
             UpdateCachedEntity(comment.ActivityId);
             return comment;
         }
 
-        public void UpdateComment(Guid id, string text)
+        public void UpdateComment(CommentEditDto dto)
         {
-            var comment = _commentsService.Update(id, text);
+            var comment = _commentsService.Update(dto);
             UpdateCachedEntity(comment.ActivityId);
         }
 
@@ -194,7 +186,7 @@ namespace Compent.uIntra.Core.Bulletins
 
         public IEnumerable<LikeModel> GetLikes(Guid activityId) => Get(activityId).Likes;
 
-        public void Notify(Guid entityId, IIntranetType notificationType)
+        public void Notify(Guid entityId, Enum notificationType)
         {
             var notifierData = GetNotifierData(entityId, notificationType);
             if (notifierData != null)
@@ -207,13 +199,11 @@ namespace Compent.uIntra.Core.Bulletins
         {
             var activities = GetAll().Where(IsCacheable);
             var searchableActivities = activities.Select(Map);
-
-            var searchableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.Bulletins.ToInt());
-            _activityIndex.DeleteByType(searchableType);
+            _activityIndex.DeleteByType(UintraSearchableTypeEnum.Bulletins);
             _activityIndex.Index(searchableActivities);
         }
 
-        private NotifierData GetNotifierData(Guid entityId, IIntranetType notificationType)
+        private NotifierData GetNotifierData(Guid entityId, Enum notificationType)
         {
             var data = new NotifierData
             {
@@ -223,9 +213,9 @@ namespace Compent.uIntra.Core.Bulletins
 
             var currentUser = _intranetUserService.GetCurrentUser();
 
-            switch (notificationType.Id)
+            switch (notificationType)
             {
-                case (int)NotificationTypeEnum.ActivityLikeAdded:
+                case NotificationTypeEnum.ActivityLikeAdded:
                     {
                         var bulletinsEntity = Get(entityId);
                         data.ReceiverIds = bulletinsEntity.OwnerId.ToEnumerable();
@@ -233,8 +223,8 @@ namespace Compent.uIntra.Core.Bulletins
                     }
                     break;
 
-                case (int)NotificationTypeEnum.CommentAdded:
-                case (int)NotificationTypeEnum.CommentEdited:
+                case NotificationTypeEnum.CommentAdded:
+                case NotificationTypeEnum.CommentEdited:
                     {
                         var comment = _commentsService.Get(entityId);
                         var bulletinsEntity = Get(comment.ActivityId);
@@ -243,7 +233,7 @@ namespace Compent.uIntra.Core.Bulletins
                     }
                     break;
 
-                case (int)NotificationTypeEnum.CommentReplied:
+                case NotificationTypeEnum.CommentReplied:
                     {
                         var comment = _commentsService.Get(entityId);
                         var bulletinsEntity = Get(comment.ActivityId);
@@ -252,7 +242,7 @@ namespace Compent.uIntra.Core.Bulletins
                     }
                     break;
 
-                case (int)NotificationTypeEnum.CommentLikeAdded:
+                case NotificationTypeEnum.CommentLikeAdded:
                     {
                         var comment = _commentsService.Get(entityId);
                         var bulletinsEntity = Get(comment.ActivityId);

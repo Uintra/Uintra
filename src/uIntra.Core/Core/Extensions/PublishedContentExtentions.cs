@@ -57,16 +57,16 @@ namespace uIntra.Core.Extensions
             return content.GetValue<Guid?>(IntranetConstants.IntranetCreatorId);
         }
 
-        public static IIntranetType GetMediaType(this IPublishedContent content)
+        public static Enum GetMediaType(this IPublishedContent content)
         {
             var mediaTypeProvider = HttpContext.Current.GetService<IMediaTypeProvider>();
 
             switch (content.DocumentTypeAlias)
             {
                 case UmbracoAliases.Media.ImageTypeAlias:
-                    return mediaTypeProvider.Get(MediaTypeEnum.Image.ToInt());
+                    return MediaTypeEnum.Image;
                 case UmbracoAliases.Media.FileTypeAlias:
-                    return mediaTypeProvider.Get(MediaTypeEnum.Document.ToInt());
+                    return MediaTypeEnum.Document;
                 default:
                     throw new NotImplementedException();
 

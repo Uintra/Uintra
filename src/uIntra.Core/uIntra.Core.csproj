@@ -108,14 +108,14 @@
     <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.Client, Version=0.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Client.0.0.2\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.Client, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Client.1.0.2\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Core.1.0.0\lib\net452\Compent.LinkPreview.Core.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.0.2\lib\net452\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Utils.1.0.0\lib\net452\Compent.LinkPreview.Utils.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.Infrastructure, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Infrastructure.1.0.2\lib\net452\Compent.LinkPreview.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="controls, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\controls.dll</HintPath>
@@ -373,6 +373,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\LinkPreview\AutoMapperProfiles\LinkPreviewAutoMapperProfile.cs" />
     <Compile Include="Core\Location\AutoMapperProfiles\LocationAutoMapperProfile.cs" />
     <Compile Include="Core\Location\Entities\ActivityLocationEntity.cs" />
     <Compile Include="Core\Location\IActivityWithLocation.cs" />
@@ -441,7 +442,10 @@
     <Compile Include="Core\Providers\ContentProviderBase.cs" />
     <Compile Include="Core\Providers\ILinkPreviewConfigProvider.cs" />
     <Compile Include="Core\Providers\IXPathProvider.cs" />
+    <Compile Include="Core\TypeProviders\EnumTypeProviderBase.cs" />
     <Compile Include="Core\LinkPreview\Configuration\LinkDetectionConfig.cs" />
+    <Compile Include="Core\TypeProviders\EnumTypeProviderExtensions.cs" />
+    <Compile Include="Core\TypeProviders\IEnumTypeProvider.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentPublishedEventService.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentTrashedEventService.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentUnPublishedEventService.cs" />
@@ -455,17 +459,10 @@
     <Compile Include="Core\Media\IIntranetMediaService.cs" />
     <Compile Include="Core\Media\IntranetMediaService.cs" />
     <Compile Include="Core\Media\Sql\IntranetMediaEntity.cs" />
-    <Compile Include="Core\TypeProviders\IIntranetRoleTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaTypeProvider.cs" />
-    <Compile Include="Core\TypeProviders\IntranetRoleTypeProvider.cs" />
-    <Compile Include="Core\TypeProviders\IntranetTypeComparer.cs" />
-    <Compile Include="Core\TypeProviders\IntranetTypeProviderBase.cs" />
-    <Compile Include="Core\TypeProviders\IntranetType.cs" />
     <Compile Include="Core\TypeProviders\ActivityTypeProvider.cs" />
-    <Compile Include="Core\TypeProviders\IIntranetType.cs" />
     <Compile Include="Core\TypeProviders\IActivityTypeProvider.cs" />
-    <Compile Include="Core\TypeProviders\IIntranetTypeProvider.cs" />
     <Compile Include="Core\Attributes\GreaterThanAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredIfAttribute.cs" />
     <Compile Include="Core\Attributes\RequiredIfEmptyAttribute.cs" />
@@ -497,7 +494,7 @@
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Core\Location\Models\ActivityLocationEditModel.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
-    <Compile Include="Web\LinkPreviewApiControllerBase.cs" />
+    <Compile Include="Web\LinkPreviewControllerBase.cs" />
     <Compile Include="Web\CacheController.cs" />
     <Compile Include="Web\EditorConfigControllerBase.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\GridEditorConfig.cs" />

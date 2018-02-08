@@ -6,8 +6,8 @@ namespace uIntra.Notification.Exceptions
 {
     public class MissingNotifierException : ApplicationException
     {
-        public MissingNotifierException(NotifierTypeEnum notifierType, IIntranetType notificationType)
-            :base ($"Can not find notifier {notifierType} to notify by {notificationType.Name}")
+        public MissingNotifierException(NotifierTypeEnum notifierType, Enum notificationType)
+            :base ($"Can not find notifier {notifierType} to notify by {notificationType.ToString()}")
         {
             
         }

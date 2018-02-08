@@ -4,7 +4,6 @@ using System.Linq;
 using Extensions;
 using uIntra.CentralFeed;
 using uIntra.Core.Caching;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.Groups
 {
@@ -16,21 +15,20 @@ namespace uIntra.Groups
 
         public GroupFeedService(
             ICacheService cacheService,
-            IFeedTypeProvider centralFeedTypeProvider,
             IEnumerable<IFeedItemService> feedItemServices,
             IGroupActivityService groupActivityService,
             IGroupService groupService)
-            : base(feedItemServices, cacheService, centralFeedTypeProvider)
+            : base(feedItemServices, cacheService)
         {
             _feedItemServices = feedItemServices;
             _groupActivityService = groupActivityService;
             _groupService = groupService;
         }
 
-        public IEnumerable<IFeedItem> GetFeed(IIntranetType type, Guid groupId)
+        public IEnumerable<IFeedItem> GetFeed(Enum type, Guid groupId)
         {
             return GetFeed(groupId)
-                .Where(i => i.Type.Id == type.Id);
+                .Where(i => Equals(i.Type, type));
         }
 
         public IEnumerable<IFeedItem> GetFeed(Guid groupId)
@@ -40,10 +38,10 @@ namespace uIntra.Groups
                 .Where(i => IsGroupActivity(groupId, i));
         }
 
-        public IEnumerable<IFeedItem> GetFeed(IIntranetType type, IEnumerable<Guid> groupIds)
+        public IEnumerable<IFeedItem> GetFeed(Enum type, IEnumerable<Guid> groupIds)
         {
             return GetFeed(groupIds)
-                .Where(i => i.Type.Id == type.Id);
+                .Where(i => Equals(i.Type, type));  
         }
 
         public IEnumerable<IFeedItem> GetFeed(IEnumerable<Guid> groupIds)

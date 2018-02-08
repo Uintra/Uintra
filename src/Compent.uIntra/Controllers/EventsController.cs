@@ -177,7 +177,7 @@ namespace Compent.uIntra.Controllers
 
             if (model.NotifyAllSubscribers)
             {
-                var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventUpdated.ToInt());
+                var notificationType = NotificationTypeEnum.EventUpdated;
                 ((INotifyableService)_eventsService).Notify(@event.Id, notificationType);
             }
 
@@ -193,7 +193,7 @@ namespace Compent.uIntra.Controllers
         {
             if (isNotificationNeeded)
             {
-                var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventHided.ToInt());
+                var notificationType = NotificationTypeEnum.EventHided;
                 ((INotifyableService)_eventsService).Notify(id, notificationType);
             }
         }

@@ -93,7 +93,7 @@ namespace uIntra.Subscribe.Web
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
         }
 
-        protected virtual PartialViewResult Index(Guid activityId, Subscribe subscriber, IIntranetType type = null)
+        protected virtual PartialViewResult Index(Guid activityId, Subscribe subscriber, Enum type = null)
         {
             var model = new SubscribeViewModel
             {

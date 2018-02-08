@@ -1,4 +1,4 @@
-﻿using Compent.LinkPreview.Client;
+﻿using Compent.LinkPreview.HttpClient;
 using uIntra.Core;
 using uIntra.Core.LinkPreview;
 using uIntra.Core.LinkPreview.Sql;
@@ -7,9 +7,9 @@ using uIntra.Core.Web;
 
 namespace Compent.uIntra.Controllers.Api
 {
-    public class LinkPreviewApiController : LinkPreviewApiControllerBase
+    public class LinkPreviewController : LinkPreviewControllerBase
     {
-        public LinkPreviewApiController(ILinkPreviewService linkPreviewService,
+        public LinkPreviewController(ILinkPreviewService linkPreviewService,
             ILinkPreviewConfigProvider configProvider,
             ISqlRepository<int, LinkPreviewEntity> previewRepository,
             LinkPreviewModelMapper linkPreviewModelMapper) 

@@ -19,9 +19,9 @@ namespace uIntra.Comments
 
         bool IsReply(CommentModel comment);
 
-        CommentModel Create(Guid userId, Guid activityId, string text, Guid? parentId);
+        CommentModel Create(CommentCreateDto dto);
 
-        CommentModel Update(Guid id, string text);
+        CommentModel Update(CommentEditDto dto);
 
         void Delete(Guid id);
 
@@ -30,9 +30,5 @@ namespace uIntra.Comments
         string GetCommentViewId(Guid commentId);
 
         bool IsExistsUserComment(Guid activityId, Guid userId);
-
-        void SaveLinkPreview(Guid commentId, int previewId);
-
-        void RemovePreviewRelations(Guid commentId);
     }
 }

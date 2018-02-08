@@ -10,7 +10,7 @@ namespace uIntra.Notification
         public string Date { get; set; }
         public bool IsNotified { get; set; }
         public bool IsViewed { get; set; }
-        public IIntranetType Type { get; set; }
+        public Enum Type { get; set; }
         public IIntranetUser Notifier { get; set; }
         public dynamic Value { get; set; }
     }

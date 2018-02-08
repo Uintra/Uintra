@@ -60,7 +60,7 @@ namespace uIntra.Notification
                         {
                             foreach (var notificationTypeName in configuration.NotificationTypes)
                             {
-                                var notificationType = _notificationTypeProvider.Get(notificationTypeName);
+                                var notificationType = _notificationTypeProvider[notificationTypeName];
                                 notifiableService.Notify(activity.Id, notificationType);
                             }
                             _reminderService.SetAsDelivered(reminder.Id);

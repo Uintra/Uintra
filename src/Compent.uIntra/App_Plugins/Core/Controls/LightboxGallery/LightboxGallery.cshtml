@@ -1,10 +1,12 @@
 ﻿@using uIntra.Core
 @using System.Linq
+@using uIntra.Core.Extensions
 @model uIntra.Core.Controls.LightboxGallery.LightboxGalleryOverviewModel
+
 @{
-    var medias = Model.GalleryItems.ToLookup(m => m.Type.Id);
-    var images = medias[(int)MediaTypeEnum.Image];
-    var documents = medias[(int)MediaTypeEnum.Document];
+    var medias = Model.GalleryItems.ToLookup(m => m.Type);
+    var images = medias[MediaTypeEnum.Image];
+    var documents = medias[MediaTypeEnum.Document];
     var fullSizeClass = images.Count() > 1 ? String.Empty : "_full-size";
 }
 @if (images.Any())
@@ -22,7 +24,7 @@
 
 @if (documents.Any())
 {
-    <h3 class="feed__item-subtitle">Vedhæftede dokumenter:</h3>
+    <h3 class="feed__item-subtitle">@Html.Localize("LightboxGallery.AttachedDocuments.lbl")</h3>
 
     <ul class="documents-list">
         @foreach (var document in documents)

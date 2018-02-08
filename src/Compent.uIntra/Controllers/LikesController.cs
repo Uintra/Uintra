@@ -44,12 +44,12 @@ namespace Compent.uIntra.Controllers
             {
                 if (IsForComment(model))
                 {
-                    var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.CommentLikeAdded.ToInt());
+                    var notificationType = NotificationTypeEnum.CommentLikeAdded;
                     notifiableService.Notify(model.CommentId.Value, notificationType);
                 }
                 else
                 {
-                    var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.ActivityLikeAdded.ToInt());
+                    var notificationType = NotificationTypeEnum.ActivityLikeAdded;
                     notifiableService.Notify(model.ActivityId, notificationType);
                 }
             }

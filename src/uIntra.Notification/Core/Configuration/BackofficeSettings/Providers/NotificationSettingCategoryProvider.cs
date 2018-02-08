@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Extensions;
 using uIntra.Core.Activity;
 using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification.Configuration
 {
@@ -12,62 +12,47 @@ namespace uIntra.Notification.Configuration
     /// </summary>
     public class NotificationSettingCategoryProvider : INotificationSettingCategoryProvider
     {
-        private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly INotificationTypeProvider _notificationTypeProvider;
-
-        public NotificationSettingCategoryProvider(IActivityTypeProvider activityTypeProvider, INotificationTypeProvider notificationTypeProvider)
-        {
-            _activityTypeProvider = activityTypeProvider;
-            _notificationTypeProvider = notificationTypeProvider;
-        }
-
         public virtual IEnumerable<NotificationSettingsCategoryDto> GetAvailableCategories()
         {
             return GetBulletinSettings().ToEnumerable().Append(GetNewsSettings()).Append(GetEventSettings());
         }
 
-        protected virtual IIntranetType[] CommentNotificationTypes => new[]
+        protected virtual Enum[] CommentNotificationTypes => new Enum[]
         {
-            GetIntranetType(NotificationTypeEnum.CommentAdded),
-            GetIntranetType(NotificationTypeEnum.CommentEdited),
-            GetIntranetType(NotificationTypeEnum.CommentReplied)
+            NotificationTypeEnum.CommentAdded,
+            NotificationTypeEnum.CommentEdited,
+            NotificationTypeEnum.CommentReplied
         };
 
         protected virtual NotificationSettingsCategoryDto GetBulletinSettings()
         {
             var notificationTypes =
-                CommentNotificationTypes.Append(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded));
+                CommentNotificationTypes.Append(NotificationTypeEnum.ActivityLikeAdded);
 
-            return new NotificationSettingsCategoryDto(GetIntranetType(IntranetActivityTypeEnum.Bulletins), notificationTypes);
+            return new NotificationSettingsCategoryDto(IntranetActivityTypeEnum.Bulletins, notificationTypes);
         }
 
         protected virtual NotificationSettingsCategoryDto GetNewsSettings()
         {
-            var notificationTypes =
-                CommentNotificationTypes.Append(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded));
+            var notificationTypes = CommentNotificationTypes.Append(NotificationTypeEnum.ActivityLikeAdded);
 
-            return new NotificationSettingsCategoryDto(GetIntranetType(IntranetActivityTypeEnum.News), notificationTypes);
+            return new NotificationSettingsCategoryDto(IntranetActivityTypeEnum.News, notificationTypes);
         }
 
         protected virtual NotificationSettingsCategoryDto GetEventSettings()
         {
-            var eventNotificationTypes = new[]
+            var eventNotificationTypes = new Enum[]
             {
-                GetIntranetType(NotificationTypeEnum.EventUpdated),
-                GetIntranetType(NotificationTypeEnum.EventHided),
-                GetIntranetType(NotificationTypeEnum.BeforeStart),
+                NotificationTypeEnum.EventUpdated,
+                NotificationTypeEnum.EventHided,
+                NotificationTypeEnum.BeforeStart
             };
 
-            var notificationTypes =
-                eventNotificationTypes
+            var notificationTypes = eventNotificationTypes
                 .Concat(CommentNotificationTypes)
-                .Append(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded));
+                .Append(NotificationTypeEnum.ActivityLikeAdded);
 
-            return new NotificationSettingsCategoryDto(GetIntranetType(IntranetActivityTypeEnum.Events), notificationTypes);
+            return new NotificationSettingsCategoryDto(IntranetActivityTypeEnum.Events, notificationTypes);
         }
-
-
-        protected IIntranetType GetIntranetType(NotificationTypeEnum type) => _notificationTypeProvider.Get((int)type);
-        protected IIntranetType GetIntranetType(IntranetActivityTypeEnum type) => _activityTypeProvider.Get((int)type);
     }
 }

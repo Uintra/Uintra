@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using Compent.LinkPreview.Client;
+using Compent.LinkPreview.HttpClient;
 
 namespace uIntra.Core.LinkPreview
 {

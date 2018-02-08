@@ -480,11 +480,6 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "DetailsView.Important.lbl",
-    "Translations": { "en-US": "Important" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
     "Key": "UserTagsPicker.AddTags.lbl",
     "Translations": { "en-US": "Tag(s)" },
     "UpdateDate": "0001-01-01T00:00:00"
@@ -522,11 +517,6 @@
   {
     "Key": "NewsEdit.Edit.btn",
     "Translations": { "en-US": "Save" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "Notifications.Pinned.lbl",
-    "Translations": { "en-US": "Important" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -645,11 +635,6 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "EventsItemView.Pinned.lbl",
-    "Translations": { "en-US": "Important" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
     "Key": "TopNavigation.LoginToUmbraco.lbl",
     "Translations": { "en-US": "Login to Umbraco" },
     "UpdateDate": "0001-01-01T00:00:00"
@@ -757,11 +742,6 @@
   {
     "Key": "CommentsOverView.EditComment.btn",
     "Translations": { "en-US": "Save" },
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "EVENTITEMVIEW.PINNED.LBL",
-    "Translations": { "en-US": "Important" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -1239,12 +1219,6 @@
     "Key": "EventsEdit.Hide.btn",
     "Translations": { "en-US": "Hide Event" },
     "ParentKey": "Events",
-    "UpdateDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Key": "NewsItemView.Pinned.lbl",
-    "Translations": { "en-US": "Important" },
-    "ParentKey": "News",
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {

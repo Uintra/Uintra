@@ -26,7 +26,6 @@ namespace Compent.uIntra.Core.PagePromotion
         ICommentableService
     {
         private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly IIntranetUserService<IIntranetUser> _userService;
         private readonly ILikesService _likesService;
         private readonly ICommentsService _commentsService;
@@ -35,7 +34,6 @@ namespace Compent.uIntra.Core.PagePromotion
 
         public PagePromotionService(
             IActivityTypeProvider activityTypeProvider,
-            IFeedTypeProvider feedTypeProvider,
             UmbracoHelper umbracoHelper,
             IIntranetUserService<IIntranetUser> userService,
             ILikesService likesService,
@@ -47,7 +45,6 @@ namespace Compent.uIntra.Core.PagePromotion
             : base(cacheService, umbracoHelper, documentTypeAliasProvider)
         {
             _activityTypeProvider = activityTypeProvider;
-            _feedTypeProvider = feedTypeProvider;
             _userService = userService;
             _likesService = likesService;
             _commentsService = commentsService;
@@ -55,13 +52,13 @@ namespace Compent.uIntra.Core.PagePromotion
             _documentIndexer = documentIndexer;
         }
 
-        public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.PagePromotion.ToInt());
+        public override Enum ActivityType => IntranetActivityTypeEnum.PagePromotion;
 
         public FeedSettings GetFeedSettings()
         {
             return new FeedSettings
             {
-                Type = _feedTypeProvider.Get(CentralFeedTypeEnum.PagePromotion.ToInt()),
+                Type = CentralFeedTypeEnum.PagePromotion,
                 Controller = "PagePromotion",
                 HasSubscribersFilter = false,
                 HasPinnedFilter = false,
@@ -89,16 +86,16 @@ namespace Compent.uIntra.Core.PagePromotion
             return Get(activityId);
         }
 
-        public CommentModel CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        public CommentModel CreateComment(CommentCreateDto dto)
         {
-            var comment = _commentsService.Create(userId, activityId, text, parentId);
+            var comment = _commentsService.Create(dto);
             UpdateCachedEntity(comment.ActivityId);
             return comment;
         }
 
-        public void UpdateComment(Guid id, string text)
+        public void UpdateComment(CommentEditDto dto)
         {
-            var comment = _commentsService.Update(id, text);
+            var comment = _commentsService.Update(dto);
             UpdateCachedEntity(comment.ActivityId);
         }
 

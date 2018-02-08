@@ -80,17 +80,17 @@
     <Reference Include="cms, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\cms.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.Client, Version=0.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Client.0.0.2\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Compent.LinkPreview.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Core.1.0.0\lib\net452\Compent.LinkPreview.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Compent.LinkPreview.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Utils.1.0.0\lib\net452\Compent.LinkPreview.Utils.dll</HintPath>
-    </Reference>
     <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.LinkPreview.Client, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Client.1.0.2\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.0.2\lib\net452\Compent.LinkPreview.HttpClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.LinkPreview.Infrastructure, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Infrastructure.1.0.2\lib\net452\Compent.LinkPreview.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="controls, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\controls.dll</HintPath>
@@ -1298,7 +1298,7 @@
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\ActivityLocationController.cs" />
     <Compile Include="Controllers\Api\EditorConfigController.cs" />
-    <Compile Include="Controllers\Api\LinkPreviewApiController.cs" />
+    <Compile Include="Controllers\Api\LinkPreviewController.cs" />
     <Compile Include="Controllers\Api\MemberApiController.cs" />
     <Compile Include="Controllers\Api\MonthlyEmailApiController.cs" />
     <Compile Include="Controllers\Api\NotificationSettingsApiController.cs" />
@@ -1426,6 +1426,7 @@
     <Compile Include="Core\PagePromotion\PagePromotionService.cs" />
     <Compile Include="Core\Search\Entities\Mappings\SearchableTagMap.cs" />
     <Compile Include="Core\Search\Entities\Mappings\SearchableUintraActivityMap.cs" />
+    <Compile Include="Core\Search\Entities\Mappings\SearchableUserMap.cs" />
     <Compile Include="Core\Search\Entities\SearchableTag.cs" />
     <Compile Include="Core\Search\Entities\SearchableUintraActivity.cs" />
     <Compile Include="Core\Search\Entities\SearchableUintraContent.cs" />
@@ -1463,6 +1464,7 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\CoreInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\EventsInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\GroupsInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\LocalizationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\MailInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\NavigationInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\NewsInstallationConstants.cs" />
@@ -1502,9 +1504,9 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\UsersInstallationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\TaggingInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\AddTranslationsStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UpdateDataFolderNamesMigrationInstallationStep .cs" />
-    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\AddMemberCounterTranslationsStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UserTagsInstallationStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />

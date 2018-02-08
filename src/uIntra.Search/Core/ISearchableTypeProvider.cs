@@ -2,7 +2,7 @@
 
 namespace uIntra.Search
 {
-    public interface ISearchableTypeProvider : IIntranetTypeProvider
+    public interface ISearchableTypeProvider : IEnumTypeProvider
     {
     }
 }

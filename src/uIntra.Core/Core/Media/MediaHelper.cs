@@ -142,12 +142,12 @@ namespace uIntra.Core.Media
 
         public MediaSettings GetMediaFolderSettings(int mediaFolderType, bool createFolderIfNotExists = false)
         {
-            var folderType = _mediaFolderTypeProvider.Get(mediaFolderType);
+            var folderType = _mediaFolderTypeProvider.All.Get(mediaFolderType);
             var result = GetMediaFolderSettings(folderType, createFolderIfNotExists);
             return result;
         }
 
-        public MediaSettings GetMediaFolderSettings(IIntranetType mediaFolderType, bool createFolderIfNotExists = false)
+        public MediaSettings GetMediaFolderSettings(Enum mediaFolderType, bool createFolderIfNotExists = false)
         {
             var mediaFolder = GetMediaFolder(mediaFolderType);
             if (mediaFolder == null)
@@ -194,25 +194,25 @@ namespace uIntra.Core.Media
             return result.JoinWithComma();
         }
 
-        private IPublishedContent GetMediaFolder(IIntranetType mediaFolderType)
+        private IPublishedContent GetMediaFolder(Enum mediaFolderType)
         {
-            var folders = _umbracoHelper.TypedMediaAtRoot().Where(m => m.DocumentTypeAlias.Equals(UmbracoAliases.Media.FolderTypeAlias));
+            var folders = _umbracoHelper.TypedMediaAtRoot().Where(m => m.DocumentTypeAlias.Equals(FolderTypeAlias));
 
             var mediaFolder = folders.SingleOrDefault(f =>
             {
                 var folderType = f.GetPropertyValue<string>(FolderConstants.FolderTypePropertyTypeAlias);
-                return folderType.HasValue() && folderType.Equals(mediaFolderType.Name);
+                return folderType.HasValue() && folderType.Equals(mediaFolderType.ToString());
             });
             
             return mediaFolder;
         }
 
-        private IPublishedContent CreateMediaFolder(IIntranetType mediaFolderType)
+        private IPublishedContent CreateMediaFolder(Enum mediaFolderType)
         {
             // TODO: Extend provider, so we can get folder names not only from MediaFolderTypeEnum
-            var mediaFolderTypeEnum = (MediaFolderTypeEnum) mediaFolderType.Id;
+            var mediaFolderTypeEnum = (MediaFolderTypeEnum) mediaFolderType;
             var folderName = mediaFolderTypeEnum.GetAttribute<DisplayAttribute>().Name;
-            var mediaFolder = _mediaService.CreateMedia(folderName, -1, UmbracoAliases.Media.FolderTypeAlias);
+            var mediaFolder = _mediaService.CreateMedia(folderName, -1, FolderTypeAlias);
             mediaFolder.SetValue(FolderConstants.FolderTypePropertyTypeAlias, mediaFolderType.ToString());
             _mediaService.Save(mediaFolder);
 

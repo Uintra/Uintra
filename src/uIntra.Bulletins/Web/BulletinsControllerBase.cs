@@ -138,7 +138,7 @@ namespace uIntra.Bulletins.Web
             var result = new BulletinCreateModel
             {
                 Title = currentUser.DisplayedName,
-                ActivityType = _activityTypeProvider.Get(ActivityTypeId),
+                ActivityType = _activityTypeProvider[ActivityTypeId],
                 Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable(),
                 Creator = currentUser,
                 Links = links,

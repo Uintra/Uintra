@@ -2,7 +2,7 @@
 
 namespace uIntra.Notification
 {
-    public interface INotificationTypeProvider: IIntranetTypeProvider
+    public interface INotificationTypeProvider: IEnumTypeProvider
     {
     }
 }
