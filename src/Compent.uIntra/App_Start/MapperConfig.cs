@@ -7,13 +7,13 @@ using uIntra.Comments;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Jobs.AutoMapperProfiles;
 using uIntra.Core.Location;
-using uIntra.Core.LinkPreview;
 using uIntra.Core.PagePromotion;
 using uIntra.Events;
 using uIntra.Groups;
 using uIntra.Navigation;
 using uIntra.News;
 using uIntra.Notification;
+using uIntra.Panels.Core.AutoMapperProfiles;
 using uIntra.Search;
 using uIntra.Tagging;
 using uIntra.Subscribe;
@@ -54,6 +54,7 @@ namespace Compent.uIntra
             Mapper.AddProfile<SubscribeAutoMapperProfiles>();
             Mapper.AddProfile<SubscribeSettingAutoMapperProfiles>();
             Mapper.AddProfile<LocationAutoMapperProfile>();
+            Mapper.AddProfile<TablePanelAutoMapperProfiles>();
 
             var typeMaps = Mapper.GetAllTypeMaps();
 

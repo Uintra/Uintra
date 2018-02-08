@@ -958,6 +958,7 @@
     <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-row-control.directive.js" />
     <Content Include="App_Plugins\Panels\TableEditor\js\table-editor.controller.js" />
     <Content Include="App_Plugins\Panels\TableEditor\views\table-editor.html" />
+    <Content Include="App_Plugins\Panels\TablePanel\Css\style.css" />
     <Content Include="App_Plugins\Search\backoffice\developerelasticsearch.html" />
     <Content Include="App_Plugins\Search\Controls\search-box.js" />
     <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
@@ -1169,6 +1170,9 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201802050917423_LinkPreview.resx">
       <DependentUpon>201802050917423_LinkPreview.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="App_Plugins\Panels\TableEditor\package.manifest" />
+    <Content Include="App_Plugins\Panels\TableEditor\TableEditor.cshtml" />
+    <Content Include="App_Plugins\Panels\TablePanel\TablePanel.cshtml" />
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1317,6 +1321,7 @@
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\NotificationJobController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\TablePanelController.cs" />
     <Compile Include="Controllers\UserTagsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />

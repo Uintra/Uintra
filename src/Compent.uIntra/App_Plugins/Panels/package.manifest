@@ -29,6 +29,7 @@
       "config": {
         "controller": "TablePanel",
         "action": "Render",
+        "includeUmbracoValues": true,
         "maxColumns": {
           "value": 100
         }

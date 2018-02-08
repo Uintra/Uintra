@@ -1,0 +1,13 @@
+﻿@using uIntra.Panels.Core.HtmlHelpers
+@model uIntra.Panels.Core.Models.Table.TablePanelViewModel
+
+<section class="table-panel js-tracking-area @Html.PanelBehaviour(Model.PanelBehavior)" style="@Html.PanelColors(Model.PanelColors)">
+    <div class="content">
+        @if (!string.IsNullOrEmpty(Model.Title))
+        {
+            <h2 class="table-panel__title" style="color: @Model.PanelColors.TitleColor;">@Model.Title</h2>
+        }
+
+        @Html.Table(Model.Table)
+    </div>
+</section>
