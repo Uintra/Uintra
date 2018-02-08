@@ -2,11 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using System.Web.Mvc;
 using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps;
 using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
-using Newtonsoft.Json.Linq;
 using Extensions;
+using Localization.Core;
+using Newtonsoft.Json.Linq;
 using uIntra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
@@ -135,6 +136,18 @@ namespace uIntra.Core.Installer
             };
 
             return gridProperty;
+        }
+
+        public static void AddTranslation(string key, string translation)
+        {
+            var localizationCoreService = DependencyResolver.Current.GetService<ILocalizationCoreService>();
+
+            var resourceModel = localizationCoreService.GetResourceModel(key);
+            if (resourceModel.Translations[Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English].Contains(key))
+            {
+                resourceModel.Translations[Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English] = translation;
+                localizationCoreService.Create(resourceModel);
+            }
         }
 
         private static IContentType CreatePageDocTypeWithGrid(BasePageWithDefaultGridCreateModel model, string basePageTypeAlias)

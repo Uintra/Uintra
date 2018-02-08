@@ -1453,6 +1453,7 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\CoreInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\EventsInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\GroupsInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\LocalizationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\MailInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\NavigationInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\NewsInstallationConstants.cs" />
@@ -1492,9 +1493,9 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\UsersInstallationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\TaggingInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\AddTranslationsStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UpdateDataFolderNamesMigrationInstallationStep .cs" />
-    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\AddMemberCounterTranslationsStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UserTagsInstallationStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
