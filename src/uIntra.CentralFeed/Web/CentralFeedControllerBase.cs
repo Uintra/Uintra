@@ -238,7 +238,7 @@ namespace uIntra.CentralFeed.Web
         private IEnumerable<IFeedItem> FilterLatestActivities(IEnumerable<IFeedItem> activities)
         {
             var settings = _centralFeedService.GetAllSettings().Where(s => !s.ExcludeFromLatestActivities).Select(s => s.Type);
-            var items = activities.Join(settings, item => item.Type, type => type, (item, _) => item);
+            var items = activities.Join(settings, item => item.Type.ToInt(), type => type.ToInt(), (item, _) => item);
 
             return items;
         }

@@ -65,10 +65,10 @@ namespace uIntra.Notification
         {
             var notifierId = activityEventNotifierIdentity.NotifierType.ToInt();
             var notificationId = activityEventNotifierIdentity.Event.NotificationType.ToInt();
-            var activityId = activityEventNotifierIdentity.Event.NotificationType.ToInt();
+            var activityTypeId = activityEventNotifierIdentity.Event.ActivityType.ToInt();
 
             return _repository.Find(s =>
-                            s.ActivityType == activityId &&
+                            s.ActivityType == activityTypeId &&
                             s.NotificationType == notificationId &&
                             s.NotifierType == notifierId);
         }
