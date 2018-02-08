@@ -1,5 +1,4 @@
 ﻿using System;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.Notification
 {
@@ -10,7 +9,7 @@ namespace uIntra.Notification
 
     public class UiNotificationMessage : INotificationMessage
     {
-        public IIntranetType NotificationType { get; set; }
+        public Enum NotificationType { get; set; }
         public Guid ReceiverId { get; set; }
         public Guid? NotifierId { get; set; }
         public string Url { get; set; }

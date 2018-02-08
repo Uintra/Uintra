@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.Core.Activity
 {
     public interface IIntranetActivityRepository
     {
         IntranetActivityEntity Get(Guid id);
-        IEnumerable<IntranetActivityEntity> GetMany(IIntranetType activityType);
+        IEnumerable<IntranetActivityEntity> GetMany(Enum activityType);
         IEnumerable<IntranetActivityEntity> FindAll(Expression<Func<IntranetActivityEntity, bool>> expression);
         IntranetActivityEntity Find(Expression<Func<IntranetActivityEntity, bool>> expression);
         void Create(IntranetActivityEntity entity);

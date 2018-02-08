@@ -103,14 +103,14 @@
     <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.Client, Version=0.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Client.0.0.2\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.Client, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Client.1.0.2\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Core.1.0.0\lib\net452\Compent.LinkPreview.Core.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.0.2\lib\net452\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Utils.1.0.0\lib\net452\Compent.LinkPreview.Utils.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.Infrastructure, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Infrastructure.1.0.2\lib\net452\Compent.LinkPreview.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="controls, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\controls.dll</HintPath>
@@ -350,13 +350,17 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\AutoMapperProfiles\CommentAutoMapperProfile.cs" />
-    <Compile Include="Core\CommentsService.cs" />
-    <Compile Include="Core\ICommentable.cs" />
-    <Compile Include="Core\ICommentableService.cs" />
-    <Compile Include="Core\ICommentsService.cs" />
+    <Compile Include="Core\Services\CommentLinkPreviewService.cs" />
+    <Compile Include="Core\Services\CommentsService.cs" />
+    <Compile Include="Core\Services\ICommentable.cs" />
+    <Compile Include="Core\Services\ICommentableService.cs" />
+    <Compile Include="Core\Services\ICommentLinkPreviewService.cs" />
+    <Compile Include="Core\Services\ICommentsService.cs" />
     <Compile Include="Core\Links\CommentLinkHelper.cs" />
     <Compile Include="Core\Links\ICommentLinkHelper.cs" />
     <Compile Include="Core\Models\CommentCreateModel.cs" />
+    <Compile Include="Core\Models\CommentCreateDto.cs" />
+    <Compile Include="Core\Models\CommentEditDto.cs" />
     <Compile Include="Core\Models\CommentEditModel.cs" />
     <Compile Include="Core\Models\CommentEditViewModel.cs" />
     <Compile Include="Core\Models\CommentModel.cs" />
@@ -372,7 +376,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />

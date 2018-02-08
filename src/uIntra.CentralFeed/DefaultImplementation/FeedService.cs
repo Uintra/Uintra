@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.Caching;
 using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.CentralFeed
 {
@@ -11,19 +10,17 @@ namespace uIntra.CentralFeed
     {
         private readonly IEnumerable<IFeedItemService> _feedItemServices;
         private readonly ICacheService _cacheService;
-        private readonly IFeedTypeProvider _centralFeedTypeProvider;
 
-        protected FeedService(IEnumerable<IFeedItemService> feedItemServices, ICacheService cacheService, IFeedTypeProvider centralFeedTypeProvider)
+        protected FeedService(IEnumerable<IFeedItemService> feedItemServices, ICacheService cacheService)
         {
             _feedItemServices = feedItemServices;
             _cacheService = cacheService;
-            _centralFeedTypeProvider = centralFeedTypeProvider;
         }
 
         private IEnumerable<FeedSettings> GetFeedItemServicesSettings()
         {
             var settings = _feedItemServices.Select(service => service.GetFeedSettings()).ToList();
-            settings.Add(GetDefaultTabSetting());            
+            settings.Add(GetDefaultTabSetting());
             return settings;
         }
 
@@ -37,23 +34,29 @@ namespace uIntra.CentralFeed
         {
             if (!feedItems.Any())
             {
-                return default(long);
+                return default;
             }
 
             return feedItems.Max(item => item.ModifyDate).Ticks;
         }
 
-        public FeedSettings GetSettings(IIntranetType type)
+        public FeedSettings GetSettings(Enum type)
         {
-            var settings = _cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration()).Single(feedSettings => feedSettings.Type.Id == type.Id);
-            return settings;
+            var settings = _cacheService.GetOrSet(
+                CentralFeedConstants.CentralFeedSettingsCacheKey,
+                GetFeedItemServicesSettings,
+                GetCacheExpiration()).ToList();
+
+
+            var r = settings.Single(feedSettings => feedSettings.Type.ToInt() == type.ToInt());
+            return r;
         }
 
         protected virtual FeedSettings GetDefaultTabSetting()
         {
             return new FeedSettings
             {
-                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.All.ToInt()),
+                Type = CentralFeedTypeEnum.All,
                 HasSubscribersFilter = false,
                 HasPinnedFilter = true
             };

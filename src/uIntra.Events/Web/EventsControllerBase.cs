@@ -183,7 +183,7 @@ namespace uIntra.Events.Web
                 EndDate = DateTime.UtcNow.AddHours(8),
                 PublishDate = DateTime.UtcNow,
                 OwnerId = _intranetUserService.GetCurrentUserId(),
-                ActivityType = _activityTypeProvider.Get(ActivityTypeId),
+                ActivityType = _activityTypeProvider[ActivityTypeId],
                 Links = links,
                 MediaRootId = mediaSettings.MediaRootId
             };

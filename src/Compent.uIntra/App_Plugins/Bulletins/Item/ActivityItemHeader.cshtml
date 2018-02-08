@@ -12,7 +12,7 @@
                     <span class="feed__item-date">@date</span>
                     <span class="feed__item-divider"> - </span>
                 }
-                <span class="feed__item-category">@Html.Localize(Model.Type.Id)</span>
+                <span class="feed__item-category">@Html.Localize(Model.Type.ToInt())</span>
             </a>
         </p>
     </div>

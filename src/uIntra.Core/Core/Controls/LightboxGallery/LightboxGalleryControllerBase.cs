@@ -51,7 +51,7 @@ namespace uIntra.Core.Controls.LightboxGallery
             if (mediaIds.IsNullOrEmpty()) return result;
 
             var medias = _umbracoHelper.TypedMedia(mediaIds.ToIntCollection()).ToList();
-            var galleryItems = medias.Select(MapToMedia).OrderBy(s => s.Type.Id).ToList();
+            var galleryItems = medias.Select(MapToMedia).OrderBy(s => s.Type).ToList();
 
             MapPreviewUrl(galleryItems);
             result.GalleryItems = galleryItems;
@@ -66,8 +66,8 @@ namespace uIntra.Core.Controls.LightboxGallery
             MapPreviewUrl(galleryViewModelList);
 
             galleryPreviewModel.Links = _linkService.GetLinks(model.ActivityId);
-            galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());
-            galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type.Id != MediaTypeEnum.Image.ToInt());
+            galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type is  MediaTypeEnum.Image);
+            galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type is MediaTypeEnum.Image);
             galleryPreviewModel.Images.Skip(model.DisplayedImagesCount).ToList().ForEach(i => i.IsHidden = true);
 
             return galleryPreviewModel;
@@ -84,7 +84,7 @@ namespace uIntra.Core.Controls.LightboxGallery
                 Type = media.GetMediaType()
             };
 
-            if (result.Type.Id == MediaTypeEnum.Image.ToInt())
+            if (result.Type is MediaTypeEnum.Image)
             {
                 result.Height = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaHeight);
                 result.Width = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaWidth);
@@ -95,7 +95,7 @@ namespace uIntra.Core.Controls.LightboxGallery
 
         protected void MapPreviewUrl(List<LightboxGalleryItemViewModel> galleryItems)
         {
-            var imageItems = galleryItems.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());
+            var imageItems = galleryItems.FindAll(m => m.Type is MediaTypeEnum.Image);
 
             foreach (var item in imageItems)
             {

@@ -32,7 +32,7 @@ namespace uIntra.Search
             _elasticSearchRepository.Delete(id);
         }
         
-        public void DeleteByType(IIntranetType type)
+        public void DeleteByType(Enum type)
         {
             _elasticSearchRepository.DeleteAllByType(type);
         }

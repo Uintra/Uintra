@@ -5,7 +5,6 @@ using uIntra.Core.Activity;
 using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Links;
 using uIntra.Core.Location;
-using uIntra.Core.TypeProviders;
 
 namespace uIntra.News
 {
@@ -29,7 +28,7 @@ namespace uIntra.News
 
         public bool IsPinActual { get; set; }
 
-        public IIntranetType ActivityType { get; set; }
+        public Enum ActivityType { get; set; }
 
         public IActivityLinks Links { get; set; }
 

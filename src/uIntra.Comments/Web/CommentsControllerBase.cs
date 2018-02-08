@@ -56,15 +56,17 @@ namespace uIntra.Comments.Web
                 return OverView(model.ActivityId);
             }
 
-            if (IsForPagePromotion(model.ActivityId)) return AddActivityComment(model);
+            var createDto = Map(model);
+
+            if (IsForPagePromotion(model.ActivityId)) return AddActivityComment(createDto);
 
             if (_umbracoContentHelper.IsForContentPage(model.ActivityId))
             {
-                _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+                _customCommentableService.CreateComment(createDto);
                 return OverView(model.ActivityId);
             }
 
-            return AddActivityComment(model);
+            return AddActivityComment(createDto);
         }
 
         [HttpPut]
@@ -76,24 +78,18 @@ namespace uIntra.Comments.Web
             {
                 return OverView(model.Id);
             }
-            if (!model.LinkPreviewId.HasValue)
-            {
-                _commentsService.RemovePreviewRelations(model.Id);
-            }
-            else
-            {
-                _commentsService.SaveLinkPreview(model.Id, model.LinkPreviewId.Value);
-            }
 
-            if (IsForPagePromotion(comment.ActivityId)) return EditActivityComment(model, comment);
+            var editDto = Map(model);
+
+            if (IsForPagePromotion(comment.ActivityId)) return EditActivityComment(editDto, comment);
 
             if (_umbracoContentHelper.IsForContentPage(comment.ActivityId))
             {
-                _customCommentableService.UpdateComment(model.Id, model.Text);
+                _customCommentableService.UpdateComment(editDto);
                 return OverView(comment.ActivityId);
             }
 
-            return EditActivityComment(model, comment);
+            return EditActivityComment(editDto, comment);
         }
 
         [HttpDelete]
@@ -106,8 +102,6 @@ namespace uIntra.Comments.Web
             {
                 return OverView(comment.ActivityId);
             }
-
-            _commentsService.RemovePreviewRelations(id);
 
             if (IsForPagePromotion(comment.ActivityId)) return RemoveActivityComment(comment);
 
@@ -171,24 +165,18 @@ namespace uIntra.Comments.Web
             return PartialView(ViewPath, viewModel);
         }
 
-        protected virtual PartialViewResult AddActivityComment(CommentCreateModel model)
+        protected virtual PartialViewResult AddActivityComment(CommentCreateDto dto)
         {
-            var service = _activitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
-            var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+            var service = _activitiesServiceFactory.GetService<ICommentableService>(dto.ActivityId);
+            var comment = service.CreateComment(dto);
             OnCommentCreated(comment);
-
-            if (model.LinkPreviewId.HasValue)
-            {
-                _commentsService.SaveLinkPreview(comment.Id, model.LinkPreviewId.Value);
-            }
-
-            return OverView(model.ActivityId);
+            return OverView(dto.ActivityId);
         }
 
-        protected virtual PartialViewResult EditActivityComment(CommentEditModel model, CommentModel comment)
+        protected virtual PartialViewResult EditActivityComment(CommentEditDto editDto, CommentModel comment)
         {
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
-            service.UpdateComment(model.Id, model.Text);
+            service.UpdateComment(editDto);
             OnCommentEdited(comment);
             return OverView(comment.ActivityId);
         }
@@ -248,6 +236,25 @@ namespace uIntra.Comments.Web
             model.CreatorProfileUrl = _profileLinkProvider.GetProfileLink(creator);
             model.LinkPreview = comment.LinkPreview.Map<LinkPreviewViewModel>();
             return model;
+        }
+
+        protected virtual CommentCreateDto Map(CommentCreateModel createModel)
+        {
+            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            var dto = new CommentCreateDto(currentUserId,
+                createModel.ActivityId,
+                createModel.Text,
+                createModel.ParentId,
+                createModel.LinkPreviewId
+            );
+
+            return dto;
+        }
+
+        protected virtual CommentEditDto Map(CommentEditModel editModel)
+        {
+            var dto = new CommentEditDto(editModel.Id, editModel.Text, editModel.LinkPreviewId);
+            return dto;
         }
 
         protected virtual bool IsForPagePromotion(Guid entityId)

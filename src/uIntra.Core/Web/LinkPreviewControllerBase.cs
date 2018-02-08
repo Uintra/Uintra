@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
-using Compent.LinkPreview.Client;
+using Compent.LinkPreview.HttpClient;
+using uIntra.Core.Extensions;
 using uIntra.Core.LinkPreview;
 using uIntra.Core.LinkPreview.Sql;
 using uIntra.Core.Persistence;
@@ -9,14 +9,14 @@ using Umbraco.Web.WebApi;
 
 namespace uIntra.Core.Web
 {
-    public abstract class LinkPreviewApiControllerBase : UmbracoApiController
+    public abstract class LinkPreviewControllerBase : UmbracoApiController
     {
         private readonly ILinkPreviewService _linkPreviewService;
         private readonly ILinkPreviewConfigProvider _configProvider;
         private readonly ISqlRepository<int, LinkPreviewEntity> _previewRepository;
         private readonly LinkPreviewModelMapper _linkPreviewModelMapper;
 
-        protected LinkPreviewApiControllerBase(ILinkPreviewService linkPreviewService,
+        protected LinkPreviewControllerBase(ILinkPreviewService linkPreviewService,
             ILinkPreviewConfigProvider configProvider,
             ISqlRepository<int, LinkPreviewEntity> previewRepository, LinkPreviewModelMapper linkPreviewModelMapper)
         {
@@ -37,17 +37,10 @@ namespace uIntra.Core.Web
             return model;
         }
 
-        private LinkPreviewEntity Map(Compent.LinkPreview.Client.LinkPreview model, string url)
+        private LinkPreviewEntity Map(Compent.LinkPreview.HttpClient.LinkPreview model, string url)
         {
-            var entity = new LinkPreviewEntity
-            {
-                Uri = url,
-                Title = model.Title,
-                Description = model.Description,
-                ImageId = model.ImageId,
-                FaviconId = model.FaviconId
-            };
-
+            var entity = model.Map<LinkPreviewEntity>();
+            entity.Uri = url;
             return entity;
         }
 

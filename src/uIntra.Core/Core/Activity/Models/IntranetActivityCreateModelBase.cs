@@ -20,7 +20,7 @@ namespace uIntra.Core.Activity
         [Required]
         public Guid OwnerId { get; set; }
 
-        public IIntranetType ActivityType { get; set; }
+        public Enum ActivityType { get; set; }
 
         [PropertyBinder(typeof(LinksBinder))]
         public IActivityCreateLinks Links { get; set; }

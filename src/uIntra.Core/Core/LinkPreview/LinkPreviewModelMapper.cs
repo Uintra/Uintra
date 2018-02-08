@@ -1,4 +1,4 @@
-﻿using Compent.LinkPreview.Client;
+﻿using Compent.LinkPreview.HttpClient;
 using uIntra.Core.LinkPreview.Sql;
 
 namespace uIntra.Core.LinkPreview

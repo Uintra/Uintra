@@ -2,7 +2,7 @@
 
 namespace uIntra.Core.TypeProviders
 {
-    public class MediaFolderTypeProvider : IntranetTypeProviderBase<MediaFolderTypeEnum>, IMediaFolderTypeProvider
+    public class MediaFolderTypeProvider : EnumTypeProviderBase<MediaFolderTypeEnum>, IMediaFolderTypeProvider
     {
     }
 }

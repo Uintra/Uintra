@@ -25,7 +25,7 @@ namespace uIntra.Core.PagePromotion
             _documentTypeAliasProvider = documentTypeAliasProvider;
         }
 
-        public abstract IIntranetType ActivityType { get; }
+        public abstract Enum ActivityType { get; }
 
         public virtual void Delete(Guid id)
         {

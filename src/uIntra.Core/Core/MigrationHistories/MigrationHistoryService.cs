@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using uIntra.Core.MigrationHistories.Sql;
 using uIntra.Core.Persistence;
@@ -20,6 +21,10 @@ namespace uIntra.Core.MigrationHistories
             .OrderByDescending(m => m.CreateDate)
             .FirstOrDefault();
 
+        public List<MigrationHistory> GetAll() => _migrationHistoryRepository
+            .GetAll()
+            .ToList();
+
         public void Create(string name, Version version)
         {
             var migrationHistory = new MigrationHistory
@@ -29,6 +34,17 @@ namespace uIntra.Core.MigrationHistories
                 CreateDate = DateTime.Now
             };
 
+            _migrationHistoryRepository.Add(migrationHistory);
+        }
+
+        public void Create(IEnumerable<(string name, Version version)> history)
+        {
+            var migrationHistory = history.Select(h => new MigrationHistory
+            {
+                Name = h.name,
+                Version = h.version.ToString(),
+                CreateDate = DateTime.Now
+            });
             _migrationHistoryRepository.Add(migrationHistory);
         }
     }

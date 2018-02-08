@@ -9,6 +9,6 @@ namespace uIntra.Search
         void Index(SearchableActivity activity);
         void Index(IEnumerable<SearchableActivity> activities);
         void Delete(Guid id);
-        void DeleteByType(IIntranetType type);
+        void DeleteByType(Enum type);
     }
 }

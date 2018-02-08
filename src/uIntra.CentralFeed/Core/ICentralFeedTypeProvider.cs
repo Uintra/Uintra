@@ -2,7 +2,7 @@
 
 namespace uIntra.CentralFeed
 {
-    public interface IFeedTypeProvider : IIntranetTypeProvider
+    public interface IFeedTypeProvider : IEnumTypeProvider
     {
     }
 }

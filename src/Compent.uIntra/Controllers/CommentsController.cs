@@ -46,11 +46,10 @@ namespace Compent.uIntra.Controllers
             var service = _activitiesServiceFactory.GetService<INotifyableService>(comment.ActivityId);
             if (service != null)
             {
-                var notificationId = comment.ParentId.HasValue ?
-                    NotificationTypeEnum.CommentReplied.ToInt() :
-                    NotificationTypeEnum.CommentAdded.ToInt();
+                var notificationType = comment.ParentId.HasValue ?
+                    NotificationTypeEnum.CommentReplied :
+                    NotificationTypeEnum.CommentAdded;
 
-                var notificationType = _notificationTypeProvider.Get(notificationId);
                 service.Notify(comment.ParentId ?? comment.Id, notificationType);
             }
         }
@@ -62,7 +61,7 @@ namespace Compent.uIntra.Controllers
             var service = _activitiesServiceFactory.GetService<INotifyableService>(comment.ActivityId);
             if (service != null)
             {
-                var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.CommentEdited.ToInt());
+                var notificationType = NotificationTypeEnum.CommentEdited;
                 service.Notify(comment.Id, notificationType);
             }
         }
