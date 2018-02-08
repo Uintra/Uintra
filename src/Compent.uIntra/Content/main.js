@@ -20,6 +20,7 @@ import initGroups from './../App_Plugins/Groups/groups';
 import latestActivities from './../App_Plugins/LatestActivities/latestActivities';
 import initFaqPanel from "./../App_Plugins/Panels/FaqPanel/faqPanel";
 import activitySubscribeSettings from "./../App_Plugins/Subscribe/activitySubscribeSettings";
+import tablePanel from "./../App_Plugins/Panels/TablePanel/Js/tablePanel";
 
 initCore();
 centralFeed.init();
@@ -41,3 +42,4 @@ initGroups();
 initFaqPanel();
 latestActivities.init();
 activitySubscribeSettings.init();
+tablePanel.init();

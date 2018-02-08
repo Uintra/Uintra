@@ -1,5 +1,4 @@
-﻿using uIntra.Panels.Core.Models;
-using uIntra.Panels.Core.Models.Table;
+﻿using uIntra.Panels.Core.Models.Table;
 
 namespace uIntra.Panels.Core.PresentationBuilders
 {

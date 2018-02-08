@@ -1,6 +1,6 @@
 ﻿@model uIntra.Panels.Core.Models.Table.TableEditorViewModel
 
-<ul class="table @Model.TableStyle">
+<ul class="table">
     @if (Model.UseFirstRowAsHeader)
     {
         var firstRowCells = Model.Cells.First();
@@ -25,13 +25,13 @@
     {
         var row = Model.Cells[rowIndex];
 
-        <li class="table__row @Model.RowStyles.ElementAtOrDefault(rowIndex)">
+        <li class="table__row">
             @for (var columnIndex = 0; columnIndex < row.Count; columnIndex++)
             {
                 var cell = row[columnIndex];
                 var headerCell = headerCells[columnIndex];
 
-                <div data-label="@headerCell.Value" class="table__col @Model.ColumnStyles.ElementAtOrDefault(columnIndex)">
+                <div data-label="@headerCell.Value" class="table__col">
                     <span class="@cell.Align">@Html.Raw(cell.Value)</span>
                 </div>
             }

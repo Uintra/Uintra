@@ -1,11 +1,11 @@
 ﻿@using uIntra.Panels.Core.HtmlHelpers
 @model uIntra.Panels.Core.Models.Table.TablePanelViewModel
 
-<section class="table-panel js-tracking-area @Html.PanelBehaviour(Model.PanelBehavior)" style="@Html.PanelColors(Model.PanelColors)">
+<section class="js-table-panel table-panel">
     <div class="content">
-        @if (!string.IsNullOrEmpty(Model.Title))
+        @if (!string.IsNullOrEmpty(Model.Table.Title))
         {
-            <h2 class="table-panel__title" style="color: @Model.PanelColors.TitleColor;">@Model.Title</h2>
+            <h2 class="table-panel__title">@Model.Table.Title</h2>
         }
 
         @Html.Table(Model.Table)

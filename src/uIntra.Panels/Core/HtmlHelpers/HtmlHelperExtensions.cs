@@ -1,7 +1,5 @@
 ﻿using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using uIntra.Panels.Core.Models;
-using Umbraco.Core;
 
 namespace uIntra.Panels.Core.HtmlHelpers
 {
@@ -16,26 +14,6 @@ namespace uIntra.Panels.Core.HtmlHelpers
             }
 
             return html.Partial(partialViewName, model);
-        }
-
-        public static MvcHtmlString PanelBehaviour(this HtmlHelper html, PaneBehaviorViewModel panelBehavior)
-        {
-            return new MvcHtmlString(panelBehavior?.Behavior ?? string.Empty);
-        }
-
-        public static MvcHtmlString PanelColors(this HtmlHelper html, PanelColorsViewModel panelColors)
-        {
-            if (panelColors == null)
-            {
-                return new MvcHtmlString(string.Empty);
-            }
-
-            var sectionStyles =
-                (panelColors.BackgroundColor.IsNullOrWhiteSpace() ? "" : "background-color:" + panelColors.BackgroundColor) + ";" +
-                (panelColors.TextColor.IsNullOrWhiteSpace() ? "" : "color:" + panelColors.TextColor) + ";";
-
-            return new MvcHtmlString(sectionStyles);
-        }
-
+        }        
     }
 }

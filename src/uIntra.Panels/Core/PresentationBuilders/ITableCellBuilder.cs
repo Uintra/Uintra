@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using uIntra.Panels.Core.Models;
 using uIntra.Panels.Core.Models.Table;
 
 namespace uIntra.Panels.Core.PresentationBuilders

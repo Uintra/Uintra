@@ -329,12 +329,6 @@
     <Compile Include="Core\PresentationBuilders\ITableCellBuilder.cs" />
     <Compile Include="Core\PresentationBuilders\TableCellBuilder.cs" />
     <Compile Include="Web\TablePanelControllerBase.cs" />
-    <Compile Include="Core\ModelBuilders\ITablePanelColorsModelBuilder.cs" />
-    <Compile Include="Core\ModelBuilders\ITablePanelModelBuilder.cs" />
-    <Compile Include="Core\ModelBuilders\TablePanelModelBuilder.cs" />
-    <Compile Include="Core\Models\PaneBehaviorViewModel.cs" />
-    <Compile Include="Core\Models\Table\TablePanelColorsModel.cs" />
-    <Compile Include="Core\Models\PanelColorsViewModel.cs" />
     <Compile Include="Core\Models\Table\TablePanelModel.cs" />
     <Compile Include="Core\Models\Table\TablePanelViewModel.cs" />
     <Compile Include="Core\PresentationBuilders\ITablePanelPresentationBuilder.cs" />
@@ -342,22 +336,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Panels\TableEditor\css\table-editor.css" />
-    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-column-control.directive.js" />
-    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-row-control.directive.js" />
-    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor.controller.js" />
-    <Content Include="App_Plugins\Panels\TableEditor\views\table-editor.html" />
-    <Content Include="App_Plugins\Panels\TablePanel\Css\style.css" />
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\TablePanel\Css\tableEditor.css">
+      <Link>App_Plugins\Panels\TablePanel\Css\tableEditor.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\TablePanel\Js\tablePanel.js">
+      <Link>App_Plugins\Panels\TablePanel\Js\tablePanel.js</Link>
+    </Content>
     <Content Include="uIntra.Panels.nuspec">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Compent.uIntra\App_Plugins\Panels\TablePanel\TablePanel.cshtml">
+      <Link>App_Plugins\Panels\TablePanel\TablePanel.cshtml</Link>
+    </None>
     <None Include="app.config" />
     <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
-    <None Include="App_Plugins\Panels\TableEditor\package.manifest" />
-    <None Include="App_Plugins\Panels\TableEditor\TableEditor.cshtml" />
-    <None Include="App_Plugins\Panels\TablePanel\TablePanel.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -371,8 +365,107 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Compent.uIntra\App_Plugins\Panels\**\*">
-      <Link>App_Plugins\Panels\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\ContentPanel\backoffice\content-panel.html">
+      <Link>App_Plugins\Panels\ContentPanel\backoffice\content-panel.html</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\ContentPanel\backoffice\content-panel.js">
+      <Link>App_Plugins\Panels\ContentPanel\backoffice\content-panel.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\ContentPanel\backoffice\overlay.html">
+      <Link>App_Plugins\Panels\ContentPanel\backoffice\overlay.html</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\ContentPanel\content-panel.cshtml">
+      <Link>App_Plugins\Panels\ContentPanel\content-panel.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\ContentPanel\contentPanel.css">
+      <Link>App_Plugins\Panels\ContentPanel\contentPanel.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\ContentPanel\contentPanel.js">
+      <Link>App_Plugins\Panels\ContentPanel\contentPanel.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\ContentPanel\images\arrow-right.svg">
+      <Link>App_Plugins\Panels\ContentPanel\images\arrow-right.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html">
+      <Link>App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.js">
+      <Link>App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\DocumentLibraryPanel\backoffice\overlay.html">
+      <Link>App_Plugins\Panels\DocumentLibraryPanel\backoffice\overlay.html</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml">
+      <Link>App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\DocumentLibraryPanel\documentLibraryPanel.css">
+      <Link>App_Plugins\Panels\DocumentLibraryPanel\documentLibraryPanel.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\DocumentLibraryPanel\documentLibraryPanel.js">
+      <Link>App_Plugins\Panels\DocumentLibraryPanel\documentLibraryPanel.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\FaqPanel\backoffice\faq-panel.html">
+      <Link>App_Plugins\Panels\FaqPanel\backoffice\faq-panel.html</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\FaqPanel\backoffice\faq-panel.js">
+      <Link>App_Plugins\Panels\FaqPanel\backoffice\faq-panel.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\FaqPanel\backoffice\overlay.html">
+      <Link>App_Plugins\Panels\FaqPanel\backoffice\overlay.html</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\FaqPanel\faqPanel.cshtml">
+      <Link>App_Plugins\Panels\FaqPanel\faqPanel.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\FaqPanel\faqPanel.css">
+      <Link>App_Plugins\Panels\FaqPanel\faqPanel.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\FaqPanel\faqPanel.js">
+      <Link>App_Plugins\Panels\FaqPanel\faqPanel.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml">
+      <Link>App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html">
+      <Link>App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.js">
+      <Link>App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.css">
+      <Link>App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.html">
+      <Link>App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.html</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.js">
+      <Link>App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.html">
+      <Link>App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.html</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js">
+      <Link>App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\package.manifest">
+      <Link>App_Plugins\Panels\package.manifest</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\TableEditor\css\table-editor.css">
+      <Link>App_Plugins\Panels\TableEditor\css\table-editor.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\TableEditor\js\table-editor-column-control.directive.js">
+      <Link>App_Plugins\Panels\TableEditor\js\table-editor-column-control.directive.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\TableEditor\js\table-editor-row-control.directive.js">
+      <Link>App_Plugins\Panels\TableEditor\js\table-editor-row-control.directive.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\TableEditor\js\table-editor.controller.js">
+      <Link>App_Plugins\Panels\TableEditor\js\table-editor.controller.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\TableEditor\TableEditor.cshtml">
+      <Link>App_Plugins\Panels\TableEditor\TableEditor.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\TableEditor\views\table-editor.html">
+      <Link>App_Plugins\Panels\TableEditor\views\table-editor.html</Link>
     </Content>
   </ItemGroup>
   <ItemGroup>

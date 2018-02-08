@@ -1,5 +1,4 @@
 ﻿using uIntra.Core.Extensions;
-using uIntra.Panels.Core.Models;
 using uIntra.Panels.Core.Models.Table;
 
 namespace uIntra.Panels.Core.PresentationBuilders
@@ -20,10 +19,7 @@ namespace uIntra.Panels.Core.PresentationBuilders
 
             var result = new TablePanelViewModel
             {
-                Table = table,
-                
-                PanelBehavior = new PaneBehaviorViewModel(),
-                PanelColors = new PanelColorsViewModel()
+                Table = table
             };
 
             return result;
