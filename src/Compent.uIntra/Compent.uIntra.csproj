@@ -1164,6 +1164,9 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201802050917423_LinkPreview.resx">
       <DependentUpon>201802050917423_LinkPreview.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201802091031082_Renaming.resx">
+      <DependentUpon>201802091031082_Renaming.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="config\umbracoSettings.Debug.config">
       <DependentUpon>umbracoSettings.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -1538,6 +1541,10 @@
     <Compile Include="Persistence\Sql\Migrations\201802050917423_LinkPreview.cs" />
     <Compile Include="Persistence\Sql\Migrations\201802050917423_LinkPreview.Designer.cs">
       <DependentUpon>201802050917423_LinkPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201802091031082_Renaming.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201802091031082_Renaming.Designer.cs">
+      <DependentUpon>201802091031082_Renaming.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
