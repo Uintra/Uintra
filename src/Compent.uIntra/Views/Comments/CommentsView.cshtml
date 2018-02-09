@@ -1,8 +1,8 @@
 ﻿@using System.Web.Mvc.Ajax
 @using System.Web.Mvc.Html
-@using uIntra.Comments
-@using uIntra.Core.Extensions
-@model uIntra.Comments.CommentViewModel
+@using Uintra.Comments
+@using Uintra.Core.Extensions
+@model Uintra.Comments.CommentViewModel
 
 @{
     var inactiveUser = Model.Creator.Inactive ? "_inactive" : String.Empty;
@@ -50,7 +50,7 @@
                             @if (Model.CanDelete)
                             {
                                 @Ajax.ActionLink(Html.Localize("CommentsView.Delete.lbl"), "Delete", "Comments", new { id = Model.Id },
-                                    new AjaxOptions { HttpMethod = "Delete", UpdateTargetId = Model.ElementOverviewId, InsertionMode = InsertionMode.ReplaceWith, OnComplete = $"new uIntra.methods.CommentOverview('#{Model.ElementOverviewId}');" },
+                                    new AjaxOptions { HttpMethod = "Delete", UpdateTargetId = Model.ElementOverviewId, InsertionMode = InsertionMode.ReplaceWith, OnComplete = $"new Uintra.methods.CommentOverview('#{Model.ElementOverviewId}');" },
                                     new { @class = "js-comment-delete comments__controls-list-link", data_text = Html.Localize("Common.AreYouSure") })
                             }
                         </li>
