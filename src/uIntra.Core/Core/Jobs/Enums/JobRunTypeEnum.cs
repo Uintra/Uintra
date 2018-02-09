@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core.Jobs.Enums
+﻿namespace Uintra.Core.Jobs.Enums
 {
     public enum JobRunTypeEnum
     {

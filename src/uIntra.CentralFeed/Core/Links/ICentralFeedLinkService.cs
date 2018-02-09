@@ -1,7 +1,7 @@
 ﻿using System;
-using uIntra.Core.Links;
+using Uintra.Core.Links;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public interface ICentralFeedLinkService : IActivityLinkService
     {

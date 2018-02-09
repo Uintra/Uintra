@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Notification.Exceptions
+namespace Uintra.Notification.Exceptions
 {
     public class MissingNotificationException : ApplicationException
     {

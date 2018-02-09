@@ -3,7 +3,7 @@ using System.IO;
 using System.Web.Hosting;
 using Newtonsoft.Json;
 
-namespace uIntra.Core.Configuration
+namespace Uintra.Core.Configuration
 {
     public class ConfigurationProvider<TConfiguration> : IConfigurationProvider<TConfiguration>
     {

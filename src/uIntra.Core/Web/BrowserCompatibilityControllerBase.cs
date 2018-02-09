@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using uIntra.Core.BrowserCompatibility;
-using uIntra.Core.BrowserCompatibility.Models;
-using uIntra.Core.Extensions;
+using Uintra.Core.BrowserCompatibility;
+using Uintra.Core.BrowserCompatibility.Models;
+using Uintra.Core.Extensions;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Core.Web
+namespace Uintra.Core.Web
 {
     public abstract class BrowserCompatibilityControllerBase : SurfaceController
     {

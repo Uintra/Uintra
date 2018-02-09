@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Umbraco.Core.IO;
 
-namespace uIntra.Core.Attributes
+namespace Uintra.Core.Attributes
 {
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {

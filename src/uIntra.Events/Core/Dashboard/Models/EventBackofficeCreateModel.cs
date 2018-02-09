@@ -1,7 +1,7 @@
 using System;
-using uIntra.Core.Location;
+using Uintra.Core.Location;
 
-namespace uIntra.Events.Dashboard
+namespace Uintra.Events.Dashboard
 {
     public class EventBackofficeCreateModel
     {

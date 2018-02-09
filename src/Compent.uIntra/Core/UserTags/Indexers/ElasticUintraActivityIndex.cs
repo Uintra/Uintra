@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.uIntra.Core.Search.Entities;
-using uIntra.Search;
+using Compent.Uintra.Core.Search.Entities;
+using Uintra.Search;
 
-namespace Compent.uIntra.Core.UserTags.Indexers
+namespace Compent.Uintra.Core.UserTags.Indexers
 {
     public class ElasticUintraActivityIndex: IElasticUintraActivityIndex
     {

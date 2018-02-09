@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Extensions;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
 using Umbraco.Core.Models;
 
-namespace uIntra.Core.PagePromotion
+namespace Uintra.Core.PagePromotion
 {
     public class PagePromotionAutoMapperProfile : Profile
     {

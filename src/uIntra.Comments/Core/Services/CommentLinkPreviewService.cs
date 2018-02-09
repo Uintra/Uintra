@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using uIntra.Core.LinkPreview;
-using uIntra.Core.LinkPreview.Sql;
-using uIntra.Core.Persistence;
+using Uintra.Core.LinkPreview;
+using Uintra.Core.LinkPreview.Sql;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Comments
+namespace Uintra.Comments
 {
     public class CommentLinkPreviewService : ICommentLinkPreviewService
     {

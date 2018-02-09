@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Models.Membership;
 
-namespace Compent.uIntra.Core.Users.RelatedUser.UserGroup.Helpers
+namespace Compent.Uintra.Core.Users.RelatedUser.UserGroup.Helpers
 {
     public interface IInternalGroupHelper
     {

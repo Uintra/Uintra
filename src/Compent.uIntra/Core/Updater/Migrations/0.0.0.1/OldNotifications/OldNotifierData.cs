@@ -1,6 +1,6 @@
 using System;
 
-namespace Compent.uIntra.Installer.Migrations
+namespace Compent.Uintra.Installer.Migrations
 {
     internal class OldNotifierData
     {

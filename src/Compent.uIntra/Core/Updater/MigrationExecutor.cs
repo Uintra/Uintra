@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Extensions;
-using uIntra.Core.Exceptions;
-using uIntra.Core.MigrationHistories;
-using uIntra.Core.MigrationHistories.Sql;
+using Uintra.Core.Exceptions;
+using Uintra.Core.MigrationHistories;
+using Uintra.Core.MigrationHistories.Sql;
 using Umbraco.Core;
-using static Compent.uIntra.Core.Updater.ExecutionResult;
+using static Compent.Uintra.Core.Updater.ExecutionResult;
 
-namespace Compent.uIntra.Core.Updater
+namespace Compent.Uintra.Core.Updater
 {
     public class MigrationHandler : ApplicationEventHandler
     {

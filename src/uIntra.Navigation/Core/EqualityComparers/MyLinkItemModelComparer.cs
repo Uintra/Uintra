@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace uIntra.Navigation.EqualityComparers
+namespace Uintra.Navigation.EqualityComparers
 {
     public class MyLinkItemModelComparer : IEqualityComparer<MyLinkItemModel>
     {

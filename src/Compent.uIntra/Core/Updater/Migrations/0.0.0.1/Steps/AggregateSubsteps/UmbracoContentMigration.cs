@@ -1,22 +1,22 @@
 ﻿using System.Linq;
 using System.Reflection;
 using System.Web;
-using Compent.uIntra.Core.Constants;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.uIntra.Installer.Migrations;
+using Compent.Uintra.Core.Constants;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.Uintra.Installer.Migrations;
 using EmailWorker.Data.Services.Interfaces;
-using uIntra.Core;
-using uIntra.Core.Extensions;
-using uIntra.Core.Installer;
-using uIntra.Core.Utils;
-using uIntra.Navigation;
-using uIntra.Notification.Configuration;
+using Uintra.Core;
+using Uintra.Core.Extensions;
+using Uintra.Core.Installer;
+using Uintra.Core.Utils;
+using Uintra.Navigation;
+using Uintra.Notification.Configuration;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
 {
     public class UmbracoContentMigration
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public interface IFeedItem
     {

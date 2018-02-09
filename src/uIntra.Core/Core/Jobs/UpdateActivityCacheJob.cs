@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using uIntra.Core.Activity;
-using uIntra.Core.Jobs.Models;
+using Uintra.Core.Activity;
+using Uintra.Core.Jobs.Models;
 
-namespace uIntra.Core.Jobs
+namespace Uintra.Core.Jobs
 {
     public class UpdateActivityCacheJob : BaseIntranetJob
     {

@@ -1,4 +1,4 @@
-﻿namespace uIntra.Users
+﻿namespace Uintra.Users
 {
     public static class ProfileConstants
     {

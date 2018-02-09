@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.uIntra.Core.UserTags.Indexers;
+using Compent.Uintra.Core.UserTags.Indexers;
 
-namespace Compent.uIntra.Core.Search.Indexes
+namespace Compent.Uintra.Core.Search.Indexes
 {
     public class ActivityUserTagIndex : IActivityUserTagIndex
     {

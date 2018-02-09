@@ -2,7 +2,7 @@
 using System.Linq;
 using Umbraco.Web.WebApi;
 
-namespace uIntra.Core.User
+namespace Uintra.Core.User
 {
     public class IntranetUserController : UmbracoAuthorizedApiController
     {

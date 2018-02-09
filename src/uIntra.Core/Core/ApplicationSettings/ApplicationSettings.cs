@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace uIntra.Core.ApplicationSettings
+namespace Uintra.Core.ApplicationSettings
 {
     public class ApplicationSettings : ConfigurationSection, IApplicationSettings
     {

@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Extensions;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
 using Umbraco.Web;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public class ActivityPageHelper : IActivityPageHelper
     {

@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.Core.Grid
+namespace Uintra.Core.Grid
 {
     public class GridHelper : IGridHelper
     {

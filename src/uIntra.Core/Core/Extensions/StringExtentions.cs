@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using Extensions;
 
-namespace uIntra.Core.Extensions
+namespace Uintra.Core.Extensions
 {
     public static class StringExtensions
     {

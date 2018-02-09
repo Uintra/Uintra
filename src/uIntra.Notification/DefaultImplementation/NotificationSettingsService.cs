@@ -1,10 +1,10 @@
 ﻿using System;
-using uIntra.Core.Extensions;
-using uIntra.Core.Persistence;
-using uIntra.Notification.Configuration;
-using uIntra.Notification.Core.Sql;
+using Uintra.Core.Extensions;
+using Uintra.Core.Persistence;
+using Uintra.Notification.Configuration;
+using Uintra.Notification.Core.Sql;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public class NotificationSettingsService : INotificationSettingsService
     {

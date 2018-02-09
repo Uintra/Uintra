@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using uIntra.Core.Persistence;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
-    [uIntraTable("Notification")]
+    [UintraTable("Notification")]
     public class Notification : SqlEntity<Guid>
     {
         [Key]

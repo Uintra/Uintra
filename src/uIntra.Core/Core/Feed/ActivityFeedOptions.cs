@@ -1,6 +1,6 @@
-﻿using uIntra.Core.Links;
+﻿using Uintra.Core.Links;
 
-namespace uIntra.Core.Feed
+namespace Uintra.Core.Feed
 {
     public class ActivityFeedOptions
     {

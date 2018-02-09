@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace uIntra.Search
+namespace Uintra.Search
 {
     public class SearchableContent : SearchableBase
     {

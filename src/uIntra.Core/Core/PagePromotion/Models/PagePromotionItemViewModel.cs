@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Activity;
-using uIntra.Core.Controls.LightboxGallery;
-using uIntra.Core.Links;
+using Uintra.Core.Activity;
+using Uintra.Core.Controls.LightboxGallery;
+using Uintra.Core.Links;
 
-namespace uIntra.Core.PagePromotion
+namespace Uintra.Core.PagePromotion
 {
     public class PagePromotionItemViewModel
     {

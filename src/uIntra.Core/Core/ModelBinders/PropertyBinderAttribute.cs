@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Core.ModelBinders
+namespace Uintra.Core.ModelBinders
 {
     public class PropertyBinderAttribute : Attribute
     {

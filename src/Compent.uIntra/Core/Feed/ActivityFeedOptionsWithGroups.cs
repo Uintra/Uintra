@@ -1,7 +1,7 @@
-﻿using uIntra.Core.Feed;
-using uIntra.Groups;
+﻿using Uintra.Core.Feed;
+using Uintra.Groups;
 
-namespace Compent.uIntra.Core.Feed
+namespace Compent.Uintra.Core.Feed
 {
     public class ActivityFeedOptionsWithGroups : ActivityFeedOptions
     {

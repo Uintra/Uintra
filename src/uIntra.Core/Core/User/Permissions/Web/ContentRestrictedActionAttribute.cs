@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
 
-namespace uIntra.Core.User.Permissions.Web
+namespace Uintra.Core.User.Permissions.Web
 {
     public class ContentRestrictedActionAttribute : ActionFilterAttribute
     {

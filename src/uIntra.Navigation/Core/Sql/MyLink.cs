@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using uIntra.Core.Persistence;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Navigation
+namespace Uintra.Navigation
 {
-    [uIntraTable("MyLink")]
+    [UintraTable("MyLink")]
     public class MyLink : SqlEntity<Guid>
     {
         [Key]

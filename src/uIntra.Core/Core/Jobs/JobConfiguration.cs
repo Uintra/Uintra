@@ -1,7 +1,7 @@
 ﻿using System;
-using uIntra.Core.Jobs.Enums;
+using Uintra.Core.Jobs.Enums;
 
-namespace uIntra.Core.Jobs
+namespace Uintra.Core.Jobs
 {
     public class JobConfiguration
     {

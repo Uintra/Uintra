@@ -1,7 +1,7 @@
-﻿using uIntra.Core.Extensions;
+﻿using Uintra.Core.Extensions;
 using Umbraco.Core.Models;
 
-namespace uIntra.Panels.Core.Models
+namespace Uintra.Panels.Core.Models
 {
     public class DocumentPanelMediaViewModel
     {

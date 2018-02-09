@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Compent.uIntra.Installer.Migrations.OldSubscribeSettings
+namespace Compent.Uintra.Installer.Migrations.OldSubscribeSettings
 {
     public class OldEventBase
     {

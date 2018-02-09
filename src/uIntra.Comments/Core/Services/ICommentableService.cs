@@ -1,7 +1,7 @@
 ﻿using System;
-using uIntra.Core.Activity;
+using Uintra.Core.Activity;
 
-namespace uIntra.Comments
+namespace Uintra.Comments
 {
     public interface ICommentableService : ITypedService
     {

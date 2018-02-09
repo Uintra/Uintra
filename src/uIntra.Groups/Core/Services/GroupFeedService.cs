@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Extensions;
-using uIntra.CentralFeed;
-using uIntra.Core.Caching;
-using uIntra.Core.Extensions;
+using Uintra.CentralFeed;
+using Uintra.Core.Caching;
+using Uintra.Core.Extensions;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupFeedService : FeedService, IGroupFeedService
     {

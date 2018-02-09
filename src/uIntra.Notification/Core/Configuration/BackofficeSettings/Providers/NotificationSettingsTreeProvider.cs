@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using BCLExtensions.Trees;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
 using static BCLExtensions.Trees.TreeExtensions;
 
-namespace uIntra.Notification.Configuration
+namespace Uintra.Notification.Configuration
 {
     /// <summary>
     /// Responsible for mapping defined by category provider categories into tree.

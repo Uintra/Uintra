@@ -1,10 +1,10 @@
 ﻿using System;
-using Compent.uIntra.Core.Constants;
-using uIntra.Core;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
+using Compent.Uintra.Core.Constants;
+using Uintra.Core;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
 
-namespace Compent.uIntra.Core
+namespace Compent.Uintra.Core
 {
     public class DocumentTypeProvider : IDocumentTypeAliasProvider
     {

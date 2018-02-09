@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using Umbraco.Web.WebApi;
 
-namespace uIntra.Core.Web
+namespace Uintra.Core.Web
 {
     public abstract class RteConfigControllerBase: UmbracoAuthorizedApiController
     {

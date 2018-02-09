@@ -1,9 +1,9 @@
-﻿namespace uIntra.Core
+﻿namespace Uintra.Core
 {
     public static class FolderConstants
     {
         public const string DataTypeName = "Media Folder Type";
-        public const string EnumAssemblyDll = "uIntra.Core.dll";
+        public const string EnumAssemblyDll = "Uintra.Core.dll";
         public const string PreValueAssemblyAlias = "assembly";
         public const string PreValueEnumAlias = "enum";
         public const string FolderTypePropertyTypeName = "Folder Type";

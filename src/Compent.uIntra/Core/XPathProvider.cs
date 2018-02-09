@@ -1,6 +1,6 @@
-﻿using uIntra.Core;
+﻿using Uintra.Core;
 
-namespace Compent.uIntra.Core
+namespace Compent.Uintra.Core
 {
     public class XPathProvider : IXPathProvider
     {

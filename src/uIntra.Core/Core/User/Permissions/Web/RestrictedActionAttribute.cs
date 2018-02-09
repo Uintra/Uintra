@@ -3,11 +3,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
 
-namespace uIntra.Core.User.Permissions.Web
+namespace Uintra.Core.User.Permissions.Web
 {
     public class RestrictedActionAttribute : ActionFilterAttribute
     {

@@ -1,9 +1,9 @@
 ﻿using System.Web;
 using System.Web.Helpers;
 using AutoMapper;
-using uIntra.Core.Extensions;
+using Uintra.Core.Extensions;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public class NotificationAutoMapperProfile : Profile
     {

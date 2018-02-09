@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using uIntra.Core.Location;
+using Uintra.Core.Location;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public interface IIntranetActivity : IHaveLocation
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using uIntra.Core.Links;
-using uIntra.Core.User;
+using Uintra.Core.Links;
+using Uintra.Core.User;
 
-namespace uIntra.News
+namespace Uintra.News
 {
     public class NewsPreviewViewModel
     {

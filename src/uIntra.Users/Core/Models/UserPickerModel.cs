@@ -1,4 +1,4 @@
-﻿namespace Compent.uIntra.Controllers.Api
+﻿namespace Compent.Uintra.Controllers.Api
 {
     public class UserPickerModel
     {

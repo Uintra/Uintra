@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 
-namespace uIntra.Core
+namespace Uintra.Core
 {
     public interface ICookieProvider
     {

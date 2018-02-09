@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
-using uIntra.Core;
-using uIntra.Core.Extensions;
-using uIntra.Core.Media;
-using uIntra.Core.User;
+using Uintra.Core;
+using Uintra.Core.Extensions;
+using Uintra.Core.Media;
+using Uintra.Core.User;
 using Umbraco.Web.WebApi;
 
-namespace uIntra.Events.Dashboard
+namespace Uintra.Events.Dashboard
 {
     public abstract class EventsSectionControllerBase : UmbracoAuthorizedApiController
     {

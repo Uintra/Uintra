@@ -1,6 +1,6 @@
 
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public class NotifierSettingSaveModel<T>
         where T : INotifierTemplate

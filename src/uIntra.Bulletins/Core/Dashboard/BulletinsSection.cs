@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core;
 
-namespace uIntra.Bulletins
+namespace Uintra.Bulletins
 {
     public class BulletinsSection
     {

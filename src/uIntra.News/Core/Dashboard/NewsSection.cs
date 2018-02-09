@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core;
 
-namespace uIntra.News.Dashboard
+namespace Uintra.News.Dashboard
 {
     public class NewsSection
     {

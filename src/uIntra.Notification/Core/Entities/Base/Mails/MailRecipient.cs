@@ -1,4 +1,4 @@
-﻿namespace uIntra.Notification.Base
+﻿namespace Uintra.Notification.Base
 {
     public class MailRecipient
     {

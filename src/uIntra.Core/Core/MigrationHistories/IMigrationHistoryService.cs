@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Core.MigrationHistories.Sql;
+using Uintra.Core.MigrationHistories.Sql;
 
-namespace uIntra.Core.MigrationHistories
+namespace Uintra.Core.MigrationHistories
 {
     public interface IMigrationHistoryService
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using uIntra.Core.Persistence;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Groups.Sql
+namespace Uintra.Groups.Sql
 {
-    [uIntraTable(nameof(GroupDocument))]
+    [UintraTable(nameof(GroupDocument))]
     public class GroupDocument : SqlEntity<Guid>
     {
         [Key]

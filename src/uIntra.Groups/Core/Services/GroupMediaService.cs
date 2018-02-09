@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using uIntra.Core.Controls.FileUpload;
-using uIntra.Core.Extensions;
-using uIntra.Core.Media;
+using Uintra.Core.Controls.FileUpload;
+using Uintra.Core.Extensions;
+using Uintra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupMediaService : IGroupMediaService
     {

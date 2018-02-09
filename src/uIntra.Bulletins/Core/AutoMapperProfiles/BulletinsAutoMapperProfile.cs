@@ -1,9 +1,9 @@
 using AutoMapper;
 using Extensions;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
 
-namespace uIntra.Bulletins
+namespace Uintra.Bulletins
 {
     public class BulletinsAutoMapperProfile : Profile
     {

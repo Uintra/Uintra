@@ -1,11 +1,11 @@
 using System;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Notification;
-using uIntra.Notification.Base;
-using uIntra.Notification.Configuration;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Notification;
+using Uintra.Notification.Base;
+using Uintra.Notification.Configuration;
 
-namespace Compent.uIntra.Installer.Migrations
+namespace Compent.Uintra.Installer.Migrations
 {
     public class NewNotificationMessageService
     {

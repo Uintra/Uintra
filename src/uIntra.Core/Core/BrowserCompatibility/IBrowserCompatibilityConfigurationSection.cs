@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core.BrowserCompatibility
+﻿namespace Uintra.Core.BrowserCompatibility
 {
     public interface IBrowserCompatibilityConfigurationSection
     {

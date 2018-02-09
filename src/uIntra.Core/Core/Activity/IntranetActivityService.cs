@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Caching;
-using uIntra.Core.Extensions;
-using uIntra.Core.Location;
-using uIntra.Core.Media;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Caching;
+using Uintra.Core.Extensions;
+using Uintra.Core.Location;
+using Uintra.Core.Media;
+using Uintra.Core.TypeProviders;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {

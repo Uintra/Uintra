@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Compent.uIntra.Core.UserTags
+namespace Compent.Uintra.Core.UserTags
 {
     public interface IActivityTagsHelper
     {

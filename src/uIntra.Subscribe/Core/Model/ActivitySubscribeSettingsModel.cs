@@ -1,4 +1,4 @@
-﻿namespace uIntra.Subscribe
+﻿namespace Uintra.Subscribe
 {
     public class ActivitySubscribeSettingsModel
     {
