@@ -114,15 +114,6 @@ namespace uIntra.CentralFeed.Web
             return PartialView(ListViewPath, centralFeedModel);
         }
 
-        [HttpGet]
-        public virtual ActionResult OpenFilters()
-        {
-            var feedState = _feedFilterStateService.GetFiltersState<FeedFiltersState>();
-            feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
-            _feedFilterStateService.SaveFiltersState(feedState);
-            return new EmptyResult();
-        }
-
         public virtual ActionResult LatestActivities(LatestActivitiesPanelModel panelModel)
         {
             var viewModel = GetLatestActivities(panelModel);

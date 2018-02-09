@@ -41,6 +41,14 @@ namespace uIntra.CentralFeed.Web
             _feedFilterStateService = feedFilterStateService;
         }
 
+        [HttpGet]
+        public virtual ActionResult OpenFilters()
+        {
+            var feedState = _feedFilterStateService.GetFiltersState<FeedFiltersState>();
+            feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
+            _feedFilterStateService.SaveFiltersState(feedState);
+            return new EmptyResult();
+        }
 
         #region Actions
         public virtual JsonResult AvailableActivityTypes()
