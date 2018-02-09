@@ -9,10 +9,10 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
-    <tags>Compent uIntra Panels ContentPanel GlobalPanel</tags>
+    <tags>Compent Uintra Panels ContentPanel GlobalPanel</tags>
     <dependencies>
-      <dependency id="uIntra.BaseControls" version="2.2.1.2" />
-      <dependency id="uIntra.Core" version="1.4.11" />
+      <dependency id="Uintra.BaseControls" version="2.2.1.2" />
+      <dependency id="Uintra.Core" version="1.4.11" />
     </dependencies>
   </metadata>
 </package>

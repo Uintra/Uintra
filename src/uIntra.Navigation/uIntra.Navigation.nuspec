@@ -9,9 +9,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
-    <tags>Compent uIntra Navigation Controls NavigationControls</tags>
+    <tags>Compent Uintra Navigation Controls NavigationControls</tags>
     <dependencies>
-      <dependency id="uIntra.Core" version="1.4.11" />
+      <dependency id="Uintra.Core" version="1.4.11" />
     </dependencies>
   </metadata>
 </package>
