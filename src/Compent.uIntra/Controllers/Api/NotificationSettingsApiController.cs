@@ -9,7 +9,9 @@ namespace Compent.uIntra.Controllers.Api
         public NotificationSettingsApiController(
             INotificationSettingsService notificationSettingsService,
             IActivityTypeProvider activityTypeProvider,
-            INotificationTypeProvider notificationTypeProvider) : base(notificationSettingsService, activityTypeProvider, notificationTypeProvider)
+            INotificationTypeProvider notificationTypeProvider,
+            INotifierTypeProvider notifierTypeProvider) 
+            : base(notificationSettingsService, activityTypeProvider, notificationTypeProvider, notifierTypeProvider)
         {
         }
     }
