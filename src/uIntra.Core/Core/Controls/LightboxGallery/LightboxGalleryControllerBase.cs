@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Extensions;
@@ -66,11 +67,16 @@ namespace Uintra.Core.Controls.LightboxGallery
             MapPreviewUrl(galleryViewModelList);
 
             galleryPreviewModel.Links = _linkService.GetLinks(model.ActivityId);
-            galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type is  MediaTypeEnum.Image);
-            galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type is MediaTypeEnum.Image);
+            galleryPreviewModel.Images = galleryViewModelList.Where(m => IsImageMediaType(m.Type));
+            galleryPreviewModel.OtherFiles = galleryViewModelList.Where(m => !IsImageMediaType(m.Type));
             galleryPreviewModel.Images.Skip(model.DisplayedImagesCount).ToList().ForEach(i => i.IsHidden = true);
 
             return galleryPreviewModel;
+        }
+
+        private static bool IsImageMediaType(Enum mediaType)
+        {
+            return mediaType is MediaTypeEnum.Image;
         }
 
         protected virtual LightboxGalleryItemViewModel MapToMedia(IPublishedContent media)
