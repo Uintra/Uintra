@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uIntra.Search")]
-[assembly: AssemblyDescription("The search bar is visible from all pages of uIntra. It is based on elastic search. The search bar will attempt to help the user by auto-suggest" +
+[assembly: AssemblyTitle("Uintra.Search")]
+[assembly: AssemblyDescription("The search bar is visible from all pages of Uintra. It is based on elastic search. The search bar will attempt to help the user by auto-suggest" +
                                " search key words.")]
 
 [assembly: AssemblyVersion("0.2.4.0")]

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core.Extensions;
-using uIntra.Core.Localization;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Extensions;
+using Uintra.Core.Localization;
+using Uintra.Core.TypeProviders;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Search.Web
+namespace Uintra.Search.Web
 {
     public abstract class SearchControllerBase : SurfaceController
     {

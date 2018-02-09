@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Extensions;
-using uIntra.Core.Extensions;
-using uIntra.Core.PagePromotion;
+using Uintra.Core.Extensions;
+using Uintra.Core.PagePromotion;
 using Umbraco.Web;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public class CacheActivityPageHelperFactory : IActivityPageHelperFactory
     {

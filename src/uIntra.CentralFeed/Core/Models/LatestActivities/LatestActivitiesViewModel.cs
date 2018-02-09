@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public class LatestActivitiesViewModel
     {

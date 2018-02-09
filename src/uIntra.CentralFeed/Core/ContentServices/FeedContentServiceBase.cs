@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using uIntra.Core.Extensions;
-using uIntra.Core.Grid;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Extensions;
+using Uintra.Core.Grid;
+using Uintra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public abstract class FeedContentServiceBase : IFeedContentService
     {

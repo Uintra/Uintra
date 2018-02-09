@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Nest;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.TypeProviders;
 
-namespace uIntra.Search
+namespace Uintra.Search
 {
     public interface IElasticSearchRepository
     {

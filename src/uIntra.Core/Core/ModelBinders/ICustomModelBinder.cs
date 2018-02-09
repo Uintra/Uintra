@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Web.Mvc;
 
-namespace uIntra.Core.ModelBinders
+namespace Uintra.Core.ModelBinders
 {
     public interface ICustomModelBinder
     {

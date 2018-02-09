@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Core.LinkPreview
+namespace Uintra.Core.LinkPreview
 {
     public class LinkPreviewViewModel
     {

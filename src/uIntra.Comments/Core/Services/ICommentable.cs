@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace uIntra.Comments
+namespace Uintra.Comments
 {
     public interface ICommentable
     {

@@ -1,9 +1,9 @@
 ﻿using System;
-using uIntra.Comments;
-using uIntra.Core.Activity;
-using uIntra.Notification;
+using Uintra.Comments;
+using Uintra.Core.Activity;
+using Uintra.Notification;
 
-namespace Compent.uIntra.Core.Helpers
+namespace Compent.Uintra.Core.Helpers
 {
     public interface INotifierDataHelper
     {

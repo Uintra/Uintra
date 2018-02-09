@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uIntra.BaseControls")]
+[assembly: AssemblyTitle("Uintra.BaseControls")]
 [assembly: AssemblyDescription("Base activity package.")]
 
 [assembly: AssemblyVersion("2.4.2.9")]

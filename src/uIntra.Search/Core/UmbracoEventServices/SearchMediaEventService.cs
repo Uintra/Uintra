@@ -1,11 +1,11 @@
 ﻿using System.Linq;
-using uIntra.Core.UmbracoEventServices;
+using Uintra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
-using static uIntra.Core.Constants.UmbracoAliases.Media;
+using static Uintra.Core.Constants.UmbracoAliases.Media;
 
-namespace uIntra.Search
+namespace Uintra.Search
 {
     public class SearchMediaEventService : IUmbracoMediaSavedEventService, IUmbracoMediaTrashedEventService
     {

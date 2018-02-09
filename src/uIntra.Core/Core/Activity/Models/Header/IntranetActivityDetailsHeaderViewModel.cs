@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Links;
-using uIntra.Core.Location;
-using uIntra.Core.User;
+using Uintra.Core.Links;
+using Uintra.Core.Location;
+using Uintra.Core.User;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public class IntranetActivityDetailsHeaderViewModel
     {

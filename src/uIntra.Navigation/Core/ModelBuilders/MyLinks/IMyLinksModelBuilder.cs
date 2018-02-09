@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace uIntra.Navigation.MyLinks
+namespace Uintra.Navigation.MyLinks
 {
     public interface IMyLinksModelBuilder
     {

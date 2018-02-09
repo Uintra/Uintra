@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace uIntra.Notification.Base
+namespace Uintra.Notification.Base
 {
     public class NotifierData
     {

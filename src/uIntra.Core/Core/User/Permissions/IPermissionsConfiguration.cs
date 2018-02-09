@@ -1,5 +1,5 @@
 
-namespace uIntra.Core.User.Permissions
+namespace Uintra.Core.User.Permissions
 {
     public interface IPermissionsConfiguration
     {

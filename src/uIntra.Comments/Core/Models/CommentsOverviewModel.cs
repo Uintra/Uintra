@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace uIntra.Comments
+namespace Uintra.Comments
 {
     public class CommentsOverviewModel
     {

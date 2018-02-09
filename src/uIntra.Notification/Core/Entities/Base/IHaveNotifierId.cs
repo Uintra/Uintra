@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Notification.Base
+namespace Uintra.Notification.Base
 {
     public interface IHaveNotifierId
     {

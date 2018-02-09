@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Navigation
+namespace Uintra.Navigation
 {
     public class MyLinkItemViewModel
     {

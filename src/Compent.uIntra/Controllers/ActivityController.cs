@@ -1,9 +1,9 @@
-﻿using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
-using uIntra.Core.Web;
+﻿using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Core.User.Permissions;
+using Uintra.Core.Web;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class ActivityController: ActivityControllerBase
     {

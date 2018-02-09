@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.CentralFeed;
-using uIntra.Core.Caching;
-using uIntra.Core.Extensions;
-using uIntra.Groups;
+using Uintra.CentralFeed;
+using Uintra.Core.Caching;
+using Uintra.Core.Extensions;
+using Uintra.Groups;
 
-namespace Compent.uIntra.Core.CentralFeed
+namespace Compent.Uintra.Core.CentralFeed
 {
     public class CentralFeedService : FeedService, ICentralFeedService
     {

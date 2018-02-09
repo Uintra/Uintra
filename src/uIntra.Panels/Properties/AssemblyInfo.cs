@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uIntra.Panels")]
+[assembly: AssemblyTitle("Uintra.Panels")]
 [assembly: AssemblyDescription("Panels can be added to all pages. They hold information of different types. They can be placed according to a grid layout by the webmaster in Umbraco.")]
 
 [assembly: AssemblyVersion("2.1.14.0")]

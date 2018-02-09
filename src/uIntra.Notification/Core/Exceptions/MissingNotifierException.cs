@@ -1,8 +1,8 @@
 ﻿using System;
-using uIntra.Core.TypeProviders;
-using uIntra.Notification.Configuration;
+using Uintra.Core.TypeProviders;
+using Uintra.Notification.Configuration;
 
-namespace uIntra.Notification.Exceptions
+namespace Uintra.Notification.Exceptions
 {
     public class MissingNotifierException : ApplicationException
     {

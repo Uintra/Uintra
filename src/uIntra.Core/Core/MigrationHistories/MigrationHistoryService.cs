@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.MigrationHistories.Sql;
-using uIntra.Core.Persistence;
+using Uintra.Core.MigrationHistories.Sql;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Core.MigrationHistories
+namespace Uintra.Core.MigrationHistories
 {
     public class MigrationHistoryService : IMigrationHistoryService
     {

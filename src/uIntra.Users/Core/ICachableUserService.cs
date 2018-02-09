@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Users
+namespace Uintra.Users
 {
     public interface ICacheableIntranetUserService
     {

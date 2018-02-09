@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Reflection;
-using uIntra.Core.Utils;
+using Uintra.Core.Utils;
 
-namespace uIntra.Notification.Configuration
+namespace Uintra.Notification.Configuration
 {
     public class BackofficeSettingsReader : IBackofficeSettingsReader
     {

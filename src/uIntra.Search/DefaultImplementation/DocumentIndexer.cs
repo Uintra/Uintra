@@ -4,16 +4,16 @@ using System.IO;
 using System.Linq;
 using System.Web.Hosting;
 using Extensions;
-using uIntra.Core.Exceptions;
-using uIntra.Core.Extensions;
-using uIntra.Core.Media;
+using Uintra.Core.Exceptions;
+using Uintra.Core.Extensions;
+using Uintra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using static uIntra.Core.Constants.UmbracoAliases.Media;
+using static Uintra.Core.Constants.UmbracoAliases.Media;
 using File = System.IO.File;
 
-namespace uIntra.Search
+namespace Uintra.Search
 {
     public class DocumentIndexer : IIndexer, IDocumentIndexer
     {

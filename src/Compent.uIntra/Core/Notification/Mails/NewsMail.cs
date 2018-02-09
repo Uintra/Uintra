@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using EmailWorker.Data.Model;
-using uIntra.Core.Extensions;
-using uIntra.Notification.MailModels;
+using Uintra.Core.Extensions;
+using Uintra.Notification.MailModels;
 
-namespace Compent.uIntra.Core.Notification.Mails
+namespace Compent.Uintra.Core.Notification.Mails
 {
     public class NewsMail : NewsMailBase, IEmailBase
     {

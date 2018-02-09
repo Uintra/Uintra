@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
 using Newtonsoft.Json.Linq;
-using uIntra.Core;
-using uIntra.Core.Constants;
-using uIntra.Core.Extensions;
-using uIntra.Core.Installer;
-using uIntra.Core.Media;
-using uIntra.Core.Utils;
+using Uintra.Core;
+using Uintra.Core.Constants;
+using Uintra.Core.Extensions;
+using Uintra.Core.Installer;
+using Uintra.Core.Media;
+using Uintra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
-using static Compent.uIntra.Core.Updater.ExecutionResult;
-using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.CoreInstallationConstants;
+using static Compent.Uintra.Core.Updater.ExecutionResult;
+using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.CoreInstallationConstants;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class CoreInstallationStep : IMigrationStep
     {

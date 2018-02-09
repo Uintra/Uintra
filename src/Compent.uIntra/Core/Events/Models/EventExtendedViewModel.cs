@@ -1,9 +1,9 @@
-﻿using uIntra.Comments;
-using uIntra.Events;
-using uIntra.Likes;
-using uIntra.Subscribe;
+﻿using Uintra.Comments;
+using Uintra.Events;
+using Uintra.Likes;
+using Uintra.Subscribe;
 
-namespace Compent.uIntra.Core.Events
+namespace Compent.Uintra.Core.Events
 {
     public class EventExtendedViewModel : EventViewModel
     {

@@ -1,9 +1,9 @@
-﻿using Compent.uIntra.Core.Activity.Models;
-using uIntra.Bulletins;
-using uIntra.Comments;
-using uIntra.Likes;
+﻿using Compent.Uintra.Core.Activity.Models;
+using Uintra.Bulletins;
+using Uintra.Comments;
+using Uintra.Likes;
 
-namespace Compent.uIntra.Core.Bulletins
+namespace Compent.Uintra.Core.Bulletins
 {
     public class BulletinExtendedItemViewModel : BulletinItemViewModel
     {

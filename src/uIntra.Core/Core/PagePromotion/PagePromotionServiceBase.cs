@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Activity;
-using uIntra.Core.Caching;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Activity;
+using Uintra.Core.Caching;
+using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.Core.PagePromotion
+namespace Uintra.Core.PagePromotion
 {
     public abstract class PagePromotionServiceBase<T> : IPagePromotionService<T> where T : PagePromotionBase
     {

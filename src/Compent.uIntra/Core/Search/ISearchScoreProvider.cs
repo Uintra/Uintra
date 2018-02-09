@@ -1,6 +1,6 @@
-﻿using Compent.uIntra.Core.Search.Entities;
+﻿using Compent.Uintra.Core.Search.Entities;
 
-namespace Compent.uIntra.Core.Search
+namespace Compent.Uintra.Core.Search
 {
     public interface ISearchScoreProvider
     {

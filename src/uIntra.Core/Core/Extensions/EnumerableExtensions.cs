@@ -2,7 +2,7 @@
 using System.Linq;
 using Extensions;
 
-namespace uIntra.Core.Extensions
+namespace Uintra.Core.Extensions
 {
     public static class EnumerableExtensions
     {

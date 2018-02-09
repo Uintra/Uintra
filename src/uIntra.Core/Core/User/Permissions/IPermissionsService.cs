@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Core.Activity;
+using Uintra.Core.Activity;
 using Umbraco.Core.Models;
 
-namespace uIntra.Core.User.Permissions
+namespace Uintra.Core.User.Permissions
 {
     public interface IPermissionsService
     {

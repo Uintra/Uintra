@@ -4,7 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 
-namespace uIntra.Core.Media
+namespace Uintra.Core.Media
 {
     public class ImageHelper : IImageHelper
     {

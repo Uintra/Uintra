@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Activity;
-using uIntra.Core.Persistence;
+using Uintra.Core.Activity;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Subscribe
+namespace Uintra.Subscribe
 {
     public class SubscribeService : ISubscribeService
     {

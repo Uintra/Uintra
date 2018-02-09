@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uIntra.Search;
+using Uintra.Search;
 
-namespace Compent.uIntra.Core.Search.Entities
+namespace Compent.Uintra.Core.Search.Entities
 {
     public class SearchableUser : SearchableBase, ISearchibleTaggedActivity
     {

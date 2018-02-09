@@ -1,9 +1,9 @@
 ﻿using System.Web.Http;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
 using Umbraco.Web.WebApi;
 
-namespace uIntra.Notification.Web
+namespace Uintra.Notification.Web
 {
     public abstract class NotificationSettingsApiControllerBase : UmbracoAuthorizedApiController
     {

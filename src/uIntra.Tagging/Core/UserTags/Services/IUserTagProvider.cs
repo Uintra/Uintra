@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Tagging.UserTags.Models;
+using Uintra.Tagging.UserTags.Models;
 
-namespace uIntra.Tagging.UserTags
+namespace Uintra.Tagging.UserTags
 {
     public interface IUserTagProvider
     {

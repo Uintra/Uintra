@@ -1,4 +1,4 @@
-﻿namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants
+﻿namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
 {
     public class NotificationInstallationConstants
     {
@@ -30,8 +30,8 @@
 
         public class DataTypePropertyPreValues
         {
-            public const string Assembly = "uIntra.Notification.dll";
-            public const string Enum = "uIntra.Notification.Configuration.NotificationTypeEnum";
+            public const string Assembly = "Uintra.Notification.dll";
+            public const string Enum = "Uintra.Notification.Configuration.NotificationTypeEnum";
         }
 
         public class DataTypePropertyEditors

@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core.Media
+﻿namespace Uintra.Core.Media
 {
     public interface IContentWithMediaCreateEditModel
     {

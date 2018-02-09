@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace uIntra.Core.Persistence
+namespace Uintra.Core.Persistence
 {
-    public class uIntraTableAttribute : TableAttribute
+    public class UintraTableAttribute : TableAttribute
     {
-        public uIntraTableAttribute(string name) : base("uIntra_" + name)
+        public UintraTableAttribute(string name) : base("uIntra_" + name)
         {
             
         }

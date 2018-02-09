@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.User;
-using uIntra.Groups;
+using Uintra.Core.User;
+using Uintra.Groups;
 
-namespace Compent.uIntra.Core.Users
+namespace Compent.Uintra.Core.Users
 {
     public class IntranetUser : IGroupMember
     {

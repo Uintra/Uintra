@@ -4,10 +4,10 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using uIntra.Core.Caching;
+using Uintra.Core.Caching;
 using Umbraco.Web.WebApi;
 
-namespace uIntra.Core.Controls.FileUpload
+namespace Uintra.Core.Controls.FileUpload
 {
     public class FileController : UmbracoApiController
     {

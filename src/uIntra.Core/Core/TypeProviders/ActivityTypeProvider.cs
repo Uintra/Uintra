@@ -1,6 +1,6 @@
-﻿using uIntra.Core.Activity;
+﻿using Uintra.Core.Activity;
 
-namespace uIntra.Core.TypeProviders
+namespace Uintra.Core.TypeProviders
 {
     public class ActivityTypeProvider : EnumTypeProviderBase<IntranetActivityTypeEnum>, IActivityTypeProvider
     {

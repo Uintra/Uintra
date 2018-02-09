@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using uIntra.Core.Location;
+using Uintra.Core.Location;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public abstract class IntranetActivity : IIntranetActivity
     {

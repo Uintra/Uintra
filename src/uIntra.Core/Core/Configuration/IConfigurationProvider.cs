@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core.Configuration
+﻿namespace Uintra.Core.Configuration
 {
     public interface IConfigurationProvider<out TConfiguration>
     {

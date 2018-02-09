@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.LinkPreview;
-using uIntra.Core.User;
+using Uintra.Core.LinkPreview;
+using Uintra.Core.User;
 
-namespace uIntra.Comments
+namespace Uintra.Comments
 {
     public class CommentViewModel
     {

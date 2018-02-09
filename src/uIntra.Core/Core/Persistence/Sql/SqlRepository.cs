@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Extensions;
 
-namespace uIntra.Core.Persistence
+namespace Uintra.Core.Persistence
 {
     public class SqlRepository<TKey, T> : ISqlRepository<TKey, T> where T : SqlEntity<TKey>
     {

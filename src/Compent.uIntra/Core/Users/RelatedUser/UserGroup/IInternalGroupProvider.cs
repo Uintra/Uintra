@@ -1,4 +1,4 @@
-﻿namespace Compent.uIntra.Core.Users.RelatedUser.UserGroup
+﻿namespace Compent.Uintra.Core.Users.RelatedUser.UserGroup
 {
     public interface IInternalGroupProvider
     {

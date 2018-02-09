@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace uIntra.Core.Media
+namespace Uintra.Core.Media
 {
     public interface IIntranetMediaService
     {

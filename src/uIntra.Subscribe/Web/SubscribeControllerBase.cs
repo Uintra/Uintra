@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core;
-using uIntra.Core.Activity;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
+using Uintra.Core;
+using Uintra.Core.Activity;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Subscribe.Web
+namespace Uintra.Subscribe.Web
 {
     public abstract class SubscribeControllerBase : SurfaceController
     {

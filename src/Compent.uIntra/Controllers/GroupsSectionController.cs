@@ -1,8 +1,8 @@
-﻿using uIntra.Core.User;
-using uIntra.Groups;
-using uIntra.Groups.Dashboard;
+﻿using Uintra.Core.User;
+using Uintra.Groups;
+using Uintra.Groups.Dashboard;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class GroupsSectionController : GroupsSectionControllerBase
     {

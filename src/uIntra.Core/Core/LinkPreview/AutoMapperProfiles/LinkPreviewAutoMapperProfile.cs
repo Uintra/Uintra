@@ -1,7 +1,7 @@
 using AutoMapper;
-using uIntra.Core.LinkPreview.Sql;
+using Uintra.Core.LinkPreview.Sql;
 
-namespace uIntra.Core.LinkPreview
+namespace Uintra.Core.LinkPreview
 {
     public class LinkPreviewAutoMapperProfile : Profile
     {

@@ -1,8 +1,8 @@
-﻿using uIntra.Comments;
-using uIntra.Core.PagePromotion;
-using uIntra.Likes;
+﻿using Uintra.Comments;
+using Uintra.Core.PagePromotion;
+using Uintra.Likes;
 
-namespace Compent.uIntra.Core.PagePromotion.Models
+namespace Compent.Uintra.Core.PagePromotion.Models
 {
     public class PagePromotionExtendedItemViewModel : PagePromotionItemViewModel
     {

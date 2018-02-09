@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace uIntra.Core.Caching
+namespace Uintra.Core.Caching
 {
     public class CachedList<T> : CachedItemBase
     {

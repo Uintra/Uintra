@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Core.User.Permissions.Web
+namespace Uintra.Core.User.Permissions.Web
 {
     public class IgnoreRestrictedActionAttribute : Attribute
     {

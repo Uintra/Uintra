@@ -4,14 +4,14 @@ using System.Web.Http;
 using System.Web.Mvc;
 using BCLExtensions;
 using Extensions;
-using uIntra.Core;
-using uIntra.Core.Extensions;
-using uIntra.Core.Links;
-using uIntra.Core.User;
+using Uintra.Core;
+using Uintra.Core.Extensions;
+using Uintra.Core.Links;
+using Uintra.Core.User;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Notification.Web
+namespace Uintra.Notification.Web
 {
     public abstract class NotificationControllerBase : SurfaceController
     {

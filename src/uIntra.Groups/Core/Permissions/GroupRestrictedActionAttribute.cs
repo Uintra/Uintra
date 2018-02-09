@@ -2,12 +2,12 @@
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Core.User;
-using uIntra.Core.User.Permissions.Web;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Core.User;
+using Uintra.Core.User.Permissions.Web;
 
-namespace uIntra.Groups.Permissions
+namespace Uintra.Groups.Permissions
 {
     public class GroupRestrictedActionAttribute : ActionFilterAttribute
     {

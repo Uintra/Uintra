@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Core.Controls.LightboxGallery
+namespace Uintra.Core.Controls.LightboxGallery
 {
     public class LightboxGalleryItemViewModel
     {

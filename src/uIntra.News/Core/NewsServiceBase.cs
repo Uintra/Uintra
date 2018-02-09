@@ -1,13 +1,13 @@
 ﻿using System;
-using uIntra.Core;
-using uIntra.Core.Activity;
-using uIntra.Core.Caching;
-using uIntra.Core.Location;
-using uIntra.Core.Media;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
+using Uintra.Core;
+using Uintra.Core.Activity;
+using Uintra.Core.Caching;
+using Uintra.Core.Location;
+using Uintra.Core.Media;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
 
-namespace uIntra.News
+namespace Uintra.News
 {
     public abstract class NewsServiceBase<TNews> : IntranetActivityService<TNews> where TNews : NewsBase
     {

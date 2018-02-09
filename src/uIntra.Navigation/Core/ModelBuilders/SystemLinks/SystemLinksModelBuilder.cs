@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.Navigation.SystemLinks
+namespace Uintra.Navigation.SystemLinks
 {
     public class SystemLinksModelBuilder : ISystemLinksModelBuilder
     {

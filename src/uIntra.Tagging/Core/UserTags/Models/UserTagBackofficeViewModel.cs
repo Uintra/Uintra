@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Tagging.UserTags.Models
+namespace Uintra.Tagging.UserTags.Models
 {
     public class UserTagBackofficeViewModel
     {

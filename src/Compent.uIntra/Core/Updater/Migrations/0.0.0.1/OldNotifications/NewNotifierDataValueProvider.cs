@@ -1,12 +1,12 @@
 using System;
-using Compent.uIntra.Core.Helpers;
-using uIntra.Comments;
-using uIntra.Core.Activity;
-using uIntra.Core.TypeProviders;
-using uIntra.Notification.Base;
-using uIntra.Notification.Configuration;
+using Compent.Uintra.Core.Helpers;
+using Uintra.Comments;
+using Uintra.Core.Activity;
+using Uintra.Core.TypeProviders;
+using Uintra.Notification.Base;
+using Uintra.Notification.Configuration;
 
-namespace Compent.uIntra.Installer.Migrations
+namespace Compent.Uintra.Installer.Migrations
 {
     public class NewNotifierDataValueProvider
     {

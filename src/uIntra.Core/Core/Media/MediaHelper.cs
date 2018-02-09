@@ -4,18 +4,18 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using Extensions;
-using uIntra.Core.Caching;
-using uIntra.Core.Constants;
-using uIntra.Core.Controls.FileUpload;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
+using Uintra.Core.Caching;
+using Uintra.Core.Constants;
+using Uintra.Core.Controls.FileUpload;
+using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using static uIntra.Core.Constants.UmbracoAliases.Media;
+using static Uintra.Core.Constants.UmbracoAliases.Media;
 
-namespace uIntra.Core.Media
+namespace Uintra.Core.Media
 {
     public class MediaHelper : IMediaHelper
     {

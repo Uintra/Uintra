@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Core.User;
+using Uintra.Core.User;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public interface IGroupMember : IIntranetUser
     {

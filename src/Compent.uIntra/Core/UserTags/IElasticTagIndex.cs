@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.uIntra.Core.Search.Entities;
+using Compent.Uintra.Core.Search.Entities;
 
-namespace Compent.uIntra.Core.UserTags
+namespace Compent.Uintra.Core.UserTags
 {
     public interface IElasticTagIndex
     {

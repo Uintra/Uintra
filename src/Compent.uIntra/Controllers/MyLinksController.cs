@@ -1,12 +1,12 @@
-﻿using uIntra.Core;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Navigation;
-using uIntra.Navigation.MyLinks;
-using uIntra.Navigation.Web;
+﻿using Uintra.Core;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Navigation;
+using Uintra.Navigation.MyLinks;
+using Uintra.Navigation.Web;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class MyLinksController : MyLinksControllerBase
     {

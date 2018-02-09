@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using uIntra.Tagging.UserTags;
-using uIntra.Tagging.UserTags.Models;
+using Uintra.Tagging.UserTags;
+using Uintra.Tagging.UserTags.Models;
 using Umbraco.Web;
 using Umbraco.Web.WebApi;
 
-namespace uIntra.Tagging.Web
+namespace Uintra.Tagging.Web
 {
     public abstract class UserTagsApiControllerBase : UmbracoAuthorizedApiController
     {

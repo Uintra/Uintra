@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Core.Caching
+namespace Uintra.Core.Caching
 {
     public static class CacheHelper
     {

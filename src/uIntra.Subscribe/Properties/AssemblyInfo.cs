@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uIntra.Subscribe")]
+[assembly: AssemblyTitle("Uintra.Subscribe")]
 [assembly: AssemblyDescription("Subscription can be done by all users on events they can see. Subscribing to an event allows the event creator to send emails to the subscribers" +
                                " in case of changes or additional information.")]
 

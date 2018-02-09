@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using uIntra.Core.User;
-using uIntra.Notification;
-using uIntra.Notification.Base;
-using uIntra.Notification.Configuration;
-using uIntra.Notification.DefaultImplementation;
+using Uintra.Core.User;
+using Uintra.Notification;
+using Uintra.Notification.Base;
+using Uintra.Notification.Configuration;
+using Uintra.Notification.DefaultImplementation;
 
-namespace Compent.uIntra.Core.Notification
+namespace Compent.Uintra.Core.Notification
 {
     public class MailNotifierService : INotifierService
     {

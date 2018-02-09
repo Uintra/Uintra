@@ -1,4 +1,4 @@
-﻿namespace uIntra.Groups
+﻿namespace Uintra.Groups
 {
     public struct GroupInfo
     {

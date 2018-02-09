@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using uIntra.Core.User;
+using Uintra.Core.User;
 
-namespace uIntra.Core.Extensions
+namespace Uintra.Core.Extensions
 {
     public static class EnumExtensions
     {

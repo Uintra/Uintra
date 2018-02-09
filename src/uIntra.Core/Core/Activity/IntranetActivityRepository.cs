@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using uIntra.Core.Extensions;
-using uIntra.Core.Persistence;
+using Uintra.Core.Extensions;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public class IntranetActivityRepository : IIntranetActivityRepository
     {

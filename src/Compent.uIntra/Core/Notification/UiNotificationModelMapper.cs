@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using uIntra.Core.User;
-using uIntra.Notification;
-using uIntra.Notification.Base;
-using static uIntra.Notification.Constants.TokensConstants;
+using Uintra.Core.User;
+using Uintra.Notification;
+using Uintra.Notification.Base;
+using static Uintra.Notification.Constants.TokensConstants;
 
-namespace Compent.uIntra.Core.Notification
+namespace Compent.Uintra.Core.Notification
 {
     public class UiNotificationModelMapper : INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage>
     {

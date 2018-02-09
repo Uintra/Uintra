@@ -1,8 +1,8 @@
 ﻿using System;
-using uIntra.Core.Activity;
-using uIntra.Core.Location;
+using Uintra.Core.Activity;
+using Uintra.Core.Location;
 
-namespace uIntra.News
+namespace Uintra.News
 {
     public class NewsViewModel : IntranetActivityViewModelBase
     {

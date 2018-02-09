@@ -1,15 +1,15 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using FluentScheduler;
-using uIntra.Bulletins;
-using uIntra.Core.Jobs;
-using uIntra.Events.Dashboard;
-using uIntra.Groups.Dashboard;
-using uIntra.News.Dashboard;
-using uIntra.Notification.Dashboard;
+using Uintra.Bulletins;
+using Uintra.Core.Jobs;
+using Uintra.Events.Dashboard;
+using Uintra.Groups.Dashboard;
+using Uintra.News.Dashboard;
+using Uintra.Notification.Dashboard;
 using Umbraco.Core;
 
-namespace Compent.uIntra
+namespace Compent.Uintra
 {
     public class Global : ApplicationEventHandler
     {

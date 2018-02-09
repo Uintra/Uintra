@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Exceptions;
-using uIntra.Notification.Base;
-using uIntra.Notification.Configuration;
+using Uintra.Core.Exceptions;
+using Uintra.Notification.Base;
+using Uintra.Notification.Configuration;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public class NotificationsService : INotificationsService
     {
