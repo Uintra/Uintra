@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using uIntra.Core.Extensions;
-using uIntra.Groups.Constants;
+using Uintra.Core.Extensions;
+using Uintra.Groups.Constants;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class DisabledGroupActionFilter : ActionFilterAttribute
     {

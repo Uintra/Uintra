@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Activity;
-using uIntra.Core.Controls.LightboxGallery;
-using uIntra.Core.Links;
-using uIntra.Core.Location;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Activity;
+using Uintra.Core.Controls.LightboxGallery;
+using Uintra.Core.Links;
+using Uintra.Core.Location;
+using Uintra.Core.TypeProviders;
 
-namespace uIntra.Events
+namespace Uintra.Events
 {
     public class EventItemViewModel
     {

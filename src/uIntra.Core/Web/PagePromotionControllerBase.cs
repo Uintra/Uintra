@@ -1,14 +1,14 @@
-﻿using uIntra.Core.Activity;
-using uIntra.Core.Controls.LightboxGallery;
-using uIntra.Core.Extensions;
-using uIntra.Core.Links;
-using uIntra.Core.PagePromotion;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
+﻿using Uintra.Core.Activity;
+using Uintra.Core.Controls.LightboxGallery;
+using Uintra.Core.Extensions;
+using Uintra.Core.Links;
+using Uintra.Core.PagePromotion;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
 using Umbraco.Core;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Core.Web
+namespace Uintra.Core.Web
 {
     public abstract class PagePromotionControllerBase : SurfaceController
     {

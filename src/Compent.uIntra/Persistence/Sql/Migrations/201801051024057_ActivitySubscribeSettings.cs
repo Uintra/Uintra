@@ -1,4 +1,4 @@
-namespace Compent.uIntra.Persistence.Sql.Migrations
+namespace Compent.Uintra.Persistence.Sql.Migrations
 {
     using System.Data.Entity.Migrations;
 

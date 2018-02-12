@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace uIntra.Navigation.Configuration
+namespace Uintra.Navigation.Configuration
 {
     public class NavigationConfiguration
     {

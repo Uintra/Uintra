@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uIntra.Events")]
+[assembly: AssemblyTitle("Uintra.Events")]
 [assembly: AssemblyDescription("Events are a type of post that can be created by UI publishers and webmasters. It is intended for creating events that users can subscribe to and attend.")]
 
 [assembly: AssemblyVersion("1.5.5.0")]

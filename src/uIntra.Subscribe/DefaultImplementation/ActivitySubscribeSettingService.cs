@@ -1,7 +1,7 @@
 ﻿using System;
-using uIntra.Core.Persistence;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Subscribe
+namespace Uintra.Subscribe
 {
     public class ActivitySubscribeSettingService : IActivitySubscribeSettingService
     {

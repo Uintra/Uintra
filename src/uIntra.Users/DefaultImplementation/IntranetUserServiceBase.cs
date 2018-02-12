@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web.Hosting;
-using uIntra.Core.Caching;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
+using Uintra.Core.Caching;
+using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using CacheHelper = uIntra.Core.Caching.CacheHelper;
+using CacheHelper = Uintra.Core.Caching.CacheHelper;
 
-namespace uIntra.Users
+namespace Uintra.Users
 {
     public abstract class IntranetUserServiceBase<T> : IIntranetUserService<T>, ICacheableIntranetUserService
           where T : IIntranetUser, new()

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using uIntra.Core.Attributes;
-using uIntra.Core.Links;
-using uIntra.Core.Location;
-using uIntra.Core.ModelBinders;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Attributes;
+using Uintra.Core.Links;
+using Uintra.Core.Location;
+using Uintra.Core.ModelBinders;
+using Uintra.Core.TypeProviders;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public class IntranetActivityCreateModelBase
     {

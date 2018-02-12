@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Groups.Sql;
+using Uintra.Groups.Sql;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public interface IGroupMemberService
     {

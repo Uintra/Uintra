@@ -3,13 +3,13 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using Extensions;
-using uIntra.Core.Constants;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Constants;
+using Uintra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
-namespace uIntra.Core.Extensions
+namespace Uintra.Core.Extensions
 {
     public static class PublishedContentExtensions
     {

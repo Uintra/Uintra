@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public interface IFeedService
     {

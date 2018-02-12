@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uIntra.Groups.Navigation.Models;
+using Uintra.Groups.Navigation.Models;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupNavigationViewModel
     {

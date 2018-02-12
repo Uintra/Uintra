@@ -1,9 +1,9 @@
-﻿using uIntra.CentralFeed;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Core.Links;
+﻿using Uintra.CentralFeed;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Core.Links;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupFeedLinkProvider : FeedLinkProvider, IGroupFeedLinkProvider
     {

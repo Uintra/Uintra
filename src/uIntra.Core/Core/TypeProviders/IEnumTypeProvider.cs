@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace uIntra.Core.TypeProviders
+namespace Uintra.Core.TypeProviders
 {
     public interface IEnumTypeProvider
     {

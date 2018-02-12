@@ -1,7 +1,7 @@
 ﻿using System;
-using uIntra.Notification.Base;
+using Uintra.Notification.Base;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public class LikesNotifierDataModel : INotifierDataValue, IHaveNotifierId
     {

@@ -1,7 +1,7 @@
 using System;
-using uIntra.CentralFeed;
+using Uintra.CentralFeed;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupFeedListModel : FeedListModel
     {

@@ -1,7 +1,7 @@
-﻿using uIntra.Core.Controls;
-using uIntra.Core.Web;
+﻿using Uintra.Core.Controls;
+using Uintra.Core.Web;
 
-namespace Compent.uIntra.Controllers.Api
+namespace Compent.Uintra.Controllers.Api
 {
     public class EditorConfigController : EditorConfigControllerBase
     {

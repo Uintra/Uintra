@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using BCLExtensions;
 using Extensions;
-using uIntra.Core.Activity;
-using uIntra.Core.ApplicationSettings;
-using uIntra.Core.Exceptions;
-using uIntra.Core.Extensions;
-using uIntra.Core.User;
-using uIntra.Notification.Base;
-using uIntra.Notification.Configuration;
-using uIntra.Notification.MailModels;
+using Uintra.Core.Activity;
+using Uintra.Core.ApplicationSettings;
+using Uintra.Core.Exceptions;
+using Uintra.Core.Extensions;
+using Uintra.Core.User;
+using Uintra.Notification.Base;
+using Uintra.Notification.Configuration;
+using Uintra.Notification.MailModels;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public abstract class MonthlyEmailServiceBase : IMonthlyEmailService
     {

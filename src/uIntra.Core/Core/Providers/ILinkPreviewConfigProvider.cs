@@ -1,6 +1,6 @@
-﻿using uIntra.Core.LinkPreview;
+﻿using Uintra.Core.LinkPreview;
 
-namespace uIntra.Core
+namespace Uintra.Core
 {
     public interface ILinkPreviewConfigProvider
     {

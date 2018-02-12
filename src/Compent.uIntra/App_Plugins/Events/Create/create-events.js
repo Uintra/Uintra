@@ -80,7 +80,7 @@ var initDatePickers = function () {
             end.setDate(newDate);
         }
 
-        end.set('minDate', newDate);
+     //   end.set('minDate', newDate);
     }
 
     function publishOnChange(newDates) {

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Caching;
-using uIntra.Core.Extensions;
+using Uintra.Core.Caching;
+using Uintra.Core.Extensions;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public abstract class FeedService : IFeedService
     {

@@ -1,4 +1,4 @@
-﻿namespace uIntra.Notification.Configuration
+﻿namespace Uintra.Notification.Configuration
 {
     public interface IBackofficeNotificationSettingsProvider 
     {

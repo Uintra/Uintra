@@ -3,16 +3,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
 using Extensions;
 using Localization.Core;
 using Newtonsoft.Json.Linq;
-using uIntra.Core.Utils;
+using Uintra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
-namespace uIntra.Core.Installer
+namespace Uintra.Core.Installer
 {
     public class InstallationStepsHelper
     {
@@ -143,9 +143,9 @@ namespace uIntra.Core.Installer
             var localizationCoreService = DependencyResolver.Current.GetService<ILocalizationCoreService>();
 
             var resourceModel = localizationCoreService.GetResourceModel(key);
-            if (resourceModel.Translations[Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English].Contains(key))
+            if (resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English].Contains(key))
             {
-                resourceModel.Translations[Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English] = translation;
+                resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English] = translation;
                 localizationCoreService.Create(resourceModel);
             }
         }

@@ -1,10 +1,10 @@
 ﻿using System.Web.Mvc;
 using Localization.Umbraco.Attributes;
-using uIntra.Core;
-using uIntra.Core.Localization;
-using uIntra.Users.Web;
+using Uintra.Core;
+using Uintra.Core.Localization;
+using Uintra.Users.Web;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     [AllowAnonymous]
     [ThreadCulture]

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using uIntra.Core.Controls;
-using static Compent.uIntra.Core.Constants.DocumentTypeAliasConstants;
+using Uintra.Core.Controls;
+using static Compent.Uintra.Core.Constants.DocumentTypeAliasConstants;
 
-namespace Compent.uIntra.Core.Controls.EditorConfiguration
+namespace Compent.Uintra.Core.Controls.EditorConfiguration
 {
     public class IntranetEditorConfigProvider : EditorConfigProvider
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Extensions;
-using uIntra.Core.Extensions;
+using Uintra.Core.Extensions;
 
-namespace uIntra.Core.TypeProviders
+namespace Uintra.Core.TypeProviders
 {
     public static class EnumTypeExtensions
     {

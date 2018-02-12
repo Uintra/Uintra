@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using uIntra.CentralFeed;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Events;
-using uIntra.Groups;
+using Uintra.CentralFeed;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Events;
+using Uintra.Groups;
 
-namespace Compent.uIntra.Core.Events
+namespace Compent.Uintra.Core.Events
 {
     public class EventsAutoMapperProfile : Profile
     {

@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core.ApplicationSettings
+﻿namespace Uintra.Core.ApplicationSettings
 {
     public interface IApplicationSettings
     {

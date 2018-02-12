@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Extensions;
-using uIntra.Core.Constants;
-using uIntra.Core.Extensions;
-using uIntra.Core.Links;
-using uIntra.Core.Media;
+using Uintra.Core.Constants;
+using Uintra.Core.Extensions;
+using Uintra.Core.Links;
+using Uintra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Core.Controls.LightboxGallery
+namespace Uintra.Core.Controls.LightboxGallery
 {
     public abstract class LightboxGalleryControllerBase : SurfaceController
     {
@@ -66,11 +67,28 @@ namespace uIntra.Core.Controls.LightboxGallery
             MapPreviewUrl(galleryViewModelList);
 
             galleryPreviewModel.Links = _linkService.GetLinks(model.ActivityId);
-            galleryPreviewModel.Images = galleryViewModelList.FindAll(m => m.Type is  MediaTypeEnum.Image);
-            galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => m.Type is MediaTypeEnum.Image);
+            galleryPreviewModel.Images = galleryViewModelList.FindAll(m => IsImageMediaType(m.Type));
+            galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => !IsImageMediaType(m.Type));
+            galleryPreviewModel.IsAttachedFileIconShown = IsAttachedFileIconShown(galleryPreviewModel);
+            galleryPreviewModel.TotalFileCount = CountAllFiles(galleryPreviewModel);
             galleryPreviewModel.Images.Skip(model.DisplayedImagesCount).ToList().ForEach(i => i.IsHidden = true);
 
             return galleryPreviewModel;
+        }
+
+        private static int CountAllFiles(LightboxGalleryPreviewViewModel galleryPreviewModel)
+        {
+            return galleryPreviewModel.Images.Count + galleryPreviewModel.OtherFiles.Count;
+        }
+
+        private static bool IsAttachedFileIconShown(LightboxGalleryPreviewViewModel galleryPreviewModel)
+        {
+            return galleryPreviewModel.OtherFiles.Count > 0 || galleryPreviewModel.Images.Count > 3;
+        }
+
+        private static bool IsImageMediaType(Enum mediaType)
+        {
+            return mediaType is MediaTypeEnum.Image;
         }
 
         protected virtual LightboxGalleryItemViewModel MapToMedia(IPublishedContent media)

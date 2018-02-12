@@ -1,6 +1,6 @@
-﻿using uIntra.Core.Web;
+﻿using Uintra.Core.Web;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class ActivityLocationController : ActivityLocationControllerBase
     {

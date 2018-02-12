@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core.Activity;
+using Uintra.Core.Activity;
 
-namespace Compent.uIntra.Core
+namespace Compent.Uintra.Core
 {
     public class ActivitiesServiceFactory : IActivitiesServiceFactory
     {

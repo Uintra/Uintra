@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.uIntra.Core.Search;
-using Compent.uIntra.Core.Search.Entities;
-using Compent.uIntra.Core.Search.Models;
+using Compent.Uintra.Core.Search;
+using Compent.Uintra.Core.Search.Entities;
+using Compent.Uintra.Core.Search.Models;
 using Localization.Umbraco.Attributes;
-using uIntra.Core.Extensions;
-using uIntra.Core.Localization;
-using uIntra.Core.TypeProviders;
-using uIntra.Search;
-using uIntra.Search.Web;
+using Uintra.Core.Extensions;
+using Uintra.Core.Localization;
+using Uintra.Core.TypeProviders;
+using Uintra.Search;
+using Uintra.Search.Web;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     [ThreadCulture]
     public class SearchController : SearchControllerBase

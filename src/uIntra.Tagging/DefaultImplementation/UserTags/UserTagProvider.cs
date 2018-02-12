@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using uIntra.Core;
+using Uintra.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using System.Linq;
-using uIntra.Tagging.UserTags.Models;
+using Uintra.Tagging.UserTags.Models;
 
-namespace uIntra.Tagging.UserTags
+namespace Uintra.Tagging.UserTags
 {
     public class UserTagProvider : IUserTagProvider
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using uIntra.Core.Links;
-using uIntra.Core.Location;
+using Uintra.Core.Links;
+using Uintra.Core.Location;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public abstract class IntranetActivityViewModelBase
     {

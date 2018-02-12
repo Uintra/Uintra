@@ -1,8 +1,8 @@
-﻿using uIntra.Core.User;
-using uIntra.Navigation.Web;
+﻿using Uintra.Core.User;
+using Uintra.Navigation.Web;
 using Umbraco.Core.Services;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class NavigationAuthorizationController : NavigationAuthorizationControllerBase
     {

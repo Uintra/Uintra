@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core;
-using uIntra.Core.Extensions;
-using uIntra.Core.Grid;
-using uIntra.Core.PagePromotion;
+using Uintra.Core;
+using Uintra.Core.Extensions;
+using Uintra.Core.Grid;
+using Uintra.Core.PagePromotion;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Core.Services;
-using static uIntra.Core.Constants.GridEditorConstants;
+using static Uintra.Core.Constants.GridEditorConstants;
 
-namespace uIntra.Search
+namespace Uintra.Search
 {
     public class ContentIndexer : IIndexer, IContentIndexer
     {

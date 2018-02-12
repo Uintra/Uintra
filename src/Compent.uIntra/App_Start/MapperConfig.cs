@@ -1,27 +1,27 @@
 ﻿using AutoMapper;
-using Compent.uIntra.Core.Activity;
-using Compent.uIntra.Core.Search.SearchAutoMapperProfile;
-using uIntra.Bulletins;
-using uIntra.CentralFeed;
-using uIntra.Comments;
-using uIntra.Core.Controls.LightboxGallery;
-using uIntra.Core.Jobs.AutoMapperProfiles;
-using uIntra.Core.Location;
-using uIntra.Core.PagePromotion;
-using uIntra.Events;
-using uIntra.Groups;
-using uIntra.Navigation;
-using uIntra.News;
-using uIntra.Notification;
-using uIntra.Panels.Core.AutoMapperProfiles;
-using uIntra.Search;
-using uIntra.Tagging;
-using uIntra.Subscribe;
-using uIntra.Users;
+using Compent.Uintra.Core.Activity;
+using Compent.Uintra.Core.Search.SearchAutoMapperProfile;
+using Uintra.Bulletins;
+using Uintra.CentralFeed;
+using Uintra.Comments;
+using Uintra.Core.Controls.LightboxGallery;
+using Uintra.Core.Jobs.AutoMapperProfiles;
+using Uintra.Core.Location;
+using Uintra.Core.LinkPreview;
+using Uintra.Core.PagePromotion;
+using Uintra.Events;
+using Uintra.Groups;
+using Uintra.Navigation;
+using Uintra.News;
+using Uintra.Notification;
+using Uintra.Search;
+using Uintra.Tagging;
+using Uintra.Subscribe;
+using Uintra.Users;
 using Umbraco.Core.Models.Identity;
 using Umbraco.Core.Models.Membership;
 
-namespace Compent.uIntra
+namespace Compent.Uintra
 {
     public static class MapperConfig
     {
@@ -54,7 +54,6 @@ namespace Compent.uIntra
             Mapper.AddProfile<SubscribeAutoMapperProfiles>();
             Mapper.AddProfile<SubscribeSettingAutoMapperProfiles>();
             Mapper.AddProfile<LocationAutoMapperProfile>();
-            Mapper.AddProfile<TablePanelAutoMapperProfiles>();
             Mapper.AddProfile<LinkPreviewAutoMapperProfile>();
 
             var typeMaps = Mapper.GetAllTypeMaps();

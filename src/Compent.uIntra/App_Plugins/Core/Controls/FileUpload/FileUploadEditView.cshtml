@@ -1,8 +1,8 @@
 ﻿@using System.Web.Mvc.Html
-@using uIntra.Core
-@using uIntra.Core.Controls.FileUpload
-@using uIntra.Core.Extensions
-@inherits Umbraco.Web.Mvc.UmbracoViewPage<uIntra.Core.Controls.FileUpload.FileUploadEditViewModel>
+@using Uintra.Core
+@using Uintra.Core.Controls.FileUpload
+@using Uintra.Core.Extensions
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Core.Controls.FileUpload.FileUploadEditViewModel>
 @{
     var existedIds = Model.Files.Select(s => s.Id.ToString()).JoinWithComma();
 }

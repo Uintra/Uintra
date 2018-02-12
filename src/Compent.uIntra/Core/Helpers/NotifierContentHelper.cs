@@ -1,10 +1,10 @@
 ﻿using System;
-using uIntra.Comments;
-using uIntra.Core.Activity;
-using uIntra.Core.Links;
-using uIntra.Notification;
+using Uintra.Comments;
+using Uintra.Core.Activity;
+using Uintra.Core.Links;
+using Uintra.Notification;
 
-namespace Compent.uIntra.Core.Helpers
+namespace Compent.Uintra.Core.Helpers
 {
     public class NotifierDataHelper : INotifierDataHelper
     {

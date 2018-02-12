@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.uIntra.Core.Notification.Mails;
-using uIntra.Bulletins;
-using uIntra.Core.Activity;
-using uIntra.Core.ApplicationSettings;
-using uIntra.Core.Exceptions;
-using uIntra.Core.Links;
-using uIntra.Core.User;
-using uIntra.Events;
-using uIntra.News;
-using uIntra.Notification;
-using uIntra.Tagging.UserTags;
+using Compent.Uintra.Core.Notification.Mails;
+using Uintra.Bulletins;
+using Uintra.Core.Activity;
+using Uintra.Core.ApplicationSettings;
+using Uintra.Core.Exceptions;
+using Uintra.Core.Links;
+using Uintra.Core.User;
+using Uintra.Events;
+using Uintra.News;
+using Uintra.Notification;
+using Uintra.Tagging.UserTags;
 
-namespace Compent.uIntra.Core.Notification
+namespace Compent.Uintra.Core.Notification
 {
     public class MonthlyEmailService: MonthlyEmailServiceBase
     {

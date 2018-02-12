@@ -3,11 +3,11 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
 
-namespace uIntra.Core.User.Permissions.Web
+namespace Uintra.Core.User.Permissions.Web
 {
     public class ContentRestrictedActionApiAttribute : ActionFilterAttribute
     {

@@ -1,5 +1,5 @@
-﻿@using uIntra.Core.Extensions
-@model Compent.uIntra.Core.Activity.Models.ExtendedItemHeaderViewModel
+﻿@using Uintra.Core.Extensions
+@model Compent.Uintra.Core.Activity.Models.ExtendedItemHeaderViewModel
 @{
     var inactiveUser = Model.Owner.Inactive ? "_inactive" : String.Empty;
 }
@@ -21,10 +21,7 @@
                     <span>@Model.Owner.DisplayedName</span>
                 </a>
             }
-            @if (Model.Location != null)
-            {
-                @Html.Action("HeaderLink", "ActivityLocation", new { location = Model.Location })
-            }
+
             <span class="feed__item-inactive">[@Html.Localize("ActivityItemHeader.Creator.Inactive.lbl")]</span>
 
             @if (Model.GroupInfo.HasValue)
@@ -37,6 +34,11 @@
                         <em class="feed__item-tooltip">@Html.Localize("GroupActivity.lbl")</em>
                     </span>
                 </a>
+            }
+            
+            @if (Model.Location?.Address != null && Model.Location.ShortAddress != null)
+            {
+                @Html.Action("HeaderLink", "ActivityLocation", new { location = Model.Location })
             }
         </p>
     </div>

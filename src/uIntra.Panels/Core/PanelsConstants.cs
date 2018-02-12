@@ -1,4 +1,4 @@
-﻿namespace uIntra.Panels.Core
+﻿namespace Uintra.Panels.Core
 {
     public class PanelsConstants
     {

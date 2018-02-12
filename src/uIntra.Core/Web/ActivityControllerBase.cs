@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Core.Links;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Core.User.Permissions;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Core.Web
+namespace Uintra.Core.Web
 {
     public abstract class ActivityControllerBase : SurfaceController
     {

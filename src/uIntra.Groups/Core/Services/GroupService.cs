@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Caching;
-using uIntra.Core.Extensions;
-using uIntra.Core.Persistence;
-using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
-using uIntra.Groups.Sql;
+using Uintra.Core.Caching;
+using Uintra.Core.Extensions;
+using Uintra.Core.Persistence;
+using Uintra.Core.User;
+using Uintra.Core.User.Permissions;
+using Uintra.Groups.Sql;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupService : IGroupService
     {

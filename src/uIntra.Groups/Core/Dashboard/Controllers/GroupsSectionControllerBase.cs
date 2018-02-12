@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using uIntra.Core.Extensions;
-using uIntra.Core.User;
+using Uintra.Core.Extensions;
+using Uintra.Core.User;
 using Umbraco.Web.WebApi;
 
-namespace uIntra.Groups.Dashboard
+namespace Uintra.Groups.Dashboard
 {
     public abstract class GroupsSectionControllerBase : UmbracoAuthorizedApiController
     {

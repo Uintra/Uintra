@@ -1,10 +1,10 @@
 ﻿using System;
-using uIntra.Core.Extensions;
-using uIntra.Core.Persistence;
-using uIntra.Notification.Configuration;
-using uIntra.Notification.Core.Sql;
+using Uintra.Core.Extensions;
+using Uintra.Core.Persistence;
+using Uintra.Notification.Configuration;
+using Uintra.Notification.Core.Sql;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public class NotificationSettingsService : INotificationSettingsService
     {
@@ -65,10 +65,10 @@ namespace uIntra.Notification
         {
             var notifierId = activityEventNotifierIdentity.NotifierType.ToInt();
             var notificationId = activityEventNotifierIdentity.Event.NotificationType.ToInt();
-            var activityId = activityEventNotifierIdentity.Event.NotificationType.ToInt();
+            var activityTypeId = activityEventNotifierIdentity.Event.ActivityType.ToInt();
 
             return _repository.Find(s =>
-                            s.ActivityType == activityId &&
+                            s.ActivityType == activityTypeId &&
                             s.NotificationType == notificationId &&
                             s.NotifierType == notifierId);
         }

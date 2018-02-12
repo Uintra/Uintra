@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace uIntra.Core.TypeProviders
+namespace Uintra.Core.TypeProviders
 {
 
     public abstract class EnumTypeProviderBase<T> : IEnumTypeProvider where T : struct

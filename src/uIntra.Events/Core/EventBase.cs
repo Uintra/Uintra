@@ -1,8 +1,8 @@
 ﻿using System;
-using uIntra.Core.Activity;
-using uIntra.Core.User;
+using Uintra.Core.Activity;
+using Uintra.Core.User;
 
-namespace uIntra.Events
+namespace Uintra.Events
 {
     public class EventBase : IntranetActivity, IHaveCreator, IHaveOwner
     {

@@ -1,4 +1,4 @@
-﻿namespace Compent.uIntra.Core.Updater
+﻿namespace Compent.Uintra.Core.Updater
 {
     public class GroupStep: IMigrationStep
     {

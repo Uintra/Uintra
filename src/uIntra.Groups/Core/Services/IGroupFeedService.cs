@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.CentralFeed;
+using Uintra.CentralFeed;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public interface IGroupFeedService : IFeedService
     {

@@ -1,14 +1,14 @@
 ﻿using System.Reflection;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
-using uIntra.Core.Constants;
-using uIntra.Core.Installer;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using Uintra.Core.Constants;
+using Uintra.Core.Installer;
 using Umbraco.Core;
 using Umbraco.Core.Models;
-using static Compent.uIntra.Core.Updater.ExecutionResult;
-using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.GroupsInstallationConstants;
+using static Compent.Uintra.Core.Updater.ExecutionResult;
+using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.GroupsInstallationConstants;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class GroupsInstallationStep : IMigrationStep
     {

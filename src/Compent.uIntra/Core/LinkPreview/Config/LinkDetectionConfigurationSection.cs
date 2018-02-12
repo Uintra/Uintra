@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 
-namespace Compent.uIntra.Core.LinkPreview.Config
+namespace Compent.Uintra.Core.LinkPreview.Config
 {
     public class LinkDetectionConfigurationSection : ConfigurationSection
     {

@@ -1,10 +1,10 @@
 using Localization.Umbraco.Attributes;
-using uIntra.Core.Links;
-using uIntra.Core.User;
-using uIntra.Notification;
-using uIntra.Notification.Web;
+using Uintra.Core.Links;
+using Uintra.Core.User;
+using Uintra.Notification;
+using Uintra.Notification.Web;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     [ThreadCulture]
     public class NotificationController : NotificationControllerBase

@@ -1,11 +1,11 @@
 ﻿using System.Web.Mvc;
-using uIntra.Core.UmbracoEventServices;
+using Uintra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Publishing;
 using Umbraco.Core.Services;
 
-namespace Compent.uIntra.Core
+namespace Compent.Uintra.Core
 {
     public static class UmbracoEventsModule
     {

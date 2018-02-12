@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace uIntra.Core.Utils
+namespace Uintra.Core.Utils
 {
     public class HttpHelper : IDisposable, IHttpHelper
     {

@@ -2,17 +2,17 @@
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using uIntra.Core;
-using uIntra.Core.Activity;
-using uIntra.Core.Constants;
-using uIntra.Core.Extensions;
-using uIntra.Core.Links;
-using uIntra.Core.Media;
-using uIntra.Core.User;
-using uIntra.Groups.Permissions;
+using Uintra.Core;
+using Uintra.Core.Activity;
+using Uintra.Core.Constants;
+using Uintra.Core.Extensions;
+using Uintra.Core.Links;
+using Uintra.Core.Media;
+using Uintra.Core.User;
+using Uintra.Groups.Permissions;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Groups.Web
+namespace Uintra.Groups.Web
 {
     public abstract class GroupControllerBase : SurfaceController
     {        

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uIntra.Tagging")]
+[assembly: AssemblyTitle("Uintra.Tagging")]
 [assembly: AssemblyDescription("Tagging activity package")]
 
 [assembly: AssemblyVersion("1.1.11.0")]

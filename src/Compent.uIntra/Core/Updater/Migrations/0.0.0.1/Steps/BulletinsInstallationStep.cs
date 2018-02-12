@@ -1,10 +1,10 @@
-﻿using uIntra.Core.Installer;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
-using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.BulletinsInstallationConstants;
-using static Compent.uIntra.Core.Updater.ExecutionResult;
+﻿using Uintra.Core.Installer;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.BulletinsInstallationConstants;
+using static Compent.Uintra.Core.Updater.ExecutionResult;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class BulletinsInstallationStep : IMigrationStep
     {

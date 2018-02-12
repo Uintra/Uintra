@@ -1,6 +1,6 @@
-﻿using uIntra.Core.User;
+﻿using Uintra.Core.User;
 
-namespace uIntra.Users
+namespace Uintra.Users
 {
     public class ProfileViewModel
     {

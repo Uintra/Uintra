@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nest;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
-using uIntra.Search.Configuration;
-using IExceptionLogger = uIntra.Core.Exceptions.IExceptionLogger;
+using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
+using Uintra.Search.Configuration;
+using IExceptionLogger = Uintra.Core.Exceptions.IExceptionLogger;
 
-namespace uIntra.Search
+namespace Uintra.Search
 {
     public class ElasticSearchRepository : IElasticSearchRepository
     {

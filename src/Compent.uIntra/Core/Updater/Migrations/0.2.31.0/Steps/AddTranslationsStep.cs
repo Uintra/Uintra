@@ -1,7 +1,7 @@
 ﻿using Localization.Core;
-using uIntra.Core.Installer;
+using Uintra.Core.Installer;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Steps
+namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
 {
     public class AddTranslationsStep : IMigrationStep
     {

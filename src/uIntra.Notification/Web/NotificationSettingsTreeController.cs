@@ -1,14 +1,14 @@
 ﻿using System.Linq;
 using System.Net.Http.Formatting;
 using BCLExtensions.Trees;
-using uIntra.Notification.Configuration;
+using Uintra.Notification.Configuration;
 using umbraco.businesslogic;
 using umbraco.interfaces;
 using Umbraco.Web.Models.Trees;
 using Umbraco.Web.Mvc;
 using Umbraco.Web.Trees;
 
-namespace uIntra.Notification.Web
+namespace Uintra.Notification.Web
 {
     [Umbraco.Web.Trees.Tree("NotificationSettings", "NotificationSettingsTree", "Notification Settings")]
     [PluginController("NotificationSettings")]

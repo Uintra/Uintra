@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using uIntra.CentralFeed;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
-using uIntra.Groups.Dashboard;
-using uIntra.Groups.Navigation.Models;
-using uIntra.Groups.Sql;
+using Uintra.CentralFeed;
+using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
+using Uintra.Groups.Dashboard;
+using Uintra.Groups.Navigation.Models;
+using Uintra.Groups.Sql;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupsAutoMapperProfile : Profile
     {

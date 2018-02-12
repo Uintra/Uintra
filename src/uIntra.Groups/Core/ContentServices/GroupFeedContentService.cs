@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.CentralFeed;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Core.Grid;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
+using Uintra.CentralFeed;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Core.Grid;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using static uIntra.Groups.Constants.GroupConstants;
+using static Uintra.Groups.Constants.GroupConstants;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupFeedContentService : FeedContentServiceBase, IGroupFeedContentService
     {

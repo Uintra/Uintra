@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Compent.uIntra.Core.Search.Indexes
+namespace Compent.Uintra.Core.Search.Indexes
 {
     public interface IActivityUserTagIndex
     {

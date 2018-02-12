@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Umbraco.Core.Models;
 
-namespace uIntra.CentralFeed.Providers
+namespace Uintra.CentralFeed.Providers
 {
     public interface IFeedContentProvider
     {

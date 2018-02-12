@@ -9,9 +9,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
-    <tags>Compent uIntra Core</tags>
+    <tags>Compent Uintra Core</tags>
     <dependencies>
-      <dependency id="uIntra.BaseControls" version="1.4.1.3" />
+      <dependency id="Uintra.BaseControls" version="1.4.1.3" />
     </dependencies>
   </metadata>
 </package>

@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using uIntra.CentralFeed;
-using uIntra.Comments;
-using uIntra.Core;
-using uIntra.Core.Activity;
-using uIntra.Core.Caching;
-using uIntra.Core.Constants;
-using uIntra.Core.Extensions;
-using uIntra.Core.Grid;
-using uIntra.Core.PagePromotion;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Likes;
-using uIntra.Search;
+using Uintra.CentralFeed;
+using Uintra.Comments;
+using Uintra.Core;
+using Uintra.Core.Activity;
+using Uintra.Core.Caching;
+using Uintra.Core.Constants;
+using Uintra.Core.Extensions;
+using Uintra.Core.Grid;
+using Uintra.Core.PagePromotion;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Likes;
+using Uintra.Search;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.PagePromotion
+namespace Compent.Uintra.Core.PagePromotion
 {
     public class PagePromotionService : PagePromotionServiceBase<Entities.PagePromotion>,
         IFeedItemService,

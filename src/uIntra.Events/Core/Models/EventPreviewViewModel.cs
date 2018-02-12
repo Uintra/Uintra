@@ -1,9 +1,9 @@
 ﻿using System;
-using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
+using Uintra.Core.Links;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
 
-namespace uIntra.Events
+namespace Uintra.Events
 {
     public class EventPreviewViewModel
     {

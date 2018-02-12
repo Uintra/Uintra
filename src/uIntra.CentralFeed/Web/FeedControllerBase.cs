@@ -4,13 +4,13 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web.Mvc;
 using Extensions;
-using uIntra.Core.Extensions;
-using uIntra.Core.Feed;
-using uIntra.Core.User;
-using uIntra.Subscribe;
+using Uintra.Core.Extensions;
+using Uintra.Core.Feed;
+using Uintra.Core.User;
+using Uintra.Subscribe;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.CentralFeed.Web
+namespace Uintra.CentralFeed.Web
 {
     public abstract class FeedControllerBase : SurfaceController
     {
@@ -41,6 +41,14 @@ namespace uIntra.CentralFeed.Web
             _feedFilterStateService = feedFilterStateService;
         }
 
+        [HttpGet]
+        public virtual ActionResult OpenFilters()
+        {
+            var feedState = _feedFilterStateService.GetFiltersState<FeedFiltersState>();
+            feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
+            _feedFilterStateService.SaveFiltersState(feedState);
+            return new EmptyResult();
+        }
 
         #region Actions
         public virtual JsonResult AvailableActivityTypes()

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using uIntra.Core.Extensions;
-using uIntra.Core.Persistence;
+using Uintra.Core.Extensions;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Comments
+namespace Uintra.Comments
 {
     public class CommentsService : ICommentsService
     {

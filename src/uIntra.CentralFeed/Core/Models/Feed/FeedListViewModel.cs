@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public class FeedListViewModel
     {

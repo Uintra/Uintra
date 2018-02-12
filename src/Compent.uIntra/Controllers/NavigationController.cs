@@ -1,25 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.uIntra.Core.Users;
+using Compent.Uintra.Core.Users;
 using Extensions;
-using uIntra.CentralFeed;
-using uIntra.Core;
-using uIntra.Core.Extensions;
-using uIntra.Core.Links;
-using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
-using uIntra.Groups;
-using uIntra.Groups.Extensions;
-using uIntra.Groups.Navigation.Models;
-using uIntra.Navigation;
-using uIntra.Navigation.SystemLinks;
-using uIntra.Navigation.Web;
+using Uintra.CentralFeed;
+using Uintra.Core;
+using Uintra.Core.Extensions;
+using Uintra.Core.Links;
+using Uintra.Core.User;
+using Uintra.Core.User.Permissions;
+using Uintra.Groups;
+using Uintra.Groups.Extensions;
+using Uintra.Groups.Navigation.Models;
+using Uintra.Navigation;
+using Uintra.Navigation.SystemLinks;
+using Uintra.Navigation.Web;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class NavigationController : NavigationControllerBase
     {
