@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using uIntra.Core.Extensions;
-using uIntra.Panels.Core.Models;
 using uIntra.Panels.Core.Models.Table;
 using uIntra.Panels.Core.PresentationBuilders;
+using Uintra.Core.Extensions;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
