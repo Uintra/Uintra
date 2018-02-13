@@ -359,6 +359,11 @@
                 display:inline-block;
             }
         }
+        
+        &-divider{
+            display:inline-block;
+            vertical-align:inherit;
+        }
 
         &-feed{
             font-size:13px;
@@ -458,13 +463,21 @@
             margin:0 0 24px;
         }
 
-        &-name{
+        /*&-name{
             margin:0 15px 0 0;
-        }
+        }*/
 
         &-address{
             display:inline-block;
             vertical-align:inherit;
+            margin:0 0 0 15px;
+            @media(--for-tablet-portrait-down){
+                margin:0 0 0 7px;
+            }
+            @media (--for-phone-only){
+                display:block;
+                margin:0;
+            }
 
             &:before{
                 content: "";
