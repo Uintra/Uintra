@@ -1,12 +1,12 @@
 ﻿using System;
-using uIntra.CentralFeed;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Core.Links;
-using uIntra.Core.User;
-using uIntra.Groups;
+using Uintra.CentralFeed;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Core.Links;
+using Uintra.Core.User;
+using Uintra.Groups;
 
-namespace Compent.uIntra.Core.Feed.Links
+namespace Compent.Uintra.Core.Feed.Links
 {
     public class ActivityLinkService : ICentralFeedLinkService, IGroupFeedLinkService
     {

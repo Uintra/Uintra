@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core.User
+﻿namespace Uintra.Core.User
 {
     public class UserPhotoViewModel
     {

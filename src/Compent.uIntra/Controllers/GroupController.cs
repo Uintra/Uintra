@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core;
-using uIntra.Core.Links;
-using uIntra.Core.Media;
-using uIntra.Core.User;
-using uIntra.Groups;
-using uIntra.Groups.Permissions;
-using uIntra.Groups.Web;
-using uIntra.Navigation;
+using Uintra.Core;
+using Uintra.Core.Links;
+using Uintra.Core.Media;
+using Uintra.Core.User;
+using Uintra.Groups;
+using Uintra.Groups.Permissions;
+using Uintra.Groups.Web;
+using Uintra.Navigation;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class GroupController : GroupControllerBase
     {

@@ -2,7 +2,7 @@
 using System.Configuration;
 using Compent.LinkPreview.HttpClient;
 
-namespace uIntra.Core.LinkPreview
+namespace Uintra.Core.LinkPreview
 {
     public class LinkPreviewConfiguration : ILinkPreviewConfiguration
     {

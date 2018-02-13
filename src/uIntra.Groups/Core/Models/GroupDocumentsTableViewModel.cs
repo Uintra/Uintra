@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupDocumentsTableViewModel
     {

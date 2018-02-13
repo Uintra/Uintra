@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Web.Http;
-using uIntra.Core.Media;
-using uIntra.Core.User;
-using uIntra.Events;
-using uIntra.Events.Dashboard;
-using uIntra.Navigation;
+using Uintra.Core.Media;
+using Uintra.Core.User;
+using Uintra.Events;
+using Uintra.Events.Dashboard;
+using Uintra.Navigation;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class EventsSectionController : EventsSectionControllerBase
     {

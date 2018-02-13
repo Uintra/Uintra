@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
-using uIntra.Core.User;
+using Uintra.Core.User;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Core.Web
+namespace Uintra.Core.Web
 {
     public abstract class UserControllerBase : SurfaceController
     {

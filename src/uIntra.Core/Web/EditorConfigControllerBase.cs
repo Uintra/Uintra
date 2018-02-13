@@ -1,8 +1,8 @@
 ﻿using System.Web.Http;
-using uIntra.Core.Controls;
+using Uintra.Core.Controls;
 using Umbraco.Web.WebApi;
 
-namespace uIntra.Core.Web
+namespace Uintra.Core.Web
 {
     public abstract class EditorConfigControllerBase : UmbracoAuthorizedApiController
     {

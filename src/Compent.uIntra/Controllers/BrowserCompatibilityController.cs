@@ -1,9 +1,9 @@
 ﻿using System.Web;
-using uIntra.Core;
-using uIntra.Core.BrowserCompatibility;
-using uIntra.Core.Web;
+using Uintra.Core;
+using Uintra.Core.BrowserCompatibility;
+using Uintra.Core.Web;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class BrowserCompatibilityController : BrowserCompatibilityControllerBase
     {        

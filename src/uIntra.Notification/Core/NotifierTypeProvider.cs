@@ -1,7 +1,7 @@
-﻿using uIntra.Core.TypeProviders;
-using uIntra.Notification.Configuration;
+﻿using Uintra.Core.TypeProviders;
+using Uintra.Notification.Configuration;
 
-namespace uIntra.Notification.DefaultImplementation
+namespace Uintra.Notification.DefaultImplementation
 {
     public class NotifierTypeProvider : EnumTypeProviderBase<NotifierTypeEnum>, INotifierTypeProvider
     {

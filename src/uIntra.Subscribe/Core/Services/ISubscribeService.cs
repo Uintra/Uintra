@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace uIntra.Subscribe
+namespace Uintra.Subscribe
 {
     public interface ISubscribeService
     {

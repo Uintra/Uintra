@@ -1,4 +1,4 @@
-﻿namespace uIntra.Groups.Constants
+﻿namespace Uintra.Groups.Constants
 {
     public class GroupConstants
     {

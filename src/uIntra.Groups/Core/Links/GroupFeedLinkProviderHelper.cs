@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using uIntra.Core;
+using Uintra.Core;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public static class GroupFeedLinkProviderHelper
     {

@@ -1,11 +1,11 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using uIntra.Core.Links;
-using uIntra.Core.Localization;
-using uIntra.Core.ModelBinders;
+using Uintra.Core.Links;
+using Uintra.Core.Localization;
+using Uintra.Core.ModelBinders;
 
-namespace uIntra.Core.Extensions
+namespace Uintra.Core.Extensions
 {
     public static class HtmlExtensions
     {

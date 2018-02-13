@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using uIntra.Core.Media;
+using Uintra.Core.Media;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupCreateModel : IContentWithMediaCreateEditModel
     {

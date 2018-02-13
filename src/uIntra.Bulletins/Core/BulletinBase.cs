@@ -1,8 +1,8 @@
 using System;
-using uIntra.Core.Activity;
-using uIntra.Core.User;
+using Uintra.Core.Activity;
+using Uintra.Core.User;
 
-namespace uIntra.Bulletins
+namespace Uintra.Bulletins
 {
     public class BulletinBase : IntranetActivity, IHaveCreator, IHaveOwner, IBulletinBase
     {

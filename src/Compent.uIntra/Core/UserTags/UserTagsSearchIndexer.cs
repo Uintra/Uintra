@@ -1,11 +1,11 @@
 ﻿using System.Linq;
-using Compent.uIntra.Core.Search.Entities;
-using uIntra.Core.Extensions;
-using uIntra.Search;
-using uIntra.Tagging.UserTags;
-using uIntra.Tagging.UserTags.Models;
+using Compent.Uintra.Core.Search.Entities;
+using Uintra.Core.Extensions;
+using Uintra.Search;
+using Uintra.Tagging.UserTags;
+using Uintra.Tagging.UserTags.Models;
 
-namespace Compent.uIntra.Core.UserTags
+namespace Compent.Uintra.Core.UserTags
 {
     public class UserTagsSearchIndexer : IIndexer
     {

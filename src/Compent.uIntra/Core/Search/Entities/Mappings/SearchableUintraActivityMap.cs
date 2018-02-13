@@ -1,6 +1,6 @@
-﻿using uIntra.Search;
+﻿using Uintra.Search;
 
-namespace Compent.uIntra.Core.Search.Entities.Mappings
+namespace Compent.Uintra.Core.Search.Entities.Mappings
 {
     public class SearchableUintraActivityMap : SearchableBaseMap<SearchableUintraActivity>
     {

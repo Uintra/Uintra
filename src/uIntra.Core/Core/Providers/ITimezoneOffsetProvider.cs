@@ -1,5 +1,5 @@
 ﻿
-namespace uIntra.Core
+namespace Uintra.Core
 {
     public interface ITimezoneOffsetProvider
     {

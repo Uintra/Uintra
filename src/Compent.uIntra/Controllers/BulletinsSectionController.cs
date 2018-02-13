@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Web.Http;
-using uIntra.Bulletins;
-using uIntra.Core.User;
-using uIntra.Navigation;
+using Uintra.Bulletins;
+using Uintra.Core.User;
+using Uintra.Navigation;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class BulletinsSectionController : BulletinsSectionControllerBase
     {

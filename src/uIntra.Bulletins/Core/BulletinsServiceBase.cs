@@ -1,10 +1,10 @@
-﻿using uIntra.Core.Activity;
-using uIntra.Core.Caching;
-using uIntra.Core.Location;
-using uIntra.Core.Media;
-using uIntra.Core.TypeProviders;
+﻿using Uintra.Core.Activity;
+using Uintra.Core.Caching;
+using Uintra.Core.Location;
+using Uintra.Core.Media;
+using Uintra.Core.TypeProviders;
 
-namespace uIntra.Bulletins
+namespace Uintra.Bulletins
 {
     public abstract class BulletinsServiceBase<TBulletin> : IntranetActivityService<TBulletin> where TBulletin : BulletinBase
     {

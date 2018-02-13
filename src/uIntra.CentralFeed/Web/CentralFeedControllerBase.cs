@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Extensions;
-using uIntra.Core.Activity;
-using uIntra.Core.Attributes;
-using uIntra.Core.Extensions;
-using uIntra.Core.Feed;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
-using uIntra.Subscribe;
+using Uintra.Core.Activity;
+using Uintra.Core.Attributes;
+using Uintra.Core.Extensions;
+using Uintra.Core.Feed;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Core.User.Permissions;
+using Uintra.Subscribe;
 
-namespace uIntra.CentralFeed.Web
+namespace Uintra.CentralFeed.Web
 {
     public abstract class CentralFeedControllerBase : FeedControllerBase
     {
@@ -112,15 +112,6 @@ namespace uIntra.CentralFeed.Web
             _feedFilterStateService.SaveFiltersState(filterState);
 
             return PartialView(ListViewPath, centralFeedModel);
-        }
-
-        [HttpGet]
-        public virtual ActionResult OpenFilters()
-        {
-            var feedState = _feedFilterStateService.GetFiltersState<FeedFiltersState>();
-            feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
-            _feedFilterStateService.SaveFiltersState(feedState);
-            return new EmptyResult();
         }
 
         public virtual ActionResult LatestActivities(LatestActivitiesPanelModel panelModel)
@@ -238,7 +229,7 @@ namespace uIntra.CentralFeed.Web
         private IEnumerable<IFeedItem> FilterLatestActivities(IEnumerable<IFeedItem> activities)
         {
             var settings = _centralFeedService.GetAllSettings().Where(s => !s.ExcludeFromLatestActivities).Select(s => s.Type);
-            var items = activities.Join(settings, item => item.Type, type => type, (item, _) => item);
+            var items = activities.Join(settings, item => item.Type.ToInt(), type => type.ToInt(), (item, _) => item);
 
             return items;
         }

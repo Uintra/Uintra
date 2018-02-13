@@ -1,4 +1,4 @@
-﻿namespace uIntra.Search
+﻿namespace Uintra.Search
 {
     public class SearchBoxViewModel
     {

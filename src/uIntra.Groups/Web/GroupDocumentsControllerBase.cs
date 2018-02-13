@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core;
-using uIntra.Core.Constants;
-using uIntra.Core.Extensions;
-using uIntra.Core.User;
-using uIntra.Groups.Sql;
+using Uintra.Core;
+using Uintra.Core.Constants;
+using Uintra.Core.Extensions;
+using Uintra.Core.User;
+using Uintra.Groups.Sql;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Groups.Web
+namespace Uintra.Groups.Web
 {
     [DisabledGroupActionFilter]
     public abstract class GroupDocumentsControllerBase : SurfaceController

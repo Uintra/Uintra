@@ -1,7 +1,7 @@
 ﻿using System;
-using uIntra.Comments;
+using Uintra.Comments;
 
-namespace Compent.uIntra.Core.Comments
+namespace Compent.Uintra.Core.Comments
 {
     public class CustomCommentableService : ICustomCommentableService
     {

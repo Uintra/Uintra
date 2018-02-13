@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
-using uIntra.Core.Grid;
-using uIntra.Core.PagePromotion;
-using uIntra.Core.UmbracoEventServices;
+using Uintra.Core.Grid;
+using Uintra.Core.PagePromotion;
+using Uintra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Publishing;
 using Umbraco.Core.Services;
 
-namespace uIntra.Tagging.UserTags
+namespace Uintra.Tagging.UserTags
 {
     public class ContentPageRelationHandler : IUmbracoContentPublishedEventService, IUmbracoContentUnPublishedEventService, IUmbracoContentTrashedEventService
     {

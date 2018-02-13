@@ -1,4 +1,4 @@
-﻿namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants
+﻿namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
 {
     public class PanelsInstallationConstants
     {
@@ -26,7 +26,7 @@
 
         public class DocumentTypePropertyAliases
         {
-            public const string PanelConfig = global::uIntra.Core.Constants.GridEditorConstants.PanelConfigPropertyAlias;
+            public const string PanelConfig = global::Uintra.Core.Constants.GridEditorConstants.PanelConfigPropertyAlias;
         }
 
         public class DataTypeNames

@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uIntra.CentralFeed.Providers;
-using uIntra.Core.Extensions;
-using uIntra.Core.Grid;
-using uIntra.Core.TypeProviders;
+using Uintra.CentralFeed.Providers;
+using Uintra.Core.Extensions;
+using Uintra.Core.Grid;
+using Uintra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using static uIntra.CentralFeed.CentralFeedConstants;
+using static Uintra.CentralFeed.CentralFeedConstants;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public class CentralFeedContentService : FeedContentServiceBase, ICentralFeedContentService
     {

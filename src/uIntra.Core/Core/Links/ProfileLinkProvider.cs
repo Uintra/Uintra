@@ -1,8 +1,8 @@
 ﻿using System;
-using uIntra.Core.Extensions;
-using uIntra.Core.User;
+using Uintra.Core.Extensions;
+using Uintra.Core.User;
 
-namespace uIntra.Core.Links
+namespace Uintra.Core.Links
 {
     public class ProfileLinkProvider : IProfileLinkProvider
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace Compent.uIntra.Installer.Migrations
+namespace Compent.Uintra.Installer.Migrations
 {
     public class MailInstallationConstants
     {

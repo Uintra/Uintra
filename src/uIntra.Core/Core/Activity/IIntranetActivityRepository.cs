@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public interface IIntranetActivityRepository
     {

@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Extensions;
-using uIntra.Core.Extensions;
-using uIntra.Core.Links;
-using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
-using uIntra.Navigation.SystemLinks;
+using Uintra.Core.Extensions;
+using Uintra.Core.Links;
+using Uintra.Core.User;
+using Uintra.Core.User.Permissions;
+using Uintra.Navigation.SystemLinks;
 using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Navigation.Web
+namespace Uintra.Navigation.Web
 {
     public abstract class NavigationControllerBase : SurfaceController
     {

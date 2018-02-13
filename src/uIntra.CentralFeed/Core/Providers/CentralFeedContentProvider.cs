@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Extensions;
-using uIntra.Core;
-using uIntra.Core.TypeProviders;
+using Uintra.Core;
+using Uintra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.CentralFeed.Providers
+namespace Uintra.CentralFeed.Providers
 {
     public class CentralFeedContentProvider : FeedContentProviderBase, ICentralFeedContentProvider
     {

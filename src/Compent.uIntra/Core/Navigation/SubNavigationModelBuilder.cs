@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using uIntra.Core.Configuration;
-using uIntra.Core.User;
-using uIntra.Groups;
-using uIntra.Groups.Permissions;
-using uIntra.Navigation;
-using uIntra.Navigation.Configuration;
+using Uintra.Core.Configuration;
+using Uintra.Core.User;
+using Uintra.Groups;
+using Uintra.Groups.Permissions;
+using Uintra.Navigation;
+using Uintra.Navigation.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.Navigation
+namespace Compent.Uintra.Core.Navigation
 {
     public class SubNavigationModelBuilder : NavigationModelBuilderBase<SubNavigationMenuModel>, ISubNavigationModelBuilder
     {

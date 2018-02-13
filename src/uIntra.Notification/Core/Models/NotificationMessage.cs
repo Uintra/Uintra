@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public interface INotificationMessage
     {

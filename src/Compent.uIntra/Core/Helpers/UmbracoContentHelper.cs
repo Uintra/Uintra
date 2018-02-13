@@ -1,8 +1,8 @@
 ﻿using System;
-using uIntra.Core;
+using Uintra.Core;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.Helpers
+namespace Compent.Uintra.Core.Helpers
 {
     public class UmbracoContentHelper : IUmbracoContentHelper
     {

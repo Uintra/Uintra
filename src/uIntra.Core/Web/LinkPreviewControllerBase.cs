@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
 using Compent.LinkPreview.HttpClient;
-using uIntra.Core.Extensions;
-using uIntra.Core.LinkPreview;
-using uIntra.Core.LinkPreview.Sql;
-using uIntra.Core.Persistence;
+using Uintra.Core.Extensions;
+using Uintra.Core.LinkPreview;
+using Uintra.Core.LinkPreview.Sql;
+using Uintra.Core.Persistence;
 using Umbraco.Web.WebApi;
 
-namespace uIntra.Core.Web
+namespace Uintra.Core.Web
 {
     public abstract class LinkPreviewControllerBase : UmbracoApiController
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace Compent.uIntra.Core.Search.Models
+namespace Compent.Uintra.Core.Search.Models
 {
     public class SearchInfoListItemModel
     {

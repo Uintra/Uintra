@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core.Location
+﻿namespace Uintra.Core.Location
 {
     public class ActivityLocationEditModel
     {

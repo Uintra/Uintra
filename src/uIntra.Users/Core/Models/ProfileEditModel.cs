@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Core.Media;
+using Uintra.Core.Media;
 
-namespace uIntra.Users
+namespace Uintra.Users
 {
     public class ProfileEditModel : IContentWithMediaCreateEditModel
     {

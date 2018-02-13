@@ -1,8 +1,8 @@
 using System;
-using uIntra.Core.PagePromotion;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.PagePromotion;
+using Uintra.Core.TypeProviders;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public class PagePromotionPageHelper : IActivityPageHelper
     {

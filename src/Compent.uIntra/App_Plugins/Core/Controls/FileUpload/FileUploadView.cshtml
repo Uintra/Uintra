@@ -1,5 +1,5 @@
-﻿@using uIntra.Core.Extensions
-@inherits Umbraco.Web.Mvc.UmbracoViewPage<uIntra.Core.Controls.FileUpload.FileUploadSettings>
+﻿@using Uintra.Core.Extensions
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Core.Controls.FileUpload.FileUploadSettings>
 <div>
     <div class="dropzone js-dropzone"  data-allowed="@Model.AllowedExtensions" data-max-count="@Model.MaxFilesCount"
          data-default-text="@Html.Localize("FileUploadView.UploadFiles.lbl")" data-remove-text="@Html.Localize("FileUploadView.RemoveFile.lbl")"></div>

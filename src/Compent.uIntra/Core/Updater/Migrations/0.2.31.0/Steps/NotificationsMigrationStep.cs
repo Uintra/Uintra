@@ -1,14 +1,14 @@
 ﻿using System.Web.Helpers;
 using Localization.Umbraco.Extensions;
-using uIntra.Core.Persistence;
+using Uintra.Core.Persistence;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Steps
+namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
 {
     public class NotificationsMigrationStep :IMigrationStep
     {
-        private readonly ISqlRepository<global::uIntra.Notification.Notification> _notificationsRepository;
+        private readonly ISqlRepository<global::Uintra.Notification.Notification> _notificationsRepository;
 
-        public NotificationsMigrationStep(ISqlRepository<global::uIntra.Notification.Notification> notificationsRepository)
+        public NotificationsMigrationStep(ISqlRepository<global::Uintra.Notification.Notification> notificationsRepository)
         {
             _notificationsRepository = notificationsRepository;
         }

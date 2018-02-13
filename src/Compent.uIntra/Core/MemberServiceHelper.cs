@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uIntra.Users;
+using Uintra.Users;
 using Umbraco.Core.Models;
 
 
-namespace Compent.uIntra.Core
+namespace Compent.Uintra.Core
 {
     public class MemberServiceHelper : IMemberServiceHelper
     {

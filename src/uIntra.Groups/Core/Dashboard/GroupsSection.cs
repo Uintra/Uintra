@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core;
 
-namespace uIntra.Groups.Dashboard
+namespace Uintra.Groups.Dashboard
 {
     public class GroupsSection
     {

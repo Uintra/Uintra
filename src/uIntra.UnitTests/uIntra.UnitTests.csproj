@@ -105,9 +105,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Compent.uIntra\Compent.uIntra.csproj">
+    <ProjectReference Include="..\Compent.uIntra\Compent.Uintra.csproj">
       <Project>{469dc179-83ee-4696-9d36-2173e4beafda}</Project>
-      <Name>Compent.uIntra</Name>
+      <Name>Compent.Uintra</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

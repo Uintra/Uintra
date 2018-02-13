@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace uIntra.Comments
+namespace Uintra.Comments
 {
     public class CommentEditModel
     {

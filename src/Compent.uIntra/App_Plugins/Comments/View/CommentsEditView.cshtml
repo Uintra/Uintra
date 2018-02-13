@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc.Ajax
 @using System.Web.Mvc.Html
-@using uIntra.Core.Extensions
-@model uIntra.Comments.CommentEditViewModel
+@using Uintra.Core.Extensions
+@model Uintra.Comments.CommentEditViewModel
 
 @using (Ajax.BeginForm("Edit", "Comments", new AjaxOptions { UpdateTargetId = Model.UpdateElementId, InsertionMode = InsertionMode.ReplaceWith, HttpMethod = "PUT", OnComplete = $"new uIntra.methods.CommentOverview('#{Model.UpdateElementId}')" }, new { @class = "comments__form js-comment-edit" }))
 {

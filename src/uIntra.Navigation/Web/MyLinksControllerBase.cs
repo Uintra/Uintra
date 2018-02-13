@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Web.Http;
 using System.Web.Mvc;
-using uIntra.Core;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Navigation.Exceptions;
-using uIntra.Navigation.MyLinks;
+using Uintra.Core;
+using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Navigation.Exceptions;
+using Uintra.Navigation.MyLinks;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Navigation.Web
+namespace Uintra.Navigation.Web
 {
     public abstract class MyLinksControllerBase : SurfaceController
     {

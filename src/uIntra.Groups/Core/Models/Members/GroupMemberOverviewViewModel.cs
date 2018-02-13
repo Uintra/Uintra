@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupMemberOverviewViewModel
     {

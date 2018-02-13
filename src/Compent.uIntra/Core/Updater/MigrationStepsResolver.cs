@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Compent.uIntra.Core.Updater
+namespace Compent.Uintra.Core.Updater
 {
     public class MigrationStepsResolver : IMigrationStepsResolver
     {

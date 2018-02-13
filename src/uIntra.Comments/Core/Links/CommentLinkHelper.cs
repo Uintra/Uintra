@@ -1,7 +1,7 @@
 ﻿using System;
-using uIntra.Core.Links;
+using Uintra.Core.Links;
 
-namespace uIntra.Comments
+namespace Uintra.Comments
 {
     public class CommentLinkHelper : ICommentLinkHelper
     {

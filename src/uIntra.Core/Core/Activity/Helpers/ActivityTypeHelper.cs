@@ -1,10 +1,10 @@
 ﻿using System;
 using BCLExtensions;
-using uIntra.Core.Extensions;
-using uIntra.Core.PagePromotion;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Extensions;
+using Uintra.Core.PagePromotion;
+using Uintra.Core.TypeProviders;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public class ActivityTypeHelper : IActivityTypeHelper
     {

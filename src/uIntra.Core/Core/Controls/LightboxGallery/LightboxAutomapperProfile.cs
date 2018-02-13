@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace uIntra.Core.Controls.LightboxGallery
+namespace Uintra.Core.Controls.LightboxGallery
 {
     public class LightboxAutoMapperProfile: Profile
     {
@@ -9,7 +9,9 @@ namespace uIntra.Core.Controls.LightboxGallery
             Mapper.CreateMap<LightboxGalleryPreviewModel, LightboxGalleryPreviewViewModel>()
                 .ForMember(d => d.Links, o => o.Ignore())
                 .ForMember(d => d.Images, o => o.Ignore())
-                .ForMember(d => d.OtherFiles, o => o.Ignore());
+                .ForMember(d => d.OtherFiles, o => o.Ignore())
+                .ForMember(d => d.TotalFileCount, o => o.Ignore())
+                .ForMember(d => d.IsAttachedFileIconShown, o => o.Ignore());
         }
     }
 }

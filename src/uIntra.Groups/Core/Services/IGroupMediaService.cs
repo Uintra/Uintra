@@ -1,7 +1,7 @@
 using System;
 using Umbraco.Core.Models;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public interface IGroupMediaService
     {

@@ -1,6 +1,6 @@
-using uIntra.Core.Feed;
+using Uintra.Core.Feed;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public class FeedItemViewModel
     {

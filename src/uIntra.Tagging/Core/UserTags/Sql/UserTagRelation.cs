@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using uIntra.Core.Persistence;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Tagging.UserTags
+namespace Uintra.Tagging.UserTags
 {
-    [uIntraTable(nameof(UserTagRelation))]
+    [UintraTable(nameof(UserTagRelation))]
     public class UserTagRelation : SqlEntity<int>
     {
         [Key]

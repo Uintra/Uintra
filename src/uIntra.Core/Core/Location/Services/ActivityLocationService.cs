@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using uIntra.Core.Extensions;
-using uIntra.Core.Location.Entities;
-using uIntra.Core.Persistence;
+using Uintra.Core.Extensions;
+using Uintra.Core.Location.Entities;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Core.Location
+namespace Uintra.Core.Location
 {
     public class ActivityLocationService : IActivityLocationService
     {

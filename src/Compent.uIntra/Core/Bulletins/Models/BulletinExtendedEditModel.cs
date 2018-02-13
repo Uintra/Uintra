@@ -1,6 +1,6 @@
-﻿using uIntra.Bulletins;
+﻿using Uintra.Bulletins;
 
-namespace Compent.uIntra.Core.Bulletins
+namespace Compent.Uintra.Core.Bulletins
 {
     public class BulletinExtendedEditModel: BulletinEditModel
     {

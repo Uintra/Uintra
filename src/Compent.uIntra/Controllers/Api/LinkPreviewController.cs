@@ -1,11 +1,11 @@
 ﻿using Compent.LinkPreview.HttpClient;
-using uIntra.Core;
-using uIntra.Core.LinkPreview;
-using uIntra.Core.LinkPreview.Sql;
-using uIntra.Core.Persistence;
-using uIntra.Core.Web;
+using Uintra.Core;
+using Uintra.Core.LinkPreview;
+using Uintra.Core.LinkPreview.Sql;
+using Uintra.Core.Persistence;
+using Uintra.Core.Web;
 
-namespace Compent.uIntra.Controllers.Api
+namespace Compent.Uintra.Controllers.Api
 {
     public class LinkPreviewController : LinkPreviewControllerBase
     {

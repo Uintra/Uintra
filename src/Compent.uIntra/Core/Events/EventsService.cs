@@ -1,32 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.uIntra.Core.Helpers;
-using Compent.uIntra.Core.Search.Entities;
-using Compent.uIntra.Core.UserTags.Indexers;
+using Compent.Uintra.Core.Helpers;
+using Compent.Uintra.Core.Search.Entities;
+using Compent.Uintra.Core.UserTags.Indexers;
 using Extensions;
-using uIntra.CentralFeed;
-using uIntra.Comments;
-using uIntra.Core.Activity;
-using uIntra.Core.Caching;
-using uIntra.Core.Extensions;
-using uIntra.Core.Links;
-using uIntra.Core.Location;
-using uIntra.Core.Media;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
-using uIntra.Events;
-using uIntra.Groups;
-using uIntra.Likes;
-using uIntra.Notification;
-using uIntra.Notification.Base;
-using uIntra.Notification.Configuration;
-using uIntra.Search;
-using uIntra.Subscribe;
-using uIntra.Tagging.UserTags;
+using Uintra.CentralFeed;
+using Uintra.Comments;
+using Uintra.Core.Activity;
+using Uintra.Core.Caching;
+using Uintra.Core.Extensions;
+using Uintra.Core.Links;
+using Uintra.Core.Location;
+using Uintra.Core.Media;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Core.User.Permissions;
+using Uintra.Events;
+using Uintra.Groups;
+using Uintra.Likes;
+using Uintra.Notification;
+using Uintra.Notification.Base;
+using Uintra.Notification.Configuration;
+using Uintra.Search;
+using Uintra.Subscribe;
+using Uintra.Tagging.UserTags;
 
-namespace Compent.uIntra.Core.Events
+namespace Compent.Uintra.Core.Events
 {
     public class EventsService : IntranetActivityService<Event>,
         IEventsService<Event>,

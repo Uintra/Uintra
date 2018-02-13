@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Core.PagePromotion;
-using uIntra.Core.User;
+using Uintra.Core;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Core.PagePromotion;
+using Uintra.Core.User;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Likes.Web
+namespace Uintra.Likes.Web
 {
     public abstract class LikesControllerBase : SurfaceController
     {

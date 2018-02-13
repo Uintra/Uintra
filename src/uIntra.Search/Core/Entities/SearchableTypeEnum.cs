@@ -1,6 +1,6 @@
-﻿using uIntra.Core.Activity;
+﻿using Uintra.Core.Activity;
 
-namespace uIntra.Search
+namespace Uintra.Search
 {
     public enum SearchableTypeEnum
     {

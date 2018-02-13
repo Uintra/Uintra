@@ -1,9 +1,9 @@
-﻿using uIntra.Core.Controls.LightboxGallery;
-using uIntra.Core.Links;
-using uIntra.Core.Media;
+﻿using Uintra.Core.Controls.LightboxGallery;
+using Uintra.Core.Links;
+using Uintra.Core.Media;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class LightboxGalleryController : LightboxGalleryControllerBase
     {

@@ -1,6 +1,6 @@
-﻿using uIntra.Core.Jobs.Models;
+﻿using Uintra.Core.Jobs.Models;
 
-namespace uIntra.Notification.Jobs
+namespace Uintra.Notification.Jobs
 {
     public class ReminderJob : BaseIntranetJob
     {

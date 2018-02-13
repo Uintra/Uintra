@@ -4,7 +4,7 @@ using System.Web;
 using umbraco.interfaces;
 using Umbraco.Web;
 
-namespace uIntra.Core.Handlers
+namespace Uintra.Core.Handlers
 {
     public abstract class NotFoundHandlerBase : INotFoundHandler
     {

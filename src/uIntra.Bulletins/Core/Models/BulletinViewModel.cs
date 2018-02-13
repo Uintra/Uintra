@@ -1,7 +1,7 @@
 ﻿using System;
-using uIntra.Core.Activity;
+using Uintra.Core.Activity;
 
-namespace uIntra.Bulletins
+namespace Uintra.Bulletins
 {
     public class BulletinViewModel : IntranetActivityViewModelBase
     {

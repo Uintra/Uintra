@@ -415,13 +415,13 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
+    <ProjectReference Include="..\uIntra.Core\Uintra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>uIntra.Core</Name>
+      <Name>Uintra.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Subscribe\uIntra.Subscribe.csproj">
+    <ProjectReference Include="..\uIntra.Subscribe\Uintra.Subscribe.csproj">
       <Project>{dd7c6b81-0f9f-4196-89fe-4db666cd0367}</Project>
-      <Name>uIntra.Subscribe</Name>
+      <Name>Uintra.Subscribe</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

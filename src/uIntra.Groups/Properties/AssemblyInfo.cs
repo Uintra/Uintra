@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uIntra.Groups")]
+[assembly: AssemblyTitle("Uintra.Groups")]
 [assembly: AssemblyDescription("Some kind of group description.")]
 
 [assembly: AssemblyVersion("0.2.4.0")]

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core.Activity;
+using Uintra.Core.Activity;
 using Umbraco.Web;
 
-namespace uIntra.Core.Attributes
+namespace Uintra.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class NotFoundActivityAttribute : ActionFilterAttribute

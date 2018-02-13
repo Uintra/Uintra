@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using uIntra.Core.Persistence;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Comments
+namespace Uintra.Comments
 {
-    [uIntraTable("CommentToLinkPreview")]
+    [UintraTable("CommentToLinkPreview")]
     public class CommentToLinkPreviewEntity : SqlEntity<int>
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

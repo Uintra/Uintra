@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.uIntra.Core.Feed;
-using uIntra.CentralFeed;
-using uIntra.Core.Activity;
-using uIntra.Core.Feed;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Groups;
-using uIntra.Groups.Web;
-using uIntra.Subscribe;
+using Compent.Uintra.Core.Feed;
+using Uintra.CentralFeed;
+using Uintra.Core.Activity;
+using Uintra.Core.Feed;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Groups;
+using Uintra.Groups.Web;
+using Uintra.Subscribe;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class GroupFeedController : GroupFeedControllerBase
     {
