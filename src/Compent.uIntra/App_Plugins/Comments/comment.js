@@ -260,14 +260,16 @@ var initReply = function (holder) {
         }
     });
 
+    var createControl = holder.find('.js-comment-create');
+
     function showLinkPreview(link) {
         ajax.get('/umbraco/api/LinkPreview/Preview?url=' + link)
             .then(function (response) {
                 var data = response.data;
                 var imageElem = getImageElem(data);
                 var hiddenSaveElem = getHiddenSaveElem(data);
-                commentReply.append(imageElem);
-                commentReply.append(hiddenSaveElem);
+                createControl.append(imageElem);
+                createControl.append(hiddenSaveElem);
 
                 var removeLinkPreview = function (e) {
                     if (e.target.classList.contains('js-link-preview-remove-preview')) {
@@ -286,7 +288,6 @@ var initReply = function (holder) {
                 // Ignore error and do not crash if server returns non-success code
             });
     }
-
 
     function getImageElem(data) {
         var divElem = document.createElement('div');
