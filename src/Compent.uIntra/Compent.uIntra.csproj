@@ -1167,26 +1167,6 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201802091031082_Renaming.resx">
       <DependentUpon>201802091031082_Renaming.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="config\umbracoSettings.Debug.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.DebugWithDll.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.Dev.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.PublicNuget.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.Release.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
     <Content Include="Media\Web.config" />
     <Content Include="Content\fonts\muli-italic.woff" />
     <Content Include="Content\fonts\muli-italic.woff2" />
@@ -1272,9 +1252,6 @@
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\Shared\_Layout-output.cshtml" />
     <Content Include="Views\Events\DetailsHeader.cshtml" />
-    <None Include="Web.DebugWithDll.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
     <None Include="Web.ManualInstallation.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1679,16 +1656,6 @@
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DISABLE_LICENCE</DefineConstants>
     <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugWithDll|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;DISABLE_LICENCE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PublicNuget|AnyCPU'">
     <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>

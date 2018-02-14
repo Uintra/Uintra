@@ -150,6 +150,18 @@ namespace Uintra.Core.Installer
             }
         }
 
+        public static void UpdateTranslation(string key, string oldTranslation, string newTranslation)
+        {
+            var localizationCoreService = DependencyResolver.Current.GetService<ILocalizationCoreService>();
+
+            var resourceModel = localizationCoreService.GetResourceModel(key);
+            if (resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English].Contains(oldTranslation))
+            {
+                resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English] = newTranslation;
+                localizationCoreService.Update(resourceModel);
+            }
+        }
+
         private static IContentType CreatePageDocTypeWithGrid(BasePageWithDefaultGridCreateModel model, string basePageTypeAlias)
         {
             if (!ValidateCreationModel(model)) return null;
