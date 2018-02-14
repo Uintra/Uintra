@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
+using Uintra.Notification.Configuration;
 
 namespace Uintra.Notification
 {
@@ -62,14 +63,14 @@ namespace Uintra.Notification
             IEnumerable<Enum> existingSettings,
             IEnumerable<Enum> allSettings)
         {
-            var absentSettings = allSettings.Except(existingSettings);
+            var absentSettings = allSettings.Except(existingSettings).ToList();
             var newEntities = absentSettings
                 .Select(s => new MemberNotifierSetting()
                 {
                     Id = Guid.NewGuid(),
                     MemberId = memberId,
                     NotifierType = s.ToInt(),
-                    IsEnabled = false
+                    IsEnabled = s.ToInt() != NotifierTypeEnum.EmailNotifier.ToInt()
                 })
                 .ToList();
             _memberNotifierSettingRepository.Add(newEntities);
