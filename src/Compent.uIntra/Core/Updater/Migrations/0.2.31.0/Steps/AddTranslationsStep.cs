@@ -46,6 +46,9 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
             _localizationCoreService.Delete(GroupInfoMembersCountKey);
             _localizationCoreService.Delete(GroupInfoOneMemberCountKey);
             _localizationCoreService.Delete(ActivityPinnedKey);
+            _localizationCoreService.Delete(ActivityLocationKey);
+
+            InstallationStepsHelper.UpdateTranslation(GroupMembersDeleteTextKey, GroupMembersDeleteTextNewTranslation, GroupMembersDeleteTextOldTranslation);
         }
     }
 }
