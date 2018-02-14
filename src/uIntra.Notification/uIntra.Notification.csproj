@@ -481,6 +481,8 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\BeforeStart.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\CommentLikeAdded.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\CommentLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\MonthlyMail.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\MonthlyMail.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
     <Content Include="Web.config.install.xdt">

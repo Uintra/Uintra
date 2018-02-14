@@ -2,7 +2,6 @@
 using System.Linq;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
-using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;

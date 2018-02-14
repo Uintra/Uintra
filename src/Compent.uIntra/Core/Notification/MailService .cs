@@ -17,18 +17,15 @@ namespace Compent.Uintra.Core.Notification
 {
     public class MailService : IMailService
     {
-        private readonly IEmailService _emailService;
         private readonly IEmailJobSenderService _emailJobSenderService;
         private readonly ISentMailsService _sentMailsService;
         private readonly UmbracoHelper _umbracoHelper;
 
         public MailService(
-            IEmailService emailService,
             IEmailJobSenderService emailJobSenderService,
             ISentMailsService sentMailsService,
             UmbracoHelper umbracoHelper)
         {
-            _emailService = emailService;
             _emailJobSenderService = emailJobSenderService;
             _sentMailsService = sentMailsService;
             _umbracoHelper = umbracoHelper;
