@@ -69,7 +69,7 @@ namespace Uintra.Notification
                     Id = Guid.NewGuid(),
                     MemberId = memberId,
                     NotifierType = s.ToInt(),
-                    IsEnabled = true
+                    IsEnabled = false
                 })
                 .ToList();
             _memberNotifierSettingRepository.Add(newEntities);
