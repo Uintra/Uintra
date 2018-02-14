@@ -343,6 +343,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\AutoMapperProfiles\NotificationAutoMapperProfile.cs" />
+    <Compile Include="Core\CommunicationTypeEnum.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Helpers\BackofficeSettingsReader.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Helpers\IBackofficeSettingsReader.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Models\TreeNodeModel.cs" />
@@ -478,6 +479,8 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\EventHided.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\EventUpdated.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\BeforeStart.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\CommentLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\CommentLikeAdded.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
     <Content Include="Web.config.install.xdt">

@@ -4,7 +4,7 @@
             <div class="umb-panel-header-content-wrapper">
                 <ul class="nav nav-tabs umb-nav-tabs">
                     <li ng-class="{'active' : ctrl.isEmailTabSelected()}"><a ng-click="ctrl.selectEmailTab()">E-mail notification</a></li>
-                    <li ng-class="{'active' : ctrl.isUiTabSelected()}"><a ng-click="ctrl.selectUiTab()">In-App notification</a></li>
+                    <li ng-show ="ctrl.settings.uiNotifierSetting" ng-class="{'active' : ctrl.isUiTabSelected()}"><a ng-click="ctrl.selectUiTab()">In-App notification</a></li>
                 </ul>
             </div>
         </div>
