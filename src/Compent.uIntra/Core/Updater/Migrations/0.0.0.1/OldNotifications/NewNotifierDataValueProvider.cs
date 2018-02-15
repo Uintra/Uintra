@@ -1,12 +1,12 @@
 using System;
-using Compent.uIntra.Core.Helpers;
-using uIntra.Comments;
-using uIntra.Core.Activity;
-using uIntra.Core.TypeProviders;
-using uIntra.Notification.Base;
-using uIntra.Notification.Configuration;
+using Compent.Uintra.Core.Helpers;
+using Uintra.Comments;
+using Uintra.Core.Activity;
+using Uintra.Core.TypeProviders;
+using Uintra.Notification.Base;
+using Uintra.Notification.Configuration;
 
-namespace Compent.uIntra.Installer.Migrations
+namespace Compent.Uintra.Installer.Migrations
 {
     public class NewNotifierDataValueProvider
     {
@@ -19,41 +19,41 @@ namespace Compent.uIntra.Installer.Migrations
             _notifierDataHelper = notifierDataHelper;
         }
 
-        internal INotifierDataValue GetNotifierDataValue(OldNotifierData oldData, IIntranetActivity activity, IIntranetType notificationType)
+        internal INotifierDataValue GetNotifierDataValue(OldNotifierData oldData, IIntranetActivity activity, Enum notificationType)
         {
             INotifierDataValue result;
 
-            switch (notificationType.Id)
+            switch (notificationType)
             {
-                case (int) NotificationTypeEnum.ActivityLikeAdded:
-                {
-                     result =  _notifierDataHelper.GetLikesNotifierDataModel(activity, notificationType, oldData.NotifierId);
-                     break;
-                }
-                case (int)NotificationTypeEnum.CommentAdded:
-                case (int)NotificationTypeEnum.CommentReplied:
-                case (int)NotificationTypeEnum.CommentEdited:
-                case (int)NotificationTypeEnum.CommentLikeAdded:
+                case NotificationTypeEnum.ActivityLikeAdded:
                     {
-                    var commentId = ParseCommentId(oldData.Url);
-                    var comment = _commentsService.Get(commentId);
-                    result = _notifierDataHelper.GetCommentNotifierDataModel(activity, comment, notificationType, oldData.NotifierId);
-                    break;
-                }
+                        result = _notifierDataHelper.GetLikesNotifierDataModel(activity, notificationType, oldData.NotifierId);
+                        break;
+                    }
+                case NotificationTypeEnum.CommentAdded:
+                case NotificationTypeEnum.CommentReplied:
+                case NotificationTypeEnum.CommentEdited:
+                case NotificationTypeEnum.CommentLikeAdded:
+                    {
+                        var commentId = ParseCommentId(oldData.Url);
+                        var comment = _commentsService.Get(commentId);
+                        result = _notifierDataHelper.GetCommentNotifierDataModel(activity, comment, notificationType, oldData.NotifierId);
+                        break;
+                    }
 
-                case (int) NotificationTypeEnum.BeforeStart:
-                {
-                    result = _notifierDataHelper.GetActivityReminderDataModel(activity, notificationType);
-                    break;
-                }
+                case NotificationTypeEnum.BeforeStart:
+                    {
+                        result = _notifierDataHelper.GetActivityReminderDataModel(activity, notificationType);
+                        break;
+                    }
 
-                case (int) NotificationTypeEnum.EventHided:
-                case (int) NotificationTypeEnum.EventUpdated:
-                {
+                case NotificationTypeEnum.EventHided:
+                case NotificationTypeEnum.EventUpdated:
+                    {
 
                         result = _notifierDataHelper.GetActivityNotifierDataModel(activity, notificationType, oldData.NotifierId);
                         break;
-                }
+                    }
 
                 default:
                     result = null;

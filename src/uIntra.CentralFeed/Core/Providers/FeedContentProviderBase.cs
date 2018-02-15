@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using uIntra.Core;
+using Uintra.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.CentralFeed.Providers
+namespace Uintra.CentralFeed.Providers
 {
     public abstract class FeedContentProviderBase : ContentProviderBase, IFeedContentProvider
     {

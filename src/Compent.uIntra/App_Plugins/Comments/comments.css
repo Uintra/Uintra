@@ -82,14 +82,15 @@
 
     &__hide{
         position:absolute;
-        bottom:7px;
-        right:0;
+        top:-12px;
+        right:-12px;
         width:25px;
         height:25px;
         text-align:center;
         border-radius:50%;
         background:var(--color-white);
         box-shadow:0 0 5px rgba(0,0,0,0.5);
+        z-index:2;
         cursor:pointer;
 
         .icon-close{
@@ -228,6 +229,8 @@
     }
 
     &__form{
+        position:relative;
+
         .comments__list &{
             margin:0;
         }
@@ -237,6 +240,7 @@
         }
 
 	    .btn {
+            margin: 0 0 15px;
 		    @media (--for-tablet-portrait-down) {
 			    display: inline-block !important;
 		    }
@@ -332,5 +336,82 @@
 
     .icon-comment{
         color: #b2b2b2;
+    }
+}
+
+.link-preview {
+    position:relative;
+    border: 2px solid #ccc;
+    padding: 0 0 0 30px;
+    border-width: 0 0 0 2px;
+    margin: 0 0 40px;
+    font-size:13px;
+    line-height:22px;
+
+    @media (--for-tablet-portrait-down){
+        padding: 0 0 0 15px;
+        margin: 0 0 30px;
+    }
+
+    &-close {
+		position: absolute;
+		top: -10px;
+		right: -10px;
+		width: 31px;
+		height: 31px;
+		border: none;
+        padding:0;
+        margin:0;
+		background: none;
+        text-indent:-9999px;
+        overflow:hidden;
+
+		&:before {
+			content: '';
+			position: absolute;
+			left: 8px;
+			top: 50%;
+			right: 8px;
+			height: 2px;
+			background: #303030;
+			transform: rotate(45deg);
+            margin-top:-1px;
+		}
+
+		&:after {
+			content: '';
+			position: absolute;
+			left: 8px;
+			top: 50%;
+			right: 8px;
+			height: 2px;
+			background: #303030;
+			transform: rotate(-45deg);
+            margin-top:-1px;
+		}
+	}
+
+    p{
+        margin:0 0 19px;
+     }
+
+    img{
+        height: auto;
+        max-width: 45%;
+        margin:0;
+
+        @media (--for-tablet-portrait-down){
+            max-width: 75%;
+        }
+
+        @media (--for-phone-only){
+            max-width: 100%;
+        }
+    }
+
+    &--edit{
+        .link-preview-title{
+            padding:0 21px 0 0;
+        }
     }
 }

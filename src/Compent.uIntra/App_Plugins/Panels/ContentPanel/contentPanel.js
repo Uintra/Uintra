@@ -1,6 +1,4 @@
-﻿import ajax from "./../../Core/Content/scripts/Ajax";
-
-var Photoswipe = require('photoswipe');
+﻿var Photoswipe = require('photoswipe');
 var photoswipeUiDefault = require('photoswipe/dist/photoswipe-ui-default');
 
 require("./contentPanel.css");
@@ -10,16 +8,6 @@ var itemTypes = {
     Video: "Video"
 }
 
-var youtubeImageSize = {
-    Hq: "hq",
-    Mq: "mq",
-    Sd: "sd",
-    Maxres: "maxres"
-}
-
-var vimeoVideoInfoLink = "http://vimeo.com/api/v2/video/";
-var youtubeImageLink = "https://img.youtube.com/vi/";
-var youtubeDefaultImage = "default.jpg";
 var selectors = window.contentPanelSelectors || [];
 var body = document.querySelector('body');
 var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
@@ -36,21 +24,6 @@ var videoStopPlay = function (videoElement, isLightBox) {
         videoElement.parentElement.parentElement.classList.remove("_active");
     }
     videoElement.setAttribute("src", "");
-}
-
-var setVideoThumnailUrl = function (videoId, videoType, btnStyle) {
-    switch (videoType) {
-        case "Youtube":
-            btnStyle
-                .backgroundImage = `url('${youtubeImageLink}${videoId}/${youtubeImageSize.Mq}${youtubeDefaultImage}')`;
-            return;
-        case "Vimeo":
-            ajax.Get(`${vimeoVideoInfoLink}${videoId}.json`,
-                function (response) {
-                    btnStyle.backgroundImage = `url('${response[0].thumbnail_medium}')`;
-                });
-            return;
-    }
 }
 
 var openPhotoSwipe = function (itemToshow, itemType) {
@@ -110,10 +83,6 @@ var initPanel = function (selector) {
     if (videoPosterBtn) {
         if (videoPosterBtn.dataset["backgroundimage"]) {
             videoPosterBtn.style.backgroundImage = `url('${videoPosterBtn.dataset["backgroundimage"]}')`;
-        } else {
-            setVideoThumnailUrl(elementToshow.dataset["videoid"],
-                elementToshow.dataset["videotype"],
-                videoPosterBtn.style);
         }
 
         if (showLightboxBtn) {

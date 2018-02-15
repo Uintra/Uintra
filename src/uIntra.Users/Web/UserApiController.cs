@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using Compent.uIntra.Controllers.Api;
+using Compent.Uintra.Controllers.Api;
 using Umbraco.Core.Services;
 using Umbraco.Web.WebApi;
 
-namespace uIntra.Users.Web
+namespace Uintra.Users.Web
 {
     public abstract class UserApiControllerBase : UmbracoAuthorizedApiController
     {

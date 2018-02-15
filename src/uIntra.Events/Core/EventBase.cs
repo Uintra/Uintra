@@ -1,8 +1,8 @@
 ﻿using System;
-using uIntra.Core.Activity;
-using uIntra.Core.User;
+using Uintra.Core.Activity;
+using Uintra.Core.User;
 
-namespace uIntra.Events
+namespace Uintra.Events
 {
     public class EventBase : IntranetActivity, IHaveCreator, IHaveOwner
     {
@@ -13,6 +13,5 @@ namespace uIntra.Events
         public Guid OwnerId { get; set; }
         public int? UmbracoCreatorId { get; set; }
         public string LocationTitle { get; set; }
-        public string LocationAddress { get; set; } 
     }
 }

@@ -43,6 +43,16 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ManualInstallation|AnyCPU'">
+    <OutputPath>bin\ManualInstallation\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
@@ -385,21 +395,21 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
+    <ProjectReference Include="..\uIntra.CentralFeed\Uintra.CentralFeed.csproj">
       <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
-      <Name>uIntra.CentralFeed</Name>
+      <Name>Uintra.CentralFeed</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
+    <ProjectReference Include="..\uIntra.Core\Uintra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>uIntra.Core</Name>
+      <Name>Uintra.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Subscribe\uIntra.Subscribe.csproj">
+    <ProjectReference Include="..\uIntra.Subscribe\Uintra.Subscribe.csproj">
       <Project>{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}</Project>
-      <Name>uIntra.Subscribe</Name>
+      <Name>Uintra.Subscribe</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Users\uIntra.Users.csproj">
+    <ProjectReference Include="..\uIntra.Users\Uintra.Users.csproj">
       <Project>{3E868F15-AC47-4962-A6A5-C9084752DDE9}</Project>
-      <Name>uIntra.Users</Name>
+      <Name>Uintra.Users</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

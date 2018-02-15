@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Bulletins
+namespace Uintra.Bulletins
 {
     public class BulletinsBackofficeSaveModel
     {

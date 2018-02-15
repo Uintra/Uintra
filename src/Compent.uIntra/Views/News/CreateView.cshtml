@@ -1,11 +1,11 @@
-﻿@using uIntra.Core.Activity
-@using uIntra.Core.Controls.FileUpload
-@using uIntra.Core.Extensions
+﻿@using Uintra.Core.Activity
+@using Uintra.Core.Controls.FileUpload
+@using Uintra.Core.Extensions
 @using Umbraco.Web
-@model Compent.uIntra.Core.News.Models.NewsExtendedCreateModel
+@model Compent.Uintra.Core.News.Models.NewsExtendedCreateModel
 
 <div class="form js-check-before-unload" id="js-news-create-page">
-    @using (Html.BeginUmbracoForm("Create", "News", FormMethod.Post, new { id = "form" }))
+    @using (Html.BeginUmbracoForm("CreateExtended", "News", FormMethod.Post, new { id = "form" }))
     {
         <h1 class="form__title">@Html.Localize("NewsCreatePage.Title.lbl")</h1>
         <div class="form__row clearfix">
@@ -42,11 +42,15 @@
                         var unpublishDatevalue = @Model.UnpublishDate.HasValue ? Model.UnpublishDate.Value.ToDateTimeValuePickerFormat() : "";
                     }
                     <label class="form__label" for="js-unpublish-date">@Html.Localize("NewsCreate.UnpublishDate.lbl")</label>
-                    <input class="form__input" id="js-unpublish-date" data-default-date="@unpublishDatevalue" data-date-format="@Html.GetDateTimePickerFormat()" />
+                    <input class="form__input" id="js-unpublish-date" data-default-date="@unpublishDatevalue" datarr-date-format="@Html.GetDateTimePickerFormat()" />
                     <input type="hidden" id="js-unpublish-date-value" name="unpublishDate" data-val="true" />
                     <span class="form__clear icon-close js-clear-date hide"></span>
                 </div>
             </div>
+        </div>
+        <div class="form__row">
+            @Html.Label("Location", Html.Localize("Activity.Location.lbl"), new { @class = "form__label" })
+            @Html.Action("Edit", "ActivityLocation")
         </div>
         <div class="form__row clearfix">
             @Html.Action("PinActivity", "Activity", new { isPinned = false, pinDays = 0 })
@@ -58,10 +62,8 @@
                 Html.RenderAction("Uploader", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
         </div>
-        <div class="form__row clearfix">
-            @Html.ValidationSummary()
-        </div>
-        <div class="form__row clearfix">
+        @Html.ValidationSummary()
+        <div class="form__row form__row--top-indent clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
             @Html.PassLinks(Model.Links)
             <input class="btn _submit js-disable-submit" type="button" value="@Html.Localize("NewsCreate.Create.btn")" />

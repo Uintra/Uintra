@@ -1,11 +1,12 @@
-﻿using System.Linq;
-using uIntra.Core.User;
-using uIntra.Notification;
-using uIntra.Notification.Base;
-using uIntra.Notification.Configuration;
-using uIntra.Notification.DefaultImplementation;
+﻿using System;
+using System.Linq;
+using Uintra.Core.User;
+using Uintra.Notification;
+using Uintra.Notification.Base;
+using Uintra.Notification.Configuration;
+using Uintra.Notification.DefaultImplementation;
 
-namespace Compent.uIntra.Core.Notification
+namespace Compent.Uintra.Core.Notification
 {
     public class MailNotifierService : INotifierService
     {
@@ -29,12 +30,11 @@ namespace Compent.uIntra.Core.Notification
             _notificationSettingsService = notificationSettingsService;
         }
 
-        public NotifierTypeEnum Type => NotifierTypeEnum.EmailNotifier;
+        public Enum Type => NotifierTypeEnum.EmailNotifier;
 
         public void Notify(NotifierData data)
         {
-            var identity = new ActivityEventIdentity(data.ActivityType, data.NotificationType)
-                .AddNotifierIdentity(_notifierTypeProvider.Get((int) Type));
+            var identity = new ActivityEventIdentity(data.ActivityType, data.NotificationType).AddNotifierIdentity(Type);
             var settings = _notificationSettingsService.Get<EmailNotifierTemplate>(identity);
             if (!settings.IsEnabled) return;
             var receivers = _intranetUserService.GetMany(data.ReceiverIds).ToList();

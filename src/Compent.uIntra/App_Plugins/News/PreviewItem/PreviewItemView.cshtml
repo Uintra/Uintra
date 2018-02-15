@@ -1,9 +1,9 @@
-﻿@using uIntra.Core.Extensions
-@model uIntra.News.NewsPreviewViewModel
+﻿@using Uintra.Core.Extensions
+@model Uintra.News.NewsPreviewViewModel
 
 <div class="block__item">
     <p>
-        @Html.Localize(Model.ActivityType.Name)<br />
+        @Html.Localize(Model.ActivityType.ToString())<br />
         @Model.PublishDate.ToDateTimeFormat()
     </p>
     <h3 class="block__subtitle _clamp">

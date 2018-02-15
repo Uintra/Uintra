@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Linq;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Core.Persistence;
-using uIntra.Notification;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Core.Persistence;
+using Uintra.Notification;
 
-namespace Compent.uIntra.Installer.Migrations
+namespace Compent.Uintra.Installer.Migrations
 {
     public class OldUiNotificationMigration
     {
-        private readonly ISqlRepository<global::uIntra.Notification.Notification> _notificationRepository;
+        private readonly ISqlRepository<global::Uintra.Notification.Notification> _notificationRepository;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INotificationTypeProvider _notificationTypeProvider;
         private readonly NewNotifierDataValueProvider _newNotifierDataValueProvider;
         private readonly NewNotificationMessageService _newNotificationMessageService;
 
         public OldUiNotificationMigration(
-            ISqlRepository<global::uIntra.Notification.Notification> notificationRepository,
+            ISqlRepository<global::Uintra.Notification.Notification> notificationRepository,
             IActivitiesServiceFactory activitiesServiceFactory,
             INotificationTypeProvider notificationTypeProvider,
             NewNotifierDataValueProvider newNotifierDataValueProvider,
@@ -42,13 +42,13 @@ namespace Compent.uIntra.Installer.Migrations
             var invalidNotifications = parsedNotifications[false].Select(UnpackNotification); 
             var updatedNotifications = parsedNotifications[true].Select(UnpackNotification); // notifications to activities that do not exist
 
-            Notification UnpackNotification((bool isValid, global::uIntra.Notification.Notification notification) arg) => arg.notification;
+            Notification UnpackNotification((bool isValid, global::Uintra.Notification.Notification notification) arg) => arg.notification;
 
             _notificationRepository.Update(updatedNotifications);
             _notificationRepository.Delete(invalidNotifications); // we delete notifications that could not be migrated for some reason
         }
 
-        private (bool isValid, global::uIntra.Notification.Notification notification) UpdateNotificationValue((global::uIntra.Notification.Notification notification, OldNotifierData data) item)
+        private (bool isValid, global::Uintra.Notification.Notification notification) UpdateNotificationValue((global::Uintra.Notification.Notification notification, OldNotifierData data) item)
         {
             var notification = item.notification;
 
@@ -68,19 +68,23 @@ namespace Compent.uIntra.Installer.Migrations
             return (isValid: true, notification);
         }
 
-        private NotificationValue MapToNewNotificationValue((global::uIntra.Notification.Notification item, OldNotifierData data) notification)
+        private NotificationValue MapToNewNotificationValue((Notification item, OldNotifierData data) notification)
         {
             Guid activityId = ParseActivityId(notification.data.Url);
 
             var activityService =
-                _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(notification.data.ActivityType.Id);
+                _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(notification.data.ActivityType);
 
             var activity = activityService.Get(activityId);
 
-            var notificationType = _notificationTypeProvider.Get(notification.item.Type);
+            var notificationType = _notificationTypeProvider[notification.item.Type];
 
             var newValue = _newNotifierDataValueProvider.GetNotifierDataValue(notification.data, activity, notificationType);
-            var message = _newNotificationMessageService.GetUiNotificationMessage(notification.item.ReceiverId, notification.data.ActivityType, notificationType, newValue);
+            var message = _newNotificationMessageService.GetUiNotificationMessage(
+                notification.item.ReceiverId,
+                notification.data.ActivityType,
+                notificationType,
+                newValue);
 
             return new NotificationValue
             {

@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core.Localization
+﻿namespace Uintra.Core.Localization
 {
     public interface IIntranetLocalizationService
     {

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using uIntra.Core.Persistence;
-using uIntra.Notification.Configuration;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
-    [uIntraTable("MemberNotifiersSetting")]
+    [UintraTable("MemberNotifiersSetting")]
     public class MemberNotifierSetting : SqlEntity<Guid>
     {
         [Key]
@@ -14,7 +13,7 @@ namespace uIntra.Notification
         public override Guid Id { get; set; }
 
         public Guid MemberId { get; set; }
-        public NotifierTypeEnum NotifierType { get; set; }
+        public int NotifierType { get; set; }
         public bool IsEnabled { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-namespace uIntra.Core.Controls.FileUpload
+namespace Uintra.Core.Controls.FileUpload
 {
     public class FileUploadSettings
     {

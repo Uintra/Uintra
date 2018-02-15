@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Core.Extensions
+namespace Uintra.Core.Extensions
 {
     public static class ObjectExtensions
     {
@@ -33,6 +33,13 @@ namespace uIntra.Core.Extensions
             return value.HasValue
                 ? func(value.Value)
                 : (TResult?) null;
+        }
+
+
+        public static T DefaultWith<T>(this T? value, Func<T> func)
+            where T : struct
+        {
+            return value ?? func();
         }
     }
 }

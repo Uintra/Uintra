@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
 {
     public class PagePromotionMigration
     {

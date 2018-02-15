@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uIntra.Bulletins")]
+[assembly: AssemblyTitle("Uintra.Bulletins")]
 [assembly: AssemblyDescription("Bulletins are a simple type of post that are used for more casual purposes than Event and News posts. All types of user roles has access to writing Bulletins.")]
 
 [assembly: AssemblyVersion("0.3.6.0")]

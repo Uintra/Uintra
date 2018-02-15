@@ -1,8 +1,8 @@
 ﻿using System;
-using uIntra.Core.Extensions;
-using uIntra.Groups;
+using Uintra.Core.Extensions;
+using Uintra.Groups;
 
-namespace Compent.uIntra.Core.Activity
+namespace Compent.Uintra.Core.Activity
 {
     public class FeedActivityHelper : IFeedActivityHelper
     {

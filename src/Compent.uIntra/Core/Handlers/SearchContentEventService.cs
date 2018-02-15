@@ -1,17 +1,17 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using Compent.uIntra.Core.Constants;
+using Compent.Uintra.Core.Constants;
 using Newtonsoft.Json.Linq;
-using uIntra.Core.Constants;
-using uIntra.Core.Grid;
-using uIntra.Core.UmbracoEventServices;
-using uIntra.Search;
+using Uintra.Core.Constants;
+using Uintra.Core.Grid;
+using Uintra.Core.UmbracoEventServices;
+using Uintra.Search;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Publishing;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.Handlers
+namespace Compent.Uintra.Core.Handlers
 {
     public class SearchContentEventService : IUmbracoContentUnPublishedEventService, IUmbracoContentPublishedEventService
     {

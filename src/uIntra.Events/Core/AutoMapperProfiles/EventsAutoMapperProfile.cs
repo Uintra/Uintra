@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using AutoMapper;
 using Extensions;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Events.Dashboard;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Events.Dashboard;
 
-namespace uIntra.Events
+namespace Uintra.Events
 {
     public class EventsAutoMapperProfile : Profile
     {
@@ -95,7 +95,7 @@ namespace uIntra.Events
                 .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id))
                 .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToDateTimeFormat(), el.EndDate.ToDateTimeFormat() }));
 
-            Mapper.CreateMap<EventBackofficeCreateModel, EventBase>()
+            Mapper.CreateMap<EventBackofficeCreateModel, EventBase>()       
                .ForMember(dst => dst.MediaIds, o => o.Ignore())
                .ForMember(dst => dst.Type, o => o.Ignore())
                .ForMember(dst => dst.Id, o => o.Ignore())

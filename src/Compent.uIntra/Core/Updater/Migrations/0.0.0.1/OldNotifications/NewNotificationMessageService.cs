@@ -1,34 +1,34 @@
 using System;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Notification;
-using uIntra.Notification.Base;
-using uIntra.Notification.Configuration;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Notification;
+using Uintra.Notification.Base;
+using Uintra.Notification.Configuration;
 
-namespace Compent.uIntra.Installer.Migrations
+namespace Compent.Uintra.Installer.Migrations
 {
     public class NewNotificationMessageService
     {
         private readonly INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> _notificationModelMapper;
         private readonly INotificationSettingsService _notificationSettingsService;
-        private readonly INotifierTypeProvider _notifierTypeProvider;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
-        public NewNotificationMessageService(INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> notificationModelMapper, INotificationSettingsService notificationSettingsService, INotifierTypeProvider notifierTypeProvider, IIntranetUserService<IIntranetUser> intranetUserService)
+        public NewNotificationMessageService(
+            INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> notificationModelMapper,
+            INotificationSettingsService notificationSettingsService,
+            IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _notificationModelMapper = notificationModelMapper;
             _notificationSettingsService = notificationSettingsService;
-            _notifierTypeProvider = notifierTypeProvider;
             _intranetUserService = intranetUserService;
         }
 
-        private IIntranetType UiNotifierType => _notifierTypeProvider.Get(NotifierTypeEnum.UiNotifier.ToInt());
+        private Enum UiNotifierType => NotifierTypeEnum.UiNotifier;
 
         internal UiNotificationMessage GetUiNotificationMessage(
             Guid receiverId,
-            IIntranetType activityType,
-            IIntranetType notificationType,
+            Enum activityType,
+            Enum notificationType,
             INotifierDataValue newValue)
         {
             var notificationIdentity = new ActivityEventNotifierIdentity(activityType, notificationType, UiNotifierType);

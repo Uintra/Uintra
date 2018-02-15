@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.TypeProviders;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public class FeedListViewModel
     {
-        public IIntranetType Type { get; set; }
+        public Enum Type { get; set; }
         public IEnumerable<FeedItemViewModel> Feed { get; set; } = Enumerable.Empty<FeedItemViewModel>();
         public FeedTabSettings TabSettings { get; set; }
         public long Version { get; set; }

@@ -1,11 +1,10 @@
 ﻿using System;
-using uIntra.Core.Activity;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Activity;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public interface INotifyableService : ITypedService
     {
-        void Notify(Guid entityId, IIntranetType notificationType);
+        void Notify(Guid entityId, Enum notificationType);
     }
 }

@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Extensions;
-using uIntra.Core;
-using uIntra.Core.Activity;
-using uIntra.Core.Exceptions;
-using uIntra.Core.Extensions;
-using uIntra.Core.Localization;
-using uIntra.Core.TypeProviders;
-using uIntra.Notification;
-using uIntra.Notification.Configuration;
-using uIntra.Notification.Constants;
+using Uintra.Core;
+using Uintra.Core.Activity;
+using Uintra.Core.Exceptions;
+using Uintra.Core.Extensions;
+using Uintra.Core.Localization;
+using Uintra.Core.TypeProviders;
+using Uintra.Notification;
+using Uintra.Notification.Configuration;
+using Uintra.Notification.Constants;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
 {
     public class NotificationSettingsMigrations 
     {
@@ -184,10 +184,10 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
             return message;
         }
 
-        private ActivityEventNotifierIdentity GetActivityEventNotifierIdentity(NotifierTypeEnum notifierType, IntranetActivityTypeEnum activityType, NotificationTypeEnum notificationType)
+        private ActivityEventNotifierIdentity GetActivityEventNotifierIdentity(NotifierTypeEnum notifierType, IntranetActivityTypeEnum activityType, Enum notificationType)
         {
-            var activityEventIdentity = new ActivityEventIdentity(_activityTypeProvider.Get(activityType.ToInt()), _notificationTypeProvider.Get(notificationType.ToInt()));
-            return new ActivityEventNotifierIdentity(activityEventIdentity, _notifierTypeProvider.Get(notifierType.ToInt()));
+            var activityEventIdentity = new ActivityEventIdentity(activityType, notificationType);
+            return new ActivityEventNotifierIdentity(activityEventIdentity, notifierType);
         }
     }
 }

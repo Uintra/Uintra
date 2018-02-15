@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web;
-using uIntra.Core;
-using uIntra.Core.Extensions;
+using Uintra.Core;
+using Uintra.Core.Extensions;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public class CentralFeedFilterStateService : IFeedFilterStateService
     {

@@ -1,6 +1,7 @@
 ﻿using System;
+using Uintra.Core.Location;
 
-namespace uIntra.Events.Dashboard
+namespace Uintra.Events.Dashboard
 {
     public class EventBackofficeViewModel
     {
@@ -15,7 +16,7 @@ namespace uIntra.Events.Dashboard
         public bool IsHidden { get; set; }
         public string ModifyDate { get; set; }
         public string CreatedDate { get; set; }
+        public ActivityLocation Location { get; set; }
         public string LocationTitle { get; set; }
-        public string LocationAddress { get; set; }
     }
 }

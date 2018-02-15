@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uIntra.CentralFeed;
-using uIntra.Comments;
-using uIntra.Core.PagePromotion;
-using uIntra.Likes;
+using Uintra.CentralFeed;
+using Uintra.Comments;
+using Uintra.Core.PagePromotion;
+using Uintra.Likes;
 
-namespace Compent.uIntra.Core.PagePromotion.Entities
+namespace Compent.Uintra.Core.PagePromotion.Entities
 {
     public class PagePromotion : PagePromotionBase, IFeedItem, ICommentable, ILikeable
     {

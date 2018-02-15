@@ -1,6 +1,6 @@
 ﻿@using System.Web.Mvc.Html
-@using uIntra.CentralFeed
-@using uIntra.Core.Extensions
+@using Uintra.CentralFeed
+@using Uintra.Core.Extensions
 @model FeedListViewModel
 
 <input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
@@ -27,7 +27,7 @@
                     </label>
                 </div>
             </div>
-            <div class="feed__filter-item pull-right" style="display: @(Model.TabSettings.Type.Id != CentralFeedTypeEnum.Bulletins.ToInt() ? "block" : "none")">
+            <div class="feed__filter-item pull-right" style="display: @(!(Model.TabSettings.Type is CentralFeedTypeEnum.Bulletins) ? "block" : "none")">
                 <input class="btn" type="button" name="clearFilters" value="@Html.Localize("CentralFeedList.ClearFilters.btn")" />
             </div>
         </div>

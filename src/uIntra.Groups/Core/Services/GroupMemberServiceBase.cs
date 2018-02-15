@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using uIntra.Core.Persistence;
-using uIntra.Groups.Sql;
+using Uintra.Core.Persistence;
+using Uintra.Groups.Sql;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public abstract class GroupMemberServiceBase : IGroupMemberService
     {

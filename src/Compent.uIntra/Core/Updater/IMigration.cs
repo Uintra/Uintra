@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Compent.uIntra.Core.Updater
+namespace Compent.Uintra.Core.Updater
 {
     public interface IMigration
     {

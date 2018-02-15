@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.uIntra.Core.Search.Entities;
-using Compent.uIntra.Core.Search.Indexes;
-using uIntra.Core.Caching;
-using uIntra.Core.Extensions;
-using uIntra.Core.Persistence;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Groups.Sql;
-using uIntra.Search;
-using uIntra.Tagging.UserTags;
-using uIntra.Users;
+using Compent.Uintra.Core.Search.Entities;
+using Compent.Uintra.Core.Search.Indexes;
+using Uintra.Core.Caching;
+using Uintra.Core.Extensions;
+using Uintra.Core.Persistence;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Groups.Sql;
+using Uintra.Search;
+using Uintra.Tagging.UserTags;
+using Uintra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.Users
+namespace Compent.Uintra.Core.Users
 {
     public class IntranetUserService<T> : IntranetUserServiceBase<T>, IIndexer
         where T : IntranetUser, new()
@@ -31,13 +31,12 @@ namespace Compent.uIntra.Core.Users
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
-            IIntranetRoleTypeProvider intranetRoleTypeProvider,
             ICacheService cacheService,
             ISqlRepository<GroupMember> groupMemberRepository,
             IElasticUserIndex elasticUserIndex,
             IIntranetUserContentProvider intranetUserContentProvider,
             IUserTagService userTagService)
-            : base(memberService, umbracoContext, umbracoHelper, roleService, intranetRoleTypeProvider, cacheService)
+            : base(memberService, umbracoContext, umbracoHelper, roleService, cacheService)
         {
             _groupMemberRepository = groupMemberRepository;
             _elasticUserIndex = elasticUserIndex;

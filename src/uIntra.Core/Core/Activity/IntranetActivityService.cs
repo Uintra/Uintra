@@ -1,33 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Caching;
-using uIntra.Core.Extensions;
-using uIntra.Core.Media;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Caching;
+using Uintra.Core.Extensions;
+using Uintra.Core.Location;
+using Uintra.Core.Media;
+using Uintra.Core.TypeProviders;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
-        public abstract IIntranetType ActivityType { get; }
+        public abstract Enum ActivityType { get; }
         private const string CacheKey = "ActivityCache";
-        private string ActivityCacheSuffix => $"{ActivityType.Id}";
+        private string ActivityCacheSuffix => $"{ActivityType.ToString()}";
         private readonly IIntranetActivityRepository _activityRepository;
         private readonly ICacheService _cache;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IIntranetMediaService _intranetMediaService;
+        private readonly IActivityLocationService _activityLocationService;
 
         protected IntranetActivityService(
             IIntranetActivityRepository activityRepository,
             ICacheService cache,
             IActivityTypeProvider activityTypeProvider,
-            IIntranetMediaService intranetMediaService)
+            IIntranetMediaService intranetMediaService,
+            IActivityLocationService activityLocationService)
         {
             _activityRepository = activityRepository;
             _cache = cache;
             _activityTypeProvider = activityTypeProvider;
             _intranetMediaService = intranetMediaService;
+            _activityLocationService = activityLocationService;
         }
 
         public TActivity Get(Guid id)
@@ -89,9 +93,11 @@ namespace uIntra.Core.Activity
 
         protected virtual Guid Create(IIntranetActivity activity, Action<Guid> afterCreateAction)
         {
-            var newActivity = new IntranetActivityEntity { Type = ActivityType.Id, JsonData = activity.ToJson() };
+            var newActivity = new IntranetActivityEntity { Type = ActivityType.ToInt(), JsonData = activity.ToJson() };
             _activityRepository.Create(newActivity);
             var newActivityId = newActivity.Id;
+
+            _activityLocationService.Set(newActivityId, activity.Location);
             _intranetMediaService.Create(newActivityId, activity.MediaIds.JoinToString());
 
             afterCreateAction?.Invoke(newActivityId);
@@ -106,6 +112,8 @@ namespace uIntra.Core.Activity
         {
             var entity = _activityRepository.Get(activity.Id);
             entity.JsonData = activity.ToJson();
+
+            _activityLocationService.Set(activity.Id, activity.Location);
             _activityRepository.Update(entity);
             _intranetMediaService.Update(activity.Id, activity.MediaIds.JoinToString());
 
@@ -115,6 +123,7 @@ namespace uIntra.Core.Activity
 
         public virtual void Delete(Guid id)
         {
+            _activityLocationService.DeleteForActivity(id);
             _activityRepository.Delete(id);
             _intranetMediaService.Delete(id);
 
@@ -175,11 +184,12 @@ namespace uIntra.Core.Activity
         {
             var cachedActivity = activity.JsonData.Deserialize<TActivity>();
             cachedActivity.Id = activity.Id;
-            cachedActivity.Type = _activityTypeProvider.Get(activity.Type);
+            cachedActivity.Type = _activityTypeProvider[activity.Type];
             cachedActivity.CreatedDate = activity.CreatedDate;
             cachedActivity.ModifyDate = activity.ModifyDate;
             cachedActivity.IsPinActual = IsPinActual(cachedActivity);
             cachedActivity.MediaIds = _intranetMediaService.GetEntityMedia(cachedActivity.Id);
+            cachedActivity.Location = _activityLocationService.Get(activity.Id);
             return cachedActivity;
         }
 

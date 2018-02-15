@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace uIntra.Core.Caching
+namespace Uintra.Core.Caching
 {
     public interface ICacheService
     {

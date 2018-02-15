@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Linq;
 
-namespace uIntra.Core.BrowserCompatibility
+namespace Uintra.Core.BrowserCompatibility
 {
     public class BrowserCompatibilityConfigurationSection : ConfigurationSection, IBrowserCompatibilityConfigurationSection
     {

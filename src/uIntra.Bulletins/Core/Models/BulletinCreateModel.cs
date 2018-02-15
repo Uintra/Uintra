@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using uIntra.Core.Activity;
-using uIntra.Core.Attributes;
-using uIntra.Core.Media;
-using uIntra.Core.User;
+using Uintra.Core.Activity;
+using Uintra.Core.Attributes;
+using Uintra.Core.Media;
+using Uintra.Core.User;
 
-namespace uIntra.Bulletins
+namespace Uintra.Bulletins
 {
     public class BulletinCreateModel : IntranetActivityCreateModelBase, IContentWithMediaCreateEditModel
     {

@@ -1,9 +1,9 @@
 ﻿using System;
-using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
+using Uintra.Core.Links;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
 
-namespace uIntra.Events
+namespace Uintra.Events
 {
     public class EventPreviewViewModel
     {
@@ -11,7 +11,7 @@ namespace uIntra.Events
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public IIntranetUser Owner { get; set; }
-        public IIntranetType ActivityType { get; set; }
+        public Enum ActivityType { get; set; }
         public Guid Id { get; set; }
         public ActivityLinks Links { get; set; }
     }

@@ -1,6 +1,6 @@
 ﻿@using System.Web.Mvc.Html
-@using uIntra.Core.Extensions
-@model Compent.uIntra.Core.News.Models.NewsExtendedItemViewModel
+@using Uintra.Core.Extensions
+@model Compent.Uintra.Core.News.Models.NewsExtendedItemViewModel
 
 @{
     var pinnedClass = Model.IsPinActual ? "_pinned" : "";
@@ -10,9 +10,8 @@
     <div class="clearfix">
         @if (Model.IsPinned || Model.IsPinActual)
         {
-            <span class="pinned__item">@Html.Localize("NewsItemView.Pinned.lbl")</span>
+            <span class="pinned__item">@Html.Localize("Activity.Pinned.lbl")</span>
         }
-
         @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
     </div>
     <div class="feed__item-image"> </div>

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uIntra.Likes")]
+[assembly: AssemblyTitle("Uintra.Likes")]
 [assembly: AssemblyDescription("Likes as known from other social media platforms can be added to all types of posts and comments. They show up visually when something is liked" +
                                " and there is a counter on the number of likes a post or comment has.")]
 

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Notification.Configuration;
+using Uintra.Notification.Configuration;
 
-namespace uIntra.Notification.Base
+namespace Uintra.Notification.Base
 {
     public abstract class MailBase
     {

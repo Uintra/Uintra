@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core.Jobs.Configuration
+﻿namespace Uintra.Core.Jobs.Configuration
 {
     public interface IJobSettingsConfiguration
     {

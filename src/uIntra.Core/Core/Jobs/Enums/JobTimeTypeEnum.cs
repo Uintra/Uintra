@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core.Jobs
+﻿namespace Uintra.Core.Jobs
 {
     public enum  JobTimeTypeEnum
     {

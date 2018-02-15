@@ -1,9 +1,9 @@
-﻿using uIntra.Core.Activity;
-using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
+﻿using Uintra.Core.Activity;
+using Uintra.Core.User;
+using Uintra.Core.User.Permissions;
 using Umbraco.Core.Models;
 
-namespace uIntra.Groups.Permissions
+namespace Uintra.Groups.Permissions
 {
     public class GroupPermissionsService : IGroupPermissionsService
     {

@@ -3,7 +3,7 @@ using System.Configuration;
 using uIntra.LicenceService.ApiClient.Interfaces;
 using Umbraco.Core.Services;
 
-namespace Compent.uIntra.Core.Licence
+namespace Compent.Uintra.Core.Licence
 {
     public sealed class ValidateLicenceService : IValidateLicenceService
     {

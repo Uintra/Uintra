@@ -1,10 +1,10 @@
-﻿using Compent.uIntra.Core.Search.Entities;
-using uIntra.Core.TypeProviders;
-using uIntra.Search;
+﻿using Compent.Uintra.Core.Search.Entities;
+using Uintra.Core.TypeProviders;
+using Uintra.Search;
 
-namespace Compent.uIntra.Core.Search
+namespace Compent.Uintra.Core.Search
 {
-    public class UintraSearchableTypeProvider : IntranetTypeProviderBase<UintraSearchableTypeEnum>, ISearchableTypeProvider
+    public class UintraSearchableTypeProvider : EnumTypeProviderBase<UintraSearchableTypeEnum>, ISearchableTypeProvider
     {
     }
 }

@@ -1,7 +1,7 @@
 using System;
-using uIntra.Core.Activity;
+using Uintra.Core.Activity;
 
-namespace uIntra.Events
+namespace Uintra.Events
 {
     public class EventViewModel : IntranetActivityViewModelBase
     {
@@ -13,6 +13,5 @@ namespace uIntra.Events
         public bool CanSubscribe { get; set; }
         public string SubscribeNotes { get; set; }
         public string LocationTitle { get; set; }
-        public string LocationAddress { get; set; }
     }
 }

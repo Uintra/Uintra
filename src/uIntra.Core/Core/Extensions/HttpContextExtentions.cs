@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using uIntra.Core.Constants;
-using uIntra.Core.User;
+using Uintra.Core.Constants;
+using Uintra.Core.User;
 
-namespace uIntra.Core.Extensions
+namespace Uintra.Core.Extensions
 {
     public static class HttpContextExtensions
     {

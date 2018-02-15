@@ -1,6 +1,6 @@
 using System;
 
-namespace uIntra.Groups.Dashboard
+namespace Uintra.Groups.Dashboard
 {
     public class BackofficeGroupViewModel
     {

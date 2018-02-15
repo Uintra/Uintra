@@ -1,7 +1,7 @@
 ﻿using System;
-using uIntra.Core.Extensions;
+using Uintra.Core.Extensions;
 
-namespace Compent.uIntra.Installer.Migrations
+namespace Compent.Uintra.Installer.Migrations
 {
     internal static class Helpers
     {

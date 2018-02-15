@@ -1,15 +1,15 @@
 ﻿using System.Web.Mvc;
-using Compent.uIntra.Core.Activity.Models;
-using Compent.uIntra.Core.PagePromotion.Entities;
-using Compent.uIntra.Core.PagePromotion.Models;
-using uIntra.Core.Extensions;
-using uIntra.Core.Feed;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Core.Web;
+using Compent.Uintra.Core.Activity.Models;
+using Compent.Uintra.Core.PagePromotion.Entities;
+using Compent.Uintra.Core.PagePromotion.Models;
+using Uintra.Core.Extensions;
+using Uintra.Core.Feed;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Core.Web;
 using Umbraco.Core;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class PagePromotionController : PagePromotionControllerBase
     {
@@ -32,11 +32,7 @@ namespace Compent.uIntra.Controllers
             var extendedModel = model.Map<PagePromotionExtendedItemViewModel>();
 
             extendedModel.HeaderInfo = model.HeaderInfo.Map<ExtendedItemHeaderViewModel>();
-            model.HeaderInfo.Type = new IntranetType
-            {
-                Id = item.Type.Id,
-                Name = $"{PagePromotionTranslationPrefix}{item.PageAlias.ToFirstUpper()}"
-            };
+            model.HeaderInfo.Type = item.Type;
 
             extendedModel.LikesInfo = item;
             extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;

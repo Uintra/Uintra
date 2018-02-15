@@ -2,28 +2,28 @@
 using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
-using Compent.uIntra.Installer.Migrations;
-using Compent.uIntra.Installer.Migrations.OldSubscribeSettings;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using Compent.Uintra.Installer.Migrations;
+using Compent.Uintra.Installer.Migrations.OldSubscribeSettings;
 using EmailWorker.Data.Services.Interfaces;
 using Extensions;
-using uIntra.Bulletins;
-using uIntra.Core;
-using uIntra.Core.Activity;
-using uIntra.Core.Installer;
-using uIntra.Core.MigrationHistories;
-using uIntra.Core.User;
-using uIntra.Events;
-using uIntra.News;
-using uIntra.Notification.Configuration;
+using Uintra.Bulletins;
+using Uintra.Core;
+using Uintra.Core.Activity;
+using Uintra.Core.Installer;
+using Uintra.Core.MigrationHistories;
+using Uintra.Core.User;
+using Uintra.Events;
+using Uintra.News;
+using Uintra.Notification.Configuration;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using static Compent.uIntra.Core.Updater.ExecutionResult;
+using static Compent.Uintra.Core.Updater.ExecutionResult;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class AggregateStep : IMigrationStep
     {
@@ -60,8 +60,6 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
             new EventPublishDateMigration().Execute();
             new OldSubscribeSettingsMigration().Execute();
             new MoveMyGroupsOverviewDocTypeMigration().Execute();
-            new TaggingMigration().Execute();
-            new UpdateDataFolderNamesMigration().Execute();
 
             AddDefaultMailSettings();
             return Success;

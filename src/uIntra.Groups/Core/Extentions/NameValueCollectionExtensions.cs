@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Linq;
-using uIntra.Groups.Constants;
+using Uintra.Groups.Constants;
 
 
-namespace uIntra.Groups.Extensions
+namespace Uintra.Groups.Extensions
 {
     public static class NameValueCollectionExtensions
     {

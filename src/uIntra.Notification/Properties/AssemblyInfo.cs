@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uIntra.Notification")]
+[assembly: AssemblyTitle("Uintra.Notification")]
 [assembly: AssemblyDescription("Notifications works as know from other social media, however it is also possible to receive notifications as email. The user can set up" +
                                " which notifications they would like to receive in emails.")]
 

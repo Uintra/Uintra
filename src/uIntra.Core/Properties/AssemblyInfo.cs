@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("uIntra.Core")]
+[assembly: AssemblyTitle("Uintra.Core")]
 [assembly: AssemblyDescription("Core activity package.")]
 
 [assembly: AssemblyVersion("1.4.13.0")]

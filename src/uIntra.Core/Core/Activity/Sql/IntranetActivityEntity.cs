@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using uIntra.Core.Persistence;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
-    [uIntraTable("Activity")]
+    [UintraTable("Activity")]
     public class IntranetActivityEntity : SqlEntity<Guid>
     {
         [Key]

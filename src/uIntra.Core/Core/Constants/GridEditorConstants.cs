@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core.Constants
+﻿namespace Uintra.Core.Constants
 {
     public static class GridEditorConstants
     {

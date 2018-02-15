@@ -1,8 +1,8 @@
 ﻿@using System.Web.Mvc.Ajax
 @using System.Web.Mvc.Html
-@using uIntra.Comments
-@using uIntra.Core.Extensions
-@model uIntra.Comments.CommentViewModel
+@using Uintra.Comments
+@using Uintra.Core.Extensions
+@model Uintra.Comments.CommentViewModel
 
 @{
     var inactiveUser = Model.Creator.Inactive ? "_inactive" : String.Empty;
@@ -62,12 +62,23 @@
             @Html.Raw(Model.Text)
         </div>
         
+        @if (Model.LinkPreview != null)
+        {
+            <div class=" js-comment-link-preview-container link-preview">
+                <h3 class="link-preview-title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
+                <p>@Model.LinkPreview.Description</p>
+                <div class="link-preview-image">
+                    <img src="@Model.LinkPreview.ImageUri" alt="link preview image description" />
+                </div>
+            </div>
+        }
+        
         @{ Html.RenderAction("CommentLikes", "Likes", new { activityId = Model.ActivityId, commentId = Model.Id }); }
 
         @if (Model.CanEdit)
         {
         <div class="comments__list-text js-comment-editContainer" style="display: none">
-            @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId })
+            @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditViewModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId, LinkPreview = Model.LinkPreview })
         </div>
         }
 

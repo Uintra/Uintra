@@ -1,4 +1,4 @@
-namespace Compent.uIntra.Persistence.Sql.Migrations
+namespace Compent.Uintra.Persistence.Sql.Migrations
 {
     using System.Data.Entity.Migrations;
     
@@ -32,7 +32,7 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
                 .Index(t => new { t.GroupId, t.ActivityId }, unique: true, name: "UQ_GroupActivity_GroupId_ActivityId");
             
             CreateTable(
-                "dbo.uIntra_GroupDocument",
+                "dbo.Uintra_GroupDocument",
                 c => new
                     {
                         Id = c.Guid(nullable: false),

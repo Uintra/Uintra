@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.uIntra.Core.Search.Entities;
+using Compent.Uintra.Core.Search.Entities;
 using Extensions;
 using Nest;
-using uIntra.Core.Extensions;
-using uIntra.Search;
+using Uintra.Core.Extensions;
+using Uintra.Search;
 
-namespace Compent.uIntra.Core.Search.Indexes
+namespace Compent.Uintra.Core.Search.Indexes
 {
     public class UintraElasticIndex : ElasticIndex
     {

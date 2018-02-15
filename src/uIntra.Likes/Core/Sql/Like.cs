@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using uIntra.Core.Persistence;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Likes
+namespace Uintra.Likes
 {
-    [uIntraTable("Like")]
+    [UintraTable("Like")]
     public class Like : SqlEntity<Guid>
     {
         [Key]

@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Core.Links;
-using uIntra.Core.PagePromotion;
-using uIntra.Core.User;
+using Uintra.Core;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Core.LinkPreview;
+using Uintra.Core.Links;
+using Uintra.Core.PagePromotion;
+using Uintra.Core.User;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Comments.Web
+namespace Uintra.Comments.Web
 {
     public abstract class CommentsControllerBase : SurfaceController
     {
@@ -55,15 +56,17 @@ namespace uIntra.Comments.Web
                 return OverView(model.ActivityId);
             }
 
-            if (IsForPagePromotion(model.ActivityId)) return AddActivityComment(model);
+            var createDto = Map(model);
+
+            if (IsForPagePromotion(model.ActivityId)) return AddActivityComment(createDto);
 
             if (_umbracoContentHelper.IsForContentPage(model.ActivityId))
             {
-                _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+                _customCommentableService.CreateComment(createDto);
                 return OverView(model.ActivityId);
             }
 
-            return AddActivityComment(model);
+            return AddActivityComment(createDto);
         }
 
         [HttpPut]
@@ -76,15 +79,17 @@ namespace uIntra.Comments.Web
                 return OverView(model.Id);
             }
 
-            if (IsForPagePromotion(comment.ActivityId)) return EditActivityComment(model, comment);
+            var editDto = Map(model);
+
+            if (IsForPagePromotion(comment.ActivityId)) return EditActivityComment(editDto, comment);
 
             if (_umbracoContentHelper.IsForContentPage(comment.ActivityId))
             {
-                _customCommentableService.UpdateComment(model.Id, model.Text);
+                _customCommentableService.UpdateComment(editDto);
                 return OverView(comment.ActivityId);
             }
 
-            return EditActivityComment(model, comment);
+            return EditActivityComment(editDto, comment);
         }
 
         [HttpDelete]
@@ -128,7 +133,7 @@ namespace uIntra.Comments.Web
         public virtual PartialViewResult EditView(Guid id, string updateElementId)
         {
             var comment = _commentsService.Get(id);
-            var model = new CommentEditModel
+            var model = new CommentEditViewModel
             {
                 Id = id,
                 Text = comment.Text,
@@ -160,19 +165,18 @@ namespace uIntra.Comments.Web
             return PartialView(ViewPath, viewModel);
         }
 
-        protected virtual PartialViewResult AddActivityComment(CommentCreateModel model)
+        protected virtual PartialViewResult AddActivityComment(CommentCreateDto dto)
         {
-            var service = _activitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
-            var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+            var service = _activitiesServiceFactory.GetService<ICommentableService>(dto.ActivityId);
+            var comment = service.CreateComment(dto);
             OnCommentCreated(comment);
-
-            return OverView(model.ActivityId);
+            return OverView(dto.ActivityId);
         }
 
-        protected virtual PartialViewResult EditActivityComment(CommentEditModel model, CommentModel comment)
+        protected virtual PartialViewResult EditActivityComment(CommentEditDto editDto, CommentModel comment)
         {
             var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
-            service.UpdateComment(model.Id, model.Text);
+            service.UpdateComment(editDto);
             OnCommentEdited(comment);
             return OverView(comment.ActivityId);
         }
@@ -230,7 +234,27 @@ namespace uIntra.Comments.Web
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             model.CreatorProfileUrl = _profileLinkProvider.GetProfileLink(creator);
+            model.LinkPreview = comment.LinkPreview.Map<LinkPreviewViewModel>();
             return model;
+        }
+
+        protected virtual CommentCreateDto Map(CommentCreateModel createModel)
+        {
+            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            var dto = new CommentCreateDto(currentUserId,
+                createModel.ActivityId,
+                createModel.Text,
+                createModel.ParentId,
+                createModel.LinkPreviewId
+            );
+
+            return dto;
+        }
+
+        protected virtual CommentEditDto Map(CommentEditModel editModel)
+        {
+            var dto = new CommentEditDto(editModel.Id, editModel.Text, editModel.LinkPreviewId);
+            return dto;
         }
 
         protected virtual bool IsForPagePromotion(Guid entityId)

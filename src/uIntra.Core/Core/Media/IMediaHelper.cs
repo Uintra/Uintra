@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using uIntra.Core.Controls.FileUpload;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Controls.FileUpload;
+using Uintra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
-namespace uIntra.Core.Media
+namespace Uintra.Core.Media
 {
     public interface IMediaHelper
     {
@@ -17,7 +17,6 @@ namespace uIntra.Core.Media
         IMedia CreateMedia(TempFile file, int rootMediaId, Guid? userId = null);
         bool IsMediaDeleted(IPublishedContent media);
 
-        MediaSettings GetMediaFolderSettings(int mediaFolderType, bool createFolderIfNotExists = false);
-        MediaSettings GetMediaFolderSettings(IIntranetType mediaFolderType, bool createFolderIfNotExists = false);
+        MediaSettings GetMediaFolderSettings(Enum mediaFolderType, bool createFolderIfNotExists = false);
     }
 }

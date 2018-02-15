@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using uIntra.Core.Controls.FileUpload;
-using uIntra.Core.Extensions;
-using uIntra.Core.Media;
+using Uintra.Core.Controls.FileUpload;
+using Uintra.Core.Extensions;
+using Uintra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupMediaService : IGroupMediaService
     {
@@ -46,7 +46,7 @@ namespace uIntra.Groups
 
         private IMedia GetOrCreateGroupMediaFolder(Guid groupId)
         {
-            var groupFolderSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent.ToInt(), createFolderIfNotExists: true);
+            var groupFolderSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent, createFolderIfNotExists: true);
 
             var medias = _mediaService.GetChildren(groupFolderSettings.MediaRootId ?? -1);
             var groupFolder = medias.FirstOrDefault(s =>

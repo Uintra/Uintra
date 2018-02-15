@@ -1,7 +1,7 @@
-using uIntra.Core.Activity;
-using uIntra.Core.Links;
+using Uintra.Core.Activity;
+using Uintra.Core.Links;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public class CentralFeedLinkProvider : FeedLinkProvider, ICentralFeedLinkProvider
     {

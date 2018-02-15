@@ -1,9 +1,9 @@
-﻿@using uIntra.Core.Activity
-@using uIntra.Core.Controls.FileUpload
-@using uIntra.Core.Extensions;
-@using uIntra.Subscribe
+﻿@using Uintra.Core.Activity
+@using Uintra.Core.Controls.FileUpload
+@using Uintra.Core.Extensions;
+@using Uintra.Subscribe
 @using Umbraco.Web
-@model Compent.uIntra.Core.Events.EventExtendedCreateModel
+@model Compent.Uintra.Core.Events.EventExtendedCreateModel
 
 <div class="form js-check-before-unload" id="js-events-create-page">
     @using (Html.BeginUmbracoForm("CreateExtended", "Events", FormMethod.Post, new { id = "createForm" }))
@@ -53,20 +53,23 @@
             </div>
         </div>
         <div class="form__row clearfix">
-            <label class="form__label" for="js-publish-date">@Html.Localize("EventsCreate.PublishDate.lbl")</label>
-            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
-            <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("EventsCreate.PublishDateRequired.lbl")" data-val="true" />
-            <span class="form__clear icon-close js-clear-date hide"></span>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="form__label" for="js-publish-date">@Html.Localize("EventsCreate.PublishDate.lbl")</label>
+                    <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
+                    <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("EventsCreate.PublishDateRequired.lbl")" data-val="true" />
+                    <span class="form__clear icon-close js-clear-date hide"></span>
+                </div>
+            </div>
         </div>
         <div class="form__row clearfix">
-            <label class="form__label" for="locationTitle">@Html.Localize("EventsCreate.LocationTitle.lbl")</label>
-            <input class="form__input" id="locationTitle" type="text" name="locationTitle" value="@(Model.LocationTitle)" placeholder="@Html.Localize("EventsCreate.LocationTitlePlaceholder.lbl")"
-                   data-val-length-max="200" data-val-length="@string.Format(Html.Localize("EventsCreate.LocationTitleMaxLength.lbl"), 200)" data-val="true" />
+            <label class="form__label" for="locationTitle">@Html.Localize("EventsEdit.LocationTitle.lbl")</label>
+            <input class="form__input" id="locationTitle" type="text" name="locationTitle" value="@(Model.LocationTitle)" placeholder="@Html.Localize("EventsEdit.LocationTitlePlaceholder.lbl")"
+                   data-val-length-max="200" data-val-length="@string.Format(Html.Localize("EventsEdit.LocationTitleMaxLength.lbl"), 200)" data-val="true" />
         </div>
-        <div class="form__row clearfix">
-            <label class="form__label" for="locationAddress">@Html.Localize("EventsCreate.LocationAddress.lbl")</label>
-            <input class="form__input" id="locationAddress" type="text" name="locationAddress" value="@(Model.LocationAddress)" placeholder="@Html.Localize("EventsCreate.LocationAddressPlaceholder.lbl")"
-                   data-val-length-max="200" data-val-length="@string.Format(Html.Localize("EventsCreate.LocationAddressMaxLength.lbl"), 200)" data-val="true" />
+        <div class="form__row">
+            @Html.Label("Location", Html.Localize("Activity.Location.lbl"), new { @class = "form__label" })
+            @Html.Action("Edit", "ActivityLocation")
         </div>
         <div class="form__row clearfix">
             @Html.Action("PinActivity", "Activity", new { isPinned = false })

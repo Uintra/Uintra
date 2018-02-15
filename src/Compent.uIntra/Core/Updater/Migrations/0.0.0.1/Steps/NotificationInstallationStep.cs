@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
-using uIntra.Core.Constants;
-using uIntra.Core.Installer;
-using uIntra.Notification.Configuration;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using Uintra.Core.Constants;
+using Uintra.Core.Installer;
+using Uintra.Notification.Configuration;
 using Umbraco.Core;
 using Umbraco.Core.Models;
-using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.NotificationInstallationConstants;
-using static Compent.uIntra.Core.Updater.ExecutionResult;
+using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.NotificationInstallationConstants;
+using static Compent.Uintra.Core.Updater.ExecutionResult;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class NotificationInstallationStep : IMigrationStep
     {

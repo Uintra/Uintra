@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Core.TypeProviders;
-using uIntra.Subscribe;
+using Uintra.Subscribe;
 
-namespace Compent.uIntra.Core.Subscribe
+namespace Compent.Uintra.Core.Subscribe
 {
     public class CustomSubscribable : ISubscribable
     {
         public Guid Id { get; set; }
 
-        public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
+        public IEnumerable<global::Uintra.Subscribe.Subscribe> Subscribers { get; set; }
 
-        public IIntranetType Type { get; set; }
+        public Enum Type { get; set; }
     }
 }

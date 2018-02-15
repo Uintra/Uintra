@@ -1,10 +1,10 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
-using uIntra.Core.User;
+using Uintra.Core.User;
 using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Navigation.Web
+namespace Uintra.Navigation.Web
 {
     public abstract class NavigationAuthorizationControllerBase : SurfaceController
     {

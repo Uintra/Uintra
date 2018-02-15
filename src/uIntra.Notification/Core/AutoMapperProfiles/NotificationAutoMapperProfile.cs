@@ -1,9 +1,9 @@
 ﻿using System.Web;
 using System.Web.Helpers;
 using AutoMapper;
-using uIntra.Core.Extensions;
+using Uintra.Core.Extensions;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public class NotificationAutoMapperProfile : Profile
     {
@@ -17,12 +17,23 @@ namespace uIntra.Notification
                 .AfterMap((src, dst) =>
                 {
                     var notificationTypeProvider = HttpContext.Current.GetService<INotificationTypeProvider>();
-                    dst.Type = notificationTypeProvider.Get(src.Type);
+                    dst.Type = notificationTypeProvider[src.Type];
                 });
 
 
-            Mapper.CreateMap<NotifierSettingSaveModel<EmailNotifierTemplate>, NotifierSettingModel<EmailNotifierTemplate>>();
-            Mapper.CreateMap<NotifierSettingSaveModel<UiNotifierTemplate>, NotifierSettingModel<UiNotifierTemplate>>();
+            Mapper.CreateMap<NotifierSettingSaveModel<EmailNotifierTemplate>, NotifierSettingModel<EmailNotifierTemplate>>()
+                .ForMember(d => d.NotificationType, o => o.Ignore())
+                .ForMember(d => d.NotificationTypeName, o => o.Ignore())
+                .ForMember(d => d.NotifierType, o => o.Ignore())
+                .ForMember(d => d.ActivityType, o => o.Ignore())
+                .ForMember(d => d.ActivityTypeName, o => o.Ignore());
+
+            Mapper.CreateMap<NotifierSettingSaveModel<UiNotifierTemplate>, NotifierSettingModel<UiNotifierTemplate>>()
+                .ForMember(d => d.NotificationType, o => o.Ignore())
+                .ForMember(d => d.NotificationTypeName, o => o.Ignore())
+                .ForMember(d => d.NotifierType, o => o.Ignore())
+                .ForMember(d => d.ActivityType, o => o.Ignore())
+                .ForMember(d => d.ActivityTypeName, o => o.Ignore());
         }
     }
 }

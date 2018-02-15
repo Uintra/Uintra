@@ -1,13 +1,13 @@
-using uIntra.Core.TypeProviders;
 
-namespace uIntra.Notification
+
+namespace Uintra.Notification
 {
     public class NotifierSettingSaveModel<T>
         where T : INotifierTemplate
     {
-        public IntranetType ActivityType { get; set; }
-        public IntranetType NotificationType { get; set; }
-        public IntranetType NotifierType { get; set; }
+        public int ActivityType { get; set; }
+        public int NotificationType { get; set; }
+        public int NotifierType { get; set; }
         public bool IsEnabled { get; set; }
         public string NotificationInfo { get; set; } 
         public T Template { get; set; }

@@ -4,12 +4,12 @@ using System.Reflection;
 using System.Web.Mvc;
 using Extensions;
 using FluentScheduler;
-using uIntra.Core.Extensions;
-using uIntra.Core.Jobs.Configuration;
-using uIntra.Core.Jobs.Enums;
-using uIntra.Core.Jobs.Models;
+using Uintra.Core.Extensions;
+using Uintra.Core.Jobs.Configuration;
+using Uintra.Core.Jobs.Enums;
+using Uintra.Core.Jobs.Models;
 
-namespace uIntra.Core.Jobs
+namespace Uintra.Core.Jobs
 {
     public class JobsRegistry : Registry
     {
