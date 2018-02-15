@@ -96,13 +96,11 @@
 
                 <div class="control-group">
                     <h5 class="control-label">Location title:</h5>
-                    <input class="umbraco-panel__text-field" type="text" ng-model="vm.selected.locationTitle" ng-maxlength="200" name="LocationTitle" />
+                    <input class="umbraco-panel__text-field" type="text" ng-model="vm.selected.locationTitle" ng-maxlength="200" name="LocatoinTitle" />
                 </div>
                 
-                <div class="control-group">
-                    <h5 class="control-label">Location address:</h5>
-                    <input class="umbraco-panel__text-field" type="text" ng-model="vm.selected.locationAddress" ng-maxlength="200" name="LocationAddress" />
-                </div>
+                <h5 class="control-label">Location:</h5>
+                <location-edit model="vm.selected.location"></location-edit>
 
                 <div class="control-group">
                     <h5 class="control-label">Media:</h5>
