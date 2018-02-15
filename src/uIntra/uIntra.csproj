@@ -1158,6 +1158,27 @@
       <Link>Persistence\Sql\Migrations\201801111246169_UserTags.Designer.cs</Link>
       <DependentUpon>201801111246169_UserTags.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801191040358_ActivityLocation.cs">
+      <Link>Persistence\Sql\Migrations\201801191040358_ActivityLocation.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801191040358_ActivityLocation.Designer.cs">
+      <Link>Persistence\Sql\Migrations\201801191040358_ActivityLocation.Designer.cs</Link>
+      <DependentUpon>201801191040358_ActivityLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201802050917423_LinkPreview.cs">
+      <Link>Persistence\Sql\Migrations\201802050917423_LinkPreview.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201802050917423_LinkPreview.Designer.cs">
+      <Link>Persistence\Sql\Migrations\201802050917423_LinkPreview.Designer.cs</Link>
+      <DependentUpon>201802050917423_LinkPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201802091031082_Renaming.cs">
+      <Link>Persistence\Sql\Migrations\201802091031082_Renaming.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201802091031082_Renaming.Designer.cs">
+      <Link>Persistence\Sql\Migrations\201802091031082_Renaming.Designer.cs</Link>
+      <DependentUpon>201802091031082_Renaming.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
     </Compile>
@@ -1177,6 +1198,18 @@
     <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801111246169_UserTags.resx">
       <Link>Persistence\Sql\Migrations\201801111246169_UserTags.resx</Link>
       <DependentUpon>201801111246169_UserTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201801191040358_ActivityLocation.resx">
+      <Link>Persistence\Sql\Migrations\201801191040358_ActivityLocation.resx</Link>
+      <DependentUpon>201801191040358_ActivityLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201802050917423_LinkPreview.resx">
+      <Link>Persistence\Sql\Migrations\201802050917423_LinkPreview.resx</Link>
+      <DependentUpon>201802050917423_LinkPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201802091031082_Renaming.resx">
+      <Link>Persistence\Sql\Migrations\201802091031082_Renaming.resx</Link>
+      <DependentUpon>201802091031082_Renaming.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
