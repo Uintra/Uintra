@@ -2,18 +2,17 @@
 namespace Compent.Uintra.Persistence.Sql.Migrations
 {
     using System.CodeDom.Compiler;
-    using System.Data.Entity.Migrations;
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
-    
+
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Uintra_Initial : IMigrationMetadata
+    public sealed partial class uIntra_Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Uintra_Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(uIntra_Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708170729073_Uintra_Initial"; }
+            get { return "201708170729073_uIntra_Initial"; }
         }
         
         string IMigrationMetadata.Source

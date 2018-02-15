@@ -51,15 +51,8 @@ var initDescriptionControl = function (holder) {
     var editor = helpers.initQuill(descriptionElem[0], dataStorage[0], {
         modules: {
             toolbar: toolbarOptions
-        },
-        theme: 'snow'
+        }
     });
-
-    let emojiContainer = editor.container.querySelector(".js-emoji");
-    if (!emojiContainer) {
-        helpers.initSmiles(editor, editor.getModule('toolbar').container);
-        emojiContainer = true;
-    }
 
     editor.on('text-change', function () {
         if (editor.getLength() > 1 && descriptionElem.hasClass('input-validation-error')) {
@@ -69,7 +62,6 @@ var initDescriptionControl = function (holder) {
 
     btn.click(function () {
         descriptionElem.toggleClass("input-validation-error", editor.getLength() <= 1);
-
     });
 };
 

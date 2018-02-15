@@ -1,6 +1,6 @@
-﻿@using uIntra.Core.Extensions
+﻿@using Uintra.Core.Extensions
 @using Extensions
-@inherits Umbraco.Web.Mvc.UmbracoViewPage<uIntra.Groups.GroupNavigationViewModel>
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Groups.GroupNavigationViewModel>
 
 <nav class="tabset tabset--group">
     <div class="tabset__holder">
@@ -19,9 +19,9 @@
             <ul class="tabset__navigation _groups clearfix js-feed-links">
                 @foreach (var tab in Model.ActivityTabs)
                 {
-                    <li class="tabset__navigation-item js-feed-type @(tab.IsActive ? "_active" : "")" data-type="@tab.Type.Id" data-page-url="@tab.Links.Overview">
+                    <li class="tabset__navigation-item js-feed-type @(tab.IsActive ? "_active" : "")" data-type="@tab.Type.ToInt()" data-page-url="@tab.Links.Overview">
                         <a class="tabset__navigation-link " href="@tab.Links.Overview">
-                            @Html.Localize($"GroupRoom.Navigation.{tab.Type.Name}.lbl")
+                            @Html.Localize($"GroupRoom.Navigation.{tab.Type.ToString()}.lbl")
                         </a>
                     </li>
                 }

@@ -8,7 +8,6 @@ using Compent.Uintra.Core.Search.Models;
 using Localization.Umbraco.Attributes;
 using Uintra.Core.Extensions;
 using Uintra.Core.Localization;
-using Uintra.Core.TypeProviders;
 using Uintra.Search;
 using Uintra.Search.Web;
 
@@ -87,7 +86,7 @@ namespace Compent.Uintra.Controllers
                     return new SearchFilterItemViewModel
                     {
                         Id = type.ToInt(),
-                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.ToString()}", facet != null ? (int) facet.Count : default)
+                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.ToString()}", facet != null ? (int)facet.Count : default(int))
                     };
                 }
             );
@@ -95,9 +94,9 @@ namespace Compent.Uintra.Controllers
             var result = new UintraSearchResultsOverviewViewModel
             {
                 Results = searchResultViewModels,
-                ResultsCount = (int) searchResult.TotalHits,
+                ResultsCount = (int)searchResult.TotalHits,
                 FilterItems = filterItems,
-                AllTypesPlaceholder = GetLabelWithCount("Search.Filter.All.lbl", (int) searchResult.TotalHits),
+                AllTypesPlaceholder = GetLabelWithCount("Search.Filter.All.lbl", (int)searchResult.TotalHits),
                 BlockScrolling = searchResult.TotalHits <= searchResultViewModels.Count
             };
 
@@ -112,9 +111,9 @@ namespace Compent.Uintra.Controllers
                 model.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider[searchResult.Type].ToString()}");
                 if (searchResult is SearchableUser user)
                 {
-                    var email = new SearchInfoListItemModel {Name = "Email", Value = user.Email};
-                    var photo = new SearchInfoListItemModel {Name = "Photo", Value = user.Photo};
-                    model.AdditionalInfo = new List<SearchInfoListItemModel> {email, photo};
+                    var email = new SearchInfoListItemModel { Name = "Email", Value = user.Email };
+                    var photo = new SearchInfoListItemModel { Name = "Photo", Value = user.Photo };
+                    model.AdditionalInfo = new List<SearchInfoListItemModel> { email, photo };
                 }
 
                 return model;
