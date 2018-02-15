@@ -350,8 +350,8 @@
     <Reference Include="uIntra.Comments, Version=1.1.14.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Comments.1.1.14\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Core, Version=1.4.15.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Core.1.4.15\lib\net452\uIntra.Core.dll</HintPath>
+    <Reference Include="uIntra.Core, Version=1.4.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Core.1.4.16\lib\net452\uIntra.Core.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.5.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Events.1.5.7\lib\net452\uIntra.Events.dll</HintPath>
@@ -371,8 +371,8 @@
     <Reference Include="uIntra.News, Version=1.3.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.News.1.3.5\lib\net452\uIntra.News.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.3.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.Notification.1.3.10\lib\net452\uIntra.Notification.dll</HintPath>
+    <Reference Include="uIntra.Notification, Version=1.3.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\uIntra.Notification.1.3.11\lib\net452\uIntra.Notification.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Panels, Version=2.1.15.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.Panels.2.1.15\lib\net452\uIntra.Panels.dll</HintPath>
@@ -1591,27 +1591,6 @@
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Notification\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Panels\package.manifest" />
   </ItemGroup>
   <ItemGroup>
@@ -1625,9 +1604,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
@@ -1699,6 +1675,33 @@
     <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEvents.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1738,6 +1741,9 @@
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1756,28 +1762,22 @@
     <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEvents.cshtml" />
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
+    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
