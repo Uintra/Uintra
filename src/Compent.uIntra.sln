@@ -55,7 +55,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uintra.Bulletins", "uIntra.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uintra.Search", "uIntra.Search\Uintra.Search.csproj", "{4D9F910E-24E0-43B3-BCCB-FEF527D5FF2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra", "uIntra\uIntra.csproj", "{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uintra", "uIntra\Uintra.csproj", "{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uintra.Groups", "uIntra.Groups\Uintra.Groups.csproj", "{B690420E-AF06-4B17-93F7-A04362A1CD3D}"
 EndProject

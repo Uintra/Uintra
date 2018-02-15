@@ -1089,7 +1089,7 @@
     <Content Include="..\Compent.uIntra\postcss.config.js">
       <Link>postcss.config.js</Link>
     </Content>
-    <Content Include="uIntra.nuspec">
+    <Content Include="Uintra.nuspec">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.config.install.xdt">
