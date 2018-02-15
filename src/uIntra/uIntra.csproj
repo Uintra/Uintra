@@ -631,6 +631,8 @@
     <Content Include="App_Plugins\Core\ActivityLocation\backoffice\location-edit.html" />
     <Content Include="App_Plugins\Core\ActivityLocation\Edit\edit.js" />
     <Content Include="App_Plugins\Core\ActivityLocation\Edit\styles.css" />
+    <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibility.js" />
+    <Content Include="App_Plugins\Core\BrowserCompatibility\style.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.directive.js" />
     <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.css" />
@@ -1222,19 +1224,12 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\SentMails\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\SentMails\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Localization\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\EnumLists\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityCreatorEdit.cshtml" />
     <Content Include="App_Plugins\Navigation\UmbracoPageNavigation\View\UmbracoPageLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1700,7 +1695,9 @@
   <ItemGroup>
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
   </ItemGroup>
@@ -1772,6 +1769,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Members\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\SentMails\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

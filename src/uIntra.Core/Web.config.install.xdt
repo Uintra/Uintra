@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <configSections>
-    <section name="userPermissions" type="uIntra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
-    <section name="browserCompatibilityConfiguration" type="uIntra.Core.BrowserCompatibility.BrowserCompatibilityConfigurationSection"  xdt:Locator="Condition(@name='browserCompatibilityConfiguration')" xdt:Transform="InsertIfMissing"/>
+    <section name="userPermissions" type="Uintra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
+    <section name="browserCompatibilityConfiguration" type="Uintra.Core.BrowserCompatibility.BrowserCompatibilityConfigurationSection"  xdt:Locator="Condition(@name='browserCompatibilityConfiguration')" xdt:Transform="InsertIfMissing"/>
   </configSections>
   <appSettings>
     <add key="DefaultAvatarPath" value="/Content/images/default-avatar.png" xdt:Locator="Condition(@key='DefaultAvatarPath')" xdt:Transform="InsertIfMissing" />
