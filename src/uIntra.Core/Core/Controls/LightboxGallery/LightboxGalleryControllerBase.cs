@@ -69,21 +69,9 @@ namespace Uintra.Core.Controls.LightboxGallery
             galleryPreviewModel.Links = _linkService.GetLinks(model.ActivityId);
             galleryPreviewModel.Images = galleryViewModelList.FindAll(m => IsImageMediaType(m.Type));
             galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => !IsImageMediaType(m.Type));
-            galleryPreviewModel.IsAttachedFileIconShown = IsAttachedFileIconShown(galleryPreviewModel);
-            galleryPreviewModel.TotalFileCount = CountAllFiles(galleryPreviewModel);
             galleryPreviewModel.Images.Skip(model.DisplayedImagesCount).ToList().ForEach(i => i.IsHidden = true);
 
             return galleryPreviewModel;
-        }
-
-        private static int CountAllFiles(LightboxGalleryPreviewViewModel galleryPreviewModel)
-        {
-            return galleryPreviewModel.Images.Count + galleryPreviewModel.OtherFiles.Count;
-        }
-
-        private static bool IsAttachedFileIconShown(LightboxGalleryPreviewViewModel galleryPreviewModel)
-        {
-            return galleryPreviewModel.OtherFiles.Count > 0 || galleryPreviewModel.Images.Count > 3;
         }
 
         private static bool IsImageMediaType(Enum mediaType)

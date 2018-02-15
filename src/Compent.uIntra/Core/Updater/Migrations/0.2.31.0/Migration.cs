@@ -26,6 +26,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0
                 yield return Resolve<UpdateDataFolderNamesMigrationInstallationStep>();
                 yield return Resolve<NotificationsMigrationStep>();
                 yield return Resolve<AddTranslationsStep>();
+                yield return Resolve<ChangeProfileEmailNotificationTranslationStep>();
                 yield return Resolve<NotificationSettingsMigration>();        
             }
         }
