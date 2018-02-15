@@ -32,7 +32,9 @@ namespace Compent.Uintra.Core.Notification
 
         public void Notify(NotifierData data)
         {
-            var isCommunicationSettings = data.NotificationType.In(NotificationTypeEnum.CommentLikeAdded); //TODO: temporary for communication settings
+            var isCommunicationSettings = data.NotificationType.In(
+                NotificationTypeEnum.CommentLikeAdded,
+                NotificationTypeEnum.MonthlyMail); //TODO: temporary for communication settings
 
             var identity = new ActivityEventIdentity(isCommunicationSettings
                     ? CommunicationTypeEnum.CommunicationSettings

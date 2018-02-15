@@ -1,7 +1,9 @@
 ﻿using System.Web.Http;
+using Extensions;
 using uIntra.Notification;
 using Uintra.Core.Extensions;
 using Uintra.Core.TypeProviders;
+using Uintra.Notification.Configuration;
 using Umbraco.Web.WebApi;
 
 namespace Uintra.Notification.Web
@@ -38,7 +40,7 @@ namespace Uintra.Notification.Web
 
             var  settings =_notificationSettingsService.GetSettings(activityEventIdentity);
 
-            if (isCommunicationSettings)
+            if (isCommunicationSettings && notificationType.In(NotificationTypeEnum.MonthlyMail.ToInt()))
             {
                 settings.UiNotifierSetting = null;
             }

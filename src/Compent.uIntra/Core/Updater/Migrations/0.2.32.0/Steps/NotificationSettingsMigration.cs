@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using Compent.Uintra.Core.Updater;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
 using Extensions;
 using uIntra.Notification;
 using Uintra.Core;
@@ -10,28 +12,33 @@ using Uintra.Core.Extensions;
 using Uintra.Notification;
 using Uintra.Notification.Configuration;
 using Umbraco.Core.Models;
+using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Steps
+
+namespace Compent.uIntra.Core.Updater.Migrations._0._2._32._0.Steps
 {
-    public class NotificationSettingsMigration : IMigrationStep
+    public class NotificationSettingsMigrationStep : IMigrationStep
     {
         private readonly IEnumerable<IPublishedContent> _mailTemplates;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly INotificationSettingsService _notificationSettingsService;
         private readonly IExceptionLogger _exceptionLogger;
+        private readonly IContentService _contentService;
 
-        public NotificationSettingsMigration(
+        public NotificationSettingsMigrationStep(
             UmbracoHelper umbracoHelper,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             INotificationSettingsService notificationSettingsService,
-            IExceptionLogger exceptionLogger)
+            IExceptionLogger exceptionLogger,
+            IContentService contentService)
         {
             _umbracoHelper = umbracoHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _notificationSettingsService = notificationSettingsService;
             _exceptionLogger = exceptionLogger;
+            _contentService = contentService;
             _mailTemplates = GetMailTemplates();
         }
 
@@ -39,12 +46,36 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Steps
         {
             ImportSettingsFromMailTemplates(CommunicationTypeEnum.CommunicationSettings, NotificationTypeEnum.CommentLikeAdded);
             ImportSettingsFromMailTemplates(CommunicationTypeEnum.CommunicationSettings, NotificationTypeEnum.MonthlyMail);
+            DeleteExistedMailTemplates();
+
+
             return ExecutionResult.Success;
         }
 
         public void Undo()
         {
             throw new NotImplementedException();
+        }
+
+        private void DeleteExistedMailTemplates()
+        {
+
+            var mailTemplateFolderXpath = XPathHelper.GetXpath(
+                _documentTypeAliasProvider.GetDataFolder(),
+                _documentTypeAliasProvider.GetMailTemplateFolder());
+
+            var publishedContent = _umbracoHelper.TypedContentSingleAtXPath(mailTemplateFolderXpath);
+
+            bool IsForRemove(IPublishedContent content)
+            {
+                var templateType = content.GetPropertyValue<NotificationTypeEnum>(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName);
+
+                return templateType.In(NotificationTypeEnum.CommentLikeAdded, NotificationTypeEnum.MonthlyMail);
+            }
+
+            var publishedContentToRemove = publishedContent.Children.Where(IsForRemove);
+            var contentToRemove = _contentService.GetByIds(publishedContentToRemove.Select(c => c.Id)).ToList();
+            contentToRemove.ForEach(c => _contentService.Delete(c));
         }
 
         private IEnumerable<IPublishedContent> GetMailTemplates()

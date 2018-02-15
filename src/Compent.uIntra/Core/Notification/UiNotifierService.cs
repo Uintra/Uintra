@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Extensions;
+using Uintra.Core.Extensions;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
@@ -31,7 +32,7 @@ namespace Compent.Uintra.Core.Notification
 
         public void Notify(NotifierData data)
         {
-            if (data.NotificationType.In(NotificationTypeEnum.CommentLikeAdded)) //TODO: temporary for communication settings
+            if (data.NotificationType.ToInt().In(NotificationTypeEnum.MonthlyMail.ToInt())) //TODO: temporary for communication settings
             {
                return;
             }

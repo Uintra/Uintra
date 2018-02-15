@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Steps;
 using Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps;
 
 namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0
@@ -26,8 +25,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0
                 yield return Resolve<UpdateDataFolderNamesMigrationInstallationStep>();
                 yield return Resolve<NotificationsMigrationStep>();
                 yield return Resolve<AddTranslationsStep>();
-                yield return Resolve<ChangeProfileEmailNotificationTranslationStep>();
-                yield return Resolve<NotificationSettingsMigration>();        
+                yield return Resolve<ChangeProfileEmailNotificationTranslationStep>();      
             }
         }
     }
