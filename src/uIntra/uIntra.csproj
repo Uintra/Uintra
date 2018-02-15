@@ -487,9 +487,6 @@
     <Content Include="..\Compent.uIntra\Content\images\group.svg">
       <Link>Content\images\group.svg</Link>
     </Content>
-    <Content Include="..\Compent.uIntra\Content\images\groups.gif">
-      <Link>Content\images\groups.gif</Link>
-    </Content>
     <Content Include="..\Compent.uIntra\Content\images\logo.png">
       <Link>Content\images\logo.png</Link>
     </Content>
@@ -1223,9 +1220,6 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Details\DetailsHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\SentMails\package.manifest" />
