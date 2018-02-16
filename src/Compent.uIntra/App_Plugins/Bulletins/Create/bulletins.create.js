@@ -180,6 +180,7 @@ function show() {
         let bulletinHolder = getBulletinHolder();
         bulletinHolder.classList.remove("hidden");
         mobileBtn.classList.add("hide");
+        window.scrollTo(0, (bulletin.getBoundingClientRect().y - 130));
     }
 }
 
