@@ -24,7 +24,6 @@ namespace Uintra.Groups.Web
         private readonly IGroupMemberService _groupMemberService;
         private readonly IFeedFilterStateService _feedFilterStateService;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
-        private readonly IActivityTypeProvider _activityTypeProvider;
 
         private bool IsCurrentUserGroupMember { get; set; }
 
@@ -45,8 +44,7 @@ namespace Uintra.Groups.Web
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService,
-            IFeedFilterStateService feedFilterStateService,
-            IActivityTypeProvider activityTypeProvider)
+            IFeedFilterStateService feedFilterStateService)
             : base(subscribeService,
                 groupFeedService,
                 intranetUserService,
@@ -61,7 +59,6 @@ namespace Uintra.Groups.Web
             _groupFeedLinkService = groupFeedLinkService;
             _groupMemberService = groupMemberService;
             _feedFilterStateService = feedFilterStateService;
-            _activityTypeProvider = activityTypeProvider;
         }
 
         #region Actions

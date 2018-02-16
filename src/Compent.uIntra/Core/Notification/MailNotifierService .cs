@@ -14,19 +14,16 @@ namespace Compent.Uintra.Core.Notification
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
         private readonly NotificationSettingsService _notificationSettingsService;
-        private readonly NotifierTypeProvider _notifierTypeProvider;
 
         public MailNotifierService(
             IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper,
-            NotifierTypeProvider notifierTypeProvider,
             NotificationSettingsService notificationSettingsService)
         {
             _mailService = mailService;
             _intranetUserService = intranetUserService;
             _notificationModelMapper = notificationModelMapper;
-            _notifierTypeProvider = notifierTypeProvider;
             _notificationSettingsService = notificationSettingsService;
         }
 
