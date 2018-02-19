@@ -6,7 +6,7 @@ require("./../Core/Content/libs/jquery.unobtrusive-ajax.min.js");
 require("./../Core/Content/libs/jquery.validate.unobtrusive.min.js");
 require("./comments.css");
 
-var initSubmitButton  = function(holder) {
+var initSubmitButton = function (holder) {
     var createControls = holder.find('.js-comment-create');
     createControls.each(function () {
         var $this = $(this);
@@ -46,7 +46,7 @@ var initCreateControl = function (holder) {
             }
         });*/
         var quill = helpers.initQuill(descriptionElem, dataStorage);
-
+        //TODO refactor this. delete dublicates
         var isOneLinkDetected = false;
 
         quill.onLinkDetected(function (link) {
@@ -58,7 +58,7 @@ var initCreateControl = function (holder) {
 
         var button = $this.find('.js-comment-create-btn');
         var toolbarBtns = $this.find('.ql-formats button');
-        
+
         function showLinkPreview(link) {
             ajax.get('/umbraco/api/LinkPreview/Preview?url=' + link)
                 .then(function (response) {
@@ -86,12 +86,12 @@ var initCreateControl = function (holder) {
                 });
         }
 
-        
+
         function getImageElem(data) {
             var divElem = document.createElement('div');
             divElem.className += "link-preview";
 
-            divElem.innerHTML = 
+            divElem.innerHTML =
                 `<button type="button" class="link-preview-close js-link-preview-remove-preview">X</button>
                 <h3>
                      <a href="${data.uri}">${data.title}</a>
@@ -100,7 +100,7 @@ var initCreateControl = function (holder) {
                  <div class="link-preview-image">
                      <img src="${data.imageUri}" />
                  </div>`;
-            
+
             return divElem;
         }
 
@@ -133,7 +133,7 @@ var initCreateControl = function (holder) {
             return paragraph;
         }
 
-        toolbarBtns.each(function(){
+        toolbarBtns.each(function () {
             var className = $(this).attr('class').split("-");
             var tooltip = className[className.length - 1];
             $(this).attr('title', tooltip);
@@ -190,7 +190,7 @@ var initEdit = function (holder) {
     var quill = helpers.initQuill(descriptionElem, dataStorage);
     var button = holder.find('.js-comment-edit-btn');
     var form = holder.find('.js-comment-edit');
-    
+
     button.click(function (event) {
         if (!form.valid()) {
             return;
@@ -202,7 +202,7 @@ var initEdit = function (holder) {
 
     var toolbarBtns = editControlContainer.find('.ql-formats button');
 
-    toolbarBtns.each(function(){
+    toolbarBtns.each(function () {
         var className = $(this).attr('class').split("-");
         var tooltip = className[className.length - 1];
         $(this).attr('title', tooltip);
@@ -244,11 +244,81 @@ var initReply = function (holder) {
 
     var toolbarBtns = commentReply.find('.ql-formats button');
 
-    toolbarBtns.each(function(){
+    toolbarBtns.each(function () {
         var className = $(this).attr('class').split("-");
         var tooltip = className[className.length - 1];
         $(this).attr('title', tooltip);
     });
+
+    //TODO refactor this. delete dublicates
+    var isOneLinkDetected = false;
+
+    quill.onLinkDetected(function (link) {
+        if (!isOneLinkDetected) {
+            showLinkPreview(link);
+            isOneLinkDetected = true;
+        }
+    });
+
+    var createControl = holder.find('.js-comment-create');
+
+    function showLinkPreview(link) {
+        ajax.get('/umbraco/api/LinkPreview/Preview?url=' + link)
+            .then(function (response) {
+                var data = response.data;
+                var imageElem = getImageElem(data);
+                var hiddenSaveElem = getHiddenSaveElem(data);
+                createControl.append(imageElem);
+                createControl.append(hiddenSaveElem);
+
+                var removeLinkPreview = function (e) {
+                    if (e.target.classList.contains('js-link-preview-remove-preview')) {
+                        imageElem.parentNode.removeChild(imageElem);
+                        imageElem.removeEventListener('click', removeLinkPreview);
+                        imageElem = null;
+
+                        hiddenSaveElem.parentNode.removeChild(hiddenSaveElem);
+                    }
+                };
+
+                imageElem.addEventListener('click', removeLinkPreview);
+
+            })
+            .catch(err => {
+                // Ignore error and do not crash if server returns non-success code
+            });
+    }
+
+    function getImageElem(data) {
+        var divElem = document.createElement('div');
+        divElem.className += "link-preview";
+
+        divElem.innerHTML =
+            `<button type="button" class="link-preview-close js-link-preview-remove-preview">X</button>
+                <h3>
+                     <a href="${data.uri}">${data.title}</a>
+                 </h3>
+                 <p>${data.description}</p>
+                 <div class="link-preview-image">
+                     <img src="${data.imageUri}" />
+                 </div>`;
+
+        return divElem;
+    }
+
+    function getHiddenSaveElem(data) {
+        return createHiddenInput('linkPreviewId', data.id);
+    }
+
+    function createHiddenInput(name, value) {
+        var input = document.createElement('input');
+
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', name);
+        input.setAttribute('value', value);
+
+        return input;
+    }
 
     quill.on('text-change',
         (delta, oldDelta, source) =>
@@ -271,10 +341,10 @@ function scrollToComment(el) {
     var comment = el.closest('.comments__list-body').find('.js-comment-reply');
     var tabset = $('.tabset');
     var topIndent = 80; //header height + 30px gap
-    if(tabset.length){
+    if (tabset.length) {
         topIndent += tabset.height();
     }
-    $('html, body').animate({ scrollTop: comment.offset().top - topIndent}, 500);
+    $('html, body').animate({ scrollTop: comment.offset().top - topIndent }, 500);
 }
 
 function findControl(holder, selector) {

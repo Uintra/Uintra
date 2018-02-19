@@ -1,4 +1,5 @@
-﻿using Compent.LinkPreview.HttpClient;
+﻿using System;
+using Compent.LinkPreview.HttpClient;
 using Uintra.Core.LinkPreview.Sql;
 
 namespace Uintra.Core.LinkPreview
@@ -17,7 +18,7 @@ namespace Uintra.Core.LinkPreview
             var result = new LinkPreview
             {
                 Id = entity.Id,
-                Uri = new System.Uri(entity.Uri),
+                Uri = new Uri(entity.Uri,UriKind.RelativeOrAbsolute),
                 Title = entity.Title,
                 Description = GetLongest(entity.OgDescription, entity.Description),
                 ImageUri = _uriProvider.GetImageUri(entity.ImageId),

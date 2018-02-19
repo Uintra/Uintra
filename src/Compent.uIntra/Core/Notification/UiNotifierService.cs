@@ -13,7 +13,6 @@ namespace Compent.Uintra.Core.Notification
        
         private readonly INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> _notificationModelMapper;
         private readonly NotificationSettingsService _notificationSettingsService;
-        private readonly NotifierTypeProvider _notifierTypeProvider;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly UiNotificationService _notificationsService;
 
@@ -22,12 +21,10 @@ namespace Compent.Uintra.Core.Notification
         public UiNotifierService(
             INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> notificationModelMapper,
             NotificationSettingsService notificationSettingsService,
-            NotifierTypeProvider notifierTypeProvider,
             IIntranetUserService<IIntranetUser> intranetUserService, UiNotificationService notificationsService)
         {
             _notificationModelMapper = notificationModelMapper;
             _notificationSettingsService = notificationSettingsService;
-            _notifierTypeProvider = notifierTypeProvider;
             _intranetUserService = intranetUserService;
             _notificationsService = notificationsService;
         }

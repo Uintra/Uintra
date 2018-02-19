@@ -234,12 +234,26 @@
     &__item{
         &-group{
             display:inline-block;
-            vertical-align:top;
-            width: 14px;
-            opacity: 0.5;
-            cursor: pointer;
+            vertical-align:inherit;
             position:relative;
-            margin:-1px 0 0 7px;
+
+            a{
+                display:inline-block;
+                vertical-align:inherit;
+                position:relative;
+
+                &:before{
+                    content:"";
+                    width:20px;
+                    height:11px;
+                    display:inline-block;
+                    vertical-align:top;
+                    background:url(/Content/images/group.svg);
+                    position:relative;
+                    top:0;
+                    margin:0 4px 0 0;
+                }
+            }
         }
 
         &-tooltip{

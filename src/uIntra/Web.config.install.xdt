@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <configSections>
-    <section name="userPermissions" type="uIntra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
-    <section name="uIntraJobs" type="uIntra.Core.Jobs.Configuration.JobSettingsConfiguration" xdt:Locator="Condition(@name='uIntraJobs')" xdt:Transform="InsertIfMissing" />
-    <section name="elasticConfiguration" type="uIntra.Search.Configuration.ElasticConfigurationSection" xdt:Locator="Condition(@name='elasticConfiguration')" xdt:Transform="InsertIfMissing" />
+    <section name="userPermissions" type="Uintra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
+    <section name="UintraJobs" type="Uintra.Core.Jobs.Configuration.JobSettingsConfiguration" xdt:Locator="Condition(@name='UintraJobs')" xdt:Transform="InsertIfMissing" />
+    <section name="elasticConfiguration" type="Uintra.Search.Configuration.ElasticConfigurationSection" xdt:Locator="Condition(@name='elasticConfiguration')" xdt:Transform="InsertIfMissing" />
     <section name="localizationConfiguration" type="Localization.Core.Configuration.LocalizationConfigurationSection, Localization.Core"
             xdt:Locator="Condition(@name='localizationConfiguration')" xdt:Transform="InsertIfMissing" />
+    <section name="linkDetectionConfiguration" type="Compent.Uintra.Core.LinkPreview.Config.LinkDetectionConfigurationSection" xdt:Locator="Condition(@name='linkDetectionConfiguration')" xdt:Transform="InsertIfMissing" />
   </configSections>
 
   <appSettings>
@@ -22,6 +23,8 @@
     <add key="Search.UserNameScore" value="3" xdt:Locator="Condition(@key='Search.UserNameScore')" xdt:Transform="InsertIfMissing"/>
     <add key="Search.UserEmailScore" value="3" xdt:Locator="Condition(@key='Search.UserEmailScore')" xdt:Transform="InsertIfMissing"/>
     <add key="Search.UserPhoneScore" value="3" xdt:Locator="Condition(@key='Search.UserPhoneScore')" xdt:Transform="InsertIfMissing"/>
+
+    <add key="linkPreviewServiceUri" value="http://136.243.176.173:11223" xdt:Locator="Condition(@key='linkPreviewServiceUri')" xdt:Transform="InsertIfMissing" />
   </appSettings>
 
   <elasticConfiguration url="http://localhost:9200" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>
@@ -97,6 +100,12 @@
       </role>
     </roles>
   </userPermissions>
+
+  <linkDetectionConfiguration xdt:Transform="InsertIfMissing">
+    <regexes>
+      <add key="(www.[^\s]+$)|(https?:\/\/[^\s]+$)" />
+    </regexes>
+  </linkDetectionConfiguration>
 
   <system.codedom xdt:Transform="InsertIfMissing">
     <compilers>

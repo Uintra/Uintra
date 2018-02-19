@@ -39,8 +39,7 @@ namespace Compent.Uintra.Controllers
                   groupFeedLinkProvider,
                   groupFeedLinkService,
                   groupMemberService,
-                  feedFilterStateService,
-                  activityTypeProvider)
+                  feedFilterStateService)
         {
             _intranetUserService = intranetUserService;
         }
