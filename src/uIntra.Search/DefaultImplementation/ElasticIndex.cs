@@ -69,11 +69,11 @@ namespace Uintra.Search
             {
                 new QueryContainerDescriptor<SearchableContent>().Match(m => m
                     .Query(query)
-                    .Analyzer(ElasticHelpers.Replace)
+                    .Analyzer(ElasticHelpers.ReplaceNgram)
                     .Field(f => f.PanelContent)),
                 new QueryContainerDescriptor<SearchableContent>().Match(m => m
                     .Query(query)
-                    .Analyzer(ElasticHelpers.Replace)
+                    .Analyzer(ElasticHelpers.ReplaceNgram)
                     .Field(f => f.PanelTitle))
             };
 
