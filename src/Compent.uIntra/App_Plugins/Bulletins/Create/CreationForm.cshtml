@@ -8,9 +8,11 @@
     <a class="bulletin__btn-expand js-expand-bulletin">@Html.Localize("BulletinsCreate.MobileBtn.lbl")</a>
 </div>
 <div class="create-bulletin js-create-bulletin" data-message="@Html.Localize("Common.AreYouSure")">
-    <div class="create-bulletin__dimmed-bg js-create-bulletin__dimmed-bg"></div>
-    <div class="create-bulletin__form quill--custom">
-        @using (Html.BeginUmbracoForm("Create", "Bulletins", FormMethod.Post))
+    <button class="create-bulletin__close js-create-bulletin__close hidden">X</button>
+    <div class="create-bulletin__holder">
+        <div class="create-bulletin__dimmed-bg js-create-bulletin__dimmed-bg"></div>
+        <div class="create-bulletin__form quill--custom">
+            @using (Html.BeginUmbracoForm("Create", "Bulletins", FormMethod.Post))
         {
             <div class="create-bulletin__user">
                 <header class="feed__item-heading clearfix">
@@ -21,10 +23,10 @@
                         </h2>
                         <p class="feed__item-meta">
                             @foreach (var date in Model.Dates)
-                            {
-                                <span class="feed__item-date">@date</span>
-                                <span class="feed__item-divider"> - </span>
-                            }
+                        {
+                            <span class="feed__item-date">@date</span>
+                            <span class="feed__item-divider"> - </span>
+                    }
                             <span class="feed__item-category">@Html.Localize(Model.ActivityType.ToString())</span>
                         </p>
                     </div>
@@ -37,7 +39,6 @@
                 <div class="create-bulletin__description js-create-bulletin__description"
                      data-placeholder="@Html.Localize("BulletinsCreate.FormPlaceholder.lbl")"></div>
                 <input type="hidden" class="js-create-bulletin__description-hidden" name="@nameof(Model.Description)" />
-                <button class="create-bulletin__close js-create-bulletin__close hidden">X</button>
                 <div class="create-bulletin__toolbar ql-toolbar ql-snow js-create-bulletin__toolbar hidden">
                     <span class="ql-formats">
                         <button type="button" class="ql-emoji" title="emoji"></button>
@@ -55,6 +56,7 @@
             </div>
             <button class="btn _submit _send js-toolbar__send-button hidden" disabled="disabled">@Html.Localize("BulletinsCreate.Post.lbl")</button>
             <input type="hidden" name="@nameof(Model.MediaRootId)" value="@Model.MediaRootId" />
-        }
+    }
+        </div>
     </div>
 </div>
