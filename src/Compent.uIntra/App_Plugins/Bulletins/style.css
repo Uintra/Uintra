@@ -228,3 +228,7 @@
 		display: inline-block !important;
 	}
 }
+
+    @media (--for-tablet-portrait-down) {
+        max-height: 102px !important;
+    }
