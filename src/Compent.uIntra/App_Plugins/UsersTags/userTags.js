@@ -25,6 +25,12 @@ let controller = {
                 dropdownParent: $(tagControlHolderSelector),
                 width: '100%'
             });
+
+            $(container).on('select2:opening select2:closing', function (event) {
+                var $searchfield = $(this).parent().find('.select2-search__field');
+                $searchfield.prop('disabled', true);
+            });
+
             return tagPickerControl;
         }
 
