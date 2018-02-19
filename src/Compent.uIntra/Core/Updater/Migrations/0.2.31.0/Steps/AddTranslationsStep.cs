@@ -11,6 +11,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
         private const string ActivityPinnedKey = "Activity.Pinned.lbl";
         private const string GroupMembersDeleteTextKey = "GroupMembers.Delete.Text.lbl";
         private const string ActivityLocationKey = "Activity.Location.lbl";
+        private const string PagePromotionLocationKey = "PagePromotion";
 
         private const string AttachedDocumentsTranslation = "Attached documents:";
         private const string GroupInfoMembersCountTranslation = "members";
@@ -19,6 +20,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
         private const string GroupMembersDeleteTextOldTranslation = "Delete";
         private const string GroupMembersDeleteTextNewTranslation = "Are you sure?";
         private const string ActivityLocationTranslation = "Location";
+        private const string PagePromotionTranslation = "Promotion";
+
 
         private readonly ILocalizationCoreService _localizationCoreService;
 
@@ -34,6 +37,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
             InstallationStepsHelper.AddTranslation(GroupInfoOneMemberCountKey, GroupInfoOneMemberCountTranslation);
             InstallationStepsHelper.AddTranslation(ActivityPinnedKey, ActivityPinnedTranslation);
             InstallationStepsHelper.AddTranslation(ActivityLocationKey, ActivityLocationTranslation);
+            InstallationStepsHelper.AddTranslation(PagePromotionLocationKey, PagePromotionTranslation);
 
             InstallationStepsHelper.UpdateTranslation(GroupMembersDeleteTextKey, GroupMembersDeleteTextOldTranslation, GroupMembersDeleteTextNewTranslation);
 
@@ -47,6 +51,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
             _localizationCoreService.Delete(GroupInfoOneMemberCountKey);
             _localizationCoreService.Delete(ActivityPinnedKey);
             _localizationCoreService.Delete(ActivityLocationKey);
+            _localizationCoreService.Delete(PagePromotionLocationKey);
 
             InstallationStepsHelper.UpdateTranslation(GroupMembersDeleteTextKey, GroupMembersDeleteTextNewTranslation, GroupMembersDeleteTextOldTranslation);
         }

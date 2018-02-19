@@ -1,7 +1,7 @@
 ﻿const tagControlHolderSelector = '.js-user-tag-picker-holder';
 const tagPickerControlSelector = '.js-user-tags-picker';
 const userTagCollectionSelector = '#userTagCollection';
-const selectedTagIdsCollectionSelector = '#selectedTagIds';
+const selectedTagIdsCollectionSelector = '#selectedTagIds'; 
 
 let controller = {
     init: function (holder) {
@@ -22,6 +22,7 @@ let controller = {
                 data: availableForPickingTags,
                 placeholder: placeholder,
                 allowClear: true,
+                dropdownParent: $(tagControlHolderSelector),
                 width: '100%'
             });
             return tagPickerControl;

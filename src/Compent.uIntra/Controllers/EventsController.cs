@@ -36,7 +36,6 @@ namespace Compent.Uintra.Controllers
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IReminderService _reminderService;
         private readonly IDocumentIndexer _documentIndexer;
-        private readonly INotificationTypeProvider _notificationTypeProvider;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityTagsHelper _activityTagsHelper;
         private readonly IGroupMemberService _groupMemberService;
@@ -50,7 +49,6 @@ namespace Compent.Uintra.Controllers
             IGridHelper gridHelper,
             IActivityTypeProvider activityTypeProvider,
             IDocumentIndexer documentIndexer,
-            INotificationTypeProvider notificationTypeProvider,
             IGroupActivityService groupActivityService,
             IActivityLinkService activityLinkService,
             UserTagService userTagService,
@@ -62,7 +60,6 @@ namespace Compent.Uintra.Controllers
             _intranetUserService = intranetUserService;
             _reminderService = reminderService;
             _documentIndexer = documentIndexer;
-            _notificationTypeProvider = notificationTypeProvider;
             _groupActivityService = groupActivityService;
             _activityTagsHelper = activityTagsHelper;
             _groupMemberService = groupMemberService;
