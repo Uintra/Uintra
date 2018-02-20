@@ -1,7 +1,7 @@
 ﻿{
-  "label": "This is an email notification that is sent to the creator of the bulletin post and the creator of the comment, when someone replies to a comment on the original bulletin post.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of bulletin<br>##FullName## - Name of the user who added a comment",
+  "label": "This is a monthly email notification that is sent to users who is subscribed to the user tags with the list of the new posts, tagged by these tags.<br>You can insert the following dynamic values:<br><br>##FullName## -  Name of the user (receiver)<br>##ActivityList## - List of tagged activities",
   "template": {
-    "subject": ">=>",
-    "body": "##FullName## has replied to a comment on the post: ##ActivityTitle##"
+    "subject": "Мonthly email notification",
+    "body": "Dear ##FullName##,<br><br> See below list of activities tagged by tags you are interested in: <br><br> ##ActivityList##"
   }
 }

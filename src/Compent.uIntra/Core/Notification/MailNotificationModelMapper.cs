@@ -62,6 +62,13 @@ namespace Compent.Uintra.Core.Notification
                         (CreatedDate, model.CreatedDate.ToShortDateString())
                     };
                     break;
+                case MonthlyMailDataModel model:
+                    tokens = new[]
+                    {
+                        (FullName, receiver.DisplayedName),
+                        (ActivityList, model.ActivityList)
+                    };
+                    break;
                 default:
                     throw new IndexOutOfRangeException();
             }

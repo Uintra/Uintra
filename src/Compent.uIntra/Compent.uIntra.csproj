@@ -1380,7 +1380,6 @@
     <Compile Include="Core\Notification\Mails\EventMail.cs" />
     <Compile Include="Core\Notification\Mails\EventUpdatedMail.cs" />
     <Compile Include="Core\Notification\Mails\IdeaMail.cs" />
-    <Compile Include="Core\Notification\Mails\MonthlyMail.cs" />
     <Compile Include="Core\Notification\Mails\NewsMail.cs" />
     <Compile Include="Core\Notification\MonthlyEmailService.cs" />
     <Compile Include="Core\Notification\NotificationAutoMapperProfile .cs" />

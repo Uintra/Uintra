@@ -366,6 +366,7 @@
     <Compile Include="Core\Constants\EmailTokensConstants.cs" />
     <Compile Include="Core\Dashboard\NotificationSettingsSection.cs" />
     <Compile Include="Core\Entities\ActivityNotifierDataModel.cs" />
+    <Compile Include="Core\Entities\MonthlyMailDataModel.cs" />
     <Compile Include="Core\Entities\ActivityReminderDataModel.cs" />
     <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
     <Compile Include="Core\Entities\Base\INotifierDataValue.cs" />
@@ -403,7 +404,6 @@
     <Compile Include="Core\Models\MailModels\EventMailBase.cs" />
     <Compile Include="Core\Models\MailModels\EventUpdatedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\IdeaMailBase.cs" />
-    <Compile Include="Core\Models\MailModels\MonthlyMailBase.cs" />
     <Compile Include="Core\Models\MailModels\NewsMailBase.cs" />
     <Compile Include="Core\Models\NotificationMessage.cs" />
     <Compile Include="Core\Models\NotificationValue.cs" />

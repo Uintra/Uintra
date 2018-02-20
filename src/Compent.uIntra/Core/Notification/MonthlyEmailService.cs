@@ -4,13 +4,13 @@ using System.Linq;
 using Compent.Uintra.Core.Notification.Mails;
 using Uintra.Bulletins;
 using Uintra.Core.Activity;
-using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Exceptions;
 using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Events;
 using Uintra.News;
 using Uintra.Notification;
+using Uintra.Notification.Base;
 using Uintra.Tagging.UserTags;
 
 namespace Compent.Uintra.Core.Notification
@@ -22,23 +22,27 @@ namespace Compent.Uintra.Core.Notification
         private readonly INewsService<NewsBase> _newsService;
         private readonly IUserTagRelationService _userTagService;
         private readonly IActivityLinkService _activityLinkService;
+        private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
+
 
         public MonthlyEmailService(IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IExceptionLogger logger,
-            IApplicationSettings applicationSettings,
             IBulletinsService<BulletinBase> bulletinsService,
             IEventsService<EventBase> eventsService,
             INewsService<NewsBase> newsService,
             IUserTagRelationService userTagService,
-            IActivityLinkService activityLinkService) 
-            : base(mailService, intranetUserService, logger, applicationSettings)
+            IActivityLinkService activityLinkService,
+            NotificationSettingsService notificationSettingsService, 
+            INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper) 
+            : base(mailService, intranetUserService, logger, notificationSettingsService)
         {
             _bulletinsService = bulletinsService;
             _eventsService = eventsService;
             _newsService = newsService;
             _userTagService = userTagService;
             _activityLinkService = activityLinkService;
+            _notificationModelMapper = notificationModelMapper;
         }
 
         protected virtual IEnumerable<Guid> GetUserTags(Guid userId)
@@ -63,11 +67,8 @@ namespace Compent.Uintra.Core.Notification
             return result;
         }
 
-        protected override T GetMonthlyMailModel<T>(string userActivities, IIntranetUser user)
-        {
-            var result = base.GetMonthlyMailModel<MonthlyMail>(userActivities, user);
-            return (T)(object)result;
-        }
+        protected override MailBase GetMonthlyMailModel(IIntranetUser receiver, MonthlyMailDataModel dataModel, EmailNotifierTemplate template) =>
+            _notificationModelMapper.Map(dataModel, template, receiver);
 
         protected virtual IEnumerable<IIntranetActivity> GetAllActivities()
         {
