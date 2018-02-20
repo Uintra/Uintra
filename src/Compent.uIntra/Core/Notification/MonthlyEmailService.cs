@@ -4,6 +4,7 @@ using System.Linq;
 using Compent.Uintra.Core.Notification.Mails;
 using Uintra.Bulletins;
 using Uintra.Core.Activity;
+using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Exceptions;
 using Uintra.Core.Links;
 using Uintra.Core.User;
@@ -34,8 +35,9 @@ namespace Compent.Uintra.Core.Notification
             IUserTagRelationService userTagService,
             IActivityLinkService activityLinkService,
             NotificationSettingsService notificationSettingsService, 
-            INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper) 
-            : base(mailService, intranetUserService, logger, notificationSettingsService)
+            INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper,
+            IApplicationSettings applicationSettings) 
+            : base(mailService, intranetUserService, logger, notificationSettingsService, applicationSettings)
         {
             _bulletinsService = bulletinsService;
             _eventsService = eventsService;

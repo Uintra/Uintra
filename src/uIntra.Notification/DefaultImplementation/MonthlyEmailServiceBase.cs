@@ -6,6 +6,7 @@ using BCLExtensions;
 using Extensions;
 using uIntra.Notification;
 using Uintra.Core.Activity;
+using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Exceptions;
 using Uintra.Core.Extensions;
 using Uintra.Core.User;
@@ -20,23 +21,26 @@ namespace Uintra.Notification
         private readonly IExceptionLogger _logger;       
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly NotificationSettingsService _notificationSettingsService;
+        private readonly IApplicationSettings _applicationSettings;
 
         protected MonthlyEmailServiceBase(IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IExceptionLogger logger,
-            NotificationSettingsService notificationSettingsService)
+            NotificationSettingsService notificationSettingsService,
+            IApplicationSettings applicationSettings)
         {
             _mailService = mailService;
             _intranetUserService = intranetUserService;
             _logger = logger;
             _notificationSettingsService = notificationSettingsService;
+            _applicationSettings = applicationSettings;
         }
 
         public void SendEmail()
         {
             var currentDate = DateTime.Now;
 
-            //  if (currentDate.Day != _applicationSettings.MonthlyEmailJobDay) return;
+              if (currentDate.Day != _applicationSettings.MonthlyEmailJobDay) return;
 
             var allUsers = _intranetUserService.GetAll();
             var monthlyMails = allUsers
