@@ -187,6 +187,9 @@ Task("Add-Git-Tag")
         Information($"tag1 {t1}");
     }
 
+      StartProcess("git", $"tag -d uIntra.0.2.31");
+      StartProcess("git", $"push origin :refs/tags/uIntra.0.2.31");
+
     if(existedTags.Exists(t => t.FriendlyName == tag)){
         Information($"Tag {tag} already exists. Deleting tag...");
         StartProcess("git", $"tag -d {tag}");
