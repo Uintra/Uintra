@@ -47,7 +47,7 @@ namespace Compent.Uintra.Core.Notification
                 case CommentNotifierDataModel model:
                     tokens = new[]
                     {
-                        (Url, model.Url),
+                        (Url, GetHtmlLink(model.Title, model.Url)),
                         (ActivityTitle, GetHtmlLink(model.Title, model.Url)),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName)
                     };
