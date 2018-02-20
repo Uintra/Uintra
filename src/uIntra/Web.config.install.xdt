@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <configSections>
-    <section alias="userPermissions" xdt:Locator="Condition(@alias='userPermissions')" xdt:Transform="Remove"/>
+    <section name="userPermissions" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
     <section name="userPermissions" type="Uintra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
 
-    <section alias="uIntraJobs" xdt:Locator="Condition(@alias='uIntraJobs')" xdt:Transform="Remove"/>
+    <section name="uIntraJobs" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
     <section name="UintraJobs" type="Uintra.Core.Jobs.Configuration.JobSettingsConfiguration" xdt:Locator="Condition(@name='UintraJobs')" xdt:Transform="InsertIfMissing" />
 
-    <section alias="elasticConfiguration" xdt:Locator="Condition(@alias='elasticConfiguration')" xdt:Transform="Remove"/>
+    <section name="elasticConfiguration" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
     <section name="elasticConfiguration" type="Uintra.Search.Configuration.ElasticConfigurationSection" xdt:Locator="Condition(@name='elasticConfiguration')" xdt:Transform="InsertIfMissing" />
     
     <section name="localizationConfiguration" type="Localization.Core.Configuration.LocalizationConfigurationSection, Localization.Core"

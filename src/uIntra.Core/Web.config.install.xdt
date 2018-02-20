@@ -3,7 +3,7 @@
   <configSections>
     <section name="userPermissions" type="Uintra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
 
-    <section alias="browserCompatibilityConfiguration" xdt:Locator="Condition(@alias='browserCompatibilityConfiguration')" xdt:Transform="Remove"/>
+    <section name="browserCompatibilityConfiguration" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
     <section name="browserCompatibilityConfiguration" type="Uintra.Core.BrowserCompatibility.BrowserCompatibilityConfigurationSection" xdt:Locator="Condition(@name='browserCompatibilityConfiguration')" xdt:Transform="InsertIfMissing"/>
   </configSections>
   <appSettings>
