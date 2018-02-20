@@ -1,7 +1,7 @@
 ﻿using System;
 using Umbraco.Core.Models;
 
-namespace Uintra.Groups
+namespace Uintra.Groups.Navigation.Models
 {
     public class GroupNavigationTab
     {

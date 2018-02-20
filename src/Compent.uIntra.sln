@@ -61,7 +61,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uintra.Groups", "uIntra.Gro
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F193C849-83E8-4216-AF7A-27A1ABBDC298}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uIntra.UnitTests", "uIntra.UnitTests\uIntra.UnitTests.csproj", "{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uintra.UnitTests", "uIntra.UnitTests\Uintra.UnitTests.csproj", "{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

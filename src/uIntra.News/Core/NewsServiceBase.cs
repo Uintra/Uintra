@@ -2,6 +2,7 @@
 using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Caching;
+using Uintra.Core.Extensions;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
 using Uintra.Core.TypeProviders;

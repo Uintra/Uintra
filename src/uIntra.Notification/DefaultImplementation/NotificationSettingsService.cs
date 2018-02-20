@@ -2,7 +2,6 @@
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
 using Uintra.Notification.Configuration;
-using Uintra.Notification.Core.Sql;
 
 namespace Uintra.Notification
 {

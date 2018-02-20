@@ -14,7 +14,7 @@ using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Groups;
 using Compent.Uintra.Core.UserTags;
-using Uintra.Groups.Extensions;
+using Uintra.Groups.Extentions;
 using Uintra.Navigation;
 
 namespace Compent.Uintra.Controllers

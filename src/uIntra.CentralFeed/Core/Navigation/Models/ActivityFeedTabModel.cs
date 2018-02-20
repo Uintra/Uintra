@@ -1,7 +1,7 @@
 ﻿using System;
 using Uintra.Core.Links;
 
-namespace Uintra.CentralFeed
+namespace Uintra.CentralFeed.Navigation.Models
 {
     public class ActivityFeedTabModel : TabModelBase
     {

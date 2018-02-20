@@ -4,7 +4,6 @@ using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
 using Uintra.Notification.Configuration;
-using Uintra.Notification.DefaultImplementation;
 
 namespace Compent.Uintra.Core.Notification
 {

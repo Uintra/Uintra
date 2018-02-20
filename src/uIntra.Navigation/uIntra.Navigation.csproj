@@ -7,8 +7,8 @@
     <ProjectGuid>{DB9791BC-0224-42E3-BD2B-1F18C15A181E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.Navigation</RootNamespace>
-    <AssemblyName>uIntra.Navigation</AssemblyName>
+    <RootNamespace>Uintra.Navigation</RootNamespace>
+    <AssemblyName>Uintra.Navigation</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
