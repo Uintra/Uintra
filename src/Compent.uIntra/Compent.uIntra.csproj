@@ -1214,6 +1214,7 @@
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\GridPageLayout.cshtml" />
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\GroupGridPreValues.json" />
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\PanelPickerPreValues.json" />
+    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
