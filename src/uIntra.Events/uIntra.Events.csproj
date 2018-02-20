@@ -8,8 +8,8 @@
     <ProjectGuid>{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.Events</RootNamespace>
-    <AssemblyName>uIntra.Events</AssemblyName>
+    <RootNamespace>Uintra.Events</RootNamespace>
+    <AssemblyName>Uintra.Events</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

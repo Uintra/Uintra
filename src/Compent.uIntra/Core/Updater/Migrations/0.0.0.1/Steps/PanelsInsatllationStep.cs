@@ -3,7 +3,6 @@ using System.Linq;
 using System.Reflection;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Newtonsoft.Json.Linq;
-using Uintra.Core.Installer;
 using Uintra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;

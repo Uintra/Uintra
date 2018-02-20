@@ -1,5 +1,4 @@
-﻿using Uintra.Core.Installer;
-using Umbraco.Core;
+﻿using Umbraco.Core;
 using Umbraco.Core.Models;
 using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.CoreInstallationConstants;
 using static Compent.Uintra.Core.Updater.ExecutionResult;

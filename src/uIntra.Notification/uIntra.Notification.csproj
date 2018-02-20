@@ -7,8 +7,8 @@
     <ProjectGuid>{774EBA5A-679C-401D-B3F1-130562785C60}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.Notification</RootNamespace>
-    <AssemblyName>uIntra.Notification</AssemblyName>
+    <RootNamespace>Uintra.Notification</RootNamespace>
+    <AssemblyName>Uintra.Notification</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

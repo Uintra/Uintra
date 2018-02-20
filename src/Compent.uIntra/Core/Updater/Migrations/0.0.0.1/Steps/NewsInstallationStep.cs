@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Uintra.Core.Installer;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
 using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.NewsInstallationConstants;
