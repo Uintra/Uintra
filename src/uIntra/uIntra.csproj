@@ -350,8 +350,8 @@
     <Reference Include="uIntra.Comments, Version=1.1.15.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Comments.1.1.15\lib\net452\uIntra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Core, Version=1.4.18.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Core.1.4.18\lib\net452\Uintra.Core.dll</HintPath>
+    <Reference Include="Uintra.Core, Version=1.4.19.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Core.1.4.19\lib\net452\Uintra.Core.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Events, Version=1.5.8.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Events.1.5.8\lib\net452\uIntra.Events.dll</HintPath>
@@ -1719,6 +1719,7 @@
   <ItemGroup>
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
   </ItemGroup>
