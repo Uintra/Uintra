@@ -183,6 +183,7 @@ Task("Add-Git-Tag")
     var existedTags = GitTags(project.GitDirectory);
 
     if(existedTags.Exists(t => t.FriendlyName == tag)){
+        Information($"Tag {tag} already exists. Deleting tag...");
         StartProcess("git", $"tag -d {tag}");
         StartProcess("git", $"push origin :refs/tags/{tag}");
     }
