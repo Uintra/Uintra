@@ -1,7 +1,7 @@
 ﻿using System;
 using Uintra.Core.Extensions;
 
-namespace Compent.Uintra.Installer.Migrations
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.OldNotifications
 {
     internal static class Helpers
     {

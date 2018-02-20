@@ -7,8 +7,8 @@
     <ProjectGuid>{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.News</RootNamespace>
-    <AssemblyName>uIntra.News</AssemblyName>
+    <RootNamespace>Uintra.News</RootNamespace>
+    <AssemblyName>Uintra.News</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

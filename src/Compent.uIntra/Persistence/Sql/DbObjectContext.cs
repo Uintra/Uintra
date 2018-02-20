@@ -7,14 +7,13 @@ using Uintra.Comments;
 using Uintra.Core.Activity;
 using Uintra.Core.LinkPreview.Sql;
 using Uintra.Core.Location.Entities;
-using Uintra.Core.Media;
+using Uintra.Core.Media.Sql;
 using Uintra.Core.MigrationHistories.Sql;
 using Uintra.Core.Persistence;
 using Uintra.Groups.Sql;
 using Uintra.Likes;
 using Uintra.Navigation;
 using Uintra.Notification;
-using Uintra.Notification.Core.Sql;
 using Uintra.Subscribe;
 using Uintra.Tagging.UserTags;
 
