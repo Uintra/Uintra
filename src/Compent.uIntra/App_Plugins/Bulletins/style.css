@@ -45,10 +45,14 @@
     }
 
     &__holder{
-        @media (--for-desktop-down) {
-            max-height:335px;
-            overflow:scroll; 
-	    }
+        ._expanded &{
+            @media (--for-desktop-down) {
+                max-height:335px;
+                /*overflow:scroll;*/
+                overflow-X:hidden;
+                overflow-Y:auto; 
+            }
+        }
     }
 
     .feed__item-heading{
