@@ -46,9 +46,8 @@
 
     &__holder{
         @media (--for-desktop-down) {
-            max-height:calc(100vh - 145px);
-            overflow-Y:auto;
-            overflow-X:hidden;
+            max-height:335px;
+            overflow:scroll; 
 	    }
     }
 
