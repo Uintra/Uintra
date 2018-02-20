@@ -1249,7 +1249,6 @@
     <Content Include="Views\Groups\GroupNavigation.cshtml" />
     <Content Include="Views\Bulletins\CreationForm.cshtml" />
     <Content Include="Views\Search\SearchResult.cshtml" />
-    <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\Shared\_Layout-output.cshtml" />
     <Content Include="Views\Events\DetailsHeader.cshtml" />
     <None Include="Web.ManualInstallation.config">
