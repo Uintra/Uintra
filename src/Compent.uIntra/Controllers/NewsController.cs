@@ -12,11 +12,11 @@ using Uintra.Core.Media;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Groups;
-using Uintra.Groups.Extensions;
 using Uintra.News;
 using Uintra.News.Web;
 using Uintra.Search;
 using Compent.Uintra.Core.UserTags;
+using Uintra.Groups.Extentions;
 using Uintra.Tagging.UserTags;
 
 namespace Compent.Uintra.Controllers

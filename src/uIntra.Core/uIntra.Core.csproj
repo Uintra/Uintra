@@ -8,8 +8,8 @@
     <ProjectGuid>{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.Core</RootNamespace>
-    <AssemblyName>uIntra.Core</AssemblyName>
+    <RootNamespace>Uintra.Core</RootNamespace>
+    <AssemblyName>Uintra.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

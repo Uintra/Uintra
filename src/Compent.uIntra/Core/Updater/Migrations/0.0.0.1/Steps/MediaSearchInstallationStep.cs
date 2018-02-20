@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Constants;
-using Uintra.Core.Installer;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;

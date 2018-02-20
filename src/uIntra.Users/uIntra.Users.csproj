@@ -7,8 +7,8 @@
     <ProjectGuid>{3E868F15-AC47-4962-A6A5-C9084752DDE9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.Users</RootNamespace>
-    <AssemblyName>uIntra.Users</AssemblyName>
+    <RootNamespace>Uintra.Users</RootNamespace>
+    <AssemblyName>Uintra.Users</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

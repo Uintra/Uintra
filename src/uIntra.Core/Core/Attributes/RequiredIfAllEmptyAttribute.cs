@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Uintra.Core.Core.Attributes
+namespace Uintra.Core.Attributes
 {
     public class RequiredIfAllEmptyAttribute : ValidationAttribute
     {

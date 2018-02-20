@@ -1,4 +1,4 @@
-﻿using Uintra.Core.Installer;
+﻿using Compent.Uintra.Core.Updater.Migrations._0._0._0._1;
 
 namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
 {

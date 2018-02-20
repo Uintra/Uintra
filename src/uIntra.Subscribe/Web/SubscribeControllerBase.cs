@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Uintra.Core;
 using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Umbraco.Web.Mvc;

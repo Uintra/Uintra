@@ -3,7 +3,7 @@ using Uintra.Core.Extensions;
 using Uintra.Groups.Constants;
 using Umbraco.Core.Models;
 
-namespace Uintra.Groups.Extensions
+namespace Uintra.Groups.Extentions
 {
     public static class GroupsPublishedContentExtensions
     {
