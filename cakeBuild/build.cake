@@ -180,6 +180,13 @@ Task("Add-Git-Tag")
     }
 
     var tag = nugetPackage.GetFilenameWithoutExtension().ToString();
+    var existedTags = GitTags(project.GitDirectory);
+
+    if(existedTags.Exists(t => t.FriendlyName == tag)){
+        StartProcess("git", $"tag -d {tag}");
+        StartProcess("git", $"push origin :refs/tags/{tag}");
+    }
+   
     GitTag(project.GitDirectory, tag);
     StartProcess("git", "push origin " + tag);
 });
