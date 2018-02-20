@@ -1,5 +1,5 @@
 ﻿{
-  "label": "This is an email notification that is sent to the creator of the comment when someone likes it.<br>You can insert the following dynamic values:<br><br>##FullName## - Name of the user who liked the comment",
+  "label": "This is an in-app notification that is sent to the creator of the comment when someone likes it.<br>You can insert the following dynamic values:<br><br>##FullName## - Name of the user who liked the comment",
   "template": {
     "message": "##FullName## has added a like to your comment"
   }

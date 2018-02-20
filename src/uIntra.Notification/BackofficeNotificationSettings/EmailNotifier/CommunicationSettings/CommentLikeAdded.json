@@ -1,7 +1,7 @@
 ﻿{
   "label": "This is an email notification that is sent to the creator of the comment when someone likes it.<br>You can insert the following dynamic values:<br><br>##FullName## - Name of the user who liked the comment",
   "template": {
-    "subject": "Subj",
-    "body": "##FullName## has added a like to your <a href='##Url##'>comment</a>"
+    "subject": "Comment like added",
+    "body": "##FullName## has added a like to your comment"
   }
 }
