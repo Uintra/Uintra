@@ -180,7 +180,12 @@ Task("Add-Git-Tag")
     }
 
     var tag = nugetPackage.GetFilenameWithoutExtension().ToString();
+      Information($"New tag {tag}");
     var existedTags = GitTags(project.GitDirectory);
+    foreach (var t1 in existedTags)
+    {
+        Information($"tag1 {t1}");
+    }
 
     if(existedTags.Exists(t => t.FriendlyName == tag)){
         Information($"Tag {tag} already exists. Deleting tag...");
