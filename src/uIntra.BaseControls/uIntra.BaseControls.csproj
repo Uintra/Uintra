@@ -7,8 +7,8 @@
     <ProjectGuid>{2E4A8B55-37F6-46A8-B108-30E346870720}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.BaseControls</RootNamespace>
-    <AssemblyName>uIntra.BaseControls</AssemblyName>
+    <RootNamespace>Uintra.BaseControls</RootNamespace>
+    <AssemblyName>Uintra.BaseControls</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <RestorePackages>true</RestorePackages>
     <FileAlignment>512</FileAlignment>

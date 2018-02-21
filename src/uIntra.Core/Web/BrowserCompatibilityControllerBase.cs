@@ -11,21 +11,23 @@ namespace Uintra.Core.Web
 {
     public abstract class BrowserCompatibilityControllerBase : SurfaceController
     {
+        private const string OperaUserAgentConstant = @"OPR/";
+        private const string EdgeUserAgentConstant = @"Edge/";
+        private const string ChromeUserAgentConstant = @"Chrome/";
         private const string BrowserCompatibilityCookieName = "browserCompatibilityCookie";
-        private readonly HttpContext _httpContext;
-        private readonly IBrowserCompatibilityConfigurationSection browserCompatibilityConfiguration;
-        private readonly ICookieProvider cookieProvider;
+        private readonly IBrowserCompatibilityConfigurationSection _browserCompatibilityConfiguration;
+        private readonly ICookieProvider _cookieProvider;
 
         protected virtual string BrowserCompatibilityNotificationViewPath { get; } = "~/App_Plugins/Core/BrowserCompatibility/BrowserCompatibilityNotificationView.cshtml";
 
-        protected BrowserCompatibilityControllerBase(HttpContext httpContext,IBrowserCompatibilityConfigurationSection browserCompatibilityConfiguration, ICookieProvider cookieProvider)
+        protected BrowserCompatibilityControllerBase(IBrowserCompatibilityConfigurationSection browserCompatibilityConfiguration, ICookieProvider cookieProvider)
         {
-            _httpContext = httpContext;
-            this.browserCompatibilityConfiguration = browserCompatibilityConfiguration;
-            this.cookieProvider = cookieProvider;
+            this._browserCompatibilityConfiguration = browserCompatibilityConfiguration;
+            this._cookieProvider = cookieProvider;
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult BrowserCompatibility()
         {
             return PartialView(BrowserCompatibilityNotificationViewPath, GetBrowserCompatibilityModel());
@@ -34,7 +36,7 @@ namespace Uintra.Core.Web
         protected virtual BrowserCompatibilityModel GetBrowserCompatibilityModel()
         {
             BrowserCompatibilityModel browserCompatibilityCookieValue;
-            var compatibilityCookie = cookieProvider.Get(BrowserCompatibilityCookieName);
+            var compatibilityCookie = _cookieProvider.Get(BrowserCompatibilityCookieName);
 
             if (string.IsNullOrEmpty(compatibilityCookie?.Value))
             {
@@ -47,10 +49,13 @@ namespace Uintra.Core.Web
             else
             {
                 browserCompatibilityCookieValue = compatibilityCookie.Value.Deserialize<BrowserCompatibilityModel>();
-                browserCompatibilityCookieValue.BrowserSupported = IsBrowserSupported();
+                if (!browserCompatibilityCookieValue.BrowserSupported)
+                {
+                    browserCompatibilityCookieValue.BrowserSupported = IsBrowserSupported();
+                }                
             }
 
-            cookieProvider.Save(BrowserCompatibilityCookieName, browserCompatibilityCookieValue.ToJson(), DateTime.Now.AddYears(1));
+            _cookieProvider.Save(BrowserCompatibilityCookieName, browserCompatibilityCookieValue.ToJson(), DateTime.Now.AddYears(1));
 
             return browserCompatibilityCookieValue;
         }
@@ -58,7 +63,7 @@ namespace Uintra.Core.Web
         [System.Web.Http.HttpPost]
         public void DisableBrowserCompatibilityNotification()
         {
-            var compatibilityCookie = cookieProvider.Get(BrowserCompatibilityCookieName);
+            var compatibilityCookie = _cookieProvider.Get(BrowserCompatibilityCookieName);
 
             if (string.IsNullOrEmpty(compatibilityCookie?.Value))
             {
@@ -67,26 +72,89 @@ namespace Uintra.Core.Web
 
             var browserCompatibilityCookieValue = compatibilityCookie.Value.Deserialize<BrowserCompatibilityModel>();
             browserCompatibilityCookieValue.ShowNotification = false;
-            cookieProvider.Save(BrowserCompatibilityCookieName, browserCompatibilityCookieValue.ToJson(), DateTime.Now.AddYears(1));
+            _cookieProvider.Save(BrowserCompatibilityCookieName, browserCompatibilityCookieValue.ToJson(), DateTime.Now.AddYears(1));
         }
 
         protected virtual bool IsBrowserSupported()
         {
-            var supportableBrowsers = browserCompatibilityConfiguration.Browsers;
+            //check opera separatly because asp.net detect opera as chrome
+            if (IsBrowser(OperaUserAgentConstant))
+            {
+                return CheckBrowserSeparatly(OperaUserAgentConstant, "Opera", GetBrowserVersion);
+            }
 
-            var currentBrowser = _httpContext.Request.Browser;
+            //check edge separatly because asp.net detect opera as chrome
+            if (IsBrowser(EdgeUserAgentConstant))
+            {
+                return CheckBrowserSeparatly(EdgeUserAgentConstant, "Edge", GetBrowserVersion);
+            }
 
-            var supportableBrowser = supportableBrowsers.FirstOrDefault(b => String.Equals(b.Name, currentBrowser.Browser, StringComparison.OrdinalIgnoreCase));
+            var currentBrowser = HttpContext.Request.Browser;
 
+            //check chrome separatly because asp.net detect incorrect version of chrome
+            if (currentBrowser.Browser == "Chrome")
+            {
+                return CheckBrowserSeparatly(ChromeUserAgentConstant, "Chrome", GetBrowserVersionInTheMiddle);
+            }
+
+            var supportableBrowser = _browserCompatibilityConfiguration.Browsers.FirstOrDefault(b => String.Equals(b.Name, currentBrowser.Browser, StringComparison.OrdinalIgnoreCase));
+            return CheckCompatibility(currentBrowser, supportableBrowser);
+        }
+
+        private bool CheckCompatibility(HttpBrowserCapabilitiesBase currentBrowser, Browser supportableBrowser)
+        {
             if (supportableBrowser == null)
             {
                 return false;
             }
+            return CheckVersions(new Version(currentBrowser.Version), new Version(supportableBrowser.Version));
+        }
 
-            var currentBrowserVersion = new Version(currentBrowser.Version);
-            var supportableBrowserVersion = new Version(supportableBrowser.Version);
-
+        private bool CheckVersions(Version currentBrowserVersion, Version supportableBrowserVersion)
+        {
             return currentBrowserVersion >= supportableBrowserVersion;
+        }
+
+        private string GetBrowserVersion(string userAgent, string browserConstant)
+        {
+            var indexOf = userAgent.IndexOf(browserConstant, StringComparison.OrdinalIgnoreCase) + browserConstant.Length;
+            var version = userAgent.Substring(indexOf, userAgent.Length - indexOf);
+            return version;
+        }
+
+        private string GetBrowserVersionInTheMiddle(string userAgent, string browserConstant)
+        {
+            var indexOf = userAgent.IndexOf(browserConstant, StringComparison.OrdinalIgnoreCase) + ChromeUserAgentConstant.Length;
+            var chromeVersion = string.Empty;
+            for (int i = indexOf; i < userAgent.Length; i++)
+            {
+                if (userAgent[i] == ' ')
+                {
+                    break;
+                }
+
+                chromeVersion = chromeVersion + userAgent[i];
+            }
+
+            return chromeVersion;
+        }
+
+        private bool IsBrowser(string browserConstant)
+        {
+            var isBrowser = HttpContext.Request.UserAgent != null && HttpContext.Request.UserAgent.Contains(browserConstant);
+            return isBrowser;
+        }
+
+        private bool CheckBrowserSeparatly(string browserConstant, string browserName, Func<string, string, string> getBrowserVersion)
+        {
+            var supportableBrowser = _browserCompatibilityConfiguration.Browsers.FirstOrDefault(b => String.Equals(b.Name, browserName, StringComparison.OrdinalIgnoreCase));
+            if (supportableBrowser == null)
+            {
+                return false;
+            }
+            var browserVersion = getBrowserVersion(HttpContext.Request.UserAgent, browserConstant);
+            return CheckVersions(new Version(browserVersion), new Version(supportableBrowser.Version));
+
         }
     }
 }

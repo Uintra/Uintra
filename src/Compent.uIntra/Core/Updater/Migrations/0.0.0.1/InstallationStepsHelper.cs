@@ -12,7 +12,7 @@ using Uintra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
-namespace Uintra.Core.Installer
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
 {
     public class InstallationStepsHelper
     {

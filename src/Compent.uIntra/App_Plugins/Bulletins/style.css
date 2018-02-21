@@ -251,3 +251,13 @@
         max-height: 102px !important;
     }
 }
+
+.select2-container--default .select2-results > .select2-results__options {
+    @media (--for-desktop-down) {
+        max-height: 136px !important;
+    }
+}
+
+    @media (--for-tablet-portrait-down) {
+        max-height: 102px !important;
+    }

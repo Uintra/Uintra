@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Uintra.CentralFeed.Navigation.Models;
 using Uintra.CentralFeed.Providers;
 using Uintra.Core.Extensions;
 using Uintra.Core.Grid;
