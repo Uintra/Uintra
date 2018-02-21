@@ -27,13 +27,13 @@ namespace Uintra.CentralFeed.Web
         private readonly ISubscribeService _subscribeService;
         private readonly IFeedService _feedService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        private readonly IFeedFilterStateService _feedFilterStateService;
+        private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
 
         protected FeedControllerBase(
             ISubscribeService subscribeService,
             IFeedService feedService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IFeedFilterStateService feedFilterStateService,
+            IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             IFeedTypeProvider centralFeedTypeProvider)
         {
             _subscribeService = subscribeService;
@@ -45,13 +45,12 @@ namespace Uintra.CentralFeed.Web
         [HttpGet]
         public virtual ActionResult OpenFilters()
         {
-            var feedState = _feedFilterStateService.GetFiltersState<FeedFiltersState>();
+            var feedState = _feedFilterStateService.GetFiltersState();
             feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
             _feedFilterStateService.SaveFiltersState(feedState);
             return new EmptyResult();
         }
-
-        #region Actions
+        
         public virtual JsonResult AvailableActivityTypes()
         {
             var activityTypes = _feedService
@@ -68,8 +67,7 @@ namespace Uintra.CentralFeed.Web
         {
             var version = _feedService.GetFeedVersion(Enumerable.Empty<IFeedItem>());
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
-        }
-        #endregion
+        }        
 
 
         protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items, IEnumerable<FeedSettings> settings)
@@ -159,7 +157,7 @@ namespace Uintra.CentralFeed.Web
 
         protected virtual FeedFilterStateModel GetFilterStateModel()
         {
-            var stateModel = _feedFilterStateService.GetFiltersState<FeedFiltersState>();
+            var stateModel = _feedFilterStateService.GetFiltersState();
 
             var result = new FeedFilterStateModel()
             {

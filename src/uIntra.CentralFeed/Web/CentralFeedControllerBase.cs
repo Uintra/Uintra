@@ -22,7 +22,7 @@ namespace Uintra.CentralFeed.Web
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly ICentralFeedLinkService _centralFeedLinkService;
-        private readonly IFeedFilterStateService _feedFilterStateService;
+        private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
         private readonly IPermissionsService _permissionsService;
 
         protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/Overview.cshtml";
@@ -42,7 +42,7 @@ namespace Uintra.CentralFeed.Web
             IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             ICentralFeedLinkService centralFeedLinkService,
-            IFeedFilterStateService feedFilterStateService,
+            IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             IPermissionsService permissionsService,
             IActivityTypeProvider activityTypeProvider)
             : base(subscribeService, centralFeedService, intranetUserService, feedFilterStateService, centralFeedTypeProvider)
@@ -55,8 +55,7 @@ namespace Uintra.CentralFeed.Web
             _permissionsService = permissionsService;
             _activitiesServiceFactory = activitiesServiceFactory;
         }
-
-        #region Actions
+        
         [HttpGet]
         public virtual ActionResult Overview()
         {
@@ -121,9 +120,6 @@ namespace Uintra.CentralFeed.Web
             return PartialView(LatestActivitiesViewPath, viewModel);
         }
 
-
-        #endregion
-
         protected virtual FeedListViewModel GetFeedListViewModel(FeedListModel model, List<IFeedItem> filteredItems, Enum centralFeedType)
         {
             var take = model.Page * ItemsPerPage;
@@ -159,7 +155,7 @@ namespace Uintra.CentralFeed.Web
         protected virtual CentralFeedOverviewModel GetOverviewModel()
         {
             var tabType = _centralFeedContentService.GetFeedTabType(CurrentPage);
-            var centralFeedState = _feedFilterStateService.GetFiltersState<FeedFiltersState>();
+            var centralFeedState = _feedFilterStateService.GetFiltersState();
 
             var activityTabs = GetActivityTabs().Map<List<ActivityFeedTabViewModel>>();
 

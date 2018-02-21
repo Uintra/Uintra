@@ -27,7 +27,7 @@ namespace Compent.Uintra.Controllers
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService,
-            IFeedFilterStateService feedFilterStateService,
+            IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             IActivityTypeProvider activityTypeProvider) 
             : base(subscribeService,
                   groupFeedService, 

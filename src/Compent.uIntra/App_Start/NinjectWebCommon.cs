@@ -293,7 +293,7 @@ namespace Compent.Uintra
 
             kernel.Bind<ICentralFeedHelper>().To<CentralFeedHelper>().InRequestScope();
             kernel.Bind<IGroupHelper>().To<GroupHelper>().InRequestScope();
-            kernel.Bind<IFeedFilterStateService>().To<CentralFeedFilterStateService>().InRequestScope();
+            kernel.Bind<IFeedFilterStateService<FeedFiltersState>>().To<CentralFeedFilterStateService>().InRequestScope();
 
             kernel.Bind(typeof(IIntranetActivityService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IIntranetActivityService<>)).To<EventsService>().InRequestScope();

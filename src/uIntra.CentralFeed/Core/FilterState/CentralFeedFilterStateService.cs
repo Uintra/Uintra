@@ -5,7 +5,7 @@ using Uintra.Core.Extensions;
 
 namespace Uintra.CentralFeed
 {
-    public class CentralFeedFilterStateService : IFeedFilterStateService
+    public class CentralFeedFilterStateService : IFeedFilterStateService<FeedFiltersState>
     {
         private const string CentralFeedFiltersStateCookieName = "centralFeedFiltersState";
 
@@ -23,7 +23,7 @@ namespace Uintra.CentralFeed
             _cookieProvider.Save(cookie);
         }
 
-        public TStateServer GetFiltersState<TStateServer>()
+        public FeedFiltersState GetFiltersState()
         {
             var cookie = _cookieProvider.Get(CentralFeedFiltersStateCookieName);
             if (string.IsNullOrEmpty(cookie?.Value))
@@ -35,7 +35,7 @@ namespace Uintra.CentralFeed
                 };
                 _cookieProvider.Save(cookie);
             }
-            return cookie.Value.Deserialize<TStateServer>();
+            return cookie.Value.Deserialize<FeedFiltersState>();
         }
 
         public bool CentralFeedCookieExists()
@@ -49,6 +49,6 @@ namespace Uintra.CentralFeed
             {
                 BulletinFilterSelected = true
             };
-        }
+        }        
     }
 }

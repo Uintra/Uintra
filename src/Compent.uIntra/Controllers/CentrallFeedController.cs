@@ -34,7 +34,7 @@ namespace Compent.Uintra.Controllers
             ICentralFeedLinkService centralFeedLinkService,
             IGroupFeedService groupFeedService,
             IFeedActivityHelper feedActivityHelper,
-            IFeedFilterStateService feedFilterStateService,
+            IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             IPermissionsService permissionsService,
             UmbracoHelper umbracoHelper,
             IFeedActivityHelper feedActivityHelper1,

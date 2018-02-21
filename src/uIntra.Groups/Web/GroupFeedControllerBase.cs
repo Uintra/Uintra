@@ -22,7 +22,7 @@ namespace Uintra.Groups.Web
         private readonly IIntranetUserService<IGroupMember> _intranetUserService;
         private readonly IGroupFeedContentService _groupFeedContentContentService;
         private readonly IGroupMemberService _groupMemberService;
-        private readonly IFeedFilterStateService _feedFilterStateService;
+        private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
 
         private bool IsCurrentUserGroupMember { get; set; }
@@ -44,7 +44,7 @@ namespace Uintra.Groups.Web
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService,
-            IFeedFilterStateService feedFilterStateService)
+            IFeedFilterStateService<FeedFiltersState> feedFilterStateService)
             : base(subscribeService,
                 groupFeedService,
                 intranetUserService,
