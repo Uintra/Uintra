@@ -35,7 +35,7 @@ namespace Uintra.News.Dashboard
         public virtual NewsBackofficeViewModel Create(NewsBackofficeCreateModel createModel)
         {
             var creatingNews = createModel.Map<NewsBase>();
-            creatingNews.CreatorId = _intranetUserService.GetCurrentUserId();
+            creatingNews.CreatorId = _intranetUserService.GetCurrentBackOfficeUserId();
             var newsId = _newsService.Create(creatingNews);
 
             var createdNews = _newsService.Get(newsId);

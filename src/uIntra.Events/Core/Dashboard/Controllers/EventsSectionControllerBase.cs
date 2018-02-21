@@ -34,7 +34,7 @@ namespace Uintra.Events.Dashboard
         public virtual EventBackofficeViewModel Create(EventBackofficeCreateModel createModel)
         {
             var creatingEvent = createModel.Map<EventBase>();
-            creatingEvent.CreatorId = creatingEvent.OwnerId = _intranetUserService.GetCurrentUserId();
+            creatingEvent.CreatorId = _intranetUserService.GetCurrentBackOfficeUserId();
             var eventId = _eventsService.Create(creatingEvent);
 
             var createdEvent = _eventsService.Get(eventId);

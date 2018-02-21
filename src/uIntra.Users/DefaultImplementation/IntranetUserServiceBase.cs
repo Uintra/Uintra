@@ -83,6 +83,17 @@ namespace Uintra.Users
             return user;
         }
 
+        public virtual T GetCurrentBackOfficeUser()
+        {
+            var backOfficeUser = _umbracoContext.Security.CurrentUser;
+            return new T() {
+                Id = backOfficeUser.Key,
+                Email = backOfficeUser.Email,
+                LoginName = backOfficeUser.Username,
+                Inactive = backOfficeUser.IsLockedOut,
+            };
+        }
+
         protected virtual string GetCurrentUserName()
         {
             var userName = "";

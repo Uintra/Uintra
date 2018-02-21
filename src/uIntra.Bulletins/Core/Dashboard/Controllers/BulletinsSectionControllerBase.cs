@@ -31,7 +31,7 @@ namespace Uintra.Bulletins
         public virtual BulletinsBackofficeViewModel Create(BulletinsBackofficeCreateModel createModel)
         {
             var creatingBulletin = createModel.Map<BulletinBase>();
-            creatingBulletin.CreatorId = creatingBulletin.OwnerId = _intranetUserService.GetCurrentUserId();
+            creatingBulletin.CreatorId = creatingBulletin.OwnerId = _intranetUserService.GetCurrentBackOfficeUserId();
 
             var bulletinId = _bulletinsService.Create(creatingBulletin);
             var createdBulletin = _bulletinsService.Get(bulletinId);

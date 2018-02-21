@@ -16,5 +16,10 @@ namespace Uintra.Core
             var currentUser = intranetUserService.GetCurrentUser();
             return currentUser.UmbracoId;
         }
+
+        public static Guid GetCurrentBackOfficeUserId(this IIntranetUserService<IIntranetUser> intranetUserService)
+        {
+            return intranetUserService.GetCurrentBackOfficeUser().Id;
+        }
     }
 }
