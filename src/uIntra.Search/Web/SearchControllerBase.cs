@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web.Mvc;
 using Uintra.Core.Extensions;
 using Uintra.Core.Localization;
-using Uintra.Core.TypeProviders;
 using Umbraco.Web.Mvc;
 
 namespace Uintra.Search.Web
@@ -140,10 +139,9 @@ namespace Uintra.Search.Web
                     return new SearchFilterItemViewModel
                     {
                         Id = type.ToInt(),
-                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.ToString()}", facet != null ? (int)facet.Count : default)
+                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.ToString()}", facet != null ? (int)facet.Count : default(int))
                     };
-                }
-               );
+                });
 
             var result = new SearchResultsOverviewViewModel
             {
