@@ -4,13 +4,11 @@ using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
 using Uintra.Notification.Configuration;
-using Uintra.Notification.DefaultImplementation;
 
 namespace Compent.Uintra.Core.Notification
 {
     public class UiNotifierService : INotifierService
     {
-       
         private readonly INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> _notificationModelMapper;
         private readonly NotificationSettingsService _notificationSettingsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
@@ -21,7 +19,8 @@ namespace Compent.Uintra.Core.Notification
         public UiNotifierService(
             INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> notificationModelMapper,
             NotificationSettingsService notificationSettingsService,
-            IIntranetUserService<IIntranetUser> intranetUserService, UiNotificationService notificationsService)
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            UiNotificationService notificationsService)
         {
             _notificationModelMapper = notificationModelMapper;
             _notificationSettingsService = notificationSettingsService;

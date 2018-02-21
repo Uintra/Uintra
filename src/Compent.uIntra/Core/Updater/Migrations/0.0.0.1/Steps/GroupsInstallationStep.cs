@@ -2,7 +2,6 @@
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
 using Uintra.Core.Constants;
-using Uintra.Core.Installer;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using static Compent.Uintra.Core.Updater.ExecutionResult;

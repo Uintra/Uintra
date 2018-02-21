@@ -100,7 +100,6 @@ using Uintra.Navigation.SystemLinks;
 using Uintra.News;
 using Uintra.Notification;
 using Uintra.Notification.Configuration;
-using Uintra.Notification.DefaultImplementation;
 using Uintra.Notification.Jobs;
 using Uintra.Search;
 using Uintra.Search.Configuration;

@@ -2,7 +2,6 @@
 using System.Linq;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Constants;
-using Compent.Uintra.Installer.Migrations;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 

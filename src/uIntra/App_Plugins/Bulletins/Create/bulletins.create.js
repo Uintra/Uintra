@@ -168,6 +168,7 @@ function initMobile(){
 // editor helpers
 
 function show() {
+    const headerAndButtonHeight = 130;
     setGlobalEventShow();
     bulletin.classList.add("_expanded");
     body.style.overflow = 'hidden';
@@ -180,6 +181,7 @@ function show() {
         let bulletinHolder = getBulletinHolder();
         bulletinHolder.classList.remove("hidden");
         mobileBtn.classList.add("hide");
+        window.scrollTo(0, (window.pageYOffset + bulletin.getBoundingClientRect().top - headerAndButtonHeight));
     }
 }
 

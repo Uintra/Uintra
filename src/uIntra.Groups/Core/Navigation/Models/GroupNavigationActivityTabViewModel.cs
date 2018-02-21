@@ -1,7 +1,7 @@
 ﻿using System;
 using Uintra.Core.Links;
 
-namespace Uintra.Groups
+namespace Uintra.Groups.Navigation.Models
 {
     public class GroupNavigationActivityTabViewModel : GroupNavigationTabViewModelBase
     {

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using Compent.Uintra.Controllers.Api;
 using Umbraco.Core.Services;
 using Umbraco.Web.WebApi;
 

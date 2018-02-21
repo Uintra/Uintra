@@ -7,8 +7,8 @@
     <ProjectGuid>{D5590777-B149-467F-829A-E901A9462E72}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.Panels</RootNamespace>
-    <AssemblyName>uIntra.Panels</AssemblyName>
+    <RootNamespace>Uintra.Panels</RootNamespace>
+    <AssemblyName>Uintra.Panels</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

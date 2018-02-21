@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Uintra.CentralFeed.Navigation.Models;
 
 namespace Uintra.CentralFeed
 {

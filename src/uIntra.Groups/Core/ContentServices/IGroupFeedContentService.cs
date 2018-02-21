@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Uintra.CentralFeed;
+using Uintra.CentralFeed.Navigation.Models;
 using Uintra.Core.User;
 using Umbraco.Core.Models;
 

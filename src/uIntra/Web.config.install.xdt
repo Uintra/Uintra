@@ -1,9 +1,15 @@
 ﻿<?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <configSections>
+    <section name="userPermissions" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
     <section name="userPermissions" type="Uintra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
+
+    <section name="uIntraJobs" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
     <section name="UintraJobs" type="Uintra.Core.Jobs.Configuration.JobSettingsConfiguration" xdt:Locator="Condition(@name='UintraJobs')" xdt:Transform="InsertIfMissing" />
+
+    <section name="elasticConfiguration" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
     <section name="elasticConfiguration" type="Uintra.Search.Configuration.ElasticConfigurationSection" xdt:Locator="Condition(@name='elasticConfiguration')" xdt:Transform="InsertIfMissing" />
+    
     <section name="localizationConfiguration" type="Localization.Core.Configuration.LocalizationConfigurationSection, Localization.Core"
             xdt:Locator="Condition(@name='localizationConfiguration')" xdt:Transform="InsertIfMissing" />
     <section name="linkDetectionConfiguration" type="Compent.Uintra.Core.LinkPreview.Config.LinkDetectionConfigurationSection" xdt:Locator="Condition(@name='linkDetectionConfiguration')" xdt:Transform="InsertIfMissing" />

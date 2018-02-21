@@ -1,5 +1,5 @@
-﻿using Localization.Core;
-using Uintra.Core.Installer;
+﻿using Compent.Uintra.Core.Updater.Migrations._0._0._0._1;
+using Localization.Core;
 
 namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
 {
