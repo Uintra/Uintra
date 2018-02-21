@@ -25,7 +25,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             var basePageWithGridBase = new ContentType(basePageWithGrid.Id);
 
             basePageWithGridBase.AddContentType(basePageWithGrid);
-            basePageWithGridBase.SetDefaultTemplate(fileService.GetTemplate(CoreInstallationConstants.DocumentTypeAliases.GridPageLayoutTemplateAlias));
+            basePageWithGridBase.SetDefaultTemplate(fileService.GetTemplate(CoreInstallationConstants.TemplateAliases.GridPageLayoutTemplateAlias));
 
             return basePageWithGridBase;
         }

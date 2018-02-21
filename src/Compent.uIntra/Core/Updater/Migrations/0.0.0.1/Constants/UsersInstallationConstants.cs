@@ -1,4 +1,6 @@
-﻿namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
+﻿using Compent.Uintra.Core.Verification;
+
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
 {
     public class UsersInstallationConstants
     {
@@ -8,6 +10,7 @@
             public const string ProfileEditPage = "Profile Edit Page";
         }
 
+        [UmbracoDocumentTypeVerification]
         public class DocumentTypeAliases
         {
             public const string ProfilePage = "profilePage";

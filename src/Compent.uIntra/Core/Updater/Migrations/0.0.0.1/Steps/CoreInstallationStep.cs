@@ -190,7 +190,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
         private void CreateGridPageLayoutTemplate()
         {
             var fileService = ApplicationContext.Current.Services.FileService;
-            var alias = DocumentTypeAliases.GridPageLayoutTemplateAlias;
+            var alias = TemplateAliases.GridPageLayoutTemplateAlias;
             var gridPageLayoutTemplate = fileService.GetTemplate(alias);
             if (gridPageLayoutTemplate != null) return;
 

@@ -1490,6 +1490,9 @@
     <Compile Include="Core\UserTags\Indexers\IElasticUintraActivityIndex.cs" />
     <Compile Include="Core\UserTags\UserTagsSearchIndexer.cs" />
     <Compile Include="Core\UserTags\ViewModels\UserTagViewModel.cs" />
+    <Compile Include="Core\Verification\IUmbracoVerificationService.cs" />
+    <Compile Include="Core\Verification\UmbracoDocumentTypeVerificationAttribute.cs" />
+    <Compile Include="Core\Verification\UmbracoVerificationService.cs" />
     <Compile Include="Core\XPathProvider.cs" />
     <Compile Include="Core\Users\RelatedUser\UserGroup\Helpers\IInternalGroupHelper.cs" />
     <Compile Include="Core\Users\RelatedUser\UserGroup\IInternalGroupProvider.cs" />

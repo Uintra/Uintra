@@ -1,4 +1,6 @@
-﻿namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
+﻿using Compent.Uintra.Core.Verification;
+
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
 {
     public class BulletinsInstallationConstants
     {
@@ -8,8 +10,11 @@
             public const string BulletinsEditPage = "Bulletins Edit Page";
             public const string BulletinsOverviewPage = "Bulletins Overview Page";
         }
+
+        [UmbracoDocumentTypeVerification]
         public class DocumentTypeAliases
         {
+            [UmbracoDocumentTypeVerification]
             public const string BulletinsDetailsPage = "bulletinsDetailsPage";
             public const string BulletinsEditPage = "bulletinsEditPage";
             public const string BulletinsOverviewPage = "bulletinsOverviewPage";

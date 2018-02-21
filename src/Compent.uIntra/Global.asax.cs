@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using Compent.Uintra.Core.Verification;
 using FluentScheduler;
 using Uintra.Bulletins;
 using Uintra.Core.Jobs;
@@ -16,11 +17,14 @@ namespace Compent.Uintra
         protected override void ApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             AreaRegistration.RegisterAllAreas();
-            MapperConfig.RegisterMappings();
+            MapperConfig.RegisterMappings();            
         }
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
+            var umbracoVerificationService = DependencyResolver.Current.GetService<IUmbracoVerificationService>();
+            umbracoVerificationService.VerifyDocumnetTypes();
+
             NewsSection.AddSectionToAllUsers(applicationContext);
             EventsSection.AddSectionToAllUsers(applicationContext);
             BulletinsSection.AddSectionToAllUsers(applicationContext);
@@ -30,7 +34,7 @@ namespace Compent.Uintra
             RegisterRoutes();
 
             JobManager.JobFactory = DependencyResolver.Current.GetService<IJobFactory>();
-            JobManager.Initialize(new JobsRegistry());            
+            JobManager.Initialize(new JobsRegistry());
 
             base.ApplicationStarted(umbracoApplication, applicationContext);
         }
