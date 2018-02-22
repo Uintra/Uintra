@@ -299,6 +299,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Attributes\NotFoundGroupAttribute.cs" />
     <Compile Include="Core\Constants\GroupConstants.cs" />
     <Compile Include="Core\Dashboard\Models\BackofficeGroupViewModel.cs" />
     <Compile Include="Core\Dashboard\GroupsSection.cs" />
