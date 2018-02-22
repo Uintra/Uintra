@@ -1272,6 +1272,7 @@
     <Compile Include="Controllers\Api\MemberApiController.cs" />
     <Compile Include="Controllers\Api\MonthlyEmailApiController.cs" />
     <Compile Include="Controllers\Api\NotificationSettingsApiController.cs" />
+    <Compile Include="Controllers\Api\QaController.cs" />
     <Compile Include="Controllers\Api\RteConfigController.cs" />
     <Compile Include="Controllers\Api\UserApiController.cs" />
     <Compile Include="Controllers\Api\UsersTagsApiController.cs" />
