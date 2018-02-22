@@ -12,7 +12,7 @@
         var originalSize = $"{media.Width}x{media.Height}";
         var videoClass = media.Type.Id == MediaTypeEnum.Video.ToInt() ? "video" : string.Empty;
 
-        <li class="gallery__item @fullSizeClass @videoClass" style="@(media.IsHidden ? "display:none;" : string.Empty)">
+        <li class="gallery__item js-gallery__item @fullSizeClass @videoClass" style="@(media.IsHidden ? "display:none;" : string.Empty)">
             <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" height="100" />
         </li>
     }
