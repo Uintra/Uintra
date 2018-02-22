@@ -90,6 +90,7 @@ using Uintra.Groups;
 using Uintra.Groups.Permissions;
 using uIntra.LicenceService.ApiClient;
 using uIntra.LicenceService.ApiClient.Interfaces;
+using umbraco.presentation.umbraco.webservices;
 using Uintra.Likes;
 using Uintra.Navigation;
 using Uintra.Navigation.Configuration;
@@ -245,10 +246,10 @@ namespace Compent.Uintra
             kernel.Bind<IEditorConfigProvider>().To<IntranetEditorConfigProvider>().InRequestScope();
             kernel.Bind<IEmbeddedResourceService>().To<EmbeddedResourceService>().InRequestScope();
             kernel.Bind<IHttpHelper>().To<HttpHelper>().InRequestScope().DisposeIfDisposable();
-            
+
 
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
-            kernel.Bind<ICommentLinkPreviewService>().To<CommentLinkPreviewService>().InRequestScope();            
+            kernel.Bind<ICommentLinkPreviewService>().To<CommentLinkPreviewService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
             kernel.Bind<ICommentableService>().To<CustomCommentableService>().InRequestScope();
             kernel.Bind<ICommentLinkHelper>().To<CommentLinkHelper>().InRequestScope();
@@ -373,14 +374,14 @@ namespace Compent.Uintra
             kernel.Bind<IUserTagRelationService>().To<UserTagRelationService>().InRequestScope();
             kernel.Bind<IUserTagService>().To<UserTagService>().InRequestScope();
             kernel.Bind<IActivityTagsHelper>().To<ActivityTagsHelper>().InRequestScope();
-            
+
             // Link preview
             kernel.Bind<ILinkPreviewService>().To<LinkPreviewService>().InRequestScope();
             kernel.Bind<ILinkPreviewDataProvider>().To<LinkPreviewDataProvider>().InRequestScope();
             kernel.Bind<ILinkPreviewConfiguration>().To<LinkPreviewConfiguration>().InRequestScope();
             kernel.Bind<IUriProvider>().To<UriProvider>();
             kernel.Bind<ILinkPreviewConfigProvider>().To<LinkPreviewConfigProvider>();
-            kernel.Bind<IHttpService>().To<HttpService>();            
+            kernel.Bind<IHttpService>().To<HttpService>();
             kernel.Bind<LinkPreviewModelMapper>().ToSelf();
 
             // Factories
@@ -429,10 +430,12 @@ namespace Compent.Uintra
             kernel.Bind<IUmbracoContentTrashedEventService>().To<DeleteUserTagHandler>().InRequestScope();
             kernel.Bind<IUmbracoContentPublishedEventService>().To<ContentPageRelationHandler>().InRequestScope();
             kernel.Bind<IUmbracoContentTrashedEventService>().To<ContentPageRelationHandler>().InRequestScope();
+            kernel.Bind<IUmbracoContentPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
+            kernel.Bind<IUmbracoContentUnPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
 
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
-            
+
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
             kernel.Bind<INotifierDataHelper>().To<NotifierDataHelper>().InRequestScope();
 
@@ -503,10 +506,11 @@ namespace Compent.Uintra
             kernel.Bind<IActivityUserTagIndex>().To<ActivityUserTagIndex>().InRequestScope();
             kernel.Bind<IElasticUserIndex>().To<ElasticUserIndex>().InRequestScope();
             kernel.Bind<IElasticUintraContentIndex>().To<ElasticUintraContentIndex>().InRequestScope();
+            kernel.Bind<IUserTagsSearchIndexer>().To<UserTagsSearchIndexer>().InRequestScope();
 
             kernel.Bind<IElasticIndex>().To<UintraElasticIndex>().InRequestScope();
             kernel.Bind<ISearchScoreProvider>().To<SearchScoreProvider>().InRequestScope();
-            
+
             kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
         }
 

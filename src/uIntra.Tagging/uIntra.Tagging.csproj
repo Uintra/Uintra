@@ -343,7 +343,9 @@
     <Compile Include="Core\UserTags\Services\IUserTagProvider.cs" />
     <Compile Include="Core\UserTags\Services\IUserTagRelationService.cs" />
     <Compile Include="Core\UserTags\Services\IUserTagService.cs" />
+    <Compile Include="Core\UserTags\Services\IUserTagsSearchIndexer.cs" />
     <Compile Include="Core\UserTags\UmbracoEvents\ContentPageRelationHandler.cs" />
+    <Compile Include="Core\UserTags\UmbracoEvents\CreateUserTagHandler.cs" />
     <Compile Include="Core\UserTags\UmbracoEvents\DeleteUserTagHandler.cs" />
     <Compile Include="DefaultImplementation\UserTags\UserTagService.cs" />
     <Compile Include="DefaultImplementation\UserTags\UserTagRelationService.cs" />
