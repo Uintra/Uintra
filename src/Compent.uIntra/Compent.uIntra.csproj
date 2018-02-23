@@ -1217,6 +1217,8 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.resx">
       <DependentUpon>201802231106236_ActivityToLinkPreviewEntity.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />

@@ -11,7 +11,7 @@
     <div class="create-bulletin__holder">
         <div class="create-bulletin__dimmed-bg js-create-bulletin__dimmed-bg"></div>
         <div class="create-bulletin__form quill--custom">
-            @using (Html.BeginUmbracoForm("CreateExtended", "Bulletins", FormMethod.Post))
+            @using (Html.BeginUmbracoForm("CreateExtended", "Bulletins", null, new { @class = "js-create-bulletin-form" }, FormMethod.Post))
             {
                 <div class="create-bulletin__user">
                     <header class="feed__item-heading clearfix">
