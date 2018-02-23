@@ -1214,6 +1214,9 @@
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\GridPageLayout.cshtml" />
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\GroupGridPreValues.json" />
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\PanelPickerPreValues.json" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.resx">
+      <DependentUpon>201802231106236_ActivityToLinkPreviewEntity.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1523,6 +1526,10 @@
     <Compile Include="Persistence\Sql\Migrations\201802091031082_Renaming.cs" />
     <Compile Include="Persistence\Sql\Migrations\201802091031082_Renaming.Designer.cs">
       <DependentUpon>201802091031082_Renaming.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.Designer.cs">
+      <DependentUpon>201802231106236_ActivityToLinkPreviewEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
