@@ -26,5 +26,7 @@ namespace Uintra.Bulletins
 
         [RequiredIfAllEmpty(DependancyProperties = new[] { nameof(Description), nameof(Media) })]
         public string NewMedia { get; set; }
+
+        public int? LinkPreviewId { get; set; }
     }
 }
