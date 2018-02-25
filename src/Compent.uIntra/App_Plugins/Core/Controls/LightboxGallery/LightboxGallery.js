@@ -90,34 +90,6 @@ var initGallery = function (container) {
         });
     });
 
-    /*
-    const galleryItems = holder.querySelectorAll('.js-gallery__item') || [];
-    if (!galleryItems.length) {
-        return;
-    }
-
-    var galleryModel = {
-        uId: Math.random(),
-        holder: holder,
-        items: buildPhotoswipeItems(galleryItems),
-        options: helpers.deepClone(defaultOptions)
-    }
-    galleryModel.options.galleryUID = galleryModel.uId;
-
-    var galleryItemsArray = Array.from(galleryItems);
-
-    function galleryItemClickHandler(event) {
-        const galleryItem = event.currentTarget;
-        debugger;
-        galleryModel.options.index = galleryItemsArray.indexOf(galleryItem);
-        createGallery(galleryModel);
-    }
-
-    galleryItemsArray.forEach(function (galleryItem) {
-        galleryItem.addEventListener("click", galleryItemClickHandler);
-    });
-*/
-
     galleries.push(galleryModel);
 }
 
