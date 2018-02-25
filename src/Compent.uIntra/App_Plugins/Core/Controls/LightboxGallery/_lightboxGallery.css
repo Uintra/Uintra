@@ -45,18 +45,22 @@
         &.video{
             cursor:pointer;
 
-            &:before{
-                content:'';
-                position:absolute;
-                left:50%;
-                top:50%;
-                z-index:2;
-                width:40px;
-                height:40px;
-                margin:-20px 0 0 -20px;
-                background:url(/App_Plugins/Core/Content/images/videoplay.svg) no-repeat;
-                background-size: 40px 40px;
+            .gallery__item-opener{
+
+                &:before{
+                    content:'';
+                    position:absolute;
+                    left:50%;
+                    top:50%;
+                    z-index:2;
+                    width:40px;
+                    height:40px;
+                    margin:-20px 0 0 -20px;
+                    background:url(/App_Plugins/Core/Content/images/videoplay.svg) no-repeat;
+                    background-size: 40px 40px;
+                }
             }
+            
         }
 
         &-link{

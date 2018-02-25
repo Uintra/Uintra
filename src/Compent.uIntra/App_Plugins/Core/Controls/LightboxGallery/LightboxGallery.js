@@ -12,6 +12,7 @@ var defaultOptions = {
     escKey: true,
     arrowKeys: true,
     bgOpacity: 0.8,
+    history: false,
     showHideOpacity: false
 };
 
@@ -39,9 +40,11 @@ var buildPhotoswipeItems = function (imagesItems) {
             continue;   
         }
         var item = imagesItems[i];
+        var paprentItem = item.parentNode;
         var size = item.getAttribute('data-full-size').split('x');
         var width;
         var height;
+        var newItem;
 
         if (size && size.length == 2) {
             width = parseInt(size[0]);
@@ -51,11 +54,19 @@ var buildPhotoswipeItems = function (imagesItems) {
             height = window.screen.availHeight;
         }
 
-        var newItem = {
-            src: item.dataset['fullUrl'],
-            w: width,
-            h: height
+        // create slide object
+        if (paprentItem.dataset.type == 'video') {
+            newItem = {
+                html: paprentItem.dataset.video
+            };
+        } else {
+            newItem = {
+                src: item.dataset['fullUrl'],
+                w: width,
+                h: height
+            };
         }
+        
         result.push(newItem);
     }
     return result;
@@ -68,6 +79,7 @@ var initGallery = function (container) {
         return;
     }
 
+    var photoSwipeItems = Array.from(holder.querySelectorAll('.gallery__item-opener'));
     var images = holder.querySelectorAll('img') || [];
     if (!images.length) {
         return;
@@ -83,9 +95,9 @@ var initGallery = function (container) {
 
     var imageArray = Array.from(images);
 
-    imageArray.forEach(function (image) {
-        image.addEventListener("click", () => {
-            galleryModel.options.index = imageArray.indexOf(image);
+    photoSwipeItems.forEach(function (item) {
+        item.addEventListener("click", () => {
+            galleryModel.options.index = photoSwipeItems.indexOf(item);
             createGallery(galleryModel);
         });
     });
