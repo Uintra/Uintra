@@ -26,7 +26,17 @@ var createGallery = function (gallery) {
 
     gallery.instance.init();
     bodyElement.classList.add('js-lightbox-open');
+
+    const stopVideo = function () {
+        Array.from(gallery.instance.container.querySelectorAll('.pswp__video')).forEach(function (item) {
+            item.setAttribute('src', item.getAttribute('src'));
+        });
+    }
+    
+    gallery.instance.listen('beforeChange', stopVideo);
+
     gallery.instance.listen('close', function () {
+        stopVideo();
         gallery.instance = null;
         bodyElement.classList.remove('js-lightbox-open');
     });

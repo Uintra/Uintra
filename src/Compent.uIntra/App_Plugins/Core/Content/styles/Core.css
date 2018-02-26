@@ -1029,11 +1029,11 @@ img{
             height:100%;
         }
 
-        &__zoom-wrap{
+        /*&__zoom-wrap{
             width:100%;
             height:100%;
             padding:10%;
-        }
+        }*/
 
         .block__video-iframe-player{
             position:static;

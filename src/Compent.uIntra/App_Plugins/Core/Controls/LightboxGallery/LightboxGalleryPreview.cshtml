@@ -15,7 +15,7 @@
         <li class="gallery__item @fullSizeClass @videoClass" @*style="@(media.IsHidden ? "display:none;" : string.Empty)"*@>
             @if (media.Type.Id == MediaTypeEnum.Video.ToInt())
             {
-                <a href="#" class="gallery__item-opener" data-type="video" data-video='<div class="wrapper"><div class="video-wrapper"><video width="960" class="pswp__video" src="@media.Url" controls></video></div></div>'>
+                <a href="#" class="gallery__item-opener" data-type="video" data-video='<div class="gallery__video"><div class="gallery__video-box"><video width="960" class="pswp__video" src="@media.Url" controls></video></div></div>'>
                     <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" height="100" />
                 </a>
             }
@@ -28,12 +28,12 @@
         </li>
     }
     <li class="gallery__item video">
-        <a href="#" class="gallery__item-opener" data-type="video" data-video='<div class="wrapper"><div class="video-wrapper"><iframe class="pswp__video" width="960" height="640" src="https://www.youtube-nocookie.com/embed/iP2JGliTdvw?rel=0" frameborder="0" allowfullscreen></iframe></div></div>'>
+        <a href="#" class="gallery__item-opener" data-type="video" data-video='<div class="gallery__video"><div class="gallery__video-box"><iframe class="pswp__video" width="960" height="640" src="https://www.youtube-nocookie.com/embed/iP2JGliTdvw?rel=0" frameborder="0" allowfullscreen></iframe></div></div>'>
             <img src="https://img.youtube.com/vi/iP2JGliTdvw/mqdefault.jpg" data-full-size="#" data-full-url="#" class="gallery__image">
         </a>
     </li>
     <li class="gallery__item video">
-        <a href="#" class="gallery__item-opener" data-type="video" data-video='<div class="wrapper"><div class="video-wrapper"><iframe class="pswp__video" src="https://player.vimeo.com/video/121436114?title=0&byline=0&portrait=0" width="960" height="640" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div></div>'>
+        <a href="#" class="gallery__item-opener" data-type="video" data-video='<div class="gallery__video"><div class="gallery__video-box"><iframe class="pswp__video" src="https://player.vimeo.com/video/121436114?title=0&byline=0&portrait=0" width="960" height="640" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div></div>'>
             <img src="http://placehold.it/320x180?text=Vimeo" data-full-size="#" data-full-url="#" class="gallery__image">
         </a>
     </li>
