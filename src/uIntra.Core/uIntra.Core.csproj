@@ -376,6 +376,7 @@
     <Compile Include="Core\LinkPreview\AutoMapperProfiles\LinkPreviewAutoMapperProfile.cs" />
     <Compile Include="Core\LinkPreview\ActivityLinkPreviewService.cs" />
     <Compile Include="Core\LinkPreview\IActivityLinkPreviewService.cs" />
+    <Compile Include="Core\LinkPreview\IHasLinkPreview.cs" />
     <Compile Include="Core\LinkPreview\Sql\ActivityToLinkPreviewEntity.cs" />
     <Compile Include="Core\Location\AutoMapperProfiles\LocationAutoMapperProfile.cs" />
     <Compile Include="Core\Location\Entities\ActivityLocationEntity.cs" />
@@ -496,6 +497,7 @@
     <Compile Include="Core\Utils\IHttpHelper.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Core\Location\Models\ActivityLocationEditModel.cs" />
+    <Compile Include="Web\ActivityLinkPreviewControllerBase.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
     <Compile Include="Web\LinkPreviewControllerBase.cs" />
     <Compile Include="Web\CacheController.cs" />
@@ -597,6 +599,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Compent.uIntra\App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml">
+      <Link>App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml</Link>
+    </None>
     <None Include="app.config" />
     <Content Include="Config\Dashboard.config.install.xdt" />
     <Content Include="Config\Dashboard.config.uninstall.xdt" />
@@ -610,6 +615,7 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Plugins\LinkPreview\" />
     <Folder Include="Core\Media\UmbracoEventServices\" />
   </ItemGroup>
   <ItemGroup>

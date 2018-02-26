@@ -10,7 +10,7 @@ let editor;
 let editForm;
 let isOneLinkDetected = false;
 
-function initEditor() {
+function initEditor() {    
     descriptionElem = holder.querySelector(".js-edit-bulletin__description");
     let dataStorage = holder.querySelector(".js-edit-bulletin__description-hidden");
 
@@ -22,7 +22,7 @@ function initEditor() {
         }
     });
 
-    editor.onLinkDetected(function (link) {
+    editor.onLinkDetected(function (link) {        
         if (!isOneLinkDetected) {
             showLinkPreview(link);
             isOneLinkDetected = true;
@@ -40,7 +40,7 @@ function initEditor() {
                 descriptionElem.after(imageElem);
                 descriptionElem.after(hiddenSaveElem);
 
-                var removeLinkPreview = function (e) {
+                var removeLinkPreview = function (e) {                    
                     if (e.target.classList.contains('js-link-preview-remove-preview')) {
                         imageElem.parentNode.removeChild(imageElem);
                         imageElem.removeEventListener('click', removeLinkPreview);
@@ -144,6 +144,26 @@ function getBulletinHolder() {
     return document.querySelector(".js-edit-bulletin");
 }
 
+var initEditLinkPreview = function (holder) {
+
+    var removeLinkPreviewButton = findControl(holder, '.js-link-preview-remove-preview');
+    var linkPreviewIdContainer = findControl(holder, 'input[name="linkPreviewId"]')[0];
+    var linkPreviewEditContainer = findControl(holder, '.js-link-preview-edit-preview-container');
+    
+    removeLinkPreviewButton.on('click', function () {
+        linkPreviewIdContainer.value = null;
+        linkPreviewEditContainer.hide();
+    });
+};
+
+function findControl(holder, selector) {
+    return holder.find(selector).filter(function () {
+        var $this = $(this);
+        var parent = $this.closest('.js-edit-bulletin');
+        return parent.data('id') === holder.data('id');
+    });
+}
+
 let controller = {
     init: function () {
         holder = getBulletinHolder();
@@ -154,6 +174,7 @@ let controller = {
         initEditor();
         initFileUploader();
         initEventListeners();
+        initEditLinkPreview($(holder));
     }
 }
 

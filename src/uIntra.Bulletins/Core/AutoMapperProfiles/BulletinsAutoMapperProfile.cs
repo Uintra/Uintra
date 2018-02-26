@@ -54,7 +54,7 @@ namespace Uintra.Bulletins
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .ForMember(dst => dst.OwnerId, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
-                .ForMember(dst => dst.LinkPreview, o => o.Ignore())
+                .ForMember(dst => dst.LinkPreview, o => o.Ignore())                
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
@@ -98,6 +98,7 @@ namespace Uintra.Bulletins
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                 .ForMember(dst => dst.OwnerId, o => o.Ignore())
                 .ForMember(dst => dst.LinkPreview, o => o.Ignore())
+                .ForMember(dst => dst.LinkPreviewId, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
                     src.MediaIds = dst.Media.ToIntCollection();
@@ -116,6 +117,7 @@ namespace Uintra.Bulletins
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .ForMember(dst => dst.LinkPreview, o => o.Ignore())
+                .ForMember(dst => dst.LinkPreviewId, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
                     src.MediaIds = dst.Media.ToIntCollection();

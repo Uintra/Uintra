@@ -1,0 +1,8 @@
+﻿@model Uintra.Core.LinkPreview.LinkPreviewViewModel
+<div class=" js-comment-link-preview-container link-preview">
+    <h3 class="link-preview-title"><a href="@Model.Uri">@Model.Title</a></h3>
+    <p>@Model.Description</p>
+    <div class="link-preview-image">
+        <img src="@Model.ImageUri" alt="link preview image description" />
+    </div>
+</div>

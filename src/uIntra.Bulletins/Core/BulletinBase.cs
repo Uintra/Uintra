@@ -6,7 +6,7 @@ using Uintra.Core.User;
 
 namespace Uintra.Bulletins
 {
-    public class BulletinBase : IntranetActivity, IHaveCreator, IHaveOwner, IBulletinBase
+    public class BulletinBase : IntranetActivity, IHaveCreator, IHaveOwner, IBulletinBase, IHasLinkPreview
     {
         public int? UmbracoCreatorId { get; set; }
         public Guid CreatorId { get; set; }
@@ -15,5 +15,7 @@ namespace Uintra.Bulletins
 
         [JsonIgnore]
         public LinkPreview LinkPreview { get; set; }
+
+        public int? LinkPreviewId { get; set; }
     }
 }

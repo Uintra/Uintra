@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Uintra.Core.Activity;
 using Uintra.Core.Attributes;
+using Uintra.Core.LinkPreview;
 using Uintra.Core.Media;
 using Uintra.Core.ModelBinders;
 
@@ -27,6 +28,7 @@ namespace Uintra.Bulletins
         [RequiredIfAllEmpty(DependancyProperties = new[] { nameof(Description), nameof(Media) })]
         public string NewMedia { get; set; }
 
-        public int? LinkPreviewId { get; set; }
+       public LinkPreviewViewModel LinkPreview { get; set; }
+       public int? LinkPreviewId { get; set; }
     }
 }

@@ -28,10 +28,10 @@ namespace Uintra.Core.LinkPreview
             return preview;
         }
 
-        public void UpdateLinkPreview(Guid commentId, int previewId)
+        public void UpdateLinkPreview(Guid activityId, int previewId)
         {
-            RemovePreviewRelations(commentId);
-            AddLinkPreview(commentId, previewId);
+            RemovePreviewRelations(activityId);
+            AddLinkPreview(activityId, previewId);
         }
 
         public void AddLinkPreview(Guid activityId, int previewId)
