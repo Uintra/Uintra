@@ -37,7 +37,7 @@
             <img src="http://placehold.it/320x180?text=Vimeo" data-full-size="#" data-full-url="#" class="gallery__image">
         </a>
     </li>
-    @if (Model.OtherFiles.Any())
+    @*@if (Model.OtherFiles.Any())
     {
         <li class="gallery__item _attachments">
             <a class="gallery__item-link" href="@Model.Links.Details">
@@ -45,5 +45,17 @@
                 <span class="gallery__count">@Model.OtherFiles.Count() @Html.Localize("LightboxGallery.Count.lbl")</span>
             </a>
         </li>
-    }
+    }*@
 </ul>
+
+@* attachments *@
+
+@if (Model.OtherFiles.Any())
+{
+    <div class="attachments">
+        <a class="attachments__link" href="@Model.Links.Details">
+            @Model.OtherFiles.Count() @Html.Localize("LightboxGallery.Count.lbl")
+        </a>
+    </div>
+}
+    

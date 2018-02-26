@@ -28,20 +28,6 @@
             margin:0 0 20px;
         }
 
-        &._attachments{
-            width:120px;
-            height:100px;
-            text-align:center;
-            max-width:initial;
-            max-height:initial;
-
-            @media(--for-tablet-portrait-down){
-                max-width:calc(50% - 26px);
-                margin:0 0 20px 26px;
-                padding:0;
-            }
-        }
-
         &.video{
             cursor:pointer;
 
@@ -62,28 +48,6 @@
             }
             
         }
-
-        &-link{
-            border:1px solid var(--color-light-gray);
-            padding:10px;
-            display:flex;
-            width:100%;
-            height:100%;
-            flex-direction:column;
-            justify-content: center;
-            color:var(--text-color-dark);
-
-            .gallery__image{
-                height:auto;
-                margin-bottom:7px;
-            }
-
-            &:hover{
-                color:var(--text-color-dark);
-                text-decoration:none;
-                background-color:var(--color-light-gray-2);
-            }
-        }
     }
 
     &__image{
@@ -92,18 +56,10 @@
         width:auto;
         height:100px;
 
-        ._attachments &{
-            width:20px;
-        }
-
         ._full-size &{
             height:auto !important;
             width: 100%;
         }
-    }
-
-    &__count{
-        font-size:13px;
     }
 
     &__video {
@@ -139,7 +95,6 @@
             height: auto !important;
         }
     }
-
 }
 
 .documents-list{
@@ -191,6 +146,39 @@
             display: inline-block;
             height: 100%;
             vertical-align: middle;
+        }
+    }
+}
+
+
+/* attachments */
+.attachments {
+    float:right;
+
+    &__link {
+        position:relative;
+        padding:0 0 0 20px;
+        font-size: 13px;
+        color: var(--text-color-dark);
+
+        &:before{
+            content:'';
+            position:absolute;
+            left:0;
+            top:0;
+            margin:-2px 0 0;
+            z-index:2;
+            width:14px;
+            height:15px;
+            background:url(/App_Plugins/Core/Content/images/attachment.svg) no-repeat;
+            background-size: 14px 15px;
+        }
+
+        &:active,
+        &:focus,
+        &:hover{
+            color:#5776f9;
+            text-decoration:none;
         }
     }
 }
