@@ -13,5 +13,7 @@ namespace uIntra.Core.Controls.LightboxGallery
         public Guid ActivityId { get; set; }
         public IIntranetType ActivityType { get; set; }
         public IActivityLinks Links { get; set; }
+        public int HiddenImagesCount { get; set; }
+
     }
 }

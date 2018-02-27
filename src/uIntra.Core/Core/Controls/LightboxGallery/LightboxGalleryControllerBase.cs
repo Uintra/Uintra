@@ -73,6 +73,8 @@ namespace uIntra.Core.Controls.LightboxGallery
             galleryPreviewModel.Medias = FindMedias(galleryViewModelList);
             galleryPreviewModel.OtherFiles = galleryViewModelList.Except(galleryPreviewModel.Medias);
             galleryPreviewModel.Medias.Skip(model.DisplayedImagesCount).ToList().ForEach(i => i.IsHidden = true);
+            galleryPreviewModel.HiddenImagesCount = galleryPreviewModel.Medias.Count(i => i.IsHidden);
+
 
             return galleryPreviewModel;
         }
