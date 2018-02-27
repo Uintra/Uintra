@@ -1,10 +1,14 @@
 ﻿.gallery{
-    margin:0 0 21px -10px;
+    margin:-10px 0 31px -10px;
     padding:0;
     list-style:none;
     display:flex;
     flex-wrap:wrap;
     align-items: stretch;
+
+    &-holder{
+        position:relative;
+    }
 
     ._details &{
         margin-bottom:36px;
@@ -13,7 +17,7 @@
     &__item{
         padding:0;
         position:relative;
-        margin:0 0 10px 10px;
+        margin:10px 0 0 10px;
         overflow:hidden;
 
         &._full-size{
@@ -94,6 +98,15 @@
             width: 100% !important;
             height: auto !important;
         }
+    }
+
+    &__counter{
+        position:absolute;
+        bottom:0;
+        right:0;
+        padding:10px 11px;
+        background:rgba(0, 0, 0, 0.5);
+        color:var(--color-white);
     }
 }
 
