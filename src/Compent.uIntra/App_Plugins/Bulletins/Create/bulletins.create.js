@@ -25,6 +25,7 @@ let closeBulletinBtn;
 let wrapper;
 let dimmedBg;
 let isOneLinkDetected = false;
+let linkPreviewContainer;
 
 function initElements() {
     dataStorage = holder.querySelector(".js-create-bulletin__description-hidden");
@@ -38,7 +39,7 @@ function initElements() {
     confirmMessage = bulletin.dataset.message;
     createForm = bulletin.querySelector(".js-create-bulletin-form");
     expandBulletinBtn = document.querySelector(".js-bulletin-open");
-    closeBulletinBtn = holder.querySelector(".js-create-bulletin__close");
+    closeBulletinBtn = holder.querySelector(".js-create-bulletin__close");    
     wrapper = document.getElementById("wrapper");
     uIntra.events.add("setBulletinCreateMode");
     uIntra.events.add("removeBulletinCreateMode");
@@ -60,9 +61,9 @@ function initEditor() {
     });
 
     editor.onLinkDetected(function (link) {
+        debugger;
         if (!isOneLinkDetected) {
-            showLinkPreview(link);
-            isOneLinkDetected = true;
+            showLinkPreview(link);            
         }
     });
 
@@ -74,14 +75,15 @@ function initEditor() {
                 var hiddenSaveElem = getHiddenSaveElem(data);
                 createForm.append(imageElem);
                 createForm.append(hiddenSaveElem);
+                isOneLinkDetected = true;
 
                 var removeLinkPreview = function (e) {
                     if (e.target.classList.contains('js-link-preview-remove-preview')) {
                         imageElem.parentNode.removeChild(imageElem);
                         imageElem.removeEventListener('click', removeLinkPreview);
                         imageElem = null;
-
                         hiddenSaveElem.parentNode.removeChild(hiddenSaveElem);
+                        isOneLinkDetected = false;
                     }
                 };
 
@@ -256,7 +258,7 @@ function show() {
     }
 }
 
-function hide(event) {
+function hide(event) {    
     if (event && event.target == closeBulletinBtn) { event.preventDefault(); }
     setGlobalEventHide();
     bulletin.classList.remove("_expanded");
@@ -265,6 +267,7 @@ function hide(event) {
     header.classList.add("hidden");
     closeBulletinBtn.classList.add("hidden");
     sentButton.classList.add("hidden");
+    hideLinkPreview();
 
     if (mobileMediaQuery.matches) {
         let bulletinHolder = getBulletinHolder();
@@ -273,6 +276,14 @@ function hide(event) {
     }
 
     clear();
+}
+
+function hideLinkPreview() {
+    linkPreviewContainer = holder.querySelector(".link-preview");
+    if (linkPreviewContainer) {
+        $(linkPreviewContainer).hide();
+        isOneLinkDetected = false;
+    }
 }
 
 function clear() {

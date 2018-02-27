@@ -24,8 +24,7 @@ function initEditor() {
 
     editor.onLinkDetected(function (link) {        
         if (!isOneLinkDetected) {
-            showLinkPreview(link);
-            isOneLinkDetected = true;
+            showLinkPreview(link);            
         }
     });
 
@@ -39,14 +38,15 @@ function initEditor() {
                 var hiddenSaveElem = getHiddenSaveElem(data);
                 descriptionElem.after(imageElem);
                 descriptionElem.after(hiddenSaveElem);
+                isOneLinkDetected = true;
 
                 var removeLinkPreview = function (e) {                    
                     if (e.target.classList.contains('js-link-preview-remove-preview')) {
                         imageElem.parentNode.removeChild(imageElem);
                         imageElem.removeEventListener('click', removeLinkPreview);
                         imageElem = null;
-
                         hiddenSaveElem.parentNode.removeChild(hiddenSaveElem);
+                        isOneLinkDetected = false;
                     }
                 };
 
