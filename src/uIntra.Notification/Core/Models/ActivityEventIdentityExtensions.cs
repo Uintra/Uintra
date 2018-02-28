@@ -1,10 +1,10 @@
-﻿using uIntra.Core.TypeProviders;
+﻿using System;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public static class ActivityEventIdentityExtensions
     {
-        public static ActivityEventNotifierIdentity AddNotifierIdentity(this ActivityEventIdentity activityEventIdentity, IIntranetType notifierType)
+        public static ActivityEventNotifierIdentity AddNotifierIdentity(this ActivityEventIdentity activityEventIdentity, Enum notifierType)
         {
             return new ActivityEventNotifierIdentity(activityEventIdentity, notifierType);
         }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Umbraco.Core.IO;
 
-namespace uIntra.Core.Attributes
+namespace Uintra.Core.Attributes
 {
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
@@ -22,7 +22,7 @@ namespace uIntra.Core.Attributes
                 _reservedPaths = umbracoReservedPaths
                     .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
                     .Where(path => !string.IsNullOrWhiteSpace(path))
-                    .Select(path => IOHelper.ResolveUrl(path.Trim()).Trim().ToLower())
+                    .Select(path => IOHelper.ResolveUrl(path.Trim()).Trim().TrimStart('/').ToLower())
                     .Where(path => path.Length > 0)
                     .Select(path => path + (path.EndsWith("/") ? string.Empty : "/"))
                     .ToList();
@@ -39,7 +39,9 @@ namespace uIntra.Core.Attributes
 
         private static bool IsUriAllowed(Uri uri)
         {
-            var pathPart = uri.AbsolutePath.Split('?')[0];
+            var pathPart = uri.Segments.SkipWhile(segment => segment.Equals("/")).FirstOrDefault();
+            if (pathPart == null) return false;
+
             if (!pathPart.Contains(".") && !pathPart.EndsWith("/"))
             {
                 pathPart += "/";

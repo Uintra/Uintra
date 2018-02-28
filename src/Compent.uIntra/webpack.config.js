@@ -54,7 +54,8 @@ module.exports = (env) => {
             }),
             new webpack.ProvidePlugin({
                 $: 'jquery',
-                jQuery: 'jquery'
+                jQuery: 'jquery',
+                Promise: 'promise-polyfill'
             }),
             new HtmlWebpackPlugin({
                 filename: '../Views/Shared/_Layout-output.cshtml',

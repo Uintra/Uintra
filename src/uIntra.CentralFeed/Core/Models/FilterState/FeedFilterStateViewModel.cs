@@ -1,4 +1,4 @@
-﻿namespace uIntra.CentralFeed
+﻿namespace Uintra.CentralFeed
 {
     public class FeedFilterStateViewModel
     {

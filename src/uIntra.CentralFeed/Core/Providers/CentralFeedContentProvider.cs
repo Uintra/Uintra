@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Extensions;
-using uIntra.Core;
-using uIntra.Core.TypeProviders;
+using Uintra.Core;
+using Uintra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.CentralFeed.Providers
+namespace Uintra.CentralFeed.Providers
 {
     public class CentralFeedContentProvider : FeedContentProviderBase, ICentralFeedContentProvider
     {
@@ -28,7 +28,7 @@ namespace uIntra.CentralFeed.Providers
         public override IEnumerable<IPublishedContent> GetRelatedPages()
         {
             var activityAliases = _activityTypeProvider
-                .GetAll()
+                .All
                 .Select(_documentTypeAliasProvider.GetOverviewPage)
                 .ToArray();
             return GetOverviewPage().Children.Where(c => c.DocumentTypeAlias.In(activityAliases));

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Extensions;
 using Nest;
-using uIntra.Core.Extensions;
+using Uintra.Core.Extensions;
 
-namespace uIntra.Search
+namespace Uintra.Search
 {
     public class ElasticIndex : IElasticIndex
     {
@@ -69,11 +69,11 @@ namespace uIntra.Search
             {
                 new QueryContainerDescriptor<SearchableContent>().Match(m => m
                     .Query(query)
-                    .Analyzer(ElasticHelpers.Replace)
+                    .Analyzer(ElasticHelpers.ReplaceNgram)
                     .Field(f => f.PanelContent)),
                 new QueryContainerDescriptor<SearchableContent>().Match(m => m
                     .Query(query)
-                    .Analyzer(ElasticHelpers.Replace)
+                    .Analyzer(ElasticHelpers.ReplaceNgram)
                     .Field(f => f.PanelTitle))
             };
 

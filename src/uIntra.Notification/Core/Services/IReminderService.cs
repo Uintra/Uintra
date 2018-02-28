@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Notification.Configuration;
+using Uintra.Notification.Configuration;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public interface IReminderService
     {

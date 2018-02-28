@@ -1,7 +1,6 @@
 ﻿using System;
-using uIntra.Core.Activity;
 
-namespace uIntra.Core.Location
+namespace Uintra.Core.Location
 {
     public interface IActivityLocationService
     {

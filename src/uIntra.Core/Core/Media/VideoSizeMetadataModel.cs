@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core.Media
+﻿namespace UIntra.Core.Media
 {
     public class VideoSizeMetadataModel
     {

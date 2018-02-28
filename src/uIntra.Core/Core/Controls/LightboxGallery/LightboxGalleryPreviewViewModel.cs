@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Controls.LightboxGallery;
+using Uintra.Core.Links;
 
-namespace uIntra.Core.Controls.LightboxGallery
+namespace UIntra.Core.Controls.LightboxGallery
 {
     public class LightboxGalleryPreviewViewModel
     {

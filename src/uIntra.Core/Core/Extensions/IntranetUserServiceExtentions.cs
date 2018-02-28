@@ -1,7 +1,7 @@
 ﻿using System;
-using uIntra.Core.User;
+using Uintra.Core.User;
 
-namespace uIntra.Core
+namespace Uintra.Core.Extensions
 {
     public static class IntranetUserServiceExtensions
     {
@@ -15,6 +15,11 @@ namespace uIntra.Core
         {
             var currentUser = intranetUserService.GetCurrentUser();
             return currentUser.UmbracoId;
+        }
+
+        public static Guid GetCurrentBackOfficeUserId(this IIntranetUserService<IIntranetUser> intranetUserService)
+        {
+            return intranetUserService.GetCurrentBackOfficeUser().Id;
         }
     }
 }

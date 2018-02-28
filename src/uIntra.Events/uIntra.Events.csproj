@@ -8,8 +8,8 @@
     <ProjectGuid>{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.Events</RootNamespace>
-    <AssemblyName>uIntra.Events</AssemblyName>
+    <RootNamespace>Uintra.Events</RootNamespace>
+    <AssemblyName>Uintra.Events</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -360,9 +360,9 @@
     <None Include="uIntra.Events.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
+    <ProjectReference Include="..\uIntra.Core\Uintra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>uIntra.Core</Name>
+      <Name>Uintra.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -1,7 +1,7 @@
 ﻿using System;
-using uIntra.Core.User;
+using Uintra.Core.User;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public class NotifierViewModel
     {

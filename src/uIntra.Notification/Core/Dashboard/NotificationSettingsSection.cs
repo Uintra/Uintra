@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core;
 
-namespace uIntra.Notification.Dashboard
+namespace Uintra.Notification.Dashboard
 {
     public class NotificationSettingsSection
     {

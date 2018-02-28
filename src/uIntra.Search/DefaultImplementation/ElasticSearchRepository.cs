@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nest;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
-using uIntra.Search.Configuration;
-using IExceptionLogger = uIntra.Core.Exceptions.IExceptionLogger;
+using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
+using Uintra.Search.Configuration;
+using IExceptionLogger = Uintra.Core.Exceptions.IExceptionLogger;
 
-namespace uIntra.Search
+namespace Uintra.Search
 {
     public class ElasticSearchRepository : IElasticSearchRepository
     {
@@ -164,11 +164,11 @@ namespace uIntra.Search
             }
         }
 
-        public void DeleteAllByType(IIntranetType type)
+        public void DeleteAllByType(Enum type)
         {
             var deleteQuery = new DeleteByQueryDescriptor<T>(Indices.Parse(IndexName))
                 .Type(Types.Parse(GetTypeName()))
-                .Query(q => q.Term(t => t.Field(f => f.Type).Value(type.Id)));
+                .Query(q => q.Term(t => t.Field(f => f.Type).Value(type.ToInt())));
 
             var response = Client.DeleteByQuery(deleteQuery);
 

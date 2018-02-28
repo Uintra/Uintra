@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Likes
+namespace Uintra.Likes
 {
     public class AddRemoveLikeModel
     {

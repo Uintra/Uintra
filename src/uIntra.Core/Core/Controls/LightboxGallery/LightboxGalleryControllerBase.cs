@@ -2,12 +2,11 @@
 using System.Linq;
 using System.Web.Mvc;
 using Extensions;
-using uIntra.Core;
-using uIntra.Core.Constants;
-using uIntra.Core.Controls.LightboxGallery;
-using uIntra.Core.Extensions;
-using uIntra.Core.Links;
-using uIntra.Core.Media;
+using Uintra.Core.Constants;
+using Uintra.Core.Extensions;
+using Uintra.Core.Links;
+using Uintra.Core.Media;
+using UIntra.Core.Controls.LightboxGallery;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -91,7 +90,7 @@ namespace Uintra.Core.Controls.LightboxGallery
                 Type = media.GetMediaType()
             };
 
-            if (result.Type.Id == MediaTypeEnum.Image.ToInt())
+            if (result.Type is MediaTypeEnum.Image)
             {
                 result.Height = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaHeight);
                 result.Width = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaWidth);
@@ -102,7 +101,7 @@ namespace Uintra.Core.Controls.LightboxGallery
         
         protected void MapPreviewUrl(List<LightboxGalleryItemViewModel> galleryItems)
         {
-            var imageItems = galleryItems.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());
+            var imageItems = galleryItems.FindAll(m => m.Type is MediaTypeEnum.Image);
 
             if (imageItems.Count == 1)
             {
@@ -127,7 +126,7 @@ namespace Uintra.Core.Controls.LightboxGallery
 
         protected List<LightboxGalleryItemViewModel> FindMedias(List<LightboxGalleryItemViewModel> galleryItems)
         {
-            return galleryItems.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt() || m.Type.Id == MediaTypeEnum.Video.ToInt());
+            return galleryItems.FindAll(m => m.Type is MediaTypeEnum.Image || m.Type is MediaTypeEnum.Video);
         }
     }
 }

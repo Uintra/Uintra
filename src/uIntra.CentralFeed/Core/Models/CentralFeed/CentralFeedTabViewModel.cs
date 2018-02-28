@@ -1,11 +1,11 @@
-﻿using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
+﻿using System;
+using Uintra.Core.Links;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public class ActivityFeedTabViewModel
     {
-        public IIntranetType Type { get; set; }       
+        public Enum Type { get; set; }       
         public bool IsActive { get; set; }
         public IActivityCreateLinks Links { get; set; }
     }

@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Web.Mvc;
 using AutoMapper;
-using Compent.uIntra.Core.Activity.Models;
-using Compent.uIntra.Core.Bulletins;
-using Compent.uIntra.Core.Feed;
-using uIntra.Bulletins;
-using uIntra.Bulletins.Web;
-using uIntra.Core.Extensions;
-using uIntra.Core.Feed;
-using uIntra.Core.Links;
-using uIntra.Core.Media;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Groups;
-using Compent.uIntra.Core.UserTags;
-using uIntra.Groups.Extensions;
-using uIntra.Navigation;
+using Compent.Uintra.Core.Activity.Models;
+using Compent.Uintra.Core.Bulletins;
+using Compent.Uintra.Core.Feed;
+using Uintra.Bulletins;
+using Uintra.Bulletins.Web;
+using Uintra.Core.Extensions;
+using Uintra.Core.Feed;
+using Uintra.Core.Links;
+using Uintra.Core.Media;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Groups;
+using Compent.Uintra.Core.UserTags;
+using Uintra.Groups.Extentions;
+using Uintra.Navigation;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class BulletinsController : BulletinsControllerBase
     {

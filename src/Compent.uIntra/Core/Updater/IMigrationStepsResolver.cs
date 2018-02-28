@@ -1,5 +1,5 @@
 ﻿
-namespace Compent.uIntra.Core.Updater
+namespace Compent.Uintra.Core.Updater
 {
     public interface IMigrationStepsResolver
     {

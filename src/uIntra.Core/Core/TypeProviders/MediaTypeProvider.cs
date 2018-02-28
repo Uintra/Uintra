@@ -1,6 +1,6 @@
-﻿namespace uIntra.Core.TypeProviders
+﻿namespace Uintra.Core.TypeProviders
 {
-    public class MediaTypeProvider : IntranetTypeProviderBase<MediaTypeEnum>, IMediaTypeProvider
+    public class MediaTypeProvider : EnumTypeProviderBase<MediaTypeEnum>, IMediaTypeProvider
     {
     }
 }

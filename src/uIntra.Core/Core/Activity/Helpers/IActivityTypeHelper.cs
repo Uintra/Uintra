@@ -1,10 +1,9 @@
 using System;
-using uIntra.Core.TypeProviders;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public interface IActivityTypeHelper
     {
-        IIntranetType GetActivityType(Guid activityId);
+        Enum GetActivityType(Guid activityId);
     }
 }

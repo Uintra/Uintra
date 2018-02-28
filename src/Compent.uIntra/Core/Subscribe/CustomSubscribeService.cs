@@ -1,20 +1,18 @@
-﻿using uIntra.Core.Activity;
-using uIntra.Core.Persistence;
-using uIntra.Core.TypeProviders;
-using uIntra.Subscribe;
+﻿using System;
+using Uintra.Core.Activity;
+using Uintra.Core.Persistence;
+using Uintra.Subscribe;
 
-namespace Compent.uIntra.Core.Subscribe
+namespace Compent.Uintra.Core.Subscribe
 {
     public class CustomSubscribeService : SubscribeService
     {
-        public CustomSubscribeService(ISqlRepository<global::uIntra.Subscribe.Subscribe> subscribeRepository)
+        public CustomSubscribeService(ISqlRepository<global::Uintra.Subscribe.Subscribe> subscribeRepository)
             : base(subscribeRepository)
         {
         }
 
-        public override bool HasNotification(IIntranetType type)
-        {
-            return type.Id == (int)IntranetActivityTypeEnum.Events || type.Id == (int)IntranetActivityTypeEnum.News;
-        }
+        public override bool HasNotification(Enum type) => 
+            type is IntranetActivityTypeEnum.Events || type is IntranetActivityTypeEnum.News;
     }
 }

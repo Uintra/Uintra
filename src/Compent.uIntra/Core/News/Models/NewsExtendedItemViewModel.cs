@@ -1,8 +1,8 @@
-﻿using Compent.uIntra.Core.Activity.Models;
-using uIntra.Likes;
-using uIntra.News;
+﻿using Compent.Uintra.Core.Activity.Models;
+using Uintra.Likes;
+using Uintra.News;
 
-namespace Compent.uIntra.Core.News.Models
+namespace Compent.Uintra.Core.News.Models
 {
     public class NewsExtendedItemViewModel : NewsItemViewModel
     {

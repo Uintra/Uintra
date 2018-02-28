@@ -2,7 +2,7 @@
 using System.Web;
 using Extensions;
 
-namespace uIntra.Core
+namespace Uintra.Core
 {
     public class CookieProvider : ICookieProvider
     {

@@ -1,6 +1,7 @@
-﻿@using uIntra.Core
-@using uIntra.Core.Extensions
-@model uIntra.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
+﻿@using Extensions
+@using Uintra.Core
+@using Uintra.Core.Extensions
+@model UIntra.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
 
 @{
     var fullSizeClass = Model.Medias.Count() > 1 ? string.Empty : "_full-size";
@@ -11,10 +12,10 @@
         @foreach (var media in Model.Medias)
         {
             var originalSize = $"{media.Width}x{media.Height}";
-            var videoClass = media.Type.Id == MediaTypeEnum.Video.ToInt() ? "video" : string.Empty;
+            var videoClass = media.Type is MediaTypeEnum.Video ? "video" : string.Empty;
 
             <li class="gallery__item @fullSizeClass @videoClass" style="@(media.IsHidden ? "display:none;" : string.Empty)">
-                @if (media.Type.Id == MediaTypeEnum.Video.ToInt())
+                @if (!videoClass.IsNullOrEmpty())
                 {
                     <a href="#" class="gallery__item-opener" data-type="video" data-video='<div class="gallery__video"><div class="gallery__video-box"><video width="960" class="pswp__video" src="@media.Url" controls></video></div></div>'>
                         <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" height="100" />
@@ -27,7 +28,7 @@
                     </a>
                 }
             </li>
-        }        
+        }
     </ul>
     @if (Model.HiddenImagesCount > 0)
     {

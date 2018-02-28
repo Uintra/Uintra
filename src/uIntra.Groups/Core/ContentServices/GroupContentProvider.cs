@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using uIntra.CentralFeed.Providers;
-using uIntra.Core;
-using uIntra.Core.Extensions;
+using Uintra.CentralFeed.Providers;
+using Uintra.Core;
+using Uintra.Core.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupContentProvider : FeedContentProviderBase, IGroupContentProvider
     {

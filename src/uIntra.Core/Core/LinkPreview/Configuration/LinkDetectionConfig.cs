@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace uIntra.Core.LinkPreview
+namespace Uintra.Core.LinkPreview
 {
     [Serializable]
     public class LinkDetectionConfig

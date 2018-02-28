@@ -1,6 +1,6 @@
-﻿using uIntra.Core.Jobs.Models;
+﻿using Uintra.Core.Jobs.Models;
 
-namespace uIntra.Notification.Jobs
+namespace Uintra.Notification.Jobs
 {
     public class MontlyMailJob : BaseIntranetJob
     {
@@ -13,7 +13,7 @@ namespace uIntra.Notification.Jobs
 
         public override void Action()
         {
-            _monthlyEmailService.SendEmail();
+            _monthlyEmailService.ProcessMonthlyEmail();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Web.Hosting;
 
-namespace uIntra.Core.Jobs.Models
+namespace Uintra.Core.Jobs.Models
 {
     public class BaseIntranetJob : IIntranetJob
     {

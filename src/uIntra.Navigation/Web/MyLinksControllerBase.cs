@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Http;
 using System.Web.Mvc;
-using uIntra.Core;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Navigation.Exceptions;
-using uIntra.Navigation.MyLinks;
+using Uintra.Core;
+using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Navigation.Exceptions;
+using Uintra.Navigation.MyLinks;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Navigation.Web
+namespace Uintra.Navigation.Web
 {
     public abstract class MyLinksControllerBase : SurfaceController
     {
@@ -84,7 +85,7 @@ namespace uIntra.Navigation.Web
 
         protected virtual IEnumerable<MyLinkItemViewModel> GetMyLinkItemViewModel()
         {
-            var linkModels = _myLinksModelBuilder.GetMenu();
+            var linkModels = _myLinksModelBuilder.GetMenu().ToList();
             return linkModels.Map<IEnumerable<MyLinkItemViewModel>>();
         }
 
@@ -112,8 +113,7 @@ namespace uIntra.Navigation.Web
         protected bool IsActivityLink(int contentId)
         {
             var page = _umbracoHelper.TypedContent(contentId);
-            var activityTypes = _activityTypeProvider.GetAll();
-            foreach (var type in activityTypes)
+            foreach (var type in _activityTypeProvider.All)
             {
                 if (page.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetDetailsPage(type)) ||
                     page.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetEditPage(type)))

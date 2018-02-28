@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
+using Uintra.CentralFeed.Navigation.Models;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public class CentralFeedAutoMapperProfile : Profile
     {

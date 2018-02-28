@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace uIntra.Core.Utils
+namespace Uintra.Core.Utils
 {
     public interface IHttpHelper
     {

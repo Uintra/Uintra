@@ -1,6 +1,6 @@
-﻿using uIntra.Core.TypeProviders;
+﻿using System;
 
-namespace uIntra.Core.Controls.LightboxGallery
+namespace Uintra.Core.Controls.LightboxGallery
 {
     public class LightboxGalleryItemViewModel
     {
@@ -8,7 +8,7 @@ namespace uIntra.Core.Controls.LightboxGallery
         public string Url { get; set; }
         public string Name { get; set; }
         public string PreviewUrl { get; set; }
-        public IIntranetType Type { get; set; }
+        public Enum Type { get; set; }
         public string Extension { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }

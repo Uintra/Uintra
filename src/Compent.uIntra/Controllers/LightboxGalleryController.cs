@@ -1,6 +1,6 @@
-﻿using uIntra.Core.Links;
-using uIntra.Core.Media;
-using Uintra.Core.Controls.LightboxGallery;
+﻿using Uintra.Core.Controls.LightboxGallery;
+using Uintra.Core.Links;
+using Uintra.Core.Media;
 using Umbraco.Web;
 
 namespace Compent.uIntra.Controllers

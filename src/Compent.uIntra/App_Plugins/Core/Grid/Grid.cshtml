@@ -5,7 +5,7 @@
 @using System.Web.Mvc.Html
 @using System.Web.Routing
 @using Newtonsoft.Json.Linq
-@using uIntra.Navigation
+@using Uintra.Navigation
 @using Umbraco.Web
 
 @{
@@ -101,7 +101,7 @@
 @functions {
     public static bool IsEmptySection(dynamic section)
     {
-        return section.rows[0].areas[0].controls.Count == 0;
+        return section.rows.Count == 0 || section.rows[0].areas[0].controls.Count == 0;
     }
 
 

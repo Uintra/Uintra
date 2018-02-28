@@ -9,9 +9,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
-    <tags>Compent uIntra Tagging Controls TaggingControls</tags>
+    <tags>Compent Uintra Tagging Controls TaggingControls</tags>
     <dependencies>
-      <dependency id="uIntra.Core" version="1.4.11" />
+      <dependency id="Uintra.Core" version="1.4.14" />
     </dependencies>
   </metadata>
 </package>

@@ -1,8 +1,10 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core.Constants;
-using uIntra.Core.Extensions;
-using uIntra.Core.Media;
+using Uintra.Core;
+using Uintra.Core.Constants;
+using Uintra.Core.Controls.FileUpload;
+using Uintra.Core.Extensions;
+using Uintra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -43,7 +45,7 @@ namespace uIntra.Core.Controls.FileUpload
         protected virtual FileViewModel MapToFileModel(IPublishedContent content)
         {
             var mediaType = content.GetMediaType();
-            var url = mediaType.Id == MediaTypeEnum.Video.ToInt() ?
+            var url = mediaType is MediaTypeEnum.Video ?
                 content.GetPropertyValue<string>(UmbracoAliases.Video.ThumbnailUrlPropertyAlias) :
                 content.Url;
 

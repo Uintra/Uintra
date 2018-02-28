@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using uIntra.Core.Activity;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
 
-namespace uIntra.Search
+namespace Uintra.Search
 {
     public class SearchableActivityAutoMapperProfile : Profile
     {
@@ -16,7 +17,7 @@ namespace uIntra.Search
                 .ForMember(dst => dst.Description, o => o.MapFrom(el => el.Description))
                 .AfterMap((src, dst) =>
                 {
-                    dst.Type = src.Type.Id;
+                    dst.Type = src.Type.ToInt();
                 });
 
             base.Configure();

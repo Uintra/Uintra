@@ -1,8 +1,8 @@
-﻿@using uIntra.Core.Activity
-@using uIntra.Core.Controls.FileUpload
-@using uIntra.Core.Extensions
+﻿@using Uintra.Core.Activity
+@using Uintra.Core.Controls.FileUpload
+@using Uintra.Core.Extensions
 @using Umbraco.Web
-@model Compent.uIntra.Core.News.Models.NewsExtendedEditModel
+@model Compent.Uintra.Core.News.Models.NewsExtendedEditModel
 
 <div class="form js-check-before-unload" id="js-news-edit-page">
     @using (Html.BeginUmbracoForm("EditExtended", "News", FormMethod.Post, new { id = "form" }))
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="form__row">
-            @Html.Label("Location", Html.Localize("NewsEdit.Location.lbl"), new { @class = "form__label" })
+            @Html.Label("Location", Html.Localize("Activity.Location.lbl"), new { @class = "form__label" })
             @Html.Action("Edit", "ActivityLocation", new { location = Model.Location })
         </div>
         <div class="form__row clearfix">

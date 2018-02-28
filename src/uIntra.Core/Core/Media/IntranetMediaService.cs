@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Persistence;
+using Uintra.Core.Media.Sql;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Core.Media
+namespace Uintra.Core.Media
 {
     public class IntranetMediaService: IIntranetMediaService
     {

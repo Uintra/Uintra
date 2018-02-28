@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Models;
 
-namespace uIntra.Core.Media
+namespace UIntra.Core.Media
 {
     public interface IVideoHelper
     {

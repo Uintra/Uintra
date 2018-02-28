@@ -2,27 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.uIntra.Core.Activity.Models;
-using Compent.uIntra.Core.Events;
-using Compent.uIntra.Core.Feed;
-using Compent.uIntra.Core.UserTags;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Core.Grid;
-using uIntra.Core.Links;
-using uIntra.Core.Media;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Events;
-using uIntra.Events.Web;
-using uIntra.Groups;
-using uIntra.Groups.Extensions;
-using uIntra.Notification;
-using uIntra.Notification.Configuration;
-using uIntra.Search;
-using uIntra.Tagging.UserTags;
+using Compent.Uintra.Core.Activity.Models;
+using Compent.Uintra.Core.Events;
+using Compent.Uintra.Core.Feed;
+using Compent.Uintra.Core.UserTags;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Core.Grid;
+using Uintra.Core.Links;
+using Uintra.Core.Media;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Events;
+using Uintra.Events.Web;
+using Uintra.Groups;
+using Uintra.Groups.Extentions;
+using Uintra.Notification;
+using Uintra.Notification.Configuration;
+using Uintra.Search;
+using Uintra.Tagging.UserTags;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class EventsController : EventsControllerBase
     {
@@ -36,7 +36,6 @@ namespace Compent.uIntra.Controllers
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IReminderService _reminderService;
         private readonly IDocumentIndexer _documentIndexer;
-        private readonly INotificationTypeProvider _notificationTypeProvider;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityTagsHelper _activityTagsHelper;
         private readonly IGroupMemberService _groupMemberService;
@@ -50,7 +49,6 @@ namespace Compent.uIntra.Controllers
             IGridHelper gridHelper,
             IActivityTypeProvider activityTypeProvider,
             IDocumentIndexer documentIndexer,
-            INotificationTypeProvider notificationTypeProvider,
             IGroupActivityService groupActivityService,
             IActivityLinkService activityLinkService,
             UserTagService userTagService,
@@ -62,7 +60,6 @@ namespace Compent.uIntra.Controllers
             _intranetUserService = intranetUserService;
             _reminderService = reminderService;
             _documentIndexer = documentIndexer;
-            _notificationTypeProvider = notificationTypeProvider;
             _groupActivityService = groupActivityService;
             _activityTagsHelper = activityTagsHelper;
             _groupMemberService = groupMemberService;
@@ -177,7 +174,7 @@ namespace Compent.uIntra.Controllers
 
             if (model.NotifyAllSubscribers)
             {
-                var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventUpdated.ToInt());
+                var notificationType = NotificationTypeEnum.EventUpdated;
                 ((INotifyableService)_eventsService).Notify(@event.Id, notificationType);
             }
 
@@ -193,7 +190,7 @@ namespace Compent.uIntra.Controllers
         {
             if (isNotificationNeeded)
             {
-                var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.EventHided.ToInt());
+                var notificationType = NotificationTypeEnum.EventHided;
                 ((INotifyableService)_eventsService).Notify(id, notificationType);
             }
         }

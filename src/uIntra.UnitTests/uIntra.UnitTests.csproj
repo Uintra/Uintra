@@ -9,8 +9,8 @@
     <ProjectGuid>{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.UnitTests</RootNamespace>
-    <AssemblyName>uIntra.UnitTests</AssemblyName>
+    <RootNamespace>Uintra.UnitTests</RootNamespace>
+    <AssemblyName>Uintra.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -105,9 +105,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Compent.uIntra\Compent.uIntra.csproj">
+    <ProjectReference Include="..\Compent.uIntra\Compent.Uintra.csproj">
       <Project>{469dc179-83ee-4696-9d36-2173e4beafda}</Project>
-      <Name>Compent.uIntra</Name>
+      <Name>Compent.Uintra</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

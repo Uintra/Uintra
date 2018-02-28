@@ -1,10 +1,10 @@
-﻿using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
+﻿using System;
+using Uintra.Core.Links;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public interface ICentralFeedLinkService : IActivityLinkService
     {
-        IActivityCreateLinks GetCreateLinks(IIntranetType activityType);
+        IActivityCreateLinks GetCreateLinks(Enum activityType);
     }
 }

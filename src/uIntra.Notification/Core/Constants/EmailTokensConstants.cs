@@ -1,4 +1,4 @@
-﻿namespace uIntra.Notification.Constants
+﻿namespace Uintra.Notification.Constants
 {
     public static class TokensConstants
     {

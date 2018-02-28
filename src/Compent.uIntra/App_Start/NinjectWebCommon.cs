@@ -7,37 +7,38 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Compent.LinkPreview.Client;
-using Compent.uIntra;
-using Compent.uIntra.Core;
-using Compent.uIntra.Core.Activity;
-using Compent.uIntra.Core.Bulletins;
-using Compent.uIntra.Core.CentralFeed;
-using Compent.uIntra.Core.Comments;
-using Compent.uIntra.Core.Controls.EditorConfiguration;
-using Compent.uIntra.Core.Events;
-using Compent.uIntra.Core.Exceptions;
-using Compent.uIntra.Core.Feed.Links;
-using Compent.uIntra.Core.Groups;
-using Compent.uIntra.Core.Handlers;
-using Compent.uIntra.Core.Helpers;
-using Compent.uIntra.Core.IoC;
-using Compent.uIntra.Core.Licence;
-using Compent.uIntra.Core.LinkPreview.Config;
-using Compent.uIntra.Core.Navigation;
-using Compent.uIntra.Core.News;
-using Compent.uIntra.Core.Notification;
-using Compent.uIntra.Core.PagePromotion;
-using Compent.uIntra.Core.Search;
-using Compent.uIntra.Core.Search.Entities;
-using Compent.uIntra.Core.Search.Entities.Mappings;
-using Compent.uIntra.Core.Search.Indexes;
-using Compent.uIntra.Core.Subscribe;
-using Compent.uIntra.Core.Updater;
-using Compent.uIntra.Core.Users;
-using Compent.uIntra.Core.UserTags;
-using Compent.uIntra.Core.UserTags.Indexers;
-using Compent.uIntra.Persistence.Sql;
+using Compent.LinkPreview.HttpClient;
+using Compent.LinkPreview.Infrastructure;
+using Compent.Uintra;
+using Compent.Uintra.Core;
+using Compent.Uintra.Core.Activity;
+using Compent.Uintra.Core.Bulletins;
+using Compent.Uintra.Core.CentralFeed;
+using Compent.Uintra.Core.Comments;
+using Compent.Uintra.Core.Controls.EditorConfiguration;
+using Compent.Uintra.Core.Events;
+using Compent.Uintra.Core.Exceptions;
+using Compent.Uintra.Core.Feed.Links;
+using Compent.Uintra.Core.Groups;
+using Compent.Uintra.Core.Handlers;
+using Compent.Uintra.Core.Helpers;
+using Compent.Uintra.Core.IoC;
+using Compent.Uintra.Core.Licence;
+using Compent.Uintra.Core.LinkPreview.Config;
+using Compent.Uintra.Core.Navigation;
+using Compent.Uintra.Core.News;
+using Compent.Uintra.Core.Notification;
+using Compent.Uintra.Core.PagePromotion;
+using Compent.Uintra.Core.Search;
+using Compent.Uintra.Core.Search.Entities;
+using Compent.Uintra.Core.Search.Entities.Mappings;
+using Compent.Uintra.Core.Search.Indexes;
+using Compent.Uintra.Core.Subscribe;
+using Compent.Uintra.Core.Updater;
+using Compent.Uintra.Core.Users;
+using Compent.Uintra.Core.UserTags;
+using Compent.Uintra.Core.UserTags.Indexers;
+using Compent.Uintra.Persistence.Sql;
 using EmailWorker.Ninject;
 using FluentScheduler;
 using Localization.Core;
@@ -54,72 +55,74 @@ using Ninject;
 using Ninject.Extensions.Conventions;
 using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
-using uIntra.Bulletins;
-using uIntra.CentralFeed;
-using uIntra.CentralFeed.Providers;
-using uIntra.Comments;
-using uIntra.Core;
-using uIntra.Core.Activity;
-using uIntra.Core.ApplicationSettings;
-using uIntra.Core.Attributes;
-using uIntra.Core.BrowserCompatibility;
-using uIntra.Core.Caching;
-using uIntra.Core.Configuration;
-using uIntra.Core.Controls;
-using uIntra.Core.Exceptions;
-using uIntra.Core.Grid;
-using uIntra.Core.Jobs;
-using uIntra.Core.Jobs.Configuration;
-using uIntra.Core.Links;
-using uIntra.Core.Localization;
 using uIntra.Core.Media;
-using uIntra.Core.MigrationHistories;
-using uIntra.Core.ModelBinders;
-using uIntra.Core.PagePromotion;
-using uIntra.Core.Persistence;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.UmbracoEventServices;
-using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
-using uIntra.Core.Utils;
-using uIntra.Core.Location;
-using uIntra.Core.LinkPreview;
-using uIntra.Events;
-using uIntra.Groups;
-using uIntra.Groups.Permissions;
+using Uintra.Bulletins;
+using Uintra.CentralFeed;
+using Uintra.CentralFeed.Providers;
+using Uintra.Comments;
+using Uintra.Core;
+using Uintra.Core.Activity;
+using Uintra.Core.ApplicationSettings;
+using Uintra.Core.Attributes;
+using Uintra.Core.BrowserCompatibility;
+using Uintra.Core.Caching;
+using Uintra.Core.Configuration;
+using Uintra.Core.Controls;
+using Uintra.Core.Exceptions;
+using Uintra.Core.Grid;
+using Uintra.Core.Jobs;
+using Uintra.Core.Jobs.Configuration;
+using Uintra.Core.LinkPreview;
+using Uintra.Core.Links;
+using Uintra.Core.Localization;
+using Uintra.Core.Location;
+using Uintra.Core.Media;
+using Uintra.Core.MigrationHistories;
+using Uintra.Core.ModelBinders;
+using Uintra.Core.PagePromotion;
+using Uintra.Core.Persistence;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.UmbracoEventServices;
+using Uintra.Core.User;
+using Uintra.Core.User.Permissions;
+using Uintra.Core.Utils;
+using Uintra.Events;
+using Uintra.Groups;
+using Uintra.Groups.Permissions;
 using uIntra.LicenceService.ApiClient;
 using uIntra.LicenceService.ApiClient.Interfaces;
-using uIntra.Likes;
-using uIntra.Navigation;
-using uIntra.Navigation.Configuration;
-using uIntra.Navigation.Dashboard;
-using uIntra.Navigation.EqualityComparers;
-using uIntra.Navigation.MyLinks;
-using uIntra.Navigation.SystemLinks;
-using uIntra.News;
-using uIntra.Notification;
-using uIntra.Notification.Configuration;
-using uIntra.Notification.DefaultImplementation;
-using uIntra.Notification.Jobs;
-using uIntra.Search;
-using uIntra.Search.Configuration;
-using uIntra.Subscribe;
-using uIntra.Tagging.UserTags;
-using uIntra.Users;
+using umbraco.presentation.umbraco.webservices;
+using Uintra.Likes;
+using Uintra.Navigation;
+using Uintra.Navigation.Configuration;
+using Uintra.Navigation.Dashboard;
+using Uintra.Navigation.EqualityComparers;
+using Uintra.Navigation.MyLinks;
+using Uintra.Navigation.SystemLinks;
+using Uintra.News;
+using Uintra.Notification;
+using Uintra.Notification.Configuration;
+using Uintra.Notification.Jobs;
+using Uintra.Search;
+using Uintra.Search.Configuration;
+using Uintra.Subscribe;
+using Uintra.Tagging.UserTags;
+using Uintra.Users;
+using UIntra.Core.Media;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
-using MyLinksModelBuilder = Compent.uIntra.Core.Navigation.MyLinksModelBuilder;
-using ReminderJob = uIntra.Notification.ReminderJob;
+using MyLinksModelBuilder = Compent.Uintra.Core.Navigation.MyLinksModelBuilder;
+using ReminderJob = Uintra.Notification.ReminderJob;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
-namespace Compent.uIntra
+namespace Compent.Uintra
 {
     public static class NinjectWebCommon
     {
@@ -245,9 +248,10 @@ namespace Compent.uIntra
             kernel.Bind<IEditorConfigProvider>().To<IntranetEditorConfigProvider>().InRequestScope();
             kernel.Bind<IEmbeddedResourceService>().To<EmbeddedResourceService>().InRequestScope();
             kernel.Bind<IHttpHelper>().To<HttpHelper>().InRequestScope().DisposeIfDisposable();
-            
+
 
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
+            kernel.Bind<ICommentLinkPreviewService>().To<CommentLinkPreviewService>().InRequestScope();
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
             kernel.Bind<ICommentableService>().To<CustomCommentableService>().InRequestScope();
             kernel.Bind<ICommentLinkHelper>().To<CommentLinkHelper>().InRequestScope();
@@ -372,13 +376,15 @@ namespace Compent.uIntra
             kernel.Bind<IUserTagRelationService>().To<UserTagRelationService>().InRequestScope();
             kernel.Bind<IUserTagService>().To<UserTagService>().InRequestScope();
             kernel.Bind<IActivityTagsHelper>().To<ActivityTagsHelper>().InRequestScope();
-            
+
             // Link preview
             kernel.Bind<ILinkPreviewService>().To<LinkPreviewService>().InRequestScope();
             kernel.Bind<ILinkPreviewDataProvider>().To<LinkPreviewDataProvider>().InRequestScope();
             kernel.Bind<ILinkPreviewConfiguration>().To<LinkPreviewConfiguration>().InRequestScope();
             kernel.Bind<IUriProvider>().To<UriProvider>();
             kernel.Bind<ILinkPreviewConfigProvider>().To<LinkPreviewConfigProvider>();
+            kernel.Bind<IHttpService>().To<HttpService>();
+            kernel.Bind<LinkPreviewModelMapper>().ToSelf();
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
@@ -399,7 +405,7 @@ namespace Compent.uIntra
             kernel.Bind<ICookieProvider>().To<CookieProvider>().InRequestScope();
 
             kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
-            kernel.Bind<INotifierTypeProvider>().To<NotifierTypeProvider>().InRequestScope();
+            kernel.Bind<INotifierTypeProvider>().To<NotifierTypeProvider>().InSingletonScope();
             kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InRequestScope();
             kernel.Bind<IFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
 
@@ -412,10 +418,9 @@ namespace Compent.uIntra
             kernel.Bind<IGroupMediaService>().To<GroupMediaService>().InRequestScope();
             kernel.Bind<IProfileLinkProvider>().To<ProfileLinkProvider>().InRequestScope();
 
-            kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InRequestScope();
+            kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InSingletonScope();
             kernel.Bind<ISearchableTypeProvider>().To<UintraSearchableTypeProvider>().InRequestScope();
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
-            kernel.Bind<IIntranetRoleTypeProvider>().To<IntranetRoleTypeProvider>().InRequestScope();
 
             //umbraco events subscriptions
             kernel.Bind<IUmbracoContentPublishedEventService>().To<SearchContentEventService>().InRequestScope();
@@ -427,16 +432,18 @@ namespace Compent.uIntra
             kernel.Bind<IUmbracoContentTrashedEventService>().To<DeleteUserTagHandler>().InRequestScope();
             kernel.Bind<IUmbracoContentPublishedEventService>().To<ContentPageRelationHandler>().InRequestScope();
             kernel.Bind<IUmbracoContentTrashedEventService>().To<ContentPageRelationHandler>().InRequestScope();
+            kernel.Bind<IUmbracoContentPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
+            kernel.Bind<IUmbracoContentUnPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
 
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
-            
+
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
             kernel.Bind<IVideoHelper>().To<VideoHelper>().InRequestScope();
             kernel.Bind<INotifierDataHelper>().To<NotifierDataHelper>().InRequestScope();
 
             //Jobs 
-            kernel.Bind<global::uIntra.Notification.Jobs.ReminderJob>().ToSelf().InRequestScope();
+            kernel.Bind<global::Uintra.Notification.Jobs.ReminderJob>().ToSelf().InRequestScope();
             kernel.Bind<MontlyMailJob>().ToSelf().InRequestScope();
             kernel.Bind<SendEmailJob>().ToSelf().InRequestScope();
             kernel.Bind<UpdateActivityCacheJob>().ToSelf().InRequestScope();
@@ -493,6 +500,7 @@ namespace Compent.uIntra
             kernel.Bind(typeof(PropertiesDescriptor<SearchableContent>)).To<SearchableContentMap>().InSingletonScope();
             kernel.Bind(typeof(PropertiesDescriptor<SearchableDocument>)).To<SearchableDocumentMap>().InSingletonScope();
             kernel.Bind(typeof(PropertiesDescriptor<SearchableTag>)).To<SearchableTagMap>().InSingletonScope();
+            kernel.Bind(typeof(PropertiesDescriptor<SearchableUser>)).To<SearchableUserMap>().InSingletonScope();
             kernel.Bind<IElasticActivityIndex>().To<ElasticActivityIndex>().InRequestScope();
             kernel.Bind<IElasticUintraActivityIndex>().To<ElasticUintraActivityIndex>().InRequestScope();
             kernel.Bind<IElasticContentIndex>().To<ElasticContentIndex>().InRequestScope();
@@ -501,10 +509,11 @@ namespace Compent.uIntra
             kernel.Bind<IActivityUserTagIndex>().To<ActivityUserTagIndex>().InRequestScope();
             kernel.Bind<IElasticUserIndex>().To<ElasticUserIndex>().InRequestScope();
             kernel.Bind<IElasticUintraContentIndex>().To<ElasticUintraContentIndex>().InRequestScope();
+            kernel.Bind<IUserTagsSearchIndexer>().To<UserTagsSearchIndexer>().InRequestScope();
 
             kernel.Bind<IElasticIndex>().To<UintraElasticIndex>().InRequestScope();
             kernel.Bind<ISearchScoreProvider>().To<SearchScoreProvider>().InRequestScope();
-            
+
             kernel.Bind<ISearchUmbracoHelper>().To<SearchUmbracoHelper>().InRequestScope();
         }
 

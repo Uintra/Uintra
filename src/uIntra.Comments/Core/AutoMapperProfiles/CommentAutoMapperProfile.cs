@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using uIntra.Core.LinkPreview;
+using Uintra.Core.LinkPreview;
 
-namespace uIntra.Comments
+namespace Uintra.Comments
 {
     public class CommentAutoMapperProfile : Profile
     {

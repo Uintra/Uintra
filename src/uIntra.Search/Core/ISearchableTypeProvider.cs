@@ -1,8 +1,8 @@
-﻿using uIntra.Core.TypeProviders;
+﻿using Uintra.Core.TypeProviders;
 
-namespace uIntra.Search
+namespace Uintra.Search
 {
-    public interface ISearchableTypeProvider : IIntranetTypeProvider
+    public interface ISearchableTypeProvider : IEnumTypeProvider
     {
     }
 }

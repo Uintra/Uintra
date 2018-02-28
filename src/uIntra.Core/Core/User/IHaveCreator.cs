@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Core.User
+namespace Uintra.Core.User
 {
     public interface IHaveCreator
     {

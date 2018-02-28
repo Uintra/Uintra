@@ -1,7 +1,7 @@
-using uIntra.CentralFeed.Providers;
+using Uintra.CentralFeed.Providers;
 using Umbraco.Core.Models;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public interface IGroupContentProvider : IFeedContentProvider
     {

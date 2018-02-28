@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Compent.uIntra.Core.Comments
+namespace Compent.Uintra.Core.Comments
 {
     public interface ICommentsPageHelper
     {

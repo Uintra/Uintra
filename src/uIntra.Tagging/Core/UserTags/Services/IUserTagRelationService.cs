@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace uIntra.Tagging.UserTags
+namespace Uintra.Tagging.UserTags
 {
     public interface IUserTagRelationService
     {

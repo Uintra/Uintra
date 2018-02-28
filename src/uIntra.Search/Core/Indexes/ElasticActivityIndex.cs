@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.TypeProviders;
 
 
-namespace uIntra.Search
+namespace Uintra.Search
 {
     public class ElasticActivityIndex : IElasticActivityIndex
     {
@@ -32,7 +32,7 @@ namespace uIntra.Search
             _elasticSearchRepository.Delete(id);
         }
         
-        public void DeleteByType(IIntranetType type)
+        public void DeleteByType(Enum type)
         {
             _elasticSearchRepository.DeleteAllByType(type);
         }

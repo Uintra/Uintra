@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Extensions;
-using uIntra.Core.Persistence;
-using uIntra.Groups;
-using uIntra.Groups.Sql;
-using uIntra.Users;
+using Uintra.Core.Persistence;
+using Uintra.Groups;
+using Uintra.Groups.Sql;
+using Uintra.Users;
 
-namespace Compent.uIntra.Core.Groups
+namespace Compent.Uintra.Core.Groups
 {
     public class GroupMemberService : GroupMemberServiceBase
     {

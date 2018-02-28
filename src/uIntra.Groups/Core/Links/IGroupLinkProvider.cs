@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public interface IGroupLinkProvider
     {

@@ -1,9 +1,9 @@
-﻿using uIntra.Core;
-using uIntra.Notification;
+﻿using Uintra.Core;
+using Uintra.Notification;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.Notification
+namespace Compent.Uintra.Core.Notification
 {
     public class NotificationContentProvider : ContentProviderBase, INotificationContentProvider
     {

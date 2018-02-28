@@ -35,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="events in vm.eventsList | filter: vm.filter track by events.id" ng-class="{'_unpublished' : events.isHidden, '_active' : vm.selectedIndex == $index}" ng-click="vm.selectEventsToEdit(events, $index)">
+                <tr ng-repeat="events in vm.eventsList | filter: vm.filter track by events.id" ng-class="{'_unpublished' : events.isHidden, '_active' : vm.selectedIndex == vm.eventsList.indexOf(events)}" ng-click="vm.selectEventsToEdit(events)">
                     <td class="_admin">{{events.id}}</td>
                     <td>{{events.title}}</td>
                     <td>{{events.startDate | date: vm.dateFormat}}</td>
@@ -43,9 +43,9 @@
                     <td>{{events.createdDate | date: vm.dateFormat}}</td>
                     <td>{{events.modifyDate | date: vm.dateFormat}}</td>
                     <td>
-                        <input type="button" class="btn btn-warning" value="Unpublish" ng-hide="events.isHidden" ng-click="vm.unpublish(events, $index); $event.stopPropagation();" />
-                        <input type="button" class="btn btn-success" value="Publish" ng-show="events.isHidden" ng-click="vm.publish(events, $index); $event.stopPropagation();" />
-                        <input type="button" class="btn btn-danger" value="Delete" ng-click="vm.delete(events, $index); $event.stopPropagation();" />
+                        <input type="button" class="btn btn-warning" value="Unpublish" ng-hide="events.isHidden" ng-click="vm.unpublish(events); $event.stopPropagation();" />
+                        <input type="button" class="btn btn-success" value="Publish" ng-show="events.isHidden" ng-click="vm.publish(events); $event.stopPropagation();" />
+                        <input type="button" class="btn btn-danger" value="Delete" ng-click="vm.delete(events); $event.stopPropagation();" />
                     </td>
                 </tr>
                 <tr ng-click="vm.selectEventsToEdit(null, null)">
@@ -93,9 +93,15 @@
                     <date-picker model="vm.selected.publishDate" config="vm.config.publishDate" picker="vm.publishDatePicker"></date-picker>
                     <input type="hidden" ng-model="vm.selected.publishDate" required="" name="Publish date" />
                 </div>
+
+                <div class="control-group">
+                    <h5 class="control-label">Location title:</h5>
+                    <input class="umbraco-panel__text-field" type="text" ng-model="vm.selected.locationTitle" ng-maxlength="200" name="LocatoinTitle" />
+                </div>
                 
-                <location-edit model="vm.selected.location"></location-edit>                                                                                    
-                
+                <h5 class="control-label">Location:</h5>
+                <location-edit model="vm.selected.location"></location-edit>
+
                 <div class="control-group">
                     <h5 class="control-label">Media:</h5>
                     <media-picker ng-model="vm.selected.media" config="vm.config.media"></media-picker>

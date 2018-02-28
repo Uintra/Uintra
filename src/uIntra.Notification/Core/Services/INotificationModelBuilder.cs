@@ -1,7 +1,7 @@
-﻿using uIntra.Core.User;
-using uIntra.Notification.Base;
+﻿using Uintra.Core.User;
+using Uintra.Notification.Base;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public interface INotificationModelMapper<in TTemplate, out TNotificationModel>
         where TNotificationModel : INotificationMessage where TTemplate : INotifierTemplate

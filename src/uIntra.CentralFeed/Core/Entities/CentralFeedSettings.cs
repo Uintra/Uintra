@@ -1,10 +1,10 @@
-﻿using uIntra.Core.TypeProviders;
+﻿using System;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public class FeedSettings
     {
-        public IIntranetType Type { get; set; }
+        public Enum Type { get; set; }
         public string Controller { get; set; }        
         public bool HasSubscribersFilter { get; set; }
         public bool HasPinnedFilter { get; set; }

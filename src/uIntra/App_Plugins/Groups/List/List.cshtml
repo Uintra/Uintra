@@ -1,5 +1,5 @@
-﻿@using uIntra.Core.Extensions
-@model uIntra.Groups.GroupsListModel
+﻿@using Uintra.Core.Extensions
+@model Uintra.Groups.GroupsListModel
 
 <input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
 <ul class="groups__list" id="groups_list">
@@ -7,7 +7,7 @@
     {
         <li data-anchor="@group.Id" class="groups__list-item ">
             <a class="groups__list-link" href="@group.GroupUrl">
-                
+
                 @if (group.HasImage)
                 {
                     <div class="groups__list-image">
@@ -27,19 +27,18 @@
                 <div class="groups__list-holder">
                     @if (group.IsMember)
                     {
-                    <span class="groups__member">
-                        <img src="~/Content/images/checkmark.svg">
-                        <em class="groups__member-tooltip">@Html.Localize("GroupsList.isMember")</em>
-                    </span>
+                        <span class="groups__member">
+                            <img src="~/Content/images/checkmark.svg">
+                            <em class="groups__member-tooltip">@Html.Localize("GroupsList.isMember")</em>
+                        </span>
                     }
                     <h2 class="groups__list-title">@group.Title</h2>
                     <div class="groups__list-txt">@Html.Raw(group.Description.ReplaceLineBreaksForHtml())</div>
                     <dl class="groups__list-meta">
                         @if (group.MembersCount > 0)
                         {
-                            <dt class="groups__list-meta-count"><span>@group.MembersCount</span> @Html.Localize("GroupInfo.MembersCount")</dt>
+                            <dt class="groups__list-meta-count"><span>@group.MembersCount</span> @(Html.Localize(group.MembersCount > 1 ? "GroupInfo.MembersCount.lbl" : "GroupInfo.OneMemberCount.lbl"))</dt>
                         }
-                        <dd class="groups__list-meta-name">@Html.Localize("GroupInfo.CreatorName") <span class="groups__list-meta-name-title">@group.Creator.DisplayedName</span></dd>
                     </dl>
                 </div>
             </a>

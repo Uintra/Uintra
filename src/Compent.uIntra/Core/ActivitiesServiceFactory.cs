@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core.Activity;
+using Uintra.Core.Activity;
 
-namespace Compent.uIntra.Core
+namespace Compent.Uintra.Core
 {
     public class ActivitiesServiceFactory : IActivitiesServiceFactory
     {
@@ -21,12 +21,12 @@ namespace Compent.uIntra.Core
         public TService GetService<TService>(Guid activityId) where TService : class, ITypedService
         {
             var activityType = _activityTypeHelper.GetActivityType(activityId);
-            return GetService<TService>(activityType.Id);
+            return GetService<TService>(activityType);
         }
 
-        public TService GetService<TService>(int typeId) where TService : class, ITypedService
+        public TService GetService<TService>(Enum type) where TService : class, ITypedService
         {
-            return _kernel.GetServices<TService>().Single(s => s.ActivityType.Id == typeId);
+            return _kernel.GetServices<TService>().Single(s => Equals(s.ActivityType, type));
         }
     }
 }

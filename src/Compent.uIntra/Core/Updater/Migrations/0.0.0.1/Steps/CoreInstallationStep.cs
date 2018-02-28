@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
 using Newtonsoft.Json.Linq;
-using uIntra.Core;
-using uIntra.Core.Constants;
-using uIntra.Core.Extensions;
-using uIntra.Core.Installer;
-using uIntra.Core.Media;
-using uIntra.Core.Utils;
+using Uintra.Core;
+using Uintra.Core.Constants;
+using Uintra.Core.Extensions;
+using Uintra.Core.Media;
+using Uintra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
-using static Compent.uIntra.Core.Updater.ExecutionResult;
-using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.CoreInstallationConstants;
+using static Compent.Uintra.Core.Updater.ExecutionResult;
+using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.CoreInstallationConstants;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class CoreInstallationStep : IMigrationStep
     {
@@ -256,13 +255,45 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 
         private void AddIsDeletedProperty()
         {
+            var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
             var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
 
             var imageType = contentTypeService.GetMediaType(UmbracoAliases.Media.ImageTypeAlias);
             var fileType = contentTypeService.GetMediaType(UmbracoAliases.Media.FileTypeAlias);
 
-            InstallationStepsHelper.AddIsDeletedProperty(imageType);
-            InstallationStepsHelper.AddIsDeletedProperty(fileType);
+            var dataType = dataTypeService.GetDataTypeDefinitionByName(UmbracoAliases.Media.IsDeletedDataTypeDefinitionName);
+            if (dataType == null)
+            {
+                dataType = new DataTypeDefinition("Umbraco.TrueFalse")
+                {
+                    Name = UmbracoAliases.Media.IsDeletedDataTypeDefinitionName
+                };
+
+                dataTypeService.Save(dataType);
+            }
+
+            var imageIsDeletedPropertyType = GetIsDeletedPropertyType(dataType);
+            if (!imageType.PropertyTypeExists(imageIsDeletedPropertyType.Alias))
+            {
+                imageType.AddPropertyType(imageIsDeletedPropertyType);
+                contentTypeService.Save(imageType);
+            }
+
+            var fileIsDeletedPropertyType = GetIsDeletedPropertyType(dataType);
+            if (!fileType.PropertyTypeExists(fileIsDeletedPropertyType.Alias))
+            {
+                fileType.AddPropertyType(fileIsDeletedPropertyType);
+                contentTypeService.Save(fileType);
+            }
+        }
+
+        private PropertyType GetIsDeletedPropertyType(IDataTypeDefinition dataType)
+        {
+            return new PropertyType(dataType)
+            {
+                Name = "Is deleted",
+                Alias = UmbracoAliases.Media.IsDeletedPropertyTypeAlias
+            };
         }
 
         private void CreateMediaFolderTypeDataType()
@@ -348,8 +379,28 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
             var imageType = contentTypeService.GetMediaType(UmbracoAliases.Media.ImageTypeAlias);
             var fileType = contentTypeService.GetMediaType(UmbracoAliases.Media.FileTypeAlias);
 
-            InstallationStepsHelper.AddIntranetUserIdProperty(imageType);
-            InstallationStepsHelper.AddIntranetUserIdProperty(fileType);
+            var imageIntranetUserId = GetIntranetUserIdPropertyType();
+            if (!imageType.PropertyTypeExists(imageIntranetUserId.Alias))
+            {
+                imageType.AddPropertyType(imageIntranetUserId);
+                contentTypeService.Save(imageType);
+            }
+
+            var fileIntranetUserId = GetIntranetUserIdPropertyType();
+            if (!fileType.PropertyTypeExists(fileIntranetUserId.Alias))
+            {
+                fileType.AddPropertyType(fileIntranetUserId);
+                contentTypeService.Save(fileType);
+            }
+        }
+
+        private PropertyType GetIntranetUserIdPropertyType()
+        {
+            return new PropertyType("Umbraco.NoEdit", DataTypeDatabaseType.Nvarchar)
+            {
+                Name = "Intranet user id",
+                Alias = IntranetConstants.IntranetCreatorId
+            };
         }
     }
 }

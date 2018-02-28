@@ -1,9 +1,8 @@
 ﻿using System.Web.Mvc;
-using uIntra.Core.Extensions;
-using uIntra.Core.Location;
+using Uintra.Core.Location;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Core.Web
+namespace Uintra.Core.Web
 {
     public abstract class ActivityLocationControllerBase : SurfaceController
     {

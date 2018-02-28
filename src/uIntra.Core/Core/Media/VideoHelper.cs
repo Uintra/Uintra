@@ -6,8 +6,9 @@ using Extensions;
 using MediaToolkit;
 using MediaToolkit.Model;
 using MediaToolkit.Options;
-using uIntra.Core.ApplicationSettings;
-using uIntra.Core.Constants;
+using Uintra.Core.ApplicationSettings;
+using Uintra.Core.Constants;
+using UIntra.Core.Media;
 using Umbraco.Core.Models;
 
 namespace uIntra.Core.Media

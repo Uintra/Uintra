@@ -1,8 +1,8 @@
-﻿using uIntra.Tagging.UserTags;
-using uIntra.Tagging.Web;
+﻿using Uintra.Tagging.UserTags;
+using Uintra.Tagging.Web;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Controllers.Api
+namespace Compent.Uintra.Controllers.Api
 {
     public class UserTagsApiController : UserTagsApiControllerBase
     {

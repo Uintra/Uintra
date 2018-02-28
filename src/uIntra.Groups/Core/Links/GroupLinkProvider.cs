@@ -1,7 +1,7 @@
 using System;
-using uIntra.Core.Extensions;
+using Uintra.Core.Extensions;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupLinkProvider : IGroupLinkProvider
     {

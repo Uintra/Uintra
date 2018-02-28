@@ -1,9 +1,9 @@
 ﻿using System;
-using uIntra.Core.Extensions;
-using uIntra.Groups.Constants;
+using Uintra.Core.Extensions;
+using Uintra.Groups.Constants;
 using Umbraco.Core.Models;
 
-namespace uIntra.Groups.Extensions
+namespace Uintra.Groups.Extentions
 {
     public static class GroupsPublishedContentExtensions
     {

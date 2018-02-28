@@ -1,7 +1,7 @@
 ﻿using System;
-using uIntra.Core.Persistence;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Subscribe
+namespace Uintra.Subscribe
 {
     public class ActivitySubscribeSettingService : IActivitySubscribeSettingService
     {
@@ -34,10 +34,17 @@ namespace uIntra.Subscribe
         public virtual void Save(ActivitySubscribeSettingDto setting)
         {
             var updateSetting = Get(setting.ActivityId);
-            updateSetting.CanSubscribe = setting.CanSubscribe;
-            updateSetting.SubscribeNotes = setting.SubscribeNotes;
+            if (updateSetting == null)
+            {
+                Create(setting);
+            }
+            else
+            {
+                updateSetting.CanSubscribe = setting.CanSubscribe;
+                updateSetting.SubscribeNotes = setting.SubscribeNotes;
 
-            _activitySubscribeSettingRepository.Update(updateSetting);
+                _activitySubscribeSettingRepository.Update(updateSetting);
+            }
         }
 
         public virtual void Delete(Guid activityId)

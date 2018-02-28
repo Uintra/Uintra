@@ -9,14 +9,14 @@ require('quill/dist/quill.snow.css');
 
 var urlDetectRegexes = [];
 
-ajax.get('/umbraco/api/LinkPreviewApi/config')
+ajax.get('/umbraco/api/LinkPreview/config')
     .then(function (response) {
         var regexes = response.data.urlRegex.map(r => new RegExp(r));
         urlDetectRegexes = regexes;
     });
 
 function matchUponMultiple(regexes, text) {
-    return regexes.map(regex => text.match(regex)).find(m => m !== null);
+    return regexes.map(regex => text.match(regex)).find(m => m !== null || m !== undefined || m !== {});
 }
 
 const easeInOutQuad = function (t, b, c, d) {
@@ -77,7 +77,7 @@ const helpers = {
 
         let onLinkDetectedCallbacks = [];
 
-        quill.onLinkDetected = function(cb) {
+        quill.onLinkDetected = function (cb) {
             onLinkDetectedCallbacks.push(cb);
         }
 
@@ -92,7 +92,7 @@ const helpers = {
                 return;
             }
             dataStorage.value = quill.container.firstChild.innerHTML;
-            
+
             if (delta.ops.length === 2 && delta.ops[0].retain && isWhitespace(delta.ops[1].insert)) {
                 var endRetain = delta.ops[0].retain;
                 var text = quill.getText().substr(0, endRetain);
@@ -132,21 +132,21 @@ const helpers = {
         });
 
         quill.clipboard.addMatcher(Node.TEXT_NODE, function (node, delta) {
-            if (typeof (node.data) !== 'string') return;
+            if (typeof (node.data) !== 'string') return delta;
             var text = node.data;
 
             var matches = matchUponMultiple(urlDetectRegexes, text);
 
             if (matches && matches.length > 0) {
                 var ops = [];
-                matches.forEach(function (match) {
-                    triggerLinkDetectedEvent(match);
-                    var split = text.split(match);
-                    var beforeLink = split.shift();
-                    ops.push({ insert: beforeLink });
-                    ops.push({ insert: match, attributes: { link: match } });
-                    text = split.join(match);
-                });
+                var match = matches[0];
+                triggerLinkDetectedEvent(match);
+                var split = text.split(match);
+                var beforeLink = split.shift();
+                ops.push({ insert: beforeLink });
+                ops.push({ insert: match, attributes: { link: match } });
+                text = split.join(match);
+
                 ops.push({ insert: text });
                 delta.ops = ops;
             }

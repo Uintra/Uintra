@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
-using Compent.uIntra.Core.Activity.Models;
-using Compent.uIntra.Core.Feed;
-using Compent.uIntra.Core.News.Entities;
-using Compent.uIntra.Core.News.Models;
-using uIntra.Core.Extensions;
-using uIntra.Core.Links;
-using uIntra.Core.Media;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Groups;
-using uIntra.Groups.Extensions;
-using uIntra.News;
-using uIntra.News.Web;
-using uIntra.Search;
-using Compent.uIntra.Core.UserTags;
-using uIntra.Tagging.UserTags;
+using Compent.Uintra.Core.Activity.Models;
+using Compent.Uintra.Core.Feed;
+using Compent.Uintra.Core.News.Entities;
+using Compent.Uintra.Core.News.Models;
+using Uintra.Core.Extensions;
+using Uintra.Core.Links;
+using Uintra.Core.Media;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Groups;
+using Uintra.News;
+using Uintra.News.Web;
+using Uintra.Search;
+using Compent.Uintra.Core.UserTags;
+using Uintra.Groups.Extentions;
+using Uintra.Tagging.UserTags;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class NewsController : NewsControllerBase
     {

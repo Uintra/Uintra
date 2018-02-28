@@ -82,14 +82,15 @@
 
     &__hide{
         position:absolute;
-        bottom:7px;
-        right:0;
+        top:-12px;
+        right:-12px;
         width:25px;
         height:25px;
         text-align:center;
         border-radius:50%;
         background:var(--color-white);
         box-shadow:0 0 5px rgba(0,0,0,0.5);
+        z-index:2;
         cursor:pointer;
 
         .icon-close{

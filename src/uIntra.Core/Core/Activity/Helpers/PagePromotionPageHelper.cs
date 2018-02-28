@@ -1,16 +1,16 @@
 using System;
-using uIntra.Core.PagePromotion;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.PagePromotion;
+using Uintra.Core.TypeProviders;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public class PagePromotionPageHelper : IActivityPageHelper
     {
-        public IIntranetType ActivityType { get; }
+        public Enum ActivityType { get; }
 
         private readonly IPagePromotionService<PagePromotionBase> _pagePromotionService;
 
-        public PagePromotionPageHelper(IIntranetType activityType, IPagePromotionService<PagePromotionBase> pagePromotionService)
+        public PagePromotionPageHelper(Enum activityType, IPagePromotionService<PagePromotionBase> pagePromotionService)
         {
             ActivityType = activityType;
 

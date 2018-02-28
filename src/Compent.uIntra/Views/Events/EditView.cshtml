@@ -1,10 +1,10 @@
-﻿@using uIntra.Core.Activity
-@using uIntra.Core.Controls.FileUpload
-@using uIntra.Core.Extensions
-@using uIntra.Subscribe
+﻿@using Uintra.Core.Activity
+@using Uintra.Core.Controls.FileUpload
+@using Uintra.Core.Extensions
+@using Uintra.Subscribe
 @using Umbraco.Web
 @using Extensions
-@model Compent.uIntra.Core.Events.EventExtendedEditModel
+@model Compent.Uintra.Core.Events.EventExtendedEditModel
 
 <div class="form js-check-before-unload" id="js-events-edit-page">
     @using (Html.BeginUmbracoForm("EditExtended", "Events", FormMethod.Post, new { id = "editForm" }))
@@ -72,7 +72,7 @@
                    data-val-length-max="200" data-val-length="@string.Format(Html.Localize("EventsEdit.LocationTitleMaxLength.lbl"), 200)" data-val="true" />
         </div>
         <div class="form__row">
-            @Html.Label("Location", Html.Localize("EventsEdit.Location.lbl"), new { @class = "form__label" })
+            @Html.Label("Location", Html.Localize("Activity.Location.lbl"), new { @class = "form__label" })
             @Html.Action("Edit", "ActivityLocation", new { location = Model.Location })
         </div>
         <div class="form__row clearfix">

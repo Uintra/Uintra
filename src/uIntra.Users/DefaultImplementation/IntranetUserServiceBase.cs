@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web.Hosting;
-using uIntra.Core.Caching;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
+using Uintra.Core.Caching;
+using Uintra.Core.Extensions;
+using Uintra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using CacheHelper = uIntra.Core.Caching.CacheHelper;
+using CacheHelper = Uintra.Core.Caching.CacheHelper;
 
-namespace uIntra.Users
+namespace Uintra.Users
 {
     public abstract class IntranetUserServiceBase<T> : IIntranetUserService<T>, ICacheableIntranetUserService
           where T : IIntranetUser, new()
@@ -24,7 +23,6 @@ namespace uIntra.Users
         private readonly UmbracoContext _umbracoContext;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IRoleService _roleService;
-        private readonly IIntranetRoleTypeProvider _intranetRoleTypeProvider;
         private readonly ICacheService _cacheService;
 
         protected IntranetUserServiceBase(
@@ -32,14 +30,12 @@ namespace uIntra.Users
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
-            IIntranetRoleTypeProvider intranetRoleTypeProvider,
             ICacheService cacheService)
         {
             _memberService = memberService;
             _umbracoContext = umbracoContext;
             _umbracoHelper = umbracoHelper;
             _roleService = roleService;
-            _intranetRoleTypeProvider = intranetRoleTypeProvider;
             _cacheService = cacheService;
         }
 
@@ -49,7 +45,7 @@ namespace uIntra.Users
 
         public virtual T Get(int umbracoId)
         {
-            return GetSingle(el => el.UmbracoId == umbracoId);
+            return GetAll().FirstOrDefault(m => m.UmbracoId == umbracoId);
         }
 
         private T GetSingle(Func<T, bool> predicate)
@@ -85,6 +81,17 @@ namespace uIntra.Users
             string userName = GetCurrentUserName();
             var user = GetByName(userName);
             return user;
+        }
+
+        public virtual T GetCurrentBackOfficeUser()
+        {
+            var backOfficeUser = _umbracoContext.Security.CurrentUser;
+            return new T() {
+                Id = backOfficeUser.Key,
+                Email = backOfficeUser.Email,
+                LoginName = backOfficeUser.Username,
+                Inactive = backOfficeUser.IsLockedOut,
+            };
         }
 
         protected virtual string GetCurrentUserName()
@@ -187,12 +194,6 @@ namespace uIntra.Users
         {
             var roles = _memberService.GetAllRoles(member.Id).ToList();
             return _roleService.GetActualRole(roles);
-        }
-
-        protected virtual string GetGroupNameFromRole(int role)
-        {
-            var roleMode = _intranetRoleTypeProvider.Get(role);
-            return roleMode.Name;
         }
 
         protected virtual string GetUserPhotoOrDefaultAvatar(string userImage)

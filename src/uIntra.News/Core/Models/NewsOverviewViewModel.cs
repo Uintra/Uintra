@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace uIntra.News
+namespace Uintra.News
 {
     public class NewsOverviewViewModel
     {

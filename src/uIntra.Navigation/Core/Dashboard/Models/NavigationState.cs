@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace uIntra.Navigation.Dashboard
+namespace Uintra.Navigation.Dashboard
 {
     public class NavigationState
     {

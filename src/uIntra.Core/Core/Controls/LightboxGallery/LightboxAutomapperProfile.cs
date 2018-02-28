@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
+using UIntra.Core.Controls.LightboxGallery;
 
-namespace uIntra.Core.Controls.LightboxGallery
+namespace Uintra.Core.Controls.LightboxGallery
 {
     public class LightboxAutoMapperProfile : Profile
     {

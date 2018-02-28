@@ -1,7 +1,8 @@
-﻿using Compent.LinkPreview.Client;
-using uIntra.Core.LinkPreview.Sql;
+﻿using System;
+using Compent.LinkPreview.HttpClient;
+using Uintra.Core.LinkPreview.Sql;
 
-namespace uIntra.Core.LinkPreview
+namespace Uintra.Core.LinkPreview
 {
     public class LinkPreviewModelMapper
     {
@@ -17,7 +18,7 @@ namespace uIntra.Core.LinkPreview
             var result = new LinkPreview
             {
                 Id = entity.Id,
-                Uri = new System.Uri(entity.Uri),
+                Uri = new Uri(entity.Uri,UriKind.RelativeOrAbsolute),
                 Title = entity.Title,
                 Description = GetLongest(entity.OgDescription, entity.Description),
                 ImageUri = _uriProvider.GetImageUri(entity.ImageId),

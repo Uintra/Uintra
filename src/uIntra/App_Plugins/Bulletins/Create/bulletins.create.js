@@ -21,7 +21,6 @@ let confirmMessage;
 let expandBulletinBtn;
 let closeBulletinBtn;
 let wrapper;
-let emojiContainer;
 let dimmedBg;
 
 function initElements() {
@@ -39,13 +38,11 @@ function initElements() {
     wrapper = document.getElementById("wrapper");
     uIntra.events.add("setBulletinCreateMode");
     uIntra.events.add("removeBulletinCreateMode");
-    emojiContainer = document.querySelector(".js-emoji");
     dimmedBg = holder.querySelector(".js-create-bulletin__dimmed-bg");
 }
 
 function initEditor() {
-    editor = helpers.initQuill(description, dataStorage,{
-        theme: 'snow',
+    editor = helpers.initQuill(description, dataStorage, {
         placeholder: description.dataset["placeholder"],
         modules: {
             toolbar: {
@@ -53,8 +50,6 @@ function initEditor() {
             }
         }
     });
-
-    var toolbar = editor.getModule('toolbar');
 
     editor.on('text-change', function () {
         sentButton.disabled = !isEdited();
@@ -134,7 +129,8 @@ function sentButtonClickHandler(event) {
     let form = umbracoAjaxForm(holder.querySelector('form'));
   
     let promise = form.submit();
-    promise.then(function(data) {
+    promise.then(function (response) {
+        let data = response.data;
         if (data.IsSuccess) {
             window.location.hash = data.Id;
 
@@ -172,20 +168,20 @@ function initMobile(){
 // editor helpers
 
 function show() {
+    const headerAndButtonHeight = 130;
     setGlobalEventShow();
     bulletin.classList.add("_expanded");
+    body.style.overflow = 'hidden';
     toolbar.classList.remove("hidden");
     header.classList.remove("hidden");
     closeBulletinBtn.classList.remove("hidden");
-    if(!emojiContainer){
-        helpers.initSmiles(editor, editor.getModule('toolbar').container);
-        emojiContainer = true;
-    }
+    sentButton.classList.remove("hidden");
 
     if(mobileMediaQuery.matches){
         let bulletinHolder = getBulletinHolder();
         bulletinHolder.classList.remove("hidden");
         mobileBtn.classList.add("hide");
+        window.scrollTo(0, (window.pageYOffset + bulletin.getBoundingClientRect().top - headerAndButtonHeight));
     }
 }
 
@@ -193,9 +189,11 @@ function hide(event) {
     if(event && event.target == closeBulletinBtn){event.preventDefault();}
     setGlobalEventHide();
     bulletin.classList.remove("_expanded");
+    body.style.overflow = '';
     toolbar.classList.add("hidden");
     header.classList.add("hidden");
     closeBulletinBtn.classList.add("hidden");
+    sentButton.classList.add("hidden");
 
     if(mobileMediaQuery.matches){
         let bulletinHolder = getBulletinHolder();

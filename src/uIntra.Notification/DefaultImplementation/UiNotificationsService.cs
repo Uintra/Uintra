@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Extensions;
-using uIntra.Core.Extensions;
-using uIntra.Core.Persistence;
+using Uintra.Core.Extensions;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public class UiNotificationService : IUiNotificationService
     {
@@ -37,7 +37,7 @@ namespace uIntra.Notification
                     Date = DateTime.UtcNow,
                     IsNotified = false,
                     IsViewed = false,
-                    Type = el.NotificationType.Id,
+                    Type = el.NotificationType.ToInt(),
                     Value = new { el.Message, el.Url, el.NotifierId, el.IsPinned, el.IsPinActual }.ToJson(),
                     ReceiverId = el.ReceiverId
                 });

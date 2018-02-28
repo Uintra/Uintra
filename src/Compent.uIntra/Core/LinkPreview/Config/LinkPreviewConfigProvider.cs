@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using uIntra.Core;
-using uIntra.Core.LinkPreview;
+using Uintra.Core;
+using Uintra.Core.LinkPreview;
 
-namespace Compent.uIntra.Core.LinkPreview.Config
+namespace Compent.Uintra.Core.LinkPreview.Config
 {
     public class LinkPreviewConfigProvider : ILinkPreviewConfigProvider
     {

@@ -1,6 +1,6 @@
-﻿using uIntra.Core.Activity;
+﻿using Uintra.Core.Activity;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public enum CentralFeedTypeEnum
     {

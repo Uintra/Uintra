@@ -2,7 +2,7 @@
 using System.Linq;
 using Extensions;
 
-namespace uIntra.Core.Extensions
+namespace Uintra.Core.Extensions
 {
     public static class EnumerableExtensions
     {
@@ -20,5 +20,7 @@ namespace uIntra.Core.Extensions
         {
             return source.Concat(element.ToEnumerable());
         }
+
+        public static bool IsEmpty<T>(this IList<T> list) => list.Count == 0;
     }
 }

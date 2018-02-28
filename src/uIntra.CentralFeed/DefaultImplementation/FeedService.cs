@@ -1,29 +1,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Caching;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
+using Extensions;
+using Uintra.Core.Caching;
+using Uintra.Core.Extensions;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public abstract class FeedService : IFeedService
     {
         private readonly IEnumerable<IFeedItemService> _feedItemServices;
         private readonly ICacheService _cacheService;
-        private readonly IFeedTypeProvider _centralFeedTypeProvider;
 
-        protected FeedService(IEnumerable<IFeedItemService> feedItemServices, ICacheService cacheService, IFeedTypeProvider centralFeedTypeProvider)
+        protected FeedService(IEnumerable<IFeedItemService> feedItemServices, ICacheService cacheService)
         {
             _feedItemServices = feedItemServices;
             _cacheService = cacheService;
-            _centralFeedTypeProvider = centralFeedTypeProvider;
         }
 
         private IEnumerable<FeedSettings> GetFeedItemServicesSettings()
         {
             var settings = _feedItemServices.Select(service => service.GetFeedSettings()).ToList();
-            settings.Add(GetDefaultTabSetting());            
+            settings.Add(GetDefaultTabSetting());
             return settings;
         }
 
@@ -35,25 +33,30 @@ namespace uIntra.CentralFeed
 
         public long GetFeedVersion(IEnumerable<IFeedItem> feedItems)
         {
-            if (!feedItems.Any())
-            {
-                return default(long);
-            }
+            var feedItemsList = feedItems.AsList();
 
-            return feedItems.Max(item => item.ModifyDate).Ticks;
+            return feedItemsList.IsEmpty()
+                ? default
+                : feedItemsList.Max(item => item.ModifyDate).Ticks;
         }
 
-        public FeedSettings GetSettings(IIntranetType type)
+        public FeedSettings GetSettings(Enum type)
         {
-            var settings = _cacheService.GetOrSet(CentralFeedConstants.CentralFeedSettingsCacheKey, GetFeedItemServicesSettings, GetCacheExpiration()).Single(feedSettings => feedSettings.Type.Id == type.Id);
-            return settings;
+            var settings = _cacheService.GetOrSet(
+                CentralFeedConstants.CentralFeedSettingsCacheKey,
+                GetFeedItemServicesSettings,
+                GetCacheExpiration()).ToList();
+
+
+            var r = settings.Single(feedSettings => feedSettings.Type.ToInt() == type.ToInt());
+            return r;
         }
 
         protected virtual FeedSettings GetDefaultTabSetting()
         {
             return new FeedSettings
             {
-                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.All.ToInt()),
+                Type = CentralFeedTypeEnum.All,
                 HasSubscribersFilter = false,
                 HasPinnedFilter = true
             };

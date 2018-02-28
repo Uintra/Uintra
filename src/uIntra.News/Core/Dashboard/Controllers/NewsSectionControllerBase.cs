@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using uIntra.Core;
-using uIntra.Core.Extensions;
-using uIntra.Core.Media;
-using uIntra.Core.User;
+using Uintra.Core;
+using Uintra.Core.Extensions;
+using Uintra.Core.Media;
+using Uintra.Core.User;
 using Umbraco.Web.WebApi;
 
-namespace uIntra.News.Dashboard
+namespace Uintra.News.Dashboard
 {
     public abstract class NewsSectionControllerBase : UmbracoAuthorizedApiController
     {
@@ -35,7 +35,7 @@ namespace uIntra.News.Dashboard
         public virtual NewsBackofficeViewModel Create(NewsBackofficeCreateModel createModel)
         {
             var creatingNews = createModel.Map<NewsBase>();
-            creatingNews.CreatorId = _intranetUserService.GetCurrentUserId();
+            creatingNews.CreatorId = _intranetUserService.GetCurrentBackOfficeUserId();
             var newsId = _newsService.Create(creatingNews);
 
             var createdNews = _newsService.Get(newsId);

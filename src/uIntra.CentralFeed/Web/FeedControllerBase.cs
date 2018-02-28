@@ -4,14 +4,14 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web.Mvc;
 using Extensions;
-using uIntra.Core.Extensions;
-using uIntra.Core.Feed;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Subscribe;
+using Uintra.Core.Extensions;
+
+using Uintra.Core.Feed;
+using Uintra.Core.User;
+using Uintra.Subscribe;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.CentralFeed.Web
+namespace Uintra.CentralFeed.Web
 {
     public abstract class FeedControllerBase : SurfaceController
     {
@@ -33,7 +33,8 @@ namespace uIntra.CentralFeed.Web
             ISubscribeService subscribeService,
             IFeedService feedService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IFeedFilterStateService feedFilterStateService)
+            IFeedFilterStateService feedFilterStateService,
+            IFeedTypeProvider centralFeedTypeProvider)
         {
             _subscribeService = subscribeService;
             _feedService = feedService;
@@ -41,6 +42,14 @@ namespace uIntra.CentralFeed.Web
             _feedFilterStateService = feedFilterStateService;
         }
 
+        [HttpGet]
+        public virtual ActionResult OpenFilters()
+        {
+            var feedState = _feedFilterStateService.GetFiltersState<FeedFiltersState>();
+            feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
+            _feedFilterStateService.SaveFiltersState(feedState);
+            return new EmptyResult();
+        }
 
         #region Actions
         public virtual JsonResult AvailableActivityTypes()
@@ -48,7 +57,7 @@ namespace uIntra.CentralFeed.Web
             var activityTypes = _feedService
                 .GetAllSettings()
                 .Where(s => !s.ExcludeFromAvailableActivityTypes)
-                .Select(s => s.Type)
+                .Select(s => ( Id:s.Type.ToInt(), Name: s.Type.ToString()))
                 .Select(a => new { a.Id, a.Name })
                 .OrderBy(el => el.Id);
 
@@ -66,7 +75,7 @@ namespace uIntra.CentralFeed.Web
         protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items, IEnumerable<FeedSettings> settings)
         {
             var activitySettings = settings
-                .ToDictionary(s => s.Type.Id);
+                .ToDictionary(s => s.Type.ToInt());
 
             var result = items
                 .Select(i => MapFeedItemToViewModel(i, activitySettings));
@@ -81,24 +90,26 @@ namespace uIntra.CentralFeed.Web
             {
                 Activity = i,
                 Options = options,
-                ControllerName = settings[i.Type.Id].Controller
+                ControllerName = settings[i.Type.ToInt()].Controller
             };
         }
 
         protected abstract ActivityFeedOptions GetActivityFeedOptions(Guid activityId);
 
-        protected static IEnumerable<IIntranetType> GetInvolvedTypes(IEnumerable<IFeedItem> items)
+        protected virtual IEnumerable<Enum> GetInvolvedTypes(IEnumerable<IFeedItem> items)
         {
             return items
-                    .Select(i => i.Type)
-                    .Distinct(new IntranetTypeComparer());
+                .Select(i => i.Type)
+                .Distinct();
         }
 
         protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, FeedFilterStateModel filterState, FeedSettings settings)
         {
             if (filterState.ShowSubscribed.GetValueOrDefault() && settings.HasSubscribersFilter)
             {
-                items = items.Where(i => i is ISubscribable && _subscribeService.IsSubscribed(_intranetUserService.GetCurrentUser().Id, (ISubscribable)i));
+                items = items.Where(i =>
+                    i is ISubscribable subscribable &&
+                    _subscribeService.IsSubscribed(_intranetUserService.GetCurrentUser().Id, subscribable));
             }
 
             if (filterState.ShowPinned.GetValueOrDefault() && settings.HasPinnedFilter)
@@ -109,18 +120,18 @@ namespace uIntra.CentralFeed.Web
             return items;
         }
 
-        protected virtual IList<IFeedItem> SortForFeed(IEnumerable<IFeedItem> items, IIntranetType type)
+        protected virtual IList<IFeedItem> SortForFeed(IEnumerable<IFeedItem> items, Enum type)
         {
             var sortedItems = Sort(items, type);
             return SortByPin(sortedItems).ToList();
         }
 
-        protected virtual IEnumerable<IFeedItem> Sort(IEnumerable<IFeedItem> sortedItems, IIntranetType type)
+        protected virtual IEnumerable<IFeedItem> Sort(IEnumerable<IFeedItem> sortedItems, Enum type)
         {
             IEnumerable<IFeedItem> result;
-            switch (type.Id)
+            switch (type)
             {
-                case (int)CentralFeedTypeEnum.All:
+                case CentralFeedTypeEnum.All:
                     result = sortedItems.OrderBy(i => i, new CentralFeedItemComparer());
                     break;
                 default:
@@ -163,8 +174,8 @@ namespace uIntra.CentralFeed.Web
         protected static IEnumerable<ActivityFeedTabViewModel> GetTabsWithCreateUrl(IEnumerable<ActivityFeedTabViewModel> tabs) =>
             tabs.Where(t => !IsTypeForAllActivities(t.Type) && t.Links.Create.HasValue());
 
-        protected static bool IsTypeForAllActivities(IIntranetType type) =>
-            type.Id == CentralFeedTypeEnum.All.ToInt();
+        protected static bool IsTypeForAllActivities(Enum type) =>
+            type is CentralFeedTypeEnum.All;
 
         protected virtual FeedFilterStateViewModel MapToFilterStateViewModel(FeedFilterStateModel model)
         {

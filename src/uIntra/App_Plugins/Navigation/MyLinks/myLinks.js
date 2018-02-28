@@ -53,8 +53,9 @@ var controller = {
         initRemoveLinks(container);
         addControlBtn.addEventListener('click', function (e) {
             e.preventDefault();
-
-            ajax.PostJson(this.dataset.url, { contentId: this.dataset.contentId }, function (data) {
+            let data = { contentId: this.dataset.contentId };
+            let url = this.dataset.url;
+            ajax.post(url, data).then(function (data) {
                 currentLinkId = data.Id;
                 reloadList(container);
                 if (!$myLinksItem.hasClass(activeClass)) {
@@ -97,7 +98,7 @@ var controller = {
                     e.preventDefault();
                     var link = this;
                     var url = this.dataset.url;
-                    ajax.Delete(url, function () {
+                    ajax.delete(url).then(function () {
                         reloadList(container);
                         if (link.dataset.id == currentLinkId) {
                             addControlBtn.classList.toggle(className);
@@ -108,7 +109,8 @@ var controller = {
         }
 
         function reloadList(container) {
-            ajax.Get(container.dataset.url, function (data) {
+            ajax.get(container.dataset.url).then(function (response) {
+                let data = response.data;
                 container.innerHTML = data;
                 $opener.toggleClass("_hide", container.childElementCount == 0);
                 initRemoveLinks(container);
