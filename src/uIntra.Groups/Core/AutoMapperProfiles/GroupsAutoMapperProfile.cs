@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Uintra.CentralFeed;
+using Uintra.CentralFeed.Navigation.Models;
 using Uintra.Core.Extensions;
 using Uintra.Core.TypeProviders;
 using Uintra.Groups.Dashboard;

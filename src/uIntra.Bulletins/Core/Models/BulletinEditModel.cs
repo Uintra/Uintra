@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Uintra.Core.Activity;
 using Uintra.Core.Attributes;
-using Uintra.Core.Core.Attributes;
 using Uintra.Core.Media;
 using Uintra.Core.ModelBinders;
 

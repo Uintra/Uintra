@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Compent.Uintra.Core.Search.Entities;
 using Uintra.Core.Extensions;
 using Uintra.Search;
@@ -7,7 +8,7 @@ using Uintra.Tagging.UserTags.Models;
 
 namespace Compent.Uintra.Core.UserTags
 {
-    public class UserTagsSearchIndexer : IIndexer
+    public class UserTagsSearchIndexer : IUserTagsSearchIndexer, IIndexer
     {
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly UserTagProvider _userTagProvider;
@@ -32,6 +33,17 @@ namespace Compent.Uintra.Core.UserTags
             var searchableTag = tag.Map<SearchableTag>();
             searchableTag.Url = _searchUmbracoHelper.GetSearchPage().Url.AddQueryParameter(tag.Text);
             return searchableTag;
+        }
+
+        public void FillIndex(UserTag userTag)
+        {
+            var searchableTag = userTag.Map<SearchableTag>();
+            _elasticTagIndex.Index(searchableTag);
+        }
+
+        public void Delete(Guid id)
+        {
+            _elasticTagIndex.Delete(id);
         }
     }
 }

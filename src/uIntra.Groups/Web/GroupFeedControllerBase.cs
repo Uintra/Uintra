@@ -10,6 +10,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
+using Uintra.Groups.Attributes;
 using Uintra.Subscribe;
 
 namespace Uintra.Groups.Web
@@ -72,6 +73,7 @@ namespace Uintra.Groups.Web
 
         [HttpGet]
         [NotFoundActivity]
+        [NotFoundGroup]
         public virtual ActionResult Details(Guid id, Guid groupId)
         {
             var viewModel = GetDetailsViewModel(id, groupId);
@@ -91,6 +93,8 @@ namespace Uintra.Groups.Web
         }
 
         [HttpGet]
+        [NotFoundActivity]
+        [NotFoundGroup]
         public virtual ActionResult Edit(Guid id, Guid groupId)
         {
             var viewModel = GetEditViewModel(id, groupId);

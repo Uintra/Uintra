@@ -4,7 +4,7 @@ using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Uintra.Subscribe;
 
-namespace Compent.Uintra.Installer.Migrations.OldSubscribeSettings
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
 {
     public class OldSubscribeSettingsMigration
     {

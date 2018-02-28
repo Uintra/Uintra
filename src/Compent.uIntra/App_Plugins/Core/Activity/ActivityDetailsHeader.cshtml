@@ -22,7 +22,7 @@
                     <span>@Model.Owner.DisplayedName</span>
                 </a>
             }
-            @if (Model.Location != null)
+            @if (Model.Location?.Address != null && Model.Location.ShortAddress != null)
             {
                 @Html.Action("HeaderLink", "ActivityLocation", new { location = Model.Location })
             }

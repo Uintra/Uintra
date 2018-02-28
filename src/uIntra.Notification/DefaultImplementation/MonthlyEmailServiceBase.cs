@@ -40,8 +40,6 @@ namespace Uintra.Notification
         {
             var currentDate = DateTime.Now;
 
-            if (currentDate.Day != _applicationSettings.MonthlyEmailJobDay) return;
-
             var allUsers = _intranetUserService.GetAll();
             var monthlyMails = allUsers
                 .Select(user => GetUserActivitiesFilteredByUserTags(user.Id).Map(userActivities => TryGetMonthlyMail(userActivities, user)))

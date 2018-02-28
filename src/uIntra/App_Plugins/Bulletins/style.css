@@ -44,6 +44,13 @@
         }
     }
 
+    &__holder{
+        @media (--for-desktop-down) {
+            max-height:335px;
+            overflow:scroll; 
+	    }
+    }
+
     .feed__item-heading{
         margin:0;
     }
@@ -146,6 +153,11 @@
 		background: none;
         text-indent:-9999px;
         overflow:hidden;
+        z-index:14;
+        @media (--for-desktop-down) {
+            top:0;
+            right:0;
+	    }
 
 		&:before {
 			content: '';
@@ -228,3 +240,13 @@
 		display: inline-block !important;
 	}
 }
+
+.select2-container--default .select2-results > .select2-results__options {
+    @media (--for-desktop-down) {
+        max-height: 136px !important;
+    }
+}
+
+    @media (--for-tablet-portrait-down) {
+        max-height: 102px !important;
+    }

@@ -7,8 +7,8 @@
     <ProjectGuid>{DD7C6B81-0F9F-4196-89FE-4DB666CD0367}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.Subscribe</RootNamespace>
-    <AssemblyName>uIntra.Subscribe</AssemblyName>
+    <RootNamespace>Uintra.Subscribe</RootNamespace>
+    <AssemblyName>Uintra.Subscribe</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

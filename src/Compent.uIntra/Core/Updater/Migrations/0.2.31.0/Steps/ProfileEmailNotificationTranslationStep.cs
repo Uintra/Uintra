@@ -1,4 +1,4 @@
-﻿using Uintra.Core.Installer;
+﻿using Compent.Uintra.Core.Updater.Migrations._0._0._0._1;
 
 namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
 {
@@ -11,13 +11,13 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
 
         public ExecutionResult Execute()
         {
-            InstallationStepsHelper.AddTranslation(ProfileEmailNotificationsKey, ProfileEmailNotificationsTranslation);
+            InstallationStepsHelper.UpdateTranslation(ProfileEmailNotificationsKey, OldProfileEmailNotificationsTranslation, ProfileEmailNotificationsTranslation);
             return ExecutionResult.Success;
         }
 
         public void Undo()
         {
-            InstallationStepsHelper.AddTranslation(ProfileEmailNotificationsKey, OldProfileEmailNotificationsTranslation);
+            InstallationStepsHelper.UpdateTranslation(ProfileEmailNotificationsKey, ProfileEmailNotificationsTranslation, OldProfileEmailNotificationsTranslation);
         }
     }
 }
