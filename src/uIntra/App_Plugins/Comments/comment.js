@@ -92,14 +92,16 @@ var initCreateControl = function (holder) {
             divElem.className += "link-preview";
 
             divElem.innerHTML =
-                `<button type="button" class="link-preview-close js-link-preview-remove-preview">X</button>
-                <h3>
-                     <a href="${data.uri}">${data.title}</a>
-                 </h3>
-                 <p>${data.description}</p>
-                 <div class="link-preview-image">
+                `<button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
+                <div class="link-preview__image">
                      <img src="${data.imageUri}" />
-                 </div>`;
+                 </div>
+                <div class="link-preview__text">
+                    <h3 class="link-preview__title">
+                        <a href="${data.uri}">${data.title}</a>
+                    </h3>
+                    <p>${data.description}</p>
+                </div>`;
 
             return divElem;
         }
@@ -294,15 +296,16 @@ var initReply = function (holder) {
         divElem.className += "link-preview";
 
         divElem.innerHTML =
-            `<button type="button" class="link-preview-close js-link-preview-remove-preview">X</button>
-                <h3>
-                     <a href="${data.uri}">${data.title}</a>
-                 </h3>
-                 <p>${data.description}</p>
-                 <div class="link-preview-image">
+            `<button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
+                <div class="link-preview__image">
                      <img src="${data.imageUri}" />
-                 </div>`;
-
+                 </div>
+                <div class="link-preview__text">
+                    <h3 class="link-preview__title">
+                        <a href="${data.uri}">${data.title}</a>
+                    </h3>
+                    <p>${data.description}</p>
+                </div>`;
         return divElem;
     }
 
