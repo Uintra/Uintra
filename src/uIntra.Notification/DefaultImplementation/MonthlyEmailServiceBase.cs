@@ -18,7 +18,7 @@ namespace Uintra.Notification
     public abstract class MonthlyEmailServiceBase : IMonthlyEmailService
     {
         private readonly IMailService _mailService;
-        private readonly IExceptionLogger _logger;       
+        private readonly IExceptionLogger _logger;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly NotificationSettingsService _notificationSettingsService;
         private readonly IApplicationSettings _applicationSettings;
@@ -36,11 +36,11 @@ namespace Uintra.Notification
             _applicationSettings = applicationSettings;
         }
 
-        public void SendEmail()
+        public void CreateAndSendMail()
         {
             var currentDate = DateTime.Now;
 
-              if (currentDate.Day != _applicationSettings.MonthlyEmailJobDay) return;
+            if (currentDate.Day != _applicationSettings.MonthlyEmailJobDay) return;
 
             var allUsers = _intranetUserService.GetAll();
             var monthlyMails = allUsers
@@ -76,6 +76,16 @@ namespace Uintra.Notification
             }
         }
 
+        public void ProcessMonthlyEmail()
+        {
+            if (IsSendingDay())
+            {
+                CreateAndSendMail();
+            }
+        }
+
+
+
         protected (IIntranetUser user, MonthlyMailDataModel monthlyMail)? TryGetMonthlyMail(
             IEnumerable<(IIntranetActivity activity, string detailsLink)> activities,
             IIntranetUser user)
@@ -90,18 +100,25 @@ namespace Uintra.Notification
             else
             {
                 return default;
-            }          
+            }
         }
 
         protected abstract IEnumerable<(IIntranetActivity activity, string detailsLink)> GetUserActivitiesFilteredByUserTags(Guid userId);
 
         protected abstract MailBase GetMonthlyMailModel(IIntranetUser receiver, MonthlyMailDataModel dataModel, EmailNotifierTemplate template);
 
-        protected virtual MonthlyMailDataModel GetMonthlyMailModel(string userActivities, IIntranetUser user) => 
+        protected virtual MonthlyMailDataModel GetMonthlyMailModel(string userActivities, IIntranetUser user) =>
             new MonthlyMailDataModel
+            {
+                ActivityList = userActivities
+            };
+
+        protected virtual bool IsSendingDay()
         {
-            ActivityList = userActivities
-        };
+            var currentDate = DateTime.Now;
+
+            return currentDate.Day != _applicationSettings.MonthlyEmailJobDay;
+        }
 
         private string GetActivityListString(IEnumerable<(IIntranetActivity activity, string link)> activities) => activities
             .Aggregate(

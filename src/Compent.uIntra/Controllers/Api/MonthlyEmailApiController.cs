@@ -16,7 +16,7 @@ namespace Compent.Uintra.Controllers.Api
         [HttpGet]
         public void SendMonthlyEmail()
         {
-            _monthlyEmailService.SendEmail();
+            _monthlyEmailService.ProcessMonthlyEmail();
         }
     }
 }

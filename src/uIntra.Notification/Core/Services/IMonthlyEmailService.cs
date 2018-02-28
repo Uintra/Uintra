@@ -2,6 +2,8 @@
 {
     public interface IMonthlyEmailService
     {
-        void SendEmail();
+        void ProcessMonthlyEmail();
+
+        void CreateAndSendMail();
     }
 }
