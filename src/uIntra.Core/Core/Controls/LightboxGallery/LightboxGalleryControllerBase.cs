@@ -75,7 +75,7 @@ namespace Uintra.Core.Controls.LightboxGallery
             galleryPreviewModel.HiddenImagesCount = galleryPreviewModel.Medias.Count(i => i.IsHidden);
 
 
-            return galleryPreviewModel;           
+            return galleryPreviewModel;
         }
 
 
@@ -94,11 +94,19 @@ namespace Uintra.Core.Controls.LightboxGallery
             {
                 result.Height = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaHeight);
                 result.Width = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaWidth);
+                return result;
+            }
+            if (result.Type is MediaTypeEnum.Video)
+            {
+                result.PreviewUrl = media.GetPropertyValue<string>(UmbracoAliases.Video.ThumbnailUrlPropertyAlias);
+                result.Height = media.GetPropertyValue<int>(UmbracoAliases.Video.VideoHeightPropertyAlias);
+                result.Width = media.GetPropertyValue<int>(UmbracoAliases.Video.VideoWidthPropertyAlias);
+                return result;
             }
 
             return result;
         }
-        
+
         protected void MapPreviewUrl(List<LightboxGalleryItemViewModel> galleryItems)
         {
             var imageItems = galleryItems.FindAll(m => m.Type is MediaTypeEnum.Image);
