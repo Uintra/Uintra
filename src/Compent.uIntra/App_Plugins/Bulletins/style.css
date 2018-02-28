@@ -32,6 +32,7 @@
 
     &._expanded{
         height:auto;
+        margin-top:-10px;
 
         .ql-container .ql-editor {
             &.ql-blank{
@@ -48,7 +49,7 @@
     &__holder{
         ._expanded &{
             @media (--for-desktop-down) {
-                max-height:335px;
+                max-height:350px;
                 /*overflow:scroll;*/
                 overflow-X:hidden;
                 overflow-Y:auto; 
