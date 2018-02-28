@@ -61,7 +61,6 @@ function initEditor() {
     });
 
     editor.onLinkDetected(function (link) {
-        debugger;
         if (!isOneLinkDetected) {
             showLinkPreview(link);            
         }
