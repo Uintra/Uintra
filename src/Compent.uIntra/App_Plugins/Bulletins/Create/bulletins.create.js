@@ -73,8 +73,8 @@ function initEditor() {
                 var data = response.data;
                 var imageElem = getImageElem(data);
                 var hiddenSaveElem = getHiddenSaveElem(data);
-                createForm.append(imageElem);
-                createForm.append(hiddenSaveElem);
+                $(createForm).append(imageElem);
+                $(createForm).append(hiddenSaveElem);
                 isOneLinkDetected = true;
 
                 var removeLinkPreview = function (e) {

@@ -36,8 +36,8 @@ function initEditor() {
                 var data = response.data;
                 var imageElem = getImageElem(data);
                 var hiddenSaveElem = getHiddenSaveElem(data);
-                descriptionElem.after(imageElem);
-                descriptionElem.after(hiddenSaveElem);
+                $(descriptionElem).after(imageElem);
+                $(descriptionElem).after(hiddenSaveElem);
                 isOneLinkDetected = true;
 
                 var removeLinkPreview = function (e) {                    
