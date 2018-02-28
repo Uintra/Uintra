@@ -1214,6 +1214,13 @@
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\GridPageLayout.cshtml" />
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\GroupGridPreValues.json" />
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\PanelPickerPreValues.json" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.resx">
+      <DependentUpon>201802231106236_ActivityToLinkPreviewEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml" />
+    <Content Include="App_Plugins\Core\LinkPreview\EditLinkPreviewView.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1266,6 +1273,7 @@
   <ItemGroup>
     <Compile Include="App_Start\ElmahMvc_Start.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
+    <Compile Include="Controllers\ActivityLinkPreviewController.cs" />
     <Compile Include="Controllers\ActivityLocationController.cs" />
     <Compile Include="Controllers\Api\EditorConfigController.cs" />
     <Compile Include="Controllers\Api\LinkPreviewController.cs" />
@@ -1523,6 +1531,10 @@
     <Compile Include="Persistence\Sql\Migrations\201802091031082_Renaming.cs" />
     <Compile Include="Persistence\Sql\Migrations\201802091031082_Renaming.Designer.cs">
       <DependentUpon>201802091031082_Renaming.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.Designer.cs">
+      <DependentUpon>201802231106236_ActivityToLinkPreviewEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

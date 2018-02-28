@@ -16,6 +16,7 @@
             </div>
             <input type="hidden" name="description" class="js-edit-bulletin__description-hidden" value="@(Model.Description)" />
         </div>
+        @Html.Action("EditLinkPreview", "ActivityLinkPreview", new { model = Model.LinkPreview })
         @Html.Action("TagPicker", "UserTags", new { entityId = Model.Id })
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("BulletinsEdit.UploadFiles.lbl")</label>

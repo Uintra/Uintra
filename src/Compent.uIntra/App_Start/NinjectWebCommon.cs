@@ -55,6 +55,8 @@ using Ninject;
 using Ninject.Extensions.Conventions;
 using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
+using uIntra.LicenceService.ApiClient;
+using uIntra.LicenceService.ApiClient.Interfaces;
 using Uintra.Bulletins;
 using Uintra.CentralFeed;
 using Uintra.CentralFeed.Providers;
@@ -88,8 +90,6 @@ using Uintra.Core.Utils;
 using Uintra.Events;
 using Uintra.Groups;
 using Uintra.Groups.Permissions;
-using uIntra.LicenceService.ApiClient;
-using uIntra.LicenceService.ApiClient.Interfaces;
 using Uintra.Likes;
 using Uintra.Navigation;
 using Uintra.Navigation.Configuration;
@@ -382,6 +382,7 @@ namespace Compent.Uintra
             kernel.Bind<ILinkPreviewConfigProvider>().To<LinkPreviewConfigProvider>();
             kernel.Bind<IHttpService>().To<HttpService>();            
             kernel.Bind<LinkPreviewModelMapper>().ToSelf();
+            kernel.Bind<IActivityLinkPreviewService>().To<ActivityLinkPreviewService>();
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
