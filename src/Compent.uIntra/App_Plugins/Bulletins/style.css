@@ -26,6 +26,7 @@
             position:relative;
             z-index:13;
             background:var(--color-white);
+            padding:0 0 1px;
         }
     }
 

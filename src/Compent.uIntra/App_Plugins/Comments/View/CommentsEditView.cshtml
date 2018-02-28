@@ -20,11 +20,13 @@
     {
         <input type="hidden" name="linkPreviewId" value="@Model.LinkPreview.Id" />
         <div class="js-link-preview-edit-preview-container link-preview link-preview--edit">
-            <button type="button" class="link-preview-close js-link-preview-remove-preview">X</button>
-            <h3 class="link-preview-title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
-            <p>@Model.LinkPreview.Description</p>
-            <div class="link-preview-image">
+            <button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
+            <div class="link-preview__image">
                 <img src="@Model.LinkPreview.ImageUri" alt="link preview image description" />
+            </div>
+            <div class="link-preview__text">
+                <h3 class="link-preview__title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
+                <p>@Model.LinkPreview.Description</p>
             </div>
         </div>
     }
