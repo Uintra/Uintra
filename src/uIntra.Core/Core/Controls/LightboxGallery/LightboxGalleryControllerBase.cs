@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Web.Mvc;
 using Extensions;
+using uIntra.Core;
 using uIntra.Core.Constants;
+using uIntra.Core.Controls.LightboxGallery;
 using uIntra.Core.Extensions;
 using uIntra.Core.Links;
 using uIntra.Core.Media;
@@ -10,7 +12,7 @@ using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Core.Controls.LightboxGallery
+namespace Uintra.Core.Controls.LightboxGallery
 {
     public abstract class LightboxGalleryControllerBase : SurfaceController
     {
@@ -51,13 +53,10 @@ namespace uIntra.Core.Controls.LightboxGallery
             if (mediaIds.IsNullOrEmpty()) return result;
 
             var medias = _umbracoHelper.TypedMedia(mediaIds.ToIntCollection()).ToList();
-            var galleryItems = medias.Select(MapToMedia).ToList();
-
-            MapPreviewUrl(galleryItems);
+            var galleryItems = medias.Select(MapToMedia).OrderBy(s => s.Type).ToList();
 
             result.Medias = FindMedias(galleryItems);
             result.OtherFiles = galleryItems.Except(result.Medias);
-
             return result;
         }
 
@@ -68,6 +67,7 @@ namespace uIntra.Core.Controls.LightboxGallery
             var galleryViewModelList = mediasList.Select(MapToMedia).ToList();
 
             MapPreviewUrl(galleryViewModelList);
+            model.DisplayedImagesCount = HttpContext.Request.IsMobileBrowser() ? 2 : 3;
 
             galleryPreviewModel.Links = _linkService.GetLinks(model.ActivityId);
             galleryPreviewModel.Medias = FindMedias(galleryViewModelList);
@@ -76,8 +76,9 @@ namespace uIntra.Core.Controls.LightboxGallery
             galleryPreviewModel.HiddenImagesCount = galleryPreviewModel.Medias.Count(i => i.IsHidden);
 
 
-            return galleryPreviewModel;
+            return galleryPreviewModel;           
         }
+
 
         protected virtual LightboxGalleryItemViewModel MapToMedia(IPublishedContent media)
         {
@@ -96,28 +97,32 @@ namespace uIntra.Core.Controls.LightboxGallery
                 result.Width = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaWidth);
             }
 
-            if (result.Type.Id == MediaTypeEnum.Video.ToInt())
-            {
-                result.PreviewUrl = media.GetPropertyValue<string>(UmbracoAliases.Video.ThumbnailUrlPropertyAlias);
-                result.Height = media.GetPropertyValue<int>(UmbracoAliases.Video.VideoHeightPropertyAlias);
-                result.Width = media.GetPropertyValue<int>(UmbracoAliases.Video.VideoWidthPropertyAlias);
-            }
-
             return result;
         }
-
+        
         protected void MapPreviewUrl(List<LightboxGalleryItemViewModel> galleryItems)
         {
-            var mediaItems = FindMedias(galleryItems);
+            var imageItems = galleryItems.FindAll(m => m.Type.Id == MediaTypeEnum.Image.ToInt());
 
-            foreach (var item in mediaItems)
+            if (imageItems.Count == 1)
             {
-                var url = item.Type.Id == MediaTypeEnum.Video.ToInt() ? item.PreviewUrl : item.Url;
-
-                item.PreviewUrl = mediaItems.Count > 1 ?
-                    _imageHelper.GetImageWithPreset(url, UmbracoAliases.ImagePresets.Thumbnail) :
-                    _imageHelper.GetImageWithPreset(url, UmbracoAliases.ImagePresets.Preview);
+                var item = imageItems[0];
+                item.PreviewUrl = _imageHelper.GetImageWithPreset(item.Url, IsPortrait(item.Width, item.Height) ? UmbracoAliases.ImagePresets.CroppedPreview : UmbracoAliases.ImagePresets.Preview);
+                return;
             }
+
+            foreach (var item in imageItems)
+            {
+                item.PreviewUrl = imageItems.Count < 3 ?
+                    _imageHelper.GetImageWithPreset(item.Url, IsPortrait(item.Width, item.Height) ? UmbracoAliases.ImagePresets.CroppedPreviewTwo : UmbracoAliases.ImagePresets.PreviewTwo) :
+                    _imageHelper.GetImageWithPreset(item.Url, IsPortrait(item.Width, item.Height) ? UmbracoAliases.ImagePresets.CroppedThumbnail : UmbracoAliases.ImagePresets.Thumbnail);
+            }
+        }
+
+        private bool IsPortrait(int width, int height)
+        {
+            var isPortrait = height - width > 1.1;
+            return isPortrait;
         }
 
         protected List<LightboxGalleryItemViewModel> FindMedias(List<LightboxGalleryItemViewModel> galleryItems)
