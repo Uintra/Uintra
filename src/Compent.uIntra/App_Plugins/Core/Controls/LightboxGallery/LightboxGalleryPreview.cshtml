@@ -12,7 +12,7 @@
         @foreach (var media in Model.Medias)
         {
             var originalSize = $"{media.Width}x{media.Height}";
-            var videoClass = media.Type is MediaTypeEnum.Video ? "video" : string.Empty;
+            var videoClass = media.Type.ToInt() == MediaTypeEnum.Video.ToInt() ? "video" : string.Empty;
 
             <li class="gallery__item @fullSizeClass @videoClass" style="@(media.IsHidden ? "display:none;" : string.Empty)">
                 @if (!videoClass.IsNullOrEmpty())
