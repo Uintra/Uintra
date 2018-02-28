@@ -32,8 +32,12 @@
 
         public static class ImagePresets
         {
-            public const string Thumbnail = "thumbnail";         
+            public const string Thumbnail = "thumbnail";
+            public const string PreviewTwo = "previewTwo";
             public const string Preview = "preview";
+            public const string CroppedThumbnail = "croppedThumbnail";
+            public const string CroppedPreview = "croppedPreview";
+            public const string CroppedPreviewTwo = "croppedPreviewTwo";
             public const string GroupImageThumbnail = "groupImageThumbnail";
         }
 

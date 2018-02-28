@@ -124,6 +124,11 @@ namespace uIntra.Core.Media
             return GetImagePath(source, preset);
         }
 
+        public string GetImageWithCrop(string source)
+        {
+            return $"{source}?crop=0.23159636062861869,0.061207609594706371,0.023986765922249794,0.19437551695616212&cropmode=percentage&width=500&height=500";
+        }
+
         private string GetImagePath(string source, string imageGenClass)
         {
             return StartWithParam(source, "preset", imageGenClass);
