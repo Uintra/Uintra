@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using uIntra.Panels.Core.Models;
 using uIntra.Panels.Core.Models.Table;
 
-namespace uIntra.Panels.Core.PresentationBuilders
+namespace UIntra.Panels.Core.PresentationBuilders
 {
     public class TableCellBuilder : ITableCellBuilder
     {

@@ -446,6 +446,11 @@ namespace Compent.Uintra
             kernel.Bind<SendEmailJob>().ToSelf().InRequestScope();
             kernel.Bind<UpdateActivityCacheJob>().ToSelf().InRequestScope();
             kernel.Bind<IJobFactory>().To<IntranetJobFactory>().InRequestScope();
+
+            //table
+            kernel.Bind<ITablePanelPresentationBuilder>().To<TablePanelPresentationBuilder>().InRequestScope();
+            kernel.Bind<ITableCellBuilder>().To<TableCellBuilder>().InRequestScope();
+
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
