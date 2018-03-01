@@ -30,7 +30,7 @@
     <add key="Search.UserEmailScore" value="3" xdt:Locator="Condition(@key='Search.UserEmailScore')" xdt:Transform="InsertIfMissing"/>
     <add key="Search.UserPhoneScore" value="3" xdt:Locator="Condition(@key='Search.UserPhoneScore')" xdt:Transform="InsertIfMissing"/>
 
-    <add key="linkPreviewServiceUri" value="http://136.243.176.173:11223" xdt:Locator="Condition(@key='linkPreviewServiceUri')" xdt:Transform="InsertIfMissing" />
+    <add key="linkPreviewServiceUri" value="http://linkpreview.uintra.com/" xdt:Locator="Condition(@key='linkPreviewServiceUri')" xdt:Transform="InsertIfMissing" />
   </appSettings>
 
   <elasticConfiguration url="http://localhost:9200" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>
