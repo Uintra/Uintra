@@ -122,10 +122,10 @@
             margin:0 0 13px;
             font-size:13px;
             display:flex;
-            align-items: flex-end;
+            align-items: center;
             color:var(--text-color-dark);
 
-            @media (--for-tablet-portrait-down){
+            /*@media (--for-tablet-portrait-down){
                 max-width:100%;
                 display:block;
                 min-height:62px;
@@ -133,7 +133,7 @@
                 .avatar{
                     float:left;
                 }
-            }
+            }*/
 
             .create-bulletin &{
                 align-items: center;
@@ -149,13 +149,12 @@
         }
 
         &-title{
-            font:bold 18px/22px var(--font-general);
+            font: 18px/22px var(--font-general);
             margin:-5px 0 7px;
             color:#262626;
 
             @media (--for-tablet-portrait-up){
                 font-size:20px;
-                font-weight:normal;
             }
 
             &-link{
@@ -359,6 +358,11 @@
                 display:inline-block;
             }
         }
+        
+        &-divider{
+            display:inline-block;
+            vertical-align:inherit;
+        }
 
         &-feed{
             font-size:13px;
@@ -458,13 +462,17 @@
             margin:0 0 24px;
         }
 
-        &-name{
-            margin:0 15px 0 0;
-        }
-
         &-address{
             display:inline-block;
             vertical-align:inherit;
+            margin:0 0 0 15px;
+            @media(--for-tablet-portrait-down){
+                margin:0 0 0 7px;
+            }
+            @media (--for-phone-only){
+                display:block;
+                margin:0;
+            }
 
             &:before{
                 content: "";
@@ -534,16 +542,20 @@
     }
 
     &-links {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: flex-start;
-		margin: 29px -19px 14px;
-		padding: 20px 21px 0;
+        list-style:none;
+		margin:29px 0 14px -28px;
+		padding:20px 2px 0;
         border-top:1px solid #e6e6e6;
-		list-style: none;
+
+        &:after{
+            content:'';
+            display:block;
+            clear:both;
+        }
 
 		&__frame {
-			margin: 0 28px 0 0;
+            float:left;
+			margin: 0 0 0 28px;
 		}
 
 		&__item {

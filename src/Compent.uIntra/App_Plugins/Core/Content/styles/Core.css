@@ -1,6 +1,6 @@
 @import "libs.css";
 @import "forms.css";
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:600,600i,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,600i,700');
 
 @define-mixin btn-focus-color $color {
     &:focus,
@@ -240,7 +240,7 @@ img{
 
 .centring{
     max-width:1552px;
-    padding:0 20px;
+    padding:0 15px;
     margin:0 auto;
     width:100%;
     position:relative;

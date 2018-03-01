@@ -1,6 +1,9 @@
 ﻿using System.Web.Http;
+using Extensions;
+using uIntra.Notification;
 using Uintra.Core.Extensions;
 using Uintra.Core.TypeProviders;
+using Uintra.Notification.Configuration;
 using Umbraco.Web.WebApi;
 
 namespace Uintra.Notification.Web
@@ -28,8 +31,21 @@ namespace Uintra.Notification.Web
         [HttpGet]
         public virtual NotifierSettingsModel Get(int activityType, int notificationType)
         {
-            var activityEventIdentity = new ActivityEventIdentity(_activityTypeProvider[activityType], _notificationTypeProvider[notificationType]);
-            return _notificationSettingsService.GetSettings(activityEventIdentity);
+            var isCommunicationSettings = activityType == CommunicationTypeEnum.CommunicationSettings.ToInt();
+            var actType = isCommunicationSettings//TODO: temporary for communication settings
+                ? CommunicationTypeEnum.CommunicationSettings
+                : _activityTypeProvider[activityType];
+
+            var activityEventIdentity = new ActivityEventIdentity(actType, _notificationTypeProvider[notificationType]);
+
+            var  settings =_notificationSettingsService.GetSettings(activityEventIdentity);
+
+            if (isCommunicationSettings && notificationType.In(NotificationTypeEnum.MonthlyMail.ToInt()))
+            {
+                settings.UiNotifierSetting = null;
+            }
+
+            return settings;
         }
 
         [HttpPost]
@@ -55,7 +71,10 @@ namespace Uintra.Notification.Web
             NotifierSettingSaveModel<T> notifierSettingSaveModel)
             where T : INotifierTemplate
         {
-            notifierSettingModel.ActivityType = _activityTypeProvider[notifierSettingSaveModel.ActivityType];
+            notifierSettingModel.ActivityType = notifierSettingSaveModel.ActivityType == CommunicationTypeEnum.CommunicationSettings.ToInt()
+                ? CommunicationTypeEnum.CommunicationSettings
+                : _activityTypeProvider[notifierSettingSaveModel.ActivityType];//TODO: temporary for communication settings
+
             notifierSettingModel.NotificationType = _notificationTypeProvider[notifierSettingSaveModel.NotificationType];
             notifierSettingModel.NotifierType = _notifierTypeProvider[notifierSettingSaveModel.NotifierType];
         }

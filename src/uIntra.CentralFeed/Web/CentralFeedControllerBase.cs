@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Extensions;
+using Uintra.CentralFeed.Navigation.Models;
 using Uintra.Core.Activity;
 using Uintra.Core.Attributes;
 using Uintra.Core.Extensions;

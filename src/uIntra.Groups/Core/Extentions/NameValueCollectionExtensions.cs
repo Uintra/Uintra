@@ -3,8 +3,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using Uintra.Groups.Constants;
 
-
-namespace Uintra.Groups.Extensions
+namespace Uintra.Groups.Extentions
 {
     public static class NameValueCollectionExtensions
     {

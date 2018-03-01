@@ -2,7 +2,6 @@
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
 using Uintra.Notification.Configuration;
-using Uintra.Notification.Core.Sql;
 
 namespace Uintra.Notification
 {
@@ -107,7 +106,9 @@ namespace Uintra.Notification
             return new NotifierSettingModel<T>
             {
                 ActivityType = identity.Event.ActivityType,
+                ActivityTypeName = identity.Event.ActivityType.ToString(),
                 NotificationType = identity.Event.NotificationType,
+                NotificationTypeName = identity.Event.NotificationType.ToString(),
                 NotifierType = identity.NotifierType,
                 IsEnabled = notificationSetting.IsEnabled,
                 NotificationInfo = defaults.Label,

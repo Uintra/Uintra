@@ -12,7 +12,8 @@ function onSubmit(e) {
 function submit(form) {
     var action = form.getAttribute("action");
     var data = helpers.serialize(form);
-    var promise = ajax.Post(action, data);
+
+    var promise = ajax.post(action, data);
     promise.then(wrapWithSender(form, onSuccess), wrapWithSender(form, onError));
     return promise;
 }
@@ -24,14 +25,14 @@ function appendTo(form, data) {
     data && (elm.innerHTML = data);
 }
 
-function onSuccess(sender, data) {
-    appendTo(sender, data);
+function onSuccess(sender, response) {
+    appendTo(sender, response.data);
 };
 
-function onError(sender, data) {
+function onError(sender, response) {
     console.error("Some error occured on form submit");
     console.error(sender);
-    console.error(data);
+    console.error(response);
 };
 
 

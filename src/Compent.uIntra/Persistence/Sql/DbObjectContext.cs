@@ -7,14 +7,13 @@ using Uintra.Comments;
 using Uintra.Core.Activity;
 using Uintra.Core.LinkPreview.Sql;
 using Uintra.Core.Location.Entities;
-using Uintra.Core.Media;
+using Uintra.Core.Media.Sql;
 using Uintra.Core.MigrationHistories.Sql;
 using Uintra.Core.Persistence;
 using Uintra.Groups.Sql;
 using Uintra.Likes;
 using Uintra.Navigation;
 using Uintra.Notification;
-using Uintra.Notification.Core.Sql;
 using Uintra.Subscribe;
 using Uintra.Tagging.UserTags;
 
@@ -54,9 +53,10 @@ namespace Compent.Uintra.Persistence.Sql
         public DbSet<GroupActivityRelation> GroupActivities { get; set; }
         public DbSet<ActivitySubscribeSetting> ActivitySubscribeSettings { get; set; }
         public DbSet<UserTagRelation> UserTagRelations { get; set; }
-        
-        public DbSet<LinkPreviewEntity> LinkPreview { get; set; }
-        public DbSet<CommentToLinkPreviewEntity> CommentToLinkPreview { get; set; }
+
+        public DbSet<LinkPreviewEntity> LinkPreviews { get; set; }
+        public DbSet<CommentToLinkPreviewEntity> CommentToLinkPreviews { get; set; }
+        public DbSet<ActivityToLinkPreviewEntity> ActivityToLinkPreviews { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

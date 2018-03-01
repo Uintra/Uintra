@@ -21,7 +21,6 @@ namespace Compent.Uintra.Controllers
         protected override string ViewPath { get; } = "~/Views/Comments/CommentsView.cshtml";
 
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly INotificationTypeProvider _notificationTypeProvider;
 
         public CommentsController(
             ICommentsService commentsService,
@@ -29,14 +28,19 @@ namespace Compent.Uintra.Controllers
             IActivitiesServiceFactory activitiesServiceFactory,
             IMediaHelper mediaHelper,
             ICustomCommentableService customCommentableService,
-            INotificationTypeProvider notificationTypeProvider,
             IUmbracoContentHelper umbracoContentHelper,
             IProfileLinkProvider profileLinkProvider,
             UmbracoHelper umbracoHelper)
-            : base(commentsService, intranetUserService, activitiesServiceFactory, customCommentableService, umbracoContentHelper, profileLinkProvider, umbracoHelper)
+            : base(
+                commentsService,
+                intranetUserService,
+                activitiesServiceFactory,
+                customCommentableService,
+                umbracoContentHelper,
+                profileLinkProvider,
+                umbracoHelper)
         {
             _activitiesServiceFactory = activitiesServiceFactory;
-            _notificationTypeProvider = notificationTypeProvider;
         }
 
         protected override void OnCommentCreated(CommentModel comment)

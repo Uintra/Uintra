@@ -7,8 +7,8 @@
     <ProjectGuid>{774EBA5A-679C-401D-B3F1-130562785C60}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.Notification</RootNamespace>
-    <AssemblyName>uIntra.Notification</AssemblyName>
+    <RootNamespace>Uintra.Notification</RootNamespace>
+    <AssemblyName>Uintra.Notification</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -343,6 +343,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\AutoMapperProfiles\NotificationAutoMapperProfile.cs" />
+    <Compile Include="Core\CommunicationTypeEnum.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Helpers\BackofficeSettingsReader.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Helpers\IBackofficeSettingsReader.cs" />
     <Compile Include="Core\Configuration\BackofficeSettings\Models\TreeNodeModel.cs" />
@@ -365,6 +366,7 @@
     <Compile Include="Core\Constants\EmailTokensConstants.cs" />
     <Compile Include="Core\Dashboard\NotificationSettingsSection.cs" />
     <Compile Include="Core\Entities\ActivityNotifierDataModel.cs" />
+    <Compile Include="Core\Entities\MonthlyMailDataModel.cs" />
     <Compile Include="Core\Entities\ActivityReminderDataModel.cs" />
     <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
     <Compile Include="Core\Entities\Base\INotifierDataValue.cs" />
@@ -402,7 +404,6 @@
     <Compile Include="Core\Models\MailModels\EventMailBase.cs" />
     <Compile Include="Core\Models\MailModels\EventUpdatedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\IdeaMailBase.cs" />
-    <Compile Include="Core\Models\MailModels\MonthlyMailBase.cs" />
     <Compile Include="Core\Models\MailModels\NewsMailBase.cs" />
     <Compile Include="Core\Models\NotificationMessage.cs" />
     <Compile Include="Core\Models\NotificationValue.cs" />
@@ -478,6 +479,10 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\EventHided.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\EventUpdated.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\BeforeStart.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\CommentLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\CommentLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\MonthlyMail.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\MonthlyMail.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
     <Content Include="Web.config.install.xdt">

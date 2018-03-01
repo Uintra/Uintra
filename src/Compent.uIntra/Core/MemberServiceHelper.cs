@@ -11,7 +11,7 @@ namespace Compent.Uintra.Core
         private const string RelatedUserPropertyName = "relatedUser";
         public Dictionary<IMember, int?> GetRelatedUserIdsForMembers(IEnumerable<IMember> users)
         {
-            return users.ToDictionary(u => u, u => u.GetValue<int?>(nameof(RelatedUserPropertyName)));
+            return users.ToDictionary(u => u, u => u.GetValue<int?>(RelatedUserPropertyName));
         }
     }
 }

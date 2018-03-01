@@ -11,7 +11,7 @@
     <copyright>Copyright © compent.dk 2017</copyright>
     <tags>Compent Uintra Subscribe Controls SubscribeControls</tags>
     <dependencies>
-      <dependency id="Uintra.Core" version="1.4.11" />
+      <dependency id="Uintra.Core" version="1.4.14" />
     </dependencies>
   </metadata>
 </package>

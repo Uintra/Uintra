@@ -8,8 +8,8 @@
     <ProjectGuid>{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.Core</RootNamespace>
-    <AssemblyName>uIntra.Core</AssemblyName>
+    <RootNamespace>Uintra.Core</RootNamespace>
+    <AssemblyName>Uintra.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -108,14 +108,14 @@
     <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.Client, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Client.1.0.2\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.Client, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Client.1.0.3\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.0.2\lib\net452\Compent.LinkPreview.HttpClient.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.0.3\lib\net452\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.Infrastructure, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Infrastructure.1.0.2\lib\net452\Compent.LinkPreview.Infrastructure.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.Infrastructure, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Infrastructure.1.0.3\lib\net452\Compent.LinkPreview.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="controls, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\controls.dll</HintPath>
@@ -374,6 +374,10 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\LinkPreview\AutoMapperProfiles\LinkPreviewAutoMapperProfile.cs" />
+    <Compile Include="Core\LinkPreview\ActivityLinkPreviewService.cs" />
+    <Compile Include="Core\LinkPreview\IActivityLinkPreviewService.cs" />
+    <Compile Include="Core\LinkPreview\IHasLinkPreview.cs" />
+    <Compile Include="Core\LinkPreview\Sql\ActivityToLinkPreviewEntity.cs" />
     <Compile Include="Core\Location\AutoMapperProfiles\LocationAutoMapperProfile.cs" />
     <Compile Include="Core\Location\Entities\ActivityLocationEntity.cs" />
     <Compile Include="Core\Location\IActivityWithLocation.cs" />
@@ -493,6 +497,7 @@
     <Compile Include="Core\Utils\IHttpHelper.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Core\Location\Models\ActivityLocationEditModel.cs" />
+    <Compile Include="Web\ActivityLinkPreviewControllerBase.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
     <Compile Include="Web\LinkPreviewControllerBase.cs" />
     <Compile Include="Web\CacheController.cs" />
@@ -594,6 +599,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Compent.uIntra\App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml">
+      <Link>App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml</Link>
+    </None>
     <None Include="app.config" />
     <Content Include="Config\Dashboard.config.install.xdt" />
     <Content Include="Config\Dashboard.config.uninstall.xdt" />
@@ -607,6 +615,7 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Plugins\LinkPreview\" />
     <Folder Include="Core\Media\UmbracoEventServices\" />
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,7 @@ namespace Uintra.Core.User
         IEnumerable<T> GetMany(IEnumerable<Guid> ids);
         IEnumerable<T> GetMany(IEnumerable<int> ids);
         IEnumerable<T> GetAll();
+        T GetCurrentBackOfficeUser();
         T GetCurrentUser();
         IEnumerable<T> GetByRole(int role);
         T GetByName(string name);

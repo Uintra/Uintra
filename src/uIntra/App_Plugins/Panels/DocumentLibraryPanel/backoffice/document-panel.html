@@ -1,6 +1,11 @@
 ﻿<div class="panel" ng-controller="documentPanelController" ng-init="init(control)">
     <div class="span12 m-b-20">
-        <span class="span12 control-label">{{control.editor.name}} - {{control.value.title}}</span>
+        <div>
+            <span class="span12"><b>{{control.editor.name}}</b></span>
+        </div>       
+        <div>
+            <span class="span12"> {{control.value.title}} </span>
+        </div>
     </div>
     <div class="span12" ng-hide="control.inGlobalPanelScope">
         <input class="btn span12" type="button" ng-click="open()" value="Edit">

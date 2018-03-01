@@ -11,8 +11,8 @@ namespace Compent.Uintra.Controllers
 
         public ActivityController(IIntranetUserService<IIntranetUser> intranetUserService,
             IPermissionsService permissionsService,
-            ActivityTypeProvider activityTypeProvider) 
-            : base(intranetUserService, permissionsService, activityTypeProvider)
+            IActivityTypeProvider activityTypeProvider) 
+            : base(intranetUserService, permissionsService)
         {
         }
     }

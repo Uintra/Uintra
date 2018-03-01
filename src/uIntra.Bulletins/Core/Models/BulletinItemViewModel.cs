@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Activity;
 using Uintra.Core.Controls.LightboxGallery;
+using Uintra.Core.LinkPreview;
 using Uintra.Core.Links;
-using Uintra.Core.TypeProviders;
 
 namespace Uintra.Bulletins
 {
@@ -25,6 +25,8 @@ namespace Uintra.Bulletins
         public Enum ActivityType { get; set; }
 
         public IActivityLinks Links { get; set; }
+
+        public LinkPreviewViewModel LinkPreview { get; set; }
 
         public bool IsReadOnly { get; set; }
     }

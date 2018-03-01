@@ -12,7 +12,7 @@ using Uintra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
-namespace Uintra.Core.Installer
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
 {
     public class InstallationStepsHelper
     {
@@ -147,6 +147,18 @@ namespace Uintra.Core.Installer
             {
                 resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English] = translation;
                 localizationCoreService.Create(resourceModel);
+            }
+        }
+
+        public static void UpdateTranslation(string key, string oldTranslation, string newTranslation)
+        {
+            var localizationCoreService = DependencyResolver.Current.GetService<ILocalizationCoreService>();
+
+            var resourceModel = localizationCoreService.GetResourceModel(key);
+            if (resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English].Contains(oldTranslation))
+            {
+                resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English] = newTranslation;
+                localizationCoreService.Update(resourceModel);
             }
         }
 
