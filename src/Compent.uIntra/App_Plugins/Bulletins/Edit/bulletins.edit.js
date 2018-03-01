@@ -9,6 +9,7 @@ let descriptionElem;
 let editor;
 let editForm;
 let isOneLinkDetected = false;
+let linkPreviewId;
 
 function initEditor() {    
     descriptionElem = holder.querySelector(".js-edit-bulletin__description");
@@ -27,6 +28,11 @@ function initEditor() {
             showLinkPreview(link);            
         }
     });
+
+    linkPreviewId = holder.querySelector("[name='linkPreviewId']");
+    if (linkPreviewId) {
+        isOneLinkDetected = true;        
+    }
 
     editForm = holder.querySelector("form");
 
@@ -155,6 +161,7 @@ var initEditLinkPreview = function (holder) {
     removeLinkPreviewButton.on('click', function () {
         linkPreviewIdContainer.value = null;
         linkPreviewEditContainer.hide();
+        isOneLinkDetected = false;
     });
 };
 
