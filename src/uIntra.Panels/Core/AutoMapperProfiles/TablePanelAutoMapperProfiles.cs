@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using uIntra.Panels.Core.Models;
-using uIntra.Panels.Core.Models.Table;
+using Uintra.Panels.Core.Models.Table;
 
-namespace uIntra.Panels.Core.AutoMapperProfiles
+namespace Uintra.Panels.Core.AutoMapperProfiles
 {
     public class TablePanelAutoMapperProfiles : Profile
     {

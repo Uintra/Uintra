@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace uIntra.Panels.Core.Models.Table
+namespace Uintra.Panels.Core.Models.Table
 {
     public class TableEditorViewModel
     {

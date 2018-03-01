@@ -1,5 +1,5 @@
-﻿using uIntra.Panels.Core.PresentationBuilders;
-using uIntra.Panels.Web;
+﻿using Uintra.Panels.Core.PresentationBuilders;
+using Uintra.Panels.Web;
 using Umbraco.Web;
 
 namespace Compent.uIntra.Controllers

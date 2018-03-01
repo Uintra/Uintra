@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using uIntra.Panels.Core.Models.Table;
-using uIntra.Panels.Core.PresentationBuilders;
 using Uintra.Core.Extensions;
+using Uintra.Panels.Core.Models.Table;
+using Uintra.Panels.Core.PresentationBuilders;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Panels.Web
+namespace Uintra.Panels.Web
 {
     public abstract class TablePanelControllerBase : SurfaceController
     {

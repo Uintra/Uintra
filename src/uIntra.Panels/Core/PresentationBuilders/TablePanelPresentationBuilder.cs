@@ -1,7 +1,7 @@
-﻿using uIntra.Panels.Core.Models.Table;
-using Uintra.Core.Extensions;
+﻿using Uintra.Core.Extensions;
+using Uintra.Panels.Core.Models.Table;
 
-namespace UIntra.Panels.Core.PresentationBuilders
+namespace Uintra.Panels.Core.PresentationBuilders
 {
     public class TablePanelPresentationBuilder : ITablePanelPresentationBuilder
     {

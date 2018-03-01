@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using uIntra.Panels.Core.Models.Table;
+using Uintra.Panels.Core.Models.Table;
 
-namespace UIntra.Panels.Core.PresentationBuilders
+namespace Uintra.Panels.Core.PresentationBuilders
 {
     public interface ITableCellBuilder
     {

@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace uIntra.Panels.Core.HtmlHelpers
+namespace Uintra.Panels.Core.HtmlHelpers
 {
     public static class HtmlHelperExtensions
     {

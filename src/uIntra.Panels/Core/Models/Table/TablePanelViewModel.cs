@@ -1,4 +1,4 @@
-﻿namespace uIntra.Panels.Core.Models.Table
+﻿namespace Uintra.Panels.Core.Models.Table
 {
     public class TablePanelViewModel
     {        

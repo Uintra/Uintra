@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace uIntra.Panels.Core.Models.Table
+namespace Uintra.Panels.Core.Models.Table
 {
     public class TableEditorModel
     {

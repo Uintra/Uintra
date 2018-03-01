@@ -102,6 +102,7 @@ using Uintra.News;
 using Uintra.Notification;
 using Uintra.Notification.Configuration;
 using Uintra.Notification.Jobs;
+using Uintra.Panels.Core.PresentationBuilders;
 using Uintra.Search;
 using Uintra.Search.Configuration;
 using Uintra.Subscribe;

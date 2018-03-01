@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using uIntra.Panels.Core.Models.Table;
+using Uintra.Panels.Core.Models.Table;
 
-namespace uIntra.Panels.Core.HtmlHelpers
+namespace Uintra.Panels.Core.HtmlHelpers
 {
     public static class TableComponent
     {
