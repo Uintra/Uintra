@@ -93,15 +93,15 @@ var initCreateControl = function (holder) {
 
             divElem.innerHTML =
                 `<button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
-                <div class="link-preview__image">
-                     <img src="${data.imageUri}" />
-                 </div>
+                <div class="link-preview__image">` +
+                (data.imageUri ? `<img src="${data.imageUri}" />` : '') +
+                `</div>
                 <div class="link-preview__text">
                     <h3 class="link-preview__title">
                         <a href="${data.uri}">${data.title}</a>
-                    </h3>
-                    <p>${data.description}</p>
-                </div>`;
+                    </h3>` +
+                (data.description ? `<p>${data.description}</p>` : "") +
+                "</div>";
 
             return divElem;
         }
@@ -297,15 +297,15 @@ var initReply = function (holder) {
 
         divElem.innerHTML =
             `<button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
-                <div class="link-preview__image">
-                     <img src="${data.imageUri}" />
-                 </div>
+                <div class="link-preview__image">` +
+            (data.imageUri ? `<img src="${data.imageUri}" />` : '') +
+            `</div>
                 <div class="link-preview__text">
                     <h3 class="link-preview__title">
                         <a href="${data.uri}">${data.title}</a>
-                    </h3>
-                    <p>${data.description}</p>
-                </div>`;
+                    </h3>` +
+            (data.description ? `<p>${data.description}</p>` : "") +
+            "</div>";
         return divElem;
     }
 
