@@ -278,10 +278,13 @@ function hide(event) {
     clear();
 }
 
-function hideLinkPreview() {
+function hideLinkPreview() {    
     linkPreviewContainer = holder.querySelector(".link-preview");
+    var linkPreviewId = holder.querySelector("[name='linkPreviewId']");
+    
     if (linkPreviewContainer) {
-        $(linkPreviewContainer).hide();
+        linkPreviewContainer.parentNode.removeChild(linkPreviewContainer);        
+        linkPreviewId.parentNode.removeChild(linkPreviewId);        
         isOneLinkDetected = false;
     }
 }
