@@ -1185,6 +1185,13 @@
       <Link>Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.designer.cs</Link>
       <DependentUpon>201802231106236_ActivityToLinkPreviewEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs">
+      <Link>Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.designer.cs">
+      <Link>Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.designer.cs</Link>
+      <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
     </Compile>
@@ -1220,6 +1227,10 @@
     <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.resx">
       <Link>Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.resx</Link>
       <DependentUpon>201802231106236_ActivityToLinkPreviewEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.resx">
+      <Link>Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.resx</Link>
+      <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

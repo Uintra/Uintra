@@ -615,7 +615,6 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Plugins\LinkPreview\" />
     <Folder Include="Core\Media\UmbracoEventServices\" />
   </ItemGroup>
   <ItemGroup>
