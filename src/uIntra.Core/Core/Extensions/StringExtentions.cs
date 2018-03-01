@@ -135,7 +135,7 @@ namespace Uintra.Core.Extensions
             }
 
             var lastIndex = str.Substring(0, maxLength).LastIndexOf(' ');
-            return str.Substring(0, lastIndex).Trim();
+            return lastIndex > 0 ? str.Substring(0, lastIndex).Trim() : str;
         }
 
         public static string SplitOnUpperCaseLetters(this string str) =>
