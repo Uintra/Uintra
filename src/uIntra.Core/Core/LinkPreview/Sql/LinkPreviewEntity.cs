@@ -17,7 +17,7 @@ namespace Uintra.Core.LinkPreview.Sql
         public string Title { get; set; }
         public string Description { get; set; }
         public string OgDescription { get; set; }
-        public Guid ImageId { get; set; }
-        public Guid FaviconId { get; set; }
+        public Guid? ImageId { get; set; }
+        public Guid? FaviconId { get; set; }
     }
 }

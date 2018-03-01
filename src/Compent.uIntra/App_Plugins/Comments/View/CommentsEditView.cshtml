@@ -1,5 +1,6 @@
 ﻿@using System.Web.Mvc.Ajax
 @using System.Web.Mvc.Html
+@using Extensions
 @using Uintra.Core.Extensions
 @model Uintra.Comments.CommentEditViewModel
 
@@ -22,11 +23,17 @@
         <div class="js-link-preview-edit-preview-container link-preview link-preview--edit">
             <button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
             <div class="link-preview__image">
-                <img src="@Model.LinkPreview.ImageUri" alt="link preview image description" />
+                @if (Model.LinkPreview.ImageUri != null)
+                {
+                    <img src="@Model.LinkPreview.ImageUri" alt="link preview image description"/>
+                }
             </div>
             <div class="link-preview__text">
                 <h3 class="link-preview__title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
-                <p>@Model.LinkPreview.Description</p>
+                @if (Model.LinkPreview.Description.HasValue())
+                {
+                    <p>@Model.LinkPreview.Description</p>
+                }
             </div>
         </div>
     }
