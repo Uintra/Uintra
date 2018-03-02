@@ -32,13 +32,17 @@
 
         public static class ImagePresets
         {
-            public const string Thumbnail = "thumbnail";
-            public const string PreviewTwo = "previewTwo";
+            public const string Thumbnail = "thumbnail";            
             public const string Preview = "preview";
-            public const string CroppedThumbnail = "croppedThumbnail";
-            public const string CroppedPreview = "croppedPreview";
-            public const string CroppedPreviewTwo = "croppedPreviewTwo";
+            public const string PreviewTwo = "previewTwo";
             public const string GroupImageThumbnail = "groupImageThumbnail";
+        }
+
+        public static class ImageResize
+        {
+            public const string Thumbnail = "width=238&height=158&mode=crop";            
+            public const string Preview = "width=720&height=478&mode=crop";
+            public const string PreviewTwo = "width=359&height=239&mode=crop";
         }
 
         public static class QueryStringParameters

@@ -117,7 +117,7 @@ namespace Uintra.Core.Controls.LightboxGallery
             {
                 var item = imageItems[0];
 
-                item.PreviewUrl = _imageHelper.GetImageWithPreset(IsVideo(item.Type) ? item.PreviewUrl : item.Url, IsPortrait(item.Width, item.Height) ? UmbracoAliases.ImagePresets.CroppedPreview : UmbracoAliases.ImagePresets.Preview);
+                item.PreviewUrl = _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, UmbracoAliases.ImageResize.Preview);
 
                 return;
             }
@@ -125,16 +125,11 @@ namespace Uintra.Core.Controls.LightboxGallery
             foreach (var item in imageItems)
             {
                 item.PreviewUrl = imageItems.Count < 3 ?
-                    _imageHelper.GetImageWithPreset(IsVideo(item.Type) ? item.PreviewUrl : item.Url, IsPortrait(item.Width, item.Height) ? UmbracoAliases.ImagePresets.CroppedPreviewTwo : UmbracoAliases.ImagePresets.PreviewTwo) :
-                    _imageHelper.GetImageWithPreset(IsVideo(item.Type) ? item.PreviewUrl : item.Url, IsPortrait(item.Width, item.Height) ? UmbracoAliases.ImagePresets.CroppedThumbnail : UmbracoAliases.ImagePresets.Thumbnail);
+                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, UmbracoAliases.ImageResize.PreviewTwo) :
+                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, UmbracoAliases.ImageResize.Thumbnail);
             }
         }
 
-        private bool IsPortrait(int width, int height)
-        {
-            var isPortrait = height - width > 1.1;
-            return isPortrait;
-        }
 
         private bool IsVideo(Enum type)
         {
