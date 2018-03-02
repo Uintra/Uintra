@@ -17,10 +17,6 @@
             color:var(--color-white);
             margin:-15px -20px 20px;
             padding:15px 20px 10px;
-
-            &:before{
-                display:none;
-            }
         }
 
         @media (--for-tablet-portrait-down) {
@@ -35,6 +31,14 @@
             right:51%;
             height:1px;
             background:#f6f6f6;
+            
+            .col-md-6 &{
+                right:-20px; 
+            }
+
+            .aside &{
+                display:none;
+            }
 
             @media (--for-tablet-portrait-down) {
                 right:-20px;   
@@ -55,7 +59,8 @@
         font-size:13px;
 
 
-        .aside &{
+        .aside &,
+        .col-md-6 &{
             display:block;
         }
 
@@ -70,7 +75,8 @@
                 display: block;    
             }
 
-            .aside &{
+            .aside &,
+            .col-md-6 &{
                 display:block;
             }
         }
@@ -85,7 +91,8 @@
                 align-items: center;
             }
 
-            .aside &{
+            .aside &,
+            .col-md-6 &{
                 display:flex;
                 align-items:center;
             }
@@ -101,7 +108,8 @@
                     display:block;
                 }
 
-                .aside &{
+                .aside &,
+                .col-md-6 &{
                     display:block;
                 }
             }
@@ -113,7 +121,8 @@
                     font-size:14px;
                 }
 
-                .aside &{
+                .aside &,
+                .col-md-6 &{
                     background: #d6d6d6;
                     font-weight: bold;
                     font-size:14px;
@@ -133,7 +142,8 @@
                         display:block;
                     }
 
-                    .aside &{
+                    .aside &,
+                    .col-md-6 &{
                         display:block;
                     }
                 }
@@ -150,7 +160,8 @@
                     padding:11px 9px 9px;
                 }
 
-                .aside &{
+                .aside &,
+                .col-md-6 &{
                     width: 50%;
                     text-align: left;
                     padding:11px 9px 9px;
@@ -188,7 +199,8 @@
                     display: none;    
                 }
 
-                .aside &{
+                .aside &,
+                .col-md-6 &{
                     display:none;
                 }
             }
