@@ -1,4 +1,4 @@
-﻿namespace uIntra.Comments
+﻿namespace Uintra.Comments
 {
     public class CommentPreviewModel
     {

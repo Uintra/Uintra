@@ -4,20 +4,20 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Extensions;
-using uIntra.Core;
-using uIntra.Core.Activity;
-using uIntra.Core.Attributes;
-using uIntra.Core.Controls.LightboxGallery;
-using uIntra.Core.Extensions;
-using uIntra.Core.Feed;
-using uIntra.Core.Links;
-using uIntra.Core.Media;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Core.User.Permissions.Web;
+using Uintra.Core;
+using Uintra.Core.Activity;
+using Uintra.Core.Attributes;
+using Uintra.Core.Controls.LightboxGallery;
+using Uintra.Core.Extensions;
+using Uintra.Core.Feed;
+using Uintra.Core.Links;
+using Uintra.Core.Media;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Core.User.Permissions.Web;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.News.Web
+namespace Uintra.News.Web
 {
     [ActivityController(ActivityTypeId)]
     public abstract class NewsControllerBase : SurfaceController
@@ -128,7 +128,7 @@ namespace uIntra.News.Web
             {
                 PublishDate = DateTime.UtcNow,
                 OwnerId = _intranetUserService.GetCurrentUser().Id,
-                ActivityType = _activityTypeProvider.Get(ActivityTypeId),
+                ActivityType = _activityTypeProvider[ActivityTypeId],
                 Links = links,
                 MediaRootId = mediaSettings.MediaRootId
             };

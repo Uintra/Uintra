@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Compent.uIntra.Core.Search.Entities
+namespace Compent.Uintra.Core.Search.Entities
 {
     public interface ISearchibleTaggedActivity
     {

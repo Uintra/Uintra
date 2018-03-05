@@ -1,4 +1,5 @@
-﻿import helpers from "./../../Core/Content/scripts/Helpers";
+﻿import ajax from './../../Core/Content/scripts/Ajax';
+import helpers from "./../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../Core/Controls/FileUpload/file-upload";
 import umbracoAjaxForm from "./../../Core/Content/scripts/UmbracoAjaxForm";
 
@@ -14,15 +15,17 @@ let mobileBtn;
 let toolbar;
 let sentButton;
 let header;
-let editor; 
+let editor;
 let body;
 let bulletin;
 let confirmMessage;
+let createForm;
 let expandBulletinBtn;
 let closeBulletinBtn;
 let wrapper;
-let emojiContainer;
 let dimmedBg;
+let isOneLinkDetected = false;
+let linkPreviewContainer;
 
 function initElements() {
     dataStorage = holder.querySelector(".js-create-bulletin__description-hidden");
@@ -34,18 +37,17 @@ function initElements() {
     body = document.querySelector("body");
     bulletin = document.querySelector(".js-create-bulletin");
     confirmMessage = bulletin.dataset.message;
+    createForm = bulletin.querySelector(".js-create-bulletin-form");
     expandBulletinBtn = document.querySelector(".js-bulletin-open");
     closeBulletinBtn = holder.querySelector(".js-create-bulletin__close");
     wrapper = document.getElementById("wrapper");
     uIntra.events.add("setBulletinCreateMode");
     uIntra.events.add("removeBulletinCreateMode");
-    emojiContainer = document.querySelector(".js-emoji");
     dimmedBg = holder.querySelector(".js-create-bulletin__dimmed-bg");
 }
 
 function initEditor() {
-    editor = helpers.initQuill(description, dataStorage,{
-        theme: 'snow',
+    editor = helpers.initQuill(description, dataStorage, {
         placeholder: description.dataset["placeholder"],
         modules: {
             toolbar: {
@@ -54,22 +56,88 @@ function initEditor() {
         }
     });
 
-    var toolbar = editor.getModule('toolbar');
-
     editor.on('text-change', function () {
         sentButton.disabled = !isEdited();
     });
+
+    editor.onLinkDetected(function (link) {
+
+        if (!isOneLinkDetected) {
+            showLinkPreview(link);
+        }
+    });
+
+    function showLinkPreview(link) {
+        ajax.get('/umbraco/api/LinkPreview/Preview?url=' + link)
+            .then(function (response) {
+                var data = response.data;
+                var imageElem = getImageElem(data);
+                var hiddenSaveElem = getHiddenSaveElem(data);
+                $(createForm).append(imageElem);
+                $(createForm).append(hiddenSaveElem);
+                isOneLinkDetected = true;
+
+                var removeLinkPreview = function (e) {
+                    if (e.target.classList.contains('js-link-preview-remove-preview')) {
+                        imageElem.parentNode.removeChild(imageElem);
+                        imageElem.removeEventListener('click', removeLinkPreview);
+                        imageElem = null;
+                        hiddenSaveElem.parentNode.removeChild(hiddenSaveElem);
+                        isOneLinkDetected = false;
+                    }
+                };
+
+                imageElem.addEventListener('click', removeLinkPreview);
+
+            })
+            .catch(err => {
+                // Ignore error and do not crash if server returns non-success code
+            });
+    }
+
+    function getImageElem(data) {
+        var divElem = document.createElement('div');
+        divElem.className += "link-preview";
+
+        divElem.innerHTML =
+            `<button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
+                <div class="link-preview__image">` +
+            (data.imageUri ? `<img src="${data.imageUri}" />` : '') +
+            `</div>
+                <div class="link-preview__text">
+                    <h3 class="link-preview__title">
+                        <a href="${data.uri}">${data.title}</a>
+                    </h3>` +
+            (data.description ? `<p>${data.description}</p>` : "") +
+            "</div>";
+
+        return divElem;
+    }
+
+    function getHiddenSaveElem(data) {
+        return createHiddenInput('linkPreviewId', data.id);
+    }
+
+    function createHiddenInput(name, value) {
+        var input = document.createElement('input');
+
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', name);
+        input.setAttribute('value', value);
+
+        return input;
+    }
 }
 
-function initEventListeners() {    
-    mobileMediaQuery.matches ? 
-        mobileBtn.addEventListener("click", descriptionClickHandler) : 
+function initEventListeners() {
+    mobileMediaQuery.matches ?
+        mobileBtn.addEventListener("click", descriptionClickHandler) :
         description.addEventListener("click", descriptionClickHandler);
 
     sentButton.addEventListener("click", sentButtonClickHandler);
     window.addEventListener("beforeunload", beforeUnloadHander);
     expandBulletinBtn.addEventListener("click", descriptionClickHandler);
-    closeBulletinBtn.addEventListener("click", function(ev){
+    closeBulletinBtn.addEventListener("click", function (ev) {
         closeBulletin(ev);
     });
     dimmedBg.addEventListener("click", function (ev) {
@@ -83,7 +151,7 @@ function initEventListeners() {
         }
     });
 
-    if(!mobileMediaQuery.matches) {
+    if (!mobileMediaQuery.matches) {
         window.addEventListener("scroll", function (ev) {
             closeBulletin(ev);
         });
@@ -132,14 +200,15 @@ function setGlobalEventHide() {
 function sentButtonClickHandler(event) {
     event.preventDefault();
     let form = umbracoAjaxForm(holder.querySelector('form'));
-  
+
     let promise = form.submit();
-    promise.then(function(data) {
+    promise.then(function (response) {
+        let data = response.data;
         if (data.IsSuccess) {
             window.location.hash = data.Id;
 
             cfReloadTab();
-            hide(); 
+            hide();
         }
     });
 }
@@ -148,9 +217,9 @@ function closeBulletin(event) {
     if (isEdited()) {
         if (showConfirmMessage(confirmMessage)) {
             hide(event);
-        } 
+        }
         return;
-    } 
+    }
     hide(event);
 }
 
@@ -162,8 +231,8 @@ function beforeUnloadHander(event) {
     }
 }
 
-function initMobile(){
-    if(mobileMediaQuery.matches){
+function initMobile() {
+    if (mobileMediaQuery.matches) {
         holder = getBulletinHolder();
         holder.classList.add("hidden");
     }
@@ -172,38 +241,52 @@ function initMobile(){
 // editor helpers
 
 function show() {
+    const headerAndButtonHeight = 130;
     setGlobalEventShow();
     bulletin.classList.add("_expanded");
+    body.style.overflow = 'hidden';
     toolbar.classList.remove("hidden");
     header.classList.remove("hidden");
     closeBulletinBtn.classList.remove("hidden");
-    if(!emojiContainer){
-        helpers.initSmiles(editor, editor.getModule('toolbar').container);
-        emojiContainer = true;
-    }
+    sentButton.classList.remove("hidden");
 
-    if(mobileMediaQuery.matches){
+    if (mobileMediaQuery.matches) {
         let bulletinHolder = getBulletinHolder();
         bulletinHolder.classList.remove("hidden");
         mobileBtn.classList.add("hide");
+        window.scrollTo(0, (window.pageYOffset + bulletin.getBoundingClientRect().top - headerAndButtonHeight));
     }
 }
 
 function hide(event) {
-    if(event && event.target == closeBulletinBtn){event.preventDefault();}
+    if (event && event.target == closeBulletinBtn) { event.preventDefault(); }
     setGlobalEventHide();
     bulletin.classList.remove("_expanded");
+    body.style.overflow = '';
     toolbar.classList.add("hidden");
     header.classList.add("hidden");
     closeBulletinBtn.classList.add("hidden");
+    sentButton.classList.add("hidden");
+    hideLinkPreview();
 
-    if(mobileMediaQuery.matches){
+    if (mobileMediaQuery.matches) {
         let bulletinHolder = getBulletinHolder();
         bulletinHolder.classList.add("hidden");
         mobileBtn.classList.remove("hide");
     }
 
     clear();
+}
+
+function hideLinkPreview() {    
+    linkPreviewContainer = holder.querySelector(".link-preview");
+    var linkPreviewId = holder.querySelector("[name='linkPreviewId']");
+    
+    if (linkPreviewContainer) {
+        linkPreviewContainer.parentNode.removeChild(linkPreviewContainer);        
+        linkPreviewId.parentNode.removeChild(linkPreviewId);        
+        isOneLinkDetected = false;
+    }
 }
 
 function clear() {
@@ -230,7 +313,7 @@ function cfReloadTab() {
     uIntra.events.cfReloadTab.dispatch();
 }
 
-function isOutsideClick (el, target, callback) {
+function isOutsideClick(el, target, callback) {
     let hiddenInput = document.querySelector(".dz-hidden-input");
     if (el && !el.contains(target) && target != hiddenInput && target != expandBulletinBtn && target != mobileBtn && isDescendant(wrapper, target)) {
         if (typeof callback === "function") {

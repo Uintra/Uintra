@@ -1,5 +1,5 @@
-﻿@using uIntra.Core.Extensions
-@model Compent.uIntra.Core.Activity.Models.ExtendedItemHeaderViewModel
+﻿@using Uintra.Core.Extensions
+@model Compent.Uintra.Core.Activity.Models.ExtendedItemHeaderViewModel
 @{
     var inactiveUser = Model.Owner.Inactive ? "_inactive" : String.Empty;
 }
@@ -11,28 +11,33 @@
         <p class="feed__item-meta">
             @foreach (var date in Model.Dates)
             {
-                <span class="feed__item-date">@date</span> 
+                <span class="feed__item-date">@date</span>
                 <span class="feed__item-divider"> - </span>
             }
-            <span class="feed__item-category">@Html.Localize(Model.Type.Name)@(Model.Owner != null ? "," : string.Empty)</span>
+            <span class="feed__item-category">@Html.Localize(Model.Type.ToString())@(Model.Owner != null ? "," : string.Empty)</span>
             @if (Model.Owner != null)
             {
-                <a href="@Model.Links.Owner">
-                    <span class="feed__item-name">@Model.Owner.DisplayedName</span>
+                <a href="@Model.Links.Owner" class="feed__item-name">
+                    <span>@Model.Owner.DisplayedName</span>
                 </a>
             }
+
             <span class="feed__item-inactive">[@Html.Localize("ActivityItemHeader.Creator.Inactive.lbl")]</span>
-            
+
             @if (Model.GroupInfo.HasValue)
             {
-                <span class="feed__item-divider"> > </span>
-                <a href="@Model.GroupInfo.Value.Url">
-                    <span>@Model.GroupInfo.Value.Title</span>                    
-                    <span class="feed__item-group">
-                        <img src="~/Content/images/group.svg">
+                <span class="feed__item-group">
+                    <span class="feed__item-divider"> > </span>
+                    <a href="@Model.GroupInfo.Value.Url">
+                        @Model.GroupInfo.Value.Title
                         <em class="feed__item-tooltip">@Html.Localize("GroupActivity.lbl")</em>
-                    </span>
-                </a>
+                    </a>
+                </span>
+            }
+            
+            @if (Model.Location?.Address != null && Model.Location.ShortAddress != null)
+            {
+                @Html.Action("HeaderLink", "ActivityLocation", new { location = Model.Location })
             }
         </p>
     </div>

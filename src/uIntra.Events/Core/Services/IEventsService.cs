@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using uIntra.Core.Activity;
-using uIntra.Core.Media;
+using Uintra.Core.Activity;
+using Uintra.Core.Media;
 
-namespace uIntra.Events
+namespace Uintra.Events
 {
     public interface IEventsService<out TEvent> : IIntranetActivityService<TEvent> where TEvent : EventBase
     {

@@ -1,14 +1,20 @@
 ﻿using AutoMapper;
+using Uintra.Core.LinkPreview;
 
-namespace uIntra.Comments
+namespace Uintra.Comments
 {
     public class CommentAutoMapperProfile : Profile
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<Comment, CommentModel>();
+            // TODO: move away from here
+            Mapper.CreateMap<LinkPreview, LinkPreviewViewModel>();
+
+            Mapper.CreateMap<Comment, CommentModel>()
+                .ForMember(dst => dst.LinkPreview, o => o.Ignore());
 
             Mapper.CreateMap<CommentModel, CommentViewModel>()
+                .ForMember(dst => dst.LinkPreview, o => o.Ignore())
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.CreatorProfileUrl, o => o.Ignore())
                 .ForMember(dst => dst.CanDelete, o => o.Ignore())

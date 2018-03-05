@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core;
+using Uintra.Core;
 
-namespace uIntra.Tagging.UserTags.Models
+namespace Uintra.Tagging.UserTags.Models
 {
     public class TagPickerViewModel
     {

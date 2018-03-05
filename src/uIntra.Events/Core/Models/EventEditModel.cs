@@ -1,12 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using uIntra.Core.Activity;
-using uIntra.Core.Attributes;
-using uIntra.Core.Media;
-using uIntra.Core.ModelBinders;
+using Uintra.Core.Activity;
+using Uintra.Core.Attributes;
+using Uintra.Core.Location;
+using Uintra.Core.Media;
+using Uintra.Core.ModelBinders;
 
-namespace uIntra.Events
+namespace Uintra.Events
 {
     public class EventEditModel : IntranetActivityEditModelBase, IContentWithMediaCreateEditModel
     {
@@ -34,7 +35,5 @@ namespace uIntra.Events
         public override DateTime? EndPinDate { get; set; }
 
         public string LocationTitle { get; set; }
-
-        public string LocationAddress { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed.Navigation.Models
 {
     public class PageTabModel : TabModelBase
     {

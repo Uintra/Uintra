@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
-using Compent.uIntra.Core.Activity.Models;
-using uIntra.Core.Activity;
+using Compent.Uintra.Core.Activity.Models;
+using Uintra.Core.Activity;
+using Uintra.Core.Location;
+using Uintra.Core.Location.Entities;
 
-namespace Compent.uIntra.Core.Activity
+namespace Compent.Uintra.Core.Activity
 {
     public class ActivityAutoMapperProfile : Profile
     {
@@ -10,6 +12,9 @@ namespace Compent.uIntra.Core.Activity
         {
             Mapper.CreateMap<IntranetActivityItemHeaderViewModel, ExtendedItemHeaderViewModel>()
                 .ForMember(d => d.GroupInfo, o => o.Ignore());
+
+            Mapper.CreateMap<ActivityLocationEntity, ActivityLocation>();
+
         }
     }
 }

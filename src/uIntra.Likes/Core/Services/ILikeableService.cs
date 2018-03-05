@@ -1,7 +1,7 @@
 ﻿using System;
-using uIntra.Core.Activity;
+using Uintra.Core.Activity;
 
-namespace uIntra.Likes
+namespace Uintra.Likes
 {
     public interface ILikeableService : ITypedService
     {

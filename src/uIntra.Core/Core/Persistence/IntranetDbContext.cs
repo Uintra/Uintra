@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace uIntra.Core.Persistence
+namespace Uintra.Core.Persistence
 {
     public abstract class IntranetDbContext : DbContext
     {

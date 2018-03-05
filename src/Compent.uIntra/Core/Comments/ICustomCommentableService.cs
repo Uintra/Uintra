@@ -1,6 +1,6 @@
-﻿using uIntra.Comments;
+﻿using Uintra.Comments;
 
-namespace Compent.uIntra.Core.Comments
+namespace Compent.Uintra.Core.Comments
 {
     public interface ICustomCommentableService : ICommentableService { }
 }

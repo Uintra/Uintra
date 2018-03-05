@@ -1,6 +1,6 @@
-﻿using uIntra.Core.Activity;
+﻿using Uintra.Core.Activity;
 
-namespace uIntra.Core.PagePromotion
+namespace Uintra.Core.PagePromotion
 {
     public interface IPagePromotionService<out T> : IIntranetActivityService<T> where T : PagePromotionBase
     {

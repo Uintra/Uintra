@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using uIntra.CentralFeed.Providers;
-using uIntra.Core.Grid;
-using uIntra.Core.TypeProviders;
+using Uintra.CentralFeed.Navigation.Models;
+using Uintra.CentralFeed.Providers;
+using Uintra.Core.Extensions;
+using Uintra.Core.Grid;
+using Uintra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using static uIntra.CentralFeed.CentralFeedConstants;
+using static Uintra.CentralFeed.CentralFeedConstants;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public class CentralFeedContentService : FeedContentServiceBase, ICentralFeedContentService
     {
@@ -25,7 +27,7 @@ namespace uIntra.CentralFeed
             ICentralFeedService centralFeedService,
             ICentralFeedLinkService centralFeedLinkService,
             ICentralFeedContentProvider contentProvider, IActivityTypeProvider activityTypeProvider)
-                : base(feedTypeProvider, gridHelper)
+            : base(feedTypeProvider, gridHelper)
         {
             _centralFeedService = centralFeedService;
             _centralFeedLinkService = centralFeedLinkService;
@@ -50,17 +52,18 @@ namespace uIntra.CentralFeed
         {
             yield return GetMainFeedTab(currentPage);
 
-            var allActivityTypes = _activityTypeProvider.GetAll().ToList();
+            var allActivityTypes = _activityTypeProvider.All;
 
             foreach (var content in _contentProvider.GetRelatedPages())
             {
                 var tabType = GetFeedTabType(content);
-                var activityType = allActivityTypes.SingleOrDefault(a => a.Id == tabType.Id);
+                var activityType = allActivityTypes.SingleOrDefault(a => a.ToInt() == tabType.ToInt());
 
                 if (activityType == null)
                 {
                     continue;
                 }
+
                 var settings = _centralFeedService.GetSettings(tabType);
                 yield return new ActivityFeedTabModel
                 {
@@ -69,7 +72,7 @@ namespace uIntra.CentralFeed
                     HasSubscribersFilter = settings.HasSubscribersFilter,
                     HasPinnedFilter = settings.HasPinnedFilter,
                     IsActive = content.IsAncestorOrSelf(currentPage),
-                    Links = _centralFeedLinkService.GetCreateLinks(tabType),
+                    Links = _centralFeedLinkService.GetCreateLinks(tabType)
                 };
             }
         }

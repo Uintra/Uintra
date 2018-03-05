@@ -1,6 +1,6 @@
 ﻿using BCLExtensions.Trees;
 
-namespace uIntra.Notification.Configuration
+namespace Uintra.Notification.Configuration
 {
     public interface INotificationSettingsTreeProvider
     {

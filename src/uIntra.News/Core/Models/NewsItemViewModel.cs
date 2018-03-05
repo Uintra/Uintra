@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.Activity;
-using uIntra.Core.Controls.LightboxGallery;
-using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Activity;
+using Uintra.Core.Controls.LightboxGallery;
+using Uintra.Core.Links;
+using Uintra.Core.Location;
 
-namespace uIntra.News
+namespace Uintra.News
 {
     public class NewsItemViewModel
     {
@@ -28,10 +28,12 @@ namespace uIntra.News
 
         public bool IsPinActual { get; set; }
 
-        public IIntranetType ActivityType { get; set; }
+        public Enum ActivityType { get; set; }
 
         public IActivityLinks Links { get; set; }
 
         public bool IsReadOnly { get; set; }
+
+        public ActivityLocation Location { get; set; }
     }
 }

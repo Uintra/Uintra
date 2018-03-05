@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using Extensions;
-using uIntra.Core.Activity;
-using uIntra.Core.Configuration;
-using uIntra.Core.Extensions;
-using uIntra.Core.User;
-using uIntra.Groups;
-using uIntra.Navigation;
-using uIntra.Navigation.Configuration;
-using uIntra.Navigation.MyLinks;
+using Uintra.Core.Activity;
+using Uintra.Core.Configuration;
+using Uintra.Core.Extensions;
+using Uintra.Core.User;
+using Uintra.Groups;
+using Uintra.Navigation;
+using Uintra.Navigation.Configuration;
+using Uintra.Navigation.MyLinks;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.Navigation
+namespace Compent.Uintra.Core.Navigation
 {
     public class MyLinksModelBuilder : NavigationModelBuilderBase<IEnumerable<MyLinkItemModel>>, IMyLinksModelBuilder
     {
@@ -84,7 +84,7 @@ namespace Compent.uIntra.Core.Navigation
 
             var activity = service.Get(entityId);
 
-            if (activity.Type.Id == IntranetActivityTypeEnum.Bulletins.ToInt())
+            if (activity.Type is IntranetActivityTypeEnum.Bulletins)
             {
                 var lengthForPreview = _navigationApplicationSettings.MyLinksBulletinsTitleLength;
                 var description = activity.Description.RemoveHtmlTags();

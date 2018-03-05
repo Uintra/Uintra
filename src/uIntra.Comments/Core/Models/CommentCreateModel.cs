@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace uIntra.Comments
+namespace Uintra.Comments
 {
     public class CommentCreateModel
     {
@@ -14,5 +14,7 @@ namespace uIntra.Comments
 
         [Required(ErrorMessage = "*"), AllowHtml]
         public string Text { get; set; }
+
+        public int? LinkPreviewId { get; set; }
     }
 }

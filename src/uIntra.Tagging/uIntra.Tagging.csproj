@@ -7,8 +7,8 @@
     <ProjectGuid>{2167C278-86ED-451B-8D2C-01774532B4E8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.Tagging</RootNamespace>
-    <AssemblyName>uIntra.Tagging</AssemblyName>
+    <RootNamespace>Uintra.Tagging</RootNamespace>
+    <AssemblyName>Uintra.Tagging</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -362,9 +362,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
+    <ProjectReference Include="..\uIntra.Core\Uintra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>uIntra.Core</Name>
+      <Name>Uintra.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

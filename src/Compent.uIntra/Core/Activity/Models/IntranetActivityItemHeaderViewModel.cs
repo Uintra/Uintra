@@ -1,7 +1,7 @@
-﻿using uIntra.Core.Activity;
-using uIntra.Groups;
+﻿using Uintra.Core.Activity;
+using Uintra.Groups;
 
-namespace Compent.uIntra.Core.Activity.Models
+namespace Compent.Uintra.Core.Activity.Models
 {
     public class ExtendedItemHeaderViewModel : IntranetActivityItemHeaderViewModel
     {

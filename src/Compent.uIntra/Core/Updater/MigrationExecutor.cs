@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using uIntra.Core.Exceptions;
-using uIntra.Core.MigrationHistories;
-using uIntra.Core.MigrationHistories.Sql;
+using Extensions;
+using Uintra.Core.Exceptions;
+using Uintra.Core.MigrationHistories;
+using Uintra.Core.MigrationHistories.Sql;
 using Umbraco.Core;
-using static Compent.uIntra.Core.Updater.ExecutionResult;
+using static Compent.Uintra.Core.Updater.ExecutionResult;
 
-namespace Compent.uIntra.Core.Updater
+namespace Compent.Uintra.Core.Updater
 {
     public class MigrationHandler : ApplicationEventHandler
     {
         private readonly IDependencyResolver _dependencyResolver;
         private readonly IMigrationHistoryService _migrationHistoryService;
         private readonly IExceptionLogger _exceptionLogger;
+        private static readonly Version LastLegacyMigrationVersion = new Version("0.2.30.0");
 
         public MigrationHandler()
         {
@@ -25,24 +27,33 @@ namespace Compent.uIntra.Core.Updater
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            var allMigrations = GetAllMigrations();
-            var migrationsSequence = GetMissingMigrations(allMigrations).ToList();
-            var migrationStepsSequence = migrationsSequence.SelectMany(m => m.Steps);
+            var allMigrations = GetAllMigrations().OrderBy(m => m.Version);
+            var allHistory = _migrationHistoryService.GetAll();
+            var allSteps = GetAllSteps(allMigrations);
 
-            var (executionResult, stepHistory) = TryExecuteSteps(migrationStepsSequence);
+            var missingSteps = GetSteps(allSteps, allHistory).ToList();
 
-            if (executionResult.Type is ExecutionResultType.Failure)
+            var history = Enumerable.Empty<(Version, IMigrationStep)>();
+
+            var (executionHistory, executionResult) = TryExecuteSteps(missingSteps);
+
+            if (executionResult.Type is ExecutionResultType.Success)
             {
-                var undoExecutionResult = UndoSteps(stepHistory);
-                if (undoExecutionResult.Type is ExecutionResultType.Failure)
-                {
-                    _exceptionLogger.Log(undoExecutionResult.Exception);
-                }
+                history = executionHistory;
             }
             else
             {
-                SaveMigrationsHistory(migrationsSequence.Select(m => m.Version));
+                var (undoHistory, undoResult) = TryUndoSteps(executionHistory);
+                if (undoResult.Type is ExecutionResultType.Failure)
+                {
+                    history = undoHistory;
+                    _exceptionLogger.Log(undoResult.Exception);
+                }
             }
+
+            var reversedHistory = history.Reverse();
+
+            SaveMigrationsHistory(reversedHistory);
         }
 
         private IEnumerable<IMigration> GetAllMigrations() =>
@@ -50,51 +61,78 @@ namespace Compent.uIntra.Core.Updater
                 .GetServices(typeof(IMigration))
                 .Cast<IMigration>();
 
-        private IEnumerable<IMigration> GetMissingMigrations(IEnumerable<IMigration> migrations)
+        private void SaveMigrationsHistory(IEnumerable<(Version migrationVersion, IMigrationStep step)> steps)
         {
-            var orderedMigrations = migrations.OrderBy(m => m.Version);
-
-            switch (_migrationHistoryService.GetLast())
+            var stepsList = steps.AsList();
+            if (stepsList.Any())
             {
-                case MigrationHistory version:
-                    var lastVersion = new Version(version.Version);
-                    return orderedMigrations.SkipWhile(m => m.Version <= lastVersion);
-                case null:
-                    return orderedMigrations;
+                var history = stepsList.Select(step => (
+                    name: StepIdentity(step.step),
+                    version: step.migrationVersion));
+
+                _migrationHistoryService.Create(history);
             }
         }
 
-        private (ExecutionResult excutionResult, Stack<IMigrationStep> stepHistory) TryExecuteSteps(IEnumerable<IMigrationStep> migrationSteps)
-        {
-            var stepHistory = new Stack<IMigrationStep>();
+        private static IEnumerable<(Version migrationVersion, IMigrationStep step)> GetAllSteps(IOrderedEnumerable<IMigration> migrations) =>
+            migrations.SelectMany(migration => migration.Steps.Select(step => (migration.Version, step)));
 
-            foreach (var migrationStep in migrationSteps)
+        private static IEnumerable<(Version migrationVersion, IMigrationStep step)> GetSteps(
+            IEnumerable<(Version migrationVersion, IMigrationStep step)> allSteps,
+            IEnumerable<MigrationHistory> allHistory)
+        {
+            var allHistoryList = allHistory.AsList();
+
+            var lastHistory = allHistoryList.OrderByDescending(m => m.CreateDate).FirstOrDefault();
+
+            switch (lastHistory)
             {
-                var stepExecutionResult = migrationStep.Execute();
-                switch (stepExecutionResult.Type)
+                case MigrationHistory history when new Version(history.Version) <= LastLegacyMigrationVersion:
+                    return allSteps.SkipWhile(s => s.migrationVersion <= LastLegacyMigrationVersion);
+                case MigrationHistory history:
+                    var lastHistoryVersion = new Version(history.Version);
+                    return GetMissingSteps(allSteps, allHistoryList, lastHistoryVersion);
+                case null:
+                    return allSteps;
+            }
+        }
+
+        private static IEnumerable<(Version migrationVersion, IMigrationStep step)> GetMissingSteps(
+            IEnumerable<(Version migrationVersion, IMigrationStep step)> allSteps,
+            IEnumerable<MigrationHistory> allHistory, Version lastHistoryVersion)
+        {
+            var historyFilteredByVersion = allHistory.Where(s => new Version(s.Version) >= lastHistoryVersion);
+            var stepsFilteredByVersion = allSteps.Where(s => s.migrationVersion >= lastHistoryVersion);
+
+            var installedStepsNames = new List<string>(historyFilteredByVersion.Select(h => h.Name));
+
+            var result = stepsFilteredByVersion.Where(s => !installedStepsNames.Contains(StepIdentity(s.step)));
+
+            return result;
+        }
+
+        private static (Stack<(Version migrationVersion, IMigrationStep step)> executionHistory, ExecutionResult result) TryExecuteSteps(
+            IEnumerable<(Version migrationVersion, IMigrationStep step)> steps)
+        {
+            var executionHistory = new Stack<(Version migrationVersion, IMigrationStep step)>();
+            foreach (var step in steps)
+            {
+                executionHistory.Push(step);
+                var stepActionResult = TryExecuteStep(step.step);
+                if (stepActionResult.Type is ExecutionResultType.Failure)
                 {
-                    case ExecutionResultType.Success:
-                        stepHistory.Push(migrationStep);
-                        break;
-                    case ExecutionResultType.Skipped:
-                        break;
-                    case ExecutionResultType.Failure:
-                        stepHistory.Push(migrationStep);
-                        return (stepExecutionResult, stepHistory);
+                    return (executionHistory, stepActionResult);
                 }
             }
-            return (Success, stepHistory);
+            return (executionHistory, Success);
         }
 
-        private ExecutionResult UndoSteps(IEnumerable<IMigrationStep> migrationSteps)
+
+        private static ExecutionResult TryExecuteStep(IMigrationStep migrationStep)
         {
             try
             {
-                foreach (var migrationStep in migrationSteps)
-                {
-                    migrationStep.Undo();
-                }
-                return Success;
+                return migrationStep.Execute();
             }
             catch (Exception e)
             {
@@ -102,12 +140,37 @@ namespace Compent.uIntra.Core.Updater
             }
         }
 
-        private void SaveMigrationsHistory(IEnumerable<Version> versions)
+        private static (Stack<(Version migrationVersion, IMigrationStep step)> undoHistory, ExecutionResult result) TryUndoSteps(
+            Stack<(Version migrationVersion, IMigrationStep step)> executionHistory)
         {
-            versions
-                .Select(ver => ver.ToString())
-                .ToList()
-                .ForEach(_migrationHistoryService.Create);
+            var undoHistory = new Stack<(Version migrationVersion, IMigrationStep step)>();
+            while (executionHistory.Any())
+            {
+                var step = executionHistory.Pop();
+                undoHistory.Push(step);
+                var stepActionResult = TryUndoStep(step.step);
+                if (stepActionResult.Type is ExecutionResultType.Failure)
+                {
+                    return (executionHistory, stepActionResult);
+                }
+            }
+            return (undoHistory, Success);
         }
+
+        private static ExecutionResult TryUndoStep(IMigrationStep migrationStep)
+        {
+            try
+            {
+                migrationStep.Undo();
+            }
+            catch (Exception e)
+            {
+                return Failure(e);
+            }
+
+            return Success;
+        }
+
+        private static string StepIdentity(IMigrationStep step) => step.GetType().Name;
     }
 }

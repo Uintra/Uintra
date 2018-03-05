@@ -1,8 +1,10 @@
 using System;
-using uIntra.Core.Activity;
-using uIntra.Core.User;
+using Newtonsoft.Json;
+using Uintra.Core.Activity;
+using Uintra.Core.Location;
+using Uintra.Core.User;
 
-namespace uIntra.News
+namespace Uintra.News
 {
     public interface INewsBase : IIntranetActivity
     {

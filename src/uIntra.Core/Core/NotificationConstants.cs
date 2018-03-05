@@ -1,4 +1,4 @@
-﻿namespace uIntra.Core
+﻿namespace Uintra.Core
 {
     public class NotificationConstants
     {

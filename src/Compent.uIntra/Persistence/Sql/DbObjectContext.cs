@@ -3,20 +3,21 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Reflection;
-using uIntra.Comments;
-using uIntra.Core.Activity;
-using uIntra.Core.Media;
-using uIntra.Core.MigrationHistories.Sql;
-using uIntra.Core.Persistence;
-using uIntra.Groups.Sql;
-using uIntra.Likes;
-using uIntra.Navigation;
-using uIntra.Notification;
-using uIntra.Notification.Core.Sql;
-using uIntra.Subscribe;
-using uIntra.Tagging.UserTags;
+using Uintra.Comments;
+using Uintra.Core.Activity;
+using Uintra.Core.LinkPreview.Sql;
+using Uintra.Core.Location.Entities;
+using Uintra.Core.Media.Sql;
+using Uintra.Core.MigrationHistories.Sql;
+using Uintra.Core.Persistence;
+using Uintra.Groups.Sql;
+using Uintra.Likes;
+using Uintra.Navigation;
+using Uintra.Notification;
+using Uintra.Subscribe;
+using Uintra.Tagging.UserTags;
 
-namespace Compent.uIntra.Persistence.Sql
+namespace Compent.Uintra.Persistence.Sql
 {
     public class DbObjectContext : IntranetDbContext
     {
@@ -36,6 +37,7 @@ namespace Compent.uIntra.Persistence.Sql
 
         public DbSet<Comment> Comments { get; set; }
         public DbSet<IntranetActivityEntity> IntranetActivityEntities { get; set; }
+        public DbSet<ActivityLocationEntity> ActivityLocations { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<MyLink> MyLinks { get; set; }
         public DbSet<Notification> Notifications { get; set; }
@@ -51,7 +53,11 @@ namespace Compent.uIntra.Persistence.Sql
         public DbSet<GroupActivityRelation> GroupActivities { get; set; }
         public DbSet<ActivitySubscribeSetting> ActivitySubscribeSettings { get; set; }
         public DbSet<UserTagRelation> UserTagRelations { get; set; }
-        
+
+        public DbSet<LinkPreviewEntity> LinkPreviews { get; set; }
+        public DbSet<CommentToLinkPreviewEntity> CommentToLinkPreviews { get; set; }
+        public DbSet<ActivityToLinkPreviewEntity> ActivityToLinkPreviews { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()

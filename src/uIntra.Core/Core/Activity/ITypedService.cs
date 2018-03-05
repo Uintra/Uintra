@@ -1,10 +1,10 @@
-﻿using uIntra.Core.TypeProviders;
+﻿using System;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public interface ITypedService
     {
         // TODO: rename to [ Type ]
-        IIntranetType ActivityType { get; }
+        Enum ActivityType { get; }
     }
 }

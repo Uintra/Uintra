@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Extensions;
-using uIntra.Core.Extensions;
+using Uintra.Core.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.Core.PagePromotion
+namespace Uintra.Core.PagePromotion
 {
     public static class PagePromotionHelper
     {

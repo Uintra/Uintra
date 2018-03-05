@@ -1,5 +1,5 @@
-@using uIntra.Core.Extensions
-@model Compent.uIntra.Core.Events.EventExtendedItemModel
+@using Uintra.Core.Extensions
+@model Compent.Uintra.Core.Events.EventExtendedItemModel
 @{
     var currentPinnedClass = Model.IsPinActual ? "_pinned" : "";
 }
@@ -7,9 +7,8 @@
     <div class="clearfix">
         @if (Model.IsPinned || Model.IsPinActual)
         {
-            <span class="pinned__item">@Html.Localize("EventItemView.Pinned.lbl")</span>
+            <span class="pinned__item">@Html.Localize("Activity.Pinned.lbl")</span>
         }
-
         @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
         @if (Model.IsSubscribed)
         {

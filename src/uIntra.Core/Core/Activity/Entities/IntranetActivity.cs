@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Location;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public abstract class IntranetActivity : IIntranetActivity
     {
@@ -12,7 +12,7 @@ namespace uIntra.Core.Activity
         public Guid Id { get; set; }
 
         [JsonIgnore]
-        public IIntranetType Type { get; set; }
+        public Enum Type { get; set; }
 
         [JsonIgnore]
         public DateTime CreatedDate { get; set; }
@@ -35,5 +35,8 @@ namespace uIntra.Core.Activity
         public bool IsPinned { get; set; }
 
         public DateTime? EndPinDate { get; set; }
+
+        [JsonIgnore]
+        public ActivityLocation Location { get; set; }
     }
 }

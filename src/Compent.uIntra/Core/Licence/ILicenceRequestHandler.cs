@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Compent.uIntra.Core.Licence
+namespace Compent.Uintra.Core.Licence
 {
     public interface ILicenceRequestHandler
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace Compent.uIntra.Core.Licence
+namespace Compent.Uintra.Core.Licence
 {
     public class LicenceRequestHandler : ILicenceRequestHandler
 

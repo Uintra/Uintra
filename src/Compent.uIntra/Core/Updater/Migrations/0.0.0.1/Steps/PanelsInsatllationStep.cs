@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
+using System.Reflection;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Newtonsoft.Json.Linq;
-using uIntra.Core.Installer;
-using uIntra.Core.Utils;
+using Uintra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
-using static Compent.uIntra.Core.Updater.ExecutionResult;
-using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.PanelsInstallationConstants;
+using static Compent.Uintra.Core.Updater.ExecutionResult;
+using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.PanelsInstallationConstants;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class PanelsInstallationStep : IMigrationStep
     {
@@ -33,7 +33,7 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
             var panelPickerDataType = dataTypeService.GetDataTypeDefinitionByName(DataTypeNames.PanelPicker);
             if (panelPickerDataType != null) return;
 
-            var jsonValue = EmbeddedResourcesUtils.ReadResourceContent("uIntra.Core.Updater.Migrations._0._0._0._1.PreValues.PanelPickerPreValues.json"); //TODO use Assembly.GetExecutingAssembly()
+            var jsonValue = EmbeddedResourcesUtils.ReadResourceContent($"{Assembly.GetExecutingAssembly().GetName().Name}.Core.Updater.Migrations._0._0._0._1.PreValues.PanelPickerPreValues.json");
             var jsonPrevalues = JObject.Parse(jsonValue);
 
             panelPickerDataType = new DataTypeDefinition(-1, DataTypePropertyEditors.PanelPicker)

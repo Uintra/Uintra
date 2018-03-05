@@ -1,6 +1,7 @@
 using System;
+using Uintra.Core.Location;
 
-namespace uIntra.News.Dashboard
+namespace Uintra.News.Dashboard
 {
     public class NewsBackofficeCreateModel
     {
@@ -11,5 +12,6 @@ namespace uIntra.News.Dashboard
         public DateTime PublishDate { get; set; }
         public DateTime? UnpublishDate { get; set; }
         public bool IsHidden { get; set; }
+        public ActivityLocationEditModel Location { get; set; }
     }
 }

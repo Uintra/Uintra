@@ -1,4 +1,4 @@
-namespace Compent.uIntra.Persistence.Sql.Migrations
+namespace Compent.Uintra.Persistence.Sql.Migrations
 {
     using System.Data.Entity.Migrations;
 
@@ -7,7 +7,7 @@ namespace Compent.uIntra.Persistence.Sql.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.uIntra_ActivitySubscribeSetting",
+                "dbo.uIntra_ActivitySubscribeSetting", 
                 c => new
                 {
                     Id = c.Int(nullable: false, identity: true),

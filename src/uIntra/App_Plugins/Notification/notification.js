@@ -14,9 +14,10 @@ function initPreviewControls() {
 
     notification.addEventListener('click', function () {
         if (!body.classList.contains("_notifications-expanded")) {
-            ajax.Get("/umbraco/surface/Notification/List")
+
+            ajax.get("/umbraco/surface/Notification/List")
                 .then(function (response) {
-                    notificationList.innerHTML = response;
+                    notificationList.innerHTML = response.data;
                     notificationList.classList.remove('_loading');
                     initCustomControls();
                 });
@@ -39,9 +40,9 @@ function isOutsideClick(el, trigger, target, classname) {
 }
 
 function updateNotificationsCount() {
-    $.ajax({
-        url: "/umbraco/surface/Notification/GetNotNotifiedCount",
-        success: function (count) {
+    ajax.get("/umbraco/surface/Notification/GetNotNotifiedCount")
+        .then((response) => {
+            let count = response.data;
             var countHolder = $('.js-notification__number');
             if (count > 0) {
                 countHolder.html(count);
@@ -49,12 +50,7 @@ function updateNotificationsCount() {
             } else {
                 countHolder.hide();
             }
-        }
-    });
-
-    $.ajaxSetup({
-        cache: false
-    });
+        });
 }
 
 function initCustomControls() {
@@ -64,14 +60,11 @@ function initCustomControls() {
         var url = $this.data("href");
 
         if (!delivered) {
-            $.ajax({
-                type: "POST",
-                data: { id: $this.data("id") },
-                url: "/umbraco/surface/Notification/View/",
-                success: function () {
+            let data = { id: $this.data("id") };
+            ajax.post('/umbraco/surface/Notification/View/', data)
+                .then(function () {
                     $this.attr("data-viewed", true);
-                }
-            });
+                });
         }
 
         window.location.href = url;

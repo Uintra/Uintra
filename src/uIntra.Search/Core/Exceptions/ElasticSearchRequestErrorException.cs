@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace uIntra.Search
+namespace Uintra.Search
 {
     public class ElasticSearchRequestErrorException : Exception
     {

@@ -1,11 +1,10 @@
 using System;
-using uIntra.Core.TypeProviders;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public interface IActivityPageHelper
     {
-        IIntranetType ActivityType { get; }
+        Enum ActivityType { get; }
         string GetFeedUrl();
         string GetOverviewPageUrl();
         string GetDetailsPageUrl(Guid? activityId = null);

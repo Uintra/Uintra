@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core;
 
-namespace uIntra.Events.Dashboard
+namespace Uintra.Events.Dashboard
 {
     public class EventsSection
     {

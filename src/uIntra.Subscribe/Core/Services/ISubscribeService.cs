@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Core.TypeProviders;
 
-namespace uIntra.Subscribe
+namespace Uintra.Subscribe
 {
     public interface ISubscribeService
     {
@@ -26,7 +25,7 @@ namespace uIntra.Subscribe
 
         Subscribe UpdateNotification(Guid subscribeId, bool newValue);
 
-        bool HasNotification(IIntranetType type);
+        bool HasNotification(Enum type);
 
         void FillSubscribers(ISubscribable entity);
     }

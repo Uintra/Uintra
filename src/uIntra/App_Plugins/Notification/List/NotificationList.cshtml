@@ -1,6 +1,6 @@
 ﻿@using System.Web.Mvc.Html
-@using uIntra.Core.Extensions
-@model uIntra.Notification.NotificationListViewModel
+@using Uintra.Core.Extensions
+@model Uintra.Notification.NotificationListViewModel
 
 <ul class="notification__list" id="notification_list">
     @if (Model.Notifications.Any())
@@ -19,7 +19,7 @@
                             <div class="clearfix">
                                 @if (notification.Value.IsPinned)
                                 {
-                                    <span class="pinned__item @(notification.Value.IsPinActual ? "_pinned" : string.Empty)">@Html.Localize("Notifications.Pinned.lbl")</span>
+                                    <span class="pinned__item @(notification.Value.IsPinActual ? "_pinned" : string.Empty)">@Html.Localize("Activity.Pinned.lbl")</span>
                                 }
                                 <span class="notification__list-date">@notification.Date</span>
                             </div>

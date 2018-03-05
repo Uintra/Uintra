@@ -15,8 +15,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Compent.uIntra</RootNamespace>
-    <AssemblyName>Compent.uIntra</AssemblyName>
+    <RootNamespace>Compent.Uintra</RootNamespace>
+    <AssemblyName>Compent.Uintra</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -82,6 +82,15 @@
     </Reference>
     <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.LinkPreview.Client, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Client.1.0.4\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.0.4\lib\net452\Compent.LinkPreview.HttpClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.LinkPreview.Infrastructure, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Infrastructure.1.0.4\lib\net452\Compent.LinkPreview.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="controls, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\controls.dll</HintPath>
@@ -235,8 +244,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
@@ -529,8 +537,15 @@
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+    <Content Include="App_Plugins\Core\ActivityLocation\activityLocation.js" />
+    <Content Include="App_Plugins\Core\ActivityLocation\activityLocationEdit.js" />
+    <Content Include="App_Plugins\Core\ActivityLocation\backoffice\location-edit.css" />
+    <Content Include="App_Plugins\Core\ActivityLocation\backoffice\location-edit.directive.js" />
+    <Content Include="App_Plugins\Core\ActivityLocation\backoffice\location-edit.html" />
+    <Content Include="App_Plugins\Core\ActivityLocation\Edit\styles.css" />
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
+    <Content Include="App_Plugins\Core\ActivityLocation\Edit\edit.js" />
     <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
     <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibility.js" />
     <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml" />
@@ -541,6 +556,15 @@
     <Content Include="App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.js" />
     <Content Include="App_Plugins\Core\Content\backoffice\EditorConfig\editorConfigService.js" />
     <Content Include="App_Plugins\Core\Content\images\arrow-left.svg" />
+    <Content Include="App_Plugins\Core\Content\images\attachment-custom-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\attachment-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\attachment.svg" />
+    <Content Include="App_Plugins\Core\Content\images\emoji-custom-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\emoji-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\emoji.svg" />
+    <Content Include="App_Plugins\Core\Content\images\link-custom-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\link-hover.svg" />
+    <Content Include="App_Plugins\Core\Content\images\link.svg" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\css\bootstrap.min.css" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
@@ -575,7 +599,10 @@
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\angry.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\great.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\love.svg" />
-    <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.png" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\tease.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\funny.svg" />
+    <Content Include="App_Plugins\Core\Content\styles\emoji-data\shocked.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\smile.svg">
       <SubType>Designer</SubType>
     </Content>
@@ -1122,45 +1149,24 @@
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
     <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\ActivitySubscribeSettingsView.cshtml" />
+    <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <EmbeddedResource Include="Persistence\Sql\Migrations\201801051024057_ActivitySubscribeSettings.resx">
       <DependentUpon>201801051024057_ActivitySubscribeSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="App_Plugins\web.config">
-      <TransformOnBuild>false</TransformOnBuild>
-    </Content>
     <EmbeddedResource Include="Persistence\Sql\Migrations\201801111246169_UserTags.resx">
       <DependentUpon>201801111246169_UserTags.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
-    <None Include="config\umbracoSettings.Debug.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.ManualInstallation.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.DebugWithDll.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.Dev.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.PublicNuget.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="config\umbracoSettings.Release.config">
-      <DependentUpon>umbracoSettings.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201801191040358_ActivityLocation.resx">
+      <DependentUpon>201801191040358_ActivityLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201802050917423_LinkPreview.resx">
+      <DependentUpon>201802050917423_LinkPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201802091031082_Renaming.resx">
+      <DependentUpon>201802091031082_Renaming.cs</DependentUpon>
+    </EmbeddedResource>
     <Content Include="Media\Web.config" />
     <Content Include="Content\fonts\muli-italic.woff" />
     <Content Include="Content\fonts\muli-italic.woff2" />
@@ -1208,6 +1214,16 @@
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\GridPageLayout.cshtml" />
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\GroupGridPreValues.json" />
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\PanelPickerPreValues.json" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.resx">
+      <DependentUpon>201802231106236_ActivityToLinkPreviewEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml" />
+    <Content Include="App_Plugins\Core\LinkPreview\EditLinkPreviewView.cshtml" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.resx">
+      <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1220,7 +1236,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="config\umbracoSettings.config">
-      <TransformOnBuild>true</TransformOnBuild>
+      <TransformOnBuild>false</TransformOnBuild>
     </Content>
     <None Include="Properties\PublishProfiles\groups_qa.pubxml">
       <SubType>Designer</SubType>
@@ -1245,9 +1261,7 @@
     <Content Include="Views\Search\SearchResult.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\Shared\_Layout-output.cshtml" />
-    <None Include="Web.DebugWithDll.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
+    <Content Include="Views\Events\DetailsHeader.cshtml" />
     <None Include="Web.ManualInstallation.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1262,7 +1276,10 @@
   <ItemGroup>
     <Compile Include="App_Start\ElmahMvc_Start.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
+    <Compile Include="Controllers\ActivityLinkPreviewController.cs" />
+    <Compile Include="Controllers\ActivityLocationController.cs" />
     <Compile Include="Controllers\Api\EditorConfigController.cs" />
+    <Compile Include="Controllers\Api\LinkPreviewController.cs" />
     <Compile Include="Controllers\Api\MemberApiController.cs" />
     <Compile Include="Controllers\Api\MonthlyEmailApiController.cs" />
     <Compile Include="Controllers\Api\NotificationSettingsApiController.cs" />
@@ -1345,6 +1362,8 @@
     <Compile Include="Core\Licence\LicenceServiceConnection.cs" />
     <Compile Include="Core\Licence\ValidateLicenceService.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
+    <Compile Include="Core\LinkPreview\Config\LinkDetectionConfigurationSection.cs" />
+    <Compile Include="Core\LinkPreview\Config\LinkPreviewConfigProvider.cs" />
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\MemberServiceHelper.cs" />
     <Compile Include="Core\Navigation\MyLinksModelBuilder.cs" />
@@ -1387,6 +1406,7 @@
     <Compile Include="Core\PagePromotion\PagePromotionService.cs" />
     <Compile Include="Core\Search\Entities\Mappings\SearchableTagMap.cs" />
     <Compile Include="Core\Search\Entities\Mappings\SearchableUintraActivityMap.cs" />
+    <Compile Include="Core\Search\Entities\Mappings\SearchableUserMap.cs" />
     <Compile Include="Core\Search\Entities\SearchableTag.cs" />
     <Compile Include="Core\Search\Entities\SearchableUintraActivity.cs" />
     <Compile Include="Core\Search\Entities\SearchableUintraContent.cs" />
@@ -1424,13 +1444,13 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\CoreInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\EventsInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\GroupsInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\LocalizationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\MailInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\NavigationInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\NewsInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\NotificationInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\PanelsInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\SearchInstallationConstants.cs" />
-    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\TaggingInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\UsersInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\InstallationStepsHelper.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Migration.cs" />
@@ -1449,9 +1469,7 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\OldSubscribeSettingsMigration.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\PagePromotionInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\PagePromotionMigration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\TaggingMigration.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\UmbracoContentMigration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\AggregateSubsteps\UpdateDataFolderNamesMigration.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\BulletinsInstallationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\CoreInstallationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\EventsInstallationStep.cs" />
@@ -1464,6 +1482,13 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\PanelsInsatllationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\SearchInstallationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\UsersInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\TaggingInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\AddTranslationsStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\ProfileEmailNotificationTranslationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UpdateDataFolderNamesMigrationInstallationStep .cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UserTagsInstallationStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
@@ -1497,6 +1522,26 @@
     <Compile Include="Persistence\Sql\Migrations\201801111246169_UserTags.cs" />
     <Compile Include="Persistence\Sql\Migrations\201801111246169_UserTags.Designer.cs">
       <DependentUpon>201801111246169_UserTags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201801191040358_ActivityLocation.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201801191040358_ActivityLocation.Designer.cs">
+      <DependentUpon>201801191040358_ActivityLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201802050917423_LinkPreview.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201802050917423_LinkPreview.Designer.cs">
+      <DependentUpon>201802050917423_LinkPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201802091031082_Renaming.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201802091031082_Renaming.Designer.cs">
+      <DependentUpon>201802091031082_Renaming.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.Designer.cs">
+      <DependentUpon>201802231106236_ActivityToLinkPreviewEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.Designer.cs">
+      <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
@@ -1542,73 +1587,73 @@
     <Folder Include="App_Plugins\SentMails\shared\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\uIntra.BaseControls\uIntra.BaseControls.csproj">
+    <ProjectReference Include="..\uIntra.BaseControls\Uintra.BaseControls.csproj">
       <Project>{2e4a8b55-37f6-46a8-b108-30e346870720}</Project>
-      <Name>uIntra.BaseControls</Name>
+      <Name>Uintra.BaseControls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Bulletins\uIntra.Bulletins.csproj">
+    <ProjectReference Include="..\uIntra.Bulletins\Uintra.Bulletins.csproj">
       <Project>{d8101e4c-5345-4b54-9766-dbd2bbe7030c}</Project>
-      <Name>uIntra.Bulletins</Name>
+      <Name>Uintra.Bulletins</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
+    <ProjectReference Include="..\uIntra.CentralFeed\Uintra.CentralFeed.csproj">
       <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
-      <Name>uIntra.CentralFeed</Name>
+      <Name>Uintra.CentralFeed</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Comments\uIntra.Comments.csproj">
+    <ProjectReference Include="..\uIntra.Comments\Uintra.Comments.csproj">
       <Project>{a15f1032-faa1-42aa-9bd7-1a3edd118811}</Project>
-      <Name>uIntra.Comments</Name>
+      <Name>Uintra.Comments</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
+    <ProjectReference Include="..\uIntra.Core\Uintra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>uIntra.Core</Name>
+      <Name>Uintra.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Events\uIntra.Events.csproj">
+    <ProjectReference Include="..\uIntra.Events\Uintra.Events.csproj">
       <Project>{85aa3a0a-738e-4e0d-9448-ea34aa3a537c}</Project>
-      <Name>uIntra.Events</Name>
+      <Name>Uintra.Events</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Groups\uIntra.Groups.csproj">
+    <ProjectReference Include="..\uIntra.Groups\Uintra.Groups.csproj">
       <Project>{b690420e-af06-4b17-93f7-a04362a1cd3d}</Project>
-      <Name>uIntra.Groups</Name>
+      <Name>Uintra.Groups</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Likes\uIntra.Likes.csproj">
+    <ProjectReference Include="..\uIntra.Likes\Uintra.Likes.csproj">
       <Project>{b99f0f05-598c-4f4a-a972-7282dcf9fed8}</Project>
-      <Name>uIntra.Likes</Name>
+      <Name>Uintra.Likes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Navigation\Uintra.Navigation.csproj">
+      <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
+      <Name>Uintra.Navigation</Name>
     </ProjectReference>
     <ProjectReference Include="..\uIntra.Navigation\uIntra.Navigation.csproj">
       <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
       <Name>uIntra.Navigation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Navigation\uIntra.Navigation.csproj">
-      <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
-      <Name>uIntra.Navigation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.News\uIntra.News.csproj">
+    <ProjectReference Include="..\uIntra.News\Uintra.News.csproj">
       <Project>{53386df1-d6a7-484b-8b07-c4fddebf4b83}</Project>
-      <Name>uIntra.News</Name>
+      <Name>Uintra.News</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Notification\uIntra.Notification.csproj">
+    <ProjectReference Include="..\uIntra.Notification\Uintra.Notification.csproj">
       <Project>{774eba5a-679c-401d-b3f1-130562785c60}</Project>
-      <Name>uIntra.Notification</Name>
+      <Name>Uintra.Notification</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Panels\uIntra.Panels.csproj">
+    <ProjectReference Include="..\uIntra.Panels\Uintra.Panels.csproj">
       <Project>{d5590777-b149-467f-829a-e901a9462e72}</Project>
-      <Name>uIntra.Panels</Name>
+      <Name>Uintra.Panels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Search\uIntra.Search.csproj">
+    <ProjectReference Include="..\uIntra.Search\Uintra.Search.csproj">
       <Project>{4d9f910e-24e0-43b3-bccb-fef527d5ff2f}</Project>
-      <Name>uIntra.Search</Name>
+      <Name>Uintra.Search</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Subscribe\uIntra.Subscribe.csproj">
+    <ProjectReference Include="..\uIntra.Subscribe\Uintra.Subscribe.csproj">
       <Project>{dd7c6b81-0f9f-4196-89fe-4db666cd0367}</Project>
-      <Name>uIntra.Subscribe</Name>
+      <Name>Uintra.Subscribe</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Tagging\uIntra.Tagging.csproj">
+    <ProjectReference Include="..\uIntra.Tagging\Uintra.Tagging.csproj">
       <Project>{2167c278-86ed-451b-8d2c-01774532b4e8}</Project>
-      <Name>uIntra.Tagging</Name>
+      <Name>Uintra.Tagging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Users\uIntra.Users.csproj">
+    <ProjectReference Include="..\uIntra.Users\Uintra.Users.csproj">
       <Project>{3e868f15-ac47-4962-a6a5-c9084752dde9}</Project>
-      <Name>uIntra.Users</Name>
+      <Name>Uintra.Users</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -1630,16 +1675,6 @@
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DISABLE_LICENCE</DefineConstants>
     <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugWithDll|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;DISABLE_LICENCE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PublicNuget|AnyCPU'">
     <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>

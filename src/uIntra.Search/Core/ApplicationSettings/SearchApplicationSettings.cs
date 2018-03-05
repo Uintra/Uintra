@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 
-namespace uIntra.Search
+namespace Uintra.Search
 {
     public class SearchApplicationSettings : ConfigurationSection, ISearchApplicationSettings
     {

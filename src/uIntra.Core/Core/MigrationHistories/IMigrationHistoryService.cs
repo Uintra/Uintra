@@ -1,10 +1,14 @@
-﻿using uIntra.Core.MigrationHistories.Sql;
+﻿using System;
+using System.Collections.Generic;
+using Uintra.Core.MigrationHistories.Sql;
 
-namespace uIntra.Core.MigrationHistories
+namespace Uintra.Core.MigrationHistories
 {
     public interface IMigrationHistoryService
     {
         MigrationHistory GetLast();
-        void Create(string version);
+        List<MigrationHistory> GetAll();
+        void Create(string name, Version version);
+        void Create(IEnumerable<(string name, Version version)> history);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using uIntra.LicenceService.ApiClient.Interfaces;
 
-namespace Compent.uIntra.Core.Licence
+namespace Compent.Uintra.Core.Licence
 {
     public class LicenceServiceConnection : IWebApiConnection
     {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using uIntra.Notification.Base;
-using uIntra.Notification.Configuration;
-using uIntra.Notification.Constants;
+using Uintra.Notification.Base;
+using Uintra.Notification.Configuration;
+using Uintra.Notification.Constants;
 
-namespace uIntra.Notification.MailModels
+namespace Uintra.Notification.MailModels
 {
     public class EventHidedMailBase : MailBase
     {

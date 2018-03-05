@@ -1,16 +1,16 @@
 ﻿using System.Web.Mvc;
 using Localization.Umbraco.Attributes;
-using uIntra.Core;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Core.User;
-using uIntra.Likes;
-using uIntra.Likes.Web;
-using uIntra.Notification;
-using uIntra.Notification.Configuration;
+using Uintra.Core;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Core.User;
+using Uintra.Likes;
+using Uintra.Likes.Web;
+using Uintra.Notification;
+using Uintra.Notification.Configuration;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     [ThreadCulture]
     public class LikesController : LikesControllerBase
@@ -44,12 +44,12 @@ namespace Compent.uIntra.Controllers
             {
                 if (IsForComment(model))
                 {
-                    var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.CommentLikeAdded.ToInt());
+                    var notificationType = NotificationTypeEnum.CommentLikeAdded;
                     notifiableService.Notify(model.CommentId.Value, notificationType);
                 }
                 else
                 {
-                    var notificationType = _notificationTypeProvider.Get(NotificationTypeEnum.ActivityLikeAdded.ToInt());
+                    var notificationType = NotificationTypeEnum.ActivityLikeAdded;
                     notifiableService.Notify(model.ActivityId, notificationType);
                 }
             }

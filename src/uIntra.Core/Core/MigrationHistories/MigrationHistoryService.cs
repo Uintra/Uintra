@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.MigrationHistories.Sql;
-using uIntra.Core.Persistence;
+using Uintra.Core.MigrationHistories.Sql;
+using Uintra.Core.Persistence;
 
-namespace uIntra.Core.MigrationHistories
+namespace Uintra.Core.MigrationHistories
 {
     public class MigrationHistoryService : IMigrationHistoryService
     {
-        private const string MigrationHistoryName = "uIntra";
 
         private readonly ISqlRepository<int, MigrationHistory> _migrationHistoryRepository;
 
@@ -16,20 +16,35 @@ namespace uIntra.Core.MigrationHistories
             _migrationHistoryRepository = migrationHistoryRepository;
         }
 
-        public MigrationHistory GetLast()
-        {
-            return _migrationHistoryRepository.GetAll().OrderByDescending(mh => new Version(mh.Version)).FirstOrDefault();
-        }
+        public MigrationHistory GetLast() => _migrationHistoryRepository
+            .GetAll()
+            .OrderByDescending(m => m.CreateDate)
+            .FirstOrDefault();
 
-        public void Create(string version)
+        public List<MigrationHistory> GetAll() => _migrationHistoryRepository
+            .GetAll()
+            .ToList();
+
+        public void Create(string name, Version version)
         {
             var migrationHistory = new MigrationHistory
             {
-                Name = MigrationHistoryName,
-                Version = version,
+                Name = name,
+                Version = version.ToString(),
                 CreateDate = DateTime.Now
             };
 
+            _migrationHistoryRepository.Add(migrationHistory);
+        }
+
+        public void Create(IEnumerable<(string name, Version version)> history)
+        {
+            var migrationHistory = history.Select(h => new MigrationHistory
+            {
+                Name = h.name,
+                Version = h.version.ToString(),
+                CreateDate = DateTime.Now
+            });
             _migrationHistoryRepository.Add(migrationHistory);
         }
     }

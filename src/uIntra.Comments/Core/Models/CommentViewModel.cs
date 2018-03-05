@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using uIntra.Core.User;
+using Uintra.Core.LinkPreview;
+using Uintra.Core.User;
 
-namespace uIntra.Comments
+namespace Uintra.Comments
 {
     public class CommentViewModel
     {
@@ -29,13 +30,10 @@ namespace uIntra.Comments
 
         public string CommentViewId { get; set; }
 
-        public IEnumerable<CommentViewModel> Replies { get; set; }
+        public IEnumerable<CommentViewModel> Replies { get; set; } = Enumerable.Empty<CommentViewModel>();
 
         public string CreatorProfileUrl { get; set; }
-
-        public CommentViewModel()
-        {
-            Replies = Enumerable.Empty<CommentViewModel>();
-        }
+        
+        public LinkPreviewViewModel LinkPreview { get; set; }
     }
 }

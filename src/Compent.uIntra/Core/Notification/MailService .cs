@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
-using Compent.uIntra.Core.Constants;
+using Compent.Uintra.Core.Constants;
 using EmailWorker.Data.Domain;
 using EmailWorker.Data.Model;
 using EmailWorker.Data.Services.Interfaces;
 using EmailWorker.Web.Helper;
-using uIntra.Core;
-using uIntra.Core.Extensions;
-using uIntra.Notification;
-using uIntra.Notification.Base;
-using uIntra.Notification.Configuration;
+using Uintra.Core;
+using Uintra.Core.Extensions;
+using Uintra.Notification;
+using Uintra.Notification.Base;
+using Uintra.Notification.Configuration;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.Notification
+namespace Compent.Uintra.Core.Notification
 {
     public class MailService : IMailService
     {

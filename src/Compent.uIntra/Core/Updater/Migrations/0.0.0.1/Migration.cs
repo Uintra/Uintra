@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using BCLExtensions.Trees;
-using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps;
 using static BCLExtensions.Trees.TreeExtensions;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
 {
     public class Migration : IMigration
     {
@@ -18,27 +18,25 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1
             _migrationStepsResolver = migrationStepsResolver;
         }
 
+        private T Resolve<T>() where T : class => _migrationStepsResolver.Resolve<T>();
+
         public IEnumerable<IMigrationStep> Steps
         {
             get
             {
-                var steps = new IMigrationStep[]
-                {
-                    _migrationStepsResolver.Resolve<CoreInstallationStep>(),
-                    _migrationStepsResolver.Resolve<UsersInstallationStep>(),
-                    _migrationStepsResolver.Resolve<NotificationInstallationStep>(),
-                    _migrationStepsResolver.Resolve<BulletinsInstallationStep>(),
-                    _migrationStepsResolver.Resolve<NewsInstallationStep>(),
-                    _migrationStepsResolver.Resolve<EventsInstallationStep>(),
-                    _migrationStepsResolver.Resolve<GroupsInstallationStep>(),
-                    _migrationStepsResolver.Resolve<SearchInstallationStep>(),
-                    _migrationStepsResolver.Resolve<PanelsInstallationStep>(),
-                    _migrationStepsResolver.Resolve<NavigationInstallationStep>(),
-                    _migrationStepsResolver.Resolve<HeadingInstallationStep>(),
-                    _migrationStepsResolver.Resolve<MediaSearchInstallationStep>(),
-                    _migrationStepsResolver.Resolve<AggregateStep>()
-                };
-                return steps.AsEnumerable();
+                yield return Resolve<CoreInstallationStep>();
+                yield return Resolve<UsersInstallationStep>();
+                yield return Resolve<NotificationInstallationStep>();
+                yield return Resolve<BulletinsInstallationStep>();
+                yield return Resolve<NewsInstallationStep>();
+                yield return Resolve<EventsInstallationStep>();
+                yield return Resolve<GroupsInstallationStep>();
+                yield return Resolve<SearchInstallationStep>();
+                yield return Resolve<PanelsInstallationStep>();
+                yield return Resolve<NavigationInstallationStep>();
+                yield return Resolve<HeadingInstallationStep>();
+                yield return Resolve<MediaSearchInstallationStep>();
+                yield return Resolve<AggregateStep>();
             }
         }
     }

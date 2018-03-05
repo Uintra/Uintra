@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
-using uIntra.CentralFeed;
-using uIntra.Core.User;
+using Uintra.CentralFeed;
+using Uintra.CentralFeed.Navigation.Models;
+using Uintra.Core.User;
 using Umbraco.Core.Models;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public interface IGroupFeedContentService : IFeedContentService
     {

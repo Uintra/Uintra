@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace uIntra.Core.Media
+namespace Uintra.Core.Media
 {
     public interface IImageHelper
     {

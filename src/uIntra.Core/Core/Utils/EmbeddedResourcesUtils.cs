@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
 
-namespace uIntra.Core.Utils
+namespace Uintra.Core.Utils
 {
     public static class EmbeddedResourcesUtils
     {       

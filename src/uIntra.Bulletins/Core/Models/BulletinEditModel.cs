@@ -1,13 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using uIntra.Core.Activity;
-using uIntra.Core.Attributes;
-using uIntra.Core.Core.Attributes;
-using uIntra.Core.Media;
-using uIntra.Core.ModelBinders;
+using Uintra.Core.Activity;
+using Uintra.Core.Attributes;
+using Uintra.Core.LinkPreview;
+using Uintra.Core.Media;
+using Uintra.Core.ModelBinders;
 
-namespace uIntra.Bulletins
+namespace Uintra.Bulletins
 {
     public class BulletinEditModel : IntranetActivityEditModelBase, IContentWithMediaCreateEditModel
     {
@@ -27,5 +27,8 @@ namespace uIntra.Bulletins
 
         [RequiredIfAllEmpty(DependancyProperties = new[] { nameof(Description), nameof(Media) })]
         public string NewMedia { get; set; }
+
+       public LinkPreviewViewModel LinkPreview { get; set; }
+       public int? LinkPreviewId { get; set; }
     }
 }

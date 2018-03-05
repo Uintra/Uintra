@@ -1,9 +1,9 @@
 using AutoMapper;
 using Extensions;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
 
-namespace uIntra.Bulletins
+namespace Uintra.Bulletins
 {
     public class BulletinsAutoMapperProfile : Profile
     {
@@ -37,7 +37,8 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.PublishDate, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.Title, o => o.Ignore())
-                .ForMember(dst => dst.IsPinActual, o => o.Ignore());
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
+                .ForMember(dst => dst.LinkPreview, o => o.Ignore());
 
             Mapper.CreateMap<BulletinEditModel, BulletinBase>()
                 .ForMember(dst => dst.Title, o => o.Ignore())
@@ -53,6 +54,7 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .ForMember(dst => dst.OwnerId, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
+                .ForMember(dst => dst.LinkPreview, o => o.Ignore())                
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
@@ -82,6 +84,7 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id));
 
             Mapper.CreateMap<BulletinsBackofficeCreateModel, BulletinBase>()
+                .ForMember(dst => dst.Location, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
@@ -94,12 +97,15 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
                 .ForMember(dst => dst.OwnerId, o => o.Ignore())
+                .ForMember(dst => dst.LinkPreview, o => o.Ignore())
+                .ForMember(dst => dst.LinkPreviewId, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
                     src.MediaIds = dst.Media.ToIntCollection();
                 });
 
             Mapper.CreateMap<BulletinsBackofficeSaveModel, BulletinBase>()
+                .ForMember(dst => dst.Location, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
@@ -110,6 +116,8 @@ namespace uIntra.Bulletins
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
+                .ForMember(dst => dst.LinkPreview, o => o.Ignore())
+                .ForMember(dst => dst.LinkPreviewId, o => o.Ignore())
                 .AfterMap((dst, src) =>
                 {
                     src.MediaIds = dst.Media.ToIntCollection();

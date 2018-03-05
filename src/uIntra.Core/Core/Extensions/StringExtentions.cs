@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using Extensions;
 
-namespace uIntra.Core.Extensions
+namespace Uintra.Core.Extensions
 {
     public static class StringExtensions
     {
@@ -135,7 +135,7 @@ namespace uIntra.Core.Extensions
             }
 
             var lastIndex = str.Substring(0, maxLength).LastIndexOf(' ');
-            return str.Substring(0, lastIndex).Trim();
+            return lastIndex > 0 ? str.Substring(0, lastIndex).Trim() : str;
         }
 
         public static string SplitOnUpperCaseLetters(this string str) =>

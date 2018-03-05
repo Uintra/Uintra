@@ -1,10 +1,11 @@
-﻿using System.Linq;
-using uIntra.Core.Extensions;
-using uIntra.Core.Grid;
-using uIntra.Core.TypeProviders;
+﻿using System;
+using System.Linq;
+using Uintra.Core.Extensions;
+using Uintra.Core.Grid;
+using Uintra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
-namespace uIntra.CentralFeed
+namespace Uintra.CentralFeed
 {
     public abstract class FeedContentServiceBase : IFeedContentService
     {
@@ -20,26 +21,26 @@ namespace uIntra.CentralFeed
         protected abstract string FeedPluginAlias { get; }
         protected abstract string ActivityCreatePluginAlias { get; }
 
-        public virtual IIntranetType GetFeedTabType(IPublishedContent content) => 
-            GetActivityTypeFromPlugin(content, FeedPluginAlias);
+        public virtual Enum GetFeedTabType(IPublishedContent content) =>
+            GetCentralFeedTypeFromPlugin(content, FeedPluginAlias);
 
-        public virtual IIntranetType GetCreateActivityType(IPublishedContent content) => 
-            GetActivityTypeFromPlugin(content, ActivityCreatePluginAlias);
+        public virtual Enum GetCreateActivityType(IPublishedContent content) =>
+            GetCentralFeedTypeFromPlugin(content, ActivityCreatePluginAlias);
 
-        protected virtual  IIntranetType GetActivityTypeFromPlugin(IPublishedContent content, string gridPluginAlias)
+        protected virtual  Enum GetCentralFeedTypeFromPlugin(IPublishedContent content, string gridPluginAlias)
         {
             var value = _gridHelper
                 .GetValues(content, gridPluginAlias)
                 .FirstOrDefault(t => t.value != null)
                 .value;
 
-            if (value == null)
-                return _feedTypeProvider.Get(default(CentralFeedTypeEnum).ToInt());
+            if (value == null) return default(CentralFeedTypeEnum);
 
-            var tabTypeId = int.TryParse(value.tabType.ToString(), out int result)
-                ? result
-                : default(CentralFeedTypeEnum).ToInt();
-            return _feedTypeProvider.Get(tabTypeId);
+            var tabType = int.TryParse(value.tabType.ToString(), out int result)
+                ? _feedTypeProvider[result]
+                : default(CentralFeedTypeEnum);
+
+            return tabType;
         }
 
     }

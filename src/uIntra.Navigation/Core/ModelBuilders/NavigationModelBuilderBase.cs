@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using uIntra.Core.Configuration;
-using uIntra.Navigation.Configuration;
+using Uintra.Core.Configuration;
+using Uintra.Navigation.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace uIntra.Navigation
+namespace Uintra.Navigation
 {
     public abstract class NavigationModelBuilderBase<T> where T : class
     {

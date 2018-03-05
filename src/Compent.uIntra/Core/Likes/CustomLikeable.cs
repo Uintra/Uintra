@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Likes;
+using Uintra.Likes;
 
-namespace Compent.uIntra.Core.Likes
+namespace Compent.Uintra.Core.Likes
 {
     public class CustomLikeable : ILikeable
     {

@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc.Html
 @using Extensions
-@using uIntra.Core.Extensions
-@model uIntra.Events.EventViewModel
+@using Uintra.Core.Extensions
+@model Uintra.Events.EventViewModel
 
 <section class="content">
     <div class="feed__btns clearfix">
@@ -37,18 +37,12 @@
                         </div>
                     </div>
                 }
-                @if (Model.LocationTitle.HasValue() || Model.LocationAddress.HasValue())
+                @if (Model.Location != null)
                 {
-                    <p>
-                        @if (Model.LocationTitle.HasValue())
-                        {
-                            @Model.LocationTitle <br />
-                        }
-                        @if (Model.LocationAddress.HasValue())
-                        {
-                            @Model.LocationAddress
-                        }
-                    </p>
+                    <div class="location">
+                        <strong class="location__title">@Model.LocationTitle</strong>
+                        <a href="http://maps.google.co.uk/maps?q=@Model.Location.Address" target="blank">@Model.Location.Address</a>
+                    </div>
                 }
             </div>
         </div>

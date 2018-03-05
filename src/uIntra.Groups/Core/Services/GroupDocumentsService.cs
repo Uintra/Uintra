@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using uIntra.Core.Persistence;
-using uIntra.Groups.Sql;
+using Uintra.Core.Persistence;
+using Uintra.Groups.Sql;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupDocumentsService : IGroupDocumentsService
     {

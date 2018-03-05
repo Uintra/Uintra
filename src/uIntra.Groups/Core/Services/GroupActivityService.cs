@@ -1,8 +1,8 @@
 ﻿using System;
-using uIntra.Core.Persistence;
-using uIntra.Groups.Sql;
+using Uintra.Core.Persistence;
+using Uintra.Groups.Sql;
 
-namespace uIntra.Groups
+namespace Uintra.Groups
 {
     public class GroupActivityService : IGroupActivityService
     {
@@ -32,9 +32,7 @@ namespace uIntra.Groups
 
         public Guid? GetGroupId(Guid activityId)
         {
-            return _groupActivityRepository
-                .Find(rel => rel.ActivityId == activityId)?
-                .GroupId;
+            return _groupActivityRepository.Find(rel => rel.ActivityId == activityId)?.GroupId;
         }
     }
 }

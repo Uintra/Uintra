@@ -1,8 +1,10 @@
 ﻿using System;
-using uIntra.Core.PagePromotion;
-using uIntra.Core.TypeProviders;
+using BCLExtensions;
+using Uintra.Core.Extensions;
+using Uintra.Core.PagePromotion;
+using Uintra.Core.TypeProviders;
 
-namespace uIntra.Core.Activity
+namespace Uintra.Core.Activity
 {
     public class ActivityTypeHelper : IActivityTypeHelper
     {
@@ -20,22 +22,15 @@ namespace uIntra.Core.Activity
             _pagePromotionService = pagePromotionService;
         }
 
-        public IIntranetType GetActivityType(Guid activityId)
+        //TODO what about using next code
+        // var activityServices = DependencyResolver.Current.GetServices<IIntranetActivityService<IIntranetActivity>>();
+        // var activityType = activityServices.Select(service => service.Get(activityId.Value)).Single(a => a != null).Type;
+        // TODO: we can even omit first line 
+        // and inject IEnumerable<IIntranetActivityService<IIntranetActivity>> to the constructor
+        public Enum GetActivityType(Guid activityId)
         {
-            //TODO what about using next code
-            // var activityServices = DependencyResolver.Current.GetServices<IIntranetActivityService<IIntranetActivity>>();
-            // var activityType = activityServices.Select(service => service.Get(activityId.Value)).Single(a => a != null).Type;
-            // TODO: we can even omit first line 
-            // and inject IEnumerable<IIntranetActivityService<IIntranetActivity>> to the constructor
-
-            var typeId = GetActivityTypeId(activityId);
-            return _activityTypeProvider.Get(typeId);
-        }
-
-        private int GetActivityTypeId(Guid activityId)
-        {
-            var activityTypeId = _activityRepository.Get(activityId)?.Type;
-            return activityTypeId ?? _pagePromotionService.Get(activityId).Type.Id;
+            var typeId = _activityRepository.Get(activityId)?.Type;
+            return typeId.HasValue ? _activityTypeProvider[typeId.Value] : _pagePromotionService.Get(activityId).Type;
         }
     }
 }

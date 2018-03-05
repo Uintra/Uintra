@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.uIntra.Core.Activity;
-using Compent.uIntra.Core.Feed;
-using uIntra.CentralFeed;
-using uIntra.CentralFeed.Web;
-using uIntra.Core.Activity;
-using uIntra.Core.Feed;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Core.User.Permissions;
-using uIntra.Groups;
-using uIntra.Subscribe;
+using Compent.Uintra.Core.Activity;
+using Compent.Uintra.Core.Feed;
+using Uintra.CentralFeed;
+using Uintra.CentralFeed.Web;
+using Uintra.Core.Activity;
+using Uintra.Core.Feed;
+using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
+using Uintra.Core.User.Permissions;
+using Uintra.Groups;
+using Uintra.Subscribe;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
 
     public class CentralFeedController : CentralFeedControllerBase
@@ -37,8 +37,10 @@ namespace Compent.uIntra.Controllers
             IFeedFilterStateService feedFilterStateService,
             IPermissionsService permissionsService,
             UmbracoHelper umbracoHelper,
-            IFeedActivityHelper feedActivityHelper1)
-            : base(centralFeedService,
+            IFeedActivityHelper feedActivityHelper1,
+            IActivityTypeProvider activityTypeProvider)
+            : base(
+                  centralFeedService,
                   centralFeedContentService,
                   activitiesServiceFactory,
                   subscribeService,
@@ -47,14 +49,15 @@ namespace Compent.uIntra.Controllers
                   centralFeedTypeProvider,
                   centralFeedLinkService,
                   feedFilterStateService,
-                  permissionsService)
+                  permissionsService,
+                  activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
             _groupFeedService = groupFeedService;
             _feedActivityHelper = feedActivityHelper1;
         }
 
-        protected override IEnumerable<IFeedItem> GetCentralFeedItems(IIntranetType type)
+        protected override IEnumerable<IFeedItem> GetCentralFeedItems(Enum type)
         {
             var groupIds = _intranetUserService.GetCurrentUser().GroupIds;
 

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace uIntra.Core.Extensions
+namespace Uintra.Core.Extensions
 {
     public static class StreamExtensions
     {

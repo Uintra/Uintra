@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BCLExtensions.Trees;
-using uIntra.Core.Extensions;
-using uIntra.Core.TypeProviders;
+using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
 using static BCLExtensions.Trees.TreeExtensions;
 
-namespace uIntra.Notification.Configuration
+namespace Uintra.Notification.Configuration
 {
     /// <summary>
     /// Responsible for mapping defined by category provider categories into tree.
@@ -47,11 +48,11 @@ namespace uIntra.Notification.Configuration
             return categoryNode.WithChildren(children);
         }
 
-        protected virtual ITree<TreeNodeModel> GetCategoryNode(IIntranetType activityType) =>
-            GetNode(activityType.Id, activityType.Name, CategoryIconAlias, CategoryRoutePath);
+        protected virtual ITree<TreeNodeModel> GetCategoryNode(Enum activityType) =>
+            GetNode(activityType.ToInt(), activityType.ToString(), CategoryIconAlias, CategoryRoutePath);
 
-        protected virtual ITree<TreeNodeModel> GetSettingsNode(IIntranetType notificationType) =>
-            GetNode(notificationType.Id, notificationType.Name, SettingsIconAlias, SettingRoutePath);
+        protected virtual ITree<TreeNodeModel> GetSettingsNode(Enum notificationType) =>
+            GetNode(notificationType.ToInt(), notificationType.ToString(), SettingsIconAlias, SettingRoutePath);
 
         protected virtual ITree<TreeNodeModel> RootNode => GetNode("-1", "root", string.Empty, CategoryRoutePath);
 

@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using Compent.uIntra.Core.Bulletins;
-using Compent.uIntra.Core.Events;
-using Compent.uIntra.Core.Search.Entities;
-using Compent.uIntra.Core.Search.Models;
-using Compent.uIntra.Core.Users;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Search;
-using uIntra.Tagging.UserTags.Models;
+using Compent.Uintra.Core.Bulletins;
+using Compent.Uintra.Core.Events;
+using Compent.Uintra.Core.Search.Entities;
+using Compent.Uintra.Core.Search.Models;
+using Compent.Uintra.Core.Users;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Search;
+using Uintra.Tagging.UserTags.Models;
 
-namespace Compent.uIntra.Core.Search.SearchAutoMapperProfile
+namespace Compent.Uintra.Core.Search.SearchAutoMapperProfile
 {
     public class SearchAutoMapperProfile : Profile
     {
@@ -129,7 +129,7 @@ namespace Compent.uIntra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.TagsHighlighted, src => src.Ignore())
                 .ForMember(dst => dst.Type, src => src.Ignore())
                 .ForMember(dst => dst.UserTagNames, src => src.Ignore())
-                .AfterMap((src, dst) => { dst.Type = src.Type.Id; });
+                .AfterMap((src, dst) => { dst.Type = src.Type.ToInt(); });
 
             Mapper.CreateMap<Bulletin, SearchableActivity>()
                 .IncludeBase<IntranetActivity, SearchableActivity>()

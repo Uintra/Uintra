@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using uIntra.Core.User;
+using Uintra.Core.User;
 
-namespace uIntra.Users
+namespace Uintra.Users
 {
     public interface IRoleService
     {

@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using Compent.uIntra.Core.PagePromotion.Models;
-using uIntra.CentralFeed;
-using uIntra.Core.Extensions;
-using uIntra.Core.PagePromotion;
+using Compent.Uintra.Core.PagePromotion.Models;
+using Uintra.CentralFeed;
+using Uintra.Core.Extensions;
+using Uintra.Core.PagePromotion;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.uIntra.Core.PagePromotion
+namespace Compent.Uintra.Core.PagePromotion
 {
     public class PagePromotionAutoMapperProfile : Profile
     {
@@ -33,7 +33,8 @@ namespace Compent.uIntra.Core.PagePromotion
                .ForMember(dst => dst.OwnerId, src => src.Ignore())
                .ForMember(dst => dst.Commentable, src => src.Ignore())
                .ForMember(dst => dst.Likeable, src => src.Ignore())
-               .ForMember(dst => dst.IsReadOnly, src => src.Ignore());
+               .ForMember(dst => dst.IsReadOnly, src => src.Ignore())
+               .ForMember(dst => dst.Location, src => src.Ignore());
 
             Mapper.CreateMap<PagePromotionConfig, Entities.PagePromotion>()
                 .ForMember(dst => dst.IsHidden, o => o.MapFrom(el => !el.PromoteOnCentralFeed))
@@ -53,6 +54,7 @@ namespace Compent.uIntra.Core.PagePromotion
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
+                .ForMember(dst => dst.Location, src => src.Ignore())
                 .ForMember(dst => dst.Likeable, o => o.Ignore())
                 .ForMember(dst => dst.Commentable, o => o.Ignore())
                 .AfterMap((src, dst) =>

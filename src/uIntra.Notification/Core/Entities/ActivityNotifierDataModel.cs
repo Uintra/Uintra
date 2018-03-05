@@ -1,13 +1,12 @@
 ﻿using System;
-using uIntra.Core.TypeProviders;
-using uIntra.Notification.Base;
+using Uintra.Notification.Base;
 
-namespace uIntra.Notification
+namespace Uintra.Notification
 {
     public class ActivityNotifierDataModel : INotifierDataValue, IHaveNotifierId
     {
-        public IIntranetType NotificationType { get; set; }
-        public IIntranetType ActivityType { get; set; }
+        public Enum NotificationType { get; set; }
+        public Enum ActivityType { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }
         public bool IsPinned { get; set; }

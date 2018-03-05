@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.uIntra.Core.Search.Entities;
-using uIntra.Core.Extensions;
-using uIntra.Search;
+using Compent.Uintra.Core.Search.Entities;
+using Uintra.Search;
 
-namespace Compent.uIntra.Core.UserTags
+namespace Compent.Uintra.Core.UserTags
 {
     public class ElasticTagIndex : IElasticTagIndex
     {
         private readonly IElasticSearchRepository<SearchableTag> _elasticSearchRepository;
-        private readonly ISearchableTypeProvider _searchableTypeProvider;
 
-        public ElasticTagIndex(
-            IElasticSearchRepository<SearchableTag> elasticSearchRepository,
-            ISearchableTypeProvider searchableTypeProvider)
+        public ElasticTagIndex(IElasticSearchRepository<SearchableTag> elasticSearchRepository)
         {
             _elasticSearchRepository = elasticSearchRepository;
-            _searchableTypeProvider = searchableTypeProvider;
         }
 
         public void Index(SearchableTag tag)
@@ -38,7 +33,7 @@ namespace Compent.uIntra.Core.UserTags
 
         public void Delete()
         {
-            _elasticSearchRepository.DeleteAllByType(_searchableTypeProvider.Get(UintraSearchableTypeEnum.Tag.ToInt()));
+            _elasticSearchRepository.DeleteAllByType(UintraSearchableTypeEnum.Tag);
         }
     }
 }

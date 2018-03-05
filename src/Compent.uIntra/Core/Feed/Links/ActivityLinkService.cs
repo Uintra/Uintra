@@ -1,13 +1,12 @@
 ﻿using System;
-using uIntra.CentralFeed;
-using uIntra.Core.Activity;
-using uIntra.Core.Extensions;
-using uIntra.Core.Links;
-using uIntra.Core.TypeProviders;
-using uIntra.Core.User;
-using uIntra.Groups;
+using Uintra.CentralFeed;
+using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
+using Uintra.Core.Links;
+using Uintra.Core.User;
+using Uintra.Groups;
 
-namespace Compent.uIntra.Core.Feed.Links
+namespace Compent.Uintra.Core.Feed.Links
 {
     public class ActivityLinkService : ICentralFeedLinkService, IGroupFeedLinkService
     {
@@ -55,19 +54,19 @@ namespace Compent.uIntra.Core.Feed.Links
             return result;
         }
 
-        public IActivityCreateLinks GetCreateLinks(IIntranetType activityType, Guid groupId)
+        public IActivityCreateLinks GetCreateLinks(Enum activityType, Guid groupId)
         {
             var activityModel = GetActivityGroupCreateModel(activityType, groupId);
             return _groupFeedLinkProvider.GetCreateLinks(activityModel);
         }
 
-        public IActivityCreateLinks GetCreateLinks(IIntranetType activityType)
+        public IActivityCreateLinks GetCreateLinks(Enum activityType)
         {
             var activityModel = GetActivityCreateModel(activityType);
             return _centralFeedLinkProvider.GetCreateLinks(activityModel);
         }
 
-        private GroupActivityTransferCreateModel GetActivityGroupCreateModel(IIntranetType activityType, Guid groupId)
+        private GroupActivityTransferCreateModel GetActivityGroupCreateModel(Enum activityType, Guid groupId)
         {
             return new GroupActivityTransferCreateModel()
             {
@@ -77,7 +76,7 @@ namespace Compent.uIntra.Core.Feed.Links
             };           
         }
 
-        private ActivityTransferCreateModel GetActivityCreateModel(IIntranetType activityType)
+        private ActivityTransferCreateModel GetActivityCreateModel(Enum activityType)
         {
             return new ActivityTransferCreateModel()
             {
@@ -93,9 +92,9 @@ namespace Compent.uIntra.Core.Feed.Links
             return service.Get(id);
         }
 
-        private IIntranetActivityService<IIntranetActivity> GetActivityService(IIntranetType activityType)
+        private IIntranetActivityService<IIntranetActivity> GetActivityService(Enum activityType)
         {
-            return _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(activityType.Id);
+            return _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(activityType);
         }
     }
 }

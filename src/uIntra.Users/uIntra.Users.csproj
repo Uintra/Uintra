@@ -7,8 +7,8 @@
     <ProjectGuid>{3E868F15-AC47-4962-A6A5-C9084752DDE9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.Users</RootNamespace>
-    <AssemblyName>uIntra.Users</AssemblyName>
+    <RootNamespace>Uintra.Users</RootNamespace>
+    <AssemblyName>Uintra.Users</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -310,13 +310,13 @@
     <Compile Include="Web\UserApiController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
+    <ProjectReference Include="..\uIntra.Core\Uintra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>uIntra.Core</Name>
+      <Name>Uintra.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Notification\uIntra.Notification.csproj">
+    <ProjectReference Include="..\uIntra.Notification\Uintra.Notification.csproj">
       <Project>{774EBA5A-679C-401D-B3F1-130562785C60}</Project>
-      <Name>uIntra.Notification</Name>
+      <Name>Uintra.Notification</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

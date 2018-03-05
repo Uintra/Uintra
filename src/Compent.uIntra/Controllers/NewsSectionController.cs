@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Web.Http;
-using uIntra.Core.Media;
-using uIntra.Core.User;
-using uIntra.Navigation;
-using uIntra.News;
-using uIntra.News.Dashboard;
+using Uintra.Core.Media;
+using Uintra.Core.User;
+using Uintra.Navigation;
+using Uintra.News;
+using Uintra.News.Dashboard;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class NewsSectionController : NewsSectionControllerBase
     {
