@@ -8,6 +8,7 @@ using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
 using Extensions;
 using Localization.Core;
 using Newtonsoft.Json.Linq;
+using Uintra.Core.Constants;
 using Uintra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
@@ -96,6 +97,60 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             }
         }
 
+        public static  void AddIntranetUserIdProperty(IMediaType mediaType)
+        {
+            var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
+
+            var mediatypeIntranetUserId = GetIntranetUserIdPropertyType();
+            if (!mediaType.PropertyTypeExists(mediatypeIntranetUserId.Alias))
+            {
+                mediaType.AddPropertyType(mediatypeIntranetUserId);
+                contentTypeService.Save(mediaType);
+            }
+        }
+
+        private static PropertyType GetIntranetUserIdPropertyType()
+        {
+            return new PropertyType("Umbraco.NoEdit", DataTypeDatabaseType.Nvarchar)
+            {
+                Name = "Intranet user id",
+                Alias = IntranetConstants.IntranetCreatorId
+            };
+        }
+
+        public static void AddIsDeletedProperty(IMediaType mediaType)
+        {
+            var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
+            var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
+
+            var dataType = dataTypeService.GetDataTypeDefinitionByName(UmbracoAliases.Media.IsDeletedDataTypeDefinitionName);
+            if (dataType == null)
+            {
+                dataType = new DataTypeDefinition("Umbraco.TrueFalse")
+                {
+                    Name = UmbracoAliases.Media.IsDeletedDataTypeDefinitionName
+                };
+
+                dataTypeService.Save(dataType);
+            }
+
+            var imageIsDeletedPropertyType = GetIsDeletedPropertyType(dataType);
+            if (!mediaType.PropertyTypeExists(imageIsDeletedPropertyType.Alias))
+            {
+                mediaType.AddPropertyType(imageIsDeletedPropertyType);
+                contentTypeService.Save(mediaType);
+            }
+        }
+
+        private static PropertyType GetIsDeletedPropertyType(IDataTypeDefinition dataType)
+        {
+            return new PropertyType(dataType)
+            {
+                Name = "Is deleted",
+                Alias = UmbracoAliases.Media.IsDeletedPropertyTypeAlias
+            };
+        }
+
         public static void CreateGrid(string dataTypeName, string gridEmbeddedResourceFileName)
         {
             var sourceAssembly = Assembly.GetCallingAssembly();
@@ -143,9 +198,9 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             var localizationCoreService = DependencyResolver.Current.GetService<ILocalizationCoreService>();
 
             var resourceModel = localizationCoreService.GetResourceModel(key);
-            if (resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English].Contains(key))
+            if (resourceModel.Translations[Constants.LocalizationConstants.CultureKeys.English].Contains(key))
             {
-                resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English] = translation;
+                resourceModel.Translations[Constants.LocalizationConstants.CultureKeys.English] = translation;
                 localizationCoreService.Create(resourceModel);
             }
         }
@@ -155,9 +210,9 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             var localizationCoreService = DependencyResolver.Current.GetService<ILocalizationCoreService>();
 
             var resourceModel = localizationCoreService.GetResourceModel(key);
-            if (resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English].Contains(oldTranslation))
+            if (resourceModel.Translations[Constants.LocalizationConstants.CultureKeys.English].Contains(oldTranslation))
             {
-                resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English] = newTranslation;
+                resourceModel.Translations[Constants.LocalizationConstants.CultureKeys.English] = newTranslation;
                 localizationCoreService.Update(resourceModel);
             }
         }
