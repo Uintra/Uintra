@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc.Ajax
 @using System.Web.Mvc.Html
-@using uIntra.Core.Extensions
-@model uIntra.Comments.CommentEditModel
+@using Uintra.Core.Extensions
+@model Uintra.Comments.CommentEditViewModel
 
 @using (Ajax.BeginForm("Edit", "Comments", new AjaxOptions { UpdateTargetId = Model.UpdateElementId, InsertionMode = InsertionMode.ReplaceWith, HttpMethod = "PUT", OnComplete = $"new uIntra.methods.CommentOverview('#{Model.UpdateElementId}')" }, new { @class = "comments__form js-comment-edit" }))
 {
@@ -15,4 +15,17 @@
     <button disabled="disabled" class="btn _submit js-comment-edit-btn js-disable-submit" type="button">@Html.Localize("CommentsOverView.EditComment.btn")</button>
     <input class="btn js-comment-hideEditLink" type="button" value="@Html.Localize("CommentsView.HideBtn.text")" />
     @Html.ValidationMessageFor(model => model.Text)
+
+    if (Model.LinkPreview != null)
+    {
+        <input type="hidden" name="linkPreviewId" value="@Model.LinkPreview.Id" />
+        <div class="js-link-preview-edit-preview-container link-preview link-preview--edit">
+            <button type="button" class="link-preview-close js-link-preview-remove-preview">X</button>
+            <h3 class="link-preview-title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
+            <p>@Model.LinkPreview.Description</p>
+            <div class="link-preview-image">
+                <img src="@Model.LinkPreview.ImageUri" alt="link preview image description" />
+            </div>
+        </div>
+    }
 }

@@ -9,6 +9,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
 using Uintra.Core.User;
+using Uintra.Groups.Attributes;
 using Uintra.Groups.Permissions;
 using Umbraco.Web.Mvc;
 
@@ -150,6 +151,7 @@ namespace Uintra.Groups.Web
             return PartialView(ListViewPath, model);
         }
 
+        [NotFoundGroup]
         [DisabledGroupActionFilter]
         public ActionResult Info(Guid groupId)
         {

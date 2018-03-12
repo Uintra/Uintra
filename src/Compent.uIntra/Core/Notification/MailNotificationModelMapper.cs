@@ -2,7 +2,6 @@
 using System.Linq;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
-using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
@@ -48,7 +47,7 @@ namespace Compent.Uintra.Core.Notification
                 case CommentNotifierDataModel model:
                     tokens = new[]
                     {
-                        (Url, model.Url),
+                        (Url, GetHtmlLink(model.Title, model.Url)),
                         (ActivityTitle, GetHtmlLink(model.Title, model.Url)),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName)
                     };
@@ -61,6 +60,13 @@ namespace Compent.Uintra.Core.Notification
                         (ActivityType, model.ActivityType.ToString()),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
                         (CreatedDate, model.CreatedDate.ToShortDateString())
+                    };
+                    break;
+                case MonthlyMailDataModel model:
+                    tokens = new[]
+                    {
+                        (FullName, receiver.DisplayedName),
+                        (ActivityList, model.ActivityList)
                     };
                     break;
                 default:

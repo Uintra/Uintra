@@ -25,7 +25,6 @@ namespace Compent.Uintra.Core.PagePromotion
         ILikeableService,
         ICommentableService
     {
-        private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IIntranetUserService<IIntranetUser> _userService;
         private readonly ILikesService _likesService;
         private readonly ICommentsService _commentsService;
@@ -33,7 +32,6 @@ namespace Compent.Uintra.Core.PagePromotion
         private readonly IDocumentIndexer _documentIndexer;
 
         public PagePromotionService(
-            IActivityTypeProvider activityTypeProvider,
             UmbracoHelper umbracoHelper,
             IIntranetUserService<IIntranetUser> userService,
             ILikesService likesService,
@@ -44,7 +42,6 @@ namespace Compent.Uintra.Core.PagePromotion
             IDocumentIndexer documentIndexer)
             : base(cacheService, umbracoHelper, documentTypeAliasProvider)
         {
-            _activityTypeProvider = activityTypeProvider;
             _userService = userService;
             _likesService = likesService;
             _commentsService = commentsService;

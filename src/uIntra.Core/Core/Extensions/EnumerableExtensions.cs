@@ -20,5 +20,7 @@ namespace Uintra.Core.Extensions
         {
             return source.Concat(element.ToEnumerable());
         }
+
+        public static bool IsEmpty<T>(this IList<T> list) => list.Count == 0;
     }
 }

@@ -26,5 +26,7 @@ namespace Uintra.Bulletins
         public string AllowedMediaExtensions { get; set; }
 
         public IEnumerable<string> Dates { get; set; }
+
+        public int? LinkPreviewId { get; set; }
     }
 }

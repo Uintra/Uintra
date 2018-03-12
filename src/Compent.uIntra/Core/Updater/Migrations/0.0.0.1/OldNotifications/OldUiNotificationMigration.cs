@@ -5,7 +5,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
 using Uintra.Notification;
 
-namespace Compent.Uintra.Installer.Migrations
+namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.OldNotifications
 {
     public class OldUiNotificationMigration
     {
@@ -42,7 +42,7 @@ namespace Compent.Uintra.Installer.Migrations
             var invalidNotifications = parsedNotifications[false].Select(UnpackNotification); 
             var updatedNotifications = parsedNotifications[true].Select(UnpackNotification); // notifications to activities that do not exist
 
-            Notification UnpackNotification((bool isValid, global::Uintra.Notification.Notification notification) arg) => arg.notification;
+            global::Uintra.Notification.Notification UnpackNotification((bool isValid, global::Uintra.Notification.Notification notification) arg) => arg.notification;
 
             _notificationRepository.Update(updatedNotifications);
             _notificationRepository.Delete(invalidNotifications); // we delete notifications that could not be migrated for some reason
@@ -68,7 +68,7 @@ namespace Compent.Uintra.Installer.Migrations
             return (isValid: true, notification);
         }
 
-        private NotificationValue MapToNewNotificationValue((Notification item, OldNotifierData data) notification)
+        private NotificationValue MapToNewNotificationValue((global::Uintra.Notification.Notification item, OldNotifierData data) notification)
         {
             Guid activityId = ParseActivityId(notification.data.Url);
 

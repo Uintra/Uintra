@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Extensions;
+using uIntra.Notification;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 
@@ -12,10 +13,19 @@ namespace Uintra.Notification.Configuration
     /// </summary>
     public class NotificationSettingCategoryProvider : INotificationSettingCategoryProvider
     {
-        public virtual IEnumerable<NotificationSettingsCategoryDto> GetAvailableCategories()
-        {
-            return GetBulletinSettings().ToEnumerable().Append(GetNewsSettings()).Append(GetEventSettings());
-        }
+        public virtual IEnumerable<NotificationSettingsCategoryDto> GetAvailableCategories() =>
+            GetBulletinSettings()
+                .ToEnumerable()
+                .Append(GetNewsSettings())
+                .Append(GetEventSettings())
+                .Append(GetCommunicationSettings());
+
+        public virtual NotificationSettingsCategoryDto GetCommunicationSettings() => //TODO: temporary for communication settings
+            new NotificationSettingsCategoryDto(
+                CommunicationTypeEnum.CommunicationSettings,
+                ((Enum) NotificationTypeEnum.CommentLikeAdded).ToEnumerable()
+                .Append(NotificationTypeEnum.MonthlyMail));
+
 
         protected virtual Enum[] CommentNotificationTypes => new Enum[]
         {

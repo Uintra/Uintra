@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Uintra.Core.Media.Sql;
 using Uintra.Core.Persistence;
 
 namespace Uintra.Core.Media

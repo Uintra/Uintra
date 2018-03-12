@@ -1,6 +1,6 @@
 ﻿@using System.Web.Mvc.Ajax
-@using uIntra.Core.Extensions
-@model uIntra.Likes.LikesViewModel
+@using Uintra.Core.Extensions
+@model Uintra.Likes.LikesViewModel
 @{
     var isLiked = Model.CanAddLike || Model.IsReadOnly ? "" : "_isLiked";
     var entityId = Model.CommentId ?? Model.ActivityId;

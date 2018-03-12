@@ -2,6 +2,6 @@
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <appSettings>
     <add key="MyLinks.BulletinsTitleLength" value="10" xdt:Locator="Condition(@key='MyLinks.BulletinsTitleLength')" xdt:Transform="InsertIfMissing" />
-    <add key="Navigation.ShowBreadcrumbs" value="True" xdt:Locator="Condition(@key='Navigation.ShowBreadcrumbs')" xdt:Transform="InsertIfMissing" />
+    <add key="Navigation.ShowBreadcrumbs" value="true" xdt:Locator="Condition(@key='Navigation.ShowBreadcrumbs')" xdt:Transform="InsertIfMissing" />
   </appSettings>
 </configuration>

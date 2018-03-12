@@ -84,15 +84,8 @@ let initDescriptionControl = function () {
         placeholder: dataStorage.first().data('placeholder') || '',
         modules: {
             toolbar: toolbarOptions
-        },
-        theme: 'snow'
+        }
     });
-
-    let emojiContainer = editor.container.querySelector(".js-emoji");
-    if (!emojiContainer) {
-        helpers.initSmiles(editor, editor.getModule('toolbar').container);
-        emojiContainer = true;
-    }
 
     editor.on('text-change', function () {
         if (!editor.getText().trim()) {
@@ -178,7 +171,7 @@ let initDatePickers = function () {
         let newDate = newDates[0];
         let endDate = end.selectedDates[0];
         if (endDate != null && endDate < new Date(newDate)) {
-            end.setDate(newDate);
+            end.setDate(newDate, true);
         }
         end.set('minDate', newDate);
     }

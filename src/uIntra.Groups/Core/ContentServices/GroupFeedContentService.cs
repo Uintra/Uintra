@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Uintra.CentralFeed;
+using Uintra.CentralFeed.Navigation.Models;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Uintra.Core.Grid;

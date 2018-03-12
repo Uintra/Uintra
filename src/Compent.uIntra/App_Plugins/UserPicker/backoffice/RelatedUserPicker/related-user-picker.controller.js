@@ -4,7 +4,9 @@
 
         var config = {
             onSelectionChanged: onSelectionChanged,
-            usersDataSource: getAllowedUsers,
+            usersDataSource: function() {
+                return getAllowedUsers($scope.model.value);
+            },
             selectedUserId: $scope.model.value
         }
         self.userPickerConfig = config;
@@ -13,8 +15,8 @@
             $scope.model.value = selectedUserId;
         }
 
-        function getAllowedUsers() {
-            return $http.get('/umbraco/backoffice/api/UserApi/NotAssignedToMemberUsers');
+        function getAllowedUsers(selectedUserId) {
+            return $http.get('/umbraco/backoffice/api/UserApi/NotAssignedToMemberUsers?selectedUserId=' + selectedUserId);
         }
     }
     angular.module('umbraco').controller('relatedUserPickerController', ['$scope', '$http', relatedUserPickerController]);

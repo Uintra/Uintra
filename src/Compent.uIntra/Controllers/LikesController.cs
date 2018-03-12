@@ -16,19 +16,16 @@ namespace Compent.Uintra.Controllers
     public class LikesController : LikesControllerBase
     {
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly INotificationTypeProvider _notificationTypeProvider;
 
         public LikesController(
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserService<IIntranetUser> intranetUserService,
             ILikesService likesService,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
-            UmbracoHelper umbracoHelper,
-            INotificationTypeProvider notificationTypeProvider)
+            UmbracoHelper umbracoHelper)
             : base(activitiesServiceFactory, intranetUserService, likesService, documentTypeAliasProvider, umbracoHelper)
         {
             _activitiesServiceFactory = activitiesServiceFactory;
-            _notificationTypeProvider = notificationTypeProvider;
         }
 
         public override PartialViewResult AddLike(AddRemoveLikeModel model)

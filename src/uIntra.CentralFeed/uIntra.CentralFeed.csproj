@@ -7,8 +7,8 @@
     <ProjectGuid>{0B1998E4-8FA0-4328-9CD2-BBBA92FC4E98}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.CentralFeed</RootNamespace>
-    <AssemblyName>uIntra.CentralFeed</AssemblyName>
+    <RootNamespace>Uintra.CentralFeed</RootNamespace>
+    <AssemblyName>Uintra.CentralFeed</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

@@ -11,6 +11,7 @@ using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
+using Uintra.Core.LinkPreview;
 using Uintra.Core.Links;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
@@ -71,8 +72,9 @@ namespace Compent.Uintra.Core.News
             IActivityLinkService linkService,
             INotifierDataHelper notifierDataHelper,
             IActivityLocationService activityLocationService,
-            IUserTagService userTagService)
-            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService, activityLocationService)
+            IUserTagService userTagService,
+            IActivityLinkPreviewService activityLinkPreviewService)
+            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;

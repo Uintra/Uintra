@@ -8,7 +8,6 @@ using Newtonsoft.Json.Linq;
 using Uintra.Core;
 using Uintra.Core.Constants;
 using Uintra.Core.Extensions;
-using Uintra.Core.Installer;
 using Uintra.Core.Media;
 using Uintra.Core.Utils;
 using Umbraco.Core;

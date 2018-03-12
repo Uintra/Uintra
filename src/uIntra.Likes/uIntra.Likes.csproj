@@ -7,8 +7,8 @@
     <ProjectGuid>{B99F0F05-598C-4F4A-A972-7282DCF9FED8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uIntra.Likes</RootNamespace>
-    <AssemblyName>uIntra.Likes</AssemblyName>
+    <RootNamespace>Uintra.Likes</RootNamespace>
+    <AssemblyName>Uintra.Likes</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

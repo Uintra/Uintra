@@ -1,24 +1,24 @@
-﻿@using uIntra.Core.Extensions
-@model uIntra.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
+﻿@using Uintra.Core.Extensions
+@model Uintra.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
 
-@{ 
-    var fullSizeClass = Model.Images.Count() > 1 ? String.Empty : "_full-size";
+@{
+    var fullSizeClass = Model.Images.Count > 1 ? string.Empty : "_full-size";
 }
 
-<ul class="gallery js-lightbox-gallery clearfix @fullSizeClass">
+<ul class="gallery js-lightbox-gallery clearfix">
     @foreach (var image in Model.Images)
     {
         var originalSize = $"{image.Width}x{image.Height}";
-        <li class="gallery__item" style="@(image.IsHidden ? "display:none;" : string.Empty)">
+        <li class="gallery__item  @fullSizeClass" style="@(image.IsHidden ? "display:none;" : string.Empty)">
             <img class="gallery__image" src="@image.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@image.Url" height="100" />
         </li>
     }
-    @if (Model.OtherFiles.Any())
+    @if (Model.OtherFiles.Count > 0)
     {
         <li class="gallery__item _attachments ">
             <a class="gallery__item-link" href="@Model.Links.Details">
                 <img class="gallery__image" src="~/App_Plugins/Core/Controls/LightboxGallery/icon-doc.png" width="20" height="27" />
-                <span class="gallery__count">@Model.OtherFiles.Count() @Html.Localize("LightboxGallery.Count.lbl")</span>
+                <span class="gallery__count">@Model.OtherFiles.Count @Html.Localize("LightboxGallery.Count.lbl")</span>
             </a>
         </li>
     }

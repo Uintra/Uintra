@@ -47,15 +47,18 @@
             initCurrentNodeHighlighting();
 
             var params = getCurrentUrlParams();
-            notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
-                self.settings = result.data;
-                self.selectEmailTab();
+            notificationSettingsService.getSettings(params.activityType, params.notificationType).then(
+                function(result) {
+                    self.settings = result.data;
+                    self.selectEmailTab();
 
-                initEmailSubjectControlConfig();
-                initEmailBodyControlConfig();
-                initUiMessageControlConfig();
-
-            }, showGetErrorMessage);
+                    initEmailSubjectControlConfig();
+                    initEmailBodyControlConfig();
+                    if (self.settings.uiNotifierSetting != null) {
+                        initUiMessageControlConfig();
+                    }
+                },
+                showGetErrorMessage);
         }
 
         function getUrlParams(url) {

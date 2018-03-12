@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BCLExtensions.Trees;
 using Uintra.Core.Extensions;
-using Uintra.Core.TypeProviders;
 using static BCLExtensions.Trees.TreeExtensions;
 
 namespace Uintra.Notification.Configuration
@@ -38,7 +37,7 @@ namespace Uintra.Notification.Configuration
             var tree = RootNode.WithChildren(categories);
 
             return tree;
-        }
+        }    
 
         protected virtual ITree<TreeNodeModel> ParseCategory(NotificationSettingsCategoryDto dto)
         {
