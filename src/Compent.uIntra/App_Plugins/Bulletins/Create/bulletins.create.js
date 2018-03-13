@@ -61,10 +61,7 @@ function initEditor() {
     });
 
     editor.onLinkDetected(function (link) {
-<<<<<<< HEAD
-=======
 
->>>>>>> package-release-hotfixes
         if (!isOneLinkDetected) {
             showLinkPreview(link);
         }
