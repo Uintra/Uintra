@@ -47,13 +47,12 @@
     }
 
     &__holder{
-<<<<<<< HEAD
+
         @media (--for-desktop-down) {
             max-height:calc(100vh - 145px);
             overflow-Y:auto;
             overflow-X:hidden;
 	    }
-=======
         ._expanded &{
             @media (--for-desktop-down) {
                 max-height:350px;
@@ -62,7 +61,6 @@
                 overflow-Y:auto; 
             }
         }
->>>>>>> package-release-hotfixes
     }
 
     .feed__item-heading{
