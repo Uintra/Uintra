@@ -37,7 +37,7 @@ namespace Compent.Uintra.Core.UserTags
 
         public void FillIndex(UserTag userTag)
         {
-            var searchableTag = userTag.Map<SearchableTag>();
+            var searchableTag = Map(userTag);
             _elasticTagIndex.Index(searchableTag);
         }
 
