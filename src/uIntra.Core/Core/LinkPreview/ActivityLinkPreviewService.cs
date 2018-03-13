@@ -30,7 +30,8 @@ namespace Uintra.Core.LinkPreview
 
         public void UpdateLinkPreview(Guid activityId, int previewId)
         {
-            RemovePreviewRelations(activityId);
+            var relations = _previewRelationRepository.FindAll(r => r.ActivityId == activityId).ToList();
+            _previewRelationRepository.Delete(relations);
             AddLinkPreview(activityId, previewId);
         }
 
@@ -47,7 +48,10 @@ namespace Uintra.Core.LinkPreview
             _previewRelationRepository.Delete(relations);
             foreach (var previewId in previewIds)
             {
-                _previewRepository.Delete(previewId);
+                if (_previewRepository.Exists(p => p.Id == previewId))
+                {
+                 _previewRepository.Delete(previewId);   
+                }                
             }
         }
     }
