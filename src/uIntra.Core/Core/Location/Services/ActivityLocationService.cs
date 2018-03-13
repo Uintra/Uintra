@@ -29,9 +29,9 @@ namespace Uintra.Core.Location
                 .AsQueryable()
                 .SingleOrDefault(l => l.ActivityId == activityId);
 
-            if (oldLocation is default)
+            if (oldLocation is null)
             {
-                if (location == null)
+                if (location is null)
                     return;
 
                 var newLocation = new ActivityLocationEntity()
@@ -45,7 +45,7 @@ namespace Uintra.Core.Location
             }
             else
             {
-                if (location == null || location.Address == null || location.ShortAddress == null)
+                if (location?.Address == null || location.ShortAddress == null)
                 {
                     _locationRepository.Delete(oldLocation);
                 }
