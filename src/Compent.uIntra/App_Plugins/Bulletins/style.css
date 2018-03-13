@@ -32,6 +32,7 @@
 
     &._expanded{
         height:auto;
+        margin-top:-10px;
 
         .ql-container .ql-editor {
             &.ql-blank{
@@ -46,11 +47,22 @@
     }
 
     &__holder{
+<<<<<<< HEAD
         @media (--for-desktop-down) {
             max-height:calc(100vh - 145px);
             overflow-Y:auto;
             overflow-X:hidden;
 	    }
+=======
+        ._expanded &{
+            @media (--for-desktop-down) {
+                max-height:350px;
+                /*overflow:scroll;*/
+                overflow-X:hidden;
+                overflow-Y:auto; 
+            }
+        }
+>>>>>>> package-release-hotfixes
     }
 
     .feed__item-heading{

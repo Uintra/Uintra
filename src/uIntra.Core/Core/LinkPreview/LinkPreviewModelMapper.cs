@@ -21,8 +21,8 @@ namespace Uintra.Core.LinkPreview
                 Uri = new Uri(entity.Uri,UriKind.RelativeOrAbsolute),
                 Title = entity.Title,
                 Description = GetLongest(entity.OgDescription, entity.Description),
-                ImageUri = _uriProvider.GetImageUri(entity.ImageId),
-                FaviconUri = _uriProvider.GetImageUri(entity.FaviconId)
+                ImageUri = entity.ImageId.HasValue ?  _uriProvider.GetImageUri(entity.ImageId.Value) : null,
+                FaviconUri = entity.FaviconId.HasValue ? _uriProvider.GetImageUri(entity.FaviconId.Value) : null
             };
 
             return result;

@@ -83,14 +83,14 @@
     <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.Client, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Client.1.0.3\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.Client, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Client.1.0.4\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.0.3\lib\net452\Compent.LinkPreview.HttpClient.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.0.4\lib\net452\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.Infrastructure, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Infrastructure.1.0.3\lib\net452\Compent.LinkPreview.Infrastructure.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.Infrastructure, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.Infrastructure.1.0.4\lib\net452\Compent.LinkPreview.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="controls, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\controls.dll</HintPath>
@@ -1221,6 +1221,9 @@
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml" />
     <Content Include="App_Plugins\Core\LinkPreview\EditLinkPreviewView.cshtml" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.resx">
+      <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1536,6 +1539,10 @@
     <Compile Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.cs" />
     <Compile Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.Designer.cs">
       <DependentUpon>201802231106236_ActivityToLinkPreviewEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.Designer.cs">
+      <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

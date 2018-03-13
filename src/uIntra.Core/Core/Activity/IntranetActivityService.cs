@@ -130,6 +130,7 @@ namespace Uintra.Core.Activity
         public virtual void Delete(Guid id)
         {
             _activityLocationService.DeleteForActivity(id);
+            _activityLinkPreviewService.RemovePreviewRelations(id);
             _activityRepository.Delete(id);
             _intranetMediaService.Delete(id);
 

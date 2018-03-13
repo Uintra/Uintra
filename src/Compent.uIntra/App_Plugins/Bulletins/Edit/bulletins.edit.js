@@ -9,6 +9,7 @@ let descriptionElem;
 let editor;
 let editForm;
 let isOneLinkDetected = false;
+let linkPreviewId;
 
 function initEditor() {    
     descriptionElem = holder.querySelector(".js-edit-bulletin__description");
@@ -28,6 +29,11 @@ function initEditor() {
         }
     });
 
+    linkPreviewId = holder.querySelector("[name='linkPreviewId']");
+    if (linkPreviewId) {
+        isOneLinkDetected = true;        
+    }
+
     editForm = holder.querySelector("form");
 
     function showLinkPreview(link) {
@@ -36,8 +42,8 @@ function initEditor() {
                 var data = response.data;
                 var imageElem = getImageElem(data);
                 var hiddenSaveElem = getHiddenSaveElem(data);
-                descriptionElem.after(imageElem);
-                descriptionElem.after(hiddenSaveElem);
+                $(descriptionElem).after(imageElem);
+                $(descriptionElem).after(hiddenSaveElem);
                 isOneLinkDetected = true;
 
                 var removeLinkPreview = function (e) {                    
@@ -64,15 +70,15 @@ function initEditor() {
 
         divElem.innerHTML =
             `<button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
-                <div class="link-preview__image">
-                     <img src="${data.imageUri}" />
-                 </div>
+                <div class="link-preview__image">` +
+            (data.imageUri ? `<img src="${data.imageUri}" />` : '') +
+            `</div>
                 <div class="link-preview__text">
                     <h3 class="link-preview__title">
                         <a href="${data.uri}">${data.title}</a>
-                    </h3>
-                    <p>${data.description}</p>
-                </div>`;
+                    </h3>` +
+            (data.description ? `<p>${data.description}</p>` : "") +
+            "</div>";
 
         return divElem;
     }
@@ -155,6 +161,7 @@ var initEditLinkPreview = function (holder) {
     removeLinkPreviewButton.on('click', function () {
         linkPreviewIdContainer.value = null;
         linkPreviewEditContainer.hide();
+        isOneLinkDetected = false;
     });
 };
 

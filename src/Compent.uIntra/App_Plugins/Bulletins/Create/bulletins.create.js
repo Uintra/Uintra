@@ -39,7 +39,7 @@ function initElements() {
     confirmMessage = bulletin.dataset.message;
     createForm = bulletin.querySelector(".js-create-bulletin-form");
     expandBulletinBtn = document.querySelector(".js-bulletin-open");
-    closeBulletinBtn = holder.querySelector(".js-create-bulletin__close");    
+    closeBulletinBtn = holder.querySelector(".js-create-bulletin__close");
     wrapper = document.getElementById("wrapper");
     uIntra.events.add("setBulletinCreateMode");
     uIntra.events.add("removeBulletinCreateMode");
@@ -61,8 +61,12 @@ function initEditor() {
     });
 
     editor.onLinkDetected(function (link) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> package-release-hotfixes
         if (!isOneLinkDetected) {
-            showLinkPreview(link);            
+            showLinkPreview(link);
         }
     });
 
@@ -72,8 +76,8 @@ function initEditor() {
                 var data = response.data;
                 var imageElem = getImageElem(data);
                 var hiddenSaveElem = getHiddenSaveElem(data);
-                createForm.append(imageElem);
-                createForm.append(hiddenSaveElem);
+                $(createForm).append(imageElem);
+                $(createForm).append(hiddenSaveElem);
                 isOneLinkDetected = true;
 
                 var removeLinkPreview = function (e) {
@@ -100,15 +104,15 @@ function initEditor() {
 
         divElem.innerHTML =
             `<button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
-                <div class="link-preview__image">
-                     <img src="${data.imageUri}" />
-                 </div>
+                <div class="link-preview__image">` +
+            (data.imageUri ? `<img src="${data.imageUri}" />` : '') +
+            `</div>
                 <div class="link-preview__text">
                     <h3 class="link-preview__title">
                         <a href="${data.uri}">${data.title}</a>
-                    </h3>
-                    <p>${data.description}</p>
-                </div>`;
+                    </h3>` +
+            (data.description ? `<p>${data.description}</p>` : "") +
+            "</div>";
 
         return divElem;
     }
@@ -257,7 +261,7 @@ function show() {
     }
 }
 
-function hide(event) {    
+function hide(event) {
     if (event && event.target == closeBulletinBtn) { event.preventDefault(); }
     setGlobalEventHide();
     bulletin.classList.remove("_expanded");
@@ -277,10 +281,13 @@ function hide(event) {
     clear();
 }
 
-function hideLinkPreview() {
+function hideLinkPreview() {    
     linkPreviewContainer = holder.querySelector(".link-preview");
+    var linkPreviewId = holder.querySelector("[name='linkPreviewId']");
+    
     if (linkPreviewContainer) {
-        $(linkPreviewContainer).hide();
+        linkPreviewContainer.parentNode.removeChild(linkPreviewContainer);        
+        linkPreviewId.parentNode.removeChild(linkPreviewId);        
         isOneLinkDetected = false;
     }
 }
