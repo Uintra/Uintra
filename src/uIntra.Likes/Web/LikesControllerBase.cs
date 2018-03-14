@@ -38,7 +38,7 @@ namespace Uintra.Likes.Web
 
         public virtual PartialViewResult ContentLikes()
         {
-            var guid = CurrentPage.GetGuidKey();
+            var guid = CurrentPage.GetKey();
             return Likes(_likesService.GetLikeModels(guid), guid, showTitle: true);
         }
 
