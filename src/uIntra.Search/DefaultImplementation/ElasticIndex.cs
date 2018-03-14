@@ -10,7 +10,7 @@ namespace Uintra.Search
     public class ElasticIndex : IElasticIndex
     {
         protected const int MinimumShouldMatches = 1;
-        protected const int FieldWithReplaceAnalyzerBoost = 2;
+        protected const int FieldWithReplaceAnalyzerBoost = 10;
 
         private readonly IElasticSearchRepository _elasticSearchRepository;
 
