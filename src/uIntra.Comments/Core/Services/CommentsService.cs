@@ -93,14 +93,19 @@ namespace Uintra.Comments
         public virtual CommentModel Update(CommentEditDto dto)
         {
             var comment = _commentsRepository.Get(dto.Id);
+            var commentLinkPreview = _commentLinkPreviewService.GetCommentsLinkPreview(comment.Id);
 
             comment.ModifyDate = DateTime.Now.ToUniversalTime();
             comment.Text = dto.Text;
+
             _commentsRepository.Update(comment);
 
             if (dto.LinkPreviewId.HasValue)
             {
-                _commentLinkPreviewService.UpdateLinkPreview(dto.Id, dto.LinkPreviewId.Value);
+                if (commentLinkPreview?.Id != dto.LinkPreviewId)
+                {
+                    _commentLinkPreviewService.UpdateLinkPreview(dto.Id, dto.LinkPreviewId.Value);
+                }
             }
             else
             {
