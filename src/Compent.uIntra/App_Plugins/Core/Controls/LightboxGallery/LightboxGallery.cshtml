@@ -16,7 +16,9 @@
         {
             var originalSize = $"{image.Width}x{image.Height}";
             <li class="gallery__item">
-                <img class="gallery__image" src="@image.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@image.Url" height="100" />
+                <span class="gallery__image-box">
+                    <img class="gallery__image" src="@image.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@image.Url" height="100" />
+                </span>
             </li>
         }
     </ul>
