@@ -8,10 +8,9 @@ using MediaToolkit.Model;
 using MediaToolkit.Options;
 using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Constants;
-using UIntra.Core.Media;
 using Umbraco.Core.Models;
 
-namespace uIntra.Core.Media
+namespace UIntra.Core.Media
 {
     public class VideoHelper : IVideoHelper
     {

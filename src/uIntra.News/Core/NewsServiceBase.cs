@@ -3,6 +3,7 @@ using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
+using Uintra.Core.LinkPreview;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
 using Uintra.Core.TypeProviders;
@@ -19,8 +20,9 @@ namespace Uintra.News
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivityTypeProvider activityTypeProvider,
             IIntranetMediaService intranetMediaService,
-            IActivityLocationService activityLocationService)
-            : base(activityRepository, cache, activityTypeProvider, intranetMediaService, activityLocationService)
+            IActivityLocationService activityLocationService,
+            IActivityLinkPreviewService activityLinkPreviewService)
+            : base(activityRepository, cache, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService)
         {
             _intranetUserService = intranetUserService;
         }

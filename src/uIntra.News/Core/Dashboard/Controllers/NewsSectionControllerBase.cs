@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using Uintra.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.Media;
 using Uintra.Core.User;
@@ -35,7 +34,7 @@ namespace Uintra.News.Dashboard
         public virtual NewsBackofficeViewModel Create(NewsBackofficeCreateModel createModel)
         {
             var creatingNews = createModel.Map<NewsBase>();
-            creatingNews.CreatorId = _intranetUserService.GetCurrentBackOfficeUserId();
+            creatingNews.CreatorId = _intranetUserService.GetCurrentUserId();
             var newsId = _newsService.Create(creatingNews);
 
             var createdNews = _newsService.Get(newsId);

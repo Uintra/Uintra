@@ -1,4 +1,4 @@
-﻿namespace Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Constants
+﻿namespace Compent.UIntra.Core.Updater.Migrations._0._2._31._0.Constants
 {
     public class AddVideoMediaTypeStepConstants
     {

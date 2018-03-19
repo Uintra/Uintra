@@ -1,6 +1,6 @@
-﻿using Compent.Uintra.Core.Events;
-using System;
+﻿using System;
 using System.Web.Http;
+using Compent.Uintra.Core.Events;
 using Uintra.Core.Extensions;
 using Uintra.Core.Media;
 using Uintra.Core.User;
@@ -16,9 +16,11 @@ namespace Compent.Uintra.Controllers
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IEventsService<EventBase> _eventsService;
 
-        
-        public EventsSectionController(IEventsService<EventBase> eventsService,
-            IIntranetUserService<IIntranetUser> intranetUserService, IMediaHelper mediaHelper, IMyLinksService myLinksService)
+        public EventsSectionController(
+            IEventsService<EventBase> eventsService,
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            IMediaHelper mediaHelper,
+            IMyLinksService myLinksService)
             : base(eventsService, intranetUserService, mediaHelper)
         {
             _myLinksService = myLinksService;
@@ -39,7 +41,7 @@ namespace Compent.Uintra.Controllers
             //TODO Hotfix. Need to find correct map for EventBackofficeCreateModel => Event via createModel.Map<EventBase> => return Event (not EventBase type).
             //I will find solution later.
             var creatingEvent = createModel.Map<Event>();
-            creatingEvent.CreatorId = _intranetUserService.GetCurrentBackOfficeUserId();
+            creatingEvent.CreatorId = _intranetUserService.GetCurrentUserId();
             var eventId = _eventsService.Create(creatingEvent);
         
             var createdEvent = _eventsService.Get(eventId);

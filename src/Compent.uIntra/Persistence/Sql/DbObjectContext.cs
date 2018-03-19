@@ -53,9 +53,10 @@ namespace Compent.Uintra.Persistence.Sql
         public DbSet<GroupActivityRelation> GroupActivities { get; set; }
         public DbSet<ActivitySubscribeSetting> ActivitySubscribeSettings { get; set; }
         public DbSet<UserTagRelation> UserTagRelations { get; set; }
-        
-        public DbSet<LinkPreviewEntity> LinkPreview { get; set; }
-        public DbSet<CommentToLinkPreviewEntity> CommentToLinkPreview { get; set; }
+
+        public DbSet<LinkPreviewEntity> LinkPreviews { get; set; }
+        public DbSet<CommentToLinkPreviewEntity> CommentToLinkPreviews { get; set; }
+        public DbSet<ActivityToLinkPreviewEntity> ActivityToLinkPreviews { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

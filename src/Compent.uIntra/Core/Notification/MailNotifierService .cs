@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using Extensions;
+using uIntra.Notification;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
@@ -30,7 +32,15 @@ namespace Compent.Uintra.Core.Notification
 
         public void Notify(NotifierData data)
         {
-            var identity = new ActivityEventIdentity(data.ActivityType, data.NotificationType).AddNotifierIdentity(Type);
+            var isCommunicationSettings = data.NotificationType.In(
+                NotificationTypeEnum.CommentLikeAdded,
+                NotificationTypeEnum.MonthlyMail); //TODO: temporary for communication settings
+
+            var identity = new ActivityEventIdentity(isCommunicationSettings
+                    ? CommunicationTypeEnum.CommunicationSettings
+                    : data.ActivityType, data.NotificationType)
+                .AddNotifierIdentity(Type);
+
             var settings = _notificationSettingsService.Get<EmailNotifierTemplate>(identity);
             if (!settings.IsEnabled) return;
             var receivers = _intranetUserService.GetMany(data.ReceiverIds).ToList();

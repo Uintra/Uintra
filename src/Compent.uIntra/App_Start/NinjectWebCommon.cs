@@ -55,7 +55,8 @@ using Ninject;
 using Ninject.Extensions.Conventions;
 using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
-using uIntra.Core.Media;
+using uIntra.LicenceService.ApiClient;
+using uIntra.LicenceService.ApiClient.Interfaces;
 using Uintra.Bulletins;
 using Uintra.CentralFeed;
 using Uintra.CentralFeed.Providers;
@@ -89,9 +90,9 @@ using Uintra.Core.Utils;
 using Uintra.Events;
 using Uintra.Groups;
 using Uintra.Groups.Permissions;
-using uIntra.LicenceService.ApiClient;
-using uIntra.LicenceService.ApiClient.Interfaces;
 using umbraco.presentation.umbraco.webservices;
+using Uintra.Events.Dashboard;
+using Uintra.Groups.Dashboard;
 using Uintra.Likes;
 using Uintra.Navigation;
 using Uintra.Navigation.Configuration;
@@ -100,8 +101,10 @@ using Uintra.Navigation.EqualityComparers;
 using Uintra.Navigation.MyLinks;
 using Uintra.Navigation.SystemLinks;
 using Uintra.News;
+using Uintra.News.Dashboard;
 using Uintra.Notification;
 using Uintra.Notification.Configuration;
+using Uintra.Notification.Dashboard;
 using Uintra.Notification.Jobs;
 using Uintra.Search;
 using Uintra.Search.Configuration;
@@ -155,6 +158,12 @@ namespace Compent.Uintra
 
             var reminderConfigurationProvider = kernel.Get<IConfigurationProvider<ReminderConfiguration>>();
             reminderConfigurationProvider.Initialize();
+
+            NewsSection.AddSectionToAllUsers();
+            EventsSection.AddSectionToAllUsers();
+            BulletinsSection.AddSectionToAllUsers();
+            GroupsSection.AddSectionToAllUsers();
+            NotificationSettingsSection.AddSectionToAllUsers();
         }
 
         public static void Stop()
@@ -220,6 +229,7 @@ namespace Compent.Uintra
             kernel.Bind<UmbracoContext>().ToMethod(context => CreateUmbracoContext()).InRequestScope();
             kernel.Bind<UmbracoHelper>().ToSelf().InRequestScope();
             kernel.Bind<IUserService>().ToMethod(i => ApplicationContext.Current.Services.UserService).InRequestScope();
+            kernel.Bind<ISectionService>().ToMethod(i => ApplicationContext.Current.Services.SectionService).InRequestScope();
             kernel.Bind<IContentService>().ToMethod(i => ApplicationContext.Current.Services.ContentService).InRequestScope();
             kernel.Bind<IContentTypeService>().ToMethod(i => ApplicationContext.Current.Services.ContentTypeService).InRequestScope();
             kernel.Bind<IMediaService>().ToMethod(i => ApplicationContext.Current.Services.MediaService).InRequestScope();
@@ -385,6 +395,7 @@ namespace Compent.Uintra
             kernel.Bind<ILinkPreviewConfigProvider>().To<LinkPreviewConfigProvider>();
             kernel.Bind<IHttpService>().To<HttpService>();
             kernel.Bind<LinkPreviewModelMapper>().ToSelf();
+            kernel.Bind<IActivityLinkPreviewService>().To<ActivityLinkPreviewService>();
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();

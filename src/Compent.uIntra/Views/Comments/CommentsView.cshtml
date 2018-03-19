@@ -1,5 +1,6 @@
 ﻿@using System.Web.Mvc.Ajax
 @using System.Web.Mvc.Html
+@using Extensions
 @using Uintra.Comments
 @using Uintra.Core.Extensions
 @model Uintra.Comments.CommentViewModel
@@ -65,10 +66,18 @@
         @if (Model.LinkPreview != null)
         {
             <div class=" js-comment-link-preview-container link-preview">
-                <h3 class="link-preview-title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
-                <p>@Model.LinkPreview.Description</p>
-                <div class="link-preview-image">
-                    <img src="@Model.LinkPreview.ImageUri" alt="link preview image description" />
+                <div class="link-preview__image">
+                    @if (Model.LinkPreview.ImageUri != null)
+                    {
+                        <img src="@Model.LinkPreview.ImageUri" alt="link preview image description"/>
+                    }
+                </div>
+                <div class="link-preview__text">
+                    <h3 class="link-preview__title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
+                    @if (Model.LinkPreview.Description.HasValue())
+                    {
+                        <p>@Model.LinkPreview.Description</p>
+                    }
                 </div>
             </div>
         }

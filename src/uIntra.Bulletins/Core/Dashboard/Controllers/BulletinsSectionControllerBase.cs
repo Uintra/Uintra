@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
-using Uintra.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.User;
 using Umbraco.Web.WebApi;
@@ -31,7 +30,7 @@ namespace Uintra.Bulletins
         public virtual BulletinsBackofficeViewModel Create(BulletinsBackofficeCreateModel createModel)
         {
             var creatingBulletin = createModel.Map<BulletinBase>();
-            creatingBulletin.CreatorId = creatingBulletin.OwnerId = _intranetUserService.GetCurrentBackOfficeUserId();
+            creatingBulletin.CreatorId = creatingBulletin.OwnerId = _intranetUserService.GetCurrentUserId();
 
             var bulletinId = _bulletinsService.Create(creatingBulletin);
             var createdBulletin = _bulletinsService.Get(bulletinId);

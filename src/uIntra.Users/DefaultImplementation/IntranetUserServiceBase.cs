@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Web.Hosting;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
 using Uintra.Core.User;
@@ -78,43 +76,13 @@ namespace Uintra.Users
 
         public virtual T GetCurrentUser()
         {
-            string userName = GetCurrentUserName();
-            var user = GetByName(userName);
-            return user;
-        }
+            var member = _umbracoHelper.MembershipHelper.GetCurrentMember();
+            if (member != null) return Get(member.GetKey());
+ 
+            var umbracoUser = _umbracoContext.Security.CurrentUser;
+            if (umbracoUser != null) return Get(umbracoUser.Id);
 
-        public virtual T GetCurrentBackOfficeUser()
-        {
-            var backOfficeUser = _umbracoContext.Security.CurrentUser;
-            return new T() {
-                Id = backOfficeUser.Key,
-                Email = backOfficeUser.Email,
-                LoginName = backOfficeUser.Username,
-                Inactive = backOfficeUser.IsLockedOut,
-            };
-        }
-
-        protected virtual string GetCurrentUserName()
-        {
-            var userName = "";
-            if (HostingEnvironment.IsHosted) //TODO: WTF IS THIS
-            {
-                var httpContext = _umbracoContext.HttpContext;
-                if (httpContext.User?.Identity != null && httpContext.User.Identity.IsAuthenticated)
-                {
-                    userName = httpContext.User.Identity.Name;
-                }
-            }
-            if (string.IsNullOrEmpty(userName))
-            {
-                var currentPrincipal = Thread.CurrentPrincipal;
-                if (currentPrincipal?.Identity != null)
-                {
-                    userName = currentPrincipal.Identity.Name;
-                }
-            }
-
-            return userName;
+            return default(T);
         }
 
         public virtual IEnumerable<T> GetByRole(int role)
@@ -204,7 +172,7 @@ namespace Uintra.Users
         public virtual T GetByName(string name)
         {
             var users = GetAll();
-            return users.SingleOrDefault(user => user.LoginName.ToLowerInvariant().Equals(name.ToLowerInvariant()));
+            return users.SingleOrDefault(user => string.Equals(user.LoginName, name, StringComparison.OrdinalIgnoreCase));
         }
 
         public virtual T GetByEmail(string email)
@@ -242,7 +210,7 @@ namespace Uintra.Users
             {
                 allCachedUsers.Remove(oldCachedUser);
             }
-            _cacheService.Set(UsersCacheKey, allCachedUsers, CacheHelper.GetMidnightUtcDateTimeOffset());            
+            _cacheService.Set(UsersCacheKey, allCachedUsers, CacheHelper.GetMidnightUtcDateTimeOffset());
         }
     }
 }

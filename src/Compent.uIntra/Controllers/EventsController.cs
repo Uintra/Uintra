@@ -190,8 +190,7 @@ namespace Compent.Uintra.Controllers
         {
             if (isNotificationNeeded)
             {
-                var notificationType = NotificationTypeEnum.EventHided;
-                ((INotifyableService)_eventsService).Notify(id, notificationType);
+                ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHided);
             }
         }
 

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
-using Uintra.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.Media;
 using Uintra.Core.User;
@@ -34,7 +33,7 @@ namespace Uintra.Events.Dashboard
         public virtual EventBackofficeViewModel Create(EventBackofficeCreateModel createModel)
         {
             var creatingEvent = createModel.Map<EventBase>();
-            creatingEvent.CreatorId = _intranetUserService.GetCurrentBackOfficeUserId();
+            creatingEvent.CreatorId = _intranetUserService.GetCurrentUserId();
             var eventId = _eventsService.Create(creatingEvent);
 
             var createdEvent = _eventsService.Get(eventId);
