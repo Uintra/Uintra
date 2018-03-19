@@ -1,6 +1,11 @@
 ﻿._notifications-expanded {
     @media(--for-tablet-portrait-down){
-        overflow:hidden;
+        overflow: hidden;
+    }
+    body {
+        @media(--for-tablet-portrait-down){
+            overflow: hidden;
+        }
     }
 }
 
@@ -95,15 +100,15 @@
                 transition: transform linear 200ms;
                 display:block;
                 left:auto;
-                right:0;
-                height:calc(100vh - 60px);
+                right:5px;
+                /*height:calc(100vh - 60px);*/
                 overflow:auto;
                 margin:0;
                 background:#f6f6f6;
 
                 ._notifications-expanded &{
                     transform:translate(0, 0);
-                    z-index:11;
+                    z-index:111;
                 }
             }
         }

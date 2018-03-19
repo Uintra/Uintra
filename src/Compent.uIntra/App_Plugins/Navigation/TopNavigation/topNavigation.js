@@ -3,6 +3,7 @@ import helpers from "./../../Core/Content/scripts/Helpers";
 
 var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 var body = $('body');
+var html = $('html');
 var className = "_menu-expanded";
 var logout = $('.js-logout');
 
@@ -22,11 +23,11 @@ function initMobileNav() {
 };
 
 function toggleMobileMenu(element, container){
-    body.toggleClass(className).removeClass('_search-expanded _notifications-expanded _sidebar-expanded');
+    html.toggleClass(className).removeClass('_search-expanded _notifications-expanded _sidebar-expanded');
 
-    /*body.on("click.nav", function(ev) {
+    /*html.on("click.nav", function(ev) {
         isOutsideClick(container, element, ev.target, '_menu-expanded', function() {
-            body.removeClass(className).off("click.nav");
+            html.removeClass(className).off("click.nav");
         });
     });*/
 }
@@ -37,18 +38,18 @@ function toggleUserMenu(){
     var userClass = '_usermenu-expanded';
 
     userOpener.addEventListener('click', () => {
-        body.toggleClass(userClass).removeClass('_search-expanded _notifications-expanded _sidebar-expanded');
+        html.toggleClass(userClass).removeClass('_search-expanded _notifications-expanded _sidebar-expanded');
     });
 
     body.on("click", function(ev) {
         isOutsideClick(userContainer, userOpener, ev.target, userClass, function() {
-            body.removeClass(userClass);
+            html.removeClass(userClass);
         });
     });
 }
 
 var isOutsideClick = function (el, opener, target, className, callback) {
-    if (el && !el.contains(target) && (opener && !opener.contains(target)) && body.hasClass(className)) {
+    if (el && !el.contains(target) && (opener && !opener.contains(target)) && html.hasClass(className)) {
         if (typeof callback === "function") {
             callback();
         }
