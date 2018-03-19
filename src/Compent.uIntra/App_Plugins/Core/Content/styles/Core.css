@@ -169,6 +169,12 @@ body{
     height:100%;
 }
 
+._menu-expanded {
+    @media(--for-tablet-portrait-down) {
+        overflow: hidden;
+    }
+}
+
 body{
     margin:0;
     background:#fff;
@@ -180,7 +186,7 @@ body{
     }
 
     @media (--for-tablet-portrait-down) {
-        &._menu-expanded {
+        ._menu-expanded &{
             height:100%;
             width:100%;
             overflow:hidden;

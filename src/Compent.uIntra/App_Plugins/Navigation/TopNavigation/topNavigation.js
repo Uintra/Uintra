@@ -62,11 +62,29 @@ logout.on('click', function(){
     helpers.localStorage.removeItem("systemLinks");
 });
 
+function getClientHeight() { return document.compatMode == 'CSS1Compat' ? document.documentElement.clientHeight : document.body.clientHeight; }
+
+function mobileSidebarHeight() {
+    var mobileSidebar = document.querySelector(".sidebar__holder");
+    var searchHeight = document.querySelector("#sidebar .search").offsetHeight;
+
+    mobileSidebar.style.height = (getClientHeight() - searchHeight) + 'px';
+}
+
+function windowResize() {
+    window.addEventListener('resize', () => {
+        mobileSidebarHeight();
+    });
+}
+
 var controller = {
     init: function () {
         toggleUserMenu();
         if (mobileMediaQuery.matches) {
             initMobileNav();
+
+            mobileSidebarHeight();
+            windowResize();
         }
     }
 }
