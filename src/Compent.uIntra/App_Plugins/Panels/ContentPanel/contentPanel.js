@@ -161,7 +161,9 @@ function mobileAsideHeight() {
     var mobileAside = document.querySelector(".aside > div");
     var headerHeight = document.getElementById('header').offsetHeight;
 
-    mobileAside.style.height = (getClientHeight() - headerHeight) + 'px';
+    if (mobileAside) {
+        mobileAside.style.height = (getClientHeight() - headerHeight) + 'px';
+    }
 }
 
 function windowResize() {

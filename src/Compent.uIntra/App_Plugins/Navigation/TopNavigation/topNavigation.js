@@ -68,7 +68,9 @@ function mobileSidebarHeight() {
     var mobileSidebar = document.querySelector(".sidebar__holder");
     var searchHeight = document.querySelector("#sidebar .search").offsetHeight;
 
-    mobileSidebar.style.height = (getClientHeight() - searchHeight) + 'px';
+    if (mobileSidebar) {
+        mobileSidebar.style.height = (getClientHeight() - searchHeight) + 'px';
+    }
 }
 
 function windowResize() {

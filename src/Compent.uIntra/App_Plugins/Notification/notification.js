@@ -98,9 +98,10 @@ function getClientHeight() { return document.compatMode == 'CSS1Compat' ? docume
 function notificationsHeight() {
     var notificationList = document.querySelector(".notification__list-holder");
     var headerHeight = document.getElementById('header').offsetHeight;
-    
-    notificationList.style.height = (getClientHeight() - headerHeight) + 'px';
 
+    if (notificationList){
+        notificationList.style.height = (getClientHeight() - headerHeight) + 'px';
+    }
 }
 
 function windowResize() {
