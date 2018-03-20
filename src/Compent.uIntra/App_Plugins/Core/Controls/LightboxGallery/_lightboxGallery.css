@@ -4,7 +4,6 @@
     list-style:none;
     display:flex;
     flex-wrap:wrap;
-    align-items: stretch;
 
     ._details &{
         margin-bottom:36px;
@@ -23,7 +22,7 @@
         }
 
         @media(--for-tablet-portrait-down){
-            max-width:50%;
+            max-width:49.85%;
             margin:0 0 20px;
         }
 
