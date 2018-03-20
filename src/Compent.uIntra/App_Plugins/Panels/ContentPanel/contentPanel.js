@@ -155,6 +155,21 @@ var isOutsideClick = function (el, opener, target, className) {
     }
 }
 
+function getClientHeight() { return document.compatMode == 'CSS1Compat' ? document.documentElement.clientHeight : document.body.clientHeight; }
+
+function mobileAsideHeight() {
+    var mobileAside = document.querySelector(".aside > div");
+    var headerHeight = document.getElementById('header').offsetHeight;
+
+    mobileAside.style.height = (getClientHeight() - headerHeight) + 'px';
+}
+
+function windowResize() {
+    window.addEventListener('resize', () => {
+        mobileAsideHeight();
+    });
+}
+
 var controller = {
     init: function () {
         selectors.forEach(function (selector) {
@@ -163,6 +178,8 @@ var controller = {
 
         if (mobileMediaQuery.matches) {
             initMobileBanners();
+            mobileAsideHeight();
+            windowResize();
         }
     }
 }

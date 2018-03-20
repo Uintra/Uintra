@@ -82,7 +82,6 @@ var controller = {
         toggleUserMenu();
         if (mobileMediaQuery.matches) {
             initMobileNav();
-
             mobileSidebarHeight();
             windowResize();
         }
