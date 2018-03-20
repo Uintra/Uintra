@@ -10,6 +10,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
+using Uintra.Core.User.Permissions;
 using Uintra.Groups.Attributes;
 using Uintra.Subscribe;
 
@@ -24,6 +25,7 @@ namespace Uintra.Groups.Web
         private readonly IGroupFeedContentService _groupFeedContentContentService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IFeedFilterStateService _feedFilterStateService;
+        private readonly IPermissionsService _permissionsService;
         private readonly IGroupFeedLinkService _groupFeedLinkService;
 
         private bool IsCurrentUserGroupMember { get; set; }
@@ -45,7 +47,8 @@ namespace Uintra.Groups.Web
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService,
-            IFeedFilterStateService feedFilterStateService)
+            IFeedFilterStateService feedFilterStateService,
+            IPermissionsService permissionsService)
             : base(subscribeService,
                 groupFeedService,
                 intranetUserService,
@@ -60,6 +63,7 @@ namespace Uintra.Groups.Web
             _groupFeedLinkService = groupFeedLinkService;
             _groupMemberService = groupMemberService;
             _feedFilterStateService = feedFilterStateService;
+            _permissionsService = permissionsService;
         }
 
         #region Actions
@@ -179,7 +183,7 @@ namespace Uintra.Groups.Web
             var model = new GroupFeedOverviewModel
             {
                 Tabs = activityTabs,
-                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs),
+                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _permissionsService.IsCurrentUserHasAccess(tab.Type, IntranetActivityActionEnum.Create)),
                 CurrentType = tabType,
                 GroupId = groupId,
                 IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentUser)
