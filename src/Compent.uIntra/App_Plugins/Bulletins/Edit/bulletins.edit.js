@@ -23,9 +23,10 @@ function initEditor() {
         }
     });
 
-    editor.onLinkDetected(function (link) {        
+    editor.onLinkDetected(function (link) {
         if (!isOneLinkDetected) {
-            showLinkPreview(link);            
+            isOneLinkDetected = true;
+            showLinkPreview(link);
         }
     });
 
@@ -59,8 +60,9 @@ function initEditor() {
                 imageElem.addEventListener('click', removeLinkPreview);
 
             })
-            .catch(err => {
-                // Ignore error and do not crash if server returns non-success code
+            .catch(err => {                
+                // Ignore error and do not crash if server returns non-success code#
+                isOneLinkDetected = false;
             });
     }
 

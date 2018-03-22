@@ -61,8 +61,8 @@ function initEditor() {
     });
 
     editor.onLinkDetected(function (link) {
-
         if (!isOneLinkDetected) {
+            isOneLinkDetected = true;
             showLinkPreview(link);
         }
     });
@@ -92,6 +92,7 @@ function initEditor() {
             })
             .catch(err => {
                 // Ignore error and do not crash if server returns non-success code
+                isOneLinkDetected = false;
             });
     }
 
