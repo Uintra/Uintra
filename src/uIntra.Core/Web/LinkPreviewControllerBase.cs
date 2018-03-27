@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using System.Web.Mvc;
 using Compent.LinkPreview.HttpClient;
 using Uintra.Core.Extensions;
 using Uintra.Core.LinkPreview;
@@ -15,11 +14,12 @@ namespace Uintra.Core.Web
         private readonly ILinkPreviewConfigProvider _configProvider;
         private readonly ISqlRepository<int, LinkPreviewEntity> _previewRepository;
         private readonly LinkPreviewModelMapper _linkPreviewModelMapper;
-      
 
-        protected LinkPreviewControllerBase(ILinkPreviewService linkPreviewService,
+        protected LinkPreviewControllerBase(
+            ILinkPreviewService linkPreviewService,
             ILinkPreviewConfigProvider configProvider,
-            ISqlRepository<int, LinkPreviewEntity> previewRepository, LinkPreviewModelMapper linkPreviewModelMapper)
+            ISqlRepository<int, LinkPreviewEntity> previewRepository,
+            LinkPreviewModelMapper linkPreviewModelMapper)
         {
             _linkPreviewService = linkPreviewService;
             _configProvider = configProvider;
@@ -31,13 +31,15 @@ namespace Uintra.Core.Web
         public async Task<LinkPreview.LinkPreview> Preview(string url)
         {
             var result = await _linkPreviewService.GetLinkPreview(url);
-            var entity = Map(result, url);
+            if (!result.IsSuccess) return null;
+
+            var entity = Map(result.Preview, url);
             _previewRepository.Add(entity);
 
             var model = _linkPreviewModelMapper.MapPreview(entity);
             return model;
         }
-      
+
         private LinkPreviewEntity Map(Compent.LinkPreview.HttpClient.LinkPreview model, string url)
         {
             var entity = model.Map<LinkPreviewEntity>();

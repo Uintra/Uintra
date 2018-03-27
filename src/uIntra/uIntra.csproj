@@ -80,14 +80,8 @@
     <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.Client, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Client.1.0.3\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.0.3\lib\net452\Compent.LinkPreview.HttpClient.dll</HintPath>
-    </Reference>
-    <Reference Include="Compent.LinkPreview.Infrastructure, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.Infrastructure.1.0.3\lib\net452\Compent.LinkPreview.Infrastructure.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.0.5\lib\net452\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
     <Reference Include="controls, Version=1.0.6634.25794, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\controls.dll</HintPath>
