@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -43,7 +44,7 @@ namespace Uintra.Users
 
         public virtual T Get(int umbracoId)
         {
-            return GetAll().FirstOrDefault(m => m.UmbracoId == umbracoId);
+            return GetSingle(el => el.UmbracoId == umbracoId);
         }
 
         private T GetSingle(Func<T, bool> predicate)
