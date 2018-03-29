@@ -46,7 +46,7 @@
     <membership>
       <providers>
         <add name="UmbracoMembershipProvider" allowManuallyChangingPassword="true" xdt:Locator="Condition(@name='UmbracoMembershipProvider')" xdt:Transform="SetAttributes(allowManuallyChangingPassword)"/>
-        <add name="UsersMembershipProvider" allowManuallyChangingPassword="true" xdt:Locator="Condition(@name='UsersMembershipProvider')"  xdt:Transform="SetAttributes(allowManuallyChangingPassword)" />
+        <add name="UsersMembershipProvider" xdt:Locator="Condition(@name='UsersMembershipProvider')" xdt:Transform="RemoveAttributes(allowManuallyChangingPassword)" />
       </providers>
     </membership>
   </system.web>
