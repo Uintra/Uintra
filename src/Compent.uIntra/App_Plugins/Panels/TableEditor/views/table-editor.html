@@ -1,0 +1,103 @@
+﻿<div ng-controller="TableEditorController" class="table-editor" ng-init="init(control)">
+    
+    <div class="advanced-options">
+        <label>
+            Title
+            <input ng-model="control.value.title"/>
+        </label>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th></th>
+            <th class="column-header" ng-repeat="columnStyle in control.value.columnStylesSelected track by $index" table-editor-column-control>
+                <div class="column-buttons">
+                    <i class="icon icon-add" ng-show="canAddColumn()" ng-click="addColumn($index)"></i>
+                    <i class="icon icon-remove" ng-show="canRemoveColumn()" ng-click="removeColumn($index)"></i>
+                </div>
+                <select ng-model="control.value.columnStylesSelected[$index]" ng-options="style.value as style.label for style in control.config.columnStyles" ng-show="control.config.columnStyles.length > 1"></select>
+            </th>
+        </tr>
+        <tr>
+            <th class="column-index"></th>
+            <th class="column-index" ng-repeat="columnStyle in control.value.columnStylesSelected track by $index" table-editor-column-control>
+                <div class="column-count">{{$index + 1}}</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody ui-sortable="sortableOptions" ng-model="control.value.cells">
+        <tr ng-repeat="row in control.value.cells" table-editor-row-control>
+            <td>
+                <div class="row-count">{{$index + 1}}</div>
+            </td>
+            <td ng-repeat="column in row" table-editor-column-control>
+                <textarea ng-model="column.value" ng-if="control.config.multiLineInputs"></textarea>
+                <input type="text" ng-model="column.value" ng-if="!control.config.multiLineInputs"/>
+            </td>
+            <td class="row-buttons-td">
+                <div class="row-buttons">
+                    <i class="icon icon-add" ng-show="canAddRow()" ng-click="addRow($index)"></i>
+                    <i class="icon icon-remove" ng-show="canRemoveRow()" ng-click="removeRow($index)"></i>
+                    <i class="icon icon-navigation handle" ng-show="canSort()"></i>
+                </div>
+            </td>
+            <td class="row-style">
+                <select ng-model="control.value.rowStylesSelected[$index]" ng-options="style.value as style.label for style in control.config.rowStyles"></select>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="tips-holder">
+        <h3>Text effects</h3>
+
+        <table class="tips-table">
+            <tr>
+                <td><b>Notation</b></td>
+                <td><b>Comment</b></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="not">*bold*</div>
+                </td>
+                <td>
+                    Make text <b>bold</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="not">right text>></div>
+                </td>
+                <td>
+                    <div class="text-right">Make text right</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="not">left text<<</div>
+                </td>
+                <td>
+                    <div class="text-left">Make text left</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="advanced-options">
+        <label ng-show="control.config.tableStyles.length > 1">
+            Table style
+            <select ng-model="control.value.tableStyle" ng-options="style.value as style.label for style in control.config.tableStyles"></select>
+        </label>
+
+        <label>
+            <input ng-model="control.value.useFirstRowAsHeader" type="checkbox"/>
+            Use first row as header ?
+        </label>
+
+        <label>
+            <input ng-model="control.value.makeFirstColumnBold" type="checkbox"/>
+            Make first column bold ?
+        </label>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿@using Uintra.Panels.Core.HtmlHelpers
+@model Uintra.Panels.Core.Models.Table.TablePanelViewModel
+
+<section class="js-table-panel table-panel">
+    <div class="content">
+        @if (!string.IsNullOrEmpty(Model.Table.Title))
+        {
+            <h2 class="table-panel__title">@Model.Table.Title</h2>
+        }
+
+        @Html.Table(Model.Table)
+    </div>
+</section>

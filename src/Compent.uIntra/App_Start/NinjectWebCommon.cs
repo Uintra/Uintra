@@ -105,6 +105,7 @@ using Uintra.Notification;
 using Uintra.Notification.Configuration;
 using Uintra.Notification.Dashboard;
 using Uintra.Notification.Jobs;
+using Uintra.Panels.Core.PresentationBuilders;
 using Uintra.Search;
 using Uintra.Search.Configuration;
 using Uintra.Subscribe;
@@ -461,6 +462,11 @@ namespace Compent.Uintra
             kernel.Bind<SendEmailJob>().ToSelf().InRequestScope();
             kernel.Bind<UpdateActivityCacheJob>().ToSelf().InRequestScope();
             kernel.Bind<IJobFactory>().To<IntranetJobFactory>().InRequestScope();
+
+            //table
+            kernel.Bind<ITablePanelPresentationBuilder>().To<TablePanelPresentationBuilder>().InRequestScope();
+            kernel.Bind<ITableCellBuilder>().To<TableCellBuilder>().InRequestScope();
+
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
