@@ -47,7 +47,7 @@ namespace Uintra.Groups.Web
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService,
-            IFeedFilterStateService<FeedFiltersState> feedFilterStateService)
+            IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             IPermissionsService permissionsService)
             : base(subscribeService,
                 groupFeedService,
