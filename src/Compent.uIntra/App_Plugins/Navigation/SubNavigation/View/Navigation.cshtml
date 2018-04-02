@@ -1,5 +1,4 @@
-﻿@using Uintra.Navigation;
-@model Uintra.Navigation.SubNavigationMenuViewModel
+﻿@model Uintra.Navigation.SubNavigationMenuViewModel
 
 @if (Model != null && (Model.ShowBreadcrumbs || Model.Rows.Any()))
 {
@@ -26,9 +25,8 @@
                                 @foreach (var menuItem in topLevelMenu.Items)
                                 {
                                     var isActive = menuItem.IsActive ? "_active" : string.Empty;
-                                    var isSelected = menuItem.IsSelected ? "_selected" : string.Empty;
 
-                                    <li class="tabset__navigation-item @isActive @isSelected">
+                                    <li class="tabset__navigation-item @isActive">
                                         <a class="tabset__navigation-link" href="@menuItem.Url">@menuItem.Name</a>
                                     </li>
                                 }
@@ -45,9 +43,8 @@
                                                 @foreach (var innerMenuItem in menuRow.Items)
                                                 {
                                                     var isActiveInner = innerMenuItem.IsActive ? "_active" : string.Empty;
-                                                    var isSelectedInner = innerMenuItem.IsSelected ? "_selected" : string.Empty;
 
-                                                    <li class="tabset__navigation-item @isActiveInner @isSelectedInner">
+                                                    <li class="tabset__navigation-item @isActiveInner">
                                                         <a class="tabset__navigation-link" href="@innerMenuItem.Url">@innerMenuItem.Name</a>
                                                     </li>
                                                 }
