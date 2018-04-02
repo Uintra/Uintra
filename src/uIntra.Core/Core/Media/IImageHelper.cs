@@ -7,5 +7,6 @@ namespace Uintra.Core.Media
         MemoryStream NormalizeOrientation(Stream imageStream, string imageExtension, bool removeExifOrientationTag = true);
         bool IsFileImage(byte[] fileBytes);
         string GetImageWithPreset(string source, string preset);
+        string GetImageWithResize(string source, string resize);
     }
 }

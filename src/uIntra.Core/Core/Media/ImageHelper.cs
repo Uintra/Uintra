@@ -12,13 +12,16 @@ namespace Uintra.Core.Media
         {
             var img = Image.FromStream(imageStream);
             FixOrientation(img, removeExifOrientationTag);
-            
+
             var newImageStream = ToStream(img, GetImageFormat(imageExtension));
             return newImageStream;
         }
 
         public bool IsFileImage(byte[] fileBytes)
         {
+            /* TODO It is how umbraco determines that file is image. Maybe we can use next code? 
+            if (UmbracoConfig.For.UmbracoSettings().Content.ImageFileTypes.Contains(ext))*/
+
             bool fileIsImage;
             try
             {
@@ -120,6 +123,12 @@ namespace Uintra.Core.Media
         {
             return GetImagePath(source, preset);
         }
+
+        public string GetImageWithResize(string source, string resize)
+        {
+            return $"{source}?{resize}";
+        }
+
 
         private string GetImagePath(string source, string imageGenClass)
         {

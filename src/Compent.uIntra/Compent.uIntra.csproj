@@ -1281,6 +1281,7 @@
     <Compile Include="Controllers\BulletinsSectionController.cs" />
     <Compile Include="Controllers\CentrallFeedController.cs" />
     <Compile Include="Controllers\EventsSectionController.cs" />
+    <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\GroupFeedController.cs" />
     <Compile Include="Controllers\GroupsSectionController.cs" />
@@ -1471,12 +1472,14 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\PanelsInsatllationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\SearchInstallationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\UsersInstallationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\AddVideoMediaTypeStepConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.32.0\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.32.0\Steps\NotificationSettingsMigration.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\TaggingInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\AddTranslationsStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\AddVideoMediaTypeStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\ProfileEmailNotificationTranslationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UpdateDataFolderNamesMigrationInstallationStep .cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UserTagsInstallationStep.cs" />

@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Uintra.Core.Controls.LightboxGallery;
 using Uintra.Core.Links;
 
-namespace Uintra.Core.Controls.LightboxGallery
+namespace UIntra.Core.Controls.LightboxGallery
 {
     public class LightboxGalleryPreviewViewModel
     {
-        public IList<LightboxGalleryItemViewModel> Images { get; set; }
-        public IList<LightboxGalleryItemViewModel> OtherFiles { get; set; }
+        public IEnumerable<LightboxGalleryItemViewModel> Medias { get; set; } = Enumerable.Empty<LightboxGalleryItemViewModel>();
+        public IEnumerable<LightboxGalleryItemViewModel> OtherFiles { get; set; } = Enumerable.Empty<LightboxGalleryItemViewModel>();
         public Guid ActivityId { get; set; }
         public Enum ActivityType { get; set; }
         public IActivityLinks Links { get; set; }
+        public int HiddenImagesCount { get; set; }
+
     }
 }

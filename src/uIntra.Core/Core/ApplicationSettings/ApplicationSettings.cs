@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 
 namespace Uintra.Core.ApplicationSettings
 {
@@ -7,9 +9,14 @@ namespace Uintra.Core.ApplicationSettings
     {
         private const string DefaultAvatarPathKey = "DefaultAvatarPath";
         private const string MonthlyEmailJobDayKey = "MonthlyEmailJobDay";
+        private const string VideoFileTypesKey = "VideoFileTypes";
         private const string QaKeyKey = "QaKey";
 
         public string DefaultAvatarPath => ConfigurationManager.AppSettings[DefaultAvatarPathKey];
+
+        public IEnumerable<string> VideoFileTypes => ConfigurationManager.AppSettings[VideoFileTypesKey]
+            .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(el => el.Trim());
 
         public Guid QaKey => Guid.Parse(ConfigurationManager.AppSettings[QaKeyKey]);
 

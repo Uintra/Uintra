@@ -18,16 +18,16 @@
     <add key="Umbraco.ModelsBuilder.ModelsDirectory" value="~/Core/UmbracoModelsBuilders" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.ModelsDirectory')" xdt:Transform="InsertIfMissing"/>
   </appSettings>
 
-  <uIntraJobs xdt:Transform="Remove">
-  </uIntraJobs>
+  <UIntraJobs xdt:Transform="Remove">
+  </UIntraJobs>
 
-  <UintraJobs xdt:Transform="InsertIfMissing">
+  <UIntraJobs xdt:Transform="InsertIfMissing">
     <settings>
       <!--Run Types:RunEvery,RunNow,RunOnceAt,RunOnceAtDate-->
       <!--Time Types:Seconds,Minutes,Hours,Days,Date-->
       <add job="UpdateActivityCacheJob" enabled="true" runType="RunEvery" timeType="Minutes" time="1"/>
     </settings>
-  </UintraJobs>
+  </UIntraJobs>
 
   <browserCompatibilityConfiguration xdt:Transform="InsertIfMissing">
     <browsers>

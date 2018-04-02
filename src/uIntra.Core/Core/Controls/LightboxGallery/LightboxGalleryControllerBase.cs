@@ -7,6 +7,7 @@ using Uintra.Core.Constants;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
+using UIntra.Core.Controls.LightboxGallery;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -53,9 +54,10 @@ namespace Uintra.Core.Controls.LightboxGallery
 
             var medias = _umbracoHelper.TypedMedia(mediaIds.ToIntCollection()).ToList();
             var galleryItems = medias.Select(MapToMedia).OrderBy(s => s.Type).ToList();
+            TransformPreviewImage(galleryItems);
 
-            MapPreviewUrl(galleryItems);
-            result.GalleryItems = galleryItems;
+            result.Medias = FindMedias(galleryItems);
+            result.OtherFiles = galleryItems.Except(result.Medias);
             return result;
         }
 
@@ -64,20 +66,20 @@ namespace Uintra.Core.Controls.LightboxGallery
             var galleryPreviewModel = model.Map<LightboxGalleryPreviewViewModel>();
             var mediasList = medias.AsList();
             var galleryViewModelList = mediasList.Select(MapToMedia).ToList();
-            MapPreviewUrl(galleryViewModelList);
+
+            TransformPreviewImage(galleryViewModelList);
+            model.DisplayedImagesCount = HttpContext.Request.IsMobileBrowser() ? 2 : 3;
 
             galleryPreviewModel.Links = _linkService.GetLinks(model.ActivityId);
-            galleryPreviewModel.Images = galleryViewModelList.FindAll(m => IsImageMediaType(m.Type));
-            galleryPreviewModel.OtherFiles = galleryViewModelList.FindAll(m => !IsImageMediaType(m.Type));
-            galleryPreviewModel.Images.Skip(model.DisplayedImagesCount).ToList().ForEach(i => i.IsHidden = true);
+            galleryPreviewModel.Medias = FindMedias(galleryViewModelList);
+            galleryPreviewModel.OtherFiles = galleryViewModelList.Except(galleryPreviewModel.Medias);
+            galleryPreviewModel.Medias.Skip(model.DisplayedImagesCount).ToList().ForEach(i => i.IsHidden = true);
+            galleryPreviewModel.HiddenImagesCount = galleryPreviewModel.Medias.Count(i => i.IsHidden);
+
 
             return galleryPreviewModel;
         }
 
-        private static bool IsImageMediaType(Enum mediaType)
-        {
-            return mediaType is MediaTypeEnum.Image;
-        }
 
         protected virtual LightboxGalleryItemViewModel MapToMedia(IPublishedContent media)
         {
@@ -94,21 +96,49 @@ namespace Uintra.Core.Controls.LightboxGallery
             {
                 result.Height = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaHeight);
                 result.Width = media.GetPropertyValue<int>(UmbracoAliases.Media.MediaWidth);
+                return result;
+            }
+            if (result.Type is MediaTypeEnum.Video)
+            {
+                result.PreviewUrl = media.GetPropertyValue<string>(UmbracoAliases.Video.ThumbnailUrlPropertyAlias);
+                result.Height = media.GetPropertyValue<int>(UmbracoAliases.Video.VideoHeightPropertyAlias);
+                result.Width = media.GetPropertyValue<int>(UmbracoAliases.Video.VideoWidthPropertyAlias);
+                return result;
             }
 
             return result;
         }
 
-        protected void MapPreviewUrl(List<LightboxGalleryItemViewModel> galleryItems)
+        protected void TransformPreviewImage(List<LightboxGalleryItemViewModel> galleryItems)
         {
-            var imageItems = galleryItems.FindAll(m => m.Type is MediaTypeEnum.Image);
+            var imageItems = galleryItems.FindAll(m => m.Type is MediaTypeEnum.Image || m.Type is MediaTypeEnum.Video);
+
+            if (imageItems.Count == 1)
+            {
+                var item = imageItems[0];
+
+                item.PreviewUrl = _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, UmbracoAliases.ImageResize.Preview);
+
+                return;
+            }
 
             foreach (var item in imageItems)
             {
-                item.PreviewUrl = imageItems.Count > 1 ?
-                    _imageHelper.GetImageWithPreset(item.Url, UmbracoAliases.ImagePresets.Thumbnail) :
-                    _imageHelper.GetImageWithPreset(item.Url, UmbracoAliases.ImagePresets.Preview);
+                item.PreviewUrl = imageItems.Count < 3 ?
+                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, UmbracoAliases.ImageResize.PreviewTwo) :
+                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, UmbracoAliases.ImageResize.Thumbnail);
             }
+        }
+
+
+        private bool IsVideo(Enum type)
+        {
+            return type.ToInt() == MediaTypeEnum.Video.ToInt();
+        }
+
+        protected List<LightboxGalleryItemViewModel> FindMedias(List<LightboxGalleryItemViewModel> galleryItems)
+        {
+            return galleryItems.FindAll(m => m.Type is MediaTypeEnum.Image || m.Type is MediaTypeEnum.Video);
         }
     }
 }

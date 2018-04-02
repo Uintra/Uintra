@@ -110,6 +110,7 @@ using Uintra.Search.Configuration;
 using Uintra.Subscribe;
 using Uintra.Tagging.UserTags;
 using Uintra.Users;
+using UIntra.Core.Media;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
 using Umbraco.Core.Services;
@@ -451,6 +452,7 @@ namespace Compent.Uintra
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
 
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
+            kernel.Bind<IVideoHelper>().To<VideoHelper>().InRequestScope();
             kernel.Bind<INotifierDataHelper>().To<NotifierDataHelper>().InRequestScope();
 
             //Jobs 

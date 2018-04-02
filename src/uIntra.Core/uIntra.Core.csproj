@@ -169,6 +169,9 @@
       <HintPath>..\..\packages\Markdown.1.14.7\lib\net45\MarkdownSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MediaToolkit, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MediaToolkit.1.1.0.1\lib\net40\MediaToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=1.0.1559.20655, Culture=neutral">
       <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
@@ -417,6 +420,9 @@
     <Compile Include="Core\Location\Services\ActivityLocationService.cs" />
     <Compile Include="Core\Location\Services\IActivityLocationService.cs" />
     <Compile Include="Core\LabeledIdentity.cs" />
+    <Compile Include="Core\Media\IVideoHelper.cs" />
+    <Compile Include="Core\Media\VideoHelper.cs" />
+    <Compile Include="Core\Media\VideoSizeMetadataModel.cs" />
     <Compile Include="Core\PagePromotion\AutoMapperProfiles\PagePromotionAutoMapperProfile.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionBase.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotionConfig.cs" />
@@ -539,7 +545,7 @@
     <Compile Include="Core\Configuration\ConfigurationProvider.cs" />
     <Compile Include="Core\Configuration\IConfigurationProvider.cs" />
     <Compile Include="Core\Controls\FileUpload\FileController.cs" />
-    <Compile Include="Core\Controls\FileUpload\FileUploadController.cs" />
+    <Compile Include="Core\Controls\FileUpload\FileUploadControllerBase.cs" />
     <Compile Include="Core\Controls\FileUpload\FileUploadEditViewModel.cs" />
     <Compile Include="Core\Controls\FileUpload\FileUploadSettings.cs" />
     <Compile Include="Core\Controls\FileUpload\FileViewModel.cs" />
@@ -607,9 +613,7 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Media\UmbracoEventServices\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="..\Compent.uIntra\App_Plugins\Core\**\*">
       <Link>App_Plugins\Core\%(RecursiveDir)%(FileName)%(Extension)</Link>

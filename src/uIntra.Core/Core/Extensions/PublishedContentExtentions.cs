@@ -57,17 +57,17 @@ namespace Uintra.Core.Extensions
         }
 
         public static Enum GetMediaType(this IPublishedContent content)
-        {
-            var mediaTypeProvider = HttpContext.Current.GetService<IMediaTypeProvider>();
-
+        {       
             switch (content.DocumentTypeAlias)
             {
                 case UmbracoAliases.Media.ImageTypeAlias:
                     return MediaTypeEnum.Image;
                 case UmbracoAliases.Media.FileTypeAlias:
                     return MediaTypeEnum.Document;
+                case UmbracoAliases.Media.VideoTypeAlias:
+                    return MediaTypeEnum.Video;
                 default:
-                    throw new NotImplementedException();
+                    throw new Exception($"undefined document type - {content.DocumentTypeAlias}");
 
             }
         }
