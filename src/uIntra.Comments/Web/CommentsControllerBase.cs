@@ -116,7 +116,7 @@ namespace Uintra.Comments.Web
 
         public virtual PartialViewResult ContentComments()
         {
-            var guid = CurrentPage.GetGuidKey();
+            var guid = CurrentPage.GetKey();
             return OverView(guid, _commentsService.GetMany(guid));
         }
 

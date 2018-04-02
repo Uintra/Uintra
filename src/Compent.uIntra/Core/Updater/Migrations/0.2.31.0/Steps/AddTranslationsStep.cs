@@ -12,6 +12,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
         private const string GroupMembersDeleteTextKey = "GroupMembers.Delete.Text.lbl";
         private const string ActivityLocationKey = "Activity.Location.lbl";
         private const string PagePromotionLocationKey = "PagePromotion";
+        private const string SearchTagKey = "Search.Tag";
 
         private const string AttachedDocumentsTranslation = "Attached documents:";
         private const string GroupInfoMembersCountTranslation = "members";
@@ -21,7 +22,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
         private const string GroupMembersDeleteTextNewTranslation = "Are you sure?";
         private const string ActivityLocationTranslation = "Location";
         private const string PagePromotionTranslation = "Promotion";
-
+        private const string SearchTagTranslation = "Tag";
 
         private readonly ILocalizationCoreService _localizationCoreService;
 
@@ -38,6 +39,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
             InstallationStepsHelper.AddTranslation(ActivityPinnedKey, ActivityPinnedTranslation);
             InstallationStepsHelper.AddTranslation(ActivityLocationKey, ActivityLocationTranslation);
             InstallationStepsHelper.AddTranslation(PagePromotionLocationKey, PagePromotionTranslation);
+            InstallationStepsHelper.AddTranslation(SearchTagKey, SearchTagTranslation);
 
             InstallationStepsHelper.UpdateTranslation(GroupMembersDeleteTextKey, GroupMembersDeleteTextOldTranslation, GroupMembersDeleteTextNewTranslation);
 
@@ -52,6 +54,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
             _localizationCoreService.Delete(ActivityPinnedKey);
             _localizationCoreService.Delete(ActivityLocationKey);
             _localizationCoreService.Delete(PagePromotionLocationKey);
+            _localizationCoreService.Delete(SearchTagKey);
 
             InstallationStepsHelper.UpdateTranslation(GroupMembersDeleteTextKey, GroupMembersDeleteTextNewTranslation, GroupMembersDeleteTextOldTranslation);
         }

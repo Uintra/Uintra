@@ -6,7 +6,6 @@ using Extensions;
 using Uintra.Core.Constants;
 using Uintra.Core.TypeProviders;
 using Umbraco.Core.Models;
-using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
 namespace Uintra.Core.Extensions
@@ -106,24 +105,6 @@ namespace Uintra.Core.Extensions
                 result = $"{result.TrimEnd('/')}?{keyValue}";
             }
 
-            return result;
-        }
-
-        public static Guid GetGuidKey(this IPublishedContent content)
-        {
-            Guid result;
-            switch (content)
-            {
-                case IPublishedContentWithKey contentWithKey:
-                    result = contentWithKey.Key;
-                    break;
-                case PublishedContentWrapped wrapped when wrapped.Unwrap() is IPublishedContentWithKey contentWithKey:
-                    result = contentWithKey.Key;
-                    break;
-                default:
-                    result = default;
-                    break;
-            }
             return result;
         }
     }

@@ -13,7 +13,7 @@ namespace Uintra.Notification.Jobs
 
         public override void Action()
         {
-            _monthlyEmailService.SendEmail();
+            _monthlyEmailService.ProcessMonthlyEmail();
         }
     }
 }

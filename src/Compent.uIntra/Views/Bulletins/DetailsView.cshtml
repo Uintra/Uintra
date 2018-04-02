@@ -1,6 +1,6 @@
 ﻿@using System.Web.Mvc.Html
 @using Uintra.Core.Extensions
-@model Compent.Uintra.Core.Bulletins.BulletinExtendedViewModel 
+@model Compent.Uintra.Core.Bulletins.BulletinExtendedViewModel
 
 <section class="content">
     <div class="feed__btns clearfix">
@@ -16,6 +16,7 @@
         <div class="feed__item-txt">
             @Html.Raw(Model.Description)
         </div>
+        @Html.Action("LinkPreview", "ActivityLinkPreview", new { model = Model.LinkPreview })
         @Html.Action("ForEntity", "UserTags", new { entityId = Model.Id })
         <div class="feed__item-feed">
             <div class="feed__item-feed-holder">

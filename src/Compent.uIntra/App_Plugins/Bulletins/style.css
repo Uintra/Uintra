@@ -26,11 +26,13 @@
             position:relative;
             z-index:13;
             background:var(--color-white);
+            padding:0 0 1px;
         }
     }
 
     &._expanded{
         height:auto;
+        margin-top:-10px;
 
         .ql-container .ql-editor {
             &.ql-blank{
@@ -45,11 +47,20 @@
     }
 
     &__holder{
+
         @media (--for-desktop-down) {
             max-height:calc(100vh - 145px);
             overflow-Y:auto;
             overflow-X:hidden;
 	    }
+        ._expanded &{
+            @media (--for-desktop-down) {
+                max-height:350px;
+                /*overflow:scroll;*/
+                overflow-X:hidden;
+                overflow-Y:auto; 
+            }
+        }
     }
 
     .feed__item-heading{

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
+using Uintra.Core.LinkPreview;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
 using Uintra.Core.TypeProviders;
@@ -19,19 +20,22 @@ namespace Uintra.Core.Activity
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IActivityLocationService _activityLocationService;
+        private readonly IActivityLinkPreviewService _activityLinkPreviewService;
 
         protected IntranetActivityService(
             IIntranetActivityRepository activityRepository,
             ICacheService cache,
             IActivityTypeProvider activityTypeProvider,
             IIntranetMediaService intranetMediaService,
-            IActivityLocationService activityLocationService)
+            IActivityLocationService activityLocationService,
+            IActivityLinkPreviewService activityLinkPreviewService)
         {
             _activityRepository = activityRepository;
             _cache = cache;
             _activityTypeProvider = activityTypeProvider;
             _intranetMediaService = intranetMediaService;
             _activityLocationService = activityLocationService;
+            _activityLinkPreviewService = activityLinkPreviewService;
         }
 
         public TActivity Get(Guid id)
@@ -99,6 +103,7 @@ namespace Uintra.Core.Activity
 
             _activityLocationService.Set(newActivityId, activity.Location);
             _intranetMediaService.Create(newActivityId, activity.MediaIds.JoinToString());
+            AssignLinkPreview(newActivityId, activity);
 
             afterCreateAction?.Invoke(newActivityId);
 
@@ -116,6 +121,7 @@ namespace Uintra.Core.Activity
             _activityLocationService.Set(activity.Id, activity.Location);
             _activityRepository.Update(entity);
             _intranetMediaService.Update(activity.Id, activity.MediaIds.JoinToString());
+            AssignLinkPreview(activity);
 
             afterSaveAction?.Invoke(activity);
             UpdateCachedEntity(activity.Id);
@@ -124,6 +130,7 @@ namespace Uintra.Core.Activity
         public virtual void Delete(Guid id)
         {
             _activityLocationService.DeleteForActivity(id);
+            _activityLinkPreviewService.RemovePreviewRelations(id);
             _activityRepository.Delete(id);
             _intranetMediaService.Delete(id);
 
@@ -159,6 +166,33 @@ namespace Uintra.Core.Activity
             _cache.Set(CacheKey, cachedList, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
 
             return activity;
+        }
+
+        protected virtual void AssignLinkPreview(Guid newActivityId, IIntranetActivity activity)
+        {
+            if (activity is IHasLinkPreview linkPreview)
+            {
+                if (linkPreview.LinkPreviewId.HasValue)
+                {
+                    _activityLinkPreviewService.AddLinkPreview(newActivityId, linkPreview.LinkPreviewId.Value);
+                }
+            }
+        }
+
+        protected virtual void AssignLinkPreview(IIntranetActivity activity)
+        {
+            if (activity is IHasLinkPreview linkPreview)
+            {
+                if (!linkPreview.LinkPreviewId.HasValue)
+                {
+                    _activityLinkPreviewService.RemovePreviewRelations(activity.Id);
+                }
+
+                if (linkPreview.LinkPreviewId.HasValue)
+                {
+                    _activityLinkPreviewService.UpdateLinkPreview(activity.Id, linkPreview.LinkPreviewId.Value);
+                }
+            }
         }
 
         private TActivity GetFromSql(Guid id)

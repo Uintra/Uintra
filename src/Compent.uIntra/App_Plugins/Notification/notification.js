@@ -6,6 +6,7 @@ require("./List/notificationList.css");
 
 var infinityScroll = helpers.infiniteScrollFactory;
 var body = document.querySelector('body');
+var html = document.querySelector('html');
 
 function initPreviewControls() {
     var notification = document.querySelector(".js-notification");
@@ -13,7 +14,7 @@ function initPreviewControls() {
     var notificationBlock = document.querySelector(".notification");
 
     notification.addEventListener('click', function () {
-        if (!body.classList.contains("_notifications-expanded")) {
+        if (!html.classList.contains("_notifications-expanded")) {
 
             ajax.get("/umbraco/surface/Notification/List")
                 .then(function (response) {
@@ -21,9 +22,9 @@ function initPreviewControls() {
                     notificationList.classList.remove('_loading');
                     initCustomControls();
                 });
-            body.classList.add("_notifications-expanded");
+            html.classList.add("_notifications-expanded");
         } else {
-            body.classList.remove("_notifications-expanded");
+            html.classList.remove("_notifications-expanded");
         }
     });
 
@@ -33,9 +34,9 @@ function initPreviewControls() {
 }
 
 function isOutsideClick(el, trigger, target, classname) {
-    if (el && !el.contains(target) && (trigger && !trigger.contains(target)) && body.classList.contains(classname)) {
-        body.classList.remove(classname);
-        body.removeEventListener("click", isOutsideClick);
+    if (el && !el.contains(target) && (trigger && !trigger.contains(target)) && html.classList.contains(classname)) {
+        html.classList.remove(classname);
+        html.removeEventListener("click", isOutsideClick);
     }
 }
 
@@ -92,10 +93,42 @@ function initInfinityScroll() {
     });
 }
 
+function getClientHeight() { return document.compatMode == 'CSS1Compat' ? document.documentElement.clientHeight : document.body.clientHeight; }
+
+function notificationsHeight() {
+    var notificationList = document.querySelector(".notification__list-holder");
+    var headerHeight = document.getElementById('header').offsetHeight;
+
+    if (notificationList){
+        notificationList.style.height = (getClientHeight() - headerHeight) + 'px';
+    }
+}
+
+function windowResize() {
+    window.addEventListener('resize', () => {
+        notificationsHeight();
+    });
+}
+
+// media query change
+function WidthChange(mq) {
+    if (!mq.matches) {
+        notificationsHeight();
+        windowResize();
+    }
+}
+
 export default function () {
     initPreviewControls();
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);
     initCustomControls();
     initInfinityScroll();
+
+    if (matchMedia) {
+        var mq = window.matchMedia("(min-width: 900px)");
+        mq.addListener(WidthChange);
+        WidthChange(mq);        
+    }
 }
+

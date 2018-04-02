@@ -3,6 +3,7 @@ using Extensions;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Umbraco.Core.Models;
+using Umbraco.Web;
 
 namespace Uintra.Core.PagePromotion
 {
@@ -11,7 +12,7 @@ namespace Uintra.Core.PagePromotion
         protected override void Configure()
         {
             Mapper.CreateMap<IPublishedContent, PagePromotionBase>()
-                .ForMember(dst => dst.Id, src => src.MapFrom(el => el.GetGuidKey()))
+                .ForMember(dst => dst.Id, src => src.MapFrom(el => el.GetKey()))
                 .ForMember(dst => dst.CreatedDate, src => src.MapFrom(el => el.CreateDate))
                 .ForMember(dst => dst.UmbracoCreatorId, src => src.MapFrom(el => el.CreatorId))
                 .ForMember(dst => dst.ModifyDate, src => src.MapFrom(el => el.UpdateDate))

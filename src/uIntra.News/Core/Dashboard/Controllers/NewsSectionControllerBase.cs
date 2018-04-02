@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using Uintra.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.Media;
 using Uintra.Core.User;

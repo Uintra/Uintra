@@ -10,6 +10,7 @@ using Uintra.Comments;
 using Uintra.Core.Activity;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
+using Uintra.Core.LinkPreview;
 using Uintra.Core.Links;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
@@ -53,6 +54,7 @@ namespace Compent.Uintra.Core.Events
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivitySubscribeSettingService _activitySubscribeSettingService;
         private readonly IFeedTypeProvider _feedTypeProvider;
+        private readonly IActivityLinkPreviewService _activityLinkPreviewService;
 
         public EventsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -73,8 +75,10 @@ namespace Compent.Uintra.Core.Events
             INotifierDataHelper notifierDataHelper,
             IActivityLocationService activityLocationService, 
             UserTagService userTagService,
-            IActivitySubscribeSettingService activitySubscribeSettingService, IFeedTypeProvider feedTypeProvider)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService)
+            IActivitySubscribeSettingService activitySubscribeSettingService, 
+            IFeedTypeProvider feedTypeProvider,
+            IActivityLinkPreviewService activityLinkPreviewService)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService,activityLinkPreviewService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -91,6 +95,7 @@ namespace Compent.Uintra.Core.Events
             _userTagService = userTagService;
             _activitySubscribeSettingService = activitySubscribeSettingService;
             _feedTypeProvider = feedTypeProvider;
+            _activityLinkPreviewService = activityLinkPreviewService;
         }
 
         public override Enum ActivityType => IntranetActivityTypeEnum.Events;

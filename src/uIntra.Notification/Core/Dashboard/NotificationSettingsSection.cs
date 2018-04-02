@@ -1,4 +1,5 @@
-﻿using Umbraco.Core;
+﻿using System.Web.Mvc;
+using Umbraco.Core.Services;
 
 namespace Uintra.Notification.Dashboard
 {
@@ -8,15 +9,16 @@ namespace Uintra.Notification.Dashboard
         protected const string Name = "Notifications";
         protected const string Icon = "icon-timer color-red";
 
-        public static void AddSectionToAllUsers(ApplicationContext applicationContext)
+        public static void AddSectionToAllUsers()
         {
-            var section = applicationContext.Services.SectionService.GetByAlias(Alias);
+            var sectionService = DependencyResolver.Current.GetService<ISectionService>();
+            var section = sectionService.GetByAlias(Alias);
             if (section == null)
             {
-                applicationContext.Services.SectionService.MakeNew(Name, Alias, Icon, 1);
+                sectionService.MakeNew(Name, Alias, Icon, 1);
             }
 
-            var userService = applicationContext.Services.UserService;
+            var userService = DependencyResolver.Current.GetService<IUserService>();
             var userGroups = userService.GetAllUserGroups();
             foreach (var userGroup in userGroups)
             {

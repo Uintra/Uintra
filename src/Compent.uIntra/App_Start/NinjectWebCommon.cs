@@ -8,7 +8,6 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Compent.LinkPreview.HttpClient;
-using Compent.LinkPreview.Infrastructure;
 using Compent.Uintra;
 using Compent.Uintra.Core;
 using Compent.Uintra.Core.Activity;
@@ -56,6 +55,8 @@ using Ninject;
 using Ninject.Extensions.Conventions;
 using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
+using uIntra.LicenceService.ApiClient;
+using uIntra.LicenceService.ApiClient.Interfaces;
 using Uintra.Bulletins;
 using Uintra.CentralFeed;
 using Uintra.CentralFeed.Providers;
@@ -87,10 +88,10 @@ using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
 using Uintra.Core.Utils;
 using Uintra.Events;
+using Uintra.Events.Dashboard;
 using Uintra.Groups;
+using Uintra.Groups.Dashboard;
 using Uintra.Groups.Permissions;
-using uIntra.LicenceService.ApiClient;
-using uIntra.LicenceService.ApiClient.Interfaces;
 using Uintra.Likes;
 using Uintra.Navigation;
 using Uintra.Navigation.Configuration;
@@ -99,8 +100,10 @@ using Uintra.Navigation.EqualityComparers;
 using Uintra.Navigation.MyLinks;
 using Uintra.Navigation.SystemLinks;
 using Uintra.News;
+using Uintra.News.Dashboard;
 using Uintra.Notification;
 using Uintra.Notification.Configuration;
+using Uintra.Notification.Dashboard;
 using Uintra.Notification.Jobs;
 using Uintra.Search;
 using Uintra.Search.Configuration;
@@ -153,6 +156,12 @@ namespace Compent.Uintra
 
             var reminderConfigurationProvider = kernel.Get<IConfigurationProvider<ReminderConfiguration>>();
             reminderConfigurationProvider.Initialize();
+
+            NewsSection.AddSectionToAllUsers();
+            EventsSection.AddSectionToAllUsers();
+            BulletinsSection.AddSectionToAllUsers();
+            GroupsSection.AddSectionToAllUsers();
+            NotificationSettingsSection.AddSectionToAllUsers();
         }
 
         public static void Stop()
@@ -221,6 +230,7 @@ namespace Compent.Uintra
             kernel.Bind<UmbracoContext>().ToMethod(context => CreateUmbracoContext()).InRequestScope();
             kernel.Bind<UmbracoHelper>().ToSelf().InRequestScope();
             kernel.Bind<IUserService>().ToMethod(i => ApplicationContext.Current.Services.UserService).InRequestScope();
+            kernel.Bind<ISectionService>().ToMethod(i => ApplicationContext.Current.Services.SectionService).InRequestScope();
             kernel.Bind<IContentService>().ToMethod(i => ApplicationContext.Current.Services.ContentService).InRequestScope();
             kernel.Bind<IContentTypeService>().ToMethod(i => ApplicationContext.Current.Services.ContentTypeService).InRequestScope();
             kernel.Bind<IMediaService>().ToMethod(i => ApplicationContext.Current.Services.MediaService).InRequestScope();
@@ -386,6 +396,7 @@ namespace Compent.Uintra
             kernel.Bind<ILinkPreviewConfigProvider>().To<LinkPreviewConfigProvider>();
             kernel.Bind<IHttpService>().To<HttpService>();
             kernel.Bind<LinkPreviewModelMapper>().ToSelf();
+            kernel.Bind<IActivityLinkPreviewService>().To<ActivityLinkPreviewService>();
 
             // Factories
             kernel.Bind<IActivitiesServiceFactory>().To<ActivitiesServiceFactory>().InRequestScope();
@@ -433,6 +444,8 @@ namespace Compent.Uintra
             kernel.Bind<IUmbracoContentTrashedEventService>().To<DeleteUserTagHandler>().InRequestScope();
             kernel.Bind<IUmbracoContentPublishedEventService>().To<ContentPageRelationHandler>().InRequestScope();
             kernel.Bind<IUmbracoContentTrashedEventService>().To<ContentPageRelationHandler>().InRequestScope();
+            kernel.Bind<IUmbracoContentPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
+            kernel.Bind<IUmbracoContentUnPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
 
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
@@ -507,6 +520,7 @@ namespace Compent.Uintra
             kernel.Bind<IActivityUserTagIndex>().To<ActivityUserTagIndex>().InRequestScope();
             kernel.Bind<IElasticUserIndex>().To<ElasticUserIndex>().InRequestScope();
             kernel.Bind<IElasticUintraContentIndex>().To<ElasticUintraContentIndex>().InRequestScope();
+            kernel.Bind<IUserTagsSearchIndexer>().To<UserTagsSearchIndexer>().InRequestScope();
 
             kernel.Bind<IElasticIndex>().To<UintraElasticIndex>().InRequestScope();
             kernel.Bind<ISearchScoreProvider>().To<SearchScoreProvider>().InRequestScope();

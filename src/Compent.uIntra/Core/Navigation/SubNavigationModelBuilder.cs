@@ -145,8 +145,7 @@ namespace Compent.Uintra.Core.Navigation
                 Id = publishedContent.Id,
                 Name = GetNavigationName(publishedContent),
                 Url = publishedContent.Url,
-                IsActive = publishedContent.IsAncestorOrSelf(CurrentPage),
-                IsSelected = publishedContent == CurrentPage
+                IsActive = publishedContent.IsAncestorOrSelf(CurrentPage)
             };
 
             return result;

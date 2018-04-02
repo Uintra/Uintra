@@ -145,6 +145,7 @@
         height:25px;
         border:1px solid #c7c7c7;
         margin:0 13px 0 0;
+        position:relative;
 
         &:before{
             display:none;
@@ -156,7 +157,7 @@
             display: block;
             font-size: 15px;
             line-height:14px;
-            left: 6px;
+            left: 5px;
             position: absolute;
             top: 5px;
         }

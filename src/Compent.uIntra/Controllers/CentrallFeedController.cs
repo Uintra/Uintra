@@ -37,7 +37,6 @@ namespace Compent.Uintra.Controllers
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             IPermissionsService permissionsService,
             UmbracoHelper umbracoHelper,
-            IFeedActivityHelper feedActivityHelper1,
             IActivityTypeProvider activityTypeProvider)
             : base(
                   centralFeedService,
@@ -54,7 +53,7 @@ namespace Compent.Uintra.Controllers
         {
             _intranetUserService = intranetUserService;
             _groupFeedService = groupFeedService;
-            _feedActivityHelper = feedActivityHelper1;
+            _feedActivityHelper = feedActivityHelper;
         }
 
         protected override IEnumerable<IFeedItem> GetCentralFeedItems(Enum type)

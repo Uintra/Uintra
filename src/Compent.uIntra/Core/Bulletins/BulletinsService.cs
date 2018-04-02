@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.LinkPreview.HttpClient;
 using Compent.Uintra.Core.Helpers;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.UserTags.Indexers;
@@ -11,6 +12,7 @@ using Uintra.Comments;
 using Uintra.Core.Activity;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
+using Uintra.Core.LinkPreview;
 using Uintra.Core.Links;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
@@ -49,6 +51,7 @@ namespace Compent.Uintra.Core.Bulletins
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
         private readonly IUserTagService _userTagService;
+        private readonly IActivityLinkPreviewService _activityLinkPreviewService;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -68,8 +71,9 @@ namespace Compent.Uintra.Core.Bulletins
             IActivityLinkService linkService,
             INotifierDataHelper notifierDataHelper,
             IActivityLocationService activityLocationService,
-            IUserTagService userTagService)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService)
+            IUserTagService userTagService,
+            IActivityLinkPreviewService activityLinkPreviewService)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService,activityLinkPreviewService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -84,6 +88,7 @@ namespace Compent.Uintra.Core.Bulletins
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
             _userTagService = userTagService;
+            _activityLinkPreviewService = activityLinkPreviewService;
         }
 
         public override Enum ActivityType => IntranetActivityTypeEnum.Bulletins;
@@ -128,6 +133,7 @@ namespace Compent.Uintra.Core.Bulletins
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
+                FillLinkPreview(entity);
             }
         }
 
@@ -201,6 +207,13 @@ namespace Compent.Uintra.Core.Bulletins
             var searchableActivities = activities.Select(Map);
             _activityIndex.DeleteByType(UintraSearchableTypeEnum.Bulletins);
             _activityIndex.Index(searchableActivities);
+        }
+
+        private void FillLinkPreview(Bulletin bulletin)
+        {
+            var linkPreview = _activityLinkPreviewService.GetActivityLinkPreview(bulletin.Id);
+            bulletin.LinkPreview = linkPreview;
+            bulletin.LinkPreviewId = linkPreview?.Id;
         }
 
         private NotifierData GetNotifierData(Guid entityId, Enum notificationType)
