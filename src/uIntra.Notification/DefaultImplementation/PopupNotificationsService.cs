@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
-using Uintra.Notification.Configuration;
 
 namespace Uintra.Notification
 {
     public class PopupNotificationsService : IPopupNotificationService
     {
         private readonly ISqlRepository<Notification> _notificationRepository;
+        private readonly INotificationTypeProvider _notificationTypeProvider;
 
-        public PopupNotificationsService(ISqlRepository<Notification> notificationRepository)
+        public PopupNotificationsService(ISqlRepository<Notification> notificationRepository, INotificationTypeProvider notificationTypeProvider)
         {
             _notificationRepository = notificationRepository;
+            _notificationTypeProvider = notificationTypeProvider;
         }
 
 
@@ -43,12 +44,13 @@ namespace Uintra.Notification
 
         public IEnumerable<Notification> Get(Guid receiverId)
         {
+            var popupNotificationTypeIds = _notificationTypeProvider.PopupNotificationTypes().Select(t => t.ToInt());
+
             var notifications = _notificationRepository.FindAll(n => n.ReceiverId == receiverId)
-                .Where(n => PopupNotificationTypeIds.Contains(n.Type));
+                .Where(n => popupNotificationTypeIds.Contains(n.Type));
 
             return notifications;
         }
 
-        private IEnumerable<int> PopupNotificationTypeIds => new List<int>() { NotificationTypeEnum.Welcome.ToInt() };
     }
 }

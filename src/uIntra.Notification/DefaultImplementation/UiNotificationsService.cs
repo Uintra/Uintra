@@ -10,15 +10,16 @@ namespace Uintra.Notification
     public class UiNotificationService : IUiNotificationService
     {
         private readonly ISqlRepository<Notification> _notificationRepository;
+        private readonly INotificationTypeProvider _notificationTypeProvider;
 
-        public UiNotificationService(ISqlRepository<Notification> notificationRepository)
+        public UiNotificationService(ISqlRepository<Notification> notificationRepository, INotificationTypeProvider notificationTypeProvider)
         {
             _notificationRepository = notificationRepository;
+            _notificationTypeProvider = notificationTypeProvider;
         }
         public IEnumerable<Notification> GetMany(Guid receiverId, int count, out int totalCount)
         {
-            var allNotifications = _notificationRepository
-                .FindAll(el => el.ReceiverId == receiverId)
+            var allNotifications = GetNotifications(receiverId)
                 .OrderBy(n => n.IsNotified)
                 .ThenByDescending(n => n.Date)
                 .ToList();
@@ -47,7 +48,7 @@ namespace Uintra.Notification
 
         public int GetNotNotifiedCount(Guid receiverId)
         {
-            return (int)_notificationRepository.Count(el => el.ReceiverId == receiverId && !el.IsNotified);
+            return GetNotifications(receiverId).Count(el => !el.IsNotified);
         }
 
         public void ViewNotification(Guid id)
@@ -66,6 +67,12 @@ namespace Uintra.Notification
             }
 
             _notificationRepository.Update(notificationsList);
+        }
+
+        private IEnumerable<Notification> GetNotifications(Guid receiverId)
+        {
+            var uiNotificationTypeIds = _notificationTypeProvider.UiNotificationTypes().Select(t => t.ToInt());
+            return _notificationRepository.FindAll(el => el.ReceiverId == receiverId && uiNotificationTypeIds.Contains(el.Type));
         }
     }
 }

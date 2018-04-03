@@ -1,8 +1,13 @@
-﻿using Uintra.Core.TypeProviders;
+﻿using System;
+using System.Collections.Generic;
+using Uintra.Core.TypeProviders;
 
 namespace Uintra.Notification
 {
-    public interface INotificationTypeProvider: IEnumTypeProvider
+    public interface INotificationTypeProvider : IEnumTypeProvider
     {
+        IEnumerable<Enum> PopupNotificationTypes();
+
+        IEnumerable<Enum> UiNotificationTypes();
     }
 }
