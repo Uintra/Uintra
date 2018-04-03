@@ -31,19 +31,42 @@ namespace Uintra.Notification.Web
         [HttpGet]
         public virtual NotifierSettingsModel Get(int activityType, int notificationType)
         {
-            var isCommunicationSettings = activityType == CommunicationTypeEnum.CommunicationSettings.ToInt();
-            var actType = isCommunicationSettings//TODO: temporary for communication settings
-                ? CommunicationTypeEnum.CommunicationSettings
-                : _activityTypeProvider[activityType];
+            ActivityEventIdentity activityEventIdentity;
+            NotifierSettingsModel settings;
+            var actType = _activityTypeProvider[activityType];
 
-            var activityEventIdentity = new ActivityEventIdentity(actType, _notificationTypeProvider[notificationType]);
-
-            var  settings =_notificationSettingsService.GetSettings(activityEventIdentity);
-
-            if (isCommunicationSettings && notificationType.In(NotificationTypeEnum.MonthlyMail.ToInt()))
+            if (activityType == CommunicationTypeEnum.CommunicationSettings.ToInt())
             {
-                settings.UiNotifierSetting = null;
+                actType = CommunicationTypeEnum.CommunicationSettings;
+                activityEventIdentity = new ActivityEventIdentity(actType, _notificationTypeProvider[notificationType]);
+                settings = _notificationSettingsService.GetSettings(activityEventIdentity);
+                if (notificationType.In(NotificationTypeEnum.MonthlyMail.ToInt()))
+                {
+                    settings.UiNotifierSetting = null;
+                    settings.PopupNotifierSetting = null;
+                }
+
+                return settings;
             }
+
+            if (activityType == CommunicationTypeEnum.Member.ToInt())
+            {
+                actType = CommunicationTypeEnum.Member;
+                activityEventIdentity = new ActivityEventIdentity(actType, _notificationTypeProvider[notificationType]);
+                settings = _notificationSettingsService.GetSettings(activityEventIdentity);
+                if (notificationType.In(NotificationTypeEnum.Welcome.ToInt()))
+                {
+                    settings.UiNotifierSetting = null;
+                    settings.EmailNotifierSetting = null;
+                }
+
+                return settings;
+            }
+
+            activityEventIdentity = new ActivityEventIdentity(actType, _notificationTypeProvider[notificationType]);
+
+            settings = _notificationSettingsService.GetSettings(activityEventIdentity);
+            settings.PopupNotifierSetting = null;
 
             return settings;
         }
@@ -66,14 +89,31 @@ namespace Uintra.Notification.Web
             _notificationSettingsService.Save(mappedModel);
         }
 
+        [HttpPost]
+        public virtual void SavePopupNotifierSetting(NotifierSettingSaveModel<PopupNotifierTemplate> notifierSettingModel)
+        {
+            var mappedModel = notifierSettingModel.Map<NotifierSettingModel<PopupNotifierTemplate>>();
+            FillEnumTypes(mappedModel, notifierSettingModel);
+
+            _notificationSettingsService.Save(mappedModel);
+        }
+
         protected virtual void FillEnumTypes<T>(
             NotifierSettingModel<T> notifierSettingModel,
             NotifierSettingSaveModel<T> notifierSettingSaveModel)
             where T : INotifierTemplate
         {
-            notifierSettingModel.ActivityType = notifierSettingSaveModel.ActivityType == CommunicationTypeEnum.CommunicationSettings.ToInt()
-                ? CommunicationTypeEnum.CommunicationSettings
-                : _activityTypeProvider[notifierSettingSaveModel.ActivityType];//TODO: temporary for communication settings
+            notifierSettingModel.ActivityType = _activityTypeProvider[notifierSettingSaveModel.ActivityType];
+
+            if (notifierSettingSaveModel.ActivityType == CommunicationTypeEnum.CommunicationSettings.ToInt())
+            {
+                notifierSettingModel.ActivityType = CommunicationTypeEnum.CommunicationSettings;
+            }
+
+            if (notifierSettingSaveModel.ActivityType == CommunicationTypeEnum.Member.ToInt())
+            {
+                notifierSettingModel.ActivityType = CommunicationTypeEnum.Member;
+            }
 
             notifierSettingModel.NotificationType = _notificationTypeProvider[notifierSettingSaveModel.NotificationType];
             notifierSettingModel.NotifierType = _notifierTypeProvider[notifierSettingSaveModel.NotifierType];
