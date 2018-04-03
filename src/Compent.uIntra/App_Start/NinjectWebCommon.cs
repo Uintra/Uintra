@@ -366,9 +366,11 @@ namespace Compent.Uintra
                 .WithConstructorArgument(typeof(string), "~/App_Plugins/Notification/config/reminderConfiguration.json");
             kernel.Bind<INotificationContentProvider>().To<NotificationContentProvider>().InRequestScope();
             kernel.Bind<INotifierService>().To<UiNotifierService>().InRequestScope();
+            kernel.Bind<INotifierService>().To<PopupNotifierService>().InRequestScope();
             kernel.Bind<INotifierService>().To<MailNotifierService>().InRequestScope();
             kernel.Bind<INotificationsService>().To<NotificationsService>().InRequestScope();
             kernel.Bind<IUiNotificationService>().To<UiNotificationService>().InRequestScope();
+            kernel.Bind<IPopupNotificationService>().To<PopupNotificationsService>().InRequestScope();
             kernel.Bind<IReminderService>().To<ReminderService>().InRequestScope();
             kernel.Bind<IReminderJob>().To<ReminderJob>().InRequestScope();
             kernel.Bind<IMemberNotifiersSettingsService>().To<MemberNotifiersSettingsService>().InRequestScope();

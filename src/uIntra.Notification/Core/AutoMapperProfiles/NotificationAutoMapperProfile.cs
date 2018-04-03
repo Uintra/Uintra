@@ -20,6 +20,8 @@ namespace Uintra.Notification
                     dst.Type = notificationTypeProvider[src.Type];
                 });
 
+            Mapper.CreateMap<Notification, PopupNotificationViewModel>()
+                .ForMember(d => d.Value, o => o.MapFrom(s => Json.Decode(s.Value)));
 
             Mapper.CreateMap<NotifierSettingSaveModel<EmailNotifierTemplate>, NotifierSettingModel<EmailNotifierTemplate>>()
                 .ForMember(d => d.NotificationType, o => o.Ignore())

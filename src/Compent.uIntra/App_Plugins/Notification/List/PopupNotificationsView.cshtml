@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Uintra.Notification.PopupNotificationViewModel>
+
+<div class="js-toast-messages">
+    @foreach (var notification in Model)
+    {
+        <div class="js-toast" data-message="@notification.Value.message"></div>
+    }
+</div>

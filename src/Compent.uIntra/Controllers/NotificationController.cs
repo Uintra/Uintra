@@ -16,8 +16,9 @@ namespace Compent.Uintra.Controllers
             IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationContentProvider notificationContentProvider,
             IIntranetUserContentProvider intranetUserContentProvider,
-            IProfileLinkProvider profileLinkProvider)
-            : base(uiNotificationService, intranetUserService, notificationContentProvider, profileLinkProvider)
+            IProfileLinkProvider profileLinkProvider,
+            IPopupNotificationService popupNotificationService)
+            : base(uiNotificationService, intranetUserService, notificationContentProvider, profileLinkProvider, popupNotificationService)
         {
         }
     }

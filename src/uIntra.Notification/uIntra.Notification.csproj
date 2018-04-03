@@ -390,6 +390,7 @@
     <Compile Include="Core\Models\Configuration\NotifierSettingModel.cs" />
     <Compile Include="Core\Models\Configuration\NotifierSettingSaveModel.cs" />
     <Compile Include="Core\Models\Configuration\NotifierSettingsModel.cs" />
+    <Compile Include="Core\Models\INotificationMessage.cs" />
     <Compile Include="Core\Models\MailModels\ActivityLikeAddedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\BeforeStartMailBase.cs" />
     <Compile Include="Core\Models\MailModels\CommentAddedMailBase.cs" />
@@ -401,15 +402,18 @@
     <Compile Include="Core\Models\MailModels\EventUpdatedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\IdeaMailBase.cs" />
     <Compile Include="Core\Models\MailModels\NewsMailBase.cs" />
-    <Compile Include="Core\Models\NotificationMessage.cs" />
+    <Compile Include="Core\Models\UiNotificationMessage.cs" />
     <Compile Include="Core\Models\NotificationValue.cs" />
     <Compile Include="Core\Models\NotifierTemplates\EmailNotifierTemplate.cs" />
     <Compile Include="Core\Models\NotifierTemplates\INotifierTemplate.cs" />
+    <Compile Include="Core\Models\NotifierTemplates\PopupNotifierTemplate.cs" />
     <Compile Include="Core\Models\NotifierTemplates\UiNotifierTemplate.cs" />
+    <Compile Include="Core\Models\PopupNotificationMessage.cs" />
     <Compile Include="Core\Models\ViewModels\NotificationListViewModel.cs" />
     <Compile Include="Core\Models\ViewModels\NotificationPreviewViewModel.cs" />
     <Compile Include="Core\Models\ViewModels\NotificationViewModel.cs" />
     <Compile Include="Core\Models\ViewModels\NotifierViewModel.cs" />
+    <Compile Include="Core\Models\ViewModels\PopupNotificationViewModel.cs" />
     <Compile Include="Core\NotificationTypeProvider.cs" />
     <Compile Include="Core\NotifierTypeProvider.cs" />
     <Compile Include="Core\Services\IMailService.cs" />
@@ -424,15 +428,17 @@
     <Compile Include="Core\Services\IReminderableService.cs" />
     <Compile Include="Core\Services\IReminderJob.cs" />
     <Compile Include="Core\Services\IReminderService.cs" />
-    <Compile Include="Core\Services\IUiNotifierService.cs" />
+    <Compile Include="Core\Services\IUiNotificationService.cs" />
     <Compile Include="Core\Sql\MemberNotifierSettingDataModel.cs" />
     <Compile Include="Core\Sql\Notification.cs" />
     <Compile Include="Core\Sql\NotificationSetting.cs" />
     <Compile Include="Core\Sql\Reminder.cs" />
+    <Compile Include="DefaultImplementation\IPopupNotificationService.cs" />
     <Compile Include="DefaultImplementation\MemberNotifiersSettingsService.cs" />
     <Compile Include="DefaultImplementation\MonthlyEmailServiceBase.cs" />
     <Compile Include="DefaultImplementation\NotificationSettingsService.cs" />
     <Compile Include="DefaultImplementation\NotificationsService.cs" />
+    <Compile Include="DefaultImplementation\PopupNotificationsService.cs" />
     <Compile Include="DefaultImplementation\ReminderJob.cs" />
     <Compile Include="DefaultImplementation\ReminderService.cs" />
     <Compile Include="DefaultImplementation\UiNotificationsService.cs" />
@@ -444,6 +450,9 @@
     <Compile Include="Web\NotificationSettingsTreeController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Compent.uIntra\App_Plugins\Notification\List\PopupNotificationsView.cshtml">
+      <Link>App_Plugins\Notification\List\PopupNotificationsView.cshtml</Link>
+    </None>
     <None Include="app.config" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\CommentAdded.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\CommentReplied.json" />
@@ -481,6 +490,9 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\MonthlyMail.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
+    <Content Include="..\Compent.uIntra\App_Plugins\Notification\popupNotifications.js">
+      <Link>App_Plugins\Notification\popupNotifications.js</Link>
+    </Content>
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>

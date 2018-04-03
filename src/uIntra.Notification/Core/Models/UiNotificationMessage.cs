@@ -2,11 +2,6 @@
 
 namespace Uintra.Notification
 {
-    public interface INotificationMessage
-    {
-
-    }
-
     public class UiNotificationMessage : INotificationMessage
     {
         public Enum NotificationType { get; set; }
