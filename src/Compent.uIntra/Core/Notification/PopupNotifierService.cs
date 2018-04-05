@@ -31,20 +31,10 @@ namespace Compent.Uintra.Core.Notification
 
         public void Notify(NotifierData data)
         {
-            var settings = new NotifierSettingModel<PopupNotifierTemplate>()
-            {
-                IsEnabled = true,
-                NotificationInfo = "TEST TEST TEST",
-                NotificationTypeName = NotificationTypeEnum.Welcome.ToString(),
-                NotificationType = NotificationTypeEnum.Welcome,
-                NotifierType = NotifierTypeEnum.PopupNotifier,
-                Template = new PopupNotifierTemplate()
-                {
-                    Message = "TEST POPUP MESSAGE"
-                }
-            };
+            var identity = new ActivityEventIdentity(CommunicationTypeEnum.Member, data.NotificationType).AddNotifierIdentity(Type);
+            var settings = _notificationSettingsService.Get<PopupNotifierTemplate>(identity);
 
-            if (!settings.IsEnabled) return;
+            if (settings == null || !settings.IsEnabled) return;
             var receivers = _intranetUserService.GetMany(data.ReceiverIds);
 
             var messages = receivers.Select(r => _notificationModelMapper.Map(data.Value, settings.Template, r));

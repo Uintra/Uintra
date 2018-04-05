@@ -25,7 +25,7 @@ namespace Uintra.Notification
                 {
                     Id = Guid.NewGuid(),
                     Date = DateTime.UtcNow,
-                    IsNotified = false,
+                    IsNotified = true,
                     IsViewed = false,
                     Type = el.NotificationType.ToInt(),
                     Value = new { el.Message }.ToJson(),
@@ -46,8 +46,7 @@ namespace Uintra.Notification
         {
             var popupNotificationTypeIds = _notificationTypeProvider.PopupNotificationTypes().Select(t => t.ToInt());
 
-            var notifications = _notificationRepository.FindAll(n => n.ReceiverId == receiverId)
-                .Where(n => popupNotificationTypeIds.Contains(n.Type));
+            var notifications = _notificationRepository.FindAll(n => n.ReceiverId == receiverId && popupNotificationTypeIds.Contains(n.Type) && !n.IsViewed);
 
             return notifications;
         }

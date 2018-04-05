@@ -42,7 +42,7 @@ namespace Compent.Uintra.Core.Notification
                 .AddNotifierIdentity(Type);
 
             var settings = _notificationSettingsService.Get<EmailNotifierTemplate>(identity);
-            if (!settings.IsEnabled) return;
+            if (settings == null || !settings.IsEnabled) return;
             var receivers = _intranetUserService.GetMany(data.ReceiverIds).ToList();
             foreach (var receiverId in data.ReceiverIds)
             {

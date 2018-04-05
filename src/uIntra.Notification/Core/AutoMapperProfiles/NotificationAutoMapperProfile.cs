@@ -30,7 +30,15 @@ namespace Uintra.Notification
                 .ForMember(d => d.ActivityType, o => o.Ignore())
                 .ForMember(d => d.ActivityTypeName, o => o.Ignore());
 
+            
             Mapper.CreateMap<NotifierSettingSaveModel<UiNotifierTemplate>, NotifierSettingModel<UiNotifierTemplate>>()
+                .ForMember(d => d.NotificationType, o => o.Ignore())
+                .ForMember(d => d.NotificationTypeName, o => o.Ignore())
+                .ForMember(d => d.NotifierType, o => o.Ignore())
+                .ForMember(d => d.ActivityType, o => o.Ignore())
+                .ForMember(d => d.ActivityTypeName, o => o.Ignore());
+
+            Mapper.CreateMap<NotifierSettingSaveModel<PopupNotifierTemplate>, NotifierSettingModel<PopupNotifierTemplate>>()
                 .ForMember(d => d.NotificationType, o => o.Ignore())
                 .ForMember(d => d.NotificationTypeName, o => o.Ignore())
                 .ForMember(d => d.NotifierType, o => o.Ignore())

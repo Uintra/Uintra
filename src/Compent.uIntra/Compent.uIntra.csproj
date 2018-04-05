@@ -1400,6 +1400,7 @@
     <Compile Include="Core\Notification\NotificationAutoMapperProfile .cs" />
     <Compile Include="Core\Notification\NotificationContentProvider.cs" />
     <Compile Include="Core\Notification\NotificationMessageTypes.cs" />
+    <Compile Include="Core\Notification\PopupNotificationModelMapper.cs" />
     <Compile Include="Core\Notification\PopupNotifierService.cs" />
     <Compile Include="Core\Notification\UiNotificationModelMapper.cs" />
     <Compile Include="Core\Notification\UiNotifierService.cs" />

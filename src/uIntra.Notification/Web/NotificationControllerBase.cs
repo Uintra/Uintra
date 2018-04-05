@@ -92,6 +92,12 @@ namespace Uintra.Notification.Web
             _uiNotifierService.ViewNotification(id);
         }
 
+        [System.Web.Mvc.HttpPost]
+        public virtual void ViewPopup([FromBody]Guid id)
+        {
+            _popupNotificationService.ViewNotification(id);
+        }
+
         public virtual PartialViewResult List()
         {
             int totalCount;
