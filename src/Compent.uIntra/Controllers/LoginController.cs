@@ -68,7 +68,7 @@ namespace Compent.Uintra.Controllers
             return Redirect(redirectUrl);
         }
 
-        private static bool IsFirstTimeLogin(IPublishedContent member)
+        private static bool IsFirstTimeLogin(IPublishedContent member) //TODO think about cache
         {
             var createDate = member.CreateDate;
             var lastLoginDate = member.GetPropertyValue<DateTime>(Constants.Conventions.Member.LastLoginDate);
