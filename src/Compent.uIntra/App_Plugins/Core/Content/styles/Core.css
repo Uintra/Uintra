@@ -318,6 +318,21 @@ img{
             padding-top: 249px;
         }
     }
+
+    &._loading{
+        *{
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        #header,
+        #header *,
+        #sidebar,
+        #main {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
 }
 
 #sidebar {
