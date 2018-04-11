@@ -132,7 +132,7 @@ namespace Compent.Uintra.Core.Navigation
                 Id = publishedContent.Id,
                 Name = GetNavigationName(publishedContent),
                 Url = publishedContent.Url,
-                IsActive = publishedContent.IsAncestorOrSelf(CurrentPage)
+                IsActive = publishedContent.Id == CurrentPage.Id
             };
 
             return result;
@@ -145,7 +145,7 @@ namespace Compent.Uintra.Core.Navigation
                 Id = publishedContent.Id,
                 Name = GetNavigationName(publishedContent),
                 Url = publishedContent.Url,
-                IsActive = publishedContent.IsAncestorOrSelf(CurrentPage)
+                IsActive = publishedContent.Id == CurrentPage.Id
             };
 
             return result;
