@@ -260,8 +260,7 @@ namespace Compent.Uintra
             kernel.Bind<IIntranetMediaService>().To<IntranetMediaService>().InRequestScope();
             kernel.Bind<IEditorConfigProvider>().To<IntranetEditorConfigProvider>().InRequestScope();
             kernel.Bind<IEmbeddedResourceService>().To<EmbeddedResourceService>().InRequestScope();
-            kernel.Bind<IHttpHelper>().To<HttpHelper>().InRequestScope().DisposeIfDisposable();
-
+            kernel.Bind<IHttpHelper>().To<HttpHelper>().InRequestScope().DisposeIfDisposable(); //TODO check and delete if not in use
 
             kernel.Bind<ICommentsService>().To<CommentsService>().InRequestScope();
             kernel.Bind<ICommentLinkPreviewService>().To<CommentLinkPreviewService>().InRequestScope();
@@ -366,15 +365,18 @@ namespace Compent.Uintra
                 .WithConstructorArgument(typeof(string), "~/App_Plugins/Notification/config/reminderConfiguration.json");
             kernel.Bind<INotificationContentProvider>().To<NotificationContentProvider>().InRequestScope();
             kernel.Bind<INotifierService>().To<UiNotifierService>().InRequestScope();
+            kernel.Bind<INotifierService>().To<PopupNotifierService>().InRequestScope();
             kernel.Bind<INotifierService>().To<MailNotifierService>().InRequestScope();
             kernel.Bind<INotificationsService>().To<NotificationsService>().InRequestScope();
             kernel.Bind<IUiNotificationService>().To<UiNotificationService>().InRequestScope();
+            kernel.Bind<IPopupNotificationService>().To<PopupNotificationsService>().InRequestScope();
             kernel.Bind<IReminderService>().To<ReminderService>().InRequestScope();
             kernel.Bind<IReminderJob>().To<ReminderJob>().InRequestScope();
             kernel.Bind<IMemberNotifiersSettingsService>().To<MemberNotifiersSettingsService>().InRequestScope();
             kernel.Bind<IMailService>().To<MailService>().InRequestScope();
             kernel.Bind<INotificationSettingsService>().To<NotificationSettingsService>().InRequestScope();
             kernel.Bind<INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage>>().To<UiNotificationModelMapper>().InRequestScope();
+            kernel.Bind<INotificationModelMapper<PopupNotifierTemplate, PopupNotificationMessage>>().To<PopupNotificationModelMapper>().InRequestScope();
             kernel.Bind<INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage>>().To<MailNotificationModelMapper>().InRequestScope();
 
             kernel.Bind<IBackofficeSettingsReader>().To<BackofficeSettingsReader>();

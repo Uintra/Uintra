@@ -24,11 +24,7 @@ namespace Uintra.Notification.Configuration
             }
             catch (FileNotFoundException)
             {
-                string description =
-                    "Embedded resource with config for notification(" +
-                    $"{notificationType.NotifierType}, {notificationType.Event.ActivityType}, {notificationType.Event.NotificationType}" +
-                    $") was not found at path {resourceName}.";
-                throw new FileNotFoundException(description);
+                return null;
             }
         }
 
@@ -41,13 +37,13 @@ namespace Uintra.Notification.Configuration
 
         protected virtual Assembly GetResourceAssembly(ActivityEventNotifierIdentity notificationType) => Assembly.GetExecutingAssembly();
 
-        protected virtual string GetEmbeddedResourceName(ActivityEventNotifierIdentity notificationType, Assembly assembly) => 
+        protected virtual string GetEmbeddedResourceName(ActivityEventNotifierIdentity notificationType, Assembly assembly) =>
             $"{GetRootFolder(assembly)}.{GetEmbeddedResourceFileName(notificationType)}";
 
-        protected virtual string GetEmbeddedResourceFileName(ActivityEventNotifierIdentity type) => 
+        protected virtual string GetEmbeddedResourceFileName(ActivityEventNotifierIdentity type) =>
             $"{type.NotifierType}.{type.Event.ActivityType.ToString()}.{type.Event.NotificationType.ToString()}.json";
 
-        protected virtual string GetRootFolder(Assembly assembly) => 
+        protected virtual string GetRootFolder(Assembly assembly) =>
             $"{assembly.GetName().Name}.{RootFolderName}";
     }
 }

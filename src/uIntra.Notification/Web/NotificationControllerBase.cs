@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -18,25 +19,27 @@ namespace Uintra.Notification.Web
         protected virtual string OverviewViewPath { get; } = "~/App_Plugins/Notification/List/NotificationOverview.cshtml";
         protected virtual string ListViewPath { get; } = "~/App_Plugins/Notification/List/NotificationList.cshtml";
         protected virtual string PreviewViewPath { get; } = "~/App_Plugins/Notification/List/NotificationPreview.cshtml";
+        protected virtual string PopupNotificationsViewPath { get; } = "~/App_Plugins/Notification/List/PopupNotificationsView.cshtml";
 
         protected virtual int ItemsPerPage { get; } = 8;
 
         private readonly IUiNotificationService _uiNotifierService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationContentProvider _notificationContentProvider;
-        private readonly IProfileLinkProvider _profileLinkProvider;
+        private readonly IPopupNotificationService _popupNotificationService;
 
         protected NotificationControllerBase(
             IUiNotificationService uiNotifierService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationContentProvider notificationContentProvider,
-            IProfileLinkProvider profileLinkProvider)
+            IProfileLinkProvider profileLinkProvider,
+            IPopupNotificationService popupNotificationService)
 
         {
             _uiNotifierService = uiNotifierService;
             _intranetUserService = intranetUserService;
             _notificationContentProvider = notificationContentProvider;
-            _profileLinkProvider = profileLinkProvider;
+            _popupNotificationService = popupNotificationService;
         }
 
         public virtual ActionResult Overview()
@@ -75,10 +78,24 @@ namespace Uintra.Notification.Web
             return count;
         }
 
+        [System.Web.Mvc.AllowAnonymous]
+        public ActionResult ShowPopupNotifications()
+        {
+            var receiverId = _intranetUserService.GetCurrentUserId();
+            var notifications = _popupNotificationService.Get(receiverId).Map<IEnumerable<PopupNotificationViewModel>>();
+            return PartialView(PopupNotificationsViewPath, notifications);
+        }
+
         [System.Web.Mvc.HttpPost]
         public virtual void View([FromBody]Guid id)
         {
             _uiNotifierService.ViewNotification(id);
+        }
+
+        [System.Web.Mvc.HttpPost]
+        public virtual void ViewPopup([FromBody]Guid id)
+        {
+            _popupNotificationService.ViewNotification(id);
         }
 
         public virtual PartialViewResult List()

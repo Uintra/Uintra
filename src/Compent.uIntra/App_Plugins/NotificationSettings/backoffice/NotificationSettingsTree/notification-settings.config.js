@@ -6,6 +6,9 @@
             uiMessageTinyMceOptions: {
                 toolbar: "bold | italic | removeformat"
             },
+            popupMessageTinyMceOptions: {
+                toolbar: "bold | italic | removeformat"
+            },
             emailMessageTinyMceOptions: {
                 toolbar: "formatselect | bold | italic | alignleft | aligncenter | alignright | removeformat"
             }

@@ -32,13 +32,7 @@ namespace Compent.Uintra.Core.Notification
         }
 
         public void Notify(NotifierData data)
-        {
-            if (data.NotificationType.ToInt().In(NotificationTypeEnum.MonthlyMail.ToInt())) //TODO: temporary for communication settings
-            {
-               return;
-            }
-
-
+        {         
             var isCommunicationSettings = data.NotificationType.In(
                 NotificationTypeEnum.CommentLikeAdded,
                 NotificationTypeEnum.MonthlyMail); //TODO: temporary for communication settings
@@ -49,7 +43,7 @@ namespace Compent.Uintra.Core.Notification
                 .AddNotifierIdentity(Type);
 
             var settings = _notificationSettingsService.Get<UiNotifierTemplate>(identity);
-            if (!settings.IsEnabled) return;
+            if (settings == null || !settings.IsEnabled) return;
             var receivers = _intranetUserService.GetMany(data.ReceiverIds);
 
             var messages = receivers.Select(r => _notificationModelMapper.Map(data.Value, settings.Template, r));

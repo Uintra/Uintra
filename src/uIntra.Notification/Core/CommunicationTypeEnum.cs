@@ -2,6 +2,7 @@
 {
     public enum CommunicationTypeEnum
     {
-        CommunicationSettings = 100
+        CommunicationSettings = 100,
+        Member
     }
 }

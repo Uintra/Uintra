@@ -22,10 +22,12 @@ namespace Uintra.Notification
         {
             var emailNotifierSetting = Get<EmailNotifierTemplate>(activityEventIdentity.AddNotifierIdentity(NotifierTypeEnum.EmailNotifier));
             var uiNotifierSetting = Get<UiNotifierTemplate>(activityEventIdentity.AddNotifierIdentity(NotifierTypeEnum.UiNotifier));
+            var popupNotifierSetting = Get<PopupNotifierTemplate>(activityEventIdentity.AddNotifierIdentity(NotifierTypeEnum.PopupNotifier));
             var notifierSettings = new NotifierSettingsModel
             {
                 EmailNotifierSetting = emailNotifierSetting,
-                UiNotifierSetting = uiNotifierSetting
+                UiNotifierSetting = uiNotifierSetting,
+                PopupNotifierSetting = popupNotifierSetting
             };
 
             return notifierSettings;
@@ -34,6 +36,12 @@ namespace Uintra.Notification
         public virtual NotifierSettingModel<T> Get<T>(ActivityEventNotifierIdentity activityEventNotifierIdentity) where T : INotifierTemplate
         {
             var defaultTemplate = _backofficeNotificationSettingsProvider.Get<T>(activityEventNotifierIdentity);
+
+            if (defaultTemplate == null)
+            {
+                return null;
+            }
+
             var (setting, _) = FindOrCreateSetting<T>(activityEventNotifierIdentity);
 
             var mappedSetting = MappedNotifierSetting(setting, activityEventNotifierIdentity, defaultTemplate);
@@ -72,7 +80,7 @@ namespace Uintra.Notification
                             s.NotifierType == notifierId);
         }
 
-       
+
         protected virtual (NotificationSetting setting, bool isCreated) FindOrCreateSetting<T>(ActivityEventNotifierIdentity identity)
             where T : INotifierTemplate
         {

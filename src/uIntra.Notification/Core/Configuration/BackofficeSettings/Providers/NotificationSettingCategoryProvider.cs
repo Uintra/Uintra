@@ -18,13 +18,18 @@ namespace Uintra.Notification.Configuration
                 .ToEnumerable()
                 .Append(GetNewsSettings())
                 .Append(GetEventSettings())
-                .Append(GetCommunicationSettings());
+                .Append(GetCommunicationSettings())
+                .Append(GetMemberSettings());
 
         public virtual NotificationSettingsCategoryDto GetCommunicationSettings() => //TODO: temporary for communication settings
             new NotificationSettingsCategoryDto(
                 CommunicationTypeEnum.CommunicationSettings,
-                ((Enum) NotificationTypeEnum.CommentLikeAdded).ToEnumerable()
+                ((Enum)NotificationTypeEnum.CommentLikeAdded).ToEnumerable()
                 .Append(NotificationTypeEnum.MonthlyMail));
+
+        public virtual NotificationSettingsCategoryDto
+            GetMemberSettings() => //TODO: temporary for communication settings
+            new NotificationSettingsCategoryDto(CommunicationTypeEnum.Member, ((Enum)NotificationTypeEnum.Welcome).ToEnumerable());
 
 
         protected virtual Enum[] CommentNotificationTypes => new Enum[]
