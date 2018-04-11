@@ -10,6 +10,7 @@ using Uintra.Core.Controls.FileUpload;
 using Uintra.Core.Extensions;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
+using UIntra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -25,12 +26,13 @@ namespace Uintra.Core.Media
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IMediaFolderTypeProvider _mediaFolderTypeProvider;
         private readonly IImageHelper _imageHelper;
+        private readonly IVideoHelper _videoHelper;
 
         public MediaHelper(ICacheService cacheService,
             IMediaService mediaService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             UmbracoHelper umbracoHelper,
-            IMediaFolderTypeProvider mediaFolderTypeProvider, IImageHelper imageHelper)
+            IMediaFolderTypeProvider mediaFolderTypeProvider, IImageHelper imageHelper, IVideoHelper videoHelper)
         {
             _cacheService = cacheService;
             _mediaService = mediaService;
@@ -38,6 +40,7 @@ namespace Uintra.Core.Media
             _umbracoHelper = umbracoHelper;
             _mediaFolderTypeProvider = mediaFolderTypeProvider;
             _imageHelper = imageHelper;
+            _videoHelper = videoHelper;
         }
 
         public IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model, Guid? userId = null)
@@ -60,7 +63,7 @@ namespace Uintra.Core.Media
 
         public IMedia CreateMedia(TempFile file, int rootMediaId, Guid? userId = null)
         {
-            var mediaTypeAlias = GetMediaTypeAlias(file.FileBytes);
+            var mediaTypeAlias = GetMediaTypeAlias(file);
             var media = _mediaService.CreateMedia(file.FileName, rootMediaId, mediaTypeAlias);
 
             var stream = new MemoryStream(file.FileBytes);
@@ -75,6 +78,11 @@ namespace Uintra.Core.Media
             media.SetValue(IntranetConstants.IntranetCreatorId, userId.ToString());
             media.SetValue(UmbracoFilePropertyAlias, Path.GetFileName(file.FileName), stream);
             stream.Close();
+
+            if (mediaTypeAlias == VideoTypeAlias)
+            {
+                SaveVideoAdditionProperties(media);
+            }
 
             _mediaService.Save(media);
             return media;
@@ -174,9 +182,21 @@ namespace Uintra.Core.Media
             return media.HasProperty(IsDeletedPropertyTypeAlias) && media.GetPropertyValue<bool>(IsDeletedPropertyTypeAlias, false);
         }
 
-        private string GetMediaTypeAlias(byte[] fileBytes)
+        private void SaveVideoAdditionProperties(IMedia media)
         {
-            return _imageHelper.IsFileImage(fileBytes) ? UmbracoAliases.Media.ImageTypeAlias : UmbracoAliases.Media.FileTypeAlias;
+            var thumbnailUrl = _videoHelper.CreateThumbnail(media);
+            media.SetValue(UmbracoAliases.Video.ThumbnailUrlPropertyAlias, thumbnailUrl);
+
+            var videoSizeMetadata = _videoHelper.GetSizeMetadata(media);
+            media.SetValue(UmbracoAliases.Video.VideoHeightPropertyAlias, videoSizeMetadata.Height);
+            media.SetValue(UmbracoAliases.Video.VideoWidthPropertyAlias, videoSizeMetadata.Width);
+        }
+
+        private string GetMediaTypeAlias(TempFile file)
+        {
+            if (_videoHelper.IsVideo(Path.GetExtension(file.FileName))) return VideoTypeAlias;
+
+            return _imageHelper.IsFileImage(file.FileBytes) ? ImageTypeAlias : FileTypeAlias;
         }
 
         private string GetAllowedMediaExtensions(IPublishedContent mediaFolderContent)
@@ -203,14 +223,14 @@ namespace Uintra.Core.Media
                 var folderType = f.GetPropertyValue<string>(FolderConstants.FolderTypePropertyTypeAlias);
                 return folderType.HasValue() && folderType.Equals(mediaFolderType.ToString());
             });
-            
+
             return mediaFolder;
         }
 
         private IPublishedContent CreateMediaFolder(Enum mediaFolderType)
         {
             // TODO: Extend provider, so we can get folder names not only from MediaFolderTypeEnum
-            var mediaFolderTypeEnum = (MediaFolderTypeEnum) mediaFolderType;
+            var mediaFolderTypeEnum = (MediaFolderTypeEnum)mediaFolderType;
             var folderName = mediaFolderTypeEnum.GetAttribute<DisplayAttribute>().Name;
             var mediaFolder = _mediaService.CreateMedia(folderName, -1, FolderTypeAlias);
             mediaFolder.SetValue(FolderConstants.FolderTypePropertyTypeAlias, mediaFolderType.ToString());
