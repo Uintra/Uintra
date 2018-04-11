@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web.Http;
+using System.Web.Mvc;
 using System.Web.Routing;
 using FluentScheduler;
 using Uintra.Core.Jobs;
@@ -17,6 +18,7 @@ namespace Compent.Uintra
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {           
             RegisterRoutes();
+            GlobalConfiguration.Configure(WebApiConfig.Register);
 
             JobManager.JobFactory = DependencyResolver.Current.GetService<IJobFactory>();
             JobManager.Initialize(new JobsRegistry());            
