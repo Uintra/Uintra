@@ -43,7 +43,7 @@
         {
             <li class="documents-list__item">
                 <a class="documents-list__link" href="@document.Url" target="_blank">
-                    <span class="documents-list__icon file-extension _@document.Extension"></span>
+                    <span class="documents-list__icon file-extension">@document.Extension.ToExtensionViewString()</span>
                     <span class="documents-list__title">@document.Name</span>
                 </a>
             </li>

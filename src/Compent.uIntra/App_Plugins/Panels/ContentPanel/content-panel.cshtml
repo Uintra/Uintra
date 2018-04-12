@@ -146,7 +146,7 @@
                     var file = Umbraco.TypedMedia(id);
                     <li class="documents__item">
                         <a class="documents__item-link" target="_blank" href="@file.Url">
-                            <span class="documents__icon file-extension _@file.GetMediaExtension()"></span>
+                            <span class="documents__icon file-extension">@file.GetMediaExtension().ToExtensionViewString()</span>
                             <span class="documents__item-name">@file.Name</span>
                         </a>
                     </li>

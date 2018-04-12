@@ -163,5 +163,13 @@ namespace Uintra.Core.Extensions
         {
             return collection.SelectMany(col => col.ParseStringCollection(parserFunc, separator));
         }
+
+        public static string ToExtensionViewString(this string source)
+        {
+            const int MaxViewedLenght = 4;
+            const string DefaultType = "misc";
+
+            return source.Length <= MaxViewedLenght ? source : DefaultType;
+        }
     }
 }
