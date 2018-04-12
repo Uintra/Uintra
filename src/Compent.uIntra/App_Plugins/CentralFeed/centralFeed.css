@@ -303,20 +303,27 @@
             }
 
             &-list{
-                margin:0 0 0 -26px;
+                margin:0 0 0 -2px;
                 padding:0;
                 list-style:none;
-                &:after{
+                display: flex;
+                flex-wrap:wrap;
+                /*&:after{
                     content:'';
                     display:block;
                     clear:both;
-                }
+                }*/
 
                 &-item{
-                    float:left;
-                    padding:0 0 10px 26px;
-                    max-width:33.3%;
                     position:relative;
+                    padding:0 0 2px 2px;
+                    flex-grow:1;
+                    max-width:25%;
+                    flex-shrink:1;
+
+                    @media(--for-tablet-portrait-down){
+                        max-width:33.3%;
+                    }
                 }
 
                 img{
@@ -331,8 +338,8 @@
 
             &-remove{
                 position:absolute;
-                top:-10px;
-                right:-10px;
+                top:2px;
+                right:2px;
                 width:25px;
                 height:25px;
                 text-align:center;
