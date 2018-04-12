@@ -87,7 +87,7 @@ namespace Uintra.Core.Controls.LightboxGallery
             {
                 Id = media.Id,
                 Url = media.Url,
-                Name = media.GetFileName(),
+                Name = media.Name,
                 Extension = media.GetMediaExtension(),
                 Type = media.GetMediaType()
             };
