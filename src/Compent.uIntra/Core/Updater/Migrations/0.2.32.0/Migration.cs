@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.uIntra.Core.Updater.Migrations._0._2._32._0.Steps;
+using Compent.Uintra.Core.Updater.Migrations._0._2._32._0.Steps;
 using Compent.Uintra.Core.Updater;
 
 namespace Compent.uIntra.Core.Updater.Migrations._0._2._32._0
@@ -22,7 +22,8 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._2._32._0
         {
             get
             {
-                yield return Resolve<NotificationSettingsMigrationStep>();        
+                yield return Resolve<NotificationSettingsMigrationStep>();  
+                yield return Resolve<GroupDocumentsTabStep>();
             }
         }
     }

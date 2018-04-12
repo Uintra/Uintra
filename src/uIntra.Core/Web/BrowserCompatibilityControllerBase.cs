@@ -25,8 +25,7 @@ namespace Uintra.Core.Web
             this._browserCompatibilityConfiguration = browserCompatibilityConfiguration;
             this._cookieProvider = cookieProvider;
         }
-
-        [HttpGet]
+        
         [AllowAnonymous]
         public ActionResult BrowserCompatibility()
         {

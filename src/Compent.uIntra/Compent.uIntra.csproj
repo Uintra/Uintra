@@ -1293,6 +1293,7 @@
     <Compile Include="Controllers\EventsSectionController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
+    <Compile Include="Controllers\GroupDocumentsController.cs" />
     <Compile Include="Controllers\GroupFeedController.cs" />
     <Compile Include="Controllers\GroupsSectionController.cs" />
     <Compile Include="Controllers\LightboxGalleryController.cs" />
@@ -1486,6 +1487,7 @@
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\AddVideoMediaTypeStepConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.32.0\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.32.0\Steps\GroupDocumentsTabStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.32.0\Steps\NotificationSettingsMigration.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\TaggingInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Migration.cs" />

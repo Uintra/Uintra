@@ -19,7 +19,7 @@ namespace Compent.Uintra
             RegisterRoutes();
 
             JobManager.JobFactory = DependencyResolver.Current.GetService<IJobFactory>();
-            JobManager.Initialize(new JobsRegistry());            
+            JobManager.Initialize(new JobsRegistry());
 
             base.ApplicationStarted(umbracoApplication, applicationContext);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Controls.FileUpload;
 using Uintra.Core.Extensions;
@@ -34,13 +35,20 @@ namespace Uintra.Groups
         public IMedia CreateGroupMedia(string name, byte[] file, Guid groupId)
         {
             var groupFolder = GetOrCreateGroupMediaFolder(groupId);
-
+        
             var fileModel = new TempFile
             {
                 FileBytes = file,
                 FileName = name
             };
             var media = _mediaHelper.CreateMedia(fileModel, groupFolder.Id);
+            return media;
+        }
+
+        public IEnumerable<int> CreateGroupMedia(IContentWithMediaCreateEditModel model, Guid groupId, Guid creatorId)
+        {
+            model.MediaRootId = GetOrCreateGroupMediaFolder(groupId).Id;
+            var media = _mediaHelper.CreateMedia(model, creatorId);
             return media;
         }
 

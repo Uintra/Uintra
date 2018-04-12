@@ -36,7 +36,8 @@
                         <td class="documents-table__cell">
                             <span class="documents-table__name">@document.CreatorName</span>
                         </td>
-                        <td class="documents-table__cell">@document.CreateDate.ToString(GlobalConstants.Common.DefaultDateFormat)</td>
+                        
+                        <td class="documents-table__cell">@document.CreateDate.ToDateTimeFormat()</td>
                         <td class="documents-table__cell _delete">
                             @if (document.CanDelete)
                             {
