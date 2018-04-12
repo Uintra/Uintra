@@ -34,11 +34,23 @@ var createGallery = function (gallery) {
     }
     
     gallery.instance.listen('beforeChange', stopVideo);
-
-    gallery.instance.listen('close', function () {
+    gallery.instance.listen('close', function () {        
         stopVideo();
         gallery.instance = null;
         bodyElement.classList.remove('js-lightbox-open');
+
+        var div = gallery.holder.closest("div [data-anchor]");
+        if (div) {
+            var hash = div.dataset["anchor"]; 
+            if (hash) {
+                let elem = document.querySelector('[data-anchor="' + hash + '"]');
+
+                if (elem) {
+                    scrollTo(document.body, elem.offsetTop, 300);
+                    window.history.pushState("", document.title, window.location.pathname + window.location.search);
+                }
+            }
+        }        
     });
 }
 
