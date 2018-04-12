@@ -913,6 +913,7 @@ img{
     button{
         &:before{
             background-size:cover;
+            background-repeat:no-repeat;
             display:block;
             margin:0 auto;
         }
@@ -1304,7 +1305,7 @@ img{
 .ql-formats ._upload{
     &:before{
         content:'';
-        width:15px;
+        width:14px;
         height:15px;
         background-image:url(/App_Plugins/Core/Content/images/attachment.svg);
     }
