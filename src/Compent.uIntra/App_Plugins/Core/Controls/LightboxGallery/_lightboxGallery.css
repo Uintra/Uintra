@@ -161,13 +161,19 @@
         padding:0 0 0 20px;
         font-size: 13px;
         color: var(--text-color-dark);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 120px;
+        display: inline-block;
+        vertical-align: top;
 
         &:before{
             content:'';
             position:absolute;
             left:0;
-            top:0;
-            margin:-2px 0 0;
+            top:50%;
+            margin:-8px 0;
             z-index:2;
             width:14px;
             height:15px;
