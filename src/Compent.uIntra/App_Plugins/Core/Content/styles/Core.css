@@ -1116,11 +1116,16 @@ img{
         }
     }
 
-    &__top-bar{
+    /*&__top-bar{
         opacity:1 !important;
 
         @media (--for-tablet-portrait-down) {
             opacity: 0 !important;
+        }
+    }*/
+    &__top-bar{
+        @media (--for-tablet-portrait-down) {
+            background:none;
         }
     }
 }
