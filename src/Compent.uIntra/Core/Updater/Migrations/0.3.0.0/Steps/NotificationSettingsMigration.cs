@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
-using Compent.Uintra.Core.Updater;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
 using Extensions;
 using uIntra.Notification;
@@ -15,8 +13,7 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-
-namespace Compent.uIntra.Core.Updater.Migrations._0._2._32._0.Steps
+namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
 {
     public class NotificationSettingsMigrationStep : IMigrationStep
     {
@@ -48,7 +45,6 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._2._32._0.Steps
             ImportSettingsFromMailTemplates(CommunicationTypeEnum.CommunicationSettings, NotificationTypeEnum.MonthlyMail);
             DeleteExistedMailTemplates();
 
-
             return ExecutionResult.Success;
         }
 
@@ -59,7 +55,6 @@ namespace Compent.uIntra.Core.Updater.Migrations._0._2._32._0.Steps
 
         private void DeleteExistedMailTemplates()
         {
-
             var mailTemplateFolderXpath = XPathHelper.GetXpath(
                 _documentTypeAliasProvider.GetDataFolder(),
                 _documentTypeAliasProvider.GetMailTemplateFolder());

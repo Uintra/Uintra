@@ -1494,8 +1494,8 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\UsersInstallationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\AddVideoMediaTypeStepConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.2.32.0\Migration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.2.32.0\Steps\NotificationSettingsMigration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.0.0\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\NotificationSettingsMigration.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\TaggingInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\AddTranslationsStep.cs" />
@@ -1602,7 +1602,6 @@
     <Folder Include="App_Plugins\SentMails\dashboard\css\" />
     <Folder Include="App_Plugins\SentMails\data\" />
     <Folder Include="App_Plugins\SentMails\shared\" />
-    <Folder Include="Core\Updater\Migrations\0.2.32.0\Constants\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.BaseControls\Uintra.BaseControls.csproj">

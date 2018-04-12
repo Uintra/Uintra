@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.uIntra.Core.Updater.Migrations._0._2._32._0.Steps;
-using Compent.Uintra.Core.Updater;
+using Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps;
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._2._32._0
+namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0
 {
     public class Migration : IMigration
     {
         private readonly IMigrationStepsResolver _migrationStepsResolver;
 
-        public Version Version => new Version("0.2.32.0");
+        public Version Version => new Version("0.3.0.0");
 
         public Migration(IMigrationStepsResolver migrationStepsResolver)
         {
