@@ -50,7 +50,7 @@ var buildPhotoswipeItems = function (imagesItems) {
             continue;   
         }
         var item = imagesItems[i];
-        var paprentItem = item.parentNode;
+        var parentItem = item.parentNode;
         var size = item.getAttribute('data-full-size').split('x');
         var width;
         var height;
@@ -65,9 +65,9 @@ var buildPhotoswipeItems = function (imagesItems) {
         }
 
         // create slide object
-        if (paprentItem.dataset.type == 'video') {
+        if (parentItem.dataset.type == 'video') {
             newItem = {
-                html: paprentItem.dataset.video
+                html: parentItem.dataset.video
             };
         } else {
             newItem = {

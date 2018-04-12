@@ -318,6 +318,21 @@ img{
             padding-top: 249px;
         }
     }
+
+    &._loading{
+        *{
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        #header,
+        #header *,
+        #sidebar,
+        #main {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
 }
 
 #sidebar {
@@ -493,7 +508,7 @@ img{
         visibility:hidden;
         opacity:0;
         position:absolute;
-        top:0;
+        top:60px;
         left:0;
         right:0;
         bottom:0;
@@ -505,6 +520,7 @@ img{
         }
 
         @media (--for-tablet-landscape-up) {
+            top:0;
             background-position:530px 50px;
         }
 
