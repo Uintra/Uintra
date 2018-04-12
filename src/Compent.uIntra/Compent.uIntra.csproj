@@ -1495,7 +1495,8 @@
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\AddVideoMediaTypeStepConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.0.0\Migration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\NotificationSettingsMigration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\TablePanelMigrationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\NotificationSettingsMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\TaggingInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\AddTranslationsStep.cs" />
