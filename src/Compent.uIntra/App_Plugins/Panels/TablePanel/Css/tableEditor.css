@@ -75,6 +75,17 @@
                 display: block;    
             }
 
+            &:first-child{
+                 @media (--for-phone-only) {
+                    display: none;    
+                }
+
+                 .aside &,
+                .col-md-6 &{
+                    display:none;
+                }
+            }
+
             .aside &,
             .col-md-6 &{
                 display:block;
@@ -115,6 +126,7 @@
             }
 
             &:first-child {
+                
                 @media (--for-phone-only) {
                     background: #d6d6d6;
                     font-weight: bold;
@@ -193,7 +205,9 @@
             }
 
             &._header {
-                font-size:14px;
+                background: #d6d6d6;
+                font-weight: bold;
+                font-size: 14px;
 
                 @media (--for-phone-only) {
                     display: none;    
