@@ -16,7 +16,7 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 
 
-namespace Compent.uIntra.Core.Updater.Migrations._0._2._32._0.Steps
+namespace Compent.Uintra.Core.Updater.Migrations._0._2._32._0.Steps
 {
     public class NotificationSettingsMigrationStep : IMigrationStep
     {

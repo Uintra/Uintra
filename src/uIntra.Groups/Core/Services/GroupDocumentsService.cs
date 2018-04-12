@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Uintra.Core.Persistence;
 using Uintra.Groups.Sql;
@@ -30,6 +31,15 @@ namespace Uintra.Groups
             document.Id = Guid.NewGuid();
             _repository.Add(document);
             return document.Id;
+        }
+
+        public void Create(IEnumerable<GroupDocument> documents)
+        {
+            _repository.Add(documents.Select(i=> 
+            {
+                i.Id = Guid.NewGuid();
+                return i;
+            }));
         }
 
         public void Delete(GroupDocument document)

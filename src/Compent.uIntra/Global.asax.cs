@@ -21,7 +21,7 @@ namespace Compent.Uintra
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
             JobManager.JobFactory = DependencyResolver.Current.GetService<IJobFactory>();
-            JobManager.Initialize(new JobsRegistry());            
+            JobManager.Initialize(new JobsRegistry());
 
             base.ApplicationStarted(umbracoApplication, applicationContext);
         }

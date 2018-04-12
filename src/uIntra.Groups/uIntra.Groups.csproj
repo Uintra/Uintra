@@ -319,6 +319,7 @@
     <Compile Include="Core\Links\IGroupFeedLinkService.cs" />
     <Compile Include="Core\Links\IGroupFeedLinksProvider.cs" />
     <Compile Include="Core\Models\DisabledGroupViewModel.cs" />
+    <Compile Include="Core\Models\Documents\GroupDocumentCreateModel.cs" />
     <Compile Include="Core\Models\GroupCreateModel.cs" />
     <Compile Include="Core\Enums\GroupDocumentDocumentField.cs" />
     <Compile Include="Core\Models\GroupDocumentsTableViewModel.cs" />
