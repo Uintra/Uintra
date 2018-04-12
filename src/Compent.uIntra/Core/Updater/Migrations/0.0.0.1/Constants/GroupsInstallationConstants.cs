@@ -29,6 +29,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
             public const string GroupsMyGroupsOverviewPage = "groupsMyGroupsOverviewPage";
             public const string GroupsMembersPage = "groupsMembersPage";
             public const string GroupsDeactivatedGroupPage = "groupsDeactivatedGroupPage";
+            public const string GroupsDocumentsPage = "groupsDocumentsPage";
         }
 
         public class DocumentTypeIcons

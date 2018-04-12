@@ -70,7 +70,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
             CreateGroupsSettingsPage();
             CreateGroupsMembersPage();
             CreateGroupsDeactivatedGroupPage();
-            //CreateGroupsDocumentsPage(); This functionality under construction now.
 
             CreateGroupsNewsPages();
             CreateGroupsEventsPages();
@@ -804,23 +803,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
 
             SetGridValueAndSaveAndPublishContent(content, "groupsDeactivatedGroupPageGrid.json");
         }
-
-        private void CreateGroupsDocumentsPage()
-        {
-            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage, DocumentTypeAliasConstants.GroupsRoomPage));
-            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.GroupsDocumentsPage)))
-            {
-                return;
-            }
-
-            var content = _contentService.CreateContent("Group Documents", newsOverviewPage.Id, DocumentTypeAliasConstants.GroupsDocumentsPage);
-            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Group Documents");
-            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
-            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
-
-            SetGridValueAndSaveAndPublishContent(content, "groupsDocumentsPageGrid.json");
-        }
-
     }
 
     public static class UmbracoContentMigrationConstants
