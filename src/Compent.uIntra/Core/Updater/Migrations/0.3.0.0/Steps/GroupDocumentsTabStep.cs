@@ -15,7 +15,7 @@ using Compent.Uintra.Core.Constants;
 using Umbraco.Web;
 using Umbraco.Core.Services;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._2._32._0.Steps
+namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
 {
     public class GroupDocumentsTabStep : IMigrationStep
     {

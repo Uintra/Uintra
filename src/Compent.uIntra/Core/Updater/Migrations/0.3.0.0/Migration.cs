@@ -21,6 +21,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0
         {
             get
             {
+                yield return Resolve<GroupDocumentsTabStep>();
                 yield return Resolve<NotificationSettingsMigrationStep>();  
                 yield return Resolve<TablePanelMigrationStep>();        
             }
