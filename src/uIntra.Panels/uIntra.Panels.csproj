@@ -332,6 +332,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Compent.uIntra\App_Plugins\Panels\TableEditor\views\overlay.html">
+      <Link>App_Plugins\Panels\TableEditor\views\overlay.html</Link>
+    </Content>
     <Content Include="..\Compent.uIntra\App_Plugins\Panels\TablePanel\Css\tableEditor.css">
       <Link>App_Plugins\Panels\TablePanel\Css\tableEditor.css</Link>
     </Content>

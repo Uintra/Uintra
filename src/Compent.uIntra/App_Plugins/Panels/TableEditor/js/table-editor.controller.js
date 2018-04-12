@@ -24,6 +24,25 @@
             ]
         }
 
+        $scope.overlay = {
+            show: false,
+            view: "/App_Plugins/Panels/TableEditor/views/overlay.html",
+            title: "Table panel",
+            close: function () {
+                $scope.overlay.show = false;
+                $scope.control.value = $scope.backupModel;
+            },
+            submit: function () {
+                $scope.overlay.show = false;
+            }
+        }
+
+        $scope.open = function () {
+            $scope.overlay.show = true;
+            $scope.control.value = $scope.control.value;
+            $scope.backupModel = angular.copy($scope.control.value);
+        }
+
         $scope.init = function (control) {            
             $scope.control = control;       
             $scope.control.config = {
@@ -32,9 +51,6 @@
             }                       
             $scope.control.value = $scope.control.value || defaultModel;     
         };
-
-     
-      
 
         $scope.canAddRow = function () {
             if (isNaN(parseInt($scope.control.config.maxRows, 10))) {

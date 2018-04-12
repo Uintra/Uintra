@@ -952,6 +952,7 @@
     <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-column-control.directive.js" />
     <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-row-control.directive.js" />
     <Content Include="App_Plugins\Panels\TableEditor\js\table-editor.controller.js" />
+    <Content Include="App_Plugins\Panels\TableEditor\views\overlay.html" />
     <Content Include="App_Plugins\Panels\TableEditor\views\table-editor.html" />
     <Content Include="App_Plugins\Panels\TablePanel\Css\tableEditor.css" />
     <Content Include="App_Plugins\Panels\TablePanel\Js\tablePanel.js" />
