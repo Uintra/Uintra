@@ -194,7 +194,7 @@ namespace Uintra.Core.Media
 
         private string GetMediaTypeAlias(TempFile file)
         {
-            if (_videoHelper.IsVideo(Path.GetExtension(file.FileName))) return VideoTypeAlias;
+            if (_videoHelper.IsVideo(Path.GetExtension(file.FileName)?.ToLower())) return VideoTypeAlias;
 
             return _imageHelper.IsFileImage(file.FileBytes) ? ImageTypeAlias : FileTypeAlias;
         }
