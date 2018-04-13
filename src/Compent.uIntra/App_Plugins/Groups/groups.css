@@ -397,7 +397,7 @@
     }
 
     &__name{
-        color:var(--header-bg);
+        color:var(--text-color-dark);
     }
 
     &__delete{
