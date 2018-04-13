@@ -112,10 +112,7 @@
       "alias": "custom.FaqPanel",
       "view": "/App_Plugins/Panels/FaqPanel/backoffice/faq-panel.html",
       "render": "/App_Plugins/Panels/FaqPanel/faqPanel.cshtml",
-      "icon": "icon-ordered-list color-orange",
-      "config": {
-
-      }
+      "icon": "icon-ordered-list color-orange"
     }
   ],
   "javascript": [

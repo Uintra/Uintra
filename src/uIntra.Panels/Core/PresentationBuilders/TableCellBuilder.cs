@@ -32,8 +32,6 @@ namespace Uintra.Panels.Core.PresentationBuilders
         private const string _alignRightSymbol = ">>";
         protected virtual string AlignRightSymbol => _alignRightSymbol;
 
-
-
         public virtual List<List<CellViewModel>> Map(IEnumerable<IEnumerable<CellModel>> rows, bool makeFirstColumnBold)
         {
             var result = rows.Select(Map)

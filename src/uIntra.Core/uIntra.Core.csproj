@@ -369,6 +369,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Grid\GridRenderHelper.cs" />
     <Compile Include="Core\LinkPreview\AutoMapperProfiles\LinkPreviewAutoMapperProfile.cs" />
     <Compile Include="Core\LinkPreview\ActivityLinkPreviewService.cs" />
     <Compile Include="Core\LinkPreview\IActivityLinkPreviewService.cs" />
