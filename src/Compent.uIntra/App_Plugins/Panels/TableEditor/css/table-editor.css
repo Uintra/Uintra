@@ -173,3 +173,7 @@
     width: 150px;
     text-align: left;
 }
+
+.umb-overlay .umb-overlay-container{
+    overflow-x:auto;
+}
