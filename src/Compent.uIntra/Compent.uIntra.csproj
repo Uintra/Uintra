@@ -1325,6 +1325,7 @@
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\AddVideoMediaTypeStepConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.0.0\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.0.0\ContentGridInstallationHelper.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\GroupDocumentsTabStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\TablePanelMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\NotificationSettingsMigrationStep.cs" />
