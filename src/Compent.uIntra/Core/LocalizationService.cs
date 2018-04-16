@@ -1,4 +1,5 @@
-﻿using Localization.Core;
+﻿using Extensions;
+using Localization.Core;
 using Uintra.Core.Localization;
 
 namespace Compent.Uintra.Core
@@ -14,7 +15,8 @@ namespace Compent.Uintra.Core
 
         public string Translate(string key)
         {
-            return _localizationCoreService.Get(key);
+            var translation = _localizationCoreService.Get(key);
+            return string.IsNullOrWhiteSpace(translation) ? $"##{key}##" : translation;
         }
     }
 }
