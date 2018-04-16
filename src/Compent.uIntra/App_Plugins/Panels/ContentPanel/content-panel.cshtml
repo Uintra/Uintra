@@ -120,7 +120,7 @@
     @if (viewModel.links != null && viewModel.links.Count > 0)
     {
         <div class="block__links">
-            @if (viewModel.linksListTitle != null)
+            @if (!string.IsNullOrEmpty((string)viewModel.linksListTitle))
             {
                 <h4 class="block__headline">@viewModel.linksListTitle</h4>
             }
