@@ -33,6 +33,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             CreateGroupsDocumentsPageDocType();
             InheritNavigationComposition();
             CreateGroupsDocumentsPageContent();
+            ResortGroupTabs();
             return Success;
         }
 
@@ -74,6 +75,21 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             content.SetValue(UmbracoContentMigrationConstants.Grid.GridPropName, gridContent);
 
             _contentService.SaveAndPublishWithStatus(content);
+        }
+
+        private void ResortGroupTabs()
+        {
+            var groupsRoomPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage,
+                DocumentTypeAliasConstants.GroupsOverviewPage, DocumentTypeAliasConstants.GroupsRoomPage));
+
+            var sortedContentIds = groupsRoomPage.Children
+                .Select(c => (
+                    rank: c.DocumentTypeAlias == DocumentTypeAliasConstants.GroupsDocumentsPage ? 0 : 1,
+                    contentId: _contentService.GetById(c.Id)))
+                .OrderBy(ordered => ordered.rank)
+                .Select(ordered => ordered.contentId);
+
+            _contentService.Sort(sortedContentIds);
         }
 
         public void Undo()
