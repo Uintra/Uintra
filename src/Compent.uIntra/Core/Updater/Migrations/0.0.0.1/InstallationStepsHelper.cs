@@ -81,6 +81,20 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             contentService.Save(page);
         }
 
+        public static void DeleteCompositionFromPage(string pageTypeAlias, string compositionTypeAlias)
+        {
+            var contentService = ApplicationContext.Current.Services.ContentTypeService;
+
+            var page = contentService.GetContentType(pageTypeAlias);
+            var composition = contentService.GetContentType(compositionTypeAlias);
+            if (page == null || composition == null) return;
+
+            if (!page.ContentTypeCompositionExists(composition.Alias)) return;
+
+            page.RemoveContentType(composition.Alias);
+            contentService.Save(page);
+        }
+
         public static void CreateTrueFalseDataType(string name)
         {
             var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
