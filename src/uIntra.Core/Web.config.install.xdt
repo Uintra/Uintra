@@ -32,10 +32,16 @@
   <browserCompatibilityConfiguration xdt:Transform="InsertIfMissing">
     <browsers>
       <browser name="InternetExplorer" version="11.0"></browser>
-      <browser name="Edge" version="40.0"></browser>
       <browser name="Chrome" version="60.0"></browser>
       <browser name="FireFox" version="54.0"></browser>
       <browser name="Safari" version="10.1.2"></browser>
+    </browsers>
+  </browserCompatibilityConfiguration>
+
+  <browserCompatibilityConfiguration>
+    <browsers>
+      <browser name="Edge" xdt:Locator="Match(name)" xdt:Transform="Remove"></browser>
+      <browser name="EdgeHTML" version="15.15063" xdt:Locator="Condition(@name='Edge')" xdt:Transform="InsertIfMissing"></browser>
     </browsers>
   </browserCompatibilityConfiguration>
 
