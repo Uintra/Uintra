@@ -1,12 +1,8 @@
 ﻿import actionLinkWithConfirm from "./../../../Core/Content/scripts/ActionLinkWithConfirm";
-import helpers from "./../../../Core/Content/scripts/Helpers";
 import fileUploadController from "./../../../Core/Controls/FileUpload/file-upload";
 
-
-
+var holder;
 var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
-
-
 
 function initMobileTable(){
     var tableHolder = document.querySelector(".table-holder");
@@ -21,7 +17,9 @@ function initMobileTable(){
     }
 }
 
-var holder;
+function groupDocumentsAfterReload() {
+    actionLinkWithConfirm();
+}
 
 var controller = {
     init: function () {
@@ -34,13 +32,9 @@ var controller = {
         if (mobileMediaQuery.matches) {
             initMobileTable();
         }
-
-        window.groupDocuments = {
-            afterReload: () => { actionLinkWithConfirm(); }
-        }
-
     }
 }
 
+uIntra.methods.add("groupDocumentsAfterReload", groupDocumentsAfterReload);
 
 export default controller;
