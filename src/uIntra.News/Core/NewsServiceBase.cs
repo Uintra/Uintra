@@ -1,5 +1,4 @@
 ﻿using System;
-using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
@@ -15,7 +14,8 @@ namespace Uintra.News
     {
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
-        protected NewsServiceBase(IIntranetActivityRepository activityRepository,
+        protected NewsServiceBase(
+            IIntranetActivityRepository activityRepository,
             ICacheService cache,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivityTypeProvider activityTypeProvider,
@@ -30,7 +30,9 @@ namespace Uintra.News
         public override bool IsActual(IIntranetActivity cachedActivity)
         {
             var activity = (NewsBase)cachedActivity;
-            return base.IsActual(activity) && activity.PublishDate.Date <= DateTime.Now.Date && !IsShowIfUnpublish(activity);
+
+            var isActual = base.IsActual(activity) && activity.PublishDate <= DateTime.UtcNow && !IsShowIfUnpublish(activity);
+            return isActual;
         }
 
         public virtual bool IsExpired(INewsBase news)

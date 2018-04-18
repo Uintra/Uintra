@@ -135,8 +135,11 @@ namespace Compent.Uintra.Core.News
             return items;
         }
 
-        private IOrderedEnumerable<Entities.News> GetOrderedActualItems() =>
-            GetManyActual().OrderByDescending(i => i.PublishDate);
+        private IOrderedEnumerable<Entities.News> GetOrderedActualItems()
+        {
+            var items = GetManyActual().OrderByDescending(i => i.PublishDate);
+            return items;
+        }
 
         protected override void MapBeforeCache(IList<Entities.News> cached)
         {

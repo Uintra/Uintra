@@ -1849,9 +1849,6 @@
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1913,21 +1910,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Dev.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.NuGet.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.PublicNuget.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

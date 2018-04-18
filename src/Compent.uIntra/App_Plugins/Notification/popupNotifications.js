@@ -1,24 +1,30 @@
 ﻿import confirm from "./../Core/Controls/Confirm/Confirm";
 import ajax from "./../Core/Content/scripts/Ajax";
-import { debug } from "util";
 
+let alertify = require('alertifyjs/build/alertify.min');
 
 function show() {
-    var toasts = $(".js-popup-messages .js-popup");
+    const messagesHolder = document.querySelector('.js-popup-messages');
+    const toasts = [...messagesHolder.querySelectorAll('.js-popup')];
+    if (!toasts.length) return;
 
-    toasts.each(function (i, el) {
-        let $this = $(el);
-        let msg = $this.data('message');
+    var url = messagesHolder.dataset['viewPopupUrl'];
 
-        confirm.showConfirm(
-                ' ',
-                msg,
-                () => {
-                    let data = { id: $this.data("id") };
-                    ajax.post('/umbraco/surface/Notification/ViewPopup/', data);
-                },
-                () => {},
-                confirm.defaultSettings);});
+    const okBtnText = messagesHolder.dataset['okBtnText'];
+    alertify.defaults.glossary.ok = okBtnText;
+
+    toasts.forEach((el) => {
+        let msg = el.dataset['message'];
+
+        confirm.alert(
+            '',
+            msg,
+            () => {
+                let data = { id: el.dataset['id'] };
+                ajax.post(url, data);
+            },
+            confirm.defaultSettings);
+    });
 }
 
 export default show;
