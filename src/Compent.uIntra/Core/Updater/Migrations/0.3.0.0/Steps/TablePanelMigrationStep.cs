@@ -22,7 +22,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
         {
             AddToPanelPickerAllowedEditors();
             AddToContentGridAllowedEditors();
-            RemoveFromContentGridAllowedEditors();
 
             return ExecutionResult.Success;
         }
