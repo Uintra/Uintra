@@ -1,6 +1,6 @@
 @import "libs.css";
 @import "forms.css";
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,600i,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700');
 
 @define-mixin btn-focus-color $color {
     &:focus,
