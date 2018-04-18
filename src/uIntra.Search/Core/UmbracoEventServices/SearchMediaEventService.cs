@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Uintra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
@@ -7,13 +8,19 @@ using static Uintra.Core.Constants.UmbracoAliases.Media;
 
 namespace Uintra.Search
 {
-    public class SearchMediaEventService : IUmbracoMediaSavedEventService, IUmbracoMediaTrashedEventService
+    public class SearchMediaEventService : IUmbracoMediaSavedEventService, IUmbracoMediaTrashedEventService, IUmbracoMediaSavingEventService
     {
         private readonly IDocumentIndexer _documentIndexer;
 
         public SearchMediaEventService(IDocumentIndexer documentIndexer)
         {
             _documentIndexer = documentIndexer;
+        }
+
+        public void ProcessMediaSaving(IMediaService sender, SaveEventArgs<IMedia> args)
+        {
+            foreach (var media in args.SavedEntities.Where(i => !i.HasIdentity))
+                media.CreateDate = DateTime.UtcNow;
         }
 
         public void ProcessMediaSaved(IMediaService sender, SaveEventArgs<IMedia> args)

@@ -168,8 +168,8 @@ namespace Uintra.Core.Extensions
         {
             const int MaxViewedLenght = 4;
             const string DefaultType = "misc";
-
-            return source.Length <= MaxViewedLenght ? source : DefaultType;
+            
+            return source?.Length <= MaxViewedLenght ? source : DefaultType;
         }
     }
 }

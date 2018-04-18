@@ -445,6 +445,7 @@ namespace Compent.Uintra
             kernel.Bind<IUmbracoContentPublishedEventService>().To<PagePromotionEventService>().InRequestScope();
             kernel.Bind<IUmbracoMediaTrashedEventService>().To<SearchMediaEventService>().InRequestScope();
             kernel.Bind<IUmbracoMediaSavedEventService>().To<SearchMediaEventService>().InRequestScope();
+            kernel.Bind<IUmbracoMediaSavingEventService>().To<SearchMediaEventService>().InRequestScope();
             kernel.Bind<IUmbracoMemberDeletingEventService>().To<MemberEventService>().InRequestScope();
             kernel.Bind<IUmbracoContentTrashedEventService>().To<DeleteUserTagHandler>().InRequestScope();
             kernel.Bind<IUmbracoContentPublishedEventService>().To<ContentPageRelationHandler>().InRequestScope();

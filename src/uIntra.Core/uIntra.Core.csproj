@@ -453,6 +453,7 @@
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentPublishedEventService.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentTrashedEventService.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentUnPublishedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMediaSavingEventService.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoMediaTrashedEventService.cs" />
     <Compile Include="Core\MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Core\MigrationHistories\IMigrationHistoryService.cs" />
