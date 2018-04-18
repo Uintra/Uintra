@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
@@ -10,11 +11,14 @@ namespace Compent.Uintra.Core.Notification
     public class PopupNotificationModelMapper : INotificationModelMapper<PopupNotifierTemplate, PopupNotificationMessage>
     {
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IProfileLinkProvider _profileLinkProvider;
 
-        public PopupNotificationModelMapper(IIntranetUserService<IIntranetUser> intranetUserService)
+        public PopupNotificationModelMapper(IIntranetUserService<IIntranetUser> intranetUserService, IProfileLinkProvider profileLinkProvider)
         {
             _intranetUserService = intranetUserService;
+            _profileLinkProvider = profileLinkProvider;
         }
+
         public PopupNotificationMessage Map(INotifierDataValue notifierData, PopupNotifierTemplate template, IIntranetUser receiver)
         {
             var message = new PopupNotificationMessage
@@ -23,7 +27,11 @@ namespace Compent.Uintra.Core.Notification
                 NotificationType = NotificationTypeEnum.Welcome
             };
 
-            (string, string)[] tokens = { (FullName, _intranetUserService.Get(receiver.Id).DisplayedName) };
+            (string, string)[] tokens =
+            {
+                (FullName, _intranetUserService.Get(receiver.Id).DisplayedName),
+                (ProfileLink, _profileLinkProvider.GetProfileLink(receiver.Id))
+            };
 
             message.Message = ReplaceTokens(template.Message, tokens);
             return message;
