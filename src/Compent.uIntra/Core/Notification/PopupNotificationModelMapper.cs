@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using Uintra.Core.Helpers;
 using Uintra.Core.Links;
+using Uintra.Core.Localization;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
@@ -10,13 +12,20 @@ namespace Compent.Uintra.Core.Notification
 {
     public class PopupNotificationModelMapper : INotificationModelMapper<PopupNotifierTemplate, PopupNotificationMessage>
     {
+        private const string ProfileLinkTitle = "PopupNotification.ProfileLink.Title";
+
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IProfileLinkProvider _profileLinkProvider;
+        private readonly IIntranetLocalizationService _localizationService;
 
-        public PopupNotificationModelMapper(IIntranetUserService<IIntranetUser> intranetUserService, IProfileLinkProvider profileLinkProvider)
+        public PopupNotificationModelMapper(
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            IProfileLinkProvider profileLinkProvider,
+            IIntranetLocalizationService localizationService)
         {
             _intranetUserService = intranetUserService;
             _profileLinkProvider = profileLinkProvider;
+            _localizationService = localizationService;
         }
 
         public PopupNotificationMessage Map(INotifierDataValue notifierData, PopupNotifierTemplate template, IIntranetUser receiver)
@@ -30,7 +39,7 @@ namespace Compent.Uintra.Core.Notification
             (string, string)[] tokens =
             {
                 (FullName, _intranetUserService.Get(receiver.Id).DisplayedName),
-                (ProfileLink, _profileLinkProvider.GetProfileLink(receiver.Id))
+                (ProfileLink, HtmlHelper.CreateLink(_localizationService.Translate(ProfileLinkTitle), _profileLinkProvider.GetProfileLink(receiver.Id)))
             };
 
             message.Message = ReplaceTokens(template.Message, tokens);

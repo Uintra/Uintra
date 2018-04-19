@@ -5,6 +5,7 @@ using Uintra.Core.Grid;
 using Uintra.Core.Links;
 using Uintra.Core.Localization;
 using Uintra.Core.ModelBinders;
+using HtmlHelper = System.Web.Mvc.HtmlHelper;
 
 namespace Uintra.Core.Extensions
 {

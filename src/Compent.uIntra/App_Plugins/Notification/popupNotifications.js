@@ -2,29 +2,51 @@
 import ajax from "./../Core/Content/scripts/Ajax";
 
 let alertify = require('alertifyjs/build/alertify.min');
+const popupHiddenFieldClass = 'js-popup-hidden-field';
+let viewPopupUrl;
 
 function show() {
-    const messagesHolder = document.querySelector('.js-popup-messages');
-    const toasts = [...messagesHolder.querySelectorAll('.js-popup')];
-    if (!toasts.length) return;
+    const popupsHolder = document.querySelector('.js-popups-holder');
+    if (!popupsHolder) return;
 
-    var url = messagesHolder.dataset['viewPopupUrl'];
+    const popups = [...popupsHolder.querySelectorAll('.js-popup')];
+    if (!popups.length) return;
 
-    const okBtnText = messagesHolder.dataset['okBtnText'];
+    viewPopupUrl = popupsHolder.dataset['viewPopupUrl'];
+
+    const okBtnText = popupsHolder.dataset['okBtnText'];
     alertify.defaults.glossary.ok = okBtnText;
 
-    toasts.forEach((el) => {
-        let msg = el.dataset['message'];
+    confirm.defaultSettings.onfocus = popupFocusHandler;
+
+    popups.forEach((popup) => {
+        let notificationId = popup.dataset['id'];
+        let message = popup.dataset['message'] + '<input type="hidden" class="' + popupHiddenFieldClass + '" value="' + notificationId + '">';
 
         confirm.alert(
             '',
-            msg,
-            () => {
-                let data = { id: el.dataset['id'] };
-                ajax.post(url, data);
-            },
+            message,
+            () => { viewPopup(notificationId); },
             confirm.defaultSettings);
     });
+}
+
+function popupFocusHandler() {
+    const hiddenFields = [...document.querySelectorAll("." + popupHiddenFieldClass)];
+    hiddenFields.forEach((el) => {
+        let notificationId = el.value;
+        let link = el.parentElement.querySelector("a");
+
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            viewPopup(notificationId);
+            window.location = link.href;
+        });
+    });
+}
+
+function viewPopup(notificationId) {
+    ajax.post(viewPopupUrl, { id: notificationId });
 }
 
 export default show;

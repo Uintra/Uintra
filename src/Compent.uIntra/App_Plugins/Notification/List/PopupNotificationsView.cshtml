@@ -1,7 +1,7 @@
 ﻿@using Localization.Web.HtmlHelpers
 @model IEnumerable<Uintra.Notification.PopupNotificationViewModel>
 
-<div class="js-popup-messages" data-view-popup-url="@Url.Action("ViewPopup","Notification")" data-ok-btn-text="@Html.Translate("PopupNotification.OkBtn.Text")">
+<div class="js-popups-holder" data-view-popup-url="@Url.Action("ViewPopup","Notification")" data-ok-btn-text="@Html.Translate("PopupNotification.OkBtn.Text")">
     @foreach (var notification in Model)
     {
         <div class="js-popup" data-id="@notification.Id" data-message="@notification.Value.message"></div>

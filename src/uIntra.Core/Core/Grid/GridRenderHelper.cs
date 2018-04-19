@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using Newtonsoft.Json.Linq;
+using HtmlHelper = System.Web.Mvc.HtmlHelper;
 
 namespace Uintra.Core.Grid
 {
