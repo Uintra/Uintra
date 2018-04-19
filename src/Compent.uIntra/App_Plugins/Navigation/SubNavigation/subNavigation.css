@@ -96,7 +96,7 @@
 
         &-item{
             float:left;
-            margin:0 27px 0 0;
+            margin:0 2.33% 0 0;
 
             ._groups &._right,
             &._right{
@@ -220,7 +220,7 @@
             font-weight:bold;
 
             @media (--for-tablet-portrait-down){
-                padding:0 20px 16px;
+                padding:0 15px 16px;
             }
             
 
@@ -282,7 +282,7 @@
 
         &__title{
             margin:0;
-            padding:0 20px 9px;
+            padding:0 15px 9px;
             position:relative;
             z-index:9;
             background:var(--color-white);
@@ -405,7 +405,7 @@
 
     @media (--for-tablet-portrait-down){
         margin:0;
-        padding:14px 50px 14px 19px;
+        padding:14px 50px 14px 14px;
         position:relative;
         z-index:initial;
         min-height:50px;
