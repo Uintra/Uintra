@@ -5,6 +5,7 @@
 
 @{
     var fullSizeClass = Model.Medias.Count() > 1 ? string.Empty : "_full-size";
+    var count = Model.OtherFiles.Count();
 }
 
 <div class="gallery-holder js-lightbox-gallery">
@@ -38,11 +39,11 @@
 </div>
 @* attachments *@
 
-@if (Model.OtherFiles.Any())
+@if (count > 0)
 {
     <div class="attachments">
         <a class="attachments__link" href="@Model.Links.Details">
-            @Model.OtherFiles.Count() @Html.Localize("LightboxGallery.Count.lbl")
+            @count @(count > 1 ? Html.Localize("LightboxGallery.Count.Many.lbl") : Html.Localize("LightboxGallery.Count.One.lbl") )
         </a>
     </div>
 }

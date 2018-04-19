@@ -31,15 +31,15 @@
                             <span class="file-extension">@document.Type.ToExtensionViewString()</span>
                         </td>
                         <td class="documents-table__cell">
-                            <strong class="documents-table__name">
+                            <span class="documents-table__name">
                                 <a class="documents-table__link" href="@document.FileUrl" target="_blank">@document.Name</a>
-                            </strong>
+                            </span>
                         </td>
                         <td class="documents-table__cell">
                             <span class="documents-table__name">@document.CreatorName</span>
                         </td>
 
-                        <td class="documents-table__cell">@document.CreateDate.ToDateTimeFormat()</td>
+                        <td class="documents-table__cell">@document.CreateDate.ToDateFormat()</td>
                         <td class="documents-table__cell _delete">
                             @if (document.CanDelete)
                             {

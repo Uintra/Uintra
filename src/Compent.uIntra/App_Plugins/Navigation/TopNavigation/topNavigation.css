@@ -26,7 +26,7 @@
     @media (--for-tablet-portrait-down) {
         position:absolute;
         top:50%;
-        left:16px;
+        left:11px;
         z-index: 101;
         width: 30px;
         height:30px;
