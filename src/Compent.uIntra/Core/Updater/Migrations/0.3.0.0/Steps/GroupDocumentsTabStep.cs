@@ -1,26 +1,24 @@
-﻿using Compent.Uintra.Core.Updater.Migrations._0._0._0._1;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Web;
-using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.GroupsInstallationConstants;
-using static Compent.Uintra.Core.Updater.ExecutionResult;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using System.Reflection;
+using Compent.Uintra.Core.Constants;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using Uintra.Core;
 using Uintra.Core.Utils;
 using Uintra.Navigation;
-using Uintra.Core;
-using Compent.Uintra.Core.Constants;
-using Umbraco.Web;
 using Umbraco.Core.Services;
+using Umbraco.Web;
+using static Compent.Uintra.Core.Updater.ExecutionResult;
+using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.GroupsInstallationConstants;
 
 namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
 {
     public class GroupDocumentsTabStep : IMigrationStep
     {
-        private UmbracoHelper _umbracoHelper;
-        private IContentService _contentService;
+        private readonly UmbracoHelper _umbracoHelper;
+        private readonly IContentService _contentService;
 
         public GroupDocumentsTabStep(UmbracoHelper umbracoHelper, IContentService contentService)
         {

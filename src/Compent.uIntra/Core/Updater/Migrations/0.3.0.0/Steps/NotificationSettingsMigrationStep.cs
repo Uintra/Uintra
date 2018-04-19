@@ -60,6 +60,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
                 _documentTypeAliasProvider.GetMailTemplateFolder());
 
             var publishedContent = _umbracoHelper.TypedContentSingleAtXPath(mailTemplateFolderXpath);
+            if (publishedContent == null) return;
 
             bool IsForRemove(IPublishedContent content)
             {
