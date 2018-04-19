@@ -39,7 +39,7 @@
                             <span class="documents-table__name">@document.CreatorName</span>
                         </td>
 
-                        <td class="documents-table__cell">@document.CreateDate.ToDateTimeFormat()</td>
+                        <td class="documents-table__cell">@document.CreateDate.ToDateFormat()</td>
                         <td class="documents-table__cell _delete">
                             @if (document.CanDelete)
                             {
