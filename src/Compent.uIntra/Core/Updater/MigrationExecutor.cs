@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Extensions;
 using Uintra.Core.Exceptions;
 using Uintra.Core.MigrationHistories;
 using Uintra.Core.MigrationHistories.Sql;
 using Umbraco.Core;
+using Umbraco.Web;
 using static Compent.Uintra.Core.Updater.ExecutionResult;
 
 namespace Compent.Uintra.Core.Updater
@@ -51,9 +53,14 @@ namespace Compent.Uintra.Core.Updater
                 }
             }
 
-            var reversedHistory = history.Reverse();
+            var reversedHistory = history.Reverse().ToList();
 
             SaveMigrationsHistory(reversedHistory);
+
+            if (reversedHistory.Any())
+            {
+                HttpRuntime.UnloadAppDomain();
+            }
         }
 
         private IEnumerable<IMigration> GetAllMigrations() =>
@@ -104,9 +111,8 @@ namespace Compent.Uintra.Core.Updater
             var historyFilteredByVersion = allHistory.Where(s => new Version(s.Version) >= lastHistoryVersion);
             var stepsFilteredByVersion = allSteps.Where(s => s.migrationVersion >= lastHistoryVersion);
 
-            var installedStepsNames = new List<string>(historyFilteredByVersion.Select(h => h.Name));
-
-            var result = stepsFilteredByVersion.Where(s => !installedStepsNames.Contains(StepIdentity(s.step)));
+            var result = stepsFilteredByVersion.Where(
+                s => !historyFilteredByVersion.Any(h => h.Name == StepIdentity(s.step) && new Version(h.Version) == s.migrationVersion));
 
             return result;
         }
