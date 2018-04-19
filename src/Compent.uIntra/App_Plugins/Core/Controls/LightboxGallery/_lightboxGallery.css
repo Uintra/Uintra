@@ -46,17 +46,12 @@
                     content:'';
                     position:absolute;
                     left:50%;
-                    /*right:40%;*/
                     transform:translate(-50%, -50%);
                     top:50%;
                     z-index:2;
                     width:20%;
-                    height:30%;
-                    /*width:40px;
-                    height:40px;
-                    margin:-20px 0 0 -20px;*/
+                    height:26%;
                     background:url(/App_Plugins/Core/Content/images/videoplay.svg) no-repeat 50%/0;
-                    /*background-size: 40px 40px;*/
                     background-size:contain;
                 }
             }
