@@ -80,6 +80,7 @@ var buildPhotoswipeItems = function (imagesItems) {
         if (parentItem.dataset.type == 'video') {
             newItem = {
                 html: parentItem.dataset.video
+                //html: '<div class="gallery__video"><div class="gallery__video-box"><video width="960" class="pswp__video" src="' + parentItem.dataset.src +'" controls></video></div></div>'
             };
         } else {
             newItem = {

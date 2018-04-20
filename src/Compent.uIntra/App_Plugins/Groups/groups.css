@@ -385,17 +385,17 @@
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
                 content:"\e900";
-                transform:rotate(90deg);
+                /*transform:rotate(90deg);*/
             }
         }
 
-        /*&._desc{
+        &._desc{
             &:after{
-                transform:rotate(90deg);
+                transform:rotate(-180deg);
             }
         }
         
-        &._asc{
+        /*&._asc{
             &:after{
                 transform:rotate(90deg);
             }
