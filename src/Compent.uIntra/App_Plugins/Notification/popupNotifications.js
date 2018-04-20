@@ -36,6 +36,7 @@ function popupFocusHandler() {
     hiddenFields.forEach((el) => {
         let notificationId = el.value;
         let link = el.parentElement.querySelector("a");
+        if (!link) return;
 
         link.addEventListener('click', (e) => {
             e.preventDefault();
