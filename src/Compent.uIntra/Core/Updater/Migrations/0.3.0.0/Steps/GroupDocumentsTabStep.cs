@@ -82,9 +82,9 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
 
             var sortedContentIds = groupsRoomPage.Children
                 .Select(c => (
-                    rank: c.DocumentTypeAlias == DocumentTypeAliasConstants.GroupsDocumentsPage ? 0 : 1,
+                    rank: c.DocumentTypeAlias == DocumentTypeAliasConstants.GroupsDocumentsPage,
                     contentId: _contentService.GetById(c.Id)))
-                .OrderBy(ordered => ordered.rank)
+                .OrderByDescending(ordered => ordered.rank)
                 .Select(ordered => ordered.contentId);
 
             _contentService.Sort(sortedContentIds);
