@@ -9,7 +9,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright © compent.dk 2017</copyright>
-    <tags>Compent Uintra</tags>
+    <tags>Uintra Umbraco Intranet Extranet Social Forum Wiki Portal</tags>
     <dependencies>
       <dependency id="Elmah.MVC" version="2.0.0" />
       <dependency id="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" version="1.0.8" />
