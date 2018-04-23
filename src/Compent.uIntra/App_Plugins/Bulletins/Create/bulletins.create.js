@@ -218,6 +218,8 @@ function closeBulletin(event) {
     if (isEdited()) {
         if (showConfirmMessage(confirmMessage)) {
             hide(event);
+            console.log(123);
+            window.scrollTo(0, 0);
         }
         return;
     }
