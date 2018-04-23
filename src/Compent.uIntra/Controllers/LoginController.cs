@@ -72,7 +72,7 @@ namespace Compent.Uintra.Controllers
         {
             var createDate = member.CreateDate;
             var lastLoginDate = member.GetPropertyValue<DateTime>(Constants.Conventions.Member.LastLoginDate);
-            var isMemberNeverLogin = (lastLoginDate - createDate).TotalMinutes < 1;
+            var isMemberNeverLogin = (lastLoginDate - createDate).TotalMinutes < 3;
             return isMemberNeverLogin;
         }
 
