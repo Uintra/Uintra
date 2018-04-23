@@ -100,7 +100,7 @@
                 transition: transform linear 200ms;
                 display:block;
                 left:auto;
-                right:5px;
+                right:0;
                 height:calc(100vh - 60px);
                 overflow:auto;
                 margin:0;

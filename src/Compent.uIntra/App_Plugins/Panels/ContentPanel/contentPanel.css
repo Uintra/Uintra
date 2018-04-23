@@ -441,8 +441,6 @@
 }
 
 ._aside-expanded{
-    /*height: 100vh;
-    overflow:hidden;*/
     @media(--for-tablet-portrait-down){
         overflow: hidden;
     }
@@ -454,6 +452,8 @@
 }
 
 .aside{
+    min-height:0;
+
     @media (--for-tablet-portrait-down) {
         position:fixed;
         top:60px;
