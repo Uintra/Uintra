@@ -1,6 +1,8 @@
-﻿@using Uintra.Core.Extensions
+﻿@using System.Web.Mvc.Ajax
+@using Uintra.Core.Extensions
 @using Uintra.Groups
 @model Uintra.Groups.GroupDocumentsTableViewModel
+
 <div id="js-group-documents-table">
     @RenderUpdateLink()
     @if (Model.Documents.Any())
@@ -26,17 +28,18 @@
                 {
                     <tr class="documents-table__row">
                         <td class="documents-table__cell">
-                            <span class="file-extension __@document.Type"></span>
+                            <span class="file-extension">@document.Type.ToExtensionViewString()</span>
                         </td>
                         <td class="documents-table__cell">
-                            <strong class="documents-table__name">
+                            <span class="documents-table__name">
                                 <a class="documents-table__link" href="@document.FileUrl" target="_blank">@document.Name</a>
-                            </strong>
+                            </span>
                         </td>
                         <td class="documents-table__cell">
                             <span class="documents-table__name">@document.CreatorName</span>
                         </td>
-                        <td class="documents-table__cell">@document.CreateDate.ToString(GlobalConstants.Common.DefaultDateFormat)</td>
+
+                        <td class="documents-table__cell">@document.CreateDate.ToDateFormat()</td>
                         <td class="documents-table__cell _delete">
                             @if (document.CanDelete)
                             {
@@ -56,42 +59,41 @@
 
 
 @helper RenderUpdateLink()
-{
-var ajaxOptions = new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "js-group-documents-table" , OnSuccess = "groupDocuments.afterReload()" };
-var htmlAttributes = new { style = "display:none;", id = "js-group-documents-update-lnk" };
-var routeValues = new { groupId = Model.GroupId, column = Model.Column, direction = Model.Direction };
+    {
+        var ajaxOptions = new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "js-group-documents-table", OnSuccess = "new uIntra.methods.groupDocumentsAfterReload()" };
+        var htmlAttributes = new { style = "display:none;", id = "js-group-documents-update-lnk" };
+        var routeValues = new { groupId = Model.GroupId, column = Model.Column, direction = Model.Direction };
 
-    @Ajax.ActionLink(".", "DocumentsTable", "GroupDocuments", routeValues, ajaxOptions, htmlAttributes)
+        @Ajax.ActionLink(".", "DocumentsTable", "GroupDocuments", routeValues, ajaxOptions, htmlAttributes)
 }
 
 @helper RenderTableHeaderLink(string linkCaption, GroupDocumentDocumentField column)
-{
-var direction = Model.Direction == Direction.Asc ? Direction.Desc : Direction.Asc;
-var ajaxOptions = new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "js-group-documents-table" };
-var routeValues = new { groupId = Model.GroupId, column, direction };
-var classNames = "documents-table__link";
-if (column == Model.Column)
-{
-    classNames += $" _{Model.Direction.ToString().ToLower()}";
-}
-var htmlAttributes = new { @class = classNames };
+    {
+        var direction = Model.Direction == Direction.Asc ? Direction.Desc : Direction.Asc;
+        var ajaxOptions = new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "js-group-documents-table", OnSuccess = "new uIntra.methods.groupDocumentsAfterReload()" };
+        var routeValues = new { groupId = Model.GroupId, column, direction };
+        var classNames = "documents-table__link";
+        if (column == Model.Column)
+        {
+            classNames += $" _{Model.Direction.ToString().ToLower()}";
+        }
+        var htmlAttributes = new { @class = classNames };
 
-    @Ajax.ActionLink(Html.Localize(linkCaption), "DocumentsTable", "GroupDocuments", routeValues, ajaxOptions, htmlAttributes)
+        @Ajax.ActionLink(Html.Localize(linkCaption), "DocumentsTable", "GroupDocuments", routeValues, ajaxOptions, htmlAttributes)
 }
 
 @helper RenderTableDeleteDocumentLink(Guid documentId, GroupDocumentDocumentField column)
-{
-var direction = Model.Direction;
-var classNames = "documents-table__delete icon-close js-action-with-confirm";
-var routeValues = new { groupId = Model.GroupId, documentId, column, direction };
-var ajaxOptions = new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "js-group-documents-table", OnSuccess = "groupDocuments.afterReload()" };
-var htmlAttributes = new
-{
-    @class = classNames,
-    data_text = Html.Localize("GroupDocuments.Delete.ConfirmText.lbl"),
-    data_ok = Html.Localize("GroupDocuments.Delete.Confirm.btn"),
-    data_cancel = Html.Localize("GroupDocuments.Delete.ConfirmCancel.btn")
-};
+    {
+        var classNames = "documents-table__delete icon-close js-action-with-confirm";
+        var routeValues = new { groupId = Model.GroupId, documentId, column, Model.Direction };
+        var ajaxOptions = new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "js-group-documents-table", OnSuccess = "new uIntra.methods.groupDocumentsAfterReload()" };
+        var htmlAttributes = new
+        {
+            @class = classNames,
+            data_text = Html.Localize("GroupDocuments.Delete.ConfirmText.lbl"),
+            data_ok = Html.Localize("GroupDocuments.Delete.Confirm.btn"),
+            data_cancel = Html.Localize("GroupDocuments.Delete.ConfirmCancel.btn")
+        };
 
-    @Ajax.ActionLink("x", "DeleteDocument", "GroupDocuments", routeValues, ajaxOptions, htmlAttributes)
+        @Ajax.ActionLink("x", "DeleteDocument", "GroupDocuments", routeValues, ajaxOptions, htmlAttributes)
 }

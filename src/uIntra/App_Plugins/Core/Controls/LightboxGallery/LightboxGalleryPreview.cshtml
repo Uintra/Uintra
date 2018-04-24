@@ -1,25 +1,49 @@
-﻿@using Uintra.Core.Extensions
-@model Uintra.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
+﻿@using Extensions
+@using Uintra.Core
+@using Uintra.Core.Extensions
+@model UIntra.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
 
 @{
-    var fullSizeClass = Model.Images.Count > 1 ? string.Empty : "_full-size";
+    var fullSizeClass = Model.Medias.Count() > 1 ? string.Empty : "_full-size";
+    var otherFilesCount = Model.OtherFiles.Count();
 }
 
-<ul class="gallery js-lightbox-gallery clearfix">
-    @foreach (var image in Model.Images)
+<div class="gallery-holder js-lightbox-gallery">
+    <ul class="gallery clearfix">
+        @foreach (var media in Model.Medias)
+        {
+            var originalSize = $"{media.Width}x{media.Height}";
+            var videoClass = media.Type.ToInt() == MediaTypeEnum.Video.ToInt() ? "video" : string.Empty;
+
+            <li class="gallery__item @fullSizeClass @videoClass" style="@(media.IsHidden ? "display:none;" : string.Empty)">
+                @if (!videoClass.IsNullOrEmpty())
+                {
+                    <a href="#" class="gallery__item-opener" data-type="video" data-video='<div class="gallery__video"><div class="gallery__video-box"><video width="960" class="pswp__video" src="@media.Url" controls></video></div></div>'>
+                        <img class="gallery__image" src="@media.PreviewUrl" data-full-size="@originalSize" data-full-url="@media.Url" />
+                    </a>
+                }
+                else
+                {
+                    <a href="#" class="gallery__item-opener">
+                        <img class="gallery__image" src="@media.PreviewUrl" data-full-size="@originalSize" data-full-url="@media.Url" />
+                    </a>
+                }
+            </li>
+        }
+    </ul>
+    @if (Model.HiddenImagesCount > 0)
     {
-        var originalSize = $"{image.Width}x{image.Height}";
-        <li class="gallery__item  @fullSizeClass" style="@(image.IsHidden ? "display:none;" : string.Empty)">
-            <img class="gallery__image" src="@image.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@image.Url" height="100" />
-        </li>
+        <span class="gallery__counter">+@Model.HiddenImagesCount</span>
     }
-    @if (Model.OtherFiles.Count > 0)
-    {
-        <li class="gallery__item _attachments ">
-            <a class="gallery__item-link" href="@Model.Links.Details">
-                <img class="gallery__image" src="~/App_Plugins/Core/Controls/LightboxGallery/icon-doc.png" width="20" height="27" />
-                <span class="gallery__count">@Model.OtherFiles.Count @Html.Localize("LightboxGallery.Count.lbl")</span>
-            </a>
-        </li>
-    }
-</ul>
+
+</div>
+@* attachments *@
+
+@if (otherFilesCount > 0)
+{
+    <div class="attachments">
+        <a class="attachments__link" href="@Model.Links.Details">
+            @otherFilesCount @(otherFilesCount > 1 ? Html.Localize("LightboxGallery.Count.Many.lbl") : Html.Localize("LightboxGallery.Count.One.lbl") )
+        </a>
+    </div>
+}

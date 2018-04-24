@@ -1,7 +1,7 @@
-﻿@using Uintra.Core
-@using Uintra.Core.Constants
+﻿@using Uintra.Core.Constants
 @using Uintra.Panels.Core
 @using Uintra.Panels.Core.Models
+@using Uintra.Core.Extensions
 @inherits UmbracoViewPage<dynamic>
 @{
     var viewModel = Model.value;
@@ -40,7 +40,8 @@
             <a class="block__title-link" href="@titleLink" target="@viewModel.titleLink.target">@title</a>
         </h2>
     }
-    @if (!string.IsNullOrEmpty((string)viewModel.description)) { 
+    @if (!string.IsNullOrEmpty((string)viewModel.description))
+    {
         <div class="block__description">@Html.Raw((string)viewModel.description)</div>
     }
     <ul class="documents">
@@ -49,7 +50,7 @@
 
             <li class="documents__item">
                 <a class="documents__item-link" href="@media.Url" target="_blank">
-                    <span class="documents__icon file-extension _@media.Extension"></span>
+                    <span class="documents__icon file-extension">@media.Extension.ToExtensionViewString()</span>
                     <span class="documents__item-name">@media.Title</span>
                 </a>
             </li>

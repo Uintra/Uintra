@@ -12,6 +12,7 @@ var defaultOptions = {
     escKey: true,
     arrowKeys: true,
     bgOpacity: 0.8,
+    history: false,
     showHideOpacity: false
 };
 
@@ -25,9 +26,31 @@ var createGallery = function (gallery) {
 
     gallery.instance.init();
     bodyElement.classList.add('js-lightbox-open');
-    gallery.instance.listen('close', function () {
+
+    const stopVideo = function () {
+        Array.from(gallery.instance.container.querySelectorAll('.pswp__video')).forEach(function (item) {
+            item.setAttribute('src', item.getAttribute('src'));
+        });
+    }
+    
+    gallery.instance.listen('beforeChange', stopVideo);
+    gallery.instance.listen('close', function () {        
+        stopVideo();
         gallery.instance = null;
         bodyElement.classList.remove('js-lightbox-open');
+
+        var div = gallery.holder.closest("div [data-anchor]");
+        if (div) {
+            var hash = div.dataset["anchor"]; 
+            if (hash) {
+                let elem = document.querySelector('[data-anchor="' + hash + '"]');
+
+                if (elem) {
+                    scrollTo(document.body, elem.offsetTop, 300);
+                    window.history.pushState("", document.title, window.location.pathname + window.location.search);
+                }
+            }
+        }        
     });
 }
 
@@ -39,9 +62,11 @@ var buildPhotoswipeItems = function (imagesItems) {
             continue;   
         }
         var item = imagesItems[i];
+        var parentItem = item.parentNode;
         var size = item.getAttribute('data-full-size').split('x');
         var width;
         var height;
+        var newItem;
 
         if (size && size.length == 2) {
             width = parseInt(size[0]);
@@ -51,11 +76,20 @@ var buildPhotoswipeItems = function (imagesItems) {
             height = window.screen.availHeight;
         }
 
-        var newItem = {
-            src: item.dataset['fullUrl'],
-            w: width,
-            h: height
+        // create slide object
+        if (parentItem.dataset.type == 'video') {
+            newItem = {
+                html: parentItem.dataset.video
+                //html: '<div class="gallery__video"><div class="gallery__video-box"><video width="960" class="pswp__video" src="' + parentItem.dataset.src +'" controls></video></div></div>'
+            };
+        } else {
+            newItem = {
+                src: item.dataset['fullUrl'],
+                w: width,
+                h: height
+            };
         }
+        
         result.push(newItem);
     }
     return result;
@@ -68,6 +102,7 @@ var initGallery = function (container) {
         return;
     }
 
+    var photoSwipeItems = Array.from(holder.querySelectorAll('.gallery__item-opener'));
     var images = holder.querySelectorAll('img') || [];
     if (!images.length) {
         return;
@@ -83,9 +118,9 @@ var initGallery = function (container) {
 
     var imageArray = Array.from(images);
 
-    imageArray.forEach(function (image) {
-        image.addEventListener("click", () => {
-            galleryModel.options.index = imageArray.indexOf(image);
+    photoSwipeItems.forEach(function (item) {
+        item.addEventListener("click", () => {
+            galleryModel.options.index = photoSwipeItems.indexOf(item);
             createGallery(galleryModel);
         });
     });

@@ -356,6 +356,11 @@
 
     &__head{
         white-space:nowrap;
+        font-weight:normal;
+
+        &:nth-child(3){
+            width:30%;
+        }
     }
 
     &__link{
@@ -379,25 +384,26 @@
                 font-size:16px;
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
-                content:"\e901";
+                content:"\e900";
+                /*transform:rotate(90deg);*/
             }
         }
 
         &._desc{
             &:after{
-                transform:rotate(-90deg);
+                transform:rotate(-180deg);
             }
         }
         
-        &._asc{
+        /*&._asc{
             &:after{
                 transform:rotate(90deg);
             }
-        }
+        }*/
     }
 
     &__name{
-        color:var(--header-bg);
+        color:var(--text-color-dark);
     }
 
     &__delete{

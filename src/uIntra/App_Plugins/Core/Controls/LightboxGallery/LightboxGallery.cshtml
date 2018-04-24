@@ -1,37 +1,49 @@
 ﻿@using Uintra.Core
-@using System.Linq
 @using Uintra.Core.Extensions
 @model Uintra.Core.Controls.LightboxGallery.LightboxGalleryOverviewModel
 
 @{
-    var medias = Model.GalleryItems.ToLookup(m => m.Type);
-    var images = medias[MediaTypeEnum.Image];
-    var documents = medias[MediaTypeEnum.Document];
-    var fullSizeClass = images.Count() > 1 ? String.Empty : "_full-size";
-}
-@if (images.Any())
-{
-    <ul id="js-lightbox-gallery" class="gallery js-lightbox-gallery @fullSizeClass">
-        @foreach (var image in images)
-        {
-            var originalSize = $"{image.Width}x{image.Height}";
-            <li class="gallery__item">
-                <img class="gallery__image" src="@image.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@image.Url" height="100" />
-            </li>
-        }
-    </ul>
+    var fullSizeClass = Model.Medias.Count() > 1 ? string.Empty : "_full-size";
 }
 
-@if (documents.Any())
+<div class="gallery-holder js-lightbox-gallery">
+    @if (Model.Medias.Any())
+    {
+        <ul class="gallery clearfix">
+            @foreach (var media in Model.Medias)
+            {
+                var originalSize = $"{media.Width}x{media.Height}";
+                var videoClass = media.Type.ToInt() == MediaTypeEnum.Video.ToInt() ? "video" : string.Empty;
+
+                <li class="gallery__item @fullSizeClass @videoClass" @*style="@(media.IsHidden ? "display:none;" : string.Empty)"*@>
+                    @if (media.Type.ToInt() == MediaTypeEnum.Video.ToInt())
+                    {
+                        <a href="#" class="gallery__item-opener" data-type="video" data-video='<div class="gallery__video"><div class="gallery__video-box"><video width="960" class="pswp__video" src="@media.Url" controls></video></div></div>'>
+                            <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" height="100" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#" class="gallery__item-opener">
+                            <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" height="100" />
+                        </a>
+                    }
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+@if (Model.OtherFiles.Any())
 {
-    <h3 class="feed__item-subtitle">@Html.Localize("LightboxGallery.AttachedDocuments.lbl")</h3>
+    <h3 class="feed__item-subtitle">Vedhæftede dokumenter:</h3>
 
     <ul class="documents-list">
-        @foreach (var document in documents)
+        @foreach (var document in Model.OtherFiles)
         {
             <li class="documents-list__item">
                 <a class="documents-list__link" href="@document.Url" target="_blank">
-                    <span class="documents-list__icon file-extension _@document.Extension"></span>
+                    <span class="documents-list__icon file-extension">@document.Extension.ToExtensionViewString()</span>
                     <span class="documents-list__title">@document.Name</span>
                 </a>
             </li>

@@ -1,0 +1,21 @@
+﻿@using Extensions
+@model Uintra.Core.LinkPreview.LinkPreviewViewModel
+
+<input type="hidden" name="linkPreviewId" value="@Model.Id" />
+
+<div class="js-link-preview-edit-preview-container link-preview link-preview--edit">
+    <button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
+    <div class="link-preview__image">
+        @if (Model.ImageUri != null)
+        {
+            <img src="@Model.ImageUri" alt="link preview image description" />
+        }
+    </div>
+    <div class="link-preview__text">
+        <h3 class="link-preview__title"><a href="@Model.Uri">@Model.Title</a></h3>
+        @if (Model.Description.HasValue())
+        {
+            <p>@Model.Description</p>
+        }
+    </div>
+</div>

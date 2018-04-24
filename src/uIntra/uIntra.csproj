@@ -180,6 +180,9 @@
       <HintPath>..\..\packages\Markdown.1.14.7\lib\net45\MarkdownSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MediaToolkit, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MediaToolkit.1.1.0.1\lib\net40\MediaToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=1.0.1559.20655, Culture=neutral">
       <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
@@ -336,50 +339,50 @@
     <Reference Include="uIntra.BaseControls, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.BaseControls.2.4.4\lib\net452\uIntra.BaseControls.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Bulletins, Version=0.3.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Bulletins.0.3.11\lib\net452\uIntra.Bulletins.dll</HintPath>
+    <Reference Include="Uintra.Bulletins, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Bulletins.0.4.0\lib\net452\Uintra.Bulletins.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.CentralFeed, Version=1.3.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.CentralFeed.1.3.9\lib\net452\uIntra.CentralFeed.dll</HintPath>
+    <Reference Include="Uintra.CentralFeed, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.CentralFeed.1.4.0\lib\net452\Uintra.CentralFeed.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Comments, Version=1.1.15.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Comments.1.1.15\lib\net452\uIntra.Comments.dll</HintPath>
+    <Reference Include="Uintra.Comments, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Comments.1.2.0\lib\net452\Uintra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Core, Version=1.4.19.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Core.1.4.19\lib\net452\Uintra.Core.dll</HintPath>
+    <Reference Include="Uintra.Core, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Core.1.5.0\lib\net452\Uintra.Core.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Events, Version=1.5.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Events.1.5.8\lib\net452\uIntra.Events.dll</HintPath>
+    <Reference Include="Uintra.Events, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Events.1.6.0\lib\net452\Uintra.Events.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Groups, Version=0.2.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Groups.0.2.6\lib\net452\uIntra.Groups.dll</HintPath>
+    <Reference Include="Uintra.Groups, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Groups.0.3.0\lib\net452\Uintra.Groups.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Likes, Version=1.1.13.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Likes.1.1.13\lib\net452\uIntra.Likes.dll</HintPath>
+    <Reference Include="Uintra.Likes, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Likes.1.2.0\lib\net452\Uintra.Likes.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Navigation, Version=1.2.14.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Navigation.1.2.14\lib\net452\uIntra.Navigation.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.News, Version=1.3.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.News.1.3.6\lib\net452\uIntra.News.dll</HintPath>
+    <Reference Include="Uintra.News, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.News.1.4.0\lib\net452\Uintra.News.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Notification, Version=1.3.12.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Notification.1.3.12\lib\net452\uIntra.Notification.dll</HintPath>
+    <Reference Include="Uintra.Notification, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Notification.1.4.0\lib\net452\Uintra.Notification.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Panels, Version=2.1.16.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Panels.2.1.16\lib\net452\uIntra.Panels.dll</HintPath>
+    <Reference Include="Uintra.Panels, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Panels.2.2.0\lib\net452\Uintra.Panels.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Search, Version=0.2.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Search.0.2.7\lib\net452\uIntra.Search.dll</HintPath>
+    <Reference Include="Uintra.Search, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Search.0.3.0\lib\net452\Uintra.Search.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Subscribe, Version=1.1.13.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Subscribe.1.1.13\lib\net452\uIntra.Subscribe.dll</HintPath>
+    <Reference Include="Uintra.Subscribe, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Subscribe.1.2.0\lib\net452\Uintra.Subscribe.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Tagging, Version=1.1.14.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Tagging.1.1.14\lib\net452\uIntra.Tagging.dll</HintPath>
+    <Reference Include="Uintra.Tagging, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Tagging.1.2.0\lib\net452\Uintra.Tagging.dll</HintPath>
     </Reference>
     <Reference Include="uIntra.Users, Version=1.6.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Users.1.6.7\lib\net452\uIntra.Users.dll</HintPath>
@@ -642,6 +645,7 @@
     <Content Include="App_Plugins\Core\Content\images\link-custom-hover.svg" />
     <Content Include="App_Plugins\Core\Content\images\link-hover.svg" />
     <Content Include="App_Plugins\Core\Content\images\link.svg" />
+    <Content Include="App_Plugins\Core\Content\images\videoplay.svg" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\css\bootstrap.min.css" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="App_Plugins\Core\Content\libs\dependencies.txt" />
@@ -689,177 +693,6 @@
     <Content Include="App_Plugins\Core\Controls\Confirm\Confirm.js" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.css" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.js" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\3dm.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\3ds.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\3gp.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\7z.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\aac.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ai.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\aif.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\apk.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\app.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\asf.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\asp.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\aspx.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\asx.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\avi.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\bak.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\bat.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\bin.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\bmp.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cab.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cad.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cdr.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cer.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cfg.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cfm.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cgi.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\class.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\com.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cpl.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cpp.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\crx.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\csr.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\css.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\csv.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cue.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cur.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dat.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\db.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dbf.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dds.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dem.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dfx.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dll.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dmg.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dmp.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\doc.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\docx.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\drv.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dtd.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dwg.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\elf.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\eps.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\exe.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\fla.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\flash.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\flv.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\fnt.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\fon.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\gam.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\gbr.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ged.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\gif.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\gpx.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\gz.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\gzip.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\hqz.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\html.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ibooks.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\icns.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ico.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ics.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\iff.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\indd.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\iso.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\jar.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\jpg.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\js.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\jsp.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\key.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\kml.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\kmz.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\lnk.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\log.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\lua.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\m3u.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\m4a.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\m4v.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mach-o.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\max.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mdb.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mdf.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mid.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mim.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mov.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mp3.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mp4.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mpa.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mpg.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\msg.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\msi.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\nes.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\obj.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odb.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odc.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odf.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odg.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odi.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odp.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ods.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odt.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odx.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ogg.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\otf.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pages.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pct.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pdb.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pdf.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\photoshop.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pif.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pkg.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pl.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\png.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pps.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ppt.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pptx.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ps.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pub.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\py.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ra.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\rar.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\raw.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\rm.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\rom.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\rpm.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\rss.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\rtf.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\sav.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\sdf.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\sitx.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\sql.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\srt.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\svg.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\swf.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\sys.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\tar.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\tex.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\tga.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\thm.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\tiff.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\tmp.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\torrent.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ttf.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\txt.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\uue.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\vb.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\vcd.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\vcf.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\vob.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\wav.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\wma.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\wmv.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\wpd.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\wps.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\wsf.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\xhtml.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\xlr.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\xls.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\xlsx.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\xml.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\xsl.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\yuv.svg" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\zip.svg" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\default-skin.css" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\default-skin.png" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\default-skin.svg" />
@@ -970,6 +803,7 @@
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
     <Content Include="App_Plugins\Notification\List\notificationList.css" />
     <Content Include="App_Plugins\Notification\notification.js" />
+    <Content Include="App_Plugins\Notification\popupNotifications.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.html" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
@@ -993,6 +827,14 @@
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.js" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.html" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js" />
+    <Content Include="App_Plugins\Panels\TableEditor\css\table-editor.css" />
+    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-column-control.directive.js" />
+    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-row-control.directive.js" />
+    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor.controller.js" />
+    <Content Include="App_Plugins\Panels\TableEditor\views\overlay.html" />
+    <Content Include="App_Plugins\Panels\TableEditor\views\table-editor.html" />
+    <Content Include="App_Plugins\Panels\TablePanel\Css\tableEditor.css" />
+    <Content Include="App_Plugins\Panels\TablePanel\Js\tablePanel.js" />
     <Content Include="App_Plugins\Search\backoffice\developerelasticsearch.html" />
     <Content Include="App_Plugins\Search\Controls\search-box.js" />
     <Content Include="App_Plugins\Search\Result\search-result.html" />
@@ -1579,106 +1421,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\SentMails\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\News\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\BaseControls\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEvents.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\List\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Navigation\Web.config" />
@@ -1717,96 +1463,6 @@
     <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\ActivitySubscribeSettingsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\LatestActivities\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\UsersTags\Views\TagPicker.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\UsersTags\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1825,28 +1481,7 @@
     <Content Include="App_Plugins\Members\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+    <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
@@ -1856,6 +1491,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\LinkPreview\EditLinkPreviewView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
@@ -1909,7 +1550,220 @@
     <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
+    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEvents.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\List\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\PopupNotificationsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\TableEditor\TableEditor.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Subscribe\View\ActivitySubscribeSettingsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\LatestActivities\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\UsersTags\Views\TagPicker.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\UsersTags\package.manifest" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

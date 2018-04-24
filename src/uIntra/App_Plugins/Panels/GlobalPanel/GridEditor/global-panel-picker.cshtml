@@ -1,27 +1,16 @@
 ﻿@using System.Web.Mvc.Html
 @using Umbraco.Web
 @using Uintra.Core.Constants
+@using Uintra.Core.Extensions
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<dynamic>
 
 @{
     int panelId = Model.value.id;
     var panel = Umbraco.TypedContent(panelId);
-    var model = panel != null ? panel.GetPropertyValue(GridEditorConstants.PanelConfigPropertyAlias) as dynamic : null;
-    var editor = model?.editor;
-    string renderer = editor?.render;
+    var control = panel?.GetPropertyValue<dynamic>(GridEditorConstants.PanelConfigPropertyAlias);
 }
 
-@if (model != null && editor != null && !string.IsNullOrEmpty(renderer))
+@if (control != null && control.editor != null && control.editor.view != null)
 {
-    try
-    {
-        Html.RenderPartial(renderer, (object)model);
-    }
-    catch (Exception ex)
-    {
-        if (HttpContext.Current.IsDebuggingEnabled)
-        {
-            <pre>@ex.ToString()</pre>
-        }
-    }
+    @Html.RenderGridControl((object)control)
 }

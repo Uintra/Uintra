@@ -23,9 +23,20 @@
             return selectedNotifierType === notifierType.ui;
         }
 
+        self.isPopupTabSelected = function () {
+            return selectedNotifierType === notifierType.popup;
+        }
+
         self.selectEmailTab = function () {
             selectedNotifierType = notifierType.email;
             self.selectedNotifierSettings = self.settings.emailNotifierSetting;
+        }
+
+        self.selectPopupTab = function () {
+            if (!self.settings.emailNotifierSetting && !self.settings.uiNotifierSetting) {
+                selectedNotifierType = notifierType.popup;
+                self.selectedNotifierSettings = self.settings.popupNotifierSetting;
+            }         
         }
 
         self.selectUiTab = function () {
@@ -43,19 +54,30 @@
         }
 
         function initalize() {
+            debugger;
             initLocationChangeStartEvent();
             initCurrentNodeHighlighting();
 
             var params = getCurrentUrlParams();
-            notificationSettingsService.getSettings(params.activityType, params.notificationType).then(function (result) {
-                self.settings = result.data;
-                self.selectEmailTab();
+            notificationSettingsService.getSettings(params.activityType, params.notificationType).then(
+                function(result) {
+                    self.settings = result.data;
 
-                initEmailSubjectControlConfig();
-                initEmailBodyControlConfig();
-                initUiMessageControlConfig();
+                    if (self.settings.emailNotifierSetting != null) {
+                        self.selectEmailTab();
+                        initEmailControlConfig();
+                    }
+                    
+                    if (self.settings.uiNotifierSetting != null) {
+                        initUiMessageControlConfig();
+                    }
 
-            }, showGetErrorMessage);
+                    if (self.settings.popupNotifierSetting != null) {
+                        self.selectPopupTab();
+                        initPopupMessageControlConfig();
+                    }
+                },
+                showGetErrorMessage);
         }
 
         function getUrlParams(url) {
@@ -88,9 +110,16 @@
         function saveSettings(settings) {
             if (self.isEmailTabSelected()) {
                 notificationSettingsService.seveEmailSettings(settings.emailNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
+                return;
             }
-            else if (self.isUiTabSelected()) {
+            if (self.isUiTabSelected()) {
                 notificationSettingsService.seveUiSettings(settings.uiNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
+                return;
+            }
+
+            if (self.isPopupTabSelected()) {
+                notificationSettingsService.sevePopupSettings(settings.popupNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
+                return;
             }
         }
 
@@ -104,6 +133,11 @@
 
         function showSaveErrorMessage() {
             notificationsService.error("Error", "Notification settings were not updated, because some error has occurred");
+        }
+
+        function initEmailControlConfig() {
+            initEmailSubjectControlConfig();
+            initEmailBodyControlConfig();
         }
 
         function initEmailSubjectControlConfig() {
@@ -158,6 +192,25 @@
             };
 
             self.uiMessageControlConfig.triggerRefresh();
+        }
+
+        function initPopupMessageControlConfig() {
+            self.popupMessageControlConfig = new RichTextEditorModel(ControlMode.view);
+            self.popupMessageControlConfig.value = self.settings.popupNotifierSetting.template.message;
+
+            self.popupMessageControlConfig.tinyMceOptions = notificationSettingsConfig.popupMessageTinyMceOptions;
+
+            self.popupMessageControlConfig.isRequired = true;
+            self.popupMessageControlConfig.requiredValidationMessage = 'Popup message is required';
+            self.popupMessageControlConfig.maxLength = 2000;
+            self.popupMessageControlConfig.maxLengthValidationMessage = 'Popup message max length is 2000 symbols';
+
+            self.popupMessageControlConfig.onSave = function (uiMessage) {
+                self.settings.popupNotifierSetting.template.message = uiMessage;
+                self.save();
+            };
+
+            self.popupMessageControlConfig.triggerRefresh();
         }
 
         function initLocationChangeStartEvent() {

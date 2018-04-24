@@ -1,6 +1,11 @@
 ﻿._notifications-expanded {
     @media(--for-tablet-portrait-down){
-        overflow:hidden;
+        overflow: hidden;
+    }
+    body {
+        @media(--for-tablet-portrait-down){
+            overflow: hidden;
+        }
     }
 }
 
@@ -103,7 +108,7 @@
 
                 ._notifications-expanded &{
                     transform:translate(0, 0);
-                    z-index:11;
+                    z-index:111;
                 }
             }
         }
@@ -159,8 +164,9 @@
 
     @media (--for-tablet-portrait-down) {
         position:absolute;
-        width: 57px;
-        right:-5px;
+        width: 52px;
+        top:-30px;
+        right:0;
 
         &__icon {
             position:relative;

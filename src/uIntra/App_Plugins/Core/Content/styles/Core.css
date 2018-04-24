@@ -1,6 +1,6 @@
 @import "libs.css";
 @import "forms.css";
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:600,600i,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700');
 
 @define-mixin btn-focus-color $color {
     &:focus,
@@ -169,6 +169,12 @@ body{
     height:100%;
 }
 
+._menu-expanded {
+    @media(--for-tablet-portrait-down) {
+        overflow: hidden;
+    }
+}
+
 body{
     margin:0;
     background:#fff;
@@ -180,7 +186,7 @@ body{
     }
 
     @media (--for-tablet-portrait-down) {
-        &._menu-expanded {
+        ._menu-expanded &{
             height:100%;
             width:100%;
             overflow:hidden;
@@ -310,6 +316,21 @@ img{
         @media (--for-tablet-portrait-down) {
             padding-top: 149px;
             padding-top: 249px;
+        }
+    }
+
+    &._loading{
+        *{
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        #header,
+        #header *,
+        #sidebar,
+        #main {
+            opacity: 1;
+            visibility: visible;
         }
     }
 }
@@ -487,7 +508,7 @@ img{
         visibility:hidden;
         opacity:0;
         position:absolute;
-        top:0;
+        top:60px;
         left:0;
         right:0;
         bottom:0;
@@ -499,6 +520,7 @@ img{
         }
 
         @media (--for-tablet-landscape-up) {
+            top:0;
             background-position:530px 50px;
         }
 
@@ -891,6 +913,7 @@ img{
     button{
         &:before{
             background-size:cover;
+            background-repeat:no-repeat;
             display:block;
             margin:0 auto;
         }
@@ -1029,11 +1052,11 @@ img{
             height:100%;
         }
 
-        &__zoom-wrap{
+        /*&__zoom-wrap{
             width:100%;
             height:100%;
             padding:10%;
-        }
+        }*/
 
         .block__video-iframe-player{
             position:static;
@@ -1093,11 +1116,16 @@ img{
         }
     }
 
-    &__top-bar{
+    /*&__top-bar{
         opacity:1 !important;
 
         @media (--for-tablet-portrait-down) {
             opacity: 0 !important;
+        }
+    }*/
+    &__top-bar{
+        @media (--for-tablet-portrait-down) {
+            background:none;
         }
     }
 }
@@ -1282,7 +1310,7 @@ img{
 .ql-formats ._upload{
     &:before{
         content:'';
-        width:15px;
+        width:14px;
         height:15px;
         background-image:url(/App_Plugins/Core/Content/images/attachment.svg);
     }

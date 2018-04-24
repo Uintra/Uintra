@@ -31,7 +31,7 @@
             break;
         case (int)MediaTypeEnum.Document:
             <a href="@file.Url" target="_blank">
-                <span class="file-extension __@file.Extension"></span>
+                <span class="file-extension">@file.Extension.ToExtensionViewString()</span>
             </a>
             break;
     }
