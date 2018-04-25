@@ -28,7 +28,7 @@ namespace Compent.Uintra.Core.Users
 
         public IntranetUserService(
             IMemberService memberService,
-            UmbracoContext umbracoContext,
+            UmbracoContext umbracoContext, 
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
             ICacheService cacheService,

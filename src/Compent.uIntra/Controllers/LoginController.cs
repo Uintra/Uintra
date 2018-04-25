@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Security;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Extensions;
 using Localization.Umbraco.Attributes;
 using uIntra.Notification;
@@ -13,6 +14,7 @@ using Uintra.Users;
 using Uintra.Users.Web;
 using Umbraco.Core;
 using Umbraco.Core.Models;
+using Umbraco.Core.Services;
 using Umbraco.Web;
 
 namespace Compent.Uintra.Controllers
@@ -24,18 +26,23 @@ namespace Compent.Uintra.Controllers
         private readonly ITimezoneOffsetProvider _timezoneOffsetProvider;
         private readonly IIntranetLocalizationService _intranetLocalizationService;
         private readonly INotificationsService _notificationsService;
+        private readonly IMemberServiceHelper _memberServiceHelper;
+        private readonly IMemberService _memberService;
 
         protected override string LoginViewPath => "~/Views/Login/Login.cshtml";
 
         public LoginController(
             ITimezoneOffsetProvider timezoneOffsetProvider,
             IIntranetLocalizationService intranetLocalizationService,
-            INotificationsService notificationsService) :
+            INotificationsService notificationsService,
+            IMemberServiceHelper memberServiceHelper, IMemberService memberService) :
             base(timezoneOffsetProvider, intranetLocalizationService)
         {
             _timezoneOffsetProvider = timezoneOffsetProvider;
             _intranetLocalizationService = intranetLocalizationService;
             _notificationsService = notificationsService;
+            _memberServiceHelper = memberServiceHelper;
+            _memberService = memberService;
         }
 
         [HttpPost]
@@ -45,6 +52,8 @@ namespace Compent.Uintra.Controllers
             {
                 return View(LoginViewPath, model);
             }
+
+            SetDefaultUserData();
 
             if (!Membership.ValidateUser(model.Login, model.Password))
             {
@@ -59,21 +68,25 @@ namespace Compent.Uintra.Controllers
                 _timezoneOffsetProvider.SetTimezoneOffset(model.ClientTimezoneOffset);
 
                 var member = Members.GetByUsername(model.Login);
-                if (IsFirstTimeLogin(member))
+                if (!_memberServiceHelper.IsFirstLoginPerformed(_memberService.GetByKey(member.GetKey())))
                 {
                     SendWelcomeNotification(member.GetKey());
                 }
+                _memberServiceHelper.SetFirstLoginPerformed(_memberService.GetByKey(member.GetKey()));
             }
 
             return Redirect(redirectUrl);
         }
 
-        private static bool IsFirstTimeLogin(IPublishedContent member) //TODO think about cache
+        private void SetDefaultUserData()
         {
-            var createDate = member.CreateDate;
-            var lastLoginDate = member.GetPropertyValue<DateTime>(Constants.Conventions.Member.LastLoginDate);
-            var isMemberNeverLogin = (lastLoginDate - createDate).TotalMinutes < 3;
-            return isMemberNeverLogin;
+            var mbr = _memberService.GetByEmail(UsersInstallationConstants.DefaultMember.Email);
+
+            if (mbr != null && !_memberServiceHelper.IsFirstLoginPerformed(mbr))
+            {
+                _memberService.SavePassword(mbr, UsersInstallationConstants.DefaultMember.Password);
+                _memberService.AssignRole(mbr.Id, UsersInstallationConstants.MemberGroups.GroupWebMaster);
+            }
         }
 
         private void SendWelcomeNotification(Guid userId)

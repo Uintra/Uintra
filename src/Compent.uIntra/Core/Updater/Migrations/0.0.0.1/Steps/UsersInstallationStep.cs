@@ -217,15 +217,12 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
                 return;
             }
 
-            member = memberService.CreateMember(DefaultMember.Name, DefaultMember.Email, DefaultMember.Name,
-                DataTypeAliases.Member);
+            member = memberService.CreateMember(DefaultMember.Name, DefaultMember.Email, DefaultMember.Name, DataTypeAliases.Member);
             member.SetValue(DataTypePropertyAliases.ProfileFirstName, DefaultMember.Name);
             member.SetValue(DataTypePropertyAliases.ProfileLastName, DefaultMember.Name);
             member.SetValue(DataTypePropertyAliases.ProfileRelatedUser, DefaultMember.UmbracoAdminUserId);
 
-            memberService.Save(member);
-            memberService.SavePassword(member, DefaultMember.Password);
-            memberService.AssignRole(member.Id, MemberGroups.GroupWebMaster);
+            memberService.Save(member, raiseEvents: false);
         }
     }
 }
