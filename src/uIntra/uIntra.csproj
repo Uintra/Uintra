@@ -384,8 +384,8 @@
     <Reference Include="Uintra.Tagging, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Tagging.1.2.0\lib\net452\Uintra.Tagging.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.Users, Version=1.6.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Users.1.6.7\lib\net452\uIntra.Users.dll</HintPath>
+    <Reference Include="Uintra.Users, Version=1.6.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Users.1.6.8\lib\net452\Uintra.Users.dll</HintPath>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6634.25796, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\umbraco.dll</HintPath>
@@ -1463,24 +1463,6 @@
     <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\UserPicker\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Members\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
   </ItemGroup>
   <ItemGroup>
@@ -1764,6 +1746,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\UsersTags\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Members\package.manifest" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
