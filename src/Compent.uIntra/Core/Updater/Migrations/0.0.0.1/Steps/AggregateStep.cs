@@ -150,7 +150,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
             adminUserGroup.AddAllowedSection("SentMails");
             adminUserGroup.AddAllowedSection("Localization");
 
-            userService.Save(adminUserGroup);
+            userService.Save(adminUserGroup, userIds: null, raiseEvents: false);
         }
 
         private void AddDefaultMailSettings()
