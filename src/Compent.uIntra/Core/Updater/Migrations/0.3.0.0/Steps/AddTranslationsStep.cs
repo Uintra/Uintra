@@ -8,10 +8,12 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
         private const string PopupNotificationOkBtnTextKey = "PopupNotification.OkBtn.Text";
         private const string LightboxGalleryCountOneKey = "LightboxGallery.Count.One.lbl";
         private const string LightboxGalleryCountManyKey = "LightboxGallery.Count.Many.lbl";
+        private const string ProfileLinkTitleKey = "PopupNotification.ProfileLink.Title";
 
         private const string PopupNotificationOkBtnTextTranslation = "Close";
         private const string LightboxGalleryCountOneTranslation = "File added";
         private const string LightboxGalleryCountManyTranslation = "Files added";
+        private const string ProfileLinkTitleTranslation = "Go to user profile";
 
         private readonly ILocalizationCoreService _localizationCoreService;
 
@@ -25,6 +27,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             InstallationStepsHelper.AddTranslation(PopupNotificationOkBtnTextKey, PopupNotificationOkBtnTextTranslation);
             InstallationStepsHelper.AddTranslation(LightboxGalleryCountOneKey, LightboxGalleryCountOneTranslation);
             InstallationStepsHelper.AddTranslation(LightboxGalleryCountManyKey, LightboxGalleryCountManyTranslation);
+            InstallationStepsHelper.AddTranslation(ProfileLinkTitleKey, ProfileLinkTitleTranslation);
 
             return ExecutionResult.Success;
         }
@@ -34,6 +37,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             _localizationCoreService.Delete(PopupNotificationOkBtnTextKey);
             _localizationCoreService.Delete(LightboxGalleryCountOneKey);
             _localizationCoreService.Delete(LightboxGalleryCountManyKey);
+            _localizationCoreService.Delete(ProfileLinkTitleKey);
         }
     }
 }
