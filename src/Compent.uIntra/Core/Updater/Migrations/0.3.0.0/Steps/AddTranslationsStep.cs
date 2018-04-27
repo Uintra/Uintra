@@ -14,6 +14,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
         private const string EventsDescriptionPlaceholderKey = "Events.Description.placeholder";
         private const string PinAcceptPinTextKey = "Pin.AcceptPinText.lbl";
         private const string GroupRoomNavigationAllKey = "GroupRoom.Navigation.All.lbl";
+        private const string ProfileEmailNotificationsTitleKey = "Profile.EmailNotifications.Title.lbl";
 
         private const string PopupNotificationOkBtnTextTranslation = "Close";
         private const string LightboxGalleryCountOneTranslation = "File added";
@@ -24,6 +25,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
         private const string EventsDescriptionPlaceholderTranslation = "Description";
         private const string PinAcceptPinTextTranslation = "Note: Enabling this will mark the post as \"Important\". It will be pinned to the top until you manually unpin it. To automatically unpin the post set the date below, the post will remain being marked \"Important\"";
         private const string GroupRoomNavigationAllTranslation= "Feed";
+        private const string ProfileEmailNotificationsTitleTranslation = "Notifications";
 
         private readonly ILocalizationCoreService _localizationCoreService;
 
@@ -43,6 +45,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             InstallationStepsHelper.AddTranslation(EventsDescriptionPlaceholderKey, EventsDescriptionPlaceholderTranslation);
             InstallationStepsHelper.AddTranslation(PinAcceptPinTextKey, PinAcceptPinTextTranslation);
             InstallationStepsHelper.AddTranslation(GroupRoomNavigationAllKey, GroupRoomNavigationAllTranslation);
+            InstallationStepsHelper.AddTranslation(ProfileEmailNotificationsTitleKey, ProfileEmailNotificationsTitleTranslation);
 
             return ExecutionResult.Success;
         }
@@ -58,6 +61,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             _localizationCoreService.Delete(EventsDescriptionPlaceholderKey);
             _localizationCoreService.Delete(PinAcceptPinTextKey);
             _localizationCoreService.Delete(GroupRoomNavigationAllKey);
+            _localizationCoreService.Delete(ProfileEmailNotificationsTitleKey);
         }
     }
 }
