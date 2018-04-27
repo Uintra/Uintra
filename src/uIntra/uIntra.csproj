@@ -348,8 +348,8 @@
     <Reference Include="Uintra.Comments, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Comments.1.2.0\lib\net452\Uintra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Core, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Core.1.5.0\lib\net452\Uintra.Core.dll</HintPath>
+    <Reference Include="Uintra.Core, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Core.1.5.1\lib\net452\Uintra.Core.dll</HintPath>
     </Reference>
     <Reference Include="Uintra.Events, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Events.1.6.0\lib\net452\Uintra.Events.dll</HintPath>
@@ -1466,72 +1466,6 @@
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Core\User\Photo.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\LinkPreview\EditLinkPreviewView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1764,6 +1698,72 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Members\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\User\Photo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\LinkPreview\EditLinkPreviewView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
