@@ -7,6 +7,7 @@ using Localization.Umbraco.Attributes;
 using uIntra.Notification;
 using Uintra.Core;
 using Uintra.Core.Localization;
+using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
 using Uintra.Notification.Configuration;
@@ -28,6 +29,8 @@ namespace Compent.Uintra.Controllers
         private readonly INotificationsService _notificationsService;
         private readonly IMemberServiceHelper _memberServiceHelper;
         private readonly IMemberService _memberService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly ICacheableIntranetUserService _cacheableIntranetUserService;
 
         protected override string LoginViewPath => "~/Views/Login/Login.cshtml";
 
@@ -35,7 +38,9 @@ namespace Compent.Uintra.Controllers
             ITimezoneOffsetProvider timezoneOffsetProvider,
             IIntranetLocalizationService intranetLocalizationService,
             INotificationsService notificationsService,
-            IMemberServiceHelper memberServiceHelper, IMemberService memberService) :
+            IMemberServiceHelper memberServiceHelper,
+            IMemberService memberService, IIntranetUserService<IIntranetUser>
+                intranetUserService, ICacheableIntranetUserService cacheableIntranetUserService) :
             base(timezoneOffsetProvider, intranetLocalizationService)
         {
             _timezoneOffsetProvider = timezoneOffsetProvider;
@@ -43,6 +48,8 @@ namespace Compent.Uintra.Controllers
             _notificationsService = notificationsService;
             _memberServiceHelper = memberServiceHelper;
             _memberService = memberService;
+            _intranetUserService = intranetUserService;
+            _cacheableIntranetUserService = cacheableIntranetUserService;
         }
 
         [HttpPost]
@@ -86,6 +93,7 @@ namespace Compent.Uintra.Controllers
             {
                 _memberService.SavePassword(mbr, UsersInstallationConstants.DefaultMember.Password);
                 _memberService.AssignRole(mbr.Id, UsersInstallationConstants.MemberGroups.GroupWebMaster);
+                _cacheableIntranetUserService.UpdateUserCache(mbr.Key);
             }
         }
 
