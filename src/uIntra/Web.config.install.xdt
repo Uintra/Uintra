@@ -5,7 +5,7 @@
     <section name="userPermissions" type="Uintra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
 
     <section name="uIntraJobs" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
-    <section name="UIntraJobs" type="Uintra.Core.Jobs.Configuration.JobSettingsConfiguration" xdt:Locator="Condition(@name='UIntraJobs')" xdt:Transform="InsertIfMissing" />
+    <section name="UintraJobs" type="Uintra.Core.Jobs.Configuration.JobSettingsConfiguration" xdt:Locator="Condition(@name='UintraJobs')" xdt:Transform="InsertIfMissing" />
 
     <section name="elasticConfiguration" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
     <section name="elasticConfiguration" type="Uintra.Search.Configuration.ElasticConfigurationSection" xdt:Locator="Condition(@name='elasticConfiguration')" xdt:Transform="InsertIfMissing" />
