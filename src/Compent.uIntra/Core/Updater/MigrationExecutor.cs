@@ -8,6 +8,7 @@ using Uintra.Core.Exceptions;
 using Uintra.Core.MigrationHistories;
 using Uintra.Core.MigrationHistories.Sql;
 using Umbraco.Core;
+using Umbraco.Core.Services;
 using Umbraco.Web;
 using static Compent.Uintra.Core.Updater.ExecutionResult;
 
@@ -56,6 +57,9 @@ namespace Compent.Uintra.Core.Updater
             var reversedHistory = history.Reverse().ToList();
 
             SaveMigrationsHistory(reversedHistory);
+
+
+            ApplicationContext.Current.Services.MediaService.RebuildXmlStructures();
 
             if (reversedHistory.Any())
             {
