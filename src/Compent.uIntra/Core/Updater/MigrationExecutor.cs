@@ -57,14 +57,6 @@ namespace Compent.Uintra.Core.Updater
             var reversedHistory = history.Reverse().ToList();
 
             SaveMigrationsHistory(reversedHistory);
-
-
-            ApplicationContext.Current.Services.MediaService.RebuildXmlStructures();
-
-            if (reversedHistory.Any())
-            {
-                HttpRuntime.UnloadAppDomain();
-            }
         }
 
         private IEnumerable<IMigration> GetAllMigrations() =>
