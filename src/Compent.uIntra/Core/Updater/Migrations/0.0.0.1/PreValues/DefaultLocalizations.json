@@ -206,7 +206,7 @@
   },
   {
     "Key": "SubscribeSettings.SubscribeNotes.lbl",
-    "Translations": { "en-US": "" },
+    "Translations": { "en-US": "Notes about the subscription, deadlines or any other suitable title" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -371,7 +371,7 @@
   },
   {
     "Key": "Events.Description.placeholder",
-    "Translations": { "en-US": "" },
+    "Translations": { "en-US": "Description" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
