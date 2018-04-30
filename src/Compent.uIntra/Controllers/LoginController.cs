@@ -94,6 +94,7 @@ namespace Compent.Uintra.Controllers
                 _memberService.SavePassword(mbr, UsersInstallationConstants.DefaultMember.Password);
                 _memberService.AssignRole(mbr.Id, UsersInstallationConstants.MemberGroups.GroupWebMaster);
                 _cacheableIntranetUserService.UpdateUserCache(mbr.Key);
+
             }
         }
 
