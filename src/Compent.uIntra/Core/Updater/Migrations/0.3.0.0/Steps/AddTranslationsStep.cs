@@ -23,8 +23,15 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             {"GroupDocument.Upload.lbl", "Upload new group document"},
             {"DocumentsList.Empty.lbl", "Documents list is empty"},
             {"GroupEdit.GroupImage.note", "Group image"},
-            {"GroupDocuments.Table.Type.lbl", "Document type"}
-
+            {"GROUPDOCUMENTS.CREATE.BTN", "Upload"},
+            {"GroupDocuments.Table.Type.lbl", "Document type"},
+            {"GroupDocuments.Table.Name.lbl", "Document"},
+            {"GroupDocuments.Table.Creator.lbl", "Added by"},
+            {"GroupDocuments.Table.Date.lbl", "Date"},
+            {"GroupEdit.GroupImage.note", "Drop files and images here or click to upload"},
+            {"GroupDocuments.Delete.ConfirmText.lbl", "Are you sure you would like to delete this document?"},
+            {"GroupDocuments.Delete.ConfirmCancel.btn", "Cancel"},
+            {"GroupDocuments.Delete.Confirm.btn", "Delete"}
         };
 
         private readonly ILocalizationCoreService _localizationCoreService;
