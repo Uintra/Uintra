@@ -26,6 +26,7 @@
 @helper RenderFileView(FileViewModel file){
     switch (file.Type.ToInt())
     {
+        case (int)MediaTypeEnum.Video:
         case (int)MediaTypeEnum.Image:
             <img src="@file.Url" />
             break;
