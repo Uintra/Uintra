@@ -28,7 +28,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             {"GroupDocuments.Table.Name.lbl", "Document"},
             {"GroupDocuments.Table.Creator.lbl", "Added by"},
             {"GroupDocuments.Table.Date.lbl", "Date"},
-            {"GroupEdit.GroupImage.note", "Drop files and images here or click to upload"},
             {"GroupDocuments.Delete.ConfirmText.lbl", "Are you sure you would like to delete this document?"},
             {"GroupDocuments.Delete.ConfirmCancel.btn", "Cancel"},
             {"GroupDocuments.Delete.Confirm.btn", "Delete"}
