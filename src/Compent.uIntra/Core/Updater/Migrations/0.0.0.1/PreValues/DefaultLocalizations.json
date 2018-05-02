@@ -626,7 +626,7 @@
   },
   {
     "Key": "GroupRoom.Navigation.All.lbl",
-    "Translations": { "en-US": "All" },
+    "Translations": { "en-US": "Feed" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -826,7 +826,7 @@
   },
   {
     "Key": "Pin.AcceptPinText.lbl",
-    "Translations": { "en-US": "Note: \nEnabling this will mark the post as \"Important\". It will be pinned to the top until you manually unpin it.\nTo automatically unpin the post set the date below, the psot will remain being marked \"Important\"." },
+    "Translations": { "en-US": "\"Note: Enabling this will mark the post as \"Important\". It will be pinned to the top until you manually unpin it. To automatically unpin the post set the date below, the post will remain being marked \"Important\"." },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {

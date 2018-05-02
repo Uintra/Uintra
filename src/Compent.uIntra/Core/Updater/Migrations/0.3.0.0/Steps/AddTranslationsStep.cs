@@ -48,6 +48,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
                 InstallationStepsHelper.AddTranslation(translation.Key, translation.Value);
             }
 
+            _localizationCoreService.Delete("Events.Description.placeholder");
+
             return ExecutionResult.Success;
         }
 
@@ -56,8 +58,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             foreach (var translationKey in _translations.Keys)
             {
                 _localizationCoreService.Delete(translationKey);
-            }
-
+            }         
         }
     }
 }
