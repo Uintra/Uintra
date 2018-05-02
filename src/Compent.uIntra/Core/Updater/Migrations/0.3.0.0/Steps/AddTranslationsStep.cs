@@ -22,7 +22,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             {"Profile.EmailNotifications.Title.lbl", "Notifications"},
             {"GroupDocument.Upload.lbl", "Upload new group document"},
             {"DocumentsList.Empty.lbl", "Documents list is empty"},
-            {"GroupEdit.GroupImage.note", "Group image"}
+            {"GroupEdit.GroupImage.note", "Group image"},
+            {"GroupDocuments.Table.Type.lbl", "Document type"}
 
         };
 
