@@ -1,0 +1,25 @@
+@using Uintra.Search
+@model Compent.Uintra.Core.Search.SearchBoxAutocompleteItemExtendedViewModel
+
+@if (Model.Type == SearchConstants.AutocompleteType.All)
+{
+    <span class="title _all">@Model.Title</span>
+}
+else
+{
+    if (!string.IsNullOrEmpty(Model.Photo))
+    {
+        <img class="icon" src="@Model.Photo?width=20&height=20&mode=crop" alt="@Model.Title" />
+    }
+
+    <span class="title">@Model.Title</span>
+
+    if (!string.IsNullOrEmpty(Model.Email))
+    {
+        <ul class="autocomplete-suggestion__list">
+            <li class="autocomplete-suggestion__frame">@Model.Email</li>
+        </ul>
+    }
+
+    <span class="type">@Model.Type</span>
+}

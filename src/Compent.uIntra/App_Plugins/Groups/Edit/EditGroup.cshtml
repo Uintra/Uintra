@@ -1,0 +1,36 @@
+﻿@using Uintra.Core.Controls.FileUpload
+@using Uintra.Core.Extensions
+@model Uintra.Groups.GroupEditModel
+<div class="form" id="js-group-edit-page">
+    @using (Html.BeginUmbracoForm("Edit", "Group", FormMethod.Post, new { id = "editForm" }))
+    {
+        <h1 class="form__title">@Html.Localize("GroupEdit.PageTitle.lbl")</h1>
+
+        <div class="form__row clearfix">
+            <label class="form__label" for="title">@Html.Localize("GroupEdit.Title.lbl") <span class="form__required">*</span></label>
+            <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
+                   data-val-required="@Html.Localize("GroupEdit.TitleRequired.lbl")"
+                   data-val-length-max="200" data-val-length="@string.Format(Html.Localize("GroupEdit.TitleMaxLength.lbl"), 200)"
+                   data-val="true" />
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="description">@Html.Localize("GroupEdit.Description.lbl") <span class="form__required">*</span></label>
+            <textarea class="form__textarea" name="description" data-val-required="@Html.Localize("GroupEdit.DescriptionRequired.lbl")" data-val="true">@Model.Description</textarea>
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="file-upload">@Html.Localize("GroupEdit.GroupImage.lbl")</label>
+            @{
+                var settings = new FileUploadSettings { AllowedExtensions = Model.AllowedMediaExtensions, MaxFilesCount = 1 };
+                Html.RenderAction("Editor", "FileUpload", new { Settings = settings, Model = Model?.Media });
+            }
+        </div>
+        @Html.ValidationSummary()
+        <div class="form__row form__row--top-indent clearfix">
+            @Html.HiddenFor(s => s.CreatorId)
+            @Html.HiddenFor(s => s.MediaRootId)
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input class="btn _submit js-submit" type="submit" value="@Html.Localize("GroupEdit.Update.btn")" />
+            <input class="btn js-group-hide" type="button" value="@Html.Localize("GroupEdit.Hide.btn")" data-id="@Model.Id" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")" data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" />
+        </div>
+    }
+</div>

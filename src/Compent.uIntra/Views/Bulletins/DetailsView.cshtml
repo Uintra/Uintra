@@ -1,0 +1,33 @@
+﻿@using System.Web.Mvc.Html
+@using Uintra.Core.Extensions
+@model Compent.Uintra.Core.Bulletins.BulletinExtendedViewModel
+
+<section class="content">
+    <div class="feed__btns clearfix">
+        <a href="#" class="btn pull-right hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>
+        @if (Model.CanEdit)
+        {
+            <a class="btn pull-right _edit-bulletin" href="@Model.Links.Edit">@Html.Localize("DetailsView.Edit.lbl")</a>
+        }
+        <a class="link__back" href="@Model.Links.Feed">@Html.Localize("DetailsView.GoToList.lbl")</a>
+    </div>
+    <div class="feed__item _details">
+        @{ Html.RenderAction("DetailsHeader", "Activity", Model.HeaderInfo); }
+        <div class="feed__item-txt">
+            @Html.Raw(Model.Description)
+        </div>
+        @Html.Action("LinkPreview", "ActivityLinkPreview", new { model = Model.LinkPreview })
+        @Html.Action("ForEntity", "UserTags", new { entityId = Model.Id })
+        <div class="feed__item-feed">
+            <div class="feed__item-feed-holder">
+                @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
+            </div>
+        </div>
+        <div class="feed__item-images">
+            @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
+        </div>
+        <div class="comments">
+            @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,67 @@
+#
+*.orig
+*.rej
+.idea/
+*.user
+*.lock
+*.nupkg
+packages/
+.vs/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+node_modules/
+Umbraco/
+Umbraco_Client/
+App_Data/
+**/App_Data/
+App_Browsers/
+
+#========================================================================================> WEB
+src/Compent.uIntra/Media/*
+src/Compent.uIntra/build/*
+!src/Compent.uIntra/Media/Web.config
+!src/Compent.uIntra/App_Data/packages/
+!src/Compent.uIntra/App_Data/Models/
+src/Compent.uIntra/Content/images/bell.png
+src/Compent.uIntra/Content/images/logout.png
+src/Compent.uIntra/Content/images/umbraco.png
+src/Compent.uIntra/Content/images/user.png
+src/Compent.uIntra/Content/images/search.png
+src/Compent.uIntra/Content/images/home.png
+
+
+#========================================================================================> LIKES
+src/uIntra.Likes/App_Plugins/Core/
+
+#========================================================================================> SUBSCRIBE
+src/uIntra.Subscribe/App_Plugins/Core/
+
+#========================================================================================> COMMENTS
+src/uIntra.Comments/App_Plugins/Core/
+
+#========================================================================================> NAVIGATION
+src/uIntra.Navigation/App_Plugins/Core/
+
+#========================================================================================> CENTRAL FEED
+src/uIntra.CentralFeed/Config/
+src/uIntra.CentralFeed/App_Plugins/Core/
+
+#========================================================================================> NEWS
+src/uIntra.News/App_Plugins/Core/
+
+#========================================================================================> NOTIFICATIONS
+src/uIntra.Notification/App_Plugins/Core/
+
+#========================================================================================> EVENTS
+src/uIntra.Events/App_Plugins/Core/
+
+#========================================================================================> SEARCH
+src/uIntra.Search/App_Plugins/Core/
+
+design/uCommunity__(v0.2.7)(2).psd
+
+src/uIntra.Notification/App_Plugins/Archetype/
+
+src/Compent\.uIntra/Views/Shared/_Layout-output\.cshtml
+src/Compent.uIntra/Web.config

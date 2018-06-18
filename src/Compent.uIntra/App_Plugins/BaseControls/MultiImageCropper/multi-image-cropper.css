@@ -1,0 +1,172 @@
+﻿.multimedia-picker._value-selected._single-mode .select-media-btn {
+    display: none;
+}
+
+.multimedia-picker .media-item-holder {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.multimedia-picker .select-media-btn {
+    display: flex;
+    margin: 0 5px 0 0;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border: 2px dashed #7188a0;
+    border: 2px dashed rgba(113, 136, 160, .6);
+    text-align: center;
+}
+
+    .multimedia-picker .select-media-btn:hover {
+        cursor: pointer;
+        background: #f8f8f8;
+        background: rgba(248, 248, 248, .8);
+    }
+
+    .multimedia-picker .select-media-btn > i {
+        color: green;
+        font-size: 30px;
+    }
+
+.multimedia-picker._value-selected .media-item {
+    display: block;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.multimedia-picker .media-item {
+    display: none;
+    border: 1px solid #7188a0;
+    border: 1px solid rgba(113, 136, 160, .6);
+}
+
+    .multimedia-picker .media-item.__image.__svg .focal-point-editor,
+    .multimedia-picker .media-item.__image.__svg .crops-list,
+    .multimedia-picker .media-item.__image:not(.__svg) .svg-image-preview {
+        display: none;
+    }
+
+    .multimedia-picker .media-item .document-placeholder {
+        display: none;
+        text-align: center;
+    }
+
+        .multimedia-picker .media-item .document-placeholder > i {
+            position: relative;
+            font-size: 40px;
+            display: block;
+            margin: 40px;
+            top: calc(50% - 10px);
+        }
+
+    .multimedia-picker .media-item:not(.__image) .document-placeholder {
+        display: block;
+    }
+
+    .multimedia-picker .media-item .svg-image-preview {
+        width: 250px;
+        float: left;
+        margin: 0 10px 0 0;
+        overflow: hidden;
+    }
+
+    .multimedia-picker .media-item .focal-point-editor {
+        max-width: 250px;
+        max-height: 340px;
+        margin: 0 10px 0 0;
+        float: left;
+        overflow: hidden;
+    }
+
+    .multimedia-picker .media-item .crops-list {
+        list-style-type: none;
+        padding: 10px;
+        margin: 0;
+        border: 1px solid #7188a0;
+        border: 1px solid rgba(113, 136, 160, .6);
+        overflow: hidden;
+        display: inline-block;
+    }
+
+        .multimedia-picker .media-item .crops-list:hover {
+            cursor: pointer;
+            background: #f8f8f8;
+            background: rgba(248, 248, 248, .8);
+        }
+
+        .multimedia-picker .media-item .crops-list li {
+            display: flex;
+            margin: 10px 0 0;
+        }
+
+            .multimedia-picker .media-item .crops-list li:first-child {
+                margin: 0;
+            }
+
+        .multimedia-picker .media-item .crops-list .crop-information {
+            margin-left: 10px;
+        }
+
+            .multimedia-picker .media-item .crops-list .crop-information .crop-name {
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+    .multimedia-picker .media-item .item-controls {
+        height: 20px;
+        font-size: 25px;
+        float: right;
+        margin: -10px -10px 0 0;
+    }
+
+        .multimedia-picker .media-item .item-controls .button {
+            float: right;
+            font-size: 20px;
+        }
+
+            .multimedia-picker .media-item .item-controls .button.__delete {
+                color: red;
+            }
+
+            .multimedia-picker .media-item .item-controls .button:hover {
+                cursor: pointer;
+            }
+
+
+.multimedia-picker .edit-crop-overlay .crop-item {
+    margin: 20px 0;
+    border-bottom: 1px solid #7188a0;
+    border-bottom: 1px solid rgba(113, 136, 160, .6);
+    text-align: center;
+}
+
+    .multimedia-picker .edit-crop-overlay .crop-item:last-of-type {
+        border: none;
+    }
+
+    .multimedia-picker .edit-crop-overlay .crop-item .crop-information {
+        margin-bottom: 10px;
+    }
+
+        .multimedia-picker .edit-crop-overlay .crop-item .crop-information .name {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+    .multimedia-picker .edit-crop-overlay .crop-item .overlay {
+        z-index: 9999;
+    }
+
+.multimedia-picker .umb-crop-thumbnail-container img {
+    max-width: initial;
+}
+
+.show-validation.ng-invalid .control-group.error .ng-invalid > .multimedia-picker .select-media-btn {
+    border-color: #9d261d;
+}
+
+    .show-validation.ng-invalid .control-group.error .ng-invalid > .multimedia-picker .select-media-btn i {
+        color: #9d261d;
+    }

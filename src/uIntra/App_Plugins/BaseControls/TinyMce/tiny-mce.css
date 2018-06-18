@@ -1,0 +1,16 @@
+.umb-grid .mce-tinymce {
+    border: 1px solid #ccc !important;
+}
+
+.show-validation.ng-invalid .control-group.error tiny-mce.ng-invalid > .mce-tinymce {
+    border-color: #9d261d !important;
+}
+blockquote:before {
+    content:open-quote;
+}
+blockquote:after {
+    content:close-quote;
+}
+blockquote p{
+    display:inline-block;
+}

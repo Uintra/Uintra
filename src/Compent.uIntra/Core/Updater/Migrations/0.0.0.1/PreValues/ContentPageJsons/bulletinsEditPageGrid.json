@@ -1,0 +1,94 @@
+﻿{
+  "name": "1 column layout",
+  "sections": [
+    {
+      "grid": 8,
+      "allowAll": false,
+      "allowed": [
+        "Main"
+      ],
+      "rows": [
+        {
+          "label": "",
+          "name": "Main",
+          "areas": [
+            {
+              "grid": 12,
+              "allowAll": false,
+              "allowed": [
+                "custom.NewsEdit",
+                "custom.NewsCreate",
+                "custom.NewsOverview",
+                "custom.NewsDetails",
+                "custom.BulletinsCreate",
+                "custom.BulletinsEdit",
+                "custom.BulletinsDetails",
+                "custom.CentralFeed",
+                "custom.EventsCreate",
+                "custom.EventsEdit",
+                "custom.EventsDetails",
+                "custom.ComingEvents",
+                "custom.NotificationList",
+                "custom.ContentPanel",
+                "custom.GlobalPanelPicker",
+                "custom.DocumentLibraryPanel",
+                "custom.SearchResult",
+                "custom.Profile",
+                "custom.ProfileEdit",
+                "custom.Comments",
+                "custom.GroupActivityCreate",
+                "custom.GroupActivityDetails",
+                "custom.GroupActivityEdit",
+                "custom.ActivityCreate",
+                "custom.ActivityDetails",
+                "custom.ActivityEdit"
+              ],
+              "hasConfig": false,
+              "controls": [
+                {
+                  "value": null,
+                  "editor": {
+                    "alias": "custom.ActivityEdit"
+                  },
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "hasConfig": false,
+          "id": "9c988130-be42-b5fe-f05e-e4cf9ff0fbd6"
+        }
+      ]
+    },
+    {
+      "grid": 4,
+      "allowAll": false,
+      "allowed": [
+        "Right side"
+      ],
+      "rows": [
+        {
+          "label": "",
+          "name": "Right side",
+          "areas": [
+            {
+              "grid": 12,
+              "allowAll": false,
+              "allowed": [
+                "custom.ContentPanel",
+                "custom.GlobalPanelPicker",
+                "custom.DocumentLibraryPanel",
+                "custom.LatestActivities",
+                "custom.ComingEvents"
+              ],
+              "hasConfig": false,
+              "controls": []
+            }
+          ],
+          "hasConfig": false,
+          "id": "281c9bb6-f2bc-c109-f095-9f77621e9f5a"
+        }
+      ]
+    }
+  ]
+}

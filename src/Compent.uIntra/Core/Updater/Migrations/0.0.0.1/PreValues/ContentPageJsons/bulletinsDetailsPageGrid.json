@@ -1,0 +1,98 @@
+﻿{
+  "name": "1 column layout",
+  "sections": [
+    {
+      "grid": 8,
+      "allowAll": false,
+      "allowed": [
+        "Main"
+      ],
+      "rows": [
+        {
+          "label": "",
+          "name": "Main",
+          "areas": [
+            {
+              "grid": 12,
+              "allowAll": false,
+              "allowed": [
+                "custom.NewsEdit",
+                "custom.NewsCreate",
+                "custom.NewsOverview",
+                "custom.NewsDetails",
+                "custom.BulletinsCreate",
+                "custom.BulletinsEdit",
+                "custom.BulletinsDetails",
+                "custom.CentralFeed",
+                "custom.EventsCreate",
+                "custom.EventsEdit",
+                "custom.EventsDetails",
+                "custom.ComingEvents",
+                "custom.NotificationList",
+                "custom.ContentPanel",
+                "custom.GlobalPanelPicker",
+                "custom.DocumentLibraryPanel",
+                "custom.SearchResult",
+                "custom.Profile",
+                "custom.ProfileEdit",
+                "custom.Comments",
+                "custom.GroupActivityCreate",
+                "custom.GroupActivityDetails",
+                "custom.GroupActivityEdit",
+                "custom.ActivityCreate",
+                "custom.ActivityDetails",
+                "custom.ActivityEdit"
+              ],
+              "hasConfig": false,
+              "controls": [
+                {
+                  "value": null,
+                  "editor": {
+                    "alias": "custom.ActivityDetails"
+                  },
+                  "active": true
+                }
+              ],
+              "hasActiveChild": true,
+              "active": true
+            }
+          ],
+          "hasConfig": false,
+          "id": "9e9bb668-71f9-ea1f-2d10-7fdc71500a16",
+          "hasActiveChild": true,
+          "active": true
+        }
+      ]
+    },
+    {
+      "grid": 4,
+      "allowAll": false,
+      "allowed": [
+        "Right side"
+      ],
+      "rows": [
+        {
+          "label": "",
+          "name": "Right side",
+          "areas": [
+            {
+              "grid": 12,
+              "allowAll": false,
+              "allowed": [
+                "custom.ContentPanel",
+                "custom.GlobalPanelPicker",
+                "custom.DocumentLibraryPanel",
+                "custom.LatestActivities",
+                "custom.ComingEvents"
+              ],
+              "hasConfig": false,
+              "controls": []
+            }
+          ],
+          "hasConfig": false,
+          "id": "88e630a9-b57c-a794-0926-b8a5f2e869c3"
+        }
+      ]
+    }
+  ]
+}

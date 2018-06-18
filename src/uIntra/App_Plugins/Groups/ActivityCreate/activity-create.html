@@ -1,0 +1,16 @@
+﻿<dummy-view text="Group activity create page"></dummy-view>
+<div class="panel" ng-controller="centralFeedController  as ctrl" ng-init="init(control)">
+    <div class="span12">
+        <span class="span12 control-label">{{control.value.title}}</span>
+    </div>
+    <div class="span12">
+        <input class="btn span12" type="button" ng-click="open()" value="Edit">
+        <umb-overlay ng-if="overlay.show"
+                     model="overlay"
+                     position="right"
+                     style="width: 1200px">
+            <div ng-include="overlay.view"></div>
+        </umb-overlay>
+    </div>
+</div>
+<!--mmm-->

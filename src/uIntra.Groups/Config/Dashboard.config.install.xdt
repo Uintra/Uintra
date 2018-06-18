@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<dashBoard xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <section alias="groups" xdt:Locator="Condition(@alias='groups')" xdt:Transform="InsertIfMissing">
+    <areas>
+      <area>groups</area>
+    </areas>
+    <tab caption="Groups management">
+      <control>
+        /App_Plugins/Groups/backoffice/Management/groups-management.html
+      </control>
+    </tab>
+  </section>
+</dashBoard>

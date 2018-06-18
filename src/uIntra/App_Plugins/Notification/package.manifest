@@ -1,0 +1,14 @@
+﻿{
+  "gridEditors": [
+    {
+      "name": "Notification List",
+      "alias": "custom.NotificationList",
+      "view": "/App_Plugins/Notification/List/notification-list.html",
+      "icon": "icon-bell color-red",
+      "config": {
+        "controller": "Notification",
+        "action": "Overview"
+      }
+    }
+  ]
+}

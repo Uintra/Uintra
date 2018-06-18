@@ -1,0 +1,22 @@
+﻿@using System.Web.Mvc.Html
+@model Uintra.Core.Activity.IntranetActivityOwnerEditModel
+
+@if (Model.CanEditOwner)
+{
+    <select class="js-user-select form-control" name="@Model.OwnerIdPropertyName">
+        @foreach (var user in Model.Users)
+        {
+            <option value="@user.Id" selected="@(user.Id == Model.Owner.Id)">@user.DisplayedName</option>
+        }
+    </select>
+}
+else
+{
+    <input type="hidden" name="@Model.OwnerIdPropertyName" value="@Model.Owner.Id" />
+    @Html.Action("Photo", "User", new
+{
+    user = Model.Owner,
+    profilePageUrl = Model.Links.Owner
+})
+    <span>@Model.Owner.DisplayedName</span>
+}

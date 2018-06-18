@@ -1,0 +1,11 @@
+﻿@using Uintra.Core.Extensions
+@using Compent.Extensions
+@model Uintra.Subscribe.SubscribeOverviewModel
+@{
+    var title = Model.Title.IsNullOrEmpty() ? Html.Localize("SubscribersOverView.Title.lbl") : Model.Title;
+}
+<div class="subscribe-overview js-subscribe-overview" style="display: none" data-activity-id="@Model.ActivityId">
+    <input type="hidden" class="js-subscribe-version" />
+    <h3 class="subscribe-overview__title js-subscribe-title" data-text="@title"></h3>
+    <ul class="subscribe-list js-subscribe-list"></ul>
+</div>

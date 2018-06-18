@@ -1,0 +1,47 @@
+{
+  "DefaultNotifier": "UiNotifier",
+  "NotifierConfigurations": [
+    {
+      "NotifierType": "EmailNotifier",
+      "Enabled": true
+    },
+    {
+      "NotifierType": "UiNotifier",
+      "Enabled": true
+    }
+  ],
+  "NotificationTypeConfigurations": [
+    {
+      "NotificationType": "EventUpdated",
+      "NotifierTypes": [ "UiNotifier", "EmailNotifier" ]
+    },
+    {
+      "NotificationType": "EventHided",
+      "NotifierTypes": [ "UiNotifier", "EmailNotifier" ]
+    },
+    {
+      "NotificationType": "BeforeStart",
+      "NotifierTypes": [ "UiNotifier", "EmailNotifier" ]
+    },
+    {
+      "NotificationType": "ActivityLikeAdded",
+      "NotifierTypes": [ "UiNotifier" ]
+    },
+    {
+      "NotificationType": "CommentLikeAdded",
+      "NotifierTypes": [ "UiNotifier" ]
+    },
+    {
+      "NotificationType": "CommentAdded",
+      "NotifierTypes": [ "UiNotifier", "EmailNotifier" ]
+    },
+    {
+      "NotificationType": "CommentEdited",
+      "NotifierTypes": [ "UiNotifier", "EmailNotifier" ]
+    },
+    {
+      "NotificationType": "CommentReplied",
+      "NotifierTypes": [ "UiNotifier", "EmailNotifier" ]
+    }
+  ]
+}

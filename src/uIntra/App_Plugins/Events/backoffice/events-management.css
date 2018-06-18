@@ -1,0 +1,118 @@
+﻿._events-section-color {
+    color: rgb(255, 255, 0);
+}
+
+.events-management .events-edit,
+.events-management ._admin {
+    display: none;
+}
+.events-management._admin-mode ._admin {
+    display: block;
+}
+.events-management._admin-mode th._admin,
+.events-management._admin-mode td._admin {
+    display: table-cell;
+}
+
+.events-management {
+    display: flex;
+}
+
+.events-table {
+    width: 100%;
+}
+.events-table .filters {
+    display: flex;
+}
+.events-table .filter-group {
+    flex: 0 auto;
+    margin: 0 10px;
+}
+.events-table .filter-group:first-child {
+    margin-left: 0;
+}
+.events-table .text-filter:not(._admin) {
+    display: block;
+}
+.events-table .table tr:hover {
+    background: rgb(248, 248, 248);
+    cursor: pointer;
+}
+.events-table .table tr._active {
+    background: rgb(248, 248, 248);
+}
+.events-table .table tr._unpublished {
+    background: rgb(232, 234, 237);
+}
+.events-table .table td {
+    vertical-align: middle;
+}
+.events-table .btn {
+    min-width: 93px;
+    margin: 2px 0;
+}
+.events-table .create-events-btn {
+    text-align: center;
+    color: rgb(0, 128, 0);
+}
+.events-table .create-events-btn > i {
+    font-size: 35px;
+    margin: 5px 0;
+    display: block;
+}
+.events-table .create-events-btn:hover {
+    color: #008000;
+    color: rgba(0, 128, 0, .8);
+}
+
+
+.events-management._events-selected .events-edit {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    width: 500px;
+    background: #fff;
+    z-index:9999;
+}
+
+.events-edit {
+    padding: 0 10px;
+    margin-left: 10px;
+    border-left: 1px solid #dbdbdb;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+}
+.events-edit .close-btn {
+    font-size: 20px;
+    float: right;
+    display: block;
+    margin: 10px 0 0;
+}
+.events-edit .close-btn:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+.events-edit-form.ng-dirty input[type="text"].ng-invalid,
+.events-edit-form.ng-dirty textarea.ng-invalid {
+    border-color: red !important;
+}
+.events-edit-form .validation-summary-errors {
+    display: none;
+}
+.events-edit-form.ng-invalid.ng-dirty .validation-summary-errors {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid red;
+    display: block;
+    width: 600px;
+}
+.events-edit-form.ng-invalid.ng-dirty .validation-summary-errors .field-validation-error {
+    color: red;
+}
+.events-edit .note{
+    display:block;
+    font-size:12px;
+    color:#ccc;
+}

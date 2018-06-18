@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<applications xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <add alias="groups" name="Groups" icon="icon-chat color-red" sortOrder="1" xdt:Locator="Condition(@alias='groups')" xdt:Transform="InsertIfMissing"/>
+</applications>

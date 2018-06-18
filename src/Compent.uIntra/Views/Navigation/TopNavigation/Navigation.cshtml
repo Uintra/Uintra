@@ -1,0 +1,47 @@
+﻿@using Compent.Extensions
+@using Uintra.Core.Extensions
+@model Uintra.Navigation.TopNavigationViewModel
+
+@{
+    var userAvatarClass = Model.CurrentUser.Photo.HasValue() ? "_with-avatar" : string.Empty;
+    var userAvatar = Model.CurrentUser.Photo.HasValue() ? $"{Model.CurrentUser.Photo}?width=30&height=30&mode=crop" : string.Empty;
+}
+
+<a href="#" class="menu__burger js-menu-opener">
+    <span class="menu__burger-line"></span>
+    <span class="menu__burger-line"></span>
+    <span class="menu__burger-line"></span>
+</a>
+
+<div class="holder">
+    <div class="search-holder">
+        @{ Html.RenderAction("SearchBox", "Search"); }
+        @{ Html.RenderAction("Preview", "Notification"); }
+    </div>
+    <div class="user">
+        <a class="user__opener icon-user @userAvatarClass">
+            <div class="user__avatar">
+                <img class="user__avatar-img" src="@userAvatar" width="30">
+            </div>
+            <span class="user__opener-arrow"></span>
+            <div class="greeting">
+                <strong class="greeting__username">@Model.CurrentUser.DisplayedName</strong>
+            </div>
+        </a>
+        <ul class="user__menu">
+            @{ Html.RenderAction("UmbracoContentLink", "Navigation"); }
+            <li class="user__menu-item">
+                <a class="user__menu-link" href="@Url.Action("EditPage", "Profile")">
+                    <span class="icon icon-user"></span>
+                    @Html.Localize("TopNavigation.EditProfile.lbl")
+                </a>
+            </li>
+            <li class="user__menu-item">
+                <a class="user__menu-link js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
+                    <span class="icon icon-logout"></span>
+                    @Html.Localize("TopNavigation.Logout.lbl")
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

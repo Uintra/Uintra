@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<dashBoard xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <section alias="StartupSettingsDashboardSection">
+    <tab caption="Navigation" xdt:Locator="Condition(@caption='Navigation')" xdt:Transform="InsertIfMissing">
+      <control>
+        ~/App_Plugins/Navigation/Dashboard/navigation.html
+      </control>
+    </tab>
+  </section>
+</dashBoard>

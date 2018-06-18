@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<dashBoard xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <section alias="bulletins" xdt:Transform="Remove" xdt:Locator="Match(alias)">
+    <areas>
+      <area>bulletins</area>
+    </areas>
+    <tab caption="Bulletins management">
+      <control>
+        ~/App_Plugins/Bulletins/backoffice/bulletins-management.html
+      </control>
+    </tab>
+  </section>
+</dashBoard>

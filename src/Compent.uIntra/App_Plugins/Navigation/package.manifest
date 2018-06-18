@@ -1,0 +1,9 @@
+{
+  "javascript": [
+    "~/App_Plugins/Navigation/Dashboard/navigation-service.js",
+    "~/App_Plugins/Navigation/Dashboard/navigation-controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/Navigation/Dashboard/navigation.css"
+  ]
+}

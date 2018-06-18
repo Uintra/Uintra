@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<dashBoard xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <section alias="events" xdt:Locator="Condition(@alias='events')" xdt:Transform="InsertIfMissing">
+    <areas>
+      <area>events</area>
+    </areas>
+    <tab caption="Events management">
+      <control>
+        ~/App_Plugins/Events/backoffice/events-management.html
+      </control>
+    </tab>
+  </section>
+</dashBoard>

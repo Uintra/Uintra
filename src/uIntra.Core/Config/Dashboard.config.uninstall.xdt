@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<dashBoard xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <section alias="StartupDeveloperDashboardSection">
+    <tab caption="Memory cache" xdt:Locator="Condition(@caption='Memory cache')" xdt:Transform="Remove">
+      <control>
+        ~/App_Plugins/Utils/backoffice/developer-reload-cache.html
+      </control>
+    </tab>
+  </section>
+</dashBoard>

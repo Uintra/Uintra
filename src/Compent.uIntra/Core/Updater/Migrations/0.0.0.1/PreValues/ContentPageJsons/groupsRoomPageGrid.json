@@ -1,0 +1,128 @@
+﻿{
+  "name": "1 column layout",
+  "sections": [
+    {
+      "grid": 8,
+      "allowAll": false,
+      "allowed": [
+        "Main"
+      ],
+      "rows": [
+        {
+          "label": "",
+          "name": "Main",
+          "areas": [
+            {
+              "grid": 12,
+              "allowAll": false,
+              "allowed": [
+                "custom.NewsEdit",
+                "custom.NewsCreate",
+                "custom.NewsOverview",
+                "custom.NewsDetails",
+                "custom.BulletinsCreate",
+                "custom.BulletinsEdit",
+                "custom.BulletinsDetails",
+                "custom.CentralFeed",
+                "custom.EventsCreate",
+                "custom.EventsEdit",
+                "custom.EventsDetails",
+                "custom.ComingEvents",
+                "custom.NotificationList",
+                "custom.ContentPanel",
+                "custom.GlobalPanelPicker",
+                "custom.DocumentLibraryPanel",
+                "custom.SearchResult",
+                "custom.Profile",
+                "custom.ProfileEdit",
+                "custom.Comments",
+                "custom.GroupActivityCreate",
+                "custom.GroupActivityDetails",
+                "custom.GroupActivityEdit",
+                "custom.ActivityCreate",
+                "custom.ActivityDetails",
+                "custom.ActivityEdit",
+                "custom.disabledGroup",
+                "custom.groupDocuments",
+                "custom.groupMembers",
+                "custom.groupEdit",
+                "custom.groupInfo",
+                "custom.CreateGroup",
+                "custom.GroupsOverview",
+                "custom.MyGroupsOverview",
+                "custom.GroupCentralFeedOverview"
+              ],
+              "hasConfig": false,
+              "controls": [
+                {
+                  "value": {
+                    "tabType": 4
+                  },
+                  "editor": {
+                    "alias": "custom.GroupActivityCreate"
+                  },
+                  "active": false
+                },
+                {
+                  "value": {
+                    "tabType": 0
+                  },
+                  "editor": {
+                    "alias": "custom.GroupCentralFeedOverview"
+                  },
+                  "active": true
+                }
+              ],
+              "active": true,
+              "hasActiveChild": true
+            }
+          ],
+          "hasConfig": false,
+          "id": "09b974fe-820f-658a-1688-3b510925ec3c",
+          "hasActiveChild": true,
+          "active": true
+        }
+      ]
+    },
+    {
+      "grid": 4,
+      "allowAll": false,
+      "allowed": [
+        "Right side column"
+      ],
+      "rows": [
+        {
+          "label": "",
+          "name": "Right side column",
+          "areas": [
+            {
+              "grid": 12,
+              "allowAll": false,
+              "allowed": [
+                "custom.ContentPanel",
+                "custom.GlobalPanelPicker",
+                "custom.DocumentLibraryPanel",
+                "custom.LatestActivities",
+                "custom.ComingEvents",
+                "custom.groupInfo"
+              ],
+              "hasConfig": false,
+              "controls": [
+                {
+                  "value": null,
+                  "editor": {
+                    "alias": "custom.groupInfo"
+                  },
+                  "active": false
+                }
+              ],
+              "active": false
+            }
+          ],
+          "hasConfig": false,
+          "id": "6a03c5f9-6ad8-154b-0cb9-4a6d4d81bc0b"
+        }
+      ]
+    }
+  ]
+}

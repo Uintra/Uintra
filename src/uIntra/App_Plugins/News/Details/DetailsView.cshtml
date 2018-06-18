@@ -1,0 +1,26 @@
+﻿@using System.Web.Mvc.Html
+@using uIntra.Core.Activity
+@using uIntra.Core.Extentions
+@model uIntra.News.NewsViewModel
+
+<section class="content">
+    <div class="row clearfix">
+        <header class="feed__header clearfix">
+            @if (Model.CanEdit)
+            {
+                <a class="btn pull-right" href="@ViewData.GetActivityEditPageUrl(Model.ActivityType.Id, Model.Id)">@Html.Localize("DetailsView.Edit.lbl")</a>
+            }
+            <a class="link__back" href="@($"{ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id)}#{Model.Id}")">@Html.Localize("DetailsView.GoToList.lbl")</a>
+        </header>
+
+        <div class="feed__item _details">
+            @Html.Action("DetailsHeader", "Activity", new { header = Model.HeaderInfo })
+            <div class="feed__item-txt">
+                @Html.Raw(Model.Description)
+            </div>
+            <div class="feed__item-images">
+                @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
+            </div>
+        </div>
+    </div>
+</section>

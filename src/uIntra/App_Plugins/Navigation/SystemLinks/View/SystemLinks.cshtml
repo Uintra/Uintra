@@ -1,0 +1,29 @@
+﻿@using Uintra.Core.Extensions
+@model  List<Uintra.Navigation.SystemLinksViewModel>
+
+<ul class="side-nav _system" id="systemLinksContainer">
+    <li class="side-nav__item js-systemLinks__item" data-id="systemLinksState">
+        <a class="side-nav__link _title-link"><span class="icon-link side-nav__icon"></span> @Html.Localize("SystemLinks.Menu.lbl")</a>
+        <span class="side-nav__arrow js-systemLinks__opener"></span>
+        @foreach (var group in Model)
+        {
+            <ul class="side-nav">
+                @if (Model.Count > 1)
+                {
+                    <li class="side-nav__item">
+                        <a class="side-nav__link _title">@group.LinksGroupTitle</a>
+                    </li>
+                }
+                @foreach (var item in group.SystemLinks)
+                {
+                    <li class="side-nav__item">
+                        <a class="side-nav__link" href="@item.Url" target="@item.Target">
+                            @item.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </li>
+    <li class="side-nav__item"><i class="systemLinks__icon"></i></li>
+</ul>

@@ -1,0 +1,69 @@
+﻿<umb-panel>
+    <umb-header>
+        <div class="umb-headline-editor-wrapper span12 ng-scope">
+            <h1 class="ng-binding">Localization</h1>
+        </div>
+    </umb-header>
+
+    <div class="umb-panel-body custom-umb-panel-body">
+        <fieldset class="umb-pane localization" ng-controller="localizationOverviewController as vm"
+                  ng-disabled="vm.workspaceDisabled">
+
+            <div class="btn-holder">
+                <input type="button" value="Create" class="btn btn-success" ng-click="vm.create()" />
+                <input type="button" value="Refresh" class="btn btn-info" ng-click="vm.refresh()" />
+
+                <input type="text" class="filter-input filter-field" placeholder="Filter by key, values, etc"
+                       ng-model="vm.filter.text" /> 
+                
+                <label>
+                    <input type="checkbox" class="filter-field" ng-model="vm.filter.showActive" />
+                    Show choosen
+                </label>
+            </div>
+
+            <ul class="localization__table">
+                <li class="localization__table-heading">
+                    <div class="localization__table-title localization__table-cell">Key</div>
+                    <div class="localization__table-title localization__table-cell"
+                         ng-repeat="language in vm.languages">{{language}}</div>
+                    <div class="localization__table-title localization__table-cell"
+                         ng-if="vm.listSettings.isShowUpdateDate">Last update</div>
+                    <div class="localization__table-title localization__table-cell"
+                         ng-if="vm.listSettings.isShowDescription">Description</div>
+                    <div class="localization__table-title localization__table-cell">Parent</div>
+                    <div class="localization__table-title localization__table-cell">Edit</div>
+                </li>
+                
+                <li class="localization__table-row" ng-repeat="resource in vm.resources | filter: vm.filterResources | filter: vm.filterActive"
+                    ng-class="{'_new': resource.isNew, '_active': resource.isActive }"
+                    ng-click="vm.activate(resource)">
+                    <div class="localization__table-cell">
+                        <span>{{resource.key}}</span>
+                    </div>
+                    <div class="localization__table-cell"
+                         ng-repeat="(isoCode, name) in vm.languages">
+                        <span>{{resource.translations[isoCode]}}</span>
+                    </div>
+                    <div class="localization__table-cell"
+                         ng-if="vm.listSettings.isShowUpdateDate">{{resource.updateDate | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                    <div class="localization__table-cell"
+                         ng-if="vm.listSettings.isShowDescription">
+                        <span>{{resource.description}}</span>
+                    </div>
+                    <div class="localization__table-cell">
+                        {{resource.parentKey}}
+                    </div>
+                    <div class="localization__table-cell">
+                        <input type="button" value="Edit" class="btn btn-success"
+                               ng-click="vm.edit(resource, $event)" ng-disabled="resource.disabled" />
+                        <input type="button" value="Delete" class="btn btn-danger"
+                               ng-if="vm.permissions.isCanDelete"
+                               ng-click="vm.delete(resource, $event)" ng-disabled="resource.disabled" />
+                    </div>
+                </li>
+            </ul>
+
+        </fieldset>
+    </div>
+</umb-panel>

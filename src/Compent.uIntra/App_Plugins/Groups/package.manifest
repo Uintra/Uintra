@@ -1,0 +1,134 @@
+﻿{
+  "gridEditors": [
+    {
+      "name": "Group Central Feed Overview",
+      "alias": "custom.GroupCentralFeedOverview",
+      "view": "/App_Plugins/Groups/backoffice/group-central-feed-view.html",
+      "icon": "icon-chat color-green",
+      "config": {
+        "controller": "GroupFeed",
+        "action": "Overview"
+      }
+    },
+    
+    {
+      "name": "Group activity create",
+      "alias": "custom.GroupActivityCreate",
+      "view": "/App_Plugins/Groups/ActivityCreate/activity-create.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "GroupFeed",
+        "action": "Create"
+      }
+    },
+    {
+      "name": "Group activity details",
+      "alias": "custom.GroupActivityDetails",
+      "view": "/App_Plugins/Groups/ActivityDetails/activity-details.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "GroupFeed",
+        "action": "Details"
+      }
+    },
+    {
+      "name": "Group activity edit",
+      "alias": "custom.GroupActivityEdit",
+      "view": "/App_Plugins/Groups/ActivityEdit/activity-edit.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "GroupFeed",
+        "action": "Edit"
+      }
+    },
+    {
+      "name": "My Groups Overview",
+      "alias": "custom.MyGroupsOverview",
+      "view": "/App_Plugins/Groups/List/group-list.html",
+      "icon": "icon-eye color-green",
+      "config": {
+        "controller": "Group",
+        "action": "MyGroupsOverview"
+      }
+
+    },
+    {
+      "name": "Groups Overview",
+      "alias": "custom.GroupsOverview",
+      "view": "/App_Plugins/Groups/List/group-list.html",
+      "icon": "icon-eye color-green",
+      "config": {
+        "controller": "Group",
+        "action": "Overview"
+      }
+    },
+    {
+      "name": "Create Group",
+      "alias": "custom.CreateGroup",
+      "view": "/App_Plugins/Groups/Create/group-create.html",
+      "icon": "icon-settings-alt color-green",
+      "config": {
+        "controller": "Group",
+        "action": "Create"
+      }
+    },
+    {
+      "name": "Group Info",
+      "alias": "custom.groupInfo",
+      "view": "/App_Plugins/Groups/Room/Info/group-info.html",
+      "icon": "icon-settings-alt color-green",
+      "config": {
+        "controller": "Group",
+        "action": "Info"
+      }
+    },
+    {
+      "name": "Edit Group",
+      "alias": "custom.groupEdit",
+      "view": "/App_Plugins/Groups/Edit/group-edit.html",
+      "icon": "icon-settings-alt color-green",
+      "config": {
+        "controller": "Group",
+        "action": "Edit"
+      }
+    },
+    {
+      "name": "Group Members",
+      "alias": "custom.groupMembers",
+      "view": "/App_Plugins/Groups/Room/Members/group-members.html",
+      "icon": "icon-umb-members color-green",
+      "config": {
+        "controller": "Group",
+        "action": "GroupMembers"
+      }
+    },
+    {
+      "name": "Group Documents",
+      "alias": "custom.groupDocuments",
+      "view": "/App_Plugins/Groups/Room/Documents/group-documents.html",
+      "icon": "icon-inbox-full color-green",
+      "config": {
+        "controller": "GroupDocuments",
+        "action": "Documents"
+      }
+    },
+    {
+      "name": "Disabled group",
+      "alias": "custom.disabledGroup",
+      "view": "/App_Plugins/Groups/DisabledGroupView/disabled-group.html",
+      "icon": "icon-application-error color-green",
+      "config": {
+        "controller": "Group",
+        "action": "DisabledView"
+      }
+    }
+  ],
+  "javascript": [
+    "/App_Plugins/Groups/backoffice/groupCentralFeedController.js",
+    "/App_Plugins/Groups/backoffice/groupCentralFeedService.js",
+    "/App_Plugins/Groups/backoffice/Management/groups-management.js"
+  ],
+  "css": [
+    "/App_Plugins/Groups/backoffice/Management/groups-management.css"
+  ]
+}

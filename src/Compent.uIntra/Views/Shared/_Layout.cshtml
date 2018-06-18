@@ -1,0 +1,90 @@
+﻿@using Uintra.Core.Extensions
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@Html.Localize("SitePrefix.lbl") @{Html.RenderAction("GetTitle", "Navigation");}</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- tells htmlWebpackPlugin where to incject css files -->
+    <% for (var css in htmlWebpackPlugin.files.css) { %>
+    <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+    <% } %>
+</head>
+<body>
+<div id="wrapper" class="_loading">
+    @{Html.RenderAction("ShowPopupNotifications", "Notification");}
+    @{Html.RenderAction("BrowserCompatibility", "BrowserCompatibility");}
+    <header id="header">
+        <div class="centring">
+            <strong class="logo">
+                <a class="logo__link" href="/"><img src="~/Content/images/logo.svg" class="logo__img" width="21" height="33"></a>
+            </strong>
+            @{Html.RenderAction("TopNavigation", "Navigation");}
+            <a href="#" id="js-aside-opener" class="aside__opener _for-mobile"></a>
+        </div>
+    </header>
+    <aside id="sidebar" class="js-sidebar">
+        <a href="#" class="sidebar-close icon-close _for-mobile js-sidebar-close"></a>
+        @{Html.RenderAction("SearchBox", "Search"); }
+        <div class="sidebar__holder">
+            @{Html.RenderAction("LeftNavigation", "Navigation"); }
+            @{Html.RenderAction("LeftNavigation", "Group"); }
+            @{Html.RenderAction("SystemLinks", "Navigation"); }
+            @{Html.RenderAction("Overview", "MyLinks"); }
+            @{Html.RenderAction("LeftNavigationUserMenu", "Navigation"); }
+        </div>
+    </aside>
+    <main id="main">
+        <div class="centring">
+            <div class="holder">
+                @{Html.RenderAction("SubNavigation", "Navigation");}
+
+                @RenderBody()
+            </div>
+        </div>
+    </main>
+</div>
+    <a id="toTop" class="top">Go to top</a>
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__counter"></div>
+                <div class="pswp__top-bar">
+                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+                <button class="pswp__button pswp__button--arrow--left icon-arrow-left" title="Previous (arrow left)"></button>
+                <button class="pswp__button pswp__button--arrow--right icon-arrow-right" title="Next (arrow right)"></button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+    <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+    <% } %>
+</body>
+</html>

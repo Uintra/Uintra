@@ -1,0 +1,117 @@
+﻿._bulletins-section-color {
+    color: rgb(255, 255, 0);
+}
+
+.bulletins-management .bulletins-edit,
+.bulletins-management ._admin {
+    display: none;
+}
+.bulletins-management._admin-mode ._admin {
+    display: block;
+}
+.bulletins-management._admin-mode th._admin,
+.bulletins-management._admin-mode td._admin {
+    display: table-cell;
+}
+
+.bulletins-management {
+    display: flex;
+}
+
+.bulletins-table {
+    width: 100%;
+}
+.bulletins-table .filters {
+    display: flex;
+}
+.bulletins-table .filter-group {
+    flex: 0 auto;
+    margin: 0 10px;
+}
+.bulletins-table .filter-group:first-child {
+    margin-left: 0;
+}
+.bulletins-table .text-filter:not(._admin) {
+    display: block;
+}
+.bulletins-table .table tr:hover {
+    background: rgb(248, 248, 248);
+    cursor: pointer;
+}
+.bulletins-table .table tr._active {
+    background: rgb(248, 248, 248);
+}
+.bulletins-table .table tr._unpublished {
+    background: rgb(232, 234, 237);
+}
+.bulletins-table .table td {
+    vertical-align: middle;
+}
+.bulletins-table .btn {
+    min-width: 93px;
+}
+.bulletins-table .create-bulletins-btn {
+    text-align: center;
+    color: rgb(0, 128, 0);
+}
+.bulletins-table .create-bulletins-btn > i {
+    font-size: 35px;
+    margin: 5px 0;
+    display: block;
+}
+.bulletins-table .create-bulletins-btn:hover {
+    color: #008000;
+    color: rgba(0, 128, 0, .8);
+}
+
+
+.bulletins-management._bulletins-selected .bulletins-edit {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    width: 500px;
+    background: #fff;
+    z-index:9999;
+}
+
+.bulletins-edit {
+    padding: 0 10px;
+    margin-left: 10px;
+    border-left: 1px solid #dbdbdb;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+}
+.bulletins-edit .close-btn {
+    font-size: 20px;
+    float: right;
+    display: block;
+    margin: 10px 0 0;
+}
+.bulletins-edit .close-btn:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+.bulletins-edit-form.ng-dirty input[type="text"].ng-invalid,
+.bulletins-edit-form.ng-dirty textarea.ng-invalid {
+    border-color: red !important;
+}
+.bulletins-edit-form .validation-summary-errors {
+    display: none;
+}
+.bulletins-edit-form.ng-invalid.ng-dirty .validation-summary-errors {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid red;
+    display: block;
+    width: 600px;
+}
+.bulletins-edit-form.ng-invalid.ng-dirty .validation-summary-errors .field-validation-error {
+    color: red;
+}
+.bulletins-edit .note{
+    display:block;
+    font-size:12px;
+    color:#ccc;
+}

@@ -1,0 +1,12 @@
+﻿@using Uintra.Core.Extensions
+@model Uintra.Notification.NotificationPreviewViewModel
+
+<div class="notification">
+    <a href="#" class="icon-bell notification__icon js-notification">
+        <span class="js-notification__number notification__number"></span>
+    </a>
+    <div class="notification__list-holder">
+        <div class="notification__list-frame js-notification-list _loading"></div>
+        <a class="notification__all" href="@Model.NotificationsUrl">@Html.Localize("NotificationPreview.ShowAllNotifications.lbl")</a>
+    </div>
+</div>

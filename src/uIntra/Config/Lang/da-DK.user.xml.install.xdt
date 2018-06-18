@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <area alias="sections" xdt:Locator="Condition(@alias='sections')" xdt:Transform="InsertIfMissing">
+    <key alias="news" xdt:Locator="Condition(@alias='news')" xdt:Transform="InsertIfMissing">News</key>
+    <key alias="events" xdt:Locator="Condition(@alias='events')" xdt:Transform="InsertIfMissing">Events</key>
+    <key alias="news" xdt:Locator="Condition(@alias='news')" xdt:Transform="InsertIfMissing">News</key>
+    <key alias="Localization" xdt:Locator="Condition(@alias='Localization')" xdt:Transform="InsertIfMissing">Localization</key>
+    <key alias="SentMails" xdt:Locator="Condition(@alias='SentMails')" xdt:Transform="InsertIfMissing">Sent Mails</key>
+    <key alias="bulletins" xdt:Locator="Condition(@alias='bulletins')" xdt:Transform="InsertIfMissing">Bulletins</key>
+    <key alias="groups" xdt:Locator="Condition(@alias='groups')" xdt:Transform="InsertIfMissing">Groups</key>
+  </area>
+</language>

@@ -1,0 +1,36 @@
+﻿@using Uintra.Core.Extensions
+@model Compent.Uintra.Core.Activity.Models.ExtendedItemHeaderViewModel
+@{
+    var inactiveUser = Model.Owner.Inactive ? "_inactive" : string.Empty;
+}
+
+<header class="feed__item-heading @inactiveUser">
+    @Html.Action("Photo", "User", new { user = Model.Owner })
+    <div class="feed__item-title-holder">
+        <h2 class="feed__item-title">
+            <a class="feed__item-title-link" href="@Model.Links.Owner">@Model.Title</a>
+            <span class="feed__item-inactive">[@Html.Localize("ActivityItemHeader.Creator.Inactive.lbl")]</span>
+        </h2>
+        <p class="feed__item-meta">
+            <a class="feed__item-meta-link" href="@Model.Links.Details">
+                @foreach (var date in Model.Dates)
+                {
+                    <span class="feed__item-date">@date</span>
+                    <span class="feed__item-divider"> - </span>
+                }
+                <span class="feed__item-category">@Html.Localize(Model.Type.ToString())</span>
+            </a>
+            
+            @if (Model.GroupInfo.HasValue)
+            {
+                <span class="feed__item-group">
+                    <span class="feed__item-divider"> > </span>
+                    <a href="@Model.GroupInfo.Value.Url">
+                        @Model.GroupInfo.Value.Title
+                        <em class="feed__item-tooltip">@Html.Localize("GroupActivity.lbl")</em>
+                    </a>
+                </span>
+            }
+        </p>
+    </div>
+</header>

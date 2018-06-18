@@ -1,0 +1,48 @@
+﻿{
+  "gridEditors": [
+    {
+      "name": "Central feed",
+      "alias": "custom.CentralFeed",
+      "view": "/App_Plugins/CentralFeed/backoffice/central-feed-view.html",
+      "icon": "icon-article color-blue",
+      "config": {
+        "controller": "CentralFeed",
+        "action": "OverView"
+      }
+    },
+    {
+      "name": "Activity create",
+      "alias": "custom.ActivityCreate",
+      "view": "/App_Plugins/CentralFeed/ActivityCreate/activity-create.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "CentralFeed",
+        "action": "Create"
+      }
+    },
+    {
+      "name": "Activity details",
+      "alias": "custom.ActivityDetails",
+      "view": "/App_Plugins/CentralFeed/ActivityDetails/activity-details.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "CentralFeed",
+        "action": "Details"
+      }
+    },
+    {
+      "name": "Activity edit",
+      "alias": "custom.ActivityEdit",
+      "view": "/App_Plugins/CentralFeed/ActivityEdit/activity-edit.html",
+      "icon": "icon-settings-alt color-blue",
+      "config": {
+        "controller": "CentralFeed",
+        "action": "Edit"
+      }
+    }
+  ],
+  "javascript": [
+    "/App_Plugins/CentralFeed/backoffice/centralFeedController.js",
+    "/App_Plugins/CentralFeed/backoffice/centralFeedService.js"
+  ]
+}

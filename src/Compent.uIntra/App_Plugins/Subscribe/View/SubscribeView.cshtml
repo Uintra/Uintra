@@ -1,0 +1,34 @@
+﻿@using System.Web.Mvc.Ajax
+@using System.Web.Mvc.Html
+@using Uintra.Core.Extensions
+@model Uintra.Subscribe.SubscribeViewModel
+@{
+    Html.EnableUnobtrusiveJavaScript(true);
+    var elementId = $"subscribe_{@Model.ActivityId}";
+}
+@if (Model.UserId.HasValue)
+{
+    <div class="subscribe js-subscribe" id="@elementId">
+        <input type="hidden" class="js-subscribe-activity-id" value="@Model.ActivityId" />
+        <div class="subscribe__set">
+            @(Model.IsSubscribed
+                  ? Ajax.ActionLink(Html.Localize("SubscribeView.Unsubscribe.lnk"), "Unsubscribe", "Subscribe", new { activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = elementId, OnComplete = $"subscribe.init('#{elementId}');subscribe.notify(true);" }, new { @class = "btn _unsubscribe" })
+                  : Ajax.ActionLink(Html.Localize("SubscribeView.Subscribe.lnk"), "Subscribe", "Subscribe", new { activityId = Model.ActivityId }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = elementId, OnComplete = $"subscribe.init('#{elementId}');subscribe.notify(false);" }, new { @class = "btn _subscribe" }))
+        </div>
+        @if (Model.IsSubscribed && Model.HasNotification)
+        {
+            <div class="subscribe__label">
+                <div class="check">
+                    <label class="check__label">
+                        @Html.CheckBoxFor(m => m.IsNotificationDisabled, new { @class = "js-subscribe-notification-disable check__box", @data_id = Model.Id })
+                        <span class="check__fake-input icon-check"></span>
+                        <span class="check__fake-label js-subscribe-notification-label"
+                              data-text-disabled="@Html.Localize("SubscribeView.NotificationIsDisabled.lbl")"
+                              data-text-enabled="@Html.Localize("SubscribeView.NotificationIsEnabled.lbl")"></span>
+
+                    </label>
+                </div>
+            </div>
+        }
+    </div>
+}

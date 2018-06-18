@@ -1,0 +1,29 @@
+﻿.form{
+    &._profile{
+        @media(--for-tablet-portrait-down){
+            margin:0 -15px;
+            padding:20px 15px 33px;
+        }
+    }
+	&__header{
+		display: flex;
+	}
+
+	&__meta{
+		overflow: hidden;
+		flex-grow: 2;
+		margin: 0 0 0 20px;
+	}
+
+	&__name{
+		display: block;
+	}
+}
+
+.profile-edit {
+
+	.dropzone {
+		max-width: 100%;
+		margin: 0 20px 0 0;
+	}
+}

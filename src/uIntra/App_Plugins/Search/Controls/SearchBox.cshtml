@@ -1,0 +1,13 @@
+﻿@using Uintra.Core.Extensions
+@model Uintra.Search.SearchBoxViewModel
+
+<div class="search">
+    <form action="#" class="search__form">
+        <input class="search__input js-searchbox" type="search" name="query"
+               data-search-results-url="@Model.SearchResultsUrl"
+               data-autocomplete-url="@Url.Action("Autocomplete","Search")"
+               data-empty-text="@Html.Localize("SearchBox.Empty.lbl")"
+               placeholder="@Html.Localize("SearchBox.Placeholder.lbl")" />
+        <a class="search__button js-searchbox-icon" type="submit"><span class="icon-search"></span></a>
+    </form>
+</div>

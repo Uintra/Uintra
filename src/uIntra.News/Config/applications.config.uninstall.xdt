@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<applications xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <add alias="news" name="News" icon="icon-newspaper-alt color-red" sortOrder="1" xdt:Transform="Remove" xdt:Locator="Match(alias)"/>
+</applications>

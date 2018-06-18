@@ -1,0 +1,30 @@
+﻿@using System.Web.Mvc
+@using Uintra.Core.Extensions
+@using Umbraco.Web
+@model Uintra.Groups.GroupSubscribeViewModel
+@{
+    Html.EnableUnobtrusiveJavaScript(true);
+    var elementId = $"subscribe_{Model.GroupId}";
+}
+@if (Model.UserId.HasValue)
+{
+    <div class="content__item-subscribe" id="@elementId">
+        <div class="content__item-subscribe-set">
+            @using (Html.BeginUmbracoForm("Subscribe", "Group", FormMethod.Post, new { @class = "js-group-subscribe" }))
+            {
+                if (Model.IsMember)
+                {
+                    <p class="content__item-is-subscribed">@Html.Localize("GroupInfo.IsSubscribed.lbl")</p>
+                }
+                <input type="submit" 
+                       class="@(Model.IsMember ? "btn _submit _unsubscribe" : "btn _submit _subscribe")"
+                       value="@(Model.IsMember ? Html.Localize("GroupInfo.Unsubscribe.lnk") : Html.Localize("GroupInfo.Subscribe.lnk"))"
+                       data-title="@Html.Localize("GroupInfo.Unsubscribe.Title.lnk")"
+                       data-message="@Html.Localize("GroupInfo.Unsubscribe.Message.lnk")"
+                       />
+                <input type="hidden" name="@nameof(Model.GroupId)" value="@Model.GroupId" />
+                <input type="submit" hidden  />
+            }
+        </div>
+    </div>
+}

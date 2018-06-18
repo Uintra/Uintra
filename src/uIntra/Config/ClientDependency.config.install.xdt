@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<clientDependency version="1965987783" fileDependencyExtensions=".js,.css" loggerType="Umbraco.Web.UI.CdfLogger, umbraco" xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform" 
+                  xdt:Transform="SetAttributes">
+</clientDependency>

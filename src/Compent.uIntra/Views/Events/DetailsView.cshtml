@@ -1,0 +1,80 @@
+﻿@using System.Web.Mvc.Html
+@using Compent.Extensions
+@using Uintra.Core.Extensions
+@model Compent.Uintra.Core.Events.EventExtendedViewModel
+
+<section class="content">
+    <div class="feed__btns clearfix">
+        <a href="#" class="btn pull-right hide"><i class="glyphicon glyphicon-print"></i>@Html.Localize("DetailsView.Print.lbl")</a>
+        @if (Model.CanEdit)
+        {
+            <a class="btn pull-right" href="@Model.Links.Edit">@Html.Localize("DetailsView.Edit.lbl")</a>
+        }
+        <a class="link__back" href="@Model.Links.Feed">@Html.Localize("DetailsView.GoToList.lbl")</a>
+    </div>
+    <div class="feed__item _details">
+        @Html.Action("DetailsHeader", "Events", new { header = Model.HeaderInfo })
+        <div class="event-details">
+            <time class="date date--event-details" datetime="@Model.StartDate"><span class="date__day">@Model.StartDate.ToString("dd")</span> @Model.StartDate.ToString("MMM")</time>
+            <div class="event-details__text">
+                @if (Model.StartDate.DayOfYear == Model.EndDate.DayOfYear)
+                {
+                    <div class="event-details__date">
+                        @Model.StartDate.ToEventDetailsDateFormat()<br />
+                        @Model.StartDate.ToEventDetailsTimeFormat().ToLower() - @Model.EndDate.ToEventDetailsTimeFormat().ToLower()
+                    </div>
+                }
+                else
+                {
+                    <div class="event-details__date">
+                        <div class="event-details__day">
+                            @Model.StartDate.ToEventDetailsDateFormat()<br />
+                            @Model.StartDate.ToEventDetailsTimeFormat().ToLower()
+                        </div>
+                        <div class="event-details__day">
+                            @Model.EndDate.ToEventDetailsDateFormat()<br />
+                            @Model.EndDate.ToEventDetailsTimeFormat().ToLower()
+                        </div>
+                    </div>
+                }
+                @if (Model.Location != null)
+                {
+                    <div class="location">
+                        <strong class="location__title">@Model.LocationTitle</strong>
+                        <a href="http://maps.google.co.uk/maps?q=@Model.Location.Address" target="blank">@Model.Location.Address</a>
+                    </div>
+                }
+            </div>
+            @if (!Model.IsReadOnly && Model.CanSubscribe)
+            {
+                <div class="event-details__subscribe">
+                    @if (Model.SubscribeNotes.HasValue())
+                    {
+                        <p>@Html.Raw(Model.SubscribeNotes)</p>
+                    }
+
+                    @{Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });}
+                </div>
+            }
+
+        </div>
+        <div class="feed__item-txt">
+            @Html.Raw(Model.Description)
+        </div>
+        @Html.Action("ForEntity", "UserTags", new { entityId = Model.Id })
+        <div class="feed__item-feed">
+            <div class="feed__item-feed-holder">
+                @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
+            </div>
+        </div>
+        <div class="feed__item-images">
+            @{ Html.RenderAction("RenderGallery", "LightboxGallery", new { mediaIds = Model.Media }); }
+        </div>
+        <div>
+            @{ Html.RenderAction("Overview", "Subscribe", new { activityId = Model.Id });}
+        </div>
+        <div class="comments">
+            @{ Html.RenderAction("OverView", "Comments", new { commentsInfo = Model.CommentsInfo });}
+        </div>
+    </div>
+</section>

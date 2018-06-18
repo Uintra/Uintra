@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<dashBoard xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <section alias="bulletins" xdt:Transform="Remove" xdt:Locator="Match(alias)">
+    <areas>
+      <area>bulletins</area>
+    </areas>
+    <tab caption="Bulletins management">
+      <control>
+        ~/App_Plugins/Bulletins/backoffice/bulletins-management.html
+      </control>
+    </tab>
+  </section>
+  <section alias="StartupSettingsDashboardSection">
+    <tab caption="Navigation" xdt:Locator="Condition(@caption='Navigation')" xdt:Transform="Remove">
+      <control>
+        ~/App_Plugins/Navigation/Dashboard/navigation.html
+      </control>
+    </tab>
+    <tab caption="SentMails" xdt:Locator="Condition(@caption='SentMails')" xdt:Transform="Remove">
+      <control>
+        /App_Plugins/SentMails/dashboard/dashboardsentMails.html
+      </control>
+    </tab>
+  </section>
+  <section alias="StartupDeveloperDashboardSection">
+    <tab caption="Elastic Search" xdt:Locator="Condition(@caption='Elastic Search')" xdt:Transform="Remove">
+      <control>
+        ~/App_Plugins/Search/backoffice/developerelasticsearch.html
+      </control>
+    </tab>
+  </section>
+  <section alias="events" xdt:Transform="Remove" xdt:Locator="Match(alias)">
+    <areas>
+      <area>events</area>
+    </areas>
+    <tab caption="Events management">
+      <control>
+        ~/App_Plugins/Events/backoffice/events-management.html
+      </control>
+    </tab>
+  </section>
+  <section alias="news" xdt:Transform="Remove" xdt:Locator="Match(alias)">
+    <areas>
+      <area>news</area>
+    </areas>
+    <tab caption="News management">
+      <control>
+        ~/App_Plugins/News/backoffice/news-management.html
+      </control>
+    </tab>
+  </section>
+  <section alias="groups" xdt:Transform="Remove" xdt:Locator="Match(alias)">
+    <areas>
+      <area>groups</area>
+    </areas>
+    <tab caption="Groups management">
+      <control>
+        /App_Plugins/Groups/backoffice/Management/groups-management.html
+      </control>
+    </tab>
+  </section>
+</dashBoard>

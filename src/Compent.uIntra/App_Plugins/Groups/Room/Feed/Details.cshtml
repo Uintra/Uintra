@@ -1,0 +1,10 @@
+﻿@using System.Web.Mvc.Html
+@model Uintra.CentralFeed.DetailsViewModel
+    @{ Html.RenderAction("Details", Model.Settings.Controller, new
+       {
+           id = Model.Id,
+           options = Model.Options
+       }); 
+
+     }
+

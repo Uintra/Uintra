@@ -1,0 +1,14 @@
+﻿{
+  "gridEditors": [
+    {
+      "name": "Likes",
+      "alias": "custom.Likes",
+      "view": "/App_Plugins/Likes/backoffice/likes-view.html",
+      "icon": "icon-facebook-like color-blue",
+      "config": {
+        "controller": "Likes",
+        "action": "ContentLikes"
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+﻿@using Uintra.Core.Extensions
+@model Uintra.Groups.Navigation.Models.GroupLeftNavigationMenuViewModel
+
+<ul class="side-nav _groups" id="groupsContainer">
+    <li class="side-nav__item js-groups__item @(Model.IsActive ? "_active" : string.Empty)" data-id="">
+        <a class="side-nav__link _title-link" href="@Model.GroupOverviewPageUrl"><span class="icon-groups side-nav__icon"></span> @Html.Localize("Groups.Menu.lbl")</a>
+        <span class="side-nav__arrow js-groups__opener"></span>
+        @foreach (var link in Model.Items)
+        {
+            var activeClass = link.IsActive ? "_active" : String.Empty;
+            <ul class="side-nav">
+                <li class="side-nav__item @activeClass">
+                    <a class="side-nav__link" href="@link.Url">@link.Name</a>
+                </li>
+            </ul>
+        }
+    </li>
+</ul>

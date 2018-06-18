@@ -1,0 +1,54 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Umbraco.Core.Models.IPublishedContent>
+@using Uintra.Core.Grid
+@using Uintra.Navigation
+@using Uintra.Core.Extensions
+@using Umbraco.Web
+
+@{
+    var grid = Model.GetPropertyValue<dynamic>("grid");
+    var cssModifier = Model.IsContentPage() ? "content-page" : string.Empty;
+}
+
+@if (grid != null && grid.sections != null)
+{
+    <div class="row @cssModifier">
+        @{
+            for (var i = 0; i < grid.sections.Count; i++)
+            {
+                var section = grid.sections[i];
+                var isRenderOffsetRequired = grid.sections.Count > 1 && i == grid.sections.Count - 1;
+
+                if (isRenderOffsetRequired && GridRenderHelper.IsEmptySection(section))
+                {
+                    continue;
+                }
+
+                <div class="col-md-@(section.grid) @(isRenderOffsetRequired ? "aside" : "")">
+                    @Html.Raw(isRenderOffsetRequired ? "<div class='aside-holder'>" : "")
+
+                    @foreach (var row in section.rows)
+                    {
+                        <div class="row">
+                            @foreach (var area in row.areas)
+                            {
+                                <div class="col-md-@area.grid">
+                                    <div @GridRenderHelper.RenderElementAttributes(area)>
+                                        @foreach (var control in area.controls)
+                                        {
+                                            if (control != null && control.editor != null && control.editor.view != null)
+                                            {
+                                                @Html.RenderGridControl((object)control)
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    @Html.Raw(isRenderOffsetRequired ? "</div>" : "")
+
+                </div>
+            }
+        }
+    </div>
+}

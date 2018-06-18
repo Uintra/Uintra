@@ -1,0 +1,14 @@
+﻿{
+  "gridEditors": [
+    {
+      "name": "Comments",
+      "alias": "custom.Comments",
+      "view": "/App_Plugins/Comments/backoffice/comments-view.html",
+      "icon": "icon-chat-active color-blue",
+      "config": {
+        "controller": "Comments",
+        "action": "ContentComments"
+      }
+    }
+  ]
+}

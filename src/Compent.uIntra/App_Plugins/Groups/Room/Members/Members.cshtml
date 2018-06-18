@@ -1,0 +1,53 @@
+﻿@using System.Web.Mvc.Html
+@using Uintra.Core.Extensions
+@model Uintra.Groups.GroupMemberOverviewViewModel
+@{
+    Layout = null;
+    var groupId = Request.QueryString.Get("groupId");
+}
+<div class="table-holder block" id="js-group-members">
+    <table class="members-table">
+        <tr class="members-table__row">
+            <th colspan="2" class="members-table__head">@Html.Localize("GroupMembers.Table.Name.lbl")</th>
+            <th class="members-table__head">@Html.Localize("GroupMembers.Table.Email.lbl")</th>
+            <th class="members-table__head">@Html.Localize("GroupMembers.Table.Role.lbl")</th>
+            <th class="members-table__head"></th>
+        </tr>
+        @foreach (var member in Model.Members)
+        {
+            <tr class="members-table__row">
+                <td class="members-table__cell">
+                    @Html.Action("Photo", "User", new
+                    {
+                        user = member.GroupMember,
+                        cssModificator = "avatar--group-member",
+                        photoWidth = 60
+                    })
+                </td>
+                <td class="members-table__cell">
+                    <span class="members-table__name">@member.GroupMember.DisplayedName</span>
+                </td>
+                <td class="members-table__cell">
+                    <a class="members-table__link" href="mailto:@member.GroupMember.Email">@member.GroupMember.Email</a>
+                </td>
+                <td class="members-table__cell _role">
+                    @{var role = member.IsGroupAdmin ? "GroupMembers.Table.GroupAdmin.lbl" : "GroupMembers.Table.GroupMember.lbl";}
+                    <span>@Html.Localize(role)</span>
+                </td>
+                <td class="members-table__cell _delete">
+                    @if ((Model.CanExcludeFromGroup || member.CanUnsubscribe) && !member.IsGroupAdmin)
+                    {
+                        var htmlAttributes = new
+                        {
+                            @class = "members-table__delete icon-close js-action-with-confirm",
+                            data_text = Html.Localize("GroupMembers.Delete.Text.lbl"),
+                            data_ok = Html.Localize("GroupMembers.Delete.Confirm.btn"),
+                            data_cancel = Html.Localize("GroupMembers.Delete.ConfirmCancel.btn")
+                        };
+                        @Html.ActionLink("x", "ExcludeMember", "Group", new { memberId = member.GroupMember.Id, groupId }, htmlAttributes);
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>

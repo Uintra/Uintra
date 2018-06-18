@@ -1,0 +1,11 @@
+﻿{
+    javascript: [
+		'~/App_Plugins/Localization/backoffice/Shared/localization-resource.service.js',
+		'~/App_Plugins/Localization/backoffice/Shared/directives/upload-file/upload-file.directive.js',
+		'~/App_Plugins/Localization/backoffice/LocalizationOverview/localization-overview.controller.js',
+		'~/App_Plugins/Localization/backoffice/LocalizationExportImport/localization-exportimport.controller.js'
+    ],
+	css: [
+		'~/App_Plugins/Localization/backoffice/css/localization.css',
+	]
+}

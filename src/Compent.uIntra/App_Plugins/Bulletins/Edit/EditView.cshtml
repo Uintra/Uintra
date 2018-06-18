@@ -1,0 +1,40 @@
+﻿@using System.Web.Mvc
+@using Uintra.Core.Controls.FileUpload
+@using Uintra.Core.Extensions
+@using Umbraco.Web
+@model Uintra.Bulletins.BulletinEditModel
+
+<div class="form js-edit-bulletin">
+    @using (Html.BeginUmbracoForm("Edit", "Bulletins", FormMethod.Post, new { id = "editForm" }))
+    {
+        <h1 class="form__title">@Html.Localize("BulletinsEdit.Title.lbl")</h1>
+        @Html.HiddenFor(bulletin => bulletin.Id)
+
+        <div class="form__row clearfix">
+            <label class="form__label" for="description">@Html.Localize("BulletinsEdit.Description.lbl")</label>
+            <div id="description" class="js-edit-bulletin__description">
+                @Html.Raw(Model.Description)
+            </div>
+            <input type="hidden" name="description" class="js-edit-bulletin__description-hidden" value="@(Model.Description)" />
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="file-upload">@Html.Localize("BulletinsEdit.UploadFiles.lbl")</label>
+            @{
+                var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string };
+                Html.RenderAction("Editor", "FileUpload", new { Settings = settings, Model = Model?.Media });
+            }
+        </div>
+        <div class="form__row clearfix">
+            <span class="form__required" style="display:none">@Html.Localize("BulletinsEdit.AtLeastOneFieldMustBeFilled.lbl")</span>
+        </div>
+        <div class="form__row clearfix">
+            @Html.HiddenFor(bulletin => bulletin.MediaRootId)
+            @Html.PassLinks(Model.Links)
+            <input class="btn _submit js-disable-submit" type="submit" value="@Html.Localize("BulletinsEdit.Edit.btn")"/>
+            <input class="btn _cancel js-edit-bulletin__delete" type="button" value="@Html.Localize("BulletinsEdit.Delete.btn")" data-return-url="@Model.Links.Overview"
+                   data-id="@Model.Id" data-delete-url="@Url.Action("Delete", "Bulletins")" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")"
+                   data-cancel="@Html.Localize("Common.AreYouSure.Cancel")"/>
+            <a class="btn _default" href="@(Context.GetBackLink(Model.Links.Details))">@Html.Localize("Common.Cancel.lnk")</a>
+        </div>
+                }
+</div>

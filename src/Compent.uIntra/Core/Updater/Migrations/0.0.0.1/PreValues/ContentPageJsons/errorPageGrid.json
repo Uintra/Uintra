@@ -1,0 +1,84 @@
+﻿{
+  "name": "1 column layout",
+  "sections": [
+    {
+      "grid": 8,
+      "allowAll": false,
+      "allowed": [
+        "Main"
+      ],
+      "rows": [
+        {
+          "label": "",
+          "name": "Main",
+          "areas": [
+            {
+              "grid": 12,
+              "allowAll": true,
+              "allowed": [
+                "custom.ContentPanel",
+                "custom.GlobalPanelPicker"
+              ],
+              "hasConfig": false,
+              "controls": [
+                {
+                  "value": {
+                    "videoLink": {
+                      "url": "",
+                      "altText": "",
+                      "embedUrl": "",
+                      "videoId": "",
+                      "sourceType": "",
+                      "useAltText": true
+                    },
+                    "image": null,
+                    "files": null,
+                    "title": "404 error",
+                    "description": "<p>404 error page description</p>"
+                  },
+                  "editor": {
+                    "alias": "custom.ContentPanel"
+                  },
+                  "active": true
+                }
+              ],
+              "active": true,
+              "hasActiveChild": true
+            }
+          ],
+          "hasConfig": false,
+          "id": "a5803024-c671-d836-d9bb-50a8b94bb43b",
+          "hasActiveChild": true,
+          "active": true
+        }
+      ]
+    },
+    {
+      "grid": 4,
+      "allowAll": false,
+      "allowed": [
+        "Right side"
+      ],
+      "rows": [
+        {
+          "label": "",
+          "name": "Right side",
+          "areas": [
+            {
+              "grid": 12,
+              "allowAll": false,
+              "allowed": [
+                "custom.ContentPanel",
+                "custom.GlobalPanelPicker"
+              ],
+              "hasConfig": false,
+              "controls": []
+            }
+          ],
+          "hasConfig": false,
+          "id": "9c88cc20-aa54-e14a-5d54-a59fedc4371a"
+        }
+      ]
+    }
+  ]
+}

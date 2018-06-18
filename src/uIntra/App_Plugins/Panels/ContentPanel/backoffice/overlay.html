@@ -1,0 +1,50 @@
+﻿<div class="m-b-20 _clearfix">
+    <b class="span3">Title:</b>
+    <input class="span9" type="text" ng-model="control.value.title" ng-required="!isTitleOptional" />
+</div>
+<div class="m-b-20 _clearfix">
+    <b class="span3">Title link: <span class="note">Add internal link with content picker or external link in format: "http://example or https://example"</span></b>
+    <links-picker class="span9" model="control.value.titleLink" config="linksPickerConfig" mode="single"></links-picker>
+</div>
+<div class="m-b-20 _clearfix">
+    <b class="span3">Description:</b>
+    <tiny-mce class="span9" model="control.value.description" config="control.editor.config.description"></tiny-mce>
+</div>
+<div class="m-b-20 _clearfix">
+    <b class="span3">Image: <span class="note">Select image in *.png, *.jpg, *.svg or *.gif format. <br>Recommended image size: width - 500px;</span></b>
+    <media-picker ng-model="control.value.image" config="control.editor.config.mediaPicker"></media-picker>
+</div>
+<div class="m-b-20 _clearfix">
+    <b class="span3">Video link: <span class="note">Add link to Youtube or Vimeo video</span><span class="note">If you would like to use images in panel without video, please do not add video link</span></b>
+    <video-link ng-model="control.value.videoLink" use-alt-text="true" />
+</div>
+<div class="m-b-20 _clearfix">
+    <b class="span3">Video Type: <span class="note">Inline video will be played directly on the page, <br>lightbox video will be pladyed in the popup window</span></b>
+    <label for="horizontal-vid">Inline </label>
+    <input id="horizontal-vid" type="radio" ng-model="control.value.videoType" value="inline">
+    <label for="vertical-vid">Lightbox </label>
+    <input id="vertical-vid" type="radio" ng-model="control.value.videoType" value="lightbox">
+</div>
+<div class="m-b-20 _clearfix">
+    <b class="span3">Image/video size: <span class="note">Select video size: Small will be displayed on the right side of the content, <br>Large will take the full width of the content panel</span></b>
+    <label for="horizontal-img">Large</label>
+    <input id="horizontal-img" type="radio" ng-model="control.value.imageVideoSize" value="large">
+    <label for="vertical-img">Small</label>
+    <input id="vertical-img" type="radio" ng-model="control.value.imageVideoSize" value="small">
+</div>
+<div class="m-b-20 _clearfix">
+    <b class="span3">Links List Headline:</b>
+    <input class="span9" type="text" ng-model="control.value.linksListTitle" />
+</div>
+<div class="m-b-20 _clearfix link-bottom">
+    <b class="span3">Links List: <span class="note">Add internal link with content picker or external link in format: "http://example or https://example"</span></b>
+    <links-picker class="span9" model="control.value.links" config="linksPickerConfig" mode="multiple"></links-picker>
+</div>
+<div class="m-b-20 _clearfix">
+    <b class="span3">Files:</b>
+    <media-picker class="span9" ng-model="control.value.files" config="control.editor.config.filesPicker" />
+</div>
+<div class="m-b-20 _clearfix">
+    <b class="span3">Important:</b>
+    <input type="checkbox" ng-model="control.value.isImportant" />
+</div>

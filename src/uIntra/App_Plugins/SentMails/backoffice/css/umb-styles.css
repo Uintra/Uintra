@@ -1,0 +1,118 @@
+﻿.table {
+    table-layout: auto;
+    width: 100%;
+    max-width: none;
+}
+
+.currentpage,
+.currentpage:hover,
+.currentpage:focus {
+    background-color: #ccc;
+}
+
+.float-left-style {
+    float: left;
+}
+
+.messages-nav {
+    margin: 0;
+}
+
+    .messages-nav li {
+        list-style: none;
+    }
+
+.totalpages {
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.date-time-header {
+    position: relative;
+}
+
+    .date-time-header .close-btn {
+        float: right;
+        right: 12px;
+        position: absolute;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+table.table td.td-txt-input input.ng-pristine {
+    width: 80%;
+}
+
+.property-name {
+    float: left;
+}
+
+.smtp-settings div {
+    margin-bottom: 10px;
+}
+
+.paging {
+    text-align: center;
+    padding: 0 0 20px;
+}
+
+    .paging .btn {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .paging ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .paging li {
+        float: left;
+    }
+
+.filters {
+    width: 100%;
+    overflow: hidden;
+}
+
+    .filters .el {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 5px 0 0;
+    }
+
+        .filters .el .lbl {
+            display: block !important;
+        }
+
+    .filters .datepicker input[type='text'] {
+        width: 179px;
+    }
+
+    .filters .close-btn {
+        float: right;
+    }
+
+    .filters .red,
+    .filters .red a {
+        color: red;
+    }
+
+    .filters .blue,
+    .filters .blue a {
+        color: blue;
+    }
+
+    .filters .green,
+    .filters .green a {
+        color: green;
+    }
+
+.icons-designed-small {
+    text-align: right;
+    display: block;
+}

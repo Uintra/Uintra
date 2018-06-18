@@ -1,0 +1,13 @@
+﻿.file-extension{
+    width: 40px;
+    height: 20px;
+    background:#545454;
+    border-radius:3px;
+    display: block;
+    font-size:12px;
+    text-align:center;
+    line-height:20px;
+    font-weight:bold;
+    text-transform:uppercase;
+    color:#fff;
+}

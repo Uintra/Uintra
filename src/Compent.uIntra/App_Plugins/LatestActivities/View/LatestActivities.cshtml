@@ -1,0 +1,23 @@
+﻿@using System.Web.Mvc.Html
+@using Uintra.Core.Extensions
+@model Uintra.CentralFeed.LatestActivitiesViewModel
+
+<section class="block clearfix _latest-activities js-latest-activities">
+    <h2 class="block__title">@Model.Title</h2>
+    @if (!string.IsNullOrWhiteSpace(Model.Teaser))
+    {
+        <h3 class="block__teaser">@Html.Raw(Model.Teaser)</h3>
+    }
+    <div class="block__item-holder">
+        @foreach (var item in Model.Feed)
+        {
+            Html.RenderAction("PreviewItem", item.ControllerName, new { item = item.Activity, links = item.Options.Links });
+        }
+    </div>
+    @Html.Hidden("typeId", Model.Tab.Type.ToInt())
+
+    @if (Model.ShowSeeAllButton)
+    {
+        <a class="btn _submit js-see-all">@Html.Localize("LatestActivities.SeeAll.btn")</a>
+    }
+</section>

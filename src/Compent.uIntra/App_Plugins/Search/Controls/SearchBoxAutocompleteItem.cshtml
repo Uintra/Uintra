@@ -1,0 +1,12 @@
+@using Uintra.Search
+@model SearchBoxAutocompleteItemViewModel
+
+@if (Model.Type == SearchConstants.AutocompleteType.All)
+{
+    <span class="title _all">@Model.Title</span>
+}
+else
+{
+    <span class="title">@Model.Title</span>
+    <span class="type">@Model.Type</span>
+}

@@ -1,0 +1,41 @@
+﻿<style>
+    .panel-prevalues {
+    }
+
+        .panel-prevalues ul {
+            list-style-type: none;
+        }
+
+            .panel-prevalues ul li .icon {
+                display: inline-block;
+                margin: 5px;
+            }
+
+            .panel-prevalues ul li._selected {
+                background: #F5F5F5;
+            }
+
+            .panel-prevalues ul li {
+                padding: 5px 0;
+                border: 1px solid rgba(245, 245, 245, 0);
+            }
+
+                .panel-prevalues ul li:hover {
+                    cursor: pointer;
+                    background: #F5F5F5;
+                    border: 1px solid #000000;
+                }
+</style>
+<div ng-controller="panelPickerPrevaluesController as pppc" ng-init="pppc.init(model)" class="panel-prevalues">
+    <ul>
+        <li ng-click="pppc.selectAll()">
+            <span>Select all</span>
+        </li>
+        <li ng-click="pppc.removeAll()">
+            <span>Remove all</span>
+        </li>
+        <li ng-repeat="editor in pppc.gridEditors" ng-click="pppc.editorClickHandler(editor)" ng-class="{'_selected': pppc.isEditorSelected(editor)}">
+            <i class="icon {{editor.icon}}"></i><span>{{editor.name}}</span>
+        </li>
+    </ul>
+</div>

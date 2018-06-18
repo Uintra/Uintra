@@ -1,0 +1,59 @@
+﻿<umb-panel>
+    <div ng-controller="notificationSettingController as ctrl">
+        <div class="umb-editor-header umb-panel-header">
+            <div class="umb-panel-header-content-wrapper">
+                <ul class="nav nav-tabs umb-nav-tabs">                    
+                    <li ng-show="ctrl.settings.emailNotifierSetting" ng-class="{'active' : ctrl.isEmailTabSelected()}"><a ng-click="ctrl.selectEmailTab()">E-mail notification</a></li>
+                    <li ng-show="ctrl.settings.uiNotifierSetting" ng-class="{'active' : ctrl.isUiTabSelected()}"><a ng-click="ctrl.selectUiTab()">In-App notification</a></li>
+                    <li ng-show="ctrl.settings.popupNotifierSetting" ng-class="{'active' : ctrl.isPopupTabSelected()}"><a ng-click="ctrl.selectPopupTab()">Popup notification</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="umb-panel-body custom-umb-panel-body">
+            <div class="umb-pane">
+                <h4>{{ctrl.selectedNotifierSettings.activityTypeName}} - {{ctrl.splitOnUpperCaseCharacters(ctrl.selectedNotifierSettings.notificationTypeName)}}</h4>
+                <form class="form" name="settingsForm" val-form-manager>
+                    <div class="form__row">
+                        <div class="info" ng-bind-html="ctrl.selectedNotifierSettings.notificationInfo"></div>
+                    </div>
+                    <div class="form__row">
+                        <span class="form__label">Do you want to enable this notification:</span>
+                        <ul class="form__radio">
+                            <li>
+                                <input id="enableNotification" type="radio" ng-model="ctrl.selectedNotifierSettings.isEnabled" ng-value="true" ng-change="ctrl.save()">
+                                <label for="enableNotification">Yes, enable</label>
+                            </li>
+                            <li>
+                                <input id="disableNotification" type="radio" ng-model="ctrl.selectedNotifierSettings.isEnabled" ng-value="false" ng-change="ctrl.save()">
+                                <label for="disableNotification">No, disable</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div ng-if="ctrl.emailSubjectControlConfig" ng-show="ctrl.isEmailTabSelected()">
+                        <div class="form__row">
+                            <label class="form__label">E-mail subject:</label>
+                            <text-control class="form__content" config="ctrl.emailSubjectControlConfig"></text-control>
+                        </div>
+                        <div class="form__row">
+                            <label class="form__label">E-mail content:</label>
+                            <rich-text-editor class="form__content" config="ctrl.emailBodyControlConfig"></rich-text-editor>
+                        </div>
+                    </div>
+                    <div ng-if="ctrl.uiMessageControlConfig" ng-show="ctrl.isUiTabSelected()">
+                        <div class="form__row">
+                            <label class="form__label">In-App message:</label>
+                            <rich-text-editor class="form__content" config="ctrl.uiMessageControlConfig"></rich-text-editor>
+                        </div>
+                    </div>
+
+                    <div ng-if="ctrl.popupMessageControlConfig" ng-show="ctrl.isPopupTabSelected()">
+                        <div class="form__row">
+                            <label class="form__label">Popup message:</label>
+                            <rich-text-editor class="form__content" config="ctrl.popupMessageControlConfig"></rich-text-editor>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</umb-panel>

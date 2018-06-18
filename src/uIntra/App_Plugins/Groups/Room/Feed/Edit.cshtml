@@ -1,0 +1,7 @@
+﻿@using System.Web.Mvc.Html
+@model Uintra.CentralFeed.EditViewModel
+@{ Html.RenderAction("Edit", Model.Settings.Controller, new
+    {
+        links = Model.Links
+    });
+}

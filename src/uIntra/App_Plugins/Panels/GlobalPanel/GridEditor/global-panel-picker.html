@@ -1,0 +1,20 @@
+﻿<div class="panel" ng-controller="globalPanelPickerController as gppc" ng-init="gppc.init(control)">
+    <div class="span12" ng-hide="gppc.control.active">
+        <div>
+            <span class="control-label">Global panel:</span>
+        </div>
+        <div>
+            <span class="span12">{{gppc.panelName}}{{gppc.control.value.name ? (' - ' + gppc.control.value.name) : ""}}</span>
+        </div>
+    </div>
+
+    <div class="span12" ng-show="gppc.control.active">
+        <div ng-click="gppc.selectPanel()" ng-if="!gppc.control.value">
+            +
+        </div>
+        <div ng-if="gppc.control.value" ng-click="gppc.selectPanel()">
+            <span>id: {{gppc.control.value.id}}</span>
+            <span>name: {{gppc.control.value.name}}</span>
+        </div>
+    </div>
+</div>

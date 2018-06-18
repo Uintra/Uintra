@@ -1,0 +1,119 @@
+﻿._news-section-color {
+    color: rgb(255, 255, 0);
+}
+
+.news-management .news-edit,
+.news-management ._admin {
+    display: none;
+}
+.news-management._admin-mode ._admin {
+    display: block;
+}
+.news-management._admin-mode th._admin,
+.news-management._admin-mode td._admin {
+    display: table-cell;
+}
+
+.news-management {
+    display: flex;
+}
+
+.news-table {
+    width: 100%;
+}
+.news-table .filters {
+    display: flex;
+}
+.news-table .filter-group {
+    flex: 0 auto;
+    margin: 0 10px;
+}
+.news-table .filter-group:first-child {
+    margin-left: 0;
+}
+.news-table .text-filter:not(._admin) {
+    display: block;
+}
+.news-table .table tr:hover {
+    background: rgb(248, 248, 248);
+    cursor: pointer;
+}
+.news-table .table tr._active {
+    background: rgb(248, 248, 248);
+} 
+
+.news-table .table tr._unpublished {
+    background: rgb(232, 234, 237);
+}
+.news-table .table td {
+    vertical-align: middle;
+}
+.news-table .btn {
+    min-width: 93px;
+    margin: 2px 0;
+}
+.news-table .create-news-btn {
+    text-align: center;
+    color: rgb(0, 128, 0);
+}
+.news-table .create-news-btn > i {
+    font-size: 35px;
+    margin: 5px 0;
+    display: block;
+}
+.news-table .create-news-btn:hover {
+    color: #008000;
+    color: rgba(0, 128, 0, .8);
+}
+
+
+.news-management._news-selected .news-edit {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    width: 500px;
+    background: #fff;
+    z-index:9999;
+}
+
+.news-edit {
+    padding: 0 10px;
+    margin-left: 10px;
+    border-left: 1px solid #dbdbdb;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+}
+.news-edit .close-btn {
+    font-size: 20px;
+    float: right;
+    display: block;
+    margin: 10px 0 0;
+}
+.news-edit .close-btn:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+.news-edit-form.ng-dirty input[type="text"].ng-invalid,
+.news-edit-form.ng-dirty textarea.ng-invalid {
+    border-color: red !important;
+}
+.news-edit-form .validation-summary-errors {
+    display: none;
+}
+.news-edit-form.ng-invalid.ng-dirty .validation-summary-errors {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid red;
+    display: block;
+    width: 600px;
+}
+.news-edit-form.ng-invalid.ng-dirty .validation-summary-errors .field-validation-error {
+    color: red;
+}
+.news-edit .note{
+    display:block;
+    font-size:12px;
+    color:#ccc;
+}

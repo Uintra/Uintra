@@ -1,0 +1,37 @@
+﻿@using uIntra.Core.Extensions
+@model uIntra.Groups.GroupsListModel
+
+<input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
+<ul class="groups__list" id="groups_list">
+    @foreach (var group in Model.Groups)
+    {
+        <li data-anchor="@group.Id" class="groups__list-item ">
+            <a class="groups__list-link" href="@group.GroupUrl">
+                
+                @if (group.HasImage)
+                {
+                    <div class="groups__list-image">
+                        <img class="img-responsive" src="@group.GroupImageUrl" />
+                    </div>
+                }
+                else
+                {
+                    <div class="groups__list-image">
+                        <img class="img-responsive" src="~/Content/images/default-avatar.png" />
+                    </div>
+                }
+                <div class="groups__list-holder">
+                    @if (group.IsMember)
+                    {
+                        <span class="groups__member">
+                            <img src="~/Content/images/group.svg">
+                            <em class="groups__member-tooltip">@Html.Localize("GroupsList.isMember")</em>
+                        </span>
+                    }
+                    <h2 class="groups__list-title">@group.Title</h2>
+                    <div class="groups__list-txt">@Html.Raw(group.Description)</div>
+                </div>
+            </a>
+        </li>
+    }
+</ul>

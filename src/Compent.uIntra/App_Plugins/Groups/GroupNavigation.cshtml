@@ -1,0 +1,41 @@
+﻿@using Uintra.Core.Extensions
+@using Compent.Extensions
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Groups.Navigation.Models.GroupNavigationViewModel>
+
+<nav class="tabset tabset--group">
+    <div class="tabset__holder">
+        <div class="tabset__box">
+            <h1 class="tabset__title">
+                @if (Model.GroupUrl.IsNullOrEmpty())
+                {
+                    <span class="tabset__title-link">@Model.GroupTitle</span>
+                }
+                else
+                {
+                    <a class="tabset__title-link" href="@Model.GroupUrl">@Model.GroupTitle</a>
+                }
+                <span class="tabset__group-label"> - @Html.Localize("GroupRoom.Label")</span>
+            </h1>
+            <div class="tabset__frame _for-desktop">
+                <ul class="tabset__navigation _groups clearfix js-feed-links">
+                    @foreach (var tab in Model.ActivityTabs)
+                    {
+                        <li class="tabset__navigation-item js-feed-type @(tab.IsActive ? "_active" : "")" data-type="@tab.Type.ToInt()" data-page-url="@tab.Links.Overview">
+                            <a class="tabset__navigation-link " href="@tab.Links.Overview">
+                                @Html.Localize($"GroupRoom.Navigation.{tab.Type.ToString()}.lbl")
+                            </a>
+                        </li>
+                    }
+                    @foreach (var tab in Model.PageTabs)
+                    {
+                        <li class="tabset__navigation-item @(tab.IsActive ? "_active" : "") @(tab.AlignRight ? "_right _for-desktop" : "")">
+                            <a class="tabset__navigation-link " href="@tab.Link">
+                                @tab.Title
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

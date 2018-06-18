@@ -1,0 +1,136 @@
+﻿{
+  "propertyEditors": [
+    {
+      "name": "Panel picker",
+      "alias": "custom.PanelPicker",
+      "hideLabel": true,
+      "editor": {
+        "valueType": "JSON",
+        "view": "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.html"
+      },
+      "prevalues": {
+        "fields": [
+          {
+            "label": "Config",
+            "hideLabel": true,
+            "key": "config",
+            "view": "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.prevalues.html"
+          }
+        ]
+      }
+    }
+  ],
+  "gridEditors": [
+    {
+      "alias": "TableEditor",
+      "name": "Table Editor",
+      "view": "~/App_Plugins/Panels/TableEditor/views/table-editor.html",
+      "icon": "icon-grid",
+      "config": {
+        "controller": "TablePanel",
+        "action": "Render",
+        "includeUmbracoValues": true,
+        "maxColumns": {
+          "value": 100
+        }
+      }
+    },
+    {
+      "name": "Content panel",
+      "alias": "custom.ContentPanel",
+      "view": "/App_Plugins/Panels/ContentPanel/backoffice/content-panel.html",
+      "render": "/App_Plugins/Panels/ContentPanel/content-panel.cshtml",
+      "icon": "icon-notepad color-orange",
+      "config": {
+        "controller": "ContentPanel",
+        "action": "Render",
+        "includeUmbracoValues": true,
+        "description": {
+          "height": 350,
+          "toolbar": "styleselect | bold | italic | underline | linksPicker | numlist | bullist | removeformat",
+          "style_formats": [
+            {
+              "title": "Heading 1",
+              "block": "h1"
+            },
+            {
+              "title": "Heading 2",
+              "block": "h2"
+            },
+            {
+              "title": "Heading 3",
+              "block": "h3"
+            },
+            {
+              "title": "Normal",
+              "block": "p"
+            }
+          ]
+        },
+        "linksList": {
+          "linkTypes": [ "internal", "external", "media" ],
+          "internalPicker": {
+            "startNodeXPath": "$root/homePage",
+            "allowedAliases": []
+          }
+        },
+        "mediaPicker": {
+          "disableFolderSelect": "1",
+          "multiPicker": "0",
+          "onlyImages": "1"
+        },
+        "filesPicker": {
+          "disableFolderSelect": "1",
+          "multiPicker": "1",
+          "onlyImages": "0"
+        }
+      }
+    },
+    {
+      "name": "Global panel",
+      "alias": "custom.GlobalPanelPicker",
+      "view": "/App_Plugins/Panels/GlobalPanel/GridEditor/global-panel-picker.html",
+      "render": "/App_Plugins/Panels/GlobalPanel/GridEditor/global-panel-picker.cshtml",
+      "icon": "icon-plugin color-green",
+      "config": {
+        "startNodeXPath": "$root/dataFolder/globalPanelFolder",
+        "allowedAliases": [ "panel" ]
+      }
+    },
+    {
+      "name": "Document Library Panel",
+      "alias": "custom.DocumentLibraryPanel",
+      "view": "/App_Plugins/Panels/DocumentLibraryPanel/backoffice/document-panel.html",
+      "render": "/App_Plugins/Panels/DocumentLibraryPanel/document-panel.cshtml",
+      "icon": "icon-documents color-green",
+      "config": {
+        "description": {
+          "height": 350,
+          "toolbar": "bold | italic | alignleft | aligncenter | alignright | bullist"
+        }
+      }
+    },
+    {
+      "name": "FAQ panel",
+      "alias": "custom.FaqPanel",
+      "view": "/App_Plugins/Panels/FaqPanel/backoffice/faq-panel.html",
+      "render": "/App_Plugins/Panels/FaqPanel/faqPanel.cshtml",
+      "icon": "icon-ordered-list color-orange"
+    }
+  ],
+  "javascript": [
+    "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.js",
+    "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.prevalues.js",
+    "/App_Plugins/Panels/GlobalPanel/GridEditor/global-panel-picker.js",
+    "/App_Plugins/Panels/ContentPanel/backoffice/content-panel.js",
+    "/App_Plugins/Panels/DocumentLibraryPanel/backoffice/document-panel.js",
+    "/App_Plugins/Panels/FaqPanel/backoffice/faq-panel.js",
+    "/App_Plugins/Panels/TableEditor/js/table-editor-column-control.directive.js",
+    "/App_Plugins/Panels/TableEditor/js/table-editor-row-control.directive.js",
+    "/App_Plugins/Panels/TableEditor/js/table-editor.controller.js"
+  ],
+  "css": [
+    "/App_Plugins/Panels/GlobalPanel/PropertyType/panel-picker.css",
+    "/App_Plugins/Panels/TableEditor/css/table-editor.css"
+  ]
+}

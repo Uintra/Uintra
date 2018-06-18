@@ -1,0 +1,25 @@
+﻿<div ng-controller="panelPickerController as ppc" ng-init="ppc.init(model)" class="panel-picker">
+    <div ng-if="ppc.loaded">
+        <div ng-if="!ppc.model.value.editor.alias">
+            <div class="umbraco-panel__row">
+                <span class="umbraco-panel__label control-label">Select panel</span>
+            </div>
+            <div class="umbraco-panel__row editors-holder">
+                <div ng-repeat="editor in ppc.gridEditors" class="editor" ng-click="ppc.selectPanel(editor)">
+                    <i class="icon {{editor.icon}}"></i>
+                    <span class="name">{{editor.name}}</span>
+                </div>
+            </div>
+        </div>
+        <div ng-if="ppc.model.value.editor.alias">
+            <div>
+                <i class="icon-delete" style="color: red; float: right; cursor: pointer; font-size: 15px;" ng-click="ppc.removePanel()"></i>
+                <div class="umbraco-panel__row">
+                    <span class="umbraco-panel__label control-label">{{ppc.model.value.editor.name}}</span>
+                </div>
+            </div>
+            <div ng-include="ppc.model.value.editor.view"></div>
+        </div>
+        <input type="hidden" ng-model="ppc.model.value.editor" required>
+    </div>
+</div>

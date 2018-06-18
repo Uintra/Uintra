@@ -1,0 +1,24 @@
+﻿{
+  "gridEditors": [
+    {
+      "name": "Profile",
+      "alias": "custom.Profile",
+      "view": "/App_Plugins/Users/Profile/profile.html",
+      "icon": "icon-user",
+      "config": {
+        "controller": "Profile",
+        "action": "Overview"
+      }
+    },
+    {
+      "name": "Profile Edit",
+      "alias": "custom.ProfileEdit",
+      "view": "/App_Plugins/Users/Profile/profile.html",
+      "icon": "icon-umb-members",
+      "config": {
+        "controller": "Profile",
+        "action": "Edit"
+      }
+    }
+  ]
+}

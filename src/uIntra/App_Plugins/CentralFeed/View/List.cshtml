@@ -1,0 +1,53 @@
+﻿@using System.Web.Mvc.Html
+@using Uintra.CentralFeed
+@using Uintra.Core.Extensions
+@model FeedListViewModel
+
+<input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
+<input type="hidden" name="version" value="@Model.Version" />
+
+<div class="feed__filter-form">
+    <div class="filter__body">
+        <div class="clearfix">
+            <div class="feed__filter-item" style="display: @(Model.TabSettings.HasSubscribersFilter ? "block" : "none") ">
+                <div class="check">
+                    <label class="check__label">
+                        <input type="checkbox" class="check__box" name="filterState.showSubscribed" @(Model.FilterState.ShowSubscribed ? "checked" : "") value="true">
+                        <span class="check__fake-input icon-check"></span>
+                        <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowSubscribed.chkbx")</span>
+                    </label>
+                </div>
+            </div>
+            <div class="feed__filter-item" style="display: @(Model.TabSettings.HasPinnedFilter ? "block" : "none")">
+                <div class="check">
+                    <label class="check__label">
+                        <input type="checkbox" class="check__box" name="filterState.showPinned" @(Model.FilterState.ShowPinned ? "checked" : "") value="true">
+                        <span class="check__fake-input icon-check"></span>
+                        <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowPinned.chkbx")</span>
+                    </label>
+                </div>
+            </div>
+            <div class="feed__filter-item pull-right" style="display: @(Model.TabSettings.Type.ToInt() != CentralFeedTypeEnum.Bulletins.ToInt() ? "block" : "none")">
+                <input class="btn" type="button" name="clearFilters" value="@Html.Localize("CentralFeedList.ClearFilters.btn")" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!Model.Feed.Any())
+{
+    <div class="feed__item">
+        <div class="feed__item-note">
+            <p>@Html.Localize("CentralFeedList.Empty.lbl")</p>
+        </div>
+    </div>
+}
+
+<div class="feed__list">
+    @foreach (var item in Model.Feed)
+    {
+        <div data-anchor="@item.Activity.Id">
+            @{ Html.RenderAction("FeedItem", item.ControllerName, new { item = item.Activity, options = item.Options }); }
+        </div>
+    }
+</div>

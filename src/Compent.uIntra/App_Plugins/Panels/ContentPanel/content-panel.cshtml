@@ -1,0 +1,130 @@
+﻿@using Uintra.BaseControls
+@model Uintra.Panels.Core.Models.ContentPanelViewModel
+
+@{
+    var panelId = "js-content-panel-" + Guid.NewGuid();
+    string importantCssSelector = Model.IsImportant ? "_important" : string.Empty;
+}
+
+<section class="block _content-panel clearfix @importantCssSelector" id="@panelId">
+    @{
+
+        if (Model.HasTitle)
+        {
+            if (string.IsNullOrEmpty(Model.TitleLink))
+            {
+                <h2 class="block__title">@Model.Title</h2>
+            }
+            else
+            {
+                <h2 class="block__title">
+                    <a class="block__title-link" href="@Model.TitleLink" target="@Model.Target">@Model.Title</a>
+                </h2>
+            }
+        }
+
+        var lightboxClass = Model.ShowAsLightbox ? "js-show-lightbox" : string.Empty;
+        var sizeClass = Model.ImageVideoSize == "small" ? "_small" : "_large";
+
+        if (!string.IsNullOrEmpty(Model.VideoUrl))
+        {
+
+            <div class="block__video @sizeClass">
+                @if (!string.IsNullOrEmpty(Model.VideoTooltip))
+                {
+                    <div class="block__video-tooltip">
+                        <span class="block__video-tooltip-text">@Model.VideoLinkAlternativeText</span>
+                    </div>
+                }
+
+                @if (string.IsNullOrEmpty(Model.PosterImageUrl))
+                {
+                }
+                else
+                {
+                    <button class="block__video-play js-videoPoster @lightboxClass" style="background-image: url(@Model.PosterImageUrl);"></button>
+                }
+
+                @switch ((VideoSourceTypes)Model.VideoSourceType)
+                {
+                    case VideoSourceTypes.Youtube:
+                    case VideoSourceTypes.Vimeo:
+                        <div class="block__video-iframe">
+                            <iframe class="block__video-iframe-player js-videoTag js-photoswipe-item" src="@Model.VideoSrc" data-src="@Model.EmbedUrl" width="200" height="200" allowTransparency="true" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                        break;
+                    case VideoSourceTypes.Hyperlink:
+                        <div class="block__video-url">
+                            <video class="block__video-url-player js-videoTag js-photoswipe-item" src="@Model.VideoSrc" data-src="@Model.EmbedUrl" @Model.AutoplayVideo controls></video>
+                        </div>
+                        break;
+                }
+
+            </div>
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(Model.PosterImageUrl))
+            {
+                if (string.IsNullOrEmpty(Model.TitleLink))
+                {
+                    <div class="block__image @sizeClass">
+                        <img class="img-responsive @lightboxClass js-photoswipe-item" width="250" height="200" src="@Model.PosterImageUrl" alt="" />
+                    </div>
+                }
+                else
+                {
+                    <div class="block__image @sizeClass">
+                        <a href="@Model.TitleLink"><img class="img-responsive @lightboxClass js-photoswipe-item" width="250" height="200" src="@Model.PosterImageUrl" alt="" /></a>
+                    </div>
+                }
+            }
+        }
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Description))
+    {
+        <div class="block__description">@Html.Raw(Model.Description)</div>
+    }
+    @if (@Model.Links.Count > 0)
+    {
+        <div class="block__links">
+            @if (!string.IsNullOrEmpty(Model.LinksListTitle))
+            {
+                <h4 class="block__headline">@Model.LinksListTitle</h4>
+            }
+
+            <ul class="block__links-list">
+                @foreach (var link in Model.Links)
+                {
+                    <li class="block__links-list-item">
+                        <a class="block__links-list-link" href="@link.Url" target="@link.Target">@link.Caption</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+
+    @{
+        if (Model.Files.Any())
+        {
+            <ul class="documents">
+                @foreach (var file in Model.Files)
+                {
+                    <li class="documents__item">
+                        <a class="documents__item-link" target="_blank" href="@file.Url">
+                            <span class="documents__icon file-extension">@file.Extension</span>
+                            <span class="documents__item-name">@file.Name</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    }
+
+</section>
+
+<script type="text/javascript">
+    var contentPanelSelectors = contentPanelSelectors || [];
+    contentPanelSelectors.push("#@panelId");
+</script>

@@ -1,0 +1,40 @@
+﻿@using System.Web.Mvc.Html
+@using Uintra.Core
+@using Uintra.Core.Controls.FileUpload
+@using Uintra.Core.Extensions
+@using Uintra.Core.Media
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<FileUploadEditViewModel>
+@{
+    var existedIds = Model.Files.Select(s => s.Id.ToString()).JoinWithComma();
+}
+<div class="js-file-edit clearfix">
+
+    <ul class="feed__item-images-list">
+        @foreach (var file in Model.Files)
+        {
+            <li class="feed__item-images-list-item" data-id="@file.Id">
+                @RenderFileView(file)
+                <span class="feed__item-images-name">@file.FileName</span>
+                <span class="feed__item-images-remove js-remove-file-btn" data-target-id="@file.Id"><i class="icon-close"></i></span>
+            </li>
+        }
+    </ul>
+    <input type="hidden" name="media" value="@existedIds" />
+</div>
+@{Html.RenderAction("Uploader", "FileUpload", Model.Settings);}
+
+
+@helper RenderFileView(FileViewModel file){
+    switch (file.Type.ToInt())
+    {
+        case (int)MediaTypeEnum.Video:
+        case (int)MediaTypeEnum.Image:
+            <img src="@file.Url" />
+            break;
+        case (int)MediaTypeEnum.Document:
+            <a href="@file.Url" target="_blank">
+                <span class="file-extension">@file.Extension.ToExtensionViewString()</span>
+            </a>
+            break;
+    }
+}

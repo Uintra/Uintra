@@ -1,0 +1,39 @@
+﻿@using System.Web.Mvc.Html
+@using Uintra.Core.Extensions
+@model Uintra.Notification.NotificationListViewModel
+
+<ul class="notification__list" id="notification_list">
+    @if (Model.Notifications.Any())
+    {
+        foreach (var notification in Model.Notifications)
+        {
+            <li data-anchor="@notification.Id" class="notification__list-item js-notification__list-item" data-href="@notification.Value.url" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
+
+                @if (notification.Notifier != null)
+                {
+                    @Html.Action("Photo", "User", new { user = notification.Notifier })
+                }
+                <div class="notification__list-meta">
+                    <div class="notification__list-description">
+                        <div class="notification__list-row">
+                            <div class="clearfix">
+                                @if (notification.Value.IsPinned)
+                                {
+                                    <span class="pinned__item @(notification.Value.IsPinActual ? "_pinned" : string.Empty)">@Html.Localize("Activity.Pinned.lbl")</span>
+                                }
+                                <span class="notification__list-date">@notification.Date</span>
+                            </div>
+                            <div class="notification__list-heading">
+                                @Html.Raw(notification.Value.message)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    }
+    else
+    {
+        <li class="notification__list-item _empty">@Html.Localize("Notifications.EmptyNotificationList.lbl")</li>
+    }
+</ul>

@@ -1,0 +1,115 @@
+{
+    propertyEditors: [      
+        {
+            alias: "EnumCheckBoxList",
+            name: "Enum checkbox list",
+            editor: {
+                view: "~/App_Plugins/EnumLists/enumcheckboxlist.html"
+            },
+			prevalues: {
+                fields: [
+                    {
+                        label: "Assembly",
+                        description: "Enter the name of the assembly. For example Umbraco.Extensions.dll",
+                        key: "assembly",
+                        view: "requiredfield",
+                        validation: [
+                            {
+                                type: "Required" 
+                            }                                                
+                        ]
+                    },
+					{
+                        label: "Enum",
+                        description: "Enter the full name of the enum. For example Umbraco.Extensions.Enums.Packages",
+                        key: "enum",
+                        view: "requiredfield",
+                        validation: [
+							{
+								type: "Required" 
+							}                                                
+                        ]
+                    }
+                ]
+            }
+        },
+		{
+            alias: "EnumDropdownList",
+            name: "Enum dropdown list",
+            editor: {
+                view: "~/App_Plugins/EnumLists/enumdropdownlist.html"
+            },
+			prevalues: {
+                fields: [
+                    {
+                        label: "Assembly",
+                        description: "Enter the name of the assembly. For example Umbraco.Extensions.dll",
+                        key: "assembly",
+                        view: "requiredfield",
+                        validation: [
+                            {
+                                type: "Required" 
+                            }                                                
+                        ]
+                    },
+					{
+                        label: "Enum",
+                        description: "Enter the full name of the enum. For example Umbraco.Extensions.Enums.Packages",
+                        key: "enum",
+                        view: "requiredfield",
+                        validation: [
+							{
+								type: "Required" 
+							}                                                
+                        ]
+                    },
+                    {
+                        label: "Default value index",
+                        description: "Enter the index of the default value",
+                        key: "defaultValueIndex",
+                        view: "number"
+                    }
+                ]
+            }
+        },
+		{
+            alias: "EnumRadioButtonList",
+            name: "Enum radiobutton list",
+            editor: {
+                view: "~/App_Plugins/EnumLists/enumradiobuttonlist.html"
+            },
+			prevalues: {
+                fields: [
+                    {
+                        label: "Assembly",
+                        description: "Enter the name of the assembly. For example Umbraco.Extensions.dll",
+                        key: "assembly",
+                        view: "requiredfield",
+                        validation: [
+                            {
+                                type: "Required" 
+                            }                                                
+                        ]
+                    },
+					{
+                        label: "Enum",
+                        description: "Enter the full name of the enum. For example Umbraco.Extensions.Enums.Packages",
+                        key: "enum",
+                        view: "requiredfield",
+                        validation: [
+							{
+								type: "Required" 
+							}                                                
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+    ,
+    javascript: [
+        '~/App_Plugins/EnumLists/enumcheckboxlist.controller.js',
+		'~/App_Plugins/EnumLists/enumlist.controller.js',
+		'~/App_Plugins/EnumLists/enum.resource.js'
+    ]
+}

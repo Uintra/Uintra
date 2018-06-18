@@ -1,0 +1,29 @@
+﻿@using uIntra.Core.Activity
+@using uIntra.Core.Extentions
+@model uIntra.Core.Bulletins.BulletinExtendedItemViewModel
+
+@{
+    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
+}
+
+<div class="feed__item">
+    <div class="clearfix">
+        @Html.Partial("~/App_Plugins/Bulletins/Item/ActivityItemHeader.cshtml", Model.HeaderInfo)
+    </div>
+    <div class="feed__item-image"> </div>
+    @if (!string.IsNullOrWhiteSpace(StringExtentions.StripHtml(Model.ShortDescription)))
+    {
+        <div class="feed__item-txt _clamp" data-url="@detailsPageUrl">
+            @Html.Raw(Model.ShortDescription)
+        </div>
+    }
+    <div class="feed__item-images">
+        @{ Html.RenderAction("Preview", "LightboxGallery", new {model = Model.LightboxGalleryPreviewInfo}); }
+    </div>
+    <div class="feed__item-feed">
+        <div class="feed__item-feed-holder">
+            @{ Html.RenderAction("Likes", "Likes", new {likesInfo = Model.LikesInfo}); }
+            @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id) }); }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+﻿<div class="umb-overlay umb-overlay-right localization-creation">
+    <div class="umb-overlay-header">
+        <h4 class="umb-overlay__title">Resource creation</h4>
+    </div>
+
+    <div class="umb-overlay-container form-horizontal">
+        <div class="content-type-editor-dialog edit-property-settings ng-scope">
+            <div class="umb-control-group control-group">
+                <textarea class="editor-label" placeholder="Enter a key..." style="height: 40px;"
+                          maxlength="1000"
+                          ng-model="dialogData.resource.key"
+                          ng-change="dialogData.checkKey(dialogData.resource)"
+                          ng-class="{'_invalid': dialogData.resource.invalid}"></textarea>
+                <small ng-if="dialogData.resource.invalid">Key already exists</small>
+            </div>
+
+            <div class="umb-control-group control-group" ng-repeat="(isoCode, name) in dialogData.languages">
+                {{name}}
+                <textarea class="editor-description" placeholder="Enter a translation..." style="height: 60px;"
+                          maxlength="1000"
+                          ng-model="dialogData.resource.translations[isoCode]"></textarea>
+            </div>
+
+            <div class="umb-control-group control-group" ng-if="dialogData.isShowDescription">
+                <textarea class="editor-description" placeholder="Enter a description..." style="height: 30px;"
+                          maxlength="1000"
+                          ng-model="dialogData.resource.description"></textarea>
+            </div>
+
+            <!--TODO: tree -->
+
+            <input type="search" placeholder="Choose parent..." class="search-box"
+                   ng-model="searchText" />
+            <ul class="unstyled search-result">
+                <li ng-click="dialogData.chooseParent('', dialogData.resource)"
+                    ng-class="{'_active': storedKey == dialogData.resource.parentKey}">---Empty---</li>
+                <li ng-repeat="storedKey in dialogData.storedKeys | filter:searchText"
+                    ng-click="dialogData.chooseParent(storedKey, dialogData.resource)"
+                    ng-class="{'_active': storedKey == dialogData.resource.parentKey}">
+                    {{storedKey}}
+                </li>
+            </ul>
+            Parent: {{dialogData.resource.parentKey}}
+        </div>
+    </div>
+
+    <div class="umb-overlay-drawer">
+        <div class="umb-overlay-drawer__align-right">
+            <!--remove active-->
+            <input type="button" class="btn btn-link" value="Close" ng-click="close()" />
+            <input type="button" class="btn btn-success" value="Save"
+                   ng-click="submit(dialogData.resource)"
+                   ng-disabled="dialogData.resource.invalid || dialogData.resource.disabled" />
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+﻿@using System.Web.Mvc
+@using uIntra.Core.Activity
+@using uIntra.Core.Controls.FileUpload
+@using uIntra.Core.Extentions
+@using uIntra.Core.TypeProviders
+@using Umbraco.Web
+@model uIntra.News.NewsCreateModel
+
+<div class="form js-check-before-unload" id="js-news-create-page">
+    @using (Html.BeginUmbracoForm("Create", "News", FormMethod.Post, new { id = "form" }))
+    {
+        <h1 class="form__title">@Html.Localize("NewsCreatePage.Title.lbl")</h1>
+        <div class="form__row clearfix">
+            <label class="form__label">@Html.Localize("NewsCreate.Creator.lbl")</label>
+            @Html.Action("CreatorEdit", "Activity", new { creator = Model.Creator, creatorIdPropertyName = nameof(Model.CreatorId), activityType = IntranetActivityTypeEnum.News })
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="title">@Html.Localize("NewsCreate.Title.lbl") <span class="form__required">*</span></label>
+            <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
+                   data-val-required="@Html.Localize("CreateNews.TitleRequired.lbl")" data-val-length-max="400" data-val-length="@string.Format(Html.Localize("CreateNews.TitleMaxLength.lbl"), 400)" data-val="true" />
+
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="description">@Html.Localize("NewsCreate.Description.lbl") <span class="form__required">*</span></label>
+            <div id="description">
+                @Html.Raw(Model.Description)
+            </div>
+            <input type="hidden" id="js-hidden-description-container" name="description" value="@(Model.Description)"
+                   data-val-required="@Html.Localize("CreateNews.DescriptionRequired.lbl")" data-val="true" />
+        </div>
+        <div class="form__row clearfix">
+                
+        </div>
+            <div class="form__row clearfix">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form__label" for="js-publish-date">@Html.Localize("NewsCreate.PublishDate.lbl")</label>
+                        <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
+                        <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("NewsEdit.PublishDateRequired.lbl")" data-val="true" />
+                        <span class="form__clear icon-close js-clear-date hide"></span>
+                    </div>
+                    <div class="col-md-6">
+                        @{
+                            var unpublishDatevalue = @Model.UnpublishDate.HasValue ? Model.UnpublishDate.Value.ToDateTimeValuePickerFormat() : "";
+                        }
+                        <label class="form__label" for="js-unpublish-date">@Html.Localize("NewsCreate.UnpublishDate.lbl")</label>
+                        <input class="form__input" id="js-unpublish-date" data-default-date="@unpublishDatevalue" data-date-format="@Html.GetDateTimePickerFormat()" />
+                        <input type="hidden" id="js-unpublish-date-value" name="unpublishDate" data-val="true" />
+                        <span class="form__clear icon-close js-clear-date hide"></span>
+                    </div>
+                </div>
+            </div>
+        <div class="form__row clearfix">
+           @Html.Action("PinActivity", "Activity", new { isPinned = false, pinDays = 0 })
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="file-upload">@Html.Localize("NewsCreate.UploadFiles.lbl")</label>
+            @{
+                var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string };
+                Html.RenderAction("Uploader", "FileUpload", new { Settings = settings, Model = Model?.Media });
+            }
+        </div>
+        <div class="form__row clearfix">
+            @Html.ValidationSummary()
+        </div>
+        <div class="form__row clearfix">
+            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
+            <input class="form__btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("NewsCreate.Create.btn")" />
+            <a class="form__btn _default" href="@(Context.GetBackLink(ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id)))">@Html.Localize("Common.Cancel.lnk")</a>
+        </div>
+
+                    }
+</div>

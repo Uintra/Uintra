@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <area alias="sections">
+    <key alias="news" xdt:Locator="Condition(@alias='news')" xdt:Transform="Remove">News</key>
+  </area>
+</language>

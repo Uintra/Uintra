@@ -1,0 +1,93 @@
+﻿@using System.Web.Mvc
+@using System.Web.Routing
+@using uIntra.Core
+@using uIntra.Core.Activity
+@using uIntra.Core.Controls.FileUpload
+@using uIntra.Core.Extentions
+@using Umbraco.Web
+@model uIntra.Events.EventEditModel
+
+<div class="form js-check-before-unload" id="js-events-edit-page">
+    @using (Html.BeginUmbracoForm("Edit", "Events", FormMethod.Post, new { id = "editForm" }))
+    {
+        @Html.HiddenFor(el => el.NotifyAllSubscribers, new { id = "notifyAllSubscribers" })
+        <h1 class="form__title">@Html.Localize("EventsEditPage.Title.lbl")</h1>
+        <input type="hidden" name="id" value="@Model.Id" />
+
+        <div class="form__row clearfix">
+            <label class="form__label">@Html.Localize("EventsEdit.Creator.lbl")</label>
+            @Html.Action("CreatorEdit", "Activity", new { creator = Model.Creator, creatorIdPropertyName = nameof(Model.CreatorId), activityType = IntranetActivityTypeEnum.Events })
+        </div>
+
+        <div class="form__row clearfix">
+            <label class="form__label" for="title">@Html.Localize("EventsEdit.Title.lbl") <span class="form__required">*</span></label>
+            <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
+                   data-val-required="@Html.Localize("EventsEdit.TitleRequired.lbl")" data-val-length-max="400" data-val-length="@string.Format(Html.Localize("CreateEvents.TitleMaxLength.lbl"), 400)" data-val="true" />
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="description">@Html.Localize("EventsEdit.Description.lbl") <span class="form__required">*</span></label>
+            <div id="description">
+                @Html.Raw(Model.Description)
+            </div>
+            <input type="hidden" id="js-hidden-description-container" name="description" value="@(Model.Description)"
+                   data-val-required="@Html.Localize("EventsEdit.DescriptionRequired.lbl")" data-val="true" />
+        </div>
+        <div class="form__row clearfix">
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form__label" for="js-start-date">@Html.Localize("EventsEdir.StartDate.lbl")</label>
+                    <input class="form__input" id="js-start-date" data-default-date="@Model.StartDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
+                    <input type="hidden" id="js-start-date-value" name="startDate" data-val-required="@Html.Localize("EventsEdit.StartDateRequired.lbl")" data-val="true" />
+                    <span class="form__clear icon-close js-clear-date hide"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form__label" for="js-end-date">@Html.Localize("EventsEdit.EndDate.lbl")</label>
+                    <input class="form__input" id="js-end-date" data-default-date="@Model.EndDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
+                    <input type="hidden" id="js-end-date-value" name="endDate" data-val-greaterthan="@Html.Localize("EventsEdit.EndDateShouldBeGreaterThanStartDate.lbl")" data-val-greaterthan-startdate="js-start-date-value" data-val-required="@Html.Localize("EventsEdit.EndDateRequired.lbl")" data-val="true" />
+                    <span class="form__clear icon-close js-clear-date hide"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form__row clearfix">
+            @Html.Action("PinActivity", "Activity", new { isPinned = @Model.IsPinned, endPinDate = @Model.EndPinDate })
+        </div>
+        <div class="form__row clearfix">
+            <div class="check">
+                <label class="check__label">
+                    @{
+                        var canSubscribeAttrs = new RouteValueDictionary(new { @class = "check__box" });
+                        if (!Model.CanEditSubscribe)
+                        {
+                            canSubscribeAttrs.Add("disabled", "disabled");
+                        }
+                    }
+                    @Html.CheckBoxFor(m => m.CanSubscribe, canSubscribeAttrs)
+                    <span class="check__fake-input icon-check"></span>
+                    <span class="check__fake-label">@Html.Localize("EventsEdit.CanSubscribe.lbl")</span>
+                </label>
+            </div>
+        </div>
+        <div class="form__row clearfix">
+            <label class="form__label" for="file-upload">@Html.Localize("EventsEdit.UploadFiles.lbl")</label>
+            @{
+                var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string };
+                Html.RenderAction("Editor", "FileUpload", new { Settings = settings, Model = Model?.Media });
+            }
+        </div>
+
+        <div class="form__row clearfix">
+            @Html.ValidationSummary()
+        </div>
+        <div class="form__row clearfix js-notification-popup-strings-holder"
+             data-title="@Html.Localize("Common.NotifyAllSubscribers.Title")"
+             data-text="@Html.Localize("Common.NotifyAllSubscribers")"
+             data-yes="@Html.Localize("Common.NotifyAllSubscribers.Yes")"
+             data-no="@Html.Localize("Common.NotifyAllSubscribers.No")"
+             data-cancel="@Html.Localize("Common.NotifyAllSubscribers.Cancel")">
+            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
+            <input class="form__btn _submit _submit js-disable-submit" type="button" value="@Html.Localize("EventsEdit.Edit.btn")" data-title="@Html.Localize("Common.NotifyAllSubscribers.Title")" data-text="@Html.Localize("Common.NotifyAllSubscribers")" data-yes="@Html.Localize("Common.NotifyAllSubscribers.Yes")" data-no="@Html.Localize("Common.NotifyAllSubscribers.No")" data-cancel="@Html.Localize("Common.NotifyAllSubscribers.Cancel")" />
+            <input class="form__btn _submit js-event-hide" type="button" value="@Html.Localize("EventsEdit.Hide.btn")" data-id="@Model.Id" data-title="@Html.Localize("Common.NotifyAllSubscribers.Title")" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")" data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" data-return-url="@ViewData.GetActivityOverviewPageUrl(Model.ActivityType.Id)" />
+            <a class="form__btn _default" href="@(Context.GetBackLink(ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id)))">@Html.Localize("Common.Cancel.lnk")</a>
+        </div>
+                }
+</div>
