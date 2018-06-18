@@ -23,7 +23,6 @@ using Compent.Uintra.Core.Feed.Links;
 using Compent.Uintra.Core.Groups;
 using Compent.Uintra.Core.Helpers;
 using Compent.Uintra.Core.IoC;
-using Compent.Uintra.Core.Licence;
 using Compent.Uintra.Core.LinkPreview.Config;
 using Compent.Uintra.Core.Navigation;
 using Compent.Uintra.Core.News;
@@ -56,8 +55,6 @@ using Ninject;
 using Ninject.Extensions.Conventions;
 using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
-using uIntra.LicenceService.ApiClient;
-using uIntra.LicenceService.ApiClient.Interfaces;
 using Uintra.Bulletins;
 using Uintra.CentralFeed;
 using Uintra.CentralFeed.Providers;
@@ -222,13 +219,6 @@ namespace Compent.Uintra
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IJobSettingsConfiguration>().ToMethod(s => JobSettingsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IPermissionsService>().To<PermissionsService>().InRequestScope();
-
-            //licence
-            kernel.Bind<ILicenceValidationServiceClient>().To<LicenceValidationServiceClient>().InRequestScope();
-            kernel.Bind<IValidateLicenceService>().To<ValidateLicenceService>().InRequestScope();
-            kernel.Bind<IWebApiClient>().ToMethod((ctx => new WebApiClient() { Connection = new LicenceServiceConnection() })).InSingletonScope();
-            kernel.Bind<ILicenceRequestHandler>().To<LicenceRequestHandler>().InRequestScope();
-
 
             // Umbraco
             kernel.Bind<UmbracoContext>().ToMethod(context => CreateUmbracoContext()).InRequestScope();
