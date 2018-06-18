@@ -18,30 +18,35 @@ namespace Uintra.Groups.Attributes
                 groupId = obj as Guid?;
             }
 
-            var umbracoHelper = DependencyResolver.Current.GetService<UmbracoHelper>();
-            var aliasProvider = DependencyResolver.Current.GetService<IDocumentTypeAliasProvider>();
-            var errorPage = umbracoHelper.ContentSingleAtXPath(XPathHelper.GetXpath(aliasProvider.GetHomePage(), aliasProvider.GetErrorPage()));
-
             if (!groupId.HasValue)
             {
-                filterContext.Controller.ControllerContext.HttpContext.Server.TransferRequest(errorPage.Url);
-                filterContext.Result = new HttpNotFoundResult();
+                TransferRequestToErrorPage(filterContext);
                 return;
             }
 
             var groupService = DependencyResolver.Current.GetService<IGroupService>();
-
             var group = groupService.Get(groupId.Value);
 
-            if (group == null || group.IsHidden)
-            {                                
-                if (errorPage != null)
-                {
-                    filterContext.Controller.ControllerContext.HttpContext.Server.TransferRequest(errorPage.Url);
-                }
-
-                filterContext.Result = new HttpNotFoundResult();
+            if (group == null)
+            {
+                TransferRequestToErrorPage(filterContext);
             }
+        }
+
+        private static void TransferRequestToErrorPage(ActionExecutingContext filterContext)
+        {
+            var umbracoHelper = DependencyResolver.Current.GetService<UmbracoHelper>();
+            var aliasProvider = DependencyResolver.Current.GetService<IDocumentTypeAliasProvider>();
+
+            var errorPage = umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(aliasProvider.GetHomePage(), aliasProvider.GetErrorPage()));
+
+            if (errorPage != null)
+            {
+                filterContext.Controller.ControllerContext.HttpContext.Server.TransferRequest(errorPage.Url);
+                return;
+            }
+
+            filterContext.Result = new HttpNotFoundResult();
         }
     }
 }

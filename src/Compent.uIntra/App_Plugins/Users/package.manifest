@@ -1,4 +1,14 @@
 ﻿{
+  //"propertyEditors": [
+  //  {
+  //    "name": "Profile column selector",
+  //    "alias": "custom.ProfileColumnSelector",
+  //    "hideLabel": true,
+  //    "editor": {
+  //      "view": "~/App_Plugins/Users/UserList/backoffice/ProfileColumnSelector/profile-column-selector.html"
+  //    }
+  //  }
+  //],
   "gridEditors": [
     {
       "name": "Profile",
@@ -19,6 +29,23 @@
         "controller": "Profile",
         "action": "Edit"
       }
+    },
+    {
+      "name": "User list",
+      "alias": "custom.UserList",
+      "view": "/App_Plugins/Users/UserList/backoffice/user-list-view.html",
+      "icon": "icon-umb-members color-green",
+      "config": {
+        "controller": "UserList",
+        "action": "Render",
+        "includeUmbracoValues": true
+      }
     }
+  ],
+  "javascript": [
+    //"/App_Plugins/Users/UserList/backoffice/ProfileColumnSelector/profile-column-selector.controller.js",
+    "/App_Plugins/Users/UserList/backoffice/userListController.js"
+  ],
+  "css": [
   ]
 }

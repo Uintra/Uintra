@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Compent.Extensions;
-using Uintra.Core.Constants;
+using Examine;
 using Uintra.Core.Exceptions;
 using Uintra.Core.MigrationHistories;
 using Uintra.Core.MigrationHistories.Sql;
@@ -65,7 +65,7 @@ namespace Compent.Uintra.Core.Updater
                 }
             }
 
-            PublishUnpublishedMediaFolders();
+            RebuildExamineIndex();
         }
 
         private IOrderedEnumerable<IMigration> GetAllMigrations() =>
@@ -73,15 +73,6 @@ namespace Compent.Uintra.Core.Updater
                 .GetServices(typeof(IMigration))
                 .Cast<IMigration>()
                 .OrderBy(m => m.Version);
-
-        private void PublishUnpublishedMediaFolders()
-        {
-            //TODO refactor it. Publish only unpublished medias
-            var folderMediaType = _contentTypeService.GetMediaType(UmbracoAliases.Media.FolderTypeAlias);
-            var folderMedias = _mediaService.GetMediaOfMediaType(folderMediaType.Id).ToList();
-
-            _mediaService.Save(folderMedias);
-        }
 
         public static IEnumerable<(string name, Version version)> ToMigrationHistory(Stack<MigrationItem> items) =>
             items
@@ -188,6 +179,11 @@ namespace Compent.Uintra.Core.Updater
             ApplicationContext.Current.Services.MemberService.RebuildXmlStructures();
 
             HttpRuntime.UnloadAppDomain();
+        }
+
+        private static void RebuildExamineIndex()
+        {
+            ExamineManager.Instance.IndexProviderCollection[Umbraco.Core.Constants.Examine.InternalIndexer].RebuildIndex();
         }
     }
 

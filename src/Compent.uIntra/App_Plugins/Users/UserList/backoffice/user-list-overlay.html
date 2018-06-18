@@ -1,0 +1,30 @@
+﻿<div class="m-b-20 _clearfix">
+    <div class="m-b-20 _clearfix">
+        <b class="span3">Title:</b>
+        <input class="span9" type="text" ng-model="control.value.title" />
+    </div>
+    <div class="m-b-20 _clearfix">
+        <b class="span3">Amount of displayed users:</b>
+        <input class="span9" type="text" ng-model="control.value.displayedAmount" />
+    </div>
+    <div class="m-b-20 _clearfix">
+        <b class="span3">Amount users per request:</b>
+        <input class="span9" type="text" ng-model="control.value.amountPerRequest" />
+    </div>
+
+    <div class="m-b-20 _clearfix">
+        <b class="span3">Displayed columns:</b>
+        <!--<select multiple ng-model="control.value.selectedProperties"
+                ng-options="property.name for property in control.value.properties track by property.id"
+            ></select>-->
+        <select multiple ng-model="control.value.selectedProperties">
+            <option ng-repeat="property in control.value.properties" value="{{property.alias}}">{{property.name}}</option>
+        </select>
+    </div>
+
+    <div class="m-b-20 _clearfix">
+        <div ng-show="control.validationMessage">
+            <p><label><font color="red">{{control.validationMessage}}</font></label></p>
+        </div>
+    </div>
+</div>

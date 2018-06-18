@@ -1,0 +1,15 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<dynamic>
+<div>
+    @Model.DisplayedAmount <br />
+    @Model.AmountPerRequest <br />
+    @Model.Title <br />
+    @*@Model.SelectedProperties <br />*@
+
+    @foreach (var alias in Model.SelectedProperties)
+    {
+        @:---------
+        @alias.ToString()
+        @:--------
+    }
+    <br />
+</div>
