@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using Uintra.Core;
 using Uintra.Core.Constants;
 using Uintra.Core.Extensions;
-using Uintra.Core.Media;
 using Uintra.Core.User;
 using Uintra.Groups.Sql;
 using Umbraco.Core.Models;
@@ -18,8 +17,8 @@ namespace Uintra.Groups.Web
     [DisabledGroupActionFilter]
     public abstract class GroupDocumentsControllerBase : SurfaceController
     {
-        protected virtual string DocumentsViewPath => "~/App_Plugins/Groups/Room/Documents/Documents.cshtml";
-        protected virtual string GroupDocumentsTableViewPath => "~/App_Plugins/Groups/Room/Documents/Table.cshtml";
+        protected virtual string DocumentsViewPath => "~/App_Plugins/Groups/Documents/GroupDocuments.cshtml";
+        protected virtual string GroupDocumentsTableViewPath => "~/App_Plugins/Groups/Documents/GroupDocumentsTable.cshtml";
 
         private readonly IGroupDocumentsService _groupDocumentsService;
         private readonly IMediaService _mediaService;
@@ -58,27 +57,21 @@ namespace Uintra.Groups.Web
         }
 
         [HttpPost]
-        public ActionResult Upload(GroupDocumentCreateModel model)
+        public void Upload(Guid groupId)
         {
-            if (!ModelState.IsValid)
+            var file = Request.Files.Get(0);
+            if (file != null && file.ContentLength > 0)
             {
-                RedirectToCurrentUmbracoPage(Request.QueryString);
-            }
+                var bytes = file.InputStream.ToBytes();
+                var media = _groupMediaService.CreateGroupMedia(file.FileName, bytes, groupId);
 
-            var creatorId = _intranetUserService.GetCurrentUserId();
-            IEnumerable<int> createdMediasIds = _groupMediaService.CreateGroupMedia(model, model.GroupId, creatorId);
-
-            _groupDocumentsService.Create(createdMediasIds.Select(i =>
+                var groupDocument = new GroupDocument
                 {
-                    var groupDocument = new GroupDocument
-                        {
-                            GroupId = model.GroupId,
-                            MediaId = i
-                        };
-                    return groupDocument;
-                }));
-
-            return RedirectToCurrentUmbracoPage(Request.QueryString);
+                    GroupId = groupId,
+                    MediaId = media.Id
+                };
+                _groupDocumentsService.Create(groupDocument);
+            }
         }
 
         public virtual ActionResult DocumentsTable(Guid groupId, GroupDocumentDocumentField column, Direction direction)

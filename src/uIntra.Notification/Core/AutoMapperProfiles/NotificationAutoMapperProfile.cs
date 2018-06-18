@@ -20,8 +20,6 @@ namespace Uintra.Notification
                     dst.Type = notificationTypeProvider[src.Type];
                 });
 
-            Mapper.CreateMap<Notification, PopupNotificationViewModel>()
-                .ForMember(d => d.Value, o => o.MapFrom(s => Json.Decode(s.Value)));
 
             Mapper.CreateMap<NotifierSettingSaveModel<EmailNotifierTemplate>, NotifierSettingModel<EmailNotifierTemplate>>()
                 .ForMember(d => d.NotificationType, o => o.Ignore())
@@ -30,15 +28,7 @@ namespace Uintra.Notification
                 .ForMember(d => d.ActivityType, o => o.Ignore())
                 .ForMember(d => d.ActivityTypeName, o => o.Ignore());
 
-            
             Mapper.CreateMap<NotifierSettingSaveModel<UiNotifierTemplate>, NotifierSettingModel<UiNotifierTemplate>>()
-                .ForMember(d => d.NotificationType, o => o.Ignore())
-                .ForMember(d => d.NotificationTypeName, o => o.Ignore())
-                .ForMember(d => d.NotifierType, o => o.Ignore())
-                .ForMember(d => d.ActivityType, o => o.Ignore())
-                .ForMember(d => d.ActivityTypeName, o => o.Ignore());
-
-            Mapper.CreateMap<NotifierSettingSaveModel<PopupNotifierTemplate>, NotifierSettingModel<PopupNotifierTemplate>>()
                 .ForMember(d => d.NotificationType, o => o.Ignore())
                 .ForMember(d => d.NotificationTypeName, o => o.Ignore())
                 .ForMember(d => d.NotifierType, o => o.Ignore())

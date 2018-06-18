@@ -27,9 +27,8 @@ namespace Uintra.Core.Jobs
                 foreach (var activity in intranetActivities)
                 {
                     if (activity.IsPinActual && !service.IsPinActual(activity))
-                    {
-                        var cacheableIntranetActivityService = (ICacheableIntranetActivityService<IIntranetActivity>)service;
-                        cacheableIntranetActivityService.UpdateActivityCache(activity.Id);
+                    {                        
+                        service.Save(activity);
                     }
                 }
             }

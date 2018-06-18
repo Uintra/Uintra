@@ -1,39 +1,29 @@
 ﻿@using Uintra.Core.Extensions
 @using Uintra.Groups
-@using Uintra.Core.Controls.FileUpload
 @model Uintra.Groups.GroupDocumentsViewModel
-@{
-    Guid groupId;
-}
 
 @{
-    if (!Guid.TryParse(Request.QueryString.Get("groupId"), out groupId))
+    if (!Guid.TryParse(Request.QueryString.Get("groupId"), out var groupId))
     {
         <h3>Group id is not defined!!</h3>
         return;
     }
 }
 
-<div class="form" id="js-group-documents">
+<div id="js-group-documents">
     @if (Model.CanUploadFiles)
     {
-        using (Html.BeginUmbracoForm("Upload", "GroupDocuments"))
-        {
+        <div>
             <div class="form__row clearfix">
                 <label class="form__label" for="file-upload">@Html.Localize("GroupDocument.Upload.lbl")</label>
-                @{
-                    var settings = new FileUploadSettings { AllowedExtensions = null, MaxFilesCount = 1 };
-                    Html.RenderAction("Uploader", "FileUpload", new { Settings = settings/*, Model = null*/ });
-                }
+                <div class="dropzone documents js-dropzone" data-group-id="@groupId"
+                     data-default-text="@Html.Localize("FileUploadView.UploadFiles.lbl")" data-remove-text="@Html.Localize("FileUploadView.RemoveFile.lbl")"></div>
             </div>
-            @Html.ValidationSummary()
-            <div class="form__row form__row--top-indent clearfix">
-                <input class="btn _submit js-submit" type="submit" value="@Html.Localize("GroupDocuments.Create.btn")" />
-            </div>
-        }
+        </div>
     }
+
     <div>
-        @{Html.RenderAction("DocumentsTable", "GroupDocuments", new { groupId, column = GroupDocumentDocumentField.Name, direction = Direction.Asc });}
+        @{Html.RenderAction("DocumentsTable", "GroupDocuments", new {groupId, column = GroupDocumentDocumentField.Name, direction = Direction.Asc});}
     </div>
 </div>
 

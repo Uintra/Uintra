@@ -32,25 +32,13 @@ var createGallery = function (gallery) {
             item.setAttribute('src', item.getAttribute('src'));
         });
     }
-    
+
     gallery.instance.listen('beforeChange', stopVideo);
-    gallery.instance.listen('close', function () {        
+
+    gallery.instance.listen('close', function () {
         stopVideo();
         gallery.instance = null;
         bodyElement.classList.remove('js-lightbox-open');
-
-        var div = gallery.holder.closest("div [data-anchor]");
-        if (div) {
-            var hash = div.dataset["anchor"]; 
-            if (hash) {
-                let elem = document.querySelector('[data-anchor="' + hash + '"]');
-
-                if (elem) {
-                    scrollTo(document.body, elem.offsetTop, 300);
-                    window.history.pushState("", document.title, window.location.pathname + window.location.search);
-                }
-            }
-        }        
     });
 }
 
@@ -59,10 +47,10 @@ var buildPhotoswipeItems = function (imagesItems) {
 
     for (var i = 0; i < imagesItems.length; i++) {
         if (!imagesItems[i].dataset.fullUrl || !imagesItems[i].dataset.fullSize) {
-            continue;   
+            continue;
         }
         var item = imagesItems[i];
-        var parentItem = item.parentNode;
+        var paprentItem = item.parentNode;
         var size = item.getAttribute('data-full-size').split('x');
         var width;
         var height;
@@ -77,10 +65,9 @@ var buildPhotoswipeItems = function (imagesItems) {
         }
 
         // create slide object
-        if (parentItem.dataset.type == 'video') {
+        if (paprentItem.dataset.type == 'video') {
             newItem = {
-                html: parentItem.dataset.video
-                //html: '<div class="gallery__video"><div class="gallery__video-box"><video width="960" class="pswp__video" src="' + parentItem.dataset.src +'" controls></video></div></div>'
+                html: paprentItem.dataset.video
             };
         } else {
             newItem = {
@@ -89,7 +76,7 @@ var buildPhotoswipeItems = function (imagesItems) {
                 h: height
             };
         }
-        
+
         result.push(newItem);
     }
     return result;
@@ -119,7 +106,8 @@ var initGallery = function (container) {
     var imageArray = Array.from(images);
 
     photoSwipeItems.forEach(function (item) {
-        item.addEventListener("click", () => {
+        item.addEventListener("click", (e) => {
+            e.preventDefault();
             galleryModel.options.index = photoSwipeItems.indexOf(item);
             createGallery(galleryModel);
         });

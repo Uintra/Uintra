@@ -21,13 +21,16 @@ namespace Uintra.Core.Web
 
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IPermissionsService _permissionsService;
+        private readonly IActivityTypeProvider _activityTypeProvider;
 
         protected ActivityControllerBase(
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService,
+            IActivityTypeProvider activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
             _permissionsService = permissionsService;
+            _activityTypeProvider = activityTypeProvider;
         }
 
         public virtual ActionResult DetailsHeader(IntranetActivityDetailsHeaderViewModel header)

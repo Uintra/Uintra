@@ -10,30 +10,31 @@
         </div>
     </div>
 </div>
+<table class="table">
+    <tbody ui-sortable="sortableOptions" ng-model="control.value.questions">
+        <tr ng-repeat="question in control.value.questions" ng-show="control.active">
+            <td style="width: 20px"><i class="icon icon-navigation handle handle-move"></i></td>
 
-<div class="span12" ng-repeat="question in control.value.questions" ng-show="control.active">
+            <td ng-hide="$index == activeQuestion" ng-click="changeActiveQuestion($index)" style="cursor:pointer;">
+                <b class="span12">{{question.question}}</b>
 
-    <div ng-hide="$index == activeQuestion" ng-click="changeActiveQuestion($index)" style="cursor:pointer;">
-        <div class="span3">
-            <b class="span12">Question {{$index + 1}}</b>
-        </div>
-        <div class="span9">
-            <b class="span12">{{question.question}}</b>
-        </div>
-    </div>
+            </td>
 
-    <div ng-show="$index == activeQuestion">
-        <div class="m-b-20 _clearfix">
-            <b class="span3">Question title:</b>
-            <input class="span9" type="text" name="title" ng-model="question.question" required />
-        </div>
-        <div class="span12">
-            <div class="m-b-20 _clearfix">
-                <b class="span3">Question answer:</b>
-                <tiny-mce class="span9" model="question.answer" config="rteConfigAlias" required c-required=""></tiny-mce>
-            </div>
-        </div>
-        <input type="button" class="btn btn-danger pull-right" ng-click="removeQuestion(question)" value="Remove this question" />
-    </div>
-</div>
+            <td ng-show="$index == activeQuestion">
+                <span class="m-b-20 _clearfix">
+                    <b class="span3">Question title:</b>
+                    <input class="span9" type="text" name="title" ng-model="question.question" required />
+                </span>
+                <span class="span12">
+                    <span class="m-b-20 _clearfix">
+                        <b class="span3">Question answer:</b>
+                        <tiny-mce class="span9" model="question.answer" config="rteConfigAlias" required c-required=""></tiny-mce>
+                    </span>
+                </span>
+                <input type="button" class="btn btn-danger pull-right" ng-click="removeQuestion(question)" value="Remove this question" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 <input type="button" class="btn btn-success" ng-click="addQuestion()" value="Add question">

@@ -3,7 +3,6 @@ using Uintra.CentralFeed;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Uintra.Events;
-using Uintra.Events.Dashboard;
 using Uintra.Groups;
 
 namespace Compent.Uintra.Core.Events
@@ -98,17 +97,6 @@ namespace Compent.Uintra.Core.Events
                 .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
                 .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty))
                 .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore());
-
-            Mapper.CreateMap<EventBackofficeCreateModel, Event>()
-               .IncludeBase<EventBackofficeCreateModel, EventBase>()
-               .ForMember(dst => dst.GroupId, o => o.Ignore())
-               .ForMember(dst => dst.Type, o => o.Ignore())
-               .ForMember(dst => dst.Likes, o => o.Ignore())
-               .ForMember(dst => dst.Comments, o => o.Ignore())
-               .ForMember(dst => dst.Subscribers, o => o.Ignore())
-               .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
-               .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
-               .ForMember(dst => dst.SubscribeNotes, o => o.Ignore());
         }
     }
 }

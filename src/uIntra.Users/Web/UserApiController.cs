@@ -12,10 +12,7 @@ namespace Uintra.Users.Web
         private readonly IUserService _userService;
         private readonly IMemberServiceHelper _memberServiceHelper;
 
-        protected UserApiControllerBase(
-            IUserService userService,
-            IMemberService memberService,
-            IMemberServiceHelper memberServiceHelper)
+        protected UserApiControllerBase(IUserService userService, IMemberService memberService, IMemberServiceHelper memberServiceHelper)
         {
             _userService = userService;
             _memberService = memberService;
@@ -24,14 +21,13 @@ namespace Uintra.Users.Web
 
 
         [HttpGet]
-        public virtual IEnumerable<UserPickerModel> NotAssignedToMemberUsers(int? selectedUserId)
+        public virtual IEnumerable<UserPickerModel> NotAssignedToMemberUsers()
         {
-            var users = _userService.GetAll(0, int.MaxValue, out _);
-
+            int totalUsersCount;
+            var users = _userService.GetAll(0, int.MaxValue, out totalUsersCount);
             var relatedUserIdsDictionary = _memberServiceHelper.GetRelatedUserIdsForMembers(_memberService.GetAllMembers());
-            var unassignedUsers = users.Where(u => !relatedUserIdsDictionary.Values.Contains(u.Id) || u.Id == selectedUserId);
+            var unassignedUsers = users.Where(u => !relatedUserIdsDictionary.Values.Contains(u.Id));
             var mappedModels = unassignedUsers.Select(u => new UserPickerModel {Id = u.Id, Name = u.Name});
-
             return mappedModels;
         }
     }

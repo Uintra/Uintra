@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
-using Compent.Extensions;
+using Extensions;
 using Localization.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.Utils;

@@ -1,12 +1,11 @@
 ﻿@using System.Web.Mvc.Ajax
 @using System.Web.Mvc.Html
 @using Uintra.Comments
-@using Uintra.Core.Context
 @using Uintra.Core.Extensions
 @model Uintra.Comments.CommentViewModel
 
 @{
-    var inactiveUser = Model.Creator.Inactive ? "_inactive" : string.Empty;
+    var inactiveUser = Model.Creator.Inactive ? "_inactive" : String.Empty;
 }
 
 <div id="@Model.CommentViewId" class="js-comment-view" data-id="@Model.Id">
@@ -50,7 +49,7 @@
                         <li class="comments__controls-list-item">
                             @if (Model.CanDelete)
                             {
-                                @Ajax.ContextedActionLink(Html.Localize("CommentsView.Delete.lbl"), "Delete", "Comments", null,
+                                @Ajax.ActionLink(Html.Localize("CommentsView.Delete.lbl"), "Delete", "Comments", new { id = Model.Id },
                                     new AjaxOptions { HttpMethod = "Delete", UpdateTargetId = Model.ElementOverviewId, InsertionMode = InsertionMode.ReplaceWith, OnComplete = $"new uIntra.methods.CommentOverview('#{Model.ElementOverviewId}');" },
                                     new { @class = "js-comment-delete comments__controls-list-link", data_text = Html.Localize("Common.AreYouSure") })
                             }
@@ -65,7 +64,7 @@
         @if (Model.CanEdit)
         {
             <div class="comments__list-text js-comment-editContainer" style="display: none">
-                @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditViewModel { Text = Model.Text, UpdateElementId = Model.ElementOverviewId })
+                @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId })
             </div>
                     }
 
@@ -82,7 +81,7 @@
         {
             <div class="js-comment-reply comments__list-replies" style="display: none">
                 <span class="js-comment-hideReplyLink comments__hide"><i class="icon-close"></i></span>
-                @Html.Partial("~/App_Plugins/Comments/View/CommentsCreateView.cshtml", new CommentCreateModel { ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId })
+                @Html.Partial("~/App_Plugins/Comments/View/CommentsCreateView.cshtml", new CommentCreateModel { ActivityId = Model.ActivityId, ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId })
             </div>
                     }
     </div>

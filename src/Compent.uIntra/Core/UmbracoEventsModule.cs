@@ -17,14 +17,7 @@ namespace Compent.Uintra.Core
 
             MemberService.Deleting += ProcessMemberDeleting;
             MediaService.Saved += ProcessMediaSaved;
-            MediaService.Trashed += ProcessMediaTrashed;
-            MediaService.Saving += ProcessMediaSaving;      
-        }
-
-        private static void ProcessMediaSaving(IMediaService sender, SaveEventArgs<IMedia> e)
-        {
-            var services = DependencyResolver.Current.GetServices<IUmbracoMediaSavingEventService>();
-            foreach (var service in services) service.ProcessMediaSaving(sender, e);
+            MediaService.Trashed += ProcessMediaTrashed;            
         }
 
         private static void ProcessMediaTrashed(IMediaService sender, MoveEventArgs<IMedia> e)

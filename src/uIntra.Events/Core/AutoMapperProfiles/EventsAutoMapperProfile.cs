@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using AutoMapper;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Uintra.Events.Dashboard;

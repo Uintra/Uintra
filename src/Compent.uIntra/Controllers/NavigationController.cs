@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Compent.Uintra.Core.Users;
-using Compent.Extensions;
+using Extensions;
 using Uintra.CentralFeed;
 using Uintra.CentralFeed.Navigation.Models;
 using Uintra.Core;
@@ -11,7 +11,6 @@ using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
 using Uintra.Groups;
-using Uintra.Groups.Attributes;
 using Uintra.Groups.Extentions;
 using Uintra.Groups.Navigation.Models;
 using Uintra.Navigation;
@@ -146,17 +145,7 @@ namespace Compent.Uintra.Controllers
         private ActionResult RenderGroupNavigation()
         {
             var groupId = Request.QueryString.GetGroupId();
-            if (!groupId.HasValue)
-            {
-                return new EmptyResult();
-            }
             var group = _groupService.Get(groupId.Value);
-
-            if (group == null)
-            {
-                return new EmptyResult();
-            }
-
             var groupNavigationModel = new GroupNavigationViewModel { GroupTitle = @group.Title };
 
             if (!group.IsHidden)

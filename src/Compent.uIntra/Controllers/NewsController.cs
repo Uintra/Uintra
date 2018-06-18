@@ -16,7 +16,6 @@ using Uintra.News;
 using Uintra.News.Web;
 using Uintra.Search;
 using Compent.Uintra.Core.UserTags;
-using Uintra.Core;
 using Uintra.Groups.Extentions;
 using Uintra.Tagging.UserTags;
 
@@ -45,9 +44,8 @@ namespace Compent.Uintra.Controllers
             IGroupActivityService groupActivityService,
             UserTagService userTagService,
             IActivityTagsHelper activityTagsHelper,
-            IActivityLinkService activityLinkService,
-            IContextTypeProvider contextTypeProvider)
-            : base(intranetUserService, newsService, mediaHelper, activityTypeProvider, activityLinkService, contextTypeProvider)
+            IActivityLinkService activityLinkService)
+            : base(intranetUserService, newsService, mediaHelper, activityTypeProvider, activityLinkService)
         {
             _newsService = newsService;
             _documentIndexer = documentIndexer;
@@ -59,7 +57,6 @@ namespace Compent.Uintra.Controllers
         public ActionResult FeedItem(News item, ActivityFeedOptionsWithGroups options)
         {
             var extendedModel = GetItemViewModel(item, options);
-            AddEntityIdentityForContext(item.Id);
             return PartialView(ItemViewPath, extendedModel);
         }
 
@@ -82,7 +79,6 @@ namespace Compent.Uintra.Controllers
         public ActionResult PreviewItem(News item, ActivityLinks links)
         {
             NewsPreviewViewModel viewModel = GetPreviewViewModel(item, links);
-            AddEntityIdentityForContext(item.Id);
             return PartialView(PreviewItemViewPath, viewModel);
         }
 

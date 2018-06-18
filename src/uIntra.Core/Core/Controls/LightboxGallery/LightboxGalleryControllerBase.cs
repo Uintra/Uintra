@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core.Constants;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
-using UIntra.Core.Controls.LightboxGallery;
+using Uintra.Core.Controls.LightboxGallery;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -87,7 +87,7 @@ namespace Uintra.Core.Controls.LightboxGallery
             {
                 Id = media.Id,
                 Url = media.Url,
-                Name = media.Name,
+                Name = media.GetFileName(),
                 Extension = media.GetMediaExtension(),
                 Type = media.GetMediaType()
             };

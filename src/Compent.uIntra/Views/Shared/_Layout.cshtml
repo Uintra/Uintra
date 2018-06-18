@@ -16,39 +16,38 @@
     <% } %>
 </head>
 <body>
-<div id="wrapper" class="_loading">
-    @{Html.RenderAction("ShowPopupNotifications", "Notification");}
-    @{Html.RenderAction("BrowserCompatibility", "BrowserCompatibility");}
-    <header id="header">
-        <div class="centring">
-            <strong class="logo">
-                <a class="logo__link" href="/"><img src="~/Content/images/logo.svg" class="logo__img" width="21" height="33"></a>
-            </strong>
-            @{Html.RenderAction("TopNavigation", "Navigation");}
-            <a href="#" id="js-aside-opener" class="aside__opener _for-mobile"></a>
-        </div>
-    </header>
-    <aside id="sidebar" class="js-sidebar">
-        <a href="#" class="sidebar-close icon-close _for-mobile js-sidebar-close"></a>
-        @{Html.RenderAction("SearchBox", "Search"); }
-        <div class="sidebar__holder">
-            @{Html.RenderAction("LeftNavigation", "Navigation"); }
-            @{Html.RenderAction("LeftNavigation", "Group"); }
-            @{Html.RenderAction("SystemLinks", "Navigation"); }
-            @{Html.RenderAction("Overview", "MyLinks"); }
-            @{Html.RenderAction("LeftNavigationUserMenu", "Navigation"); }
-        </div>
-    </aside>
-    <main id="main">
-        <div class="centring">
-            <div class="holder">
-                @{Html.RenderAction("SubNavigation", "Navigation");}
-
-                @RenderBody()
+    <div id="wrapper" class="_loading">
+        @{Html.RenderAction("BrowserCompatibility", "BrowserCompatibility");}
+        <header id="header">
+            <div class="centring">
+                <strong class="logo">
+                    <a class="logo__link" href="/"><img src="~/Content/images/logo.svg" class="logo__img" width="21" height="33"></a>
+                </strong>
+                @{Html.RenderAction("TopNavigation", "Navigation");}
+                <a id="js-aside-opener" class="aside__opener _for-mobile"></a>
             </div>
-        </div>
-    </main>
-</div>
+        </header>
+        <aside id="sidebar" class="js-sidebar">
+            <a href="#" class="sidebar-close icon-close _for-mobile js-sidebar-close"></a>
+            @{Html.RenderAction("SearchBox", "Search"); }
+            <div class="sidebar__holder">
+                @{Html.RenderAction("LeftNavigation", "Navigation"); }
+                @{Html.RenderAction("LeftNavigation", "Group"); }
+                @{Html.RenderAction("SystemLinks", "Navigation"); }
+                @{Html.RenderAction("Overview", "MyLinks"); }
+                @{Html.RenderAction("LeftNavigationUserMenu", "Navigation"); }
+            </div>
+        </aside>
+        <main id="main">
+            <div class="centring">
+                <div class="holder">
+                    @{Html.RenderAction("SubNavigation", "Navigation");}
+           
+                    @RenderBody()
+                </div>
+            </div>
+        </main>
+    </div>
     <a id="toTop" class="top">Go to top</a>
     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="pswp__bg"></div>

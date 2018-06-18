@@ -1,6 +1,4 @@
-﻿using Compent.Uintra.Core.Verification;
-
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
+﻿namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
 {
     public class CoreInstallationConstants
     {
@@ -24,7 +22,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
             public const string Heading = "Heading";
         }
 
-        [UmbracoDocumentTypeVerification]
         public class DocumentTypeAliases
         {
             public const string DataFolder = "dataFolder";
@@ -33,13 +30,9 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
             public const string BasePageWithContentGrid = "basePageWithContentGrid";
             public const string ErrorPage = "errorPage";
             public const string HomePage = "homePage";
+            public const string GridPageLayoutTemplateAlias = "GridPageLayout";
             public const string ContentPage = "contentPage";
             public const string Heading = "heading";
-        }
-
-        public class TemplateAliases
-        {
-            public const string GridPageLayoutTemplateAlias = "GridPageLayout";
         }
 
         public class DocumentTypeIcons

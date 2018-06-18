@@ -2,10 +2,9 @@
     <div ng-controller="notificationSettingController as ctrl">
         <div class="umb-editor-header umb-panel-header">
             <div class="umb-panel-header-content-wrapper">
-                <ul class="nav nav-tabs umb-nav-tabs">                    
-                    <li ng-show="ctrl.settings.emailNotifierSetting" ng-class="{'active' : ctrl.isEmailTabSelected()}"><a ng-click="ctrl.selectEmailTab()">E-mail notification</a></li>
-                    <li ng-show="ctrl.settings.uiNotifierSetting" ng-class="{'active' : ctrl.isUiTabSelected()}"><a ng-click="ctrl.selectUiTab()">In-App notification</a></li>
-                    <li ng-show="ctrl.settings.popupNotifierSetting" ng-class="{'active' : ctrl.isPopupTabSelected()}"><a ng-click="ctrl.selectPopupTab()">Popup notification</a></li>
+                <ul class="nav nav-tabs umb-nav-tabs">
+                    <li ng-class="{'active' : ctrl.isEmailTabSelected()}"><a ng-click="ctrl.selectEmailTab()">E-mail notification</a></li>
+                    <li ng-class="{'active' : ctrl.isUiTabSelected()}"><a ng-click="ctrl.selectUiTab()">In-App notification</a></li>
                 </ul>
             </div>
         </div>
@@ -43,13 +42,6 @@
                         <div class="form__row">
                             <label class="form__label">In-App message:</label>
                             <rich-text-editor class="form__content" config="ctrl.uiMessageControlConfig"></rich-text-editor>
-                        </div>
-                    </div>
-
-                    <div ng-if="ctrl.popupMessageControlConfig" ng-show="ctrl.isPopupTabSelected()">
-                        <div class="form__row">
-                            <label class="form__label">Popup message:</label>
-                            <rich-text-editor class="form__content" config="ctrl.popupMessageControlConfig"></rich-text-editor>
                         </div>
                     </div>
                 </form>

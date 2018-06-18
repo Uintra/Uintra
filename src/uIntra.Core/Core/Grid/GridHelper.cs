@@ -41,11 +41,15 @@ namespace Uintra.Core.Grid
             }
         }
 
-        private static dynamic GetGrid(IPublishedContent content) => 
-            content.GetProperty("grid")?.GetValue<dynamic>();
+        private static dynamic GetGrid(IPublishedContent content)
+        {
+            return content.GetProperty("grid")?.GetValue<dynamic>();
+        }
 
-        private bool IsValidGrid(object grid) => 
-            grid != null && grid is JObject gridJson && gridJson["sections"] != null;
+        private bool IsValidGrid(object grid)
+        {
+            return grid != null && grid is JObject gridJson && gridJson["sections"] != null;
+        }
 
 
         public T GetContentProperty<T>(IPublishedContent content, string contentKey, string propertyKey)
@@ -53,15 +57,16 @@ namespace Uintra.Core.Grid
             var properties = GetValues(content, contentKey);
             if (properties == null)
             {
-                return default;
+                return default(T);
             }
             var propertiesDictionary = ((JToken) properties).ToDictionary();
-            if (propertiesDictionary.TryGetValue(propertyKey, out var property))
+            object property;
+            if (propertiesDictionary.TryGetValue(propertyKey, out property))
             {
-                var typedResult = ((JToken)property).ToObject<T>();
+                var typedResult = ((JToken) property).ToObject<T>();
                 return typedResult;
             }
-            return default;
+            return default(T);
         }
     }
 }

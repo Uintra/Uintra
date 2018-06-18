@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Uintra.Core.Controls.LightboxGallery;
 using Uintra.Core.Links;
 
-namespace UIntra.Core.Controls.LightboxGallery
+namespace Uintra.Core.Controls.LightboxGallery
 {
     public class LightboxGalleryPreviewViewModel
     {
@@ -14,6 +13,5 @@ namespace UIntra.Core.Controls.LightboxGallery
         public Enum ActivityType { get; set; }
         public IActivityLinks Links { get; set; }
         public int HiddenImagesCount { get; set; }
-
     }
 }

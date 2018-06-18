@@ -1,12 +1,10 @@
-﻿@using Compent.Extensions
+﻿@using Extensions
 @using Uintra.Core
 @using Uintra.Core.Extensions
-@using Uintra.Core.Media
-@model UIntra.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
+@model Uintra.Core.Controls.LightboxGallery.LightboxGalleryPreviewViewModel
 
 @{
     var fullSizeClass = Model.Medias.Count() > 1 ? string.Empty : "_full-size";
-    var otherFilesCount = Model.OtherFiles.Count();
 }
 
 <div class="gallery-holder js-lightbox-gallery">
@@ -40,11 +38,11 @@
 </div>
 @* attachments *@
 
-@if (otherFilesCount > 0)
+@if (Model.OtherFiles.Any())
 {
     <div class="attachments">
         <a class="attachments__link" href="@Model.Links.Details">
-            @otherFilesCount @(otherFilesCount > 1 ? Html.Localize("LightboxGallery.Count.Many.lbl") : Html.Localize("LightboxGallery.Count.One.lbl") )
+            @Model.OtherFiles.Count() @Html.Localize("LightboxGallery.Count.lbl")
         </a>
     </div>
 }

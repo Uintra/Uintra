@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 
 namespace Uintra.Core.Extensions
 {
     public static class EnumerableExtensions
     {
+
         public static IEnumerable<IEnumerable<T>> Split<T>(this IEnumerable<T> source, int divider = 2)
         {
             return source
@@ -14,17 +15,10 @@ namespace Uintra.Core.Extensions
                 .Select(x => x.Select(v => v.Value));
         }
 
-        public static bool IsEmpty<T>(this IList<T> list) => list.Count == 0;
-
-        public static IEnumerable<TResult> TryCast<TResult>(this IEnumerable source)
+        /// <summary>Adds elements at the end of sequence.</summary>
+        public static IEnumerable<T> Append<T>(this IEnumerable<T> source,  T element)
         {
-            foreach (var item in source)
-            {
-                if (item is TResult castedItem)
-                {
-                    yield return castedItem;
-                }
-            }
+            return source.Concat(element.ToEnumerable());
         }
     }
 }

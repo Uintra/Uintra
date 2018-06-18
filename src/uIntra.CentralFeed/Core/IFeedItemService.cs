@@ -5,7 +5,7 @@ namespace Uintra.CentralFeed
 {
     public interface IFeedItemService
     {
-        Enum Type { get; }
+        Enum ActivityType { get; }
         FeedSettings GetFeedSettings();
         IEnumerable<IFeedItem> GetItems();
     }

@@ -26,7 +26,7 @@ namespace Compent.Uintra.Core
 
         public TService GetService<TService>(Enum type) where TService : class, ITypedService
         {
-            return _kernel.GetServices<TService>().Single(s => Equals(s.Type, type));
+            return _kernel.GetServices<TService>().Single(s => Equals(s.ActivityType, type));
         }
     }
 }

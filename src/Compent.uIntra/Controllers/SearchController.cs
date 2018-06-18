@@ -6,7 +6,6 @@ using Compent.Uintra.Core.Search;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.Search.Models;
 using Localization.Umbraco.Attributes;
-using Uintra.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.Localization;
 using Uintra.Search;
@@ -20,24 +19,20 @@ namespace Compent.Uintra.Controllers
         private readonly IIntranetLocalizationService _localizationService;
         private readonly IElasticIndex _elasticIndex;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
-        private readonly ViewRenderer _viewRenderer;
 
         protected override string SearchResultViewPath { get; } = "~/Views/Search/SearchResult.cshtml";
-        protected override string SearchBoxAutocompleteItemViewPath { get; } = "~/Views/Search/SearchBoxAutocompleteItem.cshtml";
 
         public SearchController(
             IElasticIndex elasticIndex,
             IEnumerable<IIndexer> searchableServices,
             IIntranetLocalizationService localizationService,
             ISearchUmbracoHelper searchUmbracoHelper,
-            ISearchableTypeProvider searchableTypeProvider,
-            ViewRenderer viewRenderer)
-            : base(elasticIndex, searchableServices, localizationService, searchUmbracoHelper, searchableTypeProvider, viewRenderer)
+            ISearchableTypeProvider searchableTypeProvider)
+            : base(elasticIndex, searchableServices, localizationService, searchUmbracoHelper, searchableTypeProvider)
         {
             _localizationService = localizationService;
             _elasticIndex = elasticIndex;
             _searchableTypeProvider = searchableTypeProvider;
-            _viewRenderer = viewRenderer;
         }
 
         [HttpPost]
@@ -112,28 +107,22 @@ namespace Compent.Uintra.Controllers
         {
             var result = searchResults.Select(searchResult =>
             {
-                var model = searchResult.Map<SearchAutocompleteResultViewModel>();
-
-                var searchAutocompleteItem = new SearchBoxAutocompleteItemExtendedViewModel
-                {
-                    Title = model.Title,
-                    Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider[searchResult.Type].ToString()}")
-                };
-
+                var model = searchResult.Map<UintraSearchAutocompleteResultViewModel>();
+                model.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider[searchResult.Type].ToString()}");
                 if (searchResult is SearchableUser user)
                 {
-                    searchAutocompleteItem.Email = user.Email;
-                    searchAutocompleteItem.Photo = user.Photo;
+                    var email = new SearchInfoListItemModel { Name = "Email", Value = user.Email };
+                    var photo = new SearchInfoListItemModel { Name = "Photo", Value = user.Photo };
+                    model.AdditionalInfo = new List<SearchInfoListItemModel> { email, photo };
                 }
 
-                model.Html = _viewRenderer.Render(SearchBoxAutocompleteItemViewPath, searchAutocompleteItem);
                 return model;
             });
 
             return result;
         }
 
-        private static IEnumerable<Enum> GetUintraSearchableTypes()
+        private IEnumerable<Enum> GetUintraSearchableTypes()
         {
             return new Enum[]
             {
@@ -144,12 +133,6 @@ namespace Compent.Uintra.Controllers
                 UintraSearchableTypeEnum.Document,
                 UintraSearchableTypeEnum.User
             };
-        }
-
-        protected override SearchBoxAutocompleteItemViewModel GetSeeAllSearchAutocompleteItemModel(string title)
-        {
-            var seeAllSearchAutocompleteItem = base.GetSeeAllSearchAutocompleteItemModel(title);
-            return new SearchBoxAutocompleteItemExtendedViewModel { Title = seeAllSearchAutocompleteItem.Title, Type = seeAllSearchAutocompleteItem.Type };
         }
     }
 }

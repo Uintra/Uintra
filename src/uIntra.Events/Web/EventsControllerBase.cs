@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Attributes;
-using Uintra.Core.Context;
 using Uintra.Core.Controls.LightboxGallery;
 using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
@@ -16,11 +15,12 @@ using Uintra.Core.Media;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions.Web;
+using Umbraco.Web.Mvc;
 
 namespace Uintra.Events.Web
 {
     [ActivityController(ActivityTypeId)]
-    public abstract class EventsControllerBase : ContextController
+    public abstract class EventsControllerBase : SurfaceController
     {
         protected virtual string ComingEventsViewPath => "~/App_Plugins/Events/ComingEvents/ComingEventsView.cshtml";
         protected virtual string DetailsViewPath => "~/App_Plugins/Events/Details/DetailsView.cshtml";
@@ -35,27 +35,21 @@ namespace Uintra.Events.Web
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IActivityLinkService _activityLinkService;
-        private readonly IActivityPageHelperFactory _activityPageHelperFactory;
 
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Events;
-
-        public override ContextType ControllerContextType { get; } = ContextType.Events;
 
         protected EventsControllerBase(
             IEventsService<EventBase> eventsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivityTypeProvider activityTypeProvider,
-            IActivityLinkService activityLinkService,
-            IContextTypeProvider contextTypeProvider,
-            IActivityPageHelperFactory activityPageHelperFactory) : base(contextTypeProvider)
+            IActivityLinkService activityLinkService)
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;
             _intranetUserService = intranetUserService;
             _activityTypeProvider = activityTypeProvider;
             _activityLinkService = activityLinkService;
-            _activityPageHelperFactory = activityPageHelperFactory;
         }
 
         [NotFoundActivity]
@@ -63,7 +57,7 @@ namespace Uintra.Events.Web
         {
             var @event = _eventsService.Get(id);
             var model = GetViewModel(@event, options);
-            AddEntityIdentityForContext(id);
+
             return PartialView(DetailsViewPath, model);
         }
 
@@ -79,7 +73,7 @@ namespace Uintra.Events.Web
             (IList<ComingEventViewModel> comingEvents, int totalCount) = GetComingEvents(panelModel.EventsAmount);
             var viewModel = new ComingEventsPanelViewModel
             {
-                OverviewUrl = _activityPageHelperFactory.GetHelper(IntranetActivityTypeEnum.Events).GetOverviewPageUrl(),
+                OverviewUrl = comingEvents.FirstOrDefault()?.Links.Overview,
                 Title = panelModel.DisplayTitle,
                 Events = comingEvents,
                 ShowSeeAllButton = comingEvents.Count < totalCount

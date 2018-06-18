@@ -6,16 +6,14 @@ require("./List/notificationList.css");
 
 var infinityScroll = helpers.infiniteScrollFactory;
 var body = document.querySelector('body');
-var html = document.querySelector('html');
 
 function initPreviewControls() {
     var notification = document.querySelector(".js-notification");
     var notificationList = document.querySelector(".js-notification-list");
     var notificationBlock = document.querySelector(".notification");
 
-    notification.addEventListener('click', function (e) {
-        e.preventDefault();
-        if (!html.classList.contains("_notifications-expanded")) {
+    notification.addEventListener('click', function () {
+        if (!body.classList.contains("_notifications-expanded")) {
 
             ajax.get("/umbraco/surface/Notification/List")
                 .then(function (response) {
@@ -23,9 +21,9 @@ function initPreviewControls() {
                     notificationList.classList.remove('_loading');
                     initCustomControls();
                 });
-            html.classList.add("_notifications-expanded");
+            body.classList.add("_notifications-expanded");
         } else {
-            html.classList.remove("_notifications-expanded");
+            body.classList.remove("_notifications-expanded");
         }
     });
 
@@ -35,9 +33,9 @@ function initPreviewControls() {
 }
 
 function isOutsideClick(el, trigger, target, classname) {
-    if (el && !el.contains(target) && (trigger && !trigger.contains(target)) && html.classList.contains(classname)) {
-        html.classList.remove(classname);
-        html.removeEventListener("click", isOutsideClick);
+    if (el && !el.contains(target) && (trigger && !trigger.contains(target)) && body.classList.contains(classname)) {
+        body.classList.remove(classname);
+        body.removeEventListener("click", isOutsideClick);
     }
 }
 
@@ -94,8 +92,6 @@ function initInfinityScroll() {
     });
 }
 
-function getClientHeight() { return document.compatMode == 'CSS1Compat' ? document.documentElement.clientHeight : document.body.clientHeight; }
-
 export default function () {
     initPreviewControls();
     updateNotificationsCount();
@@ -103,4 +99,3 @@ export default function () {
     initCustomControls();
     initInfinityScroll();
 }
-

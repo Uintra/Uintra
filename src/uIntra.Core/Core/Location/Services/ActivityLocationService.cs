@@ -31,7 +31,7 @@ namespace Uintra.Core.Location
 
             if (oldLocation is null)
             {
-                if (location is null)
+                if (location == null)
                     return;
 
                 var newLocation = new ActivityLocationEntity()
@@ -45,7 +45,7 @@ namespace Uintra.Core.Location
             }
             else
             {
-                if (location?.Address == null || location.ShortAddress == null)
+                if (location == null || location.Address == null || location.ShortAddress == null)
                 {
                     _locationRepository.Delete(oldLocation);
                 }

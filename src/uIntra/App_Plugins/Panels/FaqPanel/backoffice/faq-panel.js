@@ -1,5 +1,10 @@
 ﻿(function () {
     var controller = function ($scope) {
+        $scope.sortableOptions = {
+            items: "tr:not(._not-sortable)",
+            placeholder: "ui-sortable-placeholder",
+            axis: 'y'
+        };
 
         $scope.activeQuestion = -1;
         $scope.rteConfigAlias = "faq-panel";

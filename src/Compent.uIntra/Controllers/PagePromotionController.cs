@@ -2,29 +2,26 @@
 using Compent.Uintra.Core.Activity.Models;
 using Compent.Uintra.Core.PagePromotion.Entities;
 using Compent.Uintra.Core.PagePromotion.Models;
-using Uintra.Core;
-using Uintra.Core.Context;
 using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
+using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.Web;
+using Umbraco.Core;
 
 namespace Compent.Uintra.Controllers
 {
-    [TrackContext]
     public class PagePromotionController : PagePromotionControllerBase
     {
         protected override string ItemViewPath => "~/Views/PagePromotion/ItemView.cshtml";
 
-        public PagePromotionController(IIntranetUserService<IIntranetUser> userService, IContextTypeProvider contextTypeProvider)
-            : base(userService, contextTypeProvider)
+        public PagePromotionController(IIntranetUserService<IIntranetUser> userService)
+            : base(userService)
         {
         }
 
         public ActionResult FeedItem(PagePromotion item, ActivityFeedOptions options)
         {
-            AddEntityIdentityForContext(item.Id);
-
             var viewModel = GetItemViewModel(item, options);
             return PartialView(ItemViewPath, viewModel);
         }

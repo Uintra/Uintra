@@ -99,8 +99,8 @@
 
         @media (--for-tablet-portrait-down){
             font-size:13px;
-            margin:0 -15px 10px;
-            padding:20px 15px 10px;
+            margin:0 -20px 10px;
+            padding:20px 10px 10px;
             box-shadow:none;
         }
 
@@ -124,6 +124,16 @@
             display:flex;
             align-items: center;
             color:var(--text-color-dark);
+
+            /*@media (--for-tablet-portrait-down){
+                max-width:100%;
+                display:block;
+                min-height:62px;
+
+                .avatar{
+                    float:left;
+                }
+            }*/
 
             .create-bulletin &{
                 align-items: center;
@@ -293,22 +303,20 @@
             }
 
             &-list{
-                margin:0 0 0 -2px;
+                margin:0 0 0 -26px;
                 padding:0;
                 list-style:none;
-                display: flex;
-                flex-wrap:wrap;
+                &:after{
+                    content:'';
+                    display:block;
+                    clear:both;
+                }
 
                 &-item{
+                    float:left;
+                    padding:0 0 10px 26px;
+                    max-width:33.3%;
                     position:relative;
-                    padding:0 0 2px 2px;
-                    flex-grow:1;
-                    max-width:25%;
-                    flex-shrink:1;
-
-                    @media(--for-tablet-portrait-down){
-                        max-width:33.3%;
-                    }
                 }
 
                 img{
@@ -323,8 +331,8 @@
 
             &-remove{
                 position:absolute;
-                top:2px;
-                right:2px;
+                top:-10px;
+                right:-10px;
                 width:25px;
                 height:25px;
                 text-align:center;
@@ -369,7 +377,7 @@
                 min-width:100px;
                 display:inline-block;
                 vertical-align:middle;
-                margin:0 10px 10px 0;
+                margin:0 20px 10px 0;
 
                 ._details &{
                     min-width:0;
@@ -600,7 +608,7 @@
 	}
 
 	&-create {
-        margin:0 0 10px;
+		margin: -21px 0 10px;
 		padding: 12px 21px 0;
 		list-style: none;
         box-shadow:0 0 2px rgba(0,0,0,0.2);
@@ -672,7 +680,7 @@
             padding:3px 11px 2px;
 
             .feed__item &{
-                margin-top:-10px;
+                margin-top:-30px;
             }
         }
 	}

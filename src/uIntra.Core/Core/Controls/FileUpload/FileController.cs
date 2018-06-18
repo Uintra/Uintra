@@ -32,7 +32,7 @@ namespace Uintra.Core.Controls.FileUpload
             var file = provider.Contents.Single();
             var fileName = file.Headers.ContentDisposition.FileName.Trim('\"');
             var buffer = await file.ReadAsByteArrayAsync();
-            
+
             var result = new TempFile
             {
                 Id = Guid.NewGuid(),

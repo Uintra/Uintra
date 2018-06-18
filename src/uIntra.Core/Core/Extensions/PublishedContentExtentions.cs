@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
+using Extensions;
 using Uintra.Core.Constants;
-using Uintra.Core.Media;
 using Umbraco.Core.Models;
+using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
 namespace Uintra.Core.Extensions
@@ -30,7 +32,7 @@ namespace Uintra.Core.Extensions
 
         private static string ParseFullFileName(string fullName)
         {
-            const string regex = @"^/media/[0-9]*/(.*)$";
+            string regex = @"^/media/[0-9]*/(.*)$";
             var match = Regex.Match(fullName, regex);
             try
             {
@@ -54,7 +56,7 @@ namespace Uintra.Core.Extensions
         }
 
         public static Enum GetMediaType(this IPublishedContent content)
-        {       
+        {            
             switch (content.DocumentTypeAlias)
             {
                 case UmbracoAliases.Media.ImageTypeAlias:
@@ -67,6 +69,60 @@ namespace Uintra.Core.Extensions
                     throw new Exception($"undefined document type - {content.DocumentTypeAlias}");
 
             }
+        }
+
+        public static string UrlWithParams(this IPublishedContent content, params string[] urlParams)
+        {
+            var result = content.Url;
+
+            if (urlParams.Any())
+            {
+                result = $"{result.TrimEnd('/')}/{urlParams.JoinWithSeparator("/").Trim('/')}";
+            }
+
+            return result;
+        }
+
+        public static string UrlWithQueryString(this IPublishedContent content, string key, object value)
+        {
+            var result = content.Url;
+            if (key.HasValue() && value != null)
+            {
+                var keyValue = $"{key}={value}";
+                result = $"{result.TrimEnd('/')}?{keyValue}";
+            }
+
+            return result;
+        }
+
+        public static string UrlWithQueryString(this string url, string key, object value)
+        {
+            var result = url;
+            if (key.HasValue() && value != null)
+            {
+                var keyValue = $"{key}={value}";
+                result = $"{result.TrimEnd('/')}?{keyValue}";
+            }
+
+            return result;
+        }
+
+        public static Guid GetGuidKey(this IPublishedContent content)
+        {
+            Guid result;
+            switch (content)
+            {
+                case IPublishedContentWithKey contentWithKey:
+                    result = contentWithKey.Key;
+                    break;
+                case PublishedContentWrapped wrapped when wrapped.Unwrap() is IPublishedContentWithKey contentWithKey:
+                    result = contentWithKey.Key;
+                    break;
+                default:
+                    result = default;
+                    break;
+            }
+            return result;
         }
     }
 }

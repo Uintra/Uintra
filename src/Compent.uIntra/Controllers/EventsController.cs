@@ -6,9 +6,7 @@ using Compent.Uintra.Core.Activity.Models;
 using Compent.Uintra.Core.Events;
 using Compent.Uintra.Core.Feed;
 using Compent.Uintra.Core.UserTags;
-using Uintra.Core;
 using Uintra.Core.Activity;
-using Uintra.Core.Context;
 using Uintra.Core.Extensions;
 using Uintra.Core.Grid;
 using Uintra.Core.Links;
@@ -38,6 +36,7 @@ namespace Compent.Uintra.Controllers
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IReminderService _reminderService;
         private readonly IDocumentIndexer _documentIndexer;
+        private readonly INotificationTypeProvider _notificationTypeProvider;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityTagsHelper _activityTagsHelper;
         private readonly IGroupMemberService _groupMemberService;
@@ -51,19 +50,19 @@ namespace Compent.Uintra.Controllers
             IGridHelper gridHelper,
             IActivityTypeProvider activityTypeProvider,
             IDocumentIndexer documentIndexer,
+            INotificationTypeProvider notificationTypeProvider,
             IGroupActivityService groupActivityService,
             IActivityLinkService activityLinkService,
             UserTagService userTagService,
             IActivityTagsHelper activityTagsHelper,
-            IGroupMemberService groupMemberService,
-            IContextTypeProvider contextTypeProvider,
-            IActivityPageHelperFactory activityPageHelperFactory)
-            : base(eventsService, mediaHelper, intranetUserService, activityTypeProvider, activityLinkService, contextTypeProvider, activityPageHelperFactory)
+            IGroupMemberService groupMemberService)
+            : base(eventsService, mediaHelper, intranetUserService, activityTypeProvider, activityLinkService)
         {
             _eventsService = eventsService;
             _intranetUserService = intranetUserService;
             _reminderService = reminderService;
             _documentIndexer = documentIndexer;
+            _notificationTypeProvider = notificationTypeProvider;
             _groupActivityService = groupActivityService;
             _activityTagsHelper = activityTagsHelper;
             _groupMemberService = groupMemberService;
@@ -95,7 +94,6 @@ namespace Compent.Uintra.Controllers
         public ActionResult FeedItem(Event item, ActivityFeedOptionsWithGroups options)
         {
             EventExtendedItemModel extendedModel = GetItemViewModel(item, options);
-            AddEntityIdentityForContext(item.Id);
             return PartialView(ItemViewPath, extendedModel);
         }
 
@@ -145,7 +143,6 @@ namespace Compent.Uintra.Controllers
 
         public ActionResult PreviewItem(Event item, ActivityLinks links)
         {
-            AddEntityIdentityForContext(item.Id);
             EventPreviewViewModel viewModel = GetPreviewViewModel(item, links);
             return PartialView(PreviewItemViewPath, viewModel);
         }
@@ -196,7 +193,8 @@ namespace Compent.Uintra.Controllers
         {
             if (isNotificationNeeded)
             {
-                ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHided);
+                var notificationType = NotificationTypeEnum.EventHided;
+                ((INotifyableService)_eventsService).Notify(id, notificationType);
             }
         }
 

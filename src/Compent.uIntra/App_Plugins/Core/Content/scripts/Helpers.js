@@ -46,7 +46,7 @@ const helpers = {
         if (typeof options == 'undefined') {
             settings.modules = {
                 toolbar: {
-                    container: ['emoji','bold', 'italic', 'underline', 'link']
+                    container: [['emoji'], ['bold', 'italic', 'underline'], ['link']]
                 }
             };
         }
@@ -251,7 +251,6 @@ const helpers = {
 
             emojiListItem.addEventListener('click', function (event) {
                 CopyClipboard(getHTML(event.target));
-                emojiContainer.classList.add("hidden");
             });
 
             emojiListImage = document.createElement("img");

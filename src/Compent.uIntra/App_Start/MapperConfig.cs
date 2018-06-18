@@ -14,7 +14,6 @@ using Uintra.Groups;
 using Uintra.Navigation;
 using Uintra.News;
 using Uintra.Notification;
-using Uintra.Panels.Core.AutoMapperProfiles;
 using Uintra.Search;
 using Uintra.Tagging;
 using Uintra.Subscribe;
@@ -56,7 +55,6 @@ namespace Compent.Uintra
             Mapper.AddProfile<SubscribeSettingAutoMapperProfiles>();
             Mapper.AddProfile<LocationAutoMapperProfile>();
             Mapper.AddProfile<LinkPreviewAutoMapperProfile>();
-            Mapper.AddProfile<TablePanelAutoMapperProfiles>();            
 
             var typeMaps = Mapper.GetAllTypeMaps();
 

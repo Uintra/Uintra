@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
 
@@ -80,7 +80,7 @@ namespace Uintra.Comments
         {
             var entity = new Comment
             {
-                Id = dto.Id,
+                Id = Guid.NewGuid(),
                 ActivityId = dto.ActivityId,
                 UserId = dto.UserId,
                 Text = dto.Text,
@@ -93,19 +93,14 @@ namespace Uintra.Comments
         public virtual CommentModel Update(CommentEditDto dto)
         {
             var comment = _commentsRepository.Get(dto.Id);
-            var commentLinkPreview = _commentLinkPreviewService.GetCommentsLinkPreview(comment.Id);
 
             comment.ModifyDate = DateTime.Now.ToUniversalTime();
             comment.Text = dto.Text;
-
             _commentsRepository.Update(comment);
 
             if (dto.LinkPreviewId.HasValue)
             {
-                if (commentLinkPreview?.Id != dto.LinkPreviewId)
-                {
-                    _commentLinkPreviewService.UpdateLinkPreview(dto.Id, dto.LinkPreviewId.Value);
-                }
+                _commentLinkPreviewService.UpdateLinkPreview(dto.Id, dto.LinkPreviewId.Value);
             }
             else
             {

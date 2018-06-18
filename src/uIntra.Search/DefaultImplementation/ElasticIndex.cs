@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
+using Extensions;
 using Nest;
 using Uintra.Core.Extensions;
 
@@ -9,8 +9,7 @@ namespace Uintra.Search
 {
     public class ElasticIndex : IElasticIndex
     {
-        protected const int MinimumShouldMatches = 1;
-        protected const int FieldWithReplaceAnalyzerBoost = 10;
+        private const int MinimumShouldMatches = 1;
 
         private readonly IElasticSearchRepository _elasticSearchRepository;
 
@@ -19,7 +18,7 @@ namespace Uintra.Search
             _elasticSearchRepository = elasticSearchRepository;
         }
 
-        public virtual SearchResult<SearchableBase> Search(SearchTextQuery query)
+        public SearchResult<SearchableBase> Search(SearchTextQuery query)
         {
             var searchRequest = GetSearchDescriptor()
                 .Query(q =>
@@ -49,7 +48,7 @@ namespace Uintra.Search
                 .AllTypes();
         }
 
-        public virtual void RecreateIndex()
+        public void RecreateIndex()
         {
             _elasticSearchRepository.DeleteIndex();
             _elasticSearchRepository.EnsureIndexExists(ElasticHelpers.SetAnalysis);
@@ -58,9 +57,9 @@ namespace Uintra.Search
         protected virtual QueryContainer GetBaseDescriptor(string query)
         {
             var desc = new QueryContainerDescriptor<SearchableBase>().Match(m => m
-                .Query(query)
-                .Analyzer(ElasticHelpers.Replace)
-                .Field(f => f.Title));
+                 .Query(query)
+                 .Analyzer(ElasticHelpers.Replace)
+                 .Field(f => f.Title));
             return desc;
         }
 
@@ -70,22 +69,12 @@ namespace Uintra.Search
             {
                 new QueryContainerDescriptor<SearchableContent>().Match(m => m
                     .Query(query)
-                    .Analyzer(ElasticHelpers.ReplaceNgram)
+                    .Analyzer(ElasticHelpers.Replace)
                     .Field(f => f.PanelContent)),
                 new QueryContainerDescriptor<SearchableContent>().Match(m => m
                     .Query(query)
                     .Analyzer(ElasticHelpers.Replace)
-                    .Field(f => f.PanelContent)
-                    .Boost(FieldWithReplaceAnalyzerBoost)),
-                new QueryContainerDescriptor<SearchableContent>().Match(m => m
-                    .Query(query)
-                    .Analyzer(ElasticHelpers.ReplaceNgram)
-                    .Field(f => f.PanelTitle)),
-                new QueryContainerDescriptor<SearchableContent>().Match(m => m
-                    .Query(query)
-                    .Analyzer(ElasticHelpers.Replace)
-                    .Field(f => f.PanelTitle)
-                    .Boost(FieldWithReplaceAnalyzerBoost))
+                    .Field(f => f.PanelTitle))
             };
 
             return desc.ToArray();
@@ -164,7 +153,6 @@ namespace Uintra.Search
         {
             searchDescriptor.Take(query.Take);
         }
-
         protected virtual void ApplyAggregations<T>(SearchDescriptor<T> searchDescriptor, SearchTextQuery query) where T : class
         {
             searchDescriptor.Aggregations(agg => agg

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
 
@@ -33,11 +32,12 @@ namespace Uintra.CentralFeed
 
         public long GetFeedVersion(IEnumerable<IFeedItem> feedItems)
         {
-            var feedItemsList = feedItems.AsList();
+            if (!feedItems.Any())
+            {
+                return default;
+            }
 
-            return feedItemsList.IsEmpty()
-                ? default
-                : feedItemsList.Max(item => item.ModifyDate).Ticks;
+            return feedItems.Max(item => item.ModifyDate).Ticks;
         }
 
         public FeedSettings GetSettings(Enum type)

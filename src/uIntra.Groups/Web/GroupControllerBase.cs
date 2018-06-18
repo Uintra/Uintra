@@ -2,15 +2,13 @@
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using Compent.CommandBus;
+using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Constants;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
 using Uintra.Core.User;
-using Uintra.Groups.Attributes;
-using Uintra.Groups.CommandBus;
 using Uintra.Groups.Permissions;
 using Umbraco.Web.Mvc;
 
@@ -38,7 +36,6 @@ namespace Uintra.Groups.Web
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly IGroupLinkProvider _groupLinkProvider;
         private readonly IImageHelper _imageHelper;
-        private readonly ICommandPublisher _commandPublisher;
 
         protected int ItemsPerPage = 10;
 
@@ -50,8 +47,7 @@ namespace Uintra.Groups.Web
             IIntranetUserService<IGroupMember> userService,
             IProfileLinkProvider profileLinkProvider,
             IGroupLinkProvider groupLinkProvider,
-            IImageHelper imageHelper,
-            ICommandPublisher commandPublisher)
+            IImageHelper imageHelper)
         {
             _groupService = groupService;
             _groupMemberService = groupMemberService;
@@ -61,7 +57,6 @@ namespace Uintra.Groups.Web
             _profileLinkProvider = profileLinkProvider;
             _groupLinkProvider = groupLinkProvider;
             _imageHelper = imageHelper;
-            _commandPublisher = commandPublisher;
         }
 
         public virtual ActionResult Overview()
@@ -155,7 +150,6 @@ namespace Uintra.Groups.Web
             return PartialView(ListViewPath, model);
         }
 
-        [NotFoundGroup]
         [DisabledGroupActionFilter]
         public ActionResult Info(Guid groupId)
         {
@@ -187,9 +181,7 @@ namespace Uintra.Groups.Web
         [HttpPost]
         public virtual ActionResult Hide(Guid id)
         {
-            var command = new HideGroupCommand(id);
-            _commandPublisher.Publish(command);
-
+            _groupService.Hide(id);
             return Json(_groupLinkProvider.GetGroupsOverviewLink());
         }
 

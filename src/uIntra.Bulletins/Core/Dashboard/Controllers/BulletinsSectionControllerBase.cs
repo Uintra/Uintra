@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
+using Uintra.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.User;
 using Umbraco.Web.WebApi;

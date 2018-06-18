@@ -1,8 +1,12 @@
-﻿using System.Web.Http;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 using FluentScheduler;
+using Uintra.Bulletins;
 using Uintra.Core.Jobs;
+using Uintra.Events.Dashboard;
+using Uintra.Groups.Dashboard;
+using Uintra.News.Dashboard;
+using Uintra.Notification.Dashboard;
 using Umbraco.Core;
 
 namespace Compent.Uintra
@@ -16,12 +20,17 @@ namespace Compent.Uintra
         }
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
-        {           
+        {
+            NewsSection.AddSectionToAllUsers(applicationContext);
+            EventsSection.AddSectionToAllUsers(applicationContext);
+            BulletinsSection.AddSectionToAllUsers(applicationContext);
+            GroupsSection.AddSectionToAllUsers(applicationContext);
+            NotificationSettingsSection.AddSectionToAllUsers(applicationContext);
+
             RegisterRoutes();
-            GlobalConfiguration.Configure(WebApiConfig.Register);
 
             JobManager.JobFactory = DependencyResolver.Current.GetService<IJobFactory>();
-            JobManager.Initialize(new JobsRegistry());
+            JobManager.Initialize(new JobsRegistry());            
 
             base.ApplicationStarted(umbracoApplication, applicationContext);
         }

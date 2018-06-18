@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions.Trees;
+using BCLExtensions.Trees;
 using Uintra.Core.Extensions;
-using static Compent.Extensions.Trees.TreeExtensions;
+using Uintra.Core.TypeProviders;
+using static BCLExtensions.Trees.TreeExtensions;
 
 namespace Uintra.Notification.Configuration
 {
@@ -37,7 +38,7 @@ namespace Uintra.Notification.Configuration
             var tree = RootNode.WithChildren(categories);
 
             return tree;
-        }    
+        }
 
         protected virtual ITree<TreeNodeModel> ParseCategory(NotificationSettingsCategoryDto dto)
         {

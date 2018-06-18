@@ -1,6 +1,5 @@
 ﻿@using Uintra.Core
 @using Uintra.Core.Extensions
-@using Uintra.Core.Media
 @model Uintra.Core.Controls.LightboxGallery.LightboxGalleryOverviewModel
 
 @{
@@ -37,14 +36,14 @@
 
 @if (Model.OtherFiles.Any())
 {
-<h3 class="feed__item-subtitle">@Html.Localize("LightboxGallery.AttachedFiles.lbl")</h3>
+    <h3 class="feed__item-subtitle">Vedhæftede dokumenter:</h3>
 
     <ul class="documents-list">
         @foreach (var document in Model.OtherFiles)
         {
             <li class="documents-list__item">
                 <a class="documents-list__link" href="@document.Url" target="_blank">
-                    <span class="documents-list__icon file-extension">@document.Extension.ToExtensionViewString()</span>
+                    <span class="documents-list__icon file-extension _@document.Extension"></span>
                     <span class="documents-list__title">@document.Name</span>
                 </a>
             </li>

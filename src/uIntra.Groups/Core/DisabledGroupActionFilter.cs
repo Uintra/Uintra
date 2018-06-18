@@ -35,10 +35,6 @@ namespace Uintra.Groups
                 return sessionGroupValue.Value;
             }
             var group = _groupService.Get(groupId);
-            if (group == null)
-            {
-                return false;
-            }
             filterContext.HttpContext.Items[$"group_is_hidden_{groupId}"] = group.IsHidden;
             return group.IsHidden;
         }

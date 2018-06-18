@@ -34,4 +34,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 // For old migration testing
-[assembly: AssemblyVersion("0.2.31.0")]
+[assembly: AssemblyVersion("0.2.31.1")]
+[assembly: AssemblyInformationalVersion("0.2.31.1-patch2")]

@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
-using Compent.Extensions;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using Extensions;
 using Localization.Core;
 using Newtonsoft.Json.Linq;
 using Uintra.Core.Constants;
@@ -26,7 +26,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             var basePageWithGridBase = new ContentType(basePageWithGrid.Id);
 
             basePageWithGridBase.AddContentType(basePageWithGrid);
-            basePageWithGridBase.SetDefaultTemplate(fileService.GetTemplate(CoreInstallationConstants.TemplateAliases.GridPageLayoutTemplateAlias));
+            basePageWithGridBase.SetDefaultTemplate(fileService.GetTemplate(CoreInstallationConstants.DocumentTypeAliases.GridPageLayoutTemplateAlias));
 
             return basePageWithGridBase;
         }
@@ -81,20 +81,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             contentService.Save(page);
         }
 
-        public static void DeleteCompositionFromPage(string pageTypeAlias, string compositionTypeAlias)
-        {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
-
-            var page = contentService.GetContentType(pageTypeAlias);
-            var composition = contentService.GetContentType(compositionTypeAlias);
-            if (page == null || composition == null) return;
-
-            if (!page.ContentTypeCompositionExists(composition.Alias)) return;
-
-            page.RemoveContentType(composition.Alias);
-            contentService.Save(page);
-        }
-
         public static void CreateTrueFalseDataType(string name)
         {
             var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
@@ -111,7 +97,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             }
         }
 
-        public static  void AddIntranetUserIdProperty(IMediaType mediaType)
+        public static void AddIntranetUserIdProperty(IMediaType mediaType)
         {
             var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
 
@@ -212,9 +198,9 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             var localizationCoreService = DependencyResolver.Current.GetService<ILocalizationCoreService>();
 
             var resourceModel = localizationCoreService.GetResourceModel(key);
-            if (resourceModel.Translations[Constants.LocalizationConstants.CultureKeys.English].Contains(key))
+            if (resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English].Contains(key))
             {
-                resourceModel.Translations[Constants.LocalizationConstants.CultureKeys.English] = translation;
+                resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English] = translation;
                 localizationCoreService.Create(resourceModel);
             }
         }
@@ -224,22 +210,11 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             var localizationCoreService = DependencyResolver.Current.GetService<ILocalizationCoreService>();
 
             var resourceModel = localizationCoreService.GetResourceModel(key);
-            if (resourceModel.Translations[Constants.LocalizationConstants.CultureKeys.English].Contains(oldTranslation))
+            if (resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English].Contains(oldTranslation))
             {
-                resourceModel.Translations[Constants.LocalizationConstants.CultureKeys.English] = newTranslation;
+                resourceModel.Translations[Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.LocalizationConstants.CultureKeys.English] = newTranslation;
                 localizationCoreService.Update(resourceModel);
             }
-        }
-
-        public static void SetGridPageLayoutTemplateContent(string layoutEmbeddedResourceFileName)
-        {
-            var fileService = ApplicationContext.Current.Services.FileService;
-            var alias = CoreInstallationConstants.TemplateAliases.GridPageLayoutTemplateAlias;
-
-            var gridPageLayoutTemplate = fileService.GetTemplate(alias) ?? new Template(alias, alias);
-            gridPageLayoutTemplate.Content = EmbeddedResourcesUtils.ReadResourceContent(layoutEmbeddedResourceFileName);
-
-            fileService.SaveTemplate(gridPageLayoutTemplate);
         }
 
         private static IContentType CreatePageDocTypeWithGrid(BasePageWithDefaultGridCreateModel model, string basePageTypeAlias)

@@ -8,7 +8,9 @@ namespace Uintra.Likes
     {
         public Guid UserId { get; set; }
 
-        public Guid EntityId { get; set; }
+        public Guid ActivityId { get; set; }
+
+        public Guid? CommentId { get; set; }
 
         public int Count { get; set; }
 

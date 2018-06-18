@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using UIntra.Core.Controls.LightboxGallery;
 
 namespace Uintra.Core.Controls.LightboxGallery
 {
-    public class LightboxAutoMapperProfile : Profile
+    public class LightboxAutoMapperProfile: Profile
     {
         protected override void Configure()
         {

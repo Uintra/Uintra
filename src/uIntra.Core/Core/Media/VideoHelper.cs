@@ -2,15 +2,16 @@
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
-using Compent.Extensions;
+using Extensions;
 using MediaToolkit;
 using MediaToolkit.Model;
 using MediaToolkit.Options;
 using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Constants;
+using UIntra.Core.Media;
 using Umbraco.Core.Models;
 
-namespace UIntra.Core.Media
+namespace uIntra.Core.Media
 {
     public class VideoHelper : IVideoHelper
     {
@@ -25,7 +26,8 @@ namespace UIntra.Core.Media
 
         public bool IsVideo(string fileExtension)
         {
-            return _applicationSettings.VideoFileTypes.Contains(fileExtension.TrimStart('.'));
+            var isVideo = _applicationSettings.VideoFileTypes.Contains(fileExtension.ToLower().TrimStart('.'));
+            return isVideo;
         }
 
         public string CreateThumbnail(IMedia media)

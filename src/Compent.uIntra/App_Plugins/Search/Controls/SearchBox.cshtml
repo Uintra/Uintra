@@ -7,6 +7,7 @@
                data-search-results-url="@Model.SearchResultsUrl"
                data-autocomplete-url="@Url.Action("Autocomplete","Search")"
                data-empty-text="@Html.Localize("SearchBox.Empty.lbl")"
+               data-see-all-text="@Html.Localize("SearchBox.SeeAll.lnk")"
                placeholder="@Html.Localize("SearchBox.Placeholder.lbl")" />
         <a class="search__button js-searchbox-icon" type="submit"><span class="icon-search"></span></a>
     </form>

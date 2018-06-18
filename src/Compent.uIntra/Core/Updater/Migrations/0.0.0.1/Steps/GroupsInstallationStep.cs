@@ -20,6 +20,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
             CreateMyGroupsOverviewPage();
             CreateGroupsCreatePage();
             CreateGroupsEditPage();
+            //CreateGroupsDocumentsPage(); This functionality under construction now.
             CreateGroupsMembersPage();
             CreateGroupsDeactivatedGroupPage();
 
@@ -104,6 +105,19 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
                 Name = DocumentTypeNames.GroupsEditPage,
                 Alias = DocumentTypeAliases.GroupsEditPage,
                 Icon = DocumentTypeIcons.GroupsEditPage,
+                ParentAlias = DocumentTypeAliases.GroupsRoomPage
+            };
+
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
+        }
+
+        private void CreateGroupsDocumentsPage()
+        {
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = DocumentTypeNames.GroupsDocumentsPage,
+                Alias = DocumentTypeAliases.GroupsDocumentsPage,
+                Icon = DocumentTypeIcons.GroupsDocumentsPage,
                 ParentAlias = DocumentTypeAliases.GroupsRoomPage
             };
 

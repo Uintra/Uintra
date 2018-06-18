@@ -10,6 +10,8 @@ namespace Uintra.Comments
 
         public Guid? ParentId { get; set; }
 
+        public Guid ActivityId { get; set; }
+
         [Required(ErrorMessage = "*"), AllowHtml]
         public string Text { get; set; }
 

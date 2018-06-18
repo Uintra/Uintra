@@ -5,7 +5,6 @@ using Compent.Uintra.Core.Activity;
 using Compent.Uintra.Core.Feed;
 using Uintra.CentralFeed;
 using Uintra.CentralFeed.Web;
-using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Feed;
 using Uintra.Core.TypeProviders;
@@ -17,8 +16,9 @@ using Umbraco.Web;
 
 namespace Compent.Uintra.Controllers
 {
+
     public class CentralFeedController : CentralFeedControllerBase
-    {        
+    {
         private readonly IIntranetUserService<IGroupMember> _intranetUserService;
         private readonly IGroupFeedService _groupFeedService;
         private readonly IFeedActivityHelper _feedActivityHelper;
@@ -31,15 +31,14 @@ namespace Compent.Uintra.Controllers
             IIntranetUserService<IGroupMember> intranetUserService,
             IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
-            IFeedLinkService feedLinkService,
+            ICentralFeedLinkService centralFeedLinkService,
             IGroupFeedService groupFeedService,
             IFeedActivityHelper feedActivityHelper,
-            IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
+            IFeedFilterStateService feedFilterStateService,
             IPermissionsService permissionsService,
             UmbracoHelper umbracoHelper,
-            IActivityTypeProvider activityTypeProvider,
-            IContextTypeProvider contextTypeProvider,
-            IFeedFilterService feedFilterService)
+            IFeedActivityHelper feedActivityHelper1,
+            IActivityTypeProvider activityTypeProvider)
             : base(
                   centralFeedService,
                   centralFeedContentService,
@@ -48,16 +47,14 @@ namespace Compent.Uintra.Controllers
                   intranetUserService,
                   intranetUserContentProvider,
                   centralFeedTypeProvider,
-                  feedLinkService,
+                  centralFeedLinkService,
                   feedFilterStateService,
                   permissionsService,
-                  activityTypeProvider,
-                  contextTypeProvider,
-                  feedFilterService)
+                  activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
             _groupFeedService = groupFeedService;
-            _feedActivityHelper = feedActivityHelper;
+            _feedActivityHelper = feedActivityHelper1;
         }
 
         protected override IEnumerable<IFeedItem> GetCentralFeedItems(Enum type)

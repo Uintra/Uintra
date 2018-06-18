@@ -2,7 +2,7 @@
 
 namespace Uintra.Search
 {
-    public class SearchableTypeProvider : EnumTypeProviderBase<SearchableTypeEnum>, ISearchableTypeProvider
+    public class SearchableTypeProvider: EnumTypeProviderBase<SearchableTypeEnum>, ISearchableTypeProvider
     {
     }
 }

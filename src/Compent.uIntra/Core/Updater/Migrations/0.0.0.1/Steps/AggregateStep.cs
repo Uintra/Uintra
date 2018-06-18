@@ -6,7 +6,7 @@ using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.OldNotifications;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
 using EmailWorker.Data.Services.Interfaces;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Bulletins;
 using Uintra.Core;
 using Uintra.Core.Activity;
@@ -135,7 +135,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
             InstallationStepsHelper.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.Heading, nav);
 
             InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsCreatePage, nav);
-            InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsDeactivatedGroupPage, nav);            
+            InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsDeactivatedGroupPage, nav);
+            InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsDocumentsPage, nav);
             InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsEditPage, nav);
             InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsMembersPage, nav);
             InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsMyGroupsOverviewPage, nav);
@@ -150,7 +151,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
             adminUserGroup.AddAllowedSection("SentMails");
             adminUserGroup.AddAllowedSection("Localization");
 
-            userService.Save(adminUserGroup, userIds: null, raiseEvents: false);
+            userService.Save(adminUserGroup);
         }
 
         private void AddDefaultMailSettings()

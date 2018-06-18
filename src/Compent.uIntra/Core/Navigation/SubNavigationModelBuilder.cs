@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using Compent.Extensions;
 using Uintra.Core.Configuration;
 using Uintra.Core.User;
 using Uintra.Groups;
@@ -128,16 +127,12 @@ namespace Compent.Uintra.Core.Navigation
 
         protected virtual MenuItemModel MapToMenuItemModel(IPublishedContent publishedContent)
         {
-            var isActive = CurrentPage.Path
-                .ParseCollection(int.Parse)
-                .Contains(publishedContent.Id);
-
             var result = new MenuItemModel
             {
                 Id = publishedContent.Id,
                 Name = GetNavigationName(publishedContent),
                 Url = publishedContent.Url,
-                IsActive = isActive
+                IsActive = publishedContent.IsAncestorOrSelf(CurrentPage)
             };
 
             return result;
@@ -145,16 +140,13 @@ namespace Compent.Uintra.Core.Navigation
 
         protected virtual SubNavigationMenuItemModel MapToSubNavigationMenuItemModel(IPublishedContent publishedContent)
         {
-            var isActive = CurrentPage.Path
-                .ParseCollection(int.Parse)
-                .Contains(publishedContent.Id);
-
             var result = new SubNavigationMenuItemModel
             {
                 Id = publishedContent.Id,
                 Name = GetNavigationName(publishedContent),
                 Url = publishedContent.Url,
-                IsActive = isActive
+                IsActive = publishedContent.IsAncestorOrSelf(CurrentPage),
+                IsSelected = publishedContent == CurrentPage
             };
 
             return result;

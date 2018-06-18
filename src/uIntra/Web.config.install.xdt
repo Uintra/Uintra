@@ -29,7 +29,7 @@
     <add key="Search.UserNameScore" value="3" xdt:Locator="Condition(@key='Search.UserNameScore')" xdt:Transform="InsertIfMissing"/>
     <add key="Search.UserEmailScore" value="3" xdt:Locator="Condition(@key='Search.UserEmailScore')" xdt:Transform="InsertIfMissing"/>
     <add key="Search.UserPhoneScore" value="3" xdt:Locator="Condition(@key='Search.UserPhoneScore')" xdt:Transform="InsertIfMissing"/>
-    <add key="VideoFileTypes" value="ogg, mp4, webm" xdt:Locator="Condition(@key='VideoFileTypes')" xdt:Transform="InsertIfMissing"/>
+
     <add key="linkPreviewServiceUri" value="http://linkpreview.uintra.com/" xdt:Locator="Condition(@key='linkPreviewServiceUri')" xdt:Transform="InsertIfMissing" />
   </appSettings>
 
@@ -46,7 +46,7 @@
     <membership>
       <providers>
         <add name="UmbracoMembershipProvider" allowManuallyChangingPassword="true" xdt:Locator="Condition(@name='UmbracoMembershipProvider')" xdt:Transform="SetAttributes(allowManuallyChangingPassword)"/>
-        <add name="UsersMembershipProvider" xdt:Locator="Condition(@name='UsersMembershipProvider')" xdt:Transform="RemoveAttributes(allowManuallyChangingPassword)" />
+        <add name="UsersMembershipProvider" allowManuallyChangingPassword="true" xdt:Locator="Condition(@name='UsersMembershipProvider')"  xdt:Transform="SetAttributes(allowManuallyChangingPassword)" />
       </providers>
     </membership>
   </system.web>

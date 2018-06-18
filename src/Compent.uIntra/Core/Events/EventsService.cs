@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
 using Compent.Uintra.Core.Helpers;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.UserTags.Indexers;
+using Extensions;
 using Uintra.CentralFeed;
 using Uintra.Comments;
 using Uintra.Core.Activity;
@@ -33,6 +33,8 @@ namespace Compent.Uintra.Core.Events
         IEventsService<Event>,
         IFeedItemService,
         ISubscribableService,
+        ILikeableService,
+        ICommentableService,
         INotifyableService,
         IReminderableService<Event>,
         IIndexer
@@ -52,7 +54,7 @@ namespace Compent.Uintra.Core.Events
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivitySubscribeSettingService _activitySubscribeSettingService;
         private readonly IFeedTypeProvider _feedTypeProvider;
-        private readonly IGroupService _groupService;
+        private readonly IActivityLinkPreviewService _activityLinkPreviewService;
 
         public EventsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -71,13 +73,12 @@ namespace Compent.Uintra.Core.Events
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
             INotifierDataHelper notifierDataHelper,
-            IActivityLocationService activityLocationService,
+            IActivityLocationService activityLocationService, 
             UserTagService userTagService,
-            IActivitySubscribeSettingService activitySubscribeSettingService,
+            IActivitySubscribeSettingService activitySubscribeSettingService, 
             IFeedTypeProvider feedTypeProvider,
-            IActivityLinkPreviewService activityLinkPreviewService,
-            IGroupService groupService)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService)
+            IActivityLinkPreviewService activityLinkPreviewService)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService,activityLinkPreviewService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -94,10 +95,10 @@ namespace Compent.Uintra.Core.Events
             _userTagService = userTagService;
             _activitySubscribeSettingService = activitySubscribeSettingService;
             _feedTypeProvider = feedTypeProvider;
-            _groupService = groupService;
+            _activityLinkPreviewService = activityLinkPreviewService;
         }
 
-        public override Enum Type => IntranetActivityTypeEnum.Events;
+        public override Enum ActivityType => IntranetActivityTypeEnum.Events;
 
         public IEnumerable<Event> GetPastEvents()
         {
@@ -133,24 +134,24 @@ namespace Compent.Uintra.Core.Events
         {
             return new FeedSettings
             {
-                Type = _feedTypeProvider[Type.ToInt()],
+                Type = _feedTypeProvider[ActivityType.ToInt()],
                 Controller = "Events",
                 HasSubscribersFilter = true,
                 HasPinnedFilter = true
             };
         }
 
-        public override bool CanEdit(IIntranetActivity activity)
+        public override bool CanEdit(IIntranetActivity cached)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
 
             var isWebmaster = _permissionsService.IsUserWebmaster(currentUser);
             if (isWebmaster) return true;
 
-            var ownerId = Get(activity.Id).OwnerId;
+            var ownerId = Get(cached.Id).OwnerId;
             var isOwner = ownerId == currentUser.Id;
 
-            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, Type, IntranetActivityActionEnum.Edit);
+            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, IntranetActivityActionEnum.Edit);
             return isOwner && isUserHasPermissions;
         }
 
@@ -199,14 +200,11 @@ namespace Compent.Uintra.Core.Events
             FillIndex();
         }
 
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected override Event UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
-
-        public override Event UpdateActivityCache(Guid id)
+        protected override Event UpdateCachedEntity(Guid id)
         {
             var cachedEvent = Get(id);
-            var @event = base.UpdateActivityCache(id);
-            if (IsCacheable(@event) && (@event.GroupId is null || _groupService.IsActivityFromActiveGroup(@event)))
+            var @event = base.UpdateCachedEntity(id);
+            if (IsCacheable(@event))
             {
                 _activityIndex.Index(Map(@event));
                 _documentIndexer.Index(@event.MediaIds);
@@ -229,14 +227,53 @@ namespace Compent.Uintra.Core.Events
         public void UnSubscribe(Guid userId, Guid activityId)
         {
             _subscribeService.Unsubscribe(userId, activityId);
-            UpdateActivityCache(activityId);
+            UpdateCachedEntity(activityId);
         }
 
         public void UpdateNotification(Guid id, bool value)
         {
             var subscribe = _subscribeService.UpdateNotification(id, value);
-            UpdateActivityCache(subscribe.ActivityId);
+            UpdateCachedEntity(subscribe.ActivityId);
         }
+
+        public ILikeable AddLike(Guid userId, Guid activityId)
+        {
+            _likesService.Add(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public ILikeable RemoveLike(Guid userId, Guid activityId)
+        {
+            _likesService.Remove(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public IEnumerable<LikeModel> GetLikes(Guid activityId)
+        {
+            return Get(activityId).Likes;
+        }
+
+        public CommentModel CreateComment(CommentCreateDto dto)
+        {
+            var comment = _commentsService.Create(dto);
+            UpdateCachedEntity(comment.ActivityId);
+            return comment;
+        }
+
+        public void UpdateComment(CommentEditDto dto)
+        {
+            var comment = _commentsService.Update(dto);
+            UpdateCachedEntity(comment.ActivityId);
+        }
+
+        public void DeleteComment(Guid id)
+        {
+            var comment = _commentsService.Get(id);
+            _commentsService.Delete(id);
+            UpdateCachedEntity(comment.ActivityId);
+        }
+
+        public ICommentable GetCommentsInfo(Guid activityId) => Get(activityId);
 
         public bool CanEditSubscribe(Guid activityId) => !Get(activityId).Subscribers.Any();
 
@@ -257,7 +294,7 @@ namespace Compent.Uintra.Core.Events
             var data = new NotifierData
             {
                 NotificationType = notificationType,
-                ActivityType = Type
+                ActivityType = ActivityType
             };
 
             switch (notificationType)
@@ -332,7 +369,7 @@ namespace Compent.Uintra.Core.Events
         public ISubscribable Subscribe(Guid userId, Guid activityId)
         {
             _subscribeService.Subscribe(userId, activityId);
-            return UpdateActivityCache(activityId);
+            return UpdateCachedEntity(activityId);
         }
 
         public Event GetActual(Guid id)

@@ -3,7 +3,6 @@
     public enum NotifierTypeEnum
     {
         EmailNotifier = 1,
-        UiNotifier,
-        PopupNotifier
+        UiNotifier
     }
 }

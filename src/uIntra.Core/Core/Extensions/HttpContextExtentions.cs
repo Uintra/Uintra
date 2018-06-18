@@ -17,7 +17,9 @@ namespace Uintra.Core.Extensions
         {
             var key = typeof(T).FullName;
 
-            if (!(context.Items[key] is T service))
+            var service = context.Items[key] as T;
+
+            if (service == null)
             {
                 context.Items[key] = service = DependencyResolver.Current.GetService<T>();
             }
@@ -30,6 +32,11 @@ namespace Uintra.Core.Extensions
             return context.Request.UrlReferrer?.AbsoluteUri ?? defaultLink;
         }
 
+        public static string UserAgent(this HttpRequestBase request)
+        {
+            return request.Headers["User-Agent"];
+        }
+
         public static bool IsMobileBrowser(this HttpRequestBase request)
         {
             var userAgent = request.UserAgent();
@@ -39,11 +46,6 @@ namespace Uintra.Core.Extensions
             }
 
             return false;
-        }
-
-        public static string UserAgent(this HttpRequestBase request)
-        {
-            return request.Headers["User-Agent"];
         }
 
         public static T GetCurrentUser<T>(this HttpContext context) where T : class, IIntranetUser

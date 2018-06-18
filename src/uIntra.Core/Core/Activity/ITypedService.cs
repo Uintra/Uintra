@@ -3,7 +3,8 @@
 namespace Uintra.Core.Activity
 {
     public interface ITypedService
-    {        
-        Enum Type { get; } 
+    {
+        // TODO: rename to [ Type ]
+        Enum ActivityType { get; }
     }
 }

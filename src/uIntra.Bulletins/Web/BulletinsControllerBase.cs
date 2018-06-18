@@ -2,11 +2,9 @@
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using Compent.Extensions;
-using Uintra.Core;
+using Extensions;
 using Uintra.Core.Activity;
 using Uintra.Core.Attributes;
-using Uintra.Core.Context;
 using Uintra.Core.Controls.LightboxGallery;
 using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
@@ -15,11 +13,12 @@ using Uintra.Core.Media;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions.Web;
+using Umbraco.Web.Mvc;
 
 namespace Uintra.Bulletins.Web
 {
     [ActivityController(ActivityTypeId)]
-    public abstract class BulletinsControllerBase : ContextController
+    public abstract class BulletinsControllerBase : SurfaceController
     {
         protected virtual string ItemViewPath { get; } = "~/App_Plugins/Bulletins/Item/ItemView.cshtml";
         protected virtual string PreviewItemViewPath { get; } = "~/App_Plugins/Bulletins/PreviewItem/PreviewItem.cshtml";
@@ -38,14 +37,11 @@ namespace Uintra.Bulletins.Web
 
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Bulletins;
 
-        public override ContextType ControllerContextType { get; } = ContextType.Bulletins;
-
         protected BulletinsControllerBase(
             IBulletinsService<BulletinBase> bulletinsService,
             IMediaHelper mediaHelper,
             IIntranetUserService<IIntranetUser> userService,
-            IActivityTypeProvider activityTypeProvider,
-            IContextTypeProvider contextTypeProvider) :base(contextTypeProvider)
+            IActivityTypeProvider activityTypeProvider)
         {
             _bulletinsService = bulletinsService;
             _mediaHelper = mediaHelper;
@@ -64,7 +60,7 @@ namespace Uintra.Bulletins.Web
         {
             var bulletin = _bulletinsService.Get(id);
             var model = GetViewModel(bulletin, options);
-            AddEntityIdentityForContext(id);
+
             return PartialView(DetailsViewPath, model);
         }
 

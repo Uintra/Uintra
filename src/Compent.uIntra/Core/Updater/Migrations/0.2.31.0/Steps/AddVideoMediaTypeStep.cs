@@ -1,11 +1,11 @@
-﻿using Compent.Uintra.Core.Updater;
+﻿using Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Constants;
+using Compent.Uintra.Core.Updater;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.UIntra.Core.Updater.Migrations._0._2._31._0.Constants;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace Compent.UIntra.Core.Updater.Migrations._0._2._31._0.Steps
+namespace Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Steps
 {
     public class AddVideoMediaTypeStep : IMigrationStep
     {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -85,7 +84,7 @@ namespace Uintra.Navigation.Web
 
         protected virtual IEnumerable<MyLinkItemViewModel> GetMyLinkItemViewModel()
         {
-            var linkModels = _myLinksModelBuilder.GetMenu().ToList();
+            var linkModels = _myLinksModelBuilder.GetMenu();
             return linkModels.Map<IEnumerable<MyLinkItemViewModel>>();
         }
 

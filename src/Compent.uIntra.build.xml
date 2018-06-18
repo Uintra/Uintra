@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="uIntra" default="">
+  <loadtasks assembly="C:\Program Files (x86)\nantcontrib-0.85\bin\NAnt.Contrib.Tasks.dll" />
+  <loadtasks assembly="C:\Program Files (x86)\nant-0.85\bin\NAnt.Development.Tasks.dll" />
+  <!--property name="Csc.Setting.NUnit.Path" value="C:\Program Files\NUnit 2.5.10\bin\net-2.0\nunit-console.exe" /--> 
+  
+  <property name="Csc.Setting.Build.VisualStudioVersion" value="VS2015" />
+  <property name="Csc.Setting.MSBuild.SolutionPath" value="${CcnetConfig.SourcesRootDirectory}\src\Compent.uIntra.sln" />
+  
+  <include buildfile="${CcnetConfig.BuildToolsDirectory}\BuildScripts\Creuna.BuildTools.NAnt.xml" />
+
+  <target name="Target.Build" description="">
+    <property name="Csc.Setting.Simian.Path" value="" />
+    <property name="Csc.Setting.SourceMonitor.Path" value="" /> 
+     <call target="Target.RestoreNuGetPackages" />	
+
+	 <if test="${Csc.Setting.Build.TargetEnvironment=='Develop'}">
+      <echo message="Csc.Setting.MSBuild.Configuration == Dev" />
+	  <property name="Csc.Setting.MSBuild.Configuration" value="Dev" />
+    </if>
+	
+    <call target="Csc.Target.Rebuild" />   
+	
+	<if test="${Csc.Setting.Build.TargetEnvironment == 'Develop'}">
+       <property name="Csc.Setting.RebuildDeploy.WebProjectName" value="Compent.uIntra" />
+	   <property name="Csc.Setting.Build.DeployDirectory" value="\\192.168.200.2\inetpub\compent\2017\uIntra.development" />
+	   
+	  <exec program="C:\Program Files (x86)\nodejs\npm.cmd" workingdir="${Csc.Setting.MSBuild.OutputBuildDirectory}\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}" verbose="true">
+        <arg value="install" />
+      </exec>
+
+	  <exec program="C:\Users\Administrator\AppData\Roaming\npm\webpack.cmd" workingdir="${Csc.Setting.MSBuild.OutputBuildDirectory}\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}" verbose="true">
+      </exec>
+	  
+      <call target="Target.CopyRoslyn" />
+
+	  <call target="Target.Deploy" />	  
+    </if>
+	
+   </target>
+
+   <target name="Target.RestoreNuGetPackages">
+     <exec program="${CcnetConfig.SourcesRootDirectory}\src\.nuget\nuget.exe" commandline="restore ${CcnetConfig.SourcesRootDirectory}\src\Compent.uIntra.sln"/>
+   </target>
+      
+   <target name="Target.CopyRoslyn">
+	 <exec program="C:\Program Files\Git\usr\bin\cp.exe">
+       <arg value="-r"/>
+       <arg value="${Csc.Setting.MSBuild.OutputBuildDirectory}\roslyn"/>
+       <arg value="${Csc.Setting.Build.WorkingDirectory}\Build\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}\bin\roslyn" />
+     </exec>
+   </target>
+ 
+   <target name="Target.Deploy">
+     <!-- Run robocopy -->	 
+	  <property name="Csc.Setting.Robocopy.ExcludeDirectoryList" value="App_Data,umbraco,umbraco_client,media,node_modules"  />
+	  <property name="Csc.Setting.Robocopy.ExcludeFileList" value="package.json,packages.config,postcss.config.js,webpack.config.js"  />
+      <property name="Csc.Setting.Robocopy.ToDirectory" value="${Csc.Setting.Build.DeployDirectory}" if="${Csc.Setting.Robocopy.ToDirectory == ''}" />
+	  
+    <if test="${Csc.Setting.Robocopy.ToDirectory != ''}">
+      <fail message="The required property 'Csc.Setting.RebuildDeploy.WebProjectName' has not been defined." unless="${Csc.Setting.RebuildDeploy.WebProjectName != ''}" />
+
+      <property name="Csc.Setting.Robocopy.LogPath" value="${Csc.Setting.Build.LogDirectory}\Robocopy\Deploy.log" />
+      <property name="Csc.Property.RebuildDeploy.RobocopyPurge" value="${Csc.Setting.Robocopy.Purge}" />
+      <property name="Csc.Setting.Robocopy.Purge" value="True" />
+
+      <property name="Csc.Setting.Robocopy.FromDirectory" value="${Csc.Setting.MSBuild.OutputBuildDirectory}\_PublishedWebsites\${Csc.Setting.RebuildDeploy.WebProjectName}" />
+      <call target="Csc.Target.Robocopy" />
+
+      <property name="Csc.Setting.Robocopy.Purge" value="${Csc.Property.RebuildDeploy.RobocopyPurge}" />
+    </if>
+	
+   </target>
+       
+</project>

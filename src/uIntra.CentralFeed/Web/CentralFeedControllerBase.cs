@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.Extensions;
+using Extensions;
 using Uintra.CentralFeed.Navigation.Models;
-using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Attributes;
-using Uintra.Core.Context;
 using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
 using Uintra.Core.TypeProviders;
@@ -23,10 +21,9 @@ namespace Uintra.CentralFeed.Web
         private readonly ICentralFeedContentService _centralFeedContentService;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly IFeedLinkService _feedLinkService;
-        private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
+        private readonly ICentralFeedLinkService _centralFeedLinkService;
+        private readonly IFeedFilterStateService _feedFilterStateService;
         private readonly IPermissionsService _permissionsService;
-        private readonly IFeedFilterService _centralFeedFilterService;
 
         protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/Overview.cshtml";
         protected override string DetailsViewPath => "~/App_Plugins/CentralFeed/View/Details.cshtml";
@@ -36,8 +33,6 @@ namespace Uintra.CentralFeed.Web
         protected virtual string NavigationViewPath => "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
         protected virtual string LatestActivitiesViewPath => "~/App_Plugins/LatestActivities/View/LatestActivities.cshtml";
 
-        public override ContextType ControllerContextType { get; } = ContextType.CentralFeed;
-
         protected CentralFeedControllerBase(
             ICentralFeedService centralFeedService,
             ICentralFeedContentService centralFeedContentService,
@@ -46,24 +41,22 @@ namespace Uintra.CentralFeed.Web
             IIntranetUserService<IIntranetUser> intranetUserService,
             IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
-            IFeedLinkService feedLinkService,
-            IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
+            ICentralFeedLinkService centralFeedLinkService,
+            IFeedFilterStateService feedFilterStateService,
             IPermissionsService permissionsService,
-            IActivityTypeProvider activityTypeProvider,
-            IContextTypeProvider contextTypeProvider,
-            IFeedFilterService centralFeedFilterService)
-            : base(subscribeService, centralFeedService, intranetUserService, feedFilterStateService, centralFeedTypeProvider, contextTypeProvider)
+            IActivityTypeProvider activityTypeProvider)
+            : base(subscribeService, centralFeedService, intranetUserService, feedFilterStateService, centralFeedTypeProvider)
         {
             _centralFeedService = centralFeedService;
             _centralFeedContentService = centralFeedContentService;
             _centralFeedTypeProvider = centralFeedTypeProvider;
-            _feedLinkService = feedLinkService;
+            _centralFeedLinkService = centralFeedLinkService;
             _feedFilterStateService = feedFilterStateService;
             _permissionsService = permissionsService;
-            _centralFeedFilterService = centralFeedFilterService;
             _activitiesServiceFactory = activitiesServiceFactory;
         }
-        
+
+        #region Actions
         [HttpGet]
         public virtual ActionResult Overview()
         {
@@ -106,7 +99,7 @@ namespace Uintra.CentralFeed.Web
 
             var tabSettings = _centralFeedService.GetSettings(centralFeedType);
 
-            var filteredItems = _centralFeedFilterService.ApplyFilters(items, model.FilterState, tabSettings).ToList();
+            var filteredItems = ApplyFilters(items, model.FilterState, tabSettings).ToList();
 
             var currentVersion = _centralFeedService.GetFeedVersion(filteredItems);
 
@@ -127,6 +120,9 @@ namespace Uintra.CentralFeed.Web
             var viewModel = GetLatestActivities(panelModel);
             return PartialView(LatestActivitiesViewPath, viewModel);
         }
+
+
+        #endregion
 
         protected virtual FeedListViewModel GetFeedListViewModel(FeedListModel model, List<IFeedItem> filteredItems, Enum centralFeedType)
         {
@@ -156,14 +152,14 @@ namespace Uintra.CentralFeed.Web
         {
             return new ActivityFeedOptions()
             {
-                Links = _feedLinkService.GetLinks(activityId)
+                Links = _centralFeedLinkService.GetLinks(activityId)
             };
         }
 
         protected virtual CentralFeedOverviewModel GetOverviewModel()
         {
             var tabType = _centralFeedContentService.GetFeedTabType(CurrentPage);
-            var centralFeedState = _feedFilterStateService.GetFiltersState();
+            var centralFeedState = _feedFilterStateService.GetFiltersState<FeedFiltersState>();
 
             var activityTabs = GetActivityTabs().Map<List<ActivityFeedTabViewModel>>();
 
@@ -238,10 +234,11 @@ namespace Uintra.CentralFeed.Web
 
             return items;
         }
-        
+
+        // TODO : duplication
         protected virtual CreateViewModel GetCreateViewModel(Enum activityType)
         {
-            var links = _feedLinkService.GetCreateLinks(activityType);
+            var links = _centralFeedLinkService.GetCreateLinks(activityType);
             var settings = _centralFeedService.GetSettings(activityType);
 
             return new CreateViewModel()
@@ -254,8 +251,8 @@ namespace Uintra.CentralFeed.Web
         protected virtual EditViewModel GetEditViewModel(Guid id)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
-            var links = _feedLinkService.GetLinks(id);
-            var settings = _centralFeedService.GetSettings(service.Type);
+            var links = _centralFeedLinkService.GetLinks(id);
+            var settings = _centralFeedService.GetSettings(service.ActivityType);
 
             var viewModel = new EditViewModel()
             {
@@ -270,7 +267,7 @@ namespace Uintra.CentralFeed.Web
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
             var options = GetActivityFeedOptions(id);
-            var settings = _centralFeedService.GetSettings(service.Type);
+            var settings = _centralFeedService.GetSettings(service.ActivityType);
 
             var viewModel = new DetailsViewModel()
             {

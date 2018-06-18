@@ -206,7 +206,7 @@
   },
   {
     "Key": "SubscribeSettings.SubscribeNotes.lbl",
-    "Translations": { "en-US": "Notes about the subscription, deadlines or any other suitable title" },
+    "Translations": { "en-US": "" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -371,7 +371,7 @@
   },
   {
     "Key": "Events.Description.placeholder",
-    "Translations": { "en-US": "Description" },
+    "Translations": { "en-US": "" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -447,6 +447,11 @@
   {
     "Key": "Comments.ReadonlyClick.Message.lbl",
     "Translations": { "en-US": "Only subscribed person can comment activity in the group" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "buy HTTPS licence for this domain right?\n\n\n\n#CentralFeedList.Empty.lbl",
+    "Translations": { "en-US": "No activities yet" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -621,7 +626,7 @@
   },
   {
     "Key": "GroupRoom.Navigation.All.lbl",
-    "Translations": { "en-US": "Feed" },
+    "Translations": { "en-US": "All" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -821,7 +826,7 @@
   },
   {
     "Key": "Pin.AcceptPinText.lbl",
-    "Translations": { "en-US": "Note: Enabling this will mark the post as \"Important\". It will be pinned to the top until you manually unpin it. To automatically unpin the post set the date below, the post will remain being marked \"Important\"." },
+    "Translations": { "en-US": "Note: \nEnabling this will mark the post as \"Important\". It will be pinned to the top until you manually unpin it.\nTo automatically unpin the post set the date below, the psot will remain being marked \"Important\"." },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {

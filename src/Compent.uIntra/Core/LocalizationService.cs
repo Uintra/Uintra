@@ -14,8 +14,7 @@ namespace Compent.Uintra.Core
 
         public string Translate(string key)
         {
-            var translation = _localizationCoreService.Get(key);
-            return string.IsNullOrWhiteSpace(translation) ? $"##{key}##" : translation;
+            return _localizationCoreService.Get(key);
         }
     }
 }

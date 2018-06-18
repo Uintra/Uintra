@@ -1,6 +1,4 @@
-﻿using Compent.Uintra.Core.Verification;
-
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
+﻿namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
 {
     public class NewsInstallationConstants
     {
@@ -11,8 +9,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
             public const string NewsEditPage = "News Edit Page";
             public const string NewsOverviewPage = "News Overview Page";
         }
-
-        [UmbracoDocumentTypeVerification]
         public class DocumentTypeAliases
         {
             public const string NewsCreatePage = "newsCreatePage";

@@ -10,5 +10,11 @@ namespace Uintra.Core.Extensions
             var currentUser = intranetUserService.GetCurrentUser();
             return currentUser.Id;
         }
+
+        public static int? GetCurrentUserUmbracoId(this IIntranetUserService<IIntranetUser> intranetUserService)
+        {
+            var currentUser = intranetUserService.GetCurrentUser();
+            return currentUser.UmbracoId;
+        }
     }
 }

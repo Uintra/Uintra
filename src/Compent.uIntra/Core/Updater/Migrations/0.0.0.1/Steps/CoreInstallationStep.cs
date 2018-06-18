@@ -5,9 +5,11 @@ using System.Linq;
 using System.Reflection;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
 using Newtonsoft.Json.Linq;
+using Uintra.Core;
 using Uintra.Core.Constants;
 using Uintra.Core.Extensions;
 using Uintra.Core.Media;
+using Uintra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using static Compent.Uintra.Core.Updater.ExecutionResult;
@@ -17,6 +19,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class CoreInstallationStep : IMigrationStep
     {
+
         public ExecutionResult Execute()
         {
             CreateDocumentTypesFolders();
@@ -184,10 +187,19 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
             InstallationStepsHelper.AddAllowedChildNode(DocumentTypeAliases.ContentPage, DocumentTypeAliases.ContentPage);
         }
 
-        private static void CreateGridPageLayoutTemplate()
+        private void CreateGridPageLayoutTemplate()
         {
-            var layoutEmbeddedResourceFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.Core.Updater.Migrations._0._0._0._1.PreValues.GridPageLayout.cshtml";
-            InstallationStepsHelper.SetGridPageLayoutTemplateContent(layoutEmbeddedResourceFileName);
+            var fileService = ApplicationContext.Current.Services.FileService;
+            var alias = DocumentTypeAliases.GridPageLayoutTemplateAlias;
+            var gridPageLayoutTemplate = fileService.GetTemplate(alias);
+            if (gridPageLayoutTemplate != null) return;
+
+            gridPageLayoutTemplate = new Template(alias, alias);
+
+            var layoutEmbeddedResourceFileName = $"{ Assembly.GetExecutingAssembly().GetName().Name}.Core.Updater.Migrations._0._0._0._1.PreValues.GridPageLayout.cshtml";
+            gridPageLayoutTemplate.Content = EmbeddedResourcesUtils.ReadResourceContent(layoutEmbeddedResourceFileName);
+
+            fileService.SaveTemplate(gridPageLayoutTemplate);
         }
 
         private static void AddImageCropperPreset()
