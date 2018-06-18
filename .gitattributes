@@ -1,2 +1,2 @@
-src/Compent.uIntra/Web.Debug.config filter=git-crypt diff=git-crypt
+src/Compent.uIntra/Web.Compent.Debug.config filter=git-crypt diff=git-crypt
 src/Compent.uIntra/Web.QA.config filter=git-crypt diff=git-crypt
