@@ -1110,11 +1110,8 @@
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
     <Content Include="Views\Search\SearchBoxAutocompleteItem.cshtml" />
     <None Include="Web.Base.config" />
-    <None Include="Web.Debug.config" />
-    <None Include="Web.PublicNuget.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web.QA.config" />
+    <None Include="Web.PublicNuget.config"/>
+    <None Include="Web.QA.config"/>
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
@@ -1432,7 +1429,8 @@
     <Content Include="Views\Events\EditView.cshtml" />
     <Content Include="Views\Events\CreateView.cshtml" />
     <None Include="Properties\PublishProfiles\Dev.pubxml" />
-    <None Include="Web.Release.config" />
+    <None Include="Web.Debug.config"/>   
+    <None Include="Web.Release.config"/>      
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />

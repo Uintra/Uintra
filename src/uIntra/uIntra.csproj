@@ -49,6 +49,17 @@
     <WarningLevel>4</WarningLevel>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ManualInstallation|AnyCPU'">
+    <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DISABLE_LICENCE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Archetype">
       <HintPath>..\..\packages\Archetype.1.10\lib\net40\Archetype.dll</HintPath>
@@ -999,6 +1010,7 @@
     <Content Include="Uintra.nuspec">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="package.xml" />
     <Content Include="Web.config.install.xdt">
       <SubType>Designer</SubType>
     </Content>

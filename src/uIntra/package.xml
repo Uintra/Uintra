@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<umbPackage>
+  <info>
+    <package>
+      <name></name>
+      <version>0.0.0</version>
+      <license url=""></license>
+      <url></url>
+      <requirements>
+        <major>7</major>
+        <minor>7</minor>
+        <patch>2</patch>
+      </requirements>
+    </package>
+    <author>
+      <name></name>
+      <website></website>
+    </author>
+    <readme><![CDATA[]]></readme>
+  </info>
+
+  <DocumentTypes />
+  <Templates />
+  <Stylesheets />
+  <Macros />
+  <DictionaryItems />
+  <Languages />
+  <DataTypes />
+
+  <Actions>
+    <!--_____________________________________Download_____________________________________-->
+    <Action runat="install" alias="DownloadFile" webResource="https://www.nuget.org/api/v2/package/NEST/6.0.1" targetFile="~/umbraco/uintra/bin/nest.6.0.1.zip" />
+    <Action runat="install" alias="DownloadFile" webResource="https://www.nuget.org/api/v2/package/elmah.corelibrary/1.2.2" targetFile="~/umbraco/uintra/bin/elmah.corelibrary.1.2.2.zip" />
+    <Action runat="install" alias="DownloadFile" webResource="https://www.nuget.org/api/v2/package/elmah/1.2.2" targetFile="~/umbraco/uintra/bin/elmah.1.2.2.zip" />
+    <!--Up from 2.0.0 to 2.0.1 for removing "WebActivator" dependency -->
+    <Action runat="install" alias="DownloadFile" webResource="https://www.nuget.org/api/v2/package/Elmah.MVC/2.0.1" targetFile="~/umbraco/uintra/bin/elmah.mvc.2.0.1.zip" />
+    <Action runat="install" alias="DownloadFile" webResource="https://www.nuget.org/api/v2/package/uIntra/0.2.30" targetFile="~/umbraco/uintra/bin/uIntra/0.2.30.zip" />
+
+
+    
+
+    <!--_____________________________________Extract_____________________________________-->
+    <Action runat="install" alias="ExtractFileFromArchive" sourceArchive="~/umbraco/uintra/bin/nest.6.0.1.zip" sourceFile="Nest.dll" targetFile="~/bin/Nest.dll" />
+    <Action runat="install" alias="ExtractFileFromArchive" sourceArchive="~/umbraco/uintra/bin/elmah.corelibrary.1.2.2.zip" sourceFile="Elmah.dll" targetFile="~/bin/Elmah.dll" />
+    <!--XDT file-->
+    <Action runat="install" alias="ExtractFileFromArchive" sourceArchive="~/umbraco/uintra/bin/elmah.1.2.2.zip" sourceFile="web.config.transform" targetFile="~/umbraco/uintra/configuration/elmah.1.2.2/web.config.transform" />
+    <Action runat="install" alias="ExtractFileFromArchive" sourceArchive="~/umbraco/uintra/bin/elmah.mvc.2.0.1.zip" sourceFile="Elmah.Mvc.dll" targetFile="~/bin/Elmah.Mvc.dll" />
+    <!--XDT file-->
+    <Action runat="install" alias="ExtractFileFromArchive" sourceArchive="~/umbraco/uintra/bin/elmah.mvc.2.0.1.zip" sourceFile="web.config.transform" targetFile="~/umbraco/uintra/configuration/elmah.mvc.2.0.1/web.config.transform" />
+    <Action runat="install" alias="ExtractFileFromArchive" sourceArchive="~/umbraco/uintra/bin/uIntra/0.2.30.zip" sourceFile="uIntra.dll" targetFile="~/bin/uIntra.dll" />
+    <Action runat="install" alias="ExtractArchiveToDirectory" sourceArchive="~/umbraco/uintra/bin/uIntra/0.2.30.zip" targetDirectory="~/umbraco/uintra/content" />
+
+
+    <!--_____________________________________Transform_____________________________________-->
+    <!--<Action runat="install" undo="false" alias="Uintra.TransformConfig" file="~/web.config" xdtfile="~/app_plugins/demo/web.config.xdt"></Action>-->
+    <Action runat="install" undo="false" alias="Uintra.TransformConfig" file="~/web.config" xdtfile="~/umbraco/uintra/configuration/elmah.1.2.2/web.config.transform"></Action>
+    <Action runat="install" undo="false" alias="Uintra.TransformConfig" file="~/web.config" xdtfile="~/umbraco/uintra/configuration/elmah.mvc.2.0.1/web.config.transform"></Action>
+  </Actions>
+
+  <control />
+
+  <files />
+
+</umbPackage>

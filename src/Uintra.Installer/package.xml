@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<umbPackage>
+  <info>
+    <package>
+      <name>Uintra</name>
+      <version>0.3.1.1</version>
+      <license url="https://uintra.com/pricing/">Read more</license>
+      <url>https://uintra.com/</url>
+      <requirements>
+        <major>7</major>
+        <minor>9</minor>
+        <patch>2</patch>
+      </requirements>
+    </package>
+    <author>
+      <name>Compent</name>
+      <website>https://compent.net/</website>
+    </author>
+    <readme><![CDATA[Thank you for installing Uintra]]></readme>
+    <!--<readme><![CDATA[]]></readme>-->
+  </info>
+
+  <DocumentTypes />
+  <Templates />
+  <Stylesheets />
+  <Macros />
+  <DictionaryItems />
+  <Languages />
+  <DataTypes />
+
+  <Actions>
+    <Action runat="install" undo="false" alias="CreateXmlLogFile" version="0.3.1.1" />
+    
+    <Action runat="install" undo="false" alias="DownloadNugetPackages" uri="https://www.nuget.org/api/v2/package/" path="~/umbraco/uintra/nupkgs/" >
+      <Package name="Compent.EnumLists" version="1.1.2" />
+      <Package name="Compent.CommandBus" version="1.2.1" />
+      <Package name="Compent.Localization.Core" version="0.1.1" />
+      <Package name="Compent.Localization.Storage.UDictionary" version="0.1.1" />
+      <Package name="Compent.Localization.Umbraco" version="0.1.2" />
+      <Package name="Compent.Localization.Web" version="0.0.3" />
+      <Package name="Compent.Extensions" version="0.3.2" />
+      <Package name="Compent.LinkPreview.HttpClient" version="1.2.6" />
+      
+      <Package name="EmailWorker.Data" version="0.4.2" />
+      <Package name="EmailWorker.Ninject" version="0.0.4" />
+      <Package name="EmailWorker.Web" version="0.4.2" />
+      
+      <Package name="elmah.corelibrary" version="1.2.2" />
+      <Package name="elmah" version="1.2.2" />
+      <Package name="Elmah.Contrib.WebApi" version="1.0.10.25" />
+      <Package name="Elmah.MVC" version="2.0.0" />
+      <Package name="uIntra" version="0.3.1" />
+      <Package name="Archetype" version="1.10.0" />
+      <Package name="Castle.Core" version="4.2.0" />
+      <Package name="Elasticsearch.Net" version="5.4.0" />
+      <Package name="EntityFramework" version="6.1.3" />
+      <Package name="MediaToolkit" version="1.1.0.1" />
+      <Package name="System.ValueTuple" version="4.4.0" />
+      <Package name="NEST" version="5.3.1" />
+      <Package name="System.Runtime.InteropServices.RuntimeInformation" version="4.3.0" />
+      
+      <Package name="Ninject" version="3.3.3" />
+      <Package name="ninject.extensions.conventions" version="3.3.0" />
+      <Package name="Ninject.Extensions.Factory" version="3.3.2" />
+      <Package name="Ninject.MVC5" version="3.3.0" />
+      <Package name="Ninject.Web.Common" version="3.3.0" />
+      <Package name="Ninject.Web.Common.WebHost" version="3.3.0" />
+      <Package name="WebActivatorEx" version="2.2.0" />
+      <Package name="WebActivator" version="1.5.1" />
+      <Package name="FluentScheduler" version="5.3.0" />
+      
+      <Package name="uIntra.BaseControls" version="2.4.5" />
+      <Package name="uIntra.Bulletins" version="0.4.3" />
+      <Package name="uIntra.CentralFeed" version="1.4.2" />
+      <Package name="uIntra.Comments" version="1.3.2" />
+      <Package name="uIntra.Core" version="1.6.3" />
+      <Package name="uIntra.Events" version="1.6.3" />
+      <Package name="uIntra.Groups" version="1.0.3" />
+      <Package name="uIntra.Likes" version="1.3.2" />
+      <Package name="uIntra.Navigation" version="1.3.2" />
+      <Package name="uIntra.News" version="1.4.2" />
+      <Package name="uIntra.Notification" version="1.4.3" />
+      <Package name="uIntra.Panels" version="2.2.4" />
+      <Package name="uIntra.Search" version="0.3.2" />
+      <Package name="uIntra.Subscribe" version="1.2.2" />
+      <Package name="uIntra.Tagging" version="1.2.2" />
+      <Package name="uIntra.Users" version="1.6.10" />
+    </Action>
+
+    <Action runat="install" undo="false" alias="ExtractNugetPackages" sourceDirectory="~/umbraco/uintra/nupkgs/" targetFramework="471" />
+
+    <Action runat="install" undo="false" alias="ApplyTransformations">
+      <Config path="~/config/Lang/da-DK.user.xml" />
+      <Config path="~/config/Lang/en-GB.user.xml" />
+      <Config path="~/config/Lang/en-US.user.xml" />
+      <Config path="~/config/Dashboard.config" />
+      <Config path="~/config/applications.config" />
+      <Config path="~/config/404handlers.config" />
+      <Config path="~/config/ClientDependency.config" />
+      <Config path="~/config/trees.config" />
+      <Config path="~/config/imageprocessor/processing.config" />
+      <Config path="~/Views/Web.config" pattern="Views.Web.config.install.xdt" />
+      <Config path="~/Web.config" />
+    </Action>
+
+    <!--<Action runat="install" undo="false" alias="SendXmlLogFile" uri="http://uintra.website.qa.dev.compent.dk/umbraco/api/packagelogger/report" />-->
+    <Action runat="install" undo="false" alias="SendXmlLogFile" uri="https://uintra.dk/umbraco/api/packagelogger/report" />
+
+    <Action runat="install" undo="false" alias="Clear" installerDirectory="~/umbraco/uintra" installerFileName="Uintra.Installer.dll" />
+  </Actions>
+
+  <control />
+
+  <files>
+    <file>
+      <guid>Uintra.Installer.dll</guid>
+      <orgPath>~/bin</orgPath>
+      <orgName>Uintra.Installer.dll</orgName>
+    </file>
+    <file>
+      <guid>Microsoft.Web.XmlTransform.dll</guid>
+      <orgPath>~/bin</orgPath>
+      <orgName>Microsoft.Web.XmlTransform.dll</orgName>
+    </file>
+    <file>
+      <guid>Compent.Uintra.dll</guid>
+      <orgPath>~/Umbraco/uintra</orgPath>
+      <orgName>Compent.Uintra.dll</orgName>
+    </file>
+    <file>
+      <guid>App_Plugins.Web.config</guid>
+      <orgPath>~/App_Plugins</orgPath>
+      <orgName>Web.config</orgName>
+    </file>
+    <file>
+      <guid>Views.Web.config.install.xdt</guid>
+      <orgPath>~/Umbraco/uintra</orgPath>
+      <orgName>Views.Web.config.install.xdt</orgName>
+    </file>
+    <file>
+      <guid>Web.config.install.xdt</guid>
+      <orgPath>~/Umbraco/uintra</orgPath>
+      <orgName>Web.config.install.xdt</orgName>
+    </file>
+  </files>
+
+</umbPackage>

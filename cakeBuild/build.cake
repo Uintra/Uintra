@@ -192,6 +192,115 @@ Task("Add-Git-Tag")
     StartProcess("git", "push origin " + tag);
 });
 
+Task("BuildUmbracoPackage")
+    .Description("Builds all the different parts of the project.")
+    .Does(() =>
+{
+    Information("Build and deploy {0}", project.File);
+
+    DeleteDirectoryIfExists(project.DeploymentDirectory.ToString());
+
+    MSBuild(project.File, settings =>
+            settings
+                .SetPlatformTarget(PlatformTarget.MSIL)
+				.UseToolVersion(MSBuildToolVersion.Default)
+                .WithTarget("Build")
+                .SetConfiguration(configuration)
+                .WithProperty("OutDir", project.DeploymentDirectory.ToString())
+                .WithProperty("DeployOnBuild", "true"));
+
+    //CopyDirectory($"{project.Directory}/build", $"{project.DeploymentSourceDirectory}/build");
+
+    var assemblyInfo = ParseAssemblyInfo(project.AssemblyInfoPath);
+    var deploymentPackage = $"uIntraPackage.{assemblyInfo.AssemblyVersion}.zip";
+    var deploymentPackageFile = new FilePath(deploymentPackage);
+
+    Zip(project.DeploymentSourceDirectory, deploymentPackage);
+
+     var deploymentRelativePath = @"D:\";
+    // var deploymentDestination = $@"{hetznerWebIp}\{deploymentRelativePath}";
+
+    CopyFileToDirectory(deploymentPackageFile, deploymentRelativePath);
+    DeleteFile(deploymentPackageFile);
+
+    Information($@"Download package by link: {deploymentRelativePath}");
+});
+
+Task("umbracoPackageInstaller")
+	.Description("Create umbraco package installer")
+	.Does(()=>
+	{
+		var compentUintraProjectName = "Compent.Uintra";
+		var compentUintraProject = GetBuildProject(compentUintraProjectName, configuration);
+		DeleteDirectoryIfExists(compentUintraProject.DeploymentDirectory.ToString());
+		MSBuild(compentUintraProject.File, settings =>
+            settings
+                .SetPlatformTarget(PlatformTarget.MSIL)
+				.UseToolVersion(MSBuildToolVersion.Default)
+                .WithTarget("Build")
+                .SetConfiguration(configuration)
+                .WithProperty("OutDir", compentUintraProject.DeploymentDirectory.ToString())
+                .WithProperty("DeployOnBuild", "true"));
+		var compentUintraDll = new FilePath($"{compentUintraProject.DeploymentDirectory.FullPath}/{compentUintraProjectName}.dll");		
+
+		var installerProjectName = "Uintra.Installer";
+		var installerProject = GetBuildProject(installerProjectName, configuration);
+		DeleteDirectoryIfExists(installerProject.DeploymentDirectory.ToString());
+		MSBuild(installerProject.File, settings =>
+            settings
+                .SetPlatformTarget(PlatformTarget.MSIL)
+				.UseToolVersion(MSBuildToolVersion.Default)
+                .WithTarget("Build")
+                .SetConfiguration(configuration)
+                .WithProperty("OutDir", installerProject.DeploymentDirectory.ToString())
+                .WithProperty("DeployOnBuild", "true"));
+		var installerDll = new FilePath($"{installerProject.DeploymentDirectory.FullPath}/{installerProjectName}.dll");		
+
+		var microsoftXdtDll = new FilePath($"{installerProject.DeploymentDirectory.FullPath}/Microsoft.Web.XmlTransform.dll");		
+		var packageXmlTemplate = new FilePath($"{installerProject.Directory.FullPath}/package.xml");		
+		var app_PluginsWebConfig = new FilePath($"{installerProject.Directory.FullPath}/config/App_Plugins/App_Plugins.Web.config");
+		var viewsWebConfigXdt = new FilePath($"{installerProject.Directory.FullPath}/config/Views.Web.config.install.xdt");
+		var webConfigXdt = new FilePath($"{installerProject.Directory.FullPath}/config/Web.config.install.xdt");
+
+		var packageSourceDirectory = installerProject.DeploymentSourceDirectory;
+		var tempDirectory = new DirectoryPath($"{packageSourceDirectory.FullPath}/{Guid.NewGuid().ToString()}");
+		CreateDirectory(tempDirectory);
+		CopyFileToDirectory(installerDll, tempDirectory);
+		CopyFileToDirectory(microsoftXdtDll, tempDirectory);
+		CopyFileToDirectory(packageXmlTemplate, tempDirectory);
+		CopyFileToDirectory(compentUintraDll, tempDirectory);
+		CopyFileToDirectory(app_PluginsWebConfig, tempDirectory);
+		CopyFileToDirectory(viewsWebConfigXdt, tempDirectory);
+		CopyFileToDirectory(webConfigXdt, tempDirectory);
+
+		var packageXml = new FilePath($"{tempDirectory.FullPath}/package.xml");
+		var assemblyInfo = ParseAssemblyInfo(compentUintraProject.AssemblyInfoPath); //project
+		//XmlPoke(packageXml, "/umbPackage/info/package/name", assemblyInfo.Title);
+		//XmlPoke(packageXml, "/umbPackage/info/package/version", assemblyInfo.AssemblyVersion);
+		//XmlPoke(packageXml, "/umbPackage/info/author/name", assemblyInfo.Company);
+
+		//var packageZipFileName = $"UintraPackageInstaller.{assemblyInfo.AssemblyVersion}.zip";
+		var packageZipFileName = $"UintraPackageInstaller.{"0.3.1.1"}.zip";
+		var packageZipFile = new FilePath($"{installerProject.DeploymentDirectory.FullPath}/{packageZipFileName}");
+
+		Zip(packageSourceDirectory, packageZipFile);
+	});
+
+Task("UpdateManifest")
+    .Description("Builds all the different parts of the project.")
+    .Does(() =>
+{
+     Information("Updating manifest");
+     
+    var assemblyInfo = ParseAssemblyInfo(project.AssemblyInfoPath);
+
+    var packageXml = File($"{project.Directory}/package.xml");
+
+    XmlPoke(packageXml, "/umbPackage/info/package/name", assemblyInfo.Title);
+    XmlPoke(packageXml, "/umbPackage/info/package/version", assemblyInfo.AssemblyVersion);
+    XmlPoke(packageXml, "/umbPackage/info/author/name", assemblyInfo.Company);
+});
+
 // TARGETS
 Task(DefaultTargetKey)
     .Description("This is the default task which will be ran if no specific target is passed in.")
@@ -211,6 +320,16 @@ Task(ManualInstallationPackageTargetKey)
     .IsDependentOn("Npm-Install")
     .IsDependentOn("Webpack")
     .IsDependentOn("DeployOnBuild");
+
+Task(UmbracoPackageTargetKey)
+    .Description("This is the UmbracoPackage task which creates umbraco package")
+    //.IsDependentOn("Clean")
+    // .IsDependentOn("NuGet-Restore-Packages")
+    // .IsDependentOn("Npm-Install")
+    // .IsDependentOn("Webpack")
+    //.IsDependentOn("BuildUmbracoPackage")
+    //.IsDependentOn("UpdateManifest")
+	.IsDependentOn("umbracoPackageInstaller");
 
 // EXECUTION
 RunTarget(target);

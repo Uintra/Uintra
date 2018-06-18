@@ -1,5 +1,6 @@
 const string DefaultTargetKey = "Default";
 const string ManualInstallationPackageTargetKey = "ManualInstallation";
+const string UmbracoPackageTargetKey = "UmbracoPackage";
 
 const string uIntraProject = "uIntra";
 const string CompentUintraProjectFileName = "Compent.uIntra";
@@ -45,6 +46,7 @@ string GetProjectName(string target){
     switch (target)
     {
         case DefaultTargetKey:
+        case UmbracoPackageTargetKey:
             return uIntraProject;
         case ManualInstallationPackageTargetKey:
             return CompentUintraProjectFileName;
@@ -64,4 +66,15 @@ void DeleteDirectoryIfExists(string path, DeleteDirectorySettings settings = nul
     if(DirectoryExists(path)){
         DeleteDirectory(path, settings);
     }
+}
+
+void GetFileInfo(FilePath file)
+{
+	Information("------------------------------------------------");
+	Information(file.GetType());
+	Information("File name: {0}", file.ToString());
+	Information("File name: {0}", file.GetFilename());
+	Information("File full path: {0}", file.FullPath);
+	Information("File directory: {0}", file.GetDirectory());
+	Information("------------------------------------------------");
 }
