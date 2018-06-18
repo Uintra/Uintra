@@ -370,9 +370,6 @@
     <Reference Include="Uintra.Groups, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Groups.0.3.0\lib\net452\Uintra.Groups.dll</HintPath>
     </Reference>
-    <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
-    </Reference>
     <Reference Include="Uintra.Likes, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Likes.1.2.0\lib\net452\Uintra.Likes.dll</HintPath>
     </Reference>

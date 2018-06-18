@@ -1256,11 +1256,6 @@
     <Compile Include="Core\IntranetUserContentProvider.cs" />
     <Compile Include="Core\IoC\CommandBusDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
-    <Compile Include="Core\Licence\ILicenceRequestHandler.cs" />
-    <Compile Include="Core\Licence\IValidateLicenceService.cs" />
-    <Compile Include="Core\Licence\LicenceRequestHandler.cs" />
-    <Compile Include="Core\Licence\LicenceServiceConnection.cs" />
-    <Compile Include="Core\Licence\ValidateLicenceService.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
     <Compile Include="Core\LinkPreview\Config\LinkDetectionConfigurationSection.cs" />
     <Compile Include="Core\LinkPreview\Config\LinkPreviewConfigProvider.cs" />
