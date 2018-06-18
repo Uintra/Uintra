@@ -993,13 +993,8 @@ img{
         overflow:auto;
         font:13px/22px var(--font-general);
         color:var(--text-color-dark);
-
-        
     }
 
-    #description& .ql-editor{
-        height:149px;
-    }
     .ql-tooltip {
         z-index:9999;
     }
@@ -1200,7 +1195,7 @@ img{
 		}
 
         @media (--for-phone-only){
-            margin:0 0 10px 8px;
+            margin:0 0 10px 10px;
         }
 	}
 
@@ -1248,7 +1243,7 @@ img{
             align-items: center;
 
             @media (--for-tablet-portrait-down) {
-			    margin:0 0 8px 8px;
+			    margin:0 0 9px 9px;
 		    }
 
             &:hover,
