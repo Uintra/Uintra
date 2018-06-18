@@ -1,4 +1,4 @@
-﻿namespace Uintra.Core.Persistence
+﻿namespace uIntra.Core.Persistence
 {
     public abstract class SqlEntity<TKey>
     {

@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Uintra.Core.Notification.Mails;
-using Uintra.Bulletins;
-using Uintra.Core.Activity;
-using Uintra.Core.ApplicationSettings;
-using Uintra.Core.Exceptions;
-using Uintra.Core.Links;
-using Uintra.Core.User;
-using Uintra.Events;
-using Uintra.News;
-using Uintra.Notification;
-using Uintra.Notification.Base;
-using Uintra.Tagging.UserTags;
+using Compent.uIntra.Core.Notification.Mails;
+using uIntra.Bulletins;
+using uIntra.Core.Activity;
+using uIntra.Core.ApplicationSettings;
+using uIntra.Core.Exceptions;
+using uIntra.Core.Links;
+using uIntra.Core.User;
+using uIntra.Events;
+using uIntra.News;
+using uIntra.Notification;
+using uIntra.Tagging.UserTags;
 
-namespace Compent.Uintra.Core.Notification
+namespace Compent.uIntra.Core.Notification
 {
     public class MonthlyEmailService: MonthlyEmailServiceBase
     {
@@ -23,28 +22,23 @@ namespace Compent.Uintra.Core.Notification
         private readonly INewsService<NewsBase> _newsService;
         private readonly IUserTagRelationService _userTagService;
         private readonly IActivityLinkService _activityLinkService;
-        private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
-
 
         public MonthlyEmailService(IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IExceptionLogger logger,
+            IApplicationSettings applicationSettings,
             IBulletinsService<BulletinBase> bulletinsService,
             IEventsService<EventBase> eventsService,
             INewsService<NewsBase> newsService,
             IUserTagRelationService userTagService,
-            IActivityLinkService activityLinkService,
-            NotificationSettingsService notificationSettingsService, 
-            INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper,
-            IApplicationSettings applicationSettings) 
-            : base(mailService, intranetUserService, logger, notificationSettingsService, applicationSettings)
+            IActivityLinkService activityLinkService) 
+            : base(mailService, intranetUserService, logger, applicationSettings)
         {
             _bulletinsService = bulletinsService;
             _eventsService = eventsService;
             _newsService = newsService;
             _userTagService = userTagService;
             _activityLinkService = activityLinkService;
-            _notificationModelMapper = notificationModelMapper;
         }
 
         protected virtual IEnumerable<Guid> GetUserTags(Guid userId)
@@ -69,8 +63,11 @@ namespace Compent.Uintra.Core.Notification
             return result;
         }
 
-        protected override MailBase GetMonthlyMailModel(IIntranetUser receiver, MonthlyMailDataModel dataModel, EmailNotifierTemplate template) =>
-            _notificationModelMapper.Map(dataModel, template, receiver);
+        protected override T GetMonthlyMailModel<T>(string userActivities, IIntranetUser user)
+        {
+            var result = base.GetMonthlyMailModel<MonthlyMail>(userActivities, user);
+            return (T)(object)result;
+        }
 
         protected virtual IEnumerable<IIntranetActivity> GetAllActivities()
         {

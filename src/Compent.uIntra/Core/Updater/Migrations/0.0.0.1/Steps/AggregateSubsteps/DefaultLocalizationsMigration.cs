@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
-using Compent.Extensions;
+using Extensions;
 using Localization.Core;
-using Uintra.Core.Extensions;
-using Uintra.Core.Utils;
+using uIntra.Core.Extensions;
+using uIntra.Core.Utils;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
+namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
 {
     public class DefaultLocalizationsMigration
     {

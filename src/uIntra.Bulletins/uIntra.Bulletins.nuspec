@@ -8,11 +8,11 @@
     <owners>$author$</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <copyright>Copyright © compent.dk 2018</copyright>
-    <tags>Compent Uintra Bulletins Controls BulletinsControls</tags>
+    <copyright>Copyright © compent.dk 2017</copyright>
+    <tags>Compent uIntra Bulletins Controls BulletinsControls</tags>
     <dependencies>
-      <dependency id="Uintra.Core" version="1.6.0" />
-      <dependency id="Uintra.BaseControls" version="2.4.3" />
+      <dependency id="uIntra.Core" version="1.4.11" />
+      <dependency id="uIntra.BaseControls" version="2.3.0.1" />
     </dependencies>
   </metadata>
 </package>

@@ -1,6 +1,4 @@
-﻿using Compent.Uintra.Core.Verification;
-
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
+﻿namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants
 {
     public class GroupsInstallationConstants
     {
@@ -18,18 +16,18 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
             public const string GroupsDeactivatedGroupPage = "Groups Deactivated Group Page"; 
         }
 
-        [UmbracoDocumentTypeVerification]
         public class DocumentTypeAliases
         {
-            public const string GroupsCreatePage = "groupsCreatePage";            
+            public const string GroupsCreatePage = "groupsCreatePage";
+            public const string GroupsDetailsPage = "groupsDetailsPage";
             public const string GroupsEditPage = "groupsEditPage";
 
             public const string GroupsOverviewPage = "groupsOverviewPage";
             public const string GroupsRoomPage = "groupsRoomPage";
             public const string GroupsMyGroupsOverviewPage = "groupsMyGroupsOverviewPage";
+            public const string GroupsDocumentsPage = "groupsDocumentsPage";
             public const string GroupsMembersPage = "groupsMembersPage";
             public const string GroupsDeactivatedGroupPage = "groupsDeactivatedGroupPage";
-            public const string GroupsDocumentsPage = "groupsDocumentsPage";
         }
 
         public class DocumentTypeIcons

@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using Umbraco.Web.WebApi;
 
-namespace Uintra.Navigation.Dashboard
+namespace uIntra.Navigation.Dashboard
 {
     public class UNavigationApiController : UmbracoAuthorizedApiController
     {

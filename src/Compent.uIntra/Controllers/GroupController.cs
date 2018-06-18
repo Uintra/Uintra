@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.CommandBus;
-using Uintra.Core;
-using Uintra.Core.Links;
-using Uintra.Core.Media;
-using Uintra.Core.User;
-using Uintra.Groups;
-using Uintra.Groups.Navigation.Models;
-using Uintra.Groups.Permissions;
-using Uintra.Groups.Web;
-using Uintra.Navigation;
+using uIntra.Core;
+using uIntra.Core.Links;
+using uIntra.Core.Media;
+using uIntra.Core.User;
+using uIntra.Groups;
+using uIntra.Groups.Permissions;
+using uIntra.Groups.Web;
+using uIntra.Navigation;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace Compent.Uintra.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class GroupController : GroupControllerBase
     {
@@ -37,18 +35,8 @@ namespace Compent.Uintra.Controllers
             UmbracoHelper umbracoHelper,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IImageHelper imageHelper,
-            IGroupPermissionsService groupPermissionsService,
-            ICommandPublisher commandPublisher)
-            : base(
-                groupService,
-                groupMemberService,
-                mediaHelper,
-                groupMediaService,
-                intranetUserService,
-                profileLinkProvider,
-                groupLinkProvider,
-                imageHelper,
-                commandPublisher)
+            IGroupPermissionsService groupPermissionsService)
+            : base(groupService, groupMemberService, mediaHelper, groupMediaService, intranetUserService, profileLinkProvider, groupLinkProvider, imageHelper)
         {
             _intranetUserService = intranetUserService;
             _umbracoHelper = umbracoHelper;

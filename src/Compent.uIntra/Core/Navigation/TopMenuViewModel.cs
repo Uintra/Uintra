@@ -1,7 +1,7 @@
-﻿using Uintra.Core.User;
-using Uintra.Notification;
+﻿using uIntra.Core.User;
+using uIntra.Notification;
 
-namespace Compent.Uintra.Core.Navigation
+namespace Compent.uIntra.Core.Navigation
 {
     public class TopMenuViewModel
     {

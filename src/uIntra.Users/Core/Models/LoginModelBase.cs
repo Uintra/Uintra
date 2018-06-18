@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Uintra.Users
+namespace uIntra.Users
 {
     public class LoginModelBase
     {

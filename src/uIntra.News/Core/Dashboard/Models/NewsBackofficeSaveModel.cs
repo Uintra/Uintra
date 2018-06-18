@@ -1,7 +1,7 @@
 ﻿using System;
-using Uintra.Core.Location;
+using uIntra.Core.Location;
 
-namespace Uintra.News.Dashboard
+namespace uIntra.News.Dashboard
 {
     public class NewsBackofficeSaveModel
     {

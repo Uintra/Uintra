@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Nest;
-using Uintra.Core.TypeProviders;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.Search
+namespace uIntra.Search
 {
     public interface IElasticSearchRepository
     {
@@ -24,6 +24,6 @@ namespace Uintra.Search
         void Save(IEnumerable<T> documents);
         void Delete(object id);
         void EnsureMappingExist();
-        void DeleteAllByType(Enum type);
+        void DeleteAllByType(IIntranetType type);
     }
 }

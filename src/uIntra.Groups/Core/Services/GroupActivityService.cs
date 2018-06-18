@@ -1,8 +1,8 @@
 ﻿using System;
-using Uintra.Core.Persistence;
-using Uintra.Groups.Sql;
+using uIntra.Core.Persistence;
+using uIntra.Groups.Sql;
 
-namespace Uintra.Groups
+namespace uIntra.Groups
 {
     public class GroupActivityService : IGroupActivityService
     {

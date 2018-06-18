@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using Uintra.Core.Extensions;
-using Uintra.Core.Media;
-using Uintra.Core.User;
+using uIntra.Core;
+using uIntra.Core.Extensions;
+using uIntra.Core.Media;
+using uIntra.Core.User;
 using Umbraco.Web.WebApi;
 
-namespace Uintra.News.Dashboard
+namespace uIntra.News.Dashboard
 {
     public abstract class NewsSectionControllerBase : UmbracoAuthorizedApiController
     {

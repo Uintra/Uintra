@@ -1,20 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Uintra.CentralFeed.Navigation.Models;
-using Uintra.CentralFeed.Providers;
-using Uintra.Core.Extensions;
-using Uintra.Core.Grid;
-using Uintra.Core.TypeProviders;
+using uIntra.CentralFeed.Providers;
+using uIntra.Core.Grid;
+using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using static Uintra.CentralFeed.CentralFeedConstants;
+using static uIntra.CentralFeed.CentralFeedConstants;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public class CentralFeedContentService : FeedContentServiceBase, ICentralFeedContentService
     {
         private readonly ICentralFeedService _centralFeedService;
-        private readonly IFeedLinkService _feedLinkService;
+        private readonly ICentralFeedLinkService _centralFeedLinkService;
         private readonly ICentralFeedContentProvider _contentProvider;
         private readonly IActivityTypeProvider _activityTypeProvider;
 
@@ -25,12 +23,12 @@ namespace Uintra.CentralFeed
             IFeedTypeProvider feedTypeProvider,
             IGridHelper gridHelper,
             ICentralFeedService centralFeedService,
-            IFeedLinkService feedLinkService,
+            ICentralFeedLinkService centralFeedLinkService,
             ICentralFeedContentProvider contentProvider, IActivityTypeProvider activityTypeProvider)
-            : base(feedTypeProvider, gridHelper)
+                : base(feedTypeProvider, gridHelper)
         {
             _centralFeedService = centralFeedService;
-            _feedLinkService = feedLinkService;
+            _centralFeedLinkService = centralFeedLinkService;
             _contentProvider = contentProvider;
             _activityTypeProvider = activityTypeProvider;
         }
@@ -44,7 +42,7 @@ namespace Uintra.CentralFeed
                 Content = overviewPage,
                 Type = type,
                 IsActive = overviewPage.Id == currentPage.Id,
-                Links = _feedLinkService.GetCreateLinks(type)
+                Links = _centralFeedLinkService.GetCreateLinks(type)
             };
         }
 
@@ -52,18 +50,17 @@ namespace Uintra.CentralFeed
         {
             yield return GetMainFeedTab(currentPage);
 
-            var allActivityTypes = _activityTypeProvider.All;
+            var allActivityTypes = _activityTypeProvider.GetAll().ToList();
 
             foreach (var content in _contentProvider.GetRelatedPages())
             {
                 var tabType = GetFeedTabType(content);
-                var activityType = allActivityTypes.SingleOrDefault(a => a.ToInt() == tabType.ToInt());
+                var activityType = allActivityTypes.SingleOrDefault(a => a.Id == tabType.Id);
 
                 if (activityType == null)
                 {
                     continue;
                 }
-
                 var settings = _centralFeedService.GetSettings(tabType);
                 yield return new ActivityFeedTabModel
                 {
@@ -72,7 +69,7 @@ namespace Uintra.CentralFeed
                     HasSubscribersFilter = settings.HasSubscribersFilter,
                     HasPinnedFilter = settings.HasPinnedFilter,
                     IsActive = content.IsAncestorOrSelf(currentPage),
-                    Links = _feedLinkService.GetCreateLinks(tabType)
+                    Links = _centralFeedLinkService.GetCreateLinks(tabType),
                 };
             }
         }

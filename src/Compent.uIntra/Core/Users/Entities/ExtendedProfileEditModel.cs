@@ -1,6 +1,6 @@
-﻿using Uintra.Users;
+﻿using uIntra.Users;
 
-namespace Compent.Uintra.Core.Users
+namespace Compent.uIntra.Core.Users
 {
     public class ExtendedProfileEditModel : ProfileEditModel
     {

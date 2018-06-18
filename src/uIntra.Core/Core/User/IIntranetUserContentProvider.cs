@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Models;
 
-namespace Uintra.Core.User
+namespace uIntra.Core.User
 {
     public interface IIntranetUserContentProvider
     {

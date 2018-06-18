@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Uintra.Core;
+using uIntra.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using System.Linq;
-using Uintra.Core.Constants;
-using Uintra.Tagging.UserTags.Models;
+using uIntra.Tagging.UserTags.Models;
 
-namespace Uintra.Tagging.UserTags
+namespace uIntra.Tagging.UserTags
 {
     public class UserTagProvider : IUserTagProvider
     {
@@ -41,7 +40,7 @@ namespace Uintra.Tagging.UserTags
         protected virtual UserTag Map(IPublishedContent userTag)
         {
             var id = userTag.GetKey();
-            var text = userTag.GetPropertyValue<string>(UmbracoAliases.Tags.TagText);
+            var text = userTag.GetPropertyValue<string>("text"); // todo: move to constants
             return new UserTag(id, text);
         }
     }

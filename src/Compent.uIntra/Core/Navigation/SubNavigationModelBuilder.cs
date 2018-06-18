@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using Compent.Extensions;
-using Uintra.Core.Configuration;
-using Uintra.Core.User;
-using Uintra.Groups;
-using Uintra.Groups.Permissions;
-using Uintra.Navigation;
-using Uintra.Navigation.Configuration;
+using uIntra.Core.Configuration;
+using uIntra.Core.User;
+using uIntra.Groups;
+using uIntra.Groups.Permissions;
+using uIntra.Navigation;
+using uIntra.Navigation.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.Uintra.Core.Navigation
+namespace Compent.uIntra.Core.Navigation
 {
     public class SubNavigationModelBuilder : NavigationModelBuilderBase<SubNavigationMenuModel>, ISubNavigationModelBuilder
     {
@@ -128,16 +127,12 @@ namespace Compent.Uintra.Core.Navigation
 
         protected virtual MenuItemModel MapToMenuItemModel(IPublishedContent publishedContent)
         {
-            var isActive = CurrentPage.Path
-                .ParseCollection(int.Parse)
-                .Contains(publishedContent.Id);
-
             var result = new MenuItemModel
             {
                 Id = publishedContent.Id,
                 Name = GetNavigationName(publishedContent),
                 Url = publishedContent.Url,
-                IsActive = isActive
+                IsActive = publishedContent.IsAncestorOrSelf(CurrentPage)
             };
 
             return result;
@@ -145,16 +140,13 @@ namespace Compent.Uintra.Core.Navigation
 
         protected virtual SubNavigationMenuItemModel MapToSubNavigationMenuItemModel(IPublishedContent publishedContent)
         {
-            var isActive = CurrentPage.Path
-                .ParseCollection(int.Parse)
-                .Contains(publishedContent.Id);
-
             var result = new SubNavigationMenuItemModel
             {
                 Id = publishedContent.Id,
                 Name = GetNavigationName(publishedContent),
                 Url = publishedContent.Url,
-                IsActive = isActive
+                IsActive = publishedContent.IsAncestorOrSelf(CurrentPage),
+                IsSelected = publishedContent == CurrentPage
             };
 
             return result;

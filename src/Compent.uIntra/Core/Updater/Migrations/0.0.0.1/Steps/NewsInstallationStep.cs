@@ -1,10 +1,11 @@
 ﻿using System.Linq;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
-using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.NewsInstallationConstants;
-using static Compent.Uintra.Core.Updater.ExecutionResult;
+using uIntra.Core.Installer;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.NewsInstallationConstants;
+using static Compent.uIntra.Core.Updater.ExecutionResult;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
+namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class NewsInstallationStep : IMigrationStep
     {

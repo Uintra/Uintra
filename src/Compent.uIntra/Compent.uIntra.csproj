@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\UmbracoCms.7.9.2\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.7.9.2\build\UmbracoCms.props')" />
   <Import Project="..\..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -15,9 +15,9 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Compent.Uintra</RootNamespace>
-    <AssemblyName>Compent.Uintra</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <RootNamespace>Compent.uIntra</RootNamespace>
+    <AssemblyName>Compent.uIntra</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -28,7 +28,6 @@
     </NuGetPackageImportStamp>
     <RestorePackages>true</RestorePackages>
     <Use64BitIISExpress />
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,36 +62,29 @@
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="businesslogic, Version=1.0.6634.25793, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\businesslogic.dll</HintPath>
+    <Reference Include="businesslogic, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\businesslogic.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="ClientDependency.Core, Version=1.9.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ClientDependency.1.9.6\lib\net45\ClientDependency.Core.dll</HintPath>
+    <Reference Include="ClientDependency.Core, Version=1.9.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ClientDependency.1.9.2\lib\net45\ClientDependency.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="ClientDependency.Core.Mvc">
       <HintPath>..\..\packages\ClientDependency-Mvc5.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="cms, Version=1.0.6634.25794, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\cms.dll</HintPath>
+    <Reference Include="cms, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\cms.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.CommandBus, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.CommandBus.1.2.1\lib\net471\Compent.CommandBus.dll</HintPath>
+    <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.Extensions, Version=0.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Extensions.0.3.2\lib\net471\Compent.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Compent.LinkPreview.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.HttpClient.dll</HintPath>
-    </Reference>
-    <Reference Include="controls, Version=1.0.6634.25794, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\controls.dll</HintPath>
+    <Reference Include="controls, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\controls.dll</HintPath>
     </Reference>
     <Reference Include="CookComputing.XmlRpcV2">
       <HintPath>..\..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
@@ -104,9 +96,6 @@
     </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
-    </Reference>
-    <Reference Include="Elmah.Contrib.WebApi, Version=1.0.10.25, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Elmah.Contrib.WebApi.1.0.10.25\lib\net45\Elmah.Contrib.WebApi.dll</HintPath>
     </Reference>
     <Reference Include="Elmah.Mvc">
       <HintPath>..\..\packages\Elmah.MVC.2.0.0\lib\net40\Elmah.Mvc.dll</HintPath>
@@ -134,8 +123,8 @@
     <Reference Include="EnumLists, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.EnumLists.1.1.2\lib\net40\EnumLists.dll</HintPath>
     </Reference>
-    <Reference Include="Examine, Version=0.1.89.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Examine.0.1.89\lib\net45\Examine.dll</HintPath>
+    <Reference Include="Examine, Version=0.1.85.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Examine.0.1.85\lib\net45\Examine.dll</HintPath>
     </Reference>
     <Reference Include="FluentScheduler, Version=5.3.0.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1" />
     <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
@@ -146,14 +135,16 @@
       <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ImageProcessor, Version=2.5.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ImageProcessor.2.5.6\lib\net45\ImageProcessor.dll</HintPath>
+    <Reference Include="ImageProcessor, Version=2.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ImageProcessor.2.5.3\lib\net45\ImageProcessor.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="ImageProcessor.Web, Version=4.8.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ImageProcessor.Web.4.8.7\lib\net45\ImageProcessor.Web.dll</HintPath>
+    <Reference Include="ImageProcessor.Web, Version=4.8.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ImageProcessor.Web.4.8.3\lib\net45\ImageProcessor.Web.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="interfaces, Version=1.0.6634.25783, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\interfaces.dll</HintPath>
+    <Reference Include="interfaces, Version=1.0.6484.21640, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\interfaces.dll</HintPath>
     </Reference>
     <Reference Include="Localization.Core, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Localization.Core.0.1.1\lib\net452\Localization.Core.dll</HintPath>
@@ -168,7 +159,7 @@
       <HintPath>..\..\packages\Compent.Localization.Web.0.0.3\lib\net452\Localization.Web.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\log4net.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Log4Net.Async, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Log4Net.Async.2.0.4\lib\net40\Log4Net.Async.dll</HintPath>
@@ -184,7 +175,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=1.0.1559.20655, Culture=neutral">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -212,8 +203,9 @@
       <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IO.RecyclableMemoryStream.1.2.2\lib\net45\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream">
+      <HintPath>..\..\packages\Microsoft.IO.RecyclableMemoryStream.1.2.1\lib\net45\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -243,7 +235,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
@@ -271,19 +264,18 @@
       <HintPath>..\..\packages\semver.1.1.2\lib\net451\Semver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SQLCE4Umbraco, Version=1.0.6634.25794, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\SQLCE4Umbraco.dll</HintPath>
+    <Reference Include="SQLCE4Umbraco, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\SQLCE4Umbraco.dll</HintPath>
     </Reference>
     <Reference Include="System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Collections.Immutable.1.2.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\System.Data.SqlServerCe.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\System.Data.SqlServerCe.Entity.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\System.Data.SqlServerCe.Entity.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
@@ -300,28 +292,12 @@
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
-    <Reference Include="System.Security.Cryptography.Algorithms">
-      <HintPath>..\..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding">
-      <HintPath>..\..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives">
-      <HintPath>..\..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates">
-      <HintPath>..\..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\net47\System.ValueTuple.dll</HintPath>
+      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -329,6 +305,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -340,42 +318,54 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\TidyNet.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\TidyNet.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco, Version=1.0.6634.25796, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\umbraco.dll</HintPath>
+    <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Umbraco.Core, Version=1.0.6634.25789, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\Umbraco.Core.dll</HintPath>
+    <Reference Include="UIntra.License.Core, Version=9.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UIntra.License.Validator.1.9.0\lib\net452\UIntra.License.Core.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.DataLayer, Version=1.0.6634.25793, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\umbraco.DataLayer.dll</HintPath>
+    <Reference Include="UIntra.License.Validator, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UIntra.License.Validator.1.9.0\lib\net452\UIntra.License.Validator.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.editorControls, Version=1.0.6634.25799, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\umbraco.editorControls.dll</HintPath>
+    <Reference Include="umbraco, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.MacroEngines, Version=1.0.6634.25799, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\umbraco.MacroEngines.dll</HintPath>
+    <Reference Include="Umbraco.Core, Version=1.0.6484.21641, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\Umbraco.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Umbraco.ModelsBuilder, Version=3.0.10.102, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Umbraco.ModelsBuilder.3.0.10\lib\Umbraco.ModelsBuilder.dll</HintPath>
+    <Reference Include="umbraco.DataLayer, Version=1.0.6484.21646, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.DataLayer.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.providers, Version=1.0.6634.25795, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\umbraco.providers.dll</HintPath>
+    <Reference Include="umbraco.editorControls, Version=1.0.6484.21652, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.editorControls.dll</HintPath>
     </Reference>
-    <Reference Include="Umbraco.Web.UI, Version=1.0.6634.25802, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\Umbraco.Web.UI.dll</HintPath>
+    <Reference Include="umbraco.MacroEngines, Version=1.0.6484.21653, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.MacroEngines.dll</HintPath>
     </Reference>
-    <Reference Include="UmbracoExamine, Version=0.7.0.25794, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\UmbracoExamine.dll</HintPath>
+    <Reference Include="Umbraco.ModelsBuilder, Version=3.0.7.99, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Umbraco.ModelsBuilder.3.0.7\lib\Umbraco.ModelsBuilder.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="umbraco.providers, Version=1.0.6484.21648, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\umbraco.providers.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Web.UI, Version=1.0.6484.21653, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\Umbraco.Web.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UmbracoExamine, Version=0.7.0.21647, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.7.2\lib\net45\UmbracoExamine.dll</HintPath>
     </Reference>
     <Reference Include="UrlRewritingNet.UrlRewriter">
       <HintPath>..\..\packages\UrlRewritingNet.2.0.7\lib\UrlRewritingNet.UrlRewriter.dll</HintPath>
@@ -633,6 +623,177 @@
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.js" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\3dm.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\3ds.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\3gp.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\7z.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\aac.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ai.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\aif.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\apk.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\app.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\asf.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\asp.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\aspx.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\asx.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\avi.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\bak.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\bat.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\bin.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\bmp.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cab.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cad.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cdr.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cer.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cfg.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cfm.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cgi.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\class.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\com.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cpl.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cpp.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\crx.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\csr.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\css.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\csv.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cue.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\cur.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dat.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\db.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dbf.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dds.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dem.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dfx.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dll.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dmg.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dmp.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\doc.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\docx.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\drv.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dtd.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\dwg.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\elf.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\eps.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\exe.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\fla.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\flash.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\flv.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\fnt.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\fon.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\gam.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\gbr.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ged.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\gif.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\gpx.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\gz.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\gzip.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\hqz.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\html.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ibooks.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\icns.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ico.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ics.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\iff.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\indd.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\iso.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\jar.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\jpg.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\js.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\jsp.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\key.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\kml.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\kmz.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\lnk.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\log.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\lua.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\m3u.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\m4a.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\m4v.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mach-o.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\max.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mdb.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mdf.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mid.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mim.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mov.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mp3.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mp4.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mpa.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\mpg.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\msg.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\msi.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\nes.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\obj.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odb.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odc.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odf.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odg.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odi.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odp.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ods.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odt.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\odx.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ogg.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\otf.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pages.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pct.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pdb.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pdf.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\photoshop.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pif.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pkg.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pl.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\png.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pps.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ppt.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pptx.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ps.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\pub.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\py.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ra.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\rar.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\raw.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\rm.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\rom.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\rpm.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\rss.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\rtf.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\sav.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\sdf.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\sitx.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\sql.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\srt.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\svg.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\swf.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\sys.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\tar.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\tex.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\tga.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\thm.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\tiff.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\tmp.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\torrent.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\ttf.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\txt.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\uue.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\vb.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\vcd.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\vcf.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\vob.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\wav.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\wma.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\wmv.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\wpd.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\wps.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\wsf.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\xhtml.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\xlr.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\xls.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\xlsx.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\xml.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\xsl.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\yuv.svg" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\images\file-type-icons\zip.svg" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\default-skin.css" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\default-skin.png" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\default-skin.svg" />
@@ -762,7 +923,6 @@
     <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
     <Content Include="App_Plugins\Notification\notification.js" />
     <Content Include="App_Plugins\Notification\package.manifest" />
-    <Content Include="App_Plugins\Notification\popupNotifications.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.html" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
@@ -791,14 +951,6 @@
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.html" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js" />
     <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Panels\TableEditor\css\table-editor.css" />
-    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-column-control.directive.js" />
-    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-row-control.directive.js" />
-    <Content Include="App_Plugins\Panels\TableEditor\js\table-editor.controller.js" />
-    <Content Include="App_Plugins\Panels\TableEditor\views\overlay.html" />
-    <Content Include="App_Plugins\Panels\TableEditor\views\table-editor.html" />
-    <Content Include="App_Plugins\Panels\TablePanel\Css\tableEditor.css" />
-    <Content Include="App_Plugins\Panels\TablePanel\Js\tablePanel.js" />
     <Content Include="App_Plugins\Search\backoffice\developerelasticsearch.html" />
     <Content Include="App_Plugins\Search\Controls\search-box.js" />
     <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
@@ -912,6 +1064,7 @@
     <Content Include="favicon-32x32.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="licence.html" />
     <Content Include="Views\Comments\CommentsView.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Comments\CommentsOverView.cshtml" />
@@ -922,9 +1075,20 @@
     <Content Include="config\ClientDependency.config" />
     <Content Include="config\applications.config" />
     <Content Include="config\404handlers.config" />
+    <Content Include="config\tinyMceConfig.config" />
+    <Content Include="config\scripting.config" />
+    <Content Include="config\metablogConfig.config" />
+    <Content Include="config\log4net.config" />
+    <Content Include="config\FileSystemProviders.config" />
+    <Content Include="config\feedProxy.config" />
+    <Content Include="config\ExamineSettings.config" />
+    <Content Include="config\ExamineIndex.config" />
+    <Content Include="config\EmbeddedMedia.config" />
+    <Content Include="config\BaseRestExtensions.config" />
     <EmbeddedResource Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx">
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="config\HealthChecks.config" />
     <Content Include="App_Plugins\EnumLists\package.manifest" />
     <EmbeddedResource Include="Persistence\Sql\Migrations\201711141621545_NotificationSettings.resx">
       <DependentUpon>201711141621545_NotificationSettings.cs</DependentUpon>
@@ -960,6 +1124,7 @@
     <Content Include="App_Plugins\LatestActivities\package.manifest" />
     <Content Include="App_Plugins\Localization\package.manifest" />
     <Content Include="App_Plugins\Members\package.manifest" />
+    <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
     <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
@@ -994,12 +1159,27 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201801191040358_ActivityLocation.resx">
       <DependentUpon>201801191040358_ActivityLocation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Persistence\Sql\Migrations\201802050917423_LinkPreview.resx">
-      <DependentUpon>201802050917423_LinkPreview.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Persistence\Sql\Migrations\201802091031082_Renaming.resx">
-      <DependentUpon>201802091031082_Renaming.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="config\umbracoSettings.Debug.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="config\umbracoSettings.DebugWithDll.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="config\umbracoSettings.Dev.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="config\umbracoSettings.PublicNuget.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="config\umbracoSettings.Release.config">
+      <DependentUpon>umbracoSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <Content Include="Media\Web.config" />
     <Content Include="Content\fonts\muli-italic.woff" />
     <Content Include="Content\fonts\muli-italic.woff2" />
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\ContentGridCentralFeedPreValues.json" />
@@ -1046,37 +1226,6 @@
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\GridPageLayout.cshtml" />
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\GroupGridPreValues.json" />
     <EmbeddedResource Include="Core\Updater\Migrations\0.0.0.1\PreValues\PanelPickerPreValues.json" />
-    <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
-    <Content Include="config\umbracoSettings.config" />
-    <EmbeddedResource Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.resx">
-      <DependentUpon>201802231106236_ActivityToLinkPreviewEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml" />
-    <Content Include="App_Plugins\Core\LinkPreview\EditLinkPreviewView.cshtml" />
-    <EmbeddedResource Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.resx">
-      <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <Content Include="App_Plugins\Panels\TableEditor\package.manifest" />
-    <Content Include="App_Plugins\Panels\TableEditor\TableEditor.cshtml" />
-    <Content Include="App_Plugins\Panels\TablePanel\TablePanel.cshtml" />
-    <Content Include="Media\Web.config" />
-    <Content Include="config\tinyMceConfig.config" />
-    <Content Include="config\scripting.config" />
-    <Content Include="config\metablogConfig.config" />
-    <Content Include="config\log4net.config" />
-    <Content Include="config\HealthChecks.config" />
-    <Content Include="config\FileSystemProviders.config" />
-    <Content Include="config\feedProxy.config" />
-    <Content Include="config\ExamineSettings.config" />
-    <Content Include="config\ExamineIndex.config" />
-    <Content Include="config\EmbeddedMedia.config" />
-    <Content Include="config\BaseRestExtensions.config" />
-    <Content Include="config\BackOfficeTours\getting-started.json" />
-    <Content Include="App_Plugins\Notification\List\PopupNotificationsView.cshtml" />
-    <Content Include="App_Plugins\Search\Controls\SearchBoxAutocompleteItem.cshtml" />
-    <EmbeddedResource Include="Core\Updater\Migrations\0.3.1.0\PreValues\GridPageLayout.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1085,51 +1234,59 @@
     <Content Include="Views\Navigation\TopNavigation\Navigation.cshtml" />
     <Content Include="Views\Bulletins\DetailsView.cshtml" />
     <Content Include="Views\Bulletins\ItemView.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="config\umbracoSettings.config">
+      <TransformOnBuild>false</TransformOnBuild>
+    </Content>
     <None Include="Properties\PublishProfiles\groups_qa.pubxml">
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Activity\ItemHeader.cshtml" />
     <Content Include="Views\Bulletins\ItemHeader.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Macro.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Embed.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
+    <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
+    <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
+    <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
+    <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\PagePromotion\ItemView.cshtml" />
     <Content Include="Views\Bulletins\EditView.cshtml" />
     <Content Include="Views\Groups\GroupNavigation.cshtml" />
     <Content Include="Views\Bulletins\CreationForm.cshtml" />
     <Content Include="Views\Search\SearchResult.cshtml" />
+    <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\Shared\_Layout-output.cshtml" />
     <Content Include="Views\Events\DetailsHeader.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Macro.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Embed.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
+    <None Include="Web.DebugWithDll.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.PublicNuget.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.QA.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <Content Include="Views\Search\SearchBoxAutocompleteItem.cshtml" />
     <None Include="Web.Base.config" />
-    <None Include="Web.Debug.config" />
-    <None Include="Web.PublicNuget.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web.QA.config" />
+    <None Include="Web.PublicNuget.config"/>
+    <None Include="Web.QA.config"/>
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="App_Start\ElmahMvc_Start.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
-    <Compile Include="Controllers\ActivityLinkPreviewController.cs" />
     <Compile Include="Controllers\ActivityLocationController.cs" />
     <Compile Include="Controllers\Api\EditorConfigController.cs" />
-    <Compile Include="Controllers\Api\LinkPreviewController.cs" />
     <Compile Include="Controllers\Api\MemberApiController.cs" />
     <Compile Include="Controllers\Api\MonthlyEmailApiController.cs" />
     <Compile Include="Controllers\Api\NotificationSettingsApiController.cs" />
-    <Compile Include="Controllers\Api\QaController.cs" />
     <Compile Include="Controllers\Api\RteConfigController.cs" />
     <Compile Include="Controllers\Api\UserApiController.cs" />
     <Compile Include="Controllers\Api\UsersTagsApiController.cs" />
@@ -1137,12 +1294,8 @@
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\BulletinsSectionController.cs" />
     <Compile Include="Controllers\CentrallFeedController.cs" />
-    <Compile Include="Controllers\ContentPanelController.cs" />
     <Compile Include="Controllers\EventsSectionController.cs" />
-    <Compile Include="Controllers\FileUploadController.cs" />
-    <Compile Include="Controllers\GridController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
-    <Compile Include="Controllers\GroupDocumentsController.cs" />
     <Compile Include="Controllers\GroupFeedController.cs" />
     <Compile Include="Controllers\GroupsSectionController.cs" />
     <Compile Include="Controllers\LightboxGalleryController.cs" />
@@ -1154,7 +1307,6 @@
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\NotificationJobController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\TablePanelController.cs" />
     <Compile Include="Controllers\UserTagsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
@@ -1167,7 +1319,6 @@
     <Compile Include="Controllers\SubscribeController.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Core\ActivitiesServiceFactory.cs" />
-    <Compile Include="Core\Activity\ActivitiesServiceFactoryExtensions.cs" />
     <Compile Include="Core\Activity\ActivityAutoMapperProfile.cs" />
     <Compile Include="Core\Activity\FeedActivityHelper.cs" />
     <Compile Include="Core\Activity\IFeedActivityHelper.cs" />
@@ -1180,15 +1331,12 @@
     <Compile Include="Core\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedViewModel.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedService.cs" />
-    <Compile Include="Core\CommandBus\CommentHandle.cs" />
-    <Compile Include="Core\CommandBus\CommentNotificationHandle.cs" />
-    <Compile Include="Core\CommandBus\GroupActivitiesHandle.cs" />
-    <Compile Include="Core\CommandBus\LikeHandle.cs" />
-    <Compile Include="Core\CommandBus\LikeNotificationHandle.cs" />
     <Compile Include="Core\Comments\CommentsPageHelper.cs" />
     <Compile Include="Core\Comments\CommentsPageTab.cs" />
     <Compile Include="Core\Comments\CustomCommentable.cs" />
+    <Compile Include="Core\Comments\CustomCommentableService.cs" />
     <Compile Include="Core\Comments\ICommentsPageHelper.cs" />
+    <Compile Include="Core\Comments\ICustomCommentableService.cs" />
     <Compile Include="Core\Constants\DocumentTypeConstants.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\IntranetEditorConfigProvider.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />
@@ -1208,18 +1356,18 @@
     <Compile Include="Core\Handlers\SearchContentEventService.cs" />
     <Compile Include="Core\Helpers\INotifierDataHelper.cs" />
     <Compile Include="Core\Helpers\NotifierContentHelper.cs" />
+    <Compile Include="Core\Helpers\UmbracoContentHelper.cs" />
     <Compile Include="Core\IntranetUserContentProvider.cs" />
-    <Compile Include="Core\IoC\CommandBusDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
+    <Compile Include="Core\Licence\LicenseValidatorHandler.cs" />
+    <Compile Include="Core\Licence\LicenseContext.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
-    <Compile Include="Core\LinkPreview\Config\LinkDetectionConfigurationSection.cs" />
-    <Compile Include="Core\LinkPreview\Config\LinkPreviewConfigProvider.cs" />
     <Compile Include="Core\LocalizationService.cs" />
     <Compile Include="Core\MemberServiceHelper.cs" />
     <Compile Include="Core\Navigation\MyLinksModelBuilder.cs" />
-    <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\News\Models\NewsExtendedCreateModel.cs" />
     <Compile Include="Core\News\Models\NewsExtendedEditModel.cs" />
+    <Compile Include="Core\Navigation\NavigationAutoMapperProfile.cs" />
     <Compile Include="Core\Navigation\SubNavigationModelBuilder.cs" />
     <Compile Include="Core\Navigation\TopMenuViewModel.cs" />
     <Compile Include="Core\News\Entities\News.cs" />
@@ -1241,13 +1389,12 @@
     <Compile Include="Core\Notification\Mails\EventMail.cs" />
     <Compile Include="Core\Notification\Mails\EventUpdatedMail.cs" />
     <Compile Include="Core\Notification\Mails\IdeaMail.cs" />
+    <Compile Include="Core\Notification\Mails\MonthlyMail.cs" />
     <Compile Include="Core\Notification\Mails\NewsMail.cs" />
     <Compile Include="Core\Notification\MonthlyEmailService.cs" />
     <Compile Include="Core\Notification\NotificationAutoMapperProfile .cs" />
     <Compile Include="Core\Notification\NotificationContentProvider.cs" />
     <Compile Include="Core\Notification\NotificationMessageTypes.cs" />
-    <Compile Include="Core\Notification\PopupNotificationModelMapper.cs" />
-    <Compile Include="Core\Notification\PopupNotifierService.cs" />
     <Compile Include="Core\Notification\UiNotificationModelMapper.cs" />
     <Compile Include="Core\Notification\UiNotifierService.cs" />
     <Compile Include="Core\PagePromotion\Entities\PagePromotion.cs" />
@@ -1257,7 +1404,6 @@
     <Compile Include="Core\PagePromotion\PagePromotionService.cs" />
     <Compile Include="Core\Search\Entities\Mappings\SearchableTagMap.cs" />
     <Compile Include="Core\Search\Entities\Mappings\SearchableUintraActivityMap.cs" />
-    <Compile Include="Core\Search\Entities\Mappings\SearchableUserMap.cs" />
     <Compile Include="Core\Search\Entities\SearchableTag.cs" />
     <Compile Include="Core\Search\Entities\SearchableUintraActivity.cs" />
     <Compile Include="Core\Search\Entities\SearchableUintraContent.cs" />
@@ -1274,8 +1420,9 @@
     <Compile Include="Core\Search\Indexes\UintraContentIndexer.cs" />
     <Compile Include="Core\Search\Indexes\UintraElasticIndex.cs" />
     <Compile Include="Core\Search\ISearchScoreProvider.cs" />
+    <Compile Include="Core\Search\Models\SearchInfoListItemModel.cs" />
+    <Compile Include="Core\Search\Models\UintraSearchAutocompleteResultViewModel.cs" />
     <Compile Include="Core\Search\Models\UintraSearchResultsOverviewViewModel.cs" />
-    <Compile Include="Core\Search\SearchBoxAutocompleteItemExtendedViewModel.cs" />
     <Compile Include="Core\Search\SearchAutoMapperProfile\SearchAutoMapperProfile.cs" />
     <Compile Include="Core\Search\UintraSearchableTypeProvider.cs" />
     <Compile Include="Core\Search\UintraSearchResultViewModel.cs" />
@@ -1284,6 +1431,7 @@
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
     <Compile Include="Core\UmbracoEventsModule.cs" />
+    <Compile Include="Core\Updater\GroupStep.cs" />
     <Compile Include="Core\Updater\IMigration.cs" />
     <Compile Include="Core\Updater\IMigrationStep.cs" />
     <Compile Include="Core\Updater\IMigrationStepsResolver.cs" />
@@ -1293,7 +1441,6 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\CoreInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\EventsInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\GroupsInstallationConstants.cs" />
-    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\LocalizationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\MailInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\NavigationInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\NewsInstallationConstants.cs" />
@@ -1331,28 +1478,12 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\PanelsInsatllationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\SearchInstallationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Steps\UsersInstallationStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\AddVideoMediaTypeStepConstants.cs" />
-    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\Migration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\ContentGridInstallationHelper.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\AddFirstTimeLoginStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\AddTranslationsStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\GroupDocumentsTabStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\DeleteGroupNavigationTabsMigrationStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\TablePanelMigrationStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\NotificationSettingsMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\TaggingInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Migration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\AddTranslationsStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\AddVideoMediaTypeStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\ProfileEmailNotificationTranslationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UpdateDataFolderNamesMigrationInstallationStep .cs" />
+    <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\AddMemberCounterTranslationsStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UserTagsInstallationStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\WelcomeMessageSetupStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Migration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\AddTranslationsStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\UpdateGridPageLayoutTemplateStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\RemoveMailTemplatesFolderStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
@@ -1365,9 +1496,6 @@
     <Compile Include="Core\UserTags\Indexers\IElasticUintraActivityIndex.cs" />
     <Compile Include="Core\UserTags\UserTagsSearchIndexer.cs" />
     <Compile Include="Core\UserTags\ViewModels\UserTagViewModel.cs" />
-    <Compile Include="Core\Verification\IUmbracoVerificationService.cs" />
-    <Compile Include="Core\Verification\UmbracoDocumentTypeVerificationAttribute.cs" />
-    <Compile Include="Core\Verification\UmbracoVerificationService.cs" />
     <Compile Include="Core\XPathProvider.cs" />
     <Compile Include="Core\Users\RelatedUser\UserGroup\Helpers\IInternalGroupHelper.cs" />
     <Compile Include="Core\Users\RelatedUser\UserGroup\IInternalGroupProvider.cs" />
@@ -1394,22 +1522,6 @@
     <Compile Include="Persistence\Sql\Migrations\201801191040358_ActivityLocation.Designer.cs">
       <DependentUpon>201801191040358_ActivityLocation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Persistence\Sql\Migrations\201802050917423_LinkPreview.cs" />
-    <Compile Include="Persistence\Sql\Migrations\201802050917423_LinkPreview.Designer.cs">
-      <DependentUpon>201802050917423_LinkPreview.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Persistence\Sql\Migrations\201802091031082_Renaming.cs" />
-    <Compile Include="Persistence\Sql\Migrations\201802091031082_Renaming.Designer.cs">
-      <DependentUpon>201802091031082_Renaming.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.cs" />
-    <Compile Include="Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.Designer.cs">
-      <DependentUpon>201802231106236_ActivityToLinkPreviewEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs" />
-    <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.Designer.cs">
-      <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
     <Compile Include="Persistence\Sql\DbObjectContext.cs" />
@@ -1432,7 +1544,8 @@
     <Content Include="Views\Events\EditView.cshtml" />
     <Content Include="Views\Events\CreateView.cshtml" />
     <None Include="Properties\PublishProfiles\Dev.pubxml" />
-    <None Include="Web.Release.config" />
+    <None Include="Web.Debug.config"/>   
+    <None Include="Web.Release.config"/>      
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
@@ -1444,73 +1557,73 @@
     <Folder Include="App_Plugins\SentMails\shared\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\uIntra.BaseControls\Uintra.BaseControls.csproj">
+    <ProjectReference Include="..\uIntra.BaseControls\uIntra.BaseControls.csproj">
       <Project>{2e4a8b55-37f6-46a8-b108-30e346870720}</Project>
-      <Name>Uintra.BaseControls</Name>
+      <Name>uIntra.BaseControls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Bulletins\Uintra.Bulletins.csproj">
+    <ProjectReference Include="..\uIntra.Bulletins\uIntra.Bulletins.csproj">
       <Project>{d8101e4c-5345-4b54-9766-dbd2bbe7030c}</Project>
-      <Name>Uintra.Bulletins</Name>
+      <Name>uIntra.Bulletins</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.CentralFeed\Uintra.CentralFeed.csproj">
+    <ProjectReference Include="..\uIntra.CentralFeed\uIntra.CentralFeed.csproj">
       <Project>{0b1998e4-8fa0-4328-9cd2-bbba92fc4e98}</Project>
-      <Name>Uintra.CentralFeed</Name>
+      <Name>uIntra.CentralFeed</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Comments\Uintra.Comments.csproj">
+    <ProjectReference Include="..\uIntra.Comments\uIntra.Comments.csproj">
       <Project>{a15f1032-faa1-42aa-9bd7-1a3edd118811}</Project>
-      <Name>Uintra.Comments</Name>
+      <Name>uIntra.Comments</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Core\Uintra.Core.csproj">
+    <ProjectReference Include="..\uIntra.Core\uIntra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
-      <Name>Uintra.Core</Name>
+      <Name>uIntra.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Events\Uintra.Events.csproj">
+    <ProjectReference Include="..\uIntra.Events\uIntra.Events.csproj">
       <Project>{85aa3a0a-738e-4e0d-9448-ea34aa3a537c}</Project>
-      <Name>Uintra.Events</Name>
+      <Name>uIntra.Events</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Groups\Uintra.Groups.csproj">
+    <ProjectReference Include="..\uIntra.Groups\uIntra.Groups.csproj">
       <Project>{b690420e-af06-4b17-93f7-a04362a1cd3d}</Project>
-      <Name>Uintra.Groups</Name>
+      <Name>uIntra.Groups</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Likes\Uintra.Likes.csproj">
+    <ProjectReference Include="..\uIntra.Likes\uIntra.Likes.csproj">
       <Project>{b99f0f05-598c-4f4a-a972-7282dcf9fed8}</Project>
-      <Name>Uintra.Likes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Navigation\Uintra.Navigation.csproj">
-      <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
-      <Name>Uintra.Navigation</Name>
+      <Name>uIntra.Likes</Name>
     </ProjectReference>
     <ProjectReference Include="..\uIntra.Navigation\uIntra.Navigation.csproj">
       <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
       <Name>uIntra.Navigation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.News\Uintra.News.csproj">
+    <ProjectReference Include="..\uIntra.Navigation\uIntra.Navigation.csproj">
+      <Project>{db9791bc-0224-42e3-bd2b-1f18c15a181e}</Project>
+      <Name>uIntra.Navigation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.News\uIntra.News.csproj">
       <Project>{53386df1-d6a7-484b-8b07-c4fddebf4b83}</Project>
-      <Name>Uintra.News</Name>
+      <Name>uIntra.News</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Notification\Uintra.Notification.csproj">
+    <ProjectReference Include="..\uIntra.Notification\uIntra.Notification.csproj">
       <Project>{774eba5a-679c-401d-b3f1-130562785c60}</Project>
-      <Name>Uintra.Notification</Name>
+      <Name>uIntra.Notification</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Panels\Uintra.Panels.csproj">
+    <ProjectReference Include="..\uIntra.Panels\uIntra.Panels.csproj">
       <Project>{d5590777-b149-467f-829a-e901a9462e72}</Project>
-      <Name>Uintra.Panels</Name>
+      <Name>uIntra.Panels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Search\Uintra.Search.csproj">
+    <ProjectReference Include="..\uIntra.Search\uIntra.Search.csproj">
       <Project>{4d9f910e-24e0-43b3-bccb-fef527d5ff2f}</Project>
-      <Name>Uintra.Search</Name>
+      <Name>uIntra.Search</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Subscribe\Uintra.Subscribe.csproj">
+    <ProjectReference Include="..\uIntra.Subscribe\uIntra.Subscribe.csproj">
       <Project>{dd7c6b81-0f9f-4196-89fe-4db666cd0367}</Project>
-      <Name>Uintra.Subscribe</Name>
+      <Name>uIntra.Subscribe</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Tagging\Uintra.Tagging.csproj">
+    <ProjectReference Include="..\uIntra.Tagging\uIntra.Tagging.csproj">
       <Project>{2167c278-86ed-451b-8d2c-01774532b4e8}</Project>
-      <Name>Uintra.Tagging</Name>
+      <Name>uIntra.Tagging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uIntra.Users\Uintra.Users.csproj">
+    <ProjectReference Include="..\uIntra.Users\uIntra.Users.csproj">
       <Project>{3e868f15-ac47-4962-a6a5-c9084752dde9}</Project>
-      <Name>Uintra.Users</Name>
+      <Name>uIntra.Users</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -1532,6 +1645,16 @@
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DISABLE_LICENCE</DefineConstants>
     <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugWithDll|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DISABLE_LICENCE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PublicNuget|AnyCPU'">
     <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
@@ -1585,10 +1708,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
     <Error Condition="!Exists('..\..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets'))" />
+    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.props'))" />
+    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.targets'))" />
     <Error Condition="!Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.9.2\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.9.2\build\UmbracoCms.props'))" />
-    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.9.2\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.9.2\build\UmbracoCms.targets'))" />
   </Target>
   <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" />
   <Target Name="BeforeBuild">
@@ -1613,5 +1736,5 @@
     <Message Importance="high" Text="Finish copying webpack files" />
   </Target>
   <Import Project="..\..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets" Condition="Exists('..\..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets')" />
-  <Import Project="..\..\packages\UmbracoCms.7.9.2\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.7.9.2\build\UmbracoCms.targets')" />
+  <Import Project="..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.7.7.2\build\UmbracoCms.targets')" />
 </Project>

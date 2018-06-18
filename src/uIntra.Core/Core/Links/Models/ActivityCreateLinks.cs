@@ -1,4 +1,4 @@
-namespace Uintra.Core.Links
+namespace uIntra.Core.Links
 {
     public class ActivityCreateLinks : IActivityCreateLinks
     {

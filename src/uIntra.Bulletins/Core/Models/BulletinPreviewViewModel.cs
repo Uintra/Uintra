@@ -1,8 +1,9 @@
 ﻿using System;
-using Uintra.Core.Links;
-using Uintra.Core.User;
+using uIntra.Core.Links;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
 
-namespace Uintra.Bulletins
+namespace uIntra.Bulletins
 {
     public class BulletinPreviewViewModel
     {
@@ -10,7 +11,7 @@ namespace Uintra.Bulletins
         public string Description { get; set; }
         public DateTime PublishDate { get; set; }
         public IIntranetUser Owner { get; set; }
-        public Enum ActivityType { get; set; }
+        public IIntranetType ActivityType { get; set; }
         public ActivityLinks Links { get; set; }
     }
 }

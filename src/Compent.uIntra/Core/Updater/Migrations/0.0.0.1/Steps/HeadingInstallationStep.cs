@@ -1,9 +1,10 @@
-﻿using Umbraco.Core;
+﻿using uIntra.Core.Installer;
+using Umbraco.Core;
 using Umbraco.Core.Models;
-using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.CoreInstallationConstants;
-using static Compent.Uintra.Core.Updater.ExecutionResult;
+using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.CoreInstallationConstants;
+using static Compent.uIntra.Core.Updater.ExecutionResult;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
+namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class HeadingInstallationStep : IMigrationStep
     {

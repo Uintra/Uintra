@@ -1,7 +1,7 @@
 using System;
-using Uintra.CentralFeed;
+using uIntra.CentralFeed;
 
-namespace Uintra.Groups
+namespace uIntra.Groups
 {
     public class GroupActivityTransferCreateModel : ActivityTransferCreateModel
     {

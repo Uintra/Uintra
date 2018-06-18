@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using Uintra.CentralFeed.Providers;
+using uIntra.CentralFeed.Providers;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public class CentralFeedHelper : ICentralFeedHelper
     {

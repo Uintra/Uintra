@@ -1,13 +1,13 @@
-﻿using System;
+﻿using uIntra.Core.TypeProviders;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
     public class ActivityEventIdentity
     {
-        public Enum ActivityType { get; }
-        public Enum NotificationType { get; }
+        public IIntranetType ActivityType { get; }
+        public IIntranetType NotificationType { get; }
 
-        public ActivityEventIdentity(Enum activityType, Enum notificationType)
+        public ActivityEventIdentity(IIntranetType activityType, IIntranetType notificationType)
         {
             ActivityType = activityType;
             NotificationType = notificationType;

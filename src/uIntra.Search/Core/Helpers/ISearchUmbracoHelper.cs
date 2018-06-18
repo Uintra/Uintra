@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Models;
 
-namespace Uintra.Search
+namespace uIntra.Search
 {
     public interface ISearchUmbracoHelper
     {

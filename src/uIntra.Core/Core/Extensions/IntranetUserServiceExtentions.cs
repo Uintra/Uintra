@@ -1,7 +1,7 @@
 ﻿using System;
-using Uintra.Core.User;
+using uIntra.Core.User;
 
-namespace Uintra.Core.Extensions
+namespace uIntra.Core
 {
     public static class IntranetUserServiceExtensions
     {
@@ -9,6 +9,12 @@ namespace Uintra.Core.Extensions
         {
             var currentUser = intranetUserService.GetCurrentUser();
             return currentUser.Id;
+        }
+
+        public static int? GetCurrentUserUmbracoId(this IIntranetUserService<IIntranetUser> intranetUserService)
+        {
+            var currentUser = intranetUserService.GetCurrentUser();
+            return currentUser.UmbracoId;
         }
     }
 }

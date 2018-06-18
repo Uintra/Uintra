@@ -1,72 +1,73 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
-using uIntra.Notification;
-using Uintra.Core.Activity;
+using Extensions;
+using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.Notification.Configuration
+namespace uIntra.Notification.Configuration
 {
     /// <summary>
     /// Is responsible for defining activities with notification types that would be displayed in backoffice section
     /// </summary>
     public class NotificationSettingCategoryProvider : INotificationSettingCategoryProvider
     {
-        public virtual IEnumerable<NotificationSettingsCategoryDto> GetAvailableCategories() =>
-            GetBulletinSettings()
-                .ToEnumerable()
-                .Append(GetNewsSettings())
-                .Append(GetEventSettings())
-                .Append(GetCommunicationSettings())
-                .Append(GetMemberSettings());
+        private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly INotificationTypeProvider _notificationTypeProvider;
 
-        public virtual NotificationSettingsCategoryDto GetCommunicationSettings() => //TODO: temporary for communication settings
-            new NotificationSettingsCategoryDto(
-                CommunicationTypeEnum.CommunicationSettings,
-                ((Enum)NotificationTypeEnum.CommentLikeAdded).ToEnumerable()
-                .Append(NotificationTypeEnum.MonthlyMail));
-
-        public virtual NotificationSettingsCategoryDto
-            GetMemberSettings() => //TODO: temporary for communication settings
-            new NotificationSettingsCategoryDto(CommunicationTypeEnum.Member, ((Enum)NotificationTypeEnum.Welcome).ToEnumerable());
-
-
-        protected virtual Enum[] CommentNotificationTypes => new Enum[]
+        public NotificationSettingCategoryProvider(IActivityTypeProvider activityTypeProvider, INotificationTypeProvider notificationTypeProvider)
         {
-            NotificationTypeEnum.CommentAdded,
-            NotificationTypeEnum.CommentEdited,
-            NotificationTypeEnum.CommentReplied
+            _activityTypeProvider = activityTypeProvider;
+            _notificationTypeProvider = notificationTypeProvider;
+        }
+
+        public virtual IEnumerable<NotificationSettingsCategoryDto> GetAvailableCategories()
+        {
+            return GetBulletinSettings().ToEnumerable().Append(GetNewsSettings()).Append(GetEventSettings());
+        }
+
+        protected virtual IIntranetType[] CommentNotificationTypes => new[]
+        {
+            GetIntranetType(NotificationTypeEnum.CommentAdded),
+            GetIntranetType(NotificationTypeEnum.CommentEdited),
+            GetIntranetType(NotificationTypeEnum.CommentReplied)
         };
 
         protected virtual NotificationSettingsCategoryDto GetBulletinSettings()
         {
             var notificationTypes =
-                CommentNotificationTypes.Append(NotificationTypeEnum.ActivityLikeAdded);
+                CommentNotificationTypes.Append(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded));
 
-            return new NotificationSettingsCategoryDto(IntranetActivityTypeEnum.Bulletins, notificationTypes);
+            return new NotificationSettingsCategoryDto(GetIntranetType(IntranetActivityTypeEnum.Bulletins), notificationTypes);
         }
 
         protected virtual NotificationSettingsCategoryDto GetNewsSettings()
         {
-            var notificationTypes = CommentNotificationTypes.Append(NotificationTypeEnum.ActivityLikeAdded);
+            var notificationTypes =
+                CommentNotificationTypes.Append(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded));
 
-            return new NotificationSettingsCategoryDto(IntranetActivityTypeEnum.News, notificationTypes);
+            return new NotificationSettingsCategoryDto(GetIntranetType(IntranetActivityTypeEnum.News), notificationTypes);
         }
 
         protected virtual NotificationSettingsCategoryDto GetEventSettings()
         {
-            var eventNotificationTypes = new Enum[]
+            var eventNotificationTypes = new[]
             {
-                NotificationTypeEnum.EventUpdated,
-                NotificationTypeEnum.EventHided,
-                NotificationTypeEnum.BeforeStart
+                GetIntranetType(NotificationTypeEnum.EventUpdated),
+                GetIntranetType(NotificationTypeEnum.EventHided),
+                GetIntranetType(NotificationTypeEnum.BeforeStart),
             };
 
-            var notificationTypes = eventNotificationTypes
+            var notificationTypes =
+                eventNotificationTypes
                 .Concat(CommentNotificationTypes)
-                .Append(NotificationTypeEnum.ActivityLikeAdded);
+                .Append(GetIntranetType(NotificationTypeEnum.ActivityLikeAdded));
 
-            return new NotificationSettingsCategoryDto(IntranetActivityTypeEnum.Events, notificationTypes);
+            return new NotificationSettingsCategoryDto(GetIntranetType(IntranetActivityTypeEnum.Events), notificationTypes);
         }
+
+
+        protected IIntranetType GetIntranetType(NotificationTypeEnum type) => _notificationTypeProvider.Get((int)type);
+        protected IIntranetType GetIntranetType(IntranetActivityTypeEnum type) => _activityTypeProvider.Get((int)type);
     }
 }

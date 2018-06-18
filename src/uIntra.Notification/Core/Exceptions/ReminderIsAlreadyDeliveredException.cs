@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra.Notification.Exceptions
+namespace uIntra.Notification.Exceptions
 {
     public class ReminderIsAlreadyDeliveredException : ApplicationException
     {

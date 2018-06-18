@@ -1,7 +1,7 @@
 ﻿using Localization.Core;
-using Uintra.Core.Localization;
+using uIntra.Core.Localization;
 
-namespace Compent.Uintra.Core
+namespace Compent.uIntra.Core
 {
     public class LocalizationService : IIntranetLocalizationService
     {
@@ -14,8 +14,7 @@ namespace Compent.Uintra.Core
 
         public string Translate(string key)
         {
-            var translation = _localizationCoreService.Get(key);
-            return string.IsNullOrWhiteSpace(translation) ? $"##{key}##" : translation;
+            return _localizationCoreService.Get(key);
         }
     }
 }

@@ -1,0 +1,38 @@
+@using uIntra.Core.Activity
+@using uIntra.Core.Extentions
+@model uIntra.Core.Events.EventExtendedItemModel
+@{
+    var pinnedClass = Model.IsPinActual ? "_pinned" : "";
+    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
+}
+<div class="feed__item @pinnedClass">
+    <div class="clearfix">
+        @if (Model.IsPinned || Model.IsPinActual)
+        {
+            <span class="pinned__item">@Html.Localize("EventsItemView.Pinned.lbl")</span>
+        }
+
+
+        @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
+    </div>
+    <div class="feed__item-image"> </div>
+    @if (!string.IsNullOrWhiteSpace(Model.ShortDescription))
+    {
+        <div class="feed__item-txt _clamp" data-url="@detailsPageUrl">
+            <p>@Html.Raw(Model.ShortDescription)</p>
+        </div>
+    }
+    <div class="feed__item-images">
+        @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }
+    </div>
+    <div class="feed__item-feed">
+        <div class="feed__item-feed-holder">
+            @{ Html.RenderAction("Likes", "Likes", new { likesInfo = Model.LikesInfo }); }
+            @{ Html.RenderAction("Preview", "Comments", new { activityId = Model.Id, link = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id) }); }
+        </div>
+        @if (Model.CanSubscribe)
+        {
+            Html.RenderAction("Index", "Subscribe", new { subscribe = Model.SubscribeInfo, activityId = Model.Id });
+        }
+    </div>
+</div> 

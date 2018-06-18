@@ -1,8 +1,8 @@
 using AutoMapper;
-using Uintra.Core.User;
-using Uintra.Users;
+using uIntra.Core.User;
+using uIntra.Users;
 
-namespace Compent.Uintra.Core.Users
+namespace Compent.uIntra.Core.Users
 {
     public class IntranetUserAutoMapperProfile : Profile
     {

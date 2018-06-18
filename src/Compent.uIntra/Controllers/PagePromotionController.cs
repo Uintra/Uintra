@@ -1,30 +1,27 @@
 ﻿using System.Web.Mvc;
-using Compent.Uintra.Core.Activity.Models;
-using Compent.Uintra.Core.PagePromotion.Entities;
-using Compent.Uintra.Core.PagePromotion.Models;
-using Uintra.Core;
-using Uintra.Core.Context;
-using Uintra.Core.Extensions;
-using Uintra.Core.Feed;
-using Uintra.Core.User;
-using Uintra.Core.Web;
+using Compent.uIntra.Core.Activity.Models;
+using Compent.uIntra.Core.PagePromotion.Entities;
+using Compent.uIntra.Core.PagePromotion.Models;
+using uIntra.Core.Extensions;
+using uIntra.Core.Feed;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
+using uIntra.Core.Web;
+using Umbraco.Core;
 
-namespace Compent.Uintra.Controllers
+namespace Compent.uIntra.Controllers
 {
-    [TrackContext]
     public class PagePromotionController : PagePromotionControllerBase
     {
         protected override string ItemViewPath => "~/Views/PagePromotion/ItemView.cshtml";
 
-        public PagePromotionController(IIntranetUserService<IIntranetUser> userService, IContextTypeProvider contextTypeProvider)
-            : base(userService, contextTypeProvider)
+        public PagePromotionController(IIntranetUserService<IIntranetUser> userService)
+            : base(userService)
         {
         }
 
         public ActionResult FeedItem(PagePromotion item, ActivityFeedOptions options)
         {
-            AddEntityIdentityForContext(item.Id);
-
             var viewModel = GetItemViewModel(item, options);
             return PartialView(ItemViewPath, viewModel);
         }
@@ -35,7 +32,11 @@ namespace Compent.Uintra.Controllers
             var extendedModel = model.Map<PagePromotionExtendedItemViewModel>();
 
             extendedModel.HeaderInfo = model.HeaderInfo.Map<ExtendedItemHeaderViewModel>();
-            model.HeaderInfo.Type = item.Type;
+            model.HeaderInfo.Type = new IntranetType
+            {
+                Id = item.Type.Id,
+                Name = $"{PagePromotionTranslationPrefix}{item.PageAlias.ToFirstUpper()}"
+            };
 
             extendedModel.LikesInfo = item;
             extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;

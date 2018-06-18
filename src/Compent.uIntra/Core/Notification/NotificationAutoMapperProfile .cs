@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using EmailWorker.Data.Model;
-using Uintra.Notification.Base;
+using uIntra.Notification.Base;
 
-namespace Compent.Uintra.Core.Notification
+namespace Compent.uIntra.Core.Notification
 {
     public class NotificationAutoMapperProfile : Profile
     {

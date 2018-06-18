@@ -1,4 +1,4 @@
-﻿namespace Uintra.Navigation.Dashboard
+﻿namespace uIntra.Navigation.Dashboard
 {
     public enum UmbracoPropertyTypeEnum
     {

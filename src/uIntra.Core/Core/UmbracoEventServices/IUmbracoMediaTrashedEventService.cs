@@ -1,8 +1,9 @@
 ﻿using Umbraco.Core.Events;
 using Umbraco.Core.Models;
+using Umbraco.Core.Publishing;
 using Umbraco.Core.Services;
 
-namespace Uintra.Core.UmbracoEventServices
+namespace uIntra.Core.UmbracoEventServices
 {
     public interface IUmbracoMediaTrashedEventService
     {

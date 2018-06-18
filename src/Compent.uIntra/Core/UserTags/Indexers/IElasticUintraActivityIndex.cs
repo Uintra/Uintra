@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.Uintra.Core.Search.Entities;
+using Compent.uIntra.Core.Search.Entities;
+using uIntra.Core.TypeProviders;
 
-namespace Compent.Uintra.Core.UserTags.Indexers
+namespace Compent.uIntra.Core.UserTags.Indexers
 {
     public interface IElasticUintraActivityIndex
     {
@@ -10,6 +11,6 @@ namespace Compent.Uintra.Core.UserTags.Indexers
         void Index(SearchableUintraActivity activity);
         void Index(IEnumerable<SearchableUintraActivity> activities);
         void Delete(Guid id);
-        void DeleteByType(Enum type);
+        void DeleteByType(IIntranetType type);
     }
 }

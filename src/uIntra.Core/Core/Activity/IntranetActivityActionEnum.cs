@@ -1,4 +1,4 @@
-﻿namespace Uintra.Core.Activity
+﻿namespace uIntra.Core.Activity
 {
     public enum IntranetActivityActionEnum
     {

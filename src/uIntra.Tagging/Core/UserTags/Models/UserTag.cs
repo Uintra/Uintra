@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra.Tagging.UserTags.Models
+namespace uIntra.Tagging.UserTags.Models
 {
     public class UserTag
     {

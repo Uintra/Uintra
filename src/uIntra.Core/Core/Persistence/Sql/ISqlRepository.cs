@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Uintra.Core.Persistence
+namespace uIntra.Core.Persistence
 {
     public interface ISqlRepository<TKey, T> : IDisposable
     {

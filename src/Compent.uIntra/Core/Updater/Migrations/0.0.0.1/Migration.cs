@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps;
+using System.Linq;
+using BCLExtensions.Trees;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps;
+using static BCLExtensions.Trees.TreeExtensions;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
+namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1
 {
     public class Migration : IMigration
     {

@@ -1,10 +1,12 @@
 ﻿using System;
-using Uintra.Comments;
-using Uintra.Core.Activity;
-using Uintra.Core.Links;
-using Uintra.Notification;
+using uIntra.Comments;
+using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
+using uIntra.Core.Links;
+using uIntra.Core.TypeProviders;
+using uIntra.Notification;
 
-namespace Compent.Uintra.Core.Helpers
+namespace Compent.uIntra.Core.Helpers
 {
     public class NotifierDataHelper : INotifierDataHelper
     {
@@ -17,7 +19,7 @@ namespace Compent.Uintra.Core.Helpers
             _commentLinkHelper = commentLinkHelper;
         }
 
-        public CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, CommentModel comment, Enum notificationType, Guid notifierId)
+        public CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, CommentModel comment, IIntranetType notificationType, Guid notifierId)
         {
             return new CommentNotifierDataModel
             {
@@ -31,7 +33,7 @@ namespace Compent.Uintra.Core.Helpers
             };
         }
 
-        public ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, Enum notificationType, Guid notifierId)
+        public ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, IIntranetType notificationType, Guid notifierId)
         {
             return new ActivityNotifierDataModel
             {
@@ -45,7 +47,7 @@ namespace Compent.Uintra.Core.Helpers
             };
         }
 
-        public LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, Enum notificationType, Guid notifierId)
+        public LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, IIntranetType notificationType, Guid notifierId)
         {
             return new LikesNotifierDataModel
             {
@@ -60,7 +62,7 @@ namespace Compent.Uintra.Core.Helpers
             };
         }
 
-        public ActivityReminderDataModel GetActivityReminderDataModel(IIntranetActivity activity, Enum activityType)
+        public ActivityReminderDataModel GetActivityReminderDataModel(IIntranetActivity activity, IIntranetType activityType)
         {
             return new ActivityReminderDataModel
             {
@@ -74,6 +76,6 @@ namespace Compent.Uintra.Core.Helpers
         }
 
         private static string GetNotifierDataTitle(IIntranetActivity activity) 
-            => activity.Type is IntranetActivityTypeEnum.Bulletins ? activity.Description : activity.Title;
+            => activity.Type.Id == IntranetActivityTypeEnum.Bulletins.ToInt() ? activity.Description : activity.Title;
     }
 }

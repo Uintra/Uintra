@@ -1,23 +1,12 @@
 ﻿const Quill = require('quill');
 const Delta = require('quill-delta');
+const Dotdotdot = require('dotdotdot');
 const Flatpickr = require('flatpickr');
-import ajax from './Ajax';
 
 require('simple-scrollbar');
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
 
-var urlDetectRegexes = [];
-
-ajax.get('/umbraco/api/LinkPreview/config')
-    .then(function (response) {
-        var regexes = response.data.urlRegex.map(r => new RegExp(r));
-        urlDetectRegexes = regexes;
-    });
-
-function matchUponMultiple(regexes, text) {
-    return regexes.map(regex => text.match(regex)).find(m => m !== null || m !== undefined || m !== {});
-}
 
 const easeInOutQuad = function (t, b, c, d) {
     t /= d / 2;
@@ -46,7 +35,7 @@ const helpers = {
         if (typeof options == 'undefined') {
             settings.modules = {
                 toolbar: {
-                    container: ['emoji','bold', 'italic', 'underline', 'link']
+                    container: [['emoji'], ['bold', 'italic', 'underline'], ['link']]
                 }
             };
         }
@@ -75,16 +64,6 @@ const helpers = {
             }
         });
 
-        let onLinkDetectedCallbacks = [];
-
-        quill.onLinkDetected = function (cb) {
-            onLinkDetectedCallbacks.push(cb);
-        }
-
-        function triggerLinkDetectedEvent(link) {
-            onLinkDetectedCallbacks.forEach((cb) => cb(link));
-        }
-
         quill.on('text-change', (delta, oldDelta, source) => {
             var n = quill.container.querySelectorAll("img").length;
             if (!quill.getText().trim() && n < 1) {
@@ -93,14 +72,17 @@ const helpers = {
             }
             dataStorage.value = quill.container.firstChild.innerHTML;
 
+            var regexes = [
+                /https?:\/\/[^\s]+$/
+            ];
             if (delta.ops.length === 2 && delta.ops[0].retain && isWhitespace(delta.ops[1].insert)) {
                 var endRetain = delta.ops[0].retain;
                 var text = quill.getText().substr(0, endRetain);
-                var matches = matchUponMultiple(urlDetectRegexes, text);
+                var match = regexes.map(regex => text.match(regex)).find(m => m !== null);
 
-                if (matches) {
-                    var url = matches[0];
-                    triggerLinkDetectedEvent(url);
+
+                if (match) {
+                    var url = match[0];
 
                     var ops = [];
                     if (endRetain > url.length) {
@@ -132,22 +114,21 @@ const helpers = {
         });
 
         quill.clipboard.addMatcher(Node.TEXT_NODE, function (node, delta) {
-            if (typeof (node.data) !== 'string') return delta;
-            var text = node.data;
-
-            var matches = matchUponMultiple(urlDetectRegexes, text);
+            var regex = /https?:\/\/[^\s]+/g;
+            if (typeof (node.data) !== 'string') return;
+            var matches = node.data.match(regex);
 
             if (matches && matches.length > 0) {
                 var ops = [];
-                var match = matches[0];
-                triggerLinkDetectedEvent(match);
-                var split = text.split(match);
-                var beforeLink = split.shift();
-                ops.push({ insert: beforeLink });
-                ops.push({ insert: match, attributes: { link: match } });
-                text = split.join(match);
-
-                ops.push({ insert: text });
+                var str = node.data;
+                matches.forEach(function (match) {
+                    var split = str.split(match);
+                    var beforeLink = split.shift();
+                    ops.push({ insert: beforeLink });
+                    ops.push({ insert: match, attributes: { link: match } });
+                    str = split.join(match);
+                });
+                ops.push({ insert: str });
                 delta.ops = ops;
             }
 
@@ -251,7 +232,6 @@ const helpers = {
 
             emojiListItem.addEventListener('click', function (event) {
                 CopyClipboard(getHTML(event.target));
-                emojiContainer.classList.add("hidden");
             });
 
             emojiListImage = document.createElement("img");

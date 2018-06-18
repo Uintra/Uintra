@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using Uintra.Core.User;
-using Uintra.Notification;
-using Uintra.Notification.Base;
-using static Uintra.Notification.Constants.TokensConstants;
+using uIntra.Core.User;
+using uIntra.Notification;
+using uIntra.Notification.Base;
+using static uIntra.Notification.Constants.TokensConstants;
 
-namespace Compent.Uintra.Core.Notification
+namespace Compent.uIntra.Core.Notification
 {
     public class UiNotificationModelMapper : INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage>
     {
@@ -34,7 +34,7 @@ namespace Compent.Uintra.Core.Notification
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
-                        (ActivityType, model.ActivityType.ToString()),
+                        (ActivityType, model.ActivityType.Name),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
                         (NotifierFullName, receiver.DisplayedName)
                     };
@@ -45,7 +45,7 @@ namespace Compent.Uintra.Core.Notification
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
-                        (ActivityType, model.ActivityType.ToString()),
+                        (ActivityType, model.ActivityType.Name),
                         (StartDate, model.StartDate.ToShortDateString())
                     };
                     break;
@@ -66,7 +66,7 @@ namespace Compent.Uintra.Core.Notification
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
-                        (ActivityType, model.ActivityType.ToString()),
+                        (ActivityType, model.ActivityType.Name),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
                         (CreatedDate, model.CreatedDate.ToShortDateString())
                     };

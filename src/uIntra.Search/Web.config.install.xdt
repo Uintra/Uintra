@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <configSections>
-    <section name="elasticConfiguration" type="Uintra.Search.Configuration.ElasticConfigurationSection" xdt:Locator="Condition(@name='elasticConfiguration')" xdt:Transform="InsertIfMissing" />
+    <section name="elasticConfiguration" type="uIntra.Search.Configuration.ElasticConfigurationSection" xdt:Locator="Condition(@name='elasticConfiguration')" xdt:Transform="InsertIfMissing" />
   </configSections>
   <elasticConfiguration url="http://localhost:9200" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>
   <appSettings>

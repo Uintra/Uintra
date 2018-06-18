@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra.Comments
+namespace uIntra.Comments
 {
     public interface ICommentLinkHelper
     {

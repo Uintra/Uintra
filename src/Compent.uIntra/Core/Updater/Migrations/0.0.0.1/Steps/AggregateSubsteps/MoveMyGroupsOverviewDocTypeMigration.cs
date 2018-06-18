@@ -1,14 +1,16 @@
 ﻿using System.Web;
-using Compent.Uintra.Core.Constants;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Uintra.Core;
-using Uintra.Core.Extensions;
-using Uintra.Navigation;
+using Compent.uIntra.Core.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using uIntra.Core;
+using uIntra.Core.Extensions;
+using uIntra.Core.Installer;
+using uIntra.Navigation;
 using Umbraco.Core;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
+namespace Compent.uIntra.Installer.Migrations
 {
     public class MoveMyGroupsOverviewDocTypeMigration
     {

@@ -1,6 +1,6 @@
 using Umbraco.Core.Models;
 
-namespace Uintra.Groups
+namespace uIntra.Groups
 {
     public interface IGroupHelper
     {

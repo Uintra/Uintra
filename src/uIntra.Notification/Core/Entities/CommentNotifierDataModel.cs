@@ -1,11 +1,12 @@
 ﻿using System;
-using Uintra.Notification.Base;
+using uIntra.Core.TypeProviders;
+using uIntra.Notification.Base;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
     public class CommentNotifierDataModel: INotifierDataValue, IHaveNotifierId
     {
-        public Enum NotificationType { get; set; }
+        public IIntranetType NotificationType { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }
         public bool IsPinned { get; set; }

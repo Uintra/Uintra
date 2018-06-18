@@ -1,4 +1,4 @@
-﻿namespace Uintra.Search
+﻿namespace uIntra.Search
 {
     public class SearchAutocompleteResultViewModel
     {
@@ -6,6 +6,6 @@
               
         public string Url { get; set; }
 
-        public string Html { get; set; }
+        public string Type { get; set; }
     }
 }

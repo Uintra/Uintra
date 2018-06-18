@@ -1,8 +1,8 @@
-﻿using Uintra.Bulletins;
-using Uintra.Comments;
-using Uintra.Likes;
+﻿using uIntra.Bulletins;
+using uIntra.Comments;
+using uIntra.Likes;
 
-namespace Compent.Uintra.Core.Bulletins
+namespace Compent.uIntra.Core.Bulletins
 {
     public class BulletinExtendedViewModel : BulletinViewModel
     {

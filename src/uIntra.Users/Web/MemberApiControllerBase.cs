@@ -2,7 +2,7 @@
 using System.Web.Http;
 using Umbraco.Web.WebApi;
 
-namespace Uintra.Users.Web
+namespace uIntra.Users.Web
 {
     public abstract class MemberApiControllerBase : UmbracoAuthorizedApiController
     {

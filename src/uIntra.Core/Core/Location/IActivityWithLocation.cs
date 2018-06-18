@@ -1,4 +1,4 @@
-﻿namespace Uintra.Core.Location
+﻿namespace uIntra.Core.Location
 {
     public interface IHaveLocation
     {

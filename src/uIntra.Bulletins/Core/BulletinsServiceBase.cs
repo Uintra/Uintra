@@ -1,11 +1,10 @@
-﻿using Uintra.Core.Activity;
-using Uintra.Core.Caching;
-using Uintra.Core.LinkPreview;
-using Uintra.Core.Location;
-using Uintra.Core.Media;
-using Uintra.Core.TypeProviders;
+﻿using uIntra.Core.Activity;
+using uIntra.Core.Caching;
+using uIntra.Core.Location;
+using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.Bulletins
+namespace uIntra.Bulletins
 {
     public abstract class BulletinsServiceBase<TBulletin> : IntranetActivityService<TBulletin> where TBulletin : BulletinBase
     {
@@ -14,9 +13,8 @@ namespace Uintra.Bulletins
             ICacheService cache,
             IActivityTypeProvider activityTypeProvider,
             IIntranetMediaService intranetMediaService,
-            IActivityLocationService activityLocationService,
-            IActivityLinkPreviewService activityLinkPreviewService)
-            : base(activityRepository, cache, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService)
+            IActivityLocationService activityLocationService) 
+            : base(activityRepository, cache, activityTypeProvider, intranetMediaService, activityLocationService)
         {
         }
     }

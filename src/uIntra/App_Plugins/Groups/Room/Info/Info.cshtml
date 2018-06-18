@@ -1,6 +1,6 @@
-﻿@using Uintra.Core.Extensions
-@using Compent.Extensions
-@model Uintra.Groups.GroupInfoViewModel
+﻿@using uIntra.Core.Extensions
+@using Extensions
+@model uIntra.Groups.GroupInfoViewModel
 <section class="block _groups-info clearfix">
     <h2 class="block__title">@Model.Title</h2>
     @if (Model.GroupImageUrl.HasValue())
@@ -18,7 +18,7 @@
         <dl class="block__meta-info">
             @if (Model.MembersCount > 0)
             {
-                <dt class="block__meta-count"><span id='membersCount'>@Model.MembersCount</span> @(Html.Localize(Model.MembersCount > 1 ? "GroupInfo.MembersCount.lbl" : "GroupInfo.OneMemberCount.lbl"))</dt>
+                <dt class="block__meta-count"><span id='membersCount'>@Model.MembersCount</span> @Html.Localize("GroupInfo.MembersCount")</dt>
             }
             <dd class="block__meta-name">
                 @Html.Localize("GroupInfo.CreatorName"):

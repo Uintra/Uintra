@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Uintra.Core.Controls
+namespace uIntra.Core.Controls
 {
     public class GridEditorConfig
     {

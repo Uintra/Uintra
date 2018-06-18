@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Uintra.Core.Configuration;
-using Uintra.Core.Exceptions;
-using Uintra.Navigation.Configuration;
+using uIntra.Core.Configuration;
+using uIntra.Core.Exceptions;
+using uIntra.Navigation.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Uintra.Navigation
+namespace uIntra.Navigation
 {
     public class LeftSideNavigationModelBuilder : NavigationModelBuilderBase<MenuModel>, ILeftSideNavigationModelBuilder
     {

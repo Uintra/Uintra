@@ -1,13 +1,7 @@
 ﻿<div class="panel" ng-controller="faqPanelController" validate-panel="control.value" ng-init="init(control)">
-    <div class="span12">
-        <div>
-            <span class="control-label">FAQ panel</span>
-        </div>       
-        <div data-ng-show="control.value.title">
-            <span class="span12">{{control.value.title}}</span>
-        </div>
+    <div class="span12" ng-hide="control.active">
+        <h3>FAQ panel{{control.value.title ? (': ' + control.value.title) : ""}}</h3>
     </div>
-
     <div class="span12" ng-hide="control.inGlobalPanelScope">
         <input class="btn span12" type="button" ng-click="open()" value="Edit">
         <umb-overlay ng-if="overlay.show"

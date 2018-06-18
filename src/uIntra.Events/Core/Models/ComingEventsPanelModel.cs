@@ -1,4 +1,4 @@
-﻿namespace Uintra.Events
+﻿namespace uIntra.Events
 {
     public class ComingEventsPanelModel
     {

@@ -14,10 +14,6 @@
             return $http.post(baseUrl + 'SaveEmailNotifierSetting', emailSettings);
         }
 
-        self.sevePopupSettings = function (popupSettings) {
-            return $http.post(baseUrl + 'SavePopupNotifierSetting', popupSettings);
-        }
-
         self.seveUiSettings = function (uiSettings) {
             return $http.post(baseUrl + 'SaveUiNotifierSetting', uiSettings);
         }

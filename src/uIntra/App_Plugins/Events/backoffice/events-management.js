@@ -66,21 +66,20 @@
             };
         }
 
-        self.selectEventsToEdit = function (events) {
+        self.selectEventsToEdit = function (events, index) {
             if (events == null) {
                 var currentOwner = self.users.filter(function (user) { return user.umbracoId === self.currentUser.id })[0];
                 events = { owner: currentOwner };
-                self.selectedIndex = null;
             } else {
                 events.owner = self.users.filter(function (user) { return user.id === events.ownerId })[0];
-                self.selectedIndex = self.eventsList.indexOf(events);
             }
 
+            self.selectedIndex = index;
             self.selected = angular.copy(events);
             self.selected.startDate = self.selected.startDate || new Date().toISOString();
             self.selected.endDate = self.selected.endDate || new Date().toISOString();
             self.selected.publishDate = self.selected.publishDate || new Date().toISOString();
-            
+
             self.config.endDate.minDate = self.selected.startDate;
         }
 
@@ -91,6 +90,7 @@
             }
 
             self.selected.ownerId = self.selected.owner.id;
+
             if (self.selected.id == null) {
                 create(self.selected);
             } else {
@@ -98,28 +98,28 @@
             }
         }
 
-        self.publish = function (events) {
+        self.publish = function (events, $index) {
             self.clearSelected();
             var editedEvents = angular.copy(events);
             editedEvents.isHidden = false;
-            save(editedEvents, self.eventsList.indexOf(events));
+            save(editedEvents, $index);
         }
 
-        self.unpublish = function (events) {
+        self.unpublish = function (events, $index) {
             self.clearSelected();
             var editedEvents = angular.copy(events);
             editedEvents.isHidden = true;
-            save(editedEvents, self.eventsList.indexOf(events));
+            save(editedEvents, $index);
         }
 
-        self.delete = function (events) {
+        self.delete = function (events, $index) {
             self.clearSelected();
             if (!confirm('Are you sure?')) {
                 return;
             }
 
             $http.delete('/Umbraco/backoffice/Api/EventsSection/Delete?id=' + events.id).then(function (response) {
-                self.eventsList.splice(self.eventsList.indexOf(events), 1);
+                self.eventsList.splice($index, 1);
                 self.clearSelected();
             }, onError);
         }

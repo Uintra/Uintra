@@ -1,9 +1,9 @@
-﻿namespace Uintra.CentralFeed
+﻿namespace uIntra.CentralFeed
 {
-    public interface IFeedFilterStateService<T> where T : FeedFiltersState
+    public interface IFeedFilterStateService
     {
-        void SaveFiltersState(T stateModel);
-        T GetFiltersState();
+        void SaveFiltersState(FeedFiltersState stateModel);
+        T GetFiltersState<T>();
         bool CentralFeedCookieExists();
     }
 }

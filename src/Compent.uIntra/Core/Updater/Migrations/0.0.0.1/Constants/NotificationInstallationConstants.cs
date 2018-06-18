@@ -1,6 +1,4 @@
-﻿using Compent.Uintra.Core.Verification;
-
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
+﻿namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants
 {
     public class NotificationInstallationConstants
     {
@@ -8,7 +6,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
         {
             public const string NotificationPage = "Notification Page";
         }
-        [UmbracoDocumentTypeVerification]
+
         public class DocumentTypeAliases
         {
             public const string NotificationPage = "notificationPage";
@@ -32,8 +30,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
 
         public class DataTypePropertyPreValues
         {
-            public const string Assembly = "Uintra.Notification.dll";
-            public const string Enum = "Uintra.Notification.Configuration.NotificationTypeEnum";
+            public const string Assembly = "uIntra.Notification.dll";
+            public const string Enum = "uIntra.Notification.Configuration.NotificationTypeEnum";
         }
 
         public class DataTypePropertyEditors

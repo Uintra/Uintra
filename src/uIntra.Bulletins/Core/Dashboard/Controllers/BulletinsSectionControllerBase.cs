@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
-using Uintra.Core.Extensions;
-using Uintra.Core.User;
+using uIntra.Core;
+using uIntra.Core.Extensions;
+using uIntra.Core.User;
 using Umbraco.Web.WebApi;
 
-namespace Uintra.Bulletins
+namespace uIntra.Bulletins
 {
     public abstract class BulletinsSectionControllerBase : UmbracoAuthorizedApiController
     {

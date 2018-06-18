@@ -1,9 +1,9 @@
-﻿using Uintra.Core.TypeProviders;
-using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
-using Uintra.Core.Web;
+﻿using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
+using uIntra.Core.Web;
 
-namespace Compent.Uintra.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class ActivityController: ActivityControllerBase
     {
@@ -11,8 +11,8 @@ namespace Compent.Uintra.Controllers
 
         public ActivityController(IIntranetUserService<IIntranetUser> intranetUserService,
             IPermissionsService permissionsService,
-            IActivityTypeProvider activityTypeProvider) 
-            : base(intranetUserService, permissionsService)
+            ActivityTypeProvider activityTypeProvider) 
+            : base(intranetUserService, permissionsService, activityTypeProvider)
         {
         }
     }

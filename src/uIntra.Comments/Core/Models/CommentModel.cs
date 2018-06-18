@@ -1,7 +1,6 @@
 ﻿using System;
-using Uintra.Core.LinkPreview;
 
-namespace Uintra.Comments
+namespace uIntra.Comments
 {
     public class CommentModel
     {
@@ -18,7 +17,5 @@ namespace Uintra.Comments
         public string Text { get; set; }
 
         public Guid? ParentId { get; set; }
-
-        public LinkPreview LinkPreview { get; set; }
     }
 }

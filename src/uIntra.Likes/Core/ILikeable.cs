@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Uintra.Likes
+namespace uIntra.Likes
 {
     public interface ILikeable
     {

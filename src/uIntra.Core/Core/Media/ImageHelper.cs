@@ -4,7 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 
-namespace Uintra.Core.Media
+namespace uIntra.Core.Media
 {
     public class ImageHelper : IImageHelper
     {
@@ -12,13 +12,13 @@ namespace Uintra.Core.Media
         {
             var img = Image.FromStream(imageStream);
             FixOrientation(img, removeExifOrientationTag);
-
+            
             var newImageStream = ToStream(img, GetImageFormat(imageExtension));
             return newImageStream;
         }
 
         public bool IsFileImage(byte[] fileBytes)
-        {          
+        {
             bool fileIsImage;
             try
             {
@@ -120,12 +120,6 @@ namespace Uintra.Core.Media
         {
             return GetImagePath(source, preset);
         }
-
-        public string GetImageWithResize(string source, string resize)
-        {
-            return $"{source}?{resize}";
-        }
-
 
         private string GetImagePath(string source, string imageGenClass)
         {

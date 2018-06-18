@@ -1,7 +1,7 @@
 ﻿using System;
-using Uintra.Bulletins;
+using uIntra.Bulletins;
 
-namespace Compent.Uintra.Core.Bulletins
+namespace Compent.uIntra.Core.Bulletins
 {
     public class BulletinExtendedCreateModel : BulletinCreateModel
     {

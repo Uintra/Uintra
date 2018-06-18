@@ -1,6 +1,6 @@
-using Uintra.Core.Links;
+using uIntra.Core.Links;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public class CreateViewModel
     {

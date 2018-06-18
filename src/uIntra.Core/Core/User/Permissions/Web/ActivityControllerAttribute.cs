@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Uintra.Core.User.Permissions.Web
+namespace uIntra.Core.User.Permissions.Web
 {
     public class ActivityControllerAttribute : ActionFilterAttribute
     {

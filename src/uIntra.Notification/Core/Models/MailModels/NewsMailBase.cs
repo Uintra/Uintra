@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Uintra.Notification.Base;
-using Uintra.Notification.Configuration;
-using Uintra.Notification.Constants;
+using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
+using uIntra.Notification.Constants;
 
-namespace Uintra.Notification.MailModels
+namespace uIntra.Notification.MailModels
 {
     public class NewsMailBase : MailBase
     {

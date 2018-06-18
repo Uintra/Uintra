@@ -2,20 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Uintra.CentralFeed;
-using Uintra.CentralFeed.Web;
-using Uintra.Core;
-using Uintra.Core.Activity;
-using Uintra.Core.Attributes;
-using Uintra.Core.Context;
-using Uintra.Core.Extensions;
-using Uintra.Core.Feed;
-using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
-using Uintra.Groups.Attributes;
-using Uintra.Subscribe;
+using uIntra.CentralFeed;
+using uIntra.CentralFeed.Web;
+using uIntra.Core.Activity;
+using uIntra.Core.Attributes;
+using uIntra.Core.Extensions;
+using uIntra.Core.Feed;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
+using uIntra.Subscribe;
 
-namespace Uintra.Groups.Web
+namespace uIntra.Groups.Web
 {
     public abstract class GroupFeedControllerBase : FeedControllerBase
     {
@@ -25,21 +22,16 @@ namespace Uintra.Groups.Web
         private readonly IIntranetUserService<IGroupMember> _intranetUserService;
         private readonly IGroupFeedContentService _groupFeedContentContentService;
         private readonly IGroupMemberService _groupMemberService;
-        private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
-        private readonly IPermissionsService _permissionsService;
-        private readonly IFeedLinkService _feedLinkService;
-        private readonly IFeedFilterService _feedFilterService;
-
+        private readonly IFeedFilterStateService _feedFilterStateService;
+        private readonly IGroupFeedLinkService _groupFeedLinkService;
 
         private bool IsCurrentUserGroupMember { get; set; }
 
         protected override string OverviewViewPath => "~/App_Plugins/Groups/Room/Feed/Overview.cshtml";
         protected override string DetailsViewPath => "~/App_Plugins/Groups/Room/Feed/Details.cshtml";
         protected override string CreateViewPath => "~/App_Plugins/Groups/Room/Feed/Create.cshtml";
-        protected override string EditViewPath => "~/App_Plugins/Groups/Room/Feed/Edit.cshtml";
+        protected override string EditViewPath => "~/App_Plugins/Groups/Room/Feed/Edit.cshtml";       
         protected override string ListViewPath => "~/App_Plugins/Groups/Room/Feed/List.cshtml";
-
-        public override ContextType ControllerContextType { get; } = ContextType.GroupFeed;
 
         protected GroupFeedControllerBase(
             ISubscribeService subscribeService,
@@ -50,30 +42,22 @@ namespace Uintra.Groups.Web
             IIntranetUserService<IGroupMember> intranetUserService,
             IGroupFeedContentService groupFeedContentContentService,
             IGroupFeedLinkProvider groupFeedLinkProvider,
+            IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService,
-            IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IPermissionsService permissionsService,
-            IContextTypeProvider contextTypeProvider,
-            IFeedLinkService feedLinkService,
-            IFeedFilterService feedFilterService)
-            : base(
-                  subscribeService,
-                  groupFeedService,
+            IFeedFilterStateService feedFilterStateService)
+            : base(subscribeService,
+                  groupFeedService,                 
                   intranetUserService,
-                  feedFilterStateService,
-                  centralFeedTypeProvider,
-                  contextTypeProvider)
+                  feedFilterStateService)
         {
             _groupFeedService = groupFeedService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _intranetUserService = intranetUserService;
             _groupFeedContentContentService = groupFeedContentContentService;
+            _groupFeedLinkService = groupFeedLinkService;
             _groupMemberService = groupMemberService;
             _feedFilterStateService = feedFilterStateService;
-            _permissionsService = permissionsService;
-            _feedLinkService = feedLinkService;
-            _feedFilterService = feedFilterService;
         }
 
         #region Actions
@@ -87,7 +71,6 @@ namespace Uintra.Groups.Web
 
         [HttpGet]
         [NotFoundActivity]
-        [NotFoundGroup]
         public virtual ActionResult Details(Guid id, Guid groupId)
         {
             var viewModel = GetDetailsViewModel(id, groupId);
@@ -100,15 +83,13 @@ namespace Uintra.Groups.Web
             var currentUser = _intranetUserService.GetCurrentUser();
             if (!_groupMemberService.IsGroupMember(groupId, currentUser))
                 return new EmptyResult();
-
+            
             var activityType = _groupFeedContentContentService.GetCreateActivityType(CurrentPage);
             var viewModel = GetCreateViewModel(activityType, groupId);
             return PartialView(CreateViewPath, viewModel);
         }
 
         [HttpGet]
-        [NotFoundActivity]
-        [NotFoundGroup]
         public virtual ActionResult Edit(Guid id, Guid groupId)
         {
             var viewModel = GetEditViewModel(id, groupId);
@@ -117,7 +98,7 @@ namespace Uintra.Groups.Web
 
         public ActionResult List(GroupFeedListModel model)
         {
-            var centralFeedType = _centralFeedTypeProvider[model.TypeId];
+            var centralFeedType = _centralFeedTypeProvider.Get(model.TypeId);
             var items = GetGroupFeedItems(centralFeedType, model.GroupId).ToList();
             var tabSettings = _groupFeedService.GetSettings(centralFeedType);
 
@@ -126,7 +107,7 @@ namespace Uintra.Groups.Web
                 model.FilterState = GetFilterStateModel();
             }
 
-            var filteredItems = _feedFilterService.ApplyFilters(items, model.FilterState, tabSettings).ToList();
+            var filteredItems = ApplyFilters(items, model.FilterState, tabSettings).ToList();
             var currentVersion = _groupFeedService.GetFeedVersion(filteredItems);
 
             if (model.Version.HasValue && currentVersion == model.Version.Value)
@@ -142,21 +123,21 @@ namespace Uintra.Groups.Web
         }
         #endregion
 
-        protected virtual IEnumerable<IFeedItem> GetGroupFeedItems(Enum type, Guid groupId)
+        protected virtual IEnumerable<IFeedItem> GetGroupFeedItems(IIntranetType type, Guid groupId)
         {
-            return type is CentralFeedTypeEnum.All
+            return type.Id == CentralFeedTypeEnum.All.ToInt()
                 ? _groupFeedService.GetFeed(groupId).OrderByDescending(item => item.PublishDate)
                 : _groupFeedService.GetFeed(type, groupId);
         }
 
-        protected virtual FeedListViewModel GetFeedListViewModel(GroupFeedListModel model, List<IFeedItem> filteredItems, Enum centralFeedType)
+        protected virtual FeedListViewModel GetFeedListViewModel(GroupFeedListModel model, List<IFeedItem> filteredItems, IIntranetType centralFeedType)
         {
             var take = model.Page * ItemsPerPage;
             var pagedItemsList = SortForFeed(filteredItems, centralFeedType).Take(take).ToList();
 
             var settings = _groupFeedService.GetAllSettings().ToList();
             var tabSettings = settings
-                .Single(s => s.Type.ToInt() == model.TypeId)
+                .Single(s => s.Type.Id == model.TypeId)
                 .Map<FeedTabSettings>();
 
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
@@ -177,7 +158,7 @@ namespace Uintra.Groups.Web
         {
             return new ActivityFeedOptions
             {
-                Links = _feedLinkService.GetLinks(id),
+                Links = _groupFeedLinkService.GetLinks(id),
                 IsReadOnly = !IsCurrentUserGroupMember
             };
         }
@@ -193,7 +174,7 @@ namespace Uintra.Groups.Web
             var model = new GroupFeedOverviewModel
             {
                 Tabs = activityTabs,
-                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _permissionsService.IsCurrentUserHasAccess(tab.Type, IntranetActivityActionEnum.Create)),
+                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs),
                 CurrentType = tabType,
                 GroupId = groupId,
                 IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentUser)
@@ -201,9 +182,10 @@ namespace Uintra.Groups.Web
             return model;
         }
 
-        protected virtual CreateViewModel GetCreateViewModel(Enum activityType, Guid groupId)
+        protected virtual CreateViewModel GetCreateViewModel(IIntranetType activityType, Guid groupId)
         {
-            var links = _feedLinkService.GetCreateLinks(activityType, groupId);
+            var links = _groupFeedLinkService.GetCreateLinks(activityType, groupId);
+
             var settings = _groupFeedService.GetSettings(activityType);
 
             return new CreateViewModel
@@ -216,8 +198,10 @@ namespace Uintra.Groups.Web
         protected virtual EditViewModel GetEditViewModel(Guid id, Guid groupId)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
-            var links = _feedLinkService.GetLinks(id);
-            var settings = _groupFeedService.GetSettings(service.Type);
+            var links = _groupFeedLinkService.GetLinks(id);
+
+            var type = service.ActivityType;
+            var settings = _groupFeedService.GetSettings(type);
 
             var viewModel = new EditViewModel
             {
@@ -231,10 +215,13 @@ namespace Uintra.Groups.Web
         protected virtual DetailsViewModel GetDetailsViewModel(Guid id, Guid groupId)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
+
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
             IsCurrentUserGroupMember = _groupMemberService.IsGroupMember(groupId, currentUserId);
             var options = GetActivityFeedOptions(id);
-            var settings = _groupFeedService.GetSettings(service.Type);
+
+            var type = service.ActivityType;
+            var settings = _groupFeedService.GetSettings(type);
 
             var viewModel = new DetailsViewModel
             {

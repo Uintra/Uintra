@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Uintra.Core.Persistence;
-using Uintra.Notification.Configuration;
-using Uintra.Notification.Exceptions;
+using uIntra.Core.Persistence;
+using uIntra.Notification.Configuration;
+using uIntra.Notification.Exceptions;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
     public class ReminderService : IReminderService
     {

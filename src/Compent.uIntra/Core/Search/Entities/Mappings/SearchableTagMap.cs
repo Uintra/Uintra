@@ -1,6 +1,6 @@
-﻿using Uintra.Search;
+﻿using uIntra.Search;
 
-namespace Compent.Uintra.Core.Search.Entities.Mappings
+namespace Compent.uIntra.Core.Search.Entities.Mappings
 {
     public class SearchableTagMap : SearchableBaseMap<SearchableTag>
     {

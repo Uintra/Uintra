@@ -1,5 +1,5 @@
-﻿@using Uintra.Core.Extensions
-@model Compent.Uintra.Core.Activity.Models.ExtendedItemHeaderViewModel
+﻿@using uIntra.Core.Extensions
+@model Compent.uIntra.Core.Activity.Models.ExtendedItemHeaderViewModel
 @{
     var inactiveUser = Model.Owner.Inactive ? "_inactive" : string.Empty;
 }
@@ -18,18 +18,19 @@
                     <span class="feed__item-date">@date</span>
                     <span class="feed__item-divider"> - </span>
                 }
-                <span class="feed__item-category">@Html.Localize(Model.Type.ToString())</span>
+                <span class="feed__item-category">@Html.Localize(Model.Type.Name)</span>
             </a>
             
             @if (Model.GroupInfo.HasValue)
             {
-                <span class="feed__item-group">
-                    <span class="feed__item-divider"> > </span>
-                    <a href="@Model.GroupInfo.Value.Url">
-                        @Model.GroupInfo.Value.Title
+                <span class="feed__item-divider"> > </span>
+                <a href="@Model.GroupInfo.Value.Url">
+                    <span>@Model.GroupInfo.Value.Title</span>                    
+                    <span class="feed__item-group">
+                        <img src="~/Content/images/group.svg">
                         <em class="feed__item-tooltip">@Html.Localize("GroupActivity.lbl")</em>
-                    </a>
-                </span>
+                    </span>
+                </a>
             }
         </p>
     </div>

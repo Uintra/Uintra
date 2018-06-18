@@ -2,18 +2,16 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using System.Web.Mvc;
-using Compent.Extensions;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
-using Localization.Core;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
 using Newtonsoft.Json.Linq;
-using Uintra.Core.Constants;
-using Uintra.Core.Utils;
+using Extensions;
+using uIntra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
+namespace uIntra.Core.Installer
 {
     public class InstallationStepsHelper
     {
@@ -26,7 +24,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             var basePageWithGridBase = new ContentType(basePageWithGrid.Id);
 
             basePageWithGridBase.AddContentType(basePageWithGrid);
-            basePageWithGridBase.SetDefaultTemplate(fileService.GetTemplate(CoreInstallationConstants.TemplateAliases.GridPageLayoutTemplateAlias));
+            basePageWithGridBase.SetDefaultTemplate(fileService.GetTemplate(CoreInstallationConstants.DocumentTypeAliases.GridPageLayoutTemplateAlias));
 
             return basePageWithGridBase;
         }
@@ -81,20 +79,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             contentService.Save(page);
         }
 
-        public static void DeleteCompositionFromPage(string pageTypeAlias, string compositionTypeAlias)
-        {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
-
-            var page = contentService.GetContentType(pageTypeAlias);
-            var composition = contentService.GetContentType(compositionTypeAlias);
-            if (page == null || composition == null) return;
-
-            if (!page.ContentTypeCompositionExists(composition.Alias)) return;
-
-            page.RemoveContentType(composition.Alias);
-            contentService.Save(page);
-        }
-
         public static void CreateTrueFalseDataType(string name)
         {
             var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
@@ -109,60 +93,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
 
                 dataTypeService.Save(dataType);
             }
-        }
-
-        public static  void AddIntranetUserIdProperty(IMediaType mediaType)
-        {
-            var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
-
-            var mediatypeIntranetUserId = GetIntranetUserIdPropertyType();
-            if (!mediaType.PropertyTypeExists(mediatypeIntranetUserId.Alias))
-            {
-                mediaType.AddPropertyType(mediatypeIntranetUserId);
-                contentTypeService.Save(mediaType);
-            }
-        }
-
-        private static PropertyType GetIntranetUserIdPropertyType()
-        {
-            return new PropertyType("Umbraco.NoEdit", DataTypeDatabaseType.Nvarchar)
-            {
-                Name = "Intranet user id",
-                Alias = IntranetConstants.IntranetCreatorId
-            };
-        }
-
-        public static void AddIsDeletedProperty(IMediaType mediaType)
-        {
-            var dataTypeService = ApplicationContext.Current.Services.DataTypeService;
-            var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
-
-            var dataType = dataTypeService.GetDataTypeDefinitionByName(UmbracoAliases.Media.IsDeletedDataTypeDefinitionName);
-            if (dataType == null)
-            {
-                dataType = new DataTypeDefinition("Umbraco.TrueFalse")
-                {
-                    Name = UmbracoAliases.Media.IsDeletedDataTypeDefinitionName
-                };
-
-                dataTypeService.Save(dataType);
-            }
-
-            var imageIsDeletedPropertyType = GetIsDeletedPropertyType(dataType);
-            if (!mediaType.PropertyTypeExists(imageIsDeletedPropertyType.Alias))
-            {
-                mediaType.AddPropertyType(imageIsDeletedPropertyType);
-                contentTypeService.Save(mediaType);
-            }
-        }
-
-        private static PropertyType GetIsDeletedPropertyType(IDataTypeDefinition dataType)
-        {
-            return new PropertyType(dataType)
-            {
-                Name = "Is deleted",
-                Alias = UmbracoAliases.Media.IsDeletedPropertyTypeAlias
-            };
         }
 
         public static void CreateGrid(string dataTypeName, string gridEmbeddedResourceFileName)
@@ -205,41 +135,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             };
 
             return gridProperty;
-        }
-
-        public static void AddTranslation(string key, string translation)
-        {
-            var localizationCoreService = DependencyResolver.Current.GetService<ILocalizationCoreService>();
-
-            var resourceModel = localizationCoreService.GetResourceModel(key);
-            if (resourceModel.Translations[Constants.LocalizationConstants.CultureKeys.English].Contains(key))
-            {
-                resourceModel.Translations[Constants.LocalizationConstants.CultureKeys.English] = translation;
-                localizationCoreService.Create(resourceModel);
-            }
-        }
-
-        public static void UpdateTranslation(string key, string oldTranslation, string newTranslation)
-        {
-            var localizationCoreService = DependencyResolver.Current.GetService<ILocalizationCoreService>();
-
-            var resourceModel = localizationCoreService.GetResourceModel(key);
-            if (resourceModel.Translations[Constants.LocalizationConstants.CultureKeys.English].Contains(oldTranslation))
-            {
-                resourceModel.Translations[Constants.LocalizationConstants.CultureKeys.English] = newTranslation;
-                localizationCoreService.Update(resourceModel);
-            }
-        }
-
-        public static void SetGridPageLayoutTemplateContent(string layoutEmbeddedResourceFileName)
-        {
-            var fileService = ApplicationContext.Current.Services.FileService;
-            var alias = CoreInstallationConstants.TemplateAliases.GridPageLayoutTemplateAlias;
-
-            var gridPageLayoutTemplate = fileService.GetTemplate(alias) ?? new Template(alias, alias);
-            gridPageLayoutTemplate.Content = EmbeddedResourcesUtils.ReadResourceContent(layoutEmbeddedResourceFileName);
-
-            fileService.SaveTemplate(gridPageLayoutTemplate);
         }
 
         private static IContentType CreatePageDocTypeWithGrid(BasePageWithDefaultGridCreateModel model, string basePageTypeAlias)

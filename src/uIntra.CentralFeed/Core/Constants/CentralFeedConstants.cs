@@ -1,4 +1,4 @@
-﻿namespace Uintra.CentralFeed
+﻿namespace uIntra.CentralFeed
 {
     public static class CentralFeedConstants
     {

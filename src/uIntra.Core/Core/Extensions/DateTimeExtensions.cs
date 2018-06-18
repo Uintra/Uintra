@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 
-namespace Uintra.Core.Extensions
+namespace uIntra.Core.Extensions
 {
     public static class DateTimeExtensions
     {
@@ -43,6 +43,20 @@ namespace Uintra.Core.Extensions
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
             date = date.AddUserOffset();
             return date.ToString(dateTimeFormatProvider.DateTimeFormat);
+        }
+
+        public static string ToDatePickerFormat(this DateTime date)
+        {
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+            date = date.AddUserOffset();
+            return date.ToString(dateTimeFormatProvider.DatePickerFormat);
+        }
+
+        public static string ToDateTimePickerFormat(this DateTime date)
+        {
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+            date = date.AddUserOffset();
+            return date.ToString(dateTimeFormatProvider.DateTimePickerFormat);
         }
 
         public static string ToDateTimeValuePickerFormat(this DateTime date)

@@ -1,4 +1,4 @@
-﻿namespace Compent.Uintra.Core.UserTags.ViewModels
+﻿namespace Compent.uIntra.Core.UserTags.ViewModels
 {
     public class UserTagViewModel
     {

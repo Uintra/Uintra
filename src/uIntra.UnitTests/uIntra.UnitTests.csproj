@@ -9,9 +9,9 @@
     <ProjectGuid>{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Uintra.UnitTests</RootNamespace>
-    <AssemblyName>Uintra.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <RootNamespace>uIntra.UnitTests</RootNamespace>
+    <AssemblyName>uIntra.UnitTests</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
@@ -51,8 +51,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Compent.Extensions, Version=0.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Extensions.0.3.2\lib\net471\Compent.Extensions.dll</HintPath>
+    <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="FsCheck, Version=2.10.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FsCheck.2.10.6\lib\net452\FsCheck.dll</HintPath>
@@ -79,9 +79,11 @@
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Umbraco.Core, Version=1.0.6634.25789, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\xunit.abstractions.2.0.1\lib\net35\xunit.abstractions.dll</HintPath>
     </Reference>
@@ -96,9 +98,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\MigrationTestsContext.cs" />
-    <Compile Include="Migrations\MigrationsTests.cs" />
-    <Compile Include="Migrations\TestStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -106,13 +105,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Compent.uIntra\Compent.Uintra.csproj">
+    <ProjectReference Include="..\Compent.uIntra\Compent.uIntra.csproj">
       <Project>{469dc179-83ee-4696-9d36-2173e4beafda}</Project>
-      <Name>Compent.Uintra</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uIntra.Core\Uintra.Core.csproj">
-      <Project>{3F8C785A-48D0-41F5-9257-6F73AFCA41EB}</Project>
-      <Name>Uintra.Core</Name>
+      <Name>Compent.uIntra</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

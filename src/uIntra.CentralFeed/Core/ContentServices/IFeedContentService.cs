@@ -1,11 +1,11 @@
-﻿using System;
+﻿using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public interface IFeedContentService
     {
-        Enum GetCreateActivityType(IPublishedContent content);
-        Enum GetFeedTabType(IPublishedContent content);
+        IIntranetType GetCreateActivityType(IPublishedContent content);
+        IIntranetType GetFeedTabType(IPublishedContent content);
     }
 }

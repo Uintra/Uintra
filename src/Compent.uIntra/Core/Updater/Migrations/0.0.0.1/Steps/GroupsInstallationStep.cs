@@ -1,13 +1,14 @@
 ﻿using System.Reflection;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
-using Uintra.Core.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using uIntra.Core.Constants;
+using uIntra.Core.Installer;
 using Umbraco.Core;
 using Umbraco.Core.Models;
-using static Compent.Uintra.Core.Updater.ExecutionResult;
-using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.GroupsInstallationConstants;
+using static Compent.uIntra.Core.Updater.ExecutionResult;
+using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.GroupsInstallationConstants;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
+namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class GroupsInstallationStep : IMigrationStep
     {
@@ -20,6 +21,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
             CreateMyGroupsOverviewPage();
             CreateGroupsCreatePage();
             CreateGroupsEditPage();
+            //CreateGroupsDocumentsPage(); This functionality under construction now.
             CreateGroupsMembersPage();
             CreateGroupsDeactivatedGroupPage();
 
@@ -104,6 +106,19 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
                 Name = DocumentTypeNames.GroupsEditPage,
                 Alias = DocumentTypeAliases.GroupsEditPage,
                 Icon = DocumentTypeIcons.GroupsEditPage,
+                ParentAlias = DocumentTypeAliases.GroupsRoomPage
+            };
+
+            InstallationStepsHelper.CreatePageDocTypeWithBaseGrid(createModel);
+        }
+
+        private void CreateGroupsDocumentsPage()
+        {
+            var createModel = new BasePageWithDefaultGridCreateModel
+            {
+                Name = DocumentTypeNames.GroupsDocumentsPage,
+                Alias = DocumentTypeAliases.GroupsDocumentsPage,
+                Icon = DocumentTypeIcons.GroupsDocumentsPage,
                 ParentAlias = DocumentTypeAliases.GroupsRoomPage
             };
 

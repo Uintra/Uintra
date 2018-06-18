@@ -1,6 +1,6 @@
-﻿using Uintra.Notification.Base;
+﻿using uIntra.Notification.Base;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
     public interface INotificationsService
     {

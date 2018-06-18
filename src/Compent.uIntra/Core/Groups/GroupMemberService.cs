@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
-using Uintra.Core.Persistence;
-using Uintra.Groups;
-using Uintra.Groups.Sql;
-using Uintra.Users;
+using Extensions;
+using uIntra.Core.Persistence;
+using uIntra.Groups;
+using uIntra.Groups.Sql;
+using uIntra.Users;
 
-namespace Compent.Uintra.Core.Groups
+namespace Compent.uIntra.Core.Groups
 {
     public class GroupMemberService : GroupMemberServiceBase
     {
@@ -36,7 +36,9 @@ namespace Compent.Uintra.Core.Groups
                 groupMembers.Add(GetNewGroupMember(groupId, memberId));
 
             _groupMemberRepository.Add(groupMembers);
-            _userCacheService.UpdateUserCache(enumeratedMemberIds);
+
+            foreach (var memberId in enumeratedMemberIds)
+                _userCacheService.UpdateUserCache(memberId); // TODO: ask about extending ICacheableIntranetUserService to re-cache bunch of users
         }
 
         public override void Remove(Guid groupId, Guid memberId)

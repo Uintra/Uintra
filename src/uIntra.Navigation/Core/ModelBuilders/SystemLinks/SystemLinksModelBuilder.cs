@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
+using Extensions;
 using Newtonsoft.Json;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Uintra.Navigation.SystemLinks
+namespace uIntra.Navigation.SystemLinks
 {
     public class SystemLinksModelBuilder : ISystemLinksModelBuilder
     {

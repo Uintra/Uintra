@@ -1,4 +1,4 @@
-﻿namespace Uintra.CentralFeed
+﻿namespace uIntra.CentralFeed
 {
     public class FeedListModel
     {

@@ -12,8 +12,7 @@
             box-shadow: 0 0 2px rgba(0,0,0,0.2);
 
             @media (--for-tablet-portrait-down) {
-                margin:0 -15px 10px;
-                padding: 20px 15px 19px;
+                margin:0 -20px 10px;
             }
         }
     }
@@ -83,15 +82,14 @@
 
     &__hide{
         position:absolute;
-        top:-12px;
-        right:-12px;
+        bottom:7px;
+        right:0;
         width:25px;
         height:25px;
         text-align:center;
         border-radius:50%;
         background:var(--color-white);
         box-shadow:0 0 5px rgba(0,0,0,0.5);
-        z-index:2;
         cursor:pointer;
 
         .icon-close{
@@ -110,9 +108,8 @@
         }
             
         &-about{
-            margin:0 0 2px;
-            display:inline-block;
-            vertical-align:top;
+            margin:0 7px 2px 0;
+            float: left;
 
             ._inner &{
                 margin-top:-6px;
@@ -130,16 +127,12 @@
     }
 
     &__controls {
-        display:inline-block;
-        vertical-align:top;
-        width: 11px;
+        float: left;
+        width: 25px;
         height: 17px;
         cursor: pointer;
         position: relative;
-        
-        @media (--for-tablet-portrait-down) {
-			margin:0 -3px 0 0;
-		}
+
         ._inner &{
 
             &:before{
@@ -156,7 +149,7 @@
         &:before {
             position:absolute;
             top:5px;
-            right:2px;
+            right:15px;
             width:7px;
             height:7px;
             border:solid var(--text-color-dark);
@@ -240,37 +233,15 @@
         .comments__list &{
             margin:0;
         }
-
-        &-field{
-            margin:0 0 10px;
-        }
-
-	    .btn {
-            margin: 0 0 15px;
-		    @media (--for-tablet-portrait-down) {
-			    display: inline-block !important;
-		    }
-	    }
-    }
-
-    &__toolbar{
-        display:flex;
-        flex-direction:row-reverse;
-        padding:10px 0 0;
     }
 
     &__reply {
         color: var(--text-color-dark);
         text-decoration: underline;
         cursor: pointer;
-        display:inline-block;
-        vertical-align:top;
+        float:left;
         font-size: 13px;
         margin:0 13px 0 7px;
-
-        @media (--for-tablet-portrait-down) {
-			margin:0 5px 0 0;
-		}
 
         &:active,
         &:focus,
@@ -281,15 +252,10 @@
     }
 
     &__modified{
-        display:inline-block;
-        vertical-align:top;
+        float:left;
         position:relative;
-        margin:0 3px 0 10px;
+        margin:0 15px 0 10px;
         cursor:pointer;
-
-        @media (--for-tablet-portrait-down) {
-			margin:0 5px;
-		}
 
         ._inner &{
             margin:-5px 0 0 10px;
@@ -358,135 +324,5 @@
 
     .icon-comment{
         color: #b2b2b2;
-    }
-}
-
-.link-preview {
-    font: 13px/22px 'Open Sans', Arial, Helvetica, sans-serif;
-    padding: 0 0 40px;
-
-    .comments &{
-        font-size:13px;
-        line-height:18px;
-    }
-
-    .create-bulletin & {
-        display:none;
-        padding:0 22px 25px;
-
-        @media (--for-tablet-portrait-down) {
-			padding:0 15px 15px;
-		}
-    }
-
-    .create-bulletin._expanded &{
-        display:block;
-    }
-
-    &:after{
-        content:'';
-        display:block;
-        clear:both;
-    }
-    
-    &__block{
-        background:#e4e4e4;
-        position:relative;
-        padding:2px;
-    }
-
-    &__close {
-		position: absolute;
-		top: 0;
-		right: 0;
-		width: 31px;
-		height: 31px;
-		border: none;
-        padding:0;
-        margin:0;
-		background: none;
-        text-indent:-9999px;
-        overflow:hidden;
-
-		&:before {
-			content: '';
-			position: absolute;
-			left: 8px;
-			top: 50%;
-			right: 8px;
-			height: 1px;
-			background: #303030;
-			transform: rotate(45deg);
-            margin-top:-1px;
-		}
-
-		&:after {
-			content: '';
-			position: absolute;
-			left: 8px;
-			top: 50%;
-			right: 8px;
-			height: 1px;
-			background: #303030;
-			transform: rotate(-45deg);
-            margin-top:-1px;
-		}
-	}
-
-    &__title{
-        margin:0 0 1px;
-        font:700 16px/22px 'Open Sans', Arial, Helvetica, sans-serif;
-
-         .comments &{
-            font-size:13px;
-            line-height:18px;
-        }
-
-        a{
-            color:var(--text-color-dark);
-
-            &:hover,
-            &:focus,
-            &:active{
-                color:var(--text-color-dark);
-            }
-        }
-    }
-
-    p{
-        margin:0 0 5px;
-     }
-
-    &__image{
-        float:left;
-        max-width: 45%;
-        margin:0 20px 0 0;
-
-        @media (--for-phone-only){
-            float:none;
-            max-width: none;
-            margin:0;
-            text-align:center;
-        }
-    }
-
-    img{
-        height: auto;
-        max-width: 100%;
-        margin:0;
-    }
-
-    &__text{
-        padding:19px 20px 14px;
-
-        @media (--for-phone-only){
-            padding:10px 15px;
-        }
-    }
-
-    &--edit{
-        .link-preview-title{
-            padding:0 21px 0 0;
-        }
     }
 }

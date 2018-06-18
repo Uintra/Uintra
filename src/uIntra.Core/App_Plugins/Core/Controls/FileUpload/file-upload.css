@@ -1,0 +1,66 @@
+﻿@define-mixin icon $name {
+    &._$(name){
+        background-image: url(./images/file-type-icons/$(name).svg);
+    }
+}
+
+.file-extension{
+    width: 40px;
+    height: 19px;
+    display: block;
+    background-size: 100%;
+    background-image: url(./images/file-type-icons/doc.svg);
+
+    &._jpg,
+    &._jpeg{
+        background-image: url(./images/file-type-icons/jpg.svg);
+    }
+    &._mp4{
+        background-image: url(./images/file-type-icons/mp4.svg);
+    }
+    &._avi{
+        background-image: url(./images/file-type-icons/avi.svg);
+    }
+    &._asf{
+        background-image: url(./images/file-type-icons/asf.svg);
+    }
+    &._mov{
+        background-image: url(./images/file-type-icons/mov.svg);
+    }
+    &._swf{
+        background-image: url(./images/file-type-icons/swf.svg);
+    }
+    &._mpg{
+        background-image: url(./images/file-type-icons/mpg.svg);
+    }
+    &._wmv{
+        background-image: url(./images/file-type-icons/wmv.svg);
+    }
+    &._pdf{
+        background-image: url(./images/file-type-icons/pdf.svg);
+    }
+    &._svg{
+        background-image: url(./images/file-type-icons/svg.svg);
+    }
+    &._docx,
+    &._doc{
+        background-image: url(./images/file-type-icons/doc.svg);
+    }
+    &._xlsx,
+    &._xls{
+        background-image: url(./images/file-type-icons/xls.svg);
+    }
+    &._csv{
+        background-image: url(./images/file-type-icons/csv.svg);
+    }
+    &._txt{
+        background-image: url(./images/file-type-icons/txt.svg);
+    }
+    &._pptx,
+    &._ppt{
+        background-image: url(./images/file-type-icons/ppt.svg);
+    }
+    &._png{
+        background-image: url(./images/file-type-icons/png.svg);
+    }
+}

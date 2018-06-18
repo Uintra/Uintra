@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Uintra.CentralFeed.Navigation.Models;
 using Umbraco.Core.Models;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public interface ICentralFeedContentService : IFeedContentService
     {

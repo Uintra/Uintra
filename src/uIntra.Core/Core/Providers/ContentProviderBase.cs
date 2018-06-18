@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Uintra.Core
+namespace uIntra.Core
 {
     public abstract class ContentProviderBase 
     {

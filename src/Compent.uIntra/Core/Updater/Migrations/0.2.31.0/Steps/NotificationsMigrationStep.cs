@@ -1,14 +1,14 @@
 ﻿using System.Web.Helpers;
 using Localization.Umbraco.Extensions;
-using Uintra.Core.Persistence;
+using uIntra.Core.Persistence;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
+namespace Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Steps
 {
-    public class NotificationsMigrationStep : IMigrationStep
+    public class NotificationsMigrationStep :IMigrationStep
     {
-        private readonly ISqlRepository<global::Uintra.Notification.Notification> _notificationsRepository;
+        private readonly ISqlRepository<global::uIntra.Notification.Notification> _notificationsRepository;
 
-        public NotificationsMigrationStep(ISqlRepository<global::Uintra.Notification.Notification> notificationsRepository)
+        public NotificationsMigrationStep(ISqlRepository<global::uIntra.Notification.Notification> notificationsRepository)
         {
             _notificationsRepository = notificationsRepository;
         }
@@ -24,16 +24,16 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
                 var isPinActual = notificationData.IsPinActual ?? false;
 
                 notification.Value = new
-                    {
-                        notificationData.Message,
-                        notificationData.Url,
-                        notificationData.NotifierId,
-                        IsPinned = isPinned,
-                        IsPinActual = isPinActual
-                    }
-                    .ToJson();
+                {
+                    notificationData.Message,
+                    notificationData.Url,
+                    notificationData.NotifierId,
+                    IsPinned = isPinned,
+                    IsPinActual = isPinActual
+                }
+                .ToJson();
             }
-
+            
             _notificationsRepository.Update(notifications);
 
             return ExecutionResult.Success;

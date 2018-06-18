@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Uintra.Notification.Configuration
+namespace uIntra.Notification.Configuration
 {
     public class NotificationTypeConfiguration
     {

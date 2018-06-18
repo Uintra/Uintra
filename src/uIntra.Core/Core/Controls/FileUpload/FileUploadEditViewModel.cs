@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Uintra.Core.Controls.FileUpload
+namespace uIntra.Core.Controls.FileUpload
 {
     public class FileUploadEditViewModel
     {

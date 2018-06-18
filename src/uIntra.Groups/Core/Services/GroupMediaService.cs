@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using Uintra.Core.Controls.FileUpload;
-using Uintra.Core.Extensions;
-using Uintra.Core.Media;
+using uIntra.Core.Controls.FileUpload;
+using uIntra.Core.Extensions;
+using uIntra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace Uintra.Groups
+namespace uIntra.Groups
 {
     public class GroupMediaService : IGroupMediaService
     {
@@ -35,7 +34,7 @@ namespace Uintra.Groups
         public IMedia CreateGroupMedia(string name, byte[] file, Guid groupId)
         {
             var groupFolder = GetOrCreateGroupMediaFolder(groupId);
-        
+
             var fileModel = new TempFile
             {
                 FileBytes = file,
@@ -45,16 +44,9 @@ namespace Uintra.Groups
             return media;
         }
 
-        public IEnumerable<int> CreateGroupMedia(IContentWithMediaCreateEditModel model, Guid groupId, Guid creatorId)
-        {
-            model.MediaRootId = GetOrCreateGroupMediaFolder(groupId).Id;
-            var media = _mediaHelper.CreateMedia(model, creatorId);
-            return media;
-        }
-
         private IMedia GetOrCreateGroupMediaFolder(Guid groupId)
         {
-            var groupFolderSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent, createFolderIfNotExists: true);
+            var groupFolderSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent.ToInt(), createFolderIfNotExists: true);
 
             var medias = _mediaService.GetChildren(groupFolderSettings.MediaRootId ?? -1);
             var groupFolder = medias.FirstOrDefault(s =>

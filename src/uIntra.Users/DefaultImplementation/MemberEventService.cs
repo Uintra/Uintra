@@ -1,9 +1,9 @@
-﻿using Uintra.Core.UmbracoEventServices;
+﻿using uIntra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace Uintra.Users
+namespace uIntra.Users
 {
     public class MemberEventService : IUmbracoMemberDeletingEventService
     {

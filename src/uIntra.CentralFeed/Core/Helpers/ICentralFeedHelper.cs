@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Models;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public interface ICentralFeedHelper
     {

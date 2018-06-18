@@ -1,8 +1,8 @@
-﻿using Compent.Uintra.Core.Activity.Models;
-using Uintra.Events;
-using Uintra.Likes;
+﻿using Compent.uIntra.Core.Activity.Models;
+using uIntra.Events;
+using uIntra.Likes;
 
-namespace Compent.Uintra.Core.Events
+namespace Compent.uIntra.Core.Events
 {
     public class EventExtendedItemModel : EventItemViewModel
     {

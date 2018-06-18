@@ -1,11 +1,9 @@
 ﻿@using System.Web.Mvc.Ajax
 @using System.Web.Mvc.Html
-@using Compent.Extensions
-@using Uintra.Core.Context
-@using Uintra.Core.Extensions
-@model Uintra.Comments.CommentEditViewModel
+@using uIntra.Core.Extensions
+@model uIntra.Comments.CommentEditModel
 
-@using (Ajax.BeginContextedForm("Edit", "Comments", new AjaxOptions { UpdateTargetId = Model.UpdateElementId, InsertionMode = InsertionMode.ReplaceWith, HttpMethod = "PUT", OnComplete = $"new uIntra.methods.CommentOverview('#{Model.UpdateElementId}')" }, new { @class = "comments__form js-comment-edit" }))
+@using (Ajax.BeginForm("Edit", "Comments", new AjaxOptions { UpdateTargetId = Model.UpdateElementId, InsertionMode = InsertionMode.ReplaceWith, HttpMethod = "PUT", OnComplete = $"new uIntra.methods.CommentOverview('#{Model.UpdateElementId}')" }, new { @class = "comments__form js-comment-edit" }))
 {
     <div class="comments__form-field">
         <div class="js-comment-edit-description">
@@ -17,27 +15,4 @@
     <button disabled="disabled" class="btn _submit js-comment-edit-btn js-disable-submit" type="button">@Html.Localize("CommentsOverView.EditComment.btn")</button>
     <input class="btn js-comment-hideEditLink" type="button" value="@Html.Localize("CommentsView.HideBtn.text")" />
     @Html.ValidationMessageFor(model => model.Text)
-
-    if (Model.LinkPreview != null)
-    {
-        <input type="hidden" name="linkPreviewId" value="@Model.LinkPreview.Id" />
-        <div class="js-link-preview-edit-preview-container link-preview link-preview--edit">
-            <div class="link-preview__block">
-                <button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
-                <div class="link-preview__image">
-                    @if (Model.LinkPreview.ImageUri != null)
-                    {
-                        <img src="@Model.LinkPreview.ImageUri" alt="link preview image description" />
-                    }
-                </div>
-                <div class="link-preview__text">
-                    <h3 class="link-preview__title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
-                    @if (Model.LinkPreview.Description.HasValue())
-                    {
-                        <p>@Model.LinkPreview.Description</p>
-                    }
-                </div>
-            </div>
-        </div>
-    }
 }

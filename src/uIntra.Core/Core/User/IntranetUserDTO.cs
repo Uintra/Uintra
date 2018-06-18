@@ -1,6 +1,6 @@
 using System;
 
-namespace Uintra.Core.User
+namespace uIntra.Core.User
 {
     public class IntranetUserDTO
     {

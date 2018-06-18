@@ -1,10 +1,10 @@
-﻿using System;
+﻿using uIntra.Core.TypeProviders;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public class CentralFeedTypeModel
     {
-        public Enum Type { get; set; }
+        public IIntranetType Type { get; set; }
         public bool HasSubscribersFilter { get; set; }
         public string CreateUrl { get; set; }
         public string TabUrl { get; set; }

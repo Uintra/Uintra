@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Uintra.Core.Persistence;
+using uIntra.Core.Activity;
+using uIntra.Core.Persistence;
 
-namespace Uintra.Core.Location.Entities
+namespace uIntra.Core.Location.Entities
 {
-    [UintraTable("ActivityLocation")]
+    [uIntraTable("ActivityLocation")]
     public class ActivityLocationEntity : SqlEntity<int>
     {
         [Key]

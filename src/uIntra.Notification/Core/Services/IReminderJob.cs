@@ -1,4 +1,4 @@
-﻿namespace Uintra.Notification
+﻿namespace uIntra.Notification
 {
     public interface IReminderJob
     {

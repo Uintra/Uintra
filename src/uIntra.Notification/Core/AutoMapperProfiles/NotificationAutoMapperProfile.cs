@@ -1,9 +1,9 @@
 ﻿using System.Web;
 using System.Web.Helpers;
 using AutoMapper;
-using Uintra.Core.Extensions;
+using uIntra.Core.Extensions;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
     public class NotificationAutoMapperProfile : Profile
     {
@@ -17,33 +17,12 @@ namespace Uintra.Notification
                 .AfterMap((src, dst) =>
                 {
                     var notificationTypeProvider = HttpContext.Current.GetService<INotificationTypeProvider>();
-                    dst.Type = notificationTypeProvider[src.Type];
+                    dst.Type = notificationTypeProvider.Get(src.Type);
                 });
 
-            Mapper.CreateMap<Notification, PopupNotificationViewModel>()
-                .ForMember(d => d.Value, o => o.MapFrom(s => Json.Decode(s.Value)));
 
-            Mapper.CreateMap<NotifierSettingSaveModel<EmailNotifierTemplate>, NotifierSettingModel<EmailNotifierTemplate>>()
-                .ForMember(d => d.NotificationType, o => o.Ignore())
-                .ForMember(d => d.NotificationTypeName, o => o.Ignore())
-                .ForMember(d => d.NotifierType, o => o.Ignore())
-                .ForMember(d => d.ActivityType, o => o.Ignore())
-                .ForMember(d => d.ActivityTypeName, o => o.Ignore());
-
-            
-            Mapper.CreateMap<NotifierSettingSaveModel<UiNotifierTemplate>, NotifierSettingModel<UiNotifierTemplate>>()
-                .ForMember(d => d.NotificationType, o => o.Ignore())
-                .ForMember(d => d.NotificationTypeName, o => o.Ignore())
-                .ForMember(d => d.NotifierType, o => o.Ignore())
-                .ForMember(d => d.ActivityType, o => o.Ignore())
-                .ForMember(d => d.ActivityTypeName, o => o.Ignore());
-
-            Mapper.CreateMap<NotifierSettingSaveModel<PopupNotifierTemplate>, NotifierSettingModel<PopupNotifierTemplate>>()
-                .ForMember(d => d.NotificationType, o => o.Ignore())
-                .ForMember(d => d.NotificationTypeName, o => o.Ignore())
-                .ForMember(d => d.NotifierType, o => o.Ignore())
-                .ForMember(d => d.ActivityType, o => o.Ignore())
-                .ForMember(d => d.ActivityTypeName, o => o.Ignore());
+            Mapper.CreateMap<NotifierSettingSaveModel<EmailNotifierTemplate>, NotifierSettingModel<EmailNotifierTemplate>>();
+            Mapper.CreateMap<NotifierSettingSaveModel<UiNotifierTemplate>, NotifierSettingModel<UiNotifierTemplate>>();
         }
     }
 }

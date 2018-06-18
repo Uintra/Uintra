@@ -1,10 +1,11 @@
 using System;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public class ActivityTransferCreateModel
     {
-        public Enum Type { get; set; }
+        public IIntranetType Type { get; set; }
         public Guid OwnerId { get; set; }
     }
 }

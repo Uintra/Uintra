@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Umbraco.Web;
 
-namespace Compent.Uintra.Core.Comments
+namespace Compent.uIntra.Core.Comments
 {
     public class CommentsPageHelper : ICommentsPageHelper
     {

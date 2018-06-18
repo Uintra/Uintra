@@ -1,4 +1,6 @@
-﻿var Photoswipe = require('photoswipe');
+﻿import ajax from "./../../Core/Content/scripts/Ajax";
+
+var Photoswipe = require('photoswipe');
 var photoswipeUiDefault = require('photoswipe/dist/photoswipe-ui-default');
 
 require("./contentPanel.css");
@@ -8,9 +10,19 @@ var itemTypes = {
     Video: "Video"
 }
 
+var youtubeImageSize = {
+    Hq: "hq",
+    Mq: "mq",
+    Sd: "sd",
+    Maxres: "maxres"
+}
+
+var vimeoVideoInfoLink = "http://vimeo.com/api/v2/video/";
+var youtubeImageLink = "https://img.youtube.com/vi/";
+var youtubeDefaultImage = "default.jpg";
 var selectors = window.contentPanelSelectors || [];
 var body = document.querySelector('body');
-var html = document.querySelector('html');
+var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 
 var videoPlay = function (videoElement, isLightBox) {
     if (!isLightBox) {
@@ -24,6 +36,21 @@ var videoStopPlay = function (videoElement, isLightBox) {
         videoElement.parentElement.parentElement.classList.remove("_active");
     }
     videoElement.setAttribute("src", "");
+}
+
+var setVideoThumnailUrl = function (videoId, videoType, btnStyle) {
+    switch (videoType) {
+        case "Youtube":
+            btnStyle
+                .backgroundImage = `url('${youtubeImageLink}${videoId}/${youtubeImageSize.Mq}${youtubeDefaultImage}')`;
+            return;
+        case "Vimeo":
+            ajax.Get(`${vimeoVideoInfoLink}${videoId}.json`,
+                function (response) {
+                    btnStyle.backgroundImage = `url('${response[0].thumbnail_medium}')`;
+                });
+            return;
+    }
 }
 
 var openPhotoSwipe = function (itemToshow, itemType) {
@@ -83,6 +110,10 @@ var initPanel = function (selector) {
     if (videoPosterBtn) {
         if (videoPosterBtn.dataset["backgroundimage"]) {
             videoPosterBtn.style.backgroundImage = `url('${videoPosterBtn.dataset["backgroundimage"]}')`;
+        } else {
+            setVideoThumnailUrl(elementToshow.dataset["videoid"],
+                elementToshow.dataset["videotype"],
+                videoPosterBtn.style);
         }
 
         if (showLightboxBtn) {
@@ -131,17 +162,16 @@ var initMobileBanners = function () {
     if (aside) {
         body.classList.add('_show-aside-opener');
         opener.addEventListener('click',
-            (e) => {
-                e.preventDefault();
-                html.classList.toggle('_aside-expanded');
-                if (html.classList.contains('_search-expanded')) {
-                    html.classList.remove('_search-expanded');
+            () => {
+                body.classList.toggle('_aside-expanded');
+                if (body.classList.contains('_search-expanded')) {
+                    body.classList.remove('_search-expanded');
                 }
-                if (html.classList.contains('_menu-expanded')) {
-                    html.classList.remove('_menu-expanded');
+                if (body.classList.contains('_menu-expanded')) {
+                    body.classList.remove('_menu-expanded');
                 }
 
-                html.addEventListener('click',
+                body.addEventListener('click',
                     function (ev) {
                         isOutsideClick(aside, opener, ev.target, '_aside-expanded');
                     });
@@ -150,34 +180,8 @@ var initMobileBanners = function () {
 }
 
 var isOutsideClick = function (el, opener, target, className) {
-    if (!el.contains(target) && (opener && !opener.contains(target)) && html.classList.contains(className)) {
-        html.classList.remove(className);
-    }
-}
-
-function getClientHeight() { return document.compatMode == 'CSS1Compat' ? document.documentElement.clientHeight : document.body.clientHeight; }
-
-/*function mobileAsideHeight() {
-    var mobileAside = document.querySelector(".aside > div");
-    var headerHeight = document.getElementById('header').offsetHeight;
-
-    if (mobileAside) {
-        mobileAside.style.height = (getClientHeight() - headerHeight) + 'px';
-    }
-}
-
-function windowResize() {
-    window.addEventListener('resize', () => {
-        mobileAsideHeight();
-    });
-}*/
-
-// media query change
-function WidthChange(mq) {
-    if (!mq.matches) {
-        initMobileBanners();
-        //mobileAsideHeight();
-        //windowResize();
+    if (!el.contains(target) && (opener && !opener.contains(target)) && body.classList.contains(className)) {
+        body.classList.remove(className);
     }
 }
 
@@ -187,10 +191,8 @@ var controller = {
             initPanel(selector);
         });
 
-        if (matchMedia) {
-            var mq = window.matchMedia("(min-width: 900px)");
-            mq.addListener(WidthChange);
-            WidthChange(mq);
+        if (mobileMediaQuery.matches) {
+            initMobileBanners();
         }
     }
 }

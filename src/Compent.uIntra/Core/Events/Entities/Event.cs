@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Uintra.CentralFeed;
-using Uintra.Comments;
-using Uintra.Events;
-using Uintra.Groups;
-using Uintra.Likes;
-using Uintra.Notification.Base;
-using Uintra.Subscribe;
+using uIntra.CentralFeed;
+using uIntra.Comments;
+using uIntra.Events;
+using uIntra.Groups;
+using uIntra.Likes;
+using uIntra.Notification.Base;
+using uIntra.Subscribe;
 
-namespace Compent.Uintra.Core.Events
+namespace Compent.uIntra.Core.Events
 {
     public class Event : EventBase, IFeedItem, ICommentable, ILikeable, ISubscribable, ISubscribeSettings, IReminderable, IGroupActivity
     {
@@ -20,7 +20,7 @@ namespace Compent.Uintra.Core.Events
         [JsonIgnore]
         public IEnumerable<CommentModel> Comments { get; set; }
         [JsonIgnore]
-        public IEnumerable<global::Uintra.Subscribe.Subscribe> Subscribers { get; set; }
+        public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
 
         [JsonIgnore]
         public bool CanSubscribe { get; set; }

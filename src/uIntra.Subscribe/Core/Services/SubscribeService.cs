@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Uintra.Core.Activity;
-using Uintra.Core.Persistence;
+using uIntra.Core.Activity;
+using uIntra.Core.Persistence;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.Subscribe
+namespace uIntra.Subscribe
 {
     public class SubscribeService : ISubscribeService
     {
@@ -79,9 +80,9 @@ namespace Uintra.Subscribe
             return subscribe;
         }
 
-        public virtual bool HasNotification(Enum type)
+        public virtual bool HasNotification(IIntranetType type)
         {
-            return type is IntranetActivityTypeEnum.Events;
+            return type.Id == (int)IntranetActivityTypeEnum.Events;
         }
 
         public virtual void FillSubscribers(ISubscribable entity)

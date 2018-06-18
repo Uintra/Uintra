@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Uintra.Core;
-using Uintra.Core.Extensions;
-using Uintra.Core.User;
+using uIntra.Core;
+using uIntra.Core.Extensions;
+using uIntra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.Uintra.Core
+namespace Compent.uIntra.Core
 {
     public class IntranetUserContentProvider : ContentProviderBase, IIntranetUserContentProvider
     {

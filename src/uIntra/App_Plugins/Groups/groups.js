@@ -4,8 +4,6 @@ import listGroup from './List/group-list';
 import groupMembers from './Room/Members/group-members';
 import groupSubscribe from './GroupSubscribe';
 import groupsLeftNavigation from './GroupsLeftNavigation';
-import groupDocuments from './Room/Documents/group-documents';
-
 
 require("./groups.css");
 
@@ -16,5 +14,4 @@ export default function () {
     groupMembers.init();
     groupSubscribe.init();
     groupsLeftNavigation.init();
-    groupDocuments.init();
 }

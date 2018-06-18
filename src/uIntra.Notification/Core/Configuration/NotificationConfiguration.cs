@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Uintra.Notification.Configuration
+namespace uIntra.Notification.Configuration
 {
     public class NotificationConfiguration
     {        

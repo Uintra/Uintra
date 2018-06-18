@@ -18,7 +18,6 @@
             var checkList = [];
 
             var compareText = function (left, right) {
-                if (left == null) return false;
                 return left.toLowerCase().indexOf(right.toLowerCase()) > -1;
             }
 
@@ -63,8 +62,8 @@
             };
         }
 
-        self.selectBulletinsToEdit = function (bulletin) {
-            self.selectedIndex = self.bulletinsList.indexOf(bulletin);
+        self.selectBulletinsToEdit = function (bulletin, index) {
+            self.selectedIndex = index;
             self.selected = angular.copy(bulletin);
             self.selected.publishDate = self.selected.publishDate || new Date().toISOString();
             self.selected.umbracoCreatorId = self.selected.umbracoCreatorId || self.currentUser.id;
@@ -83,14 +82,14 @@
             }
         }
 
-        self.delete = function (bulletins) {
+        self.delete = function (bulletins, $index) {
             self.clearSelected();
             if (!confirm('Are you sure?')) {
                 return;
             }
             
             bulletinsManagementFactory.delete(bulletins.id).then(function (response) {
-                self.bulletinsList.splice(self.bulletinsList.indexOf(bulletins), 1);
+                self.bulletinsList.splice($index, 1);
                 self.clearSelected();
             }, onError);
         }

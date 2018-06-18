@@ -1,7 +1,7 @@
-using Uintra.Core.Activity;
-using Uintra.Core.Media;
+using uIntra.Core.Activity;
+using uIntra.Core.Media;
 
-namespace Uintra.Bulletins
+namespace uIntra.Bulletins
 {
     public interface IBulletinsService<out TBulletins> : IIntranetActivityService<TBulletins> where TBulletins : BulletinBase
     {

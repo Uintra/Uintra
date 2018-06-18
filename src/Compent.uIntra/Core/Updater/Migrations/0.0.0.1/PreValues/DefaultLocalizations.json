@@ -206,7 +206,7 @@
   },
   {
     "Key": "SubscribeSettings.SubscribeNotes.lbl",
-    "Translations": { "en-US": "Notes about the subscription, deadlines or any other suitable title" },
+    "Translations": { "en-US": "" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -371,7 +371,7 @@
   },
   {
     "Key": "Events.Description.placeholder",
-    "Translations": { "en-US": "Description" },
+    "Translations": { "en-US": "" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -450,6 +450,11 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
+    "Key": "buy HTTPS licence for this domain right?\n\n\n\n#CentralFeedList.Empty.lbl",
+    "Translations": { "en-US": "No activities yet" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
     "Key": "GroupsList.isMember",
     "Translations": { "en-US": "Member" },
     "UpdateDate": "0001-01-01T00:00:00"
@@ -472,6 +477,11 @@
   {
     "Key": "Comments.Empty.lbl",
     "Translations": { "en-US": "Comments" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "DetailsView.Important.lbl",
+    "Translations": { "en-US": "Important" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -512,6 +522,11 @@
   {
     "Key": "NewsEdit.Edit.btn",
     "Translations": { "en-US": "Save" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "Notifications.Pinned.lbl",
+    "Translations": { "en-US": "Important" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -621,12 +636,17 @@
   },
   {
     "Key": "GroupRoom.Navigation.All.lbl",
-    "Translations": { "en-US": "Feed" },
+    "Translations": { "en-US": "All" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
     "Key": "GroupMembers.Table.Email.lbl",
     "Translations": { "en-US": "Email" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "EventsItemView.Pinned.lbl",
+    "Translations": { "en-US": "Important" },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -740,6 +760,11 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
+    "Key": "EVENTITEMVIEW.PINNED.LBL",
+    "Translations": { "en-US": "Important" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
     "Key": "Groups.Menu.lbl",
     "Translations": { "en-US": "Groups" },
     "UpdateDate": "0001-01-01T00:00:00"
@@ -821,7 +846,7 @@
   },
   {
     "Key": "Pin.AcceptPinText.lbl",
-    "Translations": { "en-US": "Note: Enabling this will mark the post as \"Important\". It will be pinned to the top until you manually unpin it. To automatically unpin the post set the date below, the post will remain being marked \"Important\"." },
+    "Translations": { "en-US": "Note: \nEnabling this will mark the post as \"Important\". It will be pinned to the top until you manually unpin it.\nTo automatically unpin the post set the date below, the psot will remain being marked \"Important\"." },
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
@@ -1214,6 +1239,12 @@
     "Key": "EventsEdit.Hide.btn",
     "Translations": { "en-US": "Hide Event" },
     "ParentKey": "Events",
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Key": "NewsItemView.Pinned.lbl",
+    "Translations": { "en-US": "Important" },
+    "ParentKey": "News",
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {

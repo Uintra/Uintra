@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Uintra.Search
+namespace uIntra.Search
 {
     public class SearchResultViewModel
     {

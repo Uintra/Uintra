@@ -1,9 +1,8 @@
 ﻿using System;
-using Compent.Extensions;
-using Uintra.Core.Extensions;
-using Uintra.Groups;
+using uIntra.Core.Extensions;
+using uIntra.Groups;
 
-namespace Compent.Uintra.Core.Activity
+namespace Compent.uIntra.Core.Activity
 {
     public class FeedActivityHelper : IFeedActivityHelper
     {
@@ -21,7 +20,7 @@ namespace Compent.Uintra.Core.Activity
         public GroupInfo? GetGroupInfo(Guid activityId) => 
             _groupActivityService
                 .GetGroupId(activityId)
-                .Apply(GetInfoForGroup);
+                .Map(GetInfoForGroup);
 
         private GroupInfo GetInfoForGroup(Guid groupId)
         {

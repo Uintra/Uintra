@@ -1,24 +1,9 @@
-﻿using Compent.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Compent.Extensions;
-using Uintra.Core.Extensions;
-using Uintra.Core.TypeProviders;
-using Uintra.Notification.Configuration;
+﻿using uIntra.Core.TypeProviders;
+using uIntra.Notification.Configuration;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
-    public class NotificationTypeProvider : EnumTypeProviderBase<NotificationTypeEnum>, INotificationTypeProvider
+    public class NotificationTypeProvider: IntranetTypeProviderBase<NotificationTypeEnum>, INotificationTypeProvider
     {
-        public IEnumerable<Enum> PopupNotificationTypes()
-        {
-            return new List<Enum> { NotificationTypeEnum.Welcome };
-        }
-
-        public IEnumerable<Enum> UiNotificationTypes()
-        {
-            return All.Except(base[NotificationTypeEnum.Welcome.ToInt()].ToEnumerable());
-        }
     }
 }

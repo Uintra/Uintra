@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Linq;
 
-namespace Uintra.Core.User.Permissions
+namespace uIntra.Core.User.Permissions
 {
     public class PermissionsConfiguration : ConfigurationSection, IPermissionsConfiguration
     {

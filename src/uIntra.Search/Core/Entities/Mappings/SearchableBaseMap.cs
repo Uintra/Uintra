@@ -1,6 +1,6 @@
 ﻿using Nest;
 
-namespace Uintra.Search
+namespace uIntra.Search
 {
     public class SearchableBaseMap<T> : PropertiesDescriptor<T> where T : SearchableBase
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using Uintra.Core.Feed;
+using uIntra.Core.Feed;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public class DetailsViewModel
     {

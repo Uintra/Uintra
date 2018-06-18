@@ -1,8 +1,8 @@
-﻿using Uintra.Core.Media;
+﻿using uIntra.Core.Media;
 
-namespace Uintra.Core.TypeProviders
+namespace uIntra.Core.TypeProviders
 {
-    public class MediaFolderTypeProvider : EnumTypeProviderBase<MediaFolderTypeEnum>, IMediaFolderTypeProvider
+    public class MediaFolderTypeProvider : IntranetTypeProviderBase<MediaFolderTypeEnum>, IMediaFolderTypeProvider
     {
     }
 }

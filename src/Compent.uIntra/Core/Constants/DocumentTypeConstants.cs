@@ -1,4 +1,4 @@
-﻿namespace Compent.Uintra.Core.Constants
+﻿namespace Compent.uIntra.Core.Constants
 {
     public static class DocumentTypeAliasConstants
     {

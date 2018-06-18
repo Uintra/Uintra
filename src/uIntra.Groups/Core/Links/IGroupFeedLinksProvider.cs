@@ -1,6 +1,6 @@
-﻿using Uintra.Core.Links;
+﻿using uIntra.Core.Links;
 
-namespace Uintra.Groups
+namespace uIntra.Groups
 {
     public interface IGroupFeedLinkProvider
     {

@@ -2,7 +2,7 @@
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace Uintra.Core.UmbracoEventServices
+namespace uIntra.Core.UmbracoEventServices
 {
     public interface IUmbracoMediaSavedEventService
     {

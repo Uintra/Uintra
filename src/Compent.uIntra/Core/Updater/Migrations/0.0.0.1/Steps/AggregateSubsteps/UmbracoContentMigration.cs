@@ -1,20 +1,22 @@
 ﻿using System.Linq;
 using System.Reflection;
 using System.Web;
-using Compent.Uintra.Core.Constants;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.uIntra.Core.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.uIntra.Installer.Migrations;
 using EmailWorker.Data.Services.Interfaces;
-using Uintra.Core;
-using Uintra.Core.Extensions;
-using Uintra.Core.Utils;
-using Uintra.Navigation;
-using Uintra.Notification.Configuration;
+using uIntra.Core;
+using uIntra.Core.Extensions;
+using uIntra.Core.Installer;
+using uIntra.Core.Utils;
+using uIntra.Navigation;
+using uIntra.Notification.Configuration;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
+namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
 {
     public class UmbracoContentMigration
     {
@@ -70,6 +72,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
             CreateGroupsSettingsPage();
             CreateGroupsMembersPage();
             CreateGroupsDeactivatedGroupPage();
+            //CreateGroupsDocumentsPage(); This functionality under construction now.
 
             CreateGroupsNewsPages();
             CreateGroupsEventsPages();
@@ -803,6 +806,23 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
 
             SetGridValueAndSaveAndPublishContent(content, "groupsDeactivatedGroupPageGrid.json");
         }
+
+        private void CreateGroupsDocumentsPage()
+        {
+            var newsOverviewPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage, DocumentTypeAliasConstants.GroupsOverviewPage, DocumentTypeAliasConstants.GroupsRoomPage));
+            if (newsOverviewPage.Children.Any(el => el.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.GroupsDocumentsPage)))
+            {
+                return;
+            }
+
+            var content = _contentService.CreateContent("Group Documents", newsOverviewPage.Id, DocumentTypeAliasConstants.GroupsDocumentsPage);
+            content.SetValue(NavigationPropertiesConstants.NavigationNamePropName, "Group Documents");
+            content.SetValue(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName, true);
+            content.SetValue(NavigationPropertiesConstants.IsHideFromSubNavigationPropName, false);
+
+            SetGridValueAndSaveAndPublishContent(content, "groupsDocumentsPageGrid.json");
+        }
+
     }
 
     public static class UmbracoContentMigrationConstants

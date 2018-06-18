@@ -1,8 +1,8 @@
-﻿using Uintra.Users;
-using Uintra.Users.Web;
+﻿using uIntra.Users;
+using uIntra.Users.Web;
 using Umbraco.Core.Services;
 
-namespace Compent.Uintra.Controllers.Api
+namespace Compent.uIntra.Controllers.Api
 {
     public class UserApiController : UserApiControllerBase
     {

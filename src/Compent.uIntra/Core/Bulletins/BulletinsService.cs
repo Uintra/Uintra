@@ -1,37 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
-using Compent.Uintra.Core.Helpers;
-using Compent.Uintra.Core.Search.Entities;
-using Compent.Uintra.Core.UserTags.Indexers;
-using Uintra.Bulletins;
-using Uintra.CentralFeed;
-using Uintra.Comments;
-using Uintra.Core.Activity;
-using Uintra.Core.Caching;
-using Uintra.Core.Extensions;
-using Uintra.Core.LinkPreview;
-using Uintra.Core.Links;
-using Uintra.Core.Location;
-using Uintra.Core.Media;
-using Uintra.Core.TypeProviders;
-using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
-using Uintra.Groups;
-using Uintra.Likes;
-using Uintra.Notification;
-using Uintra.Notification.Base;
-using Uintra.Notification.Configuration;
-using Uintra.Search;
-using Uintra.Subscribe;
-using Uintra.Tagging.UserTags;
+using Compent.uIntra.Core.Helpers;
+using Compent.uIntra.Core.Search.Entities;
+using Compent.uIntra.Core.UserTags.Indexers;
+using Extensions;
+using uIntra.Bulletins;
+using uIntra.CentralFeed;
+using uIntra.Comments;
+using uIntra.Core.Activity;
+using uIntra.Core.Caching;
+using uIntra.Core.Extensions;
+using uIntra.Core.Links;
+using uIntra.Core.Location;
+using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
+using uIntra.Groups;
+using uIntra.Likes;
+using uIntra.Notification;
+using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
+using uIntra.Search;
+using uIntra.Subscribe;
+using uIntra.Tagging.UserTags;
 
-namespace Compent.Uintra.Core.Bulletins
+namespace Compent.uIntra.Core.Bulletins
 {
     public class BulletinsService : BulletinsServiceBase<Bulletin>,
         IBulletinsService<Bulletin>,
         IFeedItemService,
+        ICommentableService,
+        ILikeableService,
         INotifyableService,
         IIndexer
     {
@@ -41,15 +42,16 @@ namespace Compent.Uintra.Core.Bulletins
         private readonly ISubscribeService _subscribeService;
         private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
+        private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
+        private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IMediaHelper _mediaHelper;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
         private readonly IUserTagService _userTagService;
-        private readonly IActivityLinkPreviewService _activityLinkPreviewService;
-        private readonly IGroupService _groupService;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -61,18 +63,18 @@ namespace Compent.Uintra.Core.Bulletins
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,
+            IFeedTypeProvider centralFeedTypeProvider,
             IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
+            ISearchableTypeProvider searchableTypeProvider,
             IMediaHelper mediaHelper,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
             INotifierDataHelper notifierDataHelper,
             IActivityLocationService activityLocationService,
-            IUserTagService userTagService,
-            IActivityLinkPreviewService activityLinkPreviewService,
-            IGroupService groupService)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService,activityLinkPreviewService)
+            IUserTagService userTagService)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -80,20 +82,21 @@ namespace Compent.Uintra.Core.Bulletins
             _permissionsService = permissionsService;
             _subscribeService = subscribeService;
             _notificationService = notificationService;
+            _activityTypeProvider = activityTypeProvider;
+            _centralFeedTypeProvider = centralFeedTypeProvider;
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
+            _searchableTypeProvider = searchableTypeProvider;
             _mediaHelper = mediaHelper;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
             _userTagService = userTagService;
-            _activityLinkPreviewService = activityLinkPreviewService;
-            _groupService = groupService;
         }
 
-        public override Enum Type => IntranetActivityTypeEnum.Bulletins;
+        public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Bulletins.ToInt());
 
-        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
+        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent.ToInt());
 
         protected override void UpdateCache()
         {
@@ -101,7 +104,7 @@ namespace Compent.Uintra.Core.Bulletins
             FillIndex();
         }
 
-        public override bool CanEdit(IIntranetActivity activity) => CanPerform(activity, IntranetActivityActionEnum.Edit);
+        public override bool CanEdit(IIntranetActivity cached) => CanPerform(cached, IntranetActivityActionEnum.Edit);
 
         public bool CanDelete(IIntranetActivity cached) => CanPerform(cached, IntranetActivityActionEnum.Delete);
 
@@ -112,7 +115,7 @@ namespace Compent.Uintra.Core.Bulletins
         {
             return new FeedSettings
             {
-                Type = CentralFeedTypeEnum.Bulletins,
+                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.Bulletins.ToInt()),
                 Controller = "Bulletins",
                 HasPinnedFilter = false,
                 HasSubscribersFilter = false,
@@ -133,18 +136,14 @@ namespace Compent.Uintra.Core.Bulletins
                 _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
-                FillLinkPreview(entity);
             }
         }
 
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected override Bulletin UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
-
-        public override Bulletin UpdateActivityCache(Guid id)
+        protected override Bulletin UpdateCachedEntity(Guid id)
         {
             var cachedBulletin = Get(id);
-            var bulletin = base.UpdateActivityCache(id);
-            if (IsCacheable(bulletin) && (bulletin.GroupId is null || _groupService.IsActivityFromActiveGroup(bulletin)))
+            var bulletin = base.UpdateCachedEntity(id);
+            if (IsCacheable(bulletin))
             {
                 _activityIndex.Index(Map(bulletin));
                 _documentIndexer.Index(bulletin.MediaIds);
@@ -159,7 +158,43 @@ namespace Compent.Uintra.Core.Bulletins
             return null;
         }
 
-        public void Notify(Guid entityId, Enum notificationType)
+        public CommentModel CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        {
+            var comment = _commentsService.Create(userId, activityId, text, parentId);
+            UpdateCachedEntity(comment.ActivityId);
+            return comment;
+        }
+
+        public void UpdateComment(Guid id, string text)
+        {
+            var comment = _commentsService.Update(id, text);
+            UpdateCachedEntity(comment.ActivityId);
+        }
+
+        public void DeleteComment(Guid id)
+        {
+            var comment = _commentsService.Get(id);
+            _commentsService.Delete(id);
+            UpdateCachedEntity(comment.ActivityId);
+        }
+
+        public ICommentable GetCommentsInfo(Guid activityId) => Get(activityId);
+
+        public ILikeable Add(Guid userId, Guid activityId)
+        {
+            _likesService.Add(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public ILikeable Remove(Guid userId, Guid activityId)
+        {
+            _likesService.Remove(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public IEnumerable<LikeModel> GetLikes(Guid activityId) => Get(activityId).Likes;
+
+        public void Notify(Guid entityId, IIntranetType notificationType)
         {
             var notifierData = GetNotifierData(entityId, notificationType);
             if (notifierData != null)
@@ -172,30 +207,25 @@ namespace Compent.Uintra.Core.Bulletins
         {
             var activities = GetAll().Where(IsCacheable);
             var searchableActivities = activities.Select(Map);
-            _activityIndex.DeleteByType(UintraSearchableTypeEnum.Bulletins);
+
+            var searchableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.Bulletins.ToInt());
+            _activityIndex.DeleteByType(searchableType);
             _activityIndex.Index(searchableActivities);
         }
 
-        private void FillLinkPreview(Bulletin bulletin)
-        {
-            var linkPreview = _activityLinkPreviewService.GetActivityLinkPreview(bulletin.Id);
-            bulletin.LinkPreview = linkPreview;
-            bulletin.LinkPreviewId = linkPreview?.Id;
-        }
-
-        private NotifierData GetNotifierData(Guid entityId, Enum notificationType)
+        private NotifierData GetNotifierData(Guid entityId, IIntranetType notificationType)
         {
             var data = new NotifierData
             {
                 NotificationType = notificationType,
-                ActivityType = Type
+                ActivityType = ActivityType
             };
 
             var currentUser = _intranetUserService.GetCurrentUser();
 
-            switch (notificationType)
+            switch (notificationType.Id)
             {
-                case NotificationTypeEnum.ActivityLikeAdded:
+                case (int)NotificationTypeEnum.ActivityLikeAdded:
                     {
                         var bulletinsEntity = Get(entityId);
                         data.ReceiverIds = bulletinsEntity.OwnerId.ToEnumerable();
@@ -203,8 +233,8 @@ namespace Compent.Uintra.Core.Bulletins
                     }
                     break;
 
-                case NotificationTypeEnum.CommentAdded:
-                case NotificationTypeEnum.CommentEdited:
+                case (int)NotificationTypeEnum.CommentAdded:
+                case (int)NotificationTypeEnum.CommentEdited:
                     {
                         var comment = _commentsService.Get(entityId);
                         var bulletinsEntity = Get(comment.ActivityId);
@@ -213,7 +243,7 @@ namespace Compent.Uintra.Core.Bulletins
                     }
                     break;
 
-                case NotificationTypeEnum.CommentReplied:
+                case (int)NotificationTypeEnum.CommentReplied:
                     {
                         var comment = _commentsService.Get(entityId);
                         var bulletinsEntity = Get(comment.ActivityId);
@@ -222,7 +252,7 @@ namespace Compent.Uintra.Core.Bulletins
                     }
                     break;
 
-                case NotificationTypeEnum.CommentLikeAdded:
+                case (int)NotificationTypeEnum.CommentLikeAdded:
                     {
                         var comment = _commentsService.Get(entityId);
                         var bulletinsEntity = Get(comment.ActivityId);
@@ -241,6 +271,18 @@ namespace Compent.Uintra.Core.Bulletins
             return data;
         }
 
+        public ILikeable AddLike(Guid userId, Guid activityId)
+        {
+            _likesService.Add(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public ILikeable RemoveLike(Guid userId, Guid activityId)
+        {
+            _likesService.Remove(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
         private bool CanPerform(IIntranetActivity cached, IntranetActivityActionEnum action)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
@@ -251,7 +293,7 @@ namespace Compent.Uintra.Core.Bulletins
             var ownerId = Get(cached.Id).OwnerId;
             var isOwner = ownerId == currentUser.Id;
 
-            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, Type, action);
+            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, action);
             return isOwner && isUserHasPermissions;
         }
 

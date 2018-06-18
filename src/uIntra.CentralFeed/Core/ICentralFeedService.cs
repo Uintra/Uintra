@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public interface ICentralFeedService : IFeedService
     {
-        IEnumerable<IFeedItem> GetFeed(Enum type);
+        IEnumerable<IFeedItem> GetFeed(IIntranetType type);
         IEnumerable<IFeedItem> GetFeed();
     }
 }

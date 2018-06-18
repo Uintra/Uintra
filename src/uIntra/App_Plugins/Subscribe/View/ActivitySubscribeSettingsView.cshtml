@@ -1,10 +1,9 @@
 ﻿@using System.Web.Mvc.Html
 @using System.Web.Routing
-@using Uintra.Core.Extensions
-@model Uintra.Subscribe.ActivitySubscribeSettingsModel
+@using uIntra.Core.Extensions
+@model uIntra.Subscribe.ActivitySubscribeSettingsModel
 
 <div class="check js-subscribe-settings-holder">
-    <label class="form__label">@Html.Localize("SubscribeSettings.Title.lbl")</label>
     <label class="check__label">
         @{
             var canSubscribeAttrs = new RouteValueDictionary(new { @class = "check__box js-can-subscribe" });

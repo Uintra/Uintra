@@ -1,26 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Uintra.Core.Feed;
-using Uintra.CentralFeed;
-using Uintra.Core;
-using Uintra.Core.Activity;
-using Uintra.Core.Feed;
-using Uintra.Core.TypeProviders;
-using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
-using Uintra.Groups;
-using Uintra.Groups.Web;
-using Uintra.Subscribe;
+using Compent.uIntra.Core.Feed;
+using uIntra.CentralFeed;
+using uIntra.Core.Activity;
+using uIntra.Core.Feed;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
+using uIntra.Groups;
+using uIntra.Groups.Web;
+using uIntra.Subscribe;
 
-namespace Compent.Uintra.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class GroupFeedController : GroupFeedControllerBase
     {
         private readonly IIntranetUserService<IGroupMember> _intranetUserService;
 
-        public GroupFeedController(
-            ISubscribeService subscribeService,
+        public GroupFeedController(ISubscribeService subscribeService,
             IGroupFeedService groupFeedService,
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserContentProvider intranetUserContentProvider,
@@ -28,33 +25,16 @@ namespace Compent.Uintra.Controllers
             IIntranetUserService<IGroupMember> intranetUserService,
             IGroupFeedContentService groupFeedContentContentService,
             IGroupFeedLinkProvider groupFeedLinkProvider,
+            IGroupFeedLinkService groupFeedLinkService,
             IGroupMemberService groupMemberService,
-            IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IActivityTypeProvider activityTypeProvider,
-            IPermissionsService permissionsService,
-            IContextTypeProvider contextTypeProvider,
-            IFeedLinkService feedLinkService,
-            IFeedFilterService feedFilterService)
-            : base(
-                  subscribeService,
-                  groupFeedService,
-                  activitiesServiceFactory,
-                  intranetUserContentProvider,
-                  centralFeedTypeProvider,
-                  intranetUserService,
-                  groupFeedContentContentService,
-                  groupFeedLinkProvider,
-                  groupMemberService,
-                  feedFilterStateService,
-                  permissionsService,
-                  contextTypeProvider,
-                  feedLinkService,
-                  feedFilterService)
+            IFeedFilterStateService feedFilterStateService) 
+            : base(subscribeService, groupFeedService, activitiesServiceFactory, intranetUserContentProvider, centralFeedTypeProvider, intranetUserService, groupFeedContentContentService, groupFeedLinkProvider, groupFeedLinkService, groupMemberService, feedFilterStateService)
         {
             _intranetUserService = intranetUserService;
         }
 
-        protected override FeedListViewModel GetFeedListViewModel(GroupFeedListModel model, List<IFeedItem> filteredItems, Enum centralFeedType)
+        protected override FeedListViewModel GetFeedListViewModel(GroupFeedListModel model, List<IFeedItem> filteredItems,
+            IIntranetType centralFeedType)
         {
             var result = base.GetFeedListViewModel(model, filteredItems, centralFeedType);
             var currentUser = _intranetUserService.GetCurrentUser();
@@ -67,7 +47,7 @@ namespace Compent.Uintra.Controllers
         protected override ActivityFeedOptions GetActivityFeedOptions(Guid id)
         {
             var options = base.GetActivityFeedOptions(id);
-            return new ActivityFeedOptionsWithGroups
+            return new ActivityFeedOptionsWithGroups()
             {
                 Links = options.Links,
                 IsReadOnly = options.IsReadOnly,

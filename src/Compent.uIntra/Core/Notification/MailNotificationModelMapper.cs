@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
-using Uintra.Core.Activity;
-using Uintra.Core.Extensions;
-using Uintra.Core.Helpers;
-using Uintra.Core.User;
-using Uintra.Notification;
-using Uintra.Notification.Base;
-using static Uintra.Notification.Constants.TokensConstants;
+using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
+using uIntra.Notification;
+using uIntra.Notification.Base;
+using static uIntra.Notification.Constants.TokensConstants;
 
-namespace Compent.Uintra.Core.Notification
+namespace Compent.uIntra.Core.Notification
 {
     public class MailNotificationModelMapper : INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage>
     {
@@ -30,8 +30,8 @@ namespace Compent.Uintra.Core.Notification
                     tokens = new[]
                      {
                         (Url, model.Url),
-                        (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
-                        (ActivityType, model.ActivityType.ToString()),
+                        (ActivityTitle, GetHtmlLink(GetTitle(model.ActivityType, model.Title), model.Url)),
+                        (ActivityType, model.ActivityType.Name),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
                         (NotifierFullName, receiver.DisplayedName)
                     };
@@ -40,16 +40,16 @@ namespace Compent.Uintra.Core.Notification
                     tokens = new[]
                     {
                         (Url, model.Url),
-                        (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
-                        (ActivityType, model.ActivityType.ToString()),
+                        (ActivityTitle, GetHtmlLink(GetTitle(model.ActivityType, model.Title), model.Url)),
+                        (ActivityType, model.ActivityType.Name),
                         (StartDate, model.StartDate.ToShortDateString())
                     };
                     break;
                 case CommentNotifierDataModel model:
                     tokens = new[]
                     {
-                        (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
-                        (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
+                        (Url, model.Url),
+                        (ActivityTitle, GetHtmlLink(model.Title, model.Url)),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName)
                     };
                     break;
@@ -57,17 +57,10 @@ namespace Compent.Uintra.Core.Notification
                     tokens = new[]
                     {
                         (Url, model.Url),
-                        (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
-                        (ActivityType, model.ActivityType.ToString()),
+                        (ActivityTitle, GetHtmlLink(GetTitle(model.ActivityType, model.Title), model.Url)),
+                        (ActivityType, model.ActivityType.Name),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
                         (CreatedDate, model.CreatedDate.ToShortDateString())
-                    };
-                    break;
-                case MonthlyMailDataModel model:
-                    tokens = new[]
-                    {
-                        (FullName, receiver.DisplayedName),
-                        (ActivityList, model.ActivityList)
                     };
                     break;
                 default:
@@ -84,7 +77,9 @@ namespace Compent.Uintra.Core.Notification
             replacePairs
                 .Aggregate(source, (acc, pair) => acc.Replace(pair.token, pair.value));
 
-        private static string GetTitle(Enum activityType, string title)
-            => activityType is IntranetActivityTypeEnum.Bulletins ? title?.StripHtml().TrimByWordEnd(100) : title;
+        private static string GetHtmlLink(string title, string url) => $"<a href=\"{url.ToAbsoluteUrl()}\">{title}</a>";
+
+        private static string GetTitle(IIntranetType activityType, string title)
+            => activityType.Id == IntranetActivityTypeEnum.Bulletins.ToInt() ? title?.StripHtml().TrimByWordEnd(100) : title;
     }
 }

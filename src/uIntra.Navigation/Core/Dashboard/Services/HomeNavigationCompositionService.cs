@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using Uintra.Core.Configuration;
-using Uintra.Navigation.Configuration;
+using uIntra.Core.Configuration;
+using uIntra.Navigation.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace Uintra.Navigation.Dashboard
+namespace uIntra.Navigation.Dashboard
 {
     public class HomeNavigationCompositionService : DocumentTypeService, IHomeNavigationCompositionService
     {

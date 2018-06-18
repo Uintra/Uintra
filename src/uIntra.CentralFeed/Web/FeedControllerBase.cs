@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.Extensions;
-using Uintra.Core;
-using Uintra.Core.Context;
-using Uintra.Core.Extensions;
-using Uintra.Core.Feed;
-using Uintra.Core.User;
-using Uintra.Subscribe;
+using Extensions;
+using uIntra.Core.Extensions;
+using uIntra.Core.Feed;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
+using uIntra.Subscribe;
+using Umbraco.Web.Mvc;
 
-namespace Uintra.CentralFeed.Web
+namespace uIntra.CentralFeed.Web
 {
-    public abstract class FeedControllerBase : ContextController
+    public abstract class FeedControllerBase : SurfaceController
     {
         protected abstract string OverviewViewPath { get; }
         protected abstract string ListViewPath { get; }
@@ -24,36 +24,31 @@ namespace Uintra.CentralFeed.Web
 
         protected virtual int ItemsPerPage => 8;
 
+        private readonly ISubscribeService _subscribeService;
         private readonly IFeedService _feedService;
-        private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IFeedFilterStateService _feedFilterStateService;
 
         protected FeedControllerBase(
             ISubscribeService subscribeService,
             IFeedService feedService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IFeedTypeProvider centralFeedTypeProvider,
-            IContextTypeProvider contextTypeProvider): base(contextTypeProvider)
+            IFeedFilterStateService feedFilterStateService)
         {
+            _subscribeService = subscribeService;
             _feedService = feedService;
+            _intranetUserService = intranetUserService;
             _feedFilterStateService = feedFilterStateService;
         }
 
-        [HttpGet]
-        public virtual ActionResult OpenFilters()
-        {
-            var feedState = _feedFilterStateService.GetFiltersState();
-            feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
-            _feedFilterStateService.SaveFiltersState(feedState);
-            return new EmptyResult();
-        }
-        
+
+        #region Actions
         public virtual JsonResult AvailableActivityTypes()
         {
             var activityTypes = _feedService
                 .GetAllSettings()
                 .Where(s => !s.ExcludeFromAvailableActivityTypes)
-                .Select(s => ( Id:s.Type.ToInt(), Name: s.Type.ToString()))
+                .Select(s => s.Type)
                 .Select(a => new { a.Id, a.Name })
                 .OrderBy(el => el.Id);
 
@@ -64,13 +59,14 @@ namespace Uintra.CentralFeed.Web
         {
             var version = _feedService.GetFeedVersion(Enumerable.Empty<IFeedItem>());
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
-        }        
+        }
+        #endregion
 
 
         protected virtual IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items, IEnumerable<FeedSettings> settings)
         {
             var activitySettings = settings
-                .ToDictionary(s => s.Type.ToInt());
+                .ToDictionary(s => s.Type.Id);
 
             var result = items
                 .Select(i => MapFeedItemToViewModel(i, activitySettings));
@@ -85,31 +81,46 @@ namespace Uintra.CentralFeed.Web
             {
                 Activity = i,
                 Options = options,
-                ControllerName = settings[i.Type.ToInt()].Controller
+                ControllerName = settings[i.Type.Id].Controller
             };
         }
 
         protected abstract ActivityFeedOptions GetActivityFeedOptions(Guid activityId);
 
-        protected virtual IEnumerable<Enum> GetInvolvedTypes(IEnumerable<IFeedItem> items)
+        protected static IEnumerable<IIntranetType> GetInvolvedTypes(IEnumerable<IFeedItem> items)
         {
             return items
-                .Select(i => i.Type)
-                .Distinct();
+                    .Select(i => i.Type)
+                    .Distinct(new IntranetTypeComparer());
         }
-        
-        protected virtual IList<IFeedItem> SortForFeed(IEnumerable<IFeedItem> items, Enum type)
+
+        protected virtual IEnumerable<IFeedItem> ApplyFilters(IEnumerable<IFeedItem> items, FeedFilterStateModel filterState, FeedSettings settings)
+        {
+            if (filterState.ShowSubscribed.GetValueOrDefault() && settings.HasSubscribersFilter)
+            {
+                items = items.Where(i => i is ISubscribable && _subscribeService.IsSubscribed(_intranetUserService.GetCurrentUser().Id, (ISubscribable)i));
+            }
+
+            if (filterState.ShowPinned.GetValueOrDefault() && settings.HasPinnedFilter)
+            {
+                items = items.Where(i => i.IsPinned);
+            }
+
+            return items;
+        }
+
+        protected virtual IList<IFeedItem> SortForFeed(IEnumerable<IFeedItem> items, IIntranetType type)
         {
             var sortedItems = Sort(items, type);
             return SortByPin(sortedItems).ToList();
         }
 
-        protected virtual IEnumerable<IFeedItem> Sort(IEnumerable<IFeedItem> sortedItems, Enum type)
+        protected virtual IEnumerable<IFeedItem> Sort(IEnumerable<IFeedItem> sortedItems, IIntranetType type)
         {
             IEnumerable<IFeedItem> result;
-            switch (type)
+            switch (type.Id)
             {
-                case CentralFeedTypeEnum.All:
+                case (int)CentralFeedTypeEnum.All:
                     result = sortedItems.OrderBy(i => i, new CentralFeedItemComparer());
                     break;
                 default:
@@ -137,7 +148,7 @@ namespace Uintra.CentralFeed.Web
 
         protected virtual FeedFilterStateModel GetFilterStateModel()
         {
-            var stateModel = _feedFilterStateService.GetFiltersState();
+            var stateModel = _feedFilterStateService.GetFiltersState<FeedFiltersState>();
 
             var result = new FeedFilterStateModel()
             {
@@ -152,8 +163,8 @@ namespace Uintra.CentralFeed.Web
         protected static IEnumerable<ActivityFeedTabViewModel> GetTabsWithCreateUrl(IEnumerable<ActivityFeedTabViewModel> tabs) =>
             tabs.Where(t => !IsTypeForAllActivities(t.Type) && t.Links.Create.HasValue());
 
-        protected static bool IsTypeForAllActivities(Enum type) =>
-            type is CentralFeedTypeEnum.All;
+        protected static bool IsTypeForAllActivities(IIntranetType type) =>
+            type.Id == CentralFeedTypeEnum.All.ToInt();
 
         protected virtual FeedFilterStateViewModel MapToFilterStateViewModel(FeedFilterStateModel model)
         {
@@ -173,6 +184,6 @@ namespace Uintra.CentralFeed.Web
                 BulletinFilterSelected = model.IncludeBulletin,
                 SubscriberFilterSelected = model.ShowSubscribed
             };
-        }        
+        }
     }
 }

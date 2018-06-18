@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
+namespace Compent.uIntra.Installer.Migrations.OldSubscribeSettings
 {
     public class OldEventBase
     {

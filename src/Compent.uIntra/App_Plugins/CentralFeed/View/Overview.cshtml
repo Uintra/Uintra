@@ -1,16 +1,16 @@
 ﻿@using System.Web.Mvc.Ajax
 @using System.Web.Mvc.Html
-@using Uintra.CentralFeed
-@using Uintra.Core.Extensions
+@using uIntra.CentralFeed
+@using uIntra.Core.Extensions
 @using Umbraco.Web
-@model CentralFeedOverviewModel
+@model uIntra.CentralFeed.CentralFeedOverviewModel
 
 <section class="content _central-feed">
     <ul class="feed-create js-feed-create">
         @foreach (var typeModel in Model.TabsWithCreateUrl)
         {
             <li class="feed-create__frame">
-                <a class="btn" href="@typeModel.Links.Create">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.ToString()}.lnk")</a>
+                <a class="btn" href="@typeModel.Links.Create">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.Name}.lnk")</a>
             </li>
         }
 
@@ -25,8 +25,8 @@
             <ul class="feed-links js-feed-links">
                 @foreach (var tabModel in Model.Tabs)
                 {
-                    <li class="feed-links__frame js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.ToInt()" data-page-url="@tabModel.Links.Overview">
-                        <a class="feed-links__item" href="@tabModel.Links.Overview">@Html.Localize(tabModel.Type.ToString())</a>
+                    <li class="feed-links__frame js-feed-type @(tabModel.IsActive ? "_active" : "")" data-type="@tabModel.Type.Id" data-page-url="@tabModel.Links.Overview">
+                        <a class="feed-links__item" href="@tabModel.Links.Overview">@Html.Localize(tabModel.Type.Name)</a>
                     </li>
                 }
             </ul>
@@ -37,7 +37,7 @@
                                     new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-feed-listContainer" } }))
         {
             
-            <input type="hidden" name="typeId" value="@Model.CurrentType.ToInt()" />
+            <input type="hidden" name="typeId" value="@Model.CurrentType.Id" />
             <input type="hidden" name="page" />
             <div class="tab-content js-feed-listContainer">
                 @{Html.RenderAction("List", "CentralFeed",
@@ -45,7 +45,7 @@
                         {
                             model = new FeedListModel
                             {
-                                TypeId = Model.CurrentType.ToInt()
+                                TypeId = Model.CurrentType.Id
                             }
                         }); }
             </div>

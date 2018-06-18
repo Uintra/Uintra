@@ -1,6 +1,4 @@
-﻿using Compent.Uintra.Core.Verification;
-
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
+﻿namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants
 {
     public class NavigationInstallationConstants
     {
@@ -11,7 +9,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
             public const string HomeNavigationComposition = "Home Navigation Composition";
             public const string NavigationComposition = "Navigation Composition";
         }
-        [UmbracoDocumentTypeVerification]
         public class DocumentTypeAliases
         {
             public const string SystemLink = "systemLink";

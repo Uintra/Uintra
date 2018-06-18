@@ -1,4 +1,4 @@
-﻿namespace Uintra.Navigation.Configuration
+﻿namespace uIntra.Navigation.Configuration
 {
     public class NavigationPropertySettings<T> : NavigationItemTypeSettings
     {

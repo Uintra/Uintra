@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Uintra.Core.User;
+using uIntra.Core.User;
 
-namespace Uintra.Groups
+namespace uIntra.Groups
 {
     public interface IGroupService
     {
@@ -16,7 +16,6 @@ namespace Uintra.Groups
 
         bool CanEdit(Guid groupId, IIntranetUser user);
         bool CanEdit(GroupModel groupModel, IIntranetUser user);
-        bool IsActivityFromActiveGroup(IGroupActivity groupActivity);
 
         void Hide(Guid id);
         void UpdateGroupUpdateDate(Guid id);

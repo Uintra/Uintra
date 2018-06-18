@@ -1,14 +1,14 @@
 ﻿using System.Linq;
-using Compent.Uintra.Core.Constants;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Constants;
+using Compent.uIntra.Core.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Constants;
+using uIntra.Core.Installer;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps
+namespace Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Steps
 {
     public class UserTagsInstallationStep : IMigrationStep
     {

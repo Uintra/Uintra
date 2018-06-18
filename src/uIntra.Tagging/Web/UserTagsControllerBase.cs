@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Uintra.Core;
-using Uintra.Core.Extensions;
-using Uintra.Tagging.UserTags;
-using Uintra.Tagging.UserTags.Models;
+using uIntra.Core;
+using uIntra.Core.Extensions;
+using uIntra.Tagging.UserTags;
+using uIntra.Tagging.UserTags.Models;
 using Umbraco.Web.Mvc;
 
-namespace Uintra.Tagging.Web
+namespace uIntra.Tagging.Web
 {
     public abstract class UserTagsControllerBase : SurfaceController
     {

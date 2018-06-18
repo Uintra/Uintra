@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Uintra.Search;
+using uIntra.Search;
 
-namespace Compent.Uintra.Core.Search.Entities
+namespace Compent.uIntra.Core.Search.Entities
 {
-    public class SearchableUser : SearchableBase, ISearchibleTaggedActivity
+    public class SearchableUser : SearchableBase , ISearchibleTaggedActivity
     {
         public string Photo { get; set; }
 

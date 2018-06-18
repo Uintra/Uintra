@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace Uintra.Navigation
+namespace uIntra.Navigation
 {
     public class NavigationApplicationSettings : ConfigurationSection, INavigationApplicationSettings
     {

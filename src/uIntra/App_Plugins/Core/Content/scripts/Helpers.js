@@ -1,32 +1,21 @@
-﻿const Quill = require('quill');
-const Delta = require('quill-delta');
-const Flatpickr = require('flatpickr');
-import ajax from './Ajax';
+﻿var Quill = require('quill');
+var Delta = require('quill-delta');
+var Dotdotdot = require('dotdotdot');
+var Flatpickr = require('flatpickr');
 
 require('simple-scrollbar');
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
 
-var urlDetectRegexes = [];
 
-ajax.get('/umbraco/api/LinkPreview/config')
-    .then(function (response) {
-        var regexes = response.data.urlRegex.map(r => new RegExp(r));
-        urlDetectRegexes = regexes;
-    });
-
-function matchUponMultiple(regexes, text) {
-    return regexes.map(regex => text.match(regex)).find(m => m !== null || m !== undefined || m !== {});
-}
-
-const easeInOutQuad = function (t, b, c, d) {
+var easeInOutQuad = function (t, b, c, d) {
     t /= d / 2;
     if (t < 1) return c / 2 * t * t + b;
     t--;
     return -c / 2 * (t * (t - 2) - 1) + b;
 };
 
-const helpers = {
+var helpers = {
     deepClone: function (obj) {
         return JSON.parse(JSON.stringify(obj));
     },
@@ -39,51 +28,7 @@ const helpers = {
             throw new Error("Source field missing");
         }
 
-        let settings = {
-            theme: 'snow'
-        }
-
-        if (typeof options == 'undefined') {
-            settings.modules = {
-                toolbar: {
-                    container: ['emoji','bold', 'italic', 'underline', 'link']
-                }
-            };
-        }
-        else {
-            $.extend(settings, options);
-        }
-
-        let quill = new Quill(source, settings);
-        let toolbar = quill.getModule('toolbar');
-
-        //override default link handler
-        toolbar.addHandler('link', function (value) {
-            if (value) {
-                let range = this.quill.getSelection();
-                if (range == null || range.length == 0) return;
-                let preview = this.quill.getText(range);
-                let tooltip = this.quill.theme.tooltip;
-                if (/^\S+@\S+\.\S+$/.test(preview) && preview.indexOf('mailto:') !== 0) {
-                    preview = 'mailto:' + preview;
-                    tooltip.edit('link', preview);
-                } else {
-                    tooltip.edit('link', '');
-                }
-            } else {
-                this.quill.format('link', false);
-            }
-        });
-
-        let onLinkDetectedCallbacks = [];
-
-        quill.onLinkDetected = function (cb) {
-            onLinkDetectedCallbacks.push(cb);
-        }
-
-        function triggerLinkDetectedEvent(link) {
-            onLinkDetectedCallbacks.forEach((cb) => cb(link));
-        }
+        var quill = new Quill(source, options);
 
         quill.on('text-change', (delta, oldDelta, source) => {
             var n = quill.container.querySelectorAll("img").length;
@@ -93,14 +38,17 @@ const helpers = {
             }
             dataStorage.value = quill.container.firstChild.innerHTML;
 
+            var regexes = [
+                /https?:\/\/[^\s]+$/
+            ];
             if (delta.ops.length === 2 && delta.ops[0].retain && isWhitespace(delta.ops[1].insert)) {
                 var endRetain = delta.ops[0].retain;
                 var text = quill.getText().substr(0, endRetain);
-                var matches = matchUponMultiple(urlDetectRegexes, text);
+                var match = regexes.map(regex => text.match(regex)).find(m => m!== null);
+                    
 
-                if (matches) {
-                    var url = matches[0];
-                    triggerLinkDetectedEvent(url);
+                if (match) {
+                    var url = match[0];
 
                     var ops = [];
                     if (endRetain > url.length) {
@@ -132,110 +80,107 @@ const helpers = {
         });
 
         quill.clipboard.addMatcher(Node.TEXT_NODE, function (node, delta) {
-            if (typeof (node.data) !== 'string') return delta;
-            var text = node.data;
-
-            var matches = matchUponMultiple(urlDetectRegexes, text);
+            var regex = /https?:\/\/[^\s]+/g;
+            if (typeof (node.data) !== 'string') return;
+            var matches = node.data.match(regex);
 
             if (matches && matches.length > 0) {
                 var ops = [];
-                var match = matches[0];
-                triggerLinkDetectedEvent(match);
-                var split = text.split(match);
-                var beforeLink = split.shift();
-                ops.push({ insert: beforeLink });
-                ops.push({ insert: match, attributes: { link: match } });
-                text = split.join(match);
-
-                ops.push({ insert: text });
+                var str = node.data;
+                matches.forEach(function (match) {
+                    var split = str.split(match);
+                    var beforeLink = split.shift();
+                    ops.push({ insert: beforeLink });
+                    ops.push({ insert: match, attributes: { link: match } });
+                    str = split.join(match);
+                });
+                ops.push({ insert: str });
                 delta.ops = ops;
             }
 
             return delta;
         });
 
-        //init emoji smiles
-        helpers.initSmiles(quill, toolbar.container);
-
-        //override link's tooltip placeholder
-        const tooltip = quill.theme.tooltip;
-        let input = tooltip.root.querySelector("input[data-link]");
-        input.dataset.link = location.host;
-
         return quill;
     },
-    initSmiles: function (container, toolbar, index) {
-        const emoji = {
-            "smile": {
+    initSmiles: function(container, toolbar, index){
+        var emoji = {
+            "happy": {
                 "shortcode": ":)",
-                "translation": "Smile"
+                "translation": "lykkelig"
             },
-            "sad": {
-                "shortcode": ":(",
-                "translation": "Sad"
+            "great": {
+                "shortcode": ":great",
+                "translation": "store"
+            },
+            "laughing": {
+                "shortcode": ":D",
+                "translation": "griner"
+            },
+            "surprised": {
+                "shortcode": ":surprised",
+                "translation": "overrasket"
             },
             "wink": {
                 "shortcode": ";)",
-                "translation": "Wink"
+                "translation": "blinke"
             },
-            "shocked": {
-                "shortcode": ":|",
-                "translation": "Shocked"
+            "hungry": {
+                "shortcode": ":hungry",
+                "translation": "sulten"
             },
-            "tease": {
-                "shortcode": ":p",
-                "translation": "Tease"
-            },
-
-            "funny": {
-                "shortcode": ":D",
-                "translation": "Funny"
-            },
-            "angry": {
-                "shortcode": ":<",
-                "translation": "Angry"
-            },
-            "skeptical": {
-                "shortcode": ":^)",
-                "translation": "Skeptical"
-            },
-            "surprised": {
-                "shortcode": ":o",
-                "translation": "Surprised"
-            },
-            "great": {
-                "shortcode": ":+1",
-                "translation": "Great"
-            },
-
-            "joy": {
-                "shortcode": ":-)",
-                "translation": "Joy"
-            },
-            "love": {
-                "shortcode": ":x",
-                "translation": "Love"
+            "inlove": {
+                "shortcode": ":inlove",
+                "translation": "forelsket"
             },
             "party": {
-                "shortcode": "<o)",
-                "translation": "Party"
+                "shortcode": ":party",
+                "translation": "parti"
             },
-            "fever": {
-                "shortcode": "fever",
-                "translation": "Fever"
+            "relaxed": {
+                "shortcode": ":relaxed",
+                "translation": "afslappet"
             },
-            "sleepy": {
-                "shortcode": "|-)",
-                "translation": "Sleepy"
+            "sad": {
+                "shortcode": ":(",
+                "translation": "trist"
+            },
+            "angry": {
+                "shortcode": ":angry",
+                "translation": "vred"
+            },
+            "sick": {
+                "shortcode": ":sick",
+                "translation": "syg"
+            },
+            "skeptical": {
+                "shortcode": ":skeptical",
+                "translation": "skeptisk"
+            },
+            "sleeping": {
+                "shortcode": ":sleeping",
+                "translation": "sovende"
+            },
+            "neutral": {
+                "shortcode": ":neutral",
+                "translation": "neutral"
             }
-        };
-        const body = document.querySelector('body');
-        const path = '/App_Plugins/Core/Content/styles/emoji-data/';
-        let emojiContainer;
-        let emojiList;
-        let emojiListItem;
-        let emojiListImage;
-        let emojiBtn = toolbar.querySelector(".ql-emoji");
+        },
+        body,
+        path,
+        emojiContainer,
+        emojiList,
+        emojiListItem,
+        emojiListImage,
+        emojiBtn,
+        emojiBtnX,
+        emojiBtnY;
+
+        body = document.querySelector("body");
+        path = "/App_Plugins/Core/Content/styles/emoji-data/";
+
+        emojiBtn = toolbar.querySelector(".ql-emoji");
+        emojiBtnX = toolbar.offsetWidth - (emojiBtn.offsetLeft + emojiBtn.offsetWidth);
 
         emojiContainer = document.createElement("div");
         emojiContainer.classList.add("js-emoji");
@@ -245,11 +190,11 @@ const helpers = {
         emojiList = document.createElement("ul");
         emojiList.classList.add("emoji__list");
 
-        for (var i in emoji) {
+        for(var i in emoji){
             emojiListItem = document.createElement("li");
             emojiListItem.classList.add("emoji__list-item");
 
-            emojiListItem.addEventListener('click', function (event) {
+            emojiListItem.addEventListener('click', function(event) {
                 CopyClipboard(getHTML(event.target));
                 emojiContainer.classList.add("hidden");
             });
@@ -267,9 +212,11 @@ const helpers = {
         }
 
         emojiContainer.appendChild(emojiList);
-        emojiBtn.insertAdjacentElement('afterend', emojiContainer);
+        emojiContainer.setAttribute("style", "right: " + emojiBtnX + "px;");
 
-        emojiBtn.addEventListener('click', function () {
+        toolbar.appendChild(emojiContainer);
+
+        emojiBtn.addEventListener('click', function() {
             if (emojiContainer.classList.contains("hidden")) {
                 emojiContainer.classList.remove("hidden");
 
@@ -286,8 +233,8 @@ const helpers = {
         container.on('text-change', function (eventName, ...args) {
             index = getIndex();
             var text = container.getText();
-            for (var i in emoji) {
-                if (text.indexOf(emoji[i].shortcode) >= 0) {
+            for(var i in emoji){
+                if(text.indexOf(emoji[i].shortcode) >= 0){
                     var n = container.container.querySelectorAll("img").length;
                     var index = text.indexOf(emoji[i].shortcode) + n;
                     container.updateContents(new Delta()
@@ -302,22 +249,22 @@ const helpers = {
             }
         });
 
-        body.addEventListener("click", function (ev) {
-            isOutsideClick(emojiContainer, ev.target, function () {
+        body.addEventListener("click", function(ev) {
+            isOutsideClick(emojiContainer, ev.target, function() {
                 emojiContainer.classList.add("hidden");
             });
         });
 
-        function CopyClipboard(target, index) {
-            if (!index) {
+        function CopyClipboard(target, index){
+            if(!index){
                 index = getIndex();
             }
             container.clipboard.dangerouslyPasteHTML(index, target);
             container.setSelection(++index);
         }
 
-        function getHTML(el) {
-            if (!el || !el.tagName) return '';
+        function getHTML(el){
+            if(!el || !el.tagName) return '';
             var txt,
                 clone = document.createElement("div");
 
@@ -327,7 +274,7 @@ const helpers = {
             return txt;
         }
 
-        function getIndex() {
+        function getIndex(){
             let range = container.getSelection();
             let index;
             if (range) {
@@ -342,7 +289,7 @@ const helpers = {
             return index;
         }
 
-        function isOutsideClick(el, target, callback) {
+        function isOutsideClick (el, target, callback) {
             if (el && !el.contains(target) && target != emojiBtn) {
                 if (typeof callback === "function") {
                     callback();
@@ -411,7 +358,7 @@ const helpers = {
         }
 
         datePicker.set('minDate', minDate.setHours(0));
-        if (datePicker.selectedDates.length > 0) {
+        if(datePicker.selectedDates.length > 0){
             clearButton.removeClass("hide");
         };
 
@@ -547,7 +494,7 @@ const helpers = {
             } else if ((field.type !== "checkbox" && field.type !== "radio") || field.checked) {
                 s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value);
             }
-            else if (field.type === "checkbox") {
+            else if (field.type === "checkbox" ) {
                 s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.checked);
             }
         }
@@ -555,14 +502,14 @@ const helpers = {
 
         return s.join("&").replace(/%20/g, "+");
     },
-    clampText: function (container, url) {
+    clampText: function(container, url) {
         var $container = $(container);
         $container.dotdotdot({
             watch: 'window'
         });
-        $container.contents().wrap("<a href='" + url + "' class='feed__item-txt-link'></a>");
+        $container.contents().wrap( "<a href='" + url +"' class='feed__item-txt-link'></a>" );
     },
-    initScrollbar: function (el) {
+    initScrollbar: function(el){
         SimpleScrollbar.initEl(el);
     },
     state: {

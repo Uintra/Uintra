@@ -1,8 +1,9 @@
 using System;
-using Uintra.Core.Activity;
-using Uintra.Core.Links;
+using uIntra.Core.Activity;
+using uIntra.Core.Links;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public abstract class FeedLinkProvider
     {
@@ -17,6 +18,6 @@ namespace Uintra.CentralFeed
 
         protected virtual string GetProfileLink(Guid userId) => _profileLinkProvider.GetProfileLink(userId);
 
-        protected IActivityPageHelper GetPageHelper(Enum type) => _pageHelperFactory.GetHelper(type);
+        protected IActivityPageHelper GetPageHelper(IIntranetType type) => _pageHelperFactory.GetHelper(type);
     }
 }

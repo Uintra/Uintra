@@ -1,4 +1,4 @@
-﻿namespace Uintra.Notification.Base
+﻿namespace uIntra.Notification.Base
 {
     public class MailAttachmentFile
     {

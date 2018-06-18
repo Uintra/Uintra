@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Uintra.Core.Links;
-using Uintra.Core.User;
+using uIntra.Core.Links;
+using uIntra.Core.User;
 
-namespace Uintra.Core.Activity
+namespace uIntra.Core.Activity
 {
     public class IntranetActivityOwnerEditModel
     {

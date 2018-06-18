@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <configSections>
-    <section name="userPermissions" type="Uintra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
-
-    <section name="browserCompatibilityConfiguration" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
-    <section name="browserCompatibilityConfiguration" type="Uintra.Core.BrowserCompatibility.BrowserCompatibilityConfigurationSection" xdt:Locator="Condition(@name='browserCompatibilityConfiguration')" xdt:Transform="InsertIfMissing"/>
+    <section name="userPermissions" type="uIntra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
+    <section name="browserCompatibilityConfiguration" type="uIntra.Core.BrowserCompatibility.BrowserCompatibilityConfigurationSection"  xdt:Locator="Condition(@name='browserCompatibilityConfiguration')" xdt:Transform="InsertIfMissing"/>
   </configSections>
   <appSettings>
     <add key="DefaultAvatarPath" value="/Content/images/default-avatar.png" xdt:Locator="Condition(@key='DefaultAvatarPath')" xdt:Transform="InsertIfMissing" />
@@ -17,31 +15,20 @@
     <add key="Umbraco.ModelsBuilder.LanguageVersion" value="CSharp6" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.LanguageVersion')" xdt:Transform="InsertIfMissing"/>
     <add key="Umbraco.ModelsBuilder.ModelsDirectory" value="~/Core/UmbracoModelsBuilders" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.ModelsDirectory')" xdt:Transform="InsertIfMissing"/>
   </appSettings>
-
-  <uIntraJobs xdt:Transform="Remove">
-  </uIntraJobs>
-
-  <UintraJobs xdt:Transform="InsertIfMissing">
+  <uIntraJobs  xdt:Transform="InsertIfMissing">
     <settings>
       <!--Run Types:RunEvery,RunNow,RunOnceAt,RunOnceAtDate-->
       <!--Time Types:Seconds,Minutes,Hours,Days,Date-->
       <add job="UpdateActivityCacheJob" enabled="true" runType="RunEvery" timeType="Minutes" time="1"/>
     </settings>
-  </UintraJobs>
-
-  <browserCompatibilityConfiguration xdt:Transform="InsertIfMissing">
+  </uIntraJobs>
+  <browserCompatibilityConfiguration  xdt:Transform="InsertIfMissing">
     <browsers>
       <browser name="InternetExplorer" version="11.0"></browser>
+      <browser name="Edge" version="40.0"></browser>
       <browser name="Chrome" version="60.0"></browser>
       <browser name="FireFox" version="54.0"></browser>
       <browser name="Safari" version="10.1.2"></browser>
-    </browsers>
-  </browserCompatibilityConfiguration>
-
-  <browserCompatibilityConfiguration>
-    <browsers>
-      <browser name="Edge" xdt:Locator="Match(name)" xdt:Transform="Remove"></browser>
-      <browser name="EdgeHTML" version="15.15063" xdt:Locator="Condition(@name='Edge')" xdt:Transform="InsertIfMissing"></browser>
     </browsers>
   </browserCompatibilityConfiguration>
 

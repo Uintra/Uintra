@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Reflection;
-using Uintra.Core.Utils;
+using uIntra.Core.Utils;
 
-namespace Uintra.Notification.Configuration
+namespace uIntra.Notification.Configuration
 {
     public class BackofficeSettingsReader : IBackofficeSettingsReader
     {
@@ -24,7 +24,11 @@ namespace Uintra.Notification.Configuration
             }
             catch (FileNotFoundException)
             {
-                return null;
+                string description =
+                    "Embedded resource with config for notification(" +
+                    $"{notificationType.NotifierType}, {notificationType.Event.ActivityType}, {notificationType.Event.NotificationType}" +
+                    $") was not found at path {resourceName}.";
+                throw new FileNotFoundException(description);
             }
         }
 
@@ -37,13 +41,13 @@ namespace Uintra.Notification.Configuration
 
         protected virtual Assembly GetResourceAssembly(ActivityEventNotifierIdentity notificationType) => Assembly.GetExecutingAssembly();
 
-        protected virtual string GetEmbeddedResourceName(ActivityEventNotifierIdentity notificationType, Assembly assembly) =>
+        protected virtual string GetEmbeddedResourceName(ActivityEventNotifierIdentity notificationType, Assembly assembly) => 
             $"{GetRootFolder(assembly)}.{GetEmbeddedResourceFileName(notificationType)}";
 
-        protected virtual string GetEmbeddedResourceFileName(ActivityEventNotifierIdentity type) =>
-            $"{type.NotifierType}.{type.Event.ActivityType.ToString()}.{type.Event.NotificationType.ToString()}.json";
+        protected virtual string GetEmbeddedResourceFileName(ActivityEventNotifierIdentity type) => 
+            $"{type.NotifierType.Name}.{type.Event.ActivityType.Name}.{type.Event.NotificationType.Name}.json";
 
-        protected virtual string GetRootFolder(Assembly assembly) =>
+        protected virtual string GetRootFolder(Assembly assembly) => 
             $"{assembly.GetName().Name}.{RootFolderName}";
     }
 }

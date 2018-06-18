@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
-using Uintra.Core.Persistence;
+using Extensions;
+using uIntra.Core.Persistence;
 
-namespace Uintra.Tagging.UserTags
+namespace uIntra.Tagging.UserTags
 {
     public class UserTagRelationService : IUserTagRelationService
     {

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Uintra.CentralFeed;
-using Uintra.Core.Caching;
-using Uintra.Core.Extensions;
-using Uintra.Groups;
+using uIntra.CentralFeed;
+using uIntra.Core.Caching;
+using uIntra.Core.TypeProviders;
+using uIntra.Groups;
 
-namespace Compent.Uintra.Core.CentralFeed
+namespace Compent.uIntra.Core.CentralFeed
 {
     public class CentralFeedService : FeedService, ICentralFeedService
     {
@@ -14,15 +13,16 @@ namespace Compent.Uintra.Core.CentralFeed
 
         public CentralFeedService(
             IEnumerable<IFeedItemService> feedItemServices,
-            ICacheService cacheService)
-            : base(feedItemServices, cacheService)
+            ICacheService cacheService,
+            IFeedTypeProvider centralFeedTypeProvider) 
+            : base(feedItemServices, cacheService, centralFeedTypeProvider)
         {
             _feedItemServices = feedItemServices;
         }
 
-        public IEnumerable<IFeedItem> GetFeed(Enum type)
+        public IEnumerable<IFeedItem> GetFeed(IIntranetType type)
         {
-            var service = _feedItemServices.Single(s => s.Type.ToInt() == type.ToInt());
+            var service = _feedItemServices.Single(s => s.ActivityType.Id == type.Id);
             return service.GetItems().Where(IsCentralFeedActivity);
         }
 
@@ -32,7 +32,7 @@ namespace Compent.Uintra.Core.CentralFeed
             return items.Where(IsCentralFeedActivity);
         }
 
-        private bool IsCentralFeedActivity(IFeedItem item) =>
+        private bool IsCentralFeedActivity(IFeedItem item) => 
             (item as IGroupActivity)?.GroupId == null;
     }
 }

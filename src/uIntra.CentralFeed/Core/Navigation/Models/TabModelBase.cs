@@ -1,6 +1,6 @@
 using Umbraco.Core.Models;
 
-namespace Uintra.CentralFeed.Navigation.Models
+namespace uIntra.CentralFeed
 {
     public abstract class TabModelBase
     {

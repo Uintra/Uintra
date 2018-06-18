@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Uintra.Core.Extensions
+namespace uIntra.Core.Extensions
 {
     public static class SerializationExtensions
     {
@@ -25,7 +25,7 @@ namespace Uintra.Core.Extensions
                public static T Deserialize<T>(this string value)
         {
             return string.IsNullOrEmpty(value)
-                ? default
+                ? default(T)
                 : (T)JsonConvert.DeserializeObject(value, typeof(T), Settings);
         }
     }

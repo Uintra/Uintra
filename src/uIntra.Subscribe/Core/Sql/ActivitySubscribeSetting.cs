@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Uintra.Core.Persistence;
+using uIntra.Core.Persistence;
 
-namespace Uintra.Subscribe
+namespace uIntra.Subscribe
 {
-    [UintraTable("ActivitySubscribeSetting")]
+    [uIntraTable("ActivitySubscribeSetting")]
     public class ActivitySubscribeSetting : SqlEntity<int>
     {
         [Key]

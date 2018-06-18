@@ -1,31 +1,34 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
-using Compent.Uintra.Core.Constants;
+using Compent.uIntra.Core.Constants;
 using EmailWorker.Data.Domain;
 using EmailWorker.Data.Model;
 using EmailWorker.Data.Services.Interfaces;
 using EmailWorker.Web.Helper;
-using Uintra.Core;
-using Uintra.Core.Extensions;
-using Uintra.Notification;
-using Uintra.Notification.Base;
-using Uintra.Notification.Configuration;
+using uIntra.Core;
+using uIntra.Core.Extensions;
+using uIntra.Notification;
+using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
 using Umbraco.Web;
 
-namespace Compent.Uintra.Core.Notification
+namespace Compent.uIntra.Core.Notification
 {
     public class MailService : IMailService
     {
+        private readonly IEmailService _emailService;
         private readonly IEmailJobSenderService _emailJobSenderService;
         private readonly ISentMailsService _sentMailsService;
         private readonly UmbracoHelper _umbracoHelper;
 
         public MailService(
+            IEmailService emailService,
             IEmailJobSenderService emailJobSenderService,
             ISentMailsService sentMailsService,
             UmbracoHelper umbracoHelper)
         {
+            _emailService = emailService;
             _emailJobSenderService = emailJobSenderService;
             _sentMailsService = sentMailsService;
             _umbracoHelper = umbracoHelper;

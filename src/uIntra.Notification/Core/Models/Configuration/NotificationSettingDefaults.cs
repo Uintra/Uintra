@@ -1,4 +1,4 @@
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
     public class NotificationSettingDefaults<T>
         where T : INotifierTemplate

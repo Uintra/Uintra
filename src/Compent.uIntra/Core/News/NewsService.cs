@@ -1,38 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
-using Compent.Uintra.Core.Helpers;
-using Compent.Uintra.Core.Search.Entities;
-using Compent.Uintra.Core.UserTags.Indexers;
-using Uintra.CentralFeed;
-using Uintra.Comments;
-using Uintra.Core;
-using Uintra.Core.Activity;
-using Uintra.Core.Caching;
-using Uintra.Core.Extensions;
-using Uintra.Core.LinkPreview;
-using Uintra.Core.Links;
-using Uintra.Core.Location;
-using Uintra.Core.Media;
-using Uintra.Core.TypeProviders;
-using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
-using Uintra.Groups;
-using Uintra.Likes;
-using Uintra.News;
-using Uintra.Notification;
-using Uintra.Notification.Base;
-using Uintra.Notification.Configuration;
-using Uintra.Search;
-using Uintra.Subscribe;
-using Uintra.Tagging.UserTags;
+using Compent.uIntra.Core.Helpers;
+using Compent.uIntra.Core.Search.Entities;
+using Compent.uIntra.Core.UserTags.Indexers;
+using Extensions;
+using uIntra.CentralFeed;
+using uIntra.Comments;
+using uIntra.Core;
+using uIntra.Core.Activity;
+using uIntra.Core.Caching;
+using uIntra.Core.Extensions;
+using uIntra.Core.Links;
+using uIntra.Core.Location;
+using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
+using uIntra.Groups;
+using uIntra.Likes;
+using uIntra.News;
+using uIntra.Notification;
+using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
+using uIntra.Search;
+using uIntra.Subscribe;
+using uIntra.Tagging.UserTags;
 
-namespace Compent.Uintra.Core.News
+namespace Compent.uIntra.Core.News
 {
     public class NewsService : NewsServiceBase<Entities.News>,
         INewsService<Entities.News>,
         IFeedItemService,
+        ICommentableService,
+        ILikeableService,
         INotifyableService,
         IIndexer
     {
@@ -45,13 +46,15 @@ namespace Compent.Uintra.Core.News
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
+        private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly IFeedTypeProvider _centralFeedTypeProvider;
+        private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
         private readonly IUserTagService _userTagService;
         private readonly IActivityLocationService _activityLocationService;
-        private readonly IGroupService _groupService;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -65,15 +68,16 @@ namespace Compent.Uintra.Core.News
             IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
+            IFeedTypeProvider centralFeedTypeProvider,
+            ISearchableTypeProvider searchableTypeProvider,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
             INotifierDataHelper notifierDataHelper,
             IActivityLocationService activityLocationService,
-            IUserTagService userTagService,
-            IActivityLinkPreviewService activityLinkPreviewService, IGroupService groupService)
-            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService)
+            IUserTagService userTagService)
+            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService, activityLocationService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -84,24 +88,26 @@ namespace Compent.Uintra.Core.News
             _mediaHelper = mediaHelper;
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
+            _activityTypeProvider = activityTypeProvider;
+            _centralFeedTypeProvider = centralFeedTypeProvider;
+            _searchableTypeProvider = searchableTypeProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
             _userTagService = userTagService;
-            _groupService = groupService;
             _activityLocationService = activityLocationService;
         }
 
-        protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(Type) };
-        public override Enum Type => IntranetActivityTypeEnum.News;
+        protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(ActivityType) };
+        public override IIntranetType ActivityType => _activityTypeProvider.Get((int)IntranetActivityTypeEnum.News);
 
         public MediaSettings GetMediaSettings()
         {
-            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.NewsContent);
+            return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.NewsContent.ToInt());
         }
 
-        public override bool CanEdit(IIntranetActivity activity)
+        public override bool CanEdit(IIntranetActivity cached)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
 
@@ -111,10 +117,10 @@ namespace Compent.Uintra.Core.News
                 return true;
             }
 
-            var ownerId = Get(activity.Id).OwnerId;
+            var ownerId = Get(cached.Id).OwnerId;
             var isOwner = ownerId == currentUser.Id;
 
-            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, Type, IntranetActivityActionEnum.Edit);
+            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, IntranetActivityActionEnum.Edit);
             return isOwner && isUserHasPermissions;
         }
 
@@ -122,7 +128,7 @@ namespace Compent.Uintra.Core.News
         {
             return new FeedSettings
             {
-                Type = CentralFeedTypeEnum.News,
+                Type = _centralFeedTypeProvider.Get(CentralFeedTypeEnum.News.ToInt()),
                 Controller = "News",
                 HasSubscribersFilter = false,
                 HasPinnedFilter = true,
@@ -135,11 +141,8 @@ namespace Compent.Uintra.Core.News
             return items;
         }
 
-        private IOrderedEnumerable<Entities.News> GetOrderedActualItems()
-        {
-            var items = GetManyActual().OrderByDescending(i => i.PublishDate);
-            return items;
-        }
+        private IOrderedEnumerable<Entities.News> GetOrderedActualItems() =>
+            GetManyActual().OrderByDescending(i => i.PublishDate);
 
         protected override void MapBeforeCache(IList<Entities.News> cached)
         {
@@ -160,14 +163,11 @@ namespace Compent.Uintra.Core.News
             FillIndex();
         }
 
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected override Entities.News UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
-
-        public override Entities.News UpdateActivityCache(Guid id)
+        protected override Entities.News UpdateCachedEntity(Guid id)
         {
             var cachedNews = Get(id);
-            var news = base.UpdateActivityCache(id);
-            if (IsInCache(news) && (news.GroupId is null || _groupService.IsActivityFromActiveGroup(news)))
+            var news = base.UpdateCachedEntity(id);
+            if (IsInCache(news))
             {
                 _activityIndex.Index(Map(news));
                 _documentIndexer.Index(news.MediaIds);
@@ -182,7 +182,49 @@ namespace Compent.Uintra.Core.News
             return null;
         }
 
-        public void Notify(Guid entityId, Enum notificationType)
+        public CommentModel CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        {
+            var comment = _commentsService.Create(userId, activityId, text, parentId);
+            UpdateCachedEntity(comment.ActivityId);
+            return comment;
+        }
+
+        public void UpdateComment(Guid id, string text)
+        {
+            var comment = _commentsService.Update(id, text);
+            UpdateCachedEntity(comment.ActivityId);
+        }
+
+        public void DeleteComment(Guid id)
+        {
+            var comment = _commentsService.Get(id);
+            _commentsService.Delete(id);
+            UpdateCachedEntity(comment.ActivityId);
+        }
+
+        public ICommentable GetCommentsInfo(Guid activityId)
+        {
+            return Get(activityId);
+        }
+
+        public ILikeable AddLike(Guid userId, Guid activityId)
+        {
+            _likesService.Add(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public ILikeable RemoveLike(Guid userId, Guid activityId)
+        {
+            _likesService.Remove(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public IEnumerable<LikeModel> GetLikes(Guid activityId)
+        {
+            return Get(activityId).Likes;
+        }
+
+        public void Notify(Guid entityId, IIntranetType notificationType)
         {
             var notifierData = GetNotifierData(entityId, notificationType);
             if (notifierData != null)
@@ -195,23 +237,25 @@ namespace Compent.Uintra.Core.News
         {
             var activities = GetAll().Where(IsInCache);
             var searchableActivities = activities.Select(Map);
-            _activityIndex.DeleteByType(UintraSearchableTypeEnum.News);
+
+            var seachableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.News.ToInt());
+            _activityIndex.DeleteByType(seachableType);
             _activityIndex.Index(searchableActivities);
         }
 
-        private NotifierData GetNotifierData(Guid entityId, Enum notificationType)
+        private NotifierData GetNotifierData(Guid entityId, IIntranetType notificationType)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
 
             var data = new NotifierData
             {
                 NotificationType = notificationType,
-                ActivityType = Type
+                ActivityType = ActivityType
             };
 
-            switch (notificationType)
+            switch (notificationType.Id)
             {
-                case NotificationTypeEnum.ActivityLikeAdded:
+                case (int)NotificationTypeEnum.ActivityLikeAdded:
                     {
                         var news = Get(entityId);
                         data.ReceiverIds = news.OwnerId.ToEnumerable();
@@ -219,7 +263,7 @@ namespace Compent.Uintra.Core.News
                     }
                     break;
 
-                case NotificationTypeEnum.CommentLikeAdded:
+                case (int)NotificationTypeEnum.CommentLikeAdded:
                     {
                         var comment = _commentsService.Get(entityId);
                         var news = Get(comment.ActivityId);
@@ -231,8 +275,8 @@ namespace Compent.Uintra.Core.News
                     }
                     break;
 
-                case NotificationTypeEnum.CommentAdded:
-                case NotificationTypeEnum.CommentEdited:
+                case (int)NotificationTypeEnum.CommentAdded:
+                case (int)NotificationTypeEnum.CommentEdited:
                     {
                         var comment = _commentsService.Get(entityId);
                         var news = Get(comment.ActivityId);
@@ -241,7 +285,7 @@ namespace Compent.Uintra.Core.News
                     }
                     break;
 
-                case NotificationTypeEnum.CommentReplied:
+                case (int)NotificationTypeEnum.CommentReplied:
                     {
                         var comment = _commentsService.Get(entityId);
                         var news = Get(comment.ActivityId);

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
-using Uintra.Core.Configuration;
-using Uintra.Notification.Exceptions;
+using Extensions;
+using uIntra.Core.Configuration;
+using uIntra.Notification.Exceptions;
 
-namespace Uintra.Notification.Configuration
+namespace uIntra.Notification.Configuration
 {
     public class NotificationConfigurationProvider : ConfigurationProvider<NotificationConfiguration>
     {

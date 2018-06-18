@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Uintra.Core.Utils
+namespace uIntra.Core.Utils
 {
     public interface IEmbeddedResourceService
     {

@@ -1,7 +1,6 @@
-﻿@using Compent.Extensions
-@using Uintra.Core.Extensions
-@using Uintra.Search
-@model Compent.Uintra.Core.Search.Models.UintraSearchResultsOverviewViewModel
+﻿@using uIntra.Core.Extensions
+@using uIntra.Search
+@model Compent.uIntra.Core.Search.Models.UintraSearchResultsOverviewViewModel
 
 @{
     var queryLabel = string.Format(Html.Localize("SearchResult.YouSearchedFor.lbl"), Model.Query);
@@ -18,12 +17,10 @@
         <a class="search-result__item-link" href="@result.Url"></a>
 
         <h2 class="search-result__item-title">@Html.Raw(result.Title)</h2>
-       
-        @if (result.IsPinned)
+        
+        @if (result.IsPinned || result.IsPinActual)
         {
-            <span class="@(result.IsPinActual ? "_pinned" : string.Empty)">
-                <span class="pinned__item">@Html.Localize("Activity.Pinned.lbl")</span>
-            </span>
+            <span class="pinned__item">@Html.Localize("NewsItemView.Pinned.lbl")</span>
         }
 
         @if (result.PanelContent.Any())
@@ -37,12 +34,6 @@
         {
             <div class="search-result__item-teaser">@Html.Raw(result.Description.CropText(SearchConstants.Global.FragmentSize))</div>
         }
-        
-        @if (result.Email.HasValue())
-        {
-            <div>@Html.Raw(result.Email)</div>
-        }
-
         @if (result.TagsHighlighted)
         {
             foreach (var tag in result.UserTagNames)

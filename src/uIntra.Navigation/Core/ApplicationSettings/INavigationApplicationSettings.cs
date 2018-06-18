@@ -1,8 +1,7 @@
-﻿namespace Uintra.Navigation
+﻿namespace uIntra.Navigation
 {
     public interface INavigationApplicationSettings
     {
         int MyLinksBulletinsTitleLength { get; }
     }
 }
-    

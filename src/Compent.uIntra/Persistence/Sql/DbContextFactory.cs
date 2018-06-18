@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity.Infrastructure;
 
-namespace Compent.Uintra.Persistence.Sql
+namespace Compent.uIntra.Persistence.Sql
 {
     public class DbContextFactory : IDbContextFactory<DbObjectContext>
     {

@@ -2,31 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using Compent.CommandBus;
-using Uintra.Core.Extensions;
-using Uintra.Core.User;
-using Uintra.Groups.CommandBus;
+using uIntra.Core.Extensions;
+using uIntra.Core.User;
 using Umbraco.Web.WebApi;
 
-namespace Uintra.Groups.Dashboard
+namespace uIntra.Groups.Dashboard
 {
     public abstract class GroupsSectionControllerBase : UmbracoAuthorizedApiController
     {
         private readonly IGroupService _groupsService;
         private readonly IGroupLinkProvider _groupLinkProvider;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        private readonly ICommandPublisher _commandPublisher;
 
-        protected GroupsSectionControllerBase(
-            IGroupService groupsService,
+        protected GroupsSectionControllerBase(IGroupService groupsService,
             IGroupLinkProvider groupLinkProvider,
-            IIntranetUserService<IIntranetUser> intranetUserService,
-            ICommandPublisher commandPublisher)
+            IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _groupsService = groupsService;
             _groupLinkProvider = groupLinkProvider;
             _intranetUserService = intranetUserService;
-            _commandPublisher = commandPublisher;
         }
 
         public virtual IEnumerable<BackofficeGroupViewModel> GetAll(bool showHidden, string field, Direction direction)
@@ -50,13 +44,11 @@ namespace Uintra.Groups.Dashboard
         {
             if (hide)
             {
-                var command = new HideGroupCommand(groupId);
-                _commandPublisher.Publish(command);
+                _groupsService.Hide(groupId);
             }
             else
             {
-                var command = new UnhideGroupCommand(groupId);
-                _commandPublisher.Publish(command);
+                _groupsService.Unhide(groupId);
             }
         }
 

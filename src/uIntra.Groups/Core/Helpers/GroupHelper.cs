@@ -1,7 +1,7 @@
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Uintra.Groups
+namespace uIntra.Groups
 {
     public class GroupHelper : IGroupHelper
     {

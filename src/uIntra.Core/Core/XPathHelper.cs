@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Uintra.Core
+namespace uIntra.Core
 {
     public static class XPathHelper
     {

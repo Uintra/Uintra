@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using Compent.Uintra.Core.PagePromotion.Models;
-using Uintra.CentralFeed;
-using Uintra.Core.Extensions;
-using Uintra.Core.PagePromotion;
+using Compent.uIntra.Core.PagePromotion.Models;
+using uIntra.CentralFeed;
+using uIntra.Core.Extensions;
+using uIntra.Core.PagePromotion;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Compent.Uintra.Core.PagePromotion
+namespace Compent.uIntra.Core.PagePromotion
 {
     public class PagePromotionAutoMapperProfile : Profile
     {

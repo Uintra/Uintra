@@ -1,5 +1,5 @@
 ﻿
-namespace Compent.Uintra.Core.Search.Entities
+namespace Compent.uIntra.Core.Search.Entities
 {
     public class SearchScoreModel
     {

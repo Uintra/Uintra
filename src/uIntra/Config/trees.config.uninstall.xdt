@@ -3,5 +3,4 @@
 <trees xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <add initialize="true" sortOrder="0" alias="SentMailsTree" application="SentMails" title="Sent Mails" iconClosed="icon-folder" iconOpen="icon-folder-open" type="EmailWorker.Web.Controllers.UmbracoControllers.SentMailsTreeController, EmailWorker.Web" xdt:Locator="Condition(@alias='SentMailsTree')" xdt:Transform="Remove"/>
   <add initialize="true" sortOrder="0" alias="LocalizationTree" application="Localization" title="Localization" iconClosed="icon-folder" iconOpen="icon-folder-open" type="Localization.Umbraco.TreeControllers.LocalizationTreeController, Localization.Umbraco" xdt:Locator="Condition(@alias='LocalizationTree')" xdt:Transform="Remove"/>
-  <add alias="NotificationSettingsTree" xdt:Locator="Match(alias)" xdt:Transform="Remove"/>
 </trees>

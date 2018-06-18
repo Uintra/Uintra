@@ -1,6 +1,6 @@
-﻿using Uintra.Core.Web;
+﻿using uIntra.Core.Web;
 
-namespace Compent.Uintra.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class UserController : UserControllerBase
     {

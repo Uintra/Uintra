@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Uintra.Core.Activity;
-using Uintra.Core.Jobs.Models;
+using uIntra.Core.Activity;
+using uIntra.Core.Jobs.Models;
 
-namespace Uintra.Core.Jobs
+namespace uIntra.Core.Jobs
 {
     public class UpdateActivityCacheJob : BaseIntranetJob
     {
@@ -27,9 +27,8 @@ namespace Uintra.Core.Jobs
                 foreach (var activity in intranetActivities)
                 {
                     if (activity.IsPinActual && !service.IsPinActual(activity))
-                    {
-                        var cacheableIntranetActivityService = (ICacheableIntranetActivityService<IIntranetActivity>)service;
-                        cacheableIntranetActivityService.UpdateActivityCache(activity.Id);
+                    {                        
+                        service.Save(activity);
                     }
                 }
             }

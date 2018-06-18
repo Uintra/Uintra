@@ -1,17 +1,15 @@
-﻿using Uintra.Core.TypeProviders;
-using Uintra.Notification;
-using Uintra.Notification.Web;
+﻿using uIntra.Core.TypeProviders;
+using uIntra.Notification;
+using uIntra.Notification.Web;
 
-namespace Compent.Uintra.Controllers.Api
+namespace Compent.uIntra.Controllers.Api
 {
     public class NotificationSettingsApiController : NotificationSettingsApiControllerBase
     {
         public NotificationSettingsApiController(
             INotificationSettingsService notificationSettingsService,
             IActivityTypeProvider activityTypeProvider,
-            INotificationTypeProvider notificationTypeProvider,
-            INotifierTypeProvider notifierTypeProvider) 
-            : base(notificationSettingsService, activityTypeProvider, notificationTypeProvider, notifierTypeProvider)
+            INotificationTypeProvider notificationTypeProvider) : base(notificationSettingsService, activityTypeProvider, notificationTypeProvider)
         {
         }
     }

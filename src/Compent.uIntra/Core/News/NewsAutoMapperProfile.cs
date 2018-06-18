@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using Compent.Uintra.Core.News.Models;
-using Uintra.CentralFeed;
-using Uintra.Core.Activity;
-using Uintra.Groups;
-using Uintra.News;
-using Uintra.News.Dashboard;
+using Compent.uIntra.Core.News.Models;
+using uIntra.CentralFeed;
+using uIntra.Core.Activity;
+using uIntra.Groups;
+using uIntra.News;
+using uIntra.News.Dashboard;
 
-namespace Compent.Uintra.Core.News
+namespace Compent.uIntra.Core.News
 {
     public class NewsAutoMapperProfile : Profile
     {

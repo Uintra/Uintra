@@ -1,7 +1,7 @@
 ﻿using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Uintra.Core.Extensions
+namespace uIntra.Core.Extensions
 {
     public static class UmbracoContextExtensions
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using Uintra.Core.TypeProviders;
-using Uintra.Core.User;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
     public class NotificationViewModel
     {
@@ -10,7 +10,7 @@ namespace Uintra.Notification
         public string Date { get; set; }
         public bool IsNotified { get; set; }
         public bool IsViewed { get; set; }
-        public Enum Type { get; set; }
+        public IIntranetType Type { get; set; }
         public IIntranetUser Notifier { get; set; }
         public dynamic Value { get; set; }
     }

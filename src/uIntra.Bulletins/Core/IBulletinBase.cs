@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Uintra.Core.Activity;
+using uIntra.Core.Activity;
 
-namespace Uintra.Bulletins
+namespace uIntra.Bulletins
 {
     public interface IBulletinBase : IIntranetActivity
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra.Navigation.Exceptions
+namespace uIntra.Navigation.Exceptions
 {
     public class MyLinksDuplicatedException : ApplicationException
     {

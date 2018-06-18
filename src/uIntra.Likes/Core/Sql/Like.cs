@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Uintra.Core.Persistence;
+using uIntra.Core.Persistence;
 
-namespace Uintra.Likes
+namespace uIntra.Likes
 {
-    [UintraTable("Like")]
+    [uIntraTable("Like")]
     public class Like : SqlEntity<Guid>
     {
         [Key]
@@ -13,7 +13,7 @@ namespace Uintra.Likes
         public override Guid Id { get; set; }
 
         [Required]
-        [Index("UQ_Like_UserId_EntityId", 1, IsUnique = true)]
+        [System.ComponentModel.DataAnnotations.Schema.Index("UQ_Like_UserId_EntityId", 1, IsUnique = true)]
         public Guid UserId { get; set; }
 
         [Required]

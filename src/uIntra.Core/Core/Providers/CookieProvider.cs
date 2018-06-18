@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web;
-using Compent.Extensions;
+using Extensions;
 
-namespace Uintra.Core
+namespace uIntra.Core
 {
     public class CookieProvider : ICookieProvider
     {

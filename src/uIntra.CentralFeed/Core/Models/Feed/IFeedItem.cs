@@ -1,6 +1,7 @@
 ﻿using System;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public interface IFeedItem
     {
@@ -8,7 +9,7 @@ namespace Uintra.CentralFeed
 
         Guid OwnerId { get; set; }
 
-        Enum Type { get; }
+        IIntranetType Type { get; }
 
         DateTime PublishDate { get; }
 

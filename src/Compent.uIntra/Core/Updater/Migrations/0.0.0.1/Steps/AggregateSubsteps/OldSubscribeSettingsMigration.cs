@@ -1,10 +1,10 @@
 ﻿using System.Web.Mvc;
-using Compent.Extensions;
-using Uintra.Core.Activity;
-using Uintra.Core.Extensions;
-using Uintra.Subscribe;
+using Extensions;
+using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
+using uIntra.Subscribe;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
+namespace Compent.uIntra.Installer.Migrations.OldSubscribeSettings
 {
     public class OldSubscribeSettingsMigration
     {

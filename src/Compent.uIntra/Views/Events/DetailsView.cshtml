@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc.Html
-@using Compent.Extensions
-@using Uintra.Core.Extensions
-@model Compent.Uintra.Core.Events.EventExtendedViewModel
+@using Extensions
+@using uIntra.Core.Extensions
+@model Compent.uIntra.Core.Events.EventExtendedViewModel
 
 <section class="content">
     <div class="feed__btns clearfix">
@@ -41,7 +41,8 @@
                 {
                     <div class="location">
                         <strong class="location__title">@Model.LocationTitle</strong>
-                        <a href="http://maps.google.co.uk/maps?q=@Model.Location.Address" target="blank">@Model.Location.Address</a>
+                        <span class="location__info">@Model.Location.Address</span>
+                        <span class="location__info">@Model.Location.ShortAddress</span>
                     </div>
                 }
             </div>

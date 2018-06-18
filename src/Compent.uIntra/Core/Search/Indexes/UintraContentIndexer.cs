@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Compent.Uintra.Core.Search.Entities;
-using Uintra.Core;
-using Uintra.Core.Extensions;
-using Uintra.Core.Grid;
-using Uintra.Search;
-using Uintra.Tagging.UserTags;
-using Uintra.Tagging.UserTags.Models;
+using Compent.uIntra.Core.Search.Entities;
+using uIntra.Core;
+using uIntra.Core.Extensions;
+using uIntra.Core.Grid;
+using uIntra.Search;
+using uIntra.Tagging.UserTags;
+using uIntra.Tagging.UserTags.Models;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using static Compent.Uintra.Core.Search.Indexes.UintraGridEditorConstants;
-using static Uintra.Core.Constants.GridEditorConstants;
+using static Compent.uIntra.Core.Search.Indexes.UintraGridEditorConstants;
+using static uIntra.Core.Constants.GridEditorConstants;
 
-namespace Compent.Uintra.Core.Search.Indexes
+namespace Compent.uIntra.Core.Search.Indexes
 {
     public class UintraContentIndexer : IIndexer, IContentIndexer
     {

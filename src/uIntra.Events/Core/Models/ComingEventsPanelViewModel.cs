@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Uintra.Events
+namespace uIntra.Events
 {
     public class ComingEventsPanelViewModel
     {

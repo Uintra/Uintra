@@ -1,41 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Uintra.Core.Caching;
-using Uintra.Core.Extensions;
-using Uintra.Core.LinkPreview;
-using Uintra.Core.Location;
-using Uintra.Core.Media;
-using Uintra.Core.TypeProviders;
+using uIntra.Core.Caching;
+using uIntra.Core.Extensions;
+using uIntra.Core.Location;
+using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.Core.Activity
+namespace uIntra.Core.Activity
 {
-    public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity>, ICacheableIntranetActivityService<TActivity> where TActivity : IIntranetActivity
+    public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
-        public abstract Enum Type { get; }
+        public abstract IIntranetType ActivityType { get; }
         private const string CacheKey = "ActivityCache";
-        private string ActivityCacheSuffix => $"{Type.ToString()}";
+        private string ActivityCacheSuffix => $"{ActivityType.Id}";
         private readonly IIntranetActivityRepository _activityRepository;
         private readonly ICacheService _cache;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IActivityLocationService _activityLocationService;
-        private readonly IActivityLinkPreviewService _activityLinkPreviewService;
 
         protected IntranetActivityService(
             IIntranetActivityRepository activityRepository,
             ICacheService cache,
             IActivityTypeProvider activityTypeProvider,
             IIntranetMediaService intranetMediaService,
-            IActivityLocationService activityLocationService,
-            IActivityLinkPreviewService activityLinkPreviewService)
+            IActivityLocationService activityLocationService)
         {
             _activityRepository = activityRepository;
             _cache = cache;
             _activityTypeProvider = activityTypeProvider;
             _intranetMediaService = intranetMediaService;
             _activityLocationService = activityLocationService;
-            _activityLinkPreviewService = activityLinkPreviewService;
         }
 
         public TActivity Get(Guid id)
@@ -76,9 +72,9 @@ namespace Uintra.Core.Activity
             _cache.Set(CacheKey, items, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
         }
 
-        public virtual bool IsActual(IIntranetActivity activity)
+        public virtual bool IsActual(IIntranetActivity cachedActivity)
         {
-            return !activity.IsHidden;
+            return !cachedActivity.IsHidden;
         }
 
         public virtual bool IsPinActual(IIntranetActivity activity)
@@ -97,17 +93,16 @@ namespace Uintra.Core.Activity
 
         protected virtual Guid Create(IIntranetActivity activity, Action<Guid> afterCreateAction)
         {
-            var newActivity = new IntranetActivityEntity { Type = Type.ToInt(), JsonData = activity.ToJson() };
+            var newActivity = new IntranetActivityEntity { Type = ActivityType.Id, JsonData = activity.ToJson() };
             _activityRepository.Create(newActivity);
             var newActivityId = newActivity.Id;
 
             _activityLocationService.Set(newActivityId, activity.Location);
             _intranetMediaService.Create(newActivityId, activity.MediaIds.JoinToString());
-            AssignLinkPreview(newActivityId, activity);
 
             afterCreateAction?.Invoke(newActivityId);
 
-            UpdateActivityCache(newActivityId);
+            UpdateCachedEntity(newActivityId);
             return newActivityId;
         }
 
@@ -121,20 +116,18 @@ namespace Uintra.Core.Activity
             _activityLocationService.Set(activity.Id, activity.Location);
             _activityRepository.Update(entity);
             _intranetMediaService.Update(activity.Id, activity.MediaIds.JoinToString());
-            AssignLinkPreview(activity);
 
             afterSaveAction?.Invoke(activity);
-            UpdateActivityCache(activity.Id);
+            UpdateCachedEntity(activity.Id);
         }
 
         public virtual void Delete(Guid id)
         {
             _activityLocationService.DeleteForActivity(id);
-            _activityLinkPreviewService.RemovePreviewRelations(id);
             _activityRepository.Delete(id);
             _intranetMediaService.Delete(id);
 
-            UpdateActivityCache(id);
+            UpdateCachedEntity(id);
         }
 
         public bool CanEdit(Guid id)
@@ -143,7 +136,7 @@ namespace Uintra.Core.Activity
             return CanEdit(cached);
         }
 
-        public abstract bool CanEdit(IIntranetActivity activity);
+        public abstract bool CanEdit(IIntranetActivity cached);
 
         protected IEnumerable<TActivity> GetAllFromCache()
         {
@@ -151,10 +144,7 @@ namespace Uintra.Core.Activity
             return activities;
         }
 
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected virtual TActivity UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
-
-        public virtual TActivity UpdateActivityCache(Guid id)
+        protected virtual TActivity UpdateCachedEntity(Guid id)
         {
             var activity = GetFromSql(id);
             var cached = GetAll(true);
@@ -171,33 +161,6 @@ namespace Uintra.Core.Activity
             return activity;
         }
 
-        protected virtual void AssignLinkPreview(Guid newActivityId, IIntranetActivity activity)
-        {
-            if (activity is IHasLinkPreview linkPreview)
-            {
-                if (linkPreview.LinkPreviewId.HasValue)
-                {
-                    _activityLinkPreviewService.AddLinkPreview(newActivityId, linkPreview.LinkPreviewId.Value);
-                }
-            }
-        }
-
-        protected virtual void AssignLinkPreview(IIntranetActivity activity)
-        {
-            if (activity is IHasLinkPreview linkPreview)
-            {
-                if (!linkPreview.LinkPreviewId.HasValue)
-                {
-                    _activityLinkPreviewService.RemovePreviewRelations(activity.Id);
-                }
-
-                if (linkPreview.LinkPreviewId.HasValue)
-                {
-                    _activityLinkPreviewService.UpdateLinkPreview(activity.Id, linkPreview.LinkPreviewId.Value);
-                }
-            }
-        }
-
         private TActivity GetFromSql(Guid id)
         {
             var activityEntity = _activityRepository.Get(id);
@@ -212,7 +175,7 @@ namespace Uintra.Core.Activity
 
         private IList<TActivity> GetAllFromSql()
         {
-            var activities = _activityRepository.GetMany(Type).Select(MapInternal).ToList();
+            var activities = _activityRepository.GetMany(ActivityType).Select(MapInternal).ToList();
             MapBeforeCache(activities.ToList());
             return activities;
         }
@@ -221,7 +184,7 @@ namespace Uintra.Core.Activity
         {
             var cachedActivity = activity.JsonData.Deserialize<TActivity>();
             cachedActivity.Id = activity.Id;
-            cachedActivity.Type = _activityTypeProvider[activity.Type];
+            cachedActivity.Type = _activityTypeProvider.Get(activity.Type);
             cachedActivity.CreatedDate = activity.CreatedDate;
             cachedActivity.ModifyDate = activity.ModifyDate;
             cachedActivity.IsPinActual = IsPinActual(cachedActivity);

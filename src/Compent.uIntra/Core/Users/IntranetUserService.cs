@@ -1,44 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Uintra.Core.Search.Entities;
-using Compent.Uintra.Core.Search.Indexes;
-using Compent.Extensions;
-using Uintra.Core.Caching;
-using Uintra.Core.Extensions;
-using Uintra.Core.Persistence;
-using Uintra.Core.User;
-using Uintra.Groups;
-using Uintra.Groups.Sql;
-using Uintra.Search;
-using Uintra.Tagging.UserTags;
-using Uintra.Users;
+using Compent.uIntra.Core.Search.Entities;
+using Compent.uIntra.Core.Search.Indexes;
+using uIntra.Core.Caching;
+using uIntra.Core.Extensions;
+using uIntra.Core.Persistence;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
+using uIntra.Groups.Sql;
+using uIntra.Search;
+using uIntra.Tagging.UserTags;
+using uIntra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace Compent.Uintra.Core.Users
+namespace Compent.uIntra.Core.Users
 {
     public class IntranetUserService<T> : IntranetUserServiceBase<T>, IIndexer
         where T : IntranetUser, new()
     {
-        private readonly ISqlRepository<GroupMember> _groupMemberRepository;
+        private readonly ISqlRepository<GroupMember> _groupMemberRepository; //TODO use service instead
         private readonly IElasticUserIndex _elasticUserIndex;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IUserTagService _userTagService;
 
         public IntranetUserService(
             IMemberService memberService,
-            UmbracoContext umbracoContext, 
+            UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
+            IIntranetRoleTypeProvider intranetRoleTypeProvider,
             ICacheService cacheService,
             ISqlRepository<GroupMember> groupMemberRepository,
             IElasticUserIndex elasticUserIndex,
             IIntranetUserContentProvider intranetUserContentProvider,
-            IUserTagService userTagService
-            )
-            : base(memberService, umbracoContext, umbracoHelper, roleService, cacheService)
+            IUserTagService userTagService)
+            : base(memberService, umbracoContext, umbracoHelper, roleService, intranetRoleTypeProvider, cacheService)
         {
             _groupMemberRepository = groupMemberRepository;
             _elasticUserIndex = elasticUserIndex;

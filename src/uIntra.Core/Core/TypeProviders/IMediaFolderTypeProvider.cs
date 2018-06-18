@@ -1,6 +1,6 @@
-﻿namespace Uintra.Core.TypeProviders
+﻿namespace uIntra.Core.TypeProviders
 {
-    public interface IMediaFolderTypeProvider : IEnumTypeProvider
+    public interface IMediaFolderTypeProvider : IIntranetTypeProvider
     {
     }
 }

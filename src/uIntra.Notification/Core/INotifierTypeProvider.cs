@@ -1,8 +1,8 @@
-﻿using Uintra.Core.TypeProviders;
+﻿using uIntra.Core.TypeProviders;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
-    public interface INotifierTypeProvider : IEnumTypeProvider
+    public interface INotifierTypeProvider : IIntranetTypeProvider
     {
     }
 }

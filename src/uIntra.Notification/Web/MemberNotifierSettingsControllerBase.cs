@@ -1,9 +1,9 @@
 ﻿using System.Web.Http;
-using Uintra.Core.User;
-using Uintra.Notification.Configuration;
+using uIntra.Core.User;
+using uIntra.Notification.Configuration;
 using Umbraco.Web.WebApi;
 
-namespace Uintra.Notification.Web
+namespace uIntra.Notification.Web
 {
     public class MemberNotifierSettingsController : UmbracoApiController
     {

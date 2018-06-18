@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Web.Mvc;
 
-namespace Uintra.Core.ModelBinders
+namespace uIntra.Core.ModelBinders
 {
     public class DateTimeBinder : ICustomModelBinder
     {
@@ -17,7 +17,8 @@ namespace Uintra.Core.ModelBinders
                 return null;
             }
 
-            if (DateTime.TryParseExact(value.AttemptedValue, new[] { "yyyy-MM-ddTHH:mm:ss.fffZ", "yyyy-MM-ddTHH:mm:ss.fffzzz" }, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result))
+            DateTime result;
+            if (DateTime.TryParseExact(value.AttemptedValue, new[] { "yyyy-MM-ddTHH:mm:ss.fffZ", "yyyy-MM-ddTHH:mm:ss.fffzzz" }, CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
             {
                 return result;
             }

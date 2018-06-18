@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra.Core
+namespace uIntra.Core
 {
     public class TimezoneOffsetProvider : ITimezoneOffsetProvider
     {

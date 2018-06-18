@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra.Notification.Base
+namespace uIntra.Notification.Base
 {
     public interface IReminderable
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Uintra.Groups
+namespace uIntra.Groups
 {
     public interface IGroupable
     {

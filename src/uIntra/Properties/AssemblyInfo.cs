@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Uintra")]
-[assembly: AssemblyDescription("This package contains all the NuGet packages for Uintra. All the different packages can be accessed here and possibly changed by a developer.")]
+[assembly: AssemblyTitle("uIntra")]
+[assembly: AssemblyDescription("This package contains all the NuGet packages for uIntra. All the different packages can be accessed here and possibly changed by a developer.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("compent.dk")]
-[assembly: AssemblyProduct("Uintra")]
-[assembly: AssemblyCopyright("Copyright © compent.dk 2018")]
+[assembly: AssemblyProduct("uIntra")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,5 +30,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
+//[assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: AssemblyVersion("0.3.1.0")]
+[assembly: AssemblyVersion("0.2.26.0")]

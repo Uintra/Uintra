@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <NotFoundHandlers xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <notFound assembly="Uintra" type="NotFoundHandler" xdt:Locator="Match(assembly,type)" xdt:Transform="Remove" />
+  <notFound assembly="uIntra" namespace="Compent.uIntra.Core.Handlers" type="NotFoundHandler" xdt:Locator="Condition(@type='NotFoundHandler')" xdt:Transform="Remove" />
 </NotFoundHandlers>

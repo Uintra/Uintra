@@ -1,4 +1,4 @@
-﻿namespace Uintra.Notification.Configuration
+﻿namespace uIntra.Notification.Configuration
 {
     /// <summary>
     /// Represents node in umbraco backoffice tree.

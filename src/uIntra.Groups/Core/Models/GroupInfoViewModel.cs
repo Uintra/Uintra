@@ -1,7 +1,7 @@
 ﻿using System;
-using Uintra.Core.User;
+using uIntra.Core.User;
 
-namespace Uintra.Groups
+namespace uIntra.Groups
 {
     public class GroupInfoViewModel
     {

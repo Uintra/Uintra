@@ -1,9 +1,9 @@
-﻿@using Uintra.Core.Extensions
-@model Uintra.Events.EventPreviewViewModel
+﻿@using uIntra.Core.Extensions
+@model uIntra.Events.EventPreviewViewModel
 
 <div class="block__item">
     <p>
-        @Html.Localize(Model.ActivityType.ToString())<br />
+        @Html.Localize(Model.ActivityType.Name)<br />
         @Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()
     </p>
     <h3 class="block__subtitle _clamp">

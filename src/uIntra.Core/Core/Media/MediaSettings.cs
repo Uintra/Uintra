@@ -1,4 +1,4 @@
-﻿namespace Uintra.Core.Media
+﻿namespace uIntra.Core.Media
 {
     public class MediaSettings
     {

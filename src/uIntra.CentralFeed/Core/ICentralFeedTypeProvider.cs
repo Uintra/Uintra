@@ -1,8 +1,8 @@
-﻿using Uintra.Core.TypeProviders;
+﻿using uIntra.Core.TypeProviders;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
-    public interface IFeedTypeProvider : IEnumTypeProvider
+    public interface IFeedTypeProvider : IIntranetTypeProvider
     {
     }
 }

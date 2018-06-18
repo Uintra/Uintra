@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public class FeedOverviewModel
     {
         public IEnumerable<ActivityFeedTabViewModel> Tabs { get; set; }
         public IEnumerable<ActivityFeedTabViewModel> TabsWithCreateUrl { get; set; }
-        public Enum CurrentType { get; set; }
+        public IIntranetType CurrentType { get; set; }
         public bool IsFiltersOpened { get; set; }
     }
 }

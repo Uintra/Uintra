@@ -1,22 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
-using Uintra.Core.Extensions;
+using Extensions;
+using uIntra.Core.Extensions;
+using uIntra.Core.TypeProviders;
 using Umbraco.Web;
 
-namespace Uintra.Core.Activity
+namespace uIntra.Core.Activity
 {
     public class ActivityPageHelper : IActivityPageHelper
     {
-        public Enum ActivityType { get; }
+        public IIntranetType ActivityType { get; }
 
         private readonly IEnumerable<string> _activityXPath;
         private readonly string[] _baseXPath;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _aliasProvider;
 
-        public ActivityPageHelper(Enum activityType, IEnumerable<string> baseXPath, UmbracoHelper umbracoHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
+        public ActivityPageHelper(IIntranetType activityType, IEnumerable<string> baseXPath, UmbracoHelper umbracoHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
         {
             _umbracoHelper = umbracoHelper;
             _aliasProvider = documentTypeAliasProvider;
@@ -41,10 +42,10 @@ namespace Uintra.Core.Activity
             return activityId.HasValue ? detailsPageUrl.AddIdParameter(activityId) : detailsPageUrl;
         }
 
-        public string GetCreatePageUrl() => 
+        public string GetCreatePageUrl() =>
             _aliasProvider
                 .GetCreatePage(ActivityType)
-                .Bind(createPage => createPage.Pipe(_activityXPath.Append).Pipe(GetPageUrl));
+                .Bind(createPage => createPage.Map(_activityXPath.Append).Map(GetPageUrl));
 
         public string GetEditPageUrl(Guid activityId)
         {
@@ -54,7 +55,7 @@ namespace Uintra.Core.Activity
 
         private string GetPageUrl(IEnumerable<string> xPath)
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(xPath.Where(x => x != null)))?.Url;
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(xPath))?.Url;
         }
     }
 }

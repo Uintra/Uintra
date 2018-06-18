@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Uintra.Core.Media;
+using uIntra.Core.Media;
+using uIntra.Notification.Configuration;
 
-namespace Uintra.Users
+namespace uIntra.Users
 {
     public class ProfileEditModel : IContentWithMediaCreateEditModel
     {
@@ -13,6 +14,6 @@ namespace Uintra.Users
 
         public int? MediaRootId { get; set; }
         public string NewMedia { get; set; }
-        public IDictionary<Enum, bool> MemberNotifierSettings { get; set; }
+        public IDictionary<NotifierTypeEnum, bool> MemberNotifierSettings { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Uintra.Search;
+using uIntra.Search;
 
-namespace Compent.Uintra.Core.Search.Entities
+namespace Compent.uIntra.Core.Search.Entities
 {
     public class SearchableUintraContent : SearchableContent,  ISearchibleTaggedActivity
     {

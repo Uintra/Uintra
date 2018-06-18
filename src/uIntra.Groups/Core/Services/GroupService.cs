@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Uintra.Core.Caching;
-using Uintra.Core.Extensions;
-using Uintra.Core.Persistence;
-using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
-using Uintra.Groups.Sql;
+using uIntra.Core.Caching;
+using uIntra.Core.Extensions;
+using uIntra.Core.Persistence;
+using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
+using uIntra.Groups.Sql;
 
-namespace Uintra.Groups
+namespace uIntra.Groups
 {
     public class GroupService : IGroupService
     {
@@ -111,9 +111,6 @@ namespace Uintra.Groups
             group.IsHidden = false;
             Edit(group);
         }
-
-        public bool IsActivityFromActiveGroup(IGroupActivity groupActivity) => 
-            groupActivity.GroupId.HasValue && !Get(groupActivity.GroupId.Value).IsHidden;
 
         private static DateTimeOffset GetCacheExpiration()
         {

@@ -3,11 +3,11 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using Uintra.Core.Activity;
-using Uintra.Core.Extensions;
-using Uintra.Core.TypeProviders;
+using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.Core.User.Permissions.Web
+namespace uIntra.Core.User.Permissions.Web
 {
     public class ContentRestrictedActionApiAttribute : ActionFilterAttribute
     {
@@ -25,7 +25,7 @@ namespace Uintra.Core.User.Permissions.Web
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
             var activityTypeProvider = HttpContext.Current.GetService<IActivityTypeProvider>();
 
-            var isUserHasAccess = permissionsService.IsCurrentUserHasAccess(activityTypeProvider[_activityTypeId], _action);
+            var isUserHasAccess = permissionsService.IsCurrentUserHasAccess(activityTypeProvider.Get(_activityTypeId), _action);
 
             if (!isUserHasAccess)
             {

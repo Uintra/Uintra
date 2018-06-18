@@ -1,16 +1,14 @@
 ﻿using AutoMapper;
 
-namespace Uintra.Comments
+namespace uIntra.Comments
 {
     public class CommentAutoMapperProfile : Profile
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<Comment, CommentModel>()
-                .ForMember(dst => dst.LinkPreview, o => o.Ignore());
+            Mapper.CreateMap<Comment, CommentModel>();
 
             Mapper.CreateMap<CommentModel, CommentViewModel>()
-                .ForMember(dst => dst.LinkPreview, o => o.Ignore())
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.CreatorProfileUrl, o => o.Ignore())
                 .ForMember(dst => dst.CanDelete, o => o.Ignore())

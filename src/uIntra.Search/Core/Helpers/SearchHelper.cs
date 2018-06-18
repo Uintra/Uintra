@@ -1,4 +1,4 @@
-﻿namespace Uintra.Search
+﻿namespace uIntra.Search
 {
     public static class SearchHelper
     {

@@ -1,11 +1,11 @@
-﻿using System;
-using Uintra.Notification.Base;
+﻿using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
     public interface INotifierService
     {
-        Enum Type { get;}
+        NotifierTypeEnum Type { get;}
         void Notify(NotifierData data);
     }
 }

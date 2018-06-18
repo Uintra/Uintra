@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.Uintra.Core.Search.Entities;
+using Compent.uIntra.Core.Search.Entities;
 
-namespace Compent.Uintra.Core.Search.Indexes
+namespace Compent.uIntra.Core.Search.Indexes
 {
     public interface IElasticUserIndex
     {

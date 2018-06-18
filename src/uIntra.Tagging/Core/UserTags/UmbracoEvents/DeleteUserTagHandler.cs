@@ -1,11 +1,11 @@
 ﻿using System.Linq;
-using Uintra.Core;
-using Uintra.Core.UmbracoEventServices;
+using uIntra.Core;
+using uIntra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace Uintra.Tagging.UserTags
+namespace uIntra.Tagging.UserTags
 {
     public class DeleteUserTagHandler : IUmbracoContentTrashedEventService
     {

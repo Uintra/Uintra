@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.Notification.Configuration
+namespace uIntra.Notification.Configuration
 {
     public class NotificationSettingsCategoryDto
     {
-        public Enum ActivityType { get; }
-        public IEnumerable<Enum> NotificationTypes { get; }
+        public IIntranetType ActivityType { get; }
+        public IEnumerable<IIntranetType> NotificationTypes { get; }
 
-        public NotificationSettingsCategoryDto(Enum activityType) : this(activityType, Enumerable.Empty<Enum>())
+        public NotificationSettingsCategoryDto(IIntranetType activityType) : this(activityType, Enumerable.Empty<IIntranetType>())
         {}
 
-        public NotificationSettingsCategoryDto(Enum activityType, IEnumerable<Enum> notificationTypes)
+        public NotificationSettingsCategoryDto(IIntranetType activityType, IEnumerable<IIntranetType> notificationTypes)
         {
             ActivityType = activityType;
             NotificationTypes = notificationTypes;

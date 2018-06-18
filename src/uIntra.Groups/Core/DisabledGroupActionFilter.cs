@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using Uintra.Core.Extensions;
-using Uintra.Groups.Constants;
+using uIntra.Core.Extensions;
+using uIntra.Groups.Constants;
 
-namespace Uintra.Groups
+namespace uIntra.Groups
 {
     public class DisabledGroupActionFilter : ActionFilterAttribute
     {
@@ -35,10 +35,6 @@ namespace Uintra.Groups
                 return sessionGroupValue.Value;
             }
             var group = _groupService.Get(groupId);
-            if (group == null)
-            {
-                return false;
-            }
             filterContext.HttpContext.Items[$"group_is_hidden_{groupId}"] = group.IsHidden;
             return group.IsHidden;
         }

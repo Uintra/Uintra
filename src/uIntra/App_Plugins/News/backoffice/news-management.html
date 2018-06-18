@@ -31,7 +31,7 @@
                 </tr>
             </thead>
             <tbody stop-propagation="click">
-                <tr ng-repeat="news in vm.newsList | filter: vm.filter track by news.id" ng-class="{'_unpublished' : news.isHidden, '_active' : vm.selectedIndex == vm.newsList.indexOf(news)}" ng-click="vm.selectNewsToEdit(news)">
+                <tr ng-repeat="news in vm.newsList | filter: vm.filter track by news.id" ng-class="{'_unpublished' : news.isHidden, '_active' : vm.selectedIndex == $index}" ng-click="vm.selectNewsToEdit(news, $index)">
                     <td class="_admin">{{news.id}}</td>
                     <td>{{news.title}}</td>
                     <td>{{news.publishDate | date: vm.dateFormat}}</td>
@@ -39,9 +39,9 @@
                     <td>{{news.createdDate | date: vm.dateFormat}}</td>
                     <td>{{news.modifyDate | date: vm.dateFormat}}</td>
                     <td>
-                        <input type="button" class="btn btn-warning" value="Unpublish" ng-hide="news.isHidden" ng-click="vm.unpublish(news); $event.stopPropagation();" />
-                        <input type="button" class="btn btn-success" value="Publish" ng-show="news.isHidden" ng-click="vm.publish(news); $event.stopPropagation();" />
-                        <input type="button" class="btn btn-danger" value="Delete" ng-click="vm.delete(news); $event.stopPropagation();" />
+                        <input type="button" class="btn btn-warning" value="Unpublish" ng-hide="news.isHidden" ng-click="vm.unpublish(news, $index); $event.stopPropagation();" />
+                        <input type="button" class="btn btn-success" value="Publish" ng-show="news.isHidden" ng-click="vm.publish(news, $index); $event.stopPropagation();" />
+                        <input type="button" class="btn btn-danger" value="Delete" ng-click="vm.delete(news, $index); $event.stopPropagation();" />
                     </td>
                 </tr>
                 <tr ng-click="vm.selectNewsToEdit(null, null)">
@@ -82,9 +82,6 @@
                     <h5 class="control-label">Unpublish date:</h5>
                     <date-picker model="vm.selected.unpublishDate" picker="vm.unpublishDatePicker" config="vm.config.publishDate"></date-picker>
                 </div>
-                
-                <h5 class="control-label">Location:</h5>
-                <location-edit model="vm.selected.location"></location-edit>     
 
                 <div class="control-group">
                     <h5 class="control-label">Media:</h5>

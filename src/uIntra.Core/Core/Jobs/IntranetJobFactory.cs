@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using FluentScheduler;
 
-namespace Uintra.Core.Jobs
+namespace uIntra.Core.Jobs
 {
     public class IntranetJobFactory : IJobFactory
     {

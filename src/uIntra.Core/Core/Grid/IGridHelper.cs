@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Umbraco.Core.Models;
 
-namespace Uintra.Core.Grid
+namespace uIntra.Core.Grid
 {
     public interface IGridHelper
     {

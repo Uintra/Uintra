@@ -1,7 +1,7 @@
 ﻿using System;
-using Uintra.Core.Activity;
+using uIntra.Core.Activity;
 
-namespace Uintra.Subscribe
+namespace uIntra.Subscribe
 {
     public interface ISubscribableService : ITypedService
     {

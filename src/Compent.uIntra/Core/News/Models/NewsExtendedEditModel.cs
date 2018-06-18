@@ -1,6 +1,6 @@
-﻿using Uintra.News;
+﻿using uIntra.News;
 
-namespace Compent.Uintra.Core.News.Models
+namespace Compent.uIntra.Core.News.Models
 {
     public class NewsExtendedEditModel : NewsEditModel
     {

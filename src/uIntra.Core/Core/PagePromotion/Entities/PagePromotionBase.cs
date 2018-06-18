@@ -1,8 +1,8 @@
 ﻿using System;
-using Uintra.Core.Activity;
-using Uintra.Core.User;
+using uIntra.Core.Activity;
+using uIntra.Core.User;
 
-namespace Uintra.Core.PagePromotion
+namespace uIntra.Core.PagePromotion
 {
     public class PagePromotionBase : IntranetActivity, IHaveCreator, IHaveOwner
     {

@@ -1,4 +1,4 @@
-﻿namespace Uintra.CentralFeed
+﻿namespace uIntra.CentralFeed
 {
     /// <summary>
     /// Bounded with Umbraco's backoffice control.value 

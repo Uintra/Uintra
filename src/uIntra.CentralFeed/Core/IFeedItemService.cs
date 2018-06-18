@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public interface IFeedItemService
     {
-        Enum Type { get; }
+        IIntranetType ActivityType { get; }
         FeedSettings GetFeedSettings();
         IEnumerable<IFeedItem> GetItems();
     }

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Uintra.Core.Exceptions;
-using Uintra.Notification.Base;
-using Uintra.Notification.Configuration;
+using uIntra.Core.Exceptions;
+using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
     public class NotificationsService : INotificationsService
     {
@@ -28,7 +28,7 @@ namespace Uintra.Notification
             var allReceiversIds = data.ReceiverIds.ToList();
             var allReceiversNotifiersSettings = _memberNotifiersSettingsService.GetForMembers(allReceiversIds);
 
-            (IEnumerable<Guid> receiverIds, bool isNotEmpty) GetReceiverIdsForNotifier(Enum notifierType)
+            (IEnumerable<Guid> receiverIds, bool isNotEmpty) GetReceiverIdsForNotifier(NotifierTypeEnum notifierType)
             {
                 var ids = allReceiversIds
                     .Where(receiverId => allReceiversNotifiersSettings[receiverId].Contains(notifierType))

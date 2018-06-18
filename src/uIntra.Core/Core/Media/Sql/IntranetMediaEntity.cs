@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Uintra.Core.Persistence;
+using uIntra.Core.Persistence;
 
-namespace Uintra.Core.Media.Sql
+namespace uIntra.Core.Media
 {
-    [UintraTable("Media")]
+    [uIntraTable("Media")]
     public class IntranetMediaEntity : SqlEntity<Guid>
     {
         [Key]

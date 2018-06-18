@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
-using Uintra.Core.Extensions;
-using Uintra.Core.Persistence;
+using Extensions;
+using uIntra.Core.Extensions;
+using uIntra.Core.Persistence;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
     public class UiNotificationService : IUiNotificationService
     {
         private readonly ISqlRepository<Notification> _notificationRepository;
-        private readonly INotificationTypeProvider _notificationTypeProvider;
 
-        public UiNotificationService(ISqlRepository<Notification> notificationRepository, INotificationTypeProvider notificationTypeProvider)
+        public UiNotificationService(ISqlRepository<Notification> notificationRepository)
         {
             _notificationRepository = notificationRepository;
-            _notificationTypeProvider = notificationTypeProvider;
         }
         public IEnumerable<Notification> GetMany(Guid receiverId, int count, out int totalCount)
         {
-            var allNotifications = GetNotifications(receiverId)
+            var allNotifications = _notificationRepository
+                .FindAll(el => el.ReceiverId == receiverId)
                 .OrderBy(n => n.IsNotified)
                 .ThenByDescending(n => n.Date)
                 .ToList();
@@ -38,7 +37,7 @@ namespace Uintra.Notification
                     Date = DateTime.UtcNow,
                     IsNotified = false,
                     IsViewed = false,
-                    Type = el.NotificationType.ToInt(),
+                    Type = el.NotificationType.Id,
                     Value = new { el.Message, el.Url, el.NotifierId, el.IsPinned, el.IsPinActual }.ToJson(),
                     ReceiverId = el.ReceiverId
                 });
@@ -48,7 +47,7 @@ namespace Uintra.Notification
 
         public int GetNotNotifiedCount(Guid receiverId)
         {
-            return GetNotifications(receiverId).Count(el => !el.IsNotified);
+            return (int)_notificationRepository.Count(el => el.ReceiverId == receiverId && !el.IsNotified);
         }
 
         public void ViewNotification(Guid id)
@@ -67,12 +66,6 @@ namespace Uintra.Notification
             }
 
             _notificationRepository.Update(notificationsList);
-        }
-
-        private IEnumerable<Notification> GetNotifications(Guid receiverId)
-        {
-            var uiNotificationTypeIds = _notificationTypeProvider.UiNotificationTypes().Select(t => t.ToInt());
-            return _notificationRepository.FindAll(el => el.ReceiverId == receiverId && uiNotificationTypeIds.Contains(el.Type));
         }
     }
 }

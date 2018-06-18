@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.Uintra.Core.Updater.Migrations._0._2._31._0.Steps;
-using Compent.UIntra.Core.Updater.Migrations._0._2._31._0.Steps;
+using Compent.uIntra.Core.Updater.Migrations._0._2._31._0.Steps;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0
+namespace Compent.uIntra.Core.Updater.Migrations._0._2._31._0
 {
     public class Migration : IMigration
     {
@@ -25,9 +24,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._2._31._0
                 yield return Resolve<UserTagsInstallationStep>();
                 yield return Resolve<UpdateDataFolderNamesMigrationInstallationStep>();
                 yield return Resolve<NotificationsMigrationStep>();
-                yield return Resolve<AddTranslationsStep>();
-                yield return Resolve<ChangeProfileEmailNotificationTranslationStep>();      
-                yield return Resolve<AddVideoMediaTypeStep>();
+                yield return Resolve<AddMemberCounterTranslationsStep>();
             }
         }
     }

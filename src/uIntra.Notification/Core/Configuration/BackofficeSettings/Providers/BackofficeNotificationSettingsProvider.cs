@@ -1,6 +1,6 @@
-﻿using Uintra.Core.Extensions;
+﻿using uIntra.Core.Extensions;
 
-namespace Uintra.Notification.Configuration
+namespace uIntra.Notification.Configuration
 {
     public class BackofficeNotificationSettingsProvider : IBackofficeNotificationSettingsProvider
     {

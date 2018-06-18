@@ -1,4 +1,4 @@
-﻿namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
+﻿namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
 {
     public class PagePromotionInstallationConstants
     {

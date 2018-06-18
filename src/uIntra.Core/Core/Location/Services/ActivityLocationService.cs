@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
-using Uintra.Core.Extensions;
-using Uintra.Core.Location.Entities;
-using Uintra.Core.Persistence;
+using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
+using uIntra.Core.Location.Entities;
+using uIntra.Core.Persistence;
 
-namespace Uintra.Core.Location
+namespace uIntra.Core.Location
 {
     public class ActivityLocationService : IActivityLocationService
     {
@@ -29,9 +30,9 @@ namespace Uintra.Core.Location
                 .AsQueryable()
                 .SingleOrDefault(l => l.ActivityId == activityId);
 
-            if (oldLocation is null)
+            if (oldLocation is default)
             {
-                if (location is null)
+                if (location == null)
                     return;
 
                 var newLocation = new ActivityLocationEntity()
@@ -45,7 +46,7 @@ namespace Uintra.Core.Location
             }
             else
             {
-                if (location?.Address == null || location.ShortAddress == null)
+                if (location == null || location.Address == null || location.ShortAddress == null)
                 {
                     _locationRepository.Delete(oldLocation);
                 }

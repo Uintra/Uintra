@@ -1,38 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
-using Compent.Uintra.Core.Helpers;
-using Compent.Uintra.Core.Search.Entities;
-using Compent.Uintra.Core.UserTags.Indexers;
-using Uintra.CentralFeed;
-using Uintra.Comments;
-using Uintra.Core.Activity;
-using Uintra.Core.Caching;
-using Uintra.Core.Extensions;
-using Uintra.Core.LinkPreview;
-using Uintra.Core.Links;
-using Uintra.Core.Location;
-using Uintra.Core.Media;
-using Uintra.Core.TypeProviders;
-using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
-using Uintra.Events;
-using Uintra.Groups;
-using Uintra.Likes;
-using Uintra.Notification;
-using Uintra.Notification.Base;
-using Uintra.Notification.Configuration;
-using Uintra.Search;
-using Uintra.Subscribe;
-using Uintra.Tagging.UserTags;
+using Compent.uIntra.Core.Helpers;
+using Compent.uIntra.Core.Search.Entities;
+using Compent.uIntra.Core.UserTags.Indexers;
+using Extensions;
+using uIntra.CentralFeed;
+using uIntra.Comments;
+using uIntra.Core.Activity;
+using uIntra.Core.Caching;
+using uIntra.Core.Extensions;
+using uIntra.Core.Links;
+using uIntra.Core.Location;
+using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
+using uIntra.Events;
+using uIntra.Groups;
+using uIntra.Likes;
+using uIntra.Notification;
+using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
+using uIntra.Search;
+using uIntra.Subscribe;
+using uIntra.Tagging.UserTags;
 
-namespace Compent.Uintra.Core.Events
+namespace Compent.uIntra.Core.Events
 {
     public class EventsService : IntranetActivityService<Event>,
         IEventsService<Event>,
         IFeedItemService,
         ISubscribableService,
+        ILikeableService,
+        ICommentableService,
         INotifyableService,
         IReminderableService<Event>,
         IIndexer
@@ -46,13 +47,13 @@ namespace Compent.Uintra.Core.Events
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
+        private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
         private readonly UserTagService _userTagService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivitySubscribeSettingService _activitySubscribeSettingService;
-        private readonly IFeedTypeProvider _feedTypeProvider;
-        private readonly IGroupService _groupService;
 
         public EventsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -67,17 +68,15 @@ namespace Compent.Uintra.Core.Events
             IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
+            ISearchableTypeProvider searchableTypeProvider,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
             INotifierDataHelper notifierDataHelper,
-            IActivityLocationService activityLocationService,
+            IActivityLocationService activityLocationService, 
             UserTagService userTagService,
-            IActivitySubscribeSettingService activitySubscribeSettingService,
-            IFeedTypeProvider feedTypeProvider,
-            IActivityLinkPreviewService activityLinkPreviewService,
-            IGroupService groupService)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService)
+            IActivitySubscribeSettingService activitySubscribeSettingService)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -88,16 +87,16 @@ namespace Compent.Uintra.Core.Events
             _mediaHelper = mediaHelper;
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
+            _activityTypeProvider = activityTypeProvider;
+            _searchableTypeProvider = searchableTypeProvider;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
             _userTagService = userTagService;
             _activitySubscribeSettingService = activitySubscribeSettingService;
-            _feedTypeProvider = feedTypeProvider;
-            _groupService = groupService;
         }
 
-        public override Enum Type => IntranetActivityTypeEnum.Events;
+        public override IIntranetType ActivityType => _activityTypeProvider.Get(IntranetActivityTypeEnum.Events.ToInt());
 
         public IEnumerable<Event> GetPastEvents()
         {
@@ -127,30 +126,30 @@ namespace Compent.Uintra.Core.Events
             return IsActual(@event) && @event.CanSubscribe;
         }
 
-        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent);
+        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent.ToInt());
 
         public FeedSettings GetFeedSettings()
         {
             return new FeedSettings
             {
-                Type = _feedTypeProvider[Type.ToInt()],
+                Type = ActivityType,
                 Controller = "Events",
                 HasSubscribersFilter = true,
                 HasPinnedFilter = true
             };
         }
 
-        public override bool CanEdit(IIntranetActivity activity)
+        public override bool CanEdit(IIntranetActivity cached)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
 
             var isWebmaster = _permissionsService.IsUserWebmaster(currentUser);
             if (isWebmaster) return true;
 
-            var ownerId = Get(activity.Id).OwnerId;
+            var ownerId = Get(cached.Id).OwnerId;
             var isOwner = ownerId == currentUser.Id;
 
-            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, Type, IntranetActivityActionEnum.Edit);
+            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, IntranetActivityActionEnum.Edit);
             return isOwner && isUserHasPermissions;
         }
 
@@ -199,14 +198,11 @@ namespace Compent.Uintra.Core.Events
             FillIndex();
         }
 
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected override Event UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
-
-        public override Event UpdateActivityCache(Guid id)
+        protected override Event UpdateCachedEntity(Guid id)
         {
             var cachedEvent = Get(id);
-            var @event = base.UpdateActivityCache(id);
-            if (IsCacheable(@event) && (@event.GroupId is null || _groupService.IsActivityFromActiveGroup(@event)))
+            var @event = base.UpdateCachedEntity(id);
+            if (IsCacheable(@event))
             {
                 _activityIndex.Index(Map(@event));
                 _documentIndexer.Index(@event.MediaIds);
@@ -229,18 +225,57 @@ namespace Compent.Uintra.Core.Events
         public void UnSubscribe(Guid userId, Guid activityId)
         {
             _subscribeService.Unsubscribe(userId, activityId);
-            UpdateActivityCache(activityId);
+            UpdateCachedEntity(activityId);
         }
 
         public void UpdateNotification(Guid id, bool value)
         {
             var subscribe = _subscribeService.UpdateNotification(id, value);
-            UpdateActivityCache(subscribe.ActivityId);
+            UpdateCachedEntity(subscribe.ActivityId);
         }
+
+        public ILikeable AddLike(Guid userId, Guid activityId)
+        {
+            _likesService.Add(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public ILikeable RemoveLike(Guid userId, Guid activityId)
+        {
+            _likesService.Remove(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public IEnumerable<LikeModel> GetLikes(Guid activityId)
+        {
+            return Get(activityId).Likes;
+        }
+
+        public CommentModel CreateComment(Guid userId, Guid activityId, string text, Guid? parentId)
+        {
+            var comment = _commentsService.Create(userId, activityId, text, parentId);
+            UpdateCachedEntity(activityId);
+            return comment;
+        }
+
+        public void UpdateComment(Guid id, string text)
+        {
+            var comment = _commentsService.Update(id, text);
+            UpdateCachedEntity(comment.ActivityId);
+        }
+
+        public void DeleteComment(Guid id)
+        {
+            var comment = _commentsService.Get(id);
+            _commentsService.Delete(id);
+            UpdateCachedEntity(comment.ActivityId);
+        }
+
+        public ICommentable GetCommentsInfo(Guid activityId) => Get(activityId);
 
         public bool CanEditSubscribe(Guid activityId) => !Get(activityId).Subscribers.Any();
 
-        public void Notify(Guid entityId, Enum notificationType)
+        public void Notify(Guid entityId, IIntranetType notificationType)
         {
             var notifierData = GetNotifierData(entityId, notificationType);
 
@@ -250,19 +285,19 @@ namespace Compent.Uintra.Core.Events
             }
         }
 
-        private NotifierData GetNotifierData(Guid entityId, Enum notificationType)
+        private NotifierData GetNotifierData(Guid entityId, IIntranetType notificationType)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
 
             var data = new NotifierData
             {
                 NotificationType = notificationType,
-                ActivityType = Type
+                ActivityType = ActivityType
             };
 
-            switch (notificationType)
+            switch (notificationType.Id)
             {
-                case NotificationTypeEnum.CommentReplied:
+                case (int)NotificationTypeEnum.CommentReplied:
                     {
                         var comment = _commentsService.Get(entityId);
                         var currentEvent = Get(comment.ActivityId);
@@ -270,7 +305,7 @@ namespace Compent.Uintra.Core.Events
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, currentUser.Id);
                     }
                     break;
-                case NotificationTypeEnum.CommentEdited:
+                case (int)NotificationTypeEnum.CommentEdited:
                     {
                         var comment = _commentsService.Get(entityId);
                         var currentEvent = Get(comment.ActivityId);
@@ -278,7 +313,7 @@ namespace Compent.Uintra.Core.Events
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
                     }
                     break;
-                case NotificationTypeEnum.CommentAdded:
+                case (int)NotificationTypeEnum.CommentAdded:
                     {
                         var comment = _commentsService.Get(entityId);
                         var currentEvent = Get(comment.ActivityId);
@@ -286,14 +321,14 @@ namespace Compent.Uintra.Core.Events
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
                     }
                     break;
-                case NotificationTypeEnum.ActivityLikeAdded:
+                case (int)NotificationTypeEnum.ActivityLikeAdded:
                     {
                         var currentEvent = Get(entityId);
                         data.ReceiverIds = currentEvent.OwnerId.ToEnumerable();
                         data.Value = _notifierDataHelper.GetLikesNotifierDataModel(currentEvent, notificationType, currentUser.Id);
                     }
                     break;
-                case NotificationTypeEnum.CommentLikeAdded:
+                case (int)NotificationTypeEnum.CommentLikeAdded:
                     {
                         var comment = _commentsService.Get(entityId);
                         var currentEvent = Get(comment.ActivityId);
@@ -302,7 +337,7 @@ namespace Compent.Uintra.Core.Events
                     }
                     break;
 
-                case NotificationTypeEnum.BeforeStart:
+                case (int)NotificationTypeEnum.BeforeStart:
                     {
                         var currentEvent = Get(entityId);
                         data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
@@ -310,8 +345,8 @@ namespace Compent.Uintra.Core.Events
                     }
                     break;
 
-                case NotificationTypeEnum.EventHided:
-                case NotificationTypeEnum.EventUpdated:
+                case (int)NotificationTypeEnum.EventHided:
+                case (int)NotificationTypeEnum.EventUpdated:
                     {
                         var currentEvent = Get(entityId);
                         data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
@@ -332,7 +367,7 @@ namespace Compent.Uintra.Core.Events
         public ISubscribable Subscribe(Guid userId, Guid activityId)
         {
             _subscribeService.Subscribe(userId, activityId);
-            return UpdateActivityCache(activityId);
+            return UpdateCachedEntity(activityId);
         }
 
         public Event GetActual(Guid id)
@@ -345,7 +380,9 @@ namespace Compent.Uintra.Core.Events
         {
             var activities = GetAll().Where(IsCacheable);
             var searchableActivities = activities.Select(Map);
-            _activityIndex.DeleteByType(UintraSearchableTypeEnum.Events);
+
+            var searchableType = _searchableTypeProvider.Get(UintraSearchableTypeEnum.Events.ToInt());
+            _activityIndex.DeleteByType(searchableType);
             _activityIndex.Index(searchableActivities);
         }
 

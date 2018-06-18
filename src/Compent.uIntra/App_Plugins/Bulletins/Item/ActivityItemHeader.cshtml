@@ -1,5 +1,5 @@
-﻿@using Uintra.Core.Extensions
-@model Uintra.Core.Activity.IntranetActivityItemHeaderViewModel
+﻿@using uIntra.Core.Extensions
+@model uIntra.Core.Activity.IntranetActivityItemHeaderViewModel
 
 <header class="feed__item-heading clearfix">
     @Html.Action("Photo", "User", new { user = Model.Owner, profilePageUrl = Model.Links.Owner })
@@ -12,7 +12,7 @@
                     <span class="feed__item-date">@date</span>
                     <span class="feed__item-divider"> - </span>
                 }
-                <span class="feed__item-category">@Html.Localize(Model.Type.ToInt())</span>
+                <span class="feed__item-category">@Html.Localize(Model.Type.Id)</span>
             </a>
         </p>
     </div>

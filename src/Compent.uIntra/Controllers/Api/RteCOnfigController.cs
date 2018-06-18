@@ -1,6 +1,6 @@
-﻿using Uintra.Core.Web;
+﻿using uIntra.Core.Web;
 
-namespace Compent.Uintra.Controllers.Api
+namespace Compent.uIntra.Controllers.Api
 {
     public class RteConfigController : RteConfigControllerBase
     {

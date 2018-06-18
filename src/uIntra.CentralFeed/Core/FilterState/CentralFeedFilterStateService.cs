@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Web;
-using Uintra.Core;
-using Uintra.Core.Extensions;
+using uIntra.Core;
+using uIntra.Core.Extensions;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
-    public class CentralFeedFilterStateService : IFeedFilterStateService<FeedFiltersState>
+    public class CentralFeedFilterStateService : IFeedFilterStateService
     {
         private const string CentralFeedFiltersStateCookieName = "centralFeedFiltersState";
 
@@ -23,7 +23,7 @@ namespace Uintra.CentralFeed
             _cookieProvider.Save(cookie);
         }
 
-        public FeedFiltersState GetFiltersState()
+        public TStateServer GetFiltersState<TStateServer>()
         {
             var cookie = _cookieProvider.Get(CentralFeedFiltersStateCookieName);
             if (string.IsNullOrEmpty(cookie?.Value))
@@ -35,7 +35,7 @@ namespace Uintra.CentralFeed
                 };
                 _cookieProvider.Save(cookie);
             }
-            return cookie.Value.Deserialize<FeedFiltersState>();
+            return cookie.Value.Deserialize<TStateServer>();
         }
 
         public bool CentralFeedCookieExists()
@@ -49,6 +49,6 @@ namespace Uintra.CentralFeed
             {
                 BulletinFilterSelected = true
             };
-        }        
+        }
     }
 }

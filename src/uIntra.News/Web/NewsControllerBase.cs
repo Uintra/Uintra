@@ -3,25 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using Compent.Extensions;
-using Uintra.Core;
-using Uintra.Core.Activity;
-using Uintra.Core.Attributes;
-using Uintra.Core.Context;
-using Uintra.Core.Controls.LightboxGallery;
-using Uintra.Core.Extensions;
-using Uintra.Core.Feed;
-using Uintra.Core.Links;
-using Uintra.Core.Media;
-using Uintra.Core.TypeProviders;
-using Uintra.Core.User;
-using Uintra.Core.User.Permissions.Web;
+using Extensions;
+using uIntra.Core;
+using uIntra.Core.Activity;
+using uIntra.Core.Attributes;
+using uIntra.Core.Controls.LightboxGallery;
+using uIntra.Core.Extensions;
+using uIntra.Core.Feed;
+using uIntra.Core.Links;
+using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
+using uIntra.Core.User.Permissions.Web;
 using Umbraco.Web.Mvc;
 
-namespace Uintra.News.Web
+namespace uIntra.News.Web
 {
     [ActivityController(ActivityTypeId)]
-    public abstract class NewsControllerBase : ContextController
+    public abstract class NewsControllerBase : SurfaceController
     {
         protected virtual string ItemViewPath { get; } = "~/App_Plugins/News/List/ItemView.cshtml";
         protected virtual string PreviewItemViewPath { get; } = "~/App_Plugins/News/PreviewItem/PreviewItemView.cshtml";
@@ -38,15 +37,12 @@ namespace Uintra.News.Web
          
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.News;
 
-        public override ContextType ControllerContextType { get; } = ContextType.News;
-
         protected NewsControllerBase(
             IIntranetUserService<IIntranetUser> intranetUserService,
             INewsService<NewsBase> newsService,
             IMediaHelper mediaHelper,
             IActivityTypeProvider activityTypeProvider,
-            IActivityLinkService activityLinkService,
-            IContextTypeProvider contextTypeProvider) :base(contextTypeProvider)
+            IActivityLinkService activityLinkService)
         {
             _intranetUserService = intranetUserService;
             _newsService = newsService;
@@ -60,7 +56,7 @@ namespace Uintra.News.Web
         {
             var news = _newsService.Get(id);
             var model = GetViewModel(news, options);
-            AddEntityIdentityForContext(id);
+
             return PartialView(DetailsViewPath, model);
         }
 
@@ -132,7 +128,7 @@ namespace Uintra.News.Web
             {
                 PublishDate = DateTime.UtcNow,
                 OwnerId = _intranetUserService.GetCurrentUser().Id,
-                ActivityType = _activityTypeProvider[ActivityTypeId],
+                ActivityType = _activityTypeProvider.Get(ActivityTypeId),
                 Links = links,
                 MediaRootId = mediaSettings.MediaRootId
             };
@@ -173,7 +169,8 @@ namespace Uintra.News.Web
             model.CanEdit = _newsService.CanEdit(news);
             model.Links = options.Links;
             model.IsReadOnly = options.IsReadOnly;
-            
+
+            // TODO : try to move this logic smwhere to avoid duplication
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
             model.HeaderInfo.Owner = _intranetUserService.Get(news);

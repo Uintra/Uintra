@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.Uintra.Core.Users;
-using Uintra.Core;
-using Uintra.Core.ApplicationSettings;
-using Uintra.Core.Extensions;
-using Uintra.Core.Media;
-using Uintra.Core.User;
-using Uintra.Notification;
-using Uintra.Tagging.UserTags;
-using Uintra.Users;
-using Uintra.Users.Web;
+using Compent.uIntra.Core.Users;
+using uIntra.Core;
+using uIntra.Core.ApplicationSettings;
+using uIntra.Core.Extensions;
+using uIntra.Core.Media;
+using uIntra.Core.User;
+using uIntra.Notification;
+using uIntra.Tagging.UserTags;
+using uIntra.Users;
+using uIntra.Users.Web;
 using Umbraco.Web;
 
-namespace Compent.Uintra.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class ProfileController : ProfileControllerBase
     {

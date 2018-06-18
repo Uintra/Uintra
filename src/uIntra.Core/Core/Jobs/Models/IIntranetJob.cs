@@ -1,7 +1,7 @@
 ﻿using System.Web.Hosting;
 using FluentScheduler;
 
-namespace Uintra.Core.Jobs.Models
+namespace uIntra.Core.Jobs.Models
 {
     public interface IIntranetJob : IJob, IRegisteredObject
     {        

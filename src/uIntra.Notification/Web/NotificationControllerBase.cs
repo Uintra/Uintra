@@ -1,45 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
-using Compent.Extensions;
-using Uintra.Core;
-using Uintra.Core.Extensions;
-using Uintra.Core.Links;
-using Uintra.Core.User;
-using Uintra.Notification.Constants;
+using BCLExtensions;
+using Extensions;
+using uIntra.Core;
+using uIntra.Core.Extensions;
+using uIntra.Core.Links;
+using uIntra.Core.User;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
-namespace Uintra.Notification.Web
+namespace uIntra.Notification.Web
 {
     public abstract class NotificationControllerBase : SurfaceController
     {
         protected virtual string OverviewViewPath { get; } = "~/App_Plugins/Notification/List/NotificationOverview.cshtml";
         protected virtual string ListViewPath { get; } = "~/App_Plugins/Notification/List/NotificationList.cshtml";
         protected virtual string PreviewViewPath { get; } = "~/App_Plugins/Notification/List/NotificationPreview.cshtml";
-        protected virtual string PopupNotificationsViewPath { get; } = "~/App_Plugins/Notification/List/PopupNotificationsView.cshtml";
 
         protected virtual int ItemsPerPage { get; } = 8;
 
         private readonly IUiNotificationService _uiNotifierService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationContentProvider _notificationContentProvider;
-        private readonly IPopupNotificationService _popupNotificationService;
+        private readonly IProfileLinkProvider _profileLinkProvider;
 
         protected NotificationControllerBase(
             IUiNotificationService uiNotifierService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationContentProvider notificationContentProvider,
-            IProfileLinkProvider profileLinkProvider,
-            IPopupNotificationService popupNotificationService)
+            IProfileLinkProvider profileLinkProvider)
 
         {
             _uiNotifierService = uiNotifierService;
             _intranetUserService = intranetUserService;
             _notificationContentProvider = notificationContentProvider;
-            _popupNotificationService = popupNotificationService;
+            _profileLinkProvider = profileLinkProvider;
         }
 
         public virtual ActionResult Overview()
@@ -50,7 +47,8 @@ namespace Uintra.Notification.Web
         public virtual ActionResult Index(int page = 1)
         {
             var take = page * ItemsPerPage;
-            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), take, out var totalCount).ToList();
+            int totalCount;
+            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), take, out totalCount).ToList();
 
             var notNotifiedNotifications = notifications.Where(el => !el.IsNotified).ToList();
             if (notNotifiedNotifications.Count > 0)
@@ -77,31 +75,18 @@ namespace Uintra.Notification.Web
             return count;
         }
 
-        [System.Web.Mvc.AllowAnonymous]
-        public ActionResult ShowPopupNotifications()
-        {
-            var receiverId = _intranetUserService.GetCurrentUserId();
-            var notifications = _popupNotificationService.Get(receiverId).Map<IEnumerable<PopupNotificationViewModel>>();
-            return PartialView(PopupNotificationsViewPath, notifications);
-        }
-
         [System.Web.Mvc.HttpPost]
         public virtual void View([FromBody]Guid id)
         {
             _uiNotifierService.ViewNotification(id);
         }
 
-        [System.Web.Mvc.HttpPost]
-        public virtual void ViewPopup([FromBody]Guid id)
-        {
-            _popupNotificationService.ViewNotification(id);
-        }
-
         public virtual PartialViewResult List()
         {
+            int totalCount;
             var notificationListPage = _notificationContentProvider.GetNotificationListPage();
             var itemsCountForPopup = notificationListPage.GetPropertyValue(NotificationConstants.ItemCountForPopupPropertyTypeAlias, default(int));
-            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), itemsCountForPopup, out _).ToList();
+            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), itemsCountForPopup, out totalCount).ToList();
 
             var notNotifiedNotifications = notifications.Where(el => !el.IsNotified).ToList();
             if (notNotifiedNotifications.Count > 0)
@@ -124,9 +109,11 @@ namespace Uintra.Notification.Web
         {
             var result = notification.Map<NotificationViewModel>();
 
-            result.Notifier = ((string) result.Value.notifierId)
-                .TryParseGuid()
-                .FromNullable(_intranetUserService.Get);
+            result.Notifier = ((string)result.Value.notifierId)
+                .TryParseOptional<Guid>(Guid.TryParse)
+                .Match(
+                    some: notifierId => _intranetUserService.Get(notifierId),
+                    none: () => null);
 
             return result;
         }

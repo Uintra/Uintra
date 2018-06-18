@@ -1,7 +1,7 @@
 ﻿using System;
-using Uintra.Core.User;
+using uIntra.Core.User;
 
-namespace Uintra.Core.Links
+namespace uIntra.Core.Links
 {
     public interface IProfileLinkProvider
     {

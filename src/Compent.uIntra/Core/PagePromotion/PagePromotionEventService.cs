@@ -1,11 +1,11 @@
 ﻿using System.Web.Mvc;
-using Uintra.Core.PagePromotion;
-using Uintra.Core.UmbracoEventServices;
+using uIntra.Core.PagePromotion;
+using uIntra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Publishing;
 
-namespace Compent.Uintra.Core.PagePromotion
+namespace Compent.uIntra.Core.PagePromotion
 {
     public class PagePromotionEventService : IUmbracoContentPublishedEventService
     {

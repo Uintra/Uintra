@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Uintra.Core.Persistence
+namespace uIntra.Core.Persistence
 {
-    public class UintraTableAttribute : TableAttribute
+    public class uIntraTableAttribute : TableAttribute
     {
-        public UintraTableAttribute(string name) : base("Uintra_" + name)
-        {          
+        public uIntraTableAttribute(string name) : base("uIntra_" + name)
+        {
+            
         }
     }
 }

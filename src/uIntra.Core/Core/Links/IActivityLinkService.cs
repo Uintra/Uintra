@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra.Core.Links
+namespace uIntra.Core.Links
 {
     public interface IActivityLinkService
     {

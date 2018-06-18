@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
-using Uintra.CentralFeed;
-using Uintra.CentralFeed.Navigation.Models;
-using Uintra.Core.Extensions;
-using Uintra.Core.TypeProviders;
-using Uintra.Groups.Dashboard;
-using Uintra.Groups.Navigation.Models;
-using Uintra.Groups.Sql;
+using uIntra.CentralFeed;
+using uIntra.Groups.Dashboard;
+using uIntra.Groups.Navigation.Models;
+using uIntra.Groups.Sql;
 
-namespace Uintra.Groups
+namespace uIntra.Groups
 {
     public class GroupsAutoMapperProfile : Profile
     {
@@ -81,7 +78,6 @@ namespace Uintra.Groups
                .ForMember(d => d.Title, o => o.MapFrom(s => s.Title));
 
             Mapper.CreateMap<ActivityFeedTabModel, GroupNavigationActivityTabViewModel>();
-
             Mapper.CreateMap<PageTabModel, GroupNavigationPageTabViewModel>()
                 .ForMember(d => d.AlignRight, o => o.Ignore());
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra.Likes
+namespace uIntra.Likes
 {
     public class LikeModel
     {

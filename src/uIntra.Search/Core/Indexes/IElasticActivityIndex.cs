@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
-using Uintra.Core.TypeProviders;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.Search
+namespace uIntra.Search
 {
     public interface IElasticActivityIndex
     {
         void Index(SearchableActivity activity);
         void Index(IEnumerable<SearchableActivity> activities);
         void Delete(Guid id);
-        void DeleteByType(Enum type);
+        void DeleteByType(IIntranetType type);
     }
 }

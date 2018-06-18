@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
-using Uintra.Core.Location;
+using uIntra.Core.Location;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.Core.Activity
+namespace uIntra.Core.Activity
 {
     public interface IIntranetActivity : IHaveLocation
     {
         Guid Id { get; set; }
-        Enum Type { get; set; }
+        IIntranetType Type { get; set; }
         DateTime CreatedDate { get; set; }
         DateTime ModifyDate { get; set; }
         bool IsPinActual { get; set; }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
-using Compent.Extensions;
+using Extensions;
 
-namespace Uintra.Core.Extensions
+namespace uIntra.Core.Extensions
 {
     public static class StringExtensions
     {
@@ -135,7 +135,7 @@ namespace Uintra.Core.Extensions
             }
 
             var lastIndex = str.Substring(0, maxLength).LastIndexOf(' ');
-            return lastIndex > 0 ? str.Substring(0, lastIndex).Trim() : str;
+            return str.Substring(0, lastIndex).Trim();
         }
 
         public static string SplitOnUpperCaseLetters(this string str) =>
@@ -159,12 +159,9 @@ namespace Uintra.Core.Extensions
             return str.Split(separator);
         }
 
-        public static string ToExtensionViewString(this string source)
+        public static IEnumerable<TResult> ParseStringCollection<TResult>(this IEnumerable<string> collection, Func<string, TResult> parserFunc, char separator = ',')
         {
-            const int maxViewedLenght = 4;
-            const string defaultType = "misc";
-            
-            return source?.Length <= maxViewedLenght ? source : defaultType;
+            return collection.SelectMany(col => col.ParseStringCollection(parserFunc, separator));
         }
     }
 }

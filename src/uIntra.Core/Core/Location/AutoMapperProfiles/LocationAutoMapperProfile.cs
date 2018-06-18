@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Uintra.Core.Location
+namespace uIntra.Core.Location
 {
     public class LocationAutoMapperProfile : Profile
     {

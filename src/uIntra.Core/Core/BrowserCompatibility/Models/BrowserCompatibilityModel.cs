@@ -1,4 +1,4 @@
-﻿namespace Uintra.Core.BrowserCompatibility.Models
+﻿namespace uIntra.Core.BrowserCompatibility.Models
 {
     public class BrowserCompatibilityModel
     {

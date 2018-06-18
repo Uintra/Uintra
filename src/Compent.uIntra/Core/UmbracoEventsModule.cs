@@ -1,11 +1,11 @@
 ﻿using System.Web.Mvc;
-using Uintra.Core.UmbracoEventServices;
+using uIntra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Publishing;
 using Umbraco.Core.Services;
 
-namespace Compent.Uintra.Core
+namespace Compent.uIntra.Core
 {
     public static class UmbracoEventsModule
     {
@@ -17,14 +17,7 @@ namespace Compent.Uintra.Core
 
             MemberService.Deleting += ProcessMemberDeleting;
             MediaService.Saved += ProcessMediaSaved;
-            MediaService.Trashed += ProcessMediaTrashed;
-            MediaService.Saving += ProcessMediaSaving;      
-        }
-
-        private static void ProcessMediaSaving(IMediaService sender, SaveEventArgs<IMedia> e)
-        {
-            var services = DependencyResolver.Current.GetServices<IUmbracoMediaSavingEventService>();
-            foreach (var service in services) service.ProcessMediaSaving(sender, e);
+            MediaService.Trashed += ProcessMediaTrashed;            
         }
 
         private static void ProcessMediaTrashed(IMediaService sender, MoveEventArgs<IMedia> e)

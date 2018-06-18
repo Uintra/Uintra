@@ -1,8 +1,8 @@
-﻿using Uintra.Core.TypeProviders;
+﻿using uIntra.Core.TypeProviders;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
-    public class CentralFeedTypeProvider : EnumTypeProviderBase<CentralFeedTypeEnum>, IFeedTypeProvider
+    public class CentralFeedTypeProvider : IntranetTypeProviderBase<CentralFeedTypeEnum>, IFeedTypeProvider
     {
     }
 }

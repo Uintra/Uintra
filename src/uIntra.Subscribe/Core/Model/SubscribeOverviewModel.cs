@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra.Subscribe
+namespace uIntra.Subscribe
 {
     public class SubscribeOverviewModel
     {

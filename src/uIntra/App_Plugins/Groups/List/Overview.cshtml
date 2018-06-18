@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc.Html
-@using Uintra.Core.Extensions
+@using uIntra.Core.Extensions
 @using Umbraco.Web
-@model Uintra.Groups.GroupsOverviewModel
+@model uIntra.Groups.GroupsOverviewModel
 <section class="groups"> 
     <div class="js-groups-overview">
         @using (Html.BeginUmbracoForm("Index", "Group", null, new Dictionary<string, object> { { "class", "js-ajax-form" }, { "data-append-to", ".js-groups-listContainer" } }))

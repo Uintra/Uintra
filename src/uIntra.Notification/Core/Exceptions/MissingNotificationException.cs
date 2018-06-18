@@ -1,11 +1,12 @@
 ﻿using System;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.Notification.Exceptions
+namespace uIntra.Notification.Exceptions
 {
     public class MissingNotificationException : ApplicationException
     {
-        public MissingNotificationException(Enum notificationType)
-            :base ($"Can not notify by {notificationType.ToString()}, because it doesn't have any notifiers")
+        public MissingNotificationException(IIntranetType notificationType)
+            :base ($"Can not notify by {notificationType.Name}, because it doesn't have any notifiers")
         {
             
         }

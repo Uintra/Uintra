@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.Uintra.Core.Search.Entities;
-using Uintra.Search;
+using Compent.uIntra.Core.Search.Entities;
+using uIntra.Core.TypeProviders;
+using uIntra.Search;
 
-namespace Compent.Uintra.Core.UserTags.Indexers
+namespace Compent.uIntra.Core.UserTags.Indexers
 {
     public class ElasticUintraActivityIndex: IElasticUintraActivityIndex
     {
@@ -37,7 +38,7 @@ namespace Compent.Uintra.Core.UserTags.Indexers
             _elasticSearchRepository.Delete(id);
         }
 
-        public void DeleteByType(Enum type)
+        public void DeleteByType(IIntranetType type)
         {
             _elasticSearchRepository.DeleteAllByType(type);
         }

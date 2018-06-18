@@ -1,6 +1,4 @@
-﻿using Compent.Uintra.Core.Verification;
-
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
+﻿namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants
 {
     public class EventsInstallationConstants
     {
@@ -11,8 +9,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
             public const string EventsEditPage = "Events Edit Page";
             public const string EventsOverviewPage = "Events Overview Page";
         }
-
-        [UmbracoDocumentTypeVerification]
         public class DocumentTypeAliases
         {
             public const string EventsCreatePage = "eventsCreatePage";

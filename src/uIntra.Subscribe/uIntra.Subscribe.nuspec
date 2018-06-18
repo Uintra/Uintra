@@ -8,10 +8,10 @@
     <owners>$author$</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <copyright>Copyright © compent.dk 2018</copyright>
-    <tags>Compent Uintra Subscribe Controls SubscribeControls</tags>
+    <copyright>Copyright © compent.dk 2017</copyright>
+    <tags>Compent uIntra Subscribe Controls SubscribeControls</tags>
     <dependencies>
-      <dependency id="Uintra.Core" version="1.6.0" />
+      <dependency id="uIntra.Core" version="1.4.11" />
     </dependencies>
   </metadata>
 </package>

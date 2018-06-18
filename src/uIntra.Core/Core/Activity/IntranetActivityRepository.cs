@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Uintra.Core.Extensions;
-using Uintra.Core.Persistence;
+using uIntra.Core.Persistence;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.Core.Activity
+namespace uIntra.Core.Activity
 {
     public class IntranetActivityRepository : IIntranetActivityRepository
     {
@@ -25,10 +25,9 @@ namespace Uintra.Core.Activity
             return _sqlRepository.GetAll();
         }
 
-        public IEnumerable<IntranetActivityEntity> GetMany(Enum activityType)
+        public IEnumerable<IntranetActivityEntity> GetMany(IIntranetType activityType)
         {
-            var activityTypeId = activityType.ToInt();
-            return _sqlRepository.FindAll(a => a.Type == activityTypeId);
+            return _sqlRepository.FindAll(a => a.Type == activityType.Id);
         }
 
         public IEnumerable<IntranetActivityEntity> FindAll(Expression<Func<IntranetActivityEntity, bool>> expression)

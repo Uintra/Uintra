@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Uintra.Core.Attributes;
-using Uintra.Core.Links;
-using Uintra.Core.Location;
-using Uintra.Core.ModelBinders;
-using Uintra.Core.TypeProviders;
+using uIntra.Core.Attributes;
+using uIntra.Core.Links;
+using uIntra.Core.Location;
+using uIntra.Core.ModelBinders;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.Core.Activity
+namespace uIntra.Core.Activity
 {
     public class IntranetActivityCreateModelBase
     {
@@ -20,7 +20,7 @@ namespace Uintra.Core.Activity
         [Required]
         public Guid OwnerId { get; set; }
 
-        public Enum ActivityType { get; set; }
+        public IIntranetType ActivityType { get; set; }
 
         [PropertyBinder(typeof(LinksBinder))]
         public IActivityCreateLinks Links { get; set; }

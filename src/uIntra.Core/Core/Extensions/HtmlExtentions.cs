@@ -1,13 +1,11 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using Uintra.Core.Grid;
-using Uintra.Core.Links;
-using Uintra.Core.Localization;
-using Uintra.Core.ModelBinders;
-using HtmlHelper = System.Web.Mvc.HtmlHelper;
+using uIntra.Core.Links;
+using uIntra.Core.Localization;
+using uIntra.Core.ModelBinders;
 
-namespace Uintra.Core.Extensions
+namespace uIntra.Core.Extensions
 {
     public static class HtmlExtensions
     {
@@ -28,13 +26,44 @@ namespace Uintra.Core.Extensions
         public static string GetDateFormat(this HtmlHelper htmlHelper)
         {
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+
             return dateTimeFormatProvider.DateFormat;
+        }
+
+        public static string GetTimeFormat(this HtmlHelper htmlHelper)
+        {
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+
+            return dateTimeFormatProvider.TimeFormat;
+        }
+
+        public static string GetDateTimeFormat(this HtmlHelper htmlHelper)
+        {
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+
+            return dateTimeFormatProvider.DateTimeFormat;
+        }
+
+        public static string GetDatePickerFormat(this HtmlHelper htmlHelper)
+        {
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+
+            return dateTimeFormatProvider.DatePickerFormat;
         }
 
         public static string GetDateTimePickerFormat(this HtmlHelper htmlHelper)
         {
+
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+
             return dateTimeFormatProvider.DateTimePickerFormat;
+        }
+
+        public static string GetDateTimeValueFormat(this HtmlHelper htmlHelper)
+        {
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+
+            return dateTimeFormatProvider.DateTimeValuePickerFormat;
         }
 
         public static MvcHtmlString PassLinks(this HtmlHelper helper, IActivityLinks links)
@@ -46,6 +75,7 @@ namespace Uintra.Core.Extensions
             result += helper.Hidden(LinksBinder.DetailsFormKey, links.Details);
 
             return MvcHtmlString.Create(result);
+            
         }
 
         public static MvcHtmlString PassLinks(this HtmlHelper helper, IActivityCreateLinks links)
@@ -59,11 +89,6 @@ namespace Uintra.Core.Extensions
             result += helper.Hidden(LinksBinder.FeedFormKey, links.Feed);
 
             return MvcHtmlString.Create(result);
-        }
-
-        public static MvcHtmlString RenderGridControl(this HtmlHelper htmlHelper, object control)
-        {
-            return GridRenderHelper.RenderControl(htmlHelper, (dynamic)control);
         }
     }
 }

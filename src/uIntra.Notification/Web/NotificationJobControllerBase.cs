@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using Umbraco.Web.WebApi;
 
-namespace Uintra.Notification.Web
+namespace uIntra.Notification.Web
 {
     public abstract class NotificationJobControllerBase : UmbracoApiController
     {

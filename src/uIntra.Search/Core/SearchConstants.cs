@@ -1,4 +1,4 @@
-﻿namespace Uintra.Search
+﻿namespace uIntra.Search
 {
     public static class SearchConstants
     {
@@ -14,11 +14,6 @@
         {
             public const string Types = "types";
             public const string GlobalFilter = "GlobalFilter";
-        }
-
-        public static class AutocompleteType
-        {
-            public const string All = "All";
         }
     }
 }

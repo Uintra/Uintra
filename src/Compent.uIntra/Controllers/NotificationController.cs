@@ -1,10 +1,10 @@
 using Localization.Umbraco.Attributes;
-using Uintra.Core.Links;
-using Uintra.Core.User;
-using Uintra.Notification;
-using Uintra.Notification.Web;
+using uIntra.Core.Links;
+using uIntra.Core.User;
+using uIntra.Notification;
+using uIntra.Notification.Web;
 
-namespace Compent.Uintra.Controllers
+namespace Compent.uIntra.Controllers
 {
     [ThreadCulture]
     public class NotificationController : NotificationControllerBase
@@ -16,9 +16,8 @@ namespace Compent.Uintra.Controllers
             IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationContentProvider notificationContentProvider,
             IIntranetUserContentProvider intranetUserContentProvider,
-            IProfileLinkProvider profileLinkProvider,
-            IPopupNotificationService popupNotificationService)
-            : base(uiNotificationService, intranetUserService, notificationContentProvider, profileLinkProvider, popupNotificationService)
+            IProfileLinkProvider profileLinkProvider)
+            : base(uiNotificationService, intranetUserService, notificationContentProvider, profileLinkProvider)
         {
         }
     }

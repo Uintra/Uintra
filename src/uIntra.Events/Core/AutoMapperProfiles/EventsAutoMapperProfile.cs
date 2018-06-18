@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using AutoMapper;
-using Compent.Extensions;
-using Uintra.Core.Activity;
-using Uintra.Core.Extensions;
-using Uintra.Events.Dashboard;
+using Extensions;
+using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
+using uIntra.Events.Dashboard;
 
-namespace Uintra.Events
+namespace uIntra.Events
 {
     public class EventsAutoMapperProfile : Profile
     {

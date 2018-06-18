@@ -1,7 +1,7 @@
-﻿@using Uintra.Core.Controls.FileUpload
-@using Uintra.Core.Extensions
+﻿@using uIntra.Core.Controls.FileUpload
+@using uIntra.Core.Extensions
 @using Umbraco.Web
-@model Compent.Uintra.Core.Bulletins.BulletinExtendedEditModel
+@model Compent.uIntra.Core.Bulletins.BulletinExtendedEditModel
 
 <div class="form js-edit-bulletin">
     @using (Html.BeginUmbracoForm("EditExtended", "Bulletins", FormMethod.Post, new { id = "editForm" }))
@@ -16,7 +16,6 @@
             </div>
             <input type="hidden" name="description" class="js-edit-bulletin__description-hidden" value="@(Model.Description)" />
         </div>
-        @Html.Action("EditLinkPreview", "ActivityLinkPreview", new { model = Model.LinkPreview })
         @Html.Action("TagPicker", "UserTags", new { entityId = Model.Id })
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("BulletinsEdit.UploadFiles.lbl")</label>

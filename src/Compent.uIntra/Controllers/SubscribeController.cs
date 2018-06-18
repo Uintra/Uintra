@@ -1,10 +1,10 @@
 ﻿using Localization.Umbraco.Attributes;
-using Uintra.Core.Activity;
-using Uintra.Core.User;
-using Uintra.Subscribe;
-using Uintra.Subscribe.Web;
+using uIntra.Core.Activity;
+using uIntra.Core.User;
+using uIntra.Subscribe;
+using uIntra.Subscribe.Web;
 
-namespace Compent.Uintra.Controllers
+namespace Compent.uIntra.Controllers
 {
     [ThreadCulture]
     public class SubscribeController : SubscribeControllerBase

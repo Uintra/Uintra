@@ -13,8 +13,7 @@ var initDeleteButton = function (holder) {
         var photo = btn.data('photo');
         confirm.showConfirm('', confirmMessage,
             function () {
-                
-                ajax.delete("/umbraco/surface/Profile/DeletePhoto?photoPath=" + photo).then(function (response) {
+                ajax.Delete("/umbraco/surface/Profile/DeletePhoto?photoPath=" + photo).then(function (response) {
                     location.reload();
                 });
             }, function () { }, confirm.defaultSettings);
@@ -32,7 +31,7 @@ function initListeners() {
                 function () {
                     let notifierType = element.attributes.notifiertype.value;
                     let value = element.checked;
-                    setNotifierSetting(notifierType, value);
+                    SetNotifierSetting(notifierType, value);
                 },
                 function () {
                     element.checked = !element.checked;
@@ -41,9 +40,13 @@ function initListeners() {
         });
 }
 
-function setNotifierSetting(notifierType, value) {
-    let url = "/umbraco/api/MemberNotifierSettings/Update?type=" + notifierType + "&isEnabled=" + value;
-    ajax.post(url).then(() => alertify.success('Settings has been saved.'));
+function SetNotifierSetting(notifierType, value) {
+    $.ajax({
+        type: "POST",
+        url: "/umbraco/api/MemberNotifierSettings/Update?type=" + notifierType + "&isEnabled=" + value,
+        complete: () => alertify.success('Settings has been saved.')
+    });
+
 }
 
 let controller = {

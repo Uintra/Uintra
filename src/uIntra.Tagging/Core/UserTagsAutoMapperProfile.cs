@@ -1,9 +1,9 @@
 ﻿using System;
 using AutoMapper;
-using Uintra.Core;
-using Uintra.Tagging.UserTags.Models;
+using uIntra.Core;
+using uIntra.Tagging.UserTags.Models;
 
-namespace Uintra.Tagging
+namespace uIntra.Tagging
 {
 
     public class UserTagsAutoMapperProfile : Profile

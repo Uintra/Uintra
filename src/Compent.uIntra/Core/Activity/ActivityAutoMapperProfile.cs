@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Compent.Uintra.Core.Activity.Models;
-using Uintra.Core.Activity;
-using Uintra.Core.Location;
-using Uintra.Core.Location.Entities;
+using Compent.uIntra.Core.Activity.Models;
+using uIntra.Core.Activity;
+using uIntra.Core.Location;
+using uIntra.Core.Location.Entities;
 
-namespace Compent.Uintra.Core.Activity
+namespace Compent.uIntra.Core.Activity
 {
     public class ActivityAutoMapperProfile : Profile
     {

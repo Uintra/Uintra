@@ -1,10 +1,10 @@
 ﻿using System.Web;
-using Uintra.Core;
-using Uintra.Core.Extensions;
+using uIntra.Core;
+using uIntra.Core.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Uintra.Navigation
+namespace uIntra.Navigation
 {
     public static class PublishedContentExtensions
     {

@@ -3,11 +3,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Uintra.Core.Activity;
-using Uintra.Core.Extensions;
-using Uintra.Core.TypeProviders;
+using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.Core.User.Permissions.Web
+namespace uIntra.Core.User.Permissions.Web
 {
     public class RestrictedActionAttribute : ActionFilterAttribute
     {
@@ -40,7 +40,7 @@ namespace Uintra.Core.User.Permissions.Web
 
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
             var provider = HttpContext.Current.GetService<IActivityTypeProvider>();
-            var isUserHasAccess = permissionsService.IsCurrentUserHasAccess(provider[_activityTypeId], _action, activityId);
+            var isUserHasAccess = permissionsService.IsCurrentUserHasAccess(provider.Get(_activityTypeId), _action, activityId);
 
             if (!isUserHasAccess)
             {

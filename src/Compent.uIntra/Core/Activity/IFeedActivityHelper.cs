@@ -1,7 +1,7 @@
 ﻿using System;
-using Uintra.Groups;
+using uIntra.Groups;
 
-namespace Compent.Uintra.Core.Activity
+namespace Compent.uIntra.Core.Activity
 {
     public interface IFeedActivityHelper
     {

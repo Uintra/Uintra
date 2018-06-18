@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Uintra.Likes
+namespace uIntra.Likes
 {
     public class LikesViewModel
     {
         public Guid UserId { get; set; }
 
-        public Guid EntityId { get; set; }
+        public Guid ActivityId { get; set; }
+
+        public Guid? CommentId { get; set; }
 
         public int Count { get; set; }
 

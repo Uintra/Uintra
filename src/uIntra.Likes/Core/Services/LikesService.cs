@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Uintra.Core.Persistence;
-using Uintra.Core.User;
+using uIntra.Core.Persistence;
+using uIntra.Core.User;
 
-namespace Uintra.Likes
+namespace uIntra.Likes
 {
     public class LikesService : ILikesService
     {

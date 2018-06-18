@@ -1,7 +1,6 @@
-﻿using System.Web.Mvc;
-using Umbraco.Core.Services;
+﻿using Umbraco.Core;
 
-namespace Uintra.Events.Dashboard
+namespace uIntra.Events.Dashboard
 {
     public class EventsSection
     {
@@ -9,22 +8,21 @@ namespace Uintra.Events.Dashboard
         protected const string Name = "events";
         protected const string Icon = "icon-calendar-alt color-red";
 
-        public static void AddSectionToAllUsers()
+        public static void AddSectionToAllUsers(ApplicationContext applicationContext)
         {
-            var sectionService = DependencyResolver.Current.GetService<ISectionService>();
-            var section = sectionService.GetByAlias(Alias);
+            var section = applicationContext.Services.SectionService.GetByAlias(Alias);
             if (section == null)
             {
-                sectionService.MakeNew(Name, Alias, Icon, 1);
+                applicationContext.Services.SectionService.MakeNew(Name, Alias, Icon, 1);
             }
 
-            var userService = DependencyResolver.Current.GetService<IUserService>();
+            var userService = applicationContext.Services.UserService;
             var userGroups = userService.GetAllUserGroups();
             foreach (var userGroup in userGroups)
             {
                 userGroup.AddAllowedSection(Alias);
                 userService.Save(userGroup);
             }
-        }           
+        }
     }
 }

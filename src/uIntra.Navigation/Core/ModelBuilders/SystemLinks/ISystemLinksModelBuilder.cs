@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Uintra.Navigation.SystemLinks
+namespace uIntra.Navigation.SystemLinks
 {
     public interface ISystemLinksModelBuilder
     {

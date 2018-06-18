@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using Uintra.Core.Activity;
+using uIntra.Core.Activity;
+using uIntra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
-namespace Uintra.Core.User.Permissions
+namespace uIntra.Core.User.Permissions
 {
     public interface IPermissionsService
     {
         bool IsRoleHasPermissions(IRole role, params string[] permissions);
         IEnumerable<string> GetRolePermission(IRole role);
-        string GetPermissionFromTypeAndAction(Enum activityType, IntranetActivityActionEnum action);
+        string GetPermissionFromTypeAndAction(IIntranetType activityType, IntranetActivityActionEnum action);
 
-        bool IsCurrentUserHasAccess(Enum activityType, IntranetActivityActionEnum action, Guid? activityId = null);
-        bool IsUserHasAccess(IIntranetUser user, Enum activityType, IntranetActivityActionEnum action, Guid? activityId = null);
+        bool IsCurrentUserHasAccess(IIntranetType activityType, IntranetActivityActionEnum action, Guid? activityId = null);
+        bool IsUserHasAccess(IIntranetUser user, IIntranetType activityType, IntranetActivityActionEnum action, Guid? activityId = null);
         bool IsUserWebmaster(IIntranetUser user);
         bool IsUserHasAccessToContent(IIntranetUser user, IPublishedContent content);
     }

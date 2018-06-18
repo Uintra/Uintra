@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Uintra.Core.Activity;
-using Uintra.Core.Extensions;
-using Uintra.Core.Links;
-using Uintra.Core.TypeProviders;
-using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
+using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
+using uIntra.Core.Links;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
+using uIntra.Core.User.Permissions;
 using Umbraco.Web.Mvc;
 
-namespace Uintra.Core.Web
+namespace uIntra.Core.Web
 {
     public abstract class ActivityControllerBase : SurfaceController
     {
@@ -21,13 +21,16 @@ namespace Uintra.Core.Web
 
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IPermissionsService _permissionsService;
+        private readonly IActivityTypeProvider _activityTypeProvider;
 
         protected ActivityControllerBase(
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService,
+            IActivityTypeProvider activityTypeProvider)
         {
             _intranetUserService = intranetUserService;
             _permissionsService = permissionsService;
+            _activityTypeProvider = activityTypeProvider;
         }
 
         public virtual ActionResult DetailsHeader(IntranetActivityDetailsHeaderViewModel header)
@@ -69,12 +72,13 @@ namespace Uintra.Core.Web
                 });
         }
 
-        protected virtual IEnumerable<IIntranetUser> GetUsersWithAccess(Enum activityType, IntranetActivityActionEnum action)
+        protected virtual IEnumerable<IIntranetUser> GetUsersWithAccess(IntranetActivityTypeEnum activityType, IntranetActivityActionEnum action)
         {
+            var intranetType = _activityTypeProvider.Get(activityType.ToInt());
 
             var result = _intranetUserService
                 .GetAll()
-                .Where(user => _permissionsService.IsUserHasAccess(user, activityType, action))
+                .Where(user => _permissionsService.IsUserHasAccess(user, intranetType, action))
                 .OrderBy(user => user.DisplayedName);
 
             return result;

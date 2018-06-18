@@ -1,6 +1,6 @@
-﻿using Uintra.Core.User;
+﻿using uIntra.Core.User;
 
-namespace Uintra.Navigation
+namespace uIntra.Navigation
 {
     public class TopNavigationModel
     {

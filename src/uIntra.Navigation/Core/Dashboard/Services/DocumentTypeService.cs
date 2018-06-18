@@ -2,7 +2,7 @@
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace Uintra.Navigation.Dashboard
+namespace uIntra.Navigation.Dashboard
 {
     public abstract class DocumentTypeService : IDocumentTypeService
     {
@@ -112,9 +112,13 @@ namespace Uintra.Navigation.Dashboard
                 return -1;
             }
 
-            return int.TryParse(parentIdOrAliasEncoded, out var parentId)
-                ? parentId
-                : _contentTypeService.GetContentType(parentIdOrAliasEncoded)?.Id;
+            int parentId;
+            if (int.TryParse(parentIdOrAliasEncoded, out parentId))
+            {
+                return parentId;
+            }
+
+            return _contentTypeService.GetContentType(parentIdOrAliasEncoded)?.Id;
         }
 
         private void CreateTabsAddTabsFromParent(IContentType documenType)

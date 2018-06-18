@@ -1,12 +1,12 @@
 ﻿@using System.Web.Mvc.Ajax
-@using Uintra.Core.Context
-@using Uintra.Core.Extensions
-@model Uintra.Likes.LikesViewModel
+@using uIntra.Core.Extensions
+@model uIntra.Likes.LikesViewModel
 @{
     var isLiked = Model.CanAddLike || Model.IsReadOnly ? "" : "_isLiked";
+    var entityId = Model.CommentId ?? Model.ActivityId;
 }
 
-<div class="likes-wrapper" id="likes_@Model.EntityId">
+<div class="likes-wrapper" id="likes_@entityId">
     @if (Model.ShowTitle)
     {
         <h3 class="like__title">@Html.Localize("Likes.Title.lbl")</h3>
@@ -29,8 +29,8 @@
             var hasLikesClass = Model.Users.Any() ? "_hasLikes" : string.Empty;
 
             @(Model.CanAddLike 
-                ? Ajax.ContextedActionLink("Like", "AddLike", "Likes", null, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = $"likes_{Model.EntityId}" }, new { @class = $"like__link {hasLikesClass}" }) 
-                : Ajax.ContextedActionLink("Remove", "RemoveLike", "Likes", null, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = $"likes_{Model.EntityId}" }, new { @class = $"like__link _remove {hasLikesClass}" }))
+                ? Ajax.ActionLink("Like", "AddLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = $"likes_{entityId}" }, new { @class = $"like__link {hasLikesClass}" }) 
+                : Ajax.ActionLink("Remove", "RemoveLike", "Likes", new { activityId = Model.ActivityId, commentId = Model.CommentId }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = $"likes_{entityId}" }, new { @class = $"like__link _remove {hasLikesClass}" }))
 
             if (Model.Users.Any())
             {

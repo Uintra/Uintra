@@ -6,26 +6,23 @@ require("./List/notificationList.css");
 
 var infinityScroll = helpers.infiniteScrollFactory;
 var body = document.querySelector('body');
-var html = document.querySelector('html');
 
 function initPreviewControls() {
     var notification = document.querySelector(".js-notification");
     var notificationList = document.querySelector(".js-notification-list");
     var notificationBlock = document.querySelector(".notification");
 
-    notification.addEventListener('click', function (e) {
-        e.preventDefault();
-        if (!html.classList.contains("_notifications-expanded")) {
-
-            ajax.get("/umbraco/surface/Notification/List")
+    notification.addEventListener('click', function () {
+        if (!body.classList.contains("_notifications-expanded")) {
+            ajax.Get("/umbraco/surface/Notification/List")
                 .then(function (response) {
-                    notificationList.innerHTML = response.data;
+                    notificationList.innerHTML = response;
                     notificationList.classList.remove('_loading');
                     initCustomControls();
                 });
-            html.classList.add("_notifications-expanded");
+            body.classList.add("_notifications-expanded");
         } else {
-            html.classList.remove("_notifications-expanded");
+            body.classList.remove("_notifications-expanded");
         }
     });
 
@@ -35,16 +32,16 @@ function initPreviewControls() {
 }
 
 function isOutsideClick(el, trigger, target, classname) {
-    if (el && !el.contains(target) && (trigger && !trigger.contains(target)) && html.classList.contains(classname)) {
-        html.classList.remove(classname);
-        html.removeEventListener("click", isOutsideClick);
+    if (el && !el.contains(target) && (trigger && !trigger.contains(target)) && body.classList.contains(classname)) {
+        body.classList.remove(classname);
+        body.removeEventListener("click", isOutsideClick);
     }
 }
 
 function updateNotificationsCount() {
-    ajax.get("/umbraco/surface/Notification/GetNotNotifiedCount")
-        .then((response) => {
-            let count = response.data;
+    $.ajax({
+        url: "/umbraco/surface/Notification/GetNotNotifiedCount",
+        success: function (count) {
             var countHolder = $('.js-notification__number');
             if (count > 0) {
                 countHolder.html(count);
@@ -52,7 +49,12 @@ function updateNotificationsCount() {
             } else {
                 countHolder.hide();
             }
-        });
+        }
+    });
+
+    $.ajaxSetup({
+        cache: false
+    });
 }
 
 function initCustomControls() {
@@ -62,11 +64,14 @@ function initCustomControls() {
         var url = $this.data("href");
 
         if (!delivered) {
-            let data = { id: $this.data("id") };
-            ajax.post('/umbraco/surface/Notification/View/', data)
-                .then(function () {
+            $.ajax({
+                type: "POST",
+                data: { id: $this.data("id") },
+                url: "/umbraco/surface/Notification/View/",
+                success: function () {
                     $this.attr("data-viewed", true);
-                });
+                }
+            });
         }
 
         window.location.href = url;
@@ -94,8 +99,6 @@ function initInfinityScroll() {
     });
 }
 
-function getClientHeight() { return document.compatMode == 'CSS1Compat' ? document.documentElement.clientHeight : document.body.clientHeight; }
-
 export default function () {
     initPreviewControls();
     updateNotificationsCount();
@@ -103,4 +106,3 @@ export default function () {
     initCustomControls();
     initInfinityScroll();
 }
-

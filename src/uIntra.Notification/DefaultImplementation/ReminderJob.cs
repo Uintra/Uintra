@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using Uintra.Core.Activity;
-using Uintra.Core.Configuration;
-using Uintra.Core.Exceptions;
-using Uintra.Notification.Base;
-using Uintra.Notification.Configuration;
+using uIntra.Core.Activity;
+using uIntra.Core.Configuration;
+using uIntra.Core.Exceptions;
+using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
     public class ReminderJob : IReminderJob
     {
@@ -60,7 +60,7 @@ namespace Uintra.Notification
                         {
                             foreach (var notificationTypeName in configuration.NotificationTypes)
                             {
-                                var notificationType = _notificationTypeProvider[notificationTypeName];
+                                var notificationType = _notificationTypeProvider.Get(notificationTypeName);
                                 notifiableService.Notify(activity.Id, notificationType);
                             }
                             _reminderService.SetAsDelivered(reminder.Id);

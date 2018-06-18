@@ -1,6 +1,6 @@
 using System;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public class ActivityTransferModel : ActivityTransferCreateModel
     {

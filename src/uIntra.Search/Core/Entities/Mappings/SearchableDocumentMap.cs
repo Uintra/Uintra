@@ -1,6 +1,6 @@
 ﻿using Nest;
 
-namespace Uintra.Search
+namespace uIntra.Search
 {
     public class SearchableDocumentMap : SearchableBaseMap<SearchableDocument>
     {

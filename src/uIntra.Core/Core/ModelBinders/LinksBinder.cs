@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Web.Mvc;
-using Uintra.Core.Links;
+using uIntra.Core.Links;
 
-namespace Uintra.Core.ModelBinders
+namespace uIntra.Core.ModelBinders
 {
     class LinksBinder : ICustomModelBinder
     {

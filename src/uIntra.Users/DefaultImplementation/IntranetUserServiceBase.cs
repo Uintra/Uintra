@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Uintra.Core.Caching;
-using Uintra.Core.Extensions;
-using Uintra.Core.User;
+using System.Threading;
+using System.Web.Hosting;
+using uIntra.Core.Caching;
+using uIntra.Core.Extensions;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using CacheHelper = Uintra.Core.Caching.CacheHelper;
+using CacheHelper = uIntra.Core.Caching.CacheHelper;
 
-namespace Uintra.Users
+namespace uIntra.Users
 {
     public abstract class IntranetUserServiceBase<T> : IIntranetUserService<T>, ICacheableIntranetUserService
           where T : IIntranetUser, new()
@@ -21,6 +24,7 @@ namespace Uintra.Users
         private readonly UmbracoContext _umbracoContext;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IRoleService _roleService;
+        private readonly IIntranetRoleTypeProvider _intranetRoleTypeProvider;
         private readonly ICacheService _cacheService;
 
         protected IntranetUserServiceBase(
@@ -28,12 +32,14 @@ namespace Uintra.Users
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
+            IIntranetRoleTypeProvider intranetRoleTypeProvider,
             ICacheService cacheService)
         {
             _memberService = memberService;
             _umbracoContext = umbracoContext;
             _umbracoHelper = umbracoHelper;
             _roleService = roleService;
+            _intranetRoleTypeProvider = intranetRoleTypeProvider;
             _cacheService = cacheService;
         }
 
@@ -76,13 +82,32 @@ namespace Uintra.Users
 
         public virtual T GetCurrentUser()
         {
-            var member = _umbracoHelper.MembershipHelper.GetCurrentMember();
-            if (member != null) return Get(member.GetKey());
+            string userName = GetCurrentUserName();
+            var user = GetByName(userName);
+            return user;
+        }
 
-            var umbracoUser = _umbracoContext.Security.CurrentUser;
-            if (umbracoUser != null) return Get(umbracoUser.Id);
+        protected virtual string GetCurrentUserName()
+        {
+            var userName = "";
+            if (HostingEnvironment.IsHosted) //TODO: WTF IS THIS
+            {
+                var httpContext = _umbracoContext.HttpContext;
+                if (httpContext.User?.Identity != null && httpContext.User.Identity.IsAuthenticated)
+                {
+                    userName = httpContext.User.Identity.Name;
+                }
+            }
+            if (string.IsNullOrEmpty(userName))
+            {
+                var currentPrincipal = Thread.CurrentPrincipal;
+                if (currentPrincipal?.Identity != null)
+                {
+                    userName = currentPrincipal.Identity.Name;
+                }
+            }
 
-            return default(T);
+            return userName;
         }
 
         public virtual IEnumerable<T> GetByRole(int role)
@@ -164,6 +189,12 @@ namespace Uintra.Users
             return _roleService.GetActualRole(roles);
         }
 
+        protected virtual string GetGroupNameFromRole(int role)
+        {
+            var roleMode = _intranetRoleTypeProvider.Get(role);
+            return roleMode.Name;
+        }
+
         protected virtual string GetUserPhotoOrDefaultAvatar(string userImage)
         {
             return !string.IsNullOrEmpty(userImage) ? userImage : string.Empty;
@@ -172,7 +203,7 @@ namespace Uintra.Users
         public virtual T GetByName(string name)
         {
             var users = GetAll();
-            return users.SingleOrDefault(user => string.Equals(user.LoginName, name, StringComparison.OrdinalIgnoreCase));
+            return users.SingleOrDefault(user => user.LoginName.ToLowerInvariant().Equals(name.ToLowerInvariant()));
         }
 
         public virtual T GetByEmail(string email)
@@ -201,33 +232,6 @@ namespace Uintra.Users
             _cacheService.Set(UsersCacheKey, allCachedUsers, CacheHelper.GetMidnightUtcDateTimeOffset());
         }
 
-        public void UpdateUserCache(IEnumerable<Guid> userIds)
-        {
-            var allUsers = GetAllFromSql();
-            var updatedUsers = allUsers.Join(userIds, u => u.Id, id => id, (u, id) => u).ToList();
-
-            var allCachedUsers = GetAll().ToList();
-            var oldCachedUser = allCachedUsers.Join(userIds, u => u.Id, id => id, (u, id) => u).ToList();
-
-            oldCachedUser.ForEach(ocu =>
-            {
-                if (ocu != null)
-                {
-                    allCachedUsers.Remove(ocu);
-                }
-            });
-
-            updatedUsers.ForEach(u =>
-            {
-                if (u != null)
-                {
-                    allCachedUsers.Add(u);
-                }
-            });
-
-            _cacheService.Set(UsersCacheKey, allCachedUsers, CacheHelper.GetMidnightUtcDateTimeOffset());
-        }
-
         public virtual void DeleteFromCache(Guid userId)
         {
             var allCachedUsers = GetAll().ToList();
@@ -237,7 +241,7 @@ namespace Uintra.Users
             {
                 allCachedUsers.Remove(oldCachedUser);
             }
-            _cacheService.Set(UsersCacheKey, allCachedUsers, CacheHelper.GetMidnightUtcDateTimeOffset());
+            _cacheService.Set(UsersCacheKey, allCachedUsers, CacheHelper.GetMidnightUtcDateTimeOffset());            
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Uintra.Core.Controls
+﻿namespace uIntra.Core.Controls
 {
     public interface IEditorConfigProvider
     {

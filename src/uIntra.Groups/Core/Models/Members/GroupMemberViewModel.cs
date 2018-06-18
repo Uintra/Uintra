@@ -1,5 +1,5 @@
 ﻿
-namespace Uintra.Groups
+namespace uIntra.Groups
 {
     public class GroupMemberViewModel
     {

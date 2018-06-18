@@ -1,17 +1,16 @@
-﻿import axios from 'axios';
+﻿const axios = require('axios');
 
-let config = { 
-    transformResponse: [function (data) {
+let config = {
+    transformResponse: [function (data) {        
         try {
             return JSON.parse(data);
         } catch (e) {
             return data;
         }
-    }],
-    headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
+    }]
 }
 
-let ajax = {    
+let ajax = {
     get: url => axios.get(url, config),
     post: (url, data) => axios.post(url, data, config),
     put: (url, data) => axios.put(url, data, config),

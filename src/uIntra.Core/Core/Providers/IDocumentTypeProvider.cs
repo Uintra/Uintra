@@ -1,6 +1,6 @@
-﻿using System;
+﻿using uIntra.Core.TypeProviders;
 
-namespace Uintra.Core
+namespace uIntra.Core
 {
     public interface IDocumentTypeAliasProvider
     {
@@ -14,10 +14,10 @@ namespace Uintra.Core
         string GetHomePage();
         string GetErrorPage();
 
-        string GetOverviewPage(Enum type);
-        string GetEditPage(Enum type);
-        string GetDetailsPage(Enum type);
-        string GetCreatePage(Enum type);
+        string GetOverviewPage(IIntranetType type);
+        string GetEditPage(IIntranetType type);
+        string GetDetailsPage(IIntranetType type);
+        string GetCreatePage(IIntranetType type);
 
         string GetMailTemplateFolder();
         string GetMailTemplate();

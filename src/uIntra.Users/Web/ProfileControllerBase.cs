@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using Uintra.Core.ApplicationSettings;
-using Uintra.Core.Extensions;
-using Uintra.Core.Media;
-using Uintra.Core.User;
-using Uintra.Notification;
+using uIntra.Core.ApplicationSettings;
+using uIntra.Core.Extensions;
+using uIntra.Core.Media;
+using uIntra.Core.User;
+using uIntra.Notification;
 using Umbraco.Web.Mvc;
 
-namespace Uintra.Users.Web
+namespace uIntra.Users.Web
 {
     public abstract class ProfileControllerBase : SurfaceController
     {

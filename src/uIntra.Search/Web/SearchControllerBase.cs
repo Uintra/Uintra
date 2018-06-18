@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Uintra.Core;
-using Uintra.Core.Extensions;
-using Uintra.Core.Localization;
+using uIntra.Core.Extensions;
+using uIntra.Core.Localization;
+using uIntra.Core.TypeProviders;
 using Umbraco.Web.Mvc;
 
-namespace Uintra.Search.Web
+namespace uIntra.Search.Web
 {
     public abstract class SearchControllerBase : SurfaceController
     {
         protected virtual string IndexViewPath { get; } = "~/App_Plugins/Search/Result/Index.cshtml";
         protected virtual string SearchResultViewPath { get; } = "~/App_Plugins/Search/Result/SearchResult.cshtml";
         protected virtual string SearchBoxViewPath { get; } = "~/App_Plugins/Search/Controls/SearchBox.cshtml";
-        protected virtual string SearchBoxAutocompleteItemViewPath { get; } = "~/App_Plugins/Search/Controls/SearchBoxAutocompleteItem.cshtml";
 
         protected virtual int AutocompleteSuggestionCount { get; } = 10;
         protected virtual int ResultsPerPage { get; } = 20;
@@ -25,22 +23,19 @@ namespace Uintra.Search.Web
         private readonly IIntranetLocalizationService _localizationService;
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
-        private readonly ViewRenderer _viewRenderer;
 
         protected SearchControllerBase(
             IElasticIndex elasticIndex,
             IEnumerable<IIndexer> searchableServices,
             IIntranetLocalizationService localizationService,
             ISearchUmbracoHelper searchUmbracoHelper,
-            ISearchableTypeProvider searchableTypeProvider,
-            ViewRenderer viewRenderer)
+            ISearchableTypeProvider searchableTypeProvider)
         {
             _elasticIndex = elasticIndex;
             _searchableServices = searchableServices;
             _localizationService = localizationService;
             _searchUmbracoHelper = searchUmbracoHelper;
             _searchableTypeProvider = searchableTypeProvider;
-            _viewRenderer = viewRenderer;
         }
 
         public virtual PartialViewResult Index(string query)
@@ -54,7 +49,7 @@ namespace Uintra.Search.Web
         [HttpPost]
         public virtual PartialViewResult Search(SearchFilterModel model)
         {
-            var searchableTypeIds = model.Types.Count > 0 ? model.Types : GetSearchableTypes().Select(t => t.ToInt());
+            var searchableTypeIds = model.Types.Count > 0 ? model.Types : GetSearchableTypes().Select(t => t.Id);
 
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {
@@ -87,35 +82,29 @@ namespace Uintra.Search.Web
             {
                 Text = query,
                 Take = AutocompleteSuggestionCount,
-                SearchableTypeIds = GetAutoCompleteSearchableTypes().Select(t => t.ToInt())
+                SearchableTypeIds = GetAutoCompleteSearchableTypes().Select(t => t.Id)
             });
 
-            var result = GetAutocompleteResultModels(searchResult.Documents).ToList();
-            if (result.Count > 0)
-            {
-                var seeAll = GetAllSearchAutocompleteResultModel(query);
-                result.Add(seeAll);
-            }
-
+            var result = GetAutocompleteResultModels(searchResult.Documents);
             return Json(new { Documents = result }, JsonRequestBehavior.AllowGet);
         }
 
-        protected virtual IEnumerable<Enum> GetSearchableTypes()
+        protected virtual IEnumerable<IIntranetType> GetSearchableTypes()
         {
-            return _searchableTypeProvider.All;
+            return _searchableTypeProvider.GetAll();
         }
 
-        protected virtual IEnumerable<Enum> GetAutoCompleteSearchableTypes()
+        protected virtual IEnumerable<IIntranetType> GetAutoCompleteSearchableTypes()
         {
-            return _searchableTypeProvider.All;
+            return _searchableTypeProvider.GetAll();
         }
 
         protected virtual SearchViewModel GetSearchViewModel()
         {
             var filterItems = GetFilterItemTypes().Select(el => new SearchFilterItemViewModel
             {
-                Id = el.ToInt(),
-                Name = _localizationService.Translate($"{SearchTranslationPrefix}{el.ToString()}")
+                Id = el.Id,
+                Name = _localizationService.Translate($"{SearchTranslationPrefix}{el.Name}")
             });
 
             var result = new SearchViewModel
@@ -126,9 +115,9 @@ namespace Uintra.Search.Web
             return result;
         }
 
-        protected virtual IEnumerable<Enum> GetFilterItemTypes()
+        protected virtual IEnumerable<IIntranetType> GetFilterItemTypes()
         {
-            return _searchableTypeProvider.All;
+            return _searchableTypeProvider.GetAll();
         }
 
         protected virtual SearchResultsOverviewViewModel GetSearchResultsOverviewModel(SearchResult<SearchableBase> searchResult)
@@ -136,23 +125,24 @@ namespace Uintra.Search.Web
             var searchResultViewModels = searchResult.Documents.Select(d =>
             {
                 var resultItem = d.Map<SearchResultViewModel>();
-                resultItem.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider[d.Type].ToString()}");
+                resultItem.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider.Get(d.Type).Name}");
                 return resultItem;
             }).ToList();
 
             var filterItems = GetSearchableTypes().GroupJoin(
                 searchResult.TypeFacets,
-                type => type.ToInt(),
+                type => type.Id,
                 facet => int.Parse(facet.Name),
                 (type, facets) =>
                 {
                     var facet = facets.FirstOrDefault();
                     return new SearchFilterItemViewModel
                     {
-                        Id = type.ToInt(),
-                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.ToString()}", facet != null ? (int)facet.Count : default(int))
+                        Id = type.Id,
+                        Name = GetLabelWithCount($"{SearchTranslationPrefix}{type.Name}", facet != null ? (int)facet.Count : default(int))
                     };
-                });
+                }
+               );
 
             var result = new SearchResultsOverviewViewModel
             {
@@ -171,15 +161,7 @@ namespace Uintra.Search.Web
             var result = searchResults.Select(d =>
             {
                 var model = d.Map<SearchAutocompleteResultViewModel>();
-
-                var searchAutocompleteItem = new SearchBoxAutocompleteItemViewModel
-                {
-                    Title = model.Title,
-                    Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider[d.Type].ToString()}")
-                };
-
-                model.Html = _viewRenderer.Render(SearchBoxAutocompleteItemViewPath, searchAutocompleteItem);
-
+                model.Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider.Get(d.Type).Name}");
                 return model;
             });
 
@@ -189,25 +171,6 @@ namespace Uintra.Search.Web
         protected virtual string GetLabelWithCount(string label, int count)
         {
             return $"{_localizationService.Translate(label)} ({count})";
-        }
-
-        protected virtual SearchAutocompleteResultViewModel GetAllSearchAutocompleteResultModel(string query)
-        {
-            var seeAll = new SearchAutocompleteResultViewModel
-            {
-                Title = _localizationService.Translate("SearchBox.SeeAll.lnk"),
-                Url = _searchUmbracoHelper.GetSearchPage()?.Url.AddQueryParameter(query)
-            };
-
-            var searchAutocompleteItem = GetSeeAllSearchAutocompleteItemModel(seeAll.Title);
-            seeAll.Html = _viewRenderer.Render(SearchBoxAutocompleteItemViewPath, searchAutocompleteItem);
-
-            return seeAll;
-        }
-
-        protected virtual SearchBoxAutocompleteItemViewModel GetSeeAllSearchAutocompleteItemModel(string title)
-        {
-            return new SearchBoxAutocompleteItemViewModel { Title = title, Type = SearchConstants.AutocompleteType.All };
         }
 
         [HttpPost]

@@ -1,4 +1,4 @@
-namespace Uintra.BaseControls
+namespace uIntra.BaseControls
 {
     public enum VideoSourceTypes
     {

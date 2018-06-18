@@ -1,4 +1,4 @@
-﻿namespace Uintra.Core.User.Permissions
+﻿namespace uIntra.Core.User.Permissions
 {
     public static class PermissionConstants
     {

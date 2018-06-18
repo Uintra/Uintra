@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Web.Mvc;
 using AutoMapper;
-using Compent.Uintra.Core.Activity.Models;
-using Compent.Uintra.Core.Bulletins;
-using Compent.Uintra.Core.Feed;
-using Uintra.Bulletins;
-using Uintra.Bulletins.Web;
-using Uintra.Core.Extensions;
-using Uintra.Core.Feed;
-using Uintra.Core.Links;
-using Uintra.Core.Media;
-using Uintra.Core.TypeProviders;
-using Uintra.Core.User;
-using Uintra.Groups;
-using Compent.Uintra.Core.UserTags;
-using Uintra.Core;
-using Uintra.Groups.Extentions;
-using Uintra.Navigation;
+using Compent.uIntra.Core.Activity.Models;
+using Compent.uIntra.Core.Bulletins;
+using Compent.uIntra.Core.Feed;
+using uIntra.Bulletins;
+using uIntra.Bulletins.Web;
+using uIntra.Core.Extensions;
+using uIntra.Core.Feed;
+using uIntra.Core.Links;
+using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
+using uIntra.Groups;
+using Compent.uIntra.Core.UserTags;
+using uIntra.Groups.Extensions;
+using uIntra.Navigation;
 
-namespace Compent.Uintra.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class BulletinsController : BulletinsControllerBase
     {
@@ -40,9 +39,8 @@ namespace Compent.Uintra.Controllers
             IActivityTypeProvider activityTypeProvider,
             IMyLinksService myLinksService,
             IGroupActivityService groupActivityService,
-            IActivityTagsHelper activityTagsHelper,
-            IContextTypeProvider contextTypeProvider)
-            : base(bulletinsService, mediaHelper, intranetUserService, activityTypeProvider, contextTypeProvider)
+            IActivityTagsHelper activityTagsHelper)
+            : base(bulletinsService, mediaHelper, intranetUserService, activityTypeProvider)
         {
             _bulletinsService = bulletinsService;
             _myLinksService = myLinksService;
@@ -95,7 +93,6 @@ namespace Compent.Uintra.Controllers
         public ActionResult FeedItem(Bulletin item, ActivityFeedOptionsWithGroups options)
         {
             BulletinExtendedItemViewModel extendedModel = GetItemViewModel(item, options);
-            AddEntityIdentityForContext(item.Id);
             return PartialView(ItemViewPath, extendedModel);
         }
 
@@ -115,7 +112,6 @@ namespace Compent.Uintra.Controllers
 
         public ActionResult PreviewItem(Bulletin item, ActivityLinks links)
         {
-            AddEntityIdentityForContext(item.Id);
             var viewModel = GetPreviewViewModel(item, links);
             return PartialView(PreviewItemViewPath, viewModel);
         }

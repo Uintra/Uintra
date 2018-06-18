@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
-using Compent.Extensions;
-using Uintra.Core.Exceptions;
-using Uintra.Core.Extensions;
-using Uintra.Core.Media;
+using Extensions;
+using uIntra.Core.Exceptions;
+using uIntra.Core.Extensions;
+using uIntra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using static Uintra.Core.Constants.UmbracoAliases.Media;
+using static uIntra.Core.Constants.UmbracoAliases.Media;
 using File = System.IO.File;
 
-namespace Uintra.Search
+namespace uIntra.Search
 {
     public class DocumentIndexer : IIndexer, IDocumentIndexer
     {

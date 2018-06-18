@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
-using Uintra.Core.Extensions;
+using Extensions;
+using uIntra.Core.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Uintra.Core.PagePromotion
+namespace uIntra.Core.PagePromotion
 {
     public static class PagePromotionHelper
     {
         public static bool IsPagePromotion(IContent content) => content.HasProperty(PagePromotionConstants.PagePromotionConfigAlias);
 
-        public static bool IsPagePromotion(IPublishedContent publishedContent) => publishedContent.HasProperty(PagePromotionConstants.PagePromotionConfigAlias);
+        public static bool IsPagePromotion(IPublishedContent content) => content.HasProperty(PagePromotionConstants.PagePromotionConfigAlias);
 
-        public static PagePromotionConfig GetConfig(IPublishedContent publishedContent)
+        public static PagePromotionConfig GetConfig(IPublishedContent content)
         {
-            var prop = publishedContent.GetPropertyValue<string>(PagePromotionConstants.PagePromotionConfigAlias);
+            var prop = content.GetPropertyValue<string>(PagePromotionConstants.PagePromotionConfigAlias);
             return GetConfig(prop);
         }
 
@@ -28,17 +28,14 @@ namespace Uintra.Core.PagePromotion
         public static IEnumerable<int> GetFileIds(IContent content)
         {
             var config = GetConfig(content);
+            if (config == null) return Enumerable.Empty<int>();
 
-            return config == null ?
-                Enumerable.Empty<int>() :
-                config.Files.ToIntCollection();
+            return config.Files.ToIntCollection();
         }
 
-        public static bool IsPromoted(IPublishedContent publishedContent)
+        public static bool IsPromoted(IPublishedContent content)
         {
-            if (!IsPagePromotion(publishedContent)) return false;
-
-            var config = GetConfig(publishedContent);
+            var config = GetConfig(content);
             return config != null && config.PromoteOnCentralFeed;
         }
 

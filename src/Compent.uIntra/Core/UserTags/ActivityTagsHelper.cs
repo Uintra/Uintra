@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Compent.Uintra.Core.Search.Indexes;
-using Uintra.Core.Extensions;
-using Uintra.Tagging.UserTags;
+using Compent.uIntra.Core.Search.Indexes;
+using uIntra.Core.Extensions;
+using uIntra.Tagging.UserTags;
 
-namespace Compent.Uintra.Core.UserTags
+namespace Compent.uIntra.Core.UserTags
 {
     public class ActivityTagsHelper : IActivityTagsHelper
     {

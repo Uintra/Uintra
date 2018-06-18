@@ -1,11 +1,12 @@
-﻿using Umbraco.Core;
+﻿using uIntra.Core.Installer;
+using Umbraco.Core;
 using Umbraco.Core.Models;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
-using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.UsersInstallationConstants;
-using static Compent.Uintra.Core.Updater.ExecutionResult;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.UsersInstallationConstants;
+using static Compent.uIntra.Core.Updater.ExecutionResult;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
+namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class UsersInstallationStep : IMigrationStep
     {
@@ -217,12 +218,15 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
                 return;
             }
 
-            member = memberService.CreateMember(DefaultMember.Name, DefaultMember.Email, DefaultMember.Name, DataTypeAliases.Member);
+            member = memberService.CreateMember(DefaultMember.Name, DefaultMember.Email, DefaultMember.Name,
+                DataTypeAliases.Member);
             member.SetValue(DataTypePropertyAliases.ProfileFirstName, DefaultMember.Name);
             member.SetValue(DataTypePropertyAliases.ProfileLastName, DefaultMember.Name);
             member.SetValue(DataTypePropertyAliases.ProfileRelatedUser, DefaultMember.UmbracoAdminUserId);
 
-            memberService.Save(member, raiseEvents: false);
+            memberService.Save(member);
+            memberService.SavePassword(member, DefaultMember.Password);
+            memberService.AssignRole(member.Id, MemberGroups.GroupWebMaster);
         }
     }
 }

@@ -171,7 +171,7 @@ let initDatePickers = function () {
         let newDate = newDates[0];
         let endDate = end.selectedDates[0];
         if (endDate != null && endDate < new Date(newDate)) {
-            end.setDate(newDate, true);
+            end.setDate(newDate);
         }
         end.set('minDate', newDate);
     }

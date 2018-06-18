@@ -1,8 +1,8 @@
 ﻿using System.Web;
-using Uintra.Core;
-using Uintra.Core.Extensions;
+using uIntra.Core;
+using uIntra.Core.Extensions;
 
-namespace Compent.Uintra.Core.Notification
+namespace Compent.uIntra.Core.Notification
 {
     public static class MailConfiguration
     {

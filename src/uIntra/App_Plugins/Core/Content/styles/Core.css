@@ -1,6 +1,5 @@
 @import "libs.css";
 @import "forms.css";
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700');
 
 @define-mixin btn-focus-color $color {
     &:focus,
@@ -169,16 +168,6 @@ body{
     height:100%;
 }
 
-html {
-    -ms-overflow-style:scrollbar;
-}
-
-._menu-expanded {
-    @media(--for-tablet-portrait-down) {
-        overflow: hidden;
-    }
-}
-
 body{
     margin:0;
     background:#fff;
@@ -190,9 +179,10 @@ body{
     }
 
     @media (--for-tablet-portrait-down) {
-        ._menu-expanded &{
+        &._menu-expanded {
             height:100%;
             width:100%;
+            overflow:hidden;
         }
     }
 }
@@ -243,13 +233,9 @@ h5{
     margin:0 0 15px;
 }
 
-img{
-    vertical-align:top;
-}
-
 .centring{
     max-width:1552px;
-    padding:0 15px;
+    padding:0 20px;
     margin:0 auto;
     width:100%;
     position:relative;
@@ -280,12 +266,6 @@ img{
         @media (--for-desktop-up) {
             padding-left:330px;
         }
-    }
-
-    &:after{
-        content:'';
-        display:block;
-        clear:both;
     }
 }
 
@@ -327,21 +307,6 @@ img{
             padding-top: 249px;
         }
     }
-
-    &._loading{
-        *{
-            visibility: hidden;
-            opacity: 0;
-        }
-
-        #header,
-        #header *,
-        #sidebar,
-        #main {
-            opacity: 1;
-            visibility: visible;
-        }
-    }
 }
 
 #sidebar {
@@ -354,6 +319,7 @@ img{
     border-right:1px solid #f6f6f6;
 
     @media (--for-tablet-portrait-down) {
+        position: fixed;
         top: 0;
         left: 0;
         bottom: 0;
@@ -389,12 +355,7 @@ img{
         left:calc(50% - 755px);        
     }
 
-    /* disable animation while browser is resizing */
-    .resize-active & {
-	    transition:none !important;
-    }
-
-    &:before{
+    &::before{
         content:'';
         background:#fff url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAB4CAMAAACATE3ZAAAATlBMVEUAAADl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eVX7iFCAAAAGXRSTlMAM8zStPCm4Vr7kBjECtW+uKAjsX5FLoFR8qv8zgAAANlJREFUeNrt2ksOgkAQRdESBPn/QWv/GzXRmSEqgYYC7tnBTSc9eCkBAABHMlS6teAuCyjVgF7m89WAiBBCXggh5A+eGvCQ+aJYN1fksoDmsrlcAAAAAADAp6HUpcVhKuvL1IFa1ndTB67yEyGEEPIdIYcPqdSBRNbXlLEuLGhTAQAAAAAAMzUj68Mux/lWx+1unPd1zA5nLkIIeSOEkL2EJOpeJyvIk8xzK+u4fQcAAAAAYLpLpubEdSqTFWpRIpMFalFIiDGEWHPmkMN8v73FJ/G5SQcA4NyesiLQmJSCooMAAAAASUVORK5CYII=') no-repeat 50px 50px;
         transition:opacity 0.6s ease, visibility 0.6s ease;
@@ -521,7 +482,7 @@ img{
         visibility:hidden;
         opacity:0;
         position:absolute;
-        top:60px;
+        top:0;
         left:0;
         right:0;
         bottom:0;
@@ -533,7 +494,6 @@ img{
         }
 
         @media (--for-tablet-landscape-up) {
-            top:0;
             background-position:530px 50px;
         }
 
@@ -559,13 +519,12 @@ img{
     }
 }
 .content:not(._central-feed) {
-    padding:26px 20px 10px;
-    background:var(--color-white);
-    box-shadow:0 0 2px rgba(0,0,0,0.2);
+    padding: 26px 21px 10px;
+    background: var(--color-white);
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
 
     @media (--for-tablet-portrait-down){
-        margin:0 -15px;
-        padding:26px 15px 10px;
+        margin:0 -20px;
     }
 
     .btn{
@@ -914,46 +873,52 @@ img{
 /*end pin-info*/
 
 /* emoji styles */
-.ql-toolbar{
-    &.ql-snow{
-        position:relative;
+.ql-toolbar.ql-snow{
+    position:relative;
 
-        .ql-formats{
-            display:inline-block;
-            vertical-align:top;
-            margin:0 0 0 -3px;
-        }
-    }
-
-    button{
-        &:before{
-            background-size:cover;
-            background-repeat:no-repeat;
-            display:block;
-            margin:0 auto;
-        }
+    .ql-formats{
+        margin-right:0;
     }
 }
 
+.ql-emoji{
+    position:relative;
+
+    .create-bulletin &{
+        min-width:30px !important;
+
+        &:after{
+            top:6px;
+            left:6px;
+        }
+    }
+
+    &:after{
+        position:absolute;
+        top:4px;
+        left:6px;
+        content:url(/App_Plugins/Core/Content/styles/emoji-data/smile.png);
+    }
+}
 .emoji{
     position:absolute;
-    bottom:100%;
+    width:313px;
     border:1px solid var(--color-light-gray);
-    background:var(--color-white);
-    z-index:9999;
-    width:262px;
-    margin:0 0 -10px;
-    padding:10px 9px 9px 10px;
     overflow:hidden;
-
-    @media(--for-tablet-portrait-down){
-        left:50%;
-        margin:0 0 -10px -131px;
+    background:var(--color-white);
+    bottom:100%;
+    z-index:9999;
+    right:auto !important;
+    left:50%;
+    margin:0 0 -4px -157px;
+    @media(--for-phone-only){
+        width:262px;
+        margin:0 0 -4px -131px;
     }
 
     &__list{
         margin:-20px 0 0 -20px;
-        padding:0;
+        padding:10px 9px 9px 10px;
         list-style:none;
         overflow:hidden;
 
@@ -988,18 +953,12 @@ img{
     }
 
     .ql-editor {
-        height:62px;
-        padding:6px 10px;
+        height:149px;
         overflow:auto;
         font:13px/22px var(--font-general);
         color:var(--text-color-dark);
-
-        
     }
 
-    #description& .ql-editor{
-        height:149px;
-    }
     .ql-tooltip {
         z-index:9999;
     }
@@ -1073,6 +1032,12 @@ img{
             height:100%;
         }
 
+        &__zoom-wrap{
+            width:100%;
+            height:100%;
+            padding:10%;
+        }
+
         .block__video-iframe-player{
             position:static;
         }
@@ -1132,8 +1097,10 @@ img{
     }
 
     &__top-bar{
+        opacity:1 !important;
+
         @media (--for-tablet-portrait-down) {
-            background:none;
+            opacity: 0 !important;
         }
     }
 }
@@ -1190,217 +1157,3 @@ img{
 }
 
 /* end libs override styles */
-
-.quill--custom {
-	.btn {
-        margin:0 0 10px 20px;
-
-		@media (--for-tablet-portrait-down) {
-			display:block;
-		}
-
-        @media (--for-phone-only){
-            margin:0 0 10px 8px;
-        }
-	}
-
-    .ql-toolbar{
-        border:0;
-        margin:0 0 0 -10px;
-        padding:0;
-        text-align:right;
-        flex:1;
-
-        @media (--for-tablet-portrait-down) {
-			margin:0 0 0 -9px;
-		}
-    }
-    
-    .ql-toolbar.ql-snow + .ql-container.ql-snow,
-    .ql-container.ql-snow{
-        margin:0;
-        height:62px;
-        padding:6px 10px;
-        overflow:auto;
-        
-        ._expanded &{
-            border:0 !important;
-        }
-
-        .ql-editor{
-            height:auto;
-            padding:0;
-        }
-    }
-
-    .ql-toolbar {
-        button{
-            width:30px;
-            height:30px;
-            border-radius:50%;
-            border:1px solid #d6d6d6;
-            padding:5px;
-            color:#333;
-            background:#fff;
-            margin:0 0 10px 10px;
-            transition: background, color 0.3s;
-            display: flex;
-            align-items: center;
-
-            @media (--for-tablet-portrait-down) {
-			    margin:0 0 8px 8px;
-		    }
-
-            &:hover,
-            &:active,
-            &:focus{
-                color:#fff;
-                background:#938ea1;
-                border-color:#938ea1;
-            }
-
-            &:before{
-                transition: background-image 0.3s;
-            }
-        } 
-    }
-    
-}
-
-.ql-emoji{
-    &:before{
-        content:'';
-        width:18px;
-        height:18px;
-        background-image:url(/App_Plugins/Core/Content/images/emoji.svg);
-    }
-
-    &:hover{
-        &:before{
-            background-image:url(/App_Plugins/Core/Content/images/emoji-hover.svg);
-        }
-    }
-
-    .quill--custom &{
-        &:hover{
-            &:before{
-                background-image:url(/App_Plugins/Core/Content/images/emoji-custom-hover.svg);
-            }
-        }
-    }
-
-    svg {
-        display:none;
-    }
-}
-
-.ql-link {
-    &:before{
-        content:'';
-        width:12px;
-        height:12px;
-        background-image:url(/App_Plugins/Core/Content/images/link.svg);
-    }
-
-    &:hover{
-        &:before{
-            background-image:url(/App_Plugins/Core/Content/images/link-hover.svg);
-        }
-    }
-
-    .quill--custom &{
-        &:hover{
-            &:before{
-                background-image:url(/App_Plugins/Core/Content/images/link-custom-hover.svg);
-            }
-        }
-    }
-
-    svg {
-        display:none;
-    }
-}
-
-.ql-formats ._upload{
-    &:before{
-        content:'';
-        width:14px;
-        height:15px;
-        background-image:url(/App_Plugins/Core/Content/images/attachment.svg);
-    }
-
-    &:hover{
-        &:before{
-            background-image:url(/App_Plugins/Core/Content/images/attachment-hover.svg);
-        }
-    }
-
-    .quill--custom &{
-        &:hover{
-            &:before{
-                background-image:url(/App_Plugins/Core/Content/images/attachment-custom-hover.svg);
-            }
-        }
-    }
-}
-
-.ql-bold{
-    &:before{
-        font: 600 14px/18px 'Open Sans', Arial, Helvetica, sans-serif;
-        content:'B';
-        width:20px;
-        height:20px;
-        background-image:none;
-    }
-
-    .quill--custom &{
-        &:hover{
-            color:#fff;
-        }
-    }
-
-    svg {
-        display:none;
-    }
-}
-
-.ql-italic{
-    &:before{
-        font:600 italic 14px/18px 'Open Sans', Arial, Helvetica, sans-serif;
-        content:'i';
-        width:20px;
-        height:20px;
-        background-image:none;
-    }
-
-    .quill--custom &{
-        &:hover{
-            color:#fff;
-        }
-    }
-
-    svg {
-        display:none;
-    }
-}
-
-.ql-underline{
-    &:before{
-        font:600 14px/18px 'Open Sans', Arial, Helvetica, sans-serif;
-        content:'U';
-        width:20px;
-        height:20px;
-        background-image:none;
-        text-decoration:underline;
-    }
-
-    .quill--custom &{
-        &:hover{
-            color:#fff;
-        }
-    }
-
-    svg {
-        display:none;
-    }
-}

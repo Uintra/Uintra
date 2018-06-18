@@ -1,4 +1,4 @@
-﻿namespace Uintra.Core.PagePromotion
+﻿namespace uIntra.Core.PagePromotion
 {
     public class PagePromotionConstants
     {

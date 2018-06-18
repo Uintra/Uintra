@@ -1,7 +1,7 @@
-﻿using Uintra.Users;
-using Uintra.Users.Web;
+﻿using uIntra.Users;
+using uIntra.Users.Web;
 
-namespace Compent.Uintra.Controllers.Api
+namespace Compent.uIntra.Controllers.Api
 {
     public class MemberApiController : MemberApiControllerBase
     {

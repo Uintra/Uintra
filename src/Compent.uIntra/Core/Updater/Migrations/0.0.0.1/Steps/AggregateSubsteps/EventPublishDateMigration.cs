@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using Uintra.Events;
+using uIntra.Events;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
+namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps
 {
     public class EventPublishDateMigration
     {

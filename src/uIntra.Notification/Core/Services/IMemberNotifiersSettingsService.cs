@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using uIntra.Notification.Configuration;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
     public interface IMemberNotifiersSettingsService
     {
-        IDictionary<Enum, bool> GetForMember(Guid memberId);
-        IDictionary<Guid, IEnumerable<Enum>> GetForMembers(IEnumerable<Guid> memberIds);
-        void SetForMember(Guid memberId, Enum notifierType, bool isEnabled);
+        IDictionary<NotifierTypeEnum, bool> GetForMember(Guid memberId);
+        IDictionary<Guid, IEnumerable<NotifierTypeEnum>> GetForMembers(IEnumerable<Guid> memberIds);
+        void SetForMember(Guid memberId, NotifierTypeEnum notifierType, bool isEnabled);
     }
 }

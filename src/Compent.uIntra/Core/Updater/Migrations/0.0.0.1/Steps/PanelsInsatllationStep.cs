@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Newtonsoft.Json.Linq;
-using Uintra.Core.Utils;
+using uIntra.Core.Installer;
+using uIntra.Core.Utils;
 using Umbraco.Core;
 using Umbraco.Core.Models;
-using static Compent.Uintra.Core.Updater.ExecutionResult;
-using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.PanelsInstallationConstants;
+using static Compent.uIntra.Core.Updater.ExecutionResult;
+using static Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants.PanelsInstallationConstants;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
+namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class PanelsInstallationStep : IMigrationStep
     {

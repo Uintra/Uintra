@@ -1,11 +1,11 @@
 using AutoMapper;
-using Compent.Extensions;
-using Uintra.Core.Activity;
-using Uintra.Core.Extensions;
-using Uintra.Core.Location;
-using Uintra.News.Dashboard;
+using Extensions;
+using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
+using uIntra.Core.Location;
+using uIntra.News.Dashboard;
 
-namespace Uintra.News
+namespace uIntra.News
 {
     public class NewsAutoMapperProfile : Profile
     {

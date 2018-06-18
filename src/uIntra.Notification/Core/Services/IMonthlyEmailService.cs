@@ -1,9 +1,7 @@
-﻿namespace Uintra.Notification
+﻿namespace uIntra.Notification
 {
     public interface IMonthlyEmailService
     {
-        void ProcessMonthlyEmail();
-
-        void CreateAndSendMail();
+        void SendEmail();
     }
 }

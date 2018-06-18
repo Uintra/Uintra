@@ -1,8 +1,8 @@
 using System;
-using Uintra.Notification.Base;
-using Uintra.Notification.Configuration;
+using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
     public interface IMailService
     {

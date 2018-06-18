@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Uintra.Groups.Navigation.Models
+namespace uIntra.Groups
 {
     public class GroupLeftNavigationMenuViewModel
     {

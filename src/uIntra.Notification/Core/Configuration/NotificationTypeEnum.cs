@@ -1,4 +1,4 @@
-﻿namespace Uintra.Notification.Configuration
+﻿namespace uIntra.Notification.Configuration
 {
     public enum NotificationTypeEnum
     {
@@ -7,13 +7,12 @@
         EventHided,
         BeforeStart,
         News,
-        Idea,
+        Idea,        
         ActivityLikeAdded,
         CommentAdded,
         CommentEdited,
         CommentReplied,
         CommentLikeAdded,
-        MonthlyMail,
-        Welcome
+        MonthlyMail
     }
 }

@@ -2,7 +2,7 @@
 using Umbraco.Core;
 using Umbraco.Core.Models;
 
-namespace Uintra.Core.Extensions
+namespace uIntra.Core.Extensions
 {
     public static class UmbracoMemberExtensions
     {
@@ -16,11 +16,12 @@ namespace Uintra.Core.Extensions
             if (member.HasProperty(alias))
             {
                 var imageString = (string) member.GetValue(alias);
-                if (GuidUdi.TryParse(imageString, out var imageGuidUdi))
+                GuidUdi imageGuidUdi;
+                if (GuidUdi.TryParse(imageString, out imageGuidUdi))
                 {
                     var imageNodeId = ApplicationContext.Current.Services.EntityService.GetIdForKey(
                         imageGuidUdi.Guid,
-                        (UmbracoObjectTypes)Enum.Parse(typeof(UmbracoObjectTypes),
+                        (UmbracoObjectTypes) Enum.Parse(typeof(UmbracoObjectTypes),
                             imageGuidUdi.EntityType,
                             ignoreCase: true));
                     return imageNodeId.Result;

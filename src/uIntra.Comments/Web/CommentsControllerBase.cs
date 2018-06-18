@@ -2,150 +2,126 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.CommandBus;
-using Uintra.Comments.CommandBus;
-using Uintra.Core;
-using Uintra.Core.Activity;
-using Uintra.Core.Context;
-using Uintra.Core.Extensions;
-using Uintra.Core.LinkPreview;
-using Uintra.Core.Links;
-using Uintra.Core.User;
+using uIntra.Core;
+using uIntra.Core.Activity;
+using uIntra.Core.Extensions;
+using uIntra.Core.Links;
+using uIntra.Core.PagePromotion;
+using uIntra.Core.User;
 using Umbraco.Web;
-using static Uintra.Core.Context.ContextBuildActionType;
+using Umbraco.Web.Mvc;
 
-namespace Uintra.Comments.Web
+namespace uIntra.Comments.Web
 {
-    [TrackContext]
-    public abstract class CommentsControllerBase : ContextController
+    public abstract class CommentsControllerBase : SurfaceController
     {
-        public override ContextType ControllerContextType { get; } = ContextType.Comment;
-
         protected virtual string OverviewViewPath { get; } = "~/App_Plugins/Comments/View/CommentsOverView.cshtml";
         protected virtual string PreviewViewPath { get; } = "~/App_Plugins/Comments/View/CommentsPreView.cshtml";
         protected virtual string EditViewPath { get; } = "~/App_Plugins/Comments/View/CommentsEditView.cshtml";
         protected virtual string CreateViewPath { get; } = "~/App_Plugins/Comments/View/CommentsCreateView.cshtml";
         protected virtual string ViewPath { get; } = "~/App_Plugins/Comments/View/CommentsView.cshtml";
 
+        private readonly ICommentableService _customCommentableService;
         private readonly ICommentsService _commentsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        private readonly IProfileLinkProvider _profileLinkProvider;
-        private readonly ICommandPublisher _commandPublisher;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+        private readonly IUmbracoContentHelper _umbracoContentHelper;
+        private readonly IProfileLinkProvider _profileLinkProvider;
+        private readonly UmbracoHelper _umbracoHelper;
 
         protected CommentsControllerBase(
             ICommentsService commentsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
+            IActivitiesServiceFactory activitiesServiceFactory,
+            ICommentableService customCommentableService,
+            IUmbracoContentHelper umbracoContentHelper,
             IProfileLinkProvider profileLinkProvider,
-            IContextTypeProvider contextTypeProvider,
-            ICommandPublisher commandPublisher,
-            IActivitiesServiceFactory activitiesServiceFactory)
-            : base(contextTypeProvider)
+            UmbracoHelper umbracoHelper)
         {
             _commentsService = commentsService;
             _intranetUserService = intranetUserService;
-            _profileLinkProvider = profileLinkProvider;
-            _commandPublisher = commandPublisher;
             _activitiesServiceFactory = activitiesServiceFactory;
-
-            ContextBuildActionType = Erasure;
+            _customCommentableService = customCommentableService;
+            _umbracoContentHelper = umbracoContentHelper;
+            _profileLinkProvider = profileLinkProvider;
+            _umbracoHelper = umbracoHelper;
         }
 
         [HttpPost]
-        [ContextAction(ContextBuildActionType.Add)]
         public virtual PartialViewResult Add(CommentCreateModel model)
         {
-            var commentsTarget = FullContext.GetCommentsTarget();
-            var targetEntityId = commentsTarget.EntityId.Value;
-
             if (!ModelState.IsValid)
             {
-                return OverView(targetEntityId);
+                return OverView(model.ActivityId);
             }
 
-            var createDto = MapToCreateDto(model, targetEntityId);
-            var command = new AddCommentCommand(FullContext, createDto);
-            _commandPublisher.Publish(command);
+            if (IsForPagePromotion(model.ActivityId)) return AddActivityComment(model);
 
-            switch (commentsTarget.Type.ToInt())
+            if (_umbracoContentHelper.IsForContentPage(model.ActivityId))
             {
-                case int type when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
-                    var activityCommentsInfo = GetActivityComments(targetEntityId);
-                    return OverView(activityCommentsInfo);
-                default:
-                    return OverView(targetEntityId);
+                _customCommentableService.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+                return OverView(model.ActivityId);
             }
+
+            return AddActivityComment(model);
         }
 
         [HttpPut]
-        [ContextAction(Erasure)]
         public virtual PartialViewResult Edit(CommentEditModel model)
         {
-            var editCommentId = FullContext.Value.EntityId.Value;
-            var commentsTarget = FullContext.GetCommentsTarget();
-            var targetEntityId = commentsTarget.EntityId.Value;
+            var comment = _commentsService.Get(model.Id);
 
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || !_commentsService.CanEdit(comment, _intranetUserService.GetCurrentUser().Id))
             {
-                return OverView(editCommentId);
+                return OverView(model.Id);
             }
 
-            var comment = _commentsService.Get(editCommentId);
-            if (!_commentsService.CanEdit(comment, _intranetUserService.GetCurrentUserId()))
+            if (IsForPagePromotion(comment.ActivityId)) return EditActivityComment(model, comment);
+
+            if (_umbracoContentHelper.IsForContentPage(comment.ActivityId))
             {
-                return OverView(editCommentId);
+                _customCommentableService.UpdateComment(model.Id, model.Text);
+                return OverView(comment.ActivityId);
             }
 
-            var editDto = MapToEditDto(model, editCommentId);
-            var command = new EditCommentCommand(FullContext, editDto);
-            _commandPublisher.Publish(command);
-
-            switch (commentsTarget.Type.ToInt())
-            {
-                case int type when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
-                    var activityCommentsInfo = GetActivityComments(targetEntityId);
-                    return OverView(activityCommentsInfo);
-                default:
-                    return OverView(comment.ActivityId);
-            }
+            return EditActivityComment(model, comment);
         }
 
         [HttpDelete]
-        [ContextAction(Remove)]
-        public virtual PartialViewResult Delete()
+        public virtual PartialViewResult Delete(Guid id)
         {
-            var deleteCommentId = FullContext.Value.EntityId.Value;
-            var commentsTarget = FullContext.GetCommentsTarget();
-            var targetEntityId = commentsTarget.EntityId.Value;
+            var comment = _commentsService.Get(id);
+            var currentUserId = _intranetUserService.GetCurrentUser().Id;
 
-            var comment = _commentsService.Get(deleteCommentId);
-            if (!_commentsService.CanDelete(comment, _intranetUserService.GetCurrentUserId()))
+            if (!_commentsService.CanDelete(comment, currentUserId))
             {
                 return OverView(comment.ActivityId);
             }
 
-            var command = new RemoveCommentCommand(FullContext, deleteCommentId);
-            _commandPublisher.Publish(command);
+            if (IsForPagePromotion(comment.ActivityId)) return RemoveActivityComment(comment);
 
-            switch (commentsTarget.Type.ToInt())
+            if (_umbracoContentHelper.IsForContentPage(comment.ActivityId))
             {
-                case int type when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
-                    var activityCommentsInfo = GetActivityComments(targetEntityId);
-                    return OverView(activityCommentsInfo);
-                default:
-                    return OverView(comment.ActivityId);
+                _customCommentableService.DeleteComment(id);
+                return OverView(comment.ActivityId);
             }
+
+            return RemoveActivityComment(comment);
         }
 
         public virtual PartialViewResult ContentComments()
         {
-            var guid = CurrentPage.GetKey();
+            var guid = CurrentPage.GetGuidKey();
             return OverView(guid, _commentsService.GetMany(guid));
         }
 
         public virtual PartialViewResult CreateView(Guid activityId)
         {
-            var model = new CommentCreateModel { UpdateElementId = GetOverviewElementId(activityId) };
+            var model = new CommentCreateModel
+            {
+                ActivityId = activityId,
+                UpdateElementId = GetOverviewElementId(activityId)
+            };
             return PartialView(CreateViewPath, model);
         }
 
@@ -181,8 +157,32 @@ namespace Uintra.Comments.Web
 
         public virtual PartialViewResult CommentsView(CommentViewModel viewModel)
         {
-            AddEntityIdentityForContext(viewModel.Id);
             return PartialView(ViewPath, viewModel);
+        }
+
+        protected virtual PartialViewResult AddActivityComment(CommentCreateModel model)
+        {
+            var service = _activitiesServiceFactory.GetService<ICommentableService>(model.ActivityId);
+            var comment = service.CreateComment(_intranetUserService.GetCurrentUser().Id, model.ActivityId, model.Text, model.ParentId);
+            OnCommentCreated(comment);
+
+            return OverView(model.ActivityId);
+        }
+
+        protected virtual PartialViewResult EditActivityComment(CommentEditModel model, CommentModel comment)
+        {
+            var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
+            service.UpdateComment(model.Id, model.Text);
+            OnCommentEdited(comment);
+            return OverView(comment.ActivityId);
+        }
+
+        protected virtual PartialViewResult RemoveActivityComment(CommentModel comment)
+        {
+            var service = _activitiesServiceFactory.GetService<ICommentableService>(comment.ActivityId);
+            service.DeleteComment(comment.Id);
+
+            return OverView(comment.ActivityId);
         }
 
         protected virtual PartialViewResult OverView(Guid activityId)
@@ -230,38 +230,27 @@ namespace Uintra.Comments.Web
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             model.CreatorProfileUrl = _profileLinkProvider.GetProfileLink(creator);
-            model.LinkPreview = comment.LinkPreview.Map<LinkPreviewViewModel>();
             return model;
         }
 
-        protected virtual ICommentable GetActivityComments(Guid activityId)
+        protected virtual bool IsForPagePromotion(Guid entityId)
         {
-            var service = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(activityId);
-            return (ICommentable)service.Get(activityId);
-        }
-
-        protected virtual CommentCreateDto MapToCreateDto(CommentCreateModel createModel, Guid activityId)
-        {
-            var currentUserId = _intranetUserService.GetCurrentUser().Id;
-            var dto = new CommentCreateDto(
-                Guid.NewGuid(),
-                currentUserId,
-                activityId,
-                createModel.Text,
-                createModel.ParentId,
-                createModel.LinkPreviewId);
-
-            return dto;
-        }
-
-        protected virtual CommentEditDto MapToEditDto(CommentEditModel editModel, Guid commentId)
-        {
-            return new CommentEditDto(commentId, editModel.Text, editModel.LinkPreviewId);
+            var content = _umbracoHelper.TypedContent(entityId);
+            return content != null && PagePromotionHelper.IsPagePromotion(content) && PagePromotionHelper.IsPromoted(content);
         }
 
         protected virtual string GetOverviewElementId(Guid activityId)
         {
             return $"js-comments-overview-{activityId}";
+        }
+
+        protected virtual void OnCommentCreated(CommentModel comment)
+        {
+
+        }
+
+        protected virtual void OnCommentEdited(CommentModel comment)
+        {
         }
     }
 }

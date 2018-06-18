@@ -1,15 +1,17 @@
-﻿using Uintra.Core;
-using Uintra.Core.BrowserCompatibility;
-using Uintra.Core.Web;
+﻿using System.Web;
+using uIntra.Core;
+using uIntra.Core.BrowserCompatibility;
+using uIntra.Core.Web;
 
-namespace Compent.Uintra.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class BrowserCompatibilityController : BrowserCompatibilityControllerBase
     {        
-        public BrowserCompatibilityController(            
+        public BrowserCompatibilityController(
+            HttpContext httpContext,
             IBrowserCompatibilityConfigurationSection browserCompatibilityConfiguration,
             ICookieProvider cookieProvider) 
-            : base(browserCompatibilityConfiguration, cookieProvider)
+            : base(httpContext, browserCompatibilityConfiguration, cookieProvider)
         {
         }
     }

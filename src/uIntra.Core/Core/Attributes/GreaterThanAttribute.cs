@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Uintra.Core.Attributes
+namespace uIntra.Core.Attributes
 {
     public class GreaterThanAttribute : ValidationAttribute
     {

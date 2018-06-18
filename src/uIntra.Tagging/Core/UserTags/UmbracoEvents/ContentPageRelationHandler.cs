@@ -2,27 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
-using Uintra.Core.Grid;
-using Uintra.Core.PagePromotion;
-using Uintra.Core.UmbracoEventServices;
+using uIntra.Core.Grid;
+using uIntra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Publishing;
 using Umbraco.Core.Services;
 
-namespace Uintra.Tagging.UserTags
+namespace uIntra.Tagging.UserTags
 {
     public class ContentPageRelationHandler : IUmbracoContentPublishedEventService, IUmbracoContentUnPublishedEventService, IUmbracoContentTrashedEventService
     {
         private readonly IUserTagService _userTagService;
         private readonly IGridHelper _gridHelper;
-        private readonly IPagePromotionService<PagePromotionBase> _pagePromotionService;
 
-        public ContentPageRelationHandler(IUserTagService userTagService, IGridHelper gridHelper, IPagePromotionService<PagePromotionBase> pagePromotionService)
+        public ContentPageRelationHandler(IUserTagService userTagService, IGridHelper gridHelper)
         {
             _userTagService = userTagService;
             _gridHelper = gridHelper;
-            _pagePromotionService = pagePromotionService;
         }
 
         public void ProcessContentPublished(IPublishingStrategy sender, PublishEventArgs<IContent> args)
@@ -68,27 +65,13 @@ namespace Uintra.Tagging.UserTags
 
         public void ProcessContentTrashed(IContentService sender, MoveEventArgs<IContent> args)
         {
-            var content = args.MoveInfoCollection.Select(info => info.Entity).ToList();
+            var content = args.MoveInfoCollection.Select(info => info.Entity);
             var contentPagesWithTags = ParseUserTags(content);
 
             foreach (var (_, _, entityId) in contentPagesWithTags)
             {
                 _userTagService.DeleteAllFor(entityId);
             }
-
-            ProcessPromotions(content);
-        }
-
-        private void ProcessPromotions(IEnumerable<IContent> content)
-        {
-            var promotionIds = _pagePromotionService.GetAll(true).Select(p => p.Id);
-
-            var promotionIdsToDelete = promotionIds.Intersect(content.Select(c => c.Key)).ToList();
-
-            promotionIdsToDelete.ForEach(p =>
-            {
-                _pagePromotionService.Delete(p);
-            });
         }
     }
 }

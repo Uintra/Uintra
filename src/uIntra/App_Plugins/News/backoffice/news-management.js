@@ -71,7 +71,7 @@
             };
         }
 
-        self.selectNewsToEdit = function (news) {
+        self.selectNewsToEdit = function (news, index) {
             if (self.selected != null) {
                 self.clearSelected();
             }
@@ -79,12 +79,11 @@
             if (news == null) {
                 var currentOwner = self.users.filter(function (user) { return user.umbracoId === self.currentUser.id })[0];
                 news = { owner: currentOwner };
-                self.selectedIndex = null;
             } else {
                 news.owner = self.users.filter(function (user) { return user.id === news.ownerId })[0];
-                self.selectedIndex = self.newsList.indexOf(news);
             }
 
+            self.selectedIndex = index;
             self.selected = angular.copy(news);
             self.selected.publishDate = self.selected.publishDate || new Date().toISOString();
         }
@@ -104,28 +103,28 @@
             }
         }
 
-        self.publish = function (news) {
+        self.publish = function (news, $index) {
             self.clearSelected();
             var editedNews = angular.copy(news);
             editedNews.isHidden = false;
-            save(editedNews, self.newsList.indexOf(news));
+            save(editedNews, $index);
         }
 
-        self.unpublish = function (news) {
+        self.unpublish = function (news, $index) {
             self.clearSelected();
             var editedNews = angular.copy(news);
             editedNews.isHidden = true;
-            save(editedNews, self.newsList.indexOf(news));
+            save(editedNews, $index);
         }
 
-        self.delete = function (news) {
+        self.delete = function (news, $index) {
             self.clearSelected();
             if (!confirm('Are you sure?')) {
                 return;
             }
 
             $http.delete('/Umbraco/backoffice/Api/NewsSection/Delete?id=' + news.id).then(function (response) {
-                self.newsList.splice(self.newsList.indexOf(news), 1);
+                self.newsList.splice($index, 1);
                 self.clearSelected();
             }, onError);
         }

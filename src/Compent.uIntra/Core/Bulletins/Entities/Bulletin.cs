@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Uintra.Bulletins;
-using Uintra.CentralFeed;
-using Uintra.Comments;
-using Uintra.Groups;
-using Uintra.Likes;
-using Uintra.Subscribe;
+using uIntra.Bulletins;
+using uIntra.CentralFeed;
+using uIntra.Comments;
+using uIntra.Groups;
+using uIntra.Likes;
+using uIntra.Subscribe;
 
-namespace Compent.Uintra.Core.Bulletins
+namespace Compent.uIntra.Core.Bulletins
 {
     public class Bulletin : BulletinBase, IFeedItem, ICommentable, ILikeable, ISubscribable, IGroupActivity
     {
@@ -19,7 +19,7 @@ namespace Compent.Uintra.Core.Bulletins
         [JsonIgnore]
         public IEnumerable<CommentModel> Comments { get; set; }
 
-        public IEnumerable<global::Uintra.Subscribe.Subscribe> Subscribers { get; set; }
+        public IEnumerable<global::uIntra.Subscribe.Subscribe> Subscribers { get; set; }
 
         public Guid? GroupId { get; set; }
 

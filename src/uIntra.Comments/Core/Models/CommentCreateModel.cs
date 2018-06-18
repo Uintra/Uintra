@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace Uintra.Comments
+namespace uIntra.Comments
 {
     public class CommentCreateModel
     {
@@ -10,9 +10,9 @@ namespace Uintra.Comments
 
         public Guid? ParentId { get; set; }
 
+        public Guid ActivityId { get; set; }
+
         [Required(ErrorMessage = "*"), AllowHtml]
         public string Text { get; set; }
-
-        public int? LinkPreviewId { get; set; }
     }
 }

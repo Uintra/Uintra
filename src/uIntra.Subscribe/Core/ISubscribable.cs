@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using uIntra.Core.TypeProviders;
 
-namespace Uintra.Subscribe
+namespace uIntra.Subscribe
 {
     public interface ISubscribable
     {
@@ -9,6 +10,6 @@ namespace Uintra.Subscribe
 
         IEnumerable<Subscribe> Subscribers { get; set; }
 
-        Enum Type { get; set; }
+        IIntranetType Type { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Uintra.CentralFeed.Providers
+﻿namespace uIntra.CentralFeed.Providers
 {
     /// <summary>
     /// Interface-marker

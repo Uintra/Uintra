@@ -1,10 +1,10 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Routing
-@using Uintra.Core.Activity
-@using Uintra.Core.Controls.FileUpload
-@using Uintra.Core.Extensions
+@using uIntra.Core.Activity
+@using uIntra.Core.Controls.FileUpload
+@using uIntra.Core.Extensions
 @using Umbraco.Web
-@model Uintra.Events.EventEditModel
+@model uIntra.Events.EventEditModel
 
 <div class="form js-check-before-unload" id="js-events-edit-page">
     @using (Html.BeginUmbracoForm("Edit", "Events", FormMethod.Post, new { id = "editForm" }))
@@ -35,6 +35,7 @@
             </div>
             <input type="hidden" id="js-hidden-description-container" name="description"
                    value="@(Model.Description)"
+                   data-placeholder="@Html.Localize("Events.Description.placeholder")"
                    data-val-required="@Html.Localize("EventsEdit.DescriptionRequired.lbl")"
                    data-val="true" />
         </div>
@@ -55,14 +56,10 @@
             </div>
         </div>
         <div class="form__row clearfix">
-            <div class="row">
-                <div class="col-md-12">
-                    <label class="form__label" for="js-publish-date">@Html.Localize("EventsEdit.PublishDate.lbl")</label>
-                    <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
-                    <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("EventsEdit.PublishDateRequired.lbl")" data-val="true" />
-                    <span class="form__clear icon-close js-clear-date hide"></span>
-                </div>
-            </div>
+            <label class="form__label" for="js-publish-date">@Html.Localize("EventsEdit.PublishDate.lbl")</label>
+            <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
+            <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("EventsEdit.PublishDateRequired.lbl")" data-val="true" />
+            <span class="form__clear icon-close js-clear-date hide"></span>
         </div>
         <div class="form__row clearfix">
             @Html.Action("PinActivity", "Activity", new { isPinned = @Model.IsPinned, endPinDate = @Model.EndPinDate })

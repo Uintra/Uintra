@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using EmailWorker.Data.Model;
-using Uintra.Core.Extensions;
-using Uintra.Notification.MailModels;
+using uIntra.Core.Extensions;
+using uIntra.Notification.MailModels;
 
-namespace Compent.Uintra.Core.Notification.Mails
+namespace Compent.uIntra.Core.Notification.Mails
 {
     public class CommentLikeAddedMail : CommentLikeAddedMailBase, IEmailBase
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
-using Uintra.Core.User;
+using Extensions;
+using uIntra.Core.User;
 
-namespace Uintra.Users
+namespace uIntra.Users
 {
     public class RoleServiceBase : IRoleService
     {

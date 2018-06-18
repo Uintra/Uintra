@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using Uintra.Core;
-using Uintra.Core.Activity;
-using Uintra.Core.Extensions;
-using Uintra.Core.TypeProviders;
-using Uintra.Core.User;
+using uIntra.Core;
+using uIntra.Core.Activity;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
 using Umbraco.Web.Mvc;
 
-namespace Uintra.Subscribe.Web
+namespace uIntra.Subscribe.Web
 {
     public abstract class SubscribeControllerBase : SurfaceController
     {
@@ -94,7 +93,7 @@ namespace Uintra.Subscribe.Web
             return Json(new { Result = version }, JsonRequestBehavior.AllowGet);
         }
 
-        protected virtual PartialViewResult Index(Guid activityId, Subscribe subscriber, Enum type = null)
+        protected virtual PartialViewResult Index(Guid activityId, Subscribe subscriber, IIntranetType type = null)
         {
             var model = new SubscribeViewModel
             {

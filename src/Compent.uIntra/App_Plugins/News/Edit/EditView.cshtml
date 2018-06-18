@@ -1,9 +1,9 @@
 ﻿@using System.Web.Mvc
-@using Uintra.Core.Activity
-@using Uintra.Core.Controls.FileUpload
-@using Uintra.Core.Extensions
+@using uIntra.Core.Activity
+@using uIntra.Core.Controls.FileUpload
+@using uIntra.Core.Extensions
 @using Umbraco.Web
-@model Uintra.News.NewsEditModel
+@model uIntra.News.NewsEditModel
 
 <div class="form js-check-before-unload" id="js-news-edit-page">
     @using (Html.BeginUmbracoForm("Edit", "News", FormMethod.Post, new { id = "form" }))
@@ -57,8 +57,10 @@
                 Html.RenderAction("Editor", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
         </div>
-        @Html.ValidationSummary()
-        <div class="form__row form__row--top-indent clearfix">
+        <div class="form__row clearfix">
+            @Html.ValidationSummary()
+        </div>
+        <div class="form__row clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId"/>
             @Html.PassLinks(Model.Links)
             <input class="btn _submit js-disable-submit" type="submit" value="@Html.Localize("NewsEdit.Edit.btn")"/>

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Uintra.Core.Jobs.Configuration;
+using uIntra.Core.Jobs.Configuration;
 
-namespace Uintra.Core.Jobs.AutoMapperProfiles
+namespace uIntra.Core.Jobs.AutoMapperProfiles
 {
     public class JobAutoMapperProfile : Profile
     {

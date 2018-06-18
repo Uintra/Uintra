@@ -1,7 +1,7 @@
 ﻿using System;
-using Uintra.Notification.Base;
+using uIntra.Notification.Base;
 
-namespace Uintra.Notification
+namespace uIntra.Notification
 {
     public interface IReminderableService<out T> where T : IReminderable
     {

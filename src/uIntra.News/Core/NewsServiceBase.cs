@@ -1,38 +1,33 @@
 ﻿using System;
-using Uintra.Core.Activity;
-using Uintra.Core.Caching;
-using Uintra.Core.Extensions;
-using Uintra.Core.LinkPreview;
-using Uintra.Core.Location;
-using Uintra.Core.Media;
-using Uintra.Core.TypeProviders;
-using Uintra.Core.User;
+using uIntra.Core;
+using uIntra.Core.Activity;
+using uIntra.Core.Caching;
+using uIntra.Core.Location;
+using uIntra.Core.Media;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
 
-namespace Uintra.News
+namespace uIntra.News
 {
     public abstract class NewsServiceBase<TNews> : IntranetActivityService<TNews> where TNews : NewsBase
     {
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
-        protected NewsServiceBase(
-            IIntranetActivityRepository activityRepository,
+        protected NewsServiceBase(IIntranetActivityRepository activityRepository,
             ICacheService cache,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IActivityTypeProvider activityTypeProvider,
             IIntranetMediaService intranetMediaService,
-            IActivityLocationService activityLocationService,
-            IActivityLinkPreviewService activityLinkPreviewService)
-            : base(activityRepository, cache, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService)
+            IActivityLocationService activityLocationService)
+            : base(activityRepository, cache, activityTypeProvider, intranetMediaService, activityLocationService)
         {
             _intranetUserService = intranetUserService;
         }
 
-        public override bool IsActual(IIntranetActivity activity)
+        public override bool IsActual(IIntranetActivity cachedActivity)
         {
-            var news = (NewsBase)activity;
-
-            var isActual = base.IsActual(news) && news.PublishDate <= DateTime.UtcNow && !IsShowIfUnpublish(news);
-            return isActual;
+            var activity = (NewsBase)cachedActivity;
+            return base.IsActual(activity) && activity.PublishDate.Date <= DateTime.Now.Date && !IsShowIfUnpublish(activity);
         }
 
         public virtual bool IsExpired(INewsBase news)

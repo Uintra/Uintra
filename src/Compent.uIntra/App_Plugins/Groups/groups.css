@@ -52,7 +52,7 @@
 
         @media (--for-desktop-down){
             display:block;
-            margin:0;
+            margin:0 -10px;
         }
 
         &-item{
@@ -234,26 +234,12 @@
     &__item{
         &-group{
             display:inline-block;
-            vertical-align:inherit;
+            vertical-align:top;
+            width: 14px;
+            opacity: 0.5;
+            cursor: pointer;
             position:relative;
-
-            a{
-                display:inline-block;
-                vertical-align:inherit;
-                position:relative;
-
-                &:before{
-                    content:"";
-                    width:20px;
-                    height:11px;
-                    display:inline-block;
-                    vertical-align:top;
-                    background:url(/Content/images/group.svg);
-                    position:relative;
-                    top:0;
-                    margin:0 4px 0 0;
-                }
-            }
+            margin:-1px 0 0 7px;
         }
 
         &-tooltip{
@@ -356,11 +342,6 @@
 
     &__head{
         white-space:nowrap;
-        font-weight:normal;
-
-        &:nth-child(3){
-            width:30%;
-        }
     }
 
     &__link{
@@ -384,26 +365,25 @@
                 font-size:16px;
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
-                content:"\e900";
-                /*transform:rotate(90deg);*/
+                content:"\e901";
             }
         }
 
         &._desc{
             &:after{
-                transform:rotate(-180deg);
+                transform:rotate(-90deg);
             }
         }
         
-        /*&._asc{
+        &._asc{
             &:after{
                 transform:rotate(90deg);
             }
-        }*/
+        }
     }
 
     &__name{
-        color:var(--text-color-dark);
+        color:var(--header-bg);
     }
 
     &__delete{

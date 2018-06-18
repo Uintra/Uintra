@@ -1,6 +1,6 @@
-﻿namespace Uintra.Core.TypeProviders
+﻿namespace uIntra.Core.TypeProviders
 {
-    public interface IActivityTypeProvider : IEnumTypeProvider
+    public interface IActivityTypeProvider : IIntranetTypeProvider
     {
     }
 }

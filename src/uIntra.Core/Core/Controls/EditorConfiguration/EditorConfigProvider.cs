@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Uintra.Core.Constants;
+using uIntra.Core.Constants;
 
-namespace Uintra.Core.Controls
+namespace uIntra.Core.Controls
 {
     public abstract class EditorConfigProvider : IEditorConfigProvider
     {

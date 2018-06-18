@@ -1,22 +1,22 @@
 ﻿using System.Web.Http;
-using Uintra.Notification;
+using uIntra.Notification;
 using Umbraco.Web.WebApi;
 
-namespace Compent.Uintra.Controllers.Api
+namespace Compent.uIntra.Controllers.Api
 {
-    public class MonthlyEmailApiController : UmbracoApiController
+    public class MonthlyEmailApiController: UmbracoApiController
     {
         private readonly IMonthlyEmailService _monthlyEmailService;
 
         public MonthlyEmailApiController(IMonthlyEmailService monthlyEmailService)
         {
-            _monthlyEmailService = monthlyEmailService;
+            _monthlyEmailService = monthlyEmailService;            
         }
 
         [HttpGet]
         public void SendMonthlyEmail()
         {
-            _monthlyEmailService.ProcessMonthlyEmail();
+            _monthlyEmailService.SendEmail();
         }
     }
 }

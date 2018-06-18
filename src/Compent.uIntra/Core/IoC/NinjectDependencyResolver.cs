@@ -4,7 +4,7 @@ using System.Web.Http.Dependencies;
 using Ninject;
 using Ninject.Syntax;
 
-namespace Compent.Uintra.Core.IoC
+namespace Compent.uIntra.Core.IoC
 {
     public class NinjectDependencyResolver : IDependencyResolver
     {

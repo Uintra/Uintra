@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra.Core.Activity
+namespace uIntra.Core.Activity
 {
     public class IntranetPinActivityModel
     {

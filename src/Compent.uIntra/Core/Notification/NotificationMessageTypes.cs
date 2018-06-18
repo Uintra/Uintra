@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using EmailWorker.Data.Model;
-using Uintra.Notification;
-using Uintra.Notification.Base;
-using Uintra.Notification.Configuration;
+using uIntra.Notification;
+using uIntra.Notification.Base;
+using uIntra.Notification.Configuration;
 
-namespace Compent.Uintra.Core.Notification
+namespace Compent.uIntra.Core.Notification
 {
     public class EmailNotificationMessage : MailBase, IEmailBase, INotificationMessage
     {

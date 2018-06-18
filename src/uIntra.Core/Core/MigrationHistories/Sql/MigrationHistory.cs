@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Uintra.Core.Persistence;
+using uIntra.Core.Persistence;
 
-namespace Uintra.Core.MigrationHistories.Sql
+namespace uIntra.Core.MigrationHistories.Sql
 {
-    [UintraTable("MigrationHistory")]
+    [uIntraTable("MigrationHistory")]
     public class MigrationHistory : SqlEntity<int>
     {
         [Key]

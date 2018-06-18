@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.Uintra.Core.UserTags.ViewModels;
-using Uintra.Core.Extensions;
-using Uintra.Search;
-using Uintra.Tagging.UserTags;
-using Uintra.Tagging.UserTags.Models;
-using Uintra.Tagging.Web;
+using Compent.uIntra.Core.UserTags.ViewModels;
+using uIntra.Core.Extensions;
+using uIntra.Search;
+using uIntra.Tagging.UserTags;
+using uIntra.Tagging.UserTags.Models;
+using uIntra.Tagging.Web;
 using Umbraco.Web;
 
-namespace Compent.Uintra.Controllers
+namespace Compent.uIntra.Controllers
 {
     public class UserTagsController : UserTagsControllerBase
     {

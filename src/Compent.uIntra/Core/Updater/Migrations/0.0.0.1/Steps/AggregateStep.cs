@@ -2,26 +2,28 @@
 using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.OldNotifications;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using Compent.uIntra.Installer.Migrations;
+using Compent.uIntra.Installer.Migrations.OldSubscribeSettings;
 using EmailWorker.Data.Services.Interfaces;
-using Compent.Extensions;
-using Uintra.Bulletins;
-using Uintra.Core;
-using Uintra.Core.Activity;
-using Uintra.Core.MigrationHistories;
-using Uintra.Core.User;
-using Uintra.Events;
-using Uintra.News;
-using Uintra.Notification.Configuration;
+using Extensions;
+using uIntra.Bulletins;
+using uIntra.Core;
+using uIntra.Core.Activity;
+using uIntra.Core.Installer;
+using uIntra.Core.MigrationHistories;
+using uIntra.Core.User;
+using uIntra.Events;
+using uIntra.News;
+using uIntra.Notification.Configuration;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using static Compent.Uintra.Core.Updater.ExecutionResult;
+using static Compent.uIntra.Core.Updater.ExecutionResult;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
+namespace Compent.uIntra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class AggregateStep : IMigrationStep
     {
@@ -135,7 +137,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
             InstallationStepsHelper.InheritCompositionForPage(CoreInstallationConstants.DocumentTypeAliases.Heading, nav);
 
             InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsCreatePage, nav);
-            InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsDeactivatedGroupPage, nav);            
+            InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsDeactivatedGroupPage, nav);
+            InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsDocumentsPage, nav);
             InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsEditPage, nav);
             InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsMembersPage, nav);
             InstallationStepsHelper.InheritCompositionForPage(GroupsInstallationConstants.DocumentTypeAliases.GroupsMyGroupsOverviewPage, nav);
@@ -150,7 +153,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
             adminUserGroup.AddAllowedSection("SentMails");
             adminUserGroup.AddAllowedSection("Localization");
 
-            userService.Save(adminUserGroup, userIds: null, raiseEvents: false);
+            userService.Save(adminUserGroup);
         }
 
         private void AddDefaultMailSettings()

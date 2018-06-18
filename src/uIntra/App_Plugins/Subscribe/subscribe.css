@@ -39,9 +39,7 @@
     }
 
     .btn{
-        @media (--for-tablet-portrait-down){
-            display:inline-block !important; 
-        }
+
         &:before{
             font-family:icomoon;
             font-size:14px;

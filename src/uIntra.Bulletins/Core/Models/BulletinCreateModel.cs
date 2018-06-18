@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using Uintra.Core.Activity;
-using Uintra.Core.Attributes;
-using Uintra.Core.Media;
-using Uintra.Core.User;
+using uIntra.Core.Activity;
+using uIntra.Core.Attributes;
+using uIntra.Core.Media;
+using uIntra.Core.User;
 
-namespace Uintra.Bulletins
+namespace uIntra.Bulletins
 {
     public class BulletinCreateModel : IntranetActivityCreateModelBase, IContentWithMediaCreateEditModel
     {
@@ -26,7 +26,5 @@ namespace Uintra.Bulletins
         public string AllowedMediaExtensions { get; set; }
 
         public IEnumerable<string> Dates { get; set; }
-
-        public int? LinkPreviewId { get; set; }
     }
 }

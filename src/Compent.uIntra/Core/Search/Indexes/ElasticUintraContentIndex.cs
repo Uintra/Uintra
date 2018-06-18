@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Compent.Uintra.Core.Search.Entities;
-using Uintra.Search;
+using Compent.uIntra.Core.Search.Entities;
+using uIntra.Search;
 
-namespace Compent.Uintra.Core.Search.Indexes
+namespace Compent.uIntra.Core.Search.Indexes
 {
     public class ElasticUintraContentIndex : IElasticUintraContentIndex
     {

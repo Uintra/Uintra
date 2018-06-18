@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
-using Uintra.Core.Jobs.Enums;
+using uIntra.Core.Jobs.Enums;
 
-namespace Uintra.Core.Jobs.Configuration
+namespace uIntra.Core.Jobs.Configuration
 {
     public class JobSettingsConfiguration : ConfigurationSection, IJobSettingsConfiguration
     {
         public static JobSettingsConfiguration Configure =>
-            ConfigurationManager.GetSection("UintraJobs") as JobSettingsConfiguration;
+            ConfigurationManager.GetSection("uIntraJobs") as JobSettingsConfiguration;
 
         [ConfigurationProperty("settings", IsRequired = true)]
         public JobSettingsCollection Settings => (JobSettingsCollection)base["settings"];

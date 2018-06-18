@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Uintra.Bulletins;
-using Uintra.CentralFeed;
-using Uintra.Core.Activity;
-using Uintra.Groups;
+using uIntra.Bulletins;
+using uIntra.CentralFeed;
+using uIntra.Core.Activity;
+using uIntra.Groups;
 
-namespace Compent.Uintra.Core.Bulletins
+namespace Compent.uIntra.Core.Bulletins
 {
     public class BulletinsAutoMapperProfile : Profile
     {

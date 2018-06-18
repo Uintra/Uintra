@@ -1,8 +1,8 @@
-﻿using Uintra.Comments;
-using Uintra.Likes;
-using Uintra.News;
+﻿using uIntra.Comments;
+using uIntra.Likes;
+using uIntra.News;
 
-namespace Compent.Uintra.Core.News.Models
+namespace Compent.uIntra.Core.News.Models
 {
     public class NewsExtendedViewModel : NewsViewModel
     {

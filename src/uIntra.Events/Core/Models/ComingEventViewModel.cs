@@ -1,8 +1,8 @@
 ﻿using System;
-using Uintra.Core.Links;
-using Uintra.Core.User;
+using uIntra.Core.Links;
+using uIntra.Core.User;
 
-namespace Uintra.Events
+namespace uIntra.Events
 {
     public class ComingEventViewModel
     {

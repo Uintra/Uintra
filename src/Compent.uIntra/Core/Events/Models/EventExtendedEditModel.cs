@@ -1,6 +1,6 @@
-﻿using Uintra.Events;
+﻿using uIntra.Events;
 
-namespace Compent.Uintra.Core.Events
+namespace Compent.uIntra.Core.Events
 {
     public class EventExtendedEditModel : EventEditModel
     {

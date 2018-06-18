@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Compent.Extensions;
-using Uintra.Core;
+using Extensions;
+using uIntra.Core;
 
-namespace Uintra.CentralFeed
+namespace uIntra.CentralFeed
 {
     public static class CentralFeedLinkProviderHelper
     {

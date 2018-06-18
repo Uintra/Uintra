@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra.Core.Exceptions
+namespace uIntra.Core.Exceptions
 {
     public interface IExceptionLogger
     {

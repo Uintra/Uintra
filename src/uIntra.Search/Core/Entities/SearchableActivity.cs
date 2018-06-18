@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra.Search
+namespace uIntra.Search
 {
     public class SearchableActivity : SearchableBase
     {

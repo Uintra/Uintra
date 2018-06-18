@@ -1,26 +1,24 @@
-﻿using Uintra.Core.Activity;
-using Uintra.Core.Context;
-using Uintra.Core.Controls.LightboxGallery;
-using Uintra.Core.Extensions;
-using Uintra.Core.Links;
-using Uintra.Core.PagePromotion;
-using Uintra.Core.User;
+﻿using uIntra.Core.Activity;
+using uIntra.Core.Controls.LightboxGallery;
+using uIntra.Core.Extensions;
+using uIntra.Core.Links;
+using uIntra.Core.PagePromotion;
+using uIntra.Core.TypeProviders;
+using uIntra.Core.User;
+using Umbraco.Core;
+using Umbraco.Web.Mvc;
 
-namespace Uintra.Core.Web
+namespace uIntra.Core.Web
 {
-    [TrackContext]
-    public abstract class PagePromotionControllerBase : ContextController
+    public abstract class PagePromotionControllerBase : SurfaceController
     {
-        public override ContextType ControllerContextType { get; } = ContextType.PagePromotion;
-
         protected virtual string ItemViewPath { get; } = "~/App_Plugins/Core/PagePromotion/Item/ItemView.cshtml";
         protected virtual int DisplayedImagesCount { get; } = 3;
         protected virtual string PagePromotionTranslationPrefix { get; } = "PagePromotion.";
 
         private readonly IIntranetUserService<IIntranetUser> _userService;
 
-        protected PagePromotionControllerBase(IIntranetUserService<IIntranetUser> userService, IContextTypeProvider contextTypeProvider)
-            : base(contextTypeProvider)
+        protected PagePromotionControllerBase(IIntranetUserService<IIntranetUser> userService)
         {
             _userService = userService;
         }
@@ -34,7 +32,12 @@ namespace Uintra.Core.Web
             model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
             model.HeaderInfo.Owner = _userService.Get(item.CreatorId);
             model.HeaderInfo.Links = links;
-            model.HeaderInfo.Type = item.Type;
+
+            model.HeaderInfo.Type = new IntranetType
+            {
+                Id = item.Type.Id,
+                Name = $"{PagePromotionTranslationPrefix}{item.PageAlias.ToFirstUpper()}"
+            };
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
             {

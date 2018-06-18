@@ -1,5 +1,5 @@
-﻿@using Uintra.Core.Extensions
-@using Uintra.Search
+﻿@using uIntra.Core.Extensions
+@using uIntra.Search
 @model SearchResultsOverviewViewModel
 
 @{
@@ -20,7 +20,7 @@
         @if (result.IsPinned)
         {
             <span class="@(result.IsPinActual ? "_pinned" : string.Empty)">
-                <span class="pinned__item">@Html.Localize("Activity.Pinned.lbl")</span>
+                <span class="pinned__item">@Html.Localize("NewsItemView.Pinned.lbl")</span>
             </span>
         }
 
