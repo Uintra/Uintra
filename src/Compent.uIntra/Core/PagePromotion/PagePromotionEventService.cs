@@ -7,11 +7,19 @@ using Umbraco.Core.Publishing;
 
 namespace Compent.Uintra.Core.PagePromotion
 {
-    public class PagePromotionEventService : IUmbracoContentPublishedEventService
+    public class PagePromotionEventService : IUmbracoContentPublishedEventService, IUmbracoContentUnPublishedEventService
     {
         public void ProcessContentPublished(IPublishingStrategy sender, PublishEventArgs<IContent> publishEventArgs)
         {
             foreach (var entity in publishEventArgs.PublishedEntities)
+            {
+                UpdatePagePromotionCache(entity);
+            }
+        }
+
+        public void ProcessContentUnPublished(IPublishingStrategy sender, PublishEventArgs<IContent> unPublishEventArgs)
+        {
+            foreach (var entity in unPublishEventArgs.PublishedEntities)
             {
                 UpdatePagePromotionCache(entity);
             }
@@ -31,6 +39,6 @@ namespace Compent.Uintra.Core.PagePromotion
             {
                 pagePromotionService.Delete(content.Key);
             }
-        }
+        }       
     }
 }

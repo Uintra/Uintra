@@ -3,7 +3,7 @@
 
     var factory = function (assetsService) {
         function init(scope, elem, attrs) {
-
+           
             if (!scope.model) {
                 scope.model = {};
             }
@@ -33,9 +33,11 @@
                 configModel: '=config',
                 mode: '@'
             },
-            link: function(scope, elem, attrs) {
-                assetsService.load(['/App_Plugins/Core/ActivityLocation/activityLocationEdit.js'])
-                    .then(function () {init(scope, elem, attrs)});
+            link: function (scope, elem, attrs) {
+                assetsService.loadJs('/App_Plugins/Core/ActivityLocation/activityLocationEdit.js', scope, null, 1)
+                    .then(function() {
+                        init(scope, elem, attrs);
+                    });
             }
         };
     }
