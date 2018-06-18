@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps;
 using Compent.Uintra.Core.Updater.Migrations._0._3._1._0.Steps;
 
 namespace Compent.Uintra.Core.Updater.Migrations._0._3._1._0
@@ -21,9 +22,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._1._0
         {
             get
             {
-                yield return Resolve<RemoveMailTemplatesFolderStep>();
-                yield return Resolve<UpdateGridPageLayoutTemplateStep>();
-                yield return Resolve<AddTranslationsStep>();
+                yield return Resolve<RemoveMailTeplatesFolderStep>();
             }
         }
     }

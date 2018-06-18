@@ -52,7 +52,7 @@
 
         @media (--for-desktop-down){
             display:block;
-            margin:0;
+            margin:0 -10px;
         }
 
         &-item{
