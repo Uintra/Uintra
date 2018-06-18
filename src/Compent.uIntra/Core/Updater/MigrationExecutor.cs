@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Compent.Extensions;
-using EmailWorker.Data.Extensions;
+using Examine;
 using Uintra.Core.Exceptions;
 using Uintra.Core.Extensions;
 using Uintra.Core.MigrationHistories;
@@ -39,14 +39,11 @@ namespace Compent.Uintra.Core.Updater
 
             if (executionResult.Type is ExecutionResultType.Success)
             {
-                 executionHistory
-                    .Pipe(ToMigrationHistory)
-                    .Do(_migrationHistoryService.Create);
+                executionHistory
+                   .Pipe(ToMigrationHistory)
+                   .Do(_migrationHistoryService.Create);
 
-                if (executionHistory.Any())
-                {
-                    HttpRuntime.UnloadAppDomain();
-                }
+                if (executionHistory.Any()) RebuildCacheAndRecycleApp();
             }
             else
             {
@@ -57,11 +54,12 @@ namespace Compent.Uintra.Core.Updater
                         .Pipe(ToMigrationHistory)
                         .Do(_migrationHistoryService.Create);
                     _exceptionLogger.Log(undoResult.Exception);
+
+                    if (undoHistory.Any()) RebuildCacheAndRecycleApp();
                 }
             }
 
-            ApplicationContext.Current.Services.MediaService.RebuildXmlStructures();
-            ApplicationContext.Current.Services.MemberService.RebuildXmlStructures();
+            RebuildExamineIndex();
         }
 
         private IOrderedEnumerable<IMigration> GetAllMigrations() =>
@@ -104,7 +102,7 @@ namespace Compent.Uintra.Core.Updater
                 !allHistory.Any(historyItem => IsMigrationItemEqualsToHistory(migrationItem, historyItem)));
 
 
-        public static bool IsMigrationItemEqualsToHistory(MigrationItem item, MigrationHistory history)=>
+        public static bool IsMigrationItemEqualsToHistory(MigrationItem item, MigrationHistory history) =>
             history.Name == StepIdentity(item.Step) && new Version(history.Version) == item.Version;
 
         public static (Stack<MigrationItem> executionHistory, ExecutionResult result) TryExecuteSteps(IEnumerable<MigrationItem> steps)
@@ -168,8 +166,20 @@ namespace Compent.Uintra.Core.Updater
         }
 
         public static string StepIdentity(IMigrationStep step) => step.GetType().Name;
-    }
 
+        private static void RebuildCacheAndRecycleApp()
+        {
+            ApplicationContext.Current.Services.MediaService.RebuildXmlStructures();
+            ApplicationContext.Current.Services.MemberService.RebuildXmlStructures();
+
+            HttpRuntime.UnloadAppDomain();
+        }
+
+        private static void RebuildExamineIndex()
+        {
+            ExamineManager.Instance.IndexProviderCollection[Umbraco.Core.Constants.Examine.InternalIndexer].RebuildIndex();
+        }
+    }
 
     public struct MigrationItem
     {

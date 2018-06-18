@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Uintra.Core;
 using Uintra.Core.Constants;
 using Uintra.Core.Extensions;
-using Uintra.Core.Media;
 using Uintra.Core.User;
+using Uintra.Groups.Attributes;
 using Uintra.Groups.Sql;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -29,7 +28,8 @@ namespace Uintra.Groups.Web
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IGroupMediaService _groupMediaService;
 
-        protected GroupDocumentsControllerBase(IGroupDocumentsService groupDocumentsService,
+        protected GroupDocumentsControllerBase(
+            IGroupDocumentsService groupDocumentsService,
             IMediaService mediaService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IGroupMemberService groupMemberService,
@@ -46,12 +46,14 @@ namespace Uintra.Groups.Web
             _groupMediaService = groupMediaService;
         }
 
+        [NotFoundGroup]
         public virtual ActionResult Documents(Guid groupId)
         {
             var groupMembers = _groupMemberService.GetGroupMemberByGroup(groupId);
             var currentUserId = _intranetUserService.GetCurrentUserId();
             var model = new GroupDocumentsViewModel
             {
+                GroupId = groupId,
                 CanUploadFiles = groupMembers.Any(s => s.MemberId == currentUserId)
             };
             return PartialView(DocumentsViewPath, model);
@@ -153,7 +155,7 @@ namespace Uintra.Groups.Web
 
         protected IEnumerable<GroupDocumentTableRowViewModel> Sort(IEnumerable<GroupDocumentTableRowViewModel> documents, GroupDocumentDocumentField column, Direction direction)
         {
-            var keySelector = GetkeySelector(column);
+            var keySelector = GetKeySelector(column);
 
             switch (direction)
             {
@@ -168,7 +170,7 @@ namespace Uintra.Groups.Web
             return documents;
         }
 
-        protected Func<GroupDocumentTableRowViewModel, object> GetkeySelector(GroupDocumentDocumentField column)
+        protected Func<GroupDocumentTableRowViewModel, object> GetKeySelector(GroupDocumentDocumentField column)
         {
             Func<GroupDocumentTableRowViewModel, object> keySelector;
 

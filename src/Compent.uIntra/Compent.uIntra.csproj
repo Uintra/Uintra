@@ -79,8 +79,9 @@
     <Reference Include="cms, Version=1.0.6684.15730, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.10.4\lib\net45\cms.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.CommandBus, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.CommandBus.1.2.0\lib\net471\Compent.CommandBus.dll</HintPath>
+    <Reference Include="Compent.CommandBus, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Compent.CommandBus.1.2.1\lib\net471\Compent.CommandBus.dll</HintPath>
     </Reference>
     <Reference Include="Compent.Extensions, Version=0.3.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Extensions.0.3.2\lib\net471\Compent.Extensions.dll</HintPath>
@@ -392,11 +393,6 @@
     </Reference>
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
       <HintPath>..\..\packages\UmbracoCms.Core.7.10.4\lib\net45\TidyNet.dll</HintPath>
-    </Reference>
-    <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6684.15731, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.10.4\lib\net45\umbraco.dll</HintPath>
@@ -1125,6 +1121,7 @@
     <Content Include="config\EmbeddedMedia.config" />
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
+    <Content Include="App_Plugins\Web.config" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1158,7 +1155,7 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
     <None Include="Web.Base.config" />
-    <Content Include="Web.config" />
+    <None Include="Web.Compent.Debug.config" />
     <None Include="Web.PublicNuget.config" />
     <None Include="Web.QA.config" />
     <None Include="webpack.config.js" />
@@ -1196,6 +1193,7 @@
     <Compile Include="Controllers\NavigationAuthorizationController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\NewsSectionController.cs" />
+    <Compile Include="Controllers\Pages\ErrorPageController.cs" />
     <Compile Include="Controllers\PagePromotionController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\NotificationJobController.cs" />
@@ -1251,7 +1249,7 @@
     <Compile Include="Core\Feed\Links\ActivityLinkService.cs" />
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
-    <Compile Include="Core\Handlers\SearchContentEventService.cs" />
+    <Compile Include="Core\Search\SearchContentEventService.cs" />
     <Compile Include="Core\Handlers\ValidateLicenceHandler.cs" />
     <Compile Include="Core\Helpers\INotifierDataHelper.cs" />
     <Compile Include="Core\Helpers\NotifierContentHelper.cs" />
@@ -1568,16 +1566,6 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;DISABLE_LICENCE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'QA|AnyCPU' ">
     <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
     <OutputPath>bin\</OutputPath>
@@ -1606,6 +1594,16 @@
     <LangVersion>latest</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Compent.Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DISABLE_LICENCE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

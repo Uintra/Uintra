@@ -21,7 +21,6 @@ using Compent.Uintra.Core.Events;
 using Compent.Uintra.Core.Exceptions;
 using Compent.Uintra.Core.Feed.Links;
 using Compent.Uintra.Core.Groups;
-using Compent.Uintra.Core.Handlers;
 using Compent.Uintra.Core.Helpers;
 using Compent.Uintra.Core.IoC;
 using Compent.Uintra.Core.Licence;
@@ -440,6 +439,7 @@ namespace Compent.Uintra
             //umbraco events subscriptions
             kernel.Bind<IUmbracoContentPublishedEventService>().To<SearchContentEventService>().InRequestScope();
             kernel.Bind<IUmbracoContentUnPublishedEventService>().To<SearchContentEventService>().InRequestScope();
+            kernel.Bind<IUmbracoContentUnPublishedEventService>().To<PagePromotionEventService>().InRequestScope();
             kernel.Bind<IUmbracoContentPublishedEventService>().To<PagePromotionEventService>().InRequestScope();
             kernel.Bind<IUmbracoMediaTrashedEventService>().To<SearchMediaEventService>().InRequestScope();
             kernel.Bind<IUmbracoMediaSavedEventService>().To<SearchMediaEventService>().InRequestScope();
@@ -451,7 +451,7 @@ namespace Compent.Uintra
             kernel.Bind<IUmbracoContentPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
             kernel.Bind<IUmbracoContentUnPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
 
-            kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
+            kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
 
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();

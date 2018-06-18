@@ -803,6 +803,13 @@ img{
     position: relative;
     overflow: hidden;
     border-radius:50%;
+
+    .feed__list &{
+        width:35px;
+        min-width:35px;
+        height:35px;
+        margin:0 11px 3px 0;
+    }
     
     ._profile &{
         width: 100px;
@@ -837,7 +844,10 @@ img{
     }
 
     ._details &{
-        margin-bottom:0;
+        width:35px;
+        min-width:35px;
+        height:35px;
+        margin:0 11px 0 0;
     }
 
     &--square{
