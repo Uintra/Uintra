@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Security;
 using Compent.Extensions;
+using Compent.uIntra.Core.Login.Models;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Localization.Umbraco.Attributes;
 using uIntra.Notification;
@@ -13,8 +14,6 @@ using Uintra.Notification.Base;
 using Uintra.Notification.Configuration;
 using Uintra.Users;
 using Uintra.Users.Web;
-using Umbraco.Core;
-using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
@@ -29,7 +28,6 @@ namespace Compent.Uintra.Controllers
         private readonly INotificationsService _notificationsService;
         private readonly IMemberServiceHelper _memberServiceHelper;
         private readonly IMemberService _memberService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly ICacheableIntranetUserService _cacheableIntranetUserService;
 
         protected override string LoginViewPath => "~/Views/Login/Login.cshtml";
@@ -48,8 +46,32 @@ namespace Compent.Uintra.Controllers
             _notificationsService = notificationsService;
             _memberServiceHelper = memberServiceHelper;
             _memberService = memberService;
-            _intranetUserService = intranetUserService;
             _cacheableIntranetUserService = cacheableIntranetUserService;
+        }
+
+        [HttpPost]
+        public JsonResult GoogleLogin(string firstName, string lastName, string email, string image, int clientTimezoneOffset)
+        {
+            var member = _memberService.GetByEmail(email);
+
+            if (member != null)
+            {
+                FormsAuthentication.SetAuthCookie(member.Username, true);
+                _timezoneOffsetProvider.SetTimezoneOffset(clientTimezoneOffset);
+
+                return Json(new GoogleAuthResultModel
+                {
+                    Url = DefaultRedirectUrl,
+                    Success = true
+                });
+            }
+
+            return Json(new GoogleAuthResultModel
+            {
+                Url = DefaultRedirectUrl,
+                Success = false
+            });
+
         }
 
         [HttpPost]

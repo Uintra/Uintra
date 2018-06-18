@@ -208,7 +208,6 @@ namespace Compent.Uintra
                 .SelectAllClasses()
                 .InheritedFrom(typeof(IMigration))
                 .BindSingleInterface());
-
             kernel.Bind<IMigrationStepsResolver>().To<MigrationStepsResolver>().InRequestScope();
 
             //verification
@@ -290,7 +289,7 @@ namespace Compent.Uintra
 
             kernel.Bind<IActivityPageHelperFactory>().To<CacheActivityPageHelperFactory>()
                 .WhenInjectedInto<GroupFeedLinkProvider>()
-                .WithConstructorArgument(typeof(IEnumerable<string>), c => GroupFeedLinkProviderHelper.GetFeedActivitiesXPath(c.Kernel.Get<IDocumentTypeAliasProvider>())); 
+                .WithConstructorArgument(typeof(IEnumerable<string>), c => GroupFeedLinkProviderHelper.GetFeedActivitiesXPath(c.Kernel.Get<IDocumentTypeAliasProvider>()));
 
             kernel.Bind<ICentralFeedContentService>().To<CentralFeedContentService>().InRequestScope();
             kernel.Bind<IGroupFeedContentService>().To<GroupFeedContentService>().InRequestScope();
@@ -381,10 +380,10 @@ namespace Compent.Uintra
             kernel.Bind<IActivityTagsHelper>().To<ActivityTagsHelper>().InRequestScope();
 
             // Link preview                   
-            kernel.Bind<ILinkPreviewClient>().To<LinkPreviewClient>().InRequestScope();            
-            kernel.Bind<ILinkPreviewConfiguration>().To<LinkPreviewConfiguration>().InRequestScope();            
+            kernel.Bind<ILinkPreviewClient>().To<LinkPreviewClient>().InRequestScope();
+            kernel.Bind<ILinkPreviewConfiguration>().To<LinkPreviewConfiguration>().InRequestScope();
             kernel.Bind<ILinkPreviewUriProvider>().To<LinkPreviewUriProvider>();
-            kernel.Bind<ILinkPreviewConfigProvider>().To<LinkPreviewConfigProvider>();            
+            kernel.Bind<ILinkPreviewConfigProvider>().To<LinkPreviewConfigProvider>();
             kernel.Bind<LinkPreviewModelMapper>().ToSelf();
             kernel.Bind<IActivityLinkPreviewService>().To<ActivityLinkPreviewService>();
 
@@ -395,7 +394,7 @@ namespace Compent.Uintra
 
             // Model Binders
             kernel.Bind<DateTimeBinder>().ToSelf().InSingletonScope();
-          
+
             kernel.Bind<IGridHelper>().To<GridHelper>().InRequestScope();
             kernel.Bind<ViewRenderer>().ToSelf().InRequestScope();
 
@@ -457,6 +456,7 @@ namespace Compent.Uintra
 
             //table
             kernel.Bind<ITablePanelPresentationBuilder>().To<TablePanelPresentationBuilder>().InRequestScope();
+
             kernel.Bind<ITableCellBuilder>().To<TableCellBuilder>().InRequestScope();
         }
 

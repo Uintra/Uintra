@@ -5,6 +5,7 @@ using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Extensions;
 using Uintra.Core.Media;
 using Uintra.Core.User;
+using Uintra.Core.User.DTO;
 using Uintra.Notification;
 using Umbraco.Web.Mvc;
 
@@ -61,7 +62,7 @@ namespace Uintra.Users.Web
         public virtual ActionResult Edit(ProfileEditModel model)
         {
             var user = MapToUserDTO(model);
-            _intranetUserService.Save(user);
+            _intranetUserService.Update(user);
 
             return RedirectToCurrentUmbracoPage();
         }
@@ -72,10 +73,10 @@ namespace Uintra.Users.Web
             var user = _intranetUserService.GetCurrentUser();
             _mediaHelper.DeleteMedia(photoPath);
 
-            var updateUser = user.Map<IntranetUserDTO>();
+            var updateUser = user.Map<UpdateUserDto>();
             updateUser.DeleteMedia = true;
 
-            _intranetUserService.Save(updateUser);
+            _intranetUserService.Update(updateUser);
         }
 
         protected virtual ProfileViewModel MapToViewModel(IIntranetUser user)
@@ -94,11 +95,11 @@ namespace Uintra.Users.Web
             return result;
         }
 
-        protected virtual IntranetUserDTO MapToUserDTO(ProfileEditModel model)
+        protected virtual UpdateUserDto MapToUserDTO(ProfileEditModel model)
         {
             var newMedias = _mediaHelper.CreateMedia(model).ToList();
 
-            var updateUser = model.Map<IntranetUserDTO>();
+            var updateUser = model.Map<UpdateUserDto>();
             updateUser.NewMedia = newMedias.Count > 0 ? newMedias.First() : default(int?);
 
             return updateUser;
