@@ -42,9 +42,6 @@
       "render": "/App_Plugins/Panels/ContentPanel/content-panel.cshtml",
       "icon": "icon-notepad color-orange",
       "config": {
-        "controller": "ContentPanel",
-        "action": "Render",
-        "includeUmbracoValues": true,
         "description": {
           "height": 350,
           "toolbar": "styleselect | bold | italic | underline | linksPicker | numlist | bullist | removeformat",
@@ -115,7 +112,10 @@
       "alias": "custom.FaqPanel",
       "view": "/App_Plugins/Panels/FaqPanel/backoffice/faq-panel.html",
       "render": "/App_Plugins/Panels/FaqPanel/faqPanel.cshtml",
-      "icon": "icon-ordered-list color-orange"
+      "icon": "icon-ordered-list color-orange",
+      "config": {
+
+      }
     }
   ],
   "javascript": [

@@ -20,32 +20,32 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
 
         public ExecutionResult Execute()
         {
-            AddToPanelPickerAllowedEditors();
-            AddToContentGridAllowedEditors();
-
+            AddTableEditorToAllowedEditors();
             return ExecutionResult.Success;
         }
 
         public void Undo()
         {
-            RemoveFromPanelPickerAllowedEditors();
-            RemoveFromContentGridAllowedEditors();
+            RemoveTableEditorFromAllowedEditors();
         }
 
-        private void AddToPanelPickerAllowedEditors()
+        private void AddTableEditorToAllowedEditors()
         {
             var panelPickerDataType = _dataTypeService.GetDataTypeDefinitionByName(PanelsInstallationConstants.DataTypeNames.PanelPicker);
+            if (panelPickerDataType == null) return;
+
             var preValuesDictionary = _dataTypeService.GetPreValuesCollectionByDataTypeId(panelPickerDataType.Id).PreValuesAsDictionary;
 
             AddAllowedEditor(preValuesDictionary, TableEditor);
             _dataTypeService.SavePreValues(panelPickerDataType, preValuesDictionary);
         }
 
-        private void RemoveFromPanelPickerAllowedEditors()
+        private void RemoveTableEditorFromAllowedEditors()
         {
             var panelPickerDataType = _dataTypeService.GetDataTypeDefinitionByName(PanelsInstallationConstants.DataTypeNames.PanelPicker);
-            var preValuesDictionary = _dataTypeService.GetPreValuesCollectionByDataTypeId(panelPickerDataType.Id).PreValuesAsDictionary;
+            if (panelPickerDataType == null) return;
 
+            var preValuesDictionary = _dataTypeService.GetPreValuesCollectionByDataTypeId(panelPickerDataType.Id).PreValuesAsDictionary;
             DeleteAllowedEditor(preValuesDictionary, TableEditor);
             _dataTypeService.SavePreValues(panelPickerDataType, preValuesDictionary);
         }
@@ -80,28 +80,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
                     return;
                 }
             }
-        }
-
-        private void AddToContentGridAllowedEditors()
-        {
-            var contentGridDataType = _dataTypeService.GetDataTypeDefinitionByName(CoreInstallationConstants.DataTypeNames.ContentGrid);
-            var preValuesDictionary = _dataTypeService.GetPreValuesCollectionByDataTypeId(contentGridDataType.Id).PreValuesAsDictionary;
-
-            ContentGridInstallationHelper.AddAllowedEditorForOneColumnRow(preValuesDictionary, TableEditor);
-            ContentGridInstallationHelper.AddAllowedEditorForTwoColumnRow(preValuesDictionary, TableEditor);
-
-            _dataTypeService.SavePreValues(contentGridDataType, preValuesDictionary);
-        }
-
-        private void RemoveFromContentGridAllowedEditors()
-        {
-            var contentGridDataType = _dataTypeService.GetDataTypeDefinitionByName(CoreInstallationConstants.DataTypeNames.ContentGrid);
-            var preValuesDictionary = _dataTypeService.GetPreValuesCollectionByDataTypeId(contentGridDataType.Id).PreValuesAsDictionary;
-
-            ContentGridInstallationHelper.RemoveAllowedEditorForOneColumnRow(preValuesDictionary, TableEditor);
-            ContentGridInstallationHelper.RemoveAllowedEditorForTwoColumnRow(preValuesDictionary, TableEditor);
-
-            _dataTypeService.SavePreValues(contentGridDataType, preValuesDictionary);
         }
     }
 }

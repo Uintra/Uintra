@@ -14,10 +14,10 @@ namespace Compent.Uintra.Controllers
     {
         private readonly IMyLinksService _myLinksService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        private readonly IEventsService<Event> _eventsService;
+        private readonly IEventsService<EventBase> _eventsService;
 
         public EventsSectionController(
-            IEventsService<Event> eventsService,
+            IEventsService<EventBase> eventsService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IMediaHelper mediaHelper,
             IMyLinksService myLinksService)
@@ -35,11 +35,18 @@ namespace Compent.Uintra.Controllers
             _myLinksService.DeleteByActivityId(id);
         }
 
-        protected override EventBase MapToEvent(EventBackofficeCreateModel model)
+        [HttpPost]
+        public override EventBackofficeViewModel Create(EventBackofficeCreateModel createModel)
         {
-            var @event = model.Map<Event>();
-            @event.CreatorId = _intranetUserService.GetCurrentUserId();
-            return @event;
+            //TODO Hotfix. Need to find correct map for EventBackofficeCreateModel => Event via createModel.Map<EventBase> => return Event (not EventBase type).
+            //I will find solution later.
+            var creatingEvent = createModel.Map<Event>();
+            creatingEvent.CreatorId = _intranetUserService.GetCurrentUserId();
+            var eventId = _eventsService.Create(creatingEvent);
+        
+            var createdEvent = _eventsService.Get(eventId);
+            var result = createdEvent.Map<EventBackofficeViewModel>();
+            return result;
         }
     }
 }

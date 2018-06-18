@@ -17,7 +17,9 @@ namespace Uintra.Core.Extensions
         {
             var key = typeof(T).FullName;
 
-            if (!(context.Items[key] is T service))
+            var service = context.Items[key] as T;
+
+            if (service == null)
             {
                 context.Items[key] = service = DependencyResolver.Current.GetService<T>();
             }

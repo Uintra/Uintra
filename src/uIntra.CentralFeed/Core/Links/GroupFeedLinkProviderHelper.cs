@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core;
 
 namespace Uintra.CentralFeed

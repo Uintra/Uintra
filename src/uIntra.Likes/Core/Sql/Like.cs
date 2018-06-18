@@ -13,7 +13,7 @@ namespace Uintra.Likes
         public override Guid Id { get; set; }
 
         [Required]
-        [Index("UQ_Like_UserId_EntityId", 1, IsUnique = true)]
+        [System.ComponentModel.DataAnnotations.Schema.Index("UQ_Like_UserId_EntityId", 1, IsUnique = true)]
         public Guid UserId { get; set; }
 
         [Required]

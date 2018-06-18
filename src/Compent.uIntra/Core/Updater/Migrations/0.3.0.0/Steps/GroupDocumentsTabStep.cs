@@ -1,24 +1,26 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using Compent.Uintra.Core.Constants;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
+﻿using Compent.Uintra.Core.Updater.Migrations._0._0._0._1;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
-using Uintra.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.GroupsInstallationConstants;
+using static Compent.Uintra.Core.Updater.ExecutionResult;
+using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
+using System.Reflection;
 using Uintra.Core.Utils;
 using Uintra.Navigation;
-using Umbraco.Core.Services;
+using Uintra.Core;
+using Compent.Uintra.Core.Constants;
 using Umbraco.Web;
-using static Compent.Uintra.Core.Updater.ExecutionResult;
-using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.GroupsInstallationConstants;
+using Umbraco.Core.Services;
 
 namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
 {
     public class GroupDocumentsTabStep : IMigrationStep
     {
-        private readonly UmbracoHelper _umbracoHelper;
-        private readonly IContentService _contentService;
+        private UmbracoHelper _umbracoHelper;
+        private IContentService _contentService;
 
         public GroupDocumentsTabStep(UmbracoHelper umbracoHelper, IContentService contentService)
         {
@@ -31,7 +33,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             CreateGroupsDocumentsPageDocType();
             InheritNavigationComposition();
             CreateGroupsDocumentsPageContent();
-            ResortGroupTabs();
             return Success;
         }
 
@@ -73,21 +74,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             content.SetValue(UmbracoContentMigrationConstants.Grid.GridPropName, gridContent);
 
             _contentService.SaveAndPublishWithStatus(content);
-        }
-
-        private void ResortGroupTabs()
-        {
-            var groupsRoomPage = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.HomePage,
-                DocumentTypeAliasConstants.GroupsOverviewPage, DocumentTypeAliasConstants.GroupsRoomPage));
-
-            var sortedContentIds = groupsRoomPage.Children
-                .Select(c => (
-                    rank: c.DocumentTypeAlias == DocumentTypeAliasConstants.GroupsDocumentsPage,
-                    contentId: _contentService.GetById(c.Id)))
-                .OrderByDescending(ordered => ordered.rank)
-                .Select(ordered => ordered.contentId);
-
-            _contentService.Sort(sortedContentIds);
         }
 
         public void Undo()

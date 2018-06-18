@@ -1,53 +1,24 @@
 ﻿import confirm from "./../Core/Controls/Confirm/Confirm";
 import ajax from "./../Core/Content/scripts/Ajax";
+import { debug } from "util";
 
-let alertify = require('alertifyjs/build/alertify.min');
-const popupHiddenFieldClass = 'js-popup-hidden-field';
-let viewPopupUrl;
 
 function show() {
-    const popupsHolder = document.querySelector('.js-popups-holder');
-    if (!popupsHolder) return;
+    var toasts = $(".js-popup-messages .js-popup");
 
-    const popups = [...popupsHolder.querySelectorAll('.js-popup')];
-    if (!popups.length) return;
+    toasts.each(function (i, el) {
+        let $this = $(el);
+        let msg = $this.data('message');
 
-    viewPopupUrl = popupsHolder.dataset['viewPopupUrl'];
-
-    const okBtnText = popupsHolder.dataset['okBtnText'];
-    alertify.defaults.glossary.ok = okBtnText;
-
-    confirm.defaultSettings.onfocus = popupFocusHandler;
-
-    popups.forEach((popup) => {
-        let notificationId = popup.dataset['id'];
-        let message = popup.dataset['message'] + '<input type="hidden" class="' + popupHiddenFieldClass + '" value="' + notificationId + '">';
-
-        confirm.alert(
-            '',
-            message,
-            () => { viewPopup(notificationId); },
-            confirm.defaultSettings);
-    });
-}
-
-function popupFocusHandler() {
-    const hiddenFields = [...document.querySelectorAll("." + popupHiddenFieldClass)];
-    hiddenFields.forEach((el) => {
-        let notificationId = el.value;
-        let link = el.parentElement.querySelector("a");
-        if (!link) return;
-
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            viewPopup(notificationId);
-            window.location = link.href;
-        });
-    });
-}
-
-function viewPopup(notificationId) {
-    ajax.post(viewPopupUrl, { id: notificationId });
+        confirm.showConfirm(
+                ' ',
+                msg,
+                () => {
+                    let data = { id: $this.data("id") };
+                    ajax.post('/umbraco/surface/Notification/ViewPopup/', data);
+                },
+                () => {},
+                confirm.defaultSettings);});
 }
 
 export default show;

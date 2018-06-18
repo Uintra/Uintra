@@ -17,7 +17,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Compent.Uintra</RootNamespace>
     <AssemblyName>Compent.Uintra</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -28,7 +28,6 @@
     </NuGetPackageImportStamp>
     <RestorePackages>true</RestorePackages>
     <Use64BitIISExpress />
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -79,17 +78,14 @@
     <Reference Include="cms, Version=1.0.6634.25794, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\cms.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.CommandBus, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.CommandBus.1.2.1\lib\net471\Compent.CommandBus.dll</HintPath>
+    <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.Extensions, Version=0.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Extensions.0.3.2\lib\net471\Compent.Extensions.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.Client, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.0.6\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.HttpClient.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.0.6\lib\net452\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
     <Reference Include="controls, Version=1.0.6634.25794, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\controls.dll</HintPath>
@@ -278,7 +274,6 @@
       <HintPath>..\..\packages\System.Collections.Immutable.1.2.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
@@ -300,28 +295,12 @@
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
-    <Reference Include="System.Security.Cryptography.Algorithms">
-      <HintPath>..\..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding">
-      <HintPath>..\..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives">
-      <HintPath>..\..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates">
-      <HintPath>..\..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\net47\System.ValueTuple.dll</HintPath>
+      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -329,6 +308,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -340,15 +321,20 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
       <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\TidyNet.dll</HintPath>
+    </Reference>
+    <Reference Include="uIntra.LicenceService.ApiClient, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\uIntra.LicenceService.ApiClient.1.2.1\lib\net452\uIntra.LicenceService.ApiClient.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6634.25796, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\umbraco.dll</HintPath>
@@ -912,6 +898,7 @@
     <Content Include="favicon-32x32.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="licence.html" />
     <Content Include="Views\Comments\CommentsView.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Comments\CommentsOverView.cshtml" />
@@ -1075,8 +1062,6 @@
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
     <Content Include="App_Plugins\Notification\List\PopupNotificationsView.cshtml" />
-    <Content Include="App_Plugins\Search\Controls\SearchBoxAutocompleteItem.cshtml" />
-    <EmbeddedResource Include="Core\Updater\Migrations\0.3.1.0\PreValues\GridPageLayout.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1108,17 +1093,12 @@
     <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
-    <Content Include="Views\Search\SearchBoxAutocompleteItem.cshtml" />
     <None Include="Web.Base.config" />
-    <None Include="Web.Debug.config" />
-    <None Include="Web.PublicNuget.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web.QA.config" />
+    <None Include="Web.PublicNuget.config"/>
+    <None Include="Web.QA.config"/>
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="App_Start\ElmahMvc_Start.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
@@ -1137,10 +1117,8 @@
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\BulletinsSectionController.cs" />
     <Compile Include="Controllers\CentrallFeedController.cs" />
-    <Compile Include="Controllers\ContentPanelController.cs" />
     <Compile Include="Controllers\EventsSectionController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
-    <Compile Include="Controllers\GridController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\GroupDocumentsController.cs" />
     <Compile Include="Controllers\GroupFeedController.cs" />
@@ -1167,7 +1145,6 @@
     <Compile Include="Controllers\SubscribeController.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Core\ActivitiesServiceFactory.cs" />
-    <Compile Include="Core\Activity\ActivitiesServiceFactoryExtensions.cs" />
     <Compile Include="Core\Activity\ActivityAutoMapperProfile.cs" />
     <Compile Include="Core\Activity\FeedActivityHelper.cs" />
     <Compile Include="Core\Activity\IFeedActivityHelper.cs" />
@@ -1180,15 +1157,12 @@
     <Compile Include="Core\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
     <Compile Include="Core\Bulletins\Models\BulletinExtendedViewModel.cs" />
     <Compile Include="Core\CentralFeed\CentralFeedService.cs" />
-    <Compile Include="Core\CommandBus\CommentHandle.cs" />
-    <Compile Include="Core\CommandBus\CommentNotificationHandle.cs" />
-    <Compile Include="Core\CommandBus\GroupActivitiesHandle.cs" />
-    <Compile Include="Core\CommandBus\LikeHandle.cs" />
-    <Compile Include="Core\CommandBus\LikeNotificationHandle.cs" />
     <Compile Include="Core\Comments\CommentsPageHelper.cs" />
     <Compile Include="Core\Comments\CommentsPageTab.cs" />
     <Compile Include="Core\Comments\CustomCommentable.cs" />
+    <Compile Include="Core\Comments\CustomCommentableService.cs" />
     <Compile Include="Core\Comments\ICommentsPageHelper.cs" />
+    <Compile Include="Core\Comments\ICustomCommentableService.cs" />
     <Compile Include="Core\Constants\DocumentTypeConstants.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\IntranetEditorConfigProvider.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />
@@ -1206,11 +1180,17 @@
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
     <Compile Include="Core\Handlers\SearchContentEventService.cs" />
+    <Compile Include="Core\Handlers\ValidateLicenceHandler.cs" />
     <Compile Include="Core\Helpers\INotifierDataHelper.cs" />
     <Compile Include="Core\Helpers\NotifierContentHelper.cs" />
+    <Compile Include="Core\Helpers\UmbracoContentHelper.cs" />
     <Compile Include="Core\IntranetUserContentProvider.cs" />
-    <Compile Include="Core\IoC\CommandBusDependencyResolver.cs" />
     <Compile Include="Core\IoC\NinjectDependencyResolver.cs" />
+    <Compile Include="Core\Licence\ILicenceRequestHandler.cs" />
+    <Compile Include="Core\Licence\IValidateLicenceService.cs" />
+    <Compile Include="Core\Licence\LicenceRequestHandler.cs" />
+    <Compile Include="Core\Licence\LicenceServiceConnection.cs" />
+    <Compile Include="Core\Licence\ValidateLicenceService.cs" />
     <Compile Include="Core\Likes\CustomLikeable.cs" />
     <Compile Include="Core\LinkPreview\Config\LinkDetectionConfigurationSection.cs" />
     <Compile Include="Core\LinkPreview\Config\LinkPreviewConfigProvider.cs" />
@@ -1274,8 +1254,9 @@
     <Compile Include="Core\Search\Indexes\UintraContentIndexer.cs" />
     <Compile Include="Core\Search\Indexes\UintraElasticIndex.cs" />
     <Compile Include="Core\Search\ISearchScoreProvider.cs" />
+    <Compile Include="Core\Search\Models\SearchInfoListItemModel.cs" />
+    <Compile Include="Core\Search\Models\UintraSearchAutocompleteResultViewModel.cs" />
     <Compile Include="Core\Search\Models\UintraSearchResultsOverviewViewModel.cs" />
-    <Compile Include="Core\Search\SearchBoxAutocompleteItemExtendedViewModel.cs" />
     <Compile Include="Core\Search\SearchAutoMapperProfile\SearchAutoMapperProfile.cs" />
     <Compile Include="Core\Search\UintraSearchableTypeProvider.cs" />
     <Compile Include="Core\Search\UintraSearchResultViewModel.cs" />
@@ -1284,6 +1265,7 @@
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
     <Compile Include="Core\UmbracoEventsModule.cs" />
+    <Compile Include="Core\Updater\GroupStep.cs" />
     <Compile Include="Core\Updater\IMigration.cs" />
     <Compile Include="Core\Updater\IMigrationStep.cs" />
     <Compile Include="Core\Updater\IMigrationStepsResolver.cs" />
@@ -1334,11 +1316,7 @@
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\AddVideoMediaTypeStepConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\NotificationsMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.0.0\Migration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\ContentGridInstallationHelper.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\AddFirstTimeLoginStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\AddTranslationsStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\GroupDocumentsTabStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\DeleteGroupNavigationTabsMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\TablePanelMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\NotificationSettingsMigrationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Constants\TaggingInstallationConstants.cs" />
@@ -1348,11 +1326,6 @@
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\ProfileEmailNotificationTranslationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UpdateDataFolderNamesMigrationInstallationStep .cs" />
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UserTagsInstallationStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\WelcomeMessageSetupStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Migration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\AddTranslationsStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\UpdateGridPageLayoutTemplateStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\RemoveMailTemplatesFolderStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
@@ -1432,7 +1405,8 @@
     <Content Include="Views\Events\EditView.cshtml" />
     <Content Include="Views\Events\CreateView.cshtml" />
     <None Include="Properties\PublishProfiles\Dev.pubxml" />
-    <None Include="Web.Release.config" />
+    <None Include="Web.Debug.config"/>   
+    <None Include="Web.Release.config"/>      
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />

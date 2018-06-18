@@ -10,11 +10,11 @@ using Uintra.Core.TypeProviders;
 
 namespace Uintra.Core.Activity
 {
-    public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity>, ICacheableIntranetActivityService<TActivity> where TActivity : IIntranetActivity
+    public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
-        public abstract Enum Type { get; }
+        public abstract Enum ActivityType { get; }
         private const string CacheKey = "ActivityCache";
-        private string ActivityCacheSuffix => $"{Type.ToString()}";
+        private string ActivityCacheSuffix => $"{ActivityType.ToString()}";
         private readonly IIntranetActivityRepository _activityRepository;
         private readonly ICacheService _cache;
         private readonly IActivityTypeProvider _activityTypeProvider;
@@ -76,9 +76,9 @@ namespace Uintra.Core.Activity
             _cache.Set(CacheKey, items, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
         }
 
-        public virtual bool IsActual(IIntranetActivity activity)
+        public virtual bool IsActual(IIntranetActivity cachedActivity)
         {
-            return !activity.IsHidden;
+            return !cachedActivity.IsHidden;
         }
 
         public virtual bool IsPinActual(IIntranetActivity activity)
@@ -97,7 +97,7 @@ namespace Uintra.Core.Activity
 
         protected virtual Guid Create(IIntranetActivity activity, Action<Guid> afterCreateAction)
         {
-            var newActivity = new IntranetActivityEntity { Type = Type.ToInt(), JsonData = activity.ToJson() };
+            var newActivity = new IntranetActivityEntity { Type = ActivityType.ToInt(), JsonData = activity.ToJson() };
             _activityRepository.Create(newActivity);
             var newActivityId = newActivity.Id;
 
@@ -107,7 +107,7 @@ namespace Uintra.Core.Activity
 
             afterCreateAction?.Invoke(newActivityId);
 
-            UpdateActivityCache(newActivityId);
+            UpdateCachedEntity(newActivityId);
             return newActivityId;
         }
 
@@ -124,7 +124,7 @@ namespace Uintra.Core.Activity
             AssignLinkPreview(activity);
 
             afterSaveAction?.Invoke(activity);
-            UpdateActivityCache(activity.Id);
+            UpdateCachedEntity(activity.Id);
         }
 
         public virtual void Delete(Guid id)
@@ -134,7 +134,7 @@ namespace Uintra.Core.Activity
             _activityRepository.Delete(id);
             _intranetMediaService.Delete(id);
 
-            UpdateActivityCache(id);
+            UpdateCachedEntity(id);
         }
 
         public bool CanEdit(Guid id)
@@ -143,7 +143,7 @@ namespace Uintra.Core.Activity
             return CanEdit(cached);
         }
 
-        public abstract bool CanEdit(IIntranetActivity activity);
+        public abstract bool CanEdit(IIntranetActivity cached);
 
         protected IEnumerable<TActivity> GetAllFromCache()
         {
@@ -151,10 +151,7 @@ namespace Uintra.Core.Activity
             return activities;
         }
 
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected virtual TActivity UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
-
-        public virtual TActivity UpdateActivityCache(Guid id)
+        protected virtual TActivity UpdateCachedEntity(Guid id)
         {
             var activity = GetFromSql(id);
             var cached = GetAll(true);
@@ -212,7 +209,7 @@ namespace Uintra.Core.Activity
 
         private IList<TActivity> GetAllFromSql()
         {
-            var activities = _activityRepository.GetMany(Type).Select(MapInternal).ToList();
+            var activities = _activityRepository.GetMany(ActivityType).Select(MapInternal).ToList();
             MapBeforeCache(activities.ToList());
             return activities;
         }

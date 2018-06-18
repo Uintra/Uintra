@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
+using Compent.LinkPreview.HttpClient;
 using Compent.Uintra.Core.Helpers;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.UserTags.Indexers;
+using Extensions;
 using Uintra.Bulletins;
 using Uintra.CentralFeed;
 using Uintra.Comments;
@@ -32,6 +33,8 @@ namespace Compent.Uintra.Core.Bulletins
     public class BulletinsService : BulletinsServiceBase<Bulletin>,
         IBulletinsService<Bulletin>,
         IFeedItemService,
+        ICommentableService,
+        ILikeableService,
         INotifyableService,
         IIndexer
     {
@@ -49,7 +52,6 @@ namespace Compent.Uintra.Core.Bulletins
         private readonly INotifierDataHelper _notifierDataHelper;
         private readonly IUserTagService _userTagService;
         private readonly IActivityLinkPreviewService _activityLinkPreviewService;
-        private readonly IGroupService _groupService;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -70,8 +72,7 @@ namespace Compent.Uintra.Core.Bulletins
             INotifierDataHelper notifierDataHelper,
             IActivityLocationService activityLocationService,
             IUserTagService userTagService,
-            IActivityLinkPreviewService activityLinkPreviewService,
-            IGroupService groupService)
+            IActivityLinkPreviewService activityLinkPreviewService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService,activityLinkPreviewService)
         {
             _intranetUserService = intranetUserService;
@@ -88,10 +89,9 @@ namespace Compent.Uintra.Core.Bulletins
             _notifierDataHelper = notifierDataHelper;
             _userTagService = userTagService;
             _activityLinkPreviewService = activityLinkPreviewService;
-            _groupService = groupService;
         }
 
-        public override Enum Type => IntranetActivityTypeEnum.Bulletins;
+        public override Enum ActivityType => IntranetActivityTypeEnum.Bulletins;
 
         public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
 
@@ -101,7 +101,7 @@ namespace Compent.Uintra.Core.Bulletins
             FillIndex();
         }
 
-        public override bool CanEdit(IIntranetActivity activity) => CanPerform(activity, IntranetActivityActionEnum.Edit);
+        public override bool CanEdit(IIntranetActivity cached) => CanPerform(cached, IntranetActivityActionEnum.Edit);
 
         public bool CanDelete(IIntranetActivity cached) => CanPerform(cached, IntranetActivityActionEnum.Delete);
 
@@ -137,14 +137,11 @@ namespace Compent.Uintra.Core.Bulletins
             }
         }
 
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected override Bulletin UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
-
-        public override Bulletin UpdateActivityCache(Guid id)
+        protected override Bulletin UpdateCachedEntity(Guid id)
         {
             var cachedBulletin = Get(id);
-            var bulletin = base.UpdateActivityCache(id);
-            if (IsCacheable(bulletin) && (bulletin.GroupId is null || _groupService.IsActivityFromActiveGroup(bulletin)))
+            var bulletin = base.UpdateCachedEntity(id);
+            if (IsCacheable(bulletin))
             {
                 _activityIndex.Index(Map(bulletin));
                 _documentIndexer.Index(bulletin.MediaIds);
@@ -158,6 +155,42 @@ namespace Compent.Uintra.Core.Bulletins
             _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);
             return null;
         }
+
+        public CommentModel CreateComment(CommentCreateDto dto)
+        {
+            var comment = _commentsService.Create(dto);
+            UpdateCachedEntity(comment.ActivityId);
+            return comment;
+        }
+
+        public void UpdateComment(CommentEditDto dto)
+        {
+            var comment = _commentsService.Update(dto);
+            UpdateCachedEntity(comment.ActivityId);
+        }
+
+        public void DeleteComment(Guid id)
+        {
+            var comment = _commentsService.Get(id);
+            _commentsService.Delete(id);
+            UpdateCachedEntity(comment.ActivityId);
+        }
+
+        public ICommentable GetCommentsInfo(Guid activityId) => Get(activityId);
+
+        public ILikeable Add(Guid userId, Guid activityId)
+        {
+            _likesService.Add(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public ILikeable Remove(Guid userId, Guid activityId)
+        {
+            _likesService.Remove(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public IEnumerable<LikeModel> GetLikes(Guid activityId) => Get(activityId).Likes;
 
         public void Notify(Guid entityId, Enum notificationType)
         {
@@ -188,7 +221,7 @@ namespace Compent.Uintra.Core.Bulletins
             var data = new NotifierData
             {
                 NotificationType = notificationType,
-                ActivityType = Type
+                ActivityType = ActivityType
             };
 
             var currentUser = _intranetUserService.GetCurrentUser();
@@ -241,6 +274,18 @@ namespace Compent.Uintra.Core.Bulletins
             return data;
         }
 
+        public ILikeable AddLike(Guid userId, Guid activityId)
+        {
+            _likesService.Add(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
+        public ILikeable RemoveLike(Guid userId, Guid activityId)
+        {
+            _likesService.Remove(userId, activityId);
+            return UpdateCachedEntity(activityId);
+        }
+
         private bool CanPerform(IIntranetActivity cached, IntranetActivityActionEnum action)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
@@ -251,7 +296,7 @@ namespace Compent.Uintra.Core.Bulletins
             var ownerId = Get(cached.Id).OwnerId;
             var isOwner = ownerId == currentUser.Id;
 
-            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, Type, action);
+            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, ActivityType, action);
             return isOwner && isUserHasPermissions;
         }
 

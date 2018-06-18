@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.CommandBus;
 using Uintra.Core;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
@@ -37,18 +36,8 @@ namespace Compent.Uintra.Controllers
             UmbracoHelper umbracoHelper,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IImageHelper imageHelper,
-            IGroupPermissionsService groupPermissionsService,
-            ICommandPublisher commandPublisher)
-            : base(
-                groupService,
-                groupMemberService,
-                mediaHelper,
-                groupMediaService,
-                intranetUserService,
-                profileLinkProvider,
-                groupLinkProvider,
-                imageHelper,
-                commandPublisher)
+            IGroupPermissionsService groupPermissionsService)
+            : base(groupService, groupMemberService, mediaHelper, groupMediaService, intranetUserService, profileLinkProvider, groupLinkProvider, imageHelper)
         {
             _intranetUserService = intranetUserService;
             _umbracoHelper = umbracoHelper;

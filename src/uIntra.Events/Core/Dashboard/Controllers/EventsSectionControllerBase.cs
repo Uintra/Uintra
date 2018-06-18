@@ -32,19 +32,13 @@ namespace Uintra.Events.Dashboard
         [HttpPost]
         public virtual EventBackofficeViewModel Create(EventBackofficeCreateModel createModel)
         {
-            var creatingEvent = MapToEvent(createModel);
+            var creatingEvent = createModel.Map<EventBase>();
+            creatingEvent.CreatorId = _intranetUserService.GetCurrentUserId();
             var eventId = _eventsService.Create(creatingEvent);
 
             var createdEvent = _eventsService.Get(eventId);
             var result = createdEvent.Map<EventBackofficeViewModel>();
             return result;
-        }
-
-        protected virtual EventBase MapToEvent(EventBackofficeCreateModel model)
-        {
-            var @event = model.Map<EventBase>();
-            @event.CreatorId = _intranetUserService.GetCurrentUserId();
-            return @event;
         }
 
         [HttpPost]

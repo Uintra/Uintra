@@ -6,9 +6,7 @@ using Compent.Uintra.Core.Activity.Models;
 using Compent.Uintra.Core.Events;
 using Compent.Uintra.Core.Feed;
 using Compent.Uintra.Core.UserTags;
-using Uintra.Core;
 using Uintra.Core.Activity;
-using Uintra.Core.Context;
 using Uintra.Core.Extensions;
 using Uintra.Core.Grid;
 using Uintra.Core.Links;
@@ -55,10 +53,8 @@ namespace Compent.Uintra.Controllers
             IActivityLinkService activityLinkService,
             UserTagService userTagService,
             IActivityTagsHelper activityTagsHelper,
-            IGroupMemberService groupMemberService,
-            IContextTypeProvider contextTypeProvider,
-            IActivityPageHelperFactory activityPageHelperFactory)
-            : base(eventsService, mediaHelper, intranetUserService, activityTypeProvider, activityLinkService, contextTypeProvider, activityPageHelperFactory)
+            IGroupMemberService groupMemberService)
+            : base(eventsService, mediaHelper, intranetUserService, activityTypeProvider, activityLinkService)
         {
             _eventsService = eventsService;
             _intranetUserService = intranetUserService;
@@ -95,7 +91,6 @@ namespace Compent.Uintra.Controllers
         public ActionResult FeedItem(Event item, ActivityFeedOptionsWithGroups options)
         {
             EventExtendedItemModel extendedModel = GetItemViewModel(item, options);
-            AddEntityIdentityForContext(item.Id);
             return PartialView(ItemViewPath, extendedModel);
         }
 
@@ -145,7 +140,6 @@ namespace Compent.Uintra.Controllers
 
         public ActionResult PreviewItem(Event item, ActivityLinks links)
         {
-            AddEntityIdentityForContext(item.Id);
             EventPreviewViewModel viewModel = GetPreviewViewModel(item, links);
             return PartialView(PreviewItemViewPath, viewModel);
         }

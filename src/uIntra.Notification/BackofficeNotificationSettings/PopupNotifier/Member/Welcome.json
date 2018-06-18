@@ -1,6 +1,6 @@
 ﻿{
-  "label": "This is an popup notification that is sent to the member in very first login to the intranet .<br>You can insert the following dynamic values:<br><br>##FullName## - member<br>##ProfileLink## - member profile link",
+  "label": "This is an popup notification that is sent to the member in very first login to the intranet .<br>You can insert the following dynamic values:<br><br>##FullName## - member",
   "template": {
-    "message": "##FullName## welcome text ##ProfileLink##"
+    "message": "##FullName## welcome text"
   }
 }

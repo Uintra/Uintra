@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Compent.Extensions;
+using BCLExtensions;
+using Extensions;
 using uIntra.Notification;
 using Uintra.Core.Activity;
 using Uintra.Core.ApplicationSettings;
@@ -41,7 +42,7 @@ namespace Uintra.Notification
 
             var allUsers = _intranetUserService.GetAll();
             var monthlyMails = allUsers
-                .Select(user => user.Id.Pipe(GetUserActivitiesFilteredByUserTags).Pipe(userActivities => TryGetMonthlyMail(userActivities, user)))
+                .Select(user => GetUserActivitiesFilteredByUserTags(user.Id).Map(userActivities => TryGetMonthlyMail(userActivities, user)))
                 .ToList();
 
             var identity = new ActivityEventIdentity(

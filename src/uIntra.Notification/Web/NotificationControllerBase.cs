@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
-using Compent.Extensions;
+using BCLExtensions;
+using Extensions;
 using Uintra.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.User;
-using Uintra.Notification.Constants;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
@@ -50,7 +50,8 @@ namespace Uintra.Notification.Web
         public virtual ActionResult Index(int page = 1)
         {
             var take = page * ItemsPerPage;
-            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), take, out var totalCount).ToList();
+            int totalCount;
+            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), take, out totalCount).ToList();
 
             var notNotifiedNotifications = notifications.Where(el => !el.IsNotified).ToList();
             if (notNotifiedNotifications.Count > 0)
@@ -99,9 +100,10 @@ namespace Uintra.Notification.Web
 
         public virtual PartialViewResult List()
         {
+            int totalCount;
             var notificationListPage = _notificationContentProvider.GetNotificationListPage();
             var itemsCountForPopup = notificationListPage.GetPropertyValue(NotificationConstants.ItemCountForPopupPropertyTypeAlias, default(int));
-            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), itemsCountForPopup, out _).ToList();
+            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), itemsCountForPopup, out totalCount).ToList();
 
             var notNotifiedNotifications = notifications.Where(el => !el.IsNotified).ToList();
             if (notNotifiedNotifications.Count > 0)
@@ -124,9 +126,11 @@ namespace Uintra.Notification.Web
         {
             var result = notification.Map<NotificationViewModel>();
 
-            result.Notifier = ((string) result.Value.notifierId)
-                .TryParseGuid()
-                .FromNullable(_intranetUserService.Get);
+            result.Notifier = ((string)result.Value.notifierId)
+                .TryParseOptional<Guid>(Guid.TryParse)
+                .Match(
+                    some: notifierId => _intranetUserService.Get(notifierId),
+                    none: () => null);
 
             return result;
         }

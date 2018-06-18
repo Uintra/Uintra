@@ -1,5 +1,7 @@
 using System;
+using Newtonsoft.Json;
 using Uintra.Core.Activity;
+using Uintra.Core.Location;
 using Uintra.Core.User;
 
 namespace Uintra.News

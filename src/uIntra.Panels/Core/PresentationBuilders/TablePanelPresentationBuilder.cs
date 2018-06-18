@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Uintra.Core.Extensions;
+﻿using Uintra.Core.Extensions;
 using Uintra.Panels.Core.Models.Table;
 
 namespace Uintra.Panels.Core.PresentationBuilders
@@ -17,9 +15,7 @@ namespace Uintra.Panels.Core.PresentationBuilders
         public TablePanelViewModel Get(TableEditorModel model)
         {
             var table = model.Map<TableEditorViewModel>();
-
-            var rows = CollectRows(model.Cells);
-            table.Cells = _tableCellBuilder.Map(rows, model.MakeFirstColumnBold);
+            table.Cells = _tableCellBuilder.Map(model.Cells, model.MakeFirstColumnBold);
 
             var result = new TablePanelViewModel
             {
@@ -29,16 +25,5 @@ namespace Uintra.Panels.Core.PresentationBuilders
             return result;
         }
 
-        private List<List<CellModel>> CollectRows(IEnumerable<IEnumerable<dynamic>> cells)
-        {
-            var rows = new List<List<CellModel>>();
-            foreach (var cellItems in cells)
-            {
-                var row = cellItems.Select(item => new CellModel { Value = item.value }).ToList();
-                rows.Add(row);
-            }
-
-            return rows;
-        }
     }
 }

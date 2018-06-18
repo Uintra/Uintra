@@ -25,7 +25,7 @@ namespace Uintra.Core.Extensions
                public static T Deserialize<T>(this string value)
         {
             return string.IsNullOrEmpty(value)
-                ? default
+                ? default(T)
                 : (T)JsonConvert.DeserializeObject(value, typeof(T), Settings);
         }
     }

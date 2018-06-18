@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core;
 using Uintra.Core.TypeProviders;
 using Umbraco.Core.Models;

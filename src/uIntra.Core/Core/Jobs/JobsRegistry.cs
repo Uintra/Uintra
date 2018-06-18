@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
-using Compent.Extensions;
+using Extensions;
 using FluentScheduler;
 using Uintra.Core.Extensions;
 using Uintra.Core.Jobs.Configuration;

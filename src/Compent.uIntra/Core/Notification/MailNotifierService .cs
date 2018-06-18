@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Compent.Extensions;
+using Extensions;
 using uIntra.Notification;
 using Uintra.Core.User;
 using Uintra.Notification;

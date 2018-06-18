@@ -14,7 +14,6 @@ using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Groups;
 using Compent.Uintra.Core.UserTags;
-using Uintra.Core;
 using Uintra.Groups.Extentions;
 using Uintra.Navigation;
 
@@ -40,9 +39,8 @@ namespace Compent.Uintra.Controllers
             IActivityTypeProvider activityTypeProvider,
             IMyLinksService myLinksService,
             IGroupActivityService groupActivityService,
-            IActivityTagsHelper activityTagsHelper,
-            IContextTypeProvider contextTypeProvider)
-            : base(bulletinsService, mediaHelper, intranetUserService, activityTypeProvider, contextTypeProvider)
+            IActivityTagsHelper activityTagsHelper)
+            : base(bulletinsService, mediaHelper, intranetUserService, activityTypeProvider)
         {
             _bulletinsService = bulletinsService;
             _myLinksService = myLinksService;
@@ -95,7 +93,6 @@ namespace Compent.Uintra.Controllers
         public ActionResult FeedItem(Bulletin item, ActivityFeedOptionsWithGroups options)
         {
             BulletinExtendedItemViewModel extendedModel = GetItemViewModel(item, options);
-            AddEntityIdentityForContext(item.Id);
             return PartialView(ItemViewPath, extendedModel);
         }
 
@@ -115,7 +112,6 @@ namespace Compent.Uintra.Controllers
 
         public ActionResult PreviewItem(Bulletin item, ActivityLinks links)
         {
-            AddEntityIdentityForContext(item.Id);
             var viewModel = GetPreviewViewModel(item, links);
             return PartialView(PreviewItemViewPath, viewModel);
         }

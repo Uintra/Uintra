@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
-using Compent.Extensions;
+using Extensions;
 
 namespace Uintra.Core.Extensions
 {
@@ -159,12 +159,17 @@ namespace Uintra.Core.Extensions
             return str.Split(separator);
         }
 
+        public static IEnumerable<TResult> ParseStringCollection<TResult>(this IEnumerable<string> collection, Func<string, TResult> parserFunc, char separator = ',')
+        {
+            return collection.SelectMany(col => col.ParseStringCollection(parserFunc, separator));
+        }
+
         public static string ToExtensionViewString(this string source)
         {
-            const int maxViewedLenght = 4;
-            const string defaultType = "misc";
-            
-            return source?.Length <= maxViewedLenght ? source : defaultType;
+            const int MaxViewedLenght = 4;
+            const string DefaultType = "misc";
+
+            return source.Length <= MaxViewedLenght ? source : DefaultType;
         }
     }
 }

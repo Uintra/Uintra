@@ -2,6 +2,11 @@
     @media(--for-tablet-portrait-down){
         overflow: hidden;
     }
+    body {
+        @media(--for-tablet-portrait-down){
+            overflow: hidden;
+        }
+    }
 }
 
 .notification-page{
@@ -44,7 +49,7 @@
             ._notifications-expanded &{
                 background-color:var(--color-light-gray-2);
                 color:var(--text-color-dark);
-                padding:23px 0 12px;
+                padding:23px 0 13px;
                 margin:0;
             }
         }
@@ -95,67 +100,20 @@
                 transition: transform linear 200ms;
                 display:block;
                 left:auto;
-                right:0;
+                right:5px;
                 height:calc(100vh - 60px);
                 overflow:auto;
                 margin:0;
+                background:#f6f6f6;
 
                 ._notifications-expanded &{
                     transform:translate(0, 0);
-                    z-index:11;
-                }
-            }
-            &:after{
-                content:'';
-                width: 0;
-                height: 0;
-                border-style: solid;
-                border-width: 0 7px 7px 7px;
-                border-color: transparent transparent #ccc transparent;
-                position:absolute;
-                top:-6px;
-                left:50%;
-                margin:0 0 0 78px;
-                z-index:2;
-
-                @media (--for-tablet-portrait-down){
-                    display:none;
-                }
-            }
-
-            &:before{
-                content:'';
-                width: 0;
-                height: 0;
-                border-style: solid;
-                border-width: 0 6px 6px 6px;
-                border-color: transparent transparent #f6f6f6 transparent;
-                position:absolute;
-                top:-5px;
-                left:50%;
-                margin:0 0 0 79px;
-                z-index:3;
-
-                @media (--for-tablet-portrait-down){
-                    display:none;
+                    z-index:111;
                 }
             }
         }
 
         &-frame{
-            max-height:calc(100vh - 115px);
-            overflow:auto;
-            background:var(--color-white);
-            border:1px solid var(--color-light-gray);
-            border-width:1px 1px 0;
-
-            @media (--for-tablet-portrait-down){
-                border:none;
-                background:#f6f6f6;
-                max-height:none;
-                overflow:visible;
-            }
-
             &._loading{
                 min-height:200px;
                 position:relative;
@@ -206,9 +164,9 @@
 
     @media (--for-tablet-portrait-down) {
         position:absolute;
-        width: 52px;
-        top:0;
-        right:0;
+        width: 57px;
+        top:-30px;
+        right:-5px;
 
         &__icon {
             position:relative;
@@ -253,8 +211,17 @@
         margin:0;
         padding:0;
         list-style:none;
+        background:var(--color-white);
+        border:1px solid var(--color-light-gray);
+        border-width:1px 1px 0;
+
+        @media (--for-tablet-portrait-down){
+            border:none;
+        }
 
         .notification-page &{
+            background:none;
+            border:none;
 
             @media (--for-tablet-portrait-down){
                 margin:0 -20px;
@@ -269,6 +236,33 @@
             width:100%;
             padding:13px 18px 13px 20px;
             color:#333;
+
+            &:first-child{
+                &:before{
+                    display:block;
+                    content:'';
+                    width:10px;
+                    height:10px;
+                    background:var(--color-white);
+                    border:solid #bfbfbf;
+                    border-width:1px 1px 0 0;
+                    transform:rotate(-45deg);
+                    position:absolute;
+                    top:-6px;
+                    left:50%;
+                    margin:0 0 0 77px;
+
+                    .notification-page &{
+                        display:none;
+                    }
+                }
+
+                &[data-viewed='false']{
+                    &:before{
+                        background:#f6f6f6;
+                    }
+                }
+            }
             
             &[data-viewed='false']{
                 background:#f6f6f6;

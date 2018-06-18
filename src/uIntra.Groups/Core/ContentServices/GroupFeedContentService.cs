@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra.CentralFeed;
 using Uintra.CentralFeed.Navigation.Models;
+using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Uintra.Core.Grid;
 using Uintra.Core.TypeProviders;
@@ -15,10 +16,10 @@ namespace Uintra.Groups
 {
     public class GroupFeedContentService : FeedContentServiceBase, IGroupFeedContentService
     {
-        private readonly IGroupService _groupService;        
+        private readonly IGroupService _groupService;
+        private readonly IGroupFeedLinkService _groupFeedLinkService;
         private readonly IGroupContentProvider _contentProvider;
         private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly IFeedLinkService _feedLinkService;
 
         protected override string FeedPluginAlias { get; } = GroupFeedPluginAlias;
         protected override string ActivityCreatePluginAlias { get; } = GroupActivityCreatePluginAlias;
@@ -26,16 +27,16 @@ namespace Uintra.Groups
         public GroupFeedContentService(
             IFeedTypeProvider feedTypeProvider,
             IGridHelper gridHelper,
-            IGroupService groupService,            
+            IGroupService groupService,
+            IGroupFeedLinkService groupFeedLinkService,
             IGroupContentProvider contentProvider,
-            IActivityTypeProvider activityTypeProvider,
-            IFeedLinkService feedLinkService)
+            IActivityTypeProvider activityTypeProvider)
               : base(feedTypeProvider, gridHelper)
         {
-            _groupService = groupService;            
+            _groupService = groupService;
+            _groupFeedLinkService = groupFeedLinkService;
             _contentProvider = contentProvider;
             _activityTypeProvider = activityTypeProvider;
-            _feedLinkService = feedLinkService;
         }
 
         public ActivityFeedTabModel GetMainFeedTab(IPublishedContent currentPage, Guid groupId)
@@ -47,7 +48,7 @@ namespace Uintra.Groups
                 Content = groupRoom,
                 Type = type,
                 IsActive = groupRoom.Id == currentPage.Id,
-                Links = _feedLinkService.GetCreateLinks(type, groupId)
+                Links = _groupFeedLinkService.GetCreateLinks(type, groupId)
             };
             return result;
         }
@@ -69,7 +70,7 @@ namespace Uintra.Groups
                         Content = content,
                         Type = tabType,
                         IsActive = content.IsAncestorOrSelf(currentPage),
-                        Links = _feedLinkService.GetCreateLinks(tabType, groupId)
+                        Links = _groupFeedLinkService.GetCreateLinks(tabType, groupId)
                     };
 
                     yield return tab;

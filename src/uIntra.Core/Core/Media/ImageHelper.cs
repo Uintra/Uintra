@@ -18,7 +18,10 @@ namespace Uintra.Core.Media
         }
 
         public bool IsFileImage(byte[] fileBytes)
-        {          
+        {
+            /* TODO It is how umbraco determines that file is image. Maybe we can use next code? 
+            if (UmbracoConfig.For.UmbracoSettings().Content.ImageFileTypes.Contains(ext))*/
+
             bool fileIsImage;
             try
             {

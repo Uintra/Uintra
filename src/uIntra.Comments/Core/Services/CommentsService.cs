@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
 
@@ -80,7 +80,7 @@ namespace Uintra.Comments
         {
             var entity = new Comment
             {
-                Id = dto.Id,
+                Id = Guid.NewGuid(),
                 ActivityId = dto.ActivityId,
                 UserId = dto.UserId,
                 Text = dto.Text,

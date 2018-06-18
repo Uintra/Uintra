@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -78,7 +79,7 @@ namespace Uintra.Users
         {
             var member = _umbracoHelper.MembershipHelper.GetCurrentMember();
             if (member != null) return Get(member.GetKey());
-
+ 
             var umbracoUser = _umbracoContext.Security.CurrentUser;
             if (umbracoUser != null) return Get(umbracoUser.Id);
 
@@ -197,33 +198,6 @@ namespace Uintra.Users
             {
                 allCachedUsers.Add(updatedUser);
             }
-
-            _cacheService.Set(UsersCacheKey, allCachedUsers, CacheHelper.GetMidnightUtcDateTimeOffset());
-        }
-
-        public void UpdateUserCache(IEnumerable<Guid> userIds)
-        {
-            var allUsers = GetAllFromSql();
-            var updatedUsers = allUsers.Join(userIds, u => u.Id, id => id, (u, id) => u).ToList();
-
-            var allCachedUsers = GetAll().ToList();
-            var oldCachedUser = allCachedUsers.Join(userIds, u => u.Id, id => id, (u, id) => u).ToList();
-
-            oldCachedUser.ForEach(ocu =>
-            {
-                if (ocu != null)
-                {
-                    allCachedUsers.Remove(ocu);
-                }
-            });
-
-            updatedUsers.ForEach(u =>
-            {
-                if (u != null)
-                {
-                    allCachedUsers.Add(u);
-                }
-            });
 
             _cacheService.Set(UsersCacheKey, allCachedUsers, CacheHelper.GetMidnightUtcDateTimeOffset());
         }

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.Search.Indexes;
-using Compent.Extensions;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
+using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
-using Uintra.Groups;
 using Uintra.Groups.Sql;
 using Uintra.Search;
 using Uintra.Tagging.UserTags;
@@ -22,22 +21,21 @@ namespace Compent.Uintra.Core.Users
     public class IntranetUserService<T> : IntranetUserServiceBase<T>, IIndexer
         where T : IntranetUser, new()
     {
-        private readonly ISqlRepository<GroupMember> _groupMemberRepository;
+        private readonly ISqlRepository<GroupMember> _groupMemberRepository; //TODO use service instead
         private readonly IElasticUserIndex _elasticUserIndex;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IUserTagService _userTagService;
 
         public IntranetUserService(
             IMemberService memberService,
-            UmbracoContext umbracoContext, 
+            UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
             ICacheService cacheService,
             ISqlRepository<GroupMember> groupMemberRepository,
             IElasticUserIndex elasticUserIndex,
             IIntranetUserContentProvider intranetUserContentProvider,
-            IUserTagService userTagService
-            )
+            IUserTagService userTagService)
             : base(memberService, umbracoContext, umbracoHelper, roleService, cacheService)
         {
             _groupMemberRepository = groupMemberRepository;

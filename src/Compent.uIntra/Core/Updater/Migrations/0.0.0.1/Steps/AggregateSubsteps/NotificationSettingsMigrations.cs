@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Exceptions;

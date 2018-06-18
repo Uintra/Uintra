@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
-using Compent.Extensions;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubsteps;
+using Extensions;
 using Localization.Core;
 using Newtonsoft.Json.Linq;
 using Uintra.Core.Constants;
@@ -78,20 +78,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             if (page.ContentTypeCompositionExists(composition.Alias)) return;
 
             page.AddContentType(composition);
-            contentService.Save(page);
-        }
-
-        public static void DeleteCompositionFromPage(string pageTypeAlias, string compositionTypeAlias)
-        {
-            var contentService = ApplicationContext.Current.Services.ContentTypeService;
-
-            var page = contentService.GetContentType(pageTypeAlias);
-            var composition = contentService.GetContentType(compositionTypeAlias);
-            if (page == null || composition == null) return;
-
-            if (!page.ContentTypeCompositionExists(composition.Alias)) return;
-
-            page.RemoveContentType(composition.Alias);
             contentService.Save(page);
         }
 
@@ -229,17 +215,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
                 resourceModel.Translations[Constants.LocalizationConstants.CultureKeys.English] = newTranslation;
                 localizationCoreService.Update(resourceModel);
             }
-        }
-
-        public static void SetGridPageLayoutTemplateContent(string layoutEmbeddedResourceFileName)
-        {
-            var fileService = ApplicationContext.Current.Services.FileService;
-            var alias = CoreInstallationConstants.TemplateAliases.GridPageLayoutTemplateAlias;
-
-            var gridPageLayoutTemplate = fileService.GetTemplate(alias) ?? new Template(alias, alias);
-            gridPageLayoutTemplate.Content = EmbeddedResourcesUtils.ReadResourceContent(layoutEmbeddedResourceFileName);
-
-            fileService.SaveTemplate(gridPageLayoutTemplate);
         }
 
         private static IContentType CreatePageDocTypeWithGrid(BasePageWithDefaultGridCreateModel model, string basePageTypeAlias)

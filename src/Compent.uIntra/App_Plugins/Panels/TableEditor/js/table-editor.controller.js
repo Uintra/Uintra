@@ -4,6 +4,7 @@
 
         var emptyCellModel = '{"value": ""}';
         var defaultModel = {
+            tableId: uuidv4(),
             useFirstRowAsHeader: true,
             makeFirstColumnBold: false,
             tableStyle: null,
@@ -42,13 +43,13 @@
             $scope.backupModel = angular.copy($scope.control.value);
         }
 
-        $scope.init = function (control) {
-            $scope.control = control;
+        $scope.init = function (control) {            
+            $scope.control = control;       
             $scope.control.config = {
                 maxRows: 10,
-                maxColumns: 10
-            }
-            $scope.control.value = $scope.control.value || defaultModel;
+                maxColumns:10
+            }                       
+            $scope.control.value = $scope.control.value || defaultModel;     
         };
 
         $scope.canAddRow = function () {
@@ -72,7 +73,7 @@
         }
 
         $scope.canAddColumn = function () {
-
+            
             if (isNaN(parseInt($scope.control.config.maxColumns, 10))) {
                 return true;
             }
@@ -144,8 +145,39 @@
             }
         }
 
+        function uuidv4() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
         function getColumnCount() {
             return $scope.control.value.cells[0].length;
+        }
+
+        function parseStyleConfig(configString) {            
+            if (!configString)
+                return [];
+
+            //Col Style 1,col-style-1
+
+            var lines = configString.split('\n');
+            var styles = [{ label: "None", value: null }];
+
+            for (var i in lines) {
+                var style = {};
+                var temp = lines[i].split(',');
+
+                if (temp[0].trim() != "" && temp[1].trim() != "") {
+                    style.label = temp[0].trim();
+                    style.value = temp[1].trim();
+
+                    styles.push(style);
+                }
+            }
+
+            return styles;
         }
     }
 

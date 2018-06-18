@@ -10,27 +10,27 @@ namespace Uintra.Core.Web
 {
     public abstract class LinkPreviewControllerBase : UmbracoApiController
     {
-        private readonly ILinkPreviewClient _linkPreviewClient;
+        private readonly ILinkPreviewService _linkPreviewService;
         private readonly ILinkPreviewConfigProvider _configProvider;
         private readonly ISqlRepository<int, LinkPreviewEntity> _previewRepository;
         private readonly LinkPreviewModelMapper _linkPreviewModelMapper;
 
         protected LinkPreviewControllerBase(
-            ILinkPreviewClient linkPreviewClient,
+            ILinkPreviewService linkPreviewService,
             ILinkPreviewConfigProvider configProvider,
             ISqlRepository<int, LinkPreviewEntity> previewRepository,
             LinkPreviewModelMapper linkPreviewModelMapper)
         {
-            _linkPreviewClient = linkPreviewClient;
+            _linkPreviewService = linkPreviewService;
             _configProvider = configProvider;
             _previewRepository = previewRepository;
             _linkPreviewModelMapper = linkPreviewModelMapper;
         }
 
         [System.Web.Http.HttpGet]
-        public virtual async Task<LinkPreview.LinkPreview> Preview(string url)
+        public async Task<LinkPreview.LinkPreview> Preview(string url)
         {
-            var result = await _linkPreviewClient.GetLinkPreview(url);
+            var result = await _linkPreviewService.GetLinkPreview(url);
             if (!result.IsSuccess) return null;
 
             var entity = Map(result.Preview, url);
@@ -40,7 +40,7 @@ namespace Uintra.Core.Web
             return model;
         }
 
-        protected virtual LinkPreviewEntity Map(Compent.LinkPreview.HttpClient.LinkPreview model, string url)
+        private LinkPreviewEntity Map(Compent.LinkPreview.HttpClient.LinkPreview model, string url)
         {
             var entity = model.Map<LinkPreviewEntity>();
             entity.Uri = url;
@@ -48,7 +48,7 @@ namespace Uintra.Core.Web
         }
 
         [System.Web.Http.HttpGet]
-        public virtual LinkDetectionConfig Config()
+        public LinkDetectionConfig Config()
         {
             return _configProvider.Config;
         }

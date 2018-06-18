@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Uintra.Core.LinkPreview;
 
 namespace Uintra.Comments
 {
@@ -6,6 +7,9 @@ namespace Uintra.Comments
     {
         protected override void Configure()
         {
+            // TODO: move away from here
+            Mapper.CreateMap<LinkPreview, LinkPreviewViewModel>();
+
             Mapper.CreateMap<Comment, CommentModel>()
                 .ForMember(dst => dst.LinkPreview, o => o.Ignore());
 

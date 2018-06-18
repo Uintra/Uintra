@@ -41,19 +41,18 @@
             cursor:pointer;
 
             .gallery__item-opener{
-            flex-grow:0;
 
                 &:before{
                     content:'';
                     position:absolute;
                     left:50%;
-                    transform:translate(-50%, -50%);
                     top:50%;
                     z-index:2;
-                    width:20%;
-                    height:26%;
-                    background:url(/App_Plugins/Core/Content/images/videoplay.svg) no-repeat 50%/0;
-                    background-size:contain;
+                    width:40px;
+                    height:40px;
+                    margin:-20px 0 0 -20px;
+                    background:url(/App_Plugins/Core/Content/images/videoplay.svg) no-repeat;
+                    background-size: 40px 40px;
                 }
             }
             
@@ -91,7 +90,6 @@
 
         iframe {
             position: absolute;
-            margin:0 auto 7px; 
             top: 0;
             left: 0;
             width: 100%;

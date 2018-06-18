@@ -1,7 +1,4 @@
 ﻿using System.Linq;
-using Uintra.Core.Helpers;
-using Uintra.Core.Links;
-using Uintra.Core.Localization;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
@@ -12,22 +9,12 @@ namespace Compent.Uintra.Core.Notification
 {
     public class PopupNotificationModelMapper : INotificationModelMapper<PopupNotifierTemplate, PopupNotificationMessage>
     {
-        private const string ProfileLinkTitle = "PopupNotification.ProfileLink.Title";
-
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        private readonly IIntranetLocalizationService _localizationService;
-        private readonly IIntranetUserContentProvider _intranetUserContentProvider;
 
-        public PopupNotificationModelMapper(
-            IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetLocalizationService localizationService,
-            IIntranetUserContentProvider intranetUserContentProvider)
+        public PopupNotificationModelMapper(IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _intranetUserService = intranetUserService;
-            _localizationService = localizationService;
-            _intranetUserContentProvider = intranetUserContentProvider;
         }
-
         public PopupNotificationMessage Map(INotifierDataValue notifierData, PopupNotifierTemplate template, IIntranetUser receiver)
         {
             var message = new PopupNotificationMessage
@@ -36,11 +23,8 @@ namespace Compent.Uintra.Core.Notification
                 NotificationType = NotificationTypeEnum.Welcome
             };
 
-            (string, string)[] tokens =
-            {
-                (FullName, _intranetUserService.Get(receiver.Id).DisplayedName),
-                (ProfileLink, HtmlHelper.CreateLink(_localizationService.Translate(ProfileLinkTitle), _intranetUserContentProvider.GetEditPage().Url))
-            };
+            (string, string)[] tokens = { (FullName, _intranetUserService.Get(receiver.Id).DisplayedName) };
+
             message.Message = ReplaceTokens(template.Message, tokens);
             return message;
         }

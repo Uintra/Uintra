@@ -2,41 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Compent.CommandBus;
 using Uintra.Core;
 using Uintra.Core.Activity;
-using Uintra.Core.Context;
 using Uintra.Core.Extensions;
+using Uintra.Core.PagePromotion;
 using Uintra.Core.User;
-using Uintra.Likes.CommandBus;
 using Umbraco.Web;
-using static Uintra.Core.Context.ContextExtensions;
-using static Uintra.Core.Context.ContextType;
+using Umbraco.Web.Mvc;
 
 namespace Uintra.Likes.Web
 {
-    [TrackContext]
-    public abstract class LikesControllerBase : ContextedController
+    public abstract class LikesControllerBase : SurfaceController
     {
         protected virtual string LikesViewPath { get; set; } = "~/App_Plugins/Likes/View/LikesView.cshtml";
 
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly ILikesService _likesService;
-        private readonly ICommandPublisher _commandPublisher;
+        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly UmbracoHelper _umbracoHelper;
 
         protected LikesControllerBase(
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserService<IIntranetUser> intranetUserService,
             ILikesService likesService,
-            IContextTypeProvider contextTypeProvider,
-            ICommandPublisher commandPublisher)
-            : base(contextTypeProvider)
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            UmbracoHelper umbracoHelper)
         {
             _activitiesServiceFactory = activitiesServiceFactory;
             _intranetUserService = intranetUserService;
             _likesService = likesService;
-            _commandPublisher = commandPublisher;
+            _documentTypeAliasProvider = documentTypeAliasProvider;
+            _umbracoHelper = umbracoHelper;
         }
 
         public virtual PartialViewResult ContentLikes()
@@ -47,74 +44,89 @@ namespace Uintra.Likes.Web
 
         public virtual PartialViewResult Likes(ILikeable likesInfo)
         {
-            return Likes(likesInfo.Likes, likesInfo.Id, likesInfo.IsReadOnly);
+            return Likes(likesInfo.Likes, likesInfo.Id, isReadOnly: likesInfo.IsReadOnly);
         }
 
-        public virtual PartialViewResult CommentLikes(Guid commentId)
+        public virtual PartialViewResult CommentLikes(Guid activityId, Guid commentId)
         {
-            return Likes(_likesService.GetLikeModels(commentId), commentId);
-        }
-
-        [HttpPost]
-        [ContextAction(ContextBuildActionType.Add)]
-        public virtual PartialViewResult AddLike()
-        {
-            var likeTarget = FullContext.Value;
-            var targetEntityId = likeTarget.EntityId.Value;
-
-            var command = new AddLikeCommand(FullContext, _intranetUserService.GetCurrentUserId());
-            _commandPublisher.Publish(command);
-
-            switch (likeTarget.Type.ToInt())
-            {
-                case (int)Comment:
-                    return Likes(_likesService.GetLikeModels(targetEntityId), targetEntityId);
-
-                case (int)ContentPage:
-                    return Likes(_likesService.GetLikeModels(targetEntityId), targetEntityId, showTitle: true);
-
-                case int type when HasFlagScalar(type, Activity | PagePromotion):
-                    var activityLikeInfo = GetActivityLikes(targetEntityId);
-                    return Likes(activityLikeInfo.Likes, activityLikeInfo.Id, activityLikeInfo.IsReadOnly, showTitle: HasFlagScalar(type, PagePromotion));
-                default:
-                    throw new IndexOutOfRangeException();
-            }
+            return Likes(_likesService.GetLikeModels(commentId), activityId, commentId);
         }
 
         [HttpPost]
-        [ContextAction(ContextBuildActionType.Remove)]
-        public virtual PartialViewResult RemoveLike()
+        public virtual PartialViewResult AddLike(AddRemoveLikeModel model)
         {
-            var likeTarget = FullContext.Value;
-            var targetEntityId = likeTarget.EntityId.Value;
-
-            var command = new RemoveLikeCommand(FullContext, _intranetUserService.GetCurrentUserId());
-            _commandPublisher.Publish(command);
-
-            switch (likeTarget.Type.ToInt())
+            if (IsForComment(model))
             {
-                case (int)Comment:
-                    return Likes(_likesService.GetLikeModels(targetEntityId), targetEntityId);
-
-                case (int)ContentPage:
-                    return Likes(_likesService.GetLikeModels(targetEntityId), targetEntityId, showTitle: true);
-
-                case int type when HasFlagScalar(type, Activity | PagePromotion):
-                    var activityLikeInfo = GetActivityLikes(targetEntityId);
-                    return Likes(activityLikeInfo.Likes, activityLikeInfo.Id, activityLikeInfo.IsReadOnly, showTitle: HasFlagScalar(type, PagePromotion));
-                default:
-                    throw new IndexOutOfRangeException();
+                _likesService.Add(GetCurrentUserId(), model.CommentId.Value);
+                return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
             }
+
+            if (IsForPagePromotion(model))
+            {
+                var pagePromotionLikeInfo = AddActivityLike(model.ActivityId);
+                return Likes(pagePromotionLikeInfo.Likes, pagePromotionLikeInfo.Id, showTitle: true);
+            }
+
+            if (IsForContentPage(model))
+            {
+                _likesService.Add(GetCurrentUserId(), model.ActivityId);
+                return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId, showTitle: true);
+            }
+
+            var activityLikeInfo = AddActivityLike(model.ActivityId);
+            return Likes(activityLikeInfo.Likes, activityLikeInfo.Id);
         }
 
-        protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid entityId, bool isReadOnly = false, bool showTitle = false)
+        [HttpPost]
+        public virtual PartialViewResult RemoveLike(AddRemoveLikeModel model)
         {
-            var currentUserId = _intranetUserService.GetCurrentUserId();
+            if (IsForComment(model))
+            {
+                _likesService.Remove(GetCurrentUserId(), model.CommentId.Value);
+                return Likes(_likesService.GetLikeModels(model.CommentId.Value), model.ActivityId, model.CommentId);
+            }
+
+            if (IsForPagePromotion(model))
+            {
+                var pagePromotionLikeInfo = RemoveActivityLike(model.ActivityId);
+                return Likes(pagePromotionLikeInfo.Likes, pagePromotionLikeInfo.Id, showTitle: true);
+            }
+
+            if (IsForContentPage(model))
+            {
+                _likesService.Remove(GetCurrentUserId(), model.ActivityId);
+                return Likes(_likesService.GetLikeModels(model.ActivityId), model.ActivityId, showTitle: true);
+            }
+
+            var activityLikeInfo = RemoveActivityLike(model.ActivityId);
+            return Likes(activityLikeInfo.Likes, activityLikeInfo.Id);
+        }
+
+        protected virtual bool IsForComment(AddRemoveLikeModel model)
+        {
+            return model.CommentId.HasValue;
+        }
+
+        protected virtual bool IsForPagePromotion(AddRemoveLikeModel model)
+        {
+            var content = _umbracoHelper.TypedContent(model.ActivityId);
+            return content != null && PagePromotionHelper.IsPagePromotion(content) && PagePromotionHelper.IsPromoted(content);
+        }
+
+        protected virtual bool IsForContentPage(AddRemoveLikeModel model)
+        {
+            return _umbracoHelper.TypedContent(model.ActivityId)?.DocumentTypeAlias == _documentTypeAliasProvider.GetContentPage();
+        }
+
+        protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid activityId, Guid? commentId = null, bool isReadOnly = false, bool showTitle = false)
+        {
+            var currentUserId = GetCurrentUserId();
             var likeModels = likes as IList<LikeModel> ?? likes.ToList();
             var canAddLike = likeModels.All(el => el.UserId != currentUserId);
             var model = new LikesViewModel
             {
-                EntityId = entityId,
+                ActivityId = activityId,
+                CommentId = commentId,
                 UserId = currentUserId,
                 Count = likeModels.Count,
                 CanAddLike = canAddLike,
@@ -125,10 +137,18 @@ namespace Uintra.Likes.Web
             return PartialView(LikesViewPath, model);
         }
 
-        protected virtual ILikeable GetActivityLikes(Guid activityId)
+        protected virtual Guid GetCurrentUserId() => _intranetUserService.GetCurrentUserId();
+
+        protected ILikeable AddActivityLike(Guid activityId)
         {
-            var service = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(activityId);
-            return (ILikeable)service.Get(activityId);
+            var service = _activitiesServiceFactory.GetService<ILikeableService>(activityId);
+            return service.AddLike(GetCurrentUserId(), activityId);
+        }
+
+        protected ILikeable RemoveActivityLike(Guid activityId)
+        {
+            var service = _activitiesServiceFactory.GetService<ILikeableService>(activityId);
+            return service.RemoveLike(GetCurrentUserId(), activityId);
         }
     }
 }
