@@ -29,6 +29,7 @@
             </div>
             <input type="hidden" id="js-hidden-description-container" name="description"
                    value="@(Model.Description)"
+                   data-placeholder="@Html.Localize("Events.Description.placeholder")"
                    data-val-required="@Html.Localize("CreateEvents.DescriptionRequired.lbl")"
                    data-val="true" />
         </div>

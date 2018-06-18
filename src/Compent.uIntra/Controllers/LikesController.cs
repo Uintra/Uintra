@@ -1,26 +1,57 @@
-﻿using Compent.CommandBus;
+﻿using System.Web.Mvc;
 using Localization.Umbraco.Attributes;
 using Uintra.Core;
 using Uintra.Core.Activity;
-using Uintra.Core.Context;
+using Uintra.Core.Extensions;
 using Uintra.Core.User;
 using Uintra.Likes;
 using Uintra.Likes.Web;
+using Uintra.Notification;
+using Uintra.Notification.Configuration;
+using Umbraco.Web;
 
 namespace Compent.Uintra.Controllers
 {
     [ThreadCulture]
-    [TrackContext]
     public class LikesController : LikesControllerBase
     {
+        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+
         public LikesController(
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserService<IIntranetUser> intranetUserService,
             ILikesService likesService,
-            IContextTypeProvider contextTypeProvider,
-            ICommandPublisher commandPublisher)
-            : base(activitiesServiceFactory, intranetUserService, likesService, contextTypeProvider, commandPublisher)
+            IDocumentTypeAliasProvider documentTypeAliasProvider,
+            UmbracoHelper umbracoHelper)
+            : base(activitiesServiceFactory, intranetUserService, likesService, documentTypeAliasProvider, umbracoHelper)
         {
+            _activitiesServiceFactory = activitiesServiceFactory;
+        }
+
+        public override PartialViewResult AddLike(AddRemoveLikeModel model)
+        {
+            var like = base.AddLike(model);
+            if (IsForContentPage(model) || IsForPagePromotion(model))
+            {
+                return like;
+            }
+
+            var notifiableService = _activitiesServiceFactory.GetService<INotifyableService>(model.ActivityId);
+            if (notifiableService != null)
+            {
+                if (IsForComment(model))
+                {
+                    var notificationType = NotificationTypeEnum.CommentLikeAdded;
+                    notifiableService.Notify(model.CommentId.Value, notificationType);
+                }
+                else
+                {
+                    var notificationType = NotificationTypeEnum.ActivityLikeAdded;
+                    notifiableService.Notify(model.ActivityId, notificationType);
+                }
+            }
+
+            return like;
         }
     }
 }

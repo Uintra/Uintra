@@ -6,11 +6,11 @@ namespace Uintra.Core.LinkPreview
 {
     public class LinkPreviewModelMapper
     {
-        private readonly ILinkPreviewUriProvider _linkPreviewUriProvider;
+        private readonly IUriProvider _uriProvider;
 
-        public LinkPreviewModelMapper(ILinkPreviewUriProvider linkPreviewUriProvider)
+        public LinkPreviewModelMapper(IUriProvider uriProvider)
         {
-            _linkPreviewUriProvider = linkPreviewUriProvider;
+            _uriProvider = uriProvider;
         }
 
         public LinkPreview MapPreview(LinkPreviewEntity entity)
@@ -18,11 +18,11 @@ namespace Uintra.Core.LinkPreview
             var result = new LinkPreview
             {
                 Id = entity.Id,
-                Uri = new UriBuilder(entity.Uri).Uri,
+                Uri = new Uri(entity.Uri,UriKind.RelativeOrAbsolute),
                 Title = entity.Title,
                 Description = GetLongest(entity.OgDescription, entity.Description),
-                ImageUri = entity.ImageId.HasValue ? _linkPreviewUriProvider.GetImageUri(entity.ImageId.Value) : null,
-                FaviconUri = entity.FaviconId.HasValue ? _linkPreviewUriProvider.GetImageUri(entity.FaviconId.Value) : null
+                ImageUri = entity.ImageId.HasValue ?  _uriProvider.GetImageUri(entity.ImageId.Value) : null,
+                FaviconUri = entity.FaviconId.HasValue ? _uriProvider.GetImageUri(entity.FaviconId.Value) : null
             };
 
             return result;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core.Caching;
 using Uintra.Core.Constants;
 using Uintra.Core.Controls.FileUpload;
@@ -228,7 +228,8 @@ namespace Uintra.Core.Media
         }
 
         private IPublishedContent CreateMediaFolder(Enum mediaFolderType)
-        {            
+        {
+            // TODO: Extend provider, so we can get folder names not only from MediaFolderTypeEnum
             var mediaFolderTypeEnum = (MediaFolderTypeEnum)mediaFolderType;
             var folderName = mediaFolderTypeEnum.GetAttribute<DisplayAttribute>().Name;
             var mediaFolder = _mediaService.CreateMedia(folderName, -1, FolderTypeAlias);

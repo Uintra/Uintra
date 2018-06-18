@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
+using Extensions;
 using uIntra.Notification;
 using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
 
 namespace Uintra.Notification.Configuration
 {

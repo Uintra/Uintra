@@ -16,7 +16,6 @@ namespace Uintra.Groups
 
         bool CanEdit(Guid groupId, IIntranetUser user);
         bool CanEdit(GroupModel groupModel, IIntranetUser user);
-        bool IsActivityFromActiveGroup(IGroupActivity groupActivity);
 
         void Hide(Guid id);
         void UpdateGroupUpdateDate(Guid id);

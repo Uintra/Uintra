@@ -14,7 +14,7 @@ namespace Uintra.CentralFeed
     public class CentralFeedContentService : FeedContentServiceBase, ICentralFeedContentService
     {
         private readonly ICentralFeedService _centralFeedService;
-        private readonly IFeedLinkService _feedLinkService;
+        private readonly ICentralFeedLinkService _centralFeedLinkService;
         private readonly ICentralFeedContentProvider _contentProvider;
         private readonly IActivityTypeProvider _activityTypeProvider;
 
@@ -25,12 +25,12 @@ namespace Uintra.CentralFeed
             IFeedTypeProvider feedTypeProvider,
             IGridHelper gridHelper,
             ICentralFeedService centralFeedService,
-            IFeedLinkService feedLinkService,
+            ICentralFeedLinkService centralFeedLinkService,
             ICentralFeedContentProvider contentProvider, IActivityTypeProvider activityTypeProvider)
             : base(feedTypeProvider, gridHelper)
         {
             _centralFeedService = centralFeedService;
-            _feedLinkService = feedLinkService;
+            _centralFeedLinkService = centralFeedLinkService;
             _contentProvider = contentProvider;
             _activityTypeProvider = activityTypeProvider;
         }
@@ -44,7 +44,7 @@ namespace Uintra.CentralFeed
                 Content = overviewPage,
                 Type = type,
                 IsActive = overviewPage.Id == currentPage.Id,
-                Links = _feedLinkService.GetCreateLinks(type)
+                Links = _centralFeedLinkService.GetCreateLinks(type)
             };
         }
 
@@ -72,7 +72,7 @@ namespace Uintra.CentralFeed
                     HasSubscribersFilter = settings.HasSubscribersFilter,
                     HasPinnedFilter = settings.HasPinnedFilter,
                     IsActive = content.IsAncestorOrSelf(currentPage),
-                    Links = _feedLinkService.GetCreateLinks(tabType)
+                    Links = _centralFeedLinkService.GetCreateLinks(tabType)
                 };
             }
         }

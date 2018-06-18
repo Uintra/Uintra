@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions.Trees;
+using BCLExtensions.Trees;
 using Uintra.Core.Extensions;
-using static Compent.Extensions.Trees.TreeExtensions;
+using static BCLExtensions.Trees.TreeExtensions;
 
 namespace Uintra.Notification.Configuration
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.User;

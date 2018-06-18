@@ -7,8 +7,6 @@ namespace Uintra.Core.LinkPreview
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<LinkPreview, LinkPreviewViewModel>();
-
             Mapper.CreateMap<Compent.LinkPreview.HttpClient.LinkPreview, LinkPreviewEntity>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
                 .ForMember(dst => dst.OgDescription, o => o.Ignore())

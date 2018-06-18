@@ -8,7 +8,7 @@ using Uintra.Groups;
 
 namespace Compent.Uintra.Core.Feed.Links
 {
-    public class ActivityLinkService : IFeedLinkService
+    public class ActivityLinkService : ICentralFeedLinkService, IGroupFeedLinkService
     {
         private readonly IActivityTypeHelper _activityTypeHelper;
         private readonly ICentralFeedLinkProvider _centralFeedLinkProvider;

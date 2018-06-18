@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core.Exceptions;
 using Uintra.Core.Extensions;
 using Uintra.Core.Media;

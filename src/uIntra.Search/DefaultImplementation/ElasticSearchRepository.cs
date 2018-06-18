@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Nest;
 using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
 using Uintra.Search.Configuration;
 using IExceptionLogger = Uintra.Core.Exceptions.IExceptionLogger;
 

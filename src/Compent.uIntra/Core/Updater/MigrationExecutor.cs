@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Compent.Extensions;
-using Uintra.Core.Constants;
+using Extensions;
 using Uintra.Core.Exceptions;
 using Uintra.Core.MigrationHistories;
 using Uintra.Core.MigrationHistories.Sql;
 using Umbraco.Core;
-using Umbraco.Core.Services;
 using Umbraco.Web;
 using static Compent.Uintra.Core.Updater.ExecutionResult;
 
@@ -20,124 +18,123 @@ namespace Compent.Uintra.Core.Updater
         private readonly IDependencyResolver _dependencyResolver;
         private readonly IMigrationHistoryService _migrationHistoryService;
         private readonly IExceptionLogger _exceptionLogger;
-        private readonly IMediaService _mediaService;
-        private readonly IContentTypeService _contentTypeService;
-
-        public static readonly Version LastLegacyMigrationVersion = new Version("0.2.30.0");
+        private static readonly Version LastLegacyMigrationVersion = new Version("0.2.30.0");
 
         public MigrationHandler()
         {
             _dependencyResolver = DependencyResolver.Current;
             _migrationHistoryService = _dependencyResolver.GetService<IMigrationHistoryService>();
             _exceptionLogger = _dependencyResolver.GetService<IExceptionLogger>();
-            _mediaService = _dependencyResolver.GetService<IMediaService>();
-            _contentTypeService = _dependencyResolver.GetService<IContentTypeService>();
         }
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
+            var allMigrations = GetAllMigrations().OrderBy(m => m.Version);
             var allHistory = _migrationHistoryService.GetAll();
-            var allSteps = GetAllMigrations().Pipe(GetAllSteps);
+            var allSteps = GetAllSteps(allMigrations);
 
-            var missingSteps = GetSteps(allSteps, allHistory, LastLegacyMigrationVersion);
+            var missingSteps = GetSteps(allSteps, allHistory).ToList();
+
+            var history = Enumerable.Empty<(Version, IMigrationStep)>();
 
             var (executionHistory, executionResult) = TryExecuteSteps(missingSteps);
 
             if (executionResult.Type is ExecutionResultType.Success)
             {
-                executionHistory
-                   .Pipe(ToMigrationHistory)
-                   .Do(_migrationHistoryService.Create);
-
-                if (executionHistory.Any()) RebuildCacheAndRecycleApp();
+                history = executionHistory;
             }
             else
             {
                 var (undoHistory, undoResult) = TryUndoSteps(executionHistory);
                 if (undoResult.Type is ExecutionResultType.Failure)
                 {
-                    undoHistory
-                        .Pipe(ToMigrationHistory)
-                        .Do(_migrationHistoryService.Create);
+                    history = undoHistory;
                     _exceptionLogger.Log(undoResult.Exception);
-
-                    if (undoHistory.Any()) RebuildCacheAndRecycleApp();
                 }
             }
 
-            PublishUnpublishedMediaFolders();
+            var reversedHistory = history.Reverse().ToList();
+
+            SaveMigrationsHistory(reversedHistory);
+
+            if (reversedHistory.Any())
+            {
+                HttpRuntime.UnloadAppDomain();
+            }
         }
 
-        private IOrderedEnumerable<IMigration> GetAllMigrations() =>
+        private IEnumerable<IMigration> GetAllMigrations() =>
             _dependencyResolver
                 .GetServices(typeof(IMigration))
-                .Cast<IMigration>()
-                .OrderBy(m => m.Version);
+                .Cast<IMigration>();
 
-        private void PublishUnpublishedMediaFolders()
+        private void SaveMigrationsHistory(IEnumerable<(Version migrationVersion, IMigrationStep step)> steps)
         {
-            //TODO refactor it. Publish only unpublished medias
-            var folderMediaType = _contentTypeService.GetMediaType(UmbracoAliases.Media.FolderTypeAlias);
-            var folderMedias = _mediaService.GetMediaOfMediaType(folderMediaType.Id).ToList();
+            var stepsList = steps.AsList();
+            if (stepsList.Any())
+            {
+                var history = stepsList.Select(step => (
+                    name: StepIdentity(step.step),
+                    version: step.migrationVersion));
 
-            _mediaService.Save(folderMedias);
+                _migrationHistoryService.Create(history);
+            }
         }
 
-        public static IEnumerable<(string name, Version version)> ToMigrationHistory(Stack<MigrationItem> items) =>
-            items
-                .Reverse()
-                .Select(step => (name: StepIdentity(step.Step), version: step.Version));
+        private static IEnumerable<(Version migrationVersion, IMigrationStep step)> GetAllSteps(IOrderedEnumerable<IMigration> migrations) =>
+            migrations.SelectMany(migration => migration.Steps.Select(step => (migration.Version, step)));
 
-        public static IEnumerable<MigrationItem> GetAllSteps(IOrderedEnumerable<IMigration> migrations) =>
-            migrations.SelectMany(migration => migration.Steps.Select(step => new MigrationItem(migration.Version, step)));
-
-        public static IEnumerable<MigrationItem> GetSteps(IEnumerable<MigrationItem> allSteps, List<MigrationHistory> allHistory, Version lastLegacyMigrationVersion)
+        private static IEnumerable<(Version migrationVersion, IMigrationStep step)> GetSteps(
+            IEnumerable<(Version migrationVersion, IMigrationStep step)> allSteps,
+            IEnumerable<MigrationHistory> allHistory)
         {
-            var lastHistoryVersion = allHistory
-                .Select(h => Version.Parse(h.Version))
-                .OrderByDescending(h => h)
-                .FirstOrDefault();
+            var allHistoryList = allHistory.AsList();
 
-            switch (lastHistoryVersion)
+            var lastHistory = allHistoryList.OrderByDescending(m => m.CreateDate).FirstOrDefault();
+
+            switch (lastHistory)
             {
-                case Version version when version <= lastLegacyMigrationVersion:
-                    return allSteps.Where(s => s.Version > lastHistoryVersion);
-                case Version _:
-                    return GetMissingSteps(allSteps.Where(s => s.Version > lastLegacyMigrationVersion), allHistory, lastHistoryVersion);
+                case MigrationHistory history when new Version(history.Version) <= LastLegacyMigrationVersion:
+                    return allSteps.SkipWhile(s => s.migrationVersion <= LastLegacyMigrationVersion);
+                case MigrationHistory history:
+                    var lastHistoryVersion = new Version(history.Version);
+                    return GetMissingSteps(allSteps, allHistoryList, lastHistoryVersion);
                 case null:
                     return allSteps;
             }
         }
 
-        public static IEnumerable<MigrationItem> GetMissingSteps(
-            IEnumerable<MigrationItem> allSteps,
-            IEnumerable<MigrationHistory> allHistory,
-            Version lastHistoryVersion) => allSteps
-            .Where(migrationItem =>
-                !allHistory.Any(historyItem => IsMigrationItemEqualsToHistory(migrationItem, historyItem)));
-
-
-        public static bool IsMigrationItemEqualsToHistory(MigrationItem item, MigrationHistory history) =>
-            history.Name == StepIdentity(item.Step) && new Version(history.Version) == item.Version;
-
-        public static (Stack<MigrationItem> executionHistory, ExecutionResult result) TryExecuteSteps(IEnumerable<MigrationItem> steps)
+        private static IEnumerable<(Version migrationVersion, IMigrationStep step)> GetMissingSteps(
+            IEnumerable<(Version migrationVersion, IMigrationStep step)> allSteps,
+            IEnumerable<MigrationHistory> allHistory, Version lastHistoryVersion)
         {
-            var executionHistory = new Stack<MigrationItem>();
+            var historyFilteredByVersion = allHistory.Where(s => new Version(s.Version) >= lastHistoryVersion);
+            var stepsFilteredByVersion = allSteps.Where(s => s.migrationVersion >= lastHistoryVersion);
+
+            var result = stepsFilteredByVersion.Where(
+                s => !historyFilteredByVersion.Any(h => h.Name == StepIdentity(s.step) && new Version(h.Version) == s.migrationVersion));
+
+            return result;
+        }
+
+        private static (Stack<(Version migrationVersion, IMigrationStep step)> executionHistory, ExecutionResult result) TryExecuteSteps(
+            IEnumerable<(Version migrationVersion, IMigrationStep step)> steps)
+        {
+            var executionHistory = new Stack<(Version migrationVersion, IMigrationStep step)>();
             foreach (var step in steps)
             {
                 executionHistory.Push(step);
-                var stepActionResult = TryExecuteStep(step.Step);
+                var stepActionResult = TryExecuteStep(step.step);
                 if (stepActionResult.Type is ExecutionResultType.Failure)
                 {
                     return (executionHistory, stepActionResult);
                 }
             }
-
             return (executionHistory, Success);
         }
 
 
-        public static ExecutionResult TryExecuteStep(IMigrationStep migrationStep)
+        private static ExecutionResult TryExecuteStep(IMigrationStep migrationStep)
         {
             try
             {
@@ -149,24 +146,24 @@ namespace Compent.Uintra.Core.Updater
             }
         }
 
-        public static (Stack<MigrationItem> undoHistory, ExecutionResult result) TryUndoSteps(Stack<MigrationItem> executionHistory)
+        private static (Stack<(Version migrationVersion, IMigrationStep step)> undoHistory, ExecutionResult result) TryUndoSteps(
+            Stack<(Version migrationVersion, IMigrationStep step)> executionHistory)
         {
-            var undoHistory = new Stack<MigrationItem>();
+            var undoHistory = new Stack<(Version migrationVersion, IMigrationStep step)>();
             while (executionHistory.Any())
             {
                 var step = executionHistory.Pop();
                 undoHistory.Push(step);
-                var stepActionResult = TryUndoStep(step.Step);
+                var stepActionResult = TryUndoStep(step.step);
                 if (stepActionResult.Type is ExecutionResultType.Failure)
                 {
                     return (executionHistory, stepActionResult);
                 }
             }
-
             return (undoHistory, Success);
         }
 
-        public static ExecutionResult TryUndoStep(IMigrationStep migrationStep)
+        private static ExecutionResult TryUndoStep(IMigrationStep migrationStep)
         {
             try
             {
@@ -180,27 +177,6 @@ namespace Compent.Uintra.Core.Updater
             return Success;
         }
 
-        public static string StepIdentity(IMigrationStep step) => step.GetType().Name;
-
-        private static void RebuildCacheAndRecycleApp()
-        {
-            ApplicationContext.Current.Services.MediaService.RebuildXmlStructures();
-            ApplicationContext.Current.Services.MemberService.RebuildXmlStructures();
-
-            HttpRuntime.UnloadAppDomain();
-        }
-    }
-
-
-    public struct MigrationItem
-    {
-        public Version Version { get; }
-        public IMigrationStep Step { get; }
-
-        public MigrationItem(Version version, IMigrationStep step)
-        {
-            Version = version;
-            Step = step;
-        }
+        private static string StepIdentity(IMigrationStep step) => step.GetType().Name;
     }
 }

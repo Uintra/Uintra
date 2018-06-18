@@ -1,8 +1,7 @@
-﻿using Compent.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core.Extensions;
 using Uintra.Core.TypeProviders;
 using Uintra.Notification.Configuration;

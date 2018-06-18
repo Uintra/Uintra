@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Attributes;
-using Uintra.Core.Context;
 using Uintra.Core.Controls.LightboxGallery;
 using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
@@ -21,7 +20,7 @@ using Umbraco.Web.Mvc;
 namespace Uintra.News.Web
 {
     [ActivityController(ActivityTypeId)]
-    public abstract class NewsControllerBase : ContextController
+    public abstract class NewsControllerBase : SurfaceController
     {
         protected virtual string ItemViewPath { get; } = "~/App_Plugins/News/List/ItemView.cshtml";
         protected virtual string PreviewItemViewPath { get; } = "~/App_Plugins/News/PreviewItem/PreviewItemView.cshtml";
@@ -38,15 +37,12 @@ namespace Uintra.News.Web
          
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.News;
 
-        public override ContextType ControllerContextType { get; } = ContextType.News;
-
         protected NewsControllerBase(
             IIntranetUserService<IIntranetUser> intranetUserService,
             INewsService<NewsBase> newsService,
             IMediaHelper mediaHelper,
             IActivityTypeProvider activityTypeProvider,
-            IActivityLinkService activityLinkService,
-            IContextTypeProvider contextTypeProvider) :base(contextTypeProvider)
+            IActivityLinkService activityLinkService)
         {
             _intranetUserService = intranetUserService;
             _newsService = newsService;
@@ -60,7 +56,7 @@ namespace Uintra.News.Web
         {
             var news = _newsService.Get(id);
             var model = GetViewModel(news, options);
-            AddEntityIdentityForContext(id);
+
             return PartialView(DetailsViewPath, model);
         }
 
@@ -173,7 +169,8 @@ namespace Uintra.News.Web
             model.CanEdit = _newsService.CanEdit(news);
             model.Links = options.Links;
             model.IsReadOnly = options.IsReadOnly;
-            
+
+            // TODO : try to move this logic smwhere to avoid duplication
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
             model.HeaderInfo.Owner = _intranetUserService.Get(news);

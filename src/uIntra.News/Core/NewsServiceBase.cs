@@ -27,11 +27,11 @@ namespace Uintra.News
             _intranetUserService = intranetUserService;
         }
 
-        public override bool IsActual(IIntranetActivity activity)
+        public override bool IsActual(IIntranetActivity cachedActivity)
         {
-            var news = (NewsBase)activity;
+            var activity = (NewsBase)cachedActivity;
 
-            var isActual = base.IsActual(news) && news.PublishDate <= DateTime.UtcNow && !IsShowIfUnpublish(news);
+            var isActual = base.IsActual(activity) && activity.PublishDate <= DateTime.UtcNow && !IsShowIfUnpublish(activity);
             return isActual;
         }
 

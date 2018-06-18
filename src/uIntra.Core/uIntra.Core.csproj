@@ -10,12 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Uintra.Core</RootNamespace>
     <AssemblyName>Uintra.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <RestorePackages>true</RestorePackages>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -105,14 +104,14 @@
     <Reference Include="cms, Version=1.0.6634.25794, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\cms.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.Extensions, Version=0.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Extensions.0.3.2\lib\net471\Compent.Extensions.dll</HintPath>
+    <Reference Include="Compent.Extensions, Version=0.2.8.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Extensions.0.2.8.5\lib\net452\Compent.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.Core.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.Client, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.0.6\lib\net452\Compent.LinkPreview.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.HttpClient.dll</HintPath>
+    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.0.6\lib\net452\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
     <Reference Include="controls, Version=1.0.6634.25794, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.9.2\lib\net45\controls.dll</HintPath>
@@ -279,25 +278,12 @@
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
-    <Reference Include="System.Security.Cryptography.Algorithms">
-      <HintPath>..\..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding">
-      <HintPath>..\..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives">
-      <HintPath>..\..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates">
-      <HintPath>..\..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -383,22 +369,8 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Core\Activity\ICacheableIntranetActivityService.cs" />
-    <Compile Include="Core\Context\Attributes.cs" />
-    <Compile Include="Core\Context\ContextBuildType.cs" />
-    <Compile Include="Core\Context\Extensions\PropertyReflectionHelper.cs" />
-    <Compile Include="Core\ViewRenderer.cs" />
     <Compile Include="Core\Grid\GridRenderHelper.cs" />
     <Compile Include="Core\Helpers\HtmlHelper.cs" />
-    <Compile Include="Core\Context\ContextController.cs" />
-    <Compile Include="Core\Context\ContextTypeEnum.cs" />
-    <Compile Include="Core\Context\Extensions\AjaxContextExtensions.cs" />
-    <Compile Include="Core\Context\Extensions\ContextControllerExtensions.cs" />
-    <Compile Include="Core\Context\Extensions\ContextExtensions.cs" />
-    <Compile Include="Core\Context\Extensions\ContextPatternExtensions.cs" />
-    <Compile Include="Core\Context\Models\ContextData.cs" />
-    <Compile Include="Core\Context\Models\ContextDataTransferModel.cs" />
-    <Compile Include="Core\Context\Models\ControllerContextData.cs" />
     <Compile Include="Core\LinkPreview\AutoMapperProfiles\LinkPreviewAutoMapperProfile.cs" />
     <Compile Include="Core\LinkPreview\ActivityLinkPreviewService.cs" />
     <Compile Include="Core\LinkPreview\IActivityLinkPreviewService.cs" />
@@ -430,6 +402,7 @@
     <Compile Include="Core\BrowserCompatibility\Models\BrowserCompatibilityModel.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryOverviewModel.cs" />
     <Compile Include="Core\Extensions\ListExtensions.cs" />
+    <Compile Include="Core\Extensions\StreamExtensions.cs" />
     <Compile Include="Core\Jobs\AutoMapperProfiles\JobAutoMapperProfile.cs" />
     <Compile Include="Core\Jobs\Configuration\IJobSettingsConfiguration.cs" />
     <Compile Include="Core\Jobs\Configuration\JobSettingsConfiguration.cs" />
@@ -460,9 +433,8 @@
     <Compile Include="Core\PagePromotion\PagePromotionHelper.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionConstants.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionServiceBase.cs" />
-    <Compile Include="Core\Providers\ContextTypeProvider.cs" />
-    <Compile Include="Core\Providers\IContextTypeProvider.cs" />
     <Compile Include="Core\Providers\IDocumentTypeProvider.cs" />
+    <Compile Include="Core\IUmbracoContentHelper.cs" />
     <Compile Include="Core\Links\IActivityLinkService.cs" />
     <Compile Include="Core\Links\IProfileLinkProvider.cs" />
     <Compile Include="Core\Links\Models\ActivityCreateLinks.cs" />
@@ -475,8 +447,6 @@
     <Compile Include="Core\Providers\ContentProviderBase.cs" />
     <Compile Include="Core\Providers\ILinkPreviewConfigProvider.cs" />
     <Compile Include="Core\Providers\IXPathProvider.cs" />
-    <Compile Include="Core\SingleLinkedList\SingleLinkedList.cs" />
-    <Compile Include="Core\SingleLinkedList\SingleLinkedListExtensions.cs" />
     <Compile Include="Core\TypeProviders\EnumTypeProviderBase.cs" />
     <Compile Include="Core\LinkPreview\Configuration\LinkDetectionConfig.cs" />
     <Compile Include="Core\TypeProviders\EnumTypeProviderExtensions.cs" />
@@ -524,12 +494,13 @@
     <Compile Include="Core\User\Role.cs" />
     <Compile Include="Core\Utils\EmbeddedResourceService.cs" />
     <Compile Include="Core\Utils\EmbeddedResourcesUtils.cs" />
+    <Compile Include="Core\Utils\HttpHelper.cs" />
     <Compile Include="Core\Utils\IEmbeddedResourceService.cs" />
+    <Compile Include="Core\Utils\IHttpHelper.cs" />
     <Compile Include="Web\ActivityControllerBase.cs" />
     <Compile Include="Core\Location\Models\ActivityLocationEditModel.cs" />
     <Compile Include="Web\ActivityLinkPreviewControllerBase.cs" />
     <Compile Include="Web\BrowserCompatibilityControllerBase.cs" />
-    <Compile Include="Web\GridControllerBase.cs" />
     <Compile Include="Web\LinkPreviewControllerBase.cs" />
     <Compile Include="Web\CacheController.cs" />
     <Compile Include="Web\EditorConfigControllerBase.cs" />
@@ -547,11 +518,13 @@
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewViewModel.cs" />
     <Compile Include="Core\Activity\Models\IntranetPinActivityModel.cs" />
     <Compile Include="Core\Extensions\DateTimeExtensions.cs" />
-    <Compile Include="Core\Media\FolderConstants.cs" />
+    <Compile Include="Core\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Core\FolderConstants.cs" />
     <Compile Include="Core\Providers\IDateTimeFormatProvider.cs" />
     <Compile Include="Core\Handlers\NotFoundHandlerBase.cs" />
     <Compile Include="Core\Providers\ITimezoneOffsetProvider.cs" />
     <Compile Include="Core\Media\MediaFolderTypeEnum.cs" />
+    <Compile Include="Core\NotificationConstants.cs" />
     <Compile Include="Core\Providers\TimezoneOffsetProvider.cs" />
     <Compile Include="Core\Activity\CacheConstants.cs" />
     <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />
@@ -590,6 +563,7 @@
     <Compile Include="Core\Extensions\EnumExtensions.cs" />
     <Compile Include="Core\Extensions\HtmlExtentions.cs" />
     <Compile Include="Core\Extensions\HttpContextExtentions.cs" />
+    <Compile Include="Core\Extensions\LocalizationExtensions.cs" />
     <Compile Include="Core\Extensions\PermissionExtentions.cs" />
     <Compile Include="Core\Extensions\PublishedContentExtentions.cs" />
     <Compile Include="Core\Extensions\SerializationExtentions.cs" />
@@ -600,7 +574,7 @@
     <Compile Include="Core\Grid\IGridHelper.cs" />
     <Compile Include="Core\Constants\IntranetConstants.cs" />
     <Compile Include="Core\Localization\IIntranetLocalizationService.cs" />
-    <Compile Include="Core\Media\MediaTypeEnum.cs" />
+    <Compile Include="Core\MediaTypeEnum.cs" />
     <Compile Include="Core\Media\IContentWithMedia.cs" />
     <Compile Include="Core\Media\IMediaHelper.cs" />
     <Compile Include="Core\Media\MediaHelper.cs" />

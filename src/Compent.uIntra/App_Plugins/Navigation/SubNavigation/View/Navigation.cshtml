@@ -6,58 +6,57 @@
 
     <nav class='tabset @(hasRows ? "_hasRows" : String.Empty)'>
         <div class="tabset__holder">
-            <div class="tabset__box">
-                @if (Model.ShowBreadcrumbs)
-                {
-                    Html.RenderAction("Breadcrumbs", "Navigation");
-                }
 
-                @if (Model.Rows.Any())
-                {
-                    <div class="tabset__frame">
-                        @{
-                            var topLevelMenu = Model.Rows.First();
-                            if (topLevelMenu.Items.Count > 0)
-                            {
-                                var lowLevelMenuRows = Model.Rows.Skip(1).ToList();
+            @if (Model.ShowBreadcrumbs)
+            {
+                Html.RenderAction("Breadcrumbs", "Navigation");
+            }
 
-                                <ul class="tabset__navigation clearfix">
-                                    @foreach (var menuItem in topLevelMenu.Items)
-                                    {
-                                        var isActive = menuItem.IsActive ? "_active" : string.Empty;
+            @if (Model.Rows.Any())
+            {
+                <div class="tabset__frame">
+                    @{ 
+                        var topLevelMenu = Model.Rows.First();
+                        if (topLevelMenu.Items.Count > 0)
+                        {
+                            var lowLevelMenuRows = Model.Rows.Skip(1).ToList();
 
-                                        <li class="tabset__navigation-item @isActive">
-                                            <a class="tabset__navigation-link" href="@menuItem.Url">@menuItem.Name</a>
-                                        </li>
-                                    }
-                                </ul>
-
-                                if (lowLevelMenuRows.Count > 0)
+                            <ul class="tabset__navigation clearfix">
+                                @foreach (var menuItem in topLevelMenu.Items)
                                 {
-                                    <div class="tabset__inner">
-                                        @foreach (var menuRow in lowLevelMenuRows)
-                                        {
-                                            if (menuRow.Items.Count > 0)
-                                            {
-                                                <ul class="tabset__navigation clearfix">
-                                                    @foreach (var innerMenuItem in menuRow.Items)
-                                                    {
-                                                        var isActiveInner = innerMenuItem.IsActive ? "_active" : string.Empty;
+                                    var isActive = menuItem.IsActive ? "_active" : string.Empty;
 
-                                                        <li class="tabset__navigation-item @isActiveInner">
-                                                            <a class="tabset__navigation-link" href="@innerMenuItem.Url">@innerMenuItem.Name</a>
-                                                        </li>
-                                                    }
-                                                </ul>
-                                            }
-                                        }
-                                    </div>
+                                    <li class="tabset__navigation-item @isActive">
+                                        <a class="tabset__navigation-link" href="@menuItem.Url">@menuItem.Name</a>
+                                    </li>
                                 }
+                            </ul>
+
+                            if (lowLevelMenuRows.Count > 0)
+                            {
+                                <div class="tabset__inner">
+                                    @foreach (var menuRow in lowLevelMenuRows)
+                                    {
+                                        if (menuRow.Items.Count > 0)
+                                        {
+                                            <ul class="tabset__navigation clearfix">
+                                                @foreach (var innerMenuItem in menuRow.Items)
+                                                {
+                                                    var isActiveInner = innerMenuItem.IsActive ? "_active" : string.Empty;
+
+                                                    <li class="tabset__navigation-item @isActiveInner">
+                                                        <a class="tabset__navigation-link" href="@innerMenuItem.Url">@innerMenuItem.Name</a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                    }
+                                </div>
                             }
                         }
-                    </div>
-                }
-            </div>
+                    }
+                </div>
+            }
         </div>
     </nav>
 }

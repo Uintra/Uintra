@@ -5,11 +5,6 @@
         public const string GalleryPreviewImageCrop = "galleryPreview";
         public const string EnumDropdownList = "EnumDropdownList";
 
-        public static class Tags
-        {
-            public const string TagText = "text";
-        }
-
         public static class Media
         {
             public const string ImageTypeAlias = "Image";

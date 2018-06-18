@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
 using Umbraco.Web;
 
 namespace Uintra.Core.Activity
@@ -41,10 +42,10 @@ namespace Uintra.Core.Activity
             return activityId.HasValue ? detailsPageUrl.AddIdParameter(activityId) : detailsPageUrl;
         }
 
-        public string GetCreatePageUrl() => 
+        public string GetCreatePageUrl() =>
             _aliasProvider
                 .GetCreatePage(ActivityType)
-                .Bind(createPage => createPage.Pipe(_activityXPath.Append).Pipe(GetPageUrl));
+                .Bind(createPage => createPage.Map(_activityXPath.Append).Map(GetPageUrl));
 
         public string GetEditPageUrl(Guid activityId)
         {
@@ -54,7 +55,7 @@ namespace Uintra.Core.Activity
 
         private string GetPageUrl(IEnumerable<string> xPath)
         {
-            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(xPath.Where(x => x != null)))?.Url;
+            return _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(xPath))?.Url;
         }
     }
 }

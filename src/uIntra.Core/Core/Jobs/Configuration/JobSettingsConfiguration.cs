@@ -10,7 +10,7 @@ namespace Uintra.Core.Jobs.Configuration
     public class JobSettingsConfiguration : ConfigurationSection, IJobSettingsConfiguration
     {
         public static JobSettingsConfiguration Configure =>
-            ConfigurationManager.GetSection("UintraJobs") as JobSettingsConfiguration;
+            ConfigurationManager.GetSection("UIntraJobs") as JobSettingsConfiguration;
 
         [ConfigurationProperty("settings", IsRequired = true)]
         public JobSettingsCollection Settings => (JobSettingsCollection)base["settings"];

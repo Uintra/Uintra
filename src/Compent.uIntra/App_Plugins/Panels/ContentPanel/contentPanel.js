@@ -157,7 +157,7 @@ var isOutsideClick = function (el, opener, target, className) {
 
 function getClientHeight() { return document.compatMode == 'CSS1Compat' ? document.documentElement.clientHeight : document.body.clientHeight; }
 
-/*function mobileAsideHeight() {
+function mobileAsideHeight() {
     var mobileAside = document.querySelector(".aside > div");
     var headerHeight = document.getElementById('header').offsetHeight;
 
@@ -170,14 +170,14 @@ function windowResize() {
     window.addEventListener('resize', () => {
         mobileAsideHeight();
     });
-}*/
+}
 
 // media query change
 function WidthChange(mq) {
     if (!mq.matches) {
         initMobileBanners();
-        //mobileAsideHeight();
-        //windowResize();
+        mobileAsideHeight();
+        windowResize();
     }
 }
 

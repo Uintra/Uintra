@@ -1,6 +1,6 @@
-﻿using Compent.Extensions.Trees;
-using System.Linq;
+﻿using System.Linq;
 using System.Net.Http.Formatting;
+using BCLExtensions.Trees;
 using Uintra.Notification.Configuration;
 using umbraco.businesslogic;
 using umbraco.interfaces;

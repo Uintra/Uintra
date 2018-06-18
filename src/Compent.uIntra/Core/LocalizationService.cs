@@ -1,4 +1,5 @@
-﻿using Localization.Core;
+﻿using Extensions;
+using Localization.Core;
 using Uintra.Core.Localization;
 
 namespace Compent.Uintra.Core

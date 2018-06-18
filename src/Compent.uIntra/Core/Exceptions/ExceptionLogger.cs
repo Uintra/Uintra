@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web;
 using Elmah;
 using Uintra.Core.Exceptions;
 
@@ -7,10 +6,9 @@ namespace Compent.Uintra.Core.Exceptions
 {
     public class ExceptionLogger: IExceptionLogger
     {
-        public void Log(Exception exception)
+        public void Log(Exception ex)
         {
-            var elmahCon = ErrorLog.GetDefault(null);
-            elmahCon.Log(new Error(exception));
+            ErrorSignal.FromCurrentContext().Raise(ex);
         }
     }
 }

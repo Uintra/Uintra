@@ -4,12 +4,13 @@ using System.Linq;
 using Uintra.Core.Activity;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
+using Uintra.Core.TypeProviders;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
 namespace Uintra.Core.PagePromotion
 {
-    public abstract class PagePromotionServiceBase<T> : IPagePromotionService<T>, ICacheableIntranetActivityService<T> where T : PagePromotionBase
+    public abstract class PagePromotionServiceBase<T> : IPagePromotionService<T> where T : PagePromotionBase
     {
         private const string CacheKey = "PagePromotionCache";
 
@@ -24,14 +25,14 @@ namespace Uintra.Core.PagePromotion
             _documentTypeAliasProvider = documentTypeAliasProvider;
         }
 
-        public abstract Enum Type { get; }
+        public abstract Enum ActivityType { get; }
 
         public virtual void Delete(Guid id)
         {
-            UpdateActivityCache(id);
+            UpdateCachedEntity(id);
         }
 
-        public virtual bool CanEdit(IIntranetActivity activity) => false;
+        public virtual bool CanEdit(IIntranetActivity cached) => false;
         public virtual bool CanEdit(Guid id) => false;
 
         public virtual T Get(Guid id)
@@ -62,24 +63,21 @@ namespace Uintra.Core.PagePromotion
             return cached;
         }
 
-        public virtual bool IsActual(IIntranetActivity activity)
+        public virtual bool IsActual(IIntranetActivity cachedActivity)
         {
-            var pagePromotion = activity as T;
+            var pagePromotion = cachedActivity as T;
             return pagePromotion != null && !pagePromotion.IsHidden && pagePromotion.PublishDate <= DateTime.Now;
         }
 
-        public bool IsPinActual(IIntranetActivity activity) => false;
+        public bool IsPinActual(IIntranetActivity cachedActivity) => false;
         public virtual Guid Create(IIntranetActivity activity) => activity.Id;
 
         public virtual void Save(IIntranetActivity activity)
         {
-            UpdateActivityCache(activity.Id);
+            UpdateCachedEntity(activity.Id);
         }
 
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected virtual T UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
-
-        public virtual T UpdateActivityCache(Guid id)
+        protected virtual T UpdateCachedEntity(Guid id)
         {
             var activity = GetFromStorage(id);
             var cached = GetAll(true);

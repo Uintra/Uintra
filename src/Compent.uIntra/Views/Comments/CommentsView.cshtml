@@ -1,16 +1,16 @@
-﻿@using System.Web.Mvc.Html
-@using Compent.Extensions
+﻿@using System.Web.Mvc.Ajax
+@using System.Web.Mvc.Html
+@using Extensions
 @using Uintra.Comments
-@using Uintra.Core.Context
 @using Uintra.Core.Extensions
 @model Uintra.Comments.CommentViewModel
 
 @{
-    var inactiveUser = Model.Creator.Inactive ? "_inactive" : string.Empty;
+    var inactiveUser = Model.Creator.Inactive ? "_inactive" : String.Empty;
 }
 
 <div id="@Model.CommentViewId" class="js-comment-view" data-id="@Model.Id">
-    @Html.Action("Photo", "User", new { user = Model.Creator })
+    @Html.Action("Photo", "User", new { user = Model.Creator})
     <div class="comments__list-body">
         <div class="comments__list-holder clearfix">
             <div class="comments__author-about @inactiveUser">
@@ -20,78 +20,75 @@
                 <span class="comments__author-date">@(Model.CreatedDate.ToDateFormat())</span>
                 <span class="comments__divider"> - </span>
                 <span class="comments__author-time">@(Model.CreatedDate.ToTimeFormat())</span>
-                @*</div>*@
-                @if (Model.ModifyDate.HasValue)
-                {
-                    <div class="comments__modified">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                        <div class="comments__modified-info">
-                            @Html.Localize("CommentsView.ModifyDate.lbl")
-                            <span class="comments__author-date">@(Model.ModifyDate.Value.ToDateFormat())</span>
-                            <span class="comments__divider"> - </span>
-                            <span class="comments__author-time">@(Model.ModifyDate.Value.ToTimeFormat())</span>
-                        </div>
-                    </div>
-                }
-                @if (!Model.IsReply)
-                {
-                    <a class="js-comment-showReplyLink comments__reply">@Html.Localize("CommentsView.Reply.lnk")</a>
-                }
-                @if (Model.CanDelete || Model.CanEdit)
-                {
-                    <div class="comments__controls">
-                        <ul class="comments__controls-list">
-                            <li class="comments__controls-list-item">
-                                @if (Model.CanEdit)
-                                {
-                                    <a class="comments__controls-list-link js-comment-editlink">@Html.Localize("CommentsView.Edit.lbl")</a>
-                                }
-                            </li>
-                            <li class="comments__controls-list-item">
-                                @if (Model.CanDelete)
-                                {
-                                    @Ajax.ContextedActionLink(Html.Localize("CommentsView.Delete.lbl"), "Delete", "Comments", null,
-                                               new AjaxOptions { HttpMethod = "Delete", UpdateTargetId = Model.ElementOverviewId, InsertionMode = InsertionMode.ReplaceWith, OnComplete = $"new uIntra.methods.CommentOverview('#{Model.ElementOverviewId}');" },
-                                               new { @class = "js-comment-delete comments__controls-list-link", data_text = Html.Localize("Common.AreYouSure") })
-                                }
-                            </li>
-                        </ul>
-                    </div>
-                }
             </div>
+            @if (Model.ModifyDate.HasValue)
+            {
+                <div class="comments__modified">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <div class="comments__modified-info">
+                        @Html.Localize("CommentsView.ModifyDate.lbl")
+                        <span class="comments__author-date">@(Model.ModifyDate.Value.ToDateFormat())</span>
+                        <span class="comments__divider"> - </span>
+                        <span class="comments__author-time">@(Model.ModifyDate.Value.ToTimeFormat())</span>
+                    </div>
+                </div>
+            }
+            @if (!Model.IsReply)
+            {
+                <a class="js-comment-showReplyLink comments__reply">@Html.Localize("CommentsView.Reply.lnk")</a>
+            }
+            @if (Model.CanDelete || Model.CanEdit)
+            {
+                <div class="comments__controls">
+                    <ul class="comments__controls-list">
+                        <li class="comments__controls-list-item">
+                            @if (Model.CanEdit)
+                            {
+                                <a class="comments__controls-list-link js-comment-editlink">@Html.Localize("CommentsView.Edit.lbl")</a>
+                            }
+                        </li>
+                        <li class="comments__controls-list-item">
+                            @if (Model.CanDelete)
+                            {
+                                @Ajax.ActionLink(Html.Localize("CommentsView.Delete.lbl"), "Delete", "Comments", new { id = Model.Id },
+                                    new AjaxOptions { HttpMethod = "Delete", UpdateTargetId = Model.ElementOverviewId, InsertionMode = InsertionMode.ReplaceWith, OnComplete = $"new uIntra.methods.CommentOverview('#{Model.ElementOverviewId}');" },
+                                    new { @class = "js-comment-delete comments__controls-list-link", data_text = Html.Localize("Common.AreYouSure") })
+                            }
+                        </li>
+                    </ul>
+                </div>
+            }
         </div>
         <div class="comments__list-text js-comment-description">
             @Html.Raw(Model.Text)
         </div>
-
+        
         @if (Model.LinkPreview != null)
         {
             <div class=" js-comment-link-preview-container link-preview">
-                <div class="link-preview__block">
-                    <div class="link-preview__image">
-                        @if (Model.LinkPreview.ImageUri != null)
-                        {
-                            <img src="@Model.LinkPreview.ImageUri" alt="link preview image description" />
-                        }
-                    </div>
-                    <div class="link-preview__text">
-                        <h3 class="link-preview__title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
-                        @if (Model.LinkPreview.Description.HasValue())
-                        {
-                            <p>@Model.LinkPreview.Description</p>
-                        }
-                    </div>
+                <div class="link-preview__image">
+                    @if (Model.LinkPreview.ImageUri != null)
+                    {
+                        <img src="@Model.LinkPreview.ImageUri" alt="link preview image description"/>
+                    }
+                </div>
+                <div class="link-preview__text">
+                    <h3 class="link-preview__title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
+                    @if (Model.LinkPreview.Description.HasValue())
+                    {
+                        <p>@Model.LinkPreview.Description</p>
+                    }
                 </div>
             </div>
         }
-
-        @{ Html.RenderAction("CommentLikes", "Likes", new { commentId = Model.Id }); }
+        
+        @{ Html.RenderAction("CommentLikes", "Likes", new { activityId = Model.ActivityId, commentId = Model.Id }); }
 
         @if (Model.CanEdit)
         {
-            <div class="comments__list-text js-comment-editContainer" style="display: none">
-                @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditViewModel { Text = Model.Text, UpdateElementId = Model.ElementOverviewId, LinkPreview = Model.LinkPreview })
-            </div>
+        <div class="comments__list-text js-comment-editContainer" style="display: none">
+            @Html.Partial("~/App_Plugins/Comments/View/CommentsEditView.cshtml", new CommentEditViewModel { Id = Model.Id, Text = Model.Text, UpdateElementId = Model.ElementOverviewId, LinkPreview = Model.LinkPreview })
+        </div>
         }
 
         @if (Model.Replies.Any())
@@ -107,7 +104,7 @@
         {
             <div class="js-comment-reply comments__list-replies" style="display: none">
                 <span class="js-comment-hideReplyLink comments__hide"><i class="icon-close"></i></span>
-                @Html.Partial("~/App_Plugins/Comments/View/CommentsCreateView.cshtml", new CommentCreateModel { ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId })
+                @Html.Partial("~/App_Plugins/Comments/View/CommentsCreateView.cshtml", new CommentCreateModel { ActivityId = Model.ActivityId, ParentId = Model.Id, UpdateElementId = Model.ElementOverviewId})
             </div>
         }
     </div>

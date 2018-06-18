@@ -2,6 +2,7 @@
 using Compent.Uintra.Core.Bulletins;
 using Compent.Uintra.Core.Events;
 using Compent.Uintra.Core.Search.Entities;
+using Compent.Uintra.Core.Search.Models;
 using Compent.Uintra.Core.Users;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
@@ -81,9 +82,26 @@ namespace Compent.Uintra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.Email, o => o.Ignore())
                 .ForMember(dst => dst.Photo, o => o.Ignore());
 
-            Mapper.CreateMap<SearchableUser, SearchAutocompleteResultViewModel>()
+            Mapper.CreateMap<SearchableTag, UintraSearchAutocompleteResultViewModel>()
                 .IncludeBase<SearchableBase, SearchAutocompleteResultViewModel>()
-                .ForMember(dst => dst.Title, o => o.MapFrom(s => s.FullName));
+                .ForMember(dst => dst.AdditionalInfo, o => o.Ignore());
+
+            Mapper.CreateMap<SearchableUser, UintraSearchAutocompleteResultViewModel>()
+                .IncludeBase<SearchableBase, SearchAutocompleteResultViewModel>()
+                .ForMember(dst => dst.Title, o => o.MapFrom(s => s.FullName))
+                .ForMember(dst => dst.AdditionalInfo, o => o.Ignore());
+
+            Mapper.CreateMap<SearchableActivity, UintraSearchAutocompleteResultViewModel>()
+                .IncludeBase<SearchableBase, SearchAutocompleteResultViewModel>()
+                .ForMember(dst => dst.AdditionalInfo, o => o.Ignore());
+
+            Mapper.CreateMap<SearchableContent, UintraSearchAutocompleteResultViewModel>()
+                .IncludeBase<SearchableBase, SearchAutocompleteResultViewModel>()
+                .ForMember(dst => dst.AdditionalInfo, o => o.Ignore());
+
+            Mapper.CreateMap<SearchableDocument, UintraSearchAutocompleteResultViewModel>()
+                .IncludeBase<SearchableBase, SearchAutocompleteResultViewModel>()
+                .ForMember(dst => dst.AdditionalInfo, o => o.Ignore());
 
             Mapper.CreateMap<SearchableTag, UintraSearchResultViewModel>()
                 .ForMember(dst => dst.Id, src => src.MapFrom(s => s.Id))

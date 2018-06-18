@@ -1,5 +1,5 @@
 ﻿using System.Web.Http;
-using Compent.Extensions;
+using Extensions;
 using uIntra.Notification;
 using Uintra.Core.Extensions;
 using Uintra.Core.TypeProviders;

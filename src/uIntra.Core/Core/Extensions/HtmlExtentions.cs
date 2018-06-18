@@ -31,10 +31,34 @@ namespace Uintra.Core.Extensions
             return dateTimeFormatProvider.DateFormat;
         }
 
+        public static string GetTimeFormat(this HtmlHelper htmlHelper)
+        {
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+            return dateTimeFormatProvider.TimeFormat;
+        }
+
+        public static string GetDateTimeFormat(this HtmlHelper htmlHelper)
+        {
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+            return dateTimeFormatProvider.DateTimeFormat;
+        }
+
+        public static string GetDatePickerFormat(this HtmlHelper htmlHelper)
+        {
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+            return dateTimeFormatProvider.DatePickerFormat;
+        }
+
         public static string GetDateTimePickerFormat(this HtmlHelper htmlHelper)
         {
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
             return dateTimeFormatProvider.DateTimePickerFormat;
+        }
+
+        public static string GetDateTimeValueFormat(this HtmlHelper htmlHelper)
+        {
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+            return dateTimeFormatProvider.DateTimeValuePickerFormat;
         }
 
         public static MvcHtmlString PassLinks(this HtmlHelper helper, IActivityLinks links)

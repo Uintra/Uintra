@@ -1,9 +1,8 @@
-﻿using Compent.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Compent.Extensions;
+using Extensions;
 using Umbraco.Core.Services;
 
 namespace Compent.Uintra.Core.Verification

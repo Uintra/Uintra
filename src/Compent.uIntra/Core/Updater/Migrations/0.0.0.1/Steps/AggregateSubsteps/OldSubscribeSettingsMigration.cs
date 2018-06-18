@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Uintra.Subscribe;

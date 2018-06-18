@@ -22,12 +22,10 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0
             get
             {
                 yield return Resolve<GroupDocumentsTabStep>();
-                yield return Resolve<NotificationSettingsMigrationStep>();
-                yield return Resolve<TablePanelMigrationStep>();   
+                yield return Resolve<NotificationSettingsMigrationStep>();  
+                yield return Resolve<TablePanelMigrationStep>();        
                 yield return Resolve<DeleteGroupNavigationTabsMigrationStep>();        
-                yield return Resolve<AddTranslationsStep>();
-                yield return Resolve<AddFirstTimeLoginStep>();
-                yield return Resolve<WelcomeMessageSetupStep>();
+                yield return Resolve<AddTranslationsStep>();        
             }
         }
     }

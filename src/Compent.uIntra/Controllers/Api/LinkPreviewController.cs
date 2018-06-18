@@ -9,12 +9,11 @@ namespace Compent.Uintra.Controllers.Api
 {
     public class LinkPreviewController : LinkPreviewControllerBase
     {
-        public LinkPreviewController(
-            ILinkPreviewClient linkPreviewClient,
+        public LinkPreviewController(ILinkPreviewService linkPreviewService,
             ILinkPreviewConfigProvider configProvider,
             ISqlRepository<int, LinkPreviewEntity> previewRepository,
             LinkPreviewModelMapper linkPreviewModelMapper) 
-            : base(linkPreviewClient, configProvider, previewRepository, linkPreviewModelMapper)
+            : base(linkPreviewService, configProvider, previewRepository, linkPreviewModelMapper)
         {
         }
     }

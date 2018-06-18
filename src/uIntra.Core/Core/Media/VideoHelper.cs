@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
-using Compent.Extensions;
+using Extensions;
 using MediaToolkit;
 using MediaToolkit.Model;
 using MediaToolkit.Options;

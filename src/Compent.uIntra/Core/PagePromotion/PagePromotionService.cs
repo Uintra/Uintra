@@ -11,6 +11,7 @@ using Uintra.Core.Constants;
 using Uintra.Core.Extensions;
 using Uintra.Core.Grid;
 using Uintra.Core.PagePromotion;
+using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Likes;
 using Uintra.Search;
@@ -19,7 +20,10 @@ using Umbraco.Web;
 
 namespace Compent.Uintra.Core.PagePromotion
 {
-    public class PagePromotionService : PagePromotionServiceBase<Entities.PagePromotion>, IFeedItemService
+    public class PagePromotionService : PagePromotionServiceBase<Entities.PagePromotion>,
+        IFeedItemService,
+        ILikeableService,
+        ICommentableService
     {
         private readonly IIntranetUserService<IIntranetUser> _userService;
         private readonly ILikesService _likesService;
@@ -45,7 +49,7 @@ namespace Compent.Uintra.Core.PagePromotion
             _documentIndexer = documentIndexer;
         }
 
-        public override Enum Type => IntranetActivityTypeEnum.PagePromotion;
+        public override Enum ActivityType => IntranetActivityTypeEnum.PagePromotion;
 
         public FeedSettings GetFeedSettings()
         {
@@ -65,14 +69,50 @@ namespace Compent.Uintra.Core.PagePromotion
             return GetOrderedActualItems();
         }
 
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected override Entities.PagePromotion UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
+        public ILikeable AddLike(Guid userId, Guid activityId)
+        {
+            _likesService.Add(userId, activityId);
+            UpdateCachedEntity(activityId);
+            return Get(activityId);
+        }
 
-        public override Entities.PagePromotion UpdateActivityCache(Guid id)
+        public ILikeable RemoveLike(Guid userId, Guid activityId)
+        {
+            _likesService.Remove(userId, activityId);
+            UpdateCachedEntity(activityId);
+            return Get(activityId);
+        }
+
+        public CommentModel CreateComment(CommentCreateDto dto)
+        {
+            var comment = _commentsService.Create(dto);
+            UpdateCachedEntity(comment.ActivityId);
+            return comment;
+        }
+
+        public void UpdateComment(CommentEditDto dto)
+        {
+            var comment = _commentsService.Update(dto);
+            UpdateCachedEntity(comment.ActivityId);
+        }
+
+        public void DeleteComment(Guid id)
+        {
+            var comment = _commentsService.Get(id);
+            _commentsService.Delete(id);
+            UpdateCachedEntity(comment.ActivityId);
+        }
+
+        public ICommentable GetCommentsInfo(Guid activityId)
+        {
+            return Get(activityId);
+        }
+
+        protected override Entities.PagePromotion UpdateCachedEntity(Guid id)
         {
             var cachedEntity = Get(id);
 
-            var activity = base.UpdateActivityCache(id);
+            var activity = base.UpdateCachedEntity(id);
             if (IsPagePromotionHidden(activity))
             {
                 if (cachedEntity != null)
@@ -114,7 +154,7 @@ namespace Compent.Uintra.Core.PagePromotion
 
             Mapper.Map(config, pagePromotion);
 
-            pagePromotion.Type = Type;
+            pagePromotion.Type = ActivityType;
             pagePromotion.CreatorId = _userService.Get(pagePromotion.UmbracoCreatorId.Value).Id;
 
             var panelValues = _gridHelper.GetValues(content, GridEditorConstants.CommentsPanelAlias, GridEditorConstants.LikesPanelAlias).ToList();

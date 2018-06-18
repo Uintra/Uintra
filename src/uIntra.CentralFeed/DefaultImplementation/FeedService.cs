@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
 

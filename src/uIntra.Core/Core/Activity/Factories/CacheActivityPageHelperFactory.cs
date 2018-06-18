@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Compent.Extensions;
+using Extensions;
 using Uintra.Core.Extensions;
 using Uintra.Core.PagePromotion;
 using Umbraco.Web;

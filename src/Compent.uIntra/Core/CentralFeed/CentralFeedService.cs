@@ -22,7 +22,7 @@ namespace Compent.Uintra.Core.CentralFeed
 
         public IEnumerable<IFeedItem> GetFeed(Enum type)
         {
-            var service = _feedItemServices.Single(s => s.Type.ToInt() == type.ToInt());
+            var service = _feedItemServices.Single(s => s.ActivityType.ToInt() == type.ToInt());
             return service.GetItems().Where(IsCentralFeedActivity);
         }
 

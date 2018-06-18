@@ -112,9 +112,6 @@ namespace Uintra.Groups
             Edit(group);
         }
 
-        public bool IsActivityFromActiveGroup(IGroupActivity groupActivity) => 
-            groupActivity.GroupId.HasValue && !Get(groupActivity.GroupId.Value).IsHidden;
-
         private static DateTimeOffset GetCacheExpiration()
         {
             return DateTimeOffset.Now.AddDays(1);
