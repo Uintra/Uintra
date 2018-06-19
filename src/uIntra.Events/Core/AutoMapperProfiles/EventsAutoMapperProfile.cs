@@ -93,9 +93,9 @@ namespace Uintra.Events
             Mapper.CreateMap<EventBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<EventBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id))
-                .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.ToDateTimeFormat(), el.EndDate.ToDateTimeFormat() }));
+                .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.GetEventDateTimeString(el.EndDate) }));
 
-            Mapper.CreateMap<EventBackofficeCreateModel, EventBase>()       
+            Mapper.CreateMap<EventBackofficeCreateModel, EventBase>()
                .ForMember(dst => dst.MediaIds, o => o.Ignore())
                .ForMember(dst => dst.Type, o => o.Ignore())
                .ForMember(dst => dst.Id, o => o.Ignore())
