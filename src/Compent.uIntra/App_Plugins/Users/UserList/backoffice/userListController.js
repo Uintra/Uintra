@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var controller = function ($scope) {
+    var controller = function ($scope, $http) {
 
         var defaultDisplayedAmount = 10;
         var defaultTitle = "User list";
@@ -27,13 +27,14 @@
             $scope.backupModel = angular.copy($scope.control.value);
         }
 
-
-
         $scope.init = function (control) {
             if (!$scope.control.value) {
                 $scope.control.value = getDefaultModel();
             }
             $scope.control = control;
+            getAllowedProperties().then(function (result) {
+                $scope.control.value.properties = result.data;
+            });
         }
 
         function getDefaultModel() {
@@ -41,12 +42,9 @@
                 displayedAmount: defaultDisplayedAmount,
                 title: defaultTitle,
                 amountPerRequest: defaultAmountPerRequest,
-                properties: [
-                    { name: "First name", alias: "firstName", id: 224 },
-                    { name: "Last name", alias: "lastName", id: 225 },
-                    { name: "Email", alias: "email", id: 226 }
-                ]
-            }
+                properties: [],
+                selectedProperties: []
+            };
         }
 
         function isValidModel(model) {
@@ -64,7 +62,11 @@
             }
             return true;
         }
+
+        function getAllowedProperties() {
+            return $http.get("/umbraco/backoffice/api/UserApi/ProfileProperties");
+        }
     }
-    controller.$inject = ["$scope"];
+    controller.$inject = ["$scope", "$http"];
     angular.module('umbraco').controller('userListController', controller);
 })();

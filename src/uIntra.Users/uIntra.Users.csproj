@@ -303,7 +303,9 @@
     <Compile Include="Core\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\ICachableUserService.cs" />
     <Compile Include="Core\IMemberServiceHelper.cs" />
-    <Compile Include="Core\Models\UserListModel.cs" />
+    <Compile Include="Core\Models\UserList\ProfilePropertyModel.cs" />
+    <Compile Include="Core\Models\UserList\UserListModel.cs" />
+    <Compile Include="Core\Models\UserList\UserModel.cs" />
     <Compile Include="Core\Models\UserPickerModel.cs" />
     <Compile Include="DefaultImplementation\IntranetUserServiceBase.cs" />
     <Compile Include="Core\IRoleService.cs" />
@@ -319,7 +321,7 @@
     <Compile Include="Web\ProfileControllerBase.cs" />
     <Compile Include="Web\UserApiController.cs" />
     <Compile Include="Web\UserListControllerBase.cs" />
-    <Compile Include="Web\UserListViewModel.cs" />
+    <Compile Include="Core\Models\UserList\UserListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.Core\Uintra.Core.csproj">

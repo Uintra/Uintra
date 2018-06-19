@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Uintra.Core.User;
 using Umbraco.Web.Mvc;
 
 namespace Uintra.Users.Web
@@ -12,15 +14,22 @@ namespace Uintra.Users.Web
     {
         protected virtual string ViewPath => @"~/App_Plugins/Users/UserList/UserListView.cshtml";
 
-        public UserListControllerBase()
-        {
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
+        public UserListControllerBase(IIntranetUserService<IIntranetUser> intranetUserService)
+        {
+            _intranetUserService = intranetUserService;
         }
 
         public ActionResult Render(UserListModel model)
         {
-
-            return View(ViewPath, model);
+            var viewModel = new UserListViewModel()
+            {
+                AmountPerRequest = model.AmountPerRequest,
+                DisplayedAmount = model.DisplayedAmount,
+                Title = model.Title
+            };
+            return View(ViewPath, viewModel);
         }
     }
 }

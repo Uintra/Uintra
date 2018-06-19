@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Uintra.Core;
 using Umbraco.Core.Services;
 using Umbraco.Web.WebApi;
 
@@ -33,6 +34,20 @@ namespace Uintra.Users.Web
             var mappedModels = unassignedUsers.Select(u => new UserPickerModel {Id = u.Id, Name = u.Name});
 
             return mappedModels;
+        }
+
+        [HttpGet]
+        public virtual IEnumerable<ProfilePropertyModel> ProfileProperties()
+        {
+            var properties = _memberServiceHelper.GetAvailableProfileProperties()
+                .Select(i => new ProfilePropertyModel()
+                    {
+                        Alias = i.Alias,
+                        Id = i.Id,
+                        Name = i.Name
+                    }).ToList();
+            properties.Add(new ProfilePropertyModel() { Alias = "_umb_email", Id = 0, Name = "Email" });
+            return properties;
         }
     }
 }

@@ -14,12 +14,8 @@
 
     <div class="m-b-20 _clearfix">
         <b class="span3">Displayed columns:</b>
-        <!--<select multiple ng-model="control.value.selectedProperties"
-                ng-options="property.name for property in control.value.properties track by property.id"
-            ></select>-->
-        <select multiple ng-model="control.value.selectedProperties">
-            <option ng-repeat="property in control.value.properties" value="{{property.alias}}">{{property.name}}</option>
-        </select>
+        <select multiple ng-model="control.value.selectedProperties"
+            ng-options="property.name for property in control.value.properties track by property.id"></select>
     </div>
 
     <div class="m-b-20 _clearfix">
