@@ -1,15 +1,45 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<dynamic>
-<div>
-    @Model.DisplayedAmount <br />
-    @Model.AmountPerRequest <br />
-    @Model.Title <br />
-    @*@Model.SelectedProperties <br />*@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Users.UserListViewModel>
+@using Uintra.Core.Extensions
 
-    @foreach (var alias in Model.SelectedProperties)
-    {
-        @:---------
-        @alias.ToString()
-        @:--------
-    }
-    <br />
-</div>
+<section class="block _content-panel clearfix">
+    <div class="block">
+        <h3>@Model.Title</h3>
+        <input type="text" id="filter" />
+    </div>
+    @*<div class="table-holder block">*@
+        <table class="members-table">
+            <tr class="members-table__row">
+                <th colspan="2" class="members-table__head">@Html.Localize("GroupMembers.Table.Name.lbl")</th>
+                <th class="members-table__head">@Html.Localize("GroupMembers.Table.Email.lbl")</th>
+                <th class="members-table__head">@Html.Localize("GroupMembers.Table.Role.lbl")</th>
+                <th class="members-table__head"></th>
+            </tr>
+            @foreach (var user in Model.Users)
+            {
+                <tr class="members-table__row">
+                    <td class="members-table__cell">
+                        @Html.Action("Photo", "User", new
+                        {
+                            user = user.User,
+                            cssModificator = "avatar--group-member",
+                            photoWidth = 60
+                        })
+                    </td>
+                    <td class="members-table__cell">
+                        <span class="members-table__name">@user.DisplayedName</span>
+                    </td>
+                    <td class="members-table__cell">
+                        <a class="members-table__link" href="mailto:@user.Email">@user.Email</a>
+                    </td>
+                    <td class="members-table__cell _role">
+                        <span>@user.User.Role.Name</span>
+                    </td>
+                </tr>
+            }
+        </table>
+    @*</div>*@
+</section>
+<script type="text/javascript">
+//var contentPanelSelectors = contentPanelSelectors || [];
+//contentPanelSelectors.push("#");
+</script>

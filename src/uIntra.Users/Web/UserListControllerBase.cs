@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using AutoMapper;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Uintra.Core.Extensions;
 using Uintra.Core.User;
 using Umbraco.Web.Mvc;
 
@@ -27,9 +29,24 @@ namespace Uintra.Users.Web
             {
                 AmountPerRequest = model.AmountPerRequest,
                 DisplayedAmount = model.DisplayedAmount,
-                Title = model.Title
+                Title = model.Title,
+                SelectedProperties = Enumerable.Empty<string>(),
+                Users = GetActiveUsers(0, model.DisplayedAmount)
             };
             return View(ViewPath, viewModel);
+        }
+
+        private IEnumerable<UserModel> GetActiveUsers(int index, int count)
+        {
+            return _intranetUserService.GetAll().Where(i => !i.Inactive)
+                .Select(MapToViewModel).OrderBy(i => i.DisplayedName)
+                .Skip(index*count).Take(count);
+        }
+
+        protected virtual UserModel MapToViewModel(IIntranetUser user)
+        {
+            var result = user.Map<UserModel>();
+            return result;
         }
     }
 }
