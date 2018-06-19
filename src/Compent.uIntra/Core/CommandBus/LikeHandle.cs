@@ -3,6 +3,7 @@ using Compent.CommandBus;
 using Compent.Uintra.Core.Activity;
 using Uintra.Core.Activity;
 using Uintra.Core.Context;
+using Uintra.Core.Context.Extensions;
 using Uintra.Likes;
 using Uintra.Likes.CommandBus;
 
