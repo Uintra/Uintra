@@ -1,5 +1,5 @@
 ﻿.gallery {
-    margin: 0 0 31px -2px;
+    margin: 0 0 20px -2px;
     padding: 0;
     list-style: none;
     display: flex;
@@ -178,18 +178,23 @@
         font-size: 13px;
         color: var(--text-color-dark);
         text-overflow: ellipsis;
-        overflow: hidden;
         white-space: nowrap;
         max-width: 120px;
         display: inline-block;
         vertical-align: top;
+
+        &:after{
+            content:'';
+            display:block;
+            clear:both;
+        }
 
         &:before{
             content:'';
             position:absolute;
             left:0;
             top:50%;
-            margin:-8px 0;
+            margin:-10px 0;
             z-index:2;
             width:14px;
             height:15px;
