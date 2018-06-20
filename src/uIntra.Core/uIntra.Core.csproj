@@ -401,6 +401,7 @@
     <Compile Include="Core\Context\Attributes.cs" />
     <Compile Include="Core\Context\ContextBuildType.cs" />
     <Compile Include="Core\Context\Extensions\PropertyReflectionHelper.cs" />
+    <Compile Include="Core\Helpers\SectionHelper.cs" />
     <Compile Include="Core\ViewRenderer.cs" />
     <Compile Include="Core\Grid\GridRenderHelper.cs" />
     <Compile Include="Core\Helpers\HtmlHelper.cs" />
