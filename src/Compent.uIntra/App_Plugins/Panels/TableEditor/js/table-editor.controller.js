@@ -27,18 +27,6 @@
             $scope.control.value = $scope.backupModel;
         };
 
-        $scope.overlay = {
-            show: false,
-            view: "/App_Plugins/Panels/TableEditor/views/overlay.html",
-            title: "Table panel",
-            close: function () {
-                $scope.overlay.show = false;
-            },
-            submit: function () {
-                $scope.overlay.show = false;
-            }
-        }
-
         $scope.open = function () {
             dialogService.open({
                 template: "/App_Plugins/Panels/TableEditor/views/overlay.html",
