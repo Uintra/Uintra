@@ -996,6 +996,7 @@
     <Content Include="..\Compent.uIntra\postcss.config.js">
       <Link>postcss.config.js</Link>
     </Content>
+    <Content Include="readme.txt" />
     <Content Include="Uintra.nuspec">
       <SubType>Designer</SubType>
     </Content>
