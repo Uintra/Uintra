@@ -367,7 +367,7 @@
         
         &-divider{
             display:inline-block;
-            vertical-align:inherit;
+            vertical-align:top;
         }
 
         &-feed{
