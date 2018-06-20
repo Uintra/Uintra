@@ -1,6 +1,6 @@
 ﻿(function (angular) {
     'use strict';    
-    const controller = function ($scope) {
+    const controller = function ($scope, dialogService) {
 
         var emptyCellModel = '{"value": ""}';
         var defaultModel = {
@@ -23,13 +23,16 @@
             ]
         }
 
+        $scope.restore = function () {
+            $scope.control.value = $scope.backupModel;
+        };
+
         $scope.overlay = {
             show: false,
             view: "/App_Plugins/Panels/TableEditor/views/overlay.html",
             title: "Table panel",
             close: function () {
                 $scope.overlay.show = false;
-                $scope.control.value = $scope.backupModel;
             },
             submit: function () {
                 $scope.overlay.show = false;
@@ -37,8 +40,16 @@
         }
 
         $scope.open = function () {
-            $scope.overlay.show = true;
-            $scope.control.value = $scope.control.value;
+            dialogService.open({
+                template: "/App_Plugins/Panels/TableEditor/views/overlay.html",
+                show: true,
+                modalClass: "panel table-editor",
+                dialogData: {
+                    config: $scope.control.config,
+                    model: $scope.control.value,
+                    restore: $scope.restore
+                }
+            });
             $scope.backupModel = angular.copy($scope.control.value);
         }
 
@@ -149,5 +160,5 @@
         }
     }
 
-    angular.module('umbraco').controller('TableEditorController', ["$scope", controller]);
+    angular.module('umbraco').controller('TableEditorController', ["$scope", "dialogService", controller]);
 })(angular);
