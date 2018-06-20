@@ -32,6 +32,7 @@
                 template: "/App_Plugins/Panels/TableEditor/views/overlay.html",
                 show: true,
                 modalClass: "panel table-editor",
+                scope: $scope,
                 dialogData: {
                     config: $scope.control.config,
                     model: $scope.control.value,
@@ -71,7 +72,6 @@
         }
 
         $scope.canAddColumn = function () {
-
             if (isNaN(parseInt($scope.control.config.maxColumns, 10))) {
                 return true;
             }
