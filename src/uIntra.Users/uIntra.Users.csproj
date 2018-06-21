@@ -300,10 +300,13 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Attributes\UIColumnAttribute.cs" />
     <Compile Include="Core\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
+    <Compile Include="Core\Helpers\ReflectionHelper.cs" />
     <Compile Include="Core\ICachableUserService.cs" />
     <Compile Include="Core\IMemberServiceHelper.cs" />
-    <Compile Include="Core\Models\UserList\ProfilePropertyModel.cs" />
+    <Compile Include="Core\Models\UserList\ProfileColumnModel.cs" />
+    <Compile Include="Core\Models\UserList\ColumnType.cs" />
     <Compile Include="Core\Models\UserList\UserListModel.cs" />
     <Compile Include="Core\Models\UserList\UserModel.cs" />
     <Compile Include="Core\Models\UserPickerModel.cs" />

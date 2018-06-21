@@ -25,12 +25,20 @@ namespace Uintra.Users.Web
 
         public ActionResult Render(UserListModel model)
         {
+            string json = (string)model.SelectedProperties.ToString();
             var viewModel = new UserListViewModel()
             {
                 AmountPerRequest = model.AmountPerRequest,
                 DisplayedAmount = model.DisplayedAmount,
                 Title = model.Title,
-                SelectedProperties = Enumerable.Empty<string>(),
+                SelectedColumns = JArray.Parse(json).Children()
+                    .Select(i => new ProfileColumnModel()
+                    {
+                        Id = i.Value<int>("id"),
+                        Name = i.Value<string>("name"),
+                        Type = (ColumnType)Enum.Parse(typeof(ColumnType), i.Value<string>("type")),
+                        Alias = i.Value<string>("alias")
+                    }),
                 Users = GetActiveUsers(0, model.DisplayedAmount)
             };
             return View(ViewPath, viewModel);

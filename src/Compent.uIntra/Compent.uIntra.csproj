@@ -1404,6 +1404,7 @@
     <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\UpdateGridPageLayoutTemplateStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\RemoveMailTemplatesFolderStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.3.0\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.3.0\Steps\AddTranslationsStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.3.0\Steps\UserListStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />

@@ -22,6 +22,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._3._0
             get
             {
                 yield return Resolve<UserListStep>();
+                //yield return Resolve<AddTranslationsStep>();
             }
         }
     }

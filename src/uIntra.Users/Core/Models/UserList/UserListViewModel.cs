@@ -11,7 +11,7 @@ namespace Uintra.Users
         public int DisplayedAmount { get; set; }
         public int AmountPerRequest { get; set; }
         public string Title { get; set; }
-        public IEnumerable<string> SelectedProperties { get; set; }
+        public IEnumerable<ProfileColumnModel> SelectedColumns { get; set; }
         public IEnumerable<UserModel> Users { get; set; }
     }
 }

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Uintra.Users
 {
-    public class ProfilePropertyModel
+    public enum ColumnType
     {
-        public int Id { get; set; }
-        public string Alias { get; set; }
-        public string Name { get; set; }
+        Email = 1,
+        Photo = 2,
+        Text = 3
     }
 }

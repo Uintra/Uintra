@@ -4,6 +4,7 @@ using System.Web.Http;
 using Uintra.Core;
 using Umbraco.Core.Services;
 using Umbraco.Web.WebApi;
+using Umbraco.Core;
 
 namespace Uintra.Users.Web
 {
@@ -23,7 +24,6 @@ namespace Uintra.Users.Web
             _memberServiceHelper = memberServiceHelper;
         }
 
-
         [HttpGet]
         public virtual IEnumerable<UserPickerModel> NotAssignedToMemberUsers(int? selectedUserId)
         {
@@ -37,17 +37,9 @@ namespace Uintra.Users.Web
         }
 
         [HttpGet]
-        public virtual IEnumerable<ProfilePropertyModel> ProfileProperties()
+        public virtual IEnumerable<ProfileColumnModel> ProfileProperties()
         {
-            var properties = _memberServiceHelper.GetAvailableProfileProperties()
-                .Select(i => new ProfilePropertyModel()
-                    {
-                        Alias = i.Alias,
-                        Id = i.Id,
-                        Name = i.Name
-                    }).ToList();
-            properties.Add(new ProfilePropertyModel() { Alias = "_umb_email", Id = 0, Name = "Email" });
-            return properties;
+            return ReflectionHelper.GetProfileColumns();
         }
     }
 }
