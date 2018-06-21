@@ -1031,6 +1031,7 @@ img{
     .ql-tooltip {
         z-index:9999;
 
+        &.ql-editing,
         &.ql-flip{
             margin: 0 !important;
             top: -20px !important;
