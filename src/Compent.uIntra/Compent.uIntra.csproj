@@ -1122,6 +1122,7 @@
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
     <Content Include="App_Plugins\Web.config" />
+    <Content Include="Core\Updater\Migrations\0.3.1.0\PreValues\GridPageLayout.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1394,7 +1395,9 @@
     <Compile Include="Core\Updater\Migrations\0.2.31.0\Steps\UserTagsInstallationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.0.0\Steps\WelcomeMessageSetupStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.1.0\Migration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\RemoveMailTeplatesFolderStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\AddTranslationsStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\RemoveMailTemplatesFolderStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.1.0\Steps\UpdateGridPageLayoutTemplateStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
