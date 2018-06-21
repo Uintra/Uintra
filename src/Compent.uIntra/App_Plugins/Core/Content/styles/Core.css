@@ -1030,6 +1030,13 @@ img{
     }
     .ql-tooltip {
         z-index:9999;
+
+        &.ql-flip{
+            margin: 0 !important;
+            top: -20px !important;
+            left: 50% !important;
+            transform:translateX(-50%);
+        }
     }
 }
 
@@ -1249,14 +1256,15 @@ img{
         margin:0;
         height:62px;
         padding:6px 10px;
-        overflow:auto;
+        /*overflow:auto;*/
         
         ._expanded &{
             border:0 !important;
         }
 
         .ql-editor{
-            height:auto;
+            height:52px;
+            /*height:auto;*/
             padding:0;
         }
     }
