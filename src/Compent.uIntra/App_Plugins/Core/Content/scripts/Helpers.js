@@ -45,27 +45,18 @@ const helpers = {
 
         let settings = {
             theme: 'snow'
-        }        
+        }
 
         var mention = {
             mention: {
                 allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
                 mentionDenotationChars: ["@"],
                 source: function (searchTerm, renderList, mentionChar) {
-                    let values;                    
-         
-                    if (searchTerm.length === 0) {
-                        //renderList(values, searchTerm);
-                    } else {
-
-                        ajax.get("/umbraco/api/User/MentionSearch?query=" + searchTerm.length)
+                    if (searchTerm.length > 0) {
+                        ajax.get("/umbraco/api/MentionApi/SearchMention?query=" + searchTerm)
                             .then(function (response) {
-                                debugger;
-                                renderList(matches, searchTerm);
+                                renderList(response.data, searchTerm);
                             });
-
-                        //matches.push(values[i]);
-                      
                     }
                 }
             }
@@ -84,9 +75,9 @@ const helpers = {
             $.extend(settings, options);
             $.extend(settings.modules, mention);
         }
-        
+
         let quill = new Quill(source, settings);
-        let toolbar = quill.getModule('toolbar');        
+        let toolbar = quill.getModule('toolbar');
 
         //override default link handler
         toolbar.addHandler('link', function (value) {
