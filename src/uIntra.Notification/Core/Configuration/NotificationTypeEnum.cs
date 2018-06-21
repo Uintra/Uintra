@@ -14,6 +14,7 @@
         CommentReplied,
         CommentLikeAdded,
         MonthlyMail,
-        Welcome
+        Welcome,
+        UserTagging
     }
 }
