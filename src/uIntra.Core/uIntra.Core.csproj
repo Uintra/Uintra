@@ -115,8 +115,8 @@
     <Reference Include="cms, Version=1.0.6684.15730, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.10.4\lib\net45\cms.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.Extensions, Version=0.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Extensions.0.3.2\lib\net471\Compent.Extensions.dll</HintPath>
+    <Reference Include="Compent.Extensions, Version=0.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Extensions.0.3.4\lib\net471\Compent.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Compent.LinkPreview.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.Core.dll</HintPath>
@@ -401,6 +401,7 @@
     <Compile Include="Core\Context\Attributes.cs" />
     <Compile Include="Core\Context\ContextBuildType.cs" />
     <Compile Include="Core\Context\Extensions\PropertyReflectionHelper.cs" />
+    <Compile Include="Core\Helpers\SectionHelper.cs" />
     <Compile Include="Core\ViewRenderer.cs" />
     <Compile Include="Core\Grid\GridRenderHelper.cs" />
     <Compile Include="Core\Helpers\HtmlHelper.cs" />
@@ -489,8 +490,6 @@
     <Compile Include="Core\Providers\ContentProviderBase.cs" />
     <Compile Include="Core\Providers\ILinkPreviewConfigProvider.cs" />
     <Compile Include="Core\Providers\IXPathProvider.cs" />
-    <Compile Include="Core\SingleLinkedList\SingleLinkedList.cs" />
-    <Compile Include="Core\SingleLinkedList\SingleLinkedListExtensions.cs" />
     <Compile Include="Core\TypeProviders\EnumTypeProviderBase.cs" />
     <Compile Include="Core\LinkPreview\Configuration\LinkDetectionConfig.cs" />
     <Compile Include="Core\TypeProviders\EnumTypeProviderExtensions.cs" />

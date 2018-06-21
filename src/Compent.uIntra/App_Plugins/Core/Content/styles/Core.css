@@ -177,6 +177,24 @@ html {
     @media(--for-tablet-portrait-down) {
         overflow: hidden;
     }
+
+    body{
+        @media(--for-tablet-portrait-down) {
+            overflow: hidden;
+        }
+    }
+}
+
+._aside-expanded{
+    @media(--for-tablet-portrait-down){
+        overflow: hidden;
+    }
+
+    body{
+        @media(--for-tablet-portrait-down){
+            overflow: hidden;
+        }
+    }
 }
 
 body{

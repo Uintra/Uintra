@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Compent.Extensions;
-using uIntra.Notification;
 using Uintra.Core.Activity;
 
 namespace Uintra.Notification.Configuration

@@ -2,6 +2,7 @@
 using Compent.Uintra.Core.Activity;
 using Uintra.Core.Activity;
 using Uintra.Core.Context;
+using Uintra.Core.Context.Extensions;
 using Uintra.Core.Extensions;
 using Uintra.Likes.CommandBus;
 using Uintra.Notification.Configuration;
