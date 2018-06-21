@@ -315,6 +315,8 @@
     <Compile Include="Web\LoginControllerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\MemberApiControllerBase.cs" />
+    <Compile Include="Web\MentionApiControllerBase.cs" />
+    <Compile Include="Core\Models\MentionUserModel.cs" />
     <Compile Include="Web\ProfileControllerBase.cs" />
     <Compile Include="Web\UserApiController.cs" />
   </ItemGroup>

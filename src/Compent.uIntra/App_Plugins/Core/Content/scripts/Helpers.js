@@ -1,11 +1,15 @@
 ﻿const Quill = require('quill');
 const Delta = require('quill-delta');
 const Flatpickr = require('flatpickr');
+const QuillMentions = require('quill-mention');
+Quill.register("mentions", QuillMentions);
+
 import ajax from './Ajax';
 
 require('simple-scrollbar');
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
+require('quill-mention/dist/quill.mention.min.css');
 
 var urlDetectRegexes = [];
 
@@ -41,21 +45,48 @@ const helpers = {
 
         let settings = {
             theme: 'snow'
-        }
+        }        
+
+        var mention = {
+            mention: {
+                allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+                mentionDenotationChars: ["@"],
+                source: function (searchTerm, renderList, mentionChar) {
+                    let values;                    
+         
+                    if (searchTerm.length === 0) {
+                        //renderList(values, searchTerm);
+                    } else {
+
+                        ajax.get("/umbraco/api/User/MentionSearch?query=" + searchTerm.length)
+                            .then(function (response) {
+                                debugger;
+                                renderList(matches, searchTerm);
+                            });
+
+                        //matches.push(values[i]);
+                      
+                    }
+                }
+            }
+        };
+
+
 
         if (typeof options == 'undefined') {
             settings.modules = {
                 toolbar: {
-                    container: ['emoji','bold', 'italic', 'underline', 'link']
+                    container: ['emoji', 'bold', 'italic', 'underline', 'link']
                 }
             };
         }
         else {
             $.extend(settings, options);
+            $.extend(settings.modules, mention);
         }
-
+        
         let quill = new Quill(source, settings);
-        let toolbar = quill.getModule('toolbar');
+        let toolbar = quill.getModule('toolbar');        
 
         //override default link handler
         toolbar.addHandler('link', function (value) {
