@@ -18,7 +18,7 @@
                     $scope.overlay.show = false;
                     $scope.control.validationMessage = null;
                 }
-                console.log($scope.control.value.selectedProperties);
+                refresh();
             }
         }
 
@@ -35,6 +35,30 @@
             getAllowedProperties().then(function (result) {
                 $scope.control.value.properties = result.data;
             });
+        }
+
+        $scope.sortableOptions = {
+            axis: 'y',
+            cursor: "move",
+            handle: ".handle",
+            update: function (ev, ui) { },
+            stop: function (ev, ui) { }
+        };
+
+        $scope.handleClick = function (property) {
+            property.selected = !property.selected;
+            refresh();
+        };
+
+        $scope.isSelected = function (property) {
+            var result = $scope.control.value.selectedProperties.find(i => i.id === property.id);
+            if (result) property.selected = true;
+            return result;
+        };
+
+        function refresh() {
+            $scope.control.value.selectedProperties =
+                $scope.control.value.properties.filter(i => i.selected);
         }
 
         function getDefaultModel() {
