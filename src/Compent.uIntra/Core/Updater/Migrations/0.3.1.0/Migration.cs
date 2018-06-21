@@ -23,6 +23,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._1._0
             {
                 yield return Resolve<RemoveMailTemplatesFolderStep>();
                 yield return Resolve<UpdateGridPageLayoutTemplateStep>();
+                yield return Resolve<AddTranslationsStep>();
             }
         }
     }
