@@ -71,6 +71,17 @@ namespace Compent.Uintra.Core.Notification
                         (CreatedDate, model.CreatedDate.ToShortDateString())
                     };
                     break;
+                case UserTaggingNotifierDataModel model:
+                    message.NotificationType = model.NotificationType;
+                    message.Url = model.Url;
+                    message.NotifierId = model.NotifierId;
+                    tokens = new[]
+                    {
+                        (ActivityTitle, model.Title),
+                        (FullName, _intranetUserService.Get(model.ReceiverId).DisplayedName),
+                        (TaggedBy, _intranetUserService.Get(model.NotifierId).DisplayedName)
+                    };
+                    break;
                 default:
                     throw new IndexOutOfRangeException();
             }
