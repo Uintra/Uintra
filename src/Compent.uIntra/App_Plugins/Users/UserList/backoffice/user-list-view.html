@@ -4,10 +4,16 @@
             <span class="span12 control-label">{{control.editor.name}}</span>
         </div>
         <div>
-            <span class="span12"> {{control.value.title}} </span>
+            <span class="span12">Title: {{control.value.title}} </span>
         </div>
         <div>
-            <span class="span12"> {{control.value.displayedAmount}} </span>
+            <span class="span12">Amount of users displayed on panel: {{control.value.displayedAmount}} </span>
+        </div>
+        <div>
+            <span class="span12">
+                Displayed columns:
+                <span ng-repeat="item in control.value.selectedProperties">[{{item.name}}]</span>
+            </span>
         </div>
     </div>
     <div class="span12">
@@ -15,7 +21,7 @@
         <umb-overlay ng-if="overlay.show"
                      model="overlay"
                      position="right"
-                     style="width: 400px">
+                     style="width: 500px">
             <div ng-include="overlay.view"></div>
         </umb-overlay>
     </div>
