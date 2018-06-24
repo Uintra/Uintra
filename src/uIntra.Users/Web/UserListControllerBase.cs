@@ -9,12 +9,14 @@ using System.Web.Mvc;
 using Uintra.Core.Extensions;
 using Uintra.Core.User;
 using Umbraco.Web.Mvc;
+using Newtonsoft.Json;
 
 namespace Uintra.Users.Web
 {
     public abstract class UserListControllerBase : SurfaceController
     {
-        protected virtual string ViewPath => @"~/App_Plugins/Users/UserList/UserListView.cshtml";
+        protected virtual string UserListViewPath => @"~/App_Plugins/Users/UserList/UserListView.cshtml";
+        protected virtual string UsersRowsViewPath => @"~/App_Plugins/Users/UserList/UsersRowsView.cshtml";
 
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
@@ -23,7 +25,7 @@ namespace Uintra.Users.Web
             _intranetUserService = intranetUserService;
         }
 
-        public ActionResult Render(UserListModel model)
+        public virtual ActionResult Render(UserListModel model)
         {
             string json = (string)model.SelectedProperties.ToString();
             var viewModel = new UserListViewModel()
@@ -31,24 +33,31 @@ namespace Uintra.Users.Web
                 AmountPerRequest = model.AmountPerRequest,
                 DisplayedAmount = model.DisplayedAmount,
                 Title = model.Title,
-                SelectedColumns = JArray.Parse(json).Children()
-                    .Select(i => new ProfileColumnModel()
-                    {
-                        Id = i.Value<int>("id"),
-                        Name = i.Value<string>("name"),
-                        Type = (ColumnType)Enum.Parse(typeof(ColumnType), i.Value<string>("type")),
-                        Alias = i.Value<string>("alias")
-                    }),
-                Users = GetActiveUsers(0, model.DisplayedAmount)
+                UsersRows = new UsersRowsViewModel()
+                {
+                    SelectedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(json),
+                    Users = GetActiveUsers(0, 0, model.DisplayedAmount)
+                },
+                UsersRowsViewPath = UsersRowsViewPath
             };
-            return View(ViewPath, viewModel);
+            return View(UserListViewPath, viewModel);
         }
 
-        private IEnumerable<UserModel> GetActiveUsers(int index, int count)
+        public virtual ActionResult GetUsers(int skip, int index, int count, string selectedColumns)
+        {
+            var model = new UsersRowsViewModel()
+            {
+                SelectedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedColumns),
+                Users = GetActiveUsers(skip, index, count)
+            };
+            return PartialView(UsersRowsViewPath, model);
+        }
+
+        private IEnumerable<UserModel> GetActiveUsers(int skip, int index, int count)
         {
             return _intranetUserService.GetAll().Where(i => !i.Inactive)
                 .Select(MapToViewModel).OrderBy(i => i.DisplayedName)
-                .Skip(index*count).Take(count);
+                .Skip(skip + index * count).Take(count);
         }
 
         protected virtual UserModel MapToViewModel(IIntranetUser user)

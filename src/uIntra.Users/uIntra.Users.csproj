@@ -308,6 +308,7 @@
     <Compile Include="Core\Models\UserList\ProfileColumnModel.cs" />
     <Compile Include="Core\Models\UserList\ColumnType.cs" />
     <Compile Include="Core\Models\UserList\UserListModel.cs" />
+    <Compile Include="Core\Models\UserList\UsersRowsViewModel.cs" />
     <Compile Include="Core\Models\UserList\UserModel.cs" />
     <Compile Include="Core\Models\UserPickerModel.cs" />
     <Compile Include="DefaultImplementation\IntranetUserServiceBase.cs" />

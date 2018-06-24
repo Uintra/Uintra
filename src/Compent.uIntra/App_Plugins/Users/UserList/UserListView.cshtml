@@ -1,6 +1,7 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<UserListViewModel>
 @using Uintra.Core.Extensions
 @using Uintra.Users
+@using Newtonsoft.Json
 
 <section class="block _content-panel clearfix">
     <div class="block">
@@ -8,49 +9,24 @@
         <input type="text" id="filter" />
     </div>
     @*<div class="table-holder block">*@
-        <table class="members-table">
+        <table id="userListTable" class="members-table">
             <tr class="members-table__row">
-                @foreach (var column in Model.SelectedColumns)
+                @foreach (var column in Model.UsersRows.SelectedColumns)
                 {
                     <th class="members-table__head">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</th>
                 }
             </tr>
-            @foreach (var user in Model.Users)
-            {
-                <tr class="members-table__row">
-                    @foreach (var column in Model.SelectedColumns)
-                    {
-                        <td class="members-table__cell">
-                        @switch (column.Type)
-                        {
-                            case ColumnType.Email:
-                                {
-                                    <a class="members-table__link" href="mailto:@user.Email">@user.Email</a>
-                                }
-                                break;
-                            case ColumnType.Photo:
-                                {
-                                    @Html.Action("Photo", "User", new
-                                    {
-                                        user = user.User,
-                                        cssModificator = "avatar--group-member",
-                                        photoWidth = 40
-                                    })
-                                }
-                                break;
-                            case ColumnType.Text:
-                                {
-                                    <span class="members-table__name">@ReflectionHelper.GetUIColumnValue(user, column)</span>
-                                }
-                                break;
-                        }
-                        </td>
-                    }
-                </tr>
-            }
+            @Html.Partial(Model.UsersRowsViewPath, Model.UsersRows)
         </table>
     @*</div>*@
+    <button id="loadMore">Load more</button>
 </section>
 
 <script type="text/javascript">
+    window.userListConfig = {
+        index: 0,
+        count: @Model.AmountPerRequest,
+        skip: @Model.DisplayedAmount,
+        selectedColumns: '@Html.Raw(JsonConvert.SerializeObject(Model.UsersRows.SelectedColumns))'
+    };
 </script>

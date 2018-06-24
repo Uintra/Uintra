@@ -913,6 +913,7 @@
     <Content Include="App_Plugins\Users\Profile\profile.css" />
     <Content Include="App_Plugins\Users\Profile\profile.html" />
     <Content Include="App_Plugins\Users\Profile\profile.js" />
+    <Content Include="App_Plugins\Users\UserList\temp.js" />
     <Content Include="App_Plugins\Users\UserList\userList.js" />
     <Content Include="App_Plugins\Users\users.js" />
     <Content Include="App_Plugins\Utils\backoffice\developer-reload-cache.html" />
@@ -1127,6 +1128,7 @@
     <Content Include="App_Plugins\Web.config" />
     <Content Include="App_Plugins\Users\UserList\UserListView.cshtml" />
     <Content Include="App_Plugins\Users\UserList\UserListPopup.cshtml" />
+    <Content Include="App_Plugins\Users\UserList\UsersRowsView.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />

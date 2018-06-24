@@ -1,0 +1,37 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<UsersRowsViewModel>
+@using Uintra.Core.Extensions
+@using Uintra.Users
+
+@foreach (var user in Model.Users)
+{
+    <tr class="members-table__row">
+        @foreach (var column in Model.SelectedColumns)
+        {
+            <td class="members-table__cell">
+                @switch (column.Type)
+                {
+                    case ColumnType.Email:
+                        {
+                            <a class="members-table__link" href="mailto:@user.Email">@user.Email</a>
+                        }
+                        break;
+                    case ColumnType.Photo:
+                        {
+                            @Html.Action("Photo", "User", new
+                            {
+                                user = user.User,
+                                cssModificator = "avatar--group-member",
+                                photoWidth = 40
+                            })
+                        }
+                        break;
+                    case ColumnType.Text:
+                        {
+                            <span class="members-table__name">@ReflectionHelper.GetUIColumnValue(user, column)</span>
+                        }
+                        break;
+                }
+            </td>
+        }
+    </tr>
+}
