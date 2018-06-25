@@ -35,6 +35,7 @@ const helpers = {
         return JSON.parse(JSON.stringify(obj));
     },
     initQuill: function (source, dataStorage, options) {
+        
         if (!dataStorage) {
             throw new Error("Hided input field missing");
         }
@@ -52,20 +53,20 @@ const helpers = {
                 allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
                 mentionDenotationChars: ["@"],
                 source: function (searchTerm, renderList, mentionChar) {
-                    let values;                    
-         
+                    var matches = [];
                     if (searchTerm.length === 0) {
-                        //renderList(values, searchTerm);
+                        return;
                     } else {
 
-                        ajax.get("/umbraco/api/User/MentionSearch?query=" + searchTerm.length)
-                            .then(function (response) {
-                                debugger;
+                        ajax.get("/umbraco/api/Mention/SearchMention?query=" + searchTerm)
+                            .then(function (response) {                                
+                                if (response.data) {
+                                    for (var i = 0; i < response.data.length; i++) {
+                                        matches.push(response.data[i]);                
+                                    }
+                                }                                
                                 renderList(matches, searchTerm);
                             });
-
-                        //matches.push(values[i]);
-                      
                     }
                 }
             }
@@ -81,10 +82,11 @@ const helpers = {
             };
         }
         else {
-            $.extend(settings, options);
-            $.extend(settings.modules, mention);
+            $.extend(settings, options);          
         }
-        
+
+        $.extend(settings.modules, mention);
+
         let quill = new Quill(source, settings);
         let toolbar = quill.getModule('toolbar');        
 
