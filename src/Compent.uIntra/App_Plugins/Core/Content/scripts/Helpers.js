@@ -35,6 +35,7 @@ const helpers = {
         return JSON.parse(JSON.stringify(obj));
     },
     initQuill: function (source, dataStorage, options) {
+        
         if (!dataStorage) {
             throw new Error("Hided input field missing");
         }
@@ -45,17 +46,26 @@ const helpers = {
 
         let settings = {
             theme: 'snow'
-        }
+        }        
 
         var mention = {
             mention: {
                 allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
                 mentionDenotationChars: ["@"],
                 source: function (searchTerm, renderList, mentionChar) {
-                    if (searchTerm.length > 0) {
-                        ajax.get("/umbraco/api/MentionApi/SearchMention?query=" + searchTerm)
-                            .then(function (response) {
-                                renderList(response.data, searchTerm);
+                    var matches = [];
+                    if (searchTerm.length === 0) {
+                        return;
+                    } else {
+
+                        ajax.get("/umbraco/api/Mention/SearchMention?query=" + searchTerm)
+                            .then(function (response) {                                
+                                if (response.data) {
+                                    for (var i = 0; i < response.data.length; i++) {
+                                        matches.push(response.data[i]);                
+                                    }
+                                }                                
+                                renderList(matches, searchTerm);
                             });
                     }
                 }
@@ -72,12 +82,13 @@ const helpers = {
             };
         }
         else {
-            $.extend(settings, options);
-            $.extend(settings.modules, mention);
+            $.extend(settings, options);          
         }
 
+        $.extend(settings.modules, mention);
+
         let quill = new Quill(source, settings);
-        let toolbar = quill.getModule('toolbar');
+        let toolbar = quill.getModule('toolbar');        
 
         //override default link handler
         toolbar.addHandler('link', function (value) {

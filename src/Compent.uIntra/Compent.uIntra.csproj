@@ -1169,7 +1169,7 @@
     <Compile Include="Controllers\Api\EditorConfigController.cs" />
     <Compile Include="Controllers\Api\LinkPreviewController.cs" />
     <Compile Include="Controllers\Api\MemberApiController.cs" />
-    <Compile Include="Controllers\Api\MentionApiController.cs" />
+    <Compile Include="Controllers\Api\MentionController.cs" />
     <Compile Include="Controllers\Api\MonthlyEmailApiController.cs" />
     <Compile Include="Controllers\Api\NotificationSettingsApiController.cs" />
     <Compile Include="Controllers\Api\QaController.cs" />
