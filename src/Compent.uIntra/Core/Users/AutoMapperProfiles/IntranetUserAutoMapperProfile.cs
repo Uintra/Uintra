@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using Compent.Uintra.Core.Search.Entities;
 using Uintra.Core.User;
@@ -25,7 +26,7 @@ namespace Compent.Uintra.Core.Users
                 .ForMember(dst => dst.NewMedia, o => o.Ignore());
 
             Mapper.CreateMap<SearchableUser, MentionUserModel>()
-                .ForMember(dst => dst.Id, o => o.MapFrom(u => u.Id))
+                .ForMember(dst => dst.Id, o => o.MapFrom(u => Guid.Parse(u.Id.ToString())))
                 .ForMember(dst => dst.Value, o => o.MapFrom(u => u.FullName));
 
             base.Configure();
