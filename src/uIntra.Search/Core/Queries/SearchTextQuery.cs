@@ -7,6 +7,8 @@ namespace Uintra.Search
     {
         public string Text { get; set; }
 
+        public int Skip { get; set; }
+
         public int Take { get; set; }
 
         public IEnumerable<int> SearchableTypeIds { get; set; } = Enumerable.Empty<int>();

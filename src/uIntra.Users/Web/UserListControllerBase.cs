@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Compent.Extensions;
 using Uintra.Core.Extensions;
 using Uintra.Core.User;
 using Umbraco.Web.Mvc;
@@ -45,7 +46,7 @@ namespace Uintra.Users.Web
 
         public virtual ActionResult GetUsers(int skip, int index, int count, string selectedColumns)
         {
-            var model = new UsersRowsViewModel()
+            var model = new UsersRowsViewModel
             {
                 SelectedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedColumns),
                 Users = GetActiveUsers(skip, index, count)
@@ -53,12 +54,14 @@ namespace Uintra.Users.Web
             return PartialView(UsersRowsViewPath, model);
         }
 
-        private IEnumerable<UserModel> GetActiveUsers(int skip, int index, int count)
-        {
-            return _intranetUserService.GetAll().Where(i => !i.Inactive)
-                .Select(MapToViewModel).OrderBy(i => i.DisplayedName)
-                .Skip(skip + index * count).Take(count);
-        }
+        private IEnumerable<UserModel> GetActiveUsers(int skip, int index, int count) => 
+            GetActiveUserIds(skip, index * count, String.Empty)
+            .Pipe(_intranetUserService.GetMany)
+            .Where(i => !i.Inactive)
+            .Select(MapToViewModel)
+            .OrderBy(i => i.DisplayedName);
+
+        protected abstract IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query);
 
         protected virtual UserModel MapToViewModel(IIntranetUser user)
         {

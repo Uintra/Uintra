@@ -162,7 +162,7 @@ namespace Uintra.Search
 
         protected virtual void ApplyPaging<T>(SearchDescriptor<T> searchDescriptor, SearchTextQuery query) where T : class
         {
-            searchDescriptor.Take(query.Take);
+            searchDescriptor.Skip(query.Skip).Take(query.Take);
         }
 
         protected virtual void ApplyAggregations<T>(SearchDescriptor<T> searchDescriptor, SearchTextQuery query) where T : class
