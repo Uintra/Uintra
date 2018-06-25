@@ -2,18 +2,22 @@
     div.m-b-20 ul.displayed-columns li.__selected {
         background: #F5F5F5;
     }
+
     div.m-b-20 ul.displayed-columns li span.property-name {
         cursor: pointer;
         margin-right: 10px;
         margin-left: 10px;
     }
+
     div.m-b-20 ul.displayed-columns li {
         vertical-align: central;
         line-height: 30px;
     }
-    div.m-b-20 ul.displayed-columns li i.handle {
-        cursor: move;
-    }
+
+        div.m-b-20 ul.displayed-columns li i.handle {
+            cursor: move;
+        }
+
     div.m-b-20 ul.displayed-columns {
         list-style-type: decimal;
     }
@@ -39,6 +43,14 @@
             <i class="icon icon-navigation handle"></i>
         </li>
     </ul>
+</div>
+<div class="m-b-20 _clearfix">
+    <p class="span6"><b>Order by column:</b></p>
+    <select class="span6 displayed-columns" 
+        ng-model="control.value.orderBy" 
+        ng-options="property.name for property in control.value.selectedProperties track by property.id"
+        >
+    </select>
 </div>
 <div class="m-b-20 _clearfix">
     <div ng-show="control.validationMessage">

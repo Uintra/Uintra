@@ -6,27 +6,37 @@
 <section class="block _content-panel clearfix">
     <div class="block">
         <h3>@Model.Title</h3>
-        <input type="text" id="filter" />
+        <input type="text" class="js-user-list-filter" />
     </div>
-    @*<div class="table-holder block">*@
-        <table id="userListTable" class="members-table">
-            <tr class="members-table__row">
-                @foreach (var column in Model.UsersRows.SelectedColumns)
-                {
-                    <th class="members-table__head">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</th>
-                }
-            </tr>
-            @Html.Partial(Model.UsersRowsViewPath, Model.UsersRows)
+        <table id="userListTable" class="members-table js-user-list-table">
+            <thead>
+                <tr class="members-table__row">
+                    @foreach (var column in Model.UsersRows.SelectedColumns)
+                    {
+                        <th class="members-table__head">
+                            <a href="" class="js-user-list-sort-link" data-orderBy="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @Html.Partial(Model.UsersRowsViewPath, Model.UsersRows)
+            </tbody>
         </table>
-    @*</div>*@
-    <button id="loadMore">Load more</button>
+    <button class="js-user-list-button">Load more</button>
 </section>
 
 <script type="text/javascript">
     window.userListConfig = {
-        index: 0,
-        count: @Model.AmountPerRequest,
-        skip: @Model.DisplayedAmount,
-        selectedColumns: '@Html.Raw(JsonConvert.SerializeObject(Model.UsersRows.SelectedColumns))'
+        request: {
+            skip: 0,
+            take: 0,
+            query: '',
+            orderBy: '@Model.OrderByColumn.PropertyName',
+            direction: 0,
+            selectedColumns: '@Html.Raw(JsonConvert.SerializeObject(Model.UsersRows.SelectedColumns))'
+        },
+        amountPerRequest: @Model.AmountPerRequest,
+        displayedAmount: @Model.DisplayedAmount
     };
 </script>

@@ -13,12 +13,14 @@ namespace Uintra.Users
         public string Alias { get; set; }
         public string DisplayName { get; set; }
         public ColumnType Type { get; set; }
+        public string PropertyName { get; set; }
 
-        public UIColumnAttribute(int order, string backofficeDisplayName, ColumnType type = ColumnType.Text, string alias = null)
+        public UIColumnAttribute(int order, string backofficeDisplayName, string propertyName, ColumnType type = ColumnType.Text, string alias = null)
         {
             Id = order;
             DisplayName = backofficeDisplayName;
             Type = type;
+            PropertyName = propertyName;
             Alias = alias ?? DisplayName?.Replace(" ", string.Empty);
         }
     }

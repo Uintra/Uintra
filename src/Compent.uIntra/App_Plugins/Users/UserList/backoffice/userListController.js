@@ -19,6 +19,7 @@
                     $scope.control.validationMessage = null;
                 }
                 refresh();
+                console.log($scope.control.value);
             }
         }
 
@@ -67,7 +68,8 @@
                 title: defaultTitle,
                 amountPerRequest: defaultAmountPerRequest,
                 properties: [],
-                selectedProperties: []
+                selectedProperties: [],
+                orderBy: null
             };
         }
 
@@ -82,6 +84,10 @@
             }
             if (model.amountPerRequest <= 0) {
                 $scope.control.validationMessage = "Amount per request must be bigger than 0";
+                return false;
+            }
+            if (model.orderBy == null) {
+                $scope.control.validationMessage = "Order by column must be selected.";
                 return false;
             }
             return true;

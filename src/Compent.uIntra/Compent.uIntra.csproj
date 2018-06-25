@@ -913,7 +913,6 @@
     <Content Include="App_Plugins\Users\Profile\profile.css" />
     <Content Include="App_Plugins\Users\Profile\profile.html" />
     <Content Include="App_Plugins\Users\Profile\profile.js" />
-    <Content Include="App_Plugins\Users\UserList\temp.js" />
     <Content Include="App_Plugins\Users\UserList\userList.js" />
     <Content Include="App_Plugins\Users\users.js" />
     <Content Include="App_Plugins\Utils\backoffice\developer-reload-cache.html" />

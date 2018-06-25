@@ -12,5 +12,6 @@ namespace Uintra.Users
         public string Alias { get; set; }
         public string Name { get; set; }
         public ColumnType Type { get; set; }
+        public string PropertyName { get; set; }
     }
 }

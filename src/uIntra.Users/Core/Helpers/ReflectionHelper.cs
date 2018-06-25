@@ -49,7 +49,8 @@ namespace Uintra.Users
                         Id = attr.Id,
                         Name = attr.DisplayName,
                         Type = attr.Type,
-                        Alias = attr.Alias
+                        Alias = attr.Alias,
+                        PropertyName = attr.PropertyName
                     };
                 }).WhereNotNull().OrderBy(i => i.Id);
             return columns;

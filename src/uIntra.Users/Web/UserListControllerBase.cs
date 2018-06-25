@@ -28,7 +28,9 @@ namespace Uintra.Users.Web
 
         public virtual ActionResult Render(UserListModel model)
         {
-            string json = (string)model.SelectedProperties.ToString();
+            string selectedPropertiesJson = (string)model.SelectedProperties.ToString();
+            string orderBycolumnJson = (string)model.OrderBy.ToString();
+            var orderByColumn = JsonConvert.DeserializeObject<ProfileColumnModel>(orderBycolumnJson);
             var viewModel = new UserListViewModel()
             {
                 AmountPerRequest = model.AmountPerRequest,
@@ -36,32 +38,31 @@ namespace Uintra.Users.Web
                 Title = model.Title,
                 UsersRows = new UsersRowsViewModel()
                 {
-                    SelectedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(json),
-                    Users = GetActiveUsers(0, 0, model.DisplayedAmount)
+                    SelectedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedPropertiesJson),
+                    Users = GetActiveUsers(0, model.DisplayedAmount, orderByColumn.PropertyName, 0)
                 },
-                UsersRowsViewPath = UsersRowsViewPath
+                UsersRowsViewPath = UsersRowsViewPath,
+                OrderByColumn = orderByColumn
             };
             return View(UserListViewPath, viewModel);
         }
 
-        public virtual ActionResult GetUsers(int skip, int index, int count, string selectedColumns)
+        public virtual ActionResult GetUsers(int skip, int take, string query, string selectedColumns, string orderBy, int direction)
         {
             var model = new UsersRowsViewModel
             {
                 SelectedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedColumns),
-                Users = GetActiveUsers(skip, index, count)
+                Users = GetActiveUsers(skip, take, orderBy, direction, query)
             };
             return PartialView(UsersRowsViewPath, model);
         }
 
-        private IEnumerable<UserModel> GetActiveUsers(int skip, int index, int count) => 
-            GetActiveUserIds(skip, index * count, String.Empty)
+        private IEnumerable<UserModel> GetActiveUsers(int skip, int take, string orderBy, int direction, string query = "") =>
+            GetActiveUserIds(skip, take, query, orderBy, direction)
             .Pipe(_intranetUserService.GetMany)
-            .Where(i => !i.Inactive)
-            .Select(MapToViewModel)
-            .OrderBy(i => i.DisplayedName);
+            .Select(MapToViewModel);
 
-        protected abstract IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query);
+        protected abstract IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, string orderBy = null, int direction = 0);
 
         protected virtual UserModel MapToViewModel(IIntranetUser user)
         {
