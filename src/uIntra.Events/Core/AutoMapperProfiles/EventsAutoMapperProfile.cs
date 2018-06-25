@@ -13,7 +13,8 @@ namespace Uintra.Events
         {
             Mapper.CreateMap<EventBase, ComingEventViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
-                .ForMember(dst => dst.Owner, o => o.Ignore());
+                .ForMember(dst => dst.Owner, o => o.Ignore())
+                .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.GetEventDateTimeString(el.EndDate) }));
 
             Mapper.CreateMap<EventBase, EventItemViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
