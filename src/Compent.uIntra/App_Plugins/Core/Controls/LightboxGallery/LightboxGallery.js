@@ -18,7 +18,7 @@ var defaultOptions = {
 
 var createGallery = function (gallery) {
     var bodyElement = document.querySelector('body');
-
+    
     gallery.instance = new Photoswipe(photoswipeElement,
         photoswipeUiDefault,
         gallery.items,
@@ -46,7 +46,6 @@ var createGallery = function (gallery) {
                 let elem = document.querySelector('[data-anchor="' + hash + '"]');
 
                 if (elem) {
-                    scrollTo(document.body, elem.offsetTop, 300);
                     window.history.pushState("", document.title, window.location.pathname + window.location.search);
                 }
             }
@@ -102,7 +101,7 @@ var initGallery = function (container) {
         return;
     }
 
-    var photoSwipeItems = Array.from(holder.querySelectorAll('.gallery__item-opener'));
+    var photoSwipeItems = Array.from(holder.querySelectorAll('.js-gallery__item-opener'));
     var images = holder.querySelectorAll('img') || [];
     if (!images.length) {
         return;
