@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Exceptions;
 using Uintra.Notification.Base;
-using Uintra.Notification.Configuration;
 
 namespace Uintra.Notification
 {

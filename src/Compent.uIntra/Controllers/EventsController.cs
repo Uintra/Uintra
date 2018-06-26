@@ -8,7 +8,6 @@ using Compent.Uintra.Core.Feed;
 using Compent.Uintra.Core.UserTags;
 using Uintra.Core;
 using Uintra.Core.Activity;
-using Uintra.Core.Context;
 using Uintra.Core.Extensions;
 using Uintra.Core.Grid;
 using Uintra.Core.Links;
@@ -23,6 +22,7 @@ using Uintra.Notification;
 using Uintra.Notification.Configuration;
 using Uintra.Search;
 using Uintra.Tagging.UserTags;
+using Uintra.Users;
 
 namespace Compent.Uintra.Controllers
 {
@@ -32,15 +32,17 @@ namespace Compent.Uintra.Controllers
         protected override string CreateViewPath => "~/Views/Events/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/Events/EditView.cshtml";
         protected override string ItemViewPath => "~/Views/Events/ItemView.cshtml";
-        private string DetailsHeaderViewPath => "~/Views/Events/DetailsHeader.cshtml";      
+        private string DetailsHeaderViewPath => "~/Views/Events/DetailsHeader.cshtml";
 
         private readonly IEventsService<Event> _eventsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IReminderService _reminderService;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IGroupActivityService _groupActivityService;
+        private readonly IActivityLinkService _activityLinkService;
         private readonly IActivityTagsHelper _activityTagsHelper;
         private readonly IGroupMemberService _groupMemberService;
+        private readonly IMentionService _mentionService;
 
         public EventsController(
             IEventsService<Event> eventsService,
@@ -57,7 +59,8 @@ namespace Compent.Uintra.Controllers
             IActivityTagsHelper activityTagsHelper,
             IGroupMemberService groupMemberService,
             IContextTypeProvider contextTypeProvider,
-            IActivityPageHelperFactory activityPageHelperFactory)
+            IActivityPageHelperFactory activityPageHelperFactory,
+            IMentionService mentionService)
             : base(eventsService, mediaHelper, intranetUserService, activityTypeProvider, activityLinkService, contextTypeProvider, activityPageHelperFactory)
         {
             _eventsService = eventsService;
@@ -65,8 +68,10 @@ namespace Compent.Uintra.Controllers
             _reminderService = reminderService;
             _documentIndexer = documentIndexer;
             _groupActivityService = groupActivityService;
+            _activityLinkService = activityLinkService;
             _activityTagsHelper = activityTagsHelper;
             _groupMemberService = groupMemberService;
+            _mentionService = mentionService;
         }
 
         public virtual ActionResult DetailsHeader(IntranetActivityDetailsHeaderViewModel header)
@@ -158,20 +163,23 @@ namespace Compent.Uintra.Controllers
 
         protected override void OnEventCreated(Guid activityId, EventCreateModel model)
         {
-
             _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
+
+            var @event = _eventsService.Get(activityId);
 
             var groupId = Request.QueryString.GetGroupId();
             if (groupId.HasValue)
             {
-                _groupActivityService.AddRelation(groupId.Value, activityId);
-                var @event = _eventsService.Get(activityId);
+                _groupActivityService.AddRelation(groupId.Value, activityId);                
                 @event.GroupId = groupId;
             }
             if (model is EventExtendedCreateModel extendedModel)
             {
                 _activityTagsHelper.ReplaceTags(activityId, extendedModel.TagIdsData);
             }
+
+            ResolveMentions(model.Description, @event);
+
         }
 
         protected override void OnEventEdited(EventBase @event, EventEditModel model)
@@ -190,6 +198,8 @@ namespace Compent.Uintra.Controllers
             }
 
             _reminderService.CreateIfNotExists(@event.Id, ReminderTypeEnum.OneDayBefore);
+
+            ResolveMentions(model.Description, @event);
         }
 
         protected override void OnEventHidden(Guid id, bool isNotificationNeeded)
@@ -225,6 +235,24 @@ namespace Compent.Uintra.Controllers
             }
 
             return @event;
+        }
+
+        private void ResolveMentions(string text, EventBase @event)
+        {
+            var mentionIds = _mentionService.GetMentions(text).ToList();
+
+            if (mentionIds.Any())
+            {
+                var links = _activityLinkService.GetLinks(@event.Id);
+                _mentionService.PreccessMention(new MentionModel()
+                {
+                    CreatorId = _intranetUserService.GetCurrentUserId(),
+                    MentionedUserIds = mentionIds,
+                    Title = @event.Title,
+                    Url = links.Details
+                });
+
+            }
         }
     }
 }

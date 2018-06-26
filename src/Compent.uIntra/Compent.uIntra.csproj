@@ -1229,6 +1229,7 @@
     <Compile Include="Core\CommandBus\GroupActivitiesHandle.cs" />
     <Compile Include="Core\CommandBus\LikeHandle.cs" />
     <Compile Include="Core\CommandBus\LikeNotificationHandle.cs" />
+    <Compile Include="Core\CommandBus\MentionHandle.cs" />
     <Compile Include="Core\Comments\CommentsPageHelper.cs" />
     <Compile Include="Core\Comments\CommentsPageTab.cs" />
     <Compile Include="Core\Comments\CustomCommentable.cs" />
@@ -1249,10 +1250,10 @@
     <Compile Include="Core\Feed\Links\ActivityLinkService.cs" />
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
-    <Compile Include="Core\Notification\IUserTaggingNotificationService.cs" />
-    <Compile Include="Core\Notification\Models\UserTaggingNotificationModel.cs" />
-    <Compile Include="Core\Notification\UserTaggingNotificationService.cs" />
-    <Compile Include="Core\Notification\Models\UserTaggingNotifierDataModel.cs" />
+    <Compile Include="Core\Notification\IUserMentionNotificationService.cs" />
+    <Compile Include="Core\Notification\Models\UserMentionNotificationModel.cs" />
+    <Compile Include="Core\Notification\UserMentionNotificationService.cs" />
+    <Compile Include="Core\Notification\Models\UserMentionNotifierDataModel.cs" />
     <Compile Include="Core\Search\SearchContentEventService.cs" />
     <Compile Include="Core\Helpers\INotifierDataHelper.cs" />
     <Compile Include="Core\Helpers\NotifierContentHelper.cs" />

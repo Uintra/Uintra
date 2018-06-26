@@ -71,7 +71,7 @@ namespace Compent.Uintra.Core.Notification
                         (CreatedDate, model.CreatedDate.ToShortDateString())
                     };
                     break;
-                case UserTaggingNotifierDataModel model:
+                case UserMentionNotifierDataModel model:
                     message.NotificationType = model.NotificationType;
                     message.Url = model.Url;
                     message.NotifierId = model.NotifierId;

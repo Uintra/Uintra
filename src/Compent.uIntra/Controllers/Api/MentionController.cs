@@ -11,10 +11,7 @@ using Uintra.Users.Web;
 namespace Compent.Uintra.Controllers.Api
 {
     public class MentionController : MentionControllerBase
-    {
-        //regex for getting  mentioned user id
-        //(?<=\bdata-id=")[^"]*
-
+    {        
         private readonly IElasticIndex _elasticIndex;
 
         public MentionController(IElasticIndex elasticIndex)

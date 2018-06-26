@@ -1,6 +1,6 @@
 using AutoMapper;
 using Uintra.Core.User;
-using Uintra.Core.Web;
+using Uintra.Users.Commands;
 
 namespace Uintra.Users
 {
@@ -16,7 +16,8 @@ namespace Uintra.Users
                 .ForMember(dst => dst.Id, o => o.MapFrom(u => u.Id))
                 .ForMember(dst => dst.Value, o => o.MapFrom(u => u.DisplayedName));
 
-            
+
+            Mapper.CreateMap<MentionModel, MentionCommand>();                
 
             base.Configure();
         }

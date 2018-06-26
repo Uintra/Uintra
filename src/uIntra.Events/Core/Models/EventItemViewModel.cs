@@ -5,7 +5,6 @@ using Uintra.Core.Activity;
 using Uintra.Core.Controls.LightboxGallery;
 using Uintra.Core.Links;
 using Uintra.Core.Location;
-using Uintra.Core.TypeProviders;
 
 namespace Uintra.Events
 {

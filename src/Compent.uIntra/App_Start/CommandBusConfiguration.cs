@@ -3,6 +3,7 @@ using Compent.Uintra.Core.CommandBus;
 using Uintra.Comments.CommandBus;
 using Uintra.Groups.CommandBus;
 using Uintra.Likes.CommandBus;
+using Uintra.Users.Commands;
 
 namespace Compent.Uintra
 {
@@ -13,6 +14,9 @@ namespace Compent.Uintra
             ConfigureLikeBindings(builder);
             ConfigureCommentBindings(builder);
             ConfigureGroupBindings(builder);
+
+            builder.HandleCommand<MentionCommand>()
+                .WithHandle<MentionHandle>();
 
             return builder.Build();
         }
@@ -43,9 +47,9 @@ namespace Compent.Uintra
 
         private static void ConfigureGroupBindings(BindingBuilder builder)
         {
-             builder.HandleCommand<HideGroupCommand>()
-                .WithHandle<GroupHandle>()
-                .WithHandle<GroupActivitiesHandle>();
+            builder.HandleCommand<HideGroupCommand>()
+               .WithHandle<GroupHandle>()
+               .WithHandle<GroupActivitiesHandle>();
 
             builder.HandleCommand<UnhideGroupCommand>()
                 .WithHandle<GroupHandle>()

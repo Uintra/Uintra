@@ -3,7 +3,7 @@ using Uintra.Notification.Base;
 
 namespace Compent.Uintra.Core.Notification
 {
-    public class UserTaggingNotifierDataModel : INotifierDataValue, IHaveNotifierId
+    public class UserMentionNotifierDataModel : INotifierDataValue, IHaveNotifierId
     {
         public Enum NotificationType { get; set; }
         public string Title { get; set; }
