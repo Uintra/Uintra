@@ -54,7 +54,7 @@ Include screenshots and animated GIFs which help you demonstrate the steps or po
 Explain which users this enhancement would benefit and why. 
 
 ## Please read our Code of Conduct!
-Here’s a link to our code of conduct document, that hopefully will help you and us to create and maintain a positive social atmosphere in the Uintra community. The project and everyone participating is governed by this code of conduct and by participating you are expected to uphold this code. If you notice any unacceptable behavior please report it to kne@compent.net.
+[Here’s a link to our code of conduct document](CodeOfConduct.md), that hopefully will help you and us to create and maintain a positive social atmosphere in the Uintra community. The project and everyone participating is governed by this code of conduct and by participating you are expected to uphold this code. If you notice any unacceptable behavior please report it to kne@compent.net.
  
 ## Credits
 This contribution file borrows from both the Umbraco and the Atom contribution guide!
