@@ -1,7 +1,7 @@
 # Uintra - A social framework
 A flexible and lightweight Umbraco based framework, for making an Intranet, Extranet or social platform based on known conventions.
 
-[![ScreenShot](Img/vimeo.png)](https://vimeo.com/263109862)
+[![ScreenShot](Img/vimeo.png)](https://player.vimeo.com/video/263109862)
 
 ## Why Open Source?
 We are trying to create a flexible and robust social framework. We think the best way to achieve this is through an online community, that can share and iterate through ideas. In order to create a solution that has valuable functionality validated by the users.
