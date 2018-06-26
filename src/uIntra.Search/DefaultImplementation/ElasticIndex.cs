@@ -26,7 +26,7 @@ namespace Uintra.Search
                     q.Bool(b => b
                         .Should(GetQueryContainers(query.Text))
                         .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))))
-                .PostFilter(pf => pf.Bool(b => b.Must(GetSearchableTypeQueryContainers(query.SearchableTypeIds), GetOnlyPinnedQueryContainer(query.OnlyPinned))));
+                .PostFilter(pf => pf.Bool(b => b.Must(GetSearchPostFilters(query))));
 
             ApplyAggregations(searchRequest, query);
 
@@ -49,6 +49,16 @@ namespace Uintra.Search
             var queryResult = _elasticSearchRepository.SearchByIndex(searchRequest);
             var searchResult = ParseResults(queryResult);
             return searchResult;
+        }
+
+
+        protected virtual QueryContainer[] GetSearchPostFilters(SearchTextQuery query)
+        {
+            return new[]
+            {
+                GetSearchableTypeQueryContainers(query.SearchableTypeIds),
+                GetOnlyPinnedQueryContainer(query.OnlyPinned)
+            };
         }
 
         protected virtual SearchDescriptor<dynamic> GetSearchDescriptor()
