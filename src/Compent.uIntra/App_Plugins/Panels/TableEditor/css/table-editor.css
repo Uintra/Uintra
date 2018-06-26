@@ -1,5 +1,6 @@
 ﻿.table-editor {
     overflow: auto;
+    max-height:80vh;
 }
 
 .table-editor table {
