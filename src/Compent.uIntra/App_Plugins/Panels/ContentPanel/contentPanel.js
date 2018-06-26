@@ -79,7 +79,7 @@ var initPanel = function (selector) {
     var showLightboxBtn = panel.querySelector(".js-show-lightbox");
     var elementToshow = panel.querySelector(".js-photoswipe-item");
     var bodyElement = document.querySelector('body');
-
+    
     if (videoPosterBtn) {
         if (videoPosterBtn.dataset["backgroundimage"]) {
             videoPosterBtn.style.backgroundImage = `url('${videoPosterBtn.dataset["backgroundimage"]}')`;

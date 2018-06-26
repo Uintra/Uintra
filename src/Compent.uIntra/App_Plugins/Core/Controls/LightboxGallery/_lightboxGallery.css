@@ -41,7 +41,7 @@
             cursor:pointer;
 
             .gallery__item-opener{
-            flex-grow:0;
+                flex-grow:0;
 
                 &:before{
                     content:'';
@@ -57,6 +57,10 @@
                 }
             }
             
+        }
+
+        &-opener{
+            cursor:pointer;
         }
     }
 
