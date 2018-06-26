@@ -10,8 +10,8 @@
             <th></th>
             <th class="column-header" ng-repeat="columnStyle in dialogData.model.columnStylesSelected track by $index" table-editor-column-control>
                 <div class="column-buttons">
-                    <i class="icon icon-add" ng-show="canAddColumn()" ng-click="addColumn($index)"></i>
-                    <i class="icon icon-remove" ng-show="canRemoveColumn()" ng-click="removeColumn($index)"></i>
+                    <i class="icon icon-add" ng-show="dialogData.canAddColumn()" ng-click="dialogData.addColumn($index)"></i>
+                    <i class="icon icon-remove" ng-show="dialogData.canRemoveColumn()" ng-click="dialogData.removeColumn($index)"></i>
                 </div>
                 <select ng-model="dialogData.model.columnStylesSelected[$index]" ng-options="style.value as style.label for style in dialogData.config.columnStyles" ng-show="control.config.columnStyles.length > 1"></select>
             </th>
@@ -34,9 +34,9 @@
             </td>
             <td class="row-buttons-td">
                 <div class="row-buttons">
-                    <i class="icon icon-add" ng-show="canAddRow()" ng-click="addRow($index)"></i>
-                    <i class="icon icon-remove" ng-show="canRemoveRow()" ng-click="removeRow($index)"></i>
-                    <i class="icon icon-navigation handle" ng-show="canSort()"></i>
+                    <i class="icon icon-add" ng-show="dialogData.canAddRow()" ng-click="dialogData.addRow($index)"></i>
+                    <i class="icon icon-remove" ng-show="dialogData.canRemoveRow()" ng-click="dialogData.removeRow($index)"></i>
+                    <i class="icon icon-navigation handle" ng-show="dialogData.canSort()"></i>
                 </div>
             </td>
             <td class="row-style">
@@ -100,10 +100,10 @@
 
 <div class="umb-panel-footer">
     <div class="btn-toolbar umb-btn-toolbar ">
-        <a class="btn btn-link" ng-click="dialogData.restore(); close()">
+        <a class="btn btn-link" ng-click="close({restore: true})">
             <localize key="cancel" />
         </a>
-        <button type="submit" class="btn btn-primary" ng-click="close()">
+        <button type="submit" class="btn btn-primary" ng-click="close({restore: false})">
             <localize key="buttons_save">Save</localize>
         </button>
     </div>
