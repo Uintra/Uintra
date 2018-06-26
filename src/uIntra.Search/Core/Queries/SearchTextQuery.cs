@@ -11,6 +11,10 @@ namespace Uintra.Search
 
         public int Take { get; set; }
 
+        public string OrderingString { get; set; }
+
+        public int OrderingDirection { get; set; }
+
         public IEnumerable<int> SearchableTypeIds { get; set; } = Enumerable.Empty<int>();
 
         public bool OnlyPinned { get; set; }

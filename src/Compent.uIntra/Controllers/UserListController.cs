@@ -23,7 +23,7 @@ namespace Compent.Uintra.Controllers
 
         protected override IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, string orderBy, int direction)
         {
-            //TODO orderBy, direction (0-Asc/1-Desc). filter by active/inactive user
+            //TODO orderBy, direction (0-Asc/1-Desc)
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {
                 Text = query,
