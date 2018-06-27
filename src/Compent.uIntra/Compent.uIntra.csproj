@@ -1126,7 +1126,7 @@
     <EmbeddedResource Include="Core\Updater\Migrations\0.3.1.0\PreValues\GridPageLayout.cshtml" />
     <Content Include="App_Plugins\Web.config" />
     <Content Include="App_Plugins\Users\UserList\UserListView.cshtml" />
-    <Content Include="App_Plugins\Users\UserList\UserListPopup.cshtml" />
+    <Content Include="App_Plugins\Users\UserList\UserDetailsPopup.cshtml" />
     <Content Include="App_Plugins\Users\UserList\UsersRowsView.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />

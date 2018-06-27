@@ -29,7 +29,9 @@ namespace Compent.Uintra.Controllers
                 Text = query,
                 Skip = skip,
                 Take = take,
-                SearchableTypeIds = ((int) UintraSearchableTypeEnum.User).ToEnumerable(),
+                //OrderingString = orderBy,
+                OrderingDirection = direction,
+                SearchableTypeIds = ((int) UintraSearchableTypeEnum.User).ToEnumerable()
             });
 
             return searchResult.Documents.Select(r => r.Id.ToString().Pipe(Guid.Parse));

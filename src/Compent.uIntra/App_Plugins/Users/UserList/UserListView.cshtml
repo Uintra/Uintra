@@ -8,13 +8,15 @@
         <h3>@Model.Title</h3>
         <input type="text" class="js-user-list-filter" />
     </div>
-        <table id="userListTable" class="members-table js-user-list-table">
+        <table class="members-table js-user-list-table">
             <thead>
                 <tr class="members-table__row">
                     @foreach (var column in Model.UsersRows.SelectedColumns)
                     {
+                        var selected = Model.OrderByColumn.Id == column.Id;
                         <th class="members-table__head">
-                            <a href="" class="js-user-list-sort-link" data-orderBy="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
+                            <a href="" class="js-user-list-sort-link @(selected ? "_asc": "")" data-order-by="@column.PropertyName"
+                               @if (selected) { <text>data-direction="0"</text>  }>@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
                         </th>
                     }
                 </tr>

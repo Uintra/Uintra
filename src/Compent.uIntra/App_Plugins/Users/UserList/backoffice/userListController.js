@@ -19,7 +19,6 @@
                     $scope.control.validationMessage = null;
                 }
                 refresh();
-                console.log($scope.control.value);
             }
         }
 

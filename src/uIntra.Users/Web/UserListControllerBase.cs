@@ -18,6 +18,8 @@ namespace Uintra.Users.Web
     {
         protected virtual string UserListViewPath => @"~/App_Plugins/Users/UserList/UserListView.cshtml";
         protected virtual string UsersRowsViewPath => @"~/App_Plugins/Users/UserList/UsersRowsView.cshtml";
+        protected virtual string UsersDetailsViewPath => @"~/App_Plugins/Users/UserList/UserDetailsPopup.cshtml";
+        
 
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
@@ -55,6 +57,13 @@ namespace Uintra.Users.Web
                 Users = GetActiveUsers(skip, take, orderBy, direction, query)
             };
             return PartialView(UsersRowsViewPath, model);
+        }
+
+        public virtual ActionResult Details(Guid id)
+        {
+            var user = _intranetUserService.Get(id);
+            var viewModel = MapToViewModel(user);
+            return PartialView(UsersDetailsViewPath, viewModel);
         }
 
         private IEnumerable<UserModel> GetActiveUsers(int skip, int take, string orderBy, int direction, string query = "") =>
