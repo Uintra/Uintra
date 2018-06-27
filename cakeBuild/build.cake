@@ -20,13 +20,13 @@ var project = GetBuildProject(projectName, configuration);
 var compentUIntraProject = GetBuildProject(CompentUintraProjectFileName, configuration);
 
 // SETUP / TEARDOWN
-Setup(() =>
+Setup((ctx) =>
 {
     // Executed BEFORE the first task.
     Information("Running tasks...");
 });
 
-Teardown(() =>
+Teardown((ctx) =>
 {
     // Executed AFTER the last task.
     Information("Finished running tasks.");
