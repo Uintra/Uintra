@@ -119,11 +119,15 @@
         }
 
         &-heading{
-            margin:0 0 13px;
             font-size:13px;
+            line-height:16px;
             display:flex;
             align-items: center;
             color:var(--text-color-dark);
+
+            .feed__list &{
+                display:block;
+            }
 
             .create-bulletin &{
                 align-items: center;
@@ -134,13 +138,19 @@
             }
         }
 
+        &-title-holder{
+            display:flex;
+            align-items: center;
+            padding:0 0 13px;
+        }    
+
         &-holder{
             padding:0;
         }
 
         &-title{
             font: 18px/22px var(--font-general);
-            margin:-5px 0 7px;
+            margin:0 0 5px;
             color:#262626;
 
             @media (--for-tablet-portrait-up){
@@ -180,6 +190,10 @@
                     text-decoration:underline;
                 }
             }
+        }
+
+        &-name{
+            font-weight:700;
         }
 
         &-location{
@@ -309,6 +323,10 @@
                     @media(--for-tablet-portrait-down){
                         max-width:33.3%;
                     }
+
+                    a:hover{
+                        text-decoration:none;
+                    }
                 }
 
                 img{
@@ -318,13 +336,15 @@
 
             &-name{
                 display:block;
-                text-align:center;
+                text-overflow:ellipsis;
+                white-space:nowrap;
+                overflow:hidden;
             }
 
             &-remove{
                 position:absolute;
-                top:2px;
-                right:2px;
+                top:1px;
+                right:1px;
                 width:25px;
                 height:25px;
                 text-align:center;
@@ -353,7 +373,7 @@
         
         &-divider{
             display:inline-block;
-            vertical-align:inherit;
+            vertical-align:top;
         }
 
         &-feed{
@@ -405,10 +425,10 @@
 
             &-holder{
                 align-self:center;
-                padding-right:130px;
+                padding:0 130px 0 0;
 
                 @media(--for-tablet-portrait-down){
-                    padding-right:0;
+                    padding:0;
                 }
             }
         }
@@ -456,7 +476,7 @@
 
         &-address{
             display:inline-block;
-            vertical-align:inherit;
+            vertical-align:top;
             margin:0 0 0 15px;
             @media(--for-tablet-portrait-down){
                 margin:0 0 0 7px;
@@ -511,16 +531,13 @@
         &-subscribed{
             border:1px solid var(--color-light-gray);
             position:relative;
-            margin:0 0 10px;
+            margin:5px 0 10px;
             font-size:11px;
             line-height:2em;
             text-transform:uppercase;
             padding:0 10px;
-            float:left;
-
-            @media (--for-tablet-landscape-up){
-                margin-left:80px;
-            }
+            display:inline-block;
+            vertical-align:top;
 
             .icon-check{
                 &:before{

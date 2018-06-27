@@ -1,5 +1,5 @@
-﻿using Uintra.Core.Context.Models;
-using Uintra.Core.SingleLinkedList;
+﻿using Compent.Extensions.SingleLinkedList;
+using Uintra.Core.Context.Models;
 
 namespace Uintra.Comments.CommandBus
 {
@@ -7,7 +7,7 @@ namespace Uintra.Comments.CommandBus
     {
         public CommentCreateDto CreateDto { get; }
 
-        public AddCommentCommand(SingleLinkedList<ContextData> context, CommentCreateDto createDto) : base(context)
+        public AddCommentCommand(ISingleLinkedList<ContextData> context, CommentCreateDto createDto) : base(context)
         {
             CreateDto = createDto;
         }

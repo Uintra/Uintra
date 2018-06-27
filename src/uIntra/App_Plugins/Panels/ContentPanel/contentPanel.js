@@ -11,6 +11,7 @@ var itemTypes = {
 var selectors = window.contentPanelSelectors || [];
 var body = document.querySelector('body');
 var html = document.querySelector('html');
+var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 
 var videoPlay = function (videoElement, isLightBox) {
     if (!isLightBox) {
@@ -131,8 +132,7 @@ var initMobileBanners = function () {
     if (aside) {
         body.classList.add('_show-aside-opener');
         opener.addEventListener('click',
-            (e) => {
-                e.preventDefault();
+            () => {
                 html.classList.toggle('_aside-expanded');
                 if (html.classList.contains('_search-expanded')) {
                     html.classList.remove('_search-expanded');
@@ -141,7 +141,7 @@ var initMobileBanners = function () {
                     html.classList.remove('_menu-expanded');
                 }
 
-                html.addEventListener('click',
+                body.addEventListener('click',
                     function (ev) {
                         isOutsideClick(aside, opener, ev.target, '_aside-expanded');
                     });
@@ -157,7 +157,7 @@ var isOutsideClick = function (el, opener, target, className) {
 
 function getClientHeight() { return document.compatMode == 'CSS1Compat' ? document.documentElement.clientHeight : document.body.clientHeight; }
 
-/*function mobileAsideHeight() {
+function mobileAsideHeight() {
     var mobileAside = document.querySelector(".aside > div");
     var headerHeight = document.getElementById('header').offsetHeight;
 
@@ -170,15 +170,6 @@ function windowResize() {
     window.addEventListener('resize', () => {
         mobileAsideHeight();
     });
-}*/
-
-// media query change
-function WidthChange(mq) {
-    if (!mq.matches) {
-        initMobileBanners();
-        //mobileAsideHeight();
-        //windowResize();
-    }
 }
 
 var controller = {
@@ -187,10 +178,10 @@ var controller = {
             initPanel(selector);
         });
 
-        if (matchMedia) {
-            var mq = window.matchMedia("(min-width: 900px)");
-            mq.addListener(WidthChange);
-            WidthChange(mq);
+        if (mobileMediaQuery.matches) {
+            initMobileBanners();
+            mobileAsideHeight();
+            windowResize();
         }
     }
 }

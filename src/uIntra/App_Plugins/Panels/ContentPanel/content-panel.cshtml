@@ -1,61 +1,92 @@
-﻿@using Uintra.BaseControls
-@model Uintra.Panels.Core.Models.ContentPanelViewModel
+﻿@using System.Web.Mvc
+@using Uintra.Core.Extensions
+@using Uintra.BaseControls
+@using Uintra.Core.Constants
+@using Uintra.Core.Media
+@inherits UmbracoViewPage<dynamic>
 
 @{
+    var viewModel = Model.value;
+    if (viewModel == null)
+    {
+        return;
+    }
     var panelId = "js-content-panel-" + Guid.NewGuid();
-    string importantCssSelector = Model.IsImportant ? "_important" : string.Empty;
+    bool isImportant = viewModel.isImportant != null ? viewModel.isImportant.Value : false; //Actual type of viewModel.isImportant will be JValue, not pure boolean
+    string importantCssSelector = isImportant ? "_important" : string.Empty;
+
+    var imageHelper = DependencyResolver.Current.GetService<IImageHelper>();
 }
 
 <section class="block _content-panel clearfix @importantCssSelector" id="@panelId">
     @{
+        string titleLink = string.IsNullOrEmpty(Convert.ToString(viewModel.titleLink)) ? null : viewModel.titleLink.link;
+        string title = viewModel.title;
+        bool hasTitle = string.IsNullOrEmpty(title);
 
-        if (Model.HasTitle)
+        if (!hasTitle)
         {
-            if (string.IsNullOrEmpty(Model.TitleLink))
+            if (string.IsNullOrEmpty(titleLink))
             {
-                <h2 class="block__title">@Model.Title</h2>
+                <h2 class="block__title">@title</h2>
             }
             else
             {
                 <h2 class="block__title">
-                    <a class="block__title-link" href="@Model.TitleLink" target="@Model.Target">@Model.Title</a>
+                    <a class="block__title-link" href="@titleLink" target="@viewModel.titleLink.target">@title</a>
                 </h2>
             }
         }
 
-        var lightboxClass = Model.ShowAsLightbox ? "js-show-lightbox" : string.Empty;
-        var sizeClass = Model.ImageVideoSize == "small" ? "_small" : "_large";
+        int mediaId;
+        var hasMedia = int.TryParse(Model.value?.image?.ToString() ?? string.Empty, out mediaId);
+        var posterImageUrl = hasMedia ? imageHelper.GetImageWithPreset(GetMediaUrl(mediaId), UmbracoAliases.ImagePresets.Preview) : null;
+        var videoUrl = GetUrl(Model.value.videoLink);
+        var showAsLightbox = Model.value.videoType == "lightbox";
+        var lightboxClass = showAsLightbox ? "js-show-lightbox" : string.Empty;
+        var sizeClass = Model.value.imageVideoSize == "small" ? "_small" : "_large";
 
-        if (!string.IsNullOrEmpty(Model.VideoUrl))
+        if (!string.IsNullOrEmpty(videoUrl))
         {
+            var videoSrc = string.Empty;
+            var autoplayVideo = "autoplay";
+            var autoplayIframe = "?autoplay=1";
+            var videoSourceType = (VideoSourceTypes)Model.value.videoLink.sourceType;
+            var videoTooltip = Model.value.videoLink.altText.ToString();
 
             <div class="block__video @sizeClass">
-                @if (!string.IsNullOrEmpty(Model.VideoTooltip))
+                @if (!string.IsNullOrEmpty(videoTooltip))
                 {
                     <div class="block__video-tooltip">
-                        <span class="block__video-tooltip-text">@Model.VideoLinkAlternativeText</span>
+                        <span class="block__video-tooltip-text">@Model.value.videoLink.altText</span>
                     </div>
                 }
 
-                @if (string.IsNullOrEmpty(Model.PosterImageUrl))
+                @if (string.IsNullOrEmpty(posterImageUrl))
                 {
+                    videoSrc = Model.value.videoLink.embedUrl;
+                    autoplayVideo = string.Empty;
+                    autoplayIframe = string.Empty;
+                    // posterImageUrl get poster from youtube
                 }
                 else
                 {
-                    <button class="block__video-play js-videoPoster @lightboxClass" style="background-image: url(@Model.PosterImageUrl);"></button>
+                    <button class="block__video-play js-videoPoster @lightboxClass" style="background-image: url(@posterImageUrl);"></button>
                 }
 
-                @switch ((VideoSourceTypes)Model.VideoSourceType)
+                @switch (videoSourceType)
                 {
                     case VideoSourceTypes.Youtube:
                     case VideoSourceTypes.Vimeo:
+                        var embedUrl = Model.value.videoLink.embedUrl + autoplayIframe;
+
                         <div class="block__video-iframe">
-                            <iframe class="block__video-iframe-player js-videoTag js-photoswipe-item" src="@Model.VideoSrc" data-src="@Model.EmbedUrl" width="200" height="200" allowTransparency="true" frameborder="0" allowfullscreen></iframe>
+                            <iframe class="block__video-iframe-player js-videoTag js-photoswipe-item" src="@videoSrc" data-src="@embedUrl" width="200" height="200" allowTransparency="true" frameborder="0" allowfullscreen></iframe>
                         </div>
                         break;
                     case VideoSourceTypes.Hyperlink:
                         <div class="block__video-url">
-                            <video class="block__video-url-player js-videoTag js-photoswipe-item" src="@Model.VideoSrc" data-src="@Model.EmbedUrl" @Model.AutoplayVideo controls></video>
+                            <video class="block__video-url-player js-videoTag js-photoswipe-item" src="@videoSrc" data-src="@Model.value.videoLink.embedUrl" @autoplayVideo controls></video>
                         </div>
                         break;
                 }
@@ -64,41 +95,41 @@
         }
         else
         {
-            if (!string.IsNullOrEmpty(Model.PosterImageUrl))
+            if (!string.IsNullOrEmpty(posterImageUrl))
             {
-                if (string.IsNullOrEmpty(Model.TitleLink))
+                if (string.IsNullOrEmpty(titleLink))
                 {
                     <div class="block__image @sizeClass">
-                        <img class="img-responsive @lightboxClass js-photoswipe-item" width="250" height="200" src="@Model.PosterImageUrl" alt="" />
+                        <img class="img-responsive @lightboxClass js-photoswipe-item" width="250" height="200" src="@posterImageUrl" alt="" />
                     </div>
                 }
                 else
                 {
                     <div class="block__image @sizeClass">
-                        <a href="@Model.TitleLink"><img class="img-responsive @lightboxClass js-photoswipe-item" width="250" height="200" src="@Model.PosterImageUrl" alt="" /></a>
+                        <a href="@titleLink"><img class="img-responsive @lightboxClass js-photoswipe-item" width="250" height="200" src="@posterImageUrl" alt="" /></a>
                     </div>
                 }
             }
         }
     }
 
-    @if (!string.IsNullOrEmpty(Model.Description))
+    @if (!string.IsNullOrEmpty((string)viewModel.description))
     {
-        <div class="block__description">@Html.Raw(Model.Description)</div>
+        <div class="block__description">@Html.Raw(viewModel.description)</div>
     }
-    @if (@Model.Links.Count > 0)
+    @if (viewModel.links != null && viewModel.links.Count > 0)
     {
         <div class="block__links">
-            @if (!string.IsNullOrEmpty(Model.LinksListTitle))
+            @if (!string.IsNullOrEmpty((string)viewModel.linksListTitle))
             {
-                <h4 class="block__headline">@Model.LinksListTitle</h4>
+                <h4 class="block__headline">@viewModel.linksListTitle</h4>
             }
 
             <ul class="block__links-list">
-                @foreach (var link in Model.Links)
+                @foreach (var link in viewModel.links)
                 {
                     <li class="block__links-list-item">
-                        <a class="block__links-list-link" href="@link.Url" target="@link.Target">@link.Caption</a>
+                        <a class="block__links-list-link" href="@GetLinkUrl(link)" target="@link.target">@link.caption</a>
                     </li>
                 }
             </ul>
@@ -106,14 +137,16 @@
     }
 
     @{
-        if (Model.Files.Any())
+        var filesIds = ((string)viewModel.files).ToIntCollection();
+        if (filesIds.Any())
         {
             <ul class="documents">
-                @foreach (var file in Model.Files)
+                @foreach (var id in filesIds)
                 {
+                    var file = Umbraco.TypedMedia(id);
                     <li class="documents__item">
                         <a class="documents__item-link" target="_blank" href="@file.Url">
-                            <span class="documents__icon file-extension">@file.Extension</span>
+                            <span class="documents__icon file-extension">@file.GetMediaExtension().ToExtensionViewString()</span>
                             <span class="documents__item-name">@file.Name</span>
                         </a>
                     </li>
@@ -123,6 +156,35 @@
     }
 
 </section>
+
+@functions
+{
+
+    private string GetMediaUrl(int mediaId)
+    {
+        var media = Umbraco.TypedMedia(mediaId);
+        return media?.Url;
+    }
+
+    private string GetUrl(dynamic media)
+    {
+        if (media != null && media.url != null && !string.IsNullOrEmpty(media.url.ToString()))
+        {
+            return media.url;
+        }
+        return string.Empty;
+    }
+
+    private string GetLinkUrl(dynamic link)
+    {
+        if (link.type == 0)
+        {
+            return Umbraco.TypedContent((int)link.id)?.Url ?? link.link;
+        }
+
+        return link.link;
+    }
+}
 
 <script type="text/javascript">
     var contentPanelSelectors = contentPanelSelectors || [];

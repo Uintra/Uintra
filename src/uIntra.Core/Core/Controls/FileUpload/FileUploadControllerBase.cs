@@ -1,15 +1,13 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using Uintra.Core;
 using Uintra.Core.Constants;
-using Uintra.Core.Controls.FileUpload;
 using Uintra.Core.Extensions;
 using Uintra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
-namespace uIntra.Core.Controls.FileUpload
+namespace Uintra.Core.Controls.FileUpload
 {
     public abstract class FileUploadControllerBase : SurfaceController
     {

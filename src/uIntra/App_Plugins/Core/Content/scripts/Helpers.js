@@ -46,7 +46,7 @@ const helpers = {
         if (typeof options == 'undefined') {
             settings.modules = {
                 toolbar: {
-                    container: ['emoji','bold', 'italic', 'underline', 'link']
+                    container: [['emoji'], ['bold', 'italic', 'underline'], ['link']]
                 }
             };
         }

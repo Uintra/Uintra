@@ -42,9 +42,6 @@
       "render": "/App_Plugins/Panels/ContentPanel/content-panel.cshtml",
       "icon": "icon-notepad color-orange",
       "config": {
-        "controller": "ContentPanel",
-        "action": "Render",
-        "includeUmbracoValues": true,
         "description": {
           "height": 350,
           "toolbar": "styleselect | bold | italic | underline | linksPicker | numlist | bullist | removeformat",

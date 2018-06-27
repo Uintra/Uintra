@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.Extensions.SingleLinkedList;
 using Uintra.Core.Context.Models;
 using Uintra.Core.Extensions;
-using Uintra.Core.SingleLinkedList;
 using Uintra.Core.TypeProviders;
-using static Uintra.Core.SingleLinkedList.SingleLinkedListExtensions;
 
-namespace Uintra.Core.Context
+namespace Uintra.Core.Context.Extensions
 {
     public static class ContextExtensions
     {
 
         public static TResult Catamorphism<TResult>(
-            this SingleLinkedList<ContextData> context,
+            this ISingleLinkedList<ContextData> context,
             Func<TResult> empty,
             params (Enum contextType, Func<ContextData, TResult, TResult> caseFunc)[] cases)
         {
-            TResult CatamorphismRec(SingleLinkedList<ContextData> node) =>
+            TResult CatamorphismRec(ISingleLinkedList<ContextData> node) =>
                 node.Match(
                     Case(ContextType.Any, (contextData, subContext) =>
                         cases
@@ -30,7 +29,7 @@ namespace Uintra.Core.Context
         }
 
         public static TResult Match<TResult>(
-            this SingleLinkedList<ContextData> context,
+            this ISingleLinkedList<ContextData> context,
             params ContextMatchCase<TResult>[] cases)
         {
             bool IsForEmptyCase(ContextMatchCase<TResult> caseFunc) =>
@@ -48,7 +47,7 @@ namespace Uintra.Core.Context
                 .Func(context.Value, context.Tail);
         }
 
-        public static SingleLinkedList<ControllerContextData> NormalizeContext(this SingleLinkedList<ControllerContextData> context)
+        public static ISingleLinkedList<ControllerContextData> NormalizeContext(this ISingleLinkedList<ControllerContextData> context)
         {
             bool IsCommentSequenceInitalContext(ContextData contextData) =>
                 ExactScalar(contextData.Type, ContextType.Comment) && contextData.EntityId is null;
@@ -57,9 +56,9 @@ namespace Uintra.Core.Context
                 node: (contextData, subContext) =>
                     subContext != null && contextData.Equals(subContext.Value) || IsCommentSequenceInitalContext(contextData.СontextData)
                         ? subContext
-                        : ToSingleLinkedList(contextData, subContext),
+                        : SingleLinkedListExtensions.SingleLinkedList(contextData, subContext),
 
-                empty: Empty<ControllerContextData>);
+                empty: SingleLinkedListExtensions.Empty<ControllerContextData>);
         }
 
         public static ContextDataTransferModel ContextDataTransferModel(ContextData contextData) =>
@@ -72,12 +71,12 @@ namespace Uintra.Core.Context
         public static ContextData ContextData(ContextDataTransferModel model, IEnumerable<Enum> allContextTypes) =>
             ContextData(allContextTypes.Get(model.TypeId), model.EntityId);
 
-        public static SingleLinkedList<TResult> Select<T, TResult>(
-            this SingleLinkedList<T> context,
+        public static ISingleLinkedList<TResult> Select<T, TResult>(
+            this ISingleLinkedList<T> context,
             Func<T, TResult> func) =>
             context.Catamorphism(
-                node: (item, mappedResult) => ToSingleLinkedList(func(item), mappedResult),
-                empty: Empty<TResult>);
+                node: (item, mappedResult) => SingleLinkedListExtensions.SingleLinkedList(func(item), mappedResult),
+                empty: SingleLinkedListExtensions.Empty<TResult>);
 
         public static ContextData ContextData(Enum type, Guid? entityId = null) =>
             new ContextData
@@ -103,7 +102,7 @@ namespace Uintra.Core.Context
 
         public static bool ExactScalar(Enum a, Enum b) => a.ToInt() == b.ToInt();
 
-        public static ContextMatchCase<TResult> Case<TResult>(Enum type, Func<ContextData, SingleLinkedList<ContextData>, TResult> func) =>
+        public static ContextMatchCase<TResult> Case<TResult>(Enum type, Func<ContextData, ISingleLinkedList<ContextData>, TResult> func) =>
             new ContextMatchCase<TResult>
             {
                 Type = type,
@@ -114,6 +113,6 @@ namespace Uintra.Core.Context
     public class ContextMatchCase<TResult>
     {
         public Enum Type { get; set; }
-        public Func<ContextData, SingleLinkedList<ContextData>, TResult> Func { get; set; }
+        public Func<ContextData, ISingleLinkedList<ContextData>, TResult> Func { get; set; }
     }
 }

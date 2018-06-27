@@ -2,7 +2,12 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using FluentScheduler;
+using Uintra.Bulletins;
 using Uintra.Core.Jobs;
+using Uintra.Events.Dashboard;
+using Uintra.Groups.Dashboard;
+using Uintra.News.Dashboard;
+using Uintra.Notification.Dashboard;
 using Umbraco.Core;
 
 namespace Compent.Uintra
@@ -23,10 +28,12 @@ namespace Compent.Uintra
             JobManager.JobFactory = DependencyResolver.Current.GetService<IJobFactory>();
             JobManager.Initialize(new JobsRegistry());
 
+            AddSectionsToAllUsers();
+
             base.ApplicationStarted(umbracoApplication, applicationContext);
         }
 
-        private void RegisterRoutes()
+        private static void RegisterRoutes()
         {
             RouteTable.Routes.MapRoute(
                 "login",
@@ -36,6 +43,15 @@ namespace Compent.Uintra
                     controller = "Login",
                     action = "Login"
                 });
+        }
+
+        private static void AddSectionsToAllUsers()
+        {
+            NewsSection.AddSectionToAllUsers();
+            EventsSection.AddSectionToAllUsers();
+            BulletinsSection.AddSectionToAllUsers();
+            GroupsSection.AddSectionToAllUsers();
+            NotificationSettingsSection.AddSectionToAllUsers();
         }
     }
 }

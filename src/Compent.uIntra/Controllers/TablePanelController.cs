@@ -1,7 +1,7 @@
 ﻿using Uintra.Panels.Core.PresentationBuilders;
 using Uintra.Panels.Web;
 
-namespace Compent.uIntra.Controllers
+namespace Compent.Uintra.Controllers
 {
     public class TablePanelController : TablePanelControllerBase
     {

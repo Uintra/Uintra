@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Compent.Extensions;
 using Examine;
 using Uintra.Core.Exceptions;
+using Uintra.Core.Extensions;
 using Uintra.Core.MigrationHistories;
 using Uintra.Core.MigrationHistories.Sql;
 using Umbraco.Core;
@@ -18,7 +19,6 @@ namespace Compent.Uintra.Core.Updater
         private readonly IDependencyResolver _dependencyResolver;
         private readonly IMigrationHistoryService _migrationHistoryService;
         private readonly IExceptionLogger _exceptionLogger;
-
         public static readonly Version LastLegacyMigrationVersion = new Version("0.2.30.0");
 
         public MigrationHandler()
@@ -179,8 +179,12 @@ namespace Compent.Uintra.Core.Updater
         {
             ExamineManager.Instance.IndexProviderCollection[Umbraco.Core.Constants.Examine.InternalIndexer].RebuildIndex();
         }
-    }
 
+        private static void RebuildExamineIndex()
+        {
+            ExamineManager.Instance.IndexProviderCollection[Umbraco.Core.Constants.Examine.InternalIndexer].RebuildIndex();
+        }
+    }
 
     public struct MigrationItem
     {

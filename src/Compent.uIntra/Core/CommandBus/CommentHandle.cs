@@ -5,6 +5,7 @@ using Uintra.Comments;
 using Uintra.Comments.CommandBus;
 using Uintra.Core.Activity;
 using Uintra.Core.Context;
+using Uintra.Core.Context.Extensions;
 
 namespace Compent.Uintra.Core.CommandBus
 {
