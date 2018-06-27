@@ -203,8 +203,7 @@ namespace Uintra.Events.Web
             {
                 Id = @event.Id,
                 Title = @event.Title,
-                StartDate = @event.StartDate,
-                EndDate = @event.EndDate,
+                Dates = @event.StartDate.GetEventDateTimeString(@event.EndDate).ToListOfOne(),
                 Owner = owner,
                 ActivityType = @event.Type,
                 Links = links

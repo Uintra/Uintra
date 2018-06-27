@@ -32,14 +32,44 @@
                 template: "/App_Plugins/Panels/TableEditor/views/overlay.html",
                 show: true,
                 modalClass: "panel table-editor",
-                scope: $scope,
                 dialogData: {
+                    canAddColumn() {
+                        return $scope.canAddColumn();
+                    },
+                    canRemoveColumn() {
+                        return $scope.canRemoveColumn();
+                    },
+                    canAddRow() {
+                        return $scope.canAddRow();
+                    },
+                    canRemoveRow() {
+                        return $scope.canRemoveRow();
+                    },
+                    canSort() {
+                        return $scope.canSort();
+                    },
+                    addColumn() {
+                        return $scope.addColumn();
+                    },
+                    removeColumn() {
+                        return $scope.removeColumn();
+                    },
+                    addRow() {
+                        return $scope.addRow();
+                    },
+                    removeRow() {
+                        return $scope.removeRow();
+                    },
                     config: $scope.control.config,
                     model: $scope.control.value,
                     restore: $scope.restore
+                },
+                closeCallback: function (data) {
+                    data.restore && $scope.restore();
                 }
             });
-            $scope.backupModel = angular.copy($scope.control.value);
+
+            $scope.backupModel = $scope.control.value;
         }
 
         $scope.init = function (control) {
