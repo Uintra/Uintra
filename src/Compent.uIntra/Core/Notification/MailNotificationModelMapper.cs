@@ -70,7 +70,7 @@ namespace Compent.Uintra.Core.Notification
                         (ActivityList, model.ActivityList)
                     };
                     break;
-                case UserTaggingNotifierDataModel model:
+                case UserMentionNotifierDataModel model:
                     tokens = new[]
                     {
                         (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),

@@ -5,6 +5,7 @@ namespace Compent.Uintra.Core.Notification
 {
     public class UserMentionNotifierDataModel : INotifierDataValue, IHaveNotifierId
     {
+        public Guid MentionedSourceId { get; set; }
         public Enum NotificationType { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }

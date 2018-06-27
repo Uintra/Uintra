@@ -5,6 +5,7 @@ namespace Compent.Uintra.Core.Notification
 {
     public class UserMentionNotificationModel
     {
+        public Guid MentionedSourceId { get; set; }
         public Guid CreatorId { get; set; }
         public IEnumerable<Guid> ReceivedIds { get; set; }
         public string Title { get; set; }

@@ -1121,6 +1121,9 @@
     <Content Include="config\BackOfficeTours\getting-started.json" />
     <EmbeddedResource Include="Core\Updater\Migrations\0.3.1.0\PreValues\GridPageLayout.cshtml" />
     <Content Include="App_Plugins\Web.config" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201806271138265_AddNotifierTypeToNotificationsTable.resx">
+      <DependentUpon>201806271138265_AddNotifierTypeToNotificationsTable.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1458,6 +1461,10 @@
     <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs" />
     <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.Designer.cs">
       <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201806271138265_AddNotifierTypeToNotificationsTable.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201806271138265_AddNotifierTypeToNotificationsTable.Designer.cs">
+      <DependentUpon>201806271138265_AddNotifierTypeToNotificationsTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

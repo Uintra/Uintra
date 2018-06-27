@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using Compent.Extensions;
+using Uintra.Core.Extensions;
+using Uintra.Core.Persistence;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
@@ -14,17 +16,20 @@ namespace Compent.Uintra.Core.Notification
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
         private readonly NotificationSettingsService _notificationSettingsService;
+        private readonly ISqlRepository<global::Uintra.Notification.Notification> _notificationRepository;
 
         public MailNotifierService(
             IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper,
-            NotificationSettingsService notificationSettingsService)
+            NotificationSettingsService notificationSettingsService,
+            ISqlRepository<global::Uintra.Notification.Notification> notificationRepository)
         {
             _mailService = mailService;
             _intranetUserService = intranetUserService;
             _notificationModelMapper = notificationModelMapper;
             _notificationSettingsService = notificationSettingsService;
+            _notificationRepository = notificationRepository;
         }
 
         public Enum Type => NotifierTypeEnum.EmailNotifier;
@@ -50,6 +55,18 @@ namespace Compent.Uintra.Core.Notification
 
                 var message = _notificationModelMapper.Map(data.Value, settings.Template, user);
                 _mailService.Send(message);
+
+                _notificationRepository.Add(new global::Uintra.Notification.Notification()
+                {
+                    Id = Guid.NewGuid(),
+                    Date = DateTime.UtcNow,
+                    IsNotified = true,
+                    IsViewed = false,
+                    Type = data.NotificationType.ToInt(),
+                    NotifierType = NotifierTypeEnum.EmailNotifier.ToInt(),
+                    Value = new { message }.ToJson(),
+                    ReceiverId = receiverId
+                });
             }
         }
     }

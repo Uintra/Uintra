@@ -23,7 +23,8 @@ namespace Compent.Uintra.Core.CommandBus
                 CreatorId = command.CreatorId,
                 ReceivedIds = command.MentionedUserIds,
                 Title = command.Title,
-                Url = command.Url
+                Url = command.Url,
+                MentionedSourceId = command.MentionedSourceId
             };
 
             _notificationService.SendNotification(notifierData);

@@ -170,7 +170,7 @@ namespace Compent.Uintra.Controllers
             var groupId = Request.QueryString.GetGroupId();
             if (groupId.HasValue)
             {
-                _groupActivityService.AddRelation(groupId.Value, activityId);                
+                _groupActivityService.AddRelation(groupId.Value, activityId);
                 @event.GroupId = groupId;
             }
             if (model is EventExtendedCreateModel extendedModel)
@@ -246,6 +246,7 @@ namespace Compent.Uintra.Controllers
                 var links = _activityLinkService.GetLinks(@event.Id);
                 _mentionService.PreccessMention(new MentionModel()
                 {
+                    MentionedSourceId = @event.Id,
                     CreatorId = _intranetUserService.GetCurrentUserId(),
                     MentionedUserIds = mentionIds,
                     Title = @event.Title,

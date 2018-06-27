@@ -63,10 +63,12 @@ namespace Compent.Uintra.Controllers
             {
                 _mentionService.PreccessMention(new MentionModel()
                 {
+                    MentionedSourceId = comment.Id,
                     CreatorId = _intranetUserService.GetCurrentUserId(),
                     MentionedUserIds = mentionIds,
                     Title = $"Comment - \"{comment.Text.StripHtml().TrimByWordEnd(50)}\"",
-                    Url = _commentLinkHelper.GetDetailsUrlWithComment(comment.ActivityId, comment.Id)
+                    Url = _commentLinkHelper.GetDetailsUrlWithComment(comment.ActivityId, comment.Id),
+
                 });
 
             }
