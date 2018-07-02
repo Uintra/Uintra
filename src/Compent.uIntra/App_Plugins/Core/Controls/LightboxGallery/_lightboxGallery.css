@@ -147,14 +147,14 @@
 
     &__icon{
         display:inline-block !important;
-        vertical-align:top;
+        vertical-align:middle;
         margin:0 16px 0 0;
     }
 
     &__title{
         display:inline-block;
-        vertical-align:top;
-        padding:2px 0 0;
+        vertical-align:middle;
+        padding:3px 0 0 15px;
     }
 }
 
