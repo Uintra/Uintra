@@ -8,5 +8,6 @@
         public UsersRowsViewModel UsersRows { get; set; }
         public ProfileColumnModel OrderByColumn { get; set; }
         public string UsersRowsViewPath { get; set; }
+        public bool IsLastRequest { get; set; }
     }
 }

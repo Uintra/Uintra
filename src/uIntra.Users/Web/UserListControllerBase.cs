@@ -19,8 +19,8 @@ namespace Uintra.Users.Web
         protected virtual string UserListViewPath => @"~/App_Plugins/Users/UserList/UserListView.cshtml";
         protected virtual string UsersRowsViewPath => @"~/App_Plugins/Users/UserList/UsersRowsView.cshtml";
         protected virtual string UsersDetailsViewPath => @"~/App_Plugins/Users/UserList/UserDetailsPopup.cshtml";
-        
 
+        private const string _lastRequestHeaderKey = "x-last-request";
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         public UserListControllerBase(IIntranetUserService<IIntranetUser> intranetUserService)
@@ -41,10 +41,11 @@ namespace Uintra.Users.Web
                 UsersRows = new UsersRowsViewModel()
                 {
                     SelectedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedPropertiesJson),
-                    Users = GetActiveUsers(0, model.DisplayedAmount, orderByColumn.PropertyName, 0)
+                    Users = GetActiveUsers(0, model.DisplayedAmount, orderByColumn.PropertyName, 0, out var isLastRequest)
                 },
                 UsersRowsViewPath = UsersRowsViewPath,
-                OrderByColumn = orderByColumn
+                OrderByColumn = orderByColumn,
+                IsLastRequest = isLastRequest
             };
             return View(UserListViewPath, viewModel);
         }
@@ -54,7 +55,7 @@ namespace Uintra.Users.Web
             var model = new UsersRowsViewModel
             {
                 SelectedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedColumns),
-                Users = GetActiveUsers(skip, take, orderBy, direction, query)
+                Users = GetActiveUsers(skip, take, orderBy, direction, out var isLastRequest, query)
             };
             return PartialView(UsersRowsViewPath, model);
         }
@@ -66,16 +67,28 @@ namespace Uintra.Users.Web
             return PartialView(UsersDetailsViewPath, viewModel);
         }
 
-        private IEnumerable<UserModel> GetActiveUsers(int skip, int take, string orderBy, int direction, string query = "") =>
-            GetActiveUserIds(skip, take, query, orderBy, direction)
-            .Pipe(_intranetUserService.GetMany)
-            .Select(MapToViewModel);
+        private IEnumerable<UserModel> GetActiveUsers(int skip, int take, string orderBy, int direction, out bool isLastRequest, string query = "")
+        {
+            var result = GetActiveUserIds(skip, take, query, out var totalHits, orderBy, direction)
+                .Pipe(_intranetUserService.GetMany)
+                .Select(MapToViewModel);
+            isLastRequest = SetLastRequestHeader(skip, take, totalHits);
+            return result;
+        }
 
-        protected abstract IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, string orderBy = null, int direction = 0);
+        protected abstract IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, out long totalHits, string orderBy = null, int direction = 0);
 
         protected virtual UserModel MapToViewModel(IIntranetUser user)
         {
             var result = user.Map<UserModel>();
+            return result;
+        }
+
+        protected virtual bool SetLastRequestHeader(int skip, int take, long totalHits)
+        {
+            var result = skip + take >= totalHits;
+            if (result)
+                Response.AppendHeader(_lastRequestHeaderKey, Boolean.TrueString);
             return result;
         }
     }

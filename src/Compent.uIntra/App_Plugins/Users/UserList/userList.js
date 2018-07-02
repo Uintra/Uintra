@@ -5,59 +5,61 @@ const tableBody = $(".js-user-list-table tbody");
 const button = $(".js-user-list-button");
 const sortLinks = $(".js-user-list-sort-link");
 const searchActivationDelay = 256;
+const url = "/umbraco/surface/UserList/GetUsers";
 
 let ascendingClassName = "_asc";
 let descendingClassName = "_desc";
+let lastRequestHeaderKey = "x-last-request";
 
 let searchTimeout;
+let request;
+let displayedAmount;
+let amountPerRequest;
 
 let controller = {
     init: function () {
 
-        if (tableBody.children("tr").length < window.userListConfig.displayedAmount)
-            button.hide();
+        init();
+        button.click(onButtonClick);
+        sortLinks.click(onSortClick);
+        searchBoxElement.on("input", onSearchStringChanged);
 
-        button.click(function (event) {
-            var skip = tableBody.children("tr").length;
-            window.userListConfig.request.skip = skip;
-            window.userListConfig.request.take = window.userListConfig.amountPerRequest;
+        function init() {
+            request = window.userListConfig.request;
+            displayedAmount = window.userListConfig.displayedAmount;
+            amountPerRequest = window.userListConfig.amountPerRequest;
+        }
 
-            ajax.post("/umbraco/surface/UserList/GetUsers", window.userListConfig.request)
+        function onButtonClick(event) {
+            request.skip = tableBody.children("tr").length;
+            request.take = amountPerRequest;
+
+            ajax.post(url, request)
                 .then(result => {
                     var rows = $(result.data).filter("tr");
                     tableBody.append(rows);
-                    updateLoadMoreButton(rows.length);
+                    updateUI(result.headers);
                 });
-        });
+        }
 
-        sortLinks.click(function (event) {
+        function onSortClick(event) {
             event.preventDefault();
             var link = $(this);
-            var direction = link.data("direction");
-            var hasDirection = direction !== undefined;
-            window.userListConfig.request.skip = 0;
-            window.userListConfig.request.take = window.userListConfig.displayedAmount;
-            window.userListConfig.request.orderBy = link.data("order-by");
-            console.log(window.userListConfig.request.orderBy);
-            window.userListConfig.request.direction = hasDirection ? +!direction : 0;
-            ajax.post("/umbraco/surface/UserList/GetUsers", window.userListConfig.request)
-                .then(result => {
+            var direction = link.hasClass(ascendingClassName) ? 1 : 0;
+            request.skip = 0;
+            request.take = displayedAmount;
+            request.orderBy = link.data("order-by");
+            request.direction = direction;
+
+            ajax.post(url, request)
+                .then((result, arg2, arg3) => {
                     var rows = $(result.data).filter("tr");
                     tableBody.children().remove();
                     tableBody.append(rows);
-                    sortLinks.removeData("direction");
                     sortLinks.removeClass(ascendingClassName + " " + descendingClassName);
-                    var currentDirection = window.userListConfig.request.direction;
-                    link.data("direction", currentDirection);
-                    link.addClass(currentDirection === 0 ? ascendingClassName : descendingClassName);
-                    updateLoadMoreButton(rows.length);
+                    link.addClass(direction === 0 ? ascendingClassName : descendingClassName);
+                    updateUI(result.headers);
                 });
-        });
-
-        function updateLoadMoreButton(rowsCount) {
-            if (rowsCount < window.userListConfig.amountPerRequest)
-                button.hide();
-            else button.show();
         }
 
         function onSearchStringChanged() {
@@ -67,22 +69,24 @@ let controller = {
         }
 
         function search(searchString) {
-            window.userListConfig.request.skip = 0;
-            window.userListConfig.request.take = window.userListConfig.displayedAmount;
-            window.userListConfig.request.query = searchString;
+            request.skip = 0;
+            request.take = displayedAmount;
+            request.query = searchString;
 
-            ajax.post("/umbraco/surface/UserList/GetUsers", window.userListConfig.request)
+            ajax.post(url, request)
                 .then(result => {
                     var rows = $(result.data).filter("tr");
                     tableBody.children().remove();
                     tableBody.append(rows);
-                    updateLoadMoreButton(rows.length);
+                    updateUI(result.headers);
                 });
         }
 
-        if (!searchBoxElement) return;
-        $(searchBoxElement).on("input", onSearchStringChanged);
-
+        function updateUI(headers) {
+            if (headers[lastRequestHeaderKey])
+                button.hide();
+            else button.show();
+        }
     }
 }
 

@@ -21,7 +21,7 @@ namespace Compent.Uintra.Controllers
             _elasticIndex = elasticIndex;
         }
 
-        protected override IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, string orderBy, int direction)
+        protected override IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, out long totalHits, string orderBy, int direction)
         {
             //TODO orderBy, direction (0-Asc/1-Desc)
             var searchResult = _elasticIndex.Search(new SearchTextQuery
@@ -33,6 +33,7 @@ namespace Compent.Uintra.Controllers
                 OrderingDirection = direction,
                 SearchableTypeIds = ((int) UintraSearchableTypeEnum.User).ToEnumerable()
             });
+            totalHits = searchResult.TotalHits;
 
             return searchResult.Documents.Select(r => r.Id.ToString().Pipe(Guid.Parse));
         }

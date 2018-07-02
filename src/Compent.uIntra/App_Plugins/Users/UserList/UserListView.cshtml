@@ -15,8 +15,8 @@
                     {
                         var selected = Model.OrderByColumn.Id == column.Id;
                         <th class="members-table__head">
-                            <a href="" class="js-user-list-sort-link @(selected ? "_asc": "")" data-order-by="@column.PropertyName"
-                               @if (selected) { <text>data-direction="0"</text>  }>@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
+                            <a href="" class="js-user-list-sort-link @(selected ? "_asc": "")"
+                               data-order-by="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
                         </th>
                     }
                 </tr>
@@ -25,7 +25,9 @@
                 @Html.Partial(Model.UsersRowsViewPath, Model.UsersRows)
             </tbody>
         </table>
-    <button class="js-user-list-button">Load more</button>
+    <button class="js-user-list-button"
+            @if(Model.IsLastRequest){ <text>style="display:none;"</text> } 
+            >Load more</button>
 </section>
 
 <script type="text/javascript">
