@@ -120,6 +120,7 @@
 
         &-heading{
             font-size:13px;
+            line-height:16px;
             display:flex;
             align-items: center;
             color:var(--text-color-dark);
@@ -258,7 +259,7 @@
 
             &._clamp{
                 overflow:hidden;
-                margin:0 0 21px;
+                margin:0 0 11px;
                 max-height:66px;
                 line-height:22px;
 
@@ -299,9 +300,10 @@
         }
 
         &-images{
-            margin:0;
+            padding:10px 0 0;
 
             ._details &{
+                padding:0;
                 margin:0 0 49px;
             }
 
@@ -322,6 +324,10 @@
                     @media(--for-tablet-portrait-down){
                         max-width:33.3%;
                     }
+
+                    a:hover{
+                        text-decoration:none;
+                    }
                 }
 
                 img{
@@ -331,13 +337,15 @@
 
             &-name{
                 display:block;
-                text-align:center;
+                text-overflow:ellipsis;
+                white-space:nowrap;
+                overflow:hidden;
             }
 
             &-remove{
                 position:absolute;
-                top:2px;
-                right:2px;
+                top:1px;
+                right:1px;
                 width:25px;
                 height:25px;
                 text-align:center;
@@ -366,7 +374,7 @@
         
         &-divider{
             display:inline-block;
-            vertical-align:inherit;
+            vertical-align:top;
         }
 
         &-feed{
@@ -469,7 +477,7 @@
 
         &-address{
             display:inline-block;
-            vertical-align:inherit;
+            vertical-align:top;
             margin:0 0 0 15px;
             @media(--for-tablet-portrait-down){
                 margin:0 0 0 7px;
@@ -522,25 +530,28 @@
         }
 
         &-subscribed{
-            border:1px solid var(--color-light-gray);
-            position:relative;
-            margin:0 0 10px;
-            font-size:11px;
-            line-height:2em;
-            text-transform:uppercase;
-            padding:0 10px;
-            float:left;
+            text-align:right;
+            margin:-8px 0 0;
+            padding:0 0 11px;
 
-            @media (--for-tablet-landscape-up){
-                margin-left:80px;
-            }
+            &-label{
+                border:1px solid var(--color-light-gray);
+                position:relative;
+                font-size:11px;
+                line-height:2em;
+                text-transform:uppercase;
+                padding:0 10px;
+                display:inline-block;
+                vertical-align:top;
+                border-radius:15px;
 
-            .icon-check{
-                &:before{
-                    font-size:17px;
-                    position:relative;
-                    top:4px;
-                    left:-1px;
+                .icon-check{
+                    &:before{
+                        font-size:17px;
+                        position:relative;
+                        top:4px;
+                        left:-1px;
+                    }
                 }
             }
         }

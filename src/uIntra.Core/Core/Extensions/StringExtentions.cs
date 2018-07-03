@@ -166,5 +166,13 @@ namespace Uintra.Core.Extensions
             
             return source?.Length <= maxViewedLenght ? source : defaultType;
         }
+
+        public static string GetEventDateTimeString(this DateTime from, DateTime to)
+        {
+            var result = from.Date == to.Date
+                ? $"{from.ToDateTimeFormat()} - {to.ToTimeFormat()}"
+                : $"{from.ToDateTimeFormat()} - {to.ToDateTimeFormat()}";
+            return result;
+        }
     }
 }

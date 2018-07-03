@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using uIntra.Notification;
-using Uintra.Notification;
+﻿using Uintra.Notification;
 using Uintra.Notification.Configuration;
 
 namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps

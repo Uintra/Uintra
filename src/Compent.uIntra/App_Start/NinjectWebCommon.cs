@@ -86,9 +86,7 @@ using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
 using Uintra.Core.Utils;
 using Uintra.Events;
-using Uintra.Events.Dashboard;
 using Uintra.Groups;
-using Uintra.Groups.Dashboard;
 using Uintra.Groups.Permissions;
 using Uintra.Likes;
 using Uintra.Navigation;
@@ -98,10 +96,8 @@ using Uintra.Navigation.EqualityComparers;
 using Uintra.Navigation.MyLinks;
 using Uintra.Navigation.SystemLinks;
 using Uintra.News;
-using Uintra.News.Dashboard;
 using Uintra.Notification;
 using Uintra.Notification.Configuration;
-using Uintra.Notification.Dashboard;
 using Uintra.Notification.Jobs;
 using Uintra.Panels.Core.PresentationBuilders;
 using Uintra.Search;
@@ -156,12 +152,6 @@ namespace Compent.Uintra
 
             var reminderConfigurationProvider = kernel.Get<IConfigurationProvider<ReminderConfiguration>>();
             reminderConfigurationProvider.Initialize();
-
-            NewsSection.AddSectionToAllUsers();
-            EventsSection.AddSectionToAllUsers();
-            BulletinsSection.AddSectionToAllUsers();
-            GroupsSection.AddSectionToAllUsers();
-            NotificationSettingsSection.AddSectionToAllUsers();
         }
 
         public static void Stop()

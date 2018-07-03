@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Web.Mvc;
+using Compent.Extensions.SingleLinkedList;
 using Uintra.Core.Context.Models;
-using Uintra.Core.SingleLinkedList;
+using static Compent.Extensions.SingleLinkedList.SingleLinkedListExtensions;
 using static Uintra.Core.Context.ContextBuildActionType;
-using static Uintra.Core.SingleLinkedList.SingleLinkedListExtensions;
 using ContextData = Uintra.Core.Context.Models.ContextData;
 
 namespace Uintra.Core.Context.Extensions
 {
     public static class ContextControllerExtensions
     {
-        public static SingleLinkedList<ControllerContextData> GetFullContext(this ControllerBase controller)
+        public static ISingleLinkedList<ControllerContextData> GetFullContext(this ControllerBase controller)
         {
 
             bool TryGetControllerContext(ControllerBase ctr, out ControllerContext ctrContext)
@@ -19,19 +19,19 @@ namespace Uintra.Core.Context.Extensions
                 return ctrContext != null;
             }
 
-            SingleLinkedList<ControllerContextData> FullContextRec(ControllerBase ctrl)
+            ISingleLinkedList<ControllerContextData> FullContextRec(ControllerBase ctrl)
             {
                 switch (ctrl as ContextController)
                 {
                     case ContextController contextController when
                         TryGetControllerContext(contextController, out var ctrContext) &&
                         ctrContext.ParentActionViewContext is ViewContext context:
-                        return ToSingleLinkedList(contextController.GetControllerContextData(), FullContextRec(context.Controller));
+                        return SingleLinkedList(contextController.GetControllerContextData(), FullContextRec(context.Controller));
 
                     case ContextController contextController when
                         TryGetControllerContext(contextController, out var ctrContext) &&
                         ctrContext.ParentActionViewContext is null:
-                        return ToSingleLinkedList(contextController.GetControllerContextData());
+                        return SingleLinkedList(contextController.GetControllerContextData());
 
                     case null when ctrl.ControllerContext != null && ctrl.ControllerContext.ParentActionViewContext is ViewContext context:
                         return FullContextRec(context.Controller);
@@ -53,20 +53,20 @@ namespace Uintra.Core.Context.Extensions
             СontextData = contextController.CtrlContextData
         };
 
-        public static SingleLinkedList<ContextData> RecombineContext(SingleLinkedList<ControllerContextData> source)
+        public static ISingleLinkedList<ContextData> RecombineContext(ISingleLinkedList<ControllerContextData> source)
         {
-            SingleLinkedList<ContextData> ApplyAction(ControllerContextData action, SingleLinkedList<ContextData> appliedContext)
+            ISingleLinkedList<ContextData> ApplyAction(ControllerContextData action, ISingleLinkedList<ContextData> appliedContext)
             {
-                SingleLinkedList<ContextData> Subtracted() => appliedContext.Where(c => !action.СontextData.Equals(c));
+                ISingleLinkedList<ContextData> Subtracted() => appliedContext.Where(c => !action.СontextData.Equals(c));
 
                 switch (action.ContextBuildActionType)
                 {
                     case Add:
-                        return ToSingleLinkedList(action.СontextData, appliedContext);
+                        return SingleLinkedList(action.СontextData, appliedContext);
                     case Remove:
                         return Subtracted();
                     case Erasure:
-                        return ToSingleLinkedList(action.СontextData, Subtracted());
+                        return SingleLinkedList(action.СontextData, Subtracted());
                     default:
                         throw new IndexOutOfRangeException();
                 }

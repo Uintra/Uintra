@@ -13,16 +13,14 @@
                 ]
             },
             startDate: {
-                useTime: false,
-                useDate: true,
-                useSeconds: false,
-                dateFormat: "d/m/Y"
+                enableTime: true,
+                time_24hr: true,
+                dateFormat: "d/m/Y H:i"
             },
             endDate: {
-                useTime: false,
-                useDate: true,
-                useSeconds: false,
-                dateFormat: "d/m/Y"
+                enableTime: true,
+                time_24hr: true,
+                dateFormat: "d/m/Y H:i"
             },
             publishDate: {
                 useTime: false,
