@@ -259,7 +259,7 @@
 
             &._clamp{
                 overflow:hidden;
-                margin:0 0 21px;
+                margin:0 0 11px;
                 max-height:66px;
                 line-height:22px;
 
@@ -300,9 +300,10 @@
         }
 
         &-images{
-            margin:0;
+            padding:10px 0 0;
 
             ._details &{
+                padding:0;
                 margin:0 0 49px;
             }
 
@@ -529,22 +530,28 @@
         }
 
         &-subscribed{
-            border:1px solid var(--color-light-gray);
-            position:relative;
-            margin:5px 0 10px;
-            font-size:11px;
-            line-height:2em;
-            text-transform:uppercase;
-            padding:0 10px;
-            display:inline-block;
-            vertical-align:top;
+            text-align:right;
+            margin:-8px 0 0;
+            padding:0 0 11px;
 
-            .icon-check{
-                &:before{
-                    font-size:17px;
-                    position:relative;
-                    top:4px;
-                    left:-1px;
+            &-label{
+                border:1px solid var(--color-light-gray);
+                position:relative;
+                font-size:11px;
+                line-height:2em;
+                text-transform:uppercase;
+                padding:0 10px;
+                display:inline-block;
+                vertical-align:top;
+                border-radius:15px;
+
+                .icon-check{
+                    &:before{
+                        font-size:17px;
+                        position:relative;
+                        top:4px;
+                        left:-1px;
+                    }
                 }
             }
         }
