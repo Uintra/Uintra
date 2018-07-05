@@ -41,6 +41,7 @@
             cursor:pointer;
 
             .gallery__item-opener{
+            flex-grow:0;
 
                 &:before{
                     content:'';
@@ -90,6 +91,7 @@
 
         iframe {
             position: absolute;
+            margin:0 auto 7px; 
             top: 0;
             left: 0;
             width: 100%;

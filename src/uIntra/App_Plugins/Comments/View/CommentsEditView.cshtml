@@ -1,10 +1,11 @@
 ﻿@using System.Web.Mvc.Ajax
 @using System.Web.Mvc.Html
-@using Extensions
+@using Compent.Extensions
+@using Uintra.Core.Context
 @using Uintra.Core.Extensions
 @model Uintra.Comments.CommentEditViewModel
 
-@using (Ajax.BeginForm("Edit", "Comments", new AjaxOptions { UpdateTargetId = Model.UpdateElementId, InsertionMode = InsertionMode.ReplaceWith, HttpMethod = "PUT", OnComplete = $"new uIntra.methods.CommentOverview('#{Model.UpdateElementId}')" }, new { @class = "comments__form js-comment-edit" }))
+@using (Ajax.BeginContextedForm("Edit", "Comments", new AjaxOptions { UpdateTargetId = Model.UpdateElementId, InsertionMode = InsertionMode.ReplaceWith, HttpMethod = "PUT", OnComplete = $"new uIntra.methods.CommentOverview('#{Model.UpdateElementId}')" }, new { @class = "comments__form js-comment-edit" }))
 {
     <div class="comments__form-field">
         <div class="js-comment-edit-description">
@@ -21,19 +22,21 @@
     {
         <input type="hidden" name="linkPreviewId" value="@Model.LinkPreview.Id" />
         <div class="js-link-preview-edit-preview-container link-preview link-preview--edit">
-            <button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
-            <div class="link-preview__image">
-                @if (Model.LinkPreview.ImageUri != null)
-                {
-                    <img src="@Model.LinkPreview.ImageUri" alt="link preview image description"/>
-                }
-            </div>
-            <div class="link-preview__text">
-                <h3 class="link-preview__title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
-                @if (Model.LinkPreview.Description.HasValue())
-                {
-                    <p>@Model.LinkPreview.Description</p>
-                }
+            <div class="link-preview__block">
+                <button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
+                <div class="link-preview__image">
+                    @if (Model.LinkPreview.ImageUri != null)
+                    {
+                        <img src="@Model.LinkPreview.ImageUri" alt="link preview image description" />
+                    }
+                </div>
+                <div class="link-preview__text">
+                    <h3 class="link-preview__title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
+                    @if (Model.LinkPreview.Description.HasValue())
+                    {
+                        <p>@Model.LinkPreview.Description</p>
+                    }
+                </div>
             </div>
         </div>
     }

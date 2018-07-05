@@ -2,7 +2,6 @@
 import helpers from "./../../Core/Content/scripts/Helpers";
 
 var classExpanded = '_expand';
-var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 var navState = helpers.localStorage.getItem("leftNavigation") || {};
 var opener = $('.js-side-nav__opener');
 
@@ -40,7 +39,7 @@ var controller = {
     init: function () {
         getNavState();
 
-        if(!document.querySelector('.ss-container') && !mobileMediaQuery.matches){
+        if(!document.querySelector('.ss-container')){
             helpers.initScrollbar(document.querySelector('.js-sidebar'));
         }
 

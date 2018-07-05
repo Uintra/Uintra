@@ -20,6 +20,7 @@
         }
 
         $scope.init = function (control) {
+
             $scope.control = control;
             editorConfigService
                 .getConfig(control.editor.alias, control.editor.config)

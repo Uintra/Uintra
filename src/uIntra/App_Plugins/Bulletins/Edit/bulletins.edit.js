@@ -71,7 +71,7 @@ function initEditor() {
         divElem.className += "link-preview";
 
         divElem.innerHTML =
-            `<button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
+            `<div class="link-preview__block"><button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
                 <div class="link-preview__image">` +
             (data.imageUri ? `<img src="${data.imageUri}" />` : '') +
             `</div>
@@ -80,7 +80,7 @@ function initEditor() {
                         <a href="${data.uri}">${data.title}</a>
                     </h3>` +
             (data.description ? `<p>${data.description}</p>` : "") +
-            "</div>";
+            "</div></div>";
 
         return divElem;
     }

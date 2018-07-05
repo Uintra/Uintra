@@ -12,7 +12,8 @@
             box-shadow: 0 0 2px rgba(0,0,0,0.2);
 
             @media (--for-tablet-portrait-down) {
-                margin:0 -20px 10px;
+                margin:0 -15px 10px;
+                padding: 20px 15px 19px;
             }
         }
     }
@@ -109,8 +110,9 @@
         }
             
         &-about{
-            margin:0 7px 2px 0;
-            float: left;
+            margin:0 0 2px;
+            display:inline-block;
+            vertical-align:top;
 
             ._inner &{
                 margin-top:-6px;
@@ -128,12 +130,16 @@
     }
 
     &__controls {
-        float: left;
-        width: 25px;
+        display:inline-block;
+        vertical-align:top;
+        width: 11px;
         height: 17px;
         cursor: pointer;
         position: relative;
-
+        
+        @media (--for-tablet-portrait-down) {
+			margin:0 -3px 0 0;
+		}
         ._inner &{
 
             &:before{
@@ -150,7 +156,7 @@
         &:before {
             position:absolute;
             top:5px;
-            right:15px;
+            right:2px;
             width:7px;
             height:7px;
             border:solid var(--text-color-dark);
@@ -247,13 +253,24 @@
 	    }
     }
 
+    &__toolbar{
+        display:flex;
+        flex-direction:row-reverse;
+        padding:10px 0 0;
+    }
+
     &__reply {
         color: var(--text-color-dark);
         text-decoration: underline;
         cursor: pointer;
-        float:left;
+        display:inline-block;
+        vertical-align:top;
         font-size: 13px;
         margin:0 13px 0 7px;
+
+        @media (--for-tablet-portrait-down) {
+			margin:0 5px 0 0;
+		}
 
         &:active,
         &:focus,
@@ -264,10 +281,15 @@
     }
 
     &__modified{
-        float:left;
+        display:inline-block;
+        vertical-align:top;
         position:relative;
-        margin:0 15px 0 10px;
+        margin:0 3px 0 10px;
         cursor:pointer;
+
+        @media (--for-tablet-portrait-down) {
+			margin:0 5px;
+		}
 
         ._inner &{
             margin:-5px 0 0 10px;
@@ -340,20 +362,21 @@
 }
 
 .link-preview {
-    background:#e4e4e4;
-    position:relative;
-    padding:2px;
-    margin: 0 0 40px;
     font: 13px/22px 'Open Sans', Arial, Helvetica, sans-serif;
+    padding: 0 0 40px;
 
     .comments &{
         font-size:13px;
         line-height:18px;
     }
-    
-    .create-bulletin &{
-        margin:0 22px 25px;
+
+    .create-bulletin & {
         display:none;
+        padding:0 22px 25px;
+
+        @media (--for-tablet-portrait-down) {
+			padding:0 15px 15px;
+		}
     }
 
     .create-bulletin._expanded &{
@@ -364,6 +387,12 @@
         content:'';
         display:block;
         clear:both;
+    }
+    
+    &__block{
+        background:#e4e4e4;
+        position:relative;
+        padding:2px;
     }
 
     &__close {

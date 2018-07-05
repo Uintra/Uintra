@@ -24,6 +24,8 @@
                 }
 
                 <div class="col-md-@(section.grid) @(isRenderOffsetRequired ? "aside" : "")">
+                    @Html.Raw(isRenderOffsetRequired ? "<div class='aside-holder'>" : "")
+
                     @foreach (var row in section.rows)
                     {
                         <div class="row">
@@ -43,6 +45,8 @@
                             }
                         </div>
                     }
+                    @Html.Raw(isRenderOffsetRequired ? "</div>" : "")
+
                 </div>
             }
         }

@@ -3,6 +3,10 @@
 
     .content:not(._central-feed){
         padding:15px 20px 10px;
+
+        @media (--for-tablet-portrait-down) {
+            padding:15px 15px 10px;
+        }
     }
 
     &__title {
@@ -136,7 +140,7 @@
                 .aside &,
                 .col-md-6 &{
                     background: #d6d6d6;
-                    font-weight: bold;
+                    font-weight: 800;
                     font-size:14px;
                 }
                 

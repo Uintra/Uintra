@@ -1,7 +1,8 @@
 ﻿.form{
     &._profile{
         @media(--for-tablet-portrait-down){
-            margin:20px 0 0;
+            margin:0 -15px;
+            padding:20px 15px 33px;
         }
     }
 	&__header{

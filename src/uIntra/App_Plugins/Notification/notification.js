@@ -13,7 +13,8 @@ function initPreviewControls() {
     var notificationList = document.querySelector(".js-notification-list");
     var notificationBlock = document.querySelector(".notification");
 
-    notification.addEventListener('click', function () {
+    notification.addEventListener('click', function (e) {
+        e.preventDefault();
         if (!html.classList.contains("_notifications-expanded")) {
 
             ajax.get("/umbraco/surface/Notification/List")
@@ -95,40 +96,11 @@ function initInfinityScroll() {
 
 function getClientHeight() { return document.compatMode == 'CSS1Compat' ? document.documentElement.clientHeight : document.body.clientHeight; }
 
-function notificationsHeight() {
-    var notificationList = document.querySelector(".notification__list-holder");
-    var headerHeight = document.getElementById('header').offsetHeight;
-
-    if (notificationList){
-        notificationList.style.height = (getClientHeight() - headerHeight) + 'px';
-    }
-}
-
-function windowResize() {
-    window.addEventListener('resize', () => {
-        notificationsHeight();
-    });
-}
-
-// media query change
-function WidthChange(mq) {
-    if (!mq.matches) {
-        notificationsHeight();
-        windowResize();
-    }
-}
-
 export default function () {
     initPreviewControls();
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);
     initCustomControls();
     initInfinityScroll();
-
-    if (matchMedia) {
-        var mq = window.matchMedia("(min-width: 900px)");
-        mq.addListener(WidthChange);
-        WidthChange(mq);        
-    }
 }
 

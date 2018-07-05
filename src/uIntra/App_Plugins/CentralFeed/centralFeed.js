@@ -198,14 +198,6 @@ function emitTabReloadedEvent(isReinit) {
     uIntra.events.cfTabReloaded.dispatch();
 }
 
-function setBulletinCreateMode(feed) {
-    feed.classList.add(hideClass);
-}
-
-function removeBulletinCreateMode(feed) {
-    feed.classList.remove(hideClass);
-}
-
 function init() {
     initOpener();
     holder = document.querySelector('.js-feed-overview');
@@ -261,12 +253,6 @@ function init() {
     runReloadInverval();
 
     uIntra.events.addListener("cfReloadTab", reloadTabEventHandler);
-
-    const feedCreate = document.querySelector(".js-feed-create");
-    if (feedCreate) {
-        uIntra.events.addListener("setBulletinCreateMode", () => setBulletinCreateMode(feedCreate));
-        uIntra.events.addListener("removeBulletinCreateMode", () => removeBulletinCreateMode(feedCreate));
-    }
 }
 
 export default {

@@ -11,6 +11,7 @@ var initSubmitButton = function (holder) {
     createControls.each(function () {
         var $this = $(this);
         var btn = $this.find('.js-disable-submit');
+
         btn.click(function (event) {
             if (!$this.valid()) {
                 return;
@@ -58,6 +59,10 @@ var initCreateControl = function (holder) {
 
         var button = $this.find('.js-comment-create-btn');
         var toolbarBtns = $this.find('.ql-formats button');
+        var toolbar = $this.find('.ql-toolbar');
+        var toolbarContainer = $this.find('.js-comments-toolbar');
+
+        toolbar.appendTo(toolbarContainer);
 
         function showLinkPreview(link) {
             ajax.get('/umbraco/api/LinkPreview/Preview?url=' + link)
@@ -92,7 +97,7 @@ var initCreateControl = function (holder) {
             divElem.className += "link-preview";
 
             divElem.innerHTML =
-                `<button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
+                `<div class="link-preview__block"><button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
                 <div class="link-preview__image">` +
                 (data.imageUri ? `<img src="${data.imageUri}" />` : '') +
                 `</div>
@@ -101,7 +106,7 @@ var initCreateControl = function (holder) {
                         <a href="${data.uri}">${data.title}</a>
                     </h3>` +
                 (data.description ? `<p>${data.description}</p>` : "") +
-                "</div>";
+                "</div></div>";
 
             return divElem;
         }
@@ -135,6 +140,22 @@ var initCreateControl = function (holder) {
             return paragraph;
         }
 
+        function setSubmitBtnClass() {
+            var customClass = 'pull-bottom';
+            
+            createControls.each(function () {
+                var createControl = $(this);
+                var createControlsWidth = createControl.innerWidth();
+                var button = createControl.find('.js-comment-create-btn');
+                var buttonWidth = button.innerWidth();
+                var toolbarWidth = createControl.find('.ql-toolbar').innerWidth();
+
+                if ((toolbarWidth + buttonWidth) > createControlsWidth) {
+                    button.addClass(customClass);
+                }
+            });
+        }
+
         toolbarBtns.each(function () {
             var className = $(this).attr('class').split("-");
             var tooltip = className[className.length - 1];
@@ -147,6 +168,7 @@ var initCreateControl = function (holder) {
 
         quill.setText('');
         dataStorage.value = '';
+        setSubmitBtnClass();
     });
 };
 
@@ -261,8 +283,17 @@ var initReply = function (holder) {
             isOneLinkDetected = true;
         }
     });
+    var createControls = holder.find('.js-comment-create');
 
-    var createControl = holder.find('.js-comment-create');
+    createControls.each(function () {
+        var $this = $(this);
+        var button = $this.find('.js-comment-create-btn');
+        var toolbarBtns = $this.find('.ql-formats button');
+        var toolbar = $this.find('.ql-toolbar');
+        var toolbarContainer = $this.find('.js-comments-toolbar');
+
+        toolbar.appendTo(toolbarContainer);
+    });
 
     function showLinkPreview(link) {
         ajax.get('/umbraco/api/LinkPreview/Preview?url=' + link)
@@ -296,7 +327,7 @@ var initReply = function (holder) {
         divElem.className += "link-preview";
 
         divElem.innerHTML =
-            `<button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
+            `<div class="link-preview__block"><button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
                 <div class="link-preview__image">` +
             (data.imageUri ? `<img src="${data.imageUri}" />` : '') +
             `</div>
@@ -305,7 +336,7 @@ var initReply = function (holder) {
                         <a href="${data.uri}">${data.title}</a>
                     </h3>` +
             (data.description ? `<p>${data.description}</p>` : "") +
-            "</div>";
+            "</div></div>";
         return divElem;
     }
 

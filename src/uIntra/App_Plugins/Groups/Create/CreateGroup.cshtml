@@ -1,6 +1,7 @@
 ﻿@using Uintra.Core.Controls.FileUpload
 @using Uintra.Core.Extensions
 @model Uintra.Groups.GroupCreateModel
+
 <div class="form" id="js-group-create-page">
     @using (Html.BeginUmbracoForm("Create", "Group"))
     {
@@ -19,7 +20,6 @@
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("GroupCreate.GroupImage.lbl")</label>
-            @*<span class="form__note">@Html.Localize("GroupCreate.GroupImage.note")</span>*@
             @{
                 var settings = new FileUploadSettings { AllowedExtensions = Model.AllowedMediaExtensions, MaxFilesCount = 1 };
                 Html.RenderAction("Uploader", "FileUpload", new { Settings = settings, Model = Model?.Media });
