@@ -91,6 +91,10 @@ let fileUploader = (function () {
             /* rotation portrait images fix */
             dropzone.on('addedfile', function(file) {
                 var self = this;
+                //in bulletins this container is hidden so you can see error message
+                if (self.previewsContainer.classList.contains('hidden')) {
+                    self.previewsContainer.classList.remove('hidden');
+                }
                 loadImage.parseMetaData(file, function (data) {
                     // use embedded thumbnail if exists.
                     if (data.exif) {

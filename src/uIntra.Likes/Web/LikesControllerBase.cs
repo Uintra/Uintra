@@ -10,7 +10,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.User;
 using Uintra.Likes.CommandBus;
 using Umbraco.Web;
-using static Uintra.Core.Context.ContextExtensions;
+using static Uintra.Core.Context.Extensions.ContextExtensions;
 using static Uintra.Core.Context.ContextType;
 
 namespace Uintra.Likes.Web

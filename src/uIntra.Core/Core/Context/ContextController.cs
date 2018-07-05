@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Helpers;
 using Compent.Extensions;
+using Compent.Extensions.SingleLinkedList;
 using Uintra.Core.Context.Extensions;
 using Uintra.Core.Context.Models;
 using Uintra.Core.Extensions;
-using Uintra.Core.SingleLinkedList;
 using Umbraco.Web.Mvc;
 
 namespace Uintra.Core.Context
@@ -49,7 +49,7 @@ namespace Uintra.Core.Context
             _contextTypeProvider = contextTypeProvider;
         }
 
-        public SingleLinkedList<ContextData> FullContext
+        public ISingleLinkedList<ContextData> FullContext
         {
             get
             {
@@ -84,9 +84,8 @@ namespace Uintra.Core.Context
 
         public void UpdateViewData()
         {
-            ViewData[ContextKey] = FullContext
-                .Where(x => !ContextExtensions.ExactScalar(x.Type, ContextType.Empty))
-                .Select(ContextExtensions.ContextDataTransferModel);
+            ViewData[ContextKey] = ContextExtensions.Select(FullContext
+                    .Where(x => !ContextExtensions.ExactScalar(x.Type, ContextType.Empty)), ContextExtensions.ContextDataTransferModel);
         }
     }
 }

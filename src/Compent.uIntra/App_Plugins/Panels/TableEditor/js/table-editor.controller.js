@@ -1,6 +1,6 @@
 ﻿(function (angular) {
     'use strict';    
-    const controller = function ($scope) {
+    const controller = function ($scope, dialogService) {
 
         var emptyCellModel = '{"value": ""}';
         var defaultModel = {
@@ -23,22 +23,52 @@
             ]
         }
 
-        $scope.overlay = {
-            show: false,
-            view: "/App_Plugins/Panels/TableEditor/views/overlay.html",
-            title: "Table panel",
-            close: function () {
-                $scope.overlay.show = false;
-                $scope.control.value = $scope.backupModel;
-            },
-            submit: function () {
-                $scope.overlay.show = false;
-            }
-        }
+        $scope.restore = function () {
+            $scope.control.value = $scope.backupModel;
+        };
 
         $scope.open = function () {
-            $scope.overlay.show = true;
-            $scope.control.value = $scope.control.value;
+            dialogService.open({
+                template: "/App_Plugins/Panels/TableEditor/views/overlay.html",
+                show: true,
+                modalClass: "panel table-editor",
+                dialogData: {
+                    canAddColumn() {
+                        return $scope.canAddColumn();
+                    },
+                    canRemoveColumn() {
+                        return $scope.canRemoveColumn();
+                    },
+                    canAddRow() {
+                        return $scope.canAddRow();
+                    },
+                    canRemoveRow() {
+                        return $scope.canRemoveRow();
+                    },
+                    canSort() {
+                        return $scope.canSort();
+                    },
+                    addColumn($index) {
+                        return $scope.addColumn($index);
+                    },
+                    removeColumn($index) {
+                        return $scope.removeColumn($index);
+                    },
+                    addRow($index) {
+                        return $scope.addRow($index);
+                    },
+                    removeRow($index) {
+                        return $scope.removeRow($index);
+                    },
+                    config: $scope.control.config,
+                    model: $scope.control.value,
+                    restore: $scope.restore
+                },
+                closeCallback: function (data) {
+                    data.restore && $scope.restore();
+                }
+            });
+
             $scope.backupModel = angular.copy($scope.control.value);
         }
 
@@ -72,7 +102,6 @@
         }
 
         $scope.canAddColumn = function () {
-
             if (isNaN(parseInt($scope.control.config.maxColumns, 10))) {
                 return true;
             }
@@ -149,5 +178,5 @@
         }
     }
 
-    angular.module('umbraco').controller('TableEditorController', ["$scope", controller]);
+    angular.module('umbraco').controller('TableEditorController', ["$scope", "dialogService", controller]);
 })(angular);

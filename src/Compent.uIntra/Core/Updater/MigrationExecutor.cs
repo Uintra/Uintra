@@ -18,7 +18,6 @@ namespace Compent.Uintra.Core.Updater
         private readonly IDependencyResolver _dependencyResolver;
         private readonly IMigrationHistoryService _migrationHistoryService;
         private readonly IExceptionLogger _exceptionLogger;
-
         public static readonly Version LastLegacyMigrationVersion = new Version("0.2.30.0");
 
         public MigrationHandler()
@@ -180,7 +179,6 @@ namespace Compent.Uintra.Core.Updater
             ExamineManager.Instance.IndexProviderCollection[Umbraco.Core.Constants.Examine.InternalIndexer].RebuildIndex();
         }
     }
-
 
     public struct MigrationItem
     {

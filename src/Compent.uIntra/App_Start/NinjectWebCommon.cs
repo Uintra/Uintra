@@ -21,7 +21,6 @@ using Compent.Uintra.Core.Events;
 using Compent.Uintra.Core.Exceptions;
 using Compent.Uintra.Core.Feed.Links;
 using Compent.Uintra.Core.Groups;
-using Compent.Uintra.Core.Handlers;
 using Compent.Uintra.Core.Helpers;
 using Compent.Uintra.Core.IoC;
 using Compent.Uintra.Core.LinkPreview.Config;
@@ -87,9 +86,7 @@ using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
 using Uintra.Core.Utils;
 using Uintra.Events;
-using Uintra.Events.Dashboard;
 using Uintra.Groups;
-using Uintra.Groups.Dashboard;
 using Uintra.Groups.Permissions;
 using Uintra.Likes;
 using Uintra.Navigation;
@@ -99,10 +96,8 @@ using Uintra.Navigation.EqualityComparers;
 using Uintra.Navigation.MyLinks;
 using Uintra.Navigation.SystemLinks;
 using Uintra.News;
-using Uintra.News.Dashboard;
 using Uintra.Notification;
 using Uintra.Notification.Configuration;
-using Uintra.Notification.Dashboard;
 using Uintra.Notification.Jobs;
 using Uintra.Panels.Core.PresentationBuilders;
 using Uintra.Search;
@@ -157,12 +152,6 @@ namespace Compent.Uintra
 
             var reminderConfigurationProvider = kernel.Get<IConfigurationProvider<ReminderConfiguration>>();
             reminderConfigurationProvider.Initialize();
-
-            NewsSection.AddSectionToAllUsers();
-            EventsSection.AddSectionToAllUsers();
-            BulletinsSection.AddSectionToAllUsers();
-            GroupsSection.AddSectionToAllUsers();
-            NotificationSettingsSection.AddSectionToAllUsers();
         }
 
         public static void Stop()
@@ -430,6 +419,7 @@ namespace Compent.Uintra
             //umbraco events subscriptions
             kernel.Bind<IUmbracoContentPublishedEventService>().To<SearchContentEventService>().InRequestScope();
             kernel.Bind<IUmbracoContentUnPublishedEventService>().To<SearchContentEventService>().InRequestScope();
+            kernel.Bind<IUmbracoContentUnPublishedEventService>().To<PagePromotionEventService>().InRequestScope();
             kernel.Bind<IUmbracoContentPublishedEventService>().To<PagePromotionEventService>().InRequestScope();
             kernel.Bind<IUmbracoMediaTrashedEventService>().To<SearchMediaEventService>().InRequestScope();
             kernel.Bind<IUmbracoMediaSavedEventService>().To<SearchMediaEventService>().InRequestScope();
@@ -441,7 +431,7 @@ namespace Compent.Uintra
             kernel.Bind<IUmbracoContentPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
             kernel.Bind<IUmbracoContentUnPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
 
-            kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InRequestScope();
+            kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
 
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();

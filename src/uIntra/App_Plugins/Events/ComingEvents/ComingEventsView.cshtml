@@ -23,7 +23,11 @@
                     <div class="coming-events__description">
                         <h3 class="coming-events__title"><a class="coming-events__title-link" href="@e.Links.Details">@e.Title</a></h3>
                         <span class="coming-events__creator">@e.Owner.DisplayedName</span>
-                        <span class="coming-events__time">@e.StartDate.ToDateTimeFormat() - @e.EndDate.ToDateTimeFormat()</span>
+                        @foreach (var date in e.Dates)
+                        {
+                            <span class="coming-events__time">@date</span>                            
+                        }
+                        
                     </div>
                 </li>
             }

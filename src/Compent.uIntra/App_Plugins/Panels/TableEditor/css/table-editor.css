@@ -1,5 +1,6 @@
 ﻿.table-editor {
     overflow: auto;
+    max-height:80vh;
 }
 
 .table-editor table {
@@ -176,4 +177,9 @@
 
 .umb-overlay .umb-overlay-container{
     overflow-x:auto;
+}
+
+.table-editor .umb-panel-footer{
+    position:static;
+    text-align:right;
 }
