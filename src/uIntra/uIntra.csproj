@@ -694,6 +694,7 @@
     <Content Include="App_Plugins\CentralFeed\loader_whitebg.gif" />
     <Content Include="App_Plugins\CentralFeed\openCloseCentralFeed.js" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
+    <Content Include="App_Plugins\Comments\backoffice\comments-view.html" />
     <Content Include="App_Plugins\Comments\comment.js" />
     <Content Include="App_Plugins\Comments\comments.css" />
     <Content Include="App_Plugins\Comments\View\comments-view.html" />
@@ -779,6 +780,7 @@
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightboxGallery.css" />
     <Content Include="App_Plugins\Core\PagePromotion\backoffice\page-promotion.controller.js" />
     <Content Include="App_Plugins\Core\PagePromotion\backoffice\page-promotion.html" />
+    <Content Include="App_Plugins\Core\User\backoffice\intranetUserService.js" />
     <Content Include="App_Plugins\dummy.txt" />
     <Content Include="App_Plugins\EnumLists\enum.resource.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.controller.js" />
@@ -830,7 +832,9 @@
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.overlay.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.view.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitesController.js" />
+    <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitiesService.js" />
     <Content Include="App_Plugins\LatestActivities\latestActivities.js" />
+    <Content Include="App_Plugins\Likes\backoffice\likes-view.html" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
     <Content Include="App_Plugins\Localization\backoffice\css\localization.css" />
@@ -1511,12 +1515,10 @@
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
     <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\LinkPreview\EditLinkPreviewView.cshtml" />
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
@@ -1579,23 +1581,18 @@
     <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
     <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
     <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1603,22 +1600,18 @@
     <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Bulletins\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Events\package.manifest" />
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1635,19 +1628,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Navigation\UmbracoNavigation\View\UmbracoContentLink.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Navigation\package.manifest" />
@@ -1678,47 +1667,27 @@
     <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\News\package.manifest" />
     <Content Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Notification\package.manifest" />
     <Content Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\PopupNotificationsView.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-    <Content Include="App_Plugins\Groups\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-    <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-    <Content Include="App_Plugins\Groups\List\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
     <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1727,23 +1696,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.cshtml" />
-    <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
-    <Content Include="App_Plugins\Navigation\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
@@ -1751,10 +1715,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1763,34 +1725,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Search\Controls\SearchBoxAutocompleteItem.cshtml" />
-    <Content Include="App_Plugins\Navigation\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Subscribe\View\ActivitySubscribeSettingsView.cshtml" />
     <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
-    <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\LatestActivities\package.manifest" />
     <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1814,36 +1765,22 @@
     <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\UsersTags\Views\TagPicker.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\UsersTags\package.manifest" />
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Users\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\UserPicker\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Members\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
@@ -1861,7 +1798,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
-    <Content Include="App_Plugins\Search\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
@@ -1912,16 +1848,10 @@
     <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
     <Content Include="App_Plugins\CentralFeed\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
-    <Content Include="App_Plugins\UsersTags\Views\TagPicker.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
-    <Content Include="App_Plugins\UsersTags\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
@@ -1933,19 +1863,44 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-    <Content Include="App_Plugins\Users\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Compent.uIntra\Views\Search\SearchBoxAutocompleteItem.cshtml">
       <Link>Views\Search\SearchBoxAutocompleteItem.cshtml</Link>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="App_Plugins\Users\package.manifest" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\UserPicker\package.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Members\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\UsersTags\Views\TagPicker.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\UsersTags\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Panels\TablePanel\TablePanel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Likes\package.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Comments\package.manifest" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
