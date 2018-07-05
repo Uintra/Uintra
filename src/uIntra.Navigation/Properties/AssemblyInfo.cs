@@ -5,5 +5,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("The navigation is positioned in the left side of Uintra and serves as a overview of the pages and their sub-pages. It is also possible to add" +
                                " links to the navigation for quick access.")]
 
-[assembly: AssemblyVersion("1.3.1.0")]
+[assembly: AssemblyVersion("1.3.3.0")]
 [assembly: ComVisible(false)]
