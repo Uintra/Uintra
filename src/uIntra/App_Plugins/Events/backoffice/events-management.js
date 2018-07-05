@@ -135,13 +135,9 @@
                     return;
                 }
 
-                startDate.setHours(0, 0, 0, 0);
-                setEndMinDate(startDate)
+                setEndMinDate(startDate);
 
                 var endDate = self.endDatePicker.selectedDates[0];
-                if (endDate != null) {
-                    endDate.setHours(0, 0, 0, 0);
-                }
 
                 if (endDate == null || endDate < startDate) {
                     self.endDatePicker.setDate(startDate);
@@ -154,7 +150,7 @@
         }
 
         self.endDateChanged = function () {
-            $timeout(function () {
+            $timeout(function() {
                 var endDate = self.endDatePicker.selectedDates[0];
                 if (endDate == null) {
                     return;
@@ -164,9 +160,8 @@
                 if (startDate == null) {
                     return;
                 }
-                startDate.setHours(0, 0, 0, 0);
                 self.startDatePicker.setDate(startDate);
-            })
+            });
         }
 
         var create = function (events) {

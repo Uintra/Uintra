@@ -19,15 +19,15 @@
             <li class="gallery__item @fullSizeClass @videoClass" style="@(media.IsHidden ? "display:none;" : string.Empty)">
                 @if (!videoClass.IsNullOrEmpty())
                 {
-                    <a href="#" class="gallery__item-opener" data-type="video" data-video='<div class="gallery__video"><div class="gallery__video-box"><video width="960" class="pswp__video" src="@media.Url" controls></video></div></div>'>
+                    <span class="gallery__item-opener js-gallery__item-opener" data-type="video" data-video='<div class="gallery__video"><div class="gallery__video-box"><video width="960" class="pswp__video" src="@media.Url" controls></video></div></div>'>
                         <img class="gallery__image" src="@media.PreviewUrl" data-full-size="@originalSize" data-full-url="@media.Url" />
-                    </a>
+                    </span>
                 }
                 else
                 {
-                    <a href="#" class="gallery__item-opener">
+                    <span class="gallery__item-opener js-gallery__item-opener">
                         <img class="gallery__image" src="@media.PreviewUrl" data-full-size="@originalSize" data-full-url="@media.Url" />
-                    </a>
+                    </span>
                 }
             </li>
         }
