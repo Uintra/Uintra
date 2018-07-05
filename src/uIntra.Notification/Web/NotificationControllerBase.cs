@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using Compent.Extensions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Uintra.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
@@ -77,6 +79,25 @@ namespace Uintra.Notification.Web
             return count;
         }
 
+        [System.Web.Mvc.HttpGet]
+        public virtual ActionResult GetNotNotifiedNotifications()
+        {
+            var userId = _intranetUserService.GetCurrentUserId();
+
+            var model = new JsonNotificationsModel();
+            model.Notifications = _uiNotifierService.GetNotNotifiedNotifications(userId)
+                .Select(MapNotificationToJsonModel);
+            model.Count = model.Notifications.Count();
+            return new JsonNetResult()
+            {
+                Data = model,
+                SerializerSettings = new JsonSerializerSettings()
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                }
+            };
+        }
+
         [System.Web.Mvc.AllowAnonymous]
         public ActionResult ShowPopupNotifications()
         {
@@ -124,10 +145,22 @@ namespace Uintra.Notification.Web
         {
             var result = notification.Map<NotificationViewModel>();
 
-            result.Notifier = ((string) result.Value.notifierId)
+            result.Notifier = ((string)result.Value.notifierId)
                 .TryParseGuid()
                 .FromNullable(_intranetUserService.Get);
 
+            return result;
+        }
+
+        private JsonNotification MapNotificationToJsonModel(Notification notification)
+        {
+            var result = notification.Map<JsonNotification>();
+            var notifier = ((string)result.Value.notifierId)
+                .TryParseGuid()
+                .FromNullable(_intranetUserService.Get);
+            result.NotifierId = notifier.Id;
+            result.NotifierPhoto = notifier.Photo;
+            result.NotifierDisplayedName = notifier.DisplayedName;
             return result;
         }
 

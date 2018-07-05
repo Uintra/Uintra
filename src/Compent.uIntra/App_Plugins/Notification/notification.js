@@ -55,6 +55,22 @@ function updateNotificationsCount() {
         });
 }
 
+function updateNotifications() {
+    ajax.get("/umbraco/surface/Notification/GetNotNotifiedNotifications")
+        .then((response) => {
+            console.log(response.data);
+            let count = response.data.count;
+            var countHolder = $('.js-notification__number');
+            if (count > 0) {
+                countHolder.html(count);
+                countHolder.show();
+            } else {
+                countHolder.hide();
+            }
+        });
+}
+
+
 function initCustomControls() {
     $('.js-notification__list-item').on('click', function () {
         var $this = $(this);
@@ -98,8 +114,8 @@ function getClientHeight() { return document.compatMode == 'CSS1Compat' ? docume
 
 export default function () {
     initPreviewControls();
-    updateNotificationsCount();
-    setInterval(updateNotificationsCount, 3000);
+    updateNotifications();
+    setInterval(updateNotifications, 3000);
     initCustomControls();
     initInfinityScroll();
 }

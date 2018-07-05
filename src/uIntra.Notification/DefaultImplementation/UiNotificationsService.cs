@@ -51,6 +51,12 @@ namespace Uintra.Notification
             return GetNotifications(receiverId).Count(el => !el.IsNotified);
         }
 
+        public IEnumerable<Notification> GetNotNotifiedNotifications(Guid receiverId)
+        {
+            var notifications = GetNotifications(receiverId, true);
+            return notifications; 
+        }
+
         public void ViewNotification(Guid id)
         {
             var notification = _notificationRepository.Get(id);
@@ -69,10 +75,19 @@ namespace Uintra.Notification
             _notificationRepository.Update(notificationsList);
         }
 
-        private IEnumerable<Notification> GetNotifications(Guid receiverId)
+        private IEnumerable<Notification> GetNotifications(Guid receiverId, bool excludeAlreadyNotified = false)
         {
             var uiNotificationTypeIds = _notificationTypeProvider.UiNotificationTypes().Select(t => t.ToInt());
-            return _notificationRepository.FindAll(el => el.ReceiverId == receiverId && uiNotificationTypeIds.Contains(el.Type));
+            
+            if(excludeAlreadyNotified)
+                return _notificationRepository.FindAll(el =>
+                el.ReceiverId == receiverId &&
+                uiNotificationTypeIds.Contains(el.Type) &&
+                !el.IsNotified);
+
+            return _notificationRepository.FindAll(el =>
+                el.ReceiverId == receiverId &&
+                uiNotificationTypeIds.Contains(el.Type));
         }
     }
 }

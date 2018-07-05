@@ -20,6 +20,23 @@ namespace Uintra.Notification
                     dst.Type = notificationTypeProvider[src.Type];
                 });
 
+            Mapper.CreateMap<Notification, JsonNotification>()
+                .ForMember(d => d.Type, o => o.Ignore())
+                .ForMember(d => d.Date, o => o.MapFrom(s => s.Date.ToDateTimeFormat()))
+                .ForMember(d => d.Value, o => o.MapFrom(s => Json.Decode(s.Value)))
+                .ForMember(d => d.NotifierId, o => o.Ignore())
+                .ForMember(d => d.NotifierPhoto, o => o.Ignore())
+                .ForMember(d => d.NotifierDisplayedName, o => o.Ignore())
+                .ForMember(d => d.Message, o => o.Ignore())
+                .ForMember(d => d.Url, o => o.Ignore())
+                .AfterMap((src, dst) =>
+                {
+                    var notificationTypeProvider = HttpContext.Current.GetService<INotificationTypeProvider>();
+                    dst.Type = notificationTypeProvider[src.Type];
+                    dst.Message = (string)dst.Value.message;
+                    dst.Url = (string)dst.Value.url;
+                });
+
             Mapper.CreateMap<Notification, PopupNotificationViewModel>()
                 .ForMember(d => d.Value, o => o.MapFrom(s => Json.Decode(s.Value)));
 
