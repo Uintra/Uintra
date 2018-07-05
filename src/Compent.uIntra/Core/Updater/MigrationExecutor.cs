@@ -179,11 +179,6 @@ namespace Compent.Uintra.Core.Updater
         {
             ExamineManager.Instance.IndexProviderCollection[Umbraco.Core.Constants.Examine.InternalIndexer].RebuildIndex();
         }
-
-        private static void RebuildExamineIndex()
-        {
-            ExamineManager.Instance.IndexProviderCollection[Umbraco.Core.Constants.Examine.InternalIndexer].RebuildIndex();
-        }
     }
 
     public struct MigrationItem

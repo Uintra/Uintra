@@ -48,17 +48,17 @@
                     canSort() {
                         return $scope.canSort();
                     },
-                    addColumn() {
-                        return $scope.addColumn();
+                    addColumn($index) {
+                        return $scope.addColumn($index);
                     },
-                    removeColumn() {
-                        return $scope.removeColumn();
+                    removeColumn($index) {
+                        return $scope.removeColumn($index);
                     },
-                    addRow() {
-                        return $scope.addRow();
+                    addRow($index) {
+                        return $scope.addRow($index);
                     },
-                    removeRow() {
-                        return $scope.removeRow();
+                    removeRow($index) {
+                        return $scope.removeRow($index);
                     },
                     config: $scope.control.config,
                     model: $scope.control.value,
@@ -69,7 +69,7 @@
                 }
             });
 
-            $scope.backupModel = $scope.control.value;
+            $scope.backupModel = angular.copy($scope.control.value);
         }
 
         $scope.init = function (control) {
