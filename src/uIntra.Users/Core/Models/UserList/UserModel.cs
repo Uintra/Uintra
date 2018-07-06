@@ -1,7 +1,8 @@
 ﻿using System;
 using Uintra.Core.User;
+using Uintra.Users.Attributes;
 
-namespace Uintra.Users
+namespace Uintra.Users.UserList
 {
     public class UserModel
     {

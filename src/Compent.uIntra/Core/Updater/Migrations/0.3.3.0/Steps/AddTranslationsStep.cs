@@ -2,6 +2,7 @@
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1;
 using Localization.Core;
 using Uintra.Users;
+using Uintra.Users.Helpers;
 
 namespace Compent.Uintra.Core.Updater.Migrations._0._3._3._0.Steps
 {

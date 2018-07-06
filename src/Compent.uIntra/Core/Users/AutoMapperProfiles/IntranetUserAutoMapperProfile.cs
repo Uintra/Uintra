@@ -1,6 +1,7 @@
 using AutoMapper;
 using Uintra.Core.User;
 using Uintra.Users;
+using Uintra.Users.UserList;
 
 namespace Compent.Uintra.Core.Users
 {

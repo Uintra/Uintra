@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web.Http;
 using Uintra.Core;
+using Uintra.Users.Helpers;
+using Uintra.Users.UserList;
 using Umbraco.Core.Services;
 using Umbraco.Web.WebApi;
 using Umbraco.Core;

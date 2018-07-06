@@ -1,16 +1,13 @@
-﻿using AutoMapper;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using Compent.Extensions;
 using Uintra.Core.Extensions;
 using Uintra.Core.User;
 using Umbraco.Web.Mvc;
 using Newtonsoft.Json;
+using Uintra.Users.UserList;
 
 namespace Uintra.Users.Web
 {
@@ -20,10 +17,10 @@ namespace Uintra.Users.Web
         protected virtual string UsersRowsViewPath => @"~/App_Plugins/Users/UserList/UsersRowsView.cshtml";
         protected virtual string UsersDetailsViewPath => @"~/App_Plugins/Users/UserList/UserDetailsPopup.cshtml";
 
-        private const string _lastRequestHeaderKey = "x-last-request";
+        private const string LastRequestHeaderKey = "x-last-request";
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
-        public UserListControllerBase(IIntranetUserService<IIntranetUser> intranetUserService)
+        protected UserListControllerBase(IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _intranetUserService = intranetUserService;
         }
@@ -88,7 +85,7 @@ namespace Uintra.Users.Web
         {
             var result = skip + take >= totalHits;
             if (result)
-                Response.AppendHeader(_lastRequestHeaderKey, Boolean.TrueString);
+                Response.AppendHeader(LastRequestHeaderKey, Boolean.TrueString);
             return result;
         }
     }
