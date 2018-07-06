@@ -584,6 +584,18 @@
     <Content Include="..\Compent.uIntra\licence.html">
       <Link>licence.html</Link>
     </Content>
+    <Content Include="..\Compent.uIntra\Content\css\styles.css">
+      <Link>Content\css\styles.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\main.js">
+      <Link>Content\main.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\head_css.js">
+      <Link>Content\head_css.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Global.asax">
+      <Link>Global.asax</Link>
+    </Content>
     <Content Include="App_Plugins\Archetype\css\archetype.css" />
     <Content Include="App_Plugins\Archetype\js\archetype.js" />
     <Content Include="App_Plugins\Archetype\langs\da-dk.js" />
@@ -658,6 +670,8 @@
     <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.css" />
     <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.html" />
     <Content Include="App_Plugins\BaseControls\MultiImageCropper\multi-image-cropper.js" />
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
     <Content Include="App_Plugins\BaseControls\TinyMce\link-picker-overlay.html" />
     <Content Include="App_Plugins\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.css" />
     <Content Include="App_Plugins\BaseControls\TinyMce\RteLinksPicker\rte-links-picker.html" />
@@ -675,11 +689,19 @@
     <Content Include="App_Plugins\Bulletins\bulletins.js" />
     <Content Include="App_Plugins\Bulletins\Create\bulletins-create.html" />
     <Content Include="App_Plugins\Bulletins\Create\bulletins.create.js" />
+    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\bulletins-details.html" />
+    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Edit\bulletins-edit.html" />
     <Content Include="App_Plugins\Bulletins\Edit\bulletins.edit.js" />
+    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Bulletins\images\attach.svg" />
     <Content Include="App_Plugins\Bulletins\images\link.svg" />
+    <Content Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
+    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
+    <Content Include="App_Plugins\Bulletins\package.manifest" />
+    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
     <Content Include="App_Plugins\Bulletins\style.css" />
     <Content Include="App_Plugins\CentralFeed\ActivityCreate\activity-create.html" />
     <Content Include="App_Plugins\CentralFeed\ActivityDetails\activity-details.html" />
@@ -693,19 +715,38 @@
     <Content Include="App_Plugins\CentralFeed\loader_greybg.gif" />
     <Content Include="App_Plugins\CentralFeed\loader_whitebg.gif" />
     <Content Include="App_Plugins\CentralFeed\openCloseCentralFeed.js" />
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\CentralFeed\View\central-feed.view.html" />
+    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
     <Content Include="App_Plugins\Comments\backoffice\comments-view.html" />
     <Content Include="App_Plugins\Comments\comment.js" />
     <Content Include="App_Plugins\Comments\comments.css" />
+    <Content Include="App_Plugins\Comments\package.manifest" />
     <Content Include="App_Plugins\Comments\View\comments-view.html" />
+    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
+    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Core\ActivityLocation\activityLocation.js" />
     <Content Include="App_Plugins\Core\ActivityLocation\activityLocationEdit.js" />
     <Content Include="App_Plugins\Core\ActivityLocation\backoffice\location-edit.css" />
     <Content Include="App_Plugins\Core\ActivityLocation\backoffice\location-edit.directive.js" />
     <Content Include="App_Plugins\Core\ActivityLocation\backoffice\location-edit.html" />
     <Content Include="App_Plugins\Core\ActivityLocation\Edit\edit.js" />
+    <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Core\ActivityLocation\Edit\styles.css" />
+    <Content Include="App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml" />
+    <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
+    <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
+    <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
+    <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
     <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibility.js" />
+    <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml" />
     <Content Include="App_Plugins\Core\BrowserCompatibility\style.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.css" />
     <Content Include="App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.directive.js" />
@@ -724,7 +765,15 @@
     <Content Include="App_Plugins\Core\Content\images\link.svg" />
     <Content Include="App_Plugins\Core\Content\images\videoplay.svg" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\css\bootstrap.min.css" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="App_Plugins\Core\Content\libs\dependencies.txt" />
     <Content Include="App_Plugins\Core\Content\libs\jquery.unobtrusive-ajax.min.js" />
     <Content Include="App_Plugins\Core\Content\libs\jquery.validate.js" />
@@ -766,21 +815,32 @@
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\tease.svg" />
     <Content Include="App_Plugins\Core\Content\styles\emoji-data\wink.svg" />
     <Content Include="App_Plugins\Core\Content\styles\forms.css" />
+    <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
     <Content Include="App_Plugins\Core\Content\styles\libs.css" />
     <Content Include="App_Plugins\Core\Controls\Confirm\Confirm.js" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.css" />
     <Content Include="App_Plugins\Core\Controls\FileUpload\file-upload.js" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
+    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\default-skin.css" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\default-skin.png" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\default-skin.svg" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\icon-doc.png" />
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.js" />
+    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\preloader.gif" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightbox.css" />
     <Content Include="App_Plugins\Core\Controls\LightboxGallery\_lightboxGallery.css" />
+    <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
+    <Content Include="App_Plugins\Core\LinkPreview\EditLinkPreviewView.cshtml" />
+    <Content Include="App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml" />
+    <Content Include="App_Plugins\Core\package.manifest" />
     <Content Include="App_Plugins\Core\PagePromotion\backoffice\page-promotion.controller.js" />
     <Content Include="App_Plugins\Core\PagePromotion\backoffice\page-promotion.html" />
+    <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Core\User\backoffice\intranetUserService.js" />
+    <Content Include="App_Plugins\Core\User\Photo.cshtml" />
     <Content Include="App_Plugins\dummy.txt" />
     <Content Include="App_Plugins\EnumLists\enum.resource.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.controller.js" />
@@ -788,6 +848,7 @@
     <Content Include="App_Plugins\EnumLists\enumdropdownlist.html" />
     <Content Include="App_Plugins\EnumLists\enumlist.controller.js" />
     <Content Include="App_Plugins\EnumLists\enumradiobuttonlist.html" />
+    <Content Include="App_Plugins\EnumLists\package.manifest" />
     <Content Include="App_Plugins\Events\backoffice\date-greater-or-equal.directive.js" />
     <Content Include="App_Plugins\Events\backoffice\events-management.config.js" />
     <Content Include="App_Plugins\Events\backoffice\events-management.css" />
@@ -795,13 +856,17 @@
     <Content Include="App_Plugins\Events\backoffice\events-management.js" />
     <Content Include="App_Plugins\Events\ComingEvents\coming-events-overlay.html" />
     <Content Include="App_Plugins\Events\ComingEvents\coming-events-view.html" />
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEvents.cshtml" />
     <Content Include="App_Plugins\Events\ComingEvents\comingEventsController.js" />
+    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
     <Content Include="App_Plugins\Events\Create\create-events.js" />
     <Content Include="App_Plugins\Events\Create\events-create.html" />
     <Content Include="App_Plugins\Events\Details\events-details.html" />
     <Content Include="App_Plugins\Events\Edit\edit-events.js" />
     <Content Include="App_Plugins\Events\Edit\events-edit.html" />
     <Content Include="App_Plugins\Events\events.js" />
+    <Content Include="App_Plugins\Events\package.manifest" />
+    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\Events\style.css" />
     <Content Include="App_Plugins\Groups\ActivityCreate\activity-create.html" />
     <Content Include="App_Plugins\Groups\ActivityDetails\activity-details.html" />
@@ -814,42 +879,74 @@
     <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.html" />
     <Content Include="App_Plugins\Groups\backoffice\Management\groups-management.js" />
     <Content Include="App_Plugins\Groups\Create\create-group.js" />
+    <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
     <Content Include="App_Plugins\Groups\Create\group-create.html" />
     <Content Include="App_Plugins\Groups\DisabledGroupView\disabled-group.html" />
+    <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
     <Content Include="App_Plugins\Groups\Edit\edit-group.js" />
+    <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
     <Content Include="App_Plugins\Groups\Edit\group-edit.html" />
+    <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
+    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
     <Content Include="App_Plugins\Groups\groups.css" />
     <Content Include="App_Plugins\Groups\groups.js" />
     <Content Include="App_Plugins\Groups\GroupsLeftNavigation.js" />
     <Content Include="App_Plugins\Groups\GroupSubscribe.js" />
     <Content Include="App_Plugins\Groups\List\group-list.html" />
     <Content Include="App_Plugins\Groups\List\group-list.js" />
+    <Content Include="App_Plugins\Groups\List\List.cshtml" />
+    <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
+    <Content Include="App_Plugins\Groups\package.manifest" />
+    <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Documents\group-documents.html" />
     <Content Include="App_Plugins\Groups\Room\Documents\group-documents.js" />
+    <Content Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Info\group-info.html" />
+    <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
     <Content Include="App_Plugins\Groups\Room\Members\group-members.html" />
     <Content Include="App_Plugins\Groups\Room\Members\group-members.js" />
+    <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.overlay.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latest-activities.view.html" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitesController.js" />
     <Content Include="App_Plugins\LatestActivities\backoffice\latestActivitiesService.js" />
     <Content Include="App_Plugins\LatestActivities\latestActivities.js" />
+    <Content Include="App_Plugins\LatestActivities\package.manifest" />
+    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
     <Content Include="App_Plugins\Likes\backoffice\likes-view.html" />
     <Content Include="App_Plugins\Likes\likes.css" />
     <Content Include="App_Plugins\Likes\Likes.js" />
+    <Content Include="App_Plugins\Likes\package.manifest" />
+    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\Localization\backoffice\css\localization.css" />
+    <Content Include="App_Plugins\Localization\backoffice\LocalizationExportImport\localization-exportimport.controller.js" />
     <Content Include="App_Plugins\Localization\backoffice\LocalizationOverview\localization-creation.dialog.html" />
     <Content Include="App_Plugins\Localization\backoffice\LocalizationOverview\localization-overview.controller.js" />
+    <Content Include="App_Plugins\Localization\backoffice\LocalizationTree\localization-exportimport.html" />
     <Content Include="App_Plugins\Localization\backoffice\LocalizationTree\localization-overview.html" />
+    <Content Include="App_Plugins\Localization\backoffice\Shared\directives\upload-file\upload-file.directive.html" />
+    <Content Include="App_Plugins\Localization\backoffice\Shared\directives\upload-file\upload-file.directive.js" />
     <Content Include="App_Plugins\Localization\backoffice\Shared\localization-resource.service.js" />
     <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\find.polyfill.js" />
     <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\findIndex.polyfill.js" />
+    <Content Include="App_Plugins\Localization\package.manifest" />
     <Content Include="App_Plugins\Members\member-changes-watcher.controller.js" />
     <Content Include="App_Plugins\Members\member-changes-watcher.html" />
     <Content Include="App_Plugins\Members\member.service.js" />
+    <Content Include="App_Plugins\Members\package.manifest" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
+    <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
+    <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
+    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
+    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation-controller.js" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation-service.js" />
     <Content Include="App_Plugins\Navigation\Dashboard\navigation.css" />
@@ -857,49 +954,87 @@
     <Content Include="App_Plugins\Navigation\images\arrow.svg" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.css" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\leftNavigation.js" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserMenu.cshtml" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserMenu.cshtml" />
     <Content Include="App_Plugins\Navigation\MyLinks\myLinks.css" />
     <Content Include="App_Plugins\Navigation\MyLinks\myLinks.js" />
     <Content Include="App_Plugins\Navigation\MyLinks\sort.svg" />
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
+    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
     <Content Include="App_Plugins\Navigation\navigation.js" />
+    <Content Include="App_Plugins\Navigation\package.manifest" />
     <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.css" />
     <Content Include="App_Plugins\Navigation\SubNavigation\subNavigation.js" />
+    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
     <Content Include="App_Plugins\Navigation\SystemLinks\systemLinks.js" />
+    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
+    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.css" />
     <Content Include="App_Plugins\Navigation\TopNavigation\topNavigation.js" />
+    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
+    <Content Include="App_Plugins\Navigation\UmbracoNavigation\umbracoContentLink.css" />
+    <Content Include="App_Plugins\Navigation\UmbracoNavigation\View\UmbracoContentLink.cshtml" />
+    <Content Include="App_Plugins\Navigation\UmbracoNavigation\View\UmbracoContentLink.cshtml" />
+    <Content Include="App_Plugins\Navigation\UmbracoPageNavigation\View\UmbracoPageLink.cshtml" />
+    <Content Include="App_Plugins\Navigation\Web.config" />
     <Content Include="App_Plugins\News\backoffice\news-management.config.js" />
     <Content Include="App_Plugins\News\backoffice\news-management.css" />
     <Content Include="App_Plugins\News\backoffice\news-management.html" />
     <Content Include="App_Plugins\News\backoffice\news-management.js" />
+    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\News\Create\news-create.html" />
+    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Details\news-details.html" />
+    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Edit\news-edit.html" />
+    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\News\news.js" />
+    <Content Include="App_Plugins\News\package.manifest" />
+    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
     <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\category.html" />
     <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.config.js" />
     <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.controller.js" />
     <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.css" />
     <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\notification-settings.service.js" />
     <Content Include="App_Plugins\NotificationSettings\backoffice\NotificationSettingsTree\settings.html" />
+    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\List\notification-list.html" />
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
     <Content Include="App_Plugins\Notification\List\notificationList.css" />
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\PopupNotificationsView.cshtml" />
     <Content Include="App_Plugins\Notification\notification.js" />
+    <Content Include="App_Plugins\Notification\package.manifest" />
     <Content Include="App_Plugins\Notification\popupNotifications.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.html" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\content-panel.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
     <Content Include="App_Plugins\Panels\ContentPanel\images\arrow-right.svg" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.js" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\overlay.html" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\documentLibraryPanel.css" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\documentLibraryPanel.js" />
     <Content Include="App_Plugins\Panels\FaqPanel\backoffice\faq-panel.html" />
     <Content Include="App_Plugins\Panels\FaqPanel\backoffice\faq-panel.js" />
     <Content Include="App_Plugins\Panels\FaqPanel\backoffice\overlay.html" />
+    <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.cshtml" />
     <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.css" />
     <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.js" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.html" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.js" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.css" />
@@ -907,18 +1042,26 @@
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.js" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.html" />
     <Content Include="App_Plugins\Panels\GlobalPanel\PropertyType\panel-picker.prevalues.js" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Panels\TableEditor\css\table-editor.css" />
     <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-column-control.directive.js" />
     <Content Include="App_Plugins\Panels\TableEditor\js\table-editor-row-control.directive.js" />
     <Content Include="App_Plugins\Panels\TableEditor\js\table-editor.controller.js" />
+    <Content Include="App_Plugins\Panels\TableEditor\TableEditor.cshtml" />
     <Content Include="App_Plugins\Panels\TableEditor\views\overlay.html" />
     <Content Include="App_Plugins\Panels\TableEditor\views\table-editor.html" />
     <Content Include="App_Plugins\Panels\TablePanel\Css\tableEditor.css" />
     <Content Include="App_Plugins\Panels\TablePanel\Js\tablePanel.js" />
+    <Content Include="App_Plugins\Panels\TablePanel\TablePanel.cshtml" />
     <Content Include="App_Plugins\Search\backoffice\developerelasticsearch.html" />
     <Content Include="App_Plugins\Search\Controls\search-box.js" />
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
+    <Content Include="App_Plugins\Search\Controls\SearchBoxAutocompleteItem.cshtml" />
+    <Content Include="App_Plugins\Search\package.manifest" />
+    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
     <Content Include="App_Plugins\Search\Result\search-result.html" />
     <Content Include="App_Plugins\Search\Result\search-result.js" />
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
     <Content Include="App_Plugins\Search\search.js" />
     <Content Include="App_Plugins\Search\styles.css" />
     <Content Include="App_Plugins\SentMails\backoffice\ColumnSettings\columnSettings.controller.js" />
@@ -952,39 +1095,39 @@
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.css" />
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.html" />
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.js" />
+    <Content Include="App_Plugins\SentMails\package.manifest" />
     <Content Include="App_Plugins\Subscribe\activitySubscribeSettings.js" />
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
     <Content Include="App_Plugins\Subscribe\subscribeList.js" />
+    <Content Include="App_Plugins\Subscribe\View\ActivitySubscribeSettingsView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.controller.js" />
     <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.html" />
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.html" />
     <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.js" />
     <Content Include="App_Plugins\UsersTags\backoffice\users-tags.overlay.html" />
     <Content Include="App_Plugins\UsersTags\backoffice\users-tags.view.html" />
     <Content Include="App_Plugins\UsersTags\backoffice\usersTagsController.js" />
     <Content Include="App_Plugins\UsersTags\backoffice\usersTagsService.js" />
+    <Content Include="App_Plugins\UsersTags\package.manifest" />
     <Content Include="App_Plugins\UsersTags\userTags.js" />
+    <Content Include="App_Plugins\UsersTags\Views\TagPicker.cshtml" />
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
     <Content Include="App_Plugins\Users\Login\login.css" />
     <Content Include="App_Plugins\Users\Login\logo.png" />
+    <Content Include="App_Plugins\Users\package.manifest" />
+    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
+    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
     <Content Include="App_Plugins\Users\Profile\profile.css" />
     <Content Include="App_Plugins\Users\Profile\profile.html" />
     <Content Include="App_Plugins\Users\Profile\profile.js" />
     <Content Include="App_Plugins\Users\users.js" />
     <Content Include="App_Plugins\Utils\backoffice\developer-reload-cache.html" />
     <Content Include="App_Plugins\Web.config" />
-    <Content Include="..\Compent.uIntra\Content\css\styles.css">
-      <Link>Content\css\styles.css</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Content\main.js">
-      <Link>Content\main.js</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Content\head_css.js">
-      <Link>Content\head_css.js</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Global.asax">
-      <Link>Global.asax</Link>
-    </Content>
     <Content Include="config\404handlers.config.install.xdt" />
     <Content Include="config\404handlers.config.uninstall.xdt" />
     <Content Include="config\applications.config.install.xdt" />
@@ -1279,15 +1422,6 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Localization\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\EnumLists\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\UmbracoPageNavigation\View\UmbracoPageLink.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="config\imageprocessor\processing.config.install.xdt" />
   </ItemGroup>
   <ItemGroup>
@@ -1505,402 +1639,15 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\SentMails\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
-    <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
-    <Content Include="App_Plugins\Core\User\Photo.cshtml" />
-    <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
-    <Content Include="App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\LinkPreview\EditLinkPreviewView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Grid\Grid.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml" />
-    <Content Include="App_Plugins\Core\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
-    <Content Include="App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\styles\icomoon.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml" />
-    <Content Include="App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
-    <Content Include="App_Plugins\Core\Activity\ActivityPinView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ActivityItemHeader.cshtml" />
-    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Item\ItemHeader.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEvents.cshtml" />
-    <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\Web.config" />
-    <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\UmbracoNavigation\View\UmbracoContentLink.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\package.manifest" />
-    <Content Include="App_Plugins\Events\PreviewItem\PreviewItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
-    <Content Include="App_Plugins\Events\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserMenu.cshtml" />
-    <Content Include="App_Plugins\Events\ComingEvents\ComingEvents.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
-    <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\Breadcrumbs.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\TableEditor\TableEditor.cshtml" />
-    <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
-    <Content Include="App_Plugins\Navigation\UmbracoNavigation\View\UmbracoContentLink.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\TopNavigation\View\Navigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\SystemLinks\View\SystemLinks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\package.manifest" />
-    <Content Include="App_Plugins\Navigation\SubNavigation\View\Navigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Controls\SearchBoxAutocompleteItem.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinksList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\MyLinks\View\MyLinks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserMenu.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\LeftNavigation\View\Navigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Navigation\config\navigationConfiguration.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\News\PreviewItem\PreviewItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
-    <Content Include="App_Plugins\News\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
-    <Content Include="App_Plugins\News\Item\ItemView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
-    <Content Include="App_Plugins\Notification\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
-    <Content Include="App_Plugins\Notification\List\PopupNotificationsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\View\CommentsEditView.cshtml" />
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
-    <Content Include="App_Plugins\Comments\View\CommentsCreateView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\ActivitySubscribeSettingsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
-    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
-    <Content Include="App_Plugins\LatestActivities\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\package.manifest" />
-    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\List\List.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="..\Compent.uIntra\Views\Search\SearchBoxAutocompleteItem.cshtml">
       <Link>Views\Search\SearchBoxAutocompleteItem.cshtml</Link>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Users\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\UserPicker\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Members\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\UsersTags\Views\TagPicker.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\UsersTags\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Panels\TablePanel\TablePanel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Likes\package.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Plugins\Comments\package.manifest" />
+    <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Events\Details\DetailsView.cshtml" />
+    <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
