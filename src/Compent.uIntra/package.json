@@ -38,6 +38,7 @@
     "flatpickr": "2.3.7",
     "jquery": "3.1.1",
     "photoswipe": "4.1.1",
+    "push.js": "^1.0.5",
     "quill": "1.1.9",
     "quill-delta": "3.4.3",
     "select2": "4.0.3",

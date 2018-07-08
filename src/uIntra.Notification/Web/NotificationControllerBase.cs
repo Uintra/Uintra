@@ -11,6 +11,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Notification.Constants;
+using Uintra.Notification.Models.Json;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
@@ -84,10 +85,16 @@ namespace Uintra.Notification.Web
         {
             var userId = _intranetUserService.GetCurrentUserId();
 
-            var model = new JsonNotificationsModel();
-            model.Notifications = _uiNotifierService.GetNotNotifiedNotifications(userId)
-                .Select(MapNotificationToJsonModel);
-            model.Count = model.Notifications.Count();
+            var notNotifiedNotifications = _uiNotifierService.GetNotNotifiedNotifications(userId);
+            var count = notNotifiedNotifications.Count();
+            if (count > 0)
+                _uiNotifierService.Notify(notNotifiedNotifications);
+
+            var model = new JsonNotificationsModel()
+            {
+                Count = count,
+                Notifications = notNotifiedNotifications.Select(MapNotificationToJsonModel),
+            };
             return new JsonNetResult()
             {
                 Data = model,

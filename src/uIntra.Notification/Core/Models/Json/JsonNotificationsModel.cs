@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Uintra.Notification
+namespace Uintra.Notification.Models.Json
 {
     public class JsonNotificationsModel
     {
