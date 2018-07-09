@@ -1,6 +1,5 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Users.UserList.UserListViewModel>
+﻿@inherits UmbracoViewPage<Uintra.Users.UserList.UserListViewModel>
 @using Uintra.Core.Extensions
-@using Uintra.Users
 @using Newtonsoft.Json
 
 <section class="block _content-panel clearfix">
@@ -14,10 +13,16 @@
                     @foreach (var column in Model.UsersRows.SelectedColumns)
                     {
                         var selected = Model.OrderByColumn.Id == column.Id;
-                        <th class="members-table__head">
-                            <a href="" class="js-user-list-sort-link @(selected ? "_asc": "")"
-                               data-order-by="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
-                        </th>
+
+                        
+                    <th class="members-table__head">
+                       @if (column.PropertyName != "photo")
+                        {
+                        <a href="" class="js-user-list-sort-link @(selected ? "_asc" : "")"
+                           data-order-by="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a> 
+                        }
+                    </th>
+                       
                     }
                 </tr>
             </thead>

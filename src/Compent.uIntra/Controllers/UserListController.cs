@@ -24,15 +24,16 @@ namespace Compent.Uintra.Controllers
         protected override IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, out long totalHits, string orderBy, int direction)
         {
             //TODO orderBy, direction (0-Asc/1-Desc)
-            var searchResult = _elasticIndex.Search(new SearchTextQuery
+            var searchQuery = new SearchTextQuery
             {
                 Text = query,
                 Skip = skip,
                 Take = take,
-                //OrderingString = orderBy,
+                OrderingString = orderBy,
                 OrderingDirection = direction,
                 SearchableTypeIds = ((int) UintraSearchableTypeEnum.User).ToEnumerable()
-            });
+            };
+            var searchResult = _elasticIndex.Search(searchQuery);
             totalHits = searchResult.TotalHits;
 
             return searchResult.Documents.Select(r => r.Id.ToString().Pipe(Guid.Parse));
