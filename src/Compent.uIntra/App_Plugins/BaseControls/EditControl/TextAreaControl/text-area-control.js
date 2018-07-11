@@ -25,6 +25,7 @@
 
             $scope.config.triggerCopySavedData = function () {
                 $scope.savedValue = $scope.config.value;
+                updateDisplayValue();
             }
 
             $scope.config.triggerCheckControlChanged = function () {
@@ -49,6 +50,10 @@
                 }
             }
 
+            function updateDisplayValue() {
+                $scope.config.displayValue = ($scope.config.value || "").replace(/\n/gi, "<br/>");
+            }
+
             function saveHandler() {
                 if (!$scope.config.triggerValidate()) {
                     return false;
@@ -58,7 +63,6 @@
                     $scope.config.onSave($scope.config.value);
                     $scope.config.triggerCopySavedData();
                 }
-
                 return true;
             }
 

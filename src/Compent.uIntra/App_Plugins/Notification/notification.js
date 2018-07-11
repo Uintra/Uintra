@@ -129,7 +129,6 @@ function sentNotification(notifications) {
     console.log(notifications);
     for (var i = 0; i < notifications.length; i++) {
         var n = notifications[i];
-        var url = n.url;
         var _window = window;
         push.create("Some title", {
             body: n.message,
@@ -138,10 +137,14 @@ function sentNotification(notifications) {
             requireInteraction: true,
             tag: n.id,
             onClick: function () {
-                _window.focus();
-                _window.location.href = url;
-                _window.location.reload();
-                this.close();
+                var pushWindow = this;
+                var url = "/umbraco/api/DesktopNotification/Viewed?id=" + n.id;
+                ajax.post(url).then(result => {
+                    _window.focus();
+                    _window.location.href = n.url;
+                    _window.location.reload();
+                    pushWindow.close();
+                });
             },
             onShow: function () {
                 console.log("Notification is shown!");

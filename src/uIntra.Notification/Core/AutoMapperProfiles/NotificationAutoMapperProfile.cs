@@ -2,6 +2,7 @@
 using System.Web.Helpers;
 using AutoMapper;
 using Uintra.Core.Extensions;
+using Uintra.Notification.Models.Json;
 
 namespace Uintra.Notification
 {

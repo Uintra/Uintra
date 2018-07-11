@@ -19,19 +19,22 @@ namespace Uintra.Notification.Web
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationContentProvider _notificationContentProvider;
         private readonly IPopupNotificationService _popupNotificationService;
+        private readonly INotificationSettingsService _notificationSettingsService;
 
         public DesktopNotificationController(
             IUiNotificationService uiNotifierService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationContentProvider notificationContentProvider,
             IProfileLinkProvider profileLinkProvider,
-            IPopupNotificationService popupNotificationService)
+            IPopupNotificationService popupNotificationService,
+            INotificationSettingsService notificationSettingsService)
 
         {
             _uiNotifierService = uiNotifierService;
             _intranetUserService = intranetUserService;
             _notificationContentProvider = notificationContentProvider;
             _popupNotificationService = popupNotificationService;
+            _notificationSettingsService = notificationSettingsService;
         }
 
         [HttpGet]
@@ -52,6 +55,7 @@ namespace Uintra.Notification.Web
             return model;
         }
 
+        [HttpPost]
         public IHttpActionResult Viewed(Guid id)
         {
             _uiNotifierService.ViewNotification(id);
@@ -60,7 +64,7 @@ namespace Uintra.Notification.Web
 
         public void Config()
         {
-
+            _notificationSettingsService.get;
         }
 
         private JsonNotification MapNotificationToJsonModel(Notification notification)
