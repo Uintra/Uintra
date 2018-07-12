@@ -23,6 +23,9 @@ namespace Uintra.Notification
 
             Mapper.CreateMap<Notification, JsonNotification>()
                 .ForMember(d => d.Type, o => o.Ignore())
+                .ForMember(d => d.DesktopMessage, o => o.Ignore())
+                .ForMember(d => d.DesktopTitle, o => o.Ignore())
+                .ForMember(d => d.IsDesktopNotificationEnabled, o => o.Ignore())
                 .ForMember(d => d.Date, o => o.MapFrom(s => s.Date.ToDateTimeFormat()))
                 .ForMember(d => d.Value, o => o.MapFrom(s => Json.Decode(s.Value)))
                 .ForMember(d => d.NotifierId, o => o.Ignore())
@@ -36,6 +39,9 @@ namespace Uintra.Notification
                     dst.Type = notificationTypeProvider[src.Type];
                     dst.Message = (string)dst.Value.message;
                     dst.Url = (string)dst.Value.url;
+                    dst.DesktopMessage = (string)dst.Value.desktopMessage;
+                    dst.DesktopTitle = (string)dst.Value.desktopTitle;
+                    dst.IsDesktopNotificationEnabled = (bool)dst.Value.isDesktopNotificationEnabled;
                 });
 
             Mapper.CreateMap<Notification, PopupNotificationViewModel>()

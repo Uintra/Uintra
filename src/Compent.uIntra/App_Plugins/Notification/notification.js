@@ -85,30 +85,36 @@ function getClientHeight() { return document.compatMode == 'CSS1Compat' ? docume
 function updateNotificationsCount() {
     ajax.get("/umbraco/surface/Notification/GetNotNotifiedCount")
         .then((response) => {
-            let count = response.data;
-            var countHolder = $('.js-notification__number');
-            if (count > 0) {
-                countHolder.html(count);
-                countHolder.show();
-            } else {
-                countHolder.hide();
-            }
+            updateCounter(response.data);
         });
 }
 
 function updateNotifications() {
-    //ajax.get("/umbraco/surface/Notification/GetNotNotifiedNotifications")
     ajax.get("/umbraco/api/DesktopNotification/Get")
         .then((response) => {
             console.log(response.data);
             if (response.data.count > 0) {
-                if (push.Permission.has()) {
-                    sentNotification(response.data.notifications);
-                } else {
-                    console.log("BOOM!!!!");
+                var pushedNotificationsCount = 0;
+                for (var i = 0; i < response.data.notifications.length; i++) {
+                    var notification = response.data.notifications[i];
+                    if (push.Permission.has() && notification.isDesktopNotificationEnabled) {
+                        sentNotification(notification);
+                        pushedNotificationsCount++;
+                    }
                 }
+                updateCounter(response.data.count - temp);
             }
         });
+}
+
+function updateCounter(count) {
+    var countHolder = $('.js-notification__number');
+    if (count > 0) {
+        countHolder.html(count);
+        countHolder.show();
+    } else {
+        countHolder.hide();
+    }
 }
 
 function getPermissions() {
@@ -118,45 +124,40 @@ function getPermissions() {
         console.log("You are block permissions!");
         //push.Permission.request(onGranted, onDenied);
         onDenied();
-
     } else {
         push.Permission.request(onGranted, onDenied);
     }
-
 }
 
-function sentNotification(notifications) {
-    console.log(notifications);
-    for (var i = 0; i < notifications.length; i++) {
-        var n = notifications[i];
-        var _window = window;
-        push.create("Some title", {
-            body: n.message,
-            icon: n.notifierPhoto,
-            //timeout: 5000,
-            requireInteraction: true,
-            tag: n.id,
-            onClick: function () {
-                var pushWindow = this;
-                var url = "/umbraco/api/DesktopNotification/Viewed?id=" + n.id;
-                ajax.post(url).then(result => {
-                    _window.focus();
-                    _window.location.href = n.url;
-                    _window.location.reload();
-                    pushWindow.close();
-                });
-            },
-            onShow: function () {
-                console.log("Notification is shown!");
-            }
-        });
-    }
+function sentNotification(notification) {
+    console.log(notification);
+    var _window = window;
+    push.create(notification.desktopTitle, {
+        body: notification.desktopMessage,
+        icon: notification.notifierPhoto,
+        requireInteraction: true,
+        //timeout: 5000,
+        //tag: notification.id,
+        onClick: function () {
+            var pushWindow = this;
+            var url = "/umbraco/api/DesktopNotification/Viewed?id=" + notification.id;
+            ajax.post(url).then(result => {
+                _window.focus();
+                _window.location.href = notification.url;
+                _window.location.reload();
+                pushWindow.close();
+            });
+        },
+        onShow: function () {
+            console.log("Notification is shown!");
+        }
+    });
 }
 
 function onGranted() {
     console.log("You granted desktop notifications!");
     updateNotifications();
-    setInterval(updateNotifications, 5000);
+    setInterval(updateNotifications, 3000);
 }
 
 function onDenied() {

@@ -16,6 +16,9 @@ namespace Uintra.Notification.Models.Json
         public string NotifierPhoto { get; set; }
         public string NotifierDisplayedName { get; set; }
         public string Message { get; set; }
+        public string DesktopMessage { get; set; }
+        public string DesktopTitle { get; set; }
         public string Url { get; set; }
+        public bool IsDesktopNotificationEnabled { get; set; }
     }
 }

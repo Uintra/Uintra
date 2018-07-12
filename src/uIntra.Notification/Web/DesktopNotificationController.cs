@@ -64,7 +64,7 @@ namespace Uintra.Notification.Web
 
         public void Config()
         {
-            _notificationSettingsService.get;
+            //_notificationSettingsService.get;
         }
 
         private JsonNotification MapNotificationToJsonModel(Notification notification)

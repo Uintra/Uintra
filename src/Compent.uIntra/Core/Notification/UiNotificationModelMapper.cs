@@ -22,7 +22,8 @@ namespace Compent.Uintra.Core.Notification
             {
                 ReceiverId = receiver.Id,
                 IsPinned = notifierData.IsPinned,
-                IsPinActual = notifierData.IsPinActual
+                IsPinActual = notifierData.IsPinActual,
+                IsDesktopNotificationEnabled = template.IsDesktopNotificationEnabled
             };
             (string, string)[] tokens;
             switch (notifierData)
@@ -76,11 +77,13 @@ namespace Compent.Uintra.Core.Notification
             }
 
             message.Message = ReplaceTokens(template.Message, tokens);
+            message.DesktopMessage = ReplaceTokens(template.DesktopMessage, tokens);
+            message.DesktopTitle = ReplaceTokens(template.DesktopTitle, tokens);
             return message;
         }
 
         private string ReplaceTokens(string source, params (string token, string value)[] replacePairs) =>
             replacePairs
-                .Aggregate(source, (acc, pair) => acc.Replace(pair.token, pair.value));
+                .Aggregate(source ?? string.Empty, (acc, pair) => acc.Replace(pair.token, pair.value));
     }
 }

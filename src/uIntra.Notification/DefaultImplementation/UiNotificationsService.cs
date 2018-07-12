@@ -39,7 +39,7 @@ namespace Uintra.Notification
                     IsNotified = false,
                     IsViewed = false,
                     Type = el.NotificationType.ToInt(),
-                    Value = new { el.Message, el.Url, el.NotifierId, el.IsPinned, el.IsPinActual }.ToJson(),
+                    Value = new { el.Message, el.Url, el.NotifierId, el.IsPinned, el.IsPinActual, el.DesktopMessage, el.DesktopTitle, el.IsDesktopNotificationEnabled }.ToJson(),
                     ReceiverId = el.ReceiverId
                 });
 
