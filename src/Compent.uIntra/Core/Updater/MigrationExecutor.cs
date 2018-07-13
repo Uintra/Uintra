@@ -53,6 +53,7 @@ namespace Compent.Uintra.Core.Updater
             }
             else
             {
+                _exceptionLogger.Log(executionResult.Exception);
                 var (undoHistory, undoResult) = TryUndoSteps(executionHistory);
                 if (undoResult.Type is ExecutionResultType.Failure)
                 {
