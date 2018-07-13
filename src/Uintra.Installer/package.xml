@@ -3,13 +3,13 @@
   <info>
     <package>
       <name>Uintra</name>
-      <version>0.3.1.1</version>
+      <version>0.3.2.0</version>
       <license url="https://uintra.com/pricing/">Read more</license>
       <url>https://uintra.com/</url>
       <requirements>
         <major>7</major>
-        <minor>9</minor>
-        <patch>2</patch>
+        <minor>10</minor>
+        <patch>4</patch>
       </requirements>
     </package>
     <author>
@@ -17,7 +17,6 @@
       <website>https://compent.net/</website>
     </author>
     <readme><![CDATA[Thank you for installing Uintra]]></readme>
-    <!--<readme><![CDATA[]]></readme>-->
   </info>
 
   <DocumentTypes />
@@ -29,7 +28,7 @@
   <DataTypes />
 
   <Actions>
-    <Action runat="install" undo="false" alias="CreateXmlLogFile" version="0.3.1.1" />
+    <Action runat="install" undo="false" alias="CreateXmlLogFile" version="0.3.2.0" />
     
     <Action runat="install" undo="false" alias="DownloadNugetPackages" uri="https://www.nuget.org/api/v2/package/" path="~/umbraco/uintra/nupkgs/" >
       <Package name="Compent.EnumLists" version="1.1.2" />
@@ -103,7 +102,6 @@
       <Config path="~/Web.config" />
     </Action>
 
-    <!--<Action runat="install" undo="false" alias="SendXmlLogFile" uri="http://uintra.website.qa.dev.compent.dk/umbraco/api/packagelogger/report" />-->
     <Action runat="install" undo="false" alias="SendXmlLogFile" uri="https://uintra.dk/umbraco/api/packagelogger/report" />
 
     <Action runat="install" undo="false" alias="Clear" installerDirectory="~/umbraco/uintra" installerFileName="Uintra.Installer.dll" />

@@ -225,5 +225,5 @@ if (!(Test-Path $CAKE_EXE)) {
 
 # Start Cake
 Write-Host "Running build script..."
-Invoke-Expression "& `"$CAKE_EXE`" `"$SCRIPT_PATH`" -target=`"$Target`" -verbosity=`"$Verbosity`" -configuration=`"$Configuration`" $UseMono $UseDryRun $UseExperimental $ScriptArgs"
+Invoke-Expression "& `"$CAKE_EXE`" `"$SCRIPT_PATH`" -settings_skipverification=`"true`" -target=`"$Target`" -verbosity=`"$Verbosity`" -configuration=`"$Configuration`" $UseMono $UseDryRun $UseExperimental $ScriptArgs"
 exit $LASTEXITCODE
