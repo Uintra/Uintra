@@ -1649,6 +1649,12 @@
     <Content Include="App_Plugins\Events\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Events\Item\ItemView.cshtml" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\0.3.1.0\PreValues\GridPageLayout.cshtml">
+      <Link>Core\Updater\Migrations\0.3.1.0\PreValues\GridPageLayout.cshtml</Link>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

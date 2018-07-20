@@ -967,6 +967,7 @@
     <Content Include="config\ClientDependency.config" />
     <Content Include="config\applications.config" />
     <Content Include="config\404handlers.config" />
+    <EmbeddedResource Include="Core\Updater\Migrations\0.3.1.0\PreValues\GridPageLayout.cshtml" />
     <EmbeddedResource Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx">
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
     </EmbeddedResource>
@@ -1122,7 +1123,6 @@
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
     <Content Include="App_Plugins\Web.config" />
-    <EmbeddedResource Include="Core\Updater\Migrations\0.3.1.0\PreValues\GridPageLayout.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
