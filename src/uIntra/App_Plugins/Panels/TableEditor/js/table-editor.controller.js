@@ -1,5 +1,5 @@
 ﻿(function (angular) {
-    'use strict';    
+    'use strict';
     const controller = function ($scope, dialogService) {
 
         var emptyCellModel = '{"value": ""}';
@@ -33,31 +33,31 @@
                 show: true,
                 modalClass: "panel table-editor",
                 dialogData: {
-                    canAddColumn() {
+                    canAddColumn: function () {
                         return $scope.canAddColumn();
                     },
-                    canRemoveColumn() {
+                    canRemoveColumn: function () {
                         return $scope.canRemoveColumn();
                     },
-                    canAddRow() {
+                    canAddRow: function () {
                         return $scope.canAddRow();
                     },
-                    canRemoveRow() {
+                    canRemoveRow: function () {
                         return $scope.canRemoveRow();
                     },
-                    canSort() {
+                    canSort: function () {
                         return $scope.canSort();
                     },
-                    addColumn($index) {
+                    addColumn: function ($index) {
                         return $scope.addColumn($index);
                     },
-                    removeColumn($index) {
+                    removeColumn: function ($index) {
                         return $scope.removeColumn($index);
                     },
-                    addRow($index) {
+                    addRow: function ($index) {
                         return $scope.addRow($index);
                     },
-                    removeRow($index) {
+                    removeRow: function ($index) {
                         return $scope.removeRow($index);
                     },
                     config: $scope.control.config,

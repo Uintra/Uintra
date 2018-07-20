@@ -1,6 +1,11 @@
-﻿.table-editor {
+﻿.table-editor.modal.fade.in {
     overflow: auto;
-    max-height:80vh;
+    /*max-height:80vh;*/
+    height: 100vh;
+    top: 0;
+    width: 50vw;
+    margin: 0;
+    box-sizing:border-box;
 }
 
 .table-editor table {
