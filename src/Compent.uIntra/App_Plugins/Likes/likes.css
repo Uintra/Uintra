@@ -70,17 +70,17 @@
 
     .icon-like{
         font-size:16px;
-        margin:-2px 0 0;
+        margin:-3px 0 0;
         vertical-align:top;
         display:inline-block;
     }
 
     &__link{
         color:#aaa;
-        padding:0 0 0 25px;
+        padding:0 0 0 30px;
         display:inline-block;
         vertical-align:top;
-        margin:0 20px 0 -30px;
+        margin:0 20px 0 -35px;
 
         &:hover,
         &:active,

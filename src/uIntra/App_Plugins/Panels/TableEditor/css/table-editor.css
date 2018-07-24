@@ -1,5 +1,11 @@
-﻿.table-editor {
+﻿.table-editor.modal.fade.in {
     overflow: auto;
+    /*max-height:80vh;*/
+    height: 100vh;
+    top: 0;
+    width: 50vw;
+    margin: 0;
+    box-sizing:border-box;
 }
 
 .table-editor table {
@@ -176,4 +182,9 @@
 
 .umb-overlay .umb-overlay-container{
     overflow-x:auto;
+}
+
+.table-editor .umb-panel-footer{
+    position:static;
+    text-align:right;
 }

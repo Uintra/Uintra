@@ -1,6 +1,6 @@
 ﻿using System;
+using Compent.Extensions.SingleLinkedList;
 using Uintra.Core.Context.Models;
-using Uintra.Core.SingleLinkedList;
 
 namespace Uintra.Comments.CommandBus
 {
@@ -8,7 +8,7 @@ namespace Uintra.Comments.CommandBus
     {
         public Guid CommentId { get; }
 
-        public RemoveCommentCommand(SingleLinkedList<ContextData> context, Guid commentId) : base(context)
+        public RemoveCommentCommand(ISingleLinkedList<ContextData> context, Guid commentId) : base(context)
         {
             CommentId = commentId;
         }

@@ -2,17 +2,6 @@
 @using Uintra.Groups
 @using Uintra.Core.Controls.FileUpload
 @model Uintra.Groups.GroupDocumentsViewModel
-@{
-    Guid groupId;
-}
-
-@{
-    if (!Guid.TryParse(Request.QueryString.Get("groupId"), out groupId))
-    {
-        <h3>Group id is not defined!!</h3>
-        return;
-    }
-}
 
 <div class="form" id="js-group-documents">
     @if (Model.CanUploadFiles)
@@ -33,7 +22,6 @@
         }
     }
     <div>
-        @{Html.RenderAction("DocumentsTable", "GroupDocuments", new { groupId, column = GroupDocumentDocumentField.Name, direction = Direction.Asc });}
+        @{Html.RenderAction("DocumentsTable", "GroupDocuments", new { groupId = Model.GroupId, column = GroupDocumentDocumentField.Name, direction = Direction.Asc });}
     </div>
 </div>
-

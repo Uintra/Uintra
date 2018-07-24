@@ -1,8 +1,8 @@
 ﻿require('devbridge-autocomplete');
 
-function initSearchBox() {
-    var searchBox = $('.js-searchbox');
-    var searchBoxIcon = $('.js-searchbox-icon');
+function initSearchBox(holder) {
+    var searchBox = holder.find('.js-searchbox');
+    const searchBoxIcon = holder.find('.js-searchbox-icon');
 
     if (!searchBox.length || !searchBoxIcon.length) {
         return;
@@ -10,8 +10,8 @@ function initSearchBox() {
     var url = searchBox.data('searchResultsUrl') + '?query=';
     var minChars = 2;
 
-    var emptyText = searchBox.data('emptyText');
-    var autocompleteUrl = searchBox.data('autocompleteUrl');
+    const emptyText = searchBox.data('emptyText');
+    const autocompleteUrl = searchBox.data('autocompleteUrl');
 
     searchBox.autocomplete({
         serviceUrl: autocompleteUrl,
@@ -37,7 +37,7 @@ function initSearchBox() {
     });
 
     searchBox.on('keypress', function (e) {
-        if (e.which == 13 || e.keyCode == 13) {
+        if (e.which === 13 || e.keyCode === 13) {
             var query = $(this).val();
             if (query.length >= minChars) {
                 window.location = url + escape(query);
@@ -53,5 +53,12 @@ function initSearchBox() {
 }
 
 export default function () {
-    initSearchBox();
+    const holders = $(".js-searchbox-holder");
+    if (!holders.length) {
+        return;
+    }
+
+    holders.each((index, element) => {
+        initSearchBox($(element));
+    });
 }

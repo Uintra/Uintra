@@ -19,15 +19,15 @@
                 <li class="gallery__item @fullSizeClass @videoClass" @*style="@(media.IsHidden ? "display:none;" : string.Empty)"*@>
                     @if (media.Type.ToInt() == MediaTypeEnum.Video.ToInt())
                     {
-                        <a href="#" class="gallery__item-opener" data-type="video" data-video='<div class="gallery__video"><div class="gallery__video-box"><video width="960" class="pswp__video" src="@media.Url" controls></video></div></div>'>
+                        <span class="gallery__item-opener js-gallery__item-opener" data-type="video" data-video='<div class="gallery__video"><div class="gallery__video-box"><video width="960" class="pswp__video" src="@media.Url" controls></video></div></div>'>
                             <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" height="100" />
-                        </a>
+                        </span>
                     }
                     else
                     {
-                        <a href="#" class="gallery__item-opener">
+                        <span class="gallery__item-opener js-gallery__item-opener">
                             <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" height="100" />
-                        </a>
+                        </span>
                     }
                 </li>
             }
@@ -37,7 +37,7 @@
 
 @if (Model.OtherFiles.Any())
 {
-<h3 class="feed__item-subtitle">@Html.Localize("LightboxGallery.AttachedFiles.lbl")</h3>
+    <h3 class="feed__item-subtitle">Vedhæftede dokumenter:</h3>
 
     <ul class="documents-list">
         @foreach (var document in Model.OtherFiles)
