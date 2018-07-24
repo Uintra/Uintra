@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Uintra.Core.Extensions;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
@@ -37,7 +38,8 @@ namespace Compent.Uintra.Core.Notification
                         (ActivityTitle, model.Title),
                         (ActivityType, model.ActivityType.ToString()),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
-                        (NotifierFullName, receiver.DisplayedName)
+                        (NotifierFullName, receiver.DisplayedName),
+                        (NotificationType, model.NotificationType.ToString().SplitOnUpperCaseLetters())
                     };
                     break;
                 case ActivityReminderDataModel model:
@@ -47,7 +49,8 @@ namespace Compent.Uintra.Core.Notification
                     {
                         (ActivityTitle, model.Title),
                         (ActivityType, model.ActivityType.ToString()),
-                        (StartDate, model.StartDate.ToShortDateString())
+                        (StartDate, model.StartDate.ToShortDateString()),
+                        (NotificationType, model.NotificationType.ToString().SplitOnUpperCaseLetters())
                     };
                     break;
                 case CommentNotifierDataModel model:
@@ -57,7 +60,8 @@ namespace Compent.Uintra.Core.Notification
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
-                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName)
+                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
+                        (NotificationType, model.NotificationType.ToString().SplitOnUpperCaseLetters())
                     };
                     break;
                 case LikesNotifierDataModel model:
@@ -69,7 +73,8 @@ namespace Compent.Uintra.Core.Notification
                         (ActivityTitle, model.Title),
                         (ActivityType, model.ActivityType.ToString()),
                         (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
-                        (CreatedDate, model.CreatedDate.ToShortDateString())
+                        (CreatedDate, model.CreatedDate.ToShortDateString()),
+                        (NotificationType, model.NotificationType.ToString().SplitOnUpperCaseLetters())
                     };
                     break;
                 default:
@@ -77,8 +82,8 @@ namespace Compent.Uintra.Core.Notification
             }
 
             message.Message = ReplaceTokens(template.Message, tokens);
-            message.DesktopMessage = ReplaceTokens(template.DesktopMessage, tokens);
-            message.DesktopTitle = ReplaceTokens(template.DesktopTitle, tokens);
+            message.DesktopMessage = ReplaceTokens(template.DesktopMessage, tokens).StripHtml();
+            message.DesktopTitle = ReplaceTokens(template.DesktopTitle, tokens).StripHtml();
             return message;
         }
 

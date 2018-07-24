@@ -1,9 +1,9 @@
 ﻿{
   "label": "This is an in-app notification that is sent to the creator of the bulletin post when someone adds a comment to it.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of bulletin <br>##FullName## - Name of the user who added a comment<br>",
   "template": {
-    "isDesktopNotificationEnabled": false,
     "message": "##FullName## has added a comment to your bulletin post: ##ActivityTitle##",
+    "isDesktopNotificationEnabled": false,
     "desktopMessage": "##FullName## has added a comment to your bulletin post: ##ActivityTitle##",
-    "desktopTitle": "##ActivityTitle##"
+    "desktopTitle": "##NotificationType##"
   }
 }

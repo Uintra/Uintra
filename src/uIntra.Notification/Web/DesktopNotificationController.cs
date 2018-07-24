@@ -1,12 +1,8 @@
 ﻿using Compent.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using Uintra.Core.Extensions;
-using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Notification.Models.Json;
 using Umbraco.Web.WebApi;
@@ -18,23 +14,16 @@ namespace Uintra.Notification.Web
         private readonly IUiNotificationService _uiNotifierService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationContentProvider _notificationContentProvider;
-        private readonly IPopupNotificationService _popupNotificationService;
-        private readonly INotificationSettingsService _notificationSettingsService;
 
         public DesktopNotificationController(
             IUiNotificationService uiNotifierService,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            INotificationContentProvider notificationContentProvider,
-            IProfileLinkProvider profileLinkProvider,
-            IPopupNotificationService popupNotificationService,
-            INotificationSettingsService notificationSettingsService)
+            INotificationContentProvider notificationContentProvider)
 
         {
             _uiNotifierService = uiNotifierService;
             _intranetUserService = intranetUserService;
             _notificationContentProvider = notificationContentProvider;
-            _popupNotificationService = popupNotificationService;
-            _notificationSettingsService = notificationSettingsService;
         }
 
         [HttpGet]
@@ -59,12 +48,7 @@ namespace Uintra.Notification.Web
         public IHttpActionResult Viewed(Guid id)
         {
             _uiNotifierService.ViewNotification(id);
-            return this.Ok();
-        }
-
-        public void Config()
-        {
-            //_notificationSettingsService.get;
+            return Ok();
         }
 
         private JsonNotification MapNotificationToJsonModel(Notification notification)

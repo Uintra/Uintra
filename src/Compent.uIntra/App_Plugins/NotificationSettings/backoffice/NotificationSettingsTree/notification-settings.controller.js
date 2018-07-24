@@ -200,7 +200,7 @@
             self.desktopMessageControlConfig = new TextAreaControlModel(ControlMode.view);
             self.desktopMessageControlConfig.value = self.settings.uiNotifierSetting.template.desktopMessage;
 
-            self.desktopMessageControlConfig.isRequired = !!self.settings.uiNotifierSetting.template.desktopMessage;
+            self.desktopMessageControlConfig.isRequired = true;
             self.desktopMessageControlConfig.requiredValidationMessage = 'Desktop message is required';
             self.desktopMessageControlConfig.maxLength = 200;
             self.desktopMessageControlConfig.maxLengthValidationMessage = 'Desktop message max length is 200 symbols';
@@ -218,7 +218,7 @@
             self.desktopTitleControlConfig = new TextControlModel(ControlMode.view);
             self.desktopTitleControlConfig.value = self.settings.uiNotifierSetting.template.desktopTitle;
 
-            self.desktopTitleControlConfig.isRequired = !!self.settings.uiNotifierSetting.template.desktopTitle;
+            self.desktopTitleControlConfig.isRequired = true;
             self.desktopTitleControlConfig.requiredValidationMessage = 'Desktop title is required';
             self.desktopTitleControlConfig.maxLength = 100;
             self.desktopTitleControlConfig.maxLengthValidationMessage = 'Desktop title max length is 100 symbols';

@@ -92,7 +92,6 @@ function updateNotificationsCount() {
 function updateNotifications() {
     ajax.get("/umbraco/api/DesktopNotification/Get")
         .then((response) => {
-            console.log(response.data);
             if (response.data.count > 0) {
                 var pushedNotificationsCount = 0;
                 for (var i = 0; i < response.data.notifications.length; i++) {
@@ -121,8 +120,6 @@ function getPermissions() {
     if (push.Permission.has()) {
         onGranted();
     } else if (push.Permission.get() === push.Permission.DENIED) {
-        console.log("You are block permissions!");
-        //push.Permission.request(onGranted, onDenied);
         onDenied();
     } else {
         push.Permission.request(onGranted, onDenied);
@@ -130,38 +127,41 @@ function getPermissions() {
 }
 
 function sentNotification(notification) {
-    console.log(notification);
-    var _window = window;
     push.create(notification.desktopTitle, {
         body: notification.desktopMessage,
         icon: notification.notifierPhoto,
         requireInteraction: true,
         //timeout: 5000,
-        //tag: notification.id,
         onClick: function () {
             var pushWindow = this;
             var url = "/umbraco/api/DesktopNotification/Viewed?id=" + notification.id;
             ajax.post(url).then(result => {
-                _window.focus();
-                _window.location.href = notification.url;
-                _window.location.reload();
+                var destUrl = window.location.origin + notification.url;
+                window.focus();
+                window.location.assign(destUrl);
+                if (equals(destUrl, window.location.href))
+                    window.location.reload();
                 pushWindow.close();
             });
         },
-        onShow: function () {
-            console.log("Notification is shown!");
-        }
+        onShow: function () { }
     });
 }
 
+function equals(destUrl, currentUrl) {
+    var destIndex = destUrl.indexOf("#");
+    var destPath = destIndex !== -1 ? destUrl.substring(0, destIndex) : destUrl;
+    var currentIndex = currentUrl.indexOf("#");
+    var currentPath = currentIndex !== -1 ? currentUrl.substring(0, currentIndex) : currentoPath;
+    return destPath === currentPath;
+}
+
 function onGranted() {
-    console.log("You granted desktop notifications!");
     updateNotifications();
     setInterval(updateNotifications, 3000);
 }
 
 function onDenied() {
-    console.log("You denied desktop notifications!");
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);
 }
@@ -172,4 +172,3 @@ export default function () {
     initCustomControls();
     initInfinityScroll();
 }
-
