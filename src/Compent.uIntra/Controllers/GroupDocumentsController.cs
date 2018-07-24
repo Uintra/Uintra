@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Uintra.Core.User;
+﻿using Uintra.Core.User;
+using Uintra.Groups;
+using Uintra.Groups.Web;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace Uintra.Groups.Web
+namespace Compent.Uintra.Controllers
 {
     public class GroupDocumentsController : GroupDocumentsControllerBase
     {
-        public GroupDocumentsController(IGroupDocumentsService groupDocumentsService,
+        public GroupDocumentsController(
+            IGroupDocumentsService groupDocumentsService,
             IMediaService mediaService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IGroupMemberService groupMemberService,
@@ -20,7 +18,6 @@ namespace Uintra.Groups.Web
             IGroupMediaService groupMediaService) :
             base(groupDocumentsService, mediaService, intranetUserService, groupMemberService, groupService, umbracoHelper, groupMediaService)
         {
-
         }
     }
 }

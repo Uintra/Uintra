@@ -441,12 +441,6 @@
     }
 }
 
-._aside-expanded{
-    @media(--for-tablet-portrait-down){
-        overflow: hidden;
-    }
-}
-
 .aside{
     min-height:0;
 

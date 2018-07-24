@@ -1,47 +1,46 @@
 ﻿<div class="advanced-options">
     <label>
         Title
-        <input ng-model="control.value.title" />
+        <input ng-model="dialogData.model.title" />
     </label>
 </div>
-
 <table>
     <thead>
         <tr>
             <th></th>
-            <th class="column-header" ng-repeat="columnStyle in control.value.columnStylesSelected track by $index" table-editor-column-control>
+            <th class="column-header" ng-repeat="columnStyle in dialogData.model.columnStylesSelected track by $index" table-editor-column-control>
                 <div class="column-buttons">
-                    <i class="icon icon-add" ng-show="canAddColumn()" ng-click="addColumn($index)"></i>
-                    <i class="icon icon-remove" ng-show="canRemoveColumn()" ng-click="removeColumn($index)"></i>
+                    <i class="icon icon-add" ng-show="dialogData.canAddColumn()" ng-click="dialogData.addColumn($index)"></i>
+                    <i class="icon icon-remove" ng-show="dialogData.canRemoveColumn()" ng-click="dialogData.removeColumn($index)"></i>
                 </div>
-                <select ng-model="control.value.columnStylesSelected[$index]" ng-options="style.value as style.label for style in control.config.columnStyles" ng-show="control.config.columnStyles.length > 1"></select>
+                <select ng-model="dialogData.model.columnStylesSelected[$index]" ng-options="style.value as style.label for style in dialogData.config.columnStyles" ng-show="control.config.columnStyles.length > 1"></select>
             </th>
         </tr>
         <tr>
             <th class="column-index"></th>
-            <th class="column-index" ng-repeat="columnStyle in control.value.columnStylesSelected track by $index" table-editor-column-control>
+            <th class="column-index" ng-repeat="columnStyle in dialogData.model.columnStylesSelected track by $index" table-editor-column-control>
                 <div class="column-count">{{$index + 1}}</div>
             </th>
         </tr>
     </thead>
-    <tbody ui-sortable="sortableOptions" ng-model="control.value.cells">
-        <tr ng-repeat="row in control.value.cells" table-editor-row-control>
+    <tbody ui-sortable="sortableOptions" ng-model="dialogData.model.cells">
+        <tr ng-repeat="row in dialogData.model.cells" table-editor-row-control>
             <td>
                 <div class="row-count">{{$index + 1}}</div>
             </td>
             <td ng-repeat="column in row" table-editor-column-control>
-                <textarea ng-model="column.value" ng-if="control.config.multiLineInputs"></textarea>
-                <input type="text" ng-model="column.value" ng-if="!control.config.multiLineInputs" />
+                <textarea ng-model="column.value" ng-if="dialogData.config.multiLineInputs"></textarea>
+                <input type="text" ng-model="column.value" ng-if="!dialogData.config.multiLineInputs" />
             </td>
             <td class="row-buttons-td">
                 <div class="row-buttons">
-                    <i class="icon icon-add" ng-show="canAddRow()" ng-click="addRow($index)"></i>
-                    <i class="icon icon-remove" ng-show="canRemoveRow()" ng-click="removeRow($index)"></i>
-                    <i class="icon icon-navigation handle" ng-show="canSort()"></i>
+                    <i class="icon icon-add" ng-show="dialogData.canAddRow()" ng-click="dialogData.addRow($index)"></i>
+                    <i class="icon icon-remove" ng-show="dialogData.canRemoveRow()" ng-click="dialogData.removeRow($index)"></i>
+                    <i class="icon icon-navigation handle" ng-show="dialogData.canSort()"></i>
                 </div>
             </td>
             <td class="row-style">
-                <select ng-model="control.value.rowStylesSelected[$index]" ng-options="style.value as style.label for style in control.config.rowStyles"></select>
+                <select ng-model="dialogData.model.rowStylesSelected[$index]" ng-options="style.value as style.label for style in dialogData.config.rowStyles"></select>
             </td>
         </tr>
     </tbody>
@@ -83,18 +82,29 @@
 </div>
 
 <div class="advanced-options">
-    <label ng-show="control.config.tableStyles.length > 1">
+    <label ng-show="dialogData.config.tableStyles.length > 1">
         Table style
-        <select ng-model="control.value.tableStyle" ng-options="style.value as style.label for style in control.config.tableStyles"></select>
+        <select ng-model="dialogData.model.tableStyle" ng-options="style.value as style.label for style in dialogData.config.tableStyles"></select>
     </label>
 
     <label>
-        <input ng-model="control.value.useFirstRowAsHeader" type="checkbox" />
+        <input ng-model="dialogData.model.useFirstRowAsHeader" type="checkbox" />
         Use first row as header ?
     </label>
 
     <label>
-        <input ng-model="control.value.makeFirstColumnBold" type="checkbox" />
+        <input ng-model="dialogData.model.makeFirstColumnBold" type="checkbox" />
         Make first column bold ?
     </label>
+</div>
+
+<div class="umb-panel-footer">
+    <div class="btn-toolbar umb-btn-toolbar ">
+        <a class="btn btn-link" ng-click="close({restore: true})">
+            <localize key="cancel" />
+        </a>
+        <button type="submit" class="btn btn-primary" ng-click="close({restore: false})">
+            <localize key="buttons_save">Save</localize>
+        </button>
+    </div>
 </div>

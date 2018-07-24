@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DF5381CA-82B8-44E0-A419-73BBC6290AD3}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,7 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
 		..\cakeBuild\build.cake = ..\cakeBuild\build.cake
-		..\build.ps1 = ..\build.ps1
 		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
 		..\cakeBuild\helpers.cake = ..\cakeBuild\helpers.cake
 	EndProjectSection
@@ -236,8 +235,8 @@ Global
 		{4D9F910E-24E0-43B3-BCCB-FEF527D5FF2F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.Compent.Debug|Any CPU.ActiveCfg = Compent.Debug|Any CPU
 		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.Compent.Debug|Any CPU.Build.0 = Compent.Debug|Any CPU
-		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.Debug|Any CPU.ActiveCfg = Dev|Any CPU
-		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.Debug|Any CPU.Build.0 = Dev|Any CPU
+		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.PublicNuget|Any CPU.ActiveCfg = PublicNuget|Any CPU
 		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.PublicNuget|Any CPU.Build.0 = PublicNuget|Any CPU
 		{8AB86D6B-6422-4D06-B9F3-B3A8C6F1588F}.QA|Any CPU.ActiveCfg = Release|Any CPU
@@ -253,8 +252,7 @@ Global
 		{B690420E-AF06-4B17-93F7-A04362A1CD3D}.QA|Any CPU.Build.0 = QA|Any CPU
 		{B690420E-AF06-4B17-93F7-A04362A1CD3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B690420E-AF06-4B17-93F7-A04362A1CD3D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}.Compent.Debug|Any CPU.ActiveCfg = Compent.Debug|Any CPU
-		{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}.Compent.Debug|Any CPU.Build.0 = Compent.Debug|Any CPU
+		{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}.Compent.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D741FAD-003C-4B2C-9A22-C87FA3A9DE33}.PublicNuget|Any CPU.ActiveCfg = Release|Any CPU

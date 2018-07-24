@@ -352,27 +352,23 @@
 
     &__menu{
         position:absolute;
-        top:100%;
+        top:-9999px;
         right:-20px;
         background:var(--color-white);
-        margin:0;
+        margin:12px 0 0;
         padding:0;
         list-style:none;
         border:1px solid #bfbfbf;
         box-shadow:2px 2px 3px rgba(0,0,0,0.2);
         width:247px;
         font-size:14px;
-        transform:translate(0, -100%);
-        transition: transform linear 200ms;
-        display:none;
-        margin-top:12px;
+
         @media (max-width: 1552px){
             right:0;
         }
 
         ._usermenu-expanded &{
-            transform: translate(0, 0);
-            display:block;
+            top:100%;
         }
 
         &-item{
@@ -393,15 +389,14 @@
 
                 @media (--for-tablet-portrait-up){
                     .user__menu-link{
-                        position:relative;
 
                         &:hover{
-                            &::before{
+                            &:before{
                                 display:block;
                             }
                         }
                         
-                        &::before{
+                        &:before{
                             display:none;
                             content: '';
                             width: 10px;

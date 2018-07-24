@@ -450,6 +450,11 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
+    "Key": "buy HTTPS licence for this domain right?\n\n\n\n#CentralFeedList.Empty.lbl",
+    "Translations": { "en-US": "No activities yet" },
+    "UpdateDate": "0001-01-01T00:00:00"
+  },
+  {
     "Key": "GroupsList.isMember",
     "Translations": { "en-US": "Member" },
     "UpdateDate": "0001-01-01T00:00:00"

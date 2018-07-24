@@ -54,7 +54,6 @@
         }
 
         function initalize() {
-            debugger;
             initLocationChangeStartEvent();
             initCurrentNodeHighlighting();
 

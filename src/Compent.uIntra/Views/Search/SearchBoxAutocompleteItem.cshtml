@@ -12,7 +12,7 @@ else
         <img class="icon" src="@Model.Photo?width=20&height=20&mode=crop" alt="@Model.Title" />
     }
 
-    <span class="title">@Model.Title</span>
+    <span class="title">@Html.Raw(Model.Title)</span>
 
     if (!string.IsNullOrEmpty(Model.Email))
     {

@@ -18,7 +18,7 @@
         <a class="search-result__item-link" href="@result.Url"></a>
 
         <h2 class="search-result__item-title">@Html.Raw(result.Title)</h2>
-       
+
         @if (result.IsPinned)
         {
             <span class="@(result.IsPinActual ? "_pinned" : string.Empty)">
@@ -37,7 +37,7 @@
         {
             <div class="search-result__item-teaser">@Html.Raw(result.Description.CropText(SearchConstants.Global.FragmentSize))</div>
         }
-        
+
         @if (result.Email.HasValue())
         {
             <div>@Html.Raw(result.Email)</div>
@@ -56,9 +56,11 @@
             {
                 <span class="search-result__item-date">@result.PublishedDate.Value.ToDateTimeFormat()</span>
             }
-            else if (result.StartDate.HasValue)
+            else if (result.StartDate.HasValue && result.EndDate.HasValue)
             {
-                <span class="search-result__item-date">@result.StartDate.Value.ToDateTimeFormat() - @result.EndDate.Value.ToDateTimeFormat()</span>
+                <span class="search-result__item-date">
+                    @result.StartDate.Value.GetEventDateTimeString(result.EndDate.Value)
+                </span>
             }
         </div>
     </div>

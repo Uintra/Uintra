@@ -20,13 +20,13 @@ var project = GetBuildProject(projectName, configuration);
 var compentUIntraProject = GetBuildProject(CompentUintraProjectFileName, configuration);
 
 // SETUP / TEARDOWN
-Setup(() =>
+Setup((ctx) =>
 {
     // Executed BEFORE the first task.
     Information("Running tasks...");
 });
 
-Teardown(() =>
+Teardown((ctx) =>
 {
     // Executed AFTER the last task.
     Information("Finished running tasks.");
@@ -52,13 +52,12 @@ Task("NuGet-Restore-Packages")
 {
     Information("Restoring {0}...", project.Directory);
 
-    var nugetConfig = GetFiles("../**/NuGet.Config").SingleOrDefault();
-    if(nugetConfig == null){
-        throw new Exception("Can't find nuget.config.");
+    var solutionFile = GetFiles($"../**/*.sln").SingleOrDefault();
+    if(solutionFile == null){
+        throw new Exception("Could not find solution file.");
     }
 
-    var nuGetRestoreSettings = new NuGetRestoreSettings { ConfigFile  = nugetConfig };
-    NuGetRestore(project.File, nuGetRestoreSettings);
+    NuGetRestore(solutionFile);
 });
 
 Task("Build")

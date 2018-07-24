@@ -13,10 +13,7 @@
         </div>
         <div ng-if="ppc.model.value.editor.alias">
             <div>
-                <i class="icon-delete" style="color: red; float: right; cursor: pointer; font-size: 15px;" ng-click="ppc.removePanel()"></i>
-                <div class="umbraco-panel__row">
-                    <span class="umbraco-panel__label control-label">{{ppc.model.value.editor.name}}</span>
-                </div>
+                <i class="icon-delete" style="color: red; float: right; cursor: pointer; font-size: 15px;" ng-click="ppc.removePanel()"></i>                
             </div>
             <div ng-include="ppc.model.value.editor.view"></div>
         </div>
