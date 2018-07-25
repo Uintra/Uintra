@@ -152,7 +152,7 @@ function equals(destUrl, currentUrl) {
     var destIndex = destUrl.indexOf("#");
     var destPath = destIndex !== -1 ? destUrl.substring(0, destIndex) : destUrl;
     var currentIndex = currentUrl.indexOf("#");
-    var currentPath = currentIndex !== -1 ? currentUrl.substring(0, currentIndex) : currentoPath;
+    var currentPath = currentIndex !== -1 ? currentUrl.substring(0, currentIndex) : currentUrl;
     return destPath === currentPath;
 }
 
