@@ -6,5 +6,6 @@ namespace Uintra.Users.UserList
     {
         public IEnumerable<ProfileColumnModel> SelectedColumns { get; set; }
         public IEnumerable<UserModel> Users { get; set; }
+        public bool IsLastRequest { get; set; }
     }
 }

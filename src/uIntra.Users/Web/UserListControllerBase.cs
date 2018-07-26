@@ -52,7 +52,8 @@ namespace Uintra.Users.Web
             var model = new UsersRowsViewModel
             {
                 SelectedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedColumns),
-                Users = GetActiveUsers(skip, take, orderBy, direction, out var isLastRequest, query)
+                Users = GetActiveUsers(skip, take, orderBy, direction, out var isLastRequest, query),
+                IsLastRequest = isLastRequest
             };
             return PartialView(UsersRowsViewPath, model);
         }
@@ -69,7 +70,7 @@ namespace Uintra.Users.Web
             var result = GetActiveUserIds(skip, take, query, out var totalHits, orderBy, direction)
                 .Pipe(_intranetUserService.GetMany)
                 .Select(MapToViewModel);
-            isLastRequest = SetLastRequestHeader(skip, take, totalHits);
+            isLastRequest = skip + take >= totalHits;
             return result;
         }
 
@@ -78,14 +79,6 @@ namespace Uintra.Users.Web
         protected virtual UserModel MapToViewModel(IIntranetUser user)
         {
             var result = user.Map<UserModel>();
-            return result;
-        }
-
-        protected virtual bool SetLastRequestHeader(int skip, int take, long totalHits)
-        {
-            var result = skip + take >= totalHits;
-            if (result)
-                Response.AppendHeader(LastRequestHeaderKey, Boolean.TrueString);
             return result;
         }
     }

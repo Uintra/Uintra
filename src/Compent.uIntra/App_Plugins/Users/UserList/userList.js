@@ -9,7 +9,7 @@ const url = "/umbraco/surface/UserList/GetUsers";
 
 let ascendingClassName = "_asc";
 let descendingClassName = "_desc";
-let lastRequestHeaderKey = "x-last-request";
+let lastRequestXlassName = "last";
 
 let searchTimeout;
 let request;
@@ -38,7 +38,7 @@ let controller = {
                 .then(result => {
                     var rows = $(result.data).filter("tr");
                     tableBody.append(rows);
-                    updateUI(result.headers);
+                    updateUI(rows);
                 });
         }
 
@@ -58,7 +58,7 @@ let controller = {
                     tableBody.append(rows);
                     sortLinks.removeClass(ascendingClassName + " " + descendingClassName);
                     link.addClass(direction === 0 ? ascendingClassName : descendingClassName);
-                    updateUI(result.headers);
+                    updateUI(rows);
                 });
         }
 
@@ -78,12 +78,12 @@ let controller = {
                     var rows = $(result.data).filter("tr");
                     tableBody.children().remove();
                     tableBody.append(rows);
-                    updateUI(result.headers);
+                    updateUI(rows);
                 });
         }
 
-        function updateUI(headers) {
-            if (headers[lastRequestHeaderKey])
+        function updateUI(rows) {
+            if (rows.hasClass(lastRequestXlassName))
                 button.hide();
             else button.show();
         }

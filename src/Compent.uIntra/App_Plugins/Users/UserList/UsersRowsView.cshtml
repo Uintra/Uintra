@@ -6,7 +6,7 @@
 
 @foreach (var user in Model.Users)
 {
-    <tr class="members-table__row">
+    <tr class="members-table__row @if (Model.IsLastRequest) { <text>last</text> }">
         @foreach (var column in Model.SelectedColumns)
         {
             <td class="members-table__cell">
