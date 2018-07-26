@@ -52,7 +52,8 @@ namespace Uintra.Users.Helpers
                         Name = attr.DisplayName,
                         Type = attr.Type,
                         Alias = attr.Alias,
-                        PropertyName = attr.PropertyName
+                        PropertyName = attr.PropertyName,
+                        SupportSorting = attr.SupportSorting
                     };
                 }).WhereNotNull().OrderBy(i => i.Id);
             return columns;

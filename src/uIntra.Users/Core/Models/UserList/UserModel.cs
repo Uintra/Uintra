@@ -11,12 +11,12 @@ namespace Uintra.Users.UserList
         [UIColumn(0, "Photo", "photo", ColumnType.Photo)]
         public string Photo { get; set; }
 
-        [UIColumn(1, "Name", "fullName")]
+        [UIColumn(1, "Name", "fullName", SupportSorting = true)]
         public string DisplayedName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        [UIColumn(2, "Email", "email", ColumnType.Email)]
+        [UIColumn(2, "Email", "email", ColumnType.Email, SupportSorting = true)]
         public string Email { get; set; }
         public IIntranetUser User { get; set; }
     }

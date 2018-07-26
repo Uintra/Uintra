@@ -28,8 +28,11 @@ namespace Uintra.Users.Web
         public virtual ActionResult Render(UserListModel model)
         {
             string selectedPropertiesJson = (string)model.SelectedProperties.ToString();
-            string orderBycolumnJson = (string)model.OrderBy.ToString();
-            var orderByColumn = JsonConvert.DeserializeObject<ProfileColumnModel>(orderBycolumnJson);
+            string orderBycolumnJson = model.OrderBy == null ? null : (string)model.OrderBy.ToString();
+            var selecetedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedPropertiesJson);
+            var orderByColumn = orderBycolumnJson == null ? 
+                selecetedColumns.OrderBy(i => i.Id).FirstOrDefault(i => i.SupportSorting) :
+                JsonConvert.DeserializeObject<ProfileColumnModel>(orderBycolumnJson);
             var viewModel = new UserListViewModel()
             {
                 AmountPerRequest = model.AmountPerRequest,
@@ -37,8 +40,8 @@ namespace Uintra.Users.Web
                 Title = model.Title,
                 UsersRows = new UsersRowsViewModel()
                 {
-                    SelectedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedPropertiesJson),
-                    Users = GetActiveUsers(0, model.DisplayedAmount, orderByColumn.PropertyName, 0, out var isLastRequest)
+                    SelectedColumns = selecetedColumns,
+                    Users = GetActiveUsers(0, model.DisplayedAmount, orderByColumn?.PropertyName, 0, out var isLastRequest)
                 },
                 UsersRowsViewPath = UsersRowsViewPath,
                 OrderByColumn = orderByColumn,

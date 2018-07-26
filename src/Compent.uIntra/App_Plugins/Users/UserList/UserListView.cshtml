@@ -7,32 +7,34 @@
         <h3>@Model.Title</h3>
         <input type="text" class="js-user-list-filter" />
     </div>
-        <table class="members-table js-user-list-table">
-            <thead>
-                <tr class="members-table__row">
-                    @foreach (var column in Model.UsersRows.SelectedColumns)
-                    {
-                        var selected = Model.OrderByColumn.Id == column.Id;
-
-                        
+    <table class="members-table js-user-list-table">
+        <thead>
+            <tr class="members-table__row">
+                @foreach (var column in Model.UsersRows.SelectedColumns)
+                {
                     <th class="members-table__head">
-                       @if (column.PropertyName != "photo")
+                        @if (column.SupportSorting)
                         {
-                        <a href="" class="js-user-list-sort-link @(selected ? "_asc" : "")"
-                           data-order-by="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a> 
+                            var selected = Model.OrderByColumn.Id == column.Id;
+                            <a href="" class="js-user-list-sort-link @(selected ? "_asc" : "")"
+                               data-order-by="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
+                        }
+                        else
+                        {
+                            <span>@Html.Localize($"UserList.Table.{column.Alias}.lbl")</span>
                         }
                     </th>
-                       
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @Html.Partial(Model.UsersRowsViewPath, Model.UsersRows)
-            </tbody>
-        </table>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @Html.Partial(Model.UsersRowsViewPath, Model.UsersRows)
+        </tbody>
+    </table>
     <button class="js-user-list-button"
-            @if(Model.IsLastRequest){ <text>style="display:none;"</text> } 
-            >Load more</button>
+            @if (Model.IsLastRequest) { <text> style="display:none;" </text> }>
+        Load more
+    </button>
 </section>
 
 <script type="text/javascript">
@@ -41,7 +43,7 @@
             skip: 0,
             take: 0,
             query: '',
-            orderBy: '@Model.OrderByColumn.PropertyName',
+            orderBy: '@(Model.OrderByColumn?.PropertyName)',
             direction: 0,
             selectedColumns: '@Html.Raw(JsonConvert.SerializeObject(Model.UsersRows.SelectedColumns))'
         },

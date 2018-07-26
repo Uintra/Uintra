@@ -59,6 +59,11 @@
         function refresh() {
             $scope.control.value.selectedProperties =
                 $scope.control.value.properties.filter(i => i.selected);
+            if ($scope.control.value.orderBy) {
+                var result = $scope.control.value.selectedProperties
+                    .filter(i => i.id === $scope.control.value.orderBy.id).length;
+                if (!result) $scope.control.value.orderBy = null;
+            }
         }
 
         function getDefaultModel() {
@@ -83,10 +88,6 @@
             }
             if (model.amountPerRequest <= 0) {
                 $scope.control.validationMessage = "Amount per request must be bigger than 0";
-                return false;
-            }
-            if (model.orderBy == null) {
-                $scope.control.validationMessage = "Order by column must be selected.";
                 return false;
             }
             return true;

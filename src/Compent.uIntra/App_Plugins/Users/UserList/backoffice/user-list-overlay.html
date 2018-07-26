@@ -48,7 +48,7 @@
     <p class="span6"><b>Order by column:</b></p>
     <select class="span6 displayed-columns" 
         ng-model="control.value.orderBy" 
-        ng-options="property.name for property in control.value.selectedProperties track by property.id"
+        ng-options="property.name for property in control.value.selectedProperties | filter:{supportSorting:true} track by property.id"
         >
     </select>
 </div>
