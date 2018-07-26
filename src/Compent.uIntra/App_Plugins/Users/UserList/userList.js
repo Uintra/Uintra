@@ -1,15 +1,18 @@
 ﻿import ajax from "./../../Core/Content/scripts/Ajax";
+import confirm from "./../../Core/Controls/Confirm/Confirm";
 
 const searchBoxElement = $(".js-user-list-filter");
 const tableBody = $(".js-user-list-table tbody");
 const button = $(".js-user-list-button");
 const sortLinks = $(".js-user-list-sort-link");
+const displayedRows = $(".js-user-list-row");
 const searchActivationDelay = 256;
 const url = "/umbraco/surface/UserList/GetUsers";
+const detailsUrl = "/umbraco/surface/UserList/Details";
 
 let ascendingClassName = "_asc";
 let descendingClassName = "_desc";
-let lastRequestXlassName = "last";
+let lastRequestClassName = "last";
 
 let searchTimeout;
 let request;
@@ -23,6 +26,7 @@ let controller = {
         button.click(onButtonClick);
         sortLinks.click(onSortClick);
         searchBoxElement.on("input", onSearchStringChanged);
+        addDetailsHandler(displayedRows);
 
         function init() {
             request = window.userListConfig.request;
@@ -38,6 +42,7 @@ let controller = {
                 .then(result => {
                     var rows = $(result.data).filter("tr");
                     tableBody.append(rows);
+                    addDetailsHandler(rows);
                     updateUI(rows);
                 });
         }
@@ -52,10 +57,11 @@ let controller = {
             request.direction = direction;
 
             ajax.post(url, request)
-                .then((result, arg2, arg3) => {
+                .then((result) => {
                     var rows = $(result.data).filter("tr");
                     tableBody.children().remove();
                     tableBody.append(rows);
+                    addDetailsHandler(rows);
                     sortLinks.removeClass(ascendingClassName + " " + descendingClassName);
                     link.addClass(direction === 0 ? ascendingClassName : descendingClassName);
                     updateUI(rows);
@@ -78,14 +84,27 @@ let controller = {
                     var rows = $(result.data).filter("tr");
                     tableBody.children().remove();
                     tableBody.append(rows);
+                    addDetailsHandler(rows);
                     updateUI(rows);
                 });
         }
 
         function updateUI(rows) {
-            if (rows.hasClass(lastRequestXlassName))
+            if (rows.hasClass(lastRequestClassName))
                 button.hide();
             else button.show();
+        }
+
+        function addDetailsHandler(rows) {
+            rows.click(function () {
+                var data = { id: $(this).data("id") };
+                ajax.post(detailsUrl, data)
+                    .then(result => {
+                        confirm.alert(
+                            "Detailed info",
+                            result.data);
+                    });
+            });
         }
     }
 }

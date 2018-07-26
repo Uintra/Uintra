@@ -61,6 +61,7 @@ namespace Uintra.Users.Web
             return PartialView(UsersRowsViewPath, model);
         }
 
+        [HttpPost]
         public virtual ActionResult Details(Guid id)
         {
             var user = _intranetUserService.Get(id);

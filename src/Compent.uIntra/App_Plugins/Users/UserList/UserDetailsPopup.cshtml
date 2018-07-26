@@ -1,5 +1,7 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Users.UserList.UserModel>
 @using Uintra.Users
-<div>
-    User details popup
-</div>>
+<div class="user-details-popup">
+    User id: @Model.Id <br/>
+    User name: @Model.DisplayedName <br />
+    User email: <a href="mailto:@Model.Email">@Model.Email</a> 
+</div>

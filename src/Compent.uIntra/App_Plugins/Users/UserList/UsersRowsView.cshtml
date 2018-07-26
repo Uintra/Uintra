@@ -1,12 +1,10 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Users.UserList.UsersRowsViewModel>
-@using Uintra.Core.Extensions
-@using Uintra.Users
 @using Uintra.Users.Helpers
 @using Uintra.Users.UserList
 
 @foreach (var user in Model.Users)
 {
-    <tr class="members-table__row @if (Model.IsLastRequest) { <text>last</text> }">
+    <tr data-id="@user.Id" class="members-table__row js-user-list-row @if (Model.IsLastRequest) { <text>last</text> }">
         @foreach (var column in Model.SelectedColumns)
         {
             <td class="members-table__cell">
@@ -14,7 +12,8 @@
                 {
                     case ColumnType.Email:
                         {
-                            <a class="members-table__link" href="mailto:@user.Email">@user.Email</a>
+                            @*<a class="members-table__link" href="mailto:@user.Email">@user.Email</a>*@
+                            <span class="members-table__name">@user.Email</span>
                         }
                         break;
                     case ColumnType.Photo:
