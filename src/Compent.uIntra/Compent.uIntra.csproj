@@ -949,6 +949,8 @@
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\logo.svg" />
     <Content Include="Content\images\sort.svg" />
+    <Content Include="Content\images\videoLoader.jpg" />
+    <Content Include="Content\images\videoLoaderFailure.jpg" />
     <Content Include="Content\main.js" />
     <Content Include="Content\vendors.js" />
     <Content Include="default.aspx" />
@@ -1123,6 +1125,9 @@
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
     <Content Include="App_Plugins\Web.config" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.resx">
+      <DependentUpon>201805311457251_AddVideoConertationLog.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1457,6 +1462,10 @@
     <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs" />
     <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.Designer.cs">
       <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.Designer.cs">
+      <DependentUpon>201805311457251_AddVideoConertationLog.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

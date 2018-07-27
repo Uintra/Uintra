@@ -402,6 +402,13 @@
     <Compile Include="Core\Context\ContextBuildType.cs" />
     <Compile Include="Core\Context\Extensions\PropertyReflectionHelper.cs" />
     <Compile Include="Core\Helpers\SectionHelper.cs" />
+    <Compile Include="Core\Media\IVideoConverter.cs" />
+    <Compile Include="Core\Media\IVideoConverterLogService.cs" />
+    <Compile Include="Core\Media\MediaConvertModel.cs" />
+    <Compile Include="Core\Media\VideoConvertationLog.cs" />
+    <Compile Include="Core\Media\VideoConvertedCommand.cs" />
+    <Compile Include="Core\Media\VideoConverter.cs" />
+    <Compile Include="Core\Media\VideoConverterLogService.cs" />
     <Compile Include="Core\ViewRenderer.cs" />
     <Compile Include="Core\Grid\GridRenderHelper.cs" />
     <Compile Include="Core\Helpers\HtmlHelper.cs" />
