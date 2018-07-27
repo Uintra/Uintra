@@ -12,6 +12,7 @@ namespace Uintra.Core.Media
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override Guid Id { get; set; }
         public int MediaId { get; set; }
+        public DateTime Date { get; set; }
         public bool Result { get; set; }
         public string Message { get; set; }        
     }

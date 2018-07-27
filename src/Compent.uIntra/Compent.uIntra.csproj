@@ -1128,6 +1128,9 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.resx">
       <DependentUpon>201805311457251_AddVideoConertationLog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.resx">
+      <DependentUpon>201807270910259_AddDateTimeToVideoConvertLogTable.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1466,6 +1469,10 @@
     <Compile Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.cs" />
     <Compile Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.Designer.cs">
       <DependentUpon>201805311457251_AddVideoConertationLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.Designer.cs">
+      <DependentUpon>201807270910259_AddDateTimeToVideoConvertLogTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

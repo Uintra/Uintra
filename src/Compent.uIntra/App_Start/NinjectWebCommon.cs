@@ -235,6 +235,8 @@ namespace Compent.Uintra
             kernel.Bind(typeof(IBulletinsService<>)).To<BulletinsService>().InRequestScope();
             kernel.Bind(typeof(IPagePromotionService<>)).To<PagePromotionService>().InRequestScope();
             kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
+            kernel.Bind<IVideoConverter>().To<VideoConverter>().InRequestScope();
+            kernel.Bind<IVideoConverterLogService>().To<VideoConverterLogService>().InRequestScope();
             kernel.Bind<IIntranetActivityRepository>().To<IntranetActivityRepository>().InRequestScope();
             kernel.Bind<ICacheService>().To<MemoryCacheService>().InRequestScope();
             kernel.Bind<IRoleService>().To<RoleServiceBase>().InRequestScope();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading;
 using Compent.CommandBus;
 using MediaToolkit;
 using MediaToolkit.Model;

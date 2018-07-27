@@ -1,6 +1,7 @@
 ﻿using Compent.CommandBus;
 using Compent.Uintra.Core.CommandBus;
 using Uintra.Comments.CommandBus;
+using Uintra.Core.Media;
 using Uintra.Groups.CommandBus;
 using Uintra.Likes.CommandBus;
 
@@ -13,6 +14,8 @@ namespace Compent.Uintra
             ConfigureLikeBindings(builder);
             ConfigureCommentBindings(builder);
             ConfigureGroupBindings(builder);
+            ConfigureMediaBindings(builder);
+
 
             return builder.Build();
         }
@@ -51,5 +54,12 @@ namespace Compent.Uintra
                 .WithHandle<GroupHandle>()
                 .WithHandle<GroupActivitiesHandle>();
         }
+
+        private static void ConfigureMediaBindings(BindingBuilder builder)
+        {
+            builder.HandleCommand<VideoConvertedCommand>()
+                .WithHandle<MediaHelper>();
+        }
+
     }
 }

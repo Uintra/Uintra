@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using Compent.CommandBus;
 using Compent.Extensions;
 using Uintra.Core.Caching;
 using Uintra.Core.Constants;
@@ -15,10 +17,12 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 using static Uintra.Core.Constants.UmbracoAliases.Media;
+using File = System.IO.File;
+using Task = System.Threading.Tasks.Task;
 
 namespace Uintra.Core.Media
 {
-    public class MediaHelper : IMediaHelper
+    public class MediaHelper : IMediaHelper, IHandle<VideoConvertedCommand>
     {
         private readonly ICacheService _cacheService;
         private readonly IMediaService _mediaService;
@@ -27,12 +31,18 @@ namespace Uintra.Core.Media
         private readonly IMediaFolderTypeProvider _mediaFolderTypeProvider;
         private readonly IImageHelper _imageHelper;
         private readonly IVideoHelper _videoHelper;
+        private readonly IVideoConverter _videoConverter;
+        private readonly IVideoConverterLogService _videoConverterLogService;
 
         public MediaHelper(ICacheService cacheService,
             IMediaService mediaService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             UmbracoHelper umbracoHelper,
-            IMediaFolderTypeProvider mediaFolderTypeProvider, IImageHelper imageHelper, IVideoHelper videoHelper)
+            IMediaFolderTypeProvider mediaFolderTypeProvider,
+            IImageHelper imageHelper,
+            IVideoHelper videoHelper,
+            IVideoConverter videoConverter,
+            IVideoConverterLogService videoConverterLogService)
         {
             _cacheService = cacheService;
             _mediaService = mediaService;
@@ -41,6 +51,8 @@ namespace Uintra.Core.Media
             _mediaFolderTypeProvider = mediaFolderTypeProvider;
             _imageHelper = imageHelper;
             _videoHelper = videoHelper;
+            _videoConverter = videoConverter;
+            _videoConverterLogService = videoConverterLogService;
         }
 
         public IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model, Guid? userId = null)
@@ -63,8 +75,28 @@ namespace Uintra.Core.Media
 
         public IMedia CreateMedia(TempFile file, int rootMediaId, Guid? userId = null)
         {
+            userId = userId ?? _intranetUserService.GetCurrentUserId();
+
             var mediaTypeAlias = GetMediaTypeAlias(file);
             var media = _mediaService.CreateMedia(file.FileName, rootMediaId, mediaTypeAlias);
+
+            if (_videoConverter.NeedConvert(mediaTypeAlias, file.FileName))
+            {
+                media.SetValue(IntranetConstants.IntranetCreatorId, userId.ToString());
+                media.SetValue(UmbracoAliases.Video.ThumbnailUrlPropertyAlias, _videoHelper.CreateConvertingThumbnail());
+                _mediaService.Save(media);
+
+                Task.Run(() =>
+                {
+                    _videoConverter.Convert(new MediaConvertModel()
+                    {
+                        File = file,
+                        MediaId = media.Id
+                    });
+                });
+
+                return media;
+            }
 
             var stream = new MemoryStream(file.FileBytes);
             if (_imageHelper.IsFileImage(file.FileBytes))
@@ -72,8 +104,6 @@ namespace Uintra.Core.Media
                 var fileStream = new MemoryStream(file.FileBytes, 0, file.FileBytes.Length, true, true);
                 stream = _imageHelper.NormalizeOrientation(fileStream, Path.GetExtension(file.FileName));
             }
-
-            userId = userId ?? _intranetUserService.GetCurrentUserId();
 
             media.SetValue(IntranetConstants.IntranetCreatorId, userId.ToString());
             media.SetValue(UmbracoFilePropertyAlias, Path.GetFileName(file.FileName), stream);
@@ -83,7 +113,6 @@ namespace Uintra.Core.Media
             {
                 SaveVideoAdditionProperties(media);
             }
-
             _mediaService.Save(media);
             return media;
         }
@@ -228,7 +257,7 @@ namespace Uintra.Core.Media
         }
 
         private IPublishedContent CreateMediaFolder(Enum mediaFolderType)
-        {            
+        {
             var mediaFolderTypeEnum = (MediaFolderTypeEnum)mediaFolderType;
             var folderName = mediaFolderTypeEnum.GetAttribute<DisplayAttribute>().Name;
             var mediaFolder = _mediaService.CreateMedia(folderName, -1, FolderTypeAlias);
@@ -236,6 +265,40 @@ namespace Uintra.Core.Media
             _mediaService.Save(mediaFolder);
 
             return _umbracoHelper.TypedMedia(mediaFolder.Id);
+        }
+
+        public BroadcastResult Handle(VideoConvertedCommand command)
+        {
+            var media = _mediaService.GetById(command.MediaId);
+
+            if (!command.Success)
+            {
+                _videoConverterLogService.Log(false, command.Message.ToJson(), command.MediaId);
+
+                media.SetValue(UmbracoAliases.Video.ThumbnailUrlPropertyAlias, _videoHelper.CreateConvertingFailureThumbnail());
+                _mediaService.Save(media);
+
+                return BroadcastResult.Failure;
+            }
+
+            using (var fs = new FileStream(command.ConvertedFilePath, FileMode.Open, FileAccess.Read))
+            {
+                using (var ms = new MemoryStream())
+                {
+                    fs.CopyTo(ms);
+                    media.SetValue(UmbracoFilePropertyAlias, Path.GetFileName(command.ConvertedFilePath), ms);
+                }
+            }
+
+            File.Delete(command.ConvertedFilePath);
+
+            SaveVideoAdditionProperties(media);
+
+            _mediaService.Save(media);
+
+            _videoConverterLogService.Log(true, "Converted succesfully", command.MediaId);
+
+            return BroadcastResult.Success;
         }
     }
 }
