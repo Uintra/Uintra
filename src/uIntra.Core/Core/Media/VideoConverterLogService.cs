@@ -20,7 +20,7 @@ namespace Uintra.Core.Media
                 Id = Guid.NewGuid(),
                 Message = message.ToJson(),
                 MediaId = mediaId,
-                Result = false,
+                Result = result,
                 Date = DateTime.Now
             });
         }
