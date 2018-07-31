@@ -16,6 +16,7 @@ using Compent.Uintra.Core.Activity;
 using Compent.Uintra.Core.Bulletins;
 using Compent.Uintra.Core.CentralFeed;
 using Compent.Uintra.Core.Comments;
+using Compent.Uintra.Core.ContentPage;
 using Compent.Uintra.Core.Controls.EditorConfiguration;
 using Compent.Uintra.Core.Events;
 using Compent.Uintra.Core.Exceptions;
@@ -312,6 +313,8 @@ namespace Compent.Uintra
             kernel.Bind<INotifyableService>().To<NewsService>().InRequestScope();
             kernel.Bind<INotifyableService>().To<EventsService>().InRequestScope();
             kernel.Bind<INotifyableService>().To<BulletinsService>().InRequestScope();
+            kernel.Bind<INotifyableService>().To<ContentPageNotificationService>().InRequestScope();
+            kernel.Bind<INotifyableService>().To<PagePromotionNotificationService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
             kernel.Bind<IActivitySubscribeSettingService>().To<ActivitySubscribeSettingService>().InRequestScope();
