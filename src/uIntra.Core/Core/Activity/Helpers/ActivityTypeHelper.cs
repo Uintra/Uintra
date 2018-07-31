@@ -23,7 +23,10 @@ namespace Uintra.Core.Activity
         public Enum GetActivityType(Guid activityId)
         {
             var typeId = _activityRepository.Get(activityId)?.Type;
-            return typeId.HasValue ? _activityTypeProvider[typeId.Value] : _pagePromotionService.Get(activityId).Type;
+            if (typeId.HasValue) return _activityTypeProvider[typeId.Value];
+            var pagePromotionActivity = _pagePromotionService.Get(activityId);
+            if (pagePromotionActivity != null) return pagePromotionActivity.Type;
+            return IntranetActivityTypeEnum.ContentPage;
         }
     }
 }
