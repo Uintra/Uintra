@@ -56,6 +56,7 @@ namespace Compent.Uintra.Core.ContentPage
             switch (notificationType)
             {
                 case NotificationTypeEnum.CommentLikeAdded:
+                case NotificationTypeEnum.CommentReplied:
                     {
                         var comment = _commentsService.Get(entityId);
                         data.ReceiverIds = comment.UserId.ToEnumerable();
