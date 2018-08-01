@@ -1243,6 +1243,7 @@
     <Compile Include="Core\Comments\CustomCommentable.cs" />
     <Compile Include="Core\Comments\ICommentsPageHelper.cs" />
     <Compile Include="Core\Constants\DocumentTypeConstants.cs" />
+    <Compile Include="Core\ContentPage\ContentPageNotificationService.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\IntranetEditorConfigProvider.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />
     <Compile Include="Core\DocumentTypeProvider.cs" />
@@ -1258,6 +1259,7 @@
     <Compile Include="Core\Feed\Links\ActivityLinkService.cs" />
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
+    <Compile Include="Core\PagePromotion\PagePromotionNotificationService.cs" />
     <Compile Include="Core\Search\SearchContentEventService.cs" />
     <Compile Include="Core\Helpers\INotifierDataHelper.cs" />
     <Compile Include="Core\Helpers\NotifierContentHelper.cs" />

@@ -1118,6 +1118,10 @@ img{
 .pswp{
     opacity: 0;
     transition: opacity ease-in 200ms;
+    
+    &[aria-hidden=true]{
+        z-index:-1;
+    }
 
     &__button{
         &--arrow--left,
