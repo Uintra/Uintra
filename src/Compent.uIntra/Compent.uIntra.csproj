@@ -1409,6 +1409,8 @@
     <Compile Include="Core\Updater\Migrations\0.3.2.0\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.2.0\Steps\HomePageHideUnnecessaryItemsStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.2.0\Steps\RemoveTranslationsStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.4\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.4\Steps\VideoConvertingPropertiesStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />

@@ -78,12 +78,12 @@ namespace Uintra.Core.Media
             userId = userId ?? _intranetUserService.GetCurrentUserId();
 
             var mediaTypeAlias = GetMediaTypeAlias(file);
-            var media = _mediaService.CreateMedia(file.FileName, rootMediaId, mediaTypeAlias);
-
+            var media = _mediaService.CreateMedia(file.FileName, rootMediaId, mediaTypeAlias);            
             if (_videoConverter.NeedConvert(mediaTypeAlias, file.FileName))
             {
                 media.SetValue(IntranetConstants.IntranetCreatorId, userId.ToString());
                 media.SetValue(UmbracoAliases.Video.ThumbnailUrlPropertyAlias, _videoHelper.CreateConvertingThumbnail());
+                media.SetValue(UmbracoAliases.Video.ConvertInProcessPropertyAlias, true);
                 _mediaService.Save(media);
 
                 Task.Run(() =>
@@ -270,12 +270,13 @@ namespace Uintra.Core.Media
         public BroadcastResult Handle(VideoConvertedCommand command)
         {
             var media = _mediaService.GetById(command.MediaId);
+            media.SetValue(UmbracoAliases.Video.ConvertInProcessPropertyAlias, false);
 
             if (!command.Success)
             {
                 _videoConverterLogService.Log(false, command.Message.ToJson(), command.MediaId);
 
-                media.SetValue(UmbracoAliases.Video.ThumbnailUrlPropertyAlias, _videoHelper.CreateConvertingFailureThumbnail());
+                media.SetValue(UmbracoAliases.Video.ThumbnailUrlPropertyAlias, _videoHelper.CreateConvertingFailureThumbnail());                
                 _mediaService.Save(media);
 
                 return BroadcastResult.Failure;

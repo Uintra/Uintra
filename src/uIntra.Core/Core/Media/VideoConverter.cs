@@ -1,10 +1,14 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Compent.CommandBus;
 using MediaToolkit;
 using MediaToolkit.Model;
 using MediaToolkit.Options;
+using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Constants;
+using Umbraco.Core.Models;
+using File = System.IO.File;
 
 namespace Uintra.Core.Media
 {
@@ -12,11 +16,13 @@ namespace Uintra.Core.Media
     {
         private const string Mp4ExtensionName = ".mp4";
         private readonly ICommandPublisher _commandPublisher;
+        private readonly IApplicationSettings _applicationSettings;
         private readonly Engine _engine;
 
-        public VideoConverter(ICommandPublisher commandPublisher)
+        public VideoConverter(ICommandPublisher commandPublisher, IApplicationSettings applicationSettings)
         {
             _commandPublisher = commandPublisher;
+            _applicationSettings = applicationSettings;
             _engine = new Engine();
         }
 
@@ -71,9 +77,24 @@ namespace Uintra.Core.Media
 
         public bool NeedConvert(string mediaTypeAlias, string fileName)
         {
-            return mediaTypeAlias == UmbracoAliases.Media.VideoTypeAlias && Path.GetExtension(fileName) != Mp4ExtensionName;
+            return mediaTypeAlias == UmbracoAliases.Media.VideoTypeAlias && !IsMp4(fileName);
+        }     
+
+        public bool IsConverting(IMedia media)
+        {
+           return media.GetValue<bool>(UmbracoAliases.Video.ConvertInProcessPropertyAlias);
         }
 
+        public bool IsMp4(string filename)
+        {
+            return Path.GetExtension(filename) == Mp4ExtensionName;
+        }
+
+        public bool IsVideo(string filename)
+        {
+            var ext=Path.GetExtension(filename)?.Replace(".", ""); ;
+            return _applicationSettings.VideoFileTypes.Contains(ext);
+        }
     }
 
     public class VideoConvertedCommandMessageModel

@@ -33,6 +33,7 @@
             public const string ThumbnailUrlPropertyAlias = "thumbnailUrl";
             public const string VideoHeightPropertyAlias = "videoHeight";
             public const string VideoWidthPropertyAlias = "videoWidth";
+            public const string ConvertInProcessPropertyAlias = "convertInProcess";
         }
 
         public static class ImagePresets
