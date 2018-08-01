@@ -519,6 +519,8 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\MonthlyMail.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\MonthlyMail.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\PopupNotifier\Member\Welcome.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\CommentReplied.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\CommentReplied.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
     <Content Include="..\Compent.uIntra\App_Plugins\Notification\popupNotifications.js">
