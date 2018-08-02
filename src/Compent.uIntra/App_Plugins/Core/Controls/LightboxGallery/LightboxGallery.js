@@ -13,7 +13,11 @@ var defaultOptions = {
     arrowKeys: true,
     bgOpacity: 0.8,
     history: false,
-    showHideOpacity: false
+    showHideOpacity: false,
+    isClickableElement: function(el) {
+        const tagName = el.tagName.toLowerCase();
+        return tagName === 'video' || tagName === 'a';
+    }
 };
 
 var createGallery = function (gallery) {
