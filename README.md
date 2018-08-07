@@ -29,7 +29,7 @@ Before installing Uintra you will have to make certain preparations
 If you are having trouble getting Uintra installed or experience other problems, please contact us at kne@Compent.net, the response time will be very fast within normal business hours, 09-16 CET/CEST.
 
 ## Running tests
-We have created some simple examples of how to manually test Uintra here.
+We have created some simple examples of how to manually test Uintra [here](Testing.md).
 
 ## Contributing to Uintra?
 A good way to contribute to Uintra is by providing issue reports. For information on how to submit an issue report refer to our [guide to contributing](CONTRIBUTING.md) for details on our code of conduct, and information regarding the process for submitting pull requests to us.
