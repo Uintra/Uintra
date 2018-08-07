@@ -11,10 +11,12 @@ These instructions will get you a copy of the project up and running on your loc
 ## Prerequisites & Installing
 Before installing Uintra you will have to make certain preparations
 
-1. Install MS NET Framework .NET 4.7.1
+1. Install MS NET Framework .NET 4.7.1, can be found [here](https://www.microsoft.com/en-us/download/details.aspx?id=56115)
 
 2. Install IIS with advanced settings (as seen in the screenshot below)
+![ScreenShot](Img/IIS_settings.png)
 
+3. Install Visual Studio 2017 with update 15.3 or [later](https://visualstudio.microsoft.com/)
 
 3. Install Ubraco CMS 7.9.2 nuget package by the Visual studio 'Manage NuGet Packages for Solution' NOT by the 'Package manage console'
 
