@@ -18,7 +18,7 @@ Before installing Uintra you will have to make certain preparations
 
 3. Install Visual Studio 2017 with update 15.3 or [later](https://visualstudio.microsoft.com/)
 
-3. Download and install [Ubraco CMS 7.9.2 nuget package](https://our.umbraco.com/download/releases/792/) by the Visual studio 'Manage NuGet Packages for Solution' NOT by the 'Package manage console'
+3. Download and install [Ubraco CMS 7.9.2 nuget package](https://our.umbraco.com/download/releases/792/) by the Visual studio 'Manage NuGet Packages for Solution' NOT by the 'Package manage console'. Umbraco has an installation guide [here](https://our.umbraco.com/documentation/Getting-Started/Setup/Install/)
 
 4. Continue Umbraco installation in a browser 
 * Customize settings and use custom SQL server.
