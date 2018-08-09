@@ -1287,6 +1287,20 @@
       <Link>Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.designer.cs</Link>
       <DependentUpon>201802231106236_ActivityToLinkPreviewEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.cs">
+      <Link>Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.designer.cs">
+      <Link>Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.designer.cs</Link>
+      <DependentUpon>201807270910259_AddDateTimeToVideoConvertLogTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.cs">
+      <Link>Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.designer.cs">
+      <Link>Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.designer.cs</Link>
+      <DependentUpon>201805311457251_AddVideoConertationLog.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs">
       <Link>Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</Link>
     </Compile>
@@ -1329,6 +1343,14 @@
     <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.resx">
       <Link>Persistence\Sql\Migrations\201802231106236_ActivityToLinkPreviewEntity.resx</Link>
       <DependentUpon>201802231106236_ActivityToLinkPreviewEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.resx">
+      <Link>Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.resx</Link>
+      <DependentUpon>201805311457251_AddVideoConertationLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.resx">
+      <Link>Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.resx</Link>
+      <DependentUpon>201807270910259_AddDateTimeToVideoConvertLogTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.resx">
       <Link>Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.resx</Link>
