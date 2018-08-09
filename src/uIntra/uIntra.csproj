@@ -569,6 +569,12 @@
     <Content Include="..\Compent.uIntra\Content\images\sort.svg">
       <Link>Content\images\sort.svg</Link>
     </Content>
+    <Content Include="..\Compent.uIntra\Content\images\videoLoader.jpg">
+      <Link>Content\images\videoLoader.jpg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\images\videoLoaderFailure.jpg">
+      <Link>Content\images\videoLoaderFailure.jpg</Link>
+    </Content>
     <Content Include="..\Compent.uIntra\Content\vendors.js">
       <Link>Content\vendors.js</Link>
     </Content>
