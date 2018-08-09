@@ -1,9 +1,9 @@
 ﻿@using System.Web.Mvc
-@using uIntra.Core.Activity
-@using uIntra.Core.Controls.FileUpload
-@using uIntra.Core.Extentions
+@using Uintra.Core.Activity
+@using Uintra.Core.Controls.FileUpload
+@using Uintra.Core.Extensions
 @using Umbraco.Web
-@model uIntra.News.NewsEditModel
+@model Uintra.News.NewsEditModel
 
 <div class="form js-check-before-unload" id="js-news-edit-page">
     @using (Html.BeginUmbracoForm("Edit", "News", FormMethod.Post, new { id = "form" }))
@@ -11,7 +11,7 @@
         <h1 class="form__title">@Html.Localize("NewsEditPage.Title.lbl")</h1>
         <div class="form__row clearfix">
             <label class="form__label">@Html.Localize("NewsEdit.Creator.lbl")</label>
-            @Html.Action("CreatorEdit", "Activity", new { creator = Model.Creator, creatorIdPropertyName = nameof(Model.CreatorId), activityType = IntranetActivityTypeEnum.News })
+            @Html.Action("OwnerEdit", "Activity", new { ownerId = Model.OwnerId, ownerIdPropertyName = nameof(Model.OwnerId), activityType = IntranetActivityTypeEnum.News, links = Model.Links })
         </div>
         <input type="hidden" name="id" value="@Model.Id" />
         <div class="form__row clearfix">
@@ -53,17 +53,16 @@
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("NewsEdit.UploadFiles.lbl")</label>
             @{
-                var settings = new FileUploadSettings { AllowedExtentions = ViewData["AllowedMediaExtentions"] as string };
+                var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string };
                 Html.RenderAction("Editor", "FileUpload", new { Settings = settings, Model = Model?.Media });
             }
         </div>
-        <div class="form__row clearfix">
-            @Html.ValidationSummary()
-        </div>
-        <div class="form__row clearfix">
-            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-            <input class="form__btn _submit _submit js-disable-submit" type="submit" value="@Html.Localize("NewsEdit.Edit.btn")" />
-            <a class="form__btn _default" href="@(Context.GetBackLink(ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id)))">@Html.Localize("Common.Cancel.lnk")</a>
+        @Html.ValidationSummary()
+        <div class="form__row form__row--top-indent clearfix">
+            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId"/>
+            @Html.PassLinks(Model.Links)
+            <input class="btn _submit js-disable-submit" type="submit" value="@Html.Localize("NewsEdit.Edit.btn")"/>
+            <a class="btn _default" href="@(Context.GetBackLink(Model.Links.Overview))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
                 }
 </div>
