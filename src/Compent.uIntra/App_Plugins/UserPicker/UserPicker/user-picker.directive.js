@@ -5,7 +5,7 @@
             var config = $scope.userPickerConfig;
 
             var defaultOption = {
-                id: "-1",
+                id: "",
                 name: "not selected"
             }
             
