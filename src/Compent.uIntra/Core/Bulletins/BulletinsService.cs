@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.CommandBus;
 using Compent.Extensions;
 using Compent.Uintra.Core.Helpers;
 using Compent.Uintra.Core.Search.Entities;
@@ -33,7 +34,8 @@ namespace Compent.Uintra.Core.Bulletins
         IBulletinsService<Bulletin>,
         IFeedItemService,
         INotifyableService,
-        IIndexer
+        IIndexer,
+        IHandle<VideoConvertedCommand>
     {
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
@@ -44,6 +46,7 @@ namespace Compent.Uintra.Core.Bulletins
         private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IMediaHelper _mediaHelper;
+        private readonly IIntranetMediaService _intranetMediaService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
@@ -83,6 +86,7 @@ namespace Compent.Uintra.Core.Bulletins
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
             _mediaHelper = mediaHelper;
+            _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
@@ -269,6 +273,19 @@ namespace Compent.Uintra.Core.Bulletins
             searchableActivity.Url = _linkService.GetLinks(bulletin.Id).Details;
             searchableActivity.UserTagNames = _userTagService.Get(bulletin.Id).Select(t => t.Text);
             return searchableActivity;
+        }
+
+        public BroadcastResult Handle(VideoConvertedCommand command)
+        {
+            var entityId = _intranetMediaService.GetEntityIdByMediaId(command.MediaId);
+            var entity = Get(entityId);
+            if (entity == null)
+            {
+                return BroadcastResult.Success;
+            }
+
+            entity.ModifyDate = DateTime.Now;
+            return BroadcastResult.Success;
         }
     }
 }
