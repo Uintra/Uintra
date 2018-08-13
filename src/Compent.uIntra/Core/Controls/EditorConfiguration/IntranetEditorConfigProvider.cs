@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Compent.Uintra.Core.Constants;
+using System.Collections.Generic;
 using Uintra.Core.Controls;
-using static Compent.Uintra.Core.Constants.DocumentTypeAliasConstants;
 
 namespace Compent.Uintra.Core.Controls.EditorConfiguration
 {
@@ -10,11 +10,11 @@ namespace Compent.Uintra.Core.Controls.EditorConfiguration
         {
             return new[]
             {
-                HomePage,
-                ContentPage,
-                BulletinsOverviewPage,
-                NewsOverviewPage,
-                EventsOverviewPage
+                DocumentTypeAliasConstants.HomePage,
+                DocumentTypeAliasConstants.ContentPage,
+                DocumentTypeAliasConstants.BulletinsOverviewPage,
+                DocumentTypeAliasConstants.NewsOverviewPage,
+                DocumentTypeAliasConstants.EventsOverviewPage
             };
         }
     }

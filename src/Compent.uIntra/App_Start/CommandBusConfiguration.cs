@@ -1,6 +1,11 @@
 ﻿using Compent.CommandBus;
+using Compent.Uintra.Core.Bulletins;
 using Compent.Uintra.Core.CommandBus;
+using Compent.Uintra.Core.Events;
+using Compent.Uintra.Core.News;
 using Uintra.Comments.CommandBus;
+using Uintra.Core.Activity;
+using Uintra.Core.Media;
 using Uintra.Groups.CommandBus;
 using Uintra.Likes.CommandBus;
 
@@ -13,6 +18,8 @@ namespace Compent.Uintra
             ConfigureLikeBindings(builder);
             ConfigureCommentBindings(builder);
             ConfigureGroupBindings(builder);
+            ConfigureMediaBindings(builder);
+
 
             return builder.Build();
         }
@@ -43,13 +50,23 @@ namespace Compent.Uintra
 
         private static void ConfigureGroupBindings(BindingBuilder builder)
         {
-             builder.HandleCommand<HideGroupCommand>()
-                .WithHandle<GroupHandle>()
-                .WithHandle<GroupActivitiesHandle>();
+            builder.HandleCommand<HideGroupCommand>()
+               .WithHandle<GroupHandle>()
+               .WithHandle<GroupActivitiesHandle>();
 
             builder.HandleCommand<UnhideGroupCommand>()
                 .WithHandle<GroupHandle>()
                 .WithHandle<GroupActivitiesHandle>();
         }
+
+        private static void ConfigureMediaBindings(BindingBuilder builder)
+        {
+            builder.HandleCommand<VideoConvertedCommand>()
+                .WithHandle<MediaHelper>()
+                .WithHandle<EventsService>()
+                .WithHandle<NewsService>()
+                .WithHandle<BulletinsService>();
+        }
+
     }
 }

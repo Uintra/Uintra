@@ -23,6 +23,7 @@ namespace Uintra.Notification.Configuration
             new NotificationSettingsCategoryDto(
                 CommunicationTypeEnum.CommunicationSettings,
                 ((Enum)NotificationTypeEnum.CommentLikeAdded).ToEnumerable()
+                .Append(NotificationTypeEnum.CommentReplied)
                 .Append(NotificationTypeEnum.MonthlyMail));
 
         public virtual NotificationSettingsCategoryDto

@@ -27,8 +27,19 @@ const easeInOutQuad = function (t, b, c, d) {
 };
 
 const helpers = {
-    deepClone: function (obj) {
-        return JSON.parse(JSON.stringify(obj));
+    deepClone: function (out) {
+        out = out || {};
+
+        for (var i = 1; i < arguments.length; i++) {
+            if (!arguments[i])
+                continue;
+
+            for (var key in arguments[i]) {
+                if (arguments[i].hasOwnProperty(key))
+                    out[key] = arguments[i][key];
+            }
+        }
+        return out;
     },
     initQuill: function (source, dataStorage, options) {
         if (!dataStorage) {
@@ -46,11 +57,10 @@ const helpers = {
         if (typeof options == 'undefined') {
             settings.modules = {
                 toolbar: {
-                    container: [['emoji'], ['bold', 'italic', 'underline'], ['link']]
+                    container: ['emoji', 'bold', 'italic', 'underline', 'link']
                 }
             };
-        }
-        else {
+        } else {
             $.extend(settings, options);
         }
 
@@ -104,12 +114,20 @@ const helpers = {
 
                     var ops = [];
                     if (endRetain > url.length) {
-                        ops.push({ retain: endRetain - url.length });
+                        ops.push({
+                            retain: endRetain - url.length
+                        });
                     }
 
-                    ops = ops.concat([
-                        { delete: url.length },
-                        { insert: url, attributes: { link: url } }
+                    ops = ops.concat([{
+                            delete: url.length
+                        },
+                        {
+                            insert: url,
+                            attributes: {
+                                link: url
+                            }
+                        }
                     ]);
 
                     var selectionBeforeUpdate = quill.getSelection();
@@ -143,11 +161,20 @@ const helpers = {
                 triggerLinkDetectedEvent(match);
                 var split = text.split(match);
                 var beforeLink = split.shift();
-                ops.push({ insert: beforeLink });
-                ops.push({ insert: match, attributes: { link: match } });
+                ops.push({
+                    insert: beforeLink
+                });
+                ops.push({
+                    insert: match,
+                    attributes: {
+                        link: match
+                    }
+                });
                 text = split.join(match);
 
-                ops.push({ insert: text });
+                ops.push({
+                    insert: text
+                });
                 delta.ops = ops;
             }
 
@@ -277,8 +304,7 @@ const helpers = {
                 if (eRect.bottom >= document.body.clientHeight) {
                     emojiContainer.classList.add('_in-top');
                 }
-            }
-            else {
+            } else {
                 emojiContainer.classList.add("hidden");
             }
         });
@@ -355,7 +381,9 @@ const helpers = {
         var descriptionElem = holder.find(descId);
         var btn = holder.find(btnElement);
 
-        var editor = this.initQuill(descriptionElem[0], dataStorage[0], { theme: 'snow' });
+        var editor = this.initQuill(descriptionElem[0], dataStorage[0], {
+            theme: 'snow'
+        });
 
         editor.on('text-change', function () {
             if (editor.getLength() > 1 && descriptionElem.hasClass('input-validation-error')) {
@@ -530,12 +558,12 @@ const helpers = {
 
         for (var i = 0; i < form.elements.length; i++) {
             var field = form.elements[i];
-            if (!field.name
-                || field.disabled
-                || field.type === "file"
-                || field.type === "reset"
-                || field.type === "submit"
-                || field.type === "button")
+            if (!field.name ||
+                field.disabled ||
+                field.type === "file" ||
+                field.type === "reset" ||
+                field.type === "submit" ||
+                field.type === "button")
                 continue;
 
             if (field.type === "select-multiple") {
@@ -546,8 +574,7 @@ const helpers = {
                 }
             } else if ((field.type !== "checkbox" && field.type !== "radio") || field.checked) {
                 s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value);
-            }
-            else if (field.type === "checkbox") {
+            } else if (field.type === "checkbox") {
                 s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.checked);
             }
         }
@@ -573,7 +600,9 @@ const helpers = {
             document.querySelector('input[name="page"]').value = val;
         },
         save(storageName) {
-            helpers.localStorage.setItem(storageName, { page: this.page });
+            helpers.localStorage.setItem(storageName, {
+                page: this.page
+            });
         },
         restoreState(reloadPromise, storageName) {
             const hash = (window.location.hash || '').replace('#', '');
