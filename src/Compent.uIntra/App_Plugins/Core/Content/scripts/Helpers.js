@@ -72,11 +72,12 @@ const helpers = {
             if (value) {
                 let range = this.quill.getSelection();
                 if (range == null || range.length == 0) return;
-                let preview = this.quill.getText(range);
+                let selectedText = this.quill.getText(range);
                 let tooltip = this.quill.theme.tooltip;
-                if (/^\S+@\S+\.\S+$/.test(preview) && preview.indexOf('mailto:') !== 0) {
-                    preview = 'mailto:' + preview;
-                    tooltip.edit('link', preview);
+
+                if (/^\S+@\S+\.\S+$/.test(selectedText) && selectedText.indexOf('mailto:') !== 0) {
+                    selectedText = 'mailto:' + selectedText;
+                    tooltip.edit('link', selectedText);
                 } else {
                     tooltip.edit('link', '');
                 }
