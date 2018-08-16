@@ -949,6 +949,8 @@
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\logo.svg" />
     <Content Include="Content\images\sort.svg" />
+    <Content Include="Content\images\videoLoader.jpg" />
+    <Content Include="Content\images\videoLoaderFailure.jpg" />
     <Content Include="Content\main.js" />
     <Content Include="Content\vendors.js" />
     <Content Include="default.aspx" />
@@ -1123,6 +1125,12 @@
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
     <Content Include="App_Plugins\Web.config" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.resx">
+      <DependentUpon>201805311457251_AddVideoConertationLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.resx">
+      <DependentUpon>201807270910259_AddDateTimeToVideoConvertLogTable.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1235,6 +1243,7 @@
     <Compile Include="Core\Comments\CustomCommentable.cs" />
     <Compile Include="Core\Comments\ICommentsPageHelper.cs" />
     <Compile Include="Core\Constants\DocumentTypeConstants.cs" />
+    <Compile Include="Core\ContentPage\ContentPageNotificationService.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\IntranetEditorConfigProvider.cs" />
     <Compile Include="Core\DateTimeFormatProvider.cs" />
     <Compile Include="Core\DocumentTypeProvider.cs" />
@@ -1250,6 +1259,7 @@
     <Compile Include="Core\Feed\Links\ActivityLinkService.cs" />
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
+    <Compile Include="Core\PagePromotion\PagePromotionNotificationService.cs" />
     <Compile Include="Core\Search\SearchContentEventService.cs" />
     <Compile Include="Core\Helpers\INotifierDataHelper.cs" />
     <Compile Include="Core\Helpers\NotifierContentHelper.cs" />
@@ -1401,6 +1411,8 @@
     <Compile Include="Core\Updater\Migrations\0.3.2.0\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.2.0\Steps\HomePageHideUnnecessaryItemsStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.3.2.0\Steps\RemoveTranslationsStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.4\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.4\Steps\VideoConvertingPropertiesStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
@@ -1457,6 +1469,14 @@
     <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs" />
     <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.Designer.cs">
       <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.Designer.cs">
+      <DependentUpon>201805311457251_AddVideoConertationLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.Designer.cs">
+      <DependentUpon>201807270910259_AddDateTimeToVideoConvertLogTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

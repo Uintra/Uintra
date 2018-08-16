@@ -1118,6 +1118,10 @@ img{
 .pswp{
     opacity: 0;
     transition: opacity ease-in 200ms;
+    
+    &[aria-hidden=true]{
+        z-index:-1;
+    }
 
     &__button{
         &--arrow--left,
@@ -1285,9 +1289,11 @@ img{
 			    margin:0 0 8px 8px;
 		    }
 
-            &:hover,
-            &:active,
-            &:focus{
+            &:hover{
+                color:inherit;
+            }
+
+            &.ql-active{
                 color:#fff;
                 background:#938ea1;
                 border-color:#938ea1;
@@ -1317,6 +1323,9 @@ img{
 
     .quill--custom &{
         &:hover{
+            border-color:#938ea1;
+            background-color:#938ea1;
+
             &:before{
                 background-image:url(/App_Plugins/Core/Content/images/emoji-custom-hover.svg);
             }
@@ -1344,6 +1353,9 @@ img{
 
     .quill--custom &{
         &:hover{
+            border-color:#938ea1;
+            background-color:#938ea1;
+
             &:before{
                 background-image:url(/App_Plugins/Core/Content/images/link-custom-hover.svg);
             }
@@ -1364,6 +1376,7 @@ img{
     }
 
     &:hover{
+
         &:before{
             background-image:url(/App_Plugins/Core/Content/images/attachment-hover.svg);
         }
@@ -1371,6 +1384,9 @@ img{
 
     .quill--custom &{
         &:hover{
+            border-color:#938ea1;
+            background-color:#938ea1;
+
             &:before{
                 background-image:url(/App_Plugins/Core/Content/images/attachment-custom-hover.svg);
             }

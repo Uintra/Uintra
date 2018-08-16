@@ -28,7 +28,7 @@ namespace Compent.Uintra.Core.CommandBus
                 case (int)ContextType.Comment:
                     var commentsTarget = command.Context.GetCommentsTarget();
 
-                    if (ContextExtensions.HasFlagScalar(commentsTarget.Type, ContextType.Activity))
+                    if (ContextExtensions.HasFlagScalar(commentsTarget.Type, ContextType.Activity | ContextType.PagePromotion | ContextType.ContentPage))
                     {
                         var service = _activitiesServiceFactory.GetNotifyableService(commentsTarget.EntityId.Value);
                         service.Notify(likeTargetEntityId, NotificationTypeEnum.CommentLikeAdded);

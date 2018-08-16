@@ -16,6 +16,7 @@ using Compent.Uintra.Core.Activity;
 using Compent.Uintra.Core.Bulletins;
 using Compent.Uintra.Core.CentralFeed;
 using Compent.Uintra.Core.Comments;
+using Compent.Uintra.Core.ContentPage;
 using Compent.Uintra.Core.Controls.EditorConfiguration;
 using Compent.Uintra.Core.Events;
 using Compent.Uintra.Core.Exceptions;
@@ -235,6 +236,8 @@ namespace Compent.Uintra
             kernel.Bind(typeof(IBulletinsService<>)).To<BulletinsService>().InRequestScope();
             kernel.Bind(typeof(IPagePromotionService<>)).To<PagePromotionService>().InRequestScope();
             kernel.Bind<IMediaHelper>().To<MediaHelper>().InRequestScope();
+            kernel.Bind<IVideoConverter>().To<VideoConverter>().InRequestScope();
+            kernel.Bind<IVideoConverterLogService>().To<VideoConverterLogService>().InRequestScope();
             kernel.Bind<IIntranetActivityRepository>().To<IntranetActivityRepository>().InRequestScope();
             kernel.Bind<ICacheService>().To<MemoryCacheService>().InRequestScope();
             kernel.Bind<IRoleService>().To<RoleServiceBase>().InRequestScope();
@@ -310,6 +313,8 @@ namespace Compent.Uintra
             kernel.Bind<INotifyableService>().To<NewsService>().InRequestScope();
             kernel.Bind<INotifyableService>().To<EventsService>().InRequestScope();
             kernel.Bind<INotifyableService>().To<BulletinsService>().InRequestScope();
+            kernel.Bind<INotifyableService>().To<ContentPageNotificationService>().InRequestScope();
+            kernel.Bind<INotifyableService>().To<PagePromotionNotificationService>().InRequestScope();
 
             kernel.Bind<ISubscribeService>().To<CustomSubscribeService>().InRequestScope();
             kernel.Bind<IActivitySubscribeSettingService>().To<ActivitySubscribeSettingService>().InRequestScope();
@@ -430,6 +435,7 @@ namespace Compent.Uintra
             kernel.Bind<IUmbracoContentTrashedEventService>().To<ContentPageRelationHandler>().InRequestScope();
             kernel.Bind<IUmbracoContentPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
             kernel.Bind<IUmbracoContentUnPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
+            kernel.Bind<IUmbracoMediaSavedEventService>().To<VideoConvertEventService>().InRequestScope();
 
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();

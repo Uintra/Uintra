@@ -3,6 +3,7 @@ using Uintra.Comments;
 using Uintra.Core.Activity;
 using Uintra.Core.Links;
 using Uintra.Notification;
+using Umbraco.Core.Models;
 
 namespace Compent.Uintra.Core.Helpers
 {
@@ -28,6 +29,20 @@ namespace Compent.Uintra.Core.Helpers
                 Url = _commentLinkHelper.GetDetailsUrlWithComment(activity.Id, comment.Id),
                 IsPinned = activity.IsPinned,
                 IsPinActual = activity.IsPinActual
+            };
+        }
+
+        public CommentNotifierDataModel GetCommentNotifierDataModel(IPublishedContent content, CommentModel comment, Enum notificationType, Guid notifierId)
+        {
+            return new CommentNotifierDataModel
+            {
+                CommentId = comment.Id,
+                NotificationType = notificationType,
+                NotifierId = notifierId,
+                Title = content.Name,
+                Url = _commentLinkHelper.GetDetailsUrlWithComment(content, comment.Id),
+                IsPinned = false,
+                IsPinActual = false
             };
         }
 

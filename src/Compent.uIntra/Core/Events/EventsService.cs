@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.CommandBus;
 using Compent.Extensions;
 using Compent.Uintra.Core.Helpers;
 using Compent.Uintra.Core.Search.Entities;
@@ -35,7 +36,8 @@ namespace Compent.Uintra.Core.Events
         ISubscribableService,
         INotifyableService,
         IReminderableService<Event>,
-        IIndexer
+        IIndexer,
+        IHandle<VideoConvertedCommand>
     {
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
@@ -46,6 +48,7 @@ namespace Compent.Uintra.Core.Events
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
+        private readonly IIntranetMediaService _intranetMediaService;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataHelper _notifierDataHelper;
         private readonly UserTagService _userTagService;
@@ -88,6 +91,7 @@ namespace Compent.Uintra.Core.Events
             _mediaHelper = mediaHelper;
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
+            _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
             _notifierDataHelper = notifierDataHelper;
@@ -367,6 +371,19 @@ namespace Compent.Uintra.Core.Events
         {
             var @event = (Event)activity;
             return @event.Map<ActivitySubscribeSettingDto>();
+        }
+
+        public BroadcastResult Handle(VideoConvertedCommand command)
+        {
+            var entityId = _intranetMediaService.GetEntityIdByMediaId(command.MediaId);
+            var entity = Get(entityId);
+            if (entity==null)
+            {
+                return BroadcastResult.Success;
+            }
+
+            entity.ModifyDate = DateTime.Now;
+            return BroadcastResult.Success;
         }
     }
 }

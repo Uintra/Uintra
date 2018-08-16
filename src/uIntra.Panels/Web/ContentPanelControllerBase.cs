@@ -50,16 +50,14 @@ namespace Uintra.Panels.Web
             {
                 viewModel.VideoSourceType = (VideoSourceTypes)model.VideoLink.sourceType;
                 viewModel.VideoTooltip = model.VideoLink.altText.ToString();
-                viewModel.VideoSrc = string.Empty;
+                viewModel.VideoSrc = model.VideoLink.embedUrl;
                 viewModel.AutoplayVideo = "autoplay";
                 viewModel.AutoplayIframe = "?autoplay=1";
             }
 
             if (viewModel.PosterImageUrl.HasValue())
             {
-                viewModel.VideoSrc = model.VideoLink.embedUrl;
-                viewModel.AutoplayVideo = string.Empty;
-                viewModel.AutoplayIframe = string.Empty;
+                viewModel.VideoSrc = string.Empty;                
             }
 
             if (viewModel.VideoSourceType == VideoSourceTypes.Vimeo || viewModel.VideoSourceType == VideoSourceTypes.Youtube)

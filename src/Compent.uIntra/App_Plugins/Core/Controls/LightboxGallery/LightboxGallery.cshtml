@@ -16,10 +16,10 @@
                 var originalSize = $"{media.Width}x{media.Height}";
                 var videoClass = media.Type.ToInt() == MediaTypeEnum.Video.ToInt() ? "video" : string.Empty;
 
-                <li class="gallery__item @fullSizeClass @videoClass" @*style="@(media.IsHidden ? "display:none;" : string.Empty)"*@>
+                <li class="gallery__item @fullSizeClass @videoClass">
                     @if (media.Type.ToInt() == MediaTypeEnum.Video.ToInt())
                     {
-                        <span class="gallery__item-opener js-gallery__item-opener" data-type="video" data-video='<div class="gallery__video"><div class="gallery__video-box"><video width="960" class="pswp__video" src="@media.Url" controls></video></div></div>'>
+                        <span class="gallery__item-opener js-gallery__item-opener" data-type="video" data-video='@media.Url'>
                             <img class="gallery__image" src="@media.PreviewUrl" style="cursor: pointer" data-full-size="@originalSize" data-full-url="@media.Url" height="100" />
                         </span>
                     }

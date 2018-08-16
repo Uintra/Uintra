@@ -384,6 +384,7 @@
     <Compile Include="Core\Models\SearchBoxAutocompleteItemViewModel.cs" />
     <Compile Include="Core\UmbracoEventServices\SearchMediaEventService.cs" />
     <Compile Include="Core\Exceptions\ElasticSearchRequestErrorException.cs" />
+    <Compile Include="Core\UmbracoEventServices\VideoConvertEventService.cs" />
     <Compile Include="DefaultImplementation\SearchableTypeProvider.cs" />
     <Compile Include="DefaultImplementation\ContentIndexer.cs" />
     <Compile Include="Core\Helpers\ElasticHelpers.cs" />

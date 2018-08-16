@@ -115,6 +115,9 @@
     <Reference Include="cms, Version=1.0.6684.15730, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.10.4\lib\net45\cms.dll</HintPath>
     </Reference>
+    <Reference Include="Compent.CommandBus, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.CommandBus.1.2.1\lib\net471\Compent.CommandBus.dll</HintPath>
+    </Reference>
     <Reference Include="Compent.Extensions, Version=0.3.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Extensions.0.3.4\lib\net471\Compent.Extensions.dll</HintPath>
     </Reference>
@@ -402,6 +405,13 @@
     <Compile Include="Core\Context\ContextBuildType.cs" />
     <Compile Include="Core\Context\Extensions\PropertyReflectionHelper.cs" />
     <Compile Include="Core\Helpers\SectionHelper.cs" />
+    <Compile Include="Core\Media\IVideoConverter.cs" />
+    <Compile Include="Core\Media\IVideoConverterLogService.cs" />
+    <Compile Include="Core\Media\MediaConvertModel.cs" />
+    <Compile Include="Core\Media\VideoConvertationLog.cs" />
+    <Compile Include="Core\Media\VideoConvertedCommand.cs" />
+    <Compile Include="Core\Media\VideoConverter.cs" />
+    <Compile Include="Core\Media\VideoConverterLogService.cs" />
     <Compile Include="Core\ViewRenderer.cs" />
     <Compile Include="Core\Grid\GridRenderHelper.cs" />
     <Compile Include="Core\Helpers\HtmlHelper.cs" />
