@@ -279,7 +279,7 @@ Task("umbracoPackageInstaller")
 		//XmlPoke(packageXml, "/umbPackage/info/author/name", assemblyInfo.Company);
 
 		//var packageZipFileName = $"UintraPackageInstaller.{assemblyInfo.AssemblyVersion}.zip";
-		var packageZipFileName = $"UintraPackageInstaller.{"0.3.2.0"}.zip";
+		var packageZipFileName = $"UintraPackageInstaller.{"0.4.0.0"}.zip";
 		var packageZipFile = new FilePath($"{installerProject.DeploymentDirectory.FullPath}/{packageZipFileName}");
 
 		Zip(packageSourceDirectory, packageZipFile);
