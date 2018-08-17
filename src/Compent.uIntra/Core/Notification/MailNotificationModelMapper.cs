@@ -70,6 +70,14 @@ namespace Compent.Uintra.Core.Notification
                         (ActivityList, model.ActivityList)
                     };
                     break;
+                case UserMentionNotifierDataModel model:
+                    tokens = new[]
+                    {
+                        (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
+                        (FullName, _intranetUserService.Get(model.ReceiverId).DisplayedName),
+                        (TaggedBy, _intranetUserService.Get(model.NotifierId).DisplayedName)
+                    };
+                    break;
                 default:
                     throw new IndexOutOfRangeException();
             }

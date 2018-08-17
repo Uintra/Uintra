@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Compent.Uintra.Core.Activity.Models;
@@ -17,6 +18,8 @@ using Compent.Uintra.Core.UserTags;
 using Uintra.Core;
 using Uintra.Groups.Extentions;
 using Uintra.Navigation;
+using Uintra.News;
+using Uintra.Users;
 
 namespace Compent.Uintra.Controllers
 {
@@ -29,9 +32,12 @@ namespace Compent.Uintra.Controllers
         protected override string ItemHeaderViewPath { get; } = "~/Views/Bulletins/ItemHeader.cshtml";
 
         private readonly IBulletinsService<Bulletin> _bulletinsService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IMyLinksService _myLinksService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityTagsHelper _activityTagsHelper;
+        private readonly IMentionService _mentionService;
+        private readonly IActivityLinkService _activityLinkService;
 
         public BulletinsController(
             IBulletinsService<Bulletin> bulletinsService,
@@ -41,13 +47,18 @@ namespace Compent.Uintra.Controllers
             IMyLinksService myLinksService,
             IGroupActivityService groupActivityService,
             IActivityTagsHelper activityTagsHelper,
-            IContextTypeProvider contextTypeProvider)
+            IContextTypeProvider contextTypeProvider,
+            IMentionService mentionService,
+            IActivityLinkService activityLinkService)
             : base(bulletinsService, mediaHelper, intranetUserService, activityTypeProvider, contextTypeProvider)
         {
             _bulletinsService = bulletinsService;
+            _intranetUserService = intranetUserService;
             _myLinksService = myLinksService;
             _groupActivityService = groupActivityService;
             _activityTagsHelper = activityTagsHelper;
+            _mentionService = mentionService;
+            _activityLinkService = activityLinkService;
         }
 
         [HttpPost]
@@ -82,11 +93,13 @@ namespace Compent.Uintra.Controllers
             {
                 _activityTagsHelper.ReplaceTags(bulletin.Id, extendedModel.TagIdsData);
             }
+
+            ResolveMentions(model.Description, bulletin);
         }
 
         protected override BulletinViewModel GetViewModel(BulletinBase bulletin, ActivityFeedOptions options)
         {
-            var extendedBullet = (Bulletin) bulletin;
+            var extendedBullet = (Bulletin)bulletin;
             var extendedModel = base.GetViewModel(bulletin, options).Map<BulletinExtendedViewModel>();
             extendedModel = Mapper.Map(extendedBullet, extendedModel);
             return extendedModel;
@@ -140,6 +153,27 @@ namespace Compent.Uintra.Controllers
             if (model is BulletinExtendedCreateModel extendedModel)
             {
                 _activityTagsHelper.ReplaceTags(bulletin.Id, extendedModel.TagIdsData);
+            }
+
+            ResolveMentions(model.Description, bulletin);
+        }
+
+        private void ResolveMentions(string text, BulletinBase bulletin)
+        {
+            var mentionIds = _mentionService.GetMentions(text).ToList();
+
+            if (mentionIds.Any())
+            {
+                var links = _activityLinkService.GetLinks(bulletin.Id);
+                _mentionService.PreccessMention(new MentionModel()
+                {
+                    MentionedSourceId = bulletin.Id,
+                    CreatorId = _intranetUserService.GetCurrentUserId(),
+                    MentionedUserIds = mentionIds,
+                    Title = bulletin.Title,
+                    Url = links.Details
+                });
+
             }
         }
     }

@@ -1,0 +1,7 @@
+﻿{
+  "label": "You can insert the following dynamic values:<br><br>##TaggedBy## - Name of the user that tagged another user<br>##FullName## - Name of the user tagged<br>##ActivityTitle## - Name of Activity",
+  "template": {
+    "subject": "User tagging notification",
+    "body": "Dear ##FullName##,<br><br> ##ActivityTitle## was tagged by ##TaggedBy##"
+  }
+}

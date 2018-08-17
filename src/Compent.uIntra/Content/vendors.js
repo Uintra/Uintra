@@ -1,5 +1,6 @@
 import {} from 'quill';
 import {} from 'quill-delta';
+import {} from 'quill-mention';
 import {} from 'dotdotdot';
 import {} from 'flatpickr';
 import {} from 'simple-scrollbar';
