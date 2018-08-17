@@ -3,6 +3,7 @@ using AutoMapper;
 using Compent.Uintra.Core.Search.Entities;
 using Uintra.Core.User;
 using Uintra.Users;
+using Uintra.Users.UserList;
 
 namespace Compent.Uintra.Core.Users
 {
@@ -13,6 +14,8 @@ namespace Compent.Uintra.Core.Users
             Mapper.CreateMap<IntranetUser, ProfileViewModel>()
                 .ForMember(dst => dst.EditingUser, o => o.MapFrom(user => user));
 
+            Mapper.CreateMap<IntranetUser, UserModel>()
+                .ForMember(dst => dst.User, o => o.MapFrom(user => user));
             Mapper.CreateMap<IntranetUser, ProfileEditModel>()
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())

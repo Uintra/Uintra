@@ -87,8 +87,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             var contentGridDataType = _dataTypeService.GetDataTypeDefinitionByName(CoreInstallationConstants.DataTypeNames.ContentGrid);
             var preValuesDictionary = _dataTypeService.GetPreValuesCollectionByDataTypeId(contentGridDataType.Id).PreValuesAsDictionary;
 
-            ContentGridInstallationHelper.AddAllowedEditorForOneColumnRow(preValuesDictionary, TableEditor);
-            ContentGridInstallationHelper.AddAllowedEditorForTwoColumnRow(preValuesDictionary, TableEditor);
+            GridInstallationHelper.AddAllowedEditorForOneColumnRow(preValuesDictionary, TableEditor);
+            GridInstallationHelper.AddAllowedEditorForTwoColumnRow(preValuesDictionary, TableEditor);
 
             _dataTypeService.SavePreValues(contentGridDataType, preValuesDictionary);
         }
@@ -98,8 +98,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             var contentGridDataType = _dataTypeService.GetDataTypeDefinitionByName(CoreInstallationConstants.DataTypeNames.ContentGrid);
             var preValuesDictionary = _dataTypeService.GetPreValuesCollectionByDataTypeId(contentGridDataType.Id).PreValuesAsDictionary;
 
-            ContentGridInstallationHelper.RemoveAllowedEditorForOneColumnRow(preValuesDictionary, TableEditor);
-            ContentGridInstallationHelper.RemoveAllowedEditorForTwoColumnRow(preValuesDictionary, TableEditor);
+            GridInstallationHelper.RemoveAllowedEditorForOneColumnRow(preValuesDictionary, TableEditor);
+            GridInstallationHelper.RemoveAllowedEditorForTwoColumnRow(preValuesDictionary, TableEditor);
 
             _dataTypeService.SavePreValues(contentGridDataType, preValuesDictionary);
         }

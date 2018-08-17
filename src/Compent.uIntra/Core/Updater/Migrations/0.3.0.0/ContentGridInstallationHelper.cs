@@ -4,10 +4,12 @@ using Umbraco.Core.Models;
 
 namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0
 {
-    public static class ContentGridInstallationHelper
+    public static class GridInstallationHelper
     {
         private const int OneColumnRowIndex = 0;
         private const int TwoColumnRowIndex = 1;
+        private const int MainRowIndex = 0;
+        private const int RightSideColumnIndex = 1;
 
         public static void AddAllowedEditorForOneColumnRow(IDictionary<string, PreValue> preValues, string allowedEditorAlias)
         {
@@ -27,6 +29,26 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0
         public static void RemoveAllowedEditorForTwoColumnRow(IDictionary<string, PreValue> preValues, string allowedEditorAlias)
         {
             EditAllowedEditor(preValues, allowedEditorAlias, TwoColumnRowIndex, deleteEditor: true);
+        }
+
+        public static void AddAllowedEditorForMainRow(IDictionary<string, PreValue> preValues, string allowedEditorAlias)
+        {
+            EditAllowedEditor(preValues, allowedEditorAlias, MainRowIndex);
+        }
+
+        public static void AddAllowedEditorForRightSideColumnRow(IDictionary<string, PreValue> preValues, string allowedEditorAlias)
+        {
+            EditAllowedEditor(preValues, allowedEditorAlias, RightSideColumnIndex);
+        }
+
+        public static void RemoveAllowedEditorForMainRow(IDictionary<string, PreValue> preValues, string allowedEditorAlias)
+        {
+            EditAllowedEditor(preValues, allowedEditorAlias, MainRowIndex, deleteEditor: true);
+        }
+
+        public static void RemoveAllowedEditorForRightSideColumnRow(IDictionary<string, PreValue> preValues, string allowedEditorAlias)
+        {
+            EditAllowedEditor(preValues, allowedEditorAlias, RightSideColumnIndex, deleteEditor: true);
         }
 
         private static void EditAllowedEditor(IDictionary<string, PreValue> preValues, string allowedEditorAlias, int layoutIndex, bool deleteEditor = false)

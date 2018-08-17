@@ -26,11 +26,20 @@ namespace Uintra.Search
                     q.Bool(b => b
                         .Should(GetQueryContainers(query.Text))
                         .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))))
-                .PostFilter(pf => pf.Bool(b => b.Must(GetSearchableTypeQueryContainers(query.SearchableTypeIds), GetOnlyPinnedQueryContainer(query.OnlyPinned))));
+                .PostFilter(pf => pf.Bool(b => b.Must(GetSearchPostFilters(query))));
 
             ApplyAggregations(searchRequest, query);
+
+            if (query.OrderingString.IsNullOrEmpty())
+            {
+                ApplySort(searchRequest);
+            }
+            else
+            {
+                ApplySort(searchRequest, query.OrderingDirection, query.OrderingString);
+            }
+
             ApplyPaging(searchRequest, query);
-            ApplySort(searchRequest);
 
             if (query.ApplyHighlights)
             {
@@ -40,6 +49,16 @@ namespace Uintra.Search
             var queryResult = _elasticSearchRepository.SearchByIndex(searchRequest);
             var searchResult = ParseResults(queryResult);
             return searchResult;
+        }
+
+
+        protected virtual QueryContainer[] GetSearchPostFilters(SearchTextQuery query)
+        {
+            return new[]
+            {
+                GetSearchableTypeQueryContainers(query.SearchableTypeIds),
+                GetOnlyPinnedQueryContainer(query.OnlyPinned)
+            };
         }
 
         protected virtual SearchDescriptor<dynamic> GetSearchDescriptor()
@@ -151,18 +170,26 @@ namespace Uintra.Search
                 Documents = documents,
                 TypeFacets = GlobalFacets(response.Aggs.Aggregations, SearchConstants.SearchFacetNames.Types)
             };
-
+             
             return result;
         }
 
-        protected virtual void ApplySort<T>(SearchDescriptor<T> searchDescriptor) where T : class
+        protected virtual void ApplySort<T>(SearchDescriptor<T> searchDescriptor, int direction = 0, string propertyName = "_score" ) where T : class
         {
-            searchDescriptor.Sort(s => s.Descending("_score"));
+            switch (direction)
+            {
+                case 0:
+                    searchDescriptor.Sort(s => s.Ascending(propertyName));
+                    break;
+                case 1:
+                    searchDescriptor.Sort(s => s.Descending(propertyName));
+                    break;
+            }
         }
 
         protected virtual void ApplyPaging<T>(SearchDescriptor<T> searchDescriptor, SearchTextQuery query) where T : class
         {
-            searchDescriptor.Take(query.Take);
+            searchDescriptor.Skip(query.Skip).Take(query.Take);
         }
 
         protected virtual void ApplyAggregations<T>(SearchDescriptor<T> searchDescriptor, SearchTextQuery query) where T : class

@@ -318,11 +318,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Attributes\UIColumnAttribute.cs" />
     <Compile Include="Core\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Commands\MentionCommand.cs" />
+    <Compile Include="Core\Helpers\ReflectionHelper.cs" />
     <Compile Include="Core\ICachableUserService.cs" />
     <Compile Include="Core\IMemberServiceHelper.cs" />
     <Compile Include="Core\IMentionService.cs" />
+    <Compile Include="Core\Models\UserList\ProfileColumnModel.cs" />
+    <Compile Include="Core\Models\UserList\ColumnType.cs" />
+    <Compile Include="Core\Models\UserList\UserListModel.cs" />
+    <Compile Include="Core\Models\UserList\UsersRowsViewModel.cs" />
+    <Compile Include="Core\Models\UserList\UserModel.cs" />
     <Compile Include="Core\Models\UserPickerModel.cs" />
     <Compile Include="Core\Models\MentionModel.cs" />
     <Compile Include="DefaultImplementation\IntranetUserServiceBase.cs" />
@@ -342,6 +349,8 @@
     <Compile Include="Core\Models\MentionUserModel.cs" />
     <Compile Include="Web\ProfileControllerBase.cs" />
     <Compile Include="Web\UserApiController.cs" />
+    <Compile Include="Web\UserListControllerBase.cs" />
+    <Compile Include="Core\Models\UserList\UserListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.Core\Uintra.Core.csproj">

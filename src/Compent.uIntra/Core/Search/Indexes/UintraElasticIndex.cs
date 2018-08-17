@@ -116,6 +116,11 @@ namespace Compent.Uintra.Core.Search.Indexes
             }
         }
 
+        protected override QueryContainer[] GetSearchPostFilters(SearchTextQuery query) => 
+            base.GetSearchPostFilters(query)
+            .Append(new QueryContainerDescriptor<SearchableUser>().Terms(t => t.Field(f => f.Inactive).Terms(false)))
+            .ToArray();
+
 
         protected static QueryContainer GetTagNames<T>(string query) where T : class, ISearchibleTaggedActivity
         {
