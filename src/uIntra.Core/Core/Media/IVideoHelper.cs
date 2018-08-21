@@ -7,5 +7,8 @@ namespace UIntra.Core.Media
         bool IsVideo(string fileExtension);
         string CreateThumbnail(IMedia media);
         VideoSizeMetadataModel GetSizeMetadata(IMedia media);
+        string CreateConvertingThumbnail();
+        string CreateConvertingFailureThumbnail();
+
     }
 }

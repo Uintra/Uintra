@@ -9,6 +9,7 @@ namespace Uintra.Core.Media
         IEnumerable<int> GetEntityMedia(Guid entityId);
         void Delete(Guid entityId);
         void Update(Guid entityId, string mediaIds);
+        Guid GetEntityIdByMediaId(int mediaId);
         string GetEntityMediaString(Guid entityId);
     }
 }

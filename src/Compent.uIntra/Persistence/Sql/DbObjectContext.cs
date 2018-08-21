@@ -7,6 +7,7 @@ using Uintra.Comments;
 using Uintra.Core.Activity;
 using Uintra.Core.LinkPreview.Sql;
 using Uintra.Core.Location.Entities;
+using Uintra.Core.Media;
 using Uintra.Core.Media.Sql;
 using Uintra.Core.MigrationHistories.Sql;
 using Uintra.Core.Persistence;
@@ -57,6 +58,7 @@ namespace Compent.Uintra.Persistence.Sql
         public DbSet<LinkPreviewEntity> LinkPreviews { get; set; }
         public DbSet<CommentToLinkPreviewEntity> CommentToLinkPreviews { get; set; }
         public DbSet<ActivityToLinkPreviewEntity> ActivityToLinkPreviews { get; set; }
+        public DbSet<VideoConvertationLog> VideoConvertationLog { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

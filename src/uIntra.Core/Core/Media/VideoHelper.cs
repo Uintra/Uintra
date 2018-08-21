@@ -83,5 +83,16 @@ namespace UIntra.Core.Media
 
             return $"/{urlSegments.JoinWith("/")}";
         }
+
+        public string CreateConvertingThumbnail()
+        {
+            return @"/Content/images/videoLoader.jpg";
+        }
+
+        public string CreateConvertingFailureThumbnail()
+        {
+            return @"/Content/images/videoLoaderFailure.jpg";
+        }
+
     }
 }
