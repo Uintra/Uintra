@@ -1,11 +1,15 @@
 ﻿const Quill = require('quill');
 const Delta = require('quill-delta');
 const Flatpickr = require('flatpickr');
+const QuillMentions = require('quill-mention');
+Quill.register("mentions", QuillMentions);
+
 import ajax from './Ajax';
 
 require('simple-scrollbar');
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
+require('quill-mention/dist/quill.mention.min.css');
 
 var urlDetectRegexes = [];
 
@@ -42,6 +46,7 @@ const helpers = {
         return out;
     },
     initQuill: function (source, dataStorage, options) {
+        
         if (!dataStorage) {
             throw new Error("Hided input field missing");
         }
@@ -52,7 +57,33 @@ const helpers = {
 
         let settings = {
             theme: 'snow'
-        }
+        }        
+
+        var mention = {
+            mention: {
+                allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+                mentionDenotationChars: ["@"],
+                source: function (searchTerm, renderList, mentionChar) {
+                    var matches = [];
+                    if (searchTerm.length === 0) {
+                        return;
+                    } else {
+
+                        ajax.get("/umbraco/api/Mention/SearchMention?query=" + searchTerm)
+                            .then(function (response) {                                
+                                if (response.data) {
+                                    for (var i = 0; i < response.data.length; i++) {
+                                        matches.push(response.data[i]);                
+                                    }
+                                }                                
+                                renderList(matches, searchTerm);
+                            });
+                    }
+                }
+            }
+        };
+
+
 
         if (typeof options == 'undefined') {
             settings.modules = {
@@ -61,11 +92,13 @@ const helpers = {
                 }
             };
         } else {
-            $.extend(settings, options);
+            $.extend(settings, options);          
         }
 
+        $.extend(settings.modules, mention);
+
         let quill = new Quill(source, settings);
-        let toolbar = quill.getModule('toolbar');
+        let toolbar = quill.getModule('toolbar');        
 
         //override default link handler
         toolbar.addHandler('link', function (value) {

@@ -1128,6 +1128,9 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.resx">
       <DependentUpon>201805311457251_AddVideoConertationLog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201806271138265_AddNotifierTypeToNotificationsTable.resx">
+      <DependentUpon>201806271138265_AddNotifierTypeToNotificationsTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.resx">
       <DependentUpon>201807270910259_AddDateTimeToVideoConvertLogTable.cs</DependentUpon>
     </EmbeddedResource>
@@ -1179,6 +1182,7 @@
     <Compile Include="Controllers\Api\EditorConfigController.cs" />
     <Compile Include="Controllers\Api\LinkPreviewController.cs" />
     <Compile Include="Controllers\Api\MemberApiController.cs" />
+    <Compile Include="Controllers\Api\MentionController.cs" />
     <Compile Include="Controllers\Api\MonthlyEmailApiController.cs" />
     <Compile Include="Controllers\Api\NotificationSettingsApiController.cs" />
     <Compile Include="Controllers\Api\QaController.cs" />
@@ -1238,6 +1242,7 @@
     <Compile Include="Core\CommandBus\GroupActivitiesHandle.cs" />
     <Compile Include="Core\CommandBus\LikeHandle.cs" />
     <Compile Include="Core\CommandBus\LikeNotificationHandle.cs" />
+    <Compile Include="Core\CommandBus\MentionHandle.cs" />
     <Compile Include="Core\Comments\CommentsPageHelper.cs" />
     <Compile Include="Core\Comments\CommentsPageTab.cs" />
     <Compile Include="Core\Comments\CustomCommentable.cs" />
@@ -1260,6 +1265,10 @@
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionNotificationService.cs" />
+    <Compile Include="Core\Notification\IUserMentionNotificationService.cs" />
+    <Compile Include="Core\Notification\Models\UserMentionNotificationModel.cs" />
+    <Compile Include="Core\Notification\UserMentionNotificationService.cs" />
+    <Compile Include="Core\Notification\Models\UserMentionNotifierDataModel.cs" />
     <Compile Include="Core\Search\SearchContentEventService.cs" />
     <Compile Include="Core\Helpers\INotifierDataHelper.cs" />
     <Compile Include="Core\Helpers\NotifierContentHelper.cs" />
@@ -1469,6 +1478,10 @@
     <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs" />
     <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.Designer.cs">
       <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201806271138265_AddNotifierTypeToNotificationsTable.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201806271138265_AddNotifierTypeToNotificationsTable.Designer.cs">
+      <DependentUpon>201806271138265_AddNotifierTypeToNotificationsTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.cs" />
     <Compile Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.Designer.cs">

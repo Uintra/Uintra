@@ -8,6 +8,7 @@ using Uintra.Core.Activity;
 using Uintra.Core.Media;
 using Uintra.Groups.CommandBus;
 using Uintra.Likes.CommandBus;
+using Uintra.Users.Commands;
 
 namespace Compent.Uintra
 {
@@ -20,6 +21,9 @@ namespace Compent.Uintra
             ConfigureGroupBindings(builder);
             ConfigureMediaBindings(builder);
 
+
+            builder.HandleCommand<MentionCommand>()
+                .WithHandle<MentionHandle>();
 
             return builder.Build();
         }

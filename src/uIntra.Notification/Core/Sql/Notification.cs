@@ -17,6 +17,7 @@ namespace Uintra.Notification
         public bool IsNotified { get; set; }
         public bool IsViewed { get; set; }
         public int Type { get; set; }
+        public int NotifierType { get; set; }
         public string Value { get; set; }
     }
 }

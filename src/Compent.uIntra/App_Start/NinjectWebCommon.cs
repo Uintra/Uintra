@@ -251,6 +251,8 @@ namespace Compent.Uintra
             kernel.Bind<ICommentsPageHelper>().To<CommentsPageHelper>().InRequestScope();
             kernel.Bind<ICommentLinkHelper>().To<CommentLinkHelper>().InRequestScope();
 
+            kernel.Bind<IMentionService>().To<MentionService>().InRequestScope();
+
             kernel.Bind<ILikesService>().To<LikesService>().InRequestScope();
 
             // Feed
@@ -282,7 +284,7 @@ namespace Compent.Uintra
 
             kernel.Bind<IActivityPageHelperFactory>().To<CacheActivityPageHelperFactory>()
                 .WhenInjectedInto<GroupFeedLinkProvider>()
-                .WithConstructorArgument(typeof(IEnumerable<string>), c => GroupFeedLinkProviderHelper.GetFeedActivitiesXPath(c.Kernel.Get<IDocumentTypeAliasProvider>())); 
+                .WithConstructorArgument(typeof(IEnumerable<string>), c => GroupFeedLinkProviderHelper.GetFeedActivitiesXPath(c.Kernel.Get<IDocumentTypeAliasProvider>()));
 
             kernel.Bind<ICentralFeedContentService>().To<CentralFeedContentService>().InRequestScope();
             kernel.Bind<IGroupFeedContentService>().To<GroupFeedContentService>().InRequestScope();
@@ -360,6 +362,7 @@ namespace Compent.Uintra
             kernel.Bind<INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage>>().To<UiNotificationModelMapper>().InRequestScope();
             kernel.Bind<INotificationModelMapper<PopupNotifierTemplate, PopupNotificationMessage>>().To<PopupNotificationModelMapper>().InRequestScope();
             kernel.Bind<INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage>>().To<MailNotificationModelMapper>().InRequestScope();
+            kernel.Bind<IUserMentionNotificationService>().To<UserMentionNotificationService>().InRequestScope();
 
             kernel.Bind<IBackofficeSettingsReader>().To<BackofficeSettingsReader>();
             kernel.Bind(typeof(IBackofficeNotificationSettingsProvider)).To<BackofficeNotificationSettingsProvider>();
@@ -375,10 +378,10 @@ namespace Compent.Uintra
             kernel.Bind<IActivityTagsHelper>().To<ActivityTagsHelper>().InRequestScope();
 
             // Link preview                   
-            kernel.Bind<ILinkPreviewClient>().To<LinkPreviewClient>().InRequestScope();            
-            kernel.Bind<ILinkPreviewConfiguration>().To<LinkPreviewConfiguration>().InRequestScope();            
+            kernel.Bind<ILinkPreviewClient>().To<LinkPreviewClient>().InRequestScope();
+            kernel.Bind<ILinkPreviewConfiguration>().To<LinkPreviewConfiguration>().InRequestScope();
             kernel.Bind<ILinkPreviewUriProvider>().To<LinkPreviewUriProvider>();
-            kernel.Bind<ILinkPreviewConfigProvider>().To<LinkPreviewConfigProvider>();            
+            kernel.Bind<ILinkPreviewConfigProvider>().To<LinkPreviewConfigProvider>();
             kernel.Bind<LinkPreviewModelMapper>().ToSelf();
             kernel.Bind<IActivityLinkPreviewService>().To<ActivityLinkPreviewService>();
 
@@ -389,7 +392,7 @@ namespace Compent.Uintra
 
             // Model Binders
             kernel.Bind<DateTimeBinder>().ToSelf().InSingletonScope();
-          
+
             kernel.Bind<IGridHelper>().To<GridHelper>().InRequestScope();
             kernel.Bind<ViewRenderer>().ToSelf().InRequestScope();
 

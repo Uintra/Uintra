@@ -22,9 +22,8 @@ namespace Uintra.Notification.Configuration
         public virtual NotificationSettingsCategoryDto GetCommunicationSettings() => //TODO: temporary for communication settings
             new NotificationSettingsCategoryDto(
                 CommunicationTypeEnum.CommunicationSettings,
-                ((Enum)NotificationTypeEnum.CommentLikeAdded).ToEnumerable()
+                new Enum[] { NotificationTypeEnum.CommentLikeAdded, NotificationTypeEnum.MonthlyMail, NotificationTypeEnum.UserMention });
                 .Append(NotificationTypeEnum.CommentReplied)
-                .Append(NotificationTypeEnum.MonthlyMail));
 
         public virtual NotificationSettingsCategoryDto
             GetMemberSettings() => //TODO: temporary for communication settings

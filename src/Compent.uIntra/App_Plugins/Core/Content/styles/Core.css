@@ -1454,3 +1454,7 @@ img{
         display:none;
     }
 }
+
+.ql-mention-list-container{
+    z-index:1001;
+}
