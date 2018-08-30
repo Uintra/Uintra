@@ -911,6 +911,10 @@
     <Content Include="App_Plugins\Users\Profile\profile.css" />
     <Content Include="App_Plugins\Users\Profile\profile.html" />
     <Content Include="App_Plugins\Users\Profile\profile.js" />
+    <Content Include="App_Plugins\Users\UserList\backoffice\user-list-overlay.html" />
+    <Content Include="App_Plugins\Users\UserList\backoffice\user-list-view.html" />
+    <Content Include="App_Plugins\Users\UserList\backoffice\userListController.js" />
+    <Content Include="App_Plugins\Users\UserList\userList.js" />
     <Content Include="App_Plugins\Users\users.js" />
     <Content Include="App_Plugins\Utils\backoffice\developer-reload-cache.html" />
     <Content Include="config\grid.editors.config.js" />
@@ -1128,6 +1132,9 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.resx">
       <DependentUpon>201805311457251_AddVideoConertationLog.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="App_Plugins\Users\UserList\UserDetailsPopup.cshtml" />
+    <Content Include="App_Plugins\Users\UserList\UserListView.cshtml" />
+    <Content Include="App_Plugins\Users\UserList\UsersRowsView.cshtml" />
     <EmbeddedResource Include="Persistence\Sql\Migrations\201806271138265_AddNotifierTypeToNotificationsTable.resx">
       <DependentUpon>201806271138265_AddNotifierTypeToNotificationsTable.cs</DependentUpon>
     </EmbeddedResource>
@@ -1212,6 +1219,7 @@
     <Compile Include="Controllers\NotificationJobController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TablePanelController.cs" />
+    <Compile Include="Controllers\UserListController.cs" />
     <Compile Include="Controllers\UserTagsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
@@ -1422,6 +1430,9 @@
     <Compile Include="Core\Updater\Migrations\0.3.2.0\Steps\RemoveTranslationsStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.4\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\0.4\Steps\VideoConvertingPropertiesStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.3.0\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.3.0\Steps\AddTranslationsStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.3.3.0\Steps\UserListStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
