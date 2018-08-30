@@ -7,13 +7,13 @@ namespace Compent.Uintra.Persistence.Sql.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddNotifierTypeToNotificationsTable : IMigrationMetadata
+    public sealed partial class AddNotifierTypeWithDefaultToNotificationsTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddNotifierTypeToNotificationsTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddNotifierTypeWithDefaultToNotificationsTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201806271138265_AddNotifierTypeToNotificationsTable"; }
+            get { return "201808302105248_AddNotifierTypeWithDefaultToNotificationsTable"; }
         }
         
         string IMigrationMetadata.Source

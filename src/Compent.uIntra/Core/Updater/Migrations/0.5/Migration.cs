@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.Uintra.Core.Updater.Migrations._0._3._3._0.Steps;
+using Compent.Uintra.Core.Updater.Migrations._0._5.Steps;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._3._3._0
+namespace Compent.Uintra.Core.Updater.Migrations._0._5
 {
     public class Migration : IMigration
     {
         private readonly IMigrationStepsResolver _migrationStepsResolver;
     
-        public Version Version => new Version("0.3.3.0");
+        public Version Version => new Version("0.5");
     
         public Migration(IMigrationStepsResolver migrationStepsResolver)
         {
@@ -22,7 +22,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._3._0
             get
             {
                 yield return Resolve<UserListStep>();
-                //yield return Resolve<AddTranslationsStep>();
+                yield return Resolve<AddTranslationsStep>();
+                yield return Resolve<DisableMemberNotificationStep>();
             }
         }
     }

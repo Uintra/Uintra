@@ -1135,11 +1135,11 @@
     <Content Include="App_Plugins\Users\UserList\UserDetailsPopup.cshtml" />
     <Content Include="App_Plugins\Users\UserList\UserListView.cshtml" />
     <Content Include="App_Plugins\Users\UserList\UsersRowsView.cshtml" />
-    <EmbeddedResource Include="Persistence\Sql\Migrations\201806271138265_AddNotifierTypeToNotificationsTable.resx">
-      <DependentUpon>201806271138265_AddNotifierTypeToNotificationsTable.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.resx">
       <DependentUpon>201807270910259_AddDateTimeToVideoConvertLogTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.resx">
+      <DependentUpon>201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
@@ -1430,9 +1430,10 @@
     <Compile Include="Core\Updater\Migrations\0.3.2.0\Steps\RemoveTranslationsStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.4\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\0.4\Steps\VideoConvertingPropertiesStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.3.0\Migration.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.3.0\Steps\AddTranslationsStep.cs" />
-    <Compile Include="Core\Updater\Migrations\0.3.3.0\Steps\UserListStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.5\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.5\Steps\AddTranslationsStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.5\Steps\DisableMemberNotificationStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.5\Steps\UserListStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
@@ -1490,10 +1491,6 @@
     <Compile Include="Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.Designer.cs">
       <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Persistence\Sql\Migrations\201806271138265_AddNotifierTypeToNotificationsTable.cs" />
-    <Compile Include="Persistence\Sql\Migrations\201806271138265_AddNotifierTypeToNotificationsTable.Designer.cs">
-      <DependentUpon>201806271138265_AddNotifierTypeToNotificationsTable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.cs" />
     <Compile Include="Persistence\Sql\Migrations\201805311457251_AddVideoConertationLog.Designer.cs">
       <DependentUpon>201805311457251_AddVideoConertationLog.cs</DependentUpon>
@@ -1502,9 +1499,14 @@
     <Compile Include="Persistence\Sql\Migrations\201807270910259_AddDateTimeToVideoConvertLogTable.Designer.cs">
       <DependentUpon>201807270910259_AddDateTimeToVideoConvertLogTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.Designer.cs">
+      <DependentUpon>201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
     <Compile Include="Persistence\Sql\DbObjectContext.cs" />
+    <Compile Include="Persistence\Sql\Migrations\DefaultValueSqlServerMigrationSqlGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
