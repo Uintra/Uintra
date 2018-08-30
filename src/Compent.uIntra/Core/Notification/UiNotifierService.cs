@@ -35,7 +35,7 @@ namespace Compent.Uintra.Core.Notification
             var isCommunicationSettings = data.NotificationType.In(
                 NotificationTypeEnum.CommentLikeAdded,
                 NotificationTypeEnum.MonthlyMail,
-                NotificationTypeEnum.UserMention
+                NotificationTypeEnum.UserMention,
                 IntranetActivityTypeEnum.ContentPage,
                 IntranetActivityTypeEnum.PagePromotion);
 
