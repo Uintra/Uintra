@@ -22,6 +22,8 @@ let amountPerRequest;
 let controller = {
     init: function () {
 
+        if (tableBody.length === 0)
+            return;
         init();
         button.click(onButtonClick);
         sortLinks.click(onSortClick);
