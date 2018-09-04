@@ -2,7 +2,7 @@
 @using Uintra.Core.Extensions
 @using Newtonsoft.Json
 
-<section class="block _content-panel clearfix">
+<section class="user-list-panel">
     <div class="block">
         <h3>@Model.Title</h3>
         <input type="text" class="js-user-list-filter" />
@@ -31,7 +31,7 @@
             @Html.Partial(Model.UsersRowsViewPath, Model.UsersRows)
         </tbody>
     </table>
-    <button class="js-user-list-button"
+    <button class="btn js-user-list-button"
             @if (Model.IsLastRequest) { <text> style="display:none;" </text> }>
         Load more
     </button>

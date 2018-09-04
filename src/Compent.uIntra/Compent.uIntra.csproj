@@ -914,6 +914,7 @@
     <Content Include="App_Plugins\Users\UserList\backoffice\user-list-overlay.html" />
     <Content Include="App_Plugins\Users\UserList\backoffice\user-list-view.html" />
     <Content Include="App_Plugins\Users\UserList\backoffice\userListController.js" />
+    <Content Include="App_Plugins\Users\UserList\user-list.css" />
     <Content Include="App_Plugins\Users\UserList\userList.js" />
     <Content Include="App_Plugins\Users\users.js" />
     <Content Include="App_Plugins\Utils\backoffice\developer-reload-cache.html" />
