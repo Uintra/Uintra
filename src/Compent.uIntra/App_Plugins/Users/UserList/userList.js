@@ -1,6 +1,8 @@
 ﻿import ajax from "./../../Core/Content/scripts/Ajax";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
 
+require("./user-list.css");
+
 const searchBoxElement = $(".js-user-list-filter");
 const tableBody = $(".js-user-list-table tbody");
 const button = $(".js-user-list-button");
