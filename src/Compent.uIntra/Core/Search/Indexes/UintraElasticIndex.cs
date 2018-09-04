@@ -116,10 +116,15 @@ namespace Compent.Uintra.Core.Search.Indexes
             }
         }
 
-        protected override QueryContainer[] GetSearchPostFilters(SearchTextQuery query) => 
-            base.GetSearchPostFilters(query)
-            .Append(new QueryContainerDescriptor<SearchableUser>().Terms(t => t.Field(f => f.Inactive).Terms(false)))
-            .ToArray();
+        protected override QueryContainer[] GetSearchPostFilters(SearchTextQuery query)
+        {
+            if(query.SearchableTypeIds.Count() == 1 && query.SearchableTypeIds.First() == (int)UintraSearchableTypeEnum.User)
+                return base.GetSearchPostFilters(query)
+                .Append(new QueryContainerDescriptor<SearchableUser>().Terms(t => t.Field(f => f.Inactive).Terms(false)))
+                .ToArray();
+            return base.GetSearchPostFilters(query);
+        }
+            
 
 
         protected static QueryContainer GetTagNames<T>(string query) where T : class, ISearchibleTaggedActivity
