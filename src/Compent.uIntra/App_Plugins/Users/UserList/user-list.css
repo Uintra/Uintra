@@ -95,6 +95,9 @@
     font-size:16px;
     line-height:1.38;
     color:var(--text-color-dark);
+    @media (--for-tablet-portrait-down){
+        table-layout:fixed;
+    }
 
     &-block{
         @media (--for-phone-only){
@@ -190,5 +193,9 @@
 
     &__name{
         font-size:13px;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 }
