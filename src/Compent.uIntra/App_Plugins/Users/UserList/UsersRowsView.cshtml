@@ -4,16 +4,16 @@
 
 @foreach (var user in Model.Users)
 {
-    <tr data-id="@user.Id" class="members-table__row js-user-list-row @if (Model.IsLastRequest) { <text>last</text> }">
+    <tr data-id="@user.Id" class="users-table__row js-user-list-row @if (Model.IsLastRequest) { <text>last</text> }">
         @foreach (var column in Model.SelectedColumns)
         {
-            <td class="members-table__cell">
+            <td class="users-table__cell">
                 @switch (column.Type)
                 {
                     case ColumnType.Email:
                         {
                             @*<a class="members-table__link" href="mailto:@user.Email">@user.Email</a>*@
-                            <span class="members-table__name">@user.Email</span>
+                            <span class="users-table__name">@user.Email</span>
                         }
                         break;
                     case ColumnType.Photo:
@@ -28,7 +28,7 @@
                         break;
                     case ColumnType.Text:
                         {
-                            <span class="members-table__name">@ReflectionHelper.GetUIColumnValue(user, column)</span>
+                            <span class="users-table__name">@ReflectionHelper.GetUIColumnValue(user, column)</span>
                         }
                         break;
                 }

@@ -3,34 +3,41 @@
 @using Newtonsoft.Json
 
 <section class="user-list-panel">
-    <div class="block">
-        <h3>@Model.Title</h3>
-        <input type="text" class="js-user-list-filter" />
+    <div class="user-search">
+        <h3 class="user-search__title">@Model.Title</h3>
+        <form class="user-search__form">
+            <input type="text" class="user-search__input js-user-list-filter" placeholder="@Html.Localize("UserSearch.Placeholder.lbl")"/>
+            <button class="user-search__button" type="submit">
+                <span class="icon-search"></span>
+            </button>
+        </form>
     </div>
-    <table class="members-table js-user-list-table">
-        <thead>
-            <tr class="members-table__row">
-                @foreach (var column in Model.UsersRows.SelectedColumns)
+    <div class="users-table-block">
+        <table class="users-table js-user-list-table">
+            <thead>
+                <tr class="users-table__row">
+                    @foreach (var column in Model.UsersRows.SelectedColumns)
                 {
-                    <th class="members-table__head">
+                    <th class="users-table__head">
                         @if (column.SupportSorting)
-                        {
-                            var selected = Model.OrderByColumn.Id == column.Id;
-                            <a href="" class="js-user-list-sort-link @(selected ? "_asc" : "")"
-                               data-order-by="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
-                        }
-                        else
-                        {
-                            <span>@Html.Localize($"UserList.Table.{column.Alias}.lbl")</span>
-                        }
-                    </th>
+                    {
+                        var selected = Model.OrderByColumn.Id == column.Id;
+                        <a href="" class="js-user-list-sort-link @(selected ? "_asc" : "")"
+                           data-order-by="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
                 }
-            </tr>
-        </thead>
-        <tbody>
-            @Html.Partial(Model.UsersRowsViewPath, Model.UsersRows)
-        </tbody>
-    </table>
+                else
+                {
+                    <span>@Html.Localize($"UserList.Table.{column.Alias}.lbl")</span>
+            }
+                    </th>
+            }
+                </tr>
+            </thead>
+            <tbody>
+                @Html.Partial(Model.UsersRowsViewPath, Model.UsersRows)
+            </tbody>
+        </table>
+    </div>
     <button class="btn js-user-list-button"
             @if (Model.IsLastRequest) { <text> style="display:none;" </text> }>
         Load more

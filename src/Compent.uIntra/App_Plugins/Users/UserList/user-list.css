@@ -3,4 +3,192 @@
     padding: 20px 20px 19px;
     background: #fff;
     box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+
+    .btn{
+        margin:0 0 20px;
+    }
+}
+.user-search{
+    padding:20px 0 15px;
+
+    &__title{
+        font-size: 25px;
+        font-weight: 400;
+        line-height: 0.88;
+        color: #262626;
+        margin:0 0 36px;
+    }
+
+    &__form{
+        position:relative;
+        border: solid 1px var(--color-light-gray);
+        margin:0 0 15px;
+        background:var(--color-white);
+
+        &:after{
+            content:'';
+            display:block;
+            clear:both;
+        }
+    }
+
+    &__button{
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        border: none;
+        background: none;
+        padding: 6px 15px;
+        cursor: pointer;
+        z-index:2;
+
+        @media (--for-tablet-portrait-down){
+            padding:5px;
+        }
+
+        .icon-search{
+            display:block;
+            color:var(--color-black);
+
+            &:before{
+                font-size:30px;
+                @media (--for-tablet-portrait-down){
+                    font-size:25px;
+                }
+            }
+        }
+    }
+
+    &__input{
+        float:left;
+        width:100%;
+        background:none;
+        border:none;
+        font-size:13px;
+        line-height:15px;
+        margin:0;
+        padding:13px 60px 12px 10px;
+        color:var(--text-color-dark);
+        position:relative;
+        z-index:3;
+
+        &:-ms-input-placeholder {
+            color:#aaa;
+            opacity:1;
+        }
+
+        &::placeholder{
+            color:#aaa;
+            opacity:1;
+        }
+
+        @media (--for-tablet-portrait-down){
+            padding:10px 40px 10px 9px;
+        }
+    }
+}
+
+.users-table{
+    width:100%;
+    margin:0 0 50px;
+    font-size:16px;
+    line-height:1.38;
+    color:var(--text-color-dark);
+
+    &-block{
+        @media (--for-phone-only){
+            overflow:hidden;
+        }
+    }
+
+    &__head {
+        font-size:16px;
+        line-height:1.38;
+        white-space: nowrap;
+        font-weight: 700;
+        position: relative;
+        padding: 26px 0 25px 2%;
+        color:var(--text-color-dark);
+
+        &:first-child{
+            padding-left:0;
+        }
+
+        &:after{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -20px;
+            right: -20px;
+            height: 1px;
+            background:  #e6e6e6;
+            z-index: 2;
+        }
+
+        &:before{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -20px;
+            right: -20px;
+            height: 1px;
+            background:  #e6e6e6;
+            z-index: 2;
+        }
+
+        a{
+            color:var(--text-color-dark);
+
+            &:hover,
+            &:active,
+            &:focus{
+                color:var(--text-color-dark);
+                text-decoration:none;
+            }
+
+            &._desc,
+            &._asc{
+                text-decoration:none;
+
+                &:after{
+                    font-family: 'icomoon' !important;
+                    speak: none;
+                    display:inline-block;
+                    vertical-align:top;
+                    margin:4px 0 0 10px;
+                    line-height: 1;
+                    font-size:16px;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    content:"\e900";
+                }
+            }
+
+            &._desc{
+                &:after{
+                    transform:rotate(-180deg);
+                }
+            }
+        }
+    }
+
+    &__cell{
+        padding:14px 0 14px 2%;
+        border-bottom:1px solid #e6e6e6;
+
+        &:first-child{
+            padding-left:0;
+        }
+    }
+
+    .avatar{
+        width:30px;
+        min-width:30px;
+        height:30px;
+    }
+
+    &__name{
+        font-size:13px;
+    }
 }

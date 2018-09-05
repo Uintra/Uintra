@@ -110,6 +110,12 @@
 
         &:-ms-input-placeholder {
             color:var(--text-color-light);
+            opacity:1;
+        }
+
+        &::placeholder{
+            color:var(--text-color-light);
+            opacity:1;
         }
 
         @media (--for-tablet-portrait-down){
