@@ -527,3 +527,18 @@
         }
     }
 }
+
+.central-user {
+    float: left;
+    position: relative;
+
+    &:before{
+        content: "";
+        width: 22px;
+        height: 20px;
+        display: inline-block;
+        vertical-align: top;
+        background: url(/Content/images/users.svg) no-repeat;
+        margin: 1px 4px 0 0;
+    }
+}

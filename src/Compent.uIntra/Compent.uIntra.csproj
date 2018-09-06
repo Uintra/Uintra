@@ -954,6 +954,7 @@
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\logo.svg" />
     <Content Include="Content\images\sort.svg" />
+    <Content Include="Content\images\users.svg" />
     <Content Include="Content\images\videoLoader.jpg" />
     <Content Include="Content\images\videoLoaderFailure.jpg" />
     <Content Include="Content\main.js" />
