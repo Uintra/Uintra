@@ -105,7 +105,7 @@ let controller = {
                 ajax.post(detailsUrl, data)
                     .then(result => {
                         confirm.alert(
-                            "Detailed info",
+                            "Detailed info or John Smith profile (translation US/DK)",
                             result.data);
                     });
             });
