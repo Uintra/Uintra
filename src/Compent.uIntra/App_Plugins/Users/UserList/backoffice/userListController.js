@@ -32,8 +32,12 @@
                 $scope.control.value = getDefaultModel();
             }
             $scope.control = control;
-            getAllowedProperties().then(function (result) {
-                $scope.control.value.properties = result.data;
+            getAllowedProperties().then(function (response) {
+                response.data.forEach(i => {
+                    var result = $scope.control.value.properties.find(j => j.id === i.id);
+                    if (!result)
+                        $scope.control.value.properties.push(i);
+                });
             });
         }
 
