@@ -55,8 +55,8 @@ let controller = {
             event.preventDefault();
             var link = $(this);
             var direction = link.hasClass(ascendingClassName) ? 1 : 0;
+            request.take = request.skip + request.take;
             request.skip = 0;
-            request.take = displayedAmount;
             request.orderBy = link.data("order-by");
             request.direction = direction;
 
