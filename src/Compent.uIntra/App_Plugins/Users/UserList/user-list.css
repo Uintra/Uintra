@@ -193,12 +193,6 @@
         }
     }
 
-    .avatar{
-        width:30px;
-        min-width:30px;
-        height:30px;
-    }
-
     &__name{
         font-size:13px;
         display: block;
@@ -207,3 +201,111 @@
         white-space: nowrap;
     }
 }
+
+
+.user-details{
+    margin: 0 -28px 0 -20px;
+    padding:4px 0 0;
+    color:var(--text-color-dark);
+    font-size:16px;
+    line-height:1.38;
+
+    &__header{
+        display:flex;
+        align-items:start;
+        margin:0 0 40px;
+    }
+
+    &__info{
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        width:53%;
+    }
+
+    &__contacts{
+        flex-grow:1;
+        padding:9px 0 0 22px;
+        margin:0;
+        width:47%;
+
+        &:after{
+            content:'';
+            display:block;
+            clear:both;
+        }
+    }
+
+    &__avatar{
+        width:90px;
+        height:90px;
+        border-radius:50%;
+        overflow:hidden;
+    }
+
+    &__title-block{
+        padding:4px 0 0 20px;
+    }
+
+    &__title{
+        display:block;
+        font-size:20px;
+        line-height:1.1;
+        margin:0 0 4px;
+    }
+
+    &__subtitle{
+        display:block;
+    }
+
+    &__term{
+        float:left;
+        clear: left;
+        padding:0 6px 3px 0;
+        width: 22%;
+    }
+
+    &__description{
+        float:left;
+        width: 78%;
+        margin:0 0 3px;
+    }
+
+    &__add-info{
+        margin:0;
+
+        &:after{
+            content:'';
+            display:block;
+            clear:both;
+        }
+    }
+
+    &__info-item{
+        float:left;
+        clear: left;
+        padding:0 6px 13px 0;
+        width: 24%;
+    }
+
+    &__info-text{
+        float:left;
+        width: 76%;
+        margin:0 0 13px;
+    }
+
+    .tags__list{
+        margin:-14px 0 0 -9px;
+        font-size:14px;
+        line-height:1.142;
+    }
+
+    &__text{
+        margin:0 0 42px;
+    }
+}
+
+
+
+
+/*.alertify .ajs-dialog{max-width:760px!important;}*/
