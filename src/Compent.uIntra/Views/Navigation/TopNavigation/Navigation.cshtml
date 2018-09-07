@@ -16,8 +16,10 @@
 <div class="holder">
     <div class="search-holder">
         @{ Html.RenderAction("SearchBox", "Search"); }
-        @{ Html.RenderAction("Preview", "Notification"); }
-        <a href="#" class="central-user"></a>
+        <div class="tools">
+            <a href="#" class="central-user"></a>
+            @{ Html.RenderAction("Preview", "Notification"); }
+        </div>
     </div>
     <div class="user">
         <a class="user__opener icon-user @userAvatarClass">
