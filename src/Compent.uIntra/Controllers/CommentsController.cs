@@ -61,14 +61,15 @@ namespace Compent.Uintra.Controllers
 
             if (mentionIds.Any())
             {
+                var content = Umbraco.TypedContent(comment.ActivityId);
                 _mentionService.PreccessMention(new MentionModel()
                 {
                     MentionedSourceId = comment.Id,
                     CreatorId = _intranetUserService.GetCurrentUserId(),
                     MentionedUserIds = mentionIds,
                     Title = $"Comment - \"{comment.Text.StripHtml().TrimByWordEnd(50)}\"",
-                    Url = _commentLinkHelper.GetDetailsUrlWithComment(comment.ActivityId, comment.Id),
-
+                    Url = content != null ? _commentLinkHelper.GetDetailsUrlWithComment(content, comment.Id) :
+                        _commentLinkHelper.GetDetailsUrlWithComment(comment.ActivityId, comment.Id),
                 });
 
             }
