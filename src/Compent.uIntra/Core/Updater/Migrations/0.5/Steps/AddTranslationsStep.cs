@@ -16,6 +16,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._5.Steps
             _localizationCoreService = localizationCoreService;
             _translations = ReflectionHelper.GetUserListTranslations("UserList.Table.{0}.lbl");
             _translations.Add("UserList.Search.Placeholder.lbl", "Search for name, phone number, email or anything else");
+            _translations.Add("UserList.DetailsPopup.Title", "profile");
+            _translations.Add("UserList.DetailsPopup.Tags.lbl", "Tags subscription");
         }
 
         public ExecutionResult Execute()

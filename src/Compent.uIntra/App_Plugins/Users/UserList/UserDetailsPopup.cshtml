@@ -1,17 +1,22 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Users.UserList.UserModel>
 @using Uintra.Users
+@using Uintra.Core.Extensions
+
 <div class="user-details">
-    @*User id: @Model.Id <br/>
-    User name: @Model.DisplayedName <br />
-    User email: <a href="mailto:@Model.Email">@Model.Email</a>*@
     <div class="user-details__header">
         <div class="user-details__info">
             <div class="user-details__avatar">
-                <img class="avatar__img" src="~/Content/images/default-avatar.png" width="90" height="90" alt="imakge description">
+                @Html.Action("Photo", "User", new
+                {
+                    user = Model.User,
+                    cssModificator = "avatar__img",
+                    photoWidth = 90
+                })
+                @*<img class="avatar__img" src="~/Content/images/default-avatar.png" width="90" height="90" alt="imakge description">*@
             </div>
             <div class="user-details__title-block">
                 <strong class="user-details__title">@Model.DisplayedName</strong>
-                <span class="user-details__subtitle">Project Manager</span>
+                @*<span class="user-details__subtitle">Project Manager</span>*@
             </div>
         </div>
         <dl class="user-details__contacts">
@@ -19,37 +24,30 @@
             <dd class="user-details__description">
                 <a href="mailto:@Model.Email">@Model.Email</a>
             </dd>
-            <dt class="user-details__term">Phone</dt>
+            @*<dt class="user-details__term">Phone</dt>
             <dd class="user-details__description">
                 <a href="tel:+4533343355">+45-33-34-33-55</a>
             </dd>
             <dt class="user-details__term">IM:</dt>
             <dd class="user-details__description">
                 <a href="callto:JohnSmith7373">JohnSmith7373 </a>(Skype)
-            </dd>
+            </dd>*@
         </dl>
     </div>
     <div class="user-details__text">
-        <p>Lorem ipsum dolor sit amet,sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,  At vero eos et accusam et justo duo dolores et ea rebum.  Lorem ipsum dolor sit amet,  no sea takimata sanctus est Lorem ipsum dolor sit amet.  Stet clita kasd gubergren,  no sea takimata sanctus est Lorem ipsum dolor sit amet.  no sea takimata sanctus est Lorem ipsum dolor sit amet.  no sea takimata sanctus est Lorem ipsum dolor sit amet.  sed diam voluptua.  </p>
+        @*<p>Lorem ipsum dolor sit amet,sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,  At vero eos et accusam et justo duo dolores et ea rebum.  Lorem ipsum dolor sit amet,  no sea takimata sanctus est Lorem ipsum dolor sit amet.  Stet clita kasd gubergren,  no sea takimata sanctus est Lorem ipsum dolor sit amet.  no sea takimata sanctus est Lorem ipsum dolor sit amet.  no sea takimata sanctus est Lorem ipsum dolor sit amet.  sed diam voluptua.  </p>*@
     </div>
     <dl class="user-details__add-info">
         @*<dt class="user-details__info-item">Birthday:</dt>
-        <dd class="user-details__info-text">Dec 21, 1995</dd>
-        <dt class="user-details__info-item">Interested in:</dt>
-        <dd class="user-details__info-text">Board games, fishing, crossfit, long walks on the beach</dd>
-        <dt class="user-details__info-item">Work experience:</dt>
-        <dd class="user-details__info-text">Project management, photoshop, Excel, Word, Visio</dd>*@
-        <dt class="user-details__info-item">Tags subscription:</dt>
+            <dd class="user-details__info-text">Dec 21, 1995</dd>
+            <dt class="user-details__info-item">Interested in:</dt>
+            <dd class="user-details__info-text">Board games, fishing, crossfit, long walks on the beach</dd>
+            <dt class="user-details__info-item">Work experience:</dt>
+            <dd class="user-details__info-text">Project management, photoshop, Excel, Word, Visio</dd>*@
+        <dt class="user-details__info-item">@Html.Localize("UserList.DetailsPopup.Tags.lbl") @*Tags subscription*@:</dt>
         <dd class="user-details__info-text">
-            <div class="tags__list">
-                <a class="tags__list-item" href="/search?query=Management">
-                    <span class="tags__list-txt">Management</span>
-                </a>
-                <a class="tags__list-item" href="/search?query=QA">
-                    <span class="tags__list-txt">QA</span>
-                </a>
-            </div>
+            @Html.Action("ForUserDetailsPopup", "UserTags", new { entityId = Model.User.Id })
         </dd>
     </dl>
-    
+
 </div>

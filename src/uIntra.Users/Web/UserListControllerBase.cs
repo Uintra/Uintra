@@ -8,6 +8,7 @@ using Uintra.Core.User;
 using Umbraco.Web.Mvc;
 using Newtonsoft.Json;
 using Uintra.Users.UserList;
+using System.IO;
 
 namespace Uintra.Users.Web
 {
@@ -30,7 +31,7 @@ namespace Uintra.Users.Web
             string selectedPropertiesJson = (string)model.SelectedProperties.ToString();
             string orderBycolumnJson = model.OrderBy == null ? null : (string)model.OrderBy.ToString();
             var selecetedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedPropertiesJson);
-            var orderByColumn = orderBycolumnJson == null ? 
+            var orderByColumn = orderBycolumnJson == null ?
                 selecetedColumns.OrderBy(i => i.Id).FirstOrDefault(i => i.SupportSorting) :
                 JsonConvert.DeserializeObject<ProfileColumnModel>(orderBycolumnJson);
             var viewModel = new UserListViewModel()
@@ -62,11 +63,40 @@ namespace Uintra.Users.Web
         }
 
         [HttpPost]
-        public virtual ActionResult Details(Guid id)
+        public virtual JsonNetResult Details(Guid id)
         {
             var user = _intranetUserService.Get(id);
             var viewModel = MapToViewModel(user);
-            return PartialView(UsersDetailsViewPath, viewModel);
+            var text = RenderPartialViewToString(UsersDetailsViewPath, viewModel);
+            var title = GetDetailsPopupTitle(viewModel);
+            return new JsonNetResult()
+            {
+                Data = new DetailsPopupModel
+                {
+                    Title = title,
+                    Text = text
+                }
+            };
+        }
+
+        protected virtual string GetDetailsPopupTitle(UserModel user)
+        {
+            return user.DisplayedName;
+        }
+
+        private string RenderPartialViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+            using (var sw = new StringWriter())
+            {
+                var viewResult = ViewEngines.Engines.FindPartialView(
+                    ControllerContext, viewName);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View,
+                    ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+                return sw.GetStringBuilder().ToString();
+            }
         }
 
         private IEnumerable<UserModel> GetActiveUsers(int skip, int take, string orderBy, int direction, out bool isLastRequest, string query = "")

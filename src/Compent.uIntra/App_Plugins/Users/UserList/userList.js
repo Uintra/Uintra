@@ -104,9 +104,9 @@ let controller = {
                 var data = { id: $(this).data("id") };
                 ajax.post(detailsUrl, data)
                     .then(result => {
-                        confirm.alert(
-                            "Detailed info or John Smith profile (translation US/DK)",
-                            result.data);
+                        confirm.showInfo(
+                            result.data.title,
+                            result.data.text);
                     });
             });
         }
