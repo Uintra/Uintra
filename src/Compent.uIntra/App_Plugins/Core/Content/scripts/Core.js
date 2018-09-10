@@ -11,7 +11,8 @@ import anchorScroll from './AnchorScroll';
 import validationExtensions from './ValidationExtensions';
 import scrollToTop from './ScrollToTop';
 import lightboxGallery from '../../Controls/LightboxGallery/LightboxGallery';
-import activityLocation from '../../ActivityLocation/activityLocation'
+import activityLocation from '../../ActivityLocation/activityLocation';
+import mentionHandlers from './MentionHandlers'
 
 export default function() {
     anchorScroll();
@@ -21,4 +22,5 @@ export default function() {
     lightboxGallery.init();
     showContent();
     activityLocation();
+    mentionHandlers();
 }

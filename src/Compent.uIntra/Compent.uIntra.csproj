@@ -637,6 +637,7 @@
     <Content Include="App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Core.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Helpers.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\MentionHandlers.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Namespace.js" />
     <Content Include="App_Plugins\Core\Content\scripts\PinActivity.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Polyfill.js" />
