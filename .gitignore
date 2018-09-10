@@ -29,7 +29,8 @@ src/Compent.uIntra/Content/images/umbraco.png
 src/Compent.uIntra/Content/images/user.png
 src/Compent.uIntra/Content/images/search.png
 src/Compent.uIntra/Content/images/home.png
-
+src/Compent.uIntra/package-lock.json
+src/Compent.uIntra/npm-debug.log
 
 #========================================================================================> LIKES
 src/uIntra.Likes/App_Plugins/Core/
