@@ -270,6 +270,27 @@
                 > p:last-child{
                     margin-bottom:0;
                 }
+                
+                p{
+                    display:inline-block;
+                    vertical-align:top;
+                }
+
+                .mention{
+                    height: auto;
+                    width: auto;
+                    border-radius: 0;
+                    background: none;
+                    padding:0;
+                    color:var(--header-bg);
+                    position:relative;
+                    z-index:2;
+
+                    &:hover{
+                        color:var(--header-bg);
+                        text-decoration:underline;
+                    }
+                }
             }
 
             img{
