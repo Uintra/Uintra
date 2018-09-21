@@ -17,7 +17,10 @@
     <div class="search-holder">
         @{ Html.RenderAction("SearchBox", "Search"); }
         <div class="tools">
-            <a href="#" class="central-user"></a>
+            @if (!Model.CentralUserListUrl.IsNullOrWhiteSpace())
+            {
+                <a href="@Model.CentralUserListUrl" class="central-user"></a>
+            }
             @{ Html.RenderAction("Preview", "Notification"); }
         </div>
     </div>

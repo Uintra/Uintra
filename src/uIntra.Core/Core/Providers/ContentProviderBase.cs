@@ -15,5 +15,8 @@ namespace Uintra.Core
 
         protected virtual IPublishedContent GetContent(IEnumerable<string> xPath) =>
             _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(xPath));
+
+        protected virtual IEnumerable<IPublishedContent> GetDescendants(IEnumerable<string> xPath) =>
+            _umbracoHelper.TypedContentAtXPath(XPathHelper.GetDescendantsXpath(xPath));
     }
 }

@@ -81,6 +81,7 @@ using Uintra.Core.MigrationHistories;
 using Uintra.Core.ModelBinders;
 using Uintra.Core.PagePromotion;
 using Uintra.Core.Persistence;
+using Uintra.Core.Providers;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.UmbracoEventServices;
 using Uintra.Core.User;
@@ -338,6 +339,7 @@ namespace Compent.Uintra
             kernel.Bind<ISystemLinksModelBuilder>().To<SystemLinksModelBuilder>().InRequestScope();
             kernel.Bind<ISystemLinksService>().To<SystemLinksService>().InRequestScope();
             kernel.Bind<IEqualityComparer<MyLinkItemModel>>().To<MyLinkItemModelComparer>().InSingletonScope();
+            kernel.Bind<IContentPageContentProvider>().To<ContentPageContentProvider>().InSingletonScope();
 
             // ActivityLocation
             kernel.Bind<IActivityLocationService>().To<ActivityLocationService>();

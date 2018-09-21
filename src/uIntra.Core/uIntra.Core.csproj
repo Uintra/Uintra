@@ -412,6 +412,8 @@
     <Compile Include="Core\Media\VideoConvertedCommand.cs" />
     <Compile Include="Core\Media\VideoConverter.cs" />
     <Compile Include="Core\Media\VideoConverterLogService.cs" />
+    <Compile Include="Core\Providers\ContentPageContentProvider.cs" />
+    <Compile Include="Core\Providers\IContentPageContentProvider.cs" />
     <Compile Include="Core\ViewRenderer.cs" />
     <Compile Include="Core\Grid\GridRenderHelper.cs" />
     <Compile Include="Core\Helpers\HtmlHelper.cs" />
