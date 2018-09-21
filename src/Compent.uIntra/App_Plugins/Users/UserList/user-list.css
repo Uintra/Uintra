@@ -187,6 +187,16 @@
         }
     }
 
+    &__row{
+        tbody &{
+            cursor:pointer;
+
+            &:hover{
+                background:#f6f6f6;
+            }
+        }
+    }
+
     &__cell{
         padding:14px 0 14px 2%;
         border-bottom:1px solid #e6e6e6;
