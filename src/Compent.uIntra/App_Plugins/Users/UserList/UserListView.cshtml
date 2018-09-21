@@ -40,10 +40,15 @@
         </table>
     </div>
     <button class="btn js-user-list-button"
-            @if (Model.IsLastRequest) { <text> style="display:none;" </text> }>
-        Load more
+        @if (Model.IsLastRequest) { <text> style="display:none;" </text> }>
+            @Html.Localize("UserList.Table.LoadMoreButton.Text")
     </button>
+    <div class="js-user-list-empty-result"
+        @if (Model.UsersRows.Users.Count() != 0) { <text> style="display:none;" </text> }>
+            @Html.Localize("UserList.Table.EmptyResult.lbl")
+    </div>
 </section>
+
 
 <script type="text/javascript">
     window.userListConfig = {

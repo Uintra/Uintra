@@ -44,7 +44,7 @@
             <dd class="user-details__info-text">Board games, fishing, crossfit, long walks on the beach</dd>
             <dt class="user-details__info-item">Work experience:</dt>
             <dd class="user-details__info-text">Project management, photoshop, Excel, Word, Visio</dd>*@
-        <dt class="user-details__info-item">@Html.Localize("UserList.DetailsPopup.Tags.lbl") @*Tags subscription*@:</dt>
+        <dt class="user-details__info-item">@Html.Localize("UserList.DetailsPopup.Tags.lbl")</dt>
         <dd class="user-details__info-text">
             @Html.Action("ForUserDetailsPopup", "UserTags", new { entityId = Model.User.Id })
         </dd>

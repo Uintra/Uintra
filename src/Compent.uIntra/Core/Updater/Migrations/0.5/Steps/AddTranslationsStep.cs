@@ -19,6 +19,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._5.Steps
             _translations.Add("UserList.DetailsPopup.Title", "profile");
             _translations.Add("UserList.DetailsPopup.Tags.lbl", "Tags subscription");
             _translations.Add("UserList.Search.Title.lbl", "Search people");
+            _translations.Add("UserList.Table.LoadMoreButton.Text", "Load more");
+            _translations.Add("UserList.Table.EmptyResult.lbl", "No results found");
         }
 
         public ExecutionResult Execute()

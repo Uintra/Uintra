@@ -54,7 +54,7 @@ var Confirm = {
     showInfo: function (title, text, settings = this.defaultSettings) {
         settings.title = title;
         settings.message = text;
-        Alertify.confirm().setting(settings).show(true, customClassName);
+        Alertify.alert().setting(settings).show(true, customClassName);
     },
 
     showDialog: function (title, text, callbacks, settings) {

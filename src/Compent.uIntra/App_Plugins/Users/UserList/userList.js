@@ -8,6 +8,7 @@ const tableBody = $(".js-user-list-table tbody");
 const button = $(".js-user-list-button");
 const sortLinks = $(".js-user-list-sort-link");
 const displayedRows = $(".js-user-list-row");
+const emptyResultLabel = $(".js-user-list-empty-result");
 const searchActivationDelay = 256;
 const url = "/umbraco/surface/UserList/GetUsers";
 const detailsUrl = "/umbraco/surface/UserList/Details";
@@ -30,12 +31,21 @@ let controller = {
         button.click(onButtonClick);
         sortLinks.click(onSortClick);
         searchBoxElement.on("input", onSearchStringChanged);
+        searchBoxElement.on("keypress", onKeyPress);
         addDetailsHandler(displayedRows);
 
         function init() {
             request = window.userListConfig.request;
             displayedAmount = window.userListConfig.displayedAmount;
             amountPerRequest = window.userListConfig.amountPerRequest;
+        }
+
+        function onKeyPress(e) {
+            if (e.which === 13 || e.KeyCode === 13 || e.charCode === 13) {
+                search(searchBoxElement.val());
+                e.preventDefault();
+                e.stopPropagation();
+            }
         }
 
         function onButtonClick(event) {
@@ -94,8 +104,9 @@ let controller = {
         }
 
         function updateUI(rows) {
-            if (rows.hasClass(lastRequestClassName))
-                button.hide();
+            if (tableBody.children("tr").length === 0) emptyResultLabel.show();
+            else emptyResultLabel.hide();
+            if (rows.hasClass(lastRequestClassName) || rows.length === 0) button.hide();
             else button.show();
         }
 
