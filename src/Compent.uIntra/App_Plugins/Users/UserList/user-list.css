@@ -95,6 +95,8 @@
     font-size:16px;
     line-height:1.38;
     color:var(--text-color-dark);
+    table-layout:fixed;
+
     @media (--for-tablet-portrait-down){
         table-layout:fixed;
     }
@@ -116,6 +118,7 @@
 
         &:first-child{
             padding-left:0;
+            width:50px;
 
             @media (--for-tablet-portrait-down){
                 width:20%;
@@ -184,12 +187,27 @@
         }
     }
 
+    &__row{
+        tbody &{
+            cursor:pointer;
+
+            &:hover{
+                background:#f6f6f6;
+            }
+        }
+    }
+
     &__cell{
         padding:14px 0 14px 2%;
         border-bottom:1px solid #e6e6e6;
 
         &:first-child{
             padding-left:0;
+            width:50px;
+
+            @media (--for-tablet-portrait-down){
+                width:20%;
+            }
         }
     }
 

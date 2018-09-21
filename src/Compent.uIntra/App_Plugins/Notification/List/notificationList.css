@@ -28,8 +28,10 @@
         color:var(--color-white);
         cursor:pointer;
         text-decoration:none;
-        padding:11px 0 4px;
+        padding:12px 0 3px;
         display:inline-block;
+        text-align:center;
+        min-width:32px;
 
         &:hover,
         &:active,
@@ -52,8 +54,8 @@
     &__number{
         display: none;
         position:absolute;
-        top: 1px;
-        right: -12px;
+        top: 3px;
+        right: -8px;
         width:19px;
         height:19px;
         background:var(--color-contrast);
