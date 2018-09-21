@@ -18,6 +18,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._5.Steps
             _translations.Add("UserList.Search.Placeholder.lbl", "Search for name, phone number, email or anything else");
             _translations.Add("UserList.DetailsPopup.Title", "profile");
             _translations.Add("UserList.DetailsPopup.Tags.lbl", "Tags subscription");
+            _translations.Add("UserList.Search.Title.lbl", "Search people");
         }
 
         public ExecutionResult Execute()
