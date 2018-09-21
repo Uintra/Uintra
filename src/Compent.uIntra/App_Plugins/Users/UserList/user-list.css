@@ -95,6 +95,8 @@
     font-size:16px;
     line-height:1.38;
     color:var(--text-color-dark);
+    table-layout:fixed;
+
     @media (--for-tablet-portrait-down){
         table-layout:fixed;
     }
@@ -116,6 +118,7 @@
 
         &:first-child{
             padding-left:0;
+            width:50px;
 
             @media (--for-tablet-portrait-down){
                 width:20%;
