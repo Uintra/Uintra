@@ -1,4 +1,5 @@
-﻿using Uintra.Notification;
+﻿using Uintra.Core.Activity;
+using Uintra.Notification;
 using Uintra.Notification.Configuration;
 
 namespace Compent.Uintra.Core.Updater.Migrations._0._5.Steps
@@ -23,6 +24,10 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._5.Steps
             var popupSettings = GetSettings();
             popupSettings.IsEnabled = false;
             _notificationSettingsService.Save(popupSettings);
+
+            var emailSettings = GetEmailSettings();
+            emailSettings.IsEnabled = false;
+            _notificationSettingsService.Save(emailSettings);
         }
 
         private void ReverDefaultNotificationSettings()
@@ -30,6 +35,9 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._5.Steps
             var popupSettings = GetSettings();
             popupSettings.IsEnabled = true;
             _notificationSettingsService.Save(popupSettings);
+            var emailSettings = GetEmailSettings();
+            emailSettings.IsEnabled = true;
+            _notificationSettingsService.Save(emailSettings);
         }
 
         private NotifierSettingModel<PopupNotifierTemplate> GetSettings()
@@ -38,6 +46,14 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._5.Steps
                 new ActivityEventNotifierIdentity(
                     new ActivityEventIdentity(CommunicationTypeEnum.Member, NotificationTypeEnum.Welcome),
                     NotifierTypeEnum.PopupNotifier));
+        }
+
+        private NotifierSettingModel<EmailNotifierTemplate> GetEmailSettings()
+        {
+            return _notificationSettingsService.Get<EmailNotifierTemplate>(
+                new ActivityEventNotifierIdentity(
+                    new ActivityEventIdentity(IntranetActivityTypeEnum.Events, NotificationTypeEnum.BeforeStart),
+                    NotifierTypeEnum.EmailNotifier));
         }
 
         public void Undo()
