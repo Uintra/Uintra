@@ -521,8 +521,12 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\PopupNotifier\Member\Welcome.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\CommentReplied.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\CommentReplied.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\UserMention.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\UserMention.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Bulletins\UserMention.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Events\UserMention.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\News\UserMention.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\UserMention.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\UserMention.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\News\UserMention.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
     <Content Include="..\Compent.uIntra\App_Plugins\Notification\popupNotifications.js">
