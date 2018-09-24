@@ -16,7 +16,13 @@
         font-weight: 400;
         line-height: 0.88;
         color: #262626;
-        margin:0 0 36px;
+        margin:0 0 53px;
+    }
+
+    &__subtitle{
+        font:bold 13px/22px var(--font-general);
+        color: #555;
+        margin:0 0 2px;
     }
 
     &__form{
