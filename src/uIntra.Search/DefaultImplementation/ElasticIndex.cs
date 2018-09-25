@@ -176,6 +176,11 @@ namespace Uintra.Search
 
         protected virtual void ApplySort<T>(SearchDescriptor<T> searchDescriptor, int direction = 0, string propertyName = "_score" ) where T : class
         {
+            if (propertyName.In("fullName", "mail"))
+            {
+                propertyName += ".sort_normalizer";
+            }
+
             switch (direction)
             {
                 case 0:
