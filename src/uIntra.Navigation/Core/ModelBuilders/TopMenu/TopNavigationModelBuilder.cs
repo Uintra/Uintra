@@ -21,7 +21,7 @@ namespace Uintra.Navigation
             var result = new TopNavigationModel
             {
                 CurrentUser = _intranetUserService.GetCurrentUser(),
-                CentralUserListUrl = _contentPageContentPropvider.GetFirstUserListContentPage()?.Url
+                CentralUserListUrl = _contentPageContentPropvider.GetUserListContentPageFromPicker()?.Url
             };
 
             return result;
