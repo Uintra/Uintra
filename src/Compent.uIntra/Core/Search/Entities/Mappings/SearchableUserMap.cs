@@ -1,4 +1,5 @@
-﻿using Uintra.Search;
+﻿using Nest;
+using Uintra.Search;
 
 namespace Compent.Uintra.Core.Search.Entities.Mappings
 {
@@ -7,8 +8,20 @@ namespace Compent.Uintra.Core.Search.Entities.Mappings
         public SearchableUserMap()
         {
             Text(t => t.Name(n => n.Email).Fielddata().Analyzer(ElasticHelpers.ReplaceNgram));
-            Text(t => t.Name(n => n.FullName).Fielddata().Analyzer(ElasticHelpers.ReplaceNgram));
-            Text(t => t.Name(n => n.UserTagNames).Analyzer(ElasticHelpers.ReplaceNgram));
+            Text(t => t.Name(n => n.FullName).Fielddata().Analyzer(ElasticHelpers.ReplaceNgram)
+                .Fields(f => f
+                    .Keyword(k => k
+                        .Name(n => n.FullName.Suffix(ElasticHelpers.Normalizer.Sort))
+                        .Normalizer(ElasticHelpers.Normalizer.Sort)
+                    )
+            ));
+            Text(t => t.Name(n => n.UserTagNames).Analyzer(ElasticHelpers.ReplaceNgram)
+                .Fields(f => f
+                    .Keyword(k => k
+                        .Name(n => n.FullName.Suffix(ElasticHelpers.Normalizer.Sort))
+                        .Normalizer(ElasticHelpers.Normalizer.Sort)
+                    )
+                ));
         }
     }
 }

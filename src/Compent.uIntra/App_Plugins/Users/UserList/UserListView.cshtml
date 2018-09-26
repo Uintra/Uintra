@@ -8,7 +8,7 @@
         <h4 class="user-search__subtitle">@Html.Localize("UserList.Search.Title.lbl")</h4>
         <form class="user-search__form">
             <input type="text" class="user-search__input js-user-list-filter" placeholder="@Html.Localize("UserList.Search.Placeholder.lbl")" />
-            <button style="z-index:3" class="user-search__button js-search-button" type="button">
+            <button class="user-search__button js-search-button" type="button">
                 <span class="icon-search"></span>
             </button>
         </form>
@@ -19,18 +19,20 @@
                 <tr class="users-table__row">
                     @foreach (var column in Model.UsersRows.SelectedColumns)
                     {
-                        <th class="users-table__head">
-                            @if (column.SupportSorting)
-                            {
-                                var selected = Model.OrderByColumn.Id == column.Id;
+                        if (column.SupportSorting)
+                        {
+                            var selected = Model.OrderByColumn.Id == column.Id;
+                            <th class="users-table__head">
                                 <a href="" class="js-user-list-sort-link @(selected ? "_asc" : "")"
                                    data-order-by="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
-                            }
-                            else
-                            {
+                            </th>
+                        }
+                        else
+                        {
+                            <th class="users-table__head users-table__head--photo">
                                 <span>@Html.Localize($"UserList.Table.{column.Alias}.lbl")</span>
-                            }
-                        </th>
+                            </th>
+                        }
                     }
                 </tr>
             </thead>
@@ -40,12 +42,12 @@
         </table>
     </div>
     <button class="btn js-user-list-button"
-        @if (Model.IsLastRequest) { <text> style="display:none;" </text> }>
-            @Html.Localize("UserList.Table.LoadMoreButton.Text")
+            @if (Model.IsLastRequest) { <text> style="display:none;" </text> }>
+        @Html.Localize("UserList.Table.LoadMoreButton.Text")
     </button>
     <div class="js-user-list-empty-result"
-        @if (Model.UsersRows.Users.Count() != 0) { <text> style="display:none;" </text> }>
-            @Html.Localize("UserList.Table.EmptyResult.lbl")
+         @if (Model.UsersRows.Users.Count() != 0) { <text> style="display:none;" </text> }>
+        @Html.Localize("UserList.Table.EmptyResult.lbl")
     </div>
 </section>
 

@@ -22,7 +22,7 @@ namespace Uintra.Notification.Configuration
         public virtual NotificationSettingsCategoryDto GetCommunicationSettings() => //TODO: temporary for communication settings
             new NotificationSettingsCategoryDto(
                 CommunicationTypeEnum.CommunicationSettings,
-                new Enum[] { NotificationTypeEnum.CommentLikeAdded, NotificationTypeEnum.MonthlyMail, NotificationTypeEnum.UserMention });
+                new Enum[] { NotificationTypeEnum.CommentLikeAdded, NotificationTypeEnum.MonthlyMail });
 
         public virtual NotificationSettingsCategoryDto
             GetMemberSettings() => //TODO: temporary for communication settings
@@ -39,14 +39,14 @@ namespace Uintra.Notification.Configuration
         protected virtual NotificationSettingsCategoryDto GetBulletinSettings()
         {
             var notificationTypes =
-                CommentNotificationTypes.Append(NotificationTypeEnum.ActivityLikeAdded);
+                CommentNotificationTypes.Append(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.UserMention);
 
             return new NotificationSettingsCategoryDto(IntranetActivityTypeEnum.Bulletins, notificationTypes);
         }
 
         protected virtual NotificationSettingsCategoryDto GetNewsSettings()
         {
-            var notificationTypes = CommentNotificationTypes.Append(NotificationTypeEnum.ActivityLikeAdded);
+            var notificationTypes = CommentNotificationTypes.Append(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.UserMention);
 
             return new NotificationSettingsCategoryDto(IntranetActivityTypeEnum.News, notificationTypes);
         }
@@ -62,7 +62,7 @@ namespace Uintra.Notification.Configuration
 
             var notificationTypes = eventNotificationTypes
                 .Concat(CommentNotificationTypes)
-                .Append(NotificationTypeEnum.ActivityLikeAdded);
+                .Append(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.UserMention);
 
             return new NotificationSettingsCategoryDto(IntranetActivityTypeEnum.Events, notificationTypes);
         }
