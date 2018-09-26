@@ -647,6 +647,7 @@ img{
     .ajs-footer{
         background: none;
         border: 0;
+        padding:4px 6px 26px;
     }
 }
 
