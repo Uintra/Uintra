@@ -7,5 +7,6 @@ namespace Uintra.Core.Providers
     {
         IEnumerable<IPublishedContent> GetAllContentPages();
         IPublishedContent GetFirstUserListContentPage();
+        IPublishedContent GetUserListContentPageFromPicker();
     }
 }

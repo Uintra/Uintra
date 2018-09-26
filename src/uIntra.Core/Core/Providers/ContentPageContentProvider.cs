@@ -23,8 +23,6 @@ namespace Uintra.Core.Providers
         public IEnumerable<IPublishedContent> GetAllContentPages()
         {
             var contentPages = GetDescendants(_baseXPath.Append(_documentTypeAliasProvider.GetContentPage())).ToList();
-            var helper = new UmbracoHelper(UmbracoContext.Current);
-
             return contentPages;
         }
 
@@ -37,6 +35,12 @@ namespace Uintra.Core.Providers
                 return tokens.Any(j => 
                     j is JValue temp && temp != null && temp.Value?.ToString() == "custom.UserList");
             });
+        }
+
+        public IPublishedContent GetUserListContentPageFromPicker()
+        {
+            var homePage = GetContent(_baseXPath);
+            return homePage.GetPropertyValue<IEnumerable<IPublishedContent>>("userListPage")?.FirstOrDefault();
         }
     }
 }
