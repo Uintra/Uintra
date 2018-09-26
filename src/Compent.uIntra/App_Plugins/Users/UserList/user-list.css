@@ -316,6 +316,8 @@
         float:left;
         width: 78%;
         margin:0 0 3px;
+        overflow:hidden;
+        text-overflow:ellipsis;
 
         @media (--for-tablet-portrait-down) {
             width:60%;
