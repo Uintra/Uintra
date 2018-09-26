@@ -1,15 +1,13 @@
 ﻿const Quill = require('quill');
 const Delta = require('quill-delta');
 const Flatpickr = require('flatpickr');
-const QuillMentions = require('quill-mention');
-Quill.register("mentions", QuillMentions);
 
 import ajax from './Ajax';
 
 require('simple-scrollbar');
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
-require('quill-mention/dist/quill.mention.min.css');
+require('./../libs/quill-mention/quill.mention.css');
 
 var urlDetectRegexes = [];
 

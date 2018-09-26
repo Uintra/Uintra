@@ -629,6 +629,11 @@
     <Content Include="App_Plugins\Core\Content\libs\jquery.validate.min.js" />
     <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.js" />
     <Content Include="App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.min.js" />
+    <Content Include="App_Plugins\Core\Content\libs\quill-mention\blots\mention.js" />
+    <Content Include="App_Plugins\Core\Content\libs\quill-mention\constants\keys.js" />
+    <Content Include="App_Plugins\Core\Content\libs\quill-mention\index.html" />
+    <Content Include="App_Plugins\Core\Content\libs\quill-mention\quill.mention.css" />
+    <Content Include="App_Plugins\Core\Content\libs\quill-mention\quill.mention.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ActionLinkWithConfirm.js" />
     <Content Include="App_Plugins\Core\Content\scripts\Ajax.js" />
     <Content Include="App_Plugins\Core\Content\scripts\AnchorScroll.js" />
