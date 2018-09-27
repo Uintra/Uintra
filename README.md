@@ -9,8 +9,9 @@ Getting started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ## Prerequisites & Installing
-Before installing Uintra you will have to make certain preparations
-Before installing Umbraco make sure you are getting a version compatible with Uintra, the current package compatility can be found [here](https://our.umbraco.com/packages/collaboration/uintra/) 
+Before installing Uintra you will have to make certain preparations.
+
+When installing Umbraco make sure you are getting a version compatible with Uintra, the current package compatility can be found [here](https://our.umbraco.com/packages/collaboration/uintra/) 
 
 1. Install MS NET Framework .NET 4.7.1, can be found [here](https://www.microsoft.com/en-us/download/details.aspx?id=56115)
 
