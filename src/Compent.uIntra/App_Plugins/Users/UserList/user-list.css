@@ -47,7 +47,7 @@
         background: none;
         padding: 6px 15px;
         cursor: pointer;
-        z-index:2;
+        z-index:4;
 
         @media (--for-tablet-portrait-down){
             padding:5px;
@@ -124,7 +124,10 @@
 
         &:first-child{
             padding-left:0;
-            width:50px;
+        }
+
+        &--photo{
+            width:60px;
 
             @media (--for-tablet-portrait-down){
                 width:20%;
@@ -209,11 +212,6 @@
 
         &:first-child{
             padding-left:0;
-            width:50px;
-
-            @media (--for-tablet-portrait-down){
-                width:20%;
-            }
         }
     }
 
@@ -318,6 +316,8 @@
         float:left;
         width: 78%;
         margin:0 0 3px;
+        overflow:hidden;
+        text-overflow:ellipsis;
 
         @media (--for-tablet-portrait-down) {
             width:60%;

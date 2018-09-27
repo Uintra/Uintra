@@ -1,6 +1,6 @@
 import {} from 'quill';
 import {} from 'quill-delta';
-import {} from 'quill-mention';
+import {} from "./../App_Plugins/Core/Content/libs/quill-mention/quill.mention";
 import {} from 'dotdotdot';
 import {} from 'flatpickr';
 import {} from 'simple-scrollbar';
