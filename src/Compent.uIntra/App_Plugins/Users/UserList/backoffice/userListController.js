@@ -33,8 +33,8 @@
             }
             $scope.control = control;
             getAllowedProperties().then(function (response) {
-                response.data.forEach(i => {
-                    var result = $scope.control.value.properties.find(j => j.id === i.id);
+                response.data.forEach(function (i) {
+                    var result = $scope.control.value.properties.find(function (j) { return j.id === i.id; });
                     if (!result)
                         $scope.control.value.properties.push(i);
                 });
@@ -55,17 +55,17 @@
         };
 
         $scope.isSelected = function (property) {
-            var result = $scope.control.value.selectedProperties.find(i => i.id === property.id);
+            var result = $scope.control.value.selectedProperties.find(function (i) { return i.id === property.id; });
             if (result) property.selected = true;
             return result;
         };
 
         function refresh() {
             $scope.control.value.selectedProperties =
-                $scope.control.value.properties.filter(i => i.selected);
+                $scope.control.value.properties.filter(function (i) { return i.selected; });
             if ($scope.control.value.orderBy) {
                 var result = $scope.control.value.selectedProperties
-                    .filter(i => i.id === $scope.control.value.orderBy.id).length;
+                    .filter(function (i) { return i.id === $scope.control.value.orderBy.id; }).length;
                 if (!result) $scope.control.value.orderBy = null;
             }
         }
