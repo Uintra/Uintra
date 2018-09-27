@@ -156,17 +156,11 @@
     <Reference Include="interfaces, Version=1.0.6684.15718, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.10.4\lib\net45\interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Localization.Core, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Localization.Core.0.1.1\lib\net452\Localization.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Localization.Storage.UDictionary, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Localization.Storage.UDictionary.0.1.1\lib\net452\Localization.Storage.UDictionary.dll</HintPath>
     </Reference>
     <Reference Include="Localization.Umbraco, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Localization.Umbraco.0.1.2\lib\net452\Localization.Umbraco.dll</HintPath>
-    </Reference>
-    <Reference Include="Localization.Web, Version=0.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Localization.Web.0.0.3\lib\net452\Localization.Web.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.10.4\lib\net45\log4net.dll</HintPath>
