@@ -15,7 +15,9 @@ namespace Compent.Uintra.Core.Users
                 .ForMember(dst => dst.EditingUser, o => o.MapFrom(user => user));
 
             Mapper.CreateMap<IntranetUser, UserModel>()
-                .ForMember(dst => dst.User, o => o.MapFrom(user => user));
+                .ForMember(dst => dst.User, o => o.MapFrom(user => user))
+                .ForMember(dst => dst.ProfileUrl, o => o.Ignore());
+
             Mapper.CreateMap<IntranetUser, ProfileEditModel>()
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())

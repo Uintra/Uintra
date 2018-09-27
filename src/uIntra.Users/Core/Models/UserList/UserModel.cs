@@ -19,5 +19,6 @@ namespace Uintra.Users.UserList
         [UIColumn(2, "Email", "email", ColumnType.Email, SupportSorting = true)]
         public string Email { get; set; }
         public IIntranetUser User { get; set; }
+        public string ProfileUrl { get; set; }
     }
 }

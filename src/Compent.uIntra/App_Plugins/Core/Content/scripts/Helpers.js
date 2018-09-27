@@ -44,7 +44,7 @@ const helpers = {
         return out;
     },
     initQuill: function (source, dataStorage, options) {
-        
+
         if (!dataStorage) {
             throw new Error("Hided input field missing");
         }
@@ -55,7 +55,7 @@ const helpers = {
 
         let settings = {
             theme: 'snow'
-        }        
+        }
 
         var mention = {
             mention: {
@@ -68,12 +68,12 @@ const helpers = {
                     } else {
 
                         ajax.get("/umbraco/api/Mention/SearchMention?query=" + searchTerm)
-                            .then(function (response) {                                
+                            .then(function (response) {
                                 if (response.data) {
                                     for (var i = 0; i < response.data.length; i++) {
-                                        matches.push(response.data[i]);                
+                                        matches.push(response.data[i]);
                                     }
-                                }                                
+                                }
                                 renderList(matches, searchTerm);
                             });
                     }
@@ -90,13 +90,13 @@ const helpers = {
                 }
             };
         } else {
-            $.extend(settings, options);          
+            $.extend(settings, options);
         }
 
         $.extend(settings.modules, mention);
 
         let quill = new Quill(source, settings);
-        let toolbar = quill.getModule('toolbar');        
+        let toolbar = quill.getModule('toolbar');
 
         //override default link handler
         toolbar.addHandler('link', function (value) {
@@ -152,14 +152,14 @@ const helpers = {
                     }
 
                     ops = ops.concat([{
-                            delete: url.length
-                        },
-                        {
-                            insert: url,
-                            attributes: {
-                                link: url
-                            }
+                        delete: url.length
+                    },
+                    {
+                        insert: url,
+                        attributes: {
+                            link: url
                         }
+                    }
                     ]);
 
                     var selectionBeforeUpdate = quill.getSelection();
@@ -656,6 +656,16 @@ const helpers = {
                 helpers.localStorage.removeItem(storageName);
             }
         }
+    },
+    parseMentions: function (container) {
+        var mention = $(container).find(".mention");
+        mention.each(function (i, el) {
+            $(this).on('click', function (e) {
+                var id = $(this).data('id');
+                location.href = '/profile?id=' + id;
+                e.preventDefault();
+            })
+        });
     }
 }
 

@@ -121,13 +121,8 @@ let controller = {
 
         function addDetailsHandler(rows) {
             rows.click(function () {
-                var data = { id: $(this).data("id") };
-                ajax.post(detailsUrl, data)
-                    .then(result => {
-                        confirm.showInfo(
-                            result.data.title,
-                            result.data.text);
-                    });
+                var profileUrl = $(this).data("profile");
+                location.href = profileUrl;
             });
         }
     }

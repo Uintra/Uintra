@@ -5,6 +5,7 @@ using System.Web;
 using Compent.Extensions;
 using Compent.Uintra.Core.Search.Entities;
 using Localization.Core;
+using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Search;
 using Uintra.Users.UserList;
@@ -17,20 +18,22 @@ namespace Compent.Uintra.Controllers
     {
         private readonly IElasticIndex _elasticIndex;
         private readonly ILocalizationCoreService _localizationCoreService;
+        private readonly IProfileLinkProvider _profileLinkProvider;
 
         public UserListController(IIntranetUserService<IIntranetUser> intranetUserService,
             IElasticIndex elasticIndex,
-            ILocalizationCoreService localizationCoreService
+            ILocalizationCoreService localizationCoreService,
+            IProfileLinkProvider profileLinkProvider
             )
             : base(intranetUserService)
         {
             _elasticIndex = elasticIndex;
             _localizationCoreService = localizationCoreService;
+            _profileLinkProvider = profileLinkProvider;
         }
 
         protected override IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, out long totalHits, string orderBy, int direction)
         {
-            //TODO orderBy, direction (0-Asc/1-Desc)
             var searchQuery = new SearchTextQuery
             {
                 Text = query,
@@ -49,6 +52,13 @@ namespace Compent.Uintra.Controllers
         protected override string GetDetailsPopupTitle(UserModel user)
         {
             return $"{user.DisplayedName} {_localizationCoreService.Get("UserList.DetailsPopup.Title")}";
+        }
+
+        protected override UserModel MapToViewModel(IIntranetUser user)
+        {
+            var model = base.MapToViewModel(user);
+            model.ProfileUrl = _profileLinkProvider.GetProfileLink(model.Id);
+            return model;
         }
     }
 }

@@ -18,7 +18,6 @@ namespace Uintra.Users.Web
         protected virtual string UsersRowsViewPath => @"~/App_Plugins/Users/UserList/UsersRowsView.cshtml";
         protected virtual string UsersDetailsViewPath => @"~/App_Plugins/Users/UserList/UserDetailsPopup.cshtml";
 
-        private const string LastRequestHeaderKey = "x-last-request";
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         protected UserListControllerBase(IIntranetUserService<IIntranetUser> intranetUserService)

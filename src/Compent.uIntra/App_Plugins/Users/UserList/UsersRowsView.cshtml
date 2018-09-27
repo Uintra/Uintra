@@ -4,7 +4,7 @@
 
 @foreach (var user in Model.Users)
 {
-    <tr data-id="@user.Id" class="users-table__row js-user-list-row @if (Model.IsLastRequest) { <text>last</text> }">
+    <tr data-profile="@user.ProfileUrl" class="users-table__row js-user-list-row @if (Model.IsLastRequest) { <text>last</text> }">
         @foreach (var column in Model.SelectedColumns)
         {
             <td class="users-table__cell">
