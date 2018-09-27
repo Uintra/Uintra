@@ -11,8 +11,6 @@ These instructions will get you a copy of the project up and running on your loc
 ## Prerequisites & Installing
 Before installing Uintra you will have to make certain preparations.
 
-When installing Umbraco make sure you are getting a version compatible with Uintra, the current package compatility can be found [here](https://our.umbraco.com/packages/collaboration/uintra/) 
-
 1. Install MS NET Framework .NET 4.7.1, can be found [here](https://www.microsoft.com/en-us/download/details.aspx?id=56115)
 
 2. Install IIS with advanced settings (as seen in the screenshot below)
@@ -20,14 +18,16 @@ When installing Umbraco make sure you are getting a version compatible with Uint
 
 3. Install Visual Studio 2017 with update 15.3 or [later](https://visualstudio.microsoft.com/)
 
-3. Download and install [Umbraco CMS 7.9.2 nuget package](https://our.umbraco.com/download/releases/792/) by the Visual studio 'Manage NuGet Packages for Solution' NOT by the 'Package manage console'. Umbraco has an installation guide [here](https://our.umbraco.com/documentation/Getting-Started/Setup/Install/)
+4. Download and install [Umbraco CMS 7.9.2 nuget package](https://our.umbraco.com/download/releases/792/) by the Visual studio 'Manage NuGet Packages for Solution' NOT by the 'Package manage console'. Umbraco has an installation guide [here](https://our.umbraco.com/documentation/Getting-Started/Setup/Install/). 
 
-4. Continue Umbraco installation in a browser 
+NOTE: When installing Umbraco make sure you are getting a version compatible with Uintra, the current package compatility can be found [here](https://our.umbraco.com/packages/collaboration/uintra/) 
+
+5. Continue Umbraco installation in a browser 
 * Customize settings and use custom SQL server.
 * Create an empty SQL DB
 * Configure Umbraco custom settings (server, DB, authentication)
 
-5. Download the latest version of Uintra here: https://www.nuget.org/packages/uIntra/
+6. Download the latest version of Uintra here: https://www.nuget.org/packages/uIntra/
 * Install the latest Uintra nuget package in the Visual studio 2015/17 'Manage NuGet Packages for Solution' NOT by the 'Package manage console'
 
 If you are having trouble getting Uintra installed or experience other problems, please contact us at kne@Compent.net, the response time will be very fast within normal business hours, 09-16 CET/CEST.
