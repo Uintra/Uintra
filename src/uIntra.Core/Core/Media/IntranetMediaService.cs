@@ -36,6 +36,12 @@ namespace Uintra.Core.Media
                 : Enumerable.Empty<int>();
         }
 
+        public Guid GetEntityIdByMediaId(int mediaId)
+        {
+            // todo: refactor to store relation entity to mediaId in separate 
+            return _sqlRepository.Find(a => a.MediaIds.Contains(mediaId.ToString())).EntityId;
+        }
+
         public string GetEntityMediaString(Guid entityId)
         {
             var entity = _sqlRepository.Find(e => e.EntityId == entityId);

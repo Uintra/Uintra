@@ -9,16 +9,25 @@ import helpers from "./../../Content/scripts/Helpers";
 var photoswipeElement = document.querySelector('.pswp');
 var galleries = [];
 var defaultOptions = {
+    zoomEl: false,
+    maxSpreadZoom: 1,
+    getDoubleTapZoom: function (isMouseClick, item) {
+        return item.initialZoomLevel;
+    },
     escKey: true,
     arrowKeys: true,
     bgOpacity: 0.8,
     history: false,
-    showHideOpacity: false
+    showHideOpacity: false,
+    isClickableElement: function (el) {
+        const tagName = el.tagName.toLowerCase();
+        return tagName === 'video' || tagName === 'a';
+    }
 };
 
 var createGallery = function (gallery) {
     var bodyElement = document.querySelector('body');
-    
+
     gallery.instance = new Photoswipe(photoswipeElement,
         photoswipeUiDefault,
         gallery.items,
@@ -32,16 +41,16 @@ var createGallery = function (gallery) {
             item.setAttribute('src', item.getAttribute('src'));
         });
     }
-    
+
     gallery.instance.listen('beforeChange', stopVideo);
-    gallery.instance.listen('close', function () {        
+    gallery.instance.listen('close', function () {
         stopVideo();
         gallery.instance = null;
         bodyElement.classList.remove('js-lightbox-open');
 
         var div = gallery.holder.closest("div [data-anchor]");
         if (div) {
-            var hash = div.dataset["anchor"]; 
+            var hash = div.dataset["anchor"];
             if (hash) {
                 let elem = document.querySelector('[data-anchor="' + hash + '"]');
 
@@ -49,7 +58,7 @@ var createGallery = function (gallery) {
                     window.history.pushState("", document.title, window.location.pathname + window.location.search);
                 }
             }
-        }        
+        }
     });
 }
 
@@ -58,7 +67,7 @@ var buildPhotoswipeItems = function (imagesItems) {
 
     for (var i = 0; i < imagesItems.length; i++) {
         if (!imagesItems[i].dataset.fullUrl || !imagesItems[i].dataset.fullSize) {
-            continue;   
+            continue;
         }
         var item = imagesItems[i];
         var parentItem = item.parentNode;
@@ -77,9 +86,9 @@ var buildPhotoswipeItems = function (imagesItems) {
 
         // create slide object
         if (parentItem.dataset.type == 'video') {
+            const videoUrl = parentItem.dataset.video;
             newItem = {
-                html: parentItem.dataset.video
-                //html: '<div class="gallery__video"><div class="gallery__video-box"><video width="960" class="pswp__video" src="' + parentItem.dataset.src +'" controls></video></div></div>'
+                html: '<div class="gallery__video"><div class="gallery__video-box"><video width="960" class="pswp__video" src="' + videoUrl +'" controls></video></div></div>'
             };
         } else {
             newItem = {
@@ -88,7 +97,7 @@ var buildPhotoswipeItems = function (imagesItems) {
                 h: height
             };
         }
-        
+
         result.push(newItem);
     }
     return result;

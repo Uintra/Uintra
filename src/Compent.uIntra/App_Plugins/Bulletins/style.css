@@ -258,7 +258,7 @@
         .ql-container.ql-snow {
             border:none;
             height:70px;
-            padding:12px 20px;
+            padding:25px 20px 23px 62px;
             cursor:text;
 
             @media (--for-tablet-portrait-down) {
@@ -316,7 +316,7 @@
                 overflow:hidden;
                 left:62px;
                 top:25px;
-                right:0;
+                right:20px;
             }
         }
 
@@ -442,17 +442,11 @@
     @media (--for-tablet-portrait-down) {
         max-height: 102px !important;
     }
+
+    .create-bulletin &{
+        max-height:102px !important;
+    }
 }
-
-.select2-container--default .select2-results > .select2-results__options {
-    @media (--for-desktop-down) {
-        max-height: 136px !important;
-    }
-
-    @media (--for-tablet-portrait-down) {
-        max-height: 102px !important;
-    }
-} 
 
 /* popup (lightbox) styles */
 .popup {

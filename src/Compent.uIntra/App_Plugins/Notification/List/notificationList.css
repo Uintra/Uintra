@@ -28,8 +28,10 @@
         color:var(--color-white);
         cursor:pointer;
         text-decoration:none;
-        margin:11px 0 0;
+        padding:12px 0 3px;
         display:inline-block;
+        text-align:center;
+        min-width:32px;
 
         &:hover,
         &:active,
@@ -44,7 +46,6 @@
             ._notifications-expanded &{
                 background-color:var(--color-light-gray-2);
                 color:var(--text-color-dark);
-                padding:23px 0 12px;
                 margin:0;
             }
         }
@@ -53,8 +54,8 @@
     &__number{
         display: none;
         position:absolute;
-        top: 1px;
-        right: -12px;
+        top: 3px;
+        right: -8px;
         width:19px;
         height:19px;
         background:var(--color-contrast);
@@ -205,17 +206,14 @@
     }
 
     @media (--for-tablet-portrait-down) {
-        position:absolute;
-        width: 52px;
-        top:0;
-        right:0;
+        float:right;
 
         &__icon {
             position:relative;
             z-index:12;
             display:block;
             text-align:center;
-            padding:22px 0 13px;
+            padding:22px 17px 13px;
             transition:opacity 0.4s ease;
             opacity:1;
 

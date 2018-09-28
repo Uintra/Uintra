@@ -22,7 +22,7 @@ namespace Compent.Uintra.Core.CommandBus
             var commentsTarget = command.Context.GetCommentsTarget();
             var commentsTargetEntityId = commentsTarget.EntityId.Value;
 
-            if (ContextExtensions.HasFlagScalar(commentsTarget.Type, ContextType.Activity))
+            if (ContextExtensions.HasFlagScalar(commentsTarget.Type, ContextType.Activity | ContextType.PagePromotion | ContextType.ContentPage))
             {
                 var notifiableService = _activitiesServiceFactory.GetNotifyableService(commentsTargetEntityId);
 

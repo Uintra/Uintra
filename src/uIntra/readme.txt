@@ -16,6 +16,9 @@ https://demo.uintra.com/
 For more information about Uintra go to https://uintra.com/ or directly to releases info
 https://uintra.com/releases/ or the FAQ page https://uintra.com/faq/
 
+
+ 
+
 What’s next?
 
 Uintra is constantly developed and improved, and you will get monthly updates with bugfixes, new functionality,

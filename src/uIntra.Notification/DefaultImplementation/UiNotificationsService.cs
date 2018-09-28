@@ -4,6 +4,7 @@ using System.Linq;
 using Compent.Extensions;
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
+using Uintra.Notification.Configuration;
 
 namespace Uintra.Notification
 {
@@ -37,6 +38,7 @@ namespace Uintra.Notification
                     Id = Guid.NewGuid(),
                     Date = DateTime.UtcNow,
                     IsNotified = false,
+                    NotifierType = NotifierTypeEnum.UiNotifier.ToInt(),
                     IsViewed = false,
                     Type = el.NotificationType.ToInt(),
                     Value = new { el.Message, el.Url, el.NotifierId, el.IsPinned, el.IsPinActual, el.DesktopMessage, el.DesktopTitle, el.IsDesktopNotificationEnabled }.ToJson(),
@@ -77,17 +79,17 @@ namespace Uintra.Notification
 
         private IEnumerable<Notification> GetNotifications(Guid receiverId, bool excludeAlreadyNotified = false)
         {
-            var uiNotificationTypeIds = _notificationTypeProvider.UiNotificationTypes().Select(t => t.ToInt());
+            var uiNotifierTypeId = NotifierTypeEnum.UiNotifier.ToInt();
             
             if(excludeAlreadyNotified)
                 return _notificationRepository.FindAll(el =>
                 el.ReceiverId == receiverId &&
-                uiNotificationTypeIds.Contains(el.Type) &&
+                el.NotifierType == uiNotifierTypeId &&
                 !el.IsNotified);
 
             return _notificationRepository.FindAll(el =>
                 el.ReceiverId == receiverId &&
-                uiNotificationTypeIds.Contains(el.Type));
+                el.NotifierType == uiNotifierTypeId);
         }
     }
 }

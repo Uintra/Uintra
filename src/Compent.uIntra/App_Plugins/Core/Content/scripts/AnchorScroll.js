@@ -15,7 +15,14 @@
             }
 
             // Anchor element
-            var term = $(hash);
+            var term = "";
+            try {
+                term = $(hash);
+            } catch (e) {
+                //hash contains invalid chars
+                return;
+            }
+
             // If element with hash id is defined
             if (term.length) {
 

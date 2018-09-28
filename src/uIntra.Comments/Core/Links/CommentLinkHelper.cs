@@ -1,5 +1,6 @@
 ﻿using System;
 using Uintra.Core.Links;
+using Umbraco.Core.Models;
 
 namespace Uintra.Comments
 {
@@ -16,5 +17,8 @@ namespace Uintra.Comments
 
         public string GetDetailsUrlWithComment(Guid activityId, Guid commentId) => 
             $"{_linkService.GetLinks(activityId).Details}#{_commentsService.GetCommentViewId(commentId)}";
+
+        public string GetDetailsUrlWithComment(IPublishedContent content, Guid commentId) =>
+            $"{content.Url}#{_commentsService.GetCommentViewId(commentId)}";
     }
 }

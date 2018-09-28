@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ClientDependency.Core;
 using Newtonsoft.Json.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Web;
@@ -31,9 +30,9 @@ namespace Uintra.Core.Grid
                             if (control != null
                                 && control.editor != null
                                 //&& control.editor.view != null
-                                && aliases.Contains((string)control.editor.alias))
+                                && aliases.Contains((string) control.editor.alias))
                             {
-                                yield return ((string)control.editor.alias, control.value);
+                                yield return ((string) control.editor.alias, control.value);
                             }
                         }
                     }
@@ -41,10 +40,10 @@ namespace Uintra.Core.Grid
             }
         }
 
-        private static dynamic GetGrid(IPublishedContent content) => 
+        private static dynamic GetGrid(IPublishedContent content) =>
             content.GetProperty("grid")?.GetValue<dynamic>();
 
-        private bool IsValidGrid(object grid) => 
+        private bool IsValidGrid(object grid) =>
             grid != null && grid is JObject gridJson && gridJson["sections"] != null;
 
 
@@ -55,12 +54,14 @@ namespace Uintra.Core.Grid
             {
                 return default;
             }
-            var propertiesDictionary = ((JToken) properties).ToDictionary();
+
+            var propertiesDictionary = properties.ToDictionary(pair => pair.alias, pair => pair.value);
             if (propertiesDictionary.TryGetValue(propertyKey, out var property))
             {
-                var typedResult = ((JToken)property).ToObject<T>();
+                var typedResult = ((JToken) property).ToObject<T>();
                 return typedResult;
             }
+
             return default;
         }
     }

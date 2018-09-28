@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Compent.Uintra.Core.Activity.Models;
@@ -19,6 +20,7 @@ using Compent.Uintra.Core.UserTags;
 using Uintra.Core;
 using Uintra.Groups.Extentions;
 using Uintra.Tagging.UserTags;
+using Uintra.Users;
 
 namespace Compent.Uintra.Controllers
 {
@@ -29,31 +31,36 @@ namespace Compent.Uintra.Controllers
         protected override string CreateViewPath => "~/Views/News/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/News/EditView.cshtml";
 
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INewsService<News> _newsService;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IGroupActivityService _groupActivityService;
-        private readonly UserTagService _userTagService;
         private readonly IActivityTagsHelper _activityTagsHelper;
+        private readonly IActivityLinkService _activityLinkService;
+        private readonly IMentionService _mentionService;
 
         public NewsController(
             IIntranetUserService<IIntranetUser> intranetUserService,
             INewsService<News> newsService,
             IMediaHelper mediaHelper,
             IIntranetUserContentProvider intranetUserContentProvider,
-            IActivityTypeProvider activityTypeProvider, 
+            IActivityTypeProvider activityTypeProvider,
             IDocumentIndexer documentIndexer,
             IGroupActivityService groupActivityService,
             UserTagService userTagService,
             IActivityTagsHelper activityTagsHelper,
             IActivityLinkService activityLinkService,
-            IContextTypeProvider contextTypeProvider)
+            IContextTypeProvider contextTypeProvider,
+            IMentionService mentionService)
             : base(intranetUserService, newsService, mediaHelper, activityTypeProvider, activityLinkService, contextTypeProvider)
         {
+            _intranetUserService = intranetUserService;
             _newsService = newsService;
             _documentIndexer = documentIndexer;
             _groupActivityService = groupActivityService;
-            _userTagService = userTagService;
             _activityTagsHelper = activityTagsHelper;
+            _activityLinkService = activityLinkService;
+            _mentionService = mentionService;
         }
 
         public ActionResult FeedItem(News item, ActivityFeedOptionsWithGroups options)
@@ -117,6 +124,8 @@ namespace Compent.Uintra.Controllers
             {
                 _activityTagsHelper.ReplaceTags(news.Id, extendedModel.TagIdsData);
             }
+
+            ResolveMentions(model.Description, news);
         }
 
         protected override NewsViewModel GetViewModel(NewsBase news)
@@ -124,7 +133,7 @@ namespace Compent.Uintra.Controllers
             var extendedNews = (News)news;
             var extendedModel = base.GetViewModel(news).Map<NewsExtendedViewModel>();
             extendedModel = Mapper.Map(extendedNews, extendedModel);
-            
+
             return extendedModel;
         }
 
@@ -136,16 +145,37 @@ namespace Compent.Uintra.Controllers
 
         protected override void OnNewsCreated(Guid activityId, NewsCreateModel model)
         {
+            var news = _newsService.Get(activityId);
             var groupId = Request.QueryString.GetGroupId();
             if (groupId.HasValue)
             {
                 _groupActivityService.AddRelation(groupId.Value, activityId);
-                var news = _newsService.Get(activityId);
                 news.GroupId = groupId;
             }
             if (model is NewsExtendedCreateModel extendedModel)
             {
                 _activityTagsHelper.ReplaceTags(activityId, extendedModel.TagIdsData);
+            }
+
+            ResolveMentions(model.Description, news);
+        }     
+
+        private void ResolveMentions(string text, NewsBase news)
+        {
+            var mentionIds = _mentionService.GetMentions(text).ToList();
+
+            if (mentionIds.Any())
+            {
+                var links = _activityLinkService.GetLinks(news.Id);
+                _mentionService.PreccessMention(new MentionModel()
+                {
+                    MentionedSourceId = news.Id,
+                    CreatorId = _intranetUserService.GetCurrentUserId(),
+                    MentionedUserIds = mentionIds,
+                    Title = news.Title,
+                    Url = links.Details
+                });
+
             }
         }
     }

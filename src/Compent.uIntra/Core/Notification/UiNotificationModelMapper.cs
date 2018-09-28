@@ -77,6 +77,17 @@ namespace Compent.Uintra.Core.Notification
                         (NotificationType, model.NotificationType.ToString().SplitOnUpperCaseLetters())
                     };
                     break;
+                case UserMentionNotifierDataModel model:
+                    message.NotificationType = model.NotificationType;
+                    message.Url = model.Url;
+                    message.NotifierId = model.NotifierId;
+                    tokens = new[]
+                    {
+                        (ActivityTitle, model.Title),
+                        (FullName, _intranetUserService.Get(model.ReceiverId).DisplayedName),
+                        (TaggedBy, _intranetUserService.Get(model.NotifierId).DisplayedName)
+                    };
+                    break;
                 default:
                     throw new IndexOutOfRangeException();
             }

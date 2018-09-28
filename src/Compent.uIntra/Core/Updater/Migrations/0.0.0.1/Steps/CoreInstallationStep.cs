@@ -17,6 +17,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
 {
     public class CoreInstallationStep : IMigrationStep
     {
+
         public ExecutionResult Execute()
         {
             CreateDocumentTypesFolders();
@@ -184,7 +185,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
             InstallationStepsHelper.AddAllowedChildNode(DocumentTypeAliases.ContentPage, DocumentTypeAliases.ContentPage);
         }
 
-        private static void CreateGridPageLayoutTemplate()
+        private void CreateGridPageLayoutTemplate()
         {
             var layoutEmbeddedResourceFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.Core.Updater.Migrations._0._0._0._1.PreValues.GridPageLayout.cshtml";
             InstallationStepsHelper.SetGridPageLayoutTemplateContent(layoutEmbeddedResourceFileName);

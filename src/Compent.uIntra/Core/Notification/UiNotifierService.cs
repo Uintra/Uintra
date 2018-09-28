@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Compent.Extensions;
+using Uintra.Core.Activity;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
@@ -30,10 +31,13 @@ namespace Compent.Uintra.Core.Notification
         }
 
         public void Notify(NotifierData data)
-        {         
+        {
             var isCommunicationSettings = data.NotificationType.In(
                 NotificationTypeEnum.CommentLikeAdded,
-                NotificationTypeEnum.MonthlyMail); //TODO: temporary for communication settings
+                NotificationTypeEnum.MonthlyMail,
+                NotificationTypeEnum.UserMention,
+                IntranetActivityTypeEnum.ContentPage,
+                IntranetActivityTypeEnum.PagePromotion);
 
             var identity = new ActivityEventIdentity(isCommunicationSettings
                     ? CommunicationTypeEnum.CommunicationSettings

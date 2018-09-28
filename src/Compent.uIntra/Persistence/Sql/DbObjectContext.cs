@@ -1,12 +1,15 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Reflection;
 using Uintra.Comments;
 using Uintra.Core.Activity;
 using Uintra.Core.LinkPreview.Sql;
 using Uintra.Core.Location.Entities;
+using Uintra.Core.Media;
 using Uintra.Core.Media.Sql;
 using Uintra.Core.MigrationHistories.Sql;
 using Uintra.Core.Persistence;
@@ -57,6 +60,7 @@ namespace Compent.Uintra.Persistence.Sql
         public DbSet<LinkPreviewEntity> LinkPreviews { get; set; }
         public DbSet<CommentToLinkPreviewEntity> CommentToLinkPreviews { get; set; }
         public DbSet<ActivityToLinkPreviewEntity> ActivityToLinkPreviews { get; set; }
+        public DbSet<VideoConvertationLog> VideoConvertationLog { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -72,6 +76,9 @@ namespace Compent.Uintra.Persistence.Sql
             }
 
             base.OnModelCreating(modelBuilder);
+
+            var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
+            modelBuilder.Conventions.Add(convention);
         }
     }
 }

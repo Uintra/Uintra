@@ -608,21 +608,53 @@ img{
         .ajs-commands{
             button.ajs-close{
                 vertical-align: top;
+                background:none;
+                font-family: 'icomoon' !important;
+                speak: none;
+                font-style: normal;
+                font-weight: bold;
+                font-variant: normal;
+                text-transform: none;
+                line-height: 1;
+                /* Better Font Rendering =========== */
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                font-size:17px;
+                color:#333;
+                width:30px;
+                height:30px;
+                padding:6px;
+                margin:0;
+                transition:all linear 0.3s;
+
+                &:before{
+                    content:"\E903" !important
+                }
+
+                &:hover{
+                    color:#000;
+                    text-shadow:0 0 1px #000;
+                }
             }
         }
     } 
     .ajs-modal{
         .ajs-commands{
-            margin-right:10px;
+            top:0;
+            margin:10px 6px 0 0;
         }
     }
     .ajs-header{
         background: none;
+        font-size:16px;
+        padding:16px 48px 16px 20px;
+        min-height:52px;
     }
 
     .ajs-footer{
         background: none;
         border: 0;
+        padding:4px 6px 26px;
     }
 }
 
@@ -851,7 +883,7 @@ img{
         height: 30px;
 
         .comments &{
-            margin:0;
+            margin:0 0 15px;
         }
     }
 
@@ -1118,6 +1150,10 @@ img{
 .pswp{
     opacity: 0;
     transition: opacity ease-in 200ms;
+    
+    &[aria-hidden=true]{
+        z-index:-1;
+    }
 
     &__button{
         &--arrow--left,
@@ -1257,15 +1293,12 @@ img{
         margin:0;
         height:62px;
         padding:6px 10px;
-        /*overflow:auto;*/
         
         ._expanded &{
             border:0 !important;
         }
 
         .ql-editor{
-            height:52px;
-            /*height:auto;*/
             padding:0;
         }
     }
@@ -1288,9 +1321,11 @@ img{
 			    margin:0 0 8px 8px;
 		    }
 
-            &:hover,
-            &:active,
-            &:focus{
+            &:hover{
+                color:inherit;
+            }
+
+            &.ql-active{
                 color:#fff;
                 background:#938ea1;
                 border-color:#938ea1;
@@ -1320,6 +1355,9 @@ img{
 
     .quill--custom &{
         &:hover{
+            border-color:#938ea1;
+            background-color:#938ea1;
+
             &:before{
                 background-image:url(/App_Plugins/Core/Content/images/emoji-custom-hover.svg);
             }
@@ -1347,6 +1385,9 @@ img{
 
     .quill--custom &{
         &:hover{
+            border-color:#938ea1;
+            background-color:#938ea1;
+
             &:before{
                 background-image:url(/App_Plugins/Core/Content/images/link-custom-hover.svg);
             }
@@ -1367,6 +1408,7 @@ img{
     }
 
     &:hover{
+
         &:before{
             background-image:url(/App_Plugins/Core/Content/images/attachment-hover.svg);
         }
@@ -1374,6 +1416,9 @@ img{
 
     .quill--custom &{
         &:hover{
+            border-color:#938ea1;
+            background-color:#938ea1;
+
             &:before{
                 background-image:url(/App_Plugins/Core/Content/images/attachment-custom-hover.svg);
             }
@@ -1439,5 +1484,35 @@ img{
 
     svg {
         display:none;
+    }
+}
+
+.ql-mention-list-container{
+    z-index:1001;
+}
+
+.ql-mention-list-container{
+    width: auto;
+    min-width: 270px;
+    max-width: 100%;
+}
+
+.ql-mention-list-item{
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+}
+
+.mention{
+    height:auto;
+    width:auto;
+    border-radius:0;
+    background:none;
+    padding:0;
+    color:var(--color-link);
+    cursor:pointer;
+
+    &:hover{
+        text-decoration:underline;
     }
 }

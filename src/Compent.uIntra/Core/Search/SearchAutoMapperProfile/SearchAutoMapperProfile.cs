@@ -24,6 +24,7 @@ namespace Compent.Uintra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.Email, o => o.MapFrom(src => src.Email))
                 .ForMember(dst => dst.Photo, o => o.MapFrom(src => src.Photo))
                 .ForMember(dst => dst.Type, o => o.MapFrom(src => (int)UintraSearchableTypeEnum.User))
+                .ForMember(dst => dst.Inactive, o => o.MapFrom(src => src.Inactive))
                 .ForMember(dst => dst.UserTagNames, o => o.Ignore())
                 .ForMember(dst => dst.TagsHighlighted, o => o.Ignore())
                 .ForMember(dst => dst.Url, o => o.Ignore())

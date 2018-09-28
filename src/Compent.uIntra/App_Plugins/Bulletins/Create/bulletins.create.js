@@ -249,7 +249,7 @@ function show() {
     //toolbar.classList.remove("hidden");
     //header.classList.remove("hidden");
     //closeBulletinBtn.classList.remove("hidden");
-    editor.setSelection(0, 0);
+    //editor.setSelection(0, 0);
 }
 
 function hide(event) {

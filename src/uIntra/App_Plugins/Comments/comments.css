@@ -140,18 +140,6 @@
         @media (--for-tablet-portrait-down) {
 			margin:0 -3px 0 0;
 		}
-        ._inner &{
-
-            &:before{
-                top:0;
-            }
-
-            &:hover{
-                &:before{
-                    top:2px;
-                }
-            }
-        }
 
         &:before {
             position:absolute;
@@ -176,7 +164,7 @@
             display: none;
             position: absolute;
             top: 100%;
-            right: 0;
+            right: -13px;
             min-width: 140px;
             margin: 0;
             padding: 0;
@@ -266,7 +254,7 @@
         display:inline-block;
         vertical-align:top;
         font-size: 13px;
-        margin:0 13px 0 7px;
+        margin:0 7px;
 
         @media (--for-tablet-portrait-down) {
 			margin:0 5px 0 0;
@@ -290,10 +278,6 @@
         @media (--for-tablet-portrait-down) {
 			margin:0 5px;
 		}
-
-        ._inner &{
-            margin:-5px 0 0 10px;
-        }
 
         &-info{
             position:absolute;
@@ -340,7 +324,7 @@
 
     .icon-comment{
         font-size:16px;
-        margin:1px 9px 1px 0;
+        margin:0 9px 0 0;
         vertical-align:top;
         display:inline-block;
         color: #b2b2b2;

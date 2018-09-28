@@ -4,7 +4,10 @@
 <div class="block__item">
     <p>
         @Html.Localize(Model.ActivityType.ToString())<br />
-        @Model.StartDate.ToDateTimeFormat() - @Model.EndDate.ToDateTimeFormat()
+        @foreach (var date in Model.Dates)
+        {
+            <span class="coming-events__time">@date</span>            
+        }        
     </p>
     <h3 class="block__subtitle _clamp">
         <a href="@Model.Links.Details">@Html.Raw(Model.Title)</a>

@@ -20,6 +20,7 @@ module.exports = {
                         '--color-submit': '#261d43',
                         '--color-submit-hover': '#5c5573',
                         '--header-bg': '#5776f9',
+                        '--color-link': '#5776f9',
                         '--font-custom': 'muli, Arial, Helvetica, sans-serif',
                         '--font-general': 'muli, Arial, Helvetica, sans-serif'
                     }

@@ -177,6 +177,24 @@ html {
     @media(--for-tablet-portrait-down) {
         overflow: hidden;
     }
+
+    body{
+        @media(--for-tablet-portrait-down) {
+            overflow: hidden;
+        }
+    }
+}
+
+._aside-expanded{
+    @media(--for-tablet-portrait-down){
+        overflow: hidden;
+    }
+
+    body{
+        @media(--for-tablet-portrait-down){
+            overflow: hidden;
+        }
+    }
 }
 
 body{
@@ -803,6 +821,13 @@ img{
     position: relative;
     overflow: hidden;
     border-radius:50%;
+
+    .feed__list &{
+        width:35px;
+        min-width:35px;
+        height:35px;
+        margin:0 11px 3px 0;
+    }
     
     ._profile &{
         width: 100px;
@@ -826,7 +851,7 @@ img{
         height: 30px;
 
         .comments &{
-            margin:0;
+            margin:0 0 15px;
         }
     }
 
@@ -837,7 +862,10 @@ img{
     }
 
     ._details &{
-        margin-bottom:0;
+        width:35px;
+        min-width:35px;
+        height:35px;
+        margin:0 11px 0 0;
     }
 
     &--square{
@@ -1002,6 +1030,14 @@ img{
     }
     .ql-tooltip {
         z-index:9999;
+
+        &.ql-editing,
+        &.ql-flip{
+            margin: 0 !important;
+            top: -20px !important;
+            left: 50% !important;
+            transform:translateX(-50%);
+        }
     }
 }
 
@@ -1082,6 +1118,10 @@ img{
 .pswp{
     opacity: 0;
     transition: opacity ease-in 200ms;
+    
+    &[aria-hidden=true]{
+        z-index:-1;
+    }
 
     &__button{
         &--arrow--left,
@@ -1221,14 +1261,12 @@ img{
         margin:0;
         height:62px;
         padding:6px 10px;
-        overflow:auto;
         
         ._expanded &{
             border:0 !important;
         }
 
         .ql-editor{
-            height:auto;
             padding:0;
         }
     }
@@ -1251,9 +1289,11 @@ img{
 			    margin:0 0 8px 8px;
 		    }
 
-            &:hover,
-            &:active,
-            &:focus{
+            &:hover{
+                color:inherit;
+            }
+
+            &.ql-active{
                 color:#fff;
                 background:#938ea1;
                 border-color:#938ea1;
@@ -1283,6 +1323,9 @@ img{
 
     .quill--custom &{
         &:hover{
+            border-color:#938ea1;
+            background-color:#938ea1;
+
             &:before{
                 background-image:url(/App_Plugins/Core/Content/images/emoji-custom-hover.svg);
             }
@@ -1310,6 +1353,9 @@ img{
 
     .quill--custom &{
         &:hover{
+            border-color:#938ea1;
+            background-color:#938ea1;
+
             &:before{
                 background-image:url(/App_Plugins/Core/Content/images/link-custom-hover.svg);
             }
@@ -1330,6 +1376,7 @@ img{
     }
 
     &:hover{
+
         &:before{
             background-image:url(/App_Plugins/Core/Content/images/attachment-hover.svg);
         }
@@ -1337,6 +1384,9 @@ img{
 
     .quill--custom &{
         &:hover{
+            border-color:#938ea1;
+            background-color:#938ea1;
+
             &:before{
                 background-image:url(/App_Plugins/Core/Content/images/attachment-custom-hover.svg);
             }

@@ -15,5 +15,7 @@ namespace Compent.Uintra.Core.Search.Entities
         public IEnumerable<string> UserTagNames { get; set; } = Enumerable.Empty<string>();
 
         public bool TagsHighlighted { get; set; }
+
+        public bool Inactive { get; set; }
     }
 }

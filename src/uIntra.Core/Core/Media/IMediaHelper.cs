@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Uintra.Core.Controls.FileUpload;
-using Uintra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
 namespace Uintra.Core.Media

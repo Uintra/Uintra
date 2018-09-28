@@ -1,11 +1,13 @@
 ﻿const Quill = require('quill');
 const Delta = require('quill-delta');
 const Flatpickr = require('flatpickr');
+
 import ajax from './Ajax';
 
 require('simple-scrollbar');
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
+require('./../libs/quill-mention/quill.mention.css');
 
 var urlDetectRegexes = [];
 
@@ -26,11 +28,28 @@ const easeInOutQuad = function (t, b, c, d) {
     return -c / 2 * (t * (t - 2) - 1) + b;
 };
 
+function parseMentionsInActivityDetailsText() {
+    let container = $(".feed__item-txt");
+    helpers.parseMentions(container);
+}
+
 const helpers = {
-    deepClone: function (obj) {
-        return JSON.parse(JSON.stringify(obj));
+    deepClone: function (out) {
+        out = out || {};
+
+        for (var i = 1; i < arguments.length; i++) {
+            if (!arguments[i])
+                continue;
+
+            for (var key in arguments[i]) {
+                if (arguments[i].hasOwnProperty(key))
+                    out[key] = arguments[i][key];
+            }
+        }
+        return out;
     },
     initQuill: function (source, dataStorage, options) {
+
         if (!dataStorage) {
             throw new Error("Hided input field missing");
         }
@@ -43,16 +62,43 @@ const helpers = {
             theme: 'snow'
         }
 
+        var mention = {
+            mention: {
+                allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+                mentionDenotationChars: ["@"],
+                source: function (searchTerm, renderList, mentionChar) {
+                    var matches = [];
+                    if (searchTerm.length === 0) {
+                        return;
+                    } else {
+
+                        ajax.get("/umbraco/api/Mention/SearchMention?query=" + searchTerm)
+                            .then(function (response) {
+                                if (response.data) {
+                                    for (var i = 0; i < response.data.length; i++) {
+                                        matches.push(response.data[i]);
+                                    }
+                                }
+                                renderList(matches, searchTerm);
+                            });
+                    }
+                }
+            }
+        };
+
+
+
         if (typeof options == 'undefined') {
             settings.modules = {
                 toolbar: {
-                    container: ['emoji','bold', 'italic', 'underline', 'link']
+                    container: ['emoji', 'bold', 'italic', 'underline', 'link']
                 }
             };
-        }
-        else {
+        } else {
             $.extend(settings, options);
         }
+
+        $.extend(settings.modules, mention);
 
         let quill = new Quill(source, settings);
         let toolbar = quill.getModule('toolbar');
@@ -62,11 +108,12 @@ const helpers = {
             if (value) {
                 let range = this.quill.getSelection();
                 if (range == null || range.length == 0) return;
-                let preview = this.quill.getText(range);
+                let selectedText = this.quill.getText(range);
                 let tooltip = this.quill.theme.tooltip;
-                if (/^\S+@\S+\.\S+$/.test(preview) && preview.indexOf('mailto:') !== 0) {
-                    preview = 'mailto:' + preview;
-                    tooltip.edit('link', preview);
+
+                if (/^\S+@\S+\.\S+$/.test(selectedText) && selectedText.indexOf('mailto:') !== 0) {
+                    selectedText = 'mailto:' + selectedText;
+                    tooltip.edit('link', selectedText);
                 } else {
                     tooltip.edit('link', '');
                 }
@@ -104,12 +151,20 @@ const helpers = {
 
                     var ops = [];
                     if (endRetain > url.length) {
-                        ops.push({ retain: endRetain - url.length });
+                        ops.push({
+                            retain: endRetain - url.length
+                        });
                     }
 
-                    ops = ops.concat([
-                        { delete: url.length },
-                        { insert: url, attributes: { link: url } }
+                    ops = ops.concat([{
+                        delete: url.length
+                    },
+                    {
+                        insert: url,
+                        attributes: {
+                            link: url
+                        }
+                    }
                     ]);
 
                     var selectionBeforeUpdate = quill.getSelection();
@@ -143,11 +198,20 @@ const helpers = {
                 triggerLinkDetectedEvent(match);
                 var split = text.split(match);
                 var beforeLink = split.shift();
-                ops.push({ insert: beforeLink });
-                ops.push({ insert: match, attributes: { link: match } });
+                ops.push({
+                    insert: beforeLink
+                });
+                ops.push({
+                    insert: match,
+                    attributes: {
+                        link: match
+                    }
+                });
                 text = split.join(match);
 
-                ops.push({ insert: text });
+                ops.push({
+                    insert: text
+                });
                 delta.ops = ops;
             }
 
@@ -277,8 +341,7 @@ const helpers = {
                 if (eRect.bottom >= document.body.clientHeight) {
                     emojiContainer.classList.add('_in-top');
                 }
-            }
-            else {
+            } else {
                 emojiContainer.classList.add("hidden");
             }
         });
@@ -355,7 +418,9 @@ const helpers = {
         var descriptionElem = holder.find(descId);
         var btn = holder.find(btnElement);
 
-        var editor = this.initQuill(descriptionElem[0], dataStorage[0], { theme: 'snow' });
+        var editor = this.initQuill(descriptionElem[0], dataStorage[0], {
+            theme: 'snow'
+        });
 
         editor.on('text-change', function () {
             if (editor.getLength() > 1 && descriptionElem.hasClass('input-validation-error')) {
@@ -530,12 +595,12 @@ const helpers = {
 
         for (var i = 0; i < form.elements.length; i++) {
             var field = form.elements[i];
-            if (!field.name
-                || field.disabled
-                || field.type === "file"
-                || field.type === "reset"
-                || field.type === "submit"
-                || field.type === "button")
+            if (!field.name ||
+                field.disabled ||
+                field.type === "file" ||
+                field.type === "reset" ||
+                field.type === "submit" ||
+                field.type === "button")
                 continue;
 
             if (field.type === "select-multiple") {
@@ -545,9 +610,8 @@ const helpers = {
                     s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(option.value);
                 }
             } else if ((field.type !== "checkbox" && field.type !== "radio") || field.checked) {
-                s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value);
-            }
-            else if (field.type === "checkbox") {
+                s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value.replace(/^(<)(.*)/, '$2'));
+            } else if (field.type === "checkbox") {
                 s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.checked);
             }
         }
@@ -560,7 +624,10 @@ const helpers = {
         $container.dotdotdot({
             watch: 'window'
         });
-        $container.contents().wrap("<a href='" + url + "' class='feed__item-txt-link'></a>");
+        //$container.contents().wrap("<a href='" + url + "' class='feed__item-txt-link'></a>");
+        $container.click(function (e) {
+            location.href = url;
+        });
     },
     initScrollbar: function (el) {
         SimpleScrollbar.initEl(el);
@@ -573,7 +640,9 @@ const helpers = {
             document.querySelector('input[name="page"]').value = val;
         },
         save(storageName) {
-            helpers.localStorage.setItem(storageName, { page: this.page });
+            helpers.localStorage.setItem(storageName, {
+                page: this.page
+            });
         },
         restoreState(reloadPromise, storageName) {
             const hash = (window.location.hash || '').replace('#', '');
@@ -595,7 +664,19 @@ const helpers = {
                 helpers.localStorage.removeItem(storageName);
             }
         }
+    },
+    parseMentions: function (container) {
+        var mention = $(container).find(".mention");
+        mention.each(function (i, el) {
+            $(this).on('click', function (e) {
+                var id = $(this).data('id');
+                location.href = '/profile?id=' + id;
+                e.preventDefault();
+            })
+        });
     }
 }
+
+parseMentionsInActivityDetailsText();
 
 export default helpers;

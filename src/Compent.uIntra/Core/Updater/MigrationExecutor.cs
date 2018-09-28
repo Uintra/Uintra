@@ -9,8 +9,6 @@ using Uintra.Core.Exceptions;
 using Uintra.Core.MigrationHistories;
 using Uintra.Core.MigrationHistories.Sql;
 using Umbraco.Core;
-using Umbraco.Core.Services;
-using Umbraco.Web;
 using static Compent.Uintra.Core.Updater.ExecutionResult;
 
 namespace Compent.Uintra.Core.Updater
@@ -20,9 +18,6 @@ namespace Compent.Uintra.Core.Updater
         private readonly IDependencyResolver _dependencyResolver;
         private readonly IMigrationHistoryService _migrationHistoryService;
         private readonly IExceptionLogger _exceptionLogger;
-        private readonly IMediaService _mediaService;
-        private readonly IContentTypeService _contentTypeService;
-
         public static readonly Version LastLegacyMigrationVersion = new Version("0.2.30.0");
 
         public MigrationHandler()
@@ -30,8 +25,6 @@ namespace Compent.Uintra.Core.Updater
             _dependencyResolver = DependencyResolver.Current;
             _migrationHistoryService = _dependencyResolver.GetService<IMigrationHistoryService>();
             _exceptionLogger = _dependencyResolver.GetService<IExceptionLogger>();
-            _mediaService = _dependencyResolver.GetService<IMediaService>();
-            _contentTypeService = _dependencyResolver.GetService<IContentTypeService>();
         }
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
@@ -53,6 +46,8 @@ namespace Compent.Uintra.Core.Updater
             }
             else
             {
+                _exceptionLogger.Log(executionResult.Exception);
+
                 var (undoHistory, undoResult) = TryUndoSteps(executionHistory);
                 if (undoResult.Type is ExecutionResultType.Failure)
                 {
@@ -186,7 +181,6 @@ namespace Compent.Uintra.Core.Updater
             ExamineManager.Instance.IndexProviderCollection[Umbraco.Core.Constants.Examine.InternalIndexer].RebuildIndex();
         }
     }
-
 
     public struct MigrationItem
     {
