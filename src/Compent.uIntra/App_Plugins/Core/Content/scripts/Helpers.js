@@ -610,7 +610,7 @@ const helpers = {
                     s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(option.value);
                 }
             } else if ((field.type !== "checkbox" && field.type !== "radio") || field.checked) {
-                s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value);
+                s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value.replace(/^(<)(.*)/, '$2'));
             } else if (field.type === "checkbox") {
                 s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.checked);
             }
