@@ -28,6 +28,11 @@ const easeInOutQuad = function (t, b, c, d) {
     return -c / 2 * (t * (t - 2) - 1) + b;
 };
 
+function parseMentionsInActivityDetailsText() {
+    let container = $(".feed__item-txt");
+    helpers.parseMentions(container);
+}
+
 const helpers = {
     deepClone: function (out) {
         out = out || {};
@@ -668,5 +673,7 @@ const helpers = {
         });
     }
 }
+
+parseMentionsInActivityDetailsText();
 
 export default helpers;
