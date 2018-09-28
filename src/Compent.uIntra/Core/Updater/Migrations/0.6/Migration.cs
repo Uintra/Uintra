@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.Uintra.Core.Updater.Migrations._0._3._3._0.Steps;
+using Compent.Uintra.Core.Updater.Migrations._0._6.Steps;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._3._3._0
+namespace Compent.Uintra.Core.Updater.Migrations._0._6
 {
     public class Migration : IMigration
     {
