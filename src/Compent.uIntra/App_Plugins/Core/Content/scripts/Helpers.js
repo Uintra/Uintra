@@ -624,7 +624,10 @@ const helpers = {
         $container.dotdotdot({
             watch: 'window'
         });
-        $container.contents().wrap("<a href='" + url + "' class='feed__item-txt-link'></a>");
+        //$container.contents().wrap("<a href='" + url + "' class='feed__item-txt-link'></a>");
+        $container.click(function (e) {
+            location.href = url;
+        });
     },
     initScrollbar: function (el) {
         SimpleScrollbar.initEl(el);

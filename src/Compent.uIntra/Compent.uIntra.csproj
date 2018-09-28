@@ -1122,6 +1122,7 @@
     <EmbeddedResource Include="Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.resx">
       <DependentUpon>201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
