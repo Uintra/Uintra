@@ -127,6 +127,14 @@
             p{
                 margin:0;
             }
+
+             a{
+                 color:var(--text-color-dark);
+
+                 &:hover{
+                    text-decoration:none;
+                }
+             }
         }
     }
 

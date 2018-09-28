@@ -262,6 +262,7 @@
                 margin:0 0 11px;
                 max-height:66px;
                 line-height:22px;
+                cursor:pointer;
 
                 @media (--for-tablet-portrait-down){
                     line-height:18px;

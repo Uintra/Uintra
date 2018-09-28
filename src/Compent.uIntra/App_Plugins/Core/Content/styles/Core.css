@@ -1502,3 +1502,17 @@ img{
     text-overflow:ellipsis;
     overflow:hidden;
 }
+
+.mention{
+    height:auto;
+    width:auto;
+    border-radius:0;
+    background:none;
+    padding:0;
+    color:var(--color-link);
+    cursor:pointer;
+
+    &:hover{
+        text-decoration:underline;
+    }
+}
