@@ -32,7 +32,8 @@ namespace Compent.Uintra.Core.Users
 
             Mapper.CreateMap<SearchableUser, MentionUserModel>()
                 .ForMember(dst => dst.Id, o => o.MapFrom(u => Guid.Parse(u.Id.ToString())))
-                .ForMember(dst => dst.Value, o => o.MapFrom(u => u.FullName));
+                .ForMember(dst => dst.Value, o => o.MapFrom(u => u.FullName))
+                .ForMember(dst => dst.Url, o => o.Ignore());
 
             base.Configure();
         }

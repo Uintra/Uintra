@@ -7,5 +7,7 @@ namespace Uintra.Users
         public Guid Id { get; set; }
 
         public string Value { get; set; }
+
+        public string Url { get; set; }
     }
 }

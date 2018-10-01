@@ -76,7 +76,9 @@ const helpers = {
                             .then(function (response) {
                                 if (response.data) {
                                     for (var i = 0; i < response.data.length; i++) {
-                                        matches.push(response.data[i]);
+                                        var data = response.data[i];
+                                        data.id = data.url;
+                                        matches.push(data);
                                     }
                                 }
                                 renderList(matches, searchTerm);
@@ -610,7 +612,7 @@ const helpers = {
                     s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(option.value);
                 }
             } else if ((field.type !== "checkbox" && field.type !== "radio") || field.checked) {
-                s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value.replace(/^(<)(.*)/, '$2'));
+                s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value);
             } else if (field.type === "checkbox") {
                 s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.checked);
             }
@@ -624,7 +626,6 @@ const helpers = {
         $container.dotdotdot({
             watch: 'window'
         });
-        //$container.contents().wrap("<a href='" + url + "' class='feed__item-txt-link'></a>");
         $container.click(function (e) {
             location.href = url;
         });
@@ -670,9 +671,10 @@ const helpers = {
         mention.each(function (i, el) {
             $(this).on('click', function (e) {
                 var id = $(this).data('id');
-                location.href = '/profile?id=' + id;
                 e.preventDefault();
-            })
+                e.stopPropagation();
+                location.href = id;
+            });
         });
     }
 }

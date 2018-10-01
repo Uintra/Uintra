@@ -6,7 +6,7 @@
         @Html.Localize(Model.ActivityType.ToString())<br />
         @Model.PublishDate.ToDateTimeFormat()
     </p>
-    <h3 class="block__subtitle">
+    <h3 class="block__subtitle _clamp">
         <a href="@Model.Links.Details">@Html.Raw(Model.Description)</a>
     </h3>
 </div>

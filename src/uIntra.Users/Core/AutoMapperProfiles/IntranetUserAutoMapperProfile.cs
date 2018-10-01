@@ -14,7 +14,8 @@ namespace Uintra.Users
 
             Mapper.CreateMap<IIntranetUser, MentionUserModel>()
                 .ForMember(dst => dst.Id, o => o.MapFrom(u => u.Id))
-                .ForMember(dst => dst.Value, o => o.MapFrom(u => u.DisplayedName));
+                .ForMember(dst => dst.Value, o => o.MapFrom(u => u.DisplayedName))
+                .ForMember(dst => dst.Url, o => o.Ignore());
 
 
             Mapper.CreateMap<MentionModel, MentionCommand>();                
