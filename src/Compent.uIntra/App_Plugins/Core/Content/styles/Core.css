@@ -463,6 +463,10 @@ img{
 	background:var(--header-bg);
 	padding:0;
 
+    .bulletin_expanded &{
+        position:absolute;/* IE11 fix */
+    }
+
     @media (--for-tablet-portrait-down) {
 	    flex-direction: row-reverse;
 	    min-height: 60px;
@@ -517,6 +521,10 @@ img{
     padding:20px 0;
     position:relative;
     min-height:190px;
+
+    .bulletin_expanded &{
+        z-index:999;
+    }
 
     @media (--for-tablet-portrait-down) {
         padding: 0 0 46px;
@@ -1050,11 +1058,10 @@ img{
     .ql-editor {
         height:62px;
         padding:6px 10px;
-        overflow:auto;
+        overflow-x:hidden;
+        overflow-y:auto;
         font:13px/22px var(--font-general);
         color:var(--text-color-dark);
-
-        
     }
 
     #description& .ql-editor{
@@ -1300,6 +1307,7 @@ img{
 
         .ql-editor{
             padding:0;
+            height:50px;
         }
     }
 

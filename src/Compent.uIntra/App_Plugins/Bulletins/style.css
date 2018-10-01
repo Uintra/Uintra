@@ -30,6 +30,7 @@
 
     &__form{
         ._expanded &{
+            overflow:hidden;
             position:relative;
             z-index:13;
             background:var(--color-white);
@@ -187,7 +188,6 @@
         ._expanded &{
             overflow-X:hidden;
             overflow-Y:auto;
-            max-height:100vh;
             max-height:calc(100vh - 132px);
 
             @media (--for-desktop-down) {
