@@ -463,6 +463,10 @@ img{
 	background:var(--header-bg);
 	padding:0;
 
+    .bulletin_expanded &{
+        position:absolute;/* IE11 fix */
+    }
+
     @media (--for-tablet-portrait-down) {
 	    flex-direction: row-reverse;
 	    min-height: 60px;
@@ -517,6 +521,10 @@ img{
     padding:20px 0;
     position:relative;
     min-height:190px;
+
+    .bulletin_expanded &{
+        z-index:999;
+    }
 
     @media (--for-tablet-portrait-down) {
         padding: 0 0 46px;
