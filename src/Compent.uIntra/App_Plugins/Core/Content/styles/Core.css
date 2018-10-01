@@ -1058,11 +1058,10 @@ img{
     .ql-editor {
         height:62px;
         padding:6px 10px;
-        overflow:auto;
+        overflow-x:hidden;
+        overflow-y:auto;
         font:13px/22px var(--font-general);
         color:var(--text-color-dark);
-
-        
     }
 
     #description& .ql-editor{
@@ -1308,6 +1307,7 @@ img{
 
         .ql-editor{
             padding:0;
+            height:50px;
         }
     }
 
