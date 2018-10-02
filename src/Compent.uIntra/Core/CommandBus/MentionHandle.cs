@@ -24,7 +24,8 @@ namespace Compent.Uintra.Core.CommandBus
                 ReceivedIds = command.MentionedUserIds,
                 Title = command.Title,
                 Url = command.Url,
-                MentionedSourceId = command.MentionedSourceId
+                MentionedSourceId = command.MentionedSourceId,
+                ActivityType = command.ActivityType
             };
 
             _notificationService.SendNotification(notifierData);

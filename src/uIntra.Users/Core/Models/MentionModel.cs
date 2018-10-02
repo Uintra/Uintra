@@ -10,5 +10,6 @@ namespace Uintra.Users
         public Guid CreatorId { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }
+        public Enum ActivityType { get; set; }
     }
 }

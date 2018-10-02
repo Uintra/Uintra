@@ -244,13 +244,14 @@ namespace Compent.Uintra.Controllers
             if (mentionIds.Any())
             {
                 var links = _activityLinkService.GetLinks(@event.Id);
-                _mentionService.PreccessMention(new MentionModel()
+                _mentionService.ProcessMention(new MentionModel()
                 {
                     MentionedSourceId = @event.Id,
                     CreatorId = _intranetUserService.GetCurrentUserId(),
                     MentionedUserIds = mentionIds,
                     Title = @event.Title,
-                    Url = links.Details
+                    Url = links.Details,
+                    ActivityType = ControllerContextType
                 });
 
             }

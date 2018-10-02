@@ -10,5 +10,6 @@ namespace Compent.Uintra.Core.Notification
         public IEnumerable<Guid> ReceivedIds { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }
+        public Enum ActivityType { get; set; }
     }
 }

@@ -62,7 +62,7 @@ namespace Compent.Uintra.Controllers
             if (mentionIds.Any())
             {
                 var content = Umbraco.TypedContent(comment.ActivityId);
-                _mentionService.PreccessMention(new MentionModel()
+                _mentionService.ProcessMention(new MentionModel()
                 {
                     MentionedSourceId = comment.Id,
                     CreatorId = _intranetUserService.GetCurrentUserId(),
@@ -70,6 +70,7 @@ namespace Compent.Uintra.Controllers
                     Title = $"Comment - \"{comment.Text.StripHtml().TrimByWordEnd(50)}\"",
                     Url = content != null ? _commentLinkHelper.GetDetailsUrlWithComment(content, comment.Id) :
                         _commentLinkHelper.GetDetailsUrlWithComment(comment.ActivityId, comment.Id),
+                    ActivityType = ControllerContextType
                 });
 
             }

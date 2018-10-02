@@ -7,6 +7,6 @@ namespace Uintra.Users
     {        
         IEnumerable<Guid> GetMentions(string text);
 
-        void PreccessMention(MentionModel model);
+        void ProcessMention(MentionModel model);
     }
 }

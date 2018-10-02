@@ -29,6 +29,7 @@ namespace Compent.Uintra.Core.Notification
                 var notifierData = new NotifierData
                 {
                     NotificationType = notificationType,
+                    ActivityType = model.ActivityType,
                     ReceiverIds = receivedId.ToEnumerable(),
                     Value = new UserMentionNotifierDataModel
                     {

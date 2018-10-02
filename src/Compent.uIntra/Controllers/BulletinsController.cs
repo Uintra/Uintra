@@ -16,6 +16,7 @@ using Uintra.Core.User;
 using Uintra.Groups;
 using Compent.Uintra.Core.UserTags;
 using Uintra.Core;
+using Uintra.Core.Activity;
 using Uintra.Groups.Extentions;
 using Uintra.Navigation;
 using Uintra.News;
@@ -165,13 +166,14 @@ namespace Compent.Uintra.Controllers
             if (mentionIds.Any())
             {
                 var links = _activityLinkService.GetLinks(bulletin.Id);
-                _mentionService.PreccessMention(new MentionModel()
+                _mentionService.ProcessMention(new MentionModel()
                 {
                     MentionedSourceId = bulletin.Id,
                     CreatorId = _intranetUserService.GetCurrentUserId(),
                     MentionedUserIds = mentionIds,
                     Title = bulletin.Title,
-                    Url = links.Details
+                    Url = links.Details,
+                    ActivityType = ControllerContextType
                 });
 
             }
