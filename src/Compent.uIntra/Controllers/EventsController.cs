@@ -206,7 +206,7 @@ namespace Compent.Uintra.Controllers
         {
             if (isNotificationNeeded)
             {
-                ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHided);
+                ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHidden);
             }
         }
 

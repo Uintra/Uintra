@@ -56,7 +56,7 @@ namespace Uintra.Notification.Configuration
             var eventNotificationTypes = new Enum[]
             {
                 NotificationTypeEnum.EventUpdated,
-                NotificationTypeEnum.EventHided,
+                NotificationTypeEnum.EventHidden,
                 NotificationTypeEnum.BeforeStart
             };
 
