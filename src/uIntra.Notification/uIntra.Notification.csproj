@@ -507,6 +507,8 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\UserMention.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Events\UserMention.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\News\UserMention.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\UserMention.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\UserMention.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
     <Content Include="..\Compent.uIntra\App_Plugins\Notification\popupNotifications.js">
