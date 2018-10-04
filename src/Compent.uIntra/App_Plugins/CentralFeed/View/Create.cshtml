@@ -1,5 +1,10 @@
 ﻿@model Uintra.CentralFeed.CreateViewModel
-@{ Html.RenderAction("Create", Model.Settings.Controller, new
+@{ 
+    if (string.IsNullOrWhiteSpace(Model.Settings.Controller))
+    {
+        return;
+    }
+    Html.RenderAction("Create", Model.Settings.Controller, new
     {
         links = Model.Links
     });
