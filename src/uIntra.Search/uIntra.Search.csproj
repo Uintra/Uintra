@@ -373,6 +373,7 @@
     <Compile Include="Core\Entities\BaseFacet.cs" />
     <Compile Include="Core\Models\SearchBoxViewModel.cs" />
     <Compile Include="Core\Models\SearchFilterModel.cs" />
+    <Compile Include="Core\Models\SearchRequest.cs" />
     <Compile Include="Core\Models\SearchResultsOverviewViewModel.cs" />
     <Compile Include="Core\Models\SearchBoxAutocompleteItemViewModel.cs" />
     <Compile Include="Core\UmbracoEventServices\SearchMediaEventService.cs" />

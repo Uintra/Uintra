@@ -43,10 +43,10 @@ namespace Uintra.Search.Web
             _viewRenderer = viewRenderer;
         }
 
-        public virtual PartialViewResult Index(string query)
+        public virtual PartialViewResult Index(SearchRequest searchRequest)
         {
             var result = GetSearchViewModel();
-            result.Query = query;
+            result.Query = searchRequest.Query;
 
             return PartialView(IndexViewPath, result);
         }
@@ -81,11 +81,11 @@ namespace Uintra.Search.Web
             return PartialView(SearchBoxViewPath, result);
         }
 
-        public virtual JsonResult Autocomplete(string query)
+        public virtual JsonResult Autocomplete(SearchRequest searchRequest)
         {
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {
-                Text = query,
+                Text = searchRequest.Query,
                 Take = AutocompleteSuggestionCount,
                 SearchableTypeIds = GetAutoCompleteSearchableTypes().Select(t => t.ToInt())
             });
@@ -93,7 +93,7 @@ namespace Uintra.Search.Web
             var result = GetAutocompleteResultModels(searchResult.Documents).ToList();
             if (result.Count > 0)
             {
-                var seeAll = GetAllSearchAutocompleteResultModel(query);
+                var seeAll = GetAllSearchAutocompleteResultModel(searchRequest.Query);
                 result.Add(seeAll);
             }
 
