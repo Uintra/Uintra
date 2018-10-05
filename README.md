@@ -24,8 +24,8 @@ Before installing Uintra you will have to make certain preparations.
 NOTE: When installing Umbraco make sure you are getting a version compatible with Uintra, the current package compatility can be found [here](https://our.umbraco.com/packages/collaboration/uintra/).
 
 5. Continue Umbraco installation in a browser 
-* Customize settings and use custom SQL server.
-* Create an empty SQL DB
+* Customize settings and use custom MSSQL server.
+* Create an empty MSSQL DB
 * Configure Umbraco custom settings (server, DB, authentication)
 
 6. Download the latest version of Uintra here: https://www.nuget.org/packages/uIntra/
