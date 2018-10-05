@@ -11,6 +11,20 @@ namespace Uintra.Core.Extensions
     {
         public const string GroupIdQueryParam = "groupId";
 
+
+        public static string SmartCrop(this string str, int n)
+        {
+            var sub = Take(str, n);
+
+            for (var sliceIndex = sub.Length - 1;; sliceIndex--)
+            {
+                if (str[sliceIndex] != ' ')
+                {
+                    return string.Concat(sub.Substring(0, sliceIndex), "...");
+                }
+            }
+        }
+
         public static string Take(this string str, int n)
         {
             var substring = Enumerable.Take(str, n).ToArray();

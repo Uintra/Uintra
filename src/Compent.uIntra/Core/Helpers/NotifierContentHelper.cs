@@ -1,6 +1,7 @@
 ﻿using System;
 using Uintra.Comments;
 using Uintra.Core.Activity;
+using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Notification;
 using Umbraco.Core.Models;
@@ -48,11 +49,12 @@ namespace Compent.Uintra.Core.Helpers
 
         public ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, Enum notificationType, Guid notifierId)
         {
+            const int maxTitleLength = 100;
             return new ActivityNotifierDataModel
             {
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
-                Title = GetNotifierDataTitle(activity),
+                Title = GetNotifierDataTitle(activity).SmartCrop(maxTitleLength),
                 Url = _linkService.GetLinks(activity.Id).Details,
                 NotifierId = notifierId,
                 IsPinned = activity.IsPinned,
