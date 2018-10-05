@@ -304,6 +304,13 @@
 	    &-heading{
 		    font:13px/20px var(--font-general);
 		    color:#333;
+            max-height:40px;
+            overflow:hidden;
+            max-width:450px;
+
+            @media (--for-tablet-portrait-down){
+                max-width:calc(100vw - 118px);
+            }
 
 		    &:hover {
 			    color:#333;
@@ -311,6 +318,9 @@
 
 		    p {
 			    margin: 0;
+                white-space:nowrap;
+                text-overflow:ellipsis;
+                overflow:hidden;
 		    }
 
             &-link{
