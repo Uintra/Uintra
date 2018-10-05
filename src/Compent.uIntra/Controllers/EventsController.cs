@@ -251,7 +251,7 @@ namespace Compent.Uintra.Controllers
                     MentionedUserIds = mentionIds,
                     Title = @event.Title,
                     Url = links.Details,
-                    ActivityType = ControllerContextType
+                    ActivityType = IntranetActivityTypeEnum.Events
                 });
 
             }
