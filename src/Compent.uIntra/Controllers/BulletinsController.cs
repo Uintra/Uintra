@@ -173,7 +173,7 @@ namespace Compent.Uintra.Controllers
                     MentionedUserIds = mentionIds,
                     Title = bulletin.Title,
                     Url = links.Details,
-                    ActivityType = ControllerContextType
+                    ActivityType = IntranetActivityTypeEnum.Bulletins
                 });
 
             }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using Compent.Extensions;
+using Uintra.Core.Context;
+using Uintra.Core.Context.Extensions;
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
 using Uintra.Core.User;
@@ -36,15 +38,7 @@ namespace Compent.Uintra.Core.Notification
 
         public void Notify(NotifierData data)
         {
-            var isCommunicationSettings = data.NotificationType.In(
-                NotificationTypeEnum.CommentLikeAdded,
-                NotificationTypeEnum.MonthlyMail,
-                NotificationTypeEnum.UserMention); //TODO: temporary for communication settings
-
-            var identity = new ActivityEventIdentity(isCommunicationSettings
-                    ? CommunicationTypeEnum.CommunicationSettings
-                    : data.ActivityType, data.NotificationType)
-                .AddNotifierIdentity(Type);
+            var identity = GetSettingsIdentity(data);
 
             var settings = _notificationSettingsService.Get<EmailNotifierTemplate>(identity);
             if (settings == null || !settings.IsEnabled) return;
@@ -64,10 +58,30 @@ namespace Compent.Uintra.Core.Notification
                     IsViewed = false,
                     Type = data.NotificationType.ToInt(),
                     NotifierType = NotifierTypeEnum.EmailNotifier.ToInt(),
-                    Value = new { message }.ToJson(),
+                    Value = new {message}.ToJson(),
                     ReceiverId = receiverId
                 });
             }
+        }
+
+        private ActivityEventNotifierIdentity GetSettingsIdentity(NotifierData data)
+        {
+            Enum activityType;
+
+            switch (data.ActivityType.ToInt())
+            {
+                case (int) NotificationTypeEnum.CommentLikeAdded:
+                case (int) NotificationTypeEnum.MonthlyMail:
+                case (int)NotificationTypeEnum.UserMention:
+                    activityType = CommunicationTypeEnum.CommunicationSettings;
+                    break;
+                default:
+                    activityType = data.ActivityType;
+                    break;
+            }
+
+            return new ActivityEventIdentity(activityType, data.NotificationType)
+                .AddNotifierIdentity(Type);
         }
     }
 }

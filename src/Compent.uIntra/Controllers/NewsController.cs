@@ -175,7 +175,7 @@ namespace Compent.Uintra.Controllers
                     MentionedUserIds = mentionIds,
                     Title = news.Title,
                     Url = links.Details,
-                    ActivityType = ControllerContextType
+                    ActivityType = IntranetActivityTypeEnum.News
                 });
 
             }
