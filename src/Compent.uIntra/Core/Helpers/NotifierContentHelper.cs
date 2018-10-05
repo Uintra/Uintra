@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Compent.Uintra.Core.Events;
+using System;
 using Uintra.Comments;
 using Uintra.Core.Activity;
 using Uintra.Core.Links;
 using Uintra.Notification;
+using Uintra.Notification.Configuration;
 using Umbraco.Core.Models;
 
 namespace Compent.Uintra.Core.Helpers
@@ -77,7 +79,7 @@ namespace Compent.Uintra.Core.Helpers
 
         public ActivityReminderDataModel GetActivityReminderDataModel(IIntranetActivity activity, Enum activityType)
         {
-            return new ActivityReminderDataModel
+            var model = new ActivityReminderDataModel
             {
                 Url = _linkService.GetLinks(activity.Id).Details,
                 Title = activity.Title,
@@ -86,9 +88,17 @@ namespace Compent.Uintra.Core.Helpers
                 IsPinned = activity.IsPinned,
                 IsPinActual = activity.IsPinActual
             };
+
+            if (activity.Type is IntranetActivityTypeEnum.Events)
+            {
+                var @event = (Event)activity;
+                model.StartDate = @event.StartDate;
+            }
+
+            return model;
         }
 
-        private static string GetNotifierDataTitle(IIntranetActivity activity) 
+        private static string GetNotifierDataTitle(IIntranetActivity activity)
             => activity.Type is IntranetActivityTypeEnum.Bulletins ? activity.Description : activity.Title;
     }
 }

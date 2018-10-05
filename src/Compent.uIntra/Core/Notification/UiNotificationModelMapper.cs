@@ -46,7 +46,8 @@ namespace Compent.Uintra.Core.Notification
                     {
                         (ActivityTitle, model.Title),
                         (ActivityType, model.ActivityType.ToString()),
-                        (StartDate, model.StartDate.ToShortDateString())
+                        (StartDate, model.StartDate.ToShortDateString()),
+                        (FullName, receiver.DisplayedName)
                     };
                     break;
                 case CommentNotifierDataModel model:

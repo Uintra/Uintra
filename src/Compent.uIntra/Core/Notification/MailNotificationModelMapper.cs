@@ -42,7 +42,8 @@ namespace Compent.Uintra.Core.Notification
                         (Url, model.Url),
                         (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
                         (ActivityType, model.ActivityType.ToString()),
-                        (StartDate, model.StartDate.ToShortDateString())
+                        (StartDate, model.StartDate.ToShortDateString()),
+                        (FullName, receiver.DisplayedName)
                     };
                     break;
                 case CommentNotifierDataModel model:
