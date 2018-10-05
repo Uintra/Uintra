@@ -594,6 +594,7 @@
 		&__frame {
             float:left;
 			margin: 0 0 0 28px;
+            list-style-type: none;
 		}
 
 		&__item {

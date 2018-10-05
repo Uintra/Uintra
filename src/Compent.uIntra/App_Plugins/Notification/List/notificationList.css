@@ -92,7 +92,6 @@
 
             @media (--for-tablet-portrait-down){
                 width:100vw;
-                /*transform:translate(0, -100%);*/
                 transition: all linear 200ms;
                 display:block;
                 left:auto;
@@ -104,7 +103,6 @@
 
                 ._notifications-expanded &{
                     max-height:calc(100vh - 60px);
-                    /*transform:translate(0, 0);*/
                     z-index:11;
                 }
             }
