@@ -463,6 +463,10 @@ img{
 	background:var(--header-bg);
 	padding:0;
 
+    .bulletin_expanded &{
+        position:absolute;/* IE11 fix */
+    }
+
     @media (--for-tablet-portrait-down) {
 	    flex-direction: row-reverse;
 	    min-height: 60px;
@@ -501,7 +505,7 @@ img{
     top: 0;
     left: 20px;
     padding: 16px 0;
-    z-index: 12;
+    z-index: 13;
 
     @media (--for-tablet-portrait-down){
         &{
@@ -517,6 +521,10 @@ img{
     padding:20px 0;
     position:relative;
     min-height:190px;
+
+    .bulletin_expanded &{
+        z-index:999;
+    }
 
     @media (--for-tablet-portrait-down) {
         padding: 0 0 46px;
@@ -608,21 +616,53 @@ img{
         .ajs-commands{
             button.ajs-close{
                 vertical-align: top;
+                background:none;
+                font-family: 'icomoon' !important;
+                speak: none;
+                font-style: normal;
+                font-weight: bold;
+                font-variant: normal;
+                text-transform: none;
+                line-height: 1;
+                /* Better Font Rendering =========== */
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                font-size:17px;
+                color:#333;
+                width:30px;
+                height:30px;
+                padding:6px;
+                margin:0;
+                transition:all linear 0.3s;
+
+                &:before{
+                    content:"\E903" !important
+                }
+
+                &:hover{
+                    color:#000;
+                    text-shadow:0 0 1px #000;
+                }
             }
         }
     } 
     .ajs-modal{
         .ajs-commands{
-            margin-right:10px;
+            top:0;
+            margin:10px 6px 0 0;
         }
     }
     .ajs-header{
         background: none;
+        font-size:16px;
+        padding:16px 48px 16px 20px;
+        min-height:52px;
     }
 
     .ajs-footer{
         background: none;
         border: 0;
+        padding:4px 6px 26px;
     }
 }
 
@@ -1018,11 +1058,10 @@ img{
     .ql-editor {
         height:62px;
         padding:6px 10px;
-        overflow:auto;
+        overflow-x:hidden;
+        overflow-y:auto;
         font:13px/22px var(--font-general);
         color:var(--text-color-dark);
-
-        
     }
 
     #description& .ql-editor{
@@ -1268,6 +1307,7 @@ img{
 
         .ql-editor{
             padding:0;
+            height:50px;
         }
     }
 
@@ -1452,5 +1492,35 @@ img{
 
     svg {
         display:none;
+    }
+}
+
+.ql-mention-list-container{
+    z-index:1001;
+}
+
+.ql-mention-list-container{
+    width: auto;
+    min-width: 270px;
+    max-width: 100%;
+}
+
+.ql-mention-list-item{
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+}
+
+.mention{
+    height:auto;
+    width:auto;
+    border-radius:0;
+    background:none;
+    padding:0;
+    color:var(--color-link);
+    cursor:pointer;
+
+    &:hover{
+        text-decoration:underline;
     }
 }
