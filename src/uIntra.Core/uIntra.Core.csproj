@@ -550,9 +550,9 @@
     <Compile Include="Web\PagePromotionControllerBase.cs" />
     <Compile Include="Web\RteConfigControllerBase.cs" />
     <Compile Include="Web\UserControllerBase.cs" />
-    <Content Include="Web.config.install.xdt">
+    <None Include="_Web.config.install.1xdt">
       <SubType>Designer</SubType>
-    </Content>
+    </None>
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewModel.cs" />
     <Compile Include="Core\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\IApplicationSettings.cs" />
@@ -643,8 +643,8 @@
       <Link>App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml</Link>
     </None>
     <None Include="app.config" />
-    <Content Include="Config\Dashboard.config.install.xdt" />
-    <Content Include="Config\Dashboard.config.uninstall.xdt" />
+    <None Include="Config\Dashboard.config.install.xdt" />
+    <None Include="Config\Dashboard.config.uninstall.xdt" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
