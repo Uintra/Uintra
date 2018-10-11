@@ -646,6 +646,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="uIntra.Core.nuspec" />
+    <Content Include="Web.config.install.xdt">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
