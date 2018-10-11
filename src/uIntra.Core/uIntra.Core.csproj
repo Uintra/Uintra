@@ -550,9 +550,6 @@
     <Compile Include="Web\PagePromotionControllerBase.cs" />
     <Compile Include="Web\RteConfigControllerBase.cs" />
     <Compile Include="Web\UserControllerBase.cs" />
-    <None Include="Web.config.install.xdt">
-      <SubType>Designer</SubType>
-    </None>
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewModel.cs" />
     <Compile Include="Core\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\IApplicationSettings.cs" />
