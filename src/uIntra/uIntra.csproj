@@ -1267,6 +1267,13 @@
       <Link>Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.designer.cs</Link>
       <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.cs">
+      <Link>Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.designer.cs">
+      <Link>Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.designer.cs</Link>
+      <DependentUpon>201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
     </Compile>
@@ -1317,6 +1324,10 @@
     <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.resx">
       <Link>Persistence\Sql\Migrations\201803011502463_LinkPreviewEntity_MakeImageIdsNullable.resx</Link>
       <DependentUpon>201803011502463_LinkPreviewEntity_MakeImageIdsNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.resx">
+      <Link>Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.resx</Link>
+      <DependentUpon>201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
