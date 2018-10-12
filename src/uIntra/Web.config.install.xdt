@@ -75,13 +75,15 @@
     </browsers>
   </browserCompatibilityConfiguration>
 
+  <system.webServer xdt:Transform="InsertIfMissing">
+    <httpErrors existingResponse="PassThrough" xdt:Transform="InsertIfMissing" />
+    <httpErrors existingResponse="PassThrough" xdt:Transform="SetAttributes(existingResponse)" />
+  </system.webServer>
+
   <system.web>
     <authentication mode="Forms">
       <forms loginUrl="~/login" xdt:Transform="SetAttributes(loginUrl)" />
     </authentication>
-
-    <httpErrors existingResponse="PassThrough" xdt:Transform="InsertIfMissing" />
-    <httpErrors existingResponse="PassThrough" xdt:Transform="SetAttributes(existingResponse)" />
 
     <membership>
       <providers>
