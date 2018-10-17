@@ -1,5 +1,5 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <UsingTask TaskName="RemoveInvalidAssemblyBindings" TaskFactory="Uintra.RemoveInvalidAssemblyBindings" AssemblyFile="Uintra.dll"/>
+    <UsingTask TaskName="RemoveInvalidAssemblyBindings" TaskFactory="Uintra.RemoveInvalidAssemblyBindings" AssemblyFile="../lib/net471/Uintra.dll"/>
     <Target Name="UintraTasks" AfterTargets="AfterBuild">
         <RemoveInvalidAssemblyBindings/>
     </Target>
