@@ -24,5 +24,6 @@
   </metadata>
   <files>
     <file src="readme.txt" />
+    <file src="UintraTasks.props" target="build" />
   </files>
 </package>

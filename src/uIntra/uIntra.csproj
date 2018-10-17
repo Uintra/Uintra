@@ -203,6 +203,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Build" />
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Build.Utilities.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CodeAnalysis, Version=1.3.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.CodeAnalysis.Common.1.3.2\lib\net45\Microsoft.CodeAnalysis.dll</HintPath>
@@ -1031,6 +1033,7 @@
     <Content Include="..\Compent.uIntra\postcss.config.js">
       <Link>postcss.config.js</Link>
     </Content>
+    <None Include="UintraTasks.props" />
     <Content Include="readme.txt" />
     <Content Include="Uintra.nuspec">
       <SubType>Designer</SubType>
@@ -1280,6 +1283,7 @@
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\DefaultValueSqlServerMigrationSqlGenerator.cs">
       <Link>Persistence\Sql\Migrations\DefaultValueSqlServerMigrationSqlGenerator.cs</Link>
     </Compile>
+    <Compile Include="RemoveInvalidAssemblyBindings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx">
       <Link>Persistence\Sql\Migrations\201708170729073_uIntra_Initial.resx</Link>
