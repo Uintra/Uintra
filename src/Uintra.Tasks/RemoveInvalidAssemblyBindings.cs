@@ -50,11 +50,12 @@ namespace Uintra.Tasks
                 transformableDocument.Save(WebConfigPath);
                 transformableDocument.Dispose();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Log.LogMessage(MessageImportance.High, e.Message);
                 return false;
             }
-            //Log.LogMessage(MessageImportance.High, "Removed invalid assembly dependency bindings! " + this.XdtFilePath + "\r\n" + this.WebConfigPath);
+            Log.LogMessage(MessageImportance.High, "Invalid assembly bindings removed successfuly!");
             return true;
         }
     }

@@ -1031,7 +1031,7 @@
     <Content Include="..\Compent.uIntra\postcss.config.js">
       <Link>postcss.config.js</Link>
     </Content>
-    <Content Include="App_Data\invalidAssemblyBindings.xdt" />
+    <Content Include="invalidAssemblyBindings.xdt" />
     <None Include="Uintra.props">
       <SubType>Designer</SubType>
     </None>
