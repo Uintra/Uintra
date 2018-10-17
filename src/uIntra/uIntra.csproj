@@ -1702,6 +1702,12 @@
     <Content Include="App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml" />
     <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Uintra.Tasks\Uintra.Tasks.csproj">
+      <Project>{e6616b3d-8a77-45bb-a771-58f478cfa0f0}</Project>
+      <Name>Uintra.Tasks</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
