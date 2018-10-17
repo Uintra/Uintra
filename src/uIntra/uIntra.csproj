@@ -445,8 +445,8 @@
     <Reference Include="Uintra.News, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.News.1.5.0\lib\net471\Uintra.News.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Notification, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Notification.1.5.0\lib\net471\Uintra.Notification.dll</HintPath>
+    <Reference Include="Uintra.Notification, Version=1.5.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Notification.1.5.0.1\lib\net471\Uintra.Notification.dll</HintPath>
     </Reference>
     <Reference Include="Uintra.Panels, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Panels.2.4.0\lib\net471\Uintra.Panels.dll</HintPath>
@@ -1032,6 +1032,14 @@
       <Link>postcss.config.js</Link>
     </Content>
     <Content Include="invalidAssemblyBindings.xdt" />
+    <Content Include="App_Plugins\Notification\package.manifest" />
+    <Content Include="App_Plugins\Notification\List\PopupNotificationsView.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
+    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
+    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
+    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
     <None Include="Uintra.props">
       <SubType>Designer</SubType>
     </None>
@@ -1637,14 +1645,6 @@
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\Notification\package.manifest" />
-    <Content Include="App_Plugins\Notification\List\PopupNotificationsView.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationOverview.cshtml" />
-    <Content Include="App_Plugins\Notification\List\NotificationList.cshtml" />
-    <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
-    <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
-    <Content Include="App_Plugins\NotificationSettings\package.manifest" />
     <Content Include="App_Plugins\Panels\TableEditor\TableEditor.cshtml" />
     <Content Include="App_Plugins\Panels\package.manifest" />
     <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
