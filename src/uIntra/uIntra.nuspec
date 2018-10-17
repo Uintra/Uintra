@@ -25,5 +25,6 @@
   <files>
     <file src="readme.txt" />
     <file src="Uintra.props" target="build" />
+    <file src="bin\Release\Uintra.Tasks.dll" target="lib\net471" />
   </files>
 </package>
