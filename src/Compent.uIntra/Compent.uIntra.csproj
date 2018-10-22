@@ -1159,6 +1159,7 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
     <Content Include="Views\UserTags\UserDetailsPopupTags.cshtml" />
+    <None Include="Properties\PublishProfiles\QA_211.pubxml" />
     <None Include="Web.Base.config" />
     <None Include="Web.Compent.Debug.config" />
     <None Include="Web.PublicNuget.config" />
