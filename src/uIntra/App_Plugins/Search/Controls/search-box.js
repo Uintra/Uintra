@@ -48,7 +48,10 @@ function initSearchBox(holder) {
     });
 
     searchBoxIcon.on('click', function () {
-        window.location = url + searchBox.val();
+        var query = searchBox.val();
+        if (query.length >= minChars) {
+            window.location = url + escape(query);
+        }
     });
 }
 

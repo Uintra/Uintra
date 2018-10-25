@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Runtime']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Linq']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Runtime.Extensions']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.IO']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Runtime.InteropServices']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Reflection']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Diagnostics.Tracing']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Xml.ReaderWriter']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Linq.Expressions']))">
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+</configuration>

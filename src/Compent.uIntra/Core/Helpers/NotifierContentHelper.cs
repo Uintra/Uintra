@@ -56,7 +56,7 @@ namespace Compent.Uintra.Core.Helpers
             {
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
-                Title = GetNotifierDataTitle(activity).SmartCrop(maxTitleLength),
+                Title = GetNotifierDataTitle(activity).TrimByWordEnd(maxTitleLength),
                 Url = _linkService.GetLinks(activity.Id).Details,
                 NotifierId = notifierId,
                 IsPinned = activity.IsPinned,

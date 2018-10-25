@@ -42,6 +42,11 @@
         position: relative;
         -webkit-appearance: none;
 
+        &:-ms-input-placeholder {
+            color:#aaa;
+            opacity:1;
+        }
+
         &::placeholder{
             color:#aaa;
             opacity:1;
