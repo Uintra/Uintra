@@ -166,12 +166,13 @@ namespace Compent.Uintra.Controllers
             if (mentionIds.Any())
             {
                 var links = _activityLinkService.GetLinks(bulletin.Id);
+                const int maxTitleLength = 100;
                 _mentionService.ProcessMention(new MentionModel()
                 {
                     MentionedSourceId = bulletin.Id,
                     CreatorId = _intranetUserService.GetCurrentUserId(),
                     MentionedUserIds = mentionIds,
-                    Title = bulletin.Title,
+                    Title = bulletin.Description.TrimByWordEnd(maxTitleLength),
                     Url = links.Details,
                     ActivityType = IntranetActivityTypeEnum.Bulletins
                 });

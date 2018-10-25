@@ -74,6 +74,7 @@ namespace Compent.Uintra.Core.Notification
                 case UserMentionNotifierDataModel model:
                     tokens = new[]
                     {
+                        (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
                         (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
                         (FullName, _intranetUserService.Get(model.ReceiverId).DisplayedName),
                         (TaggedBy, _intranetUserService.Get(model.NotifierId).DisplayedName)
