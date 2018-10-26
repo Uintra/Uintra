@@ -30,6 +30,7 @@
 
     &__form{
         ._expanded &{
+            overflow:hidden;
             position:relative;
             z-index:13;
             background:var(--color-white);
@@ -187,7 +188,6 @@
         ._expanded &{
             overflow-X:hidden;
             overflow-Y:auto;
-            max-height:100vh;
             max-height:calc(100vh - 132px);
 
             @media (--for-desktop-down) {
@@ -442,17 +442,11 @@
     @media (--for-tablet-portrait-down) {
         max-height: 102px !important;
     }
+
+    .create-bulletin &{
+        max-height:102px !important;
+    }
 }
-
-.select2-container--default .select2-results > .select2-results__options {
-    @media (--for-desktop-down) {
-        max-height: 136px !important;
-    }
-
-    @media (--for-tablet-portrait-down) {
-        max-height: 102px !important;
-    }
-} 
 
 /* popup (lightbox) styles */
 .popup {

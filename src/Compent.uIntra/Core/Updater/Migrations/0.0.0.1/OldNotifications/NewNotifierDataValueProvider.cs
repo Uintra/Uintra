@@ -46,7 +46,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.OldNotifications
                         break;
                     }
 
-                case NotificationTypeEnum.EventHided:
+                case NotificationTypeEnum.EventHidden:
                 case NotificationTypeEnum.EventUpdated:
                     {
 

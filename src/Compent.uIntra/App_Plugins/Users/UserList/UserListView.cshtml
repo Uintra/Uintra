@@ -1,0 +1,68 @@
+﻿@inherits UmbracoViewPage<Uintra.Users.UserList.UserListViewModel>
+@using Uintra.Core.Extensions
+@using Newtonsoft.Json
+
+<section class="user-list-panel">
+    <div class="user-search">
+        <h3 class="user-search__title">@Model.Title</h3>
+        <h4 class="user-search__subtitle">@Html.Localize("UserList.Search.Title.lbl")</h4>
+        <form class="user-search__form">
+            <input type="text" class="user-search__input js-user-list-filter" placeholder="@Html.Localize("UserList.Search.Placeholder.lbl")" />
+            <button class="user-search__button js-search-button" type="button">
+                <span class="icon-search"></span>
+            </button>
+        </form>
+    </div>
+    <div class="users-table-block">
+        <table class="users-table js-user-list-table">
+            <thead>
+                <tr class="users-table__row">
+                    @foreach (var column in Model.UsersRows.SelectedColumns)
+                    {
+                        if (column.SupportSorting)
+                        {
+                            var selected = Model.OrderByColumn.Id == column.Id;
+                            <th class="users-table__head">
+                                <a href="" class="js-user-list-sort-link @(selected ? "_asc" : "")"
+                                   data-order-by="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
+                            </th>
+                        }
+                        else
+                        {
+                            <th class="users-table__head users-table__head--photo">
+                                <span>@Html.Localize($"UserList.Table.{column.Alias}.lbl")</span>
+                            </th>
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @Html.Partial(Model.UsersRowsViewPath, Model.UsersRows)
+            </tbody>
+        </table>
+    </div>
+    <button class="btn js-user-list-button"
+            @if (Model.IsLastRequest) { <text> style="display:none;" </text> }>
+        @Html.Localize("UserList.Table.LoadMoreButton.Text")
+    </button>
+    <div class="js-user-list-empty-result"
+         @if (Model.UsersRows.Users.Count() != 0) { <text> style="display:none;" </text> }>
+        @Html.Localize("UserList.Table.EmptyResult.lbl")
+    </div>
+</section>
+
+
+<script type="text/javascript">
+    window.userListConfig = {
+        request: {
+            skip: 0,
+            take: @Model.DisplayedAmount,
+            query: '',
+            orderBy: '@(Model.OrderByColumn?.PropertyName)',
+            direction: 0,
+            selectedColumns: '@Html.Raw(JsonConvert.SerializeObject(Model.UsersRows.SelectedColumns))'
+        },
+        amountPerRequest: @Model.AmountPerRequest,
+        displayedAmount: @Model.DisplayedAmount
+    };
+</script>

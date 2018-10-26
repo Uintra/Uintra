@@ -20,9 +20,12 @@
       <dependency id="Microsoft.Net.Compilers" version="2.4.0" />
       <dependency id="UmbracoCms" version="[7.10.4]" />
       <dependency id="UmbracoCms.Core" version="[7.10.4]" />
+      <dependency id="Microsoft.Web.Xdt" version="2.1.2" />
     </dependencies> 
   </metadata>
   <files>
     <file src="readme.txt" />
+    <file src="Uintra.props" target="build" />
+    <file src="bin\Release\Uintra.Tasks.dll" target="lib\net471" />
   </files>
 </package>

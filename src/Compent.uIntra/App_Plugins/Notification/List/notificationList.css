@@ -28,8 +28,10 @@
         color:var(--color-white);
         cursor:pointer;
         text-decoration:none;
-        margin:11px 0 0;
+        padding:12px 0 3px;
         display:inline-block;
+        text-align:center;
+        min-width:32px;
 
         &:hover,
         &:active,
@@ -44,7 +46,6 @@
             ._notifications-expanded &{
                 background-color:var(--color-light-gray-2);
                 color:var(--text-color-dark);
-                padding:23px 0 12px;
                 margin:0;
             }
         }
@@ -53,8 +54,8 @@
     &__number{
         display: none;
         position:absolute;
-        top: 1px;
-        right: -12px;
+        top: 3px;
+        right: -8px;
         width:19px;
         height:19px;
         background:var(--color-contrast);
@@ -91,17 +92,17 @@
 
             @media (--for-tablet-portrait-down){
                 width:100vw;
-                transform:translate(0, -100%);
-                transition: transform linear 200ms;
+                transition: all linear 200ms;
                 display:block;
                 left:auto;
                 right:0;
                 height:calc(100vh - 60px);
                 overflow:auto;
                 margin:0;
+                max-height:0;
 
                 ._notifications-expanded &{
-                    transform:translate(0, 0);
+                    max-height:calc(100vh - 60px);
                     z-index:11;
                 }
             }
@@ -138,6 +139,17 @@
 
                 @media (--for-tablet-portrait-down){
                     display:none;
+                }
+            }
+        }
+
+        &-drop{
+            @media (--for-tablet-portrait-down){
+                transform:translate(0, -100%);
+                transition: all linear 200ms;
+
+                ._notifications-expanded &{
+                    transform:translate(0, 0);
                 }
             }
         }
@@ -205,17 +217,14 @@
     }
 
     @media (--for-tablet-portrait-down) {
-        position:absolute;
-        width: 52px;
-        top:0;
-        right:0;
+        float:right;
 
         &__icon {
             position:relative;
             z-index:12;
             display:block;
             text-align:center;
-            padding:22px 0 13px;
+            padding:22px 17px 13px;
             transition:opacity 0.4s ease;
             opacity:1;
 
@@ -295,6 +304,13 @@
 	    &-heading{
 		    font:13px/20px var(--font-general);
 		    color:#333;
+            max-height:40px;
+            overflow:hidden;
+            max-width:450px;
+
+            @media (--for-tablet-portrait-down){
+                max-width:calc(100vw - 118px);
+            }
 
 		    &:hover {
 			    color:#333;
@@ -302,6 +318,9 @@
 
 		    p {
 			    margin: 0;
+                white-space:nowrap;
+                text-overflow:ellipsis;
+                overflow:hidden;
 		    }
 
             &-link{
@@ -310,8 +329,10 @@
 
             .notification-page &{
                 padding:0 170px 0 0;
+
                 @media (--for-desktop-down){
-                   padding:7px 0 0;
+                    padding:7px 0 0;
+                    box-sizing: content-box;
                 }
             }
 	    }

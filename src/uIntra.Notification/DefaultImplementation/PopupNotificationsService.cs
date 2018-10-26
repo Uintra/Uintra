@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
+using Uintra.Notification.Configuration;
 
 namespace Uintra.Notification
 {
@@ -28,6 +29,7 @@ namespace Uintra.Notification
                     IsNotified = true,
                     IsViewed = false,
                     Type = el.NotificationType.ToInt(),
+                    NotifierType = NotifierTypeEnum.PopupNotifier.ToInt(),
                     Value = new { el.Message }.ToJson(),
                     ReceiverId = el.ReceiverId
                 });
@@ -44,9 +46,8 @@ namespace Uintra.Notification
 
         public IEnumerable<Notification> Get(Guid receiverId)
         {
-            var popupNotificationTypeIds = _notificationTypeProvider.PopupNotificationTypes().Select(t => t.ToInt());
-
-            var notifications = _notificationRepository.FindAll(n => n.ReceiverId == receiverId && popupNotificationTypeIds.Contains(n.Type) && !n.IsViewed);
+            var popupNotifierTypeId = NotifierTypeEnum.PopupNotifier.ToInt();
+            var notifications = _notificationRepository.FindAll(n => n.ReceiverId == receiverId && !n.IsViewed && n.NotifierType == popupNotifierTypeId);
 
             return notifications;
         }

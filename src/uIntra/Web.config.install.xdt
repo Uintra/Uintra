@@ -4,18 +4,23 @@
     <section name="userPermissions" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
     <section name="userPermissions" type="Uintra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
 
-    <section name="uIntraJobs" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
+    <section name="browserCompatibilityConfiguration" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
+    <section name="browserCompatibilityConfiguration" type="Uintra.Core.BrowserCompatibility.BrowserCompatibilityConfigurationSection" xdt:Locator="Condition(@name='browserCompatibilityConfiguration')" xdt:Transform="InsertIfMissing"/>
+
+    <section name="UintraJobs" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
     <section name="UintraJobs" type="Uintra.Core.Jobs.Configuration.JobSettingsConfiguration" xdt:Locator="Condition(@name='UintraJobs')" xdt:Transform="InsertIfMissing" />
 
     <section name="elasticConfiguration" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
     <section name="elasticConfiguration" type="Uintra.Search.Configuration.ElasticConfigurationSection" xdt:Locator="Condition(@name='elasticConfiguration')" xdt:Transform="InsertIfMissing" />
-    
+
     <section name="localizationConfiguration" type="Localization.Core.Configuration.LocalizationConfigurationSection, Localization.Core"
             xdt:Locator="Condition(@name='localizationConfiguration')" xdt:Transform="InsertIfMissing" />
     <section name="linkDetectionConfiguration" type="Compent.Uintra.Core.LinkPreview.Config.LinkDetectionConfigurationSection" xdt:Locator="Condition(@name='linkDetectionConfiguration')" xdt:Transform="InsertIfMissing" />
   </configSections>
 
-  <appSettings>
+  <appSettings xdt:Transform="InsertIfMissing">
+    <add key="DefaultAvatarPath" value="/Content/images/default-avatar.png" xdt:Locator="Condition(@key='DefaultAvatarPath')" xdt:Transform="InsertIfMissing" />
+    <add key="MonthlyEmailJobDay" value="10" xdt:Locator="Condition(@key='MonthlyEmailJobDay')" xdt:Transform="InsertIfMissing" />
     <add key="ClientValidationEnabled" value="true" xdt:Locator="Condition(@key='ClientValidationEnabled')" xdt:Transform="InsertIfMissing" />
     <add key="UnobtrusiveJavaScriptEnabled" value="true" xdt:Locator="Condition(@key='UnobtrusiveJavaScriptEnabled')" xdt:Transform="InsertIfMissing" />
 
@@ -31,14 +36,56 @@
     <add key="Search.UserPhoneScore" value="3" xdt:Locator="Condition(@key='Search.UserPhoneScore')" xdt:Transform="InsertIfMissing"/>
     <add key="VideoFileTypes" value="ogg, mp4, webm, 3gp, mov, flv, wmv, avi, wmv, mpeg4, divx, mpeg" xdt:Locator="Condition(@key='VideoFileTypes')" xdt:Transform="InsertIfMissing"/>
     <add key="linkPreviewServiceUri" value="http://linkpreview.uintra.com/" xdt:Locator="Condition(@key='linkPreviewServiceUri')" xdt:Transform="InsertIfMissing" />
+
+    <add key="MyLinks.BulletinsTitleLength" value="10" xdt:Locator="Condition(@key='MyLinks.BulletinsTitleLength')" xdt:Transform="InsertIfMissing" />
+    <add key="Navigation.ShowBreadcrumbs" value="true" xdt:Locator="Condition(@key='Navigation.ShowBreadcrumbs')" xdt:Transform="InsertIfMissing" />
   </appSettings>
+
+  <uIntraJobs xdt:Transform="Remove">
+  </uIntraJobs>
+  <UintraJobs xdt:Transform="InsertIfMissing">
+    <settings>
+      <!--Run Types:RunEvery,RunNow,RunOnceAt,RunOnceAtDate-->
+      <!--Time Types:Seconds,Minutes,Hours,Days,Date-->
+      <add job="UpdateActivityCacheJob" enabled="true" runType="RunEvery" timeType="Minutes" time="1"/>
+      <add job="MontlyMailJob" enabled="true" runType="RunOnceIn" timeType="Days" time="1" atHour="12" atMinutes="0" xdt:Locator="Condition(@job='MontlyMailJob')" xdt:Transform="InsertIfMissing"/>
+      <add job="ReminderJob" enabled="true" runType="RunEvery" timeType="Minutes" time="5" xdt:Locator="Condition(@job='ReminderJob')" xdt:Transform="InsertIfMissing"/>
+      <add job="SendEmailJob" enabled="true" runType="RunEvery" timeType="Minutes" time="5" xdt:Locator="Condition(@job='SendEmailJob')" xdt:Transform="InsertIfMissing"/>
+    </settings>
+  </UintraJobs>
 
   <elasticConfiguration url="http://localhost:9200" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>
   <localizationConfiguration enableCache="false" cacheTime="0" localizationCacheKey="LocalizationCacheKey"
                             useDefaultLabel="true" saveDefaultLabel="false"
                             xdt:Transform="InsertIfMissing" />
 
+  <browserCompatibilityConfiguration xdt:Transform="InsertIfMissing">
+    <browsers>
+      <browser name="InternetExplorer" version="11.0"></browser>
+      <browser name="Chrome" version="60.0"></browser>
+      <browser name="FireFox" version="54.0"></browser>
+      <browser name="Safari" version="10.1.2"></browser>
+    </browsers>
+  </browserCompatibilityConfiguration>
+
+  <browserCompatibilityConfiguration>
+    <browsers>
+      <browser name="Edge" xdt:Locator="Match(name)" xdt:Transform="Remove"></browser>
+      <browser name="EdgeHTML" version="15.15063" xdt:Locator="Condition(@name='Edge')" xdt:Transform="InsertIfMissing"></browser>
+    </browsers>
+  </browserCompatibilityConfiguration>
+
+  <system.webServer xdt:Transform="InsertIfMissing">
+    <httpErrors existingResponse="PassThrough" xdt:Transform="InsertIfMissing" />
+    <httpErrors existingResponse="PassThrough" xdt:Transform="SetAttributes(existingResponse)" />
+  </system.webServer>
+
   <system.web>
+    <compilation defaultLanguage="c#" debug="true" batch="false" targetFramework="4.5" numRecompilesBeforeAppRestart="50">
+      <assemblies>
+        <add assembly="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" xdt:Locator="Condition(@name='netstandard')" xdt:Transform="InsertIfMissing"/>
+      </assemblies>
+    </compilation>
     <authentication mode="Forms">
       <forms loginUrl="~/login" xdt:Transform="SetAttributes(loginUrl)" />
     </authentication>
@@ -97,11 +144,13 @@
       <role key="WebMaster" xdt:Locator="Condition(@key='WebMaster')">
         <permissions>
           <permission key="GroupCreate" xdt:Locator="Condition(@key='GroupCreate')" xdt:Transform="InsertIfMissing"/>
+          <permission key="CanEditNews" xdt:Locator="Condition(@key='CanEditNews')" xdt:Transform="InsertIfMissing"/>
         </permissions>
       </role>
       <role key="UiPublisher" xdt:Locator="Condition(@key='UiPublisher')">
         <permissions>
           <permission key="GroupCreate" xdt:Locator="Condition(@key='GroupCreate')" xdt:Transform="InsertIfMissing"/>
+          <permission key="CanEditNews" xdt:Locator="Condition(@key='CanEditNews')" xdt:Transform="InsertIfMissing"/>
         </permissions>
       </role>
     </roles>
@@ -119,4 +168,28 @@
       <compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:14 /nowarn:41008 /define:_MYTYPE=\&quot;Web\&quot; /optionInfer+" />
     </compilers>
   </system.codedom>
+
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Runtime']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Linq']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Runtime.Extensions']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.IO']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Runtime.InteropServices']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Reflection']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Diagnostics.Tracing']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Xml.ReaderWriter']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Linq.Expressions']))">
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+
 </configuration>

@@ -1,6 +1,7 @@
 ﻿@using System.Web.Mvc.Html
 @using Uintra.Core.Extensions
 @model Uintra.Notification.NotificationListViewModel
+<input type="hidden" name="preventScrolling" value="@Convert.ToByte(Model.BlockScrolling)" />
 
 <ul class="notification__list" id="notification_list">
     @if (Model.Notifications.Any())

@@ -314,7 +314,7 @@ namespace Compent.Uintra.Core.Events
                     }
                     break;
 
-                case NotificationTypeEnum.EventHided:
+                case NotificationTypeEnum.EventHidden:
                 case NotificationTypeEnum.EventUpdated:
                     {
                         var currentEvent = Get(entityId);

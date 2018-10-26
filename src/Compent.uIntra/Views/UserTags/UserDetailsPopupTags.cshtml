@@ -1,0 +1,15 @@
+﻿@using System.Web.Mvc.Html
+@using Uintra.Core.Extensions
+@model IList<Compent.Uintra.Core.UserTags.ViewModels.UserTagViewModel>
+
+@if (Model.Any())
+{
+    <div class="tags__list">
+        @foreach (var tag in Model)
+        {
+            <a class="tags__list-item" href="@tag.SearchUrl">
+                <span class="tags__list-txt">@tag.Text</span>
+            </a>
+        }
+    </div>
+}

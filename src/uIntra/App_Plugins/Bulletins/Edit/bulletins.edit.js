@@ -112,21 +112,19 @@ function initEventListeners() {
     submitButton.addEventListener("click", submitClickHandler);
 }
 
-function submitClickHandler(event) {
-    $(descriptionElem).toggleClass("input-validation-error", editor.getLength() <= 1);
-
+function submitClickHandler(event) {        
     if (!isModelValid()) {
+        $(descriptionElem).toggleClass("input-validation-error", editor.getLength() <= 1);
         holder.querySelector('.form__required').style.display = 'block';
         event.preventDefault();
         event.stopPropagation();
     }
 }
 
-function isModelValid() {
+function isModelValid() {    
     let decription = holder.querySelector('input[name="description"]').value;
-    let media = holder.querySelector('input[name="newMedia"]').value;
-    let newMedia = holder.querySelector('input[name="media"]').value;
-    return decription || media || newMedia ? true : false;
+    let media = holder.querySelector('input[name="newMedia"]').value;    
+    return decription || media ? true : false;
 }
 
 function deleteClickHandler(event) {

@@ -11,7 +11,7 @@ import anchorScroll from './AnchorScroll';
 import validationExtensions from './ValidationExtensions';
 import scrollToTop from './ScrollToTop';
 import lightboxGallery from '../../Controls/LightboxGallery/LightboxGallery';
-import activityLocation from '../../ActivityLocation/activityLocation'
+import activityLocation from '../../ActivityLocation/activityLocation';
 
 export default function() {
     anchorScroll();

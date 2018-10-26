@@ -1,15 +1,14 @@
 ﻿@using System.Web.Mvc.Html
-@using uIntra.Core.Extentions
-@model uIntra.Events.EventItemViewModel
+@using Uintra.Core.Extensions
+@model Uintra.Events.EventItemViewModel
 @{
     var currentPinnedClass = Model.IsPinActual ? "_pinned" : "";
-    var detailsPageUrl = ViewData.GetActivityDetailsPageUrl(Model.ActivityType.Id, Model.Id);
 }
 <div class="feed__item @currentPinnedClass">
     <div class="clearfix">
         @if (Model.IsPinned || Model.IsPinActual)
         {
-            <span class="pinned__item">@Html.Localize("EventItemView.Pinned.lbl")</span>
+            <span class="pinned__item">@Html.Localize("Activity.Pinned.lbl")</span>
         }
 
         @Html.Action("ItemHeader", "Activity", new { header = Model.HeaderInfo })
@@ -17,7 +16,7 @@
     <div class="feed__item-image"> </div>
     @if (!string.IsNullOrWhiteSpace(Model.Description))
     {
-        <div class="feed__item-txt _clamp" data-url="@detailsPageUrl">@Html.Raw(Model.Description)</div>
+        <div class="feed__item-txt _clamp" data-url="@Model.Links.Details">@Html.Raw(Model.Description)</div>
     }
     <div class="feed__item-images">
         @{ Html.RenderAction("Preview", "LightboxGallery", new { model = Model.LightboxGalleryPreviewInfo }); }

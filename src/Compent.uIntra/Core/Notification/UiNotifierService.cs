@@ -34,8 +34,7 @@ namespace Compent.Uintra.Core.Notification
         {
             var isCommunicationSettings = data.NotificationType.In(
                 NotificationTypeEnum.CommentLikeAdded,
-                NotificationTypeEnum.MonthlyMail) || //TODO: temporary for communication settings
-                data.ActivityType.In(
+                NotificationTypeEnum.MonthlyMail,
                 IntranetActivityTypeEnum.ContentPage,
                 IntranetActivityTypeEnum.PagePromotion);
 

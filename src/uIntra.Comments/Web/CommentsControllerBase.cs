@@ -68,9 +68,12 @@ namespace Uintra.Comments.Web
             var command = new AddCommentCommand(FullContext, createDto);
             _commandPublisher.Publish(command);
 
+            OnCommentCreated(createDto.Id);
+
             switch (commentsTarget.Type.ToInt())
             {
-                case int type when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
+                case int type
+                    when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
                     var activityCommentsInfo = GetActivityComments(targetEntityId);
                     return OverView(activityCommentsInfo);
                 default:
@@ -101,9 +104,12 @@ namespace Uintra.Comments.Web
             var command = new EditCommentCommand(FullContext, editDto);
             _commandPublisher.Publish(command);
 
+            OnCommentEdited(editCommentId);
+
             switch (commentsTarget.Type.ToInt())
             {
-                case int type when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
+                case int type
+                    when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
                     var activityCommentsInfo = GetActivityComments(targetEntityId);
                     return OverView(activityCommentsInfo);
                 default:
@@ -130,7 +136,8 @@ namespace Uintra.Comments.Web
 
             switch (commentsTarget.Type.ToInt())
             {
-                case int type when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
+                case int type
+                    when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
                     var activityCommentsInfo = GetActivityComments(targetEntityId);
                     return OverView(activityCommentsInfo);
                 default:
@@ -191,7 +198,8 @@ namespace Uintra.Comments.Web
             return OverView(activityId, _commentsService.GetMany(activityId));
         }
 
-        protected virtual PartialViewResult OverView(Guid activityId, IEnumerable<CommentModel> comments, bool isReadOnly = false)
+        protected virtual PartialViewResult OverView(Guid activityId, IEnumerable<CommentModel> comments,
+            bool isReadOnly = false)
         {
             var model = new CommentsOverviewModel
             {
@@ -214,14 +222,17 @@ namespace Uintra.Comments.Web
 
             foreach (var comment in commentsList.FindAll(c => !_commentsService.IsReply(c)))
             {
-                var model = GetCommentView(comment, currentUserId, creators.SingleOrDefault(c => c.Id == comment.UserId));
+                var model = GetCommentView(comment, currentUserId,
+                    creators.SingleOrDefault(c => c.Id == comment.UserId));
                 var commentReplies = replies.FindAll(reply => reply.ParentId == model.Id);
-                model.Replies = commentReplies.Select(reply => GetCommentView(reply, currentUserId, creators.SingleOrDefault(c => c.Id == reply.UserId)));
+                model.Replies = commentReplies.Select(reply =>
+                    GetCommentView(reply, currentUserId, creators.SingleOrDefault(c => c.Id == reply.UserId)));
                 yield return model;
             }
         }
 
-        protected virtual CommentViewModel GetCommentView(CommentModel comment, Guid currentUserId, IIntranetUser creator)
+        protected virtual CommentViewModel GetCommentView(CommentModel comment, Guid currentUserId,
+            IIntranetUser creator)
         {
             var model = comment.Map<CommentViewModel>();
             model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate : default(DateTime?);
@@ -263,6 +274,14 @@ namespace Uintra.Comments.Web
         protected virtual string GetOverviewElementId(Guid activityId)
         {
             return $"js-comments-overview-{activityId}";
+        }
+
+        protected virtual void OnCommentCreated(Guid commentId)
+        {
+        }
+
+        protected virtual void OnCommentEdited(Guid commentId)
+        {
         }
     }
 }

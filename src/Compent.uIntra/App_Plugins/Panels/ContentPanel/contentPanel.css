@@ -33,7 +33,8 @@
             padding-bottom:0;
         }
         @media (--for-tablet-portrait-down) {
-            margin:0 -20px;
+            margin-left: -20px;
+            margin-right: -20px;
         }
 
         &__title{
@@ -126,6 +127,14 @@
             p{
                 margin:0;
             }
+
+             a{
+                 color:var(--text-color-dark);
+
+                 &:hover{
+                    text-decoration:none;
+                }
+             }
         }
     }
 

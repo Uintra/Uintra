@@ -22,7 +22,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
         private readonly NotificationTypeEnum[] eventNotificationTypes =
             {
                 NotificationTypeEnum.EventUpdated,
-                NotificationTypeEnum.EventHided,
+                NotificationTypeEnum.EventHidden,
                 NotificationTypeEnum.BeforeStart,
                 NotificationTypeEnum.CommentAdded,
                 NotificationTypeEnum.CommentEdited,
@@ -170,7 +170,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
                 case NotificationTypeEnum.CommentEdited:
                 case NotificationTypeEnum.CommentReplied:
                 case NotificationTypeEnum.EventUpdated:
-                case NotificationTypeEnum.EventHided:
+                case NotificationTypeEnum.EventHidden:
                     message = $"<strong>{TokensConstants.FullName} {_localizationService.Translate(notificationType.ToString())}</strong>"
                               + $"<p>{TokensConstants.ActivityTitle}</p>";
                     break;

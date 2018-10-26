@@ -429,6 +429,7 @@ var Comment = function (selector) {
         initEdit($this);
         initReply($this);
         initDelete($this);
+        helpers.parseMentions(this);
     });
 };
 

@@ -1,8 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Uintra.Core;
+using Uintra.Users.Helpers;
+using Uintra.Users.UserList;
 using Umbraco.Core.Services;
 using Umbraco.Web.WebApi;
+using Umbraco.Core;
 
 namespace Uintra.Users.Web
 {
@@ -22,7 +26,6 @@ namespace Uintra.Users.Web
             _memberServiceHelper = memberServiceHelper;
         }
 
-
         [HttpGet]
         public virtual IEnumerable<UserPickerModel> NotAssignedToMemberUsers(int? selectedUserId)
         {
@@ -33,6 +36,12 @@ namespace Uintra.Users.Web
             var mappedModels = unassignedUsers.Select(u => new UserPickerModel {Id = u.Id, Name = u.Name});
 
             return mappedModels;
+        }
+
+        [HttpGet]
+        public virtual IEnumerable<ProfileColumnModel> ProfileProperties()
+        {
+            return ReflectionHelper.GetProfileColumns();
         }
     }
 }

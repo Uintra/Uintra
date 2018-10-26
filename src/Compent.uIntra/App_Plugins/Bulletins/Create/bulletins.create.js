@@ -13,6 +13,7 @@ let toolbar;
 let sentButton;
 //let header;
 let editor;
+let html;
 let body;
 let bulletin;
 let confirmMessage;
@@ -31,6 +32,7 @@ function initElements() {
     toolbar = holder.querySelector(toolbarSelector);
     sentButton = document.querySelector(".js-toolbar__send-button");
     //header = holder.querySelector(".js-create-bulletin__user");
+    html = document.querySelector("html");
     body = document.querySelector("body");
     bulletin = document.querySelector(".js-create-bulletin");
     confirmMessage = bulletin.dataset.message;
@@ -244,6 +246,7 @@ function show() {
     const headerAndButtonHeight = 130;
     setGlobalEventShow();
     bulletin.classList.add("_expanded");
+    html.style.overflow = 'hidden';
     body.style.overflow = 'hidden';
     body.classList.add("bulletin_expanded");
     //toolbar.classList.remove("hidden");
@@ -256,6 +259,7 @@ function hide(event) {
     if (event && event.target == closeBulletinBtn) { event.preventDefault(); }
     setGlobalEventHide();
     bulletin.classList.remove("_expanded");
+    html.style.overflow = '';
     body.style.overflow = '';
     body.classList.remove("bulletin_expanded");
     //toolbar.classList.add("hidden");

@@ -36,6 +36,7 @@ function initDescription() {
         for (var i = 0; i < container.length; i++) {
             var target = $(container[i]).data('url');
             helpers.clampText(container[i], target);
+            helpers.parseMentions(container[i]);
         }
     }
 }

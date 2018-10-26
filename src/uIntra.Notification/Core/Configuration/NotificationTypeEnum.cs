@@ -4,7 +4,7 @@
     {
         Event = 1,
         EventUpdated,
-        EventHided,
+        EventHidden,
         BeforeStart,
         News,
         Idea,
@@ -14,6 +14,7 @@
         CommentReplied,
         CommentLikeAdded,
         MonthlyMail,
-        Welcome
+        Welcome,
+        UserMention
     }
 }

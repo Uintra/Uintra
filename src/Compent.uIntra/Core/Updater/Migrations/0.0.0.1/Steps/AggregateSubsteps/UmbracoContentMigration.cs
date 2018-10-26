@@ -522,7 +522,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
         private void CreateEventHidedMailTemplate()
         {
             var mailTemplatesFolder = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.DataFolder, DocumentTypeAliasConstants.MailTemplatesFolder));
-            if (mailTemplatesFolder.Children.Any(el => el.GetPropertyValue<NotificationTypeEnum>(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName) == NotificationTypeEnum.EventHided))
+            if (mailTemplatesFolder.Children.Any(el => el.GetPropertyValue<NotificationTypeEnum>(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName) == NotificationTypeEnum.EventHidden))
             {
                 return;
             }
@@ -537,7 +537,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
 <p><span>Type: </span>##Type##</p>
 <p><span>Url: </span><a rel=""noopener noreferrer"" href=""##Url##"" target=""_blank"">link</a></p>");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.ExtraTokensPropName, "##Title##, ##NotifierFullName##, ##Type##, ##Url##, ##FullName##");
-            content.SetValue(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName, NotificationTypeEnum.EventHided.ToString());
+            content.SetValue(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName, NotificationTypeEnum.EventHidden.ToString());
 
             _contentService.SaveAndPublishWithStatus(content);
         }
