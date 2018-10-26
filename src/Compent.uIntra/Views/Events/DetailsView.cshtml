@@ -21,7 +21,7 @@
                 {
                     <div class="event-details__date">
                         @Model.StartDate.ToEventDetailsDateFormat()<br />
-                        @Model.StartDate.ToEventDetailsTimeFormat().ToLower() - @Model.EndDate.ToEventDetailsTimeFormat().ToLower()
+                        @Model.StartDate.ToTimeFormat() - @Model.EndDate.ToTimeFormat()<br />
                     </div>
                 }
                 else
