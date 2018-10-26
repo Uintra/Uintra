@@ -329,8 +329,10 @@
 
             .notification-page &{
                 padding:0 170px 0 0;
+
                 @media (--for-desktop-down){
-                   padding:7px 0 0;
+                    padding:7px 0 0;
+                    box-sizing: content-box;
                 }
             }
 	    }

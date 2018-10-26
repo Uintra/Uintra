@@ -445,8 +445,8 @@
     <Reference Include="Uintra.News, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.News.1.5.0\lib\net471\Uintra.News.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Notification, Version=1.5.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Notification.1.5.0.2\lib\net471\Uintra.Notification.dll</HintPath>
+    <Reference Include="Uintra.Notification, Version=1.5.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Notification.1.5.0.3\lib\net471\Uintra.Notification.dll</HintPath>
     </Reference>
     <Reference Include="Uintra.Panels, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Panels.2.4.0\lib\net471\Uintra.Panels.dll</HintPath>
