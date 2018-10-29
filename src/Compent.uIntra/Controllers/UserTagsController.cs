@@ -14,6 +14,7 @@ namespace Compent.Uintra.Controllers
     public class UserTagsController : UserTagsControllerBase
     {
         private readonly string EntityTagsViewPath = "~/Views/UserTags/EntityTags.cshtml";
+        private readonly string UserDetailsPopupViewPath = "~/Views/UserTags/UserDetailsPopupTags.cshtml";
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
 
         private readonly IUserTagService _tagsService;    
@@ -41,6 +42,16 @@ namespace Compent.Uintra.Controllers
         {
             var currentContentPageId = CurrentPage.GetKey();
             return ForEntity(currentContentPageId);
+        }
+
+        public ActionResult ForUserDetailsPopup(Guid entityId)
+        {
+            var searchPage = _searchUmbracoHelper.GetSearchPage();
+            var tags = _tagsService
+                .Get(entityId)
+                .Select(tag => MapToViewModel(tag, searchPage.Url))
+                .ToList();
+            return PartialView(UserDetailsPopupViewPath, tags);
         }
 
         private UserTagViewModel MapToViewModel(UserTag tag, string url)

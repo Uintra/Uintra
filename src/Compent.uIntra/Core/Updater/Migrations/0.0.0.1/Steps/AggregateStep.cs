@@ -102,7 +102,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
                 return templateType.In(
                     NotificationTypeEnum.Event,
                     NotificationTypeEnum.EventUpdated,
-                    NotificationTypeEnum.EventHided,
+                    NotificationTypeEnum.EventHidden,
                     NotificationTypeEnum.BeforeStart,
                     NotificationTypeEnum.News,
                     NotificationTypeEnum.Idea,

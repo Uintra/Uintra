@@ -23,10 +23,15 @@
             $scope.backupModel = angular.copy($scope.control.value);
         }
 
-        $scope.init = function (control) {
+        $scope.init = function (control, isCreatePanel) {
             $scope.control = control;
 
             centralFeedService.getActivityTypes().success(function (data) {
+                if (isCreatePanel) {
+                    data = data.filter(function (element) {
+                        return element.Id !== 0;
+                    });
+                }
                 self.availableActivityTypes = data;
             });
         }

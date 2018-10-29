@@ -89,7 +89,9 @@ namespace Uintra.Core.Context
             out ContextData commentsTarget,
             out ISingleLinkedList<ContextData> tail)
         {
-            var (commentsResult, rest) = context.Span(c => ContextExtensions.ExactScalar(c.Type, ContextType.Comment));
+            var (commentsResult, rest) = SingleLinkedListExtensions.Span(
+                context,
+                c => ContextExtensions.ExactScalar(c.Type, ContextType.Comment));
 
             if (commentsResult.Any())
             {

@@ -14,7 +14,7 @@ namespace Uintra.Notification.MailModels
 
         public string FullName { get; set; }
 
-        public override NotificationTypeEnum MailTemplateType => NotificationTypeEnum.EventHided;
+        public override NotificationTypeEnum MailTemplateType => NotificationTypeEnum.EventHidden;
 
         public override IDictionary<string, string> GetExtraTokens()
         {

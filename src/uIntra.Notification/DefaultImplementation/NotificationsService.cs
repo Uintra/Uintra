@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Exceptions;
+using Uintra.Core.Persistence;
 using Uintra.Notification.Base;
-using Uintra.Notification.Configuration;
 
 namespace Uintra.Notification
 {
     public class NotificationsService : INotificationsService
     {
+        private readonly ISqlRepository<Notification> _notificationRepository;
         private readonly IExceptionLogger _exceptionLogger;
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
         private readonly IEnumerable<INotifierService> _notifiers;
 
         public NotificationsService(
+            ISqlRepository<Notification> notificationRepository,
             IExceptionLogger exceptionLogger,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
             IEnumerable<INotifierService> notifiers)
         {
+            _notificationRepository = notificationRepository;
             _exceptionLogger = exceptionLogger;
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
             _notifiers = notifiers;
@@ -43,11 +46,16 @@ namespace Uintra.Notification
             }
         }
 
+        public IEnumerable<Notification> GetUserNotifications(Guid userId, int notificationTypeId)
+        {
+            return _notificationRepository.FindAll(n => n.ReceiverId == userId && n.Type == notificationTypeId);
+        }
+
         protected void Notify(INotifierService service, NotifierData data)
         {
             try
             {
-               service.Notify(data);
+                service.Notify(data);
             }
             catch (Exception ex)
             {

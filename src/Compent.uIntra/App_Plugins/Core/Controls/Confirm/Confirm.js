@@ -2,6 +2,8 @@
 require('alertifyjs/build/css/alertify.min.css');
 require('alertifyjs/build/css/themes/default.min.css');
 
+const customClassName = "user-details-popup";
+
 (function () {
     Alertify.defaults.glossary.yes = 'yes';
     Alertify.defaults.glossary.no = 'no';
@@ -34,7 +36,7 @@ var Confirm = {
         modal: true
     },
 
-    showConfirm: function (title, text, firstCallback, secondCallback,settings) {
+    showConfirm: function (title, text, firstCallback, secondCallback, settings) {
         Alertify.confirm(
                 title,
                 text,
@@ -47,6 +49,12 @@ var Confirm = {
                     }
                 })
             .set(settings);
+    },
+
+    showInfo: function (title, text, settings = this.defaultSettings) {
+        settings.title = title;
+        settings.message = text;
+        Alertify.alert().setting(settings).show(true, customClassName);
     },
 
     showDialog: function (title, text, callbacks, settings) {

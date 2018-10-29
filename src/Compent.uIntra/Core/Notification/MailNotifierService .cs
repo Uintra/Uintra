@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Linq;
 using Compent.Extensions;
+using Uintra.Core.Context;
+using Uintra.Core.Context.Extensions;
+using Uintra.Core.Extensions;
+using Uintra.Core.Persistence;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
@@ -14,31 +18,27 @@ namespace Compent.Uintra.Core.Notification
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
         private readonly NotificationSettingsService _notificationSettingsService;
+        private readonly ISqlRepository<global::Uintra.Notification.Notification> _notificationRepository;
 
         public MailNotifierService(
             IMailService mailService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper,
-            NotificationSettingsService notificationSettingsService)
+            NotificationSettingsService notificationSettingsService,
+            ISqlRepository<global::Uintra.Notification.Notification> notificationRepository)
         {
             _mailService = mailService;
             _intranetUserService = intranetUserService;
             _notificationModelMapper = notificationModelMapper;
             _notificationSettingsService = notificationSettingsService;
+            _notificationRepository = notificationRepository;
         }
 
         public Enum Type => NotifierTypeEnum.EmailNotifier;
 
         public void Notify(NotifierData data)
         {
-            var isCommunicationSettings = data.NotificationType.In(
-                NotificationTypeEnum.CommentLikeAdded,
-                NotificationTypeEnum.MonthlyMail); //TODO: temporary for communication settings
-
-            var identity = new ActivityEventIdentity(isCommunicationSettings
-                    ? CommunicationTypeEnum.CommunicationSettings
-                    : data.ActivityType, data.NotificationType)
-                .AddNotifierIdentity(Type);
+            var identity = GetSettingsIdentity(data);
 
             var settings = _notificationSettingsService.Get<EmailNotifierTemplate>(identity);
             if (settings == null || !settings.IsEnabled) return;
@@ -49,7 +49,39 @@ namespace Compent.Uintra.Core.Notification
 
                 var message = _notificationModelMapper.Map(data.Value, settings.Template, user);
                 _mailService.Send(message);
+
+                _notificationRepository.Add(new global::Uintra.Notification.Notification()
+                {
+                    Id = Guid.NewGuid(),
+                    Date = DateTime.UtcNow,
+                    IsNotified = true,
+                    IsViewed = false,
+                    Type = data.NotificationType.ToInt(),
+                    NotifierType = NotifierTypeEnum.EmailNotifier.ToInt(),
+                    Value = new {message}.ToJson(),
+                    ReceiverId = receiverId
+                });
             }
+        }
+
+        private ActivityEventNotifierIdentity GetSettingsIdentity(NotifierData data)
+        {
+            Enum activityType;
+
+            switch (data.ActivityType.ToInt())
+            {
+                case (int) NotificationTypeEnum.CommentLikeAdded:
+                case (int) NotificationTypeEnum.MonthlyMail:
+                case (int)NotificationTypeEnum.UserMention:
+                    activityType = CommunicationTypeEnum.CommunicationSettings;
+                    break;
+                default:
+                    activityType = data.ActivityType;
+                    break;
+            }
+
+            return new ActivityEventIdentity(activityType, data.NotificationType)
+                .AddNotifierIdentity(Type);
         }
     }
 }

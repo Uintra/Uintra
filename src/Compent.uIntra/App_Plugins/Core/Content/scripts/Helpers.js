@@ -1,11 +1,13 @@
 ﻿const Quill = require('quill');
 const Delta = require('quill-delta');
 const Flatpickr = require('flatpickr');
+
 import ajax from './Ajax';
 
 require('simple-scrollbar');
 require('flatpickr/dist/flatpickr.min.css');
 require('quill/dist/quill.snow.css');
+require('./../libs/quill-mention/quill.mention.css');
 
 var urlDetectRegexes = [];
 
@@ -26,6 +28,11 @@ const easeInOutQuad = function (t, b, c, d) {
     return -c / 2 * (t * (t - 2) - 1) + b;
 };
 
+function parseMentionsInActivityDetailsText() {
+    let container = $(".feed__item-txt");
+    helpers.parseMentions(container);
+}
+
 const helpers = {
     deepClone: function (out) {
         out = out || {};
@@ -42,6 +49,7 @@ const helpers = {
         return out;
     },
     initQuill: function (source, dataStorage, options) {
+
         if (!dataStorage) {
             throw new Error("Hided input field missing");
         }
@@ -54,6 +62,34 @@ const helpers = {
             theme: 'snow'
         }
 
+        var mention = {
+            mention: {
+                allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+                mentionDenotationChars: ["@"],
+                source: function (searchTerm, renderList, mentionChar) {
+                    var matches = [];
+                    if (searchTerm.length === 0) {
+                        return;
+                    } else {
+
+                        ajax.get("/umbraco/api/Mention/SearchMention?query=" + searchTerm)
+                            .then(function (response) {
+                                if (response.data) {
+                                    for (var i = 0; i < response.data.length; i++) {
+                                        var data = response.data[i];
+                                        data.id = data.url;
+                                        matches.push(data);
+                                    }
+                                }
+                                renderList(matches, searchTerm);
+                            });
+                    }
+                }
+            }
+        };
+
+
+
         if (typeof options == 'undefined') {
             settings.modules = {
                 toolbar: {
@@ -63,6 +99,8 @@ const helpers = {
         } else {
             $.extend(settings, options);
         }
+
+        $.extend(settings.modules, mention);
 
         let quill = new Quill(source, settings);
         let toolbar = quill.getModule('toolbar');
@@ -121,14 +159,14 @@ const helpers = {
                     }
 
                     ops = ops.concat([{
-                            delete: url.length
-                        },
-                        {
-                            insert: url,
-                            attributes: {
-                                link: url
-                            }
+                        delete: url.length
+                    },
+                    {
+                        insert: url,
+                        attributes: {
+                            link: url
                         }
+                    }
                     ]);
 
                     var selectionBeforeUpdate = quill.getSelection();
@@ -588,7 +626,9 @@ const helpers = {
         $container.dotdotdot({
             watch: 'window'
         });
-        $container.contents().wrap("<a href='" + url + "' class='feed__item-txt-link'></a>");
+        $container.click(function (e) {
+            location.href = url;
+        });
     },
     initScrollbar: function (el) {
         SimpleScrollbar.initEl(el);
@@ -625,7 +665,20 @@ const helpers = {
                 helpers.localStorage.removeItem(storageName);
             }
         }
+    },
+    parseMentions: function (container) {
+        var mention = $(container).find(".mention");
+        mention.each(function (i, el) {
+            $(this).on('click', function (e) {
+                var id = $(this).data('id');
+                e.preventDefault();
+                e.stopPropagation();
+                location.href = id;
+            });
+        });
     }
 }
+
+parseMentionsInActivityDetailsText();
 
 export default helpers;

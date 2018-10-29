@@ -45,7 +45,7 @@ namespace Uintra.Navigation.Web
 
         public virtual PartialViewResult Overview()
         {
-            var dto = GetLinkDTO(CurrentPage.Id, Request.QueryString.ToString());
+            var dto = GetLinkDTO(CurrentPage.Id, Request.Unvalidated.QueryString.ToString());
             var currentContentLinkId = _myLinksService.Get(dto)?.Id;
 
             var model = new MyLinksViewModel

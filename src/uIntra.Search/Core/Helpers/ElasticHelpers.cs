@@ -16,10 +16,18 @@ namespace Uintra.Search
         public const string EmailDomainName = "EmailDomainName";
         public const int MaxAggregationSize = 500;
 
+        public static class Normalizer
+        {
+            public const string Sort = "sort_normalizer";
+
+            public static AnalysisDescriptor Initialize(AnalysisDescriptor analysis) =>
+                analysis.Normalizers(n => n
+                    .Custom(Sort, descriptor => descriptor.Filters("lowercase")));
+        }
 
         public static AnalysisDescriptor SetAnalysis(AnalysisDescriptor analysis)
         {
-            return analysis
+            analysis = analysis
                 .CharFilters(c => c
                     .Mapping("mapping", f => f.Mappings(GetCharMapping()))
                     .PatternReplace("digits", f => f.Pattern("[^0-9]").Replacement(""))
@@ -38,7 +46,10 @@ namespace Uintra.Search
                     .UserDefined(Digits, new CustomAnalyzer { Tokenizer = "keyword", CharFilter = new[] { "digits" }, Filter = new[] { "digits_ngram", "unique", "length_limit" } })
                     .UserDefined(Lowercase, new CustomAnalyzer { Tokenizer = "keyword", Filter = new[] { "lowercase" } })
                 );
+            return Normalizer.Initialize(analysis);
         }
+
+
 
         public static IEnumerable<string> GetCharMapping()
         {

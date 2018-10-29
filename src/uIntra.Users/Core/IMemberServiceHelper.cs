@@ -8,5 +8,6 @@ namespace Uintra.Users
         Dictionary<IMember, int?> GetRelatedUserIdsForMembers(IEnumerable<IMember> users);
         bool IsFirstLoginPerformed(IMember member);
         void SetFirstLoginPerformed(IMember member);
+        IEnumerable<PropertyType> GetAvailableProfileProperties();
     }
 }

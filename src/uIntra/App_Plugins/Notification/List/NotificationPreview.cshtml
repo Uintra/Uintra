@@ -6,7 +6,9 @@
         <span class="js-notification__number notification__number"></span>
     </a>
     <div class="notification__list-holder">
-        <div class="notification__list-frame js-notification-list _loading"></div>
-        <a class="notification__all" href="@Model.NotificationsUrl">@Html.Localize("NotificationPreview.ShowAllNotifications.lbl")</a>
+        <div class="notification__list-drop">
+            <div class="notification__list-frame js-notification-list _loading"></div>
+            <a class="notification__all" href="@Model.NotificationsUrl">@Html.Localize("NotificationPreview.ShowAllNotifications.lbl")</a>
+        </div>
     </div>
 </div>

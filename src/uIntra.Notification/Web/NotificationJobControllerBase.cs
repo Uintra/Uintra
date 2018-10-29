@@ -19,7 +19,7 @@ namespace Uintra.Notification.Web
         [HttpGet, AllowAnonymous]
         public void RunReminderJob()
         {
-           // _reminderJob.Run();
+            _reminderJob.Run();
         }
 
         [HttpGet, AllowAnonymous]

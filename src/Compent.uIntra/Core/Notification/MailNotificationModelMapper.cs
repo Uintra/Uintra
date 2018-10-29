@@ -42,7 +42,8 @@ namespace Compent.Uintra.Core.Notification
                         (Url, model.Url),
                         (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
                         (ActivityType, model.ActivityType.ToString()),
-                        (StartDate, model.StartDate.ToShortDateString())
+                        (StartDate, model.StartDate.ToShortDateString()),
+                        (FullName, receiver.DisplayedName)
                     };
                     break;
                 case CommentNotifierDataModel model:
@@ -68,6 +69,15 @@ namespace Compent.Uintra.Core.Notification
                     {
                         (FullName, receiver.DisplayedName),
                         (ActivityList, model.ActivityList)
+                    };
+                    break;
+                case UserMentionNotifierDataModel model:
+                    tokens = new[]
+                    {
+                        (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
+                        (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
+                        (FullName, _intranetUserService.Get(model.ReceiverId).DisplayedName),
+                        (TaggedBy, _intranetUserService.Get(model.NotifierId).DisplayedName)
                     };
                     break;
                 default:

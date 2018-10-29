@@ -1,6 +1,6 @@
 ﻿@using System.Web.Mvc.Html
-@using Compent.Extensions
 @using Uintra.Core.Extensions
+@using Compent.Extensions
 @model Compent.Uintra.Core.Events.EventExtendedViewModel
 
 <section class="content">
@@ -21,7 +21,7 @@
                 {
                     <div class="event-details__date">
                         @Model.StartDate.ToEventDetailsDateFormat()<br />
-                        @Model.StartDate.ToEventDetailsTimeFormat().ToLower() - @Model.EndDate.ToEventDetailsTimeFormat().ToLower()
+                        @Model.StartDate.ToTimeFormat() - @Model.EndDate.ToTimeFormat()<br />
                     </div>
                 }
                 else

@@ -105,8 +105,8 @@
     <Reference Include="businesslogic, Version=1.0.6684.15729, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.10.4\lib\net45\businesslogic.dll</HintPath>
     </Reference>
-    <Reference Include="ClientDependency.Core, Version=1.9.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ClientDependency.1.9.6\lib\net45\ClientDependency.Core.dll</HintPath>
+    <Reference Include="ClientDependency.Core, Version=1.9.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ClientDependency.1.9.7\lib\net45\ClientDependency.Core.dll</HintPath>
     </Reference>
     <Reference Include="ClientDependency.Core.Mvc, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ClientDependency-Mvc5.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
@@ -114,14 +114,14 @@
     <Reference Include="cms, Version=1.0.6684.15730, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.10.4\lib\net45\cms.dll</HintPath>
     </Reference>
+    <Reference Include="Compent.CommandBus, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.CommandBus.1.2.1\lib\net471\Compent.CommandBus.dll</HintPath>
+    </Reference>
     <Reference Include="Compent.Extensions, Version=0.3.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Extensions.0.3.4\lib\net471\Compent.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="controls, Version=1.0.6684.15731, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.10.4\lib\net45\controls.dll</HintPath>
-    </Reference>
-    <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
     <Reference Include="Examine, Version=0.1.89.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Examine.0.1.89\lib\net45\Examine.dll</HintPath>
@@ -141,6 +141,9 @@
     </Reference>
     <Reference Include="interfaces, Version=1.0.6684.15718, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.10.4\lib\net45\interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="LanguageExt.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LanguageExt.Core.3.0.28\lib\net45\LanguageExt.Core.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.10.4\lib\net45\log4net.dll</HintPath>
@@ -249,9 +252,8 @@
       <HintPath>..\..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.ValueTuple">
-      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\net47\System.ValueTuple.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -279,7 +281,6 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -310,15 +311,23 @@
     <Reference Include="UmbracoExamine, Version=0.7.0.15730, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.10.4\lib\net45\UmbracoExamine.dll</HintPath>
     </Reference>
-    <Reference Include="UrlRewritingNet.UrlRewriter, Version=2.0.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UrlRewritingNet.2.0.7\lib\UrlRewritingNet.UrlRewriter.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Attributes\UIColumnAttribute.cs" />
     <Compile Include="Core\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
+    <Compile Include="Core\Helpers\ReflectionHelper.cs" />
+    <Compile Include="Core\Commands\MentionCommand.cs" />
     <Compile Include="Core\ICachableUserService.cs" />
     <Compile Include="Core\IMemberServiceHelper.cs" />
+    <Compile Include="Core\IMentionService.cs" />
+    <Compile Include="Core\Models\UserList\DetailsPopupModel.cs" />
+    <Compile Include="Core\Models\UserList\ProfileColumnModel.cs" />
+    <Compile Include="Core\Models\UserList\ColumnType.cs" />
+    <Compile Include="Core\Models\UserList\UserListModel.cs" />
+    <Compile Include="Core\Models\UserList\UsersRowsViewModel.cs" />
+    <Compile Include="Core\Models\UserList\UserModel.cs" />
     <Compile Include="Core\Models\UserPickerModel.cs" />
+    <Compile Include="Core\Models\MentionModel.cs" />
     <Compile Include="DefaultImplementation\IntranetUserServiceBase.cs" />
     <Compile Include="Core\IRoleService.cs" />
     <Compile Include="Core\Models\LoginModelBase.cs" />
@@ -326,13 +335,18 @@
     <Compile Include="Core\Models\ProfileEditModel.cs" />
     <Compile Include="Core\Models\ProfileViewModel.cs" />
     <Compile Include="DefaultImplementation\MemberEventService.cs" />
+    <Compile Include="DefaultImplementation\MentionService.cs" />
     <Compile Include="DefaultImplementation\RoleServiceBase.cs" />
     <Compile Include="Web\LoginControllerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Web\MemberApiControllerBase.cs" />
+    <Compile Include="Web\MentionControllerBase.cs" />
+    <Compile Include="Core\Models\MentionUserModel.cs" />
     <Compile Include="Web\ProfileControllerBase.cs" />
     <Compile Include="Web\UserApiController.cs" />
+    <Compile Include="Web\UserListControllerBase.cs" />
+    <Compile Include="Core\Models\UserList\UserListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uIntra.Core\Uintra.Core.csproj">

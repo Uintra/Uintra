@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Uintra.Core
@@ -17,6 +18,15 @@ namespace Uintra.Core
             }
 
             return result.TrimEnd('/');
+        }
+
+        public static string GetDescendantsXpath(IEnumerable<string> xPath)
+        {
+            if (!xPath.Any())
+                return "root/";
+            var last = xPath.Last();
+            var tempArray = xPath.Take(xPath.Count() - 1);
+            return GetXpath(tempArray) + "//" + last;
         }
     }
 }

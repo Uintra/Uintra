@@ -16,7 +16,6 @@ using Uintra.Core.Media;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions.Web;
-using Umbraco.Web.Mvc;
 
 namespace Uintra.News.Web
 {

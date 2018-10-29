@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Reflection;
 using Uintra.Comments;
@@ -74,6 +76,9 @@ namespace Compent.Uintra.Persistence.Sql
             }
 
             base.OnModelCreating(modelBuilder);
+
+            var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
+            modelBuilder.Conventions.Add(convention);
         }
     }
 }

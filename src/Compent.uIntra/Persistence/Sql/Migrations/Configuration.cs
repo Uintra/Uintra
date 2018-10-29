@@ -6,6 +6,7 @@ namespace Compent.Uintra.Persistence.Sql.Migrations
     {
         public Configuration()
         {
+            SetSqlGenerator("System.Data.SqlClient", new DefaultValueSqlServerMigrationSqlGenerator());
             AutomaticMigrationsEnabled = false;
             MigrationsDirectory = @"Persistence\Sql\Migrations";
         }
