@@ -62,7 +62,7 @@ namespace Uintra.Core.Context
 
             foreach (var property in properties)
             {
-                dict.Add(property.Name, property.GetValue(obj));
+                dict.Add(property.Name.Replace('_', '-'), property.GetValue(obj));
             }
             return dict;
         }

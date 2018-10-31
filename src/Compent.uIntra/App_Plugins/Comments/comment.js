@@ -369,7 +369,7 @@ var initDelete = function (holder) {
     deleteLink.on('click', function () {
         return confirm($(this).data('text'));
     });
-}
+};
 
 function scrollToComment(el) {
     var comment = el.closest('.comments__list-body').find('.js-comment-reply');
@@ -411,7 +411,7 @@ var CommentOverview = function (selector) {
     holders.each(function () {
         var $this = $(this);
         initCreateControl($this);
-        initSubmitButton($this)
+        initSubmitButton($this);
         $this.find('.js-comment-view').each(function () {
             new Comment(this);
         });
