@@ -31,7 +31,8 @@ namespace Uintra.CentralFeed
                 cookie = new HttpCookie(CentralFeedFiltersStateCookieName)
                 {
                     Expires = DateTime.Now.AddDays(7),
-                    Value = GetDefaultCentralFeedFiltersState().ToJson()
+                    Value = GetDefaultCentralFeedFiltersState().ToJson(),
+                    HttpOnly = true
                 };
                 _cookieProvider.Save(cookie);
             }
