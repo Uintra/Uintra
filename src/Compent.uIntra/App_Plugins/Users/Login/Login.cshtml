@@ -27,7 +27,8 @@
                 </div>
                 <div class="form__row">
                     @Html.PasswordFor(m => Model.Password, new { data_val_required = Html.Localize("Login.Password.Required"),
-                   @class = "form__input", placeholder = Html.Localize("Login.Password.ph"), value = Model.Password })
+                   @class = "form__input", placeholder = Html.Localize("Login.Password.ph"),
+                   autocomplete = "off", value = Model.Password })
                 </div>
                 <div class="form__row">
                     <input class="btn _submit" type="submit" value="@Html.Localize("Login.Login.btn")" />
