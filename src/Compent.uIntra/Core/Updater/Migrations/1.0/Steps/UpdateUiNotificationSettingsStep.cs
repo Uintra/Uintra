@@ -4,7 +4,7 @@ using Uintra.Notification;
 using Uintra.Notification.Configuration;
 using Uintra.Notification.Constants;
 
-namespace Compent.Uintra.Core.Updater.Migrations._0._6.Steps
+namespace Compent.Uintra.Core.Updater.Migrations._1._0.Steps
 {
     public class UpdateUiNotificationSettingsStep : IMigrationStep
     {
