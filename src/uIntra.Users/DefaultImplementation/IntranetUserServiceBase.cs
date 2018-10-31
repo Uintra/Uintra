@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.Extensions;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
 using Uintra.Core.User;
+using Uintra.Core.User.DTO;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -82,7 +84,7 @@ namespace Uintra.Users
             var umbracoUser = _umbracoContext.Security.CurrentUser;
             if (umbracoUser != null) return Get(umbracoUser.Id);
 
-            return default(T);
+            return default;
         }
 
         public virtual IEnumerable<T> GetByRole(int role)
@@ -91,7 +93,7 @@ namespace Uintra.Users
             return users;
         }
 
-        public virtual void Save(IntranetUserDTO user)
+        public virtual void Update(UpdateUserDto user)
         {
             var member = _memberService.GetByKey(user.Id);
             member.SetValue(ProfileConstants.FirstName, user.FirstName);
@@ -112,10 +114,51 @@ namespace Uintra.Users
             UpdateUserCache(user.Id);
         }
 
+        public Guid Create(CreateUserDto dto)
+        {
+            var member = _memberService.CreateMember(dto.Email, dto.Email, dto.FullName, "Member");
+            member.SetValue(ProfileConstants.FirstName, dto.FirstName);
+            member.SetValue(ProfileConstants.LastName, dto.LastName);
+
+            _memberService.Save(member, false);
+
+            if (System.Web.Security.Roles.RoleExists(dto.Role.ToString()))
+            {
+                System.Web.Security.Roles.AddUserToRole(member.Username, dto.Role.ToString());
+            }
+
+            UpdateUserCache(member.Key);
+
+            return member.Key;
+        }
+
+        public ReadUserDto Read(Guid id)
+        {
+            var member = _memberService.GetByKey(id);
+            var dto = new ReadUserDto
+            {
+                LastName = member.GetValue<string>(ProfileConstants.FirstName),
+                FirstName = member.GetValue<string>(ProfileConstants.LastName),
+                Email = member.Email,
+                Role = System.Web.Security.Roles.GetRolesForUser(member.Username)
+                    .First()
+                    .Pipe(s => (IntranetRolesEnum) Enum.Parse(typeof(IntranetRolesEnum), s))
+            };
+
+            return dto;
+        }
+
+        public void Delete(Guid id)
+        {
+            var member = _memberService.GetByKey(id);
+            _memberService.Delete(member);
+            DeleteFromCache(member.Key);
+        }
+
         protected virtual T GetFromSql(Guid id)
         {
             var member = _memberService.GetByKey(id);
-            return member != null ? Map(member) : default(T);
+            return member != null ? Map(member) : default;
         }
 
         protected virtual IEnumerable<T> GetAllFromSql()

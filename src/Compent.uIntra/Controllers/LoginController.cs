@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Security;
 using Compent.Extensions;
+using Compent.uIntra.Core.Login.Models;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Localization.Umbraco.Attributes;
 using Uintra.Core;
@@ -44,6 +45,31 @@ namespace Compent.Uintra.Controllers
             _memberServiceHelper = memberServiceHelper;
             _memberService = memberService;
             _cacheableIntranetUserService = cacheableIntranetUserService;
+        }
+
+        [HttpPost]
+        public JsonResult GoogleLogin(string firstName, string lastName, string email, string image, int clientTimezoneOffset)
+        {
+            var member = _memberService.GetByEmail(email);
+
+            if (member != null)
+            {
+                FormsAuthentication.SetAuthCookie(member.Username, true);
+                _timezoneOffsetProvider.SetTimezoneOffset(clientTimezoneOffset);
+
+                return Json(new GoogleAuthResultModel
+                {
+                    Url = DefaultRedirectUrl,
+                    Success = true
+                });
+            }
+
+            return Json(new GoogleAuthResultModel
+            {
+                Url = DefaultRedirectUrl,
+                Success = false
+            });
+
         }
 
         [HttpPost]

@@ -9,8 +9,11 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-signin-client_id" content="239301901459-jjcpn8mvoq4g3i283q4ihnje6ht4s9s6.apps.googleusercontent.com">
     <link type="text/css" href="/build/app.css" rel="stylesheet" />
     <link type="text/css" href="/build/head_css.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
 @using (Html.BeginUmbracoForm("Login", "Login"))
@@ -37,9 +40,39 @@
                 @Html.ValidationSummary()
             </div>
             <input type="hidden" name="clientTimezoneOffset" class="clientTimezoneOffset" value="" />
+            <div>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
         </div>
     </div>
     <script src="~/App_Plugins/Core/Content/scripts/TimezoneOffsetSetter.js"></script>
 }
+    <script>
+    function onSignIn(googleUser) {
+        var currentDate = new Date();
+        var timezoneOffset = currentDate.getTimezoneOffset();
+        var profile = googleUser.getBasicProfile();
+
+        $.ajax({
+            url: 'http://uintra.local.compent.dk/login/GoogleLogin/',
+            type: 'POST',
+            data: {
+                firstName: profile.getGivenName(),
+                lastName: profile.getFamilyName(),
+                email: profile.getEmail(),
+                image: profile.getImageUrl(),
+                clientTimezoneOffset: timezoneOffset
+            },
+            success: function (response) {
+                if (response.Success) {
+                    window.location.href = response.Url;
+                } else {
+                    var auth2 = gapi.auth2.getAuthInstance();
+                    auth2.disconnect();
+                }
+            }
+        });
+    }
+    </script>
 </body>
 </html>

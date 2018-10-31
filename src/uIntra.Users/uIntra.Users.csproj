@@ -342,6 +342,7 @@
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Web\MemberApiControllerBase.cs" />
     <Compile Include="Web\MentionControllerBase.cs" />
+    <Compile Include="Web\MemberManagementApiControllerBase.cs" />
     <Compile Include="Core\Models\MentionUserModel.cs" />
     <Compile Include="Web\ProfileControllerBase.cs" />
     <Compile Include="Web\UserApiController.cs" />

@@ -388,6 +388,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Activity\ICacheableIntranetActivityService.cs" />
+    <Compile Include="Core\Attributes\ApiAuthorizationFilterAttribute.cs" />
     <Compile Include="Core\Context\Attributes.cs" />
     <Compile Include="Core\Context\ContextBuildType.cs" />
     <Compile Include="Core\Context\Extensions\PropertyReflectionHelper.cs" />
@@ -396,6 +397,11 @@
     <Compile Include="Core\Media\IVideoConverterLogService.cs" />
     <Compile Include="Core\Media\MediaConvertModel.cs" />
     <Compile Include="Core\Media\VideoConvertationLog.cs" />
+    <Compile Include="Core\User\DTO\CreateUserDto.cs" />
+    <Compile Include="Core\User\DTO\ReadUserDto.cs" />
+    <Compile Include="Core\Sync\ISyncService.cs" />
+    <Compile Include="Core\Sync\ISyncSettings.cs" />
+    <Compile Include="Core\User\DTO\UpdateUserDto.cs" />
     <Compile Include="Core\Media\VideoConvertedCommand.cs" />
     <Compile Include="Core\Media\VideoConverter.cs" />
     <Compile Include="Core\Media\VideoConverterLogService.cs" />
@@ -526,7 +532,6 @@
     <Compile Include="Core\Activity\Models\IntranetActivityOwnerEditModel.cs" />
     <Compile Include="Core\User\IHaveOwner.cs" />
     <Compile Include="Core\User\IIntranetUserContentProvider.cs" />
-    <Compile Include="Core\User\IntranetUserDTO.cs" />
     <Compile Include="Core\User\IRole.cs" />
     <Compile Include="Core\User\Models\UserPhotoViewModel.cs" />
     <Compile Include="Core\User\Permissions\PermissionConstants.cs" />

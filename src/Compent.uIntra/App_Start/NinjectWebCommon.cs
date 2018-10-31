@@ -199,7 +199,6 @@ namespace Compent.Uintra
                 .SelectAllClasses()
                 .InheritedFrom(typeof(IMigration))
                 .BindSingleInterface());
-
             kernel.Bind<IMigrationStepsResolver>().To<MigrationStepsResolver>().InRequestScope();
 
             //verification
@@ -458,6 +457,7 @@ namespace Compent.Uintra
 
             //table
             kernel.Bind<ITablePanelPresentationBuilder>().To<TablePanelPresentationBuilder>().InRequestScope();
+
             kernel.Bind<ITableCellBuilder>().To<TableCellBuilder>().InRequestScope();
         }
 

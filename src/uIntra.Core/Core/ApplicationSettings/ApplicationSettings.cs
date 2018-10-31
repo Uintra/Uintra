@@ -11,6 +11,7 @@ namespace Uintra.Core.ApplicationSettings
         private const string MonthlyEmailJobDayKey = "MonthlyEmailJobDay";
         private const string VideoFileTypesKey = "VideoFileTypes";
         private const string QaKeyKey = "QaKey";
+        private const string MemberApiAuthentificationEmailKey = "MemberApiAuthentificationEmail";
 
         public string DefaultAvatarPath => ConfigurationManager.AppSettings[DefaultAvatarPathKey];
 
@@ -21,5 +22,7 @@ namespace Uintra.Core.ApplicationSettings
         public Guid QaKey => Guid.Parse(ConfigurationManager.AppSettings[QaKeyKey]);
 
         public int MonthlyEmailJobDay => Convert.ToInt32(ConfigurationManager.AppSettings[MonthlyEmailJobDayKey]);
+
+        public string MemberApiAuthentificationEmail => ConfigurationManager.AppSettings[MemberApiAuthentificationEmailKey];
     }
 }
