@@ -401,6 +401,8 @@
     <Compile Include="Core\Models\Configuration\NotifierSettingSaveModel.cs" />
     <Compile Include="Core\Models\Configuration\NotifierSettingsModel.cs" />
     <Compile Include="Core\Models\INotificationMessage.cs" />
+    <Compile Include="Core\Models\Json\JsonNotification.cs" />
+    <Compile Include="Core\Models\Json\JsonNotificationsModel.cs" />
     <Compile Include="Core\Models\MailModels\ActivityLikeAddedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\BeforeStartMailBase.cs" />
     <Compile Include="Core\Models\MailModels\CommentAddedMailBase.cs" />
@@ -453,6 +455,7 @@
     <Compile Include="DefaultImplementation\ReminderService.cs" />
     <Compile Include="DefaultImplementation\UiNotificationsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\DesktopNotificationController.cs" />
     <Compile Include="Web\MemberNotifierSettingsControllerBase.cs" />
     <Compile Include="Web\NotificationControllerBase.cs" />
     <Compile Include="Web\NotificationJobControllerBase.cs" />

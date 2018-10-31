@@ -5,6 +5,8 @@
             <label class="error-label" data-ng-show="isTextRequiredButEmpty()">{{config.requiredValidationMessage ? config.requiredValidationMessage : 'Field is required'}}</label>
             <label class="error-label" data-ng-show="isTextLengthNotValid">{{config.maxLengthValidationMessage ? config.maxLengthValidationMessage : 'Allowed size has been exceeded'}}</label>
         </div>
-        <span data-ng-if="!isEditableMode()">{{config.value}}</span>
+        <div data-ng-hide="isEditableMode()" class="rte">
+            <div data-ng-bind-html="config.displayValue"></div>
+        </div>
     </edit-control>
 </div>

@@ -1421,6 +1421,8 @@
     <Compile Include="Core\Updater\Migrations\0.5\Steps\AddTranslationsStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.5\Steps\DisableMemberNotificationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.5\Steps\UserListStep.cs" />
+    <Compile Include="Core\Updater\Migrations\0.6\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\0.6\Steps\UpdateUiNotificationSettingsStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
