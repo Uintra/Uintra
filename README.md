@@ -104,8 +104,8 @@ Using the Internet Information Services (IIS) Manager, we are going to add the n
       In the “Database type” dropdown choose Microsoft SQL Server: ![ScreenShot](Img/installation/27.png)
 
       Fill in all the fields. Ensure that the "Server name" and "Database name" is identical with the labels in the MSSQL Server 
-      database. Use the credentials for the new user that was created earlier and press "Continue": ![ScreenShot] 
-      (Img/installation/28.png)
+      database. Use the credentials for the new user that was created earlier and press "Continue": 
+      ![ScreenShot](Img/installation/28.png)
 
       Press "Continue": ![ScreenShot](Img/installation/29.png)
 
