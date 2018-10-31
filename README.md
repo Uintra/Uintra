@@ -34,9 +34,7 @@ That is it for the prerequisites now we need to setup the server.
 ## 2. Setting up the database server
 
 Using MSSQL Server Management Studio(in administrator mode) we will set up the database(DB) server:
-1.	Open your DB server
-
-
+1.	Open your DB server                           
    ![ScreenShot](Img/installation/3.png)
 
    And add a new user for the login to the DB: ![ScreenShot](Img/installation/4.png)
