@@ -111,8 +111,8 @@ Using the Internet Information Services (IIS) Manager, we are going to add the n
 
       Press the "No thanks, I do not want ...": ![ScreenShot](Img/installation/30.png)
 
-      Wait while Umbraco is installed and when it is done you should see the welcoming message: ![ScreenShot](Img/installation
-      /31.png)
+      Wait while Umbraco is installed and when it is done you should see the welcoming message: 
+      ![ScreenShot](Img/installation/31.png)
 
 Now Umbraco is installed.
 
