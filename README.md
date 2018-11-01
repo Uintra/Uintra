@@ -9,6 +9,8 @@ We are trying to create a flexible and robust social framework. We think the bes
 ## Getting started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+Note: Currently Uintra will not function properly out of the box as a Web application, if you wish guidance to use Uintra as a web application, please contact us.
+
 ## 1. Prerequisites
 Before installing Uintra you will have to make certain preparations.
 
