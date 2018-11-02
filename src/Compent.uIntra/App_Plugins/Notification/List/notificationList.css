@@ -163,7 +163,6 @@
 
             @media (--for-tablet-portrait-down){
                 border:none;
-                background:#f6f6f6;
                 max-height:none;
                 overflow:visible;
             }
