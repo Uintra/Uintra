@@ -86,7 +86,8 @@ namespace Compent.Uintra.Core.Notification
                     {
                         (ActivityTitle, model.Title),
                         (FullName, _intranetUserService.Get(model.ReceiverId).DisplayedName),
-                        (TaggedBy, _intranetUserService.Get(model.NotifierId).DisplayedName)
+                        (TaggedBy, _intranetUserService.Get(model.NotifierId).DisplayedName),
+                        (NotificationType, model.NotificationType.ToString().SplitOnUpperCaseLetters())
                     };
                     break;
                 default:

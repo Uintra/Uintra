@@ -91,5 +91,12 @@ namespace Uintra.Notification
                 el.ReceiverId == receiverId &&
                 el.NotifierType == uiNotifierTypeId);
         }
+
+        public void SetNotificationAsNotified(Guid id)
+        {
+            var notification = _notificationRepository.Get(id);
+            notification.IsNotified = true;
+            _notificationRepository.Update(notification);
+        }
     }
 }

@@ -101,7 +101,7 @@ function updateNotifications() {
                         pushedNotificationsCount++;
                     }
                 }
-                updateCounter(response.data.count - temp);
+                updateCounter(response.data.count - pushedNotificationsCount);
             }
         });
 }
@@ -127,6 +127,7 @@ function getPermissions() {
 }
 
 function sentNotification(notification) {
+    ajax.post("/umbraco/api/DesktopNotification/Notified?id=" + notification.id);
     push.create(notification.desktopTitle, {
         body: notification.desktopMessage,
         icon: notification.notifierPhoto,
@@ -135,7 +136,7 @@ function sentNotification(notification) {
         onClick: function () {
             var pushWindow = this;
             var url = "/umbraco/api/DesktopNotification/Viewed?id=" + notification.id;
-            ajax.post(url).then(result => {
+            ajax.post(url).then(function(result) {
                 var destUrl = window.location.origin + notification.url;
                 window.focus();
                 window.location.assign(destUrl);

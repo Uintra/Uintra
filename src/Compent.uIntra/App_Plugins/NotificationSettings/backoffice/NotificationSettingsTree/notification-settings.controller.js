@@ -17,41 +17,41 @@
 
         self.isEmailTabSelected = function () {
             return selectedNotifierType === notifierType.email;
-        }
+        };
 
         self.isUiTabSelected = function () {
             return selectedNotifierType === notifierType.ui;
-        }
+        };
 
         self.isPopupTabSelected = function () {
             return selectedNotifierType === notifierType.popup;
-        }
+        };
 
         self.selectEmailTab = function () {
             selectedNotifierType = notifierType.email;
             self.selectedNotifierSettings = self.settings.emailNotifierSetting;
-        }
+        };
 
         self.selectPopupTab = function () {
             if (!self.settings.emailNotifierSetting && !self.settings.uiNotifierSetting) {
                 selectedNotifierType = notifierType.popup;
                 self.selectedNotifierSettings = self.settings.popupNotifierSetting;
             }
-        }
+        };
 
         self.selectUiTab = function () {
             selectedNotifierType = notifierType.ui;
             self.selectedNotifierSettings = self.settings.uiNotifierSetting;
-        }
+        };
 
         self.save = function () {
             saveSettings(self.settings);
-        }
+        };
 
         self.splitOnUpperCaseCharacters = function (text) {
             if (!text || text.length === 0) return '';
             return text.split(/(?=[A-Z])/).join(' ');
-        }
+        };
 
         function initalize() {
             initLocationChangeStartEvent();
@@ -90,7 +90,7 @@
                 }
             });
             return params;
-        };
+        }
 
         function getCurrentUrlParams() {
             var params = $location.search();
@@ -114,7 +114,6 @@
                 return;
             }
             if (self.isUiTabSelected()) {
-                console.log(settings.uiNotifierSetting);
                 notificationSettingsService.seveUiSettings(settings.uiNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
                 return;
             }
@@ -263,7 +262,7 @@
         }
 
         initalize();
-    }
+    };
 
     controller.$inject = ['$rootScope', '$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsService', 'notificationSettingsConfig', 'navigationService'];
 

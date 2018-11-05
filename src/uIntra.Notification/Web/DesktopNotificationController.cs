@@ -33,8 +33,9 @@ namespace Uintra.Notification.Web
 
             var notNotifiedNotifications = _uiNotifierService.GetNotNotifiedNotifications(userId);
             var count = notNotifiedNotifications.Count();
-            if (count > 0)
-                _uiNotifierService.Notify(notNotifiedNotifications);
+            //if
+            //if (count > 0)
+            //    _uiNotifierService.Notify(notNotifiedNotifications);
 
             var model = new JsonNotificationsModel()
             {
@@ -48,6 +49,13 @@ namespace Uintra.Notification.Web
         public IHttpActionResult Viewed(Guid id)
         {
             _uiNotifierService.ViewNotification(id);
+            return Ok();
+        }
+
+        [HttpPost]
+        public IHttpActionResult Notified(Guid id)
+        {
+            _uiNotifierService.SetNotificationAsNotified(id);
             return Ok();
         }
 
