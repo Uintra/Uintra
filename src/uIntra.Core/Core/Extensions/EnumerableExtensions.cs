@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using LanguageExt;
 
 namespace Uintra.Core.Extensions
 {
@@ -26,5 +28,9 @@ namespace Uintra.Core.Extensions
                 }
             }
         }
+
+        public static Option<T> Choose<T>(this Option<T> source, Option<T> other) => source.IsSome ? source : other;
+
+        public static Option<T> Choose<T>(this Option<T> source, Func<Option<T>> other) => source.IsSome ? source : other();
     }
 }

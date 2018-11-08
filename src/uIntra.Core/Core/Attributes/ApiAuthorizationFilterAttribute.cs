@@ -5,8 +5,13 @@ using System.Text;
 using System.Web.Http.Filters;
 using System.Web.Mvc;
 using System.Web.Security;
+using LanguageExt;
 using Uintra.Core.ApplicationSettings;
+using Uintra.Core.User;
+using Umbraco.Core.Models;
 using Umbraco.Core.Services;
+using Uintra.Core.Extensions;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Core.Attributes
 {
@@ -14,9 +19,11 @@ namespace Uintra.Core.Attributes
     {
         private readonly IMemberService _memberService;
         private readonly IApplicationSettings _applicationSettings;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         public ApiAuthorizationFilterAttribute()
         {
+            _intranetUserService = DependencyResolver.Current.GetService<IIntranetUserService<IIntranetUser>>();
             _applicationSettings = DependencyResolver.Current.GetService<IApplicationSettings>();
             _memberService = DependencyResolver.Current.GetService<IMemberService>();
         }
@@ -47,9 +54,17 @@ namespace Uintra.Core.Attributes
 
         private bool IsCredentialsValid(string mail, string password)
         {
-            if (_applicationSettings.MemberApiAuthentificationEmail != mail) return false;
-            var member = _memberService.GetByEmail(mail);
-            return Membership.ValidateUser(member.Username, password);
+            var relatedUserWithWebMasterRole = Optional(_intranetUserService.GetByEmail(mail))
+                .Filter(member => member.Role.Name == IntranetRolesEnum.WebMaster.ToString())
+                .Bind(member => member.UmbracoId.ToOption())
+                .Map(id => _memberService.GetById(id));
+
+            Option<IMember> GetUserWithMatchingEmail () => Optional(_memberService.GetByEmail(mail));
+
+            return EnumerableExtensions
+                .Choose(relatedUserWithWebMasterRole, GetUserWithMatchingEmail)
+                .Map(user => Membership.ValidateUser(user.Username, password))
+                .IfNone(() => false);
         }
     }
 }
