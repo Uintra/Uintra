@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
 using Compent.Extensions;
 using Compent.uIntra.Core.Login.Models;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Google.Apis.Auth;
 using Localization.Umbraco.Attributes;
 using Uintra.Core;
+using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Localization;
 using Uintra.Notification;
 using Uintra.Notification.Base;
@@ -36,8 +39,9 @@ namespace Compent.Uintra.Controllers
             INotificationsService notificationsService,
             IMemberServiceHelper memberServiceHelper,
             IMemberService memberService,
-            ICacheableIntranetUserService cacheableIntranetUserService)
-            : base(timezoneOffsetProvider, intranetLocalizationService)
+            ICacheableIntranetUserService cacheableIntranetUserService,
+            IApplicationSettings applicationSettings)
+            : base(timezoneOffsetProvider, intranetLocalizationService, applicationSettings)
         {
             _timezoneOffsetProvider = timezoneOffsetProvider;
             _intranetLocalizationService = intranetLocalizationService;
@@ -48,28 +52,28 @@ namespace Compent.Uintra.Controllers
         }
 
         [HttpPost]
-        public JsonResult GoogleLogin(string firstName, string lastName, string email, string image, int clientTimezoneOffset)
+        public async Task<JsonResult> IdTokenVerification(string idToken, int clientTimezoneOffset)
         {
-            var member = _memberService.GetByEmail(email);
-
-            if (member != null)
-            {
-                FormsAuthentication.SetAuthCookie(member.Username, true);
-                _timezoneOffsetProvider.SetTimezoneOffset(clientTimezoneOffset);
-
-                return Json(new GoogleAuthResultModel
+            var payload = await GoogleJsonWebSignature.ValidateAsync(idToken,
+                new GoogleJsonWebSignature.ValidationSettings()
                 {
-                    Url = DefaultRedirectUrl,
-                    Success = true
+                    IssuedAtClockTolerance = TimeSpan.FromDays(1) // for cases when server's time different from UTC time (google time).
                 });
+            if (payload != null) {
+                var member = _memberService.GetByEmail(payload.Email);
+                if (member != null)
+                {
+                    FormsAuthentication.SetAuthCookie(member.Username, true);
+                    _timezoneOffsetProvider.SetTimezoneOffset(clientTimezoneOffset);
+
+                    return Json(new GoogleAuthResultModel()
+                    {
+                        Url = DefaultRedirectUrl,
+                        Success = true
+                    });
+                }
             }
-
-            return Json(new GoogleAuthResultModel
-            {
-                Url = DefaultRedirectUrl,
-                Success = false
-            });
-
+            return Json(new GoogleAuthResultModel());
         }
 
         [HttpPost]

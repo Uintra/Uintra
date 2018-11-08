@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Net;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -12,6 +12,7 @@ using Google.Apis.Services;
 using Uintra.Core.Extensions;
 using Uintra.Core.User;
 using Uintra.Core.User.DTO;
+using Umbraco.Web.Mvc;
 
 namespace Compent.Uintra.Controllers.Api
 {
@@ -19,6 +20,8 @@ namespace Compent.Uintra.Controllers.Api
     public class SyncController : Controller
     {
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly string _googleAuthWindowViewPath = "~/App_Plugins/Users/backoffice/GoogleAuthWindow.cshtml";
+        private readonly string _tempDataKey = "SettingsModel";
 
         public SyncController(IIntranetUserService<IIntranetUser> intranetUserService)
         {
@@ -28,56 +31,74 @@ namespace Compent.Uintra.Controllers.Api
         [System.Web.Mvc.HttpGet]
         public ActionResult Users()
         {
-            var settingsModel = TempData["SettingsModel"] as GmailSyncSettingsModel;
+            var settingsModel = TempData[_tempDataKey] as GoogleSyncSettingsModel;
 
-            var result = new AuthorizationCodeMvcApp(this, new AppFlowMetadata(settingsModel?.ClientId, settingsModel?.ClientSecret, settingsModel?.User)).AuthorizeAsync(new CancellationToken());
+            var auth = new AuthorizationCodeMvcApp(this, new AppFlowMetadata(settingsModel.ClientId, settingsModel.ClientSecret, settingsModel.User)).AuthorizeAsync(new CancellationToken());
 
-            if (result.Result.Credential != null)
+            if (auth.Result.Credential != null)
             {
-                SaveUsers(settingsModel?.Domain, result.Result.Credential);
-
-                return new HttpStatusCodeResult(HttpStatusCode.OK);
+                SaveUsers(settingsModel?.Domain, auth.Result.Credential, out var e);
+                return View(_googleAuthWindowViewPath, e);
             }
-            return new RedirectResult(result.Result.RedirectUri);
+            return new RedirectResult(auth.Result.RedirectUri);
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult Users([FromBody]GmailSyncSettingsModel settingsModel)
+        public ActionResult Users([FromBody]GoogleSyncSettingsModel settingsModel)
         {
-            TempData["SettingsModel"] = settingsModel;
+            TempData[_tempDataKey] = settingsModel;
+            var result = new JsonNetResult();
 
-            var result = new AuthorizationCodeMvcApp(this, new AppFlowMetadata(settingsModel?.ClientId, settingsModel?.ClientSecret, settingsModel?.User)).AuthorizeAsync(new CancellationToken());
+            var auth = new AuthorizationCodeMvcApp(this, new AppFlowMetadata(settingsModel.ClientId, settingsModel.ClientSecret, settingsModel.User)).AuthorizeAsync(new CancellationToken());
 
-            if (result.Result.Credential != null)
+            if (auth.Result.Credential != null)
             {
-                SaveUsers(settingsModel?.Domain, result.Result.Credential);
+                SaveUsers(settingsModel.Domain, auth.Result.Credential, out var e);
 
-                return new HttpStatusCodeResult(HttpStatusCode.OK);
+                result.Data = new GoogleAuthResponse()
+                {
+                    Success = e == null,
+                    Message = e?.Message
+                };
             }
-
-            return new RedirectResult(result.Result.RedirectUri);
+            else
+                result.Data = new GoogleAuthResponse()
+                {
+                    Success = true,
+                    Url = auth.Result.RedirectUri
+                };
+            return result;
         }
 
-        private void SaveUsers(string domain, UserCredential userCredential)
+        private void SaveUsers(string domain, UserCredential userCredential,
+            out Exception exception)
         {
-            var service = new DirectoryService(new BaseClientService.Initializer
+            exception = null;
+            try
             {
-                HttpClientInitializer = userCredential,
-                ApplicationName = "Uintra"
-            });
-
-            var request = service.Users.List();
-            request.Domain = domain;
-            request.OrderBy = UsersResource.ListRequest.OrderByEnum.Email;            
-            var list = request.Execute();
-
-            if (list.UsersValue.Any())
-            {
-                foreach (var user in list.UsersValue)
+                var service = new DirectoryService(new BaseClientService.Initializer
                 {
-                    var createUserDto = user.Map<CreateUserDto>();
-                    _intranetUserService.Create(createUserDto); //todo: reimplement for batch create
+                    HttpClientInitializer = userCredential,
+                    ApplicationName = "Uintra"
+                });
+
+                var request = service.Users.List();
+                request.Domain = domain;
+                request.OrderBy = UsersResource.ListRequest.OrderByEnum.Email;
+                var list = request.Execute();
+
+                if (list.UsersValue.Any())
+                {
+                    foreach (var user in list.UsersValue)
+                    {
+                        var createUserDto = user.Map<CreateUserDto>();
+                        _intranetUserService.Create(createUserDto); //todo: reimplement for batch create
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                exception = e;
             }
         }
     }

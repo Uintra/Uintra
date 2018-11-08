@@ -416,6 +416,7 @@
     <Compile Include="Core\Services\IMyLinksService.cs" />
     <Compile Include="Core\Sql\MyLink.cs" />
     <Compile Include="DefaultImplementation\LeftNavigationUserMenuViewModel.cs" />
+    <Compile Include="DefaultImplementation\LogoutViewModel.cs" />
     <Compile Include="DefaultImplementation\MyLinkIconViewModel.cs" />
     <Compile Include="DefaultImplementation\SystemLinkItemViewModel.cs" />
     <Compile Include="DefaultImplementation\MyLinkItemViewModel.cs" />
