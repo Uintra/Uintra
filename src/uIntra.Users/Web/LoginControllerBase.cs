@@ -36,12 +36,7 @@ namespace Uintra.Users.Web
 
             var model = new LoginModelBase()
             {
-                GoogleSettings = new GoogleAuthenticationSettings()
-                {
-                    AuthenticationEnabled = _applicationSettings.GoogleOAuth.Enabled,
-                    ClientId = _applicationSettings.GoogleOAuth.ClientId,
-                    Domain = _applicationSettings.GoogleOAuth.Domain
-                } 
+                GoogleSettings = GetGoogleSettings()
             };
             return View(LoginViewPath, model);
         }
@@ -49,6 +44,7 @@ namespace Uintra.Users.Web
         [HttpPost]
         public virtual ActionResult Login(LoginModelBase model)
         {
+            model.GoogleSettings = GetGoogleSettings();
             if (!ModelState.IsValid)
             {
                 return View(LoginViewPath, model);
@@ -73,6 +69,16 @@ namespace Uintra.Users.Web
         public virtual void Logout()
         {
             Members.Logout();
+        }
+
+        protected virtual GoogleAuthenticationSettings GetGoogleSettings()
+        {
+            return new GoogleAuthenticationSettings()
+            {
+                AuthenticationEnabled = _applicationSettings.GoogleOAuth.Enabled,
+                ClientId = _applicationSettings.GoogleOAuth.ClientId,
+                Domain = _applicationSettings.GoogleOAuth.Domain
+            };
         }
     }
 }

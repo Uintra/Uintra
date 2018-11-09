@@ -79,6 +79,7 @@ namespace Compent.Uintra.Controllers
         [HttpPost]
         public override ActionResult Login(LoginModelBase model)
         {
+            model.GoogleSettings = GetGoogleSettings();
             if (!ModelState.IsValid)
             {
                 return View(LoginViewPath, model);
