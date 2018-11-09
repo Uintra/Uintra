@@ -1,6 +1,6 @@
 ﻿namespace Compent.Uintra.Core.Sync.Models
 {
-    public class GmailSyncSettingsModel
+    public class GoogleSyncSettingsModel
     {
         public string ClientId { get; set; }
 

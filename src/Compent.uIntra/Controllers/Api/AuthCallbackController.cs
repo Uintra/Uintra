@@ -3,15 +3,16 @@ using Compent.Uintra.Core.Sync.Models;
 
 namespace Compent.Uintra.Controllers.Api
 {
+    [System.Web.Mvc.AllowAnonymous]
     public class AuthCallbackController : Google.Apis.Auth.OAuth2.Mvc.Controllers.AuthCallbackController
     {
-        private GmailSyncSettingsModel _settingsModel;
+        private GoogleSyncSettingsModel _settingsModel;
        
         protected override Google.Apis.Auth.OAuth2.Mvc.FlowMetadata FlowData
         {
             get
             {
-                _settingsModel = (GmailSyncSettingsModel)TempData["SettingsModel"];
+                _settingsModel = (GoogleSyncSettingsModel)TempData["SettingsModel"];
                 return new AppFlowMetadata(_settingsModel.ClientId, _settingsModel.ClientSecret, _settingsModel.User);
             }
         }

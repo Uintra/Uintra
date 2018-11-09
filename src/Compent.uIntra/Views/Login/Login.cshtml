@@ -9,70 +9,121 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="google-signin-client_id" content="239301901459-jjcpn8mvoq4g3i283q4ihnje6ht4s9s6.apps.googleusercontent.com">
     <link type="text/css" href="/build/app.css" rel="stylesheet" />
     <link type="text/css" href="/build/head_css.css" rel="stylesheet" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    @if (Model.GoogleSettings.AuthenticationEnabled)
+    {
+        <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+    }
 </head>
 <body>
-@using (Html.BeginUmbracoForm("Login", "Login"))
-{
-    <div class="login">
-        <div class="form">
-            <div class="form__row">
-                <strong class="form__logo"><img src="~/App_Plugins/Users/Login/logo.png" width="130" /></strong>
-            </div>
-            <div class="form__row">
-                @Html.TextBoxFor(m => Model.Login, new { data_val_required = Html.Localize("Login.Login.Required"),
-               @class = "form__input", placeholder = Html.Localize("Login.Login.ph")
-           })
-            </div>
-            <div class="form__row">
-                @Html.PasswordFor(m => Model.Password, new { data_val_required = Html.Localize("Login.Password.Required"),
-                    @class = "form__input", placeholder = Html.Localize("Login.Password.ph"),
-                    autocomplete = "off", value = Model.Password })
-            </div>
-            <div class="form__row">
-                <input class="btn _submit" type="submit" value="@Html.Localize("Login.Login.btn")" />
-            </div>
-            <div class="form__row">
-                @Html.ValidationSummary()
-            </div>
-            <input type="hidden" name="clientTimezoneOffset" class="clientTimezoneOffset" value="" />
-            <div>
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    @using (Html.BeginUmbracoForm("Login", "Login"))
+    {
+        <div class="login">
+            <div class="form">
+                <div class="form__row">
+                    <strong class="form__logo"><img src="~/App_Plugins/Users/Login/logo.png" width="130" /></strong>
+                </div>
+                <div class="form__row">
+                    @Html.TextBoxFor(m => Model.Login, new { data_val_required = Html.Localize("Login.Login.Required"),
+                   @class = "form__input", placeholder = Html.Localize("Login.Login.ph") })
+                </div>
+                <div class="form__row">
+                    @Html.PasswordFor(m => Model.Password, new { data_val_required = Html.Localize("Login.Password.Required"),
+                        @class = "form__input", placeholder = Html.Localize("Login.Password.ph"),
+                        autocomplete = "off", value = Model.Password })
+                </div>
+                <div class="form__row">
+                    <input class="btn _submit" type="submit" value="@Html.Localize("Login.Login.btn")" />
+                </div>
+                <div class="form__row">
+                    @Html.ValidationSummary()
+                </div>
+                <input type="hidden" name="clientTimezoneOffset" class="clientTimezoneOffset" value="" />
+                <div id="container" class="form__row">
+                </div>
+                <div class="form__row" id="errorMessage">
+                </div>
             </div>
         </div>
-    </div>
-    <script src="~/App_Plugins/Core/Content/scripts/TimezoneOffsetSetter.js"></script>
-}
-    <script>
-    function onSignIn(googleUser) {
-        var currentDate = new Date();
-        var timezoneOffset = currentDate.getTimezoneOffset();
-        var profile = googleUser.getBasicProfile();
-
-        $.ajax({
-            url: 'http://uintra.local.compent.dk/login/GoogleLogin/',
-            type: 'POST',
-            data: {
-                firstName: profile.getGivenName(),
-                lastName: profile.getFamilyName(),
-                email: profile.getEmail(),
-                image: profile.getImageUrl(),
-                clientTimezoneOffset: timezoneOffset
-            },
-            success: function (response) {
-                if (response.Success) {
-                    window.location.href = response.Url;
-                } else {
-                    var auth2 = gapi.auth2.getAuthInstance();
-                    auth2.disconnect();
-                }
-            }
-        });
+        <script src="~/App_Plugins/Core/Content/scripts/TimezoneOffsetSetter.js"></script>
     }
-    </script>
+    @if (Model.GoogleSettings.AuthenticationEnabled)
+    {
+        <script>
+            var googleClientId = "@Model.GoogleSettings.ClientId";
+            var idTokenVerificationUrl = '@(this.Request.Url.GetLeftPart(UriPartial.Authority) + "/login/IdTokenVerification/")';
+            var domain = "@Model.GoogleSettings.Domain";
+            var errorContainer = $("#errorMessage");
+
+            function init() {
+                gapi.load("auth2", function () {
+                    var googleAuthObject = gapi.auth2.init({
+                        client_id: googleClientId,
+                        hosted_domain: domain,
+                        fetch_basic_profile: true
+                    });
+
+                    googleAuthObject.then(
+                        function (googleAuthObj) {
+                            gapi.signin2.render("container", {
+                                scope: 'email',
+                                width: 230,
+                                height: 40,
+                                longtitle: true,
+                                theme: 'dark',
+                                onsuccess: handleSuccess,
+                                onfailure: handleFailure,
+                                prompt: 'select_account'
+                                });
+                        },
+                        function (errorObject) {
+                            errorContainer.text("Google services are not available");
+                            console.log("Google initialization failed");
+                        });
+                });
+            }
+
+            function handleSuccess(googleUser) {
+                login(googleUser);
+            }
+
+            function handleFailure(obj) {
+                errorContainer.text("Google sign in failed!");
+                console.log(obj.error);
+            }
+
+            function login(googleUser) {
+                var timezoneOffset = new Date().getTimezoneOffset();
+                var auth2 = gapi.auth2.getAuthInstance();
+                if (!googleUser.hasGrantedScopes("email")) {
+                    errorContainer.text("The email scope was not provided!");
+                    auth2.disconnect();
+                    return;
+                }
+                $.ajax({
+                    url: idTokenVerificationUrl,
+                    type: 'POST',
+                    data: {
+                        idToken: googleUser.getAuthResponse().id_token,
+                        clientTimezoneOffset: timezoneOffset
+                    },
+                    success: function (response) {
+                        if (response.Success) {
+                            window.location.href = response.Url;
+                        } else {
+                            errorContainer.text("You don't have an account!");
+                            auth2.disconnect();
+                        }
+                    },
+                    error: function (jqXHR, textStatus) {
+                        console.log(jqXHR.statusText);
+                    },
+                    complete: function (jqXHR, textStatus) { }
+                });
+            }
+        </script>
+    }
 </body>
 </html>

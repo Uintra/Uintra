@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using Uintra.Core.ApplicationSettings.Models;
 
 namespace Uintra.Core.ApplicationSettings
 {
@@ -10,5 +11,6 @@ namespace Uintra.Core.ApplicationSettings
         IEnumerable<string> VideoFileTypes { get; }
         string MemberApiAuthentificationEmail { get; }
         Guid QaKey { get; }
+        GoogleOAuth GoogleOAuth { get; }
     }
 }

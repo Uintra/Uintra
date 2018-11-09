@@ -388,6 +388,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Core\Activity\ICacheableIntranetActivityService.cs" />
+    <Compile Include="Core\ApplicationSettings\Models\GoogleOAuth.cs" />
     <Compile Include="Core\Attributes\ApiAuthorizationFilterAttribute.cs" />
     <Compile Include="Core\Context\Attributes.cs" />
     <Compile Include="Core\Context\ContextBuildType.cs" />

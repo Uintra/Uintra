@@ -33,7 +33,8 @@
     }
   ],
   "javascript": [
-    "/App_Plugins/Users/UserList/backoffice/userListController.js"
+    "/App_Plugins/Users/UserList/backoffice/userListController.js",
+    "/App_Plugins/Users/backoffice/gsuite-gmail-sync.js"
   ],
   "css": [
   ]
