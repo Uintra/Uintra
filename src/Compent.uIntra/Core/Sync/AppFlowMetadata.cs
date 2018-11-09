@@ -21,7 +21,8 @@ namespace Compent.Uintra.Core.Sync
             _clientId = clientId;
             _clientSecret = clientSecret;
             _userId = userId;
-            _dataStorePath = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, @"App_Data\Sync");
+            _dataStorePath = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, 
+                Constants.DataStorePath);
         }
 
         public override string GetUserId(Controller controller)

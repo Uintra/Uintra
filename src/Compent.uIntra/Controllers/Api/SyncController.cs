@@ -20,8 +20,6 @@ namespace Compent.Uintra.Controllers.Api
     public class SyncController : Controller
     {
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        private readonly string _googleAuthWindowViewPath = "~/App_Plugins/Users/backoffice/GoogleAuthWindow.cshtml";
-        private readonly string _tempDataKey = "SettingsModel";
 
         public SyncController(IIntranetUserService<IIntranetUser> intranetUserService)
         {
@@ -31,14 +29,14 @@ namespace Compent.Uintra.Controllers.Api
         [System.Web.Mvc.HttpGet]
         public ActionResult Users()
         {
-            var settingsModel = TempData[_tempDataKey] as GoogleSyncSettingsModel;
+            var settingsModel = TempData[Constants.TempDataKey] as GoogleSyncSettingsModel;
 
             var auth = new AuthorizationCodeMvcApp(this, new AppFlowMetadata(settingsModel.ClientId, settingsModel.ClientSecret, settingsModel.User)).AuthorizeAsync(new CancellationToken());
 
             if (auth.Result.Credential != null)
             {
                 SaveUsers(settingsModel?.Domain, auth.Result.Credential, out var e);
-                return View(_googleAuthWindowViewPath, e);
+                return View(Constants.GoogleAuthWindowViewPath, e);
             }
             return new RedirectResult(auth.Result.RedirectUri);
         }
@@ -46,8 +44,18 @@ namespace Compent.Uintra.Controllers.Api
         [System.Web.Mvc.HttpPost]
         public ActionResult Users([FromBody]GoogleSyncSettingsModel settingsModel)
         {
-            TempData[_tempDataKey] = settingsModel;
             var result = new JsonNetResult();
+            if (!ModelState.IsValid)
+            {
+                result.Data = new GoogleAuthResponse()
+                {
+                    Success = false,
+                    Message = "All fields are required!"
+                };
+                return result;
+            }
+
+            TempData[Constants.TempDataKey] = settingsModel;
 
             var auth = new AuthorizationCodeMvcApp(this, new AppFlowMetadata(settingsModel.ClientId, settingsModel.ClientSecret, settingsModel.User)).AuthorizeAsync(new CancellationToken());
 
