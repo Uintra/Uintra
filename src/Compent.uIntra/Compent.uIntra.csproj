@@ -1374,8 +1374,10 @@
     <Compile Include="Core\Subscribe\CustomSubscribable.cs" />
     <Compile Include="Core\Subscribe\CustomSubscribeService.cs" />
     <Compile Include="Core\Sync\AppFlowMetadata.cs" />
+    <Compile Include="Core\Sync\Attributes\AuthCallbackExceptionFilterAttribute.cs" />
     <Compile Include="Core\Sync\Models\GoogleSyncSettingsModel.cs" />
     <Compile Include="Core\Sync\Models\GoogleAuthResponse.cs" />
+    <Compile Include="Core\Sync\Constants.cs" />
     <Compile Include="Core\UmbracoEventsModule.cs" />
     <Compile Include="Core\Updater\IMigration.cs" />
     <Compile Include="Core\Updater\IMigrationStep.cs" />

@@ -184,10 +184,10 @@ namespace Uintra.Search
             switch (direction)
             {
                 case 0:
-                    searchDescriptor.Sort(s => s.Ascending(propertyName));
+                    searchDescriptor.Sort(s => s.Descending(propertyName));
                     break;
                 case 1:
-                    searchDescriptor.Sort(s => s.Descending(propertyName));
+                    searchDescriptor.Sort(s => s.Ascending(propertyName));
                     break;
             }
         }
