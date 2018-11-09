@@ -31,7 +31,8 @@ namespace Uintra.Core
                 Name = name,
                 Value = value,
                 Expires = expireDate,
-                HttpOnly = true
+                HttpOnly = true,
+                Secure = true 
             };
 
             Save(cookie);
