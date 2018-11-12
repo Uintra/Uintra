@@ -99,7 +99,7 @@
             <ul class="js-comment-view-replies comments__list _inner">
                 @foreach (var reply in Model.Replies)
                 {
-                    <li class="comments__list-item clearfix">@Html.Action("CommentsView", "Comments", reply)</li>
+                    <li class="comments__list-item clearfix">@Html.Action("CommentsView", "Comments", new { viewModel = reply } )</li>
                 }
             </ul>
         }
