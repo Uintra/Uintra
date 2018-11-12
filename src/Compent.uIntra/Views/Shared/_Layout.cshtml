@@ -4,7 +4,6 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="google-signin-client_id" content="239301901459-jjcpn8mvoq4g3i283q4ihnje6ht4s9s6.apps.googleusercontent.com">
     <title>@Html.Localize("SitePrefix.lbl") @{Html.RenderAction("GetTitle", "Navigation");}</title>
     
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -87,28 +86,5 @@
     <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
     <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
     <% } %>
-    <script>
-        var logout = document.getElementsByClassName("js-logout");
-        var config = {
-            apiKey: 'AIzaSyDaQA4X6sfPlyFm0ylKNvxRvrWpu-KIKmM',
-            discoveryDocs: ["https://people.googleapis.com/$discovery/rest?version=v1"],
-            clientId: '239301901459-jjcpn8mvoq4g3i283q4ihnje6ht4s9s6.apps.googleusercontent.com',
-            scope: 'profile email'
-        };
-
-        logout[0].onclick = function () {
-            var auth2 = gapi.auth2.getAuthInstance();
-            if (auth2.isSignedIn) {
-                auth2.signOut();
-            }
-        }
-
-        function onLoad() {
-            gapi.load('client:auth2', function () {
-                gapi.client.init(config);
-            });
-        }
-    </script>
-    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 </body>
 </html>
