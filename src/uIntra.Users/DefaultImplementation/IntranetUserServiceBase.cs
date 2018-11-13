@@ -119,6 +119,7 @@ namespace Uintra.Users
             var member = _memberService.CreateMember(dto.Email, dto.Email, dto.FullName, "Member");
             member.SetValue(ProfileConstants.FirstName, dto.FirstName);
             member.SetValue(ProfileConstants.LastName, dto.LastName);
+            member.SetValue(ProfileConstants.Photo, dto?.MediaId);
 
             _memberService.Save(member, false);
 

@@ -10,6 +10,7 @@
 
         $scope.sync = function () {
             var displayMessageContainer = document.getElementById("googleSyncResult");
+            displayMessageContainer.innerText = "Synchronization in progress...";
 
             $http.post("/sync/users", $scope.gmailSettings).then(function (response) {
                 if (!response.data.success) {
@@ -34,7 +35,10 @@
                 var top = height / 2 - h / 2 + dualScreenTop;
 
                 var childWindow = window.open(response.data.url, 'name', 'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-                if (window.focus) {
+                if (childWindow === null) {
+                    displayMessageContainer.innerText = "You need to allow popups for current site";
+                }
+                else if (childWindow.focus) {
                     childWindow.focus();
                 }
             }, function (response) { displayMessageContainer.innerText = "Internal server error. Status: " + response.status; });

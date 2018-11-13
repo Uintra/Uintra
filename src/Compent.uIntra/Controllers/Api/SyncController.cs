@@ -9,9 +9,13 @@ using Google.Apis.Admin.Directory.directory_v1;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Mvc;
 using Google.Apis.Services;
+using Uintra.Core.Controls.FileUpload;
+using Uintra.Core.Exceptions;
 using Uintra.Core.Extensions;
+using Uintra.Core.Media;
 using Uintra.Core.User;
 using Uintra.Core.User.DTO;
+using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
 namespace Compent.Uintra.Controllers.Api
@@ -20,10 +24,18 @@ namespace Compent.Uintra.Controllers.Api
     public class SyncController : Controller
     {
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IMediaHelper _mediaHelper;
+        private readonly UmbracoHelper _umbracoHelper;
+        private readonly IExceptionLogger _exceptionLogger;
 
-        public SyncController(IIntranetUserService<IIntranetUser> intranetUserService)
+
+        public SyncController(IIntranetUserService<IIntranetUser> intranetUserService,
+            IMediaHelper mediaHelper, UmbracoHelper umbracoHelper, IExceptionLogger exceptionLogger)
         {
             _intranetUserService = intranetUserService;
+            _mediaHelper = mediaHelper;
+            _umbracoHelper = umbracoHelper;
+            _exceptionLogger = exceptionLogger;
         }
 
         [System.Web.Mvc.HttpGet]
@@ -93,21 +105,56 @@ namespace Compent.Uintra.Controllers.Api
                 var request = service.Users.List();
                 request.Domain = domain;
                 request.OrderBy = UsersResource.ListRequest.OrderByEnum.Email;
-                var list = request.Execute();
+                var users = request.Execute().UsersValue.ToList();
 
-                if (list.UsersValue.Any())
+                foreach (var user in users)
                 {
-                    foreach (var user in list.UsersValue)
+                    var createUserDto = user.Map<CreateUserDto>();
+                    if (_intranetUserService.GetByEmail(createUserDto.Email) != null)
                     {
-                        var createUserDto = user.Map<CreateUserDto>();
-                        _intranetUserService.Create(createUserDto); //todo: reimplement for batch create
+                        //TODO: implement update flow (with updating user photo)
+                        continue;
                     }
+                    if (!string.IsNullOrWhiteSpace(user.ThumbnailPhotoUrl))
+                    {
+                        try
+                        {
+                            var userPhoto = service.Users.Photos.Get(user.Id).Execute();
+                            byte[] file = Base64UrlDecode(userPhoto.PhotoData);
+                            var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.MembersContent);
+                            var media = _mediaHelper.CreateMedia(new TempFile()
+                            {
+                                FileBytes = file,
+                                FileName = user.Name.FullName + "." + userPhoto.MimeType.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries)[1]
+                            }, mediaSettings.MediaRootId.Value);
+                            createUserDto.MediaId = media?.Id;
+                        }
+                        catch (Google.GoogleApiException gApiException)
+                        {
+                            if (gApiException.Error.Code != 404) _exceptionLogger.Log(gApiException);
+                        }
+                        catch (Exception ex)
+                        { _exceptionLogger.Log(ex); }
+                    }
+
+                    _intranetUserService.Create(createUserDto);
                 }
             }
             catch (Exception e)
             {
                 exception = e;
             }
+        }
+
+        private static byte[] Base64UrlDecode(string base64Url)
+        {
+            var base64 = base64Url.Replace('-', '+').Replace('_', '/');
+            switch (base64.Length % 4)
+            {
+                case 2: base64 += "=="; break;
+                case 3: base64 += "="; break;
+            }
+            return Convert.FromBase64String(base64);
         }
     }
 }
