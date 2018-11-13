@@ -31,6 +31,7 @@ namespace Compent.Uintra.Core.Users
                 .ForMember(dst => dst.Email, o => o.MapFrom(s => s.Emails.First().Address))
                 .ForMember(dst => dst.FullName, o => o.MapFrom(s => s.Name.FullName))
                 .ForMember(dst => dst.Role, o => o.MapFrom(s => IntranetRolesEnum.UiPublisher))
+                .ForMember(dst => dst.MediaId, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     if (src.Name.FullName.Contains(' '))
