@@ -1458,6 +1458,8 @@
     <Compile Include="Core\Updater\Migrations\0.5\Steps\DisableMemberNotificationStep.cs" />
     <Compile Include="Core\Updater\Migrations\0.5\Steps\UserListStep.cs" />
     <Compile Include="Core\Updater\Migrations\1.0\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\1.0\Steps\UpdateEnumDropDownListPreValuesStep.cs" />
+    <Compile Include="Core\Updater\Migrations\1.0\Steps\UpdateRelatedUserPropertyStep.cs" />
     <Compile Include="Core\Updater\Migrations\1.0\Steps\UpdateUiNotificationSettingsStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
