@@ -22,12 +22,6 @@
         </div>
         <div class="check">
             <label class="check__label">
-                @Html.CheckBox("onlyPinned",
-                    Model.OnlyPinned,
-                    new
-                    {
-                        @class = "check__box"
-                    })
                 <input type="checkbox" class="check__box" name="onlyPinned" @(Model.OnlyPinned ? "checked" : "") value="@Model.OnlyPinned">
                 <span class="check__fake-input icon-check"></span>
                 <span class="check__fake-label">@Html.Localize("Search.Filter.OnlyPinned.chkbx")</span>
