@@ -5,9 +5,6 @@ namespace Uintra.Core.User.DTO
     public class CreateUserDto
     {
         [StringLength(256, MinimumLength = 1, ErrorMessage = "Allowed length 1 - 256")]
-        public string FullName { get; set; }
-
-        [StringLength(256, MinimumLength = 1, ErrorMessage = "Allowed length 1 - 256")]
         public string FirstName { get; set; }
 
         [StringLength(256, MinimumLength = 1, ErrorMessage = "Allowed length 1 - 256")]
