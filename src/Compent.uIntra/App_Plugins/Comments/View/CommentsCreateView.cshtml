@@ -15,5 +15,5 @@
     @Html.ValidationMessageFor(model => model.Text)
     <input class="js-hidden-comment-create-description" data-val="true" data-val-required="*" name="Text" type="hidden" value="@Model.Text" />
     <input type="hidden" name="parentId" value="@Model.ParentId" />
-    
+    <input type="hidden" name="linkPreviewId" />
 }

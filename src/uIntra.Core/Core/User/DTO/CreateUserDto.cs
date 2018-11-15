@@ -4,13 +4,10 @@ namespace Uintra.Core.User.DTO
 {
     public class CreateUserDto
     {
-        [StringLength(128, MinimumLength = 2, ErrorMessage = "Allowed length 2 - 128")]
-        public string FullName { get; set; }
-
-        [StringLength(128, MinimumLength = 2, ErrorMessage = "Allowed length 2 - 128")]
+        [StringLength(256, MinimumLength = 1, ErrorMessage = "Allowed length 1 - 256")]
         public string FirstName { get; set; }
 
-        [StringLength(128, MinimumLength = 2, ErrorMessage = "Allowed length 2 - 128")]
+        [StringLength(256, MinimumLength = 1, ErrorMessage = "Allowed length 1 - 256")]
         public string LastName { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email is absent or empty")]

@@ -7,10 +7,10 @@ namespace Uintra.Core.User.DTO
     {
         public Guid Id { get; set; }
 
-        [StringLength(128, MinimumLength = 2, ErrorMessage = "Allowed length 2 - 128")]
+        [StringLength(256, MinimumLength = 1, ErrorMessage = "Allowed length 1 - 256")]
         public string FirstName { get; set; }
 
-        [StringLength(128, MinimumLength = 2, ErrorMessage = "Allowed length 2 - 128")]
+        [StringLength(256, MinimumLength = 1, ErrorMessage = "Allowed length 1 - 256")]
         public string LastName { get; set; }
 
         public int? NewMedia { get; set; }

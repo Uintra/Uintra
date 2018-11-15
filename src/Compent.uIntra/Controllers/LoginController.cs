@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Compent.Extensions;
 using Compent.uIntra.Core.Login.Models;
+using Compent.Uintra.Core.Login.Models;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Google.Apis.Auth;
 using Localization.Umbraco.Attributes;
@@ -82,8 +83,23 @@ namespace Compent.Uintra.Controllers
             return Json(new GoogleAuthResultModel());
         }
 
+        [HttpGet]
+        public ActionResult LoginUintra()
+        {
+            if(Members.GetCurrentLoginStatus().IsLoggedIn)
+            {
+                return Redirect(DefaultRedirectUrl);
+            }
+
+            var model = new LoginModel()
+            {
+                GoogleSettings = GetGoogleSettings()
+            };
+            return View(LoginViewPath, model);
+        }        
+
         [HttpPost]
-        public override ActionResult Login(LoginModelBase model)
+        public ActionResult LoginUintra(LoginModel model)
         {
             model.GoogleSettings = GetGoogleSettings();
             if (!ModelState.IsValid)
@@ -115,6 +131,8 @@ namespace Compent.Uintra.Controllers
 
             return Redirect(redirectUrl);
         }
+
+       
 
         private void SetDefaultUserData()
         {
