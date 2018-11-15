@@ -1,5 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using LanguageExt;
 using Uintra.Core.Attributes;
 using Uintra.Core.User;
 using Uintra.Core.User.DTO;
@@ -16,29 +21,65 @@ namespace Uintra.Users.Web
         {
             _intranetUserService = intranetUserService;
         }
-        
+
+
         [HttpPost]
-        public virtual Guid Create(CreateUserDto crateModel)
+        public virtual IHttpActionResult Create(CreateUserDto crateModel)
         {
-            return _intranetUserService.Create(crateModel);
+            if (ModelState.IsValid)
+            {
+                var id = _intranetUserService.Create(crateModel);
+
+                return Ok(id);
+            }
+            else
+            {
+                return BadRequest(GetModelErrors());
+            }
         }
 
         [HttpGet]
-        public virtual ReadUserDto Read(Guid id)
+        public virtual IHttpActionResult Read(Guid id)
         {
-            return _intranetUserService.Read(id);
+            if (ModelState.IsValid)
+            {
+                var result = _intranetUserService.Read(id);
+                return result
+                    .Match(
+                        Some: dto => (IHttpActionResult) Ok(dto),
+                        None: NotFound);
+            }
+            else
+            {
+                return BadRequest(GetModelErrors());
+            }
         }
 
         [HttpPatch]
-        public virtual void Update(UpdateUserDto updateModel)
+        public virtual IHttpActionResult Update(UpdateUserDto updateModel)
         {
-            _intranetUserService.Update(updateModel);
+            if (ModelState.IsValid)
+            {
+                return _intranetUserService.Update(updateModel)
+                    ? (IHttpActionResult) Ok()
+                    : NotFound();
+            }
+            else
+            {
+                return BadRequest(GetModelErrors());
+            }
         }
 
-        [HttpDelete]
-        public virtual void Delete(Guid id)
-        {
-            _intranetUserService.Delete(id);
-        }
+        public virtual IHttpActionResult Delete(Guid id) =>
+
+            _intranetUserService.Delete(id)
+                ? (IHttpActionResult) Ok()
+                : NotFound();
+
+
+        private string GetModelErrors() =>
+            ModelState.Values
+                .SelectMany(v => v.Errors.Select(e => e.ErrorMessage))
+                .Apply(errors => string.Join(Environment.NewLine, errors));
     }
 }

@@ -1,12 +1,24 @@
-﻿namespace Uintra.Core.User.DTO
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Uintra.Core.User.DTO
 {
     public class CreateUserDto
-    {        
+    {
+        [StringLength(256, MinimumLength = 1, ErrorMessage = "Allowed length 1 - 256")]
         public string FullName { get; set; }
+
+        [StringLength(256, MinimumLength = 1, ErrorMessage = "Allowed length 1 - 256")]
         public string FirstName { get; set; }
+
+        [StringLength(256, MinimumLength = 1, ErrorMessage = "Allowed length 1 - 256")]
         public string LastName { get; set; }
-        public string Email { get; set; }        
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Email is absent or empty")]
+        public string Email { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Role is absent or empty")]
         public IntranetRolesEnum Role { get; set; }
+
         public int? MediaId { get; set; }
     }
 }
