@@ -18,6 +18,7 @@ namespace Uintra.Core.ApplicationSettings
         private const string GoogleClientIdKey = "Google.OAuth.ClientId";
         private const string GoogleDomainKey = "Google.OAuth.Domain";
         private const string GoogleEnabledKey = "Google.OAuth.Enabled";
+        private const string UmbracoUseSSLKey = "umbracoUseSSL";
 
         public string DefaultAvatarPath => ConfigurationManager.AppSettings[DefaultAvatarPathKey];
 
@@ -47,6 +48,14 @@ namespace Uintra.Core.ApplicationSettings
                     _googleOAuth.Enabled = enabled;
                 }
                 return _googleOAuth;
+            }
+        }
+
+        public bool UmbracoUseSSL
+        {
+            get
+            {
+                return bool.TryParse(ConfigurationManager.AppSettings[UmbracoUseSSLKey], out var enabled) && enabled;
             }
         }
     }
