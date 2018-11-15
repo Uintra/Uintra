@@ -124,10 +124,11 @@ namespace Uintra.Users
 
         public Guid Create(CreateUserDto dto)
         {
-            var member = _memberService.CreateMember(dto.Email, dto.Email, dto.FullName, "Member");
+            var fullName = $"{dto.FirstName} {dto.LastName}";
+            var member = _memberService.CreateMember(dto.Email, dto.Email, fullName, "Member");
             member.SetValue(ProfileConstants.FirstName, dto.FirstName);
             member.SetValue(ProfileConstants.LastName, dto.LastName);
-            member.SetValue(ProfileConstants.Photo, dto?.MediaId);
+            member.SetValue(ProfileConstants.Photo, dto.MediaId);
 
             _memberService.Save(member, false);
 

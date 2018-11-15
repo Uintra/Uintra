@@ -9,7 +9,6 @@ namespace Uintra.Users
         [Required]
         public string Password { get; set; }
         public string ReturnUrl { get; set; }
-        public int ClientTimezoneOffset { get; set; }
-        public GoogleAuthenticationSettings GoogleSettings { get; set; }
+        public int ClientTimezoneOffset { get; set; }                
     }
 }
