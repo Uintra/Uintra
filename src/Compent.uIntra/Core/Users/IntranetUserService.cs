@@ -27,7 +27,7 @@ namespace Compent.Uintra.Core.Users
 
         public IntranetUserService(
             IMemberService memberService,
-            UmbracoContext umbracoContext, 
+            UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
             ICacheService cacheService,
@@ -61,7 +61,9 @@ namespace Compent.Uintra.Core.Users
 
         public void FillIndex()
         {
-            var searchableUsers = GetAll().Select(MapToSearchableUser);
+            var actualUsers = GetAll().Where(u => !u.Inactive).ToList();
+            var searchableUsers = actualUsers.Select(MapToSearchableUser);
+
             _elasticUserIndex.Index(searchableUsers);
         }
 
