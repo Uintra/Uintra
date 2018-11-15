@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc.Html
 @using Uintra.Core.Extensions
 @using Umbraco.Web
-@model Uintra.Users.LoginModelBase
+@model Compent.Uintra.Core.Login.Models.LoginModel
 @{
     Layout = null;
 }
@@ -18,7 +18,7 @@
     }
 </head>
 <body>
-    @using (Html.BeginUmbracoForm("Login", "Login"))
+    @using (Html.BeginUmbracoForm("Login", "LoginUintra"))
     {
         <div class="login">
             <div class="form">
@@ -26,13 +26,22 @@
                     <strong class="form__logo"><img src="~/App_Plugins/Users/Login/logo.png" width="130" /></strong>
                 </div>
                 <div class="form__row">
-                    @Html.TextBoxFor(m => Model.Login, new { data_val_required = Html.Localize("Login.Login.Required"),
-                   @class = "form__input", placeholder = Html.Localize("Login.Login.ph") })
+                    @Html.TextBoxFor(m => Model.Login, new
+                    {
+                        data_val_required = Html.Localize("Login.Login.Required"),
+                        @class = "form__input",
+                        placeholder = Html.Localize("Login.Login.ph")
+                    })
                 </div>
                 <div class="form__row">
-                    @Html.PasswordFor(m => Model.Password, new { data_val_required = Html.Localize("Login.Password.Required"),
-                        @class = "form__input", placeholder = Html.Localize("Login.Password.ph"),
-                        autocomplete = "off", value = Model.Password })
+                    @Html.PasswordFor(m => Model.Password, new
+                    {
+                        data_val_required = Html.Localize("Login.Password.Required"),
+                        @class = "form__input",
+                        placeholder = Html.Localize("Login.Password.ph"),
+                        autocomplete = "off",
+                        value = Model.Password
+                    })
                 </div>
                 <div class="form__row">
                     <input class="btn _submit" type="submit" value="@Html.Localize("Login.Login.btn")" />
@@ -43,25 +52,27 @@
                 <input type="hidden" name="clientTimezoneOffset" class="clientTimezoneOffset" value="" />
                 <div id="container" class="form__row">
                 </div>
-
-                <div class="js-google-login" style="cursor:pointer; border:1px solid grey; border-radius:4px; padding:4px; text-align:center">
-                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <title>Google</title>
-                        <g id="Registration" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g id="2nd-screen-copy" transform="translate(-241.000000, -323.000000)" fill-rule="nonzero">
-                                <g id="Group-5-Copy-2" transform="translate(241.000000, 323.000000)">
-                                    <g id="search">
-                                        <path d="M5.31890625,14.5035 L4.4835,17.6221875 L1.43010937,17.6867812 C0.51759375,15.9942656 0,14.0578125 0,12 C0,10.0101094 0.4839375,8.13360938 1.34175,6.4813125 L1.34240625,6.4813125 L4.06078125,6.9796875 L5.25159375,9.68175 C5.00235937,10.4083594 4.86651562,11.1883594 4.86651562,12 C4.86660937,12.880875 5.02617187,13.7248594 5.31890625,14.5035 Z" id="Shape" fill="#FBBC06"></path>
-                                        <path d="M23.7903281,9.75825 C23.9281406,10.4841563 24,11.2338281 24,12 C24,12.859125 23.9096719,13.6971563 23.7375937,14.5055156 C23.1534375,17.2562813 21.6270469,19.65825 19.5125625,21.3580312 L19.5119062,21.357375 L16.0879687,21.1826719 L15.603375,18.1575938 C17.0064375,17.33475 18.1029375,16.0470469 18.6805312,14.5055156 L12.2638125,14.5055156 L12.2638125,9.75825 L18.7741406,9.75825 L23.7903281,9.75825 L23.7903281,9.75825 Z" id="Shape" fill="#4385F4"></path>
-                                        <path d="M19.5118594,21.357375 L19.5125156,21.3580312 C17.4560625,23.0109844 14.8437188,24 12,24 C7.43010937,24 3.4569375,21.4457344 1.43010938,17.6868281 L5.31890625,14.5035469 C6.33229687,17.2081406 8.9413125,19.1334375 12,19.1334375 C13.3147031,19.1334375 14.5463906,18.7780312 15.6032812,18.1575938 L19.5118594,21.357375 Z" id="Shape" fill="#32A753"></path>
-                                        <path d="M19.6595625,2.762625 L15.7720781,5.94525 C14.67825,5.26153125 13.38525,4.8665625 12,4.8665625 C8.87207812,4.8665625 6.21426562,6.88017187 5.25164062,9.68175 L1.34240625,6.4813125 L1.34175,6.4813125 C3.33890625,2.63076562 7.3621875,0 12,0 C14.9116406,0 17.5813125,1.03715625 19.6595625,2.762625 Z" id="Shape" fill="#EB4435"></path>
+                @if (Model.GoogleSettings.AuthenticationEnabled)
+                {
+                    <div class="js-google-login" style="cursor: pointer; border: 1px solid grey; border-radius: 4px; padding: 4px; text-align: center">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <title>Google</title>
+                            <g id="Registration" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="2nd-screen-copy" transform="translate(-241.000000, -323.000000)" fill-rule="nonzero">
+                                    <g id="Group-5-Copy-2" transform="translate(241.000000, 323.000000)">
+                                        <g id="search">
+                                            <path d="M5.31890625,14.5035 L4.4835,17.6221875 L1.43010937,17.6867812 C0.51759375,15.9942656 0,14.0578125 0,12 C0,10.0101094 0.4839375,8.13360938 1.34175,6.4813125 L1.34240625,6.4813125 L4.06078125,6.9796875 L5.25159375,9.68175 C5.00235937,10.4083594 4.86651562,11.1883594 4.86651562,12 C4.86660937,12.880875 5.02617187,13.7248594 5.31890625,14.5035 Z" id="Shape" fill="#FBBC06"></path>
+                                            <path d="M23.7903281,9.75825 C23.9281406,10.4841563 24,11.2338281 24,12 C24,12.859125 23.9096719,13.6971563 23.7375937,14.5055156 C23.1534375,17.2562813 21.6270469,19.65825 19.5125625,21.3580312 L19.5119062,21.357375 L16.0879687,21.1826719 L15.603375,18.1575938 C17.0064375,17.33475 18.1029375,16.0470469 18.6805312,14.5055156 L12.2638125,14.5055156 L12.2638125,9.75825 L18.7741406,9.75825 L23.7903281,9.75825 L23.7903281,9.75825 Z" id="Shape" fill="#4385F4"></path>
+                                            <path d="M19.5118594,21.357375 L19.5125156,21.3580312 C17.4560625,23.0109844 14.8437188,24 12,24 C7.43010937,24 3.4569375,21.4457344 1.43010938,17.6868281 L5.31890625,14.5035469 C6.33229687,17.2081406 8.9413125,19.1334375 12,19.1334375 C13.3147031,19.1334375 14.5463906,18.7780312 15.6032812,18.1575938 L19.5118594,21.357375 Z" id="Shape" fill="#32A753"></path>
+                                            <path d="M19.6595625,2.762625 L15.7720781,5.94525 C14.67825,5.26153125 13.38525,4.8665625 12,4.8665625 C8.87207812,4.8665625 6.21426562,6.88017187 5.25164062,9.68175 L1.34240625,6.4813125 L1.34175,6.4813125 C3.33890625,2.63076562 7.3621875,0 12,0 C14.9116406,0 17.5813125,1.03715625 19.6595625,2.762625 Z" id="Shape" fill="#EB4435"></path>
+                                        </g>
                                     </g>
                                 </g>
                             </g>
-                        </g>
-                    </svg>
-                    <span>Log in with Google</span>
-                </div>
+                        </svg>
+                        <span>Log in with Google</span>
+                    </div>
+                }
 
                 <div class="js-error form__row" style="margin-top:20px;">
                 </div>
