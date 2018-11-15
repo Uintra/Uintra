@@ -90,6 +90,10 @@
                 display:block;
             }
 
+            @media (--for-desktop-down){
+                right:-144px;
+            }
+
             @media (--for-tablet-portrait-down){
                 width:100vw;
                 transition: all linear 200ms;
@@ -106,6 +110,7 @@
                     z-index:11;
                 }
             }
+
             &:after{
                 content:'';
                 width: 0;
@@ -116,8 +121,12 @@
                 position:absolute;
                 top:-6px;
                 left:50%;
-                margin:0 0 0 78px;
+                margin:0 0 0 73px;
                 z-index:2;
+
+                @media (--for-desktop-down){
+                    margin:0 0 0 119px;
+                }
 
                 @media (--for-tablet-portrait-down){
                     display:none;
@@ -134,8 +143,12 @@
                 position:absolute;
                 top:-5px;
                 left:50%;
-                margin:0 0 0 79px;
+                margin:0 0 0 74px;
                 z-index:3;
+
+                @media (--for-desktop-down){
+                    margin:0 0 0 120px;
+                }
 
                 @media (--for-tablet-portrait-down){
                     display:none;
