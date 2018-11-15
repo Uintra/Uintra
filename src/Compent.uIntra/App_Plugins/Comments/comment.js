@@ -47,6 +47,8 @@ var initCreateControl = function (holder) {
             }
         });*/
         var quill = helpers.initQuill(descriptionElem, dataStorage);
+
+        quill.focus();
         //TODO refactor this. delete dublicates
         var isOneLinkDetected = false;
 

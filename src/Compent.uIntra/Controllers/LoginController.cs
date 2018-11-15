@@ -67,6 +67,12 @@ namespace Compent.Uintra.Controllers
                     FormsAuthentication.SetAuthCookie(member.Username, true);
                     _timezoneOffsetProvider.SetTimezoneOffset(clientTimezoneOffset);
 
+                    if (!_memberServiceHelper.IsFirstLoginPerformed(member))
+                    {
+                        SendWelcomeNotification(member.Key);
+                        _memberServiceHelper.SetFirstLoginPerformed(member);
+                    }
+
                     return Json(new GoogleAuthResultModel()
                     {
                         Url = DefaultRedirectUrl,
@@ -115,12 +121,12 @@ namespace Compent.Uintra.Controllers
             {
                 _timezoneOffsetProvider.SetTimezoneOffset(model.ClientTimezoneOffset);
 
-                var member = Members.GetByUsername(model.Login);
-                if (!_memberServiceHelper.IsFirstLoginPerformed(_memberService.GetByKey(member.GetKey())))
+                var member = _memberService.GetByUsername(model.Login);
+                if (!_memberServiceHelper.IsFirstLoginPerformed(member))
                 {
-                    SendWelcomeNotification(member.GetKey());
+                    SendWelcomeNotification(member.Key);
+                    _memberServiceHelper.SetFirstLoginPerformed(member);
                 }
-                _memberServiceHelper.SetFirstLoginPerformed(_memberService.GetByKey(member.GetKey()));
             }
 
             return Redirect(redirectUrl);
