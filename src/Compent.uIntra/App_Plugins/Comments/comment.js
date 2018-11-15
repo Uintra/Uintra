@@ -232,6 +232,7 @@ var initReply = function (holder) {
             hideReplyLink.show();
             commentReply.show();
             scrollToComment($(this));
+            quill.focus();
         });
 
     hideReplyLink.on('click',
