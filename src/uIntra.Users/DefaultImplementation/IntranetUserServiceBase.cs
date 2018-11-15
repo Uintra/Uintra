@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Compent.Extensions;
+using LanguageExt;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
 using Uintra.Core.User;
@@ -9,6 +10,7 @@ using Uintra.Core.User.DTO;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using static LanguageExt.Prelude;
 using CacheHelper = Uintra.Core.Caching.CacheHelper;
 
 namespace Uintra.Users
@@ -93,33 +95,40 @@ namespace Uintra.Users
             return users;
         }
 
-        public virtual void Update(UpdateUserDto user)
+        public virtual bool Update(UpdateUserDto user)
         {
             var member = _memberService.GetByKey(user.Id);
-            member.SetValue(ProfileConstants.FirstName, user.FirstName);
-            member.SetValue(ProfileConstants.LastName, user.LastName);
-
-            if (user.NewMedia.HasValue)
+            var isPresent = member != null;
+            if (isPresent)
             {
-                member.SetValue(ProfileConstants.Photo, user.NewMedia.Value);
+                member.SetValue(ProfileConstants.FirstName, user.FirstName);
+                member.SetValue(ProfileConstants.LastName, user.LastName);
+
+                if (user.NewMedia.HasValue)
+                {
+                    member.SetValue(ProfileConstants.Photo, user.NewMedia.Value);
+                }
+
+                if (user.DeleteMedia)
+                {
+                    member.SetValue(ProfileConstants.Photo, null);
+                }
+
+                _memberService.Save(member, raiseEvents: false);
+
+                UpdateUserCache(user.Id);
             }
 
-            if (user.DeleteMedia)
-            {
-                member.SetValue(ProfileConstants.Photo, null);
-            }
-
-            _memberService.Save(member, raiseEvents: false);
-
-            UpdateUserCache(user.Id);
+            return isPresent;
         }
 
         public Guid Create(CreateUserDto dto)
         {
-            var member = _memberService.CreateMember(dto.Email, dto.Email, dto.FullName, "Member");
+            var fullName = $"{dto.FirstName} {dto.LastName}";
+            var member = _memberService.CreateMember(dto.Email, dto.Email, fullName, "Member");
             member.SetValue(ProfileConstants.FirstName, dto.FirstName);
             member.SetValue(ProfileConstants.LastName, dto.LastName);
-            member.SetValue(ProfileConstants.Photo, dto?.MediaId);
+            member.SetValue(ProfileConstants.Photo, dto.MediaId);
 
             _memberService.Save(member, false);
 
@@ -133,27 +142,35 @@ namespace Uintra.Users
             return member.Key;
         }
 
-        public ReadUserDto Read(Guid id)
+        public Option<ReadUserDto> Read(Guid id)
         {
-            var member = _memberService.GetByKey(id);
-            var dto = new ReadUserDto
+            var member = Optional(_memberService.GetByKey(id));
+
+            var dto = member.Map(mbr=> new ReadUserDto
             {
-                LastName = member.GetValue<string>(ProfileConstants.FirstName),
-                FirstName = member.GetValue<string>(ProfileConstants.LastName),
-                Email = member.Email,
-                Role = System.Web.Security.Roles.GetRolesForUser(member.Username)
+                LastName = mbr.GetValue<string>(ProfileConstants.FirstName),
+                FirstName = mbr.GetValue<string>(ProfileConstants.LastName),
+                Email = mbr.Email,
+                Role = System.Web.Security.Roles.GetRolesForUser(mbr.Username)
                     .First()
                     .Pipe(s => (IntranetRolesEnum) Enum.Parse(typeof(IntranetRolesEnum), s))
-            };
+            });
 
             return dto;
         }
 
-        public void Delete(Guid id)
+        public bool Delete(Guid id)
         {
             var member = _memberService.GetByKey(id);
-            _memberService.Delete(member);
-            DeleteFromCache(member.Key);
+            var isPresent = member != null;
+
+            if (isPresent)
+            {
+                _memberService.Delete(member);
+                DeleteFromCache(member.Key);
+            }
+
+            return isPresent;
         }
 
         protected virtual T GetFromSql(Guid id)

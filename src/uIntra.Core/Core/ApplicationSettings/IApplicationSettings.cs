@@ -12,5 +12,6 @@ namespace Uintra.Core.ApplicationSettings
         string MemberApiAuthentificationEmail { get; }
         Guid QaKey { get; }
         GoogleOAuth GoogleOAuth { get; }
+        bool UmbracoUseSSL { get; }
     }
 }

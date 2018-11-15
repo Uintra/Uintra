@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Compent.Extensions;
 using Compent.uIntra.Core.Login.Models;
+using Compent.Uintra.Core.Login.Models;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using Google.Apis.Auth;
 using Localization.Umbraco.Attributes;
@@ -66,6 +67,12 @@ namespace Compent.Uintra.Controllers
                     FormsAuthentication.SetAuthCookie(member.Username, true);
                     _timezoneOffsetProvider.SetTimezoneOffset(clientTimezoneOffset);
 
+                    if (!_memberServiceHelper.IsFirstLoginPerformed(member))
+                    {
+                        SendWelcomeNotification(member.Key);
+                        _memberServiceHelper.SetFirstLoginPerformed(member);
+                    }
+
                     return Json(new GoogleAuthResultModel()
                     {
                         Url = DefaultRedirectUrl,
@@ -76,8 +83,23 @@ namespace Compent.Uintra.Controllers
             return Json(new GoogleAuthResultModel());
         }
 
+        [HttpGet]
+        public ActionResult LoginUintra()
+        {
+            if(Members.GetCurrentLoginStatus().IsLoggedIn)
+            {
+                return Redirect(DefaultRedirectUrl);
+            }
+
+            var model = new LoginModel()
+            {
+                GoogleSettings = GetGoogleSettings()
+            };
+            return View(LoginViewPath, model);
+        }        
+
         [HttpPost]
-        public override ActionResult Login(LoginModelBase model)
+        public ActionResult LoginUintra(LoginModel model)
         {
             model.GoogleSettings = GetGoogleSettings();
             if (!ModelState.IsValid)
@@ -99,16 +121,18 @@ namespace Compent.Uintra.Controllers
             {
                 _timezoneOffsetProvider.SetTimezoneOffset(model.ClientTimezoneOffset);
 
-                var member = Members.GetByUsername(model.Login);
-                if (!_memberServiceHelper.IsFirstLoginPerformed(_memberService.GetByKey(member.GetKey())))
+                var member = _memberService.GetByUsername(model.Login);
+                if (!_memberServiceHelper.IsFirstLoginPerformed(member))
                 {
-                    SendWelcomeNotification(member.GetKey());
+                    SendWelcomeNotification(member.Key);
+                    _memberServiceHelper.SetFirstLoginPerformed(member);
                 }
-                _memberServiceHelper.SetFirstLoginPerformed(_memberService.GetByKey(member.GetKey()));
             }
 
             return Redirect(redirectUrl);
         }
+
+       
 
         private void SetDefaultUserData()
         {

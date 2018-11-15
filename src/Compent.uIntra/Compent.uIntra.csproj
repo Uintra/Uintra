@@ -1187,10 +1187,25 @@
     <Content Include="Views\UserTags\UserDetailsPopupTags.cshtml" />
     <None Include="Properties\PublishProfiles\QA_211.pubxml" />
     <None Include="Properties\PublishProfiles\QA.pubxml" />
-    <None Include="Web.Base.config" />
-    <None Include="Web.PublicNuget.config" />
-    <None Include="Web.Compent.Debug.config" />
-    <None Include="Web.QA.config" />
+    <Content Include="Web.config" />
+    <None Include="Web.Base.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.PublicNuget.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Compent.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.QA.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
@@ -1289,6 +1304,7 @@
     <Compile Include="Core\Feed\Links\ActivityLinkService.cs" />
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
+    <Compile Include="Core\Login\Models\LoginModel.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionNotificationService.cs" />
     <Compile Include="Core\Notification\IUserMentionNotificationService.cs" />
     <Compile Include="Core\Notification\Models\UserMentionNotificationModel.cs" />
@@ -1553,8 +1569,6 @@
     <Content Include="Views\Events\EditView.cshtml" />
     <Content Include="Views\Events\CreateView.cshtml" />
     <None Include="Properties\PublishProfiles\Dev.pubxml" />
-    <None Include="Web.Debug.config" />
-    <None Include="Web.Release.config" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />

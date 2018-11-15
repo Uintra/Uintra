@@ -33,18 +33,13 @@ namespace Uintra.Users.Web
             {
                 return Redirect(DefaultRedirectUrl);
             }
-
-            var model = new LoginModelBase()
-            {
-                GoogleSettings = GetGoogleSettings()
-            };
-            return View(LoginViewPath, model);
+            
+            return View(LoginViewPath, new LoginModelBase());
         }
 
         [HttpPost]
         public virtual ActionResult Login(LoginModelBase model)
-        {
-            model.GoogleSettings = GetGoogleSettings();
+        {            
             if (!ModelState.IsValid)
             {
                 return View(LoginViewPath, model);

@@ -41,7 +41,7 @@ namespace Compent.Uintra
                 new
                 {
                     controller = "Login",
-                    action = "Login"
+                    action = "LoginUintra"
                 });
             RouteTable.Routes.MapRoute(
                 "sync",

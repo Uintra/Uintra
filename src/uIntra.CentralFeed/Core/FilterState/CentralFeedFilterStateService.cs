@@ -31,9 +31,7 @@ namespace Uintra.CentralFeed
                 cookie = new HttpCookie(CentralFeedFiltersStateCookieName)
                 {
                     Expires = DateTime.Now.AddDays(7),
-                    Value = GetDefaultCentralFeedFiltersState().ToJson(),
-                    HttpOnly = true,
-                    Secure = true
+                    Value = GetDefaultCentralFeedFiltersState().ToJson()
                 };
                 _cookieProvider.Save(cookie);
             }
@@ -47,10 +45,7 @@ namespace Uintra.CentralFeed
 
         private FeedFiltersState GetDefaultCentralFeedFiltersState()
         {
-            return new FeedFiltersState
-            {
-                BulletinFilterSelected = true
-            };
+            return new FeedFiltersState();
         }        
     }
 }

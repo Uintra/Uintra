@@ -171,7 +171,8 @@ namespace Uintra.CentralFeed.Web
             {
                 PinnedFilterSelected = model.ShowPinned,
                 BulletinFilterSelected = model.IncludeBulletin,
-                SubscriberFilterSelected = model.ShowSubscribed
+                SubscriberFilterSelected = model.ShowSubscribed,
+                IsFiltersOpened = _feedFilterStateService.GetFiltersState().IsFiltersOpened
             };
         }        
     }
