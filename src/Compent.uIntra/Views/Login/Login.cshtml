@@ -14,7 +14,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.2.js"></script>
     @if (Model.GoogleSettings.AuthenticationEnabled)
     {
-        <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+        <script src="https://apis.google.com/js/platform.js"></script>
     }
 </head>
 <body>
@@ -156,6 +156,7 @@
                     complete: function (jqXHR, textStatus) { }
                 });
             }
+            init();
         </script>
     }
 </body>
