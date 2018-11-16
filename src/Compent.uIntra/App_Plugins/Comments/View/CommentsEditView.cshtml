@@ -31,11 +31,13 @@
                     }
                 </div>
                 <div class="link-preview__text">
-                    <h3 class="link-preview__title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
-                    @if (Model.LinkPreview.Description.HasValue())
-                    {
-                        <p>@Model.LinkPreview.Description</p>
-                    }
+                    <div class="link-preview__text-box">
+                        <h3 class="link-preview__title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
+                        @if (Model.LinkPreview.Description.HasValue())
+                        {
+                            <p>@Model.LinkPreview.Description</p>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

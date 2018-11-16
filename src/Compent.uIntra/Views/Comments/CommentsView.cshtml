@@ -51,8 +51,8 @@
                                 @if (Model.CanDelete)
                                 {
                                     @Ajax.ContextedActionLink(Html.Localize("CommentsView.Delete.lbl"), "Delete", "Comments", null,
-                                               new AjaxOptions { HttpMethod = "Delete", UpdateTargetId = Model.ElementOverviewId, InsertionMode = InsertionMode.ReplaceWith, OnComplete = $"new uIntra.methods.CommentOverview('#{Model.ElementOverviewId}');" },
-                                               new { @class = "js-comment-delete comments__controls-list-link", data_text = Html.Localize("Common.AreYouSure") })
+                                                    new AjaxOptions { HttpMethod = "Delete", UpdateTargetId = Model.ElementOverviewId, InsertionMode = InsertionMode.ReplaceWith, OnComplete = $"new uIntra.methods.CommentOverview('#{Model.ElementOverviewId}');" },
+                                                    new { @class = "js-comment-delete comments__controls-list-link", data_text = Html.Localize("Common.AreYouSure") })
                                 }
                             </li>
                         </ul>
@@ -75,11 +75,13 @@
                         }
                     </div>
                     <div class="link-preview__text">
-                        <h3 class="link-preview__title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
-                        @if (Model.LinkPreview.Description.HasValue())
-                        {
-                            <p>@Model.LinkPreview.Description</p>
-                        }
+                        <div class="link-preview__text-box">
+                            <h3 class="link-preview__title"><a href="@Model.LinkPreview.Uri">@Model.LinkPreview.Title</a></h3>
+                            @if (Model.LinkPreview.Description.HasValue())
+                            {
+                                <p>@Model.LinkPreview.Description</p>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,7 +101,7 @@
             <ul class="js-comment-view-replies comments__list _inner">
                 @foreach (var reply in Model.Replies)
                 {
-                    <li class="comments__list-item clearfix">@Html.Action("CommentsView", "Comments", new { viewModel = reply } )</li>
+                    <li class="comments__list-item clearfix">@Html.Action("CommentsView", "Comments", new { viewModel = reply })</li>
                 }
             </ul>
         }

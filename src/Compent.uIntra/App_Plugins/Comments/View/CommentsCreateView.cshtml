@@ -4,7 +4,7 @@
 @using Uintra.Core.Context
 @model Uintra.Comments.CommentCreateModel
 
-@using (Ajax.BeginContextedForm("Add", "Comments", new AjaxOptions { UpdateTargetId = Model.UpdateElementId, InsertionMode = InsertionMode.ReplaceWith, HttpMethod = "POST", OnComplete = $"new uIntra.methods.CommentOverview('#{Model.UpdateElementId}');" }, new { @class = "comments__form quill--custom js-comment-create", data_parentid = Model.ParentId }))
+@using (Ajax.BeginContextedForm("Add", "Comments", new AjaxOptions { UpdateTargetId = Model.UpdateElementId, InsertionMode = InsertionMode.ReplaceWith, HttpMethod = "POST", OnComplete = $"new uIntra.methods.CommentOverview('#{Model.UpdateElementId}');" }, new { id="add-comment-form", @class = "comments__form quill--custom js-comment-create", data_parentid = Model.ParentId }))
 {
 <div class="comments__form-field quill--custom-container">
     <div class="js-comment-create-description"></div>
