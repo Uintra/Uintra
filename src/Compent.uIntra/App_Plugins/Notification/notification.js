@@ -135,7 +135,7 @@ function sentNotification(notification) {
         //timeout: 5000,
         onClick: function () {
             var pushWindow = this;
-            var url = "/umbraco/api/DesktopNotification/Viewed?id=" + notification.id;
+            //var url = "/umbraco/api/DesktopNotification/Viewed?id=" + notification.id;
             ajax.post(url).then(function(result) {
                 var destUrl = window.location.origin + notification.url;
                 window.focus();
