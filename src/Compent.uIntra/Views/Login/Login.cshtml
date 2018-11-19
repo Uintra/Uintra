@@ -101,7 +101,7 @@
                     googleAuthObject.then(
                         function (googleAuthObj) {
                             googleLoginBtn.click(function (e) {
-                                loginBtn.attr("disabled", "disabled");
+                                disableLoginButton();
                                 e.preventDefault();
                                 e.stopPropagation();
 
@@ -120,12 +120,20 @@
                 });
             }
 
+            function disableLoginButton() {
+                loginBtn.attr("disabled", "disabled");
+            }
+
+            function enableLoginButton() {
+                loginBtn.removeAttr("disabled");
+            }
+
             function handleSuccess(googleUser) {
                 login(googleUser);
             }
 
             function handleFailure(obj) {
-                loginBtn.removeAttr("disabled");
+                enableLoginButton();
                 errorContainer.text("Google login failed!");
                 console.log(obj.error);
             }
@@ -136,6 +144,7 @@
                 if (!googleUser.hasGrantedScopes("email")) {
                     errorContainer.text("The email scope was not provided!");
                     auth2.disconnect();
+                    enableLoginButton();
                     return;
                 }
                 $.ajax({
@@ -151,9 +160,11 @@
                         } else {
                             errorContainer.text("You don't have an account!");
                             auth2.disconnect();
+                            enableLoginButton();
                         }
                     },
                     error: function (jqXHR, textStatus) {
+                        enableLoginButton();
                         console.log(jqXHR.statusText);
                     },
                     complete: function (jqXHR, textStatus) { }
