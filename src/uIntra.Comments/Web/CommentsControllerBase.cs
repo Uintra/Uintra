@@ -180,7 +180,7 @@ namespace Uintra.Comments.Web
             var model = new CommentPreviewModel
             {
                 Count = _commentsService.GetCount(activityId),
-                Link = $"{link}#{GetCommentsCreateFormId()}",
+                Link = $"{link}",
                 IsReadOnly = isReadOnly,
                 IsExistsUserComment = _commentsService.IsExistsUserComment(activityId, currentUserId)
             };
@@ -274,11 +274,6 @@ namespace Uintra.Comments.Web
         protected virtual string GetOverviewElementId(Guid activityId)
         {
             return $"js-comments-overview-{activityId}";
-        }
-
-        protected virtual string GetCommentsCreateFormId()
-        {
-            return $"add-comment-form";
         }
 
         protected virtual void OnCommentCreated(Guid commentId)
