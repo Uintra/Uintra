@@ -1,4 +1,6 @@
-﻿@using Uintra.Core.Extensions
+﻿@using System.Web.Mvc.Html
+@using Uintra.Core.Extensions
+@using Umbraco.Web
 @model Uintra.Search.SearchViewModel
 <div class="search-result js-search-page-holder">
     <h1 class="search-result__title">Search results</h1>
@@ -22,7 +24,12 @@
         </div>
         <div class="check">
             <label class="check__label">
-                <input type="checkbox" class="check__box" name="onlyPinned" @(Model.OnlyPinned ? "checked" : "") value="@Model.OnlyPinned">
+                @Html.CheckBox("onlyPinned",
+                    Model.OnlyPinned,
+                    new
+                    {
+                        @class = "check__box"
+                    })
                 <span class="check__fake-input icon-check"></span>
                 <span class="check__fake-label">@Html.Localize("Search.Filter.OnlyPinned.chkbx")</span>
             </label>
