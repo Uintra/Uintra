@@ -21,6 +21,7 @@ namespace Uintra.Users
         protected virtual string MemberTypeAlias => "Member";
         protected virtual string UsersCacheKey => "IntranetUsersCache";
 
+        private readonly IMediaService _mediaService;
         private readonly IMemberService _memberService;
         private readonly UmbracoContext _umbracoContext;
         private readonly UmbracoHelper _umbracoHelper;
@@ -28,12 +29,14 @@ namespace Uintra.Users
         private readonly ICacheService _cacheService;
 
         protected IntranetUserServiceBase(
+            IMediaService mediaService,
             IMemberService memberService,
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
             ICacheService cacheService)
         {
+            _mediaService = mediaService;
             _memberService = memberService;
             _umbracoContext = umbracoContext;
             _umbracoHelper = umbracoHelper;
@@ -104,6 +107,8 @@ namespace Uintra.Users
                 member.SetValue(ProfileConstants.FirstName, user.FirstName);
                 member.SetValue(ProfileConstants.LastName, user.LastName);
 
+                var mediaId = member.GetValueOrDefault<int?>(ProfileConstants.Photo);
+
                 if (user.NewMedia.HasValue)
                 {
                     member.SetValue(ProfileConstants.Photo, user.NewMedia.Value);
@@ -112,6 +117,13 @@ namespace Uintra.Users
                 if (user.DeleteMedia)
                 {
                     member.SetValue(ProfileConstants.Photo, null);
+                }
+
+                if ((user.NewMedia.HasValue || user.DeleteMedia) && mediaId.HasValue)
+                {
+                    var media = _mediaService.GetById(mediaId.Value);
+                    if(media != null)
+                        _mediaService.Delete(media);
                 }
 
                 _memberService.Save(member, raiseEvents: false);

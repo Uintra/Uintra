@@ -15,5 +15,7 @@ namespace Compent.Uintra.Core.Sync.Models
 
         [Required]
         public string User { get; set; }
+
+        public bool UpdateExisting { get; set; }
     }
 }

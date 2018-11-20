@@ -24,8 +24,10 @@ namespace Compent.Uintra.Core.Users
         private readonly IElasticUserIndex _elasticUserIndex;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IUserTagService _userTagService;
+        private readonly IMediaService _mediaService;
 
         public IntranetUserService(
+            IMediaService mediaService,
             IMemberService memberService,
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
@@ -36,8 +38,9 @@ namespace Compent.Uintra.Core.Users
             IIntranetUserContentProvider intranetUserContentProvider,
             IUserTagService userTagService
             )
-            : base(memberService, umbracoContext, umbracoHelper, roleService, cacheService)
+            : base(mediaService, memberService, umbracoContext, umbracoHelper, roleService, cacheService)
         {
+            _mediaService = mediaService;
             _groupMemberRepository = groupMemberRepository;
             _elasticUserIndex = elasticUserIndex;
             _intranetUserContentProvider = intranetUserContentProvider;
