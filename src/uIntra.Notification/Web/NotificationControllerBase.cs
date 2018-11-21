@@ -189,7 +189,7 @@ namespace Uintra.Notification.Web
             result.NotifierId = notifier.Id;
             result.NotifierPhoto = notifier.Photo;
             result.NotifierDisplayedName = notifier.DisplayedName;
-            result.IsDesktopNotificationEnabled = !Request.IsMobileBrowser();
+            result.IsDesktopNotificationEnabled &= !(Request.IsMobileBrowser() || Request.Browser.IsMobileDevice);
             return result;
         }
     }

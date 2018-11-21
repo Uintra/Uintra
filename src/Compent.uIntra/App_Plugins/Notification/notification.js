@@ -97,14 +97,18 @@ function updateNotifications() {
         .then((response) => {
             if (response.data.count > 0) {
                 var pushedNotificationsCount = 0;
-                for (var i = 0; i < response.data.notifications.length; i++) {
-                    var notification = response.data.notifications[i];
+                var i = 0;
+                var interval = setInterval(function (notifications) {
+                    var notification = notifications[i];
                     if (push.Permission.has() && notification.isDesktopNotificationEnabled) {
                         sentNotification(notification);
                         pushedNotificationsCount++;
                     }
-                }
-                updateCounter(response.data.count - pushedNotificationsCount);
+                    if (++i >= response.data.count) {
+                        clearInterval(interval);
+                        updateCounter(response.data.count - pushedNotificationsCount);
+                    }
+                }, 200, response.data.notifications);
             }
         });
 }
@@ -135,7 +139,7 @@ function sentNotification(notification) {
         body: notification.desktopMessage,
         icon: notification.notifierPhoto,
         requireInteraction: true,
-        timeout: 5000,
+        timeout: 10000,
         onClick: function () {
             var pushWindow = this;
             var url = "/umbraco/surface/Notification/Viewed?id=" + notification.id;
