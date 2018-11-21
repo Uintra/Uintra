@@ -72,38 +72,7 @@ namespace Uintra.Notification.Web
             return PartialView(ListViewPath, result);
         }
 
-        [System.Web.Mvc.HttpGet]
-        public virtual int GetNotNotifiedCount()
-        {
-            var userId = _intranetUserService.GetCurrentUserId();
-            var count = _uiNotifierService.GetNotNotifiedCount(userId);
-            return count;
-        }
-
-        [System.Web.Mvc.HttpGet]
-        public virtual ActionResult GetNotNotifiedNotifications()
-        {
-            var userId = _intranetUserService.GetCurrentUserId();
-
-            var notNotifiedNotifications = _uiNotifierService.GetNotNotifiedNotifications(userId);
-            var count = notNotifiedNotifications.Count();
-            if (count > 0)
-                _uiNotifierService.Notify(notNotifiedNotifications);
-
-            var model = new JsonNotificationsModel()
-            {
-                Count = count,
-                Notifications = notNotifiedNotifications.Select(MapNotificationToJsonModel),
-            };
-            return new JsonNetResult()
-            {
-                Data = model,
-                SerializerSettings = new JsonSerializerSettings()
-                {
-                    ContractResolver = new CamelCasePropertyNamesContractResolver()
-                }
-            };
-        }
+        
 
         [System.Web.Mvc.AllowAnonymous]
         public ActionResult ShowPopupNotifications()
@@ -148,7 +117,59 @@ namespace Uintra.Notification.Web
             return PartialView(ListViewPath, result);
         }
 
-        private NotificationViewModel MapNotificationToViewModel(Notification notification)
+        public virtual PartialViewResult Preview()
+        {
+            var result = new NotificationPreviewViewModel
+            {
+                NotificationsUrl = _notificationContentProvider.GetNotificationListPage().Url
+            };
+
+            return PartialView(PreviewViewPath, result);
+        }
+
+
+        [System.Web.Mvc.HttpGet]
+        public virtual int GetNotNotifiedCount()
+        {
+            var userId = _intranetUserService.GetCurrentUserId();
+            var count = _uiNotifierService.GetNotNotifiedCount(userId);
+            return count;
+        }
+
+        [System.Web.Mvc.HttpGet]
+        public virtual ActionResult GetNotNotifiedNotifications()
+        {
+            var userId = _intranetUserService.GetCurrentUserId();
+            var notNotifiedNotifications = _uiNotifierService.GetNotNotifiedNotifications(userId);
+
+            var model = new JsonNotificationsModel()
+            {
+                Count = notNotifiedNotifications.Count(),
+                Notifications = notNotifiedNotifications.Select(MapNotificationToJsonModel),
+            };
+            return new JsonNetResult()
+            {
+                Data = model,
+                SerializerSettings = new JsonSerializerSettings()
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                }
+            };
+        }
+
+        [System.Web.Mvc.HttpPost]
+        public virtual void Viewed(Guid id)
+        {
+            _uiNotifierService.ViewNotification(id);
+        }
+
+        [System.Web.Mvc.HttpPost]
+        public virtual void Notified(Guid id)
+        {
+            _uiNotifierService.SetNotificationAsNotified(id);
+        }
+
+        protected virtual NotificationViewModel MapNotificationToViewModel(Notification notification)
         {
             var result = notification.Map<NotificationViewModel>();
 
@@ -159,7 +180,7 @@ namespace Uintra.Notification.Web
             return result;
         }
 
-        private JsonNotification MapNotificationToJsonModel(Notification notification)
+        protected virtual JsonNotification MapNotificationToJsonModel(Notification notification)
         {
             var result = notification.Map<JsonNotification>();
             var notifier = ((string)result.Value.notifierId)
@@ -168,17 +189,8 @@ namespace Uintra.Notification.Web
             result.NotifierId = notifier.Id;
             result.NotifierPhoto = notifier.Photo;
             result.NotifierDisplayedName = notifier.DisplayedName;
+            result.IsDesktopNotificationEnabled = !Request.IsMobileBrowser();
             return result;
-        }
-
-        public virtual PartialViewResult Preview()
-        {
-            var result = new NotificationPreviewViewModel
-            {
-                NotificationsUrl = _notificationContentProvider.GetNotificationListPage().Url
-            };
-
-            return PartialView(PreviewViewPath, result);
         }
     }
 }

@@ -83,14 +83,17 @@ function initInfinityScroll() {
 function getClientHeight() { return document.compatMode == 'CSS1Compat' ? document.documentElement.clientHeight : document.body.clientHeight; }
 
 function updateNotificationsCount() {
-    ajax.get("/umbraco/surface/Notification/GetNotNotifiedCount")
-        .then((response) => {
-            updateCounter(response.data);
-        });
+    if (push.Permission.has())
+        updateNotifications();
+    else
+        ajax.get("/umbraco/surface/Notification/GetNotNotifiedCount")
+            .then((response) => {
+                updateCounter(response.data);
+            });
 }
 
 function updateNotifications() {
-    ajax.get("/umbraco/api/DesktopNotification/Get")
+    ajax.get("/umbraco/surface/Notification/GetNotNotifiedNotifications")
         .then((response) => {
             if (response.data.count > 0) {
                 var pushedNotificationsCount = 0;
@@ -127,16 +130,16 @@ function getPermissions() {
 }
 
 function sentNotification(notification) {
-    ajax.post("/umbraco/api/DesktopNotification/Notified?id=" + notification.id);
+    ajax.post("/umbraco/surface/Notification/Notified?id=" + notification.id);
     push.create(notification.desktopTitle, {
         body: notification.desktopMessage,
         icon: notification.notifierPhoto,
         requireInteraction: true,
-        //timeout: 5000,
+        timeout: 5000,
         onClick: function () {
             var pushWindow = this;
-            //var url = "/umbraco/api/DesktopNotification/Viewed?id=" + notification.id;
-            ajax.post(url).then(function(result) {
+            var url = "/umbraco/surface/Notification/Viewed?id=" + notification.id;
+            ajax.post(url).then(function (result) {
                 var destUrl = window.location.origin + notification.url;
                 window.focus();
                 window.location.assign(destUrl);
