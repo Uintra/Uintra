@@ -47,6 +47,7 @@ namespace Compent.Uintra.Core.Users
                 .ForMember(dst => dst.LastName, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.DeleteMedia, o => o.Ignore())
+                .ForMember(dst => dst.Id, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     if (src.Name.FullName.Contains(' '))
