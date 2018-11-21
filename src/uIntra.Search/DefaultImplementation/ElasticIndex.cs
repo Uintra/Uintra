@@ -156,7 +156,7 @@ namespace Uintra.Search
             var aggregations = new AggregationsHelper(facets);
             var globalAggregations = new AggregationsHelper(aggregations.Global(facetName).Aggregations);
             var globalFilter = globalAggregations.Filter(SearchConstants.SearchFacetNames.GlobalFilter);
-            var items = globalFilter.Terms(facetName).Buckets.Select(busket => new BaseFacet { Name = busket.Key, Count = busket.DocCount ?? default(long) }); ;
+            var items = globalFilter.Terms(facetName).Buckets.Select(bucket => new BaseFacet { Name = bucket.Key, Count = bucket.DocCount ?? default });
             return items;
         }
 
