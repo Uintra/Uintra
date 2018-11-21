@@ -30,7 +30,7 @@ namespace Uintra.Core.Attributes
 
         public override void OnAuthorization(System.Web.Http.Controllers.HttpActionContext actionContext)
         {
-            if (actionContext.Request.Headers.Authorization == null)
+            if (actionContext.Request.Headers.Authorization?.Parameter is null)
             {
                 actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
@@ -39,13 +39,16 @@ namespace Uintra.Core.Attributes
                 var authenticationString = actionContext.Request.Headers.Authorization.Parameter;
                 var originalString = Encoding.UTF8.GetString(Convert.FromBase64String(authenticationString));
                 var originalStringValues = originalString.Split(':');
-                var mail = originalStringValues[0];
-                var password = originalStringValues[1];
-
-
-                if (!IsCredentialsValid(mail, password))
+                if (originalStringValues.Length == 2)
                 {
-                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
+                    var mail = originalStringValues[0];
+                    var password = originalStringValues[1];
+
+
+                    if (!IsCredentialsValid(mail, password))
+                    {
+                        actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
+                    }
                 }
             }
 

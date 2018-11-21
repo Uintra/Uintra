@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Compent.Uintra.Core.Sync;
 using Compent.Uintra.Core.Sync.Models;
 using Google.Apis.Admin.Directory.directory_v1;
+using Google.Apis.Admin.Directory.directory_v1.Data;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Mvc;
 using Google.Apis.Services;
@@ -47,7 +48,8 @@ namespace Compent.Uintra.Controllers.Api
 
             if (auth.Result.Credential != null)
             {
-                SaveUsers(settingsModel?.Domain, auth.Result.Credential, out var e);
+                SaveUsers(settingsModel?.Domain, settingsModel.UpdateExisting,
+                    auth.Result.Credential, out var e);
                 return View(Constants.GoogleAuthWindowViewPath, e);
             }
             return new RedirectResult(auth.Result.RedirectUri);
@@ -73,7 +75,8 @@ namespace Compent.Uintra.Controllers.Api
 
             if (auth.Result.Credential != null)
             {
-                SaveUsers(settingsModel.Domain, auth.Result.Credential, out var e);
+                SaveUsers(settingsModel.Domain, settingsModel.UpdateExisting,
+                    auth.Result.Credential, out var e);
 
                 result.Data = new GoogleAuthResponse()
                 {
@@ -90,8 +93,8 @@ namespace Compent.Uintra.Controllers.Api
             return result;
         }
 
-        private void SaveUsers(string domain, UserCredential userCredential,
-            out Exception exception)
+        private void SaveUsers(string domain, bool updateExisting,
+            UserCredential userCredential, out Exception exception)
         {
             exception = null;
             try
@@ -109,41 +112,59 @@ namespace Compent.Uintra.Controllers.Api
 
                 foreach (var user in users)
                 {
-                    var createUserDto = user.Map<CreateUserDto>();
-                    if (_intranetUserService.GetByEmail(createUserDto.Email) != null)
-                    {
-                        //TODO: implement update flow (with updating user photo)
-                        continue;
-                    }
-                    if (!string.IsNullOrWhiteSpace(user.ThumbnailPhotoUrl))
-                    {
-                        try
-                        {
-                            var userPhoto = service.Users.Photos.Get(user.Id).Execute();
-                            byte[] file = Base64UrlDecode(userPhoto.PhotoData);
-                            var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.MembersContent);
-                            var media = _mediaHelper.CreateMedia(new TempFile()
-                            {
-                                FileBytes = file,
-                                FileName = user.Name.FullName + "." + userPhoto.MimeType.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries)[1]
-                            }, mediaSettings.MediaRootId.Value);
-                            createUserDto.MediaId = media?.Id;
-                        }
-                        catch (Google.GoogleApiException gApiException)
-                        {
-                            if (gApiException.Error.Code != 404) _exceptionLogger.Log(gApiException);
-                        }
-                        catch (Exception ex)
-                        { _exceptionLogger.Log(ex); }
-                    }
+                    var email = user.Emails.First().Address;
+                    var existingUser = _intranetUserService.GetByEmail(email);
 
-                    _intranetUserService.Create(createUserDto);
+                    if (existingUser != null)
+                    {
+                        if (updateExisting)
+                        {
+                            var updateUserDto = user.Map<UpdateUserDto>();
+                            updateUserDto.Id = existingUser.Id;
+                            updateUserDto.NewMedia = GetMediaId(user, service);
+                            _intranetUserService.Update(updateUserDto);
+                        }
+                    }
+                    else
+                    {
+                        var createUserDto = user.Map<CreateUserDto>();
+                        createUserDto.MediaId = GetMediaId(user, service);
+                        _intranetUserService.Create(createUserDto);
+                    }
                 }
             }
             catch (Exception e)
             {
                 exception = e;
             }
+        }
+
+        private int? GetMediaId(User user, DirectoryService service)
+        {
+            if (string.IsNullOrWhiteSpace(user.ThumbnailPhotoUrl))
+                return null;
+            try
+            {
+                var userPhoto = service.Users.Photos.Get(user.Id).Execute();
+                byte[] file = Base64UrlDecode(userPhoto.PhotoData);
+                var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.MembersContent);
+                var media = _mediaHelper.CreateMedia(new TempFile()
+                {
+                    FileBytes = file,
+                    FileName = user.Name.FullName + "." + userPhoto.MimeType.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries)[1]
+                }, mediaSettings.MediaRootId.Value);
+                return media?.Id;
+            }
+            catch (Google.GoogleApiException gApiException)
+            {
+                if (gApiException.Error.Code != 404)
+                    _exceptionLogger.Log(gApiException);
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogger.Log(ex);
+            }
+            return null;
         }
 
         private static byte[] Base64UrlDecode(string base64Url)

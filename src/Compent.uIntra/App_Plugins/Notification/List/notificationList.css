@@ -125,7 +125,7 @@
                 z-index:2;
 
                 @media (--for-desktop-down){
-                    margin:0 0 0 119px;
+                    margin:0 0 0 118px;
                 }
 
                 @media (--for-tablet-portrait-down){
@@ -147,7 +147,7 @@
                 z-index:3;
 
                 @media (--for-desktop-down){
-                    margin:0 0 0 120px;
+                    margin:0 0 0 119px;
                 }
 
                 @media (--for-tablet-portrait-down){

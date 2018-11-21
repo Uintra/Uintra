@@ -42,6 +42,23 @@ namespace Compent.Uintra.Core.Users
                     }
                 });
 
+            Mapper.CreateMap<User, UpdateUserDto>()
+                .ForMember(dst => dst.FirstName, o => o.Ignore())
+                .ForMember(dst => dst.LastName, o => o.Ignore())
+                .ForMember(dst => dst.NewMedia, o => o.Ignore())
+                .ForMember(dst => dst.DeleteMedia, o => o.Ignore())
+                .AfterMap((src, dst) =>
+                {
+                    if (src.Name.FullName.Contains(' '))
+                    {
+                        var names = src.Name.FullName.Split(' ');
+
+                        dst.FirstName = names[0];
+                        dst.LastName = names[1];
+                    }
+                });
+
+
             Mapper.CreateMap<ProfileEditModel, ExtendedProfileEditModel>()
                 .ForMember(dst => dst.TagIdsData, o => o.MapFrom(i => string.Empty));
 

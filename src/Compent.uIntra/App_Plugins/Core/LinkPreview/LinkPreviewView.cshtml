@@ -2,17 +2,21 @@
 @model Uintra.Core.LinkPreview.LinkPreviewViewModel
 
 <div class=" js-comment-link-preview-container link-preview">
-    <div class="link-preview__image">
-        @if (Model.ImageUri != null)
-        {
-            <img src="@Model.ImageUri" alt="link preview image description" />
-        }
-    </div>
-    <div class="link-preview__text">
-        <h3 class="link-preview__title"><a href="@Model.Uri" target="_blank">@Model.Title</a></h3>
-        @if (Model.Description.HasValue())
-        {
-            <p>@Model.Description</p>
-        }
+    <div class="link-preview__block">
+        <div class="link-preview__image">
+            @if (Model.ImageUri != null)
+            {
+                <img src="@Model.ImageUri" alt="link preview image description" />
+            }
+        </div>
+        <div class="link-preview__text">
+            <div class="link-preview__text-box">
+                <h3 class="link-preview__title"><a href="@Model.Uri" target="_blank">@Model.Title</a></h3>
+                @if (Model.Description.HasValue())
+                {
+                    <p>@Model.Description</p>
+                }
+            </div>
+        </div>
     </div>
 </div>

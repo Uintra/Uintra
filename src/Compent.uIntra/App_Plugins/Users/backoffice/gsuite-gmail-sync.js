@@ -5,7 +5,8 @@
             clientId: "",
             clientSecret: "",
             domain: "",
-            user: ""
+            user: "",
+            updateExisting: false
         };
 
         $scope.sync = function () {

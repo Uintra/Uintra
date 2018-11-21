@@ -5,17 +5,21 @@
     </div>
     <div>
         <p class="span1 control-label">Client secret:</p>
-        <input type="text" class="span3" ng-model="gmailSettings.clientSecret"/>
+        <input type="text" class="span3" ng-model="gmailSettings.clientSecret" />
     </div>
     <div>
         <p class="span1 control-label">Domain:</p>
-        <input type="text" class="span3" ng-model="gmailSettings.domain"/>
+        <input type="text" class="span3" ng-model="gmailSettings.domain" />
+    </div>
+    <div>
+        <p class="span1 control-label">User:</p>
+        <input type="text" class="span3" ng-model="gmailSettings.user" />
     </div>
     <div class="m-b-20">
-        <p class="span1 control-label">User:</p>
-        <input type="text" class="span3" ng-model="gmailSettings.user"/>
+        <p class="span1 control-label">Update existing:</p>
+        <input type="checkbox" ng-model="gmailSettings.updateExisting" />
     </div>
-<button class="btn btn-primary" ng-click="sync()">Sync</button>
+    <button class="btn btn-primary" ng-click="sync()">Sync</button>
 </div>
 <div id="googleSyncResult"></div>
 <hr />
