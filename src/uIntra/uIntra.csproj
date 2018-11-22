@@ -652,8 +652,6 @@
     <Content Include="App_Plugins\Archetype\views\archetype.config.html" />
     <Content Include="App_Plugins\Archetype\views\archetype.default.html" />
     <Content Include="App_Plugins\Archetype\views\archetype.html" />
-    <Content Include="App_Plugins\backoffice\gsuite-gmail-sync.html" />
-    <Content Include="App_Plugins\backoffice\gsuite-gmail-sync.js" />
     <Content Include="App_Plugins\BaseControls\backoffice\LinksPicker\links.html" />
     <Content Include="App_Plugins\BaseControls\backoffice\LinksPicker\links.js" />
     <Content Include="App_Plugins\BaseControls\base.css" />
