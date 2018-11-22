@@ -481,8 +481,8 @@
     <Reference Include="Uintra.Tagging, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Tagging.2.0.0\lib\net471\Uintra.Tagging.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Users, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Users.2.0.0\lib\net471\Uintra.Users.dll</HintPath>
+    <Reference Include="Uintra.Users, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Users.2.0.0.1\lib\net471\Uintra.Users.dll</HintPath>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6684.15731, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.10.4\lib\net45\umbraco.dll</HintPath>
