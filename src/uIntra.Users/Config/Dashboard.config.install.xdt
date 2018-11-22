@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <dashBoard xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <section alias="StartupDeveloperDashboardSection">
+  <section alias="StartupSettingsDashboardSection">
     <tab caption="Sync" xdt:Locator="Condition(@caption='Sync')" xdt:Transform="InsertIfMissing">
       <control>
         ~/App_Plugins/Users/backoffice/gsuite-gmail-sync.html

@@ -7,6 +7,6 @@ using System.Runtime.InteropServices;
                                " to all functionality including Umbraco.")]
 [assembly: AssemblyConfiguration("")]
 
-[assembly: AssemblyVersion("2.0.0.0")]
+[assembly: AssemblyVersion("2.0.0.1")]
 [assembly: ComVisible(false)]
 [assembly: Guid("3e868f15-ac47-4962-a6a5-c9084752dde9")]
