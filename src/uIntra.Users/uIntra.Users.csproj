@@ -361,9 +361,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Compent.uIntra\App_Plugins\Users\backoffice\GoogleAuthWindow.cshtml">
+    <Content Include="..\Compent.uIntra\App_Plugins\Users\backoffice\GoogleAuthWindow.cshtml">
       <Link>App_Plugins\Users\backoffice\GoogleAuthWindow.cshtml</Link>
-    </None>
+    </Content>
     <None Include="app.config" />
     <Content Include="..\Compent.uIntra\App_Plugins\Users\backoffice\gsuite-gmail-sync.html">
       <Link>App_Plugins\Users\backoffice\gsuite-gmail-sync.html</Link>
