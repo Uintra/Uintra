@@ -378,7 +378,7 @@
         position:relative;
         padding:2px;
         display:flex;
-        align-items:stretch;
+        align-items:center;
 
         @media (--for-phone-only){
             display:block;
@@ -451,8 +451,13 @@
         /*float:left;
         margin:0 20px 0 0;*/
         max-width: 35.5%;
-        align-items: center;
+        /*align-items: center;
+
         display: flex;
+
+        
+        flex-grow:1;
+        flex-shrink:1;*/
 
         @media (--for-phone-only){
             /*float:none;*/
@@ -471,8 +476,11 @@
 
     &__text{
         padding:10px 20px 5px;
-        align-items: center;
+        /*align-items: center;
         display: flex;
+        flex-grow:1;
+        flex-shrink:1;*/
+        display:block;
 
         @media (--for-phone-only){
             display:block;
