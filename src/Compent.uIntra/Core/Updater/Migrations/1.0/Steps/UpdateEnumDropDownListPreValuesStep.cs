@@ -34,7 +34,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._0.Steps
                 dictionary[FolderConstants.PreValueAssemblyAlias].Value = assemblyFullNamePreValue;
                 dictionary[FolderConstants.PreValueEnumAlias].Value = enumFullNamePreValue;
 
-                dataTypeService.SavePreValues(dataType, dictionary);
+                dataTypeService.SaveDataTypeAndPreValues(dataType, dictionary);
             }
         }
     }
