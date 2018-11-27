@@ -1341,9 +1341,6 @@
     <Content Include="..\Compent.uIntra\Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Content>
-    <Compile Include="..\Compent.uIntra\Core\Updater\Migrations\1.0\Steps\UpdateContentGridEditors.cs">
-      <Link>Core\Updater\Migrations\1.0\Steps\UpdateContentGridEditors.cs</Link>
-    </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\DbContextFactory.cs">
       <Link>Persistence\Sql\DbContextFactory.cs</Link>
     </Compile>
