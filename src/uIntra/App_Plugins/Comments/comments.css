@@ -378,7 +378,7 @@
         position:relative;
         padding:2px;
         display:flex;
-        align-items:stretch;
+        align-items:center;
 
         @media (--for-phone-only){
             display:block;
@@ -448,14 +448,9 @@
      }
 
     &__image{
-        /*float:left;
-        margin:0 20px 0 0;*/
         max-width: 35.5%;
-        align-items: center;
-        display: flex;
 
         @media (--for-phone-only){
-            /*float:none;*/
             max-width: none;
             margin:0;
             display:block;
@@ -471,8 +466,6 @@
 
     &__text{
         padding:10px 20px 5px;
-        align-items: center;
-        display: flex;
 
         @media (--for-phone-only){
             display:block;
