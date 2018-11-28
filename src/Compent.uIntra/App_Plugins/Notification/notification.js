@@ -110,6 +110,9 @@ function updateNotifications() {
                     }
                 }, 200, response.data.notifications);
             }
+            else {
+                updateCounter(0);
+            }
         });
 }
 
