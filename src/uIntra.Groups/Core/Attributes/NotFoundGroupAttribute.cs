@@ -27,7 +27,7 @@ namespace Uintra.Groups.Attributes
             var groupService = DependencyResolver.Current.GetService<IGroupService>();
             var group = groupService.Get(groupId.Value);
 
-            if (group == null)
+            if (group == null || group.IsHidden)
             {
                 TransferRequestToErrorPage(filterContext);
             }

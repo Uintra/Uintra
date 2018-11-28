@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
 using Uintra.Core;
+using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Localization;
 using Umbraco.Web.Mvc;
 
@@ -14,13 +15,16 @@ namespace Uintra.Users.Web
 
         private readonly ITimezoneOffsetProvider _timezoneOffsetProvider;
         private readonly IIntranetLocalizationService _intranetLocalizationService;
+        private readonly IApplicationSettings _applicationSettings;
 
         protected LoginControllerBase(
             ITimezoneOffsetProvider timezoneOffsetProvider,
-            IIntranetLocalizationService intranetLocalizationService)
+            IIntranetLocalizationService intranetLocalizationService,
+            IApplicationSettings applicationSettings)
         {
             _timezoneOffsetProvider = timezoneOffsetProvider;
             _intranetLocalizationService = intranetLocalizationService;
+            _applicationSettings = applicationSettings;
         }
 
         public virtual ActionResult Login()
@@ -29,14 +33,13 @@ namespace Uintra.Users.Web
             {
                 return Redirect(DefaultRedirectUrl);
             }
-
-            var model = new LoginModelBase();
-            return View(LoginViewPath, model);
+            
+            return View(LoginViewPath, new LoginModelBase());
         }
 
         [HttpPost]
         public virtual ActionResult Login(LoginModelBase model)
-        {
+        {            
             if (!ModelState.IsValid)
             {
                 return View(LoginViewPath, model);
@@ -61,6 +64,16 @@ namespace Uintra.Users.Web
         public virtual void Logout()
         {
             Members.Logout();
+        }
+
+        protected virtual GoogleAuthenticationSettings GetGoogleSettings()
+        {
+            return new GoogleAuthenticationSettings()
+            {
+                AuthenticationEnabled = _applicationSettings.GoogleOAuth.Enabled,
+                ClientId = _applicationSettings.GoogleOAuth.ClientId,
+                Domain = _applicationSettings.GoogleOAuth.Domain
+            };
         }
     }
 }

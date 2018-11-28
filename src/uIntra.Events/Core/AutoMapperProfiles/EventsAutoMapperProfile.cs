@@ -122,6 +122,9 @@ namespace Uintra.Events
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
+                .ForMember(dst => dst.StartDate, o => o.MapFrom(s => s.StartDate.ToUniversalTime()))
+                .ForMember(dst => dst.EndDate, o => o.MapFrom(s => s.EndDate.ToUniversalTime()))
+                .ForMember(dst => dst.PublishDate, o => o.MapFrom(s => s.PublishDate.ToUniversalTime()))
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();

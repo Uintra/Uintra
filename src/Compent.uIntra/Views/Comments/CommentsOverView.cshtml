@@ -14,7 +14,7 @@
             @foreach (var comment in Model.Comments)
             {
                 <li class="comments__list-item clearfix">
-                    @Html.Action("CommentsView", "Comments", comment)
+                    @Html.Action("CommentsView", "Comments", new { viewModel = comment } )
                 </li>
             }
         </ul>

@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.Search.Indexes;
-using Compent.Extensions;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
 using Uintra.Core.User;
-using Uintra.Groups;
 using Uintra.Groups.Sql;
 using Uintra.Search;
 using Uintra.Tagging.UserTags;
@@ -26,10 +24,12 @@ namespace Compent.Uintra.Core.Users
         private readonly IElasticUserIndex _elasticUserIndex;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IUserTagService _userTagService;
+        private readonly IMediaService _mediaService;
 
         public IntranetUserService(
+            IMediaService mediaService,
             IMemberService memberService,
-            UmbracoContext umbracoContext, 
+            UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
             ICacheService cacheService,
@@ -38,8 +38,9 @@ namespace Compent.Uintra.Core.Users
             IIntranetUserContentProvider intranetUserContentProvider,
             IUserTagService userTagService
             )
-            : base(memberService, umbracoContext, umbracoHelper, roleService, cacheService)
+            : base(mediaService, memberService, umbracoContext, umbracoHelper, roleService, cacheService)
         {
+            _mediaService = mediaService;
             _groupMemberRepository = groupMemberRepository;
             _elasticUserIndex = elasticUserIndex;
             _intranetUserContentProvider = intranetUserContentProvider;
@@ -63,7 +64,9 @@ namespace Compent.Uintra.Core.Users
 
         public void FillIndex()
         {
-            var searchableUsers = GetAll().Select(MapToSearchableUser);
+            var actualUsers = GetAll().Where(u => !u.Inactive).ToList();
+            var searchableUsers = actualUsers.Select(MapToSearchableUser);
+
             _elasticUserIndex.Index(searchableUsers);
         }
 

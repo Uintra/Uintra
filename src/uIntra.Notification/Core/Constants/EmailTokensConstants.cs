@@ -13,6 +13,7 @@
         public const string CreatedDate = "##CreatedDate##";
         public const string ActivityList = "##ActivityList##";
         public const string ProfileLink = "##ProfileLink##";
+        public const string NotificationType = "##NotificationType##";
         public const string TaggedBy = "##TaggedBy##";
     }
 }

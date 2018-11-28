@@ -180,7 +180,7 @@ namespace Uintra.Comments.Web
             var model = new CommentPreviewModel
             {
                 Count = _commentsService.GetCount(activityId),
-                Link = $"{link}#{GetOverviewElementId(activityId)}",
+                Link = $"{link}",
                 IsReadOnly = isReadOnly,
                 IsExistsUserComment = _commentsService.IsExistsUserComment(activityId, currentUserId)
             };

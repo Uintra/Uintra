@@ -377,6 +377,12 @@
         background:#e4e4e4;
         position:relative;
         padding:2px;
+        display:flex;
+        align-items:center;
+
+        @media (--for-phone-only){
+            display:block;
+        }
     }
 
     &__close {
@@ -442,14 +448,12 @@
      }
 
     &__image{
-        float:left;
-        max-width: 45%;
-        margin:0 20px 0 0;
+        max-width: 35.5%;
 
         @media (--for-phone-only){
-            float:none;
             max-width: none;
             margin:0;
+            display:block;
             text-align:center;
         }
     }
@@ -461,10 +465,11 @@
     }
 
     &__text{
-        padding:19px 20px 14px;
+        padding:10px 20px 5px;
 
         @media (--for-phone-only){
-            padding:10px 15px;
+            display:block;
+            padding:10px 15px 5px;
         }
     }
 

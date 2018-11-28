@@ -11,13 +11,14 @@ namespace Compent.Uintra.Controllers.Api
         private readonly IApplicationSettings _applicationSettings;
         private readonly IMonthlyEmailService _monthlyEmailService;
 
+
         public QaController(IApplicationSettings applicationSettings, IMonthlyEmailService monthlyEmailService)
         {
             _applicationSettings = applicationSettings;
             _monthlyEmailService = monthlyEmailService;
         }
-        
-        [HttpGet]        
+
+        [HttpGet]
         public void SendMonthlyEmail(Guid qaKey)
         {
             if (qaKey == _applicationSettings.QaKey)

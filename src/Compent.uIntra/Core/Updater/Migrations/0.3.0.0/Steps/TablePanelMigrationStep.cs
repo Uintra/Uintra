@@ -38,7 +38,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             var preValuesDictionary = _dataTypeService.GetPreValuesCollectionByDataTypeId(panelPickerDataType.Id).PreValuesAsDictionary;
 
             AddAllowedEditor(preValuesDictionary, TableEditor);
-            _dataTypeService.SavePreValues(panelPickerDataType, preValuesDictionary);
+            _dataTypeService.SaveDataTypeAndPreValues(panelPickerDataType, preValuesDictionary);
         }
 
         private void RemoveFromPanelPickerAllowedEditors()
@@ -47,7 +47,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             var preValuesDictionary = _dataTypeService.GetPreValuesCollectionByDataTypeId(panelPickerDataType.Id).PreValuesAsDictionary;
 
             DeleteAllowedEditor(preValuesDictionary, TableEditor);
-            _dataTypeService.SavePreValues(panelPickerDataType, preValuesDictionary);
+            _dataTypeService.SaveDataTypeAndPreValues(panelPickerDataType, preValuesDictionary);
         }
 
         private void AddAllowedEditor(IDictionary<string, PreValue> preValuesDictionary, string allowedEditorAlias)
@@ -90,7 +90,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             GridInstallationHelper.AddAllowedEditorForOneColumnRow(preValuesDictionary, TableEditor);
             GridInstallationHelper.AddAllowedEditorForTwoColumnRow(preValuesDictionary, TableEditor);
 
-            _dataTypeService.SavePreValues(contentGridDataType, preValuesDictionary);
+            _dataTypeService.SaveDataTypeAndPreValues(contentGridDataType, preValuesDictionary);
+            _dataTypeService.SaveDataTypeAndPreValues(contentGridDataType, preValuesDictionary);
         }
 
         private void RemoveFromContentGridAllowedEditors()
@@ -101,7 +102,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._0._0.Steps
             GridInstallationHelper.RemoveAllowedEditorForOneColumnRow(preValuesDictionary, TableEditor);
             GridInstallationHelper.RemoveAllowedEditorForTwoColumnRow(preValuesDictionary, TableEditor);
 
-            _dataTypeService.SavePreValues(contentGridDataType, preValuesDictionary);
+            _dataTypeService.SaveDataTypeAndPreValues(contentGridDataType, preValuesDictionary);
         }
     }
 }

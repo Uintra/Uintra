@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
 using Compent.Extensions;
+using Compent.uIntra.Core.Login.Models;
+using Compent.Uintra.Core.Login.Models;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Google.Apis.Auth;
 using Localization.Umbraco.Attributes;
 using Uintra.Core;
+using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Localization;
 using Uintra.Notification;
 using Uintra.Notification.Base;
@@ -35,8 +40,9 @@ namespace Compent.Uintra.Controllers
             INotificationsService notificationsService,
             IMemberServiceHelper memberServiceHelper,
             IMemberService memberService,
-            ICacheableIntranetUserService cacheableIntranetUserService)
-            : base(timezoneOffsetProvider, intranetLocalizationService)
+            ICacheableIntranetUserService cacheableIntranetUserService,
+            IApplicationSettings applicationSettings)
+            : base(timezoneOffsetProvider, intranetLocalizationService, applicationSettings)
         {
             _timezoneOffsetProvider = timezoneOffsetProvider;
             _intranetLocalizationService = intranetLocalizationService;
@@ -47,8 +53,55 @@ namespace Compent.Uintra.Controllers
         }
 
         [HttpPost]
-        public override ActionResult Login(LoginModelBase model)
+        public async Task<JsonResult> IdTokenVerification(string idToken, int clientTimezoneOffset)
         {
+            var payload = await GoogleJsonWebSignature.ValidateAsync(idToken,
+                new GoogleJsonWebSignature.ValidationSettings()
+                {
+                    IssuedAtClockTolerance = TimeSpan.FromDays(1) // for cases when server's time different from UTC time (google time).
+                });
+            if (payload != null) {
+                var member = _memberService.GetByEmail(payload.Email);
+                if (member != null)
+                {
+                    FormsAuthentication.SetAuthCookie(member.Username, true);
+                    _timezoneOffsetProvider.SetTimezoneOffset(clientTimezoneOffset);
+
+                    if (!_memberServiceHelper.IsFirstLoginPerformed(member))
+                    {
+                        SendWelcomeNotification(member.Key);
+                        _memberServiceHelper.SetFirstLoginPerformed(member);
+                    }
+
+                    return Json(new GoogleAuthResultModel()
+                    {
+                        Url = DefaultRedirectUrl,
+                        Success = true
+                    });
+                }
+            }
+            return Json(new GoogleAuthResultModel());
+        }
+
+        [HttpGet]
+        public ActionResult LoginUintra()
+        {
+            if(Members.GetCurrentLoginStatus().IsLoggedIn)
+            {
+                return Redirect(DefaultRedirectUrl);
+            }
+
+            var model = new LoginModel()
+            {
+                GoogleSettings = GetGoogleSettings()
+            };
+            return View(LoginViewPath, model);
+        }        
+
+        [HttpPost]
+        public ActionResult LoginUintra(LoginModel model)
+        {
+            model.GoogleSettings = GetGoogleSettings();
             if (!ModelState.IsValid)
             {
                 return View(LoginViewPath, model);
@@ -68,16 +121,18 @@ namespace Compent.Uintra.Controllers
             {
                 _timezoneOffsetProvider.SetTimezoneOffset(model.ClientTimezoneOffset);
 
-                var member = Members.GetByUsername(model.Login);
-                if (!_memberServiceHelper.IsFirstLoginPerformed(_memberService.GetByKey(member.GetKey())))
+                var member = _memberService.GetByUsername(model.Login);
+                if (!_memberServiceHelper.IsFirstLoginPerformed(member))
                 {
-                    SendWelcomeNotification(member.GetKey());
+                    SendWelcomeNotification(member.Key);
+                    _memberServiceHelper.SetFirstLoginPerformed(member);
                 }
-                _memberServiceHelper.SetFirstLoginPerformed(_memberService.GetByKey(member.GetKey()));
             }
 
             return Redirect(redirectUrl);
         }
+
+       
 
         private void SetDefaultUserData()
         {

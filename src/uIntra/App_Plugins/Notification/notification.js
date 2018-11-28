@@ -1,6 +1,7 @@
 ﻿import helpers from "./../Core/Content/scripts/Helpers";
 import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
 import ajax from "./../Core/Content/scripts/Ajax";
+import push from 'push.js';
 
 require("./List/notificationList.css");
 
@@ -41,20 +42,6 @@ function isOutsideClick(el, trigger, target, classname) {
     }
 }
 
-function updateNotificationsCount() {
-    ajax.get("/umbraco/surface/Notification/GetNotNotifiedCount")
-        .then((response) => {
-            let count = response.data;
-            var countHolder = $('.js-notification__number');
-            if (count > 0) {
-                countHolder.html(count);
-                countHolder.show();
-            } else {
-                countHolder.hide();
-            }
-        });
-}
-
 function initCustomControls() {
     $('.js-notification__list-item').on('click', function () {
         var $this = $(this);
@@ -72,7 +59,6 @@ function initCustomControls() {
         window.location.href = url;
     });
 }
-
 
 function initInfinityScroll() {
     var holder = $('.js-notification-overview');
@@ -96,11 +82,101 @@ function initInfinityScroll() {
 
 function getClientHeight() { return document.compatMode == 'CSS1Compat' ? document.documentElement.clientHeight : document.body.clientHeight; }
 
-export default function () {
-    initPreviewControls();
+function updateNotificationsCount() {
+    if (push.Permission.has())
+        updateNotifications();
+    else
+        ajax.get("/umbraco/surface/Notification/GetNotNotifiedCount")
+            .then((response) => {
+                updateCounter(response.data);
+            });
+}
+
+function updateNotifications() {
+    ajax.get("/umbraco/surface/Notification/GetNotNotifiedNotifications")
+        .then((response) => {
+            if (response.data.count > 0) {
+                var pushedNotificationsCount = 0;
+                var i = 0;
+                var interval = setInterval(function (notifications) {
+                    var notification = notifications[i];
+                    if (push.Permission.has() && notification.isDesktopNotificationEnabled) {
+                        sentNotification(notification);
+                        pushedNotificationsCount++;
+                    }
+                    if (++i >= response.data.count) {
+                        clearInterval(interval);
+                        updateCounter(response.data.count - pushedNotificationsCount);
+                    }
+                }, 200, response.data.notifications);
+            }
+        });
+}
+
+function updateCounter(count) {
+    var countHolder = $('.js-notification__number');
+    if (count > 0) {
+        countHolder.html(count);
+        countHolder.show();
+    } else {
+        countHolder.hide();
+    }
+}
+
+function getPermissions() {
+    if (push.Permission.has()) {
+        onGranted();
+    } else if (push.Permission.get() === push.Permission.DENIED) {
+        onDenied();
+    } else {
+        push.Permission.request(onGranted, onDenied);
+    }
+}
+
+function sentNotification(notification) {
+    ajax.post("/umbraco/surface/Notification/Notified?id=" + notification.id);
+    push.create(notification.desktopTitle, {
+        body: notification.desktopMessage,
+        icon: notification.notifierPhoto,
+        requireInteraction: true,
+        timeout: 10000,
+        onClick: function () {
+            var pushWindow = this;
+            var url = "/umbraco/surface/Notification/Viewed?id=" + notification.id;
+            ajax.post(url).then(function (result) {
+                var destUrl = window.location.origin + notification.url;
+                window.focus();
+                window.location.assign(destUrl);
+                if (equals(destUrl, window.location.href))
+                    window.location.reload();
+                pushWindow.close();
+            });
+        },
+        onShow: function () { }
+    });
+}
+
+function equals(destUrl, currentUrl) {
+    var destIndex = destUrl.indexOf("#");
+    var destPath = destIndex !== -1 ? destUrl.substring(0, destIndex) : destUrl;
+    var currentIndex = currentUrl.indexOf("#");
+    var currentPath = currentIndex !== -1 ? currentUrl.substring(0, currentIndex) : currentUrl;
+    return destPath === currentPath;
+}
+
+function onGranted() {
+    updateNotifications();
+    setInterval(updateNotifications, 3000);
+}
+
+function onDenied() {
     updateNotificationsCount();
     setInterval(updateNotificationsCount, 3000);
+}
+
+export default function () {
+    initPreviewControls();
+    getPermissions();
     initCustomControls();
     initInfinityScroll();
 }
-

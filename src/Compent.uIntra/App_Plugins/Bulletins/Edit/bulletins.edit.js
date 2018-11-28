@@ -75,12 +75,12 @@ function initEditor() {
                 <div class="link-preview__image">` +
             (data.imageUri ? `<img src="${data.imageUri}" />` : '') +
             `</div>
-                <div class="link-preview__text">
+                <div class="link-preview__text"><div class="link-preview__text-box">
                     <h3 class="link-preview__title">
                         <a href="${data.uri}">${data.title}</a>
                     </h3>` +
             (data.description ? `<p>${data.description}</p>` : "") +
-            "</div></div>";
+            "</div></div></div>";
 
         return divElem;
     }

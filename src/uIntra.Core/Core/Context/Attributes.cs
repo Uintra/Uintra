@@ -15,7 +15,7 @@ namespace Uintra.Core.Context
 
     public class ContextActionAttribute : ActionFilterAttribute
     {
-        private ContextBuildActionType _type;
+        private readonly ContextBuildActionType _type;
 
         public ContextActionAttribute(ContextBuildActionType actionType)
         {

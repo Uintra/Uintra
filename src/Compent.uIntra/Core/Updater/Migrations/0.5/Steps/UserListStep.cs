@@ -42,7 +42,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._5.Steps
 
             GridInstallationHelper.AddAllowedEditorForOneColumnRow(preValuesDictionary, UserListAlias);
 
-            _dataTypeService.SavePreValues(defaultGridDataType, preValuesDictionary);
+            _dataTypeService.SaveDataTypeAndPreValues(defaultGridDataType, preValuesDictionary);
         }
 
         private void RemoveFromDefaultGridAllowedEditors()
@@ -52,7 +52,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._5.Steps
 
             GridInstallationHelper.RemoveAllowedEditorForOneColumnRow(preValuesDictionary, UserListAlias);
 
-            _dataTypeService.SavePreValues(defaultGridDataType, preValuesDictionary);
+            _dataTypeService.SaveDataTypeAndPreValues(defaultGridDataType, preValuesDictionary);
         }
 
         private void AddContentPagePicker()

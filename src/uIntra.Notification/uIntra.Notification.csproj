@@ -401,6 +401,8 @@
     <Compile Include="Core\Models\Configuration\NotifierSettingSaveModel.cs" />
     <Compile Include="Core\Models\Configuration\NotifierSettingsModel.cs" />
     <Compile Include="Core\Models\INotificationMessage.cs" />
+    <Compile Include="Core\Models\Json\JsonNotification.cs" />
+    <Compile Include="Core\Models\Json\JsonNotificationsModel.cs" />
     <Compile Include="Core\Models\MailModels\ActivityLikeAddedMailBase.cs" />
     <Compile Include="Core\Models\MailModels\BeforeStartMailBase.cs" />
     <Compile Include="Core\Models\MailModels\CommentAddedMailBase.cs" />

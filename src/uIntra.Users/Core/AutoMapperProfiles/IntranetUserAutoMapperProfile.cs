@@ -1,6 +1,7 @@
 using AutoMapper;
 using Uintra.Core.User;
 using Uintra.Users.Commands;
+using Uintra.Core.User.DTO;
 
 namespace Uintra.Users
 {
@@ -8,7 +9,7 @@ namespace Uintra.Users
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<ProfileEditModel, IntranetUserDTO>()
+            Mapper.CreateMap<ProfileEditModel, UpdateUserDto>()
                 .ForMember(dst => dst.DeleteMedia, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore());
 

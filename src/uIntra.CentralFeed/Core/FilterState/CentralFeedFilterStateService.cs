@@ -45,10 +45,7 @@ namespace Uintra.CentralFeed
 
         private FeedFiltersState GetDefaultCentralFeedFiltersState()
         {
-            return new FeedFiltersState
-            {
-                BulletinFilterSelected = true
-            };
+            return new FeedFiltersState();
         }        
     }
 }

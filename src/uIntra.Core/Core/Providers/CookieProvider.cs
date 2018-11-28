@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Web;
 using Compent.Extensions;
+using Uintra.Core.ApplicationSettings;
 
 namespace Uintra.Core
 {
     public class CookieProvider : ICookieProvider
     {
         private readonly HttpContext _httpContext;
+        private readonly IApplicationSettings _applicationSettings;
 
-        public CookieProvider(HttpContext httpContext)
+        public CookieProvider(HttpContext httpContext, IApplicationSettings applicationSettings)
         {
             _httpContext = httpContext;
+            _applicationSettings = applicationSettings;
         }
 
         public HttpCookie Get(string name)
@@ -21,6 +24,8 @@ namespace Uintra.Core
         public void Save(HttpCookie cookie)
         {
             cookie.Domain = GetDomain();
+            cookie.Secure = _applicationSettings.UmbracoUseSSL;
+            cookie.HttpOnly = true;
             _httpContext.Response.Cookies.Add(cookie);
         }
 
@@ -30,7 +35,8 @@ namespace Uintra.Core
             {
                 Name = name,
                 Value = value,
-                Expires = expireDate
+                Expires = expireDate,
+                HttpOnly = true
             };
 
             Save(cookie);

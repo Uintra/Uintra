@@ -9,6 +9,8 @@ namespace Uintra.Notification
         void Notify(IEnumerable<Notification> notifications);
         void Notify(IEnumerable<UiNotificationMessage> messages);
         int GetNotNotifiedCount(Guid receiverId);
+        IEnumerable<Notification> GetNotNotifiedNotifications(Guid receiverId);
         void ViewNotification(Guid id);
+        void SetNotificationAsNotified(Guid id);
     }
 }
