@@ -1,4 +1,6 @@
 ﻿using System.Configuration;
+using System.Management;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Search.Configuration
 {
@@ -25,6 +27,20 @@ namespace Uintra.Search.Configuration
         public int NumberOfReplicas => (int)base[NumberOfReplicasKey];
 
         [ConfigurationProperty(IndexPrefixKey, IsRequired = false, DefaultValue = "")]
-        public string IndexPrefix => (string)base[IndexPrefixKey];
+        public string IndexPrefix => 
+            Optional((string)base[IndexPrefixKey])
+                .IfNone(GetDriveId);
+
+        private static string GetDriveId()
+        {
+            var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PhysicalMedia");
+            var id = string.Empty;
+            foreach (var managementObject in searcher.Get())
+            {
+                id = managementObject["SerialNumber"].ToString();
+            }
+
+            return id;
+        }
     }
 }
