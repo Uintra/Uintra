@@ -22,6 +22,11 @@
         /App_Plugins/SentMails/dashboard/dashboardsentMails.html
       </control>
     </tab>
+    <tab caption="Sync" xdt:Locator="Condition(@caption='Sync')" xdt:Transform="InsertIfMissing">
+      <control>
+        ~/App_Plugins/Users/backoffice/gsuite-gmail-sync.html
+      </control>
+    </tab>
   </section>
   <section alias="StartupDeveloperDashboardSection">
     <tab caption="Elastic Search" xdt:Locator="Condition(@caption='Elastic Search')" xdt:Transform="InsertIfMissing">

@@ -21,7 +21,7 @@ namespace Compent.Uintra
         }
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
-        {           
+        {
             RegisterRoutes();
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
@@ -41,7 +41,24 @@ namespace Compent.Uintra
                 new
                 {
                     controller = "Login",
-                    action = "Login"
+                    action = "LoginUintra"
+                });
+            RouteTable.Routes.MapRoute(
+                "sync",
+                "sync/{action}",
+                new
+                {
+                    controller = "sync",
+                    action = "users"
+                });
+
+            RouteTable.Routes.MapRoute(
+                "authcallback",
+                "authcallback/{action}",
+                new
+                {
+                    controller = "authcallback",
+                    action = "indexasync"
                 });
         }
 

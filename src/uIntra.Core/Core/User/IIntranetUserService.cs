@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using LanguageExt;
+using Uintra.Core.User.DTO;
 
 namespace Uintra.Core.User
 {
@@ -16,6 +18,9 @@ namespace Uintra.Core.User
         IEnumerable<T> GetByRole(int role);
         T GetByName(string name);
         T GetByEmail(string email);
-        void Save(IntranetUserDTO user);
+        bool Update(UpdateUserDto dto);
+        Guid Create(CreateUserDto dto);
+        Option<ReadUserDto> Read(Guid id);
+        bool Delete(Guid id);
     }
 }

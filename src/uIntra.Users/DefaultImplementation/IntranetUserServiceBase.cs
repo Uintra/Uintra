@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.Extensions;
+using LanguageExt;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
 using Uintra.Core.User;
+using Uintra.Core.User.DTO;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using static LanguageExt.Prelude;
 using CacheHelper = Uintra.Core.Caching.CacheHelper;
 
 namespace Uintra.Users
@@ -17,6 +21,7 @@ namespace Uintra.Users
         protected virtual string MemberTypeAlias => "Member";
         protected virtual string UsersCacheKey => "IntranetUsersCache";
 
+        private readonly IMediaService _mediaService;
         private readonly IMemberService _memberService;
         private readonly UmbracoContext _umbracoContext;
         private readonly UmbracoHelper _umbracoHelper;
@@ -24,12 +29,14 @@ namespace Uintra.Users
         private readonly ICacheService _cacheService;
 
         protected IntranetUserServiceBase(
+            IMediaService mediaService,
             IMemberService memberService,
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
             ICacheService cacheService)
         {
+            _mediaService = mediaService;
             _memberService = memberService;
             _umbracoContext = umbracoContext;
             _umbracoHelper = umbracoHelper;
@@ -82,7 +89,7 @@ namespace Uintra.Users
             var umbracoUser = _umbracoContext.Security.CurrentUser;
             if (umbracoUser != null) return Get(umbracoUser.Id);
 
-            return default(T);
+            return default;
         }
 
         public virtual IEnumerable<T> GetByRole(int role)
@@ -91,31 +98,97 @@ namespace Uintra.Users
             return users;
         }
 
-        public virtual void Save(IntranetUserDTO user)
+        public virtual bool Update(UpdateUserDto user)
         {
             var member = _memberService.GetByKey(user.Id);
-            member.SetValue(ProfileConstants.FirstName, user.FirstName);
-            member.SetValue(ProfileConstants.LastName, user.LastName);
-
-            if (user.NewMedia.HasValue)
+            var isPresent = member != null;
+            if (isPresent)
             {
-                member.SetValue(ProfileConstants.Photo, user.NewMedia.Value);
+                member.SetValue(ProfileConstants.FirstName, user.FirstName);
+                member.SetValue(ProfileConstants.LastName, user.LastName);
+
+                var mediaId = member.GetValueOrDefault<int?>(ProfileConstants.Photo);
+
+                if (user.NewMedia.HasValue)
+                {
+                    member.SetValue(ProfileConstants.Photo, user.NewMedia.Value);
+                }
+
+                if (user.DeleteMedia)
+                {
+                    member.SetValue(ProfileConstants.Photo, null);
+                }
+
+                if ((user.NewMedia.HasValue || user.DeleteMedia) && mediaId.HasValue)
+                {
+                    var media = _mediaService.GetById(mediaId.Value);
+                    if(media != null)
+                        _mediaService.Delete(media);
+                }
+
+                _memberService.Save(member, raiseEvents: false);
+
+                UpdateUserCache(user.Id);
             }
 
-            if (user.DeleteMedia)
+            return isPresent;
+        }
+
+        public Guid Create(CreateUserDto dto)
+        {
+            var fullName = $"{dto.FirstName} {dto.LastName}";
+            var member = _memberService.CreateMember(dto.Email, dto.Email, fullName, "Member");
+            member.SetValue(ProfileConstants.FirstName, dto.FirstName);
+            member.SetValue(ProfileConstants.LastName, dto.LastName);
+            member.SetValue(ProfileConstants.Photo, dto.MediaId);
+
+            _memberService.Save(member, false);
+
+            if (System.Web.Security.Roles.RoleExists(dto.Role.ToString()))
             {
-                member.SetValue(ProfileConstants.Photo, null);
+                System.Web.Security.Roles.AddUserToRole(member.Username, dto.Role.ToString());
             }
 
-            _memberService.Save(member, raiseEvents: false);
+            UpdateUserCache(member.Key);
 
-            UpdateUserCache(user.Id);
+            return member.Key;
+        }
+
+        public Option<ReadUserDto> Read(Guid id)
+        {
+            var member = Optional(_memberService.GetByKey(id));
+
+            var dto = member.Map(mbr=> new ReadUserDto
+            {
+                LastName = mbr.GetValue<string>(ProfileConstants.FirstName),
+                FirstName = mbr.GetValue<string>(ProfileConstants.LastName),
+                Email = mbr.Email,
+                Role = System.Web.Security.Roles.GetRolesForUser(mbr.Username)
+                    .First()
+                    .Pipe(s => (IntranetRolesEnum) Enum.Parse(typeof(IntranetRolesEnum), s))
+            });
+
+            return dto;
+        }
+
+        public bool Delete(Guid id)
+        {
+            var member = _memberService.GetByKey(id);
+            var isPresent = member != null;
+
+            if (isPresent)
+            {
+                _memberService.Delete(member);
+                DeleteFromCache(member.Key);
+            }
+
+            return isPresent;
         }
 
         protected virtual T GetFromSql(Guid id)
         {
             var member = _memberService.GetByKey(id);
-            return member != null ? Map(member) : default(T);
+            return member != null ? Map(member) : default;
         }
 
         protected virtual IEnumerable<T> GetAllFromSql()

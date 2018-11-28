@@ -41,7 +41,7 @@ namespace Uintra.Notification
                     NotifierType = NotifierTypeEnum.UiNotifier.ToInt(),
                     IsViewed = false,
                     Type = el.NotificationType.ToInt(),
-                    Value = new { el.Message, el.Url, el.NotifierId, el.IsPinned, el.IsPinActual }.ToJson(),
+                    Value = new { el.Message, el.Url, el.NotifierId, el.IsPinned, el.IsPinActual, el.DesktopMessage, el.DesktopTitle, el.IsDesktopNotificationEnabled }.ToJson(),
                     ReceiverId = el.ReceiverId
                 });
 
@@ -51,6 +51,12 @@ namespace Uintra.Notification
         public int GetNotNotifiedCount(Guid receiverId)
         {
             return GetNotifications(receiverId).Count(el => !el.IsNotified);
+        }
+
+        public IEnumerable<Notification> GetNotNotifiedNotifications(Guid receiverId)
+        {
+            var notifications = GetNotifications(receiverId, true);
+            return notifications; 
         }
 
         public void ViewNotification(Guid id)
@@ -71,10 +77,26 @@ namespace Uintra.Notification
             _notificationRepository.Update(notificationsList);
         }
 
-        private IEnumerable<Notification> GetNotifications(Guid receiverId)
+        private IEnumerable<Notification> GetNotifications(Guid receiverId, bool excludeAlreadyNotified = false)
         {
             var uiNotifierTypeId = NotifierTypeEnum.UiNotifier.ToInt();
-            return _notificationRepository.FindAll(el => el.ReceiverId == receiverId && el.NotifierType == uiNotifierTypeId);
+            
+            if(excludeAlreadyNotified)
+                return _notificationRepository.FindAll(el =>
+                el.ReceiverId == receiverId &&
+                el.NotifierType == uiNotifierTypeId &&
+                !el.IsNotified);
+
+            return _notificationRepository.FindAll(el =>
+                el.ReceiverId == receiverId &&
+                el.NotifierType == uiNotifierTypeId);
+        }
+
+        public void SetNotificationAsNotified(Guid id)
+        {
+            var notification = _notificationRepository.Get(id);
+            notification.IsNotified = true;
+            _notificationRepository.Update(notification);
         }
     }
 }

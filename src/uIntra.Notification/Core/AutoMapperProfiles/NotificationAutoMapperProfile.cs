@@ -2,6 +2,7 @@
 using System.Web.Helpers;
 using AutoMapper;
 using Uintra.Core.Extensions;
+using Uintra.Notification.Models.Json;
 
 namespace Uintra.Notification
 {
@@ -18,6 +19,29 @@ namespace Uintra.Notification
                 {
                     var notificationTypeProvider = HttpContext.Current.GetService<INotificationTypeProvider>();
                     dst.Type = notificationTypeProvider[src.Type];
+                });
+
+            Mapper.CreateMap<Notification, JsonNotification>()
+                .ForMember(d => d.Type, o => o.Ignore())
+                .ForMember(d => d.DesktopMessage, o => o.Ignore())
+                .ForMember(d => d.DesktopTitle, o => o.Ignore())
+                .ForMember(d => d.IsDesktopNotificationEnabled, o => o.Ignore())
+                .ForMember(d => d.Date, o => o.MapFrom(s => s.Date.ToDateTimeFormat()))
+                .ForMember(d => d.Value, o => o.MapFrom(s => Json.Decode(s.Value)))
+                .ForMember(d => d.NotifierId, o => o.Ignore())
+                .ForMember(d => d.NotifierPhoto, o => o.Ignore())
+                .ForMember(d => d.NotifierDisplayedName, o => o.Ignore())
+                .ForMember(d => d.Message, o => o.Ignore())
+                .ForMember(d => d.Url, o => o.Ignore())
+                .AfterMap((src, dst) =>
+                {
+                    var notificationTypeProvider = HttpContext.Current.GetService<INotificationTypeProvider>();
+                    dst.Type = notificationTypeProvider[src.Type];
+                    dst.Message = (string)dst.Value.message;
+                    dst.Url = (string)dst.Value.url;
+                    dst.DesktopMessage = (string)dst.Value.desktopMessage;
+                    dst.DesktopTitle = (string)dst.Value.desktopTitle;
+                    dst.IsDesktopNotificationEnabled = (bool)dst.Value.isDesktopNotificationEnabled;
                 });
 
             Mapper.CreateMap<Notification, PopupNotificationViewModel>()

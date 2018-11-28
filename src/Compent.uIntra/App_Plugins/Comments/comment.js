@@ -47,6 +47,8 @@ var initCreateControl = function (holder) {
             }
         });*/
         var quill = helpers.initQuill(descriptionElem, dataStorage);
+
+        quill.focus();
         //TODO refactor this. delete dublicates
         var isOneLinkDetected = false;
 
@@ -101,48 +103,24 @@ var initCreateControl = function (holder) {
                 <div class="link-preview__image">` +
                 (data.imageUri ? `<img src="${data.imageUri}" />` : '') +
                 `</div>
-                <div class="link-preview__text">
+                <div class="link-preview__text"><div class="link-preview__text-box">
                     <h3 class="link-preview__title">
                         <a href="${data.uri}">${data.title}</a>
                     </h3>` +
                 (data.description ? `<p>${data.description}</p>` : "") +
-                "</div></div>";
+                "</div></div></div>";
 
             return divElem;
         }
 
-        function getHiddenSaveElem(data) {
-            return createHiddenInput('linkPreviewId', data.id);
-        }
-
-        function createHiddenInput(name, value) {
-            var input = document.createElement('input');
-
-            input.setAttribute('type', 'hidden');
-            input.setAttribute('name', name);
-            input.setAttribute('value', value);
-
-            return input;
-        }
-
-        function createImg(imageUri) {
-            var imgElem = document.createElement('img');
-            var srcAttr = document.createAttribute('src');
-            srcAttr.value = imageUri;
-            imgElem.setAttributeNode(srcAttr);
-            return imgElem;
-        }
-
-        function createParagraph(content) {
-            var paragraph = document.createElement('p');
-            var contentNode = document.createTextNode(content);
-            paragraph.appendChild(contentNode);
-            return paragraph;
-        }
+        function getHiddenSaveElem(data) {            
+            var hiddenElem = $this.find("input[name*='linkPreviewId']");
+            hiddenElem[0].setAttribute('value', data.id);
+        }               
 
         function setSubmitBtnClass() {
             var customClass = 'pull-bottom';
-            
+
             createControls.each(function () {
                 var createControl = $(this);
                 var createControlsWidth = createControl.innerWidth();
@@ -238,6 +216,7 @@ var initEdit = function (holder) {
 };
 
 var initReply = function (holder) {
+ 
     var showReplyLink = findControl(holder, '.js-comment-showReplyLink');
     var hideReplyLink = findControl(holder, '.js-comment-hideReplyLink');
 
@@ -247,18 +226,21 @@ var initReply = function (holder) {
 
     var commentReply = findControl(holder, '.js-comment-reply');
 
-    showReplyLink.on('click', function () {
-        showReplyLink.hide();
-        hideReplyLink.show();
-        commentReply.show();
-        scrollToComment($(this));
-    });
+    showReplyLink.on('click',
+        function() {
+            showReplyLink.hide();
+            hideReplyLink.show();
+            commentReply.show();
+            scrollToComment($(this));
+            quill.focus();
+        });
 
-    hideReplyLink.on('click', function () {
-        showReplyLink.show();
-        hideReplyLink.hide();
-        commentReply.hide();
-    });
+    hideReplyLink.on('click',
+        function() {
+            showReplyLink.show();
+            hideReplyLink.hide();
+            commentReply.hide();
+        });
 
     var dataStorage = findControl(holder, '.js-hidden-comment-create-description')[0];
     var descriptionElem = findControl(holder, '.js-comment-create-description')[0];
@@ -268,24 +250,27 @@ var initReply = function (holder) {
 
     var toolbarBtns = commentReply.find('.ql-formats button');
 
-    toolbarBtns.each(function () {
+    toolbarBtns.each(function() {
         var className = $(this).attr('class').split("-");
         var tooltip = className[className.length - 1];
         $(this).attr('title', tooltip);
     });
 
+    var createControls = holder.find('.js-comment-create');
+
+    createControls.each(function () {
     //TODO refactor this. delete dublicates
     var isOneLinkDetected = false;
 
-    quill.onLinkDetected(function (link) {
+    quill.onLinkDetected(function(link) {
         if (!isOneLinkDetected) {
             showLinkPreview(link);
             isOneLinkDetected = true;
         }
     });
-    var createControls = holder.find('.js-comment-create');
-
-    createControls.each(function () {
+   
+  
+  
         var $this = $(this);
         var button = $this.find('.js-comment-create-btn');
         var toolbarBtns = $this.find('.ql-formats button');
@@ -293,70 +278,62 @@ var initReply = function (holder) {
         var toolbarContainer = $this.find('.js-comments-toolbar');
 
         toolbar.appendTo(toolbarContainer);
-    });
 
-    function showLinkPreview(link) {
-        ajax.get('/umbraco/api/LinkPreview/Preview?url=' + link)
-            .then(function (response) {
-                var data = response.data;
-                var imageElem = getImageElem(data);
-                var hiddenSaveElem = getHiddenSaveElem(data);
-                createControl.append(imageElem);
-                createControl.append(hiddenSaveElem);
 
-                var removeLinkPreview = function (e) {
-                    if (e.target.classList.contains('js-link-preview-remove-preview')) {
-                        imageElem.parentNode.removeChild(imageElem);
-                        imageElem.removeEventListener('click', removeLinkPreview);
-                        imageElem = null;
+        function showLinkPreview(link) {
+            ajax.get('/umbraco/api/LinkPreview/Preview?url=' + link)
+                .then(function(response) {
+                    var data = response.data;
+                    var imageElem = getImageElem(data);
+                    var hiddenSaveElem = getHiddenSaveElem(data);
+                    commentReply.append(imageElem);
+                    commentReply.append(hiddenSaveElem);
 
-                        hiddenSaveElem.parentNode.removeChild(hiddenSaveElem);
-                    }
-                };
+                    var removeLinkPreview = function(e) {
+                        if (e.target.classList.contains('js-link-preview-remove-preview')) {
+                            imageElem.parentNode.removeChild(imageElem);
+                            imageElem.removeEventListener('click', removeLinkPreview);
+                            imageElem = null;
 
-                imageElem.addEventListener('click', removeLinkPreview);
+                            hiddenSaveElem.parentNode.removeChild(hiddenSaveElem);
+                        }
+                    };
 
-            })
-            .catch(err => {
-                // Ignore error and do not crash if server returns non-success code
-            });
-    }
+                    imageElem.addEventListener('click', removeLinkPreview);
 
-    function getImageElem(data) {
-        var divElem = document.createElement('div');
-        divElem.className += "link-preview";
+                })
+                .catch(err => {
+                    // Ignore error and do not crash if server returns non-success code
+                });
+        }
 
-        divElem.innerHTML =
-            `<div class="link-preview__block"><button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
+        function getHiddenSaveElem(data) {            
+            var hiddenElem = $this.find("input[name*='linkPreviewId']");
+            hiddenElem[0].setAttribute('value', data.id);
+        }
+
+        function getImageElem(data) {
+            var divElem = document.createElement('div');
+            divElem.className += "link-preview";
+
+            divElem.innerHTML =
+                `<div class="link-preview__block"><button type="button" class="link-preview__close js-link-preview-remove-preview">X</button>
                 <div class="link-preview__image">` +
-            (data.imageUri ? `<img src="${data.imageUri}" />` : '') +
-            `</div>
-                <div class="link-preview__text">
+                (data.imageUri ? `<img src="${data.imageUri}" />` : '') +
+                `</div>
+                <div class="link-preview__text"><div class="link-preview__text-box">
                     <h3 class="link-preview__title">
                         <a href="${data.uri}">${data.title}</a>
                     </h3>` +
-            (data.description ? `<p>${data.description}</p>` : "") +
-            "</div></div>";
-        return divElem;
-    }
+                (data.description ? `<p>${data.description}</p>` : "") +
+                "</div></div></div>";
+            return divElem;
+        }        
 
-    function getHiddenSaveElem(data) {
-        return createHiddenInput('linkPreviewId', data.id);
-    }
-
-    function createHiddenInput(name, value) {
-        var input = document.createElement('input');
-
-        input.setAttribute('type', 'hidden');
-        input.setAttribute('name', name);
-        input.setAttribute('value', value);
-
-        return input;
-    }
-
-    quill.on('text-change',
-        (delta, oldDelta, source) =>
+        quill.on('text-change',
+            (delta, oldDelta, source) =>
             quillTextChangeEventHandler(quill, button, delta, oldDelta, source));
+    });
 };
 
 var initDelete = function (holder) {
@@ -369,7 +346,7 @@ var initDelete = function (holder) {
     deleteLink.on('click', function () {
         return confirm($(this).data('text'));
     });
-}
+};
 
 function scrollToComment(el) {
     var comment = el.closest('.comments__list-body').find('.js-comment-reply');
@@ -411,7 +388,7 @@ var CommentOverview = function (selector) {
     holders.each(function () {
         var $this = $(this);
         initCreateControl($this);
-        initSubmitButton($this)
+        initSubmitButton($this);
         $this.find('.js-comment-view').each(function () {
             new Comment(this);
         });

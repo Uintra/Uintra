@@ -1,0 +1,28 @@
+﻿@model Exception
+@{ 
+    var message = Model == null ? "Sync is complete" : Model.Message;
+}
+
+<!DOCTYPE html>
+<html id="html" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <code id="error">@message</code>
+    <script>
+        function processGoogleAuth() {
+            if (window.opener) {
+                var element = window.opener.document.getElementById("googleSyncResult");
+                if (element) {
+                    element.innerText = document.getElementById("error").innerText;
+                }
+            }
+            window.close();
+        }
+        processGoogleAuth();
+    </script>
+</body>
+</html>

@@ -320,6 +320,7 @@
     <Compile Include="Core\ICachableUserService.cs" />
     <Compile Include="Core\IMemberServiceHelper.cs" />
     <Compile Include="Core\IMentionService.cs" />
+    <Compile Include="Core\Models\GoogleAuthenticationSettings.cs" />
     <Compile Include="Core\Models\UserList\DetailsPopupModel.cs" />
     <Compile Include="Core\Models\UserList\ProfileColumnModel.cs" />
     <Compile Include="Core\Models\UserList\ColumnType.cs" />
@@ -342,6 +343,7 @@
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Web\MemberApiControllerBase.cs" />
     <Compile Include="Web\MentionControllerBase.cs" />
+    <Compile Include="Web\MemberManagementApiControllerBase.cs" />
     <Compile Include="Core\Models\MentionUserModel.cs" />
     <Compile Include="Web\ProfileControllerBase.cs" />
     <Compile Include="Web\UserApiController.cs" />
@@ -359,7 +361,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Compent.uIntra\App_Plugins\Users\backoffice\GoogleAuthWindow.cshtml">
+      <Link>App_Plugins\Users\backoffice\GoogleAuthWindow.cshtml</Link>
+    </Content>
     <None Include="app.config" />
+    <Content Include="..\Compent.uIntra\App_Plugins\Users\backoffice\gsuite-gmail-sync.html">
+      <Link>App_Plugins\Users\backoffice\gsuite-gmail-sync.html</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Users\backoffice\gsuite-gmail-sync.js">
+      <Link>App_Plugins\Users\backoffice\gsuite-gmail-sync.js</Link>
+    </Content>
+    <Content Include="Config\Dashboard.config.install.xdt" />
+    <Content Include="Config\Dashboard.config.uninstall.xdt" />
     <None Include="packages.config" />
     <None Include="uIntra.Users.nuspec">
       <SubType>Designer</SubType>
@@ -380,6 +393,7 @@
       <Link>App_Plugins\Users\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>

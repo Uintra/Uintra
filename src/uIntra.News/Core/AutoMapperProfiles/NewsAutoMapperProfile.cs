@@ -1,5 +1,6 @@
 using AutoMapper;
 using Compent.Extensions;
+using System;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Uintra.Core.Location;
@@ -110,6 +111,8 @@ namespace Uintra.News
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
+                .ForMember(dst => dst.PublishDate, o => o.MapFrom(s => s.PublishDate.ToUniversalTime()))
+                .ForMember(dst => dst.UnpublishDate, o => o.MapFrom(s => s.UnpublishDate.HasValue ? s.UnpublishDate.Value.ToUniversalTime() : (DateTime?)null))
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();

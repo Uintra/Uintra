@@ -114,7 +114,7 @@ namespace Uintra.Groups.Web
             var viewModel = GetEditViewModel(id, groupId);
             return PartialView(EditViewPath, viewModel);
         }
-
+        
         public ActionResult List(GroupFeedListModel model)
         {
             var centralFeedType = _centralFeedTypeProvider[model.TypeId];

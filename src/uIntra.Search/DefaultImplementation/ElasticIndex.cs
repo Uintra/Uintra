@@ -183,6 +183,12 @@ namespace Uintra.Search
 
             switch (direction)
             {
+                case 0 when propertyName.Equals("_score"):
+                    searchDescriptor.Sort(s => s.Descending(propertyName));
+                    break;
+                case 1 when propertyName.Equals("_score"):
+                    searchDescriptor.Sort(s => s.Ascending(propertyName));
+                    break;
                 case 0:
                     searchDescriptor.Sort(s => s.Ascending(propertyName));
                     break;
