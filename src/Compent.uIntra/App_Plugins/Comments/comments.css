@@ -448,9 +448,19 @@
      }
 
     &__image{
+        /*float:left;
+        margin:0 20px 0 0;*/
         max-width: 35.5%;
+        /*align-items: center;
+
+        display: flex;
+
+        
+        flex-grow:1;
+        flex-shrink:1;*/
 
         @media (--for-phone-only){
+            /*float:none;*/
             max-width: none;
             margin:0;
             display:block;
@@ -466,6 +476,10 @@
 
     &__text{
         padding:10px 20px 5px;
+        /*align-items: center;
+        display: flex;
+        flex-grow:1;
+        flex-shrink:1;*/
         display:block;
 
         @media (--for-phone-only){
