@@ -3,7 +3,7 @@
   <info>
     <package>
       <name>Uintra</name>
-      <version>0.5.0</version>
+      <version>1.0.0</version>
       <license url="https://uintra.com/pricing/">Read more</license>
       <url>https://uintra.com/</url>
       <requirements>
@@ -28,7 +28,7 @@
   <DataTypes />
 
   <Actions>
-    <Action runat="install" undo="false" alias="CreateXmlLogFile" version="0.5.0.0" />
+    <Action runat="install" undo="false" alias="CreateXmlLogFile" version="1.0.0.0" />
     
     <Action runat="install" undo="false" alias="DownloadNugetPackages" uri="https://www.nuget.org/api/v2/package/" path="~/umbraco/uintra/nupkgs/" >
       <Package name="Compent.EnumLists" version="1.1.2" />
@@ -48,7 +48,7 @@
       <Package name="elmah" version="1.2.2" />
       <Package name="Elmah.Contrib.WebApi" version="1.0.10.25" />
       <Package name="Elmah.MVC" version="2.0.0" />
-      <Package name="uIntra" version="0.5.0" />
+      <Package name="uIntra" version="1.0.0" />
       <Package name="Archetype" version="1.10.0" />
       <Package name="Castle.Core" version="4.2.0" />
       <Package name="Elasticsearch.Net" version="5.4.0" />
@@ -68,23 +68,30 @@
       <Package name="WebActivator" version="1.5.1" />
       <Package name="FluentScheduler" version="5.3.0" />
       <Package name="LanguageExt.Core" version="3.0.28" />
-      
-      <Package name="uIntra.BaseControls" version="2.6.0" />
-      <Package name="uIntra.Bulletins" version="0.5.0" />
-      <Package name="uIntra.CentralFeed" version="1.6.0" />
-      <Package name="uIntra.Comments" version="1.4.0" />
-      <Package name="uIntra.Core" version="1.7.0.7" />
-      <Package name="uIntra.Events" version="1.7.0" />
-      <Package name="uIntra.Groups" version="1.1.0" />
-      <Package name="uIntra.Likes" version="1.4.0" />
-      <Package name="uIntra.Navigation" version="1.4.5" />
-      <Package name="uIntra.News" version="1.5.0" />
-      <Package name="uIntra.Notification" version="1.5.0.3" />
-      <Package name="uIntra.Panels" version="2.4.0" />
-      <Package name="uIntra.Search" version="0.4.0" />
-      <Package name="uIntra.Subscribe" version="1.3.0" />
-      <Package name="uIntra.Tagging" version="1.3.0" />
-      <Package name="uIntra.Users" version="1.7.0" />
+
+      <Package name="Google.Apis" version="1.34.0" />
+      <Package name="Google.Apis.Admin.Directory.directory_v1" version="1.34.0.1208" />
+      <Package name="Google.Apis.Auth" version="1.34.0" />
+      <Package name="Google.Apis.Auth.Mvc" version="1.34.0" />
+      <Package name="Google.Apis.Core" version="1.34.0" />
+
+
+      <Package name="uIntra.BaseControls" version="3.0.0" />
+      <Package name="uIntra.Bulletins" version="1.0.0" />
+      <Package name="uIntra.CentralFeed" version="2.0.0" />
+      <Package name="uIntra.Comments" version="2.0.0.1" />
+      <Package name="uIntra.Core" version="2.0.0" />
+      <Package name="uIntra.Events" version="2.0.0" />
+      <Package name="uIntra.Groups" version="2.0.0" />
+      <Package name="uIntra.Likes" version="2.0.0" />
+      <Package name="uIntra.Navigation" version="2.0.0" />
+      <Package name="uIntra.News" version="2.0.0" />
+      <Package name="uIntra.Notification" version="2.0.0" />
+      <Package name="uIntra.Panels" version="3.0.0" />
+      <Package name="uIntra.Search" version="1.0.0" />
+      <Package name="uIntra.Subscribe" version="2.0.0" />
+      <Package name="uIntra.Tagging" version="2.0.0" />
+      <Package name="uIntra.Users" version="2.0.0.2" />
     </Action>
 
     <Action runat="install" undo="false" alias="ExtractNugetPackages" sourceDirectory="~/umbraco/uintra/nupkgs/" targetFramework="471" />
