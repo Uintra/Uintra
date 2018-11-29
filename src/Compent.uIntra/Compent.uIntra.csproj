@@ -1341,17 +1341,6 @@
     <Compile Include="Core\Notification\MailNotificationModelMapper.cs" />
     <Compile Include="Core\Notification\MailNotifierService .cs" />
     <Compile Include="Core\Notification\MailService .cs" />
-    <Compile Include="Core\Notification\Mails\ActivityLikeAddedMail.cs" />
-    <Compile Include="Core\Notification\Mails\BeforeStartMail.cs" />
-    <Compile Include="Core\Notification\Mails\CommentAddedMail.cs" />
-    <Compile Include="Core\Notification\Mails\CommentEditedMail.cs" />
-    <Compile Include="Core\Notification\Mails\CommentLikeAddedMail.cs" />
-    <Compile Include="Core\Notification\Mails\CommentRepliedMail.cs" />
-    <Compile Include="Core\Notification\Mails\EventHidedMail.cs" />
-    <Compile Include="Core\Notification\Mails\EventMail.cs" />
-    <Compile Include="Core\Notification\Mails\EventUpdatedMail.cs" />
-    <Compile Include="Core\Notification\Mails\IdeaMail.cs" />
-    <Compile Include="Core\Notification\Mails\NewsMail.cs" />
     <Compile Include="Core\Notification\MonthlyEmailService.cs" />
     <Compile Include="Core\Notification\NotificationAutoMapperProfile .cs" />
     <Compile Include="Core\Notification\NotificationContentProvider.cs" />
@@ -1408,6 +1397,7 @@
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\CoreInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\EventsInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\GroupsInstallationConstants.cs" />
+    <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\LegacyNotificationTypes.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\LocalizationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\MailInstallationConstants.cs" />
     <Compile Include="Core\Updater\Migrations\0.0.0.1\Constants\NavigationInstallationConstants.cs" />

@@ -2,19 +2,16 @@
 {
     public enum NotificationTypeEnum
     {
-        Event = 1,
-        EventUpdated,
-        EventHidden,
-        BeforeStart,
-        News,
-        Idea,
-        ActivityLikeAdded,
-        CommentAdded,
-        CommentEdited,
-        CommentReplied,
-        CommentLikeAdded,
-        MonthlyMail,
-        Welcome,
-        UserMention
+        EventUpdated = 2,
+        EventHidden = 3,
+        BeforeStart = 4,
+        ActivityLikeAdded = 7,
+        CommentAdded = 8,
+        CommentEdited = 9,
+        CommentReplied = 10,
+        CommentLikeAdded = 11,
+        MonthlyMail = 12,
+        Welcome = 13,
+        UserMention = 14
     }
 }
