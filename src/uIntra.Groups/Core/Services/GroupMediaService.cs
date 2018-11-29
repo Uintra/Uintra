@@ -62,7 +62,7 @@ namespace Uintra.Groups
                 if (s.HasProperty(GroupIdPropertyTypeAlias))
                 {
                     var id = s.GetValue<Guid?>(GroupIdPropertyTypeAlias);
-                    return id.HasValue && id.Value == id;
+                    return id.HasValue && id.Value == groupId;
                 }
                 return false;
             });
