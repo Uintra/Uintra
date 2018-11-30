@@ -6,7 +6,9 @@ namespace Uintra.Core.ApplicationSettings
 {
     public interface IApplicationSettings
     {
-        string DefaultAvatarPath { get; }
+        string MailNotificationNoReplyEmail { get; }
+        string MailNotificationNoReplyName { get; }
+        string DefaultAvatarPath { get; }        
         int MonthlyEmailJobDay { get; }
         IEnumerable<string> VideoFileTypes { get; }
         string MemberApiAuthentificationEmail { get; }
