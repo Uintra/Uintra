@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Uintra.Core.Activity;
+using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Extensions;
 using Uintra.Core.Helpers;
 using Uintra.Core.User;
@@ -12,16 +13,21 @@ namespace Compent.Uintra.Core.Notification
 {
     public class MailNotificationModelMapper : INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage>
     {
+        private readonly IApplicationSettings _applicationSettings;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
-        public MailNotificationModelMapper(IIntranetUserService<IIntranetUser> intranetUserService)
+        public MailNotificationModelMapper(IApplicationSettings applicationSettings, IIntranetUserService<IIntranetUser> intranetUserService)
         {
+            _applicationSettings = applicationSettings;
             _intranetUserService = intranetUserService;
         }
 
         public EmailNotificationMessage Map(INotifierDataValue notifierData, EmailNotifierTemplate template, IIntranetUser receiver)
         {
             var message = new EmailNotificationMessage();
+            FillNoReplyFromProps(message);
+
+            IIntranetUser notifier;
             (string, string)[] tokens;
 
             switch (notifierData)
@@ -32,7 +38,7 @@ namespace Compent.Uintra.Core.Notification
                         (Url, model.Url),
                         (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
                         (ActivityType, model.ActivityType.ToString()),
-                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
+                        (FullName,_intranetUserService.Get(model.NotifierId).DisplayedName),
                         (NotifierFullName, receiver.DisplayedName)
                     };
                     break;
@@ -46,21 +52,21 @@ namespace Compent.Uintra.Core.Notification
                         (FullName, receiver.DisplayedName)
                     };
                     break;
-                case CommentNotifierDataModel model:
+                case CommentNotifierDataModel model:                    
                     tokens = new[]
                     {
                         (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
                         (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
-                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName)
+                        (FullName,_intranetUserService.Get(model.NotifierId).DisplayedName)
                     };
                     break;
-                case LikesNotifierDataModel model:
+                case LikesNotifierDataModel model:                    
                     tokens = new[]
                     {
                         (Url, model.Url),
                         (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
                         (ActivityType, model.ActivityType.ToString()),
-                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
+                        (FullName,_intranetUserService.Get(model.NotifierId).DisplayedName),
                         (CreatedDate, model.CreatedDate.ToShortDateString())
                     };
                     break;
@@ -71,7 +77,7 @@ namespace Compent.Uintra.Core.Notification
                         (ActivityList, model.ActivityList)
                     };
                     break;
-                case UserMentionNotifierDataModel model:
+                case UserMentionNotifierDataModel model:                    
                     tokens = new[]
                     {
                         (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
@@ -96,5 +102,11 @@ namespace Compent.Uintra.Core.Notification
 
         private static string GetTitle(Enum activityType, string title)
             => activityType is IntranetActivityTypeEnum.Bulletins ? title?.StripHtml().TrimByWordEnd(100) : title;
+   
+        private void FillNoReplyFromProps(MailBase message)
+        {
+            message.FromEmail = _applicationSettings.MailNotificationNoReplyEmail;
+            message.FromName = _applicationSettings.MailNotificationNoReplyName;
+        }
     }
 }
