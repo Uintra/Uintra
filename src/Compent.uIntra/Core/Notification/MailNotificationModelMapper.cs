@@ -33,14 +33,12 @@ namespace Compent.Uintra.Core.Notification
             switch (notifierData)
             {
                 case ActivityNotifierDataModel model:
-                    notifier = _intranetUserService.Get(model.NotifierId);
-                    FillFromProps(message, notifier);
                     tokens = new[]
                      {
                         (Url, model.Url),
                         (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
                         (ActivityType, model.ActivityType.ToString()),
-                        (FullName, notifier.DisplayedName),
+                        (FullName,_intranetUserService.Get(model.NotifierId).DisplayedName),
                         (NotifierFullName, receiver.DisplayedName)
                     };
                     break;
@@ -54,44 +52,38 @@ namespace Compent.Uintra.Core.Notification
                         (FullName, receiver.DisplayedName)
                     };
                     break;
-                case CommentNotifierDataModel model:
-                    notifier = _intranetUserService.Get(model.NotifierId);
-                    FillFromProps(message, notifier);
+                case CommentNotifierDataModel model:                    
                     tokens = new[]
                     {
                         (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
                         (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
-                        (FullName, notifier.DisplayedName)
+                        (FullName,_intranetUserService.Get(model.NotifierId).DisplayedName)
                     };
                     break;
-                case LikesNotifierDataModel model:
-                    notifier = _intranetUserService.Get(model.NotifierId);
-                    FillFromProps(message, notifier);
+                case LikesNotifierDataModel model:                    
                     tokens = new[]
                     {
                         (Url, model.Url),
                         (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
                         (ActivityType, model.ActivityType.ToString()),
-                        (FullName, notifier.DisplayedName),
+                        (FullName,_intranetUserService.Get(model.NotifierId).DisplayedName),
                         (CreatedDate, model.CreatedDate.ToShortDateString())
                     };
                     break;
-                case MonthlyMailDataModel model:                    
+                case MonthlyMailDataModel model:
                     tokens = new[]
                     {
                         (FullName, receiver.DisplayedName),
                         (ActivityList, model.ActivityList)
                     };
                     break;
-                case UserMentionNotifierDataModel model:
-                    notifier = _intranetUserService.Get(model.NotifierId);
-                    FillFromProps(message, notifier);
+                case UserMentionNotifierDataModel model:                    
                     tokens = new[]
                     {
                         (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
                         (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
                         (FullName, _intranetUserService.Get(model.ReceiverId).DisplayedName),
-                        (TaggedBy, notifier.DisplayedName)
+                        (TaggedBy, _intranetUserService.Get(model.NotifierId).DisplayedName)
                     };
                     break;
                 default:
@@ -110,13 +102,7 @@ namespace Compent.Uintra.Core.Notification
 
         private static string GetTitle(Enum activityType, string title)
             => activityType is IntranetActivityTypeEnum.Bulletins ? title?.StripHtml().TrimByWordEnd(100) : title;
-
-        private void FillFromProps(MailBase message, IIntranetUser notifier)
-        {
-            message.FromEmail = notifier.Email;
-            message.FromName = notifier.DisplayedName;
-        }
-
+   
         private void FillNoReplyFromProps(MailBase message)
         {
             message.FromEmail = _applicationSettings.MailNotificationNoReplyEmail;
