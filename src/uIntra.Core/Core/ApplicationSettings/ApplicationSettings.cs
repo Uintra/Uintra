@@ -19,7 +19,11 @@ namespace Uintra.Core.ApplicationSettings
         private const string GoogleDomainKey = "Google.OAuth.Domain";
         private const string GoogleEnabledKey = "Google.OAuth.Enabled";
         private const string UmbracoUseSSLKey = "umbracoUseSSL";
+        public string MailNotificationNoReplyEmailKey = "Notifications.Mail.NoReplyEmail";
+        public string MailNotificationNoReplyNameKey = "Notifications.Mail.NoReplyName";
 
+        public string MailNotificationNoReplyEmail => ConfigurationManager.AppSettings[MailNotificationNoReplyEmailKey];
+        public string MailNotificationNoReplyName => ConfigurationManager.AppSettings[MailNotificationNoReplyNameKey];
         public string DefaultAvatarPath => ConfigurationManager.AppSettings[DefaultAvatarPathKey];
 
         public IEnumerable<string> VideoFileTypes => ConfigurationManager.AppSettings[VideoFileTypesKey]
