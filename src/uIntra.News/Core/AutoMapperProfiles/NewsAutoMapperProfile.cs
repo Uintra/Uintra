@@ -111,8 +111,6 @@ namespace Uintra.News
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
-                //.ForMember(dst => dst.PublishDate, o => o.MapFrom(s => s.PublishDate))
-                //.ForMember(dst => dst.UnpublishDate, o => o.MapFrom(s => s.UnpublishDate))
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
