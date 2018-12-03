@@ -95,7 +95,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._3._2._0.Steps
             items.layouts[0].areas[0].allowed = JArray.FromObject(actualEditors).ToDynamic();
             preValuesDictionary[itemsKey].Value = JsonConvert.SerializeObject(items);
 
-            _dataTypeService.SavePreValues(1057, preValuesDictionary);
+            _dataTypeService.SaveDataTypeAndPreValues(defaultGridDataType, preValuesDictionary);
 
         }
 

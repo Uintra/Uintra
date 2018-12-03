@@ -128,6 +128,9 @@ That's all! Now you can open new site based on Uintra and enjoy!
 
 If you are having trouble getting Uintra installed or experience other problems, please contact us at kne@Compent.net, the response time will be very fast within normal business hours, 09-16 CET/CEST.
 
+## Elastic Search
+If Elastic Search is giving you trouble, please check out the issue https://github.com/Uintra/Uintra/issues/3 that will guide you to setup your elastic search with the proper version. Huge credit to user ChrisAngel447 for spotting this!
+
 ## Running tests
 We have created some simple examples of how to manually test Uintra [here](Testing.md).
 

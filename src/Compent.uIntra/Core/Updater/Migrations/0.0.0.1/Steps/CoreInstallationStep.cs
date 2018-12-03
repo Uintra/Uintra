@@ -223,7 +223,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
 
             var newVal = preValuesArray.ToString();
             preValues.PreValuesAsDictionary.Add(DataTypePropertyPreValues.ImageCropperPresetsAlias, new PreValue(newVal));
-            dataTypeService.SavePreValues(imageCropperDataType, preValues.PreValuesAsDictionary);
+            dataTypeService.SaveDataTypeAndPreValues(imageCropperDataType, preValues.PreValuesAsDictionary);
         }
 
         private void CreateLinksPickerDataType()

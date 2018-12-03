@@ -24,11 +24,17 @@ namespace Uintra.Users.Web
 
 
         [HttpPost]
-        public virtual IHttpActionResult Create(CreateUserDto crateModel)
+        public virtual IHttpActionResult Create(CreateUserDto createModel)
         {
             if (ModelState.IsValid)
             {
-                var id = _intranetUserService.Create(crateModel);
+                var user = _intranetUserService.GetByEmail(createModel.Email);
+                if (user != null)
+                {
+                    return Conflict();
+                }
+
+                var id = _intranetUserService.Create(createModel);
 
                 return Ok(id);
             }
@@ -46,7 +52,7 @@ namespace Uintra.Users.Web
                 var result = _intranetUserService.Read(id);
                 return result
                     .Match(
-                        Some: dto => (IHttpActionResult) Ok(dto),
+                        Some: dto => (IHttpActionResult)Ok(dto),
                         None: NotFound);
             }
             else
@@ -61,7 +67,7 @@ namespace Uintra.Users.Web
             if (ModelState.IsValid)
             {
                 return _intranetUserService.Update(updateModel)
-                    ? (IHttpActionResult) Ok()
+                    ? (IHttpActionResult)Ok()
                     : NotFound();
             }
             else
@@ -73,7 +79,7 @@ namespace Uintra.Users.Web
         public virtual IHttpActionResult Delete(Guid id) =>
 
             _intranetUserService.Delete(id)
-                ? (IHttpActionResult) Ok()
+                ? (IHttpActionResult)Ok()
                 : NotFound();
 
 

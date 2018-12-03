@@ -99,13 +99,13 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
             {
                 var templateType = content.GetPropertyValue<NotificationTypeEnum>(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName);
 
-                return templateType.In(
-                    NotificationTypeEnum.Event,
+                return ((Enum)templateType).In(
+                    LegacyNotificationTypes.Event,
                     NotificationTypeEnum.EventUpdated,
                     NotificationTypeEnum.EventHidden,
                     NotificationTypeEnum.BeforeStart,
-                    NotificationTypeEnum.News,
-                    NotificationTypeEnum.Idea,
+                    LegacyNotificationTypes.News,
+                    LegacyNotificationTypes.Idea,
                     NotificationTypeEnum.ActivityLikeAdded,
                     NotificationTypeEnum.CommentAdded,
                     NotificationTypeEnum.CommentEdited,

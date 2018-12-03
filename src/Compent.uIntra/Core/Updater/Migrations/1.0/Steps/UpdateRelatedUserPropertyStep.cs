@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Umbraco.Core;
-using Umbraco.Core.Models;
+﻿using Umbraco.Core;
 using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.UsersInstallationConstants;
 
 namespace Compent.Uintra.Core.Updater.Migrations._1._0.Steps

@@ -17,41 +17,41 @@
 
         self.isEmailTabSelected = function () {
             return selectedNotifierType === notifierType.email;
-        }
+        };
 
         self.isUiTabSelected = function () {
             return selectedNotifierType === notifierType.ui;
-        }
+        };
 
         self.isPopupTabSelected = function () {
             return selectedNotifierType === notifierType.popup;
-        }
+        };
 
         self.selectEmailTab = function () {
             selectedNotifierType = notifierType.email;
             self.selectedNotifierSettings = self.settings.emailNotifierSetting;
-        }
+        };
 
         self.selectPopupTab = function () {
             if (!self.settings.emailNotifierSetting && !self.settings.uiNotifierSetting) {
                 selectedNotifierType = notifierType.popup;
                 self.selectedNotifierSettings = self.settings.popupNotifierSetting;
-            }         
-        }
+            }
+        };
 
         self.selectUiTab = function () {
             selectedNotifierType = notifierType.ui;
             self.selectedNotifierSettings = self.settings.uiNotifierSetting;
-        }
+        };
 
         self.save = function () {
             saveSettings(self.settings);
-        }
+        };
 
         self.splitOnUpperCaseCharacters = function (text) {
             if (!text || text.length === 0) return '';
             return text.split(/(?=[A-Z])/).join(' ');
-        }
+        };
 
         function initalize() {
             initLocationChangeStartEvent();
@@ -59,16 +59,18 @@
 
             var params = getCurrentUrlParams();
             notificationSettingsService.getSettings(params.activityType, params.notificationType).then(
-                function(result) {
+                function (result) {
                     self.settings = result.data;
 
                     if (self.settings.emailNotifierSetting != null) {
                         self.selectEmailTab();
                         initEmailControlConfig();
                     }
-                    
+
                     if (self.settings.uiNotifierSetting != null) {
                         initUiMessageControlConfig();
+                        initDesktopMessageControlConfig();
+                        initDesktopTitleControlConfig();
                     }
 
                     if (self.settings.popupNotifierSetting != null) {
@@ -88,7 +90,7 @@
                 }
             });
             return params;
-        };
+        }
 
         function getCurrentUrlParams() {
             var params = $location.search();
@@ -193,6 +195,41 @@
             self.uiMessageControlConfig.triggerRefresh();
         }
 
+        function initDesktopMessageControlConfig() {
+            self.desktopMessageControlConfig = new TextAreaControlModel(ControlMode.view);
+            self.desktopMessageControlConfig.value = self.settings.uiNotifierSetting.template.desktopMessage;
+
+            self.desktopMessageControlConfig.isRequired = true;
+            self.desktopMessageControlConfig.requiredValidationMessage = 'Desktop message is required';
+            self.desktopMessageControlConfig.maxLength = 200;
+            self.desktopMessageControlConfig.maxLengthValidationMessage = 'Desktop message max length is 200 symbols';
+
+            self.desktopMessageControlConfig.onSave = function (desktopMessage) {
+                self.settings.uiNotifierSetting.template.desktopMessage = desktopMessage;
+                self.save();
+            };
+
+            self.emailSubjectControlConfig.triggerRefresh();
+        }
+
+        function initDesktopTitleControlConfig() {
+
+            self.desktopTitleControlConfig = new TextControlModel(ControlMode.view);
+            self.desktopTitleControlConfig.value = self.settings.uiNotifierSetting.template.desktopTitle;
+
+            self.desktopTitleControlConfig.isRequired = true;
+            self.desktopTitleControlConfig.requiredValidationMessage = 'Desktop title is required';
+            self.desktopTitleControlConfig.maxLength = 100;
+            self.desktopTitleControlConfig.maxLengthValidationMessage = 'Desktop title max length is 100 symbols';
+
+            self.desktopTitleControlConfig.onSave = function (desktopTitle) {
+                self.settings.uiNotifierSetting.template.desktopTitle = desktopTitle;
+                self.save();
+            };
+
+            self.desktopTitleControlConfig.triggerRefresh();
+        }
+
         function initPopupMessageControlConfig() {
             self.popupMessageControlConfig = new RichTextEditorModel(ControlMode.view);
             self.popupMessageControlConfig.value = self.settings.popupNotifierSetting.template.message;
@@ -225,7 +262,7 @@
         }
 
         initalize();
-    }
+    };
 
     controller.$inject = ['$rootScope', '$scope', '$location', 'appState', 'notificationsService', 'notificationSettingsService', 'notificationSettingsConfig', 'navigationService'];
 

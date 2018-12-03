@@ -12,10 +12,12 @@
         }
     </div>
     <div class="link-preview__text">
-        <h3 class="link-preview__title"><a href="@Model.Uri">@Model.Title</a></h3>
-        @if (Model.Description.HasValue())
-        {
-            <p>@Model.Description</p>
-        }
+        <div class="link-preview__text-box">
+            <h3 class="link-preview__title"><a href="@Model.Uri">@Model.Title</a></h3>
+            @if (Model.Description.HasValue())
+            {
+                <p>@Model.Description</p>
+            }
+        </div>
     </div>
 </div>

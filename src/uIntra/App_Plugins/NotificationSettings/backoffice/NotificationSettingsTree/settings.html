@@ -2,7 +2,7 @@
     <div ng-controller="notificationSettingController as ctrl">
         <div class="umb-editor-header umb-panel-header">
             <div class="umb-panel-header-content-wrapper">
-                <ul class="nav nav-tabs umb-nav-tabs">                    
+                <ul class="nav nav-tabs umb-nav-tabs">
                     <li ng-show="ctrl.settings.emailNotifierSetting" ng-class="{'active' : ctrl.isEmailTabSelected()}"><a ng-click="ctrl.selectEmailTab()">E-mail notification</a></li>
                     <li ng-show="ctrl.settings.uiNotifierSetting" ng-class="{'active' : ctrl.isUiTabSelected()}"><a ng-click="ctrl.selectUiTab()">In-App notification</a></li>
                     <li ng-show="ctrl.settings.popupNotifierSetting" ng-class="{'active' : ctrl.isPopupTabSelected()}"><a ng-click="ctrl.selectPopupTab()">Popup notification</a></li>
@@ -22,11 +22,19 @@
                             <li>
                                 <input id="enableNotification" type="radio" ng-model="ctrl.selectedNotifierSettings.isEnabled" ng-value="true" ng-change="ctrl.save()">
                                 <label for="enableNotification">Yes, enable</label>
+                                <div ng-if="ctrl.uiMessageControlConfig" ng-show="ctrl.isUiTabSelected()">
+                                    <input ng-disabled="!ctrl.selectedNotifierSettings.isEnabled" id="isDesktopNotificationEnabled" type="checkbox"
+                                           ng-model="ctrl.selectedNotifierSettings.template.isDesktopNotificationEnabled"
+                                           ng-value="false"
+                                           ng-change="ctrl.save()">
+                                    <label for="isDesktopNotificationEnabled">Enable as desktop notification</label>
+                                </div>
                             </li>
                             <li>
                                 <input id="disableNotification" type="radio" ng-model="ctrl.selectedNotifierSettings.isEnabled" ng-value="false" ng-change="ctrl.save()">
                                 <label for="disableNotification">No, disable</label>
                             </li>
+
                         </ul>
                     </div>
                     <div ng-if="ctrl.emailSubjectControlConfig" ng-show="ctrl.isEmailTabSelected()">
@@ -39,13 +47,22 @@
                             <rich-text-editor class="form__content" config="ctrl.emailBodyControlConfig"></rich-text-editor>
                         </div>
                     </div>
-                    <div ng-if="ctrl.uiMessageControlConfig" ng-show="ctrl.isUiTabSelected()">
+                    <div ng-if="ctrl.uiMessageControlConfig" ng-show="ctrl.isUiTabSelected() && !ctrl.selectedNotifierSettings.template.isDesktopNotificationEnabled">
                         <div class="form__row">
                             <label class="form__label">In-App message:</label>
                             <rich-text-editor class="form__content" config="ctrl.uiMessageControlConfig"></rich-text-editor>
                         </div>
                     </div>
-
+                    <div ng-if="ctrl.desktopMessageControlConfig" ng-show="ctrl.isUiTabSelected() && ctrl.selectedNotifierSettings.template.isDesktopNotificationEnabled">
+                        <div class="form__row">
+                            <label class="form__label">In-Desktop title:</label>
+                            <text-control class="form__content" config="ctrl.desktopTitleControlConfig"></text-control>
+                        </div>
+                        <div class="form__row">
+                            <label class="form__label">In-Desktop message:</label>
+                            <text-area-control class="form__content" config="ctrl.desktopMessageControlConfig"></text-area-control>
+                        </div>
+                    </div>
                     <div ng-if="ctrl.popupMessageControlConfig" ng-show="ctrl.isPopupTabSelected()">
                         <div class="form__row">
                             <label class="form__label">Popup message:</label>
