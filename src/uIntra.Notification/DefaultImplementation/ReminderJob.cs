@@ -85,7 +85,7 @@ namespace Uintra.Notification
 
         private static bool ShouldNotify(int time, DateTime startDate)
         {
-            return startDate.Subtract(DateTime.Now).TotalMinutes < time;
+            return startDate.Subtract(DateTime.UtcNow).TotalMinutes < time;
         }
     }
 }
