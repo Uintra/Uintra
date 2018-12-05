@@ -6,7 +6,7 @@ namespace Compent.Uintra.Core.Search.Entities.Mappings
     {
         public SearchableTagMap()
         {
-            Text(t => t.Name(n => n.Title));
+            
         }
     }
 }

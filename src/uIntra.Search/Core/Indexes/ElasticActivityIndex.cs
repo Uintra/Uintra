@@ -5,7 +5,7 @@ using Uintra.Core.TypeProviders;
 
 namespace Uintra.Search
 {
-    public class ElasticActivityIndex : IElasticActivityIndex
+    public class ElasticActivityIndex : IElasticActivityIndex, IElasticEntityMapper
     {
         private readonly IElasticSearchRepository<SearchableActivity> _elasticSearchRepository;
 
@@ -35,6 +35,11 @@ namespace Uintra.Search
         public void DeleteByType(Enum type)
         {
             _elasticSearchRepository.DeleteAllByType(type);
+        }
+
+        public bool CreateMap(out string error)
+        {
+            return _elasticSearchRepository.CreateMap(out error);
         }
     }
 }

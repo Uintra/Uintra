@@ -7,7 +7,7 @@ using Uintra.Search;
 
 namespace Compent.Uintra.Core.Search.Indexes
 {
-    public class ElasticUintraContentIndex : IElasticUintraContentIndex
+    public class ElasticUintraContentIndex : IElasticUintraContentIndex, IElasticEntityMapper
     {
         private readonly IElasticSearchRepository<SearchableUintraContent> _elasticSearchRepository;
 
@@ -37,6 +37,11 @@ namespace Compent.Uintra.Core.Search.Indexes
         public void Delete(int id)
         {
             _elasticSearchRepository.Delete(id);
+        }
+
+        public bool CreateMap(out string error)
+        {
+            return _elasticSearchRepository.CreateMap(out error);
         }
     }
 }
