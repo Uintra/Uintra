@@ -68,10 +68,10 @@ namespace Uintra.Search
                 .AllTypes();
         }
 
-        public virtual void RecreateIndex()
+        public bool RecreateIndex(out string error)
         {
             _elasticSearchRepository.DeleteIndex();
-            _elasticSearchRepository.EnsureIndexExists(ElasticHelpers.SetAnalysis);
+            return _elasticSearchRepository.EnsureIndexExists(ElasticHelpers.SetAnalysis, out error);
         }
 
         protected virtual QueryContainer GetBaseDescriptor(string query)
@@ -170,30 +170,24 @@ namespace Uintra.Search
                 Documents = documents,
                 TypeFacets = GlobalFacets(response.Aggs.Aggregations, SearchConstants.SearchFacetNames.Types)
             };
-             
+
             return result;
         }
 
-        protected virtual void ApplySort<T>(SearchDescriptor<T> searchDescriptor, int direction = 0, string propertyName = "_score" ) where T : class
+        protected virtual void ApplySort<T>(SearchDescriptor<T> searchDescriptor, int direction = 0, string propertyName = "_score") where T : class
         {
             if (propertyName.In("fullName", "mail"))
             {
-                propertyName += ".sort_normalizer";
+                propertyName += $".{ElasticHelpers.Normalizer.Sort}";
             }
 
             switch (direction)
             {
-                case 0 when propertyName.Equals("_score"):
-                    searchDescriptor.Sort(s => s.Descending(propertyName));
-                    break;
-                case 1 when propertyName.Equals("_score"):
-                    searchDescriptor.Sort(s => s.Ascending(propertyName));
-                    break;
                 case 0:
-                    searchDescriptor.Sort(s => s.Ascending(propertyName));
+                    searchDescriptor.Sort(s => propertyName.Equals("_score") ? s.Descending(propertyName) : s.Ascending(propertyName));
                     break;
                 case 1:
-                    searchDescriptor.Sort(s => s.Descending(propertyName));
+                    searchDescriptor.Sort(s => propertyName.Equals("_score") ? s.Ascending(propertyName) : s.Descending(propertyName));
                     break;
             }
         }
