@@ -29,7 +29,7 @@ namespace Compent.Uintra.Controllers.Api
         }
 
         [HttpGet]
-        public void RunRemainder()//Guid qaKey
+        public void RunRemainder(Guid qaKey)
         {
             _reminderJob.Run();
         }
