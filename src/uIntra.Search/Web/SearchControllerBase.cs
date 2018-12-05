@@ -211,13 +211,19 @@ namespace Uintra.Search.Web
         }
 
         [HttpPost]
-        public virtual void RebuildIndex()
+        public virtual ActionResult RebuildIndex()
         {
-            _elasticIndex.RecreateIndex();
-            foreach (var service in _searchableServices)
+            var response = new
             {
-                service.FillIndex();
-            }
+                success = _elasticIndex.RecreateIndex(out var error),
+                error
+            };
+            if (response.success)
+                foreach (var service in _searchableServices)
+                {
+                    service.FillIndex();
+                }
+            return Json(response);
         }
     }
 }
