@@ -225,6 +225,7 @@ namespace Compent.Uintra.Core.News
 
                 case NotificationTypeEnum.CommentLikeAdded:
                     {
+                        data.ActivityType = CommunicationTypeEnum.CommunicationSettings;
                         var comment = _commentsService.Get(entityId);
                         var news = Get(comment.ActivityId);
                         data.ReceiverIds = currentUser.Id == comment.UserId

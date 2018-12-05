@@ -156,6 +156,10 @@ namespace Compent.Uintra.Controllers
                 _activityTagsHelper.ReplaceTags(bulletin.Id, extendedModel.TagIdsData);
             }
 
+            if (string.IsNullOrEmpty(model.Description))
+            {
+                return;
+            }
             ResolveMentions(model.Description, bulletin);
         }
 
