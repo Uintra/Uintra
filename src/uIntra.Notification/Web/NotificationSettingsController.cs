@@ -97,6 +97,16 @@ namespace Uintra.Notification.Web
             _notificationSettingsService.Save(mappedModel);
         }
 
+
+        [HttpPost]
+        public virtual void SaveDesktopNotifierSetting(NotifierSettingSaveModel<DesktopNotifierTemplate> notifierSettingModel)
+        {
+            var mappedModel = notifierSettingModel.Map<NotifierSettingModel<DesktopNotifierTemplate>>();
+            FillEnumTypes(mappedModel, notifierSettingModel);
+
+            _notificationSettingsService.Save(mappedModel);
+        }
+
         protected virtual void FillEnumTypes<T>(
             NotifierSettingModel<T> notifierSettingModel,
             NotifierSettingSaveModel<T> notifierSettingSaveModel)

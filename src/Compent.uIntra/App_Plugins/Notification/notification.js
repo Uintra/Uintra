@@ -96,17 +96,15 @@ function updateNotifications() {
     ajax.get("/umbraco/surface/Notification/GetNotNotifiedNotifications")
         .then((response) => {
             if (response.data.count > 0) {
-                var pushedNotificationsCount = 0;
                 var i = 0;
                 var interval = setInterval(function (notifications) {
                     var notification = notifications[i];
                     if (push.Permission.has() && notification.isDesktopNotificationEnabled) {
                         sentNotification(notification);
-                        pushedNotificationsCount++;
                     }
                     if (++i >= response.data.count) {
                         clearInterval(interval);
-                        updateCounter(response.data.count - pushedNotificationsCount);
+                        updateCounter(response.data.count);
                     }
                 }, 200, response.data.notifications);
             }

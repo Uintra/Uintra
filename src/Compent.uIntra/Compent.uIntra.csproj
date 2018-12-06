@@ -1309,6 +1309,7 @@
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
     <Compile Include="Core\Login\Models\LoginModel.cs" />
+    <Compile Include="Core\Notification\DesktopNotificationModelMapper.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionNotificationService.cs" />
     <Compile Include="Core\Notification\IUserMentionNotificationService.cs" />
     <Compile Include="Core\Notification\Models\UserMentionNotificationModel.cs" />
