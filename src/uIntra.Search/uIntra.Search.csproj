@@ -368,6 +368,7 @@
     <Compile Include="Core\Entities\Mappings\SearchableDocumentMap.cs" />
     <Compile Include="Core\Entities\SearchableDocument.cs" />
     <Compile Include="Core\IDocumentIndexer.cs" />
+    <Compile Include="Core\IElasticEntityMapper.cs" />
     <Compile Include="Core\Indexes\ElasticDocumentIndex.cs" />
     <Compile Include="Core\Indexes\IElasticDocumentIndex.cs" />
     <Compile Include="Core\ISearchableTypeProvider.cs" />

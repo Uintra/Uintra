@@ -4,6 +4,6 @@
     {
         SearchResult<SearchableBase> Search(SearchTextQuery query);
 
-        void RecreateIndex();
+        bool RecreateIndex(out string error);
     }
 }

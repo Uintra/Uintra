@@ -299,6 +299,7 @@ namespace Compent.Uintra.Core.Events
                     break;
                 case NotificationTypeEnum.CommentLikeAdded:
                     {
+                        data.ActivityType = CommunicationTypeEnum.CommunicationSettings;
                         var comment = _commentsService.Get(entityId);
                         var currentEvent = Get(comment.ActivityId);
                         data.ReceiverIds = currentUser.Id == comment.UserId ? Enumerable.Empty<Guid>() : comment.UserId.ToEnumerable();

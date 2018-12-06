@@ -14,7 +14,10 @@ namespace Compent.Uintra.Core.Search.Indexes
     {
         private readonly SearchScoreModel scores;
 
-        public UintraElasticIndex(IElasticSearchRepository elasticSearchRepository, ISearchScoreProvider searchScoreProvider) : base(elasticSearchRepository)
+        public UintraElasticIndex(
+            IElasticSearchRepository elasticSearchRepository, 
+            ISearchScoreProvider searchScoreProvider,
+            IEnumerable<IElasticEntityMapper> mappers) : base(elasticSearchRepository, mappers)
         {
             scores = searchScoreProvider.GetScores();
         }

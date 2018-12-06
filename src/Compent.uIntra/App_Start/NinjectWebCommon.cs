@@ -523,6 +523,12 @@ namespace Compent.Uintra
             kernel.Bind<IElasticUintraContentIndex>().To<ElasticUintraContentIndex>().InRequestScope();
             kernel.Bind<IUserTagsSearchIndexer>().To<UserTagsSearchIndexer>().InRequestScope();
 
+            kernel.Bind<IElasticEntityMapper>().To<ElasticActivityIndex>().InRequestScope();
+            kernel.Bind<IElasticEntityMapper>().To<ElasticContentIndex>().InRequestScope();
+            kernel.Bind<IElasticEntityMapper>().To<ElasticDocumentIndex>().InRequestScope();
+            kernel.Bind<IElasticEntityMapper>().To<ElasticTagIndex>().InRequestScope();
+            kernel.Bind<IElasticEntityMapper>().To<ElasticUserIndex>().InRequestScope();
+
             kernel.Bind<IElasticIndex>().To<UintraElasticIndex>().InRequestScope();
             kernel.Bind<ISearchScoreProvider>().To<SearchScoreProvider>().InRequestScope();
 
