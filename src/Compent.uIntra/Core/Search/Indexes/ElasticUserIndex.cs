@@ -5,7 +5,7 @@ using Uintra.Search;
 
 namespace Compent.Uintra.Core.Search.Indexes
 {
-    public class ElasticUserIndex : IElasticUserIndex
+    public class ElasticUserIndex : IElasticUserIndex, IElasticEntityMapper
     {
         private readonly IElasticSearchRepository<SearchableUser> _elasticSearchRepository;
         private bool _isMappingChecked;
@@ -42,6 +42,11 @@ namespace Compent.Uintra.Core.Search.Indexes
 
             _elasticSearchRepository.EnsureMappingExist();
             _isMappingChecked = true;
+        }
+
+        public bool CreateMap(out string error)
+        {
+            return _elasticSearchRepository.CreateMap(out error);
         }
     }
 }

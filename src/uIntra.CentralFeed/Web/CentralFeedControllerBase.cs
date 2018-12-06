@@ -88,6 +88,7 @@ namespace Uintra.CentralFeed.Web
         }
 
         [HttpGet]
+        [NotFoundActivity]
         public virtual ActionResult Edit(Guid id)
         {
             var viewModel = GetEditViewModel(id);

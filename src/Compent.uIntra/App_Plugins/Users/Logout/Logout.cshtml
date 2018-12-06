@@ -16,7 +16,9 @@
                     googleAuthObject.signOut().then(function () {
                         window.location.href = '@Model.LoginUrl';
                     });
-                });
+                    }, function () {
+                        window.location.href = '@Model.LoginUrl';
+                    });
             });
         }
         init();

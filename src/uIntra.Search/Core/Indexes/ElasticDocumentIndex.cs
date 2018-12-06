@@ -2,7 +2,7 @@
 
 namespace Uintra.Search
 {
-    public class ElasticDocumentIndex : IElasticDocumentIndex
+    public class ElasticDocumentIndex : IElasticDocumentIndex, IElasticEntityMapper
     {
         private readonly IElasticSearchRepository<SearchableDocument> _elasticSearchRepository;
 
@@ -26,6 +26,11 @@ namespace Uintra.Search
         public void Delete(int id)
         {
             _elasticSearchRepository.Delete(id);
+        }
+
+        public bool CreateMap(out string error)
+        {
+            return _elasticSearchRepository.CreateMap(out error);
         }
     }
 }

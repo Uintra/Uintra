@@ -36,9 +36,10 @@ namespace Uintra.Search
             return GetSearchResponse(descriptor);
         }
 
-        public void EnsureIndexExists(Func<AnalysisDescriptor, AnalysisDescriptor> analysis)
+        public bool EnsureIndexExists(Func<AnalysisDescriptor, AnalysisDescriptor> analysis, out string error)
         {
-            if (Client.IndexExists(IndexName).Exists) return;
+            error = string.Empty;
+            if (Client.IndexExists(IndexName).Exists) return true;
 
             var createIndexResponse = Client.CreateIndex(
                 IndexName,
@@ -47,9 +48,12 @@ namespace Uintra.Search
             if (!createIndexResponse.IsValid)
             {
                 RequestError(createIndexResponse);
+                error = createIndexResponse.DebugInformation;
+                return false;
             }
 
-            EnsureAttachmentsPipelineExists();
+            return EnsureAttachmentsPipelineExists(out error);
+
         }
 
         public void DeleteIndex()
@@ -90,12 +94,13 @@ namespace Uintra.Search
             _exceptionLogger.Log(exception);
         }
 
-        private void EnsureAttachmentsPipelineExists()
+        private bool EnsureAttachmentsPipelineExists(out string error)
         {
+            error = string.Empty;
             var pipelineResponse = Client.GetPipeline(el => el.Id(AttachmentsPipelineName));
             if (pipelineResponse.IsValid)
             {
-                return;
+                return true;
             }
 
             var putPipelineResponse = Client.PutPipeline(
@@ -106,7 +111,10 @@ namespace Uintra.Search
             if (!putPipelineResponse.IsValid)
             {
                 RequestError(putPipelineResponse);
+                error = putPipelineResponse.DebugInformation;
+                return false;
             }
+            return true;
         }
     }
 
@@ -200,6 +208,21 @@ namespace Uintra.Search
             {
                 RequestError(putMappingResponse);
             }
+        }
+
+        public bool CreateMap(out string error)
+        {
+            if (Client.TypeExists(IndexName, GetTypeName()).Exists)
+            {
+                error = string.Empty;
+                return true;
+            } 
+            var putMappingResponse = Client.Map<T>(d => d
+                .Index(IndexName)
+                .Type(GetTypeName())
+                .Properties(p => _properties));
+            error = putMappingResponse.IsValid ? string.Empty : putMappingResponse.DebugInformation;
+            return putMappingResponse.IsValid;
         }
 
         private static IndexDescriptor<T> SetPipelines(IndexDescriptor<T> indexDescriptor)

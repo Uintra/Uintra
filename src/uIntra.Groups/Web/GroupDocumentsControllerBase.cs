@@ -104,7 +104,7 @@ namespace Uintra.Groups.Web
                     CreateDate = s.CreateDate,
                     Name = s.Name,
                     Type = s.GetValue<string>(UmbracoAliases.Media.MediaExtension),
-                    CreatorName = creator.DisplayedName,
+                    Creator = creator,
                     FileUrl = url
                 };
                 return model;
@@ -183,7 +183,7 @@ namespace Uintra.Groups.Web
                     keySelector = s => s.CreateDate;
                     break;
                 case GroupDocumentDocumentField.Creator:
-                    keySelector = s => s.CreatorName;
+                    keySelector = s => s.Creator.DisplayedName;
                     break;
                 default:
                     keySelector = s => s.Name;

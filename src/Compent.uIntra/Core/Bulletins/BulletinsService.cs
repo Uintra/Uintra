@@ -75,7 +75,7 @@ namespace Compent.Uintra.Core.Bulletins
             IUserTagService userTagService,
             IActivityLinkPreviewService activityLinkPreviewService,
             IGroupService groupService)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService,activityLinkPreviewService)
+            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -228,6 +228,7 @@ namespace Compent.Uintra.Core.Bulletins
 
                 case NotificationTypeEnum.CommentLikeAdded:
                     {
+                        data.ActivityType = CommunicationTypeEnum.CommunicationSettings;
                         var comment = _commentsService.Get(entityId);
                         var bulletinsEntity = Get(comment.ActivityId);
                         data.ReceiverIds = currentUser.Id == comment.UserId

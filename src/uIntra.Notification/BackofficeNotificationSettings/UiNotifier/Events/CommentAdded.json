@@ -1,9 +1,6 @@
 ﻿{
   "label": "This is an in-app notification that is sent to the creator of the event post when someone adds a comment to it.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of event <br>##FullName## - Name of the user who added a comment<br>",
   "template": {
-    "message": "##FullName## has added a comment to your event post: ##ActivityTitle##",
-    "isDesktopNotificationEnabled": false,
-    "desktopMessage": "##FullName## has added a comment to your event post: ##ActivityTitle##",
-    "desktopTitle": "##NotificationType##"
+    "message": "##FullName## has added a comment to your event post: ##ActivityTitle##"
   }
 }

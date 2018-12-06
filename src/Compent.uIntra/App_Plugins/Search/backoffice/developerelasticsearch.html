@@ -1,12 +1,18 @@
 ﻿<input type="button" value="Rebuild Elasticsearch index" class="btn-black js-cleanindex-elasticsearch"/>
+<div id="error"></div>
 <script>
     $('.js-cleanindex-elasticsearch').on('click', function () {
         $.ajax({
             url: '/umbraco/surface/Search/RebuildIndex',
                 type: 'POST'
             })
-            .done(function() {
-                alert('REBUILD INDEX DONE');
+            .done(function (data) {
+                if (data.success)
+                    alert('REBUILD INDEX DONE');
+                else {
+                    alert('REBUILD INDEX FAILED')
+                    document.getElementById("error").innerText = data.error;
+                }
             });
     })
 </script>
