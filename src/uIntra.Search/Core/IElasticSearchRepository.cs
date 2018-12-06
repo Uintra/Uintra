@@ -23,6 +23,7 @@ namespace Uintra.Search
         void Save(IEnumerable<T> documents);
         void Delete(object id);
         void EnsureMappingExist();
+        bool CreateMap(out string error);
         void DeleteAllByType(Enum type);
     }
 }

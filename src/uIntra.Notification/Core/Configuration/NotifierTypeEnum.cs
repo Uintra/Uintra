@@ -4,6 +4,7 @@
     {
         EmailNotifier = 1,
         UiNotifier,
-        PopupNotifier
+        PopupNotifier,
+        DesktopNotifier
     }
 }

@@ -13,10 +13,13 @@ namespace Uintra.Search
         protected const int FieldWithReplaceAnalyzerBoost = 10;
 
         private readonly IElasticSearchRepository _elasticSearchRepository;
+        private readonly IEnumerable<IElasticEntityMapper> _mappers;
 
-        public ElasticIndex(IElasticSearchRepository elasticSearchRepository)
+        public ElasticIndex(IElasticSearchRepository elasticSearchRepository,
+            IEnumerable<IElasticEntityMapper> mappers)
         {
             _elasticSearchRepository = elasticSearchRepository;
+            _mappers = mappers;
         }
 
         public virtual SearchResult<SearchableBase> Search(SearchTextQuery query)
@@ -71,7 +74,10 @@ namespace Uintra.Search
         public bool RecreateIndex(out string error)
         {
             _elasticSearchRepository.DeleteIndex();
-            return _elasticSearchRepository.EnsureIndexExists(ElasticHelpers.SetAnalysis, out error);
+            if (!_elasticSearchRepository.EnsureIndexExists(ElasticHelpers.SetAnalysis, out error)) return false;
+            foreach (var mapper in _mappers)
+                if (!mapper.CreateMap(out error)) return false;
+            return true;
         }
 
         protected virtual QueryContainer GetBaseDescriptor(string query)

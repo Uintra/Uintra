@@ -363,6 +363,7 @@ namespace Compent.Uintra
             kernel.Bind<INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage>>().To<UiNotificationModelMapper>().InRequestScope();
             kernel.Bind<INotificationModelMapper<PopupNotifierTemplate, PopupNotificationMessage>>().To<PopupNotificationModelMapper>().InRequestScope();
             kernel.Bind<INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage>>().To<MailNotificationModelMapper>().InRequestScope();
+            kernel.Bind<INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage>>().To<DesktopNotificationModelMapper>().InRequestScope();
             kernel.Bind<IUserMentionNotificationService>().To<UserMentionNotificationService>().InRequestScope();
 
             kernel.Bind<IBackofficeSettingsReader>().To<BackofficeSettingsReader>();
@@ -521,6 +522,12 @@ namespace Compent.Uintra
             kernel.Bind<IElasticUserIndex>().To<ElasticUserIndex>().InRequestScope();
             kernel.Bind<IElasticUintraContentIndex>().To<ElasticUintraContentIndex>().InRequestScope();
             kernel.Bind<IUserTagsSearchIndexer>().To<UserTagsSearchIndexer>().InRequestScope();
+
+            kernel.Bind<IElasticEntityMapper>().To<ElasticActivityIndex>().InRequestScope();
+            kernel.Bind<IElasticEntityMapper>().To<ElasticContentIndex>().InRequestScope();
+            kernel.Bind<IElasticEntityMapper>().To<ElasticDocumentIndex>().InRequestScope();
+            kernel.Bind<IElasticEntityMapper>().To<ElasticTagIndex>().InRequestScope();
+            kernel.Bind<IElasticEntityMapper>().To<ElasticUserIndex>().InRequestScope();
 
             kernel.Bind<IElasticIndex>().To<UintraElasticIndex>().InRequestScope();
             kernel.Bind<ISearchScoreProvider>().To<SearchScoreProvider>().InRequestScope();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Nest;
 using Uintra.Core.Extensions;
 using Uintra.Search.Configuration;
@@ -209,6 +208,21 @@ namespace Uintra.Search
             {
                 RequestError(putMappingResponse);
             }
+        }
+
+        public bool CreateMap(out string error)
+        {
+            if (Client.TypeExists(IndexName, GetTypeName()).Exists)
+            {
+                error = string.Empty;
+                return true;
+            } 
+            var putMappingResponse = Client.Map<T>(d => d
+                .Index(IndexName)
+                .Type(GetTypeName())
+                .Properties(p => _properties));
+            error = putMappingResponse.IsValid ? string.Empty : putMappingResponse.DebugInformation;
+            return putMappingResponse.IsValid;
         }
 
         private static IndexDescriptor<T> SetPipelines(IndexDescriptor<T> indexDescriptor)
