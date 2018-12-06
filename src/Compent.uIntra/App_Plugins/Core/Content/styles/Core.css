@@ -1326,7 +1326,7 @@ img{
             align-items: center;
 
             @media (--for-tablet-portrait-down) {
-			    margin:0 0 8px 8px;
+			    margin:0 0 8px 6px;
 		    }
 
             &:hover{
