@@ -13,7 +13,7 @@ namespace Uintra.Bulletins
         [RequiredVirtual(IsRequired = false)]
         public override string Title { get; set; }
 
-        [RequiredIfEmpty(OtherProperty = nameof(NewMedia)), AllowHtml, StringLength(2000)]
+        [RequiredIfEmpty(OtherProperty = nameof(NewMedia)), AllowHtml, StringLenghtWithoutHtml(2000)]
         public string Description { get; set; }
 
         public int? MediaRootId { get; set; }
