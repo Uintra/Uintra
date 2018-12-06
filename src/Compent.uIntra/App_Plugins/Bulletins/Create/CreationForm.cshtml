@@ -40,6 +40,9 @@
                     <div class="create-bulletin__toolbar js-bulletin-toolbar">
                         <button class="btn _submit _send js-toolbar__send-button" disabled="disabled">@Html.Localize("BulletinsCreate.Post.lbl")</button>
                         <div class="create-bulletin__toolbar ql-toolbar ql-snow js-create-bulletin__toolbar">
+                            <span class="ql-counter">
+                                <label class="js-desc-counter"></label><label>/2000</label>
+                            </span>
                             <span class="ql-formats">
                                 <button type="button" class="ql-emoji" title="emoji"></button>
                                 <button type="button" class="ql-bold" title="bold"></button>
@@ -49,7 +52,7 @@
                             <span class="ql-formats">
                                 <button type="button" class="js-dropzone _upload" title="upload" data-allowed="@Model.AllowedMediaExtensions" data-remove-text="@Html.Localize("FileUploadView.RemoveFile.lbl")">
                                 </button>
-                                <input type="hidden" class="js-new-media" name="@nameof(Model.NewMedia)" />
+                                <input type="hidden" class="js-new-media" name="@nameof(Model.NewMedia)"/>
                             </span>
                         </div>
                     </div>
