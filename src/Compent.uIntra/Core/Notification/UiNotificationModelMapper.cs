@@ -24,7 +24,7 @@ namespace Compent.Uintra.Core.Notification
                 ReceiverId = receiver.Id,
                 IsPinned = notifierData.IsPinned,
                 IsPinActual = notifierData.IsPinActual,
-                IsDesktopNotificationEnabled = template.IsDesktopNotificationEnabled
+                //IsDesktopNotificationEnabled = template.IsDesktopNotificationEnabled
             };
             (string, string)[] tokens;
             switch (notifierData)
@@ -95,8 +95,6 @@ namespace Compent.Uintra.Core.Notification
             }
 
             message.Message = ReplaceTokens(template.Message, tokens);
-            message.DesktopMessage = ReplaceTokens(template.DesktopMessage, tokens).StripHtml();
-            message.DesktopTitle = ReplaceTokens(template.DesktopTitle, tokens).StripHtml();
             return message;
         }
 

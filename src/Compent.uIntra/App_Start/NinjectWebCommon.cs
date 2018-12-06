@@ -363,6 +363,7 @@ namespace Compent.Uintra
             kernel.Bind<INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage>>().To<UiNotificationModelMapper>().InRequestScope();
             kernel.Bind<INotificationModelMapper<PopupNotifierTemplate, PopupNotificationMessage>>().To<PopupNotificationModelMapper>().InRequestScope();
             kernel.Bind<INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage>>().To<MailNotificationModelMapper>().InRequestScope();
+            kernel.Bind<INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage>>().To<DesktopNotificationModelMapper>().InRequestScope();
             kernel.Bind<IUserMentionNotificationService>().To<UserMentionNotificationService>().InRequestScope();
 
             kernel.Bind<IBackofficeSettingsReader>().To<BackofficeSettingsReader>();

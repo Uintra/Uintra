@@ -282,11 +282,6 @@
                 > p:last-child{
                     margin-bottom:0;
                 }
-                
-                p{
-                    display:inline-block;
-                    vertical-align:top;
-                }
 
                 .mention{
                     height: auto;

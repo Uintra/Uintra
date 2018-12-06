@@ -1,4 +1,4 @@
-﻿using Uintra.Core.Extensions;
+﻿using System.Web.Helpers;
 using Uintra.Core.Persistence;
 using Uintra.Notification;
 using Uintra.Notification.Configuration;
@@ -23,7 +23,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._0.Steps
             var uiSettings = _repository.FindAll(i => i.NotifierType == (int)NotifierTypeEnum.UiNotifier);
             foreach (var settings in uiSettings)
             {
-                var value = settings.JsonData.Deserialize<UiNotifierTemplate>();
+                var value = Json.Decode(settings.JsonData);
                 value.DesktopTitle = TokensConstants.NotificationType;
                 value.DesktopMessage = value.Message?.StripHtml();
                 value.IsDesktopNotificationEnabled = false;
