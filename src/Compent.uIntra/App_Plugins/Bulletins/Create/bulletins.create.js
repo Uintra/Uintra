@@ -78,6 +78,12 @@ function initEditor() {
         var count = editor.getLength() - 1;
         $(descCounter).text(count);
         sentButton.disabled = count > 2000;
+
+        if (count >= 2000){
+            $(descCounter).addClass('warning');
+        } else {
+            $(descCounter).removeClass('warning');
+        }
     }
 
     function showLinkPreview(link) {
