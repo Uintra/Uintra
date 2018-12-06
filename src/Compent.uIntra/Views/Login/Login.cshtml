@@ -54,7 +54,8 @@
                 </div>
                 @if (Model.GoogleSettings.AuthenticationEnabled)
                 {
-                    <div class="js-google-login" style="cursor: pointer; border: 1px solid grey; border-radius: 4px; padding: 4px; text-align: center">
+                <div class="google-login js-google-login">
+                    <div class="google-login__image">
                         <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <title>Google</title>
                             <g id="Registration" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -70,8 +71,9 @@
                                 </g>
                             </g>
                         </svg>
-                        <span>Log in with Google</span>
                     </div>
+                    Log in with Google
+                </div>
                 }
 
                 <div class="js-error form__row" style="margin-top:20px;">
