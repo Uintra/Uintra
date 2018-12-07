@@ -1151,6 +1151,7 @@
     <Content Include="config\EmbeddedMedia.config" />
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
+    <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserListLink.cshtml" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1475,7 +1476,6 @@
     <Compile Include="Core\Updater\Migrations\1.0\Steps\UpdateContentGridEditors.cs" />
     <Compile Include="Core\Updater\Migrations\1.0\Steps\UpdateEnumDropDownListPreValuesStep.cs" />
     <Compile Include="Core\Updater\Migrations\1.0\Steps\UpdateRelatedUserPropertyStep.cs" />
-    <Compile Include="Core\Updater\Migrations\1.0\Steps\UpdateUiNotificationSettingsStep.cs" />
     <Compile Include="Core\Updater\Migrations\1.1\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\1.1\Steps\SplitEventLabelsStep.cs" />
     <Compile Include="Core\Updater\TranslationsUpdateStep.cs" />

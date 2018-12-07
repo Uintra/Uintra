@@ -25,8 +25,10 @@ let dimmedBg;
 let isOneLinkDetected = false;
 let linkPreviewContainer;
 let tagSelector;
+let descCounter;
 
 function initElements() {
+    descCounter = holder.querySelector(".js-desc-counter");
     dataStorage = holder.querySelector(".js-create-bulletin__description-hidden");
     description = holder.querySelector(".js-create-bulletin__description");
     toolbar = holder.querySelector(toolbarSelector);
@@ -46,6 +48,10 @@ function initElements() {
     dimmedBg = holder.querySelector(".js-create-bulletin__dimmed-bg");
 }
 
+function initCounter() {
+    $(descCounter).text(0);
+};
+
 function initEditor() {
     editor = helpers.initQuill(description, dataStorage, {
         placeholder: description.dataset["placeholder"],
@@ -58,6 +64,7 @@ function initEditor() {
 
     editor.on('text-change', function () {
         sentButton.disabled = !isEdited();
+        updateCounter();
     });
 
     editor.onLinkDetected(function (link) {
@@ -66,6 +73,18 @@ function initEditor() {
             showLinkPreview(link);
         }
     });
+
+    function updateCounter() {
+        var count = editor.getLength() - 1;
+        $(descCounter).text(count);
+        sentButton.disabled = count > 2000;
+
+        if (count > 2000){
+            $(descCounter).addClass('warning');
+        } else {
+            $(descCounter).removeClass('warning');
+        }
+    }
 
     function showLinkPreview(link) {
         ajax.get('/umbraco/api/LinkPreview/Preview?url=' + link)
@@ -335,6 +354,7 @@ let controller = {
         //initMobile();
         initElements();
         initEditor();
+        initCounter();
         initEventListeners();
         initFileUploader();
     }

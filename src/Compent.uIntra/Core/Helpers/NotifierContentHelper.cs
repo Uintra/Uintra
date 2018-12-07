@@ -13,6 +13,7 @@ namespace Compent.Uintra.Core.Helpers
     {
         private readonly IActivityLinkService _linkService;
         private readonly ICommentLinkHelper _commentLinkHelper;
+        const int MaxTitleLength = 100;
 
         public NotifierDataHelper(IActivityLinkService linkService, ICommentLinkHelper commentLinkHelper)
         {
@@ -27,7 +28,7 @@ namespace Compent.Uintra.Core.Helpers
                 CommentId = comment.Id,
                 NotificationType = notificationType,
                 NotifierId = notifierId,
-                Title = GetNotifierDataTitle(activity),
+                Title = GetNotifierDataTitle(activity).TrimByWordEnd(MaxTitleLength),
                 Url = _commentLinkHelper.GetDetailsUrlWithComment(activity.Id, comment.Id),
                 IsPinned = activity.IsPinned,
                 IsPinActual = activity.IsPinActual
@@ -50,12 +51,12 @@ namespace Compent.Uintra.Core.Helpers
 
         public ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, Enum notificationType, Guid notifierId)
         {
-            const int maxTitleLength = 100;
+            
             return new ActivityNotifierDataModel
             {
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
-                Title = GetNotifierDataTitle(activity).TrimByWordEnd(maxTitleLength),
+                Title = GetNotifierDataTitle(activity).TrimByWordEnd(MaxTitleLength),
                 Url = _linkService.GetLinks(activity.Id).Details,
                 NotifierId = notifierId,
                 IsPinned = activity.IsPinned,
@@ -67,7 +68,7 @@ namespace Compent.Uintra.Core.Helpers
         {
             return new LikesNotifierDataModel
             {
-                Title = GetNotifierDataTitle(activity),
+                Title = GetNotifierDataTitle(activity).TrimByWordEnd(MaxTitleLength),
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
                 NotifierId = notifierId,
