@@ -384,6 +384,7 @@
     <Compile Include="Core\Configuration\NavigationItemTypeSettings.cs" />
     <Compile Include="Core\Configuration\NavigationPropertySettings.cs" />
     <Compile Include="Core\EqualityComparers\MyLinkItemModelComparer.cs" />
+    <Compile Include="Core\Models\UserListLinkModel.cs" />
     <Compile Include="Core\NavigationConstants.cs" />
     <Compile Include="Core\Dashboard\Models\CreateNavigationCompositionsModel.cs" />
     <Compile Include="Core\Dashboard\Models\DocumentTypeState.cs" />
@@ -427,6 +428,7 @@
     <None Include="config\Dashboard.config.install.xdt" />
     <None Include="config\Dashboard.config.uninstall.xdt" />
     <Compile Include="DefaultImplementation\TopNavigationViewModel.cs" />
+    <Compile Include="DefaultImplementation\UserListLinkViewModel.cs" />
     <Compile Include="Web\MyLinksControllerBase.cs" />
     <Compile Include="Web\NavigationAuthorizationControllerBase.cs" />
     <Compile Include="Web\NavigationControllerBase.cs" />
