@@ -5,7 +5,6 @@ using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Notification;
-using Uintra.Notification.Configuration;
 using Umbraco.Core.Models;
 
 namespace Compent.Uintra.Core.Helpers
