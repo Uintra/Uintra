@@ -1,6 +1,16 @@
 ﻿@model Uintra.Navigation.UserListLinkViewModel
 
-@if (!Model.IsVisible)
+@if (Model.IsVisible)
 {
-    <div>Some cool staff!!!!</div>
+    <ul class="side-nav _people">
+        <li class="side-nav__item">
+            <a class="side-nav__link _title-link" href="@Model.Url">
+                <span class="central-user">
+                    <svg viewBox="0 1 16 14" width="18px" height="16px">
+                        <use class="people" xlink:href="#people" x="0" y="0"></use>
+                    </svg>
+                </span> @Model.Name
+            </a>
+        </li>
+    </ul>
 }
