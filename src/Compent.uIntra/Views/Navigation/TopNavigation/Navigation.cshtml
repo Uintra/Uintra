@@ -19,7 +19,11 @@
         <div class="tools">
             @if (!Model.CentralUserListUrl.IsNullOrWhiteSpace())
             {
-                <a href="@Model.CentralUserListUrl" class="central-user"></a>
+                <a href="@Model.CentralUserListUrl" class="central-user">
+                    <svg viewBox="0 1 16 14" width="22px" height="20px">
+                        <use class="people" xlink:href="#people" x="0" y="0"></use>
+                    </svg>
+                </a>
             }
             @{ Html.RenderAction("Preview", "Notification"); }
         </div>
