@@ -20,6 +20,7 @@ namespace Uintra.Navigation.Web
         protected virtual string BreadcrumbsViewPath { get; } = "~/App_Plugins/Navigation/Breadcrumbs.cshtml";
         protected virtual string LeftNavigationUserMenuViewPath { get; } = "~/App_Plugins/Navigation/LeftNavigation/View/UserMenu.cshtml";
         protected virtual string UmbracoContentLinkViewPath { get; } = "~/App_Plugins/Navigation/UmbracoNavigation/View/UmbracoContentLink.cshtml";
+        protected virtual string UserListLinkViewPath { get; } = "~/App_Plugins/Navigation/LeftNavigation/View/UserListLink.cshtml";
 
         protected virtual string SystemLinkTitleNodePropertyAlias { get; } = string.Empty;
         protected virtual string SystemLinkNodePropertyAlias { get; } = string.Empty;
@@ -157,6 +158,13 @@ namespace Uintra.Navigation.Web
 
             result.Reverse();
             return result;
+        }
+
+        public virtual ActionResult UserListLink()
+        {
+            var userListLink = _leftSideNavigationModelBuilder.GetUserListLink();
+            var model = userListLink.Map<UserListLinkViewModel>();
+            return View(UserListLinkViewPath, model);
         }
     }
 }
