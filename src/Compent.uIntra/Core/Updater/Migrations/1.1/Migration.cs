@@ -22,7 +22,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._1
         {
             get
             {
-                yield return Resolve<UpdateUiNotificationSettingsStep>();
                 yield return SplitEventLabels.SplitEventLabelsTranslationsUpdateStep();
             }
         }
