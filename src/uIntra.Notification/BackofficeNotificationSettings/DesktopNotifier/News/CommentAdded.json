@@ -2,6 +2,6 @@
   "label": "This is an in-app notification that is sent to the creator of the news post when someone adds a comment to it.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of news <br>##FullName## - Name of the user who added a comment<br>",
   "template": {
     "message": "##FullName## has added a comment to your news post: ##ActivityTitle##",
-    "desktopTitle": "##NotificationType##"
+    "title": "##NotificationType##"
   }
 }

@@ -45,18 +45,21 @@ namespace Compent.Uintra.Core.Notification
                     ? CommunicationTypeEnum.CommunicationSettings
                     : data.ActivityType, data.NotificationType)
                 .AddNotifierIdentity(Type);
-
             var settings = _notificationSettingsService.Get<UiNotifierTemplate>(identity);
-            if (settings == null || !settings.IsEnabled) return;
+
+            //if (settings == null) return;
+
+            var desktopSettingsIdentity = new ActivityEventIdentity(settings.ActivityType, settings.NotificationType)
+                    .AddNotifierIdentity(NotifierTypeEnum.DesktopNotifier);
+            var desktopSettings = _notificationSettingsService.Get<DesktopNotifierTemplate>(desktopSettingsIdentity);
+
+            if (!settings.IsEnabled && desktopSettings.IsEnabled) return;
+
             var receivers = _intranetUserService.GetMany(data.ReceiverIds);
 
             var messages = receivers.Select(receiver =>
             {
                 var uiMsg = _notificationModelMapper.Map(data.Value, settings.Template, receiver);
-                var desktopSettingsIdentity = new ActivityEventIdentity(settings.ActivityType, settings.NotificationType)
-                    .AddNotifierIdentity(NotifierTypeEnum.DesktopNotifier);
-
-                var desktopSettings = _notificationSettingsService.Get<DesktopNotifierTemplate>(desktopSettingsIdentity);
                 if (desktopSettings.IsEnabled)
                 {
                     var desktopMsg = _desktopNotificationModelMapper.Map(data.Value, desktopSettings.Template, receiver);
@@ -64,7 +67,6 @@ namespace Compent.Uintra.Core.Notification
                     uiMsg.DesktopMessage = desktopMsg.Message;
                     uiMsg.IsDesktopNotificationEnabled = true;
                 }
-
                 return uiMsg;
             });
             _notificationsService.Notify(messages);
