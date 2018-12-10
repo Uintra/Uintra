@@ -21,7 +21,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._0
         {
             get
             {
-                yield return Resolve<UpdateUiNotificationSettingsStep>();
                 yield return Resolve<UpdateEnumDropDownListPreValuesStep>();
                 yield return Resolve<UpdateRelatedUserPropertyStep>();
                 yield return Resolve<AddTranslationsStep>();

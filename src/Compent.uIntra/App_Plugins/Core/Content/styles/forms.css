@@ -212,3 +212,8 @@
         }
     }
 }
+
+.google-login-error{
+    margin:20px 0 0;
+    color:var(--color-red);
+}

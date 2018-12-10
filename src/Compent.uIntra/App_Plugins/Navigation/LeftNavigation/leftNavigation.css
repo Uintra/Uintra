@@ -54,9 +54,18 @@
 
     &._groups,
     &._system,
-    &._links{
+    &._links,
+    &._people{
         padding-top:17px;
-    }   
+    }
+    
+    &._people{
+        display:none;
+
+        @media (--for-tablet-portrait-down) {
+            display:block;
+        }
+    }
 
     .ss-content &{
         margin:0 -32px 18px 0;
@@ -171,7 +180,8 @@
 
         ._system &,
         ._links &,
-        ._groups &{
+        ._groups &,
+        ._people &{
             padding-left:50px;
         }
 

@@ -76,7 +76,7 @@
                 </div>
                 }
 
-                <div class="js-error form__row" style="margin-top:20px;">
+                <div class="js-google-login-error google-login-error">
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
             var googleClientId = "@Model.GoogleSettings.ClientId";
             var idTokenVerificationUrl = '@(this.Request.Url.GetLeftPart(UriPartial.Authority) + "/login/IdTokenVerification/")';
             var domain = "@Model.GoogleSettings.Domain";
-            var errorContainer = $(".js-error");
+            var errorContainer = $(".js-google-login-error");
             var googleLoginBtn = $(".js-google-login");
             var loginBtn = $("._submit");
 

@@ -315,6 +315,10 @@ img{
     }
 }
 
+.svg-sprite path {
+    fill: currentColor;
+}
+
 #wrapper {
     width:100%;
     overflow:hidden;

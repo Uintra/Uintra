@@ -27,8 +27,10 @@ using Compent.Uintra.Core.IoC;
 using Compent.Uintra.Core.LinkPreview.Config;
 using Compent.Uintra.Core.Navigation;
 using Compent.Uintra.Core.News;
+using Compent.Uintra.Core.News.Entities;
 using Compent.Uintra.Core.Notification;
 using Compent.Uintra.Core.PagePromotion;
+using Compent.Uintra.Core.PagePromotion.Entities;
 using Compent.Uintra.Core.Search;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.Search.Entities.Mappings;
@@ -448,6 +450,7 @@ namespace Compent.Uintra
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
             kernel.Bind<IVideoHelper>().To<VideoHelper>().InRequestScope();
             kernel.Bind<INotifierDataHelper>().To<NotifierDataHelper>().InRequestScope();
+            kernel.Bind<INotifierDataBuilder>().To<NotifierDataBuilder>().InRequestScope();
 
             //Jobs 
             kernel.Bind<global::Uintra.Notification.Jobs.ReminderJob>().ToSelf().InRequestScope();

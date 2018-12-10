@@ -8,7 +8,9 @@
     {
         foreach (var notification in Model.Notifications)
         {
-            <li data-anchor="@notification.Id" class="notification__list-item js-notification__list-item" data-href="@notification.Value.url" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
+            //var pinnedClass = notification.IsPinActual ? "_pinned" : "";
+
+            <li data-anchor="@notification.Id" class="notification__list-item js-notification__list-item @pinnedClass" data-href="@notification.Value.url" data-id="@notification.Id" data-viewed="@notification.IsViewed.ToString().ToLower()">
 
                 @if (notification.Notifier != null)
                 {
