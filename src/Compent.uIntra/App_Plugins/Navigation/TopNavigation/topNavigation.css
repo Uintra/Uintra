@@ -544,7 +544,7 @@
     float:left;
     position:relative;
     z-index:2;
-    padding:10px 5px;
+    padding:11px 4px;
     color:var(--color-white);
 
     &:hover,
