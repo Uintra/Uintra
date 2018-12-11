@@ -4,6 +4,11 @@
     background: #fff;
     box-shadow: 0 0 2px rgba(0, 0, 0, .2);
 
+    @media (--for-tablet-portrait-down) {
+        padding: 20px 10px 19px;
+        margin: 0 -15px 22px;
+    }
+
     .btn{
         margin:0 0 20px;
     }
@@ -98,13 +103,12 @@
 .users-table{
     width:100%;
     margin:0 0 50px;
-    font-size:16px;
-    line-height:1.38;
+    font-size:13px;
+    line-height:22px;
     color:var(--text-color-dark);
-    table-layout:fixed;
-
+    
     @media (--for-tablet-portrait-down){
-        table-layout:fixed;
+        border-top:1px solid #e6e6e6;
     }
 
     &-block{
@@ -113,25 +117,27 @@
         }
     }
 
+    &__thead{
+        @media (--for-tablet-portrait-down){
+            display:none;
+        }
+    }
+
     &__head {
         font-size:16px;
-        line-height:1.38;
         white-space: nowrap;
         font-weight: 700;
         position: relative;
         padding: 26px 0 25px 2%;
         color:var(--text-color-dark);
+        flex: 1;
 
         &:first-child{
             padding-left:0;
         }
 
         &--photo{
-            width:60px;
-
-            @media (--for-tablet-portrait-down){
-                width:20%;
-            }
+            max-width:60px;
         }
 
         &:after{
@@ -197,7 +203,21 @@
     }
 
     &__row{
-        tbody &{
+        display:flex;
+        width:100%;
+        position:relative;
+        border-bottom:1px solid #e6e6e6;
+
+        .users-table__thead &{
+            border:0;
+        }
+
+        @media (--for-tablet-portrait-down){
+            display:block;
+            padding:22px 0 15px 64px;
+        }
+
+        .users-table__tbody &{
             cursor:pointer;
 
             &:hover{
@@ -208,19 +228,50 @@
 
     &__cell{
         padding:14px 0 14px 2%;
-        border-bottom:1px solid #e6e6e6;
+        flex: 1;
+        overflow:hidden;
+
+        @media (--for-tablet-portrait-down) {
+            padding:0;
+        }
 
         &:first-child{
             padding-left:0;
         }
+
+        &--photo {
+            max-width: 60px;
+
+            @media (--for-tablet-portrait-down) {
+                position:absolute;
+                top:20px;
+                left:0;
+                z-index:2;
+            }
+
+            .avatar,
+            .avatar.avatar--group-member{
+                @media (--for-tablet-portrait-down) {
+                    margin:0;
+                    width:45px;
+                    height:45px;
+                }
+            }
+        }
     }
 
     &__name{
-        font-size:13px;
+        font-size:16px;
+        line-height:1.38;
         display: block;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+
+        @media (--for-tablet-portrait-down){
+            font-weight: bold;
+            margin:0 0 2px;
+        }
     }
 }
 

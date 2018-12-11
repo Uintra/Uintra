@@ -5,7 +5,7 @@ require("./user-list.css");
 
 const searchBoxElement = $(".js-user-list-filter");
 const searchButton = $(".js-search-button");
-const tableBody = $(".js-user-list-table tbody");
+const tableBody = $(".js-user-list-table .js-tbody");
 const button = $(".js-user-list-button");
 const sortLinks = $(".js-user-list-sort-link");
 const displayedRows = $(".js-user-list-row");
@@ -58,12 +58,12 @@ let controller = {
         }
 
         function onButtonClick(event) {
-            request.skip = tableBody.children("tr").length;
+            request.skip = tableBody.children("div").length;
             request.take = amountPerRequest;
-
+            
             ajax.post(url, request)
                 .then(result => {
-                    var rows = $(result.data).filter("tr");
+                    var rows = $(result.data).filter("div");
                     tableBody.append(rows);
                     addDetailsHandler(rows);
                     updateUI(rows);
@@ -81,7 +81,7 @@ let controller = {
 
             ajax.post(url, request)
                 .then((result) => {
-                    var rows = $(result.data).filter("tr");
+                    var rows = $(result.data).filter("div");
                     tableBody.children().remove();
                     tableBody.append(rows);
                     addDetailsHandler(rows);
@@ -104,7 +104,7 @@ let controller = {
 
             ajax.post(url, request)
                 .then(result => {
-                    var rows = $(result.data).filter("tr");
+                    var rows = $(result.data).filter("div");
                     tableBody.children().remove();
                     tableBody.append(rows);
                     addDetailsHandler(rows);
@@ -113,7 +113,7 @@ let controller = {
         }
 
         function updateUI(rows) {
-            if (tableBody.children("tr").length === 0) emptyResultLabel.show();
+            if (tableBody.children("div").length === 0) emptyResultLabel.show();
             else emptyResultLabel.hide();
             if (rows.hasClass(lastRequestClassName) || rows.length === 0) button.hide();
             else button.show();
