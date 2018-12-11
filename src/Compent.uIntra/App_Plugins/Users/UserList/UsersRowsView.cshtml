@@ -4,40 +4,35 @@
 
 @foreach (var user in Model.Users)
 {
-    <div data-profile="@user.ProfileUrl" class="users-table__row js-user-list-row @if (Model.IsLastRequest) { <text>last</text> }">
+    <tr data-profile="@user.ProfileUrl" class="users-table__row js-user-list-row @if (Model.IsLastRequest) { <text>last</text> }">
         @foreach (var column in Model.SelectedColumns)
         {
-            switch (column.Type)
-            {
-                case ColumnType.Email:
-                    {
-                        <div class="users-table__cell">
+            <td class="users-table__cell">
+                @switch (column.Type)
+                {
+                    case ColumnType.Email:
+                        {
                             @*<a class="members-table__link" href="mailto:@user.Email">@user.Email</a>*@
-                            <span class="users-table__text">@user.Email</span>
-                        </div>
-                    }
-                    break;
-                case ColumnType.Photo:
-                    {
-                        <div class="users-table__cell users-table__cell--photo">
+                            <span class="users-table__name">@user.Email</span>
+                        }
+                        break;
+                    case ColumnType.Photo:
+                        {
                             @Html.Action("Photo", "User", new
                             {
                                 user = user.User,
                                 cssModificator = "avatar--group-member",
                                 photoWidth = 30
                             })
-                        </div>
-                    }
-                    break;
-                case ColumnType.Text:
-                    {
-                        <div class="users-table__cell">
+                        }
+                        break;
+                    case ColumnType.Text:
+                        {
                             <span class="users-table__name">@ReflectionHelper.GetUIColumnValue(user, column)</span>
-                        </div>
-                    }
-                    break;
-            }
-
+                        }
+                        break;
+                }
+            </td>
         }
-    </div>
+    </tr>
 }

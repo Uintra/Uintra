@@ -14,32 +14,32 @@
         </form>
     </div>
     <div class="users-table-block">
-        <div class="users-table js-user-list-table">
-            <div class="users-table__thead">
-                <div class="users-table__row js-user-head-row">
+        <table class="users-table js-user-list-table">
+            <thead>
+                <tr class="users-table__row">
                     @foreach (var column in Model.UsersRows.SelectedColumns)
                     {
                         if (column.SupportSorting)
                         {
                             var selected = Model.OrderByColumn.Id == column.Id;
-                            <div class="users-table__head">
+                            <th class="users-table__head">
                                 <a href="" class="js-user-list-sort-link @(selected ? "_asc" : "")"
                                    data-order-by="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
-                            </div>
+                            </th>
                         }
                         else
                         {
-                            <div class="users-table__head users-table__head--photo">
+                            <th class="users-table__head users-table__head--photo">
                                 <span>@Html.Localize($"UserList.Table.{column.Alias}.lbl")</span>
-                            </div>
+                            </th>
                         }
                     }
-                </div>
-            </div>
-            <div class="users-table__tbody js-tbody">
+                </tr>
+            </thead>
+            <tbody>
                 @Html.Partial(Model.UsersRowsViewPath, Model.UsersRows)
-            </div>
-        </div>
+            </tbody>
+        </table>
     </div>
     <button class="btn js-user-list-button"
             @if (Model.IsLastRequest) { <text> style="display:none;" </text> }>
