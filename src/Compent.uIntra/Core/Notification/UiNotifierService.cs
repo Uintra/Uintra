@@ -53,7 +53,7 @@ namespace Compent.Uintra.Core.Notification
                     .AddNotifierIdentity(NotifierTypeEnum.DesktopNotifier);
             var desktopSettings = _notificationSettingsService.Get<DesktopNotifierTemplate>(desktopSettingsIdentity);
 
-            if (!settings.IsEnabled && desktopSettings.IsEnabled) return;
+            if (!settings.IsEnabled && !desktopSettings.IsEnabled) return;
 
             var receivers = _intranetUserService.GetMany(data.ReceiverIds);
 
