@@ -78,7 +78,8 @@ namespace Compent.Uintra.Core.Events
             IActivitySubscribeSettingService activitySubscribeSettingService,
             IFeedTypeProvider feedTypeProvider,
             IActivityLinkPreviewService activityLinkPreviewService,
-            IGroupService groupService)
+            IGroupService groupService,
+            INotifierDataBuilder notifierDataBuilder)
             : base(
                 intranetActivityRepository,
                 cacheService,
@@ -103,6 +104,7 @@ namespace Compent.Uintra.Core.Events
             _activitySubscribeSettingService = activitySubscribeSettingService;
             _feedTypeProvider = feedTypeProvider;
             _groupService = groupService;
+            _notifierDataBuilder = notifierDataBuilder;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.Events;

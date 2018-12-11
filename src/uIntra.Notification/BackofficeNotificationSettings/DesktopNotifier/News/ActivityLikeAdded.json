@@ -2,6 +2,6 @@
   "label": "This is an in-app notification that is sent to the creator of the news post when someone likes the original news post.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of the news post<br>##CreatedDate## - Date when the like was added<br>##FullName## - Name of the user who liked the news",
   "template": {
     "message": "##FullName## has added a like to your post: ##ActivityTitle##",
-    "desktopTitle": "##NotificationType##"
+    "title": "##NotificationType##"
   }
 }
