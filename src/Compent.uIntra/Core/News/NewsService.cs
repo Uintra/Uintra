@@ -153,7 +153,6 @@ namespace Compent.Uintra.Core.News
                 var entity = activity;
                 entity.Location = _activityLocationService.Get(entity.Id);
                 entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
-                _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
             }

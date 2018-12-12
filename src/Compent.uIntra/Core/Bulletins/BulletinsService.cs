@@ -136,7 +136,6 @@ namespace Compent.Uintra.Core.Bulletins
             {
                 var entity = activity;
                 entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
-                _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
                 FillLinkPreview(entity);
