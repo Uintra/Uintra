@@ -101,6 +101,6 @@ namespace Compent.Uintra.Core.Helpers
         }
 
         private static string GetNotifierDataTitle(IIntranetActivity activity)
-            => activity.Type is IntranetActivityTypeEnum.Bulletins ? activity.Description.RemoveHtmlTags().StripHtml() : activity.Title;
+            => activity.Type is IntranetActivityTypeEnum.Bulletins ? activity.Description.StripHtml() : activity.Title;
     }
 }
