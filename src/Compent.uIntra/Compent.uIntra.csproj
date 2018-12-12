@@ -1391,6 +1391,8 @@
     <Compile Include="Core\Sync\Models\GoogleSyncSettingsModel.cs" />
     <Compile Include="Core\Sync\Models\GoogleAuthResponse.cs" />
     <Compile Include="Core\Sync\Constants.cs" />
+    <Compile Include="Core\UintraInformation\IUintraInformationService.cs" />
+    <Compile Include="Core\UintraInformation\UintraInformationService.cs" />
     <Compile Include="Core\UmbracoEventsModule.cs" />
     <Compile Include="Core\Updater\IMigration.cs" />
     <Compile Include="Core\Updater\IMigrationStep.cs" />
