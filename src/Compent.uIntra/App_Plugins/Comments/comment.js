@@ -16,6 +16,7 @@ var initSubmitButton = function (holder) {
             if (!$this.valid()) {
                 return;
             }
+            $(this).attr("disabled", "disabled");
             $this.submit();
         });
     });
@@ -190,13 +191,13 @@ var initEdit = function (holder) {
     var descriptionElem = findControl(holder, '.js-comment-edit-description')[0];
 
     var quill = helpers.initQuill(descriptionElem, dataStorage);
-    var button = holder.find('.js-comment-edit-btn');
+    var button = $(holder.find('.js-comment-edit-btn')[0]);
     var form = holder.find('.js-comment-edit');
-
     button.click(function (event) {
         if (!form.valid()) {
             return;
         }
+        $(this).attr("disabled", "disabled");
         $(event.target).closest(form).submit();
     });
 

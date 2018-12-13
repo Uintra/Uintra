@@ -231,6 +231,12 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1
             }
         }
 
+        public static void DeleteTranslation(string key)
+        {
+            var localizationCoreService = DependencyResolver.Current.GetService<ILocalizationCoreService>();
+            localizationCoreService.Delete(key);
+        }
+
         public static void SetGridPageLayoutTemplateContent(string layoutEmbeddedResourceFileName)
         {
             var fileService = ApplicationContext.Current.Services.FileService;

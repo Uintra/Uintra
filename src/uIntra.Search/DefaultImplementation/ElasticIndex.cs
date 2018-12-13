@@ -13,10 +13,13 @@ namespace Uintra.Search
         protected const int FieldWithReplaceAnalyzerBoost = 10;
 
         private readonly IElasticSearchRepository _elasticSearchRepository;
+        private readonly IEnumerable<IElasticEntityMapper> _mappers;
 
-        public ElasticIndex(IElasticSearchRepository elasticSearchRepository)
+        public ElasticIndex(IElasticSearchRepository elasticSearchRepository,
+            IEnumerable<IElasticEntityMapper> mappers)
         {
             _elasticSearchRepository = elasticSearchRepository;
+            _mappers = mappers;
         }
 
         public virtual SearchResult<SearchableBase> Search(SearchTextQuery query)
@@ -68,10 +71,13 @@ namespace Uintra.Search
                 .AllTypes();
         }
 
-        public virtual void RecreateIndex()
+        public bool RecreateIndex(out string error)
         {
             _elasticSearchRepository.DeleteIndex();
-            _elasticSearchRepository.EnsureIndexExists(ElasticHelpers.SetAnalysis);
+            if (!_elasticSearchRepository.EnsureIndexExists(ElasticHelpers.SetAnalysis, out error)) return false;
+            foreach (var mapper in _mappers)
+                if (!mapper.CreateMap(out error)) return false;
+            return true;
         }
 
         protected virtual QueryContainer GetBaseDescriptor(string query)
@@ -156,7 +162,7 @@ namespace Uintra.Search
             var aggregations = new AggregationsHelper(facets);
             var globalAggregations = new AggregationsHelper(aggregations.Global(facetName).Aggregations);
             var globalFilter = globalAggregations.Filter(SearchConstants.SearchFacetNames.GlobalFilter);
-            var items = globalFilter.Terms(facetName).Buckets.Select(busket => new BaseFacet { Name = busket.Key, Count = busket.DocCount ?? default(long) }); ;
+            var items = globalFilter.Terms(facetName).Buckets.Select(bucket => new BaseFacet { Name = bucket.Key, Count = bucket.DocCount ?? default });
             return items;
         }
 
@@ -170,30 +176,24 @@ namespace Uintra.Search
                 Documents = documents,
                 TypeFacets = GlobalFacets(response.Aggs.Aggregations, SearchConstants.SearchFacetNames.Types)
             };
-             
+
             return result;
         }
 
-        protected virtual void ApplySort<T>(SearchDescriptor<T> searchDescriptor, int direction = 0, string propertyName = "_score" ) where T : class
+        protected virtual void ApplySort<T>(SearchDescriptor<T> searchDescriptor, int direction = 0, string propertyName = "_score") where T : class
         {
             if (propertyName.In("fullName", "mail"))
             {
-                propertyName += ".sort_normalizer";
+                propertyName += $".{ElasticHelpers.Normalizer.Sort}";
             }
 
             switch (direction)
             {
-                case 0 when propertyName.Equals("_score"):
-                    searchDescriptor.Sort(s => s.Descending(propertyName));
-                    break;
-                case 1 when propertyName.Equals("_score"):
-                    searchDescriptor.Sort(s => s.Ascending(propertyName));
-                    break;
                 case 0:
-                    searchDescriptor.Sort(s => s.Ascending(propertyName));
+                    searchDescriptor.Sort(s => propertyName.Equals("_score") ? s.Descending(propertyName) : s.Ascending(propertyName));
                     break;
                 case 1:
-                    searchDescriptor.Sort(s => s.Descending(propertyName));
+                    searchDescriptor.Sort(s => propertyName.Equals("_score") ? s.Ascending(propertyName) : s.Descending(propertyName));
                     break;
             }
         }

@@ -19,7 +19,7 @@
             return function (dates) {
                 var value = dates && dates.length ? (isSingleMode(config.mode) ? dates[0] : dates) : null;
                 $scope.$apply(function () {
-                    $scope.model = value ? value.toIsoDateTimeString() : null;
+                    $scope.model = value ? value.toISOString() : null;
 
                     if ($scope.change) {
                         $scope.change();

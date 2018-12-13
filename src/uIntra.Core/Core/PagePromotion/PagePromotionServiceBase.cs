@@ -65,7 +65,7 @@ namespace Uintra.Core.PagePromotion
         public virtual bool IsActual(IIntranetActivity activity)
         {
             var pagePromotion = activity as T;
-            return pagePromotion != null && !pagePromotion.IsHidden && pagePromotion.PublishDate <= DateTime.Now;
+            return pagePromotion != null && !pagePromotion.IsHidden && pagePromotion.PublishDate <= DateTime.UtcNow;
         }
 
         public bool IsPinActual(IIntranetActivity activity) => false;

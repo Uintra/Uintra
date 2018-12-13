@@ -19,7 +19,11 @@
         <div class="tools">
             @if (!Model.CentralUserListUrl.IsNullOrWhiteSpace())
             {
-                <a href="@Model.CentralUserListUrl" class="central-user"></a>
+                <a href="@Model.CentralUserListUrl" class="central-user">
+                    <svg class="svg-icon" viewBox="0 0 16 16" width="22px" height="20px">
+                        <use xlink:href="#icon-people" x="0" y="0"></use>
+                    </svg>
+                </a>
             }
             @{ Html.RenderAction("Preview", "Notification"); }
         </div>
@@ -38,13 +42,21 @@
             @{ Html.RenderAction("UmbracoContentLink", "Navigation"); }
             <li class="user__menu-item">
                 <a class="user__menu-link" href="@Url.Action("EditPage", "Profile")">
-                    <span class="icon icon-user"></span>
+                    <span class="icon icon-user">
+                        <svg class="svg-icon" viewBox="0 0 48 48.00004" width="30px" height="30px">
+                            <use xlink:href="#icon-user" x="0" y="0"></use>
+                        </svg>
+                    </span>
                     @Html.Localize("TopNavigation.EditProfile.lbl")
                 </a>
             </li>
             <li class="user__menu-item">
                 <a class="user__menu-link js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
-                    <span class="icon icon-logout"></span>
+                    <span class="icon icon-logout">
+                        <svg class="svg-icon" viewBox="0 0 1792 1792" width="22px" height="19px">
+                            <use xlink:href="#icon-logout" x="0" y="0"></use>
+                        </svg>
+                    </span>
                     @Html.Localize("TopNavigation.Logout.lbl")
                 </a>
             </li>

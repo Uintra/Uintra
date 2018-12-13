@@ -3,5 +3,6 @@
     public interface ILeftSideNavigationModelBuilder
     {
         MenuModel GetMenu();
+        UserListLinkModel GetUserListLink();
     }
 }

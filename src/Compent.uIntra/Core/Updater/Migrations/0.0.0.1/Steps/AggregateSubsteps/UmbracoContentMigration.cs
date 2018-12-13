@@ -483,7 +483,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
         private void CreateEventMailTemplate()
         {
             var mailTemplatesFolder = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.DataFolder, DocumentTypeAliasConstants.MailTemplatesFolder));
-            if (mailTemplatesFolder.Children.Any(el => el.GetPropertyValue<NotificationTypeEnum>(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName) == NotificationTypeEnum.Event))
+            if (mailTemplatesFolder.Children.Any(el => el.GetPropertyValue<LegacyNotificationTypes>(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName) == LegacyNotificationTypes.Event))
             {
                 return;
             }
@@ -492,7 +492,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.SubjectPropName, "Event");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.BodyPropName, "<p>Event</p><p>FullName: ##FullName##</p>");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.ExtraTokensPropName, "##FullName##");
-            content.SetValue(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName, NotificationTypeEnum.Event.ToString());
+            content.SetValue(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName, LegacyNotificationTypes.Event.ToString());
 
             _contentService.SaveAndPublishWithStatus(content);
         }
@@ -568,7 +568,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
         private void CreateNewsMailTemplate()
         {
             var mailTemplatesFolder = _umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(DocumentTypeAliasConstants.DataFolder, DocumentTypeAliasConstants.MailTemplatesFolder));
-            if (mailTemplatesFolder.Children.Any(el => el.GetPropertyValue<NotificationTypeEnum>(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName) == NotificationTypeEnum.News))
+            if (mailTemplatesFolder.Children.Any(el => el.GetPropertyValue<LegacyNotificationTypes>(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName) == LegacyNotificationTypes.News))
             {
                 return;
             }
@@ -578,7 +578,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps.AggregateSubs
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.BodyPropName, @"<p>News</p>
 <p>FullName: ##FullName##</p>");
             content.SetValue(UmbracoContentMigrationConstants.MailTemplate.ExtraTokensPropName, "##FullName##");
-            content.SetValue(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName, NotificationTypeEnum.News.ToString());
+            content.SetValue(UmbracoContentMigrationConstants.MailTemplate.EmailTypePropName, LegacyNotificationTypes.News.ToString());
 
             _contentService.SaveAndPublishWithStatus(content);
         }

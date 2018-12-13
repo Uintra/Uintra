@@ -186,9 +186,9 @@ namespace Uintra.Notification.Web
             var notifier = ((string)result.Value.notifierId)
                 .TryParseGuid()
                 .FromNullable(_intranetUserService.Get);
-            result.NotifierId = notifier.Id;
-            result.NotifierPhoto = notifier.Photo;
-            result.NotifierDisplayedName = notifier.DisplayedName;
+            result.NotifierId = notifier?.Id;
+            result.NotifierPhoto = notifier?.Photo;
+            result.NotifierDisplayedName = notifier?.DisplayedName;
             result.IsDesktopNotificationEnabled &= !(Request.IsMobileBrowser() || Request.Browser.IsMobileDevice);
             return result;
         }

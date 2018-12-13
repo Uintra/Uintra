@@ -23,11 +23,13 @@ namespace Uintra.Notification
             var emailNotifierSetting = Get<EmailNotifierTemplate>(activityEventIdentity.AddNotifierIdentity(NotifierTypeEnum.EmailNotifier));
             var uiNotifierSetting = Get<UiNotifierTemplate>(activityEventIdentity.AddNotifierIdentity(NotifierTypeEnum.UiNotifier));
             var popupNotifierSetting = Get<PopupNotifierTemplate>(activityEventIdentity.AddNotifierIdentity(NotifierTypeEnum.PopupNotifier));
+            var desktopNotifierSetting = Get<DesktopNotifierTemplate>(activityEventIdentity.AddNotifierIdentity(NotifierTypeEnum.DesktopNotifier));
             var notifierSettings = new NotifierSettingsModel
             {
                 EmailNotifierSetting = emailNotifierSetting,
                 UiNotifierSetting = uiNotifierSetting,
-                PopupNotifierSetting = popupNotifierSetting
+                PopupNotifierSetting = popupNotifierSetting,
+                DesktopNotifierSetting = desktopNotifierSetting
             };
 
             return notifierSettings;

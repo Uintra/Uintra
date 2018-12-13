@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web;
 using Uintra.Core.Configuration;
 using Uintra.Core.Exceptions;
+using Uintra.Core.Providers;
 using Uintra.Navigation.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Web;
@@ -12,14 +13,17 @@ namespace Uintra.Navigation
     public class LeftSideNavigationModelBuilder : NavigationModelBuilderBase<MenuModel>, ILeftSideNavigationModelBuilder
     {
         private readonly HttpContext _httpContext;
+        private readonly IContentPageContentProvider _contentPageContentPropvider;
 
         public LeftSideNavigationModelBuilder(
             HttpContext httpContext,
             UmbracoHelper umbracoHelper,
-            IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider)
+            IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
+            IContentPageContentProvider contentPageContentPropvider)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
             _httpContext = httpContext;
+            _contentPageContentPropvider = contentPageContentPropvider;
         }
 
         public override MenuModel GetMenu()
@@ -41,6 +45,18 @@ namespace Uintra.Navigation
 
             FillClickable(result.MenuItems);
             return result;
+        }
+
+        public virtual UserListLinkModel GetUserListLink()
+        {
+            var contentPage = _contentPageContentPropvider.GetUserListContentPageFromPicker();
+            return new UserListLinkModel()
+            {
+                ContentPage = contentPage,
+                IsVisible = contentPage != null,
+                Name = contentPage?.Name,
+                Url = contentPage?.Url
+            };
         }
 
         protected override bool IsHideFromNavigation(IPublishedContent publishedContent)

@@ -3,7 +3,14 @@
 
 <ul class="side-nav _system" id="systemLinksContainer">
     <li class="side-nav__item js-systemLinks__item" data-id="systemLinksState">
-        <a class="side-nav__link _title-link"><span class="icon-link side-nav__icon"></span> @Html.Localize("SystemLinks.Menu.lbl")</a>
+        <a class="side-nav__link _title-link">
+            <span class="icon-link side-nav__icon">
+                <svg class="svg-icon" viewBox="0 0 80 80" width="15px" height="15px">
+                    <use xlink:href="#icon-link" x="0" y="0"></use>
+                </svg>
+            </span>
+            @Html.Localize("SystemLinks.Menu.lbl")
+        </a>
         <span class="side-nav__arrow js-systemLinks__opener"></span>
         @foreach (var group in Model)
         {

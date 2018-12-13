@@ -8,6 +8,12 @@
                data-autocomplete-url="@Url.Action("Autocomplete","Search")"
                data-empty-text="@Html.Localize("SearchBox.Empty.lbl")"
                placeholder="@Html.Localize("SearchBox.Placeholder.lbl")" />
-        <a class="search__button js-searchbox-icon" type="submit"><span class="icon-search"></span></a>
+        <a class="search__button js-searchbox-icon" type="submit">
+            <span class="icon-search">
+                <svg class="svg-icon" viewBox="0 0 32 32" width="30px" height="30px">
+                    <use xlink:href="#icon-search" x="0" y="0"></use>
+                </svg>
+            </span>
+        </a>
     </form>
 </div>
