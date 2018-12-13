@@ -103,7 +103,7 @@ namespace Compent.Uintra.Core.Notification
             switch (notificationType)
             {
                 case CommentAdded when activity is ISubscribable subscribable:
-                    return GetNotifiedSubscribers(subscribable).Concat(OwnerId(comment)).Distinct();
+                    return GetNotifiedSubscribers(subscribable).Concat(OwnerId(activity)).Distinct();
 
                 case CommentAdded:
                     return OwnerId(activity);
