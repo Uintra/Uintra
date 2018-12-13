@@ -10,7 +10,8 @@
         const notifierType = {
             email: 1,
             ui: 2,
-            desktop: 3
+            popup: 3,
+            desktop: 4
         };
 
         let selectedNotifierType;
@@ -79,8 +80,6 @@
 
                     if (self.settings.uiNotifierSetting !== null) {
                         initUiMessageControlConfig();
-                        initDesktopMessageControlConfig();
-                        initDesktopTitleControlConfig();
                     }
 
                     if (self.settings.desktopNotifierSetting !== null) {
@@ -134,7 +133,7 @@
             }
 
             if (self.isDesktopTabSelected()) {
-                notificationSettingsService.saveDesktopSettings(settings.uiNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
+                notificationSettingsService.saveDesktopSettings(settings.desktopNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
                 return;
             }
 
@@ -229,7 +228,7 @@
                 self.save();
             };
 
-            self.emailSubjectControlConfig.triggerRefresh();
+            self.desktopMessageControlConfig.triggerRefresh();
         }
 
         function initDesktopTitleControlConfig() {

@@ -10,7 +10,7 @@ using Uintra.Subscribe;
 
 namespace Compent.Uintra.Core.News.Entities
 {
-    public class News : NewsBase, IFeedItem, ICommentable, ILikeable, ISubscribable, IGroupActivity
+    public class News : NewsBase, IFeedItem, ICommentable, ILikeable, IGroupActivity
     {
         [JsonIgnore]
         public DateTime SortDate => PublishDate;
@@ -18,8 +18,6 @@ namespace Compent.Uintra.Core.News.Entities
         public IEnumerable<LikeModel> Likes { get; set; }
         [JsonIgnore]
         public IEnumerable<CommentModel> Comments { get; set; }
-        [JsonIgnore]
-        public IEnumerable<global::Uintra.Subscribe.Subscribe> Subscribers { get; set; }
 
         public Guid? GroupId { get; set; }
 
