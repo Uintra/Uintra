@@ -970,9 +970,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="licence.html" />
-    <Content Include="Views\Comments\CommentsView.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Comments\CommentsOverView.cshtml" />
     <Content Include="config\trees.config" />
     <Content Include="config\Dashboard.config">
       <SubType>Designer</SubType>
