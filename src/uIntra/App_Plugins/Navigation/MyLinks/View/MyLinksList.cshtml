@@ -4,6 +4,11 @@
 {
     <li class="side-nav__item">
         <a class="side-nav__link" href="@item.Url">
+            <span class="icon-dots">
+                <svg class="svg-icon" viewBox="0 0 512 512" width="14px" height="14px">
+                    <use xlink:href="#icon-dots" x="0" y="0"></use>
+                </svg>
+            </span>
             @item.Name
             <span class="icon-close js-myLinks-remove" data-id="@item.Id" data-url="@Url.Action("Remove", "MyLinks", new { id = item.Id})"></span>
         </a>

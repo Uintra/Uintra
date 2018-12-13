@@ -40,17 +40,21 @@
                     <div class="create-bulletin__toolbar js-bulletin-toolbar">
                         <button class="btn _submit _send js-toolbar__send-button" disabled="disabled">@Html.Localize("BulletinsCreate.Post.lbl")</button>
                         <div class="create-bulletin__toolbar ql-toolbar ql-snow js-create-bulletin__toolbar">
-                            <span class="ql-formats">
-                                <button type="button" class="ql-emoji" title="emoji"></button>
-                                <button type="button" class="ql-bold" title="bold"></button>
-                                <button type="button" class="ql-italic" title="italic"></button>
-                                <button type="button" class="ql-link" title="link"></button>
-                            </span>
-                            <span class="ql-formats">
-                                <button type="button" class="js-dropzone _upload" title="upload" data-allowed="@Model.AllowedMediaExtensions" data-remove-text="@Html.Localize("FileUploadView.RemoveFile.lbl")">
-                                </button>
-                                <input type="hidden" class="js-new-media" name="@nameof(Model.NewMedia)" />
-                            </span>
+                            <div class="ql-counter">
+                                <span class="js-desc-counter"></span><span> / 2000</span>
+                            </div>
+                            <div class="ql-tools">
+                                <span class="ql-formats">
+                                    <button type="button" class="ql-emoji" title="emoji"></button>
+                                    <button type="button" class="ql-bold" title="bold"></button>
+                                    <button type="button" class="ql-italic" title="italic"></button>
+                                    <button type="button" class="ql-link" title="link"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button type="button" class="js-dropzone _upload" title="upload" data-allowed="@Model.AllowedMediaExtensions" data-remove-text="@Html.Localize("FileUploadView.RemoveFile.lbl")"></button>
+                                    <input type="hidden" class="js-new-media" name="@nameof(Model.NewMedia)" />
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

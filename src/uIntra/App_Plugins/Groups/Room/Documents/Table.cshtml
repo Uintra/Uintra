@@ -16,7 +16,7 @@
                     <th class="documents-table__head">
                         @RenderTableHeaderLink("GroupDocuments.Table.Name.lbl", GroupDocumentDocumentField.Name)
                     </th>
-                    <th class="documents-table__head">
+                    <th colspan="2" class="documents-table__head">
                         @RenderTableHeaderLink("GroupDocuments.Table.Creator.lbl", GroupDocumentDocumentField.Creator)
                     </th>
                     <th class="documents-table__head">
@@ -36,7 +36,15 @@
                             </span>
                         </td>
                         <td class="documents-table__cell">
-                            <span class="documents-table__name">@document.CreatorName</span>
+                            @Html.Action("Photo", "User", new
+                            {
+                                user = document.Creator,
+                                cssModificator = "avatar--group-member",
+                                photoWidth = 60
+                            })
+                        </td>
+                        <td class="documents-table__cell">
+                            <span class="documents-table__name">@document.Creator.DisplayedName</span>
                         </td>
 
                         <td class="documents-table__cell">@document.CreateDate.ToDateFormat()</td>

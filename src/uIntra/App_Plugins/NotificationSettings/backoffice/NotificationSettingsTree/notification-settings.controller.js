@@ -9,7 +9,9 @@
 
         const notifierType = {
             email: 1,
-            ui: 2
+            ui: 2,
+            popup: 3,
+            desktop: 4
         };
 
         let selectedNotifierType;
@@ -21,6 +23,10 @@
 
         self.isUiTabSelected = function () {
             return selectedNotifierType === notifierType.ui;
+        };
+
+        self.isDesktopTabSelected = function () {
+            return selectedNotifierType === notifierType.desktop;
         };
 
         self.isPopupTabSelected = function () {
@@ -44,6 +50,11 @@
             self.selectedNotifierSettings = self.settings.uiNotifierSetting;
         };
 
+        self.selectDesktopTab = function () {
+            selectedNotifierType = notifierType.desktop;
+            self.selectedNotifierSettings = self.settings.desktopNotifierSetting;
+        };
+
         self.save = function () {
             saveSettings(self.settings);
         };
@@ -62,18 +73,21 @@
                 function (result) {
                     self.settings = result.data;
 
-                    if (self.settings.emailNotifierSetting != null) {
+                    if (self.settings.emailNotifierSetting !== null) {
                         self.selectEmailTab();
                         initEmailControlConfig();
                     }
 
-                    if (self.settings.uiNotifierSetting != null) {
+                    if (self.settings.uiNotifierSetting !== null) {
                         initUiMessageControlConfig();
+                    }
+
+                    if (self.settings.desktopNotifierSetting !== null) {
                         initDesktopMessageControlConfig();
                         initDesktopTitleControlConfig();
                     }
 
-                    if (self.settings.popupNotifierSetting != null) {
+                    if (self.settings.popupNotifierSetting !== null) {
                         self.selectPopupTab();
                         initPopupMessageControlConfig();
                     }
@@ -110,16 +124,21 @@
 
         function saveSettings(settings) {
             if (self.isEmailTabSelected()) {
-                notificationSettingsService.seveEmailSettings(settings.emailNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
+                notificationSettingsService.saveEmailSettings(settings.emailNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
                 return;
             }
             if (self.isUiTabSelected()) {
-                notificationSettingsService.seveUiSettings(settings.uiNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
+                notificationSettingsService.saveUiSettings(settings.uiNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
+                return;
+            }
+
+            if (self.isDesktopTabSelected()) {
+                notificationSettingsService.saveDesktopSettings(settings.desktopNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
                 return;
             }
 
             if (self.isPopupTabSelected()) {
-                notificationSettingsService.sevePopupSettings(settings.popupNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
+                notificationSettingsService.savePopupSettings(settings.popupNotifierSetting).then(showSaveSuccessMessage, showSaveErrorMessage);
                 return;
             }
         }
@@ -197,7 +216,7 @@
 
         function initDesktopMessageControlConfig() {
             self.desktopMessageControlConfig = new TextAreaControlModel(ControlMode.view);
-            self.desktopMessageControlConfig.value = self.settings.uiNotifierSetting.template.desktopMessage;
+            self.desktopMessageControlConfig.value = self.settings.desktopNotifierSetting.template.message;
 
             self.desktopMessageControlConfig.isRequired = true;
             self.desktopMessageControlConfig.requiredValidationMessage = 'Desktop message is required';
@@ -205,17 +224,17 @@
             self.desktopMessageControlConfig.maxLengthValidationMessage = 'Desktop message max length is 200 symbols';
 
             self.desktopMessageControlConfig.onSave = function (desktopMessage) {
-                self.settings.uiNotifierSetting.template.desktopMessage = desktopMessage;
+                self.settings.desktopNotifierSetting.template.message = desktopMessage;
                 self.save();
             };
 
-            self.emailSubjectControlConfig.triggerRefresh();
+            self.desktopMessageControlConfig.triggerRefresh();
         }
 
         function initDesktopTitleControlConfig() {
 
             self.desktopTitleControlConfig = new TextControlModel(ControlMode.view);
-            self.desktopTitleControlConfig.value = self.settings.uiNotifierSetting.template.desktopTitle;
+            self.desktopTitleControlConfig.value = self.settings.desktopNotifierSetting.template.title;
 
             self.desktopTitleControlConfig.isRequired = true;
             self.desktopTitleControlConfig.requiredValidationMessage = 'Desktop title is required';
@@ -223,7 +242,7 @@
             self.desktopTitleControlConfig.maxLengthValidationMessage = 'Desktop title max length is 100 symbols';
 
             self.desktopTitleControlConfig.onSave = function (desktopTitle) {
-                self.settings.uiNotifierSetting.template.desktopTitle = desktopTitle;
+                self.settings.desktopNotifierSetting.template.title = desktopTitle;
                 self.save();
             };
 
