@@ -203,7 +203,7 @@ namespace Compent.Uintra
                 .BindSingleInterface());
             kernel.Bind<IMigrationStepsResolver>().To<MigrationStepsResolver>().InRequestScope();
 
-            kernel.Bind<IUintraInformationService>().To<UintraInformationService>().InSingletonScope();
+            kernel.Bind<IUintraInformationService>().To<UintraInformationService>().InRequestScope();
   
             //verification
             kernel.Bind<IUmbracoVerificationService>().To<UmbracoVerificationService>().InRequestScope();

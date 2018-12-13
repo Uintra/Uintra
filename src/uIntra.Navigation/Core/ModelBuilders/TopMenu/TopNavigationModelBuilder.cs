@@ -8,6 +8,7 @@ namespace Uintra.Navigation
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IContentPageContentProvider _contentPageContentPropvider;
 
+
         public TopNavigationModelBuilder(
             IIntranetUserService<IIntranetUser> intranetUserService,
             IContentPageContentProvider contentPageContentPropvider)

@@ -1310,6 +1310,7 @@
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
     <Compile Include="Core\Login\Models\LoginModel.cs" />
+    <Compile Include="Core\Navigation\TopNavigationExtendedViewModel.cs" />
     <Compile Include="Core\Notification\DesktopNotificationModelMapper.cs" />
     <Compile Include="Core\Notification\INotifierDataBuilder.cs" />
     <Compile Include="Core\Notification\NotifierDataBuilder.cs" />
@@ -1480,6 +1481,8 @@
     <Compile Include="Core\Updater\Migrations\1.0\Steps\UpdateRelatedUserPropertyStep.cs" />
     <Compile Include="Core\Updater\Migrations\1.1\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\1.1\Steps\SplitEventLabelsStep.cs" />
+    <Compile Include="Core\Updater\Migrations\1.2\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\1.2\Steps\SplitEventLabelsStep.cs" />
     <Compile Include="Core\Updater\TranslationsUpdateStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />

@@ -45,6 +45,7 @@
     <add key="Google.OAuth.Enabled" value="false" xdt:Locator="Condition(@key='Google.OAuth.Enabled')" xdt:Transform="InsertIfMissing" />
     <add key="Google.OAuth.ClientId" value="" xdt:Locator="Condition(@key='Google.OAuth.ClientId')" xdt:Transform="InsertIfMissing" />
     <add key="Google.OAuth.Domain" value="" xdt:Locator="Condition(@key='Google.OAuth.Domain')" xdt:Transform="InsertIfMissing" />
+    <add key="UintraDocumentationLinkTemplate" value="https://docs.uintra.com/?ver={0}-{1}-{2}-{3}" xdt:Locator="Condition(@key='UintraDocumentationLinkTemplate')" xdt:Transform="InsertIfMissing" />
   </appSettings>
 
   <uIntraJobs xdt:Transform="Remove">

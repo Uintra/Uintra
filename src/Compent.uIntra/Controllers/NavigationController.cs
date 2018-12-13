@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Compent.Uintra.Core.Users;
 using Compent.Extensions;
+using Compent.Uintra.Core.Navigation;
 using Uintra.CentralFeed;
 using Uintra.CentralFeed.Navigation.Models;
 using Uintra.Core;
@@ -42,6 +43,8 @@ namespace Compent.Uintra.Controllers
         private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
         private readonly ICentralFeedHelper _centralFeedHelper;
         private readonly IGroupHelper _groupHelper;
+        private readonly ITopNavigationModelBuilder _topNavigationModelBuilder;
+        private readonly IUintraInformationService _uintraInformationService;
 
         public NavigationController(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
@@ -60,7 +63,8 @@ namespace Compent.Uintra.Controllers
             IProfileLinkProvider profileLinkProvider,
             IPermissionsService permissionsService,
             IUserService userService,
-            IGroupContentProvider contentProvider)
+            IGroupContentProvider contentProvider,
+            IUintraInformationService uintraInformationService)
             : base(
                 leftSideNavigationModelBuilder,
                 subNavigationModelBuilder,
@@ -80,9 +84,27 @@ namespace Compent.Uintra.Controllers
             _subNavigationModelBuilder = subNavigationModelBuilder;
             _groupHelper = groupHelper;
             _centralFeedHelper = centralFeedHelper;
+            _uintraInformationService = uintraInformationService;
+            _topNavigationModelBuilder = topNavigationModelBuilder;
 
             SystemLinksContentXPath = $"root/{_documentTypeAliasProvider.GetDataFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLinkFolder()}[@isDoc]/{_documentTypeAliasProvider.GetSystemLink()}[@isDoc]";
         }
+
+
+        public override ActionResult TopNavigation()
+        {
+            var topNavigation = _topNavigationModelBuilder.Get();
+            var result = new TopNavigationExtendedViewModel
+            {
+                CurrentUser = topNavigation.CurrentUser,
+                CentralUserListUrl = topNavigation.CentralUserListUrl,
+                UintraDocumentationLink = _uintraInformationService.DocumentationLink,
+                UintraDocumentationVersion = _uintraInformationService.Version
+            };
+
+            return PartialView(TopNavigationViewPath, result);
+        }
+
 
         public override ActionResult SubNavigation()
         {
