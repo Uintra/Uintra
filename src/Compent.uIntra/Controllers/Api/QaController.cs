@@ -31,7 +31,10 @@ namespace Compent.Uintra.Controllers.Api
         [HttpGet]
         public void RunRemainder(Guid qaKey)
         {
-            _reminderJob.Run();
+            if (qaKey == _applicationSettings.QaKey)
+            {
+                _reminderJob.Run();
+            }
         }
     }
 }

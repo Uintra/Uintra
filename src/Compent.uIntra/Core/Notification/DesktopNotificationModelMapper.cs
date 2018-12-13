@@ -74,7 +74,7 @@ namespace Compent.Uintra.Core.Notification
                     throw new IndexOutOfRangeException();
             }
 
-            message.Title = ReplaceTokens(template.Message, tokens).StripHtml();
+            message.Title = ReplaceTokens(template.Title, tokens).StripHtml();
             message.Message = ReplaceTokens(template.Message, tokens).StripHtml();
 
             return message;
