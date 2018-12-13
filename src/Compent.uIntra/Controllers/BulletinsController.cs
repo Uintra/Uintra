@@ -176,7 +176,7 @@ namespace Compent.Uintra.Controllers
                     MentionedSourceId = bulletin.Id,
                     CreatorId = _intranetUserService.GetCurrentUserId(),
                     MentionedUserIds = mentionIds,
-                    Title = bulletin.Description.TrimByWordEnd(maxTitleLength),
+                    Title = bulletin.Description.StripHtml().TrimByWordEnd(maxTitleLength),
                     Url = links.Details,
                     ActivityType = IntranetActivityTypeEnum.Bulletins
                 });
