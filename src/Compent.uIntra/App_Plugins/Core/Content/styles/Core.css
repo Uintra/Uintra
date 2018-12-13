@@ -41,9 +41,9 @@
 .icon-bold:before {
     content: "\e91a";
 }
-.icon-groups:before {
+/*.icon-groups:before {
     content: "\e91d";
-}
+}*/
 .icon-insert-link:before {
     content: "\e91b";
 }
@@ -80,44 +80,44 @@
 .icon-plus:before {
   content: "\e915";
 }
-.icon-link:before {
+/*.icon-link:before {
   content: "\e907";
-}
-.icon-star:before {
+}*/
+/*.icon-star:before {
   content: "\e90d";
-}
-.icon-bell:before {
+}*/
+/*.icon-bell:before {
   content: "\e901";
   font-size:25px;
-}
-.icon-logout:before {
+}*/
+/*.icon-logout:before {
   content: "\e908";
   font-size:22px;
-}
-.icon-umbraco:before {
+}*/
+/*.icon-umbraco:before {
   content: "\e90e";
   font-size:26px;
-}
-.icon-user:before {
+}*/
+/*.icon-user:before {
   content: "\e910";
   font-size: 28px;
-}
-.icon-search:before {
+}*/
+/*.icon-search:before {
   content: "\e90b";
   font-size:30px;
-}
-.icon-home:before {
+}*/
+/*.icon-home:before {
   content: "\e905";
-}
+}*/
 .icon-check:before {
   content: "\e902";
 }
-.icon-comment:before {
+/*.icon-comment:before {
   content: "\e904";
-}
-.icon-like:before {
+}*/
+/*.icon-like:before {
   content: "\e906";
-}
+}*/
 .icon-pin:before {
   content: "\e909";
   color: rgb(37, 37, 37);
@@ -315,7 +315,8 @@ img{
     }
 }
 
-.svg-sprite path {
+.svg-icon {
+    vertical-align: top;
     fill: currentColor;
 }
 

@@ -300,16 +300,9 @@
     }
 
     &__icon{
-        font-size: 15px;
         left: 18px;
         position: absolute;
         top: 11px;
-
-        &.icon-groups{
-            &:before{
-                font-size:18px;
-            }
-        }
     }
 
     .glyphicon{
@@ -318,9 +311,9 @@
         right: 19px;
         color:var(--header-bg);
 
-        &:before{
+        /*&:before{
             font-size:15px;
-        }
+        }*/
 
         @media (--for-tablet-portrait-down) {
             right:13px;
