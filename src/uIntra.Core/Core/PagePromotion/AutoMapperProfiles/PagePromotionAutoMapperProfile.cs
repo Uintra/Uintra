@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Compent.Extensions;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Core.PagePromotion
 {
@@ -40,7 +40,7 @@ namespace Uintra.Core.PagePromotion
 
             Mapper.CreateMap<PagePromotionBase, IntranetActivityItemHeaderViewModel>()
                .ForMember(dst => dst.ActivityId, src => src.MapFrom(el => el.Id))
-               .ForMember(dst => dst.Dates, src => src.MapFrom(el => el.PublishDate.ToDateFormat().ToEnumerable()))
+               .ForMember(dst => dst.Dates, src => src.MapFrom(el => List(el.PublishDate.ToDateFormat())))
                .ForMember(dst => dst.Owner, src => src.Ignore())
                .ForMember(dst => dst.Links, src => src.Ignore());
         }

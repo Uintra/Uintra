@@ -1,6 +1,4 @@
-﻿
-
-using Compent.Extensions.Trees;
+﻿using Compent.Extensions.Trees;
 
 namespace Uintra.Notification.Configuration
 {

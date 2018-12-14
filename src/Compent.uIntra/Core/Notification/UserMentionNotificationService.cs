@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Compent.Extensions;
 using Uintra.Core.Extensions;
 using Uintra.Notification;
@@ -19,7 +20,7 @@ namespace Compent.Uintra.Core.Notification
 
         public void SendNotification(UserMentionNotificationModel model)
         {
-            var notificationType = NotificationTypeEnum.UserMention;
+            const NotificationTypeEnum notificationType = NotificationTypeEnum.UserMention;
             foreach (var receivedId in model.ReceivedIds)
             {
                 if (SkipNotification(receivedId, model.MentionedSourceId))
@@ -46,19 +47,9 @@ namespace Compent.Uintra.Core.Notification
             }
         }
 
-        private bool SkipNotification(Guid userId, Guid sourceId)
-        {
-            var userMentions = _notificationService.GetUserNotifications(userId, NotificationTypeEnum.UserMention.ToInt());
-
-            foreach (var mention in userMentions)
-            {
-                // user already mentioned on this activity so don't need to send mention one more time
-                if (mention.Value.Contains(sourceId.ToString()))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        private bool SkipNotification(Guid userId, Guid sourceId) => 
+            _notificationService
+            .GetUserNotifications(userId, NotificationTypeEnum.UserMention.ToInt())
+            .Any(mention => mention.Value.Contains(sourceId.ToString()));
     }
 }

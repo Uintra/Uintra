@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Compent.Extensions;
+using LanguageExt;
 using Uintra.Core.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Core.PagePromotion
 {
@@ -11,40 +13,28 @@ namespace Uintra.Core.PagePromotion
     {
         public static bool IsPagePromotion(IContent content) => content.HasProperty(PagePromotionConstants.PagePromotionConfigAlias);
 
-        public static bool IsPagePromotion(IPublishedContent publishedContent) => publishedContent.HasProperty(PagePromotionConstants.PagePromotionConfigAlias);
+        public static bool IsPagePromotion(IPublishedContent publishedContent) =>
+            publishedContent.HasProperty(PagePromotionConstants.PagePromotionConfigAlias);
 
-        public static PagePromotionConfig GetConfig(IPublishedContent publishedContent)
+        public static Option<PagePromotionConfig> GetConfig(IPublishedContent publishedContent)
         {
             var prop = publishedContent.GetPropertyValue<string>(PagePromotionConstants.PagePromotionConfigAlias);
             return GetConfig(prop);
         }
 
-        public static PagePromotionConfig GetConfig(IContent content)
-        {
-            var prop = content.GetValue<string>(PagePromotionConstants.PagePromotionConfigAlias);
-            return GetConfig(prop);
-        }
+        public static bool IsPromoted(IPublishedContent publishedContent) =>
+            IsPagePromotion(publishedContent) &&
+            GetConfig(publishedContent)
+                .Filter(cfg => !cfg.PromoteOnCentralFeed).IsSome;
 
-        public static IEnumerable<int> GetFileIds(IContent content)
-        {
-            var config = GetConfig(content);
+        public static Option<PagePromotionConfig> GetConfig(IContent content) =>
+            content
+                .GetValue<string>(PagePromotionConstants.PagePromotionConfigAlias)
+                .Apply(GetConfig);
 
-            return config == null ?
-                Enumerable.Empty<int>() :
-                config.Files.ToIntCollection();
-        }
-
-        public static bool IsPromoted(IPublishedContent publishedContent)
-        {
-            if (!IsPagePromotion(publishedContent)) return false;
-
-            var config = GetConfig(publishedContent);
-            return config != null && config.PromoteOnCentralFeed;
-        }
-
-        private static PagePromotionConfig GetConfig(string propertyValue)
-        {
-            return propertyValue.IsNullOrEmpty() ? null : propertyValue.Deserialize<PagePromotionConfig>();
-        }
+        private static Option<PagePromotionConfig> GetConfig(string propertyValue) =>
+            propertyValue.IsNullOrEmpty()
+                ? None
+                : Some(propertyValue.Deserialize<PagePromotionConfig>());
     }
 }

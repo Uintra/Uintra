@@ -10,6 +10,10 @@ namespace Uintra.Core.User.DTO
         [StringLength(256, MinimumLength = 1, ErrorMessage = "LastName Allowed length 1 - 256")]
         public string LastName { get; set; }
 
+        public string Phone { get; set; }
+
+        public string Department { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email is absent or empty")]
         public string Email { get; set; }
 

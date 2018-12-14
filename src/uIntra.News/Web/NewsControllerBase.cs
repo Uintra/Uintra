@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using Compent.Extensions;
 using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Attributes;
@@ -16,6 +15,7 @@ using Uintra.Core.Media;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions.Web;
+using static LanguageExt.Prelude;
 
 namespace Uintra.News.Web
 {
@@ -159,7 +159,7 @@ namespace Uintra.News.Web
         {
             var model = news.Map<NewsViewModel>();
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
+            model.HeaderInfo.Dates = List(news.PublishDate.ToDateTimeFormat());
             model.HeaderInfo.Owner = _intranetUserService.Get(news);
             model.CanEdit = _newsService.CanEdit(news);
             return model;
@@ -174,7 +174,7 @@ namespace Uintra.News.Web
             model.IsReadOnly = options.IsReadOnly;
             
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
+            model.HeaderInfo.Dates = List(news.PublishDate.ToDateTimeFormat());
             model.HeaderInfo.Owner = _intranetUserService.Get(news);
             model.HeaderInfo.Links = options.Links;
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Compent.Extensions;
 using Compent.Uintra.Core.Search.Entities;
+using LanguageExt;
 using Localization.Core;
 using Uintra.Core.Links;
 using Uintra.Core.User;
@@ -46,7 +46,7 @@ namespace Compent.Uintra.Controllers
             var searchResult = _elasticIndex.Search(searchQuery);
             totalHits = searchResult.TotalHits;
 
-            return searchResult.Documents.Select(r => r.Id.ToString().Pipe(Guid.Parse));
+            return searchResult.Documents.Select(r => r.Id.ToString().Apply(Guid.Parse));
         }
 
         protected override string GetDetailsPopupTitle(UserModel user)

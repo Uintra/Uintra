@@ -17,6 +17,8 @@ namespace Compent.Uintra.Core.Users
         public string LastName { get; set; }
         public string Email { get; set; }
         public string LoginName { get; set; }
+        public string Phone { get; set; }
+        public string Department { get; set; }
         public bool Inactive { get; set; }
         public IRole Role { get; set; }
 

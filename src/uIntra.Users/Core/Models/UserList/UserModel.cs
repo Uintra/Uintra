@@ -15,6 +15,8 @@ namespace Uintra.Users.UserList
         public string DisplayedName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Phone { get; set; }
+        public string Department { get; set; }
 
         [UIColumn(2, "Email", "email", ColumnType.Email, SupportSorting = true)]
         public string Email { get; set; }

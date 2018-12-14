@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
-using Compent.Extensions;
 using Compent.uIntra.Core.Login.Models;
 using Compent.Uintra.Core.Login.Models;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
@@ -18,6 +17,7 @@ using Uintra.Users;
 using Uintra.Users.Web;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using static LanguageExt.Prelude;
 
 namespace Compent.Uintra.Controllers
 {
@@ -151,7 +151,7 @@ namespace Compent.Uintra.Controllers
             _notificationsService.ProcessNotification(new NotifierData
             {
                 NotificationType = NotificationTypeEnum.Welcome,
-                ReceiverIds = userId.ToEnumerable(),
+                ReceiverIds = List(userId),
                 ActivityType = CommunicationTypeEnum.Member
             });
         }

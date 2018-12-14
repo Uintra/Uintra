@@ -52,6 +52,8 @@ namespace Compent.Uintra.Core.Users
             var user = base.Map(member);
             user.FirstName = member.GetValueOrDefault<string>(ProfileConstants.FirstName);
             user.LastName = member.GetValueOrDefault<string>(ProfileConstants.LastName);
+            user.Phone = member.GetValueOrDefault<string>(ProfileConstants.Phone);
+            user.Department = member.GetValueOrDefault<string>(ProfileConstants.Department);
             user.GroupIds = GetMembersGroupIds(user.Id);
 
             return user;

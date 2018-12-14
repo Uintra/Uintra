@@ -106,6 +106,8 @@ namespace Uintra.Users
             {
                 member.SetValue(ProfileConstants.FirstName, user.FirstName);
                 member.SetValue(ProfileConstants.LastName, user.LastName);
+                member.SetValue(ProfileConstants.Phone, user.Phone);
+                member.SetValue(ProfileConstants.Department, user.Department);
 
                 var mediaId = member.GetValueOrDefault<int?>(ProfileConstants.Photo);
 
@@ -140,6 +142,8 @@ namespace Uintra.Users
             var member = _memberService.CreateMember(dto.Email, dto.Email, fullName, "Member");
             member.SetValue(ProfileConstants.FirstName, dto.FirstName);
             member.SetValue(ProfileConstants.LastName, dto.LastName);
+            member.SetValue(ProfileConstants.Phone, dto.Phone);
+            member.SetValue(ProfileConstants.Department, dto.Department);
             member.SetValue(ProfileConstants.Photo, dto.MediaId);
 
             _memberService.Save(member, false);
@@ -160,12 +164,14 @@ namespace Uintra.Users
 
             var dto = member.Map(mbr=> new ReadUserDto
             {
-                LastName = mbr.GetValue<string>(ProfileConstants.FirstName),
-                FirstName = mbr.GetValue<string>(ProfileConstants.LastName),
+                LastName = mbr.GetValue<string>(ProfileConstants.LastName),
+                FirstName = mbr.GetValue<string>(ProfileConstants.FirstName),
+                Phone = mbr.GetValue<string>(ProfileConstants.Phone),
+                Department = mbr.GetValue<string>(ProfileConstants.Department),
                 Email = mbr.Email,
                 Role = System.Web.Security.Roles.GetRolesForUser(mbr.Username)
                     .First()
-                    .Pipe(s => (IntranetRolesEnum) Enum.Parse(typeof(IntranetRolesEnum), s))
+                    .Apply(s => (IntranetRolesEnum) Enum.Parse(typeof(IntranetRolesEnum), s))
             });
 
             return dto;

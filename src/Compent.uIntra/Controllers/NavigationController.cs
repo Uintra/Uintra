@@ -11,7 +11,6 @@ using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
 using Uintra.Groups;
-using Uintra.Groups.Attributes;
 using Uintra.Groups.Extentions;
 using Uintra.Groups.Navigation.Models;
 using Uintra.Navigation;
