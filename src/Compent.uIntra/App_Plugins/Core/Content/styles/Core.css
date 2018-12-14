@@ -315,6 +315,11 @@ img{
     }
 }
 
+.svg-icon {
+    vertical-align:top;
+    fill: currentColor;
+}
+
 .svg-sprite path {
     fill: currentColor;
 }

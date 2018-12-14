@@ -488,6 +488,11 @@
                 }
             }
 
+            &.icon-uintra{
+                top:5px;
+                left:14px;
+            }
+
             &.icon-logout{
                 left: 19px;
                 top: 12px;
