@@ -19,6 +19,7 @@ namespace Uintra.Core.ApplicationSettings
         private const string GoogleDomainKey = "Google.OAuth.Domain";
         private const string GoogleEnabledKey = "Google.OAuth.Enabled";
         private const string UmbracoUseSSLKey = "umbracoUseSSL";
+        private const string UintraDocumentationLinkTemplateKey = "UintraDocumentationLinkTemplate";
         public string MailNotificationNoReplyEmailKey = "Notifications.Mail.NoReplyEmail";
         public string MailNotificationNoReplyNameKey = "Notifications.Mail.NoReplyName";
 
@@ -35,6 +36,8 @@ namespace Uintra.Core.ApplicationSettings
         public int MonthlyEmailJobDay => Convert.ToInt32(ConfigurationManager.AppSettings[MonthlyEmailJobDayKey]);
 
         public string MemberApiAuthentificationEmail => ConfigurationManager.AppSettings[MemberApiAuthentificationEmailKey];
+
+        public string UintraDocumentationLinkTemplate => ConfigurationManager.AppSettings[UintraDocumentationLinkTemplateKey];
 
         public GoogleOAuth GoogleOAuth
         {
