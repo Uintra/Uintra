@@ -47,6 +47,8 @@ namespace Compent.Uintra.Core.Users
             Mapper.CreateMap<User, UpdateUserDto>()
                 .ForMember(dst => dst.FirstName, o => o.Ignore())
                 .ForMember(dst => dst.LastName, o => o.Ignore())
+                .ForMember(dst => dst.Phone, o => o.MapFrom(s => s.Phones.Any() ? s.Phones.First().Value : string.Empty))
+                .ForMember(dst => dst.Department, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.DeleteMedia, o => o.Ignore())
                 .ForMember(dst => dst.Id, o => o.Ignore())

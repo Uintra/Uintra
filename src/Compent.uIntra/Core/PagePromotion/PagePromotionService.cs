@@ -7,7 +7,6 @@ using Uintra.Comments;
 using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Caching;
-using Uintra.Core.Constants;
 using Uintra.Core.Extensions;
 using Uintra.Core.Grid;
 using Uintra.Core.PagePromotion;
@@ -16,6 +15,7 @@ using Uintra.Likes;
 using Uintra.Search;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using static Uintra.Core.Constants.GridEditorConstants;
 
 namespace Compent.Uintra.Core.PagePromotion
 {
@@ -110,16 +110,16 @@ namespace Compent.Uintra.Core.PagePromotion
         {
             var pagePromotion = content.Map<Entities.PagePromotion>();
             var config = PagePromotionHelper.GetConfig(content);
-            if (config == null) return null;
+            if (config.IsNone) return null;
 
-            Mapper.Map(config, pagePromotion);
 
+            config.IfSome(cfg => Mapper.Map(cfg, pagePromotion));            
             pagePromotion.Type = Type;
             pagePromotion.CreatorId = _userService.Get(pagePromotion.UmbracoCreatorId.Value).Id;
 
-            var panelValues = _gridHelper.GetValues(content, GridEditorConstants.CommentsPanelAlias, GridEditorConstants.LikesPanelAlias).ToList();
-            pagePromotion.Commentable = panelValues.Any(panel => panel.alias == GridEditorConstants.CommentsPanelAlias);
-            pagePromotion.Likeable = panelValues.Any(panel => panel.alias == GridEditorConstants.LikesPanelAlias);
+            var panelValues = _gridHelper.GetValues(content, CommentsPanelAlias, LikesPanelAlias).ToList();
+            pagePromotion.Commentable = panelValues.Any(panel => panel.alias == CommentsPanelAlias);
+            pagePromotion.Likeable = panelValues.Any(panel => panel.alias == LikesPanelAlias);
 
             return pagePromotion;
         }

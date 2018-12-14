@@ -32,11 +32,19 @@
             <div class="form__meta">
                 <div class="form__row">
                     <label class="form__label">@Html.Localize("Profile.FirstName.lbl")</label>
-                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form__input", @placeholder = Html.Localize("Profile.FirstName.Placeholder") })
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form__input", placeholder = Html.Localize("Profile.FirstName.Placeholder") })
                 </div>
                 <div class="form__row">
                     <label class="form__label">@Html.Localize("Profile.LastName.lbl")</label>
-                    @Html.TextBoxFor(m => m.LastName, new { @class = "form__input", @placeholder = Html.Localize("Profile.LastName.Placeholder") })
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form__input", placeholder = Html.Localize("Profile.LastName.Placeholder") })
+                </div>
+                <div class="form__row">
+                    <label class="form__label">@Html.Localize("Profile.Department.lbl")</label>
+                    @Html.TextBoxFor(m => m.Department, new { @class = "form__input", placeholder = Html.Localize("Profile.Department.Placeholder") })
+                </div>
+                <div class="form__row">
+                    <label class="form__label">@Html.Localize("Profile.Phone.lbl")</label>
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form__input", placeholder = Html.Localize("Profile.Phone.Placeholder") })
                 </div>
             </div>
         </div>
