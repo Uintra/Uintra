@@ -48,6 +48,16 @@ namespace Compent.Uintra.Core.Search.Indexes
                 new QueryContainerDescriptor<SearchableUser>().Match(m => m
                     .Query(query)
                     .Analyzer(ElasticHelpers.Replace)
+                    .Field(f => f.Phone)
+                    .Boost(scores.PhoneScore)),
+                new QueryContainerDescriptor<SearchableUser>().Match(m => m
+                    .Query(query)
+                    .Analyzer(ElasticHelpers.Replace)
+                    .Field(f => f.Department)
+                    .Boost(scores.DepartmentScore)),
+                new QueryContainerDescriptor<SearchableUser>().Match(m => m
+                    .Query(query)
+                    .Analyzer(ElasticHelpers.Replace)
                     .Field(f => f.FullName)
                     .Boost(scores.UserNameScore)),
                 new QueryContainerDescriptor<SearchableUser>().Match(m => m

@@ -12,6 +12,10 @@ namespace Compent.Uintra.Core.Search.Entities
 
         public string Email { get; set; }
 
+        public string Phone { get; set; }
+
+        public string Department { get; set; }
+
         public IEnumerable<string> UserTagNames { get; set; } = Enumerable.Empty<string>();
 
         public bool TagsHighlighted { get; set; }

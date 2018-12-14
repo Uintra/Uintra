@@ -7,6 +7,8 @@ namespace Compent.Uintra.Core.Search.Entities.Mappings
     {
         public SearchableUserMap()
         {
+            Text(t => t.Name(n => n.Department).Fielddata().Analyzer(ElasticHelpers.ReplaceNgram));
+            Text(t => t.Name(n => n.Phone).Fielddata().Analyzer(ElasticHelpers.ReplaceNgram));
             Text(t => t.Name(n => n.Email).Fielddata().Analyzer(ElasticHelpers.ReplaceNgram));
             Text(t => t.Name(n => n.FullName).Fielddata().Analyzer(ElasticHelpers.ReplaceNgram)
                 .Fields(f => f

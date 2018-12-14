@@ -15,11 +15,15 @@ namespace Uintra.Users.UserList
         public string DisplayedName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Phone { get; set; }
-        public string Department { get; set; }
-
         [UIColumn(2, "Email", "email", ColumnType.Email, SupportSorting = true)]
         public string Email { get; set; }
+
+        [UIColumn(3, "Phone", "phone", SupportSorting = false)]
+        public string Phone { get; set; }
+
+        [UIColumn(4, "Department", "department", SupportSorting = true)]
+        public string Department { get; set; }
+
         public IIntranetUser User { get; set; }
         public string ProfileUrl { get; set; }
     }

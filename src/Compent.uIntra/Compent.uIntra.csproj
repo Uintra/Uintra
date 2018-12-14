@@ -1480,6 +1480,7 @@
     <Compile Include="Core\Updater\Migrations\1.1\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\1.1\Steps\SplitEventLabelsStep.cs" />
     <Compile Include="Core\Updater\Migrations\1.2\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\1.2\Steps\AddPhoneAndDepartmentToUserStep.cs" />
     <Compile Include="Core\Updater\Migrations\1.2\Steps\SplitEventLabelsStep.cs" />
     <Compile Include="Core\Updater\TranslationsUpdateStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />

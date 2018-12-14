@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Compent.Uintra.Core.Updater.Migrations._1._2.Steps;
 
 namespace Compent.Uintra.Core.Updater.Migrations._1._2
 {
@@ -31,6 +32,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._2
             get
             {
                 yield return new TranslationsUpdateStep(TranslationUpdateData);
+                yield return Resolve<AddPhoneAndDepartmentToUserStep>(); 
             }
         }
     }
