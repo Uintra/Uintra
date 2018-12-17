@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Compent.CommandBus;
 using Compent.Extensions;
-using Compent.Uintra.Core.Helpers;
+using Compent.Uintra.Core.Notification;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.UserTags.Indexers;
 using Uintra.CentralFeed;
@@ -23,10 +23,10 @@ using Uintra.Groups;
 using Uintra.Likes;
 using Uintra.Notification;
 using Uintra.Notification.Base;
-using Uintra.Notification.Configuration;
 using Uintra.Search;
 using Uintra.Subscribe;
 using Uintra.Tagging.UserTags;
+using static Uintra.Notification.Configuration.NotificationTypeEnum;
 
 namespace Compent.Uintra.Core.Events
 {
@@ -50,12 +50,12 @@ namespace Compent.Uintra.Core.Events
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IActivityLinkService _linkService;
-        private readonly INotifierDataHelper _notifierDataHelper;
         private readonly UserTagService _userTagService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivitySubscribeSettingService _activitySubscribeSettingService;
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly IGroupService _groupService;
+        private readonly INotifierDataBuilder _notifierDataBuilder;
 
         public EventsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -73,14 +73,20 @@ namespace Compent.Uintra.Core.Events
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
-            INotifierDataHelper notifierDataHelper,
             IActivityLocationService activityLocationService,
             UserTagService userTagService,
             IActivitySubscribeSettingService activitySubscribeSettingService,
             IFeedTypeProvider feedTypeProvider,
             IActivityLinkPreviewService activityLinkPreviewService,
-            IGroupService groupService)
-            : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService)
+            IGroupService groupService,
+            INotifierDataBuilder notifierDataBuilder)
+            : base(
+                intranetActivityRepository,
+                cacheService,
+                activityTypeProvider,
+                intranetMediaService,
+                activityLocationService,
+                activityLinkPreviewService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -94,11 +100,11 @@ namespace Compent.Uintra.Core.Events
             _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
-            _notifierDataHelper = notifierDataHelper;
             _userTagService = userTagService;
             _activitySubscribeSettingService = activitySubscribeSettingService;
             _feedTypeProvider = feedTypeProvider;
             _groupService = groupService;
+            _notifierDataBuilder = notifierDataBuilder;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.Events;
@@ -122,8 +128,6 @@ namespace Compent.Uintra.Core.Events
             @event.IsHidden = true;
             Save(@event);
         }
-
-        public bool CanEditSubscribe(Event activity) => !activity.Subscribers.Any();
 
         public bool CanSubscribe(Guid activityId)
         {
@@ -163,11 +167,11 @@ namespace Compent.Uintra.Core.Events
         public override Guid Create(IIntranetActivity activity)
         {
             return base.Create(activity, activityId =>
-                {
-                    var subscribeSettings = Map(activity);
-                    subscribeSettings.ActivityId = activityId;
-                    _activitySubscribeSettingService.Create(subscribeSettings);
-                });
+            {
+                var subscribeSettings = Map(activity);
+                subscribeSettings.ActivityId = activityId;
+                _activitySubscribeSettingService.Create(subscribeSettings);
+            });
         }
 
         public override void Save(IIntranetActivity activity)
@@ -227,7 +231,7 @@ namespace Compent.Uintra.Core.Events
 
         public override bool IsActual(IIntranetActivity activity)
         {
-            return base.IsActual(activity) && IsActualPublishDate((Event)activity);
+            return base.IsActual(activity) && IsActualPublishDate((Event) activity);
         }
 
         public void UnSubscribe(Guid userId, Guid activityId)
@@ -246,91 +250,21 @@ namespace Compent.Uintra.Core.Events
 
         public void Notify(Guid entityId, Enum notificationType)
         {
-            var notifierData = GetNotifierData(entityId, notificationType);
+            NotifierData notifierData;
 
-            if (notifierData != null)
+            if (notificationType.In(CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
             {
-                _notificationService.ProcessNotification(notifierData);
+                var comment = _commentsService.Get(entityId);
+                var parentActivity = Get(comment.ActivityId);
+                notifierData = _notifierDataBuilder.GetNotifierData(comment, parentActivity, notificationType);
             }
-        }
-
-        private NotifierData GetNotifierData(Guid entityId, Enum notificationType)
-        {
-            var currentUser = _intranetUserService.GetCurrentUser();
-
-            var data = new NotifierData
+            else
             {
-                NotificationType = notificationType,
-                ActivityType = Type
-            };
-
-            switch (notificationType)
-            {
-                case NotificationTypeEnum.CommentReplied:
-                    {
-                        var comment = _commentsService.Get(entityId);
-                        var currentEvent = Get(comment.ActivityId);
-                        data.ReceiverIds = comment.UserId.ToEnumerable();
-                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, currentUser.Id);
-                    }
-                    break;
-                case NotificationTypeEnum.CommentEdited:
-                    {
-                        var comment = _commentsService.Get(entityId);
-                        var currentEvent = Get(comment.ActivityId);
-                        data.ReceiverIds = currentEvent.OwnerId.ToEnumerable();
-                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
-                    }
-                    break;
-                case NotificationTypeEnum.CommentAdded:
-                    {
-                        var comment = _commentsService.Get(entityId);
-                        var currentEvent = Get(comment.ActivityId);
-                        data.ReceiverIds = GetNotifiedSubscribers(currentEvent).Concat(currentEvent.OwnerId.ToEnumerable()).Distinct();
-                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, comment.UserId);
-                    }
-                    break;
-                case NotificationTypeEnum.ActivityLikeAdded:
-                    {
-                        var currentEvent = Get(entityId);
-                        data.ReceiverIds = currentEvent.OwnerId.ToEnumerable();
-                        data.Value = _notifierDataHelper.GetLikesNotifierDataModel(currentEvent, notificationType, currentUser.Id);
-                    }
-                    break;
-                case NotificationTypeEnum.CommentLikeAdded:
-                    {
-                        var comment = _commentsService.Get(entityId);
-                        var currentEvent = Get(comment.ActivityId);
-                        data.ReceiverIds = currentUser.Id == comment.UserId ? Enumerable.Empty<Guid>() : comment.UserId.ToEnumerable();
-                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentEvent, comment, notificationType, currentUser.Id);
-                    }
-                    break;
-
-                case NotificationTypeEnum.BeforeStart:
-                    {
-                        var currentEvent = Get(entityId);
-                        data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
-                        data.Value = _notifierDataHelper.GetActivityReminderDataModel(currentEvent, notificationType);
-                    }
-                    break;
-
-                case NotificationTypeEnum.EventHidden:
-                case NotificationTypeEnum.EventUpdated:
-                    {
-                        var currentEvent = Get(entityId);
-                        data.ReceiverIds = GetNotifiedSubscribers(currentEvent);
-                        data.Value = _notifierDataHelper.GetActivityNotifierDataModel(currentEvent, notificationType, currentUser.Id);
-                    }
-                    break;
-                default:
-                    return null;
+                var activity = Get(entityId);
+                notifierData = _notifierDataBuilder.GetNotifierData(activity, notificationType);
             }
-            return data;
-        }
 
-        private static IEnumerable<Guid> GetNotifiedSubscribers(Event currentEvent)
-        {
-            return currentEvent.Subscribers.Where(s => !s.IsNotificationDisabled).Select(s => s.UserId);
+            _notificationService.ProcessNotification(notifierData);
         }
 
         public ISubscribable Subscribe(Guid userId, Guid activityId)
@@ -369,7 +303,7 @@ namespace Compent.Uintra.Core.Events
 
         private ActivitySubscribeSettingDto Map(IIntranetActivity activity)
         {
-            var @event = (Event)activity;
+            var @event = (Event) activity;
             return @event.Map<ActivitySubscribeSettingDto>();
         }
 
@@ -377,7 +311,7 @@ namespace Compent.Uintra.Core.Events
         {
             var entityId = _intranetMediaService.GetEntityIdByMediaId(command.MediaId);
             var entity = Get(entityId);
-            if (entity==null)
+            if (entity == null)
             {
                 return BroadcastResult.Success;
             }

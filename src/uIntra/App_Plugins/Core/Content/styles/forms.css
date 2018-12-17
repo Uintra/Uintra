@@ -189,3 +189,31 @@
         padding:10px 39px;
     }
 }
+
+.google-login {
+    cursor: pointer;
+    padding: 8px 10px;
+    font: 13px/16px var(--font-general);
+    color: #aaa;
+    background: #fff;
+    border: 1px solid #c7c7c7;
+
+    &:hover{
+        color: var(--text-color-dark);
+    }
+
+    &__image{
+        display:inline-block;
+        vertical-align:top;
+        margin:-5px 3px -5px 0;
+
+        img,svg{
+            vertical-align:top;
+        }
+    }
+}
+
+.google-login-error{
+    margin:20px 0 0;
+    color:var(--color-red);
+}

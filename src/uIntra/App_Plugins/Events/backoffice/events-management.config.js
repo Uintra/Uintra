@@ -23,10 +23,12 @@
                 dateFormat: "d/m/Y H:i"
             },
             publishDate: {
-                useTime: false,
+                useTime: true,
                 useDate: true,
                 useSeconds: false,
-                dateFormat: "d/m/Y"
+                time_24hr: true,
+                enableTime: true,
+                dateFormat: "d/m/Y H:i"
             },
             filterDate: {
                 enableTime: false,

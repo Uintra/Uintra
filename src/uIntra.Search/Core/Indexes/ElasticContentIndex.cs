@@ -2,7 +2,7 @@
 
 namespace Uintra.Search
 {
-    public class ElasticContentIndex : IElasticContentIndex
+    public class ElasticContentIndex : IElasticContentIndex, IElasticEntityMapper
     {
         private readonly IElasticSearchRepository<SearchableContent> _elasticSearchRepository;
 
@@ -27,6 +27,11 @@ namespace Uintra.Search
         public void Delete(int id)
         {
             _elasticSearchRepository.Delete(id);
+        }
+
+        public bool CreateMap(out string error)
+        {
+            return _elasticSearchRepository.CreateMap(out error);
         }
     }
 }

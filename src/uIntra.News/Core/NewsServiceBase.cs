@@ -30,27 +30,31 @@ namespace Uintra.News
         public override bool IsActual(IIntranetActivity activity)
         {
             var news = (NewsBase)activity;
+            var isActual = base.IsActual(news);
 
-            var isActual = base.IsActual(news) && news.PublishDate <= DateTime.UtcNow && !IsShowIfUnpublish(news);
-            return isActual;
+            if (!isActual) return false;
+
+            if (IsExpired(news))
+            {
+                news.IsHidden = true;
+                news.UnpublishDate = null;
+                Save(news);
+                return false;
+            }
+
+            return news.PublishDate <= DateTime.UtcNow || IsOwner(news);
         }
 
         public virtual bool IsExpired(INewsBase news)
         {
-            return news.UnpublishDate.HasValue && news.UnpublishDate.Value.Date < DateTime.Now;
+            return news.UnpublishDate.HasValue && news.UnpublishDate.Value < DateTime.UtcNow;
         }
 
-        protected virtual bool IsShowIfUnpublish(NewsBase newsEntity)
+        protected virtual bool IsOwner(NewsBase newsEntity)
         {
             var owner = _intranetUserService.Get(newsEntity);
             var currentUserId = _intranetUserService.GetCurrentUserId();
-
-            if (owner.Id != currentUserId)
-            {
-                return IsExpired(newsEntity);
-            }
-
-            return false;
+            return owner.Id == currentUserId;
         }
     }
 }

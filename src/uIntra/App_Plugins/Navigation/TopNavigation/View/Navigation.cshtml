@@ -32,14 +32,22 @@
         {
             <li class="user__menu-item">
                 <a class="user__menu-link" href="@Url.Action("LoginToUmbraco", "NavigationAuthorization")">
-                    <span class="icon icon-umbraco"></span>
+                    <span class="icon icon-umbraco">
+                        <svg class="svg-icon" viewBox="0 0 300 300" width="29px" height="29px">
+                            <use xlink:href="#icon-umbraco" x="0" y="0"></use>
+                        </svg>
+                    </span>
                     @Html.Localize("TopNavigation.LoginToUmbraco.lbl")
                 </a>
             </li>
     }
             <li class="user__menu-item">
                 <a class="user__menu-link js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
-                    <span class="icon icon-logout"></span>
+                    <span class="icon icon-logout">
+                        <svg class="svg-icon" viewBox="0 0 1792 1792" width="22px" height="19px">
+                            <use xlink:href="#icon-logout" x="0" y="0"></use>
+                        </svg>
+                    </span>
                     @Html.Localize("TopNavigation.Logout.lbl")
                 </a>
             </li>

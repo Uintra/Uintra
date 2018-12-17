@@ -17,7 +17,9 @@
         <input type="hidden" name="readonlyClickMessage" value="@Html.Localize("Likes.ReadonlyClick.Message.lbl")" />
 
         <span class="like__set @isLiked">
-            <i class="icon-like"></i>
+            <svg class="svg-icon icon-like" viewBox="0.012 0 32 32" width="16px" height="16px">
+                <use xlink:href="#icon-like" x="0" y="0"></use>
+            </svg>
             @if (Model.Users.Any() && !Model.IsReadOnly)
             {
                 <span>@Model.Users.Count()</span>

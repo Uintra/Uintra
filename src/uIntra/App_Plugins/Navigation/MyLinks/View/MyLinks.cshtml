@@ -3,7 +3,14 @@
 
 <ul class="side-nav _links">
     <li class="side-nav__item js-mylinks__item" data-id="myLinksState">
-        <a class="side-nav__link _title-link"><span class="icon-star side-nav__icon"></span> @Html.Localize("Links.Menu.lbl")</a>
+        <a class="side-nav__link _title-link">
+            <span class="icon-star side-nav__icon">
+                <svg class="svg-icon" viewBox="0 0 32 32" width="15px" height="15px">
+                    <use xlink:href="#icon-star" x="0" y="0"></use>
+                </svg>
+            </span>
+            @Html.Localize("Links.Menu.lbl")
+        </a>
         <span class="side-nav__arrow js-mylinks__opener"></span>
         <ul id="js-myLinks-sortable" class="side-nav" data-url="@Url.Action("List", "MyLinks")">
             @{ Html.RenderAction("List", "MyLinks"); }

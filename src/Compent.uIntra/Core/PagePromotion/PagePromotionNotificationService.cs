@@ -3,7 +3,6 @@ using Compent.Uintra.Core.Helpers;
 using System;
 using Uintra.Comments;
 using Uintra.Core.Activity;
-using Uintra.Core.PagePromotion;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;

@@ -145,7 +145,7 @@ const helpers = {
             if (delta.ops.length === 2 && delta.ops[0].retain && isWhitespace(delta.ops[1].insert)) {
                 var endRetain = delta.ops[0].retain;
                 var text = quill.getText().substr(0, endRetain);
-                var matches = matchUponMultiple(urlDetectRegexes, text);
+                var matches = matchUponMultiple(urlDetectRegexes, text.trim());
 
                 if (matches) {
                     var url = matches[0];

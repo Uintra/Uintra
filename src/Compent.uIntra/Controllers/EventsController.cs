@@ -249,7 +249,7 @@ namespace Compent.Uintra.Controllers
                     MentionedSourceId = @event.Id,
                     CreatorId = _intranetUserService.GetCurrentUserId(),
                     MentionedUserIds = mentionIds,
-                    Title = @event.Title,
+                    Title = @event.Title.StripHtml(),
                     Url = links.Details,
                     ActivityType = IntranetActivityTypeEnum.Events
                 });

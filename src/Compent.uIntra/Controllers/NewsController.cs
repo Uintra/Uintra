@@ -173,7 +173,7 @@ namespace Compent.Uintra.Controllers
                     MentionedSourceId = news.Id,
                     CreatorId = _intranetUserService.GetCurrentUserId(),
                     MentionedUserIds = mentionIds,
-                    Title = news.Title,
+                    Title = news.Title.StripHtml(),
                     Url = links.Details,
                     ActivityType = IntranetActivityTypeEnum.News
                 });

@@ -5,7 +5,7 @@ using Uintra.Search;
 
 namespace Compent.Uintra.Core.UserTags.Indexers
 {
-    public class ElasticUintraActivityIndex: IElasticUintraActivityIndex
+    public class ElasticUintraActivityIndex: IElasticUintraActivityIndex, IElasticEntityMapper
     {
         private readonly IElasticSearchRepository<SearchableUintraActivity> _elasticSearchRepository;
 
@@ -40,6 +40,11 @@ namespace Compent.Uintra.Core.UserTags.Indexers
         public void DeleteByType(Enum type)
         {
             _elasticSearchRepository.DeleteAllByType(type);
+        }
+
+        public bool CreateMap(out string error)
+        {
+            return _elasticSearchRepository.CreateMap(out error);
         }
     }
 }

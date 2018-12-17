@@ -156,6 +156,10 @@ namespace Compent.Uintra.Controllers
                 _activityTagsHelper.ReplaceTags(bulletin.Id, extendedModel.TagIdsData);
             }
 
+            if (string.IsNullOrEmpty(model.Description))
+            {
+                return;
+            }
             ResolveMentions(model.Description, bulletin);
         }
 
@@ -172,7 +176,7 @@ namespace Compent.Uintra.Controllers
                     MentionedSourceId = bulletin.Id,
                     CreatorId = _intranetUserService.GetCurrentUserId(),
                     MentionedUserIds = mentionIds,
-                    Title = bulletin.Description.TrimByWordEnd(maxTitleLength),
+                    Title = bulletin.Description.StripHtml().TrimByWordEnd(maxTitleLength),
                     Url = links.Details,
                     ActivityType = IntranetActivityTypeEnum.Bulletins
                 });
