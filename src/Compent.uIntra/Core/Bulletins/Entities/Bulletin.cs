@@ -10,7 +10,7 @@ using Uintra.Subscribe;
 
 namespace Compent.Uintra.Core.Bulletins
 {
-    public class Bulletin : BulletinBase, IFeedItem, ICommentable, ILikeable, ISubscribable, IGroupActivity
+    public class Bulletin : BulletinBase, IFeedItem, ICommentable, ILikeable, IGroupActivity
     {
         [JsonIgnore]
         public DateTime SortDate => PublishDate;
@@ -18,8 +18,6 @@ namespace Compent.Uintra.Core.Bulletins
         public IEnumerable<LikeModel> Likes { get; set; }
         [JsonIgnore]
         public IEnumerable<CommentModel> Comments { get; set; }
-
-        public IEnumerable<global::Uintra.Subscribe.Subscribe> Subscribers { get; set; }
 
         public Guid? GroupId { get; set; }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using AutoMapper;
 using Uintra.Core.Extensions;
@@ -25,7 +26,7 @@ namespace Uintra.Events.Dashboard
         public virtual IEnumerable<EventBackofficeViewModel> GetAll()
         {
             var events = _eventsService.GetAll(true);
-            var result = events.Map<IEnumerable<EventBackofficeViewModel>>();
+            var result = events.Map<IEnumerable<EventBackofficeViewModel>>().OrderByDescending(e => e.ModifyDate);
             return result;
         }
 

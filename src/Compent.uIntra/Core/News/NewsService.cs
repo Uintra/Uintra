@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Compent.CommandBus;
 using Compent.Extensions;
-using Compent.Uintra.Core.Helpers;
+using Compent.Uintra.Core.Notification;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.UserTags.Indexers;
 using Uintra.CentralFeed;
@@ -24,10 +24,10 @@ using Uintra.Likes;
 using Uintra.News;
 using Uintra.Notification;
 using Uintra.Notification.Base;
-using Uintra.Notification.Configuration;
 using Uintra.Search;
 using Uintra.Subscribe;
 using Uintra.Tagging.UserTags;
+using static Uintra.Notification.Configuration.NotificationTypeEnum;
 
 namespace Compent.Uintra.Core.News
 {
@@ -51,7 +51,7 @@ namespace Compent.Uintra.Core.News
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
-        private readonly INotifierDataHelper _notifierDataHelper;
+        private readonly INotifierDataBuilder _notifierDataBuilder;
         private readonly IUserTagService _userTagService;
         private readonly IActivityLocationService _activityLocationService;
         private readonly IGroupService _groupService;
@@ -72,11 +72,13 @@ namespace Compent.Uintra.Core.News
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
-            INotifierDataHelper notifierDataHelper,
             IActivityLocationService activityLocationService,
             IUserTagService userTagService,
-            IActivityLinkPreviewService activityLinkPreviewService, IGroupService groupService)
-            : base(intranetActivityRepository, cacheService, intranetUserService, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService)
+            IActivityLinkPreviewService activityLinkPreviewService,
+            IGroupService groupService,
+            INotifierDataBuilder notifierDataBuilder)
+            : base(intranetActivityRepository,cacheService,intranetUserService, 
+                activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService)
         {
             _intranetUserService = intranetUserService;
             _commentsService = commentsService;
@@ -91,13 +93,12 @@ namespace Compent.Uintra.Core.News
             _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
-            _notifierDataHelper = notifierDataHelper;
             _userTagService = userTagService;
             _groupService = groupService;
+            _notifierDataBuilder = notifierDataBuilder;
             _activityLocationService = activityLocationService;
         }
 
-        protected List<string> OverviewXPath => new List<string> { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetOverviewPage(Type) };
         public override Enum Type => IntranetActivityTypeEnum.News;
 
         public MediaSettings GetMediaSettings()
@@ -152,7 +153,6 @@ namespace Compent.Uintra.Core.News
                 var entity = activity;
                 entity.Location = _activityLocationService.Get(entity.Id);
                 entity.GroupId = _groupActivityService.GetGroupId(activity.Id);
-                _subscribeService.FillSubscribers(entity);
                 _commentsService.FillComments(entity);
                 _likesService.FillLikes(entity);
             }
@@ -188,11 +188,21 @@ namespace Compent.Uintra.Core.News
 
         public void Notify(Guid entityId, Enum notificationType)
         {
-            var notifierData = GetNotifierData(entityId, notificationType);
-            if (notifierData != null)
+            NotifierData notifierData;
+
+            if (notificationType.In(CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
             {
-                _notificationService.ProcessNotification(notifierData);
+                var comment = _commentsService.Get(entityId);
+                var parentActivity = Get(comment.ActivityId);
+                notifierData = _notifierDataBuilder.GetNotifierData(comment, parentActivity, notificationType);
             }
+            else
+            {
+                var activity = Get(entityId);
+                notifierData = _notifierDataBuilder.GetNotifierData(activity, notificationType);
+            }
+
+            _notificationService.ProcessNotification(notifierData);
         }
 
         public void FillIndex()
@@ -201,63 +211,6 @@ namespace Compent.Uintra.Core.News
             var searchableActivities = activities.Select(Map);
             _activityIndex.DeleteByType(UintraSearchableTypeEnum.News);
             _activityIndex.Index(searchableActivities);
-        }
-
-        private NotifierData GetNotifierData(Guid entityId, Enum notificationType)
-        {
-            var currentUser = _intranetUserService.GetCurrentUser();
-
-            var data = new NotifierData
-            {
-                NotificationType = notificationType,
-                ActivityType = Type
-            };
-
-            switch (notificationType)
-            {
-                case NotificationTypeEnum.ActivityLikeAdded:
-                    {
-                        var news = Get(entityId);
-                        data.ReceiverIds = news.OwnerId.ToEnumerable();
-                        data.Value = _notifierDataHelper.GetLikesNotifierDataModel(news, notificationType, currentUser.Id);
-                    }
-                    break;
-
-                case NotificationTypeEnum.CommentLikeAdded:
-                    {
-                        var comment = _commentsService.Get(entityId);
-                        var news = Get(comment.ActivityId);
-                        data.ReceiverIds = currentUser.Id == comment.UserId
-                            ? Enumerable.Empty<Guid>()
-                            : comment.UserId.ToEnumerable();
-
-                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, currentUser.Id);
-                    }
-                    break;
-
-                case NotificationTypeEnum.CommentAdded:
-                case NotificationTypeEnum.CommentEdited:
-                    {
-                        var comment = _commentsService.Get(entityId);
-                        var news = Get(comment.ActivityId);
-                        data.ReceiverIds = news.OwnerId.ToEnumerable();
-                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, comment.UserId);
-                    }
-                    break;
-
-                case NotificationTypeEnum.CommentReplied:
-                    {
-                        var comment = _commentsService.Get(entityId);
-                        var news = Get(comment.ActivityId);
-                        data.ReceiverIds = comment.UserId.ToEnumerable();
-                        data.Value = _notifierDataHelper.GetCommentNotifierDataModel(news, comment, notificationType, currentUser.Id);
-                    }
-                    break;
-
-                default:
-                    return null;
-            }
-            return data;
         }
 
         private bool IsInCache(Entities.News news)

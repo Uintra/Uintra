@@ -12,7 +12,7 @@ namespace Uintra.Notification.Models.Json
         public Enum Type { get; set; }
         public dynamic Value { get; set; }
 
-        public Guid NotifierId { get; set; }
+        public Guid? NotifierId { get; set; }
         public string NotifierPhoto { get; set; }
         public string NotifierDisplayedName { get; set; }
         public string Message { get; set; }

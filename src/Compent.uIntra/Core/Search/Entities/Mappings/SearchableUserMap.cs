@@ -15,13 +15,7 @@ namespace Compent.Uintra.Core.Search.Entities.Mappings
                         .Normalizer(ElasticHelpers.Normalizer.Sort)
                     )
             ));
-            Text(t => t.Name(n => n.UserTagNames).Analyzer(ElasticHelpers.ReplaceNgram)
-                .Fields(f => f
-                    .Keyword(k => k
-                        .Name(n => n.FullName.Suffix(ElasticHelpers.Normalizer.Sort))
-                        .Normalizer(ElasticHelpers.Normalizer.Sort)
-                    )
-                ));
+            Text(t => t.Name(n => n.UserTagNames).Analyzer(ElasticHelpers.Tag));
         }
     }
 }

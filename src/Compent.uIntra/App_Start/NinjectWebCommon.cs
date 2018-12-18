@@ -27,8 +27,10 @@ using Compent.Uintra.Core.IoC;
 using Compent.Uintra.Core.LinkPreview.Config;
 using Compent.Uintra.Core.Navigation;
 using Compent.Uintra.Core.News;
+using Compent.Uintra.Core.News.Entities;
 using Compent.Uintra.Core.Notification;
 using Compent.Uintra.Core.PagePromotion;
+using Compent.Uintra.Core.PagePromotion.Entities;
 using Compent.Uintra.Core.Search;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.Search.Entities.Mappings;
@@ -363,6 +365,7 @@ namespace Compent.Uintra
             kernel.Bind<INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage>>().To<UiNotificationModelMapper>().InRequestScope();
             kernel.Bind<INotificationModelMapper<PopupNotifierTemplate, PopupNotificationMessage>>().To<PopupNotificationModelMapper>().InRequestScope();
             kernel.Bind<INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage>>().To<MailNotificationModelMapper>().InRequestScope();
+            kernel.Bind<INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage>>().To<DesktopNotificationModelMapper>().InRequestScope();
             kernel.Bind<IUserMentionNotificationService>().To<UserMentionNotificationService>().InRequestScope();
 
             kernel.Bind<IBackofficeSettingsReader>().To<BackofficeSettingsReader>();
@@ -447,6 +450,7 @@ namespace Compent.Uintra
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
             kernel.Bind<IVideoHelper>().To<VideoHelper>().InRequestScope();
             kernel.Bind<INotifierDataHelper>().To<NotifierDataHelper>().InRequestScope();
+            kernel.Bind<INotifierDataBuilder>().To<NotifierDataBuilder>().InRequestScope();
 
             //Jobs 
             kernel.Bind<global::Uintra.Notification.Jobs.ReminderJob>().ToSelf().InRequestScope();
@@ -521,6 +525,12 @@ namespace Compent.Uintra
             kernel.Bind<IElasticUserIndex>().To<ElasticUserIndex>().InRequestScope();
             kernel.Bind<IElasticUintraContentIndex>().To<ElasticUintraContentIndex>().InRequestScope();
             kernel.Bind<IUserTagsSearchIndexer>().To<UserTagsSearchIndexer>().InRequestScope();
+
+            kernel.Bind<IElasticEntityMapper>().To<ElasticActivityIndex>().InRequestScope();
+            kernel.Bind<IElasticEntityMapper>().To<ElasticContentIndex>().InRequestScope();
+            kernel.Bind<IElasticEntityMapper>().To<ElasticDocumentIndex>().InRequestScope();
+            kernel.Bind<IElasticEntityMapper>().To<ElasticTagIndex>().InRequestScope();
+            kernel.Bind<IElasticEntityMapper>().To<ElasticUserIndex>().InRequestScope();
 
             kernel.Bind<IElasticIndex>().To<UintraElasticIndex>().InRequestScope();
             kernel.Bind<ISearchScoreProvider>().To<SearchScoreProvider>().InRequestScope();

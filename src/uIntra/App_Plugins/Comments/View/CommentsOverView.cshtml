@@ -4,15 +4,22 @@
 
 <div id="@Model.ElementId" data-activity-id="@Model.ActivityId" class="comments__block js-comments-overview">
     <h3 class="comments__title">@Html.Localize("CommentsOverView.Title.lbl")</h3>
-    <ul class="comments__list">
-        @foreach (var comment in Model.Comments)
-        {
-            <li class="comments__list-item clearfix">
-                @Html.Action("CommentsView", "Comments", comment)
-            </li>
-        }
-    </ul>
+    @if (Model.IsReadOnly)
+    {
+        @Html.Localize("CommentsOverView.ReadOnlyMessage.lbl")
+    }
+    else
+    {
+        <ul class="comments__list">
+            @foreach (var comment in Model.Comments)
+            {
+                <li class="comments__list-item clearfix">
+                    @Html.Action("CommentsView", "Comments", new { viewModel = comment })
+                </li>
+            }
+        </ul>
 
-    <h4 class="comments__subtitle">@Html.Localize("CommentsOverView.AddComment.lbl")</h4>
-    @Html.Action("CreateView", "Comments", new { activityId = Model.ActivityId })
+        <h4 class="comments__subtitle">@Html.Localize("CommentsOverView.AddComment.lbl")</h4>
+        @Html.Action("CreateView", "Comments", new { activityId = Model.ActivityId })
+    }
 </div>

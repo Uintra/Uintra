@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Compent.Extensions;
+using Uintra.Core.Activity;
 using Uintra.Core.Context;
 using Uintra.Core.Context.Extensions;
 using Uintra.Core.Extensions;
@@ -41,7 +42,7 @@ namespace Compent.Uintra.Core.Notification
             var identity = GetSettingsIdentity(data);
 
             var settings = _notificationSettingsService.Get<EmailNotifierTemplate>(identity);
-            if (settings == null || !settings.IsEnabled) return;
+            if (!settings.IsEnabled) return;
             var receivers = _intranetUserService.GetMany(data.ReceiverIds).ToList();
             foreach (var receiverId in data.ReceiverIds)
             {
@@ -58,7 +59,7 @@ namespace Compent.Uintra.Core.Notification
                     IsViewed = false,
                     Type = data.NotificationType.ToInt(),
                     NotifierType = NotifierTypeEnum.EmailNotifier.ToInt(),
-                    Value = new {message}.ToJson(),
+                    Value = new { message }.ToJson(),
                     ReceiverId = receiverId
                 });
             }
@@ -68,11 +69,12 @@ namespace Compent.Uintra.Core.Notification
         {
             Enum activityType;
 
-            switch (data.ActivityType.ToInt())
+            switch (data.NotificationType.ToInt())
             {
-                case (int) NotificationTypeEnum.CommentLikeAdded:
-                case (int) NotificationTypeEnum.MonthlyMail:
-                case (int)NotificationTypeEnum.UserMention:
+                case (int)NotificationTypeEnum.CommentLikeAdded:
+                case (int)NotificationTypeEnum.MonthlyMail:
+                case (int)IntranetActivityTypeEnum.ContentPage:
+                case (int)IntranetActivityTypeEnum.PagePromotion:
                     activityType = CommunicationTypeEnum.CommunicationSettings;
                     break;
                 default:

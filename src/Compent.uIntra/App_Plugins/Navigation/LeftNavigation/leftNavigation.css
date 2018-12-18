@@ -54,9 +54,18 @@
 
     &._groups,
     &._system,
-    &._links{
+    &._links,
+    &._people{
         padding-top:17px;
-    }   
+    }
+    
+    &._people{
+        display:none;
+
+        @media (--for-tablet-portrait-down) {
+            display:block;
+        }
+    }
 
     .ss-content &{
         margin:0 -32px 18px 0;
@@ -171,7 +180,8 @@
 
         ._system &,
         ._links &,
-        ._groups &{
+        ._groups &,
+        ._people &{
             padding-left:50px;
         }
 
@@ -290,16 +300,9 @@
     }
 
     &__icon{
-        font-size: 15px;
         left: 18px;
         position: absolute;
         top: 11px;
-
-        &.icon-groups{
-            &:before{
-                font-size:18px;
-            }
-        }
     }
 
     .glyphicon{
@@ -308,9 +311,9 @@
         right: 19px;
         color:var(--header-bg);
 
-        &:before{
+        /*&:before{
             font-size:15px;
-        }
+        }*/
 
         @media (--for-tablet-portrait-down) {
             right:13px;

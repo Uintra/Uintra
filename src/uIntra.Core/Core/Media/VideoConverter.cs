@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Web.Hosting;
 using Compent.CommandBus;
 using MediaToolkit;
 using MediaToolkit.Model;
@@ -18,12 +19,13 @@ namespace Uintra.Core.Media
         private readonly ICommandPublisher _commandPublisher;
         private readonly IApplicationSettings _applicationSettings;
         private readonly Engine _engine;
+        private readonly string _ffmpegPath = HostingEnvironment.MapPath(IntranetConstants.FfmpegRelativePath);
 
         public VideoConverter(ICommandPublisher commandPublisher, IApplicationSettings applicationSettings)
         {
             _commandPublisher = commandPublisher;
             _applicationSettings = applicationSettings;
-            _engine = new Engine();
+            _engine = new Engine(_ffmpegPath);
         }
 
         public void Convert(MediaConvertModel model)

@@ -15,6 +15,7 @@ namespace UIntra.Core.Media
     public class VideoHelper : IVideoHelper
     {
         private const string ThumbnailFileExtension = ".jpg";
+        private readonly string _ffmpegPath = HostingEnvironment.MapPath(IntranetConstants.FfmpegRelativePath);
 
         private readonly IApplicationSettings _applicationSettings;
 
@@ -37,7 +38,7 @@ namespace UIntra.Core.Media
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileFullPath);
             var outputFileFullPath = Path.Combine(directoryName, $"{fileNameWithoutExtension}{ThumbnailFileExtension}");
 
-            using (var engine = new Engine())
+            using (var engine = new Engine(_ffmpegPath))
             {
                 var inputMediaFile = new MediaFile { Filename = fileFullPath };
                 var outputMediaFile = new MediaFile { Filename = outputFileFullPath };
@@ -58,7 +59,7 @@ namespace UIntra.Core.Media
 
             var inputMediaFile = new MediaFile { Filename = fileFullPath };
 
-            using (var engine = new Engine())
+            using (var engine = new Engine(_ffmpegPath))
             {
                 engine.GetMetadata(inputMediaFile);
 

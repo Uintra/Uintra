@@ -21,7 +21,7 @@
                 <span class="feed__item-date">@date</span>
                 <span class="feed__item-divider"> - </span>
             }
-            <span class="feed__item-category">@Html.Localize(Model.Type.ToString())</span>
+            <span class="feed__item-category">@Html.Localize($"ActivityItemHeader.CategoryName.{Model.Type.ToString()}.lbl")</span>
         </p>
     </div>
     <h2 class="feed__item-title"><a class="feed__item-title-link" href="@Model.Links.Details">@Model.Title</a></h2>

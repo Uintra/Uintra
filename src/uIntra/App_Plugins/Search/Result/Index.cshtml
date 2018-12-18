@@ -10,7 +10,11 @@
         <div class="search-result__textbox-holder">
             <label class="form__label">Search term</label>
             <input class="search-result__textbox js-search-page-searchbox" type="search" name="query" value="@Model.Query" />
-            <span class="icon-search"></span>
+            <span class="icon-search">
+                <svg class="svg-icon" viewBox="0 0 32 32" width="30px" height="30px">
+                    <use xlink:href="#icon-search" x="0" y="0"></use>
+                </svg>
+            </span>
         </div>
         <input type="hidden" name="page" value="1" />
         <div class="search-result__filter">

@@ -23,9 +23,6 @@ namespace Compent.Uintra.Controllers
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IMentionService _mentionService;
         private readonly ICommentLinkHelper _commentLinkHelper;
-        protected override string OverviewViewPath { get; } = "~/Views/Comments/CommentsOverView.cshtml";
-        protected override string ViewPath { get; } = "~/Views/Comments/CommentsView.cshtml";
-
 
         public CommentsController(
             ICommentsService commentsService,
@@ -68,7 +65,7 @@ namespace Compent.Uintra.Controllers
                     MentionedSourceId = comment.Id,
                     CreatorId = _intranetUserService.GetCurrentUserId(),
                     MentionedUserIds = mentionIds,
-                    Title = $"Comment - \"{comment.Text.StripHtml().TrimByWordEnd(50)}\"",
+                    Title = comment.Text.StripHtml().TrimByWordEnd(50),
                     Url = content != null ? _commentLinkHelper.GetDetailsUrlWithComment(content, comment.Id) :
                         _commentLinkHelper.GetDetailsUrlWithComment(comment.ActivityId, comment.Id),
                     ActivityType = CommunicationTypeEnum.CommunicationSettings

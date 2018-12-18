@@ -14,7 +14,7 @@ namespace Uintra.Bulletins
         [RequiredVirtual(IsRequired = false)]
         public override string Title { get; set; }
 
-        [RequiredIfAllEmpty(DependancyProperties = new[] { nameof(NewMedia), nameof(Media) }), AllowHtml, StringLength(2000)]
+        [RequiredIfAllEmpty(DependancyProperties = new[] { nameof(NewMedia), nameof(Media) }), AllowHtml, StringLenghtWithoutHtml(2000)]
         public string Description { get; set; }
 
         [PropertyBinder(typeof(DateTimeBinder))]

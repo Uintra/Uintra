@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Uintra.Core.Notification.Mails;
 using Uintra.Bulletins;
 using Uintra.Core.Activity;
 using Uintra.Core.ApplicationSettings;
@@ -45,11 +44,6 @@ namespace Compent.Uintra.Core.Notification
             _userTagService = userTagService;
             _activityLinkService = activityLinkService;
             _notificationModelMapper = notificationModelMapper;
-        }
-
-        protected virtual IEnumerable<Guid> GetUserTags(Guid userId)
-        {
-            return _userTagService.GetForEntity(userId);
         }
 
 

@@ -1,9 +1,6 @@
 ﻿{
-  "label": "This is an in-app notification that is sent to the user of when someone mentions him in the comments of post.</br>:You can insert the following dynamic values:<br><br>##TaggedBy## - Name of the user that tagged another user<br>##FullName## - Name of the user tagged",
+  "label": "This is an in-app notification that is sent to the user of when someone mentions him in the comments of post.<br/>You can insert the following dynamic values:<br><br>##TaggedBy## - Name of the user that tagged another user<br>##FullName## - Name of the user tagged<br/>##NotificationType## - Notification type<br/>##ActivityTitle## - Cropped comment text",
   "template": {
-    "message": "##TaggedBy## has mentioned you in a post!",
-    "isDesktopNotificationEnabled": false,
-    "desktopMessage": "##TaggedBy## has mentioned you in a post!",
-    "desktopTitle": "##NotificationType##"
+    "message": "##TaggedBy## has mentioned you in a comment ##ActivityTitle##"
   }
 }
