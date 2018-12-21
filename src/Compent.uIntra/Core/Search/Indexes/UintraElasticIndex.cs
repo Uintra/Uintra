@@ -1,12 +1,11 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Compent.Uintra.Core.Search.Entities;
-using Compent.Extensions;
 using Nest;
 using Uintra.Core.Extensions;
 using Uintra.Search;
+using static LanguageExt.Prelude;
 
 namespace Compent.Uintra.Core.Search.Indexes
 {
@@ -46,6 +45,16 @@ namespace Compent.Uintra.Core.Search.Indexes
         {
             var desc = new List<QueryContainer>
             {
+                new QueryContainerDescriptor<SearchableUser>().Match(m => m
+                    .Query(query)
+                    .Analyzer(ElasticHelpers.Replace)
+                    .Field(f => f.Phone)
+                    .Boost(scores.PhoneScore)),
+                new QueryContainerDescriptor<SearchableUser>().Match(m => m
+                    .Query(query)
+                    .Analyzer(ElasticHelpers.Replace)
+                    .Field(f => f.Department)
+                    .Boost(scores.DepartmentScore)),
                 new QueryContainerDescriptor<SearchableUser>().Match(m => m
                     .Query(query)
                     .Analyzer(ElasticHelpers.Replace)
@@ -109,7 +118,7 @@ namespace Compent.Uintra.Core.Search.Indexes
                         break;
                     case "userTagNames":
                         document.tagsHighlighted = true;
-                        document.userTagNames = highlightedField.ToEnumerable().ToDynamic();
+                        document.userTagNames = List(highlightedField).ToDynamic();
                         break;
                     case "email":
                         document.email = highlightedField;

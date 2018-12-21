@@ -4,11 +4,10 @@ using Uintra.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.Grid;
 using Uintra.Core.PagePromotion;
-using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Web;
-using Umbraco.Core.Services;
 using static Uintra.Core.Constants.GridEditorConstants;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Search
 {
@@ -70,7 +69,7 @@ namespace Uintra.Search
 
         private SearchableContent GetContent(IPublishedContent publishedContent)
         {
-            (List<string> content, List<string> titles) = ParseContentPanels(publishedContent);
+            var (content, titles) = ParseContentPanels(publishedContent);
             var pagePromotionContent = GetPagePromotionContent(publishedContent);
 
             content.AddRange(pagePromotionContent);
@@ -114,25 +113,10 @@ namespace Uintra.Search
             return (titles, content);
         }
 
-        private List<string> GetPagePromotionContent(IPublishedContent publishedContent)
-        {
-            var content = new List<string>();
-
-            var config = PagePromotionHelper.GetConfig(publishedContent);
-            if (config == null) return content;
-
-            content.Add(config.Title);
-            content.Add(config.Description);
-
-            return content;
-        }
-
-
-
-        public void ProcessContentPublished(IContentService sender, MoveEventArgs<IContent> args)
-        {
-            foreach (var arg in args.MoveInfoCollection) FillIndex(arg.Entity.Id);
-        }
+        private static IEnumerable<string> GetPagePromotionContent(IPublishedContent publishedContent) =>
+            PagePromotionHelper.GetConfig(publishedContent)
+                .Map(cfg => List(cfg.Title, cfg.Description))
+                .IfNone(List<string>);
 
         private dynamic GetContentPanelFromGlobal(dynamic value) =>
             _umbracoHelper.TypedContent((int)value.id)?

@@ -50,7 +50,6 @@ namespace Compent.Uintra.Core.Bulletins
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
-        private readonly INotifierDataHelper _notifierDataHelper;
         private readonly IUserTagService _userTagService;
         private readonly IActivityLinkPreviewService _activityLinkPreviewService;
         private readonly IGroupService _groupService;
@@ -72,7 +71,6 @@ namespace Compent.Uintra.Core.Bulletins
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
-            INotifierDataHelper notifierDataHelper,
             IActivityLocationService activityLocationService,
             IUserTagService userTagService,
             IActivityLinkPreviewService activityLinkPreviewService,
@@ -93,7 +91,6 @@ namespace Compent.Uintra.Core.Bulletins
             _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
-            _notifierDataHelper = notifierDataHelper;
             _userTagService = userTagService;
             _activityLinkPreviewService = activityLinkPreviewService;
             _groupService = groupService;

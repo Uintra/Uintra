@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
 using Uintra.Core.Persistence;
 using Uintra.Groups;
 using Uintra.Groups.Sql;
 using Uintra.Users;
+using static LanguageExt.Prelude;
 
 namespace Compent.Uintra.Core.Groups
 {
@@ -22,18 +22,15 @@ namespace Compent.Uintra.Core.Groups
             _userCacheService = userCacheService;
         }
 
-        public override void Add(Guid groupId, Guid memberId)
-        {
-            AddMany(groupId, memberId.ToEnumerable());
-        }
+        public override void Add(Guid groupId, Guid memberId) => 
+            AddMany(groupId, List(memberId));
 
         public override void AddMany(Guid groupId, IEnumerable<Guid> memberIds)
         {
-            var groupMembers = new List<GroupMember>();
-
             var enumeratedMemberIds = memberIds as Guid[] ?? memberIds.ToArray();
-            foreach (var memberId in enumeratedMemberIds)
-                groupMembers.Add(GetNewGroupMember(groupId, memberId));
+            var groupMembers = enumeratedMemberIds
+                .Select(memberId => GetNewGroupMember(groupId, memberId))
+                .ToList();
 
             _groupMemberRepository.Add(groupMembers);
             _userCacheService.UpdateUserCache(enumeratedMemberIds);

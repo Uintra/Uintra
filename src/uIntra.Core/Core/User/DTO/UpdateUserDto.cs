@@ -13,6 +13,10 @@ namespace Uintra.Core.User.DTO
         [StringLength(256, MinimumLength = 1, ErrorMessage = "LastName Allowed length 1 - 256")]
         public string LastName { get; set; }
 
+        public string Phone { get; set; }
+
+        public string Department { get; set; }
+
         public int? NewMedia { get; set; }
 
         public bool DeleteMedia { get; set; }

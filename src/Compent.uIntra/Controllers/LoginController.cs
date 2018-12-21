@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
-using Compent.Extensions;
 using Compent.uIntra.Core.Login.Models;
 using Compent.Uintra.Core.Login.Models;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
@@ -17,7 +16,7 @@ using Uintra.Notification.Configuration;
 using Uintra.Users;
 using Uintra.Users.Web;
 using Umbraco.Core.Services;
-using Umbraco.Web;
+using static LanguageExt.Prelude;
 
 namespace Compent.Uintra.Controllers
 {
@@ -31,6 +30,7 @@ namespace Compent.Uintra.Controllers
         private readonly IMemberServiceHelper _memberServiceHelper;
         private readonly IMemberService _memberService;
         private readonly ICacheableIntranetUserService _cacheableIntranetUserService;
+        private readonly IUintraInformationService uintraInformationService;
 
         protected override string LoginViewPath => "~/Views/Login/Login.cshtml";
 
@@ -41,7 +41,8 @@ namespace Compent.Uintra.Controllers
             IMemberServiceHelper memberServiceHelper,
             IMemberService memberService,
             ICacheableIntranetUserService cacheableIntranetUserService,
-            IApplicationSettings applicationSettings)
+            IApplicationSettings applicationSettings,
+            IUintraInformationService uintraInformationService)
             : base(timezoneOffsetProvider, intranetLocalizationService, applicationSettings)
         {
             _timezoneOffsetProvider = timezoneOffsetProvider;
@@ -50,6 +51,7 @@ namespace Compent.Uintra.Controllers
             _memberServiceHelper = memberServiceHelper;
             _memberService = memberService;
             _cacheableIntranetUserService = cacheableIntranetUserService;
+            this.uintraInformationService = uintraInformationService;
         }
 
         [HttpPost]
@@ -93,7 +95,8 @@ namespace Compent.Uintra.Controllers
 
             var model = new LoginModel()
             {
-                GoogleSettings = GetGoogleSettings()
+                GoogleSettings = GetGoogleSettings(),
+                CurrentIntranetVersion = uintraInformationService.Version
             };
             return View(LoginViewPath, model);
         }        
@@ -151,7 +154,7 @@ namespace Compent.Uintra.Controllers
             _notificationsService.ProcessNotification(new NotifierData
             {
                 NotificationType = NotificationTypeEnum.Welcome,
-                ReceiverIds = userId.ToEnumerable(),
+                ReceiverIds = List(userId),
                 ActivityType = CommunicationTypeEnum.Member
             });
         }

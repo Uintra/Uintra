@@ -1,6 +1,6 @@
 ﻿@using Compent.Extensions
 @using Uintra.Core.Extensions
-@model Uintra.Navigation.TopNavigationViewModel
+@model Compent.Uintra.Core.Navigation.TopNavigationExtendedViewModel
 
 @{
     var userAvatarClass = Model.CurrentUser.Photo.HasValue() ? "_with-avatar" : string.Empty;
@@ -48,6 +48,11 @@
                         </svg>
                     </span>
                     @Html.Localize("TopNavigation.EditProfile.lbl")
+                </a>
+            </li>
+            <li class="user__menu-item">
+                <a class="user__menu-link" href="@Model.UintraDocumentationLink">
+                    <span>@Html.Localize("TopNavigation.UintraDocumentationLink.lnk") @Model.UintraDocumentationVersion</span>
                 </a>
             </li>
             <li class="user__menu-item">

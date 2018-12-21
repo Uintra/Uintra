@@ -1,5 +1,4 @@
-﻿using Compent.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -22,7 +21,7 @@ namespace Compent.Uintra.Core.Verification
 
             if (missedContentTypes.Any())
             {
-                var msg = missedContentTypes.JoinWith(Environment.NewLine);
+                var msg = string.Join(Environment.NewLine, missedContentTypes);
 
                 throw new Exception("Some content types are missed: " + Environment.NewLine + msg);
             }
@@ -36,7 +35,7 @@ namespace Compent.Uintra.Core.Verification
             foreach (var dt in docTypes)
             {
                 var contentType = _contentTypeService.GetContentType(dt);
-                if (contentType == null)
+                if (contentType is null)
                 {
                     yield return dt;
                 }
