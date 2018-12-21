@@ -52,7 +52,12 @@
             </li>
             <li class="user__menu-item">
                 <a class="user__menu-link" href="@Model.UintraDocumentationLink">
-                    <span>@Html.Localize("TopNavigation.UintraDocumentationLink.lnk") @Model.UintraDocumentationVersion</span>
+                    <span class="icon icon-uintra">
+                        <svg class="svg-icon" viewBox="0 0 408.2 455.5" width="31px" height="33px">
+                            <use xlink:href="#uintra" x="0" y="0"></use>
+                        </svg>
+                    </span>
+                    @Html.Localize("TopNavigation.UintraDocumentationLink.lnk") @Model.UintraDocumentationVersion
                 </a>
             </li>
             <li class="user__menu-item">

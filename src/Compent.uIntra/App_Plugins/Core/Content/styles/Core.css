@@ -316,7 +316,10 @@ img{
 }
 
 .svg-icon {
-    vertical-align: top;
+    vertical-align:top;
+}
+
+.svg-sprite path {
     fill: currentColor;
 }
 
