@@ -135,6 +135,7 @@ namespace Compent.Uintra
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbObjectContext, Persistence.Sql.Migrations.Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<EmailWorker.Data.DataDbContext, EmailWorker.Data.Migrations.Configuration>());
             RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             GlobalConfiguration.Configure((config) =>
             {
