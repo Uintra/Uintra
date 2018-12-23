@@ -43,6 +43,8 @@ namespace Compent.Uintra.Core.Search.Indexes
 
         public QueryContainer[] GetUserDescriptor(string query)
         {
+            var groupId = "233d14de-e356-4c36-8314-82317b42eb69";
+
             var desc = new List<QueryContainer>
             {
                 new QueryContainerDescriptor<SearchableUser>().Match(m => m
@@ -66,6 +68,16 @@ namespace Compent.Uintra.Core.Search.Indexes
                     .Field(f => f.Email)
                     .Boost(scores.UserEmailScore))
             };
+            if (!string.IsNullOrWhiteSpace(groupId))
+            {
+                //desc.Add(new QueryContainerDescriptor<SearchableUser>().Term(t => t
+                //    .Field(f => f.GroupIds).Value(groupId)));
+
+                desc.Add(new QueryContainerDescriptor<SearchableUser>().Match(m => m
+                    .Query(groupId)
+                    //.Analyzer(ElasticHelpers.Lowercase)
+                    .Field(f => f.GroupIds)));
+            }
 
             return desc.ToArray();
         }
