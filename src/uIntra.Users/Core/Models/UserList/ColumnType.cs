@@ -4,6 +4,7 @@
     {
         Email = 1,
         Photo = 2,
-        Text = 3
+        Name = 3,
+        Text = 4
     }
 }

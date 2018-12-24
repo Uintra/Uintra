@@ -11,7 +11,7 @@ namespace Uintra.Users.UserList
         [UIColumn(0, "Photo", "photo", ColumnType.Photo)]
         public string Photo { get; set; }
 
-        [UIColumn(1, "Name", "fullName", SupportSorting = true)]
+        [UIColumn(1, "Name", "fullName",ColumnType.Name, SupportSorting = true)]
         public string DisplayedName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

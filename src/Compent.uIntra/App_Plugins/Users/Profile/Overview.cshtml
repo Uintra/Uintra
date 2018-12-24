@@ -1,19 +1,31 @@
 ﻿@model Uintra.Users.ProfileViewModel
 
-<div class="form _profile">
-    <div class="form__row">
-        <div class="form__header">
-            @Html.Action("Photo", "User", new
-            {
-                user = Model.EditingUser,
-                сssModificator = "form__avatar-img",
-                photoWidth = 100
-            })
-            <div class="form__meta">
-                <strong class="form__name">@Model.FirstName @Model.LastName</strong>
-                <span class="form__email">@Model.Email</span>
-                <span class="form__department">@Model.Department</span>
-                <span class="form__phone">@Model.Phone</span>
+<div class="form profile">
+    <div class="form__top">
+        <h3 class="profile__title">Profile</h3>
+    </div>
+    <div class="form__header">
+        @Html.Action("Photo", "User", new
+        {
+            user = Model.EditingUser,
+            cssModificator = "avatar__profile",
+            photoWidth = 100
+        })
+        <div class="form__meta">
+            <strong class="form__name">@Model.FirstName @Model.LastName</strong>
+            <div class="form__meta-list">
+                <div class="form__meta-row">
+                    <span class="form__meta-label">E-mail:</span>
+                    <span class="form__meta-text"><a href="mailto:@Model.Email">@Model.Email</a></span>
+                </div>
+                <div class="form__meta-row">
+                    <span class="form__meta-label">Phone:</span>
+                    <span class="form__meta-text"><a href="tel:@Model.Phone">@Model.Phone</a></span>
+                </div>
+                <div class="form__meta-row">
+                    <span class="form__meta-label">Department:</span>
+                    <span class="form__meta-text">@Model.Department</span>
+                </div>
             </div>
         </div>
     </div>

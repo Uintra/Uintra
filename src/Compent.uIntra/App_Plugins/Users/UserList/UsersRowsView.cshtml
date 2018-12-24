@@ -29,10 +29,17 @@
                         </div>
                     }
                     break;
-                case ColumnType.Text:
+                case ColumnType.Name:
                     {
                         <div class="users-table__cell">
                             <span class="users-table__name">@ReflectionHelper.GetUIColumnValue(user, column)</span>
+                        </div>
+                    }
+                    break;
+                case ColumnType.Text:
+                    {
+                        <div class="users-table__cell">
+                            <span class="users-table__text">@ReflectionHelper.GetUIColumnValue(user, column)</span>
                         </div>
                     }
                     break;

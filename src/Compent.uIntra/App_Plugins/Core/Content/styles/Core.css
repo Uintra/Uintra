@@ -870,21 +870,31 @@ img{
     overflow: hidden;
     border-radius:50%;
 
+    &__profile{
+        width:90px;
+        height:90px;
+        flex-shrink:0;
+
+        .form &{
+            margin:0 20px 0 0;
+
+            @media(--for-tablet-portrait-down){
+                margin:0 10px 0 0;
+            }
+        }
+
+        @media(--for-desktop-down){
+            width: 60px;
+            height: 60px;
+        }
+    }
+
     .feed__list &{
         width:35px;
         min-width:35px;
         height:35px;
         margin:0 11px 3px 0;
-    }
-    
-    ._profile &{
-        width: 100px;
-        height: 100px;
-        @media(--for-phone-only){
-            width: 60px;
-            height: 60px;
-        }
-    }    
+    }   
 
     .comments__list &,
     .comments &{
