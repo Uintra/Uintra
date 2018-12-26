@@ -64,7 +64,8 @@
             query: '',
             orderBy: '@(Model.OrderByColumn?.PropertyName)',
             direction: 0,
-            selectedColumns: '@Html.Raw(JsonConvert.SerializeObject(Model.UsersRows.SelectedColumns))'
+            selectedColumns: '@Html.Raw(JsonConvert.SerializeObject(Model.UsersRows.SelectedColumns))',
+            groupId: ''
         },
         amountPerRequest: @Model.AmountPerRequest,
         displayedAmount: @Model.DisplayedAmount

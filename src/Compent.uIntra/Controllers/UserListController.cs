@@ -32,7 +32,7 @@ namespace Compent.Uintra.Controllers
             _profileLinkProvider = profileLinkProvider;
         }
 
-        protected override IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, out long totalHits, string orderBy, int direction)
+        protected override IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, string groupId, out long totalHits, string orderBy, int direction)
         {
             var searchQuery = new SearchTextQuery
             {
@@ -41,7 +41,8 @@ namespace Compent.Uintra.Controllers
                 Take = take,
                 OrderingString = orderBy,
                 OrderingDirection = direction,
-                SearchableTypeIds = ((int) UintraSearchableTypeEnum.User).ToEnumerable()
+                SearchableTypeIds = ((int)UintraSearchableTypeEnum.User).ToEnumerable(),
+                GroupId = groupId
             };
             var searchResult = _elasticIndex.Search(searchQuery);
             totalHits = searchResult.TotalHits;

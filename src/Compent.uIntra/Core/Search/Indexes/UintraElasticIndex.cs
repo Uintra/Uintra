@@ -29,21 +29,21 @@ namespace Compent.Uintra.Core.Search.Indexes
             return desc;
         }
 
-        protected override QueryContainer[] GetQueryContainers(string query)
+        protected override QueryContainer[] GetQueryContainers(string query, string groupId)
         {
-            var containers = base.GetQueryContainers(query).ToList();
+            var containers = base.GetQueryContainers(query, groupId).ToList();
 
             containers.Add(GetTagNames<SearchableUintraContent>(query));
             containers.Add(GetTagNames<SearchableUintraActivity>(query));
             containers.Add(GetTagNames<SearchableUser>(query));
             containers.Add(GetTagsDescriptor(query));
-            containers.AddRange(GetUserDescriptor(query));
+            containers.AddRange(GetUserDescriptor(query, groupId));
             return containers.ToArray();
         }
 
-        public QueryContainer[] GetUserDescriptor(string query)
+        public QueryContainer[] GetUserDescriptor(string query, string groupId)
         {
-            var groupId = "233d14de-e356-4c36-8314-82317b42eb69";
+            //var groupId = "233d14de-e356-4c36-8314-82317b42eb69";
 
             var desc = new List<QueryContainer>
             {

@@ -1151,6 +1151,8 @@
     <Content Include="macroScripts\Web.config" />
     <Content Include="config\UrlRewriting.config" />
     <Content Include="App_Plugins\SentMails\package.manifest" />
+    <EmbeddedResource Include="Core\Updater\Migrations\1.2\PreValues\userListDefaultValue.json" />
+    <EmbeddedResource Include="Core\Updater\Migrations\1.2\PreValues\groupsMembersPageGrid.json" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1483,6 +1485,7 @@
     <Compile Include="Core\Updater\Migrations\1.1\Steps\SplitEventLabelsStep.cs" />
     <Compile Include="Core\Updater\Migrations\1.2\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\1.2\Steps\AddPhoneAndDepartmentToUserStep.cs" />
+    <Compile Include="Core\Updater\Migrations\1.2\Steps\ChangeGroupMembersDefaulPanelStep.cs" />
     <Compile Include="Core\Updater\Migrations\1.2\Steps\SplitEventLabelsStep.cs" />
     <Compile Include="Core\Updater\TranslationsUpdateStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />

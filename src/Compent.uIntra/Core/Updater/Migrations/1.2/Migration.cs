@@ -32,7 +32,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._2
             get
             {
                 yield return new TranslationsUpdateStep(TranslationUpdateData);
-                yield return Resolve<AddPhoneAndDepartmentToUserStep>(); 
+                yield return Resolve<AddPhoneAndDepartmentToUserStep>();
+                yield return Resolve<ChangeGroupMembersDefaulPanelStep>();
             }
         }
     }

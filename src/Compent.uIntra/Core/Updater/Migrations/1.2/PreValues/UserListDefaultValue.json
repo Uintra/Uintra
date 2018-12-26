@@ -1,0 +1,90 @@
+{
+  "displayedAmount": "10",
+  "title": "User list",
+  "amountPerRequest": "10",
+  "properties": [
+    {
+      "id": 0,
+      "alias": "Photo",
+      "name": "Photo",
+      "type": 2,
+      "propertyName": "photo",
+      "supportSorting": false,
+      "selected": true
+    },
+    {
+      "id": 1,
+      "alias": "Name",
+      "name": "Name",
+      "type": 3,
+      "propertyName": "fullName",
+      "supportSorting": true,
+      "selected": true
+    },
+    {
+      "id": 2,
+      "alias": "Email",
+      "name": "Email",
+      "type": 1,
+      "propertyName": "email",
+      "supportSorting": true,
+      "selected": true
+    },
+    {
+      "id": 3,
+      "alias": "Phone",
+      "name": "Phone",
+      "type": 3,
+      "propertyName": "phone",
+      "supportSorting": false,
+      "selected": false
+    },
+    {
+      "id": 4,
+      "alias": "Department",
+      "name": "Department",
+      "type": 3,
+      "propertyName": "department",
+      "supportSorting": true,
+      "selected": false
+    }
+  ],
+  "selectedProperties": [
+    {
+      "id": 0,
+      "alias": "Photo",
+      "name": "Photo",
+      "type": 2,
+      "propertyName": "photo",
+      "supportSorting": false,
+      "selected": true
+    },
+    {
+      "id": 1,
+      "alias": "Name",
+      "name": "Name",
+      "type": 3,
+      "propertyName": "fullName",
+      "supportSorting": true,
+      "selected": true
+    },
+    {
+      "id": 2,
+      "alias": "Email",
+      "name": "Email",
+      "type": 1,
+      "propertyName": "email",
+      "supportSorting": true,
+      "selected": true
+    }
+  ],
+  "orderBy": {
+    "id": 1,
+    "alias": "Name",
+    "name": "Name",
+    "type": 3,
+    "propertyName": "fullName",
+    "supportSorting": true,
+    "selected": true
+  }
+}

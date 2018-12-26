@@ -40,6 +40,8 @@ let controller = {
             request = window.userListConfig.request;
             displayedAmount = window.userListConfig.displayedAmount;
             amountPerRequest = window.userListConfig.amountPerRequest;
+            request.groupId = getParameterByName("groupId");
+            console.log(request);
         }
 
         function onSearchClick(e) {
@@ -124,6 +126,16 @@ let controller = {
                 var profileUrl = $(this).data("profile");
                 location.href = profileUrl;
             });
+        }
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
     }
 }

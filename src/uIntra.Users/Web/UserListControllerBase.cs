@@ -41,7 +41,7 @@ namespace Uintra.Users.Web
                 UsersRows = new UsersRowsViewModel()
                 {
                     SelectedColumns = selecetedColumns,
-                    Users = GetActiveUsers(0, model.DisplayedAmount, orderByColumn?.PropertyName, 0, out var isLastRequest)
+                    Users = GetActiveUsers(0, model.DisplayedAmount, orderByColumn?.PropertyName, 0, Request.QueryString["groupId"], out var isLastRequest)
                 },
                 UsersRowsViewPath = UsersRowsViewPath,
                 OrderByColumn = orderByColumn,
@@ -50,12 +50,12 @@ namespace Uintra.Users.Web
             return View(UserListViewPath, viewModel);
         }
 
-        public virtual ActionResult GetUsers(int skip, int take, string query, string selectedColumns, string orderBy, int direction)
+        public virtual ActionResult GetUsers(int skip, int take, string query, string selectedColumns, string orderBy, int direction, string groupId)
         {
             var model = new UsersRowsViewModel
             {
                 SelectedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedColumns),
-                Users = GetActiveUsers(skip, take, orderBy, direction, out var isLastRequest, query),
+                Users = GetActiveUsers(skip, take, orderBy, direction, groupId, out var isLastRequest, query),
                 IsLastRequest = isLastRequest
             };
             return PartialView(UsersRowsViewPath, model);
@@ -98,16 +98,16 @@ namespace Uintra.Users.Web
             }
         }
 
-        private IEnumerable<UserModel> GetActiveUsers(int skip, int take, string orderBy, int direction, out bool isLastRequest, string query = "")
+        private IEnumerable<UserModel> GetActiveUsers(int skip, int take, string orderBy, int direction, string groupId, out bool isLastRequest,  string query = "" )
         {
-            var result = GetActiveUserIds(skip, take, query, out var totalHits, orderBy, direction)
+            var result = GetActiveUserIds(skip, take, query, groupId, out var totalHits, orderBy, direction)
                 .Pipe(_intranetUserService.GetMany)
                 .Select(MapToViewModel);
             isLastRequest = skip + take >= totalHits;
             return result;
         }
 
-        protected abstract IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, out long totalHits, string orderBy = null, int direction = 0);
+        protected abstract IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, string groupId, out long totalHits, string orderBy = null, int direction = 0);
 
         protected virtual UserModel MapToViewModel(IIntranetUser user)
         {
