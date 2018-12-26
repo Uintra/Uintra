@@ -25,7 +25,13 @@
                     <a class="logo__link" href="/"><img src="~/Content/images/logo.svg" class="logo__img" width="21" height="33"></a>
                 </strong>
                 @{Html.RenderAction("TopNavigation", "Navigation");}
-                <a href="#" id="js-aside-opener" class="aside__opener _for-mobile"></a>
+                <a href="#" id="js-aside-opener" class="aside__opener _for-mobile">
+                    <span class="aside__icon">
+                        <svg class="svg-icon" viewBox="0 0 32 32" width="16px" height="16px">
+                            <use xlink:href="#icon-window" x="0" y="0"></use>
+                        </svg>
+                    </span>
+                </a>
             </div>
         </header>
         <aside id="sidebar" class="js-sidebar">
@@ -151,6 +157,9 @@
         </symbol>
         <symbol id="icon-comment">
             <path  clip-rule="evenodd" d="M10.718,18.561l6.78,5.311C17.609,23.957,17.677,24,17.743,24  c0.188,0,0.244-0.127,0.244-0.338v-5.023c0-0.355,0.233-0.637,0.548-0.637L21,18c2.219,0,3-1.094,3-2s0-13,0-14s-0.748-2-3.014-2  H2.989C0.802,0,0,0.969,0,2s0,13.031,0,14s0.828,2,3,2h6C9,18,10.255,18.035,10.718,18.561z" fill-rule="evenodd"></path>
+        </symbol>
+        <symbol id="icon-window">
+            <path d="M32,0H8v8C5.094,8,0,8,0,8v24h24v-8h8V0z M20,28H4V16h4v8h12C20,25.789,20,28,20,28z M28,20H12V8h16   V20z"></path>
         </symbol>
         @*<symbol id="icon-home">
             <path d=""></path>
