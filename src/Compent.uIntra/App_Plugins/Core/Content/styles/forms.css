@@ -153,26 +153,6 @@
         position:relative;
         color: #333;
 
-        &.icon-check:before{
-            display:none;
-            color:#f00;
-        }
-
-        .check__box:checked ~ &.icon-check:before{
-            display:block;
-            
-            display: block;
-            font-size: 15px;
-            line-height:14px;
-            left: 5px;
-            position: absolute;
-            top: 5px;
-        }
-
-        .check__box[disabled] ~ &.icon-check:before{
-            opacity:0.5;
-        }
-
         .svg-icon{
             display:none;
         }
