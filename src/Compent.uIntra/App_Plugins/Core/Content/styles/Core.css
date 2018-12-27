@@ -801,18 +801,6 @@ img{
         margin:0;
         font:13px/20px var(--font-custom);
         text-transform:uppercase;
-        
-        /*&:before{
-            position:absolute;
-            width:15px;
-            height:11px;
-            background:url(../images/arrow-left.svg) no-repeat 0 0 / 100% auto;
-            top:50%;
-            left:0;
-            margin-top:-7px;
-            content:'';
-            display:none;
-        }*/
 
         .svg-icon{
             position:absolute;
@@ -1005,6 +993,11 @@ img{
 
     .form__input{
         max-width:50%;
+    }
+
+    .form__clear{
+        right:50%;
+        margin:0 -3px 0 0;
     }
 }
 /*end pin-info*/

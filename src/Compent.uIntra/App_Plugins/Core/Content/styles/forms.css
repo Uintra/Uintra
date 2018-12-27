@@ -97,8 +97,9 @@
     }*/
 
     &__clear{
+        color:var(--text-color-dark);
         position:absolute;
-        top:40px;
+        top:41px;
         right:30px;
         cursor:pointer;
 
@@ -109,8 +110,7 @@
             border-radius:50%;
             width:20px;
             height:20px;
-            line-height:19px;
-            text-align:center;
+            padding:5px;
             box-shadow:0 0 2px rgba(0,0,0,0.5);
         }
     }
