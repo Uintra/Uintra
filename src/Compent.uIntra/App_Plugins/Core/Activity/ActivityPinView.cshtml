@@ -6,7 +6,11 @@
     <label class="form__label">@Html.Localize("Pin.Activity.lbl")</label>
     <label class="check__label">
         @Html.CheckBox("IsPinned", new { @class = "pin-control check__box" })
-        <span class="check__fake-input icon-check"></span>
+        <span class="check__fake-input">
+            <svg class="svg-icon" viewBox="0 0 512 512" width="13px" height="13px">
+                <use xlink:href="#icon-checkmark" x="0" y="0"></use>
+            </svg>
+        </span>
         <span class="check__fake-label">@Html.Localize("Pin.SetPinned.lbl")</span>
     </label>
     <div class="pin-info" id="pin-info">
@@ -15,7 +19,11 @@
                 <span class="check__fake-label pin-info__text">@Html.Localize("Pin.AcceptPinText.lbl")</span>
                 <label class="check__label">
                     <input type="checkbox" class="check__box pin-accept" />
-                    <span class="check__fake-input icon-check"></span>
+                    <span class="check__fake-input">
+                        <svg class="svg-icon" viewBox="0 0 512 512" width="13px" height="13px">
+                            <use xlink:href="#icon-checkmark" x="0" y="0"></use>
+                        </svg>
+                    </span>
                     <span class="check__fake-label">@Html.Localize("Pin.AcceptPin.lbl")</span>
                 </label>
             </label>

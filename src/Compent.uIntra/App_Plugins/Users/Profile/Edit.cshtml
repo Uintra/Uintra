@@ -59,7 +59,11 @@
                          @class = "check__box",
                          dataConfirmMessage = @Html.Localize("Profile.NotifierSettings.Confirmation.lbl")
                      })
-                    <span class="check__fake-input icon-check"></span>
+                    <span class="check__fake-input">
+                        <svg class="svg-icon" viewBox="0 0 512 512" width="13px" height="13px">
+                            <use xlink:href="#icon-checkmark" x="0" y="0"></use>
+                        </svg>
+                    </span>
                     <span class="check__fake-label">@Html.Localize("Profile.EmailNotifications.lbl")</span>
                 </label>
             </div>

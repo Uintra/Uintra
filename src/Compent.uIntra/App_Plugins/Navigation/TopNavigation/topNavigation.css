@@ -568,7 +568,7 @@
         }
     }
     
-    @media (--for-tablet-portrait-down){
+    /*@media (--for-tablet-portrait-down){
         position:absolute;
         top:11px;
         left:18px;
@@ -577,5 +577,5 @@
         height: 16px;
         padding:0;
         color:var(--color-submit);
-    }
+    }*/
 }

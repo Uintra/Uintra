@@ -151,14 +151,16 @@
         border:1px solid #c7c7c7;
         margin:0 13px 0 0;
         position:relative;
+        color: #333;
 
-        &:before{
+        &.icon-check:before{
             display:none;
+            color:#f00;
         }
 
-        .check__box:checked ~ &:before{
+        .check__box:checked ~ &.icon-check:before{
             display:block;
-            color: #333;
+            
             display: block;
             font-size: 15px;
             line-height:14px;
@@ -167,7 +169,22 @@
             top: 5px;
         }
 
-        .check__box[disabled] ~ &:before{
+        .check__box[disabled] ~ &.icon-check:before{
+            opacity:0.5;
+        }
+
+        .svg-icon{
+            display:none;
+        }
+
+        .check__box:checked ~ & .svg-icon{
+            display: block;
+            left: 5px;
+            position: absolute;
+            top: 5px;
+        }
+
+        .check__box[disabled] ~ & .svg-icon{
             opacity:0.5;
         }
 
