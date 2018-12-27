@@ -33,6 +33,8 @@ namespace Uintra.Users.Web
             var orderByColumn = orderBycolumnJson == null ?
                 selecetedColumns.OrderBy(i => i.Id).FirstOrDefault(i => i.SupportSorting) :
                 JsonConvert.DeserializeObject<ProfileColumnModel>(orderBycolumnJson);
+            var groupId = Request.QueryString["groupId"];
+            selecetedColumns = ExtendIfGroup(groupId, selecetedColumns);
             var viewModel = new UserListViewModel()
             {
                 AmountPerRequest = model.AmountPerRequest,
@@ -41,7 +43,7 @@ namespace Uintra.Users.Web
                 UsersRows = new UsersRowsViewModel()
                 {
                     SelectedColumns = selecetedColumns,
-                    Users = GetActiveUsers(0, model.DisplayedAmount, orderByColumn?.PropertyName, 0, Request.QueryString["groupId"], out var isLastRequest)
+                    Users = GetActiveUsers(0, model.DisplayedAmount, orderByColumn?.PropertyName, 0, groupId, out var isLastRequest)
                 },
                 UsersRowsViewPath = UsersRowsViewPath,
                 OrderByColumn = orderByColumn,
@@ -52,9 +54,10 @@ namespace Uintra.Users.Web
 
         public virtual ActionResult GetUsers(int skip, int take, string query, string selectedColumns, string orderBy, int direction, string groupId)
         {
+            var columns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedColumns);
             var model = new UsersRowsViewModel
             {
-                SelectedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedColumns),
+                SelectedColumns = columns,
                 Users = GetActiveUsers(skip, take, orderBy, direction, groupId, out var isLastRequest, query),
                 IsLastRequest = isLastRequest
             };
@@ -113,6 +116,20 @@ namespace Uintra.Users.Web
         {
             var result = user.Map<UserModel>();
             return result;
+        }
+
+        private IEnumerable<ProfileColumnModel> ExtendIfGroup(string groupId, IEnumerable<ProfileColumnModel> columns)
+        {
+            if (string.IsNullOrWhiteSpace(groupId)) return columns;
+            return columns.Append(new ProfileColumnModel()
+            {
+                Alias = "Role",
+                Id = 99,
+                Name = "Role",
+                PropertyName = "role",
+                SupportSorting = false,
+                Type = ColumnType.GroupRole
+            });
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Users.UserList.UsersRowsViewModel>
 @using Uintra.Users.Helpers
 @using Uintra.Users.UserList
+@using Uintra.Core.Extensions
 
 @foreach (var user in Model.Users)
 {
@@ -32,7 +33,7 @@
                 case ColumnType.Name:
                     {
                         <div class="users-table__cell">
-                            <span class="users-table__name">@ReflectionHelper.GetUIColumnValue(user, column)</span>
+                            <span class="users-table__name">@user.DisplayedName</span>
                         </div>
                     }
                     break;
@@ -40,6 +41,14 @@
                     {
                         <div class="users-table__cell">
                             <span class="users-table__text">@ReflectionHelper.GetUIColumnValue(user, column)</span>
+                        </div>
+                    }
+                    break;
+                case ColumnType.GroupRole:
+                    {
+                        <div class="users-table__cell">
+                            @{var role = user.IsGroupAdmin ? "GroupMembers.Table.GroupAdmin.lbl" : "GroupMembers.Table.GroupMember.lbl";}
+                            <span class="users-table__text">@Html.Localize(role)</span>
                         </div>
                     }
                     break;

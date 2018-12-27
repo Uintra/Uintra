@@ -5,6 +5,7 @@
         Email = 1,
         Photo = 2,
         Name = 3,
-        Text = 4
+        Text = 4,
+        GroupRole = 99
     }
 }
