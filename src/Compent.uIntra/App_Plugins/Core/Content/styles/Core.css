@@ -802,7 +802,7 @@ img{
         font:13px/20px var(--font-custom);
         text-transform:uppercase;
         
-        &:before{
+        /*&:before{
             position:absolute;
             width:15px;
             height:11px;
@@ -811,7 +811,16 @@ img{
             left:0;
             margin-top:-7px;
             content:'';
+            display:none;
+        }*/
+
+        .svg-icon{
+            position:absolute;
+            top:50%;
+            left:-3px;
+            margin:-10px 0 0;
         }
+
         &:hover,
         &:active,
         &:focus{
