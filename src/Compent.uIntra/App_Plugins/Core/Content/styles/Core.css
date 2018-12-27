@@ -118,10 +118,10 @@
 /*.icon-like:before {
   content: "\e906";
 }*/
-.icon-pin:before {
+/*.icon-pin:before {
   content: "\e909";
   color: rgb(37, 37, 37);
-}
+}*/
 .icon-arrow-left:before {
   content: "\e900" !important;
   transform:rotate(90deg);
@@ -130,9 +130,9 @@
   content: "\e900" !important;
   transform:rotate(-90deg);
 }
-.icon-fullscreen:before {
+/*.icon-fullscreen:before {
   content: "\e905" !important;
-}
+}*/
 .icon-close:before {
   content: "\e903" !important;
 }
@@ -451,7 +451,8 @@ img{
     color: var(--color-white);
     font-size: 26px;
     font-weight: bold;
-    padding: 17px;
+    padding: 20px;
+
     &:hover,
     &:active,
     &:focus{
