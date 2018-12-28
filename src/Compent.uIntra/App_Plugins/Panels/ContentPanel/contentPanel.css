@@ -255,19 +255,20 @@
                 padding:0 0 0 21px;
                 color:var(--text-color-dark);
 
-                &:before{
+                .svg-icon{
                     position:absolute;
-                    top:4px;
+                    top:2px;
                     left:0;
-                    width:12px;
-                    height:10px;
-                    background:url(./images/arrow-right.svg) no-repeat 0 0 / 12px auto;
-                    content:"";
+                    z-index:2;
+                }
+
+                &:hover .svg-icon{
+                    color:var(--text-color-dark);
                 }
             }
         }
 
-        + .documents{
+        & + .documents{
             padding-top:0;
         }
     }
