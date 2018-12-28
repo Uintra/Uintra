@@ -18,7 +18,9 @@
         </form>
     </div>
     <div class="users-table-block">
-        <div class="users-table js-user-list-table">
+        <div class="users-table js-user-list-table"
+             data-title="@Html.Localize("UserList.Confirm.Delete.Title")"
+             data-text="@Html.Localize("UserList.Confirm.Delete.Text")">
             <div class="users-table__thead">
                 <div class="users-table__row js-user-head-row">
                     @foreach (var column in Model.UsersRows.SelectedColumns)
@@ -64,7 +66,8 @@
             query: '',
             orderBy: '@(Model.OrderByColumn?.PropertyName)',
             direction: 0,
-            selectedColumns: '@Html.Raw(JsonConvert.SerializeObject(Model.UsersRows.SelectedColumns))'
+            selectedColumns: '@Html.Raw(JsonConvert.SerializeObject(Model.UsersRows.SelectedColumns))',
+            groupId: ''
         },
         amountPerRequest: @Model.AmountPerRequest,
         displayedAmount: @Model.DisplayedAmount

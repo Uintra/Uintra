@@ -26,5 +26,7 @@ namespace Uintra.Users.UserList
 
         public IIntranetUser User { get; set; }
         public string ProfileUrl { get; set; }
+
+        public bool IsGroupAdmin { get; set; }
     }
 }

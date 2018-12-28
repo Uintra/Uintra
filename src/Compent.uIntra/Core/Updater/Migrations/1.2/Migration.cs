@@ -20,7 +20,12 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._2
             Add = new Dictionary<string, string>
             {
                 { "Login.VersionIdentificatorPrefix.lbl","v"},
-                { "TopNavigation.UintraDocumentationLink.lnk","Uintra Help"}
+                { "TopNavigation.UintraDocumentationLink.lnk","Uintra Help"},
+                { "UserList.Confirm.Delete.Title", "Warning"},
+                { "UserList.Confirm.Delete.Text", "Are you sure?"},
+                { "UserList.Table.Role.lbl", "Role"},
+                { "UserList.Table.Department.lbl", "Department"},
+                { "UserList.Table.Phone.lbl", "Phone"}
             },
             Remove = new List<string>()
         };
@@ -32,7 +37,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._2
             get
             {
                 yield return new TranslationsUpdateStep(TranslationUpdateData);
-                yield return Resolve<AddPhoneAndDepartmentToUserStep>(); 
+                yield return Resolve<AddPhoneAndDepartmentToUserStep>();
+                yield return Resolve<ChangeGroupMembersDefaulPanelStep>();
             }
         }
     }

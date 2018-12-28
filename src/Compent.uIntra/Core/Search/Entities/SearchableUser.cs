@@ -21,5 +21,7 @@ namespace Compent.Uintra.Core.Search.Entities
         public bool TagsHighlighted { get; set; }
 
         public bool Inactive { get; set; }
+
+        public IEnumerable<string> GroupIds { get; set; } = Enumerable.Empty<string>();
     }
 }

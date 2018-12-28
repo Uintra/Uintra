@@ -19,7 +19,8 @@ namespace Compent.Uintra.Core.Users
 
             Mapper.CreateMap<IntranetUser, UserModel>()
                 .ForMember(dst => dst.User, o => o.MapFrom(user => user))
-                .ForMember(dst => dst.ProfileUrl, o => o.Ignore());
+                .ForMember(dst => dst.ProfileUrl, o => o.Ignore())
+                .ForMember(dst => dst.IsGroupAdmin, o => o.Ignore());
             Mapper.CreateMap<IntranetUser, ProfileEditModel>()
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())

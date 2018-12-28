@@ -27,7 +27,7 @@ namespace Uintra.Search
             var searchRequest = GetSearchDescriptor()
                 .Query(q =>
                     q.Bool(b => b
-                        .Should(GetQueryContainers(query.Text))
+                        .Should(GetQueryContainers(query.Text, query.GroupId))
                         .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))))
                 .PostFilter(pf => pf.Bool(b => b.Must(GetSearchPostFilters(query))));
 
@@ -134,7 +134,7 @@ namespace Uintra.Search
             return desc;
         }
 
-        protected virtual QueryContainer[] GetQueryContainers(string query)
+        protected virtual QueryContainer[] GetQueryContainers(string query, string groupId)
         {
             var containers = new List<QueryContainer>();
             containers.AddRange(GetBaseDescriptor(query).ToEnumerable());
@@ -211,7 +211,7 @@ namespace Uintra.Search
                         .Filter(SearchConstants.SearchFacetNames.GlobalFilter, ss => ss
                             .Filter(fi => fi
                                 .Bool(b => b
-                                    .Should(GetQueryContainers(query.Text))
+                                    .Should(GetQueryContainers(query.Text, query.GroupId))
                                     .Must(GetSearchableTypeQueryContainers(query.SearchableTypeIds))
                                     .Must(GetOnlyPinnedQueryContainer(query.OnlyPinned))
                                 ))

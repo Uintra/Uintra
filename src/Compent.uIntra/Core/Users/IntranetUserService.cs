@@ -79,11 +79,19 @@ namespace Compent.Uintra.Core.Users
             _elasticUserIndex.Index(MapToSearchableUser(user));
         }
 
+        public override void UpdateUserCache(IEnumerable<Guid> userIds)
+        {
+            base.UpdateUserCache(userIds);
+            var users = GetMany(userIds).Select(MapToSearchableUser);
+            _elasticUserIndex.Index(users);
+        }
+
         private SearchableUser MapToSearchableUser(IntranetUser user)
         {
             var searchableUser = user.Map<SearchableUser>();
             searchableUser.Url = _intranetUserContentProvider.GetProfilePage().Url.AddIdParameter(user.Id);
             searchableUser.UserTagNames = _userTagService.Get(user.Id).Select(t => t.Text).ToList();
+            searchableUser.GroupIds = user.GroupIds.Select(i => i.ToString()).ToList();
             return searchableUser;
         }
     }

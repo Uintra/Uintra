@@ -18,6 +18,7 @@ namespace Compent.Uintra.Core.Search.Entities.Mappings
                     )
             ));
             Text(t => t.Name(n => n.UserTagNames).Analyzer(ElasticHelpers.Tag));
+            Text(t => t.Name(n => n.GroupIds));
         }
     }
 }

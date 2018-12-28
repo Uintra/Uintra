@@ -20,5 +20,7 @@ namespace Uintra.Search
         public bool OnlyPinned { get; set; }
 
         public bool ApplyHighlights { get; set; }
+
+        public string GroupId { get; set; }
     }
 }

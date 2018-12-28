@@ -33,31 +33,30 @@ namespace Uintra.Users.Web
             var orderByColumn = orderBycolumnJson == null ?
                 selecetedColumns.OrderBy(i => i.Id).FirstOrDefault(i => i.SupportSorting) :
                 JsonConvert.DeserializeObject<ProfileColumnModel>(orderBycolumnJson);
+            var groupId = Request.QueryString["groupId"];
+            selecetedColumns = ExtendIfGroupMembersPage(groupId, selecetedColumns);
             var viewModel = new UserListViewModel()
             {
                 AmountPerRequest = model.AmountPerRequest,
                 DisplayedAmount = model.DisplayedAmount,
                 Title = model.Title,
-                UsersRows = new UsersRowsViewModel()
-                {
-                    SelectedColumns = selecetedColumns,
-                    Users = GetActiveUsers(0, model.DisplayedAmount, orderByColumn?.PropertyName, 0, out var isLastRequest)
-                },
+                UsersRows = GetUsersRowsViewModel(),
                 UsersRowsViewPath = UsersRowsViewPath,
-                OrderByColumn = orderByColumn,
-                IsLastRequest = isLastRequest
+                OrderByColumn = orderByColumn
             };
+            viewModel.UsersRows.SelectedColumns = selecetedColumns;
+            viewModel.UsersRows.Users = GetActiveUsers(0, model.DisplayedAmount, orderByColumn?.PropertyName, 0, groupId, out var isLastRequest);
+            viewModel.IsLastRequest = isLastRequest;
             return View(UserListViewPath, viewModel);
         }
 
-        public virtual ActionResult GetUsers(int skip, int take, string query, string selectedColumns, string orderBy, int direction)
+        public virtual ActionResult GetUsers(int skip, int take, string query, string selectedColumns, string orderBy, int direction, string groupId)
         {
-            var model = new UsersRowsViewModel
-            {
-                SelectedColumns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedColumns),
-                Users = GetActiveUsers(skip, take, orderBy, direction, out var isLastRequest, query),
-                IsLastRequest = isLastRequest
-            };
+            var columns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedColumns);
+            var model = GetUsersRowsViewModel();
+            model.SelectedColumns = columns;
+            model.Users = GetActiveUsers(skip, take, orderBy, direction, groupId, out var isLastRequest, query);
+            model.IsLastRequest = isLastRequest;
             return PartialView(UsersRowsViewPath, model);
         }
 
@@ -98,21 +97,42 @@ namespace Uintra.Users.Web
             }
         }
 
-        private IEnumerable<UserModel> GetActiveUsers(int skip, int take, string orderBy, int direction, out bool isLastRequest, string query = "")
+        private IEnumerable<UserModel> GetActiveUsers(int skip, int take, string orderBy, int direction, string groupId, out bool isLastRequest,  string query = "" )
         {
-            var result = GetActiveUserIds(skip, take, query, out var totalHits, orderBy, direction)
+            var result = GetActiveUserIds(skip, take, query, groupId, out var totalHits, orderBy, direction)
                 .Pipe(_intranetUserService.GetMany)
                 .Select(MapToViewModel);
             isLastRequest = skip + take >= totalHits;
             return result;
         }
 
-        protected abstract IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, out long totalHits, string orderBy = null, int direction = 0);
+        protected abstract IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, string groupId, out long totalHits, string orderBy = null, int direction = 0);
 
         protected virtual UserModel MapToViewModel(IIntranetUser user)
         {
             var result = user.Map<UserModel>();
             return result;
         }
+
+        private IEnumerable<ProfileColumnModel> ExtendIfGroupMembersPage(string groupId, IEnumerable<ProfileColumnModel> columns)
+        {
+            if (string.IsNullOrWhiteSpace(groupId)) return columns;
+            return columns.Append(new ProfileColumnModel()
+            {
+                Alias = "Role",
+                Id = 99,
+                Name = "Role",
+                PropertyName = "role",
+                SupportSorting = false,
+                Type = ColumnType.GroupRole
+            });
+        }
+
+        protected virtual UsersRowsViewModel GetUsersRowsViewModel()
+        {
+            return new UsersRowsViewModel();
+        }
+
+        public abstract bool ExcludeUserFromGroup(Guid userId);
     }
 }

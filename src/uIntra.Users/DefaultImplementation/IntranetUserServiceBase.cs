@@ -280,7 +280,7 @@ namespace Uintra.Users
             _cacheService.Set(UsersCacheKey, allCachedUsers, CacheHelper.GetMidnightUtcDateTimeOffset());
         }
 
-        public void UpdateUserCache(IEnumerable<Guid> userIds)
+        public virtual void UpdateUserCache(IEnumerable<Guid> userIds)
         {
             var allUsers = GetAllFromSql();
             var updatedUsers = allUsers.Join(userIds, u => u.Id, id => id, (u, id) => u).ToList();
