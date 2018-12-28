@@ -182,7 +182,7 @@ namespace Uintra.Search
 
         protected virtual void ApplySort<T>(SearchDescriptor<T> searchDescriptor, int direction = 0, string propertyName = "_score") where T : class
         {
-            if (propertyName.In("fullName", "mail"))
+            if (propertyName.In("fullName", "mail", "department"))
             {
                 propertyName += $".{ElasticHelpers.Normalizer.Sort}";
             }
