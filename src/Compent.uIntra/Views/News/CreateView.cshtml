@@ -35,7 +35,11 @@
                     <label class="form__label" for="js-publish-date">@Html.Localize("NewsCreate.PublishDate.lbl")</label>
                     <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
                     <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("NewsEdit.PublishDateRequired.lbl")" data-val="true" />
-                    <span class="form__clear icon-close js-clear-date hide"></span>
+                    <span class="form__clear js-clear-date hide">
+                        <svg class="svg-icon" viewBox="0 0 20 20" width="10px" height="10px">
+                            <use xlink:href="#icon-close" x="0" y="0"></use>
+                        </svg>
+                    </span>
                 </div>
                 <div class="col-md-6">
                     @{
@@ -44,7 +48,11 @@
                     <label class="form__label" for="js-unpublish-date">@Html.Localize("NewsCreate.UnpublishDate.lbl")</label>
                     <input class="form__input" id="js-unpublish-date" data-default-date="@unpublishDatevalue" datarr-date-format="@Html.GetDateTimePickerFormat()" />
                     <input type="hidden" id="js-unpublish-date-value" name="unpublishDate" data-val="true" />
-                    <span class="form__clear icon-close js-clear-date hide"></span>
+                    <span class="form__clear js-clear-date hide">
+                        <svg class="svg-icon" viewBox="0 0 20 20" width="10px" height="10px">
+                            <use xlink:href="#icon-close" x="0" y="0"></use>
+                        </svg>
+                    </span>
                 </div>
             </div>
         </div>

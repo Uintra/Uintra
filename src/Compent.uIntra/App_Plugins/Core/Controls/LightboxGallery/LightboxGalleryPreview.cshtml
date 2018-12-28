@@ -44,6 +44,9 @@
 {
     <div class="attachments">
         <a class="attachments__link" href="@Model.Links.Details">
+            <svg class="svg-icon" viewBox="0 0 32 32" width="14px" height="15px">
+                <use xlink:href="#icon-attachment" x="0" y="0"></use>
+            </svg>
             @otherFilesCount @(otherFilesCount > 1 ? Html.Localize("LightboxGallery.Count.Many.lbl") : Html.Localize("LightboxGallery.Count.One.lbl") )
         </a>
     </div>

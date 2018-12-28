@@ -27,7 +27,11 @@
             <div class="avatar avatar--square">
                 <img class="avatar__img" src="@Model.Photo?width=100&height=100&mode=crop" width="100" alt="avatar" />
 
-                <span class="form__clear _clear-avatar icon-close js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo"></span>
+                <span class="form__clear _clear-avatar js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo">
+                    <svg class="svg-icon" viewBox="0 0 20 20" width="10px" height="10px">
+                        <use xlink:href="#icon-close" x="0" y="0"></use>
+                    </svg>
+                </span>
             </div>
 }
                 <div class="form__meta">
@@ -67,7 +71,7 @@
                     <label class="form__label">@Html.Localize("Profile.EmailNotifications.Title.lbl")</label>
                     <span class="check__fake-input">
                         <svg class="svg-icon" viewBox="0 0 512 512" width="13px" height="13px">
-                            <use xlink:href="#icon-checkmark" x="0" y="0"></use>
+                            <use xlink:href="#icon-check" x="0" y="0"></use>
                         </svg>
                     </span>
                     <span class="check__fake-label">@Html.Localize("Profile.EmailNotifications.lbl")</span>

@@ -201,17 +201,12 @@
             clear:both;
         }
 
-        &:before{
-            content:'';
+        .svg-icon{
             position:absolute;
             left:0;
             top:50%;
             margin:-10px 0;
             z-index:2;
-            width:14px;
-            height:15px;
-            background:url(/App_Plugins/Core/Content/images/attachment.svg) no-repeat;
-            background-size: 14px 15px;
         }
 
         &:active,
@@ -219,6 +214,11 @@
         &:hover{
             color:#5776f9;
             text-decoration:none;
+
+            .svg-icon{
+                color: var(--text-color-dark);
+                text-decoration:none;
+            }
         }
     }
 }

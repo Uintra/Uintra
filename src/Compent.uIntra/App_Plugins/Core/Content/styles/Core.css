@@ -109,19 +109,19 @@
 /*.icon-home:before {
   content: "\e905";
 }*/
-.icon-check:before {
+/*.icon-check:before {
   content: "\e902";
-}
+}*/
 /*.icon-comment:before {
   content: "\e904";
 }*/
 /*.icon-like:before {
   content: "\e906";
 }*/
-.icon-pin:before {
+/*.icon-pin:before {
   content: "\e909";
   color: rgb(37, 37, 37);
-}
+}*/
 .icon-arrow-left:before {
   content: "\e900" !important;
   transform:rotate(90deg);
@@ -130,9 +130,9 @@
   content: "\e900" !important;
   transform:rotate(-90deg);
 }
-.icon-fullscreen:before {
+/*.icon-fullscreen:before {
   content: "\e905" !important;
-}
+}*/
 .icon-close:before {
   content: "\e903" !important;
 }
@@ -451,7 +451,8 @@ img{
     color: var(--color-white);
     font-size: 26px;
     font-weight: bold;
-    padding: 17px;
+    padding: 20px;
+
     &:hover,
     &:active,
     &:focus{
@@ -800,17 +801,14 @@ img{
         margin:0;
         font:13px/20px var(--font-custom);
         text-transform:uppercase;
-        
-        &:before{
+
+        .svg-icon{
             position:absolute;
-            width:15px;
-            height:11px;
-            background:url(../images/arrow-left.svg) no-repeat 0 0 / 100% auto;
             top:50%;
-            left:0;
-            margin-top:-7px;
-            content:'';
+            left:-3px;
+            margin:-10px 0 0;
         }
+
         &:hover,
         &:active,
         &:focus{
@@ -995,6 +993,11 @@ img{
 
     .form__input{
         max-width:50%;
+    }
+
+    .form__clear{
+        right:50%;
+        margin:0 -3px 0 0;
     }
 }
 /*end pin-info*/
