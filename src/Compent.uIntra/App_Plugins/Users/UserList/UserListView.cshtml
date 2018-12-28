@@ -19,9 +19,8 @@
     </div>
     <div class="users-table-block">
         <div class="users-table js-user-list-table"
-             data-text="@Html.Localize("GroupMembers.Delete.Text.lbl")"
-             data-ok="@Html.Localize("GroupMembers.Delete.Confirm.btn")"
-             data-cancel="@Html.Localize("GroupMembers.Delete.ConfirmCancel.btn")">
+             data-title="@Html.Localize("UserList.Confirm.Delete.Title")"
+             data-text="@Html.Localize("UserList.Confirm.Delete.Text")">
             <div class="users-table__thead">
                 <div class="users-table__row js-user-head-row">
                     @foreach (var column in Model.UsersRows.SelectedColumns)

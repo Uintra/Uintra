@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using Compent.Extensions;
 using Compent.Uintra.Core.Search.Entities;
+using Compent.Uintra.Core.Users.UserList;
 using LanguageExt;
 using Localization.Core;
 using Uintra.Core.Links;
@@ -41,6 +43,12 @@ namespace Compent.Uintra.Controllers
             _intranetUserService = intranetUserService;
             _groupMemberService = groupMemberService;
             _currentGroup = GetCurrentGroup();
+        }
+
+        [HasValidGroupId]
+        public override ActionResult Render(UserListModel model)
+        {
+            return base.Render(model);
         }
 
         protected override IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, string groupId, out long totalHits, string orderBy, int direction)
@@ -86,7 +94,6 @@ namespace Compent.Uintra.Controllers
         {
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
             var currentGroupCreatorId = _currentGroup?.CreatorId;
-            //Model.CurrentUser.Id == user.Id || Model.IsCurrentUserAdmin) && !user.IsGroupAdmin
             if ((currentUserId == userId || currentUserId == currentGroupCreatorId) && currentUserId != currentGroupCreatorId)
             {
                 _groupMemberService.Remove(_currentGroup.Id, userId);
@@ -97,9 +104,18 @@ namespace Compent.Uintra.Controllers
 
         private GroupModel GetCurrentGroup()
         {
-            var groupId = System.Web.HttpContext.Current.Request.QueryString["groupId"] ??
-                System.Web.HttpContext.Current.Request.UrlReferrer.Query.Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries)[1];
-            return Guid.TryParse(groupId, out Guid result) ? _groupService.Get(result) : null;
+            try
+            {
+                var request = System.Web.HttpContext.Current.Request;
+                var groupId = request.QueryString["groupId"] ??
+                    request.UrlReferrer?.Query?.Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries)[1];
+                return Guid.TryParse(groupId, out Guid result) ? _groupService.Get(result) : null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
     }
 }

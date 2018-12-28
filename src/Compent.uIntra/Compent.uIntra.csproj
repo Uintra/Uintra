@@ -1151,7 +1151,6 @@
     <Content Include="macroScripts\Web.config" />
     <Content Include="config\UrlRewriting.config" />
     <Content Include="App_Plugins\SentMails\package.manifest" />
-    <EmbeddedResource Include="Core\Updater\Migrations\1.2\PreValues\userListDefaultValue.json" />
     <EmbeddedResource Include="Core\Updater\Migrations\1.2\PreValues\groupsMembersPageGrid.json" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
@@ -1492,6 +1491,7 @@
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
     <Compile Include="Core\Users\IntranetUserService.cs" />
+    <Compile Include="Core\Users\UserList\HasValidGroupIdAttribute.cs" />
     <Compile Include="Core\UserTags\ActivityTagsHelper.cs" />
     <Compile Include="Core\UserTags\ElasticTagIndex.cs" />
     <Compile Include="Core\UserTags\IActivityTagsHelper.cs" />

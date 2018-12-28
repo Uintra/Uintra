@@ -30,10 +30,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._2.Steps
             var gridContent = EmbeddedResourcesUtils.ReadResourceContent($"{Assembly.GetExecutingAssembly().GetName().Name}.Core.Updater.Migrations._1._2.PreValues.groupsMembersPageGrid.json");
             groupMembersPage.SetValue(UmbracoContentMigrationConstants.Grid.GridPropName, gridContent);
 
-
             _contentService.SaveAndPublishWithStatus(groupMembersPage);
-
-
             return ExecutionResult.Success;
         }
 

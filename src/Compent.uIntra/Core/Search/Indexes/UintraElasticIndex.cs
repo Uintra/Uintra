@@ -14,7 +14,7 @@ namespace Compent.Uintra.Core.Search.Indexes
         private readonly SearchScoreModel scores;
 
         public UintraElasticIndex(
-            IElasticSearchRepository elasticSearchRepository, 
+            IElasticSearchRepository elasticSearchRepository,
             ISearchScoreProvider searchScoreProvider,
             IEnumerable<IElasticEntityMapper> mappers) : base(elasticSearchRepository, mappers)
         {
@@ -43,8 +43,6 @@ namespace Compent.Uintra.Core.Search.Indexes
 
         public QueryContainer[] GetUserDescriptor(string query, string groupId)
         {
-            //var groupId = "233d14de-e356-4c36-8314-82317b42eb69";
-
             var desc = new List<QueryContainer>
             {
                 new QueryContainerDescriptor<SearchableUser>().Match(m => m
@@ -66,19 +64,11 @@ namespace Compent.Uintra.Core.Search.Indexes
                     .Query(query)
                     .Analyzer(ElasticHelpers.Lowercase)
                     .Field(f => f.Email)
-                    .Boost(scores.UserEmailScore))
-            };
-            if (!string.IsNullOrWhiteSpace(groupId))
-            {
-                //desc.Add(new QueryContainerDescriptor<SearchableUser>().Term(t => t
-                //    .Field(f => f.GroupIds).Value(groupId)));
-
-                desc.Add(new QueryContainerDescriptor<SearchableUser>().Match(m => m
+                    .Boost(scores.UserEmailScore)),
+                new QueryContainerDescriptor<SearchableUser>().Match(m => m
                     .Query(groupId)
-                    //.Analyzer(ElasticHelpers.Lowercase)
-                    .Field(f => f.GroupIds)));
-            }
-
+                    .Field(f => f.GroupIds))
+            };
             return desc.ToArray();
         }
 

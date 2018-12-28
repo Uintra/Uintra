@@ -79,6 +79,13 @@ namespace Compent.Uintra.Core.Users
             _elasticUserIndex.Index(MapToSearchableUser(user));
         }
 
+        public override void UpdateUserCache(IEnumerable<Guid> userIds)
+        {
+            base.UpdateUserCache(userIds);
+            var users = GetMany(userIds).Select(MapToSearchableUser);
+            _elasticUserIndex.Index(users);
+        }
+
         private SearchableUser MapToSearchableUser(IntranetUser user)
         {
             var searchableUser = user.Map<SearchableUser>();

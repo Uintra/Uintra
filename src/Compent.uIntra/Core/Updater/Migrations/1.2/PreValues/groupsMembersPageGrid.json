@@ -57,7 +57,7 @@
                 {
                   "value": {
                     "displayedAmount": "10",
-                    "title": "User list",
+                    "title": "Members",
                     "amountPerRequest": "10",
                     "properties": [
                       {

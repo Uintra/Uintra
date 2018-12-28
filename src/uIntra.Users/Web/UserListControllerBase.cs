@@ -34,7 +34,7 @@ namespace Uintra.Users.Web
                 selecetedColumns.OrderBy(i => i.Id).FirstOrDefault(i => i.SupportSorting) :
                 JsonConvert.DeserializeObject<ProfileColumnModel>(orderBycolumnJson);
             var groupId = Request.QueryString["groupId"];
-            selecetedColumns = ExtendIfGroup(groupId, selecetedColumns);
+            selecetedColumns = ExtendIfGroupMembersPage(groupId, selecetedColumns);
             var viewModel = new UserListViewModel()
             {
                 AmountPerRequest = model.AmountPerRequest,
@@ -114,7 +114,7 @@ namespace Uintra.Users.Web
             return result;
         }
 
-        private IEnumerable<ProfileColumnModel> ExtendIfGroup(string groupId, IEnumerable<ProfileColumnModel> columns)
+        private IEnumerable<ProfileColumnModel> ExtendIfGroupMembersPage(string groupId, IEnumerable<ProfileColumnModel> columns)
         {
             if (string.IsNullOrWhiteSpace(groupId)) return columns;
             return columns.Append(new ProfileColumnModel()
@@ -134,6 +134,5 @@ namespace Uintra.Users.Web
         }
 
         public abstract bool ExcludeUserFromGroup(Guid userId);
-
     }
 }

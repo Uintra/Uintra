@@ -5,6 +5,7 @@ require("./user-list.css");
 
 const searchBoxElement = $(".js-user-list-filter");
 const searchButton = $(".js-search-button");
+const table = $(".js-user-list-table");
 const tableBody = $(".js-user-list-table .js-tbody");
 const button = $(".js-user-list-button");
 const sortLinks = $(".js-user-list-sort-link");
@@ -23,6 +24,8 @@ let searchTimeout;
 let request;
 let displayedAmount;
 let amountPerRequest;
+let confirmTitle;
+let confirmText;
 
 let controller = {
     init: function () {
@@ -43,7 +46,8 @@ let controller = {
             displayedAmount = window.userListConfig.displayedAmount;
             amountPerRequest = window.userListConfig.amountPerRequest;
             request.groupId = getParameterByName("groupId");
-            //console.log(request);
+            confirmTitle = table.data("title");
+            confirmText = table.data("text");
         }
 
         function onSearchClick(e) {
@@ -138,16 +142,17 @@ let controller = {
                 e.preventDefault();
                 e.stopPropagation();
 
-                //confirmation
-
-                var userId = $(this).closest(".js-user-list-row").data("id");
-                ajax.post(excludeUserFromGroupUrl, { userId: userId })
-                    .then(function (result) {
-                        if (result.data) {
-                            //remove user from table
-                            request.skip = request.skip - 1;
-                        }
-                    });
+                confirm.showConfirm(confirmTitle, confirmText, () => {
+                    var row = $(this).closest(".js-user-list-row");
+                    var userId = row.data("id");
+                    ajax.post(excludeUserFromGroupUrl, { userId: userId })
+                        .then(function (result) {
+                            if (result.data) {
+                                row.remove();
+                                request.skip = request.skip - 1;
+                            }
+                        });
+                }, () => { }, confirm.defaultSettings);
             });
         }
 
