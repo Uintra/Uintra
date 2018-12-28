@@ -13,6 +13,7 @@ const emptyResultLabel = $(".js-user-list-empty-result");
 const searchActivationDelay = 256;
 const url = "/umbraco/surface/UserList/GetUsers";
 const detailsUrl = "/umbraco/surface/UserList/Details";
+const excludeUserFromGroupUrl = "/umbraco/surface/UserList/ExcludeUserFromGroup";
 
 let ascendingClassName = "_asc";
 let descendingClassName = "_desc";
@@ -35,13 +36,14 @@ let controller = {
         searchBoxElement.on("keypress", onKeyPress);
         searchButton.click(onSearchClick);
         addDetailsHandler(displayedRows);
+        addRemoveUserFromGroupHandler(displayedRows);
 
         function init() {
             request = window.userListConfig.request;
             displayedAmount = window.userListConfig.displayedAmount;
             amountPerRequest = window.userListConfig.amountPerRequest;
             request.groupId = getParameterByName("groupId");
-            console.log(request);
+            //console.log(request);
         }
 
         function onSearchClick(e) {
@@ -62,12 +64,13 @@ let controller = {
         function onButtonClick(event) {
             request.skip = tableBody.children("div").length;
             request.take = amountPerRequest;
-            
+
             ajax.post(url, request)
                 .then(result => {
                     var rows = $(result.data).filter("div");
                     tableBody.append(rows);
                     addDetailsHandler(rows);
+                    addRemoveUserFromGroupHandler(rows);
                     updateUI(rows);
                 });
         }
@@ -87,6 +90,7 @@ let controller = {
                     tableBody.children().remove();
                     tableBody.append(rows);
                     addDetailsHandler(rows);
+                    addRemoveUserFromGroupHandler(rows);
                     sortLinks.removeClass(ascendingClassName + " " + descendingClassName);
                     link.addClass(direction === 0 ? ascendingClassName : descendingClassName);
                     updateUI(rows);
@@ -110,6 +114,7 @@ let controller = {
                     tableBody.children().remove();
                     tableBody.append(rows);
                     addDetailsHandler(rows);
+                    addRemoveUserFromGroupHandler(rows);
                     updateUI(rows);
                 });
         }
@@ -127,6 +132,24 @@ let controller = {
                 location.href = profileUrl;
             });
         }
+        function addRemoveUserFromGroupHandler(rows) {
+            var deleteButtons = rows.find(".js-user-list-delete");
+            deleteButtons.click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                //confirmation
+
+                var userId = $(this).closest(".js-user-list-row").data("id");
+                ajax.post(excludeUserFromGroupUrl, { userId: userId })
+                    .then(function (result) {
+                        if (result.data) {
+                            //remove user from table
+                            request.skip = request.skip - 1;
+                        }
+                    });
+            });
+        }
 
         function getParameterByName(name, url) {
             if (!url) url = window.location.href;
@@ -138,6 +161,6 @@ let controller = {
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
     }
-}
+};
 
 export default controller;

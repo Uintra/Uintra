@@ -40,27 +40,23 @@ namespace Uintra.Users.Web
                 AmountPerRequest = model.AmountPerRequest,
                 DisplayedAmount = model.DisplayedAmount,
                 Title = model.Title,
-                UsersRows = new UsersRowsViewModel()
-                {
-                    SelectedColumns = selecetedColumns,
-                    Users = GetActiveUsers(0, model.DisplayedAmount, orderByColumn?.PropertyName, 0, groupId, out var isLastRequest)
-                },
+                UsersRows = GetUsersRowsViewModel(),
                 UsersRowsViewPath = UsersRowsViewPath,
-                OrderByColumn = orderByColumn,
-                IsLastRequest = isLastRequest
+                OrderByColumn = orderByColumn
             };
+            viewModel.UsersRows.SelectedColumns = selecetedColumns;
+            viewModel.UsersRows.Users = GetActiveUsers(0, model.DisplayedAmount, orderByColumn?.PropertyName, 0, groupId, out var isLastRequest);
+            viewModel.IsLastRequest = isLastRequest;
             return View(UserListViewPath, viewModel);
         }
 
         public virtual ActionResult GetUsers(int skip, int take, string query, string selectedColumns, string orderBy, int direction, string groupId)
         {
             var columns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedColumns);
-            var model = new UsersRowsViewModel
-            {
-                SelectedColumns = columns,
-                Users = GetActiveUsers(skip, take, orderBy, direction, groupId, out var isLastRequest, query),
-                IsLastRequest = isLastRequest
-            };
+            var model = GetUsersRowsViewModel();
+            model.SelectedColumns = columns;
+            model.Users = GetActiveUsers(skip, take, orderBy, direction, groupId, out var isLastRequest, query);
+            model.IsLastRequest = isLastRequest;
             return PartialView(UsersRowsViewPath, model);
         }
 
@@ -131,5 +127,13 @@ namespace Uintra.Users.Web
                 Type = ColumnType.GroupRole
             });
         }
+
+        protected virtual UsersRowsViewModel GetUsersRowsViewModel()
+        {
+            return new UsersRowsViewModel();
+        }
+
+        public abstract bool ExcludeUserFromGroup(Guid userId);
+
     }
 }

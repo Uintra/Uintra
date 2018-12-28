@@ -5,7 +5,8 @@
 
 @foreach (var user in Model.Users)
 {
-    <div data-profile="@user.ProfileUrl" class="users-table__row js-user-list-row @if (Model.IsLastRequest) { <text>last</text> }">
+    <div data-profile="@user.ProfileUrl" data-id="@user.Id"
+         class="users-table__row js-user-list-row @if (Model.IsLastRequest) { <text>last</text> }">
         @foreach (var column in Model.SelectedColumns)
         {
             switch (column.Type)
@@ -49,6 +50,10 @@
                         <div class="users-table__cell">
                             @{var role = user.IsGroupAdmin ? "GroupMembers.Table.GroupAdmin.lbl" : "GroupMembers.Table.GroupMember.lbl";}
                             <span class="users-table__text">@Html.Localize(role)</span>
+                            @if ((Model.CurrentUser.Id == user.Id || Model.IsCurrentUserAdmin) && !user.IsGroupAdmin)
+                            {
+                                <button class="js-user-list-delete">X</button>
+                            }
                         </div>
                     }
                     break;
