@@ -815,7 +815,6 @@
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
-    <Content Include="App_Plugins\Panels\ContentPanel\images\arrow-right.svg" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.js" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\overlay.html" />
@@ -951,7 +950,6 @@
     <Content Include="Content\fonts\muli-semibold-webfont.woff2" />
     <Content Include="Content\head_css.js" />
     <Content Include="Content\images\calendar.svg" />
-    <Content Include="Content\images\checkmark.svg" />
     <Content Include="Content\images\default-avatar.png" />
     <Content Include="Content\images\group.svg" />
     <Content Include="Content\images\logo.png" />
@@ -1583,6 +1581,7 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Plugins\Panels\ContentPanel\images\" />
     <Folder Include="App_Plugins\SentMails\dashboard\css\" />
     <Folder Include="App_Plugins\SentMails\data\" />
     <Folder Include="App_Plugins\SentMails\shared\" />

@@ -98,7 +98,10 @@
                 @foreach (var link in Model.Links)
                 {
                     <li class="block__links-list-item">
-                        <a class="block__links-list-link" href="@link.Url" target="@link.Target">@link.Caption</a>
+                        <a class="block__links-list-link" href="@link.Url" target="@link.Target">
+                            <svg class="svg-icon" viewBox="0 0 32 32" width="18px" height="14px">
+                                <use xlink:href="#icon-forward-arrow" x="0" y="0"></use>
+                            </svg>@link.Caption</a>
                     </li>
                 }
             </ul>

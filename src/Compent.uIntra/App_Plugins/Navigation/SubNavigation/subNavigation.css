@@ -431,19 +431,15 @@
         vertical-align:top;
         margin:0;
 
-        &::before{
-            content:"";
-            background:url(../images/arrow.svg) no-repeat 0 50% / 11px auto;
-            width:11px;
-            height:10px;
+        .svg-icon{
+            color:#d6d6d6;
             display: inline-block;
             vertical-align: top;
-            margin: 5px 2px 0 2px;
-            transform:rotate(180deg)
+            margin: 4px 2px 0 2px;
         }
 
         &:first-child{
-            &::before{
+            .svg-icon{
                 display:none;
             }
         }

@@ -44,7 +44,7 @@
 /*.icon-groups:before {
     content: "\e91d";
 }*/
-.icon-insert-link:before {
+/*.icon-insert-link:before {
     content: "\e91b";
 }
 .icon-italic:before {
@@ -55,8 +55,8 @@
 }
 .icon-bulletins:before {
     content: "\e914";
-}
-.icon-ideas:before {
+}*/
+/*.icon-ideas:before {
   content: "\e915";
 }
 .icon-events:before {
@@ -73,13 +73,13 @@
 }
 .icon-lightning:before {
   content: "\e913";
-}
+}*/
 .icon-calendar:before {
   content: "\e916";
 }
-.icon-plus:before {
+/*.icon-plus:before {
   content: "\e915";
-}
+}*/
 /*.icon-link:before {
   content: "\e907";
 }*/
@@ -142,9 +142,9 @@
 .icon-print:before {
   content: "\e90a";
 }
-.icon-sort:before {
+/*.icon-sort:before {
   content: "\e90c";
-}
+}*/
 
 ._hide {
 	display: none !important;
