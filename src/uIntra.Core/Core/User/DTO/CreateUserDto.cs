@@ -4,10 +4,10 @@ namespace Uintra.Core.User.DTO
 {
     public class CreateUserDto
     {
-        [StringLength(256, MinimumLength = 1, ErrorMessage = "FirstName Allowed length 1 - 256")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "FirstName Allowed length 1 - 50")]
         public string FirstName { get; set; }
 
-        [StringLength(256, MinimumLength = 1, ErrorMessage = "LastName Allowed length 1 - 256")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "LastName Allowed length 1 - 50")]
         public string LastName { get; set; }
 
         public string Phone { get; set; }
