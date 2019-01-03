@@ -126,7 +126,7 @@ Now Umbraco is installed.
 
 That's all! Now you can open new site based on Uintra and enjoy!
 
-If you are having trouble getting Uintra installed or experience other problems, please contact us at kne@Compent.net, the response time will be very fast within normal business hours, 09-16 CET/CEST.
+If you are having trouble getting Uintra installed or experience other problems, please contact us at vma@compent.net, the response time will be very fast within normal business hours, 09-16 CET/CEST.
 
 ## Elastic Search
 If Elastic Search is giving you trouble, please check out the issue https://github.com/Uintra/Uintra/issues/3 that will guide you to setup your elastic search with the proper version. Huge credit to user ChrisAngel447 for spotting this!
@@ -138,7 +138,7 @@ We have created some simple examples of how to manually test Uintra [here](Testi
 A good way to contribute to Uintra is by providing issue reports. For information on how to submit an issue report refer to our [guide to contributing](CONTRIBUTING.md) for details on our code of conduct, and information regarding the process for submitting pull requests to us.
 
 ## Contact
-We have several managers and a full team working on Uintra, if you have any questions please send them to our contact person, Kasper at kne@compent.net. 
+We have several managers and a full team working on Uintra, if you have any questions please send them to our contact person, Vadym at vma@compent.net 
 
 ## License
 This project is licensed under the [MIT License](LICENSE.md) - see the file for details.
