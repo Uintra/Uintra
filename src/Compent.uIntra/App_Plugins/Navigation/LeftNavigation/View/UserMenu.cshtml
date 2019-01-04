@@ -8,7 +8,16 @@
             {
                 var photoUrl = Model.CurrentUser.Photo + "?width=30&height=30&mode=crop";
                 <img class="avatar-img" src="@photoUrl" width="30">
+            }else
+            {
+                <!--UC-2540 Users profile photo should show initials in case if photo is not added-->
+                <div class="avatar">
+                    <div class="avatar__letter">
+                        @Model.CurrentUser.DisplayedName.First()
+                    </div>
+                </div>           
             }
+
             @Model.CurrentUser.DisplayedName
         </a>
     </li>
