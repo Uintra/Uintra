@@ -204,14 +204,14 @@
         ._expanded &{
             overflow-X:hidden;
             overflow-Y:auto;
-            max-height:calc(100vh - 132px);
+            /*max-height:calc(100vh - 132px);*/
 
-            @media (--for-desktop-down) {
+            /*@media (--for-desktop-down) {
                 max-height:calc(100vh - 105px);
-            }
+            }*/
 
             @media(--for-tablet-portrait-down){
-                max-height:calc(100vh - 20px);
+                /*max-height:calc(100vh - 20px);*/
                 margin:8px;
             }
         }
