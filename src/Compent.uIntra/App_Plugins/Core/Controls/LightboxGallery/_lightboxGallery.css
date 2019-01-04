@@ -207,6 +207,7 @@
             top:50%;
             margin:-10px 0;
             z-index:2;
+            color:#b2b2b2;
         }
 
         &:active,
@@ -214,11 +215,6 @@
         &:hover{
             color:#5776f9;
             text-decoration:none;
-
-            .svg-icon{
-                color: var(--text-color-dark);
-                text-decoration:none;
-            }
         }
     }
 }
