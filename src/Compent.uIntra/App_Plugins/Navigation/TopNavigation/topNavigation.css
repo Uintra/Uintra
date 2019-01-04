@@ -196,18 +196,6 @@
             }
         }
 
-        &__list {
-            display: inline-block;
-            margin: 0 5px 0 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        &__frame {
-            display: inline-block;
-            margin: 0 5px;
-        }
-
         .icon {
             width: 20px;
             height: 20px;
