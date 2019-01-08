@@ -768,8 +768,18 @@ body:not(._show-filters) .filter__body {
     margin: 0 0 23px;
     font-size: 13px;
     line-height: 1.384;
+
+    @media (--for-tablet-portrait-down){
+        margin:0 -15px 23px;
+        padding:20px 15px 0;
+    }
+
     .feed__item-txt + &{
         padding:0;
+
+        @media (--for-tablet-portrait-down){
+            margin:0 0 23px;
+        }
     }
 
     &__title{
