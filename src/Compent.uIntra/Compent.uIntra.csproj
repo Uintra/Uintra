@@ -1210,7 +1210,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="webpack.config.js" />
-    <Content Include="xslt\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
