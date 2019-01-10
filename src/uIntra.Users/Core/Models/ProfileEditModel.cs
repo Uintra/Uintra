@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Uintra.Core.Media;
 
 namespace Uintra.Users
@@ -7,7 +8,9 @@ namespace Uintra.Users
     public class ProfileEditModel : IContentWithMediaCreateEditModel
     {
         public Guid Id { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "First name required")]
         public string FirstName { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Last name required")]
         public string LastName { get; set; }
         public string Phone { get; set; }
         public string Department { get; set; }
