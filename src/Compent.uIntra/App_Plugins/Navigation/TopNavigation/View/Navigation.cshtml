@@ -3,7 +3,6 @@
 @model Uintra.Navigation.TopNavigationViewModel
 
 @{
-    var userAvatarClass = Model.CurrentUser.Photo.HasValue() ? "_with-avatar" : string.Empty;
     var userAvatar = Model.CurrentUser.Photo.HasValue() ? $"{Model.CurrentUser.Photo}?width=30&height=30&mode=crop" : string.Empty;
 }
 
@@ -17,15 +16,12 @@
     <div class="search-holder">
     </div>
     <div class="user">
-        <a class="user__opener icon-user @userAvatarClass">
-            <!--UC-2540 Users profile photo should show initials in case if photo is not added-->
+        <a class="user__opener">
             @{
                 if (userAvatar.IsNullOrEmpty())
                 {
-                    <div class="avatar">
-                        <div class="avatar__letter">
-                            @Model.CurrentUser.DisplayedName.First()
-                        </div>
+                    <div class="avatar__letter">
+                        @Model.CurrentUser.DisplayedName.First()
                     </div>
                 }
                 else

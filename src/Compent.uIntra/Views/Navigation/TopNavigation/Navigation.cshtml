@@ -3,7 +3,6 @@
 @model Compent.Uintra.Core.Navigation.TopNavigationExtendedViewModel
 
 @{
-    var userAvatarClass = Model.CurrentUser.Photo.HasValue() ? "_with-avatar" : string.Empty;
     var userAvatar = Model.CurrentUser.Photo.HasValue() ? $"{Model.CurrentUser.Photo}?width=30&height=30&mode=crop" : string.Empty;
 }
 
@@ -29,16 +28,13 @@
         </div>
     </div>
     <div class="user">
-        <a class="user__opener icon-user @userAvatarClass">
+        <a class="user__opener">
             <div class="user__avatar">
-                <!--UC-2540 Users profile photo should show initials in case if photo is not added-->
                 @{
                     if (userAvatar.IsNullOrEmpty())
                     {
-                        <div class="avatar">
-                            <div class="avatar__letter">
-                                @Model.CurrentUser.DisplayedName.First()
-                            </div>
+                        <div class="avatar__letter">
+                            @Model.CurrentUser.DisplayedName.First()
                         </div>
                     }
                     else

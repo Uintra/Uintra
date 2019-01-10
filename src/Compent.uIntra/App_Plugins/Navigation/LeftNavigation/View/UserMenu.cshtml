@@ -10,12 +10,9 @@
                 <img class="avatar-img" src="@photoUrl" width="30">
             }else
             {
-                <!--UC-2540 Users profile photo should show initials in case if photo is not added-->
-                <div class="avatar">
-                    <div class="avatar__letter">
-                        @Model.CurrentUser.DisplayedName.First()
-                    </div>
-                </div>           
+                <div class="avatar__letter">
+                    @Model.CurrentUser.DisplayedName.First()
+                </div>          
             }
 
             @Model.CurrentUser.DisplayedName

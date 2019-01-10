@@ -799,7 +799,7 @@ img{
             height: 60px;
         }
     }
-
+    
     .feed__list &{
         width:35px;
         min-width:35px;
@@ -861,6 +861,22 @@ img{
         display:flex;
         justify-content: center;
         align-items:center;
+        text-align:center;
+
+        .side-nav &{
+            position:static;
+            margin: 0 10px 0 -40px;
+            border-radius: 50%;
+            float: left;
+            width: 30px;
+            height: 30px;
+            min-width:30px;
+            font-weight:normal;
+        }
+
+        .side-nav__link:hover &{
+            background:#eee;
+        }
     }
 }
 
