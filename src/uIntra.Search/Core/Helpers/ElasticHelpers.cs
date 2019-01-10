@@ -6,12 +6,13 @@ namespace Uintra.Search
     public static class ElasticHelpers
     {
         public const string Replace = "Replace";
-        public const string Digits = "Digits";        
+        public const string Digits = "Digits";
         public const string Key = "Key";
-        public const string Web = "Web";        
+        public const string Web = "Web";
         public const string Lowercase = "Lowercase";
         public const string ReplaceNgram = "ReplaceNgram";
-        public const string Tag = "Tag";        
+        public const string Phone = "Phone";
+        public const string Tag = "Tag";
         public const int MaxAggregationSize = 500;
 
         public static class Normalizer
@@ -37,9 +38,11 @@ namespace Uintra.Search
                     .PatternReplace("whitespace_remove", t => t.Pattern(" ").Replacement(string.Empty))
                 )
                 .Tokenizers(t => t
+                    .NGram("phoneNgram", d => d.MinGram(2).MaxGram(10).TokenChars(TokenChar.Symbol, TokenChar.Digit, TokenChar.Letter))
                     .NGram("ngram", d => d.MinGram(2).MaxGram(30))
                     .Pattern("comma", p => p.Pattern(",")))
                 .Analyzers(a => a
+                    .UserDefined(Phone, new CustomAnalyzer { Tokenizer = "phoneNgram", Filter = new[] { "whitespace_remove", "lowercase" }})
                     .UserDefined(Tag, new CustomAnalyzer { Tokenizer = "comma", Filter = new[] { "whitespace_remove", "lowercase" }, CharFilter = new[] { "html_strip" } })
                     .UserDefined(Replace, new CustomAnalyzer { Tokenizer = "whitespace", Filter = new[] { "lowercase", "scandinavian_folding", "unique" }, CharFilter = new[] { "mapping" } })
                     .UserDefined(ReplaceNgram, new CustomAnalyzer { Tokenizer = "whitespace", Filter = new[] { "lowercase", "scandinavian_folding", "custom_edge_ngram", "unique" }, CharFilter = new[] { "mapping", "html_strip" } })
