@@ -36,6 +36,7 @@ using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.Search.Entities.Mappings;
 using Compent.Uintra.Core.Search.Indexes;
 using Compent.Uintra.Core.Subscribe;
+using Compent.Uintra.Core.UintraInformation;
 using Compent.Uintra.Core.Updater;
 using Compent.Uintra.Core.Users;
 using Compent.Uintra.Core.UserTags;

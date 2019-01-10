@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Reflection;
+using Uintra.Core;
 using Uintra.Core.ApplicationSettings;
 
-namespace Uintra.Core
+namespace Compent.Uintra.Core.UintraInformation
 {
     public class UintraInformationService : IUintraInformationService
     {
