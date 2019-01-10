@@ -110,8 +110,8 @@
     <Reference Include="Elmah.Mvc, Version=2.0.0.29988, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="EmailWorker.Data, Version=0.4.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EmailWorker.Data.0.4.2.2\lib\net45\EmailWorker.Data.dll</HintPath>
+    <Reference Include="EmailWorker.Data, Version=0.4.2.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Data.0.4.2.3\lib\net45\EmailWorker.Data.dll</HintPath>
     </Reference>
     <Reference Include="EmailWorker.Ninject, Version=0.0.4.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EmailWorker.Ninject.0.0.4.1\lib\net45\EmailWorker.Ninject.dll</HintPath>
