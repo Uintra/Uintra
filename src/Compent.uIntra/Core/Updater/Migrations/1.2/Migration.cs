@@ -25,7 +25,11 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._2
                 { "UserList.Confirm.Delete.Text", "Are you sure?"},
                 { "UserList.Table.Role.lbl", "Role"},
                 { "UserList.Table.Department.lbl", "Department"},
-                { "UserList.Table.Phone.lbl", "Phone"}
+                { "UserList.Table.Phone.lbl", "Phone"},
+                {"Profile.Department.lbl","Department"},
+                {"Profile.Phone.lbl","Phone" }
+
+
             },
             Remove = new List<string>()
         };
