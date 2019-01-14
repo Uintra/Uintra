@@ -188,7 +188,7 @@ var controller = {
         });
 
         if (matchMedia) {
-            var mq = window.matchMedia("(min-width: 900px)");
+            var mq = window.matchMedia("(min-width: 992px)");
             mq.addListener(WidthChange);
             WidthChange(mq);
         }
