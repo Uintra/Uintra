@@ -229,7 +229,7 @@
 
     &__user{
         position:absolute;
-        padding: 21px 22px 16px;
+        padding: 21px 30px 16px 22px;
 
         @media(--for-tablet-portrait-down){
             display:none;
@@ -348,7 +348,7 @@
 	&__close {
 		position: absolute;
 		top: 19px;
-		right: 10px;
+		right: 17px;
 		width: 31px;
 		height: 31px;
 		border: none;
