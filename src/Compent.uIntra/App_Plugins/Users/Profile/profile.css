@@ -27,6 +27,10 @@
             display:block;
         }
 
+        .profile-edit &{
+            display:block;
+        }
+
         &-list{
             width:62%;
             margin:0;
@@ -78,8 +82,36 @@
     &-edit {
 
 	    .dropzone {
-		    max-width: 100%;
-		    margin: 0 20px 0 0;
+            margin:0 -5px;
+            padding:5px !important;
+
+            @media(--for-tablet-portrait-down){
+                max-width:none;
+            }
+            
+            .dz-message{
+                margin:5px;
+
+                & > span{
+                    padding:30px 0 0;
+
+                    &:before{
+                        left:50%;
+                        transform:translateX(-50%);
+                    }
+                }
+            }
+
+            .dz-preview{
+                width:100px;
+                margin:0;
+
+                .dz-image{
+                    width:100px;
+                    height:100px;
+                }
+            }
+
 	    }
     }
 

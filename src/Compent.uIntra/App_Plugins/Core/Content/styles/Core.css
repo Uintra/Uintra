@@ -830,6 +830,10 @@ img{
         vertical-align:middle;
     }
 
+    .form.profile-edit &{
+        margin:0 20px 0 0;
+    }
+
     ._details &{
         width:35px;
         min-width:35px;
@@ -840,6 +844,10 @@ img{
     &--square{
         border-radius:0;
         overflow:visible;
+    }
+    ._profile &{
+        width: 100px;
+        height: 100px;
     }
 
     &__img{
@@ -1044,6 +1052,11 @@ img{
 
     &.dz-drag-hover{
         background:var(--color-light-gray-2);
+    }
+
+    &-holder{
+        width:100px;
+        margin:0 20px 0 0;
     }
 
     .dz-preview{

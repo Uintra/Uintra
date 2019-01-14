@@ -14,7 +14,7 @@
         @{
                 var additionClass = string.IsNullOrEmpty(Model.Photo) ? "" : "_hide";
         }
-        <div class="form__row @additionClass">
+        <div class="dropzone-holder @additionClass">
             <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
             @{
                     var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string, MaxFilesCount = 1 };

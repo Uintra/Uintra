@@ -13,27 +13,27 @@
         <div class="form__row clearfix">
             <div class="form__header">
                 @{
-        var additionClass = string.IsNullOrEmpty(Model.Photo) ? "" : "_hide";
+                    var additionClass = string.IsNullOrEmpty(Model.Photo) ? "" : "_hide";
                 }
-                <div class="form__row clearfix @additionClass">
+                <div class="dropzone-holder clearfix @additionClass">
                     <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
                     @{
-            var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string, MaxFilesCount = 1 };
-            Html.RenderAction("Uploader", "FileUpload", new { Settings = settings });
+                        var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string, MaxFilesCount = 1 };
+                        Html.RenderAction("Uploader", "FileUpload", new { Settings = settings });
                     }
                 </div>
                 @if (!string.IsNullOrEmpty(Model.Photo))
-    {
-            <div class="avatar avatar--square">
-                <img class="avatar__img" src="@Model.Photo?width=100&height=100&mode=crop" width="100" alt="avatar" />
+                {
+                    <div class="avatar avatar--square">
+                        <img class="avatar__img" src="@Model.Photo?width=100&height=100&mode=crop" width="100" alt="avatar" />
 
-                <span class="form__clear _clear-avatar js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo">
-                    <svg class="svg-icon" viewBox="0 0 20 20" width="10px" height="10px">
-                        <use xlink:href="#icon-close" x="0" y="0"></use>
-                    </svg>
-                </span>
-            </div>
-}
+                        <span class="form__clear _clear-avatar js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo">
+                            <svg class="svg-icon" viewBox="0 0 20 20" width="10px" height="10px">
+                                <use xlink:href="#icon-close" x="0" y="0"></use>
+                            </svg>
+                        </span>
+                    </div>
+                }
                 <div class="form__meta">
                     <div class="form__row">
                         <label class="form__label">@Html.Localize("Profile.FirstName.lbl")</label>
@@ -61,13 +61,13 @@
             <div class="check">
                 <label class="check__label">
                     @Html.CheckBox("js-member-notifier-setting",
-                               Model.MemberNotifierSettings[NotifierTypeEnum.EmailNotifier],
-                               new
-                               {
-                                   notifiertype = NotifierTypeEnum.EmailNotifier,
-                                   @class = "check__box",
-                                   dataConfirmMessage = @Html.Localize("Profile.NotifierSettings.Confirmation.lbl")
-                               })
+                                    Model.MemberNotifierSettings[NotifierTypeEnum.EmailNotifier],
+                                    new
+                                    {
+                                        notifiertype = NotifierTypeEnum.EmailNotifier,
+                                        @class = "check__box",
+                                        dataConfirmMessage = @Html.Localize("Profile.NotifierSettings.Confirmation.lbl")
+                                    })
                     <label class="form__label">@Html.Localize("Profile.EmailNotifications.Title.lbl")</label>
                     <span class="check__fake-input">
                         <svg class="svg-icon" viewBox="0 0 512 512" width="13px" height="13px">
