@@ -214,6 +214,7 @@
 
         @media (--for-tablet-portrait-down){
             display:block;
+            min-height:84px;
             padding:22px 0 15px 64px;
         }
 
@@ -257,6 +258,15 @@
                     height:45px;
                 }
             }
+        }
+    }
+    &__label{
+        display:none;
+        margin:0 3px 0 0;
+
+        @media (--for-phone-only) {
+            display:inline-block;
+            vertical-align:top;
         }
     }
 

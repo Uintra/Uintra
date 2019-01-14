@@ -46,18 +46,38 @@
                     }
                     break;
                 case ColumnType.Phone:
-                {
-                    <div class="users-table__cell">
-                        <span class="users-table__text">@user.Phone</span>
-                    </div>
-                }
+                    {
+                        <div class="users-table__cell">
+                            <span class="users-table__text">
+                                @if (!string.IsNullOrEmpty(user.Phone))
+                                {
+
+                                    <span class="users-table__label">
+                                        @(Html.Localize("UserList.Table.Phone.lbl") + ":")
+                                    </span>
+
+                                }
+                                @user.Phone
+                            </span>
+                        </div>
+                    }
                     break;
                 case ColumnType.Department:
-                {
-                    <div class="users-table__cell">
-                        <span class="users-table__text">@user.Department</span>
-                    </div>
-                }
+                    {
+                        <div class="users-table__cell">
+                            <span class="users-table__text">
+                                @if (!string.IsNullOrEmpty(user.Department))
+                                {
+
+                                    <span class="users-table__label">
+                                        @(Html.Localize("UserList.Table.Department.lbl") + ":")
+                                    </span>
+
+                                }
+                                @user.Department
+                            </span>
+                        </div>
+                    }
                     break;
                 case ColumnType.GroupRole:
                     {

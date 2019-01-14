@@ -882,7 +882,8 @@ img{
             font-weight:normal;
         }
 
-        .side-nav__link:hover &{
+        .side-nav__link:hover &,
+        .users-table__tbody .users-table__row:hover &{
             background:#eee;
         }
     }
