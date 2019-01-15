@@ -1,4 +1,5 @@
-﻿using Uintra.Core.Providers;
+﻿using Uintra.Core.Extensions;
+using Uintra.Core.Providers;
 using Uintra.Core.User;
 
 namespace Uintra.Navigation

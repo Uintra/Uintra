@@ -14,6 +14,7 @@ using Uintra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using static LanguageExt.Prelude;
 
 namespace Compent.Uintra.Core.Users
 {
@@ -24,7 +25,6 @@ namespace Compent.Uintra.Core.Users
         private readonly IElasticUserIndex _elasticUserIndex;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IUserTagService _userTagService;
-        private readonly IMediaService _mediaService;
 
         public IntranetUserService(
             IMediaService mediaService,
@@ -40,7 +40,7 @@ namespace Compent.Uintra.Core.Users
             )
             : base(mediaService, memberService, umbracoContext, umbracoHelper, roleService, cacheService)
         {
-            _mediaService = mediaService;
+
             _groupMemberRepository = groupMemberRepository;
             _elasticUserIndex = elasticUserIndex;
             _intranetUserContentProvider = intranetUserContentProvider;
@@ -91,7 +91,7 @@ namespace Compent.Uintra.Core.Users
             var searchableUser = user.Map<SearchableUser>();
             searchableUser.Url = _intranetUserContentProvider.GetProfilePage().Url.AddIdParameter(user.Id);
             searchableUser.UserTagNames = _userTagService.Get(user.Id).Select(t => t.Text).ToList();
-            searchableUser.GroupIds = user.GroupIds.Select(i => i.ToString()).ToList();
+            searchableUser.GroupIds = user.GroupIds;
             return searchableUser;
         }
     }

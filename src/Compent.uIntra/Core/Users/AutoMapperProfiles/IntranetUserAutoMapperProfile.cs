@@ -17,6 +17,14 @@ namespace Compent.Uintra.Core.Users
             Mapper.CreateMap<IntranetUser, ProfileViewModel>()
                 .ForMember(dst => dst.EditingUser, o => o.MapFrom(user => user));
 
+            Mapper.CreateMap<IIntranetUser, UserViewModel>()
+                .ForMember(dst => dst.Id, o => o.MapFrom(user => user.Id))
+                .ForMember(dst => dst.DisplayedName, o => o.MapFrom(user => user.DisplayedName))
+                .ForMember(dst => dst.Email, o => o.MapFrom(user => user.Email))
+                .ForMember(dst => dst.LoginName, o => o.MapFrom(user => user.LoginName))
+                .ForMember(dst => dst.Photo, o => o.MapFrom(user => user.Photo))
+                .ForMember(dst => dst.Inactive, o => o.MapFrom(user => user.Inactive));
+
             Mapper.CreateMap<IntranetUser, UserModel>()
                 .ForMember(dst => dst.User, o => o.MapFrom(user => user))
                 .ForMember(dst => dst.ProfileUrl, o => o.Ignore())

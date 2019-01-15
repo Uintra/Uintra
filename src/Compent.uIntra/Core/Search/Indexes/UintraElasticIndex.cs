@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Compent.Uintra.Core.Search.Entities;
+using LanguageExt;
 using Nest;
 using Uintra.Core.Extensions;
 using Uintra.Search;
@@ -29,7 +30,7 @@ namespace Compent.Uintra.Core.Search.Indexes
             return desc;
         }
 
-        protected override QueryContainer[] GetQueryContainers(string query, string groupId)
+        protected override QueryContainer[] GetQueryContainers(string query, Option<Guid> groupId)
         {
             var containers = base.GetQueryContainers(query, groupId).ToList();
 
@@ -41,7 +42,7 @@ namespace Compent.Uintra.Core.Search.Indexes
             return containers.ToArray();
         }
 
-        public QueryContainer[] GetUserDescriptor(string query, string groupId)
+        public QueryContainer[] GetUserDescriptor(string query, Option<Guid> groupId)
         {
             var desc = new List<QueryContainer>
             {
@@ -66,7 +67,7 @@ namespace Compent.Uintra.Core.Search.Indexes
                     .Field(f => f.Email)
                     .Boost(scores.UserEmailScore)),
                 new QueryContainerDescriptor<SearchableUser>().Match(m => m
-                    .Query(groupId)
+                    .Query(groupId.Map(toString).IfNone(string.Empty))
                     .Field(f => f.GroupIds))
             };
             return desc.ToArray();

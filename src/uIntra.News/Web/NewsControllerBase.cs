@@ -160,7 +160,7 @@ namespace Uintra.News.Web
             var model = news.Map<NewsViewModel>();
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = List(news.PublishDate.ToDateTimeFormat());
-            model.HeaderInfo.Owner = _intranetUserService.Get(news);
+            model.HeaderInfo.Owner = _intranetUserService.Get(news).Map<UserViewModel>();
             model.CanEdit = _newsService.CanEdit(news);
             return model;
         }
@@ -175,7 +175,7 @@ namespace Uintra.News.Web
             
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = List(news.PublishDate.ToDateTimeFormat());
-            model.HeaderInfo.Owner = _intranetUserService.Get(news);
+            model.HeaderInfo.Owner = _intranetUserService.Get(news).Map<UserViewModel>();
             model.HeaderInfo.Links = options.Links;
 
             return model;
@@ -189,7 +189,7 @@ namespace Uintra.News.Web
             model.Links = links;
 
             model.HeaderInfo = news.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Owner = _intranetUserService.Get(news);
+            model.HeaderInfo.Owner = _intranetUserService.Get(news).Map<UserViewModel>();
             model.HeaderInfo.Links = links;
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
@@ -211,7 +211,7 @@ namespace Uintra.News.Web
                 Id = news.Id,
                 Title = news.Title,
                 PublishDate = news.PublishDate,
-                Owner = owner,
+                Owner = owner.Map<UserViewModel>(),
                 ActivityType = news.Type,
                 Links = links
             };

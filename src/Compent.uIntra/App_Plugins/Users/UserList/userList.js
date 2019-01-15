@@ -13,7 +13,6 @@ const displayedRows = $(".js-user-list-row");
 const emptyResultLabel = $(".js-user-list-empty-result");
 const searchActivationDelay = 256;
 const url = "/umbraco/surface/UserList/GetUsers";
-const detailsUrl = "/umbraco/surface/UserList/Details";
 const excludeUserFromGroupUrl = "/umbraco/surface/UserList/ExcludeUserFromGroup";
 
 let ascendingClassName = "_asc";
@@ -45,13 +44,13 @@ let controller = {
             request = window.userListConfig.request;
             displayedAmount = window.userListConfig.displayedAmount;
             amountPerRequest = window.userListConfig.amountPerRequest;
-            request.groupId = getParameterByName("groupId");
+            request.groupId = new URL(window.location.href).searchParams.get("groupId");
             confirmTitle = table.data("title");
             confirmText = table.data("text");
         }
 
         function onSearchClick(e) {
-            var query = searchBoxElement.val();
+            const query = searchBoxElement.val();
             if (query) {
                 search(query);
             }

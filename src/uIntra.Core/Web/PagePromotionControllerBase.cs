@@ -32,7 +32,7 @@ namespace Uintra.Core.Web
             model.Links = links;
 
             model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Owner = _userService.Get(item.CreatorId);
+            model.HeaderInfo.Owner = _userService.Get(item.CreatorId).Map<UserViewModel>();
             model.HeaderInfo.Links = links;
             model.HeaderInfo.Type = item.Type;
 

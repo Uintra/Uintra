@@ -5,15 +5,17 @@ using System.Web.Mvc;
 using Compent.Extensions;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.Users.UserList;
+using EmailWorker.Data.Extensions;
 using LanguageExt;
 using Localization.Core;
 using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Groups;
+using Uintra.Groups.Attributes;
 using Uintra.Search;
 using Uintra.Users.UserList;
 using Uintra.Users.Web;
-
+using static LanguageExt.Prelude;
 
 namespace Compent.Uintra.Controllers
 {
@@ -25,7 +27,6 @@ namespace Compent.Uintra.Controllers
         private readonly IGroupService _groupService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IGroupMemberService _groupMemberService;
-        private GroupModel _currentGroup;
 
         public UserListController(IIntranetUserService<IIntranetUser> intranetUserService,
             IElasticIndex elasticIndex,
@@ -42,80 +43,76 @@ namespace Compent.Uintra.Controllers
             _groupService = groupService;
             _intranetUserService = intranetUserService;
             _groupMemberService = groupMemberService;
-            _currentGroup = GetCurrentGroup();
         }
 
-        [HasValidGroupId]
+        [NotFoundGroup]
         public override ActionResult Render(UserListModel model)
         {
             return base.Render(model);
         }
 
-        protected override IEnumerable<Guid> GetActiveUserIds(int skip, int take, string query, string groupId, out long totalHits, string orderBy, int direction)
+        protected override (IEnumerable<Guid> searchResult, long totalHits) GetActiveUserIds(ActiveUserSearchQuery query)
         {
             var searchQuery = new SearchTextQuery
             {
-                Text = query,
-                Skip = skip,
-                Take = take,
-                OrderingString = orderBy,
-                OrderingDirection = direction,
+                Text = query.Text,
+                Skip = query.Skip,
+                Take = query.Take,
+                OrderingString = query.OrderingString,
+                OrderingDirection = query.OrderingDirection,
                 SearchableTypeIds = ((int)UintraSearchableTypeEnum.User).ToEnumerable(),
-                GroupId = groupId
+                GroupId = query.GroupId
             };
+
             var searchResult = _elasticIndex.Search(searchQuery);
-            totalHits = searchResult.TotalHits;
+            var result = searchResult.Documents.Select(r => Guid.Parse(r.Id.ToString()));
 
-            return searchResult.Documents.Select(r => r.Id.ToString().Apply(Guid.Parse));
+            return (result, searchResult.TotalHits);
         }
 
-        protected override string GetDetailsPopupTitle(UserModel user)
-        {
-            return $"{user.DisplayedName} {_localizationCoreService.Get("UserList.DetailsPopup.Title")}";
-        }
+        protected override string GetDetailsPopupTitle(UserModel user) => 
+            $"{user.DisplayedName} {_localizationCoreService.Get("UserList.DetailsPopup.Title")}";
 
         protected override UserModel MapToViewModel(IIntranetUser user)
         {
             var model = base.MapToViewModel(user);
-            model.ProfileUrl = _profileLinkProvider.GetProfileLink(model.Id);
-            model.IsGroupAdmin = _currentGroup?.CreatorId == user.Id;
+            model.ProfileUrl = _profileLinkProvider.GetProfileLink(user.Id);
+            model.IsGroupAdmin = CurrentGroupId() == user.Id;
             return model;
         }
 
         protected override UsersRowsViewModel GetUsersRowsViewModel()
         {
             var model = base.GetUsersRowsViewModel();
-            model.CurrentUser = _intranetUserService.GetCurrentUser();
-            model.IsCurrentUserAdmin = _currentGroup?.CreatorId == model.CurrentUser.Id;
+            model.CurrentUser = _intranetUserService.GetCurrentUser().Map<UserViewModel>();
+            model.IsCurrentUserAdmin = CurrentGroup().Map(CreatorId) == model.CurrentUser.Id;
             return model;
         }
 
         public override bool ExcludeUserFromGroup(Guid userId)
         {
             var currentUserId = _intranetUserService.GetCurrentUser().Id;
-            var currentGroupCreatorId = _currentGroup?.CreatorId;
-            if ((currentUserId == userId || currentUserId == currentGroupCreatorId) && currentUserId != currentGroupCreatorId)
-            {
-                _groupMemberService.Remove(_currentGroup.Id, userId);
-                return true;
-            }
-            return false;
+            var currentGroupCreatorId = CurrentGroup().Map(CreatorId);
+
+            return currentGroupCreatorId
+                .Filter(creatorId => currentUserId.In(userId, creatorId) && currentUserId != creatorId)
+                .Match(
+                    Some: groupId =>
+                    {
+                        _groupMemberService.Remove(groupId, userId);
+                        return true;
+                    },
+                    None: () => false);
         }
 
-        private GroupModel GetCurrentGroup()
-        {
-            try
-            {
-                var request = System.Web.HttpContext.Current.Request;
-                var groupId = request.QueryString["groupId"] ??
-                    request.UrlReferrer?.Query?.Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries)[1];
-                return Guid.TryParse(groupId, out Guid result) ? _groupService.Get(result) : null;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            
-        }
+        private static Option<Guid> CurrentGroupId() =>
+            System.Web.HttpContext.Current.Request
+                .Params["groupId"]
+                .Apply(parseGuid);
+
+        private static Guid CreatorId(GroupModel group) => group.CreatorId;
+
+        private Option<GroupModel> CurrentGroup() =>
+            CurrentGroupId().Map(_groupService.Get);
     }
 }

@@ -18,7 +18,7 @@ namespace Uintra.Bulletins
 
         public int? MediaRootId { get; set; }
 
-        public IIntranetUser Creator { get; set; }
+        public UserViewModel Creator { get; set; }
 
         [RequiredIfEmpty(OtherProperty = nameof(Description))]
         public string NewMedia { get; set; }

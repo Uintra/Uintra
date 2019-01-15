@@ -6,8 +6,6 @@ namespace Uintra.Users.UserList
 {
     public class UserModel
     {
-        public Guid Id { get; set; }
-
         [UIColumn(0, "Photo", "photo", ColumnType.Photo)]
         public string Photo { get; set; }
 
@@ -24,7 +22,8 @@ namespace Uintra.Users.UserList
         [UIColumn(4, "Department", "department", ColumnType.Department, SupportSorting = true)]
         public string Department { get; set; }
 
-        public IIntranetUser User { get; set; }
+        public UserViewModel User { get; set; }
+
         public string ProfileUrl { get; set; }
 
         public bool IsGroupAdmin { get; set; }

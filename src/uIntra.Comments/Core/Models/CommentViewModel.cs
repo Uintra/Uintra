@@ -12,7 +12,7 @@ namespace Uintra.Comments
 
         public Guid ActivityId { get; set; }
 
-        public IIntranetUser Creator { get; set; }
+        public UserViewModel Creator { get; set; }
         
         public DateTime CreatedDate { get; set; }
 
