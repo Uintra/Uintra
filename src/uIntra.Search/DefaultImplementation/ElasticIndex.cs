@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Compent.Extensions;
+using LanguageExt;
 using Nest;
 using Uintra.Core.Extensions;
 
@@ -134,7 +135,7 @@ namespace Uintra.Search
             return desc;
         }
 
-        protected virtual QueryContainer[] GetQueryContainers(string query, string groupId)
+        protected virtual QueryContainer[] GetQueryContainers(string query, Option<Guid> groupId)
         {
             var containers = new List<QueryContainer>();
             containers.AddRange(GetBaseDescriptor(query).ToEnumerable());

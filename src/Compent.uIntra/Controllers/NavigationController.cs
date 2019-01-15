@@ -49,7 +49,6 @@ namespace Compent.Uintra.Controllers
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
             ISubNavigationModelBuilder subNavigationModelBuilder,
             ITopNavigationModelBuilder topNavigationModelBuilder,
-            ICentralFeedContentService centralFeedContentService,
             ISystemLinksModelBuilder systemLinksModelBuilder,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IGroupService groupService,
@@ -62,7 +61,6 @@ namespace Compent.Uintra.Controllers
             IProfileLinkProvider profileLinkProvider,
             IPermissionsService permissionsService,
             IUserService userService,
-            IGroupContentProvider contentProvider,
             IUintraInformationService uintraInformationService)
             : base(
                 leftSideNavigationModelBuilder,
@@ -95,7 +93,7 @@ namespace Compent.Uintra.Controllers
             var topNavigation = _topNavigationModelBuilder.Get();
             var result = new TopNavigationExtendedViewModel
             {
-                CurrentUser = topNavigation.CurrentUser,
+                CurrentUser = topNavigation.CurrentUser.Map<UserViewModel>(),
                 CentralUserListUrl = topNavigation.CentralUserListUrl,
                 UintraDocumentationLink = _uintraInformationService.DocumentationLink,
                 UintraDocumentationVersion = _uintraInformationService.Version

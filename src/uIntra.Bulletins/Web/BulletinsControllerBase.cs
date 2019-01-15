@@ -143,7 +143,7 @@ namespace Uintra.Bulletins.Web
                 Title = currentUser.DisplayedName,
                 ActivityType = _activityTypeProvider[ActivityTypeId],
                 Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable(),
-                Creator = currentUser,
+                Creator = currentUser.Map<UserViewModel>(),
                 Links = links,
                 AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions,
                 MediaRootId = mediaSettings.MediaRootId
@@ -173,7 +173,7 @@ namespace Uintra.Bulletins.Web
 
             model.HeaderInfo = bulletin.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = bulletin.PublishDate.ToDateTimeFormat().ToEnumerable();
-            model.HeaderInfo.Owner = _userService.Get(bulletin);
+            model.HeaderInfo.Owner = _userService.Get(bulletin).Map<UserViewModel>();
             model.HeaderInfo.Links = options.Links;
 
             return model;
@@ -188,7 +188,7 @@ namespace Uintra.Bulletins.Web
             model.MediaIds = bulletin.MediaIds;
 
             model.HeaderInfo = bulletin.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Owner = owner;
+            model.HeaderInfo.Owner = owner.Map<UserViewModel>();
             model.HeaderInfo.Title = owner.DisplayedName;
             model.HeaderInfo.Links = links;
 
@@ -210,7 +210,7 @@ namespace Uintra.Bulletins.Web
                 Id = bulletin.Id,
                 Description = bulletin.Description,
                 PublishDate = bulletin.PublishDate,
-                Owner = owner,
+                Owner = owner.Map<UserViewModel>(),
                 ActivityType = bulletin.Type,
                 Links = links
             };

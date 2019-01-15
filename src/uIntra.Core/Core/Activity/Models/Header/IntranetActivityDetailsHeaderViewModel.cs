@@ -11,7 +11,7 @@ namespace Uintra.Core.Activity
     {
         public string Title { get; set; }
         public Enum Type { get; set; }
-        public IIntranetUser Owner { get; set; }
+        public UserViewModel Owner { get; set; }
         public IEnumerable<string> Dates { get; set; } = Enumerable.Empty<string>();
         public IActivityLinks Links { get; set; }
         public ActivityLocation Location { get; set; }

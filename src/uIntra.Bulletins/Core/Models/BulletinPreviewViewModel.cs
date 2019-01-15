@@ -9,7 +9,7 @@ namespace Uintra.Bulletins
         public Guid Id { get; set; }
         public string Description { get; set; }
         public DateTime PublishDate { get; set; }
-        public IIntranetUser Owner { get; set; }
+        public UserViewModel Owner { get; set; }
         public Enum ActivityType { get; set; }
         public ActivityLinks Links { get; set; }
     }

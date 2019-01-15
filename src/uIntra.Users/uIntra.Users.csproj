@@ -321,6 +321,7 @@
     <Compile Include="Core\IMemberServiceHelper.cs" />
     <Compile Include="Core\IMentionService.cs" />
     <Compile Include="Core\Models\GoogleAuthenticationSettings.cs" />
+    <Compile Include="Core\Models\UserList\ActiveUserSearchQuery.cs" />
     <Compile Include="Core\Models\UserList\DetailsPopupModel.cs" />
     <Compile Include="Core\Models\UserList\ProfileColumnModel.cs" />
     <Compile Include="Core\Models\UserList\ColumnType.cs" />
