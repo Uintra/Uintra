@@ -27,8 +27,9 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._2
                 { "UserList.Table.Department.lbl", "Department"},
                 { "UserList.Table.Phone.lbl", "Phone"},
                 {"Profile.Department.lbl","Department"},
-                {"Profile.Phone.lbl","Phone" }
-
+                {"Profile.Phone.lbl","Phone" },
+                {"Profile.Department.Placeholder", "Department placeholder" },
+                {"Profile.Phone.Placeholder", "Phone placeholder" }
 
             },
             Remove = new List<string>()
