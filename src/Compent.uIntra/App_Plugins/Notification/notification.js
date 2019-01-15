@@ -8,6 +8,7 @@ require("./List/notificationList.css");
 var infinityScroll = helpers.infiniteScrollFactory;
 var body = document.querySelector('body');
 var html = document.querySelector('html');
+var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
 
 function initPreviewControls() {
     var notification = document.querySelector(".js-notification");
@@ -125,6 +126,10 @@ function updateCounter(count) {
 }
 
 function getPermissions() {
+    
+    if (mobileMediaQuery.matches) {
+        onDenied();
+    }
     if (push.Permission.has()) {
         onGranted();
     } else if (push.Permission.get() === push.Permission.DENIED) {
