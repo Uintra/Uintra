@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using Newtonsoft.Json.Linq;
+using Umbraco.Web;
 using HtmlHelper = System.Web.Mvc.HtmlHelper;
 
 namespace Uintra.Core.Grid
@@ -46,9 +47,29 @@ namespace Uintra.Core.Grid
                 {
                     return MvcHtmlString.Create($"<pre>{ex}</pre>");
                 }
+                else
+                {
+                    TransferRequestToErrorPage();
+                }
             }
 
             return MvcHtmlString.Empty;
+        }
+
+        private static void TransferRequestToErrorPage()
+        {
+            var umbracoHelper = DependencyResolver.Current.GetService<UmbracoHelper>();
+            var aliasProvider = DependencyResolver.Current.GetService<IDocumentTypeAliasProvider>();
+
+            var errorPage = umbracoHelper
+                .TypedContentSingleAtXPath(XPathHelper.GetXpath(
+                    aliasProvider.GetHomePage(),
+                    aliasProvider.GetErrorPage()));
+
+            if (errorPage != null)
+            {
+                HttpContext.Current.Server.TransferRequest(errorPage.Url);
+            }
         }
 
         public static bool IsEmptySection(dynamic section)

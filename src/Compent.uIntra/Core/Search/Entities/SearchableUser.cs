@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Uintra.Search;
 
@@ -22,6 +23,6 @@ namespace Compent.Uintra.Core.Search.Entities
 
         public bool Inactive { get; set; }
 
-        public IEnumerable<string> GroupIds { get; set; } = Enumerable.Empty<string>();
+        public IEnumerable<Guid> GroupIds { get; set; } = Enumerable.Empty<Guid>();
     }
 }

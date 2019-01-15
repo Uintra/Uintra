@@ -172,7 +172,7 @@ namespace Uintra.Groups.Web
             groupInfo.IsMember = _groupMemberService.IsGroupMember(group.Id, currentUser.Id);
             groupInfo.CanUnsubscribe = group.CreatorId != currentUser.Id;
 
-            groupInfo.Creator = _userService.Get(group.CreatorId);
+            groupInfo.Creator = _userService.Get(group.CreatorId).Map<UserViewModel>();
             groupInfo.MembersCount = _groupMemberService.GetMembersCount(group.Id);
             groupInfo.CreatorProfileUrl = _profileLinkProvider.GetProfileLink(group.CreatorId);
 
@@ -322,17 +322,14 @@ namespace Uintra.Groups.Web
             return viewModel;
         }
 
-        private static bool IsGroupCreator(Guid userId, GroupModel groupModel)
-        {
-            return userId == groupModel.CreatorId;
-        }
+        private static bool IsGroupCreator(Guid userId, GroupModel groupModel) => userId == groupModel.CreatorId;
 
         private GroupViewModel MapGroupViewModel(GroupModel group, bool isCurrentUserMember)
         {
             var groupModel = group.Map<GroupViewModel>();
             groupModel.IsMember = isCurrentUserMember;
             groupModel.MembersCount = _groupMemberService.GetMembersCount(group.Id);
-            groupModel.Creator = _userService.Get(group.CreatorId);
+            groupModel.Creator = _userService.Get(group.CreatorId).Map<UserViewModel>();
             groupModel.GroupUrl = _groupLinkProvider.GetGroupLink(group.Id);
             if (groupModel.HasImage)
             {

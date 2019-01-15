@@ -98,7 +98,7 @@ namespace Uintra.Events.Web
                 .Select(@event =>
                 {
                     var viewModel = @event.Map<ComingEventViewModel>();
-                    viewModel.Owner = ownersDictionary[@event.OwnerId];
+                    viewModel.Owner = ownersDictionary[@event.OwnerId].Map<UserViewModel>();
                     viewModel.Links = _activityLinkService.GetLinks(@event.Id);
                     return viewModel;
                 })
@@ -204,7 +204,7 @@ namespace Uintra.Events.Web
                 Id = @event.Id,
                 Title = @event.Title,
                 Dates = @event.StartDate.GetEventDateTimeString(@event.EndDate).ToListOfOne(),
-                Owner = owner,
+                Owner = owner.Map<UserViewModel>(),
                 ActivityType = @event.Type,
                 Links = links
             };
@@ -243,7 +243,7 @@ namespace Uintra.Events.Web
             model.IsReadOnly = options.IsReadOnly;
 
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Owner = _intranetUserService.Get(@event);
+            model.HeaderInfo.Owner = _intranetUserService.Get(@event).Map<UserViewModel>();
             model.HeaderInfo.Links = options.Links;
 
             return model;
@@ -259,7 +259,7 @@ namespace Uintra.Events.Web
             model.Links = links;
 
             model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Owner = _intranetUserService.Get(@event);
+            model.HeaderInfo.Owner = _intranetUserService.Get(@event).Map<UserViewModel>();
             model.HeaderInfo.Links = links;
 
             return model;

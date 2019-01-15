@@ -7,7 +7,7 @@ namespace Uintra.Core.Activity
 {
     public class IntranetActivityOwnerEditModel
     {
-        public IIntranetUser Owner { get; set; }
+        public UserViewModel Owner { get; set; }
         public IEnumerable<IIntranetUser> Users { get; set; } = Enumerable.Empty<IIntranetUser>();
         public bool CanEditOwner { get; set; }
         public string OwnerIdPropertyName { get; set; }

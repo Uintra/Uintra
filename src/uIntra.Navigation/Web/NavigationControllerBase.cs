@@ -105,7 +105,7 @@ namespace Uintra.Navigation.Web
 
             var result = new LeftNavigationUserMenuViewModel
             {
-                CurrentUser = currentUser,
+                CurrentUser = currentUser.Map<UserViewModel>(),
                 ProfileLink = _profileLinkProvider.GetProfileLink(currentUser.Id)
             };
 
