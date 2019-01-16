@@ -84,8 +84,8 @@ let controller = {
             var direction = link.hasClass(ascendingClassName) ? 1 : 0;
             request.take = request.skip + request.take;
             request.skip = 0;
-            request.orderBy = link.data("order-by");
-            request.direction = direction;
+            request.orderingString = link.data("order-by");
+            request.orderingDirection = direction;
 
             ajax.post(url, request)
                 .then((result) => {
@@ -109,7 +109,7 @@ let controller = {
         function search(searchString) {
             request.skip = 0;
             request.take = displayedAmount;
-            request.query = searchString;
+            request.text = searchString;
 
             ajax.post(url, request)
                 .then(result => {

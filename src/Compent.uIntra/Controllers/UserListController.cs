@@ -8,6 +8,7 @@ using Compent.Uintra.Core.Users.UserList;
 using EmailWorker.Data.Extensions;
 using LanguageExt;
 using Localization.Core;
+using Localization.Umbraco.Attributes;
 using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Groups;
@@ -19,6 +20,7 @@ using static LanguageExt.Prelude;
 
 namespace Compent.Uintra.Controllers
 {
+    [ThreadCulture]
     public class UserListController : UserListControllerBase
     {
         private readonly IElasticIndex _elasticIndex;
@@ -77,7 +79,7 @@ namespace Compent.Uintra.Controllers
         {
             var model = base.MapToViewModel(user);
             model.ProfileUrl = _profileLinkProvider.GetProfileLink(user.Id);
-            model.IsGroupAdmin = CurrentGroupId() == user.Id;
+            model.IsGroupAdmin = CurrentGroup().Map(CreatorId) == user.Id;
             return model;
         }
 

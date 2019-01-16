@@ -47,7 +47,7 @@ namespace Uintra.Users.Web
                 UsersRowsViewPath = UsersRowsViewPath,
                 OrderByColumn = orderByColumn
             };
-           
+
             var activeUserSearchRequest = new ActiveUserSearchQuery
             {
                 Text = string.Empty,
@@ -57,6 +57,7 @@ namespace Uintra.Users.Web
                 OrderingDirection = 0,
                 GroupId = groupId
             };
+                
 
             var (activeUsers, isLastRequest) = GetActiveUsers(activeUserSearchRequest);
             viewModel.UsersRows.SelectedColumns = ExtendIfGroupMembersPage(groupId, selectedColumns);
@@ -65,12 +66,13 @@ namespace Uintra.Users.Web
             return View(UserListViewPath, viewModel);
         }
 
-        public virtual ActionResult GetUsers(string selectedColumns, ActiveUserSearchQuery query)
+        public virtual ActionResult GetUsers(ActiveUserSearchQueryModel queryModel)
         {
-            var columns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(selectedColumns);
+            var columns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(queryModel.SelectedColumns);
             var model = GetUsersRowsViewModel();
             model.SelectedColumns = columns;
 
+            var query = queryModel.Map<ActiveUserSearchQuery>();
             var (activeUsers, isLastRequest) = GetActiveUsers(query);
 
             model.Users = activeUsers;

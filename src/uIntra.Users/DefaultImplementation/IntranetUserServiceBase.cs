@@ -55,7 +55,7 @@ namespace Uintra.Users
 
         private T GetSingle(Func<T, bool> predicate)
         {
-            var member = GetAll().SingleOrDefault(predicate);
+            var member = GetAll().Single(predicate);
             return member;
         }
 

@@ -61,11 +61,11 @@
 <script type="text/javascript">
     window.userListConfig = {
         request: {
+            text: '',
             skip: 0,
             take: @Model.DisplayedAmount,
-            query: '',
-            orderBy: '@(Model.OrderByColumn?.PropertyName)',
-            direction: 0,
+            orderingString: '@(Model.OrderByColumn?.PropertyName)',
+            orderingDirection: 0,
             selectedColumns: '@Html.Raw(JsonConvert.SerializeObject(Model.UsersRows.SelectedColumns))',
             groupId: ''
         },

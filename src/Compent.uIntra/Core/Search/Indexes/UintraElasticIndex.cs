@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Compent.Uintra.Core.Search.Entities;
+using EmailWorker.Data.Extensions;
 using LanguageExt;
 using Nest;
 using Uintra.Core.Extensions;
@@ -33,13 +34,22 @@ namespace Compent.Uintra.Core.Search.Indexes
         protected override QueryContainer[] GetQueryContainers(string query, Option<Guid> groupId)
         {
             var containers = base.GetQueryContainers(query, groupId).ToList();
-
             containers.Add(GetTagNames<SearchableUintraContent>(query));
             containers.Add(GetTagNames<SearchableUintraActivity>(query));
             containers.Add(GetTagNames<SearchableUser>(query));
             containers.Add(GetTagsDescriptor(query));
             containers.AddRange(GetUserDescriptor(query, groupId));
-            return containers.ToArray();
+
+            var shouldDescriptor = new QueryContainerDescriptor<SearchableUser>()
+                .Bool(b => b.Should(containers.ToArray()));
+
+            var groupIdDescriptor = new QueryContainerDescriptor<SearchableUser>()
+                .Term(t => t.Field(f => f.GroupIds).Value(groupId.ToNullable()));
+
+            var mustDescriptor = new QueryContainerDescriptor<SearchableUser>().Bool(b => b
+                .Must(shouldDescriptor, groupIdDescriptor));
+
+            return mustDescriptor.ToEnumerableOfOne().ToArray();
         }
 
         public QueryContainer[] GetUserDescriptor(string query, Option<Guid> groupId)
@@ -65,10 +75,7 @@ namespace Compent.Uintra.Core.Search.Indexes
                     .Query(query)
                     .Analyzer(ElasticHelpers.Lowercase)
                     .Field(f => f.Email)
-                    .Boost(scores.UserEmailScore)),
-                new QueryContainerDescriptor<SearchableUser>().Match(m => m
-                    .Query(groupId.Map(toString).IfNone(string.Empty))
-                    .Field(f => f.GroupIds))
+                    .Boost(scores.UserEmailScore))
             };
             return desc.ToArray();
         }
