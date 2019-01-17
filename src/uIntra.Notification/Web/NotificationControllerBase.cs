@@ -132,23 +132,31 @@ namespace Uintra.Notification.Web
         [System.Web.Mvc.HttpGet]
         public virtual int GetNotNotifiedCount()
         {
-            var userId = _intranetUserService.GetCurrentUserId();
-            var count = _uiNotifierService.GetNotNotifiedCount(userId);
+            var currentUser = _intranetUserService.GetCurrentUser();
+
+            var count = currentUser != null
+                ? _uiNotifierService.GetNotNotifiedCount(currentUser.Id)
+                : default;
+
             return count;
         }
 
         [System.Web.Mvc.HttpGet]
         public virtual ActionResult GetNotNotifiedNotifications()
         {
-            var userId = _intranetUserService.GetCurrentUserId();
-            var notNotifiedNotifications = _uiNotifierService.GetNotNotifiedNotifications(userId);
+            var currentUser = _intranetUserService.GetCurrentUser();
 
-            var model = new JsonNotificationsModel()
+            var notNotifiedNotifications = (currentUser != null
+                ? _uiNotifierService.GetNotNotifiedNotifications(currentUser.Id)
+                : Enumerable.Empty<Notification>())
+                .ToList();
+
+            var model = new JsonNotificationsModel
             {
-                Count = notNotifiedNotifications.Count(),
+                Count = notNotifiedNotifications.Count,
                 Notifications = notNotifiedNotifications.Select(MapNotificationToJsonModel),
             };
-            return new JsonNetResult()
+            return new JsonNetResult
             {
                 Data = model,
                 SerializerSettings = new JsonSerializerSettings()
