@@ -6,8 +6,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
     {
         public class DocumentTypeNames
         {
-            public const string SystemLink = "System Link";
-            public const string SystemLinkFolder = "System Link Folder";
+            public const string SystemLink = "Shared Link";
+            public const string SystemLinkFolder = "Shared Link Folder";
             public const string HomeNavigationComposition = "Home Navigation Composition";
             public const string NavigationComposition = "Navigation Composition";
         }
