@@ -50,6 +50,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._2
                 yield return SplitEventLabels.SplitEventLabelsTranslationsUpdateStep();
                 yield return Resolve<AddPhoneAndDepartmentToUserStep>();
                 yield return Resolve<ChangeGroupMembersDefaulPanelStep>();
+                yield return Resolve<UseInSearchDefaultTrueStep>();
                 yield return Resolve<ChangeSystemLinksToSharedLinksStep>();               
             }
         }
