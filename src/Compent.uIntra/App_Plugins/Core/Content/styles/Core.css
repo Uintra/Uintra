@@ -730,7 +730,7 @@ img{
     }
 }
 
-.top{
+.top {
     position: fixed;
     bottom: 0;
     left: 19px;
@@ -742,13 +742,18 @@ img{
     height: 41px;
     opacity: 0;
     cursor: pointer;
-    z-index:-1;
+    z-index: -1;
     transition: opacity 0.3s ease;
 
-    ._notifications-expanded &,
-    ._notifications-expanded &._visible,
-    ._aside-expanded &,
-    ._aside-expanded &._visible{
+    @media(--for-tablet-landscape-up) {
+        left:229px;
+    }
+
+    @media (min-width: 1552px) {
+        left:calc(50% - 546px);
+    }
+
+    ._notifications-expanded &, ._notifications-expanded &._visible, ._aside-expanded &, ._aside-expanded &._visible{
         opacity: 0;
         z-index:-1;
     }
