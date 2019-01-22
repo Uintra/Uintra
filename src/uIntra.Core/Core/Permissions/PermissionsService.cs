@@ -22,30 +22,40 @@ namespace Uintra.Core.Permissions
         private readonly IPermissionTypeProvider _permissionsTypeProvider;
         private readonly IRoleTypeProvider _roleTypeProvider;
 
-        public PermissionsService(ISqlRepository<PermissionEntity> permissionsRepository, IRoleTypeProvider roleTypeProvider)
+        public PermissionsService(
+            ISqlRepository<PermissionEntity> permissionsRepository,
+            IRoleTypeProvider roleTypeProvider,
+            IPermissionTypeProvider permissionsTypeProvider)
         {
             _permissionsRepository = permissionsRepository;
             _roleTypeProvider = roleTypeProvider;
+            _permissionsTypeProvider = permissionsTypeProvider;
         }
 
         public EntityPermissions Get(Guid entityId)
         {
-            throw new NotImplementedException();
+            var predicate = EntityIdIs(entityId);
+            var queryResult = _permissionsRepository.FindAll(predicate);
+
+            var transientEntities = ToTransientEntities(queryResult,
+                _permissionsTypeProvider.IntTypeDictionary, _roleTypeProvider.IntTypeDictionary);
+
+            var result = ToModel(entityId, transientEntities);
+
+            return result;
         }
 
-        public EntityRolePermissions Get(Guid entityId, Role role)
+        public EntityRolePermissions GeForRole(Guid entityId, Role role)
         {
             var predicate = AndAlso(EntityIdIs(entityId), RoleIdIs(role.Id));
             var queryResult = _permissionsRepository.FindAll(predicate);
 
-            var transientEntities = ToTransientEntities(
-                queryResult,
-                _permissionsTypeProvider.IntTypeDictionary,
-                _roleTypeProvider.IntTypeDictionary);
+            var transientEntities = ToTransientEntities(queryResult,
+                _permissionsTypeProvider.IntTypeDictionary, _roleTypeProvider.IntTypeDictionary);
 
-            var entityRolePermissions = ToModel(entityId, role, transientEntities);
+            var result = ToModel(entityId, role, transientEntities);
 
-            return entityRolePermissions;
+            return result;
         }
 
         public bool Has(Guid entityId, Role role, Enum[] permissions)
@@ -56,21 +66,44 @@ namespace Uintra.Core.Permissions
             return queryResult == permissions.Length;
         }
 
+        public Unit Save(EntityPermissions permissions)
+        {
+            var predicate = AndAlso(EntityIdIs(permissions.EntityId));
+            _permissionsRepository.Delete(predicate);
+
+            var permissionsToAdd = permissions.Permissions
+                .SelectMany(permissionsByRole =>
+                    permissionsByRole.Value
+                        .Select(permission => Create(permissions.EntityId, permissionsByRole.Key, permission.ToInt())));
+
+            _permissionsRepository.Add(permissionsToAdd);
+
+            return unit;
+        }
+
         public Unit Save(EntityRolePermissions permissions)
         {
             var predicate = AndAlso(EntityIdIs(permissions.EntityId), RoleIdIs(permissions.Role.Id));
-            var queryResult = _permissionsRepository.FindAll(predicate);
+            _permissionsRepository.Delete(predicate);
 
-            var (permissionsToAdd, permissionsToDelete) = PermissionsDifference(queryResult, permissions);
+            var permissionsToAdd = permissions.Permissions
+                .Select(permission => Create(permissions.EntityId, permissions.Role, permission.ToInt()));
 
-            _permissionsRepository.Delete(permissionsToDelete);
+            _permissionsRepository.Add(permissionsToAdd);
 
-            throw new NotImplementedException();
+            return unit;
         }
 
         public Unit Add(Guid entityId, Role role, Enum[] permissions)
         {
-            throw new NotImplementedException();
+            var predicate = AndAlso(EntityIdIs(entityId), RoleIdIs(role.Id));
+            var queryResult = _permissionsRepository.FindAll(predicate);
+
+            var permissionsToAdd = PermissionEntitiesToAdd(entityId, role, queryResult, permissions);
+
+            _permissionsRepository.Add(permissionsToAdd);
+
+            return unit;
         }
 
         public Unit Remove(Guid entityId, Role role, Enum[] permissions)
@@ -81,7 +114,6 @@ namespace Uintra.Core.Permissions
             return unit;
         }
 
-
         public static PermissionEntity Create(Guid entityId, Role role, int permissionType) =>
             new PermissionEntity
             {
@@ -90,20 +122,23 @@ namespace Uintra.Core.Permissions
                 PermissionType = permissionType
             };
 
-        public static (IEnumerable<int> permissionsToAdd, IEnumerable<PermissionEntity> permissionsToDelete) PermissionsDifference(
+        public static IEnumerable<PermissionEntity> PermissionEntitiesToAdd(
+            Guid entityId,
+            Role role,
             IList<PermissionEntity> storedEntities,
-            EntityRolePermissions proposedPermission)
+            Enum[] proposedPermissions)
         {
-            var(permissionsToAdd, permissionsToDelete) = storedEntities
+            var (_, missingPermissions) = storedEntities
                 .Select(x => x.RoleType)
-                .Difference(proposedPermission.Permissions.Select(EnumExtensions.ToInt));
+                .Difference(proposedPermissions.Select(EnumExtensions.ToInt));
 
-            var permissionEntitiesToRemove = storedEntities.Where(e => permissionsToDelete.Contains(e.PermissionType));
+            var permissionEntitiesToAdd = missingPermissions
+                .Select(permission => Create(entityId, role, permission));
 
-            return (permissionsToAdd, permissionEntitiesToRemove);
+            return permissionEntitiesToAdd;
         }
 
-        public static Expression<Func<PermissionEntity, bool>> EntityIdIs(Guid id) => 
+        public static Expression<Func<PermissionEntity, bool>> EntityIdIs(Guid id) =>
             entity => entity.EntityId == id;
 
         public static Expression<Func<PermissionEntity, bool>> RoleIdIs(int id) =>
@@ -114,7 +149,6 @@ namespace Uintra.Core.Permissions
             var permissionIds = permissions.Select(EnumExtensions.ToInt);
             return entity => permissionIds.Contains(entity.PermissionType);
         }
-
 
         public static IEnumerable<TransientPermissionEntity> ToTransientEntities(
             IList<PermissionEntity> entities,
@@ -134,5 +168,16 @@ namespace Uintra.Core.Permissions
             Role role,
             IEnumerable<TransientPermissionEntity> entities) =>
             new EntityRolePermissions(entityId, role, entities.Select(entity => entity.PermissionType).ToArray());
+
+        public static EntityPermissions ToModel(
+            Guid entityId,
+            IEnumerable<TransientPermissionEntity> entities)
+        {
+            var permissionsByRole = entities
+                .ToLookup(entity => entity.RoleType, entity => entity.PermissionType)
+                .ToDictionary(pair => pair.Key, pair => pair.ToArray());
+
+            return new EntityPermissions(entityId, permissionsByRole);
+        }
     }
 }
