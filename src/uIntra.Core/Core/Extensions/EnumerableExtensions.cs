@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using Compent.Extensions;
 using LanguageExt;
 using static LanguageExt.Prelude;
 
@@ -35,5 +37,10 @@ namespace Uintra.Core.Extensions
         public static Option<T> Choose<T>(this Option<T> source, Func<Option<T>> other) => source.IsSome ? source : other();
 
         public static TType Cast<TType>(this object value)  => (TType) value;
+
+        public static Expression<Func<T, bool>> AndAlso<T>(params Expression<Func<T, bool>>[] predicates) =>
+            predicates.Aggregate(expr((T x) => true), ExpressionExtensions.AndAlso);
+
+
     }
 }

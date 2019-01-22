@@ -27,10 +27,8 @@ using Compent.Uintra.Core.IoC;
 using Compent.Uintra.Core.LinkPreview.Config;
 using Compent.Uintra.Core.Navigation;
 using Compent.Uintra.Core.News;
-using Compent.Uintra.Core.News.Entities;
 using Compent.Uintra.Core.Notification;
 using Compent.Uintra.Core.PagePromotion;
-using Compent.Uintra.Core.PagePromotion.Entities;
 using Compent.Uintra.Core.Search;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.Search.Entities.Mappings;
@@ -83,6 +81,7 @@ using Uintra.Core.Media;
 using Uintra.Core.MigrationHistories;
 using Uintra.Core.ModelBinders;
 using Uintra.Core.PagePromotion;
+using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.Persistence;
 using Uintra.Core.Providers;
 using Uintra.Core.TypeProviders;
@@ -203,9 +202,9 @@ namespace Compent.Uintra
                 .SelectAllClasses()
                 .InheritedFrom(typeof(IMigration))
                 .BindSingleInterface());
-            kernel.Bind<IMigrationStepsResolver>().To<MigrationStepsResolver>().InRequestScope();
+            kernel.Bind<IMigrationStepsResolver>().To<MigrationStepsResolver>().InSingletonScope();
 
-            kernel.Bind<IUintraInformationService>().To<UintraInformationService>().InRequestScope();
+            kernel.Bind<IUintraInformationService>().To<UintraInformationService>().InSingletonScope();
   
             //verification
             kernel.Bind<IUmbracoVerificationService>().To<UmbracoVerificationService>().InRequestScope();
@@ -412,11 +411,18 @@ namespace Compent.Uintra
             kernel.Bind<ITimezoneOffsetProvider>().To<TimezoneOffsetProvider>().InRequestScope();
             kernel.Bind<ICookieProvider>().To<CookieProvider>().InRequestScope();
 
-            kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
+            //type providers
+
+            kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InSingletonScope();
             kernel.Bind<INotifierTypeProvider>().To<NotifierTypeProvider>().InSingletonScope();
-            kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InRequestScope();
-            kernel.Bind<IFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
-            kernel.Bind<IContextTypeProvider>().To<ContextTypeProvider>().InRequestScope();
+            kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InSingletonScope();
+            kernel.Bind<IFeedTypeProvider>().To<CentralFeedTypeProvider>().InSingletonScope();
+            kernel.Bind<IContextTypeProvider>().To<ContextTypeProvider>().InSingletonScope();
+            kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InSingletonScope();
+            kernel.Bind<ISearchableTypeProvider>().To<UintraSearchableTypeProvider>().InSingletonScope();
+            kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InSingletonScope();
+            kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
+            kernel.Bind<IPermissionTypeProvider>().To<PermissionTypeProvider>().InSingletonScope();
 
             kernel.Bind<IGroupService>().To<GroupService>().InRequestScope();
             kernel.Bind<IGroupMemberService>().To<GroupMemberService>().InRequestScope();
@@ -428,9 +434,7 @@ namespace Compent.Uintra
             kernel.Bind<IGroupMediaService>().To<GroupMediaService>().InRequestScope();
             kernel.Bind<IProfileLinkProvider>().To<ProfileLinkProvider>().InRequestScope();
 
-            kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InSingletonScope();
-            kernel.Bind<ISearchableTypeProvider>().To<UintraSearchableTypeProvider>().InRequestScope();
-            kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
+            
 
             //umbraco events subscriptions
             kernel.Bind<IUmbracoContentPublishedEventService>().To<SearchContentEventService>().InRequestScope();
@@ -448,7 +452,6 @@ namespace Compent.Uintra
             kernel.Bind<IUmbracoContentUnPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
             kernel.Bind<IUmbracoMediaSavedEventService>().To<VideoConvertEventService>().InRequestScope();
 
-            kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
 
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
