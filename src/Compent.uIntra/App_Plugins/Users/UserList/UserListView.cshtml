@@ -25,6 +25,11 @@
                 <div class="users-table__row js-user-head-row">
                     @foreach (var column in Model.UsersRows.SelectedColumns)
                     {
+                        if (column.Type == Uintra.Users.UserList.ColumnType.Photo)
+                        {
+                            continue;
+                        }
+
                         if (column.SupportSorting)
                         {
                             var selected = Model.OrderByColumn.Id == column.Id;
@@ -32,14 +37,14 @@
                                 <a href="" class="js-user-list-sort-link @(selected ? "_asc" : "")"
                                    data-order-by="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
                             </div>
+                            continue;
                         }
-                        else
-                        {
-                            <div class="users-table__head users-table__head--photo">
-                                <span>@Html.Localize($"UserList.Table.{column.Alias}.lbl")</span>
-                            </div>
-                        }
+
+                        <div class="users-table__head">
+                            <span class="users-table__tools"></span>
+                        </div>
                     }
+
                 </div>
             </div>
             <div class="users-table__tbody js-tbody">

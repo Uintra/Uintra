@@ -20,20 +20,16 @@
                     }
                     break;
                 case ColumnType.Photo:
+                    break;
+                case ColumnType.Name:
                     {
-                        <div class="users-table__cell users-table__cell--photo">
+                        <div class="users-table__cell">
                             @Html.Action("Photo", "User", new
                             {
                                 user = user.User,
                                 cssModificator = "avatar--group-member",
                                 photoWidth = 30
                             })
-                        </div>
-                    }
-                    break;
-                case ColumnType.Name:
-                    {
-                        <div class="users-table__cell">
                             <span class="users-table__name">@user.DisplayedName</span>
                         </div>
                     }
@@ -80,18 +76,15 @@
                     }
                     break;
                 case ColumnType.GroupRole:
-                    {
-                        <div class="users-table__cell">
-                            @{var role = user.IsGroupAdmin ? "GroupMembers.Table.GroupAdmin.lbl" : "GroupMembers.Table.GroupMember.lbl";}
-                            <span class="users-table__text">@Html.Localize(role)</span>
-                            @if ((Model.CurrentUser.Id == user.User.Id || Model.IsCurrentUserAdmin) && !user.IsGroupAdmin)
-                            {
-                                <button class="js-user-list-delete">X</button>
-                            }
-                        </div>
-                    }
+                    <div class="users-table__cell users-table__cell--tools">
+                        @if ((Model.CurrentUser.Id == user.User.Id || Model.IsCurrentUserAdmin) && !user.IsGroupAdmin)
+                        {
+                        <button class="users-table__delete js-user-list-delete">X</button>
+                        }
+                    </div>
                     break;
             }
+
 
         }
     </div>

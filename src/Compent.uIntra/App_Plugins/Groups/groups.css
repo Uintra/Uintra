@@ -513,8 +513,9 @@
 
 .avatar.avatar--group-member,
 .avatar--group-member{
-    margin:-7px 0;
+    margin:-9px 0;
     width: 30px;
     min-width: 30px;
     height: 30px;
+    float:left;
 }
