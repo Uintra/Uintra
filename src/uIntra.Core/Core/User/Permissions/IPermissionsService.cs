@@ -11,9 +11,9 @@ namespace Uintra.Core.User.Permissions
         IEnumerable<string> GetRolePermission(IRole role);
         string GetPermissionFromTypeAndAction(Enum activityType, IntranetActivityActionEnum action);
 
-        bool IsCurrentUserHasAccess(Enum activityType, IntranetActivityActionEnum action, Guid? activityId = null);
-        bool IsUserHasAccess(IIntranetUser user, Enum activityType, IntranetActivityActionEnum action, Guid? activityId = null);
-        bool IsUserWebmaster(IIntranetUser user);
-        bool IsUserHasAccessToContent(IIntranetUser user, IPublishedContent content);
+        bool IsCurrentMemberHasAccess(Enum activityType, IntranetActivityActionEnum action, Guid? activityId = null);
+        bool IsUserHasAccess(IIntranetMember member, Enum activityType, IntranetActivityActionEnum action, Guid? activityId = null);
+        bool IsUserWebmaster(IIntranetMember member);
+        bool IsUserHasAccessToContent(IIntranetMember member, IPublishedContent content);
     }
 }

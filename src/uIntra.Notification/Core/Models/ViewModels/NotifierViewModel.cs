@@ -9,6 +9,6 @@ namespace Uintra.Notification
         public string Name { get; set; }
         public string Photo { get; set; }
         public string ProfileLink { get; set; }
-        public UserViewModel User { get; set; }
+        public MemberViewModel Member { get; set; }
     }
 }

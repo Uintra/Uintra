@@ -2,7 +2,7 @@ using System;
 
 namespace Uintra.Core.User
 {
-    public interface IIntranetUser
+    public interface IIntranetMember
     {
         Guid Id { get; set; }
         int? UmbracoId { get; set; }

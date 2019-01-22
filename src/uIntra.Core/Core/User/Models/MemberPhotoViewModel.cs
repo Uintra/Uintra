@@ -1,6 +1,6 @@
 ﻿namespace Uintra.Core.User
 {
-    public class UserPhotoViewModel
+    public class MemberPhotoViewModel
     {
         public string PhotoUrl { get; set; }
         public string AltText { get; set; }

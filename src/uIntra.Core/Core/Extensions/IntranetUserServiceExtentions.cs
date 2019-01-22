@@ -3,12 +3,12 @@ using Uintra.Core.User;
 
 namespace Uintra.Core.Extensions
 {
-    public static class IntranetUserServiceExtensions
+    public static class IntranetMemberServiceExtensions
     {
-        public static Guid GetCurrentUserId(this IIntranetUserService<IIntranetUser> intranetUserService)
+        public static Guid GetCurrentMemberId(this IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
-            var currentUser = intranetUserService.GetCurrentUser();
-            return currentUser.Id;
+            var currentMember = intranetMemberService.GetCurrentMember();
+            return currentMember.Id;
         }
     }
 }

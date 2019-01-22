@@ -27,8 +27,8 @@ namespace Uintra.Groups.Permissions
             }
 
             var permissionsService = HttpContext.Current.GetService<IGroupPermissionsService>();
-            var intranetUserService = HttpContext.Current.GetService<IIntranetUserService<IGroupMember>>();
-            var isUserHasAccess = permissionsService.HasPermission(intranetUserService.GetCurrentUser().Role, _action);
+            var intranetUserService = HttpContext.Current.GetService<IIntranetMemberService<IGroupMember>>();
+            var isUserHasAccess = permissionsService.HasPermission(intranetUserService.GetCurrentMember().Role, _action);
 
             if (!isUserHasAccess)
             {

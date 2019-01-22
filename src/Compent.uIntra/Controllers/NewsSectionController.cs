@@ -12,8 +12,8 @@ namespace Compent.Uintra.Controllers
     {
         private readonly IMyLinksService _myLinksService;
 
-        public NewsSectionController(INewsService<NewsBase> newsService, IIntranetUserService<IIntranetUser> intranetUserService, IMediaHelper mediaHelper, IMyLinksService myLinksService) 
-            : base(newsService, intranetUserService, mediaHelper)
+        public NewsSectionController(INewsService<NewsBase> newsService, IIntranetMemberService<IIntranetMember> intranetMemberService, IMediaHelper mediaHelper, IMyLinksService myLinksService) 
+            : base(newsService, intranetMemberService, mediaHelper)
         {
             _myLinksService = myLinksService;
         }

@@ -29,7 +29,7 @@ namespace Compent.Uintra.Controllers
         private readonly INotificationsService _notificationsService;
         private readonly IMemberServiceHelper _memberServiceHelper;
         private readonly IMemberService _memberService;
-        private readonly ICacheableIntranetUserService _cacheableIntranetUserService;
+        private readonly ICacheableIntranetMemberService _cacheableIntranetMemberService;
         private readonly IUintraInformationService uintraInformationService;
 
         protected override string LoginViewPath => "~/Views/Login/Login.cshtml";
@@ -40,7 +40,7 @@ namespace Compent.Uintra.Controllers
             INotificationsService notificationsService,
             IMemberServiceHelper memberServiceHelper,
             IMemberService memberService,
-            ICacheableIntranetUserService cacheableIntranetUserService,
+            ICacheableIntranetMemberService cacheableIntranetMemberService,
             IApplicationSettings applicationSettings,
             IUintraInformationService uintraInformationService)
             : base(timezoneOffsetProvider, intranetLocalizationService, applicationSettings)
@@ -50,7 +50,7 @@ namespace Compent.Uintra.Controllers
             _notificationsService = notificationsService;
             _memberServiceHelper = memberServiceHelper;
             _memberService = memberService;
-            _cacheableIntranetUserService = cacheableIntranetUserService;
+            _cacheableIntranetMemberService = cacheableIntranetMemberService;
             this.uintraInformationService = uintraInformationService;
         }
 
@@ -145,7 +145,7 @@ namespace Compent.Uintra.Controllers
             {
                 _memberService.SavePassword(mbr, UsersInstallationConstants.DefaultMember.Password);
                 _memberService.AssignRole(mbr.Id, UsersInstallationConstants.MemberGroups.GroupWebMaster);
-                _cacheableIntranetUserService.UpdateUserCache(mbr.Key);
+                _cacheableIntranetMemberService.UpdateMemberCache(mbr.Key);
             }
         }
 

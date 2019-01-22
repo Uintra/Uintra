@@ -32,7 +32,7 @@ namespace Uintra.Events.Web
 
         private readonly IEventsService<EventBase> _eventsService;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IActivityLinkService _activityLinkService;
         private readonly IActivityPageHelperFactory _activityPageHelperFactory;
@@ -44,7 +44,7 @@ namespace Uintra.Events.Web
         protected EventsControllerBase(
             IEventsService<EventBase> eventsService,
             IMediaHelper mediaHelper,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IActivityTypeProvider activityTypeProvider,
             IActivityLinkService activityLinkService,
             IContextTypeProvider contextTypeProvider,
@@ -52,7 +52,7 @@ namespace Uintra.Events.Web
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _activityTypeProvider = activityTypeProvider;
             _activityLinkService = activityLinkService;
             _activityPageHelperFactory = activityPageHelperFactory;
@@ -91,14 +91,14 @@ namespace Uintra.Events.Web
         {
             var events = GetComingEvents(DateTime.Now).AsList();
 
-            var ownersDictionary = _intranetUserService.GetMany(events.Select(e => e.OwnerId)).ToDictionary(c => c.Id);
+            var ownersDictionary = _intranetMemberService.GetMany(events.Select(e => e.OwnerId)).ToDictionary(c => c.Id);
 
             var comingEvents = events
                 .Take(eventsAmount)
                 .Select(@event =>
                 {
                     var viewModel = @event.Map<ComingEventViewModel>();
-                    viewModel.Owner = ownersDictionary[@event.OwnerId].Map<UserViewModel>();
+                    viewModel.Owner = ownersDictionary[@event.OwnerId].Map<MemberViewModel>();
                     viewModel.Links = _activityLinkService.GetLinks(@event.Id);
                     return viewModel;
                 })
@@ -188,7 +188,7 @@ namespace Uintra.Events.Web
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddHours(8),
                 PublishDate = DateTime.UtcNow,
-                OwnerId = _intranetUserService.GetCurrentUserId(),
+                OwnerId = _intranetMemberService.GetCurrentMemberId(),
                 ActivityType = _activityTypeProvider[ActivityTypeId],
                 Links = links,
                 MediaRootId = mediaSettings.MediaRootId
@@ -198,13 +198,13 @@ namespace Uintra.Events.Web
 
         protected virtual EventPreviewViewModel GetPreviewViewModel(EventBase @event, ActivityLinks links)
         {
-            var owner = _intranetUserService.Get(@event);
+            var owner = _intranetMemberService.Get(@event);
             return new EventPreviewViewModel
             {
                 Id = @event.Id,
                 Title = @event.Title,
                 Dates = @event.StartDate.GetEventDateTimeString(@event.EndDate).ToListOfOne(),
-                Owner = owner.Map<UserViewModel>(),
+                Owner = owner.Map<MemberViewModel>(),
                 ActivityType = @event.Type,
                 Links = links
             };
@@ -243,7 +243,7 @@ namespace Uintra.Events.Web
             model.IsReadOnly = options.IsReadOnly;
 
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Owner = _intranetUserService.Get(@event).Map<UserViewModel>();
+            model.HeaderInfo.Owner = _intranetMemberService.Get(@event).Map<MemberViewModel>();
             model.HeaderInfo.Links = options.Links;
 
             return model;
@@ -259,7 +259,7 @@ namespace Uintra.Events.Web
             model.Links = links;
 
             model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Owner = _intranetUserService.Get(@event).Map<UserViewModel>();
+            model.HeaderInfo.Owner = _intranetMemberService.Get(@event).Map<MemberViewModel>();
             model.HeaderInfo.Links = links;
 
             return model;
@@ -285,7 +285,7 @@ namespace Uintra.Events.Web
             @event.PublishDate = createModel.PublishDate.ToUniversalTime();
             @event.EndDate = createModel.EndDate.ToUniversalTime();
             @event.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
-            @event.CreatorId = _intranetUserService.GetCurrentUserId();
+            @event.CreatorId = _intranetMemberService.GetCurrentMemberId();
 
             return @event;
         }

@@ -12,19 +12,19 @@ namespace Uintra.News
 {
     public abstract class NewsServiceBase<TNews> : IntranetActivityService<TNews> where TNews : NewsBase
     {
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
         protected NewsServiceBase(
             IIntranetActivityRepository activityRepository,
             ICacheService cache,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IActivityTypeProvider activityTypeProvider,
             IIntranetMediaService intranetMediaService,
             IActivityLocationService activityLocationService,
             IActivityLinkPreviewService activityLinkPreviewService)
             : base(activityRepository, cache, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
         }
 
         public override bool IsActual(IIntranetActivity activity)
@@ -52,9 +52,9 @@ namespace Uintra.News
 
         protected virtual bool IsOwner(NewsBase newsEntity)
         {
-            var owner = _intranetUserService.Get(newsEntity);
-            var currentUserId = _intranetUserService.GetCurrentUserId();
-            return owner.Id == currentUserId;
+            var owner = _intranetMemberService.Get(newsEntity);
+            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
+            return owner.Id == currentMemberId;
         }
     }
 }

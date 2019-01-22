@@ -4,7 +4,7 @@ namespace Uintra.Navigation
 {
     public class TopNavigationModel
     {
-        public IIntranetUser CurrentUser { get; set; }
+        public IIntranetMember CurrentMember { get; set; }
         public string CentralUserListUrl { get; set; }
     }
 }

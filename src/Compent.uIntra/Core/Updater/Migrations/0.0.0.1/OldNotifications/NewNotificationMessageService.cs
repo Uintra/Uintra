@@ -10,16 +10,16 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.OldNotifications
     {
         private readonly INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> _notificationModelMapper;
         private readonly INotificationSettingsService _notificationSettingsService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
         public NewNotificationMessageService(
             INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> notificationModelMapper,
             INotificationSettingsService notificationSettingsService,
-            IIntranetUserService<IIntranetUser> intranetUserService)
+            IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
             _notificationModelMapper = notificationModelMapper;
             _notificationSettingsService = notificationSettingsService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
         }
 
         private Enum UiNotifierType => NotifierTypeEnum.UiNotifier;
@@ -32,7 +32,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.OldNotifications
         {
             var notificationIdentity = new ActivityEventNotifierIdentity(activityType, notificationType, UiNotifierType);
             var template = _notificationSettingsService.Get<UiNotifierTemplate>(notificationIdentity).Template;
-            var receiver = _intranetUserService.Get(receiverId);
+            var receiver = _intranetMemberService.Get(receiverId);
             var message = _notificationModelMapper.Map(newValue, template, receiver);
             return message;
         }

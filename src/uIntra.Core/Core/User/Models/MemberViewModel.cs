@@ -2,7 +2,7 @@
 
 namespace Uintra.Core.User
 {
-    public class UserViewModel
+    public class MemberViewModel
     {
         public Guid Id { get; set; }
         public string DisplayedName { get; set; }

@@ -36,7 +36,7 @@ namespace Compent.Uintra.Controllers
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;
         private readonly IGroupFeedContentService _groupFeedContentService;
-        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IntranetUser> _intranetMemberService;
         private readonly IGroupLinkProvider _groupLinkProvider;
         private readonly IGroupContentProvider _groupContentProvider;
         private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
@@ -53,7 +53,7 @@ namespace Compent.Uintra.Controllers
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IGroupService groupService,
             IGroupFeedContentService groupFeedContentService,
-            IIntranetUserService<IntranetUser> intranetUserService,
+            IIntranetMemberService<IntranetUser> intranetMemberService,
             IGroupLinkProvider groupLinkProvider,
             IGroupContentProvider groupContentProvider,
             IGroupHelper groupHelper,
@@ -67,7 +67,7 @@ namespace Compent.Uintra.Controllers
                 subNavigationModelBuilder,
                 topNavigationModelBuilder,
                 systemLinksModelBuilder,
-                intranetUserService,
+                intranetMemberService,
                 profileLinkProvider,
                 permissionsService,
                 userService)
@@ -75,7 +75,7 @@ namespace Compent.Uintra.Controllers
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupService = groupService;
             _groupFeedContentService = groupFeedContentService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _groupLinkProvider = groupLinkProvider;
             _groupContentProvider = groupContentProvider;
             _subNavigationModelBuilder = subNavigationModelBuilder;
@@ -93,7 +93,7 @@ namespace Compent.Uintra.Controllers
             var topNavigation = _topNavigationModelBuilder.Get();
             var result = new TopNavigationExtendedViewModel
             {
-                CurrentUser = topNavigation.CurrentUser.Map<UserViewModel>(),
+                CurrentMember = topNavigation.CurrentMember.Map<MemberViewModel>(),
                 CentralUserListUrl = topNavigation.CentralUserListUrl,
                 UintraDocumentationLink = _uintraInformationService.DocumentationLink,
                 UintraDocumentationVersion = _uintraInformationService.Version
@@ -187,10 +187,10 @@ namespace Compent.Uintra.Controllers
                     .ToEnumerable()
                     .Map<IEnumerable<GroupNavigationActivityTabViewModel>>();
 
-                var currentUser = _intranetUserService.GetCurrentUser();
+                var currentMember = _intranetMemberService.GetCurrentMember();
                 var groupEditPage = _groupContentProvider.GetEditPage();
                 groupNavigationModel.PageTabs = _groupFeedContentService
-                    .GetPageTabs(CurrentPage, currentUser, groupId.Value)
+                    .GetPageTabs(CurrentPage, currentMember, groupId.Value)
                     .Select(t => MapToGroupPageTabViewModel(t, groupEditPage));
             }
 

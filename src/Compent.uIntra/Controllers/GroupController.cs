@@ -20,7 +20,7 @@ namespace Compent.Uintra.Controllers
 {
     public class GroupController : GroupControllerBase
     {
-        private readonly IIntranetUserService<IGroupMember> _intranetUserService;
+        private readonly IIntranetMemberService<IGroupMember> _intranetMemberService;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupPermissionsService _groupPermissionsService;
@@ -32,7 +32,7 @@ namespace Compent.Uintra.Controllers
             IGroupLinkProvider groupLinkProvider,
             IUserService userService,
             IGroupMediaService groupMediaService,
-            IIntranetUserService<IGroupMember> intranetUserService,
+            IIntranetMemberService<IGroupMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
             UmbracoHelper umbracoHelper,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
@@ -44,13 +44,13 @@ namespace Compent.Uintra.Controllers
                 groupMemberService,
                 mediaHelper,
                 groupMediaService,
-                intranetUserService,
+                intranetMemberService,
                 profileLinkProvider,
                 groupLinkProvider,
                 imageHelper,
                 commandPublisher)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _umbracoHelper = umbracoHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupPermissionsService = groupPermissionsService;
@@ -78,7 +78,7 @@ namespace Compent.Uintra.Controllers
         private IEnumerable<GroupLeftNavigationItemViewModel> GetMenuItems(IPublishedContent rootGroupPage)
         {
             var isPageActive = GetIsPageActiveFunc(_umbracoHelper.AssignedContentItem);
-            var role = _intranetUserService.GetCurrentUser().Role;
+            var role = _intranetMemberService.GetCurrentMember().Role;
 
             var groupPageChildren = rootGroupPage.Children.Where(el => el.IsShowPageInSubNavigation()).ToList();
 

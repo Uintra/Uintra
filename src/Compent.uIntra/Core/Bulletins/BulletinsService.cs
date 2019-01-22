@@ -38,7 +38,7 @@ namespace Compent.Uintra.Core.Bulletins
         IIndexer,
         IHandle<VideoConvertedCommand>
     {
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
@@ -58,7 +58,7 @@ namespace Compent.Uintra.Core.Bulletins
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
@@ -79,7 +79,7 @@ namespace Compent.Uintra.Core.Bulletins
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
                 activityLocationService, activityLinkPreviewService)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _commentsService = commentsService;
             _likesService = likesService;
             _permissionsService = permissionsService;
@@ -197,15 +197,15 @@ namespace Compent.Uintra.Core.Bulletins
 
         private bool CanPerform(IIntranetActivity cached, IntranetActivityActionEnum action)
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
 
-            var isWebmaster = _permissionsService.IsUserWebmaster(currentUser);
+            var isWebmaster = _permissionsService.IsUserWebmaster(currentMember);
             if (isWebmaster) return true;
 
             var ownerId = Get(cached.Id).OwnerId;
-            var isOwner = ownerId == currentUser.Id;
+            var isOwner = ownerId == currentMember.Id;
 
-            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, Type, action);
+            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentMember.Role, Type, action);
             return isOwner && isUserHasPermissions;
         }
 

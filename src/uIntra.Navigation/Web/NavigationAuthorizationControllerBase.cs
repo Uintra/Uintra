@@ -13,28 +13,28 @@ namespace Uintra.Navigation.Web
         protected virtual string UmbracoRedirectUrl { get; } = "/umbraco";
         protected virtual string LogoutViewPath { get; } = "~/App_Plugins/Users/Logout/Logout.cshtml";
 
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IUserService _userService;
         private readonly IApplicationSettings _applicationSettings;
 
         protected NavigationAuthorizationControllerBase(
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IUserService userService, IApplicationSettings applicationSettings)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _userService = userService;
             _applicationSettings = applicationSettings;
         }
 
         public virtual ActionResult LoginToUmbraco()
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
-            if (!currentUser.UmbracoId.HasValue)
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            if (!currentMember.UmbracoId.HasValue)
             {
                 return Redirect(DefaultRedirectUrl);
             }
 
-            var umbracoUser = _userService.GetUserById(currentUser.UmbracoId.Value);
+            var umbracoUser = _userService.GetUserById(currentMember.UmbracoId.Value);
             if (umbracoUser == null
                 || umbracoUser.IsLockedOut
                 || !umbracoUser.IsApproved)

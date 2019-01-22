@@ -12,26 +12,26 @@ namespace Uintra.Users.Web
     [ApiAuthorizationFilter]
     public abstract class MemberManagementApiControllerBase : ApiController
     {
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
-        protected MemberManagementApiControllerBase(IIntranetUserService<IIntranetUser> intranetUserService)
+        protected MemberManagementApiControllerBase(IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
         }
 
 
         [HttpPost]
-        public virtual IHttpActionResult Create(CreateUserDto createModel)
+        public virtual IHttpActionResult Create(CreateMemberDto createModel)
         {
             if (ModelState.IsValid)
             {
-                var user = _intranetUserService.GetByEmail(createModel.Email);
+                var user = _intranetMemberService.GetByEmail(createModel.Email);
                 if (user != null)
                 {
                     return Conflict();
                 }
 
-                var id = _intranetUserService.Create(createModel);
+                var id = _intranetMemberService.Create(createModel);
 
                 return Ok(id);
             }
@@ -46,7 +46,7 @@ namespace Uintra.Users.Web
         {
             if (ModelState.IsValid)
             {
-                var result = _intranetUserService.Read(id);
+                var result = _intranetMemberService.Read(id);
                 return result
                     .Match(
                         Some: dto => (IHttpActionResult)Ok(dto),
@@ -59,11 +59,11 @@ namespace Uintra.Users.Web
         }
 
         [HttpPatch]
-        public virtual IHttpActionResult Update(UpdateUserDto updateModel)
+        public virtual IHttpActionResult Update(UpdateMemberDto updateModel)
         {
             if (ModelState.IsValid)
             {
-                return _intranetUserService.Update(updateModel)
+                return _intranetMemberService.Update(updateModel)
                     ? (IHttpActionResult)Ok()
                     : NotFound();
             }
@@ -75,7 +75,7 @@ namespace Uintra.Users.Web
 
         public virtual IHttpActionResult Delete(Guid id) =>
 
-            _intranetUserService.Delete(id)
+            _intranetMemberService.Delete(id)
                 ? (IHttpActionResult)Ok()
                 : NotFound();
 

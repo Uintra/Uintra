@@ -18,16 +18,16 @@ namespace Uintra.Users.Web
 
         private readonly IMediaHelper _mediaHelper;
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
         protected ProfileControllerBase(
             IMediaHelper mediaHelper,
             IApplicationSettings applicationSettings,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService)
         {
             _mediaHelper = mediaHelper;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
         }
 
@@ -38,7 +38,7 @@ namespace Uintra.Users.Web
                 return HttpNotFound();
             }
 
-            var user = _intranetUserService.Get(id.Value);
+            var user = _intranetMemberService.Get(id.Value);
             if (user == null)
             {
                 return HttpNotFound();
@@ -52,7 +52,7 @@ namespace Uintra.Users.Web
         [HttpGet]
         public virtual ActionResult Edit()
         {
-            var user = _intranetUserService.GetCurrentUser();
+            var user = _intranetMemberService.GetCurrentMember();
             var result = MapToEditModel(user);
 
             return View(ProfileEditViewPath, result);
@@ -62,7 +62,7 @@ namespace Uintra.Users.Web
         public virtual ActionResult Edit(ProfileEditModel model)
         {
             var user = MapToUserDTO(model);
-            _intranetUserService.Update(user);
+            _intranetMemberService.Update(user);
 
             return RedirectToCurrentUmbracoPage();
         }
@@ -70,36 +70,36 @@ namespace Uintra.Users.Web
         [HttpDelete]
         public virtual void DeletePhoto(string photoPath)
         {
-            var user = _intranetUserService.GetCurrentUser();
+            var user = _intranetMemberService.GetCurrentMember();
             _mediaHelper.DeleteMedia(photoPath);
 
-            var updateUser = user.Map<UpdateUserDto>();
+            var updateUser = user.Map<UpdateMemberDto>();
             updateUser.DeleteMedia = true;
 
-            _intranetUserService.Update(updateUser);
+            _intranetMemberService.Update(updateUser);
         }
 
-        protected virtual ProfileViewModel MapToViewModel(IIntranetUser user)
+        protected virtual ProfileViewModel MapToViewModel(IIntranetMember member)
         {
-            var result = user.Map<ProfileViewModel>();
+            var result = member.Map<ProfileViewModel>();
             return result;
         }
 
-        protected virtual ProfileEditModel MapToEditModel(IIntranetUser user)
+        protected virtual ProfileEditModel MapToEditModel(IIntranetMember member)
         {
-            var result = user.Map<ProfileEditModel>();
-            result.MemberNotifierSettings = _memberNotifiersSettingsService.GetForMember(user.Id);
+            var result = member.Map<ProfileEditModel>();
+            result.MemberNotifierSettings = _memberNotifiersSettingsService.GetForMember(member.Id);
 
             FillEditData(result);
 
             return result;
         }
 
-        protected virtual UpdateUserDto MapToUserDTO(ProfileEditModel model)
+        protected virtual UpdateMemberDto MapToUserDTO(ProfileEditModel model)
         {
             var newMedias = _mediaHelper.CreateMedia(model).ToList();
 
-            var updateUser = model.Map<UpdateUserDto>();
+            var updateUser = model.Map<UpdateMemberDto>();
             updateUser.NewMedia = newMedias.Count > 0 ? newMedias.First() : default(int?);
 
             return updateUser;

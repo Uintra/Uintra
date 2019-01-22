@@ -2,7 +2,7 @@
 
 namespace Compent.Uintra.Controllers
 {
-    public class UserController : UserControllerBase
+    public class MemberController : MemberControllerBase
     {
     }
 }

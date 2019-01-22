@@ -25,9 +25,9 @@ namespace Uintra.Core.User.Permissions.Web
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
             var activityTypeProvider = HttpContext.Current.GetService<IActivityTypeProvider>();
 
-            var isUserHasAccess = permissionsService.IsCurrentUserHasAccess(activityTypeProvider[_activityTypeId], _action);
+            var isMemberHasAccess = permissionsService.IsCurrentMemberHasAccess(activityTypeProvider[_activityTypeId], _action);
 
-            if (!isUserHasAccess)
+            if (!isMemberHasAccess)
             {
                 Deny(filterContext);
             }

@@ -15,9 +15,9 @@ namespace Compent.Uintra.Core.Feed.Links
         private readonly IGroupFeedLinkProvider _groupFeedLinkProvider;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
-        private Guid CurrentUserId => _intranetUserService.GetCurrentUser().Id;
+        private Guid CurrentMemberId => _intranetMemberService.GetCurrentMember().Id;
 
         public ActivityLinkService(
             ICentralFeedLinkProvider centralFeedLinkProvider,
@@ -25,14 +25,14 @@ namespace Compent.Uintra.Core.Feed.Links
             IGroupActivityService groupActivityService, 
             IActivityTypeHelper activityTypeHelper, 
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserService<IIntranetUser> intranetUserService)
+            IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
             _centralFeedLinkProvider = centralFeedLinkProvider;
             _groupFeedLinkProvider = groupFeedLinkProvider;
             _groupActivityService = groupActivityService;
             _activityTypeHelper = activityTypeHelper;
             _activitiesServiceFactory = activitiesServiceFactory;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
         }
 
         public IActivityLinks GetLinks(Guid activityId)
@@ -72,7 +72,7 @@ namespace Compent.Uintra.Core.Feed.Links
             {
                 GroupId = groupId,
                 Type = activityType,
-                OwnerId = CurrentUserId
+                OwnerId = CurrentMemberId
             };           
         }
 
@@ -81,7 +81,7 @@ namespace Compent.Uintra.Core.Feed.Links
             return new ActivityTransferCreateModel()
             {
                 Type = activityType,
-                OwnerId = CurrentUserId
+                OwnerId = CurrentMemberId
             };
         }
 

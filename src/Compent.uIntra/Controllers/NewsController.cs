@@ -32,7 +32,7 @@ namespace Compent.Uintra.Controllers
         protected override string CreateViewPath => "~/Views/News/CreateView.cshtml";
         protected override string EditViewPath => "~/Views/News/EditView.cshtml";
 
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly INewsService<News> _newsService;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IGroupActivityService _groupActivityService;
@@ -41,7 +41,7 @@ namespace Compent.Uintra.Controllers
         private readonly IMentionService _mentionService;
 
         public NewsController(
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             INewsService<News> newsService,
             IMediaHelper mediaHelper,
             IIntranetUserContentProvider intranetUserContentProvider,
@@ -53,9 +53,9 @@ namespace Compent.Uintra.Controllers
             IActivityLinkService activityLinkService,
             IContextTypeProvider contextTypeProvider,
             IMentionService mentionService)
-            : base(intranetUserService, newsService, mediaHelper, activityTypeProvider, activityLinkService, contextTypeProvider)
+            : base(intranetMemberService, newsService, mediaHelper, activityTypeProvider, activityLinkService, contextTypeProvider)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _newsService = newsService;
             _documentIndexer = documentIndexer;
             _groupActivityService = groupActivityService;
@@ -171,7 +171,7 @@ namespace Compent.Uintra.Controllers
                 _mentionService.ProcessMention(new MentionModel()
                 {
                     MentionedSourceId = news.Id,
-                    CreatorId = _intranetUserService.GetCurrentUserId(),
+                    CreatorId = _intranetMemberService.GetCurrentMemberId(),
                     MentionedUserIds = mentionIds,
                     Title = news.Title.StripHtml(),
                     Url = links.Details,

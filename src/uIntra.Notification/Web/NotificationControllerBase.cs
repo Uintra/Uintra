@@ -28,20 +28,20 @@ namespace Uintra.Notification.Web
         protected virtual int ItemsPerPage { get; } = 8;
 
         private readonly IUiNotificationService _uiNotifierService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly INotificationContentProvider _notificationContentProvider;
         private readonly IPopupNotificationService _popupNotificationService;
 
         protected NotificationControllerBase(
             IUiNotificationService uiNotifierService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             INotificationContentProvider notificationContentProvider,
             IProfileLinkProvider profileLinkProvider,
             IPopupNotificationService popupNotificationService)
 
         {
             _uiNotifierService = uiNotifierService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _notificationContentProvider = notificationContentProvider;
             _popupNotificationService = popupNotificationService;
         }
@@ -54,7 +54,7 @@ namespace Uintra.Notification.Web
         public virtual ActionResult Index(int page = 1)
         {
             var take = page * ItemsPerPage;
-            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), take, out var totalCount).ToList();
+            var notifications = _uiNotifierService.GetMany(_intranetMemberService.GetCurrentMemberId(), take, out var totalCount).ToList();
 
             var notNotifiedNotifications = notifications.Where(el => !el.IsNotified).ToList();
             if (notNotifiedNotifications.Count > 0)
@@ -78,7 +78,7 @@ namespace Uintra.Notification.Web
         [System.Web.Mvc.AllowAnonymous]
         public ActionResult ShowPopupNotifications()
         {
-            var receiverId = _intranetUserService.GetCurrentUserId();
+            var receiverId = _intranetMemberService.GetCurrentMemberId();
             var notifications = _popupNotificationService.Get(receiverId).Map<IEnumerable<PopupNotificationViewModel>>();
             return PartialView(PopupNotificationsViewPath, notifications);
         }
@@ -99,7 +99,7 @@ namespace Uintra.Notification.Web
         {
             var notificationListPage = _notificationContentProvider.GetNotificationListPage();
             var itemsCountForPopup = notificationListPage.GetPropertyValue(NotificationConstants.ItemCountForPopupPropertyTypeAlias, default(int));
-            var notifications = _uiNotifierService.GetMany(_intranetUserService.GetCurrentUserId(), itemsCountForPopup, out _).ToList();
+            var notifications = _uiNotifierService.GetMany(_intranetMemberService.GetCurrentMemberId(), itemsCountForPopup, out _).ToList();
 
             var notNotifiedNotifications = notifications.Where(el => !el.IsNotified).ToList();
             if (notNotifiedNotifications.Count > 0)
@@ -132,10 +132,10 @@ namespace Uintra.Notification.Web
         [System.Web.Mvc.HttpGet]
         public virtual int GetNotNotifiedCount()
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
 
-            var count = currentUser != null
-                ? _uiNotifierService.GetNotNotifiedCount(currentUser.Id)
+            var count = currentMember != null
+                ? _uiNotifierService.GetNotNotifiedCount(currentMember.Id)
                 : default;
 
             return count;
@@ -144,10 +144,10 @@ namespace Uintra.Notification.Web
         [System.Web.Mvc.HttpGet]
         public virtual ActionResult GetNotNotifiedNotifications()
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
 
-            var notNotifiedNotifications = (currentUser != null
-                ? _uiNotifierService.GetNotNotifiedNotifications(currentUser.Id)
+            var notNotifiedNotifications = (currentMember != null
+                ? _uiNotifierService.GetNotNotifiedNotifications(currentMember.Id)
                 : Enumerable.Empty<Notification>())
                 .ToList();
 
@@ -184,8 +184,8 @@ namespace Uintra.Notification.Web
 
             result.Notifier = ((string) result.Value.notifierId)
                 .Apply(parseGuid)
-                .Map(id => _intranetUserService.Get(id).Map<UserViewModel>())
-                .IfNone((UserViewModel) null);
+                .Map(id => _intranetMemberService.Get(id).Map<MemberViewModel>())
+                .IfNone((MemberViewModel) null);
 
             return result;
         }
@@ -195,7 +195,7 @@ namespace Uintra.Notification.Web
             var result = notification.Map<JsonNotification>();
             var notifier = ((string)result.Value.notifierId)
                 .Apply(parseGuid)
-                .Map(id => _intranetUserService.Get(id));
+                .Map(id => _intranetMemberService.Get(id));
 
             notifier.IfSome(user =>
             {

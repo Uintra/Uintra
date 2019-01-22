@@ -33,7 +33,7 @@ namespace Compent.Uintra.Controllers
         protected override string ItemHeaderViewPath { get; } = "~/Views/Bulletins/ItemHeader.cshtml";
 
         private readonly IBulletinsService<Bulletin> _bulletinsService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IMyLinksService _myLinksService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityTagsHelper _activityTagsHelper;
@@ -43,7 +43,7 @@ namespace Compent.Uintra.Controllers
         public BulletinsController(
             IBulletinsService<Bulletin> bulletinsService,
             IMediaHelper mediaHelper,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IActivityTypeProvider activityTypeProvider,
             IMyLinksService myLinksService,
             IGroupActivityService groupActivityService,
@@ -51,10 +51,10 @@ namespace Compent.Uintra.Controllers
             IContextTypeProvider contextTypeProvider,
             IMentionService mentionService,
             IActivityLinkService activityLinkService)
-            : base(bulletinsService, mediaHelper, intranetUserService, activityTypeProvider, contextTypeProvider)
+            : base(bulletinsService, mediaHelper, intranetMemberService, activityTypeProvider, contextTypeProvider)
         {
             _bulletinsService = bulletinsService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _myLinksService = myLinksService;
             _groupActivityService = groupActivityService;
             _activityTagsHelper = activityTagsHelper;
@@ -174,7 +174,7 @@ namespace Compent.Uintra.Controllers
                 _mentionService.ProcessMention(new MentionModel()
                 {
                     MentionedSourceId = bulletin.Id,
-                    CreatorId = _intranetUserService.GetCurrentUserId(),
+                    CreatorId = _intranetMemberService.GetCurrentMemberId(),
                     MentionedUserIds = mentionIds,
                     Title = bulletin.Description.StripHtml().TrimByWordEnd(maxTitleLength),
                     Url = links.Details,

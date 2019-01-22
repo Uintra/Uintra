@@ -13,10 +13,10 @@ namespace Compent.Uintra.Controllers
         public MyLinksController(UmbracoHelper umbracoHelper, 
             IMyLinksModelBuilder myLinksModelBuilder, 
             IMyLinksService myLinksService, 
-            IIntranetUserService<IIntranetUser> intranetUserService, 
+            IIntranetMemberService<IIntranetMember> intranetMemberService, 
             IDocumentTypeAliasProvider documentTypeAliasProvider, 
             IActivityTypeProvider activityTypeProvider) 
-            : base(umbracoHelper, myLinksModelBuilder, myLinksService, intranetUserService, documentTypeAliasProvider, activityTypeProvider)
+            : base(umbracoHelper, myLinksModelBuilder, myLinksService, intranetMemberService, documentTypeAliasProvider, activityTypeProvider)
         {
         }
     }

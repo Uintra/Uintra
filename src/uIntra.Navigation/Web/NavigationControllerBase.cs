@@ -31,7 +31,7 @@ namespace Uintra.Navigation.Web
         private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
         private readonly ITopNavigationModelBuilder _topNavigationModelBuilder;
         private readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly IPermissionsService _permissionsService;
         private readonly IUserService _userService;
@@ -41,7 +41,7 @@ namespace Uintra.Navigation.Web
             ISubNavigationModelBuilder subNavigationModelBuilder,
             ITopNavigationModelBuilder topNavigationModelBuilder,
             ISystemLinksModelBuilder systemLinksModelBuilder,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
             IPermissionsService permissionsService,
             IUserService userService)
@@ -50,7 +50,7 @@ namespace Uintra.Navigation.Web
             _subNavigationModelBuilder = subNavigationModelBuilder;
             _topNavigationModelBuilder = topNavigationModelBuilder;
             _systemLinksModelBuilder = systemLinksModelBuilder;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _profileLinkProvider = profileLinkProvider;
             _permissionsService = permissionsService;
             _userService = userService;
@@ -101,12 +101,12 @@ namespace Uintra.Navigation.Web
 
         public virtual ActionResult LeftNavigationUserMenu()
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
 
             var result = new LeftNavigationUserMenuViewModel
             {
-                CurrentUser = currentUser.Map<UserViewModel>(),
-                ProfileLink = _profileLinkProvider.GetProfileLink(currentUser.Id)
+                CurrentMember = currentMember.Map<MemberViewModel>(),
+                ProfileLink = _profileLinkProvider.GetProfileLink(currentMember.Id)
             };
 
             return PartialView(LeftNavigationUserMenuViewPath, result);
@@ -114,8 +114,8 @@ namespace Uintra.Navigation.Web
 
         public virtual ActionResult UmbracoContentLink()
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
-            if (_permissionsService.IsUserHasAccessToContent(currentUser, CurrentPage))
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            if (_permissionsService.IsUserHasAccessToContent(currentMember, CurrentPage))
             {
                 return PartialView(UmbracoContentLinkViewPath, CurrentPage.Id);
             }
@@ -125,16 +125,16 @@ namespace Uintra.Navigation.Web
 
         public virtual ActionResult GoToUmbracoEditPage(int pageId)
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
             var pageUrl = string.Format(NavigationUmbracoConstants.UmbracoEditPageUrl, pageId);
 
-            var umbracoUser = _userService.GetUserById(currentUser.UmbracoId.Value);
+            var umbracoUser = _userService.GetUserById(currentMember.UmbracoId.Value);
             if (umbracoUser == null || umbracoUser.IsLockedOut || !umbracoUser.IsApproved)
             {
                 return Redirect(pageUrl);
             }
 
-            UmbracoContext.Security.PerformLogin(umbracoUser.Id);  // back office user always isn't logged in
+            UmbracoContext.Security.PerformLogin(umbracoUser.Id);  // back office member always isn't logged in
             return Redirect(pageUrl);
         }
 

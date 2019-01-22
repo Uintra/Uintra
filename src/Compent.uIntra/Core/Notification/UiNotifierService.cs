@@ -14,7 +14,7 @@ namespace Compent.Uintra.Core.Notification
         private readonly INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> _notificationModelMapper;
         private readonly INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage> _desktopNotificationModelMapper;
         private readonly NotificationSettingsService _notificationSettingsService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly UiNotificationService _notificationsService;
 
         public Enum Type => NotifierTypeEnum.UiNotifier;
@@ -23,12 +23,12 @@ namespace Compent.Uintra.Core.Notification
             INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> notificationModelMapper,
             INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage> desktopNotificationModelMapper,
             NotificationSettingsService notificationSettingsService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             UiNotificationService notificationsService)
         {
             _notificationModelMapper = notificationModelMapper;
             _notificationSettingsService = notificationSettingsService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _notificationsService = notificationsService;
             _desktopNotificationModelMapper = desktopNotificationModelMapper;
         }
@@ -55,7 +55,7 @@ namespace Compent.Uintra.Core.Notification
 
             if (!settings.IsEnabled && !desktopSettings.IsEnabled) return;
 
-            var receivers = _intranetUserService.GetMany(data.ReceiverIds);
+            var receivers = _intranetMemberService.GetMany(data.ReceiverIds);
 
             var messages = receivers.Select(receiver =>
             {

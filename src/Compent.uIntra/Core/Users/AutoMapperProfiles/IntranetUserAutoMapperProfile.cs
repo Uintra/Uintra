@@ -15,9 +15,9 @@ namespace Compent.Uintra.Core.Users
         protected override void Configure()
         {
             Mapper.CreateMap<IntranetUser, ProfileViewModel>()
-                .ForMember(dst => dst.EditingUser, o => o.MapFrom(user => user));
+                .ForMember(dst => dst.EditingMember, o => o.MapFrom(user => user));
 
-            Mapper.CreateMap<IIntranetUser, UserViewModel>()
+            Mapper.CreateMap<IIntranetMember, MemberViewModel>()
                 .ForMember(dst => dst.Id, o => o.MapFrom(user => user.Id))
                 .ForMember(dst => dst.DisplayedName, o => o.MapFrom(user => user.DisplayedName))
                 .ForMember(dst => dst.Email, o => o.MapFrom(user => user.Email))
@@ -25,8 +25,8 @@ namespace Compent.Uintra.Core.Users
                 .ForMember(dst => dst.Photo, o => o.MapFrom(user => user.Photo))
                 .ForMember(dst => dst.Inactive, o => o.MapFrom(user => user.Inactive));
 
-            Mapper.CreateMap<IntranetUser, UserModel>()
-                .ForMember(dst => dst.User, o => o.MapFrom(user => user))
+            Mapper.CreateMap<IntranetUser, MemberModel>()
+                .ForMember(dst => dst.Member, o => o.MapFrom(user => user))
                 .ForMember(dst => dst.ProfileUrl, o => o.Ignore())
                 .ForMember(dst => dst.IsGroupAdmin, o => o.Ignore());
             Mapper.CreateMap<IntranetUser, ProfileEditModel>()
@@ -34,7 +34,7 @@ namespace Compent.Uintra.Core.Users
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.MemberNotifierSettings, o => o.Ignore());
 
-            Mapper.CreateMap<User, CreateUserDto>()
+            Mapper.CreateMap<User, CreateMemberDto>()
                 .ForMember(dst => dst.FirstName, o => o.Ignore())
                 .ForMember(dst => dst.LastName, o => o.Ignore())
                 .ForMember(dst => dst.Phone, o => o.MapFrom(s => s.Phones.Any() ? s.Phones.First().Value : string.Empty))
@@ -53,7 +53,7 @@ namespace Compent.Uintra.Core.Users
                     }
                 });
 
-            Mapper.CreateMap<User, UpdateUserDto>()
+            Mapper.CreateMap<User, UpdateMemberDto>()
                 .ForMember(dst => dst.FirstName, o => o.Ignore())
                 .ForMember(dst => dst.LastName, o => o.Ignore())
                 .ForMember(dst => dst.Phone, o => o.MapFrom(s => s.Phones.Any() ? s.Phones.First().Value : string.Empty))
@@ -76,7 +76,7 @@ namespace Compent.Uintra.Core.Users
             Mapper.CreateMap<ProfileEditModel, ExtendedProfileEditModel>()
                 .ForMember(dst => dst.TagIdsData, o => o.MapFrom(i => string.Empty));
 
-            Mapper.CreateMap<IntranetUser, UpdateUserDto>()
+            Mapper.CreateMap<IntranetUser, UpdateMemberDto>()
                 .ForMember(dst => dst.DeleteMedia, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore());
 

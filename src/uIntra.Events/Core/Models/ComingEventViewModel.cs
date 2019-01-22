@@ -11,7 +11,7 @@ namespace Uintra.Events
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public IEnumerable<string> Dates { get; set; } = Enumerable.Empty<string>();
-        public UserViewModel Owner { get; set; }
+        public MemberViewModel Owner { get; set; }
         public IActivityLinks Links { get; set; }
     }
 }

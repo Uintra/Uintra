@@ -12,7 +12,7 @@
             {
                 <div class="create-bulletin__user">
                     <header class="feed__item-heading clearfix">
-                        @Html.Action("Photo", "User", new { user = Model.Creator })
+                        @Html.Action("Photo", "Member", new { member = Model.Creator })
                         <div class="feed__item-title-holder js-create-bulletin__user">
                             <h2 class="feed__item-title">
                                 @Model.Creator.DisplayedName

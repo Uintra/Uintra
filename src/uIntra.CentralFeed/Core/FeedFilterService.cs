@@ -7,14 +7,14 @@ namespace Uintra.CentralFeed
 {
     public class FeedFilterService : IFeedFilterService
     {
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly ISubscribeService _subscribeService;
 
         public FeedFilterService(
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             ISubscribeService subscribeService)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _subscribeService = subscribeService;
         }
 
@@ -24,7 +24,7 @@ namespace Uintra.CentralFeed
             {
                 items = items.Where(i =>
                     i is ISubscribable subscribable &&
-                    _subscribeService.IsSubscribed(_intranetUserService.GetCurrentUser().Id, subscribable));
+                    _subscribeService.IsSubscribed(_intranetMemberService.GetCurrentMember().Id, subscribable));
             }
 
             if (filterState.ShowPinned.GetValueOrDefault() && settings.HasPinnedFilter)

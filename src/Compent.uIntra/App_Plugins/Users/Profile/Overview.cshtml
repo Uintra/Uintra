@@ -5,9 +5,9 @@
         <h3 class="profile__title">Profile</h3>
     </div>
     <div class="form__header">
-        @Html.Action("Photo", "User", new
+        @Html.Action("Photo", "Member", new
         {
-            user = Model.EditingUser,
+            user = Model.EditingMember,
             cssModificator = "avatar__profile",
             photoWidth = 100
         })

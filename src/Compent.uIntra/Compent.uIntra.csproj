@@ -1255,7 +1255,7 @@
     <Compile Include="Controllers\TablePanelController.cs" />
     <Compile Include="Controllers\UserListController.cs" />
     <Compile Include="Controllers\UserTagsController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -1488,7 +1488,7 @@
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
-    <Compile Include="Core\Users\IntranetUserService.cs" />
+    <Compile Include="Core\Users\IntranetMemberService.cs" />
     <Compile Include="Core\Users\UserList\HasValidGroupIdAttribute.cs" />
     <Compile Include="Core\UserTags\ActivityTagsHelper.cs" />
     <Compile Include="Core\UserTags\ElasticTagIndex.cs" />

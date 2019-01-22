@@ -16,18 +16,18 @@ namespace Uintra.Notification
     {
         private readonly IMailService _mailService;
         private readonly IExceptionLogger _logger;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly NotificationSettingsService _notificationSettingsService;
         private readonly IApplicationSettings _applicationSettings;
 
         protected MonthlyEmailServiceBase(IMailService mailService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IExceptionLogger logger,
             NotificationSettingsService notificationSettingsService,
             IApplicationSettings applicationSettings)
         {
             _mailService = mailService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _logger = logger;
             _notificationSettingsService = notificationSettingsService;
             _applicationSettings = applicationSettings;
@@ -37,7 +37,7 @@ namespace Uintra.Notification
         {
             var currentDate = DateTime.Now;
 
-            var allUsers = _intranetUserService.GetAll();
+            var allUsers = _intranetMemberService.GetAll();
             var monthlyMails = allUsers
                 .Select(user => user.Id.Pipe(GetUserActivitiesFilteredByUserTags).Pipe(userActivities => TryGetMonthlyMail(userActivities, user)))
                 .ToList();
@@ -81,16 +81,16 @@ namespace Uintra.Notification
 
 
 
-        protected (IIntranetUser user, MonthlyMailDataModel monthlyMail)? TryGetMonthlyMail(
+        protected (IIntranetMember user, MonthlyMailDataModel monthlyMail)? TryGetMonthlyMail(
             IEnumerable<(IIntranetActivity activity, string detailsLink)> activities,
-            IIntranetUser user)
+            IIntranetMember member)
         {
             var activityList = activities.AsList();
             if (activityList.Any())
             {
                 var activityListString = GetActivityListString(activityList);
-                var monthlyMail = GetMonthlyMailModel(activityListString, user);
-                return (user, monthlyMail);
+                var monthlyMail = GetMonthlyMailModel(activityListString, member);
+                return (member, monthlyMail);
             }
             else
             {
@@ -100,9 +100,9 @@ namespace Uintra.Notification
 
         protected abstract IEnumerable<(IIntranetActivity activity, string detailsLink)> GetUserActivitiesFilteredByUserTags(Guid userId);
 
-        protected abstract MailBase GetMonthlyMailModel(IIntranetUser receiver, MonthlyMailDataModel dataModel, EmailNotifierTemplate template);
+        protected abstract MailBase GetMonthlyMailModel(IIntranetMember receiver, MonthlyMailDataModel dataModel, EmailNotifierTemplate template);
 
-        protected virtual MonthlyMailDataModel GetMonthlyMailModel(string userActivities, IIntranetUser user) =>
+        protected virtual MonthlyMailDataModel GetMonthlyMailModel(string userActivities, IIntranetMember member) =>
             new MonthlyMailDataModel
             {
                 ActivityList = userActivities

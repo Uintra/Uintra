@@ -19,7 +19,7 @@ namespace Compent.Uintra.Controllers
     {
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly UserTagService _userTagService;
 
         protected override string ProfileEditViewPath { get; } = "~/Views/Profile/Edit.cshtml";
@@ -27,16 +27,16 @@ namespace Compent.Uintra.Controllers
         public ProfileController(
             IMediaHelper mediaHelper,
             IApplicationSettings applicationSettings,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
             UmbracoHelper umbracoHelper,
             IIntranetUserContentProvider intranetUserContentProvider, UserTagService userTagService)
-            : base(mediaHelper, applicationSettings, intranetUserService, memberNotifiersSettingsService)
+            : base(mediaHelper, applicationSettings, intranetMemberService, memberNotifiersSettingsService)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserContentProvider = intranetUserContentProvider;
             _userTagService = userTagService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
         }
 
         public ActionResult EditPage()
@@ -67,22 +67,22 @@ namespace Compent.Uintra.Controllers
             var user = MapToUserDTO(model);
             var tagIds = model.TagIdsData.ParseStringCollection(Guid.Parse);
             _userTagService.Replace(user.Id, tagIds);
-            _intranetUserService.Update(user);
+            _intranetMemberService.Update(user);
             return RedirectToCurrentUmbracoPage();
         }
 
         [HttpGet]
         public override ActionResult Edit()
         {
-            var user = _intranetUserService.GetCurrentUser();
+            var user = _intranetMemberService.GetCurrentMember();
             var result = MapToEditModel(user);
 
             return PartialView(ProfileEditViewPath, result);
         }
 
-        private new ExtendedProfileEditModel MapToEditModel(IIntranetUser user)
+        private new ExtendedProfileEditModel MapToEditModel(IIntranetMember member)
         {
-            var baseModel = base.MapToEditModel(user);
+            var baseModel = base.MapToEditModel(member);
             var result = baseModel.Map<ExtendedProfileEditModel>();
             return result;
         }

@@ -9,12 +9,12 @@ namespace Uintra.Likes
     public class LikesService : ILikesService
     {
         private readonly ISqlRepository<Like> _likesRepository;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
-        public LikesService(ISqlRepository<Like> likesRepository, IIntranetUserService<IIntranetUser> intranetUserService)
+        public LikesService(ISqlRepository<Like> likesRepository, IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
             _likesRepository = likesRepository;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
         }
 
         public virtual IEnumerable<Like> Get(Guid entityId)
@@ -80,7 +80,7 @@ namespace Uintra.Likes
 
         protected virtual IEnumerable<Tuple<Guid, string>> GetManyNames(IEnumerable<Guid> usersIds)
         {
-            var users = _intranetUserService.GetMany(usersIds);
+            var users = _intranetMemberService.GetMany(usersIds);
             return users.Select(el => new Tuple<Guid, string>(el.Id, el.DisplayedName));
         }
     }

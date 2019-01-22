@@ -1,4 +1,4 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Users.UserList.UserModel>
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Users.UserList.MemberModel>
 @using Uintra.Users
 @using Uintra.Core.Extensions
 
@@ -6,9 +6,9 @@
     <div class="user-details__header">
         <div class="user-details__info">
             <div class="user-details__avatar">
-                @Html.Action("Photo", "User", new
+                @Html.Action("Photo", "Member", new
                 {
-                    user = Model.User,
+                    user = Model.Member,
                     cssModificator = "avatar__img",
                     photoWidth = 90
                 })
@@ -46,7 +46,7 @@
             <dd class="user-details__info-text">Project management, photoshop, Excel, Word, Visio</dd>*@
         <dt class="user-details__info-item">@Html.Localize("UserList.DetailsPopup.Tags.lbl")</dt>
         <dd class="user-details__info-text">
-            @Html.Action("ForUserDetailsPopup", "UserTags", new { entityId = Model.User.Id })
+            @Html.Action("ForUserDetailsPopup", "UserTags", new { entityId = Model.Member.Id })
         </dd>
     </dl>
 

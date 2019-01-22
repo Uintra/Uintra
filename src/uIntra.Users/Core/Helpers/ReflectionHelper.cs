@@ -13,10 +13,10 @@ namespace Uintra.Users.Helpers
 
         static ReflectionHelper()
         {
-            Properties = typeof(UserModel).GetPublicProperties();
+            Properties = typeof(MemberModel).GetPublicProperties();
         }
 
-        public static object GetUIColumnValue(UserModel obj, ProfileColumnModel column)
+        public static object GetUIColumnValue(MemberModel obj, ProfileColumnModel column)
         {
             var prop = Properties.FirstOrDefault(i =>
                 {

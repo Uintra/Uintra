@@ -1,10 +1,9 @@
-﻿using System;
-using Uintra.Core.User;
+﻿using Uintra.Core.User;
 using Uintra.Users.Attributes;
 
 namespace Uintra.Users.UserList
 {
-    public class UserModel
+    public class MemberModel
     {
         [UIColumn(0, "Photo", "photo", ColumnType.Photo)]
         public string Photo { get; set; }
@@ -22,7 +21,7 @@ namespace Uintra.Users.UserList
         [UIColumn(4, "Department", "department", ColumnType.Department, SupportSorting = true)]
         public string Department { get; set; }
 
-        public UserViewModel User { get; set; }
+        public MemberViewModel Member { get; set; }
 
         public string ProfileUrl { get; set; }
 

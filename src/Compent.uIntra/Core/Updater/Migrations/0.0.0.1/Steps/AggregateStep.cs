@@ -163,7 +163,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
 
         private void FixEmptyOwners()
         {
-            var userService = DependencyResolver.Current.GetService<IIntranetUserService<IIntranetUser>>();
+            var userService = DependencyResolver.Current.GetService<IIntranetMemberService<IIntranetMember>>();
 
             var activityServices = DependencyResolver.Current.GetServices<IIntranetActivityService<IIntranetActivity>>();
             foreach (var service in activityServices)

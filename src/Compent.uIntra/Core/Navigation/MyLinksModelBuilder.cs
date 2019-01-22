@@ -18,7 +18,7 @@ namespace Compent.Uintra.Core.Navigation
     public class MyLinksModelBuilder : NavigationModelBuilderBase<IEnumerable<MyLinkItemModel>>, IMyLinksModelBuilder
     {
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IMyLinksService _myLinksService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INavigationApplicationSettings _navigationApplicationSettings;
@@ -28,7 +28,7 @@ namespace Compent.Uintra.Core.Navigation
         public MyLinksModelBuilder(
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IMyLinksService myLinksService,
             IActivitiesServiceFactory activitiesServiceFactory,
             INavigationApplicationSettings navigationApplicationSettings,
@@ -37,7 +37,7 @@ namespace Compent.Uintra.Core.Navigation
             : base(umbracoHelper, navigationConfigurationProvider)
         {
             _umbracoHelper = umbracoHelper;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _myLinksService = myLinksService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _navigationApplicationSettings = navigationApplicationSettings;
@@ -48,7 +48,7 @@ namespace Compent.Uintra.Core.Navigation
         public override IEnumerable<MyLinkItemModel> GetMenu()
         {
             var links = _myLinksService
-                .GetMany(_intranetUserService.GetCurrentUser().Id)
+                .GetMany(_intranetMemberService.GetCurrentMember().Id)
                 .OrderByDescending(link => link.CreatedDate)
                 .ToList();
 

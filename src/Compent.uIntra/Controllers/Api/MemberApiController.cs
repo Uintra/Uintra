@@ -5,7 +5,7 @@ namespace Compent.Uintra.Controllers.Api
 {
     public class MemberApiController : MemberApiControllerBase
     {
-        public MemberApiController(ICacheableIntranetUserService cacheableIntranetUserService) : base(cacheableIntranetUserService)
+        public MemberApiController(ICacheableIntranetMemberService cacheableIntranetMemberService) : base(cacheableIntranetMemberService)
         {
         }
     }
