@@ -21,7 +21,12 @@
         display:flex;
         align-items:center;
         flex-grow:2;
-        overflow:hidden;
+
+        &:after{
+            content:'';
+            display:block;
+            clear:both;
+        }
 
         @media(--for-tablet-portrait-down){
             display:block;

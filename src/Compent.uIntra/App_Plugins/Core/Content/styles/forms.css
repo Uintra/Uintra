@@ -66,6 +66,7 @@
         &.input-validation-error {
             border-color: #dd0a2d;
             box-shadow: 0 0 5px #dd0a2d;
+            outline-color: #dd0a2d;
         }
     }
 
