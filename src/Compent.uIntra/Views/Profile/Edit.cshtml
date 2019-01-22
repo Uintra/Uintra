@@ -78,11 +78,11 @@
                 </label>
             </div>
         </div>
+        @Html.ValidationSummary()
         <div class="form__row--no-indent clearfix">
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
             <input class="btn _submit" type="submit" value="@Html.Localize("Profile.Save.btn")" />
         </div>
-        @Html.ValidationSummary()
     }
 
 </div>
