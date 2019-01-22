@@ -44,6 +44,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._2
                 yield return new TranslationsUpdateStep(TranslationUpdateData);
                 yield return Resolve<AddPhoneAndDepartmentToUserStep>();
                 yield return Resolve<ChangeGroupMembersDefaulPanelStep>();
+                yield return Resolve<UseInSearchDefaultTrueStep>();
             }
         }
     }
