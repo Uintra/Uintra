@@ -274,10 +274,15 @@
 		    color:#333;
             max-height:40px;
             overflow:hidden;
-            max-width:450px;
+
+            .notification__list-drop &{
+                max-width:450px;
+            }
 
             @media (--for-tablet-portrait-down){
-                max-width:calc(100vw - 118px);
+                .notification__list-drop &{
+                    max-width:calc(100vw - 118px);
+                }
             }
 
 		    &:hover {
@@ -286,9 +291,6 @@
 
 		    p {
 			    margin: 0;
-                white-space:nowrap;
-                text-overflow:ellipsis;
-                overflow:hidden;
 		    }
 
             &-link{
