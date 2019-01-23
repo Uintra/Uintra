@@ -113,7 +113,7 @@ namespace Compent.Uintra.Controllers
                 .Params["groupId"]
                 .Apply(parseGuid);
             if (result.IsNone)
-                result = Some(GroupId.Value);
+                result = GroupId.HasValue ? Some(GroupId.Value) : None;
             return result;
         }
 

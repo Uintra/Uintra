@@ -17,6 +17,7 @@ namespace Uintra.Users
         public string Photo { get; set; }
         public string Email { get; set; }
 
+        public string ProfileUrl { get; set; }
         public int? MediaRootId { get; set; }
         public string NewMedia { get; set; }
         public IDictionary<Enum, bool> MemberNotifierSettings { get; set; }

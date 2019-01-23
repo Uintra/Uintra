@@ -15,7 +15,7 @@
             <div class="form-edit-profile__actions">
                 <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
                 <input class="btn _submit" type="submit" value="@Html.Localize("Profile.Save.btn")" />
-                <a href="#" class="btn">@Html.Localize("Common.Cancel.lnk")</a>
+                <a href="@Model.ProfileUrl" class="btn">@Html.Localize("Common.Cancel.lnk")</a>
             </div>
         </div>
         <div class="form-edit-profile__columns">

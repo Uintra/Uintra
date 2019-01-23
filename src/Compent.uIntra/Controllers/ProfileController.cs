@@ -5,6 +5,7 @@ using Compent.Uintra.Core.Users;
 using Uintra.Core;
 using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Extensions;
+using Uintra.Core.Links;
 using Uintra.Core.Media;
 using Uintra.Core.User;
 using Uintra.Notification;
@@ -30,8 +31,10 @@ namespace Compent.Uintra.Controllers
             IIntranetUserService<IIntranetUser> intranetUserService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
             UmbracoHelper umbracoHelper,
-            IIntranetUserContentProvider intranetUserContentProvider, UserTagService userTagService)
-            : base(mediaHelper, applicationSettings, intranetUserService, memberNotifiersSettingsService)
+            IIntranetUserContentProvider intranetUserContentProvider,
+            UserTagService userTagService,
+            IProfileLinkProvider profileLinkProvider)
+            : base(mediaHelper, applicationSettings, intranetUserService, memberNotifiersSettingsService, profileLinkProvider)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserContentProvider = intranetUserContentProvider;

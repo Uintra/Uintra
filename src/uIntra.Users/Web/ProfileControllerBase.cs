@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Extensions;
+using Uintra.Core.Links;
 using Uintra.Core.Media;
 using Uintra.Core.User;
 using Uintra.Core.User.DTO;
@@ -19,16 +20,19 @@ namespace Uintra.Users.Web
         private readonly IMediaHelper _mediaHelper;
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IProfileLinkProvider _profileLinkProvider;
 
         protected ProfileControllerBase(
             IMediaHelper mediaHelper,
             IApplicationSettings applicationSettings,
             IIntranetUserService<IIntranetUser> intranetUserService,
-            IMemberNotifiersSettingsService memberNotifiersSettingsService)
+            IMemberNotifiersSettingsService memberNotifiersSettingsService,
+            IProfileLinkProvider profileLinkProvider)
         {
             _mediaHelper = mediaHelper;
             _intranetUserService = intranetUserService;
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
+            _profileLinkProvider = profileLinkProvider;
         }
 
         public virtual ActionResult Overview(Guid? id)
@@ -110,6 +114,7 @@ namespace Uintra.Users.Web
             var mediaSettings = GetMediaSettings();
             ViewData["AllowedMediaExtensions"] = mediaSettings.AllowedMediaExtensions;
             model.MediaRootId = mediaSettings.MediaRootId;
+            model.ProfileUrl = _profileLinkProvider.GetProfileLink(model.Id);
         }
 
         public abstract MediaSettings GetMediaSettings();
