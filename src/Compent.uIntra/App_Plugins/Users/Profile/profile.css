@@ -144,40 +144,102 @@
     &__columns{
         display:flex;
         padding:57px 0 0;
-
-        /*@media(--for-tablet-portrait-down){
-            display:block;
-        }*/
     }
 
     .dropzone {
-        margin:0 -5px;
-        padding:5px !important;
+        padding:0 !important;
+        border:0 !important;
+        background:#ddd;
+        border-radius:50% !important;
+        min-height:60px !important;
+        min-width:60px;
+        display:flex;
+        align-items:center;
 
         @media(--for-tablet-portrait-down){
             max-width:none;
+        }
+
+        @media (min-width: 1552px) {
+            min-height:90px !important;
+            min-width:90px;
+        }
+
+        &-holder{
+            width:60px;
+
+            @media (min-width: 1552px) {
+                width:90px;
+            }
         }
             
         .dz-message{
             margin:5px;
 
             & > span{
-                padding:30px 0 0;
+                padding:0;
 
                 &:before{
-                    left:50%;
-                    transform:translateX(-50%);
+                    display:none;
                 }
             }
         }
 
         .dz-preview{
-            width:100px;
+            min-height:60px;
+            width:60px;
             margin:0;
 
+            @media (min-width: 1552px) {
+                min-height:90px;
+                width:90px;
+            }
+
             .dz-image{
-                width:100px;
-                height:100px;
+                width:60px;
+                height:60px;
+                border-radius:50%;
+
+                @media (min-width: 1552px) {
+                    width:90px;
+                    height:90px;
+                }
+            }
+
+            .dz-remove{
+            position:absolute;
+            right: -15px;
+            top: -15px;
+            width: 31px;
+            height: 31px;
+            padding: 5px;
+            z-index:999;
+            text-indent:-9999px;
+
+            &:before {
+		        content: '';
+		        position: absolute;
+		        left: 8px;
+		        top: 50%;
+		        right: 8px;
+		        height: 2px;
+		        background: #303030;
+		        transform: rotate(45deg);
+                margin-top:-1px;
+	        }
+
+	        &:after {
+		        content: '';
+		        position: absolute;
+		        left: 8px;
+		        top: 50%;
+		        right: 8px;
+		        height: 2px;
+		        background: #303030;
+		        transform: rotate(-45deg);
+                margin-top:-1px;
+	        }
+
             }
         }
 	}
@@ -189,13 +251,22 @@
     &__meta{
         display: flex;
         justify-content: space-between;
+        flex-wrap:wrap;
     }
 
     &__column{
-        width:51%;
+        width:100%;
+
+        @media (min-width: 1552px) {
+            width:51%;
+        }
 
         &:first-child{
-            width:37%;
+            width:100%;
+
+            @media (min-width: 1552px) {
+                width:37%;
+            }
         }
     }
 
@@ -205,7 +276,9 @@
         align-items: center;
 
         &--indent{
-            margin:-41px 0 19px;
+            @media (min-width: 1552px) {
+                margin:-41px 0 19px;
+            }
         }
     }
 
@@ -215,9 +288,11 @@
         margin:0 4px 0 0;
         width:97px;
         flex-shrink:0;
-
+        
         .form-edit-profile__column:first-child &{
-             width:74px
+            @media (min-width: 1552px) {
+                width:74px;
+            }
          }
     }
 
@@ -235,5 +310,40 @@
 
     .check__fake-input{
         margin:0 10px 0 0;
+    }
+
+    &__clear{
+        cursor:pointer;
+        position:absolute;
+        right: -10px;
+        top: -10px;
+        z-index:2;
+        width: 31px;
+        height: 31px;
+        padding: 5px;
+
+        &:before {
+		    content: '';
+		    position: absolute;
+		    left: 8px;
+		    top: 50%;
+		    right: 8px;
+		    height: 2px;
+		    background: #303030;
+		    transform: rotate(45deg);
+            margin-top:-1px;
+	    }
+
+	    &:after {
+		    content: '';
+		    position: absolute;
+		    left: 8px;
+		    top: 50%;
+		    right: 8px;
+		    height: 2px;
+		    background: #303030;
+		    transform: rotate(-45deg);
+            margin-top:-1px;
+	    }
     }
 }

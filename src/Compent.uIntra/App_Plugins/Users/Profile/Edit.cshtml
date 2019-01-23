@@ -23,7 +23,6 @@
                 var additionClass = string.IsNullOrEmpty(Model.Photo) ? "" : "_hide";
             }
             <div class="dropzone-holder @additionClass">
-                <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
                 @{
                     var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string, MaxFilesCount = 1 };
                     Html.RenderAction("Uploader", "FileUpload", new { Settings = settings });
@@ -35,9 +34,6 @@
                     <img class="avatar__img" src="@Model.Photo?width=100&height=100&mode=crop" width="100" alt="avatar" />
 
                     <span class="form__clear _clear-avatar js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo">
-                        <svg class="svg-icon" viewBox="0 0 20 20" width="10px" height="10px">
-                            <use xlink:href="#icon-close" x="0" y="0"></use>
-                        </svg>
                     </span>
                 </div>
             }
