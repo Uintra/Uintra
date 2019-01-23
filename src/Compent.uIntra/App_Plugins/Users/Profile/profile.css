@@ -1,19 +1,11 @@
-﻿.form__edit-profile{
-    padding:40px 20px 33px;
-
-    @media(--for-tablet-portrait-down){
-        margin:0 -15px;
-        padding:20px 15px 33px;
-    }
-}
-
-.form-profile {
+﻿.form-profile {
     padding: 40px 20px 33px;
     background: var(--color-white);
     box-shadow: 0 0 2px rgba(0,0,0,0.2);
 
     @media(--for-tablet-portrait-down) {
-        margin:0 -15px; padding:20px 15px 33px;
+        margin:0 -15px;
+        padding:20px 15px 33px;
     }
 
     &__top{
@@ -90,177 +82,158 @@
         width: 38%;
 
         @media(--for-tablet-portrait-down) {
-            width:auto; margin:0 0 10px;
+            width:auto;
+            margin:0 0 10px;
         }
     }
 }
 
+.form-edit-profile {
+    padding: 40px 20px 33px;
+    background: var(--color-white);
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
 
+    @media(--for-tablet-portrait-down) {
+        margin:0 -15px;
+        padding:20px 15px 33px;
+    }
 
-.form{
-    /*&.profile{
-        padding:40px 20px 33px;
+    .avatar{
+        margin: 0 20px 0 0;
+        width: 90px;
+        height: 90px;
+        min-width: 90px;
+    }
 
-        @media(--for-tablet-portrait-down){
-            margin:0 -15px;
-            padding:20px 15px 33px;
-        }
-    }*/
-
-    /*&.profile-edit{
-        padding:40px 20px 33px;
-
-        @media(--for-tablet-portrait-down){
-            margin:0 -15px;
-            padding:20px 15px 33px;
-        }
-    }*/
-    
     &__top{
         display:flex;
         justify-content:space-between;
         position:relative;
-    }
+        padding:0 0 22px;
+        margin:0 0 20px;
+        position:relative;
 
-	&__header{
-		display: flex;
-	}
-
-	&__meta{
-        display:flex;
-        align-items:center;
-        flex-grow:2;
-
-        &:after{
+        &:before{
             content:'';
-            display:block;
-            clear:both;
-        }
-
-        @media(--for-tablet-portrait-down){
-            display:block;
-        }
-
-        .profile-edit &{
-            display:block;
-        }
-
-        &-list{
-            width:62%;
-            margin:0;
-            font-size:16px;
-            line-height:22px;
-
-            @media(--for-tablet-portrait-down){
-                width:auto;
-            }
-        }
-
-        &-row{
-            display:flex;
-            padding:1px 0;
-
-            @media(--for-tablet-portrait-down){
-                padding:0;
-            }
-        }
-
-        &-label{
-            min-width:100px;
-            margin:0 10px 0 0;
-            font-weight:700;
-        }
-
-        &-text{
-            text-overflow: ellipsis;
-            white-space: normal;
-            overflow: hidden;
-        }
-	}
-
-	&__name{
-		display: block;
-        color:var(--text-color-dark);
-        font-size:20px;
-        line-height:19px;
-        width:38%;
-
-        @media(--for-tablet-portrait-down){
-            width:auto;
-            margin:0 0 10px;
-        }
-	}
-}
-
-.profile{
-    &-edit {
-
-        .btn{
-            margin:0 0 10px 6px;
-        }
-        .form__top{ 
-            padding:0 0 22px;
-            margin:0 0 20px;
-
-            &:before{
-                content:'';
-                position:absolute;
-                left:-10px;
-                right:-10px;
-                bottom:0;
-                height:1px;
-                background:#e6e6e6;
-                z-index:2;
-            }
-        }
-
-	    .dropzone {
-            margin:0 -5px;
-            padding:5px !important;
-
-            @media(--for-tablet-portrait-down){
-                max-width:none;
-            }
-            
-            .dz-message{
-                margin:5px;
-
-                & > span{
-                    padding:30px 0 0;
-
-                    &:before{
-                        left:50%;
-                        transform:translateX(-50%);
-                    }
-                }
-            }
-
-            .dz-preview{
-                width:100px;
-                margin:0;
-
-                .dz-image{
-                    width:100px;
-                    height:100px;
-                }
-            }
-
-	    }
-
-        .profile__title{
-            margin:0 0 15px;
+            position:absolute;
+            left:-10px;
+            right:-10px;
+            bottom:0;
+            height:1px;
+            background:#e6e6e6;
+            z-index:2;
         }
     }
 
-    &__title{
+    &__title {
         font-size: 25px;
         font-weight: 400;
         line-height: 0.88;
         color: #262626;
-        margin: 0 0 46px;
+        margin: 0 0 15px;
     }
 
     &__actions{
         margin:-4px 0 0;
+    }
+
+    .btn{
+        margin:0 0 10px 6px;
+    }
+
+    &__columns{
+        display:flex;
+        padding:57px 0 0;
+
+        /*@media(--for-tablet-portrait-down){
+            display:block;
+        }*/
+    }
+
+    .dropzone {
+        margin:0 -5px;
+        padding:5px !important;
+
+        @media(--for-tablet-portrait-down){
+            max-width:none;
+        }
+            
+        .dz-message{
+            margin:5px;
+
+            & > span{
+                padding:30px 0 0;
+
+                &:before{
+                    left:50%;
+                    transform:translateX(-50%);
+                }
+            }
+        }
+
+        .dz-preview{
+            width:100px;
+            margin:0;
+
+            .dz-image{
+                width:100px;
+                height:100px;
+            }
+        }
+	}
+
+    &__box {
+        flex: 1;
+    }
+
+    &__meta{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__column{
+        width:51%;
+
+        &:first-child{
+            width:37%;
+        }
+    }
+
+    &__row{
+        margin: 0 0 8px;
+        display: flex;
+        align-items: center;
+
+        &--indent{
+            margin:-41px 0 19px;
+        }
+    }
+
+    &__label {
+        font: bold 13px/22px var(--font-general);
+        color: #555;
+        margin:0 4px 0 0;
+        width:97px;
+        flex-shrink:0;
+
+        .form-edit-profile__column:first-child &{
+             width:74px
+         }
+    }
+
+    &__text{
+        display:inline-block;
+        vertical-align:top;
+        padding:0 0 0 10px;
+        color:#333;
+    }
+
+    .form__textarea,
+    .form__input{
+        color:#333;
+    }
+
+    .check__fake-input{
+        margin:0 10px 0 0;
     }
 }

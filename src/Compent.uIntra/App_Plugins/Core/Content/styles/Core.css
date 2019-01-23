@@ -835,10 +835,6 @@ img{
         vertical-align:middle;
     }
 
-    .form.profile-edit &{
-        margin:0 20px 0 0;
-    }
-
     ._details &{
         width:35px;
         min-width:35px;
