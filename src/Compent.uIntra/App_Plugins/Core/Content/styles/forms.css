@@ -80,22 +80,6 @@
         color: #dd0a2d;
     }
 
-    .validation-summary-errors{
-        color: #dd0a2d;
-        padding:0 0 0 21px;
-        margin:0 0 25px;
-
-        ul{
-              margin:0;
-              padding:0;
-          }
-    }
-
-    /*&__note{
-        display:block;
-        font-size:13px;
-        padding:4px 0 14px;
-    }*/
 
     &__clear{
         color:var(--text-color-dark);
@@ -115,6 +99,17 @@
             box-shadow:0 0 2px rgba(0,0,0,0.5);
         }
     }
+}
+
+.validation-summary-errors{
+    color: #dd0a2d;
+    padding:0 0 0 21px;
+    margin:0 0 25px;
+
+    ul{
+            margin:0;
+            padding:0;
+        }
 }
 
 .check{

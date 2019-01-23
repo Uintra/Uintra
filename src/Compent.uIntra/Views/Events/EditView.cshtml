@@ -61,7 +61,9 @@
                 </div>
             </div>
         </div>
-        @Html.Action("TagPicker", "UserTags", new { entityId = Model.Id })
+        <div class="form__row">
+            @Html.Action("TagPicker", "UserTags", new { entityId = Model.Id })
+        </div>
         <div class="form__row clearfix">
             <div class="row">
                 <div class="col-md-12">
