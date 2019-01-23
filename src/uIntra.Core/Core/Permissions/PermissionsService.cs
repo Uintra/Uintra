@@ -37,10 +37,11 @@ namespace Uintra.Core.Permissions
             var predicate = EntityIdIs(entityId);
             var queryResult = _permissionsRepository.FindAll(predicate);
 
-            var transientEntities = ToTransientEntities(queryResult,
-                _permissionsTypeProvider.IntTypeDictionary, _roleTypeProvider.IntTypeDictionary);
+            var (rolesByEntityId, permissionsByEntityIdAndRole) = ToTransientEntities(queryResult,
+                    _permissionsTypeProvider.IntTypeDictionary, _roleTypeProvider.IntTypeDictionary)
+                .Apply(ToDictionaries);
 
-            var result = ToModel(entityId, transientEntities);
+            var result = ToModel(entityId, rolesByEntityId, permissionsByEntityIdAndRole);
 
             return result;
         }
@@ -50,10 +51,11 @@ namespace Uintra.Core.Permissions
             var predicate = AndAlso(EntityIdIs(entityId), RoleIdIs(role.Id));
             var queryResult = _permissionsRepository.FindAll(predicate);
 
-            var transientEntities = ToTransientEntities(queryResult,
-                _permissionsTypeProvider.IntTypeDictionary, _roleTypeProvider.IntTypeDictionary);
+            var (_, permissionsByEntityIdAndRole) = ToTransientEntities(queryResult,
+                    _permissionsTypeProvider.IntTypeDictionary, _roleTypeProvider.IntTypeDictionary)
+                .Apply(ToDictionaries);
 
-            var result = ToModel(entityId, role, transientEntities);
+            var result = ToModel(entityId, role, permissionsByEntityIdAndRole[(entityId, role)]);
 
             return result;
         }
@@ -69,13 +71,10 @@ namespace Uintra.Core.Permissions
         public Unit Save(EntityPermissions permissions)
         {
             var predicate = AndAlso(EntityIdIs(permissions.EntityId));
+           
+            var permissionsToAdd = ToEntities(permissions);
+
             _permissionsRepository.Delete(predicate);
-
-            var permissionsToAdd = permissions.Permissions
-                .SelectMany(permissionsByRole =>
-                    permissionsByRole.Value
-                        .Select(permission => Create(permissions.EntityId, permissionsByRole.Key, permission.ToInt())));
-
             _permissionsRepository.Add(permissionsToAdd);
 
             return unit;
@@ -86,8 +85,7 @@ namespace Uintra.Core.Permissions
             var predicate = AndAlso(EntityIdIs(permissions.EntityId), RoleIdIs(permissions.Role.Id));
             _permissionsRepository.Delete(predicate);
 
-            var permissionsToAdd = permissions.Permissions
-                .Select(permission => Create(permissions.EntityId, permissions.Role, permission.ToInt()));
+            var permissionsToAdd = ToEntities(permissions);
 
             _permissionsRepository.Add(permissionsToAdd);
 
@@ -163,21 +161,50 @@ namespace Uintra.Core.Permissions
                 RoleType = roleTypeDictionary[e.RoleType]
             });
 
-        public static EntityRolePermissions ToModel(
-            Guid entityId,
-            Role role,
-            IEnumerable<TransientPermissionEntity> entities) =>
-            new EntityRolePermissions(entityId, role, entities.Select(entity => entity.PermissionType).ToArray());
+
+        public static (Dictionary<Guid, IEnumerable<Role>>, Dictionary<(Guid, Role), IEnumerable<Enum>>) ToDictionaries(
+            IEnumerable<TransientPermissionEntity> entities
+        )
+        {
+            var entitiesArray = entities.ToArray();
+
+            var rolesByEntityId = entitiesArray
+                .ToLookup(e => e.EntityId, e => e.RoleType)
+                .ToDictionary(pair => pair.Key, Enumerable.AsEnumerable);
+
+            var permissionsByEntityIdAndRole = entitiesArray
+                .ToLookup(e => (e.EntityId, e.RoleType), e => e.PermissionType)
+                .ToDictionary(pair => pair.Key, Enumerable.AsEnumerable);
+
+            return (rolesByEntityId, permissionsByEntityIdAndRole);
+        }
+
+        public static EntityRolePermissions ToModel(Guid entityId, Role role, IEnumerable<Enum> permissions) =>
+            new EntityRolePermissions(entityId, role, permissions.ToArray());
 
         public static EntityPermissions ToModel(
             Guid entityId,
-            IEnumerable<TransientPermissionEntity> entities)
+            Dictionary<Guid, IEnumerable<Role>> rolesByEntityId,
+            Dictionary<(Guid, Role), IEnumerable<Enum>> permissionsByEntityIdAndRole)
         {
-            var permissionsByRole = entities
-                .ToLookup(entity => entity.RoleType, entity => entity.PermissionType)
-                .ToDictionary(pair => pair.Key, pair => pair.ToArray());
+            var entityRoles = rolesByEntityId[entityId];
+            var permissionsByRole = entityRoles
+                .ToDictionary(identity, role => permissionsByEntityIdAndRole[(entityId, role)].ToArray());
 
             return new EntityPermissions(entityId, permissionsByRole);
         }
+        
+
+        public static IEnumerable<PermissionEntity> ToEntities(EntityPermissions permissions)=>
+            permissions.Permissions
+                .SelectMany(permissionsByRole =>
+                    permissionsByRole.Value
+                        .Select(permission => 
+                            Create(permissions.EntityId, permissionsByRole.Key, permission.ToInt())));
+
+        public static IEnumerable<PermissionEntity> ToEntities(EntityRolePermissions permissions) =>
+            permissions.Permissions
+                        .Select(permission =>
+                            Create(permissions.EntityId, permissions.Role, permission.ToInt()));
     }
 }
