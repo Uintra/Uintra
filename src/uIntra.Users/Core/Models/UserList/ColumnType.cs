@@ -2,12 +2,10 @@
 {
     public enum ColumnType
     {
-        Email = 1,
-        Photo,
         Name,
-        Text,
-        Phone,
-        Department,
-        GroupRole = 99
+        Info,
+        Button,
+        GroupRole = 99,
+        GroupManagement = 100
     }
 }

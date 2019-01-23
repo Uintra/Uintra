@@ -20,12 +20,12 @@
                 }
                 refresh();
             }
-        }
+        };
 
         $scope.open = function () {
             $scope.overlay.show = true;
             $scope.backupModel = angular.copy($scope.control.value);
-        }
+        };
 
         $scope.init = function (control) {
             if (!$scope.control.value) {
@@ -39,7 +39,7 @@
                         $scope.control.value.properties.push(i);
                 });
             });
-        }
+        };
 
         $scope.sortableOptions = {
             axis: 'y',
@@ -100,7 +100,7 @@
         function getAllowedProperties() {
             return $http.get("/umbraco/backoffice/api/UserApi/ProfileProperties");
         }
-    }
+    };
     controller.$inject = ["$scope", "$http"];
     angular.module('umbraco').controller('userListController', controller);
 })();

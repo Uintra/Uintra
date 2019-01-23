@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web.Mvc;
 using Compent.Extensions;
 using Compent.Uintra.Core.Search.Entities;
-using Compent.Uintra.Core.Users.UserList;
 using EmailWorker.Data.Extensions;
 using LanguageExt;
 using Localization.Core;
@@ -72,7 +71,7 @@ namespace Compent.Uintra.Controllers
             return (result, searchResult.TotalHits);
         }
 
-        protected override string GetDetailsPopupTitle(UserModel user) => 
+        protected override string GetDetailsPopupTitle(UserModel user) =>
             $"{user.DisplayedName} {_localizationCoreService.Get("UserList.DetailsPopup.Title")}";
 
         protected override UserModel MapToViewModel(IIntranetUser user)
@@ -107,12 +106,18 @@ namespace Compent.Uintra.Controllers
                     None: () => false);
         }
 
-        private static Option<Guid> CurrentGroupId() =>
-            System.Web.HttpContext.Current.Request
+        private Option<Guid> CurrentGroupId()
+        {
+            var result =
+             System.Web.HttpContext.Current.Request
                 .Params["groupId"]
                 .Apply(parseGuid);
+            if (result.IsNone)
+                result = Some(GroupId.Value);
+            return result;
+        }
 
-        private static Guid CreatorId(GroupModel group) => group.CreatorId;
+        private Guid CreatorId(GroupModel group) => group.CreatorId;
 
         private Option<GroupModel> CurrentGroup() =>
             CurrentGroupId().Map(_groupService.Get);

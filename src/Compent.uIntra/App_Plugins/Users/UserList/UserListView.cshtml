@@ -21,34 +21,9 @@
         <div class="users-table js-user-list-table"
              data-title="@Html.Localize("UserList.Confirm.Delete.Title")"
              data-text="@Html.Localize("UserList.Confirm.Delete.Text")">
-            <div class="users-table__thead">
-                <div class="users-table__row js-user-head-row">
-                    @foreach (var column in Model.UsersRows.SelectedColumns)
-                    {
-                        if (column.Type == Uintra.Users.UserList.ColumnType.Photo)
-                        {
-                            continue;
-                        }
-
-                        if (column.SupportSorting)
-                        {
-                            var selected = Model.OrderByColumn.Id == column.Id;
-                            <div class="users-table__head">
-                                <a href="" class="js-user-list-sort-link @(selected ? "_asc" : "")"
-                                   data-order-by="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
-                            </div>
-                            continue;
-                        }
-
-                        <div class="users-table__head">
-                            <span class="users-table__tools"></span>
-                        </div>
-                    }
-
-                </div>
-            </div>
             <div class="users-table__tbody js-tbody">
-                @Html.Partial(Model.UsersRowsViewPath, Model.UsersRows)
+                @*@Html.Partial(Model.UsersRowsViewPath, Model.UsersRows)*@
+                @Html.Action("RenderRows", "UserList", new { model = Model.UsersRows })
             </div>
         </div>
     </div>

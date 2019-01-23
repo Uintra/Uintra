@@ -45,14 +45,6 @@
     </ul>
 </div>
 <div class="m-b-20 _clearfix">
-    <p class="span6"><b>Order by column:</b></p>
-    <select class="span6 displayed-columns" 
-        ng-model="control.value.orderBy" 
-        ng-options="property.name for property in control.value.selectedProperties | filter:{supportSorting:true} track by property.id"
-        >
-    </select>
-</div>
-<div class="m-b-20 _clearfix">
     <div ng-show="control.validationMessage">
         <p><label><font color="red">{{control.validationMessage}}</font></label></p>
     </div>

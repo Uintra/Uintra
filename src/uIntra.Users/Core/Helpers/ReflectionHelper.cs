@@ -16,16 +16,6 @@ namespace Uintra.Users.Helpers
             Properties = typeof(UserModel).GetPublicProperties();
         }
 
-        public static object GetUIColumnValue(UserModel obj, ProfileColumnModel column)
-        {
-            var prop = Properties.FirstOrDefault(i =>
-                {
-                    var attr = i.FirstAttribute<UIColumnAttribute>();
-                    return attr != null && attr.Id == column.Id;
-                });
-            return prop?.GetValue(obj);
-        }
-
         public static Dictionary<string, string> GetUserListTranslations(string keyFormat)
         {
             var result = new Dictionary<string, string>();
@@ -41,21 +31,18 @@ namespace Uintra.Users.Helpers
 
         public static IEnumerable<ProfileColumnModel> GetProfileColumns()
         {
-            var columns = Properties.Select(i =>
+            var columns = typeof(UserModel).GetCustomAttributes<UIColumnAttribute>().Select(i =>
+            {
+                return new ProfileColumnModel()
                 {
-                    var attr = i.FirstAttribute<UIColumnAttribute>();
-                    if (attr == null)
-                        return null;
-                    return new ProfileColumnModel()
-                    {
-                        Id = attr.Id,
-                        Name = attr.DisplayName,
-                        Type = attr.Type,
-                        Alias = attr.Alias,
-                        PropertyName = attr.PropertyName,
-                        SupportSorting = attr.SupportSorting
-                    };
-                }).WhereNotNull().OrderBy(i => i.Id);
+                    Id = i.Id,
+                    Name = i.DisplayName,
+                    Type = i.Type,
+                    Alias = i.Alias,
+                    PropertyName = i.PropertyName,
+                    SupportSorting = i.SupportSorting
+                };
+            }).OrderBy(i => i.Id);
             return columns;
         }
     }
