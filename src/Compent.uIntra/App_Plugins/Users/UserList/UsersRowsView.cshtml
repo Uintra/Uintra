@@ -62,7 +62,7 @@
                 case ColumnType.GroupRole:
                     {
                         <div class="users-table__cell">
-                            @{var role = user.IsGroupAdmin ? "GroupMembers.Table.GroupAdmin.lbl" : "GroupMembers.Table.GroupMember.lbl";}
+                            @{var role = user.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl";}
                             <span class="users-table__text">@Html.Localize(role)</span>
                         </div>
                     }

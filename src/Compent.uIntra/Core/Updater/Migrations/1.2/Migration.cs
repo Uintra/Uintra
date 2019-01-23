@@ -27,17 +27,29 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._2
                 { "UserList.Table.Role.lbl", "Role"},
                 { "UserList.Table.Department.lbl", "Department"},
                 { "UserList.Table.Phone.lbl", "Phone"},
-                {"Profile.Department.lbl","Department"},
-                {"Profile.Phone.lbl","Phone" },
+                {"Profile.Department.lbl","Department:"},
+                {"Profile.Phone.lbl","Phone:" },
+                {"Profile.Email.lbl","E-mail:" },
+                {"Profile.Title.lbl","Edit profile" },
                 {"Profile.Department.Placeholder", "Department placeholder" },
-                {"Profile.Phone.Placeholder", "Phone placeholder" }
-
+                {"Profile.Phone.Placeholder", "Phone placeholder" },
+                {"Profile.Overview.Title.lbl", "Profile" },
+                {"Profile.Overview.Department.lbl", "Department:"},
+                {"Profile.Overview.Phone.lbl", "Phone:" },
+                {"Profile.Overview.Email.lbl", "E-mail:" },
+                {"UserList.Table.GroupAdmin.lbl", "Group admin" },
+                {"UserList.Table.GroupMember.lbl", "Group member" }
             },
             Update = new Dictionary<string, (string old, string update)>
             {
-                { "SystemLinks.Menu.lbl" , ("System Links Block", "Shared Links Block")}
+                { "SystemLinks.Menu.lbl", ("System Links Block", "Shared Links Block") },
+                { "FileUploadView.UploadFiles.lbl", ("Insert image", "Insert image") }
             },
             Remove = new List<string>()
+            {
+                { "GroupRoom.Label" },
+                { "Profile.UploadNewPhoto.lbl" }
+            }
         };
 
         private T Resolve<T>() where T : class => _migrationStepsResolver.Resolve<T>();
@@ -51,7 +63,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._2
                 yield return Resolve<AddPhoneAndDepartmentToUserStep>();
                 yield return Resolve<ChangeGroupMembersDefaulPanelStep>();
                 yield return Resolve<UseInSearchDefaultTrueStep>();
-                yield return Resolve<ChangeSystemLinksToSharedLinksStep>();               
+                yield return Resolve<ChangeSystemLinksToSharedLinksStep>();
             }
         }
     }

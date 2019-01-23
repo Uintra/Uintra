@@ -11,7 +11,7 @@
     {
         @Html.HiddenFor(el => el.Id)
         <div class="form-edit-profile__top">
-            <h3 class="form-edit-profile__title">Edit profile</h3>
+            <h3 class="form-edit-profile__title">@Html.Localize("Profile.Title.lbl")</h3>
             <div class="form-edit-profile__actions">
                 <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
                 <input class="btn _submit" type="submit" value="@Html.Localize("Profile.Save.btn")" />
@@ -51,8 +51,8 @@
                     </div>
                     <div class="form-edit-profile__column">
                         <div class="form-edit-profile__row form-edit-profile__row--indent">
-                            <label class="form-edit-profile__label">E-mail:</label>
-                            <span class="form-edit-profile__text">John@smith.com</span>
+                            <label class="form-edit-profile__label">@Html.Localize("Profile.Email.lbl")</label>
+                            <span class="form-edit-profile__text">@Model.Email</span>
                         </div>
                         <div class="form-edit-profile__row">
                             <label class="form-edit-profile__label">@Html.Localize("Profile.Phone.lbl")</label>

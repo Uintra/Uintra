@@ -1,8 +1,9 @@
 ﻿@model Uintra.Users.ProfileViewModel
+@using Uintra.Core.Extensions
 
 <div class="form-profile">
     <div class="form-profile__top">
-        <h3 class="form-profile__title">Profile</h3>
+        <h3 class="form-profile__title">@Html.Localize("Profile.Overview.Title.lbl")</h3>
     </div>
     <div class="form-profile__header">
         @Html.Action("Photo", "User", new
@@ -15,15 +16,15 @@
             <strong class="form-profile__name">@Model.FirstName @Model.LastName</strong>
             <div class="form-profile__list">
                 <div class="form-profile__row">
-                    <span class="form-profile__label">E-mail:</span>
+                    <span class="form-profile__label">@Html.Localize("Profile.Overview.Email.lbl")</span>
                     <span class="form-profile__text"><a href="mailto:@Model.Email">@Model.Email</a></span>
                 </div>
                 <div class="form-profile__row">
-                    <span class="form-profile__label">Phone:</span>
+                    <span class="form-profile__label">@Html.Localize("Profile.Overview.Phone.lbl")</span>
                     <span class="form-profile__text"><a href="tel:@Model.Phone">@Model.Phone</a></span>
                 </div>
                 <div class="form-profile__row">
-                    <span class="form-profile__label">Department:</span>
+                    <span class="form-profile__label">@Html.Localize("Profile.Overview.Department.lbl")</span>
                     <span class="form-profile__text">@Model.Department</span>
                 </div>
             </div>
