@@ -8,7 +8,7 @@ require("./List/notificationList.css");
 var infinityScroll = helpers.infiniteScrollFactory;
 var body = document.querySelector('body');
 var html = document.querySelector('html');
-var mobileMediaQuery = window.matchMedia("(max-width: 899px)");
+var mobileMediaQuery = window.matchMedia("(max-width: 900px)");
 
 function initPreviewControls() {
     var notification = document.querySelector(".js-notification");
@@ -129,6 +129,7 @@ function getPermissions() {
     
     if (mobileMediaQuery.matches) {
         onDenied();
+        return;
     }
     if (push.Permission.has()) {
         onGranted();
@@ -162,7 +163,7 @@ function sentNotification(notification) {
             });
         },
         onShow: function () { }
-    }
+    };
 
     push.create(notification.desktopTitle, objParam);
 }
