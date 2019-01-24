@@ -130,7 +130,7 @@
         font-weight: 400;
         line-height: 0.88;
         color: #262626;
-        margin: 0 0 15px;
+        margin: 0 auto 15px 0;
     }
 
     &__actions{

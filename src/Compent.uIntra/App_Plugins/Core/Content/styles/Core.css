@@ -783,8 +783,11 @@ img{
     height: 60px;
     margin: 0 20px 3px 0;
     position: relative;
-    overflow: hidden;
-    border-radius:50%;
+
+    img{
+        overflow: hidden;
+        border-radius:50%;
+    }
 
     &__profile{
         width:90px;
@@ -843,8 +846,10 @@ img{
     }
 
     &--square{
-        border-radius:0;
-        overflow:visible;
+        img{
+            border-radius:0;
+            overflow:visible;
+        }
     }
     ._profile &{
         width: 100px;
@@ -1073,7 +1078,7 @@ img{
                 position: absolute;
                 top: 50%;
                 transform: translate(-50%, -50%);
-                max-width: 100%;
+                width: 100%;
             }
         }
     }
