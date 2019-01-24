@@ -26,36 +26,34 @@
                 case ColumnType.Info:
                     {
                         <div class="users-table__cell">
-                            <span class="users-table__text">
-                                @if (!string.IsNullOrEmpty(user.Email))
-                                {
-                                    <span class="users-table__label">
-                                        @(Html.Localize("UserList.Table.Email.lbl") + ":")
-                                        @user.Email
-                                    </span>
-                                }
-                                @if (!string.IsNullOrEmpty(user.Phone))
-                                {
-                                    <span class="users-table__label">
-                                        @(Html.Localize("UserList.Table.Phone.lbl") + ":")
-                                        @user.Phone
-                                    </span>
-                                }
-                                @if (!string.IsNullOrEmpty(user.Department))
-                                {
-                                    <span class="users-table__label">
-                                        @(Html.Localize("UserList.Table.Department.lbl") + ":")
-                                        @user.Department
-                                    </span>
-                                }
-                            </span>
+                            @if (!string.IsNullOrEmpty(user.Email))
+                            {
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Email.lbl") + ":")
+                                    @user.Email
+                                </span>
+                            }
+                            @if (!string.IsNullOrEmpty(user.Phone))
+                            {
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Phone.lbl") + ":")
+                                    @user.Phone
+                                </span>
+                            }
+                            @if (!string.IsNullOrEmpty(user.Department))
+                            {
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Department.lbl") + ":")
+                                    @user.Department
+                                </span>
+                            }
                         </div>
                     }
                     break;
                 case ColumnType.Button:
                     {
                         <div class="users-table__cell">
-                            <button>Message</button>
+                            <button class="btn">Message</button>
                         </div>
                     }
                     break;

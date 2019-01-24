@@ -876,6 +876,8 @@ img{
         justify-content: center;
         align-items:center;
         text-align:center;
+        overflow: hidden;
+        border-radius: 50%;
 
         .side-nav &{
             position:static;
