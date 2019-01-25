@@ -496,10 +496,6 @@
         }
     }
 
-    /*&__name {
-        color: var(--color-contrast);
-    }*/
-
     &__link{
         color:var(--text-color-dark);
 
@@ -513,9 +509,18 @@
 
 .avatar.avatar--group-member,
 .avatar--group-member{
-    margin:-9px 0;
+    margin:0;
     width: 50px;
     min-width: 50px;
     height: 50px;
-    float:left;
+
+    @media (--for-tablet-portrait-down) {
+        width: 45px;
+        min-width: 45px;
+        height: 45px;
+        position: absolute;
+        top: 20px;
+        left: 0;
+        z-index:2;
+    }
 }
