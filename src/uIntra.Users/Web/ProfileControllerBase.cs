@@ -8,6 +8,7 @@ using Uintra.Core.Media;
 using Uintra.Core.User;
 using Uintra.Core.User.DTO;
 using Uintra.Notification;
+using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
 namespace Uintra.Users.Web
@@ -21,18 +22,21 @@ namespace Uintra.Users.Web
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IProfileLinkProvider _profileLinkProvider;
+        private readonly IMemberService _memberService;
 
         protected ProfileControllerBase(
             IMediaHelper mediaHelper,
             IApplicationSettings applicationSettings,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
-            IProfileLinkProvider profileLinkProvider)
+            IProfileLinkProvider profileLinkProvider,
+            IMemberService memberService)
         {
             _mediaHelper = mediaHelper;
             _intranetUserService = intranetUserService;
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
             _profileLinkProvider = profileLinkProvider;
+            _memberService = memberService;
         }
 
         public virtual ActionResult Overview(Guid? id)
@@ -72,10 +76,18 @@ namespace Uintra.Users.Web
         }
 
         [HttpDelete]
-        public virtual void DeletePhoto(string photoPath)
+        public virtual void DeletePhoto(Guid memberId)
         {
             var user = _intranetUserService.GetCurrentUser();
-            _mediaHelper.DeleteMedia(photoPath);
+            //todo store photoId in user profile instead of full path and fill it on view models
+            var member = _memberService.GetByKey(memberId);
+
+            var userPhotoId = member.GetValueOrDefault<int?>(ProfileConstants.Photo) ?? member.GetMemberImageId(ProfileConstants.Photo);
+
+            if (userPhotoId.HasValue)
+            {
+                _mediaHelper.DeleteMedia(userPhotoId.Value);
+            }
 
             var updateUser = user.Map<UpdateUserDto>();
             updateUser.DeleteMedia = true;
