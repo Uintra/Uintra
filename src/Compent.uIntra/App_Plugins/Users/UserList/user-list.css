@@ -8,37 +8,6 @@
         padding: 20px 10px 19px;
         margin: 0 -15px 22px;
     }
-
-    .btn{
-        margin:0 0 5px;
-        text-transform:none;
-        padding:6px 4px;
-        width:100%;
-
-        @media (--for-tablet-portrait-down) {
-            width:42px;
-            position: absolute;
-            top: 20px;
-            right: 0;
-            z-index: 2;
-            color:#888;
-        }
-
-        .svg-icon{
-            display:none;
-
-            @media (--for-tablet-portrait-down){
-                display: inline-block;
-                vertical-align: top;
-            }
-        }
-
-        span{
-            @media (--for-tablet-portrait-down){
-                display:none;
-            }
-        }
-    }
 }
 
 .user-search{
@@ -290,6 +259,37 @@
             margin-top:-1px;
 		}
 	}
+    
+    .btn{
+        margin:0 0 5px;
+        text-transform:none;
+        padding:6px 4px;
+        width:100%;
+
+        @media (--for-tablet-portrait-down) {
+            width:42px;
+            position: absolute;
+            top: 20px;
+            right: 0;
+            z-index: 2;
+            color:#888;
+        }
+
+        .svg-icon{
+            display:none;
+
+            @media (--for-tablet-portrait-down){
+                display: inline-block;
+                vertical-align: top;
+            }
+        }
+
+        span{
+            @media (--for-tablet-portrait-down){
+                display:none;
+            }
+        }
+    }
 }
 
 
