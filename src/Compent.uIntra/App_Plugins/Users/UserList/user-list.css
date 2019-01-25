@@ -264,7 +264,6 @@
         margin:0 0 5px;
         text-transform:none;
         padding:6px 4px;
-        width:100%;
 
         @media (--for-tablet-portrait-down) {
             width:42px;
