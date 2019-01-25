@@ -163,6 +163,7 @@
         @media (min-width: 1552px) {
             min-height:90px !important;
             min-width:90px;
+            height:90px;
         }
 
         &-holder{
@@ -174,7 +175,7 @@
         }
             
         .dz-message{
-            margin:5px;
+            margin:10px;
 
             & > span{
                 padding:0;
