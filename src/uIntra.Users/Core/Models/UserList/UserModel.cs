@@ -6,7 +6,7 @@ namespace Uintra.Users.UserList
 {
     [UIColumn(0, "Name", "fullName", ColumnType.Name, SupportSorting = true)]
     [UIColumn(1, "Info", "info", ColumnType.Info)]
-    [UIColumn(2, "Button", "button", ColumnType.Button)]
+    //[UIColumn(2, "Button", "button", ColumnType.Button)]
     public class UserModel
     {
         public string Photo { get; set; }

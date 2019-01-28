@@ -5,11 +5,11 @@ using System.Web.Mvc;
 using Uintra.Core.Extensions;
 using Uintra.Core.User;
 using Umbraco.Web.Mvc;
-using Newtonsoft.Json;
 using Uintra.Users.UserList;
 using System.IO;
 using LanguageExt;
 using static LanguageExt.Prelude;
+using Uintra.Users.Helpers;
 
 namespace Uintra.Users.Web
 {
@@ -29,8 +29,7 @@ namespace Uintra.Users.Web
 
         public virtual ActionResult Render(UserListModel model)
         {
-            var selectedPropertiesJson = (string) model.SelectedProperties.ToString();
-            var selectedColumns = selectedPropertiesJson.Deserialize<List<ProfileColumnModel>>();
+            var selectedColumns = ReflectionHelper.GetProfileColumns();
             var orderByColumn = selectedColumns.FirstOrDefault(i => i.SupportSorting);
 
             var groupId = Request.QueryString["groupId"].Apply(parseGuid);
@@ -50,7 +49,6 @@ namespace Uintra.Users.Web
                 Skip = 0,
                 Take = model.DisplayedAmount,
                 OrderingString = orderByColumn?.PropertyName,
-                OrderingDirection = 0,
                 GroupId = groupId
             };
 
@@ -64,9 +62,7 @@ namespace Uintra.Users.Web
         public virtual ActionResult GetUsers(ActiveUserSearchQueryModel queryModel)
         {
             GroupId = queryModel.GroupId;
-            var columns = JsonConvert.DeserializeObject<IEnumerable<ProfileColumnModel>>(queryModel.SelectedColumns);
             var model = GetUsersRowsViewModel();
-            model.SelectedColumns = columns;
 
             var query = queryModel.Map<ActiveUserSearchQuery>();
             var (activeUsers, isLastRequest) = GetActiveUsers(query);
@@ -157,7 +153,10 @@ namespace Uintra.Users.Web
         }
 
         protected virtual UsersRowsViewModel GetUsersRowsViewModel() => 
-            new UsersRowsViewModel();
+            new UsersRowsViewModel
+            {
+                SelectedColumns = ReflectionHelper.GetProfileColumns()
+            };
 
         public abstract bool ExcludeUserFromGroup(Guid userId);
 

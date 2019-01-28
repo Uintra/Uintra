@@ -17,20 +17,10 @@
             </button>
         </form>
     </div>
-    @*<div class="users-table-block">
-        <div class="users-table js-user-list-table"
-             data-title="@Html.Localize("UserList.Confirm.Delete.Title")"
-             data-text="@Html.Localize("UserList.Confirm.Delete.Text")">
-            <div class="users-table__tbody js-tbody">
-                @Html.Action("RenderRows", "UserList", new { model = Model.UsersRows })
-            </div>
-        </div>
-    </div>*@
     <div class="users-table js-user-list-table"
             data-title="@Html.Localize("UserList.Confirm.Delete.Title")"
             data-text="@Html.Localize("UserList.Confirm.Delete.Text")">
         <div class="js-tbody">
-            @*@Html.Partial(Model.UsersRowsViewPath, Model.UsersRows)*@
             @Html.Action("RenderRows", "UserList", new { model = Model.UsersRows })
         </div>
     </div>
@@ -52,8 +42,6 @@
             skip: 0,
             take: @Model.DisplayedAmount,
             orderingString: '@(Model.OrderByColumn?.PropertyName)',
-            orderingDirection: 0,
-            selectedColumns: '@Html.Raw(JsonConvert.SerializeObject(Model.UsersRows.SelectedColumns))',
             groupId: ''
         },
         amountPerRequest: @Model.AmountPerRequest,

@@ -34,14 +34,7 @@ namespace Uintra.Search
 
             ApplyAggregations(searchRequest, query);
 
-            if (query.OrderingString.IsNullOrEmpty())
-            {
-                ApplySort(searchRequest);
-            }
-            else
-            {
-                ApplySort(searchRequest, query.OrderingDirection, query.OrderingString);
-            }
+            ApplySort(searchRequest, query.OrderingString);
 
             ApplyPaging(searchRequest, query);
 
@@ -181,22 +174,15 @@ namespace Uintra.Search
             return result;
         }
 
-        protected virtual void ApplySort<T>(SearchDescriptor<T> searchDescriptor, int direction = 0, string propertyName = "_score") where T : class
+        protected virtual void ApplySort<T>(SearchDescriptor<T> searchDescriptor, string propertyName = "_score") where T : class
         {
-            if (propertyName.In("fullName", "mail", "department"))
+            if (propertyName.In("fullName"))
             {
                 propertyName += $".{ElasticHelpers.Normalizer.Sort}";
+                searchDescriptor.Sort(s => s.Ascending(propertyName));
+                return;
             }
-
-            switch (direction)
-            {
-                case 0:
-                    searchDescriptor.Sort(s => propertyName.Equals("_score") ? s.Descending(propertyName) : s.Ascending(propertyName));
-                    break;
-                case 1:
-                    searchDescriptor.Sort(s => propertyName.Equals("_score") ? s.Ascending(propertyName) : s.Descending(propertyName));
-                    break;
-            }
+            searchDescriptor.Sort(s => s.Descending(propertyName));
         }
 
         protected virtual void ApplyPaging<T>(SearchDescriptor<T> searchDescriptor, SearchTextQuery query) where T : class

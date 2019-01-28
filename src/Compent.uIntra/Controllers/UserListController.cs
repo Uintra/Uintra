@@ -60,7 +60,6 @@ namespace Compent.Uintra.Controllers
                 Skip = query.Skip,
                 Take = query.Take,
                 OrderingString = query.OrderingString,
-                OrderingDirection = query.OrderingDirection,
                 SearchableTypeIds = ((int)UintraSearchableTypeEnum.User).ToEnumerable(),
                 GroupId = query.GroupId
             };

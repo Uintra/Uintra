@@ -23,8 +23,7 @@ namespace Uintra.Users
 
 
             Mapper.CreateMap<ActiveUserSearchQuery, ActiveUserSearchQueryModel>()
-                .ForMember(dst => dst.GroupId, o => o.MapFrom(query => query.GroupId.ToNullable()))
-                .ForMember(dst => dst.SelectedColumns, o => o.Ignore());
+                .ForMember(dst => dst.GroupId, o => o.MapFrom(query => query.GroupId.ToNullable()));
 
             Mapper.CreateMap<ActiveUserSearchQueryModel, ActiveUserSearchQuery>()
                 .ForMember(dst => dst.GroupId, o => o.MapFrom(query => query.GroupId.ToOption()));
