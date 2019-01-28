@@ -8,8 +8,6 @@ namespace Uintra.Users.UserList
         public int Skip { get; set; }
         public int Take { get; set; }
         public string OrderingString { get; set; }
-        public int OrderingDirection { get; set; }
         public Guid? GroupId { get; set; }
-        public string SelectedColumns { get; set; }
     }
 }

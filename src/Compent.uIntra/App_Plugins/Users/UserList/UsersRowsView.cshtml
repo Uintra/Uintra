@@ -1,5 +1,4 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Users.UserList.MembersRowsViewModel>
-@using Uintra.Users.Helpers
 @using Uintra.Users.UserList
 @using Uintra.Core.Extensions
 
@@ -11,88 +10,77 @@
         {
             switch (column.Type)
             {
-                case ColumnType.Email:
-                    {
-                        <div class="users-table__cell">
-                            @*<a class="members-table__link" href="mailto:@user.Email">@user.Email</a>*@
-                            <span class="users-table__text">@user.Email</span>
-                        </div>
-                    }
-                    break;
-                case ColumnType.Photo:
-                    {
-                        <div class="users-table__cell users-table__cell--photo">
-                            @Html.Action("Photo", "Member", new
-                            {
-                                user = user.Member,
-                                cssModificator = "avatar--group-member",
-                                photoWidth = 30
-                            })
-                        </div>
-                    }
-                    break;
                 case ColumnType.Name:
                     {
                         <div class="users-table__cell">
-                            <span class="users-table__name">@user.DisplayedName</span>
-                        </div>
-                    }
-                    break;
-                case ColumnType.Text:
-                    {
-                        <div class="users-table__cell">
-                            <span class="users-table__text">@ReflectionHelper.GetUIColumnValue(user, column)</span>
-                        </div>
-                    }
-                    break;
-                case ColumnType.Phone:
-                    {
-                        <div class="users-table__cell">
-                            <span class="users-table__text">
-                                @if (!string.IsNullOrEmpty(user.Phone))
+                            <div class="users-table__info">
+                                @Html.Action("Photo", "Member", new
                                 {
-
-                                    <span class="users-table__label">
-                                        @(Html.Localize("UserList.Table.Phone.lbl") + ":")
-                                    </span>
-
-                                }
-                                @user.Phone
-                            </span>
+                                    member = user.Member,
+                                    cssModificator = "avatar--group-member",
+                                    photoWidth = 30
+                                })
+                                <span class="users-table__name">@user.DisplayedName</span>
+                            </div>
                         </div>
                     }
                     break;
-                case ColumnType.Department:
+                case ColumnType.Info:
                     {
                         <div class="users-table__cell">
-                            <span class="users-table__text">
-                                @if (!string.IsNullOrEmpty(user.Department))
-                                {
-
-                                    <span class="users-table__label">
-                                        @(Html.Localize("UserList.Table.Department.lbl") + ":")
-                                    </span>
-
-                                }
-                                @user.Department
-                            </span>
+                            @if (!string.IsNullOrEmpty(user.Email))
+                            {
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Email.lbl") + ":")
+                                    @user.Email
+                                </span>
+                            }
+                            @if (!string.IsNullOrEmpty(user.Phone))
+                            {
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Phone.lbl") + ":")
+                                    @user.Phone
+                                </span>
+                            }
+                            @if (!string.IsNullOrEmpty(user.Department))
+                            {
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Department.lbl") + ":")
+                                    @user.Department
+                                </span>
+                            }
+                        </div>
+                    }
+                    break;
+                case ColumnType.Button:
+                    {
+                        <div class="users-table__cell">
+                            <button class="btn">
+                                <svg class="svg-icon" viewBox="0 0 24 24" width="19px" height="19px">
+                                    <use xlink:href="#icon-comment" x="0" y="0"></use>
+                                </svg>
+                                <span>Message</span>
+                            </button>
                         </div>
                     }
                     break;
                 case ColumnType.GroupRole:
                     {
                         <div class="users-table__cell">
-                            @{var role = user.IsGroupAdmin ? "GroupMembers.Table.GroupAdmin.lbl" : "GroupMembers.Table.GroupMember.lbl";}
+                            @{var role = user.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl";}
                             <span class="users-table__text">@Html.Localize(role)</span>
-                            @if ((Model.CurrentMember.Id == user.Member.Id || Model.IsCurrentMemberAdmin) && !user.IsGroupAdmin)
-                            {
-                                <button class="js-user-list-delete">X</button>
-                            }
                         </div>
                     }
                     break;
+                case ColumnType.GroupManagement:
+                    <div class="users-table__cell">
+                        @if ((Model.CurrentMember.Id == user.Member.Id || Model.IsCurrentMemberAdmin) && !user.IsGroupAdmin)
+                        {
+                            <button class="users-table__delete js-user-list-delete">X</button>
+                        }
+                    </div>
+                    break;
             }
-
         }
     </div>
 }

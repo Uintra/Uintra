@@ -6,83 +6,90 @@
 @using Umbraco.Web
 @model Compent.Uintra.Core.Users.ExtendedProfileEditModel
 
-<div id="js-profile-page" class="form profile-edit _profile">
+<div id="js-profile-page" class="form-edit-profile">
     @using (Html.BeginUmbracoForm("Edit", "Profile", FormMethod.Post))
     {
         @Html.HiddenFor(el => el.Id)
-        <div class="form__row clearfix">
-            <div class="form__header">
+        <div class="form-edit-profile__top">
+            <h3 class="form-edit-profile__title">@Html.Localize("Profile.Title.lbl")</h3>
+            <div class="form-edit-profile__actions">
+                <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
+                <input class="btn _submit" type="submit" value="@Html.Localize("Profile.Save.btn")" />
+                <a href="@Model.ProfileUrl" class="btn">@Html.Localize("Common.Cancel.lnk")</a>
+            </div>
+        </div>
+        <div class="form-edit-profile__columns">
+            @{
+                var additionClass = string.IsNullOrEmpty(Model.Photo) ? "" : "_hide";
+            }
+            <div class="dropzone-holder clearfix @additionClass">
                 @{
-                    var additionClass = string.IsNullOrEmpty(Model.Photo) ? "" : "_hide";
+                    var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string, MaxFilesCount = 1 };
+                    Html.RenderAction("Uploader", "FileUpload", new { Settings = settings });
                 }
-                <div class="dropzone-holder clearfix @additionClass">
-                    <label class="form__label" for="file-upload">@Html.Localize("Profile.UploadNewPhoto.lbl")</label>
-                    @{
-                        var settings = new FileUploadSettings { AllowedExtensions = ViewData["AllowedMediaExtensions"] as string, MaxFilesCount = 1 };
-                        Html.RenderAction("Uploader", "FileUpload", new { Settings = settings });
-                    }
-                </div>
-                @if (!string.IsNullOrEmpty(Model.Photo))
-                {
-                    <div class="avatar avatar--square">
-                        <img class="avatar__img" src="@Model.Photo?width=100&height=100&mode=crop" width="100" alt="avatar" />
-
-                        <span class="form__clear _clear-avatar js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")" data-photo="@Model.Photo">
-                            <svg class="svg-icon" viewBox="0 0 20 20" width="10px" height="10px">
-                                <use xlink:href="#icon-close" x="0" y="0"></use>
-                            </svg>
-                        </span>
-                    </div>
-                }
-                <div class="form__meta">
-                    <div class="form__row">
-                        <label class="form__label">@Html.Localize("Profile.FirstName.lbl")</label>
-                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form__input", placeholder = Html.Localize("Profile.FirstName.Placeholder") })
-                    </div>
-                    <div class="form__row">
-                        <label class="form__label">@Html.Localize("Profile.LastName.lbl")</label>
-                        @Html.TextBoxFor(m => m.LastName, new { @class = "form__input", placeholder = Html.Localize("Profile.LastName.Placeholder") })
-                    </div>
-                    <div class="form__row">
-                        <label class="form__label">@Html.Localize("Profile.Department.lbl")</label>
-                        @Html.TextBoxFor(m => m.Department, new { @class = "form__input", placeholder = Html.Localize("Profile.Department.Placeholder") })
-                    </div>
-                    <div class="form__row">
-                        <label class="form__label">@Html.Localize("Profile.Phone.lbl")</label>
-                        @Html.TextBoxFor(m => m.Phone, new { @class = "form__input", placeholder = Html.Localize("Profile.Phone.Placeholder") })
-                    </div>
-                </div>
             </div>
-        </div>
-        <div class="form__row clearfix">
-            @Html.Action("TagPicker", "UserTags", new { entityId = Model.Id })
-        </div>
-        <div class="form__row clearfix">
-            <div class="check">
-                <label class="check__label">
-                    @Html.CheckBox("js-member-notifier-setting",
-                                    Model.MemberNotifierSettings[NotifierTypeEnum.EmailNotifier],
-                                    new
-                                    {
-                                        notifiertype = NotifierTypeEnum.EmailNotifier,
-                                        @class = "check__box",
-                                        dataConfirmMessage = @Html.Localize("Profile.NotifierSettings.Confirmation.lbl")
-                                    })
-                    <label class="form__label">@Html.Localize("Profile.EmailNotifications.Title.lbl")</label>
-                    <span class="check__fake-input">
-                        <svg class="svg-icon" viewBox="0 0 512 512" width="13px" height="13px">
-                            <use xlink:href="#icon-check" x="0" y="0"></use>
-                        </svg>
+            @if (!string.IsNullOrEmpty(Model.Photo))
+            {
+                <div class="avatar">
+                    <img class="avatar__img" src="@Model.Photo?width=100&height=100&mode=crop" width="100" alt="avatar" />
+
+                    <span class="form-edit-profile__clear js-delete-btn" data-confirm-message="@Html.Localize("Profile.DeletePhotoConfirm.lbl")">
                     </span>
-                    <span class="check__fake-label">@Html.Localize("Profile.EmailNotifications.lbl")</span>
-                </label>
+                </div>
+            }
+            <div class="form-edit-profile__box">
+                <div class="form-edit-profile__meta">
+                    <div class="form-edit-profile__column">
+                        <div class="form-edit-profile__row">
+                            <label class="form-edit-profile__label">@Html.Localize("Profile.FirstName.lbl")</label>
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form__input", placeholder = Html.Localize("Profile.FirstName.Placeholder") })
+                        </div>
+                        <div class="form-edit-profile__row">
+                            <label class="form-edit-profile__label">@Html.Localize("Profile.LastName.lbl")</label>
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form__input", placeholder = Html.Localize("Profile.LastName.Placeholder") })
+                        </div>
+                    </div>
+                    <div class="form-edit-profile__column">
+                        <div class="form-edit-profile__row form-edit-profile__row--indent">
+                            <label class="form-edit-profile__label">@Html.Localize("Profile.Email.lbl")</label>
+                            <span class="form-edit-profile__text">@Model.Email</span>
+                        </div>
+                        <div class="form-edit-profile__row">
+                            <label class="form-edit-profile__label">@Html.Localize("Profile.Phone.lbl")</label>
+                            @Html.TextBoxFor(m => m.Phone, new { @class = "form__input", placeholder = Html.Localize("Profile.Phone.Placeholder") })
+                        </div>
+                        <div class="form-edit-profile__row">
+                            <label class="form-edit-profile__label">@Html.Localize("Profile.Department.lbl")</label>
+                            @Html.TextBoxFor(m => m.Department, new { @class = "form__input", placeholder = Html.Localize("Profile.Department.Placeholder") })
+                        </div>
+                    </div>
+                </div>
+                <div class="form__row">
+                    @Html.Action("TagPicker", "UserTags", new { entityId = Model.Id })
+                </div>
+                <div class="form__row clearfix">
+                    <div class="check">
+                        <label class="check__label">
+                            @Html.CheckBox("js-member-notifier-setting",
+                                                     Model.MemberNotifierSettings[NotifierTypeEnum.EmailNotifier],
+                                                     new
+                                                     {
+                                                         notifiertype = NotifierTypeEnum.EmailNotifier,
+                                                         @class = "check__box",
+                                                         dataConfirmMessage = @Html.Localize("Profile.NotifierSettings.Confirmation.lbl")
+                                                     })
+                            <label class="form__label">@Html.Localize("Profile.EmailNotifications.Title.lbl")</label>
+                            <span class="check__fake-input">
+                                <svg class="svg-icon" viewBox="0 0 512 512" width="13px" height="13px">
+                                    <use xlink:href="#icon-check" x="0" y="0"></use>
+                                </svg>
+                            </span>
+                            <span class="check__fake-label">@Html.Localize("Profile.EmailNotifications.lbl")</span>
+                        </label>
+                    </div>
+                </div>
+                @Html.ValidationSummary()
             </div>
         </div>
-        <div class="form__row--no-indent clearfix">
-            <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
-            <input class="btn _submit" type="submit" value="@Html.Localize("Profile.Save.btn")" />
-        </div>
-        @Html.ValidationSummary()
     }
-
 </div>

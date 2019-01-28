@@ -660,7 +660,7 @@ img{
     margin: 0 6px 0 0;
     max-width: 100%;
     overflow: hidden;
-    padding: 7px 15px 6px;
+    padding: 6px 15px;
     text-overflow: ellipsis;
     white-space: nowrap;
     position: relative;
@@ -730,7 +730,7 @@ img{
     }
 }
 
-.top{
+.top {
     position: fixed;
     bottom: 0;
     left: 19px;
@@ -742,13 +742,18 @@ img{
     height: 41px;
     opacity: 0;
     cursor: pointer;
-    z-index:-1;
+    z-index: -1;
     transition: opacity 0.3s ease;
 
-    ._notifications-expanded &,
-    ._notifications-expanded &._visible,
-    ._aside-expanded &,
-    ._aside-expanded &._visible{
+    @media(--for-tablet-landscape-up) {
+        left:229px;
+    }
+
+    @media (min-width: 1552px) {
+        left:calc(50% - 546px);
+    }
+
+    ._notifications-expanded &, ._notifications-expanded &._visible, ._aside-expanded &, ._aside-expanded &._visible{
         opacity: 0;
         z-index:-1;
     }
@@ -778,8 +783,11 @@ img{
     height: 60px;
     margin: 0 20px 3px 0;
     position: relative;
-    overflow: hidden;
-    border-radius:50%;
+
+    img{
+        overflow: hidden;
+        border-radius:50%;
+    }
 
     &__profile{
         width:90px;
@@ -830,10 +838,6 @@ img{
         vertical-align:middle;
     }
 
-    .form.profile-edit &{
-        margin:0 20px 0 0;
-    }
-
     ._details &{
         width:35px;
         min-width:35px;
@@ -842,8 +846,10 @@ img{
     }
 
     &--square{
-        border-radius:0;
-        overflow:visible;
+        img{
+            border-radius:0;
+            overflow:visible;
+        }
     }
     ._profile &{
         width: 100px;
@@ -870,6 +876,8 @@ img{
         justify-content: center;
         align-items:center;
         text-align:center;
+        overflow: hidden;
+        border-radius: 50%;
 
         .side-nav &{
             position:static;
@@ -1072,7 +1080,7 @@ img{
                 position: absolute;
                 top: 50%;
                 transform: translate(-50%, -50%);
-                max-width: 100%;
+                width: 100%;
             }
         }
     }

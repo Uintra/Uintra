@@ -32,7 +32,8 @@ namespace Compent.Uintra.Core.Users
             Mapper.CreateMap<IntranetUser, ProfileEditModel>()
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
-                .ForMember(dst => dst.MemberNotifierSettings, o => o.Ignore());
+                .ForMember(dst => dst.MemberNotifierSettings, o => o.Ignore())
+                .ForMember(dst => dst.ProfileUrl, o => o.Ignore());
 
             Mapper.CreateMap<User, CreateMemberDto>()
                 .ForMember(dst => dst.FirstName, o => o.Ignore())

@@ -8,15 +8,12 @@ const searchButton = $(".js-search-button");
 const table = $(".js-user-list-table");
 const tableBody = $(".js-user-list-table .js-tbody");
 const button = $(".js-user-list-button");
-const sortLinks = $(".js-user-list-sort-link");
 const displayedRows = $(".js-user-list-row");
 const emptyResultLabel = $(".js-user-list-empty-result");
 const searchActivationDelay = 256;
 const url = "/umbraco/surface/UserList/GetUsers";
 const excludeUserFromGroupUrl = "/umbraco/surface/UserList/ExcludeUserFromGroup";
 
-let ascendingClassName = "_asc";
-let descendingClassName = "_desc";
 let lastRequestClassName = "last";
 
 let searchTimeout;
@@ -33,7 +30,6 @@ let controller = {
             return;
         init();
         button.click(onButtonClick);
-        sortLinks.click(onSortClick);
         searchBoxElement.on("input", onSearchStringChanged);
         searchBoxElement.on("keypress", onKeyPress);
         searchButton.click(onSearchClick);
@@ -74,28 +70,6 @@ let controller = {
                     tableBody.append(rows);
                     addDetailsHandler(rows);
                     addRemoveUserFromGroupHandler(rows);
-                    updateUI(rows);
-                });
-        }
-
-        function onSortClick(event) {
-            event.preventDefault();
-            var link = $(this);
-            var direction = link.hasClass(ascendingClassName) ? 1 : 0;
-            request.take = request.skip + request.take;
-            request.skip = 0;
-            request.orderingString = link.data("order-by");
-            request.orderingDirection = direction;
-
-            ajax.post(url, request)
-                .then((result) => {
-                    var rows = $(result.data).filter("div");
-                    tableBody.children().remove();
-                    tableBody.append(rows);
-                    addDetailsHandler(rows);
-                    addRemoveUserFromGroupHandler(rows);
-                    sortLinks.removeClass(ascendingClassName + " " + descendingClassName);
-                    link.addClass(direction === 0 ? ascendingClassName : descendingClassName);
                     updateUI(rows);
                 });
         }

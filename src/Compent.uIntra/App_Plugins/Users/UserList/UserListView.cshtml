@@ -17,34 +17,11 @@
             </button>
         </form>
     </div>
-    <div class="users-table-block">
-        <div class="users-table js-user-list-table"
-             data-title="@Html.Localize("UserList.Confirm.Delete.Title")"
-             data-text="@Html.Localize("UserList.Confirm.Delete.Text")">
-            <div class="users-table__thead">
-                <div class="users-table__row js-user-head-row">
-                    @foreach (var column in Model.MembersRows.SelectedColumns)
-                    {
-                        if (column.SupportSorting)
-                        {
-                            var selected = Model.OrderByColumn.Id == column.Id;
-                            <div class="users-table__head">
-                                <a href="" class="js-user-list-sort-link @(selected ? "_asc" : "")"
-                                   data-order-by="@column.PropertyName">@Html.Localize($"UserList.Table.{column.Alias}.lbl")</a>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="users-table__head users-table__head--photo">
-                                <span>@Html.Localize($"UserList.Table.{column.Alias}.lbl")</span>
-                            </div>
-                        }
-                    }
-                </div>
-            </div>
-            <div class="users-table__tbody js-tbody">
-                @Html.Partial(Model.UsersRowsViewPath, Model.MembersRows)
-            </div>
+    <div class="users-table js-user-list-table"
+            data-title="@Html.Localize("UserList.Confirm.Delete.Title")"
+            data-text="@Html.Localize("UserList.Confirm.Delete.Text")">
+        <div class="js-tbody">
+            @Html.Action("RenderRows", "UserList", new { model = Model.MembersRows })
         </div>
     </div>
     <button class="btn js-user-list-button"
@@ -65,8 +42,6 @@
             skip: 0,
             take: @Model.DisplayedAmount,
             orderingString: '@(Model.OrderByColumn?.PropertyName)',
-            orderingDirection: 0,
-            selectedColumns: '@Html.Raw(JsonConvert.SerializeObject(Model.MembersRows.SelectedColumns))',
             groupId: ''
         },
         amountPerRequest: @Model.AmountPerRequest,

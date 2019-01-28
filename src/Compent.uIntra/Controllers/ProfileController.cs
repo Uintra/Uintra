@@ -5,12 +5,14 @@ using Compent.Uintra.Core.Users;
 using Uintra.Core;
 using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Extensions;
+using Uintra.Core.Links;
 using Uintra.Core.Media;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Tagging.UserTags;
 using Uintra.Users;
 using Uintra.Users.Web;
+using Umbraco.Core.Services;
 using Umbraco.Web;
 
 namespace Compent.Uintra.Controllers
@@ -21,6 +23,7 @@ namespace Compent.Uintra.Controllers
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly UserTagService _userTagService;
+        private readonly IMemberService _memberService;
 
         protected override string ProfileEditViewPath { get; } = "~/Views/Profile/Edit.cshtml";
 
@@ -30,12 +33,16 @@ namespace Compent.Uintra.Controllers
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
             UmbracoHelper umbracoHelper,
-            IIntranetUserContentProvider intranetUserContentProvider, UserTagService userTagService)
-            : base(mediaHelper, applicationSettings, intranetMemberService, memberNotifiersSettingsService)
+            IIntranetUserContentProvider intranetUserContentProvider,
+            UserTagService userTagService,
+            IProfileLinkProvider profileLinkProvider,
+            IMemberService memberService)
+            : base(mediaHelper, applicationSettings, intranetMemberService, memberNotifiersSettingsService, profileLinkProvider, memberService)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserContentProvider = intranetUserContentProvider;
             _userTagService = userTagService;
+            _memberService = memberService;
             _intranetMemberService = intranetMemberService;
         }
 
@@ -80,9 +87,9 @@ namespace Compent.Uintra.Controllers
             return PartialView(ProfileEditViewPath, result);
         }
 
-        private new ExtendedProfileEditModel MapToEditModel(IIntranetMember member)
+        private new ExtendedProfileEditModel MapToEditModel(IIntranetMember user)
         {
-            var baseModel = base.MapToEditModel(member);
+            var baseModel = base.MapToEditModel(user);
             var result = baseModel.Map<ExtendedProfileEditModel>();
             return result;
         }

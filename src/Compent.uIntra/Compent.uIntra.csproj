@@ -1483,6 +1483,7 @@
     <Compile Include="Core\Updater\Migrations\1.2\Steps\ChangeGroupMembersDefaulPanelStep.cs" />
     <Compile Include="Core\Updater\Migrations\1.2\Steps\ChangeSystemLinksToSharedLinksStep.cs" />
     <Compile Include="Core\Updater\Migrations\1.2\Steps\SplitEventLabelsStep.cs" />
+    <Compile Include="Core\Updater\Migrations\1.2\Steps\UseInSearchDefaultTrueStep.cs" />
     <Compile Include="Core\Updater\TranslationsUpdateStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />

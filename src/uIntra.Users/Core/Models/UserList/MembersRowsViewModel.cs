@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Uintra.Core.User;
 
 namespace Uintra.Users.UserList
@@ -10,5 +11,6 @@ namespace Uintra.Users.UserList
         public bool IsLastRequest { get; set; }
         public MemberViewModel CurrentMember { get; set; }
         public bool IsCurrentMemberAdmin { get; set; }
+        public Guid? GroupId { get; set; }
     }
 }

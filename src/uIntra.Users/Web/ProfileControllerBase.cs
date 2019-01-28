@@ -3,10 +3,12 @@ using System.Linq;
 using System.Web.Mvc;
 using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Extensions;
+using Uintra.Core.Links;
 using Uintra.Core.Media;
 using Uintra.Core.User;
 using Uintra.Core.User.DTO;
 using Uintra.Notification;
+using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
 namespace Uintra.Users.Web
@@ -19,16 +21,22 @@ namespace Uintra.Users.Web
         private readonly IMediaHelper _mediaHelper;
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IProfileLinkProvider _profileLinkProvider;
+        private readonly IMemberService _memberService;
 
         protected ProfileControllerBase(
             IMediaHelper mediaHelper,
             IApplicationSettings applicationSettings,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
-            IMemberNotifiersSettingsService memberNotifiersSettingsService)
+            IMemberNotifiersSettingsService memberNotifiersSettingsService,
+            IProfileLinkProvider profileLinkProvider,
+            IMemberService memberService)
         {
             _mediaHelper = mediaHelper;
             _intranetMemberService = intranetMemberService;
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
+            _profileLinkProvider = profileLinkProvider;
+            _memberService = memberService;
         }
 
         public virtual ActionResult Overview(Guid? id)
@@ -68,10 +76,18 @@ namespace Uintra.Users.Web
         }
 
         [HttpDelete]
-        public virtual void DeletePhoto(string photoPath)
+        public virtual void DeletePhoto(Guid memberId)
         {
             var user = _intranetMemberService.GetCurrentMember();
-            _mediaHelper.DeleteMedia(photoPath);
+            //todo store photoId in user profile instead of full path and fill it on view models
+            var member = _memberService.GetByKey(memberId);
+
+            var userPhotoId = member.GetValueOrDefault<int?>(ProfileConstants.Photo) ?? member.GetMemberImageId(ProfileConstants.Photo);
+
+            if (userPhotoId.HasValue)
+            {
+                _mediaHelper.DeleteMedia(userPhotoId.Value);
+            }
 
             var updateUser = user.Map<UpdateMemberDto>();
             updateUser.DeleteMedia = true;
@@ -79,16 +95,16 @@ namespace Uintra.Users.Web
             _intranetMemberService.Update(updateUser);
         }
 
-        protected virtual ProfileViewModel MapToViewModel(IIntranetMember member)
+        protected virtual ProfileViewModel MapToViewModel(IIntranetMember user)
         {
-            var result = member.Map<ProfileViewModel>();
+            var result = user.Map<ProfileViewModel>();
             return result;
         }
 
-        protected virtual ProfileEditModel MapToEditModel(IIntranetMember member)
+        protected virtual ProfileEditModel MapToEditModel(IIntranetMember user)
         {
-            var result = member.Map<ProfileEditModel>();
-            result.MemberNotifierSettings = _memberNotifiersSettingsService.GetForMember(member.Id);
+            var result = user.Map<ProfileEditModel>();
+            result.MemberNotifierSettings = _memberNotifiersSettingsService.GetForMember(user.Id);
 
             FillEditData(result);
 
@@ -110,6 +126,7 @@ namespace Uintra.Users.Web
             var mediaSettings = GetMediaSettings();
             ViewData["AllowedMediaExtensions"] = mediaSettings.AllowedMediaExtensions;
             model.MediaRootId = mediaSettings.MediaRootId;
+            model.ProfileUrl = _profileLinkProvider.GetProfileLink(model.Id);
         }
 
         public abstract MediaSettings GetMediaSettings();

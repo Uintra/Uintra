@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web.Mvc;
 using Compent.Extensions;
 using Compent.Uintra.Core.Search.Entities;
-using Compent.Uintra.Core.Users.UserList;
 using EmailWorker.Data.Extensions;
 using LanguageExt;
 using Localization.Core;
@@ -61,7 +60,6 @@ namespace Compent.Uintra.Controllers
                 Skip = query.Skip,
                 Take = query.Take,
                 OrderingString = query.OrderingString,
-                OrderingDirection = query.OrderingDirection,
                 SearchableTypeIds = ((int)UintraSearchableTypeEnum.User).ToEnumerable(),
                 GroupId = query.GroupId
             };
@@ -72,14 +70,14 @@ namespace Compent.Uintra.Controllers
             return (result, searchResult.TotalHits);
         }
 
-        protected override string GetDetailsPopupTitle(MemberModel member) => 
-            $"{member.DisplayedName} {_localizationCoreService.Get("UserList.DetailsPopup.Title")}";
+        protected override string GetDetailsPopupTitle(MemberModel user) =>
+            $"{user.DisplayedName} {_localizationCoreService.Get("UserList.DetailsPopup.Title")}";
 
-        protected override MemberModel MapToViewModel(IIntranetMember member)
+        protected override MemberModel MapToViewModel(IIntranetMember user)
         {
-            var model = base.MapToViewModel(member);
-            model.ProfileUrl = _profileLinkProvider.GetProfileLink(member.Id);
-            model.IsGroupAdmin = CurrentGroup().Map(CreatorId) == member.Id;
+            var model = base.MapToViewModel(user);
+            model.ProfileUrl = _profileLinkProvider.GetProfileLink(user.Id);
+            model.IsGroupAdmin = CurrentGroup().Map(CreatorId) == user.Id;
             return model;
         }
 
@@ -93,11 +91,11 @@ namespace Compent.Uintra.Controllers
 
         public override bool ExcludeUserFromGroup(Guid userId)
         {
-            var currentMemberId = _intranetMemberService.GetCurrentMember().Id;
+            var currentUserId = _intranetMemberService.GetCurrentMember().Id;
             var currentGroupCreatorId = CurrentGroup().Map(CreatorId);
 
             return currentGroupCreatorId
-                .Filter(creatorId => currentMemberId.In(userId, creatorId) && currentMemberId != creatorId)
+                .Filter(creatorId => currentUserId.In(userId, creatorId) && currentUserId != creatorId)
                 .Match(
                     Some: groupId =>
                     {
@@ -107,12 +105,18 @@ namespace Compent.Uintra.Controllers
                     None: () => false);
         }
 
-        private static Option<Guid> CurrentGroupId() =>
-            System.Web.HttpContext.Current.Request
+        private Option<Guid> CurrentGroupId()
+        {
+            var result =
+             System.Web.HttpContext.Current.Request
                 .Params["groupId"]
                 .Apply(parseGuid);
+            if (result.IsNone)
+                result = GroupId.HasValue ? Some(GroupId.Value) : None;
+            return result;
+        }
 
-        private static Guid CreatorId(GroupModel group) => group.CreatorId;
+        private Guid CreatorId(GroupModel group) => group.CreatorId;
 
         private Option<GroupModel> CurrentGroup() =>
             CurrentGroupId().Map(_groupService.Get);
