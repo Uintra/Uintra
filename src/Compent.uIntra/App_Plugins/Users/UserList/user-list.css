@@ -140,7 +140,7 @@
         }
 
         &--name{
-            width:37.3%;
+            width:29.8%;
             @media (--for-tablet-portrait-down) {
                 width:100%;
             }
