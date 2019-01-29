@@ -5,7 +5,7 @@
 
     @media(--for-tablet-portrait-down) {
         margin:0 -15px;
-        padding:20px 15px 33px;
+        padding:20px 10px 33px;
     }
 
     &__top{
@@ -20,10 +20,20 @@
         line-height: 0.88;
         color: #262626;
         margin: 0 0 46px;
+
+        @media(--for-tablet-portrait-down){
+            margin:0 0 20px;
+        }
     }
 
     &__header{
+        position:relative;
 		display: flex;
+
+        @media (--for-tablet-portrait-down){
+            display:block;
+            padding:20px 0 16px 65px;
+        }
 	}
 
     &__meta{
@@ -50,6 +60,7 @@
 
         @media(--for-tablet-portrait-down){
             width:auto;
+            font-size:13px;
         }
     }
 
@@ -66,6 +77,12 @@
         min-width: 100px;
         margin: 0 10px 0 0;
         font-weight: 700;
+
+        @media(--for-tablet-portrait-down){
+            min-width: 0;
+            margin: 0 3px 0 0;
+            font-weight: 400;
+        }
     }
 
     &__text{
@@ -83,7 +100,14 @@
 
         @media(--for-tablet-portrait-down) {
             width:auto;
-            margin:0 0 10px;
+            font-size:16px;
+            line-height:1.38;
+            font-weight:700;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin:2px 0 1px;
         }
     }
 }

@@ -803,8 +803,14 @@ img{
         }
 
         @media(--for-desktop-down){
-            width: 60px;
-            height: 60px;
+            margin:0;
+            width: 45px;
+            min-width: 45px;
+            height: 45px;
+            position: absolute;
+            top: 20px;
+            left: 0;
+            z-index: 2;
         }
     }
     
