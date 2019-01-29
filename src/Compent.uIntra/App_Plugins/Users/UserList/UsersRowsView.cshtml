@@ -12,13 +12,12 @@
             {
                 case ColumnType.Name:
                     {
-                        <div class="users-table__cell">
+                        <div class="users-table__cell users-table__cell--name">
                             <div class="users-table__info">
                                 @Html.Action("Photo", "User", new
                                 {
                                     user = user.User,
-                                    cssModificator = "avatar--group-member",
-                                    photoWidth = 30
+                                    cssModificator = "avatar--group-member"
                                 })
                                 <span class="users-table__name">@user.DisplayedName</span>
                             </div>
@@ -27,7 +26,7 @@
                     break;
                 case ColumnType.Info:
                     {
-                        <div class="users-table__cell">
+                        <div class="users-table__cell users-table__cell--info">
                             @if (!string.IsNullOrEmpty(user.Email))
                             {
                                 <span class="users-table__text">
@@ -54,7 +53,7 @@
                     break;
                 case ColumnType.Button:
                     {
-                        <div class="users-table__cell">
+                        <div class="users-table__cell users-table__cell--tools">
                             <button class="btn">
                                 <svg class="svg-icon" viewBox="0 0 24 24" width="19px" height="19px">
                                     <use xlink:href="#icon-comment" x="0" y="0"></use>
@@ -66,14 +65,14 @@
                     break;
                 case ColumnType.GroupRole:
                     {
-                        <div class="users-table__cell">
+                        <div class="users-table__cell users-table__cell--text">
                             @{var role = user.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl";}
                             <span class="users-table__text">@Html.Localize(role)</span>
                         </div>
                     }
                     break;
                 case ColumnType.GroupManagement:
-                    <div class="users-table__cell">
+                    <div class="users-table__cell users-table__cell--btn">
                         @if ((Model.CurrentUser.Id == user.User.Id || Model.IsCurrentUserAdmin) && !user.IsGroupAdmin)
                         {
                             <button class="users-table__delete js-user-list-delete">X</button>

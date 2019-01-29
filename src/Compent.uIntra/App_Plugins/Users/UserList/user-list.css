@@ -139,41 +139,37 @@
             padding:0;
         }
 
-        &:first-child{
+        &--name{
             width:37.3%;
             @media (--for-tablet-portrait-down) {
                 width:100%;
             }
         }
-        &:nth-child(2){
+        &--info{
             width:43%;
             @media (--for-tablet-portrait-down) {
                 width:100%;
             }
         }
-        &:nth-child(3){
+        &--tools{
             width:16%;
             @media (--for-tablet-portrait-down) {
                 width:100%;
             }
         }
-        &:nth-child(4){
+        &--text{
             width:16%;
             @media (--for-tablet-portrait-down) {
                 width:100%;
             }
         }
-        &:nth-child(5){
+        &--btn{
             width:10%;
-            @media (--for-tablet-portrait-down) {
-                width:100%;
-            }
-        }
-        &:last-child{
             text-align:right;
             padding:13px 2.7% 11px 0;
             @media (--for-tablet-portrait-down) {
                 padding:0;
+                width:100%;
             }
         }
     }
