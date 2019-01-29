@@ -794,15 +794,7 @@ img{
         height:90px;
         flex-shrink:0;
 
-        .form &{
-            margin:0 20px 0 0;
-
-            @media(--for-tablet-portrait-down){
-                margin:0 10px 0 0;
-            }
-        }
-
-        @media(--for-desktop-down){
+        @media(--for-tablet-portrait-down){
             margin:0;
             width: 45px;
             min-width: 45px;
@@ -811,6 +803,14 @@ img{
             top: 20px;
             left: 0;
             z-index: 2;
+        }
+
+        .form &{
+            margin:0 20px 0 0;
+
+            @media(--for-tablet-portrait-down){
+                margin:0 10px 0 0;
+            }
         }
     }
     
