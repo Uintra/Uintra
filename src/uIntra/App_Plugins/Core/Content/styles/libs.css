@@ -283,17 +283,19 @@
 	border: 1px solid #ccc; }
 
 .select2-container--default .select2-search--inline .select2-search__field {
-	background: transparent;
-	border: none;
-	outline: 0;
-	box-shadow: none;
-	-webkit-appearance: textfield; }
+    background: transparent;
+    border: none;
+    outline: 0;
+    box-shadow: none;
+    -webkit-appearance: textfield;
+    width: auto !important;
+}
 
 .select2-container--default .select2-search--inline .select2-search__field::placeholder{
     color:#aaa; }
 
 .select2-container--default .select2-results > .select2-results__options {
-	max-height: 200px;
+	max-height: 204px;
 	overflow-y: auto; }
 
 .select2-container--default .select2-results__option[role=group] {

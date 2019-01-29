@@ -18,66 +18,26 @@
                     $scope.overlay.show = false;
                     $scope.control.validationMessage = null;
                 }
-                refresh();
             }
-        }
+        };
 
         $scope.open = function () {
             $scope.overlay.show = true;
             $scope.backupModel = angular.copy($scope.control.value);
-        }
+        };
 
         $scope.init = function (control) {
             if (!$scope.control.value) {
                 $scope.control.value = getDefaultModel();
             }
             $scope.control = control;
-            getAllowedProperties().then(function (response) {
-                response.data.forEach(function (i) {
-                    var result = $scope.control.value.properties.find(function (j) { return j.id === i.id; });
-                    if (!result)
-                        $scope.control.value.properties.push(i);
-                });
-            });
-        }
-
-        $scope.sortableOptions = {
-            axis: 'y',
-            cursor: "move",
-            handle: ".handle",
-            update: function (ev, ui) { },
-            stop: function (ev, ui) { }
         };
-
-        $scope.handleClick = function (property) {
-            property.selected = !property.selected;
-            refresh();
-        };
-
-        $scope.isSelected = function (property) {
-            var result = $scope.control.value.selectedProperties.find(function (i) { return i.id === property.id; });
-            if (result) property.selected = true;
-            return result;
-        };
-
-        function refresh() {
-            $scope.control.value.selectedProperties =
-                $scope.control.value.properties.filter(function (i) { return i.selected; });
-            if ($scope.control.value.orderBy) {
-                var result = $scope.control.value.selectedProperties
-                    .filter(function (i) { return i.id === $scope.control.value.orderBy.id; }).length;
-                if (!result) $scope.control.value.orderBy = null;
-            }
-        }
 
         function getDefaultModel() {
             return {
                 displayedAmount: defaultDisplayedAmount,
                 title: defaultTitle,
-                amountPerRequest: defaultAmountPerRequest,
-                properties: [],
-                selectedProperties: [],
-                orderBy: null
+                amountPerRequest: defaultAmountPerRequest
             };
         }
 
@@ -97,10 +57,7 @@
             return true;
         }
 
-        function getAllowedProperties() {
-            return $http.get("/umbraco/backoffice/api/UserApi/ProfileProperties");
-        }
-    }
+    };
     controller.$inject = ["$scope", "$http"];
     angular.module('umbraco').controller('userListController', controller);
 })();

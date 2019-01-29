@@ -278,7 +278,6 @@
 
 .table-holder {
     margin: 0 -15px;
-    max-width: 100%;
     overflow: hidden;
     overflow-x: auto;
     position: relative;
@@ -333,7 +332,7 @@
 
     &__head,
     &__cell{
-        padding:18px 15px;
+        padding:18px 1.95%;
 
         @media (--for-tablet-portrait-down) {
             padding:10px 5px;
@@ -496,10 +495,6 @@
         }
     }
 
-    /*&__name {
-        color: var(--color-contrast);
-    }*/
-
     &__link{
         color:var(--text-color-dark);
 
@@ -513,8 +508,32 @@
 
 .avatar.avatar--group-member,
 .avatar--group-member{
-    margin:-7px 0;
-    width: 30px;
-    min-width: 30px;
-    height: 30px;
+    margin:0;
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+
+    @media (--for-tablet-portrait-down) {
+        width: 45px;
+        min-width: 45px;
+        height: 45px;
+        position: absolute;
+        top: 20px;
+        left: 0;
+        z-index:2;
+    }
+}
+
+.form .avatar.avatar--documents,
+.avatar.avatar--documents{
+    margin:0;
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+
+    @media (--for-tablet-portrait-down) {
+        width: 45px;
+        min-width: 45px;
+        height: 45px;
+    }
 }

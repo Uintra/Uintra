@@ -16,6 +16,7 @@ let editor;
 let html;
 let body;
 let bulletin;
+let bulletinScrollableBox;
 let confirmMessage;
 let createForm;
 let expandBulletinBtn;
@@ -37,6 +38,7 @@ function initElements() {
     html = document.querySelector("html");
     body = document.querySelector("body");
     bulletin = document.querySelector(".js-create-bulletin");
+    bulletinScrollableBox = bulletin.querySelector(".create-bulletin__holder");
     confirmMessage = bulletin.dataset.message;
     createForm = bulletin.querySelector(".js-create-bulletin-form");
     tagSelector = createForm.querySelector('.js-user-tags-picker');
@@ -262,16 +264,27 @@ function beforeUnloadHander(event) {
 // editor helpers
 
 function show() {
-    const headerAndButtonHeight = 130;
+    //const headerAndButtonHeight = 130;
     setGlobalEventShow();
     bulletin.classList.add("_expanded");
     html.style.overflow = 'hidden';
     body.style.overflow = 'hidden';
     body.classList.add("bulletin_expanded");
+    bulletinScrollableBox.style.maxHeight = (window.innerHeight - getTopCoord(bulletin) - 15) + 'px';
     //toolbar.classList.remove("hidden");
     //header.classList.remove("hidden");
     //closeBulletinBtn.classList.remove("hidden");
     //editor.setSelection(0, 0);
+}
+
+function getTopCoord(elem) {
+    var box = elem.getBoundingClientRect();
+    var docEl = document.documentElement;
+    var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+    var clientTop = docEl.clientTop || body.clientTop || 0;
+    var top = box.top + scrollTop - clientTop;
+
+    return top;
 }
 
 function hide(event) {
@@ -281,6 +294,7 @@ function hide(event) {
     html.style.overflow = '';
     body.style.overflow = '';
     body.classList.remove("bulletin_expanded");
+    bulletinScrollableBox.style.maxHeight = '';
     //toolbar.classList.add("hidden");
     //header.classList.add("hidden");
     //closeBulletinBtn.classList.add("hidden");

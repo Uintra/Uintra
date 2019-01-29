@@ -9,7 +9,10 @@
         {
             <a class="btn pull-right _edit-bulletin" href="@Model.Links.Edit">@Html.Localize("DetailsView.Edit.lbl")</a>
         }
-        <a class="link__back" href="/">@Html.Localize("DetailsView.GoToList.lbl")</a>
+        <a class="link__back" href="/">
+            <svg class="svg-icon" viewBox="0 0 32 32" width="21px" height="17px">
+                <use xlink:href="#icon-back-arrow" x="0" y="0"></use>
+            </svg>@Html.Localize("DetailsView.GoToList.lbl")</a>
     </div>
     <div class="feed__item _details">
         @{ Html.RenderAction("DetailsHeader", "Activity", Model.HeaderInfo); }
