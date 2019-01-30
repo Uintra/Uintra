@@ -568,9 +568,6 @@
     <Content Include="..\Compent.uIntra\Content\images\calendar.svg">
       <Link>Content\images\calendar.svg</Link>
     </Content>
-    <Content Include="..\Compent.uIntra\Content\images\checkmark.svg">
-      <Link>Content\images\checkmark.svg</Link>
-    </Content>
     <Content Include="..\Compent.uIntra\Content\images\default-avatar.png">
       <Link>Content\images\default-avatar.png</Link>
     </Content>
@@ -1179,8 +1176,6 @@
     <Content Include="App_Plugins\Users\backoffice\GoogleAuthWindow.cshtml" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\Members\package.manifest" />
-    <Content Include="macroScripts\Web.config" />
-    <Content Include="config\UrlRewriting.config" />
     <Content Include="App_Plugins\SentMails\package.manifest" />
     <None Include="Uintra.props">
       <SubType>Designer</SubType>
@@ -1214,7 +1209,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="xslt\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <!-- <Compile Include="..\Compent.uIntra\Persistence\**\*.cs">
@@ -1342,9 +1336,6 @@
     </Content>
     <Content Include="..\Compent.uIntra\App_Start\NinjectWebCommon.cs">
       <Link>App_Start\NinjectWebCommon.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\App_Start\ElmahMvc_Start.cs">
-      <Link>App_Start\ElmahMvc_Start.cs</Link>
     </Content>
     <Compile Include="..\Compent.uIntra\App_Start\MapperConfig.cs">
       <Link>App_Start\MapperConfig.cs</Link>
