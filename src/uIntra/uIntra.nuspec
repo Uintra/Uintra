@@ -15,7 +15,7 @@
       <dependency id="Elmah.MVC" version="2.0.0" />
       <dependency id="EmailWorker.Data" version="[0.4.2.3]" />
       <dependency id="EmailWorker.Ninject" version="[0.0.4.1]" />
-      <dependency id="EmailWorker.Web" version="[0.4.2.4]" />
+      <dependency id="EmailWorker.Web" version="[0.4.2.6]" />
       <dependency id="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" version="1.0.8" />
       <dependency id="Microsoft.Net.Compilers" version="2.4.0" />
       <dependency id="UmbracoCms" version="[7.12.4]" />
