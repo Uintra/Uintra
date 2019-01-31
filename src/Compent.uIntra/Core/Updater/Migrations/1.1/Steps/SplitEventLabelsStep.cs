@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -40,7 +39,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._1.Steps
             return new TranslationsUpdateStep(new TranslationUpdateData
             {
                 Add = translations,
-                Remove = new List<string>()
+                Remove = new List<string>(),
+                Update = new Dictionary<string, (string old, string update)>()
             });
         }
     }

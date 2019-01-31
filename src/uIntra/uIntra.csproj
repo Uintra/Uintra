@@ -1177,6 +1177,9 @@
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\Members\package.manifest" />
     <Content Include="App_Plugins\SentMails\package.manifest" />
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\1.2\PreValues\groupsMembersPageGrid.json">
+      <Link>Core\Updater\Migrations\1.2\PreValues\groupsMembersPageGrid.json</Link>
+    </EmbeddedResource>
     <None Include="Uintra.props">
       <SubType>Designer</SubType>
     </None>

@@ -27,6 +27,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._2
                 { "UserList.Table.Role.lbl", "Role"},
                 { "UserList.Table.Department.lbl", "Department"},
                 { "UserList.Table.Phone.lbl", "Phone"},
+                { "UserList.Table.Email.lbl", "Email"},
                 { "Profile.Department.lbl","Department"},
                 { "Profile.Phone.lbl","Phone" },
                 { "Profile.Email.lbl","E-mail" },
@@ -59,7 +60,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._2
             get
             {
                 yield return new TranslationsUpdateStep(TranslationUpdateData);
-                yield return SplitEventLabels.SplitEventLabelsTranslationsUpdateStep();
+                //yield return SplitEventLabels.SplitEventLabelsTranslationsUpdateStep();
                 yield return Resolve<AddPhoneAndDepartmentToUserStep>();
                 yield return Resolve<ChangeGroupMembersDefaulPanelStep>();
                 yield return Resolve<UseInSearchDefaultTrueStep>();
