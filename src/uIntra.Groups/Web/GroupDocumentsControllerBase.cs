@@ -104,7 +104,7 @@ namespace Uintra.Groups.Web
                     CreateDate = s.CreateDate,
                     Name = s.Name,
                     Type = s.GetValue<string>(UmbracoAliases.Media.MediaExtension),
-                    Creator = creator,
+                    Creator = creator.Map<UserViewModel>(),
                     FileUrl = url
                 };
                 return model;

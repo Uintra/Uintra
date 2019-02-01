@@ -5,12 +5,14 @@ using Compent.Uintra.Core.Users;
 using Uintra.Core;
 using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Extensions;
+using Uintra.Core.Links;
 using Uintra.Core.Media;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Tagging.UserTags;
 using Uintra.Users;
 using Uintra.Users.Web;
+using Umbraco.Core.Services;
 using Umbraco.Web;
 
 namespace Compent.Uintra.Controllers
@@ -21,6 +23,7 @@ namespace Compent.Uintra.Controllers
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly UserTagService _userTagService;
+        private readonly IMemberService _memberService;
 
         protected override string ProfileEditViewPath { get; } = "~/Views/Profile/Edit.cshtml";
 
@@ -30,12 +33,16 @@ namespace Compent.Uintra.Controllers
             IIntranetUserService<IIntranetUser> intranetUserService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
             UmbracoHelper umbracoHelper,
-            IIntranetUserContentProvider intranetUserContentProvider, UserTagService userTagService)
-            : base(mediaHelper, applicationSettings, intranetUserService, memberNotifiersSettingsService)
+            IIntranetUserContentProvider intranetUserContentProvider,
+            UserTagService userTagService,
+            IProfileLinkProvider profileLinkProvider,
+            IMemberService memberService)
+            : base(mediaHelper, applicationSettings, intranetUserService, memberNotifiersSettingsService, profileLinkProvider, memberService)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserContentProvider = intranetUserContentProvider;
             _userTagService = userTagService;
+            _memberService = memberService;
             _intranetUserService = intranetUserService;
         }
 

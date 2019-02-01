@@ -82,9 +82,8 @@
     <Reference Include="ClientDependency.Core, Version=1.9.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ClientDependency.1.9.7\lib\net45\ClientDependency.Core.dll</HintPath>
     </Reference>
-    <Reference Include="ClientDependency.Core.Mvc">
-      <HintPath>..\..\packages\ClientDependency-Mvc5.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ClientDependency.Core.Mvc, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ClientDependency-Mvc.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="cms, Version=1.0.6879.21987, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\cms.dll</HintPath>
@@ -118,20 +117,17 @@
     <Reference Include="Elmah.Contrib.WebApi, Version=1.0.10.25, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Elmah.Contrib.WebApi.1.0.10.25\lib\net45\Elmah.Contrib.WebApi.dll</HintPath>
     </Reference>
-    <Reference Include="Elmah.Mvc">
-      <HintPath>..\..\packages\Elmah.MVC.2.0.0\lib\net40\Elmah.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Elmah.Mvc, Version=2.0.0.29988, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="EmailWorker.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EmailWorker.Data.0.4.2\lib\Net45\EmailWorker.Data.dll</HintPath>
+    <Reference Include="EmailWorker.Data, Version=0.4.2.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Data.0.4.2.3\lib\net45\EmailWorker.Data.dll</HintPath>
     </Reference>
-    <Reference Include="EmailWorker.Ninject">
-      <HintPath>..\..\packages\EmailWorker.Ninject.0.0.4\lib\Net45\EmailWorker.Ninject.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EmailWorker.Ninject, Version=0.0.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Ninject.0.0.4.1\lib\net45\EmailWorker.Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="EmailWorker.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EmailWorker.Web.0.4.2\lib\Net45\EmailWorker.Web.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EmailWorker.Web, Version=0.4.2.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Web.0.4.2.6\lib\net45\EmailWorker.Web.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -447,53 +443,53 @@
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
       <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\TidyNet.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.BaseControls, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.BaseControls.3.1.0\lib\net471\Uintra.BaseControls.dll</HintPath>
+    <Reference Include="Uintra.BaseControls, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.BaseControls.3.2.0\lib\net471\Uintra.BaseControls.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Bulletins, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Bulletins.1.1.0\lib\net471\Uintra.Bulletins.dll</HintPath>
+    <Reference Include="Uintra.Bulletins, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Bulletins.1.2.0\lib\net471\Uintra.Bulletins.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.CentralFeed, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.CentralFeed.2.1.0\lib\net471\Uintra.CentralFeed.dll</HintPath>
+    <Reference Include="Uintra.CentralFeed, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.CentralFeed.2.2.0\lib\net471\Uintra.CentralFeed.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Comments, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Comments.2.1.0\lib\net471\Uintra.Comments.dll</HintPath>
+    <Reference Include="Uintra.Comments, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Comments.2.2.0\lib\net471\Uintra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Core, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Core.2.1.0\lib\net471\Uintra.Core.dll</HintPath>
+    <Reference Include="Uintra.Core, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Core.2.2.0\lib\net471\Uintra.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Events, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Events.2.1.0\lib\net471\Uintra.Events.dll</HintPath>
+    <Reference Include="Uintra.Events, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Events.2.2.0\lib\net471\Uintra.Events.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Groups, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Groups.2.1.0\lib\net471\Uintra.Groups.dll</HintPath>
+    <Reference Include="Uintra.Groups, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Groups.2.2.0\lib\net471\Uintra.Groups.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Likes, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Likes.2.1.0\lib\net471\Uintra.Likes.dll</HintPath>
+    <Reference Include="Uintra.Likes, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Likes.2.2.0\lib\net471\Uintra.Likes.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Navigation, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Navigation.2.1.0\lib\net471\Uintra.Navigation.dll</HintPath>
+    <Reference Include="Uintra.Navigation, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Navigation.2.2.0\lib\net471\Uintra.Navigation.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.News, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.News.2.1.0\lib\net471\Uintra.News.dll</HintPath>
+    <Reference Include="Uintra.News, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.News.2.2.0\lib\net471\Uintra.News.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Notification, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Notification.2.1.0\lib\net471\Uintra.Notification.dll</HintPath>
+    <Reference Include="Uintra.Notification, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Notification.2.2.0\lib\net471\Uintra.Notification.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Panels, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Panels.3.1.0\lib\net471\Uintra.Panels.dll</HintPath>
+    <Reference Include="Uintra.Panels, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Panels.3.2.0\lib\net471\Uintra.Panels.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Search, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Search.1.1.0\lib\net471\Uintra.Search.dll</HintPath>
+    <Reference Include="Uintra.Search, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Search.1.2.0\lib\net471\Uintra.Search.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Subscribe, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Subscribe.2.1.0\lib\net471\Uintra.Subscribe.dll</HintPath>
+    <Reference Include="Uintra.Subscribe, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Subscribe.2.2.0\lib\net471\Uintra.Subscribe.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Tagging, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Tagging.2.1.0\lib\net471\Uintra.Tagging.dll</HintPath>
+    <Reference Include="Uintra.Tagging, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Tagging.2.2.0\lib\net471\Uintra.Tagging.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Users, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Users.2.1.0\lib\net471\Uintra.Users.dll</HintPath>
+    <Reference Include="Uintra.Users, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Users.2.2.0\lib\net471\Uintra.Users.dll</HintPath>
     </Reference>
     <Reference Include="umbraco, Version=1.0.6879.21989, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\umbraco.dll</HintPath>
@@ -582,9 +578,6 @@
     </Content>
     <Content Include="..\Compent.uIntra\Content\images\calendar.svg">
       <Link>Content\images\calendar.svg</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\Content\images\checkmark.svg">
-      <Link>Content\images\checkmark.svg</Link>
     </Content>
     <Content Include="..\Compent.uIntra\Content\images\default-avatar.png">
       <Link>Content\images\default-avatar.png</Link>
@@ -839,7 +832,6 @@
     <Content Include="App_Plugins\Core\PagePromotion\backoffice\page-promotion.controller.js" />
     <Content Include="App_Plugins\Core\PagePromotion\backoffice\page-promotion.html" />
     <Content Include="App_Plugins\Core\User\backoffice\intranetUserService.js" />
-    <Content Include="App_Plugins\dummy.txt" />
     <Content Include="App_Plugins\EnumLists\enum.resource.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.controller.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.html" />
@@ -956,7 +948,6 @@
     <Content Include="App_Plugins\Panels\ContentPanel\backoffice\overlay.html" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
-    <Content Include="App_Plugins\Panels\ContentPanel\images\arrow-right.svg" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.js" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\overlay.html" />
@@ -1020,7 +1011,6 @@
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.css" />
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.html" />
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.js" />
-    <Content Include="App_Plugins\SentMails\package.manifest" />
     <Content Include="App_Plugins\Subscribe\activitySubscribeSettings.js" />
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
@@ -1197,6 +1187,10 @@
     <Content Include="App_Plugins\Users\backoffice\GoogleAuthWindow.cshtml" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\Members\package.manifest" />
+    <Content Include="App_Plugins\SentMails\package.manifest" />
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\1.2\PreValues\groupsMembersPageGrid.json">
+      <Link>Core\Updater\Migrations\1.2\PreValues\groupsMembersPageGrid.json</Link>
+    </EmbeddedResource>
     <None Include="Uintra.props">
       <SubType>Designer</SubType>
     </None>
@@ -1338,9 +1332,6 @@
     </Content>
     <Content Include="..\Compent.uIntra\App_Start\NinjectWebCommon.cs">
       <Link>App_Start\NinjectWebCommon.cs</Link>
-    </Content>
-    <Content Include="..\Compent.uIntra\App_Start\ElmahMvc_Start.cs">
-      <Link>App_Start\ElmahMvc_Start.cs</Link>
     </Content>
     <Compile Include="..\Compent.uIntra\App_Start\MapperConfig.cs">
       <Link>App_Start\MapperConfig.cs</Link>
@@ -1739,6 +1730,7 @@
       <Name>Uintra.Tasks</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

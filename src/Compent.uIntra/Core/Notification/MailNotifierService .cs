@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Compent.Extensions;
 using Uintra.Core.Activity;
-using Uintra.Core.Context;
-using Uintra.Core.Context.Extensions;
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
 using Uintra.Core.User;

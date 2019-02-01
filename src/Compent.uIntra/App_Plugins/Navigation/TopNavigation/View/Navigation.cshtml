@@ -3,7 +3,6 @@
 @model Uintra.Navigation.TopNavigationViewModel
 
 @{
-    var userAvatarClass = Model.CurrentUser.Photo.HasValue() ? "_with-avatar" : string.Empty;
     var userAvatar = Model.CurrentUser.Photo.HasValue() ? $"{Model.CurrentUser.Photo}?width=30&height=30&mode=crop" : string.Empty;
 }
 
@@ -17,10 +16,19 @@
     <div class="search-holder">
     </div>
     <div class="user">
-        <a class="user__opener icon-user @userAvatarClass">
-            <div class="user__avatar">
-                <img class="user__avatar-img" src="@userAvatar" width="30">
-            </div>
+        <a class="user__opener">
+            @{
+                if (userAvatar.IsNullOrEmpty())
+                {
+                    <div class="avatar__letter">
+                        @Model.CurrentUser.DisplayedName.First()
+                    </div>
+                }
+                else
+                {
+                    <img class="user__avatar-img" src="@userAvatar" width="30">
+                }
+            }
             <span class="user__opener-arrow"></span>
             <div class="greeting">
                 <strong class="greeting__username">@Model.CurrentUser.DisplayedName</strong>

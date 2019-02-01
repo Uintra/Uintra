@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
 using Uintra.CentralFeed;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Groups
 {
@@ -51,6 +51,6 @@ namespace Uintra.Groups
         }
 
         private bool IsGroupActivity(Guid groupId, IFeedItem item) =>
-            IsGroupActivity(groupId.ToEnumerable(), item);
+            IsGroupActivity(List(groupId), item);
     }
 }

@@ -1,38 +1,85 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Users.UserList.UsersRowsViewModel>
-@using Uintra.Users.Helpers
 @using Uintra.Users.UserList
+@using Uintra.Core.Extensions
 
 @foreach (var user in Model.Users)
 {
-    <tr data-profile="@user.ProfileUrl" class="users-table__row js-user-list-row @if (Model.IsLastRequest) { <text>last</text> }">
+    <div data-profile="@user.ProfileUrl" data-id="@user.User.Id"
+         class="users-table__row js-user-list-row @if (Model.IsLastRequest) { <text>last</text> }">
         @foreach (var column in Model.SelectedColumns)
         {
-            <td class="users-table__cell">
-                @switch (column.Type)
-                {
-                    case ColumnType.Email:
-                        {
-                            @*<a class="members-table__link" href="mailto:@user.Email">@user.Email</a>*@
-                            <span class="users-table__name">@user.Email</span>
-                        }
-                        break;
-                    case ColumnType.Photo:
-                        {
-                            @Html.Action("Photo", "User", new
+            switch (column.Type)
+            {
+                case ColumnType.Name:
+                    {
+                        <div class="users-table__cell users-table__cell--name">
+                            <div class="users-table__info">
+                                @Html.Action("Photo", "User", new
+                                {
+                                    user = user.User,
+                                    cssModificator = "avatar--group-member"
+                                })
+                                <span class="users-table__name">@user.DisplayedName</span>
+                            </div>
+                        </div>
+                    }
+                    break;
+                case ColumnType.Info:
+                    {
+                        <div class="users-table__cell users-table__cell--info">
+                            @if (!string.IsNullOrEmpty(user.Email))
                             {
-                                user = user.User,
-                                cssModificator = "avatar--group-member",
-                                photoWidth = 30
-                            })
-                        }
-                        break;
-                    case ColumnType.Text:
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Email.lbl") + ":")
+                                    @user.Email
+                                </span>
+                            }
+                            @if (!string.IsNullOrEmpty(user.Phone))
+                            {
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Phone.lbl") + ":")
+                                    @user.Phone
+                                </span>
+                            }
+                            @if (!string.IsNullOrEmpty(user.Department))
+                            {
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Department.lbl") + ":")
+                                    @user.Department
+                                </span>
+                            }
+                        </div>
+                    }
+                    break;
+                case ColumnType.Button:
+                    {
+                        <div class="users-table__cell users-table__cell--tools">
+                            <button class="btn">
+                                <svg class="svg-icon" viewBox="0 0 24 24" width="19px" height="19px">
+                                    <use xlink:href="#icon-comment" x="0" y="0"></use>
+                                </svg>
+                                <span>Message</span>
+                            </button>
+                        </div>
+                    }
+                    break;
+                case ColumnType.GroupRole:
+                    {
+                        <div class="users-table__cell users-table__cell--text">
+                            @{var role = user.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl";}
+                            <span class="users-table__text">@Html.Localize(role)</span>
+                        </div>
+                    }
+                    break;
+                case ColumnType.GroupManagement:
+                    <div class="users-table__cell users-table__cell--btn">
+                        @if ((Model.CurrentUser.Id == user.User.Id || Model.IsCurrentUserAdmin) && !user.IsGroupAdmin)
                         {
-                            <span class="users-table__name">@ReflectionHelper.GetUIColumnValue(user, column)</span>
+                            <button class="users-table__delete js-user-list-delete">X</button>
                         }
-                        break;
-                }
-            </td>
+                    </div>
+                    break;
+            }
         }
-    </tr>
+    </div>
 }

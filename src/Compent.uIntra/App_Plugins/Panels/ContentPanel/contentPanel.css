@@ -255,19 +255,20 @@
                 padding:0 0 0 21px;
                 color:var(--text-color-dark);
 
-                &:before{
+                .svg-icon{
                     position:absolute;
-                    top:4px;
+                    top:2px;
                     left:0;
-                    width:12px;
-                    height:10px;
-                    background:url(./images/arrow-right.svg) no-repeat 0 0 / 12px auto;
-                    content:"";
+                    z-index:2;
+                }
+
+                &:hover .svg-icon{
+                    color:var(--text-color-dark);
                 }
             }
         }
 
-        + .documents{
+        & + .documents{
             padding-top:0;
         }
     }
@@ -486,35 +487,21 @@
             position:absolute;
             top:60px;
             right:0;
+            padding:17px;
             display:none;
             transition:opacity 0.4s ease;
             opacity:1;
             height: 50px;
             width: 51px;
             background: var(--color-white);
+            color: var(--color-submit);
             border-left:2px solid #f6f6f6;
             cursor: pointer;
             z-index:10;
 
-            &:before,
-            &:after {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: 12px;
-                height: 12px;
-                border: 2px solid var(--color-submit);
-                border-top-width: 4px;
-                background: var(--color-white);
-                content: '';
-            }
-
-            &:before {
-                margin: -4px 0 0 -7px;
-            }
-
-            &:after {
-                margin: -8px 0 0 -3px;
+            &:hover,
+            &:focus{
+                color: var(--color-submit);
             }
 
             ._show-aside-opener &{
@@ -523,11 +510,11 @@
 
             ._aside-expanded &{
                 background: var(--color-submit);
+                color: var(--color-white);
 
-                &:before,
-                &:after {
-                    background: var(--color-submit);
-                    border-color: var(--color-white);
+                &:hover,
+                &:focus{
+                    color: var(--color-white);
                 }
             }
             

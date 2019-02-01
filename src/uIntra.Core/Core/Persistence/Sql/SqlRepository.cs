@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using Compent.Extensions;
+using Uintra.Core.Extensions;
 
 namespace Uintra.Core.Persistence
 {
@@ -14,10 +14,8 @@ namespace Uintra.Core.Persistence
         private bool _disposed;
 
         public SqlRepository(IntranetDbContext dbContext)
-        {   
-            if (dbContext == null) throw new ArgumentNullException(nameof(dbContext));
-
-            _dbContext = dbContext;
+        {
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _dbSet = dbContext.Set<T>();
         }
 

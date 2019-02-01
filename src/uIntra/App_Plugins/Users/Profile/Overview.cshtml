@@ -1,17 +1,32 @@
 ﻿@model Uintra.Users.ProfileViewModel
+@using Uintra.Core.Extensions
 
-<div class="form _profile">
-    <div class="form__row">
-        <div class="form__header">
-            @Html.Action("Photo", "User", new
-            {
-                user = Model.EditingUser,
-                сssModificator = "form__avatar-img",
-                photoWidth = 100
-            })
-            <div class="form__meta">
-                <strong class="form__name">@Model.FirstName @Model.LastName</strong>
-                <span class="form__email">@Model.Email</span>
+<div class="form-profile">
+    <div class="form-profile__top">
+        <h3 class="form-profile__title">@Html.Localize("Profile.Overview.Title.lbl")</h3>
+    </div>
+    <div class="form-profile__header">
+        @Html.Action("Photo", "User", new
+        {
+            user = Model.EditingUser,
+            cssModificator = "avatar__profile",
+            photoWidth = 100
+        })
+        <div class="form-profile__meta">
+            <strong class="form-profile__name">@Model.FirstName @Model.LastName</strong>
+            <div class="form-profile__list">
+                <div class="form-profile__row">
+                    <span class="form-profile__label">@Html.Localize("Profile.Overview.Email.lbl")</span>
+                    <span class="form-profile__text"><a href="mailto:@Model.Email">@Model.Email</a></span>
+                </div>
+                <div class="form-profile__row">
+                    <span class="form-profile__label">@Html.Localize("Profile.Overview.Phone.lbl")</span>
+                    <span class="form-profile__text"><a href="tel:@Model.Phone">@Model.Phone</a></span>
+                </div>
+                <div class="form-profile__row">
+                    <span class="form-profile__label">@Html.Localize("Profile.Overview.Department.lbl")</span>
+                    <span class="form-profile__text">@Model.Department</span>
+                </div>
             </div>
         </div>
     </div>

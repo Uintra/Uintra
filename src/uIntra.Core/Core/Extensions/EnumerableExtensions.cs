@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using LanguageExt;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Core.Extensions
 {
@@ -11,7 +12,7 @@ namespace Uintra.Core.Extensions
         public static IEnumerable<IEnumerable<T>> Split<T>(this IEnumerable<T> source, int divider = 2)
         {
             return source
-                .Select((x, i) => new { Index = i, Value = x })
+                .Select((x, i) => new {Index = i, Value = x})
                 .GroupBy(x => x.Index / divider)
                 .Select(x => x.Select(v => v.Value));
         }
@@ -32,5 +33,7 @@ namespace Uintra.Core.Extensions
         public static Option<T> Choose<T>(this Option<T> source, Option<T> other) => source.IsSome ? source : other;
 
         public static Option<T> Choose<T>(this Option<T> source, Func<Option<T>> other) => source.IsSome ? source : other();
+
+        public static TType Cast<TType>(this object value)  => (TType) value;
     }
 }

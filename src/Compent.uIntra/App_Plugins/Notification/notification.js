@@ -8,6 +8,7 @@ require("./List/notificationList.css");
 var infinityScroll = helpers.infiniteScrollFactory;
 var body = document.querySelector('body');
 var html = document.querySelector('html');
+var mobileMediaQuery = window.matchMedia("(max-width: 900px)");
 
 function initPreviewControls() {
     var notification = document.querySelector(".js-notification");
@@ -125,6 +126,11 @@ function updateCounter(count) {
 }
 
 function getPermissions() {
+    
+    if (mobileMediaQuery.matches) {
+        onDenied();
+        return;
+    }
     if (push.Permission.has()) {
         onGranted();
     } else if (push.Permission.get() === push.Permission.DENIED) {
@@ -136,9 +142,12 @@ function getPermissions() {
 
 function sentNotification(notification) {
     ajax.post("/umbraco/surface/Notification/Notified?id=" + notification.id);
-    push.create(notification.desktopTitle, {
+
+    const defaulAvatar = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDFBMDYyNzUxMzZCMTFFOTk5NDJENkNBN0M1NDVGQTAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDFBMDYyNzYxMzZCMTFFOTk5NDJENkNBN0M1NDVGQTAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowMUEwNjI3MzEzNkIxMUU5OTk0MkQ2Q0E3QzU0NUZBMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowMUEwNjI3NDEzNkIxMUU5OTk0MkQ2Q0E3QzU0NUZBMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pk3TRCkAAAFHSURBVHja7JfZaoRAEEXLBUSRuIAbPor//zs++WKQEXFJK6jgkpQwZMGgaeI0DBaIIjT30H1raW5ZlgQAXoBNEO4DYAGGwSMFQ33CA+O4AC4AkXZhXdfrM00TOI4Dqqo+DiBJEsjzHO4lhBACtm2D7/vnH0Hbtt/EMXAXbrcbDMPwGICfxZPjuPXdNA1bE87zzBbgvhOnAvzWu1AcvXA6gCRJm/9RXNO08wFM09wUMgwDZFk+HwCNZlkW8PznUkEQwHVdKhPiQPJ2ZCKqqgrKslxTDYW2UhFBFEUBz/OOVkayC4BnG8fxKnxkeEIQBNR1HYIg2MsMIu45Pooi6Pv+T1mCokVRrN9hGNJ7AMtr13V0TUYU1x6RZRk9QJqmVMXla2DfoO6G2OHGcaSGQC+gKf8lC66p+AJ4WgDml1OsA68s0/BdgAEAmjaocUhguUgAAAAASUVORK5CYII=';
+
+    var objParam = {
         body: notification.desktopMessage,
-        icon: notification.notifierPhoto,
+        icon: notification.notifierPhoto || defaulAvatar,
         requireInteraction: true,
         timeout: 10000,
         onClick: function () {
@@ -154,7 +163,9 @@ function sentNotification(notification) {
             });
         },
         onShow: function () { }
-    });
+    };
+
+    push.create(notification.desktopTitle, objParam);
 }
 
 function equals(destUrl, currentUrl) {

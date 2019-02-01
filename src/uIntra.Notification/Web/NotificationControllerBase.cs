@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using Compent.Extensions;
+using LanguageExt;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Uintra.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.User;
@@ -14,6 +14,7 @@ using Uintra.Notification.Constants;
 using Uintra.Notification.Models.Json;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Notification.Web
 {
@@ -131,23 +132,31 @@ namespace Uintra.Notification.Web
         [System.Web.Mvc.HttpGet]
         public virtual int GetNotNotifiedCount()
         {
-            var userId = _intranetUserService.GetCurrentUserId();
-            var count = _uiNotifierService.GetNotNotifiedCount(userId);
+            var currentUser = _intranetUserService.GetCurrentUser();
+
+            var count = currentUser != null
+                ? _uiNotifierService.GetNotNotifiedCount(currentUser.Id)
+                : default;
+
             return count;
         }
 
         [System.Web.Mvc.HttpGet]
         public virtual ActionResult GetNotNotifiedNotifications()
         {
-            var userId = _intranetUserService.GetCurrentUserId();
-            var notNotifiedNotifications = _uiNotifierService.GetNotNotifiedNotifications(userId);
+            var currentUser = _intranetUserService.GetCurrentUser();
 
-            var model = new JsonNotificationsModel()
+            var notNotifiedNotifications = (currentUser != null
+                ? _uiNotifierService.GetNotNotifiedNotifications(currentUser.Id)
+                : Enumerable.Empty<Notification>())
+                .ToList();
+
+            var model = new JsonNotificationsModel
             {
-                Count = notNotifiedNotifications.Count(),
+                Count = notNotifiedNotifications.Count,
                 Notifications = notNotifiedNotifications.Select(MapNotificationToJsonModel),
             };
-            return new JsonNetResult()
+            return new JsonNetResult
             {
                 Data = model,
                 SerializerSettings = new JsonSerializerSettings()
@@ -173,9 +182,10 @@ namespace Uintra.Notification.Web
         {
             var result = notification.Map<NotificationViewModel>();
 
-            result.Notifier = ((string)result.Value.notifierId)
-                .TryParseGuid()
-                .FromNullable(_intranetUserService.Get);
+            result.Notifier = ((string) result.Value.notifierId)
+                .Apply(parseGuid)
+                .Map(id => _intranetUserService.Get(id).Map<UserViewModel>())
+                .IfNone((UserViewModel) null);
 
             return result;
         }
@@ -184,11 +194,16 @@ namespace Uintra.Notification.Web
         {
             var result = notification.Map<JsonNotification>();
             var notifier = ((string)result.Value.notifierId)
-                .TryParseGuid()
-                .FromNullable(_intranetUserService.Get);
-            result.NotifierId = notifier?.Id;
-            result.NotifierPhoto = notifier?.Photo;
-            result.NotifierDisplayedName = notifier?.DisplayedName;
+                .Apply(parseGuid)
+                .Map(id => _intranetUserService.Get(id));
+
+            notifier.IfSome(user =>
+            {
+                result.NotifierId = user.Id;
+                result.NotifierPhoto = user.Photo;
+                result.NotifierDisplayedName = user.DisplayedName;
+            });
+            
             result.IsDesktopNotificationEnabled &= !(Request.IsMobileBrowser() || Request.Browser.IsMobileDevice);
             return result;
         }

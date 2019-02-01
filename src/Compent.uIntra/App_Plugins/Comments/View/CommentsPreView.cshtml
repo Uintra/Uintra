@@ -11,7 +11,7 @@
     <input type="hidden" name="readonlyClickMessage" value="@Html.Localize("Comments.ReadonlyClick.Message.lbl")" />
 
     <a class="comments-preview__link" href="@link">
-        <svg class="svg-icon icon-comment" viewBox="0 0 24 24" width="16px" height="16px">
+        <svg class="svg-icon" viewBox="0 0 24 24" width="16px" height="16px">
             <use xlink:href="#icon-comment" x="0" y="0"></use>
         </svg>
         @(showCount ? Model.Count.ToString() : Html.Localize("Comments.Empty.lbl"))</a>

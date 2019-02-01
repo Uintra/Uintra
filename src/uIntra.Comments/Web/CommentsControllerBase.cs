@@ -180,7 +180,7 @@ namespace Uintra.Comments.Web
             var model = new CommentPreviewModel
             {
                 Count = _commentsService.GetCount(activityId),
-                Link = $"{link}",
+                Link = $"{link}#comments",
                 IsReadOnly = isReadOnly,
                 IsExistsUserComment = _commentsService.IsExistsUserComment(activityId, currentUserId)
             };
@@ -238,7 +238,7 @@ namespace Uintra.Comments.Web
             model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate : default(DateTime?);
             model.CanEdit = _commentsService.CanEdit(comment, currentUserId);
             model.CanDelete = _commentsService.CanDelete(comment, currentUserId);
-            model.Creator = creator;
+            model.Creator = creator.Map<UserViewModel>();
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             model.CreatorProfileUrl = _profileLinkProvider.GetProfileLink(creator);

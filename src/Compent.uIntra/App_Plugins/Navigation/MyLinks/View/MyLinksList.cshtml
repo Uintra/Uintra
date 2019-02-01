@@ -10,7 +10,11 @@
                 </svg>
             </span>
             @item.Name
-            <span class="icon-close js-myLinks-remove" data-id="@item.Id" data-url="@Url.Action("Remove", "MyLinks", new { id = item.Id})"></span>
+            <span class="icon-remove js-myLinks-remove" data-id="@item.Id" data-url="@Url.Action("Remove", "MyLinks", new { id = item.Id})">
+                <svg class="svg-icon" viewBox="0 0 20 20" width="10px" height="10px">
+                    <use xlink:href="#icon-close" x="0" y="0"></use>
+                </svg>
+            </span>
         </a>
     </li>
 }

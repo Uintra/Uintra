@@ -15,7 +15,12 @@
             <li class="feed__item-images-list-item" data-id="@file.Id">
                 @RenderFileView(file)
                 <span class="feed__item-images-name">@file.FileName</span>
-                <span class="feed__item-images-remove js-remove-file-btn" data-target-id="@file.Id"><i class="icon-close"></i></span>
+                <span class="feed__item-images-remove js-remove-file-btn" data-target-id="@file.Id">
+                    @*<i class="icon-close"></i>*@
+                    <svg class="svg-icon" viewBox="0 0 20 20" width="11px" height="11px">
+                        <use xlink:href="#icon-close" x="0" y="0"></use>
+                    </svg>
+                </span>
             </li>
         }
     </ul>

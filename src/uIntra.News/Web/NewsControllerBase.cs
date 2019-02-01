@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using Compent.Extensions;
 using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Attributes;
@@ -16,6 +15,7 @@ using Uintra.Core.Media;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions.Web;
+using static LanguageExt.Prelude;
 
 namespace Uintra.News.Web
 {
@@ -159,8 +159,8 @@ namespace Uintra.News.Web
         {
             var model = news.Map<NewsViewModel>();
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
-            model.HeaderInfo.Owner = _intranetUserService.Get(news);
+            model.HeaderInfo.Dates = List(news.PublishDate.ToDateTimeFormat());
+            model.HeaderInfo.Owner = _intranetUserService.Get(news).Map<UserViewModel>();
             model.CanEdit = _newsService.CanEdit(news);
             return model;
         }
@@ -174,8 +174,8 @@ namespace Uintra.News.Web
             model.IsReadOnly = options.IsReadOnly;
             
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
-            model.HeaderInfo.Owner = _intranetUserService.Get(news);
+            model.HeaderInfo.Dates = List(news.PublishDate.ToDateTimeFormat());
+            model.HeaderInfo.Owner = _intranetUserService.Get(news).Map<UserViewModel>();
             model.HeaderInfo.Links = options.Links;
 
             return model;
@@ -189,7 +189,7 @@ namespace Uintra.News.Web
             model.Links = links;
 
             model.HeaderInfo = news.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Owner = _intranetUserService.Get(news);
+            model.HeaderInfo.Owner = _intranetUserService.Get(news).Map<UserViewModel>();
             model.HeaderInfo.Links = links;
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
@@ -211,7 +211,7 @@ namespace Uintra.News.Web
                 Id = news.Id,
                 Title = news.Title,
                 PublishDate = news.PublishDate,
-                Owner = owner,
+                Owner = owner.Map<UserViewModel>(),
                 ActivityType = news.Type,
                 Links = links
             };

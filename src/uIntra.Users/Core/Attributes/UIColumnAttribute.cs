@@ -3,7 +3,7 @@ using Uintra.Users.UserList;
 
 namespace Uintra.Users.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     public class UIColumnAttribute : Attribute
     {
         public int Id { get; set; }
@@ -13,7 +13,7 @@ namespace Uintra.Users.Attributes
         public string PropertyName { get; set; }
         public bool SupportSorting { get; set; }
 
-        public UIColumnAttribute(int order, string backofficeDisplayName, string propertyName, ColumnType type = ColumnType.Text, bool supportSorting = false, string alias = null)
+        public UIColumnAttribute(int order, string backofficeDisplayName, string propertyName, ColumnType type, bool supportSorting = false, string alias = null)
         {
             Id = order;
             DisplayName = backofficeDisplayName;

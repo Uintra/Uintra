@@ -12,12 +12,12 @@
         <h3 class="like__title">@Html.Localize("Likes.Title.lbl")</h3>
     }
 
-    <div class="like js-readonly-click-warning" data-is-readonly="@Model.IsReadOnly">
+    <div class="like js-readonly-click-warning @isLiked" data-is-readonly="@Model.IsReadOnly">
         <input type="hidden" name="readonlyClickTitle" value="@Html.Localize("Likes.ReadonlyClick.Title.lbl")" />
         <input type="hidden" name="readonlyClickMessage" value="@Html.Localize("Likes.ReadonlyClick.Message.lbl")" />
 
-        <span class="like__set @isLiked">
-            <svg class="svg-icon icon-like" viewBox="0.012 0 32 32" width="16px" height="16px">
+        <span class="like__set">
+            <svg class="svg-icon" viewBox="0.012 0 32 32" width="16px" height="16px">
                 <use xlink:href="#icon-like" x="0" y="0"></use>
             </svg>
             @if (Model.Users.Any() && !Model.IsReadOnly)

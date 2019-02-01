@@ -5,7 +5,7 @@ namespace Compent.Uintra.Core.Navigation
 {
     public class TopMenuViewModel
     {
-        public IIntranetUser CurrentUser { get; set; }
+        public UserViewModel CurrentUser { get; set; }
         public NotificationListViewModel NotificationList { get; set; }
         public string NotificationsUrl { get; set; }
     }

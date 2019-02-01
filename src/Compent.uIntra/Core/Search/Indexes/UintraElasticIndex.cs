@@ -1,12 +1,13 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Compent.Uintra.Core.Search.Entities;
-using Compent.Extensions;
+using EmailWorker.Data.Extensions;
+using LanguageExt;
 using Nest;
 using Uintra.Core.Extensions;
 using Uintra.Search;
+using static LanguageExt.Prelude;
 
 namespace Compent.Uintra.Core.Search.Indexes
 {
@@ -15,7 +16,7 @@ namespace Compent.Uintra.Core.Search.Indexes
         private readonly SearchScoreModel scores;
 
         public UintraElasticIndex(
-            IElasticSearchRepository elasticSearchRepository, 
+            IElasticSearchRepository elasticSearchRepository,
             ISearchScoreProvider searchScoreProvider,
             IEnumerable<IElasticEntityMapper> mappers) : base(elasticSearchRepository, mappers)
         {
@@ -30,22 +31,41 @@ namespace Compent.Uintra.Core.Search.Indexes
             return desc;
         }
 
-        protected override QueryContainer[] GetQueryContainers(string query)
+        protected override QueryContainer[] GetQueryContainers(string query, Option<Guid> groupId)
         {
-            var containers = base.GetQueryContainers(query).ToList();
-
+            var containers = base.GetQueryContainers(query, groupId).ToList();
             containers.Add(GetTagNames<SearchableUintraContent>(query));
             containers.Add(GetTagNames<SearchableUintraActivity>(query));
             containers.Add(GetTagNames<SearchableUser>(query));
             containers.Add(GetTagsDescriptor(query));
-            containers.AddRange(GetUserDescriptor(query));
-            return containers.ToArray();
+            containers.AddRange(GetUserDescriptor(query, groupId));
+
+            var shouldDescriptor = new QueryContainerDescriptor<SearchableUser>()
+                .Bool(b => b.Should(containers.ToArray()));
+
+            var groupIdDescriptor = new QueryContainerDescriptor<SearchableUser>()
+                .Term(t => t.Field(f => f.GroupIds).Value(groupId.ToNullable()));
+
+            var mustDescriptor = new QueryContainerDescriptor<SearchableUser>().Bool(b => b
+                .Must(shouldDescriptor, groupIdDescriptor));
+
+            return mustDescriptor.ToEnumerableOfOne().ToArray();
         }
 
-        public QueryContainer[] GetUserDescriptor(string query)
+        public QueryContainer[] GetUserDescriptor(string query, Option<Guid> groupId)
         {
             var desc = new List<QueryContainer>
             {
+                new QueryContainerDescriptor<SearchableUser>().Match(m => m
+                    .Query(query)
+                    .Analyzer(ElasticHelpers.Replace)
+                    .Field(f => f.Phone)
+                    .Boost(scores.PhoneScore)),
+                new QueryContainerDescriptor<SearchableUser>().Match(m => m
+                    .Query(query)
+                    .Analyzer(ElasticHelpers.Replace)
+                    .Field(f => f.Department)
+                    .Boost(scores.DepartmentScore)),
                 new QueryContainerDescriptor<SearchableUser>().Match(m => m
                     .Query(query)
                     .Analyzer(ElasticHelpers.Replace)
@@ -57,7 +77,6 @@ namespace Compent.Uintra.Core.Search.Indexes
                     .Field(f => f.Email)
                     .Boost(scores.UserEmailScore))
             };
-
             return desc.ToArray();
         }
 
@@ -109,7 +128,7 @@ namespace Compent.Uintra.Core.Search.Indexes
                         break;
                     case "userTagNames":
                         document.tagsHighlighted = true;
-                        document.userTagNames = highlightedField.ToEnumerable().ToDynamic();
+                        document.userTagNames = List(highlightedField).ToDynamic();
                         break;
                     case "email":
                         document.email = highlightedField;

@@ -48,8 +48,10 @@ var initCreateControl = function (holder) {
             }
         });*/
         var quill = helpers.initQuill(descriptionElem, dataStorage);
+        if (document.location.hash === "#comments") {
+            quill.focus();
+        }
 
-        quill.focus();
         //TODO refactor this. delete dublicates
         var isOneLinkDetected = false;
 

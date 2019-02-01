@@ -13,13 +13,5 @@ else
     }
 
     <span class="title">@Html.Raw(Model.Title)</span>
-
-    if (!string.IsNullOrEmpty(Model.Email))
-    {
-        <ul class="autocomplete-suggestion__list">
-            <li class="autocomplete-suggestion__frame">@Model.Email</li>
-        </ul>
-    }
-
     <span class="type">@Model.Type</span>
 }

@@ -6,14 +6,14 @@ namespace Compent.Uintra.Core.Activity
 {
     public static class ActivitiesServiceFactoryExtensions
     {
-        public static INotifyableService GetNotifyableService(this IActivitiesServiceFactory activitiesServiceFactory, Guid activityId)
-        {
-            return activitiesServiceFactory.GetService<INotifyableService>(activityId);
-        }
+        public static INotifyableService GetNotifyableService(
+            this IActivitiesServiceFactory activitiesServiceFactory,
+            Guid activityId) => 
+            activitiesServiceFactory.GetService<INotifyableService>(activityId);
 
-        public static ICacheableIntranetActivityService<IIntranetActivity> GetCacheableIntranetActivityService(this IActivitiesServiceFactory activitiesServiceFactory, Guid activityId)
-        {
-            return activitiesServiceFactory.GetService<ICacheableIntranetActivityService<IIntranetActivity>>(activityId);
-        }
+        public static ICacheableIntranetActivityService<IIntranetActivity> GetCacheableIntranetActivityService(
+            this IActivitiesServiceFactory activitiesServiceFactory,
+            Guid activityId) => 
+            activitiesServiceFactory.GetService<ICacheableIntranetActivityService<IIntranetActivity>>(activityId);
     }
 }
