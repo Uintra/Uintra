@@ -38,13 +38,21 @@
                     <label class="form__label" for="js-start-date">@Html.Localize("EventsCreate.StartDate.lbl")</label>
                     <input class="form__input" id="js-start-date" data-default-date="@Model.StartDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
                     <input type="hidden" id="js-start-date-value" name="startDate" data-val-required="@Html.Localize("EventsEdit.StartDateRequired.lbl")" data-val="true" />
-                    <span class="form__clear icon-close js-clear-date hide"></span>
+                    <span class="form__clear js-clear-date hide">
+                        <svg class="svg-icon" viewBox="0 0 20 20" width="10px" height="10px">
+                            <use xlink:href="#icon-close" x="0" y="0"></use>
+                        </svg>
+                    </span>
                 </div>
                 <div class="col-md-6">
                     <label class="form__label" for="js-end-date">@Html.Localize("EventsCreate.EndDate.lbl")</label>
                     <input class="form__input" id="js-end-date" data-default-date="@Model.EndDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
                     <input type="hidden" id="js-end-date-value" name="endDate" data-val-greaterthan="@Html.Localize("EventsEdit.EndDateShouldBeGreaterThanStartDate.lbl")" data-val-greaterthan-startdate="js-start-date-value" data-val-required="@Html.Localize("EventsEdit.EndDateRequired.lbl")" data-val="true" />
-                    <span class="form__clear icon-close js-clear-date hide"></span>
+                    <span class="form__clear js-clear-date hide">
+                        <svg class="svg-icon" viewBox="0 0 20 20" width="10px" height="10px">
+                            <use xlink:href="#icon-close" x="0" y="0"></use>
+                        </svg>
+                    </span>
                 </div>
             </div>
         </div>
@@ -54,7 +62,11 @@
                     <label class="form__label" for="js-publish-date">@Html.Localize("EventsCreate.PublishDate.lbl")</label>
                     <input class="form__input" id="js-publish-date" data-default-date="@Model.PublishDate.ToDateTimeValuePickerFormat()" data-date-format="@Html.GetDateTimePickerFormat()" />
                     <input type="hidden" id="js-publish-date-value" name="publishDate" data-val-required="@Html.Localize("EventsCreate.PublishDateRequired.lbl")" data-val="true" />
-                    <span class="form__clear icon-close js-clear-date hide"></span>
+                    <span class="form__clear js-clear-date hide">
+                        <svg class="svg-icon" viewBox="0 0 20 20" width="10px" height="10px">
+                            <use xlink:href="#icon-close" x="0" y="0"></use>
+                        </svg>
+                    </span>
                 </div>
             </div>
         </div>

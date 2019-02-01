@@ -1,5 +1,4 @@
-﻿using Compent.Extensions;
-using Compent.Uintra.Core.Helpers;
+﻿using Compent.Uintra.Core.Helpers;
 using System;
 using Uintra.Comments;
 using Uintra.Core.Activity;
@@ -8,6 +7,7 @@ using Uintra.Notification;
 using Uintra.Notification.Base;
 using Uintra.Notification.Configuration;
 using Umbraco.Web;
+using static LanguageExt.Prelude;
 
 namespace Compent.Uintra.Core.ContentPage
 {
@@ -37,17 +37,14 @@ namespace Compent.Uintra.Core.ContentPage
         public void Notify(Guid entityId, Enum notificationType)
         {
             var notifierData = GetNotifierData(entityId, notificationType);
-            if (notifierData != null)
-            {
-                _notificationsService.ProcessNotification(notifierData);
-            }
+            _notificationsService.ProcessNotification(notifierData);
         }
 
         private NotifierData GetNotifierData(Guid entityId, Enum notificationType)
         {
             var currentUser = _userService.GetCurrentUser();
 
-            var data = new NotifierData()
+            var data = new NotifierData
             {
                 NotificationType = notificationType,
                 ActivityType = Type,
@@ -59,11 +56,11 @@ namespace Compent.Uintra.Core.ContentPage
                 case NotificationTypeEnum.CommentReplied:
                     {
                         var comment = _commentsService.Get(entityId);
-                        data.ReceiverIds = comment.UserId.ToEnumerable();
+                        data.ReceiverIds = List(comment.UserId);
                         var currentContentPage = _umbracoHelper.TypedContent(comment.ActivityId);
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentContentPage, comment, notificationType, currentUser.Id);
                     } break;
-                default: return null;
+                default: throw new InvalidOperationException();
             }
             return data;
         }

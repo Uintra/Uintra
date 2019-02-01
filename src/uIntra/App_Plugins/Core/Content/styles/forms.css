@@ -66,6 +66,7 @@
         &.input-validation-error {
             border-color: #dd0a2d;
             box-shadow: 0 0 5px #dd0a2d;
+            outline-color: #dd0a2d;
         }
     }
 
@@ -79,26 +80,11 @@
         color: #dd0a2d;
     }
 
-    .validation-summary-errors{
-        color: #dd0a2d;
-        padding:0 0 0 21px;
-        margin:0 0 25px;
-
-        ul{
-              margin:0;
-              padding:0;
-          }
-    }
-
-    /*&__note{
-        display:block;
-        font-size:13px;
-        padding:4px 0 14px;
-    }*/
 
     &__clear{
+        color:var(--text-color-dark);
         position:absolute;
-        top:40px;
+        top:41px;
         right:30px;
         cursor:pointer;
 
@@ -109,11 +95,21 @@
             border-radius:50%;
             width:20px;
             height:20px;
-            line-height:19px;
-            text-align:center;
+            padding:5px;
             box-shadow:0 0 2px rgba(0,0,0,0.5);
         }
     }
+}
+
+.validation-summary-errors{
+    color: #dd0a2d;
+    padding:0 0 0 21px;
+    margin:0 0 25px;
+
+    ul{
+            margin:0;
+            padding:0;
+        }
 }
 
 .check{
@@ -151,23 +147,20 @@
         border:1px solid #c7c7c7;
         margin:0 13px 0 0;
         position:relative;
+        color: #333;
 
-        &:before{
+        .svg-icon{
             display:none;
         }
 
-        .check__box:checked ~ &:before{
-            display:block;
-            color: #333;
+        .check__box:checked ~ & .svg-icon{
             display: block;
-            font-size: 15px;
-            line-height:14px;
             left: 5px;
             position: absolute;
             top: 5px;
         }
 
-        .check__box[disabled] ~ &:before{
+        .check__box[disabled] ~ & .svg-icon{
             opacity:0.5;
         }
 

@@ -13,7 +13,11 @@
                 <div class="check">
                     <label class="check__label">
                         <input type="checkbox" class="check__box" name="filterState.showSubscribed" @(Model.FilterState.ShowSubscribed ? "checked" : "") value="true">
-                        <span class="check__fake-input icon-check"></span>
+                        <span class="check__fake-input">
+                            <svg class="svg-icon" viewBox="0 0 512 512" width="13px" height="13px">
+                                <use xlink:href="#icon-check" x="0" y="0"></use>
+                            </svg>
+                        </span>
                         <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowSubscribed.chkbx")</span>
                     </label>
                 </div>
@@ -22,7 +26,11 @@
                 <div class="check">
                     <label class="check__label">
                         <input type="checkbox" class="check__box" name="filterState.showPinned" @(Model.FilterState.ShowPinned ? "checked" : "") value="true">
-                        <span class="check__fake-input icon-check"></span>
+                        <span class="check__fake-input">
+                            <svg class="svg-icon" viewBox="0 0 512 512" width="13px" height="13px">
+                                <use xlink:href="#icon-check" x="0" y="0"></use>
+                            </svg>
+                        </span>
                         <span class="check__fake-label">@Html.Localize("CentralFeedList.ShowPinned.chkbx")</span>
                     </label>
                 </div>

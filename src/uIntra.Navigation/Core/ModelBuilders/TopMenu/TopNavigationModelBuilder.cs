@@ -1,4 +1,5 @@
-﻿using Uintra.Core.Providers;
+﻿using Uintra.Core.Extensions;
+using Uintra.Core.Providers;
 using Uintra.Core.User;
 
 namespace Uintra.Navigation
@@ -7,6 +8,7 @@ namespace Uintra.Navigation
     {
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IContentPageContentProvider _contentPageContentPropvider;
+
 
         public TopNavigationModelBuilder(
             IIntranetUserService<IIntranetUser> intranetUserService,

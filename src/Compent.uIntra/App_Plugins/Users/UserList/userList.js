@@ -5,23 +5,23 @@ require("./user-list.css");
 
 const searchBoxElement = $(".js-user-list-filter");
 const searchButton = $(".js-search-button");
-const tableBody = $(".js-user-list-table tbody");
+const table = $(".js-user-list-table");
+const tableBody = $(".js-user-list-table .js-tbody");
 const button = $(".js-user-list-button");
-const sortLinks = $(".js-user-list-sort-link");
 const displayedRows = $(".js-user-list-row");
 const emptyResultLabel = $(".js-user-list-empty-result");
 const searchActivationDelay = 256;
 const url = "/umbraco/surface/UserList/GetUsers";
-const detailsUrl = "/umbraco/surface/UserList/Details";
+const excludeUserFromGroupUrl = "/umbraco/surface/UserList/ExcludeUserFromGroup";
 
-let ascendingClassName = "_asc";
-let descendingClassName = "_desc";
 let lastRequestClassName = "last";
 
 let searchTimeout;
 let request;
 let displayedAmount;
 let amountPerRequest;
+let confirmTitle;
+let confirmText;
 
 let controller = {
     init: function () {
@@ -30,20 +30,23 @@ let controller = {
             return;
         init();
         button.click(onButtonClick);
-        sortLinks.click(onSortClick);
         searchBoxElement.on("input", onSearchStringChanged);
         searchBoxElement.on("keypress", onKeyPress);
         searchButton.click(onSearchClick);
         addDetailsHandler(displayedRows);
+        addRemoveUserFromGroupHandler(displayedRows);
 
         function init() {
             request = window.userListConfig.request;
             displayedAmount = window.userListConfig.displayedAmount;
             amountPerRequest = window.userListConfig.amountPerRequest;
+            request.groupId = new URL(window.location.href).searchParams.get("groupId");
+            confirmTitle = table.data("title");
+            confirmText = table.data("text");
         }
 
         function onSearchClick(e) {
-            var query = searchBoxElement.val();
+            const query = searchBoxElement.val();
             if (query) {
                 search(query);
             }
@@ -58,35 +61,15 @@ let controller = {
         }
 
         function onButtonClick(event) {
-            request.skip = tableBody.children("tr").length;
+            request.skip = tableBody.children("div").length;
             request.take = amountPerRequest;
 
             ajax.post(url, request)
                 .then(result => {
-                    var rows = $(result.data).filter("tr");
+                    var rows = $(result.data).filter("div");
                     tableBody.append(rows);
                     addDetailsHandler(rows);
-                    updateUI(rows);
-                });
-        }
-
-        function onSortClick(event) {
-            event.preventDefault();
-            var link = $(this);
-            var direction = link.hasClass(ascendingClassName) ? 1 : 0;
-            request.take = request.skip + request.take;
-            request.skip = 0;
-            request.orderBy = link.data("order-by");
-            request.direction = direction;
-
-            ajax.post(url, request)
-                .then((result) => {
-                    var rows = $(result.data).filter("tr");
-                    tableBody.children().remove();
-                    tableBody.append(rows);
-                    addDetailsHandler(rows);
-                    sortLinks.removeClass(ascendingClassName + " " + descendingClassName);
-                    link.addClass(direction === 0 ? ascendingClassName : descendingClassName);
+                    addRemoveUserFromGroupHandler(rows);
                     updateUI(rows);
                 });
         }
@@ -100,20 +83,21 @@ let controller = {
         function search(searchString) {
             request.skip = 0;
             request.take = displayedAmount;
-            request.query = searchString;
+            request.text = searchString;
 
             ajax.post(url, request)
                 .then(result => {
-                    var rows = $(result.data).filter("tr");
+                    var rows = $(result.data).filter("div");
                     tableBody.children().remove();
                     tableBody.append(rows);
                     addDetailsHandler(rows);
+                    addRemoveUserFromGroupHandler(rows);
                     updateUI(rows);
                 });
         }
 
         function updateUI(rows) {
-            if (tableBody.children("tr").length === 0) emptyResultLabel.show();
+            if (tableBody.children("div").length === 0) emptyResultLabel.show();
             else emptyResultLabel.hide();
             if (rows.hasClass(lastRequestClassName) || rows.length === 0) button.hide();
             else button.show();
@@ -125,7 +109,36 @@ let controller = {
                 location.href = profileUrl;
             });
         }
+        function addRemoveUserFromGroupHandler(rows) {
+            var deleteButtons = rows.find(".js-user-list-delete");
+            deleteButtons.click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                confirm.showConfirm(confirmTitle, confirmText, () => {
+                    var row = $(this).closest(".js-user-list-row");
+                    var userId = row.data("id");
+                    ajax.post(excludeUserFromGroupUrl, { userId: userId })
+                        .then(function (result) {
+                            if (result.data) {
+                                row.remove();
+                                request.skip = request.skip - 1;
+                            }
+                        });
+                }, () => { }, confirm.defaultSettings);
+            });
+        }
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
     }
-}
+};
 
 export default controller;

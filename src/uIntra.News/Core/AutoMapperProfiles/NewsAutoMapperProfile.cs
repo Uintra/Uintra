@@ -1,10 +1,8 @@
 using AutoMapper;
-using Compent.Extensions;
-using System;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
-using Uintra.Core.Location;
 using Uintra.News.Dashboard;
+using static LanguageExt.Prelude;
 
 namespace Uintra.News
 {
@@ -79,7 +77,7 @@ namespace Uintra.News
             Mapper.CreateMap<NewsBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.Owner, o => o.Ignore())
-                .ForMember(dst => dst.Dates, o => o.MapFrom(el => el.PublishDate.ToDateFormat().ToEnumerable()));
+                .ForMember(dst => dst.Dates, o => o.MapFrom(el => List(el.PublishDate.ToDateFormat())));
 
             Mapper.CreateMap<NewsBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<NewsBase, IntranetActivityDetailsHeaderViewModel>()

@@ -79,6 +79,7 @@ namespace Uintra.Groups.Web
         #region Actions
 
         [HttpGet]
+        [NotFoundGroup]
         public ActionResult Overview(Guid groupId)
         {
             var model = GetOverviewModel(groupId);
@@ -95,6 +96,7 @@ namespace Uintra.Groups.Web
         }
 
         [HttpGet]
+        [NotFoundGroup]
         public ActionResult Create(Guid groupId)
         {
             var currentUser = _intranetUserService.GetCurrentUser();
@@ -114,7 +116,8 @@ namespace Uintra.Groups.Web
             var viewModel = GetEditViewModel(id, groupId);
             return PartialView(EditViewPath, viewModel);
         }
-        
+
+        [NotFoundGroup]
         public ActionResult List(GroupFeedListModel model)
         {
             var centralFeedType = _centralFeedTypeProvider[model.TypeId];

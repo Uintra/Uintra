@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
-using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
 using Umbraco.Web.Mvc;
@@ -44,7 +43,7 @@ namespace Uintra.Core.Web
         {
             var model = new IntranetActivityOwnerEditModel
             {
-                Owner = _intranetUserService.Get(ownerId),
+                Owner = _intranetUserService.Get(ownerId).Map<UserViewModel>(),
                 OwnerIdPropertyName = ownerIdPropertyName,
                 Links = links
             };

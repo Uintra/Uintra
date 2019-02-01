@@ -4,12 +4,8 @@
     white-space:nowrap;
     text-overflow:ellipsis;
     font:16px/1.25em var(--font-custom);
-    padding:6px 60px 0 0;
+    padding:6px 18px 0 0;
     text-align:right;
-
-    ._with-avatar &{
-        padding-right:18px;
-    }
 
     &__username {
         font-family: var(--font-custom);
@@ -196,18 +192,6 @@
             }
         }
 
-        &__list {
-            display: inline-block;
-            margin: 0 5px 0 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        &__frame {
-            display: inline-block;
-            margin: 0 5px;
-        }
-
         .icon {
             width: 20px;
             height: 20px;
@@ -274,12 +258,6 @@
         cursor:pointer;
         margin-right:3px;
 
-        &:not(._with-avatar) {
-            .user__avatar {
-                display: none !important;
-            }
-        }
-
         &:active,
         &:focus,
         &:hover{
@@ -304,17 +282,13 @@
 
         &-arrow{
             position:absolute;
-            top:11px;
+            top:12px;
             right:-2px;
             width:6px;
             height:6px;
             border:solid var(--color-white);
             border-width:0 1px 1px 0;
             transform:rotate(45deg);
-
-            ._with-avatar &{
-                top:12px;
-            }
 
             @media (--for-tablet-portrait-down){
                 display:none;
@@ -341,18 +315,9 @@
             float:left;
             width:30px;
             height:30px;
-            margin:0 10px 0 -40px;
-        }
-
-        .user__menu ._with-avatar &{
             margin:-5px 10px 0 -45px;
         }
 
-        ._with-avatar &.icon-user{
-            &:before{
-                display:none;
-            }
-        }
     }
 
     &__menu{
@@ -459,13 +424,6 @@
                 }
             }
 
-            &:not(._with-avatar):active,
-            &:not(._with-avatar):focus,
-            &:not(._with-avatar):hover{
-                text-decoration:none;
-                color:var(--text-color-dark);
-                background:#f6f6f6;
-            }
         }
 
         &-name{
@@ -486,6 +444,11 @@
                 &:before{
                     font-size:31px;
                 }
+            }
+
+            &.icon-uintra{
+                top:5px;
+                left:14px;
             }
 
             &.icon-logout{
@@ -515,14 +478,6 @@
         &.user__opener:before{
             position:absolute;
             right:15px;
-        }
-
-        &._with-avatar:before{
-            display:none;
-
-            @media (--for-tablet-portrait-down){
-                display:block;
-            }
         }
     }
 }
@@ -561,16 +516,5 @@
         @media (--for-tablet-portrait-down){
             display:none;
         }
-    }
-    
-    @media (--for-tablet-portrait-down){
-        position:absolute;
-        top:11px;
-        left:18px;
-        margin:0;
-        width: 18px;
-        height: 16px;
-        padding:0;
-        color:var(--color-submit);
     }
 }

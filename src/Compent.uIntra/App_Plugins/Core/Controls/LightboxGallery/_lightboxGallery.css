@@ -201,17 +201,13 @@
             clear:both;
         }
 
-        &:before{
-            content:'';
+        .svg-icon{
             position:absolute;
             left:0;
             top:50%;
             margin:-10px 0;
             z-index:2;
-            width:14px;
-            height:15px;
-            background:url(/App_Plugins/Core/Content/images/attachment.svg) no-repeat;
-            background-size: 14px 15px;
+            color:#b2b2b2;
         }
 
         &:active,

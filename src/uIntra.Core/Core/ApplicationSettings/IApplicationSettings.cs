@@ -12,6 +12,7 @@ namespace Uintra.Core.ApplicationSettings
         int MonthlyEmailJobDay { get; }
         IEnumerable<string> VideoFileTypes { get; }
         string MemberApiAuthentificationEmail { get; }
+        string UintraDocumentationLinkTemplate { get; }
         Guid QaKey { get; }
         GoogleOAuth GoogleOAuth { get; }
         bool UmbracoUseSSL { get; }

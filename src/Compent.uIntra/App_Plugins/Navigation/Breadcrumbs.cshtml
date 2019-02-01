@@ -6,10 +6,16 @@
         <li class="breadcrumbs__item">
             @if (breadcrumb.IsClickable)
             {
+                <svg class="svg-icon" viewBox="0 0 32 32" width="16px" height="12px">
+                    <use xlink:href="#icon-forward-arrow" x="0" y="0"></use>
+                </svg>
                 <a class="breadcrumbs__link" href="@breadcrumb.Url">@breadcrumb.Name</a>
             }
             else
             {
+                <svg class="svg-icon" viewBox="0 0 32 32" width="16px" height="12px">
+                    <use xlink:href="#icon-forward-arrow" x="0" y="0"></use>
+                </svg>
                 @breadcrumb.Name
             }
         </li>

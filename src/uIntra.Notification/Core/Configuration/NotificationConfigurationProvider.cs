@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
 using Uintra.Core.Configuration;
 using Uintra.Notification.Exceptions;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Notification.Configuration
 {
@@ -28,21 +28,23 @@ namespace Uintra.Notification.Configuration
         private IEnumerable<ApplicationException> GetConfigurationExceptions()
         {
             var configuration = GetSettings();
-            var notifierTypes = configuration.NotificationTypeConfigurations.SelectMany(nc => nc.NotifierTypes)
-                                    .Concat(configuration.DefaultNotifier.ToEnumerable()).Distinct();
+            var notifierTypes = configuration.NotificationTypeConfigurations
+                .SelectMany(nc => nc.NotifierTypes)
+                .Concat(List(configuration.DefaultNotifier))
+                .Distinct();
 
-            foreach (var @notifierType in notifierTypes)
+            foreach (var notifierType in notifierTypes)
             {
-                var count = configuration.NotifierConfigurations.Count(nc => nc.NotifierType == @notifierType);
+                var count = configuration.NotifierConfigurations.Count(nc => nc.NotifierType == notifierType);
                 if (count == 0)
                 {
-                    yield return new MissingNotifierConfigurationException(@notifierType);
+                    yield return new MissingNotifierConfigurationException(notifierType);
                     continue;
                 }
 
                 if (count > 1)
                 {
-                    yield return new OutOfRangeNotifierConfigurationException(@notifierType);
+                    yield return new OutOfRangeNotifierConfigurationException(notifierType);
                 }
             }
         }

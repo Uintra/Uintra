@@ -11,7 +11,7 @@ namespace Uintra.Notification
         public bool IsNotified { get; set; }
         public bool IsViewed { get; set; }
         public Enum Type { get; set; }
-        public IIntranetUser Notifier { get; set; }
+        public UserViewModel Notifier { get; set; }
         public dynamic Value { get; set; }
     }
 }

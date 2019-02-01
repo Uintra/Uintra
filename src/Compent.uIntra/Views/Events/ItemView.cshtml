@@ -19,7 +19,11 @@
     @if (Model.IsSubscribed)
     {
         <div class="feed__item-subscribed">
-            <span class="feed__item-subscribed-label js-feed__item-subscribed"><i class="icon-check"></i> @Html.Localize("CentralFeed.IsSubscribed.lbl")</span>
+            <span class="feed__item-subscribed-label js-feed__item-subscribed">
+                <svg class="svg-icon" viewBox="0 0 512 512" width="17px" height="17px">
+                    <use xlink:href="#icon-check" x="0" y="0"></use>
+                </svg> @Html.Localize("CentralFeed.IsSubscribed.lbl")
+            </span>
         </div>
         
     }

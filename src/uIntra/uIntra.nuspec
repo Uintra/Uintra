@@ -13,14 +13,31 @@
     <dependencies>
       <dependency id="Compent.Extensions" version="[0.3.4]" />
       <dependency id="Elmah.MVC" version="2.0.0" />
-      <dependency id="EmailWorker.Data" version="[0.4.2]" />
-      <dependency id="EmailWorker.Ninject" version="[0.0.4]" />
-      <dependency id="EmailWorker.Web" version="[0.4.2]" />
+      <dependency id="EmailWorker.Data" version="[0.4.2.3]" />
+      <dependency id="EmailWorker.Ninject" version="[0.0.4.1]" />
+      <dependency id="EmailWorker.Web" version="[0.4.2.6]" />
       <dependency id="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" version="1.0.8" />
       <dependency id="Microsoft.Net.Compilers" version="2.4.0" />
       <dependency id="UmbracoCms" version="[7.12.4]" />
       <dependency id="UmbracoCms.Core" version="[7.12.4]" />
       <dependency id="Microsoft.Web.Xdt" version="2.1.2" />
+
+      <dependency id="Uintra.BaseControls" version="[3.2.0]" />
+      <dependency id="Uintra.Bulletins" version="[1.2.0]" />
+      <dependency id="Uintra.CentralFeed" version="[2.2.0]" />
+      <dependency id="Uintra.Comments" version="[2.2.0]" />
+      <dependency id="Uintra.Core" version="[2.2.0]" />
+      <dependency id="Uintra.Events" version="[2.2.0]" />
+      <dependency id="Uintra.Groups" version="[2.2.0]" />
+      <dependency id="Uintra.Likes" version="[2.2.0]" />
+      <dependency id="Uintra.Navigation" version="[2.2.0]" />
+      <dependency id="Uintra.News" version="[2.2.0]" />
+      <dependency id="Uintra.Notification" version="[2.2.0]" />
+      <dependency id="Uintra.Panels" version="[3.2.0]" />
+      <dependency id="Uintra.Search" version="[1.2.0]" />
+      <dependency id="Uintra.Subscribe" version="[2.2.0]" />
+      <dependency id="Uintra.Tagging" version="[2.2.0]" />
+      <dependency id="Uintra.Users" version="[2.2.0]" />
     </dependencies> 
   </metadata>
   <files>

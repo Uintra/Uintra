@@ -36,23 +36,6 @@
     <input class="span6" type="text" ng-model="control.value.amountPerRequest" />
 </div>
 <div class="m-b-20 _clearfix">
-    <p class="span6"><b>Displayed columns:</b></p>
-    <ul class="span6 displayed-columns" ui-sortable="sortableOptions" ng-model="control.value.properties">
-        <li ng-repeat="property in control.value.properties" ng-click="handleClick(property)" ng-class="{'__selected': isSelected(property)}">
-            <span class="property-name">{{property.name}}</span>
-            <i class="icon icon-navigation handle"></i>
-        </li>
-    </ul>
-</div>
-<div class="m-b-20 _clearfix">
-    <p class="span6"><b>Order by column:</b></p>
-    <select class="span6 displayed-columns" 
-        ng-model="control.value.orderBy" 
-        ng-options="property.name for property in control.value.selectedProperties | filter:{supportSorting:true} track by property.id"
-        >
-    </select>
-</div>
-<div class="m-b-20 _clearfix">
     <div ng-show="control.validationMessage">
         <p><label><font color="red">{{control.validationMessage}}</font></label></p>
     </div>

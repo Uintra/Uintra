@@ -72,9 +72,8 @@
     <Reference Include="ClientDependency.Core, Version=1.9.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ClientDependency.1.9.7\lib\net45\ClientDependency.Core.dll</HintPath>
     </Reference>
-    <Reference Include="ClientDependency.Core.Mvc">
-      <HintPath>..\..\packages\ClientDependency-Mvc5.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ClientDependency.Core.Mvc, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ClientDependency-Mvc.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="cms, Version=1.0.6879.21987, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\cms.dll</HintPath>
@@ -95,6 +94,9 @@
     <Reference Include="controls, Version=1.0.6879.21988, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\controls.dll</HintPath>
     </Reference>
+    <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
     <Reference Include="Elasticsearch.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Elasticsearch.Net.5.4.0\lib\net45\Elasticsearch.Net.dll</HintPath>
       <Private>True</Private>
@@ -105,20 +107,17 @@
     <Reference Include="Elmah.Contrib.WebApi, Version=1.0.10.25, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Elmah.Contrib.WebApi.1.0.10.25\lib\net45\Elmah.Contrib.WebApi.dll</HintPath>
     </Reference>
-    <Reference Include="Elmah.Mvc">
-      <HintPath>..\..\packages\Elmah.MVC.2.0.0\lib\net40\Elmah.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Elmah.Mvc, Version=2.0.0.29988, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="EmailWorker.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EmailWorker.Data.0.4.2\lib\Net45\EmailWorker.Data.dll</HintPath>
+    <Reference Include="EmailWorker.Data, Version=0.4.2.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Data.0.4.2.3\lib\net45\EmailWorker.Data.dll</HintPath>
     </Reference>
-    <Reference Include="EmailWorker.Ninject">
-      <HintPath>..\..\packages\EmailWorker.Ninject.0.0.4\lib\Net45\EmailWorker.Ninject.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EmailWorker.Ninject, Version=0.0.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Ninject.0.0.4.1\lib\net45\EmailWorker.Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="EmailWorker.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EmailWorker.Web.0.4.2\lib\Net45\EmailWorker.Web.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EmailWorker.Web, Version=0.4.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Web.0.4.2.4\lib\net45\EmailWorker.Web.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -816,7 +815,6 @@
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.css" />
     <Content Include="App_Plugins\Panels\ContentPanel\contentPanel.js" />
-    <Content Include="App_Plugins\Panels\ContentPanel\images\arrow-right.svg" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.html" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\document-panel.js" />
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\backoffice\overlay.html" />
@@ -887,7 +885,6 @@
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.css" />
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.html" />
     <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.js" />
-    <Content Include="App_Plugins\SentMails\package.manifest" />
     <Content Include="App_Plugins\Subscribe\activitySubscribeSettings.js" />
     <Content Include="App_Plugins\Subscribe\subscribe.css" />
     <Content Include="App_Plugins\Subscribe\subscribe.js" />
@@ -953,7 +950,6 @@
     <Content Include="Content\fonts\muli-semibold-webfont.woff2" />
     <Content Include="Content\head_css.js" />
     <Content Include="Content\images\calendar.svg" />
-    <Content Include="Content\images\checkmark.svg" />
     <Content Include="Content\images\default-avatar.png" />
     <Content Include="Content\images\group.svg" />
     <Content Include="Content\images\logo.png" />
@@ -1150,6 +1146,10 @@
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
     <Content Include="App_Plugins\Navigation\LeftNavigation\View\UserListLink.cshtml" />
+    <Content Include="macroScripts\Web.config" />
+    <Content Include="config\UrlRewriting.config" />
+    <Content Include="App_Plugins\SentMails\package.manifest" />
+    <EmbeddedResource Include="Core\Updater\Migrations\1.2\PreValues\groupsMembersPageGrid.json" />
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1213,7 +1213,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
-    <Compile Include="App_Start\ElmahMvc_Start.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\ActivityLinkPreviewController.cs" />
@@ -1305,9 +1304,11 @@
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\Feed\ActivityFeedOptionsWithGroups.cs" />
     <Compile Include="Core\Feed\Links\ActivityLinkService.cs" />
+    <Compile Include="Core\Gdpr\GdprMailsJob.cs" />
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
     <Compile Include="Core\Login\Models\LoginModel.cs" />
+    <Compile Include="Core\Navigation\TopNavigationExtendedViewModel.cs" />
     <Compile Include="Core\Notification\DesktopNotificationModelMapper.cs" />
     <Compile Include="Core\Notification\INotifierDataBuilder.cs" />
     <Compile Include="Core\Notification\NotifierDataBuilder.cs" />
@@ -1389,6 +1390,8 @@
     <Compile Include="Core\Sync\Models\GoogleSyncSettingsModel.cs" />
     <Compile Include="Core\Sync\Models\GoogleAuthResponse.cs" />
     <Compile Include="Core\Sync\Constants.cs" />
+    <Compile Include="Core\UintraInformation\IUintraInformationService.cs" />
+    <Compile Include="Core\UintraInformation\UintraInformationService.cs" />
     <Compile Include="Core\UmbracoEventsModule.cs" />
     <Compile Include="Core\Updater\IMigration.cs" />
     <Compile Include="Core\Updater\IMigrationStep.cs" />
@@ -1476,11 +1479,18 @@
     <Compile Include="Core\Updater\Migrations\1.0\Steps\UpdateRelatedUserPropertyStep.cs" />
     <Compile Include="Core\Updater\Migrations\1.1\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\1.1\Steps\SplitEventLabelsStep.cs" />
+    <Compile Include="Core\Updater\Migrations\1.2\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\1.2\Steps\AddPhoneAndDepartmentToUserStep.cs" />
+    <Compile Include="Core\Updater\Migrations\1.2\Steps\ChangeGroupMembersDefaulPanelStep.cs" />
+    <Compile Include="Core\Updater\Migrations\1.2\Steps\ChangeSystemLinksToSharedLinksStep.cs" />
+    <Compile Include="Core\Updater\Migrations\1.2\Steps\SplitEventLabelsStep.cs" />
+    <Compile Include="Core\Updater\Migrations\1.2\Steps\UseInSearchDefaultTrueStep.cs" />
     <Compile Include="Core\Updater\TranslationsUpdateStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Users\Entities\IntranetUser.cs" />
     <Compile Include="Core\Users\IntranetUserService.cs" />
+    <Compile Include="Core\Users\UserList\HasValidGroupIdAttribute.cs" />
     <Compile Include="Core\UserTags\ActivityTagsHelper.cs" />
     <Compile Include="Core\UserTags\ElasticTagIndex.cs" />
     <Compile Include="Core\UserTags\IActivityTagsHelper.cs" />
@@ -1575,6 +1585,7 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Plugins\Panels\ContentPanel\images\" />
     <Folder Include="App_Plugins\SentMails\dashboard\css\" />
     <Folder Include="App_Plugins\SentMails\data\" />
     <Folder Include="App_Plugins\SentMails\shared\" />

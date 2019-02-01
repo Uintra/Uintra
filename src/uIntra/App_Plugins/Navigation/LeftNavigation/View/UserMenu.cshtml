@@ -8,7 +8,13 @@
             {
                 var photoUrl = Model.CurrentUser.Photo + "?width=30&height=30&mode=crop";
                 <img class="avatar-img" src="@photoUrl" width="30">
+            }else
+            {
+                <div class="avatar__letter">
+                    @Model.CurrentUser.DisplayedName.First()
+                </div>          
             }
+
             @Model.CurrentUser.DisplayedName
         </a>
     </li>

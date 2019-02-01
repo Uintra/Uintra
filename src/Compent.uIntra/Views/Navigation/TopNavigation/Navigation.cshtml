@@ -1,9 +1,8 @@
 ﻿@using Compent.Extensions
 @using Uintra.Core.Extensions
-@model Uintra.Navigation.TopNavigationViewModel
+@model Compent.Uintra.Core.Navigation.TopNavigationExtendedViewModel
 
 @{
-    var userAvatarClass = Model.CurrentUser.Photo.HasValue() ? "_with-avatar" : string.Empty;
     var userAvatar = Model.CurrentUser.Photo.HasValue() ? $"{Model.CurrentUser.Photo}?width=30&height=30&mode=crop" : string.Empty;
 }
 
@@ -29,9 +28,20 @@
         </div>
     </div>
     <div class="user">
-        <a class="user__opener icon-user @userAvatarClass">
+        <a class="user__opener">
             <div class="user__avatar">
-                <img class="user__avatar-img" src="@userAvatar" width="30">
+                @{
+                    if (userAvatar.IsNullOrEmpty())
+                    {
+                        <div class="avatar__letter">
+                            @Model.CurrentUser.DisplayedName.First()
+                        </div>
+                    }
+                    else
+                    {
+                        <img class="user__avatar-img" src="@userAvatar" width="30">
+                    }
+                }
             </div>
             <span class="user__opener-arrow"></span>
             <div class="greeting">
@@ -48,6 +58,16 @@
                         </svg>
                     </span>
                     @Html.Localize("TopNavigation.EditProfile.lbl")
+                </a>
+            </li>
+            <li class="user__menu-item">
+                <a class="user__menu-link" target="_blank" href="@Model.UintraDocumentationLink">
+                    <span class="icon icon-uintra">
+                        <svg class="svg-icon" viewBox="0 0 408.2 455.5" width="31px" height="33px">
+                            <use xlink:href="#uintra" x="0" y="0"></use>
+                        </svg>
+                    </span>
+                    @Html.Localize("TopNavigation.UintraDocumentationLink.lnk") v@(Model.UintraDocumentationVersion)
                 </a>
             </li>
             <li class="user__menu-item">

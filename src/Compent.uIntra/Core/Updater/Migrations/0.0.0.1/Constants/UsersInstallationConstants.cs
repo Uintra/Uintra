@@ -45,6 +45,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
             public const string ProfileFirstName = "First name";
             public const string ProfileLastName = "Last name";
             public const string ProfilePhoto = "Photo";
+            public const string Phone = "Phone";
+            public const string Department = "Department";
             public const string ProfileRelatedUser = "Related user";
             public const string MembershipMemberChangesWatcher = "Member Changes Watcher";
         }
@@ -54,6 +56,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
             public const string ProfileFirstName = "firstName";
             public const string ProfileLastName = "lastName";
             public const string ProfilePhoto = "photo";
+            public const string Phone = "phone";
+            public const string Department = "department";
             public const string ProfileRelatedUser = "relatedUser";
             public const string MembershipMemberChangesWatcher = "memberChangesWatcher";
         }

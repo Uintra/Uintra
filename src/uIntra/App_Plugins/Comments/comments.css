@@ -87,19 +87,14 @@
         right:-12px;
         width:25px;
         height:25px;
+        padding:7px;
         text-align:center;
         border-radius:50%;
         background:var(--color-white);
         box-shadow:0 0 5px rgba(0,0,0,0.5);
         z-index:2;
         cursor:pointer;
-
-        .icon-close{
-            font-weight:bold;
-            font-size:18px;
-            line-height:25px;
-            color:var(--text-color-dark);
-        }
+        color:var(--text-color-dark);
     }
 
     &__author{
@@ -315,15 +310,14 @@
             color:#5776f9;
             text-decoration:none;
 
-            .icon-comment{
+            .svg-icon{
                 color:#b2b2b2;
                 text-decoration:none;
             }
         }
     }
 
-    .icon-comment{
-        font-size:16px;
+    .svg-icon{
         margin:0 9px 0 0;
         vertical-align:top;
         display:inline-block;

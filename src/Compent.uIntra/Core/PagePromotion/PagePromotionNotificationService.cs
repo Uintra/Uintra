@@ -1,5 +1,4 @@
-﻿using Compent.Extensions;
-using Compent.Uintra.Core.Helpers;
+﻿using Compent.Uintra.Core.Helpers;
 using System;
 using Uintra.Comments;
 using Uintra.Core.Activity;
@@ -8,6 +7,7 @@ using Uintra.Notification;
 using Uintra.Notification.Base;
 using Uintra.Notification.Configuration;
 using Umbraco.Web;
+using static LanguageExt.Prelude;
 
 namespace Compent.Uintra.Core.PagePromotion
 {
@@ -59,7 +59,7 @@ namespace Compent.Uintra.Core.PagePromotion
                 case NotificationTypeEnum.CommentReplied:
                     {
                         var comment = _commentsService.Get(entityId);
-                        data.ReceiverIds = comment.UserId.ToEnumerable();
+                        data.ReceiverIds = List(comment.UserId);
                         var currentContentPage = _umbracoHelper.TypedContent(comment.ActivityId);
                         data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentContentPage, comment, notificationType, currentUser.Id);
                     }

@@ -36,6 +36,7 @@ using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.Search.Entities.Mappings;
 using Compent.Uintra.Core.Search.Indexes;
 using Compent.Uintra.Core.Subscribe;
+using Compent.Uintra.Core.UintraInformation;
 using Compent.Uintra.Core.Updater;
 using Compent.Uintra.Core.Users;
 using Compent.Uintra.Core.UserTags;
@@ -135,6 +136,7 @@ namespace Compent.Uintra
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbObjectContext, Persistence.Sql.Migrations.Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<EmailWorker.Data.DataDbContext, EmailWorker.Data.Migrations.Configuration>());
             RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             GlobalConfiguration.Configure((config) =>
             {
@@ -203,6 +205,8 @@ namespace Compent.Uintra
                 .BindSingleInterface());
             kernel.Bind<IMigrationStepsResolver>().To<MigrationStepsResolver>().InRequestScope();
 
+            kernel.Bind<IUintraInformationService>().To<UintraInformationService>().InRequestScope();
+  
             //verification
             kernel.Bind<IUmbracoVerificationService>().To<UmbracoVerificationService>().InRequestScope();
 
