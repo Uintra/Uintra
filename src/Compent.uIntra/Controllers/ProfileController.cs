@@ -71,25 +71,25 @@ namespace Compent.Uintra.Controllers
         [HttpPost]
         public ActionResult Edit(ExtendedProfileEditModel model)
         {
-            var user = MapToUserDTO(model);
+            var member = MapToMemberDTO(model);
             var tagIds = model.TagIdsData.ParseStringCollection(Guid.Parse);
-            _userTagService.Replace(user.Id, tagIds);
-            _intranetMemberService.Update(user);
+            _userTagService.Replace(member.Id, tagIds);
+            _intranetMemberService.Update(member);
             return RedirectToCurrentUmbracoPage();
         }
 
         [HttpGet]
         public override ActionResult Edit()
         {
-            var user = _intranetMemberService.GetCurrentMember();
-            var result = MapToEditModel(user);
+            var member = _intranetMemberService.GetCurrentMember();
+            var result = MapToEditModel(member);
 
             return PartialView(ProfileEditViewPath, result);
         }
 
-        private new ExtendedProfileEditModel MapToEditModel(IIntranetMember user)
+        private new ExtendedProfileEditModel MapToEditModel(IIntranetMember member)
         {
-            var baseModel = base.MapToEditModel(user);
+            var baseModel = base.MapToEditModel(member);
             var result = baseModel.Map<ExtendedProfileEditModel>();
             return result;
         }

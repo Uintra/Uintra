@@ -36,7 +36,7 @@ namespace Compent.Uintra.Controllers
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;
         private readonly IGroupFeedContentService _groupFeedContentService;
-        private readonly IIntranetMemberService<IntranetUser> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IGroupLinkProvider _groupLinkProvider;
         private readonly IGroupContentProvider _groupContentProvider;
         private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
@@ -53,7 +53,7 @@ namespace Compent.Uintra.Controllers
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IGroupService groupService,
             IGroupFeedContentService groupFeedContentService,
-            IIntranetMemberService<IntranetUser> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             IGroupLinkProvider groupLinkProvider,
             IGroupContentProvider groupContentProvider,
             IGroupHelper groupHelper,

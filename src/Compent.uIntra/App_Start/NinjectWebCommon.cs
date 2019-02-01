@@ -234,8 +234,8 @@ namespace Compent.Uintra
 
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<Core.LocalizationService>().InRequestScope();
-            kernel.Bind(typeof(IIntranetMemberService<>)).To<IntranetMemberService<IntranetUser>>().InRequestScope();
-            kernel.Bind<ICacheableIntranetMemberService>().To<IntranetMemberService<IntranetUser>>().InRequestScope();
+            kernel.Bind(typeof(IIntranetMemberService<>)).To<IntranetMemberService<IntranetMember>>().InRequestScope();
+            kernel.Bind<ICacheableIntranetMemberService>().To<IntranetMemberService<IntranetMember>>().InRequestScope();
             kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IEventsService<>)).To<EventsService>().InRequestScope();
             kernel.Bind(typeof(IBulletinsService<>)).To<BulletinsService>().InRequestScope();
@@ -511,7 +511,7 @@ namespace Compent.Uintra
             kernel.Bind<IIndexer>().To<DocumentIndexer>().InRequestScope();
             kernel.Bind<IIndexer>().To<UserTagsSearchIndexer>().InRequestScope();
             kernel.Bind<IIndexer>().To<UintraContentIndexer>().InRequestScope();
-            kernel.Bind<IIndexer>().To<IntranetMemberService<IntranetUser>>().InRequestScope();
+            kernel.Bind<IIndexer>().To<IntranetMemberService<IntranetMember>>().InRequestScope();
             kernel.Bind<IContentIndexer>().To<UintraContentIndexer>().InRequestScope();
             kernel.Bind<IDocumentIndexer>().To<DocumentIndexer>().InRequestScope();
             kernel.Bind<IElasticConfigurationSection>().ToMethod(f => ConfigurationManager.GetSection("elasticConfiguration") as ElasticConfigurationSection).InSingletonScope();

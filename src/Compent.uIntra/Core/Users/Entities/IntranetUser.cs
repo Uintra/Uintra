@@ -6,7 +6,7 @@ using Uintra.Groups;
 
 namespace Compent.Uintra.Core.Users
 {
-    public class IntranetUser : IGroupMember
+    public class IntranetMember : IGroupMember
     {
         public Guid Id { get; set; } 
         public int? UmbracoId { get; set; }
@@ -18,6 +18,7 @@ namespace Compent.Uintra.Core.Users
         public string Email { get; set; }
         public string LoginName { get; set; }
         public string Phone { get; set; }
+        public int? PhotoId { get; set; }
         public string Department { get; set; }
         public bool Inactive { get; set; }
         public IRole Role { get; set; }

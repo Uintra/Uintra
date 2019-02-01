@@ -14,7 +14,7 @@ namespace Compent.Uintra.Core.Users
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<IntranetUser, ProfileViewModel>()
+            Mapper.CreateMap<IntranetMember, ProfileViewModel>()
                 .ForMember(dst => dst.EditingMember, o => o.MapFrom(user => user));
 
             Mapper.CreateMap<IIntranetMember, MemberViewModel>()
@@ -25,11 +25,11 @@ namespace Compent.Uintra.Core.Users
                 .ForMember(dst => dst.Photo, o => o.MapFrom(user => user.Photo))
                 .ForMember(dst => dst.Inactive, o => o.MapFrom(user => user.Inactive));
 
-            Mapper.CreateMap<IntranetUser, MemberModel>()
+            Mapper.CreateMap<IntranetMember, MemberModel>()
                 .ForMember(dst => dst.Member, o => o.MapFrom(user => user))
                 .ForMember(dst => dst.ProfileUrl, o => o.Ignore())
                 .ForMember(dst => dst.IsGroupAdmin, o => o.Ignore());
-            Mapper.CreateMap<IntranetUser, ProfileEditModel>()
+            Mapper.CreateMap<IntranetMember, ProfileEditModel>()
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.MemberNotifierSettings, o => o.Ignore())
@@ -77,7 +77,7 @@ namespace Compent.Uintra.Core.Users
             Mapper.CreateMap<ProfileEditModel, ExtendedProfileEditModel>()
                 .ForMember(dst => dst.TagIdsData, o => o.MapFrom(i => string.Empty));
 
-            Mapper.CreateMap<IntranetUser, UpdateMemberDto>()
+            Mapper.CreateMap<IntranetMember, UpdateMemberDto>()
                 .ForMember(dst => dst.DeleteMedia, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore());
 

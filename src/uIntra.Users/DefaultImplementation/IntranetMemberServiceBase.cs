@@ -223,6 +223,7 @@ namespace Uintra.Users
             }
 
             mappedMember.Photo = GetUserPhotoOrDefaultAvatar(memberPhoto);
+            mappedMember.PhotoId = memberPhotoId;
 
             return mappedMember;
         }

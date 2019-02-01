@@ -8,6 +8,7 @@ namespace Uintra.Core.User
         int? UmbracoId { get; set; }
         string DisplayedName { get; }
         string Photo { get; set; }
+        int? PhotoId { get; set; }
         IRole Role { get; set; }
         string Email { get; set; }
         string LoginName { get; set; }

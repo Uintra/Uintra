@@ -19,7 +19,7 @@ using static LanguageExt.Prelude;
 namespace Compent.Uintra.Core.Users
 {
     public class IntranetMemberService<T> : IntranetMemberServiceBase<T>, IIndexer
-        where T : IntranetUser, new()
+        where T : IntranetMember, new()
     {
         private readonly ISqlRepository<GroupMember> _groupMemberRepository;
         private readonly IElasticUserIndex _elasticUserIndex;
@@ -86,7 +86,7 @@ namespace Compent.Uintra.Core.Users
             _elasticUserIndex.Index(users);
         }
 
-        private SearchableUser MapToSearchableUser(IntranetUser user)
+        private SearchableUser MapToSearchableUser(IntranetMember user)
         {
             var searchableUser = user.Map<SearchableUser>();
             searchableUser.Url = _intranetUserContentProvider.GetProfilePage().Url.AddIdParameter(user.Id);
