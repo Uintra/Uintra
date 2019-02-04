@@ -939,6 +939,7 @@
     <Content Include="config\Lang\ru-RU.user.xml" />
     <Content Include="config\Lang\sv-SE.user.xml" />
     <Content Include="config\Lang\zh-CN.user.xml" />
+    <Content Include="Content\css\custom.css" />
     <Content Include="Content\css\styles.css" />
     <Content Include="Content\fonts\muli-bold-webfont.ttf" />
     <Content Include="Content\fonts\muli-bold-webfont.woff" />
