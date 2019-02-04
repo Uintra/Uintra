@@ -7,11 +7,11 @@ namespace Uintra.Core.Permissions
     public interface IPermissionsService
     {
         EntityPermissions Get(Guid entityId);
-        EntityRolePermissions GeForRole(Guid entityId, Role role);
-        bool Has(Guid entityId, Role role, Enum[] permissions);
+        EntityGroupPermissions GeForGroup(Guid entityId, IntranetMemberGroup role);
+        bool Has(Guid entityId, IntranetMemberGroup role, Enum[] permissions);
         Unit Save(EntityPermissions permissions);
-        Unit Save(EntityRolePermissions permissions);
-        Unit Add(Guid entityId, Role role, Enum[] permissions);
-        Unit Remove(Guid entityId, Role role, Enum[] permissions);
+        Unit Save(EntityGroupPermissions permissions);
+        Unit Add(Guid entityId, IntranetMemberGroup role, Enum[] permissions);
+        Unit Remove(Guid entityId, IntranetMemberGroup role, Enum[] permissions);
     }
 }

@@ -8,7 +8,7 @@ namespace Uintra.Core.Permissions.Models
 
         public Guid EntityId { get; set; }
 
-        public Role RoleType { get; set; }
+        public IntranetMemberGroup Group { get; set; }
 
         public Enum PermissionType { get; set; }
     }

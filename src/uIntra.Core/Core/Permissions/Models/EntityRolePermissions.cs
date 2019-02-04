@@ -2,15 +2,15 @@
 
 namespace Uintra.Core.Permissions.Models
 {
-    public class EntityRolePermissions
+    public class EntityGroupPermissions
     {
         public Guid EntityId { get; }
-        public Role Role { get; }
+        public IntranetMemberGroup Group { get; }
         public Enum[] Permissions { get; }
 
-        public EntityRolePermissions(Guid entityId, Role role, Enum[] permissions)
+        public EntityGroupPermissions(Guid entityId, IntranetMemberGroup group, Enum[] permissions)
         {
-            Role = role;
+            Group = group;
             EntityId = entityId;
             Permissions = permissions;
         }

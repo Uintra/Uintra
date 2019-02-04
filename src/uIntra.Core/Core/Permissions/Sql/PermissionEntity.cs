@@ -14,7 +14,7 @@ namespace Uintra.Core.Permissions.Sql
 
         public Guid EntityId { get; set; }
 
-        public int RoleType { get; set; }
+        public int IntranetMemberGroupId { get; set; }
 
         public int PermissionType { get; set; }
     }
