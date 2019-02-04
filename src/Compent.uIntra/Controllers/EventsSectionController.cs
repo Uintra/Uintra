@@ -13,18 +13,18 @@ namespace Compent.Uintra.Controllers
     public class EventsSectionController : EventsSectionControllerBase
     {
         private readonly IMyLinksService _myLinksService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IEventsService<Event> _eventsService;
 
         public EventsSectionController(
             IEventsService<Event> eventsService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IMediaHelper mediaHelper,
             IMyLinksService myLinksService)
-            : base(eventsService, intranetUserService, mediaHelper)
+            : base(eventsService, intranetMemberService, mediaHelper)
         {
             _myLinksService = myLinksService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _eventsService = eventsService;
         }
 
@@ -38,7 +38,7 @@ namespace Compent.Uintra.Controllers
         protected override EventBase MapToEvent(EventBackofficeCreateModel model)
         {
             var @event = model.Map<Event>();
-            @event.CreatorId = _intranetUserService.GetCurrentUserId();
+            @event.CreatorId = _intranetMemberService.GetCurrentMemberId();
             return @event;
         }
     }

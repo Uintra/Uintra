@@ -18,15 +18,15 @@ using static LanguageExt.Prelude;
 
 namespace Compent.Uintra.Core.Users
 {
-    public class IntranetUserService<T> : IntranetUserServiceBase<T>, IIndexer
-        where T : IntranetUser, new()
+    public class IntranetMemberService<T> : IntranetMemberServiceBase<T>, IIndexer
+        where T : IntranetMember, new()
     {
         private readonly ISqlRepository<GroupMember> _groupMemberRepository;
         private readonly IElasticUserIndex _elasticUserIndex;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IUserTagService _userTagService;
 
-        public IntranetUserService(
+        public IntranetMemberService(
             IMediaService mediaService,
             IMemberService memberService,
             UmbracoContext umbracoContext,
@@ -72,21 +72,21 @@ namespace Compent.Uintra.Core.Users
             _elasticUserIndex.Index(searchableUsers);
         }
 
-        public override void UpdateUserCache(Guid userId)
+        public override void UpdateMemberCache(Guid memberId)
         {
-            base.UpdateUserCache(userId);
-            var user = Get(userId);
+            base.UpdateMemberCache(memberId);
+            var user = Get(memberId);
             _elasticUserIndex.Index(MapToSearchableUser(user));
         }
 
-        public override void UpdateUserCache(IEnumerable<Guid> userIds)
+        public override void UpdateMemberCache(IEnumerable<Guid> memberIds)
         {
-            base.UpdateUserCache(userIds);
-            var users = GetMany(userIds).Select(MapToSearchableUser);
+            base.UpdateMemberCache(memberIds);
+            var users = GetMany(memberIds).Select(MapToSearchableUser);
             _elasticUserIndex.Index(users);
         }
 
-        private SearchableUser MapToSearchableUser(IntranetUser user)
+        private SearchableUser MapToSearchableUser(IntranetMember user)
         {
             var searchableUser = user.Map<SearchableUser>();
             searchableUser.Url = _intranetUserContentProvider.GetProfilePage().Url.AddIdParameter(user.Id);

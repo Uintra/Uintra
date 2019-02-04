@@ -18,19 +18,19 @@ namespace Compent.Uintra.Core.Navigation
     {
         private readonly IGroupHelper _groupHelper;
         private readonly IGroupPermissionsService _groupPermissionsService;
-        private readonly IIntranetUserService<IGroupMember> _intranetUserService;
+        private readonly IIntranetMemberService<IGroupMember> _intranetMemberService;
 
         public SubNavigationModelBuilder(
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
             IGroupHelper groupHelper,
             IGroupPermissionsService groupPermissionsService,
-            IIntranetUserService<IGroupMember> intranetUserService)
+            IIntranetMemberService<IGroupMember> intranetMemberService)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
             _groupHelper = groupHelper;
             _groupPermissionsService = groupPermissionsService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
         }
 
         public override SubNavigationMenuModel GetMenu()
@@ -162,7 +162,7 @@ namespace Compent.Uintra.Core.Navigation
 
         protected virtual IEnumerable<IPublishedContent> ValidateGroupSubNavigationItems(IEnumerable<IPublishedContent> items)
         {
-            var role = _intranetUserService.GetCurrentUser().Role;
+            var role = _intranetMemberService.GetCurrentMember().Role;
 
             foreach (var item in items)
             {

@@ -19,11 +19,11 @@ namespace Uintra.Core.Attributes
     {
         private readonly IMemberService _memberService;
         private readonly IApplicationSettings _applicationSettings;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
         public ApiAuthorizationFilterAttribute()
         {
-            _intranetUserService = DependencyResolver.Current.GetService<IIntranetUserService<IIntranetUser>>();
+            _intranetMemberService = DependencyResolver.Current.GetService<IIntranetMemberService<IIntranetMember>>();
             _applicationSettings = DependencyResolver.Current.GetService<IApplicationSettings>();
             _memberService = DependencyResolver.Current.GetService<IMemberService>();
         }
@@ -57,7 +57,7 @@ namespace Uintra.Core.Attributes
 
         private bool IsCredentialsValid(string mail, string password)
         {
-            var relatedUserWithWebMasterRole = Optional(_intranetUserService.GetByEmail(mail))
+            var relatedUserWithWebMasterRole = Optional(_intranetMemberService.GetByEmail(mail))
                 .Filter(member => member.Role.Name == IntranetRolesEnum.WebMaster.ToString())
                 .Bind(member => member.UmbracoId.ToOption())
                 .Map(id => _memberService.GetById(id));

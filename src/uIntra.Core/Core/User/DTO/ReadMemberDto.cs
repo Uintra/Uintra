@@ -1,6 +1,6 @@
 ﻿namespace Uintra.Core.User.DTO
 {
-    public class ReadUserDto
+    public class ReadMemberDto
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

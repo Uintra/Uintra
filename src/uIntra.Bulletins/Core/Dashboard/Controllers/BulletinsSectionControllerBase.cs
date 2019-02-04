@@ -11,12 +11,12 @@ namespace Uintra.Bulletins
     public abstract class BulletinsSectionControllerBase : UmbracoAuthorizedApiController
     {
         private readonly IBulletinsService<BulletinBase> _bulletinsService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
-        protected BulletinsSectionControllerBase(IBulletinsService<BulletinBase> bulletinsService, IIntranetUserService<IIntranetUser> intranetUserService)
+        protected BulletinsSectionControllerBase(IBulletinsService<BulletinBase> bulletinsService, IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
             _bulletinsService = bulletinsService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
         }
 
         public virtual IEnumerable<BulletinsBackofficeViewModel> GetAll()
@@ -30,7 +30,7 @@ namespace Uintra.Bulletins
         public virtual BulletinsBackofficeViewModel Create(BulletinsBackofficeCreateModel createModel)
         {
             var creatingBulletin = createModel.Map<BulletinBase>();
-            creatingBulletin.CreatorId = creatingBulletin.OwnerId = _intranetUserService.GetCurrentUserId();
+            creatingBulletin.CreatorId = creatingBulletin.OwnerId = _intranetMemberService.GetCurrentMemberId();
 
             var bulletinId = _bulletinsService.Create(creatingBulletin);
             var createdBulletin = _bulletinsService.Get(bulletinId);

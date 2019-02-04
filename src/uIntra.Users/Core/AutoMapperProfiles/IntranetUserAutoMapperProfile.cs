@@ -11,11 +11,11 @@ namespace Uintra.Users
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<ProfileEditModel, UpdateUserDto>()
+            Mapper.CreateMap<ProfileEditModel, UpdateMemberDto>()
                 .ForMember(dst => dst.DeleteMedia, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore());
 
-            Mapper.CreateMap<IIntranetUser, MentionUserModel>()
+            Mapper.CreateMap<IIntranetMember, MentionUserModel>()
                 .ForMember(dst => dst.Id, o => o.MapFrom(u => u.Id))
                 .ForMember(dst => dst.Value, o => o.MapFrom(u => u.DisplayedName))
                 .ForMember(dst => dst.Url, o => o.Ignore());

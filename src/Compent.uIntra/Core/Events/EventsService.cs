@@ -39,7 +39,7 @@ namespace Compent.Uintra.Core.Events
         IIndexer,
         IHandle<VideoConvertedCommand>
     {
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
@@ -60,7 +60,7 @@ namespace Compent.Uintra.Core.Events
         public EventsService(
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
@@ -88,7 +88,7 @@ namespace Compent.Uintra.Core.Events
                 activityLocationService,
                 activityLinkPreviewService)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _commentsService = commentsService;
             _likesService = likesService;
             _subscribeService = subscribeService;
@@ -150,16 +150,16 @@ namespace Compent.Uintra.Core.Events
 
         public override bool CanEdit(IIntranetActivity activity)
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
 
-            var isWebmaster = _permissionsService.IsUserWebmaster(currentUser);
+            var isWebmaster = _permissionsService.IsUserWebmaster(currentMember);
             if (isWebmaster) return true;
 
             var ownerId = Get(activity.Id).OwnerId;
-            var isOwner = ownerId == currentUser.Id;
+            var isOwner = ownerId == currentMember.Id;
 
-            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, Type, IntranetActivityActionEnum.Edit);
-            return isOwner && isUserHasPermissions;
+            var isMemberHasPermissions = _permissionsService.IsRoleHasPermissions(currentMember.Role, Type, IntranetActivityActionEnum.Edit);
+            return isOwner && isMemberHasPermissions;
         }
 
         public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();

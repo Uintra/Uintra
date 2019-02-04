@@ -43,7 +43,7 @@ namespace Uintra.CentralFeed.Web
             ICentralFeedContentService centralFeedContentService,
             IActivitiesServiceFactory activitiesServiceFactory,
             ISubscribeService subscribeService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             IFeedLinkService feedLinkService,
@@ -52,7 +52,7 @@ namespace Uintra.CentralFeed.Web
             IActivityTypeProvider activityTypeProvider,
             IContextTypeProvider contextTypeProvider,
             IFeedFilterService centralFeedFilterService)
-            : base(subscribeService, centralFeedService, intranetUserService, feedFilterStateService, centralFeedTypeProvider, contextTypeProvider)
+            : base(subscribeService, centralFeedService, intranetMemberService, feedFilterStateService, centralFeedTypeProvider, contextTypeProvider)
         {
             _centralFeedService = centralFeedService;
             _centralFeedContentService = centralFeedContentService;
@@ -172,7 +172,7 @@ namespace Uintra.CentralFeed.Web
             {
                 Tabs = activityTabs,
                 TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs)
-                    .Where(tab => _permissionsService.IsCurrentUserHasAccess(tab.Type, IntranetActivityActionEnum.Create)),
+                    .Where(tab => _permissionsService.IsCurrentMemberHasAccess(tab.Type, IntranetActivityActionEnum.Create)),
                 CurrentType = tabType,
                 IsFiltersOpened = centralFeedState.IsFiltersOpened
             };

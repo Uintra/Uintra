@@ -24,16 +24,16 @@ namespace Compent.Uintra.Controllers.Api
     [System.Web.Mvc.AllowAnonymous]
     public class SyncController : Controller
     {
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IMediaHelper _mediaHelper;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IExceptionLogger _exceptionLogger;
 
 
-        public SyncController(IIntranetUserService<IIntranetUser> intranetUserService,
+        public SyncController(IIntranetMemberService<IIntranetMember> intranetMemberService,
             IMediaHelper mediaHelper, UmbracoHelper umbracoHelper, IExceptionLogger exceptionLogger)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _mediaHelper = mediaHelper;
             _umbracoHelper = umbracoHelper;
             _exceptionLogger = exceptionLogger;
@@ -113,23 +113,23 @@ namespace Compent.Uintra.Controllers.Api
                 foreach (var user in users)
                 {
                     var email = user.Emails.First().Address;
-                    var existingUser = _intranetUserService.GetByEmail(email);
+                    var existingUser = _intranetMemberService.GetByEmail(email);
 
                     if (existingUser != null)
                     {
                         if (updateExisting)
                         {
-                            var updateUserDto = user.Map<UpdateUserDto>();
+                            var updateUserDto = user.Map<UpdateMemberDto>();
                             updateUserDto.Id = existingUser.Id;
                             updateUserDto.NewMedia = GetMediaId(user, service);
-                            _intranetUserService.Update(updateUserDto);
+                            _intranetMemberService.Update(updateUserDto);
                         }
                     }
                     else
                     {
-                        var createUserDto = user.Map<CreateUserDto>();
+                        var createUserDto = user.Map<CreateMemberDto>();
                         createUserDto.MediaId = GetMediaId(user, service);
-                        _intranetUserService.Create(createUserDto);
+                        _intranetMemberService.Create(createUserDto);
                     }
                 }
             }

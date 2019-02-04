@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Uintra.Core.User.DTO
 {
-    public class UpdateUserDto
+    public class UpdateMemberDto
     {
         public Guid Id { get; set; }
 

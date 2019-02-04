@@ -29,14 +29,14 @@ namespace Uintra.Comments.Web
         protected virtual string ViewPath { get; } = "~/App_Plugins/Comments/View/CommentsView.cshtml";
 
         private readonly ICommentsService _commentsService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly ICommandPublisher _commandPublisher;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
         protected CommentsControllerBase(
             ICommentsService commentsService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
             IContextTypeProvider contextTypeProvider,
             ICommandPublisher commandPublisher,
@@ -44,7 +44,7 @@ namespace Uintra.Comments.Web
             : base(contextTypeProvider)
         {
             _commentsService = commentsService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _profileLinkProvider = profileLinkProvider;
             _commandPublisher = commandPublisher;
             _activitiesServiceFactory = activitiesServiceFactory;
@@ -95,7 +95,7 @@ namespace Uintra.Comments.Web
             }
 
             var comment = _commentsService.Get(editCommentId);
-            if (!_commentsService.CanEdit(comment, _intranetUserService.GetCurrentUserId()))
+            if (!_commentsService.CanEdit(comment, _intranetMemberService.GetCurrentMemberId()))
             {
                 return OverView(editCommentId);
             }
@@ -126,7 +126,7 @@ namespace Uintra.Comments.Web
             var targetEntityId = commentsTarget.EntityId.Value;
 
             var comment = _commentsService.Get(deleteCommentId);
-            if (!_commentsService.CanDelete(comment, _intranetUserService.GetCurrentUserId()))
+            if (!_commentsService.CanDelete(comment, _intranetMemberService.GetCurrentMemberId()))
             {
                 return OverView(comment.ActivityId);
             }
@@ -176,13 +176,13 @@ namespace Uintra.Comments.Web
 
         public virtual PartialViewResult PreView(Guid activityId, string link, bool isReadOnly)
         {
-            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            var currentMemberId = _intranetMemberService.GetCurrentMember().Id;
             var model = new CommentPreviewModel
             {
                 Count = _commentsService.GetCount(activityId),
                 Link = $"{link}#comments",
                 IsReadOnly = isReadOnly,
-                IsExistsUserComment = _commentsService.IsExistsUserComment(activityId, currentUserId)
+                IsExistsUserComment = _commentsService.IsExistsUserComment(activityId, currentMemberId)
             };
             return PartialView(PreviewViewPath, model);
         }
@@ -216,29 +216,29 @@ namespace Uintra.Comments.Web
         {
             comments = comments.OrderBy(c => c.CreatedDate);
             var commentsList = comments as List<CommentModel> ?? comments.ToList();
-            var currentUserId = _intranetUserService.GetCurrentUser().Id;
-            var creators = _intranetUserService.GetAll().ToList();
+            var currentMemberId = _intranetMemberService.GetCurrentMember().Id;
+            var creators = _intranetMemberService.GetAll().ToList();
             var replies = commentsList.FindAll(_commentsService.IsReply);
 
             foreach (var comment in commentsList.FindAll(c => !_commentsService.IsReply(c)))
             {
-                var model = GetCommentView(comment, currentUserId,
+                var model = GetCommentView(comment, currentMemberId,
                     creators.SingleOrDefault(c => c.Id == comment.UserId));
                 var commentReplies = replies.FindAll(reply => reply.ParentId == model.Id);
                 model.Replies = commentReplies.Select(reply =>
-                    GetCommentView(reply, currentUserId, creators.SingleOrDefault(c => c.Id == reply.UserId)));
+                    GetCommentView(reply, currentMemberId, creators.SingleOrDefault(c => c.Id == reply.UserId)));
                 yield return model;
             }
         }
 
-        protected virtual CommentViewModel GetCommentView(CommentModel comment, Guid currentUserId,
-            IIntranetUser creator)
+        protected virtual CommentViewModel GetCommentView(CommentModel comment, Guid currentMemberId,
+            IIntranetMember creator)
         {
             var model = comment.Map<CommentViewModel>();
             model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate : default(DateTime?);
-            model.CanEdit = _commentsService.CanEdit(comment, currentUserId);
-            model.CanDelete = _commentsService.CanDelete(comment, currentUserId);
-            model.Creator = creator.Map<UserViewModel>();
+            model.CanEdit = _commentsService.CanEdit(comment, currentMemberId);
+            model.CanDelete = _commentsService.CanDelete(comment, currentMemberId);
+            model.Creator = creator.Map<MemberViewModel>();
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             model.CreatorProfileUrl = _profileLinkProvider.GetProfileLink(creator);
@@ -254,10 +254,10 @@ namespace Uintra.Comments.Web
 
         protected virtual CommentCreateDto MapToCreateDto(CommentCreateModel createModel, Guid activityId)
         {
-            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            var currentMemberId = _intranetMemberService.GetCurrentMember().Id;
             var dto = new CommentCreateDto(
                 Guid.NewGuid(),
-                currentUserId,
+                currentMemberId,
                 activityId,
                 createModel.Text,
                 createModel.ParentId,

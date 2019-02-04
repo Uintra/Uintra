@@ -1,10 +1,10 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Users.UserList.UsersRowsViewModel>
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Users.UserList.MembersRowsViewModel>
 @using Uintra.Users.UserList
 @using Uintra.Core.Extensions
 
-@foreach (var user in Model.Users)
+@foreach (var user in Model.Members)
 {
-    <div data-profile="@user.ProfileUrl" data-id="@user.User.Id"
+    <div data-profile="@user.ProfileUrl" data-id="@user.Member.Id"
          class="users-table__row js-user-list-row @if (Model.IsLastRequest) { <text>last</text> }">
         @foreach (var column in Model.SelectedColumns)
         {
@@ -12,12 +12,13 @@
             {
                 case ColumnType.Name:
                     {
-                        <div class="users-table__cell users-table__cell--name">
+                        <div class="users-table__cell">
                             <div class="users-table__info">
-                                @Html.Action("Photo", "User", new
+                                @Html.Action("Photo", "Member", new
                                 {
-                                    user = user.User,
-                                    cssModificator = "avatar--group-member"
+                                    member = user.Member,
+                                    cssModificator = "avatar--group-member",
+                                    photoWidth = 30
                                 })
                                 <span class="users-table__name">@user.DisplayedName</span>
                             </div>
@@ -26,7 +27,7 @@
                     break;
                 case ColumnType.Info:
                     {
-                        <div class="users-table__cell users-table__cell--info">
+                        <div class="users-table__cell">
                             @if (!string.IsNullOrEmpty(user.Email))
                             {
                                 <span class="users-table__text">
@@ -53,7 +54,7 @@
                     break;
                 case ColumnType.Button:
                     {
-                        <div class="users-table__cell users-table__cell--tools">
+                        <div class="users-table__cell">
                             <button class="btn">
                                 <svg class="svg-icon" viewBox="0 0 24 24" width="19px" height="19px">
                                     <use xlink:href="#icon-comment" x="0" y="0"></use>
@@ -65,15 +66,15 @@
                     break;
                 case ColumnType.GroupRole:
                     {
-                        <div class="users-table__cell users-table__cell--text">
+                        <div class="users-table__cell">
                             @{var role = user.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl";}
                             <span class="users-table__text">@Html.Localize(role)</span>
                         </div>
                     }
                     break;
                 case ColumnType.GroupManagement:
-                    <div class="users-table__cell users-table__cell--btn">
-                        @if ((Model.CurrentUser.Id == user.User.Id || Model.IsCurrentUserAdmin) && !user.IsGroupAdmin)
+                    <div class="users-table__cell">
+                        @if ((Model.CurrentMember.Id == user.Member.Id || Model.IsCurrentMemberAdmin) && !user.IsGroupAdmin)
                         {
                             <button class="users-table__delete js-user-list-delete">X</button>
                         }

@@ -18,14 +18,14 @@ namespace Uintra.Core.Web
         protected virtual string OwnerEditViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityOwnerEdit.cshtml";
         protected virtual string PinActivityViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityPinView.cshtml";
 
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IPermissionsService _permissionsService;
 
         protected ActivityControllerBase(
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IPermissionsService permissionsService)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _permissionsService = permissionsService;
         }
 
@@ -43,16 +43,16 @@ namespace Uintra.Core.Web
         {
             var model = new IntranetActivityOwnerEditModel
             {
-                Owner = _intranetUserService.Get(ownerId).Map<UserViewModel>(),
+                Owner = _intranetMemberService.Get(ownerId).Map<MemberViewModel>(),
                 OwnerIdPropertyName = ownerIdPropertyName,
                 Links = links
             };
 
-            var currentUser = _intranetUserService.GetCurrentUser();
-            model.CanEditOwner = _permissionsService.IsRoleHasPermissions(currentUser.Role, PermissionConstants.CanEditOwner);
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            model.CanEditOwner = _permissionsService.IsRoleHasPermissions(currentMember.Role, PermissionConstants.CanEditOwner);
             if (model.CanEditOwner)
             {
-                model.Users = GetUsersWithAccess(activityType, IntranetActivityActionEnum.Create);
+                model.Members = GetUsersWithAccess(activityType, IntranetActivityActionEnum.Create);
             }
 
             return PartialView(OwnerEditViewPath, model);
@@ -68,12 +68,12 @@ namespace Uintra.Core.Web
                 });
         }
 
-        protected virtual IEnumerable<IIntranetUser> GetUsersWithAccess(Enum activityType, IntranetActivityActionEnum action)
+        protected virtual IEnumerable<IIntranetMember> GetUsersWithAccess(Enum activityType, IntranetActivityActionEnum action)
         {
 
-            var result = _intranetUserService
+            var result = _intranetMemberService
                 .GetAll()
-                .Where(user => _permissionsService.IsUserHasAccess(user, activityType, action))
+                .Where(member => _permissionsService.IsUserHasAccess(member, activityType, action))
                 .OrderBy(user => user.DisplayedName);
 
             return result;

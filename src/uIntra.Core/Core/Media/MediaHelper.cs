@@ -27,7 +27,7 @@ namespace Uintra.Core.Media
         private readonly ICacheService _cacheService;
         private readonly IMediaService _mediaService;
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IMediaFolderTypeProvider _mediaFolderTypeProvider;
         private readonly IImageHelper _imageHelper;
         private readonly IVideoHelper _videoHelper;
@@ -36,7 +36,7 @@ namespace Uintra.Core.Media
 
         public MediaHelper(ICacheService cacheService,
             IMediaService mediaService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             UmbracoHelper umbracoHelper,
             IMediaFolderTypeProvider mediaFolderTypeProvider,
             IImageHelper imageHelper,
@@ -46,7 +46,7 @@ namespace Uintra.Core.Media
         {
             _cacheService = cacheService;
             _mediaService = mediaService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _umbracoHelper = umbracoHelper;
             _mediaFolderTypeProvider = mediaFolderTypeProvider;
             _imageHelper = imageHelper;
@@ -75,7 +75,7 @@ namespace Uintra.Core.Media
 
         public IMedia CreateMedia(TempFile file, int rootMediaId, Guid? userId = null)
         {
-            userId = userId ?? _intranetUserService.GetCurrentUserId();
+            userId = userId ?? _intranetMemberService.GetCurrentMemberId();
 
             var mediaTypeAlias = GetMediaTypeAlias(file);
             var media = _mediaService.CreateMedia(file.FileName, rootMediaId, mediaTypeAlias);            

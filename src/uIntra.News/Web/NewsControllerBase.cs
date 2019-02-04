@@ -31,7 +31,7 @@ namespace Uintra.News.Web
 
         private readonly INewsService<NewsBase> _newsService;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IActivityLinkService _activityLinkService;
          
@@ -40,14 +40,14 @@ namespace Uintra.News.Web
         public override ContextType ControllerContextType { get; } = ContextType.News;
 
         protected NewsControllerBase(
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             INewsService<NewsBase> newsService,
             IMediaHelper mediaHelper,
             IActivityTypeProvider activityTypeProvider,
             IActivityLinkService activityLinkService,
             IContextTypeProvider contextTypeProvider) :base(contextTypeProvider)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _newsService = newsService;
             _mediaHelper = mediaHelper;
             _activityTypeProvider = activityTypeProvider;
@@ -130,7 +130,7 @@ namespace Uintra.News.Web
             var model = new NewsCreateModel
             {
                 PublishDate = DateTime.UtcNow,
-                OwnerId = _intranetUserService.GetCurrentUser().Id,
+                OwnerId = _intranetMemberService.GetCurrentMember().Id,
                 ActivityType = _activityTypeProvider[ActivityTypeId],
                 Links = links,
                 MediaRootId = mediaSettings.MediaRootId
@@ -160,7 +160,7 @@ namespace Uintra.News.Web
             var model = news.Map<NewsViewModel>();
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = List(news.PublishDate.ToDateTimeFormat());
-            model.HeaderInfo.Owner = _intranetUserService.Get(news).Map<UserViewModel>();
+            model.HeaderInfo.Owner = _intranetMemberService.Get(news).Map<MemberViewModel>();
             model.CanEdit = _newsService.CanEdit(news);
             return model;
         }
@@ -175,7 +175,7 @@ namespace Uintra.News.Web
             
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = List(news.PublishDate.ToDateTimeFormat());
-            model.HeaderInfo.Owner = _intranetUserService.Get(news).Map<UserViewModel>();
+            model.HeaderInfo.Owner = _intranetMemberService.Get(news).Map<MemberViewModel>();
             model.HeaderInfo.Links = options.Links;
 
             return model;
@@ -189,7 +189,7 @@ namespace Uintra.News.Web
             model.Links = links;
 
             model.HeaderInfo = news.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Owner = _intranetUserService.Get(news).Map<UserViewModel>();
+            model.HeaderInfo.Owner = _intranetMemberService.Get(news).Map<MemberViewModel>();
             model.HeaderInfo.Links = links;
 
             model.LightboxGalleryPreviewInfo = new LightboxGalleryPreviewModel
@@ -205,13 +205,13 @@ namespace Uintra.News.Web
 
         protected virtual NewsPreviewViewModel GetPreviewViewModel(NewsBase news, ActivityLinks links)
         {
-            var owner = _intranetUserService.Get(news);
+            var owner = _intranetMemberService.Get(news);
             return new NewsPreviewViewModel
             {
                 Id = news.Id,
                 Title = news.Title,
                 PublishDate = news.PublishDate,
-                Owner = owner.Map<UserViewModel>(),
+                Owner = owner.Map<MemberViewModel>(),
                 ActivityType = news.Type,
                 Links = links
             };
@@ -224,7 +224,7 @@ namespace Uintra.News.Web
             news.PublishDate = createModel.PublishDate.ToUniversalTime();
             news.UnpublishDate = createModel.UnpublishDate?.ToUniversalTime();
             news.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
-            news.CreatorId = _intranetUserService.GetCurrentUserId();
+            news.CreatorId = _intranetMemberService.GetCurrentMemberId();
 
             return news;
         }

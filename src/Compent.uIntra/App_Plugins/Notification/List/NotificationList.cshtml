@@ -14,7 +14,7 @@
 
                 @if (notification.Notifier != null)
                 {
-                    @Html.Action("Photo", "User", new { user = notification.Notifier })
+                    @Html.Action("Photo", "Member", new { member = notification.Notifier })
                 }
                 <div class="notification__list-meta">
                     <div class="notification__list-description">

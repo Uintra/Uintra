@@ -19,7 +19,7 @@ namespace Compent.Uintra.Controllers
 {
     public class CentralFeedController : CentralFeedControllerBase
     {        
-        private readonly IIntranetUserService<IGroupMember> _intranetUserService;
+        private readonly IIntranetMemberService<IGroupMember> _intranetMemberService;
         private readonly IGroupFeedService _groupFeedService;
         private readonly IFeedActivityHelper _feedActivityHelper;
 
@@ -28,7 +28,7 @@ namespace Compent.Uintra.Controllers
             ICentralFeedContentService centralFeedContentService,
             IActivitiesServiceFactory activitiesServiceFactory,
             ISubscribeService subscribeService,
-            IIntranetUserService<IGroupMember> intranetUserService,
+            IIntranetMemberService<IGroupMember> intranetMemberService,
             IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             IFeedLinkService feedLinkService,
@@ -45,7 +45,7 @@ namespace Compent.Uintra.Controllers
                   centralFeedContentService,
                   activitiesServiceFactory,
                   subscribeService,
-                  intranetUserService,
+                  intranetMemberService,
                   intranetUserContentProvider,
                   centralFeedTypeProvider,
                   feedLinkService,
@@ -55,14 +55,14 @@ namespace Compent.Uintra.Controllers
                   contextTypeProvider,
                   feedFilterService)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _groupFeedService = groupFeedService;
             _feedActivityHelper = feedActivityHelper;
         }
 
         protected override IEnumerable<IFeedItem> GetCentralFeedItems(Enum type)
         {
-            var groupIds = _intranetUserService.GetCurrentUser().GroupIds;
+            var groupIds = _intranetMemberService.GetCurrentMember().GroupIds;
 
             var groupFeed = IsTypeForAllActivities(type)
                 ? _groupFeedService.GetFeed(groupIds)

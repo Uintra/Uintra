@@ -18,22 +18,22 @@ namespace Uintra.Subscribe.Web
         protected virtual string ActivitySubscribeSettingsViewPath { get; } = "~/App_Plugins/Subscribe/View/ActivitySubscribeSettingsView.cshtml";
 
         private readonly ISubscribeService _subscribeService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
         protected SubscribeControllerBase(
             ISubscribeService subscribeService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IActivitiesServiceFactory activitiesServiceFactory)
         {
             _subscribeService = subscribeService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _activitiesServiceFactory = activitiesServiceFactory;
         }
 
         public virtual PartialViewResult Index(ISubscribable subscribe, Guid activityId)
         {
-            var userId = _intranetUserService.GetCurrentUserId();
+            var userId = _intranetMemberService.GetCurrentMemberId();
             var subscriber = subscribe.Subscribers.SingleOrDefault(s => s.UserId == userId);
 
             return Index(activityId, subscriber, subscribe.Type);
@@ -49,7 +49,7 @@ namespace Uintra.Subscribe.Web
             var subscribs = _subscribeService.Get(activityId).ToList();
 
             var subscribersNames = subscribs.Count > 0
-                ? _intranetUserService.GetMany(subscribs.Select(s => s.UserId)).Select(u => u.DisplayedName)
+                ? _intranetMemberService.GetMany(subscribs.Select(s => s.UserId)).Select(u => u.DisplayedName)
                 : Enumerable.Empty<string>();
 
             return PartialView(ListViewPath, subscribersNames);
@@ -63,7 +63,7 @@ namespace Uintra.Subscribe.Web
         [HttpPost]
         public virtual PartialViewResult Subscribe(Guid activityId)
         {
-            var userId = _intranetUserService.GetCurrentUserId();
+            var userId = _intranetMemberService.GetCurrentMemberId();
             var service = _activitiesServiceFactory.GetService<ISubscribableService>(activityId);
             var subscribable = service.Subscribe(userId, activityId);
             var subscribe = subscribable.Subscribers.Single(s => s.UserId == userId);
@@ -74,7 +74,7 @@ namespace Uintra.Subscribe.Web
         [HttpPost]
         public virtual PartialViewResult Unsubscribe(Guid activityId)
         {
-            var userId = _intranetUserService.GetCurrentUserId();
+            var userId = _intranetMemberService.GetCurrentMemberId();
             var service = _activitiesServiceFactory.GetService<ISubscribableService>(activityId);
             service.UnSubscribe(userId, activityId);
 
@@ -99,7 +99,7 @@ namespace Uintra.Subscribe.Web
             var model = new SubscribeViewModel
             {
                 Id = subscriber?.Id,
-                UserId = _intranetUserService.GetCurrentUserId(),
+                UserId = _intranetMemberService.GetCurrentMemberId(),
                 ActivityId = activityId,
                 IsSubscribed = subscriber != null,
                 IsNotificationDisabled = subscriber?.IsNotificationDisabled ?? false

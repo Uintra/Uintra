@@ -4,18 +4,18 @@
 <ul class="side-nav side-nav--profile">
     <li class="side-nav__item">
         <a class="side-nav__link side-nav__link--title" href="@Model.ProfileLink">
-            @if (!string.IsNullOrWhiteSpace(Model.CurrentUser.Photo))
+            @if (!string.IsNullOrWhiteSpace(Model.CurrentMember.Photo))
             {
-                var photoUrl = Model.CurrentUser.Photo + "?width=30&height=30&mode=crop";
+                var photoUrl = Model.CurrentMember.Photo + "?width=30&height=30&mode=crop";
                 <img class="avatar-img" src="@photoUrl" width="30">
             }else
             {
                 <div class="avatar__letter">
-                    @Model.CurrentUser.DisplayedName.First()
+                    @Model.CurrentMember.DisplayedName.First()
                 </div>          
             }
 
-            @Model.CurrentUser.DisplayedName
+            @Model.CurrentMember.DisplayedName
         </a>
     </li>
     <li class="side-nav__item">

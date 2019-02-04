@@ -5,7 +5,7 @@
 }
 
 <header class="feed__item-heading @inactiveUser">
-    @Html.Action("Photo", "User", new { user = Model.Owner })
+    @Html.Action("Photo", "Member", new { member = Model.Owner })
     <div class="feed__item-title-holder">
         <h2 class="feed__item-title">
             <a class="feed__item-title-link" href="@Model.Links.Owner">@Model.Title</a>

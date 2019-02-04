@@ -14,18 +14,18 @@ namespace Uintra.Groups.Dashboard
     {
         private readonly IGroupService _groupsService;
         private readonly IGroupLinkProvider _groupLinkProvider;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly ICommandPublisher _commandPublisher;
 
         protected GroupsSectionControllerBase(
             IGroupService groupsService,
             IGroupLinkProvider groupLinkProvider,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             ICommandPublisher commandPublisher)
         {
             _groupsService = groupsService;
             _groupLinkProvider = groupLinkProvider;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _commandPublisher = commandPublisher;
         }
 
@@ -35,7 +35,7 @@ namespace Uintra.Groups.Dashboard
             var viewModels = groups.Select(s =>
             {
                 var viewModel = s.Map<BackofficeGroupViewModel>();
-                viewModel.CreatorName = _intranetUserService.Get(s.CreatorId).DisplayedName;
+                viewModel.CreatorName = _intranetMemberService.Get(s.CreatorId).DisplayedName;
                 viewModel.Link = _groupLinkProvider.GetGroupLink(s.Id);
                 return viewModel;
             });

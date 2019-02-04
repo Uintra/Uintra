@@ -14,21 +14,21 @@ namespace Compent.Uintra.Core.Notification
     {
         private const string ProfileLinkTitle = "PopupNotification.ProfileLink.Title";
 
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IIntranetLocalizationService _localizationService;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
 
         public PopupNotificationModelMapper(
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IIntranetLocalizationService localizationService,
             IIntranetUserContentProvider intranetUserContentProvider)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _localizationService = localizationService;
             _intranetUserContentProvider = intranetUserContentProvider;
         }
 
-        public PopupNotificationMessage Map(INotifierDataValue notifierData, PopupNotifierTemplate template, IIntranetUser receiver)
+        public PopupNotificationMessage Map(INotifierDataValue notifierData, PopupNotifierTemplate template, IIntranetMember receiver)
         {
             var message = new PopupNotificationMessage
             {
@@ -38,7 +38,7 @@ namespace Compent.Uintra.Core.Notification
 
             (string, string)[] tokens =
             {
-                (FullName, _intranetUserService.Get(receiver.Id).DisplayedName),
+                (FullName, _intranetMemberService.Get(receiver.Id).DisplayedName),
                 (ProfileLink, HtmlHelper.CreateLink(_localizationService.Translate(ProfileLinkTitle), _intranetUserContentProvider.GetEditPage().Url))
             };
             message.Message = ReplaceTokens(template.Message, tokens);

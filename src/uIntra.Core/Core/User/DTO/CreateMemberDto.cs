@@ -2,7 +2,7 @@
 
 namespace Uintra.Core.User.DTO
 {
-    public class CreateUserDto
+    public class CreateMemberDto
     {
         [Required(AllowEmptyStrings = false, ErrorMessage ="First name is empty")]
         [StringLength(50, MinimumLength = 1, ErrorMessage = "FirstName Allowed length 1 - 50")]

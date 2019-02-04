@@ -30,7 +30,7 @@ namespace Uintra.CentralFeed.Web
         protected FeedControllerBase(
             ISubscribeService subscribeService,
             IFeedService feedService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             IFeedTypeProvider centralFeedTypeProvider,
             IContextTypeProvider contextTypeProvider): base(contextTypeProvider)

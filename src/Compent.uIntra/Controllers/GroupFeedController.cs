@@ -17,7 +17,7 @@ namespace Compent.Uintra.Controllers
 {
     public class GroupFeedController : GroupFeedControllerBase
     {
-        private readonly IIntranetUserService<IGroupMember> _intranetUserService;
+        private readonly IIntranetMemberService<IGroupMember> _intranetMemberService;
 
         public GroupFeedController(
             ISubscribeService subscribeService,
@@ -25,7 +25,7 @@ namespace Compent.Uintra.Controllers
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
-            IIntranetUserService<IGroupMember> intranetUserService,
+            IIntranetMemberService<IGroupMember> intranetMemberService,
             IGroupFeedContentService groupFeedContentContentService,
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupMemberService groupMemberService,
@@ -41,7 +41,7 @@ namespace Compent.Uintra.Controllers
                   activitiesServiceFactory,
                   intranetUserContentProvider,
                   centralFeedTypeProvider,
-                  intranetUserService,
+                  intranetMemberService,
                   groupFeedContentContentService,
                   groupFeedLinkProvider,
                   groupMemberService,
@@ -51,15 +51,15 @@ namespace Compent.Uintra.Controllers
                   feedLinkService,
                   feedFilterService)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
         }
 
         protected override FeedListViewModel GetFeedListViewModel(GroupFeedListModel model, List<IFeedItem> filteredItems, Enum centralFeedType)
         {
             var result = base.GetFeedListViewModel(model, filteredItems, centralFeedType);
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
 
-            result.IsReadOnly = !currentUser.GroupIds.Contains(model.GroupId);
+            result.IsReadOnly = !currentMember.GroupIds.Contains(model.GroupId);
 
             return result;
         }

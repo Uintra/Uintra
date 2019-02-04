@@ -11,9 +11,9 @@ namespace Compent.Uintra.Controllers
     {
         public SubscribeController(
             ISubscribeService subscribeService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IActivitiesServiceFactory activitiesServiceFactory) :
-            base(subscribeService, intranetUserService, activitiesServiceFactory)
+            base(subscribeService, intranetMemberService, activitiesServiceFactory)
         {
         }
     }

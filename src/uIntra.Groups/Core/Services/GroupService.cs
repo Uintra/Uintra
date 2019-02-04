@@ -82,20 +82,20 @@ namespace Uintra.Groups
             Edit(group);
         }
 
-        public bool CanEdit(Guid groupId, IIntranetUser user)
+        public bool CanEdit(Guid groupId, IIntranetMember member)
         {
             var group = Get(groupId);
-            return CanEdit(group, user);
+            return CanEdit(group, member);
         }
 
-        public bool CanEdit(GroupModel groupModel, IIntranetUser user)
+        public bool CanEdit(GroupModel groupModel, IIntranetMember member)
         {
-            if (_permissionsService.IsUserWebmaster(user))
+            if (_permissionsService.IsUserWebmaster(member))
             {
                 return true;
             }
 
-            return groupModel.CreatorId == user.Id;
+            return groupModel.CreatorId == member.Id;
         }
 
         public void Hide(Guid id)

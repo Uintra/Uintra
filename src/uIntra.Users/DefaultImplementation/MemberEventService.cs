@@ -7,12 +7,12 @@ namespace Uintra.Users
 {
     public class MemberEventService : IUmbracoMemberDeletingEventService
     {
-        private readonly ICacheableIntranetUserService _cacheableIntranetUserService;
+        private readonly ICacheableIntranetMemberService _cacheableIntranetMemberService;
         private readonly IMemberService _memberService;
 
-        public MemberEventService(ICacheableIntranetUserService cacheableIntranetUserService, IMemberService memberService)
+        public MemberEventService(ICacheableIntranetMemberService cacheableIntranetMemberService, IMemberService memberService)
         {
-            _cacheableIntranetUserService = cacheableIntranetUserService;
+            _cacheableIntranetMemberService = cacheableIntranetMemberService;
             _memberService = memberService;
         }
 
@@ -22,7 +22,7 @@ namespace Uintra.Users
             {
                 member.IsLockedOut = true;
                 _memberService.Save(member);
-                _cacheableIntranetUserService.UpdateUserCache(member.Key);
+                _cacheableIntranetMemberService.UpdateMemberCache(member.Key);
             }
 
             if (args.CanCancel)

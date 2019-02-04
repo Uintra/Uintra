@@ -4,7 +4,7 @@ namespace Uintra.Navigation
 {
     public class TopNavigationViewModel
     {
-        public UserViewModel CurrentUser { get; set; }
+        public MemberViewModel CurrentMember { get; set; }
         public string CentralUserListUrl { get; set; }
     }
 }

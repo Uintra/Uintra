@@ -11,18 +11,18 @@ namespace Uintra.Core.User.Permissions
     {
         private readonly IPermissionsConfiguration _configuration;
         private readonly IExceptionLogger _exceptionLogger;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
         public PermissionsService(
             IPermissionsConfiguration configuration,
             IExceptionLogger exceptionLogger,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IActivitiesServiceFactory activitiesServiceFactory)
         {
             _configuration = configuration;
             _exceptionLogger = exceptionLogger;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _activitiesServiceFactory = activitiesServiceFactory;
         }
 
@@ -57,33 +57,33 @@ namespace Uintra.Core.User.Permissions
             return $"{activityType.ToString()}{action}";
         }
 
-        public virtual bool IsCurrentUserHasAccess(Enum activityType, IntranetActivityActionEnum action, Guid? activityId = null)
+        public virtual bool IsCurrentMemberHasAccess(Enum activityType, IntranetActivityActionEnum action, Guid? activityId = null)
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
 
-            if (currentUser == null)
+            if (currentMember == null)
             {
                 return false;
             }
 
-            var result = IsUserHasAccess(currentUser, activityType, action, activityId);
+            var result = IsUserHasAccess(currentMember, activityType, action, activityId);
             return result;
         }
 
-        public virtual bool IsUserHasAccess(IIntranetUser user, Enum activityType, IntranetActivityActionEnum action, Guid? activityId = null)
+        public virtual bool IsUserHasAccess(IIntranetMember member, Enum activityType, IntranetActivityActionEnum action, Guid? activityId = null)
         {
-            if (user == null)
+            if (member == null)
             {
                 return false;
             }
 
-            if (IsUserWebmaster(user))
+            if (IsUserWebmaster(member))
             {
                 return true;
             }
 
             var permission = $"{activityType.ToString()}{action}";
-            var userHasPermissions = IsRoleHasPermissions(user.Role, permission);
+            var userHasPermissions = IsRoleHasPermissions(member.Role, permission);
 
             if (userHasPermissions && activityId.HasValue)
             {
@@ -92,21 +92,21 @@ namespace Uintra.Core.User.Permissions
 
                 if (activity is IHaveOwner owner)
                 {
-                    return owner.OwnerId == user.Id;
+                    return owner.OwnerId == member.Id;
                 }
             }
 
             return userHasPermissions;
         }
 
-        public virtual bool IsUserWebmaster(IIntranetUser user)
+        public virtual bool IsUserWebmaster(IIntranetMember member)
         {
-            return user.Role.Name == IntranetRolesEnum.WebMaster.ToString();
+            return member.Role.Name == IntranetRolesEnum.WebMaster.ToString();
         }
 
-        public virtual bool IsUserHasAccessToContent(IIntranetUser user, IPublishedContent content)
+        public virtual bool IsUserHasAccessToContent(IIntranetMember member, IPublishedContent content)
         {
-            return user.UmbracoId.HasValue;
+            return member.UmbracoId.HasValue;
         }
     }
 }

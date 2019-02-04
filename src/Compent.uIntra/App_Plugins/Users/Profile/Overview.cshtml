@@ -6,9 +6,9 @@
         <h3 class="form-profile__title">@Html.Localize("Profile.Overview.Title.lbl")</h3>
     </div>
     <div class="form-profile__header">
-        @Html.Action("Photo", "User", new
+        @Html.Action("Photo", "Member", new
         {
-            user = Model.EditingUser,
+            member = Model.EditingMember,
             cssModificator = "avatar__profile",
             photoWidth = 100
         })

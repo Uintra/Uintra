@@ -15,11 +15,11 @@ namespace Compent.Uintra.Controllers
     {
         public LikesController(
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             ILikesService likesService,
             IContextTypeProvider contextTypeProvider,
             ICommandPublisher commandPublisher)
-            : base(activitiesServiceFactory, intranetUserService, likesService, contextTypeProvider, commandPublisher)
+            : base(activitiesServiceFactory, intranetMemberService, likesService, contextTypeProvider, commandPublisher)
         {
         }
     }

@@ -26,23 +26,23 @@ namespace Compent.Uintra.Controllers
         private readonly ILocalizationCoreService _localizationCoreService;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly IGroupService _groupService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IGroupMemberService _groupMemberService;
 
-        public UserListController(IIntranetUserService<IIntranetUser> intranetUserService,
+        public UserListController(IIntranetMemberService<IIntranetMember> intranetMemberService,
             IElasticIndex elasticIndex,
             ILocalizationCoreService localizationCoreService,
             IProfileLinkProvider profileLinkProvider,
             IGroupService groupService,
             IGroupMemberService groupMemberService
             )
-            : base(intranetUserService)
+            : base(intranetMemberService)
         {
             _elasticIndex = elasticIndex;
             _localizationCoreService = localizationCoreService;
             _profileLinkProvider = profileLinkProvider;
             _groupService = groupService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _groupMemberService = groupMemberService;
         }
 
@@ -70,10 +70,10 @@ namespace Compent.Uintra.Controllers
             return (result, searchResult.TotalHits);
         }
 
-        protected override string GetDetailsPopupTitle(UserModel user) =>
+        protected override string GetDetailsPopupTitle(MemberModel user) =>
             $"{user.DisplayedName} {_localizationCoreService.Get("UserList.DetailsPopup.Title")}";
 
-        protected override UserModel MapToViewModel(IIntranetUser user)
+        protected override MemberModel MapToViewModel(IIntranetMember user)
         {
             var model = base.MapToViewModel(user);
             model.ProfileUrl = _profileLinkProvider.GetProfileLink(user.Id);
@@ -81,17 +81,17 @@ namespace Compent.Uintra.Controllers
             return model;
         }
 
-        protected override UsersRowsViewModel GetUsersRowsViewModel()
+        protected override MembersRowsViewModel GetUsersRowsViewModel()
         {
             var model = base.GetUsersRowsViewModel();
-            model.CurrentUser = _intranetUserService.GetCurrentUser().Map<UserViewModel>();
-            model.IsCurrentUserAdmin = CurrentGroup().Map(CreatorId) == model.CurrentUser.Id;
+            model.CurrentMember = _intranetMemberService.GetCurrentMember().Map<MemberViewModel>();
+            model.IsCurrentMemberAdmin = CurrentGroup().Map(CreatorId) == model.CurrentMember.Id;
             return model;
         }
 
         public override bool ExcludeUserFromGroup(Guid userId)
         {
-            var currentUserId = _intranetUserService.GetCurrentUser().Id;
+            var currentUserId = _intranetMemberService.GetCurrentMember().Id;
             var currentGroupCreatorId = CurrentGroup().Map(CreatorId);
 
             return currentGroupCreatorId

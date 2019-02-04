@@ -5,7 +5,7 @@ namespace Uintra.Core.Links
 {
     public interface IProfileLinkProvider
     {
-        string GetProfileLink(IIntranetUser user);
+        string GetProfileLink(IIntranetMember member);
         string GetProfileLink(Guid userId);
     }
 }

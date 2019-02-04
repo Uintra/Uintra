@@ -20,11 +20,11 @@ namespace Uintra.Users.Web
         protected virtual string UsersDetailsViewPath => @"~/App_Plugins/Users/UserList/UserDetailsPopup.cshtml";
 
         protected Guid? GroupId { get; set; }
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
-        protected UserListControllerBase(IIntranetUserService<IIntranetUser> intranetUserService)
+        protected UserListControllerBase(IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
         }
 
         public virtual ActionResult Render(UserListModel model)
@@ -39,7 +39,7 @@ namespace Uintra.Users.Web
                 AmountPerRequest = model.AmountPerRequest,
                 DisplayedAmount = model.DisplayedAmount,
                 Title = model.Title,
-                UsersRows = GetUsersRowsViewModel(),
+                MembersRows = GetUsersRowsViewModel(),
                 OrderByColumn = orderByColumn
             };
 
@@ -53,8 +53,8 @@ namespace Uintra.Users.Web
             };
 
             var (activeUsers, isLastRequest) = GetActiveUsers(activeUserSearchRequest);
-            viewModel.UsersRows.SelectedColumns = ExtendIfGroupMembersPage(groupId, selectedColumns);
-            viewModel.UsersRows.Users = activeUsers;
+            viewModel.MembersRows.SelectedColumns = ExtendIfGroupMembersPage(groupId, selectedColumns);
+            viewModel.MembersRows.Members = activeUsers;
             viewModel.IsLastRequest = isLastRequest;
             return View(UserListViewPath, viewModel);
         }
@@ -67,7 +67,7 @@ namespace Uintra.Users.Web
             var query = queryModel.Map<ActiveUserSearchQuery>();
             var (activeUsers, isLastRequest) = GetActiveUsers(query);
 
-            model.Users = activeUsers;
+            model.Members = activeUsers;
             model.IsLastRequest = isLastRequest;
             return PartialView(UsersRowsViewPath, model);
         }
@@ -75,7 +75,7 @@ namespace Uintra.Users.Web
         [HttpPost]
         public virtual JsonNetResult Details(Guid id)
         {
-            var user = _intranetUserService.Get(id);
+            var user = _intranetMemberService.Get(id);
             var viewModel = MapToViewModel(user);
             var text = RenderPartialViewToString(UsersDetailsViewPath, viewModel);
             var title = GetDetailsPopupTitle(viewModel);
@@ -89,7 +89,7 @@ namespace Uintra.Users.Web
             };
         }
 
-        protected virtual string GetDetailsPopupTitle(UserModel user)
+        protected virtual string GetDetailsPopupTitle(MemberModel user)
         {
             return user.DisplayedName;
         }
@@ -109,12 +109,12 @@ namespace Uintra.Users.Web
             }
         }
 
-        private (IEnumerable<UserModel> result, bool isLastRequest) GetActiveUsers(ActiveUserSearchQuery query)
+        private (IEnumerable<MemberModel> result, bool isLastRequest) GetActiveUsers(ActiveUserSearchQuery query)
         {
             var (searchResult, totalHits) = GetActiveUserIds(query);
 
             var result = searchResult
-                .Apply(_intranetUserService.GetMany)
+                .Apply(_intranetMemberService.GetMany)
                 .Select(MapToViewModel);
 
             var isLastRequest = query.Skip + query.Take >= totalHits;
@@ -124,9 +124,9 @@ namespace Uintra.Users.Web
 
         protected abstract (IEnumerable<Guid> searchResult, long totalHits) GetActiveUserIds(ActiveUserSearchQuery query);
 
-        protected virtual UserModel MapToViewModel(IIntranetUser user)
+        protected virtual MemberModel MapToViewModel(IIntranetMember user)
         {
-            var result = user.Map<UserModel>();
+            var result = user.Map<MemberModel>();
             return result;
         }
 
@@ -152,8 +152,8 @@ namespace Uintra.Users.Web
             });
         }
 
-        protected virtual UsersRowsViewModel GetUsersRowsViewModel() => 
-            new UsersRowsViewModel
+        protected virtual MembersRowsViewModel GetUsersRowsViewModel() => 
+            new MembersRowsViewModel
             {
                 SelectedColumns = ReflectionHelper.GetProfileColumns()
             };
@@ -161,7 +161,7 @@ namespace Uintra.Users.Web
         public abstract bool ExcludeUserFromGroup(Guid userId);
 
         [ChildActionOnly]
-        public ActionResult RenderRows(UsersRowsViewModel model)
+        public ActionResult RenderRows(MembersRowsViewModel model)
         {
             return View(UsersRowsViewPath, model);
         }
