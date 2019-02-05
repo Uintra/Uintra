@@ -405,10 +405,12 @@
     <Compile Include="Core\Permissions\Models\EntityPermissions.cs" />
     <Compile Include="Core\Permissions\Models\EntityRolePermissions.cs" />
     <Compile Include="Core\Permissions\Models\IntranetMemberGroup.cs" />
+    <Compile Include="Core\Permissions\Models\PermissionViewModel.cs" />
     <Compile Include="Core\Permissions\Models\TransientPermissionEntity.cs" />
     <Compile Include="Core\Permissions\PermissionsControllerBase.cs" />
     <Compile Include="Core\Permissions\PermissionsService.cs" />
-    <Compile Include="Core\Permissions\PermissionTypeEnum.cs" />
+    <Compile Include="Core\Permissions\PermissionActionEnum.cs" />
+    <Compile Include="Core\Permissions\Sql\ActivityTypeActionPermissionEntity.cs" />
     <Compile Include="Core\Permissions\Sql\PermissionEntity.cs" />
     <Compile Include="Core\Permissions\TypeProviders\IIntranetMemberGroupProvider.cs" />
     <Compile Include="Core\Permissions\TypeProviders\IntranetMemberGroupProvider.cs" />

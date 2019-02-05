@@ -45,7 +45,7 @@ namespace Uintra.Core.Permissions
             return result;
         }
 
-        public EntityGroupPermissions GeForGroup(Guid entityId, IntranetMemberGroup group)
+        public EntityGroupPermissions GetForGroup(int entityId, IntranetMemberGroup group)
         {
             var predicate = AndAlso(EntityIdIs(entityId), RoleIdIs(group.Id));
             var queryResult = _permissionsRepository.FindAll(predicate);
@@ -116,7 +116,7 @@ namespace Uintra.Core.Permissions
             {
                 EntityId = entityId,
                 IntranetMemberGroupId = group.Id,
-                PermissionType = permissionType
+                ActionId = permissionType
             };
 
         public static IEnumerable<PermissionEntity> PermissionEntitiesToAdd(
@@ -144,7 +144,7 @@ namespace Uintra.Core.Permissions
         public static Expression<Func<PermissionEntity, bool>> PermissionIdIn(params Enum[] permissions)
         {
             var permissionIds = permissions.Select(EnumExtensions.ToInt);
-            return entity => permissionIds.Contains(entity.PermissionType);
+            return entity => permissionIds.Contains(entity.ActionId);
         }
 
         public static IEnumerable<TransientPermissionEntity> ToTransientEntities(
@@ -156,7 +156,7 @@ namespace Uintra.Core.Permissions
             {
                 Id = e.Id,
                 EntityId = e.EntityId,
-                PermissionType = permissionTypeDictionary[e.PermissionType],
+                PermissionType = permissionTypeDictionary[e.ActionId],
                 Group = roleTypeDictionary[e.IntranetMemberGroupId]
             });
 
@@ -205,7 +205,7 @@ namespace Uintra.Core.Permissions
                             Create(permissions.EntityId, permissionsByRole.Key, permission.ToInt())));
 
         public static IEnumerable<PermissionEntity> ToEntities(EntityGroupPermissions permissions) =>
-            permissions.Permissions
+            permissions.Actions
                         .Select(permission =>
                             Create(permissions.EntityId, permissions.Group, permission.ToInt()));
     }
