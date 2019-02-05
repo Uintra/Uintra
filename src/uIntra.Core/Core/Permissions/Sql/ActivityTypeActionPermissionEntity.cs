@@ -1,12 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Uintra.Core.Persistence;
 
-namespace Uintra.Core.Core.Permissions.Sql
+namespace Uintra.Core.Permissions.Sql
 {
-    class ActivityTypeActionEntity
+    [UintraTable("ActivityTypeActionPermission")]
+    class ActivityTypeActionPermissionEntity : SqlEntity<Guid>
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+
+        public override Guid Id { get; set; }
+
+        public int ActivityTypeId { get; set; }        
+
     }
 }
