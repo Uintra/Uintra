@@ -36,19 +36,7 @@
             </div>
         </a>
         <ul class="user__menu">
-            @if (Model.CurrentMember.UmbracoId.HasValue)
-        {
-            <li class="user__menu-item">
-                <a class="user__menu-link" href="@Url.Action("LoginToUmbraco", "NavigationAuthorization")">
-                    <span class="icon icon-umbraco">
-                        <svg class="svg-icon" viewBox="0 0 300 300" width="29px" height="29px">
-                            <use xlink:href="#icon-umbraco" x="0" y="0"></use>
-                        </svg>
-                    </span>
-                    @Html.Localize("TopNavigation.LoginToUmbraco.lbl")
-                </a>
-            </li>
-    }
+            @{ Html.RenderAction("UmbracoContentLink", "Navigation"); }        
             <li class="user__menu-item">
                 <a class="user__menu-link js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
                     <span class="icon icon-logout">
