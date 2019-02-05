@@ -2,7 +2,7 @@ using System.Data.Entity.Migrations;
 
 namespace Compent.Uintra.Persistence.Sql.Migrations
 {
-    public sealed class Configuration : DbMigrationsConfiguration<Compent.Uintra.Persistence.Sql.DbObjectContext>
+    public sealed class Configuration : DbMigrationsConfiguration<DbObjectContext>
     {
         public Configuration()
         {
@@ -11,7 +11,7 @@ namespace Compent.Uintra.Persistence.Sql.Migrations
             MigrationsDirectory = @"Persistence\Sql\Migrations";
         }
 
-        protected override void Seed(Compent.Uintra.Persistence.Sql.DbObjectContext context)
+        protected override void Seed(DbObjectContext context)
         {
             //  This method will be called after migrating to the latest version.
 

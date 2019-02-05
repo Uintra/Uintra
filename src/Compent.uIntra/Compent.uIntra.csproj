@@ -1150,6 +1150,9 @@
     <Content Include="config\EmbeddedMedia.config" />
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201902051545482_AddPermissionTables.resx">
+      <DependentUpon>201902051545482_AddPermissionTables.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1556,6 +1559,10 @@
     <Compile Include="Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.cs" />
     <Compile Include="Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.Designer.cs">
       <DependentUpon>201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201902051545482_AddPermissionTables.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201902051545482_AddPermissionTables.Designer.cs">
+      <DependentUpon>201902051545482_AddPermissionTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />

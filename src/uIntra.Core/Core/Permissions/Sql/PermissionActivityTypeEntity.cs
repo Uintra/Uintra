@@ -5,13 +5,13 @@ using Uintra.Core.Persistence;
 
 namespace Uintra.Core.Permissions.Sql
 {
-    [UintraTable("Permission")]
-    public class PermissionActivityTypeTargetEntity : SqlEntity<Guid>
+    [UintraTable("PermissionActivityType")]
+    public class PermissionActivityTypeEntity : SqlEntity<Guid>
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override Guid Id { get; set; }
 
-        public int ActivityTypeId { get; set; }
+        public string Activity { get; set; }        
     }
 }

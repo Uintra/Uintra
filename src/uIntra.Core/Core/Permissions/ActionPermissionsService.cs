@@ -114,7 +114,7 @@ namespace Uintra.Core.Permissions
         public static PermissionEntity Create(Guid entityId, IntranetMemberGroup group, int permissionType) =>
             new PermissionEntity
             {
-                PermissionTargetId = entityId,
+                PermissionActivityTypeId = entityId,
                 IntranetMemberGroupId = group.Id,
                 ActionId = permissionType
             };
@@ -136,7 +136,7 @@ namespace Uintra.Core.Permissions
         }
 
         public static Expression<Func<PermissionEntity, bool>> PermissionTargetIdIs(Guid id) =>
-            entity => entity.PermissionTargetId == id;
+            entity => entity.PermissionActivityTypeId == id;
 
         public static Expression<Func<PermissionEntity, bool>> RoleIdIs(int id) =>
             entity => entity.IntranetMemberGroupId == id;
@@ -155,7 +155,7 @@ namespace Uintra.Core.Permissions
             entities.Select(e => new TransientPermissionEntity
             {
                 Id = e.Id,
-                PermissionTargetId = e.PermissionTargetId,
+                PermissionTargetId = e.PermissionActivityTypeId,
                 PermissionType = permissionTypeDictionary[e.ActionId],
                 Group = roleTypeDictionary[e.IntranetMemberGroupId]
             });
