@@ -321,6 +321,7 @@
     <Compile Include="Core\IMemberServiceHelper.cs" />
     <Compile Include="Core\IMentionService.cs" />
     <Compile Include="Core\Models\GoogleAuthenticationSettings.cs" />
+    <Compile Include="Core\Models\MemberGroupViewModel.cs" />
     <Compile Include="Core\Models\UserList\ActiveUserSearchQueryModel.cs" />
     <Compile Include="Core\Models\UserList\ActiveUserSearchQuery.cs" />
     <Compile Include="Core\Models\UserList\DetailsPopupModel.cs" />
@@ -344,6 +345,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Web\MemberApiControllerBase.cs" />
+    <Compile Include="Web\MemberGroupController.cs" />
+    <Compile Include="Web\MemberGroupTreeController.cs" />
     <Compile Include="Web\MentionControllerBase.cs" />
     <Compile Include="Web\MemberManagementApiControllerBase.cs" />
     <Compile Include="Core\Models\MentionUserModel.cs" />
