@@ -14,7 +14,6 @@ using Uintra.Users;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using static LanguageExt.Prelude;
 
 namespace Compent.Uintra.Core.Users
 {
@@ -25,6 +24,7 @@ namespace Compent.Uintra.Core.Users
         private readonly IElasticUserIndex _elasticUserIndex;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IUserTagService _userTagService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         public IntranetMemberService(
             IMediaService mediaService,
@@ -36,15 +36,17 @@ namespace Compent.Uintra.Core.Users
             ISqlRepository<GroupMember> groupMemberRepository,
             IElasticUserIndex elasticUserIndex,
             IIntranetUserContentProvider intranetUserContentProvider,
-            IUserTagService userTagService
+            IUserTagService userTagService,
+            IIntranetUserService<IIntranetUser> intranetUserService
             )
-            : base(mediaService, memberService, umbracoContext, umbracoHelper, roleService, cacheService)
+            : base(mediaService, memberService, umbracoContext, umbracoHelper, roleService, cacheService, intranetUserService)
         {
 
             _groupMemberRepository = groupMemberRepository;
             _elasticUserIndex = elasticUserIndex;
             _intranetUserContentProvider = intranetUserContentProvider;
             _userTagService = userTagService;
+            _intranetUserService = intranetUserService;
         }
 
         protected override T Map(IMember member)

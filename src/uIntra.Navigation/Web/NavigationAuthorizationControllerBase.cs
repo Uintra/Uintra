@@ -13,36 +13,32 @@ namespace Uintra.Navigation.Web
         protected virtual string UmbracoRedirectUrl { get; } = "/umbraco";
         protected virtual string LogoutViewPath { get; } = "~/App_Plugins/Users/Logout/Logout.cshtml";
 
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
-        private readonly IUserService _userService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;        
         private readonly IApplicationSettings _applicationSettings;
 
         protected NavigationAuthorizationControllerBase(
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IUserService userService, IApplicationSettings applicationSettings)
         {
-            _intranetMemberService = intranetMemberService;
-            _userService = userService;
+            _intranetMemberService = intranetMemberService;            
             _applicationSettings = applicationSettings;
         }
 
         public virtual ActionResult LoginToUmbraco()
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
-            if (!currentMember.UmbracoId.HasValue)
+            if (currentMember.RelatedUser == null)
             {
                 return Redirect(DefaultRedirectUrl);
             }
 
-            var umbracoUser = _userService.GetUserById(currentMember.UmbracoId.Value);
-            if (umbracoUser == null
-                || umbracoUser.IsLockedOut
-                || !umbracoUser.IsApproved)
+
+            if (currentMember.RelatedUser.IsLockedOut || !currentMember.RelatedUser.IsApproved)
             {
                 return Redirect(DefaultRedirectUrl);
             }
 
-            UmbracoContext.Security.PerformLogin(umbracoUser.Id);
+            UmbracoContext.Security.PerformLogin(currentMember.RelatedUser.Id);
 
             return Redirect(UmbracoRedirectUrl);
         }
@@ -57,7 +53,7 @@ namespace Uintra.Navigation.Web
                     GoogleClientId = _applicationSettings.GoogleOAuth.ClientId,
                     LoginUrl = FormsAuthentication.LoginUrl
                 });
-            else return Redirect(FormsAuthentication.LoginUrl);
+            return Redirect(FormsAuthentication.LoginUrl);
         }
     }
 }

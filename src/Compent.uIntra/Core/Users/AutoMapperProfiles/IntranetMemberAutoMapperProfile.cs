@@ -10,7 +10,7 @@ using Uintra.Users.UserList;
 
 namespace Compent.Uintra.Core.Users
 {
-    public class IntranetUserAutoMapperProfile : Profile
+    public class IntranetMemberAutoMapperProfile : Profile
     {
         protected override void Configure()
         {

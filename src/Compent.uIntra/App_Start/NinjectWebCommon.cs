@@ -37,6 +37,7 @@ using Compent.Uintra.Core.Subscribe;
 using Compent.Uintra.Core.UintraInformation;
 using Compent.Uintra.Core.Updater;
 using Compent.Uintra.Core.Users;
+using Compent.Uintra.Core.Users.RelatedUser;
 using Compent.Uintra.Core.UserTags;
 using Compent.Uintra.Core.UserTags.Indexers;
 using Compent.Uintra.Core.Verification;
@@ -234,6 +235,8 @@ namespace Compent.Uintra
 
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<Core.LocalizationService>().InRequestScope();
+            kernel.Bind(typeof(IIntranetUserService<IIntranetUser>)).To<IntranetUserService<IntranetUser>>().InRequestScope();
+
             kernel.Bind(typeof(IIntranetMemberService<>)).To<IntranetMemberService<IntranetMember>>().InRequestScope();
             kernel.Bind<ICacheableIntranetMemberService>().To<IntranetMemberService<IntranetMember>>().InRequestScope();
             kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();

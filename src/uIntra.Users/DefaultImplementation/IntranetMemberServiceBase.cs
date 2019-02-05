@@ -26,6 +26,7 @@ namespace Uintra.Users
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IRoleService _roleService;
         private readonly ICacheService _cacheService;
+        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         protected IntranetMemberServiceBase(
             IMediaService mediaService,
@@ -33,7 +34,8 @@ namespace Uintra.Users
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
-            ICacheService cacheService)
+            ICacheService cacheService,
+            IIntranetUserService<IIntranetUser> intranetUserService)
         {
             _mediaService = mediaService;
             _memberService = memberService;
@@ -41,6 +43,7 @@ namespace Uintra.Users
             _umbracoHelper = umbracoHelper;
             _roleService = roleService;
             _cacheService = cacheService;
+            _intranetUserService = intranetUserService;
         }
 
         public virtual T Get(IHaveOwner model) => Get(model.OwnerId);
@@ -49,7 +52,7 @@ namespace Uintra.Users
 
         public virtual T Get(int umbracoId)
         {
-            return GetSingle(el => el.UmbracoId == umbracoId);
+            return GetSingle(el => el.RelatedUser?.Id == umbracoId);
         }
 
         private T GetSingle(Func<T, bool> predicate)
@@ -70,7 +73,7 @@ namespace Uintra.Users
         {
             return ids.Distinct().Join(GetAll(),
                  id => id,
-                member => member.UmbracoId.GetValueOrDefault(),
+                member => member.RelatedUser?.Id,
                  (id, member) => member);
         }
 
@@ -204,14 +207,15 @@ namespace Uintra.Users
 
         protected virtual T Map(IMember member)
         {
+            var relatedUserId = member.GetValueOrDefault<int?>(ProfileConstants.RelatedUser);
             var mappedMember = new T
             {
                 Id = member.Key,
-                UmbracoId = member.GetValueOrDefault<int?>(ProfileConstants.RelatedUser),
                 Email = member.Email,
                 LoginName = member.Username,
                 Role = GetMemberRole(member),
-                Inactive = member.IsLockedOut
+                Inactive = member.IsLockedOut,
+                RelatedUser = relatedUserId.HasValue ? _intranetUserService.GetUser(relatedUserId.Value) : null
             };
 
             string memberPhoto = null;

@@ -127,14 +127,13 @@ namespace Uintra.Navigation.Web
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
             var pageUrl = string.Format(NavigationUmbracoConstants.UmbracoEditPageUrl, pageId);
-
-            var umbracoUser = _userService.GetUserById(currentMember.UmbracoId.Value);
-            if (umbracoUser == null || umbracoUser.IsLockedOut || !umbracoUser.IsApproved)
+            
+            if (currentMember.RelatedUser == null || currentMember.RelatedUser.IsLockedOut || !currentMember.RelatedUser.IsApproved)
             {
                 return Redirect(pageUrl);
             }
 
-            UmbracoContext.Security.PerformLogin(umbracoUser.Id);  // back office member always isn't logged in
+            UmbracoContext.Security.PerformLogin(currentMember.RelatedUser.Id);  // back office member always isn't logged in
             return Redirect(pageUrl);
         }
 

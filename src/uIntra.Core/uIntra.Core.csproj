@@ -423,6 +423,9 @@
     <Compile Include="Core\Media\VideoConverterLogService.cs" />
     <Compile Include="Core\Providers\ContentPageContentProvider.cs" />
     <Compile Include="Core\Providers\IContentPageContentProvider.cs" />
+    <Compile Include="Core\User\IIntranetUser.cs" />
+    <Compile Include="Core\User\IIntranetUserService.cs" />
+    <Compile Include="Core\User\IntranetUserService.cs" />
     <Compile Include="Core\User\Models\MemberViewModel.cs" />
     <Compile Include="Core\ViewRenderer.cs" />
     <Compile Include="Core\Grid\GridRenderHelper.cs" />

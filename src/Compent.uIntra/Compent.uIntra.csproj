@@ -1486,10 +1486,11 @@
     <Compile Include="Core\Updater\Migrations\1.2\Steps\SplitEventLabelsStep.cs" />
     <Compile Include="Core\Updater\Migrations\1.2\Steps\UseInSearchDefaultTrueStep.cs" />
     <Compile Include="Core\Updater\TranslationsUpdateStep.cs" />
-    <Compile Include="Core\Users\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
+    <Compile Include="Core\Users\AutoMapperProfiles\IntranetMemberAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
-    <Compile Include="Core\Users\Entities\IntranetUser.cs" />
+    <Compile Include="Core\Users\Entities\IntranetMember.cs" />
     <Compile Include="Core\Users\IntranetMemberService.cs" />
+    <Compile Include="Core\Users\RelatedUser\IntranetUser.cs" />
     <Compile Include="Core\Users\UserList\HasValidGroupIdAttribute.cs" />
     <Compile Include="Core\UserTags\ActivityTagsHelper.cs" />
     <Compile Include="Core\UserTags\ElasticTagIndex.cs" />

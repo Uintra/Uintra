@@ -106,7 +106,7 @@ namespace Uintra.Core.User.Permissions
 
         public virtual bool IsUserHasAccessToContent(IIntranetMember member, IPublishedContent content)
         {
-            return member.UmbracoId.HasValue;
+            return member.RelatedUser != null;
         }
     }
 }

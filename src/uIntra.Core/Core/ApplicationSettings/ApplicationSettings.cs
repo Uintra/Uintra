@@ -20,8 +20,9 @@ namespace Uintra.Core.ApplicationSettings
         private const string GoogleEnabledKey = "Google.OAuth.Enabled";
         private const string UmbracoUseSSLKey = "umbracoUseSSL";
         private const string UintraDocumentationLinkTemplateKey = "UintraDocumentationLinkTemplate";
-        public string MailNotificationNoReplyEmailKey = "Notifications.Mail.NoReplyEmail";
-        public string MailNotificationNoReplyNameKey = "Notifications.Mail.NoReplyName";
+        public const string MailNotificationNoReplyEmailKey = "Notifications.Mail.NoReplyEmail";
+        public const string MailNotificationNoReplyNameKey = "Notifications.Mail.NoReplyName";
+        public const string UintraSuperUsersKey = "UintraSuperUsers";
 
         public string MailNotificationNoReplyEmail => ConfigurationManager.AppSettings[MailNotificationNoReplyEmailKey];
         public string MailNotificationNoReplyName => ConfigurationManager.AppSettings[MailNotificationNoReplyNameKey];
@@ -58,11 +59,14 @@ namespace Uintra.Core.ApplicationSettings
             }
         }
 
-        public bool UmbracoUseSSL
+        public bool UmbracoUseSSL => bool.TryParse(ConfigurationManager.AppSettings[UmbracoUseSSLKey], out var enabled) && enabled;
+
+        public IEnumerable<string> UintraSuperUsers
         {
             get
             {
-                return bool.TryParse(ConfigurationManager.AppSettings[UmbracoUseSSLKey], out var enabled) && enabled;
+                var value = ConfigurationManager.AppSettings[UintraSuperUsersKey];
+                return string.IsNullOrEmpty(value) ? Enumerable.Empty<string>() : value.Split(',');
             }
         }
     }

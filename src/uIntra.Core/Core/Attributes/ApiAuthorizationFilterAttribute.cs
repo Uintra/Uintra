@@ -58,14 +58,13 @@ namespace Uintra.Core.Attributes
         private bool IsCredentialsValid(string mail, string password)
         {
             var relatedUserWithWebMasterRole = Optional(_intranetMemberService.GetByEmail(mail))
-                .Filter(member => member.Role.Name == IntranetRolesEnum.WebMaster.ToString())
-                .Bind(member => member.UmbracoId.ToOption())
-                .Map(id => _memberService.GetById(id));
+                .Filter(member => member.Role.Name == IntranetRolesEnum.WebMaster.ToString() && member.RelatedUser != null)
+                .Map(member => _memberService.GetById(member.RelatedUser.Id));
 
-            Option<IMember> GetUserWithMatchingEmail () => Optional(_memberService.GetByEmail(mail));
+            Option<IMember> GetUserWithMatchingEmail() => Optional(_memberService.GetByEmail(mail));
 
-            return EnumerableExtensions
-                .Choose(relatedUserWithWebMasterRole, GetUserWithMatchingEmail)
+            return relatedUserWithWebMasterRole
+                .Choose(GetUserWithMatchingEmail)
                 .Map(user => Membership.ValidateUser(user.Username, password))
                 .IfNone(() => false);
         }

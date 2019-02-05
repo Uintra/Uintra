@@ -42,7 +42,7 @@ namespace Compent.Uintra
             Mapper.AddProfile<Core.Notification.NotificationAutoMapperProfile>();
             Mapper.AddProfile<CentralFeedAutoMapperProfile>();
             Mapper.AddProfile<IntranetUserAutoMapperProfile>();
-            Mapper.AddProfile<Core.Users.IntranetUserAutoMapperProfile>();
+            Mapper.AddProfile<Core.Users.IntranetMemberAutoMapperProfile>();
             Mapper.AddProfile<SearchResultAutoMapperProfile>();
             Mapper.AddProfile<SearchableActivityAutoMapperProfile>();
             Mapper.AddProfile<GroupsAutoMapperProfile>();
