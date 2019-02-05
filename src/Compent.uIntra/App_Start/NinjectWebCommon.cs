@@ -215,7 +215,7 @@ namespace Compent.Uintra
             kernel.Bind<IBrowserCompatibilityConfigurationSection>().ToMethod(s => BrowserCompatibilityConfigurationSection.Configuration).InSingletonScope();
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IJobSettingsConfiguration>().ToMethod(s => JobSettingsConfiguration.Configure).InSingletonScope();
-            kernel.Bind<IPermissionsService>().To<PermissionsService>().InRequestScope();
+            kernel.Bind<IOldPermissionsService>().To<OldPermissionsService>().InRequestScope();
 
             // Umbraco
             kernel.Bind<UmbracoContext>().ToMethod(context => CreateUmbracoContext()).InRequestScope();

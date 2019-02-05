@@ -33,7 +33,7 @@ namespace Uintra.Navigation.Web
         private readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IProfileLinkProvider _profileLinkProvider;
-        private readonly IPermissionsService _permissionsService;
+        private readonly IOldPermissionsService _oldPermissionsService;
         private readonly IUserService _userService;
 
         protected NavigationControllerBase(
@@ -43,7 +43,7 @@ namespace Uintra.Navigation.Web
             ISystemLinksModelBuilder systemLinksModelBuilder,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
-            IPermissionsService permissionsService,
+            IOldPermissionsService oldPermissionsService,
             IUserService userService)
         {
             _leftSideNavigationModelBuilder = leftSideNavigationModelBuilder;
@@ -52,7 +52,7 @@ namespace Uintra.Navigation.Web
             _systemLinksModelBuilder = systemLinksModelBuilder;
             _intranetMemberService = intranetMemberService;
             _profileLinkProvider = profileLinkProvider;
-            _permissionsService = permissionsService;
+            _oldPermissionsService = oldPermissionsService;
             _userService = userService;
         }
 
@@ -115,7 +115,7 @@ namespace Uintra.Navigation.Web
         public virtual ActionResult UmbracoContentLink()
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
-            if (_permissionsService.IsUserHasAccessToContent(currentMember, CurrentPage))
+            if (_oldPermissionsService.IsUserHasAccessToContent(currentMember, CurrentPage))
             {
                 return PartialView(UmbracoContentLinkViewPath, CurrentPage.Id);
             }

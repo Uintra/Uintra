@@ -38,7 +38,7 @@ namespace Uintra.Core.User.Permissions.Web
                 return;
             }
 
-            var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
+            var permissionsService = HttpContext.Current.GetService<IOldPermissionsService>();
             var provider = HttpContext.Current.GetService<IActivityTypeProvider>();
             var isUserHasAccess = permissionsService.IsCurrentMemberHasAccess(provider[_activityTypeId], _action, activityId);
 

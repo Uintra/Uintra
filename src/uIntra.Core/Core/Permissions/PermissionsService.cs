@@ -9,7 +9,6 @@ using Uintra.Core.Permissions.Models;
 using Uintra.Core.Permissions.Sql;
 using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.Persistence;
-using Uintra.Core.TypeProviders;
 using static LanguageExt.Prelude;
 using static Uintra.Core.Extensions.EnumerableExtensions;
 using EnumExtensions = Uintra.Core.Extensions.EnumExtensions;

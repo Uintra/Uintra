@@ -19,14 +19,14 @@ namespace Uintra.Core.Web
         protected virtual string PinActivityViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityPinView.cshtml";
 
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
-        private readonly IPermissionsService _permissionsService;
+        private readonly IOldPermissionsService _oldPermissionsService;
 
         protected ActivityControllerBase(
             IIntranetMemberService<IIntranetMember> intranetMemberService,
-            IPermissionsService permissionsService)
+            IOldPermissionsService oldPermissionsService)
         {
             _intranetMemberService = intranetMemberService;
-            _permissionsService = permissionsService;
+            _oldPermissionsService = oldPermissionsService;
         }
 
         public virtual ActionResult DetailsHeader(IntranetActivityDetailsHeaderViewModel header)
@@ -49,7 +49,7 @@ namespace Uintra.Core.Web
             };
 
             var currentMember = _intranetMemberService.GetCurrentMember();
-            model.CanEditOwner = _permissionsService.IsRoleHasPermissions(currentMember.Role, PermissionConstants.CanEditOwner);
+            model.CanEditOwner = _oldPermissionsService.IsRoleHasPermissions(currentMember.Role, PermissionConstants.CanEditOwner);
             if (model.CanEditOwner)
             {
                 model.Members = GetUsersWithAccess(activityType, IntranetActivityActionEnum.Create);
@@ -73,7 +73,7 @@ namespace Uintra.Core.Web
 
             var result = _intranetMemberService
                 .GetAll()
-                .Where(member => _permissionsService.IsUserHasAccess(member, activityType, action))
+                .Where(member => _oldPermissionsService.IsUserHasAccess(member, activityType, action))
                 .OrderBy(user => user.DisplayedName);
 
             return result;

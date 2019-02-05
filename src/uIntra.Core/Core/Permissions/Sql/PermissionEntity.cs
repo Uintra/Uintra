@@ -12,10 +12,10 @@ namespace Uintra.Core.Permissions.Sql
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override Guid Id { get; set; }
 
-        public Guid EntityId { get; set; }
+        public int EntityId { get; set; }
 
         public int IntranetMemberGroupId { get; set; }
 
-        public int PermissionType { get; set; }
+        public int ActionId { get; set; }
     }
 }

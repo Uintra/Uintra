@@ -9,16 +9,16 @@ namespace Uintra.Groups.Permissions
     {
         protected const string CreateGroupPermissionName = "GroupCreate";
         protected const string GroupsCreatePage = "groupsCreatePage";
-        private readonly IPermissionsService _permissionsService;
+        private readonly IOldPermissionsService _oldPermissionsService;
 
-        public GroupPermissionsService(IPermissionsService permissionsService)
+        public GroupPermissionsService(IOldPermissionsService oldPermissionsService)
         {
-            _permissionsService = permissionsService;
+            _oldPermissionsService = oldPermissionsService;
         }
 
         public bool HasPermission(IRole role, IntranetActivityActionEnum action)
         {
-            var hasPermission = _permissionsService.IsRoleHasPermissions(role, $"Group{action}");
+            var hasPermission = _oldPermissionsService.IsRoleHasPermissions(role, $"Group{action}");
             return hasPermission;
         }
 
@@ -26,7 +26,7 @@ namespace Uintra.Groups.Permissions
         {
             if (content.DocumentTypeAlias == GroupsCreatePage)
             {
-                var hasPermission = _permissionsService.IsRoleHasPermissions(role, CreateGroupPermissionName);
+                var hasPermission = _oldPermissionsService.IsRoleHasPermissions(role, CreateGroupPermissionName);
                 return hasPermission;
             }
             return true;

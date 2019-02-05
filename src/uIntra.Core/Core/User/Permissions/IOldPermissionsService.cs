@@ -5,7 +5,7 @@ using Umbraco.Core.Models;
 
 namespace Uintra.Core.User.Permissions
 {
-    public interface IPermissionsService
+    public interface IOldPermissionsService
     {
         bool IsRoleHasPermissions(IRole role, params string[] permissions);
         IEnumerable<string> GetRolePermission(IRole role);

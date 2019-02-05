@@ -406,6 +406,7 @@
     <Compile Include="Core\Permissions\Models\EntityRolePermissions.cs" />
     <Compile Include="Core\Permissions\Models\IntranetMemberGroup.cs" />
     <Compile Include="Core\Permissions\Models\TransientPermissionEntity.cs" />
+    <Compile Include="Core\Permissions\PermissionsControllerBase.cs" />
     <Compile Include="Core\Permissions\PermissionsService.cs" />
     <Compile Include="Core\Permissions\PermissionTypeEnum.cs" />
     <Compile Include="Core\Permissions\Sql\PermissionEntity.cs" />
@@ -652,9 +653,9 @@
     <Compile Include="Core\User\IntranetRolesEnum.cs" />
     <Compile Include="Core\Extensions\IntranetUserServiceExtentions.cs" />
     <Compile Include="Core\User\Permissions\IPermissionsConfiguration.cs" />
-    <Compile Include="Core\User\Permissions\IPermissionsService.cs" />
+    <Compile Include="Core\User\Permissions\IOldPermissionsService.cs" />
     <Compile Include="Core\User\Permissions\PermissionsConfiguration.cs" />
-    <Compile Include="Core\User\Permissions\PermissionsService.cs" />
+    <Compile Include="Core\User\Permissions\OldPermissionsService.cs" />
     <Compile Include="Core\User\Permissions\Web\RestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\ActivityControllerAttribute.cs" />
     <Compile Include="Core\XPathHelper.cs" />

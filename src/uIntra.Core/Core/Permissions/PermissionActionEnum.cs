@@ -1,6 +1,6 @@
 ﻿namespace Uintra.Core.Permissions
 {
-    public enum PermissionTypeEnum
+    public enum PermissionActionEnum
     {
         Read,
         Write,
