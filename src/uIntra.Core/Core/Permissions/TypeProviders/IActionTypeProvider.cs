@@ -2,7 +2,7 @@
 
 namespace Uintra.Core.Permissions.TypeProviders
 {
-    public interface IPermissionTypeProvider : IEnumTypeProvider
+    public interface IPermissionActionTypeProvider : IEnumTypeProvider
     {
     }
 }

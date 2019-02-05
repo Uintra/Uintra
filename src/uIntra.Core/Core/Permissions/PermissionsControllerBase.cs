@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Extensions;
 using Uintra.Core.Permissions.Models;
@@ -26,10 +27,10 @@ namespace Uintra.Core.Permissions
             var allActivityTypes = _activityTypeProvider.All;
             var memberGroup = _intranetMemberGroupProvider[memberGroupId];
 
-            allActivityTypes.Select(at => { _permissionsService.GetForGroup(at.ToInt(), memberGroup); })
+           // allActivityTypes.Select(at => { _permissionsService.GetForGroup(at.ToInt(), memberGroup); })
             
             
-
+            throw new NotImplementedException();
         }
     }
 }

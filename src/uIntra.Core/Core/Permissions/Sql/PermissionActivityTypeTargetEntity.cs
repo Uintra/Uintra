@@ -6,16 +6,12 @@ using Uintra.Core.Persistence;
 namespace Uintra.Core.Permissions.Sql
 {
     [UintraTable("Permission")]
-    public class PermissionEntity : SqlEntity<Guid>
+    public class PermissionActivityTypeTargetEntity : SqlEntity<Guid>
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override Guid Id { get; set; }
 
-        public Guid? PermissionTargetId { get; set; }
-
-        public int IntranetMemberGroupId { get; set; }
-
-        public int ActionId { get; set; }
+        public int ActivityTypeId { get; set; }
     }
 }
