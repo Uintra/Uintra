@@ -42,7 +42,7 @@ namespace Compent.Uintra.Core.News
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
-        private readonly IPermissionsService _permissionsService;
+        private readonly IOldPermissionsService _oldPermissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticUintraActivityIndex _activityIndex;
@@ -62,7 +62,7 @@ namespace Compent.Uintra.Core.News
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
-            IPermissionsService permissionsService,
+            IOldPermissionsService oldPermissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper,
             IElasticUintraActivityIndex activityIndex,
@@ -83,7 +83,7 @@ namespace Compent.Uintra.Core.News
             _intranetMemberService = intranetMemberService;
             _commentsService = commentsService;
             _likesService = likesService;
-            _permissionsService = permissionsService;
+            _oldPermissionsService = oldPermissionsService;
             _subscribeService = subscribeService;
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
@@ -110,7 +110,7 @@ namespace Compent.Uintra.Core.News
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
 
-            var isWebmaster = _permissionsService.IsUserWebmaster(currentMember);
+            var isWebmaster = _oldPermissionsService.IsUserWebmaster(currentMember);
             if (isWebmaster)
             {
                 return true;
@@ -119,7 +119,7 @@ namespace Compent.Uintra.Core.News
             var ownerId = Get(activity.Id).OwnerId;
             var isOwner = ownerId == currentMember.Id;
 
-            var isMemberHasPermissions = _permissionsService.IsRoleHasPermissions(currentMember.Role, Type, IntranetActivityActionEnum.Edit);
+            var isMemberHasPermissions = _oldPermissionsService.IsRoleHasPermissions(currentMember.Role, Type, IntranetActivityActionEnum.Edit);
             return isOwner && isMemberHasPermissions;
         }
 

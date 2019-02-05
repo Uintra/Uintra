@@ -25,7 +25,7 @@ namespace Uintra.CentralFeed.Web
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
-        private readonly IPermissionsService _permissionsService;
+        private readonly IOldPermissionsService _oldPermissionsService;
         private readonly IFeedFilterService _centralFeedFilterService;
 
         protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/Overview.cshtml";
@@ -48,7 +48,7 @@ namespace Uintra.CentralFeed.Web
             IFeedTypeProvider centralFeedTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IPermissionsService permissionsService,
+            IOldPermissionsService oldPermissionsService,
             IActivityTypeProvider activityTypeProvider,
             IContextTypeProvider contextTypeProvider,
             IFeedFilterService centralFeedFilterService)
@@ -59,7 +59,7 @@ namespace Uintra.CentralFeed.Web
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _feedLinkService = feedLinkService;
             _feedFilterStateService = feedFilterStateService;
-            _permissionsService = permissionsService;
+            _oldPermissionsService = oldPermissionsService;
             _centralFeedFilterService = centralFeedFilterService;
             _activitiesServiceFactory = activitiesServiceFactory;
         }
@@ -172,7 +172,7 @@ namespace Uintra.CentralFeed.Web
             {
                 Tabs = activityTabs,
                 TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs)
-                    .Where(tab => _permissionsService.IsCurrentMemberHasAccess(tab.Type, IntranetActivityActionEnum.Create)),
+                    .Where(tab => _oldPermissionsService.IsCurrentMemberHasAccess(tab.Type, IntranetActivityActionEnum.Create)),
                 CurrentType = tabType,
                 IsFiltersOpened = centralFeedState.IsFiltersOpened
             };

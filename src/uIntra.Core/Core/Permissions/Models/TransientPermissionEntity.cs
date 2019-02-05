@@ -6,7 +6,7 @@ namespace Uintra.Core.Permissions.Models
     {
         public Guid Id { get; set; }
 
-        public Guid EntityId { get; set; }
+        public Guid? PermissionTargetId { get; set; }
 
         public IntranetMemberGroup Group { get; set; }
 

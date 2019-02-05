@@ -215,7 +215,7 @@ namespace Compent.Uintra
             kernel.Bind<IBrowserCompatibilityConfigurationSection>().ToMethod(s => BrowserCompatibilityConfigurationSection.Configuration).InSingletonScope();
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IJobSettingsConfiguration>().ToMethod(s => JobSettingsConfiguration.Configure).InSingletonScope();
-            kernel.Bind<IPermissionsService>().To<PermissionsService>().InRequestScope();
+            kernel.Bind<IOldPermissionsService>().To<OldPermissionsService>().InRequestScope();
 
             // Umbraco
             kernel.Bind<UmbracoContext>().ToMethod(context => CreateUmbracoContext()).InRequestScope();
@@ -425,7 +425,7 @@ namespace Compent.Uintra
             kernel.Bind<ISearchableTypeProvider>().To<UintraSearchableTypeProvider>().InSingletonScope();
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InSingletonScope();
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
-            kernel.Bind<IPermissionTypeProvider>().To<PermissionTypeProvider>().InSingletonScope();
+            kernel.Bind<IPermissionActionTypeProvider>().To<PermissionActionTypeProvider>().InSingletonScope();
 
             kernel.Bind<IGroupService>().To<GroupService>().InRequestScope();
             kernel.Bind<IGroupMemberService>().To<GroupMemberService>().InRequestScope();

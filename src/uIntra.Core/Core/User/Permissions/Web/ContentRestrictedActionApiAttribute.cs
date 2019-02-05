@@ -22,7 +22,7 @@ namespace Uintra.Core.User.Permissions.Web
 
         public override void OnActionExecuting(HttpActionContext filterContext)
         {
-            var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
+            var permissionsService = HttpContext.Current.GetService<IOldPermissionsService>();
             var activityTypeProvider = HttpContext.Current.GetService<IActivityTypeProvider>();
 
             var isMemberHasAccess = permissionsService.IsCurrentMemberHasAccess(activityTypeProvider[_activityTypeId], _action);

@@ -59,7 +59,7 @@ namespace Compent.Uintra.Controllers
             IGroupHelper groupHelper,
             ICentralFeedHelper centralFeedHelper,
             IProfileLinkProvider profileLinkProvider,
-            IPermissionsService permissionsService,
+            IOldPermissionsService oldPermissionsService,
             IUserService userService,
             IUintraInformationService uintraInformationService)
             : base(
@@ -69,7 +69,7 @@ namespace Compent.Uintra.Controllers
                 systemLinksModelBuilder,
                 intranetMemberService,
                 profileLinkProvider,
-                permissionsService,
+                oldPermissionsService,
                 userService)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;

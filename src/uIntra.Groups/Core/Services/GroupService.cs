@@ -14,17 +14,17 @@ namespace Uintra.Groups
     {
         private readonly ISqlRepository<Group> _groupRepository;
         private readonly ICacheService _memoryCacheService;
-        private readonly IPermissionsService _permissionsService;
+        private readonly IOldPermissionsService _oldPermissionsService;
         private const string GroupCacheKey = "Groups";
 
         public GroupService(
             ISqlRepository<Group> groupRepository,
             ICacheService memoryCacheService,
-            IPermissionsService permissionsService)
+            IOldPermissionsService oldPermissionsService)
         {
             _groupRepository = groupRepository;
             _memoryCacheService = memoryCacheService;
-            _permissionsService = permissionsService;
+            _oldPermissionsService = oldPermissionsService;
         }
 
         public Guid Create(GroupModel model)
@@ -90,7 +90,7 @@ namespace Uintra.Groups
 
         public bool CanEdit(GroupModel groupModel, IIntranetMember member)
         {
-            if (_permissionsService.IsUserWebmaster(member))
+            if (_oldPermissionsService.IsUserWebmaster(member))
             {
                 return true;
             }

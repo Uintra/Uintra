@@ -7,14 +7,14 @@ using Umbraco.Core.Models;
 
 namespace Uintra.Core.User.Permissions
 {
-    public class PermissionsService : IPermissionsService
+    public class OldPermissionsService : IOldPermissionsService
     {
         private readonly IPermissionsConfiguration _configuration;
         private readonly IExceptionLogger _exceptionLogger;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
-        public PermissionsService(
+        public OldPermissionsService(
             IPermissionsConfiguration configuration,
             IExceptionLogger exceptionLogger,
             IIntranetMemberService<IIntranetMember> intranetMemberService,

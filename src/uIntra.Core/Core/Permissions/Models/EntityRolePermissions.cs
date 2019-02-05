@@ -6,13 +6,13 @@ namespace Uintra.Core.Permissions.Models
     {
         public Guid EntityId { get; }
         public IntranetMemberGroup Group { get; }
-        public Enum[] Permissions { get; }
+        public Enum[] Actions { get; }
 
-        public EntityGroupPermissions(Guid entityId, IntranetMemberGroup group, Enum[] permissions)
+        public EntityGroupPermissions(Guid entityId, IntranetMemberGroup group, Enum[] actions)
         {
             Group = group;
             EntityId = entityId;
-            Permissions = permissions;
+            Actions = actions;
         }
     }
 }

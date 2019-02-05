@@ -31,7 +31,7 @@ namespace Compent.Uintra.Controllers
             IGroupMemberService groupMemberService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             IActivityTypeProvider activityTypeProvider,
-            IPermissionsService permissionsService,
+            IOldPermissionsService oldPermissionsService,
             IContextTypeProvider contextTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterService feedFilterService)
@@ -46,7 +46,7 @@ namespace Compent.Uintra.Controllers
                   groupFeedLinkProvider,
                   groupMemberService,
                   feedFilterStateService,
-                  permissionsService,
+                  oldPermissionsService,
                   contextTypeProvider,
                   feedLinkService,
                   feedFilterService)

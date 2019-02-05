@@ -35,7 +35,7 @@ namespace Compent.Uintra.Controllers
             IGroupFeedService groupFeedService,
             IFeedActivityHelper feedActivityHelper,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IPermissionsService permissionsService,
+            IOldPermissionsService oldPermissionsService,
             UmbracoHelper umbracoHelper,
             IActivityTypeProvider activityTypeProvider,
             IContextTypeProvider contextTypeProvider,
@@ -50,7 +50,7 @@ namespace Compent.Uintra.Controllers
                   centralFeedTypeProvider,
                   feedLinkService,
                   feedFilterStateService,
-                  permissionsService,
+                  oldPermissionsService,
                   activityTypeProvider,
                   contextTypeProvider,
                   feedFilterService)

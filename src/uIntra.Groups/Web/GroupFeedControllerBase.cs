@@ -26,7 +26,7 @@ namespace Uintra.Groups.Web
         private readonly IGroupFeedContentService _groupFeedContentContentService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
-        private readonly IPermissionsService _permissionsService;
+        private readonly IOldPermissionsService _oldPermissionsService;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IFeedFilterService _feedFilterService;
 
@@ -52,7 +52,7 @@ namespace Uintra.Groups.Web
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupMemberService groupMemberService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IPermissionsService permissionsService,
+            IOldPermissionsService oldPermissionsService,
             IContextTypeProvider contextTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterService feedFilterService)
@@ -71,7 +71,7 @@ namespace Uintra.Groups.Web
             _groupFeedContentContentService = groupFeedContentContentService;
             _groupMemberService = groupMemberService;
             _feedFilterStateService = feedFilterStateService;
-            _permissionsService = permissionsService;
+            _oldPermissionsService = oldPermissionsService;
             _feedLinkService = feedLinkService;
             _feedFilterService = feedFilterService;
         }
@@ -196,7 +196,7 @@ namespace Uintra.Groups.Web
             var model = new GroupFeedOverviewModel
             {
                 Tabs = activityTabs,
-                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _permissionsService.IsCurrentMemberHasAccess(tab.Type, IntranetActivityActionEnum.Create)),
+                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _oldPermissionsService.IsCurrentMemberHasAccess(tab.Type, IntranetActivityActionEnum.Create)),
                 CurrentType = tabType,
                 GroupId = groupId,
                 IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentMember)
