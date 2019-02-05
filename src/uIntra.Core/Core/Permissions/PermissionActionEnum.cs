@@ -2,8 +2,12 @@
 {
     public enum PermissionActionEnum
     {
-        Read,
-        Write,
-        Create
+        View = 1,
+        Create,
+        Edit,
+        Delete,
+        CanEditOwner,
+        GroupCreate
+
     }
 }
