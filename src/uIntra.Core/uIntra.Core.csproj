@@ -407,6 +407,7 @@
     <Compile Include="Core\Permissions\Models\IntranetMemberGroup.cs" />
     <Compile Include="Core\Permissions\Models\PermissionViewModel.cs" />
     <Compile Include="Core\Permissions\Models\TransientPermissionEntity.cs" />
+    <Compile Include="Core\Permissions\PermissionActivityTypeEnum.cs" />
     <Compile Include="Core\Permissions\PermissionsControllerBase.cs" />
     <Compile Include="Core\Permissions\ActionPermissionsService.cs" />
     <Compile Include="Core\Permissions\PermissionActionEnum.cs" />
