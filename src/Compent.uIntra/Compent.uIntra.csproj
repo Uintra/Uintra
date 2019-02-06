@@ -762,6 +762,10 @@
     <Content Include="App_Plugins\Localization\backoffice\Shared\localization-resource.service.js" />
     <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\find.polyfill.js" />
     <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\findIndex.polyfill.js" />
+    <Content Include="App_Plugins\Members\backoffice\memberGroups\delete.controller.js" />
+    <Content Include="App_Plugins\Members\backoffice\memberGroups\delete.html" />
+    <Content Include="App_Plugins\Members\backoffice\memberGroups\edit.controller.js" />
+    <Content Include="App_Plugins\Members\backoffice\memberGroups\edit.html" />
     <Content Include="App_Plugins\Members\member-changes-watcher.controller.js" />
     <Content Include="App_Plugins\Members\member-changes-watcher.html" />
     <Content Include="App_Plugins\Members\member.service.js" />

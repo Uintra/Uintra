@@ -1,0 +1,85 @@
+﻿<!--<div class="umb-panel form-horizontal umb-panel-nobody" ng-controller="memberGroups.editController">
+    <div class="umb-panel-header">
+        <div class="umb-panel-header-content-wrapper">
+            <div class="umb-panel-header-content">
+                <div class="umb-panel-header-left-side">
+                    <div class="umb-panel-header-title-wrapper">
+                        <div class="umb-panel-header-name">{{memberGroup.name}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="umb-pane">
+        <div class="form-horizontal">
+            <div class="umb-property">
+                <div class="control-group umb-control-group">
+                    <div class="umb-el-wrap">
+                        <label class="control-label">Name</label>
+                        <div class="umb-property-editor"><input type="text" ng-model="memberGroup.name" /></div>
+                    </div>
+                </div>
+            </div>
+            <div class="umb-property">
+                <div class="control-group umb-control-group">
+                    <div class="umb-el-wrap">
+                        <input type="button" value="Save" class="btn btn-success" ng-click="save()">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<div ng-controller="memberGroups.editController as vm">
+    <form novalidate name="controllerForm"
+          ng-controller="memberGroups.editController as vm"
+          ng-submit="vm.click()"
+          ng-show="vm.memberGroup"
+          ng-if="!vm.isCreate">
+        <umb-editor-view>
+
+            <umb-editor-header name="vm.memberGroup.id"
+                               hide-alias="true"
+                               hide-description="true"
+                               hide-icon="true">
+            </umb-editor-header>
+
+            <umb-editor-container class="form-horizontal">
+                <umb-property property="vm.property">
+                    <input type="text" ng-model="vm.memberGroup.name" />
+                </umb-property>
+
+                <umb-property property="vm.property">
+                    <umb-toggle checked="vm.checked"
+                                on-click="vm.toggle()">
+                    </umb-toggle>
+                </umb-property>
+            </umb-editor-container>
+
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
+                    <umb-button action="vm.click()"
+                                type="button"
+                                button-style="success"
+                                state="vm.buttonState"
+                                shortcut="ctrl+c"
+                                label="Save"
+                                disabled="vm.buttonState === 'busy'">
+                    </umb-button>
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+        </umb-editor-view>
+    </form>
+    <div ng-if="vm.isCreate">
+        <div class="umb-dialog umb-pane">
+            <div class="umb-dialog-body">
+                <p class="umb-abstract">
+                    Group name:
+                </p>
+                <input type="text" />
+                <umb-confirm on-confirm="performDelete" on-cancel="cancel">
+                </umb-confirm>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,7 +12,7 @@ using Umbraco.Web.Trees;
 
 namespace Uintra.Users.Web
 {
-    [PluginController("uintra")]
+    [PluginController("members")]
     [Tree("member", "memberGroups", "Member Groups", ".sprTreeFolder", ".sprTreeFolder_o", true, 1)]
     public class MemberGroupTreeController : TreeController
     {
