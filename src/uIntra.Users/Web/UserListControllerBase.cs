@@ -60,15 +60,17 @@ namespace Uintra.Users.Web
         }
 
         public virtual ActionResult GetUsers(ActiveUserSearchQueryModel queryModel)
-        {
+        {            
             GroupId = queryModel.GroupId;
             var model = GetUsersRowsViewModel();
 
             var query = queryModel.Map<ActiveUserSearchQuery>();
             var (activeUsers, isLastRequest) = GetActiveUsers(query);
 
-            model.Members = activeUsers;
+            model.SelectedColumns = ExtendIfGroupMembersPage(GroupId.ToOption(), ReflectionHelper.GetProfileColumns());
+            model.Members = activeUsers;            
             model.IsLastRequest = isLastRequest;
+
             return PartialView(UsersRowsViewPath, model);
         }
 
