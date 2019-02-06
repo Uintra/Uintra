@@ -117,8 +117,9 @@ let controller = {
 
                 confirm.showConfirm(confirmTitle, confirmText, () => {
                     var row = $(this).closest(".js-user-list-row");
+                    var groupId = row.data("group-id");
                     var userId = row.data("id");
-                    ajax.post(excludeUserFromGroupUrl, { userId: userId })
+                    ajax.post(excludeUserFromGroupUrl, { groupId: groupId, userId: userId })
                         .then(function (result) {
                             if (result.data) {
                                 row.remove();

@@ -86,23 +86,23 @@ namespace Compent.Uintra.Controllers
             var model = base.GetUsersRowsViewModel();
             model.CurrentMember = _intranetMemberService.GetCurrentMember().Map<MemberViewModel>();
             model.IsCurrentMemberAdmin = CurrentGroup().Map(CreatorId) == model.CurrentMember.Id;
+            model.GroupId = CurrentGroup().Map(GroupId).Match(id => id, () => Guid.Empty);
+
             return model;
         }
 
-        public override bool ExcludeUserFromGroup(Guid userId)
+        public override bool ExcludeUserFromGroup(Guid groupId, Guid userId)
         {
             var currentUserId = _intranetMemberService.GetCurrentMember().Id;
-            var currentGroupCreatorId = CurrentGroup().Map(CreatorId);
+            var group = _groupService.Get(groupId);
 
-            return currentGroupCreatorId
-                .Filter(creatorId => currentUserId.In(userId, creatorId) && currentUserId != creatorId)
-                .Match(
-                    Some: groupId =>
-                    {
-                        _groupMemberService.Remove(groupId, userId);
-                        return true;
-                    },
-                    None: () => false);
+            if (currentUserId == group.CreatorId || userId == currentUserId)
+            {
+                _groupMemberService.Remove(groupId, userId);
+                return true;
+            }
+         
+            return false;
         }
 
         private Option<Guid> CurrentGroupId()
@@ -111,12 +111,12 @@ namespace Compent.Uintra.Controllers
              System.Web.HttpContext.Current.Request
                 .Params["groupId"]
                 .Apply(parseGuid);
-            if (result.IsNone)
-                result = GroupId.HasValue ? Some(GroupId.Value) : None;
             return result;
         }
 
         private Guid CreatorId(GroupModel group) => group.CreatorId;
+
+        private Guid GroupId(GroupModel group) => group.Id;
 
         private Option<GroupModel> CurrentGroup() =>
             CurrentGroupId().Map(_groupService.Get);
