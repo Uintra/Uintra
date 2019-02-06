@@ -26,25 +26,19 @@ namespace Uintra.Panels.Core.PresentationBuilders
         private const string _alignLeftSymbol = "<<";
         protected virtual string AlignLeftSymbol => _alignLeftSymbol;
 
+        private const string _alignCenterSymbol = "<>";
+        protected virtual string AlignCenterSymbol => _alignCenterSymbol;
+
         private const string _alignRight = "cell-right";
         protected virtual string AlignRight => _alignRight;
 
         private const string _alignRightSymbol = ">>";
         protected virtual string AlignRightSymbol => _alignRightSymbol;
 
-        public virtual List<List<CellViewModel>> Map(IEnumerable<IEnumerable<CellModel>> rows, bool makeFirstColumnBold)
+        public virtual List<List<CellViewModel>> Map(IEnumerable<IEnumerable<CellModel>> rows)
         {
             var result = rows.Select(Map)
-                .ToList();
-
-            if (makeFirstColumnBold)
-            {
-                foreach (var row in result)
-                {
-                    var firstColumn = row.First();
-                    firstColumn.Value = BoldTagOpen + firstColumn.Value + BoldTagClose;
-                }
-            }
+                .ToList();            
 
             return result;
         }
@@ -80,13 +74,13 @@ namespace Uintra.Panels.Core.PresentationBuilders
                 return result;
             }
 
-            if (TryEjectAlignSymbol(text, AlignLeftSymbol, out result))
+            if (TryEjectAlignSymbol(text, AlignCenterSymbol, out result))
             {
-                align = AlignLeft;
+                align = AlignCenter;
                 return result;
             }
 
-            align = AlignCenter;
+            align = AlignLeft;
             return text;
         }
 
