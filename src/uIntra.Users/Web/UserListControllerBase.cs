@@ -18,8 +18,7 @@ namespace Uintra.Users.Web
         protected virtual string UserListViewPath => @"~/App_Plugins/Users/UserList/UserListView.cshtml";
         protected virtual string UsersRowsViewPath => @"~/App_Plugins/Users/UserList/UsersRowsView.cshtml";
         protected virtual string UsersDetailsViewPath => @"~/App_Plugins/Users/UserList/UserDetailsPopup.cshtml";
-
-        protected Guid? GroupId { get; set; }
+        
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
         protected UserListControllerBase(IIntranetMemberService<IIntranetMember> intranetMemberService)
@@ -33,7 +32,7 @@ namespace Uintra.Users.Web
             var orderByColumn = selectedColumns.FirstOrDefault(i => i.SupportSorting);
 
             var groupId = Request.QueryString["groupId"].Apply(parseGuid);
-   
+
             var viewModel = new UserListViewModel
             {
                 AmountPerRequest = model.AmountPerRequest,
@@ -60,15 +59,16 @@ namespace Uintra.Users.Web
         }
 
         public virtual ActionResult GetUsers(ActiveUserSearchQueryModel queryModel)
-        {
-            GroupId = queryModel.GroupId;
+        {            
             var model = GetUsersRowsViewModel();
 
             var query = queryModel.Map<ActiveUserSearchQuery>();
             var (activeUsers, isLastRequest) = GetActiveUsers(query);
 
+            model.SelectedColumns = ExtendIfGroupMembersPage(queryModel.GroupId.ToOption(), ReflectionHelper.GetProfileColumns());
             model.Members = activeUsers;
             model.IsLastRequest = isLastRequest;
+
             return PartialView(UsersRowsViewPath, model);
         }
 
@@ -152,13 +152,13 @@ namespace Uintra.Users.Web
             });
         }
 
-        protected virtual MembersRowsViewModel GetUsersRowsViewModel() => 
+        protected virtual MembersRowsViewModel GetUsersRowsViewModel() =>
             new MembersRowsViewModel
             {
-                SelectedColumns = ReflectionHelper.GetProfileColumns()
+                SelectedColumns = ReflectionHelper.GetProfileColumns()          
             };
 
-        public abstract bool ExcludeUserFromGroup(Guid userId);
+        public abstract bool ExcludeUserFromGroup(Guid groupId, Guid userId);
 
         [ChildActionOnly]
         public ActionResult RenderRows(MembersRowsViewModel model)

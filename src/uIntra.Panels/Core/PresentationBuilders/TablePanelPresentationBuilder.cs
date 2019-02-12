@@ -19,7 +19,7 @@ namespace Uintra.Panels.Core.PresentationBuilders
             var table = model.Map<TableEditorViewModel>();
 
             var rows = CollectRows(model.Cells);
-            table.Cells = _tableCellBuilder.Map(rows, model.MakeFirstColumnBold);
+            table.Cells = _tableCellBuilder.Map(rows);
 
             var result = new TablePanelViewModel
             {

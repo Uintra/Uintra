@@ -8,6 +8,8 @@ namespace Uintra.Panels.Core.Models.Table
 
         public bool UseFirstRowAsHeader { get; set; }
 
+        public bool MakeFirstColumnBold { get; set; }
+
         public List<List<CellViewModel>> Cells { get; set; } = new List<List<CellViewModel>>();
     }
 }
