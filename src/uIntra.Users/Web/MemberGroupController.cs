@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Uintra.Users.Core.Models;
 using Umbraco.Core.Models;
+using Umbraco.Web.Editors;
 using Umbraco.Web.WebApi;
 
 namespace Uintra.Users.Web
@@ -18,10 +19,11 @@ namespace Uintra.Users.Web
             return new MemberGroupViewModel() { Id = memberGroup.Id, Name = memberGroup.Name };
         }
 
-        public bool Create(string name)
+        [HttpPost]
+        public int Create(MemberGroupCreateModel model)
         {
-            Services.MemberGroupService.Save(new MemberGroup() { Name = name });
-            return true;
+            Services.MemberGroupService.Save(new MemberGroup() { Name = model.Name });
+            return Services.MemberGroupService.GetByName(model.Name).Id;
         }
 
         [HttpPost]
@@ -34,9 +36,10 @@ namespace Uintra.Users.Web
             return true;
         }
 
-        public bool Delete(int id)
+        [HttpPost]
+        public bool Delete(MemberGroupDeleteModel model)
         {
-            var memberGroup = Services.MemberGroupService.GetById(id);
+            var memberGroup = Services.MemberGroupService.GetById(model.Id);
             Services.MemberGroupService.Delete(memberGroup);
             return true;
         }

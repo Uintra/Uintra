@@ -321,6 +321,8 @@
     <Compile Include="Core\IMemberServiceHelper.cs" />
     <Compile Include="Core\IMentionService.cs" />
     <Compile Include="Core\Models\GoogleAuthenticationSettings.cs" />
+    <Compile Include="Core\Models\MemberGroupCreateModel.cs" />
+    <Compile Include="Core\Models\MemberGroupDeleteModel.cs" />
     <Compile Include="Core\Models\MemberGroupViewModel.cs" />
     <Compile Include="Core\Models\UserList\ActiveUserSearchQueryModel.cs" />
     <Compile Include="Core\Models\UserList\ActiveUserSearchQuery.cs" />

@@ -1,84 +1,84 @@
-﻿angular.module('umbraco').controller('memberGroups.editController',
-    function ($scope, $routeParams, $http, notificationsService, dialogService, navigationService, treeService) {
+﻿var app = angular.module('umbraco');
+//app.requires.push('angular.filter');
+//var app = angular.module('umbraco', ['angular.filter']);
+
+app.filter('groupBy', function ($parse) {
+    return _.memoize(function (items, field) {
+        var getter = $parse(field);
+        return _.groupBy(items, function (item) {
+            return getter(item);
+        });
+    });
+});
+
+app.controller('memberGroups.editController',
+    function ($scope, $routeParams, $http, notificationsService, $location, navigationService) {
 
         var vm = this;
-
-
         vm.memberGroup = null;
-        if ($routeParams.create) {
-            console.log("create");
-            vm.isCreate = true;
-            return;
-        }
-        vm.checked = true;
         var memberGroupId = $routeParams.id;
-        vm.buttonState = "init";
+
+        if ($routeParams.create) {
+            vm.memberGroup = {};
+            vm.isCreate = true;
+        } else {
+            $http.get('/umbraco/backoffice/api/MemberGroup/Get?id=' + memberGroupId).success(function (response) {
+                vm.memberGroup = response;
+            });
+
+            //TODO get from backend
+            vm.permissions = [
+                { actionId: 0, actionName: "read", activityTypeId: 100, activityTypeName: "Events", exists: true },
+                { actionId: 1, actionName: "create", activityTypeId: 101, activityTypeName: "Events", exists: true },
+                { actionId: 2, actionName: "delete", activityTypeId: 102, activityTypeName: "Events", exists: false },
+                { actionId: 3, actionName: "update", activityTypeId: 103, activityTypeName: "Events", exists: true },
+
+                { actionId: 4, actionName: "read", activityTypeId: 110, activityTypeName: "News", exists: true },
+                { actionId: 5, actionName: "create", activityTypeId: 111, activityTypeName: "News", exists: true },
+                { actionId: 6, actionName: "delete", activityTypeId: 112, activityTypeName: "News", exists: false },
+                { actionId: 7, actionName: "update", activityTypeId: 113, activityTypeName: "News", exists: false },
+
+                { actionId: 8, actionName: "read", activityTypeId: 120, activityTypeName: "Bulletin", exists: true },
+                { actionId: 9, actionName: "create", activityTypeId: 121, activityTypeName: "Bulletin", exists: true },
+                { actionId: 10, actionName: "delete", activityTypeId: 122, activityTypeName: "Bulletin", exists: false },
+                { actionId: 11, actionName: "update", activityTypeId: 123, activityTypeName: "Bulletin", exists: true }
+            ];
+        }
+
         vm.property = {
             label: "Name",
             description: "Member group name"
         };
-
-        $http.get('/umbraco/backoffice/api/MemberGroup/Get?id=' + memberGroupId).success(function (response) {
-            console.log(response);
-            vm.memberGroup = response;
-        });
-
-        vm.toggle = function myfunction() {
-            vm.checked = !vm.checked;
+        vm.permissionsProperty = {
+            label: "",
+            description: "Activity type name"
         };
 
+        vm.getProperty = function (activityTypeName) {
+            vm.permissionsProperty.label = activityTypeName;
+            return vm.permissionsProperty;
+        };
+
+        vm.toggle = function myfunction(permission) {
+            //TODO backend support
+            permission.exists = !permission.exists;
+        };
+
+        vm.buttonState = "init";
         vm.save = function () {
+            vm.buttonState = "busy";
+            if (vm.isCreate) {
+                $http.post('/umbraco/backoffice/api/MemberGroup/Create', { name: vm.memberGroup.name })
+                    .success(function (response) {
+                        navigationService.syncTree({ tree: $routeParams.tree, path: ["-1", response.toString()], forceReload: true, activate: false });
+                        $location.url("/" + $routeParams.section + "/" + $routeParams.tree + "/" + $routeParams.method + "/" + response);
+                    });
+                return;
+            }
             $http.post('/umbraco/backoffice/api/MemberGroup/Save', { id: memberGroupId, name: vm.memberGroup.name })
                 .success(function (response) {
-                    //console.log("save works");
-                    //console.log(response);
-                    $scope.nav.hideMenu();
-                    $scope.nav.reloadNode(memberGroupId);
-
-                    //navigationService​.​hideDialog​();
-                    //$location​.​url​(​item​.​editPath​);
-
-                    //set the active item on the tree
-                    //navigationService.syncTree({ tree: 'workshopTree', path: ["-1", vm.workshop.id], forceReload: false });
+                    vm.buttonState = "success";
+                    navigationService.syncTree({ tree: $routeParams.tree, path: ["-1", memberGroupId.toString()], forceReload: true, activate: false });
                 });
         };
-
-        vm.click = function () {
-            notificationsService.success("OPAAAAAA!");
-        };
-
     });
-
-//angular.module("umbraco").controller("community.dashboard", function ($scope, contentResource, entityResource) {
-//
-//
-//    entityResource.getByQuery("//community", -1, "Document").then(function (document) {
-//
-//        contentResource.getChildren(document.id).then(function (response) {
-//            var community = response.items;
-//            _.each(community, function (member) {
-//                var date = moment(member.updateDate);
-//                member.outdated = date.diff(Date.now(), "days") <= -6;
-//                member.diff = date.fromNow();
-//                member.avatar = _.findWhere(member.properties, { 'alias': 'twitterHandle' }).value;
-//            })
-//
-//            $scope.community = community;
-//
-//        });
-//
-//    });
-
-
-    //$scope.generate = function () {
-    //    $scope.generating = true;
-    //    umbRequestHelper.resourcePromise(
-    //        $http.post(umbRequestHelper.getApiUrl("modelsBuilderBaseUrl", "BuildModels")),
-    //        'Failed to generate.')
-    //        .then(function (result) {
-    //            $scope.generating = false;
-    //            $scope.dashboard = result;
-    //        });
-    //};
-
-//});
