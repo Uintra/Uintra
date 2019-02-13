@@ -17,10 +17,9 @@
             <div ng-repeat="(key, value) in vm.permissions | groupBy: 'activityTypeName'">
                 <umb-property property="vm.getProperty(key)">
                     <div ng-repeat="permission in value">
+                        <span style="float:left">{{permission.actionName}}</span> <!--&nbsp;-->
                         <umb-toggle checked="permission.exists" on-click="vm.toggle(permission)">
                         </umb-toggle>
-                        &nbsp;&nbsp;&nbsp;&nbsp;<span>{{permission.actionName}}</span>
-                        <br />
                     </div>
                 </umb-property>
             </div>
