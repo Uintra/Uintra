@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
@@ -33,6 +34,19 @@ namespace Uintra.Core.Extensions
             }
         }
 
+        public static ReadOnlyCollection<T> WithUpdatedElement<T, TIdentity>(
+            this IEnumerable<T> source,
+            Func<T, TIdentity> identitySelector,
+            T element)
+        {
+            var elementIdentity = identitySelector(element);
+
+            return source.Where(e => Equals(identitySelector(e), elementIdentity))
+                .Append(element)
+                .ToList()
+                .AsReadOnly();
+        }
+
         public static Option<T> Choose<T>(this Option<T> source, Option<T> other) => source.IsSome ? source : other;
 
         public static Option<T> Choose<T>(this Option<T> source, Func<Option<T>> other) => source.IsSome ? source : other();
@@ -40,6 +54,12 @@ namespace Uintra.Core.Extensions
         public static TType Cast<TType>(this object value)  => (TType) value;
 
         public static Expression<Func<T, bool>> AndAlso<T>(params Expression<Func<T, bool>>[] predicates) =>
-            predicates.Aggregate(expr((T x) => true), ExpressionExtensions.AndAlso);
+            predicates.Aggregate(expr((T _) => true), ExpressionExtensions.AndAlso);
+
+        public static Option<TValue> ItemOrNone<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) =>
+            dictionary.ContainsKey(key) ? Some(dictionary[key]) : None;
+
+        public static IEnumerable<(T1, T2)> CartesianProduct<T1, T2>(this IEnumerable<T1> source1, IEnumerable<T2> source2) =>
+            source1.SelectMany(x => source2.Select(y => (x, y)));
     }
 }

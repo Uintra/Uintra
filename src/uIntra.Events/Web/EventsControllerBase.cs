@@ -109,7 +109,7 @@ namespace Uintra.Events.Web
 
         protected virtual IEnumerable<EventBase> GetComingEvents(DateTime startDate) => _eventsService.GetComingEvents(startDate);
 
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
+        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Create)]
         public virtual ActionResult Create(ActivityCreateLinks links)
         {
             var model = GetCreateModel(links);
@@ -117,7 +117,7 @@ namespace Uintra.Events.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
+        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Create)]
         public virtual ActionResult Create(EventCreateModel createModel)
         {
             if (!ModelState.IsValid)
@@ -133,7 +133,7 @@ namespace Uintra.Events.Web
             return Redirect(redirectUrl);
         }
 
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
             var @event = _eventsService.Get(id);
@@ -147,7 +147,7 @@ namespace Uintra.Events.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Edit)]
         public virtual ActionResult Edit(EventEditModel editModel)
         {
             if (!ModelState.IsValid)

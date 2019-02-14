@@ -8,6 +8,6 @@ namespace Uintra.Groups.Permissions
     public interface IGroupPermissionsService
     {
         bool ValidatePermission(IPublishedContent content, IRole role);
-        bool HasPermission(IRole role, IntranetActivityActionEnum action);
+        bool HasPermission(IRole role, IntranetActionEnum action);
     }
 }

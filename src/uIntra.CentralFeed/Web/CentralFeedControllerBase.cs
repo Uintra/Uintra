@@ -172,7 +172,7 @@ namespace Uintra.CentralFeed.Web
             {
                 Tabs = activityTabs,
                 TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs)
-                    .Where(tab => _oldPermissionsService.IsCurrentMemberHasAccess(tab.Type, IntranetActivityActionEnum.Create)),
+                    .Where(tab => _oldPermissionsService.IsCurrentMemberHasAccess(tab.Type, IntranetActionEnum.Create)),
                 CurrentType = tabType,
                 IsFiltersOpened = centralFeedState.IsFiltersOpened
             };

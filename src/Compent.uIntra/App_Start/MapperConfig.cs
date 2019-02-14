@@ -9,6 +9,7 @@ using Uintra.Core.Jobs.AutoMapperProfiles;
 using Uintra.Core.Location;
 using Uintra.Core.LinkPreview;
 using Uintra.Core.PagePromotion;
+using Uintra.Core.Permissions.Models;
 using Uintra.Events;
 using Uintra.Groups;
 using Uintra.Navigation;
@@ -27,7 +28,8 @@ namespace Compent.Uintra
     public static class MapperConfig
     {
         public static void RegisterMappings()
-        {
+        {           
+            Mapper.AddProfile<PermissionsAutoMapperProfile>();
             Mapper.AddProfile<CommentAutoMapperProfile>();
             Mapper.AddProfile<NewsAutoMapperProfile>();
             Mapper.AddProfile<Core.News.NewsAutoMapperProfile>();

@@ -151,9 +151,6 @@ namespace Uintra.Core.Activity
             return activities;
         }
 
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected virtual TActivity UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
-
         public virtual TActivity UpdateActivityCache(Guid id)
         {
             var activity = GetFromSql(id);

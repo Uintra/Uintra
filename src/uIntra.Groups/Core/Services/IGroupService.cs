@@ -11,7 +11,6 @@ namespace Uintra.Groups
         GroupModel Get(Guid id);        
         IEnumerable<GroupModel> GetAllNotHidden();              
         IEnumerable<GroupModel> GetMany(IEnumerable<Guid> groupIds);
-        IEnumerable<GroupModel> GetAllHided();
         IEnumerable<GroupModel> GetAll();
 
         bool CanEdit(Guid groupId, IIntranetMember member);
@@ -19,7 +18,6 @@ namespace Uintra.Groups
         bool IsActivityFromActiveGroup(IGroupActivity groupActivity);
 
         void Hide(Guid id);
-        void UpdateGroupUpdateDate(Guid id);
         void Unhide(Guid id);
     }
 }

@@ -12,9 +12,9 @@ namespace Uintra.Core.User.Permissions.Web
     public class ContentRestrictedActionApiAttribute : ActionFilterAttribute
     {
         private readonly int _activityTypeId;
-        private readonly IntranetActivityActionEnum _action;
+        private readonly IntranetActionEnum _action;
 
-        public ContentRestrictedActionApiAttribute(int activityTypeId, IntranetActivityActionEnum action)
+        public ContentRestrictedActionApiAttribute(int activityTypeId, IntranetActionEnum action)
         {
             _activityTypeId = activityTypeId;
             _action = action;

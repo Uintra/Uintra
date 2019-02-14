@@ -292,19 +292,19 @@ namespace Uintra.Users
             var allCachedMembers = GetAll().ToList();
             var oldCachedMembers = allCachedMembers.Join(memberIds, u => u.Id, id => id, (u, id) => u).ToList();
 
-            oldCachedMembers.ForEach(ocu =>
+            oldCachedMembers.ForEach(ocm =>
             {
-                if (ocu != null)
+                if (ocm != null)
                 {
-                    allCachedMembers.Remove(ocu);
+                    allCachedMembers.Remove(ocm);
                 }
             });
 
-            updatedMembers.ForEach(u =>
+            updatedMembers.ForEach(m =>
             {
-                if (u != null)
+                if (m != null)
                 {
-                    allCachedMembers.Add(u);
+                    allCachedMembers.Add(m);
                 }
             });
 

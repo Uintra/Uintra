@@ -1,6 +1,6 @@
 ﻿namespace Uintra.Core.Activity
 {
-    public enum IntranetActivityActionEnum
+    public enum IntranetActionEnum
     {
         Create = 1,
         Edit,

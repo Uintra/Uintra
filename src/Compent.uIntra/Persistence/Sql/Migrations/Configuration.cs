@@ -1,5 +1,6 @@
 using System;
 using System.Data.Entity.Migrations;
+using Uintra.Core.Extensions;
 using Uintra.Core.Permissions;
 using Uintra.Core.Permissions.Sql;
 
@@ -9,7 +10,7 @@ namespace Compent.Uintra.Persistence.Sql.Migrations
     {
         public Configuration()
         {
-            SetSqlGenerator("System.Data.SqlClient", new DefaultValueSqlServerMigrationSqlGenerator());
+           // SetSqlGenerator("System.Data.SqlClient", new DefaultValueSqlServerMigrationSqlGenerator());
             AutomaticMigrationsEnabled = false;
             MigrationsDirectory = @"Persistence\Sql\Migrations";
         }
@@ -19,26 +20,26 @@ namespace Compent.Uintra.Persistence.Sql.Migrations
             //  This method will be called after migrating to the latest version.
 
             context.PermissionActivityTypes.AddOrUpdate(
-                pact=>pact.Activity,
+                pact=>pact.ActivityTypeId,
                 new PermissionActivityTypeEntity()
                 {
                     Id = Guid.NewGuid(),
-                    Activity = PermissionActivityTypeEnum.News.ToString()
+                    ActivityTypeId = PermissionActivityTypeEnum.News.ToInt()
                 },
                 new PermissionActivityTypeEntity()
                 {
                     Id = Guid.NewGuid(),
-                    Activity = PermissionActivityTypeEnum.Events.ToString()
+                    ActivityTypeId = PermissionActivityTypeEnum.Events.ToInt()
                 },
                 new PermissionActivityTypeEntity()
                 {
                     Id = Guid.NewGuid(),
-                    Activity = PermissionActivityTypeEnum.Bulletins.ToString()
+                    ActivityTypeId = PermissionActivityTypeEnum.Bulletins.ToInt()
                 },
                 new PermissionActivityTypeEntity()
                 {
                     Id = Guid.NewGuid(),
-                    Activity = PermissionActivityTypeEnum.Common.ToString()
+                    ActivityTypeId = PermissionActivityTypeEnum.Common.ToInt()
                 });
 
 

@@ -113,7 +113,7 @@ namespace Uintra.Groups.Web
             return Redirect(_groupLinkProvider.GetGroupLink(group.Id));
         }
 
-        [GroupRestrictedAction(IntranetActivityActionEnum.Create)]
+        [GroupRestrictedAction(IntranetActionEnum.Create)]
         public ActionResult Create()
         {
             var createGroupModel = new GroupCreateModel();

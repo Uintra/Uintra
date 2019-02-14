@@ -68,7 +68,7 @@ namespace Uintra.Bulletins.Web
             return PartialView(DetailsViewPath, model);
         }
 
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
             var bulletin = _bulletinsService.Get(id);
@@ -82,7 +82,7 @@ namespace Uintra.Bulletins.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
+        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Create)]
         public virtual JsonResult Create(BulletinCreateModel model)
         {
             var result = new BulletinCreationResultModel();
@@ -104,7 +104,7 @@ namespace Uintra.Bulletins.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Edit)]
         public virtual ActionResult Edit(BulletinEditModel editModel)
         {
             if (!ModelState.IsValid)
@@ -119,7 +119,7 @@ namespace Uintra.Bulletins.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Delete)]
+        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Delete)]
         public virtual JsonResult Delete(Guid id)
         {
             _bulletinsService.Delete(id);

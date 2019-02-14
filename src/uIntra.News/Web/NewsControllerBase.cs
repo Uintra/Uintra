@@ -63,7 +63,7 @@ namespace Uintra.News.Web
             return PartialView(DetailsViewPath, model);
         }
 
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
+        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Create)]
         public virtual ActionResult Create(IActivityCreateLinks links)
         {
             var model = GetCreateModel(links);
@@ -71,7 +71,7 @@ namespace Uintra.News.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
+        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Create)]
         public virtual ActionResult Create(NewsCreateModel createModel)
         {
             if (!ModelState.IsValid)
@@ -87,7 +87,7 @@ namespace Uintra.News.Web
             return Redirect(redirectUri);
         }
 
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
             var news = _newsService.Get(id);
@@ -101,7 +101,7 @@ namespace Uintra.News.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Edit)]
         public virtual ActionResult Edit(NewsEditModel editModel)
         {
 

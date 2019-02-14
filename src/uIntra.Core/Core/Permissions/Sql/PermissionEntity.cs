@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Uintra.Core.Persistence;
@@ -10,12 +11,14 @@ namespace Uintra.Core.Permissions.Sql
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public override Guid Id { get; set; }
-        
-        public Guid? PermissionActivityTypeId { get; set; }
+        public override Guid Id { get; set; }        
 
         public int IntranetMemberGroupId { get; set; }
 
-        public int ActionId { get; set; }
+        public int IntranetActionId { get; set; }
+
+        public bool IsAllowed { get; set; }
+
+        public bool IsDisabled { get; set; }
     }
 }

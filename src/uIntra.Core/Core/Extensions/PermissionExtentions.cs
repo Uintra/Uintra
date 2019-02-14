@@ -10,7 +10,7 @@ namespace Uintra.Core.Extensions
 {
     public static class PermissionsExtensions
     {
-        public static bool IsRoleHasPermissions(this IOldPermissionsService service, IRole role, Enum activityType, IntranetActivityActionEnum action)
+        public static bool IsRoleHasPermissions(this IOldPermissionsService service, IRole role, Enum activityType, IntranetActionEnum action)
         {
             var permission = service.GetPermissionFromTypeAndAction(activityType, action);
             return service.IsRoleHasPermissions(role, permission);

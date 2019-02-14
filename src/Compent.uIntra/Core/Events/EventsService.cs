@@ -158,7 +158,7 @@ namespace Compent.Uintra.Core.Events
             var ownerId = Get(activity.Id).OwnerId;
             var isOwner = ownerId == currentMember.Id;
 
-            var isMemberHasPermissions = _oldPermissionsService.IsRoleHasPermissions(currentMember.Role, Type, IntranetActivityActionEnum.Edit);
+            var isMemberHasPermissions = _oldPermissionsService.IsRoleHasPermissions(currentMember.Role, Type, IntranetActionEnum.Edit);
             return isOwner && isMemberHasPermissions;
         }
 
@@ -206,9 +206,6 @@ namespace Compent.Uintra.Core.Events
             base.UpdateCache();
             FillIndex();
         }
-
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected override Event UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
 
         public override Event UpdateActivityCache(Guid id)
         {

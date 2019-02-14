@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using LanguageExt;
 using Uintra.Core.Extensions;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Core.Persistence
 {
@@ -26,6 +28,8 @@ namespace Uintra.Core.Persistence
         public T Get(TKey id) => _dbSet.Find(id);
 
         public T Find(Expression<Func<T, bool>> predicate) => _dbSet.FirstOrDefault(predicate);
+
+        public Option<T> FindOrNone(Expression<Func<T, bool>> predicate) => Optional(_dbSet.FirstOrDefault(predicate));
 
         public IList<T> FindAll(Expression<Func<T, bool>> predicate, int skip = 0, int take = int.MaxValue) =>
             _dbSet.Where(predicate).OrderBy(ent => ent.Id).Skip(skip).Take(take).ToList();
