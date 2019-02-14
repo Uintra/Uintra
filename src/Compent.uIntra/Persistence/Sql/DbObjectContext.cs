@@ -81,8 +81,8 @@ namespace Compent.Uintra.Persistence.Sql
 
             base.OnModelCreating(modelBuilder);
 
-            //var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
-            //modelBuilder.Conventions.Add(convention);
+            var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
+            modelBuilder.Conventions.Add(convention);
         }
     }
 }

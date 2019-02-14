@@ -7,13 +7,13 @@ namespace Compent.Uintra.Persistence.Sql.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddPermissionTables : IMigrationMetadata
+    public sealed partial class Permissions : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddPermissionTables));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Permissions));
         
         string IMigrationMetadata.Id
         {
-            get { return "201902051545482_AddPermissionTables"; }
+            get { return "201902141817096_Permissions"; }
         }
         
         string IMigrationMetadata.Source

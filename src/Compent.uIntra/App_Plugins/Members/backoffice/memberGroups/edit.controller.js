@@ -12,7 +12,7 @@ app.filter('groupBy', function ($parse) {
 });
 
 app.controller('memberGroups.editController',
-    function (memberGroupsService, $scope, $routeParams, $http, notificationsService, $location, navigationService, currentUserResource, usersResource, editorState, userService) {
+    function (/*memberGroupsService,*/ $scope, $routeParams, $http, notificationsService, $location, navigationService, currentUserResource, usersResource, editorState, userService) {
 
         //console.log(currentUserResource);
         //console.log('----------------');
