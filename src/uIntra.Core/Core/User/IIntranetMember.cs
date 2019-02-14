@@ -13,5 +13,6 @@ namespace Uintra.Core.User
         string LoginName { get; set; }
         bool Inactive { get; set; }
         IIntranetUser RelatedUser { get; set; }
+        bool IsSuperUser { get; set; }
     }
 }

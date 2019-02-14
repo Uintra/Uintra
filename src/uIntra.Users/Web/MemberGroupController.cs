@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Uintra.Core.User;
 using Uintra.Users.Core.Models;
 using Umbraco.Core.Models;
 using Umbraco.Web.Editors;
@@ -13,6 +14,13 @@ namespace Uintra.Users.Web
 {
     public class MemberGroupController : UmbracoAuthorizedApiController
     {
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+
+        public MemberGroupController(IIntranetMemberService<IIntranetMember> intranetMemberService)
+        {
+            _intranetMemberService = intranetMemberService;
+        }
+
         public MemberGroupViewModel Get(int id)
         {
             var memberGroup = Services.MemberGroupService.GetById(id);
@@ -42,6 +50,15 @@ namespace Uintra.Users.Web
             var memberGroup = Services.MemberGroupService.GetById(model.Id);
             Services.MemberGroupService.Delete(memberGroup);
             return true;
+        }
+
+        [HttpGet]
+        public bool IsSuperUser()
+        {
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            return currentMember.IsSuperUser;
+            //var relatedUser = currentMember.RelatedUser;
+            //return relatedUser == null ? false : relatedUser.IsSuperUser;
         }
     }
 }

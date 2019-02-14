@@ -217,6 +217,7 @@ namespace Uintra.Users
                 Inactive = member.IsLockedOut,
                 RelatedUser = relatedUserId.HasValue ? _intranetUserService.GetUser(relatedUserId.Value) : null
             };
+            mappedMember.IsSuperUser = mappedMember.RelatedUser != null && mappedMember.RelatedUser.IsSuperUser;
 
             string memberPhoto = null;
             var memberPhotoId = member.GetValueOrDefault<int?>(ProfileConstants.Photo) ?? member.GetMemberImageId(ProfileConstants.Photo);

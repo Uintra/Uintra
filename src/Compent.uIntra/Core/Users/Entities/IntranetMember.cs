@@ -22,6 +22,7 @@ namespace Compent.Uintra.Core.Users
         public bool Inactive { get; set; }
         public IRole Role { get; set; }
         public IIntranetUser RelatedUser { get; set; }
+        public bool IsSuperUser { get; set; }
         public IEnumerable<Guid> GroupIds { get; set; } = Enumerable.Empty<Guid>();
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http.Formatting;
 using System.Text;
 using System.Threading.Tasks;
+using Uintra.Core.User;
 using umbraco.BusinessLogic.Actions;
 using Umbraco.Web.Models.Trees;
 using Umbraco.Web.Mvc;
@@ -16,6 +17,13 @@ namespace Uintra.Users.Web
     [Tree("member", "memberGroups", "Member Groups", ".sprTreeFolder", ".sprTreeFolder_o", true, 1)]
     public class MemberGroupTreeController : TreeController
     {
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+
+        public MemberGroupTreeController(IIntranetMemberService<IIntranetMember> intranetMemberService)
+        {
+            _intranetMemberService = intranetMemberService;
+        }
+
         protected override MenuItemCollection GetMenuForNode(string id, FormDataCollection queryStrings)
         {
             var menu = new MenuItemCollection();
@@ -26,8 +34,8 @@ namespace Uintra.Users.Web
                 menu.Items.Add<RefreshNode, ActionRefresh>(Services.TextService.Localize(ActionRefresh.Instance.Alias, CultureInfo.CurrentCulture), true);
                 return menu;
             }
-
-            menu.Items.Add<ActionDelete>(Services.TextService.Localize(ActionDelete.Instance.Alias, CultureInfo.CurrentCulture));
+            if(_intranetMemberService.GetCurrentMember().IsSuperUser)
+                menu.Items.Add<ActionDelete>(Services.TextService.Localize(ActionDelete.Instance.Alias, CultureInfo.CurrentCulture));
             return menu;
         }
 

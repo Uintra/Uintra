@@ -16,11 +16,28 @@
 
             <div ng-repeat="(key, value) in vm.permissions | groupBy: 'activityTypeName'">
                 <umb-property property="vm.getProperty(key)">
-                    <div ng-repeat="permission in value">
-                        <span style="float:left">{{permission.actionName}}</span> <!--&nbsp;-->
-                        <umb-toggle checked="permission.exists" on-click="vm.toggle(permission)">
-                        </umb-toggle>
-                    </div>
+                    <table border="0" cellspacing="10" cellpadding="5">
+                        <tr>
+                            <th colspan="3">Permission</th>
+                            <th>Enabled</th>
+                            <th ng-if="vm.isSuperUser">Allowed</th>
+                        </tr>
+                        <tr ng-repeat="permission in value">
+                            <td colspan="3">
+                                <span style="float:left">{{permission.actionName}}</span>
+                            </td>
+                            <td align="center">
+                                <umb-toggle checked="permission.enabled" on-click="vm.toggleEnabled(permission)">
+                                </umb-toggle>
+                            </td>
+                            <td ng-if="vm.isSuperUser" align="center">
+                                <umb-toggle checked="permission.allowed" on-click="vm.toggleAllowed(permission)">
+                                </umb-toggle>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--&nbsp;-->
+
                 </umb-property>
             </div>
 

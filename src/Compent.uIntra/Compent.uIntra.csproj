@@ -766,6 +766,7 @@
     <Content Include="App_Plugins\Members\backoffice\memberGroups\delete.html" />
     <Content Include="App_Plugins\Members\backoffice\memberGroups\edit.controller.js" />
     <Content Include="App_Plugins\Members\backoffice\memberGroups\edit.html" />
+    <Content Include="App_Plugins\Members\backoffice\memberGroups\service.js" />
     <Content Include="App_Plugins\Members\member-changes-watcher.controller.js" />
     <Content Include="App_Plugins\Members\member-changes-watcher.html" />
     <Content Include="App_Plugins\Members\member.service.js" />
