@@ -14,7 +14,6 @@ using Uintra.Core.Media.Sql;
 using Uintra.Core.MigrationHistories.Sql;
 using Uintra.Core.Permissions.Sql;
 using Uintra.Core.Persistence;
-using Uintra.Core.User.Permissions;
 using Uintra.Groups.Sql;
 using Uintra.Likes;
 using Uintra.Navigation;
@@ -82,8 +81,8 @@ namespace Compent.Uintra.Persistence.Sql
 
             base.OnModelCreating(modelBuilder);
 
-            var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
-            modelBuilder.Conventions.Add(convention);
+            //var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
+            //modelBuilder.Conventions.Add(convention);
         }
     }
 }

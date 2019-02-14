@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.Models;
 
 namespace Uintra.Core.Permissions.TypeProviders

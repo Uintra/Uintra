@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq.Expressions;
 using System.Runtime.Caching;
 
 namespace Uintra.Core.Caching
@@ -20,24 +19,18 @@ namespace Uintra.Core.Caching
             return MemoryCache.Default.Contains(key);
         }
 
-        public void Set<T>(string cacheKey, T item, DateTimeOffset lifeTime, params string[] uniqueSuffixes)
+        public void Set<T>(string cacheKey, T item, DateTimeOffset? lifeTime = null, params string[] uniqueSuffixes)
         {
             var key = CreateKey(cacheKey, uniqueSuffixes);
             var itemPolicy = new CacheItemPolicy
             {
-                AbsoluteExpiration = lifeTime
+                AbsoluteExpiration = lifeTime ?? ObjectCache.InfiniteAbsoluteExpiration
             };
             itemPolicy.ChangeMonitors.Add(new SignaledChangeMonitor(key));
             MemoryCache.Default.Set(key, item, itemPolicy);
         }
 
-        public T GetOrSet<T>(Expression<Func<T>> getItemCallback, int lifeTimeInMinutes, params string[] uniqueSuffixes) where T : class
-        {
-            var cacheKey = MakeCacheKey(getItemCallback);
-            return GetOrSet(cacheKey, getItemCallback.Compile(), DateTimeOffset.Now.AddMinutes(lifeTimeInMinutes), uniqueSuffixes);
-        }
-
-        public T GetOrSet<T>(string cacheKey, Func<T> getItemCallback, DateTimeOffset lifeTime, params string[] uniqueSuffixes) where T : class
+        public T GetOrSet<T>(string cacheKey, Func<T> getItemCallback, DateTimeOffset? lifeTime = null, params string[] uniqueSuffixes) where T : class
         {
             var key = CreateKey(cacheKey, uniqueSuffixes);
             var item = MemoryCache.Default.Get(key) as T;
@@ -49,40 +42,10 @@ namespace Uintra.Core.Caching
             return item;
         }
 
-        public void Clear<T>(Expression<Func<T>> getItemCallback, params string[] uniqueSuffixes) where T : class
-        {
-            Clear(MakeCacheKey(getItemCallback), uniqueSuffixes);
-        }
-
-        public void Clear(string cacheKey, params string[] uniqueSuffixes)
-        {
-            var key = CreateKey(cacheKey, uniqueSuffixes);
-            SignaledChangeMonitor.Signal(key);
-        }
-
-        public void Flush()
-        {
-            SignaledChangeMonitor.Signal();
-        }
-
-        private static string MakeCacheKey<T>(Expression<Func<T>> getItemCallback) where T : class
-        {
-            var key = $"{getItemCallback.ReturnType.Name}:{GetMemberName(getItemCallback.Body)}";
-            return key;
-        }
-
         private static string CreateKey(string cacheKey, string[] uniqueSuffixes)
         {
             var key = $"{cacheKey}:[{string.Join("][", uniqueSuffixes)}]";
             return key;
-        }
-
-        private static string GetMemberName(Expression expression)
-        {
-            return (expression as MemberExpression)?.Member.Name
-                   ?? (expression as MethodCallExpression)?.Method.Name
-                   ?? ((expression as UnaryExpression)?.Operand as MethodCallExpression)?.Method.Name
-                   ?? ((expression as UnaryExpression)?.Operand as MemberExpression)?.Member.Name;
         }
 
         private class SignaledChangeMonitor : ChangeMonitor
@@ -100,12 +63,6 @@ namespace Uintra.Core.Caching
                 // Register instance with the shared event
                 Signaled += OnSignalRaised;
                 InitializationComplete();
-            }
-
-            public static void Signal(string name = null)
-            {
-                // Raise shared event to notify all subscribers
-                Signaled?.Invoke(null, new SignaledChangeEventArgs(name));
             }
 
             protected override void Dispose(bool disposing)

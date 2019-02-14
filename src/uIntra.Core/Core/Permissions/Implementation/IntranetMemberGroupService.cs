@@ -1,10 +1,11 @@
 ﻿using System.Linq;
 using Uintra.Core.Extensions;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.Models;
 using Umbraco.Core.Services;
 using static LanguageExt.Prelude;
 
-namespace Uintra.Core.Permissions
+namespace Uintra.Core.Permissions.Implementation
 {
     public class IntranetMemberGroupService : IIntranetMemberGroupService
     {

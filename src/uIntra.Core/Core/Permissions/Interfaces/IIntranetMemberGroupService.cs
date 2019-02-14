@@ -1,6 +1,6 @@
 ﻿using Uintra.Core.Permissions.Models;
 
-namespace Uintra.Core.Permissions
+namespace Uintra.Core.Permissions.Interfaces
 {
     public interface IIntranetMemberGroupService
     {

@@ -82,6 +82,8 @@ using Uintra.Core.Media;
 using Uintra.Core.MigrationHistories;
 using Uintra.Core.ModelBinders;
 using Uintra.Core.PagePromotion;
+using Uintra.Core.Permissions.Implementation;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.Persistence;
 using Uintra.Core.Providers;
@@ -216,6 +218,13 @@ namespace Compent.Uintra
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IJobSettingsConfiguration>().ToMethod(s => JobSettingsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IOldPermissionsService>().To<OldPermissionsService>().InRequestScope();
+
+            //permissions
+
+            kernel.Bind<IActivityTypePermissionsService>().To<ActivityTypePermissionsService>().InRequestScope();
+            kernel.Bind<IIntranetMemberGroupService>().To<IntranetMemberGroupService>().InRequestScope();
+            kernel.Bind<IPermissionSettingsSchema>().To<PermissionSettingsSchema>().InSingletonScope();
+            kernel.Bind<IPermissionsManagementService>().To<PermissionsManagementService>().InSingletonScope();
 
             // Umbraco
             kernel.Bind<UmbracoContext>().ToMethod(context => CreateUmbracoContext()).InRequestScope();
@@ -425,7 +434,9 @@ namespace Compent.Uintra
             kernel.Bind<ISearchableTypeProvider>().To<UintraSearchableTypeProvider>().InSingletonScope();
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InSingletonScope();
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
-            kernel.Bind<IPermissionActionTypeProvider>().To<PermissionActionTypeProvider>().InSingletonScope();
+            kernel.Bind<IIntranetActionTypeProvider>().To<IntranetActionTypeProvider>().InSingletonScope(); 
+            kernel.Bind<IIntranetMemberGroupProvider>().To<IntranetMemberGroupProvider>().InSingletonScope();
+            
 
             kernel.Bind<IGroupService>().To<GroupService>().InRequestScope();
             kernel.Bind<IGroupMemberService>().To<GroupMemberService>().InRequestScope();

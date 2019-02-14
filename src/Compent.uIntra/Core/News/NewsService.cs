@@ -119,7 +119,7 @@ namespace Compent.Uintra.Core.News
             var ownerId = Get(activity.Id).OwnerId;
             var isOwner = ownerId == currentMember.Id;
 
-            var isMemberHasPermissions = _oldPermissionsService.IsRoleHasPermissions(currentMember.Role, Type, IntranetActivityActionEnum.Edit);
+            var isMemberHasPermissions = _oldPermissionsService.IsRoleHasPermissions(currentMember.Role, Type, IntranetActionEnum.Edit);
             return isOwner && isMemberHasPermissions;
         }
 
@@ -163,9 +163,6 @@ namespace Compent.Uintra.Core.News
             base.UpdateCache();
             FillIndex();
         }
-
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected override Entities.News UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
 
         public override Entities.News UpdateActivityCache(Guid id)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using LanguageExt;
 
 namespace Uintra.Core.Persistence
 {
@@ -16,6 +17,7 @@ namespace Uintra.Core.Persistence
         IList<T> GetAll();
 
         T Find(Expression<Func<T, bool>> predicate);
+        Option<T> FindOrNone(Expression<Func<T, bool>> predicate);
 
         IList<T> FindAll(Expression<Func<T, bool>> predicate, int skip = 0, int take = int.MaxValue);
 

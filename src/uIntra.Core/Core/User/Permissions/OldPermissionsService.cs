@@ -52,12 +52,12 @@ namespace Uintra.Core.User.Permissions
             return roleConfiguration.Permissions.Select(s => s.Key);
         }
 
-        public virtual string GetPermissionFromTypeAndAction(Enum activityType, IntranetActivityActionEnum action)
+        public virtual string GetPermissionFromTypeAndAction(Enum activityType, IntranetActionEnum action)
         {
             return $"{activityType.ToString()}{action}";
         }
 
-        public virtual bool IsCurrentMemberHasAccess(Enum activityType, IntranetActivityActionEnum action, Guid? activityId = null)
+        public virtual bool IsCurrentMemberHasAccess(Enum activityType, IntranetActionEnum action, Guid? activityId = null)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
 
@@ -70,7 +70,7 @@ namespace Uintra.Core.User.Permissions
             return result;
         }
 
-        public virtual bool IsUserHasAccess(IIntranetMember member, Enum activityType, IntranetActivityActionEnum action, Guid? activityId = null)
+        public virtual bool IsUserHasAccess(IIntranetMember member, Enum activityType, IntranetActionEnum action, Guid? activityId = null)
         {
             if (member == null)
             {

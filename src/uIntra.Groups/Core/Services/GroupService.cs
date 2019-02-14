@@ -7,6 +7,7 @@ using Uintra.Core.Persistence;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
 using Uintra.Groups.Sql;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Groups
 {
@@ -54,11 +55,6 @@ namespace Uintra.Groups
         {
             return GetAll().SingleOrDefault(g => g.Id == id);
         }
-        
-        public IEnumerable<GroupModel> GetAllHided()
-        {
-            return GetAll().Where(g => g.IsHidden);
-        }
 
         public IEnumerable<GroupModel> GetAll()
         {
@@ -73,13 +69,7 @@ namespace Uintra.Groups
 
         public IEnumerable<GroupModel> GetMany(IEnumerable<Guid> groupIds)
         {
-            return GetAllNotHidden().Join(groupIds, g => g.Id, id => id, (g, id) => g);
-        }
-
-        public void UpdateGroupUpdateDate(Guid id)
-        {
-            var group = Get(id);
-            Edit(group);
+            return GetAllNotHidden().Join(groupIds, g => g.Id, identity, (g, _) => g);
         }
 
         public bool CanEdit(Guid groupId, IIntranetMember member)

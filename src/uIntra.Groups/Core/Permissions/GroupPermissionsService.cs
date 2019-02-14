@@ -16,7 +16,7 @@ namespace Uintra.Groups.Permissions
             _oldPermissionsService = oldPermissionsService;
         }
 
-        public bool HasPermission(IRole role, IntranetActivityActionEnum action)
+        public bool HasPermission(IRole role, IntranetActionEnum action)
         {
             var hasPermission = _oldPermissionsService.IsRoleHasPermissions(role, $"Group{action}");
             return hasPermission;

@@ -107,9 +107,9 @@ namespace Compent.Uintra.Core.Bulletins
             FillIndex();
         }
 
-        public override bool CanEdit(IIntranetActivity activity) => CanPerform(activity, IntranetActivityActionEnum.Edit);
+        public override bool CanEdit(IIntranetActivity activity) => CanPerform(activity, IntranetActionEnum.Edit);
 
-        public bool CanDelete(IIntranetActivity cached) => CanPerform(cached, IntranetActivityActionEnum.Delete);
+        public bool CanDelete(IIntranetActivity cached) => CanPerform(cached, IntranetActionEnum.Delete);
 
         public FeedSettings GetFeedSettings()
         {
@@ -138,9 +138,6 @@ namespace Compent.Uintra.Core.Bulletins
                 FillLinkPreview(entity);
             }
         }
-
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected override Bulletin UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
 
         public override Bulletin UpdateActivityCache(Guid id)
         {
@@ -195,7 +192,7 @@ namespace Compent.Uintra.Core.Bulletins
             bulletin.LinkPreviewId = linkPreview?.Id;
         }
 
-        private bool CanPerform(IIntranetActivity cached, IntranetActivityActionEnum action)
+        private bool CanPerform(IIntranetActivity cached, IntranetActionEnum action)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
 

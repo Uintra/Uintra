@@ -52,7 +52,7 @@ namespace Uintra.Core.Web
             model.CanEditOwner = _oldPermissionsService.IsRoleHasPermissions(currentMember.Role, PermissionConstants.CanEditOwner);
             if (model.CanEditOwner)
             {
-                model.Members = GetUsersWithAccess(activityType, IntranetActivityActionEnum.Create);
+                model.Members = GetUsersWithAccess(activityType, IntranetActionEnum.Create);
             }
 
             return PartialView(OwnerEditViewPath, model);
@@ -68,7 +68,7 @@ namespace Uintra.Core.Web
                 });
         }
 
-        protected virtual IEnumerable<IIntranetMember> GetUsersWithAccess(Enum activityType, IntranetActivityActionEnum action)
+        protected virtual IEnumerable<IIntranetMember> GetUsersWithAccess(Enum activityType, IntranetActionEnum action)
         {
 
             var result = _intranetMemberService

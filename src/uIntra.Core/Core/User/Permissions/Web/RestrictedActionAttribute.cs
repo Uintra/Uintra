@@ -12,10 +12,10 @@ namespace Uintra.Core.User.Permissions.Web
     public class RestrictedActionAttribute : ActionFilterAttribute
     {
         private readonly int _activityTypeId;
-        private readonly IntranetActivityActionEnum _action;
+        private readonly IntranetActionEnum _action;
         private const string ActivityIdParameterName = "id";
 
-        public RestrictedActionAttribute(int activityTypeId, IntranetActivityActionEnum action)
+        public RestrictedActionAttribute(int activityTypeId, IntranetActionEnum action)
         {
             _activityTypeId = activityTypeId;
             _action = action;

@@ -196,7 +196,7 @@ namespace Uintra.Groups.Web
             var model = new GroupFeedOverviewModel
             {
                 Tabs = activityTabs,
-                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _oldPermissionsService.IsCurrentMemberHasAccess(tab.Type, IntranetActivityActionEnum.Create)),
+                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _oldPermissionsService.IsCurrentMemberHasAccess(tab.Type, IntranetActionEnum.Create)),
                 CurrentType = tabType,
                 GroupId = groupId,
                 IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentMember)

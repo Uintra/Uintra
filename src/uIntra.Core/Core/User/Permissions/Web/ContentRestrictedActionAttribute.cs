@@ -9,9 +9,9 @@ namespace Uintra.Core.User.Permissions.Web
     public class ContentRestrictedActionAttribute : ActionFilterAttribute
     {
         private readonly Enum _activityType;
-        private readonly IntranetActivityActionEnum _action;
+        private readonly IntranetActionEnum _action;
 
-        public ContentRestrictedActionAttribute(Enum activityType, IntranetActivityActionEnum action)
+        public ContentRestrictedActionAttribute(Enum activityType, IntranetActionEnum action)
         {
             _activityType = activityType;
             _action = action;

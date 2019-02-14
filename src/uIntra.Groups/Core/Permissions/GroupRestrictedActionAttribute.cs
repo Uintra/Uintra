@@ -11,10 +11,10 @@ namespace Uintra.Groups.Permissions
 {
     public class GroupRestrictedActionAttribute : ActionFilterAttribute
     {
-        private readonly IntranetActivityActionEnum _action;
+        private readonly IntranetActionEnum _action;
 
 
-        public GroupRestrictedActionAttribute(IntranetActivityActionEnum action)
+        public GroupRestrictedActionAttribute(IntranetActionEnum action)
         {            
             _action = action;
         }
