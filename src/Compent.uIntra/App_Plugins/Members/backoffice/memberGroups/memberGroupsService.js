@@ -8,7 +8,7 @@
         const permissionBaseUrl = '/umbraco/backoffice/api/permissions/';
 
         self.get = function (memberGroupId) {
-            return $http.get(baseUrl + 'Get?id=' + memberGroupId);
+            return $http.get(baseUrl + 'Get?memberGroupId=' + memberGroupId);
         };
 
         self.create = function (memberGroupName) {

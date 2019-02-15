@@ -4,8 +4,10 @@
     {
         public int IntranetMemberGroupId { get; set; }
         public int ActionId { get; set; }
+        public string ActionName { get; set; }
         public int? ActivityTypeId { get; set; }
-        public bool IsAllowed { get; set; }
-        public bool IsEnabled { get; set; }
+        public string ActivityTypeName { get; set; }
+        public bool Allowed { get; set; }
+        public bool Enabled { get; set; }
     }
 }

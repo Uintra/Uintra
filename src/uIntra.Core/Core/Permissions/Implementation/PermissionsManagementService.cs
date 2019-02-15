@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http;
 using LanguageExt;
 using Uintra.Core.Extensions;
 using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.Models;
-using LanguageExt;
 using static LanguageExt.Prelude;
 
 namespace Uintra.Core.Permissions.Implementation
@@ -25,6 +25,7 @@ namespace Uintra.Core.Permissions.Implementation
             _permissionSettingsSchema = permissionSettingsSchema;
         }
 
+        [HttpGet]
         public IEnumerable<PermissionManagementModel> GetGroupManagement(IntranetMemberGroup group)
         {
             var basePerms = _actionPermissionsService
@@ -49,6 +50,7 @@ namespace Uintra.Core.Permissions.Implementation
             return settings;
         }
 
+        [HttpPatch]
         public Unit Save(PermissionManagementModel update)
         {
             var basePermUpdate = BasePermissionUpdateModel.Of(update.Group, update.SettingValues, update.SettingIdentity.ActionType);

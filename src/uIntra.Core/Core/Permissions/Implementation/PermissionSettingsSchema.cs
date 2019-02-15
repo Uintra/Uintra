@@ -45,7 +45,7 @@ namespace Uintra.Core.Permissions.Implementation
             var baseActions = allActions.Except(activityActionsArray);
 
             var baseSettings = baseActions
-                .Select(x => PermissionSettingIdentity.Of(x, None));
+                .Select(baseAction => PermissionSettingIdentity.Of(baseAction, None));
 
             var activitySettings = activityActionsArray
                 .CartesianProduct(activityTypes)

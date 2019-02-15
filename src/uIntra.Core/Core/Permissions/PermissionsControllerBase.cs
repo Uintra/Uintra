@@ -42,12 +42,13 @@ namespace Uintra.Core.Permissions
         public Unit Save(PermissionViewModel update)
         {
             var mappedUpdate = PermissionManagementModel.Of(
+
                 PermissionSettingIdentity.Of(
                     _intranetActionTypeProvider[update.ActionId],
                     update.ActivityTypeId.ToOption().Map(activityTypeId => _activityTypeProvider[activityTypeId])),
-                PermissionSettingValues.Of(update.IsAllowed, update.IsEnabled),
-                _intranetMemberGroupProvider[update.IntranetMemberGroupId]
-            );
+
+                PermissionSettingValues.Of(update.Allowed, update.Enabled),
+                _intranetMemberGroupProvider[update.IntranetMemberGroupId]);
 
             _permissionsManagementService.Save(mappedUpdate);
 
