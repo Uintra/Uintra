@@ -49,7 +49,9 @@ namespace Uintra.Core.Permissions.Implementation
         public BasePermissionModel Save(BasePermissionUpdateModel update)
         {
             var storedEntity = _permissionsRepository
-                .FindOrNone(AndAlso(GroupIs(update.Group), ActionIs(update.Action)));
+                //.FindOrNone(AndAlso(GroupIs(update.Group), ActionIs(update.Action)));
+                .FindOrNone(i => i.IntranetMemberGroupId == update.Group.Id &&
+                    i.IntranetActionId == (int)(object)update.Action);
 
             var actualEntity = storedEntity.Match(
                 entity =>
@@ -66,7 +68,8 @@ namespace Uintra.Core.Permissions.Implementation
                 });
 
             var actualMappedEntity = Map(actualEntity);
-            var oldCache = _cacheService.Get<IReadOnlyList<BasePermissionModel>>(BasePermissionCacheKey);
+            var oldCache = _cacheService.Get<IReadOnlyList<BasePermissionModel>>(BasePermissionCacheKey) ??
+                new List<BasePermissionModel>().AsReadOnly();
 
             _cacheService.Set(BasePermissionCacheKey, oldCache.WithUpdatedElement(e => e.Id, actualMappedEntity));
 
@@ -83,6 +86,8 @@ namespace Uintra.Core.Permissions.Implementation
         {
             entity.IntranetMemberGroupId = update.Group.Id;
             entity.IntranetActionId = update.Action.ToInt();
+            entity.IsAllowed = update.SettingValues.IsAllowed;
+            entity.IsEnabled = update.SettingValues.IsEnabled;
 
             return entity;
         }
@@ -92,7 +97,9 @@ namespace Uintra.Core.Permissions.Implementation
             {
                 Id = Guid.NewGuid(),
                 IntranetMemberGroupId = update.Group.Id,
-                IntranetActionId = update.Action.ToInt()
+                IntranetActionId = update.Action.ToInt(),
+                IsAllowed = update.SettingValues.IsAllowed,
+                IsEnabled = update.SettingValues.IsEnabled
             };
 
         public static Expression<Func<PermissionEntity, bool>> GroupIs(IntranetMemberGroup group)

@@ -25,7 +25,7 @@ namespace Compent.Uintra.Persistence.Sql.Migrations
                         IntranetMemberGroupId = c.Int(nullable: false),
                         IntranetActionId = c.Int(nullable: false),
                         IsAllowed = c.Boolean(nullable: false),
-                        IsDisabled = c.Boolean(nullable: false),
+                        IsEnabled = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             

@@ -412,9 +412,11 @@
     <Compile Include="Core\Permissions\Models\ActivityTypePermissionModel.cs" />
     <Compile Include="Core\Permissions\Models\BasePermissionManagementModel.cs" />
     <Compile Include="Core\Permissions\Models\ActivityTypePermissionUpdateModel.cs" />
-    <Compile Include="Core\Permissions\Models\CommentAutoMapperProfile.cs" />
+    <Compile Include="Core\Permissions\AutoMapperProfiles\PermissionsAutoMapperProfile.cs" />
+    <Compile Include="Core\Permissions\Models\GroupPermissionsVIewModel.cs" />
     <Compile Include="Core\Permissions\Models\IntranetMemberGroup.cs" />
     <Compile Include="Core\Permissions\Models\BasePermissionUpdateModel.cs" />
+    <Compile Include="Core\Permissions\Models\MemberGroupViewModel.cs" />
     <Compile Include="Core\Permissions\Models\PermissionManagementModel.cs" />
     <Compile Include="Core\Permissions\Models\PermissionSettingValues.cs" />
     <Compile Include="Core\Permissions\Models\PermissionuUpdateModel.cs" />

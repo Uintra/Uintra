@@ -8,6 +8,7 @@ namespace Uintra.Core.User
     public interface IIntranetMemberService<out T>
         where T : IIntranetMember
     {
+        bool IsCurrentMemberSuperUser { get; }
         T Get(int umbracoId);
         T Get(Guid id);
         T Get(IHaveOwner model);

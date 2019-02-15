@@ -12,6 +12,7 @@
     "~/App_Plugins/Members/member-changes-watcher.controller.js",
     "~/App_Plugins/Members/member.service.js",
     "~/App_Plugins/Members/backoffice/memberGroups/edit.controller.js",
-    "~/App_Plugins/Members/backoffice/memberGroups/delete.controller.js"
+    "~/App_Plugins/Members/backoffice/memberGroups/delete.controller.js",
+    "~/App_Plugins/Members/backoffice/memberGroups/memberGroupsService.js"
   ]
 }

@@ -225,6 +225,7 @@ namespace Compent.Uintra
             kernel.Bind<IIntranetMemberGroupService>().To<IntranetMemberGroupService>().InRequestScope();
             kernel.Bind<IPermissionSettingsSchema>().To<PermissionSettingsSchema>().InSingletonScope();
             kernel.Bind<IPermissionsManagementService>().To<PermissionsManagementService>().InSingletonScope();
+            kernel.Bind<IBasePermissionsService>().To<BasePermissionsService>().InSingletonScope();
 
             // Umbraco
             kernel.Bind<UmbracoContext>().ToMethod(context => CreateUmbracoContext()).InRequestScope();

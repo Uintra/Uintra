@@ -19,28 +19,28 @@ namespace Compent.Uintra.Persistence.Sql.Migrations
         {
             //  This method will be called after migrating to the latest version.
 
-            context.PermissionActivityTypes.AddOrUpdate(
-                pact=>pact.ActivityTypeId,
-                new PermissionActivityTypeEntity()
-                {
-                    Id = Guid.NewGuid(),
-                    ActivityTypeId = PermissionActivityTypeEnum.News.ToInt()
-                },
-                new PermissionActivityTypeEntity()
-                {
-                    Id = Guid.NewGuid(),
-                    ActivityTypeId = PermissionActivityTypeEnum.Events.ToInt()
-                },
-                new PermissionActivityTypeEntity()
-                {
-                    Id = Guid.NewGuid(),
-                    ActivityTypeId = PermissionActivityTypeEnum.Bulletins.ToInt()
-                },
-                new PermissionActivityTypeEntity()
-                {
-                    Id = Guid.NewGuid(),
-                    ActivityTypeId = PermissionActivityTypeEnum.Common.ToInt()
-                });
+            //context.PermissionActivityTypes.AddOrUpdate(
+            //    pact=>pact.ActivityTypeId,
+            //    new PermissionActivityTypeEntity()
+            //    {
+            //        Id = Guid.NewGuid(),
+            //        ActivityTypeId = PermissionActivityTypeEnum.News.ToInt()
+            //    },
+            //    new PermissionActivityTypeEntity()
+            //    {
+            //        Id = Guid.NewGuid(),
+            //        ActivityTypeId = PermissionActivityTypeEnum.Events.ToInt()
+            //    },
+            //    new PermissionActivityTypeEntity()
+            //    {
+            //        Id = Guid.NewGuid(),
+            //        ActivityTypeId = PermissionActivityTypeEnum.Bulletins.ToInt()
+            //    },
+            //    new PermissionActivityTypeEntity()
+            //    {
+            //        Id = Guid.NewGuid(),
+            //        ActivityTypeId = PermissionActivityTypeEnum.Common.ToInt()
+            //    });
 
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

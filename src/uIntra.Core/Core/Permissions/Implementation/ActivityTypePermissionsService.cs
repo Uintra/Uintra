@@ -33,16 +33,26 @@ namespace Uintra.Core.Permissions.Implementation
 
         public Unit Save(ActivityTypePermissionCreateModel createInfo)
         {
-            var createdEntity = CreateEntity(createInfo);
-            _activityTypePermissionRepository.Add(createdEntity);
+            var storedEntity = _activityTypePermissionRepository
+                .FindOrNone(i => i.ActivityTypeId == (int)(object)createInfo.ActivityType &&
+                    i.PermissionEntityId == createInfo.BasePermissionId);
+            var actualEntity = storedEntity.Match(
+                entity =>
+                { },
+                () =>
+                {
+                    var createdEntity = CreateEntity(createInfo);
+                    _activityTypePermissionRepository.Add(createdEntity);
+                    var actualMappedEntity = Map(createdEntity);
 
-            var actualMappedEntity = Map(createdEntity);
+                    var oldCache = _cacheService.Get<IReadOnlyList<ActivityTypePermissionModel>>(BasePermissionCacheKey) ??
+                        new List<ActivityTypePermissionModel>().AsReadOnly();
 
-            var oldCache = _cacheService.Get<IReadOnlyList<ActivityTypePermissionModel>>(BasePermissionCacheKey);
-
-            _cacheService.Set(
-                BasePermissionCacheKey,
-                oldCache.WithUpdatedElement(e => e.Id, actualMappedEntity));
+                    _cacheService.Set(
+                        BasePermissionCacheKey,
+                        oldCache.WithUpdatedElement(e => e.Id, actualMappedEntity));
+                }
+                );
 
             return unit;
         }

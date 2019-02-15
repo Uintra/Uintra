@@ -13,7 +13,7 @@ namespace Compent.Uintra.Persistence.Sql.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201902141817096_Permissions"; }
+            get { return "201902151414109_Permissions"; }
         }
         
         string IMigrationMetadata.Source

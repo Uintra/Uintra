@@ -9,7 +9,7 @@ using Uintra.Core.Jobs.AutoMapperProfiles;
 using Uintra.Core.Location;
 using Uintra.Core.LinkPreview;
 using Uintra.Core.PagePromotion;
-using Uintra.Core.Permissions.Models;
+using Uintra.Core.Permissions;
 using Uintra.Events;
 using Uintra.Groups;
 using Uintra.Navigation;

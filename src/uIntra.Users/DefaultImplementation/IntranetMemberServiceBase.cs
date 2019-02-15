@@ -46,6 +46,15 @@ namespace Uintra.Users
             _intranetUserService = intranetUserService;
         }
 
+        public virtual bool IsCurrentMemberSuperUser
+        {
+            get
+            {
+                var currentMember = GetCurrentMember();
+                return currentMember != null && currentMember.IsSuperUser;
+            }
+        }
+
         public virtual T Get(IHaveOwner model) => Get(model.OwnerId);
 
         public virtual T Get(Guid id) => GetSingle(el => el.Id == id);

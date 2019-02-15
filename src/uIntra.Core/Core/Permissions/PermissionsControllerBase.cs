@@ -1,44 +1,61 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
 using LanguageExt;
 using Uintra.Core.Extensions;
 using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.Models;
 using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.TypeProviders;
-using Umbraco.Web.Mvc;
+using Uintra.Core.User;
+using Umbraco.Web.WebApi;
 using static LanguageExt.Prelude;
 
 namespace Uintra.Core.Permissions
 {    
-    public abstract class PermissionsControllerBase : SurfaceController
+    public abstract class PermissionsControllerBase : UmbracoAuthorizedApiController
     {
         private readonly IPermissionsManagementService _permissionsManagementService;
         private readonly IIntranetMemberGroupProvider _intranetMemberGroupProvider;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IIntranetActionTypeProvider _intranetActionTypeProvider;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
         protected PermissionsControllerBase(
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
             IPermissionsManagementService permissionsManagementService,
             IActivityTypeProvider activityTypeProvider,
-            IIntranetActionTypeProvider intranetActionTypeProvider)
+            IIntranetActionTypeProvider intranetActionTypeProvider,
+            IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
             _intranetMemberGroupProvider = intranetMemberGroupProvider;
             _permissionsManagementService = permissionsManagementService;
             _activityTypeProvider = activityTypeProvider;
             _intranetActionTypeProvider = intranetActionTypeProvider;
+            _intranetMemberService = intranetMemberService;
         }
 
-        public IEnumerable<PermissionViewModel> Get(int memberGroupId)
+        [HttpGet]
+        public GroupPermissionsViewModel Get(int memberGroupId)
         {
+            var isSuperUser = _intranetMemberService.IsCurrentMemberSuperUser;
             var memberGroup = _intranetMemberGroupProvider[memberGroupId];
             var settings = _permissionsManagementService
                 .GetGroupManagement(memberGroup)
+                .Where(i => i.SettingValues.IsAllowed || isSuperUser)
                 .Map<IEnumerable<PermissionViewModel>>();
 
-            return settings;
+            var model = new GroupPermissionsViewModel()
+            {
+                IsSuperUser = isSuperUser,
+                Permissions = settings,
+                MemberGroup = memberGroup.Map<MemberGroupViewModel>()
+            };
+
+            return model;
         }
 
+        [HttpPost]
         public Unit Save(PermissionUpdateModel update)
         {
             var settingIdentity = PermissionSettingIdentity.Of(

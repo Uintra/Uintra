@@ -19,6 +19,6 @@ namespace Uintra.Core.Permissions.Sql
 
         public bool IsAllowed { get; set; }
 
-        public bool IsDisabled { get; set; }
+        public bool IsEnabled { get; set; }
     }
 }

@@ -1,7 +1,7 @@
-﻿angular.module('umbraco').controller('memberGroups.deleteController', function ($scope, $http, $routeParams, $location, navigationService) {
+﻿angular.module('umbraco').controller('memberGroups.deleteController', function ($scope, memberGroupsService, $http, $routeParams, $location, navigationService) {
 
     $scope.performDelete = function () {
-        $http.post('/umbraco/backoffice/api/MemberGroup/Delete', { id: parseInt($scope.dialogOptions.currentNode.id) })
+        memberGroupsService.delete($scope.dialogOptions.currentNode.id)
             .success(function (response) {
                 navigationService.hideDialog();
                 navigationService.reloadNode($scope.dialogOptions.currentNode.parent());

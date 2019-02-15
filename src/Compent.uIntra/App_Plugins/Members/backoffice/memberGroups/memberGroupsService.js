@@ -7,9 +7,9 @@
         const baseUrl = '/umbraco/backoffice/api/MemberGroup/';
         const permissionBaseUrl = '/umbraco/backoffice/api/permissions/';
 
-        self.get = function (memberGroupId) {
-            return $http.get(baseUrl + 'Get?memberGroupId=' + memberGroupId);
-        };
+        //self.get = function (memberGroupId) {
+        //    return $http.get(baseUrl + 'Get?id=' + memberGroupId);
+        //};
 
         self.create = function (memberGroupName) {
             return $http.post(baseUrl + 'Create', { name: memberGroupName });
@@ -24,20 +24,24 @@
         };
 
         self.getPermissions = function(memberGroupId) {
-            return $http.get(permissionBaseUrl + 'get?id=' + memberGroupId);
+            return $http.get(permissionBaseUrl + 'get?memberGroupId=' + memberGroupId);
         };
 
-        self.isSuperUser = function () {
-            return $http.get(baseUrl + 'IsSuperUser');
+        self.toggle = function (permission) {
+            return $http.post(permissionBaseUrl + 'Save', permission);
         };
 
-        self.toggleEnabled = function (permission) {
+        //self.isSuperUser = function () {
+        //    return $http.get(baseUrl + 'IsSuperUser');
+        //};
 
-        };
-
-        self.toggleAllowed = function (permission) {
-
-        };
+        //self.toggleEnabled = function (permission) {
+        //
+        //};
+        
+        //self.toggleAllowed = function (permission) {
+        //
+        //};
     };
 
     service.$inject = ['$http'];

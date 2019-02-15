@@ -1,6 +1,6 @@
 ﻿namespace Uintra.Core.Permissions.Models
 {
-    public struct IntranetMemberGroup
+    public class IntranetMemberGroup
     {      
         public int Id { get; }
         public string Name { get; }

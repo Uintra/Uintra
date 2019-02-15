@@ -43,7 +43,7 @@ namespace Uintra.Users.Web
         {
             var memberGroups = Services.MemberGroupService.GetAll();
             var nodeCollection = new TreeNodeCollection();
-            foreach (var memberGroup in memberGroups)
+            foreach (var memberGroup in memberGroups.OrderBy(i => i.Name))
             {
                 var node = CreateTreeNode(memberGroup.Id.ToString(), id, queryStrings, memberGroup.Name, "icon-users", false);
                 nodeCollection.Add(node);

@@ -2,6 +2,7 @@
 using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
 
 namespace Compent.Uintra.Controllers.Api
 {
@@ -11,8 +12,9 @@ namespace Compent.Uintra.Controllers.Api
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
             IPermissionsManagementService permissionsManagementService,
             IActivityTypeProvider activityTypeProvider,
-            IIntranetActionTypeProvider intranetActionTypeProvider) 
-            : base(intranetMemberGroupProvider, permissionsManagementService, activityTypeProvider, intranetActionTypeProvider)
+            IIntranetActionTypeProvider intranetActionTypeProvider,
+            IIntranetMemberService<IIntranetMember> intranetMemberService) 
+            : base(intranetMemberGroupProvider, permissionsManagementService, activityTypeProvider, intranetActionTypeProvider, intranetMemberService)
         {
         }
     }

@@ -41,7 +41,7 @@ namespace Uintra.Core.Extensions
         {
             var elementIdentity = identitySelector(element);
 
-            return source.Where(e => Equals(identitySelector(e), elementIdentity))
+            return source.Where(e => !Equals(identitySelector(e), elementIdentity))
                 .Append(element)
                 .ToList()
                 .AsReadOnly();

@@ -28,7 +28,7 @@ namespace Uintra.Core.Permissions.Models
                 groupDictionary[entity.IntranetMemberGroupId],
                 actionDictionary[entity.IntranetActionId],
                 entity.IsAllowed,
-                entity.IsDisabled);
+                entity.IsEnabled);
 
         public static BasePermissionModel Of(PermissionManagementModel permissionManagementModel) =>
             new BasePermissionModel(
