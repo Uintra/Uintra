@@ -39,16 +39,15 @@ namespace Uintra.Core.Permissions
             return settings;
         }
 
-        public Unit Save(PermissionViewModel update)
+        public Unit Save(PermissionUpdateModel update)
         {
-            var mappedUpdate = PermissionManagementModel.Of(
+            var settingIdentity = PermissionSettingIdentity.Of(
+                _intranetActionTypeProvider[update.ActionId],
+                update.ActivityTypeId.ToOption().Map(activityTypeId => _activityTypeProvider[activityTypeId]));
+            var settingValue = PermissionSettingValues.Of(update.Allowed, update.Enabled);
+            var targetGroup = _intranetMemberGroupProvider[update.IntranetMemberGroupId];
 
-                PermissionSettingIdentity.Of(
-                    _intranetActionTypeProvider[update.ActionId],
-                    update.ActivityTypeId.ToOption().Map(activityTypeId => _activityTypeProvider[activityTypeId])),
-
-                PermissionSettingValues.Of(update.Allowed, update.Enabled),
-                _intranetMemberGroupProvider[update.IntranetMemberGroupId]);
+            var mappedUpdate = PermissionManagementModel.Of(settingIdentity, settingValue, targetGroup);
 
             _permissionsManagementService.Save(mappedUpdate);
 

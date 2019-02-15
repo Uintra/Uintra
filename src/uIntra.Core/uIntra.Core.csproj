@@ -417,6 +417,7 @@
     <Compile Include="Core\Permissions\Models\BasePermissionUpdateModel.cs" />
     <Compile Include="Core\Permissions\Models\PermissionManagementModel.cs" />
     <Compile Include="Core\Permissions\Models\PermissionSettingValues.cs" />
+    <Compile Include="Core\Permissions\Models\PermissionuUpdateModel.cs" />
     <Compile Include="Core\Permissions\Models\PermissionViewModel.cs" />
     <Compile Include="Core\Permissions\Models\BasePermissionModel.cs" />
     <Compile Include="Core\Permissions\PermissionActivityTypeEnum.cs" />
