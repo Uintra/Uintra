@@ -18,7 +18,8 @@ namespace Uintra.Users
             var role = GetAll().SingleOrDefault(r => r.Name == name);
             if (role == null)
             {
-                throw new Exception($"Can't map group name {name} to IntranetUserRole");
+                return new Role() { Name = name };
+                //throw new Exception($"Can't map group name {name} to IntranetUserRole");
             }
 
             return role;

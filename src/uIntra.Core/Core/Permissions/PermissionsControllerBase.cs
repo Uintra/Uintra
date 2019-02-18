@@ -40,7 +40,7 @@ namespace Uintra.Core.Permissions
         {
             var isSuperUser = _intranetMemberService.IsCurrentMemberSuperUser;
             var memberGroup = _intranetMemberGroupProvider[memberGroupId];
-            var settings = _permissionsManagementService
+            var permissions = _permissionsManagementService
                 .GetGroupManagement(memberGroup)
                 .Where(i => i.SettingValues.IsAllowed || isSuperUser)
                 .Map<IEnumerable<PermissionViewModel>>();
@@ -48,7 +48,7 @@ namespace Uintra.Core.Permissions
             var model = new GroupPermissionsViewModel()
             {
                 IsSuperUser = isSuperUser,
-                Permissions = settings,
+                Permissions = permissions,
                 MemberGroup = memberGroup.Map<MemberGroupViewModel>()
             };
 

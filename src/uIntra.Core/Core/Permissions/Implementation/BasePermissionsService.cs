@@ -38,9 +38,11 @@ namespace Uintra.Core.Permissions.Implementation
 
         public IReadOnlyCollection<BasePermissionModel> GetAll()
         {
-            return _cacheService.GetOrSet(
-                BasePermissionCacheKey,
-                () => _permissionsRepository.GetAll().Apply(MapAll));
+            //return _cacheService.GetOrSet(
+            //    BasePermissionCacheKey,
+            //    () => _permissionsRepository.GetAll().Apply(MapAll));
+
+            return _permissionsRepository.GetAll().Apply(MapAll);
         }
 
         private ReadOnlyCollection<BasePermissionModel> MapAll(IEnumerable<PermissionEntity> entities) =>

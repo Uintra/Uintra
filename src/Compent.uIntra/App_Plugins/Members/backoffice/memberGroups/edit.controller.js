@@ -1,14 +1,5 @@
 ﻿var app = angular.module('umbraco');
 
-app.filter('groupBy', function ($parse) {
-    return _.memoize(function (items, field) {
-        var getter = $parse(field);
-        return _.groupBy(items, function (item) {
-            return getter(item);
-        });
-    });
-});
-
 app.controller('memberGroups.editController',
     function (memberGroupsService, $routeParams, notificationsService, $location, navigationService, $scope, $http, currentUserResource, usersResource, editorState, userService) {
 
@@ -25,7 +16,7 @@ app.controller('memberGroups.editController',
             memberGroupsService.getPermissions(memberGroupId)
                 .success(function (groupPermissionModel) {
                     vm.memberGroup = groupPermissionModel.memberGroup;
-                    vm.permissions = groupPermissionModel.permissions;
+                    vm.permissions = groupByActivityTypeName(groupPermissionModel.permissions);
                     vm.isSuperUser = groupPermissionModel.isSuperUser;
                     syncTree(memberGroupId);
                 });
@@ -33,7 +24,7 @@ app.controller('memberGroups.editController',
             //$http.get('/umbraco/backoffice/api/MemberGroup/Get?id=' + memberGroupId).success(function (response) {
             //    vm.memberGroup = response;
             //});
-            
+
             //$http.get('/umbraco/backoffice/api/MemberGroup/IsSuperUser')
             //    .success(function (response) {
             //        vm.isSuperUser = response;
@@ -55,6 +46,12 @@ app.controller('memberGroups.editController',
             //        ];
             //    });
 
+        }
+
+        function groupByActivityTypeName(items) {
+            return _.groupBy(items, function (item) {
+                return item.activityTypeName;
+            });
         }
 
         vm.property = {

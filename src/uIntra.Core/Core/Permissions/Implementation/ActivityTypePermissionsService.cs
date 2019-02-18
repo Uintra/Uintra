@@ -59,6 +59,8 @@ namespace Uintra.Core.Permissions.Implementation
 
         public IEnumerable<ActivityTypePermissionModel> GetAll()
         {
+            //TODO Add cache
+
             var entities = _activityTypePermissionRepository.GetAll();
 
             var models = entities.Select(Map);

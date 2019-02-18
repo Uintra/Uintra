@@ -436,7 +436,7 @@ namespace Compent.Uintra
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InSingletonScope();
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
             kernel.Bind<IIntranetActionTypeProvider>().To<IntranetActionTypeProvider>().InSingletonScope(); 
-            kernel.Bind<IIntranetMemberGroupProvider>().To<IntranetMemberGroupProvider>().InSingletonScope();
+            kernel.Bind<IIntranetMemberGroupProvider>().To<IntranetMemberGroupProvider>().InRequestScope();
             
 
             kernel.Bind<IGroupService>().To<GroupService>().InRequestScope();
