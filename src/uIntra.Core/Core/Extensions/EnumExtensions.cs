@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LanguageExt;
+using System;
 using System.Linq;
 using System.Reflection;
 
@@ -8,6 +9,10 @@ namespace Uintra.Core.Extensions
     {
 
         public static int ToInt(this Enum enm) => (int) (object) enm;
+
+        public static int? ToNullableInt(this Enum enm) => (int?)(object)enm;
+
+        public static int? ToNullableInt(this Option<Enum> opt) => opt.Map(ToInt).ToNullable();
 
         public static T? ToEnum<T>(this int a)
             where T : struct

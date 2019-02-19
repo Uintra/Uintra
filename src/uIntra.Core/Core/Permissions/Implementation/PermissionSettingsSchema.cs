@@ -30,11 +30,11 @@ namespace Uintra.Core.Permissions.Implementation
         }
 
 
-        public PermissionManagementModel GetDefault(PermissionSettingIdentity settingIdentity, IntranetMemberGroup group) =>
+        public BasePermissionModel GetDefault(PermissionSettingIdentity settingIdentity, IntranetMemberGroup group) =>
             _defaultOverrides
                 .ItemOrNone(settingIdentity)
                 .IfNone(() => PermissionSettingValues.Of(GlobalIsAllowedDefault, GlobalIsEnabledDefault))
-                .Apply(settingValues => PermissionManagementModel.Of(settingIdentity, settingValues, group));
+                .Apply(settingValues => BasePermissionModel.Of(settingIdentity, settingValues, group));
 
         public static PermissionSettingIdentity[] BuildSettings(
             IEnumerable<Enum> allActions,

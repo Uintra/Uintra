@@ -111,7 +111,7 @@ app.controller('memberGroups.editController',
                 memberGroupsService.create(vm.memberGroup.name)
                     .success(function (createdMemberGroupId) {
                         syncTree(createdMemberGroupId);
-                        $location.url("/" + $routeParams.section + "/" + $routeParams.tree + "/" + $routeParams.method + "/" + response);
+                        $location.url("/" + $routeParams.section + "/" + $routeParams.tree + "/" + $routeParams.method + "/" + createdMemberGroupId);
                     });
                 return;
             }

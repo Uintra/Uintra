@@ -7,23 +7,28 @@ namespace Uintra.Core.Permissions.TypeProviders
 {
     public class IntranetMemberGroupProvider: IIntranetMemberGroupProvider
     {
+        private readonly IIntranetMemberGroupService _groupService;
+
         public IntranetMemberGroup this[int typeId] => IntTypeDictionary[typeId];
 
         public IntranetMemberGroup this[string name] => StringTypeDictionary[name];
 
-        public IntranetMemberGroup[] All { get; }
+        //public IntranetMemberGroup[] All { get; }
 
-        public IDictionary<int, IntranetMemberGroup> IntTypeDictionary { get; }
+        public IntranetMemberGroup[] All { get { return _groupService.GetAll(); } }
 
-        public IDictionary<string, IntranetMemberGroup> StringTypeDictionary { get; }
+        public IDictionary<int, IntranetMemberGroup> IntTypeDictionary { get { return All.ToDictionary(role => role.Id); } }
+
+        public IDictionary<string, IntranetMemberGroup> StringTypeDictionary { get { return All.ToDictionary(role => role.Name); } }
 
 
         public IntranetMemberGroupProvider(IIntranetMemberGroupService groupService)
         {
-            All = groupService.GetAll();
+            //All = groupService.GetAll();
+            _groupService = groupService;
 
-            IntTypeDictionary = All.ToDictionary(role => role.Id);
-            StringTypeDictionary = All.ToDictionary(role => role.Name);
+            //IntTypeDictionary = All.ToDictionary(role => role.Id);
+            //StringTypeDictionary = All.ToDictionary(role => role.Name);
         }
     }
 }

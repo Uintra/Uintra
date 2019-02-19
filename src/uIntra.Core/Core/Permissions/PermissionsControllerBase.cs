@@ -15,7 +15,7 @@ namespace Uintra.Core.Permissions
 {    
     public abstract class PermissionsControllerBase : UmbracoAuthorizedApiController
     {
-        private readonly IPermissionsManagementService _permissionsManagementService;
+        private readonly IBasePermissionsService _actionPermissionsService;
         private readonly IIntranetMemberGroupProvider _intranetMemberGroupProvider;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IIntranetActionTypeProvider _intranetActionTypeProvider;
@@ -23,13 +23,13 @@ namespace Uintra.Core.Permissions
 
         protected PermissionsControllerBase(
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
-            IPermissionsManagementService permissionsManagementService,
+            IBasePermissionsService actionPermissionsService,
             IActivityTypeProvider activityTypeProvider,
             IIntranetActionTypeProvider intranetActionTypeProvider,
             IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
             _intranetMemberGroupProvider = intranetMemberGroupProvider;
-            _permissionsManagementService = permissionsManagementService;
+            _actionPermissionsService = actionPermissionsService;
             _activityTypeProvider = activityTypeProvider;
             _intranetActionTypeProvider = intranetActionTypeProvider;
             _intranetMemberService = intranetMemberService;
@@ -40,9 +40,10 @@ namespace Uintra.Core.Permissions
         {
             var isSuperUser = _intranetMemberService.IsCurrentMemberSuperUser;
             var memberGroup = _intranetMemberGroupProvider[memberGroupId];
-            var permissions = _permissionsManagementService
-                .GetGroupManagement(memberGroup)
-                .Where(i => i.SettingValues.IsAllowed || isSuperUser)
+
+            var permissions = _actionPermissionsService
+                .GetForGroup(memberGroup)
+                .Where(i => i.IsAllowed || isSuperUser)
                 .Map<IEnumerable<PermissionViewModel>>();
 
             var model = new GroupPermissionsViewModel()
@@ -64,9 +65,8 @@ namespace Uintra.Core.Permissions
             var settingValue = PermissionSettingValues.Of(update.Allowed, update.Enabled);
             var targetGroup = _intranetMemberGroupProvider[update.IntranetMemberGroupId];
 
-            var mappedUpdate = PermissionManagementModel.Of(settingIdentity, settingValue, targetGroup);
-
-            _permissionsManagementService.Save(mappedUpdate);
+            var mappedUpdate = BasePermissionUpdateModel.Of(targetGroup, settingValue, settingIdentity);
+            _actionPermissionsService.Save(mappedUpdate);
 
             return unit;
         }

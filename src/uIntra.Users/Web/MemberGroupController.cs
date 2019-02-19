@@ -21,12 +21,6 @@ namespace Uintra.Users.Web
             _intranetMemberService = intranetMemberService;
         }
 
-        public MemberGroupViewModel Get(int id)
-        {
-            var memberGroup = Services.MemberGroupService.GetById(id);
-            return new MemberGroupViewModel() { Id = memberGroup.Id, Name = memberGroup.Name };
-        }
-
         [HttpPost]
         public int Create(MemberGroupCreateModel model)
         {
@@ -50,15 +44,6 @@ namespace Uintra.Users.Web
             var memberGroup = Services.MemberGroupService.GetById(model.Id);
             Services.MemberGroupService.Delete(memberGroup);
             return true;
-        }
-
-        [HttpGet]
-        public bool IsSuperUser()
-        {
-            var currentMember = _intranetMemberService.GetCurrentMember();
-            return currentMember.IsSuperUser;
-            //var relatedUser = currentMember.RelatedUser;
-            //return relatedUser == null ? false : relatedUser.IsSuperUser;
         }
     }
 }

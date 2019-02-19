@@ -17,6 +17,8 @@ namespace Uintra.Core.Permissions.Sql
 
         public int IntranetActionId { get; set; }
 
+        public int? ActivityTypeId { get; set; }
+
         public bool IsAllowed { get; set; }
 
         public bool IsEnabled { get; set; }

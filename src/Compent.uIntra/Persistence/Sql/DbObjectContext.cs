@@ -64,7 +64,6 @@ namespace Compent.Uintra.Persistence.Sql
         public DbSet<VideoConvertationLog> VideoConvertationLog { get; set; }
 
         public DbSet<PermissionEntity>  Permissions{ get; set; }
-        public DbSet<PermissionActivityTypeEntity> PermissionActivityTypes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -85,6 +85,7 @@ using Uintra.Core.PagePromotion;
 using Uintra.Core.Permissions.Implementation;
 using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.TypeProviders;
+using Uintra.Core.Permissions.UmbracoEvents;
 using Uintra.Core.Persistence;
 using Uintra.Core.Providers;
 using Uintra.Core.TypeProviders;
@@ -221,10 +222,8 @@ namespace Compent.Uintra
 
             //permissions
 
-            kernel.Bind<IActivityTypePermissionsService>().To<ActivityTypePermissionsService>().InRequestScope();
-            kernel.Bind<IIntranetMemberGroupService>().To<IntranetMemberGroupService>().InRequestScope();
+            kernel.Bind<IIntranetMemberGroupService>().To<IntranetMemberGroupService>().InSingletonScope();
             kernel.Bind<IPermissionSettingsSchema>().To<PermissionSettingsSchema>().InSingletonScope();
-            kernel.Bind<IPermissionsManagementService>().To<PermissionsManagementService>().InSingletonScope();
             kernel.Bind<IBasePermissionsService>().To<BasePermissionsService>().InSingletonScope();
 
             // Umbraco
@@ -436,7 +435,7 @@ namespace Compent.Uintra
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InSingletonScope();
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
             kernel.Bind<IIntranetActionTypeProvider>().To<IntranetActionTypeProvider>().InSingletonScope(); 
-            kernel.Bind<IIntranetMemberGroupProvider>().To<IntranetMemberGroupProvider>().InRequestScope();
+            kernel.Bind<IIntranetMemberGroupProvider>().To<IntranetMemberGroupProvider>().InSingletonScope();
             
 
             kernel.Bind<IGroupService>().To<GroupService>().InRequestScope();
@@ -466,6 +465,7 @@ namespace Compent.Uintra
             kernel.Bind<IUmbracoContentPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
             kernel.Bind<IUmbracoContentUnPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
             kernel.Bind<IUmbracoMediaSavedEventService>().To<VideoConvertEventService>().InRequestScope();
+            kernel.Bind<IUmbracoMemberGroupDeletingEventService>().To<UmbracoMemberGroupEventService>().InRequestScope();
 
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
 

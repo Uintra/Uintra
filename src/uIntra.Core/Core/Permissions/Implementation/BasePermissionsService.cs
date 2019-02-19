@@ -11,7 +11,9 @@ using Uintra.Core.Permissions.Models;
 using Uintra.Core.Permissions.Sql;
 using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.Persistence;
+using Uintra.Core.TypeProviders;
 using static Uintra.Core.Extensions.EnumerableExtensions;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Core.Permissions.Implementation
 {
@@ -22,18 +24,24 @@ namespace Uintra.Core.Permissions.Implementation
         private readonly ISqlRepository<PermissionEntity> _permissionsRepository;
         private readonly IIntranetActionTypeProvider _intranetActionTypeProvider;
         private readonly IIntranetMemberGroupProvider _intranetMemberGroupProvider;
+        private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly ICacheService _cacheService;
+        private readonly IPermissionSettingsSchema _permissionSettingsSchema;
 
         public BasePermissionsService(
             ISqlRepository<PermissionEntity> permissionsRepository,
             IIntranetActionTypeProvider intranetActionProvider,
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
-            ICacheService cacheService)
+            IActivityTypeProvider activityTypeProvider,
+            ICacheService cacheService,
+            IPermissionSettingsSchema permissionSettingsSchema)
         {
             _permissionsRepository = permissionsRepository;
             _intranetActionTypeProvider = intranetActionProvider;
             _intranetMemberGroupProvider = intranetMemberGroupProvider;
+            _activityTypeProvider = activityTypeProvider;
             _cacheService = cacheService;
+            _permissionSettingsSchema = permissionSettingsSchema;
         }
 
         public IReadOnlyCollection<BasePermissionModel> GetAll()
@@ -41,8 +49,21 @@ namespace Uintra.Core.Permissions.Implementation
             //return _cacheService.GetOrSet(
             //    BasePermissionCacheKey,
             //    () => _permissionsRepository.GetAll().Apply(MapAll));
-
             return _permissionsRepository.GetAll().Apply(MapAll);
+        }
+
+        public IEnumerable<BasePermissionModel> GetForGroup(IntranetMemberGroup group)
+        {
+            var storedPerms = GetAll().Where(i => i.Group.Id == group.Id);
+
+            var settings = _permissionSettingsSchema.Settings
+                .Select(settingIdentity => Optional(storedPerms.FirstOrDefault(i =>
+                    i.ActionType.Equals(settingIdentity.ActionType) &&
+                    i.ActivityType == settingIdentity.ActivityType &&
+                    i.Group.Id == group.Id))
+                    .IfNone(() => _permissionSettingsSchema.GetDefault(settingIdentity, group)));
+
+            return settings;
         }
 
         private ReadOnlyCollection<BasePermissionModel> MapAll(IEnumerable<PermissionEntity> entities) =>
@@ -50,10 +71,13 @@ namespace Uintra.Core.Permissions.Implementation
 
         public BasePermissionModel Save(BasePermissionUpdateModel update)
         {
+            var intranetActionId = update.Action.ToInt();
+            var activityTypeId = update.ActivityType.ToNullableInt();
             var storedEntity = _permissionsRepository
                 //.FindOrNone(AndAlso(GroupIs(update.Group), ActionIs(update.Action)));
                 .FindOrNone(i => i.IntranetMemberGroupId == update.Group.Id &&
-                    i.IntranetActionId == (int)(object)update.Action);
+                    i.IntranetActionId == intranetActionId &&
+                    i.ActivityTypeId == activityTypeId);
 
             var actualEntity = storedEntity.Match(
                 entity =>
@@ -78,16 +102,20 @@ namespace Uintra.Core.Permissions.Implementation
             return actualMappedEntity;
         }
 
+        public void Delete(int memberGroupId)
+        {
+            _permissionsRepository.Delete(i => i.IntranetMemberGroupId == memberGroupId);
+        }
+
         protected BasePermissionModel Map(PermissionEntity entity) =>
             BasePermissionModel.Of(
                 _intranetMemberGroupProvider.IntTypeDictionary,
                 _intranetActionTypeProvider.IntTypeDictionary,
+                _activityTypeProvider.IntTypeDictionary,
                 entity);
 
         public static PermissionEntity UpdateEntity(PermissionEntity entity, BasePermissionUpdateModel update)
         {
-            entity.IntranetMemberGroupId = update.Group.Id;
-            entity.IntranetActionId = update.Action.ToInt();
             entity.IsAllowed = update.SettingValues.IsAllowed;
             entity.IsEnabled = update.SettingValues.IsEnabled;
 
@@ -100,20 +128,21 @@ namespace Uintra.Core.Permissions.Implementation
                 Id = Guid.NewGuid(),
                 IntranetMemberGroupId = update.Group.Id,
                 IntranetActionId = update.Action.ToInt(),
+                ActivityTypeId = update.ActivityType.ToNullableInt(),
                 IsAllowed = update.SettingValues.IsAllowed,
                 IsEnabled = update.SettingValues.IsEnabled
             };
 
-        public static Expression<Func<PermissionEntity, bool>> GroupIs(IntranetMemberGroup group)
-        {
-            var groupId = group.Id;
-            return entity => entity.IntranetMemberGroupId == groupId;
-        }
+        //public static Expression<Func<PermissionEntity, bool>> GroupIs(IntranetMemberGroup group)
+        //{
+        //    var groupId = group.Id;
+        //    return entity => entity.IntranetMemberGroupId == groupId;
+        //}
 
-        public static Expression<Func<PermissionEntity, bool>> ActionIs(Enum action)
-        {
-            var actionId = action.ToInt();
-            return entity => entity.IntranetMemberGroupId == actionId;
-        }
+        //public static Expression<Func<PermissionEntity, bool>> ActionIs(Enum action)
+        //{
+        //    var actionId = action.ToInt();
+        //    return entity => entity.IntranetMemberGroupId == actionId;
+        //}
     }
 }

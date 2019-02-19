@@ -7,6 +7,8 @@ namespace Uintra.Core.Permissions.Interfaces
     public interface IBasePermissionsService
     {
         IReadOnlyCollection<BasePermissionModel> GetAll();
+        IEnumerable<BasePermissionModel> GetForGroup(IntranetMemberGroup group);
         BasePermissionModel Save(BasePermissionUpdateModel update);
+        void Delete(int memberGroupId);
     }
 }
