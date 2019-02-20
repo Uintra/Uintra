@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Http;
 using LanguageExt;
 using Uintra.Core.Extensions;
-using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.Models;
 using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.TypeProviders;

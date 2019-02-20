@@ -8,6 +8,5 @@
         Delete,
         CanEditOwner,
         GroupCreate
-
     }
 }

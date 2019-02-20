@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LanguageExt;
 using Uintra.Core.Extensions;
-using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions;
 using Uintra.Core.Permissions.Models;
 using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.TypeProviders;

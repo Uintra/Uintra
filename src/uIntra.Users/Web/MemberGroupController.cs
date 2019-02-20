@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http;
+﻿using System.Web.Http;
+using Uintra.Core.Permissions;
 using Uintra.Core.User;
 using Uintra.Users.Core.Models;
-using Umbraco.Core.Models;
-using Umbraco.Web.Editors;
 using Umbraco.Web.WebApi;
 
 namespace Uintra.Users.Web
@@ -15,34 +9,32 @@ namespace Uintra.Users.Web
     public class MemberGroupController : UmbracoAuthorizedApiController
     {
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberGroupService _intranetMemberGroupService;
 
-        public MemberGroupController(IIntranetMemberService<IIntranetMember> intranetMemberService)
+        public MemberGroupController(IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberGroupService intranetMemberGroupService)
         {
             _intranetMemberService = intranetMemberService;
+            _intranetMemberGroupService = intranetMemberGroupService;
         }
 
         [HttpPost]
         public int Create(MemberGroupCreateModel model)
         {
-            Services.MemberGroupService.Save(new MemberGroup() { Name = model.Name });
-            return Services.MemberGroupService.GetByName(model.Name).Id;
+            return _intranetMemberGroupService.Create(model.Name);
         }
 
         [HttpPost]
         public bool Save(MemberGroupViewModel model)
         {
-
-            var memberGroup = Services.MemberGroupService.GetById(model.Id);
-            memberGroup.Name = model.Name;
-            Services.MemberGroupService.Save(memberGroup);
+            _intranetMemberGroupService.Save(model.Id, model.Name);
             return true;
         }
 
         [HttpPost]
         public bool Delete(MemberGroupDeleteModel model)
         {
-            var memberGroup = Services.MemberGroupService.GetById(model.Id);
-            Services.MemberGroupService.Delete(memberGroup);
+            _intranetMemberGroupService.Delete(model.Id);
             return true;
         }
     }

@@ -6,7 +6,6 @@ using System.Linq.Expressions;
 using LanguageExt;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
-using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.Models;
 using Uintra.Core.Permissions.Sql;
 using Uintra.Core.Permissions.TypeProviders;
@@ -46,10 +45,9 @@ namespace Uintra.Core.Permissions.Implementation
 
         public IReadOnlyCollection<BasePermissionModel> GetAll()
         {
-            //return _cacheService.GetOrSet(
-            //    BasePermissionCacheKey,
-            //    () => _permissionsRepository.GetAll().Apply(MapAll));
-            return _permissionsRepository.GetAll().Apply(MapAll);
+            return _cacheService.GetOrSet(
+                BasePermissionCacheKey,
+                () => _permissionsRepository.GetAll().Apply(MapAll));
         }
 
         public IEnumerable<BasePermissionModel> GetForGroup(IntranetMemberGroup group)
@@ -94,17 +92,17 @@ namespace Uintra.Core.Permissions.Implementation
                 });
 
             var actualMappedEntity = Map(actualEntity);
-            var oldCache = _cacheService.Get<IReadOnlyList<BasePermissionModel>>(BasePermissionCacheKey) ??
-                new List<BasePermissionModel>().AsReadOnly();
+            var oldCache = _cacheService.Get<IReadOnlyList<BasePermissionModel>>(BasePermissionCacheKey);
 
             _cacheService.Set(BasePermissionCacheKey, oldCache.WithUpdatedElement(e => e.Id, actualMappedEntity));
 
             return actualMappedEntity;
         }
 
-        public void Delete(int memberGroupId)
+        public void DeletePermissionsForMemberGroup(int memberGroupId)
         {
             _permissionsRepository.Delete(i => i.IntranetMemberGroupId == memberGroupId);
+            _cacheService.Set(BasePermissionCacheKey, _permissionsRepository.GetAll());
         }
 
         protected BasePermissionModel Map(PermissionEntity entity) =>
