@@ -83,7 +83,7 @@ using Uintra.Core.MigrationHistories;
 using Uintra.Core.ModelBinders;
 using Uintra.Core.PagePromotion;
 using Uintra.Core.Permissions.Implementation;
-using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions;
 using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.Permissions.UmbracoEvents;
 using Uintra.Core.Persistence;

@@ -9,7 +9,7 @@ namespace Uintra.Core.Permissions.TypeProviders
 
         IntranetMemberGroup this[string name] { get; }
 
-        IntranetMemberGroup[] All { get; }
+        IEnumerable<IntranetMemberGroup> All { get; }
 
         IDictionary<int, IntranetMemberGroup> IntTypeDictionary { get; }
 

@@ -20,38 +20,6 @@ app.controller('memberGroups.editController',
                     vm.isSuperUser = groupPermissionModel.isSuperUser;
                     syncTree(memberGroupId);
                 });
-
-            //$http.get('/umbraco/backoffice/api/MemberGroup/Get?id=' + memberGroupId).success(function (response) {
-            //    vm.memberGroup = response;
-            //});
-
-            //$http.get('/umbraco/backoffice/api/MemberGroup/IsSuperUser')
-            //    .success(function (response) {
-            //        vm.isSuperUser = response;
-            //        vm.permissions = [
-            //            { actionId: 0, actionName: "read", activityTypeId: 100, activityTypeName: "Events", enabled: true, allowed: true },
-            //            { actionId: 1, actionName: "create", activityTypeId: 101, activityTypeName: "Events", enabled: true, allowed: true },
-            //            { actionId: 2, actionName: "delete", activityTypeId: 102, activityTypeName: "Events", enabled: false, allowed: true },
-            //            { actionId: 3, actionName: "update", activityTypeId: 103, activityTypeName: "Events", enabled: true, allowed: true },
-            //
-            //            { actionId: 4, actionName: "read", activityTypeId: 110, activityTypeName: "News", enabled: true, allowed: true },
-            //            { actionId: 5, actionName: "create", activityTypeId: 111, activityTypeName: "News", enabled: true, allowed: true },
-            //            { actionId: 6, actionName: "delete", activityTypeId: 112, activityTypeName: "News", enabled: false, allowed: true },
-            //            { actionId: 7, actionName: "update", activityTypeId: 113, activityTypeName: "News", enabled: false, allowed: true },
-            //
-            //            { actionId: 8, actionName: "read", activityTypeId: 120, activityTypeName: "Bulletins", enabled: true, allowed: true },
-            //            { actionId: 9, actionName: "create", activityTypeId: 121, activityTypeName: "Bulletins", enabled: true, allowed: true },
-            //            { actionId: 10, actionName: "delete", activityTypeId: 122, activityTypeName: "Bulletins", enabled: false, allowed: true },
-            //            { actionId: 11, actionName: "update", activityTypeId: 123, activityTypeName: "Bulletins", enabled: true, allowed: true }
-            //        ];
-            //    });
-
-        }
-
-        function groupByActivityTypeName(items) {
-            return _.groupBy(items, function (item) {
-                return item.activityTypeName;
-            });
         }
 
         vm.property = {
@@ -122,6 +90,12 @@ app.controller('memberGroups.editController',
                     syncTree(memberGroupId);
                 });
         };
+
+        function groupByActivityTypeName(items) {
+            return _.groupBy(items, function (item) {
+                return item.activityTypeName;
+            });
+        }
 
         function syncTree(id) {
             navigationService.syncTree({
