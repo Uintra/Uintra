@@ -17,6 +17,7 @@ using Uintra.Core.LinkPreview;
 using Uintra.Core.Links;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
@@ -42,7 +43,7 @@ namespace Compent.Uintra.Core.Bulletins
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
-        private readonly IOldPermissionsService _oldPermissionsService;
+        private readonly IBasePermissionsService _basePermissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
@@ -62,7 +63,7 @@ namespace Compent.Uintra.Core.Bulletins
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
-            IOldPermissionsService oldPermissionsService,
+            IBasePermissionsService basePermissionsService,
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,
             IElasticUintraActivityIndex activityIndex,
@@ -82,7 +83,7 @@ namespace Compent.Uintra.Core.Bulletins
             _intranetMemberService = intranetMemberService;
             _commentsService = commentsService;
             _likesService = likesService;
-            _oldPermissionsService = oldPermissionsService;
+            _basePermissionsService = basePermissionsService;
             _subscribeService = subscribeService;
             _notificationService = notificationService;
             _activityIndex = activityIndex;
@@ -196,13 +197,13 @@ namespace Compent.Uintra.Core.Bulletins
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
 
-            var isWebmaster = _oldPermissionsService.IsUserWebmaster(currentMember);
+            var isWebmaster = currentMember.Group.Id == IntranetRolesEnum.WebMaster.ToInt();
             if (isWebmaster) return true;
 
             var ownerId = Get(cached.Id).OwnerId;
             var isOwner = ownerId == currentMember.Id;
 
-            var isUserHasPermissions = _oldPermissionsService.IsRoleHasPermissions(currentMember.Role, Type, action);
+            var isUserHasPermissions = _basePermissionsService.Check(Type, action);
             return isOwner && isUserHasPermissions;
         }
 

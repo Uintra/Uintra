@@ -16,7 +16,7 @@ namespace Uintra.Core.User
         IEnumerable<T> GetMany(IEnumerable<int> ids);
         IEnumerable<T> GetAll();
         T GetCurrentMember();
-        IEnumerable<T> GetByRole(int role);
+        IEnumerable<T> GetByGroup(int role);
         T GetByName(string name);
         T GetByEmail(string email);
         bool Update(UpdateMemberDto dto);

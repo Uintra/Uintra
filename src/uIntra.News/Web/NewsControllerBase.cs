@@ -12,6 +12,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions.Web;
@@ -36,6 +37,7 @@ namespace Uintra.News.Web
         private readonly IActivityLinkService _activityLinkService;
          
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.News;
+        private const PermissionActivityTypeEnum ActivityType = PermissionActivityTypeEnum.News;
 
         public override ContextType ControllerContextType { get; } = ContextType.News;
 
@@ -63,7 +65,7 @@ namespace Uintra.News.Web
             return PartialView(DetailsViewPath, model);
         }
 
-        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Create)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Create)]
         public virtual ActionResult Create(IActivityCreateLinks links)
         {
             var model = GetCreateModel(links);
@@ -71,7 +73,7 @@ namespace Uintra.News.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Create)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Create)]
         public virtual ActionResult Create(NewsCreateModel createModel)
         {
             if (!ModelState.IsValid)
@@ -87,7 +89,7 @@ namespace Uintra.News.Web
             return Redirect(redirectUri);
         }
 
-        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Edit)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
             var news = _newsService.Get(id);
@@ -101,7 +103,7 @@ namespace Uintra.News.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Edit)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Edit)]
         public virtual ActionResult Edit(NewsEditModel editModel)
         {
 

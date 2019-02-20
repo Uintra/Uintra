@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
+using Uintra.Core.Permissions;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions.Web;
 
@@ -11,10 +12,10 @@ namespace Uintra.Groups.Permissions
 {
     public class GroupRestrictedActionAttribute : ActionFilterAttribute
     {
-        private readonly IntranetActionEnum _action;
+        private readonly PermissionActionEnum _action;
 
 
-        public GroupRestrictedActionAttribute(IntranetActionEnum action)
+        public GroupRestrictedActionAttribute(PermissionActionEnum action)
         {            
             _action = action;
         }
@@ -26,9 +27,8 @@ namespace Uintra.Groups.Permissions
                 return;
             }
 
-            var permissionsService = HttpContext.Current.GetService<IGroupPermissionsService>();
-            var intranetUserService = HttpContext.Current.GetService<IIntranetMemberService<IGroupMember>>();
-            var isUserHasAccess = permissionsService.HasPermission(intranetUserService.GetCurrentMember().Role, _action);
+            var permissionsService = HttpContext.Current.GetService<IGroupPermissionsService>();            
+            var isUserHasAccess = permissionsService.HasPermission(_action, PermissionActivityTypeEnum.Group);
 
             if (!isUserHasAccess)
             {

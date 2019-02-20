@@ -1,26 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http;
-using Uintra.Core.User;
+﻿using System.Web.Http;
 using Uintra.Users.Core.Models;
 using Umbraco.Core.Models;
-using Umbraco.Web.Editors;
 using Umbraco.Web.WebApi;
 
 namespace Uintra.Users.Web
 {
     public class MemberGroupController : UmbracoAuthorizedApiController
     {
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
-
-        public MemberGroupController(IIntranetMemberService<IIntranetMember> intranetMemberService)
-        {
-            _intranetMemberService = intranetMemberService;
-        }
-
         [HttpPost]
         public int Create(MemberGroupCreateModel model)
         {

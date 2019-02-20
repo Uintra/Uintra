@@ -78,7 +78,7 @@ namespace Compent.Uintra.Controllers
         private IEnumerable<GroupLeftNavigationItemViewModel> GetMenuItems(IPublishedContent rootGroupPage)
         {
             var isPageActive = GetIsPageActiveFunc(_umbracoHelper.AssignedContentItem);
-            var role = _intranetMemberService.GetCurrentMember().Role;
+            var role = _intranetMemberService.GetCurrentMember().Group;
 
             var groupPageChildren = rootGroupPage.Children.Where(el => el.IsShowPageInSubNavigation()).ToList();
 

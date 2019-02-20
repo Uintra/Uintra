@@ -8,6 +8,7 @@ using Uintra.Core.Constants;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions;
 using Uintra.Core.User;
 using Uintra.Groups.Attributes;
 using Uintra.Groups.CommandBus;
@@ -113,7 +114,7 @@ namespace Uintra.Groups.Web
             return Redirect(_groupLinkProvider.GetGroupLink(group.Id));
         }
 
-        [GroupRestrictedAction(IntranetActionEnum.Create)]
+        [GroupRestrictedAction(PermissionActionEnum.Create)]
         public ActionResult Create()
         {
             var createGroupModel = new GroupCreateModel();

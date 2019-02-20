@@ -10,9 +10,10 @@ using Uintra.Core.Attributes;
 using Uintra.Core.Context;
 using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
+using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Subscribe;
 
 namespace Uintra.CentralFeed.Web
@@ -25,7 +26,7 @@ namespace Uintra.CentralFeed.Web
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
-        private readonly IOldPermissionsService _oldPermissionsService;
+        private readonly IBasePermissionsService _basePermissionsService;
         private readonly IFeedFilterService _centralFeedFilterService;
 
         protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/Overview.cshtml";
@@ -48,7 +49,7 @@ namespace Uintra.CentralFeed.Web
             IFeedTypeProvider centralFeedTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IOldPermissionsService oldPermissionsService,
+            IBasePermissionsService basePermissionsService,
             IActivityTypeProvider activityTypeProvider,
             IContextTypeProvider contextTypeProvider,
             IFeedFilterService centralFeedFilterService)
@@ -59,11 +60,11 @@ namespace Uintra.CentralFeed.Web
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _feedLinkService = feedLinkService;
             _feedFilterStateService = feedFilterStateService;
-            _oldPermissionsService = oldPermissionsService;
+            _basePermissionsService = basePermissionsService;
             _centralFeedFilterService = centralFeedFilterService;
             _activitiesServiceFactory = activitiesServiceFactory;
         }
-        
+
         [HttpGet]
         public virtual ActionResult Overview()
         {
@@ -172,7 +173,7 @@ namespace Uintra.CentralFeed.Web
             {
                 Tabs = activityTabs,
                 TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs)
-                    .Where(tab => _oldPermissionsService.IsCurrentMemberHasAccess(tab.Type, IntranetActionEnum.Create)),
+                    .Where(tab => _basePermissionsService.Check(ToPermissionActivityType(tab.Type), PermissionActionEnum.Create)),
                 CurrentType = tabType,
                 IsFiltersOpened = centralFeedState.IsFiltersOpened
             };
@@ -239,7 +240,7 @@ namespace Uintra.CentralFeed.Web
 
             return items;
         }
-        
+
         protected virtual CreateViewModel GetCreateViewModel(Enum activityType)
         {
             var links = _feedLinkService.GetCreateLinks(activityType);
@@ -281,5 +282,7 @@ namespace Uintra.CentralFeed.Web
             };
             return viewModel;
         }
+
+        private PermissionActivityTypeEnum ToPermissionActivityType(Enum type) => (PermissionActivityTypeEnum)type.ToInt();
     }
 }

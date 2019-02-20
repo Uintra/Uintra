@@ -7,7 +7,5 @@
         Edit,
         Delete,
         CanEditOwner,
-        GroupCreate
-
     }
 }

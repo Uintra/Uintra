@@ -3,29 +3,28 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
-using Uintra.Core.TypeProviders;
+using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
 
 namespace Uintra.Core.User.Permissions.Web
 {
     public class ContentRestrictedActionApiAttribute : ActionFilterAttribute
     {
-        private readonly int _activityTypeId;
-        private readonly IntranetActionEnum _action;
+        private readonly PermissionActivityTypeEnum _activityType;
+        private readonly PermissionActionEnum _action;
 
-        public ContentRestrictedActionApiAttribute(int activityTypeId, IntranetActionEnum action)
+        public ContentRestrictedActionApiAttribute(PermissionActivityTypeEnum activityType, PermissionActionEnum action)
         {
-            _activityTypeId = activityTypeId;
+            _activityType = activityType;
             _action = action;
         }
 
         public override void OnActionExecuting(HttpActionContext filterContext)
         {
-            var permissionsService = HttpContext.Current.GetService<IOldPermissionsService>();
-            var activityTypeProvider = HttpContext.Current.GetService<IActivityTypeProvider>();
+            var permissionsService = HttpContext.Current.GetService<IBasePermissionsService>();            
 
-            var isMemberHasAccess = permissionsService.IsCurrentMemberHasAccess(activityTypeProvider[_activityTypeId], _action);
+            var isMemberHasAccess = permissionsService.Check(_activityType, _action);
 
             if (!isMemberHasAccess)
             {

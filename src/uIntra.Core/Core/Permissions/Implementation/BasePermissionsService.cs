@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Linq.Expressions;
+
 using LanguageExt;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
@@ -12,7 +12,8 @@ using Uintra.Core.Permissions.Sql;
 using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.Persistence;
 using Uintra.Core.TypeProviders;
-using static Uintra.Core.Extensions.EnumerableExtensions;
+using Uintra.Core.User;
+
 using static LanguageExt.Prelude;
 
 namespace Uintra.Core.Permissions.Implementation
@@ -27,6 +28,7 @@ namespace Uintra.Core.Permissions.Implementation
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly ICacheService _cacheService;
         private readonly IPermissionSettingsSchema _permissionSettingsSchema;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
         public BasePermissionsService(
             ISqlRepository<PermissionEntity> permissionsRepository,
@@ -34,7 +36,8 @@ namespace Uintra.Core.Permissions.Implementation
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
             IActivityTypeProvider activityTypeProvider,
             ICacheService cacheService,
-            IPermissionSettingsSchema permissionSettingsSchema)
+            IPermissionSettingsSchema permissionSettingsSchema,
+            IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
             _permissionsRepository = permissionsRepository;
             _intranetActionTypeProvider = intranetActionProvider;
@@ -42,6 +45,7 @@ namespace Uintra.Core.Permissions.Implementation
             _activityTypeProvider = activityTypeProvider;
             _cacheService = cacheService;
             _permissionSettingsSchema = permissionSettingsSchema;
+            _intranetMemberService = intranetMemberService;
         }
 
         public IReadOnlyCollection<BasePermissionModel> GetAll()
@@ -107,6 +111,35 @@ namespace Uintra.Core.Permissions.Implementation
             _permissionsRepository.Delete(i => i.IntranetMemberGroupId == memberGroupId);
         }
 
+        public bool Check(PermissionActivityTypeEnum permissionActivityType, PermissionActionEnum permissionAction)
+        {
+            var member = _intranetMemberService.GetCurrentMember();
+
+            return Check(member.Group.Id, permissionActivityType, permissionAction);
+        }
+
+        public bool Check(int groupId, PermissionActivityTypeEnum permissionActivityType, PermissionActionEnum permissionAction)
+        {
+            var permissions = _cacheService.Get<IReadOnlyList<BasePermissionModel>>(BasePermissionCacheKey);
+            var permission = permissions.Find(p =>
+                p.Group.Id == groupId &&
+                (PermissionActionEnum)p.ActionType == permissionAction &&
+                p.ActivityType.ToNullableInt() == permissionAction.ToInt());
+
+            permission
+                .Some(p =>
+                {
+                    if (!p.IsEnabled)
+                    {
+                        throw new Exception($"action:{permissionAction.ToString()} for member groupId:{groupId} under activity type:{permissionActivityType.ToString()}  is disabled");
+                    }
+                })
+                .None(() => throw new Exception($"action:{permissionAction.ToString()} for member groupId:{groupId} under activity type:{permissionActivityType.ToString()}  doesn't exist"));
+
+            var isAllowed = permission.Map(p => p.IsAllowed).Some(s => s).None(() => false);
+            return isAllowed;
+        }
+
         protected BasePermissionModel Map(PermissionEntity entity) =>
             BasePermissionModel.Of(
                 _intranetMemberGroupProvider.IntTypeDictionary,
@@ -141,8 +174,8 @@ namespace Uintra.Core.Permissions.Implementation
 
         //public static Expression<Func<PermissionEntity, bool>> ActionIs(Enum action)
         //{
-        //    var actionId = action.ToInt();
-        //    return entity => entity.IntranetMemberGroupId == actionId;
+        //    var actionTypeId = action.ToInt();
+        //    return entity => entity.IntranetMemberGroupId == actionTypeId;
         //}
     }
 }

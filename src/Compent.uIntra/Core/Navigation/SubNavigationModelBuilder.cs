@@ -162,7 +162,7 @@ namespace Compent.Uintra.Core.Navigation
 
         protected virtual IEnumerable<IPublishedContent> ValidateGroupSubNavigationItems(IEnumerable<IPublishedContent> items)
         {
-            var role = _intranetMemberService.GetCurrentMember().Role;
+            var role = _intranetMemberService.GetCurrentMember().Group;
 
             foreach (var item in items)
             {

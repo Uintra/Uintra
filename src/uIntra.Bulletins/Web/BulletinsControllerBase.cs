@@ -12,6 +12,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions.Web;
@@ -37,6 +38,7 @@ namespace Uintra.Bulletins.Web
         private readonly IActivityTypeProvider _activityTypeProvider;
 
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Bulletins;
+        private const PermissionActivityTypeEnum ActivityType = PermissionActivityTypeEnum.Bulletins;
 
         public override ContextType ControllerContextType { get; } = ContextType.Bulletins;
 
@@ -68,7 +70,7 @@ namespace Uintra.Bulletins.Web
             return PartialView(DetailsViewPath, model);
         }
 
-        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Edit)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
             var bulletin = _bulletinsService.Get(id);
@@ -82,7 +84,7 @@ namespace Uintra.Bulletins.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Create)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Create)]
         public virtual JsonResult Create(BulletinCreateModel model)
         {
             var result = new BulletinCreationResultModel();
@@ -104,7 +106,7 @@ namespace Uintra.Bulletins.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Edit)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Edit)]
         public virtual ActionResult Edit(BulletinEditModel editModel)
         {
             if (!ModelState.IsValid)
@@ -119,7 +121,7 @@ namespace Uintra.Bulletins.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Delete)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Delete)]
         public virtual JsonResult Delete(Guid id)
         {
             _bulletinsService.Delete(id);

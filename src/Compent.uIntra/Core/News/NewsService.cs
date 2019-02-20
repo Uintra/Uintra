@@ -119,7 +119,7 @@ namespace Compent.Uintra.Core.News
             var ownerId = Get(activity.Id).OwnerId;
             var isOwner = ownerId == currentMember.Id;
 
-            var isMemberHasPermissions = _oldPermissionsService.IsRoleHasPermissions(currentMember.Role, Type, IntranetActionEnum.Edit);
+            var isMemberHasPermissions = _oldPermissionsService.IsRoleHasPermissions(currentMember.Group, Type, IntranetActionEnum.Edit);
             return isOwner && isMemberHasPermissions;
         }
 

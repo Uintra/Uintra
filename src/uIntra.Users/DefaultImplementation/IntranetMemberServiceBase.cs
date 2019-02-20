@@ -4,6 +4,7 @@ using System.Linq;
 using LanguageExt;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.User;
 using Uintra.Core.User.DTO;
 using Umbraco.Core.Models;
@@ -27,6 +28,7 @@ namespace Uintra.Users
         private readonly IRoleService _roleService;
         private readonly ICacheService _cacheService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberGroupService _intranetMemberGroupService;
 
         protected IntranetMemberServiceBase(
             IMediaService mediaService,
@@ -35,7 +37,8 @@ namespace Uintra.Users
             UmbracoHelper umbracoHelper,
             IRoleService roleService,
             ICacheService cacheService,
-            IIntranetUserService<IIntranetUser> intranetUserService)
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberGroupService intranetMemberGroupService)
         {
             _mediaService = mediaService;
             _memberService = memberService;
@@ -44,6 +47,7 @@ namespace Uintra.Users
             _roleService = roleService;
             _cacheService = cacheService;
             _intranetUserService = intranetUserService;
+            _intranetMemberGroupService = intranetMemberGroupService;
         }
 
         public virtual bool IsCurrentMemberSuperUser
@@ -103,9 +107,9 @@ namespace Uintra.Users
             return default;
         }
 
-        public virtual IEnumerable<T> GetByRole(int role)
+        public virtual IEnumerable<T> GetByGroup(int role)
         {
-            var members = GetAll().Where(el => el.Role.Priority == role);
+            var members = GetAll().Where(el => el.Group.Id == role);
             return members;
         }
 
@@ -222,7 +226,7 @@ namespace Uintra.Users
                 Id = member.Key,
                 Email = member.Email,
                 LoginName = member.Username,
-                Role = GetMemberRole(member),
+                Group = _intranetMemberGroupService.GetForMember(member.Id).First(),//todo do allow member to has more than one group?
                 Inactive = member.IsLockedOut,
                 RelatedUser = relatedUserId.HasValue ? _intranetUserService.GetUser(relatedUserId.Value) : null
             };
@@ -250,12 +254,7 @@ namespace Uintra.Users
 
             return unassignedMembers;
         }
-
-        protected virtual IRole GetMemberRole(IMember member)
-        {
-            var roles = _memberService.GetAllRoles(member.Id).ToList();
-            return _roleService.GetActualRole(roles);
-        }
+       
 
         protected virtual string GetUserPhotoOrDefaultAvatar(string userImage)
         {
