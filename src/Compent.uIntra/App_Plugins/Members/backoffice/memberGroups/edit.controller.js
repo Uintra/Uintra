@@ -50,6 +50,7 @@ app.controller('memberGroups.editController',
                         notificationsService.success("Success", "Permission has been enabled!");
                     else
                         notificationsService.warning("Success", "Permission has been disabled!");
+                }).always(function () {
                     inProgress = false;
                 });
         };
@@ -68,6 +69,7 @@ app.controller('memberGroups.editController',
                         notificationsService.success("Success", "Permission has been allowed!");
                     else
                         notificationsService.warning("Success", "Permission has been disallowed!");
+                }).always(function () {
                     inProgress = false;
                 });
         };
@@ -80,14 +82,17 @@ app.controller('memberGroups.editController',
                     .success(function (createdMemberGroupId) {
                         syncTree(createdMemberGroupId);
                         $location.url("/" + $routeParams.section + "/" + $routeParams.tree + "/" + $routeParams.method + "/" + createdMemberGroupId);
+                    }).error(function (error) {
+                        vm.buttonState = "success";
                     });
                 return;
             }
             memberGroupsService.save(memberGroupId, vm.memberGroup.name)
                 .success(function (response) {
-                    vm.buttonState = "success";
                     notificationsService.success("Success", "Member group has been saved!");
                     syncTree(memberGroupId);
+                }).always(function () {
+                    vm.buttonState = "success";
                 });
         };
 
