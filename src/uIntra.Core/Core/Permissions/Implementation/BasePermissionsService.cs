@@ -124,8 +124,8 @@ namespace Uintra.Core.Permissions.Implementation
                 p.ActivityType.Some(i => i.Equals(permissionActivityType)).None(() => false)
             );
 
-            permission.IfNone(() =>
-                throw new Exception($"action: [{permissionAction.ToString()}] for member group name: [{member.Group.Name}] under activity type: [{permissionActivityType.ToString()}] doesn't exist!"));
+            //permission.IfNone(() =>
+            //    throw new Exception($"action: [{permissionAction.ToString()}] for member group name: [{member.Group.Name}] under activity type: [{permissionActivityType.ToString()}] doesn't exist!"));
 
             var isAllowed = permission.Map(p => p.IsAllowed).Some(s => s).None(() => false);
             return isAllowed;

@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using LanguageExt;
 using Uintra.Core.Extensions;
-using Uintra.Core.Permissions;
 using Uintra.Core.Permissions.Models;
 using Uintra.Core.Permissions.TypeProviders;
-using Uintra.Core.TypeProviders;
 using static LanguageExt.Prelude;
 
 namespace Uintra.Core.Permissions.Implementation
 {
     public class PermissionSettingsSchema : IPermissionSettingsSchema
     {
-        private const bool GlobalIsAllowedDefault = true;
+        private const bool GlobalIsAllowedDefault = false;
         private const bool GlobalIsEnabledDefault = true;
 
         private readonly Dictionary<PermissionSettingIdentity, PermissionSettingValues> _defaultOverrides =
@@ -25,10 +23,8 @@ namespace Uintra.Core.Permissions.Implementation
             IPermissionActionTypeProvider actionTypeProvider,
             IPermissionActivityTypeProvider activityTypeProvider)
         {
-
             Settings = BuildSettings(actionTypeProvider.All, actionTypeProvider.ActivityActions, activityTypeProvider.All);
         }
-
 
         public BasePermissionModel GetDefault(PermissionSettingIdentity settingIdentity, IntranetMemberGroup group) =>
             _defaultOverrides
