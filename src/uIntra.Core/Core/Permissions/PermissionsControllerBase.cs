@@ -42,7 +42,7 @@ namespace Uintra.Core.Permissions
 
             var permissions = _actionPermissionsService
                 .GetForGroup(memberGroup)
-                .Where(i => i.IsAllowed || isSuperUser)
+                .Where(i => i.IsEnabled || isSuperUser)
                 .Map<IEnumerable<PermissionViewModel>>();
 
             var model = new GroupPermissionsViewModel()

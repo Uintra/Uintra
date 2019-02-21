@@ -7,7 +7,7 @@
 }
 
 <header class="feed__item-heading @inactiveUser">
-    @Html.Action("Photo", "Member", new { user = Model.Owner, profilePageUrl = Model.Links.Owner })
+    @Html.Action("Photo", "Member", new { member = Model.Owner, profilePageUrl = Model.Links.Owner })
     <div class="feed__item-title-holder">
         <p class="feed__item-meta">
             @if (Model.Owner != null)
