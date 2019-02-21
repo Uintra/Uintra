@@ -6,7 +6,6 @@
         Create,
         Edit,
         Delete,
-        CanEditOwner,
-        GroupCreate
+        CanEditOwner
     }
 }

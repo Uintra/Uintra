@@ -17,14 +17,14 @@ namespace Uintra.Core.Permissions
         private readonly IBasePermissionsService _actionPermissionsService;
         private readonly IIntranetMemberGroupProvider _intranetMemberGroupProvider;
         private readonly IActivityTypeProvider _activityTypeProvider;
-        private readonly IIntranetActionTypeProvider _intranetActionTypeProvider;
+        private readonly IPermissionActionTypeProvider _intranetActionTypeProvider;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
         protected PermissionsControllerBase(
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
             IBasePermissionsService actionPermissionsService,
             IActivityTypeProvider activityTypeProvider,
-            IIntranetActionTypeProvider intranetActionTypeProvider,
+            IPermissionActionTypeProvider intranetActionTypeProvider,
             IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
             _intranetMemberGroupProvider = intranetMemberGroupProvider;

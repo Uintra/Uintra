@@ -11,7 +11,7 @@ namespace Compent.Uintra.Controllers.Api
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
             IBasePermissionsService basePermissionsService,
             IActivityTypeProvider activityTypeProvider,
-            IIntranetActionTypeProvider intranetActionTypeProvider,
+            IPermissionActionTypeProvider intranetActionTypeProvider,
             IIntranetMemberService<IIntranetMember> intranetMemberService
             ) 
             : base(intranetMemberGroupProvider, basePermissionsService, activityTypeProvider, intranetActionTypeProvider, intranetMemberService)

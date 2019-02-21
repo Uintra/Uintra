@@ -21,17 +21,17 @@ namespace Uintra.Core.Permissions.Implementation
         protected virtual string BasePermissionCacheKey => "BasePermissionCache";
 
         private readonly ISqlRepository<PermissionEntity> _permissionsRepository;
-        private readonly IIntranetActionTypeProvider _intranetActionTypeProvider;
+        private readonly IPermissionActionTypeProvider _intranetActionTypeProvider;
         private readonly IIntranetMemberGroupProvider _intranetMemberGroupProvider;
-        private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly IPermissionActivityTypeProvider _activityTypeProvider;
         private readonly ICacheService _cacheService;
         private readonly IPermissionSettingsSchema _permissionSettingsSchema;
 
         public BasePermissionsService(
             ISqlRepository<PermissionEntity> permissionsRepository,
-            IIntranetActionTypeProvider intranetActionProvider,
+            IPermissionActionTypeProvider intranetActionProvider,
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
-            IActivityTypeProvider activityTypeProvider,
+            IPermissionActivityTypeProvider activityTypeProvider,
             ICacheService cacheService,
             IPermissionSettingsSchema permissionSettingsSchema)
         {

@@ -22,8 +22,8 @@ namespace Uintra.Core.Permissions.Implementation
         public PermissionSettingIdentity[] Settings { get; }
 
         public PermissionSettingsSchema(
-            IIntranetActionTypeProvider actionTypeProvider,
-            IActivityTypeProvider activityTypeProvider)
+            IPermissionActionTypeProvider actionTypeProvider,
+            IPermissionActivityTypeProvider activityTypeProvider)
         {
 
             Settings = BuildSettings(actionTypeProvider.All, actionTypeProvider.ActivityActions, activityTypeProvider.All);

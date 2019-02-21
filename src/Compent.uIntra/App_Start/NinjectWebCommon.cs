@@ -434,7 +434,8 @@ namespace Compent.Uintra
             kernel.Bind<ISearchableTypeProvider>().To<UintraSearchableTypeProvider>().InSingletonScope();
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InSingletonScope();
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
-            kernel.Bind<IIntranetActionTypeProvider>().To<IntranetActionTypeProvider>().InSingletonScope(); 
+            kernel.Bind<IPermissionActionTypeProvider>().To<PermissionActionTypeProvider>().InSingletonScope(); 
+            kernel.Bind<IPermissionActivityTypeProvider>().To<PermissionActivityTypeProvider>().InSingletonScope(); 
             kernel.Bind<IIntranetMemberGroupProvider>().To<IntranetMemberGroupProvider>().InSingletonScope();
             
 
