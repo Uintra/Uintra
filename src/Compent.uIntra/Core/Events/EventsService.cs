@@ -15,6 +15,7 @@ using Uintra.Core.LinkPreview;
 using Uintra.Core.Links;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
@@ -43,7 +44,7 @@ namespace Compent.Uintra.Core.Events
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
-        private readonly IOldPermissionsService _oldPermissionsService;
+        private readonly IBasePermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticUintraActivityIndex _activityIndex;
@@ -64,7 +65,7 @@ namespace Compent.Uintra.Core.Events
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
-            IOldPermissionsService oldPermissionsService,
+            IBasePermissionsService permissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper,
             IElasticUintraActivityIndex activityIndex,
@@ -92,7 +93,7 @@ namespace Compent.Uintra.Core.Events
             _commentsService = commentsService;
             _likesService = likesService;
             _subscribeService = subscribeService;
-            _oldPermissionsService = oldPermissionsService;
+            _permissionsService = permissionsService;
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
             _activityIndex = activityIndex;
@@ -108,6 +109,7 @@ namespace Compent.Uintra.Core.Events
         }
 
         public override Enum Type => IntranetActivityTypeEnum.Events;
+        public override PermissionActivityTypeEnum PermissionActivityType => PermissionActivityTypeEnum.Events;
 
         public IEnumerable<Event> GetPastEvents()
         {
@@ -152,13 +154,15 @@ namespace Compent.Uintra.Core.Events
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
 
-            var isWebmaster = _oldPermissionsService.IsUserWebmaster(currentMember);
+            var isWebmaster = currentMember.Group.Id == IntranetRolesEnum.WebMaster.ToInt();
+
             if (isWebmaster) return true;
 
             var ownerId = Get(activity.Id).OwnerId;
             var isOwner = ownerId == currentMember.Id;
 
-            var isMemberHasPermissions = _oldPermissionsService.IsRoleHasPermissions(currentMember.Role, Type, IntranetActionEnum.Edit);
+            var isMemberHasPermissions = _permissionsService.Check(currentMember, PermissionActivityType, PermissionActionEnum.Edit);
+
             return isOwner && isMemberHasPermissions;
         }
 

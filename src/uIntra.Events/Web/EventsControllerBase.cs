@@ -13,6 +13,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions.Web;
@@ -38,6 +39,7 @@ namespace Uintra.Events.Web
         private readonly IActivityPageHelperFactory _activityPageHelperFactory;
 
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Events;
+        private const PermissionActivityTypeEnum ActivityType = PermissionActivityTypeEnum.Events;
 
         public override ContextType ControllerContextType { get; } = ContextType.Events;
 
@@ -109,7 +111,7 @@ namespace Uintra.Events.Web
 
         protected virtual IEnumerable<EventBase> GetComingEvents(DateTime startDate) => _eventsService.GetComingEvents(startDate);
 
-        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Create)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Create)]
         public virtual ActionResult Create(ActivityCreateLinks links)
         {
             var model = GetCreateModel(links);
@@ -117,7 +119,7 @@ namespace Uintra.Events.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Create)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Create)]
         public virtual ActionResult Create(EventCreateModel createModel)
         {
             if (!ModelState.IsValid)
@@ -133,7 +135,7 @@ namespace Uintra.Events.Web
             return Redirect(redirectUrl);
         }
 
-        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Edit)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
             var @event = _eventsService.Get(id);
@@ -147,7 +149,7 @@ namespace Uintra.Events.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActionEnum.Edit)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Edit)]
         public virtual ActionResult Edit(EventEditModel editModel)
         {
             if (!ModelState.IsValid)

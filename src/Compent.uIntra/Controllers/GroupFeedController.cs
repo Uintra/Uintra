@@ -6,6 +6,7 @@ using Uintra.CentralFeed;
 using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Feed;
+using Uintra.Core.Permissions;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
@@ -31,7 +32,7 @@ namespace Compent.Uintra.Controllers
             IGroupMemberService groupMemberService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             IActivityTypeProvider activityTypeProvider,
-            IOldPermissionsService oldPermissionsService,
+            IBasePermissionsService permissionsService,
             IContextTypeProvider contextTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterService feedFilterService)
@@ -46,7 +47,7 @@ namespace Compent.Uintra.Controllers
                   groupFeedLinkProvider,
                   groupMemberService,
                   feedFilterStateService,
-                  oldPermissionsService,
+                  permissionsService,
                   contextTypeProvider,
                   feedLinkService,
                   feedFilterService)

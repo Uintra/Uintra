@@ -7,7 +7,7 @@ namespace Uintra.Core.Permissions
         News = IntranetActivityTypeEnum.News,
         Events = IntranetActivityTypeEnum.Events,
         Bulletins = IntranetActivityTypeEnum.Bulletins,
-        Groups,
-        Common = 100
+        Groups//,
+        //Common = 100
     }
 }

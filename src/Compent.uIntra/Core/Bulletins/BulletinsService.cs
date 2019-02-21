@@ -17,6 +17,7 @@ using Uintra.Core.LinkPreview;
 using Uintra.Core.Links;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
@@ -42,7 +43,7 @@ namespace Compent.Uintra.Core.Bulletins
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
-        private readonly IOldPermissionsService _oldPermissionsService;
+        private readonly IBasePermissionsService _basePermissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
@@ -62,7 +63,7 @@ namespace Compent.Uintra.Core.Bulletins
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
-            IOldPermissionsService oldPermissionsService,
+            IBasePermissionsService basePermissionsService,
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,
             IElasticUintraActivityIndex activityIndex,
@@ -82,7 +83,7 @@ namespace Compent.Uintra.Core.Bulletins
             _intranetMemberService = intranetMemberService;
             _commentsService = commentsService;
             _likesService = likesService;
-            _oldPermissionsService = oldPermissionsService;
+            _basePermissionsService = basePermissionsService;
             _subscribeService = subscribeService;
             _notificationService = notificationService;
             _activityIndex = activityIndex;
@@ -99,6 +100,8 @@ namespace Compent.Uintra.Core.Bulletins
 
         public override Enum Type => IntranetActivityTypeEnum.Bulletins;
 
+        public override PermissionActivityTypeEnum PermissionActivityType => PermissionActivityTypeEnum.Bulletins;
+
         public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
 
         protected override void UpdateCache()
@@ -107,9 +110,9 @@ namespace Compent.Uintra.Core.Bulletins
             FillIndex();
         }
 
-        public override bool CanEdit(IIntranetActivity activity) => CanPerform(activity, IntranetActionEnum.Edit);
+        public override bool CanEdit(IIntranetActivity activity) => CanPerform(activity, PermissionActionEnum.Edit);
 
-        public bool CanDelete(IIntranetActivity cached) => CanPerform(cached, IntranetActionEnum.Delete);
+        public bool CanDelete(IIntranetActivity cached) => CanPerform(cached, PermissionActionEnum.Delete);
 
         public FeedSettings GetFeedSettings()
         {
@@ -192,17 +195,17 @@ namespace Compent.Uintra.Core.Bulletins
             bulletin.LinkPreviewId = linkPreview?.Id;
         }
 
-        private bool CanPerform(IIntranetActivity cached, IntranetActionEnum action)
+        private bool CanPerform(IIntranetActivity cached, PermissionActionEnum action)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
 
-            var isWebmaster = _oldPermissionsService.IsUserWebmaster(currentMember);
+            var isWebmaster = currentMember.Group.Id == IntranetRolesEnum.WebMaster.ToInt();
             if (isWebmaster) return true;
 
             var ownerId = Get(cached.Id).OwnerId;
             var isOwner = ownerId == currentMember.Id;
 
-            var isUserHasPermissions = _oldPermissionsService.IsRoleHasPermissions(currentMember.Role, Type, action);
+            var isUserHasPermissions = _basePermissionsService.Check(currentMember, PermissionActivityType, action);
             return isOwner && isUserHasPermissions;
         }
 

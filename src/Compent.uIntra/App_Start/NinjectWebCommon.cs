@@ -218,13 +218,12 @@ namespace Compent.Uintra
             kernel.Bind<IBrowserCompatibilityConfigurationSection>().ToMethod(s => BrowserCompatibilityConfigurationSection.Configuration).InSingletonScope();
             kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IJobSettingsConfiguration>().ToMethod(s => JobSettingsConfiguration.Configure).InSingletonScope();
-            kernel.Bind<IOldPermissionsService>().To<OldPermissionsService>().InRequestScope();
 
             //permissions
 
             kernel.Bind<IIntranetMemberGroupService>().To<IntranetMemberGroupService>().InSingletonScope();
             kernel.Bind<IPermissionSettingsSchema>().To<PermissionSettingsSchema>().InSingletonScope();
-            kernel.Bind<IBasePermissionsService>().To<BasePermissionsService>().InSingletonScope();
+            kernel.Bind<IBasePermissionsService>().To<BasePermissionsService>().InRequestScope();
 
             // Umbraco
             kernel.Bind<UmbracoContext>().ToMethod(context => CreateUmbracoContext()).InRequestScope();

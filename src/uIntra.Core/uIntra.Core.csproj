@@ -664,9 +664,7 @@
     <Compile Include="Core\User\IntranetRolesEnum.cs" />
     <Compile Include="Core\Extensions\IntranetUserServiceExtentions.cs" />
     <Compile Include="Core\User\Permissions\IPermissionsConfiguration.cs" />
-    <Compile Include="Core\User\Permissions\IOldPermissionsService.cs" />
     <Compile Include="Core\User\Permissions\PermissionsConfiguration.cs" />
-    <Compile Include="Core\User\Permissions\OldPermissionsService.cs" />
     <Compile Include="Core\User\Permissions\Web\RestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\ActivityControllerAttribute.cs" />
     <Compile Include="Core\XPathHelper.cs" />

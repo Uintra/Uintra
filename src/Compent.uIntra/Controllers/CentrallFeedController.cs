@@ -8,6 +8,7 @@ using Uintra.CentralFeed.Web;
 using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Feed;
+using Uintra.Core.Permissions;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
@@ -35,7 +36,7 @@ namespace Compent.Uintra.Controllers
             IGroupFeedService groupFeedService,
             IFeedActivityHelper feedActivityHelper,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IOldPermissionsService oldPermissionsService,
+            IBasePermissionsService permissionsService,
             UmbracoHelper umbracoHelper,
             IActivityTypeProvider activityTypeProvider,
             IContextTypeProvider contextTypeProvider,
@@ -50,7 +51,7 @@ namespace Compent.Uintra.Controllers
                   centralFeedTypeProvider,
                   feedLinkService,
                   feedFilterStateService,
-                  oldPermissionsService,
+                  permissionsService,
                   activityTypeProvider,
                   contextTypeProvider,
                   feedFilterService)

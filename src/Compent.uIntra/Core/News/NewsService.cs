@@ -16,6 +16,7 @@ using Uintra.Core.LinkPreview;
 using Uintra.Core.Links;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
@@ -42,7 +43,7 @@ namespace Compent.Uintra.Core.News
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
-        private readonly IOldPermissionsService _oldPermissionsService;
+        private readonly IBasePermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticUintraActivityIndex _activityIndex;
@@ -62,7 +63,7 @@ namespace Compent.Uintra.Core.News
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
-            IOldPermissionsService oldPermissionsService,
+            IBasePermissionsService permissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper,
             IElasticUintraActivityIndex activityIndex,
@@ -83,7 +84,7 @@ namespace Compent.Uintra.Core.News
             _intranetMemberService = intranetMemberService;
             _commentsService = commentsService;
             _likesService = likesService;
-            _oldPermissionsService = oldPermissionsService;
+            _permissionsService = permissionsService;
             _subscribeService = subscribeService;
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
@@ -101,6 +102,8 @@ namespace Compent.Uintra.Core.News
 
         public override Enum Type => IntranetActivityTypeEnum.News;
 
+        public override PermissionActivityTypeEnum PermissionActivityType => PermissionActivityTypeEnum.News;
+
         public MediaSettings GetMediaSettings()
         {
             return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.NewsContent);
@@ -110,7 +113,7 @@ namespace Compent.Uintra.Core.News
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
 
-            var isWebmaster = _oldPermissionsService.IsUserWebmaster(currentMember);
+            var isWebmaster = currentMember.Group.Id == IntranetRolesEnum.WebMaster.ToInt();
             if (isWebmaster)
             {
                 return true;
@@ -119,7 +122,7 @@ namespace Compent.Uintra.Core.News
             var ownerId = Get(activity.Id).OwnerId;
             var isOwner = ownerId == currentMember.Id;
 
-            var isMemberHasPermissions = _oldPermissionsService.IsRoleHasPermissions(currentMember.Role, Type, IntranetActionEnum.Edit);
+            var isMemberHasPermissions = _permissionsService.Check(currentMember, PermissionActivityType, PermissionActionEnum.Edit);
             return isOwner && isMemberHasPermissions;
         }
 

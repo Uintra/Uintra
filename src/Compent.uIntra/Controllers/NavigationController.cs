@@ -20,6 +20,7 @@ using Uintra.Navigation.Web;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using Uintra.Core.Permissions;
 
 namespace Compent.Uintra.Controllers
 {
@@ -59,7 +60,7 @@ namespace Compent.Uintra.Controllers
             IGroupHelper groupHelper,
             ICentralFeedHelper centralFeedHelper,
             IProfileLinkProvider profileLinkProvider,
-            IOldPermissionsService oldPermissionsService,
+            IBasePermissionsService permissionsService,
             IUserService userService,
             IUintraInformationService uintraInformationService)
             : base(
@@ -69,7 +70,7 @@ namespace Compent.Uintra.Controllers
                 systemLinksModelBuilder,
                 intranetMemberService,
                 profileLinkProvider,
-                oldPermissionsService,
+                permissionsService,
                 userService)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;

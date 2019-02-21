@@ -10,6 +10,7 @@ using Uintra.Core.Attributes;
 using Uintra.Core.Context;
 using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
+using Uintra.Core.Permissions;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
 using Uintra.Groups.Attributes;
@@ -26,7 +27,7 @@ namespace Uintra.Groups.Web
         private readonly IGroupFeedContentService _groupFeedContentContentService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
-        private readonly IOldPermissionsService _oldPermissionsService;
+        private readonly IBasePermissionsService _basePermissionsService;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IFeedFilterService _feedFilterService;
 
@@ -52,7 +53,7 @@ namespace Uintra.Groups.Web
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupMemberService groupMemberService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IOldPermissionsService oldPermissionsService,
+            IBasePermissionsService basePermissionsService,
             IContextTypeProvider contextTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterService feedFilterService)
@@ -71,7 +72,7 @@ namespace Uintra.Groups.Web
             _groupFeedContentContentService = groupFeedContentContentService;
             _groupMemberService = groupMemberService;
             _feedFilterStateService = feedFilterStateService;
-            _oldPermissionsService = oldPermissionsService;
+            _basePermissionsService = basePermissionsService;
             _feedLinkService = feedLinkService;
             _feedFilterService = feedFilterService;
         }
@@ -196,7 +197,7 @@ namespace Uintra.Groups.Web
             var model = new GroupFeedOverviewModel
             {
                 Tabs = activityTabs,
-                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _oldPermissionsService.IsCurrentMemberHasAccess(tab.Type, IntranetActionEnum.Create)),
+                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _basePermissionsService.Check(ToPermissionActivityType(tab.Type), PermissionActionEnum.Create)),
                 CurrentType = tabType,
                 GroupId = groupId,
                 IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentMember)
@@ -247,5 +248,7 @@ namespace Uintra.Groups.Web
             };
             return viewModel;
         }
+
+        private PermissionActivityTypeEnum ToPermissionActivityType(Enum type) => (PermissionActivityTypeEnum)type.ToInt();
     }
 }

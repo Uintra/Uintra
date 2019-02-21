@@ -5,6 +5,7 @@ using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.Search.Indexes;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
+using Uintra.Core.Permissions;
 using Uintra.Core.Persistence;
 using Uintra.Core.User;
 using Uintra.Groups.Sql;
@@ -37,9 +38,10 @@ namespace Compent.Uintra.Core.Users
             IElasticUserIndex elasticUserIndex,
             IIntranetUserContentProvider intranetUserContentProvider,
             IUserTagService userTagService,
-            IIntranetUserService<IIntranetUser> intranetUserService
+            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberGroupService intranetMemberGroupService
             )
-            : base(mediaService, memberService, umbracoContext, umbracoHelper, roleService, cacheService, intranetUserService)
+            : base(mediaService, memberService, umbracoContext, umbracoHelper, roleService, cacheService, intranetUserService, intranetMemberGroupService)
         {
 
             _groupMemberRepository = groupMemberRepository;

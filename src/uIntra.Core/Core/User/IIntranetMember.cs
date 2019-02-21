@@ -1,4 +1,5 @@
 using System;
+using Uintra.Core.Permissions.Models;
 
 namespace Uintra.Core.User
 {
@@ -8,7 +9,7 @@ namespace Uintra.Core.User
         string DisplayedName { get; }
         string Photo { get; set; }
         int? PhotoId { get; set; }
-        IRole Role { get; set; }
+        IntranetMemberGroup Group { get; set; }
         string Email { get; set; }
         string LoginName { get; set; }
         bool Inactive { get; set; }

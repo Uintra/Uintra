@@ -78,7 +78,6 @@ namespace Compent.Uintra.Controllers
         private IEnumerable<GroupLeftNavigationItemViewModel> GetMenuItems(IPublishedContent rootGroupPage)
         {
             var isPageActive = GetIsPageActiveFunc(_umbracoHelper.AssignedContentItem);
-            var role = _intranetMemberService.GetCurrentMember().Role;
 
             var groupPageChildren = rootGroupPage.Children.Where(el => el.IsShowPageInSubNavigation()).ToList();
 
@@ -86,7 +85,7 @@ namespace Compent.Uintra.Controllers
             {
                 if (subPage.IsShowPageInSubNavigation())
                 {
-                    if (_groupPermissionsService.ValidatePermission(subPage, role))
+                    if (_groupPermissionsService.ValidatePermission(subPage))
                     {
                         yield return MapToLeftNavigationItem(subPage, isPageActive);
                     }

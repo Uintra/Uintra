@@ -6,6 +6,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.LinkPreview;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions;
 using Uintra.Core.TypeProviders;
 
 namespace Uintra.Core.Activity
@@ -13,6 +14,7 @@ namespace Uintra.Core.Activity
     public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity>, ICacheableIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
         public abstract Enum Type { get; }
+        public abstract PermissionActivityTypeEnum PermissionActivityType { get; }
         private const string CacheKey = "ActivityCache";
         private string ActivityCacheSuffix => $"{Type.ToString()}";
         private readonly IIntranetActivityRepository _activityRepository;

@@ -15,7 +15,7 @@ else
     <input type="hidden" name="@Model.OwnerIdPropertyName" value="@Model.Owner.Id" />
     @Html.Action("Photo", "Member", new
     {
-        user = Model.Owner,
+        member = Model.Owner,
         profilePageUrl = Model.Links.Owner
     })
     <span>@Model.Owner.DisplayedName</span>

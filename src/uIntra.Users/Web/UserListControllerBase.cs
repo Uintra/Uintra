@@ -135,9 +135,9 @@ namespace Uintra.Users.Web
             if (groupId.IsNone) return columns;
             return columns.Append(new ProfileColumnModel
             {
-                Alias = "Role",
+                Alias = "Group",
                 Id = 99,
-                Name = "Role",
+                Name = "Group",
                 PropertyName = "role",
                 SupportSorting = false,
                 Type = ColumnType.GroupRole

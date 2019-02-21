@@ -34,7 +34,7 @@ namespace Uintra.Core.Extensions
             }
         }
 
-        public static ReadOnlyCollection<T> WithUpdatedElement<T, TIdentity>(
+        public static IEnumerable<T> WithUpdatedElement<T, TIdentity>(
             this IEnumerable<T> source,
             Func<T, TIdentity> identitySelector,
             T element)
@@ -42,9 +42,7 @@ namespace Uintra.Core.Extensions
             var elementIdentity = identitySelector(element);
 
             return source.Where(e => !Equals(identitySelector(e), elementIdentity))
-                .Append(element)
-                .ToList()
-                .AsReadOnly();
+                .Append(element).ToList();
         }
 
         public static Option<T> Choose<T>(this Option<T> source, Option<T> other) => source.IsSome ? source : other;

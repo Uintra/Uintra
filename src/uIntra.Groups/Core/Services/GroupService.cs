@@ -5,7 +5,6 @@ using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Groups.Sql;
 using static LanguageExt.Prelude;
 
@@ -15,17 +14,14 @@ namespace Uintra.Groups
     {
         private readonly ISqlRepository<Group> _groupRepository;
         private readonly ICacheService _memoryCacheService;
-        private readonly IOldPermissionsService _oldPermissionsService;
         private const string GroupCacheKey = "Groups";
 
         public GroupService(
             ISqlRepository<Group> groupRepository,
-            ICacheService memoryCacheService,
-            IOldPermissionsService oldPermissionsService)
+            ICacheService memoryCacheService)
         {
             _groupRepository = groupRepository;
             _memoryCacheService = memoryCacheService;
-            _oldPermissionsService = oldPermissionsService;
         }
 
         public Guid Create(GroupModel model)
@@ -80,7 +76,7 @@ namespace Uintra.Groups
 
         public bool CanEdit(GroupModel groupModel, IIntranetMember member)
         {
-            if (_oldPermissionsService.IsUserWebmaster(member))
+            if (member.Group.Id == IntranetRolesEnum.WebMaster.ToInt())
             {
                 return true;
             }
@@ -102,7 +98,7 @@ namespace Uintra.Groups
             Edit(group);
         }
 
-        public bool IsActivityFromActiveGroup(IGroupActivity groupActivity) => 
+        public bool IsActivityFromActiveGroup(IGroupActivity groupActivity) =>
             groupActivity.GroupId.HasValue && !Get(groupActivity.GroupId.Value).IsHidden;
 
         private static DateTimeOffset GetCacheExpiration()

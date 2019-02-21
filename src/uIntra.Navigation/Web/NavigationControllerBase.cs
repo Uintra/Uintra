@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Compent.Extensions;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
+using Uintra.Core.Permissions;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
 using Uintra.Navigation.SystemLinks;
@@ -33,7 +34,7 @@ namespace Uintra.Navigation.Web
         private readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IProfileLinkProvider _profileLinkProvider;
-        private readonly IOldPermissionsService _oldPermissionsService;
+        private readonly IBasePermissionsService _basePermissionsService;
         private readonly IUserService _userService;
 
         protected NavigationControllerBase(
@@ -43,7 +44,7 @@ namespace Uintra.Navigation.Web
             ISystemLinksModelBuilder systemLinksModelBuilder,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
-            IOldPermissionsService oldPermissionsService,
+            IBasePermissionsService basePermissionsService,
             IUserService userService)
         {
             _leftSideNavigationModelBuilder = leftSideNavigationModelBuilder;
@@ -52,7 +53,7 @@ namespace Uintra.Navigation.Web
             _systemLinksModelBuilder = systemLinksModelBuilder;
             _intranetMemberService = intranetMemberService;
             _profileLinkProvider = profileLinkProvider;
-            _oldPermissionsService = oldPermissionsService;
+            _basePermissionsService = basePermissionsService;
             _userService = userService;
         }
 
@@ -115,7 +116,7 @@ namespace Uintra.Navigation.Web
         public virtual ActionResult UmbracoContentLink()
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
-            if (_oldPermissionsService.IsUserHasAccessToContent(currentMember, CurrentPage))
+            if (currentMember.RelatedUser != null)
             {
                 return PartialView(UmbracoContentLinkViewPath, CurrentPage.Id);
             }
@@ -127,7 +128,7 @@ namespace Uintra.Navigation.Web
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
             var pageUrl = string.Format(NavigationUmbracoConstants.UmbracoEditPageUrl, pageId);
-            
+
             if (currentMember.RelatedUser == null || currentMember.RelatedUser.IsLockedOut || !currentMember.RelatedUser.IsApproved)
             {
                 return Redirect(pageUrl);

@@ -3,44 +3,31 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
-using Uintra.Core.TypeProviders;
+using Uintra.Core.Permissions;
 
 namespace Uintra.Core.User.Permissions.Web
 {
     public class RestrictedActionAttribute : ActionFilterAttribute
     {
-        private readonly int _activityTypeId;
-        private readonly IntranetActionEnum _action;
-        private const string ActivityIdParameterName = "id";
+        private readonly PermissionActivityTypeEnum _activityType;
+        private readonly PermissionActionEnum _action;        
 
-        public RestrictedActionAttribute(int activityTypeId, IntranetActionEnum action)
+        public RestrictedActionAttribute(PermissionActivityTypeEnum activityType, PermissionActionEnum action)
         {
-            _activityTypeId = activityTypeId;
+            _activityType = activityType;
             _action = action;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            Guid? activityId;
-            if (filterContext.ActionParameters.TryGetValue(ActivityIdParameterName, out var obj))
-            {
-                activityId = obj as Guid?;
-            }
-            else
-            {
-                activityId = null;
-            }
-
+        {            
             if (Skip(filterContext))
             {
                 return;
             }
 
-            var permissionsService = HttpContext.Current.GetService<IOldPermissionsService>();
-            var provider = HttpContext.Current.GetService<IActivityTypeProvider>();
-            var isUserHasAccess = permissionsService.IsCurrentMemberHasAccess(provider[_activityTypeId], _action, activityId);
+            var permissionsService = HttpContext.Current.GetService<IBasePermissionsService>();            
+            var isUserHasAccess = permissionsService.Check(_activityType, _action);
 
             if (!isUserHasAccess)
             {
