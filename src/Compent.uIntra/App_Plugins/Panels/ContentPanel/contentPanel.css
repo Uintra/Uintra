@@ -413,6 +413,7 @@
 
             .block__video:hover &{
                 opacity:1;
+                z-index:9;  
             }
 
             ._active &{
