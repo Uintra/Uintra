@@ -56,7 +56,7 @@ namespace Uintra.News.Web
             _activityLinkService = activityLinkService;
         }
 
-        [NotFoundActivity]
+        [NotFoundActivity, RestrictedAction(ActivityType, PermissionActionEnum.View)]
         public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var news = _newsService.Get(id);

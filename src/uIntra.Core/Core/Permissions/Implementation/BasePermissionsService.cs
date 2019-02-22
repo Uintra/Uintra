@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using LanguageExt;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
@@ -9,6 +10,7 @@ using Uintra.Core.Permissions.Sql;
 using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.Persistence;
 using Uintra.Core.User;
+using static Uintra.Core.Extensions.EnumerableExtensions;
 
 using static LanguageExt.Prelude;
 
@@ -44,7 +46,7 @@ namespace Uintra.Core.Permissions.Implementation
             _intranetMemberService = intranetMemberService;
         }
 
-        protected IEnumerable<BasePermissionModel> CurrentCache
+        protected virtual IEnumerable<BasePermissionModel> CurrentCache
         {
             get
             {
@@ -58,12 +60,12 @@ namespace Uintra.Core.Permissions.Implementation
             }
         }
 
-        public IEnumerable<BasePermissionModel> GetAll()
+        public virtual IEnumerable<BasePermissionModel> GetAll()
         {
             return CurrentCache;
         }
 
-        public IEnumerable<BasePermissionModel> GetForGroup(IntranetMemberGroup group)
+        public virtual IEnumerable<BasePermissionModel> GetForGroup(IntranetMemberGroup group)
         {
             var storedPerms = GetAll().Where(i => i.Group.Id == group.Id);
 
@@ -77,18 +79,15 @@ namespace Uintra.Core.Permissions.Implementation
             return settings;
         }
 
-        private IEnumerable<BasePermissionModel> MapAll(IEnumerable<PermissionEntity> entities) =>
+        protected virtual IEnumerable<BasePermissionModel> MapAll(IEnumerable<PermissionEntity> entities) =>
             entities.Select(Map);
 
-        public BasePermissionModel Save(BasePermissionUpdateModel update)
+        public virtual BasePermissionModel Save(BasePermissionUpdateModel update)
         {
-            var intranetActionId = update.Action.ToInt();
-            var activityTypeId = update.ActivityType.ToNullableInt();
             var storedEntity = _permissionsRepository
-                //.FindOrNone(AndAlso(GroupIs(update.Group), ActionIs(update.Action)));
-                .FindOrNone(i => i.IntranetMemberGroupId == update.Group.Id &&
-                    i.IntranetActionId == intranetActionId &&
-                    i.ActivityTypeId == activityTypeId);
+                .FindOrNone(AndAlso(GroupIs(update.Group),
+                    ActionIs(update.Action), 
+                    ActivityTypeIs(update.ActivityType)));
 
             var actualEntity = storedEntity.Match(
                 entity =>
@@ -110,14 +109,14 @@ namespace Uintra.Core.Permissions.Implementation
             return actualMappedEntity;
         }
 
-        public void DeletePermissionsForMemberGroup(int memberGroupId)
+        public virtual void DeletePermissionsForMemberGroup(int memberGroupId)
         {
             _permissionsRepository.Delete(i => i.IntranetMemberGroupId == memberGroupId);
             CurrentCache = CurrentCache.Where(i => i.Group.Id != memberGroupId);
             //CurrentCache = null;
         }
 
-        public bool Check(IIntranetMember member, PermissionActivityTypeEnum permissionActivityType, PermissionActionEnum permissionAction)
+        public virtual bool Check(IIntranetMember member, PermissionActivityTypeEnum permissionActivityType, PermissionActionEnum permissionAction)
         {
             var permission = GetAll().Find(p =>
                 p.Group.Id == member.Group.Id && p.ActionType.Equals(permissionAction) &&
@@ -131,13 +130,13 @@ namespace Uintra.Core.Permissions.Implementation
             return isAllowed;
         }
 
-        public bool Check(PermissionActivityTypeEnum permissionActivityType, PermissionActionEnum permissionAction)
+        public virtual bool Check(PermissionActivityTypeEnum permissionActivityType, PermissionActionEnum permissionAction)
         {
             var member = _intranetMemberService.GetCurrentMember();
             return Check(member, permissionActivityType, permissionAction);
         }
 
-        protected BasePermissionModel Map(PermissionEntity entity) =>
+        protected virtual BasePermissionModel Map(PermissionEntity entity) =>
             BasePermissionModel.Of(
                 _intranetMemberGroupProvider.IntTypeDictionary,
                 _intranetActionTypeProvider.IntTypeDictionary,
@@ -163,16 +162,22 @@ namespace Uintra.Core.Permissions.Implementation
                 IsEnabled = update.SettingValues.IsEnabled
             };
 
-        //public static Expression<Func<PermissionEntity, bool>> GroupIs(IntranetMemberGroup group)
-        //{
-        //    var groupId = group.Id;
-        //    return entity => entity.IntranetMemberGroupId == groupId;
-        //}
+        public static Expression<Func<PermissionEntity, bool>> GroupIs(IntranetMemberGroup group)
+        {
+            var groupId = group.Id;
+            return entity => entity.IntranetMemberGroupId == groupId;
+        }
 
-        //public static Expression<Func<PermissionEntity, bool>> ActionIs(Enum action)
-        //{
-        //    var actionTypeId = action.ToInt();
-        //    return entity => entity.IntranetMemberGroupId == actionTypeId;
-        //}
+        public static Expression<Func<PermissionEntity, bool>> ActionIs(Enum action)
+        {
+            var actionTypeId = action.ToInt();
+            return entity => entity.IntranetActionId == actionTypeId;
+        }
+
+        public static Expression<Func<PermissionEntity, bool>> ActivityTypeIs(Option<Enum> value)
+        {
+            var activityTypeId = value.ToNullableInt();
+            return entity => entity.ActivityTypeId == activityTypeId;
+        }
     }
 }

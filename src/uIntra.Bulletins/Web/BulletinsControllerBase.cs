@@ -61,7 +61,7 @@ namespace Uintra.Bulletins.Web
             return PartialView(CreationFormViewPath, result);
         }
 
-        [NotFoundActivity]
+        [NotFoundActivity, RestrictedAction(ActivityType, PermissionActionEnum.View)]
         public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var bulletin = _bulletinsService.Get(id);

@@ -1,4 +1,7 @@
-﻿namespace Uintra.Core.Permissions
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace Uintra.Core.Permissions
 {
     public enum PermissionActionEnum
     {
@@ -6,6 +9,7 @@
         Create,
         Edit,
         Delete,
+        [Display(Name = "Can edit owner")]
         CanEditOwner
     }
 }
