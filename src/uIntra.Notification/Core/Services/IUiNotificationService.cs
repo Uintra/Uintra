@@ -5,11 +5,11 @@ namespace Uintra.Notification
 {
     public interface IUiNotificationService
     {
-        IEnumerable<Notification> GetMany(Guid receiverId, int count, out int totalCount);
+        (IEnumerable<Notification> notifications, int totalCount) GetMany(Guid receiverId, int count);
         void Notify(IEnumerable<Notification> notifications);
         void Notify(IEnumerable<UiNotificationMessage> messages);
         int GetNotNotifiedCount(Guid receiverId);
-        IEnumerable<Notification> GetNotNotifiedNotifications(Guid receiverId);
+        IList<Notification> GetNotNotifiedNotifications(Guid receiverId);
         void ViewNotification(Guid id);
         void SetNotificationAsNotified(Guid id);
     }

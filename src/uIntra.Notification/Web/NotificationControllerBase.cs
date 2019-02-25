@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
-using Compent.Extensions;
 using LanguageExt;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Uintra.Core.Extensions;
-using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Notification.Constants;
 using Uintra.Notification.Models.Json;
@@ -36,7 +34,6 @@ namespace Uintra.Notification.Web
             IUiNotificationService uiNotifierService,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             INotificationContentProvider notificationContentProvider,
-            IProfileLinkProvider profileLinkProvider,
             IPopupNotificationService popupNotificationService)
 
         {
@@ -54,15 +51,17 @@ namespace Uintra.Notification.Web
         public virtual ActionResult Index(int page = 1)
         {
             var take = page * ItemsPerPage;
-            var notifications = _uiNotifierService.GetMany(_intranetMemberService.GetCurrentMemberId(), take, out var totalCount).ToList();
+            var (notifications, totalCount) = _uiNotifierService.GetMany(_intranetMemberService.GetCurrentMemberId(), take);
 
-            var notNotifiedNotifications = notifications.Where(el => !el.IsNotified).ToList();
-            if (notNotifiedNotifications.Count > 0)
+            var notificationsArray = notifications.ToArray();
+
+            var notNotifiedNotifications = notificationsArray.Where(el => !el.IsNotified).ToArray();
+            if (notNotifiedNotifications.Length > 0)
             {
                 _uiNotifierService.Notify(notNotifiedNotifications);
             }
 
-            var notificationsViewModels = notifications.Select(MapNotificationToViewModel).ToList();
+            var notificationsViewModels = notificationsArray.Select(MapNotificationToViewModel).ToArray();
 
             var result = new NotificationListViewModel
             {
@@ -99,15 +98,17 @@ namespace Uintra.Notification.Web
         {
             var notificationListPage = _notificationContentProvider.GetNotificationListPage();
             var itemsCountForPopup = notificationListPage.GetPropertyValue(NotificationConstants.ItemCountForPopupPropertyTypeAlias, default(int));
-            var notifications = _uiNotifierService.GetMany(_intranetMemberService.GetCurrentMemberId(), itemsCountForPopup, out _).ToList();
+            var (notifications, _) = _uiNotifierService.GetMany(_intranetMemberService.GetCurrentMemberId(), itemsCountForPopup);
 
-            var notNotifiedNotifications = notifications.Where(el => !el.IsNotified).ToList();
-            if (notNotifiedNotifications.Count > 0)
+            var notificationsArray = notifications.ToArray();
+
+            var notNotifiedNotifications = notificationsArray.Where(el => !el.IsNotified).ToArray();
+            if (notNotifiedNotifications.Length > 0)
             {
                 _uiNotifierService.Notify(notNotifiedNotifications);
             }
 
-            var notificationsViewModels = notifications.Select(MapNotificationToViewModel).ToList();
+            var notificationsViewModels = notificationsArray.Select(MapNotificationToViewModel).ToArray();
 
             var result = new NotificationListViewModel
             {
@@ -146,20 +147,19 @@ namespace Uintra.Notification.Web
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
 
-            var notNotifiedNotifications = (currentMember != null
+            var notNotifiedNotifications = currentMember != null
                 ? _uiNotifierService.GetNotNotifiedNotifications(currentMember.Id)
-                : Enumerable.Empty<Notification>())
-                .ToList();
+                : new List<Notification>();
 
             var model = new JsonNotificationsModel
             {
                 Count = notNotifiedNotifications.Count,
-                Notifications = notNotifiedNotifications.Select(MapNotificationToJsonModel),
+                Notifications = notNotifiedNotifications.Select(MapNotificationToJsonModel)
             };
             return new JsonNetResult
             {
                 Data = model,
-                SerializerSettings = new JsonSerializerSettings()
+                SerializerSettings = new JsonSerializerSettings
                 {
                     ContractResolver = new CamelCasePropertyNamesContractResolver()
                 }
