@@ -13,7 +13,9 @@ namespace Uintra.Core.Permissions.TypeProviders
                 PermissionActionEnum.Create,
                 PermissionActionEnum.Edit,
                 PermissionActionEnum.Delete,
-                PermissionActionEnum.CanEditOwner
+                PermissionActionEnum.EditOwner,
+                PermissionActionEnum.EditOther,
+                PermissionActionEnum.DeleteOther
             };
         }
 

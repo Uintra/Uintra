@@ -14,9 +14,9 @@ using static Uintra.Core.Extensions.EnumerableExtensions;
 
 namespace Uintra.Core.Permissions.Implementation
 {
-    public class BasePermissionsService : IBasePermissionsService
+    public class PermissionsService : IPermissionsService
     {
-        protected virtual string BasePermissionCacheKey => "BasePermissionCache";
+        protected virtual string BasePermissionCacheKey => "PermissionCache";
 
         private readonly ISqlRepository<PermissionEntity> _permissionsRepository;
         private readonly IPermissionActionTypeProvider _intranetActionTypeProvider;
@@ -26,7 +26,7 @@ namespace Uintra.Core.Permissions.Implementation
         private readonly IPermissionSettingsSchema _permissionSettingsSchema;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
-        public BasePermissionsService(
+        public PermissionsService(
             ISqlRepository<PermissionEntity> permissionsRepository,
             IPermissionActionTypeProvider intranetActionProvider,
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
@@ -44,7 +44,7 @@ namespace Uintra.Core.Permissions.Implementation
             _intranetMemberService = intranetMemberService;
         }
 
-        protected virtual IEnumerable<BasePermissionModel> CurrentCache
+        protected virtual IEnumerable<PermissionModel> CurrentCache
         {
             get => _cacheService.GetOrSet(
                     BasePermissionCacheKey,
@@ -53,12 +53,12 @@ namespace Uintra.Core.Permissions.Implementation
             set => _cacheService.Set(BasePermissionCacheKey, value);
         }
 
-        public virtual IEnumerable<BasePermissionModel> GetAll()
+        public virtual IEnumerable<PermissionModel> GetAll()
         {
             return CurrentCache;
         }
 
-        public virtual IEnumerable<BasePermissionModel> GetForGroup(IntranetMemberGroup group)
+        public virtual IEnumerable<PermissionModel> GetForGroup(IntranetMemberGroup group)
         {
             var storedPerms = GetAll()
                 .Where(i => i.Group.Id == group.Id)
@@ -75,10 +75,10 @@ namespace Uintra.Core.Permissions.Implementation
             return settings;
         }
 
-        protected virtual IEnumerable<BasePermissionModel> MapAll(IEnumerable<PermissionEntity> entities) =>
+        protected virtual IEnumerable<PermissionModel> MapAll(IEnumerable<PermissionEntity> entities) =>
             entities.Select(Map);
 
-        public virtual BasePermissionModel Save(BasePermissionUpdateModel update)
+        public virtual PermissionModel Save(PermissionUpdateModel update)
         {
             var storedEntity = _permissionsRepository
                 .FindOrNone(AndAlso(GroupIs(update.Group),
@@ -131,14 +131,14 @@ namespace Uintra.Core.Permissions.Implementation
             return Check(member, permissionActivityType, permissionAction);
         }
 
-        protected virtual BasePermissionModel Map(PermissionEntity entity) =>
-            BasePermissionModel.Of(
+        protected virtual PermissionModel Map(PermissionEntity entity) =>
+            PermissionModel.Of(
                 _intranetMemberGroupProvider.IntTypeDictionary,
                 _intranetActionTypeProvider.IntTypeDictionary,
                 _activityTypeProvider.IntTypeDictionary,
                 entity);
 
-        public static PermissionEntity UpdateEntity(PermissionEntity entity, BasePermissionUpdateModel update)
+        public static PermissionEntity UpdateEntity(PermissionEntity entity, PermissionUpdateModel update)
         {
             entity.IsAllowed = update.SettingValues.IsAllowed;
             entity.IsEnabled = update.SettingValues.IsEnabled;
@@ -146,7 +146,7 @@ namespace Uintra.Core.Permissions.Implementation
             return entity;
         }
 
-        public static PermissionEntity CreateEntity(BasePermissionUpdateModel update) =>
+        public static PermissionEntity CreateEntity(PermissionUpdateModel update) =>
             new PermissionEntity
             {
                 Id = Guid.NewGuid(),

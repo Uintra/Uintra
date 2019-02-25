@@ -14,7 +14,7 @@ namespace Uintra.Core.Permissions
 {    
     public abstract class PermissionsControllerBase : UmbracoAuthorizedApiController
     {
-        private readonly IBasePermissionsService _actionPermissionsService;
+        private readonly IPermissionsService _actionPermissionsService;
         private readonly IIntranetMemberGroupProvider _intranetMemberGroupProvider;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IPermissionActionTypeProvider _intranetActionTypeProvider;
@@ -22,7 +22,7 @@ namespace Uintra.Core.Permissions
 
         protected PermissionsControllerBase(
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
-            IBasePermissionsService actionPermissionsService,
+            IPermissionsService actionPermissionsService,
             IActivityTypeProvider activityTypeProvider,
             IPermissionActionTypeProvider intranetActionTypeProvider,
             IIntranetMemberService<IIntranetMember> intranetMemberService)
@@ -57,7 +57,7 @@ namespace Uintra.Core.Permissions
         }
 
         [HttpPost]
-        public Unit Save(PermissionUpdateModel update)
+        public Unit Save(PermissionUpdateViewModel update)
         {
             var settingIdentity = PermissionSettingIdentity.Of(
                 _intranetActionTypeProvider[update.ActionId],
@@ -65,7 +65,7 @@ namespace Uintra.Core.Permissions
             var settingValue = PermissionSettingValues.Of(update.Allowed, update.Enabled);
             var targetGroup = _intranetMemberGroupProvider[update.IntranetMemberGroupId];
 
-            var mappedUpdate = BasePermissionUpdateModel.Of(targetGroup, settingValue, settingIdentity);
+            var mappedUpdate = PermissionUpdateModel.Of(targetGroup, settingValue, settingIdentity);
             _actionPermissionsService.Save(mappedUpdate);
 
             return unit;

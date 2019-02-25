@@ -34,7 +34,7 @@ namespace Uintra.Navigation.Web
         private readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IProfileLinkProvider _profileLinkProvider;
-        private readonly IBasePermissionsService _basePermissionsService;
+        private readonly IPermissionsService _basePermissionsService;
         private readonly IUserService _userService;
 
         protected NavigationControllerBase(
@@ -44,7 +44,7 @@ namespace Uintra.Navigation.Web
             ISystemLinksModelBuilder systemLinksModelBuilder,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
-            IBasePermissionsService basePermissionsService,
+            IPermissionsService basePermissionsService,
             IUserService userService)
         {
             _leftSideNavigationModelBuilder = leftSideNavigationModelBuilder;

@@ -6,9 +6,9 @@ namespace Uintra.Groups.Permissions
     public class GroupPermissionsService : IGroupPermissionsService
     {        
         protected const string GroupsCreatePage = "groupsCreatePage";
-        private readonly IBasePermissionsService _basePermissionsService;
+        private readonly IPermissionsService _basePermissionsService;
 
-        public GroupPermissionsService(IBasePermissionsService basePermissionsService)
+        public GroupPermissionsService(IPermissionsService basePermissionsService)
         {
             _basePermissionsService = basePermissionsService;
         }

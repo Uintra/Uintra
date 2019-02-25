@@ -27,7 +27,7 @@ namespace Uintra.Groups.Web
         private readonly IGroupFeedContentService _groupFeedContentContentService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
-        private readonly IBasePermissionsService _basePermissionsService;
+        private readonly IPermissionsService _basePermissionsService;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IFeedFilterService _feedFilterService;
 
@@ -53,7 +53,7 @@ namespace Uintra.Groups.Web
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupMemberService groupMemberService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IBasePermissionsService basePermissionsService,
+            IPermissionsService basePermissionsService,
             IContextTypeProvider contextTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterService feedFilterService)

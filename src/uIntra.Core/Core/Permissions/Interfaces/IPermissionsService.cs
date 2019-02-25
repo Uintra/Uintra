@@ -4,11 +4,11 @@ using Uintra.Core.User;
 
 namespace Uintra.Core.Permissions
 {
-    public interface IBasePermissionsService
+    public interface IPermissionsService
     {
-        IEnumerable<BasePermissionModel> GetAll();
-        IEnumerable<BasePermissionModel> GetForGroup(IntranetMemberGroup group);
-        BasePermissionModel Save(BasePermissionUpdateModel update);
+        IEnumerable<PermissionModel> GetAll();
+        IEnumerable<PermissionModel> GetForGroup(IntranetMemberGroup group);
+        PermissionModel Save(PermissionUpdateModel update);
         void DeletePermissionsForMemberGroup(int memberGroupId);
         bool Check(IIntranetMember member, PermissionActivityTypeEnum permissionActivityType, PermissionActionEnum permissionAction);
         bool Check(PermissionActivityTypeEnum permissionActivityType, PermissionActionEnum permissionAction);

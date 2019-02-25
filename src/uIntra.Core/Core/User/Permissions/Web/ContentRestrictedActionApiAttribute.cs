@@ -21,7 +21,7 @@ namespace Uintra.Core.User.Permissions.Web
 
         public override void OnActionExecuting(HttpActionContext filterContext)
         {
-            var permissionsService = HttpContext.Current.GetService<IBasePermissionsService>();            
+            var permissionsService = HttpContext.Current.GetService<IPermissionsService>();            
 
             var isMemberHasAccess = permissionsService.Check(_activityType, _action);
 

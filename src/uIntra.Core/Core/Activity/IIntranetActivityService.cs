@@ -13,11 +13,13 @@ namespace Uintra.Core.Activity
         Guid Create(IIntranetActivity activity);
         void Save(IIntranetActivity activity);
         bool CanEdit(IIntranetActivity activity);
+        bool CanDelete(IIntranetActivity activity);
     }
 
     public interface IIntranetActivityService : ITypedService
     {
         void Delete(Guid id);
         bool CanEdit(Guid id);
+        bool CanDelete(Guid id);
     }
 }

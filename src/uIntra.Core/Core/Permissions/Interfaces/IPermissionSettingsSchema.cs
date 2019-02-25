@@ -5,6 +5,6 @@ namespace Uintra.Core.Permissions
     public interface IPermissionSettingsSchema
     {
         PermissionSettingIdentity[] Settings { get; }
-        BasePermissionModel GetDefault(PermissionSettingIdentity settingIdentity, IntranetMemberGroup group);
+        PermissionModel GetDefault(PermissionSettingIdentity settingIdentity, IntranetMemberGroup group);
     }
 }

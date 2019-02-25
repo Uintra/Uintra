@@ -25,7 +25,7 @@ namespace Uintra.CentralFeed.Web
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
-        private readonly IBasePermissionsService _basePermissionsService;
+        private readonly IPermissionsService _basePermissionsService;
         private readonly IFeedFilterService _centralFeedFilterService;
 
         protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/Overview.cshtml";
@@ -48,7 +48,7 @@ namespace Uintra.CentralFeed.Web
             IFeedTypeProvider centralFeedTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IBasePermissionsService basePermissionsService,
+            IPermissionsService basePermissionsService,
             IActivityTypeProvider activityTypeProvider,
             IContextTypeProvider contextTypeProvider,
             IFeedFilterService centralFeedFilterService)

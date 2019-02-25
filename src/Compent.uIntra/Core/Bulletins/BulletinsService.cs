@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Compent.CommandBus;
 using Compent.Extensions;
-using Compent.Uintra.Core.Helpers;
 using Compent.Uintra.Core.Notification;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.UserTags.Indexers;
@@ -20,7 +19,6 @@ using Uintra.Core.Media;
 using Uintra.Core.Permissions;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Groups;
 using Uintra.Likes;
 using Uintra.Notification;
@@ -43,7 +41,7 @@ namespace Compent.Uintra.Core.Bulletins
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
-        private readonly IBasePermissionsService _basePermissionsService;
+        private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
@@ -63,7 +61,7 @@ namespace Compent.Uintra.Core.Bulletins
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
-            IBasePermissionsService basePermissionsService,
+            IPermissionsService permissionsService,
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,
             IElasticUintraActivityIndex activityIndex,
@@ -78,12 +76,12 @@ namespace Compent.Uintra.Core.Bulletins
             IGroupService groupService,
             INotifierDataBuilder notifierDataBuilder)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
-                activityLocationService, activityLinkPreviewService)
+                activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService)
         {
             _intranetMemberService = intranetMemberService;
             _commentsService = commentsService;
             _likesService = likesService;
-            _basePermissionsService = basePermissionsService;
+            _permissionsService = permissionsService;
             _subscribeService = subscribeService;
             _notificationService = notificationService;
             _activityIndex = activityIndex;
@@ -109,10 +107,6 @@ namespace Compent.Uintra.Core.Bulletins
             base.UpdateCache();
             FillIndex();
         }
-
-        public override bool CanEdit(IIntranetActivity activity) => CanPerform(activity, PermissionActionEnum.Edit);
-
-        public bool CanDelete(IIntranetActivity cached) => CanPerform(cached, PermissionActionEnum.Delete);
 
         public FeedSettings GetFeedSettings()
         {
@@ -193,20 +187,6 @@ namespace Compent.Uintra.Core.Bulletins
             var linkPreview = _activityLinkPreviewService.GetActivityLinkPreview(bulletin.Id);
             bulletin.LinkPreview = linkPreview;
             bulletin.LinkPreviewId = linkPreview?.Id;
-        }
-
-        private bool CanPerform(IIntranetActivity cached, PermissionActionEnum action)
-        {
-            var currentMember = _intranetMemberService.GetCurrentMember();
-
-            var isWebmaster = currentMember.Group.Id == IntranetRolesEnum.WebMaster.ToInt();
-            if (isWebmaster) return true;
-
-            var ownerId = Get(cached.Id).OwnerId;
-            var isOwner = ownerId == currentMember.Id;
-
-            var isUserHasPermissions = _basePermissionsService.Check(currentMember, PermissionActivityType, action);
-            return isOwner && isUserHasPermissions;
         }
 
         private bool IsBulletinHidden(Bulletin bulletin) => bulletin == null || bulletin.IsHidden;

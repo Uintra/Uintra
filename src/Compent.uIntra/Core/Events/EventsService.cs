@@ -44,7 +44,7 @@ namespace Compent.Uintra.Core.Events
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
-        private readonly IBasePermissionsService _permissionsService;
+        private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticUintraActivityIndex _activityIndex;
@@ -65,7 +65,7 @@ namespace Compent.Uintra.Core.Events
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
-            IBasePermissionsService permissionsService,
+            IPermissionsService permissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper,
             IElasticUintraActivityIndex activityIndex,
@@ -87,7 +87,9 @@ namespace Compent.Uintra.Core.Events
                 activityTypeProvider,
                 intranetMediaService,
                 activityLocationService,
-                activityLinkPreviewService)
+                activityLinkPreviewService, 
+                intranetMemberService,
+                permissionsService)
         {
             _intranetMemberService = intranetMemberService;
             _commentsService = commentsService;
@@ -150,21 +152,21 @@ namespace Compent.Uintra.Core.Events
             };
         }
 
-        public override bool CanEdit(IIntranetActivity activity)
-        {
-            var currentMember = _intranetMemberService.GetCurrentMember();
-
-            var isWebmaster = currentMember.Group.Id == IntranetRolesEnum.WebMaster.ToInt();
-
-            if (isWebmaster) return true;
-
-            var ownerId = Get(activity.Id).OwnerId;
-            var isOwner = ownerId == currentMember.Id;
-
-            var isMemberHasPermissions = _permissionsService.Check(currentMember, PermissionActivityType, PermissionActionEnum.Edit);
-
-            return isOwner && isMemberHasPermissions;
-        }
+        //public override bool CanEdit(IIntranetActivity activity)
+        //{
+        //    var currentMember = _intranetMemberService.GetCurrentMember();
+        //
+        //    var isWebmaster = currentMember.Group.Id == IntranetRolesEnum.WebMaster.ToInt();
+        //
+        //    if (isWebmaster) return true;
+        //
+        //    var ownerId = Get(activity.Id).OwnerId;
+        //    var isOwner = ownerId == currentMember.Id;
+        //
+        //    var isMemberHasPermissions = _permissionsService.Check(currentMember, PermissionActivityType, PermissionActionEnum.Edit);
+        //
+        //    return isOwner && isMemberHasPermissions;
+        //}
 
         public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
 

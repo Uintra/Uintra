@@ -8,10 +8,10 @@ namespace Uintra.Core.Permissions.UmbracoEvents
 {
     public class UmbracoMemberGroupEventService : IUmbracoMemberGroupDeletingEventService
     {
-        private readonly IBasePermissionsService _basePermissionsService;
+        private readonly IPermissionsService _basePermissionsService;
         private readonly ICacheService _cacheService;
 
-        public UmbracoMemberGroupEventService(IBasePermissionsService basePermissionsService,
+        public UmbracoMemberGroupEventService(IPermissionsService basePermissionsService,
             ICacheService cacheService)
         {
             _basePermissionsService = basePermissionsService;

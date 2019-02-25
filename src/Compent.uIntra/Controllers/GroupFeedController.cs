@@ -32,7 +32,7 @@ namespace Compent.Uintra.Controllers
             IGroupMemberService groupMemberService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             IActivityTypeProvider activityTypeProvider,
-            IBasePermissionsService permissionsService,
+            IPermissionsService permissionsService,
             IContextTypeProvider contextTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterService feedFilterService)

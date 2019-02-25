@@ -19,10 +19,10 @@ namespace Uintra.Core.Web
         protected virtual string PinActivityViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityPinView.cshtml";
 
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
-        private readonly IBasePermissionsService _basePermissionsService;
+        private readonly IPermissionsService _basePermissionsService;
 
         protected ActivityControllerBase(
-            IIntranetMemberService<IIntranetMember> intranetMemberService, IBasePermissionsService basePermissionsService)
+            IIntranetMemberService<IIntranetMember> intranetMemberService, IPermissionsService basePermissionsService)
         {
             _intranetMemberService = intranetMemberService;
             _basePermissionsService = basePermissionsService;
@@ -47,7 +47,7 @@ namespace Uintra.Core.Web
                 Links = links
             };
 
-            model.CanEditOwner = _basePermissionsService.Check( activityType, PermissionActionEnum.CanEditOwner);
+            model.CanEditOwner = _basePermissionsService.Check( activityType, PermissionActionEnum.EditOwner);
             if (model.CanEditOwner)
             {
                 model.Members = GetUsersWithAccess(activityType, PermissionActionEnum.Create);

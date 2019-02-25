@@ -5,6 +5,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.LinkPreview;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 
@@ -21,8 +22,10 @@ namespace Uintra.News
             IActivityTypeProvider activityTypeProvider,
             IIntranetMediaService intranetMediaService,
             IActivityLocationService activityLocationService,
-            IActivityLinkPreviewService activityLinkPreviewService)
-            : base(activityRepository, cache, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService)
+            IActivityLinkPreviewService activityLinkPreviewService,
+            IPermissionsService permissionsService)
+            : base(activityRepository, cache, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
+                  intranetMemberService, permissionsService)
         {
             _intranetMemberService = intranetMemberService;
         }

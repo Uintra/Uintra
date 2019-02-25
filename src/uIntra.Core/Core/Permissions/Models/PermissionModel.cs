@@ -6,7 +6,7 @@ using static LanguageExt.Prelude;
 
 namespace Uintra.Core.Permissions.Models
 {
-    public class BasePermissionModel
+    public class PermissionModel
     {
         public Guid Id { get; }
         public IntranetMemberGroup Group { get; }
@@ -15,7 +15,7 @@ namespace Uintra.Core.Permissions.Models
         public bool IsAllowed { get; }
         public bool IsEnabled { get; }
 
-        private BasePermissionModel(Guid id, IntranetMemberGroup group, Enum permissionType, Option<Enum> activityType, bool isAllowed, bool isEnabled)
+        private PermissionModel(Guid id, IntranetMemberGroup group, Enum permissionType, Option<Enum> activityType, bool isAllowed, bool isEnabled)
         {
             Id = id;
             Group = group;
@@ -25,11 +25,11 @@ namespace Uintra.Core.Permissions.Models
             IsEnabled = isEnabled;
         }
 
-        public static BasePermissionModel Of(IDictionary<int,IntranetMemberGroup> groupDictionary,
+        public static PermissionModel Of(IDictionary<int,IntranetMemberGroup> groupDictionary,
             IDictionary<int, Enum> actionDictionary,
             IDictionary<int, Enum> activityDictionary,
             PermissionEntity entity) =>
-            new BasePermissionModel(
+            new PermissionModel(
                 entity.Id,
                 groupDictionary[entity.IntranetMemberGroupId],
                 actionDictionary[entity.IntranetActionId],
@@ -38,9 +38,9 @@ namespace Uintra.Core.Permissions.Models
                 entity.IsAllowed,
                 entity.IsEnabled);
 
-        public static BasePermissionModel Of(PermissionSettingIdentity identity, PermissionSettingValues values,
+        public static PermissionModel Of(PermissionSettingIdentity identity, PermissionSettingValues values,
             IntranetMemberGroup group) =>
-            new BasePermissionModel(
+            new PermissionModel(
                 Guid.NewGuid(),
                 group,
                 identity.ActionType,

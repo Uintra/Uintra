@@ -17,7 +17,7 @@ namespace Uintra.Core.Permissions
                 .ForMember(dst => dst.Id, o => o.MapFrom(el => el.Id))
                 .ForMember(dst => dst.Name, o => o.MapFrom(el => el.Name));
 
-            Mapper.CreateMap<BasePermissionModel, PermissionViewModel>()
+            Mapper.CreateMap<PermissionModel, PermissionViewModel>()
                 .ForMember(dst => dst.ActionId, o => o.MapFrom(el => el.ActionType.ToInt()))
                 .ForMember(dst => dst.ActionName, o => o.MapFrom(el => el.ActionType.GetDisplayName()))
                 .ForMember(dst => dst.ActivityTypeId, o => o.MapFrom(el => el.ActivityType.ToNullableInt()))

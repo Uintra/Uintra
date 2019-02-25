@@ -9,7 +9,11 @@ namespace Uintra.Core.Permissions
         Create,
         Edit,
         Delete,
-        [Display(Name = "Can edit owner")]
-        CanEditOwner
+        [Display(Name = "Edit owner")]
+        EditOwner,
+        [Display(Name = "Edit other")]
+        EditOther,
+        [Display(Name = "Delete other")]
+        DeleteOther
     }
 }

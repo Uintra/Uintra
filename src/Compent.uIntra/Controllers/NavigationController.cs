@@ -60,7 +60,7 @@ namespace Compent.Uintra.Controllers
             IGroupHelper groupHelper,
             ICentralFeedHelper centralFeedHelper,
             IProfileLinkProvider profileLinkProvider,
-            IBasePermissionsService permissionsService,
+            IPermissionsService permissionsService,
             IUserService userService,
             IUintraInformationService uintraInformationService)
             : base(

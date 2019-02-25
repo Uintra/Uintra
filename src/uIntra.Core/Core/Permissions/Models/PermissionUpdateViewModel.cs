@@ -1,6 +1,6 @@
 ﻿namespace Uintra.Core.Permissions.Models
 {
-    public class PermissionUpdateModel
+    public class PermissionUpdateViewModel
     {
         public int IntranetMemberGroupId { get; set; }
         public int ActionId { get; set; }
