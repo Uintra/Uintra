@@ -27,17 +27,12 @@ namespace Uintra.Core.Permissions.Implementation
 
         protected virtual IEnumerable<IntranetMemberGroup> CurrentCache
         {
-            get
-            {
-                return _cacheService.GetOrSet(IntranetMemberGroupCahceKey,
-                    () => _memberGroupService
-                        .GetAll()
-                        .Map<IEnumerable<IntranetMemberGroup>>());
-            }
-            set
-            {
-                _cacheService.Set(IntranetMemberGroupCahceKey, value);
-            }
+            get => _cacheService.GetOrSet(IntranetMemberGroupCahceKey,
+                () => _memberGroupService
+                    .GetAll()
+                    .Map<IEnumerable<IntranetMemberGroup>>());
+
+            set => _cacheService.Set(IntranetMemberGroupCahceKey, value);
         }
 
         public virtual IEnumerable<IntranetMemberGroup> GetAll() => CurrentCache;
@@ -57,7 +52,7 @@ namespace Uintra.Core.Permissions.Implementation
 
         public virtual int Create(string name)
         {
-            _memberGroupService.Save(new MemberGroup() { Name = name });
+            _memberGroupService.Save(new MemberGroup { Name = name });
             var group = _memberGroupService.GetByName(name);
             CurrentCache = CurrentCache.Append(group.Map<IntranetMemberGroup>());
             return group.Id;
