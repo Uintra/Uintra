@@ -12,8 +12,6 @@ using Uintra.Core.Persistence;
 using Uintra.Core.User;
 using static Uintra.Core.Extensions.EnumerableExtensions;
 
-using static LanguageExt.Prelude;
-
 namespace Uintra.Core.Permissions.Implementation
 {
     public class BasePermissionsService : IBasePermissionsService
@@ -48,16 +46,11 @@ namespace Uintra.Core.Permissions.Implementation
 
         protected virtual IEnumerable<BasePermissionModel> CurrentCache
         {
-            get
-            {
-                return _cacheService.GetOrSet(
+            get => _cacheService.GetOrSet(
                     BasePermissionCacheKey,
                     () => _permissionsRepository.GetAll().Apply(MapAll));
-            }
-            set
-            {
-                _cacheService.Set(BasePermissionCacheKey, value);
-            }
+
+            set => _cacheService.Set(BasePermissionCacheKey, value);
         }
 
         public virtual IEnumerable<BasePermissionModel> GetAll()
@@ -67,13 +60,16 @@ namespace Uintra.Core.Permissions.Implementation
 
         public virtual IEnumerable<BasePermissionModel> GetForGroup(IntranetMemberGroup group)
         {
-            var storedPerms = GetAll().Where(i => i.Group.Id == group.Id);
+            var storedPerms = GetAll()
+                .Where(i => i.Group.Id == group.Id)
+                .ToDictionary(settingIdentity => (
+                    settingIdentity.ActionType,
+                    settingIdentity.ActivityType,
+                    settingIdentity.Group.Id));
 
             var settings = _permissionSettingsSchema.Settings
-                .Select(settingIdentity => Optional(storedPerms.FirstOrDefault(i =>
-                    i.ActionType.Equals(settingIdentity.ActionType) &&
-                    i.ActivityType == settingIdentity.ActivityType &&
-                    i.Group.Id == group.Id))
+                .Select(settingIdentity => storedPerms
+                    .ItemOrNone((settingIdentity.ActionType, settingIdentity.ActivityType, group.Id))
                     .IfNone(() => _permissionSettingsSchema.GetDefault(settingIdentity, group)));
 
             return settings;
@@ -120,13 +116,12 @@ namespace Uintra.Core.Permissions.Implementation
         {
             var permission = GetAll().Find(p =>
                 p.Group.Id == member.Group.Id && p.ActionType.Equals(permissionAction) &&
-                p.ActivityType.Some(i => i.Equals(permissionActivityType)).None(() => false)
-            );
+                p.ActivityType == permissionActivityType);
 
             //permission.IfNone(() =>
             //    throw new Exception($"action: [{permissionAction.ToString()}] for member group name: [{member.Group.Name}] under activity type: [{permissionActivityType.ToString()}] doesn't exist!"));
 
-            var isAllowed = permission.Map(p => p.IsAllowed).Some(s => s).None(() => false);
+            var isAllowed = permission.Match(p => p.IsAllowed, () => false);
             return isAllowed;
         }
 
