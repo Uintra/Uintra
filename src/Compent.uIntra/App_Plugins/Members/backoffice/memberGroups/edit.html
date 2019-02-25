@@ -13,15 +13,15 @@
                 <input type="text" ng-model="vm.memberGroup.name" />
             </umb-property>
 
-            <div ng-repeat="(key, value) in vm.permissions">
-                <umb-property property="vm.getProperty(key)">
+            <div ng-repeat="element in vm.permissions">
+                <umb-property property="vm.getProperty(element[0])">
                     <table border="0" cellspacing="10" cellpadding="5">
                         <tr>
-                            <th align="left">Permission</th>
+                            <th align="left" style="min-width:130px">Permission</th>
                             <th align="center">Allowed</th>
                             <th ng-if="vm.isSuperUser" align="center">Enabled</th>
                         </tr>
-                        <tr ng-repeat="permission in value">
+                        <tr ng-repeat="permission in element[1]">
                             <td >
                                 <span>{{permission.actionName}}</span>
                             </td>

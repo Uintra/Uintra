@@ -97,9 +97,10 @@ app.controller('memberGroups.editController',
         };
 
         function groupByActivityTypeName(items) {
-            return _.groupBy(items, function (item) {
+            var grouped = _.groupBy(items, function (item) {
                 return item.activityTypeName;
             });
+            return Object.entries(grouped); // used for sorting from backend
         }
 
         function syncTree(id) {

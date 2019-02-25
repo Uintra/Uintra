@@ -60,7 +60,7 @@ namespace Uintra.Events.Web
             _activityPageHelperFactory = activityPageHelperFactory;
         }
 
-        [NotFoundActivity]
+        [NotFoundActivity, RestrictedAction(ActivityType, PermissionActionEnum.View)]
         public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var @event = _eventsService.Get(id);

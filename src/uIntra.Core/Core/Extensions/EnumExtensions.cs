@@ -1,7 +1,9 @@
 ﻿using LanguageExt;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Core.Extensions
 {
@@ -23,6 +25,17 @@ namespace Uintra.Core.Extensions
             }
 
             return default;
+        }
+
+        public static string GetDisplayName(this Enum enumValue)
+        {
+            return Optional(enumValue).GetDisplayName();
+        }
+
+        public static string GetDisplayName(this Option<Enum> enumValue)
+        {
+            return enumValue.Map(i => Optional(i.GetAttribute<DisplayAttribute>())
+                .Some(j => j.Name).None(i.ToString())).FirstOrDefault();
         }
 
         public static TAttribute GetAttribute<TAttribute>(this Enum enumValue)

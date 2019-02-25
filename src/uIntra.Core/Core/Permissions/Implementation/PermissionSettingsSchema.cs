@@ -26,13 +26,13 @@ namespace Uintra.Core.Permissions.Implementation
             Settings = BuildSettings(actionTypeProvider.All, actionTypeProvider.ActivityActions, activityTypeProvider.All);
         }
 
-        public BasePermissionModel GetDefault(PermissionSettingIdentity settingIdentity, IntranetMemberGroup group) =>
+        public virtual BasePermissionModel GetDefault(PermissionSettingIdentity settingIdentity, IntranetMemberGroup group) =>
             _defaultOverrides
                 .ItemOrNone(settingIdentity)
                 .IfNone(() => PermissionSettingValues.Of(GlobalIsAllowedDefault, GlobalIsEnabledDefault))
                 .Apply(settingValues => BasePermissionModel.Of(settingIdentity, settingValues, group));
 
-        public static PermissionSettingIdentity[] BuildSettings(
+        protected virtual PermissionSettingIdentity[] BuildSettings(
             IEnumerable<Enum> allActions,
             IEnumerable<Enum> activityActions,
             IEnumerable<Enum> activityTypes)
