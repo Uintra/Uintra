@@ -149,6 +149,7 @@
                 display: block;  
                 padding:13px 10px 11px;
                 white-space: pre-line;
+                word-break: break-all;
 
                 @media (--for-phone-only) {
                     padding:11px 9px 9px;
