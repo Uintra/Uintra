@@ -27,8 +27,7 @@ namespace Uintra.Users.Web
         [HttpPost]
         public bool Save(MemberGroupViewModel model)
         {
-            _intranetMemberGroupService.Save(model.Id, model.Name);
-            return true;
+            return _intranetMemberGroupService.Save(model.Id, model.Name);
         }
 
         [HttpPost]

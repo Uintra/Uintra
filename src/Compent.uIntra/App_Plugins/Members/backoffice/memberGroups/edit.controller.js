@@ -88,9 +88,13 @@ app.controller('memberGroups.editController',
                 return;
             }
             memberGroupsService.save(memberGroupId, vm.memberGroup.name)
-                .success(function (response) {
-                    notificationsService.success("Success", "Member group has been saved!");
-                    syncTree(memberGroupId);
+                .success(function (result) {
+                    if (result === 'true') {
+                        notificationsService.success("Success", "Member group has been saved!");
+                        syncTree(memberGroupId);
+                    } else {
+                        notificationsService.error("Error", "The group with the same name already exist!");
+                    }
                 }).always(function () {
                     vm.buttonState = "success";
                 });

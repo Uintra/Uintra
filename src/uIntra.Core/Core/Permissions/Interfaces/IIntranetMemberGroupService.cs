@@ -8,7 +8,7 @@ namespace Uintra.Core.Permissions
         IEnumerable<IntranetMemberGroup> GetAll();
         IntranetMemberGroup[] GetForMember(int id);
         int Create(string name);
-        void Save(int id, string name);
+        bool Save(int id, string name);
         void Delete(int id);
     }
 }

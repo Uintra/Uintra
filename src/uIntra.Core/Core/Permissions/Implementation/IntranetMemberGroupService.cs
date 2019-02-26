@@ -52,18 +52,22 @@ namespace Uintra.Core.Permissions.Implementation
 
         public virtual int Create(string name)
         {
-            _memberGroupService.Save(new MemberGroup { Name = name });
             var group = _memberGroupService.GetByName(name);
+            if (group != null) return group.Id;
+            _memberGroupService.Save(new MemberGroup { Name = name });
+            group = _memberGroupService.GetByName(name);
             CurrentCache = CurrentCache.Append(group.Map<IntranetMemberGroup>());
             return group.Id;
         }
 
-        public virtual void Save(int id, string name)
+        public virtual bool Save(int id, string name)
         {
+            if (_memberGroupService.GetByName(name) != null) return false;
             var memberGroup = _memberGroupService.GetById(id);
             memberGroup.Name = name;
             _memberGroupService.Save(memberGroup);
             CurrentCache = CurrentCache.Where(i => i.Id != id).Append(memberGroup.Map<IntranetMemberGroup>());
+            return true;
         }
 
         public virtual void Delete(int id)
