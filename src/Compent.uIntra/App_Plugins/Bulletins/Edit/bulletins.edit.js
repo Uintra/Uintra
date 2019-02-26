@@ -106,7 +106,8 @@ function initFileUploader() {
 
 function initEventListeners() {
     let deleteButton = holder.querySelector(".js-edit-bulletin__delete");
-    deleteButton.addEventListener("click", deleteClickHandler);
+    if(deleteButton)
+        deleteButton.addEventListener("click", deleteClickHandler);
 
     let submitButton = holder.querySelector(".js-disable-submit");
     submitButton.addEventListener("click", submitClickHandler);
