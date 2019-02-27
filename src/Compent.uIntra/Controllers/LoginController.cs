@@ -105,6 +105,7 @@ namespace Compent.Uintra.Controllers
         public ActionResult LoginUintra(LoginModel model)
         {
             model.GoogleSettings = GetGoogleSettings();
+            model.CurrentIntranetVersion = uintraInformationService.Version;
             if (!ModelState.IsValid)
             {
                 return View(LoginViewPath, model);
