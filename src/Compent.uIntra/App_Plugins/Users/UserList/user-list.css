@@ -194,6 +194,7 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         margin:0 0 0 10.5%;
+        margin-left: 4.5%;
 
         @media (--for-tablet-portrait-down){
             margin:2px 0 1px;
