@@ -27,7 +27,7 @@ namespace Uintra.Groups.Web
         private readonly IGroupFeedContentService _groupFeedContentContentService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
-        private readonly IPermissionsService _basePermissionsService;
+        private readonly IPermissionsService _permissionsService;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IFeedFilterService _feedFilterService;
 
@@ -53,7 +53,7 @@ namespace Uintra.Groups.Web
             IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupMemberService groupMemberService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IPermissionsService basePermissionsService,
+            IPermissionsService permissionsService,
             IContextTypeProvider contextTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterService feedFilterService)
@@ -72,7 +72,7 @@ namespace Uintra.Groups.Web
             _groupFeedContentContentService = groupFeedContentContentService;
             _groupMemberService = groupMemberService;
             _feedFilterStateService = feedFilterStateService;
-            _basePermissionsService = basePermissionsService;
+            _permissionsService = permissionsService;
             _feedLinkService = feedLinkService;
             _feedFilterService = feedFilterService;
         }
@@ -197,10 +197,11 @@ namespace Uintra.Groups.Web
             var model = new GroupFeedOverviewModel
             {
                 Tabs = activityTabs,
-                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _basePermissionsService.Check(ToPermissionActivityType(tab.Type), PermissionActionEnum.Create)),
+                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _permissionsService.Check(ToPermissionActivityType(tab.Type), PermissionActionEnum.Create)),
                 CurrentType = tabType,
                 GroupId = groupId,
-                IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentMember)
+                IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentMember),
+                CanCreateBulletin = _permissionsService.Check(PermissionActivityTypeEnum.Bulletins, PermissionActionEnum.Create)
             };
             return model;
         }

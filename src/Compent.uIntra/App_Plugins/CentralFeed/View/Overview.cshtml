@@ -6,18 +6,23 @@
 @model CentralFeedOverviewModel
 
 <section class="content _central-feed">
-    <ul class="feed-create js-feed-create">
-        @foreach (var typeModel in Model.TabsWithCreateUrl)
-        {
-            <li class="feed-create__frame">
-                <a class="btn" href="@typeModel.Links.Create">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.ToString()}.lnk")</a>
-            </li>
-        }
-
-        <li class="feed-create__frame">
-            <a class="btn _submit js-bulletin-open">@Html.Localize("BulletinsCreate.ExpandBulletin.lbl")</a>
-        </li>
-    </ul>
+    @if (Model.TabsWithCreateUrl.Any() || Model.CanCreateBulletin)
+    {
+        <ul class="feed-create js-feed-create">
+            @foreach (var typeModel in Model.TabsWithCreateUrl)
+            {
+                <li class="feed-create__frame">
+                    <a class="btn" href="@typeModel.Links.Create">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.ToString()}.lnk")</a>
+                </li>
+            }
+            @if (Model.CanCreateBulletin)
+            {
+                <li class="feed-create__frame">
+                    <a class="btn _submit js-bulletin-open">@Html.Localize("BulletinsCreate.ExpandBulletin.lbl")</a>
+                </li>
+            }
+        </ul>
+    }
     @Ajax.ActionLink(Html.Localize("CentralFeedList.OpenFilters.lbl"), "OpenFilters", "CentralFeed", new AjaxOptions(), new { @class = "filter__toggle js-filter__toggle" })
     @Html.Hidden("isFiltersOpened", Model.IsFiltersOpened.ToString().ToLower())
     <div class="feed__filter js-feed-navigation">

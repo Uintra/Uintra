@@ -8,13 +8,13 @@ namespace Uintra.Core.Permissions.UmbracoEvents
 {
     public class UmbracoMemberGroupEventService : IUmbracoMemberGroupDeletingEventService
     {
-        private readonly IPermissionsService _basePermissionsService;
+        private readonly IPermissionsService _permissionsService;
         private readonly ICacheService _cacheService;
 
-        public UmbracoMemberGroupEventService(IPermissionsService basePermissionsService,
+        public UmbracoMemberGroupEventService(IPermissionsService permissionsService,
             ICacheService cacheService)
         {
-            _basePermissionsService = basePermissionsService;
+            _permissionsService = permissionsService;
             _cacheService = cacheService;
         }
 
@@ -22,7 +22,7 @@ namespace Uintra.Core.Permissions.UmbracoEvents
         {
             foreach (var group in e.DeletedEntities)
             {
-                _basePermissionsService.DeletePermissionsForMemberGroup(group.Id);
+                _permissionsService.DeletePermissionsForMemberGroup(group.Id);
             }
         }
     }

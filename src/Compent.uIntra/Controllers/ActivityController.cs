@@ -10,9 +10,9 @@ namespace Compent.Uintra.Controllers
         protected override string ItemHeaderViewPath { get; } = "~/Views/Activity/ItemHeader.cshtml";
 
         public ActivityController(IIntranetMemberService<IIntranetMember> intranetMemberService,
-            IPermissionsService basePermissionsService,
+            IPermissionsService permissionsService,
             IActivityTypeProvider activityTypeProvider) 
-            : base(intranetMemberService, basePermissionsService)
+            : base(intranetMemberService, permissionsService)
         {
         }
     }

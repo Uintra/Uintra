@@ -9,12 +9,12 @@ namespace Compent.Uintra.Controllers.Api
     {
         public PermissionsController(
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
-            IPermissionsService basePermissionsService,
+            IPermissionsService permissionsService,
             IActivityTypeProvider activityTypeProvider,
             IPermissionActionTypeProvider intranetActionTypeProvider,
             IIntranetMemberService<IIntranetMember> intranetMemberService
             ) 
-            : base(intranetMemberGroupProvider, basePermissionsService, activityTypeProvider, intranetActionTypeProvider, intranetMemberService)
+            : base(intranetMemberGroupProvider, permissionsService, activityTypeProvider, intranetActionTypeProvider, intranetMemberService)
         {
         }
     }
