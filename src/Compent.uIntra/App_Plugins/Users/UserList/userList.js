@@ -26,17 +26,6 @@ let confirmText;
 let controller = {
     init: function () {
 
-        function updateWidth() {
-            var mainObj = $(".users-table .js-tbody");
-            var count = mainObj.children().length;
-            while (--count >= 0) {
-                if (mainObj.children()[count].childElementCount === 2) {
-                    mainObj.children()[count].querySelector('.users-table__cell.users-table__cell--name').classList.add('showWidth');
-                }
-            }
-        };
-        updateWidth();
-
         if (tableBody.length === 0)
             return;
         init();
@@ -82,7 +71,6 @@ let controller = {
                     addDetailsHandler(rows);
                     addRemoveUserFromGroupHandler(rows);
                     updateUI(rows);
-                    updateWidth();
                 });
         }
 
