@@ -141,12 +141,7 @@
 
         &--name{
             width: 29.8%;
-            &.showWidth{
-                width: 57%;
-                & .users-table__name{
-                    margin-left: 5%;
-                }
-            }
+            flex: 1 1 29.8%;
             @media (--for-tablet-portrait-down) {
                 width:100%;
             }
