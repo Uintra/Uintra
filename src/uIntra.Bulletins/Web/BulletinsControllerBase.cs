@@ -161,6 +161,8 @@ namespace Uintra.Bulletins.Web
 
             model.MediaRootId = mediaSettings.MediaRootId;
             model.Links = links;
+            
+            model.CanDelete = _bulletinsService.CanDelete(bulletin);
 
             return model;
         }

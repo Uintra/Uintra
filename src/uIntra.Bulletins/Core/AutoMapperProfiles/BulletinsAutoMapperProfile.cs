@@ -22,7 +22,8 @@ namespace Uintra.Bulletins
               .ForMember(dst => dst.ActivityType, o => o.Ignore())
               .ForMember(dst => dst.MediaRootId, o => o.Ignore())
               .ForMember(dst => dst.NewMedia, o => o.Ignore())
-              .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
+              .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")))
+              .ForMember(dst => dst.CanDelete, o => o.Ignore());
 
             Mapper.CreateMap<BulletinCreateModel, BulletinBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())

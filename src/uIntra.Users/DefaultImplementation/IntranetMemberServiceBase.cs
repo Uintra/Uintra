@@ -226,7 +226,7 @@ namespace Uintra.Users
                 Id = member.Key,
                 Email = member.Email,
                 LoginName = member.Username,
-                Group = _intranetMemberGroupService.GetForMember(member.Id).First(),//todo do allow member to has more than one group?
+                Group = _intranetMemberGroupService.GetForMember(member.Id).FirstOrDefault(),//todo do allow member to has more than one group?
                 Inactive = member.IsLockedOut,
                 RelatedUser = relatedUserId.HasValue ? _intranetUserService.GetUser(relatedUserId.Value) : null
             };

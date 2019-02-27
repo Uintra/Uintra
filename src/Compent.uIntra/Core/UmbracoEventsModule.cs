@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Uintra.Core.Core.UmbracoEventServices;
 using Uintra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
@@ -14,6 +15,7 @@ namespace Compent.Uintra.Core
             ContentService.Published += ProcessContentPublished;
             ContentService.UnPublished += ProcessContentUnPublished;
             ContentService.Trashed += ProcessContentTrashed;
+            ContentService.Saving += ProcessPanelSaving;
 
             MemberService.Deleting += ProcessMemberDeleting;
             MediaService.Saved += ProcessMediaSaved;
@@ -21,6 +23,12 @@ namespace Compent.Uintra.Core
             MediaService.Saving += ProcessMediaSaving;
 
             MemberGroupService.Deleting += ProcessMemberGroupDeliting;
+        }
+
+        private static void ProcessPanelSaving(IContentService sender, SaveEventArgs<IContent> e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoContentSavingEventService>();
+            foreach (var service in services) service.ProcessContentSaving(sender, e);
         }
 
         private static void ProcessMemberGroupDeliting(IMemberGroupService sender, DeleteEventArgs<IMemberGroup> e)

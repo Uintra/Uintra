@@ -70,6 +70,7 @@ using Uintra.Core.BrowserCompatibility;
 using Uintra.Core.Caching;
 using Uintra.Core.Configuration;
 using Uintra.Core.Controls;
+using Uintra.Core.Core.UmbracoEventServices;
 using Uintra.Core.Exceptions;
 using Uintra.Core.Grid;
 using Uintra.Core.Jobs;
@@ -466,6 +467,8 @@ namespace Compent.Uintra
             kernel.Bind<IUmbracoContentUnPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
             kernel.Bind<IUmbracoMediaSavedEventService>().To<VideoConvertEventService>().InRequestScope();
             kernel.Bind<IUmbracoMemberGroupDeletingEventService>().To<UmbracoMemberGroupEventService>().InRequestScope();
+            kernel.Bind<IUmbracoContentSavingEventService>().To<UmbracoContentSavingEventService>().InRequestScope();
+            
 
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
 

@@ -1,7 +1,7 @@
 ﻿namespace Uintra.Core.Permissions.Models
 {
     public class IntranetMemberGroup
-    {      
+    {
         public int Id { get; }
         public string Name { get; }
 
@@ -11,14 +11,24 @@
             Name = name;
         }
 
-        public static bool operator ==(IntranetMemberGroup a, IntranetMemberGroup b) =>
-            a.Id == b.Id;
+        public static bool operator ==(IntranetMemberGroup a, IntranetMemberGroup b)
+        {
+            if (a is null && !(b is null)) return false;
+            if (!(a is null) && b is null) return false;
+            if (a is null && b is null) return true;
+            return a.Id == b.Id;
+        }
 
-        public static bool operator !=(IntranetMemberGroup a, IntranetMemberGroup b) =>
-            a.Id != b.Id;
+        public static bool operator !=(IntranetMemberGroup a, IntranetMemberGroup b)
+        {
+            if (a is null && !(b is null)) return true;
+            if (!(a is null) && b is null) return true;
+            if (a is null && b is null) return false;
+            return a.Id != b.Id;
+        }
 
         public bool Equals(IntranetMemberGroup other) =>
-            Id == other.Id;
+            !(other is null) && Id == other.Id;
 
         public override bool Equals(object obj)
         {

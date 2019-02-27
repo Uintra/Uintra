@@ -1316,6 +1316,7 @@
     <Compile Include="Core\Gdpr\GdprMailsJob.cs" />
     <Compile Include="Core\Groups\GroupMemberService.cs" />
     <Compile Include="Core\Handlers\NotFoundHandler.cs" />
+    <Compile Include="Core\Handlers\UmbracoContentSavingEventService.cs" />
     <Compile Include="Core\Login\Models\LoginModel.cs" />
     <Compile Include="Core\Navigation\TopNavigationExtendedViewModel.cs" />
     <Compile Include="Core\Notification\DesktopNotificationModelMapper.cs" />
