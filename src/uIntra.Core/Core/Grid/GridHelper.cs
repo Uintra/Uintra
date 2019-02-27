@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using Uintra.Core.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -10,7 +11,16 @@ namespace Uintra.Core.Grid
     {
         public IEnumerable<(string alias, dynamic value)> GetValues(IPublishedContent content, params string[] aliases)
         {
-            dynamic grid = GetGrid(content);
+            var grid = GetGrid(content);
+
+            return IsValidGrid(grid)
+                ? GetValues(grid, aliases)
+                : Enumerable.Empty<(string, dynamic)>();
+        }
+
+        public IEnumerable<(string alias, dynamic value)> GetValues(IContentBase content, params string[] aliases)
+        {
+            var grid = GetGrid(content);
 
             return IsValidGrid(grid)
                 ? GetValues(grid, aliases)
@@ -42,6 +52,10 @@ namespace Uintra.Core.Grid
 
         private static dynamic GetGrid(IPublishedContent content) =>
             content.GetProperty("grid")?.GetValue<dynamic>();
+
+        private static dynamic GetGrid(IContentBase content) =>
+            content.Properties["grid"]?.Value?.ToString().Deserialize<dynamic>();
+
 
         private bool IsValidGrid(object grid) =>
             grid != null && grid is JObject gridJson && gridJson["sections"] != null;
