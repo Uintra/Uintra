@@ -21,7 +21,7 @@ namespace Uintra.Core.Permissions
                 .ForMember(dst => dst.ActionId, o => o.MapFrom(el => el.SettingIdentity.ActionType.ToInt()))
                 .ForMember(dst => dst.ActionName, o => o.MapFrom(el => el.SettingIdentity.ActionType.GetDisplayName()))
                 .ForMember(dst => dst.ParentActionId, o => o.MapFrom(el => el.ParentActionType.ToNullableInt()))
-                .ForMember(dst => dst.ResourceTypeId, o => o.MapFrom(el => el.SettingIdentity.ResourceType.ToNullableInt()))
+                .ForMember(dst => dst.ResourceTypeId, o => o.MapFrom(el => el.SettingIdentity.ResourceType.ToInt()))
                 .ForMember(dst => dst.ResourceTypeName, o => o.MapFrom(el => el.SettingIdentity.ResourceType.GetDisplayName()))
                 .ForMember(dst => dst.Allowed, o => o.MapFrom(el => el.SettingValues.IsAllowed))
                 .ForMember(dst => dst.Enabled, o => o.MapFrom(el => el.SettingValues.IsEnabled))

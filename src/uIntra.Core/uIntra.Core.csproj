@@ -424,7 +424,7 @@
     <Compile Include="Core\Permissions\Models\PermissionUpdateViewModel.cs" />
     <Compile Include="Core\Permissions\Models\PermissionViewModel.cs" />
     <Compile Include="Core\Permissions\Models\PermissionModel.cs" />
-    <Compile Include="Core\Permissions\PermissionActivityTypeEnum.cs" />
+    <Compile Include="Core\Permissions\PermissionResourceTypeEnum.cs" />
     <Compile Include="Core\Permissions\PermissionsControllerBase.cs" />
     <Compile Include="Core\Permissions\PermissionActionEnum.cs" />
     <Compile Include="Core\Permissions\Sql\PermissionEntity.cs" />

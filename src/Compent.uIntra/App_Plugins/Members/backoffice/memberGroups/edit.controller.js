@@ -16,7 +16,7 @@ app.controller('memberGroups.editController',
             memberGroupsService.getPermissions(memberGroupId)
                 .success(function (groupPermissionModel) {
                     vm.memberGroup = groupPermissionModel.memberGroup;
-                    vm.permissions = groupByActivityTypeName(groupPermissionModel.permissions);
+                    vm.permissions = groupByResourceTypeName(groupPermissionModel.permissions);
                     vm.isSuperUser = groupPermissionModel.isSuperUser;
                     syncTree(memberGroupId);
                 });
@@ -61,7 +61,6 @@ app.controller('memberGroups.editController',
 
             var request = angular.copy(permission);
             request.allowed = !permission.allowed;
-
             memberGroupsService.toggle(request)
                 .success(function (response) {
                     permission.allowed = !permission.allowed;
@@ -100,9 +99,9 @@ app.controller('memberGroups.editController',
                 });
         };
 
-        function groupByActivityTypeName(items) {
+        function groupByResourceTypeName(items) {
             var grouped = _.groupBy(items, function (item) {
-                return item.activityTypeName;
+                return item.resourceTypeName;
             });
             return Object.entries(grouped); // used for sorting from backend
         }

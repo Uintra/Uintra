@@ -14,7 +14,7 @@ namespace Uintra.Core.Permissions.Sql
 
         public int IntranetMemberGroupId { get; set; }
 
-        public int IntranetActionId { get; set; }
+        public int ActionId { get; set; }
 
         public int ResourceTypeId { get; set; }
 

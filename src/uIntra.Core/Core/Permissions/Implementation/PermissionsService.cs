@@ -144,7 +144,7 @@ namespace Uintra.Core.Permissions.Implementation
         protected virtual PermissionModel Map(PermissionEntity entity) =>
             PermissionModel.Of(
                 PermissionSettingIdentity.Of(
-                    _intranetActionTypeProvider[entity.IntranetActionId],
+                    _intranetActionTypeProvider[entity.ActionId],
                     _resourceTypeProvider[entity.ResourceTypeId]
                 ),
                 PermissionSettingValues.Of(
@@ -166,7 +166,7 @@ namespace Uintra.Core.Permissions.Implementation
             {
                 Id = Guid.NewGuid(),
                 IntranetMemberGroupId = update.Group.Id,
-                IntranetActionId = update.Action.ToInt(),
+                ActionId = update.Action.ToInt(),
                 ResourceTypeId = update.ResourceType.ToInt(),
                 IsAllowed = update.SettingValues.IsAllowed,
                 IsEnabled = update.SettingValues.IsEnabled
@@ -181,7 +181,7 @@ namespace Uintra.Core.Permissions.Implementation
         public static Expression<Func<PermissionEntity, bool>> ActionIs(Enum action)
         {
             var actionTypeId = action.ToInt();
-            return entity => entity.IntranetActionId == actionTypeId;
+            return entity => entity.ActionId == actionTypeId;
         }
 
         public static Expression<Func<PermissionEntity, bool>> ActivityTypeIs(Enum value)

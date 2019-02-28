@@ -13,8 +13,8 @@ namespace Compent.Uintra.Persistence.Sql.Migrations
                     {
                         Id = c.Guid(nullable: false),
                         IntranetMemberGroupId = c.Int(nullable: false),
-                        IntranetActionId = c.Int(nullable: false),
-                        ActivityTypeId = c.Int(),
+                        ActionId = c.Int(nullable: false),
+                        ResourceTypeId = c.Int(nullable: false),
                         IsAllowed = c.Boolean(nullable: false),
                         IsEnabled = c.Boolean(nullable: false),
                     })
