@@ -47,11 +47,14 @@ namespace Uintra.Core.Permissions.Implementation
 
         protected virtual IEnumerable<PermissionModel> CurrentCache
         {
-            get => _cacheService.GetOrSet(
-                    BasePermissionCacheKey,
-                    () => _permissionsRepository.GetAll().Apply(MapAll));
+            //get => _cacheService.GetOrSet(
+            //        BasePermissionCacheKey,
+            //        () => _permissionsRepository.GetAll().Apply(MapAll));
+            //
+            //set => _cacheService.Set(BasePermissionCacheKey, value);
 
-            set => _cacheService.Set(BasePermissionCacheKey, value);
+            get => _permissionsRepository.GetAll().Apply(MapAll);
+            set { }
         }
 
         public virtual IEnumerable<PermissionModel> GetAll()
