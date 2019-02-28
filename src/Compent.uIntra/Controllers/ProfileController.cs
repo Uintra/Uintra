@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web.Mvc;
 using Compent.Uintra.Core.Users;
-using Uintra.Core;
 using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
@@ -23,7 +22,6 @@ namespace Compent.Uintra.Controllers
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly UserTagService _userTagService;
-        private readonly IMemberService _memberService;
 
         protected override string ProfileEditViewPath { get; } = "~/Views/Profile/Edit.cshtml";
 
@@ -42,7 +40,6 @@ namespace Compent.Uintra.Controllers
             _umbracoHelper = umbracoHelper;
             _intranetUserContentProvider = intranetUserContentProvider;
             _userTagService = userTagService;
-            _memberService = memberService;
             _intranetMemberService = intranetMemberService;
         }
 

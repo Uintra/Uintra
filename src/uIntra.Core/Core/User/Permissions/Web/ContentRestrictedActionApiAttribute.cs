@@ -5,25 +5,25 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using Uintra.Core.Extensions;
 using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.Models;
 
 namespace Uintra.Core.User.Permissions.Web
 {
     public class ContentRestrictedActionApiAttribute : ActionFilterAttribute
     {
-        private readonly PermissionActivityTypeEnum _activityType;
-        private readonly PermissionActionEnum _action;
+        private readonly PermissionSettingIdentity _permissionSettingIdentity;
 
-        public ContentRestrictedActionApiAttribute(PermissionActivityTypeEnum activityType, PermissionActionEnum action)
+        public ContentRestrictedActionApiAttribute(PermissionResourceTypeEnum resourceType, PermissionActionEnum actionType)
         {
-            _activityType = activityType;
-            _action = action;
+            _permissionSettingIdentity = PermissionSettingIdentity.Of(actionType, resourceType);
         }
 
         public override void OnActionExecuting(HttpActionContext filterContext)
         {
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();            
 
-            var isMemberHasAccess = permissionsService.Check(_activityType, _action);
+            var isMemberHasAccess = permissionsService.Check(_permissionSettingIdentity);
 
             if (!isMemberHasAccess)
             {

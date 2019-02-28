@@ -9,7 +9,6 @@ using Compent.Uintra.Core.UserTags;
 using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
-using Uintra.Core.Grid;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
 using Uintra.Core.TypeProviders;
@@ -21,7 +20,6 @@ using Uintra.Groups.Extentions;
 using Uintra.Notification;
 using Uintra.Notification.Configuration;
 using Uintra.Search;
-using Uintra.Tagging.UserTags;
 using Uintra.Users;
 
 namespace Compent.Uintra.Controllers
@@ -49,13 +47,10 @@ namespace Compent.Uintra.Controllers
             IMediaHelper mediaHelper,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IReminderService reminderService,
-            IIntranetUserContentProvider intranetUserContentProvider,
-            IGridHelper gridHelper,
             IActivityTypeProvider activityTypeProvider,
             IDocumentIndexer documentIndexer,
             IGroupActivityService groupActivityService,
             IActivityLinkService activityLinkService,
-            UserTagService userTagService,
             IActivityTagsHelper activityTagsHelper,
             IGroupMemberService groupMemberService,
             IContextTypeProvider contextTypeProvider,

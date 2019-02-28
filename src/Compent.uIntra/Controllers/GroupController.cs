@@ -13,14 +13,12 @@ using Uintra.Groups.Permissions;
 using Uintra.Groups.Web;
 using Uintra.Navigation;
 using Umbraco.Core.Models;
-using Umbraco.Core.Services;
 using Umbraco.Web;
 
 namespace Compent.Uintra.Controllers
 {
     public class GroupController : GroupControllerBase
     {
-        private readonly IIntranetMemberService<IGroupMember> _intranetMemberService;
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupPermissionsService _groupPermissionsService;
@@ -30,7 +28,6 @@ namespace Compent.Uintra.Controllers
             IGroupMemberService groupMemberService,
             IMediaHelper mediaHelper,
             IGroupLinkProvider groupLinkProvider,
-            IUserService userService,
             IGroupMediaService groupMediaService,
             IIntranetMemberService<IGroupMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
@@ -50,7 +47,6 @@ namespace Compent.Uintra.Controllers
                 imageHelper,
                 commandPublisher)
         {
-            _intranetMemberService = intranetMemberService;
             _umbracoHelper = umbracoHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupPermissionsService = groupPermissionsService;

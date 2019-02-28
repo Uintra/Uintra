@@ -2,7 +2,7 @@
 
 namespace Uintra.Core.Permissions.TypeProviders
 {
-    public class PermissionActivityTypeProvider : EnumTypeProviderBase<PermissionActivityTypeEnum>, IPermissionActivityTypeProvider
+    public class PermissionActivityTypeProvider : EnumTypeProviderBase<PermissionResourceTypeEnum>, IPermissionResourceTypeProvider
     {
 
     }

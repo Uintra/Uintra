@@ -1,4 +1,6 @@
 ﻿using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.Models;
 using Umbraco.Core.Models;
 
 namespace Uintra.Groups.Permissions
@@ -13,9 +15,9 @@ namespace Uintra.Groups.Permissions
             _permissionsService = permissionsService;
         }
 
-        public bool HasPermission(PermissionActionEnum action, PermissionActivityTypeEnum activityType)
+        public bool HasPermission(PermissionSettingIdentity permissionSettingIdentity)
         {
-            var hasPermission = _permissionsService.Check(activityType, action);
+            var hasPermission = _permissionsService.Check(permissionSettingIdentity);
             return hasPermission;
         }
 
@@ -23,9 +25,11 @@ namespace Uintra.Groups.Permissions
         {
             if (content.DocumentTypeAlias == GroupsCreatePage)
             {
-                var hasPermission = _permissionsService.Check(PermissionActivityTypeEnum.Groups, PermissionActionEnum.Create);
+                var hasPermission = _permissionsService.Check(PermissionResourceTypeEnum.Groups, PermissionActionEnum.Create);
+
                 return hasPermission;
             }
+
             return true;
         }
     }

@@ -38,7 +38,7 @@ namespace Uintra.Bulletins.Web
         private readonly IActivityTypeProvider _activityTypeProvider;
 
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Bulletins;
-        private const PermissionActivityTypeEnum ActivityType = PermissionActivityTypeEnum.Bulletins;
+        private const PermissionResourceTypeEnum ActivityType = PermissionResourceTypeEnum.Bulletins;
 
         public override ContextType ControllerContextType { get; } = ContextType.Bulletins;
 

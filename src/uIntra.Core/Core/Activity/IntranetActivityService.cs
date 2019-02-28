@@ -7,6 +7,8 @@ using Uintra.Core.LinkPreview;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
 using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.Models;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 
@@ -15,7 +17,7 @@ namespace Uintra.Core.Activity
     public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity>, ICacheableIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
         public abstract Enum Type { get; }
-        public abstract PermissionActivityTypeEnum PermissionActivityType { get; }
+        public abstract PermissionResourceTypeEnum PermissionActivityType { get; }
         private const string CacheKey = "ActivityCache";
         private string ActivityCacheSuffix => $"{Type.ToString()}";
         private readonly IIntranetActivityRepository _activityRepository;
@@ -171,7 +173,7 @@ namespace Uintra.Core.Activity
             var isOwner = ownerId == currentMember.Id;
 
             var act = isOwner ? action : administrationAction;
-            var result = _permissionsService.Check(currentMember, PermissionActivityType, act);
+            var result = _permissionsService.Check(currentMember, PermissionSettingIdentity.Of(PermissionActivityType, act));
 
             return result;
         }

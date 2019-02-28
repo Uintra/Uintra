@@ -3,40 +3,70 @@ using LanguageExt;
 
 namespace Uintra.Core.Permissions.Models
 {
-    public struct PermissionSettingIdentity: IEquatable<PermissionSettingIdentity>
+    public struct PermissionSettingIdentity : IEquatable<PermissionSettingIdentity>
     {
-        public Option<Enum> ActivityType { get; }
+        public Enum ResourceType { get; }
         public Enum ActionType { get; }
 
-        public PermissionSettingIdentity(Enum actionType, Option<Enum> activityType)
+        public PermissionSettingIdentity(Enum actionType, Enum resourceType)
         {
-            ActivityType = activityType;
+            ResourceType = resourceType;
             ActionType = actionType;
         }
 
-        public static PermissionSettingIdentity Of(Enum actionType, Option<Enum> activityType) =>
-            new PermissionSettingIdentity(actionType, activityType);
+        public static PermissionSettingIdentity Of(Enum actionType, Enum resourceType) =>
+            new PermissionSettingIdentity(actionType, resourceType);
 
         public bool Equals(PermissionSettingIdentity other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return ActivityType.Equals(other.ActivityType) && Equals(ActionType, other.ActionType);
+            return Equals(ResourceType, other.ResourceType) && Equals(ActionType, other.ActionType);
         }
 
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((PermissionSettingIdentity) obj);
+            return obj is PermissionSettingIdentity other && Equals(other);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return (ActivityType.GetHashCode() * 397) ^ (ActionType != null ? ActionType.GetHashCode() : 0);
+                return ((ResourceType != null ? ResourceType.GetHashCode() : 0) * 397) ^ (ActionType != null ? ActionType.GetHashCode() : 0);
+            }
+        }
+    }
+
+    public struct PermissionSettingSchema : IEquatable<PermissionSettingSchema>
+    {
+        public PermissionSettingIdentity SettingIdentity { get; }
+        public Option<Enum> ParentActionType { get; }
+
+        public PermissionSettingSchema(PermissionSettingIdentity settingIdentity, Option<Enum> parentActionType)
+        {
+            SettingIdentity = settingIdentity;
+            ParentActionType = parentActionType;
+        }
+
+        public static PermissionSettingSchema Of(PermissionSettingIdentity settingIdentity, Option<Enum> parentActionType) =>
+            new PermissionSettingSchema(settingIdentity, parentActionType);
+
+        public bool Equals(PermissionSettingSchema other)
+        {
+            return SettingIdentity.Equals(other.SettingIdentity) && Equals(ParentActionType, other.ParentActionType);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is PermissionSettingSchema other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (SettingIdentity.GetHashCode() * 397) ^ (ParentActionType != null ? ParentActionType.GetHashCode() : 0);
             }
         }
     }

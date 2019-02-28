@@ -17,6 +17,7 @@ using Uintra.Core.Links;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
 using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Groups;
@@ -98,7 +99,7 @@ namespace Compent.Uintra.Core.Bulletins
 
         public override Enum Type => IntranetActivityTypeEnum.Bulletins;
 
-        public override PermissionActivityTypeEnum PermissionActivityType => PermissionActivityTypeEnum.Bulletins;
+        public override PermissionResourceTypeEnum PermissionActivityType => PermissionResourceTypeEnum.Bulletins;
 
         public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
 

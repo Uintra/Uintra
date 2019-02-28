@@ -1,10 +1,10 @@
 ﻿using Uintra.Core.Permissions.Models;
 
-namespace Uintra.Core.Permissions
+namespace Uintra.Core.Permissions.Interfaces
 {
-    public interface IPermissionSettingsSchema
+    public interface IPermissionSettingsSchemaProvider
     {
-        PermissionSettingIdentity[] Settings { get; }
-        PermissionModel GetDefault(PermissionSettingIdentity settingIdentity, IntranetMemberGroup group);
+        PermissionSettingSchema[] Settings { get; }
+        PermissionSettingValues GetDefault(PermissionSettingIdentity settingIdentity);
     }
 }

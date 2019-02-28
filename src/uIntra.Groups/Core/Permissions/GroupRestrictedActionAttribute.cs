@@ -2,10 +2,9 @@
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Uintra.Core.Permissions;
-using Uintra.Core.User;
+using Uintra.Core.Permissions.Models;
 using Uintra.Core.User.Permissions.Web;
 
 namespace Uintra.Groups.Permissions
@@ -28,7 +27,7 @@ namespace Uintra.Groups.Permissions
             }
 
             var permissionsService = HttpContext.Current.GetService<IGroupPermissionsService>();            
-            var isUserHasAccess = permissionsService.HasPermission(_action, PermissionActivityTypeEnum.Groups);
+            var isUserHasAccess = permissionsService.HasPermission(PermissionSettingIdentity.Of(_action, PermissionResourceTypeEnum.Groups));
 
             if (!isUserHasAccess)
             {

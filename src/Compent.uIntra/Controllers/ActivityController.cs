@@ -1,5 +1,4 @@
-﻿using Uintra.Core.Permissions;
-using Uintra.Core.TypeProviders;
+﻿using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.User;
 using Uintra.Core.Web;
 
@@ -10,8 +9,7 @@ namespace Compent.Uintra.Controllers
         protected override string ItemHeaderViewPath { get; } = "~/Views/Activity/ItemHeader.cshtml";
 
         public ActivityController(IIntranetMemberService<IIntranetMember> intranetMemberService,
-            IPermissionsService permissionsService,
-            IActivityTypeProvider activityTypeProvider) 
+            IPermissionsService permissionsService)
             : base(intranetMemberService, permissionsService)
         {
         }

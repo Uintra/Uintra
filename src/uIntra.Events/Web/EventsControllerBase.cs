@@ -39,7 +39,7 @@ namespace Uintra.Events.Web
         private readonly IActivityPageHelperFactory _activityPageHelperFactory;
 
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Events;
-        private const PermissionActivityTypeEnum ActivityType = PermissionActivityTypeEnum.Events;
+        private const PermissionResourceTypeEnum ActivityType = PermissionResourceTypeEnum.Events;
 
         public override ContextType ControllerContextType { get; } = ContextType.Events;
 
