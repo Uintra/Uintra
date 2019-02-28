@@ -9,7 +9,7 @@ namespace Uintra.CentralFeed
 
         public CentralFeedItemComparer()
         {
-            _currentDate = DateTime.Now.Date;
+            _currentDate = DateTime.UtcNow;
         }
 
         public int Compare(IFeedItem x, IFeedItem y)

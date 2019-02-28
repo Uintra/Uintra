@@ -292,7 +292,7 @@ namespace Compent.Uintra.Core.Events
 
         private bool IsCacheable(Event @event) => !IsEventHidden(@event) && IsActualPublishDate(@event);
 
-        private bool IsActualPublishDate(Event @event) => DateTime.Compare(@event.PublishDate, DateTime.Now) <= 0;
+        private bool IsActualPublishDate(Event @event) => DateTime.Compare(@event.PublishDate, DateTime.UtcNow) <= 0;
 
         private bool IsEventHidden(Event @event) => @event == null || @event.IsHidden;
 
