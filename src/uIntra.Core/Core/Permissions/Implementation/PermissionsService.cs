@@ -128,6 +128,12 @@ namespace Uintra.Core.Permissions.Implementation
             return Check(member, settingIdentity);
         }
 
+        public virtual bool Check(Enum resourceType, Enum actionType)
+        {
+            var member = _intranetMemberService.GetCurrentMember();
+            return Check(member, PermissionSettingIdentity.Of(resourceType, actionType));
+        }
+
         /*protected virtual PermissionModel Map(PermissionEntity entity) =>
             PermissionModel.Of(
                 _intranetMemberGroupProvider.IntTypeDictionary,

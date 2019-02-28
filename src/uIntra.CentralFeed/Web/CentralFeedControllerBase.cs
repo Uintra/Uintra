@@ -28,7 +28,7 @@ namespace Uintra.CentralFeed.Web
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
-        private readonly IPermissionsService _basePermissionsService;
+        private readonly IPermissionsService _permissionsService;
         private readonly IFeedFilterService _centralFeedFilterService;
 
         protected override string OverviewViewPath => "~/App_Plugins/CentralFeed/View/Overview.cshtml";
@@ -50,7 +50,7 @@ namespace Uintra.CentralFeed.Web
             IFeedTypeProvider centralFeedTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IPermissionsService basePermissionsService,
+            IPermissionsService permissionsService,
             IContextTypeProvider contextTypeProvider,
             IFeedFilterService centralFeedFilterService,
             IPermissionResourceTypeProvider permissionResourceTypeProvider)
@@ -61,7 +61,7 @@ namespace Uintra.CentralFeed.Web
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _feedLinkService = feedLinkService;
             _feedFilterStateService = feedFilterStateService;
-            _basePermissionsService = basePermissionsService;
+            _permissionsService = permissionsService;
             _centralFeedFilterService = centralFeedFilterService;
             _permissionResourceTypeProvider = permissionResourceTypeProvider;
             _activitiesServiceFactory = activitiesServiceFactory;
@@ -175,9 +175,14 @@ namespace Uintra.CentralFeed.Web
             {
                 Tabs = activityTabs,
                 TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs)
-                    .Where(tab => _basePermissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create, _permissionResourceTypeProvider[tab.Type.ToInt()]))),
+                    .Where(tab => _permissionsService.Check(
+                            _permissionResourceTypeProvider[tab.Type.ToInt()],
+                            PermissionActionEnum.Create)),
                 CurrentType = tabType,
-                IsFiltersOpened = centralFeedState.IsFiltersOpened
+                IsFiltersOpened = centralFeedState.IsFiltersOpened,
+                CanCreateBulletin = _permissionsService.Check(
+                        PermissionResourceTypeEnum.Bulletins,
+                        PermissionActionEnum.Create)
             };
             return model;
         }

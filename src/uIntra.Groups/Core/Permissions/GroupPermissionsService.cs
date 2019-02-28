@@ -8,16 +8,16 @@ namespace Uintra.Groups.Permissions
     public class GroupPermissionsService : IGroupPermissionsService
     {        
         protected const string GroupsCreatePage = "groupsCreatePage";
-        private readonly IPermissionsService _basePermissionsService;
+        private readonly IPermissionsService _permissionsService;
 
-        public GroupPermissionsService(IPermissionsService basePermissionsService)
+        public GroupPermissionsService(IPermissionsService permissionsService)
         {
-            _basePermissionsService = basePermissionsService;
+            _permissionsService = permissionsService;
         }
 
         public bool HasPermission(PermissionSettingIdentity permissionSettingIdentity)
         {
-            var hasPermission = _basePermissionsService.Check(permissionSettingIdentity);
+            var hasPermission = _permissionsService.Check(permissionSettingIdentity);
             return hasPermission;
         }
 
@@ -25,11 +25,11 @@ namespace Uintra.Groups.Permissions
         {
             if (content.DocumentTypeAlias == GroupsCreatePage)
             {
-                var hasPermission = _basePermissionsService.Check(
-                    PermissionSettingIdentity.Of(PermissionResourceTypeEnum.Groups, PermissionActionEnum.Create));
+                var hasPermission = _permissionsService.Check(PermissionResourceTypeEnum.Groups, PermissionActionEnum.Create);
 
                 return hasPermission;
             }
+
             return true;
         }
     }

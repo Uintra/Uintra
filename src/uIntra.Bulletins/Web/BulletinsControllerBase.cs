@@ -55,6 +55,7 @@ namespace Uintra.Bulletins.Web
             _activityTypeProvider = activityTypeProvider;
         }
 
+        [RestrictedAction(ActivityType, PermissionActionEnum.Create, true)]
         public virtual PartialViewResult Create(IActivityCreateLinks links)
         {
             var result = GetCreateFormModel(links);

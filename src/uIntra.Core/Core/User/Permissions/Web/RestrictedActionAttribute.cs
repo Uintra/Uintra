@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -13,10 +12,12 @@ namespace Uintra.Core.User.Permissions.Web
     public class RestrictedActionAttribute : ActionFilterAttribute
     {
         private readonly PermissionSettingIdentity _permissionSettingIdentity;
+        private readonly bool _childAction;
 
-        public RestrictedActionAttribute(PermissionResourceTypeEnum resourceType, PermissionActionEnum actionType)
+        public RestrictedActionAttribute(PermissionResourceTypeEnum resourceType, PermissionActionEnum action, bool childAction = false)
         {
-            _permissionSettingIdentity = PermissionSettingIdentity.Of(actionType, resourceType);
+            _permissionSettingIdentity = PermissionSettingIdentity.Of(resourceType, resourceType);
+            _childAction = childAction;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -32,14 +33,21 @@ namespace Uintra.Core.User.Permissions.Web
             if (!isUserHasAccess)
             {
                 var context = filterContext.Controller.ControllerContext.HttpContext;
-                Deny(context);
+                Deny(context, filterContext);
             }
         }
 
-        private void Deny(HttpContextBase context)
+        private void Deny(HttpContextBase context, ActionExecutingContext filterContext)
         {
-            context.Response.StatusCode = HttpStatusCode.Forbidden.GetHashCode();
-            context.Response.End();
+            if (_childAction)
+            {
+                filterContext.Result = new EmptyResult();
+            }
+            else
+            {
+                context.Response.StatusCode = HttpStatusCode.Forbidden.GetHashCode();
+                context.Response.End();
+            }
         }
 
         private static bool Skip(ActionExecutingContext context)
