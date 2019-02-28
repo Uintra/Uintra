@@ -25,6 +25,6 @@ namespace Uintra.Core.Permissions.Models
             IntranetMemberGroup group,
             PermissionSettingValues settingValues,
             PermissionSettingIdentity identity) =>
-            new PermissionUpdateModel(group, settingValues, identity.ActionType, identity.ResourceType);
+            new PermissionUpdateModel(group, settingValues, identity.Action, identity.ResourceType);
     }
 }

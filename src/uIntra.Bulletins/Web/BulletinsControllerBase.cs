@@ -38,7 +38,7 @@ namespace Uintra.Bulletins.Web
         private readonly IActivityTypeProvider _activityTypeProvider;
 
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Bulletins;
-        private const PermissionResourceTypeEnum ActivityType = PermissionResourceTypeEnum.Bulletins;
+        private const PermissionResourceTypeEnum ResourceType = PermissionResourceTypeEnum.Bulletins;
 
         public override ContextType ControllerContextType { get; } = ContextType.Bulletins;
 
@@ -55,14 +55,14 @@ namespace Uintra.Bulletins.Web
             _activityTypeProvider = activityTypeProvider;
         }
 
-        [RestrictedAction(ActivityType, PermissionActionEnum.Create, true)]
+        [RestrictedAction(ResourceType, PermissionActionEnum.Create, true)]
         public virtual PartialViewResult Create(IActivityCreateLinks links)
         {
             var result = GetCreateFormModel(links);
             return PartialView(CreationFormViewPath, result);
         }
 
-        [NotFoundActivity, RestrictedAction(ActivityType, PermissionActionEnum.View)]
+        [NotFoundActivity, RestrictedAction(ResourceType, PermissionActionEnum.View)]
         public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var bulletin = _bulletinsService.Get(id);
@@ -71,7 +71,7 @@ namespace Uintra.Bulletins.Web
             return PartialView(DetailsViewPath, model);
         }
 
-        [RestrictedAction(ActivityType, PermissionActionEnum.Edit)]
+        [RestrictedAction(ResourceType, PermissionActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
             var bulletin = _bulletinsService.Get(id);
@@ -85,7 +85,7 @@ namespace Uintra.Bulletins.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityType, PermissionActionEnum.Create)]
+        [RestrictedAction(ResourceType, PermissionActionEnum.Create)]
         public virtual JsonResult Create(BulletinCreateModel model)
         {
             var result = new BulletinCreationResultModel();
@@ -107,7 +107,7 @@ namespace Uintra.Bulletins.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityType, PermissionActionEnum.Edit)]
+        [RestrictedAction(ResourceType, PermissionActionEnum.Edit)]
         public virtual ActionResult Edit(BulletinEditModel editModel)
         {
             if (!ModelState.IsValid)
@@ -122,7 +122,7 @@ namespace Uintra.Bulletins.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityType, PermissionActionEnum.Delete)]
+        [RestrictedAction(ResourceType, PermissionActionEnum.Delete)]
         public virtual JsonResult Delete(Guid id)
         {
             _bulletinsService.Delete(id);

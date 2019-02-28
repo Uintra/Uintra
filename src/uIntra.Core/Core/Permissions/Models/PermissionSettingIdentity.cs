@@ -6,20 +6,20 @@ namespace Uintra.Core.Permissions.Models
     public struct PermissionSettingIdentity : IEquatable<PermissionSettingIdentity>
     {
         public Enum ResourceType { get; }
-        public Enum ActionType { get; }
+        public Enum Action { get; }
 
-        public PermissionSettingIdentity(Enum actionType, Enum resourceType)
+        public PermissionSettingIdentity(Enum action, Enum resourceType)
         {
             ResourceType = resourceType;
-            ActionType = actionType;
+            Action = action;
         }
 
-        public static PermissionSettingIdentity Of(Enum actionType, Enum resourceType) =>
-            new PermissionSettingIdentity(actionType, resourceType);
+        public static PermissionSettingIdentity Of(Enum action, Enum resourceType) =>
+            new PermissionSettingIdentity(action, resourceType);
 
         public bool Equals(PermissionSettingIdentity other)
         {
-            return Equals(ResourceType, other.ResourceType) && Equals(ActionType, other.ActionType);
+            return Equals(ResourceType, other.ResourceType) && Equals(Action, other.Action);
         }
 
         public override bool Equals(object obj)
@@ -32,7 +32,7 @@ namespace Uintra.Core.Permissions.Models
         {
             unchecked
             {
-                return ((ResourceType != null ? ResourceType.GetHashCode() : 0) * 397) ^ (ActionType != null ? ActionType.GetHashCode() : 0);
+                return ((ResourceType != null ? ResourceType.GetHashCode() : 0) * 397) ^ (Action != null ? Action.GetHashCode() : 0);
             }
         }
     }

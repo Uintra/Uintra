@@ -18,8 +18,8 @@ namespace Uintra.Core.Permissions
                 .ForMember(dst => dst.Name, o => o.MapFrom(el => el.Name));
 
             Mapper.CreateMap<PermissionManagementModel, PermissionViewModel>()
-                .ForMember(dst => dst.ActionId, o => o.MapFrom(el => el.SettingIdentity.ActionType.ToInt()))
-                .ForMember(dst => dst.ActionName, o => o.MapFrom(el => el.SettingIdentity.ActionType.GetDisplayName()))
+                .ForMember(dst => dst.ActionId, o => o.MapFrom(el => el.SettingIdentity.Action.ToInt()))
+                .ForMember(dst => dst.ActionName, o => o.MapFrom(el => el.SettingIdentity.Action.GetDisplayName()))
                 .ForMember(dst => dst.ParentActionId, o => o.MapFrom(el => el.ParentActionType.ToNullableInt()))
                 .ForMember(dst => dst.ResourceTypeId, o => o.MapFrom(el => el.SettingIdentity.ResourceType.ToInt()))
                 .ForMember(dst => dst.ResourceTypeName, o => o.MapFrom(el => el.SettingIdentity.ResourceType.GetDisplayName()))

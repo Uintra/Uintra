@@ -16,7 +16,7 @@ namespace Uintra.Core.User.Permissions.Web
 
         public RestrictedActionAttribute(PermissionResourceTypeEnum resourceType, PermissionActionEnum action, bool childAction = false)
         {
-            _permissionSettingIdentity = PermissionSettingIdentity.Of(resourceType, resourceType);
+            _permissionSettingIdentity = PermissionSettingIdentity.Of(action, resourceType);
             _childAction = childAction;
         }
 

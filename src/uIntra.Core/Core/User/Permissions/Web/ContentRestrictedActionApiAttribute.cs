@@ -14,9 +14,9 @@ namespace Uintra.Core.User.Permissions.Web
     {
         private readonly PermissionSettingIdentity _permissionSettingIdentity;
 
-        public ContentRestrictedActionApiAttribute(PermissionResourceTypeEnum resourceType, PermissionActionEnum actionType)
+        public ContentRestrictedActionApiAttribute(PermissionResourceTypeEnum resourceType, PermissionActionEnum action)
         {
-            _permissionSettingIdentity = PermissionSettingIdentity.Of(actionType, resourceType);
+            _permissionSettingIdentity = PermissionSettingIdentity.Of(action, resourceType);
         }
 
         public override void OnActionExecuting(HttpActionContext filterContext)

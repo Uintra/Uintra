@@ -81,7 +81,7 @@ namespace Uintra.Core.Permissions.Implementation
         {
             var storedEntity = _permissionsRepository
                 .FindOrNone(AndAlso(GroupIs(update.Group),
-                    ActionIs(update.Action), 
+                    ActionIs(update.Action),
                     ActivityTypeIs(update.ResourceType)));
 
             var actualEntity = storedEntity.Match(
@@ -128,10 +128,10 @@ namespace Uintra.Core.Permissions.Implementation
             return Check(member, settingIdentity);
         }
 
-        public virtual bool Check(Enum resourceType, Enum actionType)
+        public virtual bool Check(Enum resourceType, Enum action)
         {
             var member = _intranetMemberService.GetCurrentMember();
-            return Check(member, PermissionSettingIdentity.Of(resourceType, actionType));
+            return Check(member, PermissionSettingIdentity.Of(action, resourceType));
         }
 
         /*protected virtual PermissionModel Map(PermissionEntity entity) =>
