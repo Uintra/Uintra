@@ -173,7 +173,7 @@ namespace Uintra.Core.Activity
             var isOwner = ownerId == currentMember.Id;
 
             var act = isOwner ? action : administrationAction;
-            var result = _permissionsService.Check(currentMember, PermissionSettingIdentity.Of(PermissionActivityType, act));
+            var result = _permissionsService.Check(currentMember, PermissionSettingIdentity.Of(act, PermissionActivityType));
 
             return result;
         }

@@ -23,18 +23,23 @@ namespace Uintra.Core.Permissions.Implementation
             Of(Bulletins,
                 Tree(View,
                     Tree(Create),
-                    Tree(Edit),
-                    Tree(Delete))),
+                    Tree(Edit,
+                        Tree(Delete))
+                    )),
             Of(News,
                 Tree(View,
                     Tree(Create),
-                    Tree(Edit),
-                    Tree(Delete))),
+                    Tree(Edit,
+                        Tree(Delete))
+                    )),
             Of(Events,
                 Tree(View,
                     Tree(Create),
-                    Tree(Edit),
-                    Tree(Delete)))
+                    Tree(Edit,
+                        Tree(Hide))
+                    )),
+            Of(Groups,
+                Tree(Create))
         };
 
         public PermissionSettingSchema[] Settings { get; }

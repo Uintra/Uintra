@@ -16,7 +16,8 @@ app.controller('memberGroups.editController',
             memberGroupsService.getPermissions(memberGroupId)
                 .success(function (groupPermissionModel) {
                     vm.memberGroup = groupPermissionModel.memberGroup;
-                    vm.permissions = groupByResourceTypeName(groupPermissionModel.permissions);
+                    vm.permissions = groupPermissionModel.permissions;
+                    vm.groupedPermissions = groupByResourceTypeName(groupPermissionModel.permissions);
                     vm.isSuperUser = groupPermissionModel.isSuperUser;
                     syncTree(memberGroupId);
                 });
@@ -34,6 +35,15 @@ app.controller('memberGroups.editController',
         vm.getProperty = function (activityTypeName) {
             vm.permissionsProperty.label = activityTypeName;
             return vm.permissionsProperty;
+        };
+
+        vm.isParentAllowed = function (permission) {
+            if(permission.parentActionId === null)
+                return true;
+            var parent = vm.permissions.find(function (item) {
+                return item.actionId === permission.parentActionId && item.resourceTypeId === permission.resourceTypeId;
+            });
+            return parent.allowed;
         };
 
         vm.toggleEnabled = function myfunction(permission) {

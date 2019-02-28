@@ -12,10 +12,13 @@ namespace Uintra.Core.Permissions.Sql
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override Guid Id { get; set; }        
 
+        [Index("UniqIndex", 1, IsUnique = true)]
         public int IntranetMemberGroupId { get; set; }
 
+        [Index("UniqIndex", 2, IsUnique = true)]
         public int ActionId { get; set; }
 
+        [Index("UniqIndex", 3, IsUnique = true)]
         public int ResourceTypeId { get; set; }
 
         public bool IsAllowed { get; set; }

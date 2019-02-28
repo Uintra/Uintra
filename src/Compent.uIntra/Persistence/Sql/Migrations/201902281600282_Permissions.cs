@@ -18,12 +18,14 @@ namespace Compent.Uintra.Persistence.Sql.Migrations
                         IsAllowed = c.Boolean(nullable: false),
                         IsEnabled = c.Boolean(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .Index(t => new { t.IntranetMemberGroupId, t.ActionId, t.ResourceTypeId }, unique: true, name: "UniqIndex");
             
         }
         
         public override void Down()
         {
+            DropIndex("dbo.Uintra_Permission", "UniqIndex");
             DropTable("dbo.Uintra_Permission");
         }
     }
