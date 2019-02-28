@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Compent.CommandBus;
-using Uintra.Core.Activity;
 using Uintra.Core.Constants;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;

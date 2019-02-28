@@ -1,4 +1,5 @@
 ﻿using Uintra.Core.Caching;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;

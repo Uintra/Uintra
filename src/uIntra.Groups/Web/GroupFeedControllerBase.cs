@@ -11,8 +11,9 @@ using Uintra.Core.Context;
 using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
 using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.Models;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Groups.Attributes;
 using Uintra.Subscribe;
 
@@ -197,7 +198,9 @@ namespace Uintra.Groups.Web
             var model = new GroupFeedOverviewModel
             {
                 Tabs = activityTabs,
-                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _basePermissionsService.Check(ToPermissionActivityType(tab.Type), PermissionActionEnum.Create)),
+                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab =>
+                    _basePermissionsService.Check(
+                        PermissionSettingIdentity.Of(ToPermissionActivityType(tab.Type), PermissionActionEnum.Create))),
                 CurrentType = tabType,
                 GroupId = groupId,
                 IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentMember)
@@ -249,6 +252,6 @@ namespace Uintra.Groups.Web
             return viewModel;
         }
 
-        private PermissionActivityTypeEnum ToPermissionActivityType(Enum type) => (PermissionActivityTypeEnum)type.ToInt();
+        private PermissionResourceTypeEnum ToPermissionActivityType(Enum type) => (PermissionResourceTypeEnum)type.ToInt();
     }
 }

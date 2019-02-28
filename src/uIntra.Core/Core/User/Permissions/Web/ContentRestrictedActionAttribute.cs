@@ -1,25 +1,26 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using Uintra.Core.Extensions;
 using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.Models;
 
 namespace Uintra.Core.User.Permissions.Web
 {
     public class ContentRestrictedActionAttribute : ActionFilterAttribute
     {
-        private readonly PermissionActivityTypeEnum _activityType;
-        private readonly PermissionActionEnum _action;
+        private readonly PermissionSettingIdentity _permissionSettingIdentity;
 
-        public ContentRestrictedActionAttribute(PermissionActivityTypeEnum activityType, PermissionActionEnum action)
+        public ContentRestrictedActionAttribute(Enum resourceType, Enum actionType)
         {
-            _activityType = activityType;
-            _action = action;
+            _permissionSettingIdentity = PermissionSettingIdentity.Of(actionType, resourceType);
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
-            var isUserHasAccess = permissionsService.Check(_activityType, _action);
+            var isUserHasAccess = permissionsService.Check(_permissionSettingIdentity);
 
             if (!isUserHasAccess)
             {

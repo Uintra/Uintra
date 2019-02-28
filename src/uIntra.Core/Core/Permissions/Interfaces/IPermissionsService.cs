@@ -2,15 +2,15 @@
 using Uintra.Core.Permissions.Models;
 using Uintra.Core.User;
 
-namespace Uintra.Core.Permissions
+namespace Uintra.Core.Permissions.Interfaces
 {
     public interface IPermissionsService
     {
         IEnumerable<PermissionModel> GetAll();
-        IEnumerable<PermissionModel> GetForGroup(IntranetMemberGroup group);
+        IEnumerable<PermissionManagementModel> GetForGroup(IntranetMemberGroup group);
         PermissionModel Save(PermissionUpdateModel update);
         void DeletePermissionsForMemberGroup(int memberGroupId);
-        bool Check(IIntranetMember member, PermissionActivityTypeEnum permissionActivityType, PermissionActionEnum permissionAction);
-        bool Check(PermissionActivityTypeEnum permissionActivityType, PermissionActionEnum permissionAction);
+        bool Check(IIntranetMember member, PermissionSettingIdentity settingsIdentity);
+        bool Check(PermissionSettingIdentity settingsIdentity);
     }
 }

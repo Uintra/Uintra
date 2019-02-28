@@ -1,4 +1,5 @@
 ﻿using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;

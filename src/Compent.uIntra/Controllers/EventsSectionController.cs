@@ -14,7 +14,6 @@ namespace Compent.Uintra.Controllers
     {
         private readonly IMyLinksService _myLinksService;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
-        private readonly IEventsService<Event> _eventsService;
 
         public EventsSectionController(
             IEventsService<Event> eventsService,
@@ -25,7 +24,6 @@ namespace Compent.Uintra.Controllers
         {
             _myLinksService = myLinksService;
             _intranetMemberService = intranetMemberService;
-            _eventsService = eventsService;
         }
 
         [HttpDelete]

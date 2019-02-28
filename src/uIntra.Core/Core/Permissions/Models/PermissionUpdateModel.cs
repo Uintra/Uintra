@@ -1,5 +1,4 @@
-﻿using LanguageExt;
-using System;
+﻿using System;
 
 namespace Uintra.Core.Permissions.Models
 {
@@ -7,18 +6,18 @@ namespace Uintra.Core.Permissions.Models
     {
         public IntranetMemberGroup Group { get; }
         public Enum Action { get; }
-        public Option<Enum> ActivityType { get; }
+        public Enum ResourceType { get; }
         public PermissionSettingValues SettingValues { get; }
 
         private PermissionUpdateModel(
             IntranetMemberGroup group,
             PermissionSettingValues settingValues,
-            Enum action,
-            Option<Enum> activityType)
+            Enum actionType,
+            Enum resourceType)
         {
             Group = group;
-            Action = action;
-            ActivityType = activityType;
+            Action = actionType;
+            ResourceType = resourceType;
             SettingValues = settingValues;
         }
 
@@ -26,6 +25,6 @@ namespace Uintra.Core.Permissions.Models
             IntranetMemberGroup group,
             PermissionSettingValues settingValues,
             PermissionSettingIdentity identity) =>
-            new PermissionUpdateModel(group, settingValues, identity.ActionType, identity.ActivityType);
+            new PermissionUpdateModel(group, settingValues, identity.ActionType, identity.ResourceType);
     }
 }

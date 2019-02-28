@@ -19,7 +19,6 @@ using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Groups.Extentions;
 using Uintra.Navigation;
-using Uintra.News;
 using Uintra.Users;
 
 namespace Compent.Uintra.Controllers

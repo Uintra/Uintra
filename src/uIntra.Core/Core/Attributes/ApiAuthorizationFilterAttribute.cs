@@ -6,7 +6,6 @@ using System.Web.Http.Filters;
 using System.Web.Mvc;
 using System.Web.Security;
 using LanguageExt;
-using Uintra.Core.ApplicationSettings;
 using Uintra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -18,13 +17,11 @@ namespace Uintra.Core.Attributes
     public class ApiAuthorizationFilterAttribute : AuthorizationFilterAttribute
     {
         private readonly IMemberService _memberService;
-        private readonly IApplicationSettings _applicationSettings;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
         public ApiAuthorizationFilterAttribute()
         {
             _intranetMemberService = DependencyResolver.Current.GetService<IIntranetMemberService<IIntranetMember>>();
-            _applicationSettings = DependencyResolver.Current.GetService<IApplicationSettings>();
             _memberService = DependencyResolver.Current.GetService<IMemberService>();
         }
 

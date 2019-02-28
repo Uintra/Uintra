@@ -17,13 +17,14 @@ namespace Uintra.Core.Permissions
                 .ForMember(dst => dst.Id, o => o.MapFrom(el => el.Id))
                 .ForMember(dst => dst.Name, o => o.MapFrom(el => el.Name));
 
-            Mapper.CreateMap<PermissionModel, PermissionViewModel>()
-                .ForMember(dst => dst.ActionId, o => o.MapFrom(el => el.ActionType.ToInt()))
-                .ForMember(dst => dst.ActionName, o => o.MapFrom(el => el.ActionType.GetDisplayName()))
-                .ForMember(dst => dst.ActivityTypeId, o => o.MapFrom(el => el.ActivityType.ToNullableInt()))
-                .ForMember(dst => dst.ActivityTypeName, o => o.MapFrom(el => el.ActivityType.GetDisplayName()))
-                .ForMember(dst => dst.Allowed, o => o.MapFrom(el => el.IsAllowed))
-                .ForMember(dst => dst.Enabled, o => o.MapFrom(el => el.IsEnabled))
+            Mapper.CreateMap<PermissionManagementModel, PermissionViewModel>()
+                .ForMember(dst => dst.ActionId, o => o.MapFrom(el => el.SettingIdentity.ActionType.ToInt()))
+                .ForMember(dst => dst.ActionName, o => o.MapFrom(el => el.SettingIdentity.ActionType.GetDisplayName()))
+                .ForMember(dst => dst.ParentActionId, o => o.MapFrom(el => el.ParentActionType.ToNullableInt()))
+                .ForMember(dst => dst.ResourceTypeId, o => o.MapFrom(el => el.SettingIdentity.ResourceType.ToNullableInt()))
+                .ForMember(dst => dst.ResourceTypeName, o => o.MapFrom(el => el.SettingIdentity.ResourceType.GetDisplayName()))
+                .ForMember(dst => dst.Allowed, o => o.MapFrom(el => el.SettingValues.IsAllowed))
+                .ForMember(dst => dst.Enabled, o => o.MapFrom(el => el.SettingValues.IsEnabled))
                 .ForMember(dst => dst.IntranetMemberGroupId, o => o.MapFrom(el => el.Group.Id));
         }
     }

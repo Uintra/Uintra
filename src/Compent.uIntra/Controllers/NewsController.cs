@@ -20,7 +20,6 @@ using Compent.Uintra.Core.UserTags;
 using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Groups.Extentions;
-using Uintra.Tagging.UserTags;
 using Uintra.Users;
 
 namespace Compent.Uintra.Controllers
@@ -44,11 +43,9 @@ namespace Compent.Uintra.Controllers
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             INewsService<News> newsService,
             IMediaHelper mediaHelper,
-            IIntranetUserContentProvider intranetUserContentProvider,
             IActivityTypeProvider activityTypeProvider,
             IDocumentIndexer documentIndexer,
             IGroupActivityService groupActivityService,
-            UserTagService userTagService,
             IActivityTagsHelper activityTagsHelper,
             IActivityLinkService activityLinkService,
             IContextTypeProvider contextTypeProvider,

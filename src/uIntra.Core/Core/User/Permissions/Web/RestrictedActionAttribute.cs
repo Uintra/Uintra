@@ -5,18 +5,18 @@ using System.Web;
 using System.Web.Mvc;
 using Uintra.Core.Extensions;
 using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.Models;
 
 namespace Uintra.Core.User.Permissions.Web
 {
     public class RestrictedActionAttribute : ActionFilterAttribute
     {
-        private readonly PermissionActivityTypeEnum _activityType;
-        private readonly PermissionActionEnum _action;        
+        private readonly PermissionSettingIdentity _permissionSettingIdentity;
 
-        public RestrictedActionAttribute(PermissionActivityTypeEnum activityType, PermissionActionEnum action)
+        public RestrictedActionAttribute(PermissionResourceTypeEnum resourceType, PermissionActionEnum actionType)
         {
-            _activityType = activityType;
-            _action = action;
+            _permissionSettingIdentity = PermissionSettingIdentity.Of(actionType, resourceType);
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -27,7 +27,7 @@ namespace Uintra.Core.User.Permissions.Web
             }
 
             var permissionsService = HttpContext.Current.GetService<IPermissionsService>();            
-            var isUserHasAccess = permissionsService.Check(_activityType, _action);
+            var isUserHasAccess = permissionsService.Check(_permissionSettingIdentity);
 
             if (!isUserHasAccess)
             {

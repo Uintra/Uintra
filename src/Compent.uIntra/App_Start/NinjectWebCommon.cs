@@ -85,6 +85,7 @@ using Uintra.Core.ModelBinders;
 using Uintra.Core.PagePromotion;
 using Uintra.Core.Permissions.Implementation;
 using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.Permissions.UmbracoEvents;
 using Uintra.Core.Persistence;
@@ -223,7 +224,7 @@ namespace Compent.Uintra
             //permissions
 
             kernel.Bind<IIntranetMemberGroupService>().To<IntranetMemberGroupService>().InSingletonScope();
-            kernel.Bind<IPermissionSettingsSchema>().To<PermissionSettingsSchema>().InSingletonScope();
+            kernel.Bind<IPermissionSettingsSchemaProvider>().To<PermissionSettingsSchemaProvider>().InSingletonScope();
             kernel.Bind<IPermissionsService>().To<PermissionsService>().InRequestScope();
 
             // Umbraco
@@ -435,7 +436,7 @@ namespace Compent.Uintra
             kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InSingletonScope();
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
             kernel.Bind<IPermissionActionTypeProvider>().To<PermissionActionTypeProvider>().InSingletonScope(); 
-            kernel.Bind<IPermissionActivityTypeProvider>().To<PermissionActivityTypeProvider>().InSingletonScope(); 
+            kernel.Bind<IPermissionResourceTypeProvider>().To<PermissionActivityTypeProvider>().InSingletonScope(); 
             kernel.Bind<IIntranetMemberGroupProvider>().To<IntranetMemberGroupProvider>().InSingletonScope();
             
 

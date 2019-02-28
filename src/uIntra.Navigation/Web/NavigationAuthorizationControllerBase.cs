@@ -2,7 +2,6 @@
 using System.Web.Security;
 using Uintra.Core.ApplicationSettings;
 using Uintra.Core.User;
-using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
 namespace Uintra.Navigation.Web
@@ -18,7 +17,7 @@ namespace Uintra.Navigation.Web
 
         protected NavigationAuthorizationControllerBase(
             IIntranetMemberService<IIntranetMember> intranetMemberService,
-            IUserService userService, IApplicationSettings applicationSettings)
+            IApplicationSettings applicationSettings)
         {
             _intranetMemberService = intranetMemberService;            
             _applicationSettings = applicationSettings;

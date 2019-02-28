@@ -5,12 +5,14 @@ using System.Web.Mvc;
 using Compent.Uintra.Core.Search;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.Search.Models;
+using LanguageExt;
 using Localization.Umbraco.Attributes;
 using Uintra.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.Localization;
 using Uintra.Search;
 using Uintra.Search.Web;
+using static LanguageExt.Prelude;
 
 namespace Compent.Uintra.Controllers
 {
@@ -60,13 +62,8 @@ namespace Compent.Uintra.Controllers
             return PartialView(SearchResultViewPath, resultModel);
         }
 
-        protected override IEnumerable<Enum> GetAutoCompleteSearchableTypes()
-        {
-            var types = GetUintraSearchableTypes().ToList();
-            types.Add(UintraSearchableTypeEnum.Tag);
-
-            return types;
-        }
+        protected override Lst<Enum> GetAutoCompleteSearchableTypes() => 
+            GetUintraSearchableTypes().Add(UintraSearchableTypeEnum.Tag);
 
         protected override IEnumerable<Enum> GetFilterItemTypes() => GetSearchableTypes();
 
@@ -133,18 +130,15 @@ namespace Compent.Uintra.Controllers
             return result;
         }
 
-        private static IEnumerable<Enum> GetUintraSearchableTypes()
-        {
-            return new Enum[]
-            {
+        private static Lst<Enum> GetUintraSearchableTypes() =>
+            List<Enum>(
                 UintraSearchableTypeEnum.News,
                 UintraSearchableTypeEnum.Events,
                 UintraSearchableTypeEnum.Bulletins,
                 UintraSearchableTypeEnum.Content,
                 UintraSearchableTypeEnum.Document,
                 UintraSearchableTypeEnum.User
-            };
-        }
+            );
 
         protected override SearchBoxAutocompleteItemViewModel GetSeeAllSearchAutocompleteItemModel(string title)
         {

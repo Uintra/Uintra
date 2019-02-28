@@ -6,6 +6,8 @@ using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.Models;
 using Uintra.Core.User;
 using Umbraco.Web.Mvc;
 
@@ -38,7 +40,7 @@ namespace Uintra.Core.Web
             return PartialView(ItemHeaderViewPath, header);
         }
 
-        public virtual ActionResult OwnerEdit(Guid ownerId, string ownerIdPropertyName, PermissionActivityTypeEnum activityType, IActivityCreateLinks links)
+        public virtual ActionResult OwnerEdit(Guid ownerId, string ownerIdPropertyName, PermissionResourceTypeEnum activityType, IActivityCreateLinks links)
         {
             var model = new IntranetActivityOwnerEditModel
             {
@@ -47,10 +49,12 @@ namespace Uintra.Core.Web
                 Links = links
             };
 
-            model.CanEditOwner = _basePermissionsService.Check( activityType, PermissionActionEnum.EditOwner);
+            model.CanEditOwner = _basePermissionsService.Check(
+                PermissionSettingIdentity.Of(activityType, PermissionActionEnum.EditOwner));
+
             if (model.CanEditOwner)
             {
-                model.Members = GetUsersWithAccess(activityType, PermissionActionEnum.Create);
+                model.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(activityType, PermissionActionEnum.Create));
             }
 
             return PartialView(OwnerEditViewPath, model);
@@ -66,11 +70,11 @@ namespace Uintra.Core.Web
                 });
         }
 
-        protected virtual IEnumerable<IIntranetMember> GetUsersWithAccess(PermissionActivityTypeEnum activityType, PermissionActionEnum action)
+        protected virtual IEnumerable<IIntranetMember> GetUsersWithAccess(PermissionSettingIdentity permissionSettingIdentity)
         {
             var result = _intranetMemberService
                 .GetAll()
-                .Where(member => _basePermissionsService.Check(member, activityType, action))
+                .Where(member => _basePermissionsService.Check(member, permissionSettingIdentity))
                 .OrderBy(user => user.DisplayedName);
 
             return result;

@@ -4,6 +4,7 @@ using Compent.Extensions;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
 using Uintra.Navigation.SystemLinks;

@@ -2,7 +2,7 @@
 
 namespace Uintra.Core.Permissions
 {
-    public enum PermissionActivityTypeEnum
+    public enum PermissionResourceTypeEnum
     {
         News = IntranetActivityTypeEnum.News,
         Events = IntranetActivityTypeEnum.Events,

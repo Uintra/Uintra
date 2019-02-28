@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using LanguageExt;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.Models;
 using Uintra.Core.Permissions.Sql;
 using Uintra.Core.Permissions.TypeProviders;
@@ -21,24 +22,24 @@ namespace Uintra.Core.Permissions.Implementation
         private readonly ISqlRepository<PermissionEntity> _permissionsRepository;
         private readonly IPermissionActionTypeProvider _intranetActionTypeProvider;
         private readonly IIntranetMemberGroupProvider _intranetMemberGroupProvider;
-        private readonly IPermissionActivityTypeProvider _activityTypeProvider;
+        private readonly IPermissionResourceTypeProvider _resourceTypeProvider;
         private readonly ICacheService _cacheService;
-        private readonly IPermissionSettingsSchema _permissionSettingsSchema;
+        private readonly IPermissionSettingsSchemaProvider _permissionSettingsSchema;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
         public PermissionsService(
             ISqlRepository<PermissionEntity> permissionsRepository,
             IPermissionActionTypeProvider intranetActionProvider,
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
-            IPermissionActivityTypeProvider activityTypeProvider,
+            IPermissionResourceTypeProvider resourceTypeProvider,
             ICacheService cacheService,
-            IPermissionSettingsSchema permissionSettingsSchema,
+            IPermissionSettingsSchemaProvider permissionSettingsSchema,
             IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
             _permissionsRepository = permissionsRepository;
             _intranetActionTypeProvider = intranetActionProvider;
             _intranetMemberGroupProvider = intranetMemberGroupProvider;
-            _activityTypeProvider = activityTypeProvider;
+            _resourceTypeProvider = resourceTypeProvider;
             _cacheService = cacheService;
             _permissionSettingsSchema = permissionSettingsSchema;
             _intranetMemberService = intranetMemberService;
@@ -58,19 +59,17 @@ namespace Uintra.Core.Permissions.Implementation
             return CurrentCache;
         }
 
-        public virtual IEnumerable<PermissionModel> GetForGroup(IntranetMemberGroup group)
+        public virtual IEnumerable<PermissionManagementModel> GetForGroup(IntranetMemberGroup group)
         {
             var storedPerms = GetAll()
                 .Where(i => i.Group.Id == group.Id)
-                .ToDictionary(settingIdentity => (
-                    settingIdentity.ActionType,
-                    settingIdentity.ActivityType,
-                    settingIdentity.Group.Id));
+                .ToDictionary(permission => permission.SettingIdentity, permission => permission.SettingValues);
 
             var settings = _permissionSettingsSchema.Settings
-                .Select(settingIdentity => storedPerms
-                    .ItemOrNone((settingIdentity.ActionType, settingIdentity.ActivityType, group.Id))
-                    .IfNone(() => _permissionSettingsSchema.GetDefault(settingIdentity, group)));
+                .Select(settingSchema => storedPerms
+                    .ItemOrNone(settingSchema.SettingIdentity)
+                    .IfNone(() => _permissionSettingsSchema.GetDefault(settingSchema.SettingIdentity))
+                    .Apply(settingValues => PermissionManagementModel.Of(group, settingSchema, settingValues)));
 
             return settings;
         }
@@ -83,7 +82,7 @@ namespace Uintra.Core.Permissions.Implementation
             var storedEntity = _permissionsRepository
                 .FindOrNone(AndAlso(GroupIs(update.Group),
                     ActionIs(update.Action), 
-                    ActivityTypeIs(update.ActivityType)));
+                    ActivityTypeIs(update.ResourceType)));
 
             var actualEntity = storedEntity.Match(
                 entity =>
@@ -112,33 +111,41 @@ namespace Uintra.Core.Permissions.Implementation
             //CurrentCache = null;
         }
 
-        public virtual bool Check(IIntranetMember member, PermissionActivityTypeEnum permissionActivityType, PermissionActionEnum permissionAction)
+        public virtual bool Check(IIntranetMember member, PermissionSettingIdentity settingIdentity)
         {
             if (member.Group == null) return false;
 
-            var permission = GetAll().Find(p =>
-                p.Group.Id == member.Group.Id && p.ActionType.Equals(permissionAction) &&
-                p.ActivityType == permissionActivityType);
+            var permission = GetAll().Find(p => p.Group.Id == member.Group.Id && p.SettingIdentity.Equals(settingIdentity));
 
-            //permission.IfNone(() =>
-            //    throw new Exception($"action: [{permissionAction.ToString()}] for member group name: [{member.Group.Name}] under activity type: [{permissionActivityType.ToString()}] doesn't exist!"));
+            var isAllowed = permission.Match(p => p.SettingValues.IsAllowed, () => false);
 
-            var isAllowed = permission.Match(p => p.IsAllowed, () => false);
             return isAllowed;
         }
 
-        public virtual bool Check(PermissionActivityTypeEnum permissionActivityType, PermissionActionEnum permissionAction)
+        public virtual bool Check(PermissionSettingIdentity settingIdentity)
         {
             var member = _intranetMemberService.GetCurrentMember();
-            return Check(member, permissionActivityType, permissionAction);
+            return Check(member, settingIdentity);
         }
 
-        protected virtual PermissionModel Map(PermissionEntity entity) =>
+        /*protected virtual PermissionModel Map(PermissionEntity entity) =>
             PermissionModel.Of(
                 _intranetMemberGroupProvider.IntTypeDictionary,
                 _intranetActionTypeProvider.IntTypeDictionary,
                 _activityTypeProvider.IntTypeDictionary,
-                entity);
+                entity);*/
+
+        protected virtual PermissionModel Map(PermissionEntity entity) =>
+            PermissionModel.Of(
+                PermissionSettingIdentity.Of(
+                    _intranetActionTypeProvider[entity.IntranetActionId],
+                    _resourceTypeProvider[entity.ResourceTypeId]
+                ),
+                PermissionSettingValues.Of(
+                    entity.IsAllowed,
+                    entity.IsEnabled
+                ),
+                _intranetMemberGroupProvider[entity.IntranetMemberGroupId]);
 
         public static PermissionEntity UpdateEntity(PermissionEntity entity, PermissionUpdateModel update)
         {
@@ -154,7 +161,7 @@ namespace Uintra.Core.Permissions.Implementation
                 Id = Guid.NewGuid(),
                 IntranetMemberGroupId = update.Group.Id,
                 IntranetActionId = update.Action.ToInt(),
-                ActivityTypeId = update.ActivityType.ToNullableInt(),
+                ResourceTypeId = update.ResourceType.ToInt(),
                 IsAllowed = update.SettingValues.IsAllowed,
                 IsEnabled = update.SettingValues.IsEnabled
             };
@@ -171,10 +178,10 @@ namespace Uintra.Core.Permissions.Implementation
             return entity => entity.IntranetActionId == actionTypeId;
         }
 
-        public static Expression<Func<PermissionEntity, bool>> ActivityTypeIs(Option<Enum> value)
+        public static Expression<Func<PermissionEntity, bool>> ActivityTypeIs(Enum value)
         {
-            var activityTypeId = value.ToNullableInt();
-            return entity => entity.ActivityTypeId == activityTypeId;
+            var resourceTypeId = value.ToInt();
+            return entity => entity.ResourceTypeId == resourceTypeId;
         }
     }
 }

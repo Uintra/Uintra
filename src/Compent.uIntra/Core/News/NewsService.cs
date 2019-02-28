@@ -17,6 +17,7 @@ using Uintra.Core.Links;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
 using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions;
@@ -103,7 +104,7 @@ namespace Compent.Uintra.Core.News
 
         public override Enum Type => IntranetActivityTypeEnum.News;
 
-        public override PermissionActivityTypeEnum PermissionActivityType => PermissionActivityTypeEnum.News;
+        public override PermissionResourceTypeEnum PermissionActivityType => PermissionResourceTypeEnum.News;
 
         public MediaSettings GetMediaSettings()
         {

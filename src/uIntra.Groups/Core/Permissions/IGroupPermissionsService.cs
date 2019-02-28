@@ -1,4 +1,4 @@
-﻿using Uintra.Core.Permissions;
+﻿using Uintra.Core.Permissions.Models;
 using Umbraco.Core.Models;
 
 namespace Uintra.Groups.Permissions
@@ -6,6 +6,6 @@ namespace Uintra.Groups.Permissions
     public interface IGroupPermissionsService
     {
         bool ValidatePermission(IPublishedContent content);
-        bool HasPermission(PermissionActionEnum action, PermissionActivityTypeEnum activityType);
+        bool HasPermission(PermissionSettingIdentity permissionSettingIdentity);
     }
 }

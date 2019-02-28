@@ -24,6 +24,8 @@ namespace Uintra.Core.TypeProviders
 
         public virtual Enum this[int typeId] => IntTypeDictionary[typeId];
 
+        public virtual Enum this[Enum type] => IntTypeDictionary[type.ToInt()];
+
         public virtual Enum this[string typeName] => StringTypeDictionary[typeName];
     }
 }

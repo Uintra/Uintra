@@ -1,8 +1,4 @@
-﻿using LanguageExt;
-using System;
-using System.Collections.Generic;
-using Uintra.Core.Permissions.Sql;
-using static LanguageExt.Prelude;
+﻿using System;
 
 namespace Uintra.Core.Permissions.Models
 {
@@ -10,42 +6,19 @@ namespace Uintra.Core.Permissions.Models
     {
         public Guid Id { get; }
         public IntranetMemberGroup Group { get; }
-        public Enum ActionType { get; }
-        public Option<Enum> ActivityType { get; }
-        public bool IsAllowed { get; }
-        public bool IsEnabled { get; }
+        public PermissionSettingValues SettingValues { get; }
+        public PermissionSettingIdentity SettingIdentity { get; }
 
-        private PermissionModel(Guid id, IntranetMemberGroup group, Enum permissionType, Option<Enum> activityType, bool isAllowed, bool isEnabled)
+        private PermissionModel(Guid id, IntranetMemberGroup group, PermissionSettingIdentity settingIdentity, PermissionSettingValues settingValues)
         {
             Id = id;
             Group = group;
-            ActionType = permissionType;
-            ActivityType = activityType;
-            IsAllowed = isAllowed;
-            IsEnabled = isEnabled;
+            SettingIdentity = settingIdentity;
+            SettingValues = settingValues;
         }
 
-        public static PermissionModel Of(IDictionary<int,IntranetMemberGroup> groupDictionary,
-            IDictionary<int, Enum> actionDictionary,
-            IDictionary<int, Enum> activityDictionary,
-            PermissionEntity entity) =>
-            new PermissionModel(
-                entity.Id,
-                groupDictionary[entity.IntranetMemberGroupId],
-                actionDictionary[entity.IntranetActionId],
-                //entity.ActivityTypeId.ToOption().Map(i => activityDictionary[i]),
-                Some(entity.ActivityTypeId).Some(i => activityDictionary[i]).None(() => null),
-                entity.IsAllowed,
-                entity.IsEnabled);
-
-        public static PermissionModel Of(PermissionSettingIdentity identity, PermissionSettingValues values,
+        public static PermissionModel Of(PermissionSettingIdentity settingIdentity, PermissionSettingValues settingValues,
             IntranetMemberGroup group) =>
-            new PermissionModel(
-                Guid.NewGuid(),
-                group,
-                identity.ActionType,
-                identity.ActivityType,
-                values.IsAllowed,
-                values.IsEnabled);
+            new PermissionModel(Guid.NewGuid(), group, settingIdentity, settingValues);
     }
 }

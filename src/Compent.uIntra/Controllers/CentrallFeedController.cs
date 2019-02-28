@@ -8,13 +8,11 @@ using Uintra.CentralFeed.Web;
 using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Feed;
-using Uintra.Core.Permissions;
-using Uintra.Core.TypeProviders;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Groups;
 using Uintra.Subscribe;
-using Umbraco.Web;
 
 namespace Compent.Uintra.Controllers
 {
@@ -30,31 +28,28 @@ namespace Compent.Uintra.Controllers
             IActivitiesServiceFactory activitiesServiceFactory,
             ISubscribeService subscribeService,
             IIntranetMemberService<IGroupMember> intranetMemberService,
-            IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             IFeedLinkService feedLinkService,
             IGroupFeedService groupFeedService,
             IFeedActivityHelper feedActivityHelper,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             IPermissionsService permissionsService,
-            UmbracoHelper umbracoHelper,
-            IActivityTypeProvider activityTypeProvider,
             IContextTypeProvider contextTypeProvider,
-            IFeedFilterService feedFilterService)
+            IFeedFilterService feedFilterService,
+            IPermissionResourceTypeProvider permissionResourceTypeProvider)
             : base(
                   centralFeedService,
                   centralFeedContentService,
                   activitiesServiceFactory,
                   subscribeService,
                   intranetMemberService,
-                  intranetUserContentProvider,
                   centralFeedTypeProvider,
                   feedLinkService,
                   feedFilterStateService,
                   permissionsService,
-                  activityTypeProvider,
                   contextTypeProvider,
-                  feedFilterService)
+                  feedFilterService,
+                  permissionResourceTypeProvider)
         {
             _intranetMemberService = intranetMemberService;
             _groupFeedService = groupFeedService;

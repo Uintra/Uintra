@@ -10,7 +10,6 @@ using Uintra.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Groups;
 using Uintra.Groups.Extentions;
 using Uintra.Groups.Navigation.Models;
@@ -20,7 +19,7 @@ using Uintra.Navigation.Web;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
 
 namespace Compent.Uintra.Controllers
 {
