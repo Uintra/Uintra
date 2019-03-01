@@ -653,6 +653,10 @@
 			&:first-child {
 				margin-left: 0;
 			}
+
+            &.css-btn-bulletin{
+                float: right;
+            }
 		}
 
         ._submit{
