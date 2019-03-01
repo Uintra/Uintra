@@ -17,8 +17,8 @@ namespace Uintra.Core.Permissions.Models
         public Enum Resource { get; }
         public IEnumerable<ITree<Enum>> Actions { get; }
 
-        public static ResourceToActionRelation Of<TAction>(Enum resource, params ITree<TAction>[] actions) where TAction : Enum =>
-            new ResourceToActionRelation(resource, actions.Select(a => a.Select(e => (Enum) e)));
+        public static ResourceToActionRelation Of<TAction>(Enum resource, params ITree<TAction>[] actions) where TAction : struct =>
+            new ResourceToActionRelation(resource, actions.Select(a => a.Select(e => (Enum) (object)e)));
 
         public static ResourceToActionRelation Of(Enum resource, IEnumerable<ITree<Enum>> actions) =>
             new ResourceToActionRelation(resource, actions);

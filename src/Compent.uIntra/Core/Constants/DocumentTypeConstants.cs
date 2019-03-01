@@ -29,7 +29,7 @@
         public const string SystemLinkFolder = "systemLinkFolder";
         public const string MailTemplatesFolder = "mailTemplatesFolder";
         public const string MailTemplate = "MailTemplate";
-        public const string ErrorPage = "errorPage";
+        public const string ErrorPage = "errorPage";        
         public const string NavigationComposition = "navigationComposition";
         public const string ContentPage = "contentPage";
         public const string Heading = "heading";

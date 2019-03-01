@@ -11,6 +11,8 @@ namespace Uintra.Search.Configuration
         private const string NumberOfShardsKey = "numberOfShards";
         private const string NumberOfReplicasKey = "numberOfReplicas";
         private const string IndexPrefixKey = "indexPrefix";
+        private const string UserNameKey = "username";
+        private const string PasswordKey = "password";
 
         public static ElasticConfigurationSection Configuration => ConfigurationManager.GetSection("elasticConfiguration") as ElasticConfigurationSection;
 
@@ -30,6 +32,11 @@ namespace Uintra.Search.Configuration
         public string IndexPrefix => 
             Optional((string)base[IndexPrefixKey])
                 .IfNone(GetDriveId);
+
+        [ConfigurationProperty(UserNameKey, IsRequired = false, DefaultValue = "")]
+        public string UserName { get; set; }
+        [ConfigurationProperty(PasswordKey, IsRequired = false, DefaultValue = "")]
+        public string Password { get; set; }
 
         private static string GetDriveId()
         {
