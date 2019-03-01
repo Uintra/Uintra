@@ -40,6 +40,12 @@ namespace Uintra.Core.Persistence
         void Update(T entity);
 
         void Update(IEnumerable<T> entities);
+
+        void UpdateProperty<TProperty>(T entity, Expression<Func<T, TProperty>> property);
+
+        void UpdateProperty<TProperty>(IEnumerable<T> entity, Expression<Func<T, TProperty>> property);
+
+        IList<T> AsNoTracking();
     }
 
     public interface ISqlRepository<T> : ISqlRepository<Guid, T> where T : SqlEntity<Guid>

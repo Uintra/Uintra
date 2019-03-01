@@ -32,14 +32,20 @@ namespace Uintra.Core.Caching
 
         public T GetOrSet<T>(string cacheKey, Func<T> getItemCallback, DateTimeOffset? lifeTime = null, params string[] uniqueSuffixes) where T : class
         {
-            var key = CreateKey(cacheKey, uniqueSuffixes);
-            var item = MemoryCache.Default.Get(key) as T;
+            var keyPrefix = CreateKey(cacheKey, uniqueSuffixes);
+            var item = MemoryCache.Default.Get(keyPrefix) as T;
             if (item == null)
             {
                 item = getItemCallback();
-                Set(cacheKey, item, lifeTime, uniqueSuffixes);
+                Set(keyPrefix, item, lifeTime, uniqueSuffixes);
             }
             return item;
+        }
+
+        public void Remove(string cacheKey)
+        {
+            var test = MemoryCache.Default.Remove(cacheKey);
+            //SignaledChangeMonitor.Signal(cacheKey);
         }
 
         private static string CreateKey(string cacheKey, string[] uniqueSuffixes)
@@ -68,6 +74,15 @@ namespace Uintra.Core.Caching
             protected override void Dispose(bool disposing)
             {
                 Signaled -= OnSignalRaised;
+            }
+
+            public static void Signal(string name = null)
+            {
+                if (Signaled != null)
+                {
+                    // Raise shared event to notify all subscribers
+                    Signaled(null, new SignaledChangeEventArgs(name));
+                }
             }
 
             private void OnSignalRaised(object sender, SignaledChangeEventArgs e)

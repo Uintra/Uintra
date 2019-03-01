@@ -58,7 +58,7 @@ namespace Uintra.Core.Permissions
         }
 
         [HttpPost]
-        public Unit Save(PermissionUpdateViewModel update)
+        public GroupPermissionsViewModel Save(PermissionUpdateViewModel update)
         {
             var settingIdentity = PermissionSettingIdentity.Of(
                 _actionTypeProvider[update.ActionId],
@@ -69,7 +69,7 @@ namespace Uintra.Core.Permissions
             var mappedUpdate = PermissionUpdateModel.Of(targetGroup, settingValue, settingIdentity);
             _permissionsService.Save(mappedUpdate);
 
-            return unit;
+            return Get(update.IntranetMemberGroupId);
         }
     }
 }

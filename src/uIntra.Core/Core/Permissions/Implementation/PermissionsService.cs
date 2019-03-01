@@ -47,14 +47,20 @@ namespace Uintra.Core.Permissions.Implementation
 
         protected virtual IEnumerable<PermissionModel> CurrentCache
         {
-            //get => _cacheService.GetOrSet(
-            //        BasePermissionCacheKey,
-            //        () => _permissionsRepository.GetAll().Apply(MapAll));
-            //
-            //set => _cacheService.Set(BasePermissionCacheKey, value);
+            get => _cacheService.GetOrSet(
+                    BasePermissionCacheKey,
+                    () => _permissionsRepository.AsNoTracking().Apply(MapAll));
 
-            get => _permissionsRepository.GetAll().Apply(MapAll);
-            set { }
+            set
+            {
+                if (value == null)
+                    _cacheService.Remove(BasePermissionCacheKey);
+                else
+                    _cacheService.Set(BasePermissionCacheKey, value);
+            }
+
+            //get => _permissionsRepository.AsNoTracking().Apply(MapAll);
+            //set { }
         }
 
         public virtual IEnumerable<PermissionModel> GetAll()
@@ -82,6 +88,19 @@ namespace Uintra.Core.Permissions.Implementation
 
         public virtual PermissionModel Save(PermissionUpdateModel update)
         {
+            var settings = _permissionSettingsSchema.Settings;
+
+            IEnumerable<PermissionSettingIdentity> GetChildren(IEnumerable<Enum> actionIds)
+            {
+                var children = settings
+                    .Where(i => i.ParentActionType.Some(j => actionIds.Contains(j)).None(false) &&
+                        i.SettingIdentity.ResourceType.Equals(update.ResourceType))
+                    .Select(i => i.SettingIdentity);
+                if (children.Any())
+                    children = children.Append(GetChildren(children.Select(i => i.Action)));
+                return children;
+            }
+
             var storedEntity = _permissionsRepository
                 .FindOrNone(AndAlso(GroupIs(update.Group),
                     ActionIs(update.Action),
@@ -90,6 +109,20 @@ namespace Uintra.Core.Permissions.Implementation
             var actualEntity = storedEntity.Match(
                 entity =>
                 {
+                    if (update.SettingValues.IsAllowed == false && entity.IsAllowed == true)
+                    {
+                        var children = GetChildren(update.Action.ToListOfOne())
+                            .Select(i => new PermissionEntity()
+                            {
+                                ActionId = i.Action.ToInt(),
+                                IntranetMemberGroupId = update.Group.Id,
+                                IsAllowed = false,
+                                ResourceTypeId = i.ResourceType.ToInt()
+                            });
+                        if (children.Any())
+                            _permissionsRepository.UpdateProperty(children, i => i.IsAllowed);
+                    }
+
                     var updatedEntity = UpdateEntity(entity, update);
                     _permissionsRepository.Update(updatedEntity);
                     return updatedEntity;
@@ -102,7 +135,8 @@ namespace Uintra.Core.Permissions.Implementation
                 });
 
             var actualMappedEntity = Map(actualEntity);
-            CurrentCache = CurrentCache.WithUpdatedElement(e => e.Id, actualMappedEntity);
+            //CurrentCache = CurrentCache.WithUpdatedElement(e => e.Id, actualMappedEntity);
+            CurrentCache = null;
 
             return actualMappedEntity;
         }
@@ -110,8 +144,8 @@ namespace Uintra.Core.Permissions.Implementation
         public virtual void DeletePermissionsForMemberGroup(int memberGroupId)
         {
             _permissionsRepository.Delete(i => i.IntranetMemberGroupId == memberGroupId);
-            CurrentCache = CurrentCache.Where(i => i.Group.Id != memberGroupId);
-            //CurrentCache = null;
+            //CurrentCache = CurrentCache.Where(i => i.Group.Id != memberGroupId);
+            CurrentCache = null;
         }
 
         public virtual bool Check(IIntranetMember member, PermissionSettingIdentity settingIdentity)

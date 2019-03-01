@@ -37,13 +37,13 @@ app.controller('memberGroups.editController',
             return vm.permissionsProperty;
         };
 
-        vm.isParentAllowed = function (permission) {
+        vm.isParentDisabled = function (permission) {
             if(permission.parentActionId === null)
-                return true;
+                return false;
             var parent = vm.permissions.find(function (item) {
                 return item.actionId === permission.parentActionId && item.resourceTypeId === permission.resourceTypeId;
             });
-            return parent.allowed;
+            return !parent.allowed;
         };
 
         vm.toggleEnabled = function myfunction(permission) {
@@ -72,12 +72,15 @@ app.controller('memberGroups.editController',
             var request = angular.copy(permission);
             request.allowed = !permission.allowed;
             memberGroupsService.toggle(request)
-                .success(function (response) {
-                    permission.allowed = !permission.allowed;
-                    if (permission.allowed)
+                .success(function (groupPermissionModel) {
+                    vm.permissions = groupPermissionModel.permissions;
+                    vm.groupedPermissions = groupByResourceTypeName(groupPermissionModel.permissions);
+                    if (!permission.allowed) {
                         notificationsService.success("Success", "Permission has been allowed!");
-                    else
+                    }
+                    else {
                         notificationsService.warning("Success", "Permission has been disallowed!");
+                    }
                 }).always(function () {
                     inProgress = false;
                 });

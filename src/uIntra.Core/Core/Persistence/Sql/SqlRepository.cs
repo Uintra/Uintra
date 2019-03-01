@@ -126,6 +126,28 @@ namespace Uintra.Core.Persistence
             _dbContext.SaveChanges();
         }
 
+        public virtual void UpdateProperty<TProperty>(T entity, Expression<Func<T, TProperty>> property)
+        {
+            _dbSet.Attach(entity);
+            _dbContext.Entry(entity).Property(property).IsModified = true;
+            Save();
+        }
+
+        public virtual void UpdateProperty<TProperty>(IEnumerable<T> entities, Expression<Func<T, TProperty>> property)
+        {
+            foreach (var entity in entities)
+            {
+                _dbSet.Attach(entity);
+                _dbContext.Entry(entity).Property(property).IsModified = true;
+            }
+            Save();
+        }
+
+        public virtual IList<T> AsNoTracking()
+        {
+            return _dbSet.AsNoTracking().ToList();
+        }
+
         public void Dispose()
         {
             Dispose(true);

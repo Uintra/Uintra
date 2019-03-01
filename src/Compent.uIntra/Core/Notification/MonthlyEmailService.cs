@@ -50,7 +50,7 @@ namespace Compent.Uintra.Core.Notification
         protected override IEnumerable<(IIntranetActivity activity, string detailsLink)> GetUserActivitiesFilteredByUserTags(Guid userId)
         {
             var allActivities = GetAllActivities()
-                .Select(activity => (activity, activityTagIds: _userTagService.GetForEntity(activity.Id)));
+                .Select(activity => (activity: activity, activityTagIds: _userTagService.GetForEntity(activity.Id)));
 
             var userTagIds = _userTagService
                 .GetForEntity(userId)
