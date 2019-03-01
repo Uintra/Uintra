@@ -262,3 +262,5 @@ export default {
     goToAllTab,
     goActivityTab
 }
+
+$('.btn._submit.js-bulletin-open').parents('li.feed-create__frame').css({ float: 'right'});
