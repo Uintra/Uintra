@@ -50,7 +50,7 @@ namespace Uintra.Core.Permissions.Implementation
             get => _cacheService.GetOrSet(
                     BasePermissionCacheKey,
                     () => _permissionsRepository.AsNoTracking().Apply(MapAll));
-
+            
             set
             {
                 if (value == null)

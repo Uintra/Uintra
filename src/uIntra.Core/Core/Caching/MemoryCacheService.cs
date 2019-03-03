@@ -37,14 +37,15 @@ namespace Uintra.Core.Caching
             if (item == null)
             {
                 item = getItemCallback();
-                Set(keyPrefix, item, lifeTime, uniqueSuffixes);
+                Set(cacheKey, item, lifeTime, uniqueSuffixes);
             }
             return item;
         }
 
-        public void Remove(string cacheKey)
+        public void Remove(string cacheKey, params string[] uniqueSuffixes)
         {
-            var test = MemoryCache.Default.Remove(cacheKey);
+            var key = CreateKey(cacheKey, uniqueSuffixes);
+            MemoryCache.Default.Remove(key);
             //SignaledChangeMonitor.Signal(cacheKey);
         }
 

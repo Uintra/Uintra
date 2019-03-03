@@ -8,6 +8,6 @@ namespace Uintra.Core.Caching
         T GetOrSet<T>(string cacheKey, Func<T> getItemCallback, DateTimeOffset? lifeTime = null, params string[] uniqueSuffixes) where T : class;
         T Get<T>(string cacheKey, params string[] uniqueSuffixes) where T : class;
         bool HasValue(string cacheKey, params string[] uniqueSuffixes);
-        void Remove(string cacheKey);
+        void Remove(string cacheKey, params string[] uniqueSuffixes);
     }
 }
