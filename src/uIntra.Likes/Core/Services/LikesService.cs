@@ -34,8 +34,8 @@ namespace Uintra.Likes
 
             var result = users.Select(el => new LikeModel
             {
-                UserId = el.Item1,
-                User = el.Item2
+                UserId = el.Id,
+                User = el.DisplayedName
             });
 
             return result;
@@ -78,10 +78,10 @@ namespace Uintra.Likes
             entity.Likes = GetLikeModels(entity.Id);
         }
 
-        protected virtual IEnumerable<Tuple<Guid, string>> GetManyNames(IEnumerable<Guid> usersIds)
+        protected virtual IEnumerable<(Guid Id, string DisplayedName)> GetManyNames(IEnumerable<Guid> usersIds)
         {
             var users = _intranetMemberService.GetMany(usersIds);
-            return users.Select(el => new Tuple<Guid, string>(el.Id, el.DisplayedName));
+            return users.Select(el => (el.Id, el.DisplayedName));
         }
     }
 }
