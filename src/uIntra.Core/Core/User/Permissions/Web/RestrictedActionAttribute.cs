@@ -21,13 +21,13 @@ namespace Uintra.Core.User.Permissions.Web
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {            
+        {
             if (Skip(filterContext))
             {
                 return;
             }
 
-            var permissionsService = HttpContext.Current.GetService<IPermissionsService>();            
+            var permissionsService = HttpContext.Current.GetService<IPermissionsService>();
             var isUserHasAccess = permissionsService.Check(_permissionSettingIdentity);
 
             if (!isUserHasAccess)
@@ -45,8 +45,8 @@ namespace Uintra.Core.User.Permissions.Web
             }
             else
             {
-                context.Response.StatusCode = HttpStatusCode.Forbidden.GetHashCode();
-                context.Response.End();
+                context.Response.StatusCode = HttpStatusCode.Forbidden.ToInt();
+                context.ApplicationInstance.CompleteRequest();
             }
         }
 
