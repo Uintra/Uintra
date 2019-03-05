@@ -141,6 +141,13 @@ namespace Uintra.Core.Permissions.Implementation
             return actualMappedEntity;
         }
 
+        public virtual void Save(IEnumerable<PermissionUpdateModel> permissions)
+        {
+            var entities = permissions.Select(CreateEntity);
+            _permissionsRepository.Add(entities);
+            CurrentCache = null;
+        }
+
         public virtual void DeletePermissionsForMemberGroup(int memberGroupId)
         {
             _permissionsRepository.Delete(i => i.IntranetMemberGroupId == memberGroupId);
@@ -201,7 +208,7 @@ namespace Uintra.Core.Permissions.Implementation
         public static PermissionEntity CreateEntity(PermissionUpdateModel update) =>
             new PermissionEntity
             {
-                Id = Guid.NewGuid(),
+                //d = Guid.NewGuid(),
                 IntranetMemberGroupId = update.Group.Id,
                 ActionId = update.Action.ToInt(),
                 ResourceTypeId = update.ResourceType.ToInt(),

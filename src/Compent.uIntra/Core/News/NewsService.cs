@@ -111,23 +111,6 @@ namespace Compent.Uintra.Core.News
             return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.NewsContent);
         }
 
-        //public override bool CanEdit(IIntranetActivity activity)
-        //{
-        //    var currentMember = _intranetMemberService.GetCurrentMember();
-        //
-        //    var isWebmaster = currentMember.Group.Id == IntranetRolesEnum.WebMaster.ToInt();
-        //    if (isWebmaster)
-        //    {
-        //        return true;
-        //    }
-        //
-        //    var ownerId = Get(activity.Id).OwnerId;
-        //    var isOwner = ownerId == currentMember.Id;
-        //
-        //    var isMemberHasPermissions = _permissionsService.Check(currentMember, PermissionActivityType, PermissionActionEnum.Edit);
-        //    return isOwner && isMemberHasPermissions;
-        //}
-
         public FeedSettings GetFeedSettings()
         {
             return new FeedSettings
