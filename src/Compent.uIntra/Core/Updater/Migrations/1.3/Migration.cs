@@ -22,7 +22,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3
             get
             {                 
                 yield return Resolve<CreateForbiddenErrorPageStep>();
-                
+                //yield return Resolve<SetupDefaultMemberGroupsPermissionsStep>();
             }
         }
     }

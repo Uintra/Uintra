@@ -14,6 +14,8 @@ namespace Uintra.Core.Permissions
         [Display(Name = "Edit other")]
         EditOther,
         [Display(Name = "Delete other")]
-        DeleteOther
+        DeleteOther,
+        [Display(Name = "Hide other")]
+        HideOther
     }
 }

@@ -153,22 +153,6 @@ namespace Compent.Uintra.Core.Events
             };
         }
 
-        //public override bool CanEdit(IIntranetActivity activity)
-        //{
-        //    var currentMember = _intranetMemberService.GetCurrentMember();
-        //
-        //    var isWebmaster = currentMember.Group.Id == IntranetRolesEnum.WebMaster.ToInt();
-        //
-        //    if (isWebmaster) return true;
-        //
-        //    var ownerId = Get(activity.Id).OwnerId;
-        //    var isOwner = ownerId == currentMember.Id;
-        //
-        //    var isMemberHasPermissions = _permissionsService.Check(currentMember, PermissionActivityType, PermissionActionEnum.Edit);
-        //
-        //    return isOwner && isMemberHasPermissions;
-        //}
-
         public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
 
         public override Guid Create(IIntranetActivity activity)

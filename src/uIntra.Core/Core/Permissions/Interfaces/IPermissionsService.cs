@@ -10,6 +10,7 @@ namespace Uintra.Core.Permissions.Interfaces
         IEnumerable<PermissionModel> GetAll();
         IEnumerable<PermissionManagementModel> GetForGroup(IntranetMemberGroup group);
         PermissionModel Save(PermissionUpdateModel update);
+        void Save(IEnumerable<PermissionUpdateModel> permissions);
         void DeletePermissionsForMemberGroup(int memberGroupId);
         bool Check(IIntranetMember member, PermissionSettingIdentity settingsIdentity);
         bool Check(PermissionSettingIdentity settingsIdentity);
