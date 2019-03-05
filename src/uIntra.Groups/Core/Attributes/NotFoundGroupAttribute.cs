@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Web.Mvc;
 using LanguageExt;
 using Uintra.Core;
@@ -58,7 +59,8 @@ namespace Uintra.Groups.Attributes
 
             if (errorPage != null)
             {
-                filterContext.Controller.ControllerContext.HttpContext.Server.TransferRequest(errorPage.Url);
+                filterContext.Controller.ControllerContext.HttpContext.Response.StatusCode = HttpStatusCode.NotFound.GetHashCode();
+                filterContext.Controller.ControllerContext.HttpContext.Response.End();
             }
             else
             {

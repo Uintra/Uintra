@@ -69,13 +69,13 @@
                 if (string.IsNullOrEmpty(Model.TitleLink))
                 {
                     <div class="block__image @sizeClass">
-                        <img class="img-responsive @lightboxClass js-photoswipe-item" width="250" height="200" src="@Model.PosterImageUrl" alt="" />
+                        <img class="img-responsive @lightboxClass js-photoswipe-item" width="250" height="200" src="@Model.PosterImageUrl" alt="@Model.VideoLinkAlternativeText" />
                     </div>
                 }
                 else
                 {
                     <div class="block__image @sizeClass">
-                        <a href="@Model.TitleLink"><img class="img-responsive @lightboxClass js-photoswipe-item" width="250" height="200" src="@Model.PosterImageUrl" alt="" /></a>
+                        <a href="@Model.TitleLink"><img class="img-responsive @lightboxClass js-photoswipe-item" width="250" height="200" src="@Model.PosterImageUrl" alt="@Model.VideoLinkAlternativeText" /></a>
                     </div>
                 }
             }
