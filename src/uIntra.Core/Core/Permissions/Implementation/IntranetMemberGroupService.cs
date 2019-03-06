@@ -62,7 +62,8 @@ namespace Uintra.Core.Permissions.Implementation
 
         public virtual bool Save(int id, string name)
         {
-            if (_memberGroupService.GetByName(name) != null) return false;
+            var groupByName = _memberGroupService.GetByName(name);
+            if (groupByName != null && groupByName.Id != id) return false;
             var memberGroup = _memberGroupService.GetById(id);
             memberGroup.Name = name;
             _memberGroupService.Save(memberGroup);
