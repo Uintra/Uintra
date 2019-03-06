@@ -7,18 +7,26 @@ app.controller('memberGroups.editController',
         var inProgress = false;
         vm.memberGroup = null;
         var memberGroupId = $routeParams.id;
+        vm.isButtonDisabled = true;
 
         if ($routeParams.create) {
             vm.memberGroup = {};
             vm.isCreate = true;
+            vm.isButtonDisabled = false;
         } else {
-
             memberGroupsService.getPermissions(memberGroupId)
                 .success(function (groupPermissionModel) {
                     vm.memberGroup = groupPermissionModel.memberGroup;
                     vm.permissions = groupPermissionModel.permissions;
-                    vm.groupedPermissions = groupByResourceTypeName(groupPermissionModel.permissions);
                     vm.isSuperUser = groupPermissionModel.isSuperUser;
+
+                    vm.groupedPermissions = groupByResourceTypeName(groupPermissionModel.permissions);
+
+                    var currentGroupName = groupPermissionModel.memberGroup.name;
+                    $scope.$watch(function (scope) { return vm.memberGroup.name; }, function (newValue, oldValue) {
+                        vm.isButtonDisabled = currentGroupName === newValue;
+                    });
+
                     syncTree(memberGroupId);
                 });
         }
@@ -38,7 +46,7 @@ app.controller('memberGroups.editController',
         };
 
         vm.isParentDisabled = function (permission) {
-            if(permission.parentActionId === null)
+            if (permission.parentActionId === null)
                 return false;
             var parent = vm.permissions.find(function (item) {
                 return item.actionId === permission.parentActionId && item.resourceTypeId === permission.resourceTypeId;

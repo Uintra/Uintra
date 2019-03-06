@@ -52,7 +52,7 @@
                             state="vm.buttonState"
                             shortcut="ctrl+c"
                             label="Save"
-                            disabled="vm.buttonState === 'busy'">
+                            disabled="vm.isButtonDisabled || vm.buttonState === 'busy'">
                 </umb-button>
             </umb-editor-footer-content-right>
         </umb-editor-footer>
