@@ -43,7 +43,9 @@ namespace Uintra.Core.Permissions.Implementation
                         Tree(EditOwner))
                     )),
             Of(Groups,
-                Tree(Create))
+                Tree(Create),
+                Tree(Edit),
+                Tree(EditOther))
         };
 
         public PermissionSettingValues DefaultSettingsValues =>

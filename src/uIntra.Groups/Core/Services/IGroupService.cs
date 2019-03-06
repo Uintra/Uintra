@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Uintra.Core.User;
+using Umbraco.Core.Models;
 
 namespace Uintra.Groups
 {
@@ -13,8 +14,9 @@ namespace Uintra.Groups
         IEnumerable<GroupModel> GetMany(IEnumerable<Guid> groupIds);
         IEnumerable<GroupModel> GetAll();
 
-        bool CanEdit(Guid groupId, IIntranetMember member);
-        bool CanEdit(GroupModel groupModel, IIntranetMember member);
+        bool CanEdit(Guid groupId);
+        bool CanEdit(GroupModel groupModel);
+        bool ValidatePermission(IPublishedContent content);
         bool IsActivityFromActiveGroup(IGroupActivity groupActivity);
 
         void Hide(Guid id);

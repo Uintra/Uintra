@@ -36,7 +36,6 @@ namespace Compent.Uintra.Controllers
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;
         private readonly IGroupFeedContentService _groupFeedContentService;
-        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IGroupLinkProvider _groupLinkProvider;
         private readonly IGroupContentProvider _groupContentProvider;
         private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
@@ -75,7 +74,6 @@ namespace Compent.Uintra.Controllers
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupService = groupService;
             _groupFeedContentService = groupFeedContentService;
-            _intranetMemberService = intranetMemberService;
             _groupLinkProvider = groupLinkProvider;
             _groupContentProvider = groupContentProvider;
             _subNavigationModelBuilder = subNavigationModelBuilder;
@@ -187,10 +185,9 @@ namespace Compent.Uintra.Controllers
                     .ToEnumerable()
                     .Map<IEnumerable<GroupNavigationActivityTabViewModel>>();
 
-                var currentMember = _intranetMemberService.GetCurrentMember();
                 var groupEditPage = _groupContentProvider.GetEditPage();
                 groupNavigationModel.PageTabs = _groupFeedContentService
-                    .GetPageTabs(CurrentPage, currentMember, groupId.Value)
+                    .GetPageTabs(CurrentPage, groupId.Value)
                     .Select(t => MapToGroupPageTabViewModel(t, groupEditPage));
             }
 

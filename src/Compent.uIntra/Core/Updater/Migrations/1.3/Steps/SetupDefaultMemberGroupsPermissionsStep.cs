@@ -65,7 +65,9 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
                 CreatePermission(group, Resource.News, Edit),
                 CreatePermission(group, Resource.News, EditOther),
                 CreatePermission(group, Resource.News, EditOwner),
-                CreatePermission(group, Resource.Groups, Create)
+                CreatePermission(group, Resource.Groups, Create),
+                CreatePermission(group, Resource.Groups, Edit),
+                CreatePermission(group, Resource.Groups, EditOther)
             });
             return groupPermissions;
         }
@@ -85,7 +87,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
                 CreatePermission(group, Resource.News, View),
                 CreatePermission(group, Resource.News, Create),
                 CreatePermission(group, Resource.News, Edit),
-                CreatePermission(group, Resource.Groups, Create)
+                CreatePermission(group, Resource.Groups, Create),
+                CreatePermission(group, Resource.Groups, Edit)
             });
             return groupPermissions;
         }

@@ -445,7 +445,6 @@ namespace Compent.Uintra
             kernel.Bind<IGroupDocumentsService>().To<GroupDocumentsService>().InRequestScope();
             kernel.Bind<IGroupContentProvider>().To<GroupContentProvider>().InRequestScope();
             kernel.Bind<IGroupLinkProvider>().To<GroupLinkProvider>().InRequestScope();
-            kernel.Bind<IGroupPermissionsService>().To<GroupPermissionsService>().InRequestScope();
 
             kernel.Bind<IGroupMediaService>().To<GroupMediaService>().InRequestScope();
             kernel.Bind<IProfileLinkProvider>().To<ProfileLinkProvider>().InRequestScope();

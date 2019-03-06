@@ -77,9 +77,9 @@ namespace Uintra.Groups
             }
         }
 
-        public IEnumerable<PageTabModel> GetPageTabs(IPublishedContent currentPage, IIntranetMember member, Guid groupId)
+        public IEnumerable<PageTabModel> GetPageTabs(IPublishedContent currentPage, Guid groupId)
         {
-            Func<IPublishedContent, bool> skipPage = GetPageSkipResolver(member, groupId);
+            Func<IPublishedContent, bool> skipPage = GetPageSkipResolver( groupId);
 
             foreach (var content in _contentProvider.GetRelatedPages())
             {
@@ -92,9 +92,9 @@ namespace Uintra.Groups
             }
         }
 
-        private Func<IPublishedContent, bool> GetPageSkipResolver(IIntranetMember member, Guid groupId)
+        private Func<IPublishedContent, bool> GetPageSkipResolver(Guid groupId)
         {
-            var canEdit = _groupService.CanEdit(groupId, member);
+            var canEdit = _groupService.CanEdit(groupId);
             var editGroupPage = _contentProvider.GetEditPage();
 
             var deactivatedPage = _contentProvider.GetDeactivatedGroupPage();

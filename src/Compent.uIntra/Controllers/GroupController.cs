@@ -21,7 +21,7 @@ namespace Compent.Uintra.Controllers
     {
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        private readonly IGroupPermissionsService _groupPermissionsService;
+        private readonly IGroupService _groupService;
 
         public GroupController(
             IGroupService groupService,
@@ -34,7 +34,6 @@ namespace Compent.Uintra.Controllers
             UmbracoHelper umbracoHelper,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IImageHelper imageHelper,
-            IGroupPermissionsService groupPermissionsService,
             ICommandPublisher commandPublisher)
             : base(
                 groupService,
@@ -49,7 +48,7 @@ namespace Compent.Uintra.Controllers
         {
             _umbracoHelper = umbracoHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;
-            _groupPermissionsService = groupPermissionsService;
+            _groupService = groupService;
         }
 
         public override ActionResult LeftNavigation()
@@ -81,7 +80,7 @@ namespace Compent.Uintra.Controllers
             {
                 if (subPage.IsShowPageInSubNavigation())
                 {
-                    if (_groupPermissionsService.ValidatePermission(subPage))
+                    if (_groupService.ValidatePermission(subPage))
                     {
                         yield return MapToLeftNavigationItem(subPage, isPageActive);
                     }

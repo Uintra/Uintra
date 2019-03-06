@@ -3,25 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
+using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.Models;
 using Uintra.Core.Persistence;
 using Uintra.Core.User;
+using Uintra.Groups.Permissions;
 using Uintra.Groups.Sql;
+using Umbraco.Core.Models;
 using static LanguageExt.Prelude;
 
 namespace Uintra.Groups
 {
     public class GroupService : IGroupService
     {
+        private const string GroupCacheKey = "Groups";
         private readonly ISqlRepository<Group> _groupRepository;
         private readonly ICacheService _memoryCacheService;
-        private const string GroupCacheKey = "Groups";
+        private readonly IPermissionsService _permissionsService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+
+        protected const string GroupsCreatePage = "groupsCreatePage";
+        protected Enum PermissionResourceType => PermissionResourceTypeEnum.Groups;
 
         public GroupService(
             ISqlRepository<Group> groupRepository,
-            ICacheService memoryCacheService)
+            ICacheService memoryCacheService,
+            IPermissionsService permissionsService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
             _groupRepository = groupRepository;
             _memoryCacheService = memoryCacheService;
+            _permissionsService = permissionsService;
+            _intranetMemberService = intranetMemberService;
         }
 
         public Guid Create(GroupModel model)
@@ -68,20 +82,37 @@ namespace Uintra.Groups
             return GetAllNotHidden().Join(groupIds, g => g.Id, identity, (g, _) => g);
         }
 
-        public bool CanEdit(Guid groupId, IIntranetMember member)
+        public bool CanEdit(Guid groupId)
         {
             var group = Get(groupId);
-            return CanEdit(group, member);
+            return CanEdit(group);
         }
 
-        public bool CanEdit(GroupModel groupModel, IIntranetMember member)
+        public bool CanEdit(GroupModel groupModel)
         {
-            if (member.Group.Id == IntranetRolesEnum.WebMaster.ToInt())
-            {
-                return true;
-            }
+            return CanPerform(groupModel, PermissionActionEnum.Edit, PermissionActionEnum.EditOther);
+        }
 
-            return groupModel.CreatorId == member.Id;
+        public bool CanPerform(GroupModel group, Enum action, Enum administrationAction)
+        {
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            var ownerId = group.CreatorId;
+            var isOwner = ownerId == currentMember.Id;
+
+            var act = isOwner ? action : administrationAction;
+            var result = _permissionsService.Check(currentMember, PermissionSettingIdentity.Of(act, PermissionResourceType));
+
+            return result;
+        }
+
+        public bool ValidatePermission(IPublishedContent content)
+        {
+            if (content.DocumentTypeAlias == GroupsCreatePage)
+            {
+                var hasPermission = _permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create, PermissionResourceType));
+                return hasPermission;
+            }
+            return true;
         }
 
         public void Hide(Guid id)

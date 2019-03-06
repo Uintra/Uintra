@@ -17,19 +17,19 @@ namespace Compent.Uintra.Core.Navigation
     public class SubNavigationModelBuilder : NavigationModelBuilderBase<SubNavigationMenuModel>, ISubNavigationModelBuilder
     {
         private readonly IGroupHelper _groupHelper;
-        private readonly IGroupPermissionsService _groupPermissionsService;
+        private readonly IGroupService _groupService;
         private readonly IIntranetMemberService<IGroupMember> _intranetMemberService;
 
         public SubNavigationModelBuilder(
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
             IGroupHelper groupHelper,
-            IGroupPermissionsService groupPermissionsService,
+            IGroupService groupService,
             IIntranetMemberService<IGroupMember> intranetMemberService)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
             _groupHelper = groupHelper;
-            _groupPermissionsService = groupPermissionsService;
+            _groupService = groupService;
             _intranetMemberService = intranetMemberService;
         }
 
@@ -164,7 +164,7 @@ namespace Compent.Uintra.Core.Navigation
         {
             foreach (var item in items)
             {
-                var validatePermission = _groupPermissionsService.ValidatePermission(item);
+                var validatePermission = _groupService.ValidatePermission(item);
                 if (validatePermission)
                 {
                     yield return item;

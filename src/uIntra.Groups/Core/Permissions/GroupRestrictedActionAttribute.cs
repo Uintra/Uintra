@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Uintra.Core.Extensions;
 using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.Models;
 using Uintra.Core.User.Permissions.Web;
 
@@ -12,7 +14,7 @@ namespace Uintra.Groups.Permissions
     public class GroupRestrictedActionAttribute : ActionFilterAttribute
     {
         private readonly PermissionActionEnum _action;
-
+        private Enum _permissionResourceType = PermissionResourceTypeEnum.Groups;
 
         public GroupRestrictedActionAttribute(PermissionActionEnum action)
         {            
@@ -26,8 +28,8 @@ namespace Uintra.Groups.Permissions
                 return;
             }
 
-            var permissionsService = HttpContext.Current.GetService<IGroupPermissionsService>();            
-            var isUserHasAccess = permissionsService.HasPermission(PermissionSettingIdentity.Of(_action, PermissionResourceTypeEnum.Groups));
+            var permissionsService = HttpContext.Current.GetService<IPermissionsService>();            
+            var isUserHasAccess = permissionsService.Check(PermissionSettingIdentity.Of(_action, _permissionResourceType));
 
             if (!isUserHasAccess)
             {

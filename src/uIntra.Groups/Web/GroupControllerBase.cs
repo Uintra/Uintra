@@ -296,7 +296,7 @@ namespace Uintra.Groups.Web
         {
             var group = _groupService.Get(groupId);
 
-            if (!_groupService.CanEdit(group, _memberService.GetCurrentMember()))
+            if (!_groupService.CanEdit(group))
             {
                 HttpContext.Response.Redirect(_groupLinkProvider.GetGroupLink(groupId));
             }

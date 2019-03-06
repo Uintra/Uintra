@@ -12,7 +12,7 @@ namespace Uintra.Core.User.Permissions.Web
     {
         private readonly PermissionSettingIdentity _permissionSettingIdentity;
 
-        public ContentRestrictedActionAttribute(Enum resourceType, Enum action)
+        public ContentRestrictedActionAttribute(PermissionResourceTypeEnum resourceType, PermissionActionEnum action)
         {
             _permissionSettingIdentity = PermissionSettingIdentity.Of(action, resourceType);
         }
