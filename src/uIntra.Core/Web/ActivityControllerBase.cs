@@ -53,7 +53,7 @@ namespace Uintra.Core.Web
 
             if (model.CanEditOwner)
             {
-                model.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(activityType, PermissionActionEnum.Create));
+                model.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(PermissionActionEnum.Create, activityType));
             }
 
             return PartialView(OwnerEditViewPath, model);
