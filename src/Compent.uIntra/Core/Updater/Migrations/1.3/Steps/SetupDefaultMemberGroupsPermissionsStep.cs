@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Uintra.Core.Permissions;
 using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.Models;
@@ -120,7 +117,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
 
         public void Undo()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
