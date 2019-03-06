@@ -46,6 +46,9 @@ namespace Uintra.Core.Permissions.Implementation
                 Tree(Create))
         };
 
+        public PermissionSettingValues DefaultSettingsValues =>
+            PermissionSettingValues.Of(GlobalIsAllowedDefault, GlobalIsEnabledDefault);
+
         public PermissionSettingSchema[] Settings { get; }
 
         public PermissionSettingsSchemaProvider()

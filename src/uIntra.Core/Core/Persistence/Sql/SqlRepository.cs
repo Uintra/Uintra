@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using LanguageExt;
@@ -123,7 +124,23 @@ namespace Uintra.Core.Persistence
 
         public virtual void Save()
         {
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                // for cases when we trying to update entities which does not present in database.
+                var entries = _dbContext.ChangeTracker.Entries()
+                    .Where(i => i.State == EntityState.Modified);
+                foreach (var entry in entries)
+                {
+                    var dbValues = entry.GetDatabaseValues();
+                    if(dbValues == null)
+                        entry.State = EntityState.Added;
+                }
+                _dbContext.SaveChanges();
+            }
         }
 
         public virtual void UpdateProperty<TProperty>(T entity, Expression<Func<T, TProperty>> property)

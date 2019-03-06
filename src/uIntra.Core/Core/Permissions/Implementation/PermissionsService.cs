@@ -50,7 +50,6 @@ namespace Uintra.Core.Permissions.Implementation
             get => _cacheService.GetOrSet(
                     BasePermissionCacheKey,
                     () => _permissionsRepository.AsNoTracking().Apply(MapAll));
-            
             set
             {
                 if (value == null)
@@ -58,9 +57,6 @@ namespace Uintra.Core.Permissions.Implementation
                 else
                     _cacheService.Set(BasePermissionCacheKey, value);
             }
-
-            //get => _permissionsRepository.AsNoTracking().Apply(MapAll);
-            //set { }
         }
 
         public virtual IEnumerable<PermissionModel> GetAll()
@@ -117,6 +113,7 @@ namespace Uintra.Core.Permissions.Implementation
                                 ActionId = i.Action.ToInt(),
                                 IntranetMemberGroupId = update.Group.Id,
                                 IsAllowed = false,
+                                IsEnabled = _permissionSettingsSchema.DefaultSettingsValues.IsEnabled,
                                 ResourceTypeId = i.ResourceType.ToInt()
                             });
                         if (children.Any())
@@ -135,7 +132,6 @@ namespace Uintra.Core.Permissions.Implementation
                 });
 
             var actualMappedEntity = Map(actualEntity);
-            //CurrentCache = CurrentCache.WithUpdatedElement(e => e.Id, actualMappedEntity);
             CurrentCache = null;
 
             return actualMappedEntity;
@@ -151,7 +147,6 @@ namespace Uintra.Core.Permissions.Implementation
         public virtual void DeletePermissionsForMemberGroup(int memberGroupId)
         {
             _permissionsRepository.Delete(i => i.IntranetMemberGroupId == memberGroupId);
-            //CurrentCache = CurrentCache.Where(i => i.Group.Id != memberGroupId);
             CurrentCache = null;
         }
 
@@ -178,13 +173,6 @@ namespace Uintra.Core.Permissions.Implementation
             return Check(member, PermissionSettingIdentity.Of(action, resourceType));
         }
 
-        /*protected virtual PermissionModel Map(PermissionEntity entity) =>
-            PermissionModel.Of(
-                _intranetMemberGroupProvider.IntTypeDictionary,
-                _intranetActionTypeProvider.IntTypeDictionary,
-                _activityTypeProvider.IntTypeDictionary,
-                entity);*/
-
         protected virtual PermissionModel Map(PermissionEntity entity) =>
             PermissionModel.Of(
                 PermissionSettingIdentity.Of(
@@ -208,7 +196,6 @@ namespace Uintra.Core.Permissions.Implementation
         public static PermissionEntity CreateEntity(PermissionUpdateModel update) =>
             new PermissionEntity
             {
-                //d = Guid.NewGuid(),
                 IntranetMemberGroupId = update.Group.Id,
                 ActionId = update.Action.ToInt(),
                 ResourceTypeId = update.ResourceType.ToInt(),
