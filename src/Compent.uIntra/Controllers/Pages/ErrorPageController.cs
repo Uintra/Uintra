@@ -10,7 +10,15 @@ namespace Compent.Uintra.Controllers.Pages
     {
         public override ActionResult Index(RenderModel renderModel)
         {
-            HttpContext.Response.StatusCode = HttpStatusCode.NotFound.ToInt();
+            if (renderModel.Content.Name=="Error")
+            {
+                HttpContext.Response.StatusCode = HttpStatusCode.NotFound.ToInt();
+            }
+
+            if (renderModel.Content.Name == "Forbidden")
+            {
+                HttpContext.Response.StatusCode = HttpStatusCode.Forbidden.ToInt();
+            }
 
             return View(string.Empty, renderModel.Content);
         }

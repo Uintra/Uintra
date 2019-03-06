@@ -195,6 +195,7 @@
             }
 
             .table__col{
+                word-break: break-all;
                 &:before{
                     @media (--for-phone-only) {
                         display: block;    

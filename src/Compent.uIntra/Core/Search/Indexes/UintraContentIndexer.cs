@@ -114,7 +114,7 @@ namespace Compent.Uintra.Core.Search.Indexes
                 UsersTagsAlias,
                 ArticleStartAlias,
                 ArticleContinueAlias,
-                DocumentLibraryPanelAlias);
+                UintraGridEditorConstants.DocumentLibraryPanelAlias);
 
             foreach (var control in values)
             {
