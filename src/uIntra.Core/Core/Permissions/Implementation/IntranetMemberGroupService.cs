@@ -52,6 +52,7 @@ namespace Uintra.Core.Permissions.Implementation
 
         public virtual int Create(string name)
         {
+            if (string.IsNullOrWhiteSpace(name)) return int.MinValue;
             var group = _memberGroupService.GetByName(name);
             if (group != null) return group.Id;
             _memberGroupService.Save(new MemberGroup { Name = name });
@@ -62,6 +63,7 @@ namespace Uintra.Core.Permissions.Implementation
 
         public virtual bool Save(int id, string name)
         {
+            if (string.IsNullOrWhiteSpace(name)) return false;
             var groupByName = _memberGroupService.GetByName(name);
             if (groupByName != null && groupByName.Id != id) return false;
             var memberGroup = _memberGroupService.GetById(id);

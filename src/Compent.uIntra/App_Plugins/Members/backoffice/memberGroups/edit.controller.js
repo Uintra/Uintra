@@ -24,7 +24,7 @@ app.controller('memberGroups.editController',
 
                     var currentGroupName = groupPermissionModel.memberGroup.name;
                     $scope.$watch(function (scope) { return vm.memberGroup.name; }, function (newValue, oldValue) {
-                        vm.isButtonDisabled = currentGroupName === newValue;
+                        vm.isButtonDisabled = currentGroupName === newValue || !newValue;
                     });
 
                     syncTree(memberGroupId);
@@ -100,8 +100,13 @@ app.controller('memberGroups.editController',
             if (vm.isCreate) {
                 memberGroupsService.create(vm.memberGroup.name)
                     .success(function (createdMemberGroupId) {
-                        syncTree(createdMemberGroupId);
-                        $location.url("/" + $routeParams.section + "/" + $routeParams.tree + "/" + $routeParams.method + "/" + createdMemberGroupId);
+                        if (createdMemberGroupId > 0) {
+                            syncTree(createdMemberGroupId);
+                            $location.url("/" + $routeParams.section + "/" + $routeParams.tree + "/" + $routeParams.method + "/" + createdMemberGroupId);
+                        } else {
+                            notificationsService.error("Error", "Invalid group name!");
+                            vm.buttonState = "success";
+                        }
                     }).error(function (error) {
                         vm.buttonState = "success";
                     });
