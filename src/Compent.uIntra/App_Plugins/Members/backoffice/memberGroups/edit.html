@@ -19,20 +19,21 @@
                         <tr>
                             <th align="left" style="min-width:130px">Permission</th>
                             <th align="center">Allowed Permission</th>
-                            <th ng-if="vm.isSuperUser" align="center">Enable Setting</th>
+                            <th align="center">Enable Setting</th>
                         </tr>
                         <tr ng-repeat="permission in element[1]">
                             <td >
                                 <span>{{permission.actionName}}</span>
                             </td>
                             <td align="center">
-                                <input type="checkbox" ng-checked="permission.allowed" ng-disabled="vm.isParentDisabled(permission)" ng-click="vm.toggleAllowed(permission)" />
+                                <input type="checkbox" ng-checked="permission.allowed" ng-disabled="vm.isParentDisabled(permission) || !permission.enabled" ng-click="vm.toggleAllowed(permission)" />
                                 <!--<umb-toggle checked="permission.allowed" on-click="vm.toggleAllowed(permission)">
                                 </umb-toggle>-->
                             </td>
-                            <td ng-if="vm.isSuperUser" align="center">
-                                <umb-toggle checked="permission.enabled" on-click="vm.toggleEnabled(permission)">
-                                </umb-toggle>
+                            <td align="center">
+                                <input type="checkbox" ng-checked="permission.enabled" ng-disabled="!vm.isSuperUser" ng-click="vm.toggleEnabled(permission)" />
+                                <!--<umb-toggle checked="permission.enabled" on-click="vm.toggleEnabled(permission)">
+                                </umb-toggle>-->
                             </td>
 
                         </tr>

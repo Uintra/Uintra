@@ -43,7 +43,6 @@ namespace Uintra.Core.Permissions
 
             var permissions = _permissionsService
                 .GetForGroup(memberGroup)
-                .Where(i => i.SettingValues.IsEnabled || isSuperUser)
                 .Map<IEnumerable<PermissionViewModel>>()
                 .OrderBy(i => i.ResourceTypeId);
 
