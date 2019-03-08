@@ -1312,6 +1312,7 @@
     <Compile Include="Core\Events\Models\EventExtendedEditModel.cs" />
     <Compile Include="Core\Events\Models\EventExtendedViewModel.cs" />
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
+    <Compile Include="Core\Extensions\AjaxHelperExtensions.cs" />
     <Compile Include="Core\Feed\ActivityFeedOptionsWithGroups.cs" />
     <Compile Include="Core\Feed\Links\ActivityLinkService.cs" />
     <Compile Include="Core\Gdpr\GdprMailsJob.cs" />

@@ -337,6 +337,9 @@
     &__head,
     &__cell{
         padding:18px 1.95%;
+        @media all and (-ms-high-contrast: none){
+            padding:18px 15px;
+        }
 
         @media (--for-tablet-portrait-down) {
             padding:10px 5px;
@@ -386,7 +389,6 @@
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
                 content:"\e900";
-                /*transform:rotate(90deg);*/
             }
         }
 
@@ -395,12 +397,6 @@
                 transform:rotate(-180deg);
             }
         }
-        
-        /*&._asc{
-            &:after{
-                transform:rotate(90deg);
-            }
-        }*/
     }
 
     &__name{
@@ -408,18 +404,15 @@
     }
 
     &__delete{
-        font-size:0;
-        line-height:0;
         vertical-align:top;
+        font-size:20px;
+        line-height:1;
+        color:var(--text-color-dark);
 
-        &:before{
-            font-size:20px;
-            line-height:1;
-            color:var(--text-color-dark);
-        }
-
-        &:hover{
+        &:hover,
+        &:focus{
             text-decoration:none;
+            color:var(--color-black);
         }
     }
 }
