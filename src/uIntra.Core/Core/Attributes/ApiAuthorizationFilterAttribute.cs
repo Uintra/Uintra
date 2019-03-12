@@ -54,13 +54,13 @@ namespace Uintra.Core.Attributes
 
         private bool IsCredentialsValid(string mail, string password)
         {
-            var relatedUserWithWebMasterRole = Optional(_intranetMemberService.GetByEmail(mail))
+            var relatedUserWithSuperUserPermissions = Optional(_intranetMemberService.GetByEmail(mail))
                 .Bind(member => member.RelatedUser.Filter(user => user.IsSuperUser))
                 .Map(user => _memberService.GetById(user.Id));
 
             Option<IMember> GetUserWithMatchingEmail() => Optional(_memberService.GetByEmail(mail));
 
-            return relatedUserWithWebMasterRole
+            return relatedUserWithSuperUserPermissions
                 .Choose(GetUserWithMatchingEmail)
                 .Map(user => Membership.ValidateUser(user.Username, password))
                 .IfNone(() => false);

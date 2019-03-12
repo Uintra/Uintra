@@ -104,9 +104,9 @@ namespace Uintra.Users
             return default;
         }
 
-        public virtual IEnumerable<T> GetByGroup(int role)
+        public virtual IEnumerable<T> GetByGroup(int memberGroupId)
         {
-            var members = GetAll().Where(el => el.Group.Id == role);
+            var members = GetAll().Where(el => el.Group.Id == memberGroupId);
             return members;
         }
 

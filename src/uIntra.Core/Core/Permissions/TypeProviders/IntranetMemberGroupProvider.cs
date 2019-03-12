@@ -14,9 +14,9 @@ namespace Uintra.Core.Permissions.TypeProviders
 
         public IEnumerable<IntranetMemberGroup> All => _groupService.GetAll();
 
-        public IDictionary<int, IntranetMemberGroup> IntTypeDictionary { get { return All.ToDictionary(role => role.Id); } }
+        public IDictionary<int, IntranetMemberGroup> IntTypeDictionary { get { return All.ToDictionary(group => group.Id); } }
 
-        public IDictionary<string, IntranetMemberGroup> StringTypeDictionary { get { return All.ToDictionary(role => role.Name); } }
+        public IDictionary<string, IntranetMemberGroup> StringTypeDictionary { get { return All.ToDictionary(group => group.Name); } }
 
         public IntranetMemberGroupProvider(IIntranetMemberGroupService groupService)
         {

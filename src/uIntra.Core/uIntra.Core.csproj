@@ -639,7 +639,6 @@
     <Compile Include="Core\Extensions\EnumExtensions.cs" />
     <Compile Include="Core\Extensions\HtmlExtentions.cs" />
     <Compile Include="Core\Extensions\HttpContextExtentions.cs" />
-    <Compile Include="Core\Extensions\PermissionExtentions.cs" />
     <Compile Include="Core\Extensions\PublishedContentExtentions.cs" />
     <Compile Include="Core\Extensions\SerializationExtentions.cs" />
     <Compile Include="Core\Extensions\StringExtentions.cs" />
