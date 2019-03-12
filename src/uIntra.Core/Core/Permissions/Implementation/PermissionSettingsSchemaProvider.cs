@@ -74,8 +74,11 @@ namespace Uintra.Core.Permissions.Implementation
                 .ToLookup(tuple => tuple.parentIdentity, tuple => tuple.childAction);
         }
 
-        public virtual IEnumerable<PermissionSettingIdentity> GetDescendants(PermissionSettingIdentity parent) =>
-            SettingsByParentSettingIdentityLookup[parent].SelectMany(GetDescendants);
+        public virtual IEnumerable<PermissionSettingIdentity> GetDescendants(PermissionSettingIdentity parent)
+        {
+            var children = SettingsByParentSettingIdentityLookup[parent].ToArray();
+            return children.Concat(children.SelectMany(GetDescendants));
+        }
 
         public virtual PermissionSettingValues GetDefault(PermissionSettingIdentity settingIdentity) =>
             SettingsOverrides
