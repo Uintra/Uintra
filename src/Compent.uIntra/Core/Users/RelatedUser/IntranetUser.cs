@@ -10,5 +10,6 @@ namespace Compent.Uintra.Core.Users.RelatedUser
         public bool IsSuperUser { get; set; }
         public bool IsApproved { get; set; }
         public bool IsLockedOut { get; set; }
+        public bool IsValid => IsApproved && !IsLockedOut;
     }
 }

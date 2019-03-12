@@ -335,14 +335,12 @@
     <Compile Include="Core\Models\UserPickerModel.cs" />
     <Compile Include="Core\Models\MentionModel.cs" />
     <Compile Include="DefaultImplementation\IntranetMemberServiceBase.cs" />
-    <Compile Include="Core\IRoleService.cs" />
     <Compile Include="Core\Models\LoginModelBase.cs" />
     <Compile Include="Core\ProfileConstants.cs" />
     <Compile Include="Core\Models\ProfileEditModel.cs" />
     <Compile Include="Core\Models\ProfileViewModel.cs" />
     <Compile Include="DefaultImplementation\MemberEventService.cs" />
     <Compile Include="DefaultImplementation\MentionService.cs" />
-    <Compile Include="DefaultImplementation\RoleServiceBase.cs" />
     <Compile Include="Web\LoginControllerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />

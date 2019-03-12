@@ -1,6 +1,8 @@
 ﻿using System;
+using LanguageExt;
 using Umbraco.Core;
 using Umbraco.Core.Models;
+using  static LanguageExt.Prelude;
 
 namespace Uintra.Core.Extensions
 {
@@ -11,7 +13,7 @@ namespace Uintra.Core.Extensions
             return member.HasProperty(alias) ? member.GetValue<TValue>(alias) : default(TValue);
         }
 
-        public static int? GetMemberImageId(this IMember member, string alias)
+        public static Option<int> GetMemberImageId(this IMember member, string alias)
         {
             if (member.HasProperty(alias))
             {
@@ -20,14 +22,14 @@ namespace Uintra.Core.Extensions
                 {
                     var imageNodeId = ApplicationContext.Current.Services.EntityService.GetIdForKey(
                         imageGuidUdi.Guid,
-                        (UmbracoObjectTypes)Enum.Parse(typeof(UmbracoObjectTypes),
+                        (UmbracoObjectTypes) Enum.Parse(typeof(UmbracoObjectTypes),
                             imageGuidUdi.EntityType,
                             ignoreCase: true));
                     return imageNodeId.Result;
                 }
             }
 
-            return null;
+            return None;
         }
     }
 }

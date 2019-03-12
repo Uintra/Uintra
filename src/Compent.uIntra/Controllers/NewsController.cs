@@ -144,12 +144,10 @@ namespace Compent.Uintra.Controllers
         protected override void OnNewsCreated(Guid activityId, NewsCreateModel model)
         {
             var news = _newsService.Get(activityId);
-            var groupId = Request.QueryString.GetGroupId();
-            if (groupId.HasValue)
-            {
-                _groupActivityService.AddRelation(groupId.Value, activityId);
-                news.GroupId = groupId;
-            }
+            var groupId = Request.QueryString.GetGroupIdOrNone();
+
+            groupId.IfSome(id => _groupActivityService.AddRelation(id, activityId));
+
             if (model is NewsExtendedCreateModel extendedModel)
             {
                 _activityTagsHelper.ReplaceTags(activityId, extendedModel.TagIdsData);

@@ -25,7 +25,6 @@ namespace Uintra.Users
         private readonly IMemberService _memberService;
         private readonly UmbracoContext _umbracoContext;
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly IRoleService _roleService;
         private readonly ICacheService _cacheService;
         private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly IIntranetMemberGroupService _intranetMemberGroupService;
@@ -35,7 +34,6 @@ namespace Uintra.Users
             IMemberService memberService,
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
-            IRoleService roleService,
             ICacheService cacheService,
             IIntranetUserService<IIntranetUser> intranetUserService,
             IIntranetMemberGroupService intranetMemberGroupService)
@@ -44,7 +42,6 @@ namespace Uintra.Users
             _memberService = memberService;
             _umbracoContext = umbracoContext;
             _umbracoHelper = umbracoHelper;
-            _roleService = roleService;
             _cacheService = cacheService;
             _intranetUserService = intranetUserService;
             _intranetMemberGroupService = intranetMemberGroupService;
@@ -65,7 +62,7 @@ namespace Uintra.Users
 
         public virtual T Get(int umbracoId)
         {
-            return GetSingle(el => el.RelatedUser?.Id == umbracoId);
+            return GetSingle(el => el.RelatedUser.Map(u => u.Id) == umbracoId);
         }
 
         private T GetSingle(Func<T, bool> predicate)
@@ -77,22 +74,22 @@ namespace Uintra.Users
         public virtual IEnumerable<T> GetMany(IEnumerable<Guid> ids)
         {
             return ids.Distinct().Join(GetAll(),
-               id => id,
-               member => member.Id,
-               (id, member) => member);
+                identity,
+                member => member.Id,
+                (_, member) => member);
         }
 
         public virtual IEnumerable<T> GetMany(IEnumerable<int> ids)
         {
             return ids.Distinct().Join(GetAll(),
                  id => id,
-                member => member.RelatedUser?.Id,
+                member => member.RelatedUser.Map(x=>x.Id),
                  (id, member) => member);
         }
 
         public virtual IEnumerable<T> GetAll()
         {
-            var members = _cacheService.GetOrSet(MembersCacheKey, GetAllFromSql, CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
+            var members = _cacheService.GetOrSet(MembersCacheKey, ()=> GetAllFromSql().ToArray(), CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
             return members;
         }
 
@@ -163,10 +160,6 @@ namespace Uintra.Users
 
             _memberService.Save(member, false);
 
-            if (System.Web.Security.Roles.RoleExists(dto.Role.ToString()))
-            {
-                System.Web.Security.Roles.AddUserToRole(member.Username, dto.Role.ToString());
-            }
 
             UpdateMemberCache(member.Key);
 
@@ -183,10 +176,7 @@ namespace Uintra.Users
                 FirstName = mbr.GetValue<string>(ProfileConstants.FirstName),
                 Phone = mbr.GetValue<string>(ProfileConstants.Phone),
                 Department = mbr.GetValue<string>(ProfileConstants.Department),
-                Email = mbr.Email,
-                Role = System.Web.Security.Roles.GetRolesForUser(mbr.Username)
-                    .First()
-                    .Apply(s => (IntranetRolesEnum)Enum.Parse(typeof(IntranetRolesEnum), s))
+                Email = mbr.Email
             });
 
             return dto;
@@ -194,72 +184,57 @@ namespace Uintra.Users
 
         public bool Delete(Guid id)
         {
-            var member = _memberService.GetByKey(id);
-            var isPresent = member != null;
+            var member = Optional(_memberService.GetByKey(id));
 
-            if (isPresent)
+            member.Do(mbr =>
             {
-                _memberService.Delete(member);
-                DeleteFromCache(member.Key);
-            }
+                _memberService.Delete(mbr);
+                DeleteFromCache(mbr.Key);
+            });
 
-            return isPresent;
+            return member.IsSome;
         }
 
-        protected virtual T GetFromSql(Guid id)
-        {
-            var member = _memberService.GetByKey(id);
-            return member != null ? Map(member) : default;
-        }
+        protected virtual Option<T> GetFromSqlOrNone(Guid id) => 
+            Optional(_memberService.GetByKey(id))
+                .Map(Map);
 
-        protected virtual IEnumerable<T> GetAllFromSql()
-        {
-            var members = _memberService.GetAllMembers().Select(Map).ToList();
-            return members;
-        }
+        protected virtual IEnumerable<T> GetAllFromSql() =>
+            _memberService
+                .GetAllMembers()
+                .Select(Map);
 
         protected virtual T Map(IMember member)
         {
-            var relatedUserId = member.GetValueOrDefault<int?>(ProfileConstants.RelatedUser);
+            var relatedUserId = member.GetValueOrDefault<int?>(ProfileConstants.RelatedUser).ToOption();
+            var relatedUser = relatedUserId.Map(id => _intranetUserService.GetUser(id));
+           
+            var memberPhotoId = member
+                .GetValueOrDefault<int?>(ProfileConstants.Photo).ToOption()
+                .Choose(() => member.GetMemberImageId(ProfileConstants.Photo));
+
+            var memberPhotoUrl = memberPhotoId
+                .Bind(id => Optional(_umbracoHelper.TypedMedia(id)?.Url));
+
             var mappedMember = new T
             {
                 Id = member.Key,
                 Email = member.Email,
                 LoginName = member.Username,
-                Group = _intranetMemberGroupService.GetForMember(member.Id).FirstOrDefault(),//todo do allow member to has more than one group?
+                Group = _intranetMemberGroupService.GetForMember(member.Id).FirstOrDefault(), //todo do allow member to has more than one group?
                 Inactive = member.IsLockedOut,
-                RelatedUser = relatedUserId.HasValue ? _intranetUserService.GetUser(relatedUserId.Value) : null
+                RelatedUser = relatedUser,
+                IsSuperUser = relatedUser.Match(Some: user => user.IsSuperUser, None: () => false),
+                Photo = memberPhotoUrl.Map(GetUserPhotoOrDefaultAvatar),
+                PhotoId = memberPhotoId
             };
-            mappedMember.IsSuperUser = mappedMember.RelatedUser != null && mappedMember.RelatedUser.IsSuperUser;
-
-            string memberPhoto = null;
-            var memberPhotoId = member.GetValueOrDefault<int?>(ProfileConstants.Photo) ?? member.GetMemberImageId(ProfileConstants.Photo);
-
-            if (memberPhotoId.HasValue)
-            {
-                memberPhoto = _umbracoHelper.TypedMedia(memberPhotoId.Value)?.Url;
-            }
-
-            mappedMember.Photo = GetUserPhotoOrDefaultAvatar(memberPhoto);
-            mappedMember.PhotoId = memberPhotoId;
 
             return mappedMember;
         }
 
-        protected virtual IEnumerable<T> GetUnassignedToMemberUsers()
-        {
-            var members = GetAll();
-            var assignedMembersIds = _memberService.GetAllMembers().Select(m => m.GetValue<Guid>("relatedUser"));
-            var unassignedMembers = members.Join(assignedMembersIds, user => user.Id, id => id, (user, id) => user);
 
-            return unassignedMembers;
-        }
-       
-
-        protected virtual string GetUserPhotoOrDefaultAvatar(string userImage)
-        {
-            return !string.IsNullOrEmpty(userImage) ? userImage : string.Empty;
-        }
+        protected virtual string GetUserPhotoOrDefaultAvatar(string userImage) => 
+            !string.IsNullOrEmpty(userImage) ? userImage : string.Empty;
 
         public virtual T GetByName(string name)
         {
@@ -270,66 +245,30 @@ namespace Uintra.Users
         public virtual T GetByEmail(string email)
         {
             var members = GetAll();
-            return members.SingleOrDefault(member => member.Email.ToLowerInvariant().Equals(email.ToLowerInvariant()));
+            var normalizedEmail = email.ToLowerInvariant();
+            return members.SingleOrDefault(member => member.Email.ToLowerInvariant().Equals(normalizedEmail));
         }
 
         public virtual void UpdateMemberCache(Guid memberId)
         {
-            var updatedMember = GetFromSql(memberId);
+            var updatedMember = GetFromSqlOrNone(memberId);
+            var allCachedMembers = GetAll();
 
-            var allCachedMembers = GetAll().ToList();
-            var oldCachedMember = allCachedMembers.Find(el => el.Id == memberId);
-
-            if (oldCachedMember != null)
-            {
-                allCachedMembers.Remove(oldCachedMember);
-            }
-
-            if (updatedMember != null)
-            {
-                allCachedMembers.Add(updatedMember);
-            }
-
-            _cacheService.Set(MembersCacheKey, allCachedMembers, CacheHelper.GetMidnightUtcDateTimeOffset());
+            var updatedCache = updatedMember.Match(
+                Some: member => allCachedMembers.WithUpdatedElement(el => el.Id == memberId, member),
+                None: () => allCachedMembers.Where(el => el.Id != memberId))
+                .ToList();
+          
+            _cacheService.Set(MembersCacheKey, updatedCache, CacheHelper.GetMidnightUtcDateTimeOffset());
         }
 
-        public virtual void UpdateMemberCache(IEnumerable<Guid> memberIds)
-        {
-            var allMembers = GetAllFromSql();
-            var updatedMembers = allMembers.Join(memberIds, u => u.Id, id => id, (u, id) => u).ToList();
-
-            var allCachedMembers = GetAll().ToList();
-            var oldCachedMembers = allCachedMembers.Join(memberIds, u => u.Id, id => id, (u, id) => u).ToList();
-
-            oldCachedMembers.ForEach(ocm =>
-            {
-                if (ocm != null)
-                {
-                    allCachedMembers.Remove(ocm);
-                }
-            });
-
-            updatedMembers.ForEach(m =>
-            {
-                if (m != null)
-                {
-                    allCachedMembers.Add(m);
-                }
-            });
-
-            _cacheService.Set(MembersCacheKey, allCachedMembers, CacheHelper.GetMidnightUtcDateTimeOffset());
-        }
+        public virtual void UpdateMemberCache(IEnumerable<Guid> memberIds) => 
+            _cacheService.Set(MembersCacheKey, GetAllFromSql().ToArray(), CacheHelper.GetMidnightUtcDateTimeOffset());
 
         public virtual void DeleteFromCache(Guid memberId)
         {
-            var allCachedMembers = GetAll().ToList();
-            var oldCachedMember = allCachedMembers.Find(el => el.Id == memberId);
-
-            if (oldCachedMember != null)
-            {
-                allCachedMembers.Remove(oldCachedMember);
-            }
-            _cacheService.Set(MembersCacheKey, allCachedMembers, CacheHelper.GetMidnightUtcDateTimeOffset());
+            var updatedCache = GetAll().Where(el => el.Id != memberId).ToList();
+            _cacheService.Set(MembersCacheKey, updatedCache, CacheHelper.GetMidnightUtcDateTimeOffset());
         }
     }
 }

@@ -38,11 +38,8 @@ namespace Compent.Uintra.Core.Bulletins
         IIndexer,
         IHandle<VideoConvertedCommand>
     {
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
-        private readonly ISubscribeService _subscribeService;
-        private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
@@ -79,11 +76,8 @@ namespace Compent.Uintra.Core.Bulletins
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
                 activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService)
         {
-            _intranetMemberService = intranetMemberService;
             _commentsService = commentsService;
             _likesService = likesService;
-            _permissionsService = permissionsService;
-            _subscribeService = subscribeService;
             _notificationService = notificationService;
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
@@ -109,16 +103,14 @@ namespace Compent.Uintra.Core.Bulletins
             FillIndex();
         }
 
-        public FeedSettings GetFeedSettings()
-        {
-            return new FeedSettings
+        public FeedSettings GetFeedSettings() =>
+            new FeedSettings
             {
                 Type = CentralFeedTypeEnum.Bulletins,
                 Controller = "Bulletins",
                 HasPinnedFilter = false,
                 HasSubscribersFilter = false,
             };
-        }
 
         public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
 
@@ -190,12 +182,12 @@ namespace Compent.Uintra.Core.Bulletins
             bulletin.LinkPreviewId = linkPreview?.Id;
         }
 
-        private bool IsBulletinHidden(Bulletin bulletin) => bulletin == null || bulletin.IsHidden;
+        private static bool IsBulletinHidden(Bulletin bulletin) => bulletin == null || bulletin.IsHidden;
 
         private bool IsCacheable(Bulletin bulletin) =>
             !IsBulletinHidden(bulletin) && IsActualPublishDate(bulletin);
 
-        private bool IsActualPublishDate(Bulletin bulletin) =>
+        private static bool IsActualPublishDate(Bulletin bulletin) =>
             DateTime.Compare(bulletin.PublishDate, DateTime.Now) <= 0;
 
         private SearchableUintraActivity Map(Bulletin bulletin)

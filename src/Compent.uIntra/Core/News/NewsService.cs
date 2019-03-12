@@ -8,7 +8,6 @@ using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.UserTags.Indexers;
 using Uintra.CentralFeed;
 using Uintra.Comments;
-using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
@@ -20,14 +19,12 @@ using Uintra.Core.Permissions;
 using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Groups;
 using Uintra.Likes;
 using Uintra.News;
 using Uintra.Notification;
 using Uintra.Notification.Base;
 using Uintra.Search;
-using Uintra.Subscribe;
 using Uintra.Tagging.UserTags;
 using static Uintra.Notification.Configuration.NotificationTypeEnum;
 
@@ -40,16 +37,12 @@ namespace Compent.Uintra.Core.News
         IIndexer,
         IHandle<VideoConvertedCommand>
     {
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
-        private readonly ISubscribeService _subscribeService;
-        private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
@@ -63,14 +56,12 @@ namespace Compent.Uintra.Core.News
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             ICommentsService commentsService,
             ILikesService likesService,
-            ISubscribeService subscribeService,
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper,
             IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
-            IDocumentTypeAliasProvider documentTypeAliasProvider,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
@@ -83,16 +74,12 @@ namespace Compent.Uintra.Core.News
                 activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
                 permissionsService)
         {
-            _intranetMemberService = intranetMemberService;
             _commentsService = commentsService;
             _likesService = likesService;
-            _permissionsService = permissionsService;
-            _subscribeService = subscribeService;
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
-            _documentTypeAliasProvider = documentTypeAliasProvider;
             _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
@@ -111,16 +98,14 @@ namespace Compent.Uintra.Core.News
             return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.NewsContent);
         }
 
-        public FeedSettings GetFeedSettings()
-        {
-            return new FeedSettings
+        public FeedSettings GetFeedSettings() =>
+            new FeedSettings
             {
                 Type = CentralFeedTypeEnum.News,
                 Controller = "News",
                 HasSubscribersFilter = false,
                 HasPinnedFilter = true,
             };
-        }
 
         public IEnumerable<IFeedItem> GetItems()
         {
@@ -198,20 +183,16 @@ namespace Compent.Uintra.Core.News
             _activityIndex.Index(searchableActivities);
         }
 
-        private bool IsInCache(Entities.News news)
+        private static bool IsInCache(Entities.News news)
         {
             return !IsNewsHidden(news) && IsActualPublishDate(news);
         }
 
-        private bool IsNewsHidden(Entities.News news)
-        {
-            return news == null || news.IsHidden;
-        }
+        private static bool IsNewsHidden(IIntranetActivity news) => 
+            news == null || news.IsHidden;
 
-        private bool IsActualPublishDate(Entities.News news)
-        {
-            return DateTime.Compare(news.PublishDate, DateTime.Now) <= 0;
-        }
+        private static bool IsActualPublishDate(INewsBase news) => 
+            DateTime.Compare(news.PublishDate, DateTime.Now) <= 0;
 
         private SearchableUintraActivity Map(Entities.News news)
         {

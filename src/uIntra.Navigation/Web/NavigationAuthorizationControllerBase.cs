@@ -26,20 +26,18 @@ namespace Uintra.Navigation.Web
         public virtual ActionResult LoginToUmbraco()
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
-            if (currentMember.RelatedUser == null)
-            {
-                return Redirect(DefaultRedirectUrl);
-            }
 
+            var relatedUser = currentMember.RelatedUser
+                .Filter(user => user.IsValid);
 
-            if (currentMember.RelatedUser.IsLockedOut || !currentMember.RelatedUser.IsApproved)
-            {
-                return Redirect(DefaultRedirectUrl);
-            }
-
-            UmbracoContext.Security.PerformLogin(currentMember.RelatedUser.Id);
-
-            return Redirect(UmbracoRedirectUrl);
+            return relatedUser
+                .Match(
+                    Some: user =>
+                    {
+                        UmbracoContext.Security.PerformLogin(user.Id);
+                        return Redirect(UmbracoRedirectUrl);
+                    },
+                    None: () => Redirect(DefaultRedirectUrl));
         }
 
         public virtual ActionResult Logout()

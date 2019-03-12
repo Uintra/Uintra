@@ -193,17 +193,17 @@ namespace Uintra.Notification.Web
         protected virtual JsonNotification MapNotificationToJsonModel(Notification notification)
         {
             var result = notification.Map<JsonNotification>();
-            var notifier = ((string)result.Value.notifierId)
+            var notifier = ((string) result.Value.notifierId)
                 .Apply(parseGuid)
                 .Map(id => _intranetMemberService.Get(id));
 
             notifier.IfSome(user =>
             {
                 result.NotifierId = user.Id;
-                result.NotifierPhoto = user.Photo;
+                result.NotifierPhoto = user.Photo.IfNone(() => null);
                 result.NotifierDisplayedName = user.DisplayedName;
             });
-            
+
             result.IsDesktopNotificationEnabled &= !(Request.IsMobileBrowser() || Request.Browser.IsMobileDevice);
             return result;
         }
