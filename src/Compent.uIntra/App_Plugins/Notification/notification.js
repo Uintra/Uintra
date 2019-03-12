@@ -58,6 +58,7 @@ function initCustomControls() {
         }
 
         window.location.href = url;
+        location.reload();
     });
 }
 
