@@ -55,10 +55,9 @@ function initCustomControls() {
                 .then(function () {
                     $this.attr("data-viewed", true);
                 });
-        }
+        } else location.reload(true); 
 
         window.location.href = url;
-        location.reload();
     });
 }
 
