@@ -275,6 +275,7 @@ function show() {
     //header.classList.remove("hidden");
     //closeBulletinBtn.classList.remove("hidden");
     //editor.setSelection(0, 0);
+
 }
 
 function getTopCoord(elem) {
@@ -283,7 +284,7 @@ function getTopCoord(elem) {
     var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
     var clientTop = docEl.clientTop || body.clientTop || 0;
     var top = box.top + scrollTop - clientTop;
-
+    docEl.querySelector('.ql-editor').focus();
     return top;
 }
 
