@@ -40,14 +40,18 @@ namespace Uintra.Core.Permissions.Implementation
             Of(News,
                 Tree(View,
                     Tree(Create),
-                    Tree(Edit),
+                    Tree(Edit,
+                        Tree(Hide)),
                     Tree(EditOther,
-                        Tree(EditOwner))
+                        Tree(EditOwner),
+                        Tree(HideOther))
                     )),
             Of(Groups,
                 Tree(Create),
-                Tree(Edit),
-                Tree(EditOther))
+                Tree(Edit,
+                    Tree(Hide)),
+                Tree(EditOther,
+                    Tree(HideOther)))
         };
 
         public PermissionSettingValues DefaultSettingsValues =>

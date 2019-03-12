@@ -172,8 +172,11 @@ namespace Uintra.Events.Web
         [HttpPost]
         public virtual void Hide(Guid id, bool isNotificationNeeded)
         {
-            _eventsService.Hide(id);
-            OnEventHidden(id, isNotificationNeeded);
+            if (_eventsService.CanHide(id))
+            {
+                _eventsService.Hide(id);
+                OnEventHidden(id, isNotificationNeeded);
+            }
         }
 
         public virtual JsonResult HasConfirmation(Guid id)
@@ -227,6 +230,7 @@ namespace Uintra.Events.Web
             FillMediaSettingsData(mediaSettings);
 
             model.Links = links;
+            model.CanHide = _eventsService.CanHide(@event);
             return model;
         }
 

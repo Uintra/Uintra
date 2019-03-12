@@ -82,15 +82,26 @@ namespace Uintra.Groups
             return GetAllNotHidden().Join(groupIds, g => g.Id, identity, (g, _) => g);
         }
 
-        public bool CanEdit(Guid groupId)
+        public bool CanHide(Guid id)
         {
-            var group = Get(groupId);
+            var group = Get(id);
+            return CanHide(group);
+        }
+
+        public bool CanHide(GroupModel group)
+        {
+            return CanPerform(group, PermissionActionEnum.Hide, PermissionActionEnum.HideOther);
+        }
+
+        public bool CanEdit(Guid id)
+        {
+            var group = Get(id);
             return CanEdit(group);
         }
 
-        public bool CanEdit(GroupModel groupModel)
+        public bool CanEdit(GroupModel group)
         {
-            return CanPerform(groupModel, PermissionActionEnum.Edit, PermissionActionEnum.EditOther);
+            return CanPerform(group, PermissionActionEnum.Edit, PermissionActionEnum.EditOther);
         }
 
         public bool CanPerform(GroupModel group, Enum action, Enum administrationAction)

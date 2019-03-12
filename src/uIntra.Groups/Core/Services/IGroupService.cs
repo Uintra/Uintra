@@ -14,8 +14,10 @@ namespace Uintra.Groups
         IEnumerable<GroupModel> GetMany(IEnumerable<Guid> groupIds);
         IEnumerable<GroupModel> GetAll();
 
-        bool CanEdit(Guid groupId);
-        bool CanEdit(GroupModel groupModel);
+        bool CanHide(Guid id);
+        bool CanHide(GroupModel group);
+        bool CanEdit(Guid id);
+        bool CanEdit(GroupModel group);
         bool ValidatePermission(IPublishedContent content);
         bool IsActivityFromActiveGroup(IGroupActivity groupActivity);
 

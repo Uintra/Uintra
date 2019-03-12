@@ -187,10 +187,15 @@ namespace Uintra.Groups.Web
         [HttpPost]
         public virtual ActionResult Hide(Guid id)
         {
-            var command = new HideGroupCommand(id);
-            _commandPublisher.Publish(command);
+            var canHide = _groupService.CanHide(id);
+            if (canHide)
+            {
+                var command = new HideGroupCommand(id);
+                _commandPublisher.Publish(command);
+            }
 
-            return Json(_groupLinkProvider.GetGroupsOverviewLink());
+            return Json(canHide ? _groupLinkProvider.GetGroupsOverviewLink() :
+                _groupLinkProvider.GetGroupLink(id));
         }
 
         [DisabledGroupActionFilter]
@@ -305,6 +310,7 @@ namespace Uintra.Groups.Web
             var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent);
             model.MediaRootId = mediaSettings.MediaRootId;
             model.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
+            model.CanHide = _groupService.CanHide(group);
             return model;
         }
 

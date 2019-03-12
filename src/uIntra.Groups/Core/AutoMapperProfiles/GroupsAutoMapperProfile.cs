@@ -45,7 +45,8 @@ namespace Uintra.Groups
 
             Mapper.CreateMap<GroupModel, GroupEditModel>()
                 .IncludeBase<GroupModel, GroupCreateModel>()
-                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id));
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.CanHide, o => o.Ignore());
 
             Mapper.CreateMap<GroupEditModel, GroupModel>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))

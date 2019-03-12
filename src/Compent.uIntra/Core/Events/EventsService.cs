@@ -122,6 +122,17 @@ namespace Compent.Uintra.Core.Events
             return events;
         }
 
+        public bool CanHide(Guid id)
+        {
+            var cached = Get(id);
+            return CanHide(cached);
+        }
+
+        public bool CanHide(IIntranetActivity activity)
+        {
+            return CanPerform(activity, PermissionActionEnum.Hide, PermissionActionEnum.HideOther);
+        }
+
         public void Hide(Guid id)
         {
             var @event = Get(id);
