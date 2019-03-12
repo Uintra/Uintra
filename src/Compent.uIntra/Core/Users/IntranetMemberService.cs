@@ -25,14 +25,12 @@ namespace Compent.Uintra.Core.Users
         private readonly IElasticUserIndex _elasticUserIndex;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IUserTagService _userTagService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
 
         public IntranetMemberService(
             IMediaService mediaService,
             IMemberService memberService,
             UmbracoContext umbracoContext,
             UmbracoHelper umbracoHelper,
-            IRoleService roleService,
             ICacheService cacheService,
             ISqlRepository<GroupMember> groupMemberRepository,
             IElasticUserIndex elasticUserIndex,
@@ -41,14 +39,13 @@ namespace Compent.Uintra.Core.Users
             IIntranetUserService<IIntranetUser> intranetUserService,
             IIntranetMemberGroupService intranetMemberGroupService
             )
-            : base(mediaService, memberService, umbracoContext, umbracoHelper, roleService, cacheService, intranetUserService, intranetMemberGroupService)
+            : base(mediaService, memberService, umbracoContext, umbracoHelper, cacheService, intranetUserService, intranetMemberGroupService)
         {
 
             _groupMemberRepository = groupMemberRepository;
             _elasticUserIndex = elasticUserIndex;
             _intranetUserContentProvider = intranetUserContentProvider;
             _userTagService = userTagService;
-            _intranetUserService = intranetUserService;
         }
 
         protected override T Map(IMember member)
@@ -85,8 +82,10 @@ namespace Compent.Uintra.Core.Users
 
         public override void UpdateMemberCache(IEnumerable<Guid> memberIds)
         {
-            base.UpdateMemberCache(memberIds);
-            var users = GetMany(memberIds).Select(MapToSearchableUser);
+            var memberIdsList = memberIds.ToList();
+
+            base.UpdateMemberCache(memberIdsList);
+            var users = GetMany(memberIdsList).Select(MapToSearchableUser);
             _elasticUserIndex.Index(users);
         }
 

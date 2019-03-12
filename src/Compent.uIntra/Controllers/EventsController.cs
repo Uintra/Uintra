@@ -162,12 +162,12 @@ namespace Compent.Uintra.Controllers
 
             var @event = _eventsService.Get(activityId);
 
-            var groupId = Request.QueryString.GetGroupId();
-            if (groupId.HasValue)
-            {
-                _groupActivityService.AddRelation(groupId.Value, activityId);
-                @event.GroupId = groupId;
-            }
+            var groupId = Request.QueryString.GetGroupIdOrNone();
+
+            groupId.IfSome(id => _groupActivityService.AddRelation(id, activityId));
+
+            @event.GroupId = groupId.ToNullable();
+
             if (model is EventExtendedCreateModel extendedModel)
             {
                 _activityTagsHelper.ReplaceTags(activityId, extendedModel.TagIdsData);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
+using Umbraco.Core;
 
 namespace Uintra.Comments
 {
@@ -76,9 +77,8 @@ namespace Uintra.Comments
             return entity.Map<CommentModel>();
         }
 
-        private Comment Map(CommentCreateDto dto)
-        {
-            var entity = new Comment
+        private static Comment Map(CommentCreateDto dto) =>
+            new Comment
             {
                 Id = dto.Id,
                 ActivityId = dto.ActivityId,
@@ -86,9 +86,6 @@ namespace Uintra.Comments
                 Text = dto.Text,
                 ParentId = dto.ParentId
             };
-
-            return entity;
-        }
 
         public virtual CommentModel Update(CommentEditDto dto)
         {
@@ -123,22 +120,18 @@ namespace Uintra.Comments
 
         protected virtual void Delete(Comment comment)
         {
-            if (comment.ParentId == null)
-            {
-                var replies = GetReplies(comment);
-                foreach (var reply in replies)
-                {
-                    Delete(reply);
-                }
-            }
+             IEnumerable<Comment> GetReplies(Comment current) => 
+                 _commentsRepository.FindAll(c => c.ParentId == current.Id);
 
+             IEnumerable<Comment> GetDescendants(Comment current) =>
+                GetReplies(comment)
+                    .SelectMany(GetDescendants)
+                    .Concat(current.AsEnumerableOfOne());
+
+            var commentsToDelete = GetDescendants(comment).ToList();
+
+            commentsToDelete.ForEach(c => _commentLinkPreviewService.RemovePreviewRelations(c.Id));
             _commentLinkPreviewService.RemovePreviewRelations(comment.Id);
-            _commentsRepository.Delete(comment);
-        }
-
-        private IList<Comment> GetReplies(Comment comment)
-        {
-            return _commentsRepository.FindAll(c => c.ParentId == comment.Id);
         }
 
         public virtual void FillComments(ICommentable entity)
@@ -147,17 +140,10 @@ namespace Uintra.Comments
             entity.Comments = comments;
         }
 
-        public virtual string GetCommentViewId(Guid commentId)
-        {
-            return $"js-comment-view-{commentId}";
-        }
+        public virtual string GetCommentViewId(Guid commentId) => 
+            $"js-comment-view-{commentId}";
 
-        public bool IsExistsUserComment(Guid activityId, Guid userId)
-        {
-            var result = _commentsRepository.Exists(c => c.ActivityId == activityId && c.UserId == userId);
-
-            return result;
-
-        }
+        public bool IsExistsUserComment(Guid activityId, Guid userId) => 
+            _commentsRepository.Exists(c => c.ActivityId == activityId && c.UserId == userId);
     }
 }

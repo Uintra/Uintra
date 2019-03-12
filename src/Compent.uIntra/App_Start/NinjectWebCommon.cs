@@ -218,7 +218,6 @@ namespace Compent.Uintra
             //security
 
             kernel.Bind<IBrowserCompatibilityConfigurationSection>().ToMethod(s => BrowserCompatibilityConfigurationSection.Configuration).InSingletonScope();
-            kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IJobSettingsConfiguration>().ToMethod(s => JobSettingsConfiguration.Configure).InSingletonScope();
 
             //permissions
@@ -258,7 +257,6 @@ namespace Compent.Uintra
             kernel.Bind<IVideoConverterLogService>().To<VideoConverterLogService>().InRequestScope();
             kernel.Bind<IIntranetActivityRepository>().To<IntranetActivityRepository>().InRequestScope();
             kernel.Bind<ICacheService>().To<MemoryCacheService>().InRequestScope();
-            kernel.Bind<IRoleService>().To<RoleServiceBase>().InRequestScope();
             kernel.Bind<IMemberServiceHelper>().To<MemberServiceHelper>().InRequestScope();
             kernel.Bind<IIntranetMediaService>().To<IntranetMediaService>().InRequestScope();
             kernel.Bind<IEditorConfigProvider>().To<IntranetEditorConfigProvider>().InRequestScope();

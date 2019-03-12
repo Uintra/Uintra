@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <configSections>
-    <section name="userPermissions" type="Uintra.Core.User.Permissions.PermissionsConfiguration" xdt:Locator="Condition(@name='userPermissions')" xdt:Transform="InsertIfMissing" />
 
     <section name="browserCompatibilityConfiguration" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
     <section name="browserCompatibilityConfiguration" type="Uintra.Core.BrowserCompatibility.BrowserCompatibilityConfigurationSection" xdt:Locator="Condition(@name='browserCompatibilityConfiguration')" xdt:Transform="InsertIfMissing"/>
@@ -49,49 +48,4 @@
     <httpErrors existingResponse="PassThrough" xdt:Transform="InsertIfMissing" />
     <httpErrors existingResponse="PassThrough" xdt:Transform="SetAttributes(existingResponse)" />
   </system.webServer>
-
-  <userPermissions xdt:Transform="InsertIfMissing">
-    <roles>
-      <role key="WebMaster">
-        <permissions>
-          <permission key="CanEditNews" />
-          <permission key="NewsView" />
-          <permission key="NewsCreate" />
-          <permission key="NewsEdit" />
-          <permission key="EventsView" />
-          <permission key="EventsCreate" />
-          <permission key="EventsEdit" />
-          <permission key="BulletinsCreate" />
-          <permission key="BulletinsEdit" />
-          <permission key="BulletinsDelete" />
-          <permission key="CanEditOwner" />
-          <permission key="GroupCreate" />
-        </permissions>
-      </role>
-      <role key="UiPublisher">
-        <permissions>
-          <permission key="CanEditNews" />
-          <permission key="NewsView" />
-          <permission key="NewsCreate" />
-          <permission key="NewsEdit" />
-          <permission key="EventsView" />
-          <permission key="EventsCreate" />
-          <permission key="EventsEdit" />
-          <permission key="BulletinsCreate" />
-          <permission key="BulletinsEdit" />
-          <permission key="BulletinsDelete" />
-          <permission key="GroupCreate" />
-        </permissions>
-      </role>
-      <role key="UiUser">
-        <permissions>
-          <permission key="NewsView" />
-          <permission key="EventsEdit" />
-          <permission key="BulletinsCreate" />
-          <permission key="BulletinsEdit" />
-          <permission key="BulletinsDelete" />
-        </permissions>
-      </role>
-    </roles>
-  </userPermissions>
 </configuration>

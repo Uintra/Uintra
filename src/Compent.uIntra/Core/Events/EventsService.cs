@@ -19,7 +19,6 @@ using Uintra.Core.Permissions;
 using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Events;
 using Uintra.Groups;
 using Uintra.Likes;
@@ -41,11 +40,9 @@ namespace Compent.Uintra.Core.Events
         IIndexer,
         IHandle<VideoConvertedCommand>
     {
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
-        private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticUintraActivityIndex _activityIndex;
@@ -92,11 +89,9 @@ namespace Compent.Uintra.Core.Events
                 intranetMemberService,
                 permissionsService)
         {
-            _intranetMemberService = intranetMemberService;
             _commentsService = commentsService;
             _likesService = likesService;
             _subscribeService = subscribeService;
-            _permissionsService = permissionsService;
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
             _activityIndex = activityIndex;
@@ -142,16 +137,14 @@ namespace Compent.Uintra.Core.Events
 
         public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent);
 
-        public FeedSettings GetFeedSettings()
-        {
-            return new FeedSettings
+        public FeedSettings GetFeedSettings() =>
+            new FeedSettings
             {
                 Type = _feedTypeProvider[Type.ToInt()],
                 Controller = "Events",
                 HasSubscribersFilter = true,
                 HasPinnedFilter = true
             };
-        }
 
         public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
 

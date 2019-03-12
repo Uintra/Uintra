@@ -8,5 +8,6 @@
         bool IsSuperUser { get; set; }
         bool IsApproved { get; set; }
         bool IsLockedOut { get; set; }
+        bool IsValid { get; }
     }
 }

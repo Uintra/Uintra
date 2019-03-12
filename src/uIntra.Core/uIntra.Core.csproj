@@ -573,13 +573,10 @@
     <Compile Include="Core\Activity\Models\IntranetActivityOwnerEditModel.cs" />
     <Compile Include="Core\User\IHaveOwner.cs" />
     <Compile Include="Core\User\IIntranetUserContentProvider.cs" />
-    <Compile Include="Core\User\IRole.cs" />
     <Compile Include="Core\User\Models\MemberPhotoViewModel.cs" />
-    <Compile Include="Core\User\Permissions\PermissionConstants.cs" />
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionApiAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\IgnoreRestrictedActionAttribute.cs" />
-    <Compile Include="Core\User\Role.cs" />
     <Compile Include="Core\Utils\EmbeddedResourceService.cs" />
     <Compile Include="Core\Utils\EmbeddedResourcesUtils.cs" />
     <Compile Include="Core\Utils\IEmbeddedResourceService.cs" />
@@ -612,7 +609,6 @@
     <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\IIntranetActivityRepository.cs" />
     <Compile Include="Core\Activity\IIntranetActivityService.cs" />
-    <Compile Include="Core\Activity\IntranetActionEnum.cs" />
     <Compile Include="Core\Activity\IntranetActivityRepository.cs" />
     <Compile Include="Core\Activity\IntranetActivityService.cs" />
     <Compile Include="Core\Activity\IntranetActivityTypeEnum.cs" />
@@ -668,10 +664,7 @@
     <Compile Include="Core\User\IHaveCreator.cs" />
     <Compile Include="Core\User\IIntranetMember.cs" />
     <Compile Include="Core\User\IIntranetMemberService.cs" />
-    <Compile Include="Core\User\IntranetRolesEnum.cs" />
     <Compile Include="Core\Extensions\IntranetUserServiceExtentions.cs" />
-    <Compile Include="Core\User\Permissions\IPermissionsConfiguration.cs" />
-    <Compile Include="Core\User\Permissions\PermissionsConfiguration.cs" />
     <Compile Include="Core\User\Permissions\Web\RestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\ActivityControllerAttribute.cs" />
     <Compile Include="Core\XPathHelper.cs" />

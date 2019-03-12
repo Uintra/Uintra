@@ -141,14 +141,12 @@ namespace Compent.Uintra.Controllers
         protected override void OnBulletinCreated(BulletinBase bulletin, BulletinCreateModel model)
         {
             base.OnBulletinCreated(bulletin, model);
-            var groupId = Request.QueryString.GetGroupId();
+            var groupId = Request.QueryString.GetGroupIdOrNone();
 
-            if (groupId.HasValue)
-            {
-                _groupActivityService.AddRelation(groupId.Value, bulletin.Id);
-                var extendedBulletin = _bulletinsService.Get(bulletin.Id);
-                extendedBulletin.GroupId = groupId;
-            }
+            groupId.IfSome(id => _groupActivityService.AddRelation(id, bulletin.Id));
+
+            var extendedBulletin = _bulletinsService.Get(bulletin.Id);
+            extendedBulletin.GroupId = groupId.ToNullable();
 
             if (model is BulletinExtendedCreateModel extendedModel)
             {

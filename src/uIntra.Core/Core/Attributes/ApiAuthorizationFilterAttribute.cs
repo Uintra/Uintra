@@ -55,8 +55,8 @@ namespace Uintra.Core.Attributes
         private bool IsCredentialsValid(string mail, string password)
         {
             var relatedUserWithWebMasterRole = Optional(_intranetMemberService.GetByEmail(mail))
-                .Filter(member => member.Group.Name == IntranetRolesEnum.WebMaster.ToString() && member.RelatedUser != null)
-                .Map(member => _memberService.GetById(member.RelatedUser.Id));
+                .Bind(member => member.RelatedUser.Filter(user => user.IsSuperUser))
+                .Map(user => _memberService.GetById(user.Id));
 
             Option<IMember> GetUserWithMatchingEmail() => Optional(_memberService.GetByEmail(mail));
 

@@ -19,9 +19,6 @@ namespace Uintra.Core.User.DTO
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email is absent or empty")]
         public string Email { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Group is absent or empty")]
-        public IntranetRolesEnum Role { get; set; }
-
         public int? MediaId { get; set; }
     }
 }
