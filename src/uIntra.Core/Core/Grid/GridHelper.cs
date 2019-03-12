@@ -54,7 +54,9 @@ namespace Uintra.Core.Grid
             content.GetProperty("grid")?.GetValue<dynamic>();
 
         private static dynamic GetGrid(IContentBase content) =>
-            content.Properties["grid"]?.Value?.ToString().Deserialize<dynamic>();
+            content.Properties.Contains("grid")
+                ? content.Properties["grid"]?.Value?.ToString().Deserialize<dynamic>()
+                : null;
 
 
         private bool IsValidGrid(object grid) =>
