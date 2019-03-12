@@ -32,12 +32,11 @@ namespace Uintra.Notification.Web
         {
             ActivityEventIdentity activityEventIdentity;
             NotifierSettingsModel settings;
-            var actType = _activityTypeProvider[activityType];
 
             if (activityType == CommunicationTypeEnum.CommunicationSettings.ToInt())
             {
-                actType = CommunicationTypeEnum.CommunicationSettings;
-                activityEventIdentity = new ActivityEventIdentity(actType, _notificationTypeProvider[notificationType]);
+                activityEventIdentity = new ActivityEventIdentity(CommunicationTypeEnum.CommunicationSettings,
+                    _notificationTypeProvider[notificationType]);
                 settings = _notificationSettingsService.GetSettings(activityEventIdentity);
                 if (notificationType.In(NotificationTypeEnum.MonthlyMail.ToInt()))
                 {
@@ -50,8 +49,8 @@ namespace Uintra.Notification.Web
 
             if (activityType == CommunicationTypeEnum.Member.ToInt())
             {
-                actType = CommunicationTypeEnum.Member;
-                activityEventIdentity = new ActivityEventIdentity(actType, _notificationTypeProvider[notificationType]);
+                activityEventIdentity = new ActivityEventIdentity(CommunicationTypeEnum.Member,
+                    _notificationTypeProvider[notificationType]);
                 settings = _notificationSettingsService.GetSettings(activityEventIdentity);
                 if (notificationType.In(NotificationTypeEnum.Welcome.ToInt()))
                 {
@@ -61,7 +60,7 @@ namespace Uintra.Notification.Web
 
                 return settings;
             }
-
+            var actType = _activityTypeProvider[activityType];
             activityEventIdentity = new ActivityEventIdentity(actType, _notificationTypeProvider[notificationType]);
 
             settings = _notificationSettingsService.GetSettings(activityEventIdentity);
