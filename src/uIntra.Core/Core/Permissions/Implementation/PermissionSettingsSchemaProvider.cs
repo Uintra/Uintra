@@ -55,13 +55,13 @@ namespace Uintra.Core.Permissions.Implementation
 
         public PermissionSettingSchema[] Settings { get; }
 
-        public ILookup<PermissionSettingIdentity, PermissionSettingIdentity> SettingsByParentSettingIdentityDictionary { get; }
+        public ILookup<PermissionSettingIdentity, PermissionSettingIdentity> SettingsByParentSettingIdentityLookup{ get; }
 
         public PermissionSettingsSchemaProvider()
         {
             Settings = BuildSettings(BaseSettingsSchema);
 
-            SettingsByParentSettingIdentityDictionary = Settings
+            SettingsByParentSettingIdentityLookup = Settings
                 .Select(setting =>
                     setting.ParentActionType.Map(parentActionType => (
                        parentIdentity: PermissionSettingIdentity.Of(parentActionType, setting.SettingIdentity.ResourceType),
@@ -70,8 +70,8 @@ namespace Uintra.Core.Permissions.Implementation
                 .ToLookup(tuple => tuple.parentIdentity, tuple => tuple.childAction);
         }
 
-        public virtual IEnumerable<PermissionSettingIdentity> GetDescendants(PermissionSettingIdentity parent) => 
-            SettingsByParentSettingIdentityDictionary[parent].SelectMany(GetDescendants);
+        public virtual IEnumerable<PermissionSettingIdentity> GetDescendants(PermissionSettingIdentity parent) =>
+            SettingsByParentSettingIdentityLookup[parent].SelectMany(GetDescendants);
 
         public virtual PermissionSettingValues GetDefault(PermissionSettingIdentity settingIdentity) =>
             SettingsOverrides

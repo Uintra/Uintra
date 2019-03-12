@@ -10,7 +10,7 @@ namespace Uintra.Core.Permissions.Interfaces
         PermissionSettingValues DefaultSettingsValues { get; }
         PermissionSettingSchema[] Settings { get; }
         PermissionSettingValues GetDefault(PermissionSettingIdentity settingIdentity);
-        ILookup<PermissionSettingIdentity, PermissionSettingIdentity> SettingsByParentSettingIdentityDictionary { get; }
+        ILookup<PermissionSettingIdentity, PermissionSettingIdentity> SettingsByParentSettingIdentityLookup { get; }
         IEnumerable<PermissionSettingIdentity> GetDescendants(PermissionSettingIdentity parent);
     }
 }
