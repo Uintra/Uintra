@@ -17,9 +17,6 @@ namespace Uintra.Core.Core.Permissions.Implementation
                         BuildTree(resourceActions.Resource, actionHierarchyItem)))
                 .ToArray();
 
-        public static Dictionary<PermissionSettingIdentity, PermissionSettingSchema> HierarchyDictionary(IEnumerable<PermissionSettingSchema> settingHierarchicalItems) =>
-            settingHierarchicalItems.ToDictionary(item => item.SettingIdentity);
-
         public static IEnumerable<PermissionSettingSchema> BuildTree(Enum resource, ITree<Enum> actionTree)
         {
             var treeWithParents = actionTree
@@ -33,5 +30,15 @@ namespace Uintra.Core.Core.Permissions.Implementation
 
             return settings;
         }
+
+        public static ILookup<PermissionSettingIdentity, PermissionSettingIdentity> BuildSettingsByParentSettingIdentityLookup(
+            IEnumerable<PermissionSettingSchema> settingSchema)=>
+            settingSchema
+                .Select(setting =>
+                    setting.ParentActionType.Map(parentActionType => (
+                        parentIdentity: PermissionSettingIdentity.Of(parentActionType, setting.SettingIdentity.ResourceType),
+                        childIdentity: setting.SettingIdentity)))
+                .Somes()
+                .ToLookup(tuple => tuple.parentIdentity, tuple => tuple.childIdentity);
     }
 }

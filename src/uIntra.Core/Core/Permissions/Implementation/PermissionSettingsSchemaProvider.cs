@@ -64,14 +64,7 @@ namespace Uintra.Core.Permissions.Implementation
         public PermissionSettingsSchemaProvider()
         {
             Settings = BuildSettings(BaseSettingsSchema);
-
-            SettingsByParentSettingIdentityLookup = Settings
-                .Select(setting =>
-                    setting.ParentActionType.Map(parentActionType => (
-                       parentIdentity: PermissionSettingIdentity.Of(parentActionType, setting.SettingIdentity.ResourceType),
-                       childAction: setting.SettingIdentity)))
-                .Somes()
-                .ToLookup(tuple => tuple.parentIdentity, tuple => tuple.childAction);
+            SettingsByParentSettingIdentityLookup = BuildSettingsByParentSettingIdentityLookup(Settings);
         }
 
         public virtual IEnumerable<PermissionSettingIdentity> GetDescendants(PermissionSettingIdentity parent)
