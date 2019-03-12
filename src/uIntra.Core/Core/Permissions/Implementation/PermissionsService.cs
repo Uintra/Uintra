@@ -92,7 +92,7 @@ namespace Uintra.Core.Permissions.Implementation
             var actualEntity = storedEntity.Match(
                 entity =>
                 {
-                    if (update.SettingValues.IsAllowed  && entity.IsAllowed)
+                    if (!update.SettingValues.IsAllowed  && entity.IsAllowed)
                     {
                         var descendants = _permissionSettingsSchema.GetDescendants(update.SettingIdentity)
                             .Select(i => new PermissionEntity
