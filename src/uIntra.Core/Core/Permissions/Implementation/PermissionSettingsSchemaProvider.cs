@@ -33,18 +33,18 @@ namespace Uintra.Core.Permissions.Implementation
             Of(Events,
                 Tree(View,
                     Tree(Create),
-                    Tree(Edit),
+                    Tree(Edit,
+                        Tree(Hide)),
                     Tree(EditOther,
+                        Tree(HideOther),
                         Tree(EditOwner))
                     )),
             Of(News,
                 Tree(View,
                     Tree(Create),
-                    Tree(Edit,
-                        Tree(Hide)),
+                    Tree(Edit),
                     Tree(EditOther,
-                        Tree(EditOwner),
-                        Tree(HideOther))
+                        Tree(EditOwner))
                     )),
             Of(Groups,
                 Tree(Create),
