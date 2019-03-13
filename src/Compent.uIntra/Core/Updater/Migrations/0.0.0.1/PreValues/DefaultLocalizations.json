@@ -1030,7 +1030,7 @@
     "UpdateDate": "0001-01-01T00:00:00"
   },
   {
-    "Key": "EventsEdit.Creator.lbl",
+    "Key": "EventsEdit.owner.lbl",
     "Translations": { "en-US": "Creator" },
     "ParentKey": "Events",
     "UpdateDate": "0001-01-01T00:00:00"

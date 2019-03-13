@@ -21,7 +21,7 @@
                 <dt class="block__meta-count"><span id='membersCount'>@Model.MembersCount</span> @(Html.Localize(Model.MembersCount > 1 ? "GroupInfo.MembersCount.lbl" : "GroupInfo.OneMemberCount.lbl"))</dt>
             }
             <dd class="block__meta-name">
-                @Html.Localize("GroupInfo.CreatorName"):
+                @Html.Localize("GroupInfo.CreatorName.lbl"):
                 <a href="@Model.CreatorProfileUrl">
                     <span class="block__meta-name-title">@Model.Creator.DisplayedName</span>
                 </a>
