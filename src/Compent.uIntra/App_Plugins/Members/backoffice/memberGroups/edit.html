@@ -26,12 +26,10 @@
                                 <span>{{permission.actionName}}</span>
                             </td>
                             <td align="center">
-                                <input type="checkbox" ng-checked="permission.allowed" ng-disabled="vm.isParentDisabled(permission) || !permission.enabled" ng-click="vm.toggleAllowed(permission)" />
-                                <!--<umb-toggle checked="permission.allowed" on-click="vm.toggleAllowed(permission)">
-                                </umb-toggle>-->
+                                <umb-toggle checked="permission.allowed" disabled="vm.isParentDisabled(permission) || !permission.enabled" on-click="vm.toggleAllowed(permission)">
+                                </umb-toggle>
                             </td>
                             <td ng-if="vm.isSuperUser" align="center">
-                                <!--<input type="checkbox" ng-checked="permission.enabled" ng-disabled="!vm.isSuperUser" ng-click="vm.toggleEnabled(permission)" />-->
                                 <umb-toggle checked="permission.enabled" on-click="vm.toggleEnabled(permission)">
                                 </umb-toggle>
                             </td>
