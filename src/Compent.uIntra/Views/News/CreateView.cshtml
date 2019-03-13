@@ -9,7 +9,7 @@
     {
         <h1 class="form__title">@Html.Localize("NewsCreatePage.Title.lbl")</h1>
         <div class="form__row clearfix">
-            <label class="form__label">@Html.Localize("NewsCreate.Creator.lbl")</label>
+            <label class="form__label">@Html.Localize("NewsCreate.Owner.lbl")</label>
             @Html.Action("OwnerEdit", "Activity", new { ownerId = Model.OwnerId, ownerIdPropertyName = nameof(Model.OwnerId), activityType = PermissionResourceTypeEnum.News, links = Model.Links })
         </div>
         <div class="form__row clearfix">

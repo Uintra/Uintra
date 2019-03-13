@@ -106,7 +106,13 @@
       </providers>
     </membership>
   </system.web>
-
+  <location path="Media" xdt:Transform="InsertIfMissing" xdt:Locator="Condition(@path='Media')">
+    <system.web>
+      <authorization>
+        <deny users="?"/>
+      </authorization>
+    </system.web>
+  </location>
   <userPermissions xdt:Transform="InsertIfMissing">
     <roles>
       <role key="WebMaster">
