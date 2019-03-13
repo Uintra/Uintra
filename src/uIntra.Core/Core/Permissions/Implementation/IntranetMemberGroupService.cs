@@ -79,5 +79,18 @@ namespace Uintra.Core.Permissions.Implementation
             _memberGroupService.Delete(group);
             CurrentCache = CurrentCache.Where(i => i.Id != id);
         }
+
+        public void AssignDefaultMemberGroup(int memberId)
+        {
+            var groups = GetAll();
+            groups.Find(i => i.Name.Equals("UiUser"))
+                .IfSome(j => _memberService.AssignRole(memberId, j.Name));
+        }
+
+        public void ClearCache()
+        {
+            _cacheService.Remove(IntranetMemberGroupCahceKey);
+        }
+
     }
 }

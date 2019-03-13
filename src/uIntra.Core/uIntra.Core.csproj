@@ -414,6 +414,7 @@
     <Compile Include="Core\Permissions\TypeProviders\IPermissionActivityTypeProvider.cs" />
     <Compile Include="Core\Permissions\TypeProviders\PermissionActivityTypeProvider.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentSavingEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberCreatedEventService.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoMemberGroupDeletingEventService.cs" />
     <Compile Include="Core\Permissions\Models\PermissionSettingIdentity.cs" />
     <Compile Include="Core\Permissions\AutoMapperProfiles\PermissionsAutoMapperProfile.cs" />
@@ -433,6 +434,7 @@
     <Compile Include="Core\Permissions\TypeProviders\IntranetMemberGroupProvider.cs" />
     <Compile Include="Core\Permissions\TypeProviders\PermissionActionTypeProvider.cs" />
     <Compile Include="Core\Permissions\UmbracoEvents\UmbracoMemberGroupEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberGroupSavedEventService.cs" />
     <Compile Include="Core\UmbracoEventServices\UmbracoContentSavingEventService.cs" />
     <Compile Include="Core\User\DTO\CreateMemberDto.cs" />
     <Compile Include="Core\User\DTO\ReadMemberDto.cs" />

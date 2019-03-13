@@ -1,19 +1,32 @@
-﻿using Uintra.Core.UmbracoEventServices;
+﻿using Uintra.Core.Permissions;
+using Uintra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
 namespace Uintra.Users
 {
-    public class MemberEventService : IUmbracoMemberDeletingEventService
+    public class MemberEventService : IUmbracoMemberDeletingEventService, IUmbracoMemberCreatedEventService
     {
         private readonly ICacheableIntranetMemberService _cacheableIntranetMemberService;
         private readonly IMemberService _memberService;
+        private readonly IIntranetMemberGroupService _intranetMemberGroupService;
 
-        public MemberEventService(ICacheableIntranetMemberService cacheableIntranetMemberService, IMemberService memberService)
+        public MemberEventService(
+            ICacheableIntranetMemberService cacheableIntranetMemberService,
+            IMemberService memberService,
+            IIntranetMemberGroupService intranetMemberGroupService
+            )
         {
             _cacheableIntranetMemberService = cacheableIntranetMemberService;
             _memberService = memberService;
+            _intranetMemberGroupService = intranetMemberGroupService;
+        }
+
+        public void ProcessMemberCreated(IMemberService sender, NewEventArgs<IMember> args)
+        {
+            var member = args.Entity;
+            _intranetMemberGroupService.AssignDefaultMemberGroup(member.Id);
         }
 
         public void ProcessMemberDeleting(IMemberService sender, DeleteEventArgs<IMember> args)

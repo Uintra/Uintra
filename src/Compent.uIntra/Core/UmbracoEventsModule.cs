@@ -18,11 +18,25 @@ namespace Compent.Uintra.Core
             ContentService.Saving += ProcessPanelSaving;
 
             MemberService.Deleting += ProcessMemberDeleting;
+            MemberService.Created += ProcessMemberCreated;
             MediaService.Saved += ProcessMediaSaved;
             MediaService.Trashed += ProcessMediaTrashed;
             MediaService.Saving += ProcessMediaSaving;
 
             MemberGroupService.Deleting += ProcessMemberGroupDeliting;
+            MemberGroupService.Saved += ProcessMemberGroupSaved;
+        }
+
+        private static void ProcessMemberGroupSaved(IMemberGroupService sender, SaveEventArgs<IMemberGroup> e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoMemberGroupSavedEventService>();
+            foreach (var service in services) service.ProcessMemberGroupSaved(sender, e);
+        }
+
+        private static void ProcessMemberCreated(IMemberService sender, NewEventArgs<IMember> e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoMemberCreatedEventService>();
+            foreach (var service in services) service.ProcessMemberCreated(sender, e);
         }
 
         private static void ProcessPanelSaving(IContentService sender, SaveEventArgs<IContent> e)

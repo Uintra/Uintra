@@ -7,16 +7,19 @@ using Umbraco.Core.Services;
 
 namespace Uintra.Core.Permissions.UmbracoEvents
 {
-    public class UmbracoMemberGroupEventService : IUmbracoMemberGroupDeletingEventService
+    public class UmbracoMemberGroupEventService : IUmbracoMemberGroupDeletingEventService, IUmbracoMemberGroupSavedEventService
     {
         private readonly IPermissionsService _permissionsService;
         private readonly ICacheService _cacheService;
+        private readonly IIntranetMemberGroupService _intranetMemberGroupService;
 
         public UmbracoMemberGroupEventService(IPermissionsService permissionsService,
-            ICacheService cacheService)
+            ICacheService cacheService,
+            IIntranetMemberGroupService intranetMemberGroupService)
         {
             _permissionsService = permissionsService;
             _cacheService = cacheService;
+            _intranetMemberGroupService = intranetMemberGroupService;
         }
 
         public void ProcessMemberGroupDeleting(IMemberGroupService sender, DeleteEventArgs<IMemberGroup> e)
@@ -25,6 +28,12 @@ namespace Uintra.Core.Permissions.UmbracoEvents
             {
                 _permissionsService.DeletePermissionsForMemberGroup(group.Id);
             }
+            _intranetMemberGroupService.ClearCache();
+        }
+
+        public void ProcessMemberGroupSaved(IMemberGroupService sender, SaveEventArgs<IMemberGroup> args)
+        {
+            _intranetMemberGroupService.ClearCache();
         }
     }
 }

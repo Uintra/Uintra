@@ -465,7 +465,9 @@ namespace Compent.Uintra
             kernel.Bind<IUmbracoContentUnPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
             kernel.Bind<IUmbracoMediaSavedEventService>().To<VideoConvertEventService>().InRequestScope();
             kernel.Bind<IUmbracoMemberGroupDeletingEventService>().To<UmbracoMemberGroupEventService>().InRequestScope();
+            kernel.Bind<IUmbracoMemberGroupSavedEventService>().To<UmbracoMemberGroupEventService>().InRequestScope();
             kernel.Bind<IUmbracoContentSavingEventService>().To<UmbracoContentSavingEventService>().InRequestScope();
+            kernel.Bind<IUmbracoMemberCreatedEventService>().To<MemberEventService>().InRequestScope();
             
 
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
