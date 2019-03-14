@@ -37,15 +37,13 @@ namespace Uintra.Core.Permissions.Implementation
 
         public virtual IEnumerable<IntranetMemberGroup> GetAll() => CurrentCache;
 
-        public virtual IntranetMemberGroup[] GetForMember(int id)
+        public virtual IEnumerable<IntranetMemberGroup> GetForMember(int id)
         {
-            //TODO Add cache
-            var allGroups = _memberGroupService.GetAll();
+            var allGroups = GetAll();
             var groupNamesAssignedToMember = _memberService.GetAllRoles(id);
 
             var memberGroups = allGroups
-                .Join(groupNamesAssignedToMember, group => group.Name, identity, (group, _) => group)
-                .Map<IntranetMemberGroup[]>();
+                .Join(groupNamesAssignedToMember, group => group.Name, identity, (group, _) => group).ToList();
 
             return memberGroups;
         }
@@ -57,7 +55,6 @@ namespace Uintra.Core.Permissions.Implementation
             if (group != null) return group.Id;
             _memberGroupService.Save(new MemberGroup { Name = name });
             group = _memberGroupService.GetByName(name);
-            CurrentCache = CurrentCache.Append(group.Map<IntranetMemberGroup>());
             return group.Id;
         }
 
@@ -69,7 +66,6 @@ namespace Uintra.Core.Permissions.Implementation
             var memberGroup = _memberGroupService.GetById(id);
             memberGroup.Name = name;
             _memberGroupService.Save(memberGroup);
-            CurrentCache = CurrentCache.Where(i => i.Id != id).Append(memberGroup.Map<IntranetMemberGroup>());
             return true;
         }
 
@@ -77,7 +73,6 @@ namespace Uintra.Core.Permissions.Implementation
         {
             var group = _memberGroupService.GetById(id);
             _memberGroupService.Delete(group);
-            CurrentCache = CurrentCache.Where(i => i.Id != id);
         }
 
         public void AssignDefaultMemberGroup(int memberId)

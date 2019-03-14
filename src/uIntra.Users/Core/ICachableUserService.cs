@@ -7,6 +7,8 @@ namespace Uintra.Users
     {
         void UpdateMemberCache(Guid memberId);
 
+        void UpdateMemberCache(int memberId);
+
         void UpdateMemberCache(IEnumerable<Guid> memberIds);
 
         void DeleteFromCache(Guid memberId);

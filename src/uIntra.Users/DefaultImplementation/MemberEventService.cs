@@ -6,7 +6,11 @@ using Umbraco.Core.Services;
 
 namespace Uintra.Users
 {
-    public class MemberEventService : IUmbracoMemberDeletingEventService, IUmbracoMemberCreatedEventService
+    public class MemberEventService : 
+        IUmbracoMemberDeletingEventService, 
+        IUmbracoMemberCreatedEventService,
+        IUmbracoMemberAssignedRolesEventService,
+        IUmbracoMemberRemovedRolesEventService
     {
         private readonly ICacheableIntranetMemberService _cacheableIntranetMemberService;
         private readonly IMemberService _memberService;
@@ -41,6 +45,22 @@ namespace Uintra.Users
             if (args.CanCancel)
             {
                 args.Cancel = true;
+            }
+        }
+
+        public void ProcessMemberAssignedRoles(IMemberService sender, RolesEventArgs e)
+        {
+            foreach (var memberId in e.MemberIds)
+            {
+                _cacheableIntranetMemberService.UpdateMemberCache(memberId);
+            }
+        }
+
+        public void ProcessMemberRemovedRoles(IMemberService sender, RolesEventArgs e)
+        {
+            foreach (var memberId in e.MemberIds)
+            {
+                _cacheableIntranetMemberService.UpdateMemberCache(memberId);
             }
         }
     }

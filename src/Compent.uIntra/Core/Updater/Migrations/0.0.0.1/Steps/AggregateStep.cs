@@ -180,7 +180,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
 
                     var creatorId = creator.CreatorId != Guid.Empty
                         ? creator.CreatorId
-                        : userService.Get(creator.UmbracoCreatorId.Value).Id;
+                        : userService.GetByUserId(creator.UmbracoCreatorId.Value).Id;
 
                     switch (activity)
                     {

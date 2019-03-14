@@ -115,7 +115,7 @@ namespace Compent.Uintra.Core.PagePromotion
 
             config.IfSome(cfg => Mapper.Map(cfg, pagePromotion));            
             pagePromotion.Type = Type;
-            pagePromotion.CreatorId = _memberService.Get(pagePromotion.UmbracoCreatorId.Value).Id;
+            pagePromotion.CreatorId = _memberService.GetByUserId(pagePromotion.UmbracoCreatorId.Value).Id;
 
             var panelValues = _gridHelper.GetValues(content, CommentsPanelAlias, LikesPanelAlias).ToList();
             pagePromotion.Commentable = panelValues.Any(panel => panel.alias == CommentsPanelAlias);

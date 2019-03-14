@@ -17,6 +17,8 @@ namespace Compent.Uintra.Core
             ContentService.Trashed += ProcessContentTrashed;
             ContentService.Saving += ProcessPanelSaving;
 
+            MemberService.AssignedRoles += ProcessMemberAssignedRoles;
+            MemberService.RemovedRoles += ProcessMemberRemovedRoles;
             MemberService.Deleting += ProcessMemberDeleting;
             MemberService.Created += ProcessMemberCreated;
             MediaService.Saved += ProcessMediaSaved;
@@ -25,6 +27,18 @@ namespace Compent.Uintra.Core
 
             MemberGroupService.Deleting += ProcessMemberGroupDeliting;
             MemberGroupService.Saved += ProcessMemberGroupSaved;
+        }
+
+        private static void ProcessMemberRemovedRoles(IMemberService sender, RolesEventArgs e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoMemberRemovedRolesEventService>();
+            foreach (var service in services) service.ProcessMemberRemovedRoles(sender, e);
+        }
+
+        private static void ProcessMemberAssignedRoles(IMemberService sender, RolesEventArgs e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoMemberAssignedRolesEventService>();
+            foreach (var service in services) service.ProcessMemberAssignedRoles(sender, e);
         }
 
         private static void ProcessMemberGroupSaved(IMemberGroupService sender, SaveEventArgs<IMemberGroup> e)

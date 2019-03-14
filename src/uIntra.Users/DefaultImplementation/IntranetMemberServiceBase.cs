@@ -60,9 +60,11 @@ namespace Uintra.Users
 
         public virtual T Get(Guid id) => GetSingle(el => el.Id == id);
 
-        public virtual T Get(int umbracoId)
+        public virtual T Get(int id) => GetSingle(el => el.UmbracoId == id);
+
+        public virtual T GetByUserId(int userId)
         {
-            return GetSingle(el => el.RelatedUser.Map(u => u.Id) == umbracoId);
+            return GetSingle(el => el.RelatedUser.Map(u => u.Id) == userId);
         }
 
         private T GetSingle(Func<T, bool> predicate)
@@ -99,7 +101,7 @@ namespace Uintra.Users
             if (member != null) return Get(member.GetKey());
 
             var umbracoUser = _umbracoContext.Security.CurrentUser;
-            if (umbracoUser != null) return Get(umbracoUser.Id);
+            if (umbracoUser != null) return GetByUserId(umbracoUser.Id);
 
             return default;
         }
@@ -226,7 +228,8 @@ namespace Uintra.Users
                 RelatedUser = relatedUser,
                 IsSuperUser = relatedUser.Match(Some: user => user.IsSuperUser, None: () => false),
                 Photo = memberPhotoUrl.Map(GetUserPhotoOrDefaultAvatar),
-                PhotoId = memberPhotoId
+                PhotoId = memberPhotoId,
+                UmbracoId = member.Id
             };
 
             return mappedMember;
@@ -247,6 +250,12 @@ namespace Uintra.Users
             var members = GetAll();
             var normalizedEmail = email.ToLowerInvariant();
             return members.SingleOrDefault(member => member.Email.ToLowerInvariant().Equals(normalizedEmail));
+        }
+
+        public virtual void UpdateMemberCache(int memberId)
+        {
+            var member = Get(memberId);
+            UpdateMemberCache(member.Id);
         }
 
         public virtual void UpdateMemberCache(Guid memberId)

@@ -25,5 +25,6 @@ namespace Compent.Uintra.Core.Users
         public Option<IIntranetUser> RelatedUser { get; set; }
         public bool IsSuperUser { get; set; }
         public IEnumerable<Guid> GroupIds { get; set; } = Enumerable.Empty<Guid>();
+        public int UmbracoId { get; set; }
     }
 }

@@ -468,6 +468,8 @@ namespace Compent.Uintra
             kernel.Bind<IUmbracoMemberGroupSavedEventService>().To<UmbracoMemberGroupEventService>().InRequestScope();
             kernel.Bind<IUmbracoContentSavingEventService>().To<UmbracoContentSavingEventService>().InRequestScope();
             kernel.Bind<IUmbracoMemberCreatedEventService>().To<MemberEventService>().InRequestScope();
+            kernel.Bind<IUmbracoMemberAssignedRolesEventService>().To<MemberEventService>().InRequestScope();
+            kernel.Bind<IUmbracoMemberRemovedRolesEventService>().To<MemberEventService>().InRequestScope();
             
 
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();

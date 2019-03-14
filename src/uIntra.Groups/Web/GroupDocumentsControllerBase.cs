@@ -94,7 +94,7 @@ namespace Uintra.Groups.Web
             var docs = medias.Select(s =>
             {
                 var intranetCreator = s.GetValue<Guid?>(IntranetConstants.IntranetCreatorId);
-                var creator = intranetCreator.HasValue ? _intranetMemberService.Get(intranetCreator.Value) : _intranetMemberService.Get(s.CreatorId);
+                var creator = intranetCreator.HasValue ? _intranetMemberService.Get(intranetCreator.Value) : _intranetMemberService.GetByUserId(s.CreatorId);
                 var document = groupDocumentsList.First(f => f.MediaId == s.Id);
                 var url = _umbracoHelper.TypedMedia(s.Id).Url;
                 var model = new GroupDocumentTableRowViewModel

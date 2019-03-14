@@ -16,5 +16,6 @@ namespace Uintra.Core.User
         bool Inactive { get; set; }
         Option<IIntranetUser> RelatedUser { get; set; }
         bool IsSuperUser { get; set; }
+        int UmbracoId { get; set; }
     }
 }

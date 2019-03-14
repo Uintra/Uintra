@@ -9,7 +9,8 @@ namespace Uintra.Core.User
         where T : IIntranetMember
     {
         bool IsCurrentMemberSuperUser { get; }
-        T Get(int umbracoId);
+        T GetByUserId(int umbracoId);
+        T Get(int id);
         T Get(Guid id);
         T Get(IHaveOwner model);
         IEnumerable<T> GetMany(IEnumerable<Guid> ids);
