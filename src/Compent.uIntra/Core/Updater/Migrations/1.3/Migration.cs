@@ -23,7 +23,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3
                 { "EventsEdit.Owner.lbl","Owner"},
                 { "GroupInfo.OwnerName.lbl","Owner"},
                 { "NewsEdit.Owner.lbl","Owner"},
-                { "NewsCreate.Owner.lbl","owner"}
+                { "NewsCreate.Owner.lbl","owner"},
+                { "BulletinsEdit.AtLeastOneFieldMustBeFilled.lbl","At least one field must be filled"}
             },
             Update = new Dictionary<string, (string old, string update)>
             {
