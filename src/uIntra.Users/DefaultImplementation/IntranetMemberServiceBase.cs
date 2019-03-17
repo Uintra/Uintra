@@ -60,7 +60,13 @@ namespace Uintra.Users
 
         public virtual T Get(Guid id) => GetSingle(el => el.Id == id);
 
-        public virtual T Get(int id) => GetSingle(el => el.UmbracoId == id);
+        public virtual T Get(int id)
+        {
+            var member = GetAll().SingleOrDefault(el => el.UmbracoId == id);
+            if (member == null)
+                member = Map(_memberService.GetById(id));
+            return member;
+        }
 
         public virtual T GetByUserId(int userId)
         {
