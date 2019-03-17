@@ -111,17 +111,13 @@ namespace Uintra.Notification.Web
             NotifierSettingSaveModel<T> notifierSettingSaveModel)
             where T : INotifierTemplate
         {
-            notifierSettingModel.ActivityType = _activityTypeProvider[notifierSettingSaveModel.ActivityType];
 
             if (notifierSettingSaveModel.ActivityType == CommunicationTypeEnum.CommunicationSettings.ToInt())
-            {
                 notifierSettingModel.ActivityType = CommunicationTypeEnum.CommunicationSettings;
-            }
-
-            if (notifierSettingSaveModel.ActivityType == CommunicationTypeEnum.Member.ToInt())
-            {
+            else if (notifierSettingSaveModel.ActivityType == CommunicationTypeEnum.Member.ToInt())
                 notifierSettingModel.ActivityType = CommunicationTypeEnum.Member;
-            }
+            else
+                notifierSettingModel.ActivityType = _activityTypeProvider[notifierSettingSaveModel.ActivityType];
 
             notifierSettingModel.NotificationType = _notificationTypeProvider[notifierSettingSaveModel.NotificationType];
             notifierSettingModel.NotifierType = _notifierTypeProvider[notifierSettingSaveModel.NotifierType];
