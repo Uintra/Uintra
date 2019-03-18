@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Compent.Extensions;
 using LanguageExt;
 using Newtonsoft.Json.Linq;
 using Uintra.Core.Constants;
 using Uintra.Core.Core.UmbracoEventServices;
+using Uintra.Core.Extensions;
 using Uintra.Core.Grid;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
@@ -12,7 +14,7 @@ using static LanguageExt.Prelude;
 
 namespace Uintra.Core.UmbracoEventServices
 {
-    public class UmbracoContentSavingEventService: IUmbracoContentSavingEventService
+    public class UmbracoContentSavingEventService : IUmbracoContentSavingEventService
     {
         private readonly IGridHelper _gridHelper;
 
@@ -24,23 +26,33 @@ namespace Uintra.Core.UmbracoEventServices
 
         public void ProcessContentSaving(IContentService sender, SaveEventArgs<IContent> args)
         {
-            var panels = args.SavedEntities
-                .SelectMany(content => _gridHelper
-                    .GetValues(content, 
-                        GridEditorConstants.ContentPanelAlias,
-                        GridEditorConstants.DocumentLibraryPanelAlias,
-                        GridEditorConstants.FaqPanelAlias,
-                        GridEditorConstants.GlobalPanelPickerAlias));
+            var gridValidation = GridValidation(args.SavedEntities);
 
-            var validationResult = panels
-                .Select<(string alias, dynamic value), Validation<string, Unit>>(panel => IsValidPanel(panel.alias, panel.value))
-                .Sequence();
+            var globalPanelValidation = GlobalPanelsValidation(args.SavedEntities);
+
+            var validationResult = gridValidation.Disjunction(globalPanelValidation);
 
             validationResult.IfFail(errors => errors
                 .Select(error => new EventMessage("Panel error", error, EventMessageType.Error))
                 .Iter(args.CancelOperation));
         }
 
+
+        private Validation<string, Unit> GridValidation(IEnumerable<IContent> contents)
+        {
+            var panels = contents
+                .SelectMany(content => _gridHelper
+                    .GetValues(content,
+                        GridEditorConstants.ContentPanelAlias,
+                        GridEditorConstants.DocumentLibraryPanelAlias,
+                        GridEditorConstants.FaqPanelAlias,
+                        GridEditorConstants.GlobalPanelPickerAlias));
+
+            return panels
+                .Select<(string alias, dynamic value), Validation<string, Unit>>(panel => IsValidPanel(panel.alias, panel.value))
+                .Sequence()
+                .Map(ignore);
+        }
 
         private static Validation<string, Unit> IsValidPanel(string gridEditorAlias, dynamic panel)
         {
@@ -116,6 +128,39 @@ namespace Uintra.Core.UmbracoEventServices
             else
             {
                 return "Empty global panel";
+            }
+        }
+
+        private static Validation<string, Unit> GlobalPanelsValidation(IEnumerable<IContent> savingContent)
+        {
+            var globalPanels = savingContent.Select(content => content.Properties.Contains("panelConfig")
+                    ? Some(content.Properties["panelConfig"].Value.ToString().Deserialize<JObject>())
+                    : None)
+                .Somes();
+
+            var validation = globalPanels
+                .Select(ValidateGlobalPanelContent)
+                .Sequence()
+                .Map(ignore);
+
+            return validation;
+        }
+
+        private static Validation<string, Unit> ValidateGlobalPanelContent(JObject panel)
+        {
+            var panelTypeAlias = panel["editor"]["alias"].Value<string>();
+            var panelValue = panel["value"];
+
+            switch (panelTypeAlias)
+            {
+                case GridEditorConstants.ContentPanelAlias:
+                    return IsValidContentPanel(panelValue);
+                case GridEditorConstants.DocumentLibraryPanelAlias:
+                    return IsValidDocumentPanel(panelValue);
+                case GridEditorConstants.FaqPanelAlias:
+                    return IsValidFaqPanel(panelValue);
+                default:
+                    return unit;
             }
         }
     }
