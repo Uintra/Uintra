@@ -410,9 +410,8 @@
             opacity:0;
             transition:opacity ease-in 300ms;
 
-            .block__video:hover &{
-                opacity:1;
-                z-index:1;  
+            .block__video:hover &, .block__video:focus &{
+                animation: hov-tex 5s normal linear;
             }
 
             ._active &{
@@ -448,6 +447,25 @@
 
     .btn{
         margin-bottom:20px;
+    }
+}
+
+@keyframes hov-tex {
+    0% {
+        z-index: 1;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
     }
 }
 
