@@ -13,9 +13,6 @@ namespace Uintra.Core.Extensions
             return member.HasProperty(alias) ? member.GetValue<TValue>(alias) : default;
         }
 
-        public static Option<TValue> GetValueOrNone<TValue>(this IMember member, string alias) => 
-            member.HasProperty(alias) && member.GetValue<TValue>(alias) is TValue value ? Some(value) : None;
-
         public static Option<int> GetMemberImageId(this IMember member, string alias)
         {
             if (member.HasProperty(alias))

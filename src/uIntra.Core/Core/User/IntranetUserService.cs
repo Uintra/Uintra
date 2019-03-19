@@ -4,7 +4,6 @@ using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Extensions;
 using Umbraco.Core.Models.Membership;
 using Umbraco.Core.Services;
-using static LanguageExt.Prelude;
 
 namespace Uintra.Core.User
 {
@@ -19,11 +18,11 @@ namespace Uintra.Core.User
             _applicationSettings = applicationSettings;
         }
 
-        public Option<T> GetByEmailOrNone(string email) =>
-            Optional(_userService.GetByEmail(email)).Map(Map);
+        public T GetByEmailOrNone(string email) =>
+            _userService.GetByEmail(email)?.Apply(Map);
 
-        public Option<T> GetByIdOrNone(int id) =>
-            Optional(_userService.GetUserById(id)).Map(Map);
+        public T GetByIdOrNone(int id) =>
+            _userService.GetUserById(id)?.Apply(Map);
 
         protected virtual T Map(IUser umbracoUser)
         {

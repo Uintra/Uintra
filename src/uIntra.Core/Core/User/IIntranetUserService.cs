@@ -2,9 +2,9 @@
 
 namespace Uintra.Core.User
 {
-    public interface IIntranetUserService<T>
+    public interface IIntranetUserService<out T>
     {
-        Option<T> GetByEmailOrNone(string email);
-        Option<T> GetByIdOrNone(int id);
+        T GetByEmailOrNone(string email);
+        T GetByIdOrNone(int id);
     }
 }

@@ -216,11 +216,11 @@ namespace Uintra.Users
 
         protected virtual T Map(IMember member)
         {
-            var relatedUserId = member.GetValueOrNone<int>(ProfileConstants.RelatedUser);
-            var relatedUser = relatedUserId.Bind(_intranetUserService.GetByIdOrNone);
+            var relatedUserId = member.GetValueOrDefault<int?>(ProfileConstants.RelatedUser).ToOption();
+            var relatedUser = relatedUserId.Bind(id => Optional(_intranetUserService.GetByIdOrNone(id)));
            
             var memberPhotoId = member
-                .GetValueOrNone<int>(ProfileConstants.Photo)
+                .GetValueOrDefault<int?>(ProfileConstants.Photo).ToOption()
                 .Choose(() => member.GetMemberImageId(ProfileConstants.Photo));
 
             var memberPhotoUrl = memberPhotoId
