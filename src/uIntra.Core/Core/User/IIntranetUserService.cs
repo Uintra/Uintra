@@ -1,11 +1,10 @@
-﻿namespace Uintra.Core.User
+﻿using LanguageExt;
+
+namespace Uintra.Core.User
 {
-    public interface IIntranetUserService<out T>
+    public interface IIntranetUserService<T>
     {
-        T AddUser(IIntranetMember member);
-
-        T GetUser(string email);
-
-        T GetUser(int id);
+        Option<T> GetByEmailOrNone(string email);
+        Option<T> GetByIdOrNone(int id);
     }
 }

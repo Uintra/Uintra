@@ -7,6 +7,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.Permissions;
 using Uintra.Core.User;
 using Uintra.Core.User.DTO;
+using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -20,6 +21,7 @@ namespace Uintra.Users
     {
         protected virtual string MemberTypeAlias => "Member";
         protected virtual string MembersCacheKey => "IntranetMembersCache";
+        private const string GroupWebMaster = "WebMaster";
 
         private readonly IMediaService _mediaService;
         private readonly IMemberService _memberService;
@@ -214,25 +216,27 @@ namespace Uintra.Users
 
         protected virtual T Map(IMember member)
         {
-            var relatedUserId = member.GetValueOrDefault<int?>(ProfileConstants.RelatedUser).ToOption();
-            var relatedUser = relatedUserId.Map(id => _intranetUserService.GetUser(id));
+            var relatedUserId = member.GetValueOrNone<int>(ProfileConstants.RelatedUser);
+            var relatedUser = relatedUserId.Bind(_intranetUserService.GetByIdOrNone);
            
             var memberPhotoId = member
-                .GetValueOrDefault<int?>(ProfileConstants.Photo).ToOption()
+                .GetValueOrNone<int>(ProfileConstants.Photo)
                 .Choose(() => member.GetMemberImageId(ProfileConstants.Photo));
 
             var memberPhotoUrl = memberPhotoId
                 .Bind(id => Optional(_umbracoHelper.TypedMedia(id)?.Url));
+
+            var memberGroups = _intranetMemberGroupService.GetForMember(member.Id).ToArray();
 
             var mappedMember = new T
             {
                 Id = member.Key,
                 Email = member.Email,
                 LoginName = member.Username,
-                Group = _intranetMemberGroupService.GetForMember(member.Id).FirstOrDefault(), //todo do allow member to has more than one group?
+                Group = memberGroups.FirstOrDefault(), //todo do allow member to has more than one group?
                 Inactive = member.IsLockedOut,
                 RelatedUser = relatedUser,
-                IsSuperUser = relatedUser.Match(Some: user => user.IsSuperUser, None: () => false),
+                IsSuperUser = relatedUser.Match(Some: user => user.IsSuperUser && memberGroups.Any(g => g.Name is GroupWebMaster), None: () => false),
                 Photo = memberPhotoUrl.Map(GetUserPhotoOrDefaultAvatar),
                 PhotoId = memberPhotoId,
                 UmbracoId = member.Id

@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using LanguageExt;
 using Uintra.Core.Extensions;
 using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.Models;
 using Uintra.Core.Permissions.TypeProviders;
-using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Umbraco.Web.WebApi;
-using static LanguageExt.Prelude;
 
 namespace Uintra.Core.Permissions
 {    
@@ -46,7 +43,7 @@ namespace Uintra.Core.Permissions
                 .Map<IEnumerable<PermissionViewModel>>()
                 .OrderBy(i => i.ResourceTypeId);
 
-            var model = new GroupPermissionsViewModel()
+            var model = new GroupPermissionsViewModel
             {
                 IsSuperUser = isSuperUser,
                 Permissions = permissions,

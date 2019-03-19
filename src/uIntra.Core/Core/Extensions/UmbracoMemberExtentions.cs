@@ -10,8 +10,11 @@ namespace Uintra.Core.Extensions
     {
         public static TValue GetValueOrDefault<TValue>(this IMember member, string alias)
         {
-            return member.HasProperty(alias) ? member.GetValue<TValue>(alias) : default(TValue);
+            return member.HasProperty(alias) ? member.GetValue<TValue>(alias) : default;
         }
+
+        public static Option<TValue> GetValueOrNone<TValue>(this IMember member, string alias) => 
+            member.HasProperty(alias) && member.GetValue<TValue>(alias) is TValue value ? Some(value) : None;
 
         public static Option<int> GetMemberImageId(this IMember member, string alias)
         {
