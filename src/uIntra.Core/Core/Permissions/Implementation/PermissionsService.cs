@@ -82,8 +82,6 @@ namespace Uintra.Core.Permissions.Implementation
 
         public virtual PermissionModel Save(PermissionUpdateModel update)
         {
-
-
             var storedEntity = _permissionsRepository
                 .FindOrNone(AndAlso(GroupIs(update.Group),
                     ActionIs(update.SettingIdentity.Action),
@@ -102,7 +100,7 @@ namespace Uintra.Core.Permissions.Implementation
                                 IsAllowed = false,
                                 IsEnabled = _permissionSettingsSchema.DefaultSettingsValues.IsEnabled,
                                 ResourceTypeId = i.ResourceType.ToInt()
-                            }).ToList();
+                            }).ToArray();
 
                         if (descendants.Any())
                             _permissionsRepository.UpdateProperty(descendants, i => i.IsAllowed);
