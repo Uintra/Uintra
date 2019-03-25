@@ -8,14 +8,18 @@ namespace Uintra.Core.User
     {
         Guid Id { get; set; }        
         string DisplayedName { get; }
-        Option<string> Photo { get; set; }
-        Option<int> PhotoId { get; set; }
-        IntranetMemberGroup Group { get; set; }
-        string Email { get; set; }
+        string FirstName { get; set; }
+        string LastName { get; set; }
         string LoginName { get; set; }
-        bool Inactive { get; set; }
+        string Email { get; set; }
+        string Phone { get; set; }
+        string Department { get; set; }
+        Option<string> Photo { get; set; }
+        Option<int> PhotoId { get; set; }      
+        IntranetMemberGroup Group { get; set; }
         Option<IIntranetUser> RelatedUser { get; set; }
-        bool IsSuperUser { get; set; }
         int UmbracoId { get; set; }
+        bool Inactive { get; set; }
+        bool IsSuperUser { get; set; }
     }
 }

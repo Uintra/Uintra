@@ -50,7 +50,7 @@ namespace Compent.Uintra.Controllers
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IGroupService groupService,
             IGroupFeedContentService groupFeedContentService,
-            IIntranetMemberService<IntranetMember> intranetMemberService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IGroupLinkProvider groupLinkProvider,
             IGroupContentProvider groupContentProvider,
             IGroupHelper groupHelper,

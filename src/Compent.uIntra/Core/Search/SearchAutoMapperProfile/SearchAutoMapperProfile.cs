@@ -2,9 +2,9 @@
 using Compent.Uintra.Core.Bulletins;
 using Compent.Uintra.Core.Events;
 using Compent.Uintra.Core.Search.Entities;
-using Compent.Uintra.Core.Users;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
+using Uintra.Groups;
 using Uintra.Search;
 using Uintra.Tagging.UserTags.Models;
 
@@ -19,7 +19,7 @@ namespace Compent.Uintra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.Title, src => src.MapFrom(s => s.Text))
                 .ForMember(dst => dst.Type, src => src.MapFrom(s => UintraSearchableTypeEnum.Tag.ToInt()));
 
-            Mapper.CreateMap<IntranetMember, SearchableUser>()
+            Mapper.CreateMap<IGroupMember, SearchableUser>()
                 .ForMember(dst => dst.FullName, o => o.MapFrom(src => src.DisplayedName))
                 .ForMember(dst => dst.Email, o => o.MapFrom(src => src.Email))
                 .ForMember(dst => dst.Phone, o => o.MapFrom(src => src.Phone))
