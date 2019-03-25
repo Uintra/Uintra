@@ -236,7 +236,7 @@ namespace Uintra.Users
                 Group = memberGroups.FirstOrDefault(), //todo do allow member to has more than one group?
                 Inactive = member.IsLockedOut,
                 RelatedUser = relatedUser,
-                IsSuperUser = relatedUser.Match(Some: user => user.IsSuperUser && memberGroups.Any(g => g.Name is GroupWebMaster), None: () => false),
+                IsSuperUser = relatedUser.Exists(user => user.IsSuperUser && memberGroups.Any(g => g.Name is GroupWebMaster)),
                 Photo = memberPhotoUrl.Map(GetUserPhotoOrDefaultAvatar),
                 PhotoId = memberPhotoId,
                 UmbracoId = member.Id

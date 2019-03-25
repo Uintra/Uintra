@@ -142,7 +142,7 @@ namespace Uintra.Core.Permissions.Implementation
 
             var permission = GetAll().Find(p => p.Group.Id == member.Group.Id && p.SettingIdentity.Equals(settingIdentity));
 
-            var isAllowed = permission.Match(p => p.SettingValues.IsAllowed, () => false);
+            var isAllowed = permission.Exists(p => p.SettingValues.IsAllowed);
 
             return isAllowed;
         }

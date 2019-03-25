@@ -62,8 +62,7 @@ namespace Uintra.Core.Attributes
 
             return relatedUserWithSuperUserPermissions
                 .Choose(GetUserWithMatchingEmail)
-                .Map(user => Membership.ValidateUser(user.Username, password))
-                .IfNone(() => false);
+                .Exists(user => Membership.ValidateUser(user.Username, password));
         }
     }
 }
