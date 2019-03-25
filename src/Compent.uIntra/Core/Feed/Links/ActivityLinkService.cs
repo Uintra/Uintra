@@ -44,6 +44,7 @@ namespace Compent.Uintra.Core.Feed.Links
             if (groupId.HasValue)
             {
                 var activityModel = activity.Map<GroupActivityTransferModel>();
+                activityModel.GroupId = groupId.Value;
                 result = _groupFeedLinkProvider.GetLinks(activityModel);
             }
             else
