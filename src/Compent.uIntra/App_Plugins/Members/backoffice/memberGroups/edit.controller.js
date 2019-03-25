@@ -54,7 +54,7 @@ app.controller('memberGroups.editController',
             return !parent.allowed;
         };
 
-        vm.toggleEnabled = function myfunction(permission) {
+        vm.toggleEnabled = function (permission) {
             if (inProgress) return;
             inProgress = true;
 
@@ -73,7 +73,7 @@ app.controller('memberGroups.editController',
                 });
         };
 
-        vm.toggleAllowed = function myfunction(permission) {
+        vm.toggleAllowed = function (permission) {
             if (inProgress) return;
             inProgress = true;
 
