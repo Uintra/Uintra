@@ -26,7 +26,7 @@
                                 <span>{{permission.actionName}}</span>
                             </td>
                             <td align="center">
-                                <umb-toggle checked="permission.allowed" disabled="(vm.isParentDisabled(permission) || !permission.enabled) && !vm.isSuperUser" on-click="vm.toggleAllowed(permission)">
+                                <umb-toggle checked="permission.allowed" disabled="vm.isParentDisabled(permission) || !permission.enabled" on-click="vm.toggleAllowed(permission)">
                                 </umb-toggle>
                             </td>
                             <td ng-if="vm.isSuperUser" align="center">
