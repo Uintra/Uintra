@@ -1,5 +1,6 @@
 ﻿using Compent.Uintra.Core.Helpers;
 using System;
+using Compent.Extensions;
 using Uintra.Comments;
 using Uintra.Core.Activity;
 using Uintra.Core.User;
@@ -36,8 +37,11 @@ namespace Compent.Uintra.Core.ContentPage
 
         public void Notify(Guid entityId, Enum notificationType)
         {
-            var notifierData = GetNotifierData(entityId, notificationType);
-            _notificationsService.ProcessNotification(notifierData);
+            if (notificationType.In(NotificationTypeEnum.CommentLikeAdded, NotificationTypeEnum.CommentReplied))
+            {
+                var notifierData = GetNotifierData(entityId, notificationType);
+                _notificationsService.ProcessNotification(notifierData);
+            }
         }
 
         private NotifierData GetNotifierData(Guid entityId, Enum notificationType)
