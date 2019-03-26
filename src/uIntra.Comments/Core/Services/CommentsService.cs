@@ -120,18 +120,22 @@ namespace Uintra.Comments
 
         protected virtual void Delete(Comment comment)
         {
-             IEnumerable<Comment> GetReplies(Comment current) => 
-                 _commentsRepository.FindAll(c => c.ParentId == current.Id);
+            IEnumerable<Comment> GetReplies(Comment current) =>
+                _commentsRepository
+                    .FindAll(c => c.ParentId == current.Id);
 
-             IEnumerable<Comment> GetDescendants(Comment current) =>
+            IEnumerable<Comment> GetDescendants(Comment current) =>
                 GetReplies(comment)
                     .SelectMany(GetDescendants)
-                    .Concat(current.AsEnumerableOfOne());
+                    .Append(current);
 
-            var commentsToDelete = GetDescendants(comment).ToList();
+            var commentsToDelete = GetDescendants(comment);
 
-            commentsToDelete.ForEach(c => _commentLinkPreviewService.RemovePreviewRelations(c.Id));
-            _commentLinkPreviewService.RemovePreviewRelations(comment.Id);
+            commentsToDelete.Iter(c =>
+            {
+                _commentLinkPreviewService.RemovePreviewRelations(c.Id);
+                _commentsRepository.Delete(c);
+            });
         }
 
         public virtual void FillComments(ICommentable entity)

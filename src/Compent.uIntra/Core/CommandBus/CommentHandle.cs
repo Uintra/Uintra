@@ -52,10 +52,11 @@ namespace Compent.Uintra.Core.CommandBus
 
         private void UpdateCache(Enum commentsTargetType, Guid commentsTargetEntityId)
         {
-            if (!ContextExtensions.HasFlagScalar(commentsTargetType, ContextType.Activity | ContextType.PagePromotion)) return;
-
-            var activityService = _activitiesServiceFactory.GetCacheableIntranetActivityService(commentsTargetEntityId);
-            activityService.UpdateActivityCache(commentsTargetEntityId);
+            if (ContextExtensions.HasFlagScalar(commentsTargetType, ContextType.Activity | ContextType.PagePromotion))
+            {
+                var activityService = _activitiesServiceFactory.GetCacheableIntranetActivityService(commentsTargetEntityId);
+                activityService.UpdateActivityCache(commentsTargetEntityId);
+            }
         }
     }
 }
