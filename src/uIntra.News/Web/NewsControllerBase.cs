@@ -223,9 +223,9 @@ namespace Uintra.News.Web
         {
             var news = createModel.Map<NewsBase>();
             news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
-            news.PublishDate = createModel.PublishDate.ToUniversalTime();
-            news.UnpublishDate = createModel.UnpublishDate?.ToUniversalTime();
-            news.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
+            news.PublishDate = createModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime();
+            news.UnpublishDate = createModel.UnpublishDate?.ToUniversalTime().WithCorrectedDaylightSavingTime();
+            news.EndPinDate = createModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime();
             news.CreatorId = _intranetMemberService.GetCurrentMemberId();
 
             return news;
@@ -236,9 +236,9 @@ namespace Uintra.News.Web
             var activity = _newsService.Get(editModel.Id);
             activity = Mapper.Map(editModel, activity);
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
-            activity.PublishDate = editModel.PublishDate.ToUniversalTime();
-            activity.UnpublishDate = editModel.UnpublishDate?.ToUniversalTime();
-            activity.EndPinDate = editModel.EndPinDate?.ToUniversalTime();
+            activity.PublishDate = editModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime();
+            activity.UnpublishDate = editModel.UnpublishDate?.ToUniversalTime().WithCorrectedDaylightSavingTime();
+            activity.EndPinDate = editModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime();
 
             return activity;
         }

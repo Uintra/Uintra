@@ -8,7 +8,6 @@ namespace Uintra.Core.ApplicationSettings
     {
         string MailNotificationNoReplyEmail { get; }
         string MailNotificationNoReplyName { get; }
-        string DefaultAvatarPath { get; }
         int MonthlyEmailJobDay { get; }
         IEnumerable<string> VideoFileTypes { get; }
         string MemberApiAuthentificationEmail { get; }
@@ -17,5 +16,6 @@ namespace Uintra.Core.ApplicationSettings
         GoogleOAuth GoogleOAuth { get; }
         bool UmbracoUseSSL { get; }
         IEnumerable<string> UintraSuperUsers { get; }
+        bool DaytimeSavingOffset { get; }
     }
 }

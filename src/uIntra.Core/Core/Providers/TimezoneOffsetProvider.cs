@@ -5,7 +5,7 @@ namespace Uintra.Core
     public class TimezoneOffsetProvider : ITimezoneOffsetProvider
     {
         private readonly ICookieProvider _cookieProvider;
-        private string timezoneOffsetCookieAlias = "timezoneOffset";
+        private const string TimezoneOffsetCookieAlias = "timezoneOffset";
 
 
         public TimezoneOffsetProvider(ICookieProvider cookieProvider)
@@ -13,22 +13,16 @@ namespace Uintra.Core
             _cookieProvider = cookieProvider;
         }
 
-        public bool HasTimeZoneOffset()
-        {
-            var cookie = _cookieProvider.Get(timezoneOffsetCookieAlias);
-            return cookie != null;
-        }
-
         public void SetTimezoneOffset(int offsetInMinutes)
         {
             var offset = (-offsetInMinutes).ToString();
-            _cookieProvider.Save(timezoneOffsetCookieAlias, offset, DateTime.UtcNow.AddMonths(1));
+            _cookieProvider.Save(TimezoneOffsetCookieAlias, offset, DateTime.UtcNow.AddMonths(1));
         }
 
-        public int GetTimezoneOffset()
+        public TimeSpan GetTimezoneOffset()
         {
-            var cookie = _cookieProvider.Get(timezoneOffsetCookieAlias);
-            var offset = Convert.ToInt32(cookie?.Value);
+            var cookie = _cookieProvider.Get(TimezoneOffsetCookieAlias);
+            var offset = new TimeSpan(int.Parse(cookie.Value));
 
             return offset;
         }
