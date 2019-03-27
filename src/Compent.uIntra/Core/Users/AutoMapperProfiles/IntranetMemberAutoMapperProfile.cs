@@ -36,6 +36,7 @@ namespace Compent.Uintra.Core.Users
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.MemberNotifierSettings, o => o.Ignore())
                 .ForMember(dst => dst.ProfileUrl, o => o.Ignore())
+                .ForMember(dst => dst.Photo, o => o.MapFrom(user => user.Photo.IfNone(() => string.Empty)))
                 .ForMember(dst => dst.PhotoId, o => o.MapFrom(user => user.PhotoId.ToNullable()));
 
             Mapper.CreateMap<User, CreateMemberDto>()
