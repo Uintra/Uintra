@@ -323,8 +323,49 @@
     }
 }
 
-.documents-table{
-    width:100%;
+.documents-table {
+    width: 100%;
+    table-layout: fixed;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    & th{
+        &:nth-child(1) {
+            width: 15%;
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        &:nth-child(2) {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        &:nth-child(4) {
+            width: 18%;
+        }
+        &:last-child {
+            width: 7%;
+        }
+    }
+    & td {
+        &:nth-child(1) {
+            width: 15%;
+        }
+        &:nth-child(2) {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        &:nth-child(5) {
+            width: 18%;
+        }
+        &:last-child {
+            width: 7%;
+        }
+    }
+
+    @media (max-width: 500px){
+        width: 550px;
+    }
 
     @media (--for-tablet-portrait-down) {
         font-size:13px;
