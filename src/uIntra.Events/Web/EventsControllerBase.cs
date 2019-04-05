@@ -301,10 +301,10 @@ namespace Uintra.Events.Web
             var @event = MapEditModel(editModel);
 
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
-            @event.StartDate = editModel.StartDate.ToUniversalTime().WithCorrectedDaylightSavingTime();
-            @event.PublishDate = editModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime();
-            @event.EndDate = editModel.EndDate.ToUniversalTime().WithCorrectedDaylightSavingTime();
-            @event.EndPinDate = editModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime();
+            @event.StartDate = editModel.StartDate.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.StartDate);
+            @event.PublishDate = editModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.PublishDate);
+            @event.EndDate = editModel.EndDate.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.EndDate);
+            @event.EndPinDate = editModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.EndPinDate.Value);
 
             return @event;
         }

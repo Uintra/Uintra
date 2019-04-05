@@ -62,22 +62,22 @@ namespace Uintra.Core.Extensions
             return date + offset;
         }
 
-        public static DateTime WithCorrectedDaylightSavingTime(this DateTime utc)
+        public static DateTime WithCorrectedDaylightSavingTime(this DateTime utc, DateTime source)
         {
             var appSettings = HttpContext.Current.GetService<IApplicationSettings>();
 
-            if (appSettings.DaytimeSavingOffset)
-            {
-                return utc;               
-            }
-            else
+            if (!appSettings.DaytimeSavingOffset && source.IsDaylightSavingTime())
             {
                 var currentYear = DateTime.Now.Year;
 
                 var corrected = TimeZoneInfo.Local.GetAdjustmentRules()
                     .Where(adjustmentRule => adjustmentRule.DateStart.Year <= currentYear && adjustmentRule.DateEnd.Year >= currentYear)
                     .Aggregate(utc, (current, adjustmentRule) => current.Add(adjustmentRule.DaylightDelta));
-                return corrected;
+                return corrected;              
+            }
+            else
+            {
+                return utc;
             }
         }
     }
