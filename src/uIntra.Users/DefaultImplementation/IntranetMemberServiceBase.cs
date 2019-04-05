@@ -93,13 +93,13 @@ namespace Uintra.Users
         {
             return ids.Distinct().Join(GetAll(),
                  id => id,
-                member => member.RelatedUser.Map(x=>x.Id),
+                member => member.RelatedUser.Map(x => x.Id),
                  (id, member) => member);
         }
 
         public virtual IEnumerable<T> GetAll()
         {
-            var members = _cacheService.GetOrSet(MembersCacheKey, ()=> GetAllFromSql().ToArray(), CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
+            var members = _cacheService.GetOrSet(MembersCacheKey, () => GetAllFromSql().ToArray(), CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
             return members;
         }
 
@@ -116,7 +116,7 @@ namespace Uintra.Users
 
         public virtual IEnumerable<T> GetByGroup(int memberGroupId)
         {
-            var members = GetAll().Where(el => el.Group.Id == memberGroupId);
+            var members = GetAll().Where(el => el.Groups.Select(g => g.Id).Contains(memberGroupId));
             return members;
         }
 
@@ -205,7 +205,7 @@ namespace Uintra.Users
             return member.IsSome;
         }
 
-        protected virtual Option<T> GetFromSqlOrNone(Guid id) => 
+        protected virtual Option<T> GetFromSqlOrNone(Guid id) =>
             Optional(_memberService.GetByKey(id))
                 .Map(Map);
 
@@ -218,7 +218,7 @@ namespace Uintra.Users
         {
             var relatedUserId = member.GetValueOrDefault<int?>(ProfileConstants.RelatedUser).ToOption();
             var relatedUser = relatedUserId.Bind(id => Optional(_intranetUserService.GetByIdOrNone(id)));
-           
+
             var memberPhotoId = member
                 .GetValueOrDefault<int?>(ProfileConstants.Photo).ToOption()
                 .Choose(() => member.GetMemberImageId(ProfileConstants.Photo));
@@ -226,14 +226,14 @@ namespace Uintra.Users
             var memberPhotoUrl = memberPhotoId
                 .Bind(id => Optional(_umbracoHelper.TypedMedia(id)?.Url));
 
-            var memberGroups = _intranetMemberGroupService.GetForMember(member.Id).ToArray();
+            var memberGroups = _intranetMemberGroupService.GetForMember(member.Id).ToList();
 
             var mappedMember = new T
             {
                 Id = member.Key,
                 Email = member.Email,
                 LoginName = member.Username,
-                Group = memberGroups.FirstOrDefault(), //todo do allow member to has more than one group?
+                Groups = memberGroups,
                 Inactive = member.IsLockedOut,
                 RelatedUser = relatedUser,
                 IsSuperUser = relatedUser.Exists(user => user.IsSuperUser && memberGroups.Any(g => g.Name is GroupWebMaster)),
@@ -246,7 +246,7 @@ namespace Uintra.Users
         }
 
 
-        protected virtual string GetUserPhotoOrDefaultAvatar(string userImage) => 
+        protected virtual string GetUserPhotoOrDefaultAvatar(string userImage) =>
             !string.IsNullOrEmpty(userImage) ? userImage : string.Empty;
 
         public virtual T GetByName(string name)
@@ -277,11 +277,11 @@ namespace Uintra.Users
                 Some: member => allCachedMembers.WithUpdatedElement(el => el.Id == memberId, member),
                 None: () => allCachedMembers.Where(el => el.Id != memberId))
                 .ToList();
-          
+
             _cacheService.Set(MembersCacheKey, updatedCache, CacheHelper.GetMidnightUtcDateTimeOffset());
         }
 
-        public virtual void UpdateMemberCache(IEnumerable<Guid> memberIds) => 
+        public virtual void UpdateMemberCache(IEnumerable<Guid> memberIds) =>
             _cacheService.Set(MembersCacheKey, GetAllFromSql().ToArray(), CacheHelper.GetMidnightUtcDateTimeOffset());
 
         public virtual void DeleteFromCache(Guid memberId)

@@ -19,7 +19,7 @@ namespace Compent.Uintra.Core.Users
         public string Department { get; set; }
         public Option<string> Photo { get; set; }
         public Option<int> PhotoId { get; set; }
-        public IntranetMemberGroup Group { get; set; }
+        public IEnumerable<IntranetMemberGroup> Groups { get; set; }
         public IEnumerable<Guid> GroupIds { get; set; }
         public Option<IIntranetUser> RelatedUser { get; set; }
         public int UmbracoId { get; set; }
