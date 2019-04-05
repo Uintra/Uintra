@@ -120,12 +120,9 @@ namespace Uintra.Comments
 
         protected virtual void Delete(Comment comment)
         {
-            IEnumerable<Comment> GetReplies(Comment current) =>
-                _commentsRepository
-                    .FindAll(c => c.ParentId == current.Id);
-
             IEnumerable<Comment> GetDescendants(Comment current) =>
-                GetReplies(comment)
+                    _commentsRepository
+                    .FindAll(c => c.ParentId == current.Id)
                     .SelectMany(GetDescendants)
                     .Append(current);
 
@@ -144,10 +141,10 @@ namespace Uintra.Comments
             entity.Comments = comments;
         }
 
-        public virtual string GetCommentViewId(Guid commentId) => 
+        public virtual string GetCommentViewId(Guid commentId) =>
             $"js-comment-view-{commentId}";
 
-        public bool IsExistsUserComment(Guid activityId, Guid userId) => 
+        public bool IsExistsUserComment(Guid activityId, Guid userId) =>
             _commentsRepository.Exists(c => c.ActivityId == activityId && c.UserId == userId);
     }
 }
