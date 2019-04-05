@@ -36,7 +36,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3
                  "EventsEdit.Creator.lbl",
                  "GroupInfo.CreatorName",
                  "NewsEdit.Creator.lbl",
-                 "NewsCreate.Creator.lbl"
+                 "NewsCreate.Creator.lbl",
+                 "buy HTTPS licence for this domain right?\n\n\n\n#CentralFeedList.Empty.lbl"
             }
         };
 
