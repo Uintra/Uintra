@@ -138,9 +138,9 @@ namespace Uintra.Core.Permissions.Implementation
 
         public virtual bool Check(IIntranetMember member, PermissionSettingIdentity settingIdentity)
         {
-            if (member.Group == null) return false;
-
-            var permission = GetAll().Find(p => p.Group.Id == member.Group.Id && p.SettingIdentity.Equals(settingIdentity));
+            if (member.Groups == null) return false;
+           
+            var permission = GetAll().Where(p => member.Groups.Select(g=>g.Id).Contains(p.Group.Id) && p.SettingIdentity.Equals(settingIdentity));
 
             var isAllowed = permission.Exists(p => p.SettingValues.IsAllowed);
 

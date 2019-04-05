@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using LanguageExt;
 using Uintra.Core.Permissions.Models;
 
@@ -6,7 +7,7 @@ namespace Uintra.Core.User
 {
     public interface IIntranetMember
     {
-        Guid Id { get; set; }        
+        Guid Id { get; set; }
         string DisplayedName { get; }
         string FirstName { get; set; }
         string LastName { get; set; }
@@ -15,8 +16,8 @@ namespace Uintra.Core.User
         string Phone { get; set; }
         string Department { get; set; }
         Option<string> Photo { get; set; }
-        Option<int> PhotoId { get; set; }      
-        IntranetMemberGroup Group { get; set; }
+        Option<int> PhotoId { get; set; }
+        IEnumerable<IntranetMemberGroup> Groups { get; set; }
         Option<IIntranetUser> RelatedUser { get; set; }
         int UmbracoId { get; set; }
         bool Inactive { get; set; }
