@@ -12,10 +12,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
 using Uintra.Core.Permissions;
 using Uintra.Core.Permissions.Interfaces;
-using Uintra.Core.Permissions.Models;
 using Uintra.Core.Permissions.TypeProviders;
-using Uintra.Core.User;
-using Uintra.Subscribe;
 
 namespace Uintra.CentralFeed.Web
 {
@@ -45,8 +42,6 @@ namespace Uintra.CentralFeed.Web
             ICentralFeedService centralFeedService,
             ICentralFeedContentService centralFeedContentService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            ISubscribeService subscribeService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IFeedTypeProvider centralFeedTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
@@ -54,7 +49,7 @@ namespace Uintra.CentralFeed.Web
             IContextTypeProvider contextTypeProvider,
             IFeedFilterService centralFeedFilterService,
             IPermissionResourceTypeProvider permissionResourceTypeProvider)
-            : base(subscribeService, centralFeedService, intranetMemberService, feedFilterStateService, centralFeedTypeProvider, contextTypeProvider)
+            : base(centralFeedService, feedFilterStateService, contextTypeProvider)
         {
             _centralFeedService = centralFeedService;
             _centralFeedContentService = centralFeedContentService;

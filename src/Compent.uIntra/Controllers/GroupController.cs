@@ -9,7 +9,6 @@ using Uintra.Core.Media;
 using Uintra.Core.User;
 using Uintra.Groups;
 using Uintra.Groups.Navigation.Models;
-using Uintra.Groups.Permissions;
 using Uintra.Groups.Web;
 using Uintra.Navigation;
 using Umbraco.Core.Models;

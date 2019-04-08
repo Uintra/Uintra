@@ -12,11 +12,8 @@ using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
 using Uintra.Core.Permissions;
 using Uintra.Core.Permissions.Interfaces;
-using Uintra.Core.Permissions.Models;
 using Uintra.Core.User;
 using Uintra.Groups.Attributes;
-using Uintra.Subscribe;
-
 namespace Uintra.Groups.Web
 {
     public abstract class GroupFeedControllerBase : FeedControllerBase
@@ -44,14 +41,11 @@ namespace Uintra.Groups.Web
         public override ContextType ControllerContextType { get; } = ContextType.GroupFeed;
 
         protected GroupFeedControllerBase(
-            ISubscribeService subscribeService,
             IGroupFeedService groupFeedService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             IIntranetMemberService<IGroupMember> intranetMemberService,
             IGroupFeedContentService groupFeedContentContentService,
-            IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupMemberService groupMemberService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             IPermissionsService permissionsService,
@@ -59,11 +53,8 @@ namespace Uintra.Groups.Web
             IFeedLinkService feedLinkService,
             IFeedFilterService feedFilterService)
             : base(
-                  subscribeService,
                   groupFeedService,
-                  intranetMemberService,
                   feedFilterStateService,
-                  centralFeedTypeProvider,
                   contextTypeProvider)
         {
             _groupFeedService = groupFeedService;

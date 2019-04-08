@@ -7,11 +7,9 @@ using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Feed;
 using Uintra.Core.Permissions.Interfaces;
-using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Groups;
 using Uintra.Groups.Web;
-using Uintra.Subscribe;
 
 namespace Compent.Uintra.Controllers
 {
@@ -20,30 +18,23 @@ namespace Compent.Uintra.Controllers
         private readonly IIntranetMemberService<IGroupMember> _intranetMemberService;
 
         public GroupFeedController(
-            ISubscribeService subscribeService,
             IGroupFeedService groupFeedService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             IIntranetMemberService<IGroupMember> intranetMemberService,
             IGroupFeedContentService groupFeedContentContentService,
-            IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupMemberService groupMemberService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IActivityTypeProvider activityTypeProvider,
             IPermissionsService permissionsService,
             IContextTypeProvider contextTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterService feedFilterService)
             : base(
-                  subscribeService,
                   groupFeedService,
                   activitiesServiceFactory,
-                  intranetUserContentProvider,
                   centralFeedTypeProvider,
                   intranetMemberService,
                   groupFeedContentContentService,
-                  groupFeedLinkProvider,
                   groupMemberService,
                   feedFilterStateService,
                   permissionsService,

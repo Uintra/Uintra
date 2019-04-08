@@ -1,6 +1,4 @@
-﻿using LanguageExt;
-
-namespace Uintra.Core.User
+﻿namespace Uintra.Core.User
 {
     public interface IIntranetUserService<out T>
     {

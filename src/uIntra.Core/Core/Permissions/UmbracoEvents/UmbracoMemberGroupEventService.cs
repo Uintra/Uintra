@@ -10,15 +10,11 @@ namespace Uintra.Core.Permissions.UmbracoEvents
     public class UmbracoMemberGroupEventService : IUmbracoMemberGroupDeletingEventService, IUmbracoMemberGroupSavedEventService
     {
         private readonly IPermissionsService _permissionsService;
-        private readonly ICacheService _cacheService;
         private readonly IIntranetMemberGroupService _intranetMemberGroupService;
 
-        public UmbracoMemberGroupEventService(IPermissionsService permissionsService,
-            ICacheService cacheService,
-            IIntranetMemberGroupService intranetMemberGroupService)
+        public UmbracoMemberGroupEventService(IPermissionsService permissionsService, IIntranetMemberGroupService intranetMemberGroupService)
         {
             _permissionsService = permissionsService;
-            _cacheService = cacheService;
             _intranetMemberGroupService = intranetMemberGroupService;
         }
 

@@ -27,7 +27,6 @@ namespace Compent.Uintra.Core.Notification
             var message = new EmailNotificationMessage();
             FillNoReplyFromProps(message);
 
-            IIntranetMember notifier;
             (string, string)[] tokens;
 
             switch (notifierData)

@@ -12,7 +12,6 @@ using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Groups;
-using Uintra.Subscribe;
 
 namespace Compent.Uintra.Controllers
 {
@@ -26,7 +25,6 @@ namespace Compent.Uintra.Controllers
             ICentralFeedService centralFeedService,
             ICentralFeedContentService centralFeedContentService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            ISubscribeService subscribeService,
             IIntranetMemberService<IGroupMember> intranetMemberService,
             IFeedTypeProvider centralFeedTypeProvider,
             IFeedLinkService feedLinkService,
@@ -41,8 +39,6 @@ namespace Compent.Uintra.Controllers
                   centralFeedService,
                   centralFeedContentService,
                   activitiesServiceFactory,
-                  subscribeService,
-                  intranetMemberService,
                   centralFeedTypeProvider,
                   feedLinkService,
                   feedFilterStateService,

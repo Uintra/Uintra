@@ -27,15 +27,13 @@ namespace Compent.Uintra.Controllers
 
         public ProfileController(
             IMediaHelper mediaHelper,
-            IApplicationSettings applicationSettings,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
             UmbracoHelper umbracoHelper,
             IIntranetUserContentProvider intranetUserContentProvider,
             UserTagService userTagService,
-            IProfileLinkProvider profileLinkProvider,
-            IMemberService memberService)
-            : base(mediaHelper, applicationSettings, intranetMemberService, memberNotifiersSettingsService, profileLinkProvider, memberService)
+            IProfileLinkProvider profileLinkProvider)
+            : base(mediaHelper, intranetMemberService, memberNotifiersSettingsService, profileLinkProvider)
         {
             _umbracoHelper = umbracoHelper;
             _intranetUserContentProvider = intranetUserContentProvider;

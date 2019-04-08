@@ -22,21 +22,17 @@ namespace Uintra.Users.Web
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IProfileLinkProvider _profileLinkProvider;
-        private readonly IMemberService _memberService;
 
         protected ProfileControllerBase(
             IMediaHelper mediaHelper,
-            IApplicationSettings applicationSettings,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
-            IProfileLinkProvider profileLinkProvider,
-            IMemberService memberService)
+            IProfileLinkProvider profileLinkProvider)
         {
             _mediaHelper = mediaHelper;
             _intranetMemberService = intranetMemberService;
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
             _profileLinkProvider = profileLinkProvider;
-            _memberService = memberService;
         }
 
         public virtual ActionResult Overview(Guid? id)

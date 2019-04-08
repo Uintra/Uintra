@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Extensions;
 using Uintra.Core.Persistence;
-using Umbraco.Core;
 
 namespace Uintra.Comments
 {

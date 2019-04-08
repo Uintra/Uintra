@@ -26,16 +26,14 @@ namespace Compent.Uintra.Controllers.Api
     {
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IMediaHelper _mediaHelper;
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly IExceptionLogger _exceptionLogger;
 
 
         public SyncController(IIntranetMemberService<IIntranetMember> intranetMemberService,
-            IMediaHelper mediaHelper, UmbracoHelper umbracoHelper, IExceptionLogger exceptionLogger)
+            IMediaHelper mediaHelper, IExceptionLogger exceptionLogger)
         {
             _intranetMemberService = intranetMemberService;
             _mediaHelper = mediaHelper;
-            _umbracoHelper = umbracoHelper;
             _exceptionLogger = exceptionLogger;
         }
 

@@ -62,7 +62,8 @@ namespace Compent.Uintra.Controllers
                 {
                     IssuedAtClockTolerance = TimeSpan.FromDays(1) // for cases when server's time different from UTC time (google time).
                 });
-            if (payload != null) {
+            if (payload != null)
+            {
                 var member = _memberService.GetByEmail(payload.Email);
                 if (member != null)
                 {
@@ -88,7 +89,7 @@ namespace Compent.Uintra.Controllers
         [HttpGet]
         public ActionResult LoginUintra()
         {
-            if(Members.GetCurrentLoginStatus().IsLoggedIn)
+            if (Members.GetCurrentLoginStatus().IsLoggedIn)
             {
                 return Redirect(DefaultRedirectUrl);
             }
@@ -99,7 +100,7 @@ namespace Compent.Uintra.Controllers
                 CurrentIntranetVersion = uintraInformationService.Version
             };
             return View(LoginViewPath, model);
-        }        
+        }
 
         [HttpPost]
         public ActionResult LoginUintra(LoginModel model)
@@ -136,7 +137,7 @@ namespace Compent.Uintra.Controllers
             return Redirect(redirectUrl);
         }
 
-       
+
 
         private void SetDefaultUserData()
         {

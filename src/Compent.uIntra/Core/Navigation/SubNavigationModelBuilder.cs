@@ -6,7 +6,6 @@ using Compent.Extensions;
 using Uintra.Core.Configuration;
 using Uintra.Core.User;
 using Uintra.Groups;
-using Uintra.Groups.Permissions;
 using Uintra.Navigation;
 using Uintra.Navigation.Configuration;
 using Umbraco.Core.Models;
@@ -18,19 +17,16 @@ namespace Compent.Uintra.Core.Navigation
     {
         private readonly IGroupHelper _groupHelper;
         private readonly IGroupService _groupService;
-        private readonly IIntranetMemberService<IGroupMember> _intranetMemberService;
 
         public SubNavigationModelBuilder(
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
             IGroupHelper groupHelper,
-            IGroupService groupService,
-            IIntranetMemberService<IGroupMember> intranetMemberService)
+            IGroupService groupService)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
             _groupHelper = groupHelper;
             _groupService = groupService;
-            _intranetMemberService = intranetMemberService;
         }
 
         public override SubNavigationMenuModel GetMenu()

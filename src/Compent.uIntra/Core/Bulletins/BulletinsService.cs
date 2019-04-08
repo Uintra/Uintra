@@ -25,7 +25,6 @@ using Uintra.Likes;
 using Uintra.Notification;
 using Uintra.Notification.Base;
 using Uintra.Search;
-using Uintra.Subscribe;
 using Uintra.Tagging.UserTags;
 using static Uintra.Notification.Configuration.NotificationTypeEnum;
 
@@ -58,7 +57,6 @@ namespace Compent.Uintra.Core.Bulletins
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             ICommentsService commentsService,
             ILikesService likesService,
-            ISubscribeService subscribeService,
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,

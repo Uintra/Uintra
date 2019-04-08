@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Controls.FileUpload;
-using Uintra.Core.Extensions;
 using Uintra.Core.Media;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;

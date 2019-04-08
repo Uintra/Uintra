@@ -8,7 +8,6 @@ using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.Models;
 using Uintra.Core.Persistence;
 using Uintra.Core.User;
-using Uintra.Groups.Permissions;
 using Uintra.Groups.Sql;
 using Umbraco.Core.Models;
 using static LanguageExt.Prelude;
