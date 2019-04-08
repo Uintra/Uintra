@@ -226,7 +226,7 @@ namespace Uintra.Users
             var memberPhotoUrl = memberPhotoId
                 .Bind(id => Optional(_umbracoHelper.TypedMedia(id)?.Url));
 
-            var memberGroups = _intranetMemberGroupService.GetForMember(member.Id).ToList();
+            var memberGroups = _intranetMemberGroupService.GetForMember(member.Id).ToArray();
 
             var mappedMember = new T
             {

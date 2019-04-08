@@ -17,7 +17,7 @@ namespace Uintra.Core.User
         string Department { get; set; }
         Option<string> Photo { get; set; }
         Option<int> PhotoId { get; set; }
-        IEnumerable<IntranetMemberGroup> Groups { get; set; }
+        IntranetMemberGroup[]  Groups { get; set; }
         Option<IIntranetUser> RelatedUser { get; set; }
         int UmbracoId { get; set; }
         bool Inactive { get; set; }
