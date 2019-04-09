@@ -67,7 +67,7 @@ namespace Uintra.Core.Extensions
 
             if (!appSettings.DaytimeSavingOffset && source.IsDaylightSavingTime())
             {
-                var currentYear = DateTime.UtcNow.Year;
+                var currentYear = DateTime.Now.Year;
 
                 var corrected = TimeZoneInfo.Local.GetAdjustmentRules()
                     .Where(adjustmentRule => adjustmentRule.DateStart.Year <= currentYear && adjustmentRule.DateEnd.Year >= currentYear)
