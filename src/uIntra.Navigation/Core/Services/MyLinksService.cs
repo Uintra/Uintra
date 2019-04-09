@@ -44,7 +44,7 @@ namespace Uintra.Navigation
                 UserId = model.UserId,
                 ContentId = model.ContentId,
                 QueryString = model.QueryString.Trim('?'),
-                CreatedDate = DateTime.Now,
+                CreatedDate = DateTime.UtcNow,
                 ActivityId = model.ActivityId
             };
 

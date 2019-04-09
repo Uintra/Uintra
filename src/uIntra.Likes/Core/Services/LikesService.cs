@@ -55,7 +55,7 @@ namespace Uintra.Likes
                     Id = Guid.NewGuid(),
                     EntityId = entityId,
                     UserId = userId,
-                    CreatedDate = DateTime.Now
+                    CreatedDate = DateTime.UtcNow
                 };
 
                 _likesRepository.Add(like);

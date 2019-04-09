@@ -54,12 +54,11 @@ namespace Uintra.Core.Extensions
             return date.ToString(dateTimeFormatProvider.DateTimeValuePickerFormat);
         }
 
-        public static DateTime WithUserOffset(this DateTime date)
+        public static DateTime WithUserOffset(this DateTime utc)
         {
-            var timezoneOffsetProvider = HttpContext.Current.GetService<ITimezoneOffsetProvider>();
-            var offset = timezoneOffsetProvider.GetTimezoneOffset();
+            var clientTimezoneProvider = HttpContext.Current.GetService<IClientTimezoneProvider>();
 
-            return date + offset;
+            return TimeZoneInfo.ConvertTimeFromUtc(utc, clientTimezoneProvider.ClientTimezone);
         }
 
         public static DateTime WithCorrectedDaylightSavingTime(this DateTime utc, DateTime source)
@@ -68,7 +67,7 @@ namespace Uintra.Core.Extensions
 
             if (!appSettings.DaytimeSavingOffset && source.IsDaylightSavingTime())
             {
-                var currentYear = DateTime.Now.Year;
+                var currentYear = DateTime.UtcNow.Year;
 
                 var corrected = TimeZoneInfo.Local.GetAdjustmentRules()
                     .Where(adjustmentRule => adjustmentRule.DateStart.Year <= currentYear && adjustmentRule.DateEnd.Year >= currentYear)

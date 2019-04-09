@@ -72,7 +72,7 @@ namespace Compent.Uintra.Core.Helpers
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
                 NotifierId = notifierId,
-                CreatedDate = DateTime.Now,
+                CreatedDate = DateTime.UtcNow,
                 Url = _linkService.GetLinks(activity.Id).Details,
                 IsPinned = activity.IsPinned,
                 IsPinActual = activity.IsPinActual

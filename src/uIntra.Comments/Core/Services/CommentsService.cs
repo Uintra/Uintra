@@ -67,7 +67,7 @@ namespace Uintra.Comments
         public virtual CommentModel Create(CommentCreateDto dto)
         {
             var entity = Map(dto);
-            entity.CreatedDate = entity.ModifyDate = DateTime.Now.ToUniversalTime();
+            entity.CreatedDate = entity.ModifyDate = DateTime.UtcNow;
             _commentsRepository.Add(entity);
             if (dto.LinkPreviewId.HasValue)
             {
@@ -91,7 +91,7 @@ namespace Uintra.Comments
             var comment = _commentsRepository.Get(dto.Id);
             var commentLinkPreview = _commentLinkPreviewService.GetCommentsLinkPreview(comment.Id);
 
-            comment.ModifyDate = DateTime.Now.ToUniversalTime();
+            comment.ModifyDate = DateTime.UtcNow;
             comment.Text = dto.Text;
 
             _commentsRepository.Update(comment);

@@ -192,7 +192,7 @@ namespace Compent.Uintra.Core.News
             news == null || news.IsHidden;
 
         private static bool IsActualPublishDate(INewsBase news) => 
-            DateTime.Compare(news.PublishDate, DateTime.Now) <= 0;
+            DateTime.Compare(news.PublishDate, DateTime.UtcNow) <= 0;
 
         private SearchableUintraActivity Map(Entities.News news)
         {
@@ -211,7 +211,7 @@ namespace Compent.Uintra.Core.News
                 return BroadcastResult.Success;
             }
 
-            entity.ModifyDate = DateTime.Now;
+            entity.ModifyDate = DateTime.UtcNow;
             return BroadcastResult.Success;
         }
     }

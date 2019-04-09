@@ -3,9 +3,9 @@ using System;
 
 namespace Uintra.Core
 {
-    public interface ITimezoneOffsetProvider
+    public interface IClientTimezoneProvider
     {
-        void SetTimezoneOffset(int offsetInMinutes);
-        TimeSpan GetTimezoneOffset();
+        void SetClientTimezone(string ianaTimezoneId);
+        TimeZoneInfo ClientTimezone { get; }
     }
 }

@@ -646,7 +646,7 @@
     <Content Include="App_Plugins\Core\Content\scripts\readonlyClickWarning.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ScrollToTop.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ShowContent.js" />
-    <Content Include="App_Plugins\Core\Content\scripts\TimezoneOffsetSetter.js" />
+    <Content Include="App_Plugins\Core\Content\scripts\clientTimezoneSetter.js" />
     <Content Include="App_Plugins\Core\Content\scripts\UmbracoAjaxForm.js" />
     <Content Include="App_Plugins\Core\Content\scripts\ValidationExtensions.js" />
     <Content Include="App_Plugins\Core\Content\styles\Core.css" />

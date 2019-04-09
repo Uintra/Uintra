@@ -419,7 +419,7 @@ namespace Compent.Uintra
             kernel.Bind<INavigationApplicationSettings>().To<NavigationApplicationSettings>().InSingletonScope();
 
             kernel.Bind<IDateTimeFormatProvider>().To<DateTimeFormatProvider>().InRequestScope();
-            kernel.Bind<ITimezoneOffsetProvider>().To<TimezoneOffsetProvider>().InRequestScope();
+            kernel.Bind<IClientTimezoneProvider>().To<ClientTimezoneProvider>().InRequestScope();
             kernel.Bind<ICookieProvider>().To<CookieProvider>().InRequestScope();
 
             //type providers

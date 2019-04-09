@@ -31,7 +31,7 @@ namespace Uintra.Core.MigrationHistories
             {
                 Name = name,
                 Version = version.ToString(),
-                CreateDate = DateTime.Now
+                CreateDate = DateTime.UtcNow
             };
 
             _migrationHistoryRepository.Add(migrationHistory);
@@ -43,7 +43,7 @@ namespace Uintra.Core.MigrationHistories
             {
                 Name = h.name,
                 Version = h.version.ToString(),
-                CreateDate = DateTime.Now
+                CreateDate = DateTime.UtcNow
             });
             _migrationHistoryRepository.Add(migrationHistory);
         }

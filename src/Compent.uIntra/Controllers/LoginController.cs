@@ -24,7 +24,7 @@ namespace Compent.Uintra.Controllers
     [ThreadCulture]
     public class LoginController : LoginControllerBase
     {
-        private readonly ITimezoneOffsetProvider _timezoneOffsetProvider;
+        private readonly IClientTimezoneProvider _clientTimezoneProvider;
         private readonly IIntranetLocalizationService _intranetLocalizationService;
         private readonly INotificationsService _notificationsService;
         private readonly IMemberServiceHelper _memberServiceHelper;
@@ -35,7 +35,7 @@ namespace Compent.Uintra.Controllers
         protected override string LoginViewPath => "~/Views/Login/Login.cshtml";
 
         public LoginController(
-            ITimezoneOffsetProvider timezoneOffsetProvider,
+            IClientTimezoneProvider clientTimezoneProvider,
             IIntranetLocalizationService intranetLocalizationService,
             INotificationsService notificationsService,
             IMemberServiceHelper memberServiceHelper,
@@ -43,9 +43,9 @@ namespace Compent.Uintra.Controllers
             ICacheableIntranetMemberService cacheableIntranetMemberService,
             IApplicationSettings applicationSettings,
             IUintraInformationService uintraInformationService)
-            : base(timezoneOffsetProvider, intranetLocalizationService, applicationSettings)
+            : base(clientTimezoneProvider, intranetLocalizationService, applicationSettings)
         {
-            _timezoneOffsetProvider = timezoneOffsetProvider;
+            _clientTimezoneProvider = clientTimezoneProvider;
             _intranetLocalizationService = intranetLocalizationService;
             _notificationsService = notificationsService;
             _memberServiceHelper = memberServiceHelper;
@@ -55,7 +55,7 @@ namespace Compent.Uintra.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> IdTokenVerification(string idToken, int clientTimezoneOffset)
+        public async Task<JsonResult> IdTokenVerification(string idToken, string clientTimezoneId)
         {
             var payload = await GoogleJsonWebSignature.ValidateAsync(idToken,
                 new GoogleJsonWebSignature.ValidationSettings()
@@ -68,7 +68,7 @@ namespace Compent.Uintra.Controllers
                 if (member != null)
                 {
                     FormsAuthentication.SetAuthCookie(member.Username, true);
-                    _timezoneOffsetProvider.SetTimezoneOffset(clientTimezoneOffset);
+                    _clientTimezoneProvider.SetClientTimezone(clientTimezoneId);
 
                     if (!_memberServiceHelper.IsFirstLoginPerformed(member))
                     {
@@ -124,7 +124,7 @@ namespace Compent.Uintra.Controllers
 
             if (Members.Login(model.Login, model.Password))
             {
-                _timezoneOffsetProvider.SetTimezoneOffset(model.ClientTimezoneOffset);
+                _clientTimezoneProvider.SetClientTimezone(model.ClientTimezoneId);
 
                 var member = _memberService.GetByUsername(model.Login);
                 if (!_memberServiceHelper.IsFirstLoginPerformed(member))

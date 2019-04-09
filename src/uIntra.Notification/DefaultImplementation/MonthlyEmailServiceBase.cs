@@ -35,7 +35,7 @@ namespace Uintra.Notification
 
         public void CreateAndSendMail()
         {
-            var currentDate = DateTime.Now;
+            var currentDate = DateTime.UtcNow;
 
             var allUsers = _intranetMemberService.GetAll();
             var monthlyMails = allUsers
@@ -110,7 +110,7 @@ namespace Uintra.Notification
 
         protected virtual bool IsSendingDay()
         {
-            var currentDate = DateTime.Now;
+            var currentDate = DateTime.UtcNow;
 
             return currentDate.Day != _applicationSettings.MonthlyEmailJobDay;
         }

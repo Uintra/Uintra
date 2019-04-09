@@ -65,7 +65,7 @@ namespace Uintra.Core.Web
                 new IntranetPinActivityModel
                 {
                     IsPinned = isPinned,
-                    EndPinDate = endPinDate ?? DateTime.Now
+                    EndPinDate = endPinDate ?? DateTime.UtcNow
                 });
         }
 

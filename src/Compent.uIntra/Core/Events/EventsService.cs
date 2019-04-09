@@ -308,7 +308,7 @@ namespace Compent.Uintra.Core.Events
                 return BroadcastResult.Success;
             }
 
-            entity.ModifyDate = DateTime.Now;
+            entity.ModifyDate = DateTime.UtcNow;
             return BroadcastResult.Success;
         }
     }

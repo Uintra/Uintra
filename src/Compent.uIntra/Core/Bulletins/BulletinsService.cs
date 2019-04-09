@@ -186,7 +186,7 @@ namespace Compent.Uintra.Core.Bulletins
             !IsBulletinHidden(bulletin) && IsActualPublishDate(bulletin);
 
         private static bool IsActualPublishDate(Bulletin bulletin) =>
-            DateTime.Compare(bulletin.PublishDate, DateTime.Now) <= 0;
+            DateTime.Compare(bulletin.PublishDate, DateTime.UtcNow) <= 0;
 
         private SearchableUintraActivity Map(Bulletin bulletin)
         {
@@ -205,7 +205,7 @@ namespace Compent.Uintra.Core.Bulletins
                 return BroadcastResult.Success;
             }
 
-            entity.ModifyDate = DateTime.Now;
+            entity.ModifyDate = DateTime.UtcNow;
             return BroadcastResult.Success;
         }
     }

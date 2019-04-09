@@ -39,7 +39,7 @@ namespace Uintra.Groups
 
         public Guid Create(GroupModel model)
         {
-            var date = DateTime.Now;
+            var date = DateTime.UtcNow;
             var group = model.Map<Group>();
             group.CreatedDate = date;
             group.UpdatedDate = date;
@@ -53,7 +53,7 @@ namespace Uintra.Groups
 
         public void Edit(GroupModel model)
         {
-            var date = DateTime.Now;
+            var date = DateTime.UtcNow;
             var group = model.Map<Group>();
             group.UpdatedDate = date;
             _groupRepository.Update(group);

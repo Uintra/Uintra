@@ -91,7 +91,7 @@ namespace Uintra.Events.Web
 
         protected virtual (IList<ComingEventViewModel> events, int totalCount) GetComingEvents(int eventsAmount)
         {
-            var events = GetComingEvents(DateTime.Now).AsList();
+            var events = GetComingEvents(DateTime.UtcNow).AsList();
 
             var ownersDictionary = _intranetMemberService.GetMany(events.Select(e => e.OwnerId)).ToDictionary(c => c.Id);
 
