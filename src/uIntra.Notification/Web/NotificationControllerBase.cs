@@ -108,7 +108,7 @@ namespace Uintra.Notification.Web
                 _uiNotifierService.Notify(notNotifiedNotifications);
             }
 
-            var notificationsViewModels = notificationsArray.Select(MapNotificationToViewModel).ToArray();
+            var notificationsViewModels = notificationsArray.Take(itemsCountForPopup).Select(MapNotificationToViewModel).ToArray();
 
             var result = new NotificationListViewModel
             {
