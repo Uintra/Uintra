@@ -200,7 +200,7 @@ namespace Uintra.Notification.Web
             notifier.IfSome(user =>
             {
                 result.NotifierId = user.Id;
-                result.NotifierPhoto = user.Photo.IfNone(() => null);
+                result.NotifierPhoto = user.Photo.IfNone(() => string.Empty);
                 result.NotifierDisplayedName = user.DisplayedName;
             });
 
