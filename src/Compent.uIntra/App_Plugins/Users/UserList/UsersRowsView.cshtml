@@ -1,4 +1,5 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Users.UserList.MembersRowsViewModel>
+@using System.Web.Mvc.Html
 @using Uintra.Users.UserList
 @using Uintra.Core.Extensions
 
@@ -74,7 +75,7 @@
                     break;
                 case ColumnType.GroupManagement:
                     <div class="users-table__cell users-table__cell--btn">
-                        @if ((Model.CurrentMember.Id == user.Member.Id || Model.IsCurrentMemberAdmin) && !user.IsGroupAdmin)
+                        @if(Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != user.Member.Id )
                         {
                             <button class="users-table__delete js-user-list-delete">X</button>
                         }

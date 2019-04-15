@@ -16,6 +16,7 @@ using Uintra.Search;
 using Uintra.Users.UserList;
 using Uintra.Users.Web;
 using static LanguageExt.Prelude;
+using static Uintra.Groups.GroupModelGetters;
 
 namespace Compent.Uintra.Controllers
 {
@@ -85,8 +86,8 @@ namespace Compent.Uintra.Controllers
         {
             var model = base.GetUsersRowsViewModel();
             model.CurrentMember = _intranetMemberService.GetCurrentMember().Map<MemberViewModel>();
-            model.IsCurrentMemberAdmin = CurrentGroup().Map(CreatorId) == model.CurrentMember.Id;
-            model.GroupId = CurrentGroup().Map(GroupId).Match(id => id, () => Guid.Empty);
+            model.IsCurrentMemberGroupAdmin = CurrentGroup().Map(CreatorId) == model.CurrentMember.Id;
+            model.GroupId = CurrentGroup().Map(GroupId).IfNone(Guid.Empty);
 
             return model;
         }
@@ -105,7 +106,7 @@ namespace Compent.Uintra.Controllers
             return false;
         }
 
-        private Option<Guid> CurrentGroupId()
+        private static Option<Guid> CurrentGroupId()
         {
             var result =
              System.Web.HttpContext.Current.Request
@@ -113,10 +114,6 @@ namespace Compent.Uintra.Controllers
                 .Apply(parseGuid);
             return result;
         }
-
-        private Guid CreatorId(GroupModel group) => group.CreatorId;
-
-        private Guid GroupId(GroupModel group) => group.Id;
 
         private Option<GroupModel> CurrentGroup() =>
             CurrentGroupId().Map(_groupService.Get);

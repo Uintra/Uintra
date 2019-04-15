@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using LanguageExt;
+using Uintra.Core.Extensions;
 using Uintra.Panels.Core.Models.Table;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Panels.Core.PresentationBuilders
 {
@@ -38,7 +41,7 @@ namespace Uintra.Panels.Core.PresentationBuilders
         public virtual List<List<CellViewModel>> Map(IEnumerable<IEnumerable<CellModel>> rows)
         {
             var result = rows.Select(Map)
-                .ToList();            
+                .ToList();
 
             return result;
         }
@@ -57,44 +60,26 @@ namespace Uintra.Panels.Core.PresentationBuilders
             var text = Regex.Replace(model.Value, $@"\{BoldSymbol}([^*]+)\{BoldSymbol}",
                 match => $"{BoldTagOpen}{match.Groups[1].Value}{BoldTagClose}");
 
+            var (value, align) = EjectAlign(text);
+
             var result = new CellViewModel
             {
-                Value = EjectAlign(text, out var align),
+                Value = value,
                 Align = align
             };
 
             return result;
         }
 
-        private string EjectAlign(string text, out string align)
-        {
-            if (TryEjectAlignSymbol(text, AlignRightSymbol, out var result))
-            {
-                align = AlignRight;
-                return result;
-            }
+        private (string result, string align) EjectAlign(string text) =>
+            TryEjectAlignSymbol(text, AlignRightSymbol)
+                .Choose(() => TryEjectAlignSymbol(text, AlignCenterSymbol))
+                .IfNone(() => (text, AlignLeft));
 
-            if (TryEjectAlignSymbol(text, AlignCenterSymbol, out result))
-            {
-                align = AlignCenter;
-                return result;
-            }
-
-            align = AlignLeft;
-            return text;
-        }
-
-        private bool TryEjectAlignSymbol(string text, string symbol, out string result)
+        private static Option<(string text, string align)> TryEjectAlignSymbol(string text, string symbol)
         {
             var index = text.IndexOf(symbol, StringComparison.InvariantCulture);
-            if (index == -1)
-            {
-                result = string.Empty;
-                return false;
-            }
-
-            result = text.Remove(index, symbol.Length);
-            return true;
+            return index == -1 ? None : Some((text.Remove(index, symbol.Length), symbol));
         }
     }
 }

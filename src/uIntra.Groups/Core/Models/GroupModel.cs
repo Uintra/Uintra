@@ -22,4 +22,12 @@ namespace Uintra.Groups
 
         public int GroupTypeId { get; set; }
     }
+
+
+    public static class GroupModelGetters
+    {
+        public static Guid CreatorId(GroupModel group) => group.CreatorId;
+
+        public static Guid GroupId(GroupModel group) => group.Id;
+    }
 }

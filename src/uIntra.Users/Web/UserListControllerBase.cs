@@ -28,7 +28,7 @@ namespace Uintra.Users.Web
 
         public virtual ActionResult Render(UserListModel model)
         {
-            var selectedColumns = ReflectionHelper.GetProfileColumns();
+            var selectedColumns = ReflectionHelper.GetProfileColumns().ToArray();
             var orderByColumn = selectedColumns.FirstOrDefault(i => i.SupportSorting);
 
             var groupId = Request.QueryString["groupId"].Apply(parseGuid);

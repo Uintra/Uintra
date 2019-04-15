@@ -10,7 +10,7 @@ namespace Uintra.Users.UserList
         public IEnumerable<MemberModel> Members { get; set; }
         public bool IsLastRequest { get; set; }
         public MemberViewModel CurrentMember { get; set; }
-        public bool IsCurrentMemberAdmin { get; set; }
+        public bool IsCurrentMemberGroupAdmin { get; set; }
         public Guid? GroupId { get; set; }
     }
 }
