@@ -143,7 +143,7 @@
         }
 
         $scope.processCaptionChange = function (link) {
-            link.caption = encode(link.prettyCaption);
+            link.caption = (link.prettyCaption);
         }
 
         $scope.processEmailChange = function (link) {
