@@ -2,8 +2,7 @@
     var holder = document.getElementsByClassName("clientTimezoneId");
 
     if (holder.length) {
-        alert(moment());
-        holder[0].value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        holder[0].value = moment.tz.guess();
     }
 }
 
