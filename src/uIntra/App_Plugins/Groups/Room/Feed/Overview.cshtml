@@ -6,7 +6,7 @@
 @model Uintra.Groups.GroupFeedOverviewModel
 
 <section class="content _central-feed">
-    @if (Model.IsGroupMember)
+    @if (Model.IsGroupMember && (Model.TabsWithCreateUrl.Any() || Model.CanCreateBulletin))
     {
         <ul class="feed-create js-feed-create">
             @foreach (var typeModel in Model.TabsWithCreateUrl)
@@ -15,10 +15,12 @@
                     <a class="btn" href="@typeModel.Links.Create">@Html.Localize($"CentralFeed.CreateLink_{typeModel.Type.ToString()}.lnk")</a>
                 </li>
             }
-
-            <li class="feed-create__frame">
-                <a class="btn _submit js-bulletin-open">@Html.Localize("BulletinsCreate.ExpandBulletin.lbl")</a>
-            </li>
+            @if (Model.CanCreateBulletin)
+            {
+                <li class="feed-create__frame css-btn-bulletin">
+                    <a class="btn _submit js-bulletin-open">@Html.Localize("BulletinsCreate.ExpandBulletin.lbl")</a>
+                </li>
+            }
         </ul>
     }
 

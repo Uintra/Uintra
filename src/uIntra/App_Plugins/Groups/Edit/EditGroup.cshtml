@@ -30,7 +30,10 @@
             @Html.HiddenFor(s => s.MediaRootId)
             <input type="hidden" name="id" value="@Model.Id" />
             <input class="btn _submit js-submit" type="submit" value="@Html.Localize("GroupEdit.Update.btn")" />
-            <input class="btn js-group-hide" type="button" value="@Html.Localize("GroupEdit.Hide.btn")" data-id="@Model.Id" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")" data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" />
+            @if (Model.CanHide)
+            {
+                <input class="btn js-group-hide" type="button" value="@Html.Localize("GroupEdit.Hide.btn")" data-id="@Model.Id" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")" data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" />
+            }
         </div>
     }
 </div>
