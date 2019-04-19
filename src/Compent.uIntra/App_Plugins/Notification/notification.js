@@ -58,8 +58,10 @@ function initCustomControls() {
                 });
         } else location.reload(true); 
 
-        window.location.href = url;
-        location.reload(true);
+        if (window.location.href != url) {
+            window.location.href = url;
+        }
+        
     });
 }
 
