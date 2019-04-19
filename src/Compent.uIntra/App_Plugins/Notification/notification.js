@@ -49,19 +49,19 @@ function initCustomControls() {
         var $this = $(this);
         var delivered = $this.data("viewed");
         var url = $this.data("href");
-        //debugger;
         if (!delivered) {
             let data = { id: $this.data("id") };
             ajax.post('/umbraco/surface/Notification/View/', data)
                 .then(function () {
                     $this.attr("data-viewed", true);
-                });
-        } else location.reload(true); 
+                })
+            if (window.location.href != url) {
+                window.location.href = url;
+                location.reload(true);
+            }
+        } else { location.reload(true); }
+        window.location.href = url;
 
-        if (window.location.href != url) {
-            window.location.href = url;
-        }
-        
     });
 }
 
