@@ -112,8 +112,8 @@
     <Reference Include="EmailWorker.Data, Version=0.4.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EmailWorker.Data.0.4.2.4\lib\net45\EmailWorker.Data.dll</HintPath>
     </Reference>
-    <Reference Include="EmailWorker.Ninject, Version=0.0.4.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EmailWorker.Ninject.0.0.4.3\lib\net45\EmailWorker.Ninject.dll</HintPath>
+    <Reference Include="EmailWorker.Ninject, Version=0.0.4.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Ninject.0.0.4.4\lib\net45\EmailWorker.Ninject.dll</HintPath>
     </Reference>
     <Reference Include="EmailWorker.Web, Version=0.4.2.8, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EmailWorker.Web.0.4.2.8\lib\net45\EmailWorker.Web.dll</HintPath>
