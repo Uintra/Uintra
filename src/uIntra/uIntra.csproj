@@ -1200,25 +1200,6 @@
     <Content Include="..\Compent.uIntra\webpack.config.js">
       <Link>webpack.config.js</Link>
     </Content>
-    <Content Include="Web.config" />
-    <None Include="Web.Compent.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Dev.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.NuGet.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.PublicNuget.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <!-- <Compile Include="..\Compent.uIntra\Persistence\**\*.cs">
