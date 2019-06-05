@@ -443,8 +443,8 @@
     <Reference Include="Uintra.CentralFeed, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.CentralFeed.2.3.0\lib\net471\Uintra.CentralFeed.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Comments, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Comments.2.3.0\lib\net471\Uintra.Comments.dll</HintPath>
+    <Reference Include="Uintra.Comments, Version=2.3.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Comments.2.3.0.1\lib\net471\Uintra.Comments.dll</HintPath>
     </Reference>
     <Reference Include="Uintra.Core, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Core.2.3.0\lib\net471\Uintra.Core.dll</HintPath>
