@@ -1424,6 +1424,13 @@
       <Link>Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.designer.cs</Link>
       <DependentUpon>201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201903011404027_Permissions.cs">
+      <Link>Persistence\Sql\Migrations\201903011404027_Permissions.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201903011404027_Permissions.Designer.cs">
+      <Link>Persistence\Sql\Migrations\201903011404027_Permissions.Designer.cs</Link>
+      <DependentUpon>201903011404027_Permissions.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
     </Compile>
@@ -1478,6 +1485,10 @@
     <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.resx">
       <Link>Persistence\Sql\Migrations\201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.resx</Link>
       <DependentUpon>201808302105248_AddNotifierTypeWithDefaultToNotificationsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201903011404027_Permissions.resx">
+      <Link>Persistence\Sql\Migrations\201903011404027_Permissions.resx</Link>
+      <DependentUpon>201903011404027_Permissions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
