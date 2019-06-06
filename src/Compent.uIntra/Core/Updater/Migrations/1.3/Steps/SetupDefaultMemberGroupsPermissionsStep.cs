@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Uintra.Core.Exceptions;
 using Uintra.Core.Permissions;
 using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.Models;
@@ -13,20 +16,23 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
     {
         private readonly IIntranetMemberGroupService _intranetMemberGroupService;
         private readonly IPermissionsService _permissionsService;
+        private readonly IExceptionLogger _exceptionLogger;
 
         public SetupDefaultMemberGroupsPermissionsStep(
             IIntranetMemberGroupService intranetMemberGroupService,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService,
+            IExceptionLogger exceptionLogger)
         {
             _intranetMemberGroupService = intranetMemberGroupService;
             _permissionsService = permissionsService;
+            _exceptionLogger = exceptionLogger;
         }
 
         public ExecutionResult Execute()
         {
+            var memberGroups = _intranetMemberGroupService.GetAll().ToArray();
+            _exceptionLogger.Log(new Exception(memberGroups.Length + "_GROUPS"));
 
-            ApplicationContext.Current.Services.ContentService.RebuildXmlStructures();
-            var memberGroups = _intranetMemberGroupService.GetAll();
             var permissions = new List<PermissionUpdateModel>();
             foreach (var group in memberGroups)
             {
