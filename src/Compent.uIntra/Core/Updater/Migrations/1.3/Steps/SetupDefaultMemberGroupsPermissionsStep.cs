@@ -31,7 +31,14 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
         public ExecutionResult Execute()
         {
             var memberGroups = _intranetMemberGroupService.GetAll().ToArray();
-            _exceptionLogger.Log(new Exception(memberGroups.Length + "_GROUPS"));
+            if (memberGroups.Length > 0)
+            {
+                throw new Exception("empty groups");
+            }
+            else
+            {
+                throw new Exception(memberGroups.Length + "_groups");
+            }
 
             var permissions = new List<PermissionUpdateModel>();
             foreach (var group in memberGroups)
