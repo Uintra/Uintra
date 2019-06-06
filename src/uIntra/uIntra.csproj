@@ -1187,6 +1187,9 @@
     <Content Include="App_Plugins\Users\backoffice\GoogleAuthWindow.cshtml" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\Members\package.manifest" />
+    <Content Include="..\Compent.uIntra\Core\Updater\Migrations\1.3\PreValues\forbiddenPageGrid.json">
+      <Link>Core\Updater\Migrations\1.3\PreValues\forbiddenPageGrid.json</Link>
+    </Content>
     <None Include="Uintra.props">
       <SubType>Designer</SubType>
     </None>
