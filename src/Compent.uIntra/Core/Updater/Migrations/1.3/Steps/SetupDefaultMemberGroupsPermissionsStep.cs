@@ -2,6 +2,7 @@
 using Uintra.Core.Permissions;
 using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.Models;
+using Umbraco.Core;
 using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.UsersInstallationConstants;
 using static Uintra.Core.Permissions.PermissionActionEnum;
 using Resource = Uintra.Core.Permissions.PermissionResourceTypeEnum;
@@ -23,6 +24,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
 
         public ExecutionResult Execute()
         {
+
+            ApplicationContext.Current.Services.ContentService.RebuildXmlStructures();
             var memberGroups = _intranetMemberGroupService.GetAll();
             var permissions = new List<PermissionUpdateModel>();
             foreach (var group in memberGroups)
