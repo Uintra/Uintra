@@ -126,8 +126,16 @@ namespace Uintra.Core.Permissions.Implementation
         public virtual void Save(IEnumerable<PermissionUpdateModel> permissions)
         {
             var entities = permissions.Select(CreateEntity).ToArray();
-            _permissionsRepository.Add(entities);
-            throw new Exception(entities.Select(e => e.Id).JoinToString());
+            try
+            {
+               _permissionsRepository.Add(entities);
+                throw new Exception("foo");
+            }
+            finally
+            {
+                throw new Exception(entities.Select(e => e.Id).JoinToString());
+            }           
+            
             CurrentCache = null;
         }
 
@@ -183,7 +191,6 @@ namespace Uintra.Core.Permissions.Implementation
         public static PermissionEntity CreateEntity(PermissionUpdateModel update) =>
             new PermissionEntity
             {
-                Id = Guid.NewGuid(),
                 IntranetMemberGroupId = update.Group.Id,
                 ActionId = update.SettingIdentity.Action.ToInt(),
                 ResourceTypeId = update.SettingIdentity.ResourceType.ToInt(),
