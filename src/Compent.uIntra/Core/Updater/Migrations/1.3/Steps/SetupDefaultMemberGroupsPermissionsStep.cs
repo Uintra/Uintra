@@ -40,20 +40,20 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
                 {
                     case MemberGroups.GroupWebMaster: 
                         permissions.AddRange(SetupWebMasterMemberGroup(group));
-                        throw new Exception(group.Name);
                         break;
                     case MemberGroups.GroupUiPublisher:
                         permissions.AddRange(SetupUiPublisherMemberGroup(group));
-                        throw new Exception(group.Name);
                         break;
                     case MemberGroups.GroupUiUser:
                         permissions.AddRange(SetupUiUserMemberGroup(group));
-                        throw new Exception(group.Name);
                         break; 
                     default:
                         break;
                 }
             }
+
+            throw new Exception($"{memberGroups.Length}-{permissions.Count}");
+
             _permissionsService.Save(permissions);
             return ExecutionResult.Success;
         }
