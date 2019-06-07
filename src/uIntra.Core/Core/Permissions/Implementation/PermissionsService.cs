@@ -59,7 +59,7 @@ namespace Uintra.Core.Permissions.Implementation
             }
         }
 
-        public virtual IEnumerable<PermissionModel> GetAll() => 
+        public virtual IEnumerable<PermissionModel> GetAll() =>
             CurrentCache;
 
         public virtual IEnumerable<PermissionManagementModel> GetForGroup(IntranetMemberGroup group)
@@ -90,7 +90,7 @@ namespace Uintra.Core.Permissions.Implementation
             var actualEntity = storedEntity.Match(
                 entity =>
                 {
-                    if (!update.SettingValues.IsAllowed  && entity.IsAllowed)
+                    if (!update.SettingValues.IsAllowed && entity.IsAllowed)
                     {
                         var descendants = _permissionSettingsSchema.GetDescendants(update.SettingIdentity)
                             .Select(i => new PermissionEntity
@@ -127,7 +127,7 @@ namespace Uintra.Core.Permissions.Implementation
         {
             var entities = permissions.Select(CreateEntity).ToArray();
             _permissionsRepository.Add(entities);
-            throw new Exception(entities.Select(e=>e.Id).JoinToString());
+            throw new Exception(entities.Select(e => e.Id).JoinToString());
             CurrentCache = null;
         }
 
@@ -183,6 +183,7 @@ namespace Uintra.Core.Permissions.Implementation
         public static PermissionEntity CreateEntity(PermissionUpdateModel update) =>
             new PermissionEntity
             {
+                Id = Guid.NewGuid(),
                 IntranetMemberGroupId = update.Group.Id,
                 ActionId = update.SettingIdentity.Action.ToInt(),
                 ResourceTypeId = update.SettingIdentity.ResourceType.ToInt(),

@@ -124,7 +124,9 @@ namespace Uintra.Core.Persistence
 
         public virtual void Save()
         {
-            try
+            _dbContext.SaveChanges();
+
+            /*try
             {
                 _dbContext.SaveChanges();
             }
@@ -140,7 +142,7 @@ namespace Uintra.Core.Persistence
                         entry.State = EntityState.Added;
                 }
                 _dbContext.SaveChanges();
-            }
+            }*/
         }
 
         public virtual void UpdateProperty<TProperty>(T entity, Expression<Func<T, TProperty>> property)
