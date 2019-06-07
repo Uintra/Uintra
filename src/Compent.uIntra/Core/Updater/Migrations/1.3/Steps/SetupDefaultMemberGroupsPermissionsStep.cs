@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LanguageExt;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Exceptions;
@@ -9,127 +10,103 @@ using Umbraco.Core;
 using static Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants.UsersInstallationConstants;
 using static Uintra.Core.Permissions.PermissionActionEnum;
 using Resource = Uintra.Core.Permissions.PermissionResourceTypeEnum;
-
+using static LanguageExt.Prelude;
 namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
 {
     public class SetupDefaultMemberGroupsPermissionsStep : IMigrationStep
     {
         private readonly IIntranetMemberGroupService _intranetMemberGroupService;
         private readonly IPermissionsService _permissionsService;
-        private readonly IExceptionLogger _exceptionLogger;
 
         public SetupDefaultMemberGroupsPermissionsStep(
             IIntranetMemberGroupService intranetMemberGroupService,
-            IPermissionsService permissionsService,
-            IExceptionLogger exceptionLogger)
+            IPermissionsService permissionsService)
         {
             _intranetMemberGroupService = intranetMemberGroupService;
             _permissionsService = permissionsService;
-            _exceptionLogger = exceptionLogger;
         }
 
         public ExecutionResult Execute()
         {
-            var memberGroups = _intranetMemberGroupService.GetAll().ToArray();
+            var memberGroups = _intranetMemberGroupService.GetAll();
 
-            var permissions = new List<PermissionUpdateModel>();
-            foreach (var group in memberGroups)
+            var permissions = memberGroups.Choose(group =>
             {
-
                 switch (group.Name)
                 {
-                    case MemberGroups.GroupWebMaster: 
-                        permissions.AddRange(SetupWebMasterMemberGroup(group));
-                        break;
+                    case MemberGroups.GroupWebMaster:
+                        return Some(SetupWebMasterMemberGroup(group));
                     case MemberGroups.GroupUiPublisher:
-                        permissions.AddRange(SetupUiPublisherMemberGroup(group));
-                        break;
+                        return Some(SetupUiPublisherMemberGroup(group));
                     case MemberGroups.GroupUiUser:
-                        permissions.AddRange(SetupUiUserMemberGroup(group));
-                        break; 
+                        return Some(SetupUiUserMemberGroup(group));
                     default:
-                        break;
+                        return None;
                 }
-            }
-
-            throw new Exception($"{memberGroups.Length}-{permissions.Count}");
+            }).SelectMany(identity);
 
             _permissionsService.Save(permissions);
             return ExecutionResult.Success;
         }
 
-        private IEnumerable<PermissionUpdateModel> SetupWebMasterMemberGroup(IntranetMemberGroup group)
+        private static IEnumerable<PermissionUpdateModel> SetupWebMasterMemberGroup(IntranetMemberGroup group)
         {
-            var groupPermissions = new List<PermissionUpdateModel>();
-            groupPermissions.AddRange(new[]
-            {
-                CreatePermission(group, Resource.Bulletins, View),
-                CreatePermission(group, Resource.Bulletins, Create),
-                CreatePermission(group, Resource.Bulletins, Edit),
-                CreatePermission(group, Resource.Bulletins, Delete),
-                CreatePermission(group, Resource.Bulletins, EditOther),
-                CreatePermission(group, Resource.Bulletins, DeleteOther),
-                CreatePermission(group, Resource.Events, View),
-                CreatePermission(group, Resource.Events, Create),
-                CreatePermission(group, Resource.Events, Edit),
-                CreatePermission(group, Resource.Events, Hide),
-                CreatePermission(group, Resource.Events, HideOther),
-                CreatePermission(group, Resource.Events, EditOther),
-                CreatePermission(group, Resource.Events, EditOwner),
-                CreatePermission(group, Resource.News, View),
-                CreatePermission(group, Resource.News, Create),
-                CreatePermission(group, Resource.News, Edit),
-                CreatePermission(group, Resource.News, EditOther),
-                CreatePermission(group, Resource.News, EditOwner),
-                CreatePermission(group, Resource.Groups, Create),
-                CreatePermission(group, Resource.Groups, Edit),
-                CreatePermission(group, Resource.Groups, Hide),
-                CreatePermission(group, Resource.Groups, HideOther),
-                CreatePermission(group, Resource.Groups, EditOther)
-            });
-            return groupPermissions;
+            yield return CreatePermission(group, Resource.Bulletins, View);
+            yield return CreatePermission(group, Resource.Bulletins, Create);
+            yield return CreatePermission(group, Resource.Bulletins, Edit);
+            yield return CreatePermission(group, Resource.Bulletins, Delete);
+            yield return CreatePermission(group, Resource.Bulletins, EditOther);
+            yield return CreatePermission(group, Resource.Bulletins, DeleteOther);
+            yield return CreatePermission(group, Resource.Events, View);
+            yield return CreatePermission(group, Resource.Events, Create);
+            yield return CreatePermission(group, Resource.Events, Edit);
+            yield return CreatePermission(group, Resource.Events, Hide);
+            yield return CreatePermission(group, Resource.Events, HideOther);
+            yield return CreatePermission(group, Resource.Events, EditOther);
+            yield return CreatePermission(group, Resource.Events, EditOwner);
+            yield return CreatePermission(group, Resource.News, View);
+            yield return CreatePermission(group, Resource.News, Create);
+            yield return CreatePermission(group, Resource.News, Edit);
+            yield return CreatePermission(group, Resource.News, EditOther);
+            yield return CreatePermission(group, Resource.News, EditOwner);
+            yield return CreatePermission(group, Resource.Groups, Create);
+            yield return CreatePermission(group, Resource.Groups, Edit);
+            yield return CreatePermission(group, Resource.Groups, Hide);
+            yield return CreatePermission(group, Resource.Groups, HideOther);
+            yield return CreatePermission(group, Resource.Groups, EditOther);
         }
 
-        private IEnumerable<PermissionUpdateModel> SetupUiPublisherMemberGroup(IntranetMemberGroup group)
+        private static IEnumerable<PermissionUpdateModel> SetupUiPublisherMemberGroup(IntranetMemberGroup group)
         {
-            var groupPermissions = new List<PermissionUpdateModel>();
-            groupPermissions.AddRange(new[]
-            {
-                CreatePermission(group, Resource.Bulletins, View),
-                CreatePermission(group, Resource.Bulletins, Create),
-                CreatePermission(group, Resource.Bulletins, Edit),
-                CreatePermission(group, Resource.Bulletins, Delete),
-                CreatePermission(group, Resource.Events, View),
-                CreatePermission(group, Resource.Events, Create),
-                CreatePermission(group, Resource.Events, Edit),
-                CreatePermission(group, Resource.Events, Hide),
-                CreatePermission(group, Resource.News, View),
-                CreatePermission(group, Resource.News, Create),
-                CreatePermission(group, Resource.News, Edit),
-                CreatePermission(group, Resource.Groups, Create),
-                CreatePermission(group, Resource.Groups, Edit),
-                CreatePermission(group, Resource.Groups, Hide)
-            });
-            return groupPermissions;
+            yield return CreatePermission(group, Resource.Bulletins, View);
+            yield return CreatePermission(group, Resource.Bulletins, Create);
+            yield return CreatePermission(group, Resource.Bulletins, Edit);
+            yield return CreatePermission(group, Resource.Bulletins, Delete);
+            yield return CreatePermission(group, Resource.Events, View);
+            yield return CreatePermission(group, Resource.Events, Create);
+            yield return CreatePermission(group, Resource.Events, Edit);
+            yield return CreatePermission(group, Resource.Events, Hide);
+            yield return CreatePermission(group, Resource.News, View);
+            yield return CreatePermission(group, Resource.News, Create);
+            yield return CreatePermission(group, Resource.News, Edit);
+            yield return CreatePermission(group, Resource.Groups, Create);
+            yield return CreatePermission(group, Resource.Groups, Edit);
+            yield return CreatePermission(group, Resource.Groups, Hide);
         }
 
-        private IEnumerable<PermissionUpdateModel> SetupUiUserMemberGroup(IntranetMemberGroup group)
+        private static IEnumerable<PermissionUpdateModel> SetupUiUserMemberGroup(IntranetMemberGroup group)
         {
-            var groupPermissions = new List<PermissionUpdateModel>();
-            groupPermissions.AddRange(new[]
-            {
-                CreatePermission(group, Resource.Bulletins, View),
-                CreatePermission(group, Resource.Bulletins, Create),
-                CreatePermission(group, Resource.Bulletins, Edit),
-                CreatePermission(group, Resource.Bulletins, Delete),
-                CreatePermission(group, Resource.Events, View),
-                CreatePermission(group, Resource.News, View)
-            });
-            return groupPermissions;
+            yield return CreatePermission(group, Resource.Bulletins, View);
+            yield return CreatePermission(group, Resource.Bulletins, Create);
+            yield return CreatePermission(group, Resource.Bulletins, Edit);
+            yield return CreatePermission(group, Resource.Bulletins, Delete);
+            yield return CreatePermission(group, Resource.Events, View);
+            yield return CreatePermission(group, Resource.News, View);
         }
 
-        private PermissionUpdateModel CreatePermission(IntranetMemberGroup group, 
-            PermissionResourceTypeEnum resource,
+        private static PermissionUpdateModel CreatePermission(
+            IntranetMemberGroup group,
+            Resource resource,
             PermissionActionEnum action,
             bool allowed = true, bool enabled = true)
         {
@@ -140,7 +117,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
 
         public void Undo()
         {
-            
+
         }
     }
 }
