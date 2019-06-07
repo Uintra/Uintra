@@ -128,14 +128,14 @@ namespace Uintra.Core.Permissions.Implementation
             var entities = permissions.Select(CreateEntity).ToArray();
             try
             {
-               _permissionsRepository.Add(entities);
+                entities.Iter(e => _permissionsRepository.Add(e));
                 throw new Exception("foo");
             }
             finally
             {
                 throw new Exception(entities.Select(e => e.Id).JoinToString());
-            }           
-            
+            }
+
             CurrentCache = null;
         }
 
