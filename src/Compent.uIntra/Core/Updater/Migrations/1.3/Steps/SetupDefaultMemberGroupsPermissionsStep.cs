@@ -32,18 +32,24 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
         {
             var memberGroups = _intranetMemberGroupService.GetAll().ToArray();
 
-            throw new Exception(memberGroups.Aggregate(string.Empty, (acc, e) => acc + $"{e.Id}+{e.Name}/"));
-
-
             var permissions = new List<PermissionUpdateModel>();
             foreach (var group in memberGroups)
             {
 
                 switch (group.Name)
                 {
-                    case MemberGroups.GroupWebMaster: permissions.AddRange(SetupWebMasterMemberGroup(group)); break;
-                    case MemberGroups.GroupUiPublisher: permissions.AddRange(SetupUiPublisherMemberGroup(group)); break;
-                    case MemberGroups.GroupUiUser: permissions.AddRange(SetupUiUserMemberGroup(group)); break; 
+                    case MemberGroups.GroupWebMaster: 
+                        permissions.AddRange(SetupWebMasterMemberGroup(group));
+                        throw new Exception(group.Name);
+                        break;
+                    case MemberGroups.GroupUiPublisher:
+                        permissions.AddRange(SetupUiPublisherMemberGroup(group));
+                        throw new Exception(group.Name);
+                        break;
+                    case MemberGroups.GroupUiUser:
+                        permissions.AddRange(SetupUiUserMemberGroup(group));
+                        throw new Exception(group.Name);
+                        break; 
                     default:
                         break;
                 }
