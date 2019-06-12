@@ -29,7 +29,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
 
         public ExecutionResult Execute()
         {
-            EnsureDbSchema();
+            System.Threading.Thread.Sleep(5000);
 
             var memberGroups = _intranetMemberGroupService.GetAll();
 
