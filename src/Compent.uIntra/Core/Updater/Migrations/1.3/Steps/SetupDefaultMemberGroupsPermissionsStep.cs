@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.Uintra.Persistence.Sql;
 using Uintra.Core.Exceptions;
 using Uintra.Core.Permissions;
 using Uintra.Core.Permissions.Interfaces;
@@ -28,9 +29,11 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
 
         public ExecutionResult Execute()
         {
+            new DbObjectContext().Database.Initialize(false);
+
             var memberGroups = _intranetMemberGroupService.GetAll();
 
-            var permissions = memberGroups.Choose(group =>
+            var permissions = memberGroups.Apply()  .Choose(group =>
             {
                 switch (group.Name)
                 {

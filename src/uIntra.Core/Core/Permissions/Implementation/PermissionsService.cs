@@ -125,16 +125,8 @@ namespace Uintra.Core.Permissions.Implementation
 
         public virtual void Save(IEnumerable<PermissionUpdateModel> permissions)
         {
-            var entities = permissions.Select(CreateEntity).ToArray();
-            try
-            {
-                entities.Iter(e => _permissionsRepository.Add(e));
-                throw new Exception("foo");
-            }
-            finally
-            {
-                throw new Exception(entities.Select(e => e.Id).JoinToString());
-            }
+            var entities = permissions.Select(CreateEntity);
+            _permissionsRepository.Add(entities);
 
             CurrentCache = null;
         }
