@@ -29,11 +29,11 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
 
         public ExecutionResult Execute()
         {
-            new DbObjectContext().Database.Initialize(false);
+            EnsureDbSchema();
 
             var memberGroups = _intranetMemberGroupService.GetAll();
 
-            var permissions = memberGroups.Apply()  .Choose(group =>
+            var permissions = memberGroups.Choose(group =>
             {
                 switch (group.Name)
                 {
@@ -117,6 +117,9 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
             var settings = PermissionSettingValues.Of(allowed, enabled);
             return PermissionUpdateModel.Of(group, settings, identity);
         }
+
+        private static void EnsureDbSchema() =>
+            new DbObjectContext().Database.Initialize(false);
 
         public void Undo()
         {
