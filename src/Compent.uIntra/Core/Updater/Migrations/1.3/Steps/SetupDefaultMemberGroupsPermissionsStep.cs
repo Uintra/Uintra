@@ -29,8 +29,6 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3.Steps
 
         public ExecutionResult Execute()
         {
-            System.Threading.Thread.Sleep(5000);
-
             var memberGroups = _intranetMemberGroupService.GetAll();
 
             var permissions = memberGroups.Choose(group =>

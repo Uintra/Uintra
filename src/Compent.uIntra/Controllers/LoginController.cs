@@ -97,6 +97,8 @@ namespace Compent.Uintra.Controllers
         [HttpGet]
         public ActionResult LoginUintra()
         {
+            ApplyPermissionMigration();
+
             if (Members.GetCurrentLoginStatus().IsLoggedIn)
             {
                 return Redirect(DefaultRedirectUrl);
