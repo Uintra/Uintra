@@ -49,7 +49,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3
             {
                 yield return new TranslationsUpdateStep(TranslationUpdateData);
                 yield return Resolve<CreateForbiddenErrorPageStep>();
-                yield return Resolve<SetupDefaultMemberGroupsPermissionsStep>();
+                //yield return Resolve<SetupDefaultMemberGroupsPermissionsStep>();
             }
         }
     }

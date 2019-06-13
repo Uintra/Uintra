@@ -4,17 +4,22 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Compent.uIntra.Core.Login.Models;
 using Compent.Uintra.Core.Login.Models;
+using Compent.Uintra.Core.Updater;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
+using Compent.Uintra.Core.Updater.Migrations._1._3;
+using Compent.Uintra.Core.Updater.Migrations._1._3.Steps;
 using Google.Apis.Auth;
 using Localization.Umbraco.Attributes;
 using Uintra.Core;
 using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Localization;
+using Uintra.Core.MigrationHistories;
 using Uintra.Notification;
 using Uintra.Notification.Base;
 using Uintra.Notification.Configuration;
 using Uintra.Users;
 using Uintra.Users.Web;
+using Umbraco.Core;
 using Umbraco.Core.Services;
 using static LanguageExt.Prelude;
 
@@ -31,6 +36,7 @@ namespace Compent.Uintra.Controllers
         private readonly IMemberService _memberService;
         private readonly ICacheableIntranetMemberService _cacheableIntranetMemberService;
         private readonly IUintraInformationService uintraInformationService;
+        private readonly IMigrationHistoryService _migrationHistoryService;
 
         protected override string LoginViewPath => "~/Views/Login/Login.cshtml";
 
@@ -42,7 +48,8 @@ namespace Compent.Uintra.Controllers
             IMemberService memberService,
             ICacheableIntranetMemberService cacheableIntranetMemberService,
             IApplicationSettings applicationSettings,
-            IUintraInformationService uintraInformationService)
+            IUintraInformationService uintraInformationService, 
+            IMigrationHistoryService migrationHistoryService)
             : base(clientTimezoneProvider, intranetLocalizationService, applicationSettings)
         {
             _clientTimezoneProvider = clientTimezoneProvider;
@@ -52,6 +59,7 @@ namespace Compent.Uintra.Controllers
             _memberService = memberService;
             _cacheableIntranetMemberService = cacheableIntranetMemberService;
             this.uintraInformationService = uintraInformationService;
+            _migrationHistoryService = migrationHistoryService;
         }
 
         [HttpPost]
@@ -99,7 +107,26 @@ namespace Compent.Uintra.Controllers
                 GoogleSettings = GetGoogleSettings(),
                 CurrentIntranetVersion = uintraInformationService.Version
             };
+
+
             return View(LoginViewPath, model);
+        }
+
+        public void ApplyPermissionMigration()
+        {
+            var migrationVersion = new Version("1.3");
+            var stepIdentity = typeof(SetupDefaultMemberGroupsPermissionsStep).Name;
+
+            if(!_migrationHistoryService.Exists(stepIdentity, migrationVersion))
+            {
+                var step = DependencyResolver.Current.GetService<SetupDefaultMemberGroupsPermissionsStep>();
+                var migrationItem = new MigrationItem(migrationVersion, step);
+                var (executionHistory, executionResult) = MigrationHandler.TryExecuteSteps(migrationItem.AsEnumerableOfOne());
+                if (executionResult.Type is ExecutionResultType.Success)
+                {
+                    _migrationHistoryService.Create(MigrationHandler.ToMigrationHistory(executionHistory));
+                }
+            }
         }
 
         [HttpPost]

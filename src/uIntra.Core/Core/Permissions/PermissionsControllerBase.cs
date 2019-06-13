@@ -33,7 +33,7 @@ namespace Uintra.Core.Permissions
         }
 
         [HttpGet]
-        public GroupPermissionsViewModel Get(int memberGroupId)
+        public virtual GroupPermissionsViewModel Get(int memberGroupId)
         {
             var isSuperUser = _intranetMemberService.IsCurrentMemberSuperUser;
             var memberGroup = _intranetMemberGroupProvider[memberGroupId];
@@ -54,7 +54,7 @@ namespace Uintra.Core.Permissions
         }
 
         [HttpPost]
-        public GroupPermissionsViewModel Save(PermissionUpdateViewModel update)
+        public virtual GroupPermissionsViewModel Save(PermissionUpdateViewModel update)
         {
             var settingIdentity = PermissionSettingIdentity.Of(
                 _actionTypeProvider[update.ActionId],

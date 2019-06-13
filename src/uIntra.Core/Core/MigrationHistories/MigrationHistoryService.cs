@@ -25,6 +25,12 @@ namespace Uintra.Core.MigrationHistories
             .GetAll()
             .ToList();
 
+        public bool Exists(string name, Version version)
+        {
+            var versionString = version.ToString();
+            return _migrationHistoryRepository.Exists(h => h.Name == name && h.Version == versionString);
+        }
+
         public void Create(string name, Version version)
         {
             var migrationHistory = new MigrationHistory
