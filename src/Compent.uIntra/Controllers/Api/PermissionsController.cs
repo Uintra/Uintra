@@ -24,11 +24,10 @@ namespace Compent.Uintra.Controllers.Api
             IPermissionsService permissionsService,
             IPermissionResourceTypeProvider resourceTypeProvider,
             IPermissionActionTypeProvider actionTypeProvider,
-            IIntranetMemberService<IIntranetMember> intranetMemberService
-        )
+            IIntranetMemberService<IIntranetMember> intranetMemberService, IMigrationHistoryService migrationHistoryService)
             : base(intranetMemberGroupProvider, permissionsService, resourceTypeProvider, actionTypeProvider, intranetMemberService)
         {
-
+            _migrationHistoryService = migrationHistoryService;
         }
         [System.Web.Http.HttpGet]
         public override GroupPermissionsViewModel Get(int memberGroupId)
