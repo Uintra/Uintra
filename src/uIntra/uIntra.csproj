@@ -567,6 +567,9 @@
     <Content Include="..\Compent.uIntra\build\vendors.js">
       <Link>build\vendors.js</Link>
     </Content>
+    <Content Include="..\Compent.uIntra\Content\css\custom.css">
+      <Link>Content\css\custom.css</Link>
+    </Content>
     <Content Include="..\Compent.uIntra\Content\images\calendar.svg">
       <Link>Content\images\calendar.svg</Link>
     </Content>
