@@ -64,7 +64,7 @@
     </settings>
   </UintraJobs>
 
-  <elasticConfiguration url="[ELASTIC_SEARCH_ADDRESS]" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>
+  <elasticConfiguration url="http://52.236.128.233:49200" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>
   <localizationConfiguration enableCache="false" cacheTime="0" localizationCacheKey="LocalizationCacheKey"
                             useDefaultLabel="true" saveDefaultLabel="false"
                             xdt:Transform="InsertIfMissing" />
