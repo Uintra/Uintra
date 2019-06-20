@@ -91,7 +91,7 @@ namespace Compent.Uintra.Core.News
 
         public override Enum Type => IntranetActivityTypeEnum.News;
 
-        public override PermissionResourceTypeEnum PermissionActivityType => PermissionResourceTypeEnum.News;
+        public override Enum PermissionActivityType => PermissionResourceTypeEnum.News;
 
         public MediaSettings GetMediaSettings()
         {

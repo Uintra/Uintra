@@ -91,7 +91,7 @@ namespace Compent.Uintra.Core.Bulletins
 
         public override Enum Type => IntranetActivityTypeEnum.Bulletins;
 
-        public override PermissionResourceTypeEnum PermissionActivityType => PermissionResourceTypeEnum.Bulletins;
+        public override Enum PermissionActivityType => PermissionResourceTypeEnum.Bulletins;
 
         public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
 

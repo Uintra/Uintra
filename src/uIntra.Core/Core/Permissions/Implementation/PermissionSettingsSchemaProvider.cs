@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Extensions;
 using Uintra.Core.Permissions.Interfaces;
@@ -54,12 +53,12 @@ namespace Uintra.Core.Permissions.Implementation
                     Tree(HideOther)))
         };
 
-        public PermissionSettingValues DefaultSettingsValues =>
+        public virtual PermissionSettingValues DefaultSettingsValues =>
             PermissionSettingValues.Of(GlobalIsAllowedDefault, GlobalIsEnabledDefault);
 
-        public PermissionSettingSchema[] Settings { get; }
+        public virtual PermissionSettingSchema[] Settings { get; }
 
-        public ILookup<PermissionSettingIdentity, PermissionSettingIdentity> SettingsByParentSettingIdentityLookup{ get; }
+        public virtual ILookup<PermissionSettingIdentity, PermissionSettingIdentity> SettingsByParentSettingIdentityLookup{ get; }
 
         public PermissionSettingsSchemaProvider()
         {

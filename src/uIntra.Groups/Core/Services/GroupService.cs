@@ -23,7 +23,7 @@ namespace Uintra.Groups
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
         protected const string GroupsCreatePage = "groupsCreatePage";
-        protected Enum PermissionResourceType => PermissionResourceTypeEnum.Groups;
+        protected virtual Enum PermissionResourceType => PermissionResourceTypeEnum.Groups;
 
         public GroupService(
             ISqlRepository<Group> groupRepository,
