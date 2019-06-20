@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using Uintra.Core.Activity;
 using Umbraco.Web;
@@ -30,7 +31,8 @@ namespace Uintra.Core.Attributes
                 var errorPage = umbracoHelper.ContentSingleAtXPath(XPathHelper.GetXpath(aliasProvider.GetHomePage(), aliasProvider.GetErrorPage()));
                 if (errorPage != null)
                 {
-                    filterContext.Controller.ControllerContext.HttpContext.Server.TransferRequest(errorPage.Url);
+                    filterContext.Controller.ControllerContext.HttpContext.Response.StatusCode = HttpStatusCode.NotFound.GetHashCode();
+                    filterContext.Controller.ControllerContext.HttpContext.Response.End();
                 }
 
                 filterContext.Result = new HttpNotFoundResult();

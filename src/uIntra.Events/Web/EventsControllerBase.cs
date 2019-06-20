@@ -13,6 +13,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions.Web;
@@ -32,19 +33,20 @@ namespace Uintra.Events.Web
 
         private readonly IEventsService<EventBase> _eventsService;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IActivityLinkService _activityLinkService;
         private readonly IActivityPageHelperFactory _activityPageHelperFactory;
 
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Events;
+        private const PermissionResourceTypeEnum ActivityType = PermissionResourceTypeEnum.Events;
 
         public override ContextType ControllerContextType { get; } = ContextType.Events;
 
         protected EventsControllerBase(
             IEventsService<EventBase> eventsService,
             IMediaHelper mediaHelper,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IActivityTypeProvider activityTypeProvider,
             IActivityLinkService activityLinkService,
             IContextTypeProvider contextTypeProvider,
@@ -52,13 +54,13 @@ namespace Uintra.Events.Web
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _activityTypeProvider = activityTypeProvider;
             _activityLinkService = activityLinkService;
             _activityPageHelperFactory = activityPageHelperFactory;
         }
 
-        [NotFoundActivity]
+        [NotFoundActivity, RestrictedAction(ActivityType, PermissionActionEnum.View)]
         public virtual ActionResult Details(Guid id, ActivityFeedOptions options)
         {
             var @event = _eventsService.Get(id);
@@ -89,16 +91,16 @@ namespace Uintra.Events.Web
 
         protected virtual (IList<ComingEventViewModel> events, int totalCount) GetComingEvents(int eventsAmount)
         {
-            var events = GetComingEvents(DateTime.Now).AsList();
+            var events = GetComingEvents(DateTime.UtcNow).AsList();
 
-            var ownersDictionary = _intranetUserService.GetMany(events.Select(e => e.OwnerId)).ToDictionary(c => c.Id);
+            var ownersDictionary = _intranetMemberService.GetMany(events.Select(e => e.OwnerId)).ToDictionary(c => c.Id);
 
             var comingEvents = events
                 .Take(eventsAmount)
                 .Select(@event =>
                 {
                     var viewModel = @event.Map<ComingEventViewModel>();
-                    viewModel.Owner = ownersDictionary[@event.OwnerId].Map<UserViewModel>();
+                    viewModel.Owner = ownersDictionary[@event.OwnerId].Map<MemberViewModel>();
                     viewModel.Links = _activityLinkService.GetLinks(@event.Id);
                     return viewModel;
                 })
@@ -109,7 +111,7 @@ namespace Uintra.Events.Web
 
         protected virtual IEnumerable<EventBase> GetComingEvents(DateTime startDate) => _eventsService.GetComingEvents(startDate);
 
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Create)]
         public virtual ActionResult Create(ActivityCreateLinks links)
         {
             var model = GetCreateModel(links);
@@ -117,7 +119,7 @@ namespace Uintra.Events.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Create)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Create)]
         public virtual ActionResult Create(EventCreateModel createModel)
         {
             if (!ModelState.IsValid)
@@ -133,7 +135,7 @@ namespace Uintra.Events.Web
             return Redirect(redirectUrl);
         }
 
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Edit)]
         public virtual ActionResult Edit(Guid id, ActivityLinks links)
         {
             var @event = _eventsService.Get(id);
@@ -147,7 +149,7 @@ namespace Uintra.Events.Web
         }
 
         [HttpPost]
-        [RestrictedAction(ActivityTypeId, IntranetActivityActionEnum.Edit)]
+        [RestrictedAction(ActivityType, PermissionActionEnum.Edit)]
         public virtual ActionResult Edit(EventEditModel editModel)
         {
             if (!ModelState.IsValid)
@@ -170,8 +172,11 @@ namespace Uintra.Events.Web
         [HttpPost]
         public virtual void Hide(Guid id, bool isNotificationNeeded)
         {
-            _eventsService.Hide(id);
-            OnEventHidden(id, isNotificationNeeded);
+            if (_eventsService.CanHide(id))
+            {
+                _eventsService.Hide(id);
+                OnEventHidden(id, isNotificationNeeded);
+            }
         }
 
         public virtual JsonResult HasConfirmation(Guid id)
@@ -188,7 +193,7 @@ namespace Uintra.Events.Web
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddHours(8),
                 PublishDate = DateTime.UtcNow,
-                OwnerId = _intranetUserService.GetCurrentUserId(),
+                OwnerId = _intranetMemberService.GetCurrentMemberId(),
                 ActivityType = _activityTypeProvider[ActivityTypeId],
                 Links = links,
                 MediaRootId = mediaSettings.MediaRootId
@@ -198,13 +203,13 @@ namespace Uintra.Events.Web
 
         protected virtual EventPreviewViewModel GetPreviewViewModel(EventBase @event, ActivityLinks links)
         {
-            var owner = _intranetUserService.Get(@event);
+            var owner = _intranetMemberService.Get(@event);
             return new EventPreviewViewModel
             {
                 Id = @event.Id,
                 Title = @event.Title,
                 Dates = @event.StartDate.GetEventDateTimeString(@event.EndDate).ToListOfOne(),
-                Owner = owner.Map<UserViewModel>(),
+                Owner = owner.Map<MemberViewModel>(),
                 ActivityType = @event.Type,
                 Links = links
             };
@@ -225,6 +230,7 @@ namespace Uintra.Events.Web
             FillMediaSettingsData(mediaSettings);
 
             model.Links = links;
+            model.CanHide = _eventsService.CanHide(@event);
             return model;
         }
 
@@ -243,7 +249,7 @@ namespace Uintra.Events.Web
             model.IsReadOnly = options.IsReadOnly;
 
             model.HeaderInfo = @event.Map<IntranetActivityDetailsHeaderViewModel>();
-            model.HeaderInfo.Owner = _intranetUserService.Get(@event).Map<UserViewModel>();
+            model.HeaderInfo.Owner = _intranetMemberService.Get(@event).Map<MemberViewModel>();
             model.HeaderInfo.Links = options.Links;
 
             return model;
@@ -259,7 +265,7 @@ namespace Uintra.Events.Web
             model.Links = links;
 
             model.HeaderInfo = @event.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Owner = _intranetUserService.Get(@event).Map<UserViewModel>();
+            model.HeaderInfo.Owner = _intranetMemberService.Get(@event).Map<MemberViewModel>();
             model.HeaderInfo.Links = links;
 
             return model;
@@ -285,7 +291,7 @@ namespace Uintra.Events.Web
             @event.PublishDate = createModel.PublishDate.ToUniversalTime();
             @event.EndDate = createModel.EndDate.ToUniversalTime();
             @event.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
-            @event.CreatorId = _intranetUserService.GetCurrentUserId();
+            @event.CreatorId = _intranetMemberService.GetCurrentMemberId();
 
             return @event;
         }
@@ -295,10 +301,10 @@ namespace Uintra.Events.Web
             var @event = MapEditModel(editModel);
 
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
-            @event.StartDate = editModel.StartDate.ToUniversalTime();
-            @event.PublishDate = editModel.PublishDate.ToUniversalTime();
-            @event.EndDate = editModel.EndDate.ToUniversalTime();
-            @event.EndPinDate = editModel.EndPinDate?.ToUniversalTime();
+            @event.StartDate = editModel.StartDate.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.StartDate);
+            @event.PublishDate = editModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.PublishDate);
+            @event.EndDate = editModel.EndDate.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.EndDate);
+            @event.EndPinDate = editModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.EndPinDate.Value);
 
             return @event;
         }

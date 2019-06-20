@@ -1,10 +1,11 @@
 ﻿
+using System;
+
 namespace Uintra.Core
 {
-    public interface ITimezoneOffsetProvider
+    public interface IClientTimezoneProvider
     {
-        bool HasTimeZoneOffset();
-        void SetTimezoneOffset(int offsetInMinutes);
-        int GetTimezoneOffset();
+        void SetClientTimezone(string ianaTimezoneId);
+        TimeZoneInfo ClientTimezone { get; }
     }
 }

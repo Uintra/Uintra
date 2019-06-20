@@ -9,6 +9,10 @@ namespace Uintra.Core.TypeProviders
 
         Enum this[string name] { get; }
 
-        List<Enum> All { get; }
+        Enum[] All { get; }
+
+        IDictionary<int, Enum> IntTypeDictionary { get; }
+
+        IDictionary<string, Enum> StringTypeDictionary { get; }
     }
 }

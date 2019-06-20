@@ -17,12 +17,12 @@ namespace Uintra.Core.Web
         protected virtual int DisplayedImagesCount { get; } = 3;
         protected virtual string PagePromotionTranslationPrefix { get; } = "PagePromotion.";
 
-        private readonly IIntranetUserService<IIntranetUser> _userService;
+        private readonly IIntranetMemberService<IIntranetMember> _memberService;
 
-        protected PagePromotionControllerBase(IIntranetUserService<IIntranetUser> userService, IContextTypeProvider contextTypeProvider)
+        protected PagePromotionControllerBase(IIntranetMemberService<IIntranetMember> memberService, IContextTypeProvider contextTypeProvider)
             : base(contextTypeProvider)
         {
-            _userService = userService;
+            _memberService = memberService;
         }
 
         protected virtual PagePromotionItemViewModel GetItemViewModel(PagePromotionBase item, IActivityLinks links)
@@ -32,7 +32,7 @@ namespace Uintra.Core.Web
             model.Links = links;
 
             model.HeaderInfo = item.Map<IntranetActivityItemHeaderViewModel>();
-            model.HeaderInfo.Owner = _userService.Get(item.CreatorId).Map<UserViewModel>();
+            model.HeaderInfo.Owner = _memberService.Get(item.CreatorId).Map<MemberViewModel>();
             model.HeaderInfo.Links = links;
             model.HeaderInfo.Type = item.Type;
 

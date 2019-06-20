@@ -5,7 +5,7 @@ namespace Compent.Uintra.Controllers.Api
 {
     public class MemberManagementApiController : MemberManagementApiControllerBase
     {
-        public MemberManagementApiController(IIntranetUserService<IIntranetUser> intranetUserService) : base(intranetUserService)
+        public MemberManagementApiController(IIntranetMemberService<IIntranetMember> intranetMemberService) : base(intranetMemberService)
         {
         }
     }

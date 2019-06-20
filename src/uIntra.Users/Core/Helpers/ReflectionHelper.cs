@@ -13,7 +13,7 @@ namespace Uintra.Users.Helpers
 
         static ReflectionHelper()
         {
-            Properties = typeof(UserModel).GetPublicProperties();
+            Properties = typeof(MemberModel).GetPublicProperties();
         }
 
         public static Dictionary<string, string> GetUserListTranslations(string keyFormat)
@@ -31,7 +31,7 @@ namespace Uintra.Users.Helpers
 
         public static IEnumerable<ProfileColumnModel> GetProfileColumns()
         {
-            var columns = typeof(UserModel).GetCustomAttributes<UIColumnAttribute>().Select(i =>
+            var columns = typeof(MemberModel).GetCustomAttributes<UIColumnAttribute>().Select(i =>
             {
                 return new ProfileColumnModel()
                 {

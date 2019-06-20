@@ -12,6 +12,7 @@ using Uintra.Core.Location.Entities;
 using Uintra.Core.Media;
 using Uintra.Core.Media.Sql;
 using Uintra.Core.MigrationHistories.Sql;
+using Uintra.Core.Permissions.Sql;
 using Uintra.Core.Persistence;
 using Uintra.Groups.Sql;
 using Uintra.Likes;
@@ -61,6 +62,8 @@ namespace Compent.Uintra.Persistence.Sql
         public DbSet<CommentToLinkPreviewEntity> CommentToLinkPreviews { get; set; }
         public DbSet<ActivityToLinkPreviewEntity> ActivityToLinkPreviews { get; set; }
         public DbSet<VideoConvertationLog> VideoConvertationLog { get; set; }
+
+        public DbSet<PermissionEntity>  Permissions{ get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

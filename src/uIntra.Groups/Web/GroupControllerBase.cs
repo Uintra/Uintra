@@ -3,11 +3,11 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Compent.CommandBus;
-using Uintra.Core.Activity;
 using Uintra.Core.Constants;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions;
 using Uintra.Core.User;
 using Uintra.Groups.Attributes;
 using Uintra.Groups.CommandBus;
@@ -33,7 +33,7 @@ namespace Uintra.Groups.Web
         private readonly IGroupService _groupService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetUserService<IGroupMember> _userService;
+        private readonly IIntranetMemberService<IGroupMember> _memberService;
         private readonly IGroupMediaService _groupMediaService;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly IGroupLinkProvider _groupLinkProvider;
@@ -47,7 +47,7 @@ namespace Uintra.Groups.Web
             IGroupMemberService groupMemberService,
             IMediaHelper mediaHelper,
             IGroupMediaService groupMediaService,
-            IIntranetUserService<IGroupMember> userService,
+            IIntranetMemberService<IGroupMember> memberService,
             IProfileLinkProvider profileLinkProvider,
             IGroupLinkProvider groupLinkProvider,
             IImageHelper imageHelper,
@@ -57,7 +57,7 @@ namespace Uintra.Groups.Web
             _groupMemberService = groupMemberService;
             _mediaHelper = mediaHelper;
             _groupMediaService = groupMediaService;
-            _userService = userService;
+            _memberService = memberService;
             _profileLinkProvider = profileLinkProvider;
             _groupLinkProvider = groupLinkProvider;
             _imageHelper = imageHelper;
@@ -113,14 +113,14 @@ namespace Uintra.Groups.Web
             return Redirect(_groupLinkProvider.GetGroupLink(group.Id));
         }
 
-        [GroupRestrictedAction(IntranetActivityActionEnum.Create)]
+        [GroupRestrictedAction(PermissionActionEnum.Create)]
         public ActionResult Create()
         {
             var createGroupModel = new GroupCreateModel();
             var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent, true);
 
             createGroupModel.MediaRootId = mediaSettings.MediaRootId;
-            createGroupModel.CreatorId = _userService.GetCurrentUserId();
+            createGroupModel.CreatorId = _memberService.GetCurrentMemberId();
             createGroupModel.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
 
             return PartialView(CreateViewPath, createGroupModel);
@@ -168,11 +168,11 @@ namespace Uintra.Groups.Web
             var group = _groupService.Get(groupId);
 
             var groupInfo = group.Map<GroupInfoViewModel>();
-            var currentUser = _userService.GetCurrentUser();
-            groupInfo.IsMember = _groupMemberService.IsGroupMember(group.Id, currentUser.Id);
-            groupInfo.CanUnsubscribe = group.CreatorId != currentUser.Id;
+            var currentMember = _memberService.GetCurrentMember();
+            groupInfo.IsMember = _groupMemberService.IsGroupMember(group.Id, currentMember.Id);
+            groupInfo.CanUnsubscribe = group.CreatorId != currentMember.Id;
 
-            groupInfo.Creator = _userService.Get(group.CreatorId).Map<UserViewModel>();
+            groupInfo.Creator = _memberService.Get(group.CreatorId).Map<MemberViewModel>();
             groupInfo.MembersCount = _groupMemberService.GetMembersCount(group.Id);
             groupInfo.CreatorProfileUrl = _profileLinkProvider.GetProfileLink(group.CreatorId);
 
@@ -187,10 +187,15 @@ namespace Uintra.Groups.Web
         [HttpPost]
         public virtual ActionResult Hide(Guid id)
         {
-            var command = new HideGroupCommand(id);
-            _commandPublisher.Publish(command);
+            var canHide = _groupService.CanHide(id);
+            if (canHide)
+            {
+                var command = new HideGroupCommand(id);
+                _commandPublisher.Publish(command);
+            }
 
-            return Json(_groupLinkProvider.GetGroupsOverviewLink());
+            return Json(canHide ? _groupLinkProvider.GetGroupsOverviewLink() :
+                _groupLinkProvider.GetGroupLink(id));
         }
 
         [DisabledGroupActionFilter]
@@ -204,14 +209,14 @@ namespace Uintra.Groups.Web
         [DisabledGroupActionFilter]
         public virtual RedirectToUmbracoPageResult Subscribe(Guid groupId)
         {
-            var currentUser = _userService.GetCurrentUser();
-            if (_groupMemberService.IsGroupMember(groupId, currentUser.Id))
+            var currentMember = _memberService.GetCurrentMember();
+            if (_groupMemberService.IsGroupMember(groupId, currentMember.Id))
             {
-                _groupMemberService.Remove(groupId, currentUser.Id);
+                _groupMemberService.Remove(groupId, currentMember.Id);
             }
             else
             {
-                _groupMemberService.Add(groupId, currentUser.Id);
+                _groupMemberService.Add(groupId, currentMember.Id);
             }
 
             return RedirectToCurrentUmbracoPage(Request.QueryString);
@@ -233,13 +238,13 @@ namespace Uintra.Groups.Web
 
         private GroupSubscribeViewModel GetSubscribeViewModel(Guid groupId)
         {
-            var currentUser = _userService.GetCurrentUser();
+            var currentMember = _memberService.GetCurrentMember();
 
             var subscribeModel = new GroupSubscribeViewModel
             {
                 GroupId = groupId,
-                IsMember = _groupMemberService.IsGroupMember(groupId, currentUser.Id),
-                UserId = currentUser.Id,
+                IsMember = _groupMemberService.IsGroupMember(groupId, currentMember.Id),
+                UserId = currentMember.Id,
                 MembersCount = _groupMemberService.GetMembersCount(groupId)
             };
             return subscribeModel;
@@ -248,17 +253,17 @@ namespace Uintra.Groups.Web
         private GroupsListModel GetListModel(bool isMyGroupsPage, int page)
         {
             var take = page * ItemsPerPage;
-            var currentUser = _userService.GetCurrentUser();
+            var currentMember = _memberService.GetCurrentMember();
 
             var allGroups = isMyGroupsPage
-                ? _groupService.GetMany(currentUser.GroupIds).ToList()
+                ? _groupService.GetMany(currentMember.GroupIds).ToList()
                 : _groupService.GetAllNotHidden().ToList();
 
-            bool IsCurrentUserMember(GroupModel g) => isMyGroupsPage || _groupMemberService.IsGroupMember(g.Id, currentUser.Id);
+            bool IsCurrentMemberInGroup(GroupModel g) => isMyGroupsPage || _groupMemberService.IsGroupMember(g.Id, currentMember.Id);
 
             var groups = allGroups
-                .Select(g => MapGroupViewModel(g, IsCurrentUserMember(g)))
-                .OrderByDescending(g => g.Creator.Id == currentUser.Id)
+                .Select(g => MapGroupViewModel(g, IsCurrentMemberInGroup(g)))
+                .OrderByDescending(g => g.Creator.Id == currentMember.Id)
                 .ThenByDescending(s => s.IsMember)
                 .ThenBy(g => g.Title);
 
@@ -274,12 +279,12 @@ namespace Uintra.Groups.Web
         {
             var groupMembers = _groupMemberService.GetGroupMemberByGroup(groupId);
             var membersIdsList = groupMembers.Select(s => s.MemberId).ToList();
-            var groupUsers = _userService.GetMany(membersIdsList);
+            var groupUsers = _memberService.GetMany(membersIdsList);
             var group = _groupService.Get(groupId);
-            var currentUserId = _userService.GetCurrentUserId();
+            var currentMemberId = _memberService.GetCurrentMemberId();
 
             var groupMembersViewModel = groupUsers
-                .Select(m => MapToMemberViewModel(m, group, currentUserId))
+                .Select(m => MapToMemberViewModel(m, group, currentMemberId))
                 .OrderByDescending(s => s.IsGroupAdmin)
                 .ThenBy(s => s.GroupMember.DisplayedName)
                 .ToList();
@@ -287,7 +292,7 @@ namespace Uintra.Groups.Web
             var model = new GroupMemberOverviewViewModel
             {
                 Members = groupMembersViewModel,
-                CanExcludeFromGroup = IsGroupCreator(currentUserId, group)
+                CanExcludeFromGroup = IsGroupCreator(currentMemberId, group)
             };
             return model;
         }
@@ -296,7 +301,7 @@ namespace Uintra.Groups.Web
         {
             var group = _groupService.Get(groupId);
 
-            if (!_groupService.CanEdit(group, _userService.GetCurrentUser()))
+            if (!_groupService.CanEdit(group))
             {
                 HttpContext.Response.Redirect(_groupLinkProvider.GetGroupLink(groupId));
             }
@@ -305,6 +310,7 @@ namespace Uintra.Groups.Web
             var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent);
             model.MediaRootId = mediaSettings.MediaRootId;
             model.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
+            model.CanHide = _groupService.CanHide(group);
             return model;
         }
 
@@ -314,11 +320,11 @@ namespace Uintra.Groups.Web
             return groupsOverviewModel;
         }
 
-        private static GroupMemberViewModel MapToMemberViewModel(IGroupMember m, GroupModel groupModel, Guid currentUserId)
+        private static GroupMemberViewModel MapToMemberViewModel(IGroupMember m, GroupModel groupModel, Guid currentMemberId)
         {
             var viewModel = m.Map<GroupMemberViewModel>();
             viewModel.IsGroupAdmin = IsGroupCreator(m.Id, groupModel);
-            viewModel.CanUnsubscribe = viewModel.GroupMember.Id == currentUserId && currentUserId != groupModel.CreatorId;
+            viewModel.CanUnsubscribe = viewModel.GroupMember.Id == currentMemberId && currentMemberId != groupModel.CreatorId;
             return viewModel;
         }
 
@@ -329,7 +335,7 @@ namespace Uintra.Groups.Web
             var groupModel = group.Map<GroupViewModel>();
             groupModel.IsMember = isCurrentUserMember;
             groupModel.MembersCount = _groupMemberService.GetMembersCount(group.Id);
-            groupModel.Creator = _userService.Get(group.CreatorId).Map<UserViewModel>();
+            groupModel.Creator = _memberService.Get(group.CreatorId).Map<MemberViewModel>();
             groupModel.GroupUrl = _groupLinkProvider.GetGroupLink(group.Id);
             if (groupModel.HasImage)
             {

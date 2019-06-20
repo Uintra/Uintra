@@ -3,12 +3,14 @@ using System.Collections.Generic;
 
 namespace Uintra.Users
 {
-    public interface ICacheableIntranetUserService
+    public interface ICacheableIntranetMemberService
     {
-        void UpdateUserCache(Guid userId);
+        void UpdateMemberCache(Guid memberId);
 
-        void UpdateUserCache(IEnumerable<Guid> userIds);
+        void UpdateMemberCache(int memberId);
 
-        void DeleteFromCache(Guid userId);
+        void UpdateMemberCache(IEnumerable<Guid> memberIds);
+
+        void DeleteFromCache(Guid memberId);
     }
 }

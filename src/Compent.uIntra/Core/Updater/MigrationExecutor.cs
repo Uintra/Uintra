@@ -10,6 +10,7 @@ using Uintra.Core.MigrationHistories;
 using Uintra.Core.MigrationHistories.Sql;
 using Umbraco.Core;
 using static Compent.Uintra.Core.Updater.ExecutionResult;
+using static LanguageExt.Prelude;
 
 namespace Compent.Uintra.Core.Updater
 {
@@ -77,11 +78,14 @@ namespace Compent.Uintra.Core.Updater
         public static IEnumerable<MigrationItem> GetAllSteps(IOrderedEnumerable<IMigration> migrations) =>
             migrations.SelectMany(migration => migration.Steps.Select(step => new MigrationItem(migration.Version, step)));
 
-        public static IEnumerable<MigrationItem> GetSteps(IEnumerable<MigrationItem> allSteps, List<MigrationHistory> allHistory, Version lastLegacyMigrationVersion)
+        public static IEnumerable<MigrationItem> GetSteps(
+            IEnumerable<MigrationItem> allSteps,
+            List<MigrationHistory> allHistory,
+            Version lastLegacyMigrationVersion)
         {
             var lastHistoryVersion = allHistory
                 .Select(h => Version.Parse(h.Version))
-                .OrderByDescending(h => h)
+                .OrderByDescending(identity)
                 .FirstOrDefault();
 
             switch (lastHistoryVersion)
@@ -89,7 +93,7 @@ namespace Compent.Uintra.Core.Updater
                 case Version version when version <= lastLegacyMigrationVersion:
                     return allSteps.Where(s => s.Version > lastHistoryVersion);
                 case Version _:
-                    return GetMissingSteps(allSteps.Where(s => s.Version > lastLegacyMigrationVersion), allHistory, lastHistoryVersion);
+                    return GetMissingSteps(allSteps.Where(s => s.Version > lastLegacyMigrationVersion), allHistory);
                 case null:
                     return allSteps;
             }
@@ -97,8 +101,7 @@ namespace Compent.Uintra.Core.Updater
 
         public static IEnumerable<MigrationItem> GetMissingSteps(
             IEnumerable<MigrationItem> allSteps,
-            IEnumerable<MigrationHistory> allHistory,
-            Version lastHistoryVersion) => allSteps
+            IEnumerable<MigrationHistory> allHistory) => allSteps
             .Where(migrationItem =>
                 !allHistory.Any(historyItem => IsMigrationItemEqualsToHistory(migrationItem, historyItem)));
 
@@ -119,7 +122,7 @@ namespace Compent.Uintra.Core.Updater
                 }
             }
 
-            return (executionHistory, Success);
+            return (executionHistory, ExecutionResult.Success);
         }
 
 
@@ -149,7 +152,7 @@ namespace Compent.Uintra.Core.Updater
                 }
             }
 
-            return (undoHistory, Success);
+            return (undoHistory, ExecutionResult.Success);
         }
 
         public static ExecutionResult TryUndoStep(IMigrationStep migrationStep)
@@ -163,7 +166,7 @@ namespace Compent.Uintra.Core.Updater
                 return Failure(e);
             }
 
-            return Success;
+            return ExecutionResult.Success;
         }
 
         public static string StepIdentity(IMigrationStep step) => step.GetType().Name;

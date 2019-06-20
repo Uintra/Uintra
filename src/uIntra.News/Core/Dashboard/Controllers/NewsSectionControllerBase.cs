@@ -13,13 +13,13 @@ namespace Uintra.News.Dashboard
     public abstract class NewsSectionControllerBase : UmbracoAuthorizedApiController
     {
         private readonly INewsService<NewsBase> _newsService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IMediaHelper _mediaHelper;
 
-        protected NewsSectionControllerBase(INewsService<NewsBase> newsService, IIntranetUserService<IIntranetUser> intranetUserService, IMediaHelper mediaHelper)
+        protected NewsSectionControllerBase(INewsService<NewsBase> newsService, IIntranetMemberService<IIntranetMember> intranetMemberService, IMediaHelper mediaHelper)
         {
             _newsService = newsService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _mediaHelper = mediaHelper;
         }
 
@@ -34,7 +34,7 @@ namespace Uintra.News.Dashboard
         public virtual NewsBackofficeViewModel Create(NewsBackofficeCreateModel createModel)
         {
             var creatingNews = createModel.Map<NewsBase>();
-            creatingNews.CreatorId = _intranetUserService.GetCurrentUserId();
+            creatingNews.CreatorId = _intranetMemberService.GetCurrentMemberId();
             var newsId = _newsService.Create(creatingNews);
 
             var createdNews = _newsService.Get(newsId);

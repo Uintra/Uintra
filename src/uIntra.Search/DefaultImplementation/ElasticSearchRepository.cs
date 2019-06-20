@@ -26,6 +26,10 @@ namespace Uintra.Search
             IndexName = $"{configuration.IndexPrefix}{indexName.ToLower()}";
 
             var connectionSettings = new ConnectionSettings(new Uri(configuration.Url)).DefaultIndex(IndexName);
+            if (HasCredentials())
+            {
+                ApplyAuthentication(connectionSettings);
+            }
             Client = new ElasticClient(connectionSettings);
         }
 
@@ -92,6 +96,16 @@ namespace Uintra.Search
         {
             var exception = new ElasticSearchRequestErrorException(response.DebugInformation, new System.Diagnostics.StackTrace().ToString());
             _exceptionLogger.Log(exception);
+        }
+
+        protected void ApplyAuthentication(ConnectionSettings settings)
+        {
+            settings.BasicAuthentication(Configuration.UserName, Configuration.Password);
+        }
+
+        protected bool HasCredentials()
+        {
+            return !string.IsNullOrEmpty(Configuration.UserName) && !string.IsNullOrEmpty(Configuration.Password);
         }
 
         private bool EnsureAttachmentsPipelineExists(out string error)
@@ -216,7 +230,7 @@ namespace Uintra.Search
             {
                 error = string.Empty;
                 return true;
-            } 
+            }
             var putMappingResponse = Client.Map<T>(d => d
                 .Index(IndexName)
                 .Type(GetTypeName())
@@ -248,11 +262,12 @@ namespace Uintra.Search
         protected virtual string GetTypeName(Type type)
         {
             return type.Name.ToLower();
-        }
+        }        
 
         private string GetTypeName()
         {
             return GetTypeName(typeof(T));
-        }
+        }       
+
     }
 }

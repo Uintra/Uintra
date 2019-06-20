@@ -654,8 +654,8 @@
 				margin-left: 0;
 			}
 
-            &:last-child{
-                float:right;
+            &.css-btn-bulletin{
+                float: right;
             }
 		}
 

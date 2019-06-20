@@ -6,17 +6,17 @@ namespace Uintra.Users.Web
 {
     public abstract class MemberApiControllerBase : UmbracoAuthorizedApiController
     {
-        private readonly ICacheableIntranetUserService _cacheableIntranetUserService;
+        private readonly ICacheableIntranetMemberService _cacheableIntranetMemberService;
 
-        protected MemberApiControllerBase(ICacheableIntranetUserService cacheableIntranetUserService)
+        protected MemberApiControllerBase(ICacheableIntranetMemberService cacheableIntranetMemberService)
         {
-            _cacheableIntranetUserService = cacheableIntranetUserService;
+            _cacheableIntranetMemberService = cacheableIntranetMemberService;
         }
 
         [HttpPost]
         public virtual void MemberChanged(Guid memberId)
         {
-            _cacheableIntranetUserService.UpdateUserCache(memberId);
+            _cacheableIntranetMemberService.UpdateMemberCache(memberId);
         }
     }
 }

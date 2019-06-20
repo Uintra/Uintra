@@ -1,4 +1,4 @@
-﻿@using Uintra.Core.Activity
+﻿@using Uintra.Core.Permissions
 @using Uintra.Core.Controls.FileUpload
 @using Uintra.Core.Extensions;
 @using Uintra.Subscribe
@@ -10,8 +10,8 @@
     {
         <h1 class="form__title">@Html.Localize("EventsCreatePage.Title.lbl")</h1>
         <div class="form__row clearfix">
-            <label class="form__label">@Html.Localize("EventsCreate.Creator.lbl")</label>
-            @Html.Action("OwnerEdit", "Activity", new { ownerId = Model.OwnerId, ownerIdPropertyName = nameof(Model.OwnerId), activityType = IntranetActivityTypeEnum.Events, links = Model.Links })
+            <label class="form__label">@Html.Localize("EventsCreate.Owner.lbl")</label>
+            @Html.Action("OwnerEdit", "Activity", new { ownerId = Model.OwnerId, ownerIdPropertyName = nameof(Model.OwnerId), activityType = PermissionResourceTypeEnum.Events, links = Model.Links })
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="title">@Html.Localize("EventsCreate.Title.lbl") <span class="form__required">*</span></label>

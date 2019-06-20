@@ -13,13 +13,13 @@ namespace Uintra.Events.Dashboard
     public abstract class EventsSectionControllerBase : UmbracoAuthorizedApiController
     {
         private readonly IEventsService<EventBase> _eventsService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IMediaHelper _mediaHelper;
 
-        protected EventsSectionControllerBase(IEventsService<EventBase> eventsService, IIntranetUserService<IIntranetUser> intranetUserService, IMediaHelper mediaHelper)
+        protected EventsSectionControllerBase(IEventsService<EventBase> eventsService, IIntranetMemberService<IIntranetMember> intranetMemberService, IMediaHelper mediaHelper)
         {
             _eventsService = eventsService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _mediaHelper = mediaHelper;
         }
 
@@ -44,7 +44,7 @@ namespace Uintra.Events.Dashboard
         protected virtual EventBase MapToEvent(EventBackofficeCreateModel model)
         {
             var @event = model.Map<EventBase>();
-            @event.CreatorId = _intranetUserService.GetCurrentUserId();
+            @event.CreatorId = _intranetMemberService.GetCurrentMemberId();
             return @event;
         }
 

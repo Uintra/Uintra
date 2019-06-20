@@ -252,7 +252,8 @@
 
     &__opener{
         color:var(--color-white);
-        display:block;
+        display:inline-block;
+        float: right;
         position:relative;
         padding:2px 2px 4px 17px;
         cursor:pointer;

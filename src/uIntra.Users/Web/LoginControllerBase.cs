@@ -13,16 +13,16 @@ namespace Uintra.Users.Web
         protected virtual string LoginViewPath { get; } = "~/App_Plugins/Users/Login/Login.cshtml";
         protected virtual string DefaultRedirectUrl { get; } = "/";
 
-        private readonly ITimezoneOffsetProvider _timezoneOffsetProvider;
+        private readonly IClientTimezoneProvider _clientTimezoneProvider;
         private readonly IIntranetLocalizationService _intranetLocalizationService;
         private readonly IApplicationSettings _applicationSettings;
 
         protected LoginControllerBase(
-            ITimezoneOffsetProvider timezoneOffsetProvider,
+            IClientTimezoneProvider clientTimezoneProvider,
             IIntranetLocalizationService intranetLocalizationService,
             IApplicationSettings applicationSettings)
         {
-            _timezoneOffsetProvider = timezoneOffsetProvider;
+            _clientTimezoneProvider = clientTimezoneProvider;
             _intranetLocalizationService = intranetLocalizationService;
             _applicationSettings = applicationSettings;
         }
@@ -56,7 +56,7 @@ namespace Uintra.Users.Web
 
             if (Members.Login(model.Login, model.Password))
             {
-                _timezoneOffsetProvider.SetTimezoneOffset(model.ClientTimezoneOffset);
+                _clientTimezoneProvider.SetClientTimezone(model.ClientTimezoneId);
             }
             return Redirect(redirectUrl);
         }

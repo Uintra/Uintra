@@ -45,7 +45,7 @@ namespace Uintra.Core.Web
 
             var browserCompatibilityCookieValue = compatibilityCookie.Value.Deserialize<BrowserCompatibilityModel>();
             browserCompatibilityCookieValue.ShowNotification = false;
-            _cookieProvider.Save(BrowserCompatibilityCookieName, browserCompatibilityCookieValue.ToJson(), DateTime.Now.AddYears(1));
+            _cookieProvider.Save(BrowserCompatibilityCookieName, browserCompatibilityCookieValue.ToJson(), DateTime.UtcNow.AddYears(1));
         }
 
         protected virtual BrowserCompatibilityModel GetBrowserCompatibilityModel()
@@ -70,7 +70,7 @@ namespace Uintra.Core.Web
                 }
             }
 
-            _cookieProvider.Save(BrowserCompatibilityCookieName, browserCompatibilityCookieValue.ToJson(), DateTime.Now.AddYears(1));
+            _cookieProvider.Save(BrowserCompatibilityCookieName, browserCompatibilityCookieValue.ToJson(), DateTime.UtcNow.AddYears(1));
 
             return browserCompatibilityCookieValue;
         }

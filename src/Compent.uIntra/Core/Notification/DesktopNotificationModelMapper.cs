@@ -10,14 +10,14 @@ namespace Compent.Uintra.Core.Notification
 {
     public class DesktopNotificationModelMapper : INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage>
     {
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
-        public DesktopNotificationModelMapper(IIntranetUserService<IIntranetUser> intranetUserService)
+        public DesktopNotificationModelMapper(IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
         }
 
-        public DesktopNotificationMessage Map(INotifierDataValue notifierData, DesktopNotifierTemplate template, IIntranetUser receiver)
+        public DesktopNotificationMessage Map(INotifierDataValue notifierData, DesktopNotifierTemplate template, IIntranetMember receiver)
         {
             var message = new DesktopNotificationMessage();
             (string, string)[] tokens;
@@ -28,7 +28,7 @@ namespace Compent.Uintra.Core.Notification
                     {
                         (ActivityTitle, model.Title),
                         (ActivityType, model.ActivityType.ToString()),
-                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
+                        (FullName, _intranetMemberService.Get(model.NotifierId).DisplayedName),
                         (NotifierFullName, receiver.DisplayedName),
                         (NotificationType, model.NotificationType.ToString().SplitOnUpperCaseLetters())
                     };
@@ -47,7 +47,7 @@ namespace Compent.Uintra.Core.Notification
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
-                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
+                        (FullName, _intranetMemberService.Get(model.NotifierId).DisplayedName),
                         (NotificationType, model.NotificationType.ToString().SplitOnUpperCaseLetters())
                     };
                     break;
@@ -56,7 +56,7 @@ namespace Compent.Uintra.Core.Notification
                     {
                         (ActivityTitle, model.Title),
                         (ActivityType, model.ActivityType.ToString()),
-                        (FullName, _intranetUserService.Get(model.NotifierId).DisplayedName),
+                        (FullName, _intranetMemberService.Get(model.NotifierId).DisplayedName),
                         (CreatedDate, model.CreatedDate.ToShortDateString()),
                         (NotificationType, model.NotificationType.ToString().SplitOnUpperCaseLetters())
                     };
@@ -65,8 +65,8 @@ namespace Compent.Uintra.Core.Notification
                     tokens = new[]
                     {
                         (ActivityTitle, model.Title),
-                        (FullName, _intranetUserService.Get(model.ReceiverId).DisplayedName),
-                        (TaggedBy, _intranetUserService.Get(model.NotifierId).DisplayedName),
+                        (FullName, _intranetMemberService.Get(model.ReceiverId).DisplayedName),
+                        (TaggedBy, _intranetMemberService.Get(model.NotifierId).DisplayedName),
                         (NotificationType, model.NotificationType.ToString().SplitOnUpperCaseLetters())
                     };
                     break;

@@ -2,7 +2,6 @@
 using System.Web.Security;
 using Uintra.Core.ApplicationSettings;
 using Uintra.Core.User;
-using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 
 namespace Uintra.Navigation.Web
@@ -13,38 +12,32 @@ namespace Uintra.Navigation.Web
         protected virtual string UmbracoRedirectUrl { get; } = "/umbraco";
         protected virtual string LogoutViewPath { get; } = "~/App_Plugins/Users/Logout/Logout.cshtml";
 
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
-        private readonly IUserService _userService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;        
         private readonly IApplicationSettings _applicationSettings;
 
         protected NavigationAuthorizationControllerBase(
-            IIntranetUserService<IIntranetUser> intranetUserService,
-            IUserService userService, IApplicationSettings applicationSettings)
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IApplicationSettings applicationSettings)
         {
-            _intranetUserService = intranetUserService;
-            _userService = userService;
+            _intranetMemberService = intranetMemberService;            
             _applicationSettings = applicationSettings;
         }
 
         public virtual ActionResult LoginToUmbraco()
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
-            if (!currentUser.UmbracoId.HasValue)
-            {
-                return Redirect(DefaultRedirectUrl);
-            }
+            var currentMember = _intranetMemberService.GetCurrentMember();
 
-            var umbracoUser = _userService.GetUserById(currentUser.UmbracoId.Value);
-            if (umbracoUser == null
-                || umbracoUser.IsLockedOut
-                || !umbracoUser.IsApproved)
-            {
-                return Redirect(DefaultRedirectUrl);
-            }
+            var relatedUser = currentMember.RelatedUser
+                .Filter(user => user.IsValid);
 
-            UmbracoContext.Security.PerformLogin(umbracoUser.Id);
-
-            return Redirect(UmbracoRedirectUrl);
+            return relatedUser
+                .Match(
+                    Some: user =>
+                    {
+                        UmbracoContext.Security.PerformLogin(user.Id);
+                        return Redirect(UmbracoRedirectUrl);
+                    },
+                    None: () => Redirect(DefaultRedirectUrl));
         }
 
         public virtual ActionResult Logout()
@@ -57,7 +50,7 @@ namespace Uintra.Navigation.Web
                     GoogleClientId = _applicationSettings.GoogleOAuth.ClientId,
                     LoginUrl = FormsAuthentication.LoginUrl
                 });
-            else return Redirect(FormsAuthentication.LoginUrl);
+            return Redirect(FormsAuthentication.LoginUrl);
         }
     }
 }

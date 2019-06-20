@@ -5,6 +5,6 @@ namespace Uintra.Panels.Core.PresentationBuilders
 {
     public interface ITableCellBuilder
     {
-        List<List<CellViewModel>> Map(IEnumerable<IEnumerable<CellModel>> rows, bool makeFirstColumnBold);
+        List<List<CellViewModel>> Map(IEnumerable<IEnumerable<CellModel>> rows);
     }
 }

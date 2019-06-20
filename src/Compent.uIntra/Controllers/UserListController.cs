@@ -16,6 +16,7 @@ using Uintra.Search;
 using Uintra.Users.UserList;
 using Uintra.Users.Web;
 using static LanguageExt.Prelude;
+using static Uintra.Groups.GroupModelGetters;
 
 namespace Compent.Uintra.Controllers
 {
@@ -26,23 +27,23 @@ namespace Compent.Uintra.Controllers
         private readonly ILocalizationCoreService _localizationCoreService;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly IGroupService _groupService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IGroupMemberService _groupMemberService;
 
-        public UserListController(IIntranetUserService<IIntranetUser> intranetUserService,
+        public UserListController(IIntranetMemberService<IIntranetMember> intranetMemberService,
             IElasticIndex elasticIndex,
             ILocalizationCoreService localizationCoreService,
             IProfileLinkProvider profileLinkProvider,
             IGroupService groupService,
             IGroupMemberService groupMemberService
             )
-            : base(intranetUserService)
+            : base(intranetMemberService)
         {
             _elasticIndex = elasticIndex;
             _localizationCoreService = localizationCoreService;
             _profileLinkProvider = profileLinkProvider;
             _groupService = groupService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _groupMemberService = groupMemberService;
         }
 
@@ -70,10 +71,10 @@ namespace Compent.Uintra.Controllers
             return (result, searchResult.TotalHits);
         }
 
-        protected override string GetDetailsPopupTitle(UserModel user) =>
+        protected override string GetDetailsPopupTitle(MemberModel user) =>
             $"{user.DisplayedName} {_localizationCoreService.Get("UserList.DetailsPopup.Title")}";
 
-        protected override UserModel MapToViewModel(IIntranetUser user)
+        protected override MemberModel MapToViewModel(IIntranetMember user)
         {
             var model = base.MapToViewModel(user);
             model.ProfileUrl = _profileLinkProvider.GetProfileLink(user.Id);
@@ -81,42 +82,38 @@ namespace Compent.Uintra.Controllers
             return model;
         }
 
-        protected override UsersRowsViewModel GetUsersRowsViewModel()
+        protected override MembersRowsViewModel GetUsersRowsViewModel()
         {
             var model = base.GetUsersRowsViewModel();
-            model.CurrentUser = _intranetUserService.GetCurrentUser().Map<UserViewModel>();
-            model.IsCurrentUserAdmin = CurrentGroup().Map(CreatorId) == model.CurrentUser.Id;
+            model.CurrentMember = _intranetMemberService.GetCurrentMember().Map<MemberViewModel>();
+            model.IsCurrentMemberGroupAdmin = CurrentGroup().Map(CreatorId) == model.CurrentMember.Id;
+            model.GroupId = CurrentGroup().Map(GroupId).IfNone(Guid.Empty);
+
             return model;
         }
 
-        public override bool ExcludeUserFromGroup(Guid userId)
+        public override bool ExcludeUserFromGroup(Guid groupId, Guid userId)
         {
-            var currentUserId = _intranetUserService.GetCurrentUser().Id;
-            var currentGroupCreatorId = CurrentGroup().Map(CreatorId);
+            var currentUserId = _intranetMemberService.GetCurrentMember().Id;
+            var group = _groupService.Get(groupId);
 
-            return currentGroupCreatorId
-                .Filter(creatorId => currentUserId.In(userId, creatorId) && currentUserId != creatorId)
-                .Match(
-                    Some: groupId =>
-                    {
-                        _groupMemberService.Remove(groupId, userId);
-                        return true;
-                    },
-                    None: () => false);
+            if (currentUserId == group.CreatorId || userId == currentUserId)
+            {
+                _groupMemberService.Remove(groupId, userId);
+                return true;
+            }
+         
+            return false;
         }
 
-        private Option<Guid> CurrentGroupId()
+        private static Option<Guid> CurrentGroupId()
         {
             var result =
              System.Web.HttpContext.Current.Request
                 .Params["groupId"]
                 .Apply(parseGuid);
-            if (result.IsNone)
-                result = GroupId.HasValue ? Some(GroupId.Value) : None;
             return result;
         }
-
-        private Guid CreatorId(GroupModel group) => group.CreatorId;
 
         private Option<GroupModel> CurrentGroup() =>
             CurrentGroupId().Map(_groupService.Get);

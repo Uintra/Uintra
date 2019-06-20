@@ -52,7 +52,7 @@ namespace Uintra.Groups
             return result;
         }
 
-        public IEnumerable<ActivityFeedTabModel> GetActivityTabs(IPublishedContent currentPage, IIntranetUser user, Guid groupId)
+        public IEnumerable<ActivityFeedTabModel> GetActivityTabs(IPublishedContent currentPage, IIntranetMember member, Guid groupId)
         {
             yield return GetMainFeedTab(currentPage, groupId);
 
@@ -77,9 +77,9 @@ namespace Uintra.Groups
             }
         }
 
-        public IEnumerable<PageTabModel> GetPageTabs(IPublishedContent currentPage, IIntranetUser user, Guid groupId)
+        public IEnumerable<PageTabModel> GetPageTabs(IPublishedContent currentPage, Guid groupId)
         {
-            Func<IPublishedContent, bool> skipPage = GetPageSkipResolver(user, groupId);
+            Func<IPublishedContent, bool> skipPage = GetPageSkipResolver( groupId);
 
             foreach (var content in _contentProvider.GetRelatedPages())
             {
@@ -92,9 +92,9 @@ namespace Uintra.Groups
             }
         }
 
-        private Func<IPublishedContent, bool> GetPageSkipResolver(IIntranetUser user, Guid groupId)
+        private Func<IPublishedContent, bool> GetPageSkipResolver(Guid groupId)
         {
-            var canEdit = _groupService.CanEdit(groupId, user);
+            var canEdit = _groupService.CanEdit(groupId);
             var editGroupPage = _contentProvider.GetEditPage();
 
             var deactivatedPage = _contentProvider.GetDeactivatedGroupPage();

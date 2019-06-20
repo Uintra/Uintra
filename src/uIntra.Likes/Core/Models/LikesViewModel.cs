@@ -6,7 +6,7 @@ namespace Uintra.Likes
 {
     public class LikesViewModel
     {
-        public Guid UserId { get; set; }
+        public Guid MemberId { get; set; }
 
         public Guid EntityId { get; set; }
 

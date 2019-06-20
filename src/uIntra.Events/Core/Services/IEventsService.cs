@@ -11,6 +11,10 @@ namespace Uintra.Events
 
         IEnumerable<TEvent> GetComingEvents(DateTime fromDate);
 
+        bool CanHide(Guid id);
+
+        bool CanHide(IIntranetActivity activity);
+
         void Hide(Guid id);
 
         bool CanEditSubscribe(Guid activityId);

@@ -9,17 +9,17 @@ var initDeleteButton = function (holder) {
     var btn = holder.find('.js-delete-btn');
 
     btn.click(function () {
-        var confirmMessage = btn.data('confirm-message');        
-        var memberId = $('#Id').attr("value");
+        var confirmMessage = btn.data('confirm-message');
+        var photoId = $('#PhotoId').attr("value");
         confirm.showConfirm('', confirmMessage,
             function () {
-                
-                ajax.delete("/umbraco/surface/Profile/DeletePhoto?memberId=" + memberId).then(function (response) {
+
+                ajax.delete("/umbraco/surface/Profile/DeletePhoto?photoId=" + photoId).then(function (response) {
                     location.reload();
                 });
             }, function () { }, confirm.defaultSettings);
     });
-}
+};
 
 function initListeners() {
     $('#js-member-notifier-setting').on('change',

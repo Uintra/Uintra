@@ -1,16 +1,13 @@
-using System;
-
-namespace Uintra.Core.User
+﻿namespace Uintra.Core.User
 {
     public interface IIntranetUser
     {
-        Guid Id { get; set; }
-        int? UmbracoId { get; set; }
-        string DisplayedName { get; }
-        string Photo { get; set; }
-        IRole Role { get; set; }
+        int Id { get; set; }
         string Email { get; set; }
-        string LoginName { get; set; }
-        bool Inactive { get; set; }
+        string DisplayName { get; set; }
+        bool IsSuperUser { get; set; }
+        bool IsApproved { get; set; }
+        bool IsLockedOut { get; set; }
+        bool IsValid { get; }
     }
 }

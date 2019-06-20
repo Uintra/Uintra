@@ -401,22 +401,15 @@
         }
         &-tooltip{
             position:absolute;
-            bottom:0;
+            top:0;
             left:0;
             right:0;
             background:rgba(0,0,0,0.7);
             color:var(--color-white);
             padding:10px;
-            z-index:999;
-            opacity:0;
-            transition:opacity ease-in 300ms;
 
-            .block__video:hover &{
-                opacity:1;
-            }
-
-            ._active &{
-                display:none;
+            .block__video:hover &, .block__video:focus &{
+                animation: hov-tex 5s normal linear;
             }
         }
     }
@@ -448,6 +441,26 @@
 
     .btn{
         margin-bottom:20px;
+    }
+}
+
+@keyframes hov-tex {
+    0% {
+        z-index: 1;
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        z-index: 1;
     }
 }
 
@@ -523,4 +536,8 @@
             }
         }
     }
+}
+
+video:focus {
+    outline: none;
 }

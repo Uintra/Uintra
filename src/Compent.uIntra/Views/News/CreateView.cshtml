@@ -1,4 +1,4 @@
-﻿@using Uintra.Core.Activity
+﻿@using Uintra.Core.Permissions
 @using Uintra.Core.Controls.FileUpload
 @using Uintra.Core.Extensions
 @using Umbraco.Web
@@ -9,8 +9,8 @@
     {
         <h1 class="form__title">@Html.Localize("NewsCreatePage.Title.lbl")</h1>
         <div class="form__row clearfix">
-            <label class="form__label">@Html.Localize("NewsCreate.Creator.lbl")</label>
-            @Html.Action("OwnerEdit", "Activity", new { ownerId = Model.OwnerId, ownerIdPropertyName = nameof(Model.OwnerId), activityType = IntranetActivityTypeEnum.News, links = Model.Links })
+            <label class="form__label">@Html.Localize("NewsCreate.Owner.lbl")</label>
+            @Html.Action("OwnerEdit", "Activity", new { ownerId = Model.OwnerId, ownerIdPropertyName = nameof(Model.OwnerId), activityType = PermissionResourceTypeEnum.News, links = Model.Links })
         </div>
         <div class="form__row clearfix">
             <label class="form__label" for="title">@Html.Localize("NewsCreate.Title.lbl") <span class="form__required">*</span></label>

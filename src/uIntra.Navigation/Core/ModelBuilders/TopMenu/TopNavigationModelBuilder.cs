@@ -6,15 +6,15 @@ namespace Uintra.Navigation
 {
     public class TopNavigationModelBuilder : ITopNavigationModelBuilder
     {
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IContentPageContentProvider _contentPageContentPropvider;
 
 
         public TopNavigationModelBuilder(
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IContentPageContentProvider contentPageContentPropvider)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _contentPageContentPropvider = contentPageContentPropvider;
         }
 
@@ -22,7 +22,7 @@ namespace Uintra.Navigation
         {
             var result = new TopNavigationModel
             {
-                CurrentUser = _intranetUserService.GetCurrentUser(),
+                CurrentMember = _intranetMemberService.GetCurrentMember(),
                 CentralUserListUrl = _contentPageContentPropvider.GetUserListContentPageFromPicker()?.Url
             };
 

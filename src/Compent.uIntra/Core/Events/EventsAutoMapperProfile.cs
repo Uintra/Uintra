@@ -34,7 +34,8 @@ namespace Compent.Uintra.Core.Events
             Mapper.CreateMap<Event, EventExtendedEditModel>()
                 .IncludeBase<EventBase, EventEditModel>()
                 .ForMember(dst => dst.CanEditSubscribe, o => o.Ignore())
-                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty))
+                .ForMember(dst => dst.CanHide, o => o.Ignore());
 
             Mapper.CreateMap<Event, EventExtendedCreateModel>()
                 .IncludeBase<EventBase, EventCreateModel>()

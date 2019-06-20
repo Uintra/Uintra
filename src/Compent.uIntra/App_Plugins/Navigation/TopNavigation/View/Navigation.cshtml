@@ -3,7 +3,7 @@
 @model Uintra.Navigation.TopNavigationViewModel
 
 @{
-    var userAvatar = Model.CurrentUser.Photo.HasValue() ? $"{Model.CurrentUser.Photo}?width=30&height=30&mode=crop" : string.Empty;
+    var userAvatar = Model.CurrentMember.Photo.HasValue() ? $"{Model.CurrentMember.Photo}?width=30&height=30&mode=crop" : string.Empty;
 }
 
 <a href="#" class="menu__burger js-menu-opener">
@@ -21,7 +21,7 @@
                 if (userAvatar.IsNullOrEmpty())
                 {
                     <div class="avatar__letter">
-                        @Model.CurrentUser.DisplayedName.First()
+                        @Model.CurrentMember.DisplayedName.First()
                     </div>
                 }
                 else
@@ -31,24 +31,12 @@
             }
             <span class="user__opener-arrow"></span>
             <div class="greeting">
-                <strong class="greeting__username">@Model.CurrentUser.DisplayedName</strong>
-                <span class="greeting__role">@Model.CurrentUser.Role.Name</span>
+                <strong class="greeting__username">@Model.CurrentMember.DisplayedName</strong>
+                <span class="greeting__role">@Model.CurrentMember.Role.Name</span>
             </div>
         </a>
         <ul class="user__menu">
-            @if (Model.CurrentUser.UmbracoId.HasValue)
-        {
-            <li class="user__menu-item">
-                <a class="user__menu-link" href="@Url.Action("LoginToUmbraco", "NavigationAuthorization")">
-                    <span class="icon icon-umbraco">
-                        <svg class="svg-icon" viewBox="0 0 300 300" width="29px" height="29px">
-                            <use xlink:href="#icon-umbraco" x="0" y="0"></use>
-                        </svg>
-                    </span>
-                    @Html.Localize("TopNavigation.LoginToUmbraco.lbl")
-                </a>
-            </li>
-    }
+            @{ Html.RenderAction("UmbracoContentLink", "Navigation"); }        
             <li class="user__menu-item">
                 <a class="user__menu-link js-logout" href="@Url.Action("Logout", "NavigationAuthorization")">
                     <span class="icon icon-logout">

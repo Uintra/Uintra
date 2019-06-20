@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
+using LanguageExt;
 using Uintra.Core.Extensions;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Core.Persistence
 {
@@ -26,6 +29,8 @@ namespace Uintra.Core.Persistence
         public T Get(TKey id) => _dbSet.Find(id);
 
         public T Find(Expression<Func<T, bool>> predicate) => _dbSet.FirstOrDefault(predicate);
+
+        public Option<T> FindOrNone(Expression<Func<T, bool>> predicate) => Optional(_dbSet.FirstOrDefault(predicate));
 
         public IList<T> FindAll(Expression<Func<T, bool>> predicate, int skip = 0, int take = int.MaxValue) =>
             _dbSet.Where(predicate).OrderBy(ent => ent.Id).Skip(skip).Take(take).ToList();
@@ -120,6 +125,46 @@ namespace Uintra.Core.Persistence
         public virtual void Save()
         {
             _dbContext.SaveChanges();
+
+            try
+            {
+                _dbContext.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                // for cases when we trying to update entities which does not present in database.
+                var entries = _dbContext.ChangeTracker.Entries()
+                    .Where(i => i.State == EntityState.Modified);
+                foreach (var entry in entries)
+                {
+                    var dbValues = entry.GetDatabaseValues();
+                    if(dbValues == null)
+                        entry.State = EntityState.Added;
+                }
+                _dbContext.SaveChanges();
+            }
+        }
+
+        public virtual void UpdateProperty<TProperty>(T entity, Expression<Func<T, TProperty>> property)
+        {
+            _dbSet.Attach(entity);
+            _dbContext.Entry(entity).Property(property).IsModified = true;
+            Save();
+        }
+
+        public virtual void UpdateProperty<TProperty>(IEnumerable<T> entities, Expression<Func<T, TProperty>> property)
+        {
+            foreach (var entity in entities)
+            {
+                _dbSet.Attach(entity);
+                _dbContext.Entry(entity).Property(property).IsModified = true;
+            }
+            Save();
+        }
+
+        public virtual IList<T> AsNoTracking()
+        {
+            return _dbSet.AsNoTracking().ToList();
         }
 
         public void Dispose()

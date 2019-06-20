@@ -52,6 +52,15 @@ table.table td.td-txt-input input.ng-pristine {
     margin-bottom: 10px;
 }
 
+.smtp-settings div input[type="checkbox"] + * {
+    margin: 10px 0 0;
+}
+
+.control-label,
+label.control-label {
+    max-width: 230px;
+}
+
 .paging {
     text-align: center;
     padding: 0 0 20px;
@@ -116,4 +125,3 @@ table.table td.td-txt-input input.ng-pristine {
     text-align: right;
     display: block;
 }
-

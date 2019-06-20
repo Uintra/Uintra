@@ -6,7 +6,6 @@ using Compent.Extensions;
 using Uintra.Core.Configuration;
 using Uintra.Core.User;
 using Uintra.Groups;
-using Uintra.Groups.Permissions;
 using Uintra.Navigation;
 using Uintra.Navigation.Configuration;
 using Umbraco.Core.Models;
@@ -17,20 +16,17 @@ namespace Compent.Uintra.Core.Navigation
     public class SubNavigationModelBuilder : NavigationModelBuilderBase<SubNavigationMenuModel>, ISubNavigationModelBuilder
     {
         private readonly IGroupHelper _groupHelper;
-        private readonly IGroupPermissionsService _groupPermissionsService;
-        private readonly IIntranetUserService<IGroupMember> _intranetUserService;
+        private readonly IGroupService _groupService;
 
         public SubNavigationModelBuilder(
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
             IGroupHelper groupHelper,
-            IGroupPermissionsService groupPermissionsService,
-            IIntranetUserService<IGroupMember> intranetUserService)
+            IGroupService groupService)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
             _groupHelper = groupHelper;
-            _groupPermissionsService = groupPermissionsService;
-            _intranetUserService = intranetUserService;
+            _groupService = groupService;
         }
 
         public override SubNavigationMenuModel GetMenu()
@@ -162,11 +158,9 @@ namespace Compent.Uintra.Core.Navigation
 
         protected virtual IEnumerable<IPublishedContent> ValidateGroupSubNavigationItems(IEnumerable<IPublishedContent> items)
         {
-            var role = _intranetUserService.GetCurrentUser().Role;
-
             foreach (var item in items)
             {
-                var validatePermission = _groupPermissionsService.ValidatePermission(item, role);
+                var validatePermission = _groupService.ValidatePermission(item);
                 if (validatePermission)
                 {
                     yield return item;

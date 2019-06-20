@@ -9,7 +9,6 @@ using Compent.Uintra.Core.UserTags;
 using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
-using Uintra.Core.Grid;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
 using Uintra.Core.TypeProviders;
@@ -21,7 +20,6 @@ using Uintra.Groups.Extentions;
 using Uintra.Notification;
 using Uintra.Notification.Configuration;
 using Uintra.Search;
-using Uintra.Tagging.UserTags;
 using Uintra.Users;
 
 namespace Compent.Uintra.Controllers
@@ -35,7 +33,7 @@ namespace Compent.Uintra.Controllers
         private string DetailsHeaderViewPath => "~/Views/Events/DetailsHeader.cshtml";
 
         private readonly IEventsService<Event> _eventsService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IReminderService _reminderService;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IGroupActivityService _groupActivityService;
@@ -47,24 +45,21 @@ namespace Compent.Uintra.Controllers
         public EventsController(
             IEventsService<Event> eventsService,
             IMediaHelper mediaHelper,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IReminderService reminderService,
-            IIntranetUserContentProvider intranetUserContentProvider,
-            IGridHelper gridHelper,
             IActivityTypeProvider activityTypeProvider,
             IDocumentIndexer documentIndexer,
             IGroupActivityService groupActivityService,
             IActivityLinkService activityLinkService,
-            UserTagService userTagService,
             IActivityTagsHelper activityTagsHelper,
             IGroupMemberService groupMemberService,
             IContextTypeProvider contextTypeProvider,
             IActivityPageHelperFactory activityPageHelperFactory,
             IMentionService mentionService)
-            : base(eventsService, mediaHelper, intranetUserService, activityTypeProvider, activityLinkService, contextTypeProvider, activityPageHelperFactory)
+            : base(eventsService, mediaHelper, intranetMemberService, activityTypeProvider, activityLinkService, contextTypeProvider, activityPageHelperFactory)
         {
             _eventsService = eventsService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _reminderService = reminderService;
             _documentIndexer = documentIndexer;
             _groupActivityService = groupActivityService;
@@ -87,12 +82,12 @@ namespace Compent.Uintra.Controllers
 
         protected override IEnumerable<EventBase> GetComingEvents(DateTime endDate)
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
             var events = _eventsService.GetComingEvents(endDate);
 
             bool IsNotGroupEventOrUserInGroup(Event @event) =>
                 !@event.GroupId.HasValue ||
-                _groupMemberService.IsGroupMember(@event.GroupId.Value, currentUser.Id);
+                _groupMemberService.IsGroupMember(@event.GroupId.Value, currentMember.Id);
 
             return events.Where(IsNotGroupEventOrUserInGroup);
         }
@@ -139,7 +134,7 @@ namespace Compent.Uintra.Controllers
             extendedModel.HeaderInfo = model.HeaderInfo.Map<ExtendedItemHeaderViewModel>();
             extendedModel.HeaderInfo.GroupInfo = options.GroupInfo;
 
-            var userId = _intranetUserService.GetCurrentUser();
+            var userId = _intranetMemberService.GetCurrentMember();
             extendedModel.LikesInfo = item;
             extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;
             extendedModel.IsReadOnly = options.IsReadOnly;
@@ -167,12 +162,12 @@ namespace Compent.Uintra.Controllers
 
             var @event = _eventsService.Get(activityId);
 
-            var groupId = Request.QueryString.GetGroupId();
-            if (groupId.HasValue)
-            {
-                _groupActivityService.AddRelation(groupId.Value, activityId);
-                @event.GroupId = groupId;
-            }
+            var groupId = Request.QueryString.GetGroupIdOrNone();
+
+            groupId.IfSome(id => _groupActivityService.AddRelation(id, activityId));
+
+            @event.GroupId = groupId.ToNullable();
+
             if (model is EventExtendedCreateModel extendedModel)
             {
                 _activityTagsHelper.ReplaceTags(activityId, extendedModel.TagIdsData);
@@ -247,7 +242,7 @@ namespace Compent.Uintra.Controllers
                 _mentionService.ProcessMention(new MentionModel()
                 {
                     MentionedSourceId = @event.Id,
-                    CreatorId = _intranetUserService.GetCurrentUserId(),
+                    CreatorId = _intranetMemberService.GetCurrentMemberId(),
                     MentionedUserIds = mentionIds,
                     Title = @event.Title.StripHtml(),
                     Url = links.Details,

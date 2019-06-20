@@ -1,4 +1,4 @@
-﻿@using Uintra.Core.Activity
+﻿@using Uintra.Core.Permissions
 @using Uintra.Core.Controls.FileUpload
 @using Uintra.Core.Extensions
 @using Uintra.Subscribe
@@ -13,8 +13,8 @@
         <input type="hidden" name="id" value="@Model.Id" />
 
         <div class="form__row clearfix">
-            <label class="form__label">@Html.Localize("EventsEdit.Creator.lbl")</label>
-            @Html.Action("OwnerEdit", "Activity", new { ownerId = Model.OwnerId, ownerIdPropertyName = nameof(Model.OwnerId), activityType = IntranetActivityTypeEnum.Events, links = Model.Links })
+            <label class="form__label">@Html.Localize("EventsEdit.Owner.lbl")</label>
+            @Html.Action("OwnerEdit", "Activity", new { ownerId = Model.OwnerId, ownerIdPropertyName = nameof(Model.OwnerId), activityType = PermissionResourceTypeEnum.Events, links = Model.Links })
         </div>
 
         <div class="form__row clearfix">
@@ -121,7 +121,10 @@
             @Html.PassLinks(Model.Links)
             <input type="hidden" name="mediaRootId" value="@Model.MediaRootId" />
             <input class="btn _submit js-disable-submit" type="button" value="@Html.Localize("EventsEdit.Edit.btn")" />
-            <input class="btn _submit js-event-hide" type="button" value="@Html.Localize("EventsEdit.Hide.btn")" data-id="@Model.Id" data-title="@Html.Localize("Common.NotifyAllSubscribers.Title")" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")" data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" data-return-url="@Model.Links.Overview" />
+            @if (Model.CanHide)
+            {
+                <input class="btn _submit js-event-hide" type="button" value="@Html.Localize("EventsEdit.Hide.btn")" data-id="@Model.Id" data-title="@Html.Localize("Common.NotifyAllSubscribers.Title")" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")" data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" data-return-url="@Model.Links.Overview" />
+            }
             <a class="btn" href="@(Context.GetBackLink(Model.Links.Details))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
     }

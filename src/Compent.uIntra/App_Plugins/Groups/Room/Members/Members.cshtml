@@ -10,14 +10,14 @@
         <tr class="members-table__row">
             <th colspan="2" class="members-table__head">@Html.Localize("GroupMembers.Table.Name.lbl")</th>
             <th class="members-table__head">@Html.Localize("GroupMembers.Table.Email.lbl")</th>
-            <th class="members-table__head">@Html.Localize("GroupMembers.Table.Role.lbl")</th>
+            <th class="members-table__head">@Html.Localize("GroupMembers.Table.Group.lbl")</th>
             <th class="members-table__head"></th>
         </tr>
         @foreach (var member in Model.Members)
         {
             <tr class="members-table__row">
                 <td class="members-table__cell">
-                    @Html.Action("Photo", "User", new
+                    @Html.Action("Photo", "Member", new
                     {
                         user = member.GroupMember,
                         cssModificator = "avatar--group-member",

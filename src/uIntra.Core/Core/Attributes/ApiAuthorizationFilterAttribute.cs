@@ -6,7 +6,6 @@ using System.Web.Http.Filters;
 using System.Web.Mvc;
 using System.Web.Security;
 using LanguageExt;
-using Uintra.Core.ApplicationSettings;
 using Uintra.Core.User;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -18,13 +17,11 @@ namespace Uintra.Core.Attributes
     public class ApiAuthorizationFilterAttribute : AuthorizationFilterAttribute
     {
         private readonly IMemberService _memberService;
-        private readonly IApplicationSettings _applicationSettings;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
         public ApiAuthorizationFilterAttribute()
         {
-            _intranetUserService = DependencyResolver.Current.GetService<IIntranetUserService<IIntranetUser>>();
-            _applicationSettings = DependencyResolver.Current.GetService<IApplicationSettings>();
+            _intranetMemberService = DependencyResolver.Current.GetService<IIntranetMemberService<IIntranetMember>>();
             _memberService = DependencyResolver.Current.GetService<IMemberService>();
         }
 
@@ -57,17 +54,15 @@ namespace Uintra.Core.Attributes
 
         private bool IsCredentialsValid(string mail, string password)
         {
-            var relatedUserWithWebMasterRole = Optional(_intranetUserService.GetByEmail(mail))
-                .Filter(member => member.Role.Name == IntranetRolesEnum.WebMaster.ToString())
-                .Bind(member => member.UmbracoId.ToOption())
-                .Map(id => _memberService.GetById(id));
+            var relatedUserWithSuperUserPermissions = Optional(_intranetMemberService.GetByEmail(mail))
+                .Bind(member => member.RelatedUser.Filter(user => user.IsSuperUser))
+                .Map(user => _memberService.GetById(user.Id));
 
-            Option<IMember> GetUserWithMatchingEmail () => Optional(_memberService.GetByEmail(mail));
+            Option<IMember> GetUserWithMatchingEmail() => Optional(_memberService.GetByEmail(mail));
 
-            return EnumerableExtensions
-                .Choose(relatedUserWithWebMasterRole, GetUserWithMatchingEmail)
-                .Map(user => Membership.ValidateUser(user.Username, password))
-                .IfNone(() => false);
+            return relatedUserWithSuperUserPermissions
+                .Choose(GetUserWithMatchingEmail)
+                .Exists(user => Membership.ValidateUser(user.Username, password));
         }
     }
 }

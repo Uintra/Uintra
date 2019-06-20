@@ -53,7 +53,7 @@ namespace Uintra.Core
             var cookie = Get(name);
             if (cookie != null)
             {
-                cookie.Expires = DateTime.Now.AddDays(-1);
+                cookie.Expires = DateTime.UtcNow.AddDays(-1);
             }
         }
 

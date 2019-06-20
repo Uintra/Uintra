@@ -483,3 +483,11 @@
         margin:0 0 28px;
     }
 }
+
+#icon-people path {
+    fill: currentColor;
+}
+
+#icon-bell path {
+    fill: currentColor;
+}

@@ -10,7 +10,6 @@ using Uintra.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Groups;
 using Uintra.Groups.Extentions;
 using Uintra.Groups.Navigation.Models;
@@ -18,7 +17,6 @@ using Uintra.Navigation;
 using Uintra.Navigation.SystemLinks;
 using Uintra.Navigation.Web;
 using Umbraco.Core.Models;
-using Umbraco.Core.Services;
 using Umbraco.Web;
 
 namespace Compent.Uintra.Controllers
@@ -36,7 +34,6 @@ namespace Compent.Uintra.Controllers
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;
         private readonly IGroupFeedContentService _groupFeedContentService;
-        private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly IGroupLinkProvider _groupLinkProvider;
         private readonly IGroupContentProvider _groupContentProvider;
         private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
@@ -53,29 +50,24 @@ namespace Compent.Uintra.Controllers
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IGroupService groupService,
             IGroupFeedContentService groupFeedContentService,
-            IIntranetUserService<IntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IGroupLinkProvider groupLinkProvider,
             IGroupContentProvider groupContentProvider,
             IGroupHelper groupHelper,
             ICentralFeedHelper centralFeedHelper,
             IProfileLinkProvider profileLinkProvider,
-            IPermissionsService permissionsService,
-            IUserService userService,
             IUintraInformationService uintraInformationService)
             : base(
                 leftSideNavigationModelBuilder,
                 subNavigationModelBuilder,
                 topNavigationModelBuilder,
                 systemLinksModelBuilder,
-                intranetUserService,
-                profileLinkProvider,
-                permissionsService,
-                userService)
+                intranetMemberService,
+                profileLinkProvider)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupService = groupService;
             _groupFeedContentService = groupFeedContentService;
-            _intranetUserService = intranetUserService;
             _groupLinkProvider = groupLinkProvider;
             _groupContentProvider = groupContentProvider;
             _subNavigationModelBuilder = subNavigationModelBuilder;
@@ -93,7 +85,7 @@ namespace Compent.Uintra.Controllers
             var topNavigation = _topNavigationModelBuilder.Get();
             var result = new TopNavigationExtendedViewModel
             {
-                CurrentUser = topNavigation.CurrentUser.Map<UserViewModel>(),
+                CurrentMember = topNavigation.CurrentMember.Map<MemberViewModel>(),
                 CentralUserListUrl = topNavigation.CentralUserListUrl,
                 UintraDocumentationLink = _uintraInformationService.DocumentationLink,
                 UintraDocumentationVersion = _uintraInformationService.Version
@@ -138,64 +130,57 @@ namespace Compent.Uintra.Controllers
             return Content($" - {result}");
         }
 
-        protected override List<BreadcrumbItemViewModel> GetBreadcrumbsItems()
+        protected override IEnumerable<BreadcrumbItemViewModel> GetBreadcrumbsItems()
         {
             var result = base.GetBreadcrumbsItems();
             return _groupHelper.IsGroupRoomPage(CurrentPage) ? GetGroupBreadcrumbsItems(result) : result;
         }
 
-        private List<BreadcrumbItemViewModel> GetGroupBreadcrumbsItems(List<BreadcrumbItemViewModel> items)
+        private IEnumerable<BreadcrumbItemViewModel> GetGroupBreadcrumbsItems(IEnumerable<BreadcrumbItemViewModel> items)
         {
+            var itemsList = items.ToList();
             var groupId = Request.QueryString.GetGroupId();
-            var group = _groupService.Get(groupId.Value);
+            var group = _groupService.Get(groupId);
             var groupRoomPageUrl = _groupContentProvider.GetGroupRoomPage().Url;
 
-            var groupRoomItem = items.Single(item => item.Url.Equals(groupRoomPageUrl));
+            var groupRoomItem = itemsList.Single(item => item.Url.Equals(groupRoomPageUrl));
             groupRoomItem.Name = group.Title;
 
-            var groupRoomItems = items.SkipWhile(item => item != groupRoomItem).Where(item => item.IsClickable);
+            var groupRoomItems = itemsList.SkipWhile(item => item != groupRoomItem).Where(item => item.IsClickable);
             foreach (var item in groupRoomItems)
             {
-                item.Url = item.Url.AddGroupId(groupId.Value);
+                item.Url = item.Url.AddGroupId(groupId);
             }
 
-            return items;
+            return itemsList;
         }
 
         private ActionResult RenderGroupNavigation()
         {
-            var groupId = Request.QueryString.GetGroupId();
-            if (!groupId.HasValue)
-            {
-                return new EmptyResult();
-            }
-            var group = _groupService.Get(groupId.Value);
+            var groupId = Request.QueryString.GetGroupIdOrNone();
+            var validGroup = groupId.Map(_groupService.Get);
 
-            if (group == null)
-            {
-                return new EmptyResult();
-            }
+            return validGroup.Match(
+                Some: group =>
+                {
+                    var groupNavigationModel = group.IsHidden
+                        ? new GroupNavigationViewModel {GroupTitle = group.Title}
+                        : new GroupNavigationViewModel
+                        {
+                            GroupTitle = group.Title,
+                            GroupUrl = _groupLinkProvider.GetGroupLink(group.Id),
+                            ActivityTabs = _groupFeedContentService
+                                .GetMainFeedTab(CurrentPage, group.Id)
+                                .ToEnumerable()
+                                .Map<IEnumerable<GroupNavigationActivityTabViewModel>>(),
+                            PageTabs = _groupFeedContentService
+                                .GetPageTabs(CurrentPage, group.Id)
+                                .Select(t => MapToGroupPageTabViewModel(t, _groupContentProvider.GetEditPage()))
+                        };
 
-            var groupNavigationModel = new GroupNavigationViewModel { GroupTitle = @group.Title };
-
-            if (!group.IsHidden)
-            {
-                groupNavigationModel.GroupUrl = _groupLinkProvider.GetGroupLink(group.Id);
-
-                groupNavigationModel.ActivityTabs = _groupFeedContentService
-                    .GetMainFeedTab(CurrentPage, groupId.Value)
-                    .ToEnumerable()
-                    .Map<IEnumerable<GroupNavigationActivityTabViewModel>>();
-
-                var currentUser = _intranetUserService.GetCurrentUser();
-                var groupEditPage = _groupContentProvider.GetEditPage();
-                groupNavigationModel.PageTabs = _groupFeedContentService
-                    .GetPageTabs(CurrentPage, currentUser, groupId.Value)
-                    .Select(t => MapToGroupPageTabViewModel(t, groupEditPage));
-            }
-
-
-            return PartialView(GroupNavigationViewPath, groupNavigationModel);
+                    return PartialView(GroupNavigationViewPath, groupNavigationModel);
+                },
+                None: () => (ActionResult) new EmptyResult());
         }
 
         private GroupNavigationPageTabViewModel MapToGroupPageTabViewModel(PageTabModel tab, IPublishedContent editPage)
@@ -205,6 +190,6 @@ namespace Compent.Uintra.Controllers
             return result;
         }
 
-        private bool IsGroupEditPage(IPublishedContent tab, IPublishedContent editPage) => tab.Id == editPage.Id;
+        private static bool IsGroupEditPage(IPublishedContent tab, IPublishedContent editPage) => tab.Id == editPage.Id;
     }
 }

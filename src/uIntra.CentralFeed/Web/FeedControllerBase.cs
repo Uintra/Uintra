@@ -8,8 +8,6 @@ using Uintra.Core;
 using Uintra.Core.Context;
 using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
-using Uintra.Core.User;
-using Uintra.Subscribe;
 
 namespace Uintra.CentralFeed.Web
 {
@@ -28,11 +26,8 @@ namespace Uintra.CentralFeed.Web
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
 
         protected FeedControllerBase(
-            ISubscribeService subscribeService,
             IFeedService feedService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
-            IFeedTypeProvider centralFeedTypeProvider,
             IContextTypeProvider contextTypeProvider): base(contextTypeProvider)
         {
             _feedService = feedService;
@@ -80,8 +75,8 @@ namespace Uintra.CentralFeed.Web
 
         protected virtual FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<int, FeedSettings> settings)
         {
-            ActivityFeedOptions options = GetActivityFeedOptions(i.Id);
-            return new FeedItemViewModel()
+            var options = GetActivityFeedOptions(i.Id);
+            return new FeedItemViewModel
             {
                 Activity = i,
                 Options = options,
@@ -90,13 +85,6 @@ namespace Uintra.CentralFeed.Web
         }
 
         protected abstract ActivityFeedOptions GetActivityFeedOptions(Guid activityId);
-
-        protected virtual IEnumerable<Enum> GetInvolvedTypes(IEnumerable<IFeedItem> items)
-        {
-            return items
-                .Select(i => i.Type)
-                .Distinct();
-        }
         
         protected virtual IList<IFeedItem> SortForFeed(IEnumerable<IFeedItem> items, Enum type)
         {

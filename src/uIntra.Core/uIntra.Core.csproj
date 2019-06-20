@@ -101,8 +101,8 @@
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="businesslogic, Version=1.0.6879.21987, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\businesslogic.dll</HintPath>
+    <Reference Include="businesslogic, Version=1.0.7009.26204, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\businesslogic.dll</HintPath>
     </Reference>
     <Reference Include="ClientDependency.Core, Version=1.9.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ClientDependency.1.9.7\lib\net45\ClientDependency.Core.dll</HintPath>
@@ -112,8 +112,8 @@
       <HintPath>..\..\packages\ClientDependency-Mvc5.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="cms, Version=1.0.6879.21987, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\cms.dll</HintPath>
+    <Reference Include="cms, Version=1.0.7009.26205, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\cms.dll</HintPath>
     </Reference>
     <Reference Include="Compent.CommandBus, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.CommandBus.1.2.1\lib\net471\Compent.CommandBus.dll</HintPath>
@@ -127,8 +127,8 @@
     <Reference Include="Compent.LinkPreview.HttpClient, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
-    <Reference Include="controls, Version=1.0.6879.21988, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\controls.dll</HintPath>
+    <Reference Include="controls, Version=1.0.7009.26205, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\controls.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -159,14 +159,14 @@
     <Reference Include="ImageProcessor.Web, Version=4.8.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ImageProcessor.Web.4.8.7\lib\net45\ImageProcessor.Web.dll</HintPath>
     </Reference>
-    <Reference Include="interfaces, Version=1.0.6879.21975, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\interfaces.dll</HintPath>
+    <Reference Include="interfaces, Version=1.0.7009.26192, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\interfaces.dll</HintPath>
     </Reference>
     <Reference Include="LanguageExt.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LanguageExt.Core.3.0.28\lib\net45\LanguageExt.Core.dll</HintPath>
+      <HintPath>..\..\packages\LanguageExt.Core.3.1.15\lib\net45\LanguageExt.Core.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\log4net.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Log4Net.Async, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Log4Net.Async.2.0.4\lib\net40\Log4Net.Async.dll</HintPath>
@@ -185,7 +185,7 @@
       <HintPath>..\..\packages\MediaToolkit.1.1.0.1\lib\net40\MediaToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=1.0.1559.20655, Culture=neutral">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -254,8 +254,8 @@
       <HintPath>..\..\packages\semver.1.1.2\lib\net451\Semver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SQLCE4Umbraco, Version=1.0.6879.21988, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\SQLCE4Umbraco.dll</HintPath>
+    <Reference Include="SQLCE4Umbraco, Version=1.0.7009.26205, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\SQLCE4Umbraco.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -266,11 +266,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\System.Data.SqlServerCe.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\System.Data.SqlServerCe.Entity.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\System.Data.SqlServerCe.Entity.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
@@ -356,31 +357,34 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\TidyNet.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\TidyNet.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco, Version=1.0.6879.21989, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\umbraco.dll</HintPath>
+    <Reference Include="TimeZoneConverter, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e20ab7d0d9479841, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TimeZoneConverter.3.0.0\lib\net471\TimeZoneConverter.dll</HintPath>
     </Reference>
-    <Reference Include="Umbraco.Core, Version=1.0.6879.21982, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\Umbraco.Core.dll</HintPath>
+    <Reference Include="umbraco, Version=1.0.7009.26206, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\umbraco.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.DataLayer, Version=1.0.6879.21987, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\umbraco.DataLayer.dll</HintPath>
+    <Reference Include="Umbraco.Core, Version=1.0.7009.26199, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\Umbraco.Core.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.editorControls, Version=1.0.6879.21992, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\umbraco.editorControls.dll</HintPath>
+    <Reference Include="umbraco.DataLayer, Version=1.0.7009.26204, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\umbraco.DataLayer.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.MacroEngines, Version=1.0.6879.21992, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\umbraco.MacroEngines.dll</HintPath>
+    <Reference Include="umbraco.editorControls, Version=1.0.7009.26209, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\umbraco.editorControls.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.providers, Version=1.0.6879.21988, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\umbraco.providers.dll</HintPath>
+    <Reference Include="umbraco.MacroEngines, Version=1.0.7009.26210, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\umbraco.MacroEngines.dll</HintPath>
     </Reference>
-    <Reference Include="Umbraco.Web.UI, Version=1.0.6879.21993, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\Umbraco.Web.UI.dll</HintPath>
+    <Reference Include="umbraco.providers, Version=1.0.7009.26206, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\umbraco.providers.dll</HintPath>
     </Reference>
-    <Reference Include="UmbracoExamine, Version=0.7.0.21988, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.12.4\lib\net45\UmbracoExamine.dll</HintPath>
+    <Reference Include="Umbraco.Web.UI, Version=1.0.7009.26212, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\Umbraco.Web.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UmbracoExamine, Version=0.7.0.26205, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\UmbracoExamine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -394,22 +398,63 @@
     <Compile Include="Core\Context\Attributes.cs" />
     <Compile Include="Core\Context\ContextBuildType.cs" />
     <Compile Include="Core\Context\Extensions\PropertyReflectionHelper.cs" />
+    <Compile Include="Core\Extensions\TreeExtensions.cs" />
     <Compile Include="Core\Helpers\SectionHelper.cs" />
     <Compile Include="Core\Media\IVideoConverter.cs" />
     <Compile Include="Core\Media\IVideoConverterLogService.cs" />
     <Compile Include="Core\Media\MediaConvertModel.cs" />
     <Compile Include="Core\Media\VideoConvertationLog.cs" />
-    <Compile Include="Core\User\DTO\CreateUserDto.cs" />
-    <Compile Include="Core\User\DTO\ReadUserDto.cs" />
+    <Compile Include="Core\Permissions\Implementation\PermissionSettingsSchemaProviderFunctions.cs" />
+    <Compile Include="Core\Permissions\Implementation\PermissionsService.cs" />
+    <Compile Include="Core\Permissions\Interfaces\IIntranetMemberGroupService.cs" />
+    <Compile Include="Core\Permissions\Implementation\IntranetMemberGroupService.cs" />
+    <Compile Include="Core\Permissions\Implementation\PermissionSettingsSchemaProvider.cs" />
+    <Compile Include="Core\Permissions\Interfaces\IPermissionSettingsSchema.cs" />
+    <Compile Include="Core\Permissions\Interfaces\IPermissionsService.cs" />
+    <Compile Include="Core\Permissions\Models\PermissionManagementModel.cs" />
+    <Compile Include="Core\Permissions\Models\ResourceToActionRelation.cs" />
+    <Compile Include="Core\Permissions\TypeProviders\IPermissionActionTypeProvider.cs" />
+    <Compile Include="Core\Permissions\TypeProviders\IPermissionActivityTypeProvider.cs" />
+    <Compile Include="Core\Permissions\TypeProviders\PermissionActivityTypeProvider.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoContentSavingEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberAssignedRolesEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberCreatedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberGroupDeletingEventService.cs" />
+    <Compile Include="Core\Permissions\Models\PermissionSettingIdentity.cs" />
+    <Compile Include="Core\Permissions\AutoMapperProfiles\PermissionsAutoMapperProfile.cs" />
+    <Compile Include="Core\Permissions\Models\GroupPermissionsVIewModel.cs" />
+    <Compile Include="Core\Permissions\Models\IntranetMemberGroup.cs" />
+    <Compile Include="Core\Permissions\Models\PermissionUpdateModel.cs" />
+    <Compile Include="Core\Permissions\Models\MemberGroupViewModel.cs" />
+    <Compile Include="Core\Permissions\Models\PermissionSettingValues.cs" />
+    <Compile Include="Core\Permissions\Models\PermissionUpdateViewModel.cs" />
+    <Compile Include="Core\Permissions\Models\PermissionViewModel.cs" />
+    <Compile Include="Core\Permissions\Models\PermissionModel.cs" />
+    <Compile Include="Core\Permissions\PermissionResourceTypeEnum.cs" />
+    <Compile Include="Core\Permissions\PermissionsControllerBase.cs" />
+    <Compile Include="Core\Permissions\PermissionActionEnum.cs" />
+    <Compile Include="Core\Permissions\Sql\PermissionEntity.cs" />
+    <Compile Include="Core\Permissions\TypeProviders\IIntranetMemberGroupProvider.cs" />
+    <Compile Include="Core\Permissions\TypeProviders\IntranetMemberGroupProvider.cs" />
+    <Compile Include="Core\Permissions\TypeProviders\PermissionActionTypeProvider.cs" />
+    <Compile Include="Core\Permissions\UmbracoEvents\UmbracoMemberGroupEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberGroupSavedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberRemovedRolesEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\UmbracoContentSavingEventService.cs" />
+    <Compile Include="Core\User\DTO\CreateMemberDto.cs" />
+    <Compile Include="Core\User\DTO\ReadMemberDto.cs" />
     <Compile Include="Core\Sync\ISyncService.cs" />
     <Compile Include="Core\Sync\ISyncSettings.cs" />
-    <Compile Include="Core\User\DTO\UpdateUserDto.cs" />
+    <Compile Include="Core\User\DTO\UpdateMemberDto.cs" />
     <Compile Include="Core\Media\VideoConvertedCommand.cs" />
     <Compile Include="Core\Media\VideoConverter.cs" />
     <Compile Include="Core\Media\VideoConverterLogService.cs" />
     <Compile Include="Core\Providers\ContentPageContentProvider.cs" />
     <Compile Include="Core\Providers\IContentPageContentProvider.cs" />
-    <Compile Include="Core\User\Models\UserViewModel.cs" />
+    <Compile Include="Core\User\IIntranetUser.cs" />
+    <Compile Include="Core\User\IIntranetUserService.cs" />
+    <Compile Include="Core\User\IntranetUserService.cs" />
+    <Compile Include="Core\User\Models\MemberViewModel.cs" />
     <Compile Include="Core\ViewRenderer.cs" />
     <Compile Include="Core\Grid\GridRenderHelper.cs" />
     <Compile Include="Core\Helpers\HtmlHelper.cs" />
@@ -535,13 +580,10 @@
     <Compile Include="Core\Activity\Models\IntranetActivityOwnerEditModel.cs" />
     <Compile Include="Core\User\IHaveOwner.cs" />
     <Compile Include="Core\User\IIntranetUserContentProvider.cs" />
-    <Compile Include="Core\User\IRole.cs" />
-    <Compile Include="Core\User\Models\UserPhotoViewModel.cs" />
-    <Compile Include="Core\User\Permissions\PermissionConstants.cs" />
+    <Compile Include="Core\User\Models\MemberPhotoViewModel.cs" />
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionApiAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\ContentRestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\IgnoreRestrictedActionAttribute.cs" />
-    <Compile Include="Core\User\Role.cs" />
     <Compile Include="Core\Utils\EmbeddedResourceService.cs" />
     <Compile Include="Core\Utils\EmbeddedResourcesUtils.cs" />
     <Compile Include="Core\Utils\IEmbeddedResourceService.cs" />
@@ -557,7 +599,7 @@
     <Compile Include="Web\ActivityLocationControllerBase.cs" />
     <Compile Include="Web\PagePromotionControllerBase.cs" />
     <Compile Include="Web\RteConfigControllerBase.cs" />
-    <Compile Include="Web\UserControllerBase.cs" />
+    <Compile Include="Web\MemberControllerBase.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewModel.cs" />
     <Compile Include="Core\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\IApplicationSettings.cs" />
@@ -569,12 +611,11 @@
     <Compile Include="Core\Handlers\NotFoundHandlerBase.cs" />
     <Compile Include="Core\Providers\ITimezoneOffsetProvider.cs" />
     <Compile Include="Core\Media\MediaFolderTypeEnum.cs" />
-    <Compile Include="Core\Providers\TimezoneOffsetProvider.cs" />
+    <Compile Include="Core\Providers\ClientTimezoneProvider.cs" />
     <Compile Include="Core\Activity\CacheConstants.cs" />
     <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\IIntranetActivityRepository.cs" />
     <Compile Include="Core\Activity\IIntranetActivityService.cs" />
-    <Compile Include="Core\Activity\IntranetActivityActionEnum.cs" />
     <Compile Include="Core\Activity\IntranetActivityRepository.cs" />
     <Compile Include="Core\Activity\IntranetActivityService.cs" />
     <Compile Include="Core\Activity\IntranetActivityTypeEnum.cs" />
@@ -587,8 +628,6 @@
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
     <Compile Include="Core\Caching\ICacheService.cs" />
     <Compile Include="Core\Caching\MemoryCacheService.cs" />
-    <Compile Include="Core\Caching\Models\CachedItemBase.cs" />
-    <Compile Include="Core\Caching\Models\CachedList.cs" />
     <Compile Include="Core\Configuration\ConfigurationProvider.cs" />
     <Compile Include="Core\Configuration\IConfigurationProvider.cs" />
     <Compile Include="Core\Controls\FileUpload\FileController.cs" />
@@ -607,7 +646,6 @@
     <Compile Include="Core\Extensions\EnumExtensions.cs" />
     <Compile Include="Core\Extensions\HtmlExtentions.cs" />
     <Compile Include="Core\Extensions\HttpContextExtentions.cs" />
-    <Compile Include="Core\Extensions\PermissionExtentions.cs" />
     <Compile Include="Core\Extensions\PublishedContentExtentions.cs" />
     <Compile Include="Core\Extensions\SerializationExtentions.cs" />
     <Compile Include="Core\Extensions\StringExtentions.cs" />
@@ -630,14 +668,9 @@
     <Compile Include="Core\Persistence\Sql\SqlRepository.cs" />
     <Compile Include="Core\Constants\UmbracoAliases.cs" />
     <Compile Include="Core\User\IHaveCreator.cs" />
-    <Compile Include="Core\User\IIntranetUser.cs" />
-    <Compile Include="Core\User\IIntranetUserService.cs" />
-    <Compile Include="Core\User\IntranetRolesEnum.cs" />
+    <Compile Include="Core\User\IIntranetMember.cs" />
+    <Compile Include="Core\User\IIntranetMemberService.cs" />
     <Compile Include="Core\Extensions\IntranetUserServiceExtentions.cs" />
-    <Compile Include="Core\User\Permissions\IPermissionsConfiguration.cs" />
-    <Compile Include="Core\User\Permissions\IPermissionsService.cs" />
-    <Compile Include="Core\User\Permissions\PermissionsConfiguration.cs" />
-    <Compile Include="Core\User\Permissions\PermissionsService.cs" />
     <Compile Include="Core\User\Permissions\Web\RestrictedActionAttribute.cs" />
     <Compile Include="Core\User\Permissions\Web\ActivityControllerAttribute.cs" />
     <Compile Include="Core\XPathHelper.cs" />
@@ -648,6 +681,9 @@
       <Link>App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml</Link>
     </None>
     <None Include="app.config" />
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\clientTimezoneSetter.js">
+      <Link>App_Plugins\Core\Content\scripts\clientTimezoneSetter.js</Link>
+    </Content>
     <Content Include="Config\Dashboard.config.install.xdt" />
     <Content Include="Config\Dashboard.config.uninstall.xdt" />
     <None Include="packages.config">
@@ -664,8 +700,335 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="..\Compent.uIntra\App_Plugins\Core\**\*">
-      <Link>App_Plugins\Core\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\ActivityLocation\activityLocation.js">
+      <Link>App_Plugins\Core\ActivityLocation\activityLocation.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\ActivityLocation\activityLocationEdit.js">
+      <Link>App_Plugins\Core\ActivityLocation\activityLocationEdit.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\ActivityLocation\backoffice\location-edit.css">
+      <Link>App_Plugins\Core\ActivityLocation\backoffice\location-edit.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\ActivityLocation\backoffice\location-edit.directive.js">
+      <Link>App_Plugins\Core\ActivityLocation\backoffice\location-edit.directive.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\ActivityLocation\backoffice\location-edit.html">
+      <Link>App_Plugins\Core\ActivityLocation\backoffice\location-edit.html</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\ActivityLocation\Edit\edit.js">
+      <Link>App_Plugins\Core\ActivityLocation\Edit\edit.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml">
+      <Link>App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\ActivityLocation\Edit\styles.css">
+      <Link>App_Plugins\Core\ActivityLocation\Edit\styles.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml">
+      <Link>App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml">
+      <Link>App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Activity\ActivityItemHeader.cshtml">
+      <Link>App_Plugins\Core\Activity\ActivityItemHeader.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml">
+      <Link>App_Plugins\Core\Activity\ActivityOwnerEdit.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Activity\ActivityPinView.cshtml">
+      <Link>App_Plugins\Core\Activity\ActivityPinView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\BrowserCompatibility\BrowserCompatibility.js">
+      <Link>App_Plugins\Core\BrowserCompatibility\BrowserCompatibility.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml">
+      <Link>App_Plugins\Core\BrowserCompatibility\BrowserCompatibilityNotificationView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\BrowserCompatibility\style.css">
+      <Link>App_Plugins\Core\BrowserCompatibility\style.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.css">
+      <Link>App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.directive.js">
+      <Link>App_Plugins\Core\Content\backoffice\debug-helper\debug-helper.directive.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.css">
+      <Link>App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.js">
+      <Link>App_Plugins\Core\Content\backoffice\dummy-plugin-view.directive.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\backoffice\EditorConfig\editorConfigService.js">
+      <Link>App_Plugins\Core\Content\backoffice\EditorConfig\editorConfigService.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\images\arrow-left.svg">
+      <Link>App_Plugins\Core\Content\images\arrow-left.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\images\attachment-custom-hover.svg">
+      <Link>App_Plugins\Core\Content\images\attachment-custom-hover.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\images\attachment-hover.svg">
+      <Link>App_Plugins\Core\Content\images\attachment-hover.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\images\attachment.svg">
+      <Link>App_Plugins\Core\Content\images\attachment.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\images\emoji-custom-hover.svg">
+      <Link>App_Plugins\Core\Content\images\emoji-custom-hover.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\images\emoji-hover.svg">
+      <Link>App_Plugins\Core\Content\images\emoji-hover.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\images\emoji.svg">
+      <Link>App_Plugins\Core\Content\images\emoji.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\images\link-custom-hover.svg">
+      <Link>App_Plugins\Core\Content\images\link-custom-hover.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\images\link-hover.svg">
+      <Link>App_Plugins\Core\Content\images\link-hover.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\images\link.svg">
+      <Link>App_Plugins\Core\Content\images\link.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\images\videoplay.svg">
+      <Link>App_Plugins\Core\Content\images\videoplay.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\bootstrap\css\bootstrap.min.css">
+      <Link>App_Plugins\Core\Content\libs\bootstrap\css\bootstrap.min.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot">
+      <Link>App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.svg">
+      <Link>App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf">
+      <Link>App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff">
+      <Link>App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2">
+      <Link>App_Plugins\Core\Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\dependencies.txt">
+      <Link>App_Plugins\Core\Content\libs\dependencies.txt</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\jquery.unobtrusive-ajax.min.js">
+      <Link>App_Plugins\Core\Content\libs\jquery.unobtrusive-ajax.min.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\jquery.validate.js">
+      <Link>App_Plugins\Core\Content\libs\jquery.validate.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\jquery.validate.min.js">
+      <Link>App_Plugins\Core\Content\libs\jquery.validate.min.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.js">
+      <Link>App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.min.js">
+      <Link>App_Plugins\Core\Content\libs\jquery.validate.unobtrusive.min.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\quill-mention\blots\mention.js">
+      <Link>App_Plugins\Core\Content\libs\quill-mention\blots\mention.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\quill-mention\constants\keys.js">
+      <Link>App_Plugins\Core\Content\libs\quill-mention\constants\keys.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\quill-mention\index.html">
+      <Link>App_Plugins\Core\Content\libs\quill-mention\index.html</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\quill-mention\quill.mention.css">
+      <Link>App_Plugins\Core\Content\libs\quill-mention\quill.mention.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\libs\quill-mention\quill.mention.js">
+      <Link>App_Plugins\Core\Content\libs\quill-mention\quill.mention.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\ActionLinkWithConfirm.js">
+      <Link>App_Plugins\Core\Content\scripts\ActionLinkWithConfirm.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\Ajax.js">
+      <Link>App_Plugins\Core\Content\scripts\Ajax.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\AnchorScroll.js">
+      <Link>App_Plugins\Core\Content\scripts\AnchorScroll.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\AutoScroll.js">
+      <Link>App_Plugins\Core\Content\scripts\AutoScroll.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\BlockOnSubmit.js">
+      <Link>App_Plugins\Core\Content\scripts\BlockOnSubmit.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\clientTimezoneSetter.js">
+      <Link>App_Plugins\Core\Content\scripts\clientTimezoneSetter.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js">
+      <Link>App_Plugins\Core\Content\scripts\ConfirmOnBeforeUnload.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\Core.js">
+      <Link>App_Plugins\Core\Content\scripts\Core.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\Helpers.js">
+      <Link>App_Plugins\Core\Content\scripts\Helpers.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\Namespace.js">
+      <Link>App_Plugins\Core\Content\scripts\Namespace.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\PinActivity.js">
+      <Link>App_Plugins\Core\Content\scripts\PinActivity.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\Polyfill.js">
+      <Link>App_Plugins\Core\Content\scripts\Polyfill.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\QuillExtender.js">
+      <Link>App_Plugins\Core\Content\scripts\QuillExtender.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\readonlyClickWarning.js">
+      <Link>App_Plugins\Core\Content\scripts\readonlyClickWarning.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\ScrollToTop.js">
+      <Link>App_Plugins\Core\Content\scripts\ScrollToTop.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\ShowContent.js">
+      <Link>App_Plugins\Core\Content\scripts\ShowContent.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\UmbracoAjaxForm.js">
+      <Link>App_Plugins\Core\Content\scripts\UmbracoAjaxForm.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\scripts\ValidationExtensions.js">
+      <Link>App_Plugins\Core\Content\scripts\ValidationExtensions.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\Core.css">
+      <Link>App_Plugins\Core\Content\styles\Core.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\angry.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\angry.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\fever.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\fever.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\funny.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\funny.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\great.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\great.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\joy.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\joy.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\love.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\love.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\party.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\party.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\sad.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\sad.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\shocked.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\shocked.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\skeptical.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\skeptical.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\sleepy.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\sleepy.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\smile.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\smile.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\surprised.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\surprised.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\tease.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\tease.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\emoji-data\wink.svg">
+      <Link>App_Plugins\Core\Content\styles\emoji-data\wink.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\forms.css">
+      <Link>App_Plugins\Core\Content\styles\forms.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\icomoon.woff">
+      <Link>App_Plugins\Core\Content\styles\icomoon.woff</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Content\styles\libs.css">
+      <Link>App_Plugins\Core\Content\styles\libs.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\Confirm\Confirm.js">
+      <Link>App_Plugins\Core\Controls\Confirm\Confirm.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\FileUpload\file-upload.css">
+      <Link>App_Plugins\Core\Controls\FileUpload\file-upload.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\FileUpload\file-upload.js">
+      <Link>App_Plugins\Core\Controls\FileUpload\file-upload.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml">
+      <Link>App_Plugins\Core\Controls\FileUpload\FileUploadEditView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml">
+      <Link>App_Plugins\Core\Controls\FileUpload\FileUploadView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\LightboxGallery\default-skin.css">
+      <Link>App_Plugins\Core\Controls\LightboxGallery\default-skin.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\LightboxGallery\default-skin.png">
+      <Link>App_Plugins\Core\Controls\LightboxGallery\default-skin.png</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\LightboxGallery\default-skin.svg">
+      <Link>App_Plugins\Core\Controls\LightboxGallery\default-skin.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\LightboxGallery\icon-doc.png">
+      <Link>App_Plugins\Core\Controls\LightboxGallery\icon-doc.png</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml">
+      <Link>App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.js">
+      <Link>App_Plugins\Core\Controls\LightboxGallery\LightboxGallery.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml">
+      <Link>App_Plugins\Core\Controls\LightboxGallery\LightboxGalleryPreview.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\LightboxGallery\preloader.gif">
+      <Link>App_Plugins\Core\Controls\LightboxGallery\preloader.gif</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\LightboxGallery\_lightbox.css">
+      <Link>App_Plugins\Core\Controls\LightboxGallery\_lightbox.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Controls\LightboxGallery\_lightboxGallery.css">
+      <Link>App_Plugins\Core\Controls\LightboxGallery\_lightboxGallery.css</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\Grid\Grid.cshtml">
+      <Link>App_Plugins\Core\Grid\Grid.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\LinkPreview\EditLinkPreviewView.cshtml">
+      <Link>App_Plugins\Core\LinkPreview\EditLinkPreviewView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml">
+      <Link>App_Plugins\Core\LinkPreview\LinkPreviewView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\package.manifest">
+      <Link>App_Plugins\Core\package.manifest</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\PagePromotion\backoffice\page-promotion.controller.js">
+      <Link>App_Plugins\Core\PagePromotion\backoffice\page-promotion.controller.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\PagePromotion\backoffice\page-promotion.html">
+      <Link>App_Plugins\Core\PagePromotion\backoffice\page-promotion.html</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\PagePromotion\Item\ItemView.cshtml">
+      <Link>App_Plugins\Core\PagePromotion\Item\ItemView.cshtml</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\User\backoffice\intranetUserService.js">
+      <Link>App_Plugins\Core\User\backoffice\intranetUserService.js</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\App_Plugins\Core\User\Photo.cshtml">
+      <Link>App_Plugins\Core\User\Photo.cshtml</Link>
     </Content>
     <Content Include="..\Compent.uIntra\App_Plugins\Utils\**\*">
       <Link>App_Plugins\Utils\%(RecursiveDir)%(FileName)%(Extension)</Link>

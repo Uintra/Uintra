@@ -9,8 +9,8 @@ namespace Compent.Uintra.Controllers
     public class BulletinsSectionController : BulletinsSectionControllerBase
     {
         private readonly IMyLinksService _myLinksService;
-        public BulletinsSectionController(IBulletinsService<BulletinBase> bulletinsService, IIntranetUserService<IIntranetUser> intranetUserService, IMyLinksService myLinksService)
-            : base(bulletinsService, intranetUserService)
+        public BulletinsSectionController(IBulletinsService<BulletinBase> bulletinsService, IIntranetMemberService<IIntranetMember> intranetMemberService, IMyLinksService myLinksService)
+            : base(bulletinsService, intranetMemberService)
         {
             _myLinksService = myLinksService;
         }

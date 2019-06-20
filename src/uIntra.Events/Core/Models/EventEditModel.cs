@@ -35,5 +35,7 @@ namespace Uintra.Events
         public override DateTime? EndPinDate { get; set; }
 
         public string LocationTitle { get; set; }
+
+        public bool CanHide { get; set; }
     }
 }

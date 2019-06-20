@@ -13,8 +13,8 @@ namespace Uintra.Core.Links
             _intranetUserContentProvider = intranetUserContentProvider;
         }
 
-        public string GetProfileLink(IIntranetUser user) => 
-            GetProfileLink(user.Id);
+        public string GetProfileLink(IIntranetMember member) => 
+            GetProfileLink(member.Id);
 
         public string GetProfileLink(Guid userId) => 
             _intranetUserContentProvider.GetProfilePage().Url.AddIdParameter(userId);

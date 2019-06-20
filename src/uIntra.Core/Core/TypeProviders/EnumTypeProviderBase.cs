@@ -1,21 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Uintra.Core.Extensions;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Core.TypeProviders
 {
-
     public abstract class EnumTypeProviderBase<T> : IEnumTypeProvider where T : struct
     {
-        public EnumTypeProviderBase()
+        protected EnumTypeProviderBase()
         {
-            All = Enum.GetValues(typeof(T)).Cast<Enum>().ToList();
+            All = Enum.GetValues(typeof(T)).Cast<Enum>().ToArray();
+
+            IntTypeDictionary = All.ToDictionary(EnumExtensions.ToInt, identity);
+            StringTypeDictionary = All.ToDictionary(toString, identity);
         }
 
-        public virtual Enum this[int typeId] => All.Get(typeId);
+        public Enum[] All { get; }
 
-        public virtual Enum this[string typeName] => All.Get(typeName);
+        public IDictionary<int, Enum> IntTypeDictionary { get; }
 
-        public virtual List<Enum> All { get; }
+        public IDictionary<string, Enum> StringTypeDictionary { get; }
+
+        public virtual Enum this[int typeId] => IntTypeDictionary[typeId];
+
+        public virtual Enum this[Enum type] => IntTypeDictionary[type.ToInt()];
+
+        public virtual Enum this[string typeName] => StringTypeDictionary[typeName];
     }
 }

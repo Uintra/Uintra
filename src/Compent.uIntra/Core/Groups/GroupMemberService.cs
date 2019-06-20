@@ -12,14 +12,14 @@ namespace Compent.Uintra.Core.Groups
     public class GroupMemberService : GroupMemberServiceBase
     {
         private readonly ISqlRepository<GroupMember> _groupMemberRepository;
-        private readonly ICacheableIntranetUserService _userCacheService;
+        private readonly ICacheableIntranetMemberService _memberCacheService;
 
         public GroupMemberService(
             ISqlRepository<GroupMember> groupMemberRepository,
-            ICacheableIntranetUserService userCacheService) : base(groupMemberRepository)
+            ICacheableIntranetMemberService memberCacheService) : base(groupMemberRepository)
         {
             _groupMemberRepository = groupMemberRepository;
-            _userCacheService = userCacheService;
+            _memberCacheService = memberCacheService;
         }
 
         public override void Add(Guid groupId, Guid memberId) => 
@@ -33,13 +33,13 @@ namespace Compent.Uintra.Core.Groups
                 .ToList();
 
             _groupMemberRepository.Add(groupMembers);
-            _userCacheService.UpdateUserCache(enumeratedMemberIds);
+            _memberCacheService.UpdateMemberCache(enumeratedMemberIds);
         }
 
         public override void Remove(Guid groupId, Guid memberId)
         {
             _groupMemberRepository.Delete(gm => gm.GroupId == groupId && gm.MemberId == memberId);
-            _userCacheService.UpdateUserCache(memberId);
+            _memberCacheService.UpdateMemberCache(memberId);
         }
     }
 }

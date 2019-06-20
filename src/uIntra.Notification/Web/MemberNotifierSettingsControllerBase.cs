@@ -8,21 +8,21 @@ namespace Uintra.Notification.Web
     public class MemberNotifierSettingsController : UmbracoApiController
     {
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
         public MemberNotifierSettingsController(
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
-            IIntranetUserService<IIntranetUser> intranetUserService)
+            IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
         }
 
         [HttpPost]
         public void Update(NotifierTypeEnum type, bool isEnabled)
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
-            _memberNotifiersSettingsService.SetForMember(currentUser.Id, type, isEnabled);
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            _memberNotifiersSettingsService.SetForMember(currentMember.Id, type, isEnabled);
         }
     }
 }

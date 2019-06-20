@@ -20,7 +20,7 @@ namespace Uintra.Navigation.Web
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IMyLinksModelBuilder _myLinksModelBuilder;
         private readonly IMyLinksService _myLinksService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IActivityTypeProvider _activityTypeProvider;
 
@@ -31,14 +31,14 @@ namespace Uintra.Navigation.Web
             UmbracoHelper umbracoHelper,
             IMyLinksModelBuilder myLinksModelBuilder,
             IMyLinksService myLinksService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IActivityTypeProvider activityTypeProvider)
         {
             _umbracoHelper = umbracoHelper;
             _myLinksModelBuilder = myLinksModelBuilder;
             _myLinksService = myLinksService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _activityTypeProvider = activityTypeProvider;
             _documentTypeAliasProvider = documentTypeAliasProvider;
         }
@@ -94,7 +94,7 @@ namespace Uintra.Navigation.Web
             var model = new MyLinkDTO
             {
                 ContentId = contentId,
-                UserId = _intranetUserService.GetCurrentUser().Id,
+                UserId = _intranetMemberService.GetCurrentMember().Id,
                 QueryString = queryString
             };
             if (IsActivityLink(contentId))

@@ -140,7 +140,8 @@
         }
 
         &--name{
-            width:29.8%;
+            width: 29.8%;
+            flex: 1 1 29.8%;
             @media (--for-tablet-portrait-down) {
                 width:100%;
             }
@@ -193,6 +194,7 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         margin:0 0 0 10.5%;
+        margin-left: 4.5%;
 
         @media (--for-tablet-portrait-down){
             margin:2px 0 1px;

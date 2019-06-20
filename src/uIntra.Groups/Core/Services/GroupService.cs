@@ -3,33 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Caching;
 using Uintra.Core.Extensions;
+using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.Models;
 using Uintra.Core.Persistence;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Groups.Sql;
+using Umbraco.Core.Models;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Groups
 {
     public class GroupService : IGroupService
     {
+        private const string GroupCacheKey = "Groups";
         private readonly ISqlRepository<Group> _groupRepository;
         private readonly ICacheService _memoryCacheService;
         private readonly IPermissionsService _permissionsService;
-        private const string GroupCacheKey = "Groups";
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+
+        protected const string GroupsCreatePage = "groupsCreatePage";
+        protected virtual Enum PermissionResourceType => PermissionResourceTypeEnum.Groups;
 
         public GroupService(
             ISqlRepository<Group> groupRepository,
             ICacheService memoryCacheService,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
             _groupRepository = groupRepository;
             _memoryCacheService = memoryCacheService;
             _permissionsService = permissionsService;
+            _intranetMemberService = intranetMemberService;
         }
 
         public Guid Create(GroupModel model)
         {
-            var date = DateTime.Now;
+            var date = DateTime.UtcNow;
             var group = model.Map<Group>();
             group.CreatedDate = date;
             group.UpdatedDate = date;
@@ -43,7 +53,7 @@ namespace Uintra.Groups
 
         public void Edit(GroupModel model)
         {
-            var date = DateTime.Now;
+            var date = DateTime.UtcNow;
             var group = model.Map<Group>();
             group.UpdatedDate = date;
             _groupRepository.Update(group);
@@ -53,11 +63,6 @@ namespace Uintra.Groups
         public GroupModel Get(Guid id)
         {
             return GetAll().SingleOrDefault(g => g.Id == id);
-        }
-        
-        public IEnumerable<GroupModel> GetAllHided()
-        {
-            return GetAll().Where(g => g.IsHidden);
         }
 
         public IEnumerable<GroupModel> GetAll()
@@ -73,29 +78,51 @@ namespace Uintra.Groups
 
         public IEnumerable<GroupModel> GetMany(IEnumerable<Guid> groupIds)
         {
-            return GetAllNotHidden().Join(groupIds, g => g.Id, id => id, (g, id) => g);
+            return GetAllNotHidden().Join(groupIds, g => g.Id, identity, (g, _) => g);
         }
 
-        public void UpdateGroupUpdateDate(Guid id)
+        public bool CanHide(Guid id)
         {
             var group = Get(id);
-            Edit(group);
+            return CanHide(group);
         }
 
-        public bool CanEdit(Guid groupId, IIntranetUser user)
+        public bool CanHide(GroupModel group)
         {
-            var group = Get(groupId);
-            return CanEdit(group, user);
+            return CanPerform(group, PermissionActionEnum.Hide, PermissionActionEnum.HideOther);
         }
 
-        public bool CanEdit(GroupModel groupModel, IIntranetUser user)
+        public bool CanEdit(Guid id)
         {
-            if (_permissionsService.IsUserWebmaster(user))
+            var group = Get(id);
+            return CanEdit(group);
+        }
+
+        public bool CanEdit(GroupModel group)
+        {
+            return CanPerform(group, PermissionActionEnum.Edit, PermissionActionEnum.EditOther);
+        }
+
+        public bool CanPerform(GroupModel group, Enum action, Enum administrationAction)
+        {
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            var ownerId = group.CreatorId;
+            var isOwner = ownerId == currentMember.Id;
+
+            var act = isOwner ? action : administrationAction;
+            var result = _permissionsService.Check(currentMember, PermissionSettingIdentity.Of(act, PermissionResourceType));
+
+            return result;
+        }
+
+        public bool ValidatePermission(IPublishedContent content)
+        {
+            if (content.DocumentTypeAlias == GroupsCreatePage)
             {
-                return true;
+                var hasPermission = _permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create, PermissionResourceType));
+                return hasPermission;
             }
-
-            return groupModel.CreatorId == user.Id;
+            return true;
         }
 
         public void Hide(Guid id)
@@ -112,7 +139,7 @@ namespace Uintra.Groups
             Edit(group);
         }
 
-        public bool IsActivityFromActiveGroup(IGroupActivity groupActivity) => 
+        public bool IsActivityFromActiveGroup(IGroupActivity groupActivity) =>
             groupActivity.GroupId.HasValue && !Get(groupActivity.GroupId.Value).IsHidden;
 
         private static DateTimeOffset GetCacheExpiration()
