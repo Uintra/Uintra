@@ -17,7 +17,7 @@ namespace Uintra.Core.Activity
     public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity>, ICacheableIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
         public abstract Enum Type { get; }
-        public abstract PermissionResourceTypeEnum PermissionActivityType { get; }
+        public abstract Enum PermissionActivityType { get; }
         private const string CacheKey = "ActivityCache";
         private string ActivityCacheSuffix => $"{Type.ToString()}";
         private readonly IIntranetActivityRepository _activityRepository;

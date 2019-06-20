@@ -107,7 +107,7 @@ namespace Compent.Uintra.Core.Events
         }
 
         public override Enum Type => IntranetActivityTypeEnum.Events;
-        public override PermissionResourceTypeEnum PermissionActivityType => PermissionResourceTypeEnum.Events;
+        public override Enum PermissionActivityType => PermissionResourceTypeEnum.Events;
 
         public IEnumerable<Event> GetPastEvents()
         {

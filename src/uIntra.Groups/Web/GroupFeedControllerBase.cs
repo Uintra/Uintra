@@ -190,7 +190,7 @@ namespace Uintra.Groups.Web
             {
                 Tabs = activityTabs,
                 TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab =>
-                    _permissionsService.Check(ToPermissionActivityType(tab.Type), PermissionActionEnum.Create)),
+                    _permissionsService.Check(tab.Type, PermissionActionEnum.Create)),
                 CurrentType = tabType,
                 GroupId = groupId,
                 IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentMember),
@@ -242,7 +242,5 @@ namespace Uintra.Groups.Web
             };
             return viewModel;
         }
-
-        private PermissionResourceTypeEnum ToPermissionActivityType(Enum type) => (PermissionResourceTypeEnum)type.ToInt();
     }
 }
