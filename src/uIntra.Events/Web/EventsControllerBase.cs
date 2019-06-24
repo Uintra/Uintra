@@ -41,7 +41,7 @@ namespace Uintra.Events.Web
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Events;
         private const PermissionResourceTypeEnum ActivityType = PermissionResourceTypeEnum.Events;
 
-        public override ContextType ControllerContextType { get; } = ContextType.Events;
+        public override Enum ControllerContextType { get; } = ContextType.Events;
 
         protected EventsControllerBase(
             IEventsService<EventBase> eventsService,

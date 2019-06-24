@@ -8,8 +8,13 @@ using static LanguageExt.Prelude;
 
 namespace Uintra.Notification
 {
-    public class NotificationTypeProvider : EnumTypeProviderBase<NotificationTypeEnum>, INotificationTypeProvider
+    public class NotificationTypeProvider : EnumTypeProviderBase, INotificationTypeProvider
     {
+        public NotificationTypeProvider(params Type[] enums) : base(enums)
+        {
+
+        }
+
         public IEnumerable<Enum> PopupNotificationTypes() => 
             List<Enum>(NotificationTypeEnum.Welcome);
 

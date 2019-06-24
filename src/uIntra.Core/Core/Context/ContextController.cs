@@ -13,7 +13,7 @@ namespace Uintra.Core.Context
 {
     public abstract class ContextController : ContextedController
     {
-        public abstract ContextType ControllerContextType { get; }
+        public abstract Enum ControllerContextType { get; }
 
         public virtual ContextBuildActionType ContextBuildActionType { get; set; } = ContextBuildActionType.Erasure;
 

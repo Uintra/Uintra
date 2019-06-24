@@ -36,7 +36,7 @@ namespace Uintra.CentralFeed.Web
         protected virtual string NavigationViewPath => "~/App_Plugins/CentralFeed/View/Navigation.cshtml";
         protected virtual string LatestActivitiesViewPath => "~/App_Plugins/LatestActivities/View/LatestActivities.cshtml";
 
-        public override ContextType ControllerContextType { get; } = ContextType.CentralFeed;
+        public override Enum ControllerContextType { get; } = ContextType.CentralFeed;
 
         protected CentralFeedControllerBase(
             ICentralFeedService centralFeedService,
