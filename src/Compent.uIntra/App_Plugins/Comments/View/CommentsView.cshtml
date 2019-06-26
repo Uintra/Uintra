@@ -10,7 +10,7 @@
 }
 
 <div id="@Model.CommentViewId" class="js-comment-view" data-id="@Model.Id">
-    @Html.Action("Photo", "User", new { user = Model.Creator })
+    @Html.Action("Photo", "Member", new { member = Model.Creator })
     <div class="comments__list-body">
         <div class="comments__list-holder clearfix">
             <div class="comments__author-about @inactiveUser">

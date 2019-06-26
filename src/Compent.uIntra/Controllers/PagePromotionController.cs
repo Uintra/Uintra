@@ -16,8 +16,8 @@ namespace Compent.Uintra.Controllers
     {
         protected override string ItemViewPath => "~/Views/PagePromotion/ItemView.cshtml";
 
-        public PagePromotionController(IIntranetUserService<IIntranetUser> userService, IContextTypeProvider contextTypeProvider)
-            : base(userService, contextTypeProvider)
+        public PagePromotionController(IIntranetMemberService<IIntranetMember> memberService, IContextTypeProvider contextTypeProvider)
+            : base(memberService, contextTypeProvider)
         {
         }
 

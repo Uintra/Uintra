@@ -163,7 +163,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
 
         private void FixEmptyOwners()
         {
-            var userService = DependencyResolver.Current.GetService<IIntranetUserService<IIntranetUser>>();
+            var userService = DependencyResolver.Current.GetService<IIntranetMemberService<IIntranetMember>>();
 
             var activityServices = DependencyResolver.Current.GetServices<IIntranetActivityService<IIntranetActivity>>();
             foreach (var service in activityServices)
@@ -180,7 +180,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Steps
 
                     var creatorId = creator.CreatorId != Guid.Empty
                         ? creator.CreatorId
-                        : userService.Get(creator.UmbracoCreatorId.Value).Id;
+                        : userService.GetByUserId(creator.UmbracoCreatorId.Value).Id;
 
                     switch (activity)
                     {

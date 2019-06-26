@@ -10,6 +10,7 @@
     @using (Html.BeginUmbracoForm("Edit", "Profile", FormMethod.Post))
     {
         @Html.HiddenFor(el => el.Id)
+        @Html.HiddenFor(el => el.PhotoId)
         <div class="form-edit-profile__top">
             <h3 class="form-edit-profile__title">@Html.Localize("Profile.Title.lbl")</h3>
             <div class="form-edit-profile__actions">

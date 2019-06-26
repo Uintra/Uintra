@@ -10,7 +10,7 @@ namespace Uintra.Events
     {
         public string Title { get; set; }        
         public IEnumerable<string> Dates = Enumerable.Empty<string>();
-        public UserViewModel Owner { get; set; }
+        public MemberViewModel Owner { get; set; }
         public Enum ActivityType { get; set; }
         public Guid Id { get; set; }
         public ActivityLinks Links { get; set; }

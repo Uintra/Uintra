@@ -7,5 +7,8 @@
         int NumberOfShards { get; }
         int NumberOfReplicas { get; }
         string IndexPrefix { get; }
+        string UserName { get; set; }
+        string Password { get; set; }
+
     }
 }

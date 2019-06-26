@@ -14,20 +14,19 @@ namespace Compent.Uintra.Core.Notification
     public class MailNotificationModelMapper : INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage>
     {
         private readonly IApplicationSettings _applicationSettings;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
-        public MailNotificationModelMapper(IApplicationSettings applicationSettings, IIntranetUserService<IIntranetUser> intranetUserService)
+        public MailNotificationModelMapper(IApplicationSettings applicationSettings, IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
             _applicationSettings = applicationSettings;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
         }
 
-        public EmailNotificationMessage Map(INotifierDataValue notifierData, EmailNotifierTemplate template, IIntranetUser receiver)
+        public EmailNotificationMessage Map(INotifierDataValue notifierData, EmailNotifierTemplate template, IIntranetMember receiver)
         {
             var message = new EmailNotificationMessage();
             FillNoReplyFromProps(message);
 
-            IIntranetUser notifier;
             (string, string)[] tokens;
 
             switch (notifierData)
@@ -38,7 +37,7 @@ namespace Compent.Uintra.Core.Notification
                         (Url, model.Url),
                         (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
                         (ActivityType, model.ActivityType.ToString()),
-                        (FullName,_intranetUserService.Get(model.NotifierId).DisplayedName),
+                        (FullName,_intranetMemberService.Get(model.NotifierId).DisplayedName),
                         (NotifierFullName, receiver.DisplayedName)
                     };
                     break;
@@ -57,7 +56,7 @@ namespace Compent.Uintra.Core.Notification
                     {
                         (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
                         (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
-                        (FullName,_intranetUserService.Get(model.NotifierId).DisplayedName)
+                        (FullName,_intranetMemberService.Get(model.NotifierId).DisplayedName)
                     };
                     break;
                 case LikesNotifierDataModel model:                    
@@ -66,7 +65,7 @@ namespace Compent.Uintra.Core.Notification
                         (Url, model.Url),
                         (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
                         (ActivityType, model.ActivityType.ToString()),
-                        (FullName,_intranetUserService.Get(model.NotifierId).DisplayedName),
+                        (FullName,_intranetMemberService.Get(model.NotifierId).DisplayedName),
                         (CreatedDate, model.CreatedDate.ToShortDateString())
                     };
                     break;
@@ -82,8 +81,8 @@ namespace Compent.Uintra.Core.Notification
                     {
                         (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
                         (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
-                        (FullName, _intranetUserService.Get(model.ReceiverId).DisplayedName),
-                        (TaggedBy, _intranetUserService.Get(model.NotifierId).DisplayedName)
+                        (FullName, _intranetMemberService.Get(model.ReceiverId).DisplayedName),
+                        (TaggedBy, _intranetMemberService.Get(model.NotifierId).DisplayedName)
                     };
                     break;
                 default:

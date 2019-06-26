@@ -844,7 +844,7 @@ img{
         vertical-align:middle;
     }
 
-    ._details &{
+    ._details .feed__item-heading &{
         width:35px;
         min-width:35px;
         height:35px;

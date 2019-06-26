@@ -47,6 +47,7 @@
     <add key="Google.OAuth.ClientId" value="" xdt:Locator="Condition(@key='Google.OAuth.ClientId')" xdt:Transform="InsertIfMissing" />
     <add key="Google.OAuth.Domain" value="" xdt:Locator="Condition(@key='Google.OAuth.Domain')" xdt:Transform="InsertIfMissing" />
     <add key="UintraDocumentationLinkTemplate" value="https://docs.uintra.com/?ver={0}-{1}-{2}-{3}" xdt:Locator="Condition(@key='UintraDocumentationLinkTemplate')" xdt:Transform="InsertIfMissing" />
+    <add key="DaytimeSavingOffset" value="True" xdt:Locator="Condition(@key='DaytimeSavingOffset')" xdt:Transform="InsertIfMissing" />
   </appSettings>
 
   <uIntraJobs xdt:Transform="Remove">
@@ -63,7 +64,7 @@
     </settings>
   </UintraJobs>
 
-  <elasticConfiguration url="http://localhost:9200" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>
+  <elasticConfiguration url="http://52.236.128.233:49200" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>
   <localizationConfiguration enableCache="false" cacheTime="0" localizationCacheKey="LocalizationCacheKey"
                             useDefaultLabel="true" saveDefaultLabel="false"
                             xdt:Transform="InsertIfMissing" />
@@ -106,7 +107,13 @@
       </providers>
     </membership>
   </system.web>
-
+  <location path="Media" xdt:Transform="InsertIfMissing" xdt:Locator="Condition(@path='Media')">
+    <system.web>
+      <authorization>
+        <deny users="?"/>
+      </authorization>
+    </system.web>
+  </location>
   <userPermissions xdt:Transform="InsertIfMissing">
     <roles>
       <role key="WebMaster">

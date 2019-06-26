@@ -10,12 +10,10 @@ namespace Uintra.Notification
     public class PopupNotificationsService : IPopupNotificationService
     {
         private readonly ISqlRepository<Notification> _notificationRepository;
-        private readonly INotificationTypeProvider _notificationTypeProvider;
 
-        public PopupNotificationsService(ISqlRepository<Notification> notificationRepository, INotificationTypeProvider notificationTypeProvider)
+        public PopupNotificationsService(ISqlRepository<Notification> notificationRepository)
         {
             _notificationRepository = notificationRepository;
-            _notificationTypeProvider = notificationTypeProvider;
         }
 
 

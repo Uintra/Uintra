@@ -6,4 +6,5 @@
 
   <add initialize="true" sortOrder="0" alias="NotificationSettingsTree" application="NotificationSettings" title="Notification Settings" iconClosed="icon-folder" iconOpen="icon-folder-open" type="uIntra.Notification.Web.NotificationSettingsTreeController, uIntra.Notification" xdt:Locator="Condition(@alias='NotificationSettingsTree')" xdt:Transform="InsertIfMissing"/>
   <add alias="NotificationSettingsTree" type="Uintra.Notification.Web.NotificationSettingsTreeController, Uintra.Notification" xdt:Locator="Condition(@alias='NotificationSettingsTree')" xdt:Transform="SetAttributes(type)"/>
+  <add application="member" sortOrder="2" alias="memberGroups" title="Member Groups" type="Uintra.Users.Web.MemberGroupTreeController, Uintra.Users" iconClosed="icon-folder" iconOpen="icon-folder" xdt:Locator="Condition(@alias='memberGroups')" xdt:Transform="SetAttributes(type)"/>
 </trees>

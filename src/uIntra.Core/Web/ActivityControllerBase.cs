@@ -5,8 +5,10 @@ using System.Web.Mvc;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
+using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.Models;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Umbraco.Web.Mvc;
 
 namespace Uintra.Core.Web
@@ -18,14 +20,13 @@ namespace Uintra.Core.Web
         protected virtual string OwnerEditViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityOwnerEdit.cshtml";
         protected virtual string PinActivityViewPath { get; } = "~/App_Plugins/Core/Activity/ActivityPinView.cshtml";
 
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IPermissionsService _permissionsService;
 
         protected ActivityControllerBase(
-            IIntranetUserService<IIntranetUser> intranetUserService,
-            IPermissionsService permissionsService)
+            IIntranetMemberService<IIntranetMember> intranetMemberService, IPermissionsService permissionsService)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _permissionsService = permissionsService;
         }
 
@@ -39,20 +40,20 @@ namespace Uintra.Core.Web
             return PartialView(ItemHeaderViewPath, header);
         }
 
-        public virtual ActionResult OwnerEdit(Guid ownerId, string ownerIdPropertyName, IntranetActivityTypeEnum activityType, IActivityCreateLinks links)
+        public virtual ActionResult OwnerEdit(Guid ownerId, string ownerIdPropertyName, PermissionResourceTypeEnum activityType, IActivityCreateLinks links)
         {
             var model = new IntranetActivityOwnerEditModel
             {
-                Owner = _intranetUserService.Get(ownerId).Map<UserViewModel>(),
+                Owner = _intranetMemberService.Get(ownerId).Map<MemberViewModel>(),
                 OwnerIdPropertyName = ownerIdPropertyName,
                 Links = links
             };
 
-            var currentUser = _intranetUserService.GetCurrentUser();
-            model.CanEditOwner = _permissionsService.IsRoleHasPermissions(currentUser.Role, PermissionConstants.CanEditOwner);
+            model.CanEditOwner = _permissionsService.Check(activityType, PermissionActionEnum.EditOwner);
+
             if (model.CanEditOwner)
             {
-                model.Users = GetUsersWithAccess(activityType, IntranetActivityActionEnum.Create);
+                model.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(PermissionActionEnum.Create, activityType));
             }
 
             return PartialView(OwnerEditViewPath, model);
@@ -64,16 +65,15 @@ namespace Uintra.Core.Web
                 new IntranetPinActivityModel
                 {
                     IsPinned = isPinned,
-                    EndPinDate = endPinDate ?? DateTime.Now
+                    EndPinDate = endPinDate ?? DateTime.UtcNow
                 });
         }
 
-        protected virtual IEnumerable<IIntranetUser> GetUsersWithAccess(Enum activityType, IntranetActivityActionEnum action)
+        protected virtual IEnumerable<IIntranetMember> GetUsersWithAccess(PermissionSettingIdentity permissionSettingIdentity)
         {
-
-            var result = _intranetUserService
+            var result = _intranetMemberService
                 .GetAll()
-                .Where(user => _permissionsService.IsUserHasAccess(user, activityType, action))
+                .Where(member => _permissionsService.Check(member, permissionSettingIdentity))
                 .OrderBy(user => user.DisplayedName);
 
             return result;

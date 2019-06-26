@@ -32,12 +32,11 @@ namespace Uintra.Notification.Web
         {
             ActivityEventIdentity activityEventIdentity;
             NotifierSettingsModel settings;
-            var actType = _activityTypeProvider[activityType];
 
             if (activityType == CommunicationTypeEnum.CommunicationSettings.ToInt())
             {
-                actType = CommunicationTypeEnum.CommunicationSettings;
-                activityEventIdentity = new ActivityEventIdentity(actType, _notificationTypeProvider[notificationType]);
+                activityEventIdentity = new ActivityEventIdentity(CommunicationTypeEnum.CommunicationSettings,
+                    _notificationTypeProvider[notificationType]);
                 settings = _notificationSettingsService.GetSettings(activityEventIdentity);
                 if (notificationType.In(NotificationTypeEnum.MonthlyMail.ToInt()))
                 {
@@ -50,8 +49,8 @@ namespace Uintra.Notification.Web
 
             if (activityType == CommunicationTypeEnum.Member.ToInt())
             {
-                actType = CommunicationTypeEnum.Member;
-                activityEventIdentity = new ActivityEventIdentity(actType, _notificationTypeProvider[notificationType]);
+                activityEventIdentity = new ActivityEventIdentity(CommunicationTypeEnum.Member,
+                    _notificationTypeProvider[notificationType]);
                 settings = _notificationSettingsService.GetSettings(activityEventIdentity);
                 if (notificationType.In(NotificationTypeEnum.Welcome.ToInt()))
                 {
@@ -61,7 +60,7 @@ namespace Uintra.Notification.Web
 
                 return settings;
             }
-
+            var actType = _activityTypeProvider[activityType];
             activityEventIdentity = new ActivityEventIdentity(actType, _notificationTypeProvider[notificationType]);
 
             settings = _notificationSettingsService.GetSettings(activityEventIdentity);
@@ -112,17 +111,13 @@ namespace Uintra.Notification.Web
             NotifierSettingSaveModel<T> notifierSettingSaveModel)
             where T : INotifierTemplate
         {
-            notifierSettingModel.ActivityType = _activityTypeProvider[notifierSettingSaveModel.ActivityType];
 
             if (notifierSettingSaveModel.ActivityType == CommunicationTypeEnum.CommunicationSettings.ToInt())
-            {
                 notifierSettingModel.ActivityType = CommunicationTypeEnum.CommunicationSettings;
-            }
-
-            if (notifierSettingSaveModel.ActivityType == CommunicationTypeEnum.Member.ToInt())
-            {
+            else if (notifierSettingSaveModel.ActivityType == CommunicationTypeEnum.Member.ToInt())
                 notifierSettingModel.ActivityType = CommunicationTypeEnum.Member;
-            }
+            else
+                notifierSettingModel.ActivityType = _activityTypeProvider[notifierSettingSaveModel.ActivityType];
 
             notifierSettingModel.NotificationType = _notificationTypeProvider[notifierSettingSaveModel.NotificationType];
             notifierSettingModel.NotifierType = _notifierTypeProvider[notifierSettingSaveModel.NotifierType];

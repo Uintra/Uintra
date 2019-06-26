@@ -21,7 +21,7 @@ namespace Compent.Uintra.Core.PagePromotion
 {
     public class PagePromotionService : PagePromotionServiceBase<Entities.PagePromotion>, IFeedItemService
     {
-        private readonly IIntranetUserService<IIntranetUser> _userService;
+        private readonly IIntranetMemberService<IIntranetMember> _memberService;
         private readonly ILikesService _likesService;
         private readonly ICommentsService _commentsService;
         private readonly IGridHelper _gridHelper;
@@ -29,7 +29,7 @@ namespace Compent.Uintra.Core.PagePromotion
 
         public PagePromotionService(
             UmbracoHelper umbracoHelper,
-            IIntranetUserService<IIntranetUser> userService,
+            IIntranetMemberService<IIntranetMember> memberService,
             ILikesService likesService,
             ICommentsService commentsService,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
@@ -38,7 +38,7 @@ namespace Compent.Uintra.Core.PagePromotion
             IDocumentIndexer documentIndexer)
             : base(cacheService, umbracoHelper, documentTypeAliasProvider)
         {
-            _userService = userService;
+            _memberService = memberService;
             _likesService = likesService;
             _commentsService = commentsService;
             _gridHelper = gridHelper;
@@ -115,7 +115,7 @@ namespace Compent.Uintra.Core.PagePromotion
 
             config.IfSome(cfg => Mapper.Map(cfg, pagePromotion));            
             pagePromotion.Type = Type;
-            pagePromotion.CreatorId = _userService.Get(pagePromotion.UmbracoCreatorId.Value).Id;
+            pagePromotion.CreatorId = _memberService.GetByUserId(pagePromotion.UmbracoCreatorId.Value).Id;
 
             var panelValues = _gridHelper.GetValues(content, CommentsPanelAlias, LikesPanelAlias).ToList();
             pagePromotion.Commentable = panelValues.Any(panel => panel.alias == CommentsPanelAlias);

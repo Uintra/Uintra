@@ -9,5 +9,6 @@ namespace Uintra.CentralFeed
         public IEnumerable<ActivityFeedTabViewModel> TabsWithCreateUrl { get; set; }
         public Enum CurrentType { get; set; }
         public bool IsFiltersOpened { get; set; }
+        public bool CanCreateBulletin { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._2
                 { "TopNavigation.UintraDocumentationLink.lnk","Uintra Help"},
                 { "UserList.Confirm.Delete.Title", "Warning"},
                 { "UserList.Confirm.Delete.Text", "Are you sure?"},
-                { "UserList.Table.Role.lbl", "Role"},
+                { "UserList.Table.Group.lbl", "Group"},
                 { "UserList.Table.Department.lbl", "Department"},
                 { "UserList.Table.Phone.lbl", "Phone"},
                 { "UserList.Table.Email.lbl", "Email"},

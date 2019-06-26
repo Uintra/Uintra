@@ -15,6 +15,7 @@ namespace Uintra.Users
         public string Phone { get; set; }
         public string Department { get; set; }
         public string Photo { get; set; }
+        public int? PhotoId { get; set; }
         public string Email { get; set; }
 
         public string ProfileUrl { get; set; }

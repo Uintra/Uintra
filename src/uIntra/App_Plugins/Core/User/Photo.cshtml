@@ -1,5 +1,5 @@
 ﻿@using Uintra.Core.User
-@model UserPhotoViewModel
+@model MemberPhotoViewModel
 
 @if (string.IsNullOrEmpty(Model.ProfileUrl))
 {
@@ -14,7 +14,7 @@ else
     </a>
 }
 
-@helper getImage(UserPhotoViewModel avatar)
+@helper getImage(MemberPhotoViewModel avatar)
 {
     if (string.IsNullOrEmpty(avatar.PhotoUrl))
     {

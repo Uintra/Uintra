@@ -9,8 +9,8 @@ namespace Uintra.Groups
 {
     public interface IGroupFeedContentService : IFeedContentService
     {
-        IEnumerable<ActivityFeedTabModel> GetActivityTabs(IPublishedContent currentPage, IIntranetUser user, Guid groupId);
+        IEnumerable<ActivityFeedTabModel> GetActivityTabs(IPublishedContent currentPage, IIntranetMember member, Guid groupId);
         ActivityFeedTabModel GetMainFeedTab(IPublishedContent currentPage, Guid groupId);
-        IEnumerable<PageTabModel> GetPageTabs(IPublishedContent currentPage, IIntranetUser user, Guid groupId);
+        IEnumerable<PageTabModel> GetPageTabs(IPublishedContent currentPage, Guid groupId);
     }
 }

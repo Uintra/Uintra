@@ -21,7 +21,7 @@
             data-title="@Html.Localize("UserList.Confirm.Delete.Title")"
             data-text="@Html.Localize("UserList.Confirm.Delete.Text")">
         <div class="js-tbody">
-            @Html.Action("RenderRows", "UserList", new { model = Model.UsersRows })
+            @Html.Action("RenderRows", "UserList", new { model = Model.MembersRows })
         </div>
     </div>
     <button class="btn js-user-list-button"
@@ -29,7 +29,7 @@
         @Html.Localize("UserList.Table.LoadMoreButton.Text")
     </button>
     <div class="js-user-list-empty-result"
-         @if (Model.UsersRows.Users.Count() != 0) { <text> style="display:none;" </text> }>
+         @if (Model.MembersRows.Members.Count() != 0) { <text> style="display:none;" </text> }>
         @Html.Localize("UserList.Table.EmptyResult.lbl")
     </div>
 </section>

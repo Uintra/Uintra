@@ -15,9 +15,10 @@ using Uintra.Core.LinkPreview;
 using Uintra.Core.Links;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Events;
 using Uintra.Groups;
 using Uintra.Likes;
@@ -39,11 +40,9 @@ namespace Compent.Uintra.Core.Events
         IIndexer,
         IHandle<VideoConvertedCommand>
     {
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
-        private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IElasticUintraActivityIndex _activityIndex;
@@ -60,7 +59,7 @@ namespace Compent.Uintra.Core.Events
         public EventsService(
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             ICommentsService commentsService,
             ILikesService likesService,
             ISubscribeService subscribeService,
@@ -86,13 +85,13 @@ namespace Compent.Uintra.Core.Events
                 activityTypeProvider,
                 intranetMediaService,
                 activityLocationService,
-                activityLinkPreviewService)
+                activityLinkPreviewService, 
+                intranetMemberService,
+                permissionsService)
         {
-            _intranetUserService = intranetUserService;
             _commentsService = commentsService;
             _likesService = likesService;
             _subscribeService = subscribeService;
-            _permissionsService = permissionsService;
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
             _activityIndex = activityIndex;
@@ -108,6 +107,7 @@ namespace Compent.Uintra.Core.Events
         }
 
         public override Enum Type => IntranetActivityTypeEnum.Events;
+        public override Enum PermissionActivityType => PermissionResourceTypeEnum.Events;
 
         public IEnumerable<Event> GetPastEvents()
         {
@@ -120,6 +120,17 @@ namespace Compent.Uintra.Core.Events
                 .Where(e => e.StartDate > fromDate && IsActualPublishDate(e))
                 .OrderBy(e => e.StartDate);
             return events;
+        }
+
+        public bool CanHide(Guid id)
+        {
+            var cached = Get(id);
+            return CanHide(cached);
+        }
+
+        public bool CanHide(IIntranetActivity activity)
+        {
+            return CanPerform(activity, PermissionActionEnum.Hide, PermissionActionEnum.HideOther);
         }
 
         public void Hide(Guid id)
@@ -137,30 +148,14 @@ namespace Compent.Uintra.Core.Events
 
         public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent);
 
-        public FeedSettings GetFeedSettings()
-        {
-            return new FeedSettings
+        public FeedSettings GetFeedSettings() =>
+            new FeedSettings
             {
                 Type = _feedTypeProvider[Type.ToInt()],
                 Controller = "Events",
                 HasSubscribersFilter = true,
                 HasPinnedFilter = true
             };
-        }
-
-        public override bool CanEdit(IIntranetActivity activity)
-        {
-            var currentUser = _intranetUserService.GetCurrentUser();
-
-            var isWebmaster = _permissionsService.IsUserWebmaster(currentUser);
-            if (isWebmaster) return true;
-
-            var ownerId = Get(activity.Id).OwnerId;
-            var isOwner = ownerId == currentUser.Id;
-
-            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, Type, IntranetActivityActionEnum.Edit);
-            return isOwner && isUserHasPermissions;
-        }
 
         public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
 
@@ -206,9 +201,6 @@ namespace Compent.Uintra.Core.Events
             base.UpdateCache();
             FillIndex();
         }
-
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected override Event UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
 
         public override Event UpdateActivityCache(Guid id)
         {
@@ -289,7 +281,7 @@ namespace Compent.Uintra.Core.Events
 
         private bool IsCacheable(Event @event) => !IsEventHidden(@event) && IsActualPublishDate(@event);
 
-        private bool IsActualPublishDate(Event @event) => DateTime.Compare(@event.PublishDate, DateTime.Now) <= 0;
+        private bool IsActualPublishDate(Event @event) => DateTime.Compare(@event.PublishDate, DateTime.UtcNow) <= 0;
 
         private bool IsEventHidden(Event @event) => @event == null || @event.IsHidden;
 
@@ -316,7 +308,7 @@ namespace Compent.Uintra.Core.Events
                 return BroadcastResult.Success;
             }
 
-            entity.ModifyDate = DateTime.Now;
+            entity.ModifyDate = DateTime.UtcNow;
             return BroadcastResult.Success;
         }
     }

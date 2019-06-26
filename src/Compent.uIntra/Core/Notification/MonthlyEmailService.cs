@@ -26,7 +26,7 @@ namespace Compent.Uintra.Core.Notification
 
 
         public MonthlyEmailService(IMailService mailService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IExceptionLogger logger,
             IBulletinsService<BulletinBase> bulletinsService,
             IEventsService<EventBase> eventsService,
@@ -36,7 +36,7 @@ namespace Compent.Uintra.Core.Notification
             NotificationSettingsService notificationSettingsService, 
             INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper,
             IApplicationSettings applicationSettings) 
-            : base(mailService, intranetUserService, logger, notificationSettingsService, applicationSettings)
+            : base(mailService, intranetMemberService, logger, notificationSettingsService, applicationSettings)
         {
             _bulletinsService = bulletinsService;
             _eventsService = eventsService;
@@ -50,7 +50,7 @@ namespace Compent.Uintra.Core.Notification
         protected override IEnumerable<(IIntranetActivity activity, string detailsLink)> GetUserActivitiesFilteredByUserTags(Guid userId)
         {
             var allActivities = GetAllActivities()
-                .Select(activity => (activity, activityTagIds: _userTagService.GetForEntity(activity.Id)));
+                .Select(activity => (activity: activity, activityTagIds: _userTagService.GetForEntity(activity.Id)));
 
             var userTagIds = _userTagService
                 .GetForEntity(userId)
@@ -63,7 +63,7 @@ namespace Compent.Uintra.Core.Notification
             return result;
         }
 
-        protected override MailBase GetMonthlyMailModel(IIntranetUser receiver, MonthlyMailDataModel dataModel, EmailNotifierTemplate template) =>
+        protected override MailBase GetMonthlyMailModel(IIntranetMember receiver, MonthlyMailDataModel dataModel, EmailNotifierTemplate template) =>
             _notificationModelMapper.Map(dataModel, template, receiver);
 
         protected virtual IEnumerable<IIntranetActivity> GetAllActivities()

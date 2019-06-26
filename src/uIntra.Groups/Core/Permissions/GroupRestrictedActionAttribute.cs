@@ -1,20 +1,22 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
-using Uintra.Core.User;
+using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.Models;
 using Uintra.Core.User.Permissions.Web;
 
 namespace Uintra.Groups.Permissions
 {
     public class GroupRestrictedActionAttribute : ActionFilterAttribute
     {
-        private readonly IntranetActivityActionEnum _action;
+        private readonly PermissionActionEnum _action;
+        private Enum _permissionResourceType = PermissionResourceTypeEnum.Groups;
 
-
-        public GroupRestrictedActionAttribute(IntranetActivityActionEnum action)
+        public GroupRestrictedActionAttribute(PermissionActionEnum action)
         {            
             _action = action;
         }
@@ -26,9 +28,8 @@ namespace Uintra.Groups.Permissions
                 return;
             }
 
-            var permissionsService = HttpContext.Current.GetService<IGroupPermissionsService>();
-            var intranetUserService = HttpContext.Current.GetService<IIntranetUserService<IGroupMember>>();
-            var isUserHasAccess = permissionsService.HasPermission(intranetUserService.GetCurrentUser().Role, _action);
+            var permissionsService = HttpContext.Current.GetService<IPermissionsService>();            
+            var isUserHasAccess = permissionsService.Check(PermissionSettingIdentity.Of(_action, _permissionResourceType));
 
             if (!isUserHasAccess)
             {

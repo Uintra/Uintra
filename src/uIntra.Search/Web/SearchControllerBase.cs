@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using LanguageExt;
 using Uintra.Core;
 using Uintra.Core.Extensions;
 using Uintra.Core.Localization;
@@ -87,7 +88,7 @@ namespace Uintra.Search.Web
             {
                 Text = searchRequest.Query,
                 Take = AutocompleteSuggestionCount,
-                SearchableTypeIds = GetAutoCompleteSearchableTypes().Select(t => t.ToInt())
+                SearchableTypeIds = GetAutoCompleteSearchableTypes().Select(EnumExtensions.ToInt)
             });
 
             var result = GetAutocompleteResultModels(searchResult.Documents).ToList();
@@ -105,10 +106,8 @@ namespace Uintra.Search.Web
             return _searchableTypeProvider.All;
         }
 
-        protected virtual IEnumerable<Enum> GetAutoCompleteSearchableTypes()
-        {
-            return _searchableTypeProvider.All;
-        }
+        protected virtual Lst<Enum> GetAutoCompleteSearchableTypes() => 
+            new Lst<Enum>(_searchableTypeProvider.All);
 
         protected virtual SearchViewModel GetSearchViewModel()
         {

@@ -6,16 +6,16 @@ namespace Uintra.Core.User.Controllers
 {
     public class IntranetUserController : UmbracoAuthorizedApiController
     {
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
-        public IntranetUserController(IIntranetUserService<IIntranetUser> intranetUserService)
+        public IntranetUserController(IIntranetMemberService<IIntranetMember> intranetMemberService)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
         }
 
-        public IEnumerable<IIntranetUser> GetAll()
+        public IEnumerable<IIntranetMember> GetAll()
         {
-            return _intranetUserService.GetAll().OrderBy(user => user.DisplayedName);
+            return _intranetMemberService.GetAll().OrderBy(user => user.DisplayedName);
         }
     }
 }

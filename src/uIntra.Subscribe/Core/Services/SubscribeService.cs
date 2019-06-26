@@ -58,7 +58,7 @@ namespace Uintra.Subscribe
                 Id = Guid.NewGuid(),
                 ActivityId = activityId,
                 UserId = userId,
-                CreatedDate = DateTime.Now,
+                CreatedDate = DateTime.UtcNow,
                 IsNotificationDisabled = true
             };
 

@@ -6,13 +6,18 @@ using Uintra.Core.Extensions;
 using Uintra.Core.LinkPreview;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.Models;
 using Uintra.Core.TypeProviders;
+using Uintra.Core.User;
 
 namespace Uintra.Core.Activity
 {
     public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity>, ICacheableIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
         public abstract Enum Type { get; }
+        public abstract Enum PermissionActivityType { get; }
         private const string CacheKey = "ActivityCache";
         private string ActivityCacheSuffix => $"{Type.ToString()}";
         private readonly IIntranetActivityRepository _activityRepository;
@@ -21,6 +26,8 @@ namespace Uintra.Core.Activity
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IActivityLocationService _activityLocationService;
         private readonly IActivityLinkPreviewService _activityLinkPreviewService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IPermissionsService _permissionsService;
 
         protected IntranetActivityService(
             IIntranetActivityRepository activityRepository,
@@ -28,7 +35,9 @@ namespace Uintra.Core.Activity
             IActivityTypeProvider activityTypeProvider,
             IIntranetMediaService intranetMediaService,
             IActivityLocationService activityLocationService,
-            IActivityLinkPreviewService activityLinkPreviewService)
+            IActivityLinkPreviewService activityLinkPreviewService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IPermissionsService permissionsService)
         {
             _activityRepository = activityRepository;
             _cache = cache;
@@ -36,6 +45,8 @@ namespace Uintra.Core.Activity
             _intranetMediaService = intranetMediaService;
             _activityLocationService = activityLocationService;
             _activityLinkPreviewService = activityLinkPreviewService;
+            _intranetMemberService = intranetMemberService;
+            _permissionsService = permissionsService;
         }
 
         public TActivity Get(Guid id)
@@ -143,16 +154,35 @@ namespace Uintra.Core.Activity
             return CanEdit(cached);
         }
 
-        public abstract bool CanEdit(IIntranetActivity activity);
+        public bool CanDelete(Guid id)
+        {
+            var cached = Get(id);
+            return CanDelete(cached);
+        }
+
+        public virtual bool CanEdit(IIntranetActivity activity) =>
+            CanPerform(activity, PermissionActionEnum.Edit, PermissionActionEnum.EditOther);
+
+        public virtual bool CanDelete(IIntranetActivity activity) =>
+            CanPerform(activity, PermissionActionEnum.Delete, PermissionActionEnum.DeleteOther);
+
+        protected virtual bool CanPerform(IIntranetActivity activity, PermissionActionEnum action, PermissionActionEnum administrationAction)
+        {
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            var ownerId = ((IHaveOwner)activity).OwnerId;
+            var isOwner = ownerId == currentMember.Id;
+
+            var act = isOwner ? action : administrationAction;
+            var result = _permissionsService.Check(currentMember, PermissionSettingIdentity.Of(act, PermissionActivityType));
+
+            return result;
+        }
 
         protected IEnumerable<TActivity> GetAllFromCache()
         {
             var activities = _cache.Get<IList<TActivity>>(CacheKey, ActivityCacheSuffix);
             return activities;
         }
-
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected virtual TActivity UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
 
         public virtual TActivity UpdateActivityCache(Guid id)
         {

@@ -1,10 +1,11 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Compent.Uintra.Core.Bulletins;
 using Compent.Uintra.Core.Events;
 using Compent.Uintra.Core.Search.Entities;
-using Compent.Uintra.Core.Users;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
+using Uintra.Groups;
 using Uintra.Search;
 using Uintra.Tagging.UserTags.Models;
 
@@ -19,12 +20,12 @@ namespace Compent.Uintra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.Title, src => src.MapFrom(s => s.Text))
                 .ForMember(dst => dst.Type, src => src.MapFrom(s => UintraSearchableTypeEnum.Tag.ToInt()));
 
-            Mapper.CreateMap<IntranetUser, SearchableUser>()
+            Mapper.CreateMap<IGroupMember, SearchableUser>()
                 .ForMember(dst => dst.FullName, o => o.MapFrom(src => src.DisplayedName))
                 .ForMember(dst => dst.Email, o => o.MapFrom(src => src.Email))
                 .ForMember(dst => dst.Phone, o => o.MapFrom(src => src.Phone))
+                .ForMember(dst => dst.Photo, o => o.MapFrom(src => src.Photo.IfNone(string.Empty)))
                 .ForMember(dst => dst.Department, o => o.MapFrom(src => src.Department))
-                .ForMember(dst => dst.Photo, o => o.MapFrom(src => src.Photo))
                 .ForMember(dst => dst.Type, o => o.MapFrom(src => (int)UintraSearchableTypeEnum.User))
                 .ForMember(dst => dst.Inactive, o => o.MapFrom(src => src.Inactive))
                 .ForMember(dst => dst.UserTagNames, o => o.Ignore())
@@ -59,8 +60,6 @@ namespace Compent.Uintra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.TagsHighlighted, src => src.MapFrom(s => s.TagsHighlighted))
                 .ForMember(dst => dst.UserTagNames, src => src.MapFrom(s => s.UserTagNames))
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
-                .ForMember(dst => dst.Email, o => o.MapFrom(s => s.Email))
-                .ForMember(dst => dst.Email, o => o.MapFrom(s => s.Email))
                 .ForMember(dst => dst.Email, o => o.MapFrom(s => s.Email))
                 .ForMember(dst => dst.Photo, o => o.MapFrom(s => s.Photo));
 

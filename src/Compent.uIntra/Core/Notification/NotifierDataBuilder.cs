@@ -17,22 +17,22 @@ namespace Compent.Uintra.Core.Notification
 {
     public class NotifierDataBuilder: INotifierDataBuilder
     {
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly INotifierDataHelper _notifierDataHelper;
 
 
         public NotifierDataBuilder(
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             INotifierDataHelper notifierDataHelper)
         {
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _notifierDataHelper = notifierDataHelper;
         }
 
         public NotifierData GetNotifierData<TActivity>(TActivity activity, Enum notificationType) 
             where TActivity : IIntranetActivity, IHaveOwner
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
             var data = new NotifierData
             {
                 NotificationType = notificationType,
@@ -43,7 +43,7 @@ namespace Compent.Uintra.Core.Notification
             switch (notificationType)
             {
                 case ActivityLikeAdded:
-                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(activity, notificationType, currentUser.Id);
+                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(activity, notificationType, currentMember.Id);
                     break;
 
                 case BeforeStart:
@@ -52,7 +52,7 @@ namespace Compent.Uintra.Core.Notification
 
                 case EventHidden:
                 case EventUpdated:
-                    data.Value = _notifierDataHelper.GetActivityNotifierDataModel(activity, notificationType, currentUser.Id);
+                    data.Value = _notifierDataHelper.GetActivityNotifierDataModel(activity, notificationType, currentMember.Id);
                     break;
 
                 default:
@@ -65,13 +65,13 @@ namespace Compent.Uintra.Core.Notification
         public NotifierData GetNotifierData<TActivity>(CommentModel comment, TActivity activity, Enum notificationType)
             where TActivity : IIntranetActivity, IHaveOwner
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
             var data = new NotifierData
             {
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
-                ReceiverIds = ReceiverIds(comment, activity, notificationType, currentUser),
-                Value = _notifierDataHelper.GetCommentNotifierDataModel(activity, comment, notificationType, currentUser.Id)
+                ReceiverIds = ReceiverIds(comment, activity, notificationType, currentMember),
+                Value = _notifierDataHelper.GetCommentNotifierDataModel(activity, comment, notificationType, currentMember.Id)
             };
 
             return data;
@@ -97,7 +97,7 @@ namespace Compent.Uintra.Core.Notification
             CommentModel comment,
             TActivity activity,
             Enum notificationType,
-            IIntranetUser currentUser) 
+            IIntranetMember currentMember) 
             where TActivity : IIntranetActivity, IHaveOwner
         {
             switch (notificationType)
@@ -115,7 +115,7 @@ namespace Compent.Uintra.Core.Notification
                     return OwnerId(comment);
 
                 case CommentLikeAdded:
-                    return currentUser.Id == comment.UserId ? List<Guid>() : OwnerId(comment);
+                    return currentMember.Id == comment.UserId ? List<Guid>() : OwnerId(comment);
 
                 case CommentReplied:
                     return OwnerId(comment);

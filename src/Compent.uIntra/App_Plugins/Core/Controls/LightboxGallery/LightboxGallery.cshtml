@@ -37,7 +37,7 @@
 
 @if (Model.OtherFiles.Any())
 {
-    <h3 class="feed__item-subtitle">Vedhæftede dokumenter:</h3>
+<h3 class="feed__item-subtitle">@Html.Localize("LightboxGallery.AttachedDocuments.lbl")</h3>
 
     <ul class="documents-list">
         @foreach (var document in Model.OtherFiles)

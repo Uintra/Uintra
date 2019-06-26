@@ -27,10 +27,8 @@ using Compent.Uintra.Core.IoC;
 using Compent.Uintra.Core.LinkPreview.Config;
 using Compent.Uintra.Core.Navigation;
 using Compent.Uintra.Core.News;
-using Compent.Uintra.Core.News.Entities;
 using Compent.Uintra.Core.Notification;
 using Compent.Uintra.Core.PagePromotion;
-using Compent.Uintra.Core.PagePromotion.Entities;
 using Compent.Uintra.Core.Search;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.Search.Entities.Mappings;
@@ -39,6 +37,7 @@ using Compent.Uintra.Core.Subscribe;
 using Compent.Uintra.Core.UintraInformation;
 using Compent.Uintra.Core.Updater;
 using Compent.Uintra.Core.Users;
+using Compent.Uintra.Core.Users.RelatedUser;
 using Compent.Uintra.Core.UserTags;
 using Compent.Uintra.Core.UserTags.Indexers;
 using Compent.Uintra.Core.Verification;
@@ -71,6 +70,7 @@ using Uintra.Core.BrowserCompatibility;
 using Uintra.Core.Caching;
 using Uintra.Core.Configuration;
 using Uintra.Core.Controls;
+using Uintra.Core.Core.UmbracoEventServices;
 using Uintra.Core.Exceptions;
 using Uintra.Core.Grid;
 using Uintra.Core.Jobs;
@@ -83,6 +83,11 @@ using Uintra.Core.Media;
 using Uintra.Core.MigrationHistories;
 using Uintra.Core.ModelBinders;
 using Uintra.Core.PagePromotion;
+using Uintra.Core.Permissions.Implementation;
+using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.TypeProviders;
+using Uintra.Core.Permissions.UmbracoEvents;
 using Uintra.Core.Persistence;
 using Uintra.Core.Providers;
 using Uintra.Core.TypeProviders;
@@ -203,9 +208,9 @@ namespace Compent.Uintra
                 .SelectAllClasses()
                 .InheritedFrom(typeof(IMigration))
                 .BindSingleInterface());
-            kernel.Bind<IMigrationStepsResolver>().To<MigrationStepsResolver>().InRequestScope();
+            kernel.Bind<IMigrationStepsResolver>().To<MigrationStepsResolver>().InSingletonScope();
 
-            kernel.Bind<IUintraInformationService>().To<UintraInformationService>().InRequestScope();
+            kernel.Bind<IUintraInformationService>().To<UintraInformationService>().InSingletonScope();
   
             //verification
             kernel.Bind<IUmbracoVerificationService>().To<UmbracoVerificationService>().InRequestScope();
@@ -213,8 +218,12 @@ namespace Compent.Uintra
             //security
 
             kernel.Bind<IBrowserCompatibilityConfigurationSection>().ToMethod(s => BrowserCompatibilityConfigurationSection.Configuration).InSingletonScope();
-            kernel.Bind<IPermissionsConfiguration>().ToMethod(s => PermissionsConfiguration.Configure).InSingletonScope();
             kernel.Bind<IJobSettingsConfiguration>().ToMethod(s => JobSettingsConfiguration.Configure).InSingletonScope();
+
+            //permissions
+
+            kernel.Bind<IIntranetMemberGroupService>().To<IntranetMemberGroupService>().InSingletonScope();
+            kernel.Bind<IPermissionSettingsSchemaProvider>().To<PermissionSettingsSchemaProvider>().InSingletonScope();
             kernel.Bind<IPermissionsService>().To<PermissionsService>().InRequestScope();
 
             // Umbraco
@@ -235,8 +244,10 @@ namespace Compent.Uintra
 
             // Plugin services
             kernel.Bind<IIntranetLocalizationService>().To<Core.LocalizationService>().InRequestScope();
-            kernel.Bind(typeof(IIntranetUserService<>)).To<IntranetUserService<IntranetUser>>().InRequestScope();
-            kernel.Bind<ICacheableIntranetUserService>().To<IntranetUserService<IntranetUser>>().InRequestScope();
+            kernel.Bind(typeof(IIntranetUserService<IIntranetUser>)).To<IntranetUserService<IntranetUser>>().InRequestScope();
+
+            kernel.Bind(typeof(IIntranetMemberService<>)).To<IntranetMemberService<IntranetMember>>().InRequestScope();
+            kernel.Bind<ICacheableIntranetMemberService>().To<IntranetMemberService<IntranetMember>>().InRequestScope();
             kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();
             kernel.Bind(typeof(IEventsService<>)).To<EventsService>().InRequestScope();
             kernel.Bind(typeof(IBulletinsService<>)).To<BulletinsService>().InRequestScope();
@@ -246,7 +257,6 @@ namespace Compent.Uintra
             kernel.Bind<IVideoConverterLogService>().To<VideoConverterLogService>().InRequestScope();
             kernel.Bind<IIntranetActivityRepository>().To<IntranetActivityRepository>().InRequestScope();
             kernel.Bind<ICacheService>().To<MemoryCacheService>().InRequestScope();
-            kernel.Bind<IRoleService>().To<RoleServiceBase>().InRequestScope();
             kernel.Bind<IMemberServiceHelper>().To<MemberServiceHelper>().InRequestScope();
             kernel.Bind<IIntranetMediaService>().To<IntranetMediaService>().InRequestScope();
             kernel.Bind<IEditorConfigProvider>().To<IntranetEditorConfigProvider>().InRequestScope();
@@ -409,28 +419,35 @@ namespace Compent.Uintra
             kernel.Bind<INavigationApplicationSettings>().To<NavigationApplicationSettings>().InSingletonScope();
 
             kernel.Bind<IDateTimeFormatProvider>().To<DateTimeFormatProvider>().InRequestScope();
-            kernel.Bind<ITimezoneOffsetProvider>().To<TimezoneOffsetProvider>().InRequestScope();
+            kernel.Bind<IClientTimezoneProvider>().To<ClientTimezoneProvider>().InRequestScope();
             kernel.Bind<ICookieProvider>().To<CookieProvider>().InRequestScope();
 
-            kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InRequestScope();
+            //type providers
+
+            kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InSingletonScope();
             kernel.Bind<INotifierTypeProvider>().To<NotifierTypeProvider>().InSingletonScope();
-            kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InRequestScope();
-            kernel.Bind<IFeedTypeProvider>().To<CentralFeedTypeProvider>().InRequestScope();
-            kernel.Bind<IContextTypeProvider>().To<ContextTypeProvider>().InRequestScope();
+            kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InSingletonScope();
+            kernel.Bind<IFeedTypeProvider>().To<CentralFeedTypeProvider>().InSingletonScope();
+            kernel.Bind<IContextTypeProvider>().To<ContextTypeProvider>().InSingletonScope();
+            kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InSingletonScope();
+            kernel.Bind<ISearchableTypeProvider>().To<UintraSearchableTypeProvider>().InSingletonScope();
+            kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InSingletonScope();
+            kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
+            kernel.Bind<IPermissionActionTypeProvider>().To<PermissionActionTypeProvider>().InSingletonScope(); 
+            kernel.Bind<IPermissionResourceTypeProvider>().To<PermissionActivityTypeProvider>().InSingletonScope(); 
+            kernel.Bind<IIntranetMemberGroupProvider>().To<IntranetMemberGroupProvider>().InSingletonScope();
+            
 
             kernel.Bind<IGroupService>().To<GroupService>().InRequestScope();
             kernel.Bind<IGroupMemberService>().To<GroupMemberService>().InRequestScope();
             kernel.Bind<IGroupDocumentsService>().To<GroupDocumentsService>().InRequestScope();
             kernel.Bind<IGroupContentProvider>().To<GroupContentProvider>().InRequestScope();
             kernel.Bind<IGroupLinkProvider>().To<GroupLinkProvider>().InRequestScope();
-            kernel.Bind<IGroupPermissionsService>().To<GroupPermissionsService>().InRequestScope();
 
             kernel.Bind<IGroupMediaService>().To<GroupMediaService>().InRequestScope();
             kernel.Bind<IProfileLinkProvider>().To<ProfileLinkProvider>().InRequestScope();
 
-            kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InSingletonScope();
-            kernel.Bind<ISearchableTypeProvider>().To<UintraSearchableTypeProvider>().InRequestScope();
-            kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InRequestScope();
+            
 
             //umbraco events subscriptions
             kernel.Bind<IUmbracoContentPublishedEventService>().To<SearchContentEventService>().InRequestScope();
@@ -447,8 +464,14 @@ namespace Compent.Uintra
             kernel.Bind<IUmbracoContentPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
             kernel.Bind<IUmbracoContentUnPublishedEventService>().To<CreateUserTagHandler>().InRequestScope();
             kernel.Bind<IUmbracoMediaSavedEventService>().To<VideoConvertEventService>().InRequestScope();
+            kernel.Bind<IUmbracoMemberGroupDeletingEventService>().To<UmbracoMemberGroupEventService>().InRequestScope();
+            kernel.Bind<IUmbracoMemberGroupSavedEventService>().To<UmbracoMemberGroupEventService>().InRequestScope();
+            kernel.Bind<IUmbracoContentSavingEventService>().To<UmbracoContentSavingEventService>().InRequestScope();
+            kernel.Bind<IUmbracoMemberCreatedEventService>().To<MemberEventService>().InRequestScope();
+            kernel.Bind<IUmbracoMemberAssignedRolesEventService>().To<MemberEventService>().InRequestScope();
+            kernel.Bind<IUmbracoMemberRemovedRolesEventService>().To<MemberEventService>().InRequestScope();
+            
 
-            kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
             kernel.Bind<IXPathProvider>().To<XPathProvider>().InRequestScope();
 
             kernel.Bind<IImageHelper>().To<ImageHelper>().InRequestScope();
@@ -508,7 +531,7 @@ namespace Compent.Uintra
             kernel.Bind<IIndexer>().To<DocumentIndexer>().InRequestScope();
             kernel.Bind<IIndexer>().To<UserTagsSearchIndexer>().InRequestScope();
             kernel.Bind<IIndexer>().To<UintraContentIndexer>().InRequestScope();
-            kernel.Bind<IIndexer>().To<IntranetUserService<IntranetUser>>().InRequestScope();
+            kernel.Bind<IIndexer>().To<IntranetMemberService<IntranetMember>>().InRequestScope();
             kernel.Bind<IContentIndexer>().To<UintraContentIndexer>().InRequestScope();
             kernel.Bind<IDocumentIndexer>().To<DocumentIndexer>().InRequestScope();
             kernel.Bind<IElasticConfigurationSection>().ToMethod(f => ConfigurationManager.GetSection("elasticConfiguration") as ElasticConfigurationSection).InSingletonScope();

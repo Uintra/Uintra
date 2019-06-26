@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Uintra.Core.Extensions;
 using Uintra.Core.Grid;
-using Uintra.Core.TypeProviders;
 using Umbraco.Core.Models;
 
 namespace Uintra.CentralFeed

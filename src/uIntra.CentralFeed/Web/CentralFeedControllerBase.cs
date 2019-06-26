@@ -10,10 +10,9 @@ using Uintra.Core.Attributes;
 using Uintra.Core.Context;
 using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
-using Uintra.Core.TypeProviders;
-using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
-using Uintra.Subscribe;
+using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.TypeProviders;
 
 namespace Uintra.CentralFeed.Web
 {
@@ -22,6 +21,7 @@ namespace Uintra.CentralFeed.Web
         private readonly ICentralFeedService _centralFeedService;
         private readonly ICentralFeedContentService _centralFeedContentService;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
+        private readonly IPermissionResourceTypeProvider _permissionResourceTypeProvider;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
@@ -42,17 +42,14 @@ namespace Uintra.CentralFeed.Web
             ICentralFeedService centralFeedService,
             ICentralFeedContentService centralFeedContentService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            ISubscribeService subscribeService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
-            IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             IPermissionsService permissionsService,
-            IActivityTypeProvider activityTypeProvider,
             IContextTypeProvider contextTypeProvider,
-            IFeedFilterService centralFeedFilterService)
-            : base(subscribeService, centralFeedService, intranetUserService, feedFilterStateService, centralFeedTypeProvider, contextTypeProvider)
+            IFeedFilterService centralFeedFilterService,
+            IPermissionResourceTypeProvider permissionResourceTypeProvider)
+            : base(centralFeedService, feedFilterStateService, contextTypeProvider)
         {
             _centralFeedService = centralFeedService;
             _centralFeedContentService = centralFeedContentService;
@@ -61,9 +58,10 @@ namespace Uintra.CentralFeed.Web
             _feedFilterStateService = feedFilterStateService;
             _permissionsService = permissionsService;
             _centralFeedFilterService = centralFeedFilterService;
+            _permissionResourceTypeProvider = permissionResourceTypeProvider;
             _activitiesServiceFactory = activitiesServiceFactory;
         }
-        
+
         [HttpGet]
         public virtual ActionResult Overview()
         {
@@ -172,9 +170,14 @@ namespace Uintra.CentralFeed.Web
             {
                 Tabs = activityTabs,
                 TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs)
-                    .Where(tab => _permissionsService.IsCurrentUserHasAccess(tab.Type, IntranetActivityActionEnum.Create)),
+                    .Where(tab => _permissionsService.Check(
+                            _permissionResourceTypeProvider[tab.Type.ToInt()],
+                            PermissionActionEnum.Create)),
                 CurrentType = tabType,
-                IsFiltersOpened = centralFeedState.IsFiltersOpened
+                IsFiltersOpened = centralFeedState.IsFiltersOpened,
+                CanCreateBulletin = _permissionsService.Check(
+                        PermissionResourceTypeEnum.Bulletins,
+                        PermissionActionEnum.Create)
             };
             return model;
         }
@@ -239,7 +242,7 @@ namespace Uintra.CentralFeed.Web
 
             return items;
         }
-        
+
         protected virtual CreateViewModel GetCreateViewModel(Enum activityType)
         {
             var links = _feedLinkService.GetCreateLinks(activityType);

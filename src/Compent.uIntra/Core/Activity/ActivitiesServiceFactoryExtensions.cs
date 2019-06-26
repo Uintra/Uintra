@@ -14,6 +14,6 @@ namespace Compent.Uintra.Core.Activity
         public static ICacheableIntranetActivityService<IIntranetActivity> GetCacheableIntranetActivityService(
             this IActivitiesServiceFactory activitiesServiceFactory,
             Guid activityId) => 
-            activitiesServiceFactory.GetService<ICacheableIntranetActivityService<IIntranetActivity>>(activityId);
+            activitiesServiceFactory.GetService<ICacheableIntranetActivityService<IIntranetActivity>>(activityId); 
     }
 }

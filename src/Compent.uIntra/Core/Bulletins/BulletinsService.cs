@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Compent.CommandBus;
 using Compent.Extensions;
-using Compent.Uintra.Core.Helpers;
 using Compent.Uintra.Core.Notification;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.UserTags.Indexers;
@@ -17,15 +16,15 @@ using Uintra.Core.LinkPreview;
 using Uintra.Core.Links;
 using Uintra.Core.Location;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Groups;
 using Uintra.Likes;
 using Uintra.Notification;
 using Uintra.Notification.Base;
 using Uintra.Search;
-using Uintra.Subscribe;
 using Uintra.Tagging.UserTags;
 using static Uintra.Notification.Configuration.NotificationTypeEnum;
 
@@ -38,11 +37,8 @@ namespace Compent.Uintra.Core.Bulletins
         IIndexer,
         IHandle<VideoConvertedCommand>
     {
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
-        private readonly ISubscribeService _subscribeService;
-        private readonly IPermissionsService _permissionsService;
         private readonly INotificationsService _notificationService;
         private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
@@ -58,10 +54,9 @@ namespace Compent.Uintra.Core.Bulletins
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             ICommentsService commentsService,
             ILikesService likesService,
-            ISubscribeService subscribeService,
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,
@@ -77,13 +72,10 @@ namespace Compent.Uintra.Core.Bulletins
             IGroupService groupService,
             INotifierDataBuilder notifierDataBuilder)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
-                activityLocationService, activityLinkPreviewService)
+                activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService)
         {
-            _intranetUserService = intranetUserService;
             _commentsService = commentsService;
             _likesService = likesService;
-            _permissionsService = permissionsService;
-            _subscribeService = subscribeService;
             _notificationService = notificationService;
             _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
@@ -99,6 +91,8 @@ namespace Compent.Uintra.Core.Bulletins
 
         public override Enum Type => IntranetActivityTypeEnum.Bulletins;
 
+        public override Enum PermissionActivityType => PermissionResourceTypeEnum.Bulletins;
+
         public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
 
         protected override void UpdateCache()
@@ -107,20 +101,14 @@ namespace Compent.Uintra.Core.Bulletins
             FillIndex();
         }
 
-        public override bool CanEdit(IIntranetActivity activity) => CanPerform(activity, IntranetActivityActionEnum.Edit);
-
-        public bool CanDelete(IIntranetActivity cached) => CanPerform(cached, IntranetActivityActionEnum.Delete);
-
-        public FeedSettings GetFeedSettings()
-        {
-            return new FeedSettings
+        public FeedSettings GetFeedSettings() =>
+            new FeedSettings
             {
                 Type = CentralFeedTypeEnum.Bulletins,
                 Controller = "Bulletins",
                 HasPinnedFilter = false,
                 HasSubscribersFilter = false,
             };
-        }
 
         public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
 
@@ -138,9 +126,6 @@ namespace Compent.Uintra.Core.Bulletins
                 FillLinkPreview(entity);
             }
         }
-
-        [Obsolete("This method should be removed. Use UpdateActivityCache instead.")]
-        protected override Bulletin UpdateCachedEntity(Guid id) => UpdateActivityCache(id);
 
         public override Bulletin UpdateActivityCache(Guid id)
         {
@@ -195,27 +180,13 @@ namespace Compent.Uintra.Core.Bulletins
             bulletin.LinkPreviewId = linkPreview?.Id;
         }
 
-        private bool CanPerform(IIntranetActivity cached, IntranetActivityActionEnum action)
-        {
-            var currentUser = _intranetUserService.GetCurrentUser();
-
-            var isWebmaster = _permissionsService.IsUserWebmaster(currentUser);
-            if (isWebmaster) return true;
-
-            var ownerId = Get(cached.Id).OwnerId;
-            var isOwner = ownerId == currentUser.Id;
-
-            var isUserHasPermissions = _permissionsService.IsRoleHasPermissions(currentUser.Role, Type, action);
-            return isOwner && isUserHasPermissions;
-        }
-
-        private bool IsBulletinHidden(Bulletin bulletin) => bulletin == null || bulletin.IsHidden;
+        private static bool IsBulletinHidden(Bulletin bulletin) => bulletin == null || bulletin.IsHidden;
 
         private bool IsCacheable(Bulletin bulletin) =>
             !IsBulletinHidden(bulletin) && IsActualPublishDate(bulletin);
 
-        private bool IsActualPublishDate(Bulletin bulletin) =>
-            DateTime.Compare(bulletin.PublishDate, DateTime.Now) <= 0;
+        private static bool IsActualPublishDate(Bulletin bulletin) =>
+            DateTime.Compare(bulletin.PublishDate, DateTime.UtcNow) <= 0;
 
         private SearchableUintraActivity Map(Bulletin bulletin)
         {
@@ -234,7 +205,7 @@ namespace Compent.Uintra.Core.Bulletins
                 return BroadcastResult.Success;
             }
 
-            entity.ModifyDate = DateTime.Now;
+            entity.ModifyDate = DateTime.UtcNow;
             return BroadcastResult.Success;
         }
     }

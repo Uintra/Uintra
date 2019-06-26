@@ -22,7 +22,7 @@ namespace Uintra.Groups.Web
 
         private readonly IGroupDocumentsService _groupDocumentsService;
         private readonly IMediaService _mediaService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupService _groupService;
         private readonly UmbracoHelper _umbracoHelper;
@@ -31,7 +31,7 @@ namespace Uintra.Groups.Web
         protected GroupDocumentsControllerBase(
             IGroupDocumentsService groupDocumentsService,
             IMediaService mediaService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IGroupMemberService groupMemberService,
             IGroupService groupService,
             UmbracoHelper umbracoHelper,
@@ -39,7 +39,7 @@ namespace Uintra.Groups.Web
         {
             _groupDocumentsService = groupDocumentsService;
             _mediaService = mediaService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _groupMemberService = groupMemberService;
             _groupService = groupService;
             _umbracoHelper = umbracoHelper;
@@ -50,11 +50,11 @@ namespace Uintra.Groups.Web
         public virtual ActionResult Documents(Guid groupId)
         {
             var groupMembers = _groupMemberService.GetGroupMemberByGroup(groupId);
-            var currentUserId = _intranetUserService.GetCurrentUserId();
+            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
             var model = new GroupDocumentsViewModel
             {
                 GroupId = groupId,
-                CanUploadFiles = groupMembers.Any(s => s.MemberId == currentUserId)
+                CanUploadFiles = groupMembers.Any(s => s.MemberId == currentMemberId)
             };
             return PartialView(DocumentsViewPath, model);
         }
@@ -67,7 +67,7 @@ namespace Uintra.Groups.Web
                 RedirectToCurrentUmbracoPage(Request.QueryString);
             }
 
-            var creatorId = _intranetUserService.GetCurrentUserId();
+            var creatorId = _intranetMemberService.GetCurrentMemberId();
             IEnumerable<int> createdMediasIds = _groupMediaService.CreateGroupMedia(model, model.GroupId, creatorId);
 
             _groupDocumentsService.Create(createdMediasIds.Select(i =>
@@ -90,21 +90,21 @@ namespace Uintra.Groups.Web
             var medias = _mediaService.GetByIds(mediaIdsList);
             var group = _groupService.Get(groupId);
             var groupMembers = _groupMemberService.GetGroupMemberByGroup(groupId);
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
             var docs = medias.Select(s =>
             {
                 var intranetCreator = s.GetValue<Guid?>(IntranetConstants.IntranetCreatorId);
-                var creator = intranetCreator.HasValue ? _intranetUserService.Get(intranetCreator.Value) : _intranetUserService.Get(s.CreatorId);
+                var creator = intranetCreator.HasValue ? _intranetMemberService.Get(intranetCreator.Value) : _intranetMemberService.GetByUserId(s.CreatorId);
                 var document = groupDocumentsList.First(f => f.MediaId == s.Id);
                 var url = _umbracoHelper.TypedMedia(s.Id).Url;
                 var model = new GroupDocumentTableRowViewModel
                 {
-                    CanDelete = CanDelete(currentUser, group, groupMembers, s),
+                    CanDelete = CanDelete(currentMember, group, groupMembers, s),
                     Id = document.Id,
                     CreateDate = s.CreateDate,
                     Name = s.Name,
                     Type = s.GetValue<string>(UmbracoAliases.Media.MediaExtension),
-                    Creator = creator.Map<UserViewModel>(),
+                    Creator = creator.Map<MemberViewModel>(),
                     FileUrl = url
                 };
                 return model;
@@ -131,7 +131,7 @@ namespace Uintra.Groups.Web
                 throw new Exception("Can't delete document because it does not belong to this group!");
             }
 
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentUser = _intranetMemberService.GetCurrentMember();
             var group = _groupService.Get(groupId);
             var groupMembers = _groupMemberService.GetGroupMemberByGroup(groupId);
             var media = _mediaService.GetById(document.MediaId);
@@ -145,12 +145,12 @@ namespace Uintra.Groups.Web
             return DocumentsTable(groupId, column, direction);
         }
 
-        protected virtual bool CanDelete(IIntranetUser currentUser, GroupModel groupModel, IEnumerable<GroupMember> groupMembers, IMedia media)
+        protected virtual bool CanDelete(IIntranetMember currentMember, GroupModel groupModel, IEnumerable<GroupMember> groupMembers, IMedia media)
         {
             var mediaCreator = media.GetValue<Guid?>(IntranetConstants.IntranetCreatorId);
-            return currentUser.Id == groupModel.CreatorId ||
-                mediaCreator.HasValue && mediaCreator.Value == currentUser.Id &&
-                groupMembers.Any(s => s.MemberId == currentUser.Id);
+            return currentMember.Id == groupModel.CreatorId ||
+                mediaCreator.HasValue && mediaCreator.Value == currentMember.Id &&
+                groupMembers.Any(s => s.MemberId == currentMember.Id);
         }
 
         protected IEnumerable<GroupDocumentTableRowViewModel> Sort(IEnumerable<GroupDocumentTableRowViewModel> documents, GroupDocumentDocumentField column, Direction direction)

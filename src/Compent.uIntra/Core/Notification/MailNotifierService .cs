@@ -13,20 +13,20 @@ namespace Compent.Uintra.Core.Notification
     public class MailNotifierService : INotifierService
     {
         private readonly IMailService _mailService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
         private readonly NotificationSettingsService _notificationSettingsService;
         private readonly ISqlRepository<global::Uintra.Notification.Notification> _notificationRepository;
 
         public MailNotifierService(
             IMailService mailService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper,
             NotificationSettingsService notificationSettingsService,
             ISqlRepository<global::Uintra.Notification.Notification> notificationRepository)
         {
             _mailService = mailService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _notificationModelMapper = notificationModelMapper;
             _notificationSettingsService = notificationSettingsService;
             _notificationRepository = notificationRepository;
@@ -40,7 +40,7 @@ namespace Compent.Uintra.Core.Notification
 
             var settings = _notificationSettingsService.Get<EmailNotifierTemplate>(identity);
             if (!settings.IsEnabled) return;
-            var receivers = _intranetUserService.GetMany(data.ReceiverIds).ToList();
+            var receivers = _intranetMemberService.GetMany(data.ReceiverIds).ToList();
             foreach (var receiverId in data.ReceiverIds)
             {
                 var user = receivers.Find(receiver => receiver.Id == receiverId);

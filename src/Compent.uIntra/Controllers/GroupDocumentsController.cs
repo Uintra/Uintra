@@ -11,12 +11,12 @@ namespace Compent.Uintra.Controllers
         public GroupDocumentsController(
             IGroupDocumentsService groupDocumentsService,
             IMediaService mediaService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IGroupMemberService groupMemberService,
             IGroupService groupService,
             UmbracoHelper umbracoHelper,
             IGroupMediaService groupMediaService) :
-            base(groupDocumentsService, mediaService, intranetUserService, groupMemberService, groupService, umbracoHelper, groupMediaService)
+            base(groupDocumentsService, mediaService, intranetMemberService, groupMemberService, groupService, umbracoHelper, groupMediaService)
         {
         }
     }

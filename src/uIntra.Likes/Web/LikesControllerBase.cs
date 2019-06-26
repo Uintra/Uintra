@@ -21,20 +21,20 @@ namespace Uintra.Likes.Web
         protected virtual string LikesViewPath { get; set; } = "~/App_Plugins/Likes/View/LikesView.cshtml";
 
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly ILikesService _likesService;
         private readonly ICommandPublisher _commandPublisher;
 
         protected LikesControllerBase(
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             ILikesService likesService,
             IContextTypeProvider contextTypeProvider,
             ICommandPublisher commandPublisher)
             : base(contextTypeProvider)
         {
             _activitiesServiceFactory = activitiesServiceFactory;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _likesService = likesService;
             _commandPublisher = commandPublisher;
         }
@@ -62,7 +62,7 @@ namespace Uintra.Likes.Web
             var likeTarget = FullContext.Value;
             var targetEntityId = likeTarget.EntityId.Value;
 
-            var command = new AddLikeCommand(FullContext, _intranetUserService.GetCurrentUserId());
+            var command = new AddLikeCommand(FullContext, _intranetMemberService.GetCurrentMemberId());
             _commandPublisher.Publish(command);
 
             switch (likeTarget.Type.ToInt())
@@ -88,7 +88,7 @@ namespace Uintra.Likes.Web
             var likeTarget = FullContext.Value;
             var targetEntityId = likeTarget.EntityId.Value;
 
-            var command = new RemoveLikeCommand(FullContext, _intranetUserService.GetCurrentUserId());
+            var command = new RemoveLikeCommand(FullContext, _intranetMemberService.GetCurrentMemberId());
             _commandPublisher.Publish(command);
 
             switch (likeTarget.Type.ToInt())
@@ -109,13 +109,13 @@ namespace Uintra.Likes.Web
 
         protected virtual PartialViewResult Likes(IEnumerable<LikeModel> likes, Guid entityId, bool isReadOnly = false, bool showTitle = false)
         {
-            var currentUserId = _intranetUserService.GetCurrentUserId();
+            var currenMemberId = _intranetMemberService.GetCurrentMemberId();
             var likeModels = likes as IList<LikeModel> ?? likes.ToList();
-            var canAddLike = likeModels.All(el => el.UserId != currentUserId);
+            var canAddLike = likeModels.All(el => el.UserId != currenMemberId);
             var model = new LikesViewModel
             {
                 EntityId = entityId,
-                UserId = currentUserId,
+                MemberId = currenMemberId,
                 Count = likeModels.Count,
                 CanAddLike = canAddLike,
                 Users = likeModels.Select(el => el.User),

@@ -20,23 +20,23 @@ namespace Compent.Uintra.Controllers
     public class CommentsController : CommentsControllerBase
     {
         private readonly ICommentsService _commentsService;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IMentionService _mentionService;
         private readonly ICommentLinkHelper _commentLinkHelper;
 
         public CommentsController(
             ICommentsService commentsService,
-            IIntranetUserService<IIntranetUser> intranetUserService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
             IContextTypeProvider contextTypeProvider,
             ICommandPublisher commandPublisher,
             IActivitiesServiceFactory activitiesServiceFactory,
             IMentionService mentionService,
             ICommentLinkHelper commentLinkHelper)
-            : base(commentsService, intranetUserService, profileLinkProvider, contextTypeProvider, commandPublisher, activitiesServiceFactory)
+            : base(commentsService, intranetMemberService, profileLinkProvider, contextTypeProvider, commandPublisher, activitiesServiceFactory)
         {
             _commentsService = commentsService;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _mentionService = mentionService;
             _commentLinkHelper = commentLinkHelper;
         }
@@ -63,7 +63,7 @@ namespace Compent.Uintra.Controllers
                 _mentionService.ProcessMention(new MentionModel
                 {
                     MentionedSourceId = comment.Id,
-                    CreatorId = _intranetUserService.GetCurrentUserId(),
+                    CreatorId = _intranetMemberService.GetCurrentMemberId(),
                     MentionedUserIds = mentionIds,
                     Title = comment.Text.StripHtml().TrimByWordEnd(50),
                     Url = content != null ? _commentLinkHelper.GetDetailsUrlWithComment(content, comment.Id) :

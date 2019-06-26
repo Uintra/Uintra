@@ -32,9 +32,12 @@
             @Html.HiddenFor(bulletin => bulletin.MediaRootId)
             @Html.PassLinks(Model.Links)
             <input class="btn _submit js-disable-submit" type="submit" value="@Html.Localize("BulletinsEdit.Edit.btn")" />
-            <input class="btn _cancel js-edit-bulletin__delete" type="button" value="@Html.Localize("BulletinsEdit.Delete.btn")" data-return-url="@Model.Links.Overview"
+            @if (Model.CanDelete)
+            {
+                <input class="btn _cancel js-edit-bulletin__delete" type="button" value="@Html.Localize("BulletinsEdit.Delete.btn")" data-return-url="@Model.Links.Overview"
                    data-id="@Model.Id" data-delete-url="@Url.Action("Delete", "Bulletins")" data-text="@Html.Localize("Common.AreYouSure")" data-ok="@Html.Localize("Common.AreYouSure.Ok")"
                    data-cancel="@Html.Localize("Common.AreYouSure.Cancel")" />
+            }
             <a class="btn _default" href="@(Context.GetBackLink(Model.Links.Details))">@Html.Localize("Common.Cancel.lnk")</a>
         </div>
     }

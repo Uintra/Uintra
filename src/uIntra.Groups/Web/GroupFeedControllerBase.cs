@@ -10,11 +10,10 @@ using Uintra.Core.Attributes;
 using Uintra.Core.Context;
 using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
+using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Groups.Attributes;
-using Uintra.Subscribe;
-
 namespace Uintra.Groups.Web
 {
     public abstract class GroupFeedControllerBase : FeedControllerBase
@@ -22,7 +21,7 @@ namespace Uintra.Groups.Web
         private readonly IGroupFeedService _groupFeedService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
-        private readonly IIntranetUserService<IGroupMember> _intranetUserService;
+        private readonly IIntranetMemberService<IGroupMember> _intranetMemberService;
         private readonly IGroupFeedContentService _groupFeedContentContentService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
@@ -31,7 +30,7 @@ namespace Uintra.Groups.Web
         private readonly IFeedFilterService _feedFilterService;
 
 
-        private bool IsCurrentUserGroupMember { get; set; }
+        private bool IsCurrentMemberInGroup { get; set; }
 
         protected override string OverviewViewPath => "~/App_Plugins/Groups/Room/Feed/Overview.cshtml";
         protected override string DetailsViewPath => "~/App_Plugins/Groups/Room/Feed/Details.cshtml";
@@ -42,14 +41,11 @@ namespace Uintra.Groups.Web
         public override ContextType ControllerContextType { get; } = ContextType.GroupFeed;
 
         protected GroupFeedControllerBase(
-            ISubscribeService subscribeService,
             IGroupFeedService groupFeedService,
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetUserContentProvider intranetUserContentProvider,
             IFeedTypeProvider centralFeedTypeProvider,
-            IIntranetUserService<IGroupMember> intranetUserService,
+            IIntranetMemberService<IGroupMember> intranetMemberService,
             IGroupFeedContentService groupFeedContentContentService,
-            IGroupFeedLinkProvider groupFeedLinkProvider,
             IGroupMemberService groupMemberService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             IPermissionsService permissionsService,
@@ -57,17 +53,14 @@ namespace Uintra.Groups.Web
             IFeedLinkService feedLinkService,
             IFeedFilterService feedFilterService)
             : base(
-                  subscribeService,
                   groupFeedService,
-                  intranetUserService,
                   feedFilterStateService,
-                  centralFeedTypeProvider,
                   contextTypeProvider)
         {
             _groupFeedService = groupFeedService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _centralFeedTypeProvider = centralFeedTypeProvider;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _groupFeedContentContentService = groupFeedContentContentService;
             _groupMemberService = groupMemberService;
             _feedFilterStateService = feedFilterStateService;
@@ -99,8 +92,8 @@ namespace Uintra.Groups.Web
         [NotFoundGroup]
         public ActionResult Create(Guid groupId)
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
-            if (!_groupMemberService.IsGroupMember(groupId, currentUser))
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            if (!_groupMemberService.IsGroupMember(groupId, currentMember))
                 return new EmptyResult();
 
             var activityType = _groupFeedContentContentService.GetCreateActivityType(CurrentPage);
@@ -162,8 +155,8 @@ namespace Uintra.Groups.Web
                 .Single(s => s.Type.ToInt() == model.TypeId)
                 .Map<FeedTabSettings>();
 
-            var currentUserId = _intranetUserService.GetCurrentUser().Id;
-            IsCurrentUserGroupMember = _groupMemberService.IsGroupMember(model.GroupId, currentUserId); // I know that state is not the nice idea, but I cant find another way to remove logic duplication
+            var currentMemberId = _intranetMemberService.GetCurrentMember().Id;
+            IsCurrentMemberInGroup = _groupMemberService.IsGroupMember(model.GroupId, currentMemberId); // I know that state is not the nice idea, but I cant find another way to remove logic duplication
 
             return new FeedListViewModel
             {
@@ -181,25 +174,27 @@ namespace Uintra.Groups.Web
             return new ActivityFeedOptions
             {
                 Links = _feedLinkService.GetLinks(id),
-                IsReadOnly = !IsCurrentUserGroupMember
+                IsReadOnly = !IsCurrentMemberInGroup
             };
         }
 
         protected virtual GroupFeedOverviewModel GetOverviewModel(Guid groupId)
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
             var tabType = _groupFeedContentContentService.GetFeedTabType(CurrentPage);
 
-            var tabs = _groupFeedContentContentService.GetActivityTabs(CurrentPage, currentUser, groupId);
+            var tabs = _groupFeedContentContentService.GetActivityTabs(CurrentPage, currentMember, groupId);
             var activityTabs = tabs.Where(t => t.Type != null).Map<List<ActivityFeedTabViewModel>>();
 
             var model = new GroupFeedOverviewModel
             {
                 Tabs = activityTabs,
-                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _permissionsService.IsCurrentUserHasAccess(tab.Type, IntranetActivityActionEnum.Create)),
+                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab =>
+                    _permissionsService.Check(tab.Type, PermissionActionEnum.Create)),
                 CurrentType = tabType,
                 GroupId = groupId,
-                IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentUser)
+                IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentMember),
+                CanCreateBulletin = _permissionsService.Check(PermissionResourceTypeEnum.Bulletins, PermissionActionEnum.Create)
             };
             return model;
         }
@@ -234,8 +229,8 @@ namespace Uintra.Groups.Web
         protected virtual DetailsViewModel GetDetailsViewModel(Guid id, Guid groupId)
         {
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService>(id);
-            var currentUserId = _intranetUserService.GetCurrentUser().Id;
-            IsCurrentUserGroupMember = _groupMemberService.IsGroupMember(groupId, currentUserId);
+            var currentMemberId = _intranetMemberService.GetCurrentMember().Id;
+            IsCurrentMemberInGroup = _groupMemberService.IsGroupMember(groupId, currentMemberId);
             var options = GetActivityFeedOptions(id);
             var settings = _groupFeedService.GetSettings(service.Type);
 

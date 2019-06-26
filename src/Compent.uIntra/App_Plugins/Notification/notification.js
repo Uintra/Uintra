@@ -2,6 +2,7 @@
 import umbracoAjaxForm from "./../Core/Content/scripts/UmbracoAjaxForm";
 import ajax from "./../Core/Content/scripts/Ajax";
 import push from 'push.js';
+import { debug } from "util";
 
 require("./List/notificationList.css");
 
@@ -48,16 +49,19 @@ function initCustomControls() {
         var $this = $(this);
         var delivered = $this.data("viewed");
         var url = $this.data("href");
-
         if (!delivered) {
             let data = { id: $this.data("id") };
             ajax.post('/umbraco/surface/Notification/View/', data)
                 .then(function () {
                     $this.attr("data-viewed", true);
-                });
-        }
-
+                })
+            if (window.location.href != url) {
+                window.location.href = url;
+                location.reload(true);
+            }
+        } else { location.reload(true); }
         window.location.href = url;
+
     });
 }
 

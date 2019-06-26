@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Uintra.Core.Core.UmbracoEventServices;
 using Uintra.Core.UmbracoEventServices;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
@@ -14,11 +15,54 @@ namespace Compent.Uintra.Core
             ContentService.Published += ProcessContentPublished;
             ContentService.UnPublished += ProcessContentUnPublished;
             ContentService.Trashed += ProcessContentTrashed;
+            ContentService.Saving += ProcessPanelSaving;
 
+            MemberService.AssignedRoles += ProcessMemberAssignedRoles;
+            MemberService.RemovedRoles += ProcessMemberRemovedRoles;
             MemberService.Deleting += ProcessMemberDeleting;
+            MemberService.Created += ProcessMemberCreated;
             MediaService.Saved += ProcessMediaSaved;
             MediaService.Trashed += ProcessMediaTrashed;
-            MediaService.Saving += ProcessMediaSaving;      
+            MediaService.Saving += ProcessMediaSaving;
+
+            MemberGroupService.Deleting += ProcessMemberGroupDeliting;
+            MemberGroupService.Saved += ProcessMemberGroupSaved;
+        }
+
+        private static void ProcessMemberRemovedRoles(IMemberService sender, RolesEventArgs e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoMemberRemovedRolesEventService>();
+            foreach (var service in services) service.ProcessMemberRemovedRoles(sender, e);
+        }
+
+        private static void ProcessMemberAssignedRoles(IMemberService sender, RolesEventArgs e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoMemberAssignedRolesEventService>();
+            foreach (var service in services) service.ProcessMemberAssignedRoles(sender, e);
+        }
+
+        private static void ProcessMemberGroupSaved(IMemberGroupService sender, SaveEventArgs<IMemberGroup> e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoMemberGroupSavedEventService>();
+            foreach (var service in services) service.ProcessMemberGroupSaved(sender, e);
+        }
+
+        private static void ProcessMemberCreated(IMemberService sender, NewEventArgs<IMember> e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoMemberCreatedEventService>();
+            foreach (var service in services) service.ProcessMemberCreated(sender, e);
+        }
+
+        private static void ProcessPanelSaving(IContentService sender, SaveEventArgs<IContent> e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoContentSavingEventService>();
+            foreach (var service in services) service.ProcessContentSaving(sender, e);
+        }
+
+        private static void ProcessMemberGroupDeliting(IMemberGroupService sender, DeleteEventArgs<IMemberGroup> e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoMemberGroupDeletingEventService>();
+            foreach (var service in services) service.ProcessMemberGroupDeleting(sender, e);
         }
 
         private static void ProcessMediaSaving(IMediaService sender, SaveEventArgs<IMedia> e)

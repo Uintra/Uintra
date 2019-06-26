@@ -21,7 +21,7 @@ namespace Uintra.Core.Media
                 Message = message.ToJson(),
                 MediaId = mediaId,
                 Result = result,
-                Date = DateTime.Now
+                Date = DateTime.UtcNow
             });
         }
     }

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Compent.Extensions;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Navigation.SystemLinks;
-using Umbraco.Core.Services;
+using Umbraco.Core.Models;
 using Umbraco.Web.Mvc;
 
 namespace Uintra.Navigation.Web
@@ -31,29 +31,23 @@ namespace Uintra.Navigation.Web
         private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
         private readonly ITopNavigationModelBuilder _topNavigationModelBuilder;
         private readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
-        private readonly IIntranetUserService<IIntranetUser> _intranetUserService;
+        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IProfileLinkProvider _profileLinkProvider;
-        private readonly IPermissionsService _permissionsService;
-        private readonly IUserService _userService;
 
         protected NavigationControllerBase(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
             ISubNavigationModelBuilder subNavigationModelBuilder,
             ITopNavigationModelBuilder topNavigationModelBuilder,
             ISystemLinksModelBuilder systemLinksModelBuilder,
-            IIntranetUserService<IIntranetUser> intranetUserService,
-            IProfileLinkProvider profileLinkProvider,
-            IPermissionsService permissionsService,
-            IUserService userService)
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IProfileLinkProvider profileLinkProvider)
         {
             _leftSideNavigationModelBuilder = leftSideNavigationModelBuilder;
             _subNavigationModelBuilder = subNavigationModelBuilder;
             _topNavigationModelBuilder = topNavigationModelBuilder;
             _systemLinksModelBuilder = systemLinksModelBuilder;
-            _intranetUserService = intranetUserService;
+            _intranetMemberService = intranetMemberService;
             _profileLinkProvider = profileLinkProvider;
-            _permissionsService = permissionsService;
-            _userService = userService;
         }
 
         public virtual ActionResult LeftNavigation()
@@ -96,17 +90,17 @@ namespace Uintra.Navigation.Web
 
         public virtual ActionResult Breadcrumbs()
         {
-            return PartialView(BreadcrumbsViewPath, GetBreadcrumbsItems());
+            return PartialView(BreadcrumbsViewPath, GetBreadcrumbsItems().ToList());
         }
 
         public virtual ActionResult LeftNavigationUserMenu()
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
 
             var result = new LeftNavigationUserMenuViewModel
             {
-                CurrentUser = currentUser.Map<UserViewModel>(),
-                ProfileLink = _profileLinkProvider.GetProfileLink(currentUser.Id)
+                CurrentMember = currentMember.Map<MemberViewModel>(),
+                ProfileLink = _profileLinkProvider.GetProfileLink(currentMember.Id)
             };
 
             return PartialView(LeftNavigationUserMenuViewPath, result);
@@ -114,50 +108,49 @@ namespace Uintra.Navigation.Web
 
         public virtual ActionResult UmbracoContentLink()
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
-            if (_permissionsService.IsUserHasAccessToContent(currentUser, CurrentPage))
-            {
-                return PartialView(UmbracoContentLinkViewPath, CurrentPage.Id);
-            }
-
-            return new EmptyResult();
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            return currentMember.RelatedUser.IsSome
+                ? PartialView(UmbracoContentLinkViewPath, CurrentPage.Id)
+                : (ActionResult) new EmptyResult();
         }
 
         public virtual ActionResult GoToUmbracoEditPage(int pageId)
         {
-            var currentUser = _intranetUserService.GetCurrentUser();
+            var currentMember = _intranetMemberService.GetCurrentMember();
             var pageUrl = string.Format(NavigationUmbracoConstants.UmbracoEditPageUrl, pageId);
 
-            var umbracoUser = _userService.GetUserById(currentUser.UmbracoId.Value);
-            if (umbracoUser == null || umbracoUser.IsLockedOut || !umbracoUser.IsApproved)
-            {
-                return Redirect(pageUrl);
-            }
+            currentMember.RelatedUser
+                .Filter(user => user.IsValid)
+                .IfSome(user => UmbracoContext.Security.PerformLogin(user.Id));
 
-            UmbracoContext.Security.PerformLogin(umbracoUser.Id);  // back office user always isn't logged in
             return Redirect(pageUrl);
         }
 
-        protected virtual List<BreadcrumbItemViewModel> GetBreadcrumbsItems()
+        protected virtual IEnumerable<BreadcrumbItemViewModel> GetBreadcrumbsItems()
         {
-            var result = new List<BreadcrumbItemViewModel>();
-            var currentPage = CurrentPage;
-            while (currentPage != null)
+            var pathToRoot = PathToRoot(CurrentPage).Reverse();
+            var result = pathToRoot.Select(page =>
             {
-                var navigationName = currentPage.GetNavigationName();
-
-                result.Add(new BreadcrumbItemViewModel
+                var navigationName = page.GetNavigationName();
+                return new BreadcrumbItemViewModel
                 {
-                    Name = navigationName.HasValue() ? navigationName : currentPage.Name,
-                    Url = currentPage.Url,
-                    IsClickable = CurrentPage.Url != currentPage.Url && !currentPage.IsHeading()
-                });
-
-                currentPage = currentPage.Parent;
-            }
-
-            result.Reverse();
+                    Name = navigationName.HasValue() ? navigationName : page.Name,
+                    Url = page.Url,
+                    IsClickable = CurrentPage.Url != page.Url && !page.IsHeading()
+                };
+            });
             return result;
+        }
+
+        protected virtual IEnumerable<IPublishedContent> PathToRoot(IPublishedContent node)
+        {
+            var current = node;
+
+            while (current != null)
+            {
+                yield return current;
+                current = current.Parent;
+            }
         }
 
         public virtual ActionResult UserListLink()

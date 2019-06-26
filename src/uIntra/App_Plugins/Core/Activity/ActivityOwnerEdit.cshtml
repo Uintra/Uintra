@@ -4,19 +4,19 @@
 @if (Model.CanEditOwner)
 {
     <select class="js-user-select form-control" name="@Model.OwnerIdPropertyName">
-        @foreach (var user in Model.Users)
+        @foreach (var member in Model.Members)
         {
-            <option value="@user.Id" selected="@(user.Id == Model.Owner.Id)">@user.DisplayedName</option>
+            <option value="@member.Id" selected="@(member.Id == Model.Owner.Id)">@member.DisplayedName</option>
         }
     </select>
 }
 else
 {
     <input type="hidden" name="@Model.OwnerIdPropertyName" value="@Model.Owner.Id" />
-    @Html.Action("Photo", "User", new
-{
-    user = Model.Owner,
-    profilePageUrl = Model.Links.Owner
-})
+    @Html.Action("Photo", "Member", new
+    {
+        member = Model.Owner,
+        profilePageUrl = Model.Links.Owner
+    })
     <span>@Model.Owner.DisplayedName</span>
 }

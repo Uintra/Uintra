@@ -46,7 +46,7 @@ namespace Uintra.Core.Extensions
             return request.Headers["User-Agent"];
         }
 
-        public static T GetCurrentUser<T>(this HttpContext context) where T : class, IIntranetUser
+        public static T GetCurrentUser<T>(this HttpContext context) where T : class, IIntranetMember
         {
             var currentUser = context.Session?[IntranetConstants.Session.LoggedUserSessionKey] as T;
 

@@ -67,7 +67,7 @@ namespace Uintra.Comments
         public virtual CommentModel Create(CommentCreateDto dto)
         {
             var entity = Map(dto);
-            entity.CreatedDate = entity.ModifyDate = DateTime.Now.ToUniversalTime();
+            entity.CreatedDate = entity.ModifyDate = DateTime.UtcNow;
             _commentsRepository.Add(entity);
             if (dto.LinkPreviewId.HasValue)
             {
@@ -76,9 +76,8 @@ namespace Uintra.Comments
             return entity.Map<CommentModel>();
         }
 
-        private Comment Map(CommentCreateDto dto)
-        {
-            var entity = new Comment
+        private static Comment Map(CommentCreateDto dto) =>
+            new Comment
             {
                 Id = dto.Id,
                 ActivityId = dto.ActivityId,
@@ -87,15 +86,12 @@ namespace Uintra.Comments
                 ParentId = dto.ParentId
             };
 
-            return entity;
-        }
-
         public virtual CommentModel Update(CommentEditDto dto)
         {
             var comment = _commentsRepository.Get(dto.Id);
             var commentLinkPreview = _commentLinkPreviewService.GetCommentsLinkPreview(comment.Id);
 
-            comment.ModifyDate = DateTime.Now.ToUniversalTime();
+            comment.ModifyDate = DateTime.UtcNow;
             comment.Text = dto.Text;
 
             _commentsRepository.Update(comment);
@@ -123,22 +119,19 @@ namespace Uintra.Comments
 
         protected virtual void Delete(Comment comment)
         {
-            if (comment.ParentId == null)
+            IEnumerable<Comment> GetDescendants(Comment current) =>
+                    _commentsRepository
+                    .FindAll(c => c.ParentId == current.Id)
+                    .SelectMany(GetDescendants)
+                    .Append(current);
+
+            var commentsToDelete = GetDescendants(comment);
+
+            commentsToDelete.Iter(c =>
             {
-                var replies = GetReplies(comment);
-                foreach (var reply in replies)
-                {
-                    Delete(reply);
-                }
-            }
-
-            _commentLinkPreviewService.RemovePreviewRelations(comment.Id);
-            _commentsRepository.Delete(comment);
-        }
-
-        private IList<Comment> GetReplies(Comment comment)
-        {
-            return _commentsRepository.FindAll(c => c.ParentId == comment.Id);
+                _commentLinkPreviewService.RemovePreviewRelations(c.Id);
+                _commentsRepository.Delete(c);
+            });
         }
 
         public virtual void FillComments(ICommentable entity)
@@ -147,17 +140,10 @@ namespace Uintra.Comments
             entity.Comments = comments;
         }
 
-        public virtual string GetCommentViewId(Guid commentId)
-        {
-            return $"js-comment-view-{commentId}";
-        }
+        public virtual string GetCommentViewId(Guid commentId) =>
+            $"js-comment-view-{commentId}";
 
-        public bool IsExistsUserComment(Guid activityId, Guid userId)
-        {
-            var result = _commentsRepository.Exists(c => c.ActivityId == activityId && c.UserId == userId);
-
-            return result;
-
-        }
+        public bool IsExistsUserComment(Guid activityId, Guid userId) =>
+            _commentsRepository.Exists(c => c.ActivityId == activityId && c.UserId == userId);
     }
 }

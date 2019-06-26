@@ -33,6 +33,8 @@ namespace Uintra.Core.PagePromotion
 
         public virtual bool CanEdit(IIntranetActivity activity) => false;
         public virtual bool CanEdit(Guid id) => false;
+        public virtual bool CanDelete(IIntranetActivity activity) => false;
+        public virtual bool CanDelete(Guid id) => false;
 
         public virtual T Get(Guid id)
         {
