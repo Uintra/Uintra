@@ -185,7 +185,7 @@ namespace Uintra.Notification.Web
             result.Notifier = ((string) result.Value.notifierId)
                 .Apply(parseGuid)
                 .Map(id => _intranetMemberService.Get(id).Map<MemberViewModel>())
-                .IfNone((MemberViewModel) null);
+                .IfNoneUnsafe((MemberViewModel) null);
 
             return result;
         }

@@ -435,7 +435,7 @@ namespace Compent.Uintra
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
             kernel.Bind<IPermissionActionTypeProvider>().To<PermissionActionTypeProvider>().InSingletonScope(); 
             kernel.Bind<IPermissionResourceTypeProvider>().To<PermissionActivityTypeProvider>().InSingletonScope(); 
-            kernel.Bind<IIntranetMemberGroupProvider>().To<IntranetMemberGroupProvider>().InSingletonScope();
+            kernel.Bind<IIntranetMemberGroupProvider>().To<IntranetMemberGroupProvider>().InRequestScope();
             
 
             kernel.Bind<IGroupService>().To<GroupService>().InRequestScope();
