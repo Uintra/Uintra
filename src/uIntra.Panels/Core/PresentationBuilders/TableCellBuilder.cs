@@ -60,26 +60,32 @@ namespace Uintra.Panels.Core.PresentationBuilders
             var text = Regex.Replace(model.Value, $@"\{BoldSymbol}([^*]+)\{BoldSymbol}",
                 match => $"{BoldTagOpen}{match.Groups[1].Value}{BoldTagClose}");
 
-            var (value, align) = EjectAlign(text);
+            var (ejectResult, align) = EjectAlign(text);
 
             var result = new CellViewModel
             {
-                Value = value,
+                Value = ejectResult,
                 Align = align
             };
 
             return result;
         }
 
-        private (string result, string align) EjectAlign(string text) =>
-            TryEjectAlignSymbol(text, AlignRightSymbol)
-                .Choose(() => TryEjectAlignSymbol(text, AlignCenterSymbol))
-                .IfNone(() => (text, AlignLeft));
+        private (string result, string align) EjectAlign(string text)
+        {
+            Option<(string result, string align)> TryEject(string alignSymbol, string align) =>
+                TryEjectAlignSymbol(text, alignSymbol)
+                .Map(result => (result, align));
 
-        private static Option<(string text, string align)> TryEjectAlignSymbol(string text, string symbol)
+            return TryEject(AlignRightSymbol, AlignRight)
+                    .Choose(() => TryEject(AlignCenterSymbol, AlignCenter))
+                    .IfNone(() => (text, AlignLeft));
+        }
+
+        private static Option<string> TryEjectAlignSymbol(string text, string symbol)
         {
             var index = text.IndexOf(symbol, StringComparison.InvariantCulture);
-            return index == -1 ? None : Some((text.Remove(index, symbol.Length), symbol));
+            return index == -1 ? None : Some(text.Remove(index, symbol.Length));
         }
     }
 }

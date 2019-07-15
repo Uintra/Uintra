@@ -87,7 +87,9 @@ namespace Compent.Uintra.Controllers
             var model = base.GetUsersRowsViewModel();
             model.CurrentMember = _intranetMemberService.GetCurrentMember().Map<MemberViewModel>();
             model.IsCurrentMemberGroupAdmin = CurrentGroup().Map(CreatorId) == model.CurrentMember.Id;
-            model.GroupId = CurrentGroup().Map(GroupId).IfNone(Guid.Empty);
+            model.GroupId = CurrentGroup().Match(
+                Some: GroupId,
+                None: () => Guid.Empty);
 
             return model;
         }
@@ -102,7 +104,7 @@ namespace Compent.Uintra.Controllers
                 _groupMemberService.Remove(groupId, userId);
                 return true;
             }
-         
+
             return false;
         }
 
