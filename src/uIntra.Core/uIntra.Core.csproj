@@ -400,6 +400,7 @@
     <Compile Include="Core\Context\Extensions\PropertyReflectionHelper.cs" />
     <Compile Include="Core\Extensions\TreeExtensions.cs" />
     <Compile Include="Core\Helpers\SectionHelper.cs" />
+    <Compile Include="Core\Helpers\TransferRequestHelper.cs" />
     <Compile Include="Core\Media\IVideoConverter.cs" />
     <Compile Include="Core\Media\IVideoConverterLogService.cs" />
     <Compile Include="Core\Media\MediaConvertModel.cs" />

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using Newtonsoft.Json.Linq;
-using Umbraco.Web;
+using Uintra.Core.Helpers;
 using HtmlHelper = System.Web.Mvc.HtmlHelper;
 
 namespace Uintra.Core.Grid
@@ -47,29 +47,11 @@ namespace Uintra.Core.Grid
                 {
                     return MvcHtmlString.Create($"<pre>{ex}</pre>");
                 }
-                else
-                {
-                    TransferRequestToErrorPage();
-                }
+                
+                TransferRequestHelper.ToErrorPage();
             }
 
             return MvcHtmlString.Empty;
-        }
-
-        private static void TransferRequestToErrorPage()
-        {
-            var umbracoHelper = DependencyResolver.Current.GetService<UmbracoHelper>();
-            var aliasProvider = DependencyResolver.Current.GetService<IDocumentTypeAliasProvider>();
-
-            var errorPage = umbracoHelper
-                .TypedContentSingleAtXPath(XPathHelper.GetXpath(
-                    aliasProvider.GetHomePage(),
-                    aliasProvider.GetErrorPage()));
-
-            if (errorPage != null)
-            {
-                HttpContext.Current.Server.TransferRequest(errorPage.Url);
-            }
         }
 
         public static bool IsEmptySection(dynamic section)
@@ -98,7 +80,7 @@ namespace Uintra.Core.Grid
             return new MvcHtmlString(string.Join(" ", attrs));
         }
 
-        public static string EditorPath(dynamic control)
+        private static string EditorPath(dynamic control)
         {
             var render = control.editor.render.ToString();
             var view = control.editor.view.ToString();
@@ -108,12 +90,12 @@ namespace Uintra.Core.Grid
             return path.Contains("/") ? path : "grid/editors/" + path;
         }
 
-        public static IDictionary<string, object> ParseUmbracoValues(dynamic control)
+        private static IDictionary<string, object> ParseUmbracoValues(dynamic control)
         {
             return ParseControl(control, "value");
         }
 
-        public static IDictionary<string, object> ParseParams(dynamic control)
+        private static IDictionary<string, object> ParseParams(dynamic control)
         {
             return ParseControl(control, "params");
         }
