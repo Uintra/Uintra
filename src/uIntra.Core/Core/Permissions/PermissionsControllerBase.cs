@@ -35,7 +35,6 @@ namespace Uintra.Core.Permissions
         [HttpGet]
         public virtual GroupPermissionsViewModel Get(int memberGroupId)
         {
-            var isSuperUser = _intranetMemberService.IsCurrentMemberSuperUser;
             var memberGroup = _intranetMemberGroupProvider[memberGroupId];
 
             var permissions = _permissionsService
@@ -43,14 +42,12 @@ namespace Uintra.Core.Permissions
                 .Map<IEnumerable<PermissionViewModel>>()
                 .OrderBy(i => i.ResourceTypeId);
 
-            var model = new GroupPermissionsViewModel
+            return new GroupPermissionsViewModel
             {
-                IsSuperUser = isSuperUser,
+                IsSuperUser = _intranetMemberService.IsCurrentMemberSuperUser,
                 Permissions = permissions,
                 MemberGroup = memberGroup.Map<MemberGroupViewModel>()
             };
-
-            return model;
         }
 
         [HttpPost]
