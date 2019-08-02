@@ -9,7 +9,7 @@ using Uintra.Core.User;
 using Umbraco.Web.WebApi;
 
 namespace Uintra.Core.Permissions
-{    
+{
     public abstract class PermissionsControllerBase : UmbracoAuthorizedApiController
     {
         private readonly IPermissionsService _permissionsService;
@@ -33,22 +33,13 @@ namespace Uintra.Core.Permissions
         }
 
         [HttpGet]
-        public virtual GroupPermissionsViewModel Get(int memberGroupId)
-        {
-            var memberGroup = _intranetMemberGroupProvider[memberGroupId];
-
-            var permissions = _permissionsService
-                .GetForGroup(memberGroup)
-                .Map<IEnumerable<PermissionViewModel>>()
-                .OrderBy(i => i.ResourceTypeId);
-
-            return new GroupPermissionsViewModel
+        public virtual GroupPermissionsViewModel Get(int memberGroupId) =>
+            new GroupPermissionsViewModel
             {
                 IsSuperUser = _intranetMemberService.IsCurrentMemberSuperUser,
-                Permissions = permissions,
-                MemberGroup = memberGroup.Map<MemberGroupViewModel>()
+                Permissions = GetPermissions(memberGroupId),
+                MemberGroup = _intranetMemberGroupProvider[memberGroupId].Map<MemberGroupViewModel>()
             };
-        }
 
         [HttpPost]
         public virtual GroupPermissionsViewModel Save(PermissionUpdateViewModel update)
@@ -56,7 +47,9 @@ namespace Uintra.Core.Permissions
             var settingIdentity = PermissionSettingIdentity.Of(
                 _actionTypeProvider[update.ActionId],
                 _resourceTypeProvider[update.ResourceTypeId]);
+
             var settingValue = PermissionSettingValues.Of(update.Allowed, update.Enabled);
+
             var targetGroup = _intranetMemberGroupProvider[update.IntranetMemberGroupId];
 
             var mappedUpdate = PermissionUpdateModel.Of(targetGroup, settingValue, settingIdentity);
@@ -64,5 +57,11 @@ namespace Uintra.Core.Permissions
 
             return Get(update.IntranetMemberGroupId);
         }
+
+        private IEnumerable<PermissionViewModel> GetPermissions(int memberGroupId) =>
+            _permissionsService
+                .GetForGroup(_intranetMemberGroupProvider[memberGroupId])
+                .Map<IEnumerable<PermissionViewModel>>()
+                .OrderBy(i => i.ResourceTypeId);
     }
 }

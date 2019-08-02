@@ -6,18 +6,11 @@ namespace Uintra.Core.Caching
 {
     public class MemoryCacheService : ICacheService
     {
-        public T Get<T>(string cacheKey, params string[] uniqueSuffixes) where T : class
-        {
-            var key = CreateKey(cacheKey, uniqueSuffixes);
-            var item = MemoryCache.Default.Get(key) as T;
-            return item;
-        }
+        public T Get<T>(string cacheKey, params string[] uniqueSuffixes) where T : class => 
+            MemoryCache.Default.Get(CreateKey(cacheKey, uniqueSuffixes)) as T;
 
-        public bool HasValue(string cacheKey, params string[] uniqueSuffixes)
-        {
-            var key = CreateKey(cacheKey, uniqueSuffixes);
-            return MemoryCache.Default.Contains(key);
-        }
+        public bool HasValue(string cacheKey, params string[] uniqueSuffixes) => 
+            MemoryCache.Default.Contains(CreateKey(cacheKey, uniqueSuffixes));
 
         public void Set<T>(string cacheKey, T item, DateTimeOffset? lifeTime = null, params string[] uniqueSuffixes)
         {
@@ -30,30 +23,28 @@ namespace Uintra.Core.Caching
             MemoryCache.Default.Set(key, item, itemPolicy);
         }
 
-        public T GetOrSet<T>(string cacheKey, Func<T> getItemCallback, DateTimeOffset? lifeTime = null, params string[] uniqueSuffixes) where T : class
+        public T GetOrSet<T>(
+            string cacheKey, 
+            Func<T> getItemCallback, 
+            DateTimeOffset? lifeTime = null, 
+            params string[] uniqueSuffixes) where T : class
         {
-            var keyPrefix = CreateKey(cacheKey, uniqueSuffixes);
-            var item = MemoryCache.Default.Get(keyPrefix) as T;
+            var item = MemoryCache.Default.Get(CreateKey(cacheKey, uniqueSuffixes)) as T;
+
             if (item == null)
             {
                 item = getItemCallback();
                 Set(cacheKey, item, lifeTime, uniqueSuffixes);
             }
+
             return item;
         }
 
-        public void Remove(string cacheKey, params string[] uniqueSuffixes)
-        {
-            var key = CreateKey(cacheKey, uniqueSuffixes);
-            MemoryCache.Default.Remove(key);
-            //SignaledChangeMonitor.Signal(cacheKey);
-        }
+        public void Remove(string cacheKey, params string[] uniqueSuffixes) => 
+            MemoryCache.Default.Remove(CreateKey(cacheKey, uniqueSuffixes));
 
-        private static string CreateKey(string cacheKey, string[] uniqueSuffixes)
-        {
-            var key = $"{cacheKey}:[{string.Join("][", uniqueSuffixes)}]";
-            return key;
-        }
+        private static string CreateKey(string cacheKey, string[] uniqueSuffixes) => 
+            $"{cacheKey}:[{string.Join("][", uniqueSuffixes)}]";
 
         private class SignaledChangeMonitor : ChangeMonitor
         {
@@ -72,19 +63,12 @@ namespace Uintra.Core.Caching
                 InitializationComplete();
             }
 
-            protected override void Dispose(bool disposing)
-            {
+            protected override void Dispose(bool disposing) => 
                 Signaled -= OnSignalRaised;
-            }
 
-            public static void Signal(string name = null)
-            {
-                if (Signaled != null)
-                {
-                    // Raise shared event to notify all subscribers
-                    Signaled(null, new SignaledChangeEventArgs(name));
-                }
-            }
+            // Raise shared event to notify all subscribers
+            public static void Signal(string name = null) => 
+                Signaled?.Invoke(null, new SignaledChangeEventArgs(name));
 
             private void OnSignalRaised(object sender, SignaledChangeEventArgs e)
             {
@@ -99,10 +83,8 @@ namespace Uintra.Core.Caching
             {
                 public string Name { get; }
 
-                public SignaledChangeEventArgs(string name = null)
-                {
+                public SignaledChangeEventArgs(string name = null) => 
                     Name = name;
-                }
             }
         }
 

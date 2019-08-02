@@ -30,6 +30,7 @@ namespace Compent.Uintra.Controllers.Api
         {
             _migrationHistoryService = migrationHistoryService;
         }
+
         [HttpGet]
         public override GroupPermissionsViewModel Get(int memberGroupId)
         {
