@@ -13,7 +13,7 @@ namespace Uintra.Notification
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override Guid Id { get; set; }
-
+        public Guid ActivityId { get; set; }
         public Guid ReceiverId { get; set; }
         public DateTime Date { get; set; }
         public bool IsNotified { get; set; }

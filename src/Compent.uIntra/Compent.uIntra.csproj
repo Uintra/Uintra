@@ -1158,6 +1158,9 @@
     <Content Include="config\EmbeddedMedia.config" />
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201908091420224_AddActivityIdToNotification.resx">
+      <DependentUpon>201908091420224_AddActivityIdToNotification.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1574,6 +1577,10 @@
     <Compile Include="Persistence\Sql\Migrations\201903011404027_Permissions.cs" />
     <Compile Include="Persistence\Sql\Migrations\201903011404027_Permissions.Designer.cs">
       <DependentUpon>201903011404027_Permissions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201908091420224_AddActivityIdToNotification.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201908091420224_AddActivityIdToNotification.Designer.cs">
+      <DependentUpon>201908091420224_AddActivityIdToNotification.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
