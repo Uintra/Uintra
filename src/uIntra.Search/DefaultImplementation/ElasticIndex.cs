@@ -87,19 +87,11 @@ namespace Uintra.Search
         {
             var desc = new List<QueryContainer>
             {
-                new QueryContainerDescriptor<SearchableContent>().Match(m => m
-                    .Query(query)
-                    .Analyzer(ElasticHelpers.ReplaceNgram)
-                    .Field(f => f.PanelContent)),
-                new QueryContainerDescriptor<SearchableContent>().Match(m => m
+	            new QueryContainerDescriptor<SearchableContent>().Match(m => m
                     .Query(query)
                     .Analyzer(ElasticHelpers.Replace)
                     .Field(f => f.PanelContent)
                     .Boost(FieldWithReplaceAnalyzerBoost)),
-                new QueryContainerDescriptor<SearchableContent>().Match(m => m
-                    .Query(query)
-                    .Analyzer(ElasticHelpers.ReplaceNgram)
-                    .Field(f => f.PanelTitle)),
                 new QueryContainerDescriptor<SearchableContent>().Match(m => m
                     .Query(query)
                     .Analyzer(ElasticHelpers.Replace)
