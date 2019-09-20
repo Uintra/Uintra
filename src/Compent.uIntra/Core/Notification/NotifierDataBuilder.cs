@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Compent.Extensions;
 using Compent.Uintra.Core.Helpers;
+using EmailWorker.Data.Extensions;
 using LanguageExt;
 using Uintra.Comments;
 using Uintra.Core.Activity;
@@ -37,7 +38,7 @@ namespace Compent.Uintra.Core.Notification
             {
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
-                ReceiverIds = ReceiverIds(activity, notificationType)
+                ReceiverIds = ReceiverIds(activity, notificationType).Except(currentMember.Id.ToEnumerableOfOne())
             };
 
             switch (notificationType)
@@ -70,7 +71,7 @@ namespace Compent.Uintra.Core.Notification
             {
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
-                ReceiverIds = ReceiverIds(comment, activity, notificationType, currentMember),
+                ReceiverIds = ReceiverIds(comment, activity, notificationType, currentMember).Except(currentMember.Id.ToEnumerableOfOne()),
                 Value = _notifierDataHelper.GetCommentNotifierDataModel(activity, comment, notificationType, currentMember.Id)
             };
 
