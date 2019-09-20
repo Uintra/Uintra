@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Uintra.Core.Context;
 using Uintra.Core.PagePromotion;
 using Umbraco.Core.Models;
@@ -8,7 +9,7 @@ namespace Uintra.Core.Web
 {
     public abstract class GridControllerBase : ContextController
     {
-        public override ContextType ControllerContextType { get; } = ContextType.ContentPage;
+        public override Enum ControllerContextType { get; } = ContextType.ContentPage;
 
         protected virtual string GridViewPath { get; } = "~/App_Plugins/Core/Grid/Grid.cshtml";
 

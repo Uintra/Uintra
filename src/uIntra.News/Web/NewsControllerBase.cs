@@ -39,7 +39,7 @@ namespace Uintra.News.Web
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.News;
         private const PermissionResourceTypeEnum ActivityType = PermissionResourceTypeEnum.News;
 
-        public override ContextType ControllerContextType { get; } = ContextType.News;
+        public override Enum ControllerContextType { get; } = ContextType.News;
 
         protected NewsControllerBase(
             IIntranetMemberService<IIntranetMember> intranetMemberService,

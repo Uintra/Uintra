@@ -20,7 +20,7 @@ namespace Uintra.Comments.Web
     [TrackContext]
     public abstract class CommentsControllerBase : ContextController
     {
-        public override ContextType ControllerContextType { get; } = ContextType.Comment;
+        public override Enum ControllerContextType { get; } = ContextType.Comment;
 
         protected virtual string OverviewViewPath { get; } = "~/App_Plugins/Comments/View/CommentsOverView.cshtml";
         protected virtual string PreviewViewPath { get; } = "~/App_Plugins/Comments/View/CommentsPreView.cshtml";

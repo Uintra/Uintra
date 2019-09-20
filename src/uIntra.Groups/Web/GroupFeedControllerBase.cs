@@ -38,7 +38,7 @@ namespace Uintra.Groups.Web
         protected override string EditViewPath => "~/App_Plugins/Groups/Room/Feed/Edit.cshtml";
         protected override string ListViewPath => "~/App_Plugins/Groups/Room/Feed/List.cshtml";
 
-        public override ContextType ControllerContextType { get; } = ContextType.GroupFeed;
+        public override Enum ControllerContextType { get; } = ContextType.GroupFeed;
 
         protected GroupFeedControllerBase(
             IGroupFeedService groupFeedService,

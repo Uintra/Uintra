@@ -6,6 +6,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.Permissions;
 using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.Models;
+using Uintra.Core.Permissions.TypeProviders;
 
 namespace Uintra.Core.User.Permissions.Web
 {
@@ -13,6 +14,18 @@ namespace Uintra.Core.User.Permissions.Web
     {
         private readonly PermissionSettingIdentity _permissionSettingIdentity;
         private readonly bool _childAction;
+
+        public RestrictedActionAttribute(int resourceType, int action, bool childAction = false)
+        {
+            var permissionActionTypeProvider = DependencyResolver.Current.GetService<IPermissionActionTypeProvider>();
+            var permissionResourceTypeProvider = DependencyResolver.Current.GetService<IPermissionResourceTypeProvider>();
+
+            _permissionSettingIdentity = PermissionSettingIdentity.Of(
+                permissionActionTypeProvider[action],
+                permissionResourceTypeProvider[resourceType]);
+
+            _childAction = childAction;
+        }
 
         public RestrictedActionAttribute(PermissionResourceTypeEnum resourceType, PermissionActionEnum action, bool childAction = false)
         {

@@ -1,8 +1,12 @@
-﻿using Uintra.Core.Media;
+﻿using System;
 
 namespace Uintra.Core.TypeProviders
 {
-    public class MediaTypeProvider : EnumTypeProviderBase<MediaTypeEnum>, IMediaTypeProvider
+    public class MediaTypeProvider : EnumTypeProviderBase, IMediaTypeProvider
     {
+        public MediaTypeProvider(params Type[] enums) : base(enums)
+        {
+
+        }
     }
 }

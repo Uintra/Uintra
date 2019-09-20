@@ -69,6 +69,7 @@ using Uintra.Core.Attributes;
 using Uintra.Core.BrowserCompatibility;
 using Uintra.Core.Caching;
 using Uintra.Core.Configuration;
+using Uintra.Core.Context;
 using Uintra.Core.Controls;
 using Uintra.Core.Core.UmbracoEventServices;
 using Uintra.Core.Exceptions;
@@ -93,11 +94,9 @@ using Uintra.Core.Providers;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.UmbracoEventServices;
 using Uintra.Core.User;
-using Uintra.Core.User.Permissions;
 using Uintra.Core.Utils;
 using Uintra.Events;
 using Uintra.Groups;
-using Uintra.Groups.Permissions;
 using Uintra.Likes;
 using Uintra.Navigation;
 using Uintra.Navigation.Configuration;
@@ -424,19 +423,22 @@ namespace Compent.Uintra
 
             //type providers
 
-            kernel.Bind<IActivityTypeProvider>().To<ActivityTypeProvider>().InSingletonScope();
-            kernel.Bind<INotifierTypeProvider>().To<NotifierTypeProvider>().InSingletonScope();
-            kernel.Bind<IMediaTypeProvider>().To<MediaTypeProvider>().InSingletonScope();
-            kernel.Bind<IFeedTypeProvider>().To<CentralFeedTypeProvider>().InSingletonScope();
-            kernel.Bind<IContextTypeProvider>().To<ContextTypeProvider>().InSingletonScope();
-            kernel.Bind<INotificationTypeProvider>().To<NotificationTypeProvider>().InSingletonScope();
-            kernel.Bind<ISearchableTypeProvider>().To<UintraSearchableTypeProvider>().InSingletonScope();
-            kernel.Bind<IMediaFolderTypeProvider>().To<MediaFolderTypeProvider>().InSingletonScope();
+            void RegisterTypeProvider<T1,T2>(params Type[] enums) where T2:EnumTypeProviderBase , T1 =>
+                kernel.Bind<T1>().To<T2>().InSingletonScope().WithConstructorArgument(typeof(Type[]), enums);
+
+            RegisterTypeProvider<IActivityTypeProvider, ActivityTypeProvider>(typeof(IntranetActivityTypeEnum));
+            RegisterTypeProvider<INotifierTypeProvider, NotifierTypeProvider>(typeof(NotifierTypeEnum));
+            RegisterTypeProvider<IMediaTypeProvider, MediaTypeProvider>(typeof(MediaTypeEnum));
+            RegisterTypeProvider<IFeedTypeProvider, CentralFeedTypeProvider>(typeof(CentralFeedTypeEnum));
+            RegisterTypeProvider<IContextTypeProvider, ContextTypeProvider>(typeof(ContextType));
+            RegisterTypeProvider<INotificationTypeProvider, NotificationTypeProvider>(typeof(NotificationTypeEnum));
+            RegisterTypeProvider<ISearchableTypeProvider, UintraSearchableTypeProvider>(typeof(SearchableTypeEnum));
+            RegisterTypeProvider<IMediaFolderTypeProvider, MediaFolderTypeProvider>(typeof(MediaFolderTypeEnum));
+            RegisterTypeProvider<IPermissionActionTypeProvider, PermissionActionTypeProvider>(typeof(PermissionActionEnum));
+            RegisterTypeProvider<IPermissionResourceTypeProvider, PermissionActivityTypeProvider>(typeof(PermissionResourceTypeEnum));
             kernel.Bind<IDocumentTypeAliasProvider>().To<DocumentTypeProvider>().InSingletonScope();
-            kernel.Bind<IPermissionActionTypeProvider>().To<PermissionActionTypeProvider>().InSingletonScope(); 
-            kernel.Bind<IPermissionResourceTypeProvider>().To<PermissionActivityTypeProvider>().InSingletonScope(); 
             kernel.Bind<IIntranetMemberGroupProvider>().To<IntranetMemberGroupProvider>().InRequestScope();
-            
+
 
             kernel.Bind<IGroupService>().To<GroupService>().InRequestScope();
             kernel.Bind<IGroupMemberService>().To<GroupMemberService>().InRequestScope();

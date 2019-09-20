@@ -6,14 +6,13 @@ using static LanguageExt.Prelude;
 
 namespace Uintra.Core.TypeProviders
 {
-    public abstract class EnumTypeProviderBase<T> : IEnumTypeProvider where T : struct
+    public abstract class EnumTypeProviderBase : IEnumTypeProvider
     {
-        protected EnumTypeProviderBase()
+        protected EnumTypeProviderBase(params Type[] enums)
         {
-            All = Enum.GetValues(typeof(T)).Cast<Enum>().ToArray();
-
-            IntTypeDictionary = All.ToDictionary(EnumExtensions.ToInt, identity);
-            StringTypeDictionary = All.ToDictionary(toString, identity);
+            All = enums.SelectMany(e => Enum.GetValues(e).Cast<Enum>()).ToArray();
+            IntTypeDictionary = All.ToDictionary(EnumExtensions.ToInt);
+            StringTypeDictionary = All.ToDictionary(toString);
         }
 
         public Enum[] All { get; }
