@@ -90,11 +90,16 @@ namespace Uintra.Notification
             return _notificationRepository.FindAll(predicate);
         }
 
-        public void SetNotificationAsNotified(Guid id)
+        public bool SetNotificationAsNotified(Guid id)
         {
             var notification = _notificationRepository.Get(id);
+            if (notification.IsNotified)
+            {
+	            return false;
+            }
             notification.IsNotified = true;
             _notificationRepository.Update(notification);
+			return true;
         }
     }
 }
