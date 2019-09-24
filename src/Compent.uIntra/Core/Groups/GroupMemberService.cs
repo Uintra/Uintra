@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmailWorker.Data.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Uintra.Core.Extensions;
@@ -7,7 +8,7 @@ using Uintra.Core.Persistence;
 using Uintra.Groups;
 using Uintra.Groups.Sql;
 using Uintra.Users;
-using static LanguageExt.Prelude;
+using AutoMapperExtensions = Uintra.Core.Extensions.AutoMapperExtensions;
 
 namespace Compent.Uintra.Core.Groups
 {
@@ -37,18 +38,17 @@ namespace Compent.Uintra.Core.Groups
             _groupLinkProvider = groupLinkProvider;
         }
 
-        public override void Add(Guid groupId, Guid memberId) =>
-            AddMany(groupId, List(memberId));
+        public override void Add(Guid groupId, GroupMemberSubscriptionModel model) =>
+            AddMany(groupId, model.ToEnumerableOfOne());
 
-        public override void AddMany(Guid groupId, IEnumerable<Guid> memberIds)
+        public override void AddMany(Guid groupId, IEnumerable<GroupMemberSubscriptionModel> subscriptions)
         {
-            var enumeratedMemberIds = memberIds as Guid[] ?? memberIds.ToArray();
-            var groupMembers = enumeratedMemberIds
+            var groupMembers = subscriptions
                 .Select(memberId => GetNewGroupMember(groupId, memberId))
                 .ToList();
 
             _groupMemberRepository.Add(groupMembers);
-            _memberCacheService.UpdateMemberCache(enumeratedMemberIds);
+            _memberCacheService.UpdateMemberCache(groupMembers.Select(g => g.MemberId));
         }
 
         public override void Remove(Guid groupId, Guid memberId)
@@ -59,7 +59,7 @@ namespace Compent.Uintra.Core.Groups
 
         public override string Create(GroupCreateModel model)
         {
-            var group = model.Map<GroupModel>();
+            var group = AutoMapperExtensions.Map<GroupModel>(model);
 
             group.GroupTypeId = GroupTypeEnum.Open.ToInt();
 
@@ -72,10 +72,16 @@ namespace Compent.Uintra.Core.Groups
             var groupId = _groupService.Create(group);
 
             _groupMediaService.GroupTitleChanged(groupId, group.Title);
-
-            Add(groupId, model.CreatorId);
+            
+            Add(groupId, model.Creator);
 
             return _groupLinkProvider.GetGroupLink(groupId);
         }
+
+        public override GroupMember Get(Guid id) => 
+            _groupMemberRepository.Get(id);
+
+        public override void Update(GroupMember groupMember) =>
+            _groupMemberRepository.Update(groupMember);
     }
 }

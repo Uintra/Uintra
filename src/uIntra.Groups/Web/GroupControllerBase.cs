@@ -120,7 +120,12 @@ namespace Uintra.Groups.Web
             var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent, true);
 
             createGroupModel.MediaRootId = mediaSettings.MediaRootId;
-            createGroupModel.CreatorId = _memberService.GetCurrentMemberId();
+            createGroupModel.Creator = new GroupMemberSubscriptionModel()
+            {
+                IsAdmin = true,
+                MemberId = _memberService.GetCurrentMemberId()
+            };
+                
             createGroupModel.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
 
             return PartialView(CreateViewPath, createGroupModel);
@@ -130,7 +135,7 @@ namespace Uintra.Groups.Web
         public ActionResult Create(GroupCreateModel createModel)
         {
             if (!ModelState.IsValid) return RedirectToCurrentUmbracoPage(Request.QueryString);
-
+            
             var groupId = _groupMemberService.Create(createModel);
 
             return Redirect(groupId);
@@ -199,13 +204,20 @@ namespace Uintra.Groups.Web
         public virtual RedirectToUmbracoPageResult Subscribe(Guid groupId)
         {
             var currentMember = _memberService.GetCurrentMember();
+
             if (_groupMemberService.IsGroupMember(groupId, currentMember.Id))
             {
                 _groupMemberService.Remove(groupId, currentMember.Id);
             }
             else
             {
-                _groupMemberService.Add(groupId, currentMember.Id);
+                var subscription = new GroupMemberSubscriptionModel
+                {
+                    MemberId = currentMember.Id,
+                    IsAdmin = false
+                };
+
+                _groupMemberService.Add(groupId, subscription);
             }
 
             return RedirectToCurrentUmbracoPage(Request.QueryString);
@@ -309,11 +321,16 @@ namespace Uintra.Groups.Web
             return groupsOverviewModel;
         }
 
-        private static GroupMemberViewModel MapToMemberViewModel(IGroupMember m, GroupModel groupModel, Guid currentMemberId)
+        private static GroupMemberViewModel MapToMemberViewModel(
+            IGroupMember m, 
+            GroupModel groupModel, 
+            Guid currentMemberId)
         {
             var viewModel = m.Map<GroupMemberViewModel>();
+
             viewModel.IsGroupAdmin = IsGroupCreator(m.Id, groupModel);
             viewModel.CanUnsubscribe = viewModel.GroupMember.Id == currentMemberId && currentMemberId != groupModel.CreatorId;
+
             return viewModel;
         }
 
