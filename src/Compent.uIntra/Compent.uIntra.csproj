@@ -1158,6 +1158,9 @@
     <Content Include="config\EmbeddedMedia.config" />
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.resx">
+      <DependentUpon>201909240749464_AddIsAdminFlag.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1574,6 +1577,10 @@
     <Compile Include="Persistence\Sql\Migrations\201903011404027_Permissions.cs" />
     <Compile Include="Persistence\Sql\Migrations\201903011404027_Permissions.Designer.cs">
       <DependentUpon>201903011404027_Permissions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.Designer.cs">
+      <DependentUpon>201909240749464_AddIsAdminFlag.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
