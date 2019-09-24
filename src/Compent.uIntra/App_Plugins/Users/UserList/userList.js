@@ -13,6 +13,7 @@ const emptyResultLabel = $(".js-user-list-empty-result");
 const searchActivationDelay = 256;
 const url = "/umbraco/surface/UserList/GetUsers";
 const excludeUserFromGroupUrl = "/umbraco/surface/UserList/ExcludeUserFromGroup";
+const urlToggleAdminRights = "/umbraco/surface/UserList/Assign";
 
 let lastRequestClassName = "last";
 
@@ -35,6 +36,7 @@ let controller = {
         searchButton.click(onSearchClick);
         addDetailsHandler(displayedRows);
         addRemoveUserFromGroupHandler(displayedRows);
+        toggleAdminRights(displayedRows);
 
         function init() {
             request = window.userListConfig.request;
@@ -127,6 +129,26 @@ let controller = {
                             }
                         });
                 }, () => { }, confirm.defaultSettings);
+            });
+        }
+
+        function toggleAdminRights(rows) {
+            var checkboxes = rows.find(".js-user-list-toggle-admin-rights");
+            checkboxes.click(function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                var row = $(this).closest(".js-user-list-row");
+                var groupId = row.data("group-id");
+                var userId = row.data("id");
+
+                ajax.put(urlToggleAdminRights, { groupId: groupId, memberId: userId })
+                    .then(function (result) {
+                        if (result.data) {
+                            var x = $(this).closest(".js-user-list-row");
+
+                        }
+                    });
             });
         }
 

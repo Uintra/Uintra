@@ -358,6 +358,7 @@
     <Compile Include="Core\Models\GroupFeed\GroupFeedOverviewModel.cs" />
     <Compile Include="Core\Models\GroupInfoViewModel.cs" />
     <Compile Include="Core\Models\GroupMemberSubscriptionModel.cs" />
+    <Compile Include="Core\Models\GroupToggleAdminRightsModel.cs" />
     <Compile Include="Core\Models\Members\GroupMemberOverviewViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupLeftNavigationMenuViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupLeftNavigationItemViewModel.cs" />
@@ -396,7 +397,6 @@
     <Compile Include="Core\Models\GroupModel.cs" />
     <Compile Include="Core\Sql\GroupDocument.cs" />
     <Compile Include="Core\Sql\GroupMember.cs" />
-    <Compile Include="Web\GroupAdminController.cs" />
     <Compile Include="Web\GroupControllerBase.cs" />
     <Compile Include="Web\GroupDocumentsControllerBase.cs" />
     <Compile Include="Web\GroupFeedControllerBase.cs" />

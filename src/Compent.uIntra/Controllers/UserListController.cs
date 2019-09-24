@@ -12,6 +12,7 @@ using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Groups;
 using Uintra.Groups.Attributes;
+using Uintra.Groups.Sql;
 using Uintra.Search;
 using Uintra.Users.UserList;
 using Uintra.Users.Web;
@@ -114,6 +115,22 @@ namespace Compent.Uintra.Controllers
             }
 
             return false;
+        }
+
+
+        [HttpPut]
+        public ActionResult Assign(GroupToggleAdminRightsModel rights)
+        {
+            if (!ModelState.IsValid) return RedirectToCurrentUmbracoPage(Request.QueryString);
+
+            var groupMember = _groupMemberService.GetGroupMemberByMemberIdAndGroupId(
+                memberId: rights.MemberId, 
+                groupId: rights.GroupId);
+
+            groupMember.IsAdmin = !groupMember.IsAdmin;
+            _groupMemberService.Update(groupMember);
+            
+            return RedirectToCurrentUmbracoPage();
         }
 
         private static Option<Guid> CurrentGroupId()
