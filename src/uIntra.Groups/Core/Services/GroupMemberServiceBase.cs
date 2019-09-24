@@ -26,7 +26,8 @@ namespace Uintra.Groups
             {
                 Id = Guid.NewGuid(),
                 MemberId = memberId,
-                GroupId = groupId
+                GroupId = groupId,
+                IsAdmin = true
             };
         }
 
@@ -67,5 +68,7 @@ namespace Uintra.Groups
         {
             return member.GroupIds.Contains(groupId);
         }
+
+        public abstract string Create(GroupCreateModel model);
     }
 }

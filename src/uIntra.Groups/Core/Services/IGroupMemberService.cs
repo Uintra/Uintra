@@ -23,5 +23,7 @@ namespace Uintra.Groups
         bool IsGroupMember(Guid groupId, Guid userId);
 
         bool IsGroupMember(Guid groupId, IGroupMember member);
+
+        string Create(GroupCreateModel model);
     }
 }

@@ -129,22 +129,11 @@ namespace Uintra.Groups.Web
         [HttpPost]
         public ActionResult Create(GroupCreateModel createModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToCurrentUmbracoPage(Request.QueryString);
-            }
+            if (!ModelState.IsValid) return RedirectToCurrentUmbracoPage(Request.QueryString);
 
-            var group = createModel.Map<GroupModel>();
-            group.GroupTypeId = GroupTypeEnum.Open.ToInt();
-            var createdMedias = _mediaHelper.CreateMedia(createModel).ToList();
-            group.ImageId = createdMedias.Any() ? (int?)createdMedias.First() : null;
+            var groupId = _groupMemberService.Create(createModel);
 
-            Guid groupId = _groupService.Create(group);
-            _groupMediaService.GroupTitleChanged(groupId, group.Title);
-
-            _groupMemberService.Add(groupId, createModel.CreatorId);
-
-            return Redirect(_groupLinkProvider.GetGroupLink(groupId));
+            return Redirect(groupId);
         }
 
         public abstract ActionResult LeftNavigation();
