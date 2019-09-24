@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using Compent.Extensions;
+﻿using Compent.Extensions;
 using Compent.Uintra.Core.Search.Entities;
 using EmailWorker.Data.Extensions;
 using LanguageExt;
 using Localization.Core;
 using Localization.Umbraco.Attributes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Groups;
@@ -78,7 +78,13 @@ namespace Compent.Uintra.Controllers
         {
             var model = base.MapToViewModel(user);
             model.ProfileUrl = _profileLinkProvider.GetProfileLink(user.Id);
-            model.IsGroupAdmin = CurrentGroup().Map(CreatorId) == user.Id;
+
+            var isAdmin = _groupMemberService
+                .IsMemberAdminOfGroup(user.Id, CurrentGroup()
+                    .Match(Some: GroupId, None: () => Guid.Empty));
+
+            model.IsGroupAdmin = isAdmin;
+
             return model;
         }
 
@@ -86,10 +92,12 @@ namespace Compent.Uintra.Controllers
         {
             var model = base.GetUsersRowsViewModel();
             model.CurrentMember = _intranetMemberService.GetCurrentMember().Map<MemberViewModel>();
-            model.IsCurrentMemberGroupAdmin = CurrentGroup().Map(CreatorId) == model.CurrentMember.Id;
-            model.GroupId = CurrentGroup().Match(
-                Some: GroupId,
-                None: () => Guid.Empty);
+
+            model.IsCurrentMemberGroupAdmin = _groupMemberService
+                .IsMemberAdminOfGroup(model.CurrentMember.Id, CurrentGroup()
+                    .Match(Some: GroupId, None: () => Guid.Empty));
+
+            model.GroupId = CurrentGroup().Match(Some: GroupId, None: () => Guid.Empty);
 
             return model;
         }

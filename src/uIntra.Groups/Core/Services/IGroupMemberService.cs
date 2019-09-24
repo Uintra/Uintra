@@ -29,5 +29,9 @@ namespace Uintra.Groups
         GroupMember Get(Guid id);
 
         void Update(GroupMember groupMember);
+
+        GroupMember GetGroupMemberByMemberIdAndGroupId(Guid memberId, Guid groupId);
+
+        bool IsMemberAdminOfGroup(Guid memberId, Guid groupId);
     }
 }

@@ -26,7 +26,7 @@ namespace Compent.Uintra.Core.Groups
             ICacheableIntranetMemberService memberCacheService,
             IMediaHelper mediaHelper,
             IGroupService groupService,
-            IGroupMediaService groupMediaService, 
+            IGroupMediaService groupMediaService,
             IGroupLinkProvider groupLinkProvider)
             : base(groupMemberRepository)
         {
@@ -65,23 +65,31 @@ namespace Compent.Uintra.Core.Groups
 
             var createdMedias = _mediaHelper.CreateMedia(model).ToList();
 
-            group.ImageId = createdMedias.Any() 
-                ? (int?)createdMedias.First() 
+            group.ImageId = createdMedias.Any()
+                ? (int?) createdMedias.First()
                 : null;
 
             var groupId = _groupService.Create(group);
 
             _groupMediaService.GroupTitleChanged(groupId, group.Title);
-            
+
             Add(groupId, model.Creator);
 
             return _groupLinkProvider.GetGroupLink(groupId);
         }
 
-        public override GroupMember Get(Guid id) => 
+        public override GroupMember Get(Guid id) =>
             _groupMemberRepository.Get(id);
 
         public override void Update(GroupMember groupMember) =>
             _groupMemberRepository.Update(groupMember);
+
+        public override GroupMember GetGroupMemberByMemberIdAndGroupId(
+            Guid memberId,
+            Guid groupId) =>
+            _groupMemberRepository.Find(g => g.GroupId == groupId && g.MemberId == memberId);
+
+        public override bool IsMemberAdminOfGroup(Guid memberId, Guid groupId) => 
+            GetGroupMemberByMemberIdAndGroupId(memberId, groupId).IsAdmin;
     }
 }
