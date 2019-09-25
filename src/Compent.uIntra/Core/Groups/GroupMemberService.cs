@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Uintra.Core.Extensions;
 using Uintra.Core.Media;
 using Uintra.Core.Persistence;
@@ -53,7 +54,7 @@ namespace Compent.Uintra.Core.Groups
 
         public override void Remove(Guid groupId, Guid memberId)
         {
-            _groupMemberRepository.Delete(gm => gm.GroupId == groupId && gm.MemberId == memberId);
+            _groupMemberRepository.Delete(IsGroupAndUserMatch(memberId, groupId));
             _memberCacheService.UpdateMemberCache(memberId);
         }
 
@@ -87,10 +88,10 @@ namespace Compent.Uintra.Core.Groups
         public override GroupMember GetGroupMemberByMemberIdAndGroupId(
             Guid memberId,
             Guid groupId) =>
-            _groupMemberRepository.Find(g => g.GroupId == groupId && g.MemberId == memberId);
+            _groupMemberRepository.Find(IsGroupAndUserMatch(memberId, groupId));
 
-        public override bool IsMemberAdminOfGroup(Guid memberId, Guid groupId) => 
-            GetGroupMemberByMemberIdAndGroupId(memberId, groupId).IsAdmin;
+        public override bool IsMemberAdminOfGroup(Guid memberId, Guid groupId) =>
+            GetGroupMemberByMemberIdAndGroupId(memberId, groupId)?.IsAdmin ?? false;
 
         public override void ToggleAdminRights(Guid memberId, Guid groupId)
         {
@@ -100,5 +101,8 @@ namespace Compent.Uintra.Core.Groups
 
             Update(groupMember);
         }
+
+        private static Expression<Func<GroupMember, bool>> IsGroupAndUserMatch(Guid memberId, Guid groupId) =>
+            g => g.GroupId == groupId && g.MemberId == memberId;
     }
 }
