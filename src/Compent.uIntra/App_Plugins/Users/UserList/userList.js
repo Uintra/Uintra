@@ -150,8 +150,10 @@ let controller = {
                         if (result.status === 200) {
                             var checkbox = $(row[0]).find(".js-user-list-toggle-admin-rights");
                             if (checkbox.is(':checked')) {
+                                $(row[0]).find("span").last().text("Group Member");
                                 checkbox.prop('checked', false);
                             } else {
+                                $(row[0]).find("span").last().text("Group Admin");
                                 checkbox.prop('checked', true);
                             }
                         }
