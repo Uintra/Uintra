@@ -120,11 +120,13 @@ let controller = {
                 confirm.showConfirm(confirmTitle,
                     confirmText,
                     () => {
-
-                        ajax.post(excludeUserFromGroupUrl, { groupId: getGroupId(), userId: getMemberId() })
+                        var row = $(this).closest(".js-user-list-row");
+                        var groupId = row.data("group-id");
+                        var userId = row.data("id");
+                        ajax.post(excludeUserFromGroupUrl, { groupId: groupId, userId: userId })
                             .then(function(result) {
                                 if (result.data) {
-                                    getRow().remove();
+                                    row.remove();
                                     request.skip = request.skip - 1;
                                 }
                             });
@@ -139,7 +141,11 @@ let controller = {
             checkboxes.click(function(e) {
                 eventPreprocessing(e);
 
-                ajax.put(urlToggleAdminRights, { groupId: getGroupId(), memberId: getMemberId() })
+                var row = $(this).closest(".js-user-list-row");
+                var groupId = row.data("group-id");
+                var userId = row.data("id");
+
+                ajax.put(urlToggleAdminRights, { groupId: groupId, memberId: userId })
                     .then(function(result) {
                         if (result.status === 200) {
                             var checkbox = $(row[0]).find(".js-user-list-toggle-admin-rights");
@@ -152,22 +158,9 @@ let controller = {
                     });
             });
         }
-
         function eventPreprocessing(e) {
             e.preventDefault();
             e.stopPropagation();
-        }
-
-        function getRow() {
-            return $(this).closest(".js-user-list-row");
-        }
-
-        function getMemberId() {
-            return getRow().data("id");
-        }
-
-        function getGroupId() {
-            return getRow().data("group-id");
         }
 
         function getParameterByName(name, url) {
