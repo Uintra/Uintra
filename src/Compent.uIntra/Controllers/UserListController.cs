@@ -12,11 +12,11 @@ using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Groups;
 using Uintra.Groups.Attributes;
-using Uintra.Groups.Sql;
 using Uintra.Search;
 using Uintra.Users.UserList;
 using Uintra.Users.Web;
 using static LanguageExt.Prelude;
+using static System.Net.HttpStatusCode;
 using static Uintra.Groups.GroupModelGetters;
 
 namespace Compent.Uintra.Controllers
@@ -37,7 +37,7 @@ namespace Compent.Uintra.Controllers
             IProfileLinkProvider profileLinkProvider,
             IGroupService groupService,
             IGroupMemberService groupMemberService
-            )
+        )
             : base(intranetMemberService)
         {
             _elasticIndex = elasticIndex;
@@ -54,7 +54,8 @@ namespace Compent.Uintra.Controllers
             return base.Render(model);
         }
 
-        protected override (IEnumerable<Guid> searchResult, long totalHits) GetActiveUserIds(ActiveUserSearchQuery query)
+        protected override (IEnumerable<Guid> searchResult, long totalHits) GetActiveUserIds(
+            ActiveUserSearchQuery query)
         {
             var searchQuery = new SearchTextQuery
             {
@@ -62,7 +63,7 @@ namespace Compent.Uintra.Controllers
                 Skip = query.Skip,
                 Take = query.Take,
                 OrderingString = query.OrderingString,
-                SearchableTypeIds = ((int)UintraSearchableTypeEnum.User).ToEnumerable(),
+                SearchableTypeIds = ((int) UintraSearchableTypeEnum.User).ToEnumerable(),
                 GroupId = query.GroupId
             };
 
@@ -121,24 +122,19 @@ namespace Compent.Uintra.Controllers
         [HttpPut]
         public ActionResult Assign(GroupToggleAdminRightsModel rights)
         {
-            if (!ModelState.IsValid) return RedirectToCurrentUmbracoPage(Request.QueryString);
+            if (!ModelState.IsValid) return new HttpStatusCodeResult(BadRequest);
 
-            var groupMember = _groupMemberService.GetGroupMemberByMemberIdAndGroupId(
-                memberId: rights.MemberId, 
-                groupId: rights.GroupId);
+            _groupMemberService.ToggleAdminRights(rights.MemberId, rights.GroupId);
 
-            groupMember.IsAdmin = !groupMember.IsAdmin;
-            _groupMemberService.Update(groupMember);
-            
-            return RedirectToCurrentUmbracoPage();
+            return new HttpStatusCodeResult(OK);
         }
 
         private static Option<Guid> CurrentGroupId()
         {
             var result =
-             System.Web.HttpContext.Current.Request
-                .Params["groupId"]
-                .Apply(parseGuid);
+                System.Web.HttpContext.Current.Request
+                    .Params["groupId"]
+                    .Apply(parseGuid);
             return result;
         }
 

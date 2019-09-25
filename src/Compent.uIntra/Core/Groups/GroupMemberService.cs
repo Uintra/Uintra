@@ -91,5 +91,14 @@ namespace Compent.Uintra.Core.Groups
 
         public override bool IsMemberAdminOfGroup(Guid memberId, Guid groupId) => 
             GetGroupMemberByMemberIdAndGroupId(memberId, groupId).IsAdmin;
+
+        public override void ToggleAdminRights(Guid memberId, Guid groupId)
+        {
+            var groupMember = GetGroupMemberByMemberIdAndGroupId(memberId, groupId);
+
+            groupMember.IsAdmin = !groupMember.IsAdmin;
+
+            Update(groupMember);
+        }
     }
 }

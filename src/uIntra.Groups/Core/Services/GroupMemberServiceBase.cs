@@ -78,5 +78,7 @@ namespace Uintra.Groups
         public abstract GroupMember GetGroupMemberByMemberIdAndGroupId(Guid memberId, Guid groupId);
 
         public abstract bool IsMemberAdminOfGroup(Guid memberId, Guid groupId);
+
+        public abstract void ToggleAdminRights(Guid memberId, Guid groupId);
     }
 }

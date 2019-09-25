@@ -25,7 +25,7 @@ let confirmTitle;
 let confirmText;
 
 let controller = {
-    init: function () {
+    init: function() {
 
         if (tableBody.length === 0)
             return;
@@ -106,50 +106,68 @@ let controller = {
         }
 
         function addDetailsHandler(rows) {
-            rows.click(function () {
+            rows.click(function() {
                 var profileUrl = $(this).data("profile");
                 location.href = profileUrl;
             });
         }
+
         function addRemoveUserFromGroupHandler(rows) {
             var deleteButtons = rows.find(".js-user-list-delete");
-            deleteButtons.click(function (e) {
-                e.preventDefault();
-                e.stopPropagation();
+            deleteButtons.click(function(e) {
+                eventPreprocessing(e);
 
-                confirm.showConfirm(confirmTitle, confirmText, () => {
-                    var row = $(this).closest(".js-user-list-row");
-                    var groupId = row.data("group-id");
-                    var userId = row.data("id");
-                    ajax.post(excludeUserFromGroupUrl, { groupId: groupId, userId: userId })
-                        .then(function (result) {
-                            if (result.data) {
-                                row.remove();
-                                request.skip = request.skip - 1;
-                            }
-                        });
-                }, () => { }, confirm.defaultSettings);
+                confirm.showConfirm(confirmTitle,
+                    confirmText,
+                    () => {
+
+                        ajax.post(excludeUserFromGroupUrl, { groupId: getGroupId(), userId: getMemberId() })
+                            .then(function(result) {
+                                if (result.data) {
+                                    getRow().remove();
+                                    request.skip = request.skip - 1;
+                                }
+                            });
+                    },
+                    () => {},
+                    confirm.defaultSettings);
             });
         }
 
         function toggleAdminRights(rows) {
             var checkboxes = rows.find(".js-user-list-toggle-admin-rights");
             checkboxes.click(function(e) {
-                e.preventDefault();
-                e.stopPropagation();
+                eventPreprocessing(e);
 
-                var row = $(this).closest(".js-user-list-row");
-                var groupId = row.data("group-id");
-                var userId = row.data("id");
-
-                ajax.put(urlToggleAdminRights, { groupId: groupId, memberId: userId })
-                    .then(function (result) {
-                        if (result.data) {
-                            var x = $(this).closest(".js-user-list-row");
-
+                ajax.put(urlToggleAdminRights, { groupId: getGroupId(), memberId: getMemberId() })
+                    .then(function(result) {
+                        if (result.status === 200) {
+                            var checkbox = $(row[0]).find(".js-user-list-toggle-admin-rights");
+                            if (checkbox.is(':checked')) {
+                                checkbox.prop('checked', false);
+                            } else {
+                                checkbox.prop('checked', true);
+                            }
                         }
                     });
             });
+        }
+
+        function eventPreprocessing(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function getRow() {
+            return $(this).closest(".js-user-list-row");
+        }
+
+        function getMemberId() {
+            return getRow().data("id");
+        }
+
+        function getGroupId() {
+            return getRow().data("group-id");
         }
 
         function getParameterByName(name, url) {

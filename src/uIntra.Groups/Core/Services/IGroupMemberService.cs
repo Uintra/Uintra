@@ -33,5 +33,7 @@ namespace Uintra.Groups
         GroupMember GetGroupMemberByMemberIdAndGroupId(Guid memberId, Guid groupId);
 
         bool IsMemberAdminOfGroup(Guid memberId, Guid groupId);
+
+        void ToggleAdminRights(Guid memberId, Guid groupId);
     }
 }
