@@ -359,6 +359,7 @@
     <Compile Include="Core\Models\GroupInfoViewModel.cs" />
     <Compile Include="Core\Models\GroupMemberSubscriptionModel.cs" />
     <Compile Include="Core\Models\GroupToggleAdminRightsModel.cs" />
+    <Compile Include="Core\Models\MemberGroupInviteModel.cs" />
     <Compile Include="Core\Models\Members\GroupMemberOverviewViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupLeftNavigationMenuViewModel.cs" />
     <Compile Include="Core\Navigation\Models\GroupLeftNavigationItemViewModel.cs" />

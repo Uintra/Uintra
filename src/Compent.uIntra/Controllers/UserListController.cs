@@ -129,6 +129,18 @@ namespace Compent.Uintra.Controllers
             return new HttpStatusCodeResult(OK);
         }
 
+        [HttpPost]
+        public ActionResult InviteMember(MemberGroupInviteModel invite)
+        {
+            _groupMemberService.Add(invite.GroupId, new GroupMemberSubscriptionModel
+            {
+                MemberId = invite.MemberId,
+                GroupId = invite.GroupId
+            });
+
+            return new HttpStatusCodeResult(OK);
+        }
+
         private static Option<Guid> CurrentGroupId()
         {
             var result =

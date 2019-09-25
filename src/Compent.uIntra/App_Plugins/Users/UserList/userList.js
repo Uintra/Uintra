@@ -1,6 +1,9 @@
 ﻿import ajax from "./../../Core/Content/scripts/Ajax";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
 
+var alertify = require('alertifyjs/build/alertify.min');
+
+require('alertifyjs/build/css/alertify.min.css');
 require("./user-list.css");
 
 const searchBoxElement = $(".js-user-list-filter");
@@ -10,10 +13,12 @@ const tableBody = $(".js-user-list-table .js-tbody");
 const button = $(".js-user-list-button");
 const displayedRows = $(".js-user-list-row");
 const emptyResultLabel = $(".js-user-list-empty-result");
+const openModalPageListener = $(".js-open-search-modal-page");
 const searchActivationDelay = 256;
 const url = "/umbraco/surface/UserList/GetUsers";
 const excludeUserFromGroupUrl = "/umbraco/surface/UserList/ExcludeUserFromGroup";
 const urlToggleAdminRights = "/umbraco/surface/UserList/Assign";
+const URL_INVITE_USER = '/umbraco/surface/UserList/InviteMember';
 
 let lastRequestClassName = "last";
 
@@ -37,6 +42,7 @@ let controller = {
         addDetailsHandler(displayedRows);
         addRemoveUserFromGroupHandler(displayedRows);
         toggleAdminRights(displayedRows);
+        openSearchModalPage(openModalPageListener);
 
         function init() {
             request = window.userListConfig.request;
@@ -160,6 +166,7 @@ let controller = {
                     });
             });
         }
+
         function eventPreprocessing(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -174,6 +181,37 @@ let controller = {
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
+        
+        function openSearchModalPage(openSearchModalButton) {
+            openSearchModalButton.click(
+                function(event) {
+                    eventPreprocessing(event);
+                    alertify.alert(
+                        'Users Search', 
+                        '<input type="text" name="search" class="form-control" placeholder="Enter users name" />' +
+                        '<ul class="list-group"></ul>', 
+                        function() { alertify.success('Ok'); }
+                    );
+                }
+            );
+        }
+        
+        function inviteUser(memberId, groupId) {
+            ajax.post(URL_INVITE_USER, buildGroupMemberModel(memberId, groupId))
+                .then(
+                    function (resolve) {
+                        
+                    },
+                    function (reject) {
+                        
+                    }
+                );
+        }
+
+        function buildGroupMemberModel(memberId, groupId) {
+            return { memberId: memberId, groupId: groupId };
+        }
+
     }
 };
 
