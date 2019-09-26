@@ -98,7 +98,6 @@
                         @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && Model.IsInvite)
                         {
                             <input type="checkbox"
-                                   checked="@member.IsGroupAdmin"
                                    class="js-user-invite-member"/>
                         }
                     </div>

@@ -15,18 +15,23 @@ const displayedRows = $(".js-user-list-row");
 const emptyResultLabel = $(".js-user-list-empty-result");
 const openModalPageListener = $(".js-open-search-modal-page");
 const searchActivationDelay = 256;
-const url = "/umbraco/surface/UserList/GetUsers";
 
-const excludeUserFromGroupUrl = "/umbraco/surface/UserList/ExcludeUserFromGroup";
-const urlToggleAdminRights = "/umbraco/surface/UserList/Assign";
-const URL_INVITE_USER = '/umbraco/surface/UserList/InviteMember';
-const URL_GET_NOT_INVITED_USERS = '/umbraco/surface/UserList/GetNotInvitedUsers';
+const routePrefix = '/umbraco/surface/UserList/';
+
+var url = {
+    GET_USERS: routePrefix + 'GetUsers',
+    EXCLUDE_USER_FROM_GROUP: routePrefix + 'ExcludeUserFromGroup',
+    TOGGLE_ADMIN_RIGHTS: routePrefix + 'Assign',
+    INVITE_USER: routePrefix + 'InviteMember',
+    GET_NOT_INVITED_USERS: routePrefix + 'GetNotInvitedUsers'
+};
 
 /**
  * Search values initiates when modal page opens.
  */
 var SEARCH_USER_ELEMENT; 
 var SEARCH_USER_RESULT_ELEMENT;
+var INVITE_USER_ELEMENT;
 
 
 let lastRequestClassName = "last";
@@ -72,14 +77,31 @@ let controller = {
                 request.take = displayedAmount;
                 request.text = searchString;
                 request.isInvite = true;
-                ajax.post(URL_GET_NOT_INVITED_USERS, request)
+                ajax.post(url.GET_NOT_INVITED_USERS, request)
                     .then(result => {
                         var rows = $(result.data).filter("div");
                         SEARCH_USER_RESULT_ELEMENT.children().remove();
                         SEARCH_USER_RESULT_ELEMENT.append(rows);
+                        INVITE_USER_ELEMENT = $(".js-user-invite-member");
+                        INVITE_USER_ELEMENT.on("click", inviteUserSearch.inviteUser);
                         
                         updateUI(rows);
                     });
+            },
+            inviteUser: (e) => {
+
+                var row = $(e.target).closest(".js-user-list-row");
+                var groupId = row.data("group-id");
+                var userId = row.data("id");
+                ajax.post(url.INVITE_USER, buildGroupMemberModel(userId, groupId))
+                    .then(
+                        function (resolve) {
+                        
+                        },
+                        function (reject) {
+                        
+                        }
+                    );
             }
         };
 
@@ -116,7 +138,7 @@ let controller = {
             request.skip = tableBody.children("div").length;
             request.take = amountPerRequest;
 
-            ajax.post(url, request)
+            ajax.post(url.GET_USERS, request)
                 .then(result => {
                     var rows = $(result.data).filter("div");
                     tableBody.append(rows);
@@ -136,7 +158,7 @@ let controller = {
             request.skip = 0;
             request.take = displayedAmount;
             request.text = searchString;
-            ajax.post(url, request)
+            ajax.post(url.GET_USERS, request)
                 .then(result => {
                     var rows = $(result.data).filter("div");
                     tableBody.children().remove();
@@ -172,7 +194,7 @@ let controller = {
                         var row = $(this).closest(".js-user-list-row");
                         var groupId = row.data("group-id");
                         var userId = row.data("id");
-                        ajax.post(excludeUserFromGroupUrl, { groupId: groupId, userId: userId })
+                        ajax.post(url.EXCLUDE_USER_FROM_GROUP, { groupId: groupId, userId: userId })
                             .then(function(result) {
                                 if (result.data) {
                                     row.remove();
@@ -194,7 +216,7 @@ let controller = {
                 var groupId = row.data("group-id");
                 var userId = row.data("id");
 
-                ajax.put(urlToggleAdminRights, { groupId: groupId, memberId: userId })
+                ajax.put(url.TOGGLE_ADMIN_RIGHTS, { groupId: groupId, memberId: userId })
                     .then(function(result) {
                         if (result.status === 200) {
                             var checkbox = $(row[0]).find(".js-user-list-toggle-admin-rights");
@@ -242,23 +264,10 @@ let controller = {
                 }
             );
         }
-        
-        function inviteUser(memberId, groupId) {
-            ajax.post(URL_INVITE_USER, buildGroupMemberModel(memberId, groupId))
-                .then(
-                    function (resolve) {
-                        
-                    },
-                    function (reject) {
-                        
-                    }
-                );
-        }
 
         function buildGroupMemberModel(memberId, groupId) {
             return { memberId: memberId, groupId: groupId };
         }
-
     }
 };
 
