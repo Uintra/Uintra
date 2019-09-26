@@ -3,7 +3,7 @@ using Uintra.Search;
 
 namespace Compent.Uintra.Core.Search.Entities
 {
-    public class SearchableUintraContent : SearchableContent,  ISearchibleTaggedActivity
+    public class SearchableUintraContent : SearchableContent,  ISearchableTaggedActivity
     {
         public IEnumerable<string> UserTagNames { get; set; }
 

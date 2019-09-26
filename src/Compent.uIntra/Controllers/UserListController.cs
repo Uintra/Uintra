@@ -27,7 +27,7 @@ namespace Compent.Uintra.Controllers
     [ThreadCulture]
     public class UserListController : UserListControllerBase
     {
-        private readonly IElasticIndex _elasticIndex;
+        private readonly IElasticMemberIndex _elasticIndex;
         private readonly ILocalizationCoreService _localizationCoreService;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly IGroupService _groupService;
@@ -35,7 +35,7 @@ namespace Compent.Uintra.Controllers
         private readonly IGroupMemberService _groupMemberService;
 
         public UserListController(IIntranetMemberService<IIntranetMember> intranetMemberService,
-            IElasticIndex elasticIndex,
+	        IElasticMemberIndex elasticIndex,
             ILocalizationCoreService localizationCoreService,
             IProfileLinkProvider profileLinkProvider,
             IGroupService groupService,
