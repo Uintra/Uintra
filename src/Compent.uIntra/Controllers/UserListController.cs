@@ -137,8 +137,7 @@ namespace Compent.Uintra.Controllers
         {
             _groupMemberService.Add(invite.GroupId, new GroupMemberSubscriptionModel
             {
-                MemberId = invite.MemberId,
-                GroupId = invite.GroupId
+                MemberId = invite.MemberId
             });
 
             return new HttpStatusCodeResult(OK);

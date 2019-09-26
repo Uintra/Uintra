@@ -9,5 +9,6 @@ namespace Uintra.Users.UserList
         public int Take { get; set; }
         public string OrderingString { get; set; }
         public Guid? GroupId { get; set; }
+        public bool IsInvite { get; set; }
     }
 }

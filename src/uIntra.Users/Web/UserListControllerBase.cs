@@ -72,6 +72,20 @@ namespace Uintra.Users.Web
             return PartialView(UsersRowsViewPath, model);
         }
 
+        public virtual ActionResult GetNotInvitedUsers(ActiveUserSearchQueryModel queryModel)
+        {            
+            var model = GetUsersRowsViewModel();
+
+            var query = queryModel.Map<ActiveUserSearchQuery>();
+            var (activeUsers, isLastRequest) = GetActiveUsers(query);
+
+            model.SelectedColumns = AddManagementColumn(ReflectionHelper.GetProfileColumns().ToArray());
+            model.Members = activeUsers;
+            model.IsLastRequest = isLastRequest;
+            model.IsInvite = queryModel.IsInvite;
+            return PartialView(UsersRowsViewPath, model);
+        }
+
         [HttpPost]
         public virtual JsonNetResult Details(Guid id)
         {
@@ -151,6 +165,17 @@ namespace Uintra.Users.Web
                 Type = ColumnType.GroupManagement
             });
         }
+
+        private static IEnumerable<ProfileColumnModel> AddManagementColumn(IEnumerable<ProfileColumnModel> columns) =>
+            columns.Append(new ProfileColumnModel
+            {
+                Alias = "Management",
+                Id = 100,
+                Name = "Management",
+                PropertyName = "management",
+                SupportSorting = false,
+                Type = ColumnType.GroupManagement
+            });
 
         protected virtual MembersRowsViewModel GetUsersRowsViewModel() =>
             new MembersRowsViewModel

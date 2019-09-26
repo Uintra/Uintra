@@ -80,24 +80,31 @@
                     break;
                 case ColumnType.GroupManagement:
                     <div class="users-table__cell users-table__cell--btn">
-                        @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id)
+                        @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && !Model.IsInvite)
                         {
                             <button class="users-table__delete js-user-list-delete">X</button>
                         }
                     </div>
                     <div class="users-table__cell users-table__cell--btn">
-                        @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id)
+                        @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && !Model.IsInvite)
                         {
-                            <input 
-                                type="checkbox" 
-                                checked="@member.IsGroupAdmin"
-                                class="js-user-list-toggle-admin-rights" />
+                            <input type="checkbox"
+                                   checked="@member.IsGroupAdmin"
+                                   class="js-user-list-toggle-admin-rights"/>
                         }
                     </div>
-                    
+
+                    <div class="users-table__cell users-table__cell--btn">
+                        @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && Model.IsInvite)
+                        {
+                            <input type="checkbox"
+                                   checked="@member.IsGroupAdmin"
+                                   class="js-user-invite-member"/>
+                        }
+                    </div>
+
                     break;
             }
         }
     </div>
-    
 }

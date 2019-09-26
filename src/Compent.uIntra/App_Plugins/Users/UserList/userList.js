@@ -16,10 +16,11 @@ const emptyResultLabel = $(".js-user-list-empty-result");
 const openModalPageListener = $(".js-open-search-modal-page");
 const searchActivationDelay = 256;
 const url = "/umbraco/surface/UserList/GetUsers";
+
 const excludeUserFromGroupUrl = "/umbraco/surface/UserList/ExcludeUserFromGroup";
 const urlToggleAdminRights = "/umbraco/surface/UserList/Assign";
 const URL_INVITE_USER = '/umbraco/surface/UserList/InviteMember';
-
+const URL_GET_NOT_INVITED_USERS = '/umbraco/surface/UserList/GetNotInvitedUsers';
 
 /**
  * Search values initiates when modal page opens.
@@ -58,18 +59,21 @@ let controller = {
             searchStringChanged: () => {
                 clearTimeout(searchTimeout);
                 const searchString = SEARCH_USER_ELEMENT.val();
+
+                if (searchString.length === 0) {
+                    SEARCH_USER_RESULT_ELEMENT.children().remove();
+                    return;
+                }
+
                 searchTimeout = setTimeout(() => inviteUserSearch.searchUser(searchString), searchActivationDelay);
             },
             searchUser: (searchString) => {
                 request.skip = 0;
                 request.take = displayedAmount;
                 request.text = searchString;
-                request.groupId = undefined;
-                ajax.post(url, request)
+                request.isInvite = true;
+                ajax.post(URL_GET_NOT_INVITED_USERS, request)
                     .then(result => {
-
-                        
-
                         var rows = $(result.data).filter("div");
                         SEARCH_USER_RESULT_ELEMENT.children().remove();
                         SEARCH_USER_RESULT_ELEMENT.append(rows);
