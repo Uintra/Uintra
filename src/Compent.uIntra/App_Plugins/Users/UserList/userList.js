@@ -10,7 +10,7 @@ const searchBoxElement = $(".js-user-list-filter");
 const searchButton = $(".js-search-button");
 const table = $(".js-user-list-table");
 const tableBody = $(".js-user-list-table .js-tbody");
-const button = $(".js-user-list-button");
+const button = $(".js-user-list-button"); // Load More Button
 const displayedRows = $(".js-user-list-row");
 const emptyResultLabel = $(".js-user-list-empty-result");
 const openModalPageListener = $(".js-open-search-modal-page");
@@ -19,6 +19,14 @@ const url = "/umbraco/surface/UserList/GetUsers";
 const excludeUserFromGroupUrl = "/umbraco/surface/UserList/ExcludeUserFromGroup";
 const urlToggleAdminRights = "/umbraco/surface/UserList/Assign";
 const URL_INVITE_USER = '/umbraco/surface/UserList/InviteMember';
+
+
+/**
+ * Search values initiates when modal page opens.
+ */
+var SEARCH_USER_ELEMENT; 
+var SEARCH_USER_RESULT_ELEMENT;
+
 
 let lastRequestClassName = "last";
 
@@ -32,12 +40,45 @@ let confirmText;
 let controller = {
     init: function() {
 
-        if (tableBody.length === 0)
-            return;
+        if (tableBody.length === 0) return;
+
         init();
         button.click(onButtonClick);
-        searchBoxElement.on("input", onSearchStringChanged);
+
+        searchBoxElement.on("input", onSearchStringChanged); 
         searchBoxElement.on("keypress", onKeyPress);
+
+        var inviteUserSearch = {
+            keyPress: (e) => {
+                if (e.which === 13 || e.KeyCode === 13 || e.charCode === 13) {
+                    search(SEARCH_USER_ELEMENT.val());
+                    eventPreprocessing(e);
+                }
+            },
+            searchStringChanged: () => {
+                clearTimeout(searchTimeout);
+                const searchString = SEARCH_USER_ELEMENT.val();
+                searchTimeout = setTimeout(() => inviteUserSearch.searchUser(searchString), searchActivationDelay);
+            },
+            searchUser: (searchString) => {
+                request.skip = 0;
+                request.take = displayedAmount;
+                request.text = searchString;
+                request.groupId = undefined;
+                ajax.post(url, request)
+                    .then(result => {
+
+                        
+
+                        var rows = $(result.data).filter("div");
+                        SEARCH_USER_RESULT_ELEMENT.children().remove();
+                        SEARCH_USER_RESULT_ELEMENT.append(rows);
+                        
+                        updateUI(rows);
+                    });
+            }
+        };
+
         searchButton.click(onSearchClick);
         addDetailsHandler(displayedRows);
         addRemoveUserFromGroupHandler(displayedRows);
@@ -63,8 +104,7 @@ let controller = {
         function onKeyPress(e) {
             if (e.which === 13 || e.KeyCode === 13 || e.charCode === 13) {
                 search(searchBoxElement.val());
-                e.preventDefault();
-                e.stopPropagation();
+                eventPreprocessing(e);
             }
         }
 
@@ -92,7 +132,6 @@ let controller = {
             request.skip = 0;
             request.take = displayedAmount;
             request.text = searchString;
-
             ajax.post(url, request)
                 .then(result => {
                     var rows = $(result.data).filter("div");
@@ -188,10 +227,14 @@ let controller = {
                     eventPreprocessing(event);
                     alertify.alert(
                         'Users Search', 
-                        '<input type="text" name="search" class="form-control" placeholder="Enter users name" />' +
-                        '<ul class="list-group"></ul>', 
+                        '<input type="text" name="search" class="form-control js-user-search" placeholder="Enter users name" />' +
+                        '<ul class="list-group js-user-search-result"></ul>', 
                         function() { alertify.success('Ok'); }
                     );
+                    SEARCH_USER_ELEMENT = $(".js-user-search");
+                    SEARCH_USER_ELEMENT.on("input", inviteUserSearch.searchStringChanged);
+                    SEARCH_USER_RESULT_ELEMENT = $(".js-user-search-result");
+                    SEARCH_USER_RESULT_ELEMENT.on("keypress", inviteUserSearch.keyPress);
                 }
             );
         }
