@@ -123,6 +123,7 @@ using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 using MyLinksModelBuilder = Compent.Uintra.Core.Navigation.MyLinksModelBuilder;
 using ReminderJob = Uintra.Notification.ReminderJob;
+using Uintra.Core.UmbracoIpAccess;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -145,6 +146,7 @@ namespace Compent.Uintra
             GlobalConfiguration.Configure((config) =>
             {
                 config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                config.Filters.Add(new UmbracoIpAccessApiFilter());
             });
         }
 
@@ -490,8 +492,11 @@ namespace Compent.Uintra
 
             //table
             kernel.Bind<ITablePanelPresentationBuilder>().To<TablePanelPresentationBuilder>().InRequestScope();
-
             kernel.Bind<ITableCellBuilder>().To<TableCellBuilder>().InRequestScope();
+
+            //UmbracoIpAccess
+            kernel.Bind<IUmbracoIpAccessConfiguration>().To<UmbracoIpAccessConfiguration>().InRequestScope();
+            kernel.Bind<IUmbracoIpAccessValidator>().To<UmbracoIpAccessValidator>().InRequestScope();
         }
 
         private static void RegisterEntityFrameworkServices(IKernel kernel)
@@ -507,6 +512,7 @@ namespace Compent.Uintra
         private static void RegisterGlobalFilters()
         {
             GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
+            GlobalFilters.Filters.Add(new UmbracoIpAccessMvcFilter());
         }
 
         private static void RegisterLocalizationServices(IKernel kernel)

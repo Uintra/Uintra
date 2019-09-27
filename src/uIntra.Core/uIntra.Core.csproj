@@ -127,6 +127,9 @@
     <Reference Include="Compent.LinkPreview.HttpClient, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
+    <Reference Include="Compent.Shared.Extensions.Bcl, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Shared.Extensions.Bcl.0.1.2\lib\net45\Compent.Shared.Extensions.Bcl.dll</HintPath>
+    </Reference>
     <Reference Include="controls, Version=1.0.7009.26205, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\controls.dll</HintPath>
     </Reference>
@@ -442,6 +445,16 @@
     <Compile Include="Core\UmbracoEventServices\IUmbracoMemberGroupSavedEventService.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoMemberRemovedRolesEventService.cs" />
     <Compile Include="Core\UmbracoEventServices\UmbracoContentSavingEventService.cs" />
+    <Compile Include="Core\UmbracoIpAccess\Comparer\IpComparer.cs" />
+    <Compile Include="Core\UmbracoIpAccess\Comparer\IpMaskComparer.cs" />
+    <Compile Include="Core\UmbracoIpAccess\Configuration\IUmbracoIpAccessConfiguration.cs" />
+    <Compile Include="Core\UmbracoIpAccess\Configuration\UmbracoIpAccessConfiguration.cs" />
+    <Compile Include="Core\UmbracoIpAccess\Filters\UmbracoIpAccessApiFilter.cs" />
+    <Compile Include="Core\UmbracoIpAccess\Filters\UmbracoIpAccessMvcFilter.cs" />
+    <Compile Include="Core\UmbracoIpAccess\Models\NetworkMask.cs" />
+    <Compile Include="Core\UmbracoIpAccess\Models\Range.cs" />
+    <Compile Include="Core\UmbracoIpAccess\Validator\IUmbracoIpAccessValidator.cs" />
+    <Compile Include="Core\UmbracoIpAccess\Validator\UmbracoIpAccessValidator.cs" />
     <Compile Include="Core\User\DTO\CreateMemberDto.cs" />
     <Compile Include="Core\User\DTO\ReadMemberDto.cs" />
     <Compile Include="Core\Sync\ISyncService.cs" />
