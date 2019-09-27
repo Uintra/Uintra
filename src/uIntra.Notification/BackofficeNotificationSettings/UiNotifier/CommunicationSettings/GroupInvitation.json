@@ -1,0 +1,6 @@
+{
+  "label": "This is an desktop notification that is sent to the new member of group.",
+  "template": {
+    "message": "##FullName##  has invited you to the group"
+  }
+}
