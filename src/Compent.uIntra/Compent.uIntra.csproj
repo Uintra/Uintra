@@ -1497,6 +1497,8 @@
     <Compile Include="Core\Updater\Migrations\1.3\Migration.cs" />
     <Compile Include="Core\Updater\Migrations\1.3\Steps\CreateForbiddenErrorPageStep.cs" />
     <Compile Include="Core\Updater\Migrations\1.3\Steps\SetupDefaultMemberGroupsPermissionsStep.cs" />
+    <Compile Include="Core\Updater\Migrations\1.4\Migration.cs" />
+    <Compile Include="Core\Updater\Migrations\1.4\Steps\SetGroupAdminsInSqlTableStep.cs" />
     <Compile Include="Core\Updater\TranslationsUpdateStep.cs" />
     <Compile Include="Core\Users\AutoMapperProfiles\IntranetMemberAutoMapperProfile.cs" />
     <Compile Include="Core\Users\Entities\ExtendedProfileEditModel.cs" />
