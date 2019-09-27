@@ -12,6 +12,7 @@
         CommentLikeAdded = 11,
         MonthlyMail = 12,
         Welcome = 13,
-        UserMention = 14
+        UserMention = 14,
+        GroupInvitation = 15
     }
 }

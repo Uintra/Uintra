@@ -1,4 +1,5 @@
 ﻿using Compent.Extensions;
+using Compent.LinkPreview.HttpClient.Extensions;
 using Compent.Uintra.Core.Search.Entities;
 using EmailWorker.Data.Extensions;
 using LanguageExt;
@@ -10,11 +11,13 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Compent.LinkPreview.HttpClient.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Groups;
 using Uintra.Groups.Attributes;
+using Uintra.Notification;
+using Uintra.Notification.Base;
+using Uintra.Notification.Configuration;
 using Uintra.Search;
 using Uintra.Users.UserList;
 using Uintra.Users.Web;
@@ -33,14 +36,15 @@ namespace Compent.Uintra.Controllers
         private readonly IGroupService _groupService;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IGroupMemberService _groupMemberService;
-
-        public UserListController(IIntranetMemberService<IIntranetMember> intranetMemberService,
+        private readonly INotificationsService _notificationsService;
+        public UserListController(
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
             IElasticIndex elasticIndex,
             ILocalizationCoreService localizationCoreService,
             IProfileLinkProvider profileLinkProvider,
             IGroupService groupService,
-            IGroupMemberService groupMemberService
-        )
+            IGroupMemberService groupMemberService, 
+            INotificationsService notificationsService)
             : base(intranetMemberService)
         {
             _elasticIndex = elasticIndex;
@@ -49,6 +53,7 @@ namespace Compent.Uintra.Controllers
             _groupService = groupService;
             _intranetMemberService = intranetMemberService;
             _groupMemberService = groupMemberService;
+            _notificationsService = notificationsService;
         }
 
         [NotFoundGroup]
@@ -125,8 +130,6 @@ namespace Compent.Uintra.Controllers
         [HttpPut]
         public ActionResult Assign(GroupToggleAdminRightsModel rights)
         {
-            if (!ModelState.IsValid) return new HttpStatusCodeResult(BadRequest);
-
             _groupMemberService.ToggleAdminRights(rights.MemberId, rights.GroupId);
 
             return new HttpStatusCodeResult(OK);
@@ -135,13 +138,25 @@ namespace Compent.Uintra.Controllers
         [HttpPost]
         public ActionResult InviteMember(MemberGroupInviteModel invite)
         {
+            InviteUser(invite);
+            SendInvitationToUser(invite);
+
+            return new HttpStatusCodeResult(OK);
+        }
+
+        private void InviteUser(MemberGroupInviteModel invite) =>
             _groupMemberService.Add(invite.GroupId, new GroupMemberSubscriptionModel
             {
                 MemberId = invite.MemberId
             });
 
-            return new HttpStatusCodeResult(OK);
-        }
+        private void SendInvitationToUser(MemberGroupInviteModel invite) =>
+            _notificationsService.ProcessNotification(new NotifierData
+            {
+                NotificationType = NotificationTypeEnum.GroupInvitation,
+                ReceiverIds = List(invite.MemberId),
+                ActivityType = CommunicationTypeEnum.Group
+            });
 
         private static Option<Guid> CurrentGroupId()
         {
