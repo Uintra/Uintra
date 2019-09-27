@@ -83,7 +83,7 @@ namespace Compent.Uintra.Core.Groups
             _groupMemberRepository.Get(id);
 
         public override void Update(GroupMember groupMember) =>
-            _groupMemberRepository.Update(groupMember);
+	        _groupMemberRepository.Update(groupMember);
 
         public override GroupMember GetGroupMemberByMemberIdAndGroupId(
             Guid memberId,
@@ -100,6 +100,7 @@ namespace Compent.Uintra.Core.Groups
             groupMember.IsAdmin = !groupMember.IsAdmin;
 
             Update(groupMember);
+            _memberCacheService.UpdateMemberCache(memberId);
         }
 
         private static Expression<Func<GroupMember, bool>> IsGroupAndUserMatch(Guid memberId, Guid groupId) =>

@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Globalization;
 using Compent.Uintra.Core.Search.Entities;
+using Uintra.Search;
 
 namespace Compent.Uintra.Core.Search
 {

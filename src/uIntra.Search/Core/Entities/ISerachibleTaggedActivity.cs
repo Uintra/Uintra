@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Compent.Uintra.Core.Search.Entities
+namespace Uintra.Search
 {
-    public interface ISearchibleTaggedActivity
+    public interface ISearchableTaggedActivity
     {
         IEnumerable<string> UserTagNames { get; set; }
     }

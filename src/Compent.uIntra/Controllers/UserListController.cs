@@ -6,8 +6,11 @@ using Localization.Core;
 using Localization.Umbraco.Attributes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using Compent.LinkPreview.HttpClient.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Groups;
@@ -24,7 +27,7 @@ namespace Compent.Uintra.Controllers
     [ThreadCulture]
     public class UserListController : UserListControllerBase
     {
-        private readonly IElasticIndex _elasticIndex;
+        private readonly IElasticMemberIndex _elasticIndex;
         private readonly ILocalizationCoreService _localizationCoreService;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly IGroupService _groupService;
@@ -32,7 +35,7 @@ namespace Compent.Uintra.Controllers
         private readonly IGroupMemberService _groupMemberService;
 
         public UserListController(IIntranetMemberService<IIntranetMember> intranetMemberService,
-            IElasticIndex elasticIndex,
+	        IElasticMemberIndex elasticIndex,
             ILocalizationCoreService localizationCoreService,
             IProfileLinkProvider profileLinkProvider,
             IGroupService groupService,
@@ -135,7 +138,16 @@ namespace Compent.Uintra.Controllers
                 System.Web.HttpContext.Current.Request
                     .Params["groupId"]
                     .Apply(parseGuid);
-            return result;
+            return result.IsNone ? GetFromBody(System.Web.HttpContext.Current.Request, result) : result;
+        }
+
+        private static Option<Guid> GetFromBody(HttpRequest request, Option<Guid> noneResult)
+        {
+            var bodyStream = new StreamReader(request.InputStream);
+            bodyStream.BaseStream.Seek(0, SeekOrigin.Begin);
+            var bodyText = bodyStream.ReadToEnd();
+            var queryModel = bodyText.Deserialize<ActiveUserSearchQueryModel>();
+            return queryModel?.GroupId ?? noneResult;
         }
 
         private Option<GroupModel> CurrentGroup() =>

@@ -110,6 +110,9 @@
     <Reference Include="cms, Version=1.0.7009.26205, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\cms.dll</HintPath>
     </Reference>
+    <Reference Include="Compent.CommandBus, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.CommandBus.1.2.1\lib\net471\Compent.CommandBus.dll</HintPath>
+    </Reference>
     <Reference Include="Compent.Extensions, Version=0.3.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Extensions.0.3.4\lib\net471\Compent.Extensions.dll</HintPath>
     </Reference>
@@ -365,11 +368,25 @@
     <Compile Include="Core\ApplicationSettings\ISearchApplicationSettings.cs" />
     <Compile Include="Core\Configuration\ElasticConfigurationSection.cs" />
     <Compile Include="Core\Configuration\IElasticConfigurationSection.cs" />
+    <Compile Include="Core\Entities\ISerachibleTaggedActivity.cs" />
     <Compile Include="Core\Entities\Mappings\SearchableDocumentMap.cs" />
     <Compile Include="Core\Entities\SearchableDocument.cs" />
+    <Compile Include="Core\Entities\SearchableMember.cs" />
+    <Compile Include="Core\Entities\SearchableUserGroupInfo.cs" />
+    <Compile Include="Core\Helpers\ISearchableMemberMapper.cs" />
+    <Compile Include="Core\Helpers\ISearchScoreProvider.cs" />
+    <Compile Include="Core\Helpers\Member\IMemberSearchDescriptorBuilder.cs" />
+    <Compile Include="Core\Helpers\Member\MemberSearchDescriptorBuilder.cs" />
+    <Compile Include="Core\Helpers\Paging\BaseSearchPagingHelper.cs" />
+    <Compile Include="Core\Helpers\Paging\ISearchPagingHelper.cs" />
+    <Compile Include="Core\Helpers\SearchableMemberMapper.cs" />
+    <Compile Include="Core\Helpers\Sorting\ISearchSortingHelper.cs" />
+    <Compile Include="Core\Helpers\Sorting\BaseSearchSortingHelper.cs" />
     <Compile Include="Core\IDocumentIndexer.cs" />
     <Compile Include="Core\IElasticEntityMapper.cs" />
     <Compile Include="Core\Indexes\ElasticDocumentIndex.cs" />
+    <Compile Include="Core\Indexes\ElasticMemberIndex.cs" />
+    <Compile Include="Core\Indexes\IElasticMemberIndex.cs" />
     <Compile Include="Core\Indexes\IElasticDocumentIndex.cs" />
     <Compile Include="Core\ISearchableTypeProvider.cs" />
     <Compile Include="Core\Entities\BaseFacet.cs" />
@@ -378,9 +395,11 @@
     <Compile Include="Core\Models\SearchRequest.cs" />
     <Compile Include="Core\Models\SearchResultsOverviewViewModel.cs" />
     <Compile Include="Core\Models\SearchBoxAutocompleteItemViewModel.cs" />
+    <Compile Include="Core\Models\SearchScoreModel.cs" />
     <Compile Include="Core\UmbracoEventServices\SearchMediaEventService.cs" />
     <Compile Include="Core\Exceptions\ElasticSearchRequestErrorException.cs" />
     <Compile Include="Core\UmbracoEventServices\VideoConvertEventService.cs" />
+    <Compile Include="DefaultImplementation\MembersIndexer.cs" />
     <Compile Include="DefaultImplementation\SearchableTypeProvider.cs" />
     <Compile Include="DefaultImplementation\ContentIndexer.cs" />
     <Compile Include="Core\Helpers\ElasticHelpers.cs" />
@@ -441,12 +460,25 @@
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>Uintra.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\uIntra.Groups\Uintra.Groups.csproj">
+      <Project>{B690420E-AF06-4B17-93F7-A04362A1CD3D}</Project>
+      <Name>Uintra.Groups</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Tagging\Uintra.Tagging.csproj">
+      <Project>{2167C278-86ED-451B-8D2C-01774532B4E8}</Project>
+      <Name>Uintra.Tagging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Users\Uintra.Users.csproj">
+      <Project>{3E868F15-AC47-4962-A6A5-C9084752DDE9}</Project>
+      <Name>Uintra.Users</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Compent.uIntra\App_Plugins\Search\**\*">
       <Link>App_Plugins\Search\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <PropertyGroup>

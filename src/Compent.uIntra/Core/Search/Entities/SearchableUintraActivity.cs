@@ -4,7 +4,7 @@ using Uintra.Search;
 
 namespace Compent.Uintra.Core.Search.Entities
 {
-    public class SearchableUintraActivity : SearchableActivity, ISearchibleTaggedActivity
+    public class SearchableUintraActivity : SearchableActivity, ISearchableTaggedActivity
     {
         public IEnumerable<string> UserTagNames { get; set; } = Enumerable.Empty<string>();
 

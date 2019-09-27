@@ -1296,6 +1296,7 @@
     <Compile Include="Core\CommandBus\GroupActivitiesHandle.cs" />
     <Compile Include="Core\CommandBus\LikeHandle.cs" />
     <Compile Include="Core\CommandBus\LikeNotificationHandle.cs" />
+    <Compile Include="Core\CommandBus\MemberHandle.cs" />
     <Compile Include="Core\CommandBus\MentionHandle.cs" />
     <Compile Include="Core\Comments\CommentsPageHelper.cs" />
     <Compile Include="Core\Comments\CommentsPageTab.cs" />
@@ -1377,19 +1378,13 @@
     <Compile Include="Core\Search\Entities\SearchableTag.cs" />
     <Compile Include="Core\Search\Entities\SearchableUintraActivity.cs" />
     <Compile Include="Core\Search\Entities\SearchableUintraContent.cs" />
-    <Compile Include="Core\Search\Entities\SearchableUser.cs" />
-    <Compile Include="Core\Search\Entities\SearchScoreModel.cs" />
-    <Compile Include="Core\Search\Entities\ISerachibleTaggedActivity.cs" />
     <Compile Include="Core\Search\Entities\UintraSearchableTypeEnum.cs" />
     <Compile Include="Core\Search\Indexes\ActivityUserTagIndex.cs" />
     <Compile Include="Core\Search\Indexes\ElasticUintraContentIndex.cs" />
-    <Compile Include="Core\Search\Indexes\ElasticUserIndex.cs" />
     <Compile Include="Core\Search\Indexes\IActivityUserTagIndex.cs" />
     <Compile Include="Core\Search\Indexes\IElasticUintraContentIndex.cs" />
-    <Compile Include="Core\Search\Indexes\IElasticUserIndex.cs" />
     <Compile Include="Core\Search\Indexes\UintraContentIndexer.cs" />
     <Compile Include="Core\Search\Indexes\UintraElasticIndex.cs" />
-    <Compile Include="Core\Search\ISearchScoreProvider.cs" />
     <Compile Include="Core\Search\Models\UintraSearchResultsOverviewViewModel.cs" />
     <Compile Include="Core\Search\SearchBoxAutocompleteItemExtendedViewModel.cs" />
     <Compile Include="Core\Search\SearchAutoMapperProfile\SearchAutoMapperProfile.cs" />
