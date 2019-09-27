@@ -315,6 +315,8 @@
   <ItemGroup>
     <Compile Include="Core\Attributes\UIColumnAttribute.cs" />
     <Compile Include="Core\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
+    <Compile Include="Core\Commands\MembersChanged.cs" />
+    <Compile Include="Core\Commands\MemberChanged.cs" />
     <Compile Include="Core\Helpers\ReflectionHelper.cs" />
     <Compile Include="Core\Commands\MentionCommand.cs" />
     <Compile Include="Core\Helpers\UserListPresentationHelper.cs" />

@@ -117,7 +117,7 @@ namespace Compent.Uintra.Controllers
                     Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider[searchResult.Type].ToString()}")
                 };
 
-                if (searchResult is SearchableUser user)
+                if (searchResult is SearchableMember user)
                 {
                     searchAutocompleteItem.Email = user.Email;
                     searchAutocompleteItem.Photo = user.Photo;

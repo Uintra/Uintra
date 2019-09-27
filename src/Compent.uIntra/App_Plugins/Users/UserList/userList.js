@@ -255,7 +255,7 @@ let controller = {
                         'Users Search', 
                         '<input type="text" name="search" class="form-control js-user-search" placeholder="Enter users name" />' +
                         '<ul class="list-group js-user-search-result"></ul>', 
-                        function() { alertify.success('Ok'); }
+                        function() { }
                     );
                     SEARCH_USER_ELEMENT = $(".js-user-search");
                     SEARCH_USER_ELEMENT.on("input", inviteUserSearch.searchStringChanged);

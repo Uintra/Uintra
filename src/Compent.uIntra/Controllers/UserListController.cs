@@ -30,16 +30,17 @@ namespace Compent.Uintra.Controllers
     [ThreadCulture]
     public class UserListController : UserListControllerBase
     {
-        private readonly IElasticIndex _elasticIndex;
+        private readonly IElasticMemberIndex _elasticIndex;
         private readonly ILocalizationCoreService _localizationCoreService;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly IGroupService _groupService;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly INotificationsService _notificationsService;
+
         public UserListController(
             IIntranetMemberService<IIntranetMember> intranetMemberService,
-            IElasticIndex elasticIndex,
+	        IElasticMemberIndex elasticIndex,
             ILocalizationCoreService localizationCoreService,
             IProfileLinkProvider profileLinkProvider,
             IGroupService groupService,
@@ -160,11 +161,11 @@ namespace Compent.Uintra.Controllers
 
         private static Option<Guid> CurrentGroupId()
         {
-            var result =
-                System.Web.HttpContext.Current.Request
-                    .Params["groupId"]
-                    .Apply(parseGuid);
-            return result.IsNone ? GetFromBody(System.Web.HttpContext.Current.Request, result) : result;
+            var result = System.Web.HttpContext.Current.Request.Params["groupId"].Apply(parseGuid);
+
+            return result.IsNone 
+                ? GetFromBody(System.Web.HttpContext.Current.Request, result) 
+                : result;
         }
 
         private static Option<Guid> GetFromBody(HttpRequest request, Option<Guid> noneResult)
