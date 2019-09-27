@@ -1,6 +1,7 @@
 ﻿using Compent.Extensions;
 using Compent.LinkPreview.HttpClient.Extensions;
 using Compent.Uintra.Core.Search.Entities;
+using Compent.Uintra.Core.Users;
 using EmailWorker.Data.Extensions;
 using LanguageExt;
 using Localization.Core;
