@@ -142,8 +142,8 @@ namespace Compent.Uintra.Controllers
         public ActionResult InviteMember(MemberGroupInviteModel invite)
         {
             InviteUser(invite);
-            SendInvitationToUser(invite);
             UpdateCache(invite);
+            SendInvitationToUser(invite);
 
             return new HttpStatusCodeResult(OK);
         }
@@ -166,7 +166,7 @@ namespace Compent.Uintra.Controllers
 			{
 				NotificationType = NotificationTypeEnum.GroupInvitation,
 				ReceiverIds = List(invite.MemberId),
-				ActivityType = CommunicationTypeEnum.Group
+				ActivityType = CommunicationTypeEnum.CommunicationSettings
 			});
 
 		private static Option<Guid> CurrentGroupId()
