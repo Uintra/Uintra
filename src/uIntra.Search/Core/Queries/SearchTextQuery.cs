@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using LanguageExt;
-using static LanguageExt.Prelude;
 
 namespace Uintra.Search
 {
@@ -21,7 +18,5 @@ namespace Uintra.Search
         public bool OnlyPinned { get; set; }
 
         public bool ApplyHighlights { get; set; }
-
-        public Option<Guid> GroupId { get; set; } = None;
     }
 }

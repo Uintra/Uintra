@@ -2,7 +2,7 @@
 
 namespace Uintra.Users.UserList
 {
-    public class ActiveUserSearchQueryModel
+    public class MembersListSearchModel
     {
         public string Text { get; set; }
         public int Skip { get; set; }

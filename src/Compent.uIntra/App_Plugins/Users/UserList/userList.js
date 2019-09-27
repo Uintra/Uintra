@@ -23,7 +23,7 @@ var routes = {
     EXCLUDE_USER_FROM_GROUP: ROUTE_PREFIX + 'ExcludeUserFromGroup',
     TOGGLE_ADMIN_RIGHTS: ROUTE_PREFIX + 'Assign',
     INVITE_USER: ROUTE_PREFIX + 'InviteMember',
-    GET_NOT_INVITED_USERS: ROUTE_PREFIX + 'GetNotInvitedUsers'
+    GET_NOT_INVITED_USERS: ROUTE_PREFIX + 'ForInvitation'
 };
 
 /**

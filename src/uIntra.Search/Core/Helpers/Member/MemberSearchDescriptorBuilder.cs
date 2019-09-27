@@ -42,7 +42,7 @@ namespace Uintra.Search.Member
 			return desc.ToArray();
 		}
 
-		public QueryContainer GetMemberGroupDescriptor(Option<Guid> groupId)
+		public QueryContainer GetMemberInGroupDescriptor(Guid? groupId)
 		{
 			return new QueryContainerDescriptor<SearchableMember>()
 				.Nested(nst => nst
@@ -50,7 +50,7 @@ namespace Uintra.Search.Member
 					.Query(q => q
 						.Term(t => t
 							.Field(f => f.Groups.First().GroupId)
-							.Value(groupId.ToNullable().ToString()))));
+							.Value(groupId.ToString()))));
 		}
 	}
 }

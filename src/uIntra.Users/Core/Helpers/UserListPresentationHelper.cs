@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using LanguageExt;
 using Uintra.Users.Attributes;
 using Uintra.Users.UserList;
 
@@ -22,10 +21,10 @@ namespace Uintra.Users.Helpers
             });
 
         public static IEnumerable<ProfileColumnModel> ExtendIfGroupMembersPage(
-            Option<Guid> groupId, 
+            Guid? groupId, 
             IEnumerable<ProfileColumnModel> columns)
         {
-            if (groupId.IsNone) return columns;
+            if (!groupId.HasValue) return columns;
 
             return columns.Append(new ProfileColumnModel
             {
@@ -48,17 +47,14 @@ namespace Uintra.Users.Helpers
 
         public static IEnumerable<ProfileColumnModel> GetProfileColumns()
         {
-            var columns = typeof(MemberModel).GetCustomAttributes<UIColumnAttribute>().Select(i =>
+            var columns = typeof(MemberModel).GetCustomAttributes<UIColumnAttribute>().Select(i => new ProfileColumnModel()
             {
-                return new ProfileColumnModel()
-                {
-                    Id = i.Id,
-                    Name = i.DisplayName,
-                    Type = i.Type,
-                    Alias = i.Alias,
-                    PropertyName = i.PropertyName,
-                    SupportSorting = i.SupportSorting
-                };
+	            Id = i.Id,
+	            Name = i.DisplayName,
+	            Type = i.Type,
+	            Alias = i.Alias,
+	            PropertyName = i.PropertyName,
+	            SupportSorting = i.SupportSorting
             }).OrderBy(i => i.Id);
             return columns;
         }

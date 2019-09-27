@@ -7,6 +7,6 @@ namespace Uintra.Search.Member
 	public interface IMemberSearchDescriptorBuilder
 	{
 		QueryContainer[] GetMemberDescriptors(string query);
-		QueryContainer GetMemberGroupDescriptor(Option<Guid> groupId);
+		QueryContainer GetMemberInGroupDescriptor(Guid? groupId);
 	}
 }

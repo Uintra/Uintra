@@ -32,7 +32,7 @@ namespace Uintra.Users.Web
 
             var orderByColumn = selectedColumns.FirstOrDefault(i => i.SupportSorting);
 
-            var groupId = Request.QueryString["groupId"].Apply(parseGuid);
+            var groupId = Request.QueryString["groupId"].Apply(parseGuid).ToNullable();
 
             var viewModel = new UserListViewModel
             {
@@ -43,7 +43,7 @@ namespace Uintra.Users.Web
                 OrderByColumn = orderByColumn
             };
 
-            var activeUserSearchRequest = new ActiveUserSearchQuery
+            var activeUserSearchRequest = new ActiveMemberSearchQuery
             {
                 Text = string.Empty,
                 Skip = 0,
@@ -60,13 +60,13 @@ namespace Uintra.Users.Web
             return View(UserListViewPath, viewModel);
         }
 
-        public virtual ActionResult GetUsers(ActiveUserSearchQueryModel searchQuery)
+        public virtual ActionResult GetUsers(MembersListSearchModel listSearch)
         {            
-            var (activeUsers, isLastRequest) = GetActiveUsers(searchQuery.Map<ActiveUserSearchQuery>());
+            var (activeUsers, isLastRequest) = GetActiveUsers(listSearch.Map<ActiveMemberSearchQuery>());
 
             var model = GetUsersRowsViewModel();
 
-            model.SelectedColumns = UserListPresentationHelper.ExtendIfGroupMembersPage(searchQuery.GroupId.ToOption(), UserListPresentationHelper.GetProfileColumns());
+            model.SelectedColumns = UserListPresentationHelper.ExtendIfGroupMembersPage(listSearch.GroupId, UserListPresentationHelper.GetProfileColumns());
             model.Members = activeUsers;
             model.IsLastRequest = isLastRequest;
 
@@ -74,16 +74,16 @@ namespace Uintra.Users.Web
         }
 
         //TODO Configure elastic for search among not invited users.
-        public virtual ActionResult GetNotInvitedUsers(ActiveUserSearchQueryModel searchQuery)
+        public virtual ActionResult ForInvitation(MembersListSearchModel listSearch)
         {            
-            var (activeUsers, isLastRequest) = GetActiveUsers(searchQuery.Map<ActiveUserSearchQuery>());
+            var (activeUsers, isLastRequest) = GetActiveUsers(listSearch.Map<ActiveMemberSearchQuery>());
 
             var model = GetUsersRowsViewModel();
 
             model.SelectedColumns = UserListPresentationHelper.AddManagementColumn(UserListPresentationHelper.GetProfileColumns());
             model.Members = activeUsers;
             model.IsLastRequest = isLastRequest;
-            model.IsInvite = searchQuery.IsInvite;
+            model.IsInvite = listSearch.IsInvite;
 
             return PartialView(UsersRowsViewPath, model);
         }
@@ -129,7 +129,7 @@ namespace Uintra.Users.Web
             }
         }
 
-        private (IEnumerable<MemberModel> result, bool isLastRequest) GetActiveUsers(ActiveUserSearchQuery query)
+        private (IEnumerable<MemberModel> result, bool isLastRequest) GetActiveUsers(ActiveMemberSearchQuery query)
         {
             var (searchResult, totalHits) = GetActiveUserIds(query);
 
@@ -142,7 +142,7 @@ namespace Uintra.Users.Web
             return (result, isLastRequest);
         }
 
-        protected abstract (IEnumerable<Guid> searchResult, long totalHits) GetActiveUserIds(ActiveUserSearchQuery query);
+        protected abstract (IEnumerable<Guid> searchResult, long totalHits) GetActiveUserIds(ActiveMemberSearchQuery query);
 
         protected virtual MemberModel MapToViewModel(IIntranetMember user) => 
             user.Map<MemberModel>();

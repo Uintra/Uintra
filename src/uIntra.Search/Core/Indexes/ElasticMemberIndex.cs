@@ -51,20 +51,30 @@ namespace Uintra.Search
 			_elasticSearchRepository.Save(members);
 		}
 
-		public SearchResult<SearchableMember> Search(SearchTextQuery query)
+		public SearchResult<SearchableMember> Search(MemberSearchQuery query)
 		{
 			var shouldDescriptor = new QueryContainerDescriptor<SearchableMember>()
 				.Bool(b => b.Should(_memberSearchDescriptorBuilder.GetMemberDescriptors(query.Text)));
 
-			var groupIdDescriptor = _memberSearchDescriptorBuilder.GetMemberGroupDescriptor(query.GroupId);
-
-			var mustDescriptor = new QueryContainerDescriptor<SearchableMember>().Bool(b => b
-				.Must(shouldDescriptor, groupIdDescriptor));
+			QueryContainer allDescriptors;
+			if (query.MembersOfGroup)
+			{
+				allDescriptors = new QueryContainerDescriptor<SearchableMember>()
+					.Bool(b => b
+						.Must(shouldDescriptor, _memberSearchDescriptorBuilder.GetMemberInGroupDescriptor(query.GroupId)));
+			}
+			else
+			{
+				allDescriptors = new QueryContainerDescriptor<SearchableMember>()
+					.Bool(b => b
+						.Must(shouldDescriptor)
+							.MustNot(_memberSearchDescriptorBuilder.GetMemberInGroupDescriptor(query.GroupId)));
+			}
 
 			var searchRequest = GetSearchDescriptor()
 				.Query(q =>
 					q.Bool(b => b
-						.Should(mustDescriptor)
+						.Should(allDescriptors)
 						.MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))));
 
 			SortByMemberGroupRights(searchRequest, query);
@@ -107,17 +117,16 @@ namespace Uintra.Search
 			return result;
 		}
 
-		protected virtual void SortByMemberGroupRights(SearchDescriptor<SearchableMember> searchDescriptor, SearchTextQuery searchTextQuery)
+		protected virtual void SortByMemberGroupRights(SearchDescriptor<SearchableMember> searchDescriptor, MemberSearchQuery query)
 		{
-			_searchSortingHelper.Apply(searchDescriptor, searchTextQuery);
-			var groupId = searchTextQuery.GroupId.ToNullable();
-			if (groupId.HasValue)
+			_searchSortingHelper.Apply(searchDescriptor, query);
+			if (query.GroupId.HasValue)
 			{
 				searchDescriptor.Sort(s => s
 					.Field(f => f
 						.Field(ff => ff.Groups.First().IsAdmin)
 						.NestedPath(np => np.Groups)
-						.NestedFilter(nf => nf.Term(t => t.Field(ff => ff.Groups.First().GroupId).Value(groupId)))
+						.NestedFilter(nf => nf.Term(t => t.Field(ff => ff.Groups.First().GroupId).Value(query.GroupId)))
 						.Descending()
 					));
 			}
