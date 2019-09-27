@@ -1,15 +1,15 @@
-﻿using System;
+﻿using LanguageExt;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using Uintra.Core.Extensions;
 using Uintra.Core.User;
-using Umbraco.Web.Mvc;
-using Uintra.Users.UserList;
-using System.IO;
-using LanguageExt;
-using static LanguageExt.Prelude;
 using Uintra.Users.Helpers;
+using Uintra.Users.UserList;
+using Umbraco.Web.Mvc;
+using static LanguageExt.Prelude;
 
 namespace Uintra.Users.Web
 {
@@ -28,7 +28,8 @@ namespace Uintra.Users.Web
 
         public virtual ActionResult Render(UserListModel model)
         {
-            var selectedColumns = ReflectionHelper.GetProfileColumns().ToArray();
+            var selectedColumns = UserListPresentationHelper.GetProfileColumns().ToArray();
+
             var orderByColumn = selectedColumns.FirstOrDefault(i => i.SupportSorting);
 
             var groupId = Request.QueryString["groupId"].Apply(parseGuid);
@@ -52,37 +53,38 @@ namespace Uintra.Users.Web
             };
 
             var (activeUsers, isLastRequest) = GetActiveUsers(activeUserSearchRequest);
-            viewModel.MembersRows.SelectedColumns = ExtendIfGroupMembersPage(groupId, selectedColumns);
+            viewModel.MembersRows.SelectedColumns = UserListPresentationHelper.ExtendIfGroupMembersPage(groupId, selectedColumns);
             viewModel.MembersRows.Members = activeUsers;
             viewModel.IsLastRequest = isLastRequest;
+
             return View(UserListViewPath, viewModel);
         }
 
-        public virtual ActionResult GetUsers(ActiveUserSearchQueryModel queryModel)
+        public virtual ActionResult GetUsers(ActiveUserSearchQueryModel searchQuery)
         {            
+            var (activeUsers, isLastRequest) = GetActiveUsers(searchQuery.Map<ActiveUserSearchQuery>());
+
             var model = GetUsersRowsViewModel();
 
-            var query = queryModel.Map<ActiveUserSearchQuery>();
-            var (activeUsers, isLastRequest) = GetActiveUsers(query);
-
-            model.SelectedColumns = ExtendIfGroupMembersPage(queryModel.GroupId.ToOption(), ReflectionHelper.GetProfileColumns());
+            model.SelectedColumns = UserListPresentationHelper.ExtendIfGroupMembersPage(searchQuery.GroupId.ToOption(), UserListPresentationHelper.GetProfileColumns());
             model.Members = activeUsers;
             model.IsLastRequest = isLastRequest;
 
             return PartialView(UsersRowsViewPath, model);
         }
 
-        public virtual ActionResult GetNotInvitedUsers(ActiveUserSearchQueryModel queryModel)
+        //TODO Configure elastic for search among not invited users.
+        public virtual ActionResult GetNotInvitedUsers(ActiveUserSearchQueryModel searchQuery)
         {            
+            var (activeUsers, isLastRequest) = GetActiveUsers(searchQuery.Map<ActiveUserSearchQuery>());
+
             var model = GetUsersRowsViewModel();
 
-            var query = queryModel.Map<ActiveUserSearchQuery>();
-            var (activeUsers, isLastRequest) = GetActiveUsers(query);
-
-            model.SelectedColumns = AddManagementColumn(ReflectionHelper.GetProfileColumns().ToArray());
+            model.SelectedColumns = UserListPresentationHelper.AddManagementColumn(UserListPresentationHelper.GetProfileColumns());
             model.Members = activeUsers;
             model.IsLastRequest = isLastRequest;
-            model.IsInvite = queryModel.IsInvite;
+            model.IsInvite = searchQuery.IsInvite;
+
             return PartialView(UsersRowsViewPath, model);
         }
 
@@ -93,6 +95,7 @@ namespace Uintra.Users.Web
             var viewModel = MapToViewModel(user);
             var text = RenderPartialViewToString(UsersDetailsViewPath, viewModel);
             var title = GetDetailsPopupTitle(viewModel);
+
             return new JsonNetResult
             {
                 Data = new DetailsPopupModel
@@ -111,14 +114,17 @@ namespace Uintra.Users.Web
         private string RenderPartialViewToString(string viewName, object model)
         {
             ViewData.Model = model;
+
             using (var sw = new StringWriter())
             {
-                var viewResult = ViewEngines.Engines.FindPartialView(
-                    ControllerContext, viewName);
-                var viewContext = new ViewContext(ControllerContext, viewResult.View,
-                    ViewData, TempData, sw);
+                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+
+                var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+
                 viewResult.View.Render(viewContext, sw);
+
                 viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+
                 return sw.GetStringBuilder().ToString();
             }
         }
@@ -138,57 +144,19 @@ namespace Uintra.Users.Web
 
         protected abstract (IEnumerable<Guid> searchResult, long totalHits) GetActiveUserIds(ActiveUserSearchQuery query);
 
-        protected virtual MemberModel MapToViewModel(IIntranetMember user)
-        {
-            var result = user.Map<MemberModel>();
-            return result;
-        }
-
-        private static IEnumerable<ProfileColumnModel> ExtendIfGroupMembersPage(Option<Guid> groupId, IEnumerable<ProfileColumnModel> columns)
-        {
-            if (groupId.IsNone) return columns;
-            return columns.Append(new ProfileColumnModel
-            {
-                Alias = "Group",
-                Id = 99,
-                Name = "Group",
-                PropertyName = "role",
-                SupportSorting = false,
-                Type = ColumnType.GroupRole
-            }).Append(new ProfileColumnModel
-            {
-                Alias = "Management",
-                Id = 100,
-                Name = "Management",
-                PropertyName = "management",
-                SupportSorting = false,
-                Type = ColumnType.GroupManagement
-            });
-        }
-
-        private static IEnumerable<ProfileColumnModel> AddManagementColumn(IEnumerable<ProfileColumnModel> columns) =>
-            columns.Append(new ProfileColumnModel
-            {
-                Alias = "Management",
-                Id = 100,
-                Name = "Management",
-                PropertyName = "management",
-                SupportSorting = false,
-                Type = ColumnType.GroupManagement
-            });
+        protected virtual MemberModel MapToViewModel(IIntranetMember user) => 
+            user.Map<MemberModel>();
 
         protected virtual MembersRowsViewModel GetUsersRowsViewModel() =>
             new MembersRowsViewModel
             {
-                SelectedColumns = ReflectionHelper.GetProfileColumns()          
+                SelectedColumns = UserListPresentationHelper.GetProfileColumns(),          
             };
 
         public abstract bool ExcludeUserFromGroup(Guid groupId, Guid userId);
 
         [ChildActionOnly]
-        public ActionResult RenderRows(MembersRowsViewModel model)
-        {
-            return View(UsersRowsViewPath, model);
-        }
+        public ActionResult RenderRows(MembersRowsViewModel model) => 
+            View(UsersRowsViewPath, model);
     }
 }
