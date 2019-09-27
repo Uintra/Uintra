@@ -13,150 +13,152 @@ using static LanguageExt.Prelude;
 
 namespace Uintra.Users.Web
 {
-    public abstract class UserListControllerBase : SurfaceController
-    {
-        protected virtual string UserListViewPath => @"~/App_Plugins/Users/UserList/UserListView.cshtml";
-        protected virtual string UsersRowsViewPath => @"~/App_Plugins/Users/UserList/UsersRowsView.cshtml";
-        protected virtual string UsersDetailsViewPath => @"~/App_Plugins/Users/UserList/UserDetailsPopup.cshtml";
-        
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+	public abstract class UserListControllerBase : SurfaceController
+	{
+		protected virtual string UserListViewPath => @"~/App_Plugins/Users/UserList/UserListView.cshtml";
+		protected virtual string UsersRowsViewPath => @"~/App_Plugins/Users/UserList/UsersRowsView.cshtml";
+		protected virtual string UsersDetailsViewPath => @"~/App_Plugins/Users/UserList/UserDetailsPopup.cshtml";
 
-        protected UserListControllerBase(IIntranetMemberService<IIntranetMember> intranetMemberService)
-        {
-            _intranetMemberService = intranetMemberService;
-        }
+		private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
-        public virtual ActionResult Render(UserListModel model)
-        {
-            var selectedColumns = UserListPresentationHelper.GetProfileColumns().ToArray();
+		protected UserListControllerBase(IIntranetMemberService<IIntranetMember> intranetMemberService)
+		{
+			_intranetMemberService = intranetMemberService;
+		}
 
-            var orderByColumn = selectedColumns.FirstOrDefault(i => i.SupportSorting);
+		public virtual ActionResult Render(UserListModel model)
+		{
+			var selectedColumns = UserListPresentationHelper.GetProfileColumns().ToArray();
 
-            var groupId = Request.QueryString["groupId"].Apply(parseGuid).ToNullable();
+			var orderByColumn = selectedColumns.FirstOrDefault(i => i.SupportSorting);
 
-            var viewModel = new UserListViewModel
-            {
-                AmountPerRequest = model.AmountPerRequest,
-                DisplayedAmount = model.DisplayedAmount,
-                Title = model.Title,
-                MembersRows = GetUsersRowsViewModel(),
-                OrderByColumn = orderByColumn
-            };
+			var groupId = Request.QueryString["groupId"].Apply(parseGuid).ToNullable();
 
-            var activeUserSearchRequest = new ActiveMemberSearchQuery
-            {
-                Text = string.Empty,
-                Skip = 0,
-                Take = model.DisplayedAmount,
-                OrderingString = orderByColumn?.PropertyName,
-                GroupId = groupId
-            };
+			var viewModel = new UserListViewModel
+			{
+				AmountPerRequest = model.AmountPerRequest,
+				DisplayedAmount = model.DisplayedAmount,
+				Title = model.Title,
+				MembersRows = GetUsersRowsViewModel(),
+				OrderByColumn = orderByColumn
+			};
 
-            var (activeUsers, isLastRequest) = GetActiveUsers(activeUserSearchRequest);
-            viewModel.MembersRows.SelectedColumns = UserListPresentationHelper.ExtendIfGroupMembersPage(groupId, selectedColumns);
-            viewModel.MembersRows.Members = activeUsers;
-            viewModel.IsLastRequest = isLastRequest;
+			var activeUserSearchRequest = new ActiveMemberSearchQuery
+			{
+				Text = string.Empty,
+				Skip = 0,
+				Take = model.DisplayedAmount,
+				OrderingString = orderByColumn?.PropertyName,
+				GroupId = groupId,
+				MembersOfGroup = groupId.HasValue
 
-            return View(UserListViewPath, viewModel);
-        }
+			};
 
-        public virtual ActionResult GetUsers(MembersListSearchModel listSearch)
-        {            
-            var (activeUsers, isLastRequest) = GetActiveUsers(listSearch.Map<ActiveMemberSearchQuery>());
+			var (activeUsers, isLastRequest) = GetActiveUsers(activeUserSearchRequest);
+			viewModel.MembersRows.SelectedColumns = UserListPresentationHelper.ExtendIfGroupMembersPage(groupId, selectedColumns);
+			viewModel.MembersRows.Members = activeUsers;
+			viewModel.IsLastRequest = isLastRequest;
 
-            var model = GetUsersRowsViewModel();
+			return View(UserListViewPath, viewModel);
+		}
 
-            model.SelectedColumns = UserListPresentationHelper.ExtendIfGroupMembersPage(listSearch.GroupId, UserListPresentationHelper.GetProfileColumns());
-            model.Members = activeUsers;
-            model.IsLastRequest = isLastRequest;
+		public virtual ActionResult GetUsers(MembersListSearchModel listSearch)
+		{
+			var (activeUsers, isLastRequest) = GetActiveUsers(listSearch.Map<ActiveMemberSearchQuery>());
 
-            return PartialView(UsersRowsViewPath, model);
-        }
+			var model = GetUsersRowsViewModel();
 
-        //TODO Configure elastic for search among not invited users.
-        public virtual ActionResult ForInvitation(MembersListSearchModel listSearch)
-        {            
-            var (activeUsers, isLastRequest) = GetActiveUsers(listSearch.Map<ActiveMemberSearchQuery>());
+			model.SelectedColumns = UserListPresentationHelper.ExtendIfGroupMembersPage(listSearch.GroupId, UserListPresentationHelper.GetProfileColumns());
+			model.Members = activeUsers;
+			model.IsLastRequest = isLastRequest;
 
-            var model = GetUsersRowsViewModel();
+			return PartialView(UsersRowsViewPath, model);
+		}
 
-            model.SelectedColumns = UserListPresentationHelper.AddManagementColumn(UserListPresentationHelper.GetProfileColumns());
-            model.Members = activeUsers;
-            model.IsLastRequest = isLastRequest;
-            model.IsInvite = listSearch.IsInvite;
+		//TODO Configure elastic for search among not invited users.
+		public virtual ActionResult ForInvitation(MembersListSearchModel listSearch)
+		{
+			var (activeUsers, isLastRequest) = GetActiveUsers(listSearch.Map<ActiveMemberSearchQuery>());
 
-            return PartialView(UsersRowsViewPath, model);
-        }
+			var model = GetUsersRowsViewModel();
 
-        [HttpPost]
-        public virtual JsonNetResult Details(Guid id)
-        {
-            var user = _intranetMemberService.Get(id);
-            var viewModel = MapToViewModel(user);
-            var text = RenderPartialViewToString(UsersDetailsViewPath, viewModel);
-            var title = GetDetailsPopupTitle(viewModel);
+			model.SelectedColumns = UserListPresentationHelper.AddManagementColumn(UserListPresentationHelper.GetProfileColumns());
+			model.Members = activeUsers;
+			model.IsLastRequest = isLastRequest;
+			model.IsInvite = listSearch.IsInvite;
 
-            return new JsonNetResult
-            {
-                Data = new DetailsPopupModel
-                {
-                    Title = title,
-                    Text = text
-                }
-            };
-        }
+			return PartialView(UsersRowsViewPath, model);
+		}
 
-        protected virtual string GetDetailsPopupTitle(MemberModel user)
-        {
-            return user.DisplayedName;
-        }
+		[HttpPost]
+		public virtual JsonNetResult Details(Guid id)
+		{
+			var user = _intranetMemberService.Get(id);
+			var viewModel = MapToViewModel(user);
+			var text = RenderPartialViewToString(UsersDetailsViewPath, viewModel);
+			var title = GetDetailsPopupTitle(viewModel);
 
-        private string RenderPartialViewToString(string viewName, object model)
-        {
-            ViewData.Model = model;
+			return new JsonNetResult
+			{
+				Data = new DetailsPopupModel
+				{
+					Title = title,
+					Text = text
+				}
+			};
+		}
 
-            using (var sw = new StringWriter())
-            {
-                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+		protected virtual string GetDetailsPopupTitle(MemberModel user)
+		{
+			return user.DisplayedName;
+		}
 
-                var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+		private string RenderPartialViewToString(string viewName, object model)
+		{
+			ViewData.Model = model;
 
-                viewResult.View.Render(viewContext, sw);
+			using (var sw = new StringWriter())
+			{
+				var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
 
-                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+				var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
 
-                return sw.GetStringBuilder().ToString();
-            }
-        }
+				viewResult.View.Render(viewContext, sw);
 
-        private (IEnumerable<MemberModel> result, bool isLastRequest) GetActiveUsers(ActiveMemberSearchQuery query)
-        {
-            var (searchResult, totalHits) = GetActiveUserIds(query);
+				viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
 
-            var result = searchResult
-                .Apply(_intranetMemberService.GetMany)
-                .Select(MapToViewModel);
+				return sw.GetStringBuilder().ToString();
+			}
+		}
 
-            var isLastRequest = query.Skip + query.Take >= totalHits;
+		private (IEnumerable<MemberModel> result, bool isLastRequest) GetActiveUsers(ActiveMemberSearchQuery query)
+		{
+			var (searchResult, totalHits) = GetActiveUserIds(query);
 
-            return (result, isLastRequest);
-        }
+			var result = searchResult
+				.Apply(_intranetMemberService.GetMany)
+				.Select(MapToViewModel);
 
-        protected abstract (IEnumerable<Guid> searchResult, long totalHits) GetActiveUserIds(ActiveMemberSearchQuery query);
+			var isLastRequest = query.Skip + query.Take >= totalHits;
 
-        protected virtual MemberModel MapToViewModel(IIntranetMember user) => 
-            user.Map<MemberModel>();
+			return (result, isLastRequest);
+		}
 
-        protected virtual MembersRowsViewModel GetUsersRowsViewModel() =>
-            new MembersRowsViewModel
-            {
-                SelectedColumns = UserListPresentationHelper.GetProfileColumns(),          
-            };
+		protected abstract (IEnumerable<Guid> searchResult, long totalHits) GetActiveUserIds(ActiveMemberSearchQuery query);
 
-        public abstract bool ExcludeUserFromGroup(Guid groupId, Guid userId);
+		protected virtual MemberModel MapToViewModel(IIntranetMember user) =>
+			user.Map<MemberModel>();
 
-        [ChildActionOnly]
-        public ActionResult RenderRows(MembersRowsViewModel model) => 
-            View(UsersRowsViewPath, model);
-    }
+		protected virtual MembersRowsViewModel GetUsersRowsViewModel() =>
+			new MembersRowsViewModel
+			{
+				SelectedColumns = UserListPresentationHelper.GetProfileColumns(),
+			};
+
+		public abstract bool ExcludeUserFromGroup(Guid groupId, Guid userId);
+
+		[ChildActionOnly]
+		public ActionResult RenderRows(MembersRowsViewModel model) =>
+			View(UsersRowsViewPath, model);
+	}
 }

@@ -56,19 +56,22 @@ namespace Uintra.Search
 			var shouldDescriptor = new QueryContainerDescriptor<SearchableMember>()
 				.Bool(b => b.Should(_memberSearchDescriptorBuilder.GetMemberDescriptors(query.Text)));
 
-			QueryContainer allDescriptors;
-			if (query.MembersOfGroup)
+			QueryContainer allDescriptors = null;
+
+			if (!query.GroupId.HasValue)
 			{
 				allDescriptors = new QueryContainerDescriptor<SearchableMember>()
 					.Bool(b => b
-						.Must(shouldDescriptor, _memberSearchDescriptorBuilder.GetMemberInGroupDescriptor(query.GroupId)));
+						.Must(shouldDescriptor));
 			}
 			else
 			{
-				allDescriptors = new QueryContainerDescriptor<SearchableMember>()
-					.Bool(b => b
-						.Must(shouldDescriptor)
-							.MustNot(_memberSearchDescriptorBuilder.GetMemberInGroupDescriptor(query.GroupId)));
+				if (query.MembersOfGroup)
+				{
+					allDescriptors = new QueryContainerDescriptor<SearchableMember>()
+						.Bool(b => b
+							.Must(shouldDescriptor, _memberSearchDescriptorBuilder.GetMemberInGroupDescriptor(query.GroupId)));
+				}
 			}
 
 			var searchRequest = GetSearchDescriptor()
@@ -76,6 +79,18 @@ namespace Uintra.Search
 					q.Bool(b => b
 						.Should(allDescriptors)
 						.MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))));
+
+			if (query.GroupId.HasValue && !query.MembersOfGroup)
+			{
+				searchRequest = GetSearchDescriptor()
+					.Query(q =>
+						q.Bool(b => b
+							.Should(_memberSearchDescriptorBuilder.GetMemberDescriptors(query.Text))
+							.MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))))
+					.PostFilter(pf => pf
+						.Bool(b => b
+							.MustNot(_memberSearchDescriptorBuilder.GetMemberInGroupDescriptor(query.GroupId))));
+			}
 
 			SortByMemberGroupRights(searchRequest, query);
 
