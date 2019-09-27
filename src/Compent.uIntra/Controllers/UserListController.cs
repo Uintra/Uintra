@@ -1,6 +1,7 @@
 ﻿using Compent.Extensions;
 using Compent.LinkPreview.HttpClient.Extensions;
 using Compent.Uintra.Core.Search.Entities;
+using Compent.Uintra.Core.Users;
 using EmailWorker.Data.Extensions;
 using LanguageExt;
 using Localization.Core;
@@ -138,13 +139,21 @@ namespace Compent.Uintra.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult InviteMember(MemberGroupInviteModel invite)
-		{
-			InviteUser(invite);
-			SendInvitationToUser(invite);
+        public ActionResult InviteMember(MemberGroupInviteModel invite)
+        {
+            InviteUser(invite);
+            SendInvitationToUser(invite);
+            UpdateCache(invite);
 
-			return new HttpStatusCodeResult(OK);
-		}
+            return new HttpStatusCodeResult(OK);
+        }
+
+        private void UpdateCache(MemberGroupInviteModel invite)
+        {
+            var casted = _intranetMemberService as IntranetMemberService<IntranetMember>;
+
+            casted.UpdateMemberCache(invite.MemberId);
+        }
 
 		private void InviteUser(MemberGroupInviteModel invite) =>
 			_groupMemberService.Add(invite.GroupId, new GroupMemberSubscriptionModel

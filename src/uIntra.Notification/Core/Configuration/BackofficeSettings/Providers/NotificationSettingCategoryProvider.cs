@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
 using Uintra.Core.Activity;
 
 namespace Uintra.Notification.Configuration
@@ -22,7 +22,14 @@ namespace Uintra.Notification.Configuration
         public virtual NotificationSettingsCategoryDto GetCommunicationSettings() => //TODO: temporary for communication settings
             new NotificationSettingsCategoryDto(
                 CommunicationTypeEnum.CommunicationSettings,
-                new Enum[] { NotificationTypeEnum.CommentLikeAdded, NotificationTypeEnum.MonthlyMail, NotificationTypeEnum.UserMention });
+                new Enum[]
+                {
+                    NotificationTypeEnum.CommentLikeAdded,
+                    NotificationTypeEnum.MonthlyMail,
+                    NotificationTypeEnum.UserMention,
+                    NotificationTypeEnum.GroupInvitation
+                }
+            );
 
         public virtual NotificationSettingsCategoryDto
             GetMemberSettings() => //TODO: temporary for communication settings
