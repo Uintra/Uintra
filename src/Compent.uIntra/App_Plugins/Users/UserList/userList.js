@@ -7,23 +7,23 @@ require('alertifyjs/build/css/alertify.min.css');
 require("./user-list.css");
 
 const searchBoxElement = $(".js-user-list-filter");
-const searchButton = $(".js-search-button");
+
 const table = $(".js-user-list-table");
 const tableBody = $(".js-user-list-table .js-tbody");
 const button = $(".js-user-list-button"); // Load More Button
 const displayedRows = $(".js-user-list-row");
 const emptyResultLabel = $(".js-user-list-empty-result");
-const openModalPageListener = $(".js-open-search-modal-page");
-const searchActivationDelay = 256;
+const MEMBER_SEARCH_SUBMIT_BUTTON = $(".js-search-button");
+const OPEN_INVITE_MODAL_ELEMENT = $(".js-open-search-modal-page");
+const SEARCH_ACTIVATION_DELAY = 256;
+const ROUTE_PREFIX = '/umbraco/surface/UserList/';
 
-const routePrefix = '/umbraco/surface/UserList/';
-
-var url = {
-    GET_USERS: routePrefix + 'GetUsers',
-    EXCLUDE_USER_FROM_GROUP: routePrefix + 'ExcludeUserFromGroup',
-    TOGGLE_ADMIN_RIGHTS: routePrefix + 'Assign',
-    INVITE_USER: routePrefix + 'InviteMember',
-    GET_NOT_INVITED_USERS: routePrefix + 'GetNotInvitedUsers'
+var routes = {
+    GET_USERS: ROUTE_PREFIX + 'GetUsers',
+    EXCLUDE_USER_FROM_GROUP: ROUTE_PREFIX + 'ExcludeUserFromGroup',
+    TOGGLE_ADMIN_RIGHTS: ROUTE_PREFIX + 'Assign',
+    INVITE_USER: ROUTE_PREFIX + 'InviteMember',
+    GET_NOT_INVITED_USERS: ROUTE_PREFIX + 'GetNotInvitedUsers'
 };
 
 /**
@@ -32,7 +32,6 @@ var url = {
 var SEARCH_USER_ELEMENT; 
 var SEARCH_USER_RESULT_ELEMENT;
 var INVITE_USER_ELEMENT;
-
 
 let lastRequestClassName = "last";
 
@@ -53,6 +52,7 @@ let controller = {
 
         searchBoxElement.on("input", onSearchStringChanged); 
         searchBoxElement.on("keypress", onKeyPress);
+        
 
         var inviteUserSearch = {
             keyPress: (e) => {
@@ -70,14 +70,14 @@ let controller = {
                     return;
                 }
 
-                searchTimeout = setTimeout(() => inviteUserSearch.searchUser(searchString), searchActivationDelay);
+                searchTimeout = setTimeout(() => inviteUserSearch.searchUser(searchString), SEARCH_ACTIVATION_DELAY);
             },
             searchUser: (searchString) => {
                 request.skip = 0;
                 request.take = displayedAmount;
                 request.text = searchString;
                 request.isInvite = true;
-                ajax.post(url.GET_NOT_INVITED_USERS, request)
+                ajax.post(routes.GET_NOT_INVITED_USERS, request)
                     .then(result => {
                         var rows = $(result.data).filter("div");
                         SEARCH_USER_RESULT_ELEMENT.children().remove();
@@ -93,7 +93,7 @@ let controller = {
                 var row = $(e.target).closest(".js-user-list-row");
                 var groupId = row.data("group-id");
                 var userId = row.data("id");
-                ajax.post(url.INVITE_USER, buildGroupMemberModel(userId, groupId))
+                ajax.post(routes.INVITE_USER, buildGroupMemberModel(userId, groupId))
                     .then(
                         function (resolve) {
                         
@@ -105,11 +105,11 @@ let controller = {
             }
         };
 
-        searchButton.click(onSearchClick);
+        MEMBER_SEARCH_SUBMIT_BUTTON.click(onSearchClick);
         addDetailsHandler(displayedRows);
         addRemoveUserFromGroupHandler(displayedRows);
         toggleAdminRights(displayedRows);
-        openSearchModalPage(openModalPageListener);
+        openSearchModalPage(OPEN_INVITE_MODAL_ELEMENT);
 
         function init() {
             request = window.userListConfig.request;
@@ -138,7 +138,7 @@ let controller = {
             request.skip = tableBody.children("div").length;
             request.take = amountPerRequest;
 
-            ajax.post(url.GET_USERS, request)
+            ajax.post(routes.GET_USERS, request)
                 .then(result => {
                     var rows = $(result.data).filter("div");
                     tableBody.append(rows);
@@ -151,14 +151,14 @@ let controller = {
         function onSearchStringChanged() {
             clearTimeout(searchTimeout);
             const searchString = searchBoxElement.val();
-            searchTimeout = setTimeout(() => search(searchString), searchActivationDelay);
+            searchTimeout = setTimeout(() => search(searchString), SEARCH_ACTIVATION_DELAY);
         }
 
         function search(searchString) {
             request.skip = 0;
             request.take = displayedAmount;
             request.text = searchString;
-            ajax.post(url.GET_USERS, request)
+            ajax.post(routes.GET_USERS, request)
                 .then(result => {
                     var rows = $(result.data).filter("div");
                     tableBody.children().remove();
@@ -194,7 +194,7 @@ let controller = {
                         var row = $(this).closest(".js-user-list-row");
                         var groupId = row.data("group-id");
                         var userId = row.data("id");
-                        ajax.post(url.EXCLUDE_USER_FROM_GROUP, { groupId: groupId, userId: userId })
+                        ajax.post(routes.EXCLUDE_USER_FROM_GROUP, { groupId: groupId, userId: userId })
                             .then(function(result) {
                                 if (result.data) {
                                     row.remove();
@@ -216,7 +216,7 @@ let controller = {
                 var groupId = row.data("group-id");
                 var userId = row.data("id");
 
-                ajax.put(url.TOGGLE_ADMIN_RIGHTS, { groupId: groupId, memberId: userId })
+                ajax.put(routes.TOGGLE_ADMIN_RIGHTS, { groupId: groupId, memberId: userId })
                     .then(function(result) {
                         if (result.status === 200) {
                             var checkbox = $(row[0]).find(".js-user-list-toggle-admin-rights");
@@ -259,8 +259,10 @@ let controller = {
                     );
                     SEARCH_USER_ELEMENT = $(".js-user-search");
                     SEARCH_USER_ELEMENT.on("input", inviteUserSearch.searchStringChanged);
+                    SEARCH_USER_ELEMENT.val('');
                     SEARCH_USER_RESULT_ELEMENT = $(".js-user-search-result");
                     SEARCH_USER_RESULT_ELEMENT.on("keypress", inviteUserSearch.keyPress);
+                    SEARCH_USER_RESULT_ELEMENT.children().remove();
                 }
             );
         }
