@@ -1511,6 +1511,9 @@
     <Compile Include="Core\XPathProvider.cs" />
     <Compile Include="Core\Users\RelatedUser\UserGroup\Helpers\IInternalGroupHelper.cs" />
     <Compile Include="Core\Users\RelatedUser\UserGroup\IInternalGroupProvider.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.cs" />
     <Compile Include="Persistence\Sql\Migrations\201708170729073_uIntra_Initial.Designer.cs">
       <DependentUpon>201708170729073_uIntra_Initial.cs</DependentUpon>
