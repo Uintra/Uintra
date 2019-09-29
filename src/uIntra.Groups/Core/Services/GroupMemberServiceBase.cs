@@ -71,7 +71,7 @@ namespace Uintra.Groups
 
         public abstract string Create(GroupCreateModel model);
 
-        public abstract GroupMember Get(Guid id);
+        public abstract GroupMember GetByMemberId(Guid id);
 
         public abstract void Update(GroupMember groupMember);
 
