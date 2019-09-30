@@ -106,9 +106,10 @@ let controller = {
         };
 
         MEMBER_SEARCH_SUBMIT_BUTTON.click(onSearchClick);
-        //addDetailsHandler(displayedRows);
+        
         addRemoveUserFromGroupHandler(displayedRows);
         toggleAdminRights(displayedRows);
+        addDetailsHandler(displayedRows);
         openSearchModalPage(OPEN_INVITE_MODAL_ELEMENT);
 
         function init() {
