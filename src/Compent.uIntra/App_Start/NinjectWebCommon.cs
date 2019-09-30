@@ -498,7 +498,7 @@ namespace Compent.Uintra
 			kernel.Bind<ITableCellBuilder>().To<TableCellBuilder>().InRequestScope();
 
             //UmbracoIpAccess
-            kernel.Bind<IUmbracoIpAccessConfiguration>().To<UmbracoIpAccessConfiguration>().InRequestScope();
+            kernel.Bind<IUmbracoIpAccessConfiguration>().ToMethod(f => ConfigurationManager.GetSection("umbracoIpAccessConfiguration") as UmbracoIpAccessConfiguration).InSingletonScope();
             kernel.Bind<IUmbracoIpAccessValidator>().To<UmbracoIpAccessValidator>().InRequestScope();
         }
 
