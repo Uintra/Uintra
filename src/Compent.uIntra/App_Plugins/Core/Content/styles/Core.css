@@ -611,10 +611,14 @@ img{
             width: 40px !important;
             height: 40px !important;
         }
-        .ajs-modal .ajs-commands{
-            top:17px;
-            right:18px;
-            margin:0;
+        .ajs-modal{
+            padding:0 5%;
+
+            .ajs-commands{
+                top:17px;
+                right:18px;
+                margin:0;
+            }
         }
 
         .ajs-footer{
