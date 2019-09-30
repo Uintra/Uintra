@@ -91,18 +91,20 @@
 
                         @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && !Model.IsInvite)
                         {
-                            <select class="js-user-list-toggle-admin-rights">
-                                @if (member.IsGroupAdmin)
-                                {
-                                    <option value="1" selected>Admin</option>
-                                    <option value="0">Member</option>
-                                }
-                                else
-                                {
-                                    <option value="1">Admin</option>
-                                    <option value="0" selected>Member</option>
-                                }
-                            </select>
+                            <span class="fake-select">
+                                <select class="js-user-list-toggle-admin-rights">
+                                    @if (member.IsGroupAdmin)
+                                    {
+                                        <option value="1" selected>Admin</option>
+                                        <option value="0">Member</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="1">Admin</option>
+                                        <option value="0" selected>Member</option>
+                                    }
+                                </select>
+                            </span>
                         }
                     </div>
 
