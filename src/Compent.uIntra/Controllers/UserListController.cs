@@ -1,5 +1,6 @@
 ﻿using Compent.Extensions;
 using Compent.LinkPreview.HttpClient.Extensions;
+using Compent.Uintra.Core.Helpers;
 using Compent.Uintra.Core.Search.Entities;
 using Compent.Uintra.Core.Users;
 using EmailWorker.Data.Extensions;
@@ -12,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Uintra.Core.Activity;
 using Uintra.Core.Links;
 using Uintra.Core.User;
 using Uintra.Groups;
@@ -38,6 +40,7 @@ namespace Compent.Uintra.Controllers
 		private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 		private readonly IGroupMemberService _groupMemberService;
 		private readonly INotificationsService _notificationsService;
+        private readonly INotifierDataHelper _notifierDataHelper;
 
 		public UserListController(
 			IIntranetMemberService<IIntranetMember> intranetMemberService,
@@ -46,7 +49,8 @@ namespace Compent.Uintra.Controllers
 			IProfileLinkProvider profileLinkProvider,
 			IGroupService groupService,
 			IGroupMemberService groupMemberService,
-			INotificationsService notificationsService)
+			INotificationsService notificationsService,
+            INotifierDataHelper notifierDataHelper)
 			: base(intranetMemberService)
 		{
 			_elasticIndex = elasticIndex;
@@ -56,6 +60,7 @@ namespace Compent.Uintra.Controllers
 			_intranetMemberService = intranetMemberService;
 			_groupMemberService = groupMemberService;
 			_notificationsService = notificationsService;
+            _notifierDataHelper = notifierDataHelper;
 		}
 
 		[NotFoundGroup]
@@ -166,7 +171,8 @@ namespace Compent.Uintra.Controllers
 			{
 				NotificationType = NotificationTypeEnum.GroupInvitation,
 				ReceiverIds = List(invite.MemberId),
-				ActivityType = CommunicationTypeEnum.CommunicationSettings
+				ActivityType = CommunicationTypeEnum.CommunicationSettings,
+                Value = _notifierDataHelper.GetGroupInvitationDataModel(NotificationTypeEnum.GroupInvitation, invite.GroupId, invite.MemberId)
 			});
 
 		private static Option<Guid> CurrentGroupId()

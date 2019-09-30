@@ -353,6 +353,7 @@
     <Compile Include="Core\Constants\NotificationConstants.cs" />
     <Compile Include="Core\Dashboard\NotificationSettingsSection.cs" />
     <Compile Include="Core\Entities\ActivityNotifierDataModel.cs" />
+    <Compile Include="Core\Entities\GroupInvitationDataModel.cs" />
     <Compile Include="Core\Entities\MonthlyMailDataModel.cs" />
     <Compile Include="Core\Entities\ActivityReminderDataModel.cs" />
     <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
