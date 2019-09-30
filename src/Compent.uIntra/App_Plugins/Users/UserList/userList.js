@@ -210,10 +210,12 @@ let controller = {
 
         function toggleAdminRights(rows) {
             
-            var checkboxes = rows.find(".js-user-list-toggle-admin-rights");
-            checkboxes.change(function(e) {
+            var select = rows.find(".js-user-list-toggle-admin-rights");
+            select.click(function (e) {
                 eventPreprocessing(e);
-
+                });
+            select.change(function(e) {
+                eventPreprocessing(e);
                 var row = $(this).closest(".js-user-list-row");
                 var groupId = row.data("group-id");
                 var userId = row.data("id");
