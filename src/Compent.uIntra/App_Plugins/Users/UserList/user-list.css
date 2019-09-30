@@ -33,6 +33,10 @@
         margin:0 0 15px;
         background:var(--color-white);
 
+        .alertify &{
+            margin:0 0 30px;
+        }
+
         &:after{
             content:'';
             display:block;
@@ -135,6 +139,10 @@
         padding:12px 0 12px 2.7%;
         overflow:hidden;
 
+        .alertify &{
+            padding:10px 0 10px 20px
+        }
+
         @media (--for-tablet-portrait-down) {
             padding:0;
         }
@@ -142,6 +150,12 @@
         &--name{
             width: 29.8%;
             flex: 1 1 29.8%;
+
+            .alertify &{
+                width: 23%;
+                flex: 1 1 23%;
+            }
+
             @media (--for-tablet-portrait-down) {
                 width:100%;
             }
@@ -150,6 +164,10 @@
             width:43%;
             @media (--for-tablet-portrait-down) {
                 width:100%;
+            }
+
+            .alertify &{
+                width: 43.8%;
             }
         }
         &--tools{
@@ -168,9 +186,21 @@
             width:10%;
             text-align:right;
             padding:13px 2.7% 11px 0;
+
+            .alertify &{
+                padding:10px 20px 10px 0;
+            }
+
             @media (--for-tablet-portrait-down) {
                 padding:0;
                 width:100%;
+            }
+        }
+
+        .btn{
+            .alertify &{
+                padding:6px 9px;
+                margin:0;
             }
         }
     }
@@ -193,8 +223,11 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        margin:0 0 0 10.5%;
-        margin-left: 4.5%;
+        margin:0 0 0 4.5%;
+
+        .alertify &{
+            margin:0 0 0 20px;
+        }
 
         @media (--for-tablet-portrait-down){
             margin:2px 0 1px;

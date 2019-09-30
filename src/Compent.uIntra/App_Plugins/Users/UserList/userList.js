@@ -243,8 +243,18 @@ let controller = {
                 function(event) {
                     eventPreprocessing(event);
                     alertify.alert(
-                        'Users Search', 
-                        '<input type="text" name="search" class="form-control js-user-search" placeholder="Enter users name" />' +
+                        'People',
+                        '<h4 class="user-search__subtitle">Search people</h4>' +
+                        '<form class="user-search__form">' +
+                        '<input type="text" name="search" class="user-search__input js-user-search" placeholder="Search for name, phone number, e-mail or anything else" />' +
+                        '<button class="user-search__button js-search-button" type="button">' +
+                        '<span class="icon-search">' +
+                        '<svg class="svg-icon" viewBox="0 0 32 32" width="30px" height="30px">' +
+                        '<use xlink: href="#icon-search" x="0" y="0"></use>' +
+                        '</svg>' +
+                '</span > ' +
+            '</button > ' +
+        '</form >' +
                         '<ul class="list-group js-user-search-result"></ul>', 
                         function() { }
                     );
@@ -254,6 +264,7 @@ let controller = {
                     SEARCH_USER_RESULT_ELEMENT = $(".js-user-search-result");
                     SEARCH_USER_RESULT_ELEMENT.on("keypress", inviteUserSearch.keyPress);
                     SEARCH_USER_RESULT_ELEMENT.children().remove();
+                    $('.alertify').addClass('alertify--custom');
                 }
             );
         }
