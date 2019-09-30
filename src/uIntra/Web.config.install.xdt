@@ -13,6 +13,9 @@
     <section name="elasticConfiguration" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
     <section name="elasticConfiguration" type="Uintra.Search.Configuration.ElasticConfigurationSection" xdt:Locator="Condition(@name='elasticConfiguration')" xdt:Transform="InsertIfMissing" />
 
+    <section name="umbracoIpAccessConfiguration" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
+    <section name="umbracoIpAccessConfiguration" type="Uintra.Core.UmbracoIpAccess.UmbracoIpAccessConfiguration, Uintra.Core" xdt:Locator="Condition(@name='umbracoIpAccessConfiguration')" xdt:Transform="InsertIfMissing" />
+
     <section name="localizationConfiguration" type="Localization.Core.Configuration.LocalizationConfigurationSection, Localization.Core"
             xdt:Locator="Condition(@name='localizationConfiguration')" xdt:Transform="InsertIfMissing" />
     <section name="linkDetectionConfiguration" type="Compent.Uintra.Core.LinkPreview.Config.LinkDetectionConfigurationSection" xdt:Locator="Condition(@name='linkDetectionConfiguration')" xdt:Transform="InsertIfMissing" />
@@ -65,6 +68,7 @@
   </UintraJobs>
 
   <elasticConfiguration url="http://52.236.128.233:49200" indexPrefix="uintra_" xdt:Transform="InsertIfMissing"></elasticConfiguration>
+  <umbracoIpAccessConfiguration statusCode="401" ips="" networkMasks="" xdt:Transform="InsertIfMissing"/>
   <localizationConfiguration enableCache="false" cacheTime="0" localizationCacheKey="LocalizationCacheKey"
                             useDefaultLabel="true" saveDefaultLabel="false"
                             xdt:Transform="InsertIfMissing" />

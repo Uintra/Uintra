@@ -26,7 +26,7 @@ namespace Uintra.Groups
 
         string Create(GroupCreateModel model);
 
-        GroupMember Get(Guid id);
+        GroupMember GetByMemberId(Guid id);
 
         void Update(GroupMember groupMember);
 
