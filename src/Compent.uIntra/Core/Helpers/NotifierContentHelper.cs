@@ -111,14 +111,16 @@ namespace Compent.Uintra.Core.Helpers
         public GroupInvitationDataModel GetGroupInvitationDataModel(
             NotificationTypeEnum notificationType,
             Guid groupId,
-            Guid notifierId) =>
+            Guid notifierId,
+            Guid receiverId) =>
             new GroupInvitationDataModel
             {
                 Url = $"/groups/room?groupId={groupId}",
                 Title = _groupService.Get(groupId).Title,
                 NotificationType = notificationType,
                 GroupId = groupId,
-                NotifierId = notifierId
+                NotifierId = notifierId,
+                ReceiverId = receiverId
             };
 
         private static string GetNotifierDataTitle(IIntranetActivity activity)

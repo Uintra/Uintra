@@ -4,6 +4,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
+using Uintra.Notification.Core.Entities;
 using static Uintra.Notification.Constants.TokensConstants;
 
 namespace Compent.Uintra.Core.Notification
@@ -90,6 +91,22 @@ namespace Compent.Uintra.Core.Notification
                         (NotificationType, model.NotificationType.ToString().SplitOnUpperCaseLetters())
                     };
                     break;
+
+                case GroupInvitationDataModel model:
+                    message.NotificationType = model.NotificationType;
+                    message.Url = model.Url;
+                    message.NotifierId = model.NotifierId;
+                    tokens = new[]
+                    {
+                        (ActivityTitle, model.Title),
+                        (FullName, _intranetMemberService.Get(model.ReceiverId).DisplayedName),
+                        (Url, model.Url), 
+                        (Title, model.Title),
+                        (TaggedBy, _intranetMemberService.Get(model.NotifierId).DisplayedName),
+                        (NotificationType, model.NotificationType.ToString().SplitOnUpperCaseLetters())
+                    };
+                    break;
+
                 default:
                     throw new IndexOutOfRangeException();
             }

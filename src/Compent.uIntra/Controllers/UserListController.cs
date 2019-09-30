@@ -172,7 +172,8 @@ namespace Compent.Uintra.Controllers
 				NotificationType = NotificationTypeEnum.GroupInvitation,
 				ReceiverIds = List(invite.MemberId),
 				ActivityType = CommunicationTypeEnum.CommunicationSettings,
-                Value = _notifierDataHelper.GetGroupInvitationDataModel(NotificationTypeEnum.GroupInvitation, invite.GroupId, invite.MemberId)
+                Value = _notifierDataHelper.GetGroupInvitationDataModel(NotificationTypeEnum.GroupInvitation, invite.GroupId, invite.MemberId,
+                    _intranetMemberService.GetCurrentMember().Id)
 			});
 
 		private static Option<Guid> CurrentGroupId()

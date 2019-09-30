@@ -15,6 +15,6 @@ namespace Compent.Uintra.Core.Helpers
         CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, CommentModel comment, Enum notificationType, Guid notifierId);
         CommentNotifierDataModel GetCommentNotifierDataModel(IPublishedContent content, CommentModel comment, Enum notificationType, Guid notifierId);
         LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, Enum notificationType, Guid notifierId);
-        GroupInvitationDataModel GetGroupInvitationDataModel(NotificationTypeEnum notificationType, Guid groupId, Guid notifierId);
+        GroupInvitationDataModel GetGroupInvitationDataModel(NotificationTypeEnum notificationType, Guid groupId, Guid notifierId, Guid receiverId);
     }
 }
