@@ -17,68 +17,95 @@
             switch (column.Type)
             {
                 case ColumnType.Name:
-                {
-                    <div class="users-table__cell users-table__cell--name">
-                        <div class="users-table__info">
-                            @Html.Action("Photo", "Member", new
-                            {
-                                member = member.Member,
-                                cssModificator = "avatar--group-member",
-                                photoWidth = 30
-                            })
-                            <span class="users-table__name">@member.DisplayedName</span>
+                    {
+                        <div class="users-table__cell users-table__cell--name">
+                            <div class="users-table__info">
+                                @Html.Action("Photo", "Member", new
+                                {
+                                    member = member.Member,
+                                    cssModificator = "avatar--group-member",
+                                    photoWidth = 30
+                                })
+                                <span class="users-table__name">@member.DisplayedName</span>
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
                     break;
                 case ColumnType.Info:
-                {
-                    <div class="users-table__cell users-table__cell--info">
-                        @if (!string.IsNullOrEmpty(member.Email))
-                        {
-                            <span class="users-table__text">
-                                @(Html.Localize("UserList.Table.Email.lbl") + ":")
-                                @member.Email
-                            </span>
-                        }
-                        @if (!string.IsNullOrEmpty(member.Phone))
-                        {
-                            <span class="users-table__text">
-                                @(Html.Localize("UserList.Table.Phone.lbl") + ":")
-                                @member.Phone
-                            </span>
-                        }
-                        @if (!string.IsNullOrEmpty(member.Department))
-                        {
-                            <span class="users-table__text">
-                                @(Html.Localize("UserList.Table.Department.lbl") + ":")
-                                @member.Department
-                            </span>
-                        }
-                    </div>
-                }
+                    {
+                        <div class="users-table__cell users-table__cell--info">
+                            @if (!string.IsNullOrEmpty(member.Email))
+                            {
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Email.lbl") + ":")
+                                    @member.Email
+                                </span>
+                            }
+                            @if (!string.IsNullOrEmpty(member.Phone))
+                            {
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Phone.lbl") + ":")
+                                    @member.Phone
+                                </span>
+                            }
+                            @if (!string.IsNullOrEmpty(member.Department))
+                            {
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Department.lbl") + ":")
+                                    @member.Department
+                                </span>
+                            }
+                        </div>
+                    }
                     break;
                 case ColumnType.Button:
-                {
-                    <div class="users-table__cell users-table__cell--tools">
-                        <button class="btn">
-                            <svg class="svg-icon" viewBox="0 0 24 24" width="19px" height="19px">
-                                <use xlink:href="#icon-comment" x="0" y="0"></use>
-                            </svg>
-                            <span>Message</span>
-                        </button>
-                    </div>
-                }
+                    {
+                        <div class="users-table__cell users-table__cell--tools">
+                            <button class="btn">
+                                <svg class="svg-icon" viewBox="0 0 24 24" width="19px" height="19px">
+                                    <use xlink:href="#icon-comment" x="0" y="0"></use>
+                                </svg>
+                                <span>Message</span>
+                            </button>
+                        </div>
+                    }
                     break;
-                case ColumnType.GroupRole:
-                {
-                    <div class="users-table__cell users-table__cell--text">
-                        @{ var role = member.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl"; }
-                        <span class="users-table__text">@Html.Localize(role)</span>
-                    </div>
-                }
-                    break;
+                @*case ColumnType.GroupRole:
+                    {
+                        <div class="users-table__cell users-table__cell--text">
+                            @{ var role = member.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl"; }
+                            <span class="users-table__text">@Html.Localize(role)</span>
+                        </div>
+                    }
+                    break;*@
                 case ColumnType.GroupManagement:
+
+                    <div class="users-table__cell users-table__cell--btn">
+
+                        @*@if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && !Model.IsInvite)
+                            {
+                                <input type="checkbox"
+                                       checked="@member.IsGroupAdmin"
+                                       class="js-user-list-toggle-admin-rights" />
+                            }*@
+
+                        @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && !Model.IsInvite)
+                        {
+                            <select class="js-user-list-toggle-admin-rights">
+                                @if (member.IsGroupAdmin)
+                                {
+                                    <option value="1" selected>Admin</option>
+                                    <option value="0">Member</option>
+                                }
+                                else
+                                {
+                                    <option value="1">Admin</option>
+                                    <option value="0" selected>Member</option>
+                                }
+                            </select>
+                        }
+                    </div>
+
                     <div class="users-table__cell users-table__cell--btn">
                         @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && !Model.IsInvite)
                         {
@@ -86,19 +113,9 @@
                         }
                     </div>
                     <div class="users-table__cell users-table__cell--btn">
-                        @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && !Model.IsInvite)
-                        {
-                            <input type="checkbox"
-                                   checked="@member.IsGroupAdmin"
-                                   class="js-user-list-toggle-admin-rights"/>
-                        }
-                    </div>
-
-                    <div class="users-table__cell users-table__cell--btn">
                         @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && Model.IsInvite)
                         {
-                            <input type="checkbox"
-                                   class="js-user-invite-member"/>
+                            <button class="btn btn-default js-user-invite-member">Add</button>
                         }
                     </div>
 

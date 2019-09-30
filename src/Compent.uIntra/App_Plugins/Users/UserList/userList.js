@@ -106,7 +106,7 @@ let controller = {
         };
 
         MEMBER_SEARCH_SUBMIT_BUTTON.click(onSearchClick);
-        addDetailsHandler(displayedRows);
+        //addDetailsHandler(displayedRows);
         addRemoveUserFromGroupHandler(displayedRows);
         toggleAdminRights(displayedRows);
         openSearchModalPage(OPEN_INVITE_MODAL_ELEMENT);
@@ -208,8 +208,9 @@ let controller = {
         }
 
         function toggleAdminRights(rows) {
+            
             var checkboxes = rows.find(".js-user-list-toggle-admin-rights");
-            checkboxes.click(function(e) {
+            checkboxes.change(function(e) {
                 eventPreprocessing(e);
 
                 var row = $(this).closest(".js-user-list-row");
@@ -217,18 +218,7 @@ let controller = {
                 var userId = row.data("id");
 
                 ajax.put(routes.TOGGLE_ADMIN_RIGHTS, { groupId: groupId, memberId: userId })
-                    .then(function(result) {
-                        if (result.status === 200) {
-                            var checkbox = $(row[0]).find(".js-user-list-toggle-admin-rights");
-                            if (checkbox.is(':checked')) {
-                                $(row[0]).find("span").last().text("Group Member");
-                                checkbox.prop('checked', false);
-                            } else {
-                                $(row[0]).find("span").last().text("Group Admin");
-                                checkbox.prop('checked', true);
-                            }
-                        }
-                    });
+                    .then(function(result) {});
             });
         }
 
