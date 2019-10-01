@@ -82,8 +82,11 @@ namespace Compent.Uintra.Core.Groups
 		public override GroupMember GetByMemberId(Guid id) =>
 			_groupMemberRepository.Find(gm => gm.MemberId == id);
 
-		public override void Update(GroupMember groupMember) =>
+		public override void Update(GroupMember groupMember)
+		{
 			_groupMemberRepository.Update(groupMember);
+			_memberCacheService.UpdateMemberCache(groupMember.MemberId);
+		}
 
 		public override GroupMember GetGroupMemberByMemberIdAndGroupId(
 			Guid memberId,
