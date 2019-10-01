@@ -18,7 +18,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._4.Steps
 
 			foreach (var group in groups)
 			{
-				var creator = _groupMemberService.GetByMemberId(group.CreatorId);
+				var creator = _groupMemberService.GetGroupMemberByMemberIdAndGroupId(group.CreatorId, group.Id);
+
 				if (creator.IsAdmin) continue;
 
 				creator.IsAdmin = true;
