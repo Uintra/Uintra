@@ -127,6 +127,7 @@ using Umbraco.Web.Security;
 using Uintra.Core.UmbracoIpAccess;
 using MyLinksModelBuilder = Compent.Uintra.Core.Navigation.MyLinksModelBuilder;
 using ReminderJob = Uintra.Notification.ReminderJob;
+using Uintra.Core.OpenGraph.Services;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -500,6 +501,9 @@ namespace Compent.Uintra
             //UmbracoIpAccess
             kernel.Bind<IUmbracoIpAccessConfiguration>().ToMethod(f => ConfigurationManager.GetSection("umbracoIpAccessConfiguration") as UmbracoIpAccessConfiguration).InSingletonScope();
             kernel.Bind<IUmbracoIpAccessValidator>().To<UmbracoIpAccessValidator>().InRequestScope();
+
+            //Open Graph
+            kernel.Bind<IOpenGraphService>().To<OpenGraphService>().InRequestScope();
         }
 
 		private static void RegisterEntityFrameworkServices(IKernel kernel)

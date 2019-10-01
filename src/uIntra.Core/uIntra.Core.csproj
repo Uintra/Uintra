@@ -385,6 +385,10 @@
     <Compile Include="Core\Media\IVideoConverterLogService.cs" />
     <Compile Include="Core\Media\MediaConvertModel.cs" />
     <Compile Include="Core\Media\VideoConvertationLog.cs" />
+    <Compile Include="Core\OpenGraph\Constants\OpenGraphCompositionConstants.cs" />
+    <Compile Include="Core\OpenGraph\Models\OpenGraphObject.cs" />
+    <Compile Include="Core\OpenGraph\Services\IOpenGraphService.cs" />
+    <Compile Include="Core\OpenGraph\Services\OpenGraphService.cs" />
     <Compile Include="Core\Permissions\Implementation\PermissionSettingsSchemaProviderFunctions.cs" />
     <Compile Include="Core\Permissions\Implementation\PermissionsService.cs" />
     <Compile Include="Core\Permissions\Interfaces\IIntranetMemberGroupService.cs" />
@@ -588,6 +592,7 @@
     <Compile Include="Web\EditorConfigControllerBase.cs" />
     <Compile Include="Core\Controls\EditorConfiguration\GridEditorConfig.cs" />
     <Compile Include="Web\ActivityLocationControllerBase.cs" />
+    <Compile Include="Web\OpenGraphControllerBase.cs" />
     <Compile Include="Web\PagePromotionControllerBase.cs" />
     <Compile Include="Web\RteConfigControllerBase.cs" />
     <Compile Include="Web\MemberControllerBase.cs" />

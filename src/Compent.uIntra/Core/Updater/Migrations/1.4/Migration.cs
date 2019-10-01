@@ -23,6 +23,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._4
 			get
 			{
 				yield return Resolve<SetGroupAdminsInSqlTableStep>();
+                yield return Resolve<AddOpenGraphSettings>();
 			}
 		}
 	}

@@ -14,6 +14,7 @@
     <% for (var css in htmlWebpackPlugin.files.css) { %>
     <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
     <% } %>
+    @{Html.RenderAction("Render", "OpenGraph");}
 </head>
 <body>
     <div id="wrapper" class="_loading">
