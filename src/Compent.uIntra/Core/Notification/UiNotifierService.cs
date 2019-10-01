@@ -55,7 +55,7 @@ namespace Compent.Uintra.Core.Notification
 
             if (!settings.IsEnabled && !desktopSettings.IsEnabled) return;
 
-            var receivers = _intranetMemberService.GetMany(data.ReceiverIds);
+            var receivers = _intranetMemberService.GetMany(data.ReceiverIds).ToList();
 
             var messages = receivers.Select(receiver =>
             {

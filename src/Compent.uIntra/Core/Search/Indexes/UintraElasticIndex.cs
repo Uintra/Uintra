@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Compent.Uintra.Core.Search.Entities;
-using LanguageExt;
 using Nest;
 using Uintra.Core.Extensions;
 using Uintra.Search;
@@ -16,18 +15,15 @@ namespace Compent.Uintra.Core.Search.Indexes
 	public class UintraElasticIndex : ElasticIndex
 	{
 		private readonly IMemberSearchDescriptorBuilder _memberSearchDescriptorBuilder;
-		private readonly SearchScoreModel _scores;
 
 		public UintraElasticIndex(
 			IElasticSearchRepository elasticSearchRepository,
-			ISearchScoreProvider searchScoreProvider,
 			IEnumerable<IElasticEntityMapper> mappers,
 			ISearchSortingHelper<dynamic> searchSorting,
 			ISearchPagingHelper<dynamic> searchPagingHelper,
 			IMemberSearchDescriptorBuilder memberSearchDescriptorBuilder) : base(elasticSearchRepository, mappers, searchSorting, searchPagingHelper)
 		{
 			_memberSearchDescriptorBuilder = memberSearchDescriptorBuilder;
-			_scores = searchScoreProvider.GetScores();
 		}
 
 		public QueryContainer GetTagsDescriptor(string query)
@@ -38,9 +34,9 @@ namespace Compent.Uintra.Core.Search.Indexes
 			return desc;
 		}
 
-		protected override QueryContainer[] GetQueryContainers(string query, Option<Guid> groupId)
+		protected override QueryContainer[] GetQueryContainers(string query)
 		{
-			var containers = base.GetQueryContainers(query, groupId).ToList();
+			var containers = base.GetQueryContainers(query).ToList();
 			containers.Add(GetTagNames<SearchableUintraContent>(query));
 			containers.Add(GetTagNames<SearchableUintraActivity>(query));
 			containers.Add(GetTagNames<SearchableMember>(query));

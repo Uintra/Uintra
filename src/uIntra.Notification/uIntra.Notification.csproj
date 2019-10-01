@@ -353,6 +353,7 @@
     <Compile Include="Core\Constants\NotificationConstants.cs" />
     <Compile Include="Core\Dashboard\NotificationSettingsSection.cs" />
     <Compile Include="Core\Entities\ActivityNotifierDataModel.cs" />
+    <Compile Include="Core\Entities\GroupInvitationDataModel.cs" />
     <Compile Include="Core\Entities\MonthlyMailDataModel.cs" />
     <Compile Include="Core\Entities\ActivityReminderDataModel.cs" />
     <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
@@ -505,6 +506,9 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\News\CommentEdited.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\News\CommentReplied.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\News\UserMention.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\CommunicationSettings\GroupInvitation.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\GroupInvitation.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\GroupInvitation.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
     <Content Include="..\Compent.uIntra\App_Plugins\Notification\popupNotifications.js">

@@ -7,6 +7,7 @@ using Uintra.Core.Helpers;
 using Uintra.Core.User;
 using Uintra.Notification;
 using Uintra.Notification.Base;
+using Uintra.Notification.Core.Entities;
 using static Uintra.Notification.Constants.TokensConstants;
 
 namespace Compent.Uintra.Core.Notification
@@ -80,6 +81,16 @@ namespace Compent.Uintra.Core.Notification
                     tokens = new[]
                     {
                         (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
+                        (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
+                        (FullName, _intranetMemberService.Get(model.ReceiverId).DisplayedName),
+                        (TaggedBy, _intranetMemberService.Get(model.NotifierId).DisplayedName)
+                    };
+                    break;
+                case GroupInvitationDataModel model:                    
+                    tokens = new[]
+                    {
+                        (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
+                        (Title, model.Title),
                         (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
                         (FullName, _intranetMemberService.Get(model.ReceiverId).DisplayedName),
                         (TaggedBy, _intranetMemberService.Get(model.NotifierId).DisplayedName)

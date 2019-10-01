@@ -71,10 +71,9 @@ namespace Compent.Uintra.Core.Groups
 				: null;
 
 			var groupId = _groupService.Create(group);
+            Add(groupId, model.Creator);
 
 			_groupMediaService.GroupTitleChanged(groupId, group.Title);
-
-			Add(groupId, model.Creator);
 
 			return _groupLinkProvider.GetGroupLink(groupId);
 		}
@@ -82,8 +81,11 @@ namespace Compent.Uintra.Core.Groups
 		public override GroupMember GetByMemberId(Guid id) =>
 			_groupMemberRepository.Find(gm => gm.MemberId == id);
 
-		public override void Update(GroupMember groupMember) =>
+		public override void Update(GroupMember groupMember)
+		{
 			_groupMemberRepository.Update(groupMember);
+			_memberCacheService.UpdateMemberCache(groupMember.MemberId);
+		}
 
 		public override GroupMember GetGroupMemberByMemberIdAndGroupId(
 			Guid memberId,

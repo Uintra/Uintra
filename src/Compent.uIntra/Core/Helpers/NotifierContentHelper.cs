@@ -4,7 +4,10 @@ using Uintra.Comments;
 using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
+using Uintra.Groups;
 using Uintra.Notification;
+using Uintra.Notification.Configuration;
+using Uintra.Notification.Core.Entities;
 using Umbraco.Core.Models;
 
 namespace Compent.Uintra.Core.Helpers
@@ -13,12 +16,18 @@ namespace Compent.Uintra.Core.Helpers
     {
         private readonly IActivityLinkService _linkService;
         private readonly ICommentLinkHelper _commentLinkHelper;
+        private readonly IGroupService _groupService;
+
         const int MaxTitleLength = 100;
 
-        public NotifierDataHelper(IActivityLinkService linkService, ICommentLinkHelper commentLinkHelper)
+        public NotifierDataHelper(
+            IActivityLinkService linkService, 
+            ICommentLinkHelper commentLinkHelper,
+            IGroupService groupService)
         {
             _linkService = linkService;
             _commentLinkHelper = commentLinkHelper;
+            _groupService = groupService;
         }
 
         public CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, CommentModel comment, Enum notificationType, Guid notifierId)
@@ -51,7 +60,6 @@ namespace Compent.Uintra.Core.Helpers
 
         public ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, Enum notificationType, Guid notifierId)
         {
-            
             return new ActivityNotifierDataModel
             {
                 NotificationType = notificationType,
@@ -99,6 +107,21 @@ namespace Compent.Uintra.Core.Helpers
 
             return model;
         }
+
+        public GroupInvitationDataModel GetGroupInvitationDataModel(
+            NotificationTypeEnum notificationType,
+            Guid groupId,
+            Guid notifierId,
+            Guid receiverId) =>
+            new GroupInvitationDataModel
+            {
+                Url = $"/groups/room?groupId={groupId}",
+                Title = _groupService.Get(groupId).Title,
+                NotificationType = notificationType,
+                GroupId = groupId,
+                NotifierId = notifierId,
+                ReceiverId = receiverId
+            };
 
         private static string GetNotifierDataTitle(IIntranetActivity activity)
             => activity.Type is IntranetActivityTypeEnum.Bulletins ? activity.Description.StripHtml() : activity.Title;

@@ -1,19 +1,37 @@
 ﻿import ajax from "./../../Core/Content/scripts/Ajax";
 import confirm from "./../../Core/Controls/Confirm/Confirm";
 
+var alertify = require('alertifyjs/build/alertify.min');
+
+require('alertifyjs/build/css/alertify.min.css');
 require("./user-list.css");
 
 const searchBoxElement = $(".js-user-list-filter");
-const searchButton = $(".js-search-button");
+
 const table = $(".js-user-list-table");
 const tableBody = $(".js-user-list-table .js-tbody");
-const button = $(".js-user-list-button");
+const button = $(".js-user-list-button"); // Load More Button
 const displayedRows = $(".js-user-list-row");
 const emptyResultLabel = $(".js-user-list-empty-result");
-const searchActivationDelay = 256;
-const url = "/umbraco/surface/UserList/GetUsers";
-const excludeUserFromGroupUrl = "/umbraco/surface/UserList/ExcludeUserFromGroup";
-const urlToggleAdminRights = "/umbraco/surface/UserList/Assign";
+const MEMBER_SEARCH_SUBMIT_BUTTON = $(".js-search-button");
+const OPEN_INVITE_MODAL_ELEMENT = $(".js-open-search-modal-page");
+const SEARCH_ACTIVATION_DELAY = 256;
+const ROUTE_PREFIX = '/umbraco/surface/UserList/';
+
+var routes = {
+    GET_USERS: ROUTE_PREFIX + 'GetUsers',
+    EXCLUDE_USER_FROM_GROUP: ROUTE_PREFIX + 'ExcludeUserFromGroup',
+    TOGGLE_ADMIN_RIGHTS: ROUTE_PREFIX + 'Assign',
+    INVITE_USER: ROUTE_PREFIX + 'InviteMember',
+    GET_NOT_INVITED_USERS: ROUTE_PREFIX + 'ForInvitation'
+};
+
+/**
+ * Search values initiates when modal page opens.
+ */
+var SEARCH_USER_ELEMENT; 
+var SEARCH_USER_RESULT_ELEMENT;
+var INVITE_USER_ELEMENT;
 
 let lastRequestClassName = "last";
 
@@ -27,16 +45,72 @@ let confirmText;
 let controller = {
     init: function() {
 
-        if (tableBody.length === 0)
-            return;
+        if (tableBody.length === 0) return;
+
         init();
         button.click(onButtonClick);
-        searchBoxElement.on("input", onSearchStringChanged);
+
+        searchBoxElement.on("input", onSearchStringChanged); 
         searchBoxElement.on("keypress", onKeyPress);
-        searchButton.click(onSearchClick);
-        addDetailsHandler(displayedRows);
+        
+
+        var inviteUserSearch = {
+            keyPress: (e) => {
+                if (e.which === 13 || e.KeyCode === 13 || e.charCode === 13) {
+                    search(SEARCH_USER_ELEMENT.val());
+                    eventPreprocessing(e);
+                }
+            },
+            searchStringChanged: () => {
+                clearTimeout(searchTimeout);
+                const searchString = SEARCH_USER_ELEMENT.val();
+
+                if (searchString.length === 0) {
+                    SEARCH_USER_RESULT_ELEMENT.children().remove();
+                    return;
+                }
+
+                searchTimeout = setTimeout(() => inviteUserSearch.searchUser(searchString), SEARCH_ACTIVATION_DELAY);
+            },
+            searchUser: (searchString) => {
+                request.skip = 0;
+                request.take = displayedAmount;
+                request.text = searchString;
+                request.isInvite = true;
+                ajax.post(routes.GET_NOT_INVITED_USERS, request)
+                    .then(result => {
+                        var rows = $(result.data).filter("div");
+                        SEARCH_USER_RESULT_ELEMENT.children().remove();
+                        SEARCH_USER_RESULT_ELEMENT.append(rows);
+                        INVITE_USER_ELEMENT = $(".js-user-invite-member");
+                        INVITE_USER_ELEMENT.on("click", inviteUserSearch.inviteUser);
+                        
+                        updateUI(rows);
+                    });
+            },
+            inviteUser: (e) => {
+
+                var row = $(e.target).closest(".js-user-list-row");
+                var groupId = row.data("group-id");
+                var userId = row.data("id");
+                ajax.post(routes.INVITE_USER, buildGroupMemberModel(userId, groupId))
+                    .then(
+                        function (resolve) {
+                        
+                        },
+                        function (reject) {
+                        
+                        }
+                    );
+            }
+        };
+
+        MEMBER_SEARCH_SUBMIT_BUTTON.click(onSearchClick);
+        
         addRemoveUserFromGroupHandler(displayedRows);
         toggleAdminRights(displayedRows);
+        addDetailsHandler(displayedRows);
+        openSearchModalPage(OPEN_INVITE_MODAL_ELEMENT);
 
         function init() {
             request = window.userListConfig.request;
@@ -57,8 +131,7 @@ let controller = {
         function onKeyPress(e) {
             if (e.which === 13 || e.KeyCode === 13 || e.charCode === 13) {
                 search(searchBoxElement.val());
-                e.preventDefault();
-                e.stopPropagation();
+                eventPreprocessing(e);
             }
         }
 
@@ -66,7 +139,7 @@ let controller = {
             request.skip = tableBody.children("div").length;
             request.take = amountPerRequest;
 
-            ajax.post(url, request)
+            ajax.post(routes.GET_USERS, request)
                 .then(result => {
                     var rows = $(result.data).filter("div");
                     tableBody.append(rows);
@@ -79,15 +152,14 @@ let controller = {
         function onSearchStringChanged() {
             clearTimeout(searchTimeout);
             const searchString = searchBoxElement.val();
-            searchTimeout = setTimeout(() => search(searchString), searchActivationDelay);
+            searchTimeout = setTimeout(() => search(searchString), SEARCH_ACTIVATION_DELAY);
         }
 
         function search(searchString) {
             request.skip = 0;
             request.take = displayedAmount;
             request.text = searchString;
-
-            ajax.post(url, request)
+            ajax.post(routes.GET_USERS, request)
                 .then(result => {
                     var rows = $(result.data).filter("div");
                     tableBody.children().remove();
@@ -123,7 +195,7 @@ let controller = {
                         var row = $(this).closest(".js-user-list-row");
                         var groupId = row.data("group-id");
                         var userId = row.data("id");
-                        ajax.post(excludeUserFromGroupUrl, { groupId: groupId, userId: userId })
+                        ajax.post(routes.EXCLUDE_USER_FROM_GROUP, { groupId: groupId, userId: userId })
                             .then(function(result) {
                                 if (result.data) {
                                     row.remove();
@@ -137,29 +209,22 @@ let controller = {
         }
 
         function toggleAdminRights(rows) {
-            var checkboxes = rows.find(".js-user-list-toggle-admin-rights");
-            checkboxes.click(function(e) {
+            
+            var select = rows.find(".js-user-list-toggle-admin-rights");
+            select.click(function (e) {
                 eventPreprocessing(e);
-
+                });
+            select.change(function(e) {
+                eventPreprocessing(e);
                 var row = $(this).closest(".js-user-list-row");
                 var groupId = row.data("group-id");
                 var userId = row.data("id");
 
-                ajax.put(urlToggleAdminRights, { groupId: groupId, memberId: userId })
-                    .then(function(result) {
-                        if (result.status === 200) {
-                            var checkbox = $(row[0]).find(".js-user-list-toggle-admin-rights");
-                            if (checkbox.is(':checked')) {
-                                $(row[0]).find("span").last().text("Group Member");
-                                checkbox.prop('checked', false);
-                            } else {
-                                $(row[0]).find("span").last().text("Group Admin");
-                                checkbox.prop('checked', true);
-                            }
-                        }
-                    });
+                ajax.put(routes.TOGGLE_ADMIN_RIGHTS, { groupId: groupId, memberId: userId })
+                    .then(function(result) {});
             });
         }
+
         function eventPreprocessing(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -173,6 +238,41 @@ let controller = {
             if (!results) return null;
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+        
+        function openSearchModalPage(openSearchModalButton) {
+            openSearchModalButton.click(
+                function(event) {
+                    eventPreprocessing(event);
+                    alertify.alert(
+                        'People',
+                        '<h4 class="user-search__subtitle">Search people</h4>' +
+                        '<form class="user-search__form">' +
+                        '<input type="text" name="search" class="user-search__input js-user-search" placeholder="Search for name, phone number, e-mail or anything else" />' +
+                        '<button class="user-search__button js-search-button" type="button">' +
+                        '<span class="icon-search">' +
+                        '<svg class="svg-icon" viewBox="0 0 32 32" width="30px" height="30px">' +
+                        '<use xlink: href="#icon-search" x="0" y="0"></use>' +
+                        '</svg>' +
+                '</span > ' +
+            '</button > ' +
+        '</form >' +
+                        '<ul class="list-group js-user-search-result"></ul>', 
+                        function() { }
+                    );
+                    SEARCH_USER_ELEMENT = $(".js-user-search");
+                    SEARCH_USER_ELEMENT.on("input", inviteUserSearch.searchStringChanged);
+                    SEARCH_USER_ELEMENT.val('');
+                    SEARCH_USER_RESULT_ELEMENT = $(".js-user-search-result");
+                    SEARCH_USER_RESULT_ELEMENT.on("keypress", inviteUserSearch.keyPress);
+                    SEARCH_USER_RESULT_ELEMENT.children().remove();
+                    $('.alertify').addClass('alertify--custom');
+                }
+            );
+        }
+
+        function buildGroupMemberModel(memberId, groupId) {
+            return { memberId: memberId, groupId: groupId };
         }
     }
 };

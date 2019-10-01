@@ -383,6 +383,7 @@
     <Compile Include="Core\Models\SearchResultsOverviewViewModel.cs" />
     <Compile Include="Core\Models\SearchBoxAutocompleteItemViewModel.cs" />
     <Compile Include="Core\Models\SearchScoreModel.cs" />
+    <Compile Include="Core\Queries\MemberSearchQuery.cs" />
     <Compile Include="Core\UmbracoEventServices\SearchMediaEventService.cs" />
     <Compile Include="Core\Exceptions\ElasticSearchRequestErrorException.cs" />
     <Compile Include="Core\UmbracoEventServices\VideoConvertEventService.cs" />
