@@ -52,7 +52,9 @@ namespace Uintra.Core.OpenGraph.Services
 
             var intranetActivityService = (IIntranetActivityService<IIntranetActivity>)_activitiesServiceFactory
                 .GetService<IIntranetActivityService>(activityId);
-            var currentActivity = intranetActivityService.Get(activityId);
+            var currentActivity = intranetActivityService?.Get(activityId);
+            if (currentActivity == null)
+                return obj;
 
             obj.Title = currentActivity.Title;
             obj.Description = currentActivity.Description.StripHtml().TrimByWordEnd(100);
