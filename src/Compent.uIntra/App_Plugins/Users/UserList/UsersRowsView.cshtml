@@ -3,6 +3,11 @@
 @using Uintra.Users.UserList
 @using Uintra.Core.Extensions
 
+@if (Model.IsCurrentMemberGroupAdmin)
+{
+    <button class="btn btn-default js-open-search-modal-page"> Invite Member</button>
+}
+
 @foreach (var member in Model.Members)
 {
     <div data-profile="@member.ProfileUrl"

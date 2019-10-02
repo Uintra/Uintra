@@ -6,16 +6,16 @@ var alertify = require('alertifyjs/build/alertify.min');
 require('alertifyjs/build/css/alertify.min.css');
 require("./user-list.css");
 
-const searchBoxElement = $(".js-user-list-filter");
-
-const table = $(".js-user-list-table");
-const tableBody = $(".js-user-list-table .js-tbody");
-const button = $(".js-user-list-button"); // Load More Button
-const displayedRows = $(".js-user-list-row");
-const emptyResultLabel = $(".js-user-list-empty-result");
+const SEARCH_MEMBER_INPUT = $(".js-user-list-filter");
+const TABLE = $(".js-user-list-table");
+const TABLE_BODY = $(".js-user-list-table .js-tbody");
+const LOAD_MORE_BUTTON = $(".js-user-list-button");
+const DISPLAYED_ROWS = $(".js-user-list-row");
+const EMPTY_RESULT_LABEL = $(".js-user-list-empty-result");
 const MEMBER_SEARCH_SUBMIT_BUTTON = $(".js-search-button");
 const OPEN_INVITE_MODAL_ELEMENT = $(".js-open-search-modal-page");
 const SEARCH_ACTIVATION_DELAY = 256;
+
 const ROUTE_PREFIX = '/umbraco/surface/UserList/';
 
 var routes = {
@@ -32,6 +32,7 @@ var routes = {
 var SEARCH_USER_ELEMENT; 
 var SEARCH_USER_RESULT_ELEMENT;
 var INVITE_USER_ELEMENT;
+var ROW_TO_DELETE;
 
 let lastRequestClassName = "last";
 
@@ -45,14 +46,13 @@ let confirmText;
 let controller = {
     init: function() {
 
-        if (tableBody.length === 0) return;
+        if (TABLE_BODY.length === 0) return;
 
         init();
-        button.click(onButtonClick);
+        LOAD_MORE_BUTTON.click(onButtonClick);
 
-        searchBoxElement.on("input", onSearchStringChanged); 
-        searchBoxElement.on("keypress", onKeyPress);
-        
+        SEARCH_MEMBER_INPUT.on("input", onSearchStringChanged); 
+        SEARCH_MEMBER_INPUT.on("keypress", onKeyPress);
 
         var inviteUserSearch = {
             keyPress: (e) => {
@@ -93,6 +93,7 @@ let controller = {
                 var row = $(e.target).closest(".js-user-list-row");
                 var groupId = row.data("group-id");
                 var userId = row.data("id");
+                inviteUserSearch.disableInviteButton(row);
                 ajax.post(routes.INVITE_USER, buildGroupMemberModel(userId, groupId))
                     .then(
                         function (resolve) {
@@ -102,14 +103,17 @@ let controller = {
                         
                         }
                     );
+            },
+            disableInviteButton: (row) => {
+                $(row).find(".js-user-invite-member").prop("disabled", true);
             }
         };
 
         MEMBER_SEARCH_SUBMIT_BUTTON.click(onSearchClick);
         
-        addRemoveUserFromGroupHandler(displayedRows);
-        toggleAdminRights(displayedRows);
-        addDetailsHandler(displayedRows);
+        addRemoveUserFromGroupHandler(DISPLAYED_ROWS);
+        toggleAdminRights(DISPLAYED_ROWS);
+        addDetailsHandler(DISPLAYED_ROWS);
         openSearchModalPage(OPEN_INVITE_MODAL_ELEMENT);
 
         function init() {
@@ -117,12 +121,12 @@ let controller = {
             displayedAmount = window.userListConfig.displayedAmount;
             amountPerRequest = window.userListConfig.amountPerRequest;
             request.groupId = new URL(window.location.href).searchParams.get("groupId");
-            confirmTitle = table.data("title");
-            confirmText = table.data("text");
+            confirmTitle = TABLE.data("title");
+            confirmText = TABLE.data("text");
         }
 
         function onSearchClick(e) {
-            const query = searchBoxElement.val();
+            const query = SEARCH_MEMBER_INPUT.val();
             if (query) {
                 search(query);
             }
@@ -130,19 +134,19 @@ let controller = {
 
         function onKeyPress(e) {
             if (e.which === 13 || e.KeyCode === 13 || e.charCode === 13) {
-                search(searchBoxElement.val());
+                search(SEARCH_MEMBER_INPUT.val());
                 eventPreprocessing(e);
             }
         }
 
         function onButtonClick(event) {
-            request.skip = tableBody.children("div").length;
+            request.skip = TABLE_BODY.children("div").length;
             request.take = amountPerRequest;
 
             ajax.post(routes.GET_USERS, request)
                 .then(result => {
                     var rows = $(result.data).filter("div");
-                    tableBody.append(rows);
+                    TABLE_BODY.append(rows);
                     addDetailsHandler(rows);
                     addRemoveUserFromGroupHandler(rows);
                     updateUI(rows);
@@ -151,7 +155,7 @@ let controller = {
 
         function onSearchStringChanged() {
             clearTimeout(searchTimeout);
-            const searchString = searchBoxElement.val();
+            const searchString = SEARCH_MEMBER_INPUT.val();
             searchTimeout = setTimeout(() => search(searchString), SEARCH_ACTIVATION_DELAY);
         }
 
@@ -162,8 +166,9 @@ let controller = {
             ajax.post(routes.GET_USERS, request)
                 .then(result => {
                     var rows = $(result.data).filter("div");
-                    tableBody.children().remove();
-                    tableBody.append(rows);
+                    ROW_TO_DELETE = $(".js-user-list-row");
+                    $(ROW_TO_DELETE).remove();
+                    TABLE_BODY.append(rows);
                     addDetailsHandler(rows);
                     addRemoveUserFromGroupHandler(rows);
                     updateUI(rows);
@@ -171,10 +176,10 @@ let controller = {
         }
 
         function updateUI(rows) {
-            if (tableBody.children("div").length === 0) emptyResultLabel.show();
-            else emptyResultLabel.hide();
-            if (rows.hasClass(lastRequestClassName) || rows.length === 0) button.hide();
-            else button.show();
+            if (TABLE_BODY.children("div").length === 0) EMPTY_RESULT_LABEL.show();
+            else EMPTY_RESULT_LABEL.hide();
+            if (rows.hasClass(lastRequestClassName) || rows.length === 0) LOAD_MORE_BUTTON.hide();
+            else LOAD_MORE_BUTTON.show();
         }
 
         function addDetailsHandler(rows) {
@@ -188,7 +193,6 @@ let controller = {
             var deleteButtons = rows.find(".js-user-list-delete");
             deleteButtons.click(function(e) {
                 eventPreprocessing(e);
-
                 confirm.showConfirm(confirmTitle,
                     confirmText,
                     () => {
@@ -248,27 +252,32 @@ let controller = {
                         'People',
                         '<h4 class="user-search__subtitle">Search people</h4>' +
                         '<form class="user-search__form">' +
-                        '<input type="text" name="search" class="user-search__input js-user-search" placeholder="Search for name, phone number, e-mail or anything else" />' +
-                        '<button class="user-search__button js-search-button" type="button">' +
-                        '<span class="icon-search">' +
-                        '<svg class="svg-icon" viewBox="0 0 32 32" width="30px" height="30px">' +
-                        '<use xlink: href="#icon-search" x="0" y="0"></use>' +
-                        '</svg>' +
-                '</span > ' +
-            '</button > ' +
-        '</form >' +
+                            '<input type="text" name="search" class="user-search__input js-user-search" placeholder="Search for name, phone number, e-mail or anything else" />' +
+                            '<button class="user-search__button js-search-button" type="button">' +
+                                '<span class="icon-search">' +
+                                    '<svg class="svg-icon" viewBox="0 0 32 32" width="30px" height="30px">' +
+                                        '<use xlink: href="#icon-search" x="0" y="0"></use>' + 
+                                   '</svg>' +
+                                '</span > ' +
+                            '</button > ' +
+                        '</form >' +
                         '<ul class="list-group js-user-search-result"></ul>', 
                         function() { }
                     );
-                    SEARCH_USER_ELEMENT = $(".js-user-search");
-                    SEARCH_USER_ELEMENT.on("input", inviteUserSearch.searchStringChanged);
-                    SEARCH_USER_ELEMENT.val('');
-                    SEARCH_USER_RESULT_ELEMENT = $(".js-user-search-result");
-                    SEARCH_USER_RESULT_ELEMENT.on("keypress", inviteUserSearch.keyPress);
-                    SEARCH_USER_RESULT_ELEMENT.children().remove();
-                    $('.alertify').addClass('alertify--custom');
+                    postOpenSearchModalPage();
                 }
             );
+            
+        }
+
+        function postOpenSearchModalPage() {
+            SEARCH_USER_ELEMENT = $(".js-user-search");
+            SEARCH_USER_ELEMENT.on("input", inviteUserSearch.searchStringChanged);
+            SEARCH_USER_ELEMENT.val('');
+            SEARCH_USER_RESULT_ELEMENT = $(".js-user-search-result");
+            SEARCH_USER_RESULT_ELEMENT.on("keypress", inviteUserSearch.keyPress);
+            SEARCH_USER_RESULT_ELEMENT.children().remove();
+            $('.alertify').addClass('alertify--custom');
         }
 
         function buildGroupMemberModel(memberId, groupId) {
