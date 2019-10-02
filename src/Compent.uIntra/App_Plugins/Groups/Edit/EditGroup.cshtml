@@ -24,12 +24,11 @@
             <div class="form__row clearfix">
                 <label class="form__label"
                        for="description">@Html.Localize("GroupEdit.Description.lbl") <span class="form__required">*</span></label>
-
-                        <div class="comments__form-field quill--custom-container">
+                        <div class="groups__form-field quill--custom-container">
                             <div class="js-group-edit-description">
                                 @Html.Raw(Model.Description)
                             </div>
-                            <div class="comments__toolbar js-comments-toolbar"></div>
+                            <div class="groups__toolbar"></div>
                         </div>
                     <input class="form__textarea js-hidden-group-edit-description"
                               name="description"

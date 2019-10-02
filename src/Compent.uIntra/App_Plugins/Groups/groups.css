@@ -27,6 +27,8 @@
 }
 
 .groups {
+
+
     padding-top:10px;
 
     @media (--for-tablet-landscape-up){
@@ -39,6 +41,19 @@
         right: -5px;
         z-index: 11;
         display:none;
+    }
+    &__form{
+        position:relative;
+
+        &-field {
+            margin:0 0 10px;
+        }
+    }
+
+    &__toolbar{
+        display:flex;
+        flex-direction:row-reverse;
+        padding:10px 0 0;
     }
 
     &__list{
