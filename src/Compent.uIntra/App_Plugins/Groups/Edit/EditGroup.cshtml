@@ -1,6 +1,7 @@
 ﻿@using Uintra.Core.Controls.FileUpload
 @using Uintra.Core.Extensions
 @model Uintra.Groups.GroupEditModel
+
 <div class="form"
      id="js-group-edit-page">
     @using (Html.BeginUmbracoForm("Edit", "Group", FormMethod.Post, new { id = "editForm" }))
@@ -23,10 +24,18 @@
             <div class="form__row clearfix">
                 <label class="form__label"
                        for="description">@Html.Localize("GroupEdit.Description.lbl") <span class="form__required">*</span></label>
-                    <textarea class="form__textarea"
+                        <div class="groups__form-field quill--custom-container">
+                            <div class="js-group-edit-description">
+                                @Html.Raw(Model.Description)
+                            </div>
+                            <div class="groups__toolbar"></div>
+                        </div>
+                    <input class="form__textarea js-hidden-group-edit-description"
                               name="description"
                               data-val-required="@Html.Localize("GroupEdit.DescriptionRequired.lbl")"
-                              data-val="true">@Model.Description</textarea>
+                              data-val="true"
+                              value="@Model.Description"
+                              type="hidden"/>
                 </div>
                 <div class="form__row clearfix">
                     <label class="form__label"
