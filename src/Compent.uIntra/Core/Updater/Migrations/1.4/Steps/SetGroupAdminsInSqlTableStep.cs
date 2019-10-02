@@ -15,23 +15,18 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._4.Steps
         }
         public ExecutionResult Execute()
         {
-            try
+            var groups = _groupService.GetAll();
+
+            foreach (var group in groups)
             {
-                var groups = _groupService.GetAll();
+                var creator = _groupMemberService.GetGroupMemberByMemberIdAndGroupId(group.CreatorId, group.Id);
 
-                foreach (var group in groups)
-                {
-                    var creator = _groupMemberService.GetGroupMemberByMemberIdAndGroupId(group.CreatorId, group.Id);
+                if(creator == null) continue;
 
-                    if (creator.IsAdmin) continue;
+                if (creator.IsAdmin) continue;
 
-                    creator.IsAdmin = true;
-                    _groupMemberService.Update(creator);
-                }
-            }
-            catch (Exception ex)
-            {
-
+                creator.IsAdmin = true;
+                _groupMemberService.Update(creator);
             }
 
             return ExecutionResult.Success;
