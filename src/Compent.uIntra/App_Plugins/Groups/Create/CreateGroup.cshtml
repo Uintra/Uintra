@@ -24,10 +24,18 @@
             <div class="form__row clearfix">
                 <label class="form__label"
                        for="description">@Html.Localize("GroupCreate.Description.lbl") <span class="form__required">*</span></label>
-                    <textarea class="form__textarea"
+                        <div class="comments__form-field quill--custom-container">
+                            <div class="js-group-create-description"></div>
+                            <div class="comments__toolbar js-comments-toolbar"></div>
+                        </div>
+                        <input class="form__textarea js-hidden-group-create-description"
                               name="description"
                               data-val-required="@Html.Localize("CreateIGroup.DescriptionRequired.lbl")"
-                              data-val="true">@Model.Description</textarea>
+                              data-val="true"
+                              typeof="hidden"
+                              value="@Model.Description"
+                              type="hidden"/>
+                    
                 </div>
                 <div class="form__row clearfix">
                     <label class="form__label"
