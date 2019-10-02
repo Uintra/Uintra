@@ -19,6 +19,7 @@ using Uintra.Search;
 using Compent.Uintra.Core.UserTags;
 using Uintra.Core;
 using Uintra.Core.Activity;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Groups.Extentions;
 using Uintra.Users;
 
@@ -49,8 +50,9 @@ namespace Compent.Uintra.Controllers
             IActivityTagsHelper activityTagsHelper,
             IActivityLinkService activityLinkService,
             IContextTypeProvider contextTypeProvider,
-            IMentionService mentionService)
-            : base(intranetMemberService, newsService, mediaHelper, activityTypeProvider, activityLinkService, contextTypeProvider)
+            IMentionService mentionService,
+            IPermissionsService permissionsService)
+            : base(intranetMemberService, newsService, mediaHelper, activityTypeProvider, activityLinkService, contextTypeProvider, permissionsService)
         {
             _intranetMemberService = intranetMemberService;
             _newsService = newsService;

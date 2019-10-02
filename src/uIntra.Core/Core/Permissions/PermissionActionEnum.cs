@@ -16,6 +16,9 @@ namespace Uintra.Core.Permissions
         [Display(Name = "Delete other")]
         DeleteOther,
         [Display(Name = "Hide other")]
-        HideOther
-    }
+        HideOther,
+        [Display(Name = "Can Pin")]
+        CanPin
+
+	}
 }

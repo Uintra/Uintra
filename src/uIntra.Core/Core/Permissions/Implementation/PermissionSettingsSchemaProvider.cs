@@ -11,70 +11,70 @@ using static Uintra.Core.Permissions.PermissionResourceTypeEnum;
 
 namespace Uintra.Core.Permissions.Implementation
 {
-    public class PermissionSettingsSchemaProvider : IPermissionSettingsSchemaProvider
-    {
-        private const bool GlobalIsAllowedDefault = false;
-        private const bool GlobalIsEnabledDefault = true;
+	public class PermissionSettingsSchemaProvider : IPermissionSettingsSchemaProvider
+	{
+		private const bool GlobalIsAllowedDefault = false;
+		private const bool GlobalIsEnabledDefault = true;
 
-        protected readonly Dictionary<PermissionSettingIdentity, PermissionSettingValues> SettingsOverrides =
-            new Dictionary<PermissionSettingIdentity, PermissionSettingValues>();
+		protected readonly Dictionary<PermissionSettingIdentity, PermissionSettingValues> SettingsOverrides =
+			new Dictionary<PermissionSettingIdentity, PermissionSettingValues>();
 
-        protected  ResourceToActionRelation[] BaseSettingsSchema =
-        {
-            Of(Bulletins,
-                Tree(View,
-                    Tree(Create),
-                    Tree(Edit,
-                        Tree(Delete)),
-                    Tree(EditOther,
-                        Tree(DeleteOther))
-                    )),
-            Of(Events,
-                Tree(View,
-                    Tree(Create),
-                    Tree(Edit,
-                        Tree(Hide)),
-                    Tree(EditOther,
-                        Tree(HideOther),
-                        Tree(EditOwner))
-                    )),
-            Of(News,
-                Tree(View,
-                    Tree(Create),
-                    Tree(Edit),
-                    Tree(EditOther,
-                        Tree(EditOwner))
-                    )),
-            Of(Groups,
-                Tree(Create),
-                Tree(Edit,
-                    Tree(Hide)),
-                Tree(EditOther,
-                    Tree(HideOther)))
-        };
+		protected ResourceToActionRelation[] BaseSettingsSchema =
+		{
+			Of(Bulletins,
+				Tree(View,
+					Tree(Create),
+					Tree(Edit,
+						Tree(Delete)),
+					Tree(EditOther,
+						Tree(DeleteOther))
+					)),
+			Of(Events,
+				Tree(View,
+					Tree(Create),
+					Tree(Edit,
+						Tree(Hide,Tree(CanPin))),
+					Tree(EditOther,
+						Tree(HideOther),
+						Tree(EditOwner))
+					)),
+			Of(News,
+				Tree(View,
+					Tree(Create),
+					Tree(Edit,Tree(CanPin)),
+					Tree(EditOther,
+						Tree(EditOwner))
+					)),
+			Of(Groups,
+				Tree(Create),
+				Tree(Edit,
+					Tree(Hide)),
+				Tree(EditOther,
+					Tree(HideOther)))
+		};
 
-        public virtual PermissionSettingValues DefaultSettingsValues =>
-            PermissionSettingValues.Of(GlobalIsAllowedDefault, GlobalIsEnabledDefault);
+		public virtual PermissionSettingValues DefaultSettingsValues =>
+			PermissionSettingValues.Of(GlobalIsAllowedDefault, GlobalIsEnabledDefault);
 
-        public virtual PermissionSettingSchema[] Settings { get; }
+		public virtual PermissionSettingSchema[] Settings { get; }
 
-        public virtual ILookup<PermissionSettingIdentity, PermissionSettingIdentity> SettingsByParentSettingIdentityLookup{ get; }
+		public virtual ILookup<PermissionSettingIdentity, PermissionSettingIdentity> SettingsByParentSettingIdentityLookup { get; }
 
-        public PermissionSettingsSchemaProvider()
-        {
-            Settings = BuildSettings(BaseSettingsSchema);
-            SettingsByParentSettingIdentityLookup = BuildSettingsByParentSettingIdentityLookup(Settings);
-        }
+		public PermissionSettingsSchemaProvider()
+		{
+			Settings = BuildSettings(BaseSettingsSchema);
+			SettingsByParentSettingIdentityLookup = BuildSettingsByParentSettingIdentityLookup(Settings);
+		}
 
-        public virtual IEnumerable<PermissionSettingIdentity> GetDescendants(PermissionSettingIdentity parent)
-        {
-            var children = SettingsByParentSettingIdentityLookup[parent].ToArray();
-            return children.Concat(children.SelectMany(GetDescendants));
-        }
+		public virtual IEnumerable<PermissionSettingIdentity> GetDescendants(PermissionSettingIdentity parent)
+		{
+			var children = SettingsByParentSettingIdentityLookup[parent].ToArray();
+			return children.Concat(children.SelectMany(GetDescendants));
+		}
 
-        public virtual PermissionSettingValues GetDefault(PermissionSettingIdentity settingIdentity) =>
-            SettingsOverrides
-                .ItemOrNone(settingIdentity)
-                .IfNone(() => PermissionSettingValues.Of(GlobalIsAllowedDefault, GlobalIsEnabledDefault));     
-    }
+		public virtual PermissionSettingValues GetDefault(PermissionSettingIdentity settingIdentity) =>
+			SettingsOverrides
+				.ItemOrNone(settingIdentity)
+				.IfNone(() => PermissionSettingValues.Of(GlobalIsAllowedDefault, GlobalIsEnabledDefault));
+	}
 }

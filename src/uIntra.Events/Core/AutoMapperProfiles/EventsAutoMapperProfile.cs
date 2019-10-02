@@ -26,7 +26,8 @@ namespace Uintra.Events
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
 
             Mapper.CreateMap<EventBase, EventCreateModel>()
-                .ForMember(dst => dst.Links, o => o.Ignore())
+	            .ForMember(dst => dst.PinAllowed, o => o.Ignore())
+				.ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.OwnerId, o => o.Ignore())
@@ -34,7 +35,8 @@ namespace Uintra.Events
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             Mapper.CreateMap<EventBase, EventEditModel>()
-                .ForMember(dst => dst.Links, o => o.Ignore())
+	            .ForMember(dst => dst.PinAllowed, o => o.Ignore())
+				.ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.NotifyAllSubscribers, o => o.Ignore())

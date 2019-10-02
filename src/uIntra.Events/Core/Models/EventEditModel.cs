@@ -37,5 +37,7 @@ namespace Uintra.Events
         public string LocationTitle { get; set; }
 
         public bool CanHide { get; set; }
-    }
+
+        public bool PinAllowed { get; set; }
+	}
 }

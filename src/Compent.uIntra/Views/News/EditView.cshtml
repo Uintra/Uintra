@@ -59,9 +59,12 @@
             @Html.Label("Location", Html.Localize("Activity.Location.lbl"), new { @class = "form__label" })
             @Html.Action("Edit", "ActivityLocation", new { location = Model.Location })
         </div>
-        <div class="form__row clearfix">
-            @Html.Action("PinActivity", "Activity", new { isPinned = @Model.IsPinned, endPinDate = @Model.EndPinDate })
-        </div>
+        if (Model.PinAllowed)
+        {
+            <div class="form__row clearfix">
+                @Html.Action("PinActivity", "Activity", new { isPinned = @Model.IsPinned, endPinDate = @Model.EndPinDate })
+            </div>
+        }
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("NewsEdit.UploadFiles.lbl")</label>
             @{
