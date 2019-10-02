@@ -18,6 +18,7 @@ const OPEN_INVITE_MODAL_ELEMENT = $(".js-open-search-modal-page");
 const SEARCH_ACTIVATION_DELAY = 256;
 const ROUTE_PREFIX = '/umbraco/surface/UserList/';
 
+
 var routes = {
     GET_USERS: ROUTE_PREFIX + 'GetUsers',
     EXCLUDE_USER_FROM_GROUP: ROUTE_PREFIX + 'ExcludeUserFromGroup',
@@ -32,6 +33,7 @@ var routes = {
 var SEARCH_USER_ELEMENT; 
 var SEARCH_USER_RESULT_ELEMENT;
 var INVITE_USER_ELEMENT;
+var ROW_TO_DELETE;
 
 let lastRequestClassName = "last";
 
@@ -64,12 +66,6 @@ let controller = {
             searchStringChanged: () => {
                 clearTimeout(searchTimeout);
                 const searchString = SEARCH_USER_ELEMENT.val();
-
-                if (searchString.length === 0) {
-                    SEARCH_USER_RESULT_ELEMENT.children().remove();
-                    return;
-                }
-
                 searchTimeout = setTimeout(() => inviteUserSearch.searchUser(searchString), SEARCH_ACTIVATION_DELAY);
             },
             searchUser: (searchString) => {
@@ -162,7 +158,8 @@ let controller = {
             ajax.post(routes.GET_USERS, request)
                 .then(result => {
                     var rows = $(result.data).filter("div");
-                    tableBody.children().remove();
+                    ROW_TO_DELETE = $(".js-user-list-row");
+                    $(ROW_TO_DELETE).remove();
                     tableBody.append(rows);
                     addDetailsHandler(rows);
                     addRemoveUserFromGroupHandler(rows);
@@ -263,6 +260,7 @@ let controller = {
                     SEARCH_USER_ELEMENT = $(".js-user-search");
                     SEARCH_USER_ELEMENT.on("input", inviteUserSearch.searchStringChanged);
                     SEARCH_USER_ELEMENT.val('');
+                    inviteUserSearch.searchStringChanged();
                     SEARCH_USER_RESULT_ELEMENT = $(".js-user-search-result");
                     SEARCH_USER_RESULT_ELEMENT.on("keypress", inviteUserSearch.keyPress);
                     SEARCH_USER_RESULT_ELEMENT.children().remove();
