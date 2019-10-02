@@ -66,6 +66,12 @@ let controller = {
             searchStringChanged: () => {
                 clearTimeout(searchTimeout);
                 const searchString = SEARCH_USER_ELEMENT.val();
+
+                if (searchString.length === 0) {
+                    SEARCH_USER_RESULT_ELEMENT.children().remove();
+                    return;
+                }
+
                 searchTimeout = setTimeout(() => inviteUserSearch.searchUser(searchString), SEARCH_ACTIVATION_DELAY);
             },
             searchUser: (searchString) => {
@@ -260,7 +266,6 @@ let controller = {
                     SEARCH_USER_ELEMENT = $(".js-user-search");
                     SEARCH_USER_ELEMENT.on("input", inviteUserSearch.searchStringChanged);
                     SEARCH_USER_ELEMENT.val('');
-                    inviteUserSearch.searchStringChanged();
                     SEARCH_USER_RESULT_ELEMENT = $(".js-user-search-result");
                     SEARCH_USER_RESULT_ELEMENT.on("keypress", inviteUserSearch.keyPress);
                     SEARCH_USER_RESULT_ELEMENT.children().remove();
