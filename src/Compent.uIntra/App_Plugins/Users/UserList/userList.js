@@ -18,7 +18,6 @@ const OPEN_INVITE_MODAL_ELEMENT = $(".js-open-search-modal-page");
 const SEARCH_ACTIVATION_DELAY = 256;
 const ROUTE_PREFIX = '/umbraco/surface/UserList/';
 
-
 var routes = {
     GET_USERS: ROUTE_PREFIX + 'GetUsers',
     EXCLUDE_USER_FROM_GROUP: ROUTE_PREFIX + 'ExcludeUserFromGroup',
@@ -54,7 +53,6 @@ let controller = {
 
         searchBoxElement.on("input", onSearchStringChanged); 
         searchBoxElement.on("keypress", onKeyPress);
-        
 
         var inviteUserSearch = {
             keyPress: (e) => {
@@ -95,6 +93,7 @@ let controller = {
                 var row = $(e.target).closest(".js-user-list-row");
                 var groupId = row.data("group-id");
                 var userId = row.data("id");
+                inviteUserSearch.disableInviteButton(row);
                 ajax.post(routes.INVITE_USER, buildGroupMemberModel(userId, groupId))
                     .then(
                         function (resolve) {
@@ -104,6 +103,9 @@ let controller = {
                         
                         }
                     );
+            },
+            disableInviteButton: (row) => {
+                $(row).find(".js-user-invite-member").prop("disabled", true);
             }
         };
 
@@ -191,7 +193,6 @@ let controller = {
             var deleteButtons = rows.find(".js-user-list-delete");
             deleteButtons.click(function(e) {
                 eventPreprocessing(e);
-
                 confirm.showConfirm(confirmTitle,
                     confirmText,
                     () => {
@@ -251,27 +252,32 @@ let controller = {
                         'People',
                         '<h4 class="user-search__subtitle">Search people</h4>' +
                         '<form class="user-search__form">' +
-                        '<input type="text" name="search" class="user-search__input js-user-search" placeholder="Search for name, phone number, e-mail or anything else" />' +
-                        '<button class="user-search__button js-search-button" type="button">' +
-                        '<span class="icon-search">' +
-                        '<svg class="svg-icon" viewBox="0 0 32 32" width="30px" height="30px">' +
-                        '<use xlink: href="#icon-search" x="0" y="0"></use>' +
-                        '</svg>' +
-                '</span > ' +
-            '</button > ' +
-        '</form >' +
+                            '<input type="text" name="search" class="user-search__input js-user-search" placeholder="Search for name, phone number, e-mail or anything else" />' +
+                            '<button class="user-search__button js-search-button" type="button">' +
+                                '<span class="icon-search">' +
+                                    '<svg class="svg-icon" viewBox="0 0 32 32" width="30px" height="30px">' +
+                                        '<use xlink: href="#icon-search" x="0" y="0"></use>' + 
+                                   '</svg>' +
+                                '</span > ' +
+                            '</button > ' +
+                        '</form >' +
                         '<ul class="list-group js-user-search-result"></ul>', 
                         function() { }
                     );
-                    SEARCH_USER_ELEMENT = $(".js-user-search");
-                    SEARCH_USER_ELEMENT.on("input", inviteUserSearch.searchStringChanged);
-                    SEARCH_USER_ELEMENT.val('');
-                    SEARCH_USER_RESULT_ELEMENT = $(".js-user-search-result");
-                    SEARCH_USER_RESULT_ELEMENT.on("keypress", inviteUserSearch.keyPress);
-                    SEARCH_USER_RESULT_ELEMENT.children().remove();
-                    $('.alertify').addClass('alertify--custom');
+                    postOpenSearchModalPage();
                 }
             );
+            
+        }
+
+        function postOpenSearchModalPage() {
+            SEARCH_USER_ELEMENT = $(".js-user-search");
+            SEARCH_USER_ELEMENT.on("input", inviteUserSearch.searchStringChanged);
+            SEARCH_USER_ELEMENT.val('');
+            SEARCH_USER_RESULT_ELEMENT = $(".js-user-search-result");
+            SEARCH_USER_RESULT_ELEMENT.on("keypress", inviteUserSearch.keyPress);
+            SEARCH_USER_RESULT_ELEMENT.children().remove();
+            $('.alertify').addClass('alertify--custom');
         }
 
         function buildGroupMemberModel(memberId, groupId) {
