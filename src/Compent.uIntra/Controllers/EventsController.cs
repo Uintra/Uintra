@@ -11,6 +11,7 @@ using Uintra.Core.Activity;
 using Uintra.Core.Extensions;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Events;
@@ -55,8 +56,9 @@ namespace Compent.Uintra.Controllers
             IGroupMemberService groupMemberService,
             IContextTypeProvider contextTypeProvider,
             IActivityPageHelperFactory activityPageHelperFactory,
-            IMentionService mentionService)
-            : base(eventsService, mediaHelper, intranetMemberService, activityTypeProvider, activityLinkService, contextTypeProvider, activityPageHelperFactory)
+            IMentionService mentionService,
+            IPermissionsService permissionsService)
+            : base(eventsService, mediaHelper, intranetMemberService, activityTypeProvider, activityLinkService, contextTypeProvider, activityPageHelperFactory, permissionsService)
         {
             _eventsService = eventsService;
             _intranetMemberService = intranetMemberService;

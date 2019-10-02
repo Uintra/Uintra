@@ -79,14 +79,14 @@ var initDatePickers = function () {
         if (endDate != null && endDate < new Date(newDate)) {
             end.setDate(newDate, true);
         }
-
-     //   end.set('minDate', newDate);
     }
 
     function publishOnChange(newDates) {
         var newDate = newDates[0];
-        pin.setDate(newDate, true);
-        pin.set('minDate', newDate);
+        if (pin) {
+            pin.setDate(newDate, true);
+            pin.set('minDate', newDate);    
+        }
     }
 
     start.config.onChange.push(startOnChange);

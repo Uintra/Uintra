@@ -238,7 +238,13 @@ namespace Uintra.News.Web
 			news.UnpublishDate = createModel.UnpublishDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(createModel.UnpublishDate.Value);
 			news.EndPinDate = createModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(createModel.EndPinDate.Value);
 			news.CreatorId = _intranetMemberService.GetCurrentMemberId();
-			news.IsPinned = createModel.PinAllowed && news.IsPinned;
+
+			if (!IsPinAllowed())
+			{
+				news.IsPinned = false;
+				news.EndPinDate = null;
+			}
+
 			return news;
 		}
 
