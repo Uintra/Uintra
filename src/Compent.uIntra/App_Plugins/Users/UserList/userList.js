@@ -6,15 +6,48 @@ var alertify = require('alertifyjs/build/alertify.min');
 require('alertifyjs/build/css/alertify.min.css');
 require("./user-list.css");
 
-const SEARCH_MEMBER_INPUT = $(".js-user-list-filter");
-const TABLE = $(".js-user-list-table");
-const TABLE_BODY = $(".js-user-list-table .js-tbody");
-const LOAD_MORE_BUTTON = $(".js-user-list-button");
-const DISPLAYED_ROWS = $(".js-user-list-row");
-const EMPTY_RESULT_LABEL = $(".js-user-list-empty-result");
-const MEMBER_SEARCH_SUBMIT_BUTTON = $(".js-search-button");
-const OPEN_INVITE_MODAL_ELEMENT = $(".js-open-search-modal-page");
+var marker = {
+    ROWS:".js-user-list-row",
+    LIST_FILTER: ".js-user-list-filter",
+    LIST_TABLE: ".js-user-list-table",
+    TABLE_BODY: ".js-user-list-table .js-tbody",
+    LIST_BUTTON: ".js-user-list-button",
+    LIST_EMPTY_RESULT: ".js-user-list-empty-result",
+    SEARCH_BUTTON: ".js-search-button",
+    OPEN_MODAL_PAGE:".js-open-search-modal-page",
+    INVITE_MEMBER: ".js-user-invite-member",
+    DELETE_MEMBER: ".js-user-list-delete",
+    TOGGLE_ADMIN_RIGHTS: ".js-user-list-toggle-admin-rights",
+    INVITE_SEARCH: ".js-user-search",
+    INVITE_SEARCH_RESULT: ".js-user-search-result"
+};
+
+const SEARCH_MEMBER_INPUT = $(marker.LIST_FILTER);
+const TABLE = $(marker.LIST_TABLE);
+const TABLE_BODY = $(marker.TABLE_BODY);
+const LOAD_MORE_BUTTON = $(marker.LIST_BUTTON);
+let DISPLAYED_ROWS;
+const EMPTY_RESULT_LABEL = $(marker.LIST_EMPTY_RESULT);
+const MEMBER_SEARCH_SUBMIT_BUTTON = $(marker.SEARCH_BUTTON);
+const OPEN_INVITE_MODAL_ELEMENT = $(marker.OPEN_MODAL_PAGE);
 const SEARCH_ACTIVATION_DELAY = 256;
+
+var hook = {
+    rows: () => {
+        if (DISPLAYED_ROWS) {
+
+            var newest = $(marker.ROWS);
+
+            if (DISPLAYED_ROWS !== newest) DISPLAYED_ROWS = newest;
+
+            return DISPLAYED_ROWS;
+        } else {
+            DISPLAYED_ROWS = $(marker.ROWS);
+
+            return DISPLAYED_ROWS;
+        }
+    }
+};
 
 const ROUTE_PREFIX = '/umbraco/surface/UserList/';
 
@@ -35,7 +68,6 @@ var INVITE_USER_ELEMENT;
 var ROW_TO_DELETE;
 
 let lastRequestClassName = "last";
-
 let searchTimeout;
 let request;
 let displayedAmount;
@@ -49,12 +81,8 @@ let controller = {
         if (TABLE_BODY.length === 0) return;
 
         init();
-        LOAD_MORE_BUTTON.click(onButtonClick);
 
-        SEARCH_MEMBER_INPUT.on("input", onSearchStringChanged); 
-        SEARCH_MEMBER_INPUT.on("keypress", onKeyPress);
-
-        var inviteUserSearch = {
+        var invite = {
             keyPress: (e) => {
                 if (e.which === 13 || e.KeyCode === 13 || e.charCode === 13) {
                     search(SEARCH_USER_ELEMENT.val());
@@ -70,7 +98,7 @@ let controller = {
                     return;
                 }
 
-                searchTimeout = setTimeout(() => inviteUserSearch.searchUser(searchString), SEARCH_ACTIVATION_DELAY);
+                searchTimeout = setTimeout(() => invite.searchUser(searchString), SEARCH_ACTIVATION_DELAY);
             },
             searchUser: (searchString) => {
                 request.skip = 0;
@@ -82,18 +110,18 @@ let controller = {
                         var rows = $(result.data).filter("div");
                         SEARCH_USER_RESULT_ELEMENT.children().remove();
                         SEARCH_USER_RESULT_ELEMENT.append(rows);
-                        INVITE_USER_ELEMENT = $(".js-user-invite-member");
-                        INVITE_USER_ELEMENT.on("click", inviteUserSearch.inviteUser);
+                        INVITE_USER_ELEMENT = $(marker.INVITE_MEMBER);
+                        INVITE_USER_ELEMENT.on("click", invite.inviteUser);
                         
                         updateUI(rows);
                     });
             },
             inviteUser: (e) => {
 
-                var row = $(e.target).closest(".js-user-list-row");
+                var row = $(e.target).closest(marker.ROWS);
                 var groupId = row.data("group-id");
                 var userId = row.data("id");
-                inviteUserSearch.disableInviteButton(row);
+                invite.disableInviteButton(row);
                 ajax.post(routes.INVITE_USER, buildGroupMemberModel(userId, groupId))
                     .then(
                         function (resolve) {
@@ -105,24 +133,26 @@ let controller = {
                     );
             },
             disableInviteButton: (row) => {
-                $(row).find(".js-user-invite-member").prop("disabled", true);
+                $(row).find(marker.INVITE_MEMBER).prop("disabled", true);
             }
         };
 
-        MEMBER_SEARCH_SUBMIT_BUTTON.click(onSearchClick);
-        
-        addRemoveUserFromGroupHandler(DISPLAYED_ROWS);
-        toggleAdminRights(DISPLAYED_ROWS);
-        addDetailsHandler(DISPLAYED_ROWS);
-        openSearchModalPage(OPEN_INVITE_MODAL_ELEMENT);
-
         function init() {
+            hook.rows();
             request = window.userListConfig.request;
             displayedAmount = window.userListConfig.displayedAmount;
             amountPerRequest = window.userListConfig.amountPerRequest;
             request.groupId = new URL(window.location.href).searchParams.get("groupId");
             confirmTitle = TABLE.data("title");
             confirmText = TABLE.data("text");
+            LOAD_MORE_BUTTON.click(onButtonClick);
+            SEARCH_MEMBER_INPUT.on("input", onSearchStringChanged); 
+            SEARCH_MEMBER_INPUT.on("keypress", onKeyPress);
+            MEMBER_SEARCH_SUBMIT_BUTTON.click(onSearchClick);
+            addRemoveUserFromGroupHandler(hook.rows());
+            toggleAdminRights(hook.rows());
+            addDetailsHandler(hook.rows());
+            openSearchModalPage(OPEN_INVITE_MODAL_ELEMENT);
         }
 
         function onSearchClick(e) {
@@ -142,7 +172,7 @@ let controller = {
         function onButtonClick(event) {
             request.skip = TABLE_BODY.children("div").length;
             request.take = amountPerRequest;
-
+            
             ajax.post(routes.GET_USERS, request)
                 .then(result => {
                     var rows = $(result.data).filter("div");
@@ -150,6 +180,7 @@ let controller = {
                     addDetailsHandler(rows);
                     addRemoveUserFromGroupHandler(rows);
                     updateUI(rows);
+                    toggleAdminRights(hook.rows());
                 });
         }
 
@@ -166,10 +197,11 @@ let controller = {
             ajax.post(routes.GET_USERS, request)
                 .then(result => {
                     var rows = $(result.data).filter("div");
-                    ROW_TO_DELETE = $(".js-user-list-row");
+                    ROW_TO_DELETE = $(marker.ROWS);
                     $(ROW_TO_DELETE).remove();
                     TABLE_BODY.append(rows);
                     addDetailsHandler(rows);
+                    toggleAdminRights(rows);
                     addRemoveUserFromGroupHandler(rows);
                     updateUI(rows);
                 });
@@ -190,13 +222,13 @@ let controller = {
         }
 
         function addRemoveUserFromGroupHandler(rows) {
-            var deleteButtons = rows.find(".js-user-list-delete");
+            var deleteButtons = rows.find(marker.DELETE_MEMBER);
             deleteButtons.click(function(e) {
                 eventPreprocessing(e);
                 confirm.showConfirm(confirmTitle,
                     confirmText,
                     () => {
-                        var row = $(this).closest(".js-user-list-row");
+                        var row = $(this).closest(marker.ROWS);
                         var groupId = row.data("group-id");
                         var userId = row.data("id");
                         ajax.post(routes.EXCLUDE_USER_FROM_GROUP, { groupId: groupId, userId: userId })
@@ -214,13 +246,13 @@ let controller = {
 
         function toggleAdminRights(rows) {
             
-            var select = rows.find(".js-user-list-toggle-admin-rights");
+            var select = rows.find(marker.TOGGLE_ADMIN_RIGHTS);
             select.click(function (e) {
                 eventPreprocessing(e);
                 });
             select.change(function(e) {
                 eventPreprocessing(e);
-                var row = $(this).closest(".js-user-list-row");
+                var row = $(this).closest(marker.ROWS);
                 var groupId = row.data("group-id");
                 var userId = row.data("id");
 
@@ -233,17 +265,7 @@ let controller = {
             e.preventDefault();
             e.stopPropagation();
         }
-
-        function getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, '\\$&');
-            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
-        
+     
         function openSearchModalPage(openSearchModalButton) {
             openSearchModalButton.click(
                 function(event) {
@@ -267,15 +289,14 @@ let controller = {
                     postOpenSearchModalPage();
                 }
             );
-            
         }
 
         function postOpenSearchModalPage() {
-            SEARCH_USER_ELEMENT = $(".js-user-search");
-            SEARCH_USER_ELEMENT.on("input", inviteUserSearch.searchStringChanged);
+            SEARCH_USER_ELEMENT = $(marker.INVITE_SEARCH);
+            SEARCH_USER_ELEMENT.on("input", invite.searchStringChanged);
             SEARCH_USER_ELEMENT.val('');
-            SEARCH_USER_RESULT_ELEMENT = $(".js-user-search-result");
-            SEARCH_USER_RESULT_ELEMENT.on("keypress", inviteUserSearch.keyPress);
+            SEARCH_USER_RESULT_ELEMENT = $(marker.INVITE_SEARCH_RESULT);
+            SEARCH_USER_RESULT_ELEMENT.on("keypress", invite.keyPress);
             SEARCH_USER_RESULT_ELEMENT.children().remove();
             $('.alertify').addClass('alertify--custom');
         }
