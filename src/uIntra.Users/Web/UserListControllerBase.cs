@@ -28,7 +28,7 @@ namespace Uintra.Users.Web
 
 		public virtual ActionResult Render(UserListModel model)
 		{
-			var selectedColumns = UserListPresentationHelper.GetProfileColumns().ToArray();
+			var selectedColumns = UsersPresentationHelper.GetProfileColumns().ToArray();
 
 			var orderByColumn = selectedColumns.FirstOrDefault(i => i.SupportSorting);
 
@@ -55,7 +55,7 @@ namespace Uintra.Users.Web
 			};
 
 			var (activeUsers, isLastRequest) = GetActiveUsers(activeUserSearchRequest);
-			viewModel.MembersRows.SelectedColumns = UserListPresentationHelper.ExtendIfGroupMembersPage(groupId, selectedColumns);
+			viewModel.MembersRows.SelectedColumns = UsersPresentationHelper.ExtendIfGroupMembersPage(groupId, selectedColumns);
 			viewModel.MembersRows.Members = activeUsers;
 			viewModel.IsLastRequest = isLastRequest;
 
@@ -68,7 +68,7 @@ namespace Uintra.Users.Web
 
 			var model = GetUsersRowsViewModel();
 
-			model.SelectedColumns = UserListPresentationHelper.ExtendIfGroupMembersPage(listSearch.GroupId, UserListPresentationHelper.GetProfileColumns());
+			model.SelectedColumns = UsersPresentationHelper.ExtendIfGroupMembersPage(listSearch.GroupId, UsersPresentationHelper.GetProfileColumns());
 			model.Members = activeUsers;
 			model.IsLastRequest = isLastRequest;
 
@@ -82,7 +82,7 @@ namespace Uintra.Users.Web
 
 			var model = GetUsersRowsViewModel();
 
-			model.SelectedColumns = UserListPresentationHelper.AddManagementColumn(UserListPresentationHelper.GetProfileColumns());
+			model.SelectedColumns = UsersPresentationHelper.AddManagementColumn(UsersPresentationHelper.GetProfileColumns());
 			model.Members = activeUsers;
 			model.IsLastRequest = isLastRequest;
 			model.IsInvite = listSearch.IsInvite;
@@ -152,7 +152,7 @@ namespace Uintra.Users.Web
 		protected virtual MembersRowsViewModel GetUsersRowsViewModel() =>
 			new MembersRowsViewModel
 			{
-				SelectedColumns = UserListPresentationHelper.GetProfileColumns(),
+				SelectedColumns = UsersPresentationHelper.GetProfileColumns(),
 			};
 
 		public abstract bool ExcludeUserFromGroup(Guid groupId, Guid userId);

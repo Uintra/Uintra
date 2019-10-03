@@ -7,7 +7,7 @@ using Uintra.Users.UserList;
 
 namespace Uintra.Users.Helpers
 {
-    public static class UserListPresentationHelper
+    public static class UsersPresentationHelper
     {
         public static IEnumerable<ProfileColumnModel> AddManagementColumn(IEnumerable<ProfileColumnModel> columns) =>
             columns.Append(new ProfileColumnModel
@@ -21,7 +21,7 @@ namespace Uintra.Users.Helpers
             });
 
         public static IEnumerable<ProfileColumnModel> ExtendIfGroupMembersPage(
-            Guid? groupId, 
+            Guid? groupId,
             IEnumerable<ProfileColumnModel> columns)
         {
             if (!groupId.HasValue) return columns;
@@ -49,14 +49,45 @@ namespace Uintra.Users.Helpers
         {
             var columns = typeof(MemberModel).GetCustomAttributes<UIColumnAttribute>().Select(i => new ProfileColumnModel()
             {
-	            Id = i.Id,
-	            Name = i.DisplayName,
-	            Type = i.Type,
-	            Alias = i.Alias,
-	            PropertyName = i.PropertyName,
-	            SupportSorting = i.SupportSorting
+                Id = i.Id,
+                Name = i.DisplayName,
+                Type = i.Type,
+                Alias = i.Alias,
+                PropertyName = i.PropertyName,
+                SupportSorting = i.SupportSorting
             }).OrderBy(i => i.Id);
             return columns;
         }
+
+        public static bool RestrictAdminSelfDelete(
+            MembersRowsViewModel rows,
+            MemberModel member) =>
+            rows.IsCurrentMemberGroupAdmin && rows.CurrentMember.Id != member.Member.Id;
+
+        public static bool RestrictDeleteCreator(
+            MembersRowsViewModel rows,
+            MemberModel member) =>
+            rows.IsCurrentMemberGroupAdmin && member.IsCreator;
+
+        public static bool RestrictInvite(MembersRowsViewModel rows) =>
+            rows.IsInvite;
+
+        public static bool CanRenderToggleControl(
+            MembersRowsViewModel rows,
+            MemberModel member) =>
+            RestrictAdminSelfDelete(rows, member)
+            && !RestrictInvite(rows)
+            && !RestrictDeleteCreator(rows, member);
+
+        public static bool CanRenderDeleteControl(
+            MembersRowsViewModel rows,
+            MemberModel member) =>
+            CanRenderToggleControl(rows, member);
+
+        public static bool CanRenderInviteControl(
+            MembersRowsViewModel rows,
+            MemberModel member) =>
+            RestrictAdminSelfDelete(rows, member)
+            && RestrictInvite(rows);
     }
 }

@@ -320,7 +320,7 @@
     <Compile Include="Core\Commands\MemberChanged.cs" />
     <Compile Include="Core\Helpers\ReflectionHelper.cs" />
     <Compile Include="Core\Commands\MentionCommand.cs" />
-    <Compile Include="Core\Helpers\UserListPresentationHelper.cs" />
+    <Compile Include="Core\Helpers\UsersPresentationHelper.cs" />
     <Compile Include="Core\ICachableUserService.cs" />
     <Compile Include="Core\IMemberServiceHelper.cs" />
     <Compile Include="Core\IMentionService.cs" />

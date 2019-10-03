@@ -2,6 +2,8 @@
 @using System.Web.Mvc.Html
 @using Uintra.Users.UserList
 @using Uintra.Core.Extensions
+@using Uintra.Users.Helpers
+@using Compent.Extensions
 
 @if (Model.IsCurrentMemberGroupAdmin)
 {
@@ -39,21 +41,21 @@
                 case ColumnType.Info:
                     {
                         <div class="users-table__cell users-table__cell--info">
-                            @if (!string.IsNullOrEmpty(member.Email))
+                            @if (!member.Email.IsNullOrEmpty())
                             {
                                 <span class="users-table__text">
                                     @(Html.Localize("UserList.Table.Email.lbl") + ":")
                                     @member.Email
                                 </span>
                             }
-                            @if (!string.IsNullOrEmpty(member.Phone))
+                            @if (!member.Phone.IsNullOrEmpty())
                             {
                                 <span class="users-table__text">
                                     @(Html.Localize("UserList.Table.Phone.lbl") + ":")
                                     @member.Phone
                                 </span>
                             }
-                            @if (!string.IsNullOrEmpty(member.Department))
+                            @if (!member.Department.IsNullOrEmpty())
                             {
                                 <span class="users-table__text">
                                     @(Html.Localize("UserList.Table.Department.lbl") + ":")
@@ -67,8 +69,14 @@
                     {
                         <div class="users-table__cell users-table__cell--tools">
                             <button class="btn">
-                                <svg class="svg-icon" viewBox="0 0 24 24" width="19px" height="19px">
-                                    <use xlink:href="#icon-comment" x="0" y="0"></use>
+                                <svg class="svg-icon"
+                                     viewBox="0 0 24 24"
+                                     width="19px"
+                                     height="19px">
+                                    <use xlink:href="#icon-comment"
+                                         x="0"
+                                         y="0">
+                                    </use>
                                 </svg>
                                 <span>Message</span>
                             </button>
@@ -94,7 +102,7 @@
                                        class="js-user-list-toggle-admin-rights" />
                             }*@
 
-                        @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && !Model.IsInvite && !(Model.IsCurrentMemberGroupAdmin && member.IsCreator))
+                        @if (UsersPresentationHelper.CanRenderToggleControl(Model, member))
                         {
                             <span class="fake-select">
                                 <select class="js-user-list-toggle-admin-rights">
@@ -114,13 +122,13 @@
                     </div>
 
                     <div class="users-table__cell users-table__cell--btn">
-                        @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && !Model.IsInvite && !(Model.IsCurrentMemberGroupAdmin && member.IsCreator))
+                        @if (UsersPresentationHelper.CanRenderDeleteControl(Model, member))
                         {
                             <button class="users-table__delete js-user-list-delete">X</button>
                         }
                     </div>
                     <div class="users-table__cell users-table__cell--btn">
-                        @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && Model.IsInvite)
+                        @if (UsersPresentationHelper.CanRenderInviteControl(Model, member))
                         {
                             <button class="btn btn-default js-user-invite-member">Add</button>
                         }
