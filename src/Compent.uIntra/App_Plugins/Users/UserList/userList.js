@@ -1,25 +1,25 @@
-﻿import ajax from "./../../Core/Content/scripts/Ajax";
-import confirm from "./../../Core/Controls/Confirm/Confirm";
+﻿import ajax from './../../Core/Content/scripts/Ajax';
+import confirm from './../../Core/Controls/Confirm/Confirm';
 
 var alertify = require('alertifyjs/build/alertify.min');
 
 require('alertifyjs/build/css/alertify.min.css');
-require("./user-list.css");
+require('./user-list.css');
 
 var marker = {
-    ROWS:".js-user-list-row",
-    LIST_FILTER: ".js-user-list-filter",
-    LIST_TABLE: ".js-user-list-table",
-    TABLE_BODY: ".js-user-list-table .js-tbody",
-    LIST_BUTTON: ".js-user-list-button",
-    LIST_EMPTY_RESULT: ".js-user-list-empty-result",
-    SEARCH_BUTTON: ".js-search-button",
-    OPEN_MODAL_PAGE:".js-open-search-modal-page",
-    INVITE_MEMBER: ".js-user-invite-member",
-    DELETE_MEMBER: ".js-user-list-delete",
-    TOGGLE_ADMIN_RIGHTS: ".js-user-list-toggle-admin-rights",
-    INVITE_SEARCH: ".js-user-search",
-    INVITE_SEARCH_RESULT: ".js-user-search-result"
+    ROWS:'.js-user-list-row',
+    LIST_FILTER: '.js-user-list-filter',
+    LIST_TABLE: '.js-user-list-table',
+    TABLE_BODY: '.js-user-list-table .js-tbody',
+    LIST_BUTTON: '.js-user-list-button',
+    LIST_EMPTY_RESULT: '.js-user-list-empty-result',
+    SEARCH_BUTTON: '.js-search-button',
+    OPEN_MODAL_PAGE:'.js-open-search-modal-page',
+    INVITE_MEMBER: '.js-user-invite-member',
+    DELETE_MEMBER: '.js-user-list-delete',
+    TOGGLE_ADMIN_RIGHTS: '.js-user-list-toggle-admin-rights',
+    INVITE_SEARCH: '.js-user-search',
+    INVITE_SEARCH_RESULT: '.js-user-search-result'
 };
 
 const SEARCH_MEMBER_INPUT = $(marker.LIST_FILTER);
@@ -62,12 +62,12 @@ var routes = {
 /**
  * Search values initiates when modal page opens.
  */
-var SEARCH_USER_ELEMENT; 
-var SEARCH_USER_RESULT_ELEMENT;
-var INVITE_USER_ELEMENT;
-var ROW_TO_DELETE;
+let SEARCH_USER_ELEMENT; 
+let SEARCH_USER_RESULT_ELEMENT;
+let INVITE_USER_ELEMENT;
+let ROW_TO_DELETE;
 
-let lastRequestClassName = "last";
+let lastRequestClassName = 'last';
 let searchTimeout;
 let request;
 let displayedAmount;
@@ -101,17 +101,14 @@ let controller = {
                 searchTimeout = setTimeout(() => invite.searchUser(searchString), SEARCH_ACTIVATION_DELAY);
             },
             searchUser: (searchString) => {
-                request.skip = 0;
-                request.take = displayedAmount;
-                request.text = searchString;
-                request.isInvite = true;
+                invite.preSearchUser(searchString);
                 ajax.post(routes.GET_NOT_INVITED_USERS, request)
                     .then(result => {
-                        var rows = $(result.data).filter("div");
+                        var rows = $(result.data).filter('div');
                         SEARCH_USER_RESULT_ELEMENT.children().remove();
                         SEARCH_USER_RESULT_ELEMENT.append(rows);
                         INVITE_USER_ELEMENT = $(marker.INVITE_MEMBER);
-                        INVITE_USER_ELEMENT.on("click", invite.inviteUser);
+                        INVITE_USER_ELEMENT.on('click', invite.inviteUser);
                         
                         updateUI(rows);
                     });
@@ -119,8 +116,8 @@ let controller = {
             inviteUser: (e) => {
 
                 var row = $(e.target).closest(marker.ROWS);
-                var groupId = row.data("group-id");
-                var userId = row.data("id");
+                var groupId = row.data('group-id');
+                var userId = row.data('id');
                 invite.disableInviteButton(row);
                 ajax.post(routes.INVITE_USER, buildGroupMemberModel(userId, groupId))
                     .then(
@@ -133,7 +130,13 @@ let controller = {
                     );
             },
             disableInviteButton: (row) => {
-                $(row).find(marker.INVITE_MEMBER).prop("disabled", true);
+                $(row).find(marker.INVITE_MEMBER).prop('disabled', true);
+            },
+            preSearchUser: (searchString) => {
+                request.skip = 0;
+                request.take = displayedAmount;
+                request.text = searchString;
+                request.isInvite = true;
             }
         };
 
@@ -142,12 +145,12 @@ let controller = {
             request = window.userListConfig.request;
             displayedAmount = window.userListConfig.displayedAmount;
             amountPerRequest = window.userListConfig.amountPerRequest;
-            request.groupId = new URL(window.location.href).searchParams.get("groupId");
-            confirmTitle = TABLE.data("title");
-            confirmText = TABLE.data("text");
+            request.groupId = new URL(window.location.href).searchParams.get('groupId');
+            confirmTitle = TABLE.data('title');
+            confirmText = TABLE.data('text');
             LOAD_MORE_BUTTON.click(onButtonClick);
-            SEARCH_MEMBER_INPUT.on("input", onSearchStringChanged); 
-            SEARCH_MEMBER_INPUT.on("keypress", onKeyPress);
+            SEARCH_MEMBER_INPUT.on('input', onSearchStringChanged); 
+            SEARCH_MEMBER_INPUT.on('keypress', onKeyPress);
             MEMBER_SEARCH_SUBMIT_BUTTON.click(onSearchClick);
             addRemoveUserFromGroupHandler(hook.rows());
             toggleAdminRights(hook.rows());
@@ -170,12 +173,12 @@ let controller = {
         }
 
         function onButtonClick(event) {
-            request.skip = TABLE_BODY.children("div").length;
+            request.skip = TABLE_BODY.children('div').length;
             request.take = amountPerRequest;
             
             ajax.post(routes.GET_USERS, request)
                 .then(result => {
-                    var rows = $(result.data).filter("div");
+                    var rows = $(result.data).filter('div');
                     TABLE_BODY.append(rows);
                     addDetailsHandler(rows);
                     addRemoveUserFromGroupHandler(rows);
@@ -191,12 +194,10 @@ let controller = {
         }
 
         function search(searchString) {
-            request.skip = 0;
-            request.take = displayedAmount;
-            request.text = searchString;
+            preSearch(searchString);
             ajax.post(routes.GET_USERS, request)
                 .then(result => {
-                    var rows = $(result.data).filter("div");
+                    var rows = $(result.data).filter('div');
                     ROW_TO_DELETE = $(marker.ROWS);
                     $(ROW_TO_DELETE).remove();
                     TABLE_BODY.append(rows);
@@ -207,8 +208,15 @@ let controller = {
                 });
         }
 
+        function preSearch(searchString) {
+            request.skip = 0;
+            request.take = displayedAmount;
+            request.text = searchString;
+            request.isInvite = false;
+        }
+
         function updateUI(rows) {
-            if (TABLE_BODY.children("div").length === 0) EMPTY_RESULT_LABEL.show();
+            if (TABLE_BODY.children('div').length === 0) EMPTY_RESULT_LABEL.show();
             else EMPTY_RESULT_LABEL.hide();
             if (rows.hasClass(lastRequestClassName) || rows.length === 0) LOAD_MORE_BUTTON.hide();
             else LOAD_MORE_BUTTON.show();
@@ -216,7 +224,7 @@ let controller = {
 
         function addDetailsHandler(rows) {
             rows.click(function() {
-                var profileUrl = $(this).data("profile");
+                var profileUrl = $(this).data('profile');
                 location.href = profileUrl;
             });
         }
@@ -229,8 +237,8 @@ let controller = {
                     confirmText,
                     () => {
                         var row = $(this).closest(marker.ROWS);
-                        var groupId = row.data("group-id");
-                        var userId = row.data("id");
+                        var groupId = row.data('group-id');
+                        var userId = row.data('id');
                         ajax.post(routes.EXCLUDE_USER_FROM_GROUP, { groupId: groupId, userId: userId })
                             .then(function(result) {
                                 if (result.data) {
@@ -245,7 +253,6 @@ let controller = {
         }
 
         function toggleAdminRights(rows) {
-            
             var select = rows.find(marker.TOGGLE_ADMIN_RIGHTS);
             select.click(function (e) {
                 eventPreprocessing(e);
@@ -253,8 +260,8 @@ let controller = {
             select.change(function(e) {
                 eventPreprocessing(e);
                 var row = $(this).closest(marker.ROWS);
-                var groupId = row.data("group-id");
-                var userId = row.data("id");
+                var groupId = row.data('group-id');
+                var userId = row.data('id');
 
                 ajax.put(routes.TOGGLE_ADMIN_RIGHTS, { groupId: groupId, memberId: userId })
                     .then(function(result) {});
@@ -293,10 +300,10 @@ let controller = {
 
         function postOpenSearchModalPage() {
             SEARCH_USER_ELEMENT = $(marker.INVITE_SEARCH);
-            SEARCH_USER_ELEMENT.on("input", invite.searchStringChanged);
+            SEARCH_USER_ELEMENT.on('input', invite.searchStringChanged);
             SEARCH_USER_ELEMENT.val('');
             SEARCH_USER_RESULT_ELEMENT = $(marker.INVITE_SEARCH_RESULT);
-            SEARCH_USER_RESULT_ELEMENT.on("keypress", invite.keyPress);
+            SEARCH_USER_RESULT_ELEMENT.on('keypress', invite.keyPress);
             SEARCH_USER_RESULT_ELEMENT.children().remove();
             $('.alertify').addClass('alertify--custom');
         }
