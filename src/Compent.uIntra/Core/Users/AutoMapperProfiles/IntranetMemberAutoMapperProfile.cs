@@ -31,7 +31,9 @@ namespace Compent.Uintra.Core.Users
             Mapper.CreateMap<IIntranetMember, MemberModel>()
                 .ForMember(dst => dst.Member, o => o.MapFrom(user => user))
                 .ForMember(dst => dst.ProfileUrl, o => o.Ignore())
-                .ForMember(dst => dst.IsGroupAdmin, o => o.Ignore());
+                .ForMember(dst => dst.IsGroupAdmin, o => o.Ignore())
+                .ForMember(dst => dst.IsCreator, o=> o.Ignore());
+
             Mapper.CreateMap<IIntranetMember, ProfileEditModel>()
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())

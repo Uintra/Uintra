@@ -94,7 +94,7 @@
                                        class="js-user-list-toggle-admin-rights" />
                             }*@
 
-                        @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && !Model.IsInvite)
+                        @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && !Model.IsInvite && !(Model.IsCurrentMemberGroupAdmin && member.IsCreator))
                         {
                             <span class="fake-select">
                                 <select class="js-user-list-toggle-admin-rights">
@@ -114,7 +114,7 @@
                     </div>
 
                     <div class="users-table__cell users-table__cell--btn">
-                        @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && !Model.IsInvite)
+                        @if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && !Model.IsInvite && !(Model.IsCurrentMemberGroupAdmin && member.IsCreator))
                         {
                             <button class="users-table__delete js-user-list-delete">X</button>
                         }

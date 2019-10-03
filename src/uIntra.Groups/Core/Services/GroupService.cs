@@ -152,5 +152,8 @@ namespace Uintra.Groups
             var groups = _groupRepository.GetAll().ToList();
             _memoryCacheService.Set(GroupCacheKey, groups, GetCacheExpiration());
         }
+
+        public bool IsMemberCreator(Guid memberId, Guid groupId) =>
+            _groupRepository.Get(groupId).CreatorId.CompareTo(memberId) == 0;
     }
 }
