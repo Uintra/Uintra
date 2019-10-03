@@ -1,10 +1,8 @@
 ﻿import ajax from './../../Core/Content/scripts/Ajax';
 import confirm from './../../Core/Controls/Confirm/Confirm';
-
-var alertify = require('alertifyjs/build/alertify.min');
-
-require('alertifyjs/build/css/alertify.min.css');
-require('./user-list.css');
+import alertify from 'alertifyjs/build/alertify.min';
+import 'alertifyjs/build/css/alertify.min.css';
+import './user-list.css';
 
 var marker = {
     ROWS:'.js-user-list-row',
