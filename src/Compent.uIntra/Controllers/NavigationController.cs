@@ -176,6 +176,7 @@ namespace Compent.Uintra.Controllers
                             PageTabs = _groupFeedContentService
                                 .GetPageTabs(CurrentPage, group.Id)
                                 .Select(t => MapToGroupPageTabViewModel(t, _groupContentProvider.GetEditPage()))
+                                .ToList()
                         };
 
                     return PartialView(GroupNavigationViewPath, groupNavigationModel);

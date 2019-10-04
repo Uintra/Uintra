@@ -47,8 +47,6 @@ namespace Uintra.Core.Permissions.Implementation
 					)),
 			Of(Groups,
 				Tree(Create),
-				Tree(Edit,
-					Tree(Hide)),
 				Tree(EditOther,
 					Tree(HideOther)))
 		};
