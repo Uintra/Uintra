@@ -145,10 +145,17 @@ namespace Uintra.Groups.Web
             return DocumentsTable(groupId, column, direction);
         }
 
-        protected virtual bool CanDelete(IIntranetMember currentMember, GroupModel groupModel, IEnumerable<GroupMember> groupMembers, IMedia media)
+        protected virtual bool CanDelete(
+            IIntranetMember currentMember, 
+            GroupModel groupModel, 
+            IEnumerable<GroupMember> groupMembers, 
+            IMedia media)
         {
             var mediaCreator = media.GetValue<Guid?>(IntranetConstants.IntranetCreatorId);
-            return currentMember.Id == groupModel.CreatorId ||
+
+            var isMemberAdmin = _groupMemberService.IsMemberAdminOfGroup(currentMember.Id, groupModel.Id);
+
+            return currentMember.Id == groupModel.CreatorId || isMemberAdmin ||
                 mediaCreator.HasValue && mediaCreator.Value == currentMember.Id &&
                 groupMembers.Any(s => s.MemberId == currentMember.Id);
         }
