@@ -35,6 +35,7 @@ namespace Uintra.Core.UmbracoIpAccess
 
                 LogHelper.Warn<string>(message);
                 httpContext.Response.StatusCode = ipAccessConfiguration.StatusCode;
+                UmbracoContext.Current.Security.ClearCurrentLogin();
                 httpContext.Response.End();
             }
         }
