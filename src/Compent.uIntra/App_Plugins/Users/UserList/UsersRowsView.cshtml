@@ -119,6 +119,11 @@
                                 </select>
                             </span>
                         }
+                        else
+                        {
+                            var role = member.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl";
+                            <span class="users-table__text">@Html.Localize(role)</span>
+                        }
                     </div>
 
                     <div class="users-table__cell users-table__cell--btn">

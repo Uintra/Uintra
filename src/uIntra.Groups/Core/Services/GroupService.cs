@@ -154,6 +154,6 @@ namespace Uintra.Groups
         }
 
         public bool IsMemberCreator(Guid memberId, Guid groupId) =>
-            _groupRepository.Get(groupId).CreatorId.CompareTo(memberId) == 0;
+            _groupRepository.Get(groupId)?.CreatorId.CompareTo(memberId) == 0;
     }
 }
