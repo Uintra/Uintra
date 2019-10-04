@@ -1,6 +1,6 @@
-﻿import helpers from "./../Core/Content/scripts/Helpers";
-import fileUploadController from "./../Core/Controls/FileUpload/file-upload";
-import pinActivity from "./../Core/Content/scripts/PinActivity";
+﻿import helpers from './../Core/Content/scripts/Helpers';
+import fileUploadController from './../Core/Controls/FileUpload/file-upload';
+import pinActivity from './../Core/Content/scripts/PinActivity';
 
 require('select2');
 
@@ -16,9 +16,9 @@ var initSubmitButton = function (holder) {
         if (!form.valid()) {
             event.preventDefault();
             const labelHeight = 26;
-            const header = $("#header");
+            const header = $('#header');
             const additionalHeight = header.length > 0 ? header.outerHeight() + labelHeight : labelHeight;
-            const invalidELPos = $(".input-validation-error").first().offset().top
+            const invalidELPos = $('.input-validation-error').first().offset().top;
             window.scrollTo(0, invalidELPos - additionalHeight);
             return;
         }
@@ -36,7 +36,7 @@ var initSubmitButton = function (holder) {
 var initDescriptionControl = function (holder) {
     var dataStorage = holder.find('#js-hidden-description-container');
     if (!dataStorage) {
-        throw new Error(holder.attr("id") + ": Hiden input field missing");
+        throw new Error(holder.attr('id') + ': Hiden input field missing');
     }
     var descriptionElem = holder.find('#description');
     var btn = holder.find('.js-submit');
@@ -61,14 +61,13 @@ var initDescriptionControl = function (holder) {
     });
 
     btn.click(function () {
-        descriptionElem.toggleClass("input-validation-error", editor.getLength() <= 1);
+        descriptionElem.toggleClass('input-validation-error', editor.getLength() <= 1);
     });
 };
 
 var initDates = function (holder) {
-    debugger;
-    let publish = helpers.initDatePicker(holder, "#js-publish-date", "#js-publish-date-value");
-    let unpublish = helpers.initDatePicker(holder, "#js-unpublish-date", "#js-unpublish-date-value");
+    let publish = helpers.initDatePicker(holder, '#js-publish-date', '#js-publish-date-value');
+    let unpublish = helpers.initDatePicker(holder, '#js-unpublish-date', '#js-unpublish-date-value');
     let pin = pinActivity.initPinDate(holder, publish.selectedDates[0]);
     publish.config.onChange.push(publishDateChanged);
 
