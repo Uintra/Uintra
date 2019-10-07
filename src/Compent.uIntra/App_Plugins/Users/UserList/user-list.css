@@ -11,7 +11,7 @@
 }
 
 .user-search{
-    padding:20px 0 35px;
+    padding:20px 0 0;
 
     &__title{
         font-size: 25px;
@@ -30,7 +30,7 @@
     &__form{
         position:relative;
         border: solid 1px var(--color-light-gray);
-        margin:0 0 15px;
+        margin:0 0 20px;
         background:var(--color-white);
 
         .alertify &{
@@ -351,6 +351,11 @@
         text-transform:none;
         padding:6px 4px;
 
+        &.btn-default{
+            padding: 6px 11px;
+            text-transform: uppercase;
+        }
+
         &:focus{
             background: var(--color-white);
             box-shadow:none;
@@ -378,6 +383,11 @@
             @media (--for-tablet-portrait-down){
                 display:none;
             }
+        }
+
+        &-holder{
+            text-align:right;
+            padding:0;
         }
     }
 }
