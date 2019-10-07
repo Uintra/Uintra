@@ -194,7 +194,7 @@
             }
         }
         &--btn{
-            width:10%;
+            width:10.5%;
             text-align:right;
             padding:13px 2.7% 11px 0;
             @media (--for-tablet-portrait-down) {
@@ -350,6 +350,11 @@
         margin:0 0 5px;
         text-transform:none;
         padding:6px 4px;
+
+        &:focus{
+            background: var(--color-white);
+            box-shadow:none;
+        }
 
         @media (--for-tablet-portrait-down) {
             width:42px;
