@@ -97,9 +97,11 @@ namespace Uintra.Groups
 
             var isOwner = group.CreatorId == currentMember.Id;
 
-            var isMemberAdmin = _groupMemberRepository.Find(m => m.GroupId == group.Id && m.MemberId == currentMember.Id).IsAdmin;
+            var groupMember = _groupMemberRepository.Find(m => m.GroupId == group.Id && m.MemberId == currentMember.Id);
 
-            var act = isOwner || isMemberAdmin;
+            if (groupMember == null) return false;
+            
+            var act = isOwner || groupMember.IsAdmin;
 
             return act;
         }
