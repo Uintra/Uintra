@@ -291,7 +291,7 @@ let controller = {
                         '</form >' +
                         '<ul class="list-group js-user-search-result"></ul>', 
                         function() { }
-                    ).set({ transition: 'fade'});
+                    ).set({ transition: 'fade', movable: false});
                     postOpenSearchModalPage();
                 }
             );
