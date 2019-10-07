@@ -276,6 +276,7 @@ let controller = {
                 function(event) {
                     eventPreprocessing(event);
                     alertify.alert(
+
                         'People',
                         '<h4 class="user-search__subtitle">Search people</h4>' +
                         '<form class="user-search__form">' +
@@ -290,7 +291,7 @@ let controller = {
                         '</form >' +
                         '<ul class="list-group js-user-search-result"></ul>', 
                         function() { }
-                    );
+                    ).set({ transition: 'fade'});
                     postOpenSearchModalPage();
                 }
             );
