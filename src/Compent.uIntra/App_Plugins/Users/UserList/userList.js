@@ -31,7 +31,7 @@ const OPEN_INVITE_MODAL_ELEMENT = $(marker.OPEN_MODAL_PAGE);
 const SEARCH_ACTIVATION_DELAY = 256;
 
 var hook = {
-    rows: () => {
+    rows: function()  {
         if (DISPLAYED_ROWS) {
 
             var newest = $(marker.ROWS);
@@ -81,15 +81,12 @@ let controller = {
         init();
 
         var invite = {
-            keyPress: (e) => {
-                if (e.which === 13 || e.KeyCode === 13 || e.charCode === 13) {
-                    eventPreprocessing(e);
+            keyPress: function(e) {
+                if(shared.isEnterClicked(e)) return;
 
-                    return;
-                }
-                search(SEARCH_USER_ELEMENT.val());
+                invite.searchUser(SEARCH_USER_ELEMENT.val());
             },
-            searchStringChanged: () => {
+            searchStringChanged: function() {
                 clearTimeout(searchTimeout);
                 const searchString = SEARCH_USER_ELEMENT.val();
 
@@ -99,12 +96,12 @@ let controller = {
                     return;
                 }
 
-                searchTimeout = setTimeout(() => invite.searchUser(searchString), SEARCH_ACTIVATION_DELAY);
+                searchTimeout = setTimeout(function () { invite.searchUser(searchString); }, SEARCH_ACTIVATION_DELAY);
             },
-            searchUser: (searchString) => {
+            searchUser: function(searchString) {
                 invite.preSearchUser(searchString);
                 ajax.post(routes.GET_NOT_INVITED_USERS, request)
-                    .then(result => {
+                    .then(function(result) {
                         var rows = $(result.data).filter('div');
                         SEARCH_USER_RESULT_ELEMENT.children().remove();
                         SEARCH_USER_RESULT_ELEMENT.append(rows);
@@ -114,7 +111,7 @@ let controller = {
                         updateUI(rows);
                     });
             },
-            inviteUser: (e) => {
+            inviteUser: function(e) {
 
                 var row = $(e.target).closest(marker.ROWS);
                 var groupId = row.data('group-id');
@@ -130,10 +127,10 @@ let controller = {
                         }
                     );
             },
-            disableInviteButton: (row) => {
+            disableInviteButton: function(row) {
                 $(row).find(marker.INVITE_MEMBER).prop('disabled', true);
             },
-            preSearchUser: (searchString) => {
+            preSearchUser: function(searchString) {
                 request.skip = 0;
                 request.take = displayedAmount;
                 request.text = searchString;
@@ -167,11 +164,8 @@ let controller = {
         }
 
         function onKeyPress(e) {
-            if (e.which === 13 || e.KeyCode === 13 || e.charCode === 13) {
-                eventPreprocessing(e);
+            if(shared.isEnterClicked(e)) return;
 
-                return;
-            }
             search(SEARCH_MEMBER_INPUT.val());
         }
 
@@ -180,7 +174,7 @@ let controller = {
             request.take = amountPerRequest;
             
             ajax.post(routes.GET_USERS, request)
-                .then(result => {
+                .then(function(result) {
                     var rows = $(result.data).filter('div');
                     TABLE_BODY.append(rows);
                     addDetailsHandler(rows);
@@ -193,13 +187,13 @@ let controller = {
         function onSearchStringChanged() {
             clearTimeout(searchTimeout);
             const searchString = SEARCH_MEMBER_INPUT.val();
-            searchTimeout = setTimeout(() => search(searchString), SEARCH_ACTIVATION_DELAY);
+            searchTimeout = setTimeout(function () {search(searchString);}, SEARCH_ACTIVATION_DELAY);
         }
 
         function search(searchString) {
             preSearch(searchString);
             ajax.post(routes.GET_USERS, request)
-                .then(result => {
+                .then(function(result) {
                     var rows = $(result.data).filter('div');
                     ROW_TO_DELETE = $(marker.ROWS);
                     $(ROW_TO_DELETE).remove();
@@ -235,10 +229,10 @@ let controller = {
         function addRemoveUserFromGroupHandler(rows) {
             var deleteButtons = rows.find(marker.DELETE_MEMBER);
             deleteButtons.click(function(e) {
-                eventPreprocessing(e);
+                shared.eventSuppress(e);
                 confirm.showConfirm(confirmTitle,
                     confirmText,
-                    () => {
+                    function() {
                         var row = $(this).closest(marker.ROWS);
                         var groupId = row.data('group-id');
                         var userId = row.data('id');
@@ -250,7 +244,7 @@ let controller = {
                                 }
                             });
                     },
-                    () => {},
+                    function() {},
                     confirm.defaultSettings);
             });
         }
@@ -258,10 +252,10 @@ let controller = {
         function toggleAdminRights(rows) {
             var select = rows.find(marker.TOGGLE_ADMIN_RIGHTS);
             select.click(function (e) {
-                eventPreprocessing(e);
+                shared.eventSuppress(e);
                 });
             select.change(function(e) {
-                eventPreprocessing(e);
+                shared.eventSuppress(e);
                 var row = $(this).closest(marker.ROWS);
                 var groupId = row.data('group-id');
                 var userId = row.data('id');
@@ -270,16 +264,11 @@ let controller = {
                     .then(function(result) {});
             });
         }
-
-        function eventPreprocessing(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
      
         function openSearchModalPage(openSearchModalButton) {
             openSearchModalButton.click(
                 function(event) {
-                    eventPreprocessing(event);
+                    shared.eventSuppress(e);
                     alertify.alert(
 
                         'People',
@@ -315,6 +304,22 @@ let controller = {
         function buildGroupMemberModel(memberId, groupId) {
             return { memberId: memberId, groupId: groupId };
         }
+
+        var shared = {
+            isEnterClicked: function(e) {
+                if (e.which === 13 || e.KeyCode === 13 || e.charCode === 13) {
+                    shared.eventSuppress(e);
+
+                    return true;
+                }
+
+                return false;
+            },
+            eventSuppress: function () {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        };
     }
 };
 
