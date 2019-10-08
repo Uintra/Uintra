@@ -72,6 +72,7 @@ let displayedAmount;
 let amountPerRequest;
 let confirmTitle;
 let confirmText;
+var buttonToDeleteMember = null;
 
 let controller = {
     init: function () {
@@ -79,6 +80,24 @@ let controller = {
         if (TABLE_BODY.length === 0) return;
 
         init();
+
+        function init() {
+            hook.rows();
+            request = window.userListConfig.request;
+            displayedAmount = window.userListConfig.displayedAmount;
+            amountPerRequest = window.userListConfig.amountPerRequest;
+            request.groupId = new URL(window.location.href).searchParams.get('groupId');
+            confirmTitle = TABLE.data('title');
+            confirmText = TABLE.data('text');
+            LOAD_MORE_BUTTON.click(onButtonClick);
+            SEARCH_MEMBER_INPUT.on('input', onSearchStringChanged);
+            SEARCH_MEMBER_INPUT.on('keypress', onKeyPress);
+            MEMBER_SEARCH_SUBMIT_BUTTON.click(onSearchClick);
+            addRemoveUserFromGroupHandler(hook.rows());
+            toggleAdminRights(hook.rows());
+            addDetailsHandler(hook.rows());
+            openSearchModalPage(OPEN_INVITE_MODAL_ELEMENT);
+        }
 
         var invite = {
             keyPress: function (e) {
@@ -130,23 +149,7 @@ let controller = {
             }
         };
 
-        function init() {
-            hook.rows();
-            request = window.userListConfig.request;
-            displayedAmount = window.userListConfig.displayedAmount;
-            amountPerRequest = window.userListConfig.amountPerRequest;
-            request.groupId = new URL(window.location.href).searchParams.get('groupId');
-            confirmTitle = TABLE.data('title');
-            confirmText = TABLE.data('text');
-            LOAD_MORE_BUTTON.click(onButtonClick);
-            SEARCH_MEMBER_INPUT.on('input', onSearchStringChanged);
-            SEARCH_MEMBER_INPUT.on('keypress', onKeyPress);
-            MEMBER_SEARCH_SUBMIT_BUTTON.click(onSearchClick);
-            addRemoveUserFromGroupHandler(hook.rows());
-            toggleAdminRights(hook.rows());
-            addDetailsHandler(hook.rows());
-            openSearchModalPage(OPEN_INVITE_MODAL_ELEMENT);
-        }
+        
 
         function onSearchClick(e) {
             const query = SEARCH_MEMBER_INPUT.val();
@@ -217,26 +220,35 @@ let controller = {
                 location.href = profileUrl;
             });
         }
+        
 
         function addRemoveUserFromGroupHandler(rows) {
             var deleteButtons = rows.find(marker.DELETE_MEMBER);
             deleteButtons.click(function (e) {
                 shared.eventSuppress(e);
+                buttonToDeleteMember = e.target;
                 confirm.showConfirm(confirmTitle,
                     confirmText,
                     function () {
-                        var row = $(this).closest(marker.ROWS);
+                        var row = $(buttonToDeleteMember).closest(marker.ROWS);
                         var groupId = row.data('group-id');
                         var userId = row.data('id');
+                        $(buttonToDeleteMember).prop('disabled', true);
                         ajax.post(routes.EXCLUDE_USER_FROM_GROUP, { groupId: groupId, userId: userId })
                             .then(function (result) {
                                 if (result.data) {
                                     row.remove();
                                     request.skip = request.skip - 1;
+                                    buttonToDeleteMember = null;
                                 }
+                            }, function () {
+                                    buttonToDeleteMember = null;
                             });
                     },
-                    function () { },
+                    function () {
+                        $(buttonToDeleteMember).prop('disabled', false);
+                        buttonToDeleteMember = null;
+                    },
                     confirm.defaultSettings);
             });
         }
