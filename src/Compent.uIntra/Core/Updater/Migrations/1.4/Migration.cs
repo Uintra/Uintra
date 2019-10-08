@@ -24,7 +24,7 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._4
 			{
 				yield return Resolve<SetGroupAdminsInSqlTableStep>();
 				yield return Resolve<DisableCanPinPermissionForChanging>();
-                                yield return Resolve<AddOpenGraphSettings>();
+                yield return Resolve<AddOpenGraphSettings>();
 			}
 		}
 	}

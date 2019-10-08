@@ -9,7 +9,7 @@ using Umbraco.Web;
 
 namespace Uintra.Core.UmbracoIpAccess
 {
-    public class UmbracoIpAccessValidator: IUmbracoIpAccessValidator
+    public class UmbracoIpAccessValidator : IUmbracoIpAccessValidator
     {
         private readonly IUmbracoIpAccessConfiguration ipAccessConfiguration;
 
@@ -42,8 +42,10 @@ namespace Uintra.Core.UmbracoIpAccess
 
         public bool IsAccess(HttpContext httpContext, Assembly controllerAssembly)
         {
-            var isUmbracoRequest = IsUmbracoInstallRequest(httpContext.Request.Url) || IsUmbracoRequest(httpContext.Request.Url);
-            if (!isUmbracoRequest /*|| IsControllerAssembly(controllerAssembly)*/)
+            var isUmbracoRequest = IsUmbracoInstallRequest(httpContext.Request.Url) ||
+                IsUmbracoRequest(httpContext.Request.Url);
+
+            if (IsUmbracoRouteRequest(httpContext.Request.Url) || !isUmbracoRequest || IsControllerAssembly(controllerAssembly))
                 return true;
 
             var ip = httpContext.Request.UserHostAddress;
@@ -68,6 +70,11 @@ namespace Uintra.Core.UmbracoIpAccess
         private static bool IsUmbracoInstallRequest(Uri uri) => uri?.AbsolutePath.InvariantStartsWith("/install/") ?? false;
 
         private static bool IsUmbracoRequest(Uri uri) => uri?.AbsolutePath.InvariantStartsWith("/umbraco") ?? false;
+
+        private static bool IsUmbracoRouteRequest(Uri uri) => 
+            (uri?.AbsolutePath.InvariantStartsWith("/umbraco/surface") ?? false) ||
+            (uri?.AbsolutePath.InvariantStartsWith("/umbraco/api") ?? false) ||
+            (uri?.AbsolutePath.StartsWith("/umbraco/renderMvc", StringComparison.InvariantCultureIgnoreCase) ?? false);
 
         private static bool IsControllerAssembly(Assembly controllerAssembly) => controllerAssembly.FullName == Assembly.GetAssembly(typeof(UmbracoIpAccessValidator)).FullName;
     }
