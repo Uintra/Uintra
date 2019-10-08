@@ -83,9 +83,11 @@ let controller = {
         var invite = {
             keyPress: (e) => {
                 if (e.which === 13 || e.KeyCode === 13 || e.charCode === 13) {
-                    search(SEARCH_USER_ELEMENT.val());
                     eventPreprocessing(e);
+
+                    return;
                 }
+                search(SEARCH_USER_ELEMENT.val());
             },
             searchStringChanged: () => {
                 clearTimeout(searchTimeout);
@@ -93,6 +95,7 @@ let controller = {
 
                 if (searchString.length === 0) {
                     SEARCH_USER_RESULT_ELEMENT.children().remove();
+
                     return;
                 }
 
@@ -165,9 +168,11 @@ let controller = {
 
         function onKeyPress(e) {
             if (e.which === 13 || e.KeyCode === 13 || e.charCode === 13) {
-                search(SEARCH_MEMBER_INPUT.val());
                 eventPreprocessing(e);
+
+                return;
             }
+            search(SEARCH_MEMBER_INPUT.val());
         }
 
         function onButtonClick(event) {
@@ -301,8 +306,8 @@ let controller = {
             SEARCH_USER_ELEMENT = $(marker.INVITE_SEARCH);
             SEARCH_USER_ELEMENT.on('input', invite.searchStringChanged);
             SEARCH_USER_ELEMENT.val('');
+            SEARCH_USER_ELEMENT.on('keypress', invite.keyPress);
             SEARCH_USER_RESULT_ELEMENT = $(marker.INVITE_SEARCH_RESULT);
-            SEARCH_USER_RESULT_ELEMENT.on('keypress', invite.keyPress);
             SEARCH_USER_RESULT_ELEMENT.children().remove();
             $('.alertify').addClass('alertify--custom');
         }

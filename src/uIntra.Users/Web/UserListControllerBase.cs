@@ -18,6 +18,7 @@ namespace Uintra.Users.Web
 		protected virtual string UserListViewPath => @"~/App_Plugins/Users/UserList/UserListView.cshtml";
 		protected virtual string UsersRowsViewPath => @"~/App_Plugins/Users/UserList/UsersRowsView.cshtml";
 		protected virtual string UsersDetailsViewPath => @"~/App_Plugins/Users/UserList/UserDetailsPopup.cshtml";
+        protected virtual string InviteUserRowViewPath => @"~/App_Plugins/Users/UserList/InviteUserRowView.cshtml";
 
 		private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
 
@@ -87,7 +88,7 @@ namespace Uintra.Users.Web
 			model.IsLastRequest = isLastRequest;
 			model.IsInvite = listSearch.IsInvite;
 
-			return PartialView(UsersRowsViewPath, model);
+			return PartialView(InviteUserRowViewPath, model);
 		}
 
 		[HttpPost]

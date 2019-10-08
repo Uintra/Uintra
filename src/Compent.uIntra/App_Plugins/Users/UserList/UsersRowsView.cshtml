@@ -5,13 +5,6 @@
 @using Uintra.Users.Helpers
 @using Compent.Extensions
 
-@if (Model.IsCurrentMemberGroupAdmin)
-{
-    <div class="btn-holder">
-        <button class="btn btn-default js-open-search-modal-page"> Invite Member</button>
-    </div>
-}
-
 @foreach (var member in Model.Members)
 {
     <div data-profile="@member.ProfileUrl"
@@ -85,25 +78,8 @@
                         </div>
                     }
                     break;
-                @*case ColumnType.GroupRole:
-                    {
-                        <div class="users-table__cell users-table__cell--text">
-                            @{ var role = member.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl"; }
-                            <span class="users-table__text">@Html.Localize(role)</span>
-                        </div>
-                    }
-                    break;*@
                 case ColumnType.GroupManagement:
-
                     <div class="users-table__cell users-table__cell--btn">
-
-                        @*@if (Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != member.Member.Id && !Model.IsInvite)
-                            {
-                                <input type="checkbox"
-                                       checked="@member.IsGroupAdmin"
-                                       class="js-user-list-toggle-admin-rights" />
-                            }*@
-
                         @if (UsersPresentationHelper.CanRenderToggleControl(Model, member))
                         {
                             <span class="fake-select">
@@ -125,9 +101,6 @@
                         {
                             var role = member.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl";
                             <span class="users-table__text">
-                                @*<svg class="svg-icon" viewBox="0 0 24 24" width="20px" height="24px">
-            <use xlink:href="#icon-admin" x="0" y="0"></use>
-        </svg>*@
                                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 24 24" width="18px" height="22px">
                                     <style>
                                         .st0 {
