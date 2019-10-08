@@ -17,7 +17,20 @@ var marker = {
     DELETE_MEMBER: '.js-user-list-delete',
     TOGGLE_ADMIN_RIGHTS: '.js-user-list-toggle-admin-rights',
     INVITE_SEARCH: '.js-user-search',
-    INVITE_SEARCH_RESULT: '.js-user-search-result'
+    INVITE_SEARCH_RESULT: '.js-user-search-result',
+    ALERTIFY: {
+        SELECTOR: '.alertify',
+        STYLE: {
+            INVITE_POPUP: 'alertify--custom'
+        },
+        ACTIONS: {
+            TOGGLE_STYLES: function () {
+                $(marker.ALERTIFY.SELECTOR).hasClass(marker.ALERTIFY.STYLE.INVITE_POPUP)
+                    ? $(marker.ALERTIFY.SELECTOR).removeClass(marker.ALERTIFY.STYLE.INVITE_POPUP)
+                    : $(marker.ALERTIFY.SELECTOR).addClass(marker.ALERTIFY.STYLE.INVITE_POPUP);
+            }
+        }
+    }
 };
 
 const SEARCH_MEMBER_INPUT = $(marker.LIST_FILTER);
@@ -149,8 +162,6 @@ let controller = {
             }
         };
 
-        
-
         function onSearchClick(e) {
             const query = SEARCH_MEMBER_INPUT.val();
             if (query) {
@@ -220,7 +231,6 @@ let controller = {
                 location.href = profileUrl;
             });
         }
-        
 
         function addRemoveUserFromGroupHandler(rows) {
             var deleteButtons = rows.find(marker.DELETE_MEMBER);
@@ -288,7 +298,10 @@ let controller = {
                         '</form >' +
                         '<ul class="list-group js-user-search-result"></ul>',
                         function () { }
-                    ).set({ transition: 'fade', movable: false });
+                    ).set({ transition: 'fade', movable: false })
+                     .set({ onclosing:function() { 
+                         marker.ALERTIFY.ACTIONS.TOGGLE_STYLES();
+                     }}); 
                     postOpenSearchModalPage();
                 }
             );
@@ -301,7 +314,7 @@ let controller = {
             SEARCH_USER_ELEMENT.on('keypress', invite.keyPress);
             SEARCH_USER_RESULT_ELEMENT = $(marker.INVITE_SEARCH_RESULT);
             SEARCH_USER_RESULT_ELEMENT.children().remove();
-            $('.alertify').addClass('alertify--custom');
+            marker.ALERTIFY.ACTIONS.TOGGLE_STYLES();
         }
 
         var shared = {
