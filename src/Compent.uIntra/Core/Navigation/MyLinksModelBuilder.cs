@@ -87,7 +87,7 @@ namespace Compent.Uintra.Core.Navigation
             if (activity.Type is IntranetActivityTypeEnum.Bulletins)
             {
                 var lengthForPreview = _navigationApplicationSettings.MyLinksBulletinsTitleLength;
-                var description = activity.Description.RemoveHtmlTags();
+                var description = activity.Description.StripHtml();
                 return description.Length > lengthForPreview ? description.Substring(0, lengthForPreview) + "..." : description;
             }
 
