@@ -86,13 +86,13 @@
                                 <select class="js-user-list-toggle-admin-rights">
                                     @if (member.IsGroupAdmin)
                                     {
-                                        <option value="1" selected>Admin</option>
-                                        <option value="0">Member</option>
+                                        <option value="1" selected>@Html.Localize("UserList.Table.GroupAdmin.lbl")</option>
+                                        <option value="0">@Html.Localize("UserList.Table.GroupMember.lbl")</option>
                                     }
                                     else
                                     {
-                                        <option value="1">Admin</option>
-                                        <option value="0" selected>Member</option>
+                                        <option value="1">@Html.Localize("UserList.Table.GroupAdmin.lbl")</option>
+                                        <option value="0" selected>@Html.Localize("UserList.Table.GroupMember.lbl")</option>
                                     }
                                 </select>
                             </span>
