@@ -1,0 +1,78 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Uintra.Users.UserList.MembersRowsViewModel>
+@using System.Web.Mvc.Html
+@using Uintra.Users.UserList
+@using Uintra.Core.Extensions
+@using Uintra.Users.Helpers
+@using Compent.Extensions
+
+@foreach (var member in Model.Members)
+{
+    <div data-profile="@member.ProfileUrl"
+         data-group-id="@Model.GroupId.GetValueOrDefault()"
+         data-id="@member.Member.Id"
+         class="users-table__row js-user-list-row @if (Model.IsLastRequest)
+                                                  {
+                                                      <text>last</text>
+                                                  }">
+        @foreach (var column in Model.SelectedColumns)
+        {
+            switch (column.Type)
+            {
+                case ColumnType.Name:
+                    {
+                        <div class="users-table__cell users-table__cell--name">
+                            <div class="users-table__info">
+                                @Html.Action("Photo", "Member", new
+                                {
+                                    member = member.Member,
+                                    cssModificator = "avatar--group-member",
+                                    photoWidth = 30
+                                })
+                                <span class="users-table__name">@member.DisplayedName</span>
+                            </div>
+                        </div>
+                    }
+
+                    break;
+                case ColumnType.Info:
+                    {
+                        <div class="users-table__cell users-table__cell--info">
+                            @if (!member.Email.IsNullOrEmpty())
+                            {
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Email.lbl") + ":")
+                                    @member.Email
+                                </span>
+                            }
+                            @if (!member.Phone.IsNullOrEmpty())
+                            {
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Phone.lbl") + ":")
+                                    @member.Phone
+                                </span>
+                            }
+                            @if (!member.Department.IsNullOrEmpty())
+                            {
+                                <span class="users-table__text">
+                                    @(Html.Localize("UserList.Table.Department.lbl") + ":")
+                                    @member.Department
+                                </span>
+                            }
+                        </div>
+                    }
+
+                    break;
+
+                case ColumnType.GroupManagement:
+                    <div class="users-table__cell users-table__cell--btn">
+                        @if (UsersPresentationHelper.CanRenderInviteControl(Model, member))
+                        {
+                            <button class="btn btn-default js-user-invite-member">Add</button>
+                        }
+                    </div>
+
+                    break;
+            }
+        }
+    </div>
+}
