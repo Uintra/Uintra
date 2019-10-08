@@ -152,15 +152,15 @@
         }
 
         &--name{
-            width: 29.8%;
-            flex: 1 1 29.8%;
+            width: 29%;
+            flex: 1 1 29%;
             @media (--for-tablet-portrait-down) {
                 width:100%;
             }
 
             .alertify &{
-                width: 23%;
-                flex: 1 1 23%;
+                width: 47%;
+                flex: 1 1 47%;
 
                 @media (--for-tablet-portrait-down) {
                     width:100%;
@@ -172,13 +172,6 @@
             width:43%;
             @media (--for-tablet-portrait-down) {
                 width:100%;
-            }
-
-            .alertify &{
-                width: 43.8%;
-                @media (--for-tablet-portrait-down) {
-                    width:100%;
-                }
             }
         }
         &--tools{
@@ -194,9 +187,14 @@
             }
         }
         &--btn{
-            width:10.5%;
-            text-align:right;
+            width:18%;
             padding:13px 2.7% 11px 0;
+
+            &:last-child{
+                width:10%;
+                text-align:right;
+            }
+
             @media (--for-tablet-portrait-down) {
                 padding:0;
                 width:100%;
