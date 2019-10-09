@@ -89,7 +89,7 @@
                             </span>
                         }
                         @if(!UsersPresentationHelper.CanRenderToggleControl(Model, member)
-                            && !member.IsCreator && member.IsGroupAdmin)
+                            && !member.IsCreator && (member.IsGroupAdmin || !member.IsGroupAdmin))
                         {
                             var role = member.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl";
                             @Html.Localize(role)
