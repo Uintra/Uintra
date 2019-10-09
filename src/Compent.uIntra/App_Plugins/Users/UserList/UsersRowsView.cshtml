@@ -38,24 +38,15 @@
                         <div class="users-table__cell users-table__cell--info">
                             @if (!member.Email.IsNullOrEmpty())
                             {
-                                <span class="users-table__text">
-                                    @(Html.Localize("UserList.Table.Email.lbl") + ":")
-                                    @member.Email
-                                </span>
+                                <span class="users-table__text"> @(Html.Localize("UserList.Table.Email.lbl") + ":")@member.Email</span>
                             }
                             @if (!member.Phone.IsNullOrEmpty())
                             {
-                                <span class="users-table__text">
-                                    @(Html.Localize("UserList.Table.Phone.lbl") + ":")
-                                    @member.Phone
-                                </span>
+                                <span class="users-table__text">@(Html.Localize("UserList.Table.Phone.lbl") + ":")@member.Phone</span>
                             }
                             @if (!member.Department.IsNullOrEmpty())
                             {
-                                <span class="users-table__text">
-                                    @(Html.Localize("UserList.Table.Department.lbl") + ":")
-                                    @member.Department
-                                </span>
+                                <span class="users-table__text">@(Html.Localize("UserList.Table.Department.lbl") + ":")@member.Department</span>
                             }
                         </div>
                     }
@@ -80,7 +71,7 @@
                     break;
                 case ColumnType.GroupManagement:
                     <div class="users-table__cell users-table__cell--btn">
-                        @if (UsersPresentationHelper.CanRenderToggleControl(Model, member))
+                        @if (UsersPresentationHelper.CanRenderToggleControl(Model, member) && !member.IsCreator)
                         {
                             <span class="fake-select">
                                 <select class="js-user-list-toggle-admin-rights">
@@ -97,7 +88,13 @@
                                 </select>
                             </span>
                         }
-                        else
+                        @if(!UsersPresentationHelper.CanRenderToggleControl(Model, member)
+                            && !member.IsCreator && member.IsGroupAdmin)
+                        {
+                            var role = member.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl";
+                            @Html.Localize(role)
+                        }
+                        @if(member.IsCreator)
                         {
                             var role = member.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl";
                             <span class="users-table__text">
@@ -129,7 +126,6 @@
                             </span>
                         }
                     </div>
-
                     <div class="users-table__cell users-table__cell--btn">
                         @if (UsersPresentationHelper.CanRenderDeleteControl(Model, member))
                         {
