@@ -71,60 +71,66 @@
                     break;
                 case ColumnType.GroupManagement:
                     <div class="users-table__cell users-table__cell--btn">
-                        @if (UsersPresentationHelper.CanRenderToggleControl(Model, member) && !member.IsCreator)
-                        {
-                            <span class="fake-select">
-                                <select class="js-user-list-toggle-admin-rights">
-                                    @if (member.IsGroupAdmin)
-                                    {
-                                        <option value="1" selected>@Html.Localize("UserList.Table.GroupAdmin.lbl")</option>
-                                        <option value="0">@Html.Localize("UserList.Table.GroupMember.lbl")</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="1">@Html.Localize("UserList.Table.GroupAdmin.lbl")</option>
-                                        <option value="0" selected>@Html.Localize("UserList.Table.GroupMember.lbl")</option>
-                                    }
-                                </select>
-                            </span>
-                        }
-                        @if(!UsersPresentationHelper.CanRenderToggleControl(Model, member)
-                            && !member.IsCreator && (member.IsGroupAdmin || !member.IsGroupAdmin))
-                        {
-                            var role = member.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl";
-                            @Html.Localize(role)
-                        }
-                        @if(member.IsCreator)
-                        {
-                            var role = member.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl";
-                            <span class="users-table__text">
-                                <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 24 24" width="18px" height="22px">
-                                    <style>
-                                        .st0 {
-                                            fill: none;
-                                            stroke: #000;
-                                            stroke-width: 2;
-                                            stroke-linecap: round;
-                                            stroke-linejoin: round
-                                        }
+                        @{
+                            var role = member.IsGroupAdmin 
+                                ? "UserList.Table.GroupAdmin.lbl" 
+                                : "UserList.Table.GroupMember.lbl";
 
-                                        .st1 {
-                                            font-family: &apos;
-                                            OpenSans-Bold &apos;
-                                        }
+                            var canRenderToggleControl = UsersPresentationHelper.CanRenderToggleControl(Model, member);
 
-                                        .st2 {
-                                            font-size: 11px
+                            if (canRenderToggleControl && !member.IsCreator)
+                            {
+                                <span class="fake-select">
+                                    <select class="js-user-list-toggle-admin-rights">
+                                        @if (member.IsGroupAdmin)
+                                        {
+                                            <option value="1" selected>@Html.Localize("UserList.Table.GroupAdmin.lbl")</option>
+                                            <option value="0">@Html.Localize("UserList.Table.GroupMember.lbl")</option>
                                         }
-                                    </style>
-                                    <path d="M12 22s8-4 8-10V4l-8-2-8 2v8c0 6 8 10 8 10z" class="st0" />
-                                    <text class="st1 st2" transform="translate(8.25 14)">
-                                        A
-                                    </text>
-                                </svg>
+                                        else
+                                        {
+                                            <option value="1">@Html.Localize("UserList.Table.GroupAdmin.lbl")</option>
+                                            <option value="0" selected>@Html.Localize("UserList.Table.GroupMember.lbl")</option>
+                                        }
+                                    </select>
+                                </span>
+                            }
+                            if (!canRenderToggleControl && !member.IsCreator && (member.IsGroupAdmin || !member.IsGroupAdmin))
+                            {
                                 @Html.Localize(role)
-                            </span>
+                            }
+                            if (member.IsCreator)
+                            {
+                                <span class="users-table__text">
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 24 24" width="18px" height="22px">
+                                        <style>
+                                            .st0 {
+                                                fill: none;
+                                                stroke: #000;
+                                                stroke-width: 2;
+                                                stroke-linecap: round;
+                                                stroke-linejoin: round
+                                            }
+
+                                            .st1 {
+                                                font-family: &apos;
+                                                OpenSans-Bold &apos;
+                                            }
+
+                                            .st2 {
+                                                font-size: 11px
+                                            }
+                                        </style>
+                                        <path d="M12 22s8-4 8-10V4l-8-2-8 2v8c0 6 8 10 8 10z" class="st0" />
+                                        <text class="st1 st2" transform="translate(8.25 14)">
+                                            A
+                                        </text>
+                                    </svg>
+                                    @Html.Localize(role)
+                                </span>
+                            }
                         }
+
                     </div>
                     <div class="users-table__cell users-table__cell--btn">
                         @if (UsersPresentationHelper.CanRenderDeleteControl(Model, member))
