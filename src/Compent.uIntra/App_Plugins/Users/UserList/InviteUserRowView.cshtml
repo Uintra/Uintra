@@ -10,10 +10,7 @@
     <div data-profile="@member.ProfileUrl"
          data-group-id="@Model.GroupId.GetValueOrDefault()"
          data-id="@member.Member.Id"
-         class="users-table__row js-user-list-row @if (Model.IsLastRequest)
-                                                  {
-                                                      <text>last</text>
-                                                  }">
+         class="users-table__row js-user-list-row @if (Model.IsLastRequest) {<text>last</text>}">
         @foreach (var column in Model.SelectedColumns)
         {
             switch (column.Type)
@@ -39,24 +36,15 @@
                         <div class="users-table__cell users-table__cell--info">
                             @if (!member.Email.IsNullOrEmpty())
                             {
-                                <span class="users-table__text">
-                                    @(Html.Localize("UserList.Table.Email.lbl") + ":")
-                                    @member.Email
-                                </span>
+                                <span class="users-table__text">@(Html.Localize("UserList.Table.Email.lbl") + ":")@member.Email</span>
                             }
                             @if (!member.Phone.IsNullOrEmpty())
                             {
-                                <span class="users-table__text">
-                                    @(Html.Localize("UserList.Table.Phone.lbl") + ":")
-                                    @member.Phone
-                                </span>
+                                <span class="users-table__text">@(Html.Localize("UserList.Table.Phone.lbl") + ":")@member.Phone</span>
                             }
                             @if (!member.Department.IsNullOrEmpty())
                             {
-                                <span class="users-table__text">
-                                    @(Html.Localize("UserList.Table.Department.lbl") + ":")
-                                    @member.Department
-                                </span>
+                                <span class="users-table__text">@(Html.Localize("UserList.Table.Department.lbl") + ":")@member.Department</span>
                             }
                         </div>
                     }
