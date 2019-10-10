@@ -18,6 +18,7 @@ var marker = {
     TOGGLE_ADMIN_RIGHTS: '.js-user-list-toggle-admin-rights',
     INVITE_SEARCH: '.js-user-search',
     INVITE_SEARCH_RESULT: '.js-user-search-result',
+    INVITE_NOT_FOUND_RESULT: '.js-invite-user-list-empty-result',
     ALERTIFY: {
         SELECTOR: '.alertify',
         STYLE: {
@@ -42,6 +43,7 @@ const EMPTY_RESULT_LABEL = $(marker.LIST_EMPTY_RESULT);
 const MEMBER_SEARCH_SUBMIT_BUTTON = $(marker.SEARCH_BUTTON);
 const OPEN_INVITE_MODAL_ELEMENT = $(marker.OPEN_MODAL_PAGE);
 const SEARCH_ACTIVATION_DELAY = 256;
+let INVITE_LABEL_NOT_FOUND;
 
 var hook = {
     rows: function () {
@@ -123,6 +125,7 @@ let controller = {
                 const searchString = SEARCH_USER_ELEMENT.val();
 
                 if (searchString.length === 0) {
+                    invite.updateUI(SEARCH_USER_RESULT_ELEMENT.children());
                     SEARCH_USER_RESULT_ELEMENT.children().remove();
 
                     return;
@@ -139,12 +142,10 @@ let controller = {
                         SEARCH_USER_RESULT_ELEMENT.append(rows);
                         INVITE_USER_ELEMENT = $(marker.INVITE_MEMBER);
                         INVITE_USER_ELEMENT.on('click', invite.inviteUser);
-
-                        updateUI(rows);
+                        invite.updateUI(rows);
                     });
             },
             inviteUser: function (e) {
-
                 var row = $(e.target).closest(marker.ROWS);
                 var groupId = row.data('group-id');
                 var userId = row.data('id');
@@ -159,6 +160,22 @@ let controller = {
                 request.take = displayedAmount;
                 request.text = searchString;
                 request.isInvite = true;
+            },
+            updateUI: function () {
+                var searchResultLength = $(marker.INVITE_SEARCH_RESULT).children('div').length;
+                if (searchResultLength === 0) {
+                    INVITE_LABEL_NOT_FOUND.show();
+                } else {
+                    INVITE_LABEL_NOT_FOUND.hide();
+                }
+
+                var inputLength = SEARCH_USER_ELEMENT.val().length;
+
+                if (inputLength === 0 || searchResultLength !== 0) {
+                    INVITE_LABEL_NOT_FOUND.hide();
+                } else {
+                    INVITE_LABEL_NOT_FOUND.show();
+                }
             }
         };
 
@@ -218,11 +235,23 @@ let controller = {
             request.isInvite = false;
         }
 
-        function updateUI(rows) {
-            if (TABLE_BODY.children('div').length === 0) EMPTY_RESULT_LABEL.show();
-            else EMPTY_RESULT_LABEL.hide();
-            if (rows.hasClass(lastRequestClassName) || rows.length === 0) LOAD_MORE_BUTTON.hide();
-            else LOAD_MORE_BUTTON.show();
+        function updateUI(loadedRows) {
+
+            var length = TABLE_BODY.children('div').length;
+
+            var isLastRequest = loadedRows.hasClass(lastRequestClassName);
+
+            if (length === 1) {
+                EMPTY_RESULT_LABEL.show();
+            } else {
+                EMPTY_RESULT_LABEL.hide();
+            }
+            if (length === 1  || isLastRequest) {
+                LOAD_MORE_BUTTON.hide();
+                
+            } else {
+                LOAD_MORE_BUTTON.show();
+            }
         }
 
         function addDetailsHandler(rows) {
@@ -252,7 +281,7 @@ let controller = {
                                     buttonToDeleteMember = null;
                                 }
                             }, function () {
-                                    buttonToDeleteMember = null;
+                                buttonToDeleteMember = null;
                             });
                     },
                     function () {
@@ -296,13 +325,17 @@ let controller = {
                         '</span > ' +
                         '</button > ' +
                         '</form >' +
-                        '<ul class="list-group js-user-search-result"></ul>',
+                        '<ul class="list-group js-user-search-result"></ul>' +
+                        '<div class="js-invite-user-list-empty-result" style="display:none;">No results, try other keywords</div>',
                         function () { }
                     ).set({ transition: 'fade', movable: false })
-                     .set({ onclosing:function() { 
-                         marker.ALERTIFY.ACTIONS.TOGGLE_STYLES();
-                     }}); 
+                        .set({
+                            onclosing: function () {
+                                marker.ALERTIFY.ACTIONS.TOGGLE_STYLES();
+                            }
+                        });
                     postOpenSearchModalPage();
+                    INVITE_LABEL_NOT_FOUND = $(marker.INVITE_NOT_FOUND_RESULT);
                 }
             );
         }
