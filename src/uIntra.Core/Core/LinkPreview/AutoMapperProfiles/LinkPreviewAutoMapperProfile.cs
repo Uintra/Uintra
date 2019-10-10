@@ -12,7 +12,8 @@ namespace Uintra.Core.LinkPreview
             Mapper.CreateMap<Compent.LinkPreview.HttpClient.LinkPreview, LinkPreviewEntity>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
                 .ForMember(dst => dst.OgDescription, o => o.Ignore())
-                .ForMember(dst => dst.Uri, o => o.Ignore());
+                .ForMember(dst => dst.Uri, o => o.Ignore())
+                .ForMember(dst => dst.MediaId, o => o.Ignore());
         }
     }
 }

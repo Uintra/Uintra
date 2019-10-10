@@ -1,16 +1,21 @@
 ﻿using System;
 using Compent.LinkPreview.HttpClient;
 using Uintra.Core.LinkPreview.Sql;
+using Umbraco.Web;
 
 namespace Uintra.Core.LinkPreview
 {
     public class LinkPreviewModelMapper
     {
         private readonly ILinkPreviewUriProvider _linkPreviewUriProvider;
+        private readonly UmbracoHelper _umbracoHelper;
 
-        public LinkPreviewModelMapper(ILinkPreviewUriProvider linkPreviewUriProvider)
+        public LinkPreviewModelMapper(
+            ILinkPreviewUriProvider linkPreviewUriProvider,
+            UmbracoHelper umbracoHelper)
         {
             _linkPreviewUriProvider = linkPreviewUriProvider;
+            _umbracoHelper = umbracoHelper;
         }
 
         public LinkPreview MapPreview(LinkPreviewEntity entity)
@@ -20,10 +25,19 @@ namespace Uintra.Core.LinkPreview
                 Id = entity.Id,
                 Uri = new UriBuilder(entity.Uri).Uri,
                 Title = entity.Title,
-                Description = GetLongest(entity.OgDescription, entity.Description),
-                ImageUri = entity.ImageId.HasValue ? _linkPreviewUriProvider.GetImageUri(entity.ImageId.Value) : null,
-                FaviconUri = entity.FaviconId.HasValue ? _linkPreviewUriProvider.GetImageUri(entity.FaviconId.Value) : null
+                Description = GetLongest(entity.OgDescription, entity.Description)
             };
+
+            if (entity.MediaId.HasValue)
+            {
+                var media = _umbracoHelper.TypedMedia(entity.MediaId);
+                result.ImageUri = media != null ? new Uri(media.Url, UriKind.Relative) : null;
+            }
+            else
+            {
+                result.ImageUri = entity.ImageId.HasValue ? _linkPreviewUriProvider.GetImageUri(entity.ImageId.Value) : null;
+                result.FaviconUri = entity.FaviconId.HasValue ? _linkPreviewUriProvider.GetImageUri(entity.FaviconId.Value) : null;
+            }
 
             return result;
         }

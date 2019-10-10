@@ -10,11 +10,14 @@ using Umbraco.Core.Models;
 using Umbraco.Web;
 using static Uintra.Core.OpenGraph.Constants.OpenGraphConstants;
 using Uintra.Core.Extensions;
+using Umbraco.Core;
 
 namespace Uintra.Core.OpenGraph.Services
 {
     public class OpenGraphService : IOpenGraphService
     {
+        private const string _queryStringIdKey = "id";
+
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly UmbracoHelper _umbracoHelper;
@@ -31,24 +34,43 @@ namespace Uintra.Core.OpenGraph.Services
             _umbracoHelper = umbracoHelper;
         }
 
-        public virtual OpenGraphObject GetOpenGraphObject(IPublishedContent content)
+        public virtual OpenGraphObject GetOpenGraphObject(string url)
+        {
+            if (url.IsNullOrWhiteSpace()) return null;
+
+            var uri = new UriBuilder(url).Uri;
+            var content = _umbracoHelper.UmbracoContext.ContentCache.GetByRoute(uri.GetAbsolutePathDecoded());
+            if (content == null) return null;
+
+            if (content.DocumentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetContentPage()))
+            {
+                return GetOpenGraphObject(content, url);
+            }
+            else
+            {
+                return Guid.TryParse(HttpUtility.ParseQueryString(uri?.Query ?? "").Get(_queryStringIdKey), out var id) ? 
+                    GetOpenGraphObject(id, url) : null;
+            }
+        }
+
+        public virtual OpenGraphObject GetOpenGraphObject(IPublishedContent content, string defaultUrl = null)
         {
             if (!content.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetContentPage()))
                 return null;
 
-            var obj = GetDefaultObject();
-
+            var obj = GetDefaultObject(defaultUrl);
+            var media = content.GetPropertyValue<IPublishedContent>(Properties.ImageAlias);
             obj.Title = content.HasValue(Properties.TitleAlias) ?
                 content.GetPropertyValue<string>(Properties.TitleAlias) : content.Name;
             obj.Description = content.GetPropertyValue<string>(Properties.DescriptionAlias);
-            obj.Image = content.HasValue(Properties.ImageAlias) ?
-                GetAbsoluteImageUrl(content.GetPropertyValue<IPublishedContent>(Properties.ImageAlias)) : null;
+            obj.Image = GetAbsoluteImageUrl(media);
+            obj.MediaId = media?.Id;
             return obj;
         }
 
-        public virtual OpenGraphObject GetOpenGraphObject(Guid activityId)
+        public virtual OpenGraphObject GetOpenGraphObject(Guid activityId, string defaultUrl = null)
         {
-            var obj = GetDefaultObject();
+            var obj = GetDefaultObject(defaultUrl);
 
             var intranetActivityService = (IIntranetActivityService<IIntranetActivity>)_activitiesServiceFactory
                 .GetService<IIntranetActivityService>(activityId);
@@ -56,22 +78,25 @@ namespace Uintra.Core.OpenGraph.Services
             if (currentActivity == null)
                 return obj;
 
-            obj.Title = currentActivity.Title;
-            obj.Description = currentActivity.Description.StripHtml().TrimByWordEnd(100);
+            obj.Title = currentActivity.Title.IfNullOrWhiteSpace("Bulletin");
+            obj.Description = Extensions.StringExtensions.StripHtml(currentActivity.Description).TrimByWordEnd(100);
 
             if (currentActivity.MediaIds.Any())
+            {
                 obj.Image = GetAbsoluteImageUrl(_umbracoHelper.TypedMedia(currentActivity.MediaIds.First()));
+                obj.MediaId = currentActivity.MediaIds.First();
+            }
 
             return obj;
         }
 
-        protected virtual OpenGraphObject GetDefaultObject()
+        protected virtual OpenGraphObject GetDefaultObject(string defaultUrl = null)
         {
             var obj = new OpenGraphObject()
             {
                 SiteName = RequestUrl.Host,
                 Type = "website",
-                Url = RequestUrl.AbsoluteUri
+                Url = defaultUrl.IsNullOrWhiteSpace() ? RequestUrl.AbsoluteUri : defaultUrl
             };
 
             return obj;

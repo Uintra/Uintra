@@ -1153,6 +1153,9 @@
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
     <Content Include="App_Plugins\Users\UserList\InviteUserRowView.cshtml" />
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.resx">
+      <DependentUpon>201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="postcss.config.js" />
     <Content Include="Views\News\DetailsView.cshtml" />
     <Content Include="Views\News\ItemView.cshtml" />
@@ -1161,7 +1164,6 @@
     <Content Include="Views\Navigation\TopNavigation\Navigation.cshtml" />
     <Content Include="Views\Bulletins\DetailsView.cshtml" />
     <Content Include="Views\Bulletins\ItemView.cshtml" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\groups_qa.pubxml">
       <SubType>Designer</SubType>
     </None>
@@ -1573,6 +1575,10 @@
     <Compile Include="Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.cs" />
     <Compile Include="Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.Designer.cs">
       <DependentUpon>201909240749464_AddIsAdminFlag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.Designer.cs">
+      <DependentUpon>201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
     <Compile Include="Persistence\Sql\DbContextFactory.cs" />
