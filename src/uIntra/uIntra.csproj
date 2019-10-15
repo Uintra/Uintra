@@ -1429,6 +1429,20 @@
       <Link>Persistence\Sql\Migrations\201903011404027_Permissions.Designer.cs</Link>
       <DependentUpon>201903011404027_Permissions.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.cs">
+      <Link>Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.Designer.cs">
+      <Link>Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.Designer.cs</Link>
+      <DependentUpon>201909240749464_AddIsAdminFlag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.cs">
+      <Link>Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.Designer.cs">
+      <Link>Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.Designer.cs</Link>
+      <DependentUpon>201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
     </Compile>
@@ -1487,6 +1501,14 @@
     <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201903011404027_Permissions.resx">
       <Link>Persistence\Sql\Migrations\201903011404027_Permissions.resx</Link>
       <DependentUpon>201903011404027_Permissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.resx">
+      <Link>Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.resx</Link>
+      <DependentUpon>201909240749464_AddIsAdminFlag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.resx">
+      <Link>Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.resx</Link>
+      <DependentUpon>201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

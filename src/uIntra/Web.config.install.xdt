@@ -191,6 +191,57 @@
 
   <runtime>
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly xdt:Transform="InsertIfMissing" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Data.Common']))">
+        <assemblyIdentity name="System.Data.Common" culture="neutral" publicKeyToken="b03f5f7f11d50a3a" />
+        <bindingRedirect oldVersion="0.0.0.0-4.2.0.0" newVersion="4.2.0.0" />
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="InsertIfMissing" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Diagnostics.StackTrace']))">
+        <assemblyIdentity name="System.Diagnostics.StackTrace" culture="neutral" publicKeyToken="b03f5f7f11d50a3a" />
+        <bindingRedirect oldVersion="0.0.0.0-4.1.0.0" newVersion="4.1.0.0" />
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="InsertIfMissing" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Diagnostics.Tracing']))">
+        <assemblyIdentity name="System.Diagnostics.Tracing" culture="neutral" publicKeyToken="b03f5f7f11d50a3a" />
+        <bindingRedirect oldVersion="0.0.0.0-4.2.0.0" newVersion="4.2.0.0" />
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="InsertIfMissing" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Globalization.Extensions']))">
+        <assemblyIdentity name="System.Globalization.Extensions" culture="neutral" publicKeyToken="b03f5f7f11d50a3a" />
+        <bindingRedirect oldVersion="0.0.0.0-4.1.0.0" newVersion="4.1.0.0" />
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="InsertIfMissing" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.IO.Compression']))">
+        <assemblyIdentity name="System.IO.Compression" culture="neutral" publicKeyToken="b77a5c561934e089" />
+        <bindingRedirect oldVersion="0.0.0.0-4.2.0.0" newVersion="4.2.0.0" />
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Net.Http']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="InsertIfMissing" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Net.Http']))">
+        <assemblyIdentity name="System.Net.Http" culture="neutral" publicKeyToken="b03f5f7f11d50a3a" />
+        <bindingRedirect oldVersion="0.0.0.0-4.2.0.0" newVersion="4.2.0.0" />
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="InsertIfMissing" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Net.Sockets']))">
+        <assemblyIdentity name="System.Net.Sockets" culture="neutral" publicKeyToken="b03f5f7f11d50a3a" />
+        <bindingRedirect oldVersion="0.0.0.0-4.2.0.0" newVersion="4.2.0.0" />
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="InsertIfMissing" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Runtime.Serialization.Primitives']))">
+        <assemblyIdentity name="System.Runtime.Serialization.Primitives" culture="neutral" publicKeyToken="b03f5f7f11d50a3a" />
+        <bindingRedirect oldVersion="0.0.0.0-4.2.0.0" newVersion="4.2.0.0" />
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="InsertIfMissing" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Security.Cryptography.Algorithms']))">
+        <assemblyIdentity name="System.Security.Cryptography.Algorithms" culture="neutral" publicKeyToken="b03f5f7f11d50a3a" />
+        <bindingRedirect oldVersion="0.0.0.0-4.3.0.0" newVersion="4.3.0.0" />
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="InsertIfMissing" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Security.SecureString']))">
+        <assemblyIdentity name="System.Security.SecureString" culture="neutral" publicKeyToken="b03f5f7f11d50a3a" />
+        <bindingRedirect oldVersion="0.0.0.0-4.1.0.0" newVersion="4.1.0.0" />
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="InsertIfMissing" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Threading.Overlapped']))">
+        <assemblyIdentity name="System.Threading.Overlapped" culture="neutral" publicKeyToken="b03f5f7f11d50a3a" />
+        <bindingRedirect oldVersion="0.0.0.0-4.1.0.0" newVersion="4.1.0.0" />
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="InsertIfMissing" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Xml.XPath.XDocument']))">
+        <assemblyIdentity name="System.Xml.XPath.XDocument" culture="neutral" publicKeyToken="b03f5f7f11d50a3a" />
+        <bindingRedirect oldVersion="0.0.0.0-4.1.0.0" newVersion="4.1.0.0" />
+      </dependentAssembly>
+
       <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Runtime']))">
       </dependentAssembly>
       <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Linq']))">
@@ -202,8 +253,6 @@
       <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Runtime.InteropServices']))">
       </dependentAssembly>
       <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Reflection']))">
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Diagnostics.Tracing']))">
       </dependentAssembly>
       <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Xml.ReaderWriter']))">
       </dependentAssembly>
