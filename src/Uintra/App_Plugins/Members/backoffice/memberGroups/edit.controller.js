@@ -1,7 +1,13 @@
 ﻿var app = angular.module('umbraco');
 
 app.controller('memberGroups.editController',
-    function (memberGroupsService, $routeParams, notificationsService, $location, navigationService, $scope, $http, currentUserResource, usersResource, editorState, userService) {
+    function (
+        memberGroupsService,
+        $routeParams,
+        notificationsService,
+        $location,
+        navigationService,
+        $scope) {
 
         var vm = this;
         var inProgress = false;
@@ -9,12 +15,37 @@ app.controller('memberGroups.editController',
         var memberGroupId = $routeParams.id;
         vm.isButtonDisabled = true;
 
+        var notification = {
+            SUCCESS: 'Success',
+            ERROR: 'Error',
+            INVALID_GROUP_NAME: 'Invalid group name!',
+            MEMBER_SAVED: 'Member group has been saved!',
+            GROUP_EXIST: 'The group with the same name already exist!',
+            PERMISSION: {
+                ENABLED: 'Permission has been enabled!',
+                DISABLED: 'Permission has been disabled!',
+                ALLOWED: 'Permission has been allowed!',
+                DISALLOWED: 'Permission has been disallowed!',
+            }
+        };
+
+        control = {
+            button: {
+                state: {
+                    INIT: 'init',
+                    BUSY: 'busy',
+                    SUCCESS: 'success'
+                }
+            }
+        };
+
         if ($routeParams.create) {
             vm.memberGroup = {};
             vm.isCreate = true;
             vm.isButtonDisabled = false;
         } else {
-            memberGroupsService.getPermissions(memberGroupId)
+            memberGroupsService
+                .getPermissions(memberGroupId)
                 .success(function (groupPermissionModel) {
                     vm.memberGroup = groupPermissionModel.memberGroup;
                     vm.permissions = groupPermissionModel.permissions;
@@ -32,16 +63,17 @@ app.controller('memberGroups.editController',
         }
 
         vm.property = {
-            label: "Name",
-            description: "Member group name"
+            label: 'Name',
+            description: 'Member group name'
         };
         vm.permissionsProperty = {
-            label: "",
-            description: "Activity type name"
+            label: '',
+            description: 'Activity type name'
         };
 
         vm.getProperty = function (activityTypeName) {
             vm.permissionsProperty.label = activityTypeName;
+
             return vm.permissionsProperty;
         };
 
@@ -51,6 +83,7 @@ app.controller('memberGroups.editController',
             var parent = vm.permissions.find(function (item) {
                 return item.actionId === permission.parentActionId && item.resourceTypeId === permission.resourceTypeId;
             });
+
             return !parent.allowed;
         };
 
@@ -61,67 +94,79 @@ app.controller('memberGroups.editController',
             var request = angular.copy(permission);
             request.enabled = !permission.enabled;
 
-            memberGroupsService.toggle(request)
+            memberGroupsService
+                .toggle(request)
                 .success(function (response) {
                     permission.enabled = !permission.enabled;
                     if (permission.enabled)
-                        notificationsService.success("Success", "Permission has been enabled!");
+                        notificationsService.success(notification.SUCCESS, notification.PERMISSION.ENABLED);
                     else
-                        notificationsService.warning("Success", "Permission has been disabled!");
-                }).always(function () {
+                        notificationsService.warning(notification.SUCCESS, notification.PERMISSION.DISABLED);
+                })
+                .always(function () {
                     inProgress = false;
                 });
         };
 
         vm.toggleAllowed = function (permission) {
+
             if (inProgress) return;
+
             inProgress = true;
 
             var request = angular.copy(permission);
             request.allowed = !permission.allowed;
-            memberGroupsService.toggle(request)
+            memberGroupsService
+                .toggle(request)
                 .success(function (groupPermissionModel) {
                     vm.permissions = groupPermissionModel.permissions;
                     vm.groupedPermissions = groupByResourceTypeName(groupPermissionModel.permissions);
                     if (!permission.allowed) {
-                        notificationsService.success("Success", "Permission has been allowed!");
+                        notificationsService.success(notification.SUCCESS, notification.PERMISSION.ALLOWED);
                     }
                     else {
-                        notificationsService.warning("Success", "Permission has been disallowed!");
+                        notificationsService.warning(notification.SUCCESS, notification.PERMISSION.DISALLOWED);
                     }
-                }).always(function () {
+                })
+                .always(function () {
                     inProgress = false;
                 });
         };
 
-        vm.buttonState = "init";
+        changeButtonState(control.button.state.INIT);
+
         vm.save = function () {
-            vm.buttonState = "busy";
+            changeButtonState(control.button.state.BUSY);
             if (vm.isCreate) {
-                memberGroupsService.create(vm.memberGroup.name)
+                memberGroupsService
+                    .create(vm.memberGroup.name)
                     .success(function (createdMemberGroupId) {
                         if (createdMemberGroupId > 0) {
                             syncTree(createdMemberGroupId);
-                            $location.url("/" + $routeParams.section + "/" + $routeParams.tree + "/" + $routeParams.method + "/" + createdMemberGroupId);
+                            $location.url('/' + $routeParams.section + '/' + $routeParams.tree + '/' + $routeParams.method + '/' + createdMemberGroupId);
                         } else {
-                            notificationsService.error("Error", "Invalid group name!");
-                            vm.buttonState = "success";
+                            notificationsService.error(notification.ERROR, notification.INVALID_GROUP_NAME);
+                            changeButtonState(control.button.state.SUCCESS);
                         }
-                    }).error(function (error) {
-                        vm.buttonState = "success";
+                    })
+                    .error(function (error) {
+                        changeButtonState(control.button.state.SUCCESS);
                     });
+
                 return;
             }
-            memberGroupsService.save(memberGroupId, vm.memberGroup.name)
+            memberGroupsService
+                .save(memberGroupId, vm.memberGroup.name)
                 .success(function (result) {
                     if (result === 'true') {
-                        notificationsService.success("Success", "Member group has been saved!");
+                        notificationsService.success(notification.SUCCESS, notification.MEMBER_SAVED);
                         syncTree(memberGroupId);
                     } else {
-                        notificationsService.error("Error", "The group with the same name already exist!");
+                        notificationsService.error(notification.ERROR, notification.GROUP_EXIST);
                     }
-                }).always(function () {
-                    vm.buttonState = "success";
+                })
+                .always(function () {
+                    changeButtonState(control.button.state.SUCCESS);
                 });
         };
 
@@ -129,14 +174,36 @@ app.controller('memberGroups.editController',
             var grouped = _.groupBy(items, function (item) {
                 return item.resourceTypeName;
             });
-            return Object.entries(grouped); // used for sorting from backend
+
+            objectEntriesCheck();
+
+            return Object.entries(grouped);
         }
 
         function syncTree(id) {
             navigationService.syncTree({
-                tree: $routeParams.tree, path: ["-1", id.toString()],
+                tree: $routeParams.tree, path: ['-1', id.toString()],
                 forceReload: true,
                 activate: true
             });
+        }
+
+        function changeButtonState(state) {
+            vm.buttonState = state;
+        }
+
+        //Used due to support IE11
+        function objectEntriesCheck() {
+            if (!Object.entries) {
+                Object.entries = function (obj) {
+                    var ownProps = Object.keys(obj),
+                        i = ownProps.length,
+                        resArray = new Array(i);
+                    while (i--)
+                        resArray[i] = [ownProps[i], obj[ownProps[i]]];
+
+                    return resArray;
+                };
+            }
         }
     });

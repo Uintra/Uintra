@@ -438,6 +438,9 @@ const helpers = {
     },
     initDatePicker: function (holder, dateElemSelector, valueSelector) {
         var dateElem = holder.find(dateElemSelector);
+        if (!dateElem || dateElem.length === 0) {
+            return undefined;
+        }
         var dateParentNode = dateElem.parent();
         var dateFormat = dateElem.data('dateFormat');
         var dateElemValue = holder.find(valueSelector);

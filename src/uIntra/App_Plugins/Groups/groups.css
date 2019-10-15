@@ -27,6 +27,8 @@
 }
 
 .groups {
+
+
     padding-top:10px;
 
     @media (--for-tablet-landscape-up){
@@ -39,6 +41,19 @@
         right: -5px;
         z-index: 11;
         display:none;
+    }
+    &__form{
+        position:relative;
+
+        &-field {
+            margin:0 0 10px;
+        }
+    }
+
+    &__toolbar{
+        display:flex;
+        flex-direction:row-reverse;
+        padding:10px 0 0;
     }
 
     &__list{
@@ -547,14 +562,11 @@
 .avatar.avatar--group-member,
 .avatar--group-member{
     margin:0;
-    width: 50px;
-    min-width: 50px;
-    height: 50px;
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
 
     @media (--for-tablet-portrait-down) {
-        width: 45px;
-        min-width: 45px;
-        height: 45px;
         position: absolute;
         top: 20px;
         left: 0;

@@ -21,6 +21,12 @@
             data-title="@Html.Localize("UserList.Confirm.Delete.Title")"
             data-text="@Html.Localize("UserList.Confirm.Delete.Text")">
         <div class="js-tbody">
+            @if (Model.MembersRows.IsCurrentMemberGroupAdmin)
+            {
+                <div class="btn-holder">
+                    <button class="btn btn-default js-open-search-modal-page"> Invite Member</button>
+                </div>
+            }
             @Html.Action("RenderRows", "UserList", new { model = Model.MembersRows })
         </div>
     </div>

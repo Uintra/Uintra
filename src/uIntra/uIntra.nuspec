@@ -11,6 +11,15 @@
     <copyright>$copyright$</copyright>
     <tags>Uintra Umbraco Intranet Extranet Social Forum Wiki Portal</tags>
     <dependencies>
+      <dependency id="EmailWorker.Data" version="[0.4.2.4]" />
+      <dependency id="EmailWorker.Ninject" version="[0.0.4.5]" />
+      <dependency id="EmailWorker.Web" version="[0.4.2.8]" />
+      <dependency id="Compent.Localization.Core" version="[0.1.1]" />
+      <dependency id="Compent.Localization.Storage.UDictionary" version="[0.1.1]" />
+      <dependency id="Compent.Localization.Umbraco" version="[0.1.2]" />
+      <dependency id="Compent.Localization.Web" version="[0.0.3]" />
+      <dependency id="Microsoft.Web.Xdt" version="2.1.2" />
+
       <!--<dependency id="Compent.Extensions" version="0.3.4" />
       <dependency id="Elmah.MVC" version="2.0.0" />
       <dependency id="EmailWorker.Data" version="0.4.2.4" />
@@ -20,7 +29,6 @@
       <dependency id="Microsoft.Net.Compilers" version="2.4.0" />
       <dependency id="UmbracoCms" version="7.14.0" />
       <dependency id="UmbracoCms.Core" version="7.14.0" />-->
-      <dependency id="Microsoft.Web.Xdt" version="2.1.2" />
 
       <!--<dependency id="Uintra.BaseControls" version="3.3.0" />
       <dependency id="Uintra.Bulletins" version="1.3.0" />

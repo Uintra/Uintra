@@ -2,11 +2,18 @@
 @using System.Web.Mvc.Html
 @using Uintra.Users.UserList
 @using Uintra.Core.Extensions
+@using Uintra.Users.Helpers
+@using Compent.Extensions
 
-@foreach (var user in Model.Members)
+@foreach (var member in Model.Members)
 {
-    <div data-profile="@user.ProfileUrl" data-group-id="@Model.GroupId.GetValueOrDefault()" data-id="@user.Member.Id"
-         class="users-table__row js-user-list-row @if (Model.IsLastRequest) { <text>last</text> }">
+    <div data-profile="@member.ProfileUrl"
+         data-group-id="@Model.GroupId.GetValueOrDefault()"
+         data-id="@member.Member.Id"
+         class="users-table__row js-user-list-row @if (Model.IsLastRequest)
+                                                  {
+                                                      <text>last</text>
+                                                  }">
         @foreach (var column in Model.SelectedColumns)
         {
             switch (column.Type)
@@ -17,11 +24,11 @@
                             <div class="users-table__info">
                                 @Html.Action("Photo", "Member", new
                                 {
-                                    member = user.Member,
+                                    member = member.Member,
                                     cssModificator = "avatar--group-member",
                                     photoWidth = 30
                                 })
-                                <span class="users-table__name">@user.DisplayedName</span>
+                                <span class="users-table__name">@member.DisplayedName</span>
                             </div>
                         </div>
                     }
@@ -29,26 +36,17 @@
                 case ColumnType.Info:
                     {
                         <div class="users-table__cell users-table__cell--info">
-                            @if (!string.IsNullOrEmpty(user.Email))
+                            @if (!member.Email.IsNullOrEmpty())
                             {
-                                <span class="users-table__text">
-                                    @(Html.Localize("UserList.Table.Email.lbl") + ":")
-                                    @user.Email
-                                </span>
+                                <span class="users-table__text"> @(Html.Localize("UserList.Table.Email.lbl") + ":")@member.Email</span>
                             }
-                            @if (!string.IsNullOrEmpty(user.Phone))
+                            @if (!member.Phone.IsNullOrEmpty())
                             {
-                                <span class="users-table__text">
-                                    @(Html.Localize("UserList.Table.Phone.lbl") + ":")
-                                    @user.Phone
-                                </span>
+                                <span class="users-table__text">@(Html.Localize("UserList.Table.Phone.lbl") + ":")@member.Phone</span>
                             }
-                            @if (!string.IsNullOrEmpty(user.Department))
+                            @if (!member.Department.IsNullOrEmpty())
                             {
-                                <span class="users-table__text">
-                                    @(Html.Localize("UserList.Table.Department.lbl") + ":")
-                                    @user.Department
-                                </span>
+                                <span class="users-table__text">@(Html.Localize("UserList.Table.Department.lbl") + ":")@member.Department</span>
                             }
                         </div>
                     }
@@ -57,29 +55,90 @@
                     {
                         <div class="users-table__cell users-table__cell--tools">
                             <button class="btn">
-                                <svg class="svg-icon" viewBox="0 0 24 24" width="19px" height="19px">
-                                    <use xlink:href="#icon-comment" x="0" y="0"></use>
+                                <svg class="svg-icon"
+                                     viewBox="0 0 24 24"
+                                     width="19px"
+                                     height="19px">
+                                    <use xlink:href="#icon-comment"
+                                         x="0"
+                                         y="0">
+                                    </use>
                                 </svg>
                                 <span>Message</span>
                             </button>
                         </div>
                     }
                     break;
-                case ColumnType.GroupRole:
-                    {
-                        <div class="users-table__cell users-table__cell--text">
-                            @{var role = user.IsGroupAdmin ? "UserList.Table.GroupAdmin.lbl" : "UserList.Table.GroupMember.lbl";}
-                            <span class="users-table__text">@Html.Localize(role)</span>
-                        </div>
-                    }
-                    break;
                 case ColumnType.GroupManagement:
                     <div class="users-table__cell users-table__cell--btn">
-                        @if(Model.IsCurrentMemberGroupAdmin && Model.CurrentMember.Id != user.Member.Id )
+                        @{
+                            var role = member.IsGroupAdmin 
+                                ? "UserList.Table.GroupAdmin.lbl" 
+                                : "UserList.Table.GroupMember.lbl";
+
+                            var canRenderToggleControl = UsersPresentationHelper.CanRenderToggleControl(Model, member);
+
+                            if (canRenderToggleControl && !member.IsCreator)
+                            {
+                                <span class="fake-select">
+                                    <select class="js-user-list-toggle-admin-rights">
+                                        @if (member.IsGroupAdmin)
+                                        {
+                                            <option value="1" selected>@Html.Localize("UserList.Table.GroupAdmin.lbl")</option>
+                                            <option value="0">@Html.Localize("UserList.Table.GroupMember.lbl")</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="1">@Html.Localize("UserList.Table.GroupAdmin.lbl")</option>
+                                            <option value="0" selected>@Html.Localize("UserList.Table.GroupMember.lbl")</option>
+                                        }
+                                    </select>
+                                </span>
+                            }
+                            if (!canRenderToggleControl && !member.IsCreator && (member.IsGroupAdmin || !member.IsGroupAdmin))
+                            {
+                                @Html.Localize(role)
+                            }
+                            if (member.IsCreator)
+                            {
+                                <span class="users-table__text">
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 24 24" width="18px" height="22px">
+                                        <style>
+                                            .st0 {
+                                                fill: none;
+                                                stroke: #000;
+                                                stroke-width: 2;
+                                                stroke-linecap: round;
+                                                stroke-linejoin: round
+                                            }
+
+                                            .st1 {
+                                                font-family: &apos;
+                                                OpenSans-Bold &apos;
+                                            }
+
+                                            .st2 {
+                                                font-size: 11px
+                                            }
+                                        </style>
+                                        <path d="M12 22s8-4 8-10V4l-8-2-8 2v8c0 6 8 10 8 10z" class="st0" />
+                                        <text class="st1 st2" transform="translate(8.25 14)">
+                                            A
+                                        </text>
+                                    </svg>
+                                    @Html.Localize(role)
+                                </span>
+                            }
+                        }
+
+                    </div>
+                    <div class="users-table__cell users-table__cell--btn">
+                        @if (UsersPresentationHelper.CanRenderDeleteControl(Model, member))
                         {
                             <button class="users-table__delete js-user-list-delete">X</button>
                         }
                     </div>
+
                     break;
             }
         }
