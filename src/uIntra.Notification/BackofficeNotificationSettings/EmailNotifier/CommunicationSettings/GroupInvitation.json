@@ -1,5 +1,5 @@
 {
-  "label": "This is an desktop notification that is sent to the new member of group.",
+  "label": "This is an email notification that is sent to the new member of group.",
   "template": {
     "subject": "Group invitation received",
     "body": "##FullName##  has invited you to the group ##Title##"

@@ -15,16 +15,26 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._4
 			_migrationStepsResolver = migrationStepsResolver;
 		}
 
+        private TranslationUpdateData TranslationUpdateData { get; } = new TranslationUpdateData
+        {
+            Add = new Dictionary<string, string>(),
+            Update = new Dictionary<string, (string old, string update)>
+            {
+                { "SystemLinks.Menu.lbl", ("Shared Links Block", "Shared Links") }
+            },
+            Remove = new List<string>()
+        };
 
-		private T Resolve<T>() where T : class => _migrationStepsResolver.Resolve<T>();
+        private T Resolve<T>() where T : class => _migrationStepsResolver.Resolve<T>();
 
 		public IEnumerable<IMigrationStep> Steps
 		{
 			get
 			{
-				yield return Resolve<SetGroupAdminsInSqlTableStep>();
+                yield return Resolve<SetGroupAdminsInSqlTableStep>();
 				yield return Resolve<DisableCanPinPermissionForChanging>();
                 yield return Resolve<AddOpenGraphSettings>();
+                yield return new TranslationsUpdateStep(TranslationUpdateData);
 			}
 		}
 	}
