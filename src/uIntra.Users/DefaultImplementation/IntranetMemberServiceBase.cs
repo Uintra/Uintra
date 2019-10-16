@@ -99,7 +99,7 @@ namespace Uintra.Users
 
         public virtual IEnumerable<T> GetAll()
         {
-            var members = _cacheService.GetOrSet(MembersCacheKey, () => GetAllFromSql().ToArray(), CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
+            var members = _cacheService.GetOrSet(MembersCacheKey, () => GetAllFromSql().ToList(), CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
             return members;
         }
 
@@ -281,9 +281,11 @@ namespace Uintra.Users
             _cacheService.Set(MembersCacheKey, updatedCache, CacheHelper.GetMidnightUtcDateTimeOffset());
         }
 
-        public virtual void UpdateMemberCache(IEnumerable<Guid> memberIds) =>
-            _cacheService.Set(MembersCacheKey, GetAllFromSql().ToArray(), CacheHelper.GetMidnightUtcDateTimeOffset());
+        public virtual void UpdateMemberCache(IEnumerable<Guid> memberIds)
+        {
 
+            _cacheService.Set(MembersCacheKey, GetAllFromSql().ToList(), CacheHelper.GetMidnightUtcDateTimeOffset());
+        }
         public virtual void DeleteFromCache(Guid memberId)
         {
             var updatedCache = GetAll().Where(el => el.Id != memberId).ToList();
