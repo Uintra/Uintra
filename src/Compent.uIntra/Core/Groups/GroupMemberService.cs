@@ -39,8 +39,12 @@ namespace Compent.Uintra.Core.Groups
 			_groupLinkProvider = groupLinkProvider;
 		}
 
-		public override void Add(Guid groupId, GroupMemberSubscriptionModel model) =>
-			AddMany(groupId, model.ToEnumerableOfOne());
+        public override void Add(Guid groupId, GroupMemberSubscriptionModel model)
+        {
+            var groupMember = GetNewGroupMember(groupId, model);
+            _groupMemberRepository.Add(groupMember);
+            _memberCacheService.UpdateMemberCache(groupMember.MemberId);
+        }
 
 		public override void AddMany(Guid groupId, IEnumerable<GroupMemberSubscriptionModel> subscriptions)
 		{

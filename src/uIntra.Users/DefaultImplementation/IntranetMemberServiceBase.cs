@@ -283,9 +283,19 @@ namespace Uintra.Users
 
         public virtual void UpdateMemberCache(IEnumerable<Guid> memberIds)
         {
+            var allCachedMembers = GetAll();
 
-            _cacheService.Set(MembersCacheKey, GetAllFromSql().ToList(), CacheHelper.GetMidnightUtcDateTimeOffset());
+            foreach (var memberId in memberIds)
+            {
+                allCachedMembers = GetFromSqlOrNone(memberId).Match(
+                Some: member => allCachedMembers.WithUpdatedElement(el => el.Id == memberId, member),
+                None: () => allCachedMembers.Where(el => el.Id != memberId))
+                .ToList();
+            }
+
+            _cacheService.Set(MembersCacheKey, allCachedMembers, CacheHelper.GetMidnightUtcDateTimeOffset());
         }
+
         public virtual void DeleteFromCache(Guid memberId)
         {
             var updatedCache = GetAll().Where(el => el.Id != memberId).ToList();
