@@ -47,11 +47,15 @@ namespace Uintra.Core.OpenGraph.Services
             {
                 return GetOpenGraphObject(content, url);
             }
-            else
+            else if (content.DocumentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetBulletinsDetailsPage()) ||
+                content.DocumentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetEventsDetailsPage()) ||
+                content.DocumentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetNewsDetailsPage()))
             {
-                return Guid.TryParse(HttpUtility.ParseQueryString(uri?.Query ?? "").Get(_queryStringIdKey), out var id) ? 
+                return Guid.TryParse(HttpUtility.ParseQueryString(uri?.Query ?? "").Get(_queryStringIdKey), out var id) ?
                     GetOpenGraphObject(id, url) : null;
             }
+            else
+                return null;
         }
 
         public virtual OpenGraphObject GetOpenGraphObject(IPublishedContent content, string defaultUrl = null)

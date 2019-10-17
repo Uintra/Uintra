@@ -24,7 +24,13 @@ namespace Compent.Uintra.Core
 
         public virtual string GetHomePage() => DocumentTypeAliasConstants.HomePage;
 
-        public string GetErrorPage() => DocumentTypeAliasConstants.ErrorPage;
+        public virtual string GetErrorPage() => DocumentTypeAliasConstants.ErrorPage;
+
+        public virtual string GetBulletinsDetailsPage() => DocumentTypeAliasConstants.BulletinsDetailsPage;
+
+        public virtual string GetEventsDetailsPage() => DocumentTypeAliasConstants.EventsDetailsPage;
+
+        public virtual string GetNewsDetailsPage() => DocumentTypeAliasConstants.NewsDetailsPage;
 
         public virtual string GetOverviewPage(Enum type)
         {
@@ -79,9 +85,9 @@ namespace Compent.Uintra.Core
 
         public virtual string GetDataFolder() => DocumentTypeAliasConstants.DataFolder;
 
-        public string GetUserTagFolder() => DocumentTypeAliasConstants.UserTagFolder;
+        public virtual string GetUserTagFolder() => DocumentTypeAliasConstants.UserTagFolder;
 
-        public string GetUserTag() => DocumentTypeAliasConstants.UserTag;
+        public virtual string GetUserTag() => DocumentTypeAliasConstants.UserTag;
 
         public virtual string GetSystemLink() => DocumentTypeAliasConstants.SystemLink;
 
