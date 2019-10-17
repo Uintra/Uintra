@@ -7,6 +7,7 @@ namespace Uintra.Core.LinkPreview
 {
     public class LinkPreviewModelMapper
     {
+        private const string defaultPreviewImagePath = "/content/images/preview.png";
         private readonly ILinkPreviewUriProvider _linkPreviewUriProvider;
         private readonly UmbracoHelper _umbracoHelper;
 
@@ -39,6 +40,10 @@ namespace Uintra.Core.LinkPreview
                 result.FaviconUri = entity.FaviconId.HasValue ? _linkPreviewUriProvider.GetImageUri(entity.FaviconId.Value) : null;
             }
 
+            if (result.ImageUri == null)
+            {
+                result.ImageUri = new Uri(defaultPreviewImagePath, UriKind.Relative);
+            }
             return result;
         }
 

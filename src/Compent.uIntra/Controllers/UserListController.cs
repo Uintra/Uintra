@@ -149,7 +149,6 @@ namespace Compent.Uintra.Controllers
         public ActionResult InviteMember(MemberGroupInviteModel invite)
         {
             InviteUser(invite);
-            UpdateCache(invite);
             SendInvitationToUser(invite);
 
             return new HttpStatusCodeResult(OK);
