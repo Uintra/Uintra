@@ -158,7 +158,7 @@ namespace Uintra.Users
             return isPresent;
         }
 
-        public Guid Create(CreateMemberDto dto)
+        public virtual Guid Create(CreateMemberDto dto)
         {
             var fullName = $"{dto.FirstName} {dto.LastName}";
             var member = _memberService.CreateMember(dto.Email, dto.Email, fullName, "Member");
