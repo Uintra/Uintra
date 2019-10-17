@@ -11,6 +11,7 @@ using Umbraco.Web;
 using static Uintra.Core.OpenGraph.Constants.OpenGraphConstants;
 using Uintra.Core.Extensions;
 using Umbraco.Core;
+using Uintra.Core.Media;
 
 namespace Uintra.Core.OpenGraph.Services
 {
@@ -83,8 +84,16 @@ namespace Uintra.Core.OpenGraph.Services
 
             if (currentActivity.MediaIds.Any())
             {
-                obj.Image = GetAbsoluteImageUrl(_umbracoHelper.TypedMedia(currentActivity.MediaIds.First()));
-                obj.MediaId = currentActivity.MediaIds.First();
+                foreach (var mediaId in currentActivity.MediaIds)
+                {
+                    var media = _umbracoHelper.TypedMedia(mediaId);
+                    if (media.GetMediaType().Equals(MediaTypeEnum.Image))
+                    {
+                        obj.MediaId = mediaId;
+                        obj.Image = GetAbsoluteImageUrl(media);
+                        break;
+                    }
+                }
             }
 
             return obj;
