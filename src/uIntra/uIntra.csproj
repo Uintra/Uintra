@@ -576,6 +576,9 @@
     <Content Include="..\Compent.uIntra\Content\images\logo.svg">
       <Link>Content\images\logo.svg</Link>
     </Content>
+    <Content Include="..\Compent.uIntra\Content\images\preview.png">
+      <Link>Content\images\preview.png</Link>
+    </Content>
     <Content Include="..\Compent.uIntra\Content\images\sort.svg">
       <Link>Content\images\sort.svg</Link>
     </Content>
