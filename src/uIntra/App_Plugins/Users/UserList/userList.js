@@ -329,11 +329,12 @@ let controller = {
                         '<div class="js-invite-user-list-empty-result" style="display:none;">No results, try other keywords</div>',
                         function () { }
                     ).set({ transition: 'fade', movable: false })
-                        .set({
-                            onclosing: function () {
-                                marker.ALERTIFY.ACTIONS.TOGGLE_STYLES();
-                            }
-                        });
+                    .set({
+                        onclosing: function () {
+                            marker.ALERTIFY.ACTIONS.TOGGLE_STYLES();
+                            search('');
+                        }
+                    });
                     postOpenSearchModalPage();
                     INVITE_LABEL_NOT_FOUND = $(marker.INVITE_NOT_FOUND_RESULT);
                 }
