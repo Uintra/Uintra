@@ -235,44 +235,62 @@
                 position:relative;
                 display:inline-block;
                 padding:0 0 0 23px;
+                min-width:130px;
 
                 @media (--for-tablet-portrait-down) {
                     padding:0;
                 }
 
-                &:after{
-                    position: absolute;
-                    right:10px;
-                    content:'';
-                    width:6px;
-                    height:6px;
-                    position:absolute;
-                    top:50%;
-                    border:1px solid #666;
-                    border-width:0 0 1px 1px;
-                    transform: rotate(-45deg);
-                    margin-top:-5px;
-                    line-height: 0;
-                    z-index: 1;
-                }
-                select {
-                    display: inline-block;
-                    border:0;
-                    padding: 4px 25px 4px 3px;
-                    margin: 0;
-                    font: inherit;
-                    outline: none;
-                    line-height: 1.2;
-                    background: none;
-                    -webkit-appearance: none;
-                    appearance: none;
-                    min-width: 81px;
-                    position: relative;
-                    z-index:2;
+                .select2-container{
+                    width: 100% !important;
+                    &--focus{
+                        .select2-selection--single{
+                            outline: 0;
+                        }
+                    }
+
+                    &--open{
+                        .select2-dropdown--below{
+                            border:1px solid #ccc;
+                        }
+                    }
+
+                    .select2-selection--single{
+                        background:none;
+                        border:0;
+                        height:auto;
+                        position:relative;
+                        padding: 4px 25px 4px 3px;
+
+
+                        .select2-selection__rendered{
+                            font: inherit;
+                            line-height: 1.2;
+                            padding:0;
+                        }
+                    
+                        .select2-selection__arrow{
+                            position: absolute;
+                            right:10px;
+                            width:6px;
+                            height:6px;
+                            position:absolute;
+                            top:50%;
+                            border:1px solid #666;
+                            border-width:0 0 1px 1px;
+                            transform: rotate(-45deg);
+                            margin-top:-5px;
+                            line-height: 0;
+                            z-index: 1;
+
+                            b{
+                                 display:none !important;
+                             }
+                        }
+
+                    }
                 }
             }
-
-            select::-ms-expand {display: none;}
         }
 
         .btn{
