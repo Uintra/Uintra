@@ -235,7 +235,7 @@
                 position:relative;
                 display:inline-block;
                 padding:0 0 0 23px;
-                min-width:130px;
+                min-width:142px;
 
                 @media (--for-tablet-portrait-down) {
                     padding:0;
@@ -345,7 +345,7 @@
         svg{
             display:inline-block;
             vertical-align:top;
-            margin:-2px 0 0;
+            margin:-2px 8px 0 0;
         }
 
     }
