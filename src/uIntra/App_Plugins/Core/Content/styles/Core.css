@@ -1074,7 +1074,7 @@ img{
     }
 
     .ql-editor {
-        height:62px;
+        height:96px;
         padding:6px 10px;
         overflow-x:hidden;
         overflow-y:auto;
@@ -1546,4 +1546,9 @@ img{
     &:hover{
         text-decoration:underline;
     }
+}
+
+.select2-container--open .select2-dropdown {
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
 }

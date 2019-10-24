@@ -4,10 +4,10 @@
 
 <div class="form"
      id="js-group-create-page">
-    @using (Html.BeginUmbracoForm("Create", "Group"))
+    @using (Html.BeginUmbracoForm("Create", "Group", FormMethod.Post,new { id = "form" }))
     {
         <h1 class="form__title">@Html.Localize("GroupCreate.FormTitle.lbl")</h1>
-
+         
         <div class="form__row clearfix">
             <label class="form__label"
                    for="title">@Html.Localize("GroupCreate.GroupTitle.lbl") <span class="form__required">*</span></label>
@@ -54,13 +54,14 @@
                         }
                     </div>
                     @Html.ValidationSummary()
-                    <div class="form__row form__row--top-indent clearfix">
-                        @Html.HiddenFor(s => s.Creator.MemberId)
-                        @Html.HiddenFor(s => s.Creator.IsAdmin)
-                        @Html.HiddenFor(s => s.MediaRootId)
-                        <input class="btn _submit js-submit"
-                               type="submit"
-                               value="@Html.Localize("GroupCreate.Create.btn")" />
-                    </div>
+<div class="form__row form__row--top-indent clearfix">
+    @Html.HiddenFor(s => s.Creator.MemberId)
+    @Html.HiddenFor(s => s.Creator.IsAdmin)
+    @Html.HiddenFor(s => s.MediaRootId)
+    @*<input class="btn _submit js-submit"
+        type="submit"
+        value="@Html.Localize("GroupCreate.Create.btn")" />*@
+    <input class="btn _submit js-submit js-disable-submit" type="button" value="@Html.Localize("GroupCreate.Create.btn")" />
+</div>
                 }
 </div>

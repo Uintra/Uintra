@@ -31,7 +31,8 @@ var marker = {
                     : $(marker.ALERTIFY.SELECTOR).addClass(marker.ALERTIFY.STYLE.INVITE_POPUP);
             }
         }
-    }
+    },
+    SELECT_CONTAINER: '.select2-container'
 };
 
 const SEARCH_MEMBER_INPUT = $(marker.LIST_FILTER);
@@ -293,11 +294,14 @@ let controller = {
         }
 
         function toggleAdminRights(rows) {
-            var select = rows.find(marker.TOGGLE_ADMIN_RIGHTS);
-            select.click(function (e) {
+            rows.find(marker.TOGGLE_ADMIN_RIGHTS).select2({ minimumResultsForSearch: -1 });
+
+            var SELECT_ELEMENT = $(SELECT_CONTAINER);
+
+            SELECT_ELEMENT.click(function (e) {
                 shared.eventSuppress(e);
             });
-            select.change(function (e) {
+            SELECT_ELEMENT.change(function (e) { 
                 shared.eventSuppress(e);
                 var row = $(this).closest(marker.ROWS);
                 var groupId = row.data('group-id');
