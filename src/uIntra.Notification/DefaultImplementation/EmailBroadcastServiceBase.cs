@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Uintra.Core.Activity;
-using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Exceptions;
 using Uintra.Core.User;
 using Uintra.Notification.Base;
@@ -18,28 +17,30 @@ namespace Uintra.Notification
         private readonly IExceptionLogger _logger;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly NotificationSettingsService _notificationSettingsService;
-        private readonly IApplicationSettings _applicationSettings;
 
         protected EmailBroadcastServiceBase(IMailService mailService,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IExceptionLogger logger,
-            NotificationSettingsService notificationSettingsService,
-            IApplicationSettings applicationSettings)
+            NotificationSettingsService notificationSettingsService)
         {
             _mailService = mailService;
             _intranetMemberService = intranetMemberService;
             _logger = logger;
             _notificationSettingsService = notificationSettingsService;
-            _applicationSettings = applicationSettings;
         }
 
-        public void CreateAndSendMail()
-        {
-            var currentDate = DateTime.UtcNow;
+        public abstract void IsBroadcastable();
 
+        public abstract IEnumerable<(IIntranetActivity activity, string detailsLink)> GetUserActivitiesFilteredByUserTags(Guid userId);
+
+        public abstract MailBase GetMailModel(IIntranetMember receiver, BroadcastMailModel model, EmailNotifierTemplate template);
+
+        public void Broadcast()
+        {
             var allUsers = _intranetMemberService.GetAll();
+
             var monthlyMails = allUsers
-                .Select(user => user.Id.Pipe(GetUserActivitiesFilteredByUserTags).Pipe(userActivities => TryGetMonthlyMail(userActivities, user)))
+                .Select(user => user.Id.Pipe(GetUserActivitiesFilteredByUserTags).Pipe(userActivities => TryGetBroadcastMail(userActivities, user)))
                 .ToList();
 
             var identity = new ActivityEventIdentity(
@@ -54,13 +55,13 @@ namespace Uintra.Notification
             {
                 monthlyMail.Do(some: mail =>
                 {
-                    var mailModel = GetMonthlyMailModel(mail.user, mail.monthlyMail, settings.Template);
+                    var mailModel = GetMailModel(mail.user, mail.monthlyMail, settings.Template);
                     try
                     {
                         _mailService.SendMailByTypeAndDay(
                             mailModel,
                             mail.user.Email,
-                            currentDate,
+                            DateTime.UtcNow,
                             NotificationTypeEnum.MonthlyMail);
                     }
                     catch (Exception ex)
@@ -71,20 +72,21 @@ namespace Uintra.Notification
             }
         }
 
-        public void ProcessEmail()
-        {
-            if (IsMonthlySendingDay()) CreateAndSendMail();
-        }
-
-        protected (IIntranetMember user, MonthlyMailDataModel monthlyMail)? TryGetMonthlyMail(
+        public (IIntranetMember user, BroadcastMailModel monthlyMail)? TryGetBroadcastMail(
             IEnumerable<(IIntranetActivity activity, string detailsLink)> activities,
             IIntranetMember member)
         {
             var activityList = activities.AsList();
+
             if (activityList.Any())
             {
                 var activityListString = GetActivityListString(activityList);
-                var monthlyMail = GetMonthlyMailModel(activityListString, member);
+
+                var monthlyMail = new BroadcastMailModel
+                {
+                    ActivityList = activityListString
+                };
+
                 return (member, monthlyMail);
             }
             else
@@ -93,29 +95,14 @@ namespace Uintra.Notification
             }
         }
 
-        protected abstract IEnumerable<(IIntranetActivity activity, string detailsLink)> GetUserActivitiesFilteredByUserTags(Guid userId);
-
-        protected abstract MailBase GetMonthlyMailModel(IIntranetMember receiver, MonthlyMailDataModel dataModel, EmailNotifierTemplate template);
-
-        protected virtual MonthlyMailDataModel GetMonthlyMailModel(string userActivities, IIntranetMember member)
+        public string GetActivityListString(IEnumerable<(IIntranetActivity activity, string link)> activities)
         {
-            return new MonthlyMailDataModel
-            {
-                ActivityList = userActivities
-            };
+            return activities
+                .Aggregate(
+                    new StringBuilder(),
+                    (builder, activity) =>
+                        builder.AppendLine($"<a href='{activity.link}'>{activity.activity.Title}</a></br>"))
+                .ToString();
         }
-
-        protected virtual bool IsMonthlySendingDay()
-        {
-            var currentDate = DateTime.UtcNow;
-
-            return currentDate.Day != _applicationSettings.MonthlyEmailJobDay;
-        }
-
-        private string GetActivityListString(IEnumerable<(IIntranetActivity activity, string link)> activities) => activities
-            .Aggregate(
-                new StringBuilder(),
-                (builder, activity) => builder.AppendLine($"<a href='{activity.link}'>{activity.activity.Title}</a></br>"))
-            .ToString();
     }
 }

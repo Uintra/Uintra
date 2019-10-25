@@ -70,7 +70,7 @@ namespace Compent.Uintra.Core.Notification
                         (CreatedDate, model.CreatedDate.ToShortDateString())
                     };
                     break;
-                case MonthlyMailDataModel model:
+                case BroadcastMailModel model:
                     tokens = new[]
                     {
                         (FullName, receiver.DisplayedName),

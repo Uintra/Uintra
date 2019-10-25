@@ -3,7 +3,7 @@ using Uintra.Notification.Base;
 
 namespace Uintra.Notification
 {
-    public class MonthlyMailDataModel : INotifierDataValue
+    public class BroadcastMailModel : INotifierDataValue
     {
         public string Url { get; set; }
         public bool IsPinned { get; set; }

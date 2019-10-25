@@ -2,7 +2,7 @@
 {
     public interface IEmailBroadcastService
     {
-        void ProcessEmail();
-        void CreateAndSendMail();
+        void IsBroadcastable();
+        void Broadcast();
     }
 }

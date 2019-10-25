@@ -392,7 +392,7 @@ namespace Compent.Uintra
 			kernel.Bind<INotificationSettingsTreeProvider>().To<NotificationSettingsTreeProvider>();
 			kernel.Bind<INotificationSettingCategoryProvider>().To<NotificationSettingCategoryProvider>();
 
-			kernel.Bind<IEmailBroadcastService>().To<EmailBroadcastService>().InRequestScope();
+			kernel.Bind<IEmailBroadcastService>().To<MonthlyEmailBroadcastService>().InRequestScope();
 
 			// User tags
 			kernel.Bind<IUserTagProvider>().To<UserTagProvider>().InRequestScope();

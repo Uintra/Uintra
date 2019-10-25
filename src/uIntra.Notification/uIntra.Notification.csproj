@@ -354,7 +354,7 @@
     <Compile Include="Core\Dashboard\NotificationSettingsSection.cs" />
     <Compile Include="Core\Entities\ActivityNotifierDataModel.cs" />
     <Compile Include="Core\Entities\GroupInvitationDataModel.cs" />
-    <Compile Include="Core\Entities\MonthlyMailDataModel.cs" />
+    <Compile Include="Core\Entities\BroadcastMailModel.cs" />
     <Compile Include="Core\Entities\ActivityReminderDataModel.cs" />
     <Compile Include="Core\Entities\Base\IHaveNotifierId.cs" />
     <Compile Include="Core\Entities\Base\INotifierDataValue.cs" />

@@ -15,7 +15,7 @@ using Uintra.Tagging.UserTags;
 
 namespace Compent.Uintra.Core.Notification
 {
-    public class EmailBroadcastService : EmailBroadcastServiceBase
+    public class MonthlyEmailBroadcastService : EmailBroadcastServiceBase
     {
         private readonly IBulletinsService<BulletinBase> _bulletinsService;
         private readonly IEventsService<EventBase> _eventsService;
@@ -23,8 +23,9 @@ namespace Compent.Uintra.Core.Notification
         private readonly IUserTagRelationService _userTagService;
         private readonly IActivityLinkService _activityLinkService;
         private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
+        private readonly IApplicationSettings _applicationSettings;
 
-        public EmailBroadcastService(
+        public MonthlyEmailBroadcastService(
             IMailService mailService,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IExceptionLogger logger,
@@ -36,7 +37,7 @@ namespace Compent.Uintra.Core.Notification
             NotificationSettingsService notificationSettingsService,
             INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper,
             IApplicationSettings applicationSettings)
-            : base(mailService, intranetMemberService, logger, notificationSettingsService, applicationSettings)
+            : base(mailService, intranetMemberService, logger, notificationSettingsService)
         {
             _bulletinsService = bulletinsService;
             _eventsService = eventsService;
@@ -44,10 +45,15 @@ namespace Compent.Uintra.Core.Notification
             _userTagService = userTagService;
             _activityLinkService = activityLinkService;
             _notificationModelMapper = notificationModelMapper;
+            _applicationSettings = applicationSettings;
         }
 
+        public override void IsBroadcastable()
+        {
+            if (IsMonthlySendingDay()) Broadcast();
+        }
 
-        protected override IEnumerable<(IIntranetActivity activity, string detailsLink)> GetUserActivitiesFilteredByUserTags(Guid userId)
+        public override IEnumerable<(IIntranetActivity activity, string detailsLink)> GetUserActivitiesFilteredByUserTags(Guid userId)
         {
             var allActivities = GetAllActivities()
                 .Select(activity => (activity: activity, activityTagIds: _userTagService.GetForEntity(activity.Id)));
@@ -63,15 +69,15 @@ namespace Compent.Uintra.Core.Notification
             return result;
         }
 
-        protected override MailBase GetMonthlyMailModel(
+        public override MailBase GetMailModel(
             IIntranetMember receiver,
-            MonthlyMailDataModel dataModel,
+            BroadcastMailModel model,
             EmailNotifierTemplate template)
         {
-            return _notificationModelMapper.Map(dataModel, template, receiver);
+            return _notificationModelMapper.Map(model, template, receiver);
         }
 
-        protected virtual IEnumerable<IIntranetActivity> GetAllActivities()
+        public virtual IEnumerable<IIntranetActivity> GetAllActivities()
         {
             var allBulletins = _bulletinsService.GetAll().Cast<IIntranetActivity>();
 
@@ -80,6 +86,13 @@ namespace Compent.Uintra.Core.Notification
             var allEvents = _eventsService.GetAll().Cast<IIntranetActivity>();
 
             return allBulletins.Concat(allNews).Concat(allEvents);
+        }
+
+        public virtual bool IsMonthlySendingDay()
+        {
+            var currentDate = DateTime.UtcNow;
+
+            return currentDate.Day != _applicationSettings.MonthlyEmailJobDay;
         }
     }
 }

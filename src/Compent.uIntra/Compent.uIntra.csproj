@@ -1355,7 +1355,7 @@
     <Compile Include="Core\Notification\Mappers\MailNotificationModelMapper.cs" />
     <Compile Include="Core\Notification\Services\MailNotifierService .cs" />
     <Compile Include="Core\Notification\Services\MailService .cs" />
-    <Compile Include="Core\Notification\Services\EmailBroadcastService.cs" />
+    <Compile Include="Core\Notification\Services\MonthlyEmailBroadcastService.cs" />
     <Compile Include="Core\Notification\Mappers\NotificationAutoMapperProfile .cs" />
     <Compile Include="Core\Notification\Providers\NotificationContentProvider.cs" />
     <Compile Include="Core\Notification\Models\NotificationMessageTypes.cs" />

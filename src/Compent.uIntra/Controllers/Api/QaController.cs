@@ -38,7 +38,7 @@ namespace Compent.Uintra.Controllers.Api
         {
             if (qaKey == _applicationSettings.QaKey)
             {
-                _emailBroadcastService.CreateAndSendMail();
+                _emailBroadcastService.Broadcast();
             }
         }
 
