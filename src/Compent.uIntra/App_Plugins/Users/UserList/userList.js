@@ -256,7 +256,19 @@ let controller = {
         }
 
         function addDetailsHandler(rows) {
-            rows.click(function () {
+            rows.click(function (e) {
+
+                //workaround for select2 plugin
+                var classList = $(e.target).attr('class').split(/\s+/);
+                var result;
+                $.each(classList, function (index, item) {
+                    if (item.indexOf("select") === 0) {
+                        result = true;
+                        return;
+                    }
+                });
+                if (result) return;
+
                 var profileUrl = $(this).data('profile');
                 location.href = profileUrl;
             });
@@ -294,13 +306,10 @@ let controller = {
         }
 
         function toggleAdminRights(rows) {
-            rows.find(marker.TOGGLE_ADMIN_RIGHTS).select2({ minimumResultsForSearch: -1 });
 
-            var SELECT_ELEMENT = $(SELECT_CONTAINER);
+            var SELECT_ELEMENT = rows.find(marker.TOGGLE_ADMIN_RIGHTS);
+            SELECT_ELEMENT.select2({ minimumResultsForSearch: -1 });
 
-            SELECT_ELEMENT.click(function (e) {
-                shared.eventSuppress(e);
-            });
             SELECT_ELEMENT.change(function (e) { 
                 shared.eventSuppress(e);
                 var row = $(this).closest(marker.ROWS);

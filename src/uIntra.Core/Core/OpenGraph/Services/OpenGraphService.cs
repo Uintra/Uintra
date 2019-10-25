@@ -43,11 +43,7 @@ namespace Uintra.Core.OpenGraph.Services
             var content = _umbracoHelper.UmbracoContext.ContentCache.GetByRoute(uri.GetAbsolutePathDecoded());
             if (content == null) return null;
 
-            if (content.DocumentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetContentPage()))
-            {
-                return GetOpenGraphObject(content, url);
-            }
-            else if (content.DocumentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetBulletinsDetailsPage()) ||
+            if (content.DocumentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetBulletinsDetailsPage()) ||
                 content.DocumentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetEventsDetailsPage()) ||
                 content.DocumentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetNewsDetailsPage()))
             {
@@ -55,15 +51,18 @@ namespace Uintra.Core.OpenGraph.Services
                     GetOpenGraphObject(id, url) : null;
             }
             else
-                return null;
+                return GetOpenGraphObject(content, url); ;
         }
 
         public virtual OpenGraphObject GetOpenGraphObject(IPublishedContent content, string defaultUrl = null)
         {
-            if (!content.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetContentPage()))
-                return null;
-
             var obj = GetDefaultObject(defaultUrl);
+            if (!content.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetContentPage()))
+            {
+                obj.Title = content.Name;
+                return obj;
+            }
+
             var media = content.GetPropertyValue<IPublishedContent>(Properties.ImageAlias);
             obj.Title = content.HasValue(Properties.TitleAlias) ?
                 content.GetPropertyValue<string>(Properties.TitleAlias) : content.Name;
