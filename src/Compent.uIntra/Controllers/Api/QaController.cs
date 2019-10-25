@@ -7,6 +7,7 @@ using Uintra.Core.ApplicationSettings;
 using Uintra.Core.User;
 using Uintra.Groups;
 using Uintra.Notification;
+using Uintra.Notification.Jobs;
 using Umbraco.Web.WebApi;
 
 namespace Compent.Uintra.Controllers.Api
@@ -14,32 +15,44 @@ namespace Compent.Uintra.Controllers.Api
     public class QaController : UmbracoApiController
     {
         private readonly IApplicationSettings _applicationSettings;
-        private readonly IEmailBroadcastService _emailBroadcastService;
+        private readonly IEmailBroadcastService<MonthlyMailBroadcast> _monthlyEmailBroadcastService;
+        private readonly IEmailBroadcastService<WeeklyMailBroadcast> _weeklyEmailBroadcastService;
         private readonly IReminderJob _reminderJob;
         private readonly IEmailGdprService _emailGdprService;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IGroupService _groupService;
         private readonly IGroupMemberService _groupMemberService;
 
-        public QaController(IApplicationSettings applicationSettings, IEmailBroadcastService emailBroadcastService, IReminderJob reminderJob, IEmailGdprService emailGdprService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService, IGroupService groupService, IGroupMemberService groupMemberService)
+        public QaController(
+            IApplicationSettings applicationSettings,
+            IEmailBroadcastService<MonthlyMailBroadcast> monthlyEmailBroadcastService,
+            IReminderJob reminderJob,
+            IEmailGdprService emailGdprService,
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IGroupService groupService,
+            IGroupMemberService groupMemberService,
+            IEmailBroadcastService<WeeklyMailBroadcast> weeklyEmailBroadcastService)
         {
             _applicationSettings = applicationSettings;
-            _emailBroadcastService = emailBroadcastService;
+            _monthlyEmailBroadcastService = monthlyEmailBroadcastService;
             _reminderJob = reminderJob;
             _emailGdprService = emailGdprService;
             _intranetMemberService = intranetMemberService;
             _groupService = groupService;
             _groupMemberService = groupMemberService;
+            _weeklyEmailBroadcastService = weeklyEmailBroadcastService;
         }
 
         [HttpGet]
-        public void SendMonthlyEmail(Guid qaKey)
+        public void SendMonthlyEmail()
         {
-            if (qaKey == _applicationSettings.QaKey)
-            {
-                _emailBroadcastService.Broadcast();
-            }
+            _monthlyEmailBroadcastService.Broadcast();
+        }
+
+        [HttpGet]
+        public void SendWeeklyEmail()
+        {
+            _weeklyEmailBroadcastService.IsBroadcastable();
         }
 
         [HttpGet]
@@ -63,7 +76,6 @@ namespace Compent.Uintra.Controllers.Api
         [HttpGet]
         public void AssignMembersToGroup()
         {
-            var members = _intranetMemberService.GetAll().Where(s => !s.Inactive).Take(50);
             var creator = _intranetMemberService.GetByEmail("admin@testmember.com");
 
             _groupMemberService.Create(new GroupCreateModel()
@@ -79,6 +91,8 @@ namespace Compent.Uintra.Controllers.Api
 
             var groupId = _groupService.GetAll().OrderByDescending(g => g.CreatedDate).First().Id;
 
+            var members = _intranetMemberService.GetAll().Where(s => !s.Inactive).Take(50);
+
             var subscriptions = members.Except(creator.ToEnumerableOfOne()).Select(m =>
                 new GroupMemberSubscriptionModel()
                 {
@@ -88,8 +102,5 @@ namespace Compent.Uintra.Controllers.Api
 
             _groupMemberService.AddMany(groupId, subscriptions);
         }
-
-
-
     }
 }

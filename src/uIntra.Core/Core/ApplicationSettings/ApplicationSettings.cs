@@ -47,8 +47,18 @@ namespace Uintra.Core.ApplicationSettings
         public int MonthlyEmailJobDay =>
             Convert.ToInt32(AppSettings[MonthlyEmailJobDayKey]);
 
-        public int WeeklyEmailJobDay =>
-            Convert.ToInt32(AppSettings[WeeklyEmailJobDayKey]);
+        //public int WeeklyEmailJobDay =>
+        //    Convert.ToInt32(AppSettings[WeeklyEmailJobDayKey]);
+
+        public DayOfWeek WeeklyEmailJobDay
+        {
+            get
+            {
+                Enum.TryParse(AppSettings[WeeklyEmailJobDayKey], true, out DayOfWeek result);
+
+                return result;
+            }
+        }
 
         public string MemberApiAuthentificationEmail =>
             AppSettings[MemberApiAuthentificationEmailKey];

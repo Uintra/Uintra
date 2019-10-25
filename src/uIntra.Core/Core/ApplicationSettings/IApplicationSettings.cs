@@ -9,7 +9,7 @@ namespace Uintra.Core.ApplicationSettings
         string MailNotificationNoReplyEmail { get; }
         string MailNotificationNoReplyName { get; }
         int MonthlyEmailJobDay { get; }
-        int WeeklyEmailJobDay { get; }
+        DayOfWeek WeeklyEmailJobDay { get; }
         IEnumerable<string> VideoFileTypes { get; }
         string MemberApiAuthentificationEmail { get; }
         string UintraDocumentationLinkTemplate { get; }

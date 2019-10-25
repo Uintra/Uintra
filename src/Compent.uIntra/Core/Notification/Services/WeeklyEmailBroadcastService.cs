@@ -13,28 +13,27 @@ using Uintra.Tagging.UserTags;
 
 namespace Compent.Uintra.Core.Notification
 {
-    public class MonthlyEmailBroadcastService 
-        : EmailBroadcastServiceBase<MonthlyMailBroadcast> 
+    public class WeeklyEmailBroadcastService : EmailBroadcastServiceBase<WeeklyMailBroadcast> 
     {
         private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
         private readonly IApplicationSettings _applicationSettings;
 
-        public MonthlyEmailBroadcastService(
+        public WeeklyEmailBroadcastService(
             IMailService mailService,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IExceptionLogger logger,
-            IBulletinsService<BulletinBase> bulletinsService,
-            IEventsService<EventBase> eventsService,
-            INewsService<NewsBase> newsService,
-            IUserTagRelationService userTagService,
-            IActivityLinkService activityLinkService,
             NotificationSettingsService notificationSettingsService,
-            INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper,
-            IApplicationSettings applicationSettings)
+            IActivityLinkService activityLinkService,
+            INewsService<NewsBase> newsService,
+            IEventsService<EventBase> eventsService,
+            IBulletinsService<BulletinBase> bulletinsService,
+            IUserTagRelationService userTagService, 
+            IApplicationSettings applicationSettings, 
+            INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper)
             : base(mailService, intranetMemberService, logger, notificationSettingsService, activityLinkService, newsService, eventsService, bulletinsService, userTagService)
         {
-            _notificationModelMapper = notificationModelMapper;
             _applicationSettings = applicationSettings;
+            _notificationModelMapper = notificationModelMapper;
         }
 
         public override void IsBroadcastable()
@@ -42,19 +41,16 @@ namespace Compent.Uintra.Core.Notification
             if (IsMonthlySendingDay()) Broadcast();
         }
 
-        public override MailBase GetMailModel(
-            IIntranetMember receiver,
-            BroadcastMailModel model,
-            EmailNotifierTemplate template)
+        public override MailBase GetMailModel(IIntranetMember receiver, BroadcastMailModel model, EmailNotifierTemplate template)
         {
             return _notificationModelMapper.Map(model, template, receiver);
         }
 
         public virtual bool IsMonthlySendingDay()
         {
-            var currentDate = DateTime.UtcNow;
+            var currentDate = DateTime.UtcNow.Day;
 
-            return currentDate.Day != _applicationSettings.MonthlyEmailJobDay;
+            return currentDate != _applicationSettings.MonthlyEmailJobDay;
         }
     }
 }

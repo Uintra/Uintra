@@ -4,16 +4,12 @@ namespace Uintra.Notification.Jobs
 {
     public class MonthlyMailJob : BaseIntranetJob
     {
-        private readonly IEmailBroadcastService _emailBroadcastService;
+        private readonly IEmailBroadcastService<MonthlyMailBroadcast> broadcastService;
 
-        public MonthlyMailJob(IEmailBroadcastService emailBroadcastService)
-        {
-            _emailBroadcastService = emailBroadcastService;
-        }
+        public MonthlyMailJob(IEmailBroadcastService<MonthlyMailBroadcast> broadcastService) =>
+            this.broadcastService = broadcastService;
 
-        public override void Action()
-        {
-            _emailBroadcastService.IsBroadcastable();
-        }
+        public override void Action() =>
+            broadcastService.IsBroadcastable();
     }
 }

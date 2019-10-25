@@ -375,6 +375,7 @@
     <Compile Include="Core\Jobs\MonthlyMailJob.cs" />
     <Compile Include="Core\Jobs\ReminderJob.cs" />
     <Compile Include="Core\Jobs\SendEmailJob.cs" />
+    <Compile Include="Core\Jobs\WeeklyMailJob.cs" />
     <Compile Include="Core\Models\ActivityEventIdentity.cs" />
     <Compile Include="Core\Models\ActivityEventIdentityExtensions.cs" />
     <Compile Include="Core\Models\ActivityEventNotifierIdentity.cs" />
@@ -385,6 +386,9 @@
     <Compile Include="Core\Models\INotificationMessage.cs" />
     <Compile Include="Core\Models\Json\JsonNotification.cs" />
     <Compile Include="Core\Models\Json\JsonNotificationsModel.cs" />
+    <Compile Include="Core\Models\Markers\IMailBroadcast.cs" />
+    <Compile Include="Core\Models\Markers\MonthlyMailBroadcast.cs" />
+    <Compile Include="Core\Models\Markers\WeeklyMailBroadcast.cs" />
     <Compile Include="Core\Models\NotifierTemplates\DesktopNotifierTemplate.cs" />
     <Compile Include="Core\Models\DesktopNotificationMessage.cs" />
     <Compile Include="Core\Models\UiNotificationMessage.cs" />
@@ -527,9 +531,25 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\uIntra.Bulletins\Uintra.Bulletins.csproj">
+      <Project>{D8101E4C-5345-4B54-9766-DBD2BBE7030C}</Project>
+      <Name>Uintra.Bulletins</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uIntra.Core\Uintra.Core.csproj">
       <Project>{3f8c785a-48d0-41f5-9257-6f73afca41eb}</Project>
       <Name>Uintra.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Events\Uintra.Events.csproj">
+      <Project>{85AA3A0A-738E-4E0D-9448-EA34AA3A537C}</Project>
+      <Name>Uintra.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.News\Uintra.News.csproj">
+      <Project>{53386DF1-D6A7-484B-8B07-C4FDDEBF4B83}</Project>
+      <Name>Uintra.News</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uIntra.Tagging\Uintra.Tagging.csproj">
+      <Project>{2167C278-86ED-451B-8D2C-01774532B4E8}</Project>
+      <Name>Uintra.Tagging</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -1,6 +1,8 @@
-﻿namespace Uintra.Notification
+﻿using Uintra.Notification.Jobs;
+
+namespace Uintra.Notification
 {
-    public interface IEmailBroadcastService
+    public interface IEmailBroadcastService<T> where T : IMailBroadcast
     {
         void IsBroadcastable();
         void Broadcast();

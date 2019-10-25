@@ -392,7 +392,8 @@ namespace Compent.Uintra
 			kernel.Bind<INotificationSettingsTreeProvider>().To<NotificationSettingsTreeProvider>();
 			kernel.Bind<INotificationSettingCategoryProvider>().To<NotificationSettingCategoryProvider>();
 
-			kernel.Bind<IEmailBroadcastService>().To<MonthlyEmailBroadcastService>().InRequestScope();
+			kernel.Bind<IEmailBroadcastService<MonthlyMailBroadcast>>().To<MonthlyEmailBroadcastService>().InRequestScope();
+            kernel.Bind<IEmailBroadcastService<WeeklyMailBroadcast>>().To<WeeklyEmailBroadcastService>().InRequestScope();
 
 			// User tags
 			kernel.Bind<IUserTagProvider>().To<UserTagProvider>().InRequestScope();
@@ -490,7 +491,8 @@ namespace Compent.Uintra
 			//Jobs 
 			kernel.Bind<global::Uintra.Notification.Jobs.ReminderJob>().ToSelf().InRequestScope();
 			kernel.Bind<MonthlyMailJob>().ToSelf().InRequestScope();
-			kernel.Bind<SendEmailJob>().ToSelf().InRequestScope();
+            kernel.Bind<WeeklyMailJob>().ToSelf().InRequestScope();
+            kernel.Bind<SendEmailJob>().ToSelf().InRequestScope();
 			kernel.Bind<UpdateActivityCacheJob>().ToSelf().InRequestScope();
 			kernel.Bind<IJobFactory>().To<IntranetJobFactory>().InRequestScope();
 

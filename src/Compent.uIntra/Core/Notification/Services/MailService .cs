@@ -74,6 +74,7 @@ namespace Compent.Uintra.Core.Notification
             };
 
             _sentMailsService.GetAllByFilter(query, out var totalCount);
+
             if (totalCount == 0)
             {
                 Send(mail);
@@ -83,9 +84,13 @@ namespace Compent.Uintra.Core.Notification
         private int? GetEmailTemplatePublishedContentId(NotificationTypeEnum mailTemplateTypeEnum)
         {
             var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
-            string mailTemplateXpath = XPathHelper.GetXpath(docTypeAliasProvider.GetDataFolder(), docTypeAliasProvider.GetMailTemplateFolder(), docTypeAliasProvider.GetMailTemplate());
+
+            var mailTemplateXpath = XPathHelper.GetXpath(docTypeAliasProvider.GetDataFolder(), docTypeAliasProvider.GetMailTemplateFolder(), docTypeAliasProvider.GetMailTemplate());
+
             var mailTemplates = _umbracoHelper.TypedContentAtXPath(mailTemplateXpath);
+
             var mailTemplateContent = mailTemplates?.FirstOrDefault(template => PublishedContentExtensions.GetPropertyValue<NotificationTypeEnum>(template, MailTemplatePropertiesConstants.EmailType) == mailTemplateTypeEnum);
+
             return mailTemplateContent?.Id;
         }
     }

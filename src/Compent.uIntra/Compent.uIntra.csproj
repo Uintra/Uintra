@@ -1323,6 +1323,7 @@
     <Compile Include="Core\Notification\Mappers\DesktopNotificationModelMapper.cs" />
     <Compile Include="Core\Notification\Builders\INotifierDataBuilder.cs" />
     <Compile Include="Core\Notification\Builders\NotifierDataBuilder.cs" />
+    <Compile Include="Core\Notification\Services\WeeklyEmailBroadcastService.cs" />
     <Compile Include="Core\PagePromotion\PagePromotionNotificationService.cs" />
     <Compile Include="Core\Notification\Services\IUserMentionNotificationService.cs" />
     <Compile Include="Core\Notification\Models\UserMentionNotificationModel.cs" />
