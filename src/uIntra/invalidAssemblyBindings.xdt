@@ -18,6 +18,12 @@
       </dependentAssembly>
       <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Linq.Expressions']))">
       </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Diagnostics.Tracing']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Net.Http']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Runtime.Serialization.Primitives']))">
+      </dependentAssembly>
     </assemblyBinding>
   </runtime>
 </configuration>
