@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Compent.Extensions;
 using Uintra.Core.Activity;
 using Uintra.Core.ApplicationSettings;
 using Uintra.Core.Exceptions;
@@ -12,7 +12,7 @@ using Uintra.Notification.Configuration;
 
 namespace Uintra.Notification
 {
-    public abstract class MonthlyEmailServiceBase : IMonthlyEmailService
+    public abstract class EmailBroadcastServiceBase : IEmailBroadcastService
     {
         private readonly IMailService _mailService;
         private readonly IExceptionLogger _logger;
@@ -20,7 +20,7 @@ namespace Uintra.Notification
         private readonly NotificationSettingsService _notificationSettingsService;
         private readonly IApplicationSettings _applicationSettings;
 
-        protected MonthlyEmailServiceBase(IMailService mailService,
+        protected EmailBroadcastServiceBase(IMailService mailService,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IExceptionLogger logger,
             NotificationSettingsService notificationSettingsService,
@@ -71,15 +71,10 @@ namespace Uintra.Notification
             }
         }
 
-        public void ProcessMonthlyEmail()
+        public void ProcessEmail()
         {
-            if (IsSendingDay())
-            {
-                CreateAndSendMail();
-            }
+            if (IsMonthlySendingDay()) CreateAndSendMail();
         }
-
-
 
         protected (IIntranetMember user, MonthlyMailDataModel monthlyMail)? TryGetMonthlyMail(
             IEnumerable<(IIntranetActivity activity, string detailsLink)> activities,
@@ -102,13 +97,15 @@ namespace Uintra.Notification
 
         protected abstract MailBase GetMonthlyMailModel(IIntranetMember receiver, MonthlyMailDataModel dataModel, EmailNotifierTemplate template);
 
-        protected virtual MonthlyMailDataModel GetMonthlyMailModel(string userActivities, IIntranetMember member) =>
-            new MonthlyMailDataModel
+        protected virtual MonthlyMailDataModel GetMonthlyMailModel(string userActivities, IIntranetMember member)
+        {
+            return new MonthlyMailDataModel
             {
                 ActivityList = userActivities
             };
+        }
 
-        protected virtual bool IsSendingDay()
+        protected virtual bool IsMonthlySendingDay()
         {
             var currentDate = DateTime.UtcNow;
 

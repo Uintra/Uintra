@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using Uintra.Core.ApplicationSettings.Models;
 
 namespace Uintra.Core.ApplicationSettings
@@ -9,6 +9,7 @@ namespace Uintra.Core.ApplicationSettings
         string MailNotificationNoReplyEmail { get; }
         string MailNotificationNoReplyName { get; }
         int MonthlyEmailJobDay { get; }
+        int WeeklyEmailJobDay { get; }
         IEnumerable<string> VideoFileTypes { get; }
         string MemberApiAuthentificationEmail { get; }
         string UintraDocumentationLinkTemplate { get; }

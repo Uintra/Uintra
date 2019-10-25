@@ -372,7 +372,7 @@
     <Compile Include="Core\Exceptions\ReminderIsAlreadyDeliveredException.cs" />
     <Compile Include="Core\INotificationTypeProvider.cs" />
     <Compile Include="Core\INotifierTypeProvider.cs" />
-    <Compile Include="Core\Jobs\MontlyMailJob.cs" />
+    <Compile Include="Core\Jobs\MonthlyMailJob.cs" />
     <Compile Include="Core\Jobs\ReminderJob.cs" />
     <Compile Include="Core\Jobs\SendEmailJob.cs" />
     <Compile Include="Core\Models\ActivityEventIdentity.cs" />
@@ -403,7 +403,7 @@
     <Compile Include="Core\NotifierTypeProvider.cs" />
     <Compile Include="Core\Services\IMailService.cs" />
     <Compile Include="Core\Services\IMemberNotifiersSettingsService.cs" />
-    <Compile Include="Core\Services\IMonthlyEmailService.cs" />
+    <Compile Include="Core\Services\IEmailBroadcastService.cs" />
     <Compile Include="Core\Services\INotificationContentProvider.cs" />
     <Compile Include="Core\Services\INotificationModelBuilder.cs" />
     <Compile Include="Core\Services\INotificationSettingsService.cs" />
@@ -420,7 +420,7 @@
     <Compile Include="Core\Sql\Reminder.cs" />
     <Compile Include="DefaultImplementation\IPopupNotificationService.cs" />
     <Compile Include="DefaultImplementation\MemberNotifiersSettingsService.cs" />
-    <Compile Include="DefaultImplementation\MonthlyEmailServiceBase.cs" />
+    <Compile Include="DefaultImplementation\EmailBroadcastServiceBase.cs" />
     <Compile Include="DefaultImplementation\NotificationSettingsService.cs" />
     <Compile Include="DefaultImplementation\NotificationsService.cs" />
     <Compile Include="DefaultImplementation\PopupNotificationsService.cs" />

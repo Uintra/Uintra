@@ -1,12 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Routing;
 using Compent.CommandBus;
 using Compent.LinkPreview.HttpClient;
 using Compent.Uintra;
@@ -58,6 +49,15 @@ using Ninject;
 using Ninject.Extensions.Conventions;
 using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Web;
+using System.Web.Http;
+using System.Web.Mvc;
+using System.Web.Routing;
 using Uintra.Bulletins;
 using Uintra.CentralFeed;
 using Uintra.CentralFeed.Providers;
@@ -83,9 +83,10 @@ using Uintra.Core.Location;
 using Uintra.Core.Media;
 using Uintra.Core.MigrationHistories;
 using Uintra.Core.ModelBinders;
+using Uintra.Core.OpenGraph.Services;
 using Uintra.Core.PagePromotion;
-using Uintra.Core.Permissions.Implementation;
 using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Implementation;
 using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.Permissions.UmbracoEvents;
@@ -93,6 +94,7 @@ using Uintra.Core.Persistence;
 using Uintra.Core.Providers;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.UmbracoEventServices;
+using Uintra.Core.UmbracoIpAccess;
 using Uintra.Core.User;
 using Uintra.Core.Utils;
 using Uintra.Events;
@@ -111,23 +113,21 @@ using Uintra.Notification.Jobs;
 using Uintra.Panels.Core.PresentationBuilders;
 using Uintra.Search;
 using Uintra.Search.Configuration;
+using Uintra.Search.Member;
+using Uintra.Search.Paging;
+using Uintra.Search.Sorting;
 using Uintra.Subscribe;
 using Uintra.Tagging.UserTags;
 using Uintra.Users;
 using UIntra.Core.Media;
-using Uintra.Search.Member;
-using Uintra.Search.Paging;
-using Uintra.Search.Sorting;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
-using Uintra.Core.UmbracoIpAccess;
 using MyLinksModelBuilder = Compent.Uintra.Core.Navigation.MyLinksModelBuilder;
 using ReminderJob = Uintra.Notification.ReminderJob;
-using Uintra.Core.OpenGraph.Services;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(NinjectWebCommon), "PostStart")]
@@ -135,7 +135,7 @@ using Uintra.Core.OpenGraph.Services;
 
 namespace Compent.Uintra
 {
-	public static class NinjectWebCommon
+    public static class NinjectWebCommon
 	{
 		private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
@@ -392,7 +392,7 @@ namespace Compent.Uintra
 			kernel.Bind<INotificationSettingsTreeProvider>().To<NotificationSettingsTreeProvider>();
 			kernel.Bind<INotificationSettingCategoryProvider>().To<NotificationSettingCategoryProvider>();
 
-			kernel.Bind<IMonthlyEmailService>().To<MonthlyEmailService>().InRequestScope();
+			kernel.Bind<IEmailBroadcastService>().To<EmailBroadcastService>().InRequestScope();
 
 			// User tags
 			kernel.Bind<IUserTagProvider>().To<UserTagProvider>().InRequestScope();

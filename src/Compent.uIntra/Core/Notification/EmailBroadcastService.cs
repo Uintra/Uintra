@@ -15,7 +15,7 @@ using Uintra.Tagging.UserTags;
 
 namespace Compent.Uintra.Core.Notification
 {
-    public class MonthlyEmailService: MonthlyEmailServiceBase
+    public class EmailBroadcastService : EmailBroadcastServiceBase
     {
         private readonly IBulletinsService<BulletinBase> _bulletinsService;
         private readonly IEventsService<EventBase> _eventsService;
@@ -24,8 +24,8 @@ namespace Compent.Uintra.Core.Notification
         private readonly IActivityLinkService _activityLinkService;
         private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
 
-
-        public MonthlyEmailService(IMailService mailService,
+        public EmailBroadcastService(
+            IMailService mailService,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IExceptionLogger logger,
             IBulletinsService<BulletinBase> bulletinsService,
@@ -33,9 +33,9 @@ namespace Compent.Uintra.Core.Notification
             INewsService<NewsBase> newsService,
             IUserTagRelationService userTagService,
             IActivityLinkService activityLinkService,
-            NotificationSettingsService notificationSettingsService, 
+            NotificationSettingsService notificationSettingsService,
             INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper,
-            IApplicationSettings applicationSettings) 
+            IApplicationSettings applicationSettings)
             : base(mailService, intranetMemberService, logger, notificationSettingsService, applicationSettings)
         {
             _bulletinsService = bulletinsService;
@@ -63,13 +63,20 @@ namespace Compent.Uintra.Core.Notification
             return result;
         }
 
-        protected override MailBase GetMonthlyMailModel(IIntranetMember receiver, MonthlyMailDataModel dataModel, EmailNotifierTemplate template) =>
-            _notificationModelMapper.Map(dataModel, template, receiver);
+        protected override MailBase GetMonthlyMailModel(
+            IIntranetMember receiver,
+            MonthlyMailDataModel dataModel,
+            EmailNotifierTemplate template)
+        {
+            return _notificationModelMapper.Map(dataModel, template, receiver);
+        }
 
         protected virtual IEnumerable<IIntranetActivity> GetAllActivities()
         {
             var allBulletins = _bulletinsService.GetAll().Cast<IIntranetActivity>();
+
             var allNews = _newsService.GetAll().Cast<IIntranetActivity>();
+
             var allEvents = _eventsService.GetAll().Cast<IIntranetActivity>();
 
             return allBulletins.Concat(allNews).Concat(allEvents);

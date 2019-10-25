@@ -13,6 +13,7 @@ namespace Uintra.Core.ApplicationSettings
 
         private const string DefaultAvatarPathKey = "DefaultAvatarPath";
         private const string MonthlyEmailJobDayKey = "MonthlyEmailJobDay";
+        private const string WeeklyEmailJobDayKey = "WeeklyEmailJobDay";
         private const string VideoFileTypesKey = "VideoFileTypes";
         private const string QaKeyKey = "QaKey";
         private const string MemberApiAuthentificationEmailKey = "MemberApiAuthentificationEmail";
@@ -26,22 +27,34 @@ namespace Uintra.Core.ApplicationSettings
         public const string UintraSuperUsersKey = "UintraSuperUsers";
         public const string DaytimeSavingOffsetKey = "DaytimeSavingOffset";
 
-        public string MailNotificationNoReplyEmail => AppSettings[MailNotificationNoReplyEmailKey];
-        public string MailNotificationNoReplyName => AppSettings[MailNotificationNoReplyNameKey];
+        public string MailNotificationNoReplyEmail =>
+            AppSettings[MailNotificationNoReplyEmailKey];
 
-        public IEnumerable<string> VideoFileTypes => AppSettings[VideoFileTypesKey]
+        public string MailNotificationNoReplyName =>
+            AppSettings[MailNotificationNoReplyNameKey];
+
+        public IEnumerable<string> VideoFileTypes =>
+            AppSettings[VideoFileTypesKey]
             .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
             .Select(el => el.Trim());
 
-        public bool DaytimeSavingOffset => bool.Parse(AppSettings[DaytimeSavingOffsetKey]);
+        public bool DaytimeSavingOffset =>
+            bool.Parse(AppSettings[DaytimeSavingOffsetKey]);
 
-        public Guid QaKey => Guid.Parse(AppSettings[QaKeyKey]);
+        public Guid QaKey =>
+            Guid.Parse(AppSettings[QaKeyKey]);
 
-        public int MonthlyEmailJobDay => Convert.ToInt32(AppSettings[MonthlyEmailJobDayKey]);
+        public int MonthlyEmailJobDay =>
+            Convert.ToInt32(AppSettings[MonthlyEmailJobDayKey]);
 
-        public string MemberApiAuthentificationEmail => AppSettings[MemberApiAuthentificationEmailKey];
+        public int WeeklyEmailJobDay =>
+            Convert.ToInt32(AppSettings[WeeklyEmailJobDayKey]);
 
-        public string UintraDocumentationLinkTemplate => AppSettings[UintraDocumentationLinkTemplateKey];
+        public string MemberApiAuthentificationEmail =>
+            AppSettings[MemberApiAuthentificationEmailKey];
+
+        public string UintraDocumentationLinkTemplate =>
+            AppSettings[UintraDocumentationLinkTemplateKey];
 
         public GoogleOAuth GoogleOAuth
         {
@@ -62,7 +75,8 @@ namespace Uintra.Core.ApplicationSettings
             }
         }
 
-        public bool UmbracoUseSSL => bool.TryParse(AppSettings[UmbracoUseSSLKey], out var enabled) && enabled;
+        public bool UmbracoUseSSL =>
+            bool.TryParse(AppSettings[UmbracoUseSSLKey], out var enabled) && enabled;
 
         public IEnumerable<string> UintraSuperUsers
         {

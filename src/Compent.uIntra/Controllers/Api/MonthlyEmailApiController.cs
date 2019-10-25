@@ -6,17 +6,17 @@ namespace Compent.Uintra.Controllers.Api
 {
     public class MonthlyEmailApiController : UmbracoApiController
     {
-        private readonly IMonthlyEmailService _monthlyEmailService;
+        private readonly IEmailBroadcastService _emailBroadcastService;
 
-        public MonthlyEmailApiController(IMonthlyEmailService monthlyEmailService)
+        public MonthlyEmailApiController(IEmailBroadcastService emailBroadcastService)
         {
-            _monthlyEmailService = monthlyEmailService;
+            _emailBroadcastService = emailBroadcastService;
         }
 
         [HttpGet]
         public void SendMonthlyEmail()
         {
-            _monthlyEmailService.ProcessMonthlyEmail();
+            _emailBroadcastService.ProcessEmail();
         }
     }
 }
