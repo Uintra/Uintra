@@ -24,6 +24,14 @@
       </dependentAssembly>
       <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Runtime.Serialization.Primitives']))">
       </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Diagnostics.StackTrace']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Net.Sockets']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Security.Cryptography.Algorithms']))">
+      </dependentAssembly>
+      <dependentAssembly xdt:Transform="RemoveAll" xdt:Locator="Condition(boolean(./_defaultNamespace:assemblyIdentity[@name='System.Xml.XPath.XDocument']))">
+      </dependentAssembly>
     </assemblyBinding>
   </runtime>
 </configuration>
