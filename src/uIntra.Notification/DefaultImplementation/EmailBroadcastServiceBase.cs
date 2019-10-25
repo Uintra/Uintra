@@ -117,6 +117,5 @@ namespace Uintra.Notification
                 new StringBuilder(),
                 (builder, activity) => builder.AppendLine($"<a href='{activity.link}'>{activity.activity.Title}</a></br>"))
             .ToString();
-
     }
 }

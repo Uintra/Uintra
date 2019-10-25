@@ -2,11 +2,11 @@
 
 namespace Uintra.Notification.Jobs
 {
-    public class MontlyMailJob : BaseIntranetJob
+    public class MonthlyMailJob : BaseIntranetJob
     {
         private readonly IEmailBroadcastService _emailBroadcastService;
 
-        public MontlyMailJob(IEmailBroadcastService emailBroadcastService)
+        public MonthlyMailJob(IEmailBroadcastService emailBroadcastService)
         {
             _emailBroadcastService = emailBroadcastService;
         }

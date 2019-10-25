@@ -12,6 +12,7 @@ using Uintra.Notification;
 using Uintra.Notification.Base;
 using Uintra.Notification.Configuration;
 using Umbraco.Web;
+using PublishedContentExtensions = Umbraco.Web.PublishedContentExtensions;
 
 namespace Compent.Uintra.Core.Notification
 {
@@ -84,7 +85,7 @@ namespace Compent.Uintra.Core.Notification
             var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
             string mailTemplateXpath = XPathHelper.GetXpath(docTypeAliasProvider.GetDataFolder(), docTypeAliasProvider.GetMailTemplateFolder(), docTypeAliasProvider.GetMailTemplate());
             var mailTemplates = _umbracoHelper.TypedContentAtXPath(mailTemplateXpath);
-            var mailTemplateContent = mailTemplates?.FirstOrDefault(template => template.GetPropertyValue<NotificationTypeEnum>(MailTemplatePropertiesConstants.EmailType) == mailTemplateTypeEnum);
+            var mailTemplateContent = mailTemplates?.FirstOrDefault(template => PublishedContentExtensions.GetPropertyValue<NotificationTypeEnum>(template, MailTemplatePropertiesConstants.EmailType) == mailTemplateTypeEnum);
             return mailTemplateContent?.Id;
         }
     }

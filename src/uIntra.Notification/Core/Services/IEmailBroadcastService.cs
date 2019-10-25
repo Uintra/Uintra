@@ -3,7 +3,6 @@
     public interface IEmailBroadcastService
     {
         void ProcessEmail();
-
         void CreateAndSendMail();
     }
 }

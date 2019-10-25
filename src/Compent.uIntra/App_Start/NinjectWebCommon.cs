@@ -489,7 +489,7 @@ namespace Compent.Uintra
 
 			//Jobs 
 			kernel.Bind<global::Uintra.Notification.Jobs.ReminderJob>().ToSelf().InRequestScope();
-			kernel.Bind<MontlyMailJob>().ToSelf().InRequestScope();
+			kernel.Bind<MonthlyMailJob>().ToSelf().InRequestScope();
 			kernel.Bind<SendEmailJob>().ToSelf().InRequestScope();
 			kernel.Bind<UpdateActivityCacheJob>().ToSelf().InRequestScope();
 			kernel.Bind<IJobFactory>().To<IntranetJobFactory>().InRequestScope();
