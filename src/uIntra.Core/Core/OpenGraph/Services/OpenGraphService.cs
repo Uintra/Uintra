@@ -40,7 +40,8 @@ namespace Uintra.Core.OpenGraph.Services
             if (url.IsNullOrWhiteSpace()) return null;
 
             var uri = new UriBuilder(url).Uri;
-            var content = _umbracoHelper.UmbracoContext.ContentCache.GetByRoute(uri.GetAbsolutePathDecoded());
+            var content = HttpContext.Current.Request.Url.Host.Equals(uri.Host) ?
+                _umbracoHelper.UmbracoContext.ContentCache.GetByRoute(uri.GetAbsolutePathDecoded()) : null;
             if (content == null) return null;
 
             if (content.DocumentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetBulletinsDetailsPage()) ||
