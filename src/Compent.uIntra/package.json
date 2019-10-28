@@ -31,7 +31,7 @@
   "dependencies": {
     "alertifyjs": "^1.11.1",
     "axios": "^0.17.1",
-    "bootstrap": "3.3.7",
+    "bootstrap": "3.4.1",
     "devbridge-autocomplete": "1.3.0",
     "dotdotdot": "1.7.0",
     "dropzone": "4.3.0",
