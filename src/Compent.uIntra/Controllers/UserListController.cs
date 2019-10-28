@@ -30,172 +30,185 @@ using static Uintra.Groups.GroupModelGetters;
 
 namespace Compent.Uintra.Controllers
 {
-    [ThreadCulture]
-    public class UserListController : UserListControllerBase
-    {
-        private readonly IElasticMemberIndex _elasticIndex;
-        private readonly ILocalizationCoreService _localizationCoreService;
-        private readonly IProfileLinkProvider _profileLinkProvider;
-        private readonly IGroupService _groupService;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
-        private readonly IGroupMemberService _groupMemberService;
-        private readonly INotificationsService _notificationsService;
-        private readonly INotifierDataHelper _notifierDataHelper;
+	[ThreadCulture]
+	public class UserListController : UserListControllerBase
+	{
+		private readonly IElasticMemberIndex _elasticIndex;
+		private readonly ILocalizationCoreService _localizationCoreService;
+		private readonly IProfileLinkProvider _profileLinkProvider;
+		private readonly IGroupService _groupService;
+		private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+		private readonly IGroupMemberService _groupMemberService;
+		private readonly INotificationsService _notificationsService;
+		private readonly INotifierDataHelper _notifierDataHelper;
 
-        public UserListController(
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
-            IElasticMemberIndex elasticIndex,
-            ILocalizationCoreService localizationCoreService,
-            IProfileLinkProvider profileLinkProvider,
-            IGroupService groupService,
-            IGroupMemberService groupMemberService,
-            INotificationsService notificationsService,
-            INotifierDataHelper notifierDataHelper)
-            : base(intranetMemberService)
-        {
-            _elasticIndex = elasticIndex;
-            _localizationCoreService = localizationCoreService;
-            _profileLinkProvider = profileLinkProvider;
-            _groupService = groupService;
-            _intranetMemberService = intranetMemberService;
-            _groupMemberService = groupMemberService;
-            _notificationsService = notificationsService;
-            _notifierDataHelper = notifierDataHelper;
-        }
+		public UserListController(
+			IIntranetMemberService<IIntranetMember> intranetMemberService,
+			IElasticMemberIndex elasticIndex,
+			ILocalizationCoreService localizationCoreService,
+			IProfileLinkProvider profileLinkProvider,
+			IGroupService groupService,
+			IGroupMemberService groupMemberService,
+			INotificationsService notificationsService,
+			INotifierDataHelper notifierDataHelper)
+			: base(intranetMemberService)
+		{
+			_elasticIndex = elasticIndex;
+			_localizationCoreService = localizationCoreService;
+			_profileLinkProvider = profileLinkProvider;
+			_groupService = groupService;
+			_intranetMemberService = intranetMemberService;
+			_groupMemberService = groupMemberService;
+			_notificationsService = notificationsService;
+			_notifierDataHelper = notifierDataHelper;
+		}
 
-        [NotFoundGroup]
-        public override ActionResult Render(UserListModel model)
-        {
-            return base.Render(model);
-        }
+		[NotFoundGroup]
+		public override ActionResult Render(UserListModel model)
+		{
+			return base.Render(model);
+		}
 
-        protected override (IEnumerable<Guid> searchResult, long totalHits) GetActiveUserIds(
-            ActiveMemberSearchQuery query)
-        {
-            var searchQuery = new MemberSearchQuery
-            {
-                Text = query.Text,
-                Skip = query.Skip,
-                Take = query.Take,
-                OrderingString = query.OrderingString,
-                SearchableTypeIds = ((int)UintraSearchableTypeEnum.User).ToEnumerable(),
-                GroupId = query.GroupId,
-                MembersOfGroup = query.MembersOfGroup
-            };
+		protected override (IEnumerable<Guid> searchResult, long totalHits) GetActiveUserIds(
+			ActiveMemberSearchQuery query)
+		{
+			var searchQuery = new MemberSearchQuery
+			{
+				Text = query.Text,
+				Skip = query.Skip,
+				Take = query.Take,
+				OrderingString = query.OrderingString,
+				SearchableTypeIds = ((int)UintraSearchableTypeEnum.User).ToEnumerable(),
+				GroupId = query.GroupId,
+				MembersOfGroup = query.MembersOfGroup
+			};
 
-            var searchResult = _elasticIndex.Search(searchQuery);
-            var result = searchResult.Documents.Select(r => Guid.Parse(r.Id.ToString()));
+			var searchResult = _elasticIndex.Search(searchQuery);
+			var result = searchResult.Documents.Select(r => Guid.Parse(r.Id.ToString()));
 
-            return (result, searchResult.TotalHits);
-        }
+			return (result, searchResult.TotalHits);
+		}
 
-        protected override string GetDetailsPopupTitle(MemberModel user) =>
-            $"{user.DisplayedName} {_localizationCoreService.Get("UserList.DetailsPopup.Title")}";
+		protected override string GetDetailsPopupTitle(MemberModel user) =>
+			$"{user.DisplayedName} {_localizationCoreService.Get("UserList.DetailsPopup.Title")}";
 
-        protected override MemberModel MapToViewModel(IIntranetMember user)
-        {
-            var model = base.MapToViewModel(user);
-            model.ProfileUrl = _profileLinkProvider.GetProfileLink(user.Id);
+		protected override MemberModel MapToViewModel(IIntranetMember user)
+		{
+			var model = base.MapToViewModel(user);
+			model.ProfileUrl = _profileLinkProvider.GetProfileLink(user.Id);
 
-            var isAdmin = _groupMemberService
-                .IsMemberAdminOfGroup(user.Id, CurrentGroup()
-                    .Match(Some: GroupId, None: () => Guid.Empty));
+			var isAdmin = _groupMemberService
+				.IsMemberAdminOfGroup(user.Id, CurrentGroup()
+					.Match(Some: GroupId, None: () => Guid.Empty));
 
-            model.IsGroupAdmin = isAdmin;
-            model.IsCreator = _groupService.IsMemberCreator(user.Id, CurrentGroup()
-                    .Match(Some: GroupId, None: () => Guid.Empty));
+			model.IsGroupAdmin = isAdmin;
+			model.IsCreator = _groupService.IsMemberCreator(user.Id, CurrentGroup()
+					.Match(Some: GroupId, None: () => Guid.Empty));
 
-            return model;
-        }
+			return model;
+		}
 
-        protected override MembersRowsViewModel GetUsersRowsViewModel()
-        {
-            var model = base.GetUsersRowsViewModel();
-            model.CurrentMember = _intranetMemberService.GetCurrentMember().Map<MemberViewModel>();
+		protected override MembersRowsViewModel GetUsersRowsViewModel()
+		{
+			var model = base.GetUsersRowsViewModel();
+			model.CurrentMember = _intranetMemberService.GetCurrentMember().Map<MemberViewModel>();
 
-            model.IsCurrentMemberGroupAdmin = _groupMemberService
-                .IsMemberAdminOfGroup(model.CurrentMember.Id, CurrentGroup()
-                    .Match(Some: GroupId, None: () => Guid.Empty));
+			model.IsCurrentMemberGroupAdmin = _groupMemberService
+				.IsMemberAdminOfGroup(model.CurrentMember.Id, CurrentGroup()
+					.Match(Some: GroupId, None: () => Guid.Empty));
 
-            model.GroupId = CurrentGroup().Match(Some: GroupId, None: () => Guid.Empty);
+			model.GroupId = CurrentGroup().Match(Some: GroupId, None: () => Guid.Empty);
 
-            return model;
-        }
+			return model;
+		}
 
-        public override bool ExcludeUserFromGroup(Guid groupId, Guid userId)
-        {
-            var currentUserId = _intranetMemberService.GetCurrentMember().Id;
-            var group = _groupService.Get(groupId);
+		public override bool ExcludeUserFromGroup(Guid groupId, Guid userId)
+		{
+			var currentMember = _intranetMemberService.GetCurrentMember();
 
-            if (currentUserId == group.CreatorId || userId == currentUserId)
-            {
-                _groupMemberService.Remove(groupId, userId);
-                return true;
-            }
+			if (currentMember == null)
+			{
+				return false;
+			}
 
-            return false;
-        }
+			var isAdmin = _groupMemberService.IsMemberAdminOfGroup(currentMember.Id, groupId);
+
+			if (!isAdmin)
+			{
+				return false;
+			}
+
+			var group = _groupService.Get(groupId);
+
+			if (userId == group.CreatorId)
+			{
+				return false;
+			}
+
+			_groupMemberService.Remove(groupId, userId);
+			return true;
+		}
 
 
-        [HttpPut]
-        public ActionResult Assign(GroupToggleAdminRightsModel rights)
-        {
-            _groupMemberService.ToggleAdminRights(rights.MemberId, rights.GroupId);
+		[HttpPut]
+		public ActionResult Assign(GroupToggleAdminRightsModel rights)
+		{
+			_groupMemberService.ToggleAdminRights(rights.MemberId, rights.GroupId);
 
-            return new HttpStatusCodeResult(OK);
-        }
+			return new HttpStatusCodeResult(OK);
+		}
 
-        [HttpPost]
-        public ActionResult InviteMember(MemberGroupInviteModel invite)
-        {
-            InviteUser(invite);
-            SendInvitationToUser(invite);
+		[HttpPost]
+		public ActionResult InviteMember(MemberGroupInviteModel invite)
+		{
+			InviteUser(invite);
+			SendInvitationToUser(invite);
 
-            return new HttpStatusCodeResult(OK);
-        }
+			return new HttpStatusCodeResult(OK);
+		}
 
-        private void UpdateCache(MemberGroupInviteModel invite)
-        {
-            var casted = _intranetMemberService as IntranetMemberService<IntranetMember>;
+		private void UpdateCache(MemberGroupInviteModel invite)
+		{
+			var casted = _intranetMemberService as IntranetMemberService<IntranetMember>;
 
-            casted.UpdateMemberCache(invite.MemberId);
-        }
+			casted.UpdateMemberCache(invite.MemberId);
+		}
 
-        private void InviteUser(MemberGroupInviteModel invite) =>
-            _groupMemberService.Add(invite.GroupId, new GroupMemberSubscriptionModel
-            {
-                MemberId = invite.MemberId
-            });
+		private void InviteUser(MemberGroupInviteModel invite) =>
+			_groupMemberService.Add(invite.GroupId, new GroupMemberSubscriptionModel
+			{
+				MemberId = invite.MemberId
+			});
 
-        private void SendInvitationToUser(MemberGroupInviteModel invite) =>
-            _notificationsService.ProcessNotification(new NotifierData
-            {
-                NotificationType = NotificationTypeEnum.GroupInvitation,
-                ReceiverIds = List(invite.MemberId),
-                ActivityType = CommunicationTypeEnum.CommunicationSettings,
-                Value = _notifierDataHelper.GetGroupInvitationDataModel(NotificationTypeEnum.GroupInvitation, invite.GroupId, invite.MemberId,
-                    _intranetMemberService.GetCurrentMember().Id)
-            });
+		private void SendInvitationToUser(MemberGroupInviteModel invite) =>
+			_notificationsService.ProcessNotification(new NotifierData
+			{
+				NotificationType = NotificationTypeEnum.GroupInvitation,
+				ReceiverIds = List(invite.MemberId),
+				ActivityType = CommunicationTypeEnum.CommunicationSettings,
+				Value = _notifierDataHelper.GetGroupInvitationDataModel(NotificationTypeEnum.GroupInvitation, invite.GroupId, invite.MemberId,
+					_intranetMemberService.GetCurrentMember().Id)
+			});
 
-        private static Option<Guid> CurrentGroupId()
-        {
-            var result = System.Web.HttpContext.Current.Request.Params["groupId"].Apply(parseGuid);
+		private static Option<Guid> CurrentGroupId()
+		{
+			var result = System.Web.HttpContext.Current.Request.Params["groupId"].Apply(parseGuid);
 
-            return result.IsNone
-                ? GetFromBody(System.Web.HttpContext.Current.Request, result)
-                : result;
-        }
+			return result.IsNone
+				? GetFromBody(System.Web.HttpContext.Current.Request, result)
+				: result;
+		}
 
-        private static Option<Guid> GetFromBody(HttpRequest request, Option<Guid> noneResult)
-        {
-            var bodyStream = new StreamReader(request.InputStream);
-            bodyStream.BaseStream.Seek(0, SeekOrigin.Begin);
-            var bodyText = bodyStream.ReadToEnd();
-            var queryModel = bodyText.Deserialize<MembersListSearchModel>();
-            return queryModel?.GroupId ?? noneResult;
-        }
+		private static Option<Guid> GetFromBody(HttpRequest request, Option<Guid> noneResult)
+		{
+			var bodyStream = new StreamReader(request.InputStream);
+			bodyStream.BaseStream.Seek(0, SeekOrigin.Begin);
+			var bodyText = bodyStream.ReadToEnd();
+			var queryModel = bodyText.Deserialize<MembersListSearchModel>();
+			return queryModel?.GroupId ?? noneResult;
+		}
 
-        private Option<GroupModel> CurrentGroup() =>
-            CurrentGroupId().Map(_groupService.Get);
-    }
+		private Option<GroupModel> CurrentGroup() =>
+			CurrentGroupId().Map(_groupService.Get);
+	}
 }
