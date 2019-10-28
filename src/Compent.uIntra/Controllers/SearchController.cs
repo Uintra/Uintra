@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using Compent.Uintra.Core.Search;
 using Compent.Uintra.Core.Search.Entities;
@@ -57,7 +58,8 @@ namespace Compent.Uintra.Controllers
             });
 
             var resultModel = GetUintraSearchResultsOverviewModel(searchResult);
-            resultModel.Query = model.Query;
+            var decodedQuery = Encoding.UTF8.GetString(model.Query.Select(c => (byte)c).ToArray());
+			resultModel.Query = decodedQuery;
 
             return PartialView(SearchResultViewPath, resultModel);
         }
