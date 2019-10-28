@@ -455,8 +455,8 @@
     <Reference Include="Uintra.Comments, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Comments.2.4.0\lib\net471\Uintra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Core, Version=2.4.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Core.2.4.0.3\lib\net471\Uintra.Core.dll</HintPath>
+    <Reference Include="Uintra.Core, Version=2.4.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Core.2.4.0.4\lib\net471\Uintra.Core.dll</HintPath>
     </Reference>
     <Reference Include="Uintra.Events, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Events.2.4.0\lib\net471\Uintra.Events.dll</HintPath>
@@ -479,8 +479,8 @@
     <Reference Include="Uintra.Panels, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Panels.3.4.0\lib\net471\Uintra.Panels.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Search, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Search.1.4.0\lib\net471\Uintra.Search.dll</HintPath>
+    <Reference Include="Uintra.Search, Version=1.4.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Search.1.4.0.1\lib\net471\Uintra.Search.dll</HintPath>
     </Reference>
     <Reference Include="Uintra.Subscribe, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Subscribe.2.4.0\lib\net471\Uintra.Subscribe.dll</HintPath>
@@ -488,8 +488,8 @@
     <Reference Include="Uintra.Tagging, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Tagging.2.4.0\lib\net471\Uintra.Tagging.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Users, Version=2.4.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Users.2.4.0.3\lib\net471\Uintra.Users.dll</HintPath>
+    <Reference Include="Uintra.Users, Version=2.4.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Users.2.4.0.4\lib\net471\Uintra.Users.dll</HintPath>
     </Reference>
     <Reference Include="umbraco, Version=1.0.7180.24668, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\umbraco.dll</HintPath>
@@ -1117,11 +1117,6 @@
     <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
     <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
     <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
-    <Content Include="App_Plugins\Search\package.manifest" />
-    <Content Include="App_Plugins\Search\Controls\SearchBoxAutocompleteItem.cshtml" />
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
@@ -1176,6 +1171,11 @@
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml" />
     <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
+    <Content Include="App_Plugins\Search\package.manifest" />
+    <Content Include="App_Plugins\Search\Controls\SearchBoxAutocompleteItem.cshtml" />
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
     <Content Include="App_Plugins\Users\UserList\UsersRowsView.cshtml" />
     <Content Include="App_Plugins\Users\UserList\UserListView.cshtml" />
     <Content Include="App_Plugins\Users\UserList\UserDetailsPopup.cshtml" />

@@ -238,18 +238,18 @@ let controller = {
 
         function updateUI(loadedRows) {
 
-            var length = TABLE_BODY.children('div').length;
+            var length = TABLE_BODY.children('div .js-user-list-row').length;
 
             var isLastRequest = loadedRows.hasClass(lastRequestClassName);
 
-            if (length === 1) {
+            if (length === 0) {
                 EMPTY_RESULT_LABEL.show();
             } else {
                 EMPTY_RESULT_LABEL.hide();
             }
-            if (length === 1  || isLastRequest) {
+            if (length === 0 || isLastRequest) {
                 LOAD_MORE_BUTTON.hide();
-                
+
             } else {
                 LOAD_MORE_BUTTON.show();
             }
@@ -288,10 +288,12 @@ let controller = {
                         $(buttonToDeleteMember).prop('disabled', true);
                         ajax.post(routes.EXCLUDE_USER_FROM_GROUP, { groupId: groupId, userId: userId })
                             .then(function (result) {
-                                if (result.data) {
+                                if (result.data === "True") {
                                     row.remove();
                                     request.skip = request.skip - 1;
                                     buttonToDeleteMember = null;
+                                } else {
+                                    console.log("Can't delete member");
                                 }
                             }, function () {
                                 buttonToDeleteMember = null;
@@ -310,7 +312,7 @@ let controller = {
             var SELECT_ELEMENT = rows.find(marker.TOGGLE_ADMIN_RIGHTS);
             SELECT_ELEMENT.select2({ minimumResultsForSearch: -1 });
 
-            SELECT_ELEMENT.change(function (e) { 
+            SELECT_ELEMENT.change(function (e) {
                 shared.eventSuppress(e);
                 var row = $(this).closest(marker.ROWS);
                 var groupId = row.data('group-id');
@@ -342,12 +344,12 @@ let controller = {
                         '<div class="js-invite-user-list-empty-result" style="display:none;">No results, try other keywords</div>',
                         function () { }
                     ).set({ transition: 'fade', movable: false })
-                    .set({
-                        onclosing: function () {
-                            marker.ALERTIFY.ACTIONS.TOGGLE_STYLES();
-                            search('');
-                        }
-                    });
+                        .set({
+                            onclosing: function () {
+                                marker.ALERTIFY.ACTIONS.TOGGLE_STYLES();
+                                search('');
+                            }
+                        });
                     postOpenSearchModalPage();
                     INVITE_LABEL_NOT_FOUND = $(marker.INVITE_NOT_FOUND_RESULT);
                 }
