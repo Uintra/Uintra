@@ -238,16 +238,16 @@ let controller = {
 
         function updateUI(loadedRows) {
 
-            var length = TABLE_BODY.children('div').length;
+            var length = TABLE_BODY.children('div .js-user-list-row').length;
 
             var isLastRequest = loadedRows.hasClass(lastRequestClassName);
 
-            if (length === 1) {
+            if (length === 0) {
                 EMPTY_RESULT_LABEL.show();
             } else {
                 EMPTY_RESULT_LABEL.hide();
             }
-            if (length === 1 || isLastRequest) {
+            if (length === 0 || isLastRequest) {
                 LOAD_MORE_BUTTON.hide();
 
             } else {
