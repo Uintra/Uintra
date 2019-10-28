@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using LanguageExt;
 using Uintra.Core;
@@ -67,9 +68,10 @@ namespace Uintra.Search.Web
             });
 
             var resultModel = GetSearchResultsOverviewModel(searchResult);
-            resultModel.Query = model.Query;
+			var decodedQuery = Encoding.UTF8.GetString(model.Query.Select(c => (byte)c).ToArray());
+			resultModel.Query = decodedQuery;
 
-            return PartialView(SearchResultViewPath, resultModel);
+			return PartialView(SearchResultViewPath, resultModel);
         }
 
         public virtual PartialViewResult SearchBox()
