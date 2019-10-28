@@ -1,0 +1,16 @@
+<app-header [navigation]="topNavigation" [settings]="siteSettings?.headerSettings"></app-header>
+
+<app-main><router-outlet></router-outlet></app-main>
+
+<app-footer [settings]="siteSettings?.footerSettings"></app-footer>
+
+<app-cookie [data]="siteSettings?.cookieSettings"></app-cookie>
+
+<ubl-drawer>
+    <i action="close" class="icon icon-close">menu</i>
+    <div class="top-menu">
+        <div [routerLink]="item.url" (click)="drawerService.close()" [routerLinkActive]="'current'" class="top-menu__item" *ngFor="let item of topNavigation">
+            {{item.title}}
+        </div>
+    </div>
+</ubl-drawer>

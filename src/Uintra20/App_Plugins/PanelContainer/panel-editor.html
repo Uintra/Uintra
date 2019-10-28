@@ -1,0 +1,46 @@
+<umb-editor-view class="panel-view">
+    <form novalidate name="panelEditorForm" val-form-manager>
+        <umb-editor-header
+            name="model.title"
+            name-locked="true"
+            hide-alias="true"
+            hide-icon="true"
+            hide-description="true">
+        </umb-editor-header>
+    
+        <umb-editor-container>
+            <div class="umb-group-panel" ng-repeat="tab in model.tabs track by $index">
+                <div class="panel-tab">
+                    <div class="umb-group-panel__header">
+                        <div>{{ tab.label }}</div>
+                    </div>
+
+                    <div class="umb-group-panel__content">
+                        <umb-property property="property" ng-repeat="property in tab.properties track by property.alias">
+                            <umb-property-editor model="property"/>
+                        </umb-property>
+                    </div>
+                </div>
+            </div>
+        </umb-editor-container>
+    
+        <umb-editor-footer>
+            <umb-editor-footer-content-right>
+                <umb-button
+                    type="button"
+                    button-style="action"
+                    label-key="general_submit"
+                    shortcut="ctrl+s"
+                    action="model.save(model, panelEditorForm)">
+                </umb-button>
+                <umb-button
+                    type="button"
+                    button-style="link"
+                    label-key="general_close"
+                    shortcut="esc"
+                    action="model.close()">
+                </umb-button>
+            </umb-editor-footer-content-right>
+        </umb-editor-footer>
+    </form>
+    </umb-editor-view

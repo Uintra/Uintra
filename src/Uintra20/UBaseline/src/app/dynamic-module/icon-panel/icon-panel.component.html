@@ -1,0 +1,9 @@
+<section class="icon-panel" *ngIf="data">
+  <div class="icon-panel__content">
+    <h2 class="icon-panel__title" *ngIf="data.title.value">{{data.title.value}}</h2>
+
+    <div class="icon-panel__items" [ngClass]="{'icon-panel__items--center': data.centerText.value}">
+      <app-icon-panel-item *ngFor="let item of data.items.value;" [data]="item"></app-icon-panel-item>
+    </div>
+  </div>
+</section> 

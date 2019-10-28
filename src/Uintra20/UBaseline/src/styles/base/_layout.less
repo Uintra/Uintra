@@ -1,0 +1,37 @@
+.container() {
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.container-max() {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centered() {
+    padding-left: 20px;
+    padding-right: 20px;
+
+    @media @md {
+        .container;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+.centered-max() {
+    padding-left: 20px;
+    padding-right: 20px;
+
+    @media @lg {
+        .container-max;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+.make-full-content() {
+     display: block;
+    .container;
+}

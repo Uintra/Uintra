@@ -1,0 +1,21 @@
+﻿{
+  "propertyEditors": [
+    {
+      "alias": "UBaseline.PanelContainer",
+      "name": "UBaseline - Panel Container",
+      "icon": "icon-code",
+      "group": "Pickers",
+      "editor": {
+        "view": "~/App_Plugins/PanelContainer/panel-container.html",
+        "valueType": "JSON"
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/PanelContainer/panel-container.controller.js",
+    "~/App_Plugins/PanelContainer/panel-container.resource.js"
+  ],
+  "css": [
+    "~/App_Plugins/PanelContainer/style.css"
+  ]
+}

@@ -1,0 +1,47 @@
+﻿<div class="image-picker-extended" ng-controller="imagePickerExtendedController as ipc" ng-class="{'_allow-select': ipc.getGlobalState()}">
+    <div class="upload-new" ng-click="ipc.addImage()"></div>
+    <div class="holder" ng-if="model.value">
+        <div ng-repeat="image in ipc.getAllImages() track by $index">
+            <div ng-if="image.mediaId">
+                <div class="controls">
+                    <div class="icon-delete __delete" ng-click="ipc.removeItem($index)"></div>
+                </div>
+                <div ng-if="image.crops.length && !ipc.isSvg(image)">                    
+                    <ul class="crops-list" ng-click="ipc.editCrops(image, $index)">
+                        <li ng-repeat="crop in image.crops">
+                            <umb-image-thumbnail center="image.focalPoint"
+                                                 crop="crop.coordinates"
+                                                 src="ipc.getCachedMedia(image.mediaId).src"
+                                                 height="{{crop.height}}"
+                                                 width="{{crop.width}}"
+                                                 max-size="100">
+                            </umb-image-thumbnail>
+                            <div class="crop-information">
+                                <div class="crop-size">
+                                    <strong>{{crop.name}}</strong> (<em>{{crop.width}}px</em>&nbsp;&times;&nbsp;<em>{{crop.height}}px</em>)
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <img ng-if="ipc.isSvg(image)" ng-src="{{ipc.getCachedMedia(image.mediaId).src}}" class="image-picker-extended__default-image" />
+            <div ng-if="image.mediaId && image.crops.length == 0 && !ipc.isSvg(image)" class="image-picker-extended__default-image">
+                <img ng-src="{{ipc.getCachedMedia(image.mediaId).src}}" />
+            </div>
+            <span class="image-picker-extended__warning" ng-show="image.mediaId && ipc.getCachedMedia(image.mediaId).trashed">
+                Warning! This image is trashed!
+            </span>
+            <div>
+                <input ng-if="config.showAlt" type="text" ng-model="image.alt" ng-keyup="image.alt = image.alt.substr(0, 125)" placeholder="Alt" required />
+                <span style="color: grey">Set page specific ALT text here. If not set default ALT text will be taken from Media library.</span>
+            </div>
+        </div>
+    </div>
+    <umb-overlay ng-if="editCropOverlay.show"
+                 model="editCropOverlay"
+                 view="editCropOverlay.view"
+                 style="width: 600px;"
+                 position="right">
+    </umb-overlay>
+</div>

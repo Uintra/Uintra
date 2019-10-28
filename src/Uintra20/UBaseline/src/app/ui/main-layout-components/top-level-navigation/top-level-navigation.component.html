@@ -1,0 +1,5 @@
+<nav class="navigation" *ngIf="items?.length">
+  <a class="navigation__item" [ngClass]="{'navigation__item--active': item.isActive}" 
+    *ngFor="let item of items" 
+    [routerLink]="item.url">{{ item.title }}</a>
+</nav>

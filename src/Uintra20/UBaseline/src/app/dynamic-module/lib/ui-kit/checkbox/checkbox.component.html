@@ -1,0 +1,11 @@
+<input #input class="checkbox"
+    [ngModel]="ngModel"
+    [disabled]="isDisabled"
+    name="name"
+    (ngModelChange)="ngModelChange.emit($event)"
+    type="checkbox">
+<i class="icon icon-partly-checked" *ngIf="partlyChecked"></i>
+<i class="icon icon-checked" *ngIf="!partlyChecked && input.checked"></i>
+<i class="icon icon-unchecked" *ngIf="!partlyChecked && !input.checked"></i>
+<ng-content></ng-content>
+

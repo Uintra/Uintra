@@ -1,0 +1,28 @@
+@import "../../../base.less";
+
+:host {
+    .default-theme;
+    .all-styles;
+}
+
+:host(@{theme-1}) {
+    .reversal-theme;
+    .all-styles; 
+}
+
+.all-styles() { 
+	.article-panel {
+		position: relative;
+		padding-bottom: 40px;
+
+		@media @sm {
+			
+		}
+
+		&__content {
+			.centered;
+		}
+	}
+
+	@import "./override.less";
+}

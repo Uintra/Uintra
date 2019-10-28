@@ -1,0 +1,9 @@
+<div *ngIf='newsList' class='news-list'>
+  <div class='news-list__items'>
+    <news-item *ngFor='let item of newsList' [news]='item' class='news-list__item'></news-item>
+  </div>
+
+  <div *ngIf="totalCount > newsList.length" class="news-list__load-more">
+    <input class="news-list__load-more-button" type="button" [value]="'loadMore.Label' | translate" (click)="loadMore()"/>
+  </div>
+</div>

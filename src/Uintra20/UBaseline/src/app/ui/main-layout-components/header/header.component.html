@@ -1,0 +1,14 @@
+<header class="header">
+  <div class="header__container">
+    <a [routerLink]="'/'" class="header__logo">
+      <app-picture [data]="logo"></app-picture>
+    </a>
+
+    <nav class="header__navigation">
+      <app-top-level-navigation [items]="navigation"></app-top-level-navigation>
+    </nav>
+    <button class="mobile-menu-btn" (click)="drawerService.toggle()">menu</button>
+  </div>
+
+  <ng-content></ng-content>
+</header>

@@ -1,0 +1,5 @@
+<div class="slides" [@slide]="animation" (@slide.done)="animation = 'done'">
+  <ng-content></ng-content>
+</div>
+<app-toolbar (onDirEvent)="handlePrevNextEvent($event)" [options]="toolbarVm"></app-toolbar>
+<app-dots (onNextIndex)="handleIndexChanged($event)" [count]="slidesCount" [current]="currentSlideIndex" ></app-dots>

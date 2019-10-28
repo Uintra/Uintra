@@ -1,0 +1,11 @@
+﻿{
+  "SerilogSettings": {
+    "WriteTo": [
+      {
+        "Args": {
+          "path": "%BASEDIR%\\App_Data\\Logs\\UmbracoTraceLog.UBaseline..json"
+        }
+      }
+    ]
+  }
+}

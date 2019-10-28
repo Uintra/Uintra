@@ -1,0 +1,10 @@
+<ubl-autosuggest-input class="ubl-autosuggest-input"
+  (onBlur)="hideResults()"
+  (onClear)="clearResults()"
+  [placeholder]="'autoSuggest.Placeholder' | translate"
+  (onQuery)="handleQuery($event)">
+</ubl-autosuggest-input>
+
+<ubl-autosuggest-results  *ngIf="isShowResults" [results]="suggestions">
+  <app-button *ngIf='searchPageUrl' [data]="searchPageUrl" [withArrow]="true"></app-button>
+</ubl-autosuggest-results>

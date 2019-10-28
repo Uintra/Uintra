@@ -1,0 +1,16 @@
+{
+  "PanelContainerSettings": {
+    "ParentFolderName": "Panels",
+    "HiddenPanelAliases": [ "basePanel" ],
+    "GlobalPanelFolderXPath": "//*[@isDoc and @id=$nodeId]/ancestor-or-self::*[@isDoc]/dataFolder/panelsFolder//*[@isDoc]",
+    "PanelItemSettings": [
+      //{
+      //  "Alias": "HeroPanel",
+      //  "IsGlobal": true,
+      //  "IsLocal": true,
+      //  "RequiredForDocTypes": ["ContentPage"],
+      //  "IncludedForDocTypes": []
+      //}
+    ]
+  }
+}

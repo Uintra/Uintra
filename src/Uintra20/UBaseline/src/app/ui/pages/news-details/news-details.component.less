@@ -1,0 +1,90 @@
+@import 'src/base.less';
+
+:host {
+  ::ng-deep app-picture img{
+    display: block;
+    width: 100% !important;
+  }
+}
+
+.news-page{
+  display: block;
+
+  @media @md{
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &__image {
+    @media @sm {
+      .centered-max;
+    }
+  }
+
+  &__content {
+    .centered;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+}
+
+.news-page-wrapper {
+  width: 100%;
+}
+
+.details{
+  @media @md{
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    margin-bottom: 30px;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  &__social {
+    display: flex;
+    align-items: center;
+
+    &-icon {
+      fill: @link-color;
+
+      &:hover {
+        fill: fade(@link-color, 80%);
+      }
+    }
+
+    a {
+      margin-left: 10px;
+    }
+  }
+
+  .rte {
+    & /deep/ p {
+      font-size: 20px;
+
+      @media @sm {
+        font-size: 22px;
+      }
+    }
+  }
+}
+
+.back{
+  display: block;
+  text-decoration: none;
+  .button;
+  .left-arrow;
+}
+
+@import './override.less';

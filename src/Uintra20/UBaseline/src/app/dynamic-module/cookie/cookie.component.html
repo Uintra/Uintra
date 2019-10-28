@@ -1,0 +1,9 @@
+<section class="cookie" *ngIf="data && !isConsented">
+  <div class="cookie__content">
+      <div class="cookie__info">
+          <h2 *ngIf="data?.cookieTitle" class="cookie__title">{{ data.cookieTitle }}</h2>
+          <div *ngIf="data?.cookieDescription" [innerHtml]="data.cookieDescription" class="rte"></div>
+      </div>
+      <button id="accept" name="accept" class="cookie__btn btn" (click)="handleConsent(isConsented)">Ok</button>
+  </div>
+</section>

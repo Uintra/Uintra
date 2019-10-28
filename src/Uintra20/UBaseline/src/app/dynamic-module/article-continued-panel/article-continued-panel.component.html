@@ -1,0 +1,7 @@
+<section class="article-panel" *ngIf="data">
+  <div class="article-panel__content">
+    <h2 *ngIf="data.title" class="article-panel__title">{{ data.title.value }}</h2>
+    <div class="article-panel__description rte" *ngIf="data.description" [innerHTML]="data.description.value"></div>
+    <app-button *ngIf="data.link.value" class="article-panel__link" [withArrow]="true" [data]="data.link.value"></app-button>
+  </div>
+</section> 

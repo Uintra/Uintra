@@ -1,0 +1,45 @@
+﻿<div ng-controller="videoPickerPreValueController as vp">
+    <div class ="video-picker-prevalue">
+        <div class="umb-property">
+            <div class="control-group umb-control-group">
+                <div class="umb-el-wrap">
+                    <label class="control-label">
+                        Use Thumbnail
+                    </label>
+                    <div class="controls">
+                        <umb-toggle checked="model.value.useThumbnail"
+                            on-click="model.value.useThumbnail = !model.value.useThumbnail"></umb-toggle>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="umb-property">
+            <div class="control-group umb-control-group">
+                <div class="umb-el-wrap">
+                    <label class="control-label">
+                        Show Loop
+                    </label>
+                    <div class="controls">
+                        <umb-toggle checked="model.value.showLoop" on-click="model.value.showLoop = !model.value.showLoop">
+                        </umb-toggle>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="umb-property">
+            <div class="control-group umb-control-group">
+                <div class="umb-el-wrap">
+                    <label class="control-label">
+                        Use video for mobile
+                    </label>
+                    <div class="controls">
+                        <umb-toggle checked="model.value.useMobileVideo" on-click="model.value.useMobileVideo = !model.value.useMobileVideo">
+                        </umb-toggle>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+{
+  "VideoPickerSettings": {
+    "YoutubeThumbnailUrl": "https://img.youtube.com/vi/{videoCode}/maxresdefault.jpg",
+    "YoutubeLinkFeed": "https://www.youtube.com/embed/",
+    "VimeoLinkFeed": "https://player.vimeo.com/video/",
+    "VimeoThumbnailUrl": "https://vimeo.com/api/v2/video/{videoCode}.json",
+    "TwentyThreePlayerUrlPath": "{domain}/v.ihtml/player.html?source=share&photo_id={photoId}&loop={loop}",
+    "TwentyThreeApiPath": "/oembed?format=json&url={url}",
+    "TwentyThreeThumbnailWidth": 940,
+    "TwentyThreeThumbnailHeight": 529
+  }
+}

@@ -1,0 +1,96 @@
+@import "../../../../base.less";
+
+.header {
+    background-color: @background-color;
+    .mobile-menu-btn {
+        background: transparent;
+        border: none;
+        align-self: flex-start;
+        -webkit-tap-highlight-color: transparent;
+        @media @md {
+            display: none;
+        }
+        &:active,
+        &:focus {
+            outline: none;
+        }
+    }
+    &:after {
+        content: "";
+        display: block;
+        height: 10px;
+        width: 100%;
+        background-color: @key-color;
+    }
+
+    &__container {
+        .centered;
+        display: flex;
+        justify-content: space-between;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    &__navigation {
+        margin-left: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 10px 0 10px 16px;
+
+        &-top {
+            @media @md-down {
+                display: none;
+            }
+
+            a {
+                display: inline-block;
+                color: @text-color;
+                text-decoration: none;
+                margin-left: 30px;
+                text-transform: uppercase;
+                font-size: 13px;
+                line-height: 1;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        &-bottom {
+            @media @md-down {
+                display: none;
+            }
+        }
+    }
+
+    &__logo {
+        display: inline-block;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: @text-reverse-color;
+        position: relative;
+        line-height: 0;
+
+        &-img {
+            width: 100%;
+        }
+
+        // TODO: need to remove after set logo in umbraco
+        & > span {
+            height: 30px;
+            color: #44569e;
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 30px;
+        }
+    }
+}
+
+@import "./override.less";

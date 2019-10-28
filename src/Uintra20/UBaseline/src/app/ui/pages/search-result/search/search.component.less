@@ -1,0 +1,246 @@
+@import "src/base.less";
+
+.container {
+  .centered;
+  margin-bottom: 40px;
+
+  &__top {
+    border-bottom: 1px solid fade(@key-color, 50%);
+    margin-bottom: 40px;
+  }
+}
+
+:host ::ng-deep {
+  .autosuggest{
+    display: block;
+    position: relative;
+    background: @key-color;
+
+    &__container{
+      .centered
+    }
+
+    &__input-holder {
+      position: relative;
+    }
+
+    &__ico {
+      .search-icon;
+      z-index: 3;
+    }
+
+    .input-element {
+      font-size: 22px;
+      line-height: 1.2;
+      border: none;
+      padding: 30px 40px 30px 46px;
+      display: block;
+      width: 100%;
+      background: none;
+      color: @text-color;
+
+      @media @sm {
+        font-size: 30px;
+        padding: 36px 40px 30px 0;
+        margin-left: 56px;
+      }
+
+      .autosuggest-input;
+    }
+
+    .icon {
+      cursor: pointer;
+      right: 0px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      padding-right: 14px;
+      height: 38px;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        display: block;
+        width: 100%;
+      }
+
+      &.icon-search {
+        display: none;
+      }
+    }
+  }
+
+  app-heading{
+    position: relative;
+
+    padding: 32px 0 0;
+    margin: 0 0 16px;
+    display: block;
+
+    @media @sm {
+      padding: 60px 0 0;
+      margin: 0 0 40px;
+    }
+
+    @media @md {
+      padding: 80px 0 0;
+    }
+
+    .heading__title{
+      @media @sm {
+        font-size: 42px;
+      }
+    }
+
+    .heading__subtitle{
+      @media @sm {
+        font-size: 18px;
+      }
+    }
+  }
+
+  app-result-list{
+    .result-list{
+      margin: 0 0 40px;
+
+      &__item{
+        padding: 0 0 0 39px;
+
+        @media @sm {
+          padding: 0 0 0 46px;
+        }
+
+        &:not(:last-child){
+          margin: 0 0 6px;
+
+          @media @sm {
+            margin: 0 0 30px;
+          }
+        }
+
+        &:before {
+          @media @sm {
+            font-size: 22px;
+            left: 0;
+          }
+        }
+      }
+
+      &__title{
+        @media @sm {
+          font-size: 22px;
+          margin: 0 0 9px;
+        }
+      }
+
+      &__text{
+        @media @sm {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+
+  app-button{
+    .base-button{
+      &__link{
+        color: @link-color;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 600;
+        font-style: normal;
+        line-height: 1.39;
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 0 5px;
+
+        @media @sm {
+          font-size: 22px;
+          margin: 0 0 9px;
+        }
+      }
+    }
+  }
+
+  .ngx-pagination{
+    border-top: 1px solid fade(@key-color, 50%);
+    border-bottom: 1px solid fade(@key-color, 50%);
+    padding: 0;
+    text-align: right;
+    font-size: 18px;
+    font-weight: 600;
+
+    li{
+      position: relative;
+      padding: 0;
+      vertical-align: top;
+    }
+
+    .current{
+      background: none;
+      color: @link-color;
+      font-weight: bold;
+
+      span:not(.show-for-sr){
+        display: block;
+        padding: 14px 10px;
+      }
+
+      &:after{
+        content:"";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: @link-color;
+        height: 3px;
+      }
+    }
+
+    a{
+      display: block;
+      padding: 14px 10px;
+      color: @text-color;
+    }
+
+    .disabled{
+      display: none;
+    }
+
+    [aria-label="Next page"]{
+      font-size: 0;
+      padding: 19px 10px;
+
+      &:after{
+        content:"";
+        width: 8px;
+        height: 8px;
+        border-style: solid;
+        border-width: 2px 2px 0 0;
+        border-color: @text-color;
+        transform:rotate(45deg);
+        display: block;
+        margin: 0 0 0 -2px;
+      }
+    }
+
+    [aria-label="Previous page"]{
+      font-size: 0;
+      padding: 19px 10px;
+
+      &:before{
+        content:"";
+        width: 8px;
+        height: 8px;
+        border-style: solid;
+        border-width: 2px 2px 0 0;
+        border-color: @text-color;
+        transform:rotate(-135deg);
+        display: block;
+        margin: 0 2px 0 0;
+      }
+    }
+  }
+}

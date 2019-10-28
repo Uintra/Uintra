@@ -1,0 +1,34 @@
+@import "base.less";
+
+:host {
+    display: block;
+}
+:host(.document-library--horizontal) {
+    .document-library {
+        &__links {
+            display: flex;
+        }
+
+        &__link {
+            flex: 1 0 0;
+            display: inline-flex;
+            @media @sm-down {
+                flex: 0 0 50%;
+            }
+        }
+    }
+}
+
+:host(.document-library--vertical) {
+
+    .document-library {
+        &__links {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        &__link {
+            display: inline-flex;
+        }
+    }
+}

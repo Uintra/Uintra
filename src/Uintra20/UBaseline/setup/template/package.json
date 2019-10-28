@@ -1,0 +1,20 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "build": "./node_modules/.bin/gulp build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-changed": "^4.0.0",
+    "@types/node": "~8.9.4",
+    "fs-extra": "^8.1.0",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.6.3"
+  }
+}
+  

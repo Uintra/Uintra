@@ -1,0 +1,69 @@
+:host {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 0;
+    border-radius: 3px;
+    outline: 0;
+    background-color: transparent;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    line-height: var(--button-height);
+    color: var(--button-color);
+    min-height: 1em;
+    &::-moz-focus-inner {
+        padding: 0;
+        border: 0;
+    }
+
+    &.hovered,
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.active,
+    &:active {
+        background-color: var(--button-active-bg);
+        color: var(--button-on-active-bg);
+    }
+
+    &.focused,
+    &:focus {
+        outline: none;
+    }
+
+    &.disabled,
+    &[disabled] {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background-color: transparent;
+    }
+}
+
+.button {
+    &__text {
+        display: inline-block;
+        line-height: var(--button-height);
+        margin: 0 10px;
+        min-height: 1em;
+        overflow: hidden;
+        position: relative;
+        text-overflow: ellipsis;
+        vertical-align: top;
+    }
+}
+
+::ng-deep .icon {
+    text-align: center;
+    height: var(--button-height);
+    width: var(--button-height);
+    display: inline-block;
+}

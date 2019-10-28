@@ -1,0 +1,134 @@
+@import 'base.less';
+
+:host {
+    .centered;
+    display: block;
+    padding: 40px 20px;
+}
+
+::ng-deep .document-library {
+    .icon {
+        vertical-align: middle;
+        &::before {
+            content: "";
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    }
+
+    .icon--pdf {
+        &:before {
+            background-image: url("data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' width='384' height='448' viewBox='0 0 384 448'%3E%3Ctitle%3E%3C/title%3E%3Cg id='icomoon-ignore'%3E%3C/g%3E%3Cpath fill='red' d='M367 95c9.25 9.25 17 27.75 17 41v288c0 13.25-10.75 24-24 24h-336c-13.25 0-24-10.75-24-24v-400c0-13.25 10.75-24 24-24h224c13.25 0 31.75 7.75 41 17zM256 34v94h94c-1.5-4.25-3.75-8.5-5.5-10.25l-78.25-78.25c-1.75-1.75-6-4-10.25-5.5zM352 416v-256h-104c-13.25 0-24-10.75-24-24v-104h-192v384h320zM223.5 267.75c6.25 5 13.25 9.5 21 14 10.5-1.25 20.25-1.75 29.25-1.75 16.75 0 38 2 44.25 12.25 1.75 2.5 3.25 7 0.5 13-0.25 0.25-0.5 0.75-0.75 1v0.25c-0.75 4.5-4.5 9.5-17.75 9.5-16 0-40.25-7.25-61.25-18.25-34.75 3.75-71.25 11.5-98 20.75-25.75 44-45.5 65.5-60.5 65.5-2.5 0-4.75-0.5-7-1.75l-6-3c-0.75-0.25-1-0.75-1.5-1.25-1.25-1.25-2.25-4-1.5-9 2.5-11.5 16-30.75 47-47 2-1.25 4.5-0.5 5.75 1.5 0.25 0.25 0.5 0.75 0.5 1 7.75-12.75 16.75-29 26.75-49.25 11.25-22.5 20-44.5 26-65.5-8-27.25-10.5-55.25-6-71.75 1.75-6.25 5.5-10 10.5-10h5.5c3.75 0 6.75 1.25 8.75 3.75 3 3.5 3.75 9 2.25 17-0.25 0.75-0.5 1.5-1 2 0.25 0.75 0.25 1.25 0.25 2v7.5c-0.25 15.75-0.5 30.75-3.5 48 8.75 26.25 21.75 47.5 36.5 59.5zM79.5 370.5c7.5-3.5 18.25-14.25 34.25-39.5-18.75 14.5-30.5 31-34.25 39.5zM179 140.5c-2.5 7-2.5 19-0.5 33 0.75-4 1.25-7.75 1.75-11 0.5-4.25 1.25-7.75 1.75-10.75 0.25-0.75 0.5-1.25 1-2-0.25-0.25-0.25-0.75-0.5-1.25-0.25-4.5-1.75-7.25-3.25-9 0 0.5-0.25 0.75-0.25 1zM148 305.75c22-8.75 46.5-15.75 71-20.25-2.5-2-5-3.75-7.25-5.75-12.25-10.75-23.25-25.75-31.75-44-4.75 15.25-11.75 31.5-20.75 49.25-3.75 7-7.5 14-11.25 20.75zM309.5 301.75c-1.25-1.25-7.75-6-35-6 12.25 4.5 23.5 7 31 7 2.25 0 3.5 0 4.5-0.25 0-0.25-0.25-0.5-0.5-0.75z'%3E%3C/path%3E%3C/svg%3E%0A");
+        }
+    }
+
+    &__title {
+        font-weight: bold;
+        font-size: 18px;
+        color: @text-color;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__rte {
+        max-width: 50%;
+    }
+
+    &__links,
+    &__rte,
+    &__see-all {
+        margin-top: 20px;
+    }
+
+    &__links ubl-link::ng-deep .link {
+        &__link {
+            &:hover .link__text {
+                text-decoration: underline;
+            }
+        }
+        &__text {
+            display: inline-block;
+        }
+    }
+
+
+    &__link {
+        color: @link-color;
+        line-height: 1.5;
+        padding: 7px 0;
+    }
+
+    &__see-all {
+        &:before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' width='512' height='512' viewBox='0 0 512 512'%3E%3Ctitle/%3E%3Cg id='icomoon-ignore'%3E%3C/g%3E%3Cpath fill='%23000' d='M102.4 31.040l33.12-31.040 274.080 256-274.080 256-33.12-30.88 240.8-225.12z'/%3E%3C/svg%3E%0A");
+            background-position: center;
+            background-size: contain;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        &::ng-deep .link {
+            &__link:hover .link__text {
+                text-decoration: none !important;
+            }
+            &__text {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    // Vertical layout
+    &--vertical ::ng-deep {
+        .document-library {
+            &__links {
+                .icon {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+
+    // Horizontal layout
+    &--horizontal ::ng-deep {
+        .icon::before {
+            content: "";
+            width: 40px;
+            height: 40px;
+        }
+
+        .document-library {
+            &__links {
+                margin-left: -10px;
+                margin-right: -10px;
+                @media @sm-down {
+                    flex-wrap: wrap;
+                }
+                ubl-link {
+                    padding: 10px;
+
+                    ::ng-deep .link {
+                        &__link {
+                            padding: 20px;
+                            border-radius: 5px;
+                            align-items: center;
+                            display: inline-flex;
+                            border: 1px solid lightgray;
+                            width: 100%;
+                            flex-direction: column;
+                        }
+                        &__text {
+                            margin-top: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

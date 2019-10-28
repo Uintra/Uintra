@@ -1,0 +1,22 @@
+<ng-container *ngIf="data">
+  <a *ngIf="data.type === urlType.External" class="base-button" href="{{data.url}}" target="{{ data.target }}">
+    <span class="base-button__link" [innerHTML]='data.name'></span>
+  
+    <div *ngIf="withArrow" class="base-button__arrow">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+        <path d="M28 14H8.8l4.6-4.6c.4-.4.6-.9.6-1.4 0-1-.8-2-2-2-.5 0-1 .2-1.4.6l-8 8c-.3.3-.6.7-.6 1.4s.3 1 .6 1.4l8 8c.4.4.9.6 1.4.6 1.2 0 2-1 2-2 0-.5-.2-1-.6-1.4L8.8 18H28a2 2 0 0 0 0-4z"/>
+      </svg>
+    </div>
+  </a>
+  
+  <a *ngIf="data.type === urlType.Node" class="base-button" [routerLink]="[data.url]">
+    <span class="base-button__link" [innerHTML]='data.name'></span>
+  
+    <div *ngIf="withArrow" class="base-button__arrow">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+        <path d="M28 14H8.8l4.6-4.6c.4-.4.6-.9.6-1.4 0-1-.8-2-2-2-.5 0-1 .2-1.4.6l-8 8c-.3.3-.6.7-.6 1.4s.3 1 .6 1.4l8 8c.4.4.9.6 1.4.6 1.2 0 2-1 2-2 0-.5-.2-1-.6-1.4L8.8 18H28a2 2 0 0 0 0-4z"/>
+      </svg>
+    </div>
+  </a>
+
+</ng-container>

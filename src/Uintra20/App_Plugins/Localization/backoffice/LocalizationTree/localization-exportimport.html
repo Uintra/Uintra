@@ -1,0 +1,31 @@
+﻿<div ng-controller="localizationExportImportController as vm">
+
+    <umb-editor-view>
+        <umb-editor-header name="vm.title"
+                           hide-alias="true"
+                           hide-description="true"
+                           hide-icon="true"
+                           name-locked="true">
+        </umb-editor-header>
+
+        <umb-editor-container>
+            <div class="umb-pane localization">
+                <div class="btn-holder">
+                    <a href="/umbraco/backoffice/api/LocalizationSectionExportApi/Export" class="btn btn-primary">Export</a>
+                    <input type="button" value="Import" class="btn btn-inverse" ng-click="vm.importToggle()"
+                           style="margin: 5px 0 5px 0;" />
+                    <span ng-if="vm.isImportVisible">
+                        <upload-file upload-button-text="Import" on-loaded="vm.import"></upload-file>
+                        <label>
+                            <input type="checkbox"
+                                   ng-model="vm.replaceExist"
+                                   ng-true-value="true"
+                                   ng-false-value="false" />
+                            Import with replace existed:
+                        </label>
+                    </span>
+                </div>
+            </div>
+        </umb-editor-container>
+    </umb-editor-view>
+</div>

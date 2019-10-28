@@ -1,0 +1,11 @@
+﻿<div ng-controller="panelThemePickerController as vm" class="color-picker">
+    <div class="color-picker__item" ng-repeat="color in model.config.settings"
+         ng-click="vm.onSelect(color)"
+         ng-style="vm.getStyle(color)"
+         ng-class="{'_active' : vm.isActive(color)}">
+        Aa
+    </div>
+    <div ng-if="!model.config.settings.length">
+        You haven't defined any colors
+    </div>
+</div>

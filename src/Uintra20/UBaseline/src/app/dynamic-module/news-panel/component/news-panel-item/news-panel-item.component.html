@@ -1,0 +1,11 @@
+<a [routerLink]="data.url" class="news-panel-item__link">
+  <div class="news-panel-item__image">
+    <app-picture [data]="data.previewImage"></app-picture>
+  </div>
+  <div class="news-panel-item__date">{{ data.publishDateString }}</div>
+  <div class="news-panel-item__title">{{ data.title }}</div>
+  <div
+    class="news-panel-item__descr"
+    [innerHTML]="data.description">
+  </div>
+</a>

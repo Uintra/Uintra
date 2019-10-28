@@ -1,0 +1,11 @@
+{
+  "javascript": [
+    "~/app_plugins/UmbracoStructureManagement/backoffice/UmbracoStructureManagement/umbracoStructureManagementDashboardController.js",
+    "~/app_plugins/UmbracoStructureManagement/settings/umbracoStructureManagementController.js",
+    "~/app_plugins/UmbracoStructureManagement/umbracoStructureManagementService.js",
+    "~/app_plugins/UmbracoStructureManagement/components/umbracoStructureManagementReportViewComponent.js"
+
+  ],
+  "css": [
+  ]
+}

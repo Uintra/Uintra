@@ -1,0 +1,23 @@
+<a class="link__link" *ngIf="!data.innerRoute && !download" href="{{ data.url }}" target="{{ data.target }}">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</a>
+
+<a class="link__link" *ngIf="!data.innerRoute && download" download href="{{ data.url }}" target="{{ data.target }}">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</a>
+
+<a class="link__link"
+  *ngIf="data.innerRoute"
+  [routerLink]="data.url"
+  [queryParams]="data.queryParams"
+  target="{{ data.target || '_self' }}"
+  [routerLinkActiveOptions]="{exact: true}"
+  [routerLinkActive]="'link__link--active'">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+</a>
+
+<ng-template #content>
+  <ng-content select='[position="before"]'></ng-content>
+  <span class="link__text"><ng-content></ng-content></span>
+  <ng-content select='[position="after"]'></ng-content>
+</ng-template>

@@ -1,0 +1,6 @@
+<div class="drawer__content" [@animation]="states[(state | async)]">
+  <button class="drawer__close-btn" (click)="drawerService.close()">
+    <ng-content select="[action='close']"></ng-content>
+  </button>
+  <ng-content></ng-content>
+</div>

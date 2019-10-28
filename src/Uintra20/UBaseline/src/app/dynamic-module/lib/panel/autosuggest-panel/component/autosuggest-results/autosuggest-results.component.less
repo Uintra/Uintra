@@ -1,0 +1,36 @@
+@import "../../../../../../../base.less";
+
+:host {
+    display: block;
+    box-shadow: 0 3px 5px fade(#000, 10);
+    background-color: #fff;
+    padding-bottom: 5px;
+    position: relative;
+    font-size: 16px;
+
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        background-color: @key-color;
+        height: 5px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}
+
+.suggestion {
+    padding: 10px 16px;
+    font-size: 16px;
+    border-bottom: 1px solid lightgray;
+    color: #333;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover,
+    &--highlighted {
+        background-color: #f2f0f0;
+        text-decoration: none;
+    }
+}

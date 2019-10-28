@@ -1,0 +1,45 @@
+@import 'base.less';
+
+:host {
+    .centered;
+    display: block;
+    padding: 20px;
+}
+
+ubl-quote {
+    background-color: #f2f0f0;
+    padding: 30px 38px;
+    &::ng-deep {
+        color: #333;
+        font-weight: 600;
+        font-size: 20px;
+        .quote {
+            &__text {
+                padding-top: 54px;
+                position: relative;
+                line-height: 1.5;
+                &:before {
+                    font-size: 75px;
+                    content: "“";
+                    display: inline-block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    line-height: 1;
+                }
+            }
+            &__author {
+                &:before {
+                    content: "-";
+                    display: inline-block;
+                    margin-right: 3px;
+                }
+            }
+            &__description {
+                font-size: 12px;
+                color: #777777;
+            }
+        }
+    }
+}
+

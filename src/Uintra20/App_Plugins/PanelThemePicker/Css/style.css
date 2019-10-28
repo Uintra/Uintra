@@ -1,0 +1,56 @@
+﻿.color-picker {
+    display: flex;
+    align-items: center;
+}
+
+.color-picker__item {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    padding: 4px;
+    margin: 5px;
+    font-size: 17px;
+    border: 3px solid rgba(0,0,0,0.15);
+}
+
+.color-picker__item._active {
+    position: relative;
+}
+
+.color-picker__item._active:after {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 1px solid #000;
+}
+
+.control-group__row {
+    margin-bottom: 15px;
+}
+
+.color-picker-preval .icon {
+    float: left;
+    margin: 5px 15px 0 0;
+    cursor: move;
+}
+
+.control-group__label{
+    width: 150px;
+    margin-right: 10px;
+    padding: 0 !important;
+}
+
+.control-group__column pre,
+.control-group__column,
+.control-group__column .thumbnail {
+    float: none !important;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.control-group__column .thumbnail {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+}

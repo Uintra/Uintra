@@ -1,0 +1,20 @@
+<div class="ubl-video-thumbnail__actions">
+        <label>Thumbnail: </label>
+
+        <input class="btn" ng-click="vm.loadDefaultThumbnail()" ng-disabled="vm.disabledLoadDefaultThumbnail()"
+               type="button" value="Use default" />
+        <input class="btn" ng-click="vm.loadThumbnail()" ng-disabled="vm.disabledLoadThumbnail()"
+               type="button" value="Load custom" />
+        <input class="btn" ng-click="vm.clearThumbnail()" ng-disabled="vm.disabledClearThumbnail()"
+               type="button" value="Clear" />
+</div>
+
+<span ng-if="vm.isThumbnailLoading">Thumbnail loading...</span>
+
+<div style="margin: 10px 0 -15px;">
+    <img ng-if="model.thumbnail.url" src="{{ model.thumbnail.url }}" style="width: 500px; height: 275px;" />
+    <img ng-if="!model.thumbnail.url && !vm.isThumbnailLoading" src="http://via.placeholder.com/500x275">
+</div>
+</div>
+
+<img src="{{vm.thumbnail}}" />

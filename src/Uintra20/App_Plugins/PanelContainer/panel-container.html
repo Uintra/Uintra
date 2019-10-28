@@ -1,0 +1,32 @@
+﻿<div class="panel-view" ng-controller="UBaseline.PanelContainerController as vm">
+       
+    <umb-load-indicator ng-show="vm.loading"></umb-load-indicator>
+   
+    <div class="selected-panels" ui-sortable="sortableOptions" ng-model="vm.selectedPanels">
+        <div class="selected-panels__item" ng-repeat="panel in vm.selectedPanels track by $index">
+            <div class="panel">
+                <div class="panel__label" ng-if="!panel.isGlobal" ng-click="vm.editPanel(panel)">
+                    <i class="icon {{panel.icon}}"></i>
+                    <span>{{panel.name}}</span>
+                </div>
+                <div class="panel__label" ng-if="panel.isGlobal" ng-click="vm.editPanel(panel)">
+                    <i class="icon {{panel.icon}}"></i>{{ panel.name }} | Node id: {{ panel.nodeId }} | Global panel title: {{ panel.nodeName }}
+                </div>
+                <div class="panel__actions">
+                    <a ng-if="panel.isGlobal" class="btn-outline btn-round" ng-click="vm.editPanel(panel)"><i class="icon icon-edit"></i></a>
+                    <a ng-if="!panel.isGlobal" class="btn-outline btn-round" ng-click="vm.editPanel(panel)"><i class="icon icon-edit"></i></a>
+                    <a class="btn-outline btn-round" ng-mouseup="vm.allowDrag(false)" ng-mousedown="vm.allowDrag(true)"><i class="icon icon-navigation"></i></a>
+                    <a class="btn-outline btn-round" ng-click="vm.removePanel(panel)"><i class="icon icon-trash"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="panel-view__actions">
+        Add 
+        <umb-button type="button" size="xs" action="vm.showGlobalPanelList()" button-style="action" label="Global"></umb-button>
+         or 
+        <umb-button type="button" size="xs" action="vm.showLocalPanelList()" button-style="action" label="Local"></umb-button>
+        panel...
+    </div>
+</div>

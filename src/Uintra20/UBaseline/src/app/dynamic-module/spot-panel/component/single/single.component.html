@@ -1,0 +1,7 @@
+<app-picture class="image" *ngIf="data.media && data.media.image" [data]="data.media.image"  [ratio]="370 / 700"></app-picture>
+
+<div class="text">
+  <h2 class="title">{{ data.title }}</h2>
+  <div class="description" [innerHTML]="data.description"></div>
+  <app-button class="link" [data]="data.link" [withArrow]="true"></app-button>
+</div>

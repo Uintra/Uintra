@@ -1,0 +1,12 @@
+<section class="news-panel" *ngIf="data">
+  <div class="news-panel__content">
+      <div class="news-panel__top">
+        <h2 class="news-panel__title" *ngIf="data.title?.value">{{data.title.value}}</h2>
+        <a class="news-panel__link" *ngIf="data.seeAllUrl" [routerLink]="data.seeAllUrl">{{ 'newsPanel.SeeAll' | translate }}</a>
+      </div>
+
+    <div class="news-panel__items">
+      <app-news-panel-item *ngFor="let item of newsArray;" [data]="item"></app-news-panel-item>
+    </div>
+  </div>
+</section>

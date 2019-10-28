@@ -1,0 +1,10 @@
+.news-item {
+  &__descr {
+    @line-height: 20px;
+    @ROWS_COUNT: 3;
+
+    line-height: @line-height;
+    max-height: calc(@line-height * @ROWS_COUNT);
+    overflow: hidden;
+  }
+}

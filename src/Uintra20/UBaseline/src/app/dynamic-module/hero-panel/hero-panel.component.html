@@ -1,0 +1,49 @@
+<section class="hero-panel" *ngIf="data && media">
+	<div class="hero-panel__content">
+
+		<div *ngIf="hasImage; then imageBlock; else videoBlock"></div>
+
+		<div class="hero-panel__text">
+			<h1 *ngIf="data.title" class="hero-panel__title">{{ data.title.value }}</h1>
+			<div class="rte" *ngIf="data.description" [innerHTML]="data.description.value"></div>
+			<app-button class="hero-panel__link" [withArrow]="true" [data]="data.link.value"></app-button>
+		</div>
+	</div>
+</section>
+
+<ng-template #imageBlock>
+	<app-picture class="hero-panel__media-holder" *ngIf="hasImage" [data]="media"></app-picture>
+</ng-template>
+
+<ng-template #videoBlock>
+  <div class="hero-panel__media-holder hero-panel__media-holder--with-video">
+    <div *ngIf="media.desktop.type === 2; then videoDeskLocalBlock; else videoDeskNoLocalBlock"></div>
+    <div *ngIf="media.mobile.type === 2; then videoMobLocalBlock; else videoMobNoLocalBlock"></div>
+  </div>
+</ng-template>
+
+<ng-template #videoDeskNoLocalBlock>
+  <app-iframe
+    class="hero-panel__video hero-panel__video--desktop"
+    [src]="media.desktop.url"
+    [params]="''">
+  </app-iframe>
+</ng-template>
+<ng-template #videoMobNoLocalBlock>
+  <app-iframe
+    class="hero-panel__video hero-panel__video--mobile"
+    [src]="media.mobile.url"
+    [params]="''">
+  </app-iframe>
+</ng-template>
+
+<ng-template #videoDeskLocalBlock>
+  <video controls="false" preload="true" autoplay="autoplay" loop="loop" [muted]="'muted'" name="media" class="hero-panel__video hero-panel__video--desktop">
+    <source [src]="media.desktop.url" type="video/mp4">
+  </video>
+</ng-template>
+<ng-template #videoMobLocalBlock>
+  <video controls="false" preload="true" autoplay="autoplay" loop="loop" [muted]="'muted'" name="media" class="hero-panel__video hero-panel__video--mobile">
+    <source [src]="media.mobile.url" type="video/mp4">
+  </video>
+</ng-template>

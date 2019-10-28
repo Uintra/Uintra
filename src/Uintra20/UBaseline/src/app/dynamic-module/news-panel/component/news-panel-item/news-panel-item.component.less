@@ -1,0 +1,34 @@
+@import "src/base.less";
+
+:host {
+  margin-bottom: 30px;
+}
+
+.news-panel-item {
+  &__link {
+    display: block;
+    color: @text-color;
+    text-decoration: none;
+  }
+
+  &__image {
+    margin-bottom: 12px;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  &__descr {
+    line-height: 1.4;
+  }
+
+  &__date {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+}
+
+@import './override.less';

@@ -1,0 +1,27 @@
+<label class="hidden-label" for="search">{{ placeholder }}</label>
+
+<input type="text"
+    name="search"
+    id="search"
+    class="input-element"
+    (clickOutside)="onBlur.emit()"
+    #query
+    aria-label="Search"
+    [value]="inputValue"
+    [placeholder]="placeholder"
+    (keyup.enter)="toResultPage()"
+    (keyup)="search(query.value)">
+
+<div class="icon" (click)="onClear.emit(); inputValue = ''" *ngIf="inputValue.length">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+    <g fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M2 14L14 2M2 2l12 12" />
+    </g>
+    </svg>
+</div>
+<div class="icon icon-search" *ngIf="!inputValue.length" (click)="search(inputValue)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+    <path fill="currentColor" fill-rule="nonzero"
+        d="M19.749 21.163A11.952 11.952 0 0 1 12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12c0 2.954-1.067 5.658-2.837 7.749l6.544 6.544a1 1 0 0 1-1.414 1.414l-6.544-6.544zM12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+    </svg>
+</div>

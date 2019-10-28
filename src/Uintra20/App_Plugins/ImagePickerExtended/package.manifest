@@ -1,0 +1,34 @@
+﻿{
+  "propertyEditors": [
+    {
+      "alias": "UBaseline.ImagePicker",
+      "name": "UBaseline - Image Picker",
+      "icon": "icon-picture",
+      "group": "Image Pickers",
+      "editor": {
+        "view": "~/App_Plugins/ImagePickerExtended/image-picker-extended.html",
+        "valueType": "JSON"
+      },
+      "prevalues": {
+        "fields": [
+          {
+            "label": "Crops",
+            "description": "Add crop size",
+            "key": "imageSettings",
+            "view": "~/App_Plugins/ImagePickerExtended/prevalue-editor/image-picker-extended-prevalue.html"
+          }
+        ]
+      }
+    }
+  ],
+
+    "javascript": [
+        "~/App_Plugins/ImagePickerExtended/polyfills/object.assign.js",
+        "~/App_Plugins/ImagePickerExtended/image-picker-extended.controller.js",
+        "~/App_Plugins/ImagePickerExtended/prevalue-editor/image-picker-extended-prevalue.controller.js"
+    ],
+
+  "css": [
+    "~/App_Plugins/ImagePickerExtended/Css/style.css"
+  ]
+}

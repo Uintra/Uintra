@@ -1,0 +1,50 @@
+﻿{
+  "UBaselineSettings": {
+    "IsUmbracoStructureManagementEnabled": true,
+    "DefaultCulture": "en-US",
+    "DefaultShortDateFormat": "dd-MM-yyyy",
+    "DefaultFullDateFormat": "dd-MM-yyyy HH:mm:ss",
+    "PageTitleSeparator": "|",
+    "IndexViewPath": "~/Views/Index.cshtml"
+  },
+  "RouteSettings": {
+    "SPARouteConstraint": "^(?!.*(/umbraco/|/api/)).*$",
+    "AllowedNodeSymbolsRegex": "[^A-Za-z0-9_/]+",
+    "AllowedMediaSymbolsRegex": "[^A-Za-z0-9._/]+",
+    "ReplacementSymbol": "-",
+    "ReplacingSymbols": {}, //"æ": "ae"
+    "DeniedRouteNodeAliases": [],
+    "DeniedStatusCode": 404,
+    "CanonicalUrlSettings": {
+      "WwwMode": "Ignore", //Modes: Ignore, WWW, NonWWW
+      "ToLowerCase": true,
+      "AddTrailingSlash": true,
+      "TrimExtensions": [ "aspx", "ascx", "asp" ]
+    }
+  },
+  "MailchimpSettings": {
+    "EndpointUrl": "https://us20.api.mailchimp.com/3.0/",
+    "ApiKey": "8c7c80ffc6ed0bc616dffa43bcf3b335-us20"
+  },
+  "GdprSettings": {
+    "FolderPath": "~\\App_Data\\Gdpr",
+    "DateFormat": "yyyy-dd-M-HH-mm-ss",
+    "FileNameFormat": "{0}_{1}.txt" //0 - email, 1 - date
+  },
+  "UmbracoAccessSettings": {
+    "StatusCode": 403,
+    "Ips": [],
+    "Domains": []
+  },
+  "NewsSettings": {
+    "NewsPreviewDateFormat": "dd. MMMM yyyy",
+    "PublishDateFormat": "dd-MM-yyyy",
+    "UpdatedDateFormat": "dd-MM-yyyy hh:mm"
+  },
+  "UBaselineVersionManagementSettings": {
+    "IsUBaselineVersionSenderEnabled": true,
+    "ReceiverApiUrl": "https://ubaseline-qa.compent2.dk/umbraco/api/packageManagementWebHook/saveConsumer",
+    "Attempts": 10,
+    "Timeout": 120 // in seconds 
+  }
+}

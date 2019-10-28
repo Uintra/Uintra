@@ -1,0 +1,66 @@
+@import "src/base.less";
+
+:host {
+    display: block;
+    box-shadow: 0 3px 5px fade(#000, 10);
+    background-color: @text-reverse-color;
+    position: relative;
+    font-size: 16px;
+
+    box-shadow: 0 1px 10px 0 fade(@text-color, 75%);
+}
+
+.suggestion,
+:host /deep/ .suggestion {
+    display: block;
+    width: 100%;
+    background-color: @background-color;
+    border: 0;
+    padding: 10px 16px;
+    font-size: 16px;
+    border-bottom: 1px solid lightgray;
+    color: #333;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+
+    @media @sm {
+        padding: 20px 16px;
+    }
+
+    &:focus {
+      background-color: darken(@background-color, 3%);
+    }
+
+    &:hover,
+    &--highlighted {
+        background-color: #f2f0f0;
+        text-decoration: none;
+    }
+
+    &--no-results {
+      &:hover {
+        background-color: @text-reverse-color;
+        cursor: default;
+      }
+    }
+
+    &__content {
+        .centered;
+
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__title {
+      & /deep/ b {
+        font-weight: 600;
+      }
+    }
+
+    &__type {
+      color: fade(@text-color, 50%);
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+    }
+}

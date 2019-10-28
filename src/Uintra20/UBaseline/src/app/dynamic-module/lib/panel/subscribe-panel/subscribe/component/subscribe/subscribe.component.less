@@ -1,0 +1,130 @@
+@import "base.less";
+:host {
+    display: block;
+}
+.list {
+    font-size: 13px;
+    label {
+        display: block;
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+    .toggle-all-section {
+        label {
+            display: inline-block;
+        }
+    }
+}
+.agreements {
+    display: block;
+    .icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #000;
+        margin-right: 10px;
+        vertical-align: middle;
+        margin-top: -3px;
+        &::before {
+            display: none;
+        }
+    }
+    &__text {
+        display: inline-block;
+        line-height: 22px;
+    }
+
+    &__checkbox {
+        display: none;
+        margin-right: 5px;
+        &:checked + .icon:before {
+            display: inline-block;
+        }
+    }
+}
+
+.busy {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #000;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+}
+
+ubl-button {
+    text-transform: uppercase;
+    font-size: 11px;
+    color: #000;
+    .icon {
+        margin-left: 10px;
+    }
+}
+.subscribe {
+    &__title,
+    &__description,
+    &__form,
+    &__agreements {
+        max-width: 356px;
+    }
+    &__title {
+        font-size: 18px;
+        font-weight: 600;
+    }
+    &__description {
+        margin-top: 16px;
+    }
+    &__input--email {
+        border: none;
+        line-height: 28px;
+        background-color: transparent;
+        flex-grow: 1;
+        font-size: 15px;
+        color: #000;
+    }
+    &__form {
+        border-bottom: 2px solid #000;
+        margin-top: 32px;
+
+        &.ng-dirty.ng-invalid:not(.ng-untouched) {
+            border-bottom-color: red;
+        }
+    }
+    &__policy,
+    &__agreements {
+        margin-top: 16px;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    &__policy {
+        margin-left: 3px;
+        text-decoration: underline;
+        cursor: pointer;
+        color: @link-color;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+.agreement {
+    position: fixed;
+    z-index: 9999;
+    background-color: #fff;
+    box-shadow: 0 0 0 1000px fade(#000, 50);
+    width: 50%;
+    max-height: 80%;
+    left: 25%;
+    padding: 20px;
+}
+

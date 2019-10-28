@@ -1,0 +1,33 @@
+﻿{
+  "propertyEditors": [
+    {
+      "alias": "UBaseline.KeyValueDropdownList",
+      "name": "UBaseline - Key Value Dropdown List",
+      "editor": {
+        "view": "~/App_Plugins/KeyValueDropdownList/key-value-dropdown-list.html",
+        "valueType": "STRING"
+      },
+      "prevalues": {
+        "fields": [
+          {
+            "label": "Enable multiple choice",
+            "description": "When checked, the dropdown will be a select multiple / combo box style dropdown.",
+            "key": "multiple",
+            "view": "boolean"
+          },
+          {
+            "label": "Values",
+            "description": "",
+            "key": "values",
+            "valueType": "JSON",
+            "view": "~/App_Plugins/KeyValueDropdownList/prevalue-editor/key-value-dropdown-list.prevalue.html"
+          }
+        ]
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/KeyValueDropdownList/prevalue-editor/key-value-dropdown-list.prevalue.controller.js",
+    "~/App_Plugins/KeyValueDropdownList/key-value-dropdown-list.controller.js"
+  ]
+}

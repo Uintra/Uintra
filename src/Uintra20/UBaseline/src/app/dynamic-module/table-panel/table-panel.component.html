@@ -1,0 +1,25 @@
+<section class="table-panel" *ngIf="data">
+  <div class="table-panel__content">
+    <app-heading>{{data.title.value}}</app-heading>
+
+    <table class="table-panel__table">
+      <thead *ngIf="headerRow">
+        <tr>
+          <th
+            *ngFor="let cell of headerRow"
+            [innerHTML]="cell.value"
+            [ngStyle]="{ textAlign: getAlignClass(cell) }"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of data.table.value.cells">
+          <td
+            *ngFor="let cell of row; let i = index"
+            [innerHTML]="cell.value"
+            [attr.data-label]="(headerRow && headerRow[i].plainText) ? headerRow[i].plainText : null"
+            [ngStyle]="{ textAlign: getAlignClass(cell) }"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

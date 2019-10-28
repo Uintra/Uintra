@@ -1,0 +1,59 @@
+.autosuggest-input() {
+  &:focus{
+    box-shadow: none;
+  }
+
+  &::-ms-clear {
+    display:none;
+  }
+
+  &::-webkit-input-placeholder {
+    color: @text-color;
+    opacity: 1;
+  }
+
+  &:focus::-webkit-input-placeholder {
+    color: transparent;
+  }
+
+  &::-moz-placeholder {
+    color: @text-color;
+    opacity: 1;
+  }
+
+  &:focus::-moz-placeholder {
+    color: transparent;
+  }
+
+  &:-ms-input-placeholder {
+    color: @text-color;
+  }
+
+  &:focus:-ms-input-placeholder {
+    color: transparent;
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+}
+
+.search-icon() {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath fill='%23333' fill-rule='nonzero' d='M24.876 26.29A14.943 14.943 0 0 1 15 30C6.716 30 0 23.284 0 15 0 6.716 6.716 0 15 0c8.284 0 15 6.716 15 15 0 3.782-1.4 7.238-3.71 9.876l9.417 9.417a1 1 0 0 1-1.414 1.414l-9.417-9.417zM15 28c7.18 0 13-5.82 13-13S22.18 2 15 2 2 7.82 2 15s5.82 13 13 13z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  cursor: pointer;
+
+  @media @sm {
+    width: 36px;
+    height: 36px;
+  }
+}

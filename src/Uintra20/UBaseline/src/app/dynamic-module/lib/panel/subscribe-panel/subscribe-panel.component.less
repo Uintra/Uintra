@@ -1,0 +1,168 @@
+@import "base.less";
+
+
+:host {
+    .centered;
+    display: block;
+    --button-color: #333;
+    --button-active-bg: var(--steel-grey);
+    --button-height: 26px;
+}
+
+ubl-subscribe ::ng-deep {
+    .icon {
+        &::before {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            content: "";
+            background-position: center;
+            background-size: contain;
+        }
+    }
+    button {
+        display: inline-flex;
+        .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    button.submit {
+        --button-height: 22px;
+        text-transform: uppercase;
+        font-size: 11px;
+        margin-right: -6px;
+        .button__text {
+            margin-right: 0;
+        }
+        .icon-arrow-right::before {
+            transform: rotate(180deg);
+            background-image: url("data:image/svg+xml,%3Csvg _ngcontent-kxd-c16='' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath _ngcontent-kxd-c16='' d='M28 14H8.8l4.6-4.6c.4-.4.6-.9.6-1.4 0-1-.8-2-2-2-.5 0-1 .2-1.4.6l-8 8c-.3.3-.6.7-.6 1.4s.3 1 .6 1.4l8 8c.4.4.9.6 1.4.6 1.2 0 2-1 2-2 0-.5-.2-1-.6-1.4L8.8 18H28a2 2 0 0 0 0-4z'%3E%3C/path%3E%3C/svg%3E");
+        }
+        .icon-cross {
+            &::before {
+                width: 12px;
+                height: 12px;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' width='448' height='448' viewBox='0 0 448 448'%3E%3Ctitle/%3E%3Cg id='icomoon-ignore'%3E%3C/g%3E%3Cpath fill='red' d='M411.797 75.797l-39.594-39.594-148.203 148.203-148.203-148.203-39.594 39.594 148.203 148.203-148.203 148.203 39.594 39.594 148.203-148.203 148.203 148.203 39.594-39.594-148.203-148.203z'/%3E%3C/svg%3E");
+            }
+        }
+        .icon-checked {
+            &::before {
+                margin-top: -4px;
+                width: 13px;
+                height: 13px;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' width='640' height='640' viewBox='0 0 640 640'%3E%3Ctitle/%3E%3Cg id='icomoon-ignore'%3E%3C/g%3E%3Cpath fill='green' d='M0 352l64-64 160 160 352-352 64 64-416 416z'/%3E%3C/svg%3E");
+            }
+        }
+    }
+
+    .toggle-all-section {
+        button {
+            --button-height: 22px;
+            margin-left: -10px;
+        }
+        .button {
+            &__text {
+                // margin: 0;
+                display: inline-flex;
+                .icon {
+                   display: inline-flex;
+                   align-items: center;
+                   justify-content: center;
+                }
+            }
+        }
+        button,
+        label {
+            display: inline-block;
+        }
+    }
+    .icon-chevron-down,
+    .icon-chevron-up {
+        &::before {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            content: "";
+            background-position: center;
+            background-size: contain;
+        }
+    }
+
+    .icon-chevron-down::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' width='1024' height='1024' viewBox='0 0 1024 1024'%3E%3Ctitle/%3E%3Cg id='icomoon-ignore'%3E%3C/g%3E%3Cpath fill='%23000' d='M793.2 320l38.8 41.4-320 342.6-320-342.6 38.6-41.4 281.4 301z'/%3E%3C/svg%3E");
+    }
+
+    .icon-chevron-up::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' width='1024' height='1024' viewBox='0 0 1024 1024'%3E%3Ctitle/%3E%3Cg id='icomoon-ignore'%3E%3C/g%3E%3Cpath fill='%23000' d='M230.8 704l-38.8-41.4 320-342.6 320 342.6-38.6 41.4-281.4-301z'/%3E%3C/svg%3E");
+    }
+
+    [ubl-checkbox],
+    .agreements {
+        .icon {
+            &::before {
+                width: 16px;
+                height: 16px;
+                content: "";
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'%3E%3Cpath d='M448 71.9c-17.3-13.4-41.5-9.3-54.1 9.1L214 344.2l-99.1-107.3c-14.6-16.6-39.1-17.4-54.7-1.8-15.6 15.5-16.4 41.6-1.7 58.1 0 0 120.4 133.6 137.7 147 17.3 13.4 41.5 9.3 54.1-9.1l206.3-301.7c12.6-18.5 8.7-44.2-8.6-57.5z'/%3E%3C/svg%3E");
+                background-position: center;
+                background-size: contain;
+
+            }
+        }
+    }
+
+    [ubl-checkbox] {
+        .icon::before {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            content: "";
+            background-position: center;
+            background-size: contain;
+        }
+        .icon-checked::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'%3E%3Cpath d='M448 71.9c-17.3-13.4-41.5-9.3-54.1 9.1L214 344.2l-99.1-107.3c-14.6-16.6-39.1-17.4-54.7-1.8-15.6 15.5-16.4 41.6-1.7 58.1 0 0 120.4 133.6 137.7 147 17.3 13.4 41.5 9.3 54.1-9.1l206.3-301.7c12.6-18.5 8.7-44.2-8.6-57.5z'/%3E%3C/svg%3E");
+        }
+        .icon-partly-checked::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' width='512' height='512' viewBox='0 0 512 512'%3E%3Ctitle/%3E%3Cg id='icomoon-ignore'%3E%3C/g%3E%3Cpath d='M64 64h384v384h-384z'/%3E%3C/svg%3E");
+        }
+        .icon-unchecked::before {
+            background-image: none;
+        }
+    }
+    .icon-close {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+
+        &:before {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            content: "";
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' width='448' height='448' viewBox='0 0 448 448'%3E%3Ctitle/%3E%3Cg id='icomoon-ignore'%3E%3C/g%3E%3Cpath fill='%23000' d='M411.797 75.797l-39.594-39.594-148.203 148.203-148.203-148.203-39.594 39.594 148.203 148.203-148.203 148.203 39.594 39.594 148.203-148.203 148.203 148.203 39.594-39.594-148.203-148.203z'/%3E%3C/svg%3E");
+            background-size: contain;
+        }
+    }
+    .agreement {
+        position: relative;
+        padding-top: 50px;
+    }
+}
+
+.agreement {
+    background-color: #fff;
+    padding: 30px;
+    width: 60%;
+    margin: 0 auto;
+    @media @sm-down {
+        max-height: 76vh;
+        width: 100%;
+        overflow-y: auto;
+    }
+    &__description {
+        margin-top: 20px;
+    }
+}

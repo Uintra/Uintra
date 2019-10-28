@@ -1,0 +1,25 @@
+{
+  "/umbraco/api/*": {
+    "target": "http://ubaseline.local.compent.dk",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/media/*": {
+    "target": "http://ubaseline.local.compent.dk",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "wwwroot/favicon.ico": {
+    "target": "http://localhost:4200/favicon.ico",
+    "secure": false
+  },
+  "/wwwroot/*": {
+    "target": "http://localhost:4200",
+    "secure": false,
+    "pathRewrite": {
+      "^/wwwroot": ""
+    }
+  }
+}

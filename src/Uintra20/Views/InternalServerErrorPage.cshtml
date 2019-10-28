@@ -1,0 +1,19 @@
+﻿@model UBaseline.Shared.InternalServerErrorPage.InternalServerErrorPageViewModel
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@Model.Title.Value</title>
+
+    <style>
+        /*TODO insert css here*/
+    </style>
+</head>
+<body>
+    <h1>@Model.Title.Value</h1>
+    <div>@Html.Raw(Model.Description.Value)</div>
+</body>
+</html>

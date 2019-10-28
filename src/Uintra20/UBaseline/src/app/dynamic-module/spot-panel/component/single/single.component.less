@@ -1,0 +1,48 @@
+@import '../../../../../base.less';
+.spot-panel {
+    app-single {
+        display: flex;
+        
+        @media @xs-down {
+            flex-wrap: wrap;
+        }
+        app-picture {
+            position: relative;
+            @media @sm {
+                width: 50%;
+                top: -30px;
+            }
+        }
+    }
+    .title {
+        font-weight: bold;
+    }
+    .text {
+        padding-left: 20px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        @media @sm {
+            width: 50%;
+        }
+        @media @lg {
+            margin-left: 40px;
+        }
+    }
+    
+    .description {
+        margin-top: 14px;
+        margin-bottom:17px;
+        color: #333;
+    
+        ul {
+            padding-left: 42px;
+            list-style-type: disc;
+        }
+        li {
+           line-height: 1.5;
+            font-size: 18px;
+            padding-left: 8px;
+            margin-top: 12px;
+        }
+    }
+}

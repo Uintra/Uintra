@@ -1,0 +1,45 @@
+﻿<div ng-controller="panelThemePickerPreValueController as vm">
+    <div class="control-group">
+        <div>
+            <label>Alias: </label>
+            <input type="text" ng-model="vm.alias"/>
+        </div>
+        <theme-selector name="Text color" color="vm.textColor"></theme-selector>
+        <theme-selector name="Background color" color="vm.backgroundColor"></theme-selector>
+        <theme-selector name="Title color" color="vm.titleColor"></theme-selector>
+        <theme-selector name="Button color" color="vm.buttonColor"></theme-selector>
+        <div class="control-group__row">
+            <button class="btn add" ng-click="vm.add($event)"><localize key="general_add">Add</localize></button>
+        </div>
+    </div>
+
+    <div ui-sortable="sortableOptions">
+        <div class="control-group color-picker-preval" ng-repeat="item in model.value">
+            <span class="js-index" style="display: none;">{{$index}}</span>
+
+            <i class="icon icon-navigation handle"></i>
+            <div class="control-group__holder">
+                <div class="control-group__column">
+                    <pre>{{item.alias}}</pre>
+                </div>
+                <div class="control-group__column">
+                    <div class="thumbnail span1" hex-bg-color="{{item.textColor}}" bg-orig="transparent"></div>
+                    <pre>{{item.textColor}}</pre>
+                </div>
+                <div class="control-group__column">
+                    <div class="thumbnail span1" hex-bg-color="{{item.backgroundColor}}" bg-orig="transparent"></div>
+                    <pre>{{item.backgroundColor}}</pre>
+                </div>
+                <div class="control-group__column">
+                    <div class="thumbnail span1" hex-bg-color="{{item.titleColor}}" bg-orig="transparent"></div>
+                    <pre>{{item.titleColor}}</pre>
+                </div>
+                <div class="control-group__column">
+                    <div class="thumbnail span1" hex-bg-color="{{item.buttonColor}}" bg-orig="transparent"></div>
+                    <pre>{{item.buttonColor}}</pre>
+                </div>
+                <button class="btn btn-danger" ng-click="vm.remove(item, $event)"><localize key="general_remove">Remove</localize></button>
+            </div>
+        </div>
+    </div>
+</div>

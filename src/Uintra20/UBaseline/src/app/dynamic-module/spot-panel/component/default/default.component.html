@@ -1,0 +1,13 @@
+<div class="spot-panel__list">
+  <div class="spot-panel__item" *ngFor="let item of data.items">
+    <app-picture class="spot-panel__item-image" *ngIf="item.media.value.image" [ratio]="172 / 258" [data]="item.media.value.image"></app-picture>
+    
+    <h3 class="spot-panel__item-title" *ngIf="item.title.value">{{ item.title.value }}</h3>
+
+    <div class="spot-panel__item-description rte" *ngIf="item.description.value" [innerHTML]="item.description.value"></div>
+    
+    <span class="spot-panel__item-date" *ngIf="item.date.value">{{ item.date.value }}</span>
+    
+    <app-button class="spot-panel__item-link" *ngIf="item.link.value" [withArrow]="false" [data]="item.link.value"></app-button>
+  </div>
+</div>  

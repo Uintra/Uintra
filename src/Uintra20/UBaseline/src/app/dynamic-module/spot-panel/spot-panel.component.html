@@ -1,0 +1,11 @@
+<section *ngIf="data" class="spot-panel">
+  <div class="spot-panel__content spot-panel__content--{{ data.columnsCount.value }}"  [ngSwitch]="viewMode">
+    <h2 class="spot-panel__title" [ngClass]="{'spot-panel__title--default': viewMode === ViewModes.DEFAULT}" *ngIf="data.title">{{data.title.value}}</h2>
+
+    <app-no-image *ngSwitchCase="ViewModes.SINGLE_NO_IMAGE" [data]="vm"></app-no-image>
+    <app-single *ngSwitchCase="ViewModes.SINGLE" [data]="vm"></app-single>
+    <app-slider *ngSwitchCase="ViewModes.SLIDER" [data]="vm"></app-slider>
+    <app-default *ngSwitchDefault [data]="vm"></app-default>
+  </div>
+</section>
+
