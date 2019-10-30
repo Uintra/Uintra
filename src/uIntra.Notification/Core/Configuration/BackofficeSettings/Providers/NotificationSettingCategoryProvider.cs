@@ -27,7 +27,8 @@ namespace Uintra.Notification.Configuration
                     NotificationTypeEnum.CommentLikeAdded,
                     NotificationTypeEnum.MonthlyMail,
                     NotificationTypeEnum.UserMention,
-                    NotificationTypeEnum.GroupInvitation
+                    NotificationTypeEnum.GroupInvitation,
+                    NotificationTypeEnum.WeeklyMail
                 }
             );
 

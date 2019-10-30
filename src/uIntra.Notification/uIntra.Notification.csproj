@@ -513,6 +513,7 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\CommunicationSettings\GroupInvitation.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\GroupInvitation.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\GroupInvitation.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\WeeklyMail.json" />
     <None Include="packages.config" />
     <None Include="uIntra.Notification.nuspec" />
     <Content Include="..\Compent.uIntra\App_Plugins\Notification\popupNotifications.js">

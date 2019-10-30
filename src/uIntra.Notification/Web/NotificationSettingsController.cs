@@ -14,7 +14,6 @@ namespace Uintra.Notification.Web
         private readonly INotificationTypeProvider _notificationTypeProvider;
         private readonly INotifierTypeProvider _notifierTypeProvider;
 
-
         protected NotificationSettingsApiControllerBase(
             INotificationSettingsService notificationSettingsService,
             IActivityTypeProvider activityTypeProvider,
@@ -111,7 +110,6 @@ namespace Uintra.Notification.Web
             NotifierSettingSaveModel<T> notifierSettingSaveModel)
             where T : INotifierTemplate
         {
-
             if (notifierSettingSaveModel.ActivityType == CommunicationTypeEnum.CommunicationSettings.ToInt())
                 notifierSettingModel.ActivityType = CommunicationTypeEnum.CommunicationSettings;
             else if (notifierSettingSaveModel.ActivityType == CommunicationTypeEnum.Member.ToInt())

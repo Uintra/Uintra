@@ -70,6 +70,7 @@ namespace Compent.Uintra.Core.Notification
             {
                 case (int)NotificationTypeEnum.CommentLikeAdded:
                 case (int)NotificationTypeEnum.MonthlyMail:
+                case (int)NotificationTypeEnum.WeeklyMail:
                 case (int)IntranetActivityTypeEnum.ContentPage:
                 case (int)IntranetActivityTypeEnum.PagePromotion:
                     activityType = CommunicationTypeEnum.CommunicationSettings;

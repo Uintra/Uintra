@@ -13,6 +13,7 @@
         MonthlyMail = 12,
         Welcome = 13,
         UserMention = 14,
-        GroupInvitation = 15
+        GroupInvitation = 15,
+        WeeklyMail = 16
     }
 }
