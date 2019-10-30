@@ -7,7 +7,6 @@ using Uintra.Core.ApplicationSettings;
 using Uintra.Core.User;
 using Uintra.Groups;
 using Uintra.Notification;
-using Uintra.Notification.Jobs;
 using Umbraco.Web.WebApi;
 
 namespace Compent.Uintra.Controllers.Api
@@ -44,9 +43,12 @@ namespace Compent.Uintra.Controllers.Api
         }
 
         [HttpGet]
-        public void SendMonthlyEmail()
+        public void SendMonthlyEmail(Guid qaKey)
         {
-            _monthlyEmailBroadcastService.Broadcast();
+            if (qaKey == _applicationSettings.QaKey)
+            {
+                _monthlyEmailBroadcastService.Broadcast();
+            }
         }
 
         [HttpGet]
