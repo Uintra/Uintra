@@ -8,12 +8,11 @@ using Uintra.Events;
 using Uintra.News;
 using Uintra.Notification;
 using Uintra.Notification.Base;
-using Uintra.Notification.Jobs;
 using Uintra.Tagging.UserTags;
 
 namespace Compent.Uintra.Core.Notification
 {
-    public class WeeklyEmailBroadcastService : EmailBroadcastServiceBase<WeeklyMailBroadcast> 
+    public class WeeklyEmailBroadcastService : EmailBroadcastServiceBase<WeeklyMailBroadcast>
     {
         private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
         private readonly IApplicationSettings _applicationSettings;
@@ -27,8 +26,8 @@ namespace Compent.Uintra.Core.Notification
             INewsService<NewsBase> newsService,
             IEventsService<EventBase> eventsService,
             IBulletinsService<BulletinBase> bulletinsService,
-            IUserTagRelationService userTagService, 
-            IApplicationSettings applicationSettings, 
+            IUserTagRelationService userTagService,
+            IApplicationSettings applicationSettings,
             INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper)
             : base(mailService, intranetMemberService, logger, notificationSettingsService, activityLinkService, newsService, eventsService, bulletinsService, userTagService)
         {
@@ -38,19 +37,26 @@ namespace Compent.Uintra.Core.Notification
 
         public override void IsBroadcastable()
         {
-            if (IsMonthlySendingDay()) Broadcast();
+            var isWeeklySendingDay = IsWeeklySendingDay();
+
+            if (isWeeklySendingDay) Broadcast();
         }
 
-        public override MailBase GetMailModel(IIntranetMember receiver, BroadcastMailModel model, EmailNotifierTemplate template)
+        public override MailBase GetMailModel(
+            IIntranetMember receiver,
+            BroadcastMailModel model,
+            EmailNotifierTemplate template)
         {
-            return _notificationModelMapper.Map(model, template, receiver);
+            var mapperNotification = _notificationModelMapper.Map(model, template, receiver);
+
+            return mapperNotification;
         }
 
-        public virtual bool IsMonthlySendingDay()
+        public virtual bool IsWeeklySendingDay()
         {
-            var currentDate = DateTime.UtcNow.Day;
+            var currentDate = DateTime.UtcNow.DayOfWeek;
 
-            return currentDate != _applicationSettings.MonthlyEmailJobDay;
+            return currentDate != _applicationSettings.WeeklyEmailJobDay;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Uintra.Core.Jobs
 
                 JobConfiguration jobConfiguration = GetConfiguration(baseJob.GetType().Name);
 
-                VailidateConfiguration(jobConfiguration);
+                ValidateConfiguration(jobConfiguration);
 
                 if (jobConfiguration.Enabled)
                 {
@@ -86,8 +86,6 @@ namespace Uintra.Core.Jobs
             }
         }
 
-
-
         private void ResolveTimeType(TimeUnit timeUnit, JobConfiguration configuration)
         {
             switch (configuration.TimeType)
@@ -111,21 +109,19 @@ namespace Uintra.Core.Jobs
                 default:
                     throw new Exception($"Unexpected job time type - {configuration.TimeType}");
             }
-
-
         }
 
-        private void VailidateConfiguration(JobConfiguration configuration)
+        private static void ValidateConfiguration(JobConfiguration configuration)
         {
-            if (configuration.RunType.In(JobRunTypeEnum.RunEvery, JobRunTypeEnum.RunOnceIn) && !configuration.Time.HasValue)
-            {
-                throw new Exception($"Job with run type - {configuration.RunType} should have time value");
-            }
+            var hasNotValue = !configuration.Time.HasValue;
 
-            if (configuration.RunType == JobRunTypeEnum.RunOnceAtDate && !configuration.Date.HasValue)
-            {
-                throw new Exception($"Job with run type - {configuration.RunType} should have date value");
-            }
+            var caseOfJobs = configuration.RunType.In(
+            JobRunTypeEnum.RunEvery,
+                JobRunTypeEnum.RunOnceIn,
+                JobRunTypeEnum.RunOnceAtDate);
+
+            if (caseOfJobs && hasNotValue)
+                throw new Exception($"Job with run type - {configuration.RunType} should have time value");
         }
     }
 }

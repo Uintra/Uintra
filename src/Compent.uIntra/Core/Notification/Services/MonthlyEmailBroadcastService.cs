@@ -8,13 +8,12 @@ using Uintra.Events;
 using Uintra.News;
 using Uintra.Notification;
 using Uintra.Notification.Base;
-using Uintra.Notification.Jobs;
 using Uintra.Tagging.UserTags;
 
 namespace Compent.Uintra.Core.Notification
 {
-    public class MonthlyEmailBroadcastService 
-        : EmailBroadcastServiceBase<MonthlyMailBroadcast> 
+    public class MonthlyEmailBroadcastService
+        : EmailBroadcastServiceBase<MonthlyMailBroadcast>
     {
         private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
         private readonly IApplicationSettings _applicationSettings;
@@ -39,7 +38,9 @@ namespace Compent.Uintra.Core.Notification
 
         public override void IsBroadcastable()
         {
-            if (IsMonthlySendingDay()) Broadcast();
+            var isMonthlySendingDay = IsMonthlySendingDay();
+
+            if (isMonthlySendingDay) Broadcast();
         }
 
         public override MailBase GetMailModel(
@@ -47,7 +48,9 @@ namespace Compent.Uintra.Core.Notification
             BroadcastMailModel model,
             EmailNotifierTemplate template)
         {
-            return _notificationModelMapper.Map(model, template, receiver);
+            var mappedNotification = _notificationModelMapper.Map(model, template, receiver);
+
+            return mappedNotification;
         }
 
         public virtual bool IsMonthlySendingDay()
