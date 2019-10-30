@@ -1,1 +1,56 @@
-﻿/* you can paste your custom css code here */
+﻿/* you can paste your custom css code here *//*  */
+/* for example */
+
+/* override main fonts & text colors */
+/*body{
+    font-family:Arial, Helvetica, sans-serif;
+    color:blue;
+}*/
+
+/* override headers' background color */
+/*#header{
+    background:red;
+}*/
+
+/* styles for links */
+/*a{
+    color:orangered;
+
+    &:hover,
+    &:active,
+    &:focus{
+        color:darkred;
+    }
+}*/
+
+/* customize your headings */
+/*h1{
+    font-weight:normal;
+    font-size:24px;
+    margin:0;
+}
+
+h2{
+   
+}
+
+h3{
+
+}
+
+h4{
+    
+}*/
+
+/* styles for buttons */
+/*
+.btn{
+    color:black; 
+}
+*/
+
+
+
+
+
+

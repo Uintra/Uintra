@@ -20,15 +20,16 @@ namespace Compent.Uintra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.Title, src => src.MapFrom(s => s.Text))
                 .ForMember(dst => dst.Type, src => src.MapFrom(s => UintraSearchableTypeEnum.Tag.ToInt()));
 
-            Mapper.CreateMap<IGroupMember, SearchableUser>()
+            Mapper.CreateMap<IGroupMember, SearchableMember>()
                 .ForMember(dst => dst.FullName, o => o.MapFrom(src => src.DisplayedName))
                 .ForMember(dst => dst.Email, o => o.MapFrom(src => src.Email))
                 .ForMember(dst => dst.Phone, o => o.MapFrom(src => src.Phone))
-                .ForMember(dst => dst.Photo, o => o.MapFrom(src => src.Photo.IfNone(string.Empty)))
+                .ForMember(dst => dst.Photo, o => o.MapFrom(src => src.Photo.IfNone(() => string.Empty)))
                 .ForMember(dst => dst.Department, o => o.MapFrom(src => src.Department))
                 .ForMember(dst => dst.Type, o => o.MapFrom(src => (int)UintraSearchableTypeEnum.User))
                 .ForMember(dst => dst.Inactive, o => o.MapFrom(src => src.Inactive))
-                .ForMember(dst => dst.UserTagNames, o => o.Ignore())
+                .ForMember(dst => dst.Groups, o => o.Ignore())
+				.ForMember(dst => dst.UserTagNames, o => o.Ignore())
                 .ForMember(dst => dst.TagsHighlighted, o => o.Ignore())
                 .ForMember(dst => dst.Url, o => o.Ignore())
                 .ForMember(dst => dst.Title, o => o.Ignore());
@@ -42,7 +43,7 @@ namespace Compent.Uintra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.Email, o => o.Ignore())
                 .ForMember(dst => dst.PanelContent, src => src.Ignore());
 
-            Mapper.CreateMap<SearchableUser, SearchResultViewModel>()
+            Mapper.CreateMap<SearchableMember, SearchResultViewModel>()
                 .ForMember(dst => dst.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(dst => dst.Title, o => o.MapFrom(s => s.FullName))
                 .ForMember(dst => dst.Url, o => o.MapFrom(s => s.Url))
@@ -55,8 +56,8 @@ namespace Compent.Uintra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore());
 
-            Mapper.CreateMap<SearchableUser, UintraSearchResultViewModel>()
-                .IncludeBase<SearchableUser, SearchResultViewModel>()
+            Mapper.CreateMap<SearchableMember, UintraSearchResultViewModel>()
+                .IncludeBase<SearchableMember, SearchResultViewModel>()
                 .ForMember(dst => dst.TagsHighlighted, src => src.MapFrom(s => s.TagsHighlighted))
                 .ForMember(dst => dst.UserTagNames, src => src.MapFrom(s => s.UserTagNames))
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
@@ -85,7 +86,7 @@ namespace Compent.Uintra.Core.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.Email, o => o.Ignore())
                 .ForMember(dst => dst.Photo, o => o.Ignore());
 
-            Mapper.CreateMap<SearchableUser, SearchAutocompleteResultViewModel>()
+            Mapper.CreateMap<SearchableMember, SearchAutocompleteResultViewModel>()
                 .IncludeBase<SearchableBase, SearchAutocompleteResultViewModel>()
                 .ForMember(dst => dst.Title, o => o.MapFrom(s => s.FullName));
 

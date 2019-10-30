@@ -120,7 +120,12 @@ namespace Uintra.Groups.Web
             var mediaSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent, true);
 
             createGroupModel.MediaRootId = mediaSettings.MediaRootId;
-            createGroupModel.CreatorId = _memberService.GetCurrentMemberId();
+            createGroupModel.Creator = new GroupMemberSubscriptionModel()
+            {
+                IsAdmin = true,
+                MemberId = _memberService.GetCurrentMemberId()
+            };
+                
             createGroupModel.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
 
             return PartialView(CreateViewPath, createGroupModel);
@@ -129,22 +134,11 @@ namespace Uintra.Groups.Web
         [HttpPost]
         public ActionResult Create(GroupCreateModel createModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToCurrentUmbracoPage(Request.QueryString);
-            }
+            if (!ModelState.IsValid) return RedirectToCurrentUmbracoPage(Request.QueryString);
+            
+            var groupId = _groupMemberService.Create(createModel);
 
-            var group = createModel.Map<GroupModel>();
-            group.GroupTypeId = GroupTypeEnum.Open.ToInt();
-            var createdMedias = _mediaHelper.CreateMedia(createModel).ToList();
-            group.ImageId = createdMedias.Any() ? (int?)createdMedias.First() : null;
-
-            Guid groupId = _groupService.Create(group);
-            _groupMediaService.GroupTitleChanged(groupId, group.Title);
-
-            _groupMemberService.Add(groupId, createModel.CreatorId);
-
-            return Redirect(_groupLinkProvider.GetGroupLink(groupId));
+            return Redirect(groupId);
         }
 
         public abstract ActionResult LeftNavigation();
@@ -210,13 +204,20 @@ namespace Uintra.Groups.Web
         public virtual RedirectToUmbracoPageResult Subscribe(Guid groupId)
         {
             var currentMember = _memberService.GetCurrentMember();
+
             if (_groupMemberService.IsGroupMember(groupId, currentMember.Id))
             {
                 _groupMemberService.Remove(groupId, currentMember.Id);
             }
             else
             {
-                _groupMemberService.Add(groupId, currentMember.Id);
+                var subscription = new GroupMemberSubscriptionModel
+                {
+                    MemberId = currentMember.Id,
+                    IsAdmin = false
+                };
+
+                _groupMemberService.Add(groupId, subscription);
             }
 
             return RedirectToCurrentUmbracoPage(Request.QueryString);
@@ -320,11 +321,16 @@ namespace Uintra.Groups.Web
             return groupsOverviewModel;
         }
 
-        private static GroupMemberViewModel MapToMemberViewModel(IGroupMember m, GroupModel groupModel, Guid currentMemberId)
+        private static GroupMemberViewModel MapToMemberViewModel(
+            IGroupMember m, 
+            GroupModel groupModel, 
+            Guid currentMemberId)
         {
             var viewModel = m.Map<GroupMemberViewModel>();
+
             viewModel.IsGroupAdmin = IsGroupCreator(m.Id, groupModel);
             viewModel.CanUnsubscribe = viewModel.GroupMember.Id == currentMemberId && currentMemberId != groupModel.CreatorId;
+
             return viewModel;
         }
 

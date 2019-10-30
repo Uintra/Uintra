@@ -14,6 +14,7 @@ using Uintra.Core.Feed;
 using Uintra.Core.Links;
 using Uintra.Core.Media;
 using Uintra.Core.Permissions;
+using Uintra.Core.Permissions.Interfaces;
 using Uintra.Core.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Core.User.Permissions.Web;
@@ -37,11 +38,12 @@ namespace Uintra.Events.Web
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IActivityLinkService _activityLinkService;
         private readonly IActivityPageHelperFactory _activityPageHelperFactory;
+        private readonly IPermissionsService _permissionsService;
 
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Events;
         private const PermissionResourceTypeEnum ActivityType = PermissionResourceTypeEnum.Events;
 
-        public override ContextType ControllerContextType { get; } = ContextType.Events;
+        public override Enum ControllerContextType { get; } = ContextType.Events;
 
         protected EventsControllerBase(
             IEventsService<EventBase> eventsService,
@@ -50,7 +52,8 @@ namespace Uintra.Events.Web
             IActivityTypeProvider activityTypeProvider,
             IActivityLinkService activityLinkService,
             IContextTypeProvider contextTypeProvider,
-            IActivityPageHelperFactory activityPageHelperFactory) : base(contextTypeProvider)
+            IActivityPageHelperFactory activityPageHelperFactory,
+            IPermissionsService permissionsService) : base(contextTypeProvider)
         {
             _eventsService = eventsService;
             _mediaHelper = mediaHelper;
@@ -58,6 +61,7 @@ namespace Uintra.Events.Web
             _activityTypeProvider = activityTypeProvider;
             _activityLinkService = activityLinkService;
             _activityPageHelperFactory = activityPageHelperFactory;
+            _permissionsService = permissionsService;
         }
 
         [NotFoundActivity, RestrictedAction(ActivityType, PermissionActionEnum.View)]
@@ -179,7 +183,12 @@ namespace Uintra.Events.Web
             }
         }
 
-        public virtual JsonResult HasConfirmation(Guid id)
+        protected virtual bool IsPinAllowed()
+        {
+	        return _permissionsService.Check(ActivityType, PermissionActionEnum.CanPin);
+        }
+
+		public virtual JsonResult HasConfirmation(Guid id)
         {
             var @event = _eventsService.Get(id);
             return Json(new { HasConfirmation = _eventsService.IsActual(@event) }, JsonRequestBehavior.AllowGet);
@@ -196,7 +205,8 @@ namespace Uintra.Events.Web
                 OwnerId = _intranetMemberService.GetCurrentMemberId(),
                 ActivityType = _activityTypeProvider[ActivityTypeId],
                 Links = links,
-                MediaRootId = mediaSettings.MediaRootId
+                MediaRootId = mediaSettings.MediaRootId,
+				PinAllowed=IsPinAllowed()
             };
             return model;
         }
@@ -231,6 +241,7 @@ namespace Uintra.Events.Web
 
             model.Links = links;
             model.CanHide = _eventsService.CanHide(@event);
+			model.PinAllowed = IsPinAllowed();
             return model;
         }
 
@@ -292,6 +303,13 @@ namespace Uintra.Events.Web
             @event.EndDate = createModel.EndDate.ToUniversalTime();
             @event.EndPinDate = createModel.EndPinDate?.ToUniversalTime();
             @event.CreatorId = _intranetMemberService.GetCurrentMemberId();
+
+            if (!IsPinAllowed())
+            {
+	            @event.EndPinDate = null;
+	            @event.IsPinned = false;
+
+            }
 
             return @event;
         }

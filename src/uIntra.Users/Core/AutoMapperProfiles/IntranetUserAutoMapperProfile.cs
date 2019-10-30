@@ -20,13 +20,9 @@ namespace Uintra.Users
                 .ForMember(dst => dst.Value, o => o.MapFrom(u => u.DisplayedName))
                 .ForMember(dst => dst.Url, o => o.Ignore());
 
-
-
-            Mapper.CreateMap<ActiveUserSearchQuery, ActiveUserSearchQueryModel>()
-                .ForMember(dst => dst.GroupId, o => o.MapFrom(query => query.GroupId.ToNullable()));
-
-            Mapper.CreateMap<ActiveUserSearchQueryModel, ActiveUserSearchQuery>()
-                .ForMember(dst => dst.GroupId, o => o.MapFrom(query => query.GroupId.ToOption()));
+            Mapper.CreateMap<MembersListSearchModel, ActiveMemberSearchQuery>()
+	            .ForMember(dst=>dst.MembersOfGroup,o=>o.MapFrom(s=>!s.IsInvite))
+                .ForMember(dst => dst.GroupId, o => o.MapFrom(query => query.GroupId));
 
             Mapper.CreateMap<MentionModel, MentionCommand>();                
 

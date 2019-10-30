@@ -1,8 +1,12 @@
-﻿using Uintra.Core.Activity;
+﻿using System;
 
 namespace Uintra.Core.TypeProviders
 {
-    public class ActivityTypeProvider : EnumTypeProviderBase<IntranetActivityTypeEnum>, IActivityTypeProvider
+    public class ActivityTypeProvider : EnumTypeProviderBase, IActivityTypeProvider
     {
+        public ActivityTypeProvider(params Type[] enums) : base(enums)
+        {
+
+        }
     }
 }

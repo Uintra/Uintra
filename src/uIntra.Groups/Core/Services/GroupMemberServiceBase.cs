@@ -16,19 +16,20 @@ namespace Uintra.Groups
             _groupMemberRepository = groupMemberRepository;
         }
 
-        public abstract void Add(Guid groupId, Guid memberId);
-
-        public abstract void AddMany(Guid groupId, IEnumerable<Guid> memberIds);
-
-        protected GroupMember GetNewGroupMember(Guid groupId, Guid memberId)
+        protected GroupMember GetNewGroupMember(Guid groupId, GroupMemberSubscriptionModel subscription)
         {
             return new GroupMember
             {
                 Id = Guid.NewGuid(),
-                MemberId = memberId,
-                GroupId = groupId
+                MemberId = subscription.MemberId,
+                GroupId = groupId,
+                IsAdmin = subscription.IsAdmin
             };
         }
+
+        public abstract void Add(Guid groupId, GroupMemberSubscriptionModel subscription);
+
+        public abstract void AddMany(Guid groupId, IEnumerable<GroupMemberSubscriptionModel> subscriptions);
 
         public abstract void Remove(Guid groupId, Guid memberId);
 
@@ -67,5 +68,17 @@ namespace Uintra.Groups
         {
             return member.GroupIds.Contains(groupId);
         }
+
+        public abstract string Create(GroupCreateModel model);
+
+        public abstract GroupMember GetByMemberId(Guid id);
+
+        public abstract void Update(GroupMember groupMember);
+
+        public abstract GroupMember GetGroupMemberByMemberIdAndGroupId(Guid memberId, Guid groupId);
+
+        public abstract bool IsMemberAdminOfGroup(Guid memberId, Guid groupId);
+
+        public abstract void ToggleAdminRights(Guid memberId, Guid groupId);
     }
 }

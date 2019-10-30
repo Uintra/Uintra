@@ -36,7 +36,7 @@ namespace Compent.Uintra.Controllers.Api
 
             var results = searchResult.Documents.Select(d =>
             {
-                var searchableUser = (SearchableUser)d;
+                var searchableUser = (SearchableMember)d;
                 var user = new MentionUserModel()
                 {
 

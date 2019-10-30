@@ -124,8 +124,6 @@ namespace Uintra.Core.Persistence
 
         public virtual void Save()
         {
-            _dbContext.SaveChanges();
-
             try
             {
                 _dbContext.SaveChanges();

@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
-using Uintra.CentralFeed;
 using Uintra.CentralFeed.Navigation.Models;
-using Uintra.Core.Extensions;
-using Uintra.Core.TypeProviders;
 using Uintra.Groups.Dashboard;
 using Uintra.Groups.Navigation.Models;
 using Uintra.Groups.Sql;
@@ -32,16 +29,25 @@ namespace Uintra.Groups
                 .ForMember(d => d.ImageId, o => o.Ignore())
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
-                .ForMember(d => d.CreatorId, o => o.MapFrom(s => s.CreatorId));
+                .ForMember(d => d.CreatorId, o => o.Ignore())
+                .AfterMap((s, d) => d.CreatorId = s.Creator.MemberId);
 
             Mapper.CreateMap<GroupModel, GroupCreateModel>()
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
-                .ForMember(d => d.CreatorId, o => o.MapFrom(s => s.CreatorId))
                 .ForMember(d => d.Media, o => o.MapFrom(el => el.ImageId))
                 .ForMember(d => d.AllowedMediaExtensions, o => o.Ignore())
                 .ForMember(d => d.MediaRootId, o => o.Ignore())
-                .ForMember(d => d.NewMedia, o => o.Ignore());
+                .ForMember(d => d.NewMedia, o => o.Ignore())
+                .ForMember(d => d.Creator, o => o.Ignore())
+                .AfterMap((s, d) =>
+                {
+                    d.Creator = new GroupMemberSubscriptionModel
+                    {
+                        MemberId = s.CreatorId,
+                        IsAdmin = true
+                    };
+                });
 
             Mapper.CreateMap<GroupModel, GroupEditModel>()
                 .IncludeBase<GroupModel, GroupCreateModel>()

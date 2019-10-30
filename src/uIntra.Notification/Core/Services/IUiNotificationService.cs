@@ -11,6 +11,6 @@ namespace Uintra.Notification
         int GetNotNotifiedCount(Guid receiverId);
         IList<Notification> GetNotNotifiedNotifications(Guid receiverId);
         void ViewNotification(Guid id);
-        void SetNotificationAsNotified(Guid id);
+        bool SetNotificationAsNotified(Guid id);
     }
 }

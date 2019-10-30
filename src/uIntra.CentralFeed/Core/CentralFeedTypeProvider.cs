@@ -1,8 +1,13 @@
-﻿using Uintra.Core.TypeProviders;
+﻿using System;
+using Uintra.Core.TypeProviders;
 
 namespace Uintra.CentralFeed
 {
-    public class CentralFeedTypeProvider : EnumTypeProviderBase<CentralFeedTypeEnum>, IFeedTypeProvider
+    public class CentralFeedTypeProvider : EnumTypeProviderBase, IFeedTypeProvider
     {
+        public CentralFeedTypeProvider(params Type[] enums) : base(enums)
+        {
+
+        }
     }
 }

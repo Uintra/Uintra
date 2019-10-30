@@ -21,6 +21,7 @@ namespace Uintra.Groups
         private readonly ICacheService _memoryCacheService;
         private readonly IPermissionsService _permissionsService;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly ISqlRepository<GroupMember> _groupMemberRepository;
 
         protected const string GroupsCreatePage = "groupsCreatePage";
         protected virtual Enum PermissionResourceType => PermissionResourceTypeEnum.Groups;
@@ -29,12 +30,14 @@ namespace Uintra.Groups
             ISqlRepository<Group> groupRepository,
             ICacheService memoryCacheService,
             IPermissionsService permissionsService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService)
+            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            ISqlRepository<GroupMember> groupMemberRepository)
         {
             _groupRepository = groupRepository;
             _memoryCacheService = memoryCacheService;
             _permissionsService = permissionsService;
             _intranetMemberService = intranetMemberService;
+            _groupMemberRepository = groupMemberRepository;
         }
 
         public Guid Create(GroupModel model)
@@ -60,97 +63,86 @@ namespace Uintra.Groups
             UpdateCache();
         }
 
-        public GroupModel Get(Guid id)
-        {
-            return GetAll().SingleOrDefault(g => g.Id == id);
-        }
+        public GroupModel Get(Guid id) =>
+            GetAll().SingleOrDefault(g => g.Id == id);
 
         public IEnumerable<GroupModel> GetAll()
         {
             var groups = _memoryCacheService.GetOrSet(GroupCacheKey, () => _groupRepository.GetAll().ToList(), GetCacheExpiration());
+
             return groups.Map<IEnumerable<GroupModel>>();
         }
 
-        public IEnumerable<GroupModel> GetAllNotHidden()
-        {
-            return GetAll().Where(g => !g.IsHidden);
-        }
+        public IEnumerable<GroupModel> GetAllNotHidden() =>
+            GetAll().Where(g => !g.IsHidden);
 
-        public IEnumerable<GroupModel> GetMany(IEnumerable<Guid> groupIds)
-        {
-            return GetAllNotHidden().Join(groupIds, g => g.Id, identity, (g, _) => g);
-        }
+        public IEnumerable<GroupModel> GetMany(IEnumerable<Guid> groupIds) =>
+            GetAllNotHidden().Join(groupIds, g => g.Id, identity, (g, _) => g);
 
-        public bool CanHide(Guid id)
-        {
-            var group = Get(id);
-            return CanHide(group);
-        }
+        public bool CanHide(Guid id) =>
+            CanHide(Get(id));
 
-        public bool CanHide(GroupModel group)
-        {
-            return CanPerform(group, PermissionActionEnum.Hide, PermissionActionEnum.HideOther);
-        }
+        public bool CanHide(GroupModel group) =>
+            CanPerform(group);
 
-        public bool CanEdit(Guid id)
-        {
-            var group = Get(id);
-            return CanEdit(group);
-        }
+        public bool CanEdit(Guid id) =>
+            CanEdit(Get(id));
 
-        public bool CanEdit(GroupModel group)
-        {
-            return CanPerform(group, PermissionActionEnum.Edit, PermissionActionEnum.EditOther);
-        }
+        public bool CanEdit(GroupModel group) =>
+            CanPerform(group);
 
-        public bool CanPerform(GroupModel group, Enum action, Enum administrationAction)
+        public bool CanPerform(GroupModel group)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
-            var ownerId = group.CreatorId;
-            var isOwner = ownerId == currentMember.Id;
 
-            var act = isOwner ? action : administrationAction;
-            var result = _permissionsService.Check(currentMember, PermissionSettingIdentity.Of(act, PermissionResourceType));
+            var isOwner = group.CreatorId == currentMember.Id;
 
-            return result;
+            var groupMember = _groupMemberRepository.Find(m => m.GroupId == group.Id && m.MemberId == currentMember.Id);
+
+            if (groupMember == null) return false;
+            
+            var act = isOwner || groupMember.IsAdmin;
+
+            return act;
         }
 
         public bool ValidatePermission(IPublishedContent content)
         {
             if (content.DocumentTypeAlias == GroupsCreatePage)
             {
-                var hasPermission = _permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create, PermissionResourceType));
-                return hasPermission;
+                return _permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create, PermissionResourceType));
             }
+
             return true;
         }
 
         public void Hide(Guid id)
         {
             var group = Get(id);
+
             group.IsHidden = true;
+
             Edit(group);
         }
 
         public void Unhide(Guid id)
         {
             var group = Get(id);
+
             group.IsHidden = false;
+
             Edit(group);
         }
+        public bool IsMemberCreator(Guid memberId, Guid groupId) =>
+            _groupRepository.Get(groupId)?.CreatorId.CompareTo(memberId) == 0;
 
         public bool IsActivityFromActiveGroup(IGroupActivity groupActivity) =>
             groupActivity.GroupId.HasValue && !Get(groupActivity.GroupId.Value).IsHidden;
 
-        private static DateTimeOffset GetCacheExpiration()
-        {
-            return DateTimeOffset.Now.AddDays(1);
-        }
+        private static DateTimeOffset GetCacheExpiration() =>
+            DateTimeOffset.Now.AddDays(1);
 
-        private void UpdateCache()
-        {
-            var groups = _groupRepository.GetAll().ToList();
-            _memoryCacheService.Set(GroupCacheKey, groups, GetCacheExpiration());
-        }
+        private void UpdateCache() =>
+            _memoryCacheService.Set(GroupCacheKey, _groupRepository.GetAll().ToList(), GetCacheExpiration());
     }
 }

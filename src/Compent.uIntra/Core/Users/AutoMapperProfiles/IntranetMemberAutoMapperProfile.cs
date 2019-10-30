@@ -5,6 +5,7 @@ using Compent.Uintra.Core.Search.Entities;
 using Google.Apis.Admin.Directory.directory_v1.Data;
 using Uintra.Core.User;
 using Uintra.Core.User.DTO;
+using Uintra.Search;
 using Uintra.Users;
 using Uintra.Users.UserList;
 
@@ -30,7 +31,9 @@ namespace Compent.Uintra.Core.Users
             Mapper.CreateMap<IIntranetMember, MemberModel>()
                 .ForMember(dst => dst.Member, o => o.MapFrom(user => user))
                 .ForMember(dst => dst.ProfileUrl, o => o.Ignore())
-                .ForMember(dst => dst.IsGroupAdmin, o => o.Ignore());
+                .ForMember(dst => dst.IsGroupAdmin, o => o.Ignore())
+                .ForMember(dst => dst.IsCreator, o=> o.Ignore());
+
             Mapper.CreateMap<IIntranetMember, ProfileEditModel>()
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
@@ -84,7 +87,7 @@ namespace Compent.Uintra.Core.Users
                 .ForMember(dst => dst.DeleteMedia, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore());
 
-            Mapper.CreateMap<SearchableUser, MentionUserModel>()
+            Mapper.CreateMap<SearchableMember, MentionUserModel>()
                 .ForMember(dst => dst.Id, o => o.MapFrom(u => Guid.Parse(u.Id.ToString())))
                 .ForMember(dst => dst.Value, o => o.MapFrom(u => u.FullName))
                 .ForMember(dst => dst.Url, o => o.Ignore());

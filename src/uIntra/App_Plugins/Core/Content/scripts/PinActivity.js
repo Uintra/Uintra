@@ -34,16 +34,19 @@ var pinActivity = {
 
         switchPinControlDisabledProp();
     },
-    initPinDate: function (holder, minDate) {
+    initPinDate: function (holder, minDate) {        
         var pinDate = helpers.initDatePicker(holder, ".js-endpin-date", ".js-endpin-date-value");
-        pinDate.set('minDate', minDate || new Date());
+        if (pinDate) {
+            pinDate.set('minDate', minDate || new Date());
 
-        var clearEndPinDateBtn = holder.find('.js-clear-endpin-date');
-        clearEndPinDateBtn.click(function () {
-            pinDate.clear();
-        });
+            var clearEndPinDateBtn = holder.find('.js-clear-endpin-date');
+            clearEndPinDateBtn.click(function () {
+                pinDate.clear();
+            });
 
-        return pinDate;
+            return pinDate;
+        }
+        return undefined;
     },
     isPinAccepted: function (holder) {
         pinControl = holder.find('.pin-control');

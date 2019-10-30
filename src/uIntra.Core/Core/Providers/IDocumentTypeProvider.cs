@@ -13,6 +13,9 @@ namespace Uintra.Core
         string GetNotificationPage();
         string GetHomePage();
         string GetErrorPage();
+        string GetBulletinsDetailsPage();
+        string GetEventsDetailsPage();
+        string GetNewsDetailsPage();
 
         string GetOverviewPage(Enum type);
         string GetEditPage(Enum type);

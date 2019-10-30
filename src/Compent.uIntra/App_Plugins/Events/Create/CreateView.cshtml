@@ -70,9 +70,12 @@
                 </div>
             </div>
         </div>
-        <div class="form__row clearfix">
-            @Html.Action("PinActivity", "Activity", new { isPinned = false })
-        </div>
+        if (Model.PinAllowed)
+        {
+            <div class="form__row clearfix">
+                @Html.Action("PinActivity", "Activity", new { isPinned = false })
+            </div>
+        }
         <div class="form__row clearfix">
             <label class="form__label" for="file-upload">@Html.Localize("EventsCreate.UploadFiles.lbl")</label>
             @{

@@ -19,5 +19,6 @@ namespace Uintra.Users.UserList
         public MemberViewModel Member { get; set; }
         public string ProfileUrl { get; set; }
         public bool IsGroupAdmin { get; set; }
+        public bool IsCreator { get; set; }
     }
 }

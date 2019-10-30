@@ -3,6 +3,6 @@
     public enum CommunicationTypeEnum
     {
         CommunicationSettings = 100,
-        Member
+        Member        
     }
 }

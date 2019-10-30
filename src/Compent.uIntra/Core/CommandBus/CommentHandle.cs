@@ -5,7 +5,7 @@ using Uintra.Comments;
 using Uintra.Comments.CommandBus;
 using Uintra.Core.Activity;
 using Uintra.Core.Context;
-using Uintra.Core.Context.Extensions;
+using static Uintra.Core.Context.Extensions.ContextExtensions;
 
 namespace Compent.Uintra.Core.CommandBus
 {
@@ -52,7 +52,7 @@ namespace Compent.Uintra.Core.CommandBus
 
         private void UpdateCache(Enum commentsTargetType, Guid commentsTargetEntityId)
         {
-            if (ContextExtensions.HasFlagScalar(commentsTargetType, ContextType.Activity | ContextType.PagePromotion))
+            if (HasFlagScalar(commentsTargetType, ContextType.Activity | ContextType.PagePromotion))
             {
                 var activityService = _activitiesServiceFactory.GetCacheableIntranetActivityService(commentsTargetEntityId);
                 activityService.UpdateActivityCache(commentsTargetEntityId);

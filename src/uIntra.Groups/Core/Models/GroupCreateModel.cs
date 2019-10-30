@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Uintra.Core.Media;
 
@@ -7,7 +6,7 @@ namespace Uintra.Groups
 {
     public class GroupCreateModel : IContentWithMediaCreateEditModel
     {
-        public Guid CreatorId { get; set; }
+        public GroupMemberSubscriptionModel Creator { get; set; }
 
         [Required]
         public string Title { get; set; }

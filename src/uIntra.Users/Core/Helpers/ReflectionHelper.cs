@@ -28,22 +28,5 @@ namespace Uintra.Users.Helpers
             }
             return result;
         }
-
-        public static IEnumerable<ProfileColumnModel> GetProfileColumns()
-        {
-            var columns = typeof(MemberModel).GetCustomAttributes<UIColumnAttribute>().Select(i =>
-            {
-                return new ProfileColumnModel()
-                {
-                    Id = i.Id,
-                    Name = i.DisplayName,
-                    Type = i.Type,
-                    Alias = i.Alias,
-                    PropertyName = i.PropertyName,
-                    SupportSorting = i.SupportSorting
-                };
-            }).OrderBy(i => i.Id);
-            return columns;
-        }
     }
 }

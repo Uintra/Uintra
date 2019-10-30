@@ -16,12 +16,12 @@ namespace Uintra.Core
             _applicationSettings = applicationSettings;
         }
 
-        public HttpCookie Get(string name)
+        public virtual HttpCookie Get(string name)
         {
             return _httpContext.Request.Cookies[name];
         }
 
-        public void Save(HttpCookie cookie)
+        public virtual void Save(HttpCookie cookie)
         {
             cookie.Domain = GetDomain();
             cookie.Secure = _applicationSettings.UmbracoUseSSL;
@@ -29,7 +29,7 @@ namespace Uintra.Core
             _httpContext.Response.Cookies.Add(cookie);
         }
 
-        public void Save(string name, string value, DateTime expireDate)
+        public virtual void Save(string name, string value, DateTime expireDate)
         {
             var cookie = new HttpCookie(name)
             {
@@ -42,13 +42,13 @@ namespace Uintra.Core
             Save(cookie);
         }
 
-        public bool Exists(string name)
+        public virtual bool Exists(string name)
         {
             var cookie = Get(name);
             return cookie != null && cookie.Value.HasValue();
         }
 
-        public void Delete(string name)
+        public virtual void Delete(string name)
         {
             var cookie = Get(name);
             if (cookie != null)

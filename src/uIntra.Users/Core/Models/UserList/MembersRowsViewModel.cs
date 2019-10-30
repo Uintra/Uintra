@@ -12,5 +12,6 @@ namespace Uintra.Users.UserList
         public MemberViewModel CurrentMember { get; set; }
         public bool IsCurrentMemberGroupAdmin { get; set; }
         public Guid? GroupId { get; set; }
+        public bool IsInvite { get; set; }
     }
 }

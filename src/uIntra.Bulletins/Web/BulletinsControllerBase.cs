@@ -40,7 +40,7 @@ namespace Uintra.Bulletins.Web
         private const int ActivityTypeId = (int)IntranetActivityTypeEnum.Bulletins;
         private const PermissionResourceTypeEnum ResourceType = PermissionResourceTypeEnum.Bulletins;
 
-        public override ContextType ControllerContextType { get; } = ContextType.Bulletins;
+        public override Enum ControllerContextType { get; } = ContextType.Bulletins;
 
         protected BulletinsControllerBase(
             IBulletinsService<BulletinBase> bulletinsService,

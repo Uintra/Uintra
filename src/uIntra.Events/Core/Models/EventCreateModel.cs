@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Uintra.Core.Activity;
 using Uintra.Core.Attributes;
-using Uintra.Core.Location;
 using Uintra.Core.Media;
 using Uintra.Core.ModelBinders;
 
@@ -33,5 +32,7 @@ namespace Uintra.Events
         public override DateTime? EndPinDate { get; set; }
 
         public string LocationTitle { get; set; }
-    }
+
+        public bool PinAllowed { get; set; }
+	}
 }

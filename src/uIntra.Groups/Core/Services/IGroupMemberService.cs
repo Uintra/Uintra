@@ -6,9 +6,9 @@ namespace Uintra.Groups
 {
     public interface IGroupMemberService
     {
-        void Add(Guid groupId, Guid memberId);
+        void Add(Guid groupId, GroupMemberSubscriptionModel subscription);
 
-        void AddMany(Guid groupId, IEnumerable<Guid> memberId);
+        void AddMany(Guid groupId, IEnumerable<GroupMemberSubscriptionModel> subscriptions);
 
         void Remove(Guid groupId, Guid memberId);
 
@@ -23,5 +23,17 @@ namespace Uintra.Groups
         bool IsGroupMember(Guid groupId, Guid userId);
 
         bool IsGroupMember(Guid groupId, IGroupMember member);
+
+        string Create(GroupCreateModel model);
+
+        GroupMember GetByMemberId(Guid id);
+
+        void Update(GroupMember groupMember);
+
+        GroupMember GetGroupMemberByMemberIdAndGroupId(Guid memberId, Guid groupId);
+
+        bool IsMemberAdminOfGroup(Guid memberId, Guid groupId);
+
+        void ToggleAdminRights(Guid memberId, Guid groupId);
     }
 }

@@ -99,7 +99,7 @@ namespace Uintra.Users
 
         public virtual IEnumerable<T> GetAll()
         {
-            var members = _cacheService.GetOrSet(MembersCacheKey, () => GetAllFromSql().ToArray(), CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
+            var members = _cacheService.GetOrSet(MembersCacheKey, () => GetAllFromSql().ToList(), CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
             return members;
         }
 
@@ -158,7 +158,7 @@ namespace Uintra.Users
             return isPresent;
         }
 
-        public Guid Create(CreateMemberDto dto)
+        public virtual Guid Create(CreateMemberDto dto)
         {
             var fullName = $"{dto.FirstName} {dto.LastName}";
             var member = _memberService.CreateMember(dto.Email, dto.Email, fullName, "Member");
@@ -281,8 +281,20 @@ namespace Uintra.Users
             _cacheService.Set(MembersCacheKey, updatedCache, CacheHelper.GetMidnightUtcDateTimeOffset());
         }
 
-        public virtual void UpdateMemberCache(IEnumerable<Guid> memberIds) =>
-            _cacheService.Set(MembersCacheKey, GetAllFromSql().ToArray(), CacheHelper.GetMidnightUtcDateTimeOffset());
+        public virtual void UpdateMemberCache(IEnumerable<Guid> memberIds)
+        {
+            var allCachedMembers = GetAll();
+
+            foreach (var memberId in memberIds)
+            {
+                allCachedMembers = GetFromSqlOrNone(memberId).Match(
+                Some: member => allCachedMembers.WithUpdatedElement(el => el.Id == memberId, member),
+                None: () => allCachedMembers.Where(el => el.Id != memberId))
+                .ToList();
+            }
+
+            _cacheService.Set(MembersCacheKey, allCachedMembers, CacheHelper.GetMidnightUtcDateTimeOffset());
+        }
 
         public virtual void DeleteFromCache(Guid memberId)
         {

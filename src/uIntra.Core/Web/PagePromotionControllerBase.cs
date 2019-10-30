@@ -1,4 +1,5 @@
-﻿using Uintra.Core.Activity;
+﻿using System;
+using Uintra.Core.Activity;
 using Uintra.Core.Context;
 using Uintra.Core.Controls.LightboxGallery;
 using Uintra.Core.Extensions;
@@ -11,7 +12,7 @@ namespace Uintra.Core.Web
     [TrackContext]
     public abstract class PagePromotionControllerBase : ContextController
     {
-        public override ContextType ControllerContextType { get; } = ContextType.PagePromotion;
+        public override Enum ControllerContextType { get; } = ContextType.PagePromotion;
 
         protected virtual string ItemViewPath { get; } = "~/App_Plugins/Core/PagePromotion/Item/ItemView.cshtml";
         protected virtual int DisplayedImagesCount { get; } = 3;

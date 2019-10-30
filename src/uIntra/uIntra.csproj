@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\UmbracoCms.7.14.0\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.7.14.0\build\UmbracoCms.props')" />
-  <Import Project="..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\..\packages\UmbracoCms.7.15.3\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.7.15.3\build\UmbracoCms.props')" />
+  <Import Project="..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -73,8 +73,8 @@
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="businesslogic, Version=1.0.7009.26204, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\businesslogic.dll</HintPath>
+    <Reference Include="businesslogic, Version=1.0.7180.24666, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\businesslogic.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
@@ -85,8 +85,8 @@
     <Reference Include="ClientDependency.Core.Mvc, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ClientDependency-Mvc.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="cms, Version=1.0.7009.26205, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\cms.dll</HintPath>
+    <Reference Include="cms, Version=1.0.7180.24666, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\cms.dll</HintPath>
     </Reference>
     <Reference Include="Compent.CommandBus, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.CommandBus.1.2.1\lib\net471\Compent.CommandBus.dll</HintPath>
@@ -100,16 +100,18 @@
     <Reference Include="Compent.LinkPreview.HttpClient, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
-    <Reference Include="controls, Version=1.0.7009.26205, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\controls.dll</HintPath>
+    <Reference Include="Compent.Shared.Extensions.Bcl, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Shared.Extensions.Bcl.0.1.2\lib\net45\Compent.Shared.Extensions.Bcl.dll</HintPath>
+    </Reference>
+    <Reference Include="controls, Version=1.0.7180.24667, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\controls.dll</HintPath>
     </Reference>
     <Reference Include="CookComputing.XmlRpcV2">
       <HintPath>..\..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Elasticsearch.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Elasticsearch.Net.5.4.0\lib\net45\Elasticsearch.Net.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\Elasticsearch.Net.5.6.5\lib\net461\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
@@ -140,8 +142,8 @@
     <Reference Include="EnumLists, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.EnumLists.1.1.2\lib\net40\EnumLists.dll</HintPath>
     </Reference>
-    <Reference Include="Examine, Version=0.1.89.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Examine.0.1.89\lib\net45\Examine.dll</HintPath>
+    <Reference Include="Examine, Version=0.1.90.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Examine.0.1.90\lib\net45\Examine.dll</HintPath>
     </Reference>
     <Reference Include="FluentScheduler, Version=5.3.0.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentScheduler.5.3.0\lib\net40\FluentScheduler.dll</HintPath>
@@ -167,22 +169,21 @@
     <Reference Include="Google.Apis.PlatformServices, Version=1.34.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Google.Apis.1.34.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="HtmlAgilityPack, Version=1.8.8.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HtmlAgilityPack.1.8.8\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ImageProcessor, Version=2.5.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ImageProcessor.2.5.6\lib\net45\ImageProcessor.dll</HintPath>
+    <Reference Include="ImageProcessor, Version=2.7.0.100, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ImageProcessor.2.7.0.100\lib\net452\ImageProcessor.dll</HintPath>
     </Reference>
-    <Reference Include="ImageProcessor.Web, Version=4.8.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ImageProcessor.Web.4.8.7\lib\net45\ImageProcessor.Web.dll</HintPath>
+    <Reference Include="ImageProcessor.Web, Version=4.10.0.100, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ImageProcessor.Web.4.10.0.100\lib\net452\ImageProcessor.Web.dll</HintPath>
     </Reference>
-    <Reference Include="interfaces, Version=1.0.7009.26192, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\interfaces.dll</HintPath>
+    <Reference Include="interfaces, Version=1.0.7180.24653, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\interfaces.dll</HintPath>
     </Reference>
     <Reference Include="LanguageExt.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LanguageExt.Core.3.1.15\lib\net45\LanguageExt.Core.dll</HintPath>
@@ -197,7 +198,7 @@
       <HintPath>..\..\packages\Compent.Localization.Umbraco.0.1.2\lib\net452\Localization.Umbraco.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\log4net.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Log4Net.Async, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Log4Net.Async.2.0.4\lib\net40\Log4Net.Async.dll</HintPath>
@@ -216,19 +217,16 @@
       <HintPath>..\..\packages\MediaToolkit.1.1.0.1\lib\net40\MediaToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=1.0.1559.20655, Culture=neutral">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core">
-      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Owin">
-      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build" />
     <Reference Include="Microsoft.CodeAnalysis, Version=1.3.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -241,27 +239,27 @@
       <HintPath>..\..\packages\Microsoft.CodeAnalysis.CSharp.1.3.2\lib\net45\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.IO.RecyclableMemoryStream.1.2.2\lib\net45\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.3.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.3.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
@@ -275,11 +273,10 @@
       <HintPath>..\..\packages\MySql.Data.6.9.12\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NEST.5.3.1\lib\net45\Nest.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\NEST.5.6.5\lib\net461\Nest.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
@@ -307,8 +304,8 @@
       <HintPath>..\..\packages\semver.1.1.2\lib\net451\Semver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SQLCE4Umbraco, Version=1.0.7009.26205, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\SQLCE4Umbraco.dll</HintPath>
+    <Reference Include="SQLCE4Umbraco, Version=1.0.7180.24667, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\SQLCE4Umbraco.dll</HintPath>
     </Reference>
     <Reference Include="System.AppContext, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.AppContext.4.3.0\lib\net463\System.AppContext.dll</HintPath>
@@ -324,10 +321,10 @@
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\System.Data.SqlServerCe.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\System.Data.SqlServerCe.Entity.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\System.Data.SqlServerCe.Entity.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.FileVersionInfo, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Diagnostics.FileVersionInfo.4.0.0\lib\net46\System.Diagnostics.FileVersionInfo.dll</HintPath>
@@ -356,10 +353,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
@@ -373,6 +368,7 @@
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
       <Private>True</Private>
@@ -392,9 +388,8 @@
     <Reference Include="System.Text.Encoding.CodePages, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Text.Encoding.CodePages.4.0.1\lib\net46\System.Text.Encoding.CodePages.dll</HintPath>
     </Reference>
-    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Dataflow.4.9.0\lib\netstandard2.0\System.Threading.Tasks.Dataflow.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Thread, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Thread.4.0.0\lib\net46\System.Threading.Thread.dll</HintPath>
@@ -410,18 +405,32 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -440,85 +449,85 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\TidyNet.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\TidyNet.dll</HintPath>
     </Reference>
     <Reference Include="TimeZoneConverter, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e20ab7d0d9479841, processorArchitecture=MSIL">
       <HintPath>..\..\packages\TimeZoneConverter.3.0.0\lib\net471\TimeZoneConverter.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.BaseControls, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.BaseControls.3.2.0\lib\net471\Uintra.BaseControls.dll</HintPath>
+    <Reference Include="Uintra.BaseControls, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.BaseControls.3.4.0\lib\net471\Uintra.BaseControls.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Bulletins, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Bulletins.1.3.0\lib\net471\Uintra.Bulletins.dll</HintPath>
+    <Reference Include="Uintra.Bulletins, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Bulletins.1.4.0\lib\net471\Uintra.Bulletins.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.CentralFeed, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.CentralFeed.2.3.0\lib\net471\Uintra.CentralFeed.dll</HintPath>
+    <Reference Include="Uintra.CentralFeed, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.CentralFeed.2.4.0\lib\net471\Uintra.CentralFeed.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Comments, Version=2.3.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Comments.2.3.0.1\lib\net471\Uintra.Comments.dll</HintPath>
+    <Reference Include="Uintra.Comments, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Comments.2.4.0\lib\net471\Uintra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Core, Version=2.3.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Core.2.3.0.1\lib\net471\Uintra.Core.dll</HintPath>
+    <Reference Include="Uintra.Core, Version=2.4.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Core.2.4.0.4\lib\net471\Uintra.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Events, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Events.2.3.0\lib\net471\Uintra.Events.dll</HintPath>
+    <Reference Include="Uintra.Events, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Events.2.4.0\lib\net471\Uintra.Events.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Groups, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Groups.2.3.0\lib\net471\Uintra.Groups.dll</HintPath>
+    <Reference Include="Uintra.Groups, Version=2.4.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Groups.2.4.0.1\lib\net471\Uintra.Groups.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Likes, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Likes.2.3.0\lib\net471\Uintra.Likes.dll</HintPath>
+    <Reference Include="Uintra.Likes, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Likes.2.4.0\lib\net471\Uintra.Likes.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Navigation, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Navigation.2.3.0\lib\net471\Uintra.Navigation.dll</HintPath>
+    <Reference Include="Uintra.Navigation, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Navigation.2.4.0\lib\net471\Uintra.Navigation.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.News, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.News.2.3.0\lib\net471\Uintra.News.dll</HintPath>
+    <Reference Include="Uintra.News, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.News.2.4.0\lib\net471\Uintra.News.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Notification, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Notification.2.3.0\lib\net471\Uintra.Notification.dll</HintPath>
+    <Reference Include="Uintra.Notification, Version=2.4.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Notification.2.4.0.2\lib\net471\Uintra.Notification.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Panels, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Panels.3.3.0\lib\net471\Uintra.Panels.dll</HintPath>
+    <Reference Include="Uintra.Panels, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Panels.3.4.0\lib\net471\Uintra.Panels.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Search, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Search.1.3.0\lib\net471\Uintra.Search.dll</HintPath>
+    <Reference Include="Uintra.Search, Version=1.4.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Search.1.4.0.1\lib\net471\Uintra.Search.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Subscribe, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Subscribe.2.3.0\lib\net471\Uintra.Subscribe.dll</HintPath>
+    <Reference Include="Uintra.Subscribe, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Subscribe.2.4.0\lib\net471\Uintra.Subscribe.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Tagging, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Tagging.2.3.0\lib\net471\Uintra.Tagging.dll</HintPath>
+    <Reference Include="Uintra.Tagging, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Tagging.2.4.0\lib\net471\Uintra.Tagging.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Users, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Users.2.3.0\lib\net471\Uintra.Users.dll</HintPath>
+    <Reference Include="Uintra.Users, Version=2.4.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Users.2.4.0.4\lib\net471\Uintra.Users.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco, Version=1.0.7009.26206, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\umbraco.dll</HintPath>
+    <Reference Include="umbraco, Version=1.0.7180.24668, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\umbraco.dll</HintPath>
     </Reference>
-    <Reference Include="Umbraco.Core, Version=1.0.7009.26199, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\Umbraco.Core.dll</HintPath>
+    <Reference Include="Umbraco.Core, Version=1.0.7180.24662, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\Umbraco.Core.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.DataLayer, Version=1.0.7009.26204, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\umbraco.DataLayer.dll</HintPath>
+    <Reference Include="umbraco.DataLayer, Version=1.0.7180.24666, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\umbraco.DataLayer.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.editorControls, Version=1.0.7009.26209, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\umbraco.editorControls.dll</HintPath>
+    <Reference Include="umbraco.editorControls, Version=1.0.7180.24671, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\umbraco.editorControls.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.MacroEngines, Version=1.0.7009.26210, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\umbraco.MacroEngines.dll</HintPath>
+    <Reference Include="umbraco.MacroEngines, Version=1.0.7180.24672, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\umbraco.MacroEngines.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.ModelsBuilder, Version=3.0.10.102, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Umbraco.ModelsBuilder.3.0.10\lib\Umbraco.ModelsBuilder.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.providers, Version=1.0.7009.26206, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\umbraco.providers.dll</HintPath>
+    <Reference Include="umbraco.providers, Version=1.0.7180.24667, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\umbraco.providers.dll</HintPath>
     </Reference>
-    <Reference Include="Umbraco.Web.UI, Version=1.0.7009.26212, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\Umbraco.Web.UI.dll</HintPath>
+    <Reference Include="Umbraco.Web.UI, Version=1.0.7180.24674, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\Umbraco.Web.UI.dll</HintPath>
     </Reference>
-    <Reference Include="UmbracoExamine, Version=0.7.0.26205, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.7.14.0\lib\net45\UmbracoExamine.dll</HintPath>
+    <Reference Include="UmbracoExamine, Version=0.7.0.24667, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\UmbracoExamine.dll</HintPath>
     </Reference>
     <Reference Include="UrlRewritingNet.UrlRewriter">
       <HintPath>..\..\packages\UrlRewritingNet.2.0.7\lib\UrlRewritingNet.UrlRewriter.dll</HintPath>
@@ -534,26 +543,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Web.Razor">
-      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Webpages">
-      <HintPath>..\..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Webpages.Deployment">
-      <HintPath>..\..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Webpages.Razor">
-      <HintPath>..\..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Helpers">
-      <HintPath>..\..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure">
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc">
-      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -595,6 +586,9 @@
     </Content>
     <Content Include="..\Compent.uIntra\Content\images\logo.svg">
       <Link>Content\images\logo.svg</Link>
+    </Content>
+    <Content Include="..\Compent.uIntra\Content\images\preview.png">
+      <Link>Content\images\preview.png</Link>
     </Content>
     <Content Include="..\Compent.uIntra\Content\images\sort.svg">
       <Link>Content\images\sort.svg</Link>
@@ -1068,11 +1062,14 @@
       <Link>postcss.config.js</Link>
     </Content>
     <Content Include="invalidAssemblyBindings.xdt" />
-    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\SentMails\package.manifest" />
     <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\1.2\PreValues\groupsMembersPageGrid.json">
       <Link>Core\Updater\Migrations\1.2\PreValues\groupsMembersPageGrid.json</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\1.3\PreValues\forbiddenPageGrid.json">
+      <Link>Core\Updater\Migrations\1.3\PreValues\forbiddenPageGrid.json</Link>
+    </EmbeddedResource>
+    <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\Bulletins\PreviewItem\PreviewItem.cshtml" />
     <Content Include="App_Plugins\Bulletins\package.manifest" />
     <Content Include="App_Plugins\Bulletins\Item\ItemView.cshtml" />
@@ -1081,6 +1078,14 @@
     <Content Include="App_Plugins\Bulletins\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\Bulletins\Create\CreationForm.cshtml" />
+    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
+    <Content Include="App_Plugins\LatestActivities\package.manifest" />
+    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
+    <Content Include="App_Plugins\CentralFeed\package.manifest" />
     <Content Include="App_Plugins\Comments\View\CommentsView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsPreView.cshtml" />
     <Content Include="App_Plugins\Comments\View\CommentsOverView.cshtml" />
@@ -1095,24 +1100,6 @@
     <Content Include="App_Plugins\Events\Create\CreateView.cshtml" />
     <Content Include="App_Plugins\Events\ComingEvents\ComingEventsView.cshtml" />
     <Content Include="App_Plugins\Events\ComingEvents\ComingEvents.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
-    <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
-    <Content Include="App_Plugins\Groups\package.manifest" />
-    <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
-    <Content Include="App_Plugins\Groups\List\List.cshtml" />
-    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
-    <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
-    <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
-    <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
-    <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
     <Content Include="App_Plugins\Likes\View\LikesView.cshtml" />
     <Content Include="App_Plugins\Likes\package.manifest" />
     <Content Include="App_Plugins\Navigation\Web.config" />
@@ -1134,6 +1121,37 @@
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
+    <Content Include="App_Plugins\Panels\TableEditor\TableEditor.cshtml" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+    <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.cshtml" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
+    <Content Include="App_Plugins\Subscribe\View\ActivitySubscribeSettingsView.cshtml" />
+    <Content Include="App_Plugins\UsersTags\Views\TagPicker.cshtml" />
+    <Content Include="App_Plugins\UsersTags\package.manifest" />
+    <Content Include="App_Plugins\Groups\Room\Members\Members.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Info\Subscribe.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Info\Info.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Feed\Overview.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Feed\List.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Feed\Edit.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Feed\Details.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Feed\Create.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Documents\Table.cshtml" />
+    <Content Include="App_Plugins\Groups\Room\Documents\Documents.cshtml" />
+    <Content Include="App_Plugins\Groups\package.manifest" />
+    <Content Include="App_Plugins\Groups\List\Overview.cshtml" />
+    <Content Include="App_Plugins\Groups\List\List.cshtml" />
+    <Content Include="App_Plugins\Groups\GroupNavigation.cshtml" />
+    <Content Include="App_Plugins\Groups\GroupLeftNavigation.cshtml" />
+    <Content Include="App_Plugins\Groups\Edit\EditGroup.cshtml" />
+    <Content Include="App_Plugins\Groups\DisabledGroupView\DisabledGroup.cshtml" />
+    <Content Include="App_Plugins\Groups\Create\CreateGroup.cshtml" />
     <Content Include="App_Plugins\Notification\package.manifest" />
     <Content Include="App_Plugins\Notification\List\PopupNotificationsView.cshtml" />
     <Content Include="App_Plugins\Notification\List\NotificationPreview.cshtml" />
@@ -1142,46 +1160,6 @@
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
-    <Content Include="App_Plugins\Panels\TableEditor\TableEditor.cshtml" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.cshtml" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
-    <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
-    <Content Include="App_Plugins\Search\package.manifest" />
-    <Content Include="App_Plugins\Search\Controls\SearchBoxAutocompleteItem.cshtml" />
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
-    <Content Include="App_Plugins\Subscribe\View\ActivitySubscribeSettingsView.cshtml" />
-    <Content Include="App_Plugins\LatestActivities\View\LatestActivities.cshtml" />
-    <Content Include="App_Plugins\LatestActivities\package.manifest" />
-    <Content Include="App_Plugins\CentralFeed\View\Overview.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\List.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Edit.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Details.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\View\Create.cshtml" />
-    <Content Include="App_Plugins\CentralFeed\package.manifest" />
-    <Content Include="App_Plugins\UsersTags\Views\TagPicker.cshtml" />
-    <Content Include="App_Plugins\UsersTags\package.manifest" />
-    <Content Include="App_Plugins\Users\UserList\UsersRowsView.cshtml" />
-    <Content Include="App_Plugins\Users\UserList\UserListView.cshtml" />
-    <Content Include="App_Plugins\Users\UserList\UserDetailsPopup.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-    <Content Include="App_Plugins\Users\package.manifest" />
-    <Content Include="App_Plugins\Users\Logout\Logout.cshtml" />
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-    <Content Include="App_Plugins\Users\backoffice\GoogleAuthWindow.cshtml" />
-    <Content Include="App_Plugins\UserPicker\package.manifest" />
-    <Content Include="App_Plugins\Members\package.manifest" />
-    <EmbeddedResource Include="..\Compent.uIntra\Core\Updater\Migrations\1.3\PreValues\forbiddenPageGrid.json">
-      <Link>Core\Updater\Migrations\1.3\PreValues\forbiddenPageGrid.json</Link>
-    </EmbeddedResource>
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
     <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
@@ -1204,6 +1182,23 @@
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml" />
     <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
+    <Content Include="App_Plugins\Search\package.manifest" />
+    <Content Include="App_Plugins\Search\Controls\SearchBoxAutocompleteItem.cshtml" />
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
+    <Content Include="App_Plugins\Users\UserList\UsersRowsView.cshtml" />
+    <Content Include="App_Plugins\Users\UserList\UserListView.cshtml" />
+    <Content Include="App_Plugins\Users\UserList\UserDetailsPopup.cshtml" />
+    <Content Include="App_Plugins\Users\UserList\InviteUserRowView.cshtml" />
+    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
+    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
+    <Content Include="App_Plugins\Users\package.manifest" />
+    <Content Include="App_Plugins\Users\Logout\Logout.cshtml" />
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Users\backoffice\GoogleAuthWindow.cshtml" />
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
+    <Content Include="App_Plugins\Members\package.manifest" />
     <None Include="Uintra.props">
       <SubType>Designer</SubType>
     </None>
@@ -1449,6 +1444,20 @@
       <Link>Persistence\Sql\Migrations\201903011404027_Permissions.Designer.cs</Link>
       <DependentUpon>201903011404027_Permissions.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.cs">
+      <Link>Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.Designer.cs">
+      <Link>Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.Designer.cs</Link>
+      <DependentUpon>201909240749464_AddIsAdminFlag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.cs">
+      <Link>Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.Designer.cs">
+      <Link>Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.Designer.cs</Link>
+      <DependentUpon>201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Compent.uIntra\Persistence\Sql\Migrations\Configuration.cs">
       <Link>Persistence\Sql\Migrations\Configuration.cs</Link>
     </Compile>
@@ -1507,6 +1516,14 @@
     <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201903011404027_Permissions.resx">
       <Link>Persistence\Sql\Migrations\201903011404027_Permissions.resx</Link>
       <DependentUpon>201903011404027_Permissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.resx">
+      <Link>Persistence\Sql\Migrations\201909240749464_AddIsAdminFlag.resx</Link>
+      <DependentUpon>201909240749464_AddIsAdminFlag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Compent.uIntra\Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.resx">
+      <Link>Persistence\Sql\Migrations\201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.resx</Link>
+      <DependentUpon>201910101139332_LinkPreviewEntity_AddMediaIdForLocalRequest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -1824,9 +1841,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
     <Error Condition="!Exists('..\..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.14.0\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.14.0\build\UmbracoCms.props'))" />
-    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.14.0\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.14.0\build\UmbracoCms.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.15.3\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.15.3\build\UmbracoCms.props'))" />
+    <Error Condition="!Exists('..\..\packages\UmbracoCms.7.15.3\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.7.15.3\build\UmbracoCms.targets'))" />
   </Target>
   <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" />
   <Target Name="BeforeBuild">
@@ -1848,5 +1865,5 @@
     </Copy>
     <Message Importance="high" Text="Finish copying webpack files" />
   </Target>
-  <Import Project="..\..\packages\UmbracoCms.7.14.0\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.7.14.0\build\UmbracoCms.targets')" />
+  <Import Project="..\..\packages\UmbracoCms.7.15.3\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.7.15.3\build\UmbracoCms.targets')" />
 </Project>

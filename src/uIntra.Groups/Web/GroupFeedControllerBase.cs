@@ -12,6 +12,7 @@ using Uintra.Core.Extensions;
 using Uintra.Core.Feed;
 using Uintra.Core.Permissions;
 using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Groups.Attributes;
 namespace Uintra.Groups.Web
@@ -28,6 +29,7 @@ namespace Uintra.Groups.Web
         private readonly IPermissionsService _permissionsService;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IFeedFilterService _feedFilterService;
+        private readonly IPermissionResourceTypeProvider _permissionResourceTypeProvider;
 
 
         private bool IsCurrentMemberInGroup { get; set; }
@@ -38,7 +40,7 @@ namespace Uintra.Groups.Web
         protected override string EditViewPath => "~/App_Plugins/Groups/Room/Feed/Edit.cshtml";
         protected override string ListViewPath => "~/App_Plugins/Groups/Room/Feed/List.cshtml";
 
-        public override ContextType ControllerContextType { get; } = ContextType.GroupFeed;
+        public override Enum ControllerContextType { get; } = ContextType.GroupFeed;
 
         protected GroupFeedControllerBase(
             IGroupFeedService groupFeedService,
@@ -51,7 +53,8 @@ namespace Uintra.Groups.Web
             IPermissionsService permissionsService,
             IContextTypeProvider contextTypeProvider,
             IFeedLinkService feedLinkService,
-            IFeedFilterService feedFilterService)
+            IFeedFilterService feedFilterService,
+            IPermissionResourceTypeProvider permissionResourceTypeProvider)
             : base(
                   groupFeedService,
                   feedFilterStateService,
@@ -67,6 +70,7 @@ namespace Uintra.Groups.Web
             _permissionsService = permissionsService;
             _feedLinkService = feedLinkService;
             _feedFilterService = feedFilterService;
+            _permissionResourceTypeProvider = permissionResourceTypeProvider;
         }
 
         #region Actions
@@ -189,8 +193,10 @@ namespace Uintra.Groups.Web
             var model = new GroupFeedOverviewModel
             {
                 Tabs = activityTabs,
-                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab =>
-                    _permissionsService.Check(tab.Type, PermissionActionEnum.Create)),
+                TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs)
+                    .Where(tab => _permissionsService.Check(
+                        _permissionResourceTypeProvider[tab.Type.ToInt()],
+                        PermissionActionEnum.Create)),
                 CurrentType = tabType,
                 GroupId = groupId,
                 IsGroupMember = _groupMemberService.IsGroupMember(groupId, currentMember),

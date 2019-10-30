@@ -39,7 +39,7 @@ namespace Uintra.Users.Web
         [HttpGet]
         public virtual IEnumerable<ProfileColumnModel> ProfileProperties()
         {
-            return ReflectionHelper.GetProfileColumns();
+            return UsersPresentationHelper.GetProfileColumns();
         }
     }
 }

@@ -16,6 +16,8 @@ namespace Uintra.Groups.Sql
         public Guid GroupId { get; set; }
 
         [Required, Index("UQ_GroupMember_GroupId_MemberId", 2, IsUnique = true)]
-        public Guid MemberId { get; set; } 
+        public Guid MemberId { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 }

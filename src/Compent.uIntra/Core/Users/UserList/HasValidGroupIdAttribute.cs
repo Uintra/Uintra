@@ -1,7 +1,7 @@
 ﻿using Compent.Uintra.Core.Constants;
 using System;
 using System.Web.Mvc;
-using Uintra.Core;
+using Uintra.Core.Helpers;
 using Uintra.Groups;
 using Umbraco.Web;
 
@@ -10,51 +10,45 @@ namespace Compent.Uintra.Core.Users.UserList
     [AttributeUsage(AttributeTargets.Method)]
     public class HasValidGroupIdAttribute : ActionFilterAttribute
     {
+        private static readonly IGroupService GroupService;
         private const string GroupIdQueryParameterName = "groupId";
+
+        static HasValidGroupIdAttribute()
+        {
+            GroupService = DependencyResolver.Current.GetService<IGroupService>();
+        }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var currentPage = UmbracoContext.Current.PublishedContentRequest.PublishedContent;
-            if (!currentPage.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.GroupsMembersPage))
-                return;
 
-            var groupId = filterContext.HttpContext.Request.QueryString[GroupIdQueryParameterName];
-            if (groupId == null)
+            if (!currentPage.DocumentTypeAlias.Equals(DocumentTypeAliasConstants.GroupsMembersPage))
             {
-                TransferRequestToErrorPage(filterContext);
                 return;
             }
+
+            var groupId = filterContext.HttpContext.Request.QueryString[GroupIdQueryParameterName];
+
+            if (groupId == null)
+            {
+                TransferRequestHelper.ToErrorPage(filterContext);
+
+                return;
+            }
+
             if (Guid.TryParse(groupId, out var id))
             {
-                var groupService = DependencyResolver.Current.GetService<IGroupService>();
-                var group = groupService.Get(id);
+                var group = GroupService.Get(id);
+
                 if (group == null || group.IsHidden)
                 {
-                    TransferRequestToErrorPage(filterContext);
-                    return;
+                    TransferRequestHelper.ToErrorPage(filterContext);
                 }
             }
             else
             {
-                TransferRequestToErrorPage(filterContext);
-                return;
+                TransferRequestHelper.ToErrorPage(filterContext);
             }
-        }
-
-        private static void TransferRequestToErrorPage(ActionExecutingContext filterContext)
-        {
-            var umbracoHelper = DependencyResolver.Current.GetService<UmbracoHelper>();
-            var aliasProvider = DependencyResolver.Current.GetService<IDocumentTypeAliasProvider>();
-
-            var errorPage = umbracoHelper.TypedContentSingleAtXPath(XPathHelper.GetXpath(aliasProvider.GetHomePage(), aliasProvider.GetErrorPage()));
-
-            if (errorPage != null)
-            {
-                filterContext.Controller.ControllerContext.HttpContext.Server.TransferRequest(errorPage.Url);
-                return;
-            }
-
-            filterContext.Result = new HttpNotFoundResult();
         }
     }
 }

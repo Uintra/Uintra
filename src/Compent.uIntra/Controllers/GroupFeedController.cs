@@ -7,6 +7,7 @@ using Uintra.Core;
 using Uintra.Core.Activity;
 using Uintra.Core.Feed;
 using Uintra.Core.Permissions.Interfaces;
+using Uintra.Core.Permissions.TypeProviders;
 using Uintra.Core.User;
 using Uintra.Groups;
 using Uintra.Groups.Web;
@@ -28,7 +29,8 @@ namespace Compent.Uintra.Controllers
             IPermissionsService permissionsService,
             IContextTypeProvider contextTypeProvider,
             IFeedLinkService feedLinkService,
-            IFeedFilterService feedFilterService)
+            IFeedFilterService feedFilterService,
+            IPermissionResourceTypeProvider permissionResourceTypeProvider)
             : base(
                   groupFeedService,
                   activitiesServiceFactory,
@@ -40,7 +42,8 @@ namespace Compent.Uintra.Controllers
                   permissionsService,
                   contextTypeProvider,
                   feedLinkService,
-                  feedFilterService)
+                  feedFilterService,
+                  permissionResourceTypeProvider)
         {
             _intranetMemberService = intranetMemberService;
         }
