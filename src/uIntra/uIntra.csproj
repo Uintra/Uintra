@@ -479,8 +479,8 @@
     <Reference Include="Uintra.Panels, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Panels.3.4.0\lib\net471\Uintra.Panels.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Search, Version=1.4.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Search.1.4.0.1\lib\net471\Uintra.Search.dll</HintPath>
+    <Reference Include="Uintra.Search, Version=1.4.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Search.1.4.0.2\lib\net471\Uintra.Search.dll</HintPath>
     </Reference>
     <Reference Include="Uintra.Subscribe, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Subscribe.2.4.0\lib\net471\Uintra.Subscribe.dll</HintPath>
