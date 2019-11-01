@@ -546,9 +546,9 @@ namespace Compent.Uintra
 			kernel.Bind<IIndexer>().To<DocumentIndexer>().InRequestScope();
 			kernel.Bind<IIndexer>().To<UserTagsSearchIndexer>().InRequestScope();
 			kernel.Bind<IIndexer>().To<UintraContentIndexer>().InRequestScope();
-			kernel.Bind<IIndexer>().To<MembersIndexer>().InRequestScope();
+			kernel.Bind<IIndexer>().To<MembersIndexer<SearchableMember>>().InRequestScope();
 			kernel.Bind<IContentIndexer>().To<UintraContentIndexer>().InRequestScope();
-			kernel.Bind<ISearchableMemberMapper>().To<SearchableMemberMapper>().InRequestScope();
+			kernel.Bind(typeof(ISearchableMemberMapper<>)).To<SearchableMemberMapper<SearchableMember>>().InRequestScope();
 			kernel.Bind<IDocumentIndexer>().To<DocumentIndexer>().InRequestScope();
 			kernel.Bind<IElasticConfigurationSection>().ToMethod(f => ConfigurationManager.GetSection("elasticConfiguration") as ElasticConfigurationSection).InSingletonScope();
 			kernel.Bind<IElasticSearchRepository>().To<ElasticSearchRepository>().InRequestScope().WithConstructorArgument(typeof(string), "intranet");
@@ -565,7 +565,7 @@ namespace Compent.Uintra
 			kernel.Bind<IElasticDocumentIndex>().To<ElasticDocumentIndex>().InRequestScope();
 			kernel.Bind<IElasticTagIndex>().To<ElasticTagIndex>().InRequestScope();
 			kernel.Bind<IActivityUserTagIndex>().To<ActivityUserTagIndex>().InRequestScope();
-			kernel.Bind<IElasticMemberIndex>().To<ElasticMemberIndex>().InRequestScope();
+			kernel.Bind(typeof(IElasticMemberIndex<>)).To<ElasticMemberIndex<SearchableMember>>().InRequestScope();
 			kernel.Bind<IElasticUintraContentIndex>().To<ElasticUintraContentIndex>().InRequestScope();
 			kernel.Bind<IUserTagsSearchIndexer>().To<UserTagsSearchIndexer>().InRequestScope();
 
@@ -573,7 +573,7 @@ namespace Compent.Uintra
 			kernel.Bind<IElasticEntityMapper>().To<ElasticContentIndex>().InRequestScope();
 			kernel.Bind<IElasticEntityMapper>().To<ElasticDocumentIndex>().InRequestScope();
 			kernel.Bind<IElasticEntityMapper>().To<ElasticTagIndex>().InRequestScope();
-			kernel.Bind<IElasticEntityMapper>().To<ElasticMemberIndex>().InRequestScope();
+			kernel.Bind<IElasticEntityMapper>().To<ElasticMemberIndex<SearchableMember>>().InRequestScope();
 
 			kernel.Bind<IElasticIndex>().To<UintraElasticIndex>().InRequestScope();
 			kernel.Bind<IMemberSearchDescriptorBuilder>().To<MemberSearchDescriptorBuilder>().InRequestScope();

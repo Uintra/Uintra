@@ -7,6 +7,7 @@ using Uintra.Comments.CommandBus;
 using Uintra.Core.Media;
 using Uintra.Groups.CommandBus;
 using Uintra.Likes.CommandBus;
+using Uintra.Search;
 using Uintra.Users.Commands;
 
 namespace Compent.Uintra
@@ -21,9 +22,9 @@ namespace Compent.Uintra
 			ConfigureMediaBindings(builder);
 
 			builder.HandleCommand<MemberChanged>()
-				.WithHandle<MemberHandle>();
+				.WithHandle<MemberHandle<SearchableMember>>();
 			builder.HandleCommand<MembersChanged>()
-				.WithHandle<MemberHandle>();
+				.WithHandle<MemberHandle<SearchableMember>>();
 
 			builder.HandleCommand<MentionCommand>()
 				.WithHandle<MentionHandle>();

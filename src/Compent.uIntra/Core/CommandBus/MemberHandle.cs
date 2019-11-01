@@ -7,12 +7,12 @@ using Uintra.Users.Commands;
 
 namespace Compent.Uintra.Core.CommandBus
 {
-	public class MemberHandle: IHandle<MemberChanged>, IHandle<MembersChanged>
+	public class MemberHandle<T>: IHandle<MemberChanged>, IHandle<MembersChanged> where T : SearchableMember
 	{
-		private readonly IElasticMemberIndex _elasticMemberIndex;
-		private readonly ISearchableMemberMapper _searchableMemberMapper;
+		private readonly IElasticMemberIndex<T> _elasticMemberIndex;
+		private readonly ISearchableMemberMapper<T> _searchableMemberMapper;
 
-		public MemberHandle(IElasticMemberIndex elasticMemberIndex,ISearchableMemberMapper searchableMemberMapper
+		public MemberHandle(IElasticMemberIndex<T> elasticMemberIndex,ISearchableMemberMapper<T> searchableMemberMapper
 		)
 		{
 			_elasticMemberIndex = elasticMemberIndex;

@@ -13,7 +13,7 @@ namespace Uintra.Search.Member
 		{
 			_scores = searchScoreProvider.GetScores();
 		}
-		public QueryContainer[] GetMemberDescriptors(string query)
+		public virtual QueryContainer[] GetMemberDescriptors(string query)
 		{
 			var desc = new List<QueryContainer>
 			{
@@ -41,7 +41,7 @@ namespace Uintra.Search.Member
 			return desc.ToArray();
 		}
 
-		public QueryContainer GetMemberInGroupDescriptor(Guid? groupId)
+		public virtual QueryContainer GetMemberInGroupDescriptor(Guid? groupId)
 		{
 			return new QueryContainerDescriptor<SearchableMember>()
 				.Nested(nst => nst

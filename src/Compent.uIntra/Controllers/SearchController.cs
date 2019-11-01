@@ -139,7 +139,7 @@ namespace Compent.Uintra.Controllers
                 UintraSearchableTypeEnum.Bulletins,
                 UintraSearchableTypeEnum.Content,
                 UintraSearchableTypeEnum.Document,
-                UintraSearchableTypeEnum.User
+                UintraSearchableTypeEnum.Member
             );
 
         protected override SearchBoxAutocompleteItemViewModel GetSeeAllSearchAutocompleteItemModel(string title)

@@ -7,7 +7,7 @@ using Uintra.Tagging.UserTags;
 
 namespace Uintra.Search
 {
-	public class SearchableMemberMapper : ISearchableMemberMapper
+	public class SearchableMemberMapper<T> : ISearchableMemberMapper<T> where T : SearchableMember
 	{
 		private readonly IIntranetUserContentProvider _intranetUserContentProvider;
 		private readonly IUserTagService _userTagService;
@@ -25,23 +25,23 @@ namespace Uintra.Search
 			_groupService = groupService;
 			_groupMemberService = groupMemberService;
 		}
-		public SearchableMember Map(IGroupMember member)
+		public virtual T Map(IGroupMember member)
 		{
-			var searchableUser = member.Map<SearchableMember>();
+			var searchableUser = member.Map<T>();
 			searchableUser.Url = _intranetUserContentProvider.GetProfilePage().Url.AddIdParameter(member.Id);
 			searchableUser.UserTagNames = _userTagService.Get(member.Id).Select(t => t.Text).ToList();
 			searchableUser.Groups = FillGroupInfo(member);
 
 			return searchableUser;
 		}
-		private IEnumerable<SearchableUserGroupInfo> FillGroupInfo(IGroupMember user)
+		protected virtual IEnumerable<SearchableMemberGroupInfo> FillGroupInfo(IGroupMember user)
 		{
 			var userGroups = _groupService.GetMany(user.GroupIds);
 
 			return userGroups.Select(ug =>
 			{
 				var isCreator = ug.CreatorId == user.Id;
-				var groupInfo = new SearchableUserGroupInfo()
+				var groupInfo = new SearchableMemberGroupInfo()
 				{
 					GroupId = ug.Id,
 					IsCreator = isCreator,
