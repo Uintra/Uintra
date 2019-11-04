@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using LanguageExt;
+using Uintra20.Core.User.DTO;
+
+namespace Uintra20.Core.User
+{
+    public interface IIntranetMemberService<out T>
+        where T : IIntranetMember
+    {
+        bool IsCurrentMemberSuperUser { get; }
+        T GetByUserId(int umbracoId);
+        T Get(int id);
+        T Get(Guid id);
+        T Get(IHaveOwner model);
+        IEnumerable<T> GetMany(IEnumerable<Guid> ids);
+        IEnumerable<T> GetMany(IEnumerable<int> ids);
+        IEnumerable<T> GetAll();
+        T GetCurrentMember();
+        IEnumerable<T> GetByGroup(int groupId);
+        T GetByName(string name);
+        T GetByEmail(string email);
+        bool Update(UpdateMemberDto dto);
+        Guid Create(CreateMemberDto dto);
+        Option<ReadMemberDto> Read(Guid id);
+        bool Delete(Guid id);
+    }
+}

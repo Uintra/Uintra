@@ -36,6 +36,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,13 +46,35 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Archetype, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Archetype.1.10\lib\net40\Archetype.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="ClientDependency.Core, Version=1.9.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ClientDependency.1.9.7\lib\net45\ClientDependency.Core.dll</HintPath>
     </Reference>
     <Reference Include="ClientDependency.Core.Mvc, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ClientDependency-Mvc5.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
+      <HintPath>..\..\packages\ClientDependency-Mvc.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.CommandBus, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.CommandBus.1.2.1\lib\net471\Compent.CommandBus.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.Extensions, Version=0.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Extensions.0.3.4\lib\net471\Compent.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.LinkPreview.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.LinkPreview.HttpClient, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
     <Reference Include="Compent.Shared.ConfigurationProvider.Contract, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.ConfigurationProvider.Contract.0.2.0\lib\net471\Compent.Shared.ConfigurationProvider.Contract.dll</HintPath>
@@ -66,7 +89,8 @@
       <HintPath>..\..\packages\Compent.Shared.DependencyInjection.LightInject.0.2.1\lib\net471\Compent.Shared.DependencyInjection.LightInject.dll</HintPath>
     </Reference>
     <Reference Include="Compent.Shared.Extensions.Bcl, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Shared.Extensions.Bcl.0.1.1\lib\net45\Compent.Shared.Extensions.Bcl.dll</HintPath>
+      <HintPath>..\..\packages\Compent.Shared.Extensions.Bcl.0.1.2\lib\net45\Compent.Shared.Extensions.Bcl.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Compent.Shared.Logging.Contract, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.Logging.Contract.0.1.0\lib\net471\Compent.Shared.Logging.Contract.dll</HintPath>
@@ -74,8 +98,35 @@
     <Reference Include="Compent.Shared.Logging.Serilog, Version=0.1.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.Logging.Serilog.0.1.0.2\lib\net471\Compent.Shared.Logging.Serilog.dll</HintPath>
     </Reference>
+    <Reference Include="Compent.Shared.Repository.Contract, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Shared.Repository.Contract.0.5.0\lib\net472\Compent.Shared.Repository.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.Shared.Repository.EntityFramework, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Shared.Repository.EntityFramework.0.7.1\lib\net472\Compent.Shared.Repository.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
     <Reference Include="CSharpTest.Net.Collections, Version=14.906.1403.1082, Culture=neutral, PublicKeyToken=06aee00cce822474, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CSharpTest.Net.Collections.14.906.1403.1082\lib\net40\CSharpTest.Net.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah.Mvc, Version=2.0.0.29988, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="EmailWorker.Data, Version=0.4.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Data.0.4.2.4\lib\net45\EmailWorker.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="EmailWorker.Web, Version=0.4.2.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Web.0.4.2.8\lib\net45\EmailWorker.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Examine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Examine.1.0.0\lib\net452\Examine.dll</HintPath>
@@ -91,6 +142,9 @@
     </Reference>
     <Reference Include="ImageProcessor.Web, Version=4.10.0.100, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ImageProcessor.Web.4.10.0.100\lib\net452\ImageProcessor.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="LanguageExt.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LanguageExt.Core.3.3.29\lib\net46\LanguageExt.Core.dll</HintPath>
     </Reference>
     <Reference Include="LazyCache, Version=2.0.1.113, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LazyCache.2.0.1\lib\netstandard2.0\LazyCache.dll</HintPath>
@@ -110,6 +164,9 @@
     <Reference Include="LightInject.WebApi, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LightInject.WebApi.2.0.0\lib\net46\LightInject.WebApi.dll</HintPath>
     </Reference>
+    <Reference Include="LinqKit.EntityFramework, Version=1.1.16.0, Culture=neutral, PublicKeyToken=b6c8cfc71f7a6a80, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LinqKit.EntityFramework.1.1.16\lib\net45\LinqKit.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Localization.Core, Version=0.1.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Localization.Core.0.1.6\lib\net452\Localization.Core.dll</HintPath>
     </Reference>
@@ -122,11 +179,17 @@
     <Reference Include="Localization.Web, Version=0.0.5.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Localization.Web.0.0.5.2\lib\net452\Localization.Web.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
     </Reference>
     <Reference Include="Markdown, Version=2.0.0.0, Culture=neutral, PublicKeyToken=1b320cc08ad5aa89, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Markdown.2.2.1\lib\net451\Markdown.dll</HintPath>
+    </Reference>
+    <Reference Include="MediaToolkit, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MediaToolkit.1.1.0.1\lib\net40\MediaToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -213,8 +276,23 @@
     <Reference Include="MiniProfiler.Shared, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MiniProfiler.Shared.4.0.138\lib\net461\MiniProfiler.Shared.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.9.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MySql.Data.6.9.12\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Web.Common.3.3.0\lib\net45\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Web.Common.WebHost.3.3.0\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="NPoco, Version=3.9.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NPoco.3.9.4\lib\net45\NPoco.dll</HintPath>
@@ -340,7 +418,11 @@
     <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -511,6 +593,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Archetype\css\archetype.css" />
+    <Content Include="App_Plugins\Archetype\js\archetype.js" />
+    <Content Include="App_Plugins\Archetype\langs\da-dk.js" />
+    <Content Include="App_Plugins\Archetype\langs\da.js" />
+    <Content Include="App_Plugins\Archetype\langs\de-de.js" />
+    <Content Include="App_Plugins\Archetype\langs\de.js" />
+    <Content Include="App_Plugins\Archetype\langs\en-gb.js" />
+    <Content Include="App_Plugins\Archetype\langs\en-us.js" />
+    <Content Include="App_Plugins\Archetype\langs\en.js" />
+    <Content Include="App_Plugins\Archetype\langs\es-es.js" />
+    <Content Include="App_Plugins\Archetype\langs\es.js" />
+    <Content Include="App_Plugins\Archetype\langs\fr-fr.js" />
+    <Content Include="App_Plugins\Archetype\langs\he-il.js" />
+    <Content Include="App_Plugins\Archetype\langs\it-it.js" />
+    <Content Include="App_Plugins\Archetype\langs\ja-jp.js" />
+    <Content Include="App_Plugins\Archetype\langs\ko-kr.js" />
+    <Content Include="App_Plugins\Archetype\langs\nb-no.js" />
+    <Content Include="App_Plugins\Archetype\langs\nl-nl.js" />
+    <Content Include="App_Plugins\Archetype\langs\pl-pl.js" />
+    <Content Include="App_Plugins\Archetype\langs\pt-br.js" />
+    <Content Include="App_Plugins\Archetype\langs\ru-ru.js" />
+    <Content Include="App_Plugins\Archetype\langs\sv-se.js" />
+    <Content Include="App_Plugins\Archetype\langs\zh-cn.js" />
+    <Content Include="App_Plugins\Archetype\views\archetype.config.html" />
+    <Content Include="App_Plugins\Archetype\views\archetype.default.html" />
+    <Content Include="App_Plugins\Archetype\views\archetype.html" />
     <Content Include="App_Plugins\ImagePickerExtended\Css\style.css" />
     <Content Include="App_Plugins\ImagePickerExtended\image-picker-extended.controller.js" />
     <Content Include="App_Plugins\ImagePickerExtended\image-picker-extended.html" />
@@ -560,6 +668,37 @@
     <Content Include="App_Plugins\PanelThemePicker\prevalue-editor\panel-theme-picker-prevalue.html" />
     <Content Include="App_Plugins\PanelThemePicker\prevalue-editor\theme-selector.directive.html" />
     <Content Include="App_Plugins\PanelThemePicker\prevalue-editor\theme-selector.directive.js" />
+    <Content Include="App_Plugins\SentMails\backoffice\ColumnSettings\columnSettings.controller.js" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\7z.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\bmp.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\csv.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\doc.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\file.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\html.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\jpg.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\log.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\pdf.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\png.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\ppt.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\pptx.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\psd.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\rar.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\rtf.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\tiff.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\txt.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\xlsx.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\xml.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\zip.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\umb-styles.css" />
+    <Content Include="App_Plugins\SentMails\backoffice\Mails\mails.controller.js" />
+    <Content Include="App_Plugins\SentMails\backoffice\SentMailsTree\columnSettings.html" />
+    <Content Include="App_Plugins\SentMails\backoffice\SentMailsTree\mails.html" />
+    <Content Include="App_Plugins\SentMails\backoffice\SentMailsTree\smtpSettings.html" />
+    <Content Include="App_Plugins\SentMails\backoffice\Services\sentmails.service.js" />
+    <Content Include="App_Plugins\SentMails\backoffice\SmtpSettings\smtpSettings.controller.js" />
+    <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.css" />
+    <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.html" />
+    <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.js" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\da-DK.xml" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\en-GB.xml" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\en-US.xml" />
@@ -621,6 +760,7 @@
     <Content Include="App_Plugins\VideoPicker\video-picker.controller.js" />
     <Content Include="App_Plugins\VideoPicker\video-picker.html" />
     <Content Include="App_Plugins\VideoPicker\video-picker.service.js" />
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
     <Content Include="config\Lang\da-DK.user.xml" />
@@ -646,6 +786,226 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\StartupComposer.cs" />
+    <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
+    <Compile Include="Core\Activity\Entities\IntranetActivity.cs" />
+    <Compile Include="Core\Activity\Helpers\ActivityTypeHelper.cs" />
+    <Compile Include="Core\Activity\Helpers\IActivityTypeHelper.cs" />
+    <Compile Include="Core\Activity\ICacheableIntranetActivityService.cs" />
+    <Compile Include="Core\Activity\IIntranetActivityRepository.cs" />
+    <Compile Include="Core\Activity\IIntranetActivityService.cs" />
+    <Compile Include="Core\Activity\IntranetActivityRepository.cs" />
+    <Compile Include="Core\Activity\IntranetActivityService.cs" />
+    <Compile Include="Core\Activity\IntranetActivityTypeEnum.cs" />
+    <Compile Include="Core\Activity\ITypedService.cs" />
+    <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
+    <Compile Include="Core\ApplicationSettings\ApplicationSettings.cs" />
+    <Compile Include="Core\ApplicationSettings\IApplicationSettings.cs" />
+    <Compile Include="Core\ApplicationSettings\Models\GoogleOAuth.cs" />
+    <Compile Include="Core\Bulletins\BulletinBase.cs" />
+    <Compile Include="Core\Bulletins\BulletinsService.cs" />
+    <Compile Include="Core\Bulletins\BulletinsServiceBase.cs" />
+    <Compile Include="Core\Bulletins\Entities\Bulletin.cs" />
+    <Compile Include="Core\Bulletins\IBulletinBase.cs" />
+    <Compile Include="Core\Bulletins\IBulletinsService.cs" />
+    <Compile Include="Core\Caching\CacheHelper.cs" />
+    <Compile Include="Core\Caching\ICacheService.cs" />
+    <Compile Include="Core\Caching\MemoryCacheService.cs" />
+    <Compile Include="Core\CentralFeed\Entities\FeedSettings.cs" />
+    <Compile Include="Core\CentralFeed\IFeedItemService.cs" />
+    <Compile Include="Core\Commands\MemberChanged.cs" />
+    <Compile Include="Core\Commands\MembersChanged.cs" />
+    <Compile Include="Core\Comments\Models\CommentCreateDto.cs" />
+    <Compile Include="Core\Comments\Models\CommentEditDto.cs" />
+    <Compile Include="Core\Comments\Models\CommentModel.cs" />
+    <Compile Include="Core\Comments\Services\CommentLinkPreviewService.cs" />
+    <Compile Include="Core\Comments\Services\CommentsService.cs" />
+    <Compile Include="Core\Comments\Services\ICommentable.cs" />
+    <Compile Include="Core\Comments\Services\ICommentLinkPreviewService.cs" />
+    <Compile Include="Core\Comments\Services\ICommentsService.cs" />
+    <Compile Include="Core\Comments\Sql\Comment.cs" />
+    <Compile Include="Core\Comments\Sql\CommentToLinkPreviewEntity.cs" />
+    <Compile Include="Core\Constants\DocumentTypeAliasConstants.cs" />
+    <Compile Include="Core\Constants\GridEditorConstants.cs" />
+    <Compile Include="Core\Constants\IntranetConstants.cs" />
+    <Compile Include="Core\Constants\UmbracoAliases.cs" />
+    <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
+    <Compile Include="Core\Exceptions\IExceptionLogger.cs" />
+    <Compile Include="Core\Extensions\AutoMapperExtensions.cs" />
+    <Compile Include="Core\Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Core\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Core\Extensions\EnumExtensions.cs" />
+    <Compile Include="Core\Extensions\EnumTypeExtensions.cs" />
+    <Compile Include="Core\Extensions\HttpContextExtensions.cs" />
+    <Compile Include="Core\Extensions\IntranetMemberServiceExtensions.cs" />
+    <Compile Include="Core\Extensions\ListExtensions.cs" />
+    <Compile Include="Core\Extensions\OptionExtensions.cs" />
+    <Compile Include="Core\Extensions\SerializationExtensions.cs" />
+    <Compile Include="Core\Extensions\StringExtensions.cs" />
+    <Compile Include="Core\Extensions\UmbracoMemberExtensions.cs" />
+    <Compile Include="Core\Grid\GridHelper.cs" />
+    <Compile Include="Core\Grid\IGridHelper.cs" />
+    <Compile Include="Core\Groups\IGroupActivity.cs" />
+    <Compile Include="Core\Groups\IGroupMember.cs" />
+    <Compile Include="Core\Groups\Services\GroupActivityService.cs" />
+    <Compile Include="Core\Groups\Services\IGroupActivityService.cs" />
+    <Compile Include="Core\Groups\Sql\GroupActivityRelation.cs" />
+    <Compile Include="Core\Groups\Sql\GroupMember.cs" />
+    <Compile Include="Core\Helpers\HtmlHelper.cs" />
+    <Compile Include="Core\Likes\ILikeable.cs" />
+    <Compile Include="Core\Likes\Models\LikeModel.cs" />
+    <Compile Include="Core\Likes\Services\ILikesService.cs" />
+    <Compile Include="Core\Likes\Services\LikesService.cs" />
+    <Compile Include="Core\Likes\Sql\Like.cs" />
+    <Compile Include="Core\LinkPreview\IActivityLinkPreviewService.cs" />
+    <Compile Include="Core\LinkPreview\IHasLinkPreview.cs" />
+    <Compile Include="Core\LinkPreview\LinkPreviewModelMapper.cs" />
+    <Compile Include="Core\LinkPreview\Models\LinkPreview.cs" />
+    <Compile Include="Core\LinkPreview\Sql\LinkPreviewEntity.cs" />
+    <Compile Include="Core\Links\ActivityLinkService.cs" />
+    <Compile Include="Core\Links\IActivityLinkService.cs" />
+    <Compile Include="Core\Links\IFeedLinkService.cs" />
+    <Compile Include="Core\Links\Models\ActivityCreateLinks.cs" />
+    <Compile Include="Core\Links\Models\ActivityLinks.cs" />
+    <Compile Include="Core\Links\Models\IActivityCreateLinks.cs" />
+    <Compile Include="Core\Links\Models\IActivityLinks.cs" />
+    <Compile Include="Core\Localization\IIntranetLocalizationService.cs" />
+    <Compile Include="Core\Localization\LocalizationService.cs" />
+    <Compile Include="Core\Location\IHaveLocation.cs" />
+    <Compile Include="Core\Location\Models\ActivityLocation.cs" />
+    <Compile Include="Core\Location\Services\IActivityLocationService.cs" />
+    <Compile Include="Core\Media\FolderConstants.cs" />
+    <Compile Include="Core\Media\IContentWithMediaCreateEditModel.cs" />
+    <Compile Include="Core\Media\IImageHelper.cs" />
+    <Compile Include="Core\Media\IIntranetMediaService.cs" />
+    <Compile Include="Core\Media\ImageHelper.cs" />
+    <Compile Include="Core\Media\IMediaHelper.cs" />
+    <Compile Include="Core\Media\IVideoConverter.cs" />
+    <Compile Include="Core\Media\IVideoConverterLogService.cs" />
+    <Compile Include="Core\Media\IVideoHelper.cs" />
+    <Compile Include="Core\Media\MediaConvertModel.cs" />
+    <Compile Include="Core\Media\MediaFolderTypeEnum.cs" />
+    <Compile Include="Core\Media\MediaHelper.cs" />
+    <Compile Include="Core\Media\MediaSettings.cs" />
+    <Compile Include="Core\Controls\FileUpload\TempFile.cs" />
+    <Compile Include="Core\Media\VideoConvertationLog.cs" />
+    <Compile Include="Core\Media\VideoConvertedCommand.cs" />
+    <Compile Include="Core\Media\VideoConverter.cs" />
+    <Compile Include="Core\Media\VideoConverterLogService.cs" />
+    <Compile Include="Core\Media\VideoHelper.cs" />
+    <Compile Include="Core\Media\VideoSizeMetadataModel.cs" />
+    <Compile Include="Core\Models\Feed\IFeedItem.cs" />
+    <Compile Include="Core\Notification\CommunicationTypeEnum.cs" />
+    <Compile Include="Core\Notification\Configuration\BackofficeSettings\Helpers\BackofficeSettingsReader.cs" />
+    <Compile Include="Core\Notification\Configuration\BackofficeSettings\Helpers\IBackofficeSettingsReader.cs" />
+    <Compile Include="Core\Notification\Configuration\BackofficeSettings\Providers\BackofficeNotificationSettingsProvider.cs" />
+    <Compile Include="Core\Notification\Configuration\BackofficeSettings\Providers\IBackofficeNotificationSettingsProvider.cs" />
+    <Compile Include="Core\Notification\Configuration\NotificationTypeEnum.cs" />
+    <Compile Include="Core\Notification\Configuration\NotifierTypeEnum.cs" />
+    <Compile Include="Core\Notification\Constants\TokensConstants.cs" />
+    <Compile Include="Core\Notification\DesktopNotificationModelMapper.cs" />
+    <Compile Include="Core\Notification\Entities\ActivityNotifierDataModel.cs" />
+    <Compile Include="Core\Notification\Entities\ActivityReminderDataModel.cs" />
+    <Compile Include="Core\Notification\Entities\Base\IHaveNotifierId.cs" />
+    <Compile Include="Core\Notification\Entities\Base\INotifierDataValue.cs" />
+    <Compile Include="Core\Notification\Entities\Base\Mails\MailAttachmentFile.cs" />
+    <Compile Include="Core\Notification\Entities\Base\Mails\MailBase.cs" />
+    <Compile Include="Core\Notification\Entities\Base\Mails\MailRecipient.cs" />
+    <Compile Include="Core\Notification\Entities\Base\NotifierData.cs" />
+    <Compile Include="Core\Notification\Entities\CommentNotifierDataModel.cs" />
+    <Compile Include="Core\Notification\Entities\GroupInvitationDataModel.cs" />
+    <Compile Include="Core\Notification\Entities\LikesNotifierDataModel.cs" />
+    <Compile Include="Core\Notification\Entities\MonthlyMailDataModel.cs" />
+    <Compile Include="Core\Notification\Entities\UserMentionNotifierDataModel.cs" />
+    <Compile Include="Core\Notification\INotifierTypeProvider.cs" />
+    <Compile Include="Core\Notification\MailConfiguration.cs" />
+    <Compile Include="Core\Notification\MailNotificationModelMapper.cs" />
+    <Compile Include="Core\Notification\Models\ActivityEventIdentity.cs" />
+    <Compile Include="Core\Notification\Models\ActivityEventIdentityExtensions.cs" />
+    <Compile Include="Core\Notification\Models\ActivityEventNotifierIdentity.cs" />
+    <Compile Include="Core\Notification\Models\Configuration\NotificationSettingDefaults.cs" />
+    <Compile Include="Core\Notification\Models\Configuration\NotifierSettingModel.cs" />
+    <Compile Include="Core\Notification\Models\Configuration\NotifierSettingsModel.cs" />
+    <Compile Include="Core\Notification\Models\DesktopNotificationMessage.cs" />
+    <Compile Include="Core\Notification\Models\INotificationMessage.cs" />
+    <Compile Include="Core\Notification\Models\NotifierTemplates\DesktopNotifierTemplate.cs" />
+    <Compile Include="Core\Notification\Models\NotifierTemplates\EmailNotifierTemplate.cs" />
+    <Compile Include="Core\Notification\Models\NotifierTemplates\INotifierTemplate.cs" />
+    <Compile Include="Core\Notification\Models\NotifierTemplates\PopupNotifierTemplate.cs" />
+    <Compile Include="Core\Notification\Models\NotifierTemplates\UiNotifierTemplate.cs" />
+    <Compile Include="Core\Notification\Models\PopupNotificationMessage.cs" />
+    <Compile Include="Core\Notification\Models\UiNotificationMessage.cs" />
+    <Compile Include="Core\Notification\NotificationMessageTypes.cs" />
+    <Compile Include="Core\Notification\NotifierTypeProvider.cs" />
+    <Compile Include="Core\Notification\PopupNotificationModelMapper.cs" />
+    <Compile Include="Core\Notification\Services\IMailService.cs" />
+    <Compile Include="Core\Notification\Services\MailNotifierService.cs" />
+    <Compile Include="Core\Notification\Services\MailService.cs" />
+    <Compile Include="Core\Notification\Services\PopupNotifierService.cs" />
+    <Compile Include="Core\Notification\Services\IMemberNotifiersSettingsService.cs" />
+    <Compile Include="Core\Notification\Services\INotificationModelMapper.cs" />
+    <Compile Include="Core\Notification\Services\INotificationSettingsService.cs" />
+    <Compile Include="Core\Notification\Services\INotificationsService.cs" />
+    <Compile Include="Core\Notification\Services\INotifierService.cs" />
+    <Compile Include="Core\Notification\Services\INotifyableService.cs" />
+    <Compile Include="Core\Notification\Services\IPopupNotificationService.cs" />
+    <Compile Include="Core\Notification\Services\IUiNotificationService.cs" />
+    <Compile Include="Core\Notification\Services\MemberNotifiersSettingsService.cs" />
+    <Compile Include="Core\Notification\Services\NotificationSettingsService.cs" />
+    <Compile Include="Core\Notification\Services\NotificationsService.cs" />
+    <Compile Include="Core\Notification\Services\PopupNotificationsService.cs" />
+    <Compile Include="Core\Notification\Services\UiNotificationService.cs" />
+    <Compile Include="Core\Notification\Services\UiNotifierService.cs" />
+    <Compile Include="Core\Notification\Sql\MemberNotifierSetting.cs" />
+    <Compile Include="Core\Notification\Sql\Notification.cs" />
+    <Compile Include="Core\Notification\Sql\NotificationSetting.cs" />
+    <Compile Include="Core\Notification\UiNotificationModelMapper.cs" />
+    <Compile Include="Core\Permissions\Implementation\IntranetMemberGroupService.cs" />
+    <Compile Include="Core\Permissions\Interfaces\IIntranetMemberGroupService.cs" />
+    <Compile Include="Core\Permissions\Interfaces\IPermissionsService.cs" />
+    <Compile Include="Core\Permissions\Models\IntranetMemberGroup.cs" />
+    <Compile Include="Core\Permissions\Models\PermissionManagementModel.cs" />
+    <Compile Include="Core\Permissions\Models\PermissionModel.cs" />
+    <Compile Include="Core\Permissions\Models\PermissionSettingIdentity.cs" />
+    <Compile Include="Core\Permissions\Models\PermissionSettingValues.cs" />
+    <Compile Include="Core\Permissions\Models\PermissionUpdateModel.cs" />
+    <Compile Include="Core\Permissions\PermissionActionEnum.cs" />
+    <Compile Include="Core\Providers\ContentProviderBase.cs" />
+    <Compile Include="Core\Providers\DocumentTypeProvider.cs" />
+    <Compile Include="Core\Providers\IClientTimezoneProvider.cs" />
+    <Compile Include="Core\Providers\IDateTimeFormatProvider.cs" />
+    <Compile Include="Core\Providers\IDocumentTypeAliasProvider.cs" />
+    <Compile Include="Core\Search\IIndexer.cs" />
+    <Compile Include="Core\TypeProviders\EnumTypeProviderBase.cs" />
+    <Compile Include="Core\TypeProviders\IActivityTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\IEnumTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\IMediaFolderTypeProvider.cs" />
+    <Compile Include="Core\TypeProviders\MediaFolderTypeProvider.cs" />
+    <Compile Include="Core\User\DTO\CreateMemberDto.cs" />
+    <Compile Include="Core\User\DTO\ReadMemberDto.cs" />
+    <Compile Include="Core\User\DTO\UpdateMemberDto.cs" />
+    <Compile Include="Core\User\Entities\IntranetMember.cs" />
+    <Compile Include="Core\User\ICacheableIntranetMemberService.cs" />
+    <Compile Include="Core\User\IHaveCreator.cs" />
+    <Compile Include="Core\User\IHaveOwner.cs" />
+    <Compile Include="Core\User\IIntranetMember.cs" />
+    <Compile Include="Core\User\IIntranetMemberService.cs" />
+    <Compile Include="Core\User\IIntranetUser.cs" />
+    <Compile Include="Core\User\IIntranetUserContentProvider.cs" />
+    <Compile Include="Core\User\IIntranetUserService.cs" />
+    <Compile Include="Core\User\IntranetMemberService.cs" />
+    <Compile Include="Core\User\IntranetMemberServiceBase.cs" />
+    <Compile Include="Core\User\IntranetUserContentProvider.cs" />
+    <Compile Include="Core\User\IntranetUserService.cs" />
+    <Compile Include="Core\User\ProfileConstants.cs" />
+    <Compile Include="Core\Utils\EmbeddedResourceService.cs" />
+    <Compile Include="Core\Utils\EmbeddedResourcesUtils.cs" />
+    <Compile Include="Core\Utils\IEmbeddedResourceService.cs" />
+    <Compile Include="Core\XPathHelper.cs" />
+    <Compile Include="Persistence\IntranetDbContext.cs" />
+    <Compile Include="Persistence\Sql\ISqlRepository.cs" />
+    <Compile Include="Persistence\Sql\SqlEntity.cs" />
+    <Compile Include="Persistence\Sql\SqlRepository.cs" />
+    <Compile Include="Persistence\UintraTableAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -680,6 +1040,7 @@
     <Content Include="App_Plugins\KeyValueRadioButtonList\package.manifest" />
     <Content Include="App_Plugins\KeyValueDropdownList\package.manifest" />
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
+    <Content Include="App_Plugins\SentMails\package.manifest" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
@@ -747,6 +1108,7 @@
   <Import Project="..\..\packages\UmbracoCms.8.1.5\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.8.1.5\build\UmbracoCms.targets')" />
   <Import Project="..\..\packages\uSync.8.1.1\build\uSync.targets" Condition="Exists('..\..\packages\uSync.8.1.1\build\uSync.targets')" />
   <Import Project="..\..\packages\Compent.UBaseline.UI.0.2.6\build\Compent.UBaseline.UI.targets" Condition="Exists('..\..\packages\Compent.UBaseline.UI.0.2.6\build\Compent.UBaseline.UI.targets')" />
+  <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
