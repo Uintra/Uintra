@@ -35,33 +35,44 @@ namespace Uintra.Users.Web
 
 			var groupId = Request.QueryString["groupId"].Apply(parseGuid).ToNullable();
 
-			var viewModel = new UserListViewModel
-			{
-				AmountPerRequest = model.AmountPerRequest,
-				DisplayedAmount = model.DisplayedAmount,
-				Title = model.Title,
-				MembersRows = GetUsersRowsViewModel(),
-				OrderByColumn = orderByColumn
-			};
+            var query = GetActiveMemberSearchQuery(model);
+            query.OrderingString = orderByColumn?.PropertyName;
+            query.GroupId = groupId;
+            query.MembersOfGroup = groupId.HasValue;
 
-			var activeUserSearchRequest = new ActiveMemberSearchQuery
-			{
-				Text = string.Empty,
-				Skip = 0,
-				Take = model.DisplayedAmount,
-				OrderingString = orderByColumn?.PropertyName,
-				GroupId = groupId,
-				MembersOfGroup = groupId.HasValue
+			var (activeUsers, isLastRequest) = GetActiveUsers(query);
 
-			};
-
-			var (activeUsers, isLastRequest) = GetActiveUsers(activeUserSearchRequest);
-			viewModel.MembersRows.SelectedColumns = UsersPresentationHelper.ExtendIfGroupMembersPage(groupId, selectedColumns);
+            var viewModel = GetUserListViewModel(model);
+            viewModel.OrderByColumn = orderByColumn;
+            viewModel.MembersRows.SelectedColumns = UsersPresentationHelper.ExtendIfGroupMembersPage(groupId, selectedColumns);
 			viewModel.MembersRows.Members = activeUsers;
 			viewModel.IsLastRequest = isLastRequest;
 
 			return View(UserListViewPath, viewModel);
 		}
+
+        protected virtual ActiveMemberSearchQuery GetActiveMemberSearchQuery(UserListModel model)
+        {
+            var activeUserSearchRequest = new ActiveMemberSearchQuery
+            {
+                Text = string.Empty,
+                Skip = 0,
+                Take = model.DisplayedAmount
+            };
+            return activeUserSearchRequest;
+        }
+
+        protected virtual UserListViewModel GetUserListViewModel(UserListModel model)
+        {
+            var viewModel = new UserListViewModel
+            {
+                AmountPerRequest = model.AmountPerRequest,
+                DisplayedAmount = model.DisplayedAmount,
+                Title = model.Title,
+                MembersRows = GetUsersRowsViewModel()
+            };
+            return viewModel;
+        }
 
 		public virtual ActionResult GetUsers(MembersListSearchModel listSearch)
 		{
@@ -132,7 +143,7 @@ namespace Uintra.Users.Web
 			}
 		}
 
-		private (IEnumerable<MemberModel> result, bool isLastRequest) GetActiveUsers(ActiveMemberSearchQuery query)
+		protected virtual (IEnumerable<MemberModel> result, bool isLastRequest) GetActiveUsers(ActiveMemberSearchQuery query)
 		{
 			var (searchResult, totalHits) = GetActiveUserIds(query);
 

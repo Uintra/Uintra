@@ -10,7 +10,7 @@ namespace Uintra.Search
 {
     public class ElasticMemberIndex<T> : IElasticMemberIndex<T>, IElasticEntityMapper where T : SearchableMember
     {
-        protected const int MinimumShouldMatches = 1;
+        protected virtual int MinimumShouldMatches => 1;
 
         private readonly IElasticSearchRepository<T> _elasticSearchRepository;
         private readonly IMemberSearchDescriptorBuilder _memberSearchDescriptorBuilder;
@@ -50,10 +50,15 @@ namespace Uintra.Search
             _elasticSearchRepository.Save(members);
         }
 
+        protected virtual QueryContainer GetDefaultMemberQueryContainer(MemberSearchQuery query)
+        {
+            return new QueryContainerDescriptor<T>()
+                .Bool(b => b.Should(_memberSearchDescriptorBuilder.GetMemberDescriptors(query.Text)));
+        }
+
         public virtual SearchResult<T> Search(MemberSearchQuery query)
         {
-            var shouldDescriptor = new QueryContainerDescriptor<SearchableMember>()
-                .Bool(b => b.Should(_memberSearchDescriptorBuilder.GetMemberDescriptors(query.Text)));
+            var shouldDescriptor = GetDefaultMemberQueryContainer(query);
 
             QueryContainer allDescriptors = null;
 
