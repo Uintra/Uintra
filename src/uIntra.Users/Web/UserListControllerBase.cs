@@ -48,7 +48,7 @@ namespace Uintra.Users.Web
 			viewModel.MembersRows.Members = activeUsers;
 			viewModel.IsLastRequest = isLastRequest;
 
-			return View(UserListViewPath, viewModel);
+			return PartialView(UserListViewPath, viewModel);
 		}
 
         protected virtual ActiveMemberSearchQuery GetActiveMemberSearchQuery(UserListModel model)
@@ -171,6 +171,6 @@ namespace Uintra.Users.Web
 
 		[ChildActionOnly]
 		public ActionResult RenderRows(MembersRowsViewModel model) =>
-			View(UsersRowsViewPath, model);
+			PartialView(UsersRowsViewPath, model);
 	}
 }
