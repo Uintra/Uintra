@@ -148,7 +148,11 @@ namespace Compent.Uintra.Controllers
             var news = _newsService.Get(activityId);
             var groupId = Request.QueryString.GetGroupIdOrNone();
 
-            groupId.IfSome(id => _groupActivityService.AddRelation(id, activityId));
+            groupId.IfSome(id =>
+            {
+	            _groupActivityService.AddRelation(id, activityId);
+				news.GroupId = id;
+            });
 
             if (model is NewsExtendedCreateModel extendedModel)
             {
