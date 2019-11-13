@@ -49,9 +49,6 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Archetype, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Archetype.1.10\lib\net40\Archetype.dll</HintPath>
-    </Reference>
     <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
@@ -116,12 +113,6 @@
     <Reference Include="Elmah.Mvc, Version=2.0.0.29988, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="EmailWorker.Data, Version=0.4.2.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EmailWorker.Data.0.4.2.4\lib\net45\EmailWorker.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="EmailWorker.Web, Version=0.4.2.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EmailWorker.Web.0.4.2.8\lib\net45\EmailWorker.Web.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -130,6 +121,24 @@
     </Reference>
     <Reference Include="Examine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Examine.1.0.0\lib\net452\Examine.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis, Version=1.34.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Google.Apis.1.34.0\lib\net45\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Admin.Directory.directory_v1, Version=1.34.0.1208, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Google.Apis.Admin.Directory.directory_v1.1.34.0.1208\lib\net45\Google.Apis.Admin.Directory.directory_v1.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.34.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Google.Apis.Auth.1.34.0\lib\net45\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.34.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Google.Apis.Auth.1.34.0\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.34.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Google.Apis.Core.1.34.0\lib\net45\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices, Version=1.34.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Google.Apis.1.34.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.8.14.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\HtmlAgilityPack.1.8.14\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -558,6 +567,9 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="TimeZoneConverter, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e20ab7d0d9479841, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TimeZoneConverter.3.0.0\lib\net471\TimeZoneConverter.dll</HintPath>
+    </Reference>
     <Reference Include="UBaseline.Core, Version=0.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.UBaseline.Core.0.2.6\lib\net472\UBaseline.Core.dll</HintPath>
     </Reference>
@@ -591,34 +603,11 @@
     <Reference Include="uSync8.Core, Version=8.1.1.722, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uSync.Core.8.1.1\lib\net472\uSync8.Core.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Archetype\css\archetype.css" />
-    <Content Include="App_Plugins\Archetype\js\archetype.js" />
-    <Content Include="App_Plugins\Archetype\langs\da-dk.js" />
-    <Content Include="App_Plugins\Archetype\langs\da.js" />
-    <Content Include="App_Plugins\Archetype\langs\de-de.js" />
-    <Content Include="App_Plugins\Archetype\langs\de.js" />
-    <Content Include="App_Plugins\Archetype\langs\en-gb.js" />
-    <Content Include="App_Plugins\Archetype\langs\en-us.js" />
-    <Content Include="App_Plugins\Archetype\langs\en.js" />
-    <Content Include="App_Plugins\Archetype\langs\es-es.js" />
-    <Content Include="App_Plugins\Archetype\langs\es.js" />
-    <Content Include="App_Plugins\Archetype\langs\fr-fr.js" />
-    <Content Include="App_Plugins\Archetype\langs\he-il.js" />
-    <Content Include="App_Plugins\Archetype\langs\it-it.js" />
-    <Content Include="App_Plugins\Archetype\langs\ja-jp.js" />
-    <Content Include="App_Plugins\Archetype\langs\ko-kr.js" />
-    <Content Include="App_Plugins\Archetype\langs\nb-no.js" />
-    <Content Include="App_Plugins\Archetype\langs\nl-nl.js" />
-    <Content Include="App_Plugins\Archetype\langs\pl-pl.js" />
-    <Content Include="App_Plugins\Archetype\langs\pt-br.js" />
-    <Content Include="App_Plugins\Archetype\langs\ru-ru.js" />
-    <Content Include="App_Plugins\Archetype\langs\sv-se.js" />
-    <Content Include="App_Plugins\Archetype\langs\zh-cn.js" />
-    <Content Include="App_Plugins\Archetype\views\archetype.config.html" />
-    <Content Include="App_Plugins\Archetype\views\archetype.default.html" />
-    <Content Include="App_Plugins\Archetype\views\archetype.html" />
     <Content Include="App_Plugins\ImagePickerExtended\Css\style.css" />
     <Content Include="App_Plugins\ImagePickerExtended\image-picker-extended.controller.js" />
     <Content Include="App_Plugins\ImagePickerExtended\image-picker-extended.html" />
@@ -668,37 +657,6 @@
     <Content Include="App_Plugins\PanelThemePicker\prevalue-editor\panel-theme-picker-prevalue.html" />
     <Content Include="App_Plugins\PanelThemePicker\prevalue-editor\theme-selector.directive.html" />
     <Content Include="App_Plugins\PanelThemePicker\prevalue-editor\theme-selector.directive.js" />
-    <Content Include="App_Plugins\SentMails\backoffice\ColumnSettings\columnSettings.controller.js" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\7z.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\bmp.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\csv.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\doc.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\file.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\html.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\jpg.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\log.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\pdf.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\png.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\ppt.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\pptx.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\psd.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\rar.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\rtf.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\tiff.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\txt.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\xlsx.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\xml.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\icons\zip.svg" />
-    <Content Include="App_Plugins\SentMails\backoffice\css\umb-styles.css" />
-    <Content Include="App_Plugins\SentMails\backoffice\Mails\mails.controller.js" />
-    <Content Include="App_Plugins\SentMails\backoffice\SentMailsTree\columnSettings.html" />
-    <Content Include="App_Plugins\SentMails\backoffice\SentMailsTree\mails.html" />
-    <Content Include="App_Plugins\SentMails\backoffice\SentMailsTree\smtpSettings.html" />
-    <Content Include="App_Plugins\SentMails\backoffice\Services\sentmails.service.js" />
-    <Content Include="App_Plugins\SentMails\backoffice\SmtpSettings\smtpSettings.controller.js" />
-    <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.css" />
-    <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.html" />
-    <Content Include="App_Plugins\SentMails\dashboard\dashboardsentMails.js" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\da-DK.xml" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\en-GB.xml" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\en-US.xml" />
@@ -785,11 +743,26 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\CommandBusConfiguration.cs" />
+    <Compile Include="App_Start\LightInjectWebCommon.cs" />
+    <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="App_Start\StartupComposer.cs" />
+    <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Attributes\RequiredIfAllEmpty.cs" />
+    <Compile Include="Attributes\RequiredIfEmptyAttribute.cs" />
+    <Compile Include="Attributes\StringLenghtWithoutHtmlAttribute.cs" />
+    <Compile Include="Controllers\BulletinsController.cs" />
+    <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
+    <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
     <Compile Include="Core\Activity\Entities\IntranetActivity.cs" />
+    <Compile Include="Core\Activity\Factories\CacheActivityPageHelperFactory.cs" />
+    <Compile Include="Core\Activity\Factories\IActivityPageHelperFactory.cs" />
+    <Compile Include="Core\Activity\Helpers\ActivityPageHelper.cs" />
     <Compile Include="Core\Activity\Helpers\ActivityTypeHelper.cs" />
+    <Compile Include="Core\Activity\Helpers\IActivityPageHelper.cs" />
     <Compile Include="Core\Activity\Helpers\IActivityTypeHelper.cs" />
+    <Compile Include="Core\Activity\IActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\ICacheableIntranetActivityService.cs" />
     <Compile Include="Core\Activity\IIntranetActivityRepository.cs" />
     <Compile Include="Core\Activity\IIntranetActivityService.cs" />
@@ -797,23 +770,52 @@
     <Compile Include="Core\Activity\IntranetActivityService.cs" />
     <Compile Include="Core\Activity\IntranetActivityTypeEnum.cs" />
     <Compile Include="Core\Activity\ITypedService.cs" />
+    <Compile Include="Core\Activity\Models\Headers\ExtendedItemHeaderViewModel.cs" />
+    <Compile Include="Core\Activity\Models\Headers\IntranetActivityDetailsHeaderViewModel.cs" />
+    <Compile Include="Core\Activity\Models\Headers\IntranetActivityItemHeaderViewModel.cs" />
+    <Compile Include="Core\Activity\Models\IntranetActivityCreateModelBase.cs" />
+    <Compile Include="Core\Activity\Models\IntranetActivityEditModelBase.cs" />
+    <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
     <Compile Include="Core\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Core\ApplicationSettings\Models\GoogleOAuth.cs" />
+    <Compile Include="Core\Bulletins\AutoMapperProfiles\BulletinsAutoMapperProfile.cs" />
     <Compile Include="Core\Bulletins\BulletinBase.cs" />
     <Compile Include="Core\Bulletins\BulletinsService.cs" />
     <Compile Include="Core\Bulletins\BulletinsServiceBase.cs" />
     <Compile Include="Core\Bulletins\Entities\Bulletin.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinExtendedCreateModel.cs" />
     <Compile Include="Core\Bulletins\IBulletinBase.cs" />
     <Compile Include="Core\Bulletins\IBulletinsService.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinCreateModel.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinCreationResultModel.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinEditModel.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinExtendedEditModel.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinExtendedViewModel.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinItemViewModel.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinPreviewViewModel.cs" />
+    <Compile Include="Core\Bulletins\Models\BulletinViewModel.cs" />
+    <Compile Include="Core\Bulletins\Web\BulletinsControllerBase.cs" />
     <Compile Include="Core\Caching\CacheHelper.cs" />
     <Compile Include="Core\Caching\ICacheService.cs" />
     <Compile Include="Core\Caching\MemoryCacheService.cs" />
+    <Compile Include="Core\CentralFeed\AutoMapperProfiles\CentralFeedAutoMapperProfile.cs" />
     <Compile Include="Core\CentralFeed\Entities\FeedSettings.cs" />
+    <Compile Include="Core\CentralFeed\Enums\CentralFeedTypeEnum.cs" />
     <Compile Include="Core\CentralFeed\IFeedItemService.cs" />
+    <Compile Include="Core\CentralFeed\Links\ActivityTransferCreateModel.cs" />
+    <Compile Include="Core\CentralFeed\Links\ActivityTransferModel.cs" />
+    <Compile Include="Core\CentralFeed\Links\CentralFeedLinkProvider.cs" />
+    <Compile Include="Core\CentralFeed\Links\CentralFeedLinkProviderHelper.cs" />
+    <Compile Include="Core\CentralFeed\Links\FeedLinkProvider.cs" />
+    <Compile Include="Core\CentralFeed\Links\ICentralFeedLinkProvider.cs" />
     <Compile Include="Core\Commands\MemberChanged.cs" />
     <Compile Include="Core\Commands\MembersChanged.cs" />
+    <Compile Include="Core\Comments\AutoMapperProfiles\CommentAutoMapperProfile.cs" />
+    <Compile Include="Core\Comments\Links\CommentLinkHelper.cs" />
+    <Compile Include="Core\Comments\Links\ICommentLinkHelper.cs" />
     <Compile Include="Core\Comments\Models\CommentCreateDto.cs" />
     <Compile Include="Core\Comments\Models\CommentEditDto.cs" />
     <Compile Include="Core\Comments\Models\CommentModel.cs" />
@@ -828,6 +830,11 @@
     <Compile Include="Core\Constants\GridEditorConstants.cs" />
     <Compile Include="Core\Constants\IntranetConstants.cs" />
     <Compile Include="Core\Constants\UmbracoAliases.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxAutoMapperProfile.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewModel.cs" />
+    <Compile Include="Core\Events\AutoMapperProfiles\EventsAutoMapperProfile.cs" />
+    <Compile Include="Core\Events\Entities\Events.cs" />
+    <Compile Include="Core\Events\EventBase.cs" />
     <Compile Include="Core\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Core\Exceptions\IExceptionLogger.cs" />
     <Compile Include="Core\Extensions\AutoMapperExtensions.cs" />
@@ -838,47 +845,76 @@
     <Compile Include="Core\Extensions\HttpContextExtensions.cs" />
     <Compile Include="Core\Extensions\IntranetMemberServiceExtensions.cs" />
     <Compile Include="Core\Extensions\ListExtensions.cs" />
+    <Compile Include="Core\Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Core\Extensions\OptionExtensions.cs" />
     <Compile Include="Core\Extensions\SerializationExtensions.cs" />
     <Compile Include="Core\Extensions\StringExtensions.cs" />
+    <Compile Include="Core\Extensions\TreeExt.cs" />
     <Compile Include="Core\Extensions\UmbracoMemberExtensions.cs" />
+    <Compile Include="Core\Feed\ActivityFeedOptions.cs" />
+    <Compile Include="Core\Feed\ActivityFeedOptionsWithGroups.cs" />
     <Compile Include="Core\Grid\GridHelper.cs" />
     <Compile Include="Core\Grid\IGridHelper.cs" />
+    <Compile Include="Core\Groups\AutoMapperProfiles\GroupsAutoMapperProfile.cs" />
+    <Compile Include="Core\Groups\Constants\GroupConstants.cs" />
     <Compile Include="Core\Groups\IGroupActivity.cs" />
     <Compile Include="Core\Groups\IGroupMember.cs" />
+    <Compile Include="Core\Groups\Links\GroupActivityTransferCreateModel.cs" />
+    <Compile Include="Core\Groups\Links\GroupActivityTransferModel.cs" />
+    <Compile Include="Core\Groups\Links\GroupFeedLinkProvider.cs" />
+    <Compile Include="Core\Groups\Links\IGroupFeedLinkProvider.cs" />
+    <Compile Include="Core\Groups\Models\GroupModel.cs" />
     <Compile Include="Core\Groups\Services\GroupActivityService.cs" />
+    <Compile Include="Core\Groups\Services\GroupService.cs" />
     <Compile Include="Core\Groups\Services\IGroupActivityService.cs" />
+    <Compile Include="Core\Groups\Services\IGroupService.cs" />
+    <Compile Include="Core\Groups\Sql\Group.cs" />
     <Compile Include="Core\Groups\Sql\GroupActivityRelation.cs" />
+    <Compile Include="Core\Groups\Sql\GroupDocument.cs" />
     <Compile Include="Core\Groups\Sql\GroupMember.cs" />
     <Compile Include="Core\Helpers\HtmlHelper.cs" />
+    <Compile Include="Core\Helpers\INotifierDataHelper.cs" />
+    <Compile Include="Core\Helpers\NotifierDataHelper.cs" />
+    <Compile Include="Core\Ioc\CommandBusDependencyResolver.cs" />
     <Compile Include="Core\Likes\ILikeable.cs" />
     <Compile Include="Core\Likes\Models\LikeModel.cs" />
     <Compile Include="Core\Likes\Services\ILikesService.cs" />
     <Compile Include="Core\Likes\Services\LikesService.cs" />
     <Compile Include="Core\Likes\Sql\Like.cs" />
+    <Compile Include="Core\LinkPreview\ActivityLinkPreviewService.cs" />
+    <Compile Include="Core\LinkPreview\AutoMapperProfiles\LinkPreviewAutoMapperProfile.cs" />
     <Compile Include="Core\LinkPreview\IActivityLinkPreviewService.cs" />
     <Compile Include="Core\LinkPreview\IHasLinkPreview.cs" />
     <Compile Include="Core\LinkPreview\LinkPreviewModelMapper.cs" />
     <Compile Include="Core\LinkPreview\Models\LinkPreview.cs" />
+    <Compile Include="Core\LinkPreview\Models\LinkPreviewViewModel.cs" />
+    <Compile Include="Core\LinkPreview\Sql\ActivityToLinkPreviewEntity.cs" />
     <Compile Include="Core\LinkPreview\Sql\LinkPreviewEntity.cs" />
     <Compile Include="Core\Links\ActivityLinkService.cs" />
     <Compile Include="Core\Links\IActivityLinkService.cs" />
     <Compile Include="Core\Links\IFeedLinkService.cs" />
+    <Compile Include="Core\Links\IProfileLinkProvider.cs" />
     <Compile Include="Core\Links\Models\ActivityCreateLinks.cs" />
     <Compile Include="Core\Links\Models\ActivityLinks.cs" />
     <Compile Include="Core\Links\Models\IActivityCreateLinks.cs" />
     <Compile Include="Core\Links\Models\IActivityLinks.cs" />
+    <Compile Include="Core\Links\ProfileLinkProvider.cs" />
     <Compile Include="Core\Localization\IIntranetLocalizationService.cs" />
     <Compile Include="Core\Localization\LocalizationService.cs" />
+    <Compile Include="Core\Location\AutoMapperProfiles\LocationAutoMapperProfile.cs" />
     <Compile Include="Core\Location\IHaveLocation.cs" />
     <Compile Include="Core\Location\Models\ActivityLocation.cs" />
+    <Compile Include="Core\Location\Models\ActivityLocationEditModel.cs" />
+    <Compile Include="Core\Location\Services\ActivityLocationService.cs" />
     <Compile Include="Core\Location\Services\IActivityLocationService.cs" />
+    <Compile Include="Core\Location\Sql\ActivityLocationEntity.cs" />
     <Compile Include="Core\Media\FolderConstants.cs" />
     <Compile Include="Core\Media\IContentWithMediaCreateEditModel.cs" />
     <Compile Include="Core\Media\IImageHelper.cs" />
     <Compile Include="Core\Media\IIntranetMediaService.cs" />
     <Compile Include="Core\Media\ImageHelper.cs" />
     <Compile Include="Core\Media\IMediaHelper.cs" />
+    <Compile Include="Core\Media\IntranetMediaService.cs" />
     <Compile Include="Core\Media\IVideoConverter.cs" />
     <Compile Include="Core\Media\IVideoConverterLogService.cs" />
     <Compile Include="Core\Media\IVideoHelper.cs" />
@@ -887,13 +923,22 @@
     <Compile Include="Core\Media\MediaHelper.cs" />
     <Compile Include="Core\Media\MediaSettings.cs" />
     <Compile Include="Core\Controls\FileUpload\TempFile.cs" />
+    <Compile Include="Core\Media\Sql\IntranetMediaEntity.cs" />
     <Compile Include="Core\Media\VideoConvertationLog.cs" />
     <Compile Include="Core\Media\VideoConvertedCommand.cs" />
     <Compile Include="Core\Media\VideoConverter.cs" />
     <Compile Include="Core\Media\VideoConverterLogService.cs" />
     <Compile Include="Core\Media\VideoHelper.cs" />
     <Compile Include="Core\Media\VideoSizeMetadataModel.cs" />
+    <Compile Include="Core\MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Core\Models\Feed\IFeedItem.cs" />
+    <Compile Include="Core\Models\GroupFeed\GroupInfo.cs" />
+    <Compile Include="Core\Navigation\AutoMapperProfiles\NavigationAutoMapperProfile.cs" />
+    <Compile Include="Core\Navigation\Models\MyLinkDTO.cs" />
+    <Compile Include="Core\Navigation\Services\IMyLinksService.cs" />
+    <Compile Include="Core\Navigation\Services\MyLinksService.cs" />
+    <Compile Include="Core\Navigation\Sql\MyLink.cs" />
+    <Compile Include="Core\Notification\AutoMapperProfiles\NotificationAutoMapperProfile.cs" />
     <Compile Include="Core\Notification\CommunicationTypeEnum.cs" />
     <Compile Include="Core\Notification\Configuration\BackofficeSettings\Helpers\BackofficeSettingsReader.cs" />
     <Compile Include="Core\Notification\Configuration\BackofficeSettings\Helpers\IBackofficeSettingsReader.cs" />
@@ -901,12 +946,14 @@
     <Compile Include="Core\Notification\Configuration\BackofficeSettings\Providers\IBackofficeNotificationSettingsProvider.cs" />
     <Compile Include="Core\Notification\Configuration\NotificationTypeEnum.cs" />
     <Compile Include="Core\Notification\Configuration\NotifierTypeEnum.cs" />
+    <Compile Include="Core\Notification\Configuration\ReminderTypeEnum.cs" />
     <Compile Include="Core\Notification\Constants\TokensConstants.cs" />
     <Compile Include="Core\Notification\DesktopNotificationModelMapper.cs" />
     <Compile Include="Core\Notification\Entities\ActivityNotifierDataModel.cs" />
     <Compile Include="Core\Notification\Entities\ActivityReminderDataModel.cs" />
     <Compile Include="Core\Notification\Entities\Base\IHaveNotifierId.cs" />
     <Compile Include="Core\Notification\Entities\Base\INotifierDataValue.cs" />
+    <Compile Include="Core\Notification\Entities\Base\IReminderable.cs" />
     <Compile Include="Core\Notification\Entities\Base\Mails\MailAttachmentFile.cs" />
     <Compile Include="Core\Notification\Entities\Base\Mails\MailBase.cs" />
     <Compile Include="Core\Notification\Entities\Base\Mails\MailRecipient.cs" />
@@ -916,6 +963,7 @@
     <Compile Include="Core\Notification\Entities\LikesNotifierDataModel.cs" />
     <Compile Include="Core\Notification\Entities\MonthlyMailDataModel.cs" />
     <Compile Include="Core\Notification\Entities\UserMentionNotifierDataModel.cs" />
+    <Compile Include="Core\Notification\INotifierDataBuilder.cs" />
     <Compile Include="Core\Notification\INotifierTypeProvider.cs" />
     <Compile Include="Core\Notification\MailConfiguration.cs" />
     <Compile Include="Core\Notification\MailNotificationModelMapper.cs" />
@@ -935,6 +983,7 @@
     <Compile Include="Core\Notification\Models\PopupNotificationMessage.cs" />
     <Compile Include="Core\Notification\Models\UiNotificationMessage.cs" />
     <Compile Include="Core\Notification\NotificationMessageTypes.cs" />
+    <Compile Include="Core\Notification\NotifierDataBuilder.cs" />
     <Compile Include="Core\Notification\NotifierTypeProvider.cs" />
     <Compile Include="Core\Notification\PopupNotificationModelMapper.cs" />
     <Compile Include="Core\Notification\Services\IMailService.cs" />
@@ -958,9 +1007,15 @@
     <Compile Include="Core\Notification\Sql\MemberNotifierSetting.cs" />
     <Compile Include="Core\Notification\Sql\Notification.cs" />
     <Compile Include="Core\Notification\Sql\NotificationSetting.cs" />
+    <Compile Include="Core\Notification\Sql\Reminder.cs" />
     <Compile Include="Core\Notification\UiNotificationModelMapper.cs" />
+    <Compile Include="Core\Permissions\AutoMapperProfiles\PermissionsAutoMapperProfile.cs" />
     <Compile Include="Core\Permissions\Implementation\IntranetMemberGroupService.cs" />
+    <Compile Include="Core\Permissions\Implementation\PermissionSettingsSchemaProvider.cs" />
+    <Compile Include="Core\Permissions\Implementation\PermissionSettingsSchemaProviderFunctions.cs" />
+    <Compile Include="Core\Permissions\Implementation\PermissionsService.cs" />
     <Compile Include="Core\Permissions\Interfaces\IIntranetMemberGroupService.cs" />
+    <Compile Include="Core\Permissions\Interfaces\IPermissionSettingsSchemaProvider.cs" />
     <Compile Include="Core\Permissions\Interfaces\IPermissionsService.cs" />
     <Compile Include="Core\Permissions\Models\IntranetMemberGroup.cs" />
     <Compile Include="Core\Permissions\Models\PermissionManagementModel.cs" />
@@ -968,18 +1023,48 @@
     <Compile Include="Core\Permissions\Models\PermissionSettingIdentity.cs" />
     <Compile Include="Core\Permissions\Models\PermissionSettingValues.cs" />
     <Compile Include="Core\Permissions\Models\PermissionUpdateModel.cs" />
+    <Compile Include="Core\Permissions\Models\ResourceToActionRelation.cs" />
     <Compile Include="Core\Permissions\PermissionActionEnum.cs" />
+    <Compile Include="Core\Permissions\PermissionResourceTypeEnum.cs" />
+    <Compile Include="Core\Permissions\Sql\PermissionEntity.cs" />
+    <Compile Include="Core\Permissions\TypeProviders\IIntranetMemberGroupProvider.cs" />
+    <Compile Include="Core\Permissions\TypeProviders\IntranetMemberGroupProvider.cs" />
+    <Compile Include="Core\Permissions\TypeProviders\IPermissionActionTypeProvider.cs" />
+    <Compile Include="Core\Permissions\TypeProviders\IPermissionResourceTypeProvider.cs" />
+    <Compile Include="Core\Permissions\TypeProviders\PermissionActionTypeProvider.cs" />
+    <Compile Include="Core\Permissions\TypeProviders\PermissionActivityTypeProvider.cs" />
+    <Compile Include="Core\Providers\ClientTimezoneProvider.cs" />
     <Compile Include="Core\Providers\ContentProviderBase.cs" />
+    <Compile Include="Core\Providers\CookieProvider.cs" />
+    <Compile Include="Core\Providers\DateTimeFormatProvider.cs" />
     <Compile Include="Core\Providers\DocumentTypeProvider.cs" />
     <Compile Include="Core\Providers\IClientTimezoneProvider.cs" />
+    <Compile Include="Core\Providers\ICookieProvider.cs" />
     <Compile Include="Core\Providers\IDateTimeFormatProvider.cs" />
     <Compile Include="Core\Providers\IDocumentTypeAliasProvider.cs" />
-    <Compile Include="Core\Search\IIndexer.cs" />
+    <Compile Include="Core\Providers\IXPathProvider.cs" />
+    <Compile Include="Core\Providers\XPathProvider.cs" />
+    <Compile Include="Core\Subscribe\AutoMapperProfiles\SubscribeAutoMapperProfiles.cs" />
+    <Compile Include="Core\Subscribe\AutoMapperProfiles\SubscribeSettingAutoMapperProfiles.cs" />
+    <Compile Include="Core\Subscribe\ISubscribable.cs" />
+    <Compile Include="Core\Subscribe\ISubscribeSettings.cs" />
+    <Compile Include="Core\Subscribe\Sql\ActivitySubscribeSetting.cs" />
+    <Compile Include="Core\Subscribe\Sql\Subscribe.cs" />
+    <Compile Include="Core\Tagging\AutoMapperProfiles\UserTagsAutoMapperProfile.cs" />
+    <Compile Include="Core\Tagging\UserTags\ActivityTagsHelper.cs" />
+    <Compile Include="Core\Tagging\UserTags\IActivityTagsHelper.cs" />
+    <Compile Include="Core\Tagging\UserTags\Models\UserTag.cs" />
+    <Compile Include="Core\Tagging\UserTags\Services\IUserTagProvider.cs" />
+    <Compile Include="Core\Tagging\UserTags\Services\IUserTagService.cs" />
+    <Compile Include="Core\TypeProviders\ActivityTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\EnumTypeProviderBase.cs" />
     <Compile Include="Core\TypeProviders\IActivityTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IEnumTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\IMediaFolderTypeProvider.cs" />
     <Compile Include="Core\TypeProviders\MediaFolderTypeProvider.cs" />
+    <Compile Include="Core\User\AutoMapperProfiles\IntranetMemberAutoMapperProfile.cs" />
+    <Compile Include="Core\User\AutoMapperProfiles\IntranetUserAutoMapperProfile.cs" />
+    <Compile Include="Core\User\Commands\MentionCommand.cs" />
     <Compile Include="Core\User\DTO\CreateMemberDto.cs" />
     <Compile Include="Core\User\DTO\ReadMemberDto.cs" />
     <Compile Include="Core\User\DTO\UpdateMemberDto.cs" />
@@ -992,21 +1077,39 @@
     <Compile Include="Core\User\IIntranetUser.cs" />
     <Compile Include="Core\User\IIntranetUserContentProvider.cs" />
     <Compile Include="Core\User\IIntranetUserService.cs" />
+    <Compile Include="Core\User\IMentionService.cs" />
     <Compile Include="Core\User\IntranetMemberService.cs" />
     <Compile Include="Core\User\IntranetMemberServiceBase.cs" />
     <Compile Include="Core\User\IntranetUserContentProvider.cs" />
     <Compile Include="Core\User\IntranetUserService.cs" />
+    <Compile Include="Core\User\MentionService.cs" />
+    <Compile Include="Core\User\Models\MemberViewModel.cs" />
+    <Compile Include="Core\User\Models\MentionModel.cs" />
     <Compile Include="Core\User\ProfileConstants.cs" />
+    <Compile Include="Core\User\RelatedUser\IntranetUser.cs" />
     <Compile Include="Core\Utils\EmbeddedResourceService.cs" />
     <Compile Include="Core\Utils\EmbeddedResourcesUtils.cs" />
     <Compile Include="Core\Utils\IEmbeddedResourceService.cs" />
     <Compile Include="Core\XPathHelper.cs" />
+    <Compile Include="Persistence\DbContextFactory.cs" />
+    <Compile Include="Persistence\DbObjectContext.cs" />
     <Compile Include="Persistence\IntranetDbContext.cs" />
+    <Compile Include="Persistence\Sql\Migrations\Configuration.cs" />
+    <Compile Include="Persistence\Sql\Migrations\DefaultValueSqlServerMigrationSqlGenerator.cs" />
     <Compile Include="Persistence\Sql\ISqlRepository.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201911111252106_AddBulletins.cs" />
+    <Compile Include="Persistence\Sql\Migrations\201911111252106_AddBulletins.Designer.cs">
+      <DependentUpon>201911111252106_AddBulletins.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\Sql\SqlEntity.cs" />
     <Compile Include="Persistence\Sql\SqlRepository.cs" />
     <Compile Include="Persistence\UintraTableAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\Tagging\UserTags\Services\IUserTagRelationService.cs" />
+    <Compile Include="Core\Tagging\UserTags\Services\UserTagProvider.cs" />
+    <Compile Include="Core\Tagging\UserTags\Services\UserTagRelationService.cs" />
+    <Compile Include="Core\Tagging\UserTags\Services\UserTagService.cs" />
+    <Compile Include="Core\Tagging\UserTags\Sql\UserTagRelation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Localization\package.manifest" />
@@ -1040,7 +1143,6 @@
     <Content Include="App_Plugins\KeyValueRadioButtonList\package.manifest" />
     <Content Include="App_Plugins\KeyValueDropdownList\package.manifest" />
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
-    <Content Include="App_Plugins\SentMails\package.manifest" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
@@ -1063,6 +1165,11 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\Sql\Migrations\201911111252106_AddBulletins.resx">
+      <DependentUpon>201911111252106_AddBulletins.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

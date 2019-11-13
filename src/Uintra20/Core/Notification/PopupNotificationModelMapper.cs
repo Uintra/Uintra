@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Uintra20.Core.Helpers;
 using Uintra20.Core.Localization;
 using Uintra20.Core.Notification.Base;
@@ -37,6 +38,23 @@ namespace Uintra20.Core.Notification
             (string, string)[] tokens =
             {
                 (FullName, _intranetMemberService.Get(receiver.Id).DisplayedName),
+                (ProfileLink, HtmlHelper.CreateLink(_localizationService.Translate(ProfileLinkTitle), _intranetUserContentProvider.GetEditPage().Url))
+            };
+            message.Message = ReplaceTokens(template.Message, tokens);
+            return message;
+        }
+
+        public async Task<PopupNotificationMessage> MapAsync(INotifierDataValue notifierData, PopupNotifierTemplate template, IIntranetMember receiver)
+        {
+            var message = new PopupNotificationMessage
+            {
+                ReceiverId = receiver.Id,
+                NotificationType = NotificationTypeEnum.Welcome
+            };
+
+            (string, string)[] tokens =
+            {
+                (FullName, (await _intranetMemberService.GetAsync(receiver.Id)).DisplayedName),
                 (ProfileLink, HtmlHelper.CreateLink(_localizationService.Translate(ProfileLinkTitle), _intranetUserContentProvider.GetEditPage().Url))
             };
             message.Message = ReplaceTokens(template.Message, tokens);

@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Compent.CommandBus;
+using LanguageExt;
 using Uintra20.Core.Caching;
 using Uintra20.Core.Commands;
 using Uintra20.Core.Extensions;
 using Uintra20.Core.Groups.Sql;
 using Uintra20.Core.Permissions.Interfaces;
 using Uintra20.Core.User.Entities;
-using Uintra20.Persistence.Sql;
+using Uintra20.Persistence;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -51,9 +53,27 @@ namespace Uintra20.Core.User
             return user;
         }
 
+        protected override async Task<T> MapAsync(IMember member)
+        {
+            var user = base.Map(member);
+            user.FirstName = member.GetValueOrDefault<string>(ProfileConstants.FirstName);
+            user.LastName = member.GetValueOrDefault<string>(ProfileConstants.LastName);
+            user.Phone = member.GetValueOrDefault<string>(ProfileConstants.Phone);
+            user.Department = member.GetValueOrDefault<string>(ProfileConstants.Department);
+            user.GroupIds = await GetMembersGroupIdsAsync(user.Id);
+
+            return user;
+        }
+
+
         protected virtual IEnumerable<Guid> GetMembersGroupIds(Guid memberId)
         {
             return _groupMemberRepository.FindAll(gm => gm.MemberId == memberId).Select(gm => gm.GroupId);
+        }
+
+        protected virtual async Task<IEnumerable<Guid>> GetMembersGroupIdsAsync(Guid memberId)
+        {
+            return await _groupMemberRepository.FindAllAsync(gm => gm.MemberId == memberId).Select(x => x.Select(gm => gm.GroupId));
         }
 
         public override void UpdateMemberCache(Guid memberId)
@@ -68,6 +88,21 @@ namespace Uintra20.Core.User
             var memberIdsList = memberIds.ToList();
             base.UpdateMemberCache(memberIdsList);
             var members = GetMany(memberIdsList);
+            _commandPublisher.Publish(new MembersChanged(members));
+        }
+
+        public override async Task UpdateMemberCacheAsync(Guid memberId)
+        {
+            await base.UpdateMemberCacheAsync(memberId);
+            var member = await GetAsync(memberId);
+            _commandPublisher.Publish(new MemberChanged(member));
+        }
+
+        public override async Task UpdateMemberCacheAsync(IEnumerable<Guid> memberIds)
+        {
+            var memberIdsList = memberIds.ToList();
+            await base.UpdateMemberCacheAsync(memberIdsList);
+            var members = await GetManyAsync(memberIdsList);
             _commandPublisher.Publish(new MembersChanged(members));
         }
 

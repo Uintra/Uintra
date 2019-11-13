@@ -10,9 +10,6 @@ namespace Uintra20.Core.Extensions
         public static T DefaultIfNone<T>(this Option<T> option) where T : class =>
             option.IfNoneUnsafe(default(T));
 
-        public static Option<T> Choose<T>(this Option<T> option, Func<Option<T>> otherFunc) =>
-            option.IsSome ? option : otherFunc();
-
         public static Option<TDestination> CastOrNone<TDestination>(this object value)
             where TDestination : class
             => Optional(value as TDestination);

@@ -6,7 +6,7 @@ using Uintra20.Core.Extensions;
 using Uintra20.Core.Notification.Base;
 using Uintra20.Core.Notification.Configuration;
 using Uintra20.Core.User;
-using Uintra20.Persistence.Sql;
+using Uintra20.Persistence;
 
 namespace Uintra20.Core.Notification
 {
@@ -68,12 +68,12 @@ namespace Uintra20.Core.Notification
 
             var settings = await _notificationSettingsService.GetAsync<EmailNotifierTemplate>(identity);
             if (!settings.IsEnabled) return;
-            var receivers = _intranetMemberService.GetMany(data.ReceiverIds).ToList();
+            var receivers = (await _intranetMemberService.GetManyAsync(data.ReceiverIds)).ToList();
             foreach (var receiverId in data.ReceiverIds)
             {
                 var user = receivers.Find(receiver => receiver.Id == receiverId);
 
-                var message = _notificationModelMapper.Map(data.Value, settings.Template, user);
+                var message = await _notificationModelMapper.MapAsync(data.Value, settings.Template, user);
                 await _mailService.SendAsync(message);
 
                 await _notificationRepository.AddAsync(new Notification()

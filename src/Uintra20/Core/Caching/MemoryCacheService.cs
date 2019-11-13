@@ -12,8 +12,8 @@ namespace Uintra20.Core.Caching
     {
         public Task<T> GetOrSetAsync<T>(
             Func<Task<T>> getItemCallback,
-            DateTimeOffset lifetime,
             string cacheKey,
+            DateTimeOffset? lifetime = null,
             params string[] itemSuffix) where T : class
         {
             var keyPrefix = CreateKey(cacheKey, itemSuffix);
@@ -30,8 +30,8 @@ namespace Uintra20.Core.Caching
 
         public async Task<Option<T>> GetOrSetAsyncOption<T>(
             Func<Task<Option<T>>> getItemCallback,
-            DateTimeOffset lifetime,
             string cacheKey,
+            DateTimeOffset? lifetime = null,
             params string[] itemSuffix) where T : class
         {
             var keyPrefix = CreateKey(cacheKey, itemSuffix);
@@ -51,8 +51,8 @@ namespace Uintra20.Core.Caching
 
         public async Task<Option<T>> GetOrSetAsync<T>(
             Func<Task<Option<T>>> getItemCallback,
-            DateTimeOffset lifetime,
             string cacheKey,
+            DateTimeOffset? lifetime = null,
             params string[] itemSuffix) where T : class
         {
             var keyPrefix = CreateKey(cacheKey, itemSuffix);
@@ -70,17 +70,16 @@ namespace Uintra20.Core.Caching
             }
         }
 
-        public async Task<Unit> SetAsync<T>(Func<Task<T>> getItemCallback, Func<T, DateTimeOffset> lifetime,
-            string cacheKey, params string[] itemSuffix)
+        public async Task<Unit> SetAsync<T>(Func<Task<T>> getItemCallback, string cacheKey, DateTimeOffset? lifetime = null, params string[] itemSuffix)
         {
             var key = CreateKey(cacheKey, itemSuffix);
             var item = await getItemCallback();
 
             var itemPolicy = new CacheItemPolicy
             {
-                AbsoluteExpiration = lifetime(item),
-                ChangeMonitors = { new SignaledChangeMonitor(key) }
+                AbsoluteExpiration = lifetime ?? ObjectCache.InfiniteAbsoluteExpiration
             };
+            itemPolicy.ChangeMonitors.Add(new SignaledChangeMonitor(key));
             MemoryCache.Default.Set(key, item, itemPolicy);
 
             return unit;

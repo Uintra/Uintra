@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Uintra20.Core.Activity;
-using Uintra20.Core.Activity.Helpers;
-using Uintra20.Core.Groups.Services;
-using Uintra20.Core.Links.Models;
+using Uintra20.Core.CentralFeed;
+using Uintra20.Core.Extensions;
+using Uintra20.Core.Groups;
 using Uintra20.Core.User;
 
 namespace Uintra20.Core.Links
@@ -15,9 +16,7 @@ namespace Uintra20.Core.Links
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
-
-        private Guid CurrentMemberId => _intranetMemberService.GetCurrentMember().Id;
-
+        
         public ActivityLinkService(
             ICentralFeedLinkProvider centralFeedLinkProvider,
             IGroupFeedLinkProvider groupFeedLinkProvider,
@@ -54,6 +53,26 @@ namespace Uintra20.Core.Links
             return result;
         }
 
+        public async Task<IActivityLinks> GetLinksAsync(Guid activityId)
+        {
+            var groupId = await _groupActivityService.GetGroupIdAsync(activityId);
+
+            var activity = await GetActivityAsync(activityId);
+            IActivityLinks result;
+            if (groupId.HasValue)
+            {
+                var activityModel = activity.Map<GroupActivityTransferModel>();
+                activityModel.GroupId = groupId.Value;
+                result = _groupFeedLinkProvider.GetLinks(activityModel);
+            }
+            else
+            {
+                var activityModel = activity.Map<ActivityTransferModel>();
+                result = _centralFeedLinkProvider.GetLinks(activityModel);
+            }
+            return result;
+        }
+
         public IActivityCreateLinks GetCreateLinks(Enum activityType, Guid groupId)
         {
             var activityModel = GetActivityGroupCreateModel(activityType, groupId);
@@ -66,13 +85,25 @@ namespace Uintra20.Core.Links
             return _centralFeedLinkProvider.GetCreateLinks(activityModel);
         }
 
+        public async Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType, Guid groupId)
+        {
+            var activityModel = await GetActivityGroupCreateModelAsync(activityType, groupId);
+            return _groupFeedLinkProvider.GetCreateLinks(activityModel);
+        }
+
+        public async Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType)
+        {
+            var activityModel = await GetActivityCreateModelAsync(activityType);
+            return _centralFeedLinkProvider.GetCreateLinks(activityModel);
+        }
+
         private GroupActivityTransferCreateModel GetActivityGroupCreateModel(Enum activityType, Guid groupId)
         {
             return new GroupActivityTransferCreateModel()
             {
                 GroupId = groupId,
                 Type = activityType,
-                OwnerId = CurrentMemberId
+                OwnerId = _intranetMemberService.GetCurrentMemberId()
             };
         }
 
@@ -81,7 +112,26 @@ namespace Uintra20.Core.Links
             return new ActivityTransferCreateModel()
             {
                 Type = activityType,
-                OwnerId = CurrentMemberId
+                OwnerId = _intranetMemberService.GetCurrentMemberId()
+            };
+        }
+
+        private async Task<GroupActivityTransferCreateModel> GetActivityGroupCreateModelAsync(Enum activityType, Guid groupId)
+        {
+            return new GroupActivityTransferCreateModel()
+            {
+                GroupId = groupId,
+                Type = activityType,
+                OwnerId = await _intranetMemberService.GetCurrentMemberIdAsync()
+            };
+        }
+
+        private async Task<ActivityTransferCreateModel> GetActivityCreateModelAsync(Enum activityType)
+        {
+            return new ActivityTransferCreateModel()
+            {
+                Type = activityType,
+                OwnerId = await _intranetMemberService.GetCurrentMemberIdAsync()
             };
         }
 
@@ -90,6 +140,13 @@ namespace Uintra20.Core.Links
             var activityType = _activityTypeHelper.GetActivityType(id);
             var service = GetActivityService(activityType);
             return service.Get(id);
+        }
+
+        private async Task<IIntranetActivity> GetActivityAsync(Guid id)
+        {
+            var activityType = _activityTypeHelper.GetActivityType(id);
+            var service = GetActivityService(activityType);
+            return await service.GetAsync(id);
         }
 
         private IIntranetActivityService<IIntranetActivity> GetActivityService(Enum activityType)

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LanguageExt;
 using Uintra20.Core.Caching;
 using Uintra20.Core.Extensions;
 using Uintra20.Core.LinkPreview;
-using Uintra20.Core.Location.Services;
+using Uintra20.Core.Location;
 using Uintra20.Core.Media;
 using Uintra20.Core.Permissions;
 using Uintra20.Core.Permissions.Interfaces;
@@ -85,10 +86,10 @@ namespace Uintra20.Core.Activity
 
         public virtual async Task DeleteAsync(Guid id)
         {
-            _activityLocationService.DeleteForActivity(id);
-            _activityLinkPreviewService.RemovePreviewRelations(id);
+            await _activityLocationService.DeleteForActivityAsync(id);
+            await _activityLinkPreviewService.RemovePreviewRelationsAsync(id);
             await _activityRepository.DeleteAsync(id);
-            _intranetMediaService.Delete(id);
+            await _intranetMediaService.DeleteAsync(id);
 
             await UpdateActivityCacheAsync(id);
         }
@@ -96,14 +97,20 @@ namespace Uintra20.Core.Activity
         public async Task<bool> CanEditAsync(Guid id)
         {
             var cached = await GetAsync(id);
-            return CanEdit(cached);
+            return await CanEditAsync(cached);
         }
 
         public async Task<bool> CanDeleteAsync(Guid id)
         {
             var cached = await GetAsync(id);
-            return CanDelete(cached);
+            return await CanDeleteAsync(cached);
         }
+
+        public virtual async Task<bool> CanEditAsync(IIntranetActivity activity) =>
+            await CanPerformAsync(activity, PermissionActionEnum.Edit, PermissionActionEnum.EditOther);
+
+        public virtual async Task<bool> CanDeleteAsync(IIntranetActivity activity) =>
+            await CanPerformAsync(activity, PermissionActionEnum.Delete, PermissionActionEnum.DeleteOther);
 
         public virtual async Task<TActivity> UpdateActivityCacheAsync(Guid activityId)
         {
@@ -113,11 +120,11 @@ namespace Uintra20.Core.Activity
 
             if (activity != null)
             {
-                MapBeforeCache(activity.ToListOfOne());
+                await MapBeforeCacheAsync(activity.ToListOfOne());
                 cachedList.Add(activity);
             }
 
-            _cache.Set(CacheKey, cachedList, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
+            await _cache.SetAsync(() => cachedList.AsTask(), CacheKey, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
 
             return activity;
         }
@@ -133,9 +140,9 @@ namespace Uintra20.Core.Activity
             await _activityRepository.CreateAsync(newActivity);
             var newActivityId = newActivity.Id;
 
-            _activityLocationService.Set(newActivityId, activity.Location);
-            _intranetMediaService.Create(newActivityId, activity.MediaIds.JoinToString());
-            AssignLinkPreview(newActivityId, activity);
+            await _activityLocationService.SetAsync(newActivityId, activity.Location);
+            await _intranetMediaService.CreateAsync(newActivityId, activity.MediaIds.JoinToString());
+            await AssignLinkPreviewAsync(newActivityId, activity);
 
             afterCreateAction?.Invoke(newActivityId);
 
@@ -148,10 +155,10 @@ namespace Uintra20.Core.Activity
             var entity = await _activityRepository.GetAsync(activity.Id);
             entity.JsonData = activity.ToJson();
 
-            _activityLocationService.Set(activity.Id, activity.Location);
+            await _activityLocationService.SetAsync(activity.Id, activity.Location);
             await _activityRepository.UpdateAsync(entity);
-            _intranetMediaService.Update(activity.Id, activity.MediaIds.JoinToString());
-            AssignLinkPreview(activity);
+            await _intranetMediaService.UpdateAsync(activity.Id, activity.MediaIds.JoinToString());
+            await AssignLinkPreviewAsync(activity);
 
             afterSaveAction?.Invoke(activity);
             await UpdateActivityCacheAsync(activity.Id);
@@ -159,8 +166,7 @@ namespace Uintra20.Core.Activity
 
         private async Task FillCacheAsync()
         {
-            var items = await GetAllFromSqlAsync();
-            _cache.Set(CacheKey, items, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
+            await _cache.SetAsync(GetAllFromSqlAsync, CacheKey, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
         }
 
         private async Task<TActivity> GetFromSqlAsync(Guid id)
@@ -171,15 +177,54 @@ namespace Uintra20.Core.Activity
                 return default(TActivity);
             }
 
-            var activity = MapInternal(activityEntity);
+            var activity = await MapInternalAsync(activityEntity);
             return activity;
         }
 
         private async Task<IList<TActivity>> GetAllFromSqlAsync()
         {
-            var activities = (await _activityRepository.GetManyAsync(Type)).Select(MapInternal).ToList();
-            MapBeforeCache(activities.ToList());
-            return activities;
+            var activities = await (await _activityRepository.GetManyAsync(Type)).SelectAsync(async model => await MapInternalAsync(model));
+            await MapBeforeCacheAsync(activities.ToList());
+            return activities.ToList();
+        }
+
+        protected virtual async Task<bool> CanPerformAsync(IIntranetActivity activity, PermissionActionEnum action, PermissionActionEnum administrationAction)
+        {
+            var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
+            var ownerId = ((IHaveOwner)activity).OwnerId;
+            var isOwner = ownerId == currentMember.Id;
+
+            var act = isOwner ? action : administrationAction;
+            var result = await _permissionsService.CheckAsync(currentMember, PermissionSettingIdentity.Of(act, PermissionActivityType));
+
+            return result;
+        }
+
+        protected virtual async Task AssignLinkPreviewAsync(Guid newActivityId, IIntranetActivity activity)
+        {
+            if (activity is IHasLinkPreview linkPreview)
+            {
+                if (linkPreview.LinkPreviewId.HasValue)
+                {
+                    await _activityLinkPreviewService.AddLinkPreviewAsync(newActivityId, linkPreview.LinkPreviewId.Value);
+                }
+            }
+        }
+
+        protected virtual async Task AssignLinkPreviewAsync(IIntranetActivity activity)
+        {
+            if (activity is IHasLinkPreview linkPreview)
+            {
+                if (!linkPreview.LinkPreviewId.HasValue)
+                {
+                    await _activityLinkPreviewService.RemovePreviewRelationsAsync(activity.Id);
+                }
+
+                if (linkPreview.LinkPreviewId.HasValue)
+                {
+                    await _activityLinkPreviewService.UpdateLinkPreviewAsync(activity.Id, linkPreview.LinkPreviewId.Value);
+                }
+            }
         }
 
         #endregion
@@ -397,9 +442,24 @@ namespace Uintra20.Core.Activity
             return cachedActivity;
         }
 
+        private async Task<TActivity> MapInternalAsync(IntranetActivityEntity activity)
+        {
+            var cachedActivity = activity.JsonData.Deserialize<TActivity>();
+            cachedActivity.Id = activity.Id;
+            cachedActivity.Type = _activityTypeProvider[activity.Type];
+            cachedActivity.CreatedDate = activity.CreatedDate;
+            cachedActivity.ModifyDate = activity.ModifyDate;
+            cachedActivity.IsPinActual = IsPinActual(cachedActivity);
+            cachedActivity.MediaIds = await _intranetMediaService.GetEntityMediaAsync(cachedActivity.Id);
+            cachedActivity.Location = await _activityLocationService.GetAsync(activity.Id);
+            return cachedActivity;
+        }
+
         protected abstract void MapBeforeCache(IList<TActivity> cached);
 
+        protected abstract Task MapBeforeCacheAsync(IList<TActivity> cached);
+
         #endregion
-        
+
     }
 }

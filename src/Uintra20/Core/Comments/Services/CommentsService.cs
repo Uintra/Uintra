@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Core.Extensions;
-using Uintra20.Persistence.Sql;
+using Uintra20.Persistence;
 
-namespace Uintra20.Core.Comments.Services
+namespace Uintra20.Core.Comments
 {
     public class CommentsService : ICommentsService
     {
@@ -100,7 +100,7 @@ namespace Uintra20.Core.Comments.Services
 
         public virtual async Task FillCommentsAsync(ICommentable entity)
         {
-            var comments = await GetManyManyAsync(entity.Id);
+            var comments = await GetManyAsync(entity.Id);
             entity.Comments = comments;
         }
 

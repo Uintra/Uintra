@@ -1,7 +1,7 @@
 ﻿using System;
 using Uintra20.Core.TypeProviders;
 
-namespace Uintra20.Core.Activity.Helpers
+namespace Uintra20.Core.Activity
 {
     public class ActivityTypeHelper : IActivityTypeHelper
     {

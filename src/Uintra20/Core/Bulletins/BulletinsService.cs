@@ -1,35 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Compent.CommandBus;
 using Compent.Extensions;
+using LanguageExt;
 using Uintra20.CentralFeed;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Caching;
 using Uintra20.Core.CentralFeed;
-using Uintra20.Core.Comments.Services;
-using Uintra20.Core.Extensions;
-using Uintra20.Core.Groups.Services;
+using Uintra20.Core.Comments;
+using Uintra20.Core.Groups;
 using Uintra20.Core.Likes;
 using Uintra20.Core.LinkPreview;
-using Uintra20.Core.Location.Services;
+using Uintra20.Core.Links;
+using Uintra20.Core.Location;
 using Uintra20.Core.Media;
 using Uintra20.Core.Notification;
 using Uintra20.Core.Notification.Base;
+using Uintra20.Core.Permissions;
 using Uintra20.Core.Permissions.Interfaces;
-using Uintra20.Core.Search;
+using Uintra20.Core.Tagging.UserTags;
 using Uintra20.Core.TypeProviders;
 using Uintra20.Core.User;
 using static Uintra20.Core.Notification.Configuration.NotificationTypeEnum;
 
 namespace Uintra20.Core.Bulletins
 {
-    public class BulletinsService : BulletinsServiceBase<Bulletin>,
-        IBulletinsService<Bulletin>,
+    public class BulletinsService<T> : BulletinsServiceBase<T>,
+        IBulletinsService<T>,
         IFeedItemService,
         INotifyableService,
-        IIndexer,
-        IHandle<VideoConvertedCommand>
+        //IIndexer,
+        IHandle<VideoConvertedCommand> 
+        where T : Bulletin
     {
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
@@ -89,11 +93,11 @@ namespace Uintra20.Core.Bulletins
 
         public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
 
-        protected override void UpdateCache()
-        {
-            base.UpdateCacheAsync();
-            FillIndex();
-        }
+        //protected override void UpdateCache()
+        //{
+        //    base.UpdateCache();
+        //    FillIndex();
+        //}
 
         public FeedSettings GetFeedSettings() =>
             new FeedSettings
@@ -106,10 +110,15 @@ namespace Uintra20.Core.Bulletins
 
         public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
 
-        private IOrderedEnumerable<Bulletin> GetOrderedActualItems() =>
-            GetManyActualAsync().OrderByDescending(i => i.PublishDate);
+        public async Task<IEnumerable<IFeedItem>> GetItemsAsync() => await GetOrderedActualItemsAsync();
 
-        protected override void MapBeforeCache(IList<Bulletin> cached)
+        private async Task<IOrderedEnumerable<T>> GetOrderedActualItemsAsync() =>
+            await GetManyActualAsync().Select(x => x.OrderByDescending(i => i.PublishDate));
+
+        private IOrderedEnumerable<T> GetOrderedActualItems() =>
+            GetManyActual().OrderByDescending(i => i.PublishDate);
+
+        protected override void MapBeforeCache(IList<T> cached)
         {
             foreach (var activity in cached)
             {
@@ -121,21 +130,33 @@ namespace Uintra20.Core.Bulletins
             }
         }
 
-        public override Bulletin UpdateActivityCache(Guid id)
+        protected override async Task MapBeforeCacheAsync(IList<T> cached)
         {
-            var cachedBulletin = GetAsync(id);
-            var bulletin = base.UpdateActivityCacheAsync(id);
+            foreach (var activity in cached)
+            {
+                var entity = activity;
+                entity.GroupId = await _groupActivityService.GetGroupIdAsync(activity.Id);
+                await _commentsService.FillCommentsAsync(entity);
+                await _likesService.FillLikesAsync(entity);
+                await FillLinkPreviewAsync(entity);
+            }
+        }
+
+        public override T UpdateActivityCache(Guid id)
+        {
+            var cachedBulletin = Get(id);
+            var bulletin = base.UpdateActivityCache(id);
             if (IsCacheable(bulletin) && (bulletin.GroupId is null || _groupService.IsActivityFromActiveGroup(bulletin)))
             {
-                _activityIndex.Index(Map(bulletin));
-                _documentIndexer.Index(bulletin.MediaIds);
+                //_activityIndex.Index(Map(bulletin));
+                //_documentIndexer.Index(bulletin.MediaIds);
                 return bulletin;
             }
 
             if (cachedBulletin == null) return null;
 
-            _activityIndex.Delete(id);
-            _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
+            //_activityIndex.Delete(id);
+            //_documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
             _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);
             return null;
         }
@@ -147,29 +168,55 @@ namespace Uintra20.Core.Bulletins
             if (notificationType.In(CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
             {
                 var comment = _commentsService.Get(entityId);
-                var parentActivity = GetAsync(comment.ActivityId);
+                var parentActivity = Get(comment.ActivityId);
                 notifierData = _notifierDataBuilder.GetNotifierData(comment, parentActivity, notificationType);
             }
             else
             {
-                var activity = GetAsync(entityId);
+                var activity = Get(entityId);
                 notifierData = _notifierDataBuilder.GetNotifierData(activity, notificationType);
             }
 
             _notificationService.ProcessNotification(notifierData);
         }
 
-        public void FillIndex()
+        public async Task NotifyAsync(Guid entityId, Enum notificationType)
         {
-            var activities = GetAllAsync().Where(IsCacheable);
-            var searchableActivities = activities.Select(Map);
-            _activityIndex.DeleteByType(UintraSearchableTypeEnum.Bulletins);
-            _activityIndex.Index(searchableActivities);
+            NotifierData notifierData;
+
+            if (notificationType.In(CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
+            {
+                var comment = await _commentsService.GetAsync(entityId);
+                var parentActivity = await GetAsync(comment.ActivityId);
+                notifierData = await _notifierDataBuilder.GetNotifierDataAsync(comment, parentActivity, notificationType);
+            }
+            else
+            {
+                var activity = await GetAsync(entityId);
+                notifierData = await _notifierDataBuilder.GetNotifierDataAsync(activity, notificationType);
+            }
+
+            await _notificationService.ProcessNotificationAsync(notifierData);
         }
+
+        //public void FillIndex()
+        //{
+        //    var activities = GetAll().Where(IsCacheable);
+        //    var searchableActivities = activities.Select(Map);
+        //    _activityIndex.DeleteByType(UintraSearchableTypeEnum.Bulletins);
+        //    _activityIndex.Index(searchableActivities);
+        //}
 
         private void FillLinkPreview(Bulletin bulletin)
         {
             var linkPreview = _activityLinkPreviewService.GetActivityLinkPreview(bulletin.Id);
+            bulletin.LinkPreview = linkPreview;
+            bulletin.LinkPreviewId = linkPreview?.Id;
+        }
+
+        private async Task FillLinkPreviewAsync(Bulletin bulletin)
+        {
+            var linkPreview = await _activityLinkPreviewService.GetActivityLinkPreviewAsync(bulletin.Id);
             bulletin.LinkPreview = linkPreview;
             bulletin.LinkPreviewId = linkPreview?.Id;
         }
@@ -182,18 +229,18 @@ namespace Uintra20.Core.Bulletins
         private static bool IsActualPublishDate(Bulletin bulletin) =>
             DateTime.Compare(bulletin.PublishDate, DateTime.UtcNow) <= 0;
 
-        private SearchableUintraActivity Map(Bulletin bulletin)
-        {
-            var searchableActivity = bulletin.Map<SearchableUintraActivity>();
-            searchableActivity.Url = _linkService.GetLinks(bulletin.Id).Details;
-            searchableActivity.UserTagNames = _userTagService.Get(bulletin.Id).Select(t => t.Text);
-            return searchableActivity;
-        }
+        //private SearchableUintraActivity Map(Bulletin bulletin)
+        //{
+        //    var searchableActivity = bulletin.Map<SearchableUintraActivity>();
+        //    searchableActivity.Url = _linkService.GetLinks(bulletin.Id).Details;
+        //    searchableActivity.UserTagNames = _userTagService.Get(bulletin.Id).Select(t => t.Text);
+        //    return searchableActivity;
+        //}
 
         public BroadcastResult Handle(VideoConvertedCommand command)
         {
             var entityId = _intranetMediaService.GetEntityIdByMediaId(command.MediaId);
-            var entity = GetAsync(entityId);
+            var entity = Get(entityId);
             if (entity == null)
             {
                 return BroadcastResult.Success;

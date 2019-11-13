@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using LanguageExt;
 using Uintra20.Core.Caching;
 using Uintra20.Core.Extensions;
@@ -11,6 +12,7 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using static LanguageExt.Prelude;
 using CacheHelper = Uintra20.Core.Caching.CacheHelper;
+
 
 namespace Uintra20.Core.User
 {
@@ -46,6 +48,224 @@ namespace Uintra20.Core.User
             _intranetUserService = intranetUserService;
             _intranetMemberGroupService = intranetMemberGroupService;
         }
+
+        #region async
+
+        public virtual async Task<bool> IsCurrentMemberSuperUserAsync()
+        {
+            var currentMember = await GetCurrentMemberAsync();
+            return currentMember != null && currentMember.IsSuperUser;
+        }
+
+        public virtual async Task<T> GetAsync(IHaveOwner model) => await GetAsync(model.OwnerId);
+
+        public virtual async Task<T> GetAsync(Guid id) => await GetSingleAsync(el => el.Id == id);
+
+        public virtual async Task<T> GetAsync(int id)
+        {
+            var member = await GetAllAsync().Select(x => x.SingleOrDefault(el => el.UmbracoId == id));
+            if (member == null)
+                member = await MapAsync(_memberService.GetById(id));
+            return member;
+        }
+
+        public virtual async Task<T> GetByUserIdAsync(int userId)
+        {
+            return await GetSingleAsync(el => el.RelatedUser.Map(u => u.Id) == userId);
+        }
+
+        public virtual async Task<IEnumerable<T>> GetManyAsync(IEnumerable<Guid> ids)
+        {
+            return ids.Distinct().Join(await GetAllAsync(),
+                identity,
+                member => member.Id,
+                (_, member) => member);
+        }
+
+        public virtual async Task<IEnumerable<T>> GetManyAsync(IEnumerable<int> ids)
+        {
+            return ids.Distinct().Join(await GetAllAsync(),
+                id => id,
+                member => member.RelatedUser.Map(x => x.Id),
+                (id, member) => member);
+        }
+
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        {
+            var members = await _cacheService.GetOrSetAsync(async () => await GetAllFromSqlAsync().Select(x => x.ToList()), MembersCacheKey, CacheHelper.GetMidnightUtcDateTimeOffset());
+            return members;
+        }
+
+        public virtual async Task<T> GetCurrentMemberAsync()
+        {
+            var member = _umbracoHelper.MembershipHelper.GetCurrentMember();
+            if (member != null) return await GetAsync(member.Key);
+
+            var umbracoUser = _umbracoContext.Security.CurrentUser;
+            if (umbracoUser != null) return await GetByUserIdAsync(umbracoUser.Id);
+
+            return default;
+        }
+
+        public virtual async Task<IEnumerable<T>> GetByGroupAsync(int memberGroupId)
+        {
+            var members = (await GetAllAsync()).Where(el => el.Groups.Select(g => g.Id).Contains(memberGroupId));
+            return members;
+        }
+
+        public virtual async Task<bool> UpdateAsync(UpdateMemberDto dto)
+        {
+            var member = _memberService.GetByKey(dto.Id);
+            var isPresent = member != null;
+            if (isPresent)
+            {
+                member.SetValue(ProfileConstants.FirstName, dto.FirstName);
+                member.SetValue(ProfileConstants.LastName, dto.LastName);
+                member.SetValue(ProfileConstants.Phone, dto.Phone);
+                member.SetValue(ProfileConstants.Department, dto.Department);
+
+                var mediaId = member.GetValueOrDefault<int?>(ProfileConstants.Photo);
+
+                if (dto.NewMedia.HasValue)
+                {
+                    member.SetValue(ProfileConstants.Photo, dto.NewMedia.Value);
+                }
+
+                if (dto.DeleteMedia)
+                {
+                    member.SetValue(ProfileConstants.Photo, null);
+                }
+
+                if ((dto.NewMedia.HasValue || dto.DeleteMedia) && mediaId.HasValue)
+                {
+                    var media = _mediaService.GetById(mediaId.Value);
+                    if (media != null)
+                        _mediaService.Delete(media);
+                }
+
+                _memberService.Save(member, false);
+
+                await UpdateMemberCacheAsync(dto.Id);
+            }
+
+            return isPresent;
+        }
+
+        public virtual async Task<Guid> CreateAsync(CreateMemberDto dto)
+        {
+            var fullName = $"{dto.FirstName} {dto.LastName}";
+            var member = _memberService.CreateMember(dto.Email, dto.Email, fullName, "Member");
+            member.SetValue(ProfileConstants.FirstName, dto.FirstName);
+            member.SetValue(ProfileConstants.LastName, dto.LastName);
+            member.SetValue(ProfileConstants.Phone, dto.Phone);
+            member.SetValue(ProfileConstants.Department, dto.Department);
+            member.SetValue(ProfileConstants.Photo, dto.MediaId);
+
+            _memberService.Save(member, false);
+
+
+            await UpdateMemberCacheAsync(member.Key);
+
+            return member.Key;
+        }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            var member = _memberService.GetByKey(id);
+
+            if (member != null)
+            {
+                _memberService.Delete(member);
+                await DeleteFromCacheAsync(member.Key);
+            }
+
+            return member != null;
+        }
+
+        public virtual async Task<T> GetByNameAsync(string name)
+        {
+            var members = await GetAllAsync();
+            return members.SingleOrDefault(user => string.Equals(user.LoginName, name, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public virtual async Task<T> GetByEmailAsync(string email)
+        {
+            var members = await GetAllAsync();
+            var normalizedEmail = email.ToLowerInvariant();
+            return members.SingleOrDefault(member => member.Email.ToLowerInvariant().Equals(normalizedEmail));
+        }
+
+        public virtual async Task UpdateMemberCacheAsync(int memberId)
+        {
+            var member = await GetAsync(memberId);
+            await UpdateMemberCacheAsync(member.Id);
+        }
+
+        public virtual async Task UpdateMemberCacheAsync(Guid memberId)
+        {
+            var updatedMember = await GetFromSqlOrNoneAsync(memberId);
+            var allCachedMembers = await GetAllAsync();
+
+            IEnumerable<T> updatedCache;
+
+            if (updatedMember != null)
+            {
+                updatedCache = allCachedMembers.WithUpdatedElement(el => el.Id == memberId, updatedMember);
+            }
+            else
+            {
+                updatedCache = allCachedMembers.Where(el => el.Id != memberId);
+            }
+
+            await _cacheService.SetAsync(updatedCache.ToList().AsTask, MembersCacheKey, CacheHelper.GetMidnightUtcDateTimeOffset());
+        }
+
+        public virtual async Task UpdateMemberCacheAsync(IEnumerable<Guid> memberIds)
+        {
+            var allCachedMembers = await GetAllAsync();
+
+            foreach (var memberId in memberIds)
+            {
+                IEnumerable<T> updatedCache;
+                T updatedMember = await GetFromSqlOrNoneAsync(memberId);
+
+                if (updatedMember != null)
+                {
+                    updatedCache = allCachedMembers.WithUpdatedElement(el => el.Id == memberId, updatedMember);
+                }
+                else
+                {
+                    updatedCache = allCachedMembers.Where(el => el.Id != memberId);
+                }
+            }
+
+            await _cacheService.SetAsync(allCachedMembers.ToList().AsTask, MembersCacheKey, CacheHelper.GetMidnightUtcDateTimeOffset());
+        }
+
+        public virtual async Task DeleteFromCacheAsync(Guid memberId)
+        {
+            await _cacheService.SetAsync(async () => await GetAllAsync().Select(x => x.Where(el => el.Id != memberId).ToList()), MembersCacheKey, CacheHelper.GetMidnightUtcDateTimeOffset());
+        }
+
+        protected virtual async Task<T> GetFromSqlOrNoneAsync(Guid id) =>
+            await MapAsync(_memberService.GetByKey(id));
+
+        protected virtual async Task<IEnumerable<T>> GetAllFromSqlAsync() =>
+            await _memberService
+                .GetAllMembers()
+                .SelectAsync(MapAsync);
+
+        protected abstract Task<T> MapAsync(IMember member);
+
+        private async Task<T> GetSingleAsync(Func<T, bool> predicate)
+        {
+            var member = (await GetAllAsync()).Single(predicate);
+            return member;
+        }
+
+        #endregion
+
+        #region sync
 
         public virtual bool IsCurrentMemberSuperUser
         {
@@ -90,9 +310,9 @@ namespace Uintra20.Core.User
         public virtual IEnumerable<T> GetMany(IEnumerable<int> ids)
         {
             return ids.Distinct().Join(GetAll(),
-                 id => id,
+                id => id,
                 member => member.RelatedUser.Map(x => x.Id),
-                 (id, member) => member);
+                (id, member) => member);
         }
 
         public virtual IEnumerable<T> GetAll()
@@ -174,38 +394,42 @@ namespace Uintra20.Core.User
             return member.Key;
         }
 
-        public Option<ReadMemberDto> Read(Guid id)
+        public ReadMemberDto Read(Guid id)
         {
-            var member = Optional(_memberService.GetByKey(id));
+            var member = _memberService.GetByKey(id);
 
-            var dto = member.Map(mbr => new ReadMemberDto
+            if (member == null)
             {
-                LastName = mbr.GetValue<string>(ProfileConstants.LastName),
-                FirstName = mbr.GetValue<string>(ProfileConstants.FirstName),
-                Phone = mbr.GetValue<string>(ProfileConstants.Phone),
-                Department = mbr.GetValue<string>(ProfileConstants.Department),
-                Email = mbr.Email
-            });
+                return null;
+            }
+
+            var dto = new ReadMemberDto
+            {
+                LastName = member.GetValue<string>(ProfileConstants.LastName),
+                FirstName = member.GetValue<string>(ProfileConstants.FirstName),
+                Phone = member.GetValue<string>(ProfileConstants.Phone),
+                Department = member.GetValue<string>(ProfileConstants.Department),
+                Email = member.Email
+            };
 
             return dto;
         }
 
         public bool Delete(Guid id)
         {
-            var member = Optional(_memberService.GetByKey(id));
+            var member = _memberService.GetByKey(id);
 
-            member.Do(mbr =>
+            if (member != null)
             {
-                _memberService.Delete(mbr);
-                DeleteFromCache(mbr.Key);
-            });
+                _memberService.Delete(member);
+                DeleteFromCache(member.Key);
+            }
 
-            return member.IsSome;
+            return member != null;
         }
 
-        protected virtual Option<T> GetFromSqlOrNone(Guid id) =>
-            Optional(_memberService.GetByKey(id))
-                .Map(Map);
+        protected virtual T GetFromSqlOrNone(Guid id) =>
+            Map(_memberService.GetByKey(id));
 
         protected virtual IEnumerable<T> GetAllFromSql() =>
             _memberService
@@ -218,7 +442,7 @@ namespace Uintra20.Core.User
             var relatedUser = relatedUserId.Bind(id => Optional(_intranetUserService.GetByIdOrNone(id)));
 
             var memberPhotoId = member
-                .GetValueOrDefault<int?>(ProfileConstants.Photo).ToOption()
+                .GetValueOrDefault<int>(ProfileConstants.Photo).ToOption()
                 .Choose(() => member.GetMemberImageId(ProfileConstants.Photo));
 
             var memberPhotoUrl = memberPhotoId
@@ -242,7 +466,6 @@ namespace Uintra20.Core.User
 
             return mappedMember;
         }
-
 
         protected virtual string GetUserPhotoOrDefaultAvatar(string userImage) =>
             !string.IsNullOrEmpty(userImage) ? userImage : string.Empty;
@@ -271,12 +494,18 @@ namespace Uintra20.Core.User
             var updatedMember = GetFromSqlOrNone(memberId);
             var allCachedMembers = GetAll();
 
-            var updatedCache = updatedMember.Match(
-                Some: member => allCachedMembers.WithUpdatedElement(el => el.Id == memberId, member),
-                None: () => allCachedMembers.Where(el => el.Id != memberId))
-                .ToList();
+            IEnumerable<T> updatedCache;
 
-            _cacheService.Set(MembersCacheKey, updatedCache, CacheHelper.GetMidnightUtcDateTimeOffset());
+            if (updatedMember != null)
+            {
+                updatedCache = allCachedMembers.WithUpdatedElement(el => el.Id == memberId, updatedMember);
+            }
+            else
+            {
+                updatedCache = allCachedMembers.Where(el => el.Id != memberId);
+            }
+
+            _cacheService.Set(MembersCacheKey, updatedCache.ToList(), CacheHelper.GetMidnightUtcDateTimeOffset());
         }
 
         public virtual void UpdateMemberCache(IEnumerable<Guid> memberIds)
@@ -285,13 +514,20 @@ namespace Uintra20.Core.User
 
             foreach (var memberId in memberIds)
             {
-                allCachedMembers = GetFromSqlOrNone(memberId).Match(
-                Some: member => allCachedMembers.WithUpdatedElement(el => el.Id == memberId, member),
-                None: () => allCachedMembers.Where(el => el.Id != memberId))
-                .ToList();
+                IEnumerable<T> updatedCache;
+                T updatedMember = GetFromSqlOrNone(memberId);
+
+                if (updatedMember != null)
+                {
+                    updatedCache = allCachedMembers.WithUpdatedElement(el => el.Id == memberId, updatedMember);
+                }
+                else
+                {
+                    updatedCache = allCachedMembers.Where(el => el.Id != memberId);
+                }
             }
 
-            _cacheService.Set(MembersCacheKey, allCachedMembers, CacheHelper.GetMidnightUtcDateTimeOffset());
+            _cacheService.Set(MembersCacheKey, allCachedMembers.ToList(), CacheHelper.GetMidnightUtcDateTimeOffset());
         }
 
         public virtual void DeleteFromCache(Guid memberId)
@@ -299,5 +535,7 @@ namespace Uintra20.Core.User
             var updatedCache = GetAll().Where(el => el.Id != memberId).ToList();
             _cacheService.Set(MembersCacheKey, updatedCache, CacheHelper.GetMidnightUtcDateTimeOffset());
         }
+
+        #endregion
     }
 }

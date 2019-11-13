@@ -1,7 +1,7 @@
 ﻿using Uintra20.Core.Activity;
 using Uintra20.Core.Caching;
 using Uintra20.Core.LinkPreview;
-using Uintra20.Core.Location.Services;
+using Uintra20.Core.Location;
 using Uintra20.Core.Media;
 using Uintra20.Core.Permissions.Interfaces;
 using Uintra20.Core.TypeProviders;

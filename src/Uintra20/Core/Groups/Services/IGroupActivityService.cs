@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Uintra20.Core.Groups.Services
+namespace Uintra20.Core.Groups
 {
     public interface IGroupActivityService
     {

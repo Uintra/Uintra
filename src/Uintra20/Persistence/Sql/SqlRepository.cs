@@ -9,7 +9,7 @@ using LanguageExt;
 using Uintra20.Core.Extensions;
 using static LanguageExt.Prelude;
 
-namespace Uintra20.Persistence.Sql
+namespace Uintra20.Persistence
 {
     public class SqlRepository<TKey, T> : ISqlRepository<TKey, T> where T : SqlEntity<TKey>
     {

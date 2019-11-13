@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using LanguageExt;
 
-namespace Uintra20.Persistence.Sql
+namespace Uintra20.Persistence
 {
     public interface ISqlRepository<TKey, T> : IDisposable
     {

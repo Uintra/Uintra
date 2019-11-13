@@ -1,6 +1,4 @@
-﻿using Uintra20.Core.Location.Models;
-
-namespace Uintra20.Core.Location
+﻿namespace Uintra20.Core.Location
 {
     public interface IHaveLocation
     {

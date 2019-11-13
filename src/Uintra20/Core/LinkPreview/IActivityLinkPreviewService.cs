@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Uintra20.Core.LinkPreview
 {
@@ -8,5 +9,10 @@ namespace Uintra20.Core.LinkPreview
         void RemovePreviewRelations(Guid activityId);
         void AddLinkPreview(Guid activityId, int previewId);
         void UpdateLinkPreview(Guid activityId, int previewId);
+
+        Task<LinkPreview> GetActivityLinkPreviewAsync(Guid activityId);
+        Task RemovePreviewRelationsAsync(Guid activityId);
+        Task AddLinkPreviewAsync(Guid activityId, int previewId);
+        Task UpdateLinkPreviewAsync(Guid activityId, int previewId);
     }
 }

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web;
 using Uintra20.Core.ApplicationSettings;
-using Uintra20.Core.Providers;
 
 namespace Uintra20.Core.Extensions
 {

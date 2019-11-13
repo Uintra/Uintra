@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Core.User;
-using Uintra20.Persistence.Sql;
+using Uintra20.Persistence;
 
 namespace Uintra20.Core.Likes
 {
@@ -69,7 +69,7 @@ namespace Uintra20.Core.Likes
                 return Enumerable.Empty<LikeModel>();
             }
 
-            var users = GetManyNames(likes.Select(el => el.UserId));
+            var users = await GetManyNamesAsync(likes.Select(el => el.UserId));
 
             var result = users.Select(el => new LikeModel
             {
@@ -78,6 +78,12 @@ namespace Uintra20.Core.Likes
             });
 
             return result;
+        }
+
+        protected virtual async Task<IEnumerable<(Guid Id, string DisplayedName)>> GetManyNamesAsync(IEnumerable<Guid> usersIds)
+        {
+            var users = await _intranetMemberService.GetManyAsync(usersIds);
+            return users.Select(el => (el.Id, el.DisplayedName));
         }
 
         #endregion

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Web.Mvc;
 using LanguageExt;
 using Umbraco.Core;
 using Umbraco.Core.Models;
+using Umbraco.Core.Services;
 using static LanguageExt.Prelude;
 
 namespace Uintra20.Core.Extensions
@@ -20,7 +22,7 @@ namespace Uintra20.Core.Extensions
                 var imageString = (string)member.GetValue(alias);
                 if (GuidUdi.TryParse(imageString, out var imageGuidUdi))
                 {
-                    var imageNodeId = ApplicationContext.Current.Services.EntityService.GetIdForKey(
+                    var imageNodeId = DependencyResolver.Current.GetService<IEntityService>().GetId(
                         imageGuidUdi.Guid,
                         (UmbracoObjectTypes)Enum.Parse(typeof(UmbracoObjectTypes),
                             imageGuidUdi.EntityType,

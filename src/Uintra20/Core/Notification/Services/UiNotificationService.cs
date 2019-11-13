@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Compent.Extensions;
 using Uintra20.Core.Extensions;
 using Uintra20.Core.Notification.Configuration;
-using Uintra20.Persistence.Sql;
+using Uintra20.Persistence;
 using static LanguageExt.Prelude;
 
 namespace Uintra20.Core.Notification

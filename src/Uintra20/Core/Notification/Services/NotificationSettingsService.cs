@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Compent.Shared.Repository.Contract;
 using Uintra20.Core.Extensions;
 using Uintra20.Core.Notification.Configuration;
-using Uintra20.Persistence.Sql;
+using Uintra20.Persistence;
 
 namespace Uintra20.Core.Notification
 {

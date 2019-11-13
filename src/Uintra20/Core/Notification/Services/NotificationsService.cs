@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Core.Exceptions;
 using Uintra20.Core.Notification.Base;
-using Uintra20.Persistence.Sql;
+using Uintra20.Persistence;
 
 namespace Uintra20.Core.Notification
 {

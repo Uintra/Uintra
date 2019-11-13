@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Core.LinkPreview;
 using Uintra20.Core.LinkPreview.Sql;
-using Uintra20.Persistence.Sql;
+using Uintra20.Persistence;
 
-namespace Uintra20.Core.Comments.Services
+namespace Uintra20.Core.Comments
 {
     public class CommentLinkPreviewService : ICommentLinkPreviewService
     {

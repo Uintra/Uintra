@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Uintra20.Core.Comments.Services
+namespace Uintra20.Core.Comments
 {
     public interface ICommentLinkPreviewService
     {

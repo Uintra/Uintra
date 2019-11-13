@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Uintra20.Core.Groups.Sql;
-using Uintra20.Persistence.Sql;
+using Uintra20.Persistence;
 
-namespace Uintra20.Core.Groups.Services
+namespace Uintra20.Core.Groups
 {
     public class GroupActivityService : IGroupActivityService
     {

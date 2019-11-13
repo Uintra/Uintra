@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Compent.CommandBus;
 using Compent.Extensions;
 using Uintra20.Core.Caching;
@@ -72,6 +73,24 @@ namespace Uintra20.Core.Media
             return umbracoMediaIds;
         }
 
+        public async Task<IEnumerable<int>> CreateMediaAsync(IContentWithMediaCreateEditModel model, Guid? userId = null)
+        {
+            if (model.NewMedia.IsNullOrEmpty()) return Enumerable.Empty<int>();
+
+            var mediaIds = model.NewMedia.Split(';').Where(s => s.HasValue()).Select(Guid.Parse);
+            var cachedTempMedia = mediaIds.Select(s => _cacheService.Get<TempFile>(s.ToString(), ""));
+            var rootMediaId = model.MediaRootId ?? -1;
+
+            var umbracoMediaIds = new List<int>();
+
+            foreach (var file in cachedTempMedia)
+            {
+                var media = await CreateMediaAsync(file, rootMediaId, userId);
+                umbracoMediaIds.Add(media.Id);
+            }
+            return umbracoMediaIds;
+        }
+
         public IMedia CreateMedia(TempFile file, int rootMediaId, Guid? userId = null)
         {
             userId = userId ?? _intranetMemberService.GetCurrentMemberId();
@@ -86,6 +105,50 @@ namespace Uintra20.Core.Media
                 _mediaService.Save(media);
 
                 Task.Run(() =>
+                {
+                    _videoConverter.Convert(new MediaConvertModel()
+                    {
+                        File = file,
+                        MediaId = media.Id
+                    });
+                });
+
+                return media;
+            }
+
+            var stream = new MemoryStream(file.FileBytes);
+            if (_imageHelper.IsFileImage(file.FileBytes))
+            {
+                var fileStream = new MemoryStream(file.FileBytes, 0, file.FileBytes.Length, true, true);
+                stream = _imageHelper.NormalizeOrientation(fileStream, Path.GetExtension(file.FileName));
+            }
+
+            media.SetValue(IntranetConstants.IntranetCreatorId, userId.ToString());
+            media.SetValue(Path.GetFileName(file.FileName), stream);
+            stream.Close();
+
+            if (mediaTypeAlias == VideoTypeAlias)
+            {
+                SaveVideoAdditionProperties(media);
+            }
+            _mediaService.Save(media);
+            return media;
+        }
+
+        public async Task<IMedia> CreateMediaAsync(TempFile file, int rootMediaId, Guid? userId = null)
+        {
+            userId = userId ?? await _intranetMemberService.GetCurrentMemberIdAsync();
+
+            var mediaTypeAlias = GetMediaTypeAlias(file);
+            var media = _mediaService.CreateMedia(file.FileName, rootMediaId, mediaTypeAlias);
+            if (_videoConverter.NeedConvert(mediaTypeAlias, file.FileName))
+            {
+                media.SetValue(IntranetConstants.IntranetCreatorId, userId.ToString());
+                media.SetValue(UmbracoAliases.Video.ThumbnailUrlPropertyAlias, _videoHelper.CreateConvertingThumbnail());
+                media.SetValue(UmbracoAliases.Video.ConvertInProcessPropertyAlias, true);
+                _mediaService.Save(media);
+
+                await Task.Run(() =>
                 {
                     _videoConverter.Convert(new MediaConvertModel()
                     {
@@ -300,6 +363,5 @@ namespace Uintra20.Core.Media
 
             return BroadcastResult.Success;
         }
-
     }
 }

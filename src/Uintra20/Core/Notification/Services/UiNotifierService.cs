@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Compent.Extensions;
+using LanguageExt;
 using Uintra20.Core.Activity;
+using Uintra20.Core.Extensions;
 using Uintra20.Core.Notification.Base;
 using Uintra20.Core.Notification.Configuration;
 using Uintra20.Core.User;
@@ -94,14 +96,14 @@ namespace Uintra20.Core.Notification
 
             if (!settings.IsEnabled && !desktopSettings.IsEnabled) return;
 
-            var receivers = _intranetMemberService.GetMany(data.ReceiverIds).ToList();
+            var receivers = await _intranetMemberService.GetManyAsync(data.ReceiverIds).Select(x => x.ToList());
 
-            var messages = receivers.Select(receiver =>
+            var messages = await receivers.SelectAsync(async receiver =>
             {
-                var uiMsg = _notificationModelMapper.Map(data.Value, settings.Template, receiver);
+                var uiMsg = await _notificationModelMapper.MapAsync(data.Value, settings.Template, receiver);
                 if (desktopSettings.IsEnabled)
                 {
-                    var desktopMsg = _desktopNotificationModelMapper.Map(data.Value, desktopSettings.Template, receiver);
+                    var desktopMsg = await _desktopNotificationModelMapper.MapAsync(data.Value, desktopSettings.Template, receiver);
                     uiMsg.DesktopTitle = desktopMsg.Title;
                     uiMsg.DesktopMessage = desktopMsg.Message;
                     uiMsg.IsDesktopNotificationEnabled = true;
