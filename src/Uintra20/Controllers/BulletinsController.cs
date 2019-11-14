@@ -60,7 +60,13 @@ namespace Uintra20.Controllers
         [HttpPost]
         public BulletinCreationResultModel CreateExtended(BulletinExtendedCreateModel model)
         {
-            return Create(model);
+            var result = new BulletinCreationResultModel
+            {
+                Id = Guid.NewGuid(),
+                IsSuccess = true
+            };
+
+            return result;
         }
 
         //protected override BulletinCreateModel GetCreateFormModel(IActivityCreateLinks links)
