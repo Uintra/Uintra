@@ -1,6 +1,8 @@
 ﻿using LightInject;
+using Uintra20.Infrastructure.Ioc;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
+using Umbraco.Core.Composing.LightInject;
 
 namespace Uintra20.App_Start
 {
@@ -9,7 +11,9 @@ namespace Uintra20.App_Start
     {
         public void Compose(Composition composition)
         {
-            var container = composition.Concrete as IServiceContainer;
+            var container = composition.Concrete as ServiceContainer;
+
+            var container1 = new LightInjectContainerProvider(container);
 
             //var builder = new JsonConfigurationBuilder(new ConfigurationBuilder());
             //var configuration = builder
@@ -27,7 +31,8 @@ namespace Uintra20.App_Start
             //    .RegisterApiControllers(assembly)
             //    .RegisterConverters(assembly);
 
-            LightInjectWebCommon.Start(composition);
+            LightInjectWebCommon.Start(container1);
+
             MapperConfig.RegisterMappings();
         }
     }

@@ -1091,6 +1091,7 @@
     <Compile Include="Core\Utils\EmbeddedResourcesUtils.cs" />
     <Compile Include="Core\Utils\IEmbeddedResourceService.cs" />
     <Compile Include="Core\XPathHelper.cs" />
+    <Compile Include="Infrastructure\Ioc\LightInjectContainerProvider.cs" />
     <Compile Include="Persistence\DbContextFactory.cs" />
     <Compile Include="Persistence\DbObjectContext.cs" />
     <Compile Include="Persistence\IntranetDbContext.cs" />
