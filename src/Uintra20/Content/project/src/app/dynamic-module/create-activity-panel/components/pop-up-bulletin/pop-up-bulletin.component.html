@@ -1,0 +1,31 @@
+<p>pop-up-bulletin works!</p>
+<div>
+  <div class="user">
+    <div class="user-picture">
+      <app-picture></app-picture>
+    </div>
+    <div class="name-and-date">
+      <h6>Admin Admin</h6>
+      <span>Nov 15, 2019-Bulletin</span>
+    </div>
+    <label *ngIf="tags" for="tags">
+      <select name="tags" id="tags">
+        <option *ngFor="let tag of tags" value="tag">{{tag}}</option>
+      </select>
+    </label>
+    <input>
+    <div class="bottom-board">
+      <span>
+        0 / 2000
+      </span>
+      <div class="bottom-board__buttons">
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+      </div>
+    </div>
+  </div>
+</div>

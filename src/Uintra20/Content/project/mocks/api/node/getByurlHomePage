@@ -1,0 +1,12 @@
+contentTypeAlias: "homePage"
+panels: {
+  alias: "panels"
+  propertyEditorAlias: "UBaseline.PanelContainer"
+  value: [
+    {
+      contentTypeAlias: "createActivityPanel"
+    }
+  ]
+}
+title: {value: "Home", alias: "title", propertyEditorAlias: "Umbraco.TextBox"}
+url: "/"

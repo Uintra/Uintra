@@ -66,3 +66,7 @@ src/uIntra.Notification/App_Plugins/Archetype/
 
 src/Compent\.uIntra/Views/Shared/_Layout-output\.cshtml
 src/Compent.uIntra/Web.config
+#========================================================================================> FRONTEND
+**/Content/workspace/
+**/UBaseline/*
+**/wwwroot/**

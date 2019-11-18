@@ -1,0 +1,28 @@
+{
+  "/umbraco/api/*": {
+    "target": "http://localhost:5000",
+    "secure": false, 
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "/umbraco/api/*": "mocks/api/"
+    }
+  },
+  "/media/*": {
+    "target": "http://uintra20.local.compent.dk",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "wwwroot/favicon.ico": {
+    "target": "http://localhost:4200/favicon.ico",
+    "secure": false
+  },
+  "/wwwroot/*": {
+    "target": "http://localhost:4200",
+    "secure": false,
+    "pathRewrite": {
+      "^/wwwroot": ""
+    }
+  }
+}
