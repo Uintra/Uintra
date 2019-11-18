@@ -79,12 +79,12 @@ namespace Uintra20.App_Start
             ConfigureDependencyResolver(composition);
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbObjectContext, Persistence.Migrations.Configuration>());
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<EmailWorker.Data.DataDbContext, EmailWorker.Data.Migrations.Configuration>());
-            RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            GlobalConfiguration.Configure((config) =>
-            {
-                config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                //config.Filters.Add(new UmbracoIpAccessApiFilter());
-            });
+            //RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            //GlobalConfiguration.Configure((config) =>
+            //{
+            //    config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            //    //config.Filters.Add(new UmbracoIpAccessApiFilter());
+            //});
         }
 
         public static void PostStart()

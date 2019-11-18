@@ -85,7 +85,7 @@
     <Reference Include="Compent.Shared.DependencyInjection.LightInject, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.DependencyInjection.LightInject.0.2.1\lib\net471\Compent.Shared.DependencyInjection.LightInject.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.Shared.Extensions.Bcl, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Compent.Shared.Extensions.Bcl, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.Extensions.Bcl.0.1.2\lib\net45\Compent.Shared.Extensions.Bcl.dll</HintPath>
       <Private>True</Private>
     </Reference>
