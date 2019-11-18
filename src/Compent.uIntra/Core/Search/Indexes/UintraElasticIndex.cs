@@ -66,7 +66,7 @@ namespace Compent.Uintra.Core.Search.Indexes
 					case (int)UintraSearchableTypeEnum.Tag:
 						documents.Add(SerializationExtensions.Deserialize<SearchableTag>(document.ToString()));
 						break;
-					case (int)UintraSearchableTypeEnum.User:
+					case (int)UintraSearchableTypeEnum.Member:
 						documents.Add(SerializationExtensions.Deserialize<SearchableMember>(document.ToString()));
 						break;
 					default:
@@ -104,7 +104,7 @@ namespace Compent.Uintra.Core.Search.Indexes
 
 		protected override QueryContainer[] GetSearchPostFilters(SearchTextQuery query)
 		{
-			if (query.SearchableTypeIds.Count() == 1 && query.SearchableTypeIds.First() == (int)UintraSearchableTypeEnum.User)
+			if (query.SearchableTypeIds.Count() == 1 && query.SearchableTypeIds.First() == (int)UintraSearchableTypeEnum.Member)
 				return base.GetSearchPostFilters(query)
 				.Append(new QueryContainerDescriptor<SearchableMember>().Terms(t => t.Field(f => f.Inactive).Terms(false)))
 				.ToArray();

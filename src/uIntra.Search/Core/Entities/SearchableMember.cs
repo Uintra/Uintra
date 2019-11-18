@@ -21,6 +21,6 @@ namespace Uintra.Search
 
 		public bool Inactive { get; set; }
 
-		public IEnumerable<SearchableUserGroupInfo> Groups { get; set; } = Enumerable.Empty<SearchableUserGroupInfo>();
+		public IEnumerable<SearchableMemberGroupInfo> Groups { get; set; } = Enumerable.Empty<SearchableMemberGroupInfo>();
 	}
 }

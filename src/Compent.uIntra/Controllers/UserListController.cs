@@ -33,7 +33,7 @@ namespace Compent.Uintra.Controllers
 	[ThreadCulture]
 	public class UserListController : UserListControllerBase
 	{
-		private readonly IElasticMemberIndex _elasticIndex;
+		private readonly IElasticMemberIndex<SearchableMember> _elasticIndex;
 		private readonly ILocalizationCoreService _localizationCoreService;
 		private readonly IProfileLinkProvider _profileLinkProvider;
 		private readonly IGroupService _groupService;
@@ -44,7 +44,7 @@ namespace Compent.Uintra.Controllers
 
 		public UserListController(
 			IIntranetMemberService<IIntranetMember> intranetMemberService,
-			IElasticMemberIndex elasticIndex,
+			IElasticMemberIndex<SearchableMember> elasticIndex,
 			ILocalizationCoreService localizationCoreService,
 			IProfileLinkProvider profileLinkProvider,
 			IGroupService groupService,
@@ -78,7 +78,7 @@ namespace Compent.Uintra.Controllers
 				Skip = query.Skip,
 				Take = query.Take,
 				OrderingString = query.OrderingString,
-				SearchableTypeIds = ((int)UintraSearchableTypeEnum.User).ToEnumerable(),
+				SearchableTypeIds = ((int)UintraSearchableTypeEnum.Member).ToEnumerable(),
 				GroupId = query.GroupId,
 				MembersOfGroup = query.MembersOfGroup
 			};

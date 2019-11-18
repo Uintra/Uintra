@@ -94,12 +94,6 @@
     <httpErrors existingResponse="PassThrough" xdt:Transform="SetAttributes(existingResponse)" />
   </system.webServer>
 
-  <location path="search" xdt:Transform="InsertIfMissing" xdt:Locator="Condition(@path='search')">
-    <system.web>
-      <globalization requestEncoding="utf-7"/>
-    </system.web>
-  </location>
-
   <system.web>
     <compilation defaultLanguage="c#" debug="true" batch="false" targetFramework="4.5" numRecompilesBeforeAppRestart="50">
       <assemblies>

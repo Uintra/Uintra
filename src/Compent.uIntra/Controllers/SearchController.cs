@@ -58,8 +58,7 @@ namespace Compent.Uintra.Controllers
             });
 
             var resultModel = GetUintraSearchResultsOverviewModel(searchResult);
-            var decodedQuery = Encoding.UTF8.GetString(model.Query.Select(c => (byte)c).ToArray());
-			resultModel.Query = decodedQuery;
+			resultModel.Query = model.Query;
 
             return PartialView(SearchResultViewPath, resultModel);
         }
@@ -139,7 +138,7 @@ namespace Compent.Uintra.Controllers
                 UintraSearchableTypeEnum.Bulletins,
                 UintraSearchableTypeEnum.Content,
                 UintraSearchableTypeEnum.Document,
-                UintraSearchableTypeEnum.User
+                UintraSearchableTypeEnum.Member
             );
 
         protected override SearchBoxAutocompleteItemViewModel GetSeeAllSearchAutocompleteItemModel(string title)

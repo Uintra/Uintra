@@ -10,6 +10,6 @@ namespace Compent.Uintra.Core.Search.Entities
         Content = SearchableTypeEnum.Content,
         Document = SearchableTypeEnum.Document,
         Tag,
-        User
+        Member
     }
 }
