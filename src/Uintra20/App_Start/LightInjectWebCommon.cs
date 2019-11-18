@@ -58,10 +58,10 @@ using Uintra20.Core.User.Entities;
 using Uintra20.Core.User.RelatedUser;
 using Uintra20.Core.UserTags;
 using Uintra20.Core.Utils;
-using Uintra20.Infrastructure.Ioc;
 using Uintra20.Persistence;
+using Umbraco.Core;
 using Umbraco.Core.Composing;
-using Umbraco.Core.Composing.LightInject;
+using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.WebApi.Filters;
 using ConfigurationBuilder = Microsoft.Extensions.Configuration.ConfigurationBuilder;
@@ -72,11 +72,11 @@ namespace Uintra20.App_Start
     {
         //private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
-        public static void Start(LightInjectContainerProvider container)
+        public static void Start(Composition composition)
         {
             //DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             //DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            ConfigureDependencyResolver(container);
+            ConfigureDependencyResolver(composition);
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbObjectContext, Persistence.Migrations.Configuration>());
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<EmailWorker.Data.DataDbContext, EmailWorker.Data.Migrations.Configuration>());
             RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
@@ -108,11 +108,9 @@ namespace Uintra20.App_Start
             //bootstrapper.ShutDown();
         }
 
-        private static void ConfigureDependencyResolver(LightInjectContainerProvider xxx)
+        private static void ConfigureDependencyResolver(Composition composition)
         {
-            var container = xxx.ServiceContainer;
-
-            Current.Factory = xxx;
+            var container = composition.Concrete as IServiceContainer;
 
             var builder = new JsonConfigurationBuilder(new ConfigurationBuilder());
             var configuration = builder
