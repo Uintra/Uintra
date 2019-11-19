@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Uintra20.Features.Controls.LightboxGallery
+namespace Uintra20.Core.Controls.LightboxGallery
 {
     public class LightboxGalleryPreviewModel
     {

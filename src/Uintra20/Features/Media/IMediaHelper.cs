@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Uintra20.Features.Controls.FileUpload;
+using Uintra20.Core.Controls.FileUpload;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
 

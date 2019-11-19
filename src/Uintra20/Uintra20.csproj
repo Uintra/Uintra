@@ -772,6 +772,11 @@
     <Compile Include="Core\Activity\Models\IntranetActivityEditModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
+    <Compile Include="Core\Login\LoginPageViewModel.cs" />
+    <Compile Include="Core\Login\LoginPageViewModelConverter.cs" />
+    <Compile Include="Core\Login\LoginPageModel.cs" />
+    <Compile Include="Features\Information\IInformationService.cs" />
+    <Compile Include="Features\Information\InformationService.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\Models\GoogleOAuth.cs" />
@@ -837,8 +842,8 @@
     <Compile Include="Infrastructure\Constants\IntranetConstants.cs" />
     <Compile Include="Infrastructure\Constants\UmbracoAliases.cs" />
     <Compile Include="Infrastructure\Context\ContextType.cs" />
-    <Compile Include="Features\Controls\LightboxGallery\LightboxAutoMapperProfile.cs" />
-    <Compile Include="Features\Controls\LightboxGallery\LightboxGalleryPreviewModel.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxAutoMapperProfile.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewModel.cs" />
     <Compile Include="Features\Events\AutoMapperProfiles\EventsAutoMapperProfile.cs" />
     <Compile Include="Features\Events\Entities\Events.cs" />
     <Compile Include="Features\Events\EventBase.cs" />
@@ -933,7 +938,7 @@
     <Compile Include="Features\Media\MediaFolderTypeEnum.cs" />
     <Compile Include="Features\Media\MediaHelper.cs" />
     <Compile Include="Features\Media\MediaSettings.cs" />
-    <Compile Include="Features\Controls\FileUpload\TempFile.cs" />
+    <Compile Include="Core\Controls\FileUpload\TempFile.cs" />
     <Compile Include="Features\Media\Sql\IntranetMediaEntity.cs" />
     <Compile Include="Features\Media\VideoConvertationLog.cs" />
     <Compile Include="Features\Media\VideoConvertedCommand.cs" />
@@ -941,6 +946,7 @@
     <Compile Include="Features\Media\VideoConverterLogService.cs" />
     <Compile Include="Features\Media\VideoHelper.cs" />
     <Compile Include="Features\Media\VideoSizeMetadataModel.cs" />
+    <Compile Include="Infrastructure\Ioc\UintraInjectModule.cs" />
     <Compile Include="MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Features\CentralFeed\Models\Feed\IFeedItem.cs" />
     <Compile Include="Features\CentralFeed\Models\GroupFeed\GroupInfo.cs" />
@@ -1184,6 +1190,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Infrastructure\Authentication\" />
     <Folder Include="Infrastructure\Configuration\" />
   </ItemGroup>
   <PropertyGroup>

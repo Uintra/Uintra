@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra20.Features.Controls.FileUpload
+namespace Uintra20.Core.Controls.FileUpload
 {
     public class TempFile
     {

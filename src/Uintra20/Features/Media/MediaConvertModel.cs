@@ -1,4 +1,4 @@
-﻿using Uintra20.Features.Controls.FileUpload;
+﻿using Uintra20.Core.Controls.FileUpload;
 
 namespace Uintra20.Features.Media
 {
