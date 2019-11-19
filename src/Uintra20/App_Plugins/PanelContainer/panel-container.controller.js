@@ -45,8 +45,8 @@
         renderSelected();
     }
 
-    vm.editPanel = function(panel)
-    {
+    vm.editPanel = function(panel) {
+        vm.selectedPanels.forEach(panel => panel.editMode = false);
         panel.editMode = true;
         vm.setupPanelEditorFor(panel, false, panel.isGlobal);
     }
@@ -70,7 +70,7 @@
     vm.showGlobalPanelList = function()
     {
         getGlobalPanelTypes().then(response => {
-            let panels = response.map(data => {
+            let panels = getVisiblePanels(response).map(data => {
                 data.isGlobal = true;
                 return data;
             });
@@ -424,9 +424,9 @@
         vm.loading = true;
 
         getPanels().then(panels => {
-            vm.localPanelTypes = panels[0];
-            vm.globalPanelTypes = panels[1];
-            vm.requiredPanelTypes = panels[2];
+            vm.localPanelTypes = getVisiblePanels(panels[0]);
+            vm.globalPanelTypes = getVisiblePanels(panels[1]);
+            vm.requiredPanelTypes = getVisiblePanels(panels[2]);
 
             try {
                 renderSelected();
@@ -479,10 +479,16 @@
                 }
             } else {
                 let obj = vm.localPanelTypes.find(type => type.alias === panel.contentTypeAlias);
-                if (obj) panelType = JSON.parse(angular.toJson(obj));
+                if (obj)
+                {
+                    const titleProperty = panel.properties.find( prop => prop.alias === 'title');
+                    obj.vmTitle = (titleProperty && titleProperty.value) || 'N/a';
+
+                    panelType = JSON.parse(angular.toJson(obj));
+                }
             }
 
-            if (!panelType) removePanelFromModel(panel);
+            if (!panelType || isPanelHidden()) removePanelFromModel(panel);
 
             return panelType;
         })
@@ -491,9 +497,16 @@
         return updateOrdersFor(vms);
     }
 
+    function isPanelHidden(alias) {
+        return $scope.model.config.hiddenPanels.indexOf(alias) !== -1;
+    } 
+
+    function getVisiblePanels(panels) {
+        return panels.filter(panel => !isPanelHidden(panel.alias));
+    } 
+
     function removePanelFromModel(panel)
     {
-        debugger
         // panel has been removed or renamed
         if (panel.contentTypeAlias)
         {

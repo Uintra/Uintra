@@ -7,9 +7,10 @@ import { NoImageComponent } from './component/no-image/no-image.component';
 import { DefaultComponent } from './component/default/default.component';
 import { SingleComponent } from './component/single/single.component';
 import { SliderComponent } from './component/slider/slider.component';
+import { VideoElementComponent } from './component/video-element/video-element.component';
 
 @NgModule({
-  declarations: [SpotPanelComponent, NoImageComponent, DefaultComponent, SingleComponent, SliderComponent],
+  declarations: [SpotPanelComponent, NoImageComponent, DefaultComponent, SingleComponent, SliderComponent, VideoElementComponent],
   imports: [
     CommonModule,
     SharedModule

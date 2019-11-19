@@ -1,0 +1,10 @@
+﻿<div ng-controller="UBaseline.ContentPreviewController as vm">
+    <div>
+        Width:<input type="number" ng-model="vm.width">
+        Height:<input type="number" ng-model="vm.height">
+        <input type="button" ng-click="vm.refresh()" value="Refresh"/>
+    </div>
+    <div>
+        <iframe class="js-preview-frame" src="{{vm.previewUrl}}" style="width:{{vm.width}}px;height:{{vm.height}}px;border:none;overflow:hidden;"></iframe>
+    </div>
+</div>

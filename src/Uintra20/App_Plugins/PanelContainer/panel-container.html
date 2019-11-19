@@ -1,13 +1,13 @@
 ﻿<div class="panel-view" ng-controller="UBaseline.PanelContainerController as vm">
-       
+
     <umb-load-indicator ng-show="vm.loading"></umb-load-indicator>
-   
+
     <div class="selected-panels" ui-sortable="sortableOptions" ng-model="vm.selectedPanels">
         <div class="selected-panels__item" ng-repeat="panel in vm.selectedPanels track by $index">
             <div class="panel">
                 <div class="panel__label" ng-if="!panel.isGlobal" ng-click="vm.editPanel(panel)">
                     <i class="icon {{panel.icon}}"></i>
-                    <span>{{panel.name}}</span>
+                    <span>{{ panel.name }} | Local panel title: {{ panel.vmTitle }}</span>
                 </div>
                 <div class="panel__label" ng-if="panel.isGlobal" ng-click="vm.editPanel(panel)">
                     <i class="icon {{panel.icon}}"></i>{{ panel.name }} | Node id: {{ panel.nodeId }} | Global panel title: {{ panel.nodeName }}
@@ -21,11 +21,11 @@
             </div>
         </div>
     </div>
-   
+
     <div class="panel-view__actions">
-        Add 
+        Add
         <umb-button type="button" size="xs" action="vm.showGlobalPanelList()" button-style="action" label="Global"></umb-button>
-         or 
+         or
         <umb-button type="button" size="xs" action="vm.showLocalPanelList()" button-style="action" label="Local"></umb-button>
         panel...
     </div>

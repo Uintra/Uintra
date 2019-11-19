@@ -1,53 +1,46 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { resolveThemeCssClass } from '../lib/helper/panel-settings';
+import { IUProperty } from 'src/app/shared/interface/umbraco-property';
+import { IButtonData } from 'src/app/shared/components/button/button.component';
+import { IPanelSettings } from 'src/app/shared/interface/panel-settings';
 
-interface IProperty<T> {
-  value: T;
-}
 interface HeroPanelData {
-  title?: IProperty<string>;
-  description?: IProperty<string>;
-  media?: IProperty<any>;
-  link?: IProperty<Object>;
-  panelSettings?: any;
+  title: IUProperty<string>;
+  description: IUProperty<string>;
+  media: IUProperty<any>; // TODO: create appropriate interface
+  link: IUProperty<IButtonData>;
+  panelSettings: IPanelSettings;
 }
-enum typeAliases {
-  imageItem = "imageItem",
-  videoItem = "videoItem"
-}
+
 @Component({
   selector: 'app-hero-panel',
   templateUrl: './hero-panel.component.html',
   styleUrls: ['./hero-panel.component.less']
 })
 export class HeroPanelComponent implements OnInit {
-  @Input() data: HeroPanelData;
-  @HostBinding('class') rootClasses;
+  @Input() data: Partial<HeroPanelData>;
+  @HostBinding('class') get hostClasses() {return resolveThemeCssClass(this.data.panelSettings)}
+
   hasImage: boolean;
   media: any;
 
-  constructor() { }
-
-  ngOnInit() 
+  ngOnInit()
   {
-    this.rootClasses = `
-      ${ this.data.panelSettings.theme.value.alias || 'default-theme' }
-      ${ this.data.panelSettings.behaviour.value || 'full-content' }
-    `;
-    
-    this.setMedia();
+    this.prepareMedia();
   }
 
-  private setMedia() {
-    const media = this.data.media.value;
+  private prepareMedia()
+  {
+    if (!this.data || !this.data.media || !this.data.media.value) return;
 
-    if(!media) return;
+    const media = this.data.media.value;
 
     this.hasImage = !!media.image;
 
-    if(this.hasImage) {
+    if (this.hasImage)
+    {
       this.media = media.image;
-    }
-    else {
+    } else {
       this.media = {
         desktop: media.video.desktop || media.video.mobile,
         mobile: media.video.mobile || media.video.desktop

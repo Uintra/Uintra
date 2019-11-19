@@ -16,14 +16,14 @@ interface IVideoPickerData {
   desktop?: IVideoPickerVideoData;
   mobile?: IVideoPickerVideoData;
 }
-interface IVideoPickerVideoData {
+export interface IVideoPickerVideoData {
   loop: boolean;
   thumbnail: string;
   type: number;
   url: string;
   videoCode: string;
 }
-interface IVideoViewModel {
+export interface IVideoViewModel {
   video: object;
   thumbnail: IPictureData;
   title: IUProperty<string>;

@@ -4,11 +4,10 @@ import { Component, HostBinding } from '@angular/core';
   selector: 'button[ubl-button]',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.less'],
-  exportAs: 'ublButton',
-  host: {
-  }
+  exportAs: 'ublButton'
 })
 export class ButtonComponent {
+  toggled: boolean;
 
   @HostBinding('attr.disable') disableAttr: boolean;
 

@@ -2,9 +2,7 @@
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Compent.CommandBus;
 using Compent.LinkPreview.HttpClient;
 using Compent.Shared.ConfigurationProvider.Json;
@@ -19,12 +17,7 @@ using Localization.Umbraco;
 using Localization.Umbraco.Export;
 using Localization.Umbraco.Import;
 using Localization.Umbraco.UmbracoEvents;
-using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-using Newtonsoft.Json.Serialization;
-using Ninject.Web.Common;
-using Ninject.Web.Common.WebHost;
 using UBaseline.Core.Startup;
-using Uintra20.App_Start;
 using Uintra20.Attributes;
 using Uintra20.Core;
 using Uintra20.Core.Activity;
@@ -59,9 +52,7 @@ using Uintra20.Core.User.RelatedUser;
 using Uintra20.Core.UserTags;
 using Uintra20.Core.Utils;
 using Uintra20.Persistence;
-using Umbraco.Core;
 using Umbraco.Core.Composing;
-using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.WebApi.Filters;
 using ConfigurationBuilder = Microsoft.Extensions.Configuration.ConfigurationBuilder;
@@ -112,31 +103,17 @@ namespace Uintra20.App_Start
         {
             var container = composition.Concrete as IServiceContainer;
 
-            var builder = new JsonConfigurationBuilder(new ConfigurationBuilder());
-            var configuration = builder
-                .AddLogging(UBaselineConfiguration.EnvironmentName)
-                .AddUBaselineConfiguration()
-                .Build();
+          
 
-            var assembly = typeof(LightInjectWebCommon).Assembly;
+            //dependencyCollection.AddTransient<IHttpModule, HttpApplicationInitializationHttpModule>();
 
-            var dependencyCollection = new LightInjectDependencyCollection(container, configuration);
-            dependencyCollection.AddLogging()
-                .AddUBaseline()
-                .RegisterInjectModules(assembly)
-                .RegisterMvcControllers(assembly)
-                .RegisterApiControllers(assembly)
-                .RegisterConverters(assembly);
-
-            dependencyCollection.AddTransient<IHttpModule, HttpApplicationInitializationHttpModule>();
-
-            RegisterEntityFrameworkServices(dependencyCollection);
-            RegisterServices(dependencyCollection);
-            //RegisterModelBinders();
-            //RegisterGlobalFilters();
-            RegisterLocalizationServices(dependencyCollection);
-            //RegisterSearchServices(kernel);
-            RegisterCommandBusServices(dependencyCollection);
+            //RegisterEntityFrameworkServices(dependencyCollection);
+            //RegisterServices(dependencyCollection);
+            ////RegisterModelBinders();
+            ////RegisterGlobalFilters();
+            //RegisterLocalizationServices(dependencyCollection);
+            ////RegisterSearchServices(kernel);
+            //RegisterCommandBusServices(dependencyCollection);
 
             //GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
             //return kernel;

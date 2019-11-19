@@ -5,7 +5,7 @@ export interface IModalVideo {
   title: IUProperty<string>;
   description: IUProperty<string>;
   video: any;
-  params: string;
+  params?: string;
 }
 @Component({
   selector: 'app-modal-video',

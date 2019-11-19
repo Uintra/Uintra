@@ -4,40 +4,14 @@
 }
 .list {
     font-size: 13px;
-    label {
+    ubl-checkbox {
         display: block;
         padding-top: 3px;
         padding-bottom: 3px;
+        font-size: 13px;
     }
     .toggle-all-section {
-        label {
-            display: inline-block;
-        }
-    }
-}
-.agreements {
-    display: block;
-    .icon {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border: 2px solid #000;
-        margin-right: 10px;
-        vertical-align: middle;
-        margin-top: -3px;
-        &::before {
-            display: none;
-        }
-    }
-    &__text {
-        display: inline-block;
-        line-height: 22px;
-    }
-
-    &__checkbox {
-        display: none;
-        margin-right: 5px;
-        &:checked + .icon:before {
+        ubl-checkbox {
             display: inline-block;
         }
     }
@@ -55,14 +29,6 @@ input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 }
 
-ubl-button {
-    text-transform: uppercase;
-    font-size: 11px;
-    color: #000;
-    .icon {
-        margin-left: 10px;
-    }
-}
 .subscribe {
     &__title,
     &__description,
@@ -105,7 +71,7 @@ ubl-button {
         text-decoration: underline;
         cursor: pointer;
         color: @link-color;
-
+        font-size: 13px;
         &:hover {
             text-decoration: none;
         }
@@ -117,14 +83,3 @@ ubl-button {
     align-items: center;
     margin-top: 30px;
 }
-.agreement {
-    position: fixed;
-    z-index: 9999;
-    background-color: #fff;
-    box-shadow: 0 0 0 1000px fade(#000, 50);
-    width: 50%;
-    max-height: 80%;
-    left: 25%;
-    padding: 20px;
-}
-

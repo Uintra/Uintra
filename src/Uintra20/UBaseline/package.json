@@ -4,13 +4,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --named-chunks  --deploy-url=wwwroot/",
+    "build": "ng build --prod --named-chunks  --deploy-url=wwwroot/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "setup": "node ./setup/setup.js",
     "lib:build": "ng-packagr -p ./src/app/dynamic-module/lib/package.json",
-    "lib:publish": "npm run lib:patch && cd ./src/app/dynamic-module/lib/dist && npm pack && npm publish --registry https://registry.ukad-demo.com",
+    "lib:publish": "cd ./src/app/dynamic-module/lib/dist && npm pack && npm publish --registry https://registry.ukad-demo.com",
     "lib:patch": "cd ./src/app/dynamic-module/lib && npm version patch"
   },
   "private": true,

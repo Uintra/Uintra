@@ -9,7 +9,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   declarations: [SubscribePanelComponent],
   imports: [
     CommonModule,
-    SubscribeModule.configure({'api': '/umbraco/api', 'agreementsUrl': '/agreements/url'}),
+    SubscribeModule.configure({'api': '/ubaseline/api', 'agreementsUrl': '/agreements/url'}),
     SharedModule
   ],
   providers: [

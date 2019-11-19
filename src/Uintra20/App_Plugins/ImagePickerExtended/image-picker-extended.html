@@ -33,7 +33,7 @@
                 Warning! This image is trashed!
             </span>
             <div>
-                <input ng-if="config.showAlt" type="text" ng-model="image.alt" ng-keyup="image.alt = image.alt.substr(0, 125)" placeholder="Alt" required />
+                <input ng-if="config.showAlt" type="text" ng-model="image.alt" ng-init="ipc.initAlt(image)" ng-keyup="image.alt = image.alt.substr(0, 125)" placeholder="Alt" required />
                 <span style="color: grey">Set page specific ALT text here. If not set default ALT text will be taken from Media library.</span>
             </div>
         </div>

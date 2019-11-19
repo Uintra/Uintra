@@ -1,5 +1,7 @@
 <section class="image-panel" *ngIf="data">
-  <a class="image-panel__content" [attr.href]="data.link.value ? data.link.value.url : null" target="{{ data.link.value.target || '_self' }}">
-    <app-picture class="image-panel__image" *ngIf="data.image.value" [data]="data.image.value"></app-picture>
+  <a class="image-panel__content"
+    [attr.href]="data.link?.value ? data.link?.value?.url : null"
+    target="{{ data.link?.value?.target || '_self' }}">
+    <app-picture class="image-panel__image" *ngIf="data.image?.value" [data]="data.image?.value"></app-picture>
   </a>
 </section>

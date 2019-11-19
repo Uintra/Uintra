@@ -19,10 +19,18 @@ export interface IButtonData {
 export class ButtonComponent {
   @Input() data: IButtonData;
   @Input() withArrow: Boolean;
-  domain: string;
+
   urlType = UrlType;
 
-  constructor(private appConfigService: AppConfigService) {
-    this.domain = appConfigService.getHostName();
+  ngOnInit()
+  {
+    if (!this.data) return;
+
+    if (this.data.target) this.data.type = UrlType.External;
+
+    if (this.data.type === UrlType.Media)
+    {
+      if (!this.data.target) this.data.target = '_blank';
+    }
   }
 }

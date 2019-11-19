@@ -1,5 +1,5 @@
 {
-  "/umbraco/api/*": {
+  "/ubaseline/api/*": {
     "target": "http://ubaseline.local.compent.dk",
     "secure": false,
     "logLevel": "debug",

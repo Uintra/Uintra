@@ -1,32 +1,31 @@
 <ng-container *ngIf="data">
-    <h3 class="subscribe__title">
-        {{data.title}}
-    </h3>
-    <p class="subscribe__description">
-        {{data.description}}
-    </p>
+    <h3 class="subscribe__title">{{ data.title }}</h3>
+    <p class="subscribe__description">{{ data.description }}</p>
 
     <form #subscribeForm="ngForm" [ngClass]="{busy: isBusy}" class="subscribe__form">
-        <div class="list">
+        <div class="list" *ngIf="model?.length > 1">
             <div class="toggle-all-section">
-                <label
-                    [partlyChecked]="partlySelected"
-                    (click)="toggleSelectAll()"
-                    ubl-checkbox
-                    [name]="'selectAll'"
-                    [(ngModel)]="selectAll"></label>
+                <ubl-checkbox
+                    [ngModelOptions]="{standalone: true}"
+                    [mixed]="partlySelected"
+                    [ngModel]="selectAll"
+                    (ngModelChange)="toggleSelectAll($event)"></ubl-checkbox>
+
                 <button ubl-button class="toggleAll" (click)="button.toggled = !button.toggled" #button>
-                    {{ 'mailchimpPanel.AllTopics' | translate }}({{ model?.length }})
+                    {{ 'mailchimpPanel.AllTopics' | translate }}({{model?.length}})
                     <i class="icon icon-chevron-up" *ngIf="!!button.toggled"></i>
                     <i class="icon icon-chevron-down" *ngIf="!button.toggled"></i>
                 </button>
             </div>
 
             <ng-container *ngIf="!!button.toggled">
-                <label *ngFor="let listItem of model"
-                    ubl-checkbox
-                    [name]="listItem.id"
-                    [(ngModel)]="listItem.checked">{{ listItem.name }}</label>
+                    <ubl-checkbox
+                        *ngFor="let listItem of model"
+                        ubl-checkbox
+                        [name]="listItem.id"
+                        [(ngModel)]="listItem.checked">
+                        {{ listItem.name }}
+                    </ubl-checkbox>
             </ng-container>
         </div>
 
@@ -44,17 +43,17 @@
             <button ubl-button
                 class="submit"
                 (click)="onSubscribe(email)"
-                [disabled]="!agreed || !subscribeForm.form.valid">
+                [disabled]="!agreed || !subscribeForm.form.valid || isSuccess === false || !someListIdSelected()">
                 {{ 'mailchimpPanel.ButtonText' | translate }}
                 <i class="icon icon-arrow-right after" *ngIf="isSuccess === undefined"></i>
-                <i class="icon after" *ngIf="isSuccess !== undefined"  [ngClass]="isSuccess ? 'icon-check' : 'icon-cross'"></i>
+                <i class="icon after" *ngIf="isSuccess !== undefined"  [ngClass]="isSuccess ? 'icon-checked' : 'icon-cross'"></i>
             </button>
         </div>
     </form>
 
-    <label class="subscribe__agreements agreements" ubl-checkbox [(ngModel)]="agreed">
+    <ubl-checkbox class="subscribe__agreements agreements" [(ngModel)]="agreed">
         {{ 'mailchimpPanel.AgreementText' | translate }}
-    </label>
+    </ubl-checkbox>
 
     <div class="subscribe__policy" (click)="showPrivacy.emit()">{{ 'mailchimpPanel.PrivacyPolicyLabel' | translate}}</div>
 </ng-container>

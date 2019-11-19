@@ -1,4 +1,4 @@
-<section class="hero-panel" *ngIf="data && media">
+<section class="hero-panel" *ngIf="data">
 	<div class="hero-panel__content">
 
 		<div *ngIf="hasImage; then imageBlock; else videoBlock"></div>
@@ -15,7 +15,7 @@
 	<app-picture class="hero-panel__media-holder" *ngIf="hasImage" [data]="media"></app-picture>
 </ng-template>
 
-<ng-template #videoBlock>
+<ng-template #videoBlock *ngIf="media">
   <div class="hero-panel__media-holder hero-panel__media-holder--with-video">
     <div *ngIf="media.desktop.type === 2; then videoDeskLocalBlock; else videoDeskNoLocalBlock"></div>
     <div *ngIf="media.mobile.type === 2; then videoMobLocalBlock; else videoMobNoLocalBlock"></div>

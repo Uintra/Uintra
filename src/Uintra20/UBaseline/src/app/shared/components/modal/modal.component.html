@@ -1,7 +1,7 @@
-<div class="modal-window" *ngIf="isShowContent" [ngClass]="{'modal-window--show': isShowContent}">
-  <div class="modal-window__container" (clickOutside)="handleClose()">
+<div class="modal-window" *ngIf="isShowContent" [ngClass]="{'modal-window--show': isShowContent}" [style.padding-right]="rightOffset">
+  <div class="modal-window__container" (clickOutside)="close.emit()">
       <ng-content></ng-content>
   </div>
 
-  <button (click)="handleClose()" id="close-button" name="close-button" class="modal-window__close">x</button>
+  <button id="close-button" name="close-button" class="modal-window__close">x</button>
 </div>

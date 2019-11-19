@@ -8,12 +8,23 @@
       "editor": {
         "view": "~/App_Plugins/PanelContainer/panel-container.html",
         "valueType": "JSON"
+      },
+      "prevalues": {
+        "fields": [
+          {
+            "label": "Hidden panels",
+            "description": "",
+            "key": "hiddenPanels",
+            "view": "~/App_Plugins/PanelContainer/prevalue/hidden-panels-selector.html"
+          }
+        ]
       }
     }
   ],
   "javascript": [
     "~/App_Plugins/PanelContainer/panel-container.controller.js",
-    "~/App_Plugins/PanelContainer/panel-container.resource.js"
+    "~/App_Plugins/PanelContainer/panel-container.resource.js",
+    "~/App_Plugins/PanelContainer/prevalue/hidden-panels-selector.controller.js"
   ],
   "css": [
     "~/App_Plugins/PanelContainer/style.css"

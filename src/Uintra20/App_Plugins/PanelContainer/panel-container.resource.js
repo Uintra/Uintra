@@ -16,6 +16,11 @@
             return umbRequestHelper.resourcePromise(
                 $http.get(baseUrl + "getRequiredPanelTypes?nodeTypeAlias=" + nodeTypeAlias),
                 "Failed to get required panel types");
+        },
+        getAllPanelTypes: function () {
+            return umbRequestHelper.resourcePromise(
+                $http.get(baseUrl + "getAllPanelTypes"),
+                "Failed to get required panel types");
         }
     };
 }

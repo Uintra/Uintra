@@ -13,6 +13,7 @@ export interface ISubscribePanelData {
 export interface IListItemPanelData {
   listId: IUProperty<string>;
   listName: IUProperty<string>;
+  groups: IUProperty<IUProperty<{groupId: string}>[]>;
 }
 
 export interface IAgreementTextItem {
@@ -36,7 +37,14 @@ export class SubscribePanelComponent {
   {
     let mapped = UProperty.extract<ISubscribePanelData, ISubscribeData>(this.data,
       ['title', 'description', 'agreementText', 'lists']);
-    mapped.lists = mapped.lists.map(i => UProperty.extract<IListItemPanelData, ISubscribeListItem>(i as any, ['listId', 'listName']));
+    mapped.lists = mapped.lists.map(list => {
+      const mappedList = UProperty.extract<IListItemPanelData, ISubscribeListItem>(list as any, ['listId', 'listName', 'groups'])
+      mappedList.groups = mappedList.groups.map(g => {
+        return {groupId: (g.groupId as any as IUProperty<string>).value}
+      }) as any;
+
+      return mappedList;
+    });
 
     const {description, title} = UProperty.extract<IAgreementTextItem, ISubscribeAgreementData>(mapped.agreementText as any,
       ['description', 'title',]);

@@ -1,4 +1,4 @@
-@import "../../../../../base.less";
+@import "base.less";
 
 :host {
     text-align: center;
@@ -7,6 +7,7 @@
     align-items: flex-end;
     flex-wrap: wrap;
     margin-bottom: 40px;
+    flex: 1 0 0;
     @media @sm-down {
         @media (orientation: portrait) {
             flex-basis: 100% / 2;
@@ -41,6 +42,6 @@
             @media (orientation: portrait) {
                 width: 46% !important;
             }
-        }       
+        }
     }
 }

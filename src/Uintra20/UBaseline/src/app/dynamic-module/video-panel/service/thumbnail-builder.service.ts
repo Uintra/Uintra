@@ -7,7 +7,7 @@ export class ThumbnailBuilderService {
 
   constructor() { }
 
-  create(data) {
+  create(data: string) {
     return {
         alt: data,
         height: 900,

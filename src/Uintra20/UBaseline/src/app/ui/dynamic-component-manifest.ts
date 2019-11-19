@@ -86,6 +86,11 @@ const baseComponents: DynamicComponentManifest[] = [
     componentId: 'documentLibraryPanel',
     path: 'dynamic-module',
     loadChildren: './dynamic-module/lib/panel/document-library-panel/document-library-panel.module#DocumentLibraryPanelModule'
+  },
+  {
+    componentId: 'linksPanel',
+    path: 'dynamic-module',
+    loadChildren: './dynamic-module/links-panel/links-panel.module#LinksPanelModule'
   }
 ];
 

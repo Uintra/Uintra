@@ -91,10 +91,14 @@
             return file && file.src.split('.')[1] === 'svg';
         }
 
-        self.getDefaultAlt = function(image) {
-            let media = self.getCachedMedia(image.mediaId);
-            let alt = getAlt(media);
-            image.alt = alt;
+        self.initAlt = function (image) {
+            if (image.alt)
+                return;
+
+            mediaResource.getById(image.mediaId).then(media => {
+                let alt = getAlt(media);
+                image.alt = alt;
+            });
         }
 
         function getAlt(media) {
@@ -140,7 +144,7 @@
 
             var media = self.getCachedMedia(content.id);
             let altImage = getAlt(media);
-            const newModel = { mediaId: content.id, alt: altImage};
+            const newModel = { mediaId: content.id, alt: altImage };
 
             if (extention !== 'svg' && $scope.config.imageExtentions.indexOf(extention) > -1) {
                 newModel.crops = angular.copy($scope.config.crops);

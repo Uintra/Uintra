@@ -1,14 +1,11 @@
-import { Component, Output, Input, EventEmitter } from '@angular/core';
+import { Component, Output, Input, EventEmitter, HostListener, HostBinding } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'label[ubl-checkbox]',
+  selector: 'ubl-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.less'],
   exportAs: 'ublCheckbox',
-  host: {
-    'attr.ngDefaultControl': ''
-  },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -18,31 +15,48 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ]
 })
 export class CheckboxComponent implements ControlValueAccessor {
-  @Input() ngModel: boolean;
-  @Output() ngModelChange = new EventEmitter();
-  @Input() value: boolean;
-  @Input() name: string;
-  @Input() partlyChecked: boolean;
+  @Input() mixed: boolean;
+  @Input() set disabled(flag: boolean) {this.isDisabled = flag};
 
-  isDisabled: boolean;
+  @Output() ngModelChange = new EventEmitter();
+
   model: boolean;
 
   changeHandler: any;
   touchedHandler: any;
-  writeValue(checked: boolean | null): void {
-    if (checked === null) return;
 
+  @HostBinding('class.disabled') isDisabled: boolean;
+
+  @HostListener('click') onClick()
+  {
+    if (this.isDisabled) return;
+
+    this.model = !this.model;
+    this.changeHandler(this.model);
+  }
+
+  ngOnInit()
+  {
+    this.isDisabled = this.disabled;
+  }
+
+  writeValue(checked: boolean | null)
+  {
     this.model = checked
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: any)
+  {
     this.changeHandler = fn;
   }
-  registerOnTouched(fn: any): void {
+
+  registerOnTouched(fn: any)
+  {
     this.touchedHandler = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean)
+  {
     this.isDisabled = isDisabled;
   }
 }

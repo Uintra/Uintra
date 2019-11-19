@@ -6,14 +6,21 @@ import { of } from 'rxjs';
 
 export enum SubscribeServiceResponseStatus {
   statussubscribed = 200,
-  status400 = 400,
+  // Since member exist status is 400, and we count it like success 200
+  status400 = 200,
   statusnotfound = 404,
   statusservererror = 500,
 }
 export interface ISubscribeModel {
   email: string;
-  listIds: string[];
+  lists: {id: string, groups: string[]}[];
   agreementText: {title: string, description: string};
+}
+
+interface ISubscribeResponseModel {
+  status: number;
+  listId: string;
+  title: string;
 }
 @Injectable()
 export class SubscribeService {
@@ -27,10 +34,16 @@ export class SubscribeService {
   {
     return this.http.post(`${this.config.api}/MailchimpPanel/subscribe`, data).pipe(
       catchError(err => {
-        return err.status === 404 ? of({status: 'notfound'}) : of({status: 'servererror'});
+        return err.status === 404 ? of([{status: 'notfound'}]) : of([{status: 'servererror'}]);
       }),
-      map((data: {status: string}) => {
-        return  SubscribeServiceResponseStatus[`status${data.status}`];
+      map((data: ISubscribeResponseModel[]) => {
+
+        const parsed = data.reduce((a: ISubscribeResponseModel, b: ISubscribeResponseModel) => {
+          if (a.status < b.status) a = b;
+          return a;
+        }, {status: 0, listId: null, title: null});
+
+        return  SubscribeServiceResponseStatus[`status${parsed.status}`];
       })).toPromise();
   }
 }

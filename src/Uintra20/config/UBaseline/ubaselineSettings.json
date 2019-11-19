@@ -8,7 +8,7 @@
     "IndexViewPath": "~/Views/Index.cshtml"
   },
   "RouteSettings": {
-    "SPARouteConstraint": "^(?!.*(/umbraco/|/api/)).*$",
+    "SPARouteConstraint": "^(?!.*(/umbraco/|/api/|/ubaseline/)).*$",
     "AllowedNodeSymbolsRegex": "[^A-Za-z0-9_/]+",
     "AllowedMediaSymbolsRegex": "[^A-Za-z0-9._/]+",
     "ReplacementSymbol": "-",

@@ -1,12 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IUProperty } from 'src/app/shared/interface/umbraco-property';
 import { ILink } from 'src/app/shared/interface/link';
+import get from 'lodash/get';
 
 export interface IDefaultSpotData {
   date: IUProperty<string>;
   description: IUProperty<string>;
   link: IUProperty<ILink>;
-  media: IUProperty<{image: IUProperty<any>, video: IUProperty<any>}>;
+  media: IUProperty<{image: IUProperty<any>, video: any}>;
   title: IUProperty<string>;
 }
 @Component({
@@ -16,8 +17,16 @@ export interface IDefaultSpotData {
 })
 export class DefaultComponent {
   @Input() data: {items: IDefaultSpotData[]};
-  ngOnInit()
+
+  constructor() { }
+
+  isVideo(item: IDefaultSpotData)
   {
-    // debugger
+    return get(item, 'media.value.video');
+  }
+
+  isImage(item: IDefaultSpotData)
+  {
+    return get(item, 'media.value.image');
   }
 }

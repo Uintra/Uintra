@@ -8,6 +8,7 @@ import { IUProperty } from '../../interface/umbraco-property';
 import { SiteSettingsService } from 'src/app/service/site-settings.service';
 import { ISiteSettings } from '../../interface/site-settings';
 import get from 'lodash/get';
+import { ActivatedRoute } from '@angular/router';
 
 export interface IPageData {
   title: IUProperty<string>;
@@ -33,12 +34,13 @@ export class AbstractPageComponent implements OnInit {
     protected seoService: SEOService,
     protected location: Location,
     protected injector: Injector,
-    protected siteSettingsService: SiteSettingsService
+    protected siteSettingsService: SiteSettingsService,
+    protected route: ActivatedRoute
   ) { }
 
   async ngOnInit()
   {
-    this.data = await this.pageResolverService.byPath(this.location.path()) as IPageData;
+    this.data = this.route.snapshot.data.data as IPageData;
     this.siteSettings = await this.siteSettingsService.getSiteSettings();
 
     this.titleService.setTitle(this.resolvePageTitle(this.data, this.siteSettings));

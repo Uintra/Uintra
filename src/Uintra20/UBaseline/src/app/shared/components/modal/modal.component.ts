@@ -1,25 +1,29 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Inject, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.less']
 })
-export class ModalComponent {
-  @Input() isShow: boolean = false;
-  @Output() close: EventEmitter<any> = new EventEmitter();
+export class ModalComponent implements OnInit {
+  @Input() isShow: boolean;
+  @Output() close = new EventEmitter();
 
   isShowContent: boolean = false;
+  rightOffset: string;
 
-  constructor() {
+  constructor(@Inject(DOCUMENT) private document: Document)
+  {}
+
+  ngOnInit()
+  {
     const ANIMATION_DELAY = 1;
 
     setTimeout(() => {
       this.isShowContent = this.isShow;
     }, ANIMATION_DELAY);
-  }
 
-  handleClose(): void {
-    return this.close.emit(null);
+    this.rightOffset = `${this.document.body.offsetWidth - this.document.body.clientWidth}px`;
   }
 }

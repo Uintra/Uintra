@@ -13,8 +13,12 @@ export * from './core/utils/capitalize';
 export * from './ui-kit/button/button.module';
 export * from './ui-kit/button/button.component';
 
+// checkbox
+export * from './ui-kit/checkbox/checkbox.module';
+export * from './ui-kit/checkbox/checkbox.component';
 
-// Drower module
+
+// Drawer module
 export * from './drawer/drawer.module';
 export * from './drawer/service/drawer.service';
 
