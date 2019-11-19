@@ -5,7 +5,7 @@ using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Reflection;
-using Uintra20.Features.Activity.Sql;
+using Uintra20.Core.Activity.Sql;
 using Uintra20.Features.Comments.Sql;
 using Uintra20.Features.Groups.Sql;
 using Uintra20.Features.Likes.Sql;

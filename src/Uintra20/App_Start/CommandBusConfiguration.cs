@@ -1,9 +1,9 @@
 ﻿using Compent.CommandBus;
+using Uintra20.Core.Commands;
+using Uintra20.Core.Member.Commands;
 using Uintra20.Features.Bulletins;
 using Uintra20.Features.Bulletins.Entities;
-using Uintra20.Features.Commands;
 using Uintra20.Features.Media;
-using Uintra20.Features.User.Commands;
 
 namespace Uintra20
 {

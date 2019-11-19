@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Uintra20.Features.Activity.Entities;
+using Uintra20.Core.Activity.Entities;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities;

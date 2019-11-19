@@ -1,4 +1,4 @@
-﻿using Uintra20.Features.Activity;
+﻿using Uintra20.Core.Activity;
 using Uintra20.Features.Media;
 
 namespace Uintra20.Features.Bulletins

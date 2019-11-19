@@ -1,5 +1,5 @@
 ﻿using System;
-using Uintra20.Features.User;
+using Uintra20.Core.Member;
 
 namespace Uintra20.Features.Links
 {

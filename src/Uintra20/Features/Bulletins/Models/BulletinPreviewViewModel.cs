@@ -1,6 +1,6 @@
 ﻿using System;
+using Uintra20.Core.Member.Models;
 using Uintra20.Features.Links.Models;
-using Uintra20.Features.User.Models;
 
 namespace Uintra20.Features.Bulletins.Models
 {

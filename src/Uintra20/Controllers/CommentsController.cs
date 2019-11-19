@@ -2,15 +2,15 @@
 using System.Linq;
 using Compent.CommandBus;
 using Localization.Umbraco.Attributes;
-using Uintra20.Features.Activity;
+using Uintra20.Core.Activity;
+using Uintra20.Core.Member;
+using Uintra20.Core.Member.Models;
 using Uintra20.Features.Comments.Links;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Comments.Web;
 using Uintra20.Features.Links;
 using Uintra20.Features.Notification;
-using Uintra20.Features.User;
-using Uintra20.Features.User.Models;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Controllers

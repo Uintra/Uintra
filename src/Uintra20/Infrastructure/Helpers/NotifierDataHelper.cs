@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using LanguageExt;
-using Uintra20.Features.Activity;
-using Uintra20.Features.Activity.Entities;
+using Uintra20.Core.Activity;
+using Uintra20.Core.Activity.Entities;
 using Uintra20.Features.Comments.Links;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Events.Entities;

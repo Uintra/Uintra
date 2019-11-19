@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Uintra20.Features.Activity.Models.Headers;
+using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Features.Controls.LightboxGallery;
 using Uintra20.Features.LinkPreview.Models;
 using Uintra20.Features.Links.Models;

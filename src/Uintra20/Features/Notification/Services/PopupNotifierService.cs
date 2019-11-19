@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Uintra20.Core.Member;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Models.NotifierTemplates;
-using Uintra20.Features.User;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Notification.Services

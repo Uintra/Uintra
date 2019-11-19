@@ -1,6 +1,6 @@
 ﻿using System;
-using Uintra20.Features.Activity.Entities;
-using Uintra20.Features.User;
+using Uintra20.Core.Activity.Entities;
+using Uintra20.Core.Member;
 
 namespace Uintra20.Features.Events
 {

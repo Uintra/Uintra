@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Compent.Extensions;
 using System.Linq;
-using Uintra20.Features.Activity.Models.Headers;
+using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.CentralFeed.Links;

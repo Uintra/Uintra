@@ -1,9 +1,9 @@
-﻿using Uintra20.Features.Activity;
+﻿using Uintra20.Core.Activity;
+using Uintra20.Core.Member;
 using Uintra20.Features.LinkPreview;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media;
 using Uintra20.Features.Permissions.Interfaces;
-using Uintra20.Features.User;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.TypeProviders;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Uintra20.Features.User;
+using Uintra20.Core.Member;
 
 namespace Uintra20.Infrastructure.Extensions
 {

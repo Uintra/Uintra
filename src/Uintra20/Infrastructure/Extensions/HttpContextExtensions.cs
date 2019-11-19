@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using Uintra20.Features.User;
+using Uintra20.Core.Member;
 using Uintra20.Infrastructure.Constants;
 
 namespace Uintra20.Infrastructure.Extensions

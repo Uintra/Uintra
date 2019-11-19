@@ -1,9 +1,9 @@
 ﻿using Compent.CommandBus;
 using Localization.Umbraco.Attributes;
-using Uintra20.Features.Activity;
+using Uintra20.Core.Activity;
+using Uintra20.Core.Member;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Likes.Web;
-using Uintra20.Features.User;
 
 namespace Uintra20.Controllers
 {

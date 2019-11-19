@@ -1,4 +1,4 @@
-﻿using Uintra20.Features.Activity.Factories;
+﻿using Uintra20.Core.Activity.Factories;
 using Uintra20.Features.Links;
 using Uintra20.Features.Links.Models;
 

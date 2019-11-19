@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Compent.Shared.Extensions;
-using Uintra20.Features.Activity;
-using Uintra20.Features.Activity.Entities;
-using Uintra20.Features.Activity.Helpers;
+using Uintra20.Core.Activity;
+using Uintra20.Core.Activity.Entities;
+using Uintra20.Core.Activity.Helpers;
+using Uintra20.Core.Member;
 using Uintra20.Features.CentralFeed.Links;
 using Uintra20.Features.Groups.Links;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links.Models;
-using Uintra20.Features.User;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Links

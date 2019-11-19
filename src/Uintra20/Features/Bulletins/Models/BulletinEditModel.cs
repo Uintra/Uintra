@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Uintra20.Attributes;
-using Uintra20.Features.Activity.Models;
+using Uintra20.Core.Activity.Models;
 using Uintra20.Features.LinkPreview.Models;
 using Uintra20.Features.Media;
 

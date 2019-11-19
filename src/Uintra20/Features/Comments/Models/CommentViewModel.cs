@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Uintra20.Core.Member.Models;
 using Uintra20.Features.LinkPreview.Models;
-using Uintra20.Features.User.Models;
 
 namespace Uintra20.Features.Comments.Models
 {

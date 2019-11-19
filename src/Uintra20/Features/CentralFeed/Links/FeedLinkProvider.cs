@@ -1,6 +1,6 @@
 ﻿using System;
-using Uintra20.Features.Activity.Factories;
-using Uintra20.Features.Activity.Helpers;
+using Uintra20.Core.Activity.Factories;
+using Uintra20.Core.Activity.Helpers;
 using Uintra20.Features.Links;
 
 namespace Uintra20.Features.CentralFeed.Links

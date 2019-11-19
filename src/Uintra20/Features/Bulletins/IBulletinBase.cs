@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Uintra20.Features.Activity.Entities;
+using Uintra20.Core.Activity.Entities;
 
 namespace Uintra20.Features.Bulletins
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Uintra20.Features.Activity;
+using Uintra20.Core.Activity;
 
 namespace Uintra20.Features.Notification.Services
 {

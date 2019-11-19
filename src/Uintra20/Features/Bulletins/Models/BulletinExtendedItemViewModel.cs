@@ -1,4 +1,4 @@
-﻿using Uintra20.Features.Activity.Models.Headers;
+﻿using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Likes;
 

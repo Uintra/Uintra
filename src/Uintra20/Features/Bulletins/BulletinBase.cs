@@ -1,8 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
-using Uintra20.Features.Activity.Entities;
+using Uintra20.Core.Activity.Entities;
+using Uintra20.Core.Member;
 using Uintra20.Features.LinkPreview;
-using Uintra20.Features.User;
 
 namespace Uintra20.Features.Bulletins
 {

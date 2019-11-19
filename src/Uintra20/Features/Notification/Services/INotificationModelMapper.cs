@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
+using Uintra20.Core.Member;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Models.NotifierTemplates;
-using Uintra20.Features.User;
 
 namespace Uintra20.Features.Notification.Services
 {

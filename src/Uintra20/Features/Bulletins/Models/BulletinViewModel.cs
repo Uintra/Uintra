@@ -1,5 +1,5 @@
 ﻿using System;
-using Uintra20.Features.Activity.Models;
+using Uintra20.Core.Activity.Models;
 using Uintra20.Features.LinkPreview.Models;
 
 namespace Uintra20.Features.Bulletins.Models

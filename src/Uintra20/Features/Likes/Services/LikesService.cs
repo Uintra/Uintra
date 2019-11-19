@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Uintra20.Core.Member;
 using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Likes.Sql;
-using Uintra20.Features.User;
 using Uintra20.Persistence.Sql;
 
 namespace Uintra20.Features.Likes.Services
