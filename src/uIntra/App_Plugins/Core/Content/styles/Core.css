@@ -586,6 +586,51 @@ img{
         border: 0;
         padding:4px 6px 26px;
     }
+
+    &--custom{
+        .ajs-dialog{
+            border-radius:0;
+            max-width:760px;
+            padding:24px 20px 0;
+        }
+        .ajs-body .ajs-content {
+            padding: 0;
+        }
+        .ajs-header{
+            color:#262626;
+            font-size:25px;
+            line-height:22px;
+            font-weight:normal;
+            padding:30px 58px 28px 20px;
+            border:0;
+            margin:-24px -20px 0;
+        }
+
+        .ajs-commands button.ajs-close{
+            font-size:22px !important;
+            width: 40px !important;
+            height: 40px !important;
+        }
+        .ajs-modal{
+            padding:0 5%;
+
+            .ajs-commands{
+                top:17px;
+                right:18px;
+                margin:0;
+            }
+        }
+
+        .ajs-footer{
+            margin-left: -20px;
+            margin-right: -20px;
+
+            .ajs-buttons,
+            .ajs-buttons.ajs-auxiliary{
+                display:none !important;
+            }
+        }
+    }
 }
 
 .alertify .ajs-footer .ajs-buttons{
@@ -1029,7 +1074,7 @@ img{
     }
 
     .ql-editor {
-        height:62px;
+        height:96px;
         padding:6px 10px;
         overflow-x:hidden;
         overflow-y:auto;
@@ -1501,4 +1546,9 @@ img{
     &:hover{
         text-decoration:underline;
     }
+}
+
+.select2-container--open .select2-dropdown {
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
 }

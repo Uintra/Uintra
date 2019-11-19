@@ -40,7 +40,7 @@ function initSearchBox(holder) {
         if (e.which === 13 || e.keyCode === 13) {
             var query = $(this).val();
             if (query.length >= minChars) {
-                window.location = url + escape(query);
+                window.location = url + encodeURIComponent(query);
             }
             return false;
         }
@@ -50,7 +50,7 @@ function initSearchBox(holder) {
     searchBoxIcon.on('click', function () {
         var query = searchBox.val();
         if (query.length >= minChars) {
-            window.location = url + escape(query);
+            window.location = url + encodeURIComponent(query);
         }
     });
 }

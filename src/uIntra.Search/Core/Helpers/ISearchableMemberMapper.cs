@@ -2,8 +2,8 @@
 
 namespace Uintra.Search
 {
-	public interface ISearchableMemberMapper 
+	public interface ISearchableMemberMapper<T> where T : SearchableMember
 	{
-		SearchableMember Map(IGroupMember member);
+		T Map(IGroupMember member);
 	}
 }

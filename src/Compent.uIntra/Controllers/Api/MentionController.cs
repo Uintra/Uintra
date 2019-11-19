@@ -29,7 +29,7 @@ namespace Compent.Uintra.Controllers.Api
             {
                 Text = query,
                 Take = 5,
-                SearchableTypeIds = UintraSearchableTypeEnum.User.ToInt().ToListOfOne(),
+                SearchableTypeIds = UintraSearchableTypeEnum.Member.ToInt().ToListOfOne(),
                 OnlyPinned = false,
                 ApplyHighlights = false
             });

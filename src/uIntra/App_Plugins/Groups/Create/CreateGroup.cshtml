@@ -1,35 +1,67 @@
 ﻿@using Uintra.Core.Controls.FileUpload
 @using Uintra.Core.Extensions
 @model Uintra.Groups.GroupCreateModel
-<div class="form" id="js-group-create-page">
-    @using (Html.BeginUmbracoForm("Create", "Group"))
+
+<div class="form"
+     id="js-group-create-page">
+    @using (Html.BeginUmbracoForm("Create", "Group", FormMethod.Post,new { id = "form" }))
     {
         <h1 class="form__title">@Html.Localize("GroupCreate.FormTitle.lbl")</h1>
-
+         
         <div class="form__row clearfix">
-            <label class="form__label" for="title">@Html.Localize("GroupCreate.GroupTitle.lbl") <span class="form__required">*</span></label>
-            <input class="form__input" id="title" type="text" name="title" value="@(Model.Title)"
-                   data-val-required="@Html.Localize("CreateGroup.TitleRequired.lbl")"
-                   data-val-length-max="200" data-val-length="@string.Format(Html.Localize("CreateGroup.TitleMaxLength.lbl"), 200)"
-                   data-val="true" />
-        </div>
-        <div class="form__row clearfix">
-            <label class="form__label" for="description">@Html.Localize("GroupCreate.Description.lbl") <span class="form__required">*</span></label>
-            <textarea class="form__textarea" name="description" data-val-required="@Html.Localize("CreateIGroup.DescriptionRequired.lbl")" data-val="true">@Model.Description</textarea>
-        </div>
-        <div class="form__row clearfix">
-            <label class="form__label" for="file-upload">@Html.Localize("GroupCreate.GroupImage.lbl")</label>
-            @*<span class="form__note">@Html.Localize("GroupCreate.GroupImage.note")</span>*@
-            @{
-                var settings = new FileUploadSettings { AllowedExtensions = Model.AllowedMediaExtensions, MaxFilesCount = 1 };
-                Html.RenderAction("Uploader", "FileUpload", new { Settings = settings, Model = Model?.Media });
-            }
-        </div>
-        @Html.ValidationSummary()
-        <div class="form__row form__row--top-indent clearfix">
-            @Html.HiddenFor(s => s.CreatorId)
-            @Html.HiddenFor(s => s.MediaRootId)
-            <input class="btn _submit js-submit" type="submit" value="@Html.Localize("GroupCreate.Create.btn")" />
-        </div>
-    }
+            <label class="form__label"
+                   for="title">@Html.Localize("GroupCreate.GroupTitle.lbl") <span class="form__required">*</span></label>
+                <input class="form__input"
+                       id="title"
+                       type="text"
+                       name="title"
+                       value="@(Model.Title)"
+                       data-val-required="@Html.Localize("CreateGroup.TitleRequired.lbl")"
+                       data-val-length-max="200"
+                       data-val-length="@string.Format(Html.Localize("CreateGroup.TitleMaxLength.lbl"), 200)"
+                       data-val="true" />
+            </div>
+            <div class="form__row clearfix">
+                <label class="form__label"
+                       for="description">@Html.Localize("GroupCreate.Description.lbl") <span class="form__required">*</span></label>
+                        <div class="groups__form-field quill--custom-container">
+                            <div class="js-group-create-description"></div>
+                            <div class="groups__toolbar"></div>
+                        </div>
+                        <input class="form__textarea js-hidden-group-create-description"
+                              name="description"
+                              data-val-required="@Html.Localize("CreateIGroup.DescriptionRequired.lbl")"
+                              data-val="true"
+                              typeof="hidden"
+                              value="@Model.Description"
+                              type="hidden"/>
+                </div>
+                <div class="form__row clearfix">
+                    <label class="form__label"
+                           for="file-upload">@Html.Localize("GroupCreate.GroupImage.lbl")</label>
+                        @*<span class="form__note">@Html.Localize("GroupCreate.GroupImage.note")</span>*@
+                        @{
+                            var settings = new FileUploadSettings
+                            {
+                                AllowedExtensions = Model.AllowedMediaExtensions,
+                                MaxFilesCount = 1
+                            };
+                            Html.RenderAction("Uploader", "FileUpload", new
+                            {
+                                Settings = settings,
+                                Model = Model?.Media
+                            });
+                        }
+                    </div>
+                    @Html.ValidationSummary()
+<div class="form__row form__row--top-indent clearfix">
+    @Html.HiddenFor(s => s.Creator.MemberId)
+    @Html.HiddenFor(s => s.Creator.IsAdmin)
+    @Html.HiddenFor(s => s.MediaRootId)
+    @*<input class="btn _submit js-submit"
+        type="submit"
+        value="@Html.Localize("GroupCreate.Create.btn")" />*@
+    <input class="btn _submit js-submit js-disable-submit" type="button" value="@Html.Localize("GroupCreate.Create.btn")" />
+</div>
+                }
 </div>

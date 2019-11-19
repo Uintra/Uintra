@@ -25,7 +25,7 @@ namespace Compent.Uintra.Core.Search.Entities.Mappings
 					)
 			));
 			Text(t => t.Name(n => n.UserTagNames).Analyzer(ElasticHelpers.Tag));
-			Nested<SearchableUserGroupInfo>(nst =>
+			Nested<SearchableMemberGroupInfo>(nst =>
 				nst.Name(n => n.Groups.First())
 					.Properties(p =>
 						p.Keyword(t => t.Name(n => n.GroupId))

@@ -49,7 +49,8 @@ namespace Compent.Uintra.Core.Updater.Migrations._1._3
             {
                 yield return new TranslationsUpdateStep(TranslationUpdateData);
                 yield return Resolve<CreateForbiddenErrorPageStep>();
-                yield return Resolve<SetupDefaultMemberGroupsPermissionsStep>();
+                //this migration will be applied in login controller.
+                //yield return Resolve<SetupDefaultMemberGroupsPermissionsStep>();
             }
         }
     }

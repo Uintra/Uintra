@@ -2,7 +2,7 @@
 
 namespace Uintra.Search
 {
-	public class SearchableUserGroupInfo
+	public class SearchableMemberGroupInfo
 	{
 		public Guid GroupId { get; set; }
 		public bool IsAdmin { get; set; }
