@@ -6,10 +6,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using LanguageExt;
-using Uintra20.Core.Extensions;
+using Uintra20.Infrastructure.Extensions;
 using static LanguageExt.Prelude;
 
-namespace Uintra20.Persistence
+namespace Uintra20.Persistence.Sql
 {
     public class SqlRepository<TKey, T> : ISqlRepository<TKey, T> where T : SqlEntity<TKey>
     {

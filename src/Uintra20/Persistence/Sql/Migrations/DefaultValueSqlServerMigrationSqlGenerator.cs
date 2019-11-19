@@ -3,7 +3,7 @@ using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.Migrations.Model;
 using System.Data.Entity.SqlServer;
 
-namespace Uintra20.Persistence.Migrations
+namespace Uintra20.Persistence.Sql.Migrations
 {
     public class DefaultValueSqlServerMigrationSqlGenerator : SqlServerMigrationSqlGenerator
     {

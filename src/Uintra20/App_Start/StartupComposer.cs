@@ -8,7 +8,7 @@ using UBaseline.Core.Startup;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
 
-namespace Uintra20.App_Start
+namespace Uintra20
 {
     [RuntimeLevel(MinLevel = RuntimeLevel.Boot)]
     public class StartupComposer : IUserComposer
@@ -34,7 +34,7 @@ namespace Uintra20.App_Start
 				.RegisterConverters(assembly);
 
 			//LightInjectWebCommon.Start(composition);
-            MapperConfig.RegisterMappings();
+            //MapperConfig.RegisterMappings();
         }
     }
 

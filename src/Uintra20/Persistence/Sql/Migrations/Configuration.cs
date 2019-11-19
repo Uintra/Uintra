@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity.Migrations;
 
-namespace Uintra20.Persistence.Migrations
+namespace Uintra20.Persistence.Sql.Migrations
 {
     public sealed class Configuration : DbMigrationsConfiguration<DbObjectContext>
     {

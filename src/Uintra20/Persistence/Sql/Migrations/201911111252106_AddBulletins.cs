@@ -1,11 +1,10 @@
-namespace Uintra20.Persistence.Migrations
+using System.Collections.Generic;
+using System.Data.Entity.Infrastructure.Annotations;
+using System.Data.Entity.Migrations;
+
+namespace Uintra20.Persistence.Sql.Migrations
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Entity.Infrastructure.Annotations;
-    using System.Data.Entity.Migrations;
-    
-    public partial class AddBulletins : DbMigration
+	public partial class AddBulletins : DbMigration
     {
         public override void Up()
         {

@@ -3,18 +3,22 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-using Uintra20.Core.Activity;
-using Uintra20.Core.Bulletins;
-using Uintra20.Core.Bulletins.Web;
-using Uintra20.Core.Extensions;
-using Uintra20.Core.Feed;
-using Uintra20.Core.Groups;
-using Uintra20.Core.Links;
-using Uintra20.Core.Media;
-using Uintra20.Core.Navigation;
-using Uintra20.Core.TypeProviders;
-using Uintra20.Core.User;
-using Uintra20.Core.UserTags;
+using Compent.Shared.Extensions;
+using Uintra20.Features.Activity;
+using Uintra20.Features.Bulletins;
+using Uintra20.Features.Bulletins.Entities;
+using Uintra20.Features.Bulletins.Models;
+using Uintra20.Features.Bulletins.Web;
+using Uintra20.Features.Feed;
+using Uintra20.Features.Groups.Services;
+using Uintra20.Features.Links;
+using Uintra20.Features.Media;
+using Uintra20.Features.Navigation.Services;
+using Uintra20.Features.Tagging.UserTags;
+using Uintra20.Features.User;
+using Uintra20.Features.User.Models;
+using Uintra20.Infrastructure.Extensions;
+using Uintra20.Infrastructure.TypeProviders;
 
 namespace Uintra20.Controllers
 {
@@ -107,7 +111,7 @@ namespace Uintra20.Controllers
         {
             var extendedBullet = (Bulletin)bulletin;
             var extendedModel = base.GetViewModel(bulletin, options).Map<BulletinExtendedViewModel>();
-            extendedModel = Mapper.Map(extendedBullet, extendedModel);
+            extendedModel = extendedBullet.Map(extendedModel);
             return extendedModel;
         }
 

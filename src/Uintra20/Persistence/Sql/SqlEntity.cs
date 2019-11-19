@@ -1,6 +1,4 @@
-﻿using Compent.Shared.Repository.Contract.Persistence;
-
-namespace Uintra20.Persistence
+﻿namespace Uintra20.Persistence.Sql
 {
     public abstract class SqlEntity<TKey>
     {

@@ -5,21 +5,20 @@ using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Reflection;
-using Uintra20.Core.Activity;
-using Uintra20.Core.Comments;
-using Uintra20.Core.Groups.Sql;
-using Uintra20.Core.Likes;
-using Uintra20.Core.LinkPreview.Sql;
-using Uintra20.Core.Location.Sql;
-using Uintra20.Core.Media;
-using Uintra20.Core.Media.Sql;
-using Uintra20.Core.MigrationHistories.Sql;
-using Uintra20.Core.Navigation.Sql;
-using Uintra20.Core.Notification;
-using Uintra20.Core.Notification.Sql;
-using Uintra20.Core.Permissions.Sql;
-using Uintra20.Core.Subscribe.Sql;
-using Uintra20.Core.Tagging.UserTags.Sql;
+using Uintra20.Features.Activity.Sql;
+using Uintra20.Features.Comments.Sql;
+using Uintra20.Features.Groups.Sql;
+using Uintra20.Features.Likes.Sql;
+using Uintra20.Features.LinkPreview.Sql;
+using Uintra20.Features.Location.Sql;
+using Uintra20.Features.Media;
+using Uintra20.Features.Media.Sql;
+using Uintra20.Features.Navigation.Sql;
+using Uintra20.Features.Notification.Sql;
+using Uintra20.Features.Permissions.Sql;
+using Uintra20.Features.Subscribe.Sql;
+using Uintra20.Features.Tagging.UserTags.Sql;
+using Uintra20.MigrationHistories.Sql;
 
 namespace Uintra20.Persistence
 {
