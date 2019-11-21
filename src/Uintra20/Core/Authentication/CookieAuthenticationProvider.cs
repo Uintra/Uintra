@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Compent.Shared.Extensions.Bcl;
 using Microsoft.AspNet.Identity;
@@ -19,7 +17,8 @@ namespace Uintra20.Core.Authentication
 			{
 				CookieName = ".UintraAuth",
 				LoginPath = new PathString("/login"),
-				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie
+				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+				Provider = new Microsoft.Owin.Security.Cookies.CookieAuthenticationProvider()
 			});
 			app.Use(AuthenticationHandler);
 		}
