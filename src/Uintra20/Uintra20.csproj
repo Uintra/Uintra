@@ -744,9 +744,11 @@
     <Compile Include="Attributes\RequiredIfAllEmpty.cs" />
     <Compile Include="Attributes\RequiredIfEmptyAttribute.cs" />
     <Compile Include="Attributes\StringLenghtWithoutHtmlAttribute.cs" />
+    <Compile Include="Core\Authentication\Models\AuthResultModelBase.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
@@ -772,6 +774,11 @@
     <Compile Include="Core\Activity\Models\IntranetActivityEditModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
+    <Compile Include="Core\Authentication\AuthenticationConfigurator.cs" />
+    <Compile Include="Core\Authentication\AuthenticationService.cs" />
+    <Compile Include="Core\Authentication\CookieAuthenticationProvider.cs" />
+    <Compile Include="Core\Authentication\IAuthenticationService.cs" />
+    <Compile Include="Core\Authentication\Models\LoginModelBase.cs" />
     <Compile Include="Core\Login\LoginPageViewModel.cs" />
     <Compile Include="Core\Login\LoginPageViewModelConverter.cs" />
     <Compile Include="Core\Login\LoginPageModel.cs" />
@@ -798,6 +805,8 @@
     <Compile Include="Features\Bulletins\Models\BulletinPreviewViewModel.cs" />
     <Compile Include="Features\Bulletins\Models\BulletinViewModel.cs" />
     <Compile Include="Features\Bulletins\Web\BulletinsControllerBase.cs" />
+    <Compile Include="Core\Authentication\IAuthenticationProvider.cs" />
+    <Compile Include="Core\Authentication\UintraOwinStartup.cs" />
     <Compile Include="Infrastructure\Caching\CacheHelper.cs" />
     <Compile Include="Infrastructure\Caching\ICacheService.cs" />
     <Compile Include="Infrastructure\Caching\MemoryCacheService.cs" />
@@ -1190,7 +1199,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Infrastructure\Authentication\" />
     <Folder Include="Infrastructure\Configuration\" />
   </ItemGroup>
   <PropertyGroup>

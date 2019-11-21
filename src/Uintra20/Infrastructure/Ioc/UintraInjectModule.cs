@@ -1,4 +1,5 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
+using Uintra20.Core.Authentication;
 using Uintra20.Features.Information;
 using Uintra20.Infrastructure.ApplicationSettings;
 
@@ -13,6 +14,7 @@ namespace Uintra20.Infrastructure.Ioc
 
 			//services
 			services.AddSingleton<IInformationService,InformationService>();
+			services.AddTransient<IAuthenticationService, AuthenticationService>();
 
 			return services;
 		}
