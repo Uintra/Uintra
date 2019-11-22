@@ -1,6 +1,9 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
 using Uintra20.Features.Information;
+using Uintra20.Features.Permissions.Implementation;
+using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Infrastructure.ApplicationSettings;
+using Uintra20.Infrastructure.Caching;
 
 namespace Uintra20.Infrastructure.Ioc
 {
@@ -14,7 +17,10 @@ namespace Uintra20.Infrastructure.Ioc
 			//services
 			services.AddSingleton<IInformationService,InformationService>();
 
-			return services;
+            services.AddScoped<ICacheService, MemoryCacheService>();
+            services.AddSingleton<IIntranetMemberGroupService, IntranetMemberGroupService>();
+
+            return services;
 		}
 	}
 }

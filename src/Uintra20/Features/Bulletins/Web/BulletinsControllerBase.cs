@@ -134,7 +134,7 @@ namespace Uintra20.Features.Bulletins.Web
         //    var result = new BulletinCreateModel
         //    {
         //        Title = currentMember.DisplayedName,
-        //        ActivityType = _activityTypeProvider[ActivityTypeId],B
+        //        ActivityType = _activityTypeProvider[ActivityTypeId],
         //        Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable(),
         //        Creator = currentMember.Map<MemberViewModel>(),
         //        Links = links,

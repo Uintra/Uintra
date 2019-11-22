@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Web.Mvc;
@@ -27,6 +28,7 @@ using Uintra20.Features.CentralFeed;
 using Uintra20.Features.CentralFeed.Links;
 using Uintra20.Features.Comments.Links;
 using Uintra20.Features.Comments.Services;
+using Uintra20.Features.Comments.Sql;
 using Uintra20.Features.Groups.Links;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Services;
@@ -179,7 +181,7 @@ namespace Uintra20
             dependencyCollection.AddScoped<ICacheableIntranetMemberService, IntranetMemberService<IntranetMember>>();
             //kernel.Bind(typeof(INewsService<>)).To<NewsService>().InRequestScope();
             //kernel.Bind(typeof(IEventsService<>)).To<EventsService>().InRequestScope();
-            dependencyCollection.AddScoped(typeof(IBulletinsService<Bulletin>), typeof(BulletinsService<Bulletin>));
+            dependencyCollection.AddScoped(typeof(IBulletinsService<>), typeof(BulletinsService<>));
             //kernel.Bind(typeof(IPagePromotionService<>)).To<PagePromotionService>().InRequestScope();
             dependencyCollection.AddScoped<IMediaHelper, MediaHelper>();
             dependencyCollection.AddScoped<IVideoConverter, VideoConverter>();

@@ -747,8 +747,12 @@
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
+    <Compile Include="Core\Activity\Converters\Models\ActivityCreatePanelModel.cs" />
+    <Compile Include="Core\Activity\Converters\Models\ActivityCreatePanelViewModel.cs" />
+    <Compile Include="Core\Activity\Converters\Models\ActivityCreatePanelViewModelConverter.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
     <Compile Include="Core\Activity\Entities\IntranetActivity.cs" />
     <Compile Include="Core\Activity\Factories\CacheActivityPageHelperFactory.cs" />
@@ -777,6 +781,7 @@
     <Compile Include="Core\Login\LoginPageModel.cs" />
     <Compile Include="Features\Information\IInformationService.cs" />
     <Compile Include="Features\Information\InformationService.cs" />
+    <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\Models\GoogleOAuth.cs" />
@@ -886,6 +891,12 @@
     <Compile Include="Infrastructure\Helpers\HtmlHelper.cs" />
     <Compile Include="Infrastructure\Helpers\INotifierDataHelper.cs" />
     <Compile Include="Infrastructure\Helpers\NotifierDataHelper.cs" />
+    <Compile Include="Infrastructure\Ioc\CommandBusInjectModule.cs" />
+    <Compile Include="Infrastructure\Ioc\MembersInjectModule.cs" />
+    <Compile Include="Infrastructure\Ioc\LikesInjectModule.cs" />
+    <Compile Include="Infrastructure\Ioc\LinksInjectModule.cs" />
+    <Compile Include="Infrastructure\Ioc\CommentsInjectModule.cs" />
+    <Compile Include="Infrastructure\Ioc\EntityFrameworkInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\CommandBusDependencyResolver.cs" />
     <Compile Include="Features\Likes\CommandBus\Commands\AddLikeCommand.cs" />
     <Compile Include="Features\Likes\CommandBus\Commands\LikeCommand.cs" />
@@ -946,6 +957,7 @@
     <Compile Include="Features\Media\VideoConverterLogService.cs" />
     <Compile Include="Features\Media\VideoHelper.cs" />
     <Compile Include="Features\Media\VideoSizeMetadataModel.cs" />
+    <Compile Include="Infrastructure\Ioc\BulletinsInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\UintraInjectModule.cs" />
     <Compile Include="MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Features\CentralFeed\Models\Feed\IFeedItem.cs" />
