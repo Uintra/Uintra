@@ -1,32 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Compent.Extensions;
 using Compent.Shared.Extensions;
 using UBaseline.Core.Node;
+using Uintra20.Core.Activity.Converters.Models;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Models;
 using Uintra20.Features.Bulletins;
-using Uintra20.Features.Media;
+using Uintra20.Features.Permissions;
+using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
 
-namespace Uintra20.Core.Activity.Converters.Models
+namespace Uintra20.Core.Activity.Converters
 {
     public class ActivityCreatePanelViewModelConverter : INodeViewModelConverter<ActivityCreatePanelModel, ActivityCreatePanelViewModel>
     {
         private readonly IBulletinsService<BulletinBase> _bulletinsService;
         private readonly IIntranetMemberService<IIntranetMember> _memberService;
         private readonly IActivityTypeProvider _activityTypeProvider;
+        private readonly IPermissionsService _permissionsService;
 
         public ActivityCreatePanelViewModelConverter(IBulletinsService<BulletinBase> bulletinsService, 
                                                     IIntranetMemberService<IIntranetMember> memberService, 
-                                                    IActivityTypeProvider activityTypeProvider)
+                                                    IActivityTypeProvider activityTypeProvider,
+                                                    IPermissionsService permissionsService)
         {
             _bulletinsService = bulletinsService;
             _memberService = memberService;
             _activityTypeProvider = activityTypeProvider;
+            _permissionsService = permissionsService;
         }
 
         public void Map(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
@@ -46,6 +48,9 @@ namespace Uintra20.Core.Activity.Converters.Models
             viewModel.Links = null;//TODO: Research links
             viewModel.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
             viewModel.MediaRootId = mediaSettings.MediaRootId;
+            viewModel.CanCreateBulletin = _permissionsService.Check(
+                PermissionResourceTypeEnum.Bulletins,
+                PermissionActionEnum.Create);
         }
     }
 }

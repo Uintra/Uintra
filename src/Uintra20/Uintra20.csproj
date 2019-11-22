@@ -752,7 +752,7 @@
     <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
     <Compile Include="Core\Activity\Converters\Models\ActivityCreatePanelModel.cs" />
     <Compile Include="Core\Activity\Converters\Models\ActivityCreatePanelViewModel.cs" />
-    <Compile Include="Core\Activity\Converters\Models\ActivityCreatePanelViewModelConverter.cs" />
+    <Compile Include="Core\Activity\Converters\ActivityCreatePanelViewModelConverter.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
     <Compile Include="Core\Activity\Entities\IntranetActivity.cs" />
     <Compile Include="Core\Activity\Factories\CacheActivityPageHelperFactory.cs" />

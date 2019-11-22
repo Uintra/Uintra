@@ -5,7 +5,7 @@ using Uintra20.Core.Member.DTO;
 
 namespace Uintra20.Core.Member
 {
-    public interface IIntranetMemberService<out T>
+    public interface IIntranetMemberService<T>
         where T : IIntranetMember
     {
         bool IsCurrentMemberSuperUser { get; }
@@ -26,17 +26,17 @@ namespace Uintra20.Core.Member
         bool Delete(Guid id);
 
         Task<bool> IsCurrentMemberSuperUserAsync();
-        ITask<T> GetByUserIdAsync(int umbracoId);
-        ITask<T> GetAsync(int id);
-        ITask<T> GetAsync(Guid id);
-        ITask<T> GetAsync(IHaveOwner model);
-        ITask<IEnumerable<T>> GetManyAsync(IEnumerable<Guid> ids);
-        ITask<IEnumerable<T>> GetManyAsync(IEnumerable<int> ids);
-        ITask<IEnumerable<T>> GetAllAsync();
-        ITask<T> GetCurrentMemberAsync();
-        ITask<IEnumerable<T>> GetByGroupAsync(int groupId);
-        ITask<T> GetByNameAsync(string name);
-        ITask<T> GetByEmailAsync(string email);
+        Task<T> GetByUserIdAsync(int umbracoId);
+        Task<T> GetAsync(int id);
+        Task<T> GetAsync(Guid id);
+        Task<T> GetAsync(IHaveOwner model);
+        Task<IEnumerable<T>> GetManyAsync(IEnumerable<Guid> ids);
+        Task<IEnumerable<T>> GetManyAsync(IEnumerable<int> ids);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<T> GetCurrentMemberAsync();
+        Task<IEnumerable<T>> GetByGroupAsync(int groupId);
+        Task<T> GetByNameAsync(string name);
+        Task<T> GetByEmailAsync(string email);
         Task<bool> UpdateAsync(UpdateMemberDto dto);
         Task<Guid> CreateAsync(CreateMemberDto dto);
         Task<bool> DeleteAsync(Guid id);

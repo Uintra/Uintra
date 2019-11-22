@@ -17,5 +17,6 @@ namespace Uintra20.Core.Activity.Converters.Models
         public IActivityCreateLinks Links { get; set; }
         public string AllowedMediaExtensions { get; set; }
         public int? MediaRootId { get; set; }
+        public bool CanCreateBulletin { get; set; }
     }
 }
