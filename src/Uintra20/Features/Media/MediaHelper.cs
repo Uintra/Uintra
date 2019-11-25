@@ -138,7 +138,8 @@ namespace Uintra20.Features.Media
 
         public async Task<IMedia> CreateMediaAsync(TempFile file, int rootMediaId, Guid? userId = null)
         {
-            userId = userId ?? await _intranetMemberService.GetCurrentMemberIdAsync();
+            //userId = userId ?? await _intranetMemberService.GetCurrentMemberIdAsync();
+            userId = userId ?? _intranetMemberService.GetCurrentMemberId();
 
             var mediaTypeAlias = GetMediaTypeAlias(file);
             var media = _mediaService.CreateMedia(file.FileName, rootMediaId, mediaTypeAlias);

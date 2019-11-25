@@ -193,7 +193,8 @@ namespace Uintra20.Core.Activity
 
         protected virtual async Task<bool> CanPerformAsync(IIntranetActivity activity, PermissionActionEnum action, PermissionActionEnum administrationAction)
         {
-            var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
+            //var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
+            var currentMember = _intranetMemberService.GetCurrentMember();
             var ownerId = ((IHaveOwner)activity).OwnerId;
             var isOwner = ownerId == currentMember.Id;
 

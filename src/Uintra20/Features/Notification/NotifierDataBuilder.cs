@@ -80,7 +80,8 @@ namespace Uintra20.Features.Notification
 
         public async Task<NotifierData> GetNotifierDataAsync<TEntity>(TEntity activity, Enum notificationType) where TEntity : IIntranetActivity, IHaveOwner
         {
-            var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
+            //var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
+            var currentMember = _intranetMemberService.GetCurrentMember();
             var data = new NotifierData
             {
                 NotificationType = notificationType,
@@ -112,7 +113,8 @@ namespace Uintra20.Features.Notification
 
         public async Task<NotifierData> GetNotifierDataAsync<TEntity>(CommentModel comment, TEntity activity, Enum notificationType) where TEntity : IIntranetActivity, IHaveOwner
         {
-            var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
+            //var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
+            var currentMember = _intranetMemberService.GetCurrentMember();
             var data = new NotifierData
             {
                 NotificationType = notificationType,

@@ -6,6 +6,7 @@ using Uintra20.Core.Activity.Converters.Models;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Models;
 using Uintra20.Features.Bulletins;
+using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Infrastructure.Extensions;
@@ -15,12 +16,12 @@ namespace Uintra20.Core.Activity.Converters
 {
     public class ActivityCreatePanelViewModelConverter : INodeViewModelConverter<ActivityCreatePanelModel, ActivityCreatePanelViewModel>
     {
-        private readonly IBulletinsService<BulletinBase> _bulletinsService;
+        private readonly IBulletinsService<Bulletin> _bulletinsService;
         private readonly IIntranetMemberService<IIntranetMember> _memberService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IPermissionsService _permissionsService;
 
-        public ActivityCreatePanelViewModelConverter(IBulletinsService<BulletinBase> bulletinsService, 
+        public ActivityCreatePanelViewModelConverter(IBulletinsService<Bulletin> bulletinsService, 
                                                     IIntranetMemberService<IIntranetMember> memberService, 
                                                     IActivityTypeProvider activityTypeProvider,
                                                     IPermissionsService permissionsService)
@@ -33,24 +34,24 @@ namespace Uintra20.Core.Activity.Converters
 
         public void Map(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
         {
-            //ConvertToBulletins(node, viewModel);
+            ConvertToBulletins(node, viewModel);
         }
 
         private void ConvertToBulletins(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
         {
             var currentMember = _memberService.GetCurrentMember();
             var mediaSettings = _bulletinsService.GetMediaSettings();
-            
-            viewModel.Title = currentMember.DisplayedName;
+
+            viewModel.Title = null;//currentMember.DisplayedName;//TODO: uncomment when member service is ready
             viewModel.ActivityType = _activityTypeProvider[(int)IntranetActivityTypeEnum.Bulletins];
             viewModel.Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable();
-            viewModel.Creator = currentMember.Map<MemberViewModel>();
+            viewModel.Creator = null;//currentMember.Map<MemberViewModel>();//TODO: uncomment when member service is ready
             viewModel.Links = null;//TODO: Research links
-            viewModel.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
-            viewModel.MediaRootId = mediaSettings.MediaRootId;
-            viewModel.CanCreateBulletin = _permissionsService.Check(
+            viewModel.AllowedMediaExtensions = null;//mediaSettings.AllowedMediaExtensions; //TODO: uncomment when media settings service is ready
+            viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready
+            viewModel.CanCreateBulletin = true; /*_permissionsService.Check(
                 PermissionResourceTypeEnum.Bulletins,
-                PermissionActionEnum.Create);
+                PermissionActionEnum.Create);*/ //TODO: uncomment when member service is ready
         }
     }
 }

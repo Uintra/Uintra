@@ -10,6 +10,6 @@ namespace Uintra20.Features.Notification.Services
         where TNotificationModel : INotificationMessage where TTemplate : INotifierTemplate
     {
         TNotificationModel Map(INotifierDataValue notifierData, TTemplate template, IIntranetMember receiver);
-        Task<TNotificationModel> MapAsync(INotifierDataValue notifierData, TTemplate template, IIntranetMember receiver);
+        //Task<TNotificationModel> MapAsync(INotifierDataValue notifierData, TTemplate template, IIntranetMember receiver);
     }
 }

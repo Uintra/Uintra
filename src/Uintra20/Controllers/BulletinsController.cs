@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Compent.Shared.Extensions;
+using Uintra20.Attributes;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Feed;
 using Uintra20.Core.Member;
@@ -22,6 +23,7 @@ using Uintra20.Infrastructure.TypeProviders;
 
 namespace Uintra20.Controllers
 {
+    [ValidateModel]
     public class BulletinsController : BulletinsControllerBase
     {
         //protected override string DetailsViewPath => "~/Views/Bulletins/DetailsView.cshtml";
@@ -40,7 +42,6 @@ namespace Uintra20.Controllers
 
         public BulletinsController(
             IBulletinsService<Bulletin> bulletinsService,
-            IBulletinsService<BulletinBase> bulletinsBaseService,//TODO: Refactor
             IMediaHelper mediaHelper,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IActivityTypeProvider activityTypeProvider,
@@ -50,7 +51,7 @@ namespace Uintra20.Controllers
             //IContextTypeProvider contextTypeProvider,
             IMentionService mentionService,
             IActivityLinkService activityLinkService)
-            : base(bulletinsBaseService, mediaHelper, intranetMemberService, activityTypeProvider)
+            : base(bulletinsService, mediaHelper, intranetMemberService, activityTypeProvider)
         {
             _bulletinsService = bulletinsService;
             _intranetMemberService = intranetMemberService;
@@ -169,7 +170,7 @@ namespace Uintra20.Controllers
 
         private void ResolveMentions(string text, BulletinBase bulletin)
         {
-            var mentionIds = _mentionService.GetMentions(text).ToList();
+            var mentionIds = new Guid[] { };//_mentionService.GetMentions(text).ToList();//TODO: uncomment when mention service is ready
 
             if (mentionIds.Any())
             {

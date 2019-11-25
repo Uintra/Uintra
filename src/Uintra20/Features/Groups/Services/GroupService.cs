@@ -134,7 +134,8 @@ namespace Uintra20.Features.Groups.Services
 
         public async Task<bool> CanPerformAsync(GroupModel group)
         {
-            var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
+            //var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
+            var currentMember = _intranetMemberService.GetCurrentMember();
 
             var isOwner = group.CreatorId == currentMember.Id;
 

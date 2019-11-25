@@ -90,17 +90,17 @@ namespace Uintra20.Features.Links
             return _centralFeedLinkProvider.GetCreateLinks(activityModel);
         }
 
-        public async Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType, Guid groupId)
-        {
-            var activityModel = await GetActivityGroupCreateModelAsync(activityType, groupId);
-            return _groupFeedLinkProvider.GetCreateLinks(activityModel);
-        }
+        //public async Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType, Guid groupId)
+        //{
+        //    var activityModel = await GetActivityGroupCreateModelAsync(activityType, groupId);
+        //    return _groupFeedLinkProvider.GetCreateLinks(activityModel);
+        //}
 
-        public async Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType)
-        {
-            var activityModel = await GetActivityCreateModelAsync(activityType);
-            return _centralFeedLinkProvider.GetCreateLinks(activityModel);
-        }
+        //public async Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType)
+        //{
+        //    var activityModel = await GetActivityCreateModelAsync(activityType);
+        //    return _centralFeedLinkProvider.GetCreateLinks(activityModel);
+        //}
 
         private GroupActivityTransferCreateModel GetActivityGroupCreateModel(Enum activityType, Guid groupId)
         {
@@ -121,24 +121,24 @@ namespace Uintra20.Features.Links
             };
         }
 
-        private async Task<GroupActivityTransferCreateModel> GetActivityGroupCreateModelAsync(Enum activityType, Guid groupId)
-        {
-            return new GroupActivityTransferCreateModel()
-            {
-                GroupId = groupId,
-                Type = activityType,
-                OwnerId = await _intranetMemberService.GetCurrentMemberIdAsync()
-            };
-        }
+        //private async Task<GroupActivityTransferCreateModel> GetActivityGroupCreateModelAsync(Enum activityType, Guid groupId)
+        //{
+        //    return new GroupActivityTransferCreateModel()
+        //    {
+        //        GroupId = groupId,
+        //        Type = activityType,
+        //        OwnerId = await _intranetMemberService.GetCurrentMemberIdAsync()
+        //    };
+        //}
 
-        private async Task<ActivityTransferCreateModel> GetActivityCreateModelAsync(Enum activityType)
-        {
-            return new ActivityTransferCreateModel()
-            {
-                Type = activityType,
-                OwnerId = await _intranetMemberService.GetCurrentMemberIdAsync()
-            };
-        }
+        //private async Task<ActivityTransferCreateModel> GetActivityCreateModelAsync(Enum activityType)
+        //{
+        //    return new ActivityTransferCreateModel()
+        //    {
+        //        Type = activityType,
+        //        OwnerId = await _intranetMemberService.GetCurrentMemberIdAsync()
+        //    };
+        //}
 
         private IIntranetActivity GetActivity(Guid id)
         {

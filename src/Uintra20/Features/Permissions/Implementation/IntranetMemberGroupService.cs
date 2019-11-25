@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Compent.Shared.Extensions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Permissions.Models;
@@ -32,6 +33,8 @@ namespace Uintra20.Features.Permissions.Implementation
                 () => _memberGroupService
                     .GetAll()
                     .Map<IEnumerable<IntranetMemberGroup>>());
+            //get => _mapper.Map<IEnumerable<IntranetMemberGroup>>(_cacheService.GetOrSet(IntranetMemberGroupCacheKey,
+            //    () => _memberGroupService.GetAll()));
 
             set => _cacheService.Set(IntranetMemberGroupCacheKey, value);
         }

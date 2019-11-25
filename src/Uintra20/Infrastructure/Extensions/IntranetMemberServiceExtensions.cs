@@ -12,10 +12,10 @@ namespace Uintra20.Infrastructure.Extensions
             return currentMember?.Id ?? Guid.Empty;
         }
 
-        public static async Task<Guid> GetCurrentMemberIdAsync(this IIntranetMemberService<IIntranetMember> intranetMemberService)
-        {
-            var currentMember = await intranetMemberService.GetCurrentMemberAsync();
-            return currentMember?.Id ?? Guid.Empty;
-        }
+        //public static async Task<Guid> GetCurrentMemberIdAsync(this IIntranetMemberService<IIntranetMember> intranetMemberService)
+        //{
+        //    var currentMember = await intranetMemberService.GetCurrentMemberAsync();
+        //    return currentMember?.Id ?? Guid.Empty;
+        //}
     }
 }

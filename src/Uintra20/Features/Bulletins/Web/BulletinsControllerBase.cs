@@ -2,13 +2,16 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using Compent.Extensions;
 using Compent.Shared.Extensions;
+using Uintra20.Attributes;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Feed;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Models;
+using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.Media;
@@ -18,6 +21,7 @@ using Umbraco.Web.WebApi;
 
 namespace Uintra20.Features.Bulletins.Web
 {
+    [ValidateModel]
     public abstract class BulletinsControllerBase : UmbracoApiController
     {
         //protected virtual string ItemViewPath { get; } = "~/App_Plugins/Bulletins/Item/ItemView.cshtml";
@@ -30,7 +34,7 @@ namespace Uintra20.Features.Bulletins.Web
 
         //protected virtual int DisplayedImagesCount { get; } = 3;
 
-        private readonly IBulletinsService<BulletinBase> _bulletinsService;
+        private readonly IBulletinsService<Bulletin> _bulletinsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetMemberService<IIntranetMember> _memberService;
         //private readonly IActivityTypeProvider _activityTypeProvider;
@@ -39,7 +43,7 @@ namespace Uintra20.Features.Bulletins.Web
         //private const PermissionResourceTypeEnum ResourceType = PermissionResourceTypeEnum.Bulletins;
 
         protected BulletinsControllerBase(
-            IBulletinsService<BulletinBase> bulletinsService,
+            IBulletinsService<Bulletin> bulletinsService,
             IMediaHelper mediaHelper,
             IIntranetMemberService<IIntranetMember> memberService,
             IActivityTypeProvider activityTypeProvider)
@@ -82,10 +86,11 @@ namespace Uintra20.Features.Bulletins.Web
         {
             var result = new BulletinCreationResultModel();
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return result;
-            //}
+            if (!ModelState.IsValid)
+            {
+                ActionContext.Response = ActionContext.Request.CreateErrorResponse(
+                    HttpStatusCode.BadRequest, ActionContext.ModelState);
+            }
 
             var bulletin = MapToBulletin(model);
             var createdBulletinId = _bulletinsService.Create(bulletin);

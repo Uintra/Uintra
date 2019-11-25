@@ -17,7 +17,7 @@ namespace Uintra20.Features.Notification.Services
     {
         private readonly INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> _notificationModelMapper;
         private readonly INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage> _desktopNotificationModelMapper;
-        private readonly NotificationSettingsService _notificationSettingsService;
+        private readonly INotificationSettingsService _notificationSettingsService;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly UiNotificationService _notificationsService;
 
@@ -26,7 +26,7 @@ namespace Uintra20.Features.Notification.Services
         public UiNotifierService(
             INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> notificationModelMapper,
             INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage> desktopNotificationModelMapper,
-            NotificationSettingsService notificationSettingsService,
+            INotificationSettingsService notificationSettingsService,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             UiNotificationService notificationsService)
         {
@@ -98,14 +98,18 @@ namespace Uintra20.Features.Notification.Services
 
             if (!settings.IsEnabled && !desktopSettings.IsEnabled) return;
 
-            var receivers = await _intranetMemberService.GetManyAsync(data.ReceiverIds).Select(x => x.ToList());
+            //var receivers = await _intranetMemberService.GetManyAsync(data.ReceiverIds).Select(x => x.ToList());
+            var receivers = _intranetMemberService.GetMany(data.ReceiverIds).ToList();
 
-            var messages = await receivers.SelectAsync(async receiver =>
+            //var messages = await receivers.SelectAsync(async receiver =>
+            var messages = receivers.Select(receiver =>
             {
-                var uiMsg = await _notificationModelMapper.MapAsync(data.Value, settings.Template, receiver);
+                //var uiMsg = await _notificationModelMapper.MapAsync(data.Value, settings.Template, receiver);
+                var uiMsg = _notificationModelMapper.Map(data.Value, settings.Template, receiver);
                 if (desktopSettings.IsEnabled)
                 {
-                    var desktopMsg = await _desktopNotificationModelMapper.MapAsync(data.Value, desktopSettings.Template, receiver);
+                    //var desktopMsg = await _desktopNotificationModelMapper.MapAsync(data.Value, desktopSettings.Template, receiver);
+                    var desktopMsg = _desktopNotificationModelMapper.Map(data.Value, desktopSettings.Template, receiver);
                     uiMsg.DesktopTitle = desktopMsg.Title;
                     uiMsg.DesktopMessage = desktopMsg.Message;
                     uiMsg.IsDesktopNotificationEnabled = true;

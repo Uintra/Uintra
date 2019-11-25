@@ -8,11 +8,11 @@ namespace Uintra20.Features.Tagging.UserTags
 {
     public class ActivityTagsHelper : IActivityTagsHelper
     {
-        private readonly UserTagService _userTagService;
+        private readonly IUserTagService _userTagService;
         //private readonly IActivityUserTagIndex _userTagIndex;
         private readonly IUserTagProvider _userTagProvider;
 
-        public ActivityTagsHelper(UserTagService userTagService, /*IActivityUserTagIndex userTagIndex,*/ IUserTagProvider userTagProvider)
+        public ActivityTagsHelper(IUserTagService userTagService, /*IActivityUserTagIndex userTagIndex,*/ IUserTagProvider userTagProvider)
         {
             _userTagService = userTagService;
             //_userTagIndex = userTagIndex;

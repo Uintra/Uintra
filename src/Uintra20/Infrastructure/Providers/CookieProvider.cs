@@ -10,9 +10,9 @@ namespace Uintra20.Infrastructure.Providers
         private readonly HttpContext _httpContext;
         private readonly IApplicationSettings _applicationSettings;
 
-        public CookieProvider(HttpContext httpContext, IApplicationSettings applicationSettings)
+        public CookieProvider(IApplicationSettings applicationSettings)
         {
-            _httpContext = httpContext;
+            _httpContext = HttpContext.Current;
             _applicationSettings = applicationSettings;
         }
 

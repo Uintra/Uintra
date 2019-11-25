@@ -84,7 +84,8 @@ namespace Uintra20.Features.Likes.Services
 
         protected virtual async Task<IEnumerable<(Guid Id, string DisplayedName)>> GetManyNamesAsync(IEnumerable<Guid> usersIds)
         {
-            var users = await _intranetMemberService.GetManyAsync(usersIds);
+            //var users = await _intranetMemberService.GetManyAsync(usersIds);
+            var users = _intranetMemberService.GetMany(usersIds);
             return users.Select(el => (el.Id, el.DisplayedName));
         }
 
