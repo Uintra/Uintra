@@ -1,13 +1,9 @@
 ﻿using System;
 using Compent.Extensions;
-using Compent.Shared.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Converters.Models;
 using Uintra20.Core.Member;
-using Uintra20.Core.Member.Models;
 using Uintra20.Features.Bulletins;
-using Uintra20.Features.Bulletins.Entities;
-using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
@@ -16,12 +12,12 @@ namespace Uintra20.Core.Activity.Converters
 {
     public class ActivityCreatePanelViewModelConverter : INodeViewModelConverter<ActivityCreatePanelModel, ActivityCreatePanelViewModel>
     {
-        private readonly IBulletinsService<Bulletin> _bulletinsService;
+        private readonly IBulletinsService<Features.Bulletins.Entities.Bulletin> _bulletinsService;
         private readonly IIntranetMemberService<IIntranetMember> _memberService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IPermissionsService _permissionsService;
 
-        public ActivityCreatePanelViewModelConverter(IBulletinsService<Bulletin> bulletinsService, 
+        public ActivityCreatePanelViewModelConverter(IBulletinsService<Features.Bulletins.Entities.Bulletin> bulletinsService, 
                                                     IIntranetMemberService<IIntranetMember> memberService, 
                                                     IActivityTypeProvider activityTypeProvider,
                                                     IPermissionsService permissionsService)

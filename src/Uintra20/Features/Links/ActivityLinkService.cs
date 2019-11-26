@@ -62,7 +62,8 @@ namespace Uintra20.Features.Links
         {
             var groupId = await _groupActivityService.GetGroupIdAsync(activityId);
 
-            var activity = await GetActivityAsync(activityId);
+            //var activity = await GetActivityAsync(activityId);
+            var activity = GetActivity(activityId);
             IActivityLinks result;
             if (groupId.HasValue)
             {
@@ -147,12 +148,12 @@ namespace Uintra20.Features.Links
             return service.Get(id);
         }
 
-        private async Task<IIntranetActivity> GetActivityAsync(Guid id)
-        {
-            var activityType = _activityTypeHelper.GetActivityType(id);
-            var service = GetActivityService(activityType);
-            return await service.GetAsync(id);
-        }
+        //private async Task<IIntranetActivity> GetActivityAsync(Guid id)
+        //{
+        //    var activityType = _activityTypeHelper.GetActivityType(id);
+        //    var service = GetActivityService(activityType);
+        //    return await service.GetAsync(id);
+        //}
 
         private IIntranetActivityService<IIntranetActivity> GetActivityService(Enum activityType)
         {

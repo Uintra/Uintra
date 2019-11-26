@@ -70,7 +70,7 @@ namespace Uintra20.Infrastructure.Extensions
 
 		public static string AddParameter(this string url, string paramName, object paramValue)
 		{
-			var queryString = string.Empty;
+            var queryString = string.Empty;
 			if (url.Contains("?"))
 			{
 				var urlSplit = url.Split('?');

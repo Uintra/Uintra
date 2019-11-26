@@ -1,24 +1,16 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
 using Uintra20.Core.Activity;
+using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Activity.Factories;
 using Uintra20.Core.Activity.Helpers;
-using Uintra20.Core.Member;
+using Uintra20.Features.Bulletins;
+using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.CentralFeed.Links;
 using Uintra20.Features.Groups.Services;
-using Uintra20.Features.Information;
 using Uintra20.Features.Location.Services;
-using Uintra20.Features.Media;
-using Uintra20.Features.Permissions;
-using Uintra20.Features.Permissions.Implementation;
-using Uintra20.Features.Permissions.Interfaces;
-using Uintra20.Features.Permissions.TypeProviders;
 using Uintra20.Features.Tagging.UserTags;
-using Uintra20.Infrastructure.ApplicationSettings;
-using Uintra20.Infrastructure.Caching;
-using Uintra20.Infrastructure.Exceptions;
 using Uintra20.Infrastructure.Providers;
 using Uintra20.Infrastructure.TypeProviders;
-using Uintra20.Infrastructure.Utils;
 using Umbraco.Web;
 
 namespace Uintra20.Infrastructure.Ioc
@@ -37,7 +29,9 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IActivityTypeProvider>(provider => new ActivityTypeProvider(typeof(IntranetActivityTypeEnum)));
             services.AddScoped<IActivitiesServiceFactory, ActivitiesServiceFactory>();
             services.AddTransient<IActivityLocationService, ActivityLocationService>();
-            services.AddScoped<IActivityTagsHelper, ActivityTagsHelper>();
+            services.AddScoped<IActivityTagsHelper, ActivityTagsHelper>(); 
+            //services.AddScoped<IIntranetActivityService<Bulletin>, BulletinsService<Bulletin>>();
+            services.AddScoped<IIntranetActivityService, BulletinsService<Bulletin>>();
 
             return services;
 		}

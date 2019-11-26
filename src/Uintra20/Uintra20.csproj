@@ -775,6 +775,9 @@
     <Compile Include="Core\Activity\Models\IntranetActivityEditModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
+    <Compile Include="Core\Bulletin\Converters\BulletinOverviewPageViewModelConverter.cs" />
+    <Compile Include="Core\Bulletin\Converters\Models\BulletinOverviewPageModel.cs" />
+    <Compile Include="Core\Bulletin\Converters\Models\BulletinOverviewPageViewModel.cs" />
     <Compile Include="Core\Login\LoginPageViewModel.cs" />
     <Compile Include="Core\Login\LoginPageViewModelConverter.cs" />
     <Compile Include="Core\Login\LoginPageModel.cs" />
