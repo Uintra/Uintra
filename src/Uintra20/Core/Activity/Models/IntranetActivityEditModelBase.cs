@@ -19,7 +19,7 @@ namespace Uintra20.Core.Activity.Models
         [Required]
         public Guid OwnerId { get; set; }
 
-        public Enum ActivityType { get; set; }
+        public IntranetActivityTypeEnum ActivityType { get; set; }
 
         public IActivityLinks Links { get; set; }
 

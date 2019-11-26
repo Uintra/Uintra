@@ -1,6 +1,5 @@
 ﻿using UBaseline.Shared.Node;
 using UBaseline.Shared.PageSettings;
-using UBaseline.Shared.PanelContainer;
 using UBaseline.Shared.Property;
 using Uintra20.Features.Bulletins.Models;
 
