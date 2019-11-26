@@ -12,7 +12,8 @@ namespace Uintra.Core.ApplicationSettings
         IEnumerable<string> VideoFileTypes { get; }
         string MemberApiAuthentificationEmail { get; }
         string UintraDocumentationLinkTemplate { get; }
-        Guid QaKey { get; }
+        string DefaultToolbarConfig { get; }
+		Guid QaKey { get; }
         GoogleOAuth GoogleOAuth { get; }
         bool UmbracoUseSSL { get; }
         IEnumerable<string> UintraSuperUsers { get; }

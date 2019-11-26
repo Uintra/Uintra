@@ -20,13 +20,13 @@
         }
 
         $scope.init = function (control) {
-
             $scope.control = control;
             editorConfigService
-                .getConfig(control.editor.alias, control.editor.config)
-                .then(function (config) {
-                    $scope.linksPickerConfig = config.linksList;
-                    $scope.isTitleOptional = config.isTitleOptional;
+                .getConfig(control.editor.alias)
+                .then(function (data) {
+                    $scope.linksPickerConfig = data.config.linksList;
+                    $scope.isTitleOptional = data.config.isTitleOptional;
+                    control.editor.config.description.toolbar = data.toolbar;
                 });
         };
     }

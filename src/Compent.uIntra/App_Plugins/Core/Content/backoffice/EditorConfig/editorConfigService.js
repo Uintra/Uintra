@@ -9,7 +9,7 @@
             return $http
                 .get(baseUrl + '?editorAlias=' + editorAlias)
                 .then(function (res) {
-                    return res.data.config;
+                    return res.data;
                 });
         }
     }

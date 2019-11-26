@@ -25,8 +25,9 @@ namespace Uintra.Core.ApplicationSettings
         public const string MailNotificationNoReplyNameKey = "Notifications.Mail.NoReplyName";
         public const string UintraSuperUsersKey = "UintraSuperUsers";
         public const string DaytimeSavingOffsetKey = "DaytimeSavingOffset";
-
-        public string MailNotificationNoReplyEmail => AppSettings[MailNotificationNoReplyEmailKey];
+        public const string DefaultToolbarConfigKey = "DefaultToolbarConfig";
+        
+		public string MailNotificationNoReplyEmail => AppSettings[MailNotificationNoReplyEmailKey];
         public string MailNotificationNoReplyName => AppSettings[MailNotificationNoReplyNameKey];
 
         public IEnumerable<string> VideoFileTypes => AppSettings[VideoFileTypesKey]
@@ -35,7 +36,9 @@ namespace Uintra.Core.ApplicationSettings
 
         public bool DaytimeSavingOffset => bool.Parse(AppSettings[DaytimeSavingOffsetKey]);
 
-        public Guid QaKey => Guid.Parse(AppSettings[QaKeyKey]);
+        public string DefaultToolbarConfig => AppSettings[DefaultToolbarConfigKey];
+
+		public Guid QaKey => Guid.Parse(AppSettings[QaKeyKey]);
 
         public int MonthlyEmailJobDay => Convert.ToInt32(AppSettings[MonthlyEmailJobDayKey]);
 
