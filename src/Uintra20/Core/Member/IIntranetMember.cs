@@ -1,11 +1,11 @@
 ﻿using System;
-using LanguageExt;
+using Uintra20.Features.Groups;
 using Uintra20.Features.Permissions.Models;
 
 namespace Uintra20.Core.Member
 {
-    public interface IIntranetMember
-    {
+    public interface IIntranetMember: IGroupMember
+	{
         Guid Id { get; set; }
         string DisplayedName { get; }
         string FirstName { get; set; }
@@ -14,10 +14,10 @@ namespace Uintra20.Core.Member
         string Email { get; set; }
         string Phone { get; set; }
         string Department { get; set; }
-        Option<string> Photo { get; set; }
-        Option<int> PhotoId { get; set; }
+        string Photo { get; set; }
+        int? PhotoId { get; set; }
         IntranetMemberGroup[] Groups { get; set; }
-        Option<IIntranetUser> RelatedUser { get; set; }
+        IIntranetUser RelatedUser { get; set; }
         int UmbracoId { get; set; }
         bool Inactive { get; set; }
         bool IsSuperUser { get; set; }

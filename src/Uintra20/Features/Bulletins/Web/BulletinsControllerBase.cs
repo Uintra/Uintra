@@ -7,6 +7,7 @@ using Compent.Extensions;
 using Compent.Shared.Extensions;
 using Uintra20.Attributes;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.Media;
@@ -20,12 +21,12 @@ namespace Uintra20.Features.Bulletins.Web
     {
         private readonly IBulletinsService<Bulletin> _bulletinsService;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetMemberService<IIntranetMember> _memberService;
+        private readonly IIntranetMemberService<IntranetMember> _memberService;
 
         protected BulletinsControllerBase(
             IBulletinsService<Bulletin> bulletinsService,
             IMediaHelper mediaHelper,
-            IIntranetMemberService<IIntranetMember> memberService)
+            IIntranetMemberService<IntranetMember> memberService)
         {
             _bulletinsService = bulletinsService;
             _mediaHelper = mediaHelper;

@@ -5,6 +5,7 @@ using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Activity.Helpers;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Features.CentralFeed.Links;
 using Uintra20.Features.Groups.Links;
 using Uintra20.Features.Groups.Services;
@@ -20,7 +21,7 @@ namespace Uintra20.Features.Links
         private readonly IGroupFeedLinkProvider _groupFeedLinkProvider;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         
         public ActivityLinkService(
             ICentralFeedLinkProvider centralFeedLinkProvider,
@@ -28,7 +29,7 @@ namespace Uintra20.Features.Links
             IGroupActivityService groupActivityService,
             IActivityTypeHelper activityTypeHelper,
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetMemberService<IIntranetMember> intranetMemberService)
+            IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _centralFeedLinkProvider = centralFeedLinkProvider;
             _groupFeedLinkProvider = groupFeedLinkProvider;

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using LanguageExt;
-using Uintra20.Features.Groups;
 using Uintra20.Features.Permissions.Models;
 
 namespace Uintra20.Core.Member.Entities
 {
-    public class IntranetMember : IGroupMember
+    public class IntranetMember : IIntranetMember
     {
         public Guid Id { get; set; }
         public virtual string DisplayedName => $"{FirstName} {LastName}";
@@ -16,11 +14,11 @@ namespace Uintra20.Core.Member.Entities
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Department { get; set; }
-        public Option<string> Photo { get; set; }
-        public Option<int> PhotoId { get; set; }
+        public string Photo { get; set; }
+        public int? PhotoId { get; set; }
         public IntranetMemberGroup[] Groups { get; set; }
         public IEnumerable<Guid> GroupIds { get; set; }
-        public Option<IIntranetUser> RelatedUser { get; set; }
+        public IIntranetUser RelatedUser { get; set; }
         public int UmbracoId { get; set; }
         public bool Inactive { get; set; }
         public bool IsSuperUser { get; set; }

@@ -10,10 +10,9 @@ namespace Uintra20.Infrastructure.Ioc
 	{
 		public IDependencyCollection Register(IDependencyCollection services)
 		{
-            //services.AddScoped(typeof(IIntranetMemberService<>), typeof(IntranetMemberService<>));
-            services.AddScoped<IIntranetMemberService<IIntranetMember>, IntranetMemberService<IntranetMember>>();
+			services.AddScoped<IIntranetMemberService<IntranetMember>, IntranetMemberService<IntranetMember>>();
             services.AddScoped<ICacheableIntranetMemberService, IntranetMemberService<IntranetMember>>();
-            services.AddScoped<IIntranetUserService<IIntranetUser>, IntranetUserService<IntranetUser>>();
+            services.AddScoped<IIntranetUserService<IntranetUser>, IntranetUserService<IntranetUser>>();
             services.AddScoped<IIntranetUserContentProvider, IntranetUserContentProvider>();
             services.AddScoped<IUserTagProvider, UserTagProvider>();
             services.AddScoped<IUserTagRelationService, UserTagRelationService>();

@@ -7,6 +7,7 @@ using Compent.Extensions;
 using LanguageExt;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Subscribe;
@@ -18,12 +19,12 @@ namespace Uintra20.Features.Notification
 {
     public class NotifierDataBuilder : INotifierDataBuilder
     {
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly INotifierDataHelper _notifierDataHelper;
 
 
         public NotifierDataBuilder(
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             INotifierDataHelper notifierDataHelper)
         {
             _intranetMemberService = intranetMemberService;

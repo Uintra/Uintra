@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Features.Notification.Entities;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Models;
@@ -14,9 +15,9 @@ namespace Uintra20.Features.Notification
 {
     public class DesktopNotificationModelMapper : INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage>
     {
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
-        public DesktopNotificationModelMapper(IIntranetMemberService<IIntranetMember> intranetMemberService)
+        public DesktopNotificationModelMapper(IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _intranetMemberService = intranetMemberService;
         }

@@ -6,6 +6,7 @@ using Compent.CommandBus;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Features.Likes.CommandBus.Commands;
 using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Likes.Services;
@@ -20,13 +21,13 @@ namespace Uintra20.Features.Likes.Web
     public abstract class LikesControllerBase : UmbracoApiController
     {
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly ILikesService _likesService;
         private readonly ICommandPublisher _commandPublisher;
 
         protected LikesControllerBase(
             IActivitiesServiceFactory activitiesServiceFactory,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             ILikesService likesService,
             ICommandPublisher commandPublisher)
         {

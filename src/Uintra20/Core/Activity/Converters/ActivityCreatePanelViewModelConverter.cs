@@ -1,8 +1,11 @@
 ﻿using System;
 using Compent.Extensions;
+using Compent.Shared.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Converters.Models;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Models;
 using Uintra20.Features.Bulletins;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Infrastructure.Extensions;
@@ -13,12 +16,12 @@ namespace Uintra20.Core.Activity.Converters
     public class ActivityCreatePanelViewModelConverter : INodeViewModelConverter<ActivityCreatePanelModel, ActivityCreatePanelViewModel>
     {
         private readonly IBulletinsService<Features.Bulletins.Entities.Bulletin> _bulletinsService;
-        private readonly IIntranetMemberService<IIntranetMember> _memberService;
+        private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IPermissionsService _permissionsService;
 
         public ActivityCreatePanelViewModelConverter(IBulletinsService<Features.Bulletins.Entities.Bulletin> bulletinsService, 
-                                                    IIntranetMemberService<IIntranetMember> memberService, 
+                                                    IIntranetMemberService<IntranetMember> memberService, 
                                                     IActivityTypeProvider activityTypeProvider,
                                                     IPermissionsService permissionsService)
         {
@@ -38,16 +41,16 @@ namespace Uintra20.Core.Activity.Converters
             var currentMember = _memberService.GetCurrentMember();
             var mediaSettings = _bulletinsService.GetMediaSettings();
 
-            viewModel.Title = null;//currentMember.DisplayedName;//TODO: uncomment when member service is ready
+            viewModel.Title = currentMember.DisplayedName;
             viewModel.ActivityType = _activityTypeProvider[(int)IntranetActivityTypeEnum.Bulletins];
             viewModel.Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable();
-            viewModel.Creator = null;//currentMember.Map<MemberViewModel>();//TODO: uncomment when member service is ready
+            viewModel.Creator = currentMember.Map<MemberViewModel>();//TODO: uncomment when member service is ready
             viewModel.Links = null;//TODO: Research links
             viewModel.AllowedMediaExtensions = null;//mediaSettings.AllowedMediaExtensions; //TODO: uncomment when media settings service is ready
             viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready
             viewModel.CanCreateBulletin = true; /*_permissionsService.Check(
                 PermissionResourceTypeEnum.Bulletins,
-                PermissionActionEnum.Create);*/ //TODO: uncomment when member service is ready
+                PermissionActionEnum.Create);*/ //TODO: uncomment when permissons service is ready
         }
     }
 }

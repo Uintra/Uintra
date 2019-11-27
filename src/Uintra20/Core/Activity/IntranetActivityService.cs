@@ -7,6 +7,7 @@ using UBaseline.Core.Extensions;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Activity.Sql;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Features.LinkPreview;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media;
@@ -31,7 +32,7 @@ namespace Uintra20.Core.Activity
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IActivityLocationService _activityLocationService;
         private readonly IActivityLinkPreviewService _activityLinkPreviewService;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IPermissionsService _permissionsService;
 
         protected IntranetActivityService(
@@ -41,7 +42,7 @@ namespace Uintra20.Core.Activity
             IIntranetMediaService intranetMediaService,
             IActivityLocationService activityLocationService,
             IActivityLinkPreviewService activityLinkPreviewService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             IPermissionsService permissionsService)
         {
             _activityRepository = activityRepository;

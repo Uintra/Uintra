@@ -630,6 +630,14 @@
     <Content Include="App_Plugins\MediaPicker\prevalue-editor\media.prevalue.html" />
     <Content Include="App_Plugins\MediaPicker\prevalue-editor\media.prevalue.js" />
     <Content Include="App_Plugins\MediaPicker\styles.css" />
+    <Content Include="App_Plugins\Members\backoffice\memberGroups\delete.controller.js" />
+    <Content Include="App_Plugins\Members\backoffice\memberGroups\delete.html" />
+    <Content Include="App_Plugins\Members\backoffice\memberGroups\edit.controller.js" />
+    <Content Include="App_Plugins\Members\backoffice\memberGroups\edit.html" />
+    <Content Include="App_Plugins\Members\backoffice\memberGroups\memberGroupsService.js" />
+    <Content Include="App_Plugins\Members\member-changes-watcher.controller.js" />
+    <Content Include="App_Plugins\Members\member-changes-watcher.html" />
+    <Content Include="App_Plugins\Members\member.service.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.html" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
@@ -736,7 +744,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
-    <Compile Include="App_Start\LightInjectWebCommon.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="App_Start\StartupComposer.cs" />
     <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
@@ -748,6 +755,7 @@
     <Compile Include="Controllers\CentralFeedController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
+    <Compile Include="Controllers\MemberApiController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
     <Compile Include="Core\Activity\Converters\Models\ActivityCreatePanelModel.cs" />
@@ -786,7 +794,20 @@
     <Compile Include="Core\Login\LoginPageViewModel.cs" />
     <Compile Include="Core\Login\LoginPageViewModelConverter.cs" />
     <Compile Include="Core\Login\LoginPageModel.cs" />
+    <Compile Include="Core\Member\Controllers\MemberApiControllerBase.cs" />
+    <Compile Include="Core\Member\Events\MemberEventService.cs" />
     <Compile Include="Core\TabModelBase.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoContentSavingEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoContentTrashedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMediaSavedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMediaSavingEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMediaTrashedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberAssignedRolesEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberCreatedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberDeletingEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberGroupDeletingEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberGroupSavedEventService.cs" />
+    <Compile Include="Core\UmbracoEventServices\IUmbracoMemberRemovedRolesEventService.cs" />
     <Compile Include="Features\CentralFeed\CentralFeedFilterStateService.cs" />
     <Compile Include="Features\CentralFeed\CentralFeedItemComparer.cs" />
     <Compile Include="Features\CentralFeed\CentralFeedPanelModel.cs" />
@@ -1216,6 +1237,7 @@
     <Content Include="App_Plugins\KeyValueDropdownList\package.manifest" />
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
+    <Content Include="App_Plugins\Members\package.manifest" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Index.cshtml" />

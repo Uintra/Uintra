@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Features.Notification.Entities;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Entities.Base.Mails;
@@ -18,9 +19,9 @@ namespace Uintra20.Features.Notification
     public class MailNotificationModelMapper : INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage>
     {
         private readonly IApplicationSettings _applicationSettings;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
-        public MailNotificationModelMapper(IApplicationSettings applicationSettings, IIntranetMemberService<IIntranetMember> intranetMemberService)
+        public MailNotificationModelMapper(IApplicationSettings applicationSettings, IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _applicationSettings = applicationSettings;
             _intranetMemberService = intranetMemberService;

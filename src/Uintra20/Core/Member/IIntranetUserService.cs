@@ -1,8 +1,12 @@
-﻿namespace Uintra20.Core.Member
+﻿using System.Threading.Tasks;
+
+namespace Uintra20.Core.Member
 {
-    public interface IIntranetUserService<out T>
+    public interface IIntranetUserService<T>
     {
-        T GetByEmailOrNone(string email);
-        T GetByIdOrNone(int id);
-    }
+	    T GetByEmail(string email);
+	    T GetById(int id);
+		Task<T> GetByEmailAsync(string email);
+        Task<T> GetByIdAsync(int id);
+	}
 }

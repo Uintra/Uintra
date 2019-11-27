@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Features.CentralFeed.Entities;
 using Uintra20.Features.CentralFeed.Models.Feed;
 using Uintra20.Features.Subscribe;
@@ -9,11 +10,11 @@ namespace Uintra20.Features.CentralFeed
 {
     public class FeedFilterService : IFeedFilterService
     {
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly ISubscribeService _subscribeService;
 
         public FeedFilterService(
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             ISubscribeService subscribeService)
         {
             _intranetMemberService = intranetMemberService;
