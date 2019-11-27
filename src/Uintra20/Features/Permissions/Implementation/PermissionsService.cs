@@ -136,13 +136,15 @@ namespace Uintra20.Features.Permissions.Implementation
 
         public async Task<bool> CheckAsync(PermissionSettingIdentity settingsIdentity)
         {
-            var member = await _intranetMemberService.GetCurrentMemberAsync();
+            //var member = await _intranetMemberService.GetCurrentMemberAsync();
+            var member = _intranetMemberService.GetCurrentMember();
             return await CheckAsync(member, settingsIdentity);
         }
 
         public async Task<bool> CheckAsync(Enum resourceType, Enum actionType)
         {
-            var member = await _intranetMemberService.GetCurrentMemberAsync();
+            //var member = await _intranetMemberService.GetCurrentMemberAsync();
+            var member = _intranetMemberService.GetCurrentMember();
             return await CheckAsync(member, PermissionSettingIdentity.Of(actionType, resourceType));
         }
 

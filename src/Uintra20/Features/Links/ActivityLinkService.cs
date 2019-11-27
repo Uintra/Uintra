@@ -62,7 +62,8 @@ namespace Uintra20.Features.Links
         {
             var groupId = await _groupActivityService.GetGroupIdAsync(activityId);
 
-            var activity = await GetActivityAsync(activityId);
+            //var activity = await GetActivityAsync(activityId);
+            var activity = GetActivity(activityId);
             IActivityLinks result;
             if (groupId.HasValue)
             {
@@ -90,17 +91,17 @@ namespace Uintra20.Features.Links
             return _centralFeedLinkProvider.GetCreateLinks(activityModel);
         }
 
-        public async Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType, Guid groupId)
-        {
-            var activityModel = await GetActivityGroupCreateModelAsync(activityType, groupId);
-            return _groupFeedLinkProvider.GetCreateLinks(activityModel);
-        }
+        //public async Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType, Guid groupId)
+        //{
+        //    var activityModel = await GetActivityGroupCreateModelAsync(activityType, groupId);
+        //    return _groupFeedLinkProvider.GetCreateLinks(activityModel);
+        //}
 
-        public async Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType)
-        {
-            var activityModel = await GetActivityCreateModelAsync(activityType);
-            return _centralFeedLinkProvider.GetCreateLinks(activityModel);
-        }
+        //public async Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType)
+        //{
+        //    var activityModel = await GetActivityCreateModelAsync(activityType);
+        //    return _centralFeedLinkProvider.GetCreateLinks(activityModel);
+        //}
 
         private GroupActivityTransferCreateModel GetActivityGroupCreateModel(Enum activityType, Guid groupId)
         {
@@ -121,24 +122,24 @@ namespace Uintra20.Features.Links
             };
         }
 
-        private async Task<GroupActivityTransferCreateModel> GetActivityGroupCreateModelAsync(Enum activityType, Guid groupId)
-        {
-            return new GroupActivityTransferCreateModel()
-            {
-                GroupId = groupId,
-                Type = activityType,
-                OwnerId = await _intranetMemberService.GetCurrentMemberIdAsync()
-            };
-        }
+        //private async Task<GroupActivityTransferCreateModel> GetActivityGroupCreateModelAsync(Enum activityType, Guid groupId)
+        //{
+        //    return new GroupActivityTransferCreateModel()
+        //    {
+        //        GroupId = groupId,
+        //        Type = activityType,
+        //        OwnerId = await _intranetMemberService.GetCurrentMemberIdAsync()
+        //    };
+        //}
 
-        private async Task<ActivityTransferCreateModel> GetActivityCreateModelAsync(Enum activityType)
-        {
-            return new ActivityTransferCreateModel()
-            {
-                Type = activityType,
-                OwnerId = await _intranetMemberService.GetCurrentMemberIdAsync()
-            };
-        }
+        //private async Task<ActivityTransferCreateModel> GetActivityCreateModelAsync(Enum activityType)
+        //{
+        //    return new ActivityTransferCreateModel()
+        //    {
+        //        Type = activityType,
+        //        OwnerId = await _intranetMemberService.GetCurrentMemberIdAsync()
+        //    };
+        //}
 
         private IIntranetActivity GetActivity(Guid id)
         {
@@ -147,12 +148,12 @@ namespace Uintra20.Features.Links
             return service.Get(id);
         }
 
-        private async Task<IIntranetActivity> GetActivityAsync(Guid id)
-        {
-            var activityType = _activityTypeHelper.GetActivityType(id);
-            var service = GetActivityService(activityType);
-            return await service.GetAsync(id);
-        }
+        //private async Task<IIntranetActivity> GetActivityAsync(Guid id)
+        //{
+        //    var activityType = _activityTypeHelper.GetActivityType(id);
+        //    var service = GetActivityService(activityType);
+        //    return await service.GetAsync(id);
+        //}
 
         private IIntranetActivityService<IIntranetActivity> GetActivityService(Enum activityType)
         {

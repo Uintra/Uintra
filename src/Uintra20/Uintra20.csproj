@@ -85,9 +85,8 @@
     <Reference Include="Compent.Shared.Extensions, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.Extensions.0.1.1\lib\net471\Compent.Shared.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.Shared.Extensions.Bcl, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Shared.Extensions.Bcl.0.1.2\lib\net45\Compent.Shared.Extensions.Bcl.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Compent.Shared.Extensions.Bcl, Version=0.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Shared.Extensions.Bcl.0.1.3\lib\net45\Compent.Shared.Extensions.Bcl.dll</HintPath>
     </Reference>
     <Reference Include="Compent.Shared.Logging.Contract, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.Logging.Contract.0.1.0\lib\net471\Compent.Shared.Logging.Contract.dll</HintPath>
@@ -744,10 +743,10 @@
     <Compile Include="Attributes\RequiredIfAllEmpty.cs" />
     <Compile Include="Attributes\RequiredIfEmptyAttribute.cs" />
     <Compile Include="Attributes\StringLenghtWithoutHtmlAttribute.cs" />
+    <Compile Include="Attributes\ValidateModelAttribute.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
     <Compile Include="Core\Activity\Converters\Models\ActivityCreatePanelModel.cs" />
@@ -776,6 +775,9 @@
     <Compile Include="Core\Activity\Models\IntranetActivityEditModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
+    <Compile Include="Core\Bulletin\Converters\BulletinDetailsPageViewModelConverter.cs" />
+    <Compile Include="Core\Bulletin\Converters\Models\BulletinDetailsPageModel.cs" />
+    <Compile Include="Core\Bulletin\Converters\Models\BulletinDetailsPageViewModel.cs" />
     <Compile Include="Core\Login\LoginPageViewModel.cs" />
     <Compile Include="Core\Login\LoginPageViewModelConverter.cs" />
     <Compile Include="Core\Login\LoginPageModel.cs" />
@@ -958,6 +960,8 @@
     <Compile Include="Features\Media\VideoHelper.cs" />
     <Compile Include="Features\Media\VideoSizeMetadataModel.cs" />
     <Compile Include="Infrastructure\Ioc\BulletinsInjectModule.cs" />
+    <Compile Include="Infrastructure\Ioc\NotificationInjectModule.cs" />
+    <Compile Include="Infrastructure\Ioc\ActivityInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\UintraInjectModule.cs" />
     <Compile Include="MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Features\CentralFeed\Models\Feed\IFeedItem.cs" />

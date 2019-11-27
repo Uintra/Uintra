@@ -49,9 +49,11 @@ namespace Uintra20.Features.Notification.Services
             var settings = await _notificationSettingsService.GetAsync<PopupNotifierTemplate>(identity);
 
             if (settings == null || !settings.IsEnabled) return;
-            var receivers = await _intranetMemberService.GetManyAsync(data.ReceiverIds);
+            //var receivers = await _intranetMemberService.GetManyAsync(data.ReceiverIds);
+            var receivers = _intranetMemberService.GetMany(data.ReceiverIds);
 
-            var messages = await receivers.SelectAsync(async r => await _notificationModelMapper.MapAsync(data.Value, settings.Template, r));
+            //var messages = await receivers.SelectAsync(async r => await _notificationModelMapper.MapAsync(data.Value, settings.Template, r));
+            var messages = receivers.Select(r => _notificationModelMapper.Map(data.Value, settings.Template, r));
             await _notificationsService.NotifyAsync(messages);
         }
     }

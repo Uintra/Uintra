@@ -91,20 +91,20 @@ namespace Uintra20.Core.Member
             _commandPublisher.Publish(new MembersChanged(members));
         }
 
-        public override async Task UpdateMemberCacheAsync(Guid memberId)
-        {
-            await base.UpdateMemberCacheAsync(memberId);
-            var member = await GetAsync(memberId);
-            _commandPublisher.Publish(new MemberChanged(member));
-        }
+        //public override async Task UpdateMemberCacheAsync(Guid memberId)
+        //{
+        //    await base.UpdateMemberCacheAsync(memberId);
+        //    var member = await GetAsync(memberId);
+        //    _commandPublisher.Publish(new MemberChanged(member));
+        //}
 
-        public override async Task UpdateMemberCacheAsync(IEnumerable<Guid> memberIds)
-        {
-            var memberIdsList = memberIds.ToList();
-            await base.UpdateMemberCacheAsync(memberIdsList);
-            var members = await GetManyAsync(memberIdsList);
-            _commandPublisher.Publish(new MembersChanged(members));
-        }
+        //public override async Task UpdateMemberCacheAsync(IEnumerable<Guid> memberIds)
+        //{
+        //    var memberIdsList = memberIds.ToList();
+        //    await base.UpdateMemberCacheAsync(memberIdsList);
+        //    var members = await GetManyAsync(memberIdsList);
+        //    _commandPublisher.Publish(new MembersChanged(members));
+        //}
 
     }
 }

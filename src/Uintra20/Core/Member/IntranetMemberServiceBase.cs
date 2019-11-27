@@ -49,17 +49,17 @@ namespace Uintra20.Core.Member
             _intranetMemberGroupService = intranetMemberGroupService;
         }
 
-        #region async
+        //#region async
 
-        public virtual async Task<bool> IsCurrentMemberSuperUserAsync()
-        {
-            var currentMember = await GetCurrentMemberAsync();
-            return currentMember != null && currentMember.IsSuperUser;
-        }
+        //public virtual async Task<bool> IsCurrentMemberSuperUserAsync()
+        //{
+        //    var currentMember = await GetCurrentMemberAsync();
+        //    return currentMember != null && currentMember.IsSuperUser;
+        //}
 
-        public virtual async Task<T> GetAsync(IHaveOwner model) => await GetAsync(model.OwnerId);
+        //public virtual async Task<T> GetAsync(IHaveOwner model) => await GetAsync(model.OwnerId);
 
-        public virtual async Task<T> GetAsync(Guid id) => await GetSingleAsync(el => el.Id == id);
+        //public virtual async Task<T> GetAsync(Guid id) => await GetSingleAsync(el => el.Id == id);
 
         public virtual async Task<T> GetAsync(int id)
         {
@@ -69,26 +69,26 @@ namespace Uintra20.Core.Member
             return member;
         }
 
-        public virtual async Task<T> GetByUserIdAsync(int userId)
-        {
-            return await GetSingleAsync(el => el.RelatedUser.Map(u => u.Id) == userId);
-        }
+        //public virtual async Task<T> GetByUserIdAsync(int userId)
+        //{
+        //    return await GetSingleAsync(el => el.RelatedUser.Map(u => u.Id) == userId);
+        //}
 
-        public virtual async Task<IEnumerable<T>> GetManyAsync(IEnumerable<Guid> ids)
-        {
-            return ids.Distinct().Join(await GetAllAsync(),
-                identity,
-                member => member.Id,
-                (_, member) => member);
-        }
+        //public virtual async Task<IEnumerable<T>> GetManyAsync(IEnumerable<Guid> ids)
+        //{
+        //    return ids.Distinct().Join(await GetAllAsync(),
+        //        identity,
+        //        member => member.Id,
+        //        (_, member) => member);
+        //}
 
-        public virtual async Task<IEnumerable<T>> GetManyAsync(IEnumerable<int> ids)
-        {
-            return ids.Distinct().Join(await GetAllAsync(),
-                id => id,
-                member => member.RelatedUser.Map(x => x.Id),
-                (id, member) => member);
-        }
+        //public virtual async Task<IEnumerable<T>> GetManyAsync(IEnumerable<int> ids)
+        //{
+        //    return ids.Distinct().Join(await GetAllAsync(),
+        //        id => id,
+        //        member => member.RelatedUser.Map(x => x.Id),
+        //        (id, member) => member);
+        //}
 
         public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
@@ -96,104 +96,104 @@ namespace Uintra20.Core.Member
             return members;
         }
 
-        public virtual async Task<T> GetCurrentMemberAsync()
-        {
-            var member = _umbracoHelper.MembershipHelper.GetCurrentMember();
-            if (member != null) return await GetAsync(member.Key);
+        //public virtual async Task<T> GetCurrentMemberAsync()
+        //{
+        //    var member = _umbracoHelper.MembershipHelper.GetCurrentMember();
+        //    if (member != null) return await GetAsync(member.Key);
 
-            var umbracoUser = _umbracoContext.Security.CurrentUser;
-            if (umbracoUser != null) return await GetByUserIdAsync(umbracoUser.Id);
+        //    var umbracoUser = _umbracoContext.Security.CurrentUser;
+        //    if (umbracoUser != null) return await GetByUserIdAsync(umbracoUser.Id);
 
-            return default;
-        }
+        //    return default;
+        //}
 
-        public virtual async Task<IEnumerable<T>> GetByGroupAsync(int memberGroupId)
-        {
-            var members = (await GetAllAsync()).Where(el => el.Groups.Select(g => g.Id).Contains(memberGroupId));
-            return members;
-        }
+        //public virtual async Task<IEnumerable<T>> GetByGroupAsync(int memberGroupId)
+        //{
+        //    var members = (await GetAllAsync()).Where(el => el.Groups.Select(g => g.Id).Contains(memberGroupId));
+        //    return members;
+        //}
 
-        public virtual async Task<bool> UpdateAsync(UpdateMemberDto dto)
-        {
-            var member = _memberService.GetByKey(dto.Id);
-            var isPresent = member != null;
-            if (isPresent)
-            {
-                member.SetValue(ProfileConstants.FirstName, dto.FirstName);
-                member.SetValue(ProfileConstants.LastName, dto.LastName);
-                member.SetValue(ProfileConstants.Phone, dto.Phone);
-                member.SetValue(ProfileConstants.Department, dto.Department);
+        //public virtual async Task<bool> UpdateAsync(UpdateMemberDto dto)
+        //{
+        //    var member = _memberService.GetByKey(dto.Id);
+        //    var isPresent = member != null;
+        //    if (isPresent)
+        //    {
+        //        member.SetValue(ProfileConstants.FirstName, dto.FirstName);
+        //        member.SetValue(ProfileConstants.LastName, dto.LastName);
+        //        member.SetValue(ProfileConstants.Phone, dto.Phone);
+        //        member.SetValue(ProfileConstants.Department, dto.Department);
 
-                var mediaId = member.GetValueOrDefault<int?>(ProfileConstants.Photo);
+        //        var mediaId = member.GetValueOrDefault<int?>(ProfileConstants.Photo);
 
-                if (dto.NewMedia.HasValue)
-                {
-                    member.SetValue(ProfileConstants.Photo, dto.NewMedia.Value);
-                }
+        //        if (dto.NewMedia.HasValue)
+        //        {
+        //            member.SetValue(ProfileConstants.Photo, dto.NewMedia.Value);
+        //        }
 
-                if (dto.DeleteMedia)
-                {
-                    member.SetValue(ProfileConstants.Photo, null);
-                }
+        //        if (dto.DeleteMedia)
+        //        {
+        //            member.SetValue(ProfileConstants.Photo, null);
+        //        }
 
-                if ((dto.NewMedia.HasValue || dto.DeleteMedia) && mediaId.HasValue)
-                {
-                    var media = _mediaService.GetById(mediaId.Value);
-                    if (media != null)
-                        _mediaService.Delete(media);
-                }
+        //        if ((dto.NewMedia.HasValue || dto.DeleteMedia) && mediaId.HasValue)
+        //        {
+        //            var media = _mediaService.GetById(mediaId.Value);
+        //            if (media != null)
+        //                _mediaService.Delete(media);
+        //        }
 
-                _memberService.Save(member, false);
+        //        _memberService.Save(member, false);
 
-                await UpdateMemberCacheAsync(dto.Id);
-            }
+        //        await UpdateMemberCacheAsync(dto.Id);
+        //    }
 
-            return isPresent;
-        }
+        //    return isPresent;
+        //}
 
-        public virtual async Task<Guid> CreateAsync(CreateMemberDto dto)
-        {
-            var fullName = $"{dto.FirstName} {dto.LastName}";
-            var member = _memberService.CreateMember(dto.Email, dto.Email, fullName, "Member");
-            member.SetValue(ProfileConstants.FirstName, dto.FirstName);
-            member.SetValue(ProfileConstants.LastName, dto.LastName);
-            member.SetValue(ProfileConstants.Phone, dto.Phone);
-            member.SetValue(ProfileConstants.Department, dto.Department);
-            member.SetValue(ProfileConstants.Photo, dto.MediaId);
+        //public virtual async Task<Guid> CreateAsync(CreateMemberDto dto)
+        //{
+        //    var fullName = $"{dto.FirstName} {dto.LastName}";
+        //    var member = _memberService.CreateMember(dto.Email, dto.Email, fullName, "Member");
+        //    member.SetValue(ProfileConstants.FirstName, dto.FirstName);
+        //    member.SetValue(ProfileConstants.LastName, dto.LastName);
+        //    member.SetValue(ProfileConstants.Phone, dto.Phone);
+        //    member.SetValue(ProfileConstants.Department, dto.Department);
+        //    member.SetValue(ProfileConstants.Photo, dto.MediaId);
 
-            _memberService.Save(member, false);
+        //    _memberService.Save(member, false);
 
 
-            await UpdateMemberCacheAsync(member.Key);
+        //    await UpdateMemberCacheAsync(member.Key);
 
-            return member.Key;
-        }
+        //    return member.Key;
+        //}
 
-        public async Task<bool> DeleteAsync(Guid id)
-        {
-            var member = _memberService.GetByKey(id);
+        //public async Task<bool> DeleteAsync(Guid id)
+        //{
+        //    var member = _memberService.GetByKey(id);
 
-            if (member != null)
-            {
-                _memberService.Delete(member);
-                await DeleteFromCacheAsync(member.Key);
-            }
+        //    if (member != null)
+        //    {
+        //        _memberService.Delete(member);
+        //        await DeleteFromCacheAsync(member.Key);
+        //    }
 
-            return member != null;
-        }
+        //    return member != null;
+        //}
 
-        public virtual async Task<T> GetByNameAsync(string name)
-        {
-            var members = await GetAllAsync();
-            return members.SingleOrDefault(user => string.Equals(user.LoginName, name, StringComparison.OrdinalIgnoreCase));
-        }
+        //public virtual async Task<T> GetByNameAsync(string name)
+        //{
+        //    var members = await GetAllAsync();
+        //    return members.SingleOrDefault(user => string.Equals(user.LoginName, name, StringComparison.OrdinalIgnoreCase));
+        //}
 
-        public virtual async Task<T> GetByEmailAsync(string email)
-        {
-            var members = await GetAllAsync();
-            var normalizedEmail = email.ToLowerInvariant();
-            return members.SingleOrDefault(member => member.Email.ToLowerInvariant().Equals(normalizedEmail));
-        }
+        //public virtual async Task<T> GetByEmailAsync(string email)
+        //{
+        //    var members = await GetAllAsync();
+        //    var normalizedEmail = email.ToLowerInvariant();
+        //    return members.SingleOrDefault(member => member.Email.ToLowerInvariant().Equals(normalizedEmail));
+        //}
 
         public virtual async Task UpdateMemberCacheAsync(int memberId)
         {
@@ -257,13 +257,13 @@ namespace Uintra20.Core.Member
 
         protected abstract Task<T> MapAsync(IMember member);
 
-        private async Task<T> GetSingleAsync(Func<T, bool> predicate)
-        {
-            var member = (await GetAllAsync()).Single(predicate);
-            return member;
-        }
+        //private async Task<T> GetSingleAsync(Func<T, bool> predicate)
+        //{
+        //    var member = (await GetAllAsync()).Single(predicate);
+        //    return member;
+        //}
 
-        #endregion
+        //#endregion
 
         #region sync
 

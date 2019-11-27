@@ -34,7 +34,7 @@ namespace Uintra20
 				.RegisterConverters(assembly);
 
 			//LightInjectWebCommon.Start(composition);
-            //MapperConfig.RegisterMappings();
+            MapperConfig.RegisterMappings(composition);
         }
     }
 

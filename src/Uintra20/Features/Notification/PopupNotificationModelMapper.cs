@@ -57,7 +57,8 @@ namespace Uintra20.Features.Notification
 
             (string, string)[] tokens =
             {
-                (FullName, (await _intranetMemberService.GetAsync(receiver.Id)).DisplayedName),
+                //(FullName, (await _intranetMemberService.GetAsync(receiver.Id)).DisplayedName),
+                (FullName, (_intranetMemberService.Get(receiver.Id)).DisplayedName),
                 (ProfileLink, HtmlHelper.CreateLink(_localizationService.Translate(ProfileLinkTitle), _intranetUserContentProvider.GetEditPage().Url))
             };
             message.Message = ReplaceTokens(template.Message, tokens);

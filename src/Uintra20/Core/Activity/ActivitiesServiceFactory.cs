@@ -7,14 +7,10 @@ namespace Uintra20.Core.Activity
 {
     public class ActivitiesServiceFactory : IActivitiesServiceFactory
     {
-        private readonly IDependencyResolver _kernel;
         private readonly IActivityTypeHelper _activityTypeHelper;
 
-        public ActivitiesServiceFactory(
-            IDependencyResolver kernel,
-            IActivityTypeHelper activityTypeHelper)
+        public ActivitiesServiceFactory(IActivityTypeHelper activityTypeHelper)
         {
-            _kernel = kernel;
             _activityTypeHelper = activityTypeHelper;
         }
 
@@ -26,7 +22,7 @@ namespace Uintra20.Core.Activity
 
         public TService GetService<TService>(Enum type) where TService : class, ITypedService
         {
-            return _kernel.GetServices<TService>().SingleOrDefault(s => Equals(s.Type, type));
+            return DependencyResolver.Current.GetServices<TService>().SingleOrDefault(s => Equals(s.Type, type));
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Uintra20.Features.Links
         IActivityCreateLinks GetCreateLinks(Enum activityType);
         IActivityCreateLinks GetCreateLinks(Enum activityType, Guid groupId);
 
-        Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType);
-        Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType, Guid groupId);
+        //Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType);
+        //Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType, Guid groupId);
     }
 }

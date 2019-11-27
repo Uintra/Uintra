@@ -18,14 +18,14 @@ namespace Uintra20.Features.Notification.Services
         private readonly IMailService _mailService;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
-        private readonly NotificationSettingsService _notificationSettingsService;
+        private readonly INotificationSettingsService _notificationSettingsService;
         private readonly ISqlRepository<Sql.Notification> _notificationRepository;
 
         public MailNotifierService(
             IMailService mailService,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper,
-            NotificationSettingsService notificationSettingsService,
+            INotificationSettingsService notificationSettingsService,
             ISqlRepository<Sql.Notification> notificationRepository)
         {
             _mailService = mailService;
@@ -71,12 +71,14 @@ namespace Uintra20.Features.Notification.Services
 
             var settings = await _notificationSettingsService.GetAsync<EmailNotifierTemplate>(identity);
             if (!settings.IsEnabled) return;
-            var receivers = (await _intranetMemberService.GetManyAsync(data.ReceiverIds)).ToList();
+            //var receivers = (await _intranetMemberService.GetManyAsync(data.ReceiverIds)).ToList();
+            var receivers = (_intranetMemberService.GetMany(data.ReceiverIds)).ToList();
             foreach (var receiverId in data.ReceiverIds)
             {
                 var user = receivers.Find(receiver => receiver.Id == receiverId);
 
-                var message = await _notificationModelMapper.MapAsync(data.Value, settings.Template, user);
+                //var message = await _notificationModelMapper.MapAsync(data.Value, settings.Template, user);
+                var message = _notificationModelMapper.Map(data.Value, settings.Template, user);
                 await _mailService.SendAsync(message);
 
                 await _notificationRepository.AddAsync(new Sql.Notification()
