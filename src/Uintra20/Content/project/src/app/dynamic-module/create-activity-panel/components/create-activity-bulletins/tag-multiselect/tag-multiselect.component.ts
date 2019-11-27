@@ -42,12 +42,12 @@ export class TagMultiselectComponent implements OnInit {
 
   ngOnInit() {
     this.dropdownList = [
-      { id: '1', text: 'Mumbai' },
-      { id: '2', text: 'Lolkek' },
-      { id: '3', text: 'Mumbai2' },
-      { id: '4', text: 'Lolkek2' },
-      { id: '5', text: 'Mumbai3' },
-      { id: '6', text: 'Lolkek3' }
+      { id: '1', text: 'test' },
+      { id: '2', text: 'testtest' },
+      { id: '3', text: 'test2' },
+      { id: '4', text: 'testtest2' },
+      { id: '5', text: 'test3' },
+      { id: '6', text: 'testtest3' }
     ];
   }
 }

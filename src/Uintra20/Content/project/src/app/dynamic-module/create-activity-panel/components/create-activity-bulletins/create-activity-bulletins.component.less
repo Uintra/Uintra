@@ -1,5 +1,45 @@
 @import 'base.less';
 
+.create-bulletin {
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+.bulletin-popup__wrapper {
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .4);
+    z-index: 12;
+  }
+}
+
+.bulletin-popup {
+  
+  position: relative;
+  background: #fff;
+  z-index: 13;
+  padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .bulletin-container {
   display: flex;
 
@@ -54,7 +94,3 @@
   }
 }
 
-.bulletin-popup {
-  max-width: 600px;
-  margin: 20px auto;
-}
