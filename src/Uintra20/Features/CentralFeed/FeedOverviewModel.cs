@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Uintra20.Core.Activity;
 using Uintra20.Core.Feed;
 
 namespace Uintra20.Features.CentralFeed

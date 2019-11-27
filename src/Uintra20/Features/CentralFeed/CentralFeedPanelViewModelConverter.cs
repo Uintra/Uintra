@@ -35,10 +35,8 @@ namespace Uintra20.Features.CentralFeed
 		{
 			var centralFeedState = _feedFilterStateService.GetFiltersState();
 
-			var activityTabs = GetActivityTabs();
-
 			viewModel.Type = _feedTypeProvider[node.TabType];
-			viewModel.Tabs = activityTabs;
+			viewModel.Tabs = GetActivityTabs();
 			//viewModel.TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _permissionsService.Check(_permissionResourceTypeProvider[tab.Type.ToInt()], PermissionActionEnum.Create));
 			viewModel.IsFiltersOpened = centralFeedState.IsFiltersOpened;
 		}

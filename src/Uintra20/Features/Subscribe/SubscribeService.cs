@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Uintra20.Core.Activity;
-using Uintra20.Features.Subscribe.Sql;
 using Uintra20.Persistence.Sql;
 
 namespace Uintra20.Features.Subscribe

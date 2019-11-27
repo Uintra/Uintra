@@ -7,6 +7,7 @@ using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Implementation;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Permissions.TypeProviders;
+using Uintra20.Features.Subscribe;
 using Uintra20.Infrastructure.ApplicationSettings;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Exceptions;
@@ -50,8 +51,9 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IClientTimezoneProvider, ClientTimezoneProvider>();
             services.AddScoped<ICookieProvider, CookieProvider>();
             services.AddScoped<IMentionService, MentionService>();
+            services.AddScoped<ISubscribeService, SubscribeService>();
 
-            return services;
+			return services;
 		}
 	}
 }
