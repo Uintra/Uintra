@@ -5,7 +5,7 @@ using Uintra20.Features.Bulletins.Models;
 
 namespace Uintra20.Core.Bulletin.Converters.Models
 {
-    public class BulletinOverviewPageViewModel : NodeViewModel
+    public class BulletinDetailsPageViewModel : NodeViewModel
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }

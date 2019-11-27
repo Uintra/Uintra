@@ -14,13 +14,13 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Core.Bulletin.Converters
 {
-    public class BulletinOverviewPageViewModelConverter : INodeViewModelConverter<BulletinOverviewPageModel, BulletinOverviewPageViewModel>
+    public class BulletinDetailsPageViewModelConverter : INodeViewModelConverter<BulletinDetailsPageModel, BulletinDetailsPageViewModel>
     {
         private readonly IFeedLinkService _feedLinkService;
         private readonly IBulletinsService<Features.Bulletins.Entities.Bulletin> _bulletinsService;
         private readonly IIntranetMemberService<IIntranetMember> _memberService;
 
-        public BulletinOverviewPageViewModelConverter(IFeedLinkService feedLinkService,
+        public BulletinDetailsPageViewModelConverter(IFeedLinkService feedLinkService,
             IBulletinsService<Features.Bulletins.Entities.Bulletin> bulletinsService,
             IIntranetMemberService<IIntranetMember> memberService)
         {
@@ -29,7 +29,7 @@ namespace Uintra20.Core.Bulletin.Converters
             _memberService = memberService;
         }
 
-        public void Map(BulletinOverviewPageModel node, BulletinOverviewPageViewModel viewModel)
+        public void Map(BulletinDetailsPageModel node, BulletinDetailsPageViewModel viewModel)
         {
             if (Guid.TryParse(HttpContext.Current?.Request["id"], out Guid id))
             {
