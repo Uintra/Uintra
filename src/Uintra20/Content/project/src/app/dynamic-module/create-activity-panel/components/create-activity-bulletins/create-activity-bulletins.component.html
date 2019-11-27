@@ -1,15 +1,18 @@
-<p>create-activity-bulletins works!</p>
 <div class="bulletin-container">
   <div class="bulletin-container__picture">
-    <app-picture></app-picture>
+    <!-- <app-picture></app-picture> -->
   </div>
   <button class="bulletin-container__pop-up-button" (click)="showPopUp()">
     Write a quick message or share a photo
   </button>
   <div class="dropdown-icon">
-    <app-picture></app-picture>
+    <!-- <app-picture></app-picture> -->
   </div>
 </div>
 <app-modal *ngIf="isShow" [isShow]="isShow" (close)="handleClose()">
   <app-pop-up-bulletin [tags]="tags"></app-pop-up-bulletin>
 </app-modal>
+
+<div class="bulletin-popup">
+  <app-tag-multiselect></app-tag-multiselect>
+</div>

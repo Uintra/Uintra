@@ -1,6 +1,6 @@
 [
   {
-    contentTypeAlias: "homePage",
-    url: "/",
-  },
+    "contentTypeAlias": "homePage",
+    "url": "/"
+  }
 ]

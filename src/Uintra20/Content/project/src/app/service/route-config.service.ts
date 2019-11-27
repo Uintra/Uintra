@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router, Route } from '@angular/router';
 import { config } from '../app.config';
+import { PageResolverService } from './page-resolver.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class RouteConfigService {
 
   async resolveRoutes()
   {
-    const routes = await this.http.get('/umbraco/api/node/GetRoutes').pipe(
+    const routes = await this.http.get('/ubaseline/api/node/GetRoutes').pipe(
       map((res: any) => this.mapRoutes(res) as Route[])
     ).toPromise();
 
@@ -29,10 +30,11 @@ export class RouteConfigService {
     let routes = [];
     config.forEach(el => {
       if (!this.aliasToComponent(el.contentTypeAlias)) return;
-      
+
       routes.push({
         path: el.url.slice(1, el.url.length -1),
-        loadChildren: this.aliasToComponent(el.contentTypeAlias)
+        loadChildren: this.aliasToComponent(el.contentTypeAlias),
+        resolve: {data: PageResolverService}
       })
     });
 
@@ -48,7 +50,7 @@ export class RouteConfigService {
       contentPage: './ui/pages/content/content.module#ContentModule',
       homePage: './ui/pages/home/home.module#HomeModule',
     };
-    
+
     const map = Object.assign(config.pages, basePages);
 
     return map[alias] || map.contentPage;

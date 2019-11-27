@@ -1,11 +1,17 @@
 {
-  "/umbraco/api/*": {
+  "/ubaseline/api/node/getByurl": {
+    "target": "http://uintra20.local.compent.dk",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/ubaseline/api/*": {
     "target": "http://localhost:5000",
-    "secure": false, 
+    "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
     "pathRewrite": {
-      "/umbraco/api/*": "mocks/api/"
+      "/ubaseline/api/*": "mocks/api/"
     }
   },
   "/media/*": {

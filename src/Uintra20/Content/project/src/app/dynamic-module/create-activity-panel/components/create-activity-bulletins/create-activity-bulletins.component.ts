@@ -11,14 +11,11 @@ export class CreateActivityBulletinsComponent implements OnInit {
   constructor() { }
   isShow: boolean = false;
 
-  ngOnInit() {
-  }
-
   showPopUp() {
     this.isShow = true;
   }
 
-  handleClose() {
-    this.isShow = false;
+  ngOnInit(): void {
+
   }
 }
