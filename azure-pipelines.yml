@@ -1,0 +1,55 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- qa2.0
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: 'src/Uintra20/Uintra20.csproj'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '>2.7'
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    vsVersion: '15.0'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'src/Uintra20/UBaseline'
+    customCommand: 'npm install && npm run setup'
+
+- task: Gulp@1
+  inputs:
+    gulpFile: 'src/Uintra20/Content'
+    targets: 'nvm use 10.9.0 && npm run build'
+    enableCodeCoverage: false
+
+- task: CmdLine@2
+  inputs:
+    script: 'nvm use 8.11.3'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    vsVersion: '15.0'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
