@@ -9,6 +9,7 @@ import { CreateActivityNewsComponent } from './components/create-activity-news/c
 import { PopUpBulletinComponent } from './components/pop-up-bulletin/pop-up-bulletin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TagMultiselectComponent } from './components/create-activity-bulletins/tag-multiselect/tag-multiselect.component';
+import { BulletinsTextEditorComponent } from './components/create-activity-bulletins/bulletins-text-editor/bulletins-text-editor.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TagMultiselectComponent } from './components/create-activity-bulletins/
     CreateActivityEventsComponent,
     CreateActivityNewsComponent,
     PopUpBulletinComponent,
-    TagMultiselectComponent
+    TagMultiselectComponent,
+    BulletinsTextEditorComponent
   ],
   imports: [
     CommonModule,

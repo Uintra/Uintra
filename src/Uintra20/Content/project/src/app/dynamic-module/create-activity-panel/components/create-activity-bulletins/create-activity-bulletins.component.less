@@ -5,9 +5,38 @@
   margin: 30px auto;
 }
 
-.bulletin-popup__wrapper {
-  &::before {
-    content: '';
+// .bulletin-popup__wrapper {
+//   &::before {
+//     content: '';
+
+//   }
+// }
+
+// TODO: move to global mixin
+@key-color: #261d43;
+@text-reverse-color: #fff;
+.button-reset() {
+  background: none;
+  border: 0;
+  outline: 0;
+  padding: 0;
+}
+.button-main() {
+  .button-reset;
+  background: @key-color;
+  color: @text-reverse-color;
+  padding: 6px 15px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.bulletin-popup {
+  position: relative;
+  background: #fff;
+  z-index: 13;
+
+  &__background {
     position: fixed;
     top: 0;
     left: 0;
@@ -16,14 +45,29 @@
     background: rgba(0, 0, 0, .4);
     z-index: 12;
   }
-}
 
-.bulletin-popup {
-  
-  position: relative;
-  background: #fff;
-  z-index: 13;
-  padding: 10px;
+  &__close-button {
+    .button-reset;
+    position: absolute;
+    right: 17px;
+    top: 10px;
+    width: 31px;
+    height: 31px;
+    z-index: 14;
+    font-size: 1.6em;
+  }
+
+  &__header {
+    padding: 21px 40px 16px 30px;
+  }
+
+  &__multiselect {
+    padding: 21px 30px 16px;
+  }
+
+  &__submit-button {
+    .button-main;
+  }
 }
 
 

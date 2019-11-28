@@ -11,12 +11,28 @@
   <app-pop-up-bulletin [tags]="tags"></app-pop-up-bulletin>
 </app-modal> -->
 <div class="create-bulletin">
-<div class="create-bulletin__input">Input</div>
+  <div class="create-bulletin__input" (click)="onShowPopUp()">Input</div>
 
-<div class="bulletin-popup__wrapper">
-  <div class="bulletin-popup">
-    <app-tag-multiselect class="bulletin-popup__multiselect"></app-tag-multiselect>
+  <div class="bulletin-popup__wrapper" *ngIf="isPopupShowing" >
+    <div class="bulletin-popup__background" (click)="onHidePopUp()"></div>
+
+    <div class="bulletin-popup">
+      <!-- TODO: ask valid icon and use it -->
+      <button class="bulletin-popup__close-button" (click)="onHidePopUp()">&times;</button>
+
+      <app-publication-header
+        class="bulletin-popup__header"
+        [avatar]="'https://cataas.com/cat?width=100&height=100'"
+        [title]="'Admin Admin'">
+          <div subtitle>Nov 27, 2019 - Bulletin</div>
+      </app-publication-header>
+
+      <app-tag-multiselect class="bulletin-popup__multiselect"></app-tag-multiselect>
+
+      <app-bulletins-text-editor>
+        <button submit class="bulletin-popup__submit-button">Submit</button>
+      </app-bulletins-text-editor>
+    </div>
   </div>
-</div>
 
 </div>

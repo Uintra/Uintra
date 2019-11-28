@@ -21,7 +21,9 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ModalVideoComponent } from './components/modal-video/modal-video.component';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { FieldsModule } from './components/fields/fields.module';
+import { BlocksModule } from './components/blocks/blocks.module';
 
 const components = [
   TextInputComponent,
@@ -46,6 +48,7 @@ const components = [
     RouterModule,
     FormsModule,
     FieldsModule,
+    BlocksModule,
     ReactiveFormsModule,
     TranslateModule.forChild({
       loader: {
@@ -56,7 +59,7 @@ const components = [
     ...specificImports
   ],
   exports: [
-    ...components, FieldsModule
+    ...components, FieldsModule, BlocksModule
   ]
 })
 export class SharedModule { }

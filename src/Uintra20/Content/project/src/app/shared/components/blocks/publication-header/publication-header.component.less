@@ -1,0 +1,36 @@
+// TODO: move to global mixin and check 'h3' name
+@text-color: #262626;
+@text-color--light: #555;
+
+.h3() {
+  font-size: 20px;
+  line-height: 1.1;
+}
+.small() {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+:host {
+  display: block;
+}
+
+.publication-header {
+  display: flex;
+  align-items: center;
+
+  &__avatar {
+    margin-right: 20px;
+  }
+
+  &__title {
+    .h3;
+    color: @text-color;
+    margin-bottom: 5px;
+  }
+
+  &__subtitle {
+    .small;
+    color: @text-color--light;
+  }
+}
