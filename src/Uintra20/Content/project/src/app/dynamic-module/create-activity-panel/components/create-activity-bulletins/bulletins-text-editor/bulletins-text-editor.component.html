@@ -1,6 +1,31 @@
 <div class="bulletin-text-editor">
   <div class="bulletin-text-editor__input">
-    Write a message, post a photo or share a document
+
+    <quill-editor theme="snow" placeholder="Write a message, post a photo or share a document" customToolbarPosition="bottom">
+        <div quill-editor-toolbar>
+          <span class="ql-formats">
+            <button class="ql-bold" [title]="'Bold'"></button>
+          </span>
+          <span class="ql-formats">
+            <select class="ql-align" [title]="'Aligment'">
+              <option selected></option>
+              <option value="center"></option>
+              <option value="right"></option>
+              <option value="justify"></option>
+            </select>
+            <select class="ql-align" [title]="'Aligment2'">
+              <option selected></option>
+              <option value="center"></option>
+              <option value="right"></option>
+              <option value="justify"></option>
+            </select>
+          </span>
+          <span class="ql-formats">
+            <ng-content select="[submit]"></ng-content>
+          </span>
+        </div>
+      </quill-editor>
+
   </div>
   <div class="bulletin-text-editor__footer">
     <div class="bulletin-text-editor__symbols-counter">
@@ -10,7 +35,7 @@
       :) &ensp; B &ensp; I &ensp; Link &ensp; Share
     </div>
     <div class="bulletin-text-editor__submit">
-      <ng-content select="[submit]"></ng-content>
+      <!-- <ng-content select="[submit]"></ng-content> -->
     </div>
   </div>
 </div>

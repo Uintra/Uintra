@@ -1,28 +1,13 @@
 @import 'base.less';
 
-.create-bulletin {
-  max-width: 600px;
-  margin: 30px auto;
-}
-
-// .bulletin-popup__wrapper {
-//   &::before {
-//     content: '';
-
-//   }
-// }
-
 // TODO: move to global mixin
 @key-color: #261d43;
 @text-reverse-color: #fff;
-.button-reset() {
-  background: none;
-  border: 0;
-  outline: 0;
-  padding: 0;
-}
+@text-color: #262626;
+@text-color--light: #555;
+
 .button-main() {
-  .button-reset;
+  .reset-button;
   background: @key-color;
   color: @text-reverse-color;
   padding: 6px 15px;
@@ -31,10 +16,44 @@
   font-weight: 600;
 }
 
-.bulletin-popup {
+
+.create-bulletin {
   position: relative;
+  max-width: 600px;
+  margin: 30px auto;
+  box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+
+  &__input {
+    display: flex;
+    align-items: center;
+    padding: 22px 20px;
+    border: 1px solid #ddd;
+    color: @text-color--light;
+    cursor: text;
+
+    &-placeholder {
+      .reset-button;
+      margin-lefT: 10px;
+      border: 0;
+      cursor: text;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.bulletin-popup {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
   background: #fff;
   z-index: 13;
+  opacity: 0;
+  animation: fadeIn 0.2s ease-out forwards;
 
   &__background {
     position: fixed;
@@ -44,10 +63,12 @@
     bottom: 0;
     background: rgba(0, 0, 0, .4);
     z-index: 12;
+    opacity: 0;
+    animation: fadeIn 0.1s ease-out forwards;
   }
 
   &__close-button {
-    .button-reset;
+    .reset-button;
     position: absolute;
     right: 17px;
     top: 10px;

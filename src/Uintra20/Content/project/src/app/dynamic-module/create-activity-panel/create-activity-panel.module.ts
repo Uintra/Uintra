@@ -10,6 +10,7 @@ import { PopUpBulletinComponent } from './components/pop-up-bulletin/pop-up-bull
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TagMultiselectComponent } from './components/create-activity-bulletins/tag-multiselect/tag-multiselect.component';
 import { BulletinsTextEditorComponent } from './components/create-activity-bulletins/bulletins-text-editor/bulletins-text-editor.component';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { BulletinsTextEditorComponent } from './components/create-activity-bulle
     CommonModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    QuillModule
   ],
   providers: [ {provide: DYNAMIC_COMPONENT, useValue: CreateActivityPanelComponent}],
   entryComponents: [CreateActivityPanelComponent]

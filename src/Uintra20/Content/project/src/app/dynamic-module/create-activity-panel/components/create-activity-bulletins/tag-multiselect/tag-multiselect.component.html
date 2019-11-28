@@ -22,10 +22,10 @@
   </div>
 
   <div class="tag-multiselect-dropdown" *ngIf="isDwopdownShowed">
-    <button 
-      *ngFor="let tag of dropdownList" 
-      class="tag-multiselect-dropdown-row" 
-      (click)="onAddTag(tag)" 
+    <button
+      *ngFor="let tag of dropdownList"
+      class="tag-multiselect-dropdown-row"
+      (click)="onAddTag(tag)"
       [ngClass]="{'selected': selectedList.includes(tag)}">
       <div class="tag-multiselect-dropdown-row__text">
         {{ tag.text }}

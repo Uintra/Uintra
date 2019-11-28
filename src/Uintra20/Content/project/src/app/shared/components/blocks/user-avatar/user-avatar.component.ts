@@ -21,7 +21,7 @@ import { IPictureData } from '../../picture/picture.component';
 export class UserAvatarComponent implements OnInit {
   // TODO: use IPictureData instead of string
   @Input() data: string;
-  @Input('big') big: boolean = false;
+  @Input('big') big: boolean;
 
   // TODO: use default avatar from server
   readonly defaultAvatar: string = 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png';
