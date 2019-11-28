@@ -1,4 +1,5 @@
-﻿using Uintra20.Features.Links.Models;
+﻿using Uintra20.Features.CentralFeed.Models;
+using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Features.CentralFeed.Links
 {

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
-using LanguageExt;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
-using static LanguageExt.Prelude;
+
 
 namespace Uintra20.Infrastructure.Extensions
 {
@@ -15,7 +14,7 @@ namespace Uintra20.Infrastructure.Extensions
             return member.HasProperty(alias) ? member.GetValue<TValue>(alias) : default;
         }
 
-        public static Option<int> GetMemberImageId(this IMember member, string alias)
+        public static int? GetMemberImageId(this IMember member, string alias)
         {
             if (member.HasProperty(alias))
             {
@@ -31,7 +30,7 @@ namespace Uintra20.Infrastructure.Extensions
                 }
             }
 
-            return None;
+            return null;
         }
     }
 }

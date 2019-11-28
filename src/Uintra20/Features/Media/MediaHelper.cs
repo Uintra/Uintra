@@ -9,6 +9,8 @@ using Compent.Extensions;
 using UBaseline.Core.Extensions;
 using Uintra20.Core.Controls.FileUpload;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
@@ -28,7 +30,7 @@ namespace Uintra20.Features.Media
         private readonly ICacheService _cacheService;
         private readonly IMediaService _mediaService;
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IMediaFolderTypeProvider _mediaFolderTypeProvider;
         private readonly IImageHelper _imageHelper;
         private readonly IVideoHelper _videoHelper;
@@ -37,7 +39,7 @@ namespace Uintra20.Features.Media
 
         public MediaHelper(ICacheService cacheService,
             IMediaService mediaService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             UmbracoHelper umbracoHelper,
             IMediaFolderTypeProvider mediaFolderTypeProvider,
             IImageHelper imageHelper,

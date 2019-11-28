@@ -6,7 +6,9 @@ using System.Web.Http;
 using Uintra20.Attributes;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Bulletins;
 using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Bulletins.Models;
@@ -24,7 +26,7 @@ namespace Uintra20.Controllers
     public class BulletinsController : BulletinsControllerBase
     {
         private readonly IBulletinsService<Bulletin> _bulletinsService;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IMyLinksService _myLinksService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityTagsHelper _activityTagsHelper;
@@ -34,7 +36,7 @@ namespace Uintra20.Controllers
         public BulletinsController(
             IBulletinsService<Bulletin> bulletinsService,
             IMediaHelper mediaHelper,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             IMyLinksService myLinksService,
             IGroupActivityService groupActivityService,
             IActivityTagsHelper activityTagsHelper,

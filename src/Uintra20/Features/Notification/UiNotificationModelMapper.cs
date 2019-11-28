@@ -2,6 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification.Entities;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Models;
@@ -14,9 +17,9 @@ namespace Uintra20.Features.Notification
 {
     public class UiNotificationModelMapper : INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage>
     {
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
-        public UiNotificationModelMapper(IIntranetMemberService<IIntranetMember> intranetMemberService)
+        public UiNotificationModelMapper(IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _intranetMemberService = intranetMemberService;
         }

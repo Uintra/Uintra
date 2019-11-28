@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Uintra20.Features.CentralFeed.Models.Feed;
+using Uintra20.Core.Feed.Models;
 
 namespace Uintra20.Features.CentralFeed
 {

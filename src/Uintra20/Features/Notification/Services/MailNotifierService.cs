@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using UBaseline.Core.Extensions;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Models;
@@ -16,14 +18,14 @@ namespace Uintra20.Features.Notification.Services
     public class MailNotifierService : INotifierService
     {
         private readonly IMailService _mailService;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
         private readonly INotificationSettingsService _notificationSettingsService;
         private readonly ISqlRepository<Sql.Notification> _notificationRepository;
 
         public MailNotifierService(
             IMailService mailService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper,
             INotificationSettingsService notificationSettingsService,
             ISqlRepository<Sql.Notification> notificationRepository)

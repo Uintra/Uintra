@@ -2,6 +2,7 @@
 using System.Data.Entity.Infrastructure;
 using Compent.Shared.DependencyInjection.Contract;
 using Uintra20.Persistence;
+using Uintra20.Persistence.Context;
 using Uintra20.Persistence.Sql;
 
 namespace Uintra20.Infrastructure.Ioc

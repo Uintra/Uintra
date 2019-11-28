@@ -1,6 +1,11 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
+using Uintra20.Core.Feed;
+using Uintra20.Core.Feed.Services;
+using Uintra20.Core.Feed.State;
 using Uintra20.Features.CentralFeed;
 using Uintra20.Features.CentralFeed.Enums;
+using Uintra20.Features.CentralFeed.Services;
+using Uintra20.Features.CentralFeed.State;
 using Uintra20.Features.Links;
 
 namespace Uintra20.Infrastructure.Ioc
