@@ -8,6 +8,7 @@ using Compent.Shared.Extensions;
 using Uintra20.Attributes;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.Media;

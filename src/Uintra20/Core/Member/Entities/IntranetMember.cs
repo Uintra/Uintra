@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.User.Models;
 using Uintra20.Features.Permissions.Models;
 
 namespace Uintra20.Core.Member.Entities

@@ -6,6 +6,7 @@ using Uintra20.Core.Activity.Converters.Models;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Bulletins;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Infrastructure.Extensions;

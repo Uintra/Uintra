@@ -1,5 +1,6 @@
 ﻿using Uintra20.Core.Member;
-using Uintra20.Core.Member.Controllers;
+using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Web;
 
 namespace Uintra20.Controllers
 {

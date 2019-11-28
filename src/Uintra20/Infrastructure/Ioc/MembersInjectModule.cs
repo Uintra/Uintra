@@ -1,7 +1,10 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.RelatedUser;
+using Uintra20.Core.Member.Services;
+using Uintra20.Core.User;
+using Uintra20.Core.User.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 
 namespace Uintra20.Infrastructure.Ioc

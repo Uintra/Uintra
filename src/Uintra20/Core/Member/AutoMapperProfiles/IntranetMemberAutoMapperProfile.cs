@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using System.Linq;
-using Uintra20.Core.Member.DTO;
+using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Models;
+using Uintra20.Core.Member.Models.Dto;
 
 namespace Uintra20.Core.Member.AutoMapperProfiles
 {

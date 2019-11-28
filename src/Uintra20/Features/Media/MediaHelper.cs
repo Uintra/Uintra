@@ -10,6 +10,7 @@ using UBaseline.Core.Extensions;
 using Uintra20.Core.Controls.FileUpload;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;

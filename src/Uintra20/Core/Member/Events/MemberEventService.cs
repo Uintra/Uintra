@@ -1,4 +1,5 @@
-﻿using Uintra20.Core.UmbracoEventServices;
+﻿using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.UmbracoEventServices;
 using Uintra20.Features.Permissions.Interfaces;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
