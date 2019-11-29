@@ -1,33 +1,43 @@
 <div class="bulletin-text-editor">
   <div class="bulletin-text-editor__input">
 
+      <dropzone #dropdownRef [message]="''" ></dropzone>
+
     <quill-editor theme="snow" placeholder="Write a message, post a photo or share a document" customToolbarPosition="bottom">
-        <div quill-editor-toolbar>
+        <div quill-editor-toolbar class="bulletin-text-editor__footer">
+          <span class="ql-counter">
+            1/1000
+          </span>
+
           <span class="ql-formats">
             <button class="ql-bold" [title]="'Bold'"></button>
           </span>
+
           <span class="ql-formats">
-            <select class="ql-align" [title]="'Aligment'">
-              <option selected></option>
-              <option value="center"></option>
-              <option value="right"></option>
-              <option value="justify"></option>
-            </select>
-            <select class="ql-align" [title]="'Aligment2'">
-              <option selected></option>
-              <option value="center"></option>
-              <option value="right"></option>
-              <option value="justify"></option>
-            </select>
+            <button class="ql-italic" [title]="'Italic'"></button>
           </span>
+
           <span class="ql-formats">
+            <button class="ql-link icon-link">
+            </button>
+          </span>
+
+          <span class="ql-formats">
+            <button class="" (click)="openDropdown()">
+              <span class="bulletin-text-editor__attachment icon-attachment"></span>
+            </button>
+          </span>
+
+
+          <span class="ql-submit-button">
             <ng-content select="[submit]"></ng-content>
           </span>
+
         </div>
       </quill-editor>
 
   </div>
-  <div class="bulletin-text-editor__footer">
+  <!-- <div class="bulletin-text-editor__footer">
     <div class="bulletin-text-editor__symbols-counter">
       0 / 2000
     </div>
@@ -35,7 +45,7 @@
       :) &ensp; B &ensp; I &ensp; Link &ensp; Share
     </div>
     <div class="bulletin-text-editor__submit">
-      <!-- <ng-content select="[submit]"></ng-content> -->
+
     </div>
-  </div>
+  </div> -->
 </div>

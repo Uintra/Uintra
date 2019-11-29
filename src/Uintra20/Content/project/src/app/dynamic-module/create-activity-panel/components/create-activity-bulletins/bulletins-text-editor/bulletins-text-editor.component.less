@@ -1,19 +1,106 @@
 @import '~quill/dist/quill.snow.css';
+@import 'base.less';
 
+@key-color: #261d43;
+
+.button-main() {
+  .reset-button;
+  background: @key-color;
+  color: @text-reverse-color;
+  padding: 6px 15px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  width: auto;
+}
+
+dropzone > .dropzone.dz-wrapper {
+  padding: 0 14px !important;
+  height: 0 !important;
+
+  &.dz-started {
+    height: auto !important;
+  }
+
+  .dz-message {
+    border: 0 !important;
+    background: none !important;
+    min-height: 0 !important;
+  }
+}
 app-bulletins-text-editor {
   display: block;
+  .ql-link,
+  .ql-italic,
+  .ql-bold {
+    font-size: 14px;
+    svg {
+      display: none;
+    }
+  }
+  .ql-bold:before {
+    content: 'B';
+    width: 20px;
+    height: 20px;
+    background-image: none;
+    font-weight: 600;
+    line-height: 20px;
+  }
+  .ql-italic:before {
+    content: 'i';
+    width: 20px;
+    height: 20px;
+    background-image: none;
+    font-style: italic;
+    font-weight: 600;
+    line-height: 20px;
+  }
+  .ql-editor {
+    padding: 15px 30px;
+    font-size: 16px;
+
+    &.ql-blank::before {
+      left: 30px;
+      font-style: normal;
+      color: #aaa;
+    }
+  }
+  .ql-container.ql-snow {
+    border: 0;
+  }
+  .ql-toolbar.ql-snow {
+    padding: 15px 30px;
+    border: 0;
+    border-top: 1px solid #ccc;
+  }
+  .ql-snow.ql-toolbar button,
+  .ql-snow .ql-toolbar button {
+    float: initial;
+    display: flex;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #d6d6d6;
+    justify-content: center;
+  }
+  .ql-snow.ql-toolbar .ql-submit-button button,
+  .ql-snow .ql-toolbar .ql-submit-button button {
+    .button-main;
+  }
+  .ql-counter {
+    margin-right: auto;
+  }
 }
 
 .bulletin-text-editor {
   &__input {
-    padding: 15px 30px;
   }
 
   &__footer {
     display: flex;
     align-items: center;;
     width: 100%;
-    padding: 15px 30px;
     border-top: 1px solid #ddd;
   }
 
@@ -23,5 +110,12 @@ app-bulletins-text-editor {
 
   &__submit {
     margin-left: 15px;
+  }
+
+  &__attachment {
+    &:before {
+      font-size: 26px;
+      line-height: 20px;
+    }
   }
 }
