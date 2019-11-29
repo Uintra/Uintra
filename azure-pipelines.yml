@@ -39,7 +39,7 @@ steps:
     command: 'custom'
     workingDir: 'src/Uintra20/UBaseline'
     customCommand: 'npm install'
-	
+
 - task: Npm@1
   inputs:
     command: 'custom'
