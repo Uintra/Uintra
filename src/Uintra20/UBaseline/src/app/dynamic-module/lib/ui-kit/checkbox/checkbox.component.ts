@@ -17,6 +17,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class CheckboxComponent implements ControlValueAccessor {
   @Input() mixed: boolean;
   @Input() set disabled(flag: boolean) {this.isDisabled = flag};
+  @Input() noChanges: boolean;
 
   @Output() ngModelChange = new EventEmitter();
 
@@ -29,7 +30,7 @@ export class CheckboxComponent implements ControlValueAccessor {
 
   @HostListener('click') onClick()
   {
-    if (this.isDisabled) return;
+    if (this.isDisabled || this.noChanges) return;
 
     this.model = !this.model;
     this.changeHandler(this.model);

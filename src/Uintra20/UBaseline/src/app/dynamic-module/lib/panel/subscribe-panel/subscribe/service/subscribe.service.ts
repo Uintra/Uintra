@@ -18,9 +18,9 @@ export interface ISubscribeModel {
 }
 
 interface ISubscribeResponseModel {
-  status: number;
-  listId: string;
-  title: string;
+  status: number | string;
+  listId: string | null;
+  title: string | null;
 }
 @Injectable()
 export class SubscribeService {
@@ -34,16 +34,28 @@ export class SubscribeService {
   {
     return this.http.post(`${this.config.api}/MailchimpPanel/subscribe`, data).pipe(
       catchError(err => {
-        return err.status === 404 ? of([{status: 'notfound'}]) : of([{status: 'servererror'}]);
+        return err.status === 404 ? of([{status: 404}]) : of([{status: 500}]);
       }),
       map((data: ISubscribeResponseModel[]) => {
 
         const parsed = data.reduce((a: ISubscribeResponseModel, b: ISubscribeResponseModel) => {
+          b.status = this.normalizeStatus(b.status);
+          a.status = this.normalizeStatus(a.status);
+
           if (a.status < b.status) a = b;
+
           return a;
         }, {status: 0, listId: null, title: null});
 
-        return  SubscribeServiceResponseStatus[`status${parsed.status}`];
+        return  parsed.status;
       })).toPromise();
+  }
+
+  private normalizeStatus(status: string | number): number
+  {
+    const n = parseInt(status as string);
+    if (Number.isInteger(n) && n > 400) return n;
+
+    return 200;
   }
 }
