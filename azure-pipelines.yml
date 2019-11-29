@@ -25,7 +25,7 @@ steps:
     restoreSolution: '$(solution)'
     feedsToUse: 'config'
     nugetConfigPath: 'src/.nuget/NuGet.Config'
-    restoreDirectory: 'packages'
+    restoreDirectory: '../../packages'
 
 - task: VSBuild@1
   inputs:
