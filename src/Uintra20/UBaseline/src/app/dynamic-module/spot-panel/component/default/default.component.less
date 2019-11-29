@@ -1,67 +1,56 @@
 @import "base.less";
 
 :host {
-    display: block;
-    .centered;
+	display: block;
+	.centered;
 }
 
 .spot-panel {
-    &__list {
-        display: flex;
-        flex-wrap: wrap;
-        margin-left: -20px;
-        margin-right: -20px;
-        justify-content: space-between;
-        @media @md {
-            flex-wrap: nowrap;
-        }
-    }
+	&__list {
+		@media @sm {
+			margin-right: -20px;
+			margin-left: -20px;
+			flex-wrap: wrap;
+			display: flex;
+		}
+	}
 
-    &__item {
-        margin: 20px;
-        flex-grow: 1;
-        @media @md {
-            flex: 1;
-        }
+	&__item {
+		margin: 20px;
+		&-title {
+			font-weight: bold;
+			color: @text-color;
+			margin-top: 16px;
+			font-size: 16px;
+		}
 
-        &-title {
-            font-weight: bold;
-            color: @text-color;
-            margin-top: 16px;
-            font-size: 16px;
-        }
+		&-description {
+			margin-top: 10px;
+		}
 
-
-        &-description {
-            margin-top: 10px;
-        }
-
-        &-date {
-            font-size: 13px;
-            color: @text-color;
-            margin-top: 10px;
-            display: block;
-        }
-    }
-
+		&-date {
+			font-size: 13px;
+			color: @text-color;
+			margin-top: 10px;
+			display: block;
+		}
+	}
 }
 
-:host-context(.spot-panel__content--3) {
-    .spot-panel {
-        &__list {
-            @media @sm {
-                flex-wrap: nowrap;
-            }
-        }
-    }
+.loop(@count) when(@count > 0) {
+	.loop((@count - 1));
+	:host-context(.spot-panel__content--@{count}) {
+		.spot-panel {
+			&__item {
+				@media @sm {
+					@width: 100% / @count;
+					content: 'debug';
+					width: calc(~"@{width} - 40px");
+					flex: 0 0 calc(~"@{width} - 40px");
+				}
+			}
+		}
+	}
 }
 
-:host-context(.spot-panel__content--2) {
-    .spot-panel {
-        &__item {
-            @media @sm {
-                flex: 1 1 0;
-            }
-        }
-    }
-}
+.loop(6);

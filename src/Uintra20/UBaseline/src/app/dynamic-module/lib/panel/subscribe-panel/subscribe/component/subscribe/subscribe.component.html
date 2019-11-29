@@ -51,7 +51,7 @@
         </div>
     </form>
 
-    <ubl-checkbox class="subscribe__agreements agreements" [(ngModel)]="agreed">
+    <ubl-checkbox class="subscribe__agreements agreements" [noChanges]="agreedControlNoChanges" [(ngModel)]="agreed">
         {{ 'mailchimpPanel.AgreementText' | translate }}
     </ubl-checkbox>
 

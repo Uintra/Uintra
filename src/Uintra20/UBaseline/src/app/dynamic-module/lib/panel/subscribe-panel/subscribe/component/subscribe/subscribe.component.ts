@@ -2,7 +2,6 @@ import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@
 import { SubscribeService, SubscribeServiceResponseStatus, ISubscribeModel } from '../../service/subscribe.service';
 import { SafeHtml } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
-import { group } from '@angular/animations';
 
 export interface ISubscribeData {
   description: string;
@@ -14,7 +13,7 @@ export interface ISubscribeData {
 export interface ISubscribeListItem {
   listId: string;
   listName: string;
-  groups: {groupId: string}[];
+  groups: string[];
 }
 
 export interface ISubscribeAgreementData {
@@ -26,7 +25,7 @@ interface IViewModel {
   name: string; id:
   string; checked:
   boolean;
-  groups: {groupId: string}[]
+  groups: string[]
 }
 @Component({
   selector: 'ubl-subscribe',
@@ -35,6 +34,8 @@ interface IViewModel {
 })
 export class SubscribeComponent {
   @Input() data: ISubscribeData;
+  @Input() agreed: boolean;
+  @Input() agreedControlNoChanges: boolean;
   @Output() showPrivacy = new EventEmitter();
 
   @ViewChild('subscribeForm', {static: false}) form: NgForm;
@@ -43,7 +44,6 @@ export class SubscribeComponent {
   isBusy: boolean;
   isSuccess: boolean;
   temp = false;
-  agreed: boolean;
   email: string;
   emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -80,12 +80,12 @@ export class SubscribeComponent {
   {
     this.isBusy = true;
 
-    const lists = this
-      .model.filter(entry => entry.checked)
+    const lists = this.model
+      .filter(entry => entry.checked)
       .map(entry => {
         return {
           id: entry.id,
-          groups: entry.groups.map(g => g.groupId)
+          groups: entry.groups
         }
       })
 
@@ -104,7 +104,7 @@ export class SubscribeComponent {
       const { form } = this.form;
 
       this.isSuccess = true;
-      this.agreed = false;
+      this.agreed = this.agreedControlNoChanges || false;
       this.toggleSelectAll(true);
       this.email = '';
       this.showAllTopics && ((this.showAllTopics as any).toggled = false);
