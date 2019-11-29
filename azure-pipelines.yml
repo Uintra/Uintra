@@ -11,7 +11,7 @@ pool:
 
 variables:
   solution: 'src/Uintra20/Uintra20.csproj'
-  buildPlatform: 'Any CPU'
+  buildPlatform: 'AnyCPU'
   buildConfiguration: 'Release'
 
 steps:
