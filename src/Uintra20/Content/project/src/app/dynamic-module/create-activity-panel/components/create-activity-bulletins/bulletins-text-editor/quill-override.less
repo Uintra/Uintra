@@ -1,0 +1,74 @@
+app-bulletins-text-editor {
+  display: block;
+  .ql-link,
+  .ql-italic,
+  .ql-bold,
+  .ql-emoji {
+    font-size: 14px;
+    margin-right: 8px;
+    svg {
+      display: none;
+    }
+  }
+  .ql-bold:before {
+    content: 'B';
+    width: 20px;
+    height: 20px;
+    background-image: none;
+    font-weight: 600;
+    line-height: 20px;
+  }
+  .ql-italic:before {
+    content: 'i';
+    width: 20px;
+    height: 20px;
+    background-image: none;
+    font-style: italic;
+    font-weight: 600;
+    line-height: 20px;
+  }
+  .ql-editor {
+    padding: 15px 30px;
+    font-size: 16px;
+    max-height: 300px;
+
+    &.ql-blank::before {
+      left: 30px;
+      font-style: normal;
+      color: #aaa;
+    }
+  }
+  .ql-container.ql-snow {
+    border: 0;
+  }
+  .ql-toolbar.ql-snow {
+    padding: 15px 30px;
+    border: 0;
+    border-top: 1px solid #ccc;
+  }
+  .ql-toolbar.ql-snow .ql-formats {
+    display: flex;
+  }
+  .ql-snow.ql-toolbar button,
+  .ql-snow .ql-toolbar button {
+    float: initial;
+    display: flex;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #d6d6d6;
+    justify-content: center;
+  }
+  .ql-snow.ql-toolbar .ql-submit-button button,
+  .ql-snow .ql-toolbar .ql-submit-button button {
+    .button-main;
+  }
+  .ql-counter {
+    margin-right: auto;
+
+    .invalid span{
+      color: #c70a0a;
+    }
+  }
+}
