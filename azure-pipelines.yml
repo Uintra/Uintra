@@ -38,7 +38,13 @@ steps:
   inputs:
     command: 'custom'
     workingDir: 'src/Uintra20/UBaseline'
-    customCommand: 'npm install && npm run setup'
+    customCommand: 'npm install'
+	
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'src/Uintra20/UBaseline'
+    customCommand: 'npm run setup'
 
 - task: Gulp@1
   inputs:
