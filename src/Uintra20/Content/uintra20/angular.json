@@ -30,7 +30,13 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src",
+                "node_modules"
+              ]
+            }
           },
           "configurations": {
             "production": {
@@ -67,7 +73,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "uintra20:build"
+            "browserTarget": "uintra20:build",
+            "proxyConfig": "./proxy.json"
           },
           "configurations": {
             "production": {
@@ -124,6 +131,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "uintra20"
 }

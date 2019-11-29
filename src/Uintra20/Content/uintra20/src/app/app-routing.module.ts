@@ -1,11 +1,21 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
+import { UmbracoSupportModule, ResolveService } from '@ubaseline/next';
+import { pages } from './ui/pages/pages';
+import { panels } from './ui/panels/panels';
 
-const routes: Routes = [];
+const routes = [
+  {
+    path: "**", component: UmbracoSupportModule.resolveComponent, resolve: { data: ResolveService },
+  },
+  ...pages, ...panels
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
