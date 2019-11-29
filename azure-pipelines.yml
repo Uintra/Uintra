@@ -46,14 +46,20 @@ steps:
     workingDir: 'src/Uintra20/UBaseline'
     customCommand: 'run setup'
 
-- task: Gulp@1
+- task: CmdLine@2
+  inputs:    
+    workingDirectory: 'src/Uintra20/Content'
+    script: 'nvm use 10.9.0'
+
+- task: Npm@1
   inputs:
-    gulpFile: 'src/Uintra20/Content'
-    targets: 'nvm use 10.9.0 && npm run build'
-    enableCodeCoverage: false
+    command: 'custom'
+    workingDir: 'src/Uintra20/Content'
+    customCommand: 'run build'
 
 - task: CmdLine@2
   inputs:
+    workingDirectory: 'src/Uintra20/Content'
     script: 'nvm use 8.11.3'
 
 - task: VSBuild@1
