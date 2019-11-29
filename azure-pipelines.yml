@@ -26,7 +26,7 @@ steps:
     feedsToUse: 'config'
     nugetConfigPath: 'src/.nuget/NuGet.Config'
     restoreDirectory: '../../packages'
-	
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -46,17 +46,17 @@ steps:
     workingDir: 'src/Uintra20/UBaseline'
     customCommand: 'run setup'
 
--task: UseNode@1
+- task: UseNode@1
   inputs:
     version: '10.9.0'
 
--task: Npm@1
+- task: Npm@1
   inputs:
     command: 'custom'
     workingDir: 'src/Uintra20/Content'
     customCommand: 'run build'
 
--task: UseNode@1
+- task: UseNode@1
   inputs:
     version: '8.11.3'
 
