@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AS_DYNAMIC_COMPONENT, NotImplementedModule } from '@ubaseline/next';
-import { ActivityCreatePanel } from './activity-create-Panel.component';
+import { ActivityCreatePanel } from './activity-create-panel.component';
 
 @NgModule({
   declarations: [ActivityCreatePanel],

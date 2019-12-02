@@ -4,10 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "./node_modules/.bin/ng --prod --deploy-url /wwwroot/",
+    "build": "./node_modules/.bin/ng build --prod --deploy-url /wwwroot/",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "prebuild": "node ./build-support/before.js",
+    "postbuild": "node ./build-support/after.js"
   },
   "private": true,
   "dependencies": {
@@ -19,7 +21,7 @@
     "@angular/platform-browser": "~8.2.11",
     "@angular/platform-browser-dynamic": "~8.2.11",
     "@angular/router": "~8.2.11",
-    "@ubaseline/next": "file:../ubaseline-next-0.0.12.tgz",
+    "@ubaseline/next": "file:../ubaseline-next-0.0.15.tgz",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
