@@ -3,6 +3,8 @@ using Uintra20.Core.Commands;
 using Uintra20.Core.Member.Commands;
 using Uintra20.Features.Bulletins;
 using Uintra20.Features.Bulletins.Entities;
+using Uintra20.Features.Comments.CommandBus;
+using Uintra20.Features.Comments.CommandBus.Commands;
 using Uintra20.Features.Media;
 
 namespace Uintra20
@@ -39,16 +41,16 @@ namespace Uintra20
 
         private static void ConfigureCommentBindings(BindingBuilder builder)
         {
-            //builder.HandleCommand<AddCommentCommand>()
-            //    .WithHandle<CommentHandle>()
-            //    .WithHandle<CommentNotificationHandle>();
+            builder.HandleCommand<AddCommentCommand>()
+                .WithHandle<CommentHandle>()
+                .WithHandle<CommentNotificationHandle>();
 
-            //builder.HandleCommand<EditCommentCommand>()
-            //    .WithHandle<CommentHandle>()
-            //    .WithHandle<CommentNotificationHandle>();
+            builder.HandleCommand<EditCommentCommand>()
+                .WithHandle<CommentHandle>()
+                .WithHandle<CommentNotificationHandle>();
 
-            //builder.HandleCommand<RemoveCommentCommand>()
-            //    .WithHandle<CommentHandle>();
+            builder.HandleCommand<RemoveCommentCommand>()
+                .WithHandle<CommentHandle>();
         }
 
         private static void ConfigureGroupBindings(BindingBuilder builder)

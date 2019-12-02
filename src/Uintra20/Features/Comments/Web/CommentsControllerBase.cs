@@ -21,12 +21,6 @@ namespace Uintra20.Features.Comments.Web
 {
     public abstract class CommentsControllerBase : UmbracoApiController
     {
-        protected virtual string OverviewViewPath { get; } = "~/App_Plugins/Comments/View/CommentsOverView.cshtml";
-        protected virtual string PreviewViewPath { get; } = "~/App_Plugins/Comments/View/CommentsPreView.cshtml";
-        protected virtual string EditViewPath { get; } = "~/App_Plugins/Comments/View/CommentsEditView.cshtml";
-        protected virtual string CreateViewPath { get; } = "~/App_Plugins/Comments/View/CommentsCreateView.cshtml";
-        protected virtual string ViewPath { get; } = "~/App_Plugins/Comments/View/CommentsView.cshtml";
-
         private readonly ICommentsService _commentsService;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IProfileLinkProvider _profileLinkProvider;
@@ -48,32 +42,32 @@ namespace Uintra20.Features.Comments.Web
         }
 
         [HttpPost]
-        public virtual CommentsOverviewModel Add(Guid entityId, Enum entityType, CommentCreateModel model)
+        public virtual CommentsOverviewModel Add([FromBody]CommentCreateModel model)
         {
             if (!ModelState.IsValid)
             {
-                return OverView(entityId);
+                return OverView(model.EntityId);
             }
 
-            var createDto = MapToCreateDto(model, entityId);
-            var command = new AddCommentCommand(entityId, entityType, createDto);
+            var createDto = MapToCreateDto(model, model.EntityId);
+            var command = new AddCommentCommand(model.EntityId, model.EntityType, createDto);
             _commandPublisher.Publish(command);
 
             OnCommentCreated(createDto.Id);
 
-            switch (entityType.ToInt())
+            switch (model.EntityType.ToInt())
             {
                 case int type
                     when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
-                    var activityCommentsInfo = GetActivityComments(entityId);
+                    var activityCommentsInfo = GetActivityComments(model.EntityId);
                     return OverView(activityCommentsInfo);
                 default:
-                    return OverView(entityId);
+                    return OverView(model.EntityId);
             }
         }
 
         [HttpPut]
-        public virtual CommentsOverviewModel Edit(Guid entityId, Enum entityType, CommentEditModel model)
+        public virtual CommentsOverviewModel Edit(Guid entityId, ContextType entityType, CommentEditModel model)
         {
             var editCommentId = model.Id;
 
@@ -216,7 +210,7 @@ namespace Uintra20.Features.Comments.Web
 
         protected virtual CommentCreateDto MapToCreateDto(CommentCreateModel createModel, Guid activityId)
         {
-            var currentMemberId = _intranetMemberService.GetCurrentMember().Id;
+            var currentMemberId = Guid.Empty;//_intranetMemberService.GetCurrentMemberId();//TODO: uncomment when member service is ready
             var dto = new CommentCreateDto(
                 Guid.NewGuid(),
                 currentMemberId,

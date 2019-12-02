@@ -67,12 +67,13 @@ namespace Uintra20.Features.Notification
             where TActivity : IIntranetActivity, IHaveOwner
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
+            var currentMemberId = Guid.Empty;//TODO: Fix when member service is ready
             var data = new NotifierData
             {
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
-                ReceiverIds = ReceiverIds(comment, activity, notificationType, currentMember).Except(new [] {currentMember.Id}/*.ToEnumerableOfOne()*/),
-                Value = _notifierDataHelper.GetCommentNotifierDataModel(activity, comment, notificationType, currentMember.Id)
+                ReceiverIds = ReceiverIds(comment, activity, notificationType, currentMember).Except(new [] { currentMemberId }/*.ToEnumerableOfOne()*/),
+                Value = _notifierDataHelper.GetCommentNotifierDataModel(activity, comment, notificationType, currentMemberId)
             };
 
             return data;

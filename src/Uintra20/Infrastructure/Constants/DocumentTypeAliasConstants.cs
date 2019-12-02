@@ -20,7 +20,7 @@
 
         public const string BulletinsOverviewPage = "bulletinsOverviewPage";
         public const string BulletinsEditPage = "bulletinsEditPage";
-        public const string BulletinsDetailsPage = "bulletinsDetailsPage";
+        public const string BulletinsDetailsPage = "bulletinDetailsPage";
 
         public const string DataFolder = "dataFolder";
         public const string UserTagFolder = "userTagFolder";

@@ -6,22 +6,21 @@ using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Bulletin.Converters.Models;
 using Uintra20.Core.Member;
-using Uintra20.Features.Bulletins;
 using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.Links;
 using Uintra20.Features.Links.Models;
 using Uintra20.Infrastructure.Extensions;
 
-namespace Uintra20.Core.Bulletin.Converters
+namespace Uintra20.Features.Bulletins.Converters
 {
     public class BulletinDetailsPageViewModelConverter : INodeViewModelConverter<BulletinDetailsPageModel, BulletinDetailsPageViewModel>
     {
         private readonly IFeedLinkService _feedLinkService;
-        private readonly IBulletinsService<Features.Bulletins.Entities.Bulletin> _bulletinsService;
+        private readonly IBulletinsService<Entities.Bulletin> _bulletinsService;
         private readonly IIntranetMemberService<IIntranetMember> _memberService;
 
         public BulletinDetailsPageViewModelConverter(IFeedLinkService feedLinkService,
-            IBulletinsService<Features.Bulletins.Entities.Bulletin> bulletinsService,
+            IBulletinsService<Entities.Bulletin> bulletinsService,
             IIntranetMemberService<IIntranetMember> memberService)
         {
             _feedLinkService = feedLinkService;
