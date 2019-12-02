@@ -1,5 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\Compent.UBaseline.UI.0.2.9\build\Compent.UBaseline.UI.props" Condition="Exists('..\..\packages\Compent.UBaseline.UI.0.2.9\build\Compent.UBaseline.UI.props')" />
+  <Import Project="..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.props" Condition="Exists('..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.props')" />
   <Import Project="..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.props')" />
   <Import Project="..\..\packages\uSync.8.1.1\build\uSync.props" Condition="Exists('..\..\packages\uSync.8.1.1\build\uSync.props')" />
   <Import Project="..\..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" />
@@ -557,14 +557,14 @@
     <Reference Include="TimeZoneConverter, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e20ab7d0d9479841, processorArchitecture=MSIL">
       <HintPath>..\..\packages\TimeZoneConverter.3.0.0\lib\net471\TimeZoneConverter.dll</HintPath>
     </Reference>
-    <Reference Include="UBaseline.Core, Version=0.2.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.UBaseline.Core.0.2.9\lib\net472\UBaseline.Core.dll</HintPath>
+    <Reference Include="UBaseline.Core, Version=0.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.UBaseline.Core.0.2.10\lib\net472\UBaseline.Core.dll</HintPath>
     </Reference>
     <Reference Include="UBaseline.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.UBaseline.Core.0.2.9\lib\net472\UBaseline.Shared.dll</HintPath>
+      <HintPath>..\..\packages\Compent.UBaseline.Core.0.2.10\lib\net472\UBaseline.Shared.dll</HintPath>
     </Reference>
-    <Reference Include="UBaseline.UI, Version=0.2.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.UBaseline.UI.0.2.9\lib\net472\UBaseline.UI.dll</HintPath>
+    <Reference Include="UBaseline.UI, Version=0.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.UBaseline.UI.0.2.10\lib\net472\UBaseline.UI.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Core, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Core.8.3.0\lib\net472\Umbraco.Core.dll</HintPath>
@@ -624,6 +624,10 @@
     <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\find.polyfill.js" />
     <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\findIndex.polyfill.js" />
     <Content Include="App_Plugins\Localization\lang\en-us.xml" />
+    <Content Include="App_Plugins\MailchimpListContainer\mailchimp-list-container.controller.js" />
+    <Content Include="App_Plugins\MailchimpListContainer\mailchimp-list-container.html" />
+    <Content Include="App_Plugins\MailchimpListContainer\mailchimp-list-container.service.js" />
+    <Content Include="App_Plugins\MailchimpListContainer\styles.css" />
     <Content Include="App_Plugins\MediaPicker\media-picker.html" />
     <Content Include="App_Plugins\MediaPicker\media-picker.js" />
     <Content Include="App_Plugins\MediaPicker\prevalue-editor\image-picker.prevalue.html" />
@@ -1220,6 +1224,7 @@
     <Content Include="config\HealthChecks.config" />
     <Content Include="config\ClientDependency.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
+    <Content Include="App_Plugins\Members\package.manifest" />
     <Content Include="config\UBaseline\videoPickerSettings.json" />
     <Content Include="config\UBaseline\ubaselineSettings.json" />
     <Content Include="config\UBaseline\ubaselineLoggingSettings.json" />
@@ -1232,15 +1237,14 @@
     <Content Include="App_Plugins\PanelThemePicker\package.manifest" />
     <Content Include="App_Plugins\PanelContainer\package.manifest" />
     <Content Include="App_Plugins\MediaPicker\package.manifest" />
+    <Content Include="App_Plugins\MailchimpListContainer\package.manifest" />
     <Content Include="App_Plugins\Localization\package.manifest" />
     <Content Include="App_Plugins\KeyValueRadioButtonList\package.manifest" />
     <Content Include="App_Plugins\KeyValueDropdownList\package.manifest" />
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
-    <Content Include="App_Plugins\Members\package.manifest" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Index.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
@@ -1250,6 +1254,7 @@
     <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\InternalServerErrorPage.cshtml" />
+    <Content Include="Views\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1306,13 +1311,13 @@
     <Error Condition="!Exists('..\..\packages\uSync.8.1.1\build\uSync.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\uSync.8.1.1\build\uSync.targets'))" />
     <Error Condition="!Exists('..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.props'))" />
     <Error Condition="!Exists('..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Compent.UBaseline.UI.0.2.9\build\Compent.UBaseline.UI.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Compent.UBaseline.UI.0.2.9\build\Compent.UBaseline.UI.props'))" />
-    <Error Condition="!Exists('..\..\packages\Compent.UBaseline.UI.0.2.9\build\Compent.UBaseline.UI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Compent.UBaseline.UI.0.2.9\build\Compent.UBaseline.UI.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.props'))" />
+    <Error Condition="!Exists('..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.targets'))" />
   </Target>
   <Import Project="..\..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />
   <Import Project="..\..\packages\uSync.8.1.1\build\uSync.targets" Condition="Exists('..\..\packages\uSync.8.1.1\build\uSync.targets')" />
   <Import Project="..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.targets')" />
-  <Import Project="..\..\packages\Compent.UBaseline.UI.0.2.9\build\Compent.UBaseline.UI.targets" Condition="Exists('..\..\packages\Compent.UBaseline.UI.0.2.9\build\Compent.UBaseline.UI.targets')" />
+  <Import Project="..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.targets" Condition="Exists('..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
