@@ -7,7 +7,7 @@
     </button>
   </div>
 
-  <div class="bulletin-popup__wrapper" [hidden]="!isPopupShowing" >
+  <div class="bulletin-popup__wrapper" *ngIf="isPopupShowing" >
     <div class="bulletin-popup__background" (click)="onHidePopUp()"></div>
 
     <div class="bulletin-popup">

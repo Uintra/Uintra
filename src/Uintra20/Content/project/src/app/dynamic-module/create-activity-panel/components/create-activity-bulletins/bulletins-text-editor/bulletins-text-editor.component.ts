@@ -13,16 +13,14 @@ Quill.register('modules/counter', Counter);
   encapsulation: ViewEncapsulation.None
 })
 export class BulletinsTextEditorComponent implements OnInit {
-
-  constructor() { }
   @ViewChild('dropdownRef', { static: false }) dropdownRef: DropzoneComponent;
+
+  bulletinContent: string;
 
   quillConfig = {
     toolbar: {
       container: [
-        ['bold', 'italic', 'underline', 'strike'],
-        ['link'],
-        ['emoji']
+        ['emoji', 'bold', 'italic', 'link']
       ],
       handlers: {'emoji': function() {}}
     },
@@ -34,7 +32,14 @@ export class BulletinsTextEditorComponent implements OnInit {
     }
   };
 
+  constructor() { }
+
   ngOnInit() {
+
+  }
+
+  setFocus(editor) {
+    editor.focus();
   }
 
   openDropdown() {

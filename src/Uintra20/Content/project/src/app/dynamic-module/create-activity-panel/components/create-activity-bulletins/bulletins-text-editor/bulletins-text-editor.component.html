@@ -1,8 +1,10 @@
 <div class="bulletin-text-editor">
   <div class="bulletin-text-editor__input">
-    <dropzone #dropdownRef [message]="''"></dropzone>
+    <dropzone #dropdownRef></dropzone>
 
     <quill-editor
+      (onEditorCreated)="setFocus($event)"
+      [(ngModel)]="bulletinContent"
       [modules]="quillConfig"
       theme="snow"
       placeholder="Write a message, post a photo or share a document"
