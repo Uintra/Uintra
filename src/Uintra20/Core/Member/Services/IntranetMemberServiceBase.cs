@@ -326,7 +326,7 @@ namespace Uintra20.Core.Member.Services
 			//return default;
 
 			//todo remove when authentication will be ready
-			return Get(new Guid("cb6969e1-ac68-4cae-88a3-8b1cbc453ef7"));
+			return GetByEmail("dpr@compent.net");
 		}
 		public virtual T GetByUserId(int userId)
 		{
