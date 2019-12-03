@@ -1,22 +1,4 @@
-// .tag-multiselect {
-//   & ::ng-deep {
-//     .dropdown-down {
-//       border: 0 !important;
-//       &:after {
-//         content: "\e901";
-//         font-family: icomoon;
-//       }
-//     }
-//   }
-// }
-
-// TODO: move to global mixin
-.button-reset() {
-  background: none;
-  border: 0;
-  outline: 0;
-  padding: 0;
-}
+@import 'base.less';
 
 :host {
   display: block;
@@ -51,7 +33,7 @@
   }
 
   &__clear-btn {
-    .button-reset;
+    .reset-button;
     font-size: 1.5em;
     padding: 0px 16px;
 
@@ -61,7 +43,7 @@
   }
 
   &__open-btn {
-    .button-reset;
+    .reset-button;
     padding: 0px 16px;
     border-left: 1px solid #ddd;
 
@@ -73,29 +55,6 @@
       font-size: 1.5em;
       position: relative;
       top: 3px;
-    }
-  }
-}
-
-.tag {
-  display: inline-flex;
-  background: #ddd;
-  padding: 7px 13px;
-  border-radius: 3px;
-  margin-right: 5px;
-  margin-bottom: 3px;
-  margin-top: 3px;
-
-  &__remove {
-    .button-reset;
-    margin-left: 10px;
-    font-size: 1.4em;
-    line-height: 13px;
-    color: #999;
-    cursor: pointer;
-
-    &:focus {
-      outline: 1px dotted #666;
     }
   }
 }
@@ -115,13 +74,12 @@
 }
 
 .tag-multiselect-dropdown-row {
-  .button-reset;
+  .reset-button;
   display: block;
   width: 100%;
   text-align: left;
   padding: 9px 13px;
   border-bottom: 1px solid #ddd;
-
 
   &.selected {
     background: #bbb;

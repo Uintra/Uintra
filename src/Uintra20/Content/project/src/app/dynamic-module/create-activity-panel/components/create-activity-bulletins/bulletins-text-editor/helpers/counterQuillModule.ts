@@ -2,7 +2,7 @@ import 'quill';
 
 export interface Config {
   container: string;
-  maxLenght: number;
+  maxLength: number;
 }
 
 export interface QuillInstance {
@@ -28,9 +28,9 @@ export default class Counter {
 
   setHTML(container) {
     const length = this.calculate();
-    container.innerHTML = `<span>${length}</span> / ${this.options.maxLenght}`;
+    container.innerHTML = `<span>${length}</span> / ${this.options.maxLength}`;
 
-    if (length > this.options.maxLenght) {
+    if (length > this.options.maxLength) {
       container.classList.add('invalid');
     }
   }

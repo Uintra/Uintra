@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-interface ITagData {
+export interface ITagData {
   id: string;
   text: string;
 }
@@ -41,6 +41,7 @@ export class TagMultiselectComponent implements OnInit {
   }
 
   ngOnInit() {
+    // TODO: remove it
     this.dropdownList = [
       { id: '1', text: 'test' },
       { id: '2', text: 'testtest' },

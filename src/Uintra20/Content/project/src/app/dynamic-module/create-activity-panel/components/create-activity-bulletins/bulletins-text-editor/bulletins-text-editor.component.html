@@ -18,11 +18,10 @@
           <button class="ql-bold" [title]="'Bold'"></button>
           <button class="ql-italic" [title]="'Italic'"></button>
           <button class="ql-link icon-link"></button>
-          <button class="" (click)="openDropdown()">
-            <span
-              class="bulletin-text-editor__attachment icon-attachment"
-            ></span>
-          </button>
+          <button
+            class="ql-dropzone icon-attachment"
+            (click)="openDropdown()"
+          ></button>
         </div>
 
         <div class="ql-submit-button">
