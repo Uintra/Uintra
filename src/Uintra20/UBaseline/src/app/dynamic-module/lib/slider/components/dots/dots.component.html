@@ -1,5 +1,0 @@
-<div class="dot" 
-  *ngFor="let dot of dots; let idx = index" 
-  (click)="onNextIndex.emit(dot.index)" 
-  [ngClass]="{'dot--current': current === idx}">
-</div>
