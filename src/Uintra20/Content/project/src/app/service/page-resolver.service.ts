@@ -18,7 +18,7 @@ export class PageResolverService {
   {
     const host = this.appConfigService.getHostName();
 
-    return this.http.get(`umbraco/api/node/getByurlHomePage`).pipe(
+    return this.http.get(`ubaseline/api/node/getByurlHomePage`).pipe(
       map(res => this.parseResponse(res))
     ).toPromise();
   }
