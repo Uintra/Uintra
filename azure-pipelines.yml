@@ -42,7 +42,7 @@ steps:
   inputs:
     command: 'custom'
     workingDir: 'src/Uintra20/Content/uintra20'
-    customCommand: 'clear cache --force'
+    customCommand: 'cache clean --force'
 
 - task: Npm@1
   inputs:
