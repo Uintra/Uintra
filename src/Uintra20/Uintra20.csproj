@@ -1314,6 +1314,12 @@
     <Error Condition="!Exists('..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.props'))" />
     <Error Condition="!Exists('..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PipelineCollectFilesPhaseDependsOn>
+      CustomCollectFiles;
+      $(PipelineCollectFilesPhaseDependsOn);
+    </PipelineCollectFilesPhaseDependsOn>
+  </PropertyGroup>
   <Target Name="CustomCollectFiles">
     <Message Text="Inside of CustomCollectFiles" Importance="high" />
     <ItemGroup>
