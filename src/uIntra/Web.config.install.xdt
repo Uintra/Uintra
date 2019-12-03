@@ -51,6 +51,7 @@
     <add key="Google.OAuth.Domain" value="" xdt:Locator="Condition(@key='Google.OAuth.Domain')" xdt:Transform="InsertIfMissing" />
     <add key="UintraDocumentationLinkTemplate" value="https://docs.uintra.com/?ver={0}-{1}-{2}-{3}" xdt:Locator="Condition(@key='UintraDocumentationLinkTemplate')" xdt:Transform="InsertIfMissing" />
     <add key="DaytimeSavingOffset" value="True" xdt:Locator="Condition(@key='DaytimeSavingOffset')" xdt:Transform="InsertIfMissing" />
+    <add key="DefaultToolbarConfig" value="code | styleselect | bold | italic | underline | linksPicker | numlist | bullist | removeformat" xdt:Locator="Condition(@key='DefaultToolbarConfig')" xdt:Transform="InsertIfMissing"/>
   </appSettings>
 
   <uIntraJobs xdt:Transform="Remove">

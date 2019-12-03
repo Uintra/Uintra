@@ -455,8 +455,8 @@
     <Reference Include="Uintra.Comments, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Comments.2.4.0\lib\net471\Uintra.Comments.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Core, Version=2.4.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Core.2.4.0.4\lib\net471\Uintra.Core.dll</HintPath>
+    <Reference Include="Uintra.Core, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Core.2.4.1\lib\net471\Uintra.Core.dll</HintPath>
     </Reference>
     <Reference Include="Uintra.Events, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Events.2.4.0\lib\net471\Uintra.Events.dll</HintPath>
@@ -476,8 +476,8 @@
     <Reference Include="Uintra.Notification, Version=2.4.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Notification.2.4.0.2\lib\net471\Uintra.Notification.dll</HintPath>
     </Reference>
-    <Reference Include="Uintra.Panels, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Uintra.Panels.3.4.0\lib\net471\Uintra.Panels.dll</HintPath>
+    <Reference Include="Uintra.Panels, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Uintra.Panels.3.4.1\lib\net471\Uintra.Panels.dll</HintPath>
     </Reference>
     <Reference Include="Uintra.Search, Version=1.4.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Uintra.Search.1.4.0.3\lib\net471\Uintra.Search.dll</HintPath>
@@ -1110,13 +1110,6 @@
     <Content Include="App_Plugins\News\Edit\EditView.cshtml" />
     <Content Include="App_Plugins\News\Details\DetailsView.cshtml" />
     <Content Include="App_Plugins\News\Create\CreateView.cshtml" />
-    <Content Include="App_Plugins\Panels\TableEditor\TableEditor.cshtml" />
-    <Content Include="App_Plugins\Panels\package.manifest" />
-    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
-    <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.cshtml" />
-    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
-    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
-    <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
     <Content Include="App_Plugins\Subscribe\View\SubscribeView.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersOverview.cshtml" />
     <Content Include="App_Plugins\Subscribe\View\SubscribersList.cshtml" />
@@ -1149,6 +1142,23 @@
     <Content Include="App_Plugins\Notification\config\reminderConfiguration.json" />
     <Content Include="App_Plugins\Notification\config\notificationConfiguration.json" />
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
+    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
+    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
+    <Content Include="App_Plugins\Search\package.manifest" />
+    <Content Include="App_Plugins\Search\Controls\SearchBoxAutocompleteItem.cshtml" />
+    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
+    <Content Include="App_Plugins\Users\UserList\UsersRowsView.cshtml" />
+    <Content Include="App_Plugins\Users\UserList\UserListView.cshtml" />
+    <Content Include="App_Plugins\Users\UserList\UserDetailsPopup.cshtml" />
+    <Content Include="App_Plugins\Users\UserList\InviteUserRowView.cshtml" />
+    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
+    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
+    <Content Include="App_Plugins\Users\package.manifest" />
+    <Content Include="App_Plugins\Users\Logout\Logout.cshtml" />
+    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
+    <Content Include="App_Plugins\Users\backoffice\GoogleAuthWindow.cshtml" />
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
+    <Content Include="App_Plugins\Members\package.manifest" />
     <Content Include="App_Plugins\Core\User\Photo.cshtml" />
     <Content Include="App_Plugins\Core\PagePromotion\Item\ItemView.cshtml" />
     <Content Include="App_Plugins\Core\package.manifest" />
@@ -1171,23 +1181,13 @@
     <Content Include="App_Plugins\Core\Activity\ActivityDetailsHeader.cshtml" />
     <Content Include="App_Plugins\Core\ActivityLocation\HeaderLink\View.cshtml" />
     <Content Include="App_Plugins\Core\ActivityLocation\Edit\EditView.cshtml" />
-    <Content Include="App_Plugins\Search\Result\SearchResult.cshtml" />
-    <Content Include="App_Plugins\Search\Result\Index.cshtml" />
-    <Content Include="App_Plugins\Search\package.manifest" />
-    <Content Include="App_Plugins\Search\Controls\SearchBoxAutocompleteItem.cshtml" />
-    <Content Include="App_Plugins\Search\Controls\SearchBox.cshtml" />
-    <Content Include="App_Plugins\Users\UserList\UsersRowsView.cshtml" />
-    <Content Include="App_Plugins\Users\UserList\UserListView.cshtml" />
-    <Content Include="App_Plugins\Users\UserList\UserDetailsPopup.cshtml" />
-    <Content Include="App_Plugins\Users\UserList\InviteUserRowView.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Overview.cshtml" />
-    <Content Include="App_Plugins\Users\Profile\Edit.cshtml" />
-    <Content Include="App_Plugins\Users\package.manifest" />
-    <Content Include="App_Plugins\Users\Logout\Logout.cshtml" />
-    <Content Include="App_Plugins\Users\Login\Login.cshtml" />
-    <Content Include="App_Plugins\Users\backoffice\GoogleAuthWindow.cshtml" />
-    <Content Include="App_Plugins\UserPicker\package.manifest" />
-    <Content Include="App_Plugins\Members\package.manifest" />
+    <Content Include="App_Plugins\Panels\TableEditor\TableEditor.cshtml" />
+    <Content Include="App_Plugins\Panels\package.manifest" />
+    <Content Include="App_Plugins\Panels\GlobalPanel\GridEditor\global-panel-picker.cshtml" />
+    <Content Include="App_Plugins\Panels\FaqPanel\faqPanel.cshtml" />
+    <Content Include="App_Plugins\Panels\DocumentLibraryPanel\document-panel.cshtml" />
+    <Content Include="App_Plugins\Panels\ContentPanel\content-panel.cshtml" />
+    <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
     <None Include="Uintra.props">
       <SubType>Designer</SubType>
     </None>
