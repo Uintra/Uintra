@@ -42,6 +42,12 @@ steps:
   inputs:
     command: 'custom'
     workingDir: 'src/Uintra20/Content/uintra20'
+    customCommand: 'cache clean'
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'src/Uintra20/Content/uintra20'
     customCommand: 'install'
 
 - task: Npm@1
