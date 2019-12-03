@@ -1314,6 +1314,15 @@
     <Error Condition="!Exists('..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.props'))" />
     <Error Condition="!Exists('..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.targets'))" />
   </Target>
+  <Target Name="CustomCollectFiles">
+    <Message Text="Inside of CustomCollectFiles" Importance="high" />
+    <ItemGroup>
+      <_CustomFiles Include="wwwroot\**\*" Exclude="**\node_modules\**;Content\**" />
+      <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
+        <DestinationRelativePath>wwwroot\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+  </Target>
   <Import Project="..\..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />
   <Import Project="..\..\packages\uSync.8.1.1\build\uSync.targets" Condition="Exists('..\..\packages\uSync.8.1.1\build\uSync.targets')" />
   <Import Project="..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.targets')" />
