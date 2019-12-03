@@ -34,18 +34,6 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    workingDir: 'src/Uintra20/UBaseline'
-    customCommand: 'install'
-
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    workingDir: 'src/Uintra20/UBaseline'
-    customCommand: 'run setup'
-
 - task: UseNode@1
   inputs:
     version: '10.9.0'
@@ -53,7 +41,13 @@ steps:
 - task: Npm@1
   inputs:
     command: 'custom'
-    workingDir: 'src/Uintra20/Content'
+    workingDir: 'src/Uintra20/Content/uintra20'
+    customCommand: 'install'
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'src/Uintra20/Content/uintra20'
     customCommand: 'run build'
 
 - task: UseNode@1
