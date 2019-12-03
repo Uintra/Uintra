@@ -47,7 +47,6 @@
         "includeUmbracoValues": true,
         "description": {
           "height": 350,
-          "toolbar": "styleselect | bold | italic | underline | linksPicker | numlist | bullist | removeformat",
           "style_formats": [
             {
               "title": "Heading 1",

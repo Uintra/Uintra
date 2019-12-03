@@ -31,10 +31,13 @@ namespace Uintra.Core.Controls
                             }
                         }
                     }
-                }
+                },
+				Toolbar=GetDefaultToolbar()
             };
         }
 
         protected abstract IEnumerable<string> GetAllowedAliasesForInternalLinkPicker();
-    }
+
+        protected abstract string GetDefaultToolbar();
+	}
 }
