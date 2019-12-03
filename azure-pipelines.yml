@@ -33,20 +33,7 @@ steps:
     vsVersion: '16.0'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
-<<<<<<< HEAD
-- task: UseNode@1
-  inputs:
-    version: '10.9.0'
-
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    workingDir: 'src/Uintra20/Content/uintra20'
-    customCommand: 'cache clean --force'
-
-=======
->>>>>>> release/2.0
+    
 - task: Npm@1
   inputs:
     command: 'custom'
