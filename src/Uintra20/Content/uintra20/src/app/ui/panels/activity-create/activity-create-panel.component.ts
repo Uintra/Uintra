@@ -9,4 +9,11 @@ import { IActivityCreatePanel } from './activity-create-panel.interface';
 })
 export class ActivityCreatePanel {
   data: IActivityCreatePanel;
+
+  value: string;
+
+  onSubmit() {
+    this.value;
+    debugger;
+  }
 }

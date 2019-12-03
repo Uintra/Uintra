@@ -1,1 +1,5 @@
 <ubl-not-implemented [data]="data" [description]="data.contentTypeAlias || 'activity-create panel'"></ubl-not-implemented>
+
+<app-rich-text-editor [(ngModel)]="value" >
+  <button submit (click)="onSubmit()" >Submit</button>
+</app-rich-text-editor>
