@@ -2,6 +2,7 @@
 using System.Linq;
 using Compent.CommandBus;
 using Localization.Umbraco.Attributes;
+using Uintra20.Attributes;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Models;
@@ -16,6 +17,7 @@ using Uintra20.Infrastructure.Extensions;
 namespace Uintra20.Controllers
 {
     [ThreadCulture]
+    [ValidateModel]
     public class CommentsController : CommentsControllerBase
     {
         private readonly ICommentsService _commentsService;

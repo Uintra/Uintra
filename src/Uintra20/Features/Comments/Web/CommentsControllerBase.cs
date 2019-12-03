@@ -100,7 +100,7 @@ namespace Uintra20.Features.Comments.Web
         }
 
         [HttpDelete]
-        public virtual CommentsOverviewModel Delete(Guid targetId, Enum targetType, Guid commentId)
+        public virtual CommentsOverviewModel Delete(Guid targetId, ContextType targetType, Guid commentId)
         {
             var comment = _commentsService.Get(commentId);
             if (!_commentsService.CanDelete(comment, _intranetMemberService.GetCurrentMemberId()))
@@ -172,7 +172,7 @@ namespace Uintra20.Features.Comments.Web
         {
             comments = comments.OrderBy(c => c.CreatedDate);
             var commentsList = comments as List<CommentModel> ?? comments.ToList();
-            var currentMemberId = _intranetMemberService.GetCurrentMember().Id;
+            var currentMemberId = Guid.Empty;//_intranetMemberService.GetCurrentMemberId();//TODO: Fix when member service is ready
             var creators = _intranetMemberService.GetAll().ToList();
             var replies = commentsList.FindAll(_commentsService.IsReply);
 
@@ -197,7 +197,7 @@ namespace Uintra20.Features.Comments.Web
             model.Creator = creator.Map<MemberViewModel>();
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
-            model.CreatorProfileUrl = _profileLinkProvider.GetProfileLink(creator);
+            model.CreatorProfileUrl = creator == null ? null : _profileLinkProvider.GetProfileLink(creator);
             model.LinkPreview = comment.LinkPreview.Map<LinkPreviewViewModel>();
             return model;
         }

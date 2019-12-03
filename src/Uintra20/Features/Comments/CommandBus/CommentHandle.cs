@@ -39,7 +39,7 @@ namespace Uintra20.Features.Comments.CommandBus
         public BroadcastResult Handle(RemoveCommentCommand command)
         {
             _commentsService.Delete(command.CommentId);
-            UpdateCache(command.TargetType, command.CommentId);
+            UpdateCache(command.TargetType, command.TargetId);
 
             return BroadcastResult.Success;
         }

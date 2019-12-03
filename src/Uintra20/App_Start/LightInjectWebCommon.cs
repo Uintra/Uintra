@@ -223,8 +223,9 @@ namespace Uintra20
 
             dependencyCollection.AddTransient<IActivityPageHelperFactory>(provider =>
                 new CacheActivityPageHelperFactory(provider.GetService<UmbracoHelper>(),
-                    provider.GetService<IDocumentTypeAliasProvider>(),
-                    CentralFeedLinkProviderHelper.GetFeedActivitiesXPath(provider.GetService<IDocumentTypeAliasProvider>())));
+                    provider.GetService<IDocumentTypeAliasProvider>()
+                    //CentralFeedLinkProviderHelper.GetFeedActivitiesXPath(provider.GetService<IDocumentTypeAliasProvider>())));
+                   ));
 
             //kernel.Bind<IActivityPageHelperFactory>().To<CacheActivityPageHelperFactory>()
             //    .WhenInjectedInto<CentralFeedLinkProvider>()
@@ -404,7 +405,7 @@ namespace Uintra20
             //kernel.Bind<IUmbracoMemberRemovedRolesEventService>().To<MemberEventService>().InRequestScope();
 
 
-            dependencyCollection.AddScoped<IXPathProvider, XPathProvider>();
+            //dependencyCollection.AddScoped<IXPathProvider, XPathProvider>();
 
             dependencyCollection.AddScoped<IImageHelper, ImageHelper>();
             dependencyCollection.AddScoped<IVideoHelper, VideoHelper>();

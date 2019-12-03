@@ -20,7 +20,7 @@ namespace Uintra20.Features.CentralFeed.Links
             return new ActivityLinks
             {
                 Feed = helper.GetFeedUrl(),
-                Overview = helper.GetOverviewPageUrl(),
+                Overview = null,//helper.GetOverviewPageUrl(),//TODO: Research overview pages
                 Create = helper.GetCreatePageUrl(),
                 Details = helper.GetDetailsPageUrl(activity.Id),
                 Edit = helper.GetEditPageUrl(activity.Id),
@@ -36,7 +36,7 @@ namespace Uintra20.Features.CentralFeed.Links
             return new ActivityCreateLinks
             {
                 Feed = helper.GetFeedUrl(),
-                Overview = helper.GetOverviewPageUrl(),
+                Overview = null,//helper.GetOverviewPageUrl(),//TODO: Research overview pages
                 Create = helper.GetCreatePageUrl(),
                 Owner = GetProfileLink(model.OwnerId),
                 DetailsNoId = helper.GetDetailsPageUrl()

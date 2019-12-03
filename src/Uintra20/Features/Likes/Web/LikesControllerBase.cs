@@ -55,9 +55,9 @@ namespace Uintra20.Features.Likes.Web
         }
 
         [HttpPost]
-        public virtual LikesViewModel AddLike(Guid entityId, Enum entityType)
+        public virtual LikesViewModel AddLike(Guid entityId, ContextType entityType)
         {
-            var command = new AddLikeCommand(entityId, _intranetMemberService.GetCurrentMemberId());
+            var command = new AddLikeCommand(entityId, entityType, _intranetMemberService.GetCurrentMemberId());
             _commandPublisher.Publish(command);
 
             switch (entityType.ToInt())
@@ -77,9 +77,9 @@ namespace Uintra20.Features.Likes.Web
         }
 
         [HttpPost]
-        public virtual LikesViewModel RemoveLike(Guid entityId, Enum entityType)
+        public virtual LikesViewModel RemoveLike(Guid entityId, ContextType entityType)
         {
-            var command = new RemoveLikeCommand(entityId, _intranetMemberService.GetCurrentMemberId());
+            var command = new RemoveLikeCommand(entityId, entityType, _intranetMemberService.GetCurrentMemberId());
             _commandPublisher.Publish(command);
 
             switch (entityType.ToInt())

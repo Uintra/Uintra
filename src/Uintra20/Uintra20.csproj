@@ -788,6 +788,8 @@
     <Compile Include="Core\Feed\ActivityFeedTabViewModel.cs" />
     <Compile Include="Core\Feed\CentralFeedOverviewModel.cs" />
     <Compile Include="Core\Feed\CentralFeedTypeModel.cs" />
+    <Compile Include="Features\Likes\CommandBus\LikeHandle.cs" />
+    <Compile Include="Features\Likes\CommandBus\LikeNotificationHandle.cs" />
     <Compile Include="Features\Likes\Converters\LikesPanelViewModelConverter.cs" />
     <Compile Include="Features\Likes\Converters\Models\LikesPanelModel.cs" />
     <Compile Include="Features\Likes\Converters\Models\LikesPanelViewModel.cs" />

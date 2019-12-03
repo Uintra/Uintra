@@ -12,12 +12,12 @@ namespace Uintra20.Features.Tagging.UserTags.Services
     public class UserTagProvider : IUserTagProvider
     {
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly IXPathProvider _xPathProvider;
+        //private readonly IXPathProvider _xPathProvider;
 
-        public UserTagProvider(UmbracoHelper umbracoHelper, IXPathProvider xPathProvider)
+        public UserTagProvider(UmbracoHelper umbracoHelper/*, IXPathProvider xPathProvider*/)
         {
             _umbracoHelper = umbracoHelper;
-            _xPathProvider = xPathProvider;
+            //_xPathProvider = xPathProvider;
         }
 
         public virtual UserTag Get(Guid tagId)
@@ -33,9 +33,10 @@ namespace Uintra20.Features.Tagging.UserTags.Services
 
         public virtual IEnumerable<UserTag> GetAll()
         {
-            return _umbracoHelper
-                .ContentAtXPath(_xPathProvider.UserTagFolderXPath)
-                .Select(Map);
+            return null;//TODO: Research when user tags is ready
+            //return _umbracoHelper
+            //    .ContentAtXPath(_xPathProvider.UserTagFolderXPath)
+            //    .Select(Map);
         }
 
         protected virtual UserTag Map(IPublishedContent userTag)

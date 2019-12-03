@@ -1,33 +1,36 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Uintra20.Infrastructure.Providers;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
 namespace Uintra20.Core.Member
 {
-    public class IntranetUserContentProvider : ContentProviderBase, IIntranetUserContentProvider
+    public class IntranetUserContentProvider : IIntranetUserContentProvider
     {
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        private readonly IEnumerable<string> _baseXPath;
+        private readonly IPublishedContent _baseContent;
 
         public IntranetUserContentProvider(UmbracoHelper umbracoHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
-            : base(umbracoHelper)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
-            _baseXPath = new[] { _documentTypeAliasProvider.GetHomePage() };
+            var baseAlias = _documentTypeAliasProvider.GetHomePage();
+            _baseContent = umbracoHelper.ContentAtRoot().First(x => x.ContentType.Alias == baseAlias);
         }
 
         public IPublishedContent GetProfilePage()
         {
-            var xPath = _baseXPath.Append(_documentTypeAliasProvider.GetProfilePage());
-            return GetContent(xPath);
+            var profilePageAlias = _documentTypeAliasProvider.GetProfilePage();
+            var profilePageContent = _baseContent.Children.FirstOrDefault(x => x.ContentType.Alias == profilePageAlias);
+
+            return profilePageContent;
         }
 
         public IPublishedContent GetEditPage()
         {
-            var xPath = _baseXPath.Append(_documentTypeAliasProvider.GetProfileEditPage());
-            return GetContent(xPath);
+            var editPageAlias = _documentTypeAliasProvider.GetProfileEditPage();
+            var editPageContent = _baseContent.Children.FirstOrDefault(x => x.ContentType.Alias == editPageAlias);
+            
+            return editPageContent;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Uintra20.Core.Member
 
         public IEnumerable<Guid> GetMentions(string text)
         {
-            var profilePrefix = _intranetUserContentProvider.GetProfilePage().Url.AddIdParameter(string.Empty);
+            var profilePrefix = _intranetUserContentProvider.GetProfilePage()?.Url?.AddIdParameter(string.Empty);
 
             var matches = Regex.Matches(text, MentionDetectionRegex)
                 .Cast<Match>()
