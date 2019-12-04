@@ -1,0 +1,75 @@
+@import './_type.less';
+@import './_layout.less';
+@import './icons/style.less';
+
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  background-color: @background-color;
+  font-family: @font-family;
+  color: @text-color;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+h1 {
+  .h1;
+}
+
+h2 {
+  .h2;
+}
+
+app-root {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+app-main {
+  flex: 1 1 auto;
+  -webkit-overflow-scrolling: touch;
+
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    /* IE10+ */
+    min-height: 1px;
+  }
+}
+
+app-header {
+    color: @text-reverse-color;
+    flex-shrink: 0;
+}
+
+app-footer {
+    background-color: @text-color;
+    color: @text-reverse-color;
+    padding: 10px 0;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.full-content {
+    .make-full-content();
+}
+
+app-spot-panel.full-content {
+    display: block;
+    max-width: @screen-lg;
+    margin-left: auto;
+    margin-right: auto;
+}

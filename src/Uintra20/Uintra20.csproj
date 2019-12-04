@@ -756,6 +756,7 @@
     <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Attributes\RequiredIfAllEmpty.cs" />
     <Compile Include="Attributes\RequiredIfEmptyAttribute.cs" />
+    <Compile Include="Attributes\RequiredVirtualAttribute.cs" />
     <Compile Include="Attributes\StringLenghtWithoutHtmlAttribute.cs" />
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />

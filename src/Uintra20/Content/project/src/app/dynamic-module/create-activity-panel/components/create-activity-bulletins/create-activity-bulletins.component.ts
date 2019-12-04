@@ -9,16 +9,21 @@ export class CreateActivityBulletinsComponent implements OnInit {
   @Input() tags: any[];
 
   constructor() { }
-  isShow: boolean = false;
+  isPopupShowing: boolean = false;
 
-  ngOnInit() {
+  onShowPopUp() {
+    this.isPopupShowing = true;
   }
 
-  showPopUp() {
-    this.isShow = true;
+  onHidePopUp() {
+    this.isPopupShowing = false;
   }
 
-  handleClose() {
-    this.isShow = false;
+  onSubmitContent() {
+    debugger;
+  }
+
+  ngOnInit(): void {
+
   }
 }

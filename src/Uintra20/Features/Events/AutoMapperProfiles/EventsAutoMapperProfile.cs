@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using Compent.Shared.Extensions.Bcl;
+using Compent.Extensions;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Features.CentralFeed.Links;
 using Uintra20.Features.CentralFeed.Models;
