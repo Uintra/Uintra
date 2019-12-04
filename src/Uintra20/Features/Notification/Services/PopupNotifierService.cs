@@ -2,25 +2,26 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Models.NotifierTemplates;
-using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Notification.Services
 {
     public class PopupNotifierService : INotifierService
     {
         private readonly INotificationSettingsService _notificationSettingsService;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly INotificationModelMapper<PopupNotifierTemplate, PopupNotificationMessage> _notificationModelMapper;
         private readonly IPopupNotificationService _notificationsService;
         public Enum Type => NotifierTypeEnum.PopupNotifier;
 
         public PopupNotifierService(
             INotificationSettingsService notificationSettingsService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             INotificationModelMapper<PopupNotifierTemplate, PopupNotificationMessage> notificationModelMapper,
             IPopupNotificationService notificationsService
         )

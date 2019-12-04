@@ -1,5 +1,6 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
 using Uintra20.Core.Activity;
+using Uintra20.Core.Feed.Services;
 using Uintra20.Features.Bulletins;
 using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.CentralFeed;

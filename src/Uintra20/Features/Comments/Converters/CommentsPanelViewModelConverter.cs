@@ -5,7 +5,10 @@ using System.Web;
 using Compent.Shared.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.Converters.Models;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Services;
@@ -13,18 +16,19 @@ using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview.Models;
 using Uintra20.Features.Links;
+using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Comments.Converters
 {
     public class CommentsPanelViewModelConverter : INodeViewModelConverter<CommentsPanelModel, CommentsPanelViewModel>
     {
         private readonly ICommentsService _commentsService;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly ILikesService _likesService;
 
         public CommentsPanelViewModelConverter(ICommentsService commentsService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
             ILikesService likesService)
         {
@@ -36,7 +40,29 @@ namespace Uintra20.Features.Comments.Converters
 
         public void Map(CommentsPanelModel node, CommentsPanelViewModel viewModel)
         {
-            if (Guid.TryParse(HttpContext.Current?.Request["id"], out Guid pageId))
+            string idUrlParameter;
+
+            if (HttpContext.Current?.Request["url"] != null && HttpContext.Current?.Request["id"] == null)
+            {
+                if (Uri.TryCreate(HttpContext.Current?.Request["url"], UriKind.Absolute, out Uri url))
+                {
+                    idUrlParameter = HttpUtility.ParseQueryString(url.Query).Get("id");
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else if (HttpContext.Current?.Request["id"] != null)
+            {
+                idUrlParameter = HttpContext.Current?.Request["id"];
+            }
+            else
+            {
+                return;
+            }
+
+            if (Guid.TryParse(idUrlParameter, out Guid pageId))
             {
                 var comments = _commentsService.GetMany(pageId);
 
@@ -51,7 +77,7 @@ namespace Uintra20.Features.Comments.Converters
         {
             comments = comments.OrderBy(c => c.CreatedDate);
             var commentsList = comments as List<CommentModel> ?? comments.ToList();
-            var currentMemberId = Guid.Empty;//_intranetMemberService.GetCurrentMemberId();//TODO: uncomment when members service is ready
+            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
             var creators = _intranetMemberService.GetAll().ToList();
             var replies = commentsList.FindAll(_commentsService.IsReply);
 
@@ -86,7 +112,7 @@ namespace Uintra20.Features.Comments.Converters
         {
             var likes = _likesService.GetLikeModels(commentId);
 
-            var currenMemberId = Guid.Empty;//_intranetMemberService.GetCurrentMemberId();//TODO: uncomment when members service is ready
+            var currenMemberId = _intranetMemberService.GetCurrentMemberId();
             var likeModels = likes as IList<LikeModel> ?? likes.ToList();
             var canAddLike = likeModels.All(el => el.UserId != currenMemberId);
             var model = new LikesViewModel

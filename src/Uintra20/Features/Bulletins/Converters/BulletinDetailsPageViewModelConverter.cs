@@ -6,6 +6,11 @@ using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Bulletin.Converters.Models;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Models;
+using Uintra20.Core.Member.Services;
+using Uintra20.Features.Bulletins;
 using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.Links;
 using Uintra20.Features.Links.Models;
@@ -17,11 +22,11 @@ namespace Uintra20.Features.Bulletins.Converters
     {
         private readonly IFeedLinkService _feedLinkService;
         private readonly IBulletinsService<Entities.Bulletin> _bulletinsService;
-        private readonly IIntranetMemberService<IIntranetMember> _memberService;
+        private readonly IIntranetMemberService<IntranetMember> _memberService;
 
         public BulletinDetailsPageViewModelConverter(IFeedLinkService feedLinkService,
             IBulletinsService<Entities.Bulletin> bulletinsService,
-            IIntranetMemberService<IIntranetMember> memberService)
+            IIntranetMemberService<IntranetMember> memberService)
         {
             _feedLinkService = feedLinkService;
             _bulletinsService = bulletinsService;
@@ -30,7 +35,29 @@ namespace Uintra20.Features.Bulletins.Converters
 
         public void Map(BulletinDetailsPageModel node, BulletinDetailsPageViewModel viewModel)
         {
-            if (Guid.TryParse(HttpContext.Current?.Request["id"], out Guid id))
+            string idUrlParameter; 
+
+            if (HttpContext.Current?.Request["url"] != null && HttpContext.Current?.Request["id"] == null)
+            {
+                if (Uri.TryCreate(HttpContext.Current?.Request["url"], UriKind.Absolute, out Uri url))
+                {
+                    idUrlParameter = HttpUtility.ParseQueryString(url.Query).Get("id");
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else if (HttpContext.Current?.Request["id"] != null)
+            {
+                idUrlParameter = HttpContext.Current?.Request["id"];
+            }
+            else
+            {
+                return;
+            }
+
+            if (Guid.TryParse(idUrlParameter, out Guid id))
             {
                 viewModel.Details = GetViewModel(id);
             }
@@ -49,13 +76,13 @@ namespace Uintra20.Features.Bulletins.Converters
 
             var viewModel = bulletin.Map<BulletinViewModel>();
 
-            viewModel.CanEdit = true;//_bulletinsService.CanEdit(bulletin);//TODO: Uncomment when members service is ready
+            viewModel.CanEdit = _bulletinsService.CanEdit(bulletin);
             viewModel.Links = links;
             viewModel.IsReadOnly = false;
 
             viewModel.HeaderInfo = bulletin.Map<IntranetActivityDetailsHeaderViewModel>();
             viewModel.HeaderInfo.Dates = bulletin.PublishDate.ToDateTimeFormat().ToEnumerable();
-            viewModel.HeaderInfo.Owner = null;//_memberService.Get(bulletin).Map<MemberViewModel>();//TODO: uncomment when member service is ready
+            viewModel.HeaderInfo.Owner = _memberService.Get(bulletin).Map<MemberViewModel>();
             viewModel.HeaderInfo.Links = links;
 
             var extendedModel = viewModel.Map<BulletinExtendedViewModel>();

@@ -7,6 +7,9 @@ using Compent.Extensions;
 using LanguageExt;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Subscribe;
@@ -19,12 +22,12 @@ namespace Uintra20.Features.Notification
 {
     public class NotifierDataBuilder : INotifierDataBuilder
     {
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly INotifierDataHelper _notifierDataHelper;
 
 
         public NotifierDataBuilder(
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             INotifierDataHelper notifierDataHelper)
         {
             _intranetMemberService = intranetMemberService;
@@ -34,7 +37,7 @@ namespace Uintra20.Features.Notification
         public NotifierData GetNotifierData<TActivity>(TActivity activity, Enum notificationType)
             where TActivity : IIntranetActivity, IHaveOwner
         {
-            var currentMemberId = Guid.Empty;//_intranetMemberService.GetCurrentMemberId();//TODO: Fix when member service is ready
+            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
             var data = new NotifierData
             {
                 NotificationType = notificationType,
@@ -68,7 +71,7 @@ namespace Uintra20.Features.Notification
             where TActivity : IIntranetActivity, IHaveOwner
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
-            var currentMemberId = Guid.Empty;//currentMember.Id;//TODO: Fix when member service is ready
+            var currentMemberId = currentMember.Id;
             var data = new NotifierData
             {
                 NotificationType = notificationType,
@@ -83,7 +86,7 @@ namespace Uintra20.Features.Notification
         public async Task<NotifierData> GetNotifierDataAsync<TEntity>(TEntity activity, Enum notificationType) where TEntity : IIntranetActivity, IHaveOwner
         {
             //var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
-            var currentMemberId = Guid.Empty;//_intranetMemberService.GetCurrentMemberId();//TODO: Fix when member service is ready
+            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
             var data = new NotifierData
             {
                 NotificationType = notificationType,

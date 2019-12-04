@@ -6,12 +6,15 @@ using Compent.CommandBus;
 using Compent.Extensions;
 using LanguageExt;
 using Uintra20.Core.Activity;
+using Uintra20.Core.Feed.Models;
+using Uintra20.Core.Feed.Services;
+using Uintra20.Core.Feed.Settings;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.CentralFeed;
-using Uintra20.Features.CentralFeed.Entities;
 using Uintra20.Features.CentralFeed.Enums;
-using Uintra20.Features.CentralFeed.Models.Feed;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Services;
@@ -56,7 +59,7 @@ namespace Uintra20.Features.Bulletins
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             ICommentsService commentsService,
             ILikesService likesService,
             IPermissionsService permissionsService,

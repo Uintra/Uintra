@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Abstractions;
 using Uintra20.Features.LinkPreview;
 
 namespace Uintra20.Features.Bulletins

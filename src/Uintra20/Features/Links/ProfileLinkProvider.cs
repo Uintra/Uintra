@@ -1,5 +1,7 @@
 ﻿using System;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.User;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Links

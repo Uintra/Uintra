@@ -1,8 +1,0 @@
-<ng-container *ngIf="data">
-  <app-panels *ngIf="data.panels && data.panels.value" [items]="data.panels.value"></app-panels>
-
-  <div class="container">
-    <app-heading *ngIf="data.title?.value">{{ data.title.value }}</app-heading>
-    <news-list></news-list>
-  </div>
-</ng-container>

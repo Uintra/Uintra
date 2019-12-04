@@ -1,5 +1,6 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Information;
 using Uintra20.Features.Media;

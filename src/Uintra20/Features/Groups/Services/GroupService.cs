@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Compent.Shared.Extensions;
 using LanguageExt;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Sql;
 using Uintra20.Features.Permissions;
@@ -23,7 +25,7 @@ namespace Uintra20.Features.Groups.Services
         private readonly ISqlRepository<Group> _groupRepository;
         private readonly ICacheService _memoryCacheService;
         private readonly IPermissionsService _permissionsService;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly ISqlRepository<GroupMember> _groupMemberRepository;
 
         protected const string GroupsCreatePage = "groupsCreatePage";
@@ -33,7 +35,7 @@ namespace Uintra20.Features.Groups.Services
             ISqlRepository<Group> groupRepository,
             ICacheService memoryCacheService,
             IPermissionsService permissionsService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             ISqlRepository<GroupMember> groupMemberRepository)
         {
             _groupRepository = groupRepository;

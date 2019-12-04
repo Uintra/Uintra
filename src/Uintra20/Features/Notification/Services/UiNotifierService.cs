@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Compent.Extensions;
-using LanguageExt;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Models.NotifierTemplates;
-using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Notification.Services
 {
@@ -18,7 +18,7 @@ namespace Uintra20.Features.Notification.Services
         private readonly INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> _notificationModelMapper;
         private readonly INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage> _desktopNotificationModelMapper;
         private readonly INotificationSettingsService _notificationSettingsService;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly UiNotificationService _notificationsService;
 
         public Enum Type => NotifierTypeEnum.UiNotifier;
@@ -27,7 +27,7 @@ namespace Uintra20.Features.Notification.Services
             INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> notificationModelMapper,
             INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage> desktopNotificationModelMapper,
             INotificationSettingsService notificationSettingsService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             UiNotificationService notificationsService)
         {
             _notificationModelMapper = notificationModelMapper;

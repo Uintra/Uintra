@@ -3,6 +3,7 @@ using AutoMapper;
 using Compent.Shared.Extensions.Bcl;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Features.CentralFeed.Links;
+using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.Events.Entities;
 using Uintra20.Features.Groups.Links;
 using Uintra20.Infrastructure.Extensions;

@@ -7,7 +7,10 @@ using Compent.Shared.Extensions;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.CommandBus.Commands;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Services;
@@ -22,14 +25,14 @@ namespace Uintra20.Features.Comments.Web
     public abstract class CommentsControllerBase : UmbracoApiController
     {
         private readonly ICommentsService _commentsService;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly ICommandPublisher _commandPublisher;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
         protected CommentsControllerBase(
             ICommentsService commentsService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
             ICommandPublisher commandPublisher,
             IActivitiesServiceFactory activitiesServiceFactory)
@@ -172,7 +175,7 @@ namespace Uintra20.Features.Comments.Web
         {
             comments = comments.OrderBy(c => c.CreatedDate);
             var commentsList = comments as List<CommentModel> ?? comments.ToList();
-            var currentMemberId = Guid.Empty;//_intranetMemberService.GetCurrentMemberId();//TODO: Fix when member service is ready
+            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
             var creators = _intranetMemberService.GetAll().ToList();
             var replies = commentsList.FindAll(_commentsService.IsReply);
 
@@ -210,7 +213,7 @@ namespace Uintra20.Features.Comments.Web
 
         protected virtual CommentCreateDto MapToCreateDto(CommentCreateModel createModel, Guid activityId)
         {
-            var currentMemberId = Guid.Empty;//_intranetMemberService.GetCurrentMemberId();//TODO: uncomment when member service is ready
+            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
             var dto = new CommentCreateDto(
                 Guid.NewGuid(),
                 currentMemberId,

@@ -1,0 +1,49 @@
+﻿<div ng-controller="mailchimpListContainerController as vm">
+    <umb-load-indicator ng-show="vm.working"></umb-load-indicator>
+    
+    <div ng-hide="vm.working || !vm.lists">
+
+        <div ng-repeat="list in model.value" ng-init="listIndex=$index" class="mailchimp__list-item">
+            <label for="listName-{{listIndex}}">Audience name: </label>
+            <input type="text" name="listName" id="listName-{{listIndex}}" ng-model="list.listName" ng-required="true" />
+
+            <br />
+
+            <label>Audience: </label>
+
+            <select ng-model="list.listId" ng-change="vm.listChanged(listIndex)" ng-required="true">
+                <option ng-repeat="list in vm.lists" ng-value="list.id">{{list.name}}</option>
+            </select>
+
+            <br />
+
+            <label>Category: </label>
+
+            <select ng-model="list.categoryId" ng-change="vm.categoryChanged(listIndex)">
+                <option ng-repeat="category in list.availableCategories" ng-value="category.id">{{category.title}}</option>
+            </select>
+
+            <br />
+
+            <label>Groups: </label>
+
+            <label ng-repeat="group in list.availableGroups">
+                <input type="checkbox"
+                       value="{{group.id}}"
+                       ng-checked="list.groups.indexOf(group.id) > -1"
+                       ng-click="vm.toggleGroupSelection(listIndex, group.id)"> {{group.name}}
+            </label>
+
+            <br />
+
+            <button type="button" ng-click="model.value.splice(listIndex, 1)">Remove Audience</button>
+        </div>
+
+
+        <br />
+        <br />
+
+        <button type="button" ng-click="vm.addNewList()">Add new Audience</button>
+
+    </div>
+</div>
