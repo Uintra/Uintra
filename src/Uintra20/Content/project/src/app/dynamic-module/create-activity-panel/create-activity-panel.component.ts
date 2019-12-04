@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 interface CreateActivityPanelData {
-  activityType: string,
-  tags: any[]
+  activityType: 1 | 2 | 3 | 4;
+  tags: any[];
 }
 
 @Component({

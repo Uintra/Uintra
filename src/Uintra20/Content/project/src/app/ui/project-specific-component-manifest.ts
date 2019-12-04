@@ -8,7 +8,7 @@ export const specificComponents: DynamicComponentManifest[] = [
     //     loadChildren: './dynamic-module/cookie/cookie.module#CookieModule'
     // },
     {
-        componentId: 'createActivityPanel',
+        componentId: 'activityCreatePanel',
         path: 'dynamic-module',
         loadChildren: './dynamic-module/create-activity-panel/create-activity-panel.module#CreateActivityPanelModule'
     }

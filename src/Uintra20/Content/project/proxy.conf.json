@@ -1,9 +1,18 @@
 {
-  "/ubaseline/api/*": {
+  "/ubaseline/api/node/getByurl": {
     "target": "http://uintra20.local.compent.dk",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
+  },
+  "/ubaseline/api/*": {
+    "target": "http://localhost:5000",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "/ubaseline/api/*": "mocks/api/"
+    }
   },
   "/media/*": {
     "target": "http://uintra20.local.compent.dk",

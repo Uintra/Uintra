@@ -27,13 +27,14 @@ namespace Uintra20
 
 			var dependencyCollection = new LightInjectDependencyCollection(container, configuration);
 			dependencyCollection.AddLogging()
-				.AddUBaseline()
-				.RegisterInjectModules(assembly)
-				.RegisterMvcControllers(assembly)
-				.RegisterApiControllers(assembly)
-				.RegisterConverters(assembly);
+                .AddLogging()
+                .AddUBaseline()
+                .RegisterInjectModules(assembly)
+                .RegisterMvcControllers(assembly)
+                .RegisterApiControllers(assembly)
+                .RegisterConverters(assembly);
 
-			//LightInjectWebCommon.Start(composition);
+            //LightInjectWebCommon.Start(composition);
             MapperConfig.RegisterMappings(composition);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using intra20.Attributes;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.Location.Models;
 
@@ -7,7 +8,7 @@ namespace Uintra20.Core.Activity.Models
 {
     public class IntranetActivityCreateModelBase
     {
-        [Required]
+        [RequiredVirtual]
         public virtual string Title { get; set; }
 
         public bool IsPinned { get; set; }
