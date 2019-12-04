@@ -31,6 +31,8 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   @Input("value") _value: string = "";
   @Output() addAttachment = new EventEmitter();
 
+  config: QuillConfig;
+
   get value() {
     return this._value;
   }
@@ -39,7 +41,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.propagateChange(val);
   }
 
-  constructor(@Inject(QUILL_CONFIG_TOKEN) public config: QuillConfig) {}
+  constructor(@Inject(QUILL_CONFIG_TOKEN) config: QuillConfig) {}
 
   onShowDropdown() {
     this.addAttachment.emit();
