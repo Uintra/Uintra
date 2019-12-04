@@ -4,4 +4,5 @@ export interface IActivityCreatePanel {
   contentTypeAlias: UmbracoFlatPropertyModel;
   creator: UmbracoFlatPropertyModel;
   dates: UmbracoFlatPropertyModel;
+  tabType: UmbracoFlatPropertyModel;
 }
