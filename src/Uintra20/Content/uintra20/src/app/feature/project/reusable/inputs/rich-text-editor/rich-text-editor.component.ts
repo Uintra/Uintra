@@ -1,29 +1,43 @@
-import { Component, ViewEncapsulation, Inject, forwardRef, Input, Output, EventEmitter } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  Component,
+  ViewEncapsulation,
+  Inject,
+  forwardRef,
+  Input,
+  Output,
+  EventEmitter
+} from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
-import { QUILL_CONFIG_TOKEN, QuillConfig } from 'ngx-quill';
-import Quill from 'quill';
-import Counter from './quill-modules/counter';
-Quill.register('modules/counter', Counter);
+import { QUILL_CONFIG_TOKEN, QuillConfig } from "ngx-quill";
+import Quill from "quill";
+import Counter from "./quill-modules/counter";
+Quill.register("modules/counter", Counter);
 
 @Component({
-  selector: 'app-rich-text-editor',
-  templateUrl: './rich-text-editor.component.html',
-  styleUrls: ['./rich-text-editor.component.less'],
+  selector: "app-rich-text-editor",
+  templateUrl: "./rich-text-editor.component.html",
+  styleUrls: ["./rich-text-editor.component.less"],
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => RichTextEditorComponent), multi: true }
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RichTextEditorComponent),
+      multi: true
+    }
   ],
   encapsulation: ViewEncapsulation.None
 })
 export class RichTextEditorComponent implements ControlValueAccessor {
-  @Input('value') _value: string = '';
+  @Input("value") _value: string = "";
   @Output() addAttachment = new EventEmitter();
 
-  get value() { return this._value; }
-    set value(val) {
-        this._value = val;
-        this.propagateChange(val);
-    }
+  get value() {
+    return this._value;
+  }
+  set value(val) {
+    this._value = val;
+    this.propagateChange(val);
+  }
 
   constructor(@Inject(QUILL_CONFIG_TOKEN) config: QuillConfig) {}
 
@@ -31,15 +45,16 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.addAttachment.emit();
   }
 
-  onTouched(): any { }
+  onTouched(): any {}
   onChange(): any {}
-  propagateChange: any = () => { };
-
+  propagateChange: any = () => {};
   writeValue(value) {
-    if (value) {
-      this.value = value;
-    }
+    this.value = value;
   }
-  registerOnChange(fn) { this.propagateChange = fn; }
-  registerOnTouched(fn) { this.onTouched = fn; }
+  registerOnChange(fn) {
+    this.propagateChange = fn;
+  }
+  registerOnTouched(fn) {
+    this.onTouched = fn;
+  }
 }

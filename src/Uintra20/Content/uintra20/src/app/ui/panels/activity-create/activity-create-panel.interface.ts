@@ -1,3 +1,7 @@
+import { UmbracoFlatPropertyModel } from '@ubaseline/next';
+
 export interface IActivityCreatePanel {
-  contentTypeAlias: string;
+  contentTypeAlias: UmbracoFlatPropertyModel;
+  creator: UmbracoFlatPropertyModel;
+  dates: UmbracoFlatPropertyModel;
 }

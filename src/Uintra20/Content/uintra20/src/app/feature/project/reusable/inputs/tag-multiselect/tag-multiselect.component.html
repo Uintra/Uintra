@@ -1,0 +1,40 @@
+<div class="input-wrapper" (clickOutside)="onHideDropdown()">
+    <div class="tag-multiselect">
+      <div class="tag-multiselect__input-field" (click)="onShowDropdown()">
+        <div
+          *ngIf="selectedList && selectedList.length === 0"
+          class="tag-multiselect__placeholder"
+        >
+          Tags
+        </div>
+        <app-tag-item
+          *ngFor="let tag of selectedList"
+          [tag]="tag"
+          (removeTag)="onRemoveTag(tag, $event)"
+        ></app-tag-item>
+      </div>
+      <button class="tag-multiselect__clear-btn" (click)="onClearSelectedTags()">
+        &times;
+      </button>
+      <button
+        class="tag-multiselect__open-btn"
+        (click)="onShowDropdown()"
+        (focus)="onShowDropdown()"
+      >
+        <span class="icon icon-arrow-down"></span>
+      </button>
+    </div>
+
+    <div class="tag-multiselect-dropdown" *ngIf="isDwopdownShowed">
+      <button
+        *ngFor="let tag of availableTags"
+        class="tag-multiselect-dropdown-row"
+        (click)="onAddTag(tag)"
+        [ngClass]="{ selected: selectedList.includes(tag) }"
+      >
+        <div class="tag-multiselect-dropdown-row__text">
+          {{ tag.text }}
+        </div>
+      </button>
+    </div>
+  </div>
