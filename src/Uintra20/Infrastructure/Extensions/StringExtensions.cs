@@ -70,6 +70,11 @@ namespace Uintra20.Infrastructure.Extensions
 
 		public static string AddParameter(this string url, string paramName, object paramValue)
 		{
+            if (url == null)
+            {
+                return null;
+            }
+
             var queryString = string.Empty;
 			if (url.Contains("?"))
 			{

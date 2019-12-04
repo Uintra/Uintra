@@ -13,6 +13,7 @@ using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Subscribe;
+using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Helpers;
 using static LanguageExt.Prelude;
 using static Uintra20.Features.Notification.Configuration.NotificationTypeEnum;
@@ -36,18 +37,18 @@ namespace Uintra20.Features.Notification
         public NotifierData GetNotifierData<TActivity>(TActivity activity, Enum notificationType)
             where TActivity : IIntranetActivity, IHaveOwner
         {
-            var currentMember = _intranetMemberService.GetCurrentMember();
+            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
             var data = new NotifierData
             {
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
-                ReceiverIds = ReceiverIds(activity, notificationType).Except(new []{currentMember.Id}/*.ToEnumerableOfOne()*/)
+                ReceiverIds = ReceiverIds(activity, notificationType).Except(new []{ currentMemberId }/*.ToEnumerableOfOne()*/)
             };
 
             switch (notificationType)
             {
                 case ActivityLikeAdded:
-                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(activity, notificationType, currentMember.Id);
+                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(activity, notificationType, currentMemberId);
                     break;
 
                 case BeforeStart:
@@ -56,7 +57,7 @@ namespace Uintra20.Features.Notification
 
                 case EventHidden:
                 case EventUpdated:
-                    data.Value = _notifierDataHelper.GetActivityNotifierDataModel(activity, notificationType, currentMember.Id);
+                    data.Value = _notifierDataHelper.GetActivityNotifierDataModel(activity, notificationType, currentMemberId);
                     break;
 
                 default:
@@ -70,12 +71,13 @@ namespace Uintra20.Features.Notification
             where TActivity : IIntranetActivity, IHaveOwner
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
+            var currentMemberId = currentMember.Id;
             var data = new NotifierData
             {
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
-                ReceiverIds = ReceiverIds(comment, activity, notificationType, currentMember).Except(new [] {currentMember.Id}/*.ToEnumerableOfOne()*/),
-                Value = _notifierDataHelper.GetCommentNotifierDataModel(activity, comment, notificationType, currentMember.Id)
+                ReceiverIds = ReceiverIds(comment, activity, notificationType, currentMember).Except(new [] { currentMemberId }/*.ToEnumerableOfOne()*/),
+                Value = _notifierDataHelper.GetCommentNotifierDataModel(activity, comment, notificationType, currentMemberId)
             };
 
             return data;
@@ -84,18 +86,18 @@ namespace Uintra20.Features.Notification
         public async Task<NotifierData> GetNotifierDataAsync<TEntity>(TEntity activity, Enum notificationType) where TEntity : IIntranetActivity, IHaveOwner
         {
             //var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
-            var currentMember = _intranetMemberService.GetCurrentMember();
+            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
             var data = new NotifierData
             {
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
-                ReceiverIds = ReceiverIds(activity, notificationType).Except(new [] {currentMember.Id}/*.ToEnumerableOfOne()*/)
+                ReceiverIds = ReceiverIds(activity, notificationType).Except(new [] { currentMemberId }/*.ToEnumerableOfOne()*/)
             };
 
             switch (notificationType)
             {
                 case ActivityLikeAdded:
-                    data.Value = await _notifierDataHelper.GetLikesNotifierDataModelAsync(activity, notificationType, currentMember.Id);
+                    data.Value = await _notifierDataHelper.GetLikesNotifierDataModelAsync(activity, notificationType, currentMemberId);
                     break;
 
                 case BeforeStart:
@@ -104,7 +106,7 @@ namespace Uintra20.Features.Notification
 
                 case EventHidden:
                 case EventUpdated:
-                    data.Value = await _notifierDataHelper.GetActivityNotifierDataModelAsync(activity, notificationType, currentMember.Id);
+                    data.Value = await _notifierDataHelper.GetActivityNotifierDataModelAsync(activity, notificationType, currentMemberId);
                     break;
 
                 default:

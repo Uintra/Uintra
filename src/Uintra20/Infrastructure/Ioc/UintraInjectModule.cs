@@ -40,7 +40,7 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IVideoConverterLogService, VideoConverterLogService>();
             services.AddScoped<IIntranetMediaService, IntranetMediaService>();
             services.AddSingleton<IDocumentTypeAliasProvider, DocumentTypeProvider>();
-            services.AddScoped<IXPathProvider, XPathProvider>();
+            //services.AddScoped<IXPathProvider, XPathProvider>();
             services.AddScoped<IGroupService, GroupService>();
             services.AddSingleton<IIntranetMemberGroupService, IntranetMemberGroupService>();
             services.AddSingleton<IPermissionSettingsSchemaProvider, PermissionSettingsSchemaProvider>();

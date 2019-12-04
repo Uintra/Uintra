@@ -27,18 +27,18 @@ namespace Uintra20.Core.Member.Services
         bool Delete(Guid id);
 
 		Task<bool> IsCurrentMemberSuperUserAsync();
-		Task<T> GetByUserIdAsync(int umbracoId);
-		Task<T> GetAsync(int id);
-		Task<T> GetAsync(Guid id);
-		Task<T> GetAsync(IHaveOwner model);
-		Task<IEnumerable<T>> GetManyAsync(IEnumerable<Guid> ids);
-		Task<IEnumerable<T>> GetManyAsync(IEnumerable<int> ids);
-		Task<IEnumerable<T>> GetAllAsync();
-		Task<T> GetCurrentMemberAsync();
-		Task<IEnumerable<T>> GetByGroupAsync(int groupId);
-		Task<T> GetByNameAsync(string name);
-		Task<T> GetByEmailAsync(string email);
-		Task<bool> UpdateAsync(UpdateMemberDto dto);
+        Task<T> GetByUserIdAsync(int umbracoId);
+        Task<T> GetAsync(int id);
+        Task<T> GetAsync(Guid id);
+        Task<T> GetAsync(IHaveOwner model);
+        Task<IEnumerable<T>> GetManyAsync(IEnumerable<Guid> ids);
+        Task<IEnumerable<T>> GetManyAsync(IEnumerable<int> ids);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<T> GetCurrentMemberAsync();
+        Task<IEnumerable<T>> GetByGroupAsync(int groupId);
+        Task<T> GetByNameAsync(string name);
+        Task<T> GetByEmailAsync(string email);
+        Task<bool> UpdateAsync(UpdateMemberDto dto);
 		Task<Guid> CreateAsync(CreateMemberDto dto);
 		Task<bool> DeleteAsync(Guid id);
 	}

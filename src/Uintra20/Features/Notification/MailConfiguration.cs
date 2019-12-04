@@ -11,10 +11,10 @@ namespace Uintra20.Features.Notification
         {
             var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
 
-            MailTemplateXpath = XPathHelper.GetXpath(
-                docTypeAliasProvider.GetDataFolder(),
-                docTypeAliasProvider.GetMailTemplateFolder(),
-                docTypeAliasProvider.GetMailTemplate());
+            MailTemplateXpath = string.Empty; //XPathHelper.GetXpath(//TODO:Research when mail service is ready
+            //docTypeAliasProvider.GetDataFolder(),
+            //docTypeAliasProvider.GetMailTemplateFolder(),
+            //docTypeAliasProvider.GetMailTemplate());
         }
         public static string MailTemplateXpath { get; set; }
     }
