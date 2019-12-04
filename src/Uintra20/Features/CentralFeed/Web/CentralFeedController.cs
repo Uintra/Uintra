@@ -65,8 +65,12 @@ namespace Uintra20.Features.CentralFeed.Web
 			return centralFeedModel;
 		}
 
+        [HttpGet]
+        [Route("availableTypes")]
+        public new string AvailableActivityTypes() => base.AvailableActivityTypes();
 
-		protected virtual (IEnumerable<IFeedItem> activities, int totalCount) GetLatestActivities(Enum activityType, int activityAmount)
+
+        protected virtual (IEnumerable<IFeedItem> activities, int totalCount) GetLatestActivities(Enum activityType, int activityAmount)
 		{
 			var items = GetCentralFeedItems(activityType).ToList();
 			var filteredItems = FilterLatestActivities(items).Take(activityAmount);

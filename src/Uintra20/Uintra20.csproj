@@ -595,6 +595,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.service.js" />
+    <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.controller.js" />
+    <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.html" />
     <Content Include="App_Plugins\ContentPreview\content-preview.controller.js" />
     <Content Include="App_Plugins\ContentPreview\content-preview.html" />
     <Content Include="App_Plugins\ImagePickerExtended\Css\style.css" />
@@ -860,6 +863,12 @@
     <Compile Include="Features\Subscribe\ISubscribableService.cs" />
     <Compile Include="Features\Subscribe\ISubscribeService.cs" />
     <Compile Include="Features\Subscribe\SubscribeService.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Converters\LatestActivitiesPanelViewModelConverter.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Converters\SelectedActivityPropertyEditorConvertor.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelModel.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelViewModel.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Models\SelectedActivityModel.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Models\SelectedActivityViewModel.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\Models\GoogleOAuth.cs" />
@@ -1243,6 +1252,7 @@
     <Content Include="App_Plugins\KeyValueDropdownList\package.manifest" />
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
+    <Content Include="App_Plugins\AvailableActivitySelector\package.manifest" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
