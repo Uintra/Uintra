@@ -794,6 +794,12 @@
     <Compile Include="Features\Bulletins\Converters\BulletinDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageModel.cs" />
     <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageViewModel.cs" />
+    <Compile Include="Features\CentralFeed\Providers\ContentProviderBase.cs" />
+    <Compile Include="Features\CentralFeed\Providers\FeedContentProviderBase.cs" />
+    <Compile Include="Features\CentralFeed\Providers\CentralFeedContentProvider.cs" />
+    <Compile Include="Features\CentralFeed\Services\CentralFeedContentService.cs" />
+    <Compile Include="Features\CentralFeed\Providers\ICentralFeedContentProvider.cs" />
+    <Compile Include="Features\CentralFeed\Providers\IFeedContentProvider.cs" />
     <Compile Include="Features\Comments\CommandBus\CommentHandle.cs" />
     <Compile Include="Features\Comments\CommandBus\CommentNotificationHandle.cs" />
     <Compile Include="Features\Comments\Converters\CommentsPanelViewModelConverter.cs" />
@@ -876,6 +882,9 @@
     <Compile Include="Features\Subscribe\SubscribeService.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\LatestActivitiesPanelViewModelConverter.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\SelectedActivityPropertyEditorConvertor.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Helpers\ILatestActivitiesPanelHelper.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Helpers\LatestActivitiesPanelHelper.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Injection\LastActivityInjectModule.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelViewModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\SelectedActivityModel.cs" />

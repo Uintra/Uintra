@@ -18,7 +18,7 @@
         public const string EventsEditPage = "eventsEditPage";
         public const string EventsDetailsPage = "eventsDetailsPage";
 
-        public const string BulletinsOverviewPage = "bulletinsOverviewPage";
+        public const string BulletinsOverviewPage = "bulletinDetailsPage";
         public const string BulletinsEditPage = "bulletinsEditPage";
         public const string BulletinsDetailsPage = "bulletinDetailsPage";
 
