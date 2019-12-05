@@ -2,6 +2,10 @@
 using System.Threading.Tasks;
 using Uintra20.Core.Localization;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
+using Uintra20.Core.User;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Models;
@@ -16,12 +20,12 @@ namespace Uintra20.Features.Notification
     {
         private const string ProfileLinkTitle = "PopupNotification.ProfileLink.Title";
 
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IIntranetLocalizationService _localizationService;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
 
         public PopupNotificationModelMapper(
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             IIntranetLocalizationService localizationService,
             IIntranetUserContentProvider intranetUserContentProvider)
         {
@@ -57,7 +61,8 @@ namespace Uintra20.Features.Notification
 
             (string, string)[] tokens =
             {
-                (FullName, (await _intranetMemberService.GetAsync(receiver.Id)).DisplayedName),
+                //(FullName, (await _intranetMemberService.GetAsync(receiver.Id)).DisplayedName),
+                (FullName, (_intranetMemberService.Get(receiver.Id)).DisplayedName),
                 (ProfileLink, HtmlHelper.CreateLink(_localizationService.Translate(ProfileLinkTitle), _intranetUserContentProvider.GetEditPage().Url))
             };
             message.Message = ReplaceTokens(template.Message, tokens);

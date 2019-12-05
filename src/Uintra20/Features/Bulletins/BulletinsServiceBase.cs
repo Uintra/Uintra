@@ -1,5 +1,7 @@
 ﻿using Uintra20.Core.Activity;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.LinkPreview;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media;
@@ -18,7 +20,7 @@ namespace Uintra20.Features.Bulletins
             IIntranetMediaService intranetMediaService,
             IActivityLocationService activityLocationService,
             IActivityLinkPreviewService activityLinkPreviewService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             IPermissionsService permissionsService
         )
             : base(activityRepository, cache, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService)

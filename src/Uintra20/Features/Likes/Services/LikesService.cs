@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Likes.Sql;
 using Uintra20.Persistence.Sql;
@@ -12,9 +14,9 @@ namespace Uintra20.Features.Likes.Services
     public class LikesService : ILikesService
     {
         private readonly ISqlRepository<Like> _likesRepository;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
-        public LikesService(ISqlRepository<Like> likesRepository, IIntranetMemberService<IIntranetMember> intranetMemberService)
+        public LikesService(ISqlRepository<Like> likesRepository, IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _likesRepository = likesRepository;
             _intranetMemberService = intranetMemberService;
@@ -84,7 +86,8 @@ namespace Uintra20.Features.Likes.Services
 
         protected virtual async Task<IEnumerable<(Guid Id, string DisplayedName)>> GetManyNamesAsync(IEnumerable<Guid> usersIds)
         {
-            var users = await _intranetMemberService.GetManyAsync(usersIds);
+            //var users = await _intranetMemberService.GetManyAsync(usersIds);
+            var users = _intranetMemberService.GetMany(usersIds);
             return users.Select(el => (el.Id, el.DisplayedName));
         }
 

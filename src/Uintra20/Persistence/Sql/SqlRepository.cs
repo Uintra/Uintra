@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using LanguageExt;
 using Uintra20.Infrastructure.Extensions;
+using Uintra20.Persistence.Context;
 using static LanguageExt.Prelude;
 
 namespace Uintra20.Persistence.Sql

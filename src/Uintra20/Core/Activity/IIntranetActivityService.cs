@@ -5,7 +5,7 @@ using Uintra20.Core.Activity.Entities;
 
 namespace Uintra20.Core.Activity
 {
-    public interface IIntranetActivityService<TActivity> : IIntranetActivityService where TActivity : IIntranetActivity
+    public interface IIntranetActivityService<out TActivity> : IIntranetActivityService where TActivity : IIntranetActivity
     {
         TActivity Get(Guid id);
         IEnumerable<TActivity> GetManyActual();
@@ -16,9 +16,9 @@ namespace Uintra20.Core.Activity
         void Save(IIntranetActivity activity);
         bool CanEdit(IIntranetActivity activity);
         bool CanDelete(IIntranetActivity activity);
-        Task<TActivity> GetAsync(Guid id);
-        Task<IEnumerable<TActivity>> GetManyActualAsync();
-        Task<IEnumerable<TActivity>> GetAllAsync(bool includeHidden = false);
+        //Task<TActivity> GetAsync(Guid id);
+        //Task<IEnumerable<TActivity>> GetManyActualAsync();
+        //Task<IEnumerable<TActivity>> GetAllAsync(bool includeHidden = false);
         Task<Guid> CreateAsync(IIntranetActivity activity);
         Task SaveAsync(IIntranetActivity activity);
     }

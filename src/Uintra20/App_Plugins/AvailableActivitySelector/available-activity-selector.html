@@ -1,0 +1,7 @@
+﻿<div ng-controller="availableActivityController as ctrl">
+    <select ng-if="ctrl.availableActivityTypes"
+            ng-model="model.value"
+            ng-required="true"
+            ng-options="type as type.name for type in ctrl.availableActivityTypes track by type.id">
+    </select>
+</div>

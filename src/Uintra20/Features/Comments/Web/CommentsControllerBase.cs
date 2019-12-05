@@ -7,7 +7,10 @@ using Compent.Shared.Extensions;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.CommandBus.Commands;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Services;
@@ -28,14 +31,14 @@ namespace Uintra20.Features.Comments.Web
         protected virtual string ViewPath { get; } = "~/App_Plugins/Comments/View/CommentsView.cshtml";
 
         private readonly ICommentsService _commentsService;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly ICommandPublisher _commandPublisher;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
         protected CommentsControllerBase(
             ICommentsService commentsService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
             ICommandPublisher commandPublisher,
             IActivitiesServiceFactory activitiesServiceFactory)

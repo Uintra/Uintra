@@ -7,18 +7,16 @@ namespace Uintra20.Infrastructure.Providers
 {
     public class CookieProvider : ICookieProvider
     {
-        private readonly HttpContext _httpContext;
-        private readonly IApplicationSettings _applicationSettings;
+	    private readonly IApplicationSettings _applicationSettings;
 
-        public CookieProvider(HttpContext httpContext, IApplicationSettings applicationSettings)
+        public CookieProvider(IApplicationSettings applicationSettings)
         {
-            _httpContext = httpContext;
-            _applicationSettings = applicationSettings;
+	        _applicationSettings = applicationSettings;
         }
 
         public virtual HttpCookie Get(string name)
         {
-            return _httpContext.Request.Cookies[name];
+            return HttpContext.Current.Request.Cookies[name];
         }
 
         public virtual void Save(HttpCookie cookie)
@@ -26,7 +24,7 @@ namespace Uintra20.Infrastructure.Providers
             cookie.Domain = GetDomain();
             cookie.Secure = _applicationSettings.UmbracoUseSSL;
             cookie.HttpOnly = true;
-            _httpContext.Response.Cookies.Add(cookie);
+            HttpContext.Current.Request.Cookies.Add(cookie);
         }
 
         public virtual void Save(string name, string value, DateTime expireDate)
@@ -59,7 +57,7 @@ namespace Uintra20.Infrastructure.Providers
 
         protected virtual string GetDomain()
         {
-            return _httpContext.Request.Url.Host;
+            return HttpContext.Current.Request.Url.Host;
         }
     }
 }

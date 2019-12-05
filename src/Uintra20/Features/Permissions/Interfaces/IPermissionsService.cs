@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Abstractions;
 using Uintra20.Features.Permissions.Models;
 
 namespace Uintra20.Features.Permissions.Interfaces

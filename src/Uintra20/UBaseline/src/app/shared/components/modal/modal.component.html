@@ -1,7 +1,0 @@
-<div class="modal-window" *ngIf="isShowContent" [ngClass]="{'modal-window--show': isShowContent}" [style.padding-right]="rightOffset">
-  <div class="modal-window__container" (clickOutside)="close.emit()">
-      <ng-content></ng-content>
-  </div>
-
-  <button id="close-button" name="close-button" class="modal-window__close">x</button>
-</div>

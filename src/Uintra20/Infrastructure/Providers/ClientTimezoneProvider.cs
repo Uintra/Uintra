@@ -20,6 +20,19 @@ namespace Uintra20.Infrastructure.Providers
             _cookieProvider.Save(ClientTimezoneCookieAlias, windowsTimezoneId, DateTime.UtcNow.AddMonths(1));
         }
 
-        public virtual TimeZoneInfo ClientTimezone => TimeZoneInfo.FindSystemTimeZoneById(_cookieProvider.Get(ClientTimezoneCookieAlias).Value);
+        public virtual TimeZoneInfo ClientTimezone
+        {
+            get
+            {
+                var cookieValue = _cookieProvider.Get(ClientTimezoneCookieAlias)?.Value;
+
+                if (string.IsNullOrWhiteSpace(cookieValue))
+                {
+                    return TimeZoneInfo.Utc;
+                }
+
+                return TimeZoneInfo.FindSystemTimeZoneById(cookieValue);
+            }
+        }
     }
 }

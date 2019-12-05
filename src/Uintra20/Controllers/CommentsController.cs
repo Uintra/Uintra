@@ -4,7 +4,9 @@ using Compent.CommandBus;
 using Localization.Umbraco.Attributes;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.Links;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Services;
@@ -19,13 +21,13 @@ namespace Uintra20.Controllers
     public class CommentsController : CommentsControllerBase
     {
         private readonly ICommentsService _commentsService;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IMentionService _mentionService;
         private readonly ICommentLinkHelper _commentLinkHelper;
 
         public CommentsController(
             ICommentsService commentsService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
             ICommandPublisher commandPublisher,
             IActivitiesServiceFactory activitiesServiceFactory,

@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Compent.Extensions;
-using LanguageExt;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Models.NotifierTemplates;
-using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Notification.Services
 {
@@ -17,8 +17,8 @@ namespace Uintra20.Features.Notification.Services
     {
         private readonly INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> _notificationModelMapper;
         private readonly INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage> _desktopNotificationModelMapper;
-        private readonly NotificationSettingsService _notificationSettingsService;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly INotificationSettingsService _notificationSettingsService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly UiNotificationService _notificationsService;
 
         public Enum Type => NotifierTypeEnum.UiNotifier;
@@ -26,8 +26,8 @@ namespace Uintra20.Features.Notification.Services
         public UiNotifierService(
             INotificationModelMapper<UiNotifierTemplate, UiNotificationMessage> notificationModelMapper,
             INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage> desktopNotificationModelMapper,
-            NotificationSettingsService notificationSettingsService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            INotificationSettingsService notificationSettingsService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             UiNotificationService notificationsService)
         {
             _notificationModelMapper = notificationModelMapper;
@@ -98,14 +98,18 @@ namespace Uintra20.Features.Notification.Services
 
             if (!settings.IsEnabled && !desktopSettings.IsEnabled) return;
 
-            var receivers = await _intranetMemberService.GetManyAsync(data.ReceiverIds).Select(x => x.ToList());
+            //var receivers = await _intranetMemberService.GetManyAsync(data.ReceiverIds).Select(x => x.ToList());
+            var receivers = _intranetMemberService.GetMany(data.ReceiverIds).ToList();
 
-            var messages = await receivers.SelectAsync(async receiver =>
+            //var messages = await receivers.SelectAsync(async receiver =>
+            var messages = receivers.Select(receiver =>
             {
-                var uiMsg = await _notificationModelMapper.MapAsync(data.Value, settings.Template, receiver);
+                //var uiMsg = await _notificationModelMapper.MapAsync(data.Value, settings.Template, receiver);
+                var uiMsg = _notificationModelMapper.Map(data.Value, settings.Template, receiver);
                 if (desktopSettings.IsEnabled)
                 {
-                    var desktopMsg = await _desktopNotificationModelMapper.MapAsync(data.Value, desktopSettings.Template, receiver);
+                    //var desktopMsg = await _desktopNotificationModelMapper.MapAsync(data.Value, desktopSettings.Template, receiver);
+                    var desktopMsg = _desktopNotificationModelMapper.Map(data.Value, desktopSettings.Template, receiver);
                     uiMsg.DesktopTitle = desktopMsg.Title;
                     uiMsg.DesktopMessage = desktopMsg.Message;
                     uiMsg.IsDesktopNotificationEnabled = true;

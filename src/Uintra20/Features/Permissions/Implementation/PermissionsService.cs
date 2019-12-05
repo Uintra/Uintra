@@ -5,6 +5,9 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using LanguageExt;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Permissions.Models;
 using Uintra20.Features.Permissions.Sql;
@@ -26,7 +29,7 @@ namespace Uintra20.Features.Permissions.Implementation
         private readonly IPermissionResourceTypeProvider _resourceTypeProvider;
         private readonly ICacheService _cacheService;
         private readonly IPermissionSettingsSchemaProvider _permissionSettingsSchema;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
         public PermissionsService(
             ISqlRepository<PermissionEntity> permissionsRepository,
@@ -35,7 +38,7 @@ namespace Uintra20.Features.Permissions.Implementation
             IPermissionResourceTypeProvider resourceTypeProvider,
             ICacheService cacheService,
             IPermissionSettingsSchemaProvider permissionSettingsSchema,
-            IIntranetMemberService<IIntranetMember> intranetMemberService)
+            IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _permissionsRepository = permissionsRepository;
             _intranetActionTypeProvider = intranetActionProvider;
@@ -136,13 +139,15 @@ namespace Uintra20.Features.Permissions.Implementation
 
         public async Task<bool> CheckAsync(PermissionSettingIdentity settingsIdentity)
         {
-            var member = await _intranetMemberService.GetCurrentMemberAsync();
+            //var member = await _intranetMemberService.GetCurrentMemberAsync();
+            var member = _intranetMemberService.GetCurrentMember();
             return await CheckAsync(member, settingsIdentity);
         }
 
         public async Task<bool> CheckAsync(Enum resourceType, Enum actionType)
         {
-            var member = await _intranetMemberService.GetCurrentMemberAsync();
+            //var member = await _intranetMemberService.GetCurrentMemberAsync();
+            var member = _intranetMemberService.GetCurrentMember();
             return await CheckAsync(member, PermissionSettingIdentity.Of(actionType, resourceType));
         }
 

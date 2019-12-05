@@ -3,6 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification.Entities;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Entities.Base.Mails;
@@ -18,9 +21,9 @@ namespace Uintra20.Features.Notification
     public class MailNotificationModelMapper : INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage>
     {
         private readonly IApplicationSettings _applicationSettings;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
-        public MailNotificationModelMapper(IApplicationSettings applicationSettings, IIntranetMemberService<IIntranetMember> intranetMemberService)
+        public MailNotificationModelMapper(IApplicationSettings applicationSettings, IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _applicationSettings = applicationSettings;
             _intranetMemberService = intranetMemberService;
@@ -109,88 +112,88 @@ namespace Uintra20.Features.Notification
             return message;
         }
 
-        public async Task<EmailNotificationMessage> MapAsync(INotifierDataValue notifierData, EmailNotifierTemplate template, IIntranetMember receiver)
-        {
-            var message = new EmailNotificationMessage();
-            FillNoReplyFromProps(message);
+        //public async Task<EmailNotificationMessage> MapAsync(INotifierDataValue notifierData, EmailNotifierTemplate template, IIntranetMember receiver)
+        //{
+        //    var message = new EmailNotificationMessage();
+        //    FillNoReplyFromProps(message);
 
-            (string, string)[] tokens;
+        //    (string, string)[] tokens;
 
-            switch (notifierData)
-            {
-                case ActivityNotifierDataModel model:
-                    tokens = new[]
-                     {
-                        (Url, model.Url),
-                        (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
-                        (ActivityType, model.ActivityType.ToString()),
-                        (FullName,(await _intranetMemberService.GetAsync(model.NotifierId)).DisplayedName),
-                        (NotifierFullName, receiver.DisplayedName)
-                    };
-                    break;
-                case ActivityReminderDataModel model:
-                    tokens = new[]
-                    {
-                        (Url, model.Url),
-                        (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
-                        (ActivityType, model.ActivityType.ToString()),
-                        (StartDate, model.StartDate.ToShortDateString()),
-                        (FullName, receiver.DisplayedName)
-                    };
-                    break;
-                case CommentNotifierDataModel model:
-                    tokens = new[]
-                    {
-                        (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
-                        (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
-                        (FullName,(await _intranetMemberService.GetAsync(model.NotifierId)).DisplayedName)
-                    };
-                    break;
-                case LikesNotifierDataModel model:
-                    tokens = new[]
-                    {
-                        (Url, model.Url),
-                        (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
-                        (ActivityType, model.ActivityType.ToString()),
-                        (FullName,(await _intranetMemberService.GetAsync(model.NotifierId)).DisplayedName),
-                        (CreatedDate, model.CreatedDate.ToShortDateString())
-                    };
-                    break;
-                case MonthlyMailDataModel model:
-                    tokens = new[]
-                    {
-                        (FullName, receiver.DisplayedName),
-                        (ActivityList, model.ActivityList)
-                    };
-                    break;
-                case UserMentionNotifierDataModel model:
-                    tokens = new[]
-                    {
-                        (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
-                        (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
-                        (FullName, (await _intranetMemberService.GetAsync(model.ReceiverId)).DisplayedName),
-                        (TaggedBy, (await _intranetMemberService.GetAsync(model.NotifierId)).DisplayedName)
-                    };
-                    break;
-                case GroupInvitationDataModel model:
-                    tokens = new[]
-                    {
-                        (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
-                        (Title, model.Title),
-                        (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
-                        (FullName, (await _intranetMemberService.GetAsync(model.ReceiverId)).DisplayedName),
-                        (TaggedBy, (await _intranetMemberService.GetAsync(model.NotifierId)).DisplayedName)
-                    };
-                    break;
-                default:
-                    throw new IndexOutOfRangeException();
-            }
+        //    switch (notifierData)
+        //    {
+        //        case ActivityNotifierDataModel model:
+        //            tokens = new[]
+        //             {
+        //                (Url, model.Url),
+        //                (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
+        //                (ActivityType, model.ActivityType.ToString()),
+        //                (FullName,(await _intranetMemberService.GetAsync(model.NotifierId)).DisplayedName),
+        //                (NotifierFullName, receiver.DisplayedName)
+        //            };
+        //            break;
+        //        case ActivityReminderDataModel model:
+        //            tokens = new[]
+        //            {
+        //                (Url, model.Url),
+        //                (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
+        //                (ActivityType, model.ActivityType.ToString()),
+        //                (StartDate, model.StartDate.ToShortDateString()),
+        //                (FullName, receiver.DisplayedName)
+        //            };
+        //            break;
+        //        case CommentNotifierDataModel model:
+        //            tokens = new[]
+        //            {
+        //                (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
+        //                (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
+        //                (FullName,(await _intranetMemberService.GetAsync(model.NotifierId)).DisplayedName)
+        //            };
+        //            break;
+        //        case LikesNotifierDataModel model:
+        //            tokens = new[]
+        //            {
+        //                (Url, model.Url),
+        //                (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
+        //                (ActivityType, model.ActivityType.ToString()),
+        //                (FullName,(await _intranetMemberService.GetAsync(model.NotifierId)).DisplayedName),
+        //                (CreatedDate, model.CreatedDate.ToShortDateString())
+        //            };
+        //            break;
+        //        case MonthlyMailDataModel model:
+        //            tokens = new[]
+        //            {
+        //                (FullName, receiver.DisplayedName),
+        //                (ActivityList, model.ActivityList)
+        //            };
+        //            break;
+        //        case UserMentionNotifierDataModel model:
+        //            tokens = new[]
+        //            {
+        //                (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
+        //                (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
+        //                (FullName, (await _intranetMemberService.GetAsync(model.ReceiverId)).DisplayedName),
+        //                (TaggedBy, (await _intranetMemberService.GetAsync(model.NotifierId)).DisplayedName)
+        //            };
+        //            break;
+        //        case GroupInvitationDataModel model:
+        //            tokens = new[]
+        //            {
+        //                (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
+        //                (Title, model.Title),
+        //                (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
+        //                (FullName, (await _intranetMemberService.GetAsync(model.ReceiverId)).DisplayedName),
+        //                (TaggedBy, (await _intranetMemberService.GetAsync(model.NotifierId)).DisplayedName)
+        //            };
+        //            break;
+        //        default:
+        //            throw new IndexOutOfRangeException();
+        //    }
 
-            message.Body = ReplaceTokens(template.Body, tokens);
-            message.Subject = ReplaceTokens(template.Subject, tokens);
-            message.Recipients = new MailRecipient { Name = receiver.DisplayedName, Email = receiver.Email }.ToListOfOne();
-            return message;
-        }
+        //    message.Body = ReplaceTokens(template.Body, tokens);
+        //    message.Subject = ReplaceTokens(template.Subject, tokens);
+        //    message.Recipients = new MailRecipient { Name = receiver.DisplayedName, Email = receiver.Email }.ToListOfOne();
+        //    return message;
+        //}
 
         public string ReplaceTokens(string source, params (string token, string value)[] replacePairs) =>
             replacePairs

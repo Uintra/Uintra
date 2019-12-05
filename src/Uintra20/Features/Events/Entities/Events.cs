@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Uintra20.Features.CentralFeed.Models.Feed;
+using Uintra20.Core.Feed.Models;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups;

@@ -1,4 +1,6 @@
 ﻿using Uintra20.Core.Activity.Factories;
+using Uintra20.Core.Feed;
+using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.Links;
 using Uintra20.Features.Links.Models;
 
