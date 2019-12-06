@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using Compent.Extensions;
 using Compent.Shared.Extensions;
@@ -13,6 +14,8 @@ using Uintra20.Features.Bulletins;
 using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.Links;
 using Uintra20.Features.Links.Models;
+using Uintra20.Features.Tagging.UserTags.Models;
+using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Core.Bulletin.Converters
@@ -22,22 +25,32 @@ namespace Uintra20.Core.Bulletin.Converters
         private readonly IFeedLinkService _feedLinkService;
         private readonly IBulletinsService<Features.Bulletins.Entities.Bulletin> _bulletinsService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
+        private readonly IUserTagService _tagsService;
+        private readonly IUserTagProvider _tagProvider;
 
         public BulletinDetailsPageViewModelConverter(IFeedLinkService feedLinkService,
             IBulletinsService<Features.Bulletins.Entities.Bulletin> bulletinsService,
-            IIntranetMemberService<IntranetMember> memberService)
+            IIntranetMemberService<IntranetMember> memberService,
+            IUserTagService tagsService,
+            IUserTagProvider tagProvider)
         {
             _feedLinkService = feedLinkService;
             _bulletinsService = bulletinsService;
             _memberService = memberService;
+            _tagsService = tagsService;
+            _tagProvider = tagProvider;
         }
 
         public void Map(BulletinDetailsPageModel node, BulletinDetailsPageViewModel viewModel)
         {
-            if (Guid.TryParse(HttpContext.Current?.Request["id"], out Guid id))
+            bool idParsed = Guid.TryParse(HttpContext.Current?.Request["id"], out Guid id);
+
+            if (idParsed)
             {
                 viewModel.Details = GetViewModel(id);
             }
+
+            viewModel.Tags = GetTagsViewModel(idParsed ? (Guid?)id : null);
         }
 
         protected BulletinExtendedViewModel GetViewModel(Guid id)
@@ -65,6 +78,19 @@ namespace Uintra20.Core.Bulletin.Converters
             var extendedModel = viewModel.Map<BulletinExtendedViewModel>();
             extendedModel = bulletin.Map(extendedModel);
             return extendedModel;
+        }
+
+        private TagsPickerViewModel GetTagsViewModel(Guid? entityId = null)
+        {
+            var pickerViewModel = new TagsPickerViewModel
+            {
+                UserTagCollection = _tagProvider.GetAll(),
+                TagIdsData = entityId.HasValue
+                    ? _tagsService.Get(entityId.Value).Select(t => t.Id)
+                    : Enumerable.Empty<Guid>()
+            };
+
+            return pickerViewModel;
         }
     }
 }
