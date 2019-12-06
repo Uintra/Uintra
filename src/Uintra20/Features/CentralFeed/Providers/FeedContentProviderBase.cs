@@ -6,13 +6,13 @@ namespace Uintra20.Features.CentralFeed.Providers
 {
     public abstract class FeedContentProviderBase : ContentProviderBase, IFeedContentProvider
     {
-        protected abstract IEnumerable<string> OverviewXPath { get; }
+        protected abstract IEnumerable<string> OverviewAliasPath { get; }
 
         protected FeedContentProviderBase(UmbracoHelper umbracoHelper) : base(umbracoHelper)
         { }
 
         public virtual IPublishedContent GetOverviewPage() =>
-            GetContent(OverviewXPath);
+            GetContent(OverviewAliasPath);
 
         public abstract IEnumerable<IPublishedContent> GetRelatedPages();
     }

@@ -10,7 +10,7 @@ namespace Uintra20.Features.CentralFeed.Providers
 {
     public class CentralFeedContentProvider : FeedContentProviderBase, ICentralFeedContentProvider
     {
-        protected override IEnumerable<string> OverviewXPath { get; }
+        protected override IEnumerable<string> OverviewAliasPath { get; }
 
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IActivityTypeProvider _activityTypeProvider;
@@ -24,7 +24,7 @@ namespace Uintra20.Features.CentralFeed.Providers
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _activityTypeProvider = activityTypeProvider;
 
-            OverviewXPath = documentTypeAliasProvider.GetHomePage().ToEnumerable();
+            OverviewAliasPath = documentTypeAliasProvider.GetHomePage().ToEnumerable();
         }
         
         public override IEnumerable<IPublishedContent> GetRelatedPages()
