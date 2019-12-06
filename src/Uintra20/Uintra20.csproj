@@ -864,6 +864,11 @@
     <Compile Include="Features\Subscribe\ISubscribableService.cs" />
     <Compile Include="Features\Subscribe\ISubscribeService.cs" />
     <Compile Include="Features\Subscribe\SubscribeService.cs" />
+    <Compile Include="Features\Tagging\UserTags\Controllers\UserTagsApiController.cs" />
+    <Compile Include="Features\Tagging\UserTags\Injection\UserTagsInjectModule.cs" />
+    <Compile Include="Features\Tagging\UserTags\Models\TagsPickerViewModel.cs" />
+    <Compile Include="Features\Tagging\UserTags\Models\UserTagItemModel.cs" />
+    <Compile Include="Features\Tagging\UserTags\Models\UserTagItemViewModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\LatestActivitiesPanelViewModelConverter.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\SelectedActivityPropertyEditorConvertor.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelModel.cs" />
