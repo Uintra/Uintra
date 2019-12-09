@@ -29,7 +29,7 @@ namespace Uintra20.Core.Activity
         private const string CacheKey = "ActivityCache";
         private string ActivityCacheSuffix => $"{Type.ToString()}";
         private readonly IIntranetActivityRepository _activityRepository;
-        private readonly ICacheService _cache;//TODO: Implement async methods at cache service
+        private readonly ICacheService _cache;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IActivityLocationService _activityLocationService;

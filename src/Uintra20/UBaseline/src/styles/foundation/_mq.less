@@ -1,0 +1,21 @@
+@screen-xs         : 320px;
+@screen-sm         : 768px;
+@screen-md         : 1024px;
+@screen-lg         : 1440px;
+
+@screen-xs-max     : (@screen-xs - 1);
+@screen-sm-max     : (@screen-sm - 1);
+@screen-md-max     : (@screen-md - 1);
+@screen-lg-max     : (@screen-lg - 1);
+
+@xs         : ~"(min-width: @{screen-xs})";
+@xs-down    : ~"(max-width: @{screen-xs-max})";
+
+@sm         : ~"(min-width: @{screen-sm})";
+@sm-down    : ~"(max-width: @{screen-sm-max})";
+
+@md         : ~"(min-width: @{screen-md})";
+@md-down    : ~"(max-width: @{screen-md-max})";
+
+@lg         : ~"(min-width: @{screen-lg})";
+@lg-down    : ~"(max-width: @{screen-lg-max})";

@@ -23,7 +23,7 @@ namespace Uintra20.Features.Groups.Links
             return new ActivityLinks
             {
                 Feed = helper.GetFeedUrl()?.AddGroupId(activity.GroupId),
-                Overview = helper.GetOverviewPageUrl().AddGroupId(activity.GroupId),
+                Overview = null,//helper.GetOverviewPageUrl().AddGroupId(activity.GroupId),//TODO: Research overview pages
                 Create = helper.GetCreatePageUrl()?.AddGroupId(activity.GroupId),
                 Details = helper.GetDetailsPageUrl(activity.Id).AddGroupId(activity.GroupId),
                 Edit = helper.GetEditPageUrl(activity.Id).AddGroupId(activity.GroupId),
@@ -39,7 +39,7 @@ namespace Uintra20.Features.Groups.Links
             return new ActivityCreateLinks
             {
                 Feed = helper.GetFeedUrl()?.AddGroupId(model.GroupId),
-                Overview = helper.GetOverviewPageUrl().AddGroupId(model.GroupId),
+                Overview = null,//helper.GetOverviewPageUrl().AddGroupId(model.GroupId),//TODO: Research overview pages
                 Create = helper.GetCreatePageUrl()?.AddGroupId(model.GroupId),
                 Owner = GetProfileLink(model.OwnerId),
                 DetailsNoId = helper.GetDetailsPageUrl().AddGroupId(model.GroupId)

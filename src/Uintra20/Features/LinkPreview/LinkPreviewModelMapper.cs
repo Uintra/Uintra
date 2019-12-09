@@ -51,6 +51,6 @@ namespace Uintra20.Features.LinkPreview
             GetNullableLength(first) > GetNullableLength(second) ? first : second;
 
         private static int GetNullableLength(string str) =>
-            str?.Length ?? default;
+            str?.Length ?? 0;
     }
 }
