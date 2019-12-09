@@ -1,1 +1,18 @@
-<ubl-not-implemented [data]="data" [description]="data.contentTypeAlias || 'central-feed panel'"></ubl-not-implemented>
+<ubl-not-implemented
+  [data]="data"
+  [description]="data.contentTypeAlias || 'central-feed panel'"
+></ubl-not-implemented>
+
+<section *ngIf="data" class="central-feed">
+  <app-spoiler-section [title]="'Filter'">
+    <app-radio-link-group
+      [links]="tabs"
+      [(ngModel)]="selectedTab"
+      class="central-feed__tabs"
+    ></app-radio-link-group>
+
+    <div class="central-feed__bottom">
+      <app-checkbox-input>Show only important</app-checkbox-input>
+    </div>
+  </app-spoiler-section>
+</section>

@@ -33,7 +33,7 @@
         [(ngModel)]="tags"
       ></app-tag-multiselect>
 
-      <dropzone #dropdownRef></dropzone>
+      <dropzone #dropdownRef (success)="onUploadSuccess($event)" (removedFile)="onFileRemoved($event)"></dropzone>
 
       <app-rich-text-editor
         [(ngModel)]="description"

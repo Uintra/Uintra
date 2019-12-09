@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ICentralFeedPanel } from './central-feed-panel.interface';
 
 @Component({
@@ -7,6 +7,16 @@ import { ICentralFeedPanel } from './central-feed-panel.interface';
   styleUrls: ['./central-feed-panel.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class CentralFeedPanel {
+export class CentralFeedPanel implements OnInit{
   data: ICentralFeedPanel;
+
+  tabs = [];
+  selectedTab = null;
+
+  ngOnInit() {
+    this.tabs = Object.values(this.data.tabs.get());
+
+    const selectedTab = this.tabs.find(tab => tab.get().isActive);
+    this.selectedTab = selectedTab.get().type.get();
+  }
 }
