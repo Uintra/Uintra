@@ -1,0 +1,175 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?15u34m');
+  src:  url('fonts/icomoon.eot?15u34m#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?15u34m') format('truetype'),
+    url('fonts/icomoon.woff?15u34m') format('woff'),
+    url('fonts/icomoon.svg?15u34m#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-admin:before {
+  content: "\e900";
+}
+.icon-arrow-down:before {
+  content: "\e901";
+}
+.icon-arrow-right:before {
+  content: "\e902";
+}
+.icon-attachment:before {
+  content: "\e903";
+}
+.icon-back-arrow:before {
+  content: "\e904";
+}
+.icon-bell-icon:before {
+  content: "\e905";
+}
+.icon-bulletin:before {
+  content: "\e906";
+}
+.icon-burger-menu:before {
+  content: "\e907";
+}
+.icon-calendar:before {
+  content: "\e908";
+}
+.icon-checkmark:before {
+  content: "\e909";
+}
+.icon-checkmark-2:before {
+  content: "\e90a";
+}
+.icon-checkmark-icon:before {
+  content: "\e90b";
+}
+.icon-close:before {
+  content: "\e90c";
+}
+.icon-comment:before {
+  content: "\e90d";
+}
+.icon-doc-doc:before {
+  content: "\e90e";
+  color: #555;
+}
+.icon-doc-icon .path1:before {
+  content: "\e90f";
+  color: rgb(226, 229, 231);
+}
+.icon-doc-icon .path2:before {
+  content: "\e910";
+  margin-left: -0.75em;
+  color: rgb(176, 183, 189);
+}
+.icon-doc-icon .path3:before {
+  content: "\e911";
+  margin-left: -0.75em;
+  color: rgb(202, 209, 216);
+}
+.icon-doc-pdf:before {
+  content: "\e912";
+  color: #555;
+}
+.icon-doc-xsl:before {
+  content: "\e913";
+  color: #555;
+}
+.icon-dots:before {
+  content: "\e914";
+}
+.icon-drag:before {
+  content: "\e915";
+}
+.icon-group:before {
+  content: "\e916";
+}
+.icon-groups:before {
+  content: "\e917";
+}
+.icon-like:before {
+  content: "\e918";
+}
+.icon-link:before {
+  content: "\e919";
+}
+.icon-linkarrow:before {
+  content: "\e91a";
+}
+.icon-logout:before {
+  content: "\e91b";
+}
+.icon-narrow-arrow:before {
+  content: "\e91c";
+}
+.icon-news:before {
+  content: "\e91d";
+}
+.icon-pin-icon:before {
+  content: "\e91e";
+}
+.icon-printer:before {
+  content: "\e91f";
+}
+.icon-search-icon:before {
+  content: "\e920";
+  color: #929292;
+}
+.icon-share-icon:before {
+  content: "\e921";
+}
+.icon-smily:before {
+  content: "\e922";
+}
+.icon-star:before {
+  content: "\e923";
+}
+.icon-time:before {
+  content: "\e924";
+}
+.icon-uintra:before {
+  content: "\e925";
+}
+.icon-u-intra-logo:before {
+  content: "\e926";
+  color: #fff;
+}
+.icon-u-intra-text-logo:before {
+  content: "\e927";
+  color: #fff;
+}
+.icon-umbraco-logo:before {
+  content: "\e928";
+  color: #ec6e1c;
+}
+.icon-upload:before {
+  content: "\e929";
+}
+.icon-user-profile:before {
+  content: "\e92a";
+}
+.icon-video-play:before {
+  content: "\e92b";
+}
+.icon-window:before {
+  content: "\e92c";
+  color: #4e4e50;
+}

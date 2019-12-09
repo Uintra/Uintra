@@ -6,6 +6,7 @@ using UBaseline.Core.Node;
 using Uintra20.Core.Feed;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.State;
+using Uintra20.Core.Localization;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.Permissions;
@@ -21,18 +22,22 @@ namespace Uintra20.Features.CentralFeed
 		//private readonly IPermissionsService _permissionsService;
 		//private readonly IPermissionResourceTypeProvider _permissionResourceTypeProvider;
 		private readonly IFeedTypeProvider _feedTypeProvider;
+        private readonly IIntranetLocalizationService _localizationService;
 
 		public CentralFeedPanelViewModelConverter(
 			IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
 			//IPermissionsService permissionsService,
 			//IPermissionResourceTypeProvider permissionResourceTypeProvider,
-			IFeedTypeProvider feedTypeProvider)
+			IFeedTypeProvider feedTypeProvider,
+            IIntranetLocalizationService localizationService)
 		{
 			_feedFilterStateService = feedFilterStateService;
 			//_permissionsService = permissionsService;
 			//_permissionResourceTypeProvider = permissionResourceTypeProvider;
 			_feedTypeProvider = feedTypeProvider;
-		}
+            _localizationService = localizationService;
+
+        }
 
 		public void Map(CentralFeedPanelModel node, CentralFeedPanelViewModel viewModel)
 		{
@@ -52,23 +57,37 @@ namespace Uintra20.Features.CentralFeed
 
 		private List<ActivityFeedTabViewModel> GetActivityTabs()
 		{
+            var filter = new FeedFilterStateModel();
+
 			return new List<ActivityFeedTabViewModel>
 			{
 				new ActivityFeedTabViewModel
 				{
 					IsActive = true,
 					Type = CentralFeedTypeEnum.Bulletins,
+					Title = CentralFeedTypeEnum.Bulletins.ToString()
 				},
 				new ActivityFeedTabViewModel
 				{
 					IsActive = false,
 					Type = CentralFeedTypeEnum.News,
+                    Title = CentralFeedTypeEnum.News.ToString(),
+                    Filters = new Dictionary<string, string>()
+                    {
+                        [nameof(filter.ShowPinned)] = _localizationService.Translate("CentralFeedList.ShowPinned.chkbx")
+                    }
 				},
 				new ActivityFeedTabViewModel
 				{
 					IsActive = false,
 					Type = CentralFeedTypeEnum.Events,
-				}
+                    Title = CentralFeedTypeEnum.Events.ToString(),
+                    Filters = new Dictionary<string, string>()
+                    {
+                        [nameof(filter.ShowPinned)] = _localizationService.Translate("CentralFeedList.ShowPinned.chkbx"),
+                        [nameof(filter.ShowSubscribed)] = _localizationService.Translate("CentralFeedList.ShowSubscribed.chkbx")
+                    }
+                }
 			};
 		}
 	}

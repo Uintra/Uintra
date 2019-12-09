@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Compent.Extensions;
 using Compent.Shared.Extensions;
 using UBaseline.Core.Node;
@@ -9,6 +10,8 @@ using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Bulletins;
 using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Tagging.UserTags.Models;
+using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
 
@@ -20,21 +23,28 @@ namespace Uintra20.Core.Activity.Converters
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IPermissionsService _permissionsService;
+        private readonly IUserTagService _tagsService;
+        private readonly IUserTagProvider _tagProvider;
 
         public ActivityCreatePanelViewModelConverter(IBulletinsService<Features.Bulletins.Entities.Bulletin> bulletinsService, 
                                                     IIntranetMemberService<IntranetMember> memberService, 
                                                     IActivityTypeProvider activityTypeProvider,
-                                                    IPermissionsService permissionsService)
+                                                    IPermissionsService permissionsService,
+                                                    IUserTagService tagsService,
+                                                    IUserTagProvider tagProvider)
         {
             _bulletinsService = bulletinsService;
             _memberService = memberService;
             _activityTypeProvider = activityTypeProvider;
             _permissionsService = permissionsService;
+            _tagsService = tagsService;
+            _tagProvider = tagProvider;
         }
 
         public void Map(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
         {
             ConvertToBulletins(node, viewModel);
+            viewModel.Tags = GetTagsViewModel();
         }
 
         private void ConvertToBulletins(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
@@ -52,6 +62,16 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.CanCreateBulletin = true; /*_permissionsService.Check(
                 PermissionResourceTypeEnum.Bulletins,
                 PermissionActionEnum.Create);*/ //TODO: uncomment when permissons service is ready
+        }
+
+        private TagsPickerViewModel GetTagsViewModel()
+        {
+            var pickerViewModel = new TagsPickerViewModel
+            {
+                UserTagCollection = _tagProvider.GetAll()
+            };
+
+            return pickerViewModel;
         }
     }
 }

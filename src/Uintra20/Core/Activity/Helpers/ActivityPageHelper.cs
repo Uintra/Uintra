@@ -10,7 +10,7 @@ using Umbraco.Web;
 
 namespace Uintra20.Core.Activity.Helpers
 {
-    public class ActivityPageHelper : IActivityPageHelper
+    public class ActivityPageHelper : IActivityPageHelper//TODO: Needs research
     {
         public Enum ActivityType { get; }
 

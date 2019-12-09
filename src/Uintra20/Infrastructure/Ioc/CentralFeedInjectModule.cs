@@ -4,13 +4,15 @@ using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.State;
 using Uintra20.Features.CentralFeed;
 using Uintra20.Features.CentralFeed.Enums;
+using Uintra20.Features.CentralFeed.Providers;
 using Uintra20.Features.CentralFeed.Services;
 using Uintra20.Features.CentralFeed.State;
 using Uintra20.Features.Links;
+using Uintra20.Infrastructure.Grid;
 
 namespace Uintra20.Infrastructure.Ioc
 {
-	public class CentralFeedInjectModule:IInjectModule
+    public class CentralFeedInjectModule:IInjectModule
 	{
 		public IDependencyCollection Register(IDependencyCollection services)
 		{
@@ -21,8 +23,11 @@ namespace Uintra20.Infrastructure.Ioc
 			services.AddScoped<IFeedFilterService, FeedFilterService>();
 			services.AddScoped<ICentralFeedService, CentralFeedService>();
 			services.AddScoped<IFeedLinkService, ActivityLinkService>();
+            services.AddScoped<ICentralFeedContentService, CentralFeedContentService>();
+            services.AddScoped<ICentralFeedContentProvider, CentralFeedContentProvider>();
+            services.AddScoped<IGridHelper, GridHelper>();
 
-			return services;
+            return services;
 		}
 	}
 }
