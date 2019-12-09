@@ -3,28 +3,40 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Uintra20.Models.UmbracoIdentity;
+using UmbracoIdentity;
+using Umbraco.Core;
 
 namespace Uintra20.Core.Authentication
 {
 	public class AuthenticationService: IAuthenticationService
 	{
-		private IAuthenticationManager AuthenticationManager => HttpContext.Current.GetOwinContext().Authentication;
+		private readonly UmbracoMembersUserManager<UmbracoApplicationMember> _userManager;
 
+		private IAuthenticationManager AuthenticationManager => HttpContext.Current.GetOwinContext().Authentication;
+		protected IOwinContext OwinContext
+		{
+			get { return HttpContext.Current.GetOwinContext(); }
+		}
+
+		public AuthenticationService()
+		{
+			_userManager = Umbraco.Core.Composing.Current.Factory.GetInstance<UmbracoMembersUserManager<UmbracoApplicationMember>>();
+		}
 		public bool Validate(string login, string password)
 		{
 			return Membership.ValidateUser(login, password);
 		}
 
-		public void Login(string login, string password)
+		public async void Login(string login, string password)
 		{
-			var identity = GetIdentity(login);
-			AuthenticationManager.SignIn(identity);
-		}
+			var member = await _userManager.FindAsync(login, password);
+			OwinContext.Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+			OwinContext.Authentication.SignIn(new AuthenticationProperties() { IsPersistent = true },
+				await member.GenerateUserIdentityAsync(_userManager));
 
-		public void Logout()
-		{
-			AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 		}
 
 		private ClaimsIdentity GetIdentity(string userName)

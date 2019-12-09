@@ -19,7 +19,7 @@ namespace Uintra20.Controllers
 		[Route("login")]
 		public AuthResultModelBase Login(LoginModelBase loginModel)
 		{
-			if (/*Validate(loginModel) || for front-end*/ loginModel.Login == "1")
+			if (Validate(loginModel))
 			{
 				return new AuthResultModelBase()
 				{
@@ -28,14 +28,14 @@ namespace Uintra20.Controllers
 				};
 			}
 
-			if (/*!Membership.ValidateUser(loginModel.Login, loginModel.Password) || for front-end*/ loginModel.Login == "2")
-			{
-				return new AuthResultModelBase()
-				{
-					Success = false,
-					Message = "Credentials not valid"
-				};
-			}
+			//if (/*!Membership.ValidateUser(loginModel.Login, loginModel.Password) || for front-end*/ loginModel.Login == "2")
+			//{
+			//	return new AuthResultModelBase()
+			//	{
+			//		Success = false,
+			//		Message = "Credentials not valid"
+			//	};
+			//}
 
 
 			_authenticationService.Login(loginModel.Login, loginModel.Password);
@@ -50,7 +50,7 @@ namespace Uintra20.Controllers
 
 		private bool Validate(LoginModelBase loginModel)
 		{
-			return !string.IsNullOrEmpty(loginModel.Login) && !string.IsNullOrEmpty(loginModel.Password);
+			return string.IsNullOrEmpty(loginModel.Login) || string.IsNullOrEmpty(loginModel.Password);
 		}
 	}
 }
