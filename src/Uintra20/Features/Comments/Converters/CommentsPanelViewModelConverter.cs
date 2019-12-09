@@ -40,29 +40,7 @@ namespace Uintra20.Features.Comments.Converters
 
         public void Map(CommentsPanelModel node, CommentsPanelViewModel viewModel)
         {
-            string idUrlParameter;
-
-            if (HttpContext.Current?.Request["url"] != null && HttpContext.Current?.Request["id"] == null)
-            {
-                if (Uri.TryCreate(HttpContext.Current?.Request["url"], UriKind.Absolute, out Uri url))
-                {
-                    idUrlParameter = HttpUtility.ParseQueryString(url.Query).Get("id");
-                }
-                else
-                {
-                    return;
-                }
-            }
-            else if (HttpContext.Current?.Request["id"] != null)
-            {
-                idUrlParameter = HttpContext.Current?.Request["id"];
-            }
-            else
-            {
-                return;
-            }
-
-            if (Guid.TryParse(idUrlParameter, out Guid pageId))
+            if (Guid.TryParse(HttpContext.Current?.Request["id"], out Guid pageId))
             {
                 var comments = _commentsService.GetMany(pageId);
 
