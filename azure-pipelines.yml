@@ -12,7 +12,7 @@ pool:
 variables:
   solution: 'src/Uintra20/Uintra20.csproj'
   buildPlatform: 'AnyCPU'
-  buildConfiguration: 'Release'
+  buildConfiguration: 'QA'
 
 steps:
 - task: NuGetToolInstaller@1
