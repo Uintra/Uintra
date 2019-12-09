@@ -761,6 +761,7 @@
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\MemberApiController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
@@ -880,6 +881,11 @@
     <Compile Include="Features\Subscribe\ISubscribableService.cs" />
     <Compile Include="Features\Subscribe\ISubscribeService.cs" />
     <Compile Include="Features\Subscribe\SubscribeService.cs" />
+    <Compile Include="Features\Tagging\UserTags\Controllers\UserTagsApiController.cs" />
+    <Compile Include="Features\Tagging\UserTags\Injection\UserTagsInjectModule.cs" />
+    <Compile Include="Features\Tagging\UserTags\Models\TagsPickerViewModel.cs" />
+    <Compile Include="Features\Tagging\UserTags\Models\UserTagItemModel.cs" />
+    <Compile Include="Features\Tagging\UserTags\Models\UserTagItemViewModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\LatestActivitiesPanelViewModelConverter.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\SelectedActivityPropertyEditorConvertor.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Helpers\ILatestActivitiesPanelHelper.cs" />
