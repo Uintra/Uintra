@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Compent.Extensions;
+using System.Linq;
 using Uintra20.Core.Activity.Helpers;
-using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
+using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
 namespace Uintra20.Core.Activity.Factories
@@ -11,38 +11,37 @@ namespace Uintra20.Core.Activity.Factories
     public class CacheActivityPageHelperFactory : IActivityPageHelperFactory
     {
         private readonly Dictionary<string, IActivityPageHelper> _cache = new Dictionary<string, IActivityPageHelper>();
-        private readonly IEnumerable<string> _feedActivitiesXPath;
+        private readonly IPublishedContent _feedActivitiesContent;
 
         private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _aliasProvider;
 
         public CacheActivityPageHelperFactory(
             UmbracoHelper umbracoHelper,
-            IDocumentTypeAliasProvider aliasProvider,
-            IEnumerable<string> feedActivitiesXPath)
+            IDocumentTypeAliasProvider aliasProvider)
         {
             _umbracoHelper = umbracoHelper;
             _aliasProvider = aliasProvider;
-            _feedActivitiesXPath = feedActivitiesXPath;
+            var feedActivitiesAlias = _aliasProvider.GetHomePage();
+            _feedActivitiesContent = _umbracoHelper.ContentAtRoot().First(x => x.ContentType.Alias == feedActivitiesAlias);
         }
 
         public IActivityPageHelper GetHelper(Enum type)
         {
-            var xPath = _feedActivitiesXPath.AsList();
-            var cacheKey = GetCacheKey(type, xPath);
+            var cacheKey = GetCacheKey(type, _feedActivitiesContent.ContentType.Alias);
             if (!_cache.ContainsKey(cacheKey))
-                return _cache[cacheKey] = CreateNewHelper(type, xPath);
+                return _cache[cacheKey] = CreateNewHelper(type, _feedActivitiesContent);
             return _cache[cacheKey];
         }
 
-        private string GetCacheKey(Enum type, IEnumerable<string> xPath) => $"{type.ToString()}{xPath.JoinToString("")}";
+        private string GetCacheKey(Enum type, string alias) => $"{type.ToString()}{alias}";
 
-        private IActivityPageHelper CreateNewHelper(Enum type, IEnumerable<string> baseXPath)
+        private IActivityPageHelper CreateNewHelper(Enum type, IPublishedContent feedActivitiesContent)
         {
             switch (type)
             {
                 default:
-                    return new ActivityPageHelper(type, baseXPath, _umbracoHelper, _aliasProvider);
+                    return new ActivityPageHelper(type, feedActivitiesContent, _umbracoHelper, _aliasProvider);
             }
         }
     }

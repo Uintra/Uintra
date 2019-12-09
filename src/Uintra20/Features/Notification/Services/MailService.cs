@@ -122,9 +122,10 @@ namespace Uintra20.Features.Notification.Services
 
         private int? GetEmailTemplatePublishedContentId(NotificationTypeEnum mailTemplateTypeEnum)
         {
+            //TODO: research when mail service is ready
             var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
-            string mailTemplateXpath = XPathHelper.GetXpath(docTypeAliasProvider.GetDataFolder(),
-                docTypeAliasProvider.GetMailTemplateFolder(), docTypeAliasProvider.GetMailTemplate());
+            string mailTemplateXpath = string.Empty;//XPathHelper.GetXpath(docTypeAliasProvider.GetDataFolder(),
+                //docTypeAliasProvider.GetMailTemplateFolder(), docTypeAliasProvider.GetMailTemplate());
             var mailTemplates = _umbracoHelper.ContentAtXPath(mailTemplateXpath);
             var mailTemplateContent = mailTemplates?.FirstOrDefault(template =>
                 template.Value<NotificationTypeEnum>(MailTemplatePropertiesConstants.EmailType) ==

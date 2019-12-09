@@ -22,8 +22,8 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddTransient<IGroupActivityService, GroupActivityService>();
             services.AddTransient<IActivityPageHelperFactory>(provider =>
                 new CacheActivityPageHelperFactory(provider.GetService<UmbracoHelper>(),
-                    provider.GetService<IDocumentTypeAliasProvider>(),
-                    CentralFeedLinkProviderHelper.GetFeedActivitiesXPath(provider.GetService<IDocumentTypeAliasProvider>())));
+                    provider.GetService<IDocumentTypeAliasProvider>()));//,
+                    //CentralFeedLinkProviderHelper.GetFeedActivitiesXPath(provider.GetService<IDocumentTypeAliasProvider>())));
             services.AddTransient<IActivityTypeHelper, ActivityTypeHelper>();
             services.AddScoped<IIntranetActivityRepository, IntranetActivityRepository>();
             services.AddScoped<IActivityTypeProvider>(provider => new ActivityTypeProvider(typeof(IntranetActivityTypeEnum)));

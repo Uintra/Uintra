@@ -6,7 +6,7 @@ namespace Uintra20.Core.Activity.Helpers
     {
         Enum ActivityType { get; }
         string GetFeedUrl();
-        string GetOverviewPageUrl();
+        //string GetOverviewPageUrl();//TODO: Research overview page
         string GetDetailsPageUrl(Guid? activityId = null);
         string GetCreatePageUrl();
         string GetEditPageUrl(Guid activityId);

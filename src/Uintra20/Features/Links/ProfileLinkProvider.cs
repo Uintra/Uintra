@@ -19,6 +19,6 @@ namespace Uintra20.Features.Links
             GetProfileLink(member.Id);
 
         public string GetProfileLink(Guid userId) =>
-            _intranetUserContentProvider.GetProfilePage().Url.AddIdParameter(userId);
+            _intranetUserContentProvider.GetProfilePage()?.Url?.AddIdParameter(userId);
     }
 }

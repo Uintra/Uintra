@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Web;
 using Compent.Extensions;
 using Compent.Shared.Extensions;
@@ -7,6 +6,7 @@ using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Bulletin.Converters.Models;
 using Uintra20.Core.Member;
+using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
@@ -14,43 +14,53 @@ using Uintra20.Features.Bulletins;
 using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.Links;
 using Uintra20.Features.Links.Models;
-using Uintra20.Features.Tagging.UserTags.Models;
-using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
 
-namespace Uintra20.Core.Bulletin.Converters
+namespace Uintra20.Features.Bulletins.Converters
 {
     public class BulletinDetailsPageViewModelConverter : INodeViewModelConverter<BulletinDetailsPageModel, BulletinDetailsPageViewModel>
     {
         private readonly IFeedLinkService _feedLinkService;
-        private readonly IBulletinsService<Features.Bulletins.Entities.Bulletin> _bulletinsService;
+        private readonly IBulletinsService<Entities.Bulletin> _bulletinsService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
-        private readonly IUserTagService _tagsService;
-        private readonly IUserTagProvider _tagProvider;
 
         public BulletinDetailsPageViewModelConverter(IFeedLinkService feedLinkService,
-            IBulletinsService<Features.Bulletins.Entities.Bulletin> bulletinsService,
-            IIntranetMemberService<IntranetMember> memberService,
-            IUserTagService tagsService,
-            IUserTagProvider tagProvider)
+            IBulletinsService<Entities.Bulletin> bulletinsService,
+            IIntranetMemberService<IntranetMember> memberService)
         {
             _feedLinkService = feedLinkService;
             _bulletinsService = bulletinsService;
             _memberService = memberService;
-            _tagsService = tagsService;
-            _tagProvider = tagProvider;
         }
 
         public void Map(BulletinDetailsPageModel node, BulletinDetailsPageViewModel viewModel)
         {
-            bool idParsed = Guid.TryParse(HttpContext.Current?.Request["id"], out Guid id);
+            string idUrlParameter; 
 
-            if (idParsed)
+            if (HttpContext.Current?.Request["url"] != null && HttpContext.Current?.Request["id"] == null)
+            {
+                if (Uri.TryCreate(HttpContext.Current?.Request["url"], UriKind.Absolute, out Uri url))
+                {
+                    idUrlParameter = HttpUtility.ParseQueryString(url.Query).Get("id");
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else if (HttpContext.Current?.Request["id"] != null)
+            {
+                idUrlParameter = HttpContext.Current?.Request["id"];
+            }
+            else
+            {
+                return;
+            }
+
+            if (Guid.TryParse(idUrlParameter, out Guid id))
             {
                 viewModel.Details = GetViewModel(id);
             }
-
-            viewModel.Tags = GetTagsViewModel(idParsed ? (Guid?)id : null);
         }
 
         protected BulletinExtendedViewModel GetViewModel(Guid id)
@@ -66,31 +76,18 @@ namespace Uintra20.Core.Bulletin.Converters
 
             var viewModel = bulletin.Map<BulletinViewModel>();
 
-            viewModel.CanEdit = true;//_bulletinsService.CanEdit(bulletin);//TODO: Uncomment when members service is ready
+            viewModel.CanEdit = _bulletinsService.CanEdit(bulletin);
             viewModel.Links = links;
             viewModel.IsReadOnly = false;
 
             viewModel.HeaderInfo = bulletin.Map<IntranetActivityDetailsHeaderViewModel>();
             viewModel.HeaderInfo.Dates = bulletin.PublishDate.ToDateTimeFormat().ToEnumerable();
-            viewModel.HeaderInfo.Owner = _memberService.Get(bulletin).Map<MemberViewModel>();//TODO: uncomment when member service is ready
+            viewModel.HeaderInfo.Owner = _memberService.Get(bulletin).Map<MemberViewModel>();
             viewModel.HeaderInfo.Links = links;
 
             var extendedModel = viewModel.Map<BulletinExtendedViewModel>();
             extendedModel = bulletin.Map(extendedModel);
             return extendedModel;
-        }
-
-        private TagsPickerViewModel GetTagsViewModel(Guid? entityId = null)
-        {
-            var pickerViewModel = new TagsPickerViewModel
-            {
-                UserTagCollection = _tagProvider.GetAll(),
-                TagIdsData = entityId.HasValue
-                    ? _tagsService.Get(entityId.Value).Select(t => t.Id)
-                    : Enumerable.Empty<Guid>()
-            };
-
-            return pickerViewModel;
         }
     }
 }

@@ -5,7 +5,7 @@ using Uintra20.Features.Location.Sql;
 
 namespace Uintra20.Core.Activity.AutoMapperProfiles
 {
-	public class ActivityAutoMapperProfile : Profile
+    public class ActivityAutoMapperProfile : Profile
 	{
 		public ActivityAutoMapperProfile()
 		{
@@ -13,7 +13,6 @@ namespace Uintra20.Core.Activity.AutoMapperProfiles
 				.ForMember(d => d.GroupInfo, o => o.Ignore());
 
 			CreateMap<ActivityLocationEntity, ActivityLocation>();
-
-		}
+        }
 	}
 }

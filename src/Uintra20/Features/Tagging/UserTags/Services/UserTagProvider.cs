@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UBaseline.Core.Node;
 using Uintra20.Features.Tagging.UserTags.Models;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Providers;
@@ -10,21 +9,15 @@ using Umbraco.Web;
 
 namespace Uintra20.Features.Tagging.UserTags.Services
 {
-    //TODO investigate it and use UBaseline backend posibilities
     public class UserTagProvider : IUserTagProvider
     {
-        private readonly INodeModelService _nodeModelService;
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly IXPathProvider _xPathProvider;
+        //private readonly IXPathProvider _xPathProvider;
 
-        public UserTagProvider(
-            INodeModelService nodeModelService,
-            UmbracoHelper umbracoHelper, 
-            IXPathProvider xPathProvider)
+        public UserTagProvider(UmbracoHelper umbracoHelper/*, IXPathProvider xPathProvider*/)
         {
-            _nodeModelService = nodeModelService;
             _umbracoHelper = umbracoHelper;
-            _xPathProvider = xPathProvider;
+            //_xPathProvider = xPathProvider;
         }
 
         public virtual UserTag Get(Guid tagId)
@@ -40,14 +33,10 @@ namespace Uintra20.Features.Tagging.UserTags.Services
 
         public virtual IEnumerable<UserTag> GetAll()
         {
-            return  _nodeModelService
-                .AsEnumerable()
-                .OfType<UserTagItemModel>()
-                .Select(t =>
-                {
-                    var text = _nodeModelService.GetViewModel<UserTagItemViewModel>(t)?.Text?.Value;
-                    return new UserTag(t.Key, text);
-                });
+            return null;//TODO: Research when user tags is ready
+            //return _umbracoHelper
+            //    .ContentAtXPath(_xPathProvider.UserTagFolderXPath)
+            //    .Select(Map);
         }
 
         protected virtual UserTag Map(IPublishedContent userTag)
