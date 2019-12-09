@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using Compent.CommandBus;
 using Compent.Extensions;
 using UBaseline.Core.Extensions;
@@ -15,6 +16,8 @@ using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
+using Umbraco.Core;
+using Umbraco.Core.Composing;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.Services;
@@ -127,7 +130,7 @@ namespace Uintra20.Features.Media
             }
 
             media.SetValue(IntranetConstants.IntranetCreatorId, userId.ToString());
-            media.SetValue(Path.GetFileName(file.FileName), stream);
+            media.SetValue(Current.Services.ContentTypeBaseServices, "umbracoFile", Path.GetFileName(file.FileName), stream);
             stream.Close();
 
             if (mediaTypeAlias == VideoTypeAlias)

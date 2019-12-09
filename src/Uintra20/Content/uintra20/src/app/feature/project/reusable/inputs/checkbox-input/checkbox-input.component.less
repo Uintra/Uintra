@@ -1,0 +1,21 @@
+.checkbox-input {
+  display: flex;
+  
+  &__input-hidden {
+    display: none;
+  }
+  &__input {
+    position: relative;
+    border: 1px solid #999;
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+
+    &.checked { 
+      &:after {
+        position: absolute;
+        content: "+";
+      }
+    }
+  }
+}

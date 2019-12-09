@@ -35,29 +35,7 @@ namespace Uintra20.Features.Bulletins.Converters
 
         public void Map(BulletinDetailsPageModel node, BulletinDetailsPageViewModel viewModel)
         {
-            string idUrlParameter; 
-
-            if (HttpContext.Current?.Request["url"] != null && HttpContext.Current?.Request["id"] == null)
-            {
-                if (Uri.TryCreate(HttpContext.Current?.Request["url"], UriKind.Absolute, out Uri url))
-                {
-                    idUrlParameter = HttpUtility.ParseQueryString(url.Query).Get("id");
-                }
-                else
-                {
-                    return;
-                }
-            }
-            else if (HttpContext.Current?.Request["id"] != null)
-            {
-                idUrlParameter = HttpContext.Current?.Request["id"];
-            }
-            else
-            {
-                return;
-            }
-
-            if (Guid.TryParse(idUrlParameter, out Guid id))
+            if (Guid.TryParse(HttpContext.Current?.Request["id"], out Guid id))
             {
                 viewModel.Details = GetViewModel(id);
             }

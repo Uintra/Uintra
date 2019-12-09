@@ -1,0 +1,18 @@
+<div class="radio-link-group">
+  <label *ngFor="let link of links" class="radio-link-group__label">
+    <input
+      type="radio"
+      name="filter"
+      [(ngModel)]="selectedLink"
+      [value]="link.get().type.get()"
+      [checked]="selectedLink === link.get().type.get()"
+      (change)="onRadioChange()"
+      class="radio-link-group__input"
+    />
+    <span
+      class="radio-link-group__text"
+      [ngClass]="{ active: selectedLink === link.get().type.get() }"
+      >{{ link.get().type.get() }}-value</span
+    > 
+  </label>
+</div>

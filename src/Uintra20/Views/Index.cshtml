@@ -1,33 +1,20 @@
-@using Compent.Shared.Extensions.Bcl @model UBaseline.Core.IndexPage.IndexPageModel
 <!doctype html>
 <html lang="en">
 <head>
-  @Html.Raw(Model.HeaderScript)
-  @Html.Raw(Model.HeaderLocalScript)
-  <meta charset="utf-8">
-  <base href="/">
-  <title>@Model.Title</title>
-  
-            @if (Model.MetaData != null)
-            {
-              <meta name="title" content="@Model.MetaData.MetaTitle">
-              <meta name="description" content="@Model.MetaData.MetaDescription">
-              <meta property="og:title" content="@Model.MetaData.SocialTitle">
-              <meta property="og:description" content="@Model.MetaData.SocialDescription">
-              if (Model.MetaData.SocialImageUrl.HasValue())
-              {
-                <meta property="og:image" content="@Model.MetaData.SocialImageUrl">
-              }
-              <link rel="canonical" href="@Model.MetaData.CanonicalUrl" />
-            }
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="wwwroot/favicon.ico">
-<link rel="stylesheet" href="/wwwroot/styles.4285c929b142beefab46.css"></head>
+    <meta charset="utf-8">
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="wwwroot/favicon.ico">
+    
+<link rel="stylesheet" href="/wwwroot/styles.3c2b03a7117f2732ca10.css"></head>
 <body>
-  @Html.Raw(Model.BodyScript)
-  @Html.Raw(Model.BodyLocalScript)
-  <app-root></app-root>
-  @Html.Raw(Model.FooterScript)
-  @Html.Raw(Model.FooterLocalScript)
-<script src="/wwwroot/runtime-es2015.76ce65c2cf9652c0830a.js" type="module"></script><script src="/wwwroot/runtime-es5.76ce65c2cf9652c0830a.js" nomodule defer></script><script src="/wwwroot/polyfills-es5.ef4b1e1fc703b3ff76e3.js" nomodule defer></script><script src="/wwwroot/polyfills-es2015.2987770fde9daa1d8a2e.js" type="module"></script><script src="/wwwroot/main-es2015.c5ed4222b2fb5f26ffff.js" type="module"></script><script src="/wwwroot/main-es5.c5ed4222b2fb5f26ffff.js" nomodule defer></script></body>
+    <app-root></app-root>
+
+    
+    
+    
+    
+    
+    
+<script src="/wwwroot/runtime-es2015.4b3ac863aba9869145ea.js" type="module"></script><script src="/wwwroot/runtime-es5.4b3ac863aba9869145ea.js" nomodule defer></script><script src="/wwwroot/polyfills-es5.5e48fa3dc66991f311b0.js" nomodule defer></script><script src="/wwwroot/polyfills-es2015.79b5019f4dff069483c4.js" type="module"></script><script src="/wwwroot/main-es2015.1707784370d22c3511c9.js" type="module"></script><script src="/wwwroot/main-es5.1707784370d22c3511c9.js" nomodule defer></script></body>
 </html>
