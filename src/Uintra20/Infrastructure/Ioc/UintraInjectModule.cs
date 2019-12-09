@@ -1,4 +1,5 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
+using Uintra20.Core.Localization;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Services;
@@ -53,6 +54,7 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<ICookieProvider, CookieProvider>();
             services.AddScoped<IMentionService, MentionService>();
             services.AddScoped<ISubscribeService, SubscribeService>();
+            services.AddScoped<IIntranetLocalizationService, LocalizationService>();
 
 			return services;
 		}
