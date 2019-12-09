@@ -24,7 +24,7 @@ namespace Uintra20.Infrastructure.Extensions
                 return (T)Enum.Parse(typeof(T), a.ToString());
             }
 
-            return default;
+            return null;
         }
 
         public static string GetDisplayName(this Enum enumValue)
