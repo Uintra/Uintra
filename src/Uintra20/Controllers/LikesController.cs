@@ -1,5 +1,6 @@
 ﻿using Compent.CommandBus;
 using Localization.Umbraco.Attributes;
+using Uintra20.Attributes;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Entities;
@@ -10,6 +11,7 @@ using Uintra20.Features.Likes.Web;
 namespace Uintra20.Controllers
 {
     [ThreadCulture]
+    [ValidateModel]
     public class LikesController : LikesControllerBase
     {
         public LikesController(

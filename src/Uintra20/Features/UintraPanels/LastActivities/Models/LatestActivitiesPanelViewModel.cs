@@ -12,7 +12,6 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Models
         public PropertyViewModel<SelectedActivityViewModel> ActivityType { get; set; }
         public PropertyViewModel<int> CountToDisplay { get; set; }
         public IEnumerable<FeedItemViewModel> Feed { get; set; }
-        public ActivityFeedTabViewModel Tab { get; set; }
         public bool ShowSeeAllButton { get; set; }
     }
 }

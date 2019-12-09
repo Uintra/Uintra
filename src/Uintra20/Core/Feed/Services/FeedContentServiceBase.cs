@@ -20,11 +20,13 @@ namespace Uintra20.Core.Feed.Services
         protected abstract string FeedPluginAlias { get; }
         protected abstract string ActivityCreatePluginAlias { get; }
 
+        public virtual Enum GetFeedTabType(IPublishedContent content) =>
+            GetCentralFeedTypeFromPlugin(content, FeedPluginAlias);
 
         public virtual Enum GetCreateActivityType(IPublishedContent content) =>
             GetCentralFeedTypeFromPlugin(content, ActivityCreatePluginAlias);
 
-        protected virtual  Enum GetCentralFeedTypeFromPlugin(IPublishedContent content, string gridPluginAlias)
+        protected virtual Enum GetCentralFeedTypeFromPlugin(IPublishedContent content, string gridPluginAlias)
         {
             var value = _gridHelper
                 .GetValues(content, gridPluginAlias)

@@ -40,7 +40,7 @@ namespace Uintra20.Core.Feed.Services
             var feedItemsList = feedItems.AsList();
 
             return feedItemsList.IsEmpty()
-                ? default
+                ? 0L
                 : feedItemsList.Max(item => item.ModifyDate).Ticks;
         }
 
