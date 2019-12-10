@@ -28,14 +28,14 @@ namespace Uintra20.Controllers
 				};
 			}
 
-			//if (/*!Membership.ValidateUser(loginModel.Login, loginModel.Password) || for front-end*/ loginModel.Login == "2")
-			//{
-			//	return new AuthResultModelBase()
-			//	{
-			//		Success = false,
-			//		Message = "Credentials not valid"
-			//	};
-			//}
+			if (Membership.ValidateUser(loginModel.Login, loginModel.Password))
+			{
+				return new AuthResultModelBase()
+				{
+					Success = false,
+					Message = "Credentials not valid"
+				};
+			}
 
 
 			_authenticationService.Login(loginModel.Login, loginModel.Password);

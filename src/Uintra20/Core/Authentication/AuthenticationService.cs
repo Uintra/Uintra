@@ -20,10 +20,7 @@ namespace Uintra20.Core.Authentication
         private readonly IRuntimeState _runtime;
         private readonly IGlobalSettings _globalSettings;
 
-        protected IOwinContext OwinContext
-        {
-            get { return HttpContext.Current.GetOwinContext(); }
-        }
+        protected IOwinContext OwinContext => HttpContext.Current.GetOwinContext();
 
         public AuthenticationService(
             IRuntimeState runtime,
