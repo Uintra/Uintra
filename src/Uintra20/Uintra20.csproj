@@ -767,6 +767,7 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\MemberApiController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
@@ -804,9 +805,25 @@
     <Compile Include="Core\Authentication\IAuthenticationService.cs" />
     <Compile Include="Core\Authentication\Models\AuthResultModelBase.cs" />
     <Compile Include="Core\Authentication\Models\LoginModelBase.cs" />
-    <Compile Include="Core\Bulletin\Converters\BulletinDetailsPageViewModelConverter.cs" />
-    <Compile Include="Core\Bulletin\Converters\Models\BulletinDetailsPageModel.cs" />
-    <Compile Include="Core\Bulletin\Converters\Models\BulletinDetailsPageViewModel.cs" />
+    <Compile Include="Features\Bulletins\Converters\BulletinDetailsPageViewModelConverter.cs" />
+    <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageModel.cs" />
+    <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageViewModel.cs" />
+    <Compile Include="Features\CentralFeed\Providers\ContentProviderBase.cs" />
+    <Compile Include="Features\CentralFeed\Providers\FeedContentProviderBase.cs" />
+    <Compile Include="Features\CentralFeed\Providers\CentralFeedContentProvider.cs" />
+    <Compile Include="Features\CentralFeed\Services\CentralFeedContentService.cs" />
+    <Compile Include="Features\CentralFeed\Providers\ICentralFeedContentProvider.cs" />
+    <Compile Include="Features\CentralFeed\Providers\IFeedContentProvider.cs" />
+    <Compile Include="Features\Comments\CommandBus\CommentHandle.cs" />
+    <Compile Include="Features\Comments\CommandBus\CommentNotificationHandle.cs" />
+    <Compile Include="Features\Comments\Converters\CommentsPanelViewModelConverter.cs" />
+    <Compile Include="Features\Comments\Converters\Models\CommentsPanelModel.cs" />
+    <Compile Include="Features\Comments\Converters\Models\CommentsPanelViewModel.cs" />
+    <Compile Include="Features\Likes\CommandBus\LikeHandle.cs" />
+    <Compile Include="Features\Likes\CommandBus\LikeNotificationHandle.cs" />
+    <Compile Include="Features\Likes\Converters\LikesPanelViewModelConverter.cs" />
+    <Compile Include="Features\Likes\Converters\Models\LikesPanelModel.cs" />
+    <Compile Include="Features\Likes\Converters\Models\LikesPanelViewModel.cs" />
     <Compile Include="Core\Feed\Models\ActivityFeedTabViewModel.cs" />
     <Compile Include="Core\Member\Services\IIntranetMemberService.cs" />
     <Compile Include="Core\Member\Services\IntranetMemberService.cs" />
@@ -878,8 +895,16 @@
     <Compile Include="Features\Subscribe\ISubscribableService.cs" />
     <Compile Include="Features\Subscribe\ISubscribeService.cs" />
     <Compile Include="Features\Subscribe\SubscribeService.cs" />
+    <Compile Include="Features\Tagging\UserTags\Controllers\UserTagsApiController.cs" />
+    <Compile Include="Features\Tagging\UserTags\Injection\UserTagsInjectModule.cs" />
+    <Compile Include="Features\Tagging\UserTags\Models\TagsPickerViewModel.cs" />
+    <Compile Include="Features\Tagging\UserTags\Models\UserTagItemModel.cs" />
+    <Compile Include="Features\Tagging\UserTags\Models\UserTagItemViewModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\LatestActivitiesPanelViewModelConverter.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\SelectedActivityPropertyEditorConvertor.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Helpers\ILatestActivitiesPanelHelper.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Helpers\LatestActivitiesPanelHelper.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Injection\LastActivityInjectModule.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelViewModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\SelectedActivityModel.cs" />
@@ -956,6 +981,7 @@
     <Compile Include="Features\Events\EventBase.cs" />
     <Compile Include="Infrastructure\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Infrastructure\Exceptions\IExceptionLogger.cs" />
+    <Compile Include="Infrastructure\Extensions\ActivitiesServiceFactoryExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\ContextExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\DateTimeExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
@@ -1289,7 +1315,11 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\InternalServerErrorPage.cshtml" />
     <Content Include="Views\Index.cshtml" />
+    <None Include="Web.Base.config" />
     <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.QA.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
@@ -1313,6 +1343,9 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -1334,6 +1367,11 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" />
+  <Target Name="BeforeBuild">
+    <Message Text="Executing TransformXml for Web.$(Configuration).config" Importance="normal" />
+    <TransformXml Source="Web.Base.config" Transform="Web.$(Configuration).config" Destination="Web.config" ContinueOnError="False" StackTrace="True" />
+  </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>

@@ -10,7 +10,9 @@ namespace Uintra20.Features.CentralFeed.AutoMapperProfiles
         public CentralFeedAutoMapperProfile()
         {
 			CreateMap<FeedSettings, FeedTabSettings>();
-			CreateMap<ActivityFeedTabModel, ActivityFeedTabViewModel>();
-		}
+            CreateMap<ActivityFeedTabModel, ActivityFeedTabViewModel>()
+                .ForMember(dst => dst.Title, o => o.Ignore())
+                .ForMember(dst => dst.Filters, o => o.Ignore());
+        }
     }
 }

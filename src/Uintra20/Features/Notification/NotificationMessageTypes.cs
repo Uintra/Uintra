@@ -15,6 +15,6 @@ namespace Uintra20.Features.Notification
         public override IDictionary<string, string> GetExtraTokens() => new Dictionary<string, string>();
         //public IList<IEmailRecipient> To { get; } = new List<IEmailRecipient>();
         //public IEnumerable<IEmailAttachmentFile> AttachmentFiles { get; } = Enumerable.Empty<IEmailAttachmentFile>();
-        public Enum MailTemplateTypeEnum { get; } = default;
+        public Enum MailTemplateTypeEnum { get; } = default(Enum);
     }
 }

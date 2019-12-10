@@ -90,8 +90,9 @@ namespace Uintra20.Core.Authentication
             {
                 "/login",
                 "/login/",
-                "/api/auth/login"
-            };
+                "/api/auth/login",
+				"/ubaseline/api/node/getByUrl"
+			};
         }
 
         private bool ShouldAuthForBackOfficeRequest(IOwinContext ctx)

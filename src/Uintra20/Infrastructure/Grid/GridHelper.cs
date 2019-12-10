@@ -69,7 +69,7 @@ namespace Uintra20.Infrastructure.Grid
             var properties = GetValues(content, contentKey);
             if (properties == null)
             {
-                return default;
+                return default(T);
             }
 
             var propertiesDictionary = properties.ToDictionary(pair => pair.alias, pair => pair.value);
@@ -79,7 +79,7 @@ namespace Uintra20.Infrastructure.Grid
                 return typedResult;
             }
 
-            return default;
+            return default(T);
         }
     }
 }

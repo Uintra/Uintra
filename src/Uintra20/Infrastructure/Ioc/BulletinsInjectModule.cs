@@ -13,7 +13,7 @@ namespace Uintra20.Infrastructure.Ioc
 		public IDependencyCollection Register(IDependencyCollection services)
 		{
             services.AddScoped<INotifyableService, BulletinsService<Bulletin>>();
-            services.AddScoped(typeof(ICacheableIntranetActivityService<Bulletin>), typeof(BulletinsService<Bulletin>));
+            services.AddScoped<ICacheableIntranetActivityService<Bulletin>, BulletinsService<Bulletin>>();
             services.AddScoped<IFeedItemService, BulletinsService<Bulletin>>();
             services.AddScoped<IBulletinsService<Bulletin>, BulletinsService<Bulletin>>();
 

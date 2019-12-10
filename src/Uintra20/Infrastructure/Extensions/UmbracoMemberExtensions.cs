@@ -11,7 +11,7 @@ namespace Uintra20.Infrastructure.Extensions
     {
         public static TValue GetValueOrDefault<TValue>(this IMember member, string alias)
         {
-            return member.HasProperty(alias) ? member.GetValue<TValue>(alias) : default;
+            return member.HasProperty(alias) ? member.GetValue<TValue>(alias) : default(TValue);
         }
 
         public static int? GetMemberImageId(this IMember member, string alias)

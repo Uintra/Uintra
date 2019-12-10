@@ -17,20 +17,14 @@ export class ActivityCreatePanel {
   availableTags: Array<ITagData> = [];
   isPopupShowing: boolean = false;
 
-  tags: any = [];
+  files: Array<any> = [];
+  tags: Array<ITagData> = [];
   description: string;
 
   constructor(private socialContentService: CreateSocialContentService) {}
 
   ngOnInit() {
-    this.availableTags = [
-      { id: '1', text: 'test' },
-      { id: '2', text: 'testtest' },
-      { id: '3', text: 'test2' },
-      { id: '4', text: 'testtest2' },
-      { id: '5', text: 'test3' },
-      { id: '6', text: 'testtest3' }
-    ];
+    this.availableTags = Object.values(JSON.parse(JSON.stringify(this.data.tags.get().userTagCollection)));
   }
 
   onShowPopUp() {
@@ -44,11 +38,34 @@ export class ActivityCreatePanel {
     this.dropdownRef.directiveRef.dropzone().clickableElements[0].click();
   }
 
+  onUploadSuccess(fileArray: Array<any> = []): void {
+    this.files.push(fileArray);
+  }
+
+  onFileRemoved(removedFile: object) {
+    this.files = this.files.filter(file => {
+      const fileElement = file[0];
+      return fileElement !== removedFile;
+    });
+  }
+
+  getMediaIdsForResponse() {
+    return this.files.map(file => file[1]).join(';');
+  }
+  getTagsForResponse() {
+    return this.tags.map(tag => tag.id);
+  }
+
   onSubmit() {
     this.socialContentService.submitSocialContent({
       description: this.description,
       OwnerId: 'cb6969e1-ac68-4cae-88a3-8b1cbc453ef7',
-      title: ''
-    })
+      NewMedia: this.getMediaIdsForResponse(),
+      TagIdsData: this.getTagsForResponse()
+    }).then(response => {
+      this.onHidePopUp();
+    }).catch(err => {
+      this.onHidePopUp();
+    });
   }
 }

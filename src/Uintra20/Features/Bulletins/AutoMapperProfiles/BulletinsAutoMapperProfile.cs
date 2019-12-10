@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Compent.Extensions;
 using System.Linq;
 using Uintra20.Core.Activity.Models.Headers;
@@ -144,10 +145,10 @@ namespace Uintra20.Features.Bulletins.AutoMapperProfiles
 
             CreateMap<BulletinCreateModel, BulletinExtendedCreateModel>()
                 .ForMember(dst => dst.GroupId, o => o.Ignore())
-                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => Enumerable.Empty<Guid>()));
 
             CreateMap<BulletinEditModel, BulletinExtendedEditModel>()
-                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => Enumerable.Empty<Guid>()));
 
             CreateMap<Bulletin, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<BulletinBase, IntranetActivityItemHeaderViewModel>();

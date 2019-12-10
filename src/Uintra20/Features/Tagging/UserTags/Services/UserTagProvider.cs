@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UBaseline.Core.Node;
 using Uintra20.Features.Tagging.UserTags.Models;
 using Uintra20.Infrastructure.Constants;
-using Uintra20.Infrastructure.Providers;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
@@ -12,12 +12,13 @@ namespace Uintra20.Features.Tagging.UserTags.Services
     public class UserTagProvider : IUserTagProvider
     {
         private readonly UmbracoHelper _umbracoHelper;
-        private readonly IXPathProvider _xPathProvider;
 
-        public UserTagProvider(UmbracoHelper umbracoHelper, IXPathProvider xPathProvider)
+        private readonly INodeModelService _nodeModelService;
+
+        public UserTagProvider(INodeModelService nodeModelService, UmbracoHelper umbracoHelper)
         {
             _umbracoHelper = umbracoHelper;
-            _xPathProvider = xPathProvider;
+            _nodeModelService = nodeModelService;
         }
 
         public virtual UserTag Get(Guid tagId)
@@ -33,9 +34,14 @@ namespace Uintra20.Features.Tagging.UserTags.Services
 
         public virtual IEnumerable<UserTag> GetAll()
         {
-            return _umbracoHelper
-                .ContentAtXPath(_xPathProvider.UserTagFolderXPath)
-                .Select(Map);
+            return _nodeModelService
+                .AsEnumerable()
+                .OfType<UserTagItemModel>()
+                .Select(t =>
+                {
+                    var text = _nodeModelService.GetViewModel<UserTagItemViewModel>(t)?.Text?.Value;
+                    return new UserTag(t.Key, text);
+                });
         }
 
         protected virtual UserTag Map(IPublishedContent userTag)

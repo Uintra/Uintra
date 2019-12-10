@@ -1,5 +1,6 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
 using Uintra20.Core.Authentication;
+using Uintra20.Core.Localization;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Services;
@@ -41,7 +42,7 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IVideoConverterLogService, VideoConverterLogService>();
             services.AddScoped<IIntranetMediaService, IntranetMediaService>();
             services.AddSingleton<IDocumentTypeAliasProvider, DocumentTypeProvider>();
-            services.AddScoped<IXPathProvider, XPathProvider>();
+            //services.AddScoped<IXPathProvider, XPathProvider>();
             services.AddScoped<IGroupService, GroupService>();
             services.AddSingleton<IIntranetMemberGroupService, IntranetMemberGroupService>();
             services.AddSingleton<IPermissionSettingsSchemaProvider, PermissionSettingsSchemaProvider>();
@@ -55,6 +56,7 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IMentionService, MentionService>();
             services.AddScoped<ISubscribeService, SubscribeService>();
             services.AddScoped<Uintra20.Core.Authentication.IAuthenticationService, Uintra20.Core.Authentication.AuthenticationService>();
+            services.AddScoped<IIntranetLocalizationService, LocalizationService>();
 
 			return services;
 		}

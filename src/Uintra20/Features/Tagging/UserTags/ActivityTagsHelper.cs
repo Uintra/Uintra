@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Features.Tagging.UserTags.Services;
@@ -26,6 +27,13 @@ namespace Uintra20.Features.Tagging.UserTags
 
             _userTagService.Replace(entityId, tagIds);
             //_userTagIndex.Update(entityId, tags.Select(t => t.Text));
+        }
+
+        public void ReplaceTags(Guid entityId, IEnumerable<Guid> collection)
+        {
+            var tags = _userTagProvider.Get(collection);
+
+            _userTagService.Replace(entityId, collection);
         }
 
         public async Task ReplaceTagsAsync(Guid entityId, string collectionString)

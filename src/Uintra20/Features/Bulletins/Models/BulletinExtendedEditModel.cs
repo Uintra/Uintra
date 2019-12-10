@@ -1,7 +1,10 @@
-﻿namespace Uintra20.Features.Bulletins.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace Uintra20.Features.Bulletins.Models
 {
     public class BulletinExtendedEditModel : BulletinEditModel
     {
-        public string TagIdsData { get; set; }
+        public IEnumerable<Guid> TagIdsData { get; set; }
     }
 }
