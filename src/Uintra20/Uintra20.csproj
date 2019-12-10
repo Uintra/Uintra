@@ -812,7 +812,6 @@
     <Compile Include="Core\Member\Services\IntranetMemberService.cs" />
     <Compile Include="Core\Member\Services\IntranetMemberServiceBase.cs" />
     <Compile Include="Core\ReflectionHelper.cs" />
-    <Compile Include="Core\UintraFrontEndCookieManager.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedOverviewModel.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedTypeModel.cs" />
     <Compile Include="Core\Feed\Web\FeedController.cs" />
