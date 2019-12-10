@@ -754,7 +754,9 @@
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="App_Start\StartupComposer.cs" />
     <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Attributes\GreaterThanAttribute.cs" />
     <Compile Include="Attributes\RequiredIfAllEmpty.cs" />
+    <Compile Include="Attributes\RequiredIfAttribute.cs" />
     <Compile Include="Attributes\RequiredIfEmptyAttribute.cs" />
     <Compile Include="Attributes\RequiredVirtualAttribute.cs" />
     <Compile Include="Attributes\StringLenghtWithoutHtmlAttribute.cs" />
@@ -764,6 +766,7 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\MemberApiController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
     <Compile Include="Core\Activity\Converters\Models\ActivityCreatePanelModel.cs" />
@@ -876,6 +879,14 @@
     <Compile Include="Features\Information\InformationService.cs" />
     <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
     <Compile Include="Features\Navigation\Models\ActivityFeedTabModel.cs" />
+    <Compile Include="Features\News\Entities\News.cs" />
+    <Compile Include="Features\News\INewsService.cs" />
+    <Compile Include="Features\News\Models\NewsCreateModel.cs" />
+    <Compile Include="Features\News\Models\NewsEditModel.cs" />
+    <Compile Include="Features\News\NewsBase.cs" />
+    <Compile Include="Features\News\NewsService.cs" />
+    <Compile Include="Features\News\NewsServiceBase.cs" />
+    <Compile Include="Features\News\Web\NewsControllerBase.cs" />
     <Compile Include="Features\Subscribe\ActivitySubscribeSettingDto.cs" />
     <Compile Include="Features\Subscribe\IActivitySubscribeSettingService.cs" />
     <Compile Include="Features\Subscribe\ISubscribableService.cs" />
