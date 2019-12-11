@@ -1312,6 +1312,7 @@
     <Content Include="Content\uintra20\src\assets\fonts\Muli-Regular.woff2" />
     <Content Include="Content\uintra20\src\assets\fonts\Muli-BoldItalic.woff" />
     <Content Include="Content\uintra20\src\assets\fonts\Muli-BoldItalic.woff2" />
+    <Content Include="Content\uintra20\src\base.less" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
