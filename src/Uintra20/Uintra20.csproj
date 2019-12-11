@@ -1314,6 +1314,8 @@
     <Content Include="Content\uintra20\src\assets\fonts\Muli-BoldItalic.woff" />
     <Content Include="Content\uintra20\src\assets\fonts\Muli-BoldItalic.woff2" />
     <Content Include="Content\uintra20\src\base.less" />
+    <Content Include="Content\uintra20\src\styles\temp\index.less" />
+    <Content Include="Content\uintra20\src\styles\temp\nav.less" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
@@ -1348,7 +1350,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\uintra20\src\app\ui\main-layout\" />
-    <Folder Include="Content\uintra20\src\styles\temp\" />
     <Folder Include="Infrastructure\Authentication\" />
     <Folder Include="Infrastructure\Configuration\" />
   </ItemGroup>

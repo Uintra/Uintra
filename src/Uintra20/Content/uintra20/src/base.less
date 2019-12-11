@@ -4,10 +4,16 @@
 @import "./styles/grid.config.less";
 @import "@ubaseline/next/css-tools/grid/grid";
 
+@import "./styles/temp/index.less";
+
 @debug: true;
 head {
 	display: none;
 	&::after {
 		.ubl-debug();
 	}
+}
+
+.content {
+  display: flex;
 }
