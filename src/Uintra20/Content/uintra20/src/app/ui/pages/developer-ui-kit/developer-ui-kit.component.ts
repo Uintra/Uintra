@@ -1,5 +1,4 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'developer-ui-kit',
@@ -12,9 +11,5 @@ export class DeveloperUIKitPage {
   testValue: string = 'test value';
   testBoolean: boolean = false;
 
-  constructor(
-    private route: ActivatedRoute
-  ) {
-    this.route.data.subscribe(data => this.data = data);
-  }
+  constructor() {}
 }
