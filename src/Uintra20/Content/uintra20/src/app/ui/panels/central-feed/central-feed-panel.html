@@ -15,12 +15,36 @@
 
     <div class="feed-filters__bottom">
       <div *ngFor="let filter of selectTabFilters" class="feed-filters__filter">
-        <checkbox-input [(ngModel)]="filter.isActive"
-          >{{filter.title}}</checkbox-input
+        <checkbox-input
+          [(ngModel)]="filter.isActive"
+          (ngModelChange)="changeFilters()"
         >
+          {{filter.title}}
+        </checkbox-input>
       </div>
 
-      <button (click)="clearFilters()" class="feed-filters__button">Clear filters</button>
+      <button (click)="clearFilters()" class="feed-filters__button">
+        Clear filters
+      </button>
     </div>
   </app-spoiler-section>
+
+  <div class="publication" *ngFor="let publication of feed">
+    <pre>
+    {{publication | json}}
+    </pre>
+    <app-publication-header
+      [avatar]="'https://cataas.com/cat?width=200&height=200'"
+      [title]="'Publication header title'"
+    >
+      <p subtitle>
+        Ultrices gravida dictum fusce ut placerat. Dui nunc mattis enim ut
+        tellus elementum sagittis.
+      </p>
+      <div label>Important</div>
+    </app-publication-header>
+    <div class="publication__content">
+      <div [innerHTML]="publication.activity.description"></div>
+    </div>
+  </div>
 </section>
