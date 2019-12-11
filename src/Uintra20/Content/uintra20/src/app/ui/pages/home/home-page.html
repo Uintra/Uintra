@@ -6,7 +6,9 @@
           <li><a href="/">left navigation</a></li>
         </ul>
       </nav>
-      <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
+      <div class="content__wrap">
+        <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
+      </div>
     </div>
   </div>
   <div class="col-md-4">
