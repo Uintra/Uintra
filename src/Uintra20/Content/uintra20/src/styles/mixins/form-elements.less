@@ -7,11 +7,15 @@
 
 .button-main() {
   .reset-button;
-  background: @key-color;
-  color: @text-reverse-color;
+  background: @btn-bg;
+  color: @btn-color;
   padding: 6px 15px;
   border-radius: 30px;
   font-size: 12px;
   font-weight: 600;
   width: auto;
+
+  &:hover {
+    opacity: 0.6;
+  }
 }

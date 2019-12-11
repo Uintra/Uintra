@@ -745,6 +745,26 @@
     <Content Include="config\Lang\sv-SE.user.xml" />
     <Content Include="config\Lang\zh-CN.user.xml" />
     <Content Include="config\logviewer.searches.config.js" />
+    <Content Include="Content\uintra20\src\assets\fonts\icomoon.eot" />
+    <Content Include="Content\uintra20\src\assets\fonts\icomoon.svg" />
+    <Content Include="Content\uintra20\src\assets\fonts\icomoon.ttf" />
+    <Content Include="Content\uintra20\src\assets\fonts\icomoon.woff" />
+    <Content Include="Content\uintra20\src\styles\grid.config.less" />
+    <Content Include="Content\uintra20\src\styles\icons\demo-files\demo.css" />
+    <Content Include="Content\uintra20\src\styles\icons\demo-files\demo.js" />
+    <Content Include="Content\uintra20\src\styles\icons\demo.html" />
+    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.eot" />
+    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.svg" />
+    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.ttf" />
+    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.woff" />
+    <Content Include="Content\uintra20\src\styles\icons\Read Me.txt" />
+    <Content Include="Content\uintra20\src\styles\icons\selection.json" />
+    <Content Include="Content\uintra20\src\styles\icons\style.css" />
+    <Content Include="Content\uintra20\src\styles\icons\style.less" />
+    <Content Include="Content\uintra20\src\styles\icons\variables.less" />
+    <Content Include="Content\uintra20\src\styles\tools\index.less" />
+    <Content Include="Content\uintra20\src\styles\tools\mq.less" />
+    <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
     <Content Include="css\rte.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -792,6 +812,7 @@
     <Compile Include="Core\Activity\Models\IntranetActivityEditModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
+    <Compile Include="Core\Feed\Models\ActivityFeedTabFiltersViewModel.cs" />
     <Compile Include="Features\Bulletins\Converters\BulletinDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageModel.cs" />
     <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageViewModel.cs" />
@@ -1280,6 +1301,24 @@
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\AvailableActivitySelector\package.manifest" />
+    <Content Include="Content\uintra20\src\styles\abstracts\grid.less" />
+    <Content Include="Content\uintra20\src\styles\abstracts\index.less" />
+    <Content Include="Content\uintra20\src\styles\abstracts\font.less" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-Italic.woff" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-Italic.woff2" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-Bold.woff" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-Bold.woff2" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-Regular.woff" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-Regular.woff2" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-BoldItalic.woff" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-BoldItalic.woff2" />
+    <Content Include="Content\uintra20\src\base.less" />
+    <Content Include="Content\uintra20\src\styles\temp\index.less" />
+    <Content Include="Content\uintra20\src\styles\temp\nav.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\index.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\layout.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\form-elements.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\typographic.less" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
@@ -1313,8 +1352,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\uintra20\src\app\ui\main-layout\" />
     <Folder Include="Infrastructure\Authentication\" />
     <Folder Include="Infrastructure\Configuration\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
