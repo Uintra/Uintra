@@ -28,10 +28,23 @@ export class ActivityCreatePanel {
   }
 
   onShowPopUp() {
-    this.isPopupShowing = true;
+    this.showPopUp();
   }
   onHidePopUp() {
+    if (this.description || this.tags.length || this.files.length) {
+      if (confirm("Are you sure?")) {
+        this.hidePopUp();
+      }
+    } else {
+      this.hidePopUp();
+    }
+  }
+
+  hidePopUp() {
     this.isPopupShowing = false;
+  }
+  showPopUp() {
+    this.isPopupShowing = true;
   }
 
   addAttachment() {
@@ -63,9 +76,9 @@ export class ActivityCreatePanel {
       NewMedia: this.getMediaIdsForResponse(),
       TagIdsData: this.getTagsForResponse()
     }).then(response => {
-      this.onHidePopUp();
+      this.hidePopUp();
     }).catch(err => {
-      this.onHidePopUp();
+      this.hidePopUp();
     });
   }
 }
