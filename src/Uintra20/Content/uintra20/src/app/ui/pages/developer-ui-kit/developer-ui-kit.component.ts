@@ -7,7 +7,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class DeveloperUIKitPage {
-  data: any;
   testValue: string = 'test value';
   testBoolean: boolean = false;
 
