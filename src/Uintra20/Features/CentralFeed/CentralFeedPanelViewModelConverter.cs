@@ -72,9 +72,9 @@ namespace Uintra20.Features.CentralFeed
 					IsActive = false,
 					Type = CentralFeedTypeEnum.News,
                     Title = CentralFeedTypeEnum.News.ToString(),
-                    Filters = new Dictionary<string, string>()
+                    Filters = new []
                     {
-                        [nameof(filter.ShowPinned)] = _localizationService.Translate("CentralFeedList.ShowPinned.chkbx")
+                        new ActivityFeedTabFiltersViewModel(nameof(filter.ShowPinned), _localizationService.Translate("CentralFeedList.ShowPinned.chkbx"), false)
                     }
 				},
 				new ActivityFeedTabViewModel
@@ -82,10 +82,10 @@ namespace Uintra20.Features.CentralFeed
 					IsActive = false,
 					Type = CentralFeedTypeEnum.Events,
                     Title = CentralFeedTypeEnum.Events.ToString(),
-                    Filters = new Dictionary<string, string>()
+                    Filters = new []
                     {
-                        [nameof(filter.ShowPinned)] = _localizationService.Translate("CentralFeedList.ShowPinned.chkbx"),
-                        [nameof(filter.ShowSubscribed)] = _localizationService.Translate("CentralFeedList.ShowSubscribed.chkbx")
+                        new ActivityFeedTabFiltersViewModel(nameof(filter.ShowPinned), _localizationService.Translate("CentralFeedList.ShowPinned.chkbx"), false),
+                        new ActivityFeedTabFiltersViewModel(nameof(filter.ShowSubscribed), _localizationService.Translate("CentralFeedList.ShowSubscribed.chkbx"), false)
                     }
                 }
 			};
