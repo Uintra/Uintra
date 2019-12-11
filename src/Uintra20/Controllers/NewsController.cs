@@ -1,33 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
-using UBaseline.Shared.NewsPreview;
+using System.Web.Http;
+using Compent.Shared.Extensions;
+using LanguageExt;
 using Uintra20.Core.Activity;
-using Uintra20.Core.Activity.Models.Headers;
-using Uintra20.Core.Feed;
-using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
-using Uintra20.Features.Links.Models;
 using Uintra20.Features.Media;
 using Uintra20.Features.News;
 using Uintra20.Features.News.Entities;
+using Uintra20.Features.News.Models;
 using Uintra20.Features.News.Web;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.Extensions;
-using Uintra20.Infrastructure.TypeProviders;
 
 namespace Uintra20.Controllers
 {
     public class NewsController : NewsControllerBase
     {
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly INewsService<News> _newsService;
         //private readonly IDocumentIndexer _documentIndexer;
         private readonly IGroupActivityService _groupActivityService;
@@ -36,17 +32,16 @@ namespace Uintra20.Controllers
         private readonly IMentionService _mentionService;
 
         public NewsController(
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             INewsService<News> newsService,
             IMediaHelper mediaHelper,
-            IActivityTypeProvider activityTypeProvider,
             //IDocumentIndexer documentIndexer,
             IGroupActivityService groupActivityService,
             IActivityTagsHelper activityTagsHelper,
             IActivityLinkService activityLinkService,
             IMentionService mentionService,
             IPermissionsService permissionsService)
-            : base(intranetMemberService, newsService, mediaHelper, activityTypeProvider, activityLinkService, permissionsService)
+            : base(intranetMemberService, newsService, mediaHelper, permissionsService)
         {
             _intranetMemberService = intranetMemberService;
             _newsService = newsService;
@@ -57,60 +52,17 @@ namespace Uintra20.Controllers
             _mentionService = mentionService;
         }
 
-        public ActionResult FeedItem(News item, ActivityFeedOptionsWithGroups options)
-        {
-            var extendedModel = GetItemViewModel(item, options);
-            AddEntityIdentityForContext(item.Id);
-            return PartialView(ItemViewPath, extendedModel);
-        }
-
-
-
-        private NewsExtendedItemViewModel GetItemViewModel(News item, ActivityFeedOptionsWithGroups options)
-        {
-            var model = GetItemViewModel(item, options.Links);
-            var extendedModel = model.Map<NewsExtendedItemViewModel>();
-
-            extendedModel.HeaderInfo = model.HeaderInfo.Map<ExtendedItemHeaderViewModel>();
-            extendedModel.HeaderInfo.GroupInfo = options.GroupInfo;
-
-            extendedModel.LikesInfo = item;
-            extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;
-            extendedModel.IsReadOnly = options.IsReadOnly;
-            return extendedModel;
-        }
-
-        public ActionResult PreviewItem(News item, ActivityLinks links)
-        {
-            NewsPreviewViewModel viewModel = GetPreviewViewModel(item, links);
-            AddEntityIdentityForContext(item.Id);
-            return PartialView(PreviewItemViewPath, viewModel);
-        }
-
         [HttpPost]
-        public ActionResult EditExtended(NewsExtendedEditModel editModel)
+        public NewsViewModel EditExtended(NewsExtendedEditModel editModel)
         {
             return Edit(editModel);
         }
 
         [HttpPost]
-        public ActionResult CreateExtended(NewsExtendedCreateModel createModel)
+        public NewsViewModel CreateExtended(NewsExtendedCreateModel createModel)
         {
             return Create(createModel);
         }
-
-        protected override NewsEditModel GetEditViewModel(NewsBase news, ActivityLinks links)
-        {
-            var extendedModel = base.GetEditViewModel(news, links).Map<NewsExtendedEditModel>();
-            //extendedModel.TagIdsData = _userTagService.GetRelatedTags(extendedModel.Id).JoinToString();
-            return extendedModel;
-        }
-
-        //protected override NewsCreateModel GetCreateModel(IActivityCreateLinks links)
-        //{
-        //    var extendedModel = base.GetCreateModel(links).Map<NewsExtendedCreateModel>();
-        //    return extendedModel;
-        //}
 
         protected override void OnNewsEdited(NewsBase news, NewsEditModel model)
         {
@@ -131,16 +83,16 @@ namespace Uintra20.Controllers
             return extendedModel;
         }
 
-        protected override void DeleteMedia(IEnumerable<int> mediaIds)
-        {
-            base.DeleteMedia(mediaIds);
-            _documentIndexer.DeleteFromIndex(mediaIds);
-        }
+        //protected override void DeleteMedia(IEnumerable<int> mediaIds)
+        //{
+        //    base.DeleteMedia(mediaIds);
+        //    _documentIndexer.DeleteFromIndex(mediaIds);
+        //}
 
         protected override void OnNewsCreated(Guid activityId, NewsCreateModel model)
         {
             var news = _newsService.Get(activityId);
-            var groupId = Request.QueryString.GetGroupIdOrNone();
+            var groupId = HttpContext.Current.Request.QueryString.GetGroupIdOrNone();
 
             groupId.IfSome(id =>
             {
