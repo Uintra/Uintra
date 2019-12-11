@@ -6,13 +6,21 @@
 <section *ngIf="data" class="central-feed">
   <app-spoiler-section [title]="'Filter'">
     <app-radio-link-group
+      *ngIf="tabs"
       [links]="tabs"
-      [(ngModel)]="selectedTab"
+      (ngModelChange)="setSelectedTab($event)"
+      [ngModel]="selectedTabType"
       class="central-feed__tabs"
     ></app-radio-link-group>
 
     <div class="central-feed__bottom">
-      <app-checkbox-input>Show only important</app-checkbox-input>
+      <div *ngFor="let filter of selectTabFilters" class="central-feed__filter">
+        <app-checkbox-input [(ngModel)]="filter.isActive"
+          >{{filter.title}}</app-checkbox-input
+        >
+      </div>
+
+      <button (click)="clearFilters()" class="central-feed__button">Clear filters</button>
     </div>
   </app-spoiler-section>
 </section>

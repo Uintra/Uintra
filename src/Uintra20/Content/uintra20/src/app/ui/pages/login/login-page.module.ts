@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { UbaselineCoreModule } from '@ubaseline/next';
 import { LoginPage } from './login-page.component';
+import { TextInputModule } from 'src/app/feature/project/reusable/inputs/fields/text-input/text-input.module';
 
 @NgModule({
   declarations: [LoginPage],
@@ -11,6 +12,7 @@ import { LoginPage } from './login-page.component';
     CommonModule,
     RouterModule.forChild([{path: "", component: LoginPage}]),
     UbaselineCoreModule,
+    TextInputModule
   ],
   entryComponents: [LoginPage]
 })
