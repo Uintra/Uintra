@@ -1,4 +1,5 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
+using Uintra.Notification.Configuration;
 using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Configuration.BackofficeSettings.Helpers;
@@ -32,6 +33,9 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddTransient<IBackofficeSettingsReader, BackofficeSettingsReader>();
             services.AddScoped<INotifierDataHelper, NotifierDataHelper>();
             services.AddScoped<INotifierDataBuilder, NotifierDataBuilder>();
+
+            services.AddScoped<INotificationSettingCategoryProvider, NotificationSettingCategoryProvider>();
+            services.AddScoped<INotificationSettingsTreeProvider, NotificationSettingsTreeProvider>();
 
             return services;
         }
