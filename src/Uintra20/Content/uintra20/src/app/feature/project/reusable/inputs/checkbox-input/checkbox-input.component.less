@@ -1,20 +1,26 @@
 .checkbox-input {
   display: flex;
-  
+  align-items: center;
+
   &__input-hidden {
     display: none;
   }
   &__input {
     position: relative;
-    border: 1px solid #999;
-    width: 16px;
-    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #c7c7c7;
     margin-right: 10px;
 
-    &.checked { 
+    &.checked {
       &:after {
         position: absolute;
-        content: "+";
+        content: "\e90b";
+        font-family: 'icomoon';
+        font-size: 16px;
       }
     }
   }
