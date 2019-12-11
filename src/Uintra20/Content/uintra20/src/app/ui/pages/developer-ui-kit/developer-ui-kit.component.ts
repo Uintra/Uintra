@@ -2,19 +2,19 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'article-page',
-  templateUrl: './article-page.html',
-  styleUrls: ['./article-page.less'],
+  selector: 'developer-ui-kit',
+  templateUrl: './developer-ui-kit.html',
+  styleUrls: ['./developer-ui-kit.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class ArticlePage {
+export class DeveloperUIKitPage {
   data: any;
+  testValue: string = 'test value';
+  testBoolean: boolean = false;
 
   constructor(
     private route: ActivatedRoute
   ) {
     this.route.data.subscribe(data => this.data = data);
-
-    debugger;
   }
 }

@@ -15,8 +15,8 @@
 
     <div class="central-feed__bottom">
       <div *ngFor="let filter of selectTabFilters" class="central-feed__filter">
-        <app-checkbox-input [(ngModel)]="filter.isActive"
-          >{{filter.title}}</app-checkbox-input
+        <checkbox-input [(ngModel)]="filter.isActive"
+          >{{filter.title}}</checkbox-input
         >
       </div>
 
