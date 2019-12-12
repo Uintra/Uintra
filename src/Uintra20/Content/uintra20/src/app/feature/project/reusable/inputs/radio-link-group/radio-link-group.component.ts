@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-interface IRadioLink {
-  type: string;
-}
+// interface IRadioLink {
+//   type: string;
+// }
 
 @Component({
   selector: 'app-radio-link-group',
@@ -18,7 +18,8 @@ interface IRadioLink {
   ]
 })
 export class RadioLinkGroupComponent implements ControlValueAccessor {
-  @Input() links: Array<IRadioLink> = [];
+  // @Input() links: Array<IRadioLink> = [];
+  @Input() links: Array<any> = [];
   selectedLink: number;
 
   constructor() { }

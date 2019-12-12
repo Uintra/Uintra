@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Uintra.Notification.Configuration
+namespace Uintra20.Features.Notification.Configuration.BackofficeSettings.Providers
 {
     public class NotificationSettingsCategoryDto
     {

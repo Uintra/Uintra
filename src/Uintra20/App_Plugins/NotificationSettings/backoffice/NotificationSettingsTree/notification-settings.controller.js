@@ -72,7 +72,7 @@
             notificationSettingsService.getSettings(params.activityType, params.notificationType).then(
                 function (result) {
                     self.settings = result.data;
-
+                    console.log(self.settings);
                     if (self.settings.emailNotifierSetting !== null) {
                         self.selectEmailTab();
                         initEmailControlConfig();
@@ -107,11 +107,11 @@
         }
 
         function getCurrentUrlParams() {
-            var params = $location.search();
-
-            if (angular.equals(params, {})) {
-                params = getUrlParams($location.path());
-            }
+            //var params = $location.search();
+            //if (angular.equals(params, {})) {
+            //    params = getUrlParams($location.path());
+            //}
+            var params = getUrlParams($location.path());
             return params;
         }
 

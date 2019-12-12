@@ -1,11 +1,11 @@
-﻿<umb-editor-view ng-controller="notificationSettingController as ctrl">
+﻿<div ng-controller="notificationSettingController as ctrl">
     <div class="umb-editor-header umb-panel-header">
         <div class="umb-panel-header-content-wrapper">
             <ul class="nav nav-tabs umb-nav-tabs">
-                <li ng-show="ctrl.settings.emailNotifierSetting" ng-class="{'active' : ctrl.isEmailTabSelected()}"><a ng-click="ctrl.selectEmailTab()">E-mail notification</a></li>
-                <li ng-show="ctrl.settings.uiNotifierSetting" ng-class="{'active' : ctrl.isUiTabSelected()}"><a ng-click="ctrl.selectUiTab()">In-App notification</a></li>
-                <li ng-show="ctrl.settings.popupNotifierSetting" ng-class="{'active' : ctrl.isPopupTabSelected()}"><a ng-click="ctrl.selectPopupTab()">Popup notification</a></li>
-                <li ng-show="ctrl.settings.uiNotifierSetting" ng-class="{'active' : ctrl.isDesktopTabSelected()}"><a ng-click="ctrl.selectDesktopTab()">Desktop notification</a></li>
+                <li ng-if="ctrl.settings.emailNotifierSetting" ng-class="{'active' : ctrl.isEmailTabSelected()}"><a ng-click="ctrl.selectEmailTab()">E-mail notification</a></li>
+                <li ng-if="ctrl.settings.uiNotifierSetting" ng-class="{'active' : ctrl.isUiTabSelected()}"><a ng-click="ctrl.selectUiTab()">In-App notification</a></li>
+                <li ng-if="ctrl.settings.popupNotifierSetting" ng-class="{'active' : ctrl.isPopupTabSelected()}"><a ng-click="ctrl.selectPopupTab()">Popup notification</a></li>
+                <li ng-if="ctrl.settings.uiNotifierSetting" ng-class="{'active' : ctrl.isDesktopTabSelected()}"><a ng-click="ctrl.selectDesktopTab()">Desktop notification</a></li>
             </ul>
         </div>
     </div>
@@ -65,4 +65,4 @@
             </form>
         </div>
     </div>
-</umb-editor-view>
+</div>

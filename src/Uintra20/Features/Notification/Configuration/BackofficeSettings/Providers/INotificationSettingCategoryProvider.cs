@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Uintra.Notification.Configuration
+namespace Uintra20.Features.Notification.Configuration.BackofficeSettings.Providers
 {
     public interface INotificationSettingCategoryProvider
     {

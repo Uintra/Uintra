@@ -1,12 +1,10 @@
-﻿using Compent.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.Extensions;
 using Uintra20.Core.Activity;
-using Uintra20.Features.Notification;
-using Uintra20.Features.Notification.Configuration;
 
-namespace Uintra.Notification.Configuration
+namespace Uintra20.Features.Notification.Configuration.BackofficeSettings.Providers
 {
     /// <summary>
     /// Is responsible for defining activities with notification types that would be displayed in backoffice section

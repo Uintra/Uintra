@@ -1,5 +1,4 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
-using Uintra.Notification.Configuration;
 using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Configuration.BackofficeSettings.Helpers;
@@ -36,6 +35,12 @@ namespace Uintra20.Infrastructure.Ioc
 
             services.AddScoped<INotificationSettingCategoryProvider, NotificationSettingCategoryProvider>();
             services.AddScoped<INotificationSettingsTreeProvider, NotificationSettingsTreeProvider>();
+            //services.AddScoped<INotificationTypeProvider, NotificationTypeProvider>();
+            services.AddScoped(x =>
+            {
+                var result = new NotificationTypeProvider(typeof(NotificationTypeEnum));
+                return (INotificationTypeProvider) result;
+            });
 
             return services;
         }

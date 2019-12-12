@@ -1,25 +1,16 @@
 @import "base.less";
 
-@text-color--light: #555;
-.reset-button() {
-  background: none;
-  border: 0;
-  outline: 0;
-  padding: 0;
-}
-
 activity-create-panel {
   .create-bulletin {
     position: relative;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    .shadow;
 
     &__input {
       display: flex;
       align-items: center;
       padding: 22px 20px;
-      border: 1px solid #ddd;
-      color: @text-color--light;
       cursor: text;
+      background: @white;
 
       &-placeholder {
         .reset-button;
@@ -60,7 +51,8 @@ activity-create-panel {
       width: 31px;
       height: 31px;
       z-index: 14;
-      font-size: 1.6em;
+      font-size: 1.8em;
+      cursor: pointer;
     }
 
     &__header {
@@ -76,6 +68,7 @@ activity-create-panel {
     from {
       opacity: 0;
     }
+
     to {
       opacity: 1;
     }
@@ -84,14 +77,17 @@ activity-create-panel {
   dropzone > .dropzone.dz-wrapper {
     padding: 0 14px !important;
     height: 0 !important;
+
     &.dz-started {
       height: auto !important;
     }
+
     .dz-message {
       border: 0 !important;
       background: none !important;
       min-height: 0 !important;
     }
+
     .dz-remove {
       margin-top: 5px;
       color: #337ab7;

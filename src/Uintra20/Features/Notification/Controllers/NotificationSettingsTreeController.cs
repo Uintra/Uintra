@@ -1,8 +1,8 @@
 ﻿using Compent.Extensions.Trees;
 using System.Linq;
 using System.Net.Http.Formatting;
-using Uintra.Notification.Configuration;
 using Uintra20.Features.Notification.Configuration.BackofficeSettings.Models;
+using Uintra20.Features.Notification.Configuration.BackofficeSettings.Providers;
 using Umbraco.Web.Models.Trees;
 using Umbraco.Web.Mvc;
 using Umbraco.Web.Trees;

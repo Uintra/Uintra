@@ -1,12 +1,12 @@
-﻿using Compent.Extensions.Trees;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.Extensions.Trees;
 using Uintra20.Features.Notification.Configuration.BackofficeSettings.Models;
 using Uintra20.Infrastructure.Extensions;
 using static Compent.Extensions.Trees.TreeExtensions;
 
-namespace Uintra.Notification.Configuration
+namespace Uintra20.Features.Notification.Configuration.BackofficeSettings.Providers
 {
     /// <summary>
     /// Responsible for mapping defined by category provider categories into tree.

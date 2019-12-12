@@ -1,8 +1,10 @@
 // Important this file has to import the only mixins and variables.
 @import "./styles/tools/index.less";
-@import "./styles/variables.less";
+@import "./styles/abstracts/index.less";
 @import "./styles/grid.config.less";
 @import "@ubaseline/next/css-tools/grid/grid";
+
+@import "./styles/temp/index.less";
 
 @debug: true;
 head {
@@ -10,4 +12,12 @@ head {
 	&::after {
 		.ubl-debug();
 	}
+}
+
+.content {
+  display: flex;
+  &__wrap {
+    padding: 47px 0 0 45px;
+    flex-grow: 1;
+  }
 }
