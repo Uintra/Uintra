@@ -29,22 +29,8 @@
     </div>
   </app-spoiler-section>
 
-  <div class="publication" *ngFor="let publication of feed">
-    <pre>
-    {{publication | json}}
-    </pre>
-    <app-publication-header
-      [avatar]="'https://cataas.com/cat?width=200&height=200'"
-      [title]="'Publication header title'"
-    >
-      <p subtitle>
-        Ultrices gravida dictum fusce ut placerat. Dui nunc mattis enim ut
-        tellus elementum sagittis.
-      </p>
-      <div label>Important</div>
-    </app-publication-header>
-    <div class="publication__content">
-      <div [innerHTML]="publication.activity.description"></div>
-    </div>
-  </div>
+  <app-central-feed-publication
+    *ngFor="let publication of feed"
+    [publication]="publication"
+  ></app-central-feed-publication>
 </section>

@@ -9,9 +9,10 @@ import { RadioLinkGroupModule } from 'src/app/feature/project/reusable/inputs/ra
 import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/checkbox-input/checkbox-input.module';
 import { UserAvatarModule } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar.module';
 import { PublicationHeaderModule } from 'src/app/feature/project/reusable/ui-elements/publication-header/publication-header.module';
+import { CentralFeedPublicationComponent } from './central-feed-publication/central-feed-publication.component';
 
 @NgModule({
-  declarations: [CentralFeedPanel],
+  declarations: [CentralFeedPanel, CentralFeedPublicationComponent],
   imports: [
     CommonModule,
     NotImplementedModule,
