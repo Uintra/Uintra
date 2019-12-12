@@ -1,9 +1,16 @@
 .nav {
   width: 312px;
-  display: block;
+  display: none;
   flex-shrink: 0;
-  margin-left: -15px;
   background: @white;
+  height: calc(100vh - 70px);
+  padding-left: 15px;
+  overflow: hidden;
+  overflow-y: auto;
+
+  @media (min-width: @screen-md) {
+    display: block;
+  }
 }
 
 .nav-list {

@@ -1301,7 +1301,6 @@
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\AvailableActivitySelector\package.manifest" />
-    <Content Include="Content\uintra20\src\styles\abstracts\mixin.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\grid.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\index.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\font.less" />
@@ -1316,6 +1315,10 @@
     <Content Include="Content\uintra20\src\base.less" />
     <Content Include="Content\uintra20\src\styles\temp\index.less" />
     <Content Include="Content\uintra20\src\styles\temp\nav.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\index.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\layout.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\form-elements.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\typographic.less" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />

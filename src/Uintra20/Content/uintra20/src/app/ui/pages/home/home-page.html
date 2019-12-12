@@ -1,18 +1,18 @@
-<div class="row-flex">
-  <div class="col-md-8">
-    <div class="content">
-      <nav class="nav">
-        <ul class="nav-list">
-          <li><a href="/">left navigation</a></li>
-        </ul>
-      </nav>
-      <div class="content__wrap">
+<div class="content">
+  <nav class="nav">
+    <ul class="nav-list">
+      <li><a href="/">left navigation</a></li>
+    </ul>
+  </nav>
+  <div class="content__wrap">
+    <div class="row-flex">
+      <div class="col-md-8">
         <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
       </div>
+      <div class="col-md-4">
+        <!--latest activities-->
+        right panel content
+      </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    <!--latest activities-->
-    right panel content
   </div>
 </div>

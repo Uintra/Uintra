@@ -7,15 +7,30 @@ activity-create-panel {
 
     &__input {
       display: flex;
-      align-items: center;
-      padding: 22px 20px;
+      padding: 14px 66px 14px 15px;
       cursor: text;
+      background: @white;
+
+      @media (min-width: @screen-md) {
+        padding: 22px 20px;
+        align-items: center;
+      }
 
       &-placeholder {
         .reset-button;
-        margin-left: 10px;
         border: 0;
         cursor: text;
+        text-align: left;
+
+        @media (min-width: @screen-md) {
+          margin-left: 10px;
+        }
+      }
+
+      @media (max-width: @screen-md) {
+        app-user-avatar {
+          display: none;
+        }
       }
     }
   }
