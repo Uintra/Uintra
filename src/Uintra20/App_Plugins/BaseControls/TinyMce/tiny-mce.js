@@ -73,12 +73,12 @@
         }
     };
 
-    var umbmediapickerFactory = function (dialogService, interpolate) {
+    var umbmediapickerFactory = function (editorService, interpolate) {
         return {
             icon: 'custom icon-picture',
             tooltip: 'Media Picker',
             onclick: function (editor) {
-                dialogService.mediaPicker({
+                editorService.mediaPicker({
                     disableFolderSelect: true,
                     multiPicker: false,
                     filterCssClass: "not-allowed not-published",
@@ -131,10 +131,10 @@
         ]
     };
 
-    var buildConfig = function ($scope, customConfig, valueUpdater, interpolateFilter, dialogService) {
+    var buildConfig = function ($scope, customConfig, valueUpdater, interpolateFilter, editorService) {
         var config = angular.extend({}, angular.copy(defaultConfig), customConfig);
         config.extraButtons.linksPicker = linksPickerFactory(interpolateFilter, config);
-        config.extraButtons.umbmediapicker = umbmediapickerFactory(dialogService, interpolateFilter);
+        config.extraButtons.umbmediapicker = umbmediapickerFactory(editorService, interpolateFilter);
 
         var thisEditorId = config.editorId;
         
@@ -189,7 +189,7 @@
         };
     };
 
-    var factory = function ($q, $timeout, $http, angularHelper, assetsService, interpolateFilter, dialogService) {
+    var factory = function ($q, $timeout, $http, angularHelper, assetsService, interpolateFilter, editorService) {
         return {
             scope: { model: '=', config: '=' },
             restrict: 'E',
@@ -207,12 +207,12 @@
                                     config,
                                     valueUpdater,
                                     interpolateFilter,
-                                    dialogService);
+                                    editorService);
                             });
                     }
 
                     var config = $scope.config ? $scope.config : {};
-                    $scope.customConfig = buildConfig($scope, config, valueUpdater, interpolateFilter, dialogService);
+                    $scope.customConfig = buildConfig($scope, config, valueUpdater, interpolateFilter, editorService);
                 }
 
                 var init = function () {
@@ -229,6 +229,6 @@
         };
     };
 
-    factory.$inject = ['$q', '$timeout', '$http', 'angularHelper', 'assetsService', 'interpolateFilter', 'dialogService'];
+    factory.$inject = ['$q', '$timeout', '$http', 'angularHelper', 'assetsService', 'interpolateFilter', 'editorService'];
     angular.module("umbraco").directive('tinyMce', factory);
 })(angular);
