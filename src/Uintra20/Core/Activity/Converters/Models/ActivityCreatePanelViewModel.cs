@@ -20,5 +20,7 @@ namespace Uintra20.Core.Activity.Converters.Models
         public int? MediaRootId { get; set; }
         public bool CanCreateBulletin { get; set; }
         public TagsPickerViewModel Tags { get; set; }
+        public DateTime PublishDate { get; set; }
+        public bool PinAllowed { get; set; }
     }
 }
