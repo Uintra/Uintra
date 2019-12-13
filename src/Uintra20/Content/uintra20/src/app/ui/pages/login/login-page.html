@@ -1,1 +1,14 @@
-<ubl-dynamic-component *ngFor="let panel of data.panels?.get()" [data]="panel.get()"></ubl-dynamic-component>
+<h1>Login works</h1>
+<form [formGroup]="loginForm"
+      novalidate
+      (ngSubmit)="submit()">
+  <label>
+    <input formControlName="login" />
+  </label>
+  <br />
+  <label>
+    <input formControlName="password" />
+  </label>
+  <br />
+  <button [disabled]="loginForm.invalid">Login</button>
+</form>

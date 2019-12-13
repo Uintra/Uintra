@@ -4,14 +4,16 @@ import { RouterModule } from '@angular/router';
 
 import { UbaselineCoreModule } from '@ubaseline/next';
 import { LoginPage } from './login-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [LoginPage],
   imports: [
     CommonModule,
-    RouterModule.forChild([{path: "", component: LoginPage}]),
+    RouterModule.forChild([{ path: '', component: LoginPage }]),
     UbaselineCoreModule,
+    ReactiveFormsModule
   ],
   entryComponents: [LoginPage]
 })
-export class LoginPageModule {}
+export class LoginPageModule { }
