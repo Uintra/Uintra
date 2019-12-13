@@ -90,7 +90,7 @@ namespace Uintra20.Core.Activity
         public virtual async Task<Guid> CreateAsync(IIntranetActivity activity) => await CreateAsync(activity, null);
 
         public virtual async Task SaveAsync(IIntranetActivity activity) => await SaveAsync(activity, null);
-        public abstract IntranetActivityViewModelBase GetViewModel(Guid activityId);
+        public abstract IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId);
 
         public virtual async Task DeleteAsync(Guid id)
         {

@@ -810,6 +810,7 @@
     <Compile Include="Core\Activity\Models\Headers\IntranetActivityItemHeaderViewModel.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityCreateModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityEditModelBase.cs" />
+    <Compile Include="Core\Activity\Models\IntranetActivityPreviewModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
     <Compile Include="Core\Feed\Models\ActivityFeedTabFiltersViewModel.cs" />
@@ -817,6 +818,7 @@
     <Compile Include="Features\Bulletins\Converters\BulletinDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageModel.cs" />
     <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\BulletinPreviewModel.cs" />
     <Compile Include="Features\CentralFeed\Providers\ContentProviderBase.cs" />
     <Compile Include="Features\CentralFeed\Providers\FeedContentProviderBase.cs" />
     <Compile Include="Features\CentralFeed\Providers\CentralFeedContentProvider.cs" />

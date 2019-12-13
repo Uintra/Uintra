@@ -76,6 +76,14 @@ namespace Uintra20.Features.Bulletins.AutoMapperProfiles
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.Select(m => m.ToString()).JoinWith(",")));
 
+            CreateMap<Bulletin, BulletinPreviewModel>()
+                .ForMember(dst => dst.CanEdit, o => o.Ignore())
+                .ForMember(dst => dst.Links, o => o.Ignore())
+                .ForMember(dst => dst.Owner, o => o.Ignore())
+                .ForMember(dst => dst.Media, o => o.MapFrom(src => src.MediaIds.Select(m => m.ToString()).JoinWith(",")))
+                .ForMember(dst => dst.Media, o => o.MapFrom(src => src.MediaIds.Select(m => m.ToString()).JoinWith(",")))
+                .ForMember(dst => dst.Dates, o => o.MapFrom(src => src.PublishDate.ToDateTimeFormat().ToEnumerable()));
+
             //CreateMap<BulletinBase, BulletinsBackofficeViewModel>()
             //    .ForMember(dst => dst.PublishDate, o => o.MapFrom(s => s.PublishDate.ToIsoUtcString()))
             //    .ForMember(dst => dst.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))

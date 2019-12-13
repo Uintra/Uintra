@@ -83,7 +83,7 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
         {
             var options = GetActivityFeedOptions(i.Id);
 
-            var activity = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(i.Type).GetViewModel(i.Id);
+            var activity = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(i.Type).GetPreviewModel(i.Id);
 
             return new FeedItemViewModel
             {
