@@ -969,11 +969,17 @@
     <Compile Include="Features\Notification\Configuration\BackofficeSettings\Providers\NotificationSettingsCategoryDto.cs" />
     <Compile Include="Features\Notification\Configuration\BackofficeSettings\Providers\NotificationSettingsTreeProvider.cs" />
     <Compile Include="Features\Notification\Configuration\BackofficeSettings\Providers\NotificationTypeProvider.cs" />
+    <Compile Include="Features\Notification\Controllers\NotificationApiController.cs" />
     <Compile Include="Features\Notification\Controllers\NotificationSettingsApiController.cs" />
     <Compile Include="Features\Notification\Controllers\NotificationSettingsTreeController.cs" />
+    <Compile Include="Features\Notification\Configuration\BackofficeSettings\Providers\INotificationContentProvider.cs" />
     <Compile Include="Features\Notification\Json\JsonNotification.cs" />
     <Compile Include="Features\Notification\Json\JsonNotificationsModel.cs" />
     <Compile Include="Features\Notification\Models\Configuration\NotifierSettingSaveModel.cs" />
+    <Compile Include="Features\Notification\Configuration\BackofficeSettings\Providers\NotificationContentProvider.cs" />
+    <Compile Include="Features\Notification\Models\NotificationPageModel.cs" />
+    <Compile Include="Features\Notification\Models\NotificationPageViewModel.cs" />
+    <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationViewModel.cs" />
     <Compile Include="Features\Notification\ViewModel\NotifierViewModel.cs" />
     <Compile Include="Features\Notification\ViewModel\PopupNotificationViewModel.cs" />

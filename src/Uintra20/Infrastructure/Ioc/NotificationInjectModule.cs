@@ -35,7 +35,7 @@ namespace Uintra20.Infrastructure.Ioc
 
             services.AddScoped<INotificationSettingCategoryProvider, NotificationSettingCategoryProvider>();
             services.AddScoped<INotificationSettingsTreeProvider, NotificationSettingsTreeProvider>();
-            //services.AddScoped<INotificationTypeProvider, NotificationTypeProvider>();
+            services.AddScoped<INotificationContentProvider, NotificationContentProvider>();
             services.AddScoped(x =>
             {
                 var result = new NotificationTypeProvider(typeof(NotificationTypeEnum));

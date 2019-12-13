@@ -16,4 +16,10 @@ export const pages = [
         path: '__dynamic__',
         loadChildren: './ui/pages/login/login-page.module#LoginPageModule'
     },
+
+    {
+        id: 'notificationPage',
+        path: '__dynamic__',
+        loadChildren: './ui/pages/notification/notification-page.module#NotificationPageModule'
+    },
 ];
