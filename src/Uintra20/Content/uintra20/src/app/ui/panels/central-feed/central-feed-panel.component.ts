@@ -10,34 +10,34 @@ import { PublicationsService, IFeedListRequest } from './helpers/publications.se
 //   title: string;
 //   filters: object;
 // }
-interface IFeedData {
-  activity: {
-    creatorId: string;
-    description: string;
-    endPinDate: string;
-    groupId: string;
-    isHidden: string;
-    isPinned: string;
-    linkPreviewId: string;
-    ownerId: string;
-    publishDate: string;
-    title: string;
-    umbracoCreatorId: string;
-  };
-  controllerName: string;
-  options: {
-    isReadOnly: false
-    links: {
-      create: string;
-      details: string;
-      detailsNoId: string;
-      edit: string;
-      feed: string;
-      overview: string;
-      owner: string;
-    }
-  }
-}
+// interface IFeedData {
+//   activity: {
+//     creatorId: string;
+//     description: string;
+//     endPinDate: string;
+//     groupId: string;
+//     isHidden: string;
+//     isPinned: string;
+//     linkPreviewId: string;
+//     ownerId: string;
+//     publishDate: string;
+//     title: string;
+//     umbracoCreatorId: string;
+//   };
+//   controllerName: string;
+//   options: {
+//     isReadOnly: false
+//     links: {
+//       create: string;
+//       details: string;
+//       detailsNoId: string;
+//       edit: string;
+//       feed: string;
+//       overview: string;
+//       owner: string;
+//     }
+//   }
+// }
 
 @Component({
   selector: 'central-feed-panel',
@@ -52,7 +52,8 @@ export class CentralFeedPanel implements OnInit{
   selectedTab: UmbracoFlatPropertyModel = null;
   selectTabFilters: Array<any>;
   selectedTabType: number;
-  feed: Array<IFeedData> = [];
+  feed: Array<any> = [];
+  currentPage: number = 1;
 
   constructor(private publicationsService: PublicationsService) {}
 
@@ -95,11 +96,11 @@ export class CentralFeedPanel implements OnInit{
     const data = {
       TypeId: this.selectedTabType,
       FilterState,
-      Page: 1
+      Page: this.currentPage
     };
 
     this.publicationsService.getPublications(data).then(response => {
-      this.feed = response['feed'];
+      this.feed = [...this.feed, response['feed']];
     }).catch(error => {
 
     });
@@ -109,5 +110,10 @@ export class CentralFeedPanel implements OnInit{
     const filters = Object.values(JSON.parse(JSON.stringify(this.selectedTab.get().filters.get())));
 
     return filters;
+  }
+
+  onLoadMore() {
+    this.currentPage += 1;
+    this.getPublications();
   }
 }
