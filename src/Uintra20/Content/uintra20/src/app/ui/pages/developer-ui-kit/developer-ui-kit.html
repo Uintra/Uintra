@@ -1,0 +1,71 @@
+<section>
+  <p>Icons</p>
+  <p>Please, open src\styles\icons\demo.html</p>
+</section>
+
+<section>
+  <p>Mixins</p>
+  <p>.shadow;</p>
+  <div class="test-block shadow"></div>
+</section>
+
+<section>
+  <h1>Title 1</h1>
+  <h2>Title 2</h2>
+  <h3>Title 3</h3>
+  <h4>Title 4</h4>
+  <h5>Title 5</h5>
+  <h6>Title 6</h6>
+  <p>
+    P tag - Et magnis dis parturient montes nascetur ridiculus mus mauris vitae.
+  </p>
+  <p class="normal">
+    Class .normal Ultrices gravida dictum fusce ut placerat. Dui nunc mattis
+    enim ut tellus elementum sagittis.
+  </p>
+  <p class="small">
+    Class .small interdum velit laoreet id donec ultrices tincidunt arcu non.
+  </p>
+  <p class="large">Class .large facilisi nullam vehicula ipsum a arcu.</p>
+</section>
+
+<section>
+  <p>Fields:</p>
+  <p>Text input</p>
+  <text-input class="text-input" [(ngModel)]="testValue"></text-input>
+</section>
+
+<section>
+  <p>Checkbox input</p>
+  <checkbox-input [(ngModel)]="testBoolean">Checkbox label</checkbox-input>
+</section>
+
+<section>
+  <p>User avatar</p>
+  <app-user-avatar
+    [data]="'https://cataas.com/cat?width=200&height=200'"
+  ></app-user-avatar>
+  <app-user-avatar
+    big
+    [data]="'https://cataas.com/cat?width=200&height=200'"
+  ></app-user-avatar>
+  <app-user-avatar></app-user-avatar>
+  <app-user-avatar big></app-user-avatar>
+</section>
+
+<section>
+  <p>Publication header</p>
+  <app-publication-header [avatar]="'https://cataas.com/cat?width=200&height=200'" [title]="'Publication header title'">
+      <p subtitle>Ultrices gravida dictum fusce ut placerat. Dui nunc mattis enim ut tellus
+      elementum sagittis.</p>
+      <div label class="publication__label">Important</div>
+  </app-publication-header>
+</section>
+
+<section>
+  <p>Spoiler section</p>
+  <app-spoiler-section [title]="'Spoiler section title'"
+    >Ultrices gravida dictum fusce ut placerat. Dui nunc mattis enim ut tellus
+    elementum sagittis.</app-spoiler-section
+  >
+</section>

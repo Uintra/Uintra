@@ -1,55 +1,25 @@
-<div class="row-flex">
-  <div class="col-md-8">
-    <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
-  </div>
-  <div class="col-md-4">
-    <!--latest activities-->
-    <!--<section class="block clearfix _latest-activities js-latest-activities">
-      <h2 class="block__title">Latest activities</h2>
-      <div class="block__item-holder">
-        <div class="block__item">
-          <p>
-            Bulletin<br>
-            Dec 09, 2019 18:51
-          </p>
-          <h3 class="block__subtitle _clamp" style="overflow-wrap: break-word;">
-            <a href="/bulletins/details?id=af61ef88-f98d-4bca-9064-956b8708554d"><p>test</p></a>
-          </h3>
-        </div>
-        <div class="block__item">
-          <p>
-            Bulletin<br>
-            Dec 09, 2019 18:33
-          </p>
-          <h3 class="block__subtitle _clamp" style="overflow-wrap: break-word;"><a href="/groups/room/bulletins/details?id=f57493c6-9274-4472-a82e-de8be1da45eb&amp;groupId=7337f96a-e7b3-4f45-9bef-f8168bd6ac0f"><p>Hendrerit vestibulum natoque torquent, vitae per elit iaculis! Sociis unde, facilisis aut autem... </p></a></h3>
-        </div>
-        <div class="block__item">
-          <p>
-            Bulletin<br>
-            Dec 09, 2019 18:32
-          </p>
-          <h3 class="block__subtitle _clamp" style="overflow-wrap: break-word;"><a href="/bulletins/details?id=d44292c0-1d18-4174-979c-6bd197bb2c8e"><p>Hendrerit vestibulum natoque torquent, vitae per elit iaculis! Sociis unde, facilisis aut autem... </p></a></h3>
-        </div>
-        <div class="block__item">
-          <p>
-            Bulletin<br>
-            Dec 09, 2019 18:28
-          </p>
-          <h3 class="block__subtitle _clamp" style="overflow-wrap: break-word;"><a href="/bulletins/details?id=352fbdfe-6c8b-43a0-ba50-c4aff7981980"><p>Hendrerit vestibulum natoque torquent, vitae per elit iaculis! Sociis unde, facilisis aut autem... </p></a></h3>
-        </div>
-        <div class="block__item">
-          <p>
-            Bulletin<br>
-            Dec 09, 2019 12:58
-          </p>
-          <h3 class="block__subtitle _clamp" style="overflow-wrap: break-word;">
-            <a href="/bulletins/details?id=14fc3287-c9d5-4c57-9069-ab1e79a315cd"></a>
-          </h3>
-        </div>
+<div class="content">
+  <nav class="nav">
+    <ul class="nav-list">
+      <li><a href="/">left navigation</a></li>
+    </ul>
+  </nav>
+  <div class="content__wrap">
+    <div class="row-flex">
+      <div class="col-md-8">
+        <!--<a href="#" id="js-aside-opener" class="aside__opener _for-mobile">
+          <span class="aside__icon">
+            <svg class="svg-icon" viewBox="0 0 32 32" width="16px" height="16px">
+              <use xlink:href="#icon-window" x="0" y="0"></use>
+            </svg>
+          </span>
+        </a>-->
+        <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
       </div>
-      <input id="typeId" name="typeId" type="hidden" value="4">
-
-      <a class="btn _submit js-see-all">See all</a>
-    </section>-->
+      <div class="col-md-4">
+        <!--latest activities-->
+        right panel content
+      </div>
+    </div>
   </div>
 </div>

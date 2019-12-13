@@ -8,15 +8,18 @@ import { SpoilerSectionModule } from 'src/app/feature/project/reusable/ui-elemen
 import { RadioLinkGroupModule } from 'src/app/feature/project/reusable/inputs/radio-link-group/radio-link-group.module';
 import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/checkbox-input/checkbox-input.module';
 import { UserAvatarModule } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar.module';
+import { PublicationHeaderModule } from 'src/app/feature/project/reusable/ui-elements/publication-header/publication-header.module';
+import { CentralFeedPublicationComponent } from './central-feed-publication/central-feed-publication.component';
 
 @NgModule({
-  declarations: [CentralFeedPanel],
+  declarations: [CentralFeedPanel, CentralFeedPublicationComponent],
   imports: [
     CommonModule,
     NotImplementedModule,
     SpoilerSectionModule,
     RadioLinkGroupModule,
     CheckboxInputModule,
+    PublicationHeaderModule,
     FormsModule
   ],
   providers: [{provide: AS_DYNAMIC_COMPONENT, useValue: CentralFeedPanel}],

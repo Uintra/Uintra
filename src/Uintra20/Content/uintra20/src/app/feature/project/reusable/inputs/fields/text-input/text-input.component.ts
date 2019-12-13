@@ -23,6 +23,7 @@ type InputType = 'text' | 'password' | 'search';
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
       box-shadow: none;
+      outline: 0;
     }
   `],
   providers: [

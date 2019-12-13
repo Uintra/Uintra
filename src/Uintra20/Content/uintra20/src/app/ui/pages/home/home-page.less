@@ -1,6 +1,12 @@
 @import "base.less";
 
 home-page {
-    .centering;
-    display: block;
+  .centering;
+  display: block;
+  padding: 70px 0 0 0;
+  overflow: hidden;
+
+  @media (min-width: @screen-md) {
+    padding: 70px 15px 0 0;
+  }
 }
