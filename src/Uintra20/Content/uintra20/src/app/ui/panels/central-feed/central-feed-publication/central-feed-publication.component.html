@@ -1,11 +1,11 @@
 <div class="publication publication--important">
-  <!-- <app-publication-header
+  <app-publication-header
     [avatar]="publication.activity.owner.photo"
     [title]="publication.activity.owner.displayedName"
     class="publication__header"
   >
     <div subtitle>
-      {{getPublicationDate()}} - controllerName
+      {{getPublicationDate()}} - {{publication.activity.type}}
     </div>
     <div *ngIf="publication.activity.isPinned" label class="publication__label">Important</div>
   </app-publication-header>
@@ -15,7 +15,7 @@
   </div>
 
   <div class="publication__footer">
-    <div class="publication__like publication__footer-item">
+    <div class="publication__like publication__footer-item" [ngClass]="{ 'publication__like--active': publication.activity.likedByCurrentUser }">
       <i class="icon-like"></i>
       {{likesCount}}
     </div>
@@ -27,9 +27,5 @@
       <i class="icon-share-icon"></i>
       Anbefal
     </div>
-  </div> -->
-
-  <pre>
-    {{ publication | json }}
-  </pre>
+  </div>
 </div>

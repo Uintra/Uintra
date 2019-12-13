@@ -100,7 +100,7 @@ export class CentralFeedPanel implements OnInit{
     };
 
     this.publicationsService.getPublications(data).then(response => {
-      this.feed = [...this.feed, response['feed']];
+      this.feed = this.feed.concat(response['feed']);
     }).catch(error => {
 
     });
