@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Uintra20.Core.Activity;
+using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Feed;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Settings;
@@ -18,15 +20,18 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
         private readonly ICentralFeedService _centralFeedService;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IFeedLinkService _feedLinkService;
+        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
         public LatestActivitiesPanelHelper(
             ICentralFeedService centralFeedService,
             IFeedTypeProvider centralFeedTypeProvider,
-            IFeedLinkService feedLinkService)
+            IFeedLinkService feedLinkService,
+            IActivitiesServiceFactory activitiesServiceFactory)
         {
             _centralFeedService = centralFeedService;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _feedLinkService = feedLinkService;
+            _activitiesServiceFactory = activitiesServiceFactory;
         }
        
 
@@ -77,9 +82,12 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
         private FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<int, FeedSettings> settings)
         {
             var options = GetActivityFeedOptions(i.Id);
+
+            var activity = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(i.Type).GetViewModel(i.Id);
+
             return new FeedItemViewModel
             {
-                Activity = i,
+                Activity = activity,
                 Options = options,
                 ControllerName = settings[i.Type.ToInt()].Controller
             };

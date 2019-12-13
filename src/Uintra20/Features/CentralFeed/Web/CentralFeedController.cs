@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using Compent.Shared.Extensions;
 using Compent.Shared.Extensions.Bcl;
+using Uintra20.Core.Activity;
 using Uintra20.Core.Feed;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
@@ -32,7 +33,8 @@ namespace Uintra20.Features.CentralFeed.Web
 			IFeedTypeProvider feedTypeProvider,
 			IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
 			IFeedFilterService centralFeedFilterService,
-			IFeedLinkService feedLinkService) : base(centralFeedService, feedFilterStateService)
+            IActivitiesServiceFactory activitiesServiceFactory,
+            IFeedLinkService feedLinkService) : base(centralFeedService, feedFilterStateService, activitiesServiceFactory)
 		{
 			_centralFeedService = centralFeedService;
 			_feedTypeProvider = feedTypeProvider;

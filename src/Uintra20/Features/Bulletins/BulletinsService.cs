@@ -4,15 +4,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Compent.CommandBus;
 using Compent.Extensions;
+using Compent.Shared.Extensions;
 using LanguageExt;
 using Uintra20.Core.Activity;
+using Uintra20.Core.Activity.Entities;
+using Uintra20.Core.Activity.Models;
+using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Bulletins.Entities;
+using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.CentralFeed;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.Comments.Services;
@@ -20,6 +26,7 @@ using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview;
 using Uintra20.Features.Links;
+using Uintra20.Features.Links.Models;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media;
 using Uintra20.Features.Notification;
@@ -29,6 +36,7 @@ using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Caching;
+using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
 using static Uintra20.Features.Notification.Configuration.NotificationTypeEnum;
 
@@ -55,6 +63,7 @@ namespace Uintra20.Features.Bulletins
         private readonly IActivityLinkPreviewService _activityLinkPreviewService;
         private readonly IGroupService _groupService;
         private readonly INotifierDataBuilder _notifierDataBuilder;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -92,11 +101,38 @@ namespace Uintra20.Features.Bulletins
             _activityLinkPreviewService = activityLinkPreviewService;
             _groupService = groupService;
             _notifierDataBuilder = notifierDataBuilder;
+            _intranetMemberService = intranetMemberService;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.Bulletins;
 
         public override Enum PermissionActivityType => PermissionResourceTypeEnum.Bulletins;
+        public override IntranetActivityViewModelBase GetViewModel(Guid activityId)
+        {
+            var bulletin = Get(activityId);
+
+            if (bulletin == null)
+            {
+                return null;
+            }
+
+            IActivityLinks links = null;//_feedLinkService.GetLinks(id);//TODO:Uncomment when profile link service is ready
+
+            var viewModel = bulletin.Map<BulletinViewModel>();
+
+            viewModel.CanEdit = CanEdit(bulletin);
+            viewModel.Links = links;
+            viewModel.IsReadOnly = false;
+
+            viewModel.HeaderInfo = bulletin.Map<IntranetActivityDetailsHeaderViewModel>();
+            viewModel.HeaderInfo.Dates = bulletin.PublishDate.ToDateTimeFormat().ToEnumerable();
+            viewModel.HeaderInfo.Owner = _intranetMemberService.Get(bulletin).Map<MemberViewModel>();
+            viewModel.HeaderInfo.Links = links;
+
+            var extendedModel = viewModel.Map<BulletinExtendedViewModel>();
+            extendedModel = bulletin.Map(extendedModel);
+            return extendedModel;
+        }
 
         public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
 
