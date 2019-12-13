@@ -83,8 +83,8 @@ namespace Uintra20.Features.CentralFeed.Web
 
 		protected virtual FeedListViewModel GetFeedListViewModel(FeedListModel model, List<IFeedItem> filteredItems, Enum centralFeedType)
 		{
-			var take = model.Page * ItemsPerPage;
-			var pagedItemsList = SortForFeed(filteredItems, centralFeedType).Take(take).ToList();
+			var skip = (model.Page - 1) * ItemsPerPage;
+			var pagedItemsList = SortForFeed(filteredItems, centralFeedType).Skip(skip).Take(ItemsPerPage).ToList();
 
 			var settings = _centralFeedService
 				.GetAllSettings()
@@ -100,7 +100,7 @@ namespace Uintra20.Features.CentralFeed.Web
 				Feed = GetFeedItems(pagedItemsList, settings),
 				TabSettings = tabSettings,
 				Type = centralFeedType,
-				BlockScrolling = filteredItems.Count < take,
+				BlockScrolling = filteredItems.Count < ItemsPerPage + skip,
 				FilterState = MapToFilterStateViewModel(model.FilterState)
 			};
 		}
