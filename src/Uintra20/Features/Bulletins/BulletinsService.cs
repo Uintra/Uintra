@@ -24,6 +24,7 @@ using Uintra20.Features.CentralFeed;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups.Services;
+using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview;
 using Uintra20.Features.Links;
@@ -122,12 +123,16 @@ namespace Uintra20.Features.Bulletins
 
             IActivityLinks links = null;//_feedLinkService.GetLinks(id);//TODO:Uncomment when profile link service is ready
 
-            var viewModel = bulletin.Map<BulletinPreviewModel>();
+            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
 
+            var viewModel = bulletin.Map<BulletinPreviewModel>();
             viewModel.CanEdit = CanEdit(bulletin);
             viewModel.Links = links;
             viewModel.Owner = _intranetMemberService.Get(bulletin).Map<MemberViewModel>();
             viewModel.Type = _localizationService.Translate(bulletin.Type.ToString());
+            viewModel.LikedByCurrentUser = bulletin.Likes.Any(x => x.UserId == currentMemberId);
+            _commentsService.FillComments(viewModel);
+            _likesService.FillLikes(viewModel);
 
             return viewModel;
         }
