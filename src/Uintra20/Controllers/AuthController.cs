@@ -2,6 +2,7 @@
 using System.Web.Security;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Authentication.Models;
+using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Controllers
 {
@@ -14,43 +15,24 @@ namespace Uintra20.Controllers
 		{
 			_authenticationService = authenticationService;
 		}
+
 		[HttpPost]
 		[AllowAnonymous]
 		[Route("login")]
-		public AuthResultModelBase Login(LoginModelBase loginModel)
+		public IHttpActionResult Login(LoginModelBase loginModel)
 		{
-			if (Validate(loginModel))
-			{
-				return new AuthResultModelBase()
-				{
-					Success = false,
-					Message = "Login not filled\n\rPassword is empty\n\r"
-				};
-			}
+            if (!ModelState.IsValid) return BadRequest(ModelState.CollectErrors());
 
-			if (Membership.ValidateUser(loginModel.Login, loginModel.Password))
-			{
-				return new AuthResultModelBase()
-				{
-					Success = false,
-					Message = "Credentials not valid"
-				};
-			}
+            if (!Membership.ValidateUser(loginModel.Login, loginModel.Password)) return BadRequest("Credentials not valid");
 
+            _authenticationService.Login(loginModel.Login, loginModel.Password);
 
-			_authenticationService.Login(loginModel.Login, loginModel.Password);
-
-
-			return new AuthResultModelBase()
-			{
-				Success = true,
+			var result = new AuthResultModelBase
+            {
 				RedirectUrl = loginModel.ReturnUrl ?? "/"
 			};
-		}
 
-		private bool Validate(LoginModelBase loginModel)
-		{
-			return string.IsNullOrEmpty(loginModel.Login) || string.IsNullOrEmpty(loginModel.Password);
-		}
+            return Ok(result);
+        }
 	}
 }
