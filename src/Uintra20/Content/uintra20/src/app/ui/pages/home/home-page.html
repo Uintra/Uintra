@@ -7,16 +7,12 @@
   <div class="content__wrap">
     <div class="row-flex">
       <div class="col-md-8">
-        <!--<a href="#" id="js-aside-opener" class="aside__opener _for-mobile">
-          <span class="aside__icon">
-            <svg class="svg-icon" viewBox="0 0 32 32" width="16px" height="16px">
-              <use xlink:href="#icon-window" x="0" y="0"></use>
-            </svg>
-          </span>
-        </a>-->
+        <div class="aside-opener">
+          <span class="icon-window js-aside-opener"></span>
+        </div>
         <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4 aside">
         <!--latest activities-->
         right panel content
       </div>
