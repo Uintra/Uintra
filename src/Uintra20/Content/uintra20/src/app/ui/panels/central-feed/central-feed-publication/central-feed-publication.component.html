@@ -5,9 +5,11 @@
     class="publication__header"
   >
     <div subtitle>
-      {{getPublicationDate()}} - {{publication.activity.type}}
+      {{ getPublicationDate() }} - {{ publication.activity.type }}
     </div>
-    <div *ngIf="publication.activity.isPinned" label class="publication__label">Important</div>
+    <div *ngIf="publication.activity.isPinned" label class="publication__label">
+      Important
+    </div>
   </app-publication-header>
 
   <div class="publication__content">
@@ -15,17 +17,29 @@
   </div>
 
   <div class="publication__footer">
-    <div class="publication__like publication__footer-item" [ngClass]="{ 'publication__like--active': publication.activity.likedByCurrentUser }">
+    <button
+      class="publication__like publication__footer-item"
+      (click)="onClickLike()"
+      [ngClass]="{
+        'publication__like--active': publication.activity.likedByCurrentUser
+      }"
+    >
       <i class="icon-like"></i>
-      {{likesCount}}
-    </div>
-    <div class="publication__comment publication__footer-item">
+      {{ likesCount }}
+    </button>
+
+    <button class="publication__comment publication__footer-item">
       <i class="icon-comment"></i>
-      {{commentsCount}}
-    </div>
-    <div class="publication__share publication__footer-item">
+      {{ commentsCount }}
+    </button>
+    <button class="publication__share publication__footer-item">
       <i class="icon-share-icon"></i>
       Anbefal
-    </div>
+    </button>
   </div>
+<!--
+    <pre>
+  {{publication | json}}
+    </pre> -->
+
 </div>

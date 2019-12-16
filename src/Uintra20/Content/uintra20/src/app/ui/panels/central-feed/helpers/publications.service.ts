@@ -13,6 +13,11 @@ interface IFilterState {
   IncludeBulletin?: boolean;
 }
 
+export interface IAddLikeRequest {
+  entityId: string;
+  entityType: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,5 +29,9 @@ export class PublicationsService {
 
   getPublications(data: IFeedListRequest) {
     return this.http.post(`/api/central/feed/list`, data).toPromise();
+  }
+
+  addLike(data: IAddLikeRequest) {
+    return this.http.post(`/umbraco/api/likes/AddLike`, data).toPromise();
   }
 }
