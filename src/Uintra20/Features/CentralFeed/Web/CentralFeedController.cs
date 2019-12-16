@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using Compent.Shared.Extensions;
 using Compent.Shared.Extensions.Bcl;
+using Uintra20.Core.Activity;
 using Uintra20.Core.Feed;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
@@ -32,7 +33,8 @@ namespace Uintra20.Features.CentralFeed.Web
 			IFeedTypeProvider feedTypeProvider,
 			IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
 			IFeedFilterService centralFeedFilterService,
-			IFeedLinkService feedLinkService) : base(centralFeedService, feedFilterStateService)
+            IActivitiesServiceFactory activitiesServiceFactory,
+            IFeedLinkService feedLinkService) : base(centralFeedService, feedFilterStateService, activitiesServiceFactory)
 		{
 			_centralFeedService = centralFeedService;
 			_feedTypeProvider = feedTypeProvider;
@@ -81,8 +83,8 @@ namespace Uintra20.Features.CentralFeed.Web
 
 		protected virtual FeedListViewModel GetFeedListViewModel(FeedListModel model, List<IFeedItem> filteredItems, Enum centralFeedType)
 		{
-			var take = model.Page * ItemsPerPage;
-			var pagedItemsList = SortForFeed(filteredItems, centralFeedType).Take(take).ToList();
+			var skip = (model.Page - 1) * ItemsPerPage;
+			var pagedItemsList = SortForFeed(filteredItems, centralFeedType).Skip(skip).Take(ItemsPerPage).ToList();
 
 			var settings = _centralFeedService
 				.GetAllSettings()
@@ -98,7 +100,7 @@ namespace Uintra20.Features.CentralFeed.Web
 				Feed = GetFeedItems(pagedItemsList, settings),
 				TabSettings = tabSettings,
 				Type = centralFeedType,
-				BlockScrolling = filteredItems.Count < take,
+				BlockScrolling = filteredItems.Count < ItemsPerPage + skip,
 				FilterState = MapToFilterStateViewModel(model.FilterState)
 			};
 		}

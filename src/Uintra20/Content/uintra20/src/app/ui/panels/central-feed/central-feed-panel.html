@@ -4,23 +4,35 @@
 ></ubl-not-implemented>-->
 
 <section *ngIf="data" class="central-feed">
-  <app-spoiler-section [title]="'Filter'">
+  <app-spoiler-section [title]="'Filter'" class="feed-filters">
     <app-radio-link-group
       *ngIf="tabs"
       [links]="tabs"
       (ngModelChange)="setSelectedTab($event)"
       [ngModel]="selectedTabType"
-      class="central-feed__tabs"
+      class="feed-filters__tabs"
     ></app-radio-link-group>
 
-    <div class="central-feed__bottom">
-      <div *ngFor="let filter of selectTabFilters" class="central-feed__filter">
-        <checkbox-input [(ngModel)]="filter.isActive"
-          >{{filter.title}}</checkbox-input
+    <div class="feed-filters__bottom">
+      <div *ngFor="let filter of selectTabFilters" class="feed-filters__filter">
+        <checkbox-input
+          [(ngModel)]="filter.isActive"
+          (ngModelChange)="changeFilters()"
         >
+          {{filter.title}}
+        </checkbox-input>
       </div>
 
-      <button (click)="clearFilters()" class="central-feed__button">Clear filters</button>
+      <button (click)="clearFilters()" class="feed-filters__button">
+        Clear filters
+      </button>
     </div>
   </app-spoiler-section>
+
+  <app-central-feed-publication
+    *ngFor="let publication of feed"
+    [publication]="publication"
+  ></app-central-feed-publication>
+
+  <button (click)="onLoadMore()">Load more</button>
 </section>

@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ICentralFeedPanel } from './central-feed-panel.interface';
 import { UmbracoFlatPropertyModel } from '@ubaseline/next';
+import { PublicationsService, IFeedListRequest } from './helpers/publications.service';
 
 // interface IFilterTab {
 //   type: number;
@@ -8,6 +9,34 @@ import { UmbracoFlatPropertyModel } from '@ubaseline/next';
 //   links: string;
 //   title: string;
 //   filters: object;
+// }
+// interface IFeedData {
+//   activity: {
+//     creatorId: string;
+//     description: string;
+//     endPinDate: string;
+//     groupId: string;
+//     isHidden: string;
+//     isPinned: string;
+//     linkPreviewId: string;
+//     ownerId: string;
+//     publishDate: string;
+//     title: string;
+//     umbracoCreatorId: string;
+//   };
+//   controllerName: string;
+//   options: {
+//     isReadOnly: false
+//     links: {
+//       create: string;
+//       details: string;
+//       detailsNoId: string;
+//       edit: string;
+//       feed: string;
+//       overview: string;
+//       owner: string;
+//     }
+//   }
 // }
 
 @Component({
@@ -23,10 +52,15 @@ export class CentralFeedPanel implements OnInit{
   selectedTab: UmbracoFlatPropertyModel = null;
   selectTabFilters: Array<any>;
   selectedTabType: number;
+  feed: Array<any> = [];
+  currentPage: number = 1;
+
+  constructor(private publicationsService: PublicationsService) {}
 
   ngOnInit() {
     this.tabs = Object.values(this.data.tabs.get());
     this.setInitValues();
+    this.getPublications();
   }
 
   setInitValues() {
@@ -39,6 +73,11 @@ export class CentralFeedPanel implements OnInit{
     this.selectedTabType = event;
     this.selectedTab = this.tabs.find(tab => tab.get().type.get() === event);
     this.selectTabFilters = this.getTabFilters();
+    this.getPublications();
+  }
+
+  changeFilters() {
+    this.getPublications();
   }
 
   clearFilters() {
@@ -47,13 +86,34 @@ export class CentralFeedPanel implements OnInit{
       .map(filter => ({ ...filter, isActive: false }));
   }
 
+  getPublications() {
+    const FilterState = {};
+
+    this.selectTabFilters.forEach(filter => {
+      FilterState[filter.key] = filter.isActive;
+    });
+
+    const data = {
+      TypeId: this.selectedTabType,
+      FilterState,
+      Page: this.currentPage
+    };
+
+    this.publicationsService.getPublications(data).then(response => {
+      this.feed = [...this.feed, response['feed']];
+    }).catch(error => {
+
+    });
+  }
+
   getTabFilters() {
     const filters = Object.values(JSON.parse(JSON.stringify(this.selectedTab.get().filters.get())));
 
-    return filters.map( filter => ({
-      title: filter,
-      isActive: false
-      })
-    );
+    return filters;
+  }
+
+  onLoadMore() {
+    this.currentPage += 1;
+    this.getPublications();
   }
 }

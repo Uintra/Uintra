@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Uintra20.Core.Activity.Entities;
+using Uintra20.Core.Activity.Models;
 
 namespace Uintra20.Core.Activity
 {
@@ -21,6 +22,7 @@ namespace Uintra20.Core.Activity
         //Task<IEnumerable<TActivity>> GetAllAsync(bool includeHidden = false);
         Task<Guid> CreateAsync(IIntranetActivity activity);
         Task SaveAsync(IIntranetActivity activity);
+        IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId);
     }
 
 
