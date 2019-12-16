@@ -3,36 +3,39 @@ using System.Web.Security;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Authentication.Models;
 using Uintra20.Infrastructure.Extensions;
+using Uintra20.Infrastructure.Providers;
 
 namespace Uintra20.Controllers
 {
-	[RoutePrefix("api/auth")]
-	public class AuthController : ApiController
-	{
-		private readonly IAuthenticationService _authenticationService;
+    [RoutePrefix("api/auth")]
+    public class AuthController : ApiController
+    {
+        private readonly IAuthenticationService authenticationService;
+        private readonly IClientTimezoneProvider clientTimezoneProvider;
+        public AuthController(
+            IAuthenticationService authenticationService,
+            IClientTimezoneProvider clientTimezoneProvider)
+        {
+            this.authenticationService = authenticationService;
+            this.clientTimezoneProvider = clientTimezoneProvider;
+        }
 
-		public AuthController(IAuthenticationService authenticationService)
-		{
-			_authenticationService = authenticationService;
-		}
-
-		[HttpPost]
-		[AllowAnonymous]
-		[Route("login")]
-		public IHttpActionResult Login(LoginModelBase loginModel)
-		{
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("login")]
+        public IHttpActionResult Login(LoginModelBase loginModel)
+        {
             if (!ModelState.IsValid) return BadRequest(ModelState.CollectErrors());
 
             if (!Membership.ValidateUser(loginModel.Login, loginModel.Password)) return BadRequest("Credentials not valid");
 
-            _authenticationService.Login(loginModel.Login, loginModel.Password);
+            authenticationService.Login(loginModel.Login, loginModel.Password);
+            clientTimezoneProvider.SetClientTimezone(loginModel.ClientTimezoneId);
 
-			var result = new AuthResultModelBase
+            return Ok(new AuthResultModelBase
             {
-				RedirectUrl = loginModel.ReturnUrl ?? "/"
-			};
-
-            return Ok(result);
+                RedirectUrl = loginModel.ReturnUrl ?? "/"
+            });
         }
-	}
+    }
 }
