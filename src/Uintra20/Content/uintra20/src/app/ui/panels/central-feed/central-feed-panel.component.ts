@@ -47,43 +47,17 @@ import { PublicationsService, IFeedListRequest } from './helpers/publications.se
 })
 export class CentralFeedPanel implements OnInit{
   data: ICentralFeedPanel;
-
   tabs: Array<UmbracoFlatPropertyModel> = null;
-  selectedTab: UmbracoFlatPropertyModel = null;
   selectTabFilters: Array<any>;
   selectedTabType: number;
   feed: Array<any> = [];
   currentPage: number = 1;
+  isFeedLoading: boolean = false;
 
   constructor(private publicationsService: PublicationsService) {}
 
   ngOnInit() {
     this.tabs = Object.values(this.data.tabs.get());
-    this.setInitValues();
-    this.getPublications();
-  }
-
-  setInitValues() {
-    this.selectedTab = this.tabs.find(tab => tab.get().isActive);
-    this.selectedTabType = this.selectedTab.get().type.get();
-    this.selectTabFilters = this.getTabFilters();
-  }
-
-  setSelectedTab(event) {
-    this.selectedTabType = event;
-    this.selectedTab = this.tabs.find(tab => tab.get().type.get() === event);
-    this.selectTabFilters = this.getTabFilters();
-    this.getPublications();
-  }
-
-  changeFilters() {
-    this.getPublications();
-  }
-
-  clearFilters() {
-    this.setInitValues();
-    this.selectTabFilters = this.selectTabFilters
-      .map(filter => ({ ...filter, isActive: false }));
   }
 
   getPublications() {
@@ -99,21 +73,29 @@ export class CentralFeedPanel implements OnInit{
       Page: this.currentPage
     };
 
+    this.isFeedLoading = true;
     this.publicationsService.getPublications(data).then(response => {
       this.feed = this.feed.concat(response['feed']);
     }).catch(error => {
 
+    }).finally(() => {
+      this.isFeedLoading = false;
     });
-  }
-
-  getTabFilters() {
-    const filters = Object.values(JSON.parse(JSON.stringify(this.selectedTab.get().filters.get())));
-
-    return filters;
   }
 
   onLoadMore() {
     this.currentPage += 1;
+    this.getPublications();
+  }
+
+  onScroll() {
+    this.onLoadMore();
+  }
+
+  selectFilters({ selectedTabType, selectTabFilters }) {
+    this.selectTabFilters = selectTabFilters;
+    this.selectedTabType = selectedTabType;
+    this.feed = [];
     this.getPublications();
   }
 }

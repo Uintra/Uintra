@@ -10,9 +10,12 @@ import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/che
 import { UserAvatarModule } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar.module';
 import { PublicationHeaderModule } from 'src/app/feature/project/reusable/ui-elements/publication-header/publication-header.module';
 import { CentralFeedPublicationComponent } from './central-feed-publication/central-feed-publication.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { CentralFeedFiltersComponent } from './central-feed-filters/central-feed-filters.component';
 
 @NgModule({
-  declarations: [CentralFeedPanel, CentralFeedPublicationComponent],
+  declarations: [CentralFeedPanel, CentralFeedPublicationComponent, CentralFeedFiltersComponent],
   imports: [
     CommonModule,
     NotImplementedModule,
@@ -20,9 +23,10 @@ import { CentralFeedPublicationComponent } from './central-feed-publication/cent
     RadioLinkGroupModule,
     CheckboxInputModule,
     PublicationHeaderModule,
-    FormsModule
+    FormsModule,
+    InfiniteScrollModule
   ],
   providers: [{provide: AS_DYNAMIC_COMPONENT, useValue: CentralFeedPanel}],
   entryComponents: [CentralFeedPanel]
 })
-export class CentralFeedPanelModule {}
+export class CentralFeedPanelModule { }
