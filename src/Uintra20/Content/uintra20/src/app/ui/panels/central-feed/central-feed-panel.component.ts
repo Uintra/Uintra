@@ -48,6 +48,7 @@ import { PublicationsService, IFeedListRequest } from './helpers/publications.se
 export class CentralFeedPanel implements OnInit{
   data: ICentralFeedPanel;
   tabs: Array<UmbracoFlatPropertyModel> = null;
+  // TODO: replace 'any' after server side will be done
   selectTabFilters: Array<any>;
   selectedTabType: number;
   feed: Array<any> = [];
