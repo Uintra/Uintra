@@ -43,7 +43,7 @@ namespace Uintra20.Controllers
             });
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("logout")]
         public async Task<IHttpActionResult> Logout()
         {
