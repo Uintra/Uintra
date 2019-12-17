@@ -30,7 +30,7 @@ namespace Uintra20.Controllers
             if (!Membership.ValidateUser(loginModel.Login, loginModel.Password)) return BadRequest("Credentials not valid");
 
             authenticationService.Login(loginModel.Login, loginModel.Password);
-            clientTimezoneProvider.SetClientTimezone(loginModel.ClientTimezoneId);
+            //clientTimezoneProvider.SetClientTimezone(loginModel.ClientTimezoneId);
 
             return Ok(new AuthResultModelBase
             {
