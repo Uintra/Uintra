@@ -1,10 +1,10 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/feature/login/services/login.service';
 import { LoginModel } from 'src/app/feature/login/models/login.model';
-import { finalize } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { filter, finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'login-page',
@@ -28,6 +28,20 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
+    this.loginService.getState()
+      .pipe(
+        finalize(() => this.inProgress = false)).subscribe(
+          (next) => {
+            this.inProgress = false;
+            if (next !== null) {
+              this.router.navigate(['/']);
+            } else {
+              this.router.navigate(['/login'])
+            }
+          },
+          (error) => { console.log(error); },
+          () => { }
+        );
   }
 
   public ngOnDestroy(): void {
@@ -35,21 +49,19 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   public submit() {
+    this.inProgress = true;
+
     const model = new LoginModel(
       this.loginForm.value.login,
       this.loginForm.value.password,
       this.getCurrentTimeZoneId(),
       '/'
     );
-    this.inProgress = true;
-    this.loginSubscription = this.loginService.login(model)
-      .pipe(
-        finalize(() => setTimeout(() => this.inProgress = false, 400))
-      ).subscribe(
-        (next) => this.router.navigate([next.redirectUrl]),
-        (error) => { console.log(error); },
-        () => { }
-      );
+
+    this.loginService.login(model).then(
+      () => {},
+      () => {this.inProgress = false; }
+    );
   }
 
   private getCurrentTimeZoneId() {
