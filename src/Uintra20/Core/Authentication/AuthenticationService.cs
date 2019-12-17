@@ -5,6 +5,7 @@ using Microsoft.Owin.Security;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
 using Uintra20.Models.UmbracoIdentity;
@@ -43,6 +44,17 @@ namespace Uintra20.Core.Authentication
             OwinContext.Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             OwinContext.Authentication.SignIn(new AuthenticationProperties() { IsPersistent = true },
                 await member.GenerateUserIdentityAsync(_userManager));
+        }
+
+        public async Task Logout()
+        {
+            OwinContext.Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+
+            var email = Membership.GetUser()?.Email;
+
+            var member = await _userManager.FindByEmailAsync(email);
+
+            await member.DeleteUserIdentityAsync(member);
         }
 
         public bool IsAuthenticatedRequest(IOwinContext context)
