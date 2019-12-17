@@ -11,7 +11,7 @@ using Uintra20.Features.Location.Models;
 
 namespace Uintra20.Core.Activity.Models
 {
-    public abstract class IntranetActivityPreviewModelBase : ICommentable, ILikeable
+    public abstract class IntranetActivityPreviewModelBase : ILikeable
     {
         public Guid Id { get; set; }
         public bool CanEdit { get; set; }
@@ -23,8 +23,9 @@ namespace Uintra20.Core.Activity.Models
         public ActivityLocation Location { get; set; }
         public bool IsReadOnly { get; set; }
         public string Type { get; set; }
+        public Enum ActivityType { get; set; }
         public IEnumerable<LikeModel> Likes { get; set; }
         public bool LikedByCurrentUser { get; set; }
-        public IEnumerable<CommentModel> Comments { get; set; }
+        public int CommentsCount { get; set; }
     }
 }

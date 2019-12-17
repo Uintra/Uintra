@@ -44,11 +44,11 @@ namespace Uintra20.Features.Likes.Web
             return Likes(_likesService.GetLikeModels(pageId), pageId, showTitle: true);
         }
 
-        [HttpGet]
-        public virtual LikesViewModel Likes(ILikeable likesInfo)
-        {
-            return Likes(likesInfo.Likes, likesInfo.Id, likesInfo.IsReadOnly);
-        }
+        //[HttpGet]
+        //public virtual LikesViewModel Likes(ILikeable likesInfo)
+        //{
+        //    return Likes(likesInfo.Likes, likesInfo.Id, likesInfo.IsReadOnly);
+        //}
 
         [HttpGet]
         public virtual LikesViewModel CommentLikes(Guid commentId)
@@ -57,7 +57,7 @@ namespace Uintra20.Features.Likes.Web
         }
 
         [HttpPost]
-        public virtual LikesViewModel AddLike(Guid entityId, ContextType entityType)
+        public virtual /*LikesViewModel*/ IEnumerable<LikeModel> AddLike(Guid entityId, ContextType entityType)
         {
             var command = new AddLikeCommand(entityId, entityType, _intranetMemberService.GetCurrentMemberId());
             _commandPublisher.Publish(command);
@@ -65,21 +65,24 @@ namespace Uintra20.Features.Likes.Web
             switch (entityType.ToInt())
             {
                 case (int)Comment:
-                    return Likes(_likesService.GetLikeModels(entityId), entityId);
+                    //return Likes(_likesService.GetLikeModels(entityId), entityId);
+                    return _likesService.GetLikeModels(entityId);
 
                 case (int)ContentPage:
-                    return Likes(_likesService.GetLikeModels(entityId), entityId, showTitle: true);
+                    //return Likes(_likesService.GetLikeModels(entityId), entityId, showTitle: true);
+                    return _likesService.GetLikeModels(entityId);
 
                 case int type when HasFlagScalar(type, ContextType.Activity | PagePromotion):
                     var activityLikeInfo = GetActivityLikes(entityId);
-                    return Likes(activityLikeInfo.Likes, activityLikeInfo.Id, activityLikeInfo.IsReadOnly, showTitle: HasFlagScalar(type, PagePromotion));
+                    //return Likes(activityLikeInfo.Likes, activityLikeInfo.Id, activityLikeInfo.IsReadOnly, showTitle: HasFlagScalar(type, PagePromotion));
+                    return activityLikeInfo.Likes;
                 default:
                     throw new IndexOutOfRangeException();
             }
         }
 
         [HttpPost]
-        public virtual LikesViewModel RemoveLike(Guid entityId, ContextType entityType)
+        public virtual /*LikesViewModel*/ IEnumerable<LikeModel> RemoveLike(Guid entityId, ContextType entityType)
         {
             var command = new RemoveLikeCommand(entityId, entityType, _intranetMemberService.GetCurrentMemberId());
             _commandPublisher.Publish(command);
@@ -87,14 +90,17 @@ namespace Uintra20.Features.Likes.Web
             switch (entityType.ToInt())
             {
                 case (int)Comment:
-                    return Likes(_likesService.GetLikeModels(entityId), entityId);
+                    //return Likes(_likesService.GetLikeModels(entityId), entityId);
+                    return _likesService.GetLikeModels(entityId);
 
                 case (int)ContentPage:
-                    return Likes(_likesService.GetLikeModels(entityId), entityId, showTitle: true);
+                    //return Likes(_likesService.GetLikeModels(entityId), entityId, showTitle: true);
+                    return _likesService.GetLikeModels(entityId);
 
                 case int type when HasFlagScalar(type, ContextType.Activity | PagePromotion):
                     var activityLikeInfo = GetActivityLikes(entityId);
-                    return Likes(activityLikeInfo.Likes, activityLikeInfo.Id, activityLikeInfo.IsReadOnly, showTitle: HasFlagScalar(type, PagePromotion));
+                    //return Likes(activityLikeInfo.Likes, activityLikeInfo.Id, activityLikeInfo.IsReadOnly, showTitle: HasFlagScalar(type, PagePromotion));
+                    return activityLikeInfo.Likes;
                 default:
                     throw new IndexOutOfRangeException();
             }
