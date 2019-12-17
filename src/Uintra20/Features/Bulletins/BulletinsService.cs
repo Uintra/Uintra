@@ -131,7 +131,7 @@ namespace Uintra20.Features.Bulletins
             viewModel.Owner = _intranetMemberService.Get(bulletin).Map<MemberViewModel>();
             viewModel.Type = _localizationService.Translate(bulletin.Type.ToString());
             viewModel.LikedByCurrentUser = bulletin.Likes.Any(x => x.UserId == currentMemberId);
-            _commentsService.FillComments(viewModel);
+            viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);
             _likesService.FillLikes(viewModel);
 
             return viewModel;
