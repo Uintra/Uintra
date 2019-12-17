@@ -11,6 +11,7 @@ using Uintra20.Features.Groups.AutoMapperProfiles;
 using Uintra20.Features.LinkPreview.AutoMapperProfiles;
 using Uintra20.Features.Location.AutoMapperProfiles;
 using Uintra20.Features.Navigation.AutoMapperProfiles;
+using Uintra20.Features.News.AutoMapperPrfiles;
 using Uintra20.Features.Notification.AutoMapperProfiles;
 using Uintra20.Features.Permissions.AutoMapperProfiles;
 using Uintra20.Features.Subscribe.AutoMapperProfiles;
@@ -26,7 +27,7 @@ namespace Uintra20
         {
             //Mapper.AddProfile<PermissionsAutoMapperProfile>();
             //Mapper.AddProfile<CommentAutoMapperProfile>();
-            ////Mapper.AddProfile<NewsAutoMapperProfile>();
+            
             ////Mapper.AddProfile<Core.News.NewsAutoMapperProfile>();
             //Mapper.AddProfile<LightboxAutoMapperProfile>();
             //Mapper.AddProfile<NavigationAutoMapperProfile>();
@@ -81,7 +82,8 @@ namespace Uintra20
             cfg.AddProfile<SubscribeSettingAutoMapperProfiles>();
             cfg.AddProfile<LocationAutoMapperProfile>();
             cfg.AddProfile<LinkPreviewAutoMapperProfile>();
-            
+            cfg.AddProfile<NewsAutoMapperProfile>();
+
             Mapper.Initialize(cfg);
             Mapper.AssertConfigurationIsValid();
         }

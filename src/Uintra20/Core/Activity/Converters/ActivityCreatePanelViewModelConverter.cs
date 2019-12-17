@@ -32,7 +32,7 @@ namespace Uintra20.Core.Activity.Converters
 
         public ActivityCreatePanelViewModelConverter(IBulletinsService<Features.Bulletins.Entities.Bulletin> bulletinsService,
                                                     INewsService<News> newsService,
-                                                    IIntranetMemberService<IntranetMember> memberService, 
+                                                    IIntranetMemberService<IntranetMember> memberService,
                                                     IActivityTypeProvider activityTypeProvider,
                                                     IPermissionsService permissionsService,
                                                     IUserTagService tagsService,
@@ -49,7 +49,20 @@ namespace Uintra20.Core.Activity.Converters
 
         public void Map(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
         {
-            ConvertToBulletins(node, viewModel);
+            switch (Enum.Parse(typeof(IntranetActivityTypeEnum), node.TabType))
+            {
+                case IntranetActivityTypeEnum.Bulletins:
+                    {
+                        ConvertToBulletins(node, viewModel);
+                        break;
+                    }
+                case IntranetActivityTypeEnum.News:
+                    {
+                        ConvertToNews(node, viewModel);
+                        break;
+                    }
+            }
+            //ConvertToBulletins(node, viewModel);
             viewModel.Tags = GetTagsViewModel();
         }
 
@@ -61,8 +74,8 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.PublishDate = DateTime.UtcNow;
             viewModel.Creator = currentMember.Map<MemberViewModel>();
             viewModel.ActivityType = _activityTypeProvider[(int)IntranetActivityTypeEnum.News];
-            viewModel.Links = links;
-            viewModel.MediaRootId = mediaSettings.MediaRootId;
+            viewModel.Links = null;//TODO: Research links
+            viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready
             viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.CanPin);
         }
 

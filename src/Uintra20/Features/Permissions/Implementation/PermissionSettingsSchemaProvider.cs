@@ -38,7 +38,7 @@ namespace Uintra20.Features.Permissions.Implementation
                         Tree(HideOther),
                         Tree(EditOwner))
                     )),
-            Of(News,
+            Of(PermissionResourceTypeEnum.News,
                 Tree(View,
                     Tree(Create),
                     Tree(Edit,Tree(CanPin)),

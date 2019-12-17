@@ -767,6 +767,7 @@
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\MemberApiController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
     <Compile Include="Core\Activity\Converters\Models\ActivityCreatePanelModel.cs" />
@@ -879,6 +880,7 @@
     <Compile Include="Features\Information\InformationService.cs" />
     <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
     <Compile Include="Features\Navigation\Models\ActivityFeedTabModel.cs" />
+    <Compile Include="Features\News\AutoMapperPrfiles\NewsAutoMapperProfile.cs" />
     <Compile Include="Features\News\Entities\News.cs" />
     <Compile Include="Features\News\INewsService.cs" />
     <Compile Include="Features\News\Models\NewsCreateModel.cs" />

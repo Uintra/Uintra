@@ -5,6 +5,8 @@ using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Information;
 using Uintra20.Features.Media;
+using Uintra20.Features.News;
+using Uintra20.Features.News.Entities;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Implementation;
 using Uintra20.Features.Permissions.Interfaces;
@@ -56,7 +58,9 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<ISubscribeService, SubscribeService>();
             services.AddScoped<IIntranetLocalizationService, LocalizationService>();
 
-			return services;
+            services.AddScoped(typeof(INewsService<News>), typeof(NewsService));
+
+            return services;
 		}
 	}
 }
