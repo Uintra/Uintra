@@ -1,0 +1,18 @@
+.nav {
+  width: 312px;
+  display: none;
+  flex-shrink: 0;
+  background: @white;
+  height: calc(100vh - 70px);
+  padding-left: 15px;
+  overflow: hidden;
+  overflow-y: auto;
+
+  @media @md-up {
+    display: block;
+  }
+}
+
+.nav-list {
+  .list-reset();
+}

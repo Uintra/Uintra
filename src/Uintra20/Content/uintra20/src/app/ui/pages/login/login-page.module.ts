@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { UbaselineCoreModule } from '@ubaseline/next';
 import { LoginPage } from './login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TextInputModule } from 'src/app/feature/project/reusable/inputs/fields/text-input/text-input.module';
 
 @NgModule({
   declarations: [LoginPage],
@@ -12,7 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     RouterModule.forChild([{ path: '', component: LoginPage }]),
     UbaselineCoreModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TextInputModule
   ],
   entryComponents: [LoginPage]
 })

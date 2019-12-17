@@ -6,6 +6,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Compent.Shared.Extensions;
 using Compent.Shared.Extensions.Bcl;
+using Uintra20.Core.Activity;
+using Uintra20.Core.Activity.Entities;
+using Uintra20.Core.Activity.Factories;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
@@ -21,13 +24,16 @@ namespace Uintra20.Core.Feed.Web
 
         private readonly IFeedService _feedService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
+        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
         protected FeedController(
             IFeedService feedService,
-            IFeedFilterStateService<FeedFiltersState> feedFilterStateService)
+            IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
+            IActivitiesServiceFactory activitiesServiceFactory)
         {
             _feedService = feedService;
             _feedFilterStateService = feedFilterStateService;
+            _activitiesServiceFactory = activitiesServiceFactory;
         }
 
         [System.Web.Mvc.HttpGet]
@@ -65,9 +71,12 @@ namespace Uintra20.Core.Feed.Web
         protected virtual FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<int, FeedSettings> settings)
         {
             var options = GetActivityFeedOptions(i.Id);
+
+            var activity = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(i.Type).GetPreviewModel(i.Id);
+
             return new FeedItemViewModel
             {
-                Activity = i,
+                Activity = activity,
                 Options = options,
                 ControllerName = settings[i.Type.ToInt()].Controller
             };
