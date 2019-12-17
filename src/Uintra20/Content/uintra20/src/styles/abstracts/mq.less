@@ -1,0 +1,25 @@
+// for media breakpoint
+@screen-sm        : 600px;
+@screen-md        : 900px;
+@screen-lg        : 1200px;
+@screen-xl        : 1600px;
+
+@sm-up            : ~"(min-width: @{screen-sm})";
+@md-up            : ~"(min-width: @{screen-md})";
+@lg-up            : ~"(min-width: @{screen-lg})";
+
+@sm-down          : ~"(max-width: @{screen-sm})";
+@md-down          : ~"(max-width: @{screen-md})";
+@lg-down          : ~"(max-width: @{screen-lg})";
+
+@sm-only          : ~"(min-width: @{screen-sm}) and (max-width: @{screen-md})";
+@md-only          : ~"(min-width: @{screen-md}) and (max-width: @{screen-lg})";
+@lg-only          : ~"(min-width: @{screen-lg}) and (max-width: @{screen-xl})";
+
+@sm-l             : ~"(min-width: @{screen-sm}) and (orientation: landscape)";
+@md-l             : ~"(min-width: @{screen-md}) and (orientation: landscape)";
+@lg-l             : ~"(min-width: @{screen-lg}) and (orientation: landscape)";
+
+@sm-p             : ~"(min-width: @{screen-sm}) and (orientation: portrait)";
+@md-p             : ~"(min-width: @{screen-md}) and (orientation: portrait)";
+@lg-p             : ~"(min-width: @{screen-lg}) and (orientation: portrait)";

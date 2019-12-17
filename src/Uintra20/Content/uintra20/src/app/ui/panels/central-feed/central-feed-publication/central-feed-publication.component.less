@@ -35,6 +35,8 @@
     align-items: center;
 
     &-item {
+      .reset-button;
+      cursor: pointer;
       display: flex;
       align-items: center;
       margin-right: 20px;
@@ -44,6 +46,17 @@
       }
       .icon-share-icon {
         font-size: 22px;
+      }
+    }
+  }
+
+  &__like {
+    i {
+      color: #b2b2b2;
+    }
+    &--active {
+      i {
+        color: #555;
       }
     }
   }

@@ -762,8 +762,8 @@
     <Content Include="Content\uintra20\src\styles\icons\style.css" />
     <Content Include="Content\uintra20\src\styles\icons\style.less" />
     <Content Include="Content\uintra20\src\styles\icons\variables.less" />
-    <Content Include="Content\uintra20\src\styles\tools\index.less" />
-    <Content Include="Content\uintra20\src\styles\tools\mq.less" />
+    <None Include="Content\uintra20\src\styles\temp\aside.less" />
+    <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
     <Content Include="css\rte.css" />
     <Content Include="Global.asax" />

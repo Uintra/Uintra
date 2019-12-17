@@ -3,34 +3,26 @@
   [description]="data.contentTypeAlias || 'central-feed panel'"
 ></ubl-not-implemented>-->
 
-<section *ngIf="data" class="central-feed">
-  <app-spoiler-section [title]="'Filter'" class="feed-filters">
-    <app-radio-link-group
-      *ngIf="tabs"
-      [links]="tabs"
-      (ngModelChange)="setSelectedTab($event)"
-      [ngModel]="selectedTabType"
-      class="feed-filters__tabs"
-    ></app-radio-link-group>
+<section *ngIf="data && tabs" class="central-feed">
+  <app-central-feed-filters
+    [tabs]="tabs"
+    (selectFilters)="selectFilters($event)"
+  ></app-central-feed-filters>
 
-    <div class="feed-filters__bottom">
-      <div *ngFor="let filter of selectTabFilters" class="feed-filters__filter">
-        <checkbox-input
-          [(ngModel)]="filter.isActive"
-          (ngModelChange)="changeFilters()"
-        >
-          {{filter.title}}
-        </checkbox-input>
-      </div>
+  <div
+    class="search-results"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+  >
+    <app-central-feed-publication
+      *ngFor="let publication of feed"
+      [publication]="publication"
+    ></app-central-feed-publication>
 
-      <button (click)="clearFilters()" class="feed-filters__button">
-        Clear filters
-      </button>
+    <div *ngIf="isFeedLoading" class="central-feed__loader-wrapper">
+      <div class="central-feed__loader"></div>
     </div>
-  </app-spoiler-section>
-
-  <app-central-feed-publication
-    *ngFor="let publication of feed"
-    [publication]="publication"
-  ></app-central-feed-publication>
+  </div>
 </section>
