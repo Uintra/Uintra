@@ -13,9 +13,9 @@ import { Subscription } from 'rxjs';
   encapsulation: ViewEncapsulation.None
 })
 export class LoginPage implements OnInit, OnDestroy {
-  private inProgress = false;
   private loginSubscription: Subscription;
-  private loginForm: FormGroup = new FormGroup(
+  public inProgress = false;
+  public loginForm: FormGroup = new FormGroup(
     {
       login: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
@@ -34,7 +34,7 @@ export class LoginPage implements OnInit, OnDestroy {
     if (this.loginSubscription != null) { this.loginSubscription.unsubscribe(); }
   }
 
-  private submit() {
+  public submit() {
     const model = new LoginModel(
       this.loginForm.value.login,
       this.loginForm.value.password,

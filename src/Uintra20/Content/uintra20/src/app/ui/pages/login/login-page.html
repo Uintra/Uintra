@@ -1,13 +1,37 @@
-<form [formGroup]="loginForm"
-      novalidate
-      (ngSubmit)="submit()">
-  <label>
-    <input formControlName="login" />
-  </label>
-  <br />
-  <label>
-    <input formControlName="password" />
-  </label>
-  <br />
-  <button [disabled]="inProgress">Login</button>
-</form>
+
+
+
+<div class="content">
+  <nav class="nav">
+    <ul class="nav-list">
+      <li><a href="/">left navigation</a></li>
+    </ul>
+  </nav>
+  <div class="content__wrap">
+    <div class="row-flex">
+      <div class="col-md-8">
+        <div class="aside-opener">
+          <span class="icon-window js-aside-opener"></span>
+        </div>
+
+        <form class="login-form" [formGroup]="loginForm"
+            novalidate
+            (ngSubmit)="submit()">
+        <label>
+          <input formControlName="login" />
+        </label>
+        <br />
+        <label>
+          <input formControlName="password" />
+        </label>
+        <br />
+        <button [disabled]="inProgress">Login</button>
+      </form>
+
+      </div>
+      <div class="col-md-4 aside">
+        right panel content
+      </div>
+    </div>
+  </div>
+</div>
