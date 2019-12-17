@@ -83,6 +83,7 @@ namespace Uintra20.Features.Bulletins.AutoMapperProfiles
                 .ForMember(dst => dst.LikedByCurrentUser, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(src => src.MediaIds.Select(m => m.ToString()).JoinWith(",")))
                 .ForMember(dst => dst.Media, o => o.MapFrom(src => src.MediaIds.Select(m => m.ToString()).JoinWith(",")))
+                .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type))
                 .ForMember(dst => dst.Dates, o => o.MapFrom(src => src.PublishDate.ToDateTimeFormat().ToEnumerable()));
 
             //CreateMap<BulletinBase, BulletinsBackofficeViewModel>()
