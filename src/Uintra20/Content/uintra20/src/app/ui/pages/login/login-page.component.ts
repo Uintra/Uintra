@@ -1,10 +1,10 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from 'src/app/feature/login/services/login.service';
 import { LoginModel } from 'src/app/feature/login/models/login.model';
 import { Subscription } from 'rxjs';
-import { filter, finalize } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
+import { AuthService } from 'src/app/feature/auth/auth.service';
 
 @Component({
   selector: 'login-page',
@@ -12,7 +12,7 @@ import { filter, finalize } from 'rxjs/operators';
   styleUrls: ['./login-page.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class LoginPage implements OnInit, OnDestroy {
+export class LoginPage implements  OnDestroy {
   private loginSubscription: Subscription;
   public inProgress = false;
   public loginForm: FormGroup = new FormGroup(
@@ -23,25 +23,8 @@ export class LoginPage implements OnInit, OnDestroy {
   );
 
   constructor(
-    private loginService: LoginService,
+    private authService: AuthService,
     private router: Router) {
-  }
-
-  public ngOnInit(): void {
-    this.loginService.getState()
-      .pipe(
-        finalize(() => this.inProgress = false)).subscribe(
-          (next) => {
-            this.inProgress = false;
-            if (next !== null) {
-              this.router.navigate(['/']);
-            } else {
-              this.router.navigate(['/login'])
-            }
-          },
-          (error) => { console.log(error); },
-          () => { }
-        );
   }
 
   public ngOnDestroy(): void {
@@ -58,10 +41,13 @@ export class LoginPage implements OnInit, OnDestroy {
       '/'
     );
 
-    this.loginService.login(model).then(
-      () => {},
-      () => {this.inProgress = false; }
-    );
+    this.authService.login(model)
+      .pipe(
+        finalize(() => this.inProgress = false)
+      ).subscribe(
+        (next) => { this.router.navigate(['/']); },
+        (error) => {}
+      );
   }
 
   private getCurrentTimeZoneId() {

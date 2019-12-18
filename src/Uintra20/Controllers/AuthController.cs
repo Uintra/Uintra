@@ -37,10 +37,7 @@ namespace Uintra20.Controllers
             authenticationService.Login(loginModel.Login, loginModel.Password);
             clientTimezoneProvider.SetClientTimezone(loginModel.ClientTimezoneId);
 
-            return Ok(new AuthResultModelBase
-            {
-                RedirectUrl = loginModel.ReturnUrl ?? "/"
-            });
+            return Ok();
         }
 
         [HttpPost]
