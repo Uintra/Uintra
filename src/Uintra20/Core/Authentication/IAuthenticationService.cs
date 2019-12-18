@@ -7,7 +7,7 @@ namespace Uintra20.Core.Authentication
 	{
 		bool Validate(string login, string password);
 		void Login(string login, string password);
-        Task Logout();
+        bool Logout();
         bool IsAuthenticatedRequest(IOwinContext context);
     }
 }

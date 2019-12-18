@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+﻿using System.Web;
 using System.Web.Http;
 using System.Web.Security;
 using Uintra20.Core.Authentication;
@@ -42,11 +40,11 @@ namespace Uintra20.Controllers
 
         [HttpPost]
         [Route("logout")]
-        public async Task<IHttpActionResult> Logout()
+        public IHttpActionResult Logout()
         {
-            await authenticationService.Logout();
+	        authenticationService.Logout();
 
-            return Ok();
+	        return Ok();
         }
     }
 }
