@@ -323,7 +323,7 @@ namespace Uintra20.Core.Member.Services
 			var umbracoUser = _umbracoContext.Security.CurrentUser;
 			if (umbracoUser != null) return GetByUserId(umbracoUser.Id);
 
-			return default;
+			return default(T);
 		}
 		public virtual T GetByUserId(int userId)
 		{
