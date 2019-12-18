@@ -3,11 +3,13 @@
       novalidate
       (ngSubmit)="submit()">
   <label>
-    <input formControlName="login" />
+    <input formControlName="login"
+           type="text" />
   </label>
   <br />
   <label>
-    <input formControlName="password" />
+    <input formControlName="password"
+           type="password" />
   </label>
   <br />
   <button [disabled]="inProgress">Login</button>
