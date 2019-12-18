@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LogoutService } from 'src/app/feature/logout/logout.service';
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/feature/auth/auth.service';
 
 @Component({
   selector: 'user-navigation',
@@ -12,7 +12,7 @@ export class UserNavigationComponent implements OnInit {
   public inProgress: boolean;
 
   constructor(
-    private logoutService: LogoutService,
+    private authService: AuthService,
     private router: Router) { }
 
   ngOnInit() {
@@ -20,11 +20,11 @@ export class UserNavigationComponent implements OnInit {
 
   public logout() {
     this.inProgress = true;
-    this.logoutService.logout()
-      .pipe(finalize(() => setTimeout(() => this.inProgress = false, 400)))
+    this.authService.logout()
+      .pipe(finalize(() => this.inProgress = false))
       .subscribe(
         (next) => this.router.navigate(['/login']),
-        (error) => { console.log(error); },
+        (error) => { },
         () => { }
       );
   }
