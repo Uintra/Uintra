@@ -14,3 +14,8 @@
   <br />
   <button [disabled]="inProgress">Login</button>
 </form>
+<div *ngIf="errors">
+  <ul style="color: red; list-style-type: none;" *ngFor="let error of errors" >
+      <li>{{error}}</li>
+  </ul>
+</div>

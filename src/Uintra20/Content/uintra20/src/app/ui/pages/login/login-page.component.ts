@@ -12,9 +12,10 @@ import { AuthService } from 'src/app/feature/auth/auth.service';
   styleUrls: ['./login-page.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class LoginPage implements  OnDestroy {
+export class LoginPage implements OnDestroy {
   private loginSubscription: Subscription;
   public inProgress = false;
+  public errors = [];
   public loginForm: FormGroup = new FormGroup(
     {
       login: new FormControl('', Validators.required),
@@ -46,7 +47,11 @@ export class LoginPage implements  OnDestroy {
         finalize(() => this.inProgress = false)
       ).subscribe(
         (next) => { this.router.navigate(['/']); },
-        (error) => {}
+        (error) => {
+          this.errors = error.error.message
+            .split('\n')
+            .filter(e => e != null && e !== '');
+        }
       );
   }
 
