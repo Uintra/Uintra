@@ -71,6 +71,9 @@
     <Reference Include="Compent.LinkPreview.HttpClient, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
+    <Reference Include="Compent.MediaToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.MediaToolkit.1.0.0\lib\net471\Compent.MediaToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Compent.Shared.ConfigurationProvider.Contract, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.ConfigurationProvider.Contract.0.2.0\lib\net471\Compent.Shared.ConfigurationProvider.Contract.dll</HintPath>
     </Reference>

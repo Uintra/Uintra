@@ -127,6 +127,9 @@
     <Reference Include="Compent.LinkPreview.HttpClient, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
+    <Reference Include="Compent.MediaToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.MediaToolkit.1.0.0\lib\net471\Compent.MediaToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Compent.Shared.Extensions.Bcl, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.Extensions.Bcl.0.1.2\lib\net45\Compent.Shared.Extensions.Bcl.dll</HintPath>
     </Reference>
