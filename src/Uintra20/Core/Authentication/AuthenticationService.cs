@@ -48,7 +48,9 @@ namespace Uintra20.Core.Authentication
 
         public async Task Logout()
         {
-            await Task.Run(() => OwinContext.Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie));
+            var auth = OwinContext.Authentication;
+
+            await Task.Run(() => auth.SignOut(DefaultAuthenticationTypes.ApplicationCookie));
         }
 
         public bool IsAuthenticatedRequest(IOwinContext context)
