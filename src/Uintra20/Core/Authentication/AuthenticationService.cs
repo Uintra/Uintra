@@ -48,13 +48,7 @@ namespace Uintra20.Core.Authentication
 
         public async Task Logout()
         {
-            OwinContext.Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-
-            var email = Membership.GetUser()?.Email;
-
-            var member = await _userManager.FindByEmailAsync(email);
-
-            await member.DeleteUserIdentityAsync(member);
+            await Task.Run(() => OwinContext.Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie));
         }
 
         public bool IsAuthenticatedRequest(IOwinContext context)

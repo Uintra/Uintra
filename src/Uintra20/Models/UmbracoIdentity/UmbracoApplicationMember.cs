@@ -16,10 +16,5 @@ namespace Uintra20.Models.UmbracoIdentity
             // Add custom user claims here
             return userIdentity;
         }
-
-        public async Task DeleteUserIdentityAsync(UmbracoApplicationMember member)
-        {
-            await member.DeleteUserIdentityAsync(member);
-        }
     }
 }
