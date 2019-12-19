@@ -1,10 +1,32 @@
-@import "./styles/abstracts/index.less";
-@import './styles/icons/style.less';
 @import "base.less";
 
+@import "./styles/temp/index.less";
+
+@debug: true;
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+head {
+  display: none;
+
+  &::after {
+    .ubl-debug();
+  }
+}
+
+.content {
+  display: flex;
+
+  &__wrap {
+    padding: 0;
+    flex-grow: 1;
+
+    @media @md-up {
+      padding: 47px 0 0 45px;
+    }
+  }
 }
 
 body {
@@ -12,4 +34,41 @@ body {
     background-color: @body-bg;
     color: @body-text-color;
     font: @body-font;
+}
+
+h1 {
+  font: bold 26px/22px @font;
+  color: @body-text-color;
+  margin: 0 0 20px;
+}
+
+h2 {
+  font: bold 20px/22px @font;
+  color: @body-text-color;
+  margin: 0 0 20px;
+}
+
+h3 {
+  font: bold 18px/22px @font;
+  color: @body-text-color;
+  margin: 0 0 20px;
+}
+
+h4 {
+  font: bold 16px/22px @font;
+  color: @body-text-color;
+  margin: 0 0 20px;
+}
+
+h5 {
+  font: 16px/22px @font;
+  color: @body-text-color;
+  margin: 0 0 20px;
+}
+/* apply to correct element */
+
+breadcrumb {
+  font: bold 13px/22px @font;
+  color: #261d43;
+  margin: 0 0 20px;
 }
