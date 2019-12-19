@@ -1,5 +1,21 @@
-<!-- <ubl-dynamic-component *ngFor="let panel of data.panels?.get()" [data]="panel.get()"></ubl-dynamic-component> -->
-
-<section>
-  <text-input></text-input>
-</section>
+<form class="login-form"
+      [formGroup]="loginForm"
+      novalidate
+      (ngSubmit)="submit()">
+  <label>
+    <input formControlName="login"
+           type="text" />
+  </label>
+  <br />
+  <label>
+    <input formControlName="password"
+           type="password" />
+  </label>
+  <br />
+  <button [disabled]="inProgress">Login</button>
+</form>
+<div *ngIf="errors">
+  <ul style="color: red; list-style-type: none;" *ngFor="let error of errors" >
+      <li>{{error}}</li>
+  </ul>
+</div>

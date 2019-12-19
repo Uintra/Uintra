@@ -127,6 +127,9 @@
     <Reference Include="Compent.LinkPreview.HttpClient, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
+    <Reference Include="Compent.MediaToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.MediaToolkit.1.0.0\lib\net471\Compent.MediaToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Compent.Shared.Extensions.Bcl, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.Extensions.Bcl.0.1.2\lib\net45\Compent.Shared.Extensions.Bcl.dll</HintPath>
     </Reference>
@@ -183,8 +186,8 @@
       <HintPath>..\..\packages\Markdown.1.14.7\lib\net45\MarkdownSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MediaToolkit, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MediaToolkit.1.1.0.1\lib\net40\MediaToolkit.dll</HintPath>
+    <Reference Include="MediaToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MediaToolkit.1.0.0\lib\net471\MediaToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=1.0.1559.20655, Culture=neutral">
       <HintPath>..\..\packages\UmbracoCms.Core.7.15.3\lib\net452\Microsoft.ApplicationBlocks.Data.dll</HintPath>

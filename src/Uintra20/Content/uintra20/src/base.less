@@ -1,7 +1,7 @@
 // Important this file has to import the only mixins and variables.
 @import "./styles/abstracts/variables.less";
+@import "./styles/abstracts/mq.less";
 @import "./styles/mixins/index.less";
-@import "./styles/tools/index.less";
 @import "./styles/grid.config.less";
 @import "@ubaseline/next/css-tools/grid/grid";
 
@@ -22,7 +22,7 @@ head {
     padding: 0;
     flex-grow: 1;
 
-    @media (min-width: @screen-md) {
+    @media @md-up {
       padding: 47px 0 0 45px;
     }
   }

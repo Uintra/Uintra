@@ -71,6 +71,9 @@
     <Reference Include="Compent.LinkPreview.HttpClient, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
+    <Reference Include="Compent.MediaToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.MediaToolkit.1.0.0\lib\net471\Compent.MediaToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Compent.Shared.ConfigurationProvider.Contract, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.ConfigurationProvider.Contract.0.2.0\lib\net471\Compent.Shared.ConfigurationProvider.Contract.dll</HintPath>
     </Reference>
@@ -197,8 +200,8 @@
     <Reference Include="Markdown, Version=2.0.0.0, Culture=neutral, PublicKeyToken=1b320cc08ad5aa89, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Markdown.2.2.1\lib\net451\Markdown.dll</HintPath>
     </Reference>
-    <Reference Include="MediaToolkit, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MediaToolkit.1.1.0.1\lib\net40\MediaToolkit.dll</HintPath>
+    <Reference Include="MediaToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MediaToolkit.1.0.0\lib\net471\MediaToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -581,6 +584,9 @@
     <Reference Include="Umbraco.Web.UI, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Web.8.3.0\lib\net472\Umbraco.Web.UI.dll</HintPath>
     </Reference>
+    <Reference Include="UmbracoIdentity, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoIdentity.Core.7.0.0\lib\net472\UmbracoIdentity.dll</HintPath>
+    </Reference>
     <Reference Include="uSync8.BackOffice, Version=8.1.1.72, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uSync.8.1.1\lib\net472\uSync8.BackOffice.dll</HintPath>
     </Reference>
@@ -826,8 +832,8 @@
     <Content Include="Content\uintra20\src\styles\icons\style.css" />
     <Content Include="Content\uintra20\src\styles\icons\style.less" />
     <Content Include="Content\uintra20\src\styles\icons\variables.less" />
-    <Content Include="Content\uintra20\src\styles\tools\index.less" />
-    <Content Include="Content\uintra20\src\styles\tools\mq.less" />
+    <None Include="Content\uintra20\src\styles\temp\aside.less" />
+    <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
     <Content Include="css\rte.css" />
     <Content Include="Global.asax" />
@@ -837,12 +843,15 @@
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="App_Start\StartupComposer.cs" />
+    <Compile Include="App_Start\UmbracoIdentityOwinStartup.cs" />
+    <Compile Include="App_Start\UmbracoIdentityUserComposer.cs" />
     <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Attributes\RequiredIfAllEmpty.cs" />
     <Compile Include="Attributes\RequiredIfEmptyAttribute.cs" />
     <Compile Include="Attributes\RequiredVirtualAttribute.cs" />
     <Compile Include="Attributes\StringLenghtWithoutHtmlAttribute.cs" />
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\FileController.cs" />
@@ -874,12 +883,22 @@
     <Compile Include="Core\Activity\Models\Headers\IntranetActivityItemHeaderViewModel.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityCreateModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityEditModelBase.cs" />
+    <Compile Include="Core\Activity\Models\IntranetActivityPreviewModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
     <Compile Include="Core\Feed\Models\ActivityFeedTabFiltersViewModel.cs" />
+    <Compile Include="Core\Feed\Models\FeedActivityViewModel.cs" />
+    <Compile Include="Core\Authentication\AuthenticationConfigurator.cs" />
+    <Compile Include="Core\Authentication\AuthenticationService.cs" />
+    <Compile Include="Core\Authentication\CookieAuthenticationProvider.cs" />
+    <Compile Include="Core\Authentication\IAuthenticationProvider.cs" />
+    <Compile Include="Core\Authentication\IAuthenticationService.cs" />
+    <Compile Include="Core\Authentication\Models\AuthResultModelBase.cs" />
+    <Compile Include="Core\Authentication\Models\LoginModelBase.cs" />
     <Compile Include="Features\Bulletins\Converters\BulletinDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageModel.cs" />
     <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\BulletinPreviewModel.cs" />
     <Compile Include="Features\CentralFeed\Providers\ContentProviderBase.cs" />
     <Compile Include="Features\CentralFeed\Providers\FeedContentProviderBase.cs" />
     <Compile Include="Features\CentralFeed\Providers\CentralFeedContentProvider.cs" />
@@ -900,6 +919,7 @@
     <Compile Include="Core\Member\Services\IIntranetMemberService.cs" />
     <Compile Include="Core\Member\Services\IntranetMemberService.cs" />
     <Compile Include="Core\Member\Services\IntranetMemberServiceBase.cs" />
+    <Compile Include="Core\ReflectionHelper.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedOverviewModel.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedTypeModel.cs" />
     <Compile Include="Core\Feed\Web\FeedController.cs" />
@@ -1083,6 +1103,7 @@
     <Compile Include="Infrastructure\Extensions\HttpContextExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\IntranetMemberServiceExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\ListExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\ModelStateExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\OptionExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\StringExtensions.cs" />
@@ -1331,6 +1352,15 @@
     <Compile Include="Infrastructure\Utils\EmbeddedResourcesUtils.cs" />
     <Compile Include="Infrastructure\Utils\IEmbeddedResourceService.cs" />
     <Compile Include="Infrastructure\Helpers\XPathHelper.cs" />
+    <Compile Include="Models\UmbracoIdentity\ExternalLoginListViewModel.cs" />
+    <Compile Include="Models\UmbracoIdentity\ForgotPasswordViewModel.cs" />
+    <Compile Include="Models\UmbracoIdentity\LoginViewModel.cs" />
+    <Compile Include="Models\UmbracoIdentity\RegisterViewModel.cs" />
+    <Compile Include="Models\UmbracoIdentity\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\UmbracoIdentity\RoleManagementModel.cs" />
+    <Compile Include="Models\UmbracoIdentity\UmbracoApplicationMember.cs" />
+    <Compile Include="Models\UmbracoIdentity\UmbracoApplicationRole.cs" />
+    <Compile Include="Models\UmbracoIdentity\UserPasswordModel.cs" />
     <Compile Include="Persistence\Context\DbContextFactory.cs" />
     <Compile Include="Persistence\Context\DbObjectContext.cs" />
     <Compile Include="Persistence\Context\IntranetDbContext.cs" />
@@ -1490,6 +1520,7 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\InternalServerErrorPage.cshtml" />
     <Content Include="Views\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Base.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1546,6 +1577,21 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PipelineCollectFilesPhaseDependsOn>
+    CustomCollectFiles;
+    $(PipelineCollectFilesPhaseDependsOn);
+  </PipelineCollectFilesPhaseDependsOn>
+  </PropertyGroup>
+  <Target Name="CustomCollectFiles">
+    <Message Text="Inside of CustomCollectFiles" Importance="high" />
+    <ItemGroup>
+      <_CustomFiles Include="wwwroot\**\*" Exclude="**\node_modules\**;content\**" />
+      <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
+        <DestinationRelativePath>wwwroot\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+  </Target>
   <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" />
   <Target Name="BeforeBuild">
     <Message Text="Executing TransformXml for Web.$(Configuration).config" Importance="normal" />

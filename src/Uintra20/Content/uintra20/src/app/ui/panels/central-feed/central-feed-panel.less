@@ -1,34 +1,19 @@
 @import "base.less";
 
-central-feed-panel {
-
-}
-
 app-spoiler-section {
   display: block;
+  margin-bottom: 20px;
 }
 
 .central-feed {
-  &__tabs {
-    margin-bottom: 20px;
-  }
-  &__bottom {
-    display: flex;
-    align-items: flex-start;
-  }
-  &__filter {
-    margin-right: 30px;
-  }
-  &__button {
-    margin-left: auto;
-    outline: 0;
-    background: #fff;
-    color: #555;
-    border: 1px solid #8f8f8f;
-    padding: 6px 15px;
-    border-radius: 30px;
-    font-size: 12px;
-    font-weight: 600;
-    width: auto;
+  &__loader {
+    .spinner;
+    color: #444;
+
+    &-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 30px auto 60px;
+    }
   }
 }

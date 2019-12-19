@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ICentralFeedPanel } from './central-feed-panel.interface';
 import { UmbracoFlatPropertyModel } from '@ubaseline/next';
+import { PublicationsService, IFeedListRequest } from './helpers/publications.service';
 
 // interface IFilterTab {
 //   type: number;
@@ -8,6 +9,34 @@ import { UmbracoFlatPropertyModel } from '@ubaseline/next';
 //   links: string;
 //   title: string;
 //   filters: object;
+// }
+// interface IFeedData {
+//   activity: {
+//     creatorId: string;
+//     description: string;
+//     endPinDate: string;
+//     groupId: string;
+//     isHidden: string;
+//     isPinned: string;
+//     linkPreviewId: string;
+//     ownerId: string;
+//     publishDate: string;
+//     title: string;
+//     umbracoCreatorId: string;
+//   };
+//   controllerName: string;
+//   options: {
+//     isReadOnly: false
+//     links: {
+//       create: string;
+//       details: string;
+//       detailsNoId: string;
+//       edit: string;
+//       feed: string;
+//       overview: string;
+//       owner: string;
+//     }
+//   }
 // }
 
 @Component({
@@ -18,42 +47,56 @@ import { UmbracoFlatPropertyModel } from '@ubaseline/next';
 })
 export class CentralFeedPanel implements OnInit{
   data: ICentralFeedPanel;
-
   tabs: Array<UmbracoFlatPropertyModel> = null;
-  selectedTab: UmbracoFlatPropertyModel = null;
+  // TODO: replace 'any' after server side will be done
   selectTabFilters: Array<any>;
   selectedTabType: number;
+  feed: Array<any> = [];
+  currentPage: number = 1;
+  isFeedLoading: boolean = false;
+
+  constructor(private publicationsService: PublicationsService) {}
 
   ngOnInit() {
     this.tabs = Object.values(this.data.tabs.get());
-    this.setInitValues();
   }
 
-  setInitValues() {
-    this.selectedTab = this.tabs.find(tab => tab.get().isActive);
-    this.selectedTabType = this.selectedTab.get().type.get();
-    this.selectTabFilters = this.getTabFilters();
+  getPublications() {
+    const FilterState = {};
+
+    this.selectTabFilters.forEach(filter => {
+      FilterState[filter.key] = filter.isActive;
+    });
+
+    const data = {
+      TypeId: this.selectedTabType,
+      FilterState,
+      Page: this.currentPage
+    };
+
+    this.isFeedLoading = true;
+    this.publicationsService.getPublications(data).then(response => {
+      this.feed = this.feed.concat(response['feed']);
+    }).catch(error => {
+
+    }).finally(() => {
+      this.isFeedLoading = false;
+    });
   }
 
-  setSelectedTab(event) {
-    this.selectedTabType = event;
-    this.selectedTab = this.tabs.find(tab => tab.get().type.get() === event);
-    this.selectTabFilters = this.getTabFilters();
+  onLoadMore() {
+    this.currentPage += 1;
+    this.getPublications();
   }
 
-  clearFilters() {
-    this.setInitValues();
-    this.selectTabFilters = this.selectTabFilters
-      .map(filter => ({ ...filter, isActive: false }));
+  onScroll() {
+    this.onLoadMore();
   }
 
-  getTabFilters() {
-    const filters = Object.values(JSON.parse(JSON.stringify(this.selectedTab.get().filters.get())));
-
-    return filters.map( filter => ({
-      title: filter,
-      isActive: false
-      })
-    );
+  selectFilters({ selectedTabType, selectTabFilters }) {
+    this.selectTabFilters = selectTabFilters;
+    this.selectedTabType = selectedTabType;
+    this.feed = [];
+    this.getPublications();
   }
 }
