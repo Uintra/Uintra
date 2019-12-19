@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ILatestActivitiesPanel } from './latest-activities-panel.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'latest-activities-panel',
@@ -8,11 +10,18 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class LatestActivitiesPanel implements OnInit {
 
-  public data: any;
+  public data: ILatestActivitiesPanel;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
-  ngOnInit() {
-    let data = this.data;
+  public ngOnInit = (): void => {
+    debugger;
+  }
+
+  public seeAll = (): void => {
+    console.log('navigated to bulletins');
+    // this.router.navigate(['bulletins']);
   }
 }

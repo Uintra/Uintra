@@ -1,1 +1,11 @@
-<p>latest-activities works!</p>
+<div>
+    <section>
+        <h2>{{data.title.data.value}}</h2>
+        <div class="holder">
+            <div *ngFor="let f of data.feed.data"
+                 class="block-item">Item</div>
+        </div>
+        <button *ngIf="data.showSeeAllButton.data.value" 
+            (click)="seeAll()">See all</button>
+    </section>
+</div>
