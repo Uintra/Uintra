@@ -720,6 +720,7 @@
     <Content Include="App_Plugins\uSync8\usync.css" />
     <Content Include="App_Plugins\uSync8\uSyncHub.js" />
     <Content Include="App_Plugins\uSync8\uSyncService.js" />
+    <Content Include="App_Plugins\Utils\Сache\View\developer-cache.html" />
     <Content Include="App_Plugins\VideoPicker\prevalue-editor\styles.css" />
     <Content Include="App_Plugins\VideoPicker\prevalue-editor\video-picker-prevalue.controller.js" />
     <Content Include="App_Plugins\VideoPicker\prevalue-editor\video-picker-prevalue.html" />
@@ -787,6 +788,7 @@
     <Compile Include="Attributes\RequiredVirtualAttribute.cs" />
     <Compile Include="Attributes\StringLenghtWithoutHtmlAttribute.cs" />
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
+    <Compile Include="App_Plugins\Utils\Сache\CacheDashboard.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
@@ -996,6 +998,7 @@
     <Compile Include="Features\Comments\Sql\Comment.cs" />
     <Compile Include="Features\Comments\Sql\CommentToLinkPreviewEntity.cs" />
     <Compile Include="Features\Comments\Web\CommentsControllerBase.cs" />
+    <Compile Include="Infrastructure\Caching\Web\CacheController.cs" />
     <Compile Include="Infrastructure\Constants\DocumentTypeAliasConstants.cs" />
     <Compile Include="Infrastructure\Constants\GridEditorConstants.cs" />
     <Compile Include="Infrastructure\Constants\IntranetConstants.cs" />
