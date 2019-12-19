@@ -601,6 +601,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\compent.uintra\app_plugins\userpicker\backoffice\relateduserpicker\related-user-picker.controller.js">
+      <Link>App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.controller.js</Link>
+    </Content>
+    <Content Include="..\compent.uintra\app_plugins\userpicker\backoffice\relateduserpicker\related-user-picker.html">
+      <Link>App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.html</Link>
+    </Content>
+    <Content Include="..\compent.uintra\app_plugins\userpicker\userpicker\user-picker.directive.html">
+      <Link>App_Plugins\UserPicker\UserPicker\user-picker.directive.html</Link>
+    </Content>
+    <Content Include="..\compent.uintra\app_plugins\userpicker\userpicker\user-picker.directive.js">
+      <Link>App_Plugins\UserPicker\UserPicker\user-picker.directive.js</Link>
+    </Content>
     <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.service.js" />
     <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.controller.js" />
     <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.html" />
@@ -769,6 +781,7 @@
     <Content Include="Content\uintra20\src\styles\icons\style.css" />
     <Content Include="Content\uintra20\src\styles\icons\style.less" />
     <Content Include="Content\uintra20\src\styles\icons\variables.less" />
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
     <None Include="Content\uintra20\src\styles\temp\aside.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
@@ -833,6 +846,11 @@
     <Compile Include="Core\Authentication\IAuthenticationService.cs" />
     <Compile Include="Core\Authentication\Models\AuthResultModelBase.cs" />
     <Compile Include="Core\Authentication\Models\LoginModelBase.cs" />
+    <Compile Include="Core\Member\Helpers\IMemberServiceHelper.cs" />
+    <Compile Include="Core\Member\Helpers\MemberServiceHelper.cs" />
+    <Compile Include="Core\Member\Models\UserPickerModel.cs" />
+    <Compile Include="Core\Member\Web\UserApiController.cs" />
+    <Compile Include="Core\User\Web\UserApiController.cs" />
     <Compile Include="Features\Bulletins\Converters\BulletinDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageModel.cs" />
     <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageViewModel.cs" />
