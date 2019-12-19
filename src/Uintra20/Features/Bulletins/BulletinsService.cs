@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using Compent.CommandBus;
 using Compent.Extensions;
 using Compent.Shared.Extensions;
@@ -10,6 +11,7 @@ using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Activity.Models.Headers;
+using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
@@ -133,6 +135,7 @@ namespace Uintra20.Features.Bulletins
             viewModel.LikedByCurrentUser = bulletin.Likes.Any(x => x.UserId == currentMemberId);
             viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);
             _likesService.FillLikes(viewModel);
+            DependencyResolver.Current.GetService<ILightboxHelper>().FillGalleryPreview(viewModel, bulletin.MediaIds);
 
             return viewModel;
         }

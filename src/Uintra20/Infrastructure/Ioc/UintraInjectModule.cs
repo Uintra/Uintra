@@ -1,4 +1,5 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
+using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Localization;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Services;
@@ -55,6 +56,8 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IMentionService, MentionService>();
             services.AddScoped<ISubscribeService, SubscribeService>();
             services.AddScoped<IIntranetLocalizationService, LocalizationService>();
+
+            services.AddScoped<ILightboxHelper, LightboxHelper>();
 
 			return services;
 		}
