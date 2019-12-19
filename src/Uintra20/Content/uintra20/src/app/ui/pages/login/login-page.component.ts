@@ -1,10 +1,10 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from 'src/app/feature/login/services/login.service';
 import { LoginModel } from 'src/app/feature/login/models/login.model';
-import { finalize } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { AuthService } from 'src/app/feature/auth/auth.service';
 
 @Component({
   selector: 'login-page',
@@ -12,9 +12,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./login-page.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class LoginPage implements OnInit, OnDestroy {
+export class LoginPage implements OnDestroy {
   private loginSubscription: Subscription;
   public inProgress = false;
+  public errors = [];
   public loginForm: FormGroup = new FormGroup(
     {
       login: new FormControl('', Validators.required),
@@ -23,11 +24,8 @@ export class LoginPage implements OnInit, OnDestroy {
   );
 
   constructor(
-    private loginService: LoginService,
+    private authService: AuthService,
     private router: Router) {
-  }
-
-  public ngOnInit(): void {
   }
 
   public ngOnDestroy(): void {
@@ -35,20 +33,25 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   public submit() {
+    this.inProgress = true;
+
     const model = new LoginModel(
       this.loginForm.value.login,
       this.loginForm.value.password,
       this.getCurrentTimeZoneId(),
       '/'
     );
-    this.inProgress = true;
-    this.loginSubscription = this.loginService.login(model)
+
+    this.authService.login(model)
       .pipe(
-        finalize(() => setTimeout(() => this.inProgress = false, 400))
+        finalize(() => this.inProgress = false)
       ).subscribe(
-        (next) => this.router.navigate([next.redirectUrl]),
-        (error) => { console.log(error); },
-        () => { }
+        (next) => { this.router.navigate(['/']); },
+        (error) => {
+          this.errors = error.error.message
+            .split('\n')
+            .filter(e => e != null && e !== '');
+        }
       );
   }
 

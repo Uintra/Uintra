@@ -8,10 +8,13 @@ import { panels } from './ui/panels/panels';
 const routes = [
   // remove it
   {
-    path: "developer-ui-kit", loadChildren: './ui/pages/developer-ui-kit/developer-ui-kit.module#DeveloperUIKitModule'
+    path: 'developer-ui-kit', loadChildren: './ui/pages/developer-ui-kit/developer-ui-kit.module#DeveloperUIKitModule'
   },
   {
-    path: "**", component: ResolveComponent, resolve: { data: ResolveService },
+    path: 'login', loadChildren: './ui/pages/login/login-page.module#LoginPageModule'
+  },
+  {
+    path: '**', component: ResolveComponent, resolve: { data: ResolveService },
   },
 
   ...pages, ...panels

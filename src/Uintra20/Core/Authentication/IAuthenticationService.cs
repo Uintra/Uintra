@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using System.Threading.Tasks;
+using Microsoft.Owin;
 
 namespace Uintra20.Core.Authentication
 {
@@ -6,6 +7,7 @@ namespace Uintra20.Core.Authentication
 	{
 		bool Validate(string login, string password);
 		void Login(string login, string password);
+        bool Logout();
         bool IsAuthenticatedRequest(IOwinContext context);
     }
 }

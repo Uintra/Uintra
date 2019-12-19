@@ -45,6 +45,15 @@ namespace Uintra20.Core.Authentication
                 await member.GenerateUserIdentityAsync(_userManager));
         }
 
+        public bool Logout()
+        {
+	        OwinContext.Authentication.SignOut(
+		        DefaultAuthenticationTypes.ApplicationCookie,
+		        DefaultAuthenticationTypes.ExternalCookie);
+
+	        return true;
+        }
+
         public bool IsAuthenticatedRequest(IOwinContext context)
         {
             if (context.Request.Path.Value.In(AnonymousRoutes()))
