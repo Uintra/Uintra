@@ -1,10 +1,32 @@
-@import "./styles/abstracts/index.less";
-@import './styles/icons/style.less';
 @import "base.less";
 
+@import "./styles/temp/index.less";
+
+@debug: true;
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+head {
+  display: none;
+
+  &::after {
+    .ubl-debug();
+  }
+}
+
+.content {
+  display: flex;
+
+  &__wrap {
+    padding: 0;
+    flex-grow: 1;
+
+    @media @md-up {
+      padding: 47px 0 0 45px;
+    }
+  }
 }
 
 body {

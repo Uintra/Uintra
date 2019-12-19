@@ -782,6 +782,7 @@
     <Content Include="Content\uintra20\src\styles\icons\style.less" />
     <Content Include="Content\uintra20\src\styles\icons\variables.less" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
+    <Content Include="Content\uintra20\src\styles.less" />
     <None Include="Content\uintra20\src\styles\temp\aside.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
