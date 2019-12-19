@@ -10,4 +10,10 @@ export const panels = [
         path: '__dynamic__',
         loadChildren: './ui/panels/central-feed/central-feed-panel.module#CentralFeedPanelModule'
     },
+
+    {
+        id: 'latestActivitiesPanel',
+        path: '__dynamic__',
+        loadChildren: './ui/panels/latest-activities/latest-activities-panel.module#LatestActivitiesPanelModule'
+    },
 ];
