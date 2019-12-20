@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AS_DYNAMIC_COMPONENT } from '@ubaseline/next';
-import { LatestActivitiesPanel } from './latest-activities-panel.component';
+import { LatestActivitiesPanelComponent } from '../component/latest-activities-panel.component';
 
 @NgModule({
   declarations: [
-    LatestActivitiesPanel
+    LatestActivitiesPanelComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   providers: [
-    { provide: AS_DYNAMIC_COMPONENT, useValue: LatestActivitiesPanel }
+    { provide: AS_DYNAMIC_COMPONENT, useValue: LatestActivitiesPanelComponent }
   ],
   entryComponents: [
-    LatestActivitiesPanel
+    LatestActivitiesPanelComponent
   ]
 })
 export class LatestActivitiesPanelModule { }

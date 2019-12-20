@@ -1,0 +1,21 @@
+<div>
+    <section>
+        <h2>{{title}}</h2>
+        <div class="holder">
+            <div *ngFor="let cell of activityCells"
+                 class="block-item">
+                <p>
+                    {{cell.get().activity.get().type.get()}}
+                    <br />
+                    {{cell.get().activity.get().dates.get()[0] | date: 'MMM d, y hh:mm'}}
+                </p>
+                <h3 class="block-subtitle-clamp">
+                    <a routerLink="['/']"></a>
+                    <p [innerHtml]="cell.get().activity.get().description.get()"></p>
+                </h3>
+            </div>
+        </div>
+        <button *ngIf="showAll"
+                (click)="seeAll()">See all</button>
+    </section>
+</div>

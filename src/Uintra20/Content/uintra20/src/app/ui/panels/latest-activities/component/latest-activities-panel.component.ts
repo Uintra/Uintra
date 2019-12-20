@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ILatestActivitiesPanel } from './latest-activities-panel.interface';
 import { Router } from '@angular/router';
+import { ILatestActivitiesPanel } from '../contract/latest-activities-panel.interface';
 
 @Component({
   selector: 'latest-activities-panel',
@@ -8,16 +8,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./latest-activities-panel.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class LatestActivitiesPanel implements OnInit {
-
-  public data: ILatestActivitiesPanel;
+export class LatestActivitiesPanelComponent implements OnInit {
 
   constructor(
     private router: Router
   ) { }
+  public readonly data: ILatestActivitiesPanel;
+  public title: string;
+  public activityCells: any;
+  public showAll: false;
 
-  public ngOnInit = (): void => {
-    debugger;
+  public ngOnInit(): void {
+    this.title = this.data.title.get();
+    this.activityCells = Object.values(this.data.feed.get());
+    this.showAll = this.data.showSeeAllButton.get();
   }
 
   public seeAll = (): void => {
@@ -25,3 +29,5 @@ export class LatestActivitiesPanel implements OnInit {
     // this.router.navigate(['bulletins']);
   }
 }
+
+
