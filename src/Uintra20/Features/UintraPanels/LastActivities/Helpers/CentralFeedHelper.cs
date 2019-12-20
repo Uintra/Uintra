@@ -235,8 +235,7 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
             return new FeedItemViewModel
             {
                 Activity = activity,
-                Options = options,
-                ControllerName = settings[i.Type.ToInt()].Controller
+                Options = options
             };
         }
 
