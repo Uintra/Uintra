@@ -7,5 +7,7 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
     public interface ILatestActivitiesPanelHelper
     {
         (bool isShowMore, IEnumerable<FeedItemViewModel> feedItems) GetFeedItems(LatestActivitiesPanelModel node);
+        string AvailableActivityTypes();
+        FeedListViewModel GetFeedListViewModel(FeedListModel model);
     }
 }

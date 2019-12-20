@@ -801,6 +801,8 @@
     <Compile Include="Features\CentralFeed\Services\CentralFeedContentService.cs" />
     <Compile Include="Features\CentralFeed\Providers\ICentralFeedContentProvider.cs" />
     <Compile Include="Features\CentralFeed\Providers\IFeedContentProvider.cs" />
+    <Compile Include="Features\CentralFeed\Settings\LatestActivitySettings.cs" />
+    <Compile Include="Features\CentralFeed\Web\CentralFeedApiController.cs" />
     <Compile Include="Features\Comments\CommandBus\CommentHandle.cs" />
     <Compile Include="Features\Comments\CommandBus\CommentNotificationHandle.cs" />
     <Compile Include="Features\Comments\Converters\CommentsPanelViewModelConverter.cs" />
@@ -817,7 +819,6 @@
     <Compile Include="Core\Member\Services\IntranetMemberServiceBase.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedOverviewModel.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedTypeModel.cs" />
-    <Compile Include="Core\Feed\Web\FeedController.cs" />
     <Compile Include="Core\Login\LoginPageViewModel.cs" />
     <Compile Include="Core\Login\LoginPageViewModelConverter.cs" />
     <Compile Include="Core\Login\LoginPageModel.cs" />
@@ -871,7 +872,6 @@
     <Compile Include="Core\Feed\State\IFeedFilterStateService.cs" />
     <Compile Include="Core\Feed\Services\IFeedService.cs" />
     <Compile Include="Core\Feed\Models\FeedItemViewModel.cs" />
-    <Compile Include="Features\CentralFeed\Web\CentralFeedController.cs" />
     <Compile Include="Features\Information\IInformationService.cs" />
     <Compile Include="Features\Information\InformationService.cs" />
     <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
@@ -955,6 +955,7 @@
     <Compile Include="Features\Comments\Sql\Comment.cs" />
     <Compile Include="Features\Comments\Sql\CommentToLinkPreviewEntity.cs" />
     <Compile Include="Features\Comments\Web\CommentsControllerBase.cs" />
+    <Compile Include="Infrastructure\Configuration\UIntraConfiguration.cs" />
     <Compile Include="Infrastructure\Constants\DocumentTypeAliasConstants.cs" />
     <Compile Include="Infrastructure\Constants\GridEditorConstants.cs" />
     <Compile Include="Infrastructure\Constants\IntranetConstants.cs" />
@@ -1280,6 +1281,7 @@
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\AvailableActivitySelector\package.manifest" />
+    <Content Include="config\UIntra\latestActivitySettings.json" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
@@ -1313,8 +1315,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Core\Feed\Web\" />
     <Folder Include="Infrastructure\Authentication\" />
-    <Folder Include="Infrastructure\Configuration\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
