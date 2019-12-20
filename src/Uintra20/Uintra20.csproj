@@ -71,6 +71,9 @@
     <Reference Include="Compent.LinkPreview.HttpClient, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
+    <Reference Include="Compent.MediaToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.MediaToolkit.1.0.0\lib\net471\Compent.MediaToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Compent.Shared.ConfigurationProvider.Contract, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.ConfigurationProvider.Contract.0.2.0\lib\net471\Compent.Shared.ConfigurationProvider.Contract.dll</HintPath>
     </Reference>
@@ -598,6 +601,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\compent.uintra\app_plugins\userpicker\backoffice\relateduserpicker\related-user-picker.controller.js">
+      <Link>App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.controller.js</Link>
+    </Content>
+    <Content Include="..\compent.uintra\app_plugins\userpicker\backoffice\relateduserpicker\related-user-picker.html">
+      <Link>App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.html</Link>
+    </Content>
+    <Content Include="..\compent.uintra\app_plugins\userpicker\userpicker\user-picker.directive.html">
+      <Link>App_Plugins\UserPicker\UserPicker\user-picker.directive.html</Link>
+    </Content>
+    <Content Include="..\compent.uintra\app_plugins\userpicker\userpicker\user-picker.directive.js">
+      <Link>App_Plugins\UserPicker\UserPicker\user-picker.directive.js</Link>
+    </Content>
     <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.service.js" />
     <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.controller.js" />
     <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.html" />
@@ -717,6 +732,7 @@
     <Content Include="App_Plugins\uSync8\usync.css" />
     <Content Include="App_Plugins\uSync8\uSyncHub.js" />
     <Content Include="App_Plugins\uSync8\uSyncService.js" />
+    <Content Include="App_Plugins\Utils\Сache\View\developer-cache.html" />
     <Content Include="App_Plugins\VideoPicker\prevalue-editor\styles.css" />
     <Content Include="App_Plugins\VideoPicker\prevalue-editor\video-picker-prevalue.controller.js" />
     <Content Include="App_Plugins\VideoPicker\prevalue-editor\video-picker-prevalue.html" />
@@ -752,6 +768,8 @@
     <Content Include="Content\uintra20\src\assets\fonts\icomoon.svg" />
     <Content Include="Content\uintra20\src\assets\fonts\icomoon.ttf" />
     <Content Include="Content\uintra20\src\assets\fonts\icomoon.woff" />
+    <Content Include="Content\uintra20\src\assets\img\logo.svg" />
+    <Content Include="Content\uintra20\src\assets\img\u-intra-text-logo.svg" />
     <Content Include="Content\uintra20\src\styles\grid.config.less" />
     <Content Include="Content\uintra20\src\styles\icons\demo-files\demo.css" />
     <Content Include="Content\uintra20\src\styles\icons\demo-files\demo.js" />
@@ -765,6 +783,11 @@
     <Content Include="Content\uintra20\src\styles\icons\style.css" />
     <Content Include="Content\uintra20\src\styles\icons\style.less" />
     <Content Include="Content\uintra20\src\styles\icons\variables.less" />
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
+    <Content Include="Content\uintra20\src\styles.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\elements.less" />
+    <Content Include="Content\uintra20\src\styles\components\index.less" />
+    <Content Include="Content\uintra20\src\styles\components\form-elements.less" />
     <None Include="Content\uintra20\src\styles\temp\aside.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
@@ -784,6 +807,7 @@
     <Compile Include="Attributes\RequiredVirtualAttribute.cs" />
     <Compile Include="Attributes\StringLenghtWithoutHtmlAttribute.cs" />
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
+    <Compile Include="App_Plugins\Utils\Сache\CacheDashboard.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
@@ -828,6 +852,11 @@
     <Compile Include="Core\Authentication\IAuthenticationService.cs" />
     <Compile Include="Core\Authentication\Models\AuthResultModelBase.cs" />
     <Compile Include="Core\Authentication\Models\LoginModelBase.cs" />
+    <Compile Include="Core\Member\Helpers\IMemberServiceHelper.cs" />
+    <Compile Include="Core\Member\Helpers\MemberServiceHelper.cs" />
+    <Compile Include="Core\Member\Models\UserPickerModel.cs" />
+    <Compile Include="Core\Member\Web\UserApiController.cs" />
+    <Compile Include="Core\User\Web\UserApiController.cs" />
     <Compile Include="Features\Bulletins\Converters\BulletinDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageModel.cs" />
     <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageViewModel.cs" />
@@ -838,6 +867,8 @@
     <Compile Include="Features\CentralFeed\Services\CentralFeedContentService.cs" />
     <Compile Include="Features\CentralFeed\Providers\ICentralFeedContentProvider.cs" />
     <Compile Include="Features\CentralFeed\Providers\IFeedContentProvider.cs" />
+    <Compile Include="Features\CentralFeed\Settings\LatestActivitySettings.cs" />
+    <Compile Include="Features\CentralFeed\Web\CentralFeedApiController.cs" />
     <Compile Include="Features\Comments\CommandBus\CommentHandle.cs" />
     <Compile Include="Features\Comments\CommandBus\CommentNotificationHandle.cs" />
     <Compile Include="Features\Comments\Converters\CommentsPanelViewModelConverter.cs" />
@@ -855,7 +886,6 @@
     <Compile Include="Core\ReflectionHelper.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedOverviewModel.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedTypeModel.cs" />
-    <Compile Include="Core\Feed\Web\FeedController.cs" />
     <Compile Include="Core\Login\LoginPageViewModel.cs" />
     <Compile Include="Core\Login\LoginPageViewModelConverter.cs" />
     <Compile Include="Core\Login\LoginPageModel.cs" />
@@ -909,7 +939,6 @@
     <Compile Include="Core\Feed\State\IFeedFilterStateService.cs" />
     <Compile Include="Core\Feed\Services\IFeedService.cs" />
     <Compile Include="Core\Feed\Models\FeedItemViewModel.cs" />
-    <Compile Include="Features\CentralFeed\Web\CentralFeedController.cs" />
     <Compile Include="Features\Information\IInformationService.cs" />
     <Compile Include="Features\Information\InformationService.cs" />
     <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
@@ -926,8 +955,8 @@
     <Compile Include="Features\Tagging\UserTags\Models\UserTagItemViewModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\LatestActivitiesPanelViewModelConverter.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\SelectedActivityPropertyEditorConvertor.cs" />
-    <Compile Include="Features\UintraPanels\LastActivities\Helpers\ILatestActivitiesPanelHelper.cs" />
-    <Compile Include="Features\UintraPanels\LastActivities\Helpers\LatestActivitiesPanelHelper.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Helpers\ILatestActivitiesHelper.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Helpers\LatestActivitiesHelper.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Injection\LastActivityInjectModule.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelViewModel.cs" />
@@ -993,10 +1022,13 @@
     <Compile Include="Features\Comments\Sql\Comment.cs" />
     <Compile Include="Features\Comments\Sql\CommentToLinkPreviewEntity.cs" />
     <Compile Include="Features\Comments\Web\CommentsControllerBase.cs" />
+    <Compile Include="Infrastructure\Caching\Web\CacheController.cs" />
+    <Compile Include="Infrastructure\Configuration\UIntraConfiguration.cs" />
     <Compile Include="Infrastructure\Constants\DocumentTypeAliasConstants.cs" />
     <Compile Include="Infrastructure\Constants\GridEditorConstants.cs" />
     <Compile Include="Infrastructure\Constants\IntranetConstants.cs" />
     <Compile Include="Infrastructure\Constants\UmbracoAliases.cs" />
+    <Compile Include="Infrastructure\Constants\UsersInstallationConstants.cs" />
     <Compile Include="Infrastructure\Context\ContextType.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxAutoMapperProfile.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewModel.cs" />
@@ -1381,8 +1413,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\uintra20\src\app\ui\main-layout\" />
+    <Folder Include="Core\Feed\Web\" />
     <Folder Include="Infrastructure\Authentication\" />
-    <Folder Include="Infrastructure\Configuration\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

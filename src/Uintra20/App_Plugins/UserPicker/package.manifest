@@ -1,0 +1,15 @@
+﻿{
+  "propertyEditors": [
+    {
+      "name": "Related User picker",
+      "alias": "custom.RelatedUserPicker",
+      "editor": {
+        "view": "~/App_Plugins/UserPicker/backoffice/RelatedUserPicker/related-user-picker.html"
+      }
+    }
+  ],
+  "javascript": [
+    "/App_Plugins/UserPicker/UserPicker/user-picker.directive.js",
+    "/App_Plugins/UserPicker/backoffice/RelatedUserPicker/related-user-picker.controller.js"
+  ]
+}
