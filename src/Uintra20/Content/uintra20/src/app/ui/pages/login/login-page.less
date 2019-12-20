@@ -1,19 +1,24 @@
 @import "base.less";
 
 login-page {
-  .centering;
-  display: block;
-  padding: 70px 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-
-  @media @md-up {
-    padding: 70px 15px 0 0;
-  }
+  height: 100vh;
 }
 
 .login-form {
   display: block;
-  margin-top: 30px;
-}
+  max-width: 298px;
+  width: 100%;
+  padding: 42px 20px 41px 18px;
+  text-align: center;
+  .white-block();
+  margin: 0;
 
-// TODO: Apply styles to login form (now form is hidden under the header)
+  @media @sm-up {
+    max-width: 459px;
+    padding: 42px 99px 41px 96px;
+  }
+}

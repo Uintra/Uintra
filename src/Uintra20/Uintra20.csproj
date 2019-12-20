@@ -768,6 +768,8 @@
     <Content Include="Content\uintra20\src\assets\fonts\icomoon.svg" />
     <Content Include="Content\uintra20\src\assets\fonts\icomoon.ttf" />
     <Content Include="Content\uintra20\src\assets\fonts\icomoon.woff" />
+    <Content Include="Content\uintra20\src\assets\img\logo.svg" />
+    <Content Include="Content\uintra20\src\assets\img\u-intra-text-logo.svg" />
     <Content Include="Content\uintra20\src\styles\grid.config.less" />
     <Content Include="Content\uintra20\src\styles\icons\demo-files\demo.css" />
     <Content Include="Content\uintra20\src\styles\icons\demo-files\demo.js" />
@@ -782,6 +784,10 @@
     <Content Include="Content\uintra20\src\styles\icons\style.less" />
     <Content Include="Content\uintra20\src\styles\icons\variables.less" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
+    <Content Include="Content\uintra20\src\styles.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\elements.less" />
+    <Content Include="Content\uintra20\src\styles\components\index.less" />
+    <Content Include="Content\uintra20\src\styles\components\form-elements.less" />
     <None Include="Content\uintra20\src\styles\temp\aside.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
@@ -1021,6 +1027,7 @@
     <Compile Include="Infrastructure\Constants\GridEditorConstants.cs" />
     <Compile Include="Infrastructure\Constants\IntranetConstants.cs" />
     <Compile Include="Infrastructure\Constants\UmbracoAliases.cs" />
+    <Compile Include="Infrastructure\Constants\UsersInstallationConstants.cs" />
     <Compile Include="Infrastructure\Context\ContextType.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxAutoMapperProfile.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewModel.cs" />
