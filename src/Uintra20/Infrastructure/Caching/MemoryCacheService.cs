@@ -2,9 +2,6 @@
 using System.Globalization;
 using System.Runtime.Caching;
 using System.Threading.Tasks;
-using LanguageExt;
-using Uintra20.Infrastructure.Extensions;
-using static LanguageExt.Prelude;
 
 namespace Uintra20.Infrastructure.Caching
 {
@@ -18,59 +15,15 @@ namespace Uintra20.Infrastructure.Caching
         {
             var keyPrefix = CreateKey(cacheKey, itemSuffix);
 
-            return MemoryCache.Default
-                .GetOrNone<T>(keyPrefix)
-                .IfNoneAsync(async () =>
-                {
-                    var item = await getItemCallback();
-                    Set(cacheKey, item, lifetime, itemSuffix);
-                    return item;
-                });
+            if(MemoryCache.Default.Get(keyPrefix) is T result)
+                return Task.FromResult(result);
+            
+            var item = getItemCallback();
+            Set(cacheKey, item, lifetime, itemSuffix);
+
+            return item;
         }
-
-        public async Task<Option<T>> GetOrSetAsyncOption<T>(
-            Func<Task<Option<T>>> getItemCallback,
-            string cacheKey,
-            DateTimeOffset? lifetime = null,
-            params string[] itemSuffix) where T : class
-        {
-            var keyPrefix = CreateKey(cacheKey, itemSuffix);
-
-            if (MemoryCache.Default.Get(keyPrefix) is T item)
-            {
-                return item;
-            }
-            else
-            {
-                return await getItemCallback()
-                    .Do(result => result
-                        .Do(someItem =>
-                            Set(cacheKey, someItem, lifetime, itemSuffix)));
-            }
-        }
-
-        public async Task<Option<T>> GetOrSetAsync<T>(
-            Func<Task<Option<T>>> getItemCallback,
-            string cacheKey,
-            DateTimeOffset? lifetime = null,
-            params string[] itemSuffix) where T : class
-        {
-            var keyPrefix = CreateKey(cacheKey, itemSuffix);
-
-            if (MemoryCache.Default.Get(keyPrefix) is T item)
-            {
-                return item;
-            }
-            else
-            {
-                return await getItemCallback()
-                    .Do(result => result
-                        .Do(someItem =>
-                            Set(cacheKey, someItem, lifetime, itemSuffix)));
-            }
-        }
-
-        public async Task<Unit> SetAsync<T>(Func<Task<T>> getItemCallback, string cacheKey, DateTimeOffset? lifetime = null, params string[] itemSuffix)
+        public async Task SetAsync<T>(Func<Task<T>> getItemCallback, string cacheKey, DateTimeOffset? lifetime = null, params string[] itemSuffix)
         {
             var key = CreateKey(cacheKey, itemSuffix);
             var item = await getItemCallback();
@@ -81,8 +34,6 @@ namespace Uintra20.Infrastructure.Caching
             };
             itemPolicy.ChangeMonitors.Add(new SignaledChangeMonitor(key));
             MemoryCache.Default.Set(key, item, itemPolicy);
-
-            return unit;
         }
 
         public T Get<T>(string cacheKey, params string[] uniqueSuffixes) where T : class

@@ -1,12 +1,10 @@
 ﻿//using EmailWorker.Data.Extensions;
+using Compent.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Compent.Extensions;
-using LanguageExt;
 using Uintra20.Core.Activity.Entities;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
@@ -15,7 +13,6 @@ using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Subscribe;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Helpers;
-using static LanguageExt.Prelude;
 using static Uintra20.Features.Notification.Configuration.NotificationTypeEnum;
 
 namespace Uintra20.Features.Notification
@@ -169,7 +166,7 @@ namespace Uintra20.Features.Notification
                 //    return OwnerId(comment);
 
                 case CommentLikeAdded:
-                    return currentMember.Id == comment.UserId ? List<Guid>() : OwnerId(comment);
+                    return currentMember.Id == comment.UserId ? new List<Guid>() : OwnerId(comment);
 
                 case CommentReplied:
                     return OwnerId(comment);
@@ -179,11 +176,15 @@ namespace Uintra20.Features.Notification
             }
         }
 
-        private static Lst<Guid> OwnerId(IHaveOwner haveOwner) =>
-            List(haveOwner.OwnerId);
+        private static IEnumerable<Guid> OwnerId(IHaveOwner haveOwner)
+        {
+            yield return haveOwner.OwnerId;
+        }
 
-        private static Lst<Guid> OwnerId(CommentModel comment) =>
-            List(comment.UserId);
+        private static IEnumerable<Guid> OwnerId(CommentModel comment)
+        {
+            yield return comment.UserId;
+        }
 
         private static IEnumerable<Guid> GetNotifiedSubscribers(ISubscribable subscribable) =>
             subscribable.Subscribers

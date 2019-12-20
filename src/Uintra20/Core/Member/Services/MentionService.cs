@@ -1,14 +1,12 @@
-﻿using System;
+﻿using Compent.CommandBus;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Compent.CommandBus;
-using Compent.Shared.Extensions;
 using Uintra20.Core.Member.Commands;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.User;
 using Uintra20.Infrastructure.Extensions;
-using static LanguageExt.Prelude;
 
 namespace Uintra20.Core.Member.Services
 {
@@ -37,8 +35,12 @@ namespace Uintra20.Core.Member.Services
                 .Select(m => m.Value.Replace(profilePrefix, string.Empty));
 
             return matches
-                .Select(parseGuid)
-                .Somes();
+                .Select(m =>
+                {
+                    Guid.TryParse(m, out var guid);
+                    return guid;
+                })
+                .Where(g => g != default(Guid));
         }
 
         public void ProcessMention(MentionModel model)

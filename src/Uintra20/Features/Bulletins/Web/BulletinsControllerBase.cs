@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Compent.Extensions;
-using Compent.Shared.Extensions;
 using Uintra20.Attributes;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Bulletins.Entities;
@@ -85,7 +83,7 @@ namespace Uintra20.Features.Bulletins.Web
         protected virtual BulletinBase MapToBulletin(BulletinEditModel editModel)
         {
             var bulletin = _bulletinsService.Get(editModel.Id);
-            bulletin = editModel.Map(bulletin);
+            //bulletin = editModel.Map(bulletin);
             bulletin.MediaIds = bulletin.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
 
             return bulletin;

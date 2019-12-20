@@ -9,7 +9,7 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Injection
         public IDependencyCollection Register(IDependencyCollection services)
         {
             services.AddConfiguration<LatestActivitySettings>();
-            services.AddScoped<ILatestActivitiesHelper, LatestActivitiesHelper>();
+            services.AddScoped<ICentralFeedHelper, CentralFeedHelper>();
 
             return services;
         }

@@ -4,7 +4,7 @@ using Uintra20.Features.UintraPanels.LastActivities.Models;
 
 namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
 {
-    public interface ILatestActivitiesHelper
+    public interface ICentralFeedHelper
     {
         (bool isShowMore, IEnumerable<FeedItemViewModel> feedItems) GetFeedItems(LatestActivitiesPanelModel node);
         string AvailableActivityTypes();

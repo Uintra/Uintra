@@ -7,23 +7,23 @@ namespace Uintra20.Features.CentralFeed.Web
 {
     public class CentralFeedApiController : UBaselineApiController
     {
-        private readonly ILatestActivitiesHelper _latestActivitiesHelper;
+        private readonly ICentralFeedHelper _centralFeedHelper;
 
-        public CentralFeedApiController(ILatestActivitiesHelper latestActivitiesHelper)
+        public CentralFeedApiController(ICentralFeedHelper centralFeedHelper)
         {
-            _latestActivitiesHelper = latestActivitiesHelper;
+            _centralFeedHelper = centralFeedHelper;
         }
 
         [HttpGet]
         public string AvailableActivityTypes()
         {
-            return _latestActivitiesHelper.AvailableActivityTypes();
+            return _centralFeedHelper.AvailableActivityTypes();
         }
 
         [HttpPost]
         public FeedListViewModel FeedList(FeedListModel model)
         {
-            return _latestActivitiesHelper.GetFeedListViewModel(model);
+            return _centralFeedHelper.GetFeedListViewModel(model);
         }
     }
 }

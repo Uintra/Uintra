@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Compent.Extensions;
-using LanguageExt;
 using Uintra20.Features.Tagging.UserTags.Sql;
 using Uintra20.Persistence.Sql;
 
@@ -20,14 +19,13 @@ namespace Uintra20.Features.Tagging.UserTags.Services
 
         public async Task<IEnumerable<Guid>> GetForEntityAsync(Guid entityId)
         {
-            return await _relationRepository
-                .FindAllAsync(r => r.EntityId == entityId)
-                .Select(r => r.Select(x => x.UserTagId));
+            var result = await _relationRepository.FindAllAsync(r => r.EntityId == entityId);
+            return result.Select(x => x.UserTagId);
         }
 
         public async Task<IEnumerable<(Guid tagId, Guid entityId)>> GetAllAsync()
         {
-            return await _relationRepository.GetAllAsync().Select(r => r.Select(x => (x.UserTagId, x.EntityId)));
+            return (await _relationRepository.GetAllAsync()).Select(x => (x.UserTagId, x.EntityId));
         }
 
         public async Task AddAsync(Guid entityId, Guid tagId)

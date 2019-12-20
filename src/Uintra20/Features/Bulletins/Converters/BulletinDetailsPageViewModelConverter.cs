@@ -64,7 +64,7 @@ namespace Uintra20.Features.Bulletins.Converters
             viewModel.HeaderInfo.Links = links;
 
             var extendedModel = viewModel.Map<BulletinExtendedViewModel>();
-            extendedModel = bulletin.Map(extendedModel);
+            //extendedModel = bulletin.Map(extendedModel);
             return extendedModel;
         }
     }

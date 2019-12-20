@@ -1,8 +1,8 @@
 ﻿using Compent.Extensions;
-using Compent.Shared.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UBaseline.Core.Extensions;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Feed;
@@ -20,7 +20,7 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
 {
-    public class LatestActivitiesHelper : ILatestActivitiesHelper
+    public class CentralFeedHelper : ICentralFeedHelper
     {
         private readonly int _itemsPerPage;
         private readonly IFeedTypeProvider _feedTypeProvider;
@@ -31,7 +31,7 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
-        public LatestActivitiesHelper(
+        public CentralFeedHelper(
             LatestActivitySettings lastActivitySettings,
             IActivitiesServiceFactory activitiesServiceFactory,
             ICentralFeedService centralFeedService,
