@@ -4,15 +4,12 @@
         <div class="holder">
             <div *ngFor="let cell of activityCells"
                  class="block-item">
-                <p>
-                    {{cell.get().activity.get().type.get()}}
-                    <br />
-                    {{cell.get().activity.get().dates.get()[0] | date: 'MMM d, y hh:mm'}}
-                </p>
-                <h3 class="block-subtitle-clamp">
-                    <a routerLink="['/']"></a>
-                    <p [innerHtml]="cell.get().activity.get().description.get()"></p>
-                </h3>
+                 <latest-activity 
+                    [activityType]="cell.get().activity.get().type.get()"
+                    [activityDate]="cell.get().activity.get().dates.get()[0]"
+                    [activityDescription]="cell.get().activity.get().description.get()"
+                    [activityId]="cell.get().activity.get().id.get()">
+                </latest-activity>
             </div>
         </div>
         <button *ngIf="showAll"
