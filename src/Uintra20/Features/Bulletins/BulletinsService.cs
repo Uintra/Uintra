@@ -4,22 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using Compent.CommandBus;
 using Compent.Extensions;
+using Compent.Shared.Extensions;
 using LanguageExt;
 using Uintra20.Core.Activity;
+using Uintra20.Core.Activity.Entities;
+using Uintra20.Core.Activity.Models;
+using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
+using Uintra20.Core.Localization;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Bulletins.Entities;
+using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.CentralFeed;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups.Services;
+using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview;
 using Uintra20.Features.Links;
+using Uintra20.Features.Links.Models;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media;
 using Uintra20.Features.Notification;
@@ -29,6 +38,7 @@ using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Caching;
+using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
 using static Uintra20.Features.Notification.Configuration.NotificationTypeEnum;
 
@@ -55,6 +65,8 @@ namespace Uintra20.Features.Bulletins
         private readonly IActivityLinkPreviewService _activityLinkPreviewService;
         private readonly IGroupService _groupService;
         private readonly INotifierDataBuilder _notifierDataBuilder;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
+        private readonly IIntranetLocalizationService _localizationService;
 
         public BulletinsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -75,7 +87,8 @@ namespace Uintra20.Features.Bulletins
             IUserTagService userTagService,
             IActivityLinkPreviewService activityLinkPreviewService,
             IGroupService groupService,
-            INotifierDataBuilder notifierDataBuilder)
+            INotifierDataBuilder notifierDataBuilder,
+            IIntranetLocalizationService localizationService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
                 activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService)
         {
@@ -92,11 +105,37 @@ namespace Uintra20.Features.Bulletins
             _activityLinkPreviewService = activityLinkPreviewService;
             _groupService = groupService;
             _notifierDataBuilder = notifierDataBuilder;
+            _intranetMemberService = intranetMemberService;
+            _localizationService = localizationService;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.Bulletins;
 
         public override Enum PermissionActivityType => PermissionResourceTypeEnum.Bulletins;
+        public override IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId)
+        {
+            var bulletin = Get(activityId);
+
+            if (bulletin == null)
+            {
+                return null;
+            }
+
+            IActivityLinks links = null;//_feedLinkService.GetLinks(id);//TODO:Uncomment when profile link service is ready
+
+            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
+
+            var viewModel = bulletin.Map<BulletinPreviewModel>();
+            viewModel.CanEdit = CanEdit(bulletin);
+            viewModel.Links = links;
+            viewModel.Owner = _intranetMemberService.Get(bulletin).Map<MemberViewModel>();
+            viewModel.Type = _localizationService.Translate(bulletin.Type.ToString());
+            viewModel.LikedByCurrentUser = bulletin.Likes.Any(x => x.UserId == currentMemberId);
+            viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);
+            _likesService.FillLikes(viewModel);
+
+            return viewModel;
+        }
 
         public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
 

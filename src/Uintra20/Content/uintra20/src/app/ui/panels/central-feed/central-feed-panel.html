@@ -1,18 +1,28 @@
-<ubl-not-implemented
+<!--<ubl-not-implemented
   [data]="data"
   [description]="data.contentTypeAlias || 'central-feed panel'"
-></ubl-not-implemented>
+></ubl-not-implemented>-->
 
-<section *ngIf="data" class="central-feed">
-  <app-spoiler-section [title]="'Filter'">
-    <app-radio-link-group
-      [links]="tabs"
-      [(ngModel)]="selectedTab"
-      class="central-feed__tabs"
-    ></app-radio-link-group>
+<section *ngIf="data && tabs" class="central-feed">
+  <app-central-feed-filters
+    [tabs]="tabs"
+    (selectFilters)="selectFilters($event)"
+  ></app-central-feed-filters>
 
-    <div class="central-feed__bottom">
-      <app-checkbox-input>Show only important</app-checkbox-input>
+  <div
+    class="search-results"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+  >
+    <app-central-feed-publication
+      *ngFor="let publication of feed"
+      [publication]="publication"
+    ></app-central-feed-publication>
+
+    <div *ngIf="isFeedLoading" class="central-feed__loader-wrapper">
+      <div class="central-feed__loader"></div>
     </div>
-  </app-spoiler-section>
+  </div>
 </section>

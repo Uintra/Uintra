@@ -2,7 +2,7 @@ import { Component, OnInit, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-checkbox-input',
+  selector: 'checkbox-input',
   templateUrl: './checkbox-input.component.html',
   styleUrls: ['./checkbox-input.component.less'],
   providers: [

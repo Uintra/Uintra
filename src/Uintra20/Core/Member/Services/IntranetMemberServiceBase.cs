@@ -317,16 +317,13 @@ namespace Uintra20.Core.Member.Services
 
 		public virtual T GetCurrentMember()
 		{
-			//var member = _umbracoHelper.MembershipHelper.GetCurrentMember();
-			//if (member != null) return Get(member.Key);
+			var member = _umbracoHelper.MembershipHelper.GetCurrentMember();
+			if (member != null) return Get(member.Key);
 
-			//var umbracoUser = _umbracoContext.Security.CurrentUser;
-			//if (umbracoUser != null) return GetByUserId(umbracoUser.Id);
+			var umbracoUser = _umbracoContext.Security.CurrentUser;
+			if (umbracoUser != null) return GetByUserId(umbracoUser.Id);
 
-			//return default;
-
-			//todo remove when authentication will be ready
-			return Get(new Guid("cb6969e1-ac68-4cae-88a3-8b1cbc453ef7"));
+			return default(T);
 		}
 		public virtual T GetByUserId(int userId)
 		{

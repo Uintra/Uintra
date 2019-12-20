@@ -1,0 +1,39 @@
+.reset-button() {
+  background: none;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  font: inherit;
+}
+
+.button-main() {
+  .reset-button;
+  background: @btn-bg;
+  color: @btn-color;
+  padding: 6px 15px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  width: auto;
+
+  &:hover {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+}
+
+.input() {
+  border: solid 1px #c7c7c7;
+  background-color: @white;
+  display: block;
+  padding: 11px 12px 13px;
+  font: 13px/1 @font;
+
+  &::placeholder {
+    color: #999999;
+  }
+}
+
+.error() {
+  color: @red;
+}

@@ -12,6 +12,9 @@ import { ArticlePage } from './article-page.component';
     RouterModule.forChild([{path: "", component: ArticlePage}]),
     UbaselineCoreModule,
   ],
+  exports: [
+    ArticlePage
+  ],
   entryComponents: [ArticlePage]
 })
 export class ArticlePageModule {}

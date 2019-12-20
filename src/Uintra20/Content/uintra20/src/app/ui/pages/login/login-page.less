@@ -1,5 +1,24 @@
 @import "base.less";
 
 login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 100vh;
+}
 
+.login-form {
+  display: block;
+  max-width: 298px;
+  width: 100%;
+  padding: 42px 20px 41px 18px;
+  text-align: center;
+  .white-block();
+  margin: 0;
+
+  @media @sm-up {
+    max-width: 459px;
+    padding: 42px 99px 41px 96px;
+  }
 }
