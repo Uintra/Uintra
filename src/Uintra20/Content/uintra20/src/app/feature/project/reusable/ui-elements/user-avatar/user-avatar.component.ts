@@ -27,7 +27,6 @@ export class UserAvatarComponent implements OnInit {
 
   ngOnInit() {
     this.big = this.big !== undefined;
-    // debugger;
     this.data = this.data || this.defaultAvatar;
   }
 }
