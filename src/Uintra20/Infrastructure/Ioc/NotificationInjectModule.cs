@@ -6,6 +6,7 @@ using Uintra20.Features.Notification.Configuration.BackofficeSettings.Providers;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Models.NotifierTemplates;
 using Uintra20.Features.Notification.Services;
+using Uintra20.Features.Notification.Settings;
 using Uintra20.Infrastructure.Helpers;
 
 namespace Uintra20.Infrastructure.Ioc
@@ -32,6 +33,7 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddTransient<IBackofficeSettingsReader, BackofficeSettingsReader>();
             services.AddScoped<INotifierDataHelper, NotifierDataHelper>();
             services.AddScoped<INotifierDataBuilder, NotifierDataBuilder>();
+            services.AddConfiguration<NotificationSettings>();
 
             services.AddScoped<INotificationSettingCategoryProvider, NotificationSettingCategoryProvider>();
             services.AddScoped<INotificationSettingsTreeProvider, NotificationSettingsTreeProvider>();

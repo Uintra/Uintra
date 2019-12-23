@@ -1,8 +1,8 @@
 ﻿using Compent.CommandBus;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
-using Compent.CommandBus;
 using Uintra20.Core.Member.Commands;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.User;

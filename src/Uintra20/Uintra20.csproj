@@ -846,6 +846,7 @@
     <Content Include="Content\uintra20\src\styles\mixins\elements.less" />
     <Content Include="Content\uintra20\src\styles\components\index.less" />
     <Content Include="Content\uintra20\src\styles\components\form-elements.less" />
+    <Content Include="config\UIntra\LatestActivitySettings.json" />
     <None Include="Content\uintra20\src\styles\temp\aside.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
@@ -1019,6 +1020,7 @@
     <Compile Include="Features\Notification\Configuration\BackofficeSettings\Providers\NotificationContentProvider.cs" />
     <Compile Include="Features\Notification\Models\NotificationPageModel.cs" />
     <Compile Include="Features\Notification\Models\NotificationPageViewModel.cs" />
+    <Compile Include="Features\Notification\Settings\NotificationSettings.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationViewModel.cs" />
     <Compile Include="Features\Notification\ViewModel\NotifierViewModel.cs" />

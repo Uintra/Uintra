@@ -9,6 +9,7 @@ using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Services;
+using Uintra20.Features.Notification.Settings;
 using Uintra20.Features.Notification.ViewModel;
 using Uintra20.Infrastructure.Extensions;
 
@@ -16,18 +17,21 @@ namespace Uintra20.Features.Notification.Controllers
 {
     public class NotificationApiController : UBaselineApiController
     {
-        private const int ItemsPerPage = 8;
-
+        private readonly int _itemsPerPage;
+        private readonly NotificationSettings _notificationSettings;
         private readonly IUBaselineRequestContext _requestContext;
         private readonly INodeModelService _nodeModelService;
         private readonly IUiNotificationService _uiNotifierService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         public NotificationApiController(
+            NotificationSettings notificationSettings,
             IUBaselineRequestContext requestContext,
             INodeModelService nodeModelService,
             IUiNotificationService uiNotifierService,
             IIntranetMemberService<IntranetMember> intranetMemberService)
         {
+            _itemsPerPage = notificationSettings.ItemsPerPage;
+            _notificationSettings = notificationSettings;
             _requestContext = requestContext;
             _nodeModelService = nodeModelService;
             _uiNotifierService = uiNotifierService;
@@ -37,7 +41,7 @@ namespace Uintra20.Features.Notification.Controllers
         [HttpGet]
         public NotificationListViewModel Get(int page = 1)
         {
-            var take = page * ItemsPerPage;
+            var take = page * _itemsPerPage;
             var (notifications, totalCount) = _uiNotifierService.GetMany(_intranetMemberService.GetCurrentMemberId(), take);
 
             var notificationsArray = notifications.ToArray();
@@ -48,7 +52,9 @@ namespace Uintra20.Features.Notification.Controllers
                 _uiNotifierService.Notify(notNotifiedNotifications);
             }
 
-            var notificationsViewModels = notificationsArray.Select(MapNotificationToViewModel).ToArray();
+            var notificationsViewModels = notificationsArray
+                .Select(MapNotificationToViewModel)
+                .ToArray();
 
             var result = new NotificationListViewModel
             {
@@ -58,27 +64,35 @@ namespace Uintra20.Features.Notification.Controllers
 
             return result;
         }
-        
+
         [HttpGet]
         public NotificationListViewModel NotificationList()
         {
             var itemsCountForPopup = _nodeModelService
-                .GetByAlias<NotificationPageModel>("notificationPage",_requestContext.HomeNode.RootId)
+                .GetByAlias<NotificationPageModel>("notificationPage", _requestContext.HomeNode.RootId)
                 ?.NotificationsPopUpCount
                 ?.Value ?? default(int);
-            var (notifications, _) = _uiNotifierService.GetMany(_intranetMemberService.GetCurrentMemberId(), itemsCountForPopup);
+
+            var (notifications, _) = _uiNotifierService
+                .GetMany(_intranetMemberService.GetCurrentMemberId(), itemsCountForPopup);
 
             var notificationsArray = notifications.ToArray();
 
-            var notNotifiedNotifications = notificationsArray.Where(el => !el.IsNotified).ToArray();
+            var notNotifiedNotifications = notificationsArray
+                .Where(el => !el.IsNotified)
+                .ToArray();
+
             if (notNotifiedNotifications.Length > 0)
             {
                 _uiNotifierService.Notify(notNotifiedNotifications);
             }
 
-            var notificationsViewModels = notificationsArray.Take(itemsCountForPopup).Select(MapNotificationToViewModel).ToArray();
+            var notificationsViewModels = notificationsArray
+                .Take(itemsCountForPopup)
+                .Select(MapNotificationToViewModel)
+                .ToArray();
 
-           return new NotificationListViewModel
+            return new NotificationListViewModel
             {
                 Notifications = notificationsViewModels,
                 BlockScrolling = false
