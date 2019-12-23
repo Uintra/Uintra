@@ -1,0 +1,57 @@
+﻿<link rel="stylesheet" href="/App_Plugins/SentMails/backoffice/settings/general/general-settings.css" />
+<div class="sentMails umb-pane umb-panel">
+    <div class="umb-headline-editor-wrapper span12 umb-pane ng-scope">
+        <h1 class="ng-binding">General Settings</h1>
+    </div>
+    <div class="type-holder">
+        <input class="txt mail-template-id-or-alias" type="text"
+               placeholder="put parentId or parent alias for MailTemplate" />
+    </div>
+    <ul style="list-style-type: none;">
+        <li>
+            <button class="btns btn btn-info-custom"
+                    id="sent-mails-create"
+                    disabled="disabled">
+                Create MailTemplate
+            </button>
+        </li>
+        <li>
+            <button class="btns btn btn-info-custom"
+                    id="sent-mails-delete"
+                    disabled="disabled">
+                Delete MailTemplate
+            </button>
+        </li>
+        <li>
+            <button class="btns btn btn-info-custom"
+                    id="sent-mails-create-smtp"
+                    disabled="disabled">
+                Create Smtp Default DB values
+            </button>
+        </li>
+        <li>
+            <button class="btns btn btn-info-custom"
+                    id="sent-mails-fix-db"
+                    type="button"
+                    disabled="disabled">
+                Verify and fix db
+            </button>
+        </li>
+        <li>
+            <button class="btns btn btn-info-custom"
+                    id="sent-mails-delete-mails"
+                    disabled="disabled">
+                Delete All Mails and Attachments
+            </button>
+        </li>
+        <li>
+            <button class="btns btn btn-primary-custom"
+                    id="sent-mails-send-test-email">
+                Send test email
+            </button>
+        </li>
+    </ul>
+    <div id="result-messages"
+         style="color: red;"></div>
+</div>
+<script type="text/javascript" src="/App_Plugins/SentMails/backoffice/settings/general/general-settings.js"></script>
