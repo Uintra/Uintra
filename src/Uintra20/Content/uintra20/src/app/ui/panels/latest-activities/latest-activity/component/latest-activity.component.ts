@@ -28,7 +28,6 @@ export class LatestActivityComponent implements OnInit {
   }
 
   public navigateToActivity = (): void => {
-    console.log('Navigate to activity works');
-    // this.router.navigate([this.activityLink]);
+    this.router.navigate([this.activityLink]);
   }
 }

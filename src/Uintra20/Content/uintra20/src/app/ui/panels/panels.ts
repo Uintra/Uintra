@@ -16,4 +16,9 @@ export const panels = [
         path: '__dynamic__',
         loadChildren: './ui/panels/latest-activities/module/latest-activities-panel.module#LatestActivitiesPanelModule'
     },
+    {
+        id: 'socialDetailsPanel',
+        path: '__dynamic__',
+        loadChildren: './ui/panels/socials/social-details/module/social-details-panel.module#SocialDetailsPanelModule'
+    }
 ];
