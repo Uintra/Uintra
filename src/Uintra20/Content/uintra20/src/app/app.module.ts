@@ -8,12 +8,11 @@ import { environment } from 'src/environments/environment';
 import { DYNAMIC_COMPONENTS, UmbracoSupportModule } from '@ubaseline/next';
 import { pages } from './ui/pages/pages';
 import { panels } from './ui/panels/panels';
-import { HeaderComponent } from './ui/main-layout/header/header.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
   ],
   imports: [
     BrowserModule,

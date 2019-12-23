@@ -11,7 +11,7 @@ activity-create-panel {
       cursor: text;
       background: @white;
 
-      @media (min-width: @screen-md) {
+      @media @md-up {
         padding: 22px 20px;
         align-items: center;
       }
@@ -22,12 +22,12 @@ activity-create-panel {
         cursor: text;
         text-align: left;
 
-        @media (min-width: @screen-md) {
+        @media @md-up {
           margin-left: 10px;
         }
       }
 
-      @media (max-width: @screen-md) {
+      @media @md-down {
         app-user-avatar {
           display: none;
         }

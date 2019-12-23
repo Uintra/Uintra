@@ -13,6 +13,6 @@ export class CreateSocialContentService {
 
   // TODO: add interface to data
   submitSocialContent(data) {
-    return this.http.post(`/umbraco/api/bulletins/createExtended`, data).toPromise();
+    return this.http.post(`/ubaseline/api/bulletins/createExtended`, data).toPromise();
   }
 }

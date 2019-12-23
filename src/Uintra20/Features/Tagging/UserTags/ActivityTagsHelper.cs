@@ -44,5 +44,12 @@ namespace Uintra20.Features.Tagging.UserTags
             await _userTagService.ReplaceAsync(entityId, tagIds);
             //_userTagIndex.Update(entityId, tags.Select(t => t.Text));
         }
+
+        public async Task ReplaceTagsAsync(Guid entityId, IEnumerable<Guid> collection)
+        {
+            var tags = _userTagProvider.Get(collection);
+
+            await _userTagService.ReplaceAsync(entityId, collection);
+        }
     }
 }

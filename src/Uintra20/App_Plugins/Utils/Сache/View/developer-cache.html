@@ -1,0 +1,12 @@
+﻿<input type="button" value="Reload" class="btn-black js-reload-cache"/>
+<script>
+    $('.js-reload-cache').on('click', function () {
+        $.ajax({
+            url: '/umbraco/surface/Cache/Reload',
+                type: 'POST'
+            })
+            .done(function() {
+                alert('Cache has been reloaded.');
+            });
+    })
+</script>

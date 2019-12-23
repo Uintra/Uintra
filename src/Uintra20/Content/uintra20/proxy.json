@@ -1,4 +1,10 @@
 {
+  "/api/*": {
+    "target": "http://uintra20.local.compent.dk",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
   "/umbraco/api/*": {
     "target": "http://uintra20.local.compent.dk",
     "secure": false,

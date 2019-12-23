@@ -1,0 +1,64 @@
+@import "base.less";
+
+@publication-bg: @white;
+@label-bg: @red;
+
+.publication {
+  .shadow;
+  background: @publication-bg;
+  padding: 20px 20px 10px;
+
+  &--important {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.75), #fff);
+  }
+
+  &__label {
+    background: @label-bg;
+    color: @btn-color;
+    text-transform: uppercase;
+    padding: 9px 14px;
+    border-radius: 50px;
+    font-size: 11px;
+  }
+
+  &__header {
+    margin-bottom: 25px;
+  }
+
+  &__content {
+    margin-bottom: 25px;
+    font-size: 16px;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+
+    &-item {
+      .reset-button;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+
+      i {
+        margin-right: 5px;
+        color: #b2b2b2;
+      }
+      .icon-share-icon {
+        font-size: 22px;
+      }
+    }
+  }
+
+  &__like {
+    i {
+      color: #b2b2b2;
+    }
+    &--active {
+      i {
+        color: #555;
+      }
+    }
+  }
+}

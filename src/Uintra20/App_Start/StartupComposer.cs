@@ -17,7 +17,7 @@ namespace Uintra20
         {
             var container = composition.Concrete as IServiceContainer;
 
-			var builder = new JsonConfigurationBuilder(new ConfigurationBuilder());
+            var builder = new JsonConfigurationBuilder(new ConfigurationBuilder());
 			var configuration = builder
 				.AddLogging(UBaselineConfiguration.EnvironmentName)
 				.AddUBaselineConfiguration()
