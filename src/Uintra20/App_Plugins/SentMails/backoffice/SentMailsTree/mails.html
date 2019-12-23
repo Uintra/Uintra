@@ -1,0 +1,297 @@
+﻿<umb-panel class="umb-pane" ng-controller="mailsController" ng-transclude>
+    <div class="umb-headline-editor-wrapper span12 umb-pane ng-scope">
+        <h1 class="ng-binding"
+            ng-if="currentNode == 'SENT'">
+            Sent Mails
+        </h1>
+        <h1 class="ng-binding"
+            ng-if="currentNode == 'OUTPUT'">
+            Output Mails
+        </h1>
+    </div>
+    <div class="umb-panel-body">
+        <div class="umb-pane">
+            <div class="paging">
+                <div class="totalpages">Total pages are {{pagination.pages}}</div>
+                <input type="button"
+                       class="btn"
+                       ng-disabled="pagination.page == 1"
+                       value="First"
+                       ng-click="firstPage()" />
+                <input type="button"
+                       class="btn"
+                       ng-disabled="pagination.page == 1"
+                       value="Prev"
+                       ng-click="previousPage()" />
+                <ul>
+                    <li ng-repeat="pageItem in pagination.displaybtn track by $index">
+                        <input type="button"
+                               class="btn"
+                               value="pageItem"
+                               ng-class="{currentpage: pageItem == pagination.page}"
+                               ng-click="moveToCurrent(pageItem)" />
+                    </li>
+                </ul>
+                <input type="button"
+                       class="btn"
+                       ng-disabled="pagination.page == pagination.pages || mails.length == 0"
+                       value="Next"
+                       ng-click="nextPage()" />
+                <input type="button"
+                       class="btn"
+                       ng-disabled="pagination.page == pagination.pages || mails.length == 0"
+                       value="Last"
+                       ng-click="lastPage()" />
+            </div>
+            <form ng-submit="showFiltersValue()">
+                <div class="filters">
+                    <table style="text-align: right;margin: 0 auto;">
+                        <tr>
+                            <td>
+                                <div class="el">
+                                    <label class="lbl">
+                                        Subject:
+                                        <input type="text"
+                                               ng-model="filters.Subject" />
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="el">
+                                    <label class="lbl">
+                                        Body:
+                                        <input type="text"
+                                               ng-model="filters.Body" />
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="el">
+                                    <label class="lbl">
+                                        From Email:
+                                        <input type="text"
+                                               ng-model="filters.FromEmail" />
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="el">
+                                    <label class="lbl">
+                                        From Name:
+                                        <input type="text"
+                                               ng-model="filters.FromName" />
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="el">
+                                    <label class="lbl">
+                                        To Name:
+                                        <input type="text"
+                                               ng-model="filters.ToName" />
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="el">
+                                    <label class="lbl">
+                                        To Email:
+                                        <input type="text"
+                                               ng-model="filters.ToEmail" />
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="el">
+                                    <label class="lbl">
+                                        Cc Emails:
+                                        <input type="text"
+                                               ng-model="filters.CcEmails" />
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="el">
+                                    <label class="lbl">
+                                        Bcc Emails:
+                                        <input type="text"
+                                               ng-model="filters.BccEmails" />
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="el green">
+                                    <label class="lbl">
+                                        Start Create Date:
+                                        <umb-date-time-picker 
+                                            options="config"
+                                            ng-model="filters.StartCreateDate"
+                                            on-change="onChangeStartCreateDate(selected, date, instance)">
+                                        </umb-date-time-picker>
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="el green">
+                                    <label class="lbl">
+                                        End Create Date:
+                                        <umb-date-time-picker 
+                                            options="config"
+                                            ng-model="filters.EndCreateDate"
+                                            on-change="onChangeEndCreateDate(selected, date, instance)">
+                                        </umb-date-time-picker>
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="el blue">
+                                    <label class="lbl">
+                                        Start Sent Date:
+                                        <umb-date-time-picker 
+                                            options="config"
+                                            ng-model="filters.StartSentUtcDate"
+                                            on-change="onChangeStartSentUtcDate(selected, date, instance)">
+                                        </umb-date-time-picker>
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="el blue">
+                                    <label class="lbl">
+                                        End Sent Date:
+                                        <umb-date-time-picker 
+                                            options="config"
+                                            ng-model="filters.EndSentUtcDate"
+                                            on-change="onChangeEndSentUtcDate(selected, date, instance)">
+                                        </umb-date-time-picker>
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="el red">
+                                    <label class="lbl">
+                                        Start Sent In Future Date:
+                                        <umb-date-time-picker 
+                                            options="config"
+                                            ng-model="filters.StartSentInFutureDate"
+                                            on-change="onChangeStartSentInFutureDate(selected, date, instance)">
+                                        </umb-date-time-picker>
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="el red">
+                                    <label class="lbl">
+                                        End Sent In Future Date:
+                                        <umb-date-time-picker 
+                                            options="config"
+                                            ng-model="filters.EndSentInFutureDate"
+                                            on-change="onChangeEndSentInFutureDate(selected, date, instance)">
+                                        </umb-date-time-picker>
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="el">
+                                    <label class="lbl">
+                                        TypeId:
+                                        <input type="text"
+                                               ng-model="filters.TypeId" />
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <input type="submit"
+                       value="Apply filters"
+                       class="btn" />
+            </form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th ng-repeat="setting in columnSettings track by $index">
+                            {{ setting.Name }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="mail in mails track by $index">
+                        <td ng-repeat="setting in columnSettings track by $index">
+                            <div ng-if="setting.Alias == 'Body' || setting.Alias == 'FromName' || setting.Alias == 'ToName'"
+                                 ng-bind-html-unsafe="mail[setting.Alias]"></div>
+                            <div ng-if="setting.Alias != 'Body' && setting.Alias != 'IsSent' && setting.Alias != 'FromName' && setting.Alias != 'ToName' && setting.Alias != 'Attachments'">
+                                {{mail[setting.Alias]}}
+                            </div>
+                            <div ng-if="setting.Alias == 'IsSent'">
+                                {{
+ mail['IsSpam'] == true ? false :
+                            mail[setting.Alias]
+                                }}
+                            </div>
+                            <div ng-if="setting.Alias == 'Attachments'">
+                                <div ng-repeat="attachment in mail[setting.Alias] track by $index">
+                                    <a ng-click="downloadAttachment(attachment.AttachmentId)"
+                                       style="cursor: pointer;"
+                                       ng-if="attachment.Title.length">
+                                        <img ng-src="/App_Plugins/SentMails/backoffice/css/icons/{{getFileExtension(attachment.Extension)}}.svg"
+                                             width="30" /> {{attachment.Title}}
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="paging">
+                <input type="button"
+                       class="btn"
+                       ng-disabled="pagination.page == 1"
+                       value="First"
+                       ng-click="firstPage()" />
+                <input type="button"
+                       class="btn"
+                       ng-disabled="pagination.page == 1"
+                       value="Prev"
+                       ng-click="previousPage()" />
+                <ul>
+                    <li ng-repeat="pageItem in pagination.displaybtn track by $index">
+                        <input type="button"
+                               class="btn"
+                               value="pageItem"
+                               ng-class="{currentpage: pageItem == pagination.page}"
+                               ng-click="moveToCurrent(pageItem)" />
+                    </li>
+                </ul>
+                <input type="button"
+                       class="btn"
+                       ng-disabled="pagination.page == pagination.pages || mails.length == 0"
+                       value="Next"
+                       ng-click="nextPage()" />
+                <input type="button"
+                       class="btn"
+                       ng-disabled="pagination.page == pagination.pages || mails.length == 0"
+                       value="Last"
+                       ng-click="lastPage()" />
+                <div class="totalpages">Total pages are {{pagination.pages}}</div>
+            </div>
+            <small class="icons-designed-small">
+                <a href="http://www.freepik.com" title="Freepik"> Icons made by Freepik</a>
+            </small>
+        </div>
+    </div>
+</umb-panel>
