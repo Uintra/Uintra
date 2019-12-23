@@ -892,6 +892,12 @@
     <Compile Include="Core\Activity\Models\IntranetActivityPreviewModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\IHaveLightboxPreview.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\ILightboxHelper.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryItemPreviewModel.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryItemViewModel.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxHelper.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxPreviewModel.cs" />
     <Compile Include="Core\Feed\Models\ActivityFeedTabFiltersViewModel.cs" />
     <Compile Include="Core\Feed\Models\FeedActivityViewModel.cs" />
     <Compile Include="Core\Authentication\AuthenticationConfigurator.cs" />
@@ -991,6 +997,7 @@
     <Compile Include="Features\Information\IInformationService.cs" />
     <Compile Include="Features\Information\InformationService.cs" />
     <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
+    <Compile Include="Features\Media\MediaTypeEnum.cs" />
     <Compile Include="Features\Navigation\Models\ActivityFeedTabModel.cs" />
     <Compile Include="Features\Subscribe\ActivitySubscribeSettingDto.cs" />
     <Compile Include="Features\Subscribe\IActivitySubscribeSettingService.cs" />
@@ -1097,6 +1104,7 @@
     <Compile Include="Infrastructure\Extensions\ModelStateExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\OptionExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\PublishedContentExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\StringExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\TreeExt.cs" />
     <Compile Include="Infrastructure\Extensions\UmbracoMemberExtensions.cs" />
