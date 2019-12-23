@@ -1,14 +1,12 @@
-﻿using Compent.Shared.Extensions;
-using System;
+﻿using System;
 using System.Linq;
-using System.Web.Mvc;
+using System.Web.Http;
 using UBaseline.Core.Controllers;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Notification.Configuration.BackofficeSettings.Providers;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Notification.ViewModel;
@@ -24,22 +22,16 @@ namespace Uintra20.Features.Notification.Controllers
         private readonly INodeModelService _nodeModelService;
         private readonly IUiNotificationService _uiNotifierService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
-        private readonly INotificationContentProvider _notificationContentProvider;
-        private readonly IPopupNotificationService _popupNotificationService;
         public NotificationApiController(
             IUBaselineRequestContext requestContext,
             INodeModelService nodeModelService,
             IUiNotificationService uiNotifierService,
-            IIntranetMemberService<IntranetMember> intranetMemberService,
-            INotificationContentProvider notificationContentProvider,
-            IPopupNotificationService popupNotificationService)
+            IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _requestContext = requestContext;
             _nodeModelService = nodeModelService;
             _uiNotifierService = uiNotifierService;
             _intranetMemberService = intranetMemberService;
-            _notificationContentProvider = notificationContentProvider;
-            _popupNotificationService = popupNotificationService;
         }
 
         [HttpGet]

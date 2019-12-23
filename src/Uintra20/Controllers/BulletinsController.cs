@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Uintra20.Attributes;
@@ -54,15 +55,15 @@ namespace Uintra20.Controllers
         }
 
         [HttpPost]
-        public BulletinCreationResultModel CreateExtended(BulletinExtendedCreateModel model)
+        public async Task<BulletinCreationResultModel> CreateExtended(BulletinExtendedCreateModel model)
         {
-            return Create(model);
+            return await Create(model);
         }
 
         [HttpPut]
-        public HttpResponseMessage EditExtended(BulletinExtendedEditModel model)
+        public async Task<HttpResponseMessage> EditExtended(BulletinExtendedEditModel model)
         {
-            return Edit(model);
+            return await Edit(model);
         }
 
         protected override void OnBulletinEdited(BulletinBase bulletin, BulletinEditModel model)
@@ -75,14 +76,28 @@ namespace Uintra20.Controllers
             ResolveMentions(model.Description, bulletin);
         }
 
+        protected override async Task OnBulletinEditedAsync(BulletinBase bulletin, BulletinEditModel model)
+        {
+            if (model is BulletinExtendedEditModel extendedModel)
+            {
+                await _activityTagsHelper.ReplaceTagsAsync(bulletin.Id, extendedModel.TagIdsData);
+            }
+
+            await ResolveMentionsAsync(model.Description, bulletin);
+        }
+
         protected override void OnBulletinDeleted(Guid id)
         {
             _myLinksService.DeleteByActivityId(id);
         }
 
+        protected override async Task OnBulletinDeletedAsync(Guid id)
+        {
+            await _myLinksService.DeleteByActivityIdAsync(id);
+        }
+
         protected override void OnBulletinCreated(BulletinBase bulletin, BulletinCreateModel model)
         {
-            //base.OnBulletinCreated(bulletin, model);
             var groupId = HttpContext.Current.Request.QueryString.GetGroupIdOrNone();
 
             if(groupId.HasValue)
@@ -103,6 +118,28 @@ namespace Uintra20.Controllers
             ResolveMentions(model.Description, bulletin);
         }
 
+        protected override async Task OnBulletinCreatedAsync(BulletinBase bulletin, BulletinCreateModel model)
+        {
+            var groupId = HttpContext.Current.Request.QueryString.GetGroupIdOrNone();
+
+            if (groupId.HasValue)
+                await _groupActivityService.AddRelationAsync(groupId.Value, bulletin.Id);
+
+            var extendedBulletin = _bulletinsService.Get(bulletin.Id);
+            extendedBulletin.GroupId = groupId;
+
+            if (model is BulletinExtendedCreateModel extendedModel)
+            {
+                await _activityTagsHelper.ReplaceTagsAsync(bulletin.Id, extendedModel.TagIdsData);
+            }
+
+            if (string.IsNullOrEmpty(model.Description))
+            {
+                return;
+            }
+            await ResolveMentionsAsync(model.Description, bulletin);
+        }
+
         private void ResolveMentions(string text, BulletinBase bulletin)
         {
             var mentionIds = new Guid[] { };//_mentionService.GetMentions(text).ToList();//TODO: uncomment when mention service is ready
@@ -115,6 +152,27 @@ namespace Uintra20.Controllers
                 {
                     MentionedSourceId = bulletin.Id,
                     CreatorId = _intranetMemberService.GetCurrentMemberId(),
+                    MentionedUserIds = mentionIds,
+                    Title = bulletin.Description.StripHtml().TrimByWordEnd(maxTitleLength),
+                    Url = links.Details,
+                    ActivityType = IntranetActivityTypeEnum.Bulletins
+                });
+
+            }
+        }
+
+        private async Task ResolveMentionsAsync(string text, BulletinBase bulletin)
+        {
+            var mentionIds = new Guid[] { };//_mentionService.GetMentions(text).ToList();//TODO: uncomment when mention service is ready
+
+            if (mentionIds.Any())
+            {
+                var links = await _activityLinkService.GetLinksAsync(bulletin.Id);
+                const int maxTitleLength = 100;
+                _mentionService.ProcessMention(new MentionModel()
+                {
+                    MentionedSourceId = bulletin.Id,
+                    CreatorId = await _intranetMemberService.GetCurrentMemberIdAsync(),
                     MentionedUserIds = mentionIds,
                     Title = bulletin.Description.StripHtml().TrimByWordEnd(maxTitleLength),
                     Url = links.Details,

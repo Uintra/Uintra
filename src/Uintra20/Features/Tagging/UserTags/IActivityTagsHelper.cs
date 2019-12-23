@@ -9,5 +9,6 @@ namespace Uintra20.Features.Tagging.UserTags
         void ReplaceTags(Guid entityId, string collectionString);
         void ReplaceTags(Guid entityId, IEnumerable<Guid> collection);
         Task ReplaceTagsAsync(Guid entityId, string collectionString);
+        Task ReplaceTagsAsync(Guid entityId, IEnumerable<Guid> collection);
     }
 }

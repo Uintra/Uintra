@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Compent.CommandBus;
-using Compent.Shared.Extensions;
 using Uintra20.Core.Member.Commands;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.User;
 using Uintra20.Infrastructure.Extensions;
-using static LanguageExt.Prelude;
 
 namespace Uintra20.Core.Member.Services
 {
@@ -34,10 +31,10 @@ namespace Uintra20.Core.Member.Services
 
             var matches = Regex.Matches(text, MentionDetectionRegex)
                 .Cast<Match>()
-                .Select(m => m.Value.Replace(profilePrefix, string.Empty));
+                .Value
+                ?.Replace(profilePrefix, string.Empty);
 
-            return matches
-                .Select(parseGuid)
+            return LanguageExt.Prelude.parseGuid(matches)
                 .Somes();
         }
 

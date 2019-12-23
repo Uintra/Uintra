@@ -32,10 +32,10 @@ export class PublicationsService {
   }
 
   addLike({entityId, entityType }: IAddLikeRequest) {
-    return this.http.post(`/umbraco/api/likes/AddLike?entityId=${entityId}&entityType=${entityType}`, {}).toPromise();
+    return this.http.post(`/ubaseline/api/likes/AddLike?entityId=${entityId}&entityType=${entityType}`, {}).toPromise();
   }
 
   removeLike({entityId, entityType }: IAddLikeRequest) {
-    return this.http.post(`/umbraco/api/likes/RemoveLike?entityId=${entityId}&entityType=${entityType}`, {}).toPromise();
+    return this.http.post(`/ubaseline/api/likes/RemoveLike?entityId=${entityId}&entityType=${entityType}`, {}).toPromise();
   }
 }
