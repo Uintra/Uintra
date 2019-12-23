@@ -1,0 +1,65 @@
+﻿<div class="umb-pane umb-panel" ng-controller="columnSettingsController">
+        <div class="umb-headline-editor-wrapper span12 umb-pane ng-scope">
+            <h1 class="ng-binding">Column Settings</h1>
+        </div>
+    <div class="umb-panel-body" ng-if="columnSettings">
+        <div class="umb-pane">
+            <form name="settingsForm"
+                  ng-submit="save()">
+                <div style="margin-bottom: 125px;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Alias</th>
+                                <th>Name</th>
+                                <th>Visibility</th>
+                                <th>Sort Order</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="column in columnSettings track by $index">
+                                <td>
+                                    <label>{{column.Alias}}</label>
+                                </td>
+                                <td class="td-txt-input">
+                                    <label>
+                                        <input type="text"
+                                               ng-model="column.Name"
+                                               maxlength="50" />
+                                    </label>
+                                </td>
+                                <td>
+                                    <label>
+                                        <input type="checkbox"
+                                               ng-model="column.IsVisible"
+                                               style="float: left; margin-right: 10px;" />
+                                    </label>
+                                    <p ng-if="column.IsVisible == true">Visible</p>
+                                    <p ng-if="column.IsVisible == false">Hidden</p>
+                                </td>
+                                <td>
+                                    <label>
+                                        <input type="number"
+                                               ng-model="column.SortOrder"
+                                               min="0"
+                                               max="100" />
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="bottom: 0 !important; height: 75px;" detect-fold>
+                        <div class="btn-group">
+                            <button type="submit"
+                                    data-hotkey="ctrl+s"
+                                    class="btn btn-success"
+                                    ng-disabled="isSaveBtnDisable">
+                                <localize key="buttons_save">Save</localize>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
