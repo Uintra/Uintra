@@ -14,7 +14,5 @@ export class ArticlePage {
     private route: ActivatedRoute
   ) {
     this.route.data.subscribe(data => this.data = data);
-
-    debugger;
   }
 }

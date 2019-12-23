@@ -3,10 +3,10 @@
 
     const service = function ($http) {
         const self = this;
-        const baseUrl = "/api/Central/Feed/";
+        const baseUrl = "/ubaseline/api/CentralFeedApi/";
 
         self.getAvailableActivityTypes = function (culture) {
-            return $http.get(baseUrl + "availableTypes");
+            return $http.get(baseUrl + "AvailableActivityTypes");
         }
     };
 
