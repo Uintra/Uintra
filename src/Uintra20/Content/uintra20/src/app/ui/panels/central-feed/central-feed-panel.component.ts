@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ICentralFeedPanel } from './central-feed-panel.interface';
 import { UmbracoFlatPropertyModel } from '@ubaseline/next';
 import { PublicationsService, IFeedListRequest } from './helpers/publications.service';
+import { CreateSocialService } from 'src/app/services/createActivity/create-social.service';
 
 // interface IFilterTab {
 //   type: number;
@@ -55,10 +56,15 @@ export class CentralFeedPanel implements OnInit{
   currentPage: number = 1;
   isFeedLoading: boolean = false;
 
-  constructor(private publicationsService: PublicationsService) {}
+  constructor(private publicationsService: PublicationsService, private createSocialService: CreateSocialService) {}
 
   ngOnInit() {
     this.tabs = Object.values(this.data.tabs.get());
+
+    this.createSocialService.feedRefreshTrigger$.subscribe(() => {
+      this.feed = [];
+      this.getPublications();
+    });
   }
 
   getPublications() {
@@ -75,10 +81,8 @@ export class CentralFeedPanel implements OnInit{
     };
 
     this.isFeedLoading = true;
-    this.publicationsService.getPublications(data).then(response => {
-      this.feed = this.feed.concat(response['feed']);
-    }).catch(error => {
-
+    this.publicationsService.getPublications(data).then( (response: any) => {
+      this.feed = this.feed.concat(response.feed);
     }).finally(() => {
       this.isFeedLoading = false;
     });

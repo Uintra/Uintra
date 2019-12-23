@@ -2,8 +2,9 @@ import { Component, ViewEncapsulation, ViewChild } from "@angular/core";
 import { IActivityCreatePanel } from "./activity-create-panel.interface";
 import { ITagData } from "src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { DropzoneComponent } from "ngx-dropzone-wrapper";
-import { CreateSocialContentService } from "./services/create-social-content.service";
+
 import { MAX_LENGTH } from "./_constants.js";
+import { CreateSocialService } from 'src/app/services/createActivity/create-social.service';
 
 @Component({
   selector: "activity-create-panel",
@@ -29,7 +30,7 @@ export class ActivityCreatePanel {
     return !this.description && this.files.length === 0;
   }
 
-  constructor(private socialContentService: CreateSocialContentService) {}
+  constructor(private socialContentService: CreateSocialService) {}
 
   ngOnInit() {
     this.availableTags = Object.values(
@@ -96,6 +97,7 @@ export class ActivityCreatePanel {
       })
       .then(response => {
         this.hidePopUp();
+        this.socialContentService.refreshFeed();
       })
       .catch(err => {
         this.hidePopUp();
