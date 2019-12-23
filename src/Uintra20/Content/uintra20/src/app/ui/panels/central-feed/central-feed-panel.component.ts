@@ -1,8 +1,11 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { ICentralFeedPanel } from './central-feed-panel.interface';
-import { UmbracoFlatPropertyModel } from '@ubaseline/next';
-import { PublicationsService, IFeedListRequest } from './helpers/publications.service';
-import { CreateSocialService } from 'src/app/services/createActivity/create-social.service';
+import { Component, ViewEncapsulation, OnInit } from "@angular/core";
+import { ICentralFeedPanel } from "./central-feed-panel.interface";
+import { UmbracoFlatPropertyModel } from "@ubaseline/next";
+import {
+  PublicationsService,
+  IFeedListRequest
+} from "./helpers/publications.service";
+import { CreateSocialService } from "src/app/services/createActivity/create-social.service";
 
 // interface IFilterTab {
 //   type: number;
@@ -41,12 +44,12 @@ import { CreateSocialService } from 'src/app/services/createActivity/create-soci
 // }
 
 @Component({
-  selector: 'central-feed-panel',
-  templateUrl: './central-feed-panel.html',
-  styleUrls: ['./central-feed-panel.less'],
+  selector: "central-feed-panel",
+  templateUrl: "./central-feed-panel.html",
+  styleUrls: ["./central-feed-panel.less"],
   encapsulation: ViewEncapsulation.None
 })
-export class CentralFeedPanel implements OnInit{
+export class CentralFeedPanel implements OnInit {
   data: ICentralFeedPanel;
   tabs: Array<UmbracoFlatPropertyModel> = null;
   // TODO: replace 'any' after server side will be done
@@ -56,7 +59,10 @@ export class CentralFeedPanel implements OnInit{
   currentPage: number = 1;
   isFeedLoading: boolean = false;
 
-  constructor(private publicationsService: PublicationsService, private createSocialService: CreateSocialService) {}
+  constructor(
+    private publicationsService: PublicationsService,
+    private createSocialService: CreateSocialService
+  ) {}
 
   ngOnInit() {
     this.tabs = Object.values(this.data.tabs.get());
@@ -81,11 +87,19 @@ export class CentralFeedPanel implements OnInit{
     };
 
     this.isFeedLoading = true;
-    this.publicationsService.getPublications(data).then( (response: any) => {
-      this.feed = this.feed.concat(response.feed);
-    }).finally(() => {
-      this.isFeedLoading = false;
-    });
+    // TODO: replace 'any' after server side will be done
+    this.publicationsService
+      .getPublications(data)
+      .then((response: any) => {
+        this.concatWithCurrentFeed(response.feed);
+      })
+      .finally(() => {
+        this.isFeedLoading = false;
+      });
+  }
+
+  concatWithCurrentFeed(data) {
+    this.feed = this.feed.concat(data);
   }
 
   onLoadMore() {

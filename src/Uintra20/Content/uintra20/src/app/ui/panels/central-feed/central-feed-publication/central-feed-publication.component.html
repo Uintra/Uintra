@@ -26,6 +26,10 @@
     >
       <i class="icon-like"></i>
       {{ likesCount }}
+
+      <span class="publication__like-tooltip" *ngIf="listOfUsersWhoLiked?.length">
+        <span *ngFor="let like of listOfUsersWhoLiked">{{ like.user }}</span>
+      </span>
     </button>
 
     <button class="publication__comment publication__footer-item">

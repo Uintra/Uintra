@@ -20,11 +20,13 @@ export class CentralFeedPublicationComponent implements OnInit {
   }
 
   newLikesCount: number = null;
+  listOfUsersWhoLiked: Array<string> = [];
 
   constructor(private publicationsService: PublicationsService) {}
 
   ngOnInit(): void {
     this.newLikesCount = this.publication.activity.likes.length;
+    this.listOfUsersWhoLiked = this.publication.activity.likes;
   }
 
   getPublicationDate() {
@@ -45,13 +47,21 @@ export class CentralFeedPublicationComponent implements OnInit {
   }
 
   addLike(data) {
-    this.publicationsService.addLike(data);
+    this.publicationsService
+      .addLike(data)
+      .then((response: Array<string>) => {
+      this.listOfUsersWhoLiked = response;
+    });
     this.newLikesCount += 1;
     this.publication.activity.likedByCurrentUser = true;
   }
 
   removeLike(data) {
-    this.publicationsService.removeLike(data);
+    this.publicationsService
+      .removeLike(data)
+      .then((response: Array<string>) => {
+        this.listOfUsersWhoLiked = response;
+      });
     this.newLikesCount -= 1;
     this.publication.activity.likedByCurrentUser = false;
   }
