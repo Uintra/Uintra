@@ -28,7 +28,7 @@ export class PublicationsService {
   ) { }
 
   getPublications(data: IFeedListRequest) {
-    return this.http.post(`/api/central/feed/list`, data).toPromise();
+    return this.http.post(`/ubaseline/api/centralFeedApi/FeedList`, data).toPromise();
   }
 
   addLike({entityId, entityType }: IAddLikeRequest) {
