@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LanguageExt;
 using Uintra20.Features.Media.Sql;
 using Uintra20.Persistence.Sql;
 
@@ -99,7 +98,7 @@ namespace Uintra20.Features.Media
         public async Task<Guid> GetEntityIdByMediaIdAsync(int mediaId)
         {
             // todo: refactor to store relation entity to mediaId in separate 
-            return await _sqlRepository.FindAsync(a => a.MediaIds.Contains(mediaId.ToString())).Select(x => x.EntityId);
+            return (await _sqlRepository.FindAsync(a => a.MediaIds.Contains(mediaId.ToString()))).EntityId;
         }
 
         public async Task<string> GetEntityMediaStringAsync(Guid entityId)

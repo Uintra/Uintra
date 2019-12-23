@@ -1,30 +1,23 @@
-﻿using System;
+﻿using Compent.CommandBus;
+using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Compent.CommandBus;
-using Compent.Extensions;
-using Compent.Shared.Extensions;
-using LanguageExt;
 using Uintra20.Core.Activity;
-using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Activity.Models;
-using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
 using Uintra20.Core.Localization;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Bulletins.Models;
-using Uintra20.Features.CentralFeed;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups.Services;
-using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview;
 using Uintra20.Features.Links;
@@ -159,7 +152,8 @@ namespace Uintra20.Features.Bulletins
         public async Task<IEnumerable<IFeedItem>> GetItemsAsync() => await GetOrderedActualItemsAsync();
 
         private async Task<IOrderedEnumerable<T>> GetOrderedActualItemsAsync() =>
-            await GetManyActualAsync().Select(x => x.OrderByDescending(i => i.PublishDate));
+            (await GetManyActualAsync())
+            .OrderByDescending(i => i.PublishDate);
 
         private IOrderedEnumerable<T> GetOrderedActualItems() =>
             GetManyActual().OrderByDescending(i => i.PublishDate);

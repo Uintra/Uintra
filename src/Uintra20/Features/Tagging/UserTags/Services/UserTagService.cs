@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Compent.Extensions;
-using LanguageExt;
 using Uintra20.Features.Tagging.UserTags.Models;
 
 namespace Uintra20.Features.Tagging.UserTags.Services
@@ -55,7 +54,7 @@ namespace Uintra20.Features.Tagging.UserTags.Services
         {
             var tagIdsList = tagIds.AsList();
 
-            var existedTagIds = await _relationService.GetForEntityAsync(entityId).Select(x => x.ToList());
+            var existedTagIds = (await _relationService.GetForEntityAsync(entityId)).ToList();
             var tagsToDelete = existedTagIds.Except(tagIdsList);
             var tagsToAdd = tagIdsList.Except(existedTagIds);
 
@@ -65,7 +64,7 @@ namespace Uintra20.Features.Tagging.UserTags.Services
 
         public async Task DeleteAllForAsync(Guid entityId)
         {
-            var existedTagIds = await _relationService.GetForEntityAsync(entityId).Select(x => x.ToList());
+            var existedTagIds = (await _relationService.GetForEntityAsync(entityId)).ToList();
             await _relationService.RemoveAsync(entityId, existedTagIds);
         }
     }

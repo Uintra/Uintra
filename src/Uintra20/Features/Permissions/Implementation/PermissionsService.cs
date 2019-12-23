@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using LanguageExt;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
@@ -56,17 +55,21 @@ namespace Uintra20.Features.Permissions.Implementation
             return await CurrentCacheGetAsync();
         }
 
-        public async Task<IEnumerable<PermissionManagementModel>> GetForGroupAsync(IntranetMemberGroup @group)
+        public async Task<IEnumerable<PermissionManagementModel>> GetForGroupAsync(IntranetMemberGroup group)
         {
             var storedPerms = (await GetAllAsync())
                 .Where(i => i.Group.Id == group.Id)
                 .ToDictionary(permission => permission.SettingIdentity, permission => permission.SettingValues);
 
-            var settings = _permissionSettingsSchema.Settings
-                .Select(settingSchema => storedPerms
-                    .ItemOrNone(settingSchema.SettingIdentity)
-                    .IfNone(() => _permissionSettingsSchema.GetDefault(settingSchema.SettingIdentity))
-                    .Apply(settingValues => PermissionManagementModel.Of(group, settingSchema, settingValues)));
+            var settings = _permissionSettingsSchema
+                .Settings
+                .Select(settingSchema =>
+                {
+                    var settingValues = storedPerms.ItemOrDefault(settingSchema.SettingIdentity) 
+                                ?? _permissionSettingsSchema.GetDefault(settingSchema.SettingIdentity);
+
+                    return PermissionManagementModel.Of(group, settingSchema, settingValues);
+                });
 
             return settings;
         }
@@ -74,9 +77,11 @@ namespace Uintra20.Features.Permissions.Implementation
         public async Task<PermissionModel> SaveAsync(PermissionUpdateModel update)
         {
             var storedEntity = await _permissionsRepository
-                .FindOrNoneAsync(AndAlso(GroupIs(update.Group), ActionIs(update.SettingIdentity.Action), ActivityTypeIs(update.SettingIdentity.ResourceType)));
+                .FindAsync(GroupIs(update.Group)
+                    .AndAlso(ActionIs(update.SettingIdentity.Action))
+                    .AndAlso(ActivityTypeIs(update.SettingIdentity.ResourceType)));
 
-            var actualEntity = await storedEntity.MatchAsync(
+            var actualEntity = await storedEntity.Match(
                 async entity =>
                 {
                     if (!update.SettingValues.IsAllowed && entity.IsAllowed)
@@ -132,7 +137,9 @@ namespace Uintra20.Features.Permissions.Implementation
 
             var permission = (await GetAllAsync()).Where(p => member.Groups.Select(g => g.Id).Contains(p.Group.Id) && p.SettingIdentity.Equals(settingsIdentity));
 
-            var isAllowed = permission.Exists(p => p.SettingValues.IsAllowed);
+            var isAllowed = permission
+                .ToList()
+                .Exists(p => p.SettingValues.IsAllowed);
 
             return isAllowed;
         }
@@ -154,7 +161,11 @@ namespace Uintra20.Features.Permissions.Implementation
         protected virtual async Task<IEnumerable<PermissionModel>> CurrentCacheGetAsync()
         {
             return await _cacheService.GetOrSetAsync(
-                () => _permissionsRepository.AsNoTrackingAsync().Select(x => x.Apply(MapAll)),
+                async () =>
+                {
+                    var permissionEntities = await _permissionsRepository.AsNoTrackingAsync();
+                    return MapAll(permissionEntities);
+                },
                 BasePermissionCacheKey);
         }
 
@@ -163,7 +174,7 @@ namespace Uintra20.Features.Permissions.Implementation
             if (value == null)
                 _cacheService.Remove(BasePermissionCacheKey);
             else
-                await _cacheService.SetAsync(value.AsTask, BasePermissionCacheKey);
+                await _cacheService.SetAsync(() => Task.FromResult(value), BasePermissionCacheKey);
         }
 
         #endregion
@@ -174,7 +185,7 @@ namespace Uintra20.Features.Permissions.Implementation
         {
             get => _cacheService.GetOrSet(
                     BasePermissionCacheKey,
-                    () => _permissionsRepository.AsNoTracking().Apply(MapAll));
+                    () => MapAll(_permissionsRepository.AsNoTracking()));
             set
             {
                 if (value == null)
@@ -194,10 +205,13 @@ namespace Uintra20.Features.Permissions.Implementation
                 .ToDictionary(permission => permission.SettingIdentity, permission => permission.SettingValues);
 
             var settings = _permissionSettingsSchema.Settings
-                .Select(settingSchema => storedPerms
-                    .ItemOrNone(settingSchema.SettingIdentity)
-                    .IfNone(() => _permissionSettingsSchema.GetDefault(settingSchema.SettingIdentity))
-                    .Apply(settingValues => PermissionManagementModel.Of(group, settingSchema, settingValues)));
+                .Select(settingSchema =>
+                {
+                    var settingValues = storedPerms.ItemOrDefault(settingSchema.SettingIdentity)
+                                           ?? _permissionSettingsSchema.GetDefault(settingSchema.SettingIdentity);
+
+                    return PermissionManagementModel.Of(@group, settingSchema, settingValues);
+                });
 
             return settings;
         }
@@ -208,9 +222,10 @@ namespace Uintra20.Features.Permissions.Implementation
         public virtual PermissionModel Save(PermissionUpdateModel update)
         {
             var storedEntity = _permissionsRepository
-                .FindOrNone(AndAlso(GroupIs(update.Group),
-                    ActionIs(update.SettingIdentity.Action),
-                    ActivityTypeIs(update.SettingIdentity.ResourceType)));
+                .Find(
+                    GroupIs(update.Group)
+                        .AndAlso(ActionIs(update.SettingIdentity.Action))
+                        .AndAlso(ActivityTypeIs(update.SettingIdentity.ResourceType)));
 
             var actualEntity = storedEntity.Match(
                 entity =>
@@ -266,9 +281,15 @@ namespace Uintra20.Features.Permissions.Implementation
         {
             if (member.Groups == null) return false;
 
-            var permission = GetAll().Where(p => member.Groups.Select(g => g.Id).Contains(p.Group.Id) && p.SettingIdentity.Equals(settingIdentity));
+            var permission = GetAll()
+                .Where(p => member
+                                .Groups
+                                .Select(g => g.Id)
+                                .Contains(p.Group.Id) && p.SettingIdentity.Equals(settingIdentity));
 
-            var isAllowed = permission.Exists(p => p.SettingValues.IsAllowed);
+            var isAllowed = permission
+                .ToList()
+                .Exists(p => p.SettingValues.IsAllowed);
 
             return isAllowed;
         }

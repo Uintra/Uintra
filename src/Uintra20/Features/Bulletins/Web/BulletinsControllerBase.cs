@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Compent.Extensions;
-using Compent.Shared.Extensions;
 using UBaseline.Core.Controllers;
 using Uintra20.Attributes;
 using Uintra20.Core.Member.Entities;
@@ -99,7 +98,7 @@ namespace Uintra20.Features.Bulletins.Web
         protected virtual BulletinBase MapToBulletin(BulletinEditModel editModel)
         {
             var bulletin = _bulletinsService.Get(editModel.Id);
-            bulletin = editModel.Map(bulletin);
+            //bulletin = editModel.Map(bulletin);
             bulletin.MediaIds = bulletin.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
 
             return bulletin;
@@ -108,7 +107,7 @@ namespace Uintra20.Features.Bulletins.Web
         protected virtual async Task<BulletinBase> MapToBulletinAsync(BulletinEditModel editModel)
         {
             var bulletin = _bulletinsService.Get(editModel.Id);
-            bulletin = editModel.Map(bulletin);
+            //bulletin = editModel.Map(bulletin);
             bulletin.MediaIds = bulletin.MediaIds.Concat(await _mediaHelper.CreateMediaAsync(editModel));
 
             return bulletin;

@@ -1,5 +1,5 @@
-﻿using Compent.Shared.Extensions;
-using Compent.Shared.Extensions.Bcl;
+﻿using Compent.Shared.Extensions.Bcl;
+using UBaseline.Core.Extensions;
 using UBaseline.Core.PropertyEditor;
 using UBaseline.Shared.Node;
 using UBaseline.Shared.Property;

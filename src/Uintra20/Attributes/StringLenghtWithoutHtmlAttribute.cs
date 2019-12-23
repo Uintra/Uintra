@@ -18,14 +18,14 @@ namespace Uintra20.Attributes
                 return ValidationResult.Success;
             }
 
-            var length = value.ToString().Length();
+            var length = value.ToString().Length;
 
             if (length > MaxLenght)
             {
                 var newValueWithoutHtml = value.ToString().StripHtml();
 
-                var newValueLenght = newValueWithoutHtml.Length();
-                if (newValueLenght > MaxLenght)
+                var newValueLength = newValueWithoutHtml.Length;
+                if (newValueLength > MaxLenght)
                 {
                     return new ValidationResult($"Lenght is more than {MaxLenght}");
                 }

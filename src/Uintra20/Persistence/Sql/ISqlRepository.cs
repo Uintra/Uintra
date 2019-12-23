@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using LanguageExt;
 
 namespace Uintra20.Persistence.Sql
 {
@@ -18,7 +17,6 @@ namespace Uintra20.Persistence.Sql
         IList<T> GetAll();
 
         T Find(Expression<Func<T, bool>> predicate);
-        Option<T> FindOrNone(Expression<Func<T, bool>> predicate);
 
         IList<T> FindAll(Expression<Func<T, bool>> predicate, int skip = 0, int take = int.MaxValue);
 
@@ -57,9 +55,6 @@ namespace Uintra20.Persistence.Sql
         Task<IList<T>> GetAllAsync();
 
         Task<T> FindAsync(Expression<Func<T, bool>> predicate);
-
-        Task<Option<T>> FindOrNoneAsync(Expression<Func<T, bool>> predicate);
-
         Task<IList<T>> FindAllAsync(Expression<Func<T, bool>> predicate, int skip = 0, int take = int.MaxValue);
 
         Task<long> CountAsync(Expression<Func<T, bool>> predicate);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Compent.CommandBus;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Compent.CommandBus;
@@ -31,11 +32,15 @@ namespace Uintra20.Core.Member.Services
 
             var matches = Regex.Matches(text, MentionDetectionRegex)
                 .Cast<Match>()
-                .Value
-                ?.Replace(profilePrefix, string.Empty);
+                .Select(m => m.Value.Replace(profilePrefix, string.Empty));
 
-            return LanguageExt.Prelude.parseGuid(matches)
-                .Somes();
+            return matches
+                .Select(m =>
+                {
+                    Guid.TryParse(m, out var guid);
+                    return guid;
+                })
+                .Where(g => g != default(Guid));
         }
 
         public void ProcessMention(MentionModel model)

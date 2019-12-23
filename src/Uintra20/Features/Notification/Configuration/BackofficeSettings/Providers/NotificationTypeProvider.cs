@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
-using static LanguageExt.Prelude;
 
 namespace Uintra20.Features.Notification.Configuration.BackofficeSettings.Providers
 {

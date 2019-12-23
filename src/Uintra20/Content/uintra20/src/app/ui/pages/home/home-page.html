@@ -15,8 +15,7 @@
           <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
         </div>
         <div class="col-md-4 aside">
-          <!--latest activities-->
-          right panel content
+          <ubl-dynamic-component [data]="latestActivities[0].get()"></ubl-dynamic-component>
         </div>
       </div>
     </div>

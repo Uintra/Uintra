@@ -6,15 +6,15 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Converters
 {
     public class LatestActivitiesPanelViewModelConverter : INodeViewModelConverter<LatestActivitiesPanelModel, LatestActivitiesPanelViewModel>
     {
-        private readonly ILatestActivitiesPanelHelper _latestActivitiesPanelHelper;
+        private readonly ICentralFeedHelper _centralFeedHelper;
 
-        public LatestActivitiesPanelViewModelConverter(ILatestActivitiesPanelHelper latestActivitiesPanelHelper)
+        public LatestActivitiesPanelViewModelConverter(ICentralFeedHelper centralFeedHelper)
         {
-            _latestActivitiesPanelHelper = latestActivitiesPanelHelper;
+            _centralFeedHelper = centralFeedHelper;
         }
         public void Map(LatestActivitiesPanelModel node, LatestActivitiesPanelViewModel viewModel)
         {
-            var (isShowMore, feedItems) = _latestActivitiesPanelHelper.GetFeedItems(node);
+            var (isShowMore, feedItems) = _centralFeedHelper.GetFeedItems(node);
 
             viewModel.Feed = feedItems;
             viewModel.ShowSeeAllButton = isShowMore;
