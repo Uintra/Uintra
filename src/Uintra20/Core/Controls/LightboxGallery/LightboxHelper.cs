@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Compent.Shared.Extensions;
 using Uintra20.Features.Media;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
