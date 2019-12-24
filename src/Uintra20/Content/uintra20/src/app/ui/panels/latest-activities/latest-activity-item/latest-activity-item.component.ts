@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'latest-activity',
@@ -9,19 +8,10 @@ import { Router } from '@angular/router';
 export class LatestActivityComponent implements OnInit {
   @Input() activityType: string;
   @Input() activityDate: Date;
-  @Input()
-  public readonly activityDescription: string;
-  @Input()
-  public readonly activityId: string;
-  public readonly activityLink: string;
+  @Input() activityId: string;
+  @Input() activityDescription: string;
 
-  constructor(
-    private router: Router) { }
+  constructor() { }
 
-  ngOnInit() {
-  }
-
-  public navigateToActivity = (): void => {
-    this.router.navigate([this.activityLink]);
-  }
+  ngOnInit() { }
 }

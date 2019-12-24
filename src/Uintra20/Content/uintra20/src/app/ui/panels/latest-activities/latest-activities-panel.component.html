@@ -12,12 +12,9 @@
                     [activityDescription]="cell.get().activity.get().description.get()">
                 </latest-activity>
             </div>
-            <button
+            <a routerLink="socials"
                 class="holder__button"
-                *ngIf="showAll"
-                (click)="seeAll()">
-                See all
-            </button>
+                *ngIf="showAll">See all</a>
         </div>
     </section>
 </div>
