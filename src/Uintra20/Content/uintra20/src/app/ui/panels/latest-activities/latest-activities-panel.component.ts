@@ -10,9 +10,8 @@ import { ILatestActivitiesPanel } from './latest-activities-panel.interface';
 })
 export class LatestActivitiesPanelComponent implements OnInit {
 
-  constructor(
-    private router: Router
-  ) { }
+  constructor() { }
+
   public readonly data: ILatestActivitiesPanel;
   public title: string;
   public activityCells: any;
@@ -22,11 +21,6 @@ export class LatestActivitiesPanelComponent implements OnInit {
     this.title = this.data.title.get();
     this.activityCells = Object.values(this.data.feed.get());
     this.showAll = this.data.showSeeAllButton.get();
-  }
-
-  public seeAll = (): void => {
-    console.log('navigated to bulletins');
-    // this.router.navigate(['bulletins']);
   }
 }
 
