@@ -19,7 +19,7 @@ namespace Uintra20.Features.MonthlyMail
 {
     public class MonthlyEmailService: MonthlyEmailServiceBase
     {
-        private readonly IBulletinsService<BulletinBase> _bulletinsService;
+	    private readonly ISocialsService<SocialBase> _bulletinsService;
 	    //todo uncomment when News and Events will be done
         //private readonly IEventsService<EventBase> _eventsService;
         //private readonly INewsService<NewsBase> _newsService;
@@ -31,7 +31,7 @@ namespace Uintra20.Features.MonthlyMail
         public MonthlyEmailService(IMailService mailService,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IExceptionLogger logger,
-            IBulletinsService<BulletinBase> bulletinsService,
+            ISocialsService<SocialBase> bulletinsService,
             //IEventsService<EventBase> eventsService,
             //INewsService<NewsBase> newsService,
             IUserTagRelationService userTagService,

@@ -48,7 +48,7 @@ namespace Uintra20.Features.Notification.Configuration.BackofficeSettings.Provid
             var notificationTypes =
                 CommentNotificationTypes.Append(NotificationTypeEnum.ActivityLikeAdded, NotificationTypeEnum.UserMention);
 
-            return new NotificationSettingsCategoryDto(IntranetActivityTypeEnum.Bulletins, notificationTypes);
+            return new NotificationSettingsCategoryDto(IntranetActivityTypeEnum.Socials, notificationTypes);
         }
 
         protected virtual NotificationSettingsCategoryDto GetNewsSettings()
