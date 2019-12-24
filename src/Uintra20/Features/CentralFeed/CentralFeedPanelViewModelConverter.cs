@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Compent.Shared.Extensions.Bcl;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Shared.Extensions.Bcl;
 using UBaseline.Core.Node;
 using Uintra20.Core.Feed;
 using Uintra20.Core.Feed.Models;
@@ -9,10 +9,6 @@ using Uintra20.Core.Feed.State;
 using Uintra20.Core.Localization;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.CentralFeed.Models;
-using Uintra20.Features.Permissions;
-using Uintra20.Features.Permissions.Interfaces;
-using Uintra20.Features.Permissions.TypeProviders;
-using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.CentralFeed
 {
@@ -64,8 +60,8 @@ namespace Uintra20.Features.CentralFeed
 				new ActivityFeedTabViewModel
 				{
 					IsActive = true,
-					Type = CentralFeedTypeEnum.Bulletins,
-					Title = CentralFeedTypeEnum.Bulletins.ToString()
+					Type = CentralFeedTypeEnum.Socials,
+					Title = CentralFeedTypeEnum.Socials.ToString()
 				},
 				new ActivityFeedTabViewModel
 				{

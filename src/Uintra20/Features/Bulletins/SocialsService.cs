@@ -39,13 +39,13 @@ using static Uintra20.Features.Notification.Configuration.NotificationTypeEnum;
 
 namespace Uintra20.Features.Bulletins
 {
-    public class BulletinsService<T> : BulletinsServiceBase<T>,
-        IBulletinsService<T>,
+    public class SocialsService<T> : SocialsServiceBase<T>,
+        ISocialsService<T>,
         IFeedItemService,
         INotifyableService,
         //IIndexer,
         IHandle<VideoConvertedCommand> 
-        where T : Bulletin
+        where T : Social
     {
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
@@ -63,7 +63,7 @@ namespace Uintra20.Features.Bulletins
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IIntranetLocalizationService _localizationService;
 
-        public BulletinsService(
+        public SocialsService(
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
@@ -104,9 +104,9 @@ namespace Uintra20.Features.Bulletins
             _localizationService = localizationService;
         }
 
-        public override Enum Type => IntranetActivityTypeEnum.Bulletins;
+        public override Enum Type => IntranetActivityTypeEnum.Socials;
 
-        public override Enum PermissionActivityType => PermissionResourceTypeEnum.Bulletins;
+        public override Enum PermissionActivityType => PermissionResourceTypeEnum.Socials;
         public override IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId)
         {
             var bulletin = Get(activityId);
@@ -120,7 +120,7 @@ namespace Uintra20.Features.Bulletins
 
             var currentMemberId = _intranetMemberService.GetCurrentMemberId();
 
-            var viewModel = bulletin.Map<BulletinPreviewModel>();
+            var viewModel = bulletin.Map<SocialPreviewModel>();
             viewModel.CanEdit = CanEdit(bulletin);
             viewModel.Links = links;
             viewModel.Owner = _intranetMemberService.Get(bulletin).Map<MemberViewModel>();
@@ -144,7 +144,7 @@ namespace Uintra20.Features.Bulletins
         public FeedSettings GetFeedSettings() =>
             new FeedSettings
             {
-                Type = CentralFeedTypeEnum.Bulletins,
+                Type = CentralFeedTypeEnum.Socials,
                 Controller = "Bulletins",
                 HasPinnedFilter = false,
                 HasSubscribersFilter = false,
@@ -191,8 +191,8 @@ namespace Uintra20.Features.Bulletins
             var bulletin = base.UpdateActivityCache(id);
             if (IsCacheable(bulletin) && (bulletin.GroupId is null || _groupService.IsActivityFromActiveGroup(bulletin)))
             {
-                //_activityIndex.Index(Map(bulletin));
-                //_documentIndexer.Index(bulletin.MediaIds);
+                //_activityIndex.Index(Map(social));
+                //_documentIndexer.Index(social.MediaIds);
                 return bulletin;
             }
 
@@ -250,33 +250,33 @@ namespace Uintra20.Features.Bulletins
         //    _activityIndex.Index(searchableActivities);
         //}
 
-        private void FillLinkPreview(Bulletin bulletin)
+        private void FillLinkPreview(Social social)
         {
-            var linkPreview = _activityLinkPreviewService.GetActivityLinkPreview(bulletin.Id);
-            bulletin.LinkPreview = linkPreview;
-            bulletin.LinkPreviewId = linkPreview?.Id;
+            var linkPreview = _activityLinkPreviewService.GetActivityLinkPreview(social.Id);
+            social.LinkPreview = linkPreview;
+            social.LinkPreviewId = linkPreview?.Id;
         }
 
-        private async Task FillLinkPreviewAsync(Bulletin bulletin)
+        private async Task FillLinkPreviewAsync(Social social)
         {
-            var linkPreview = await _activityLinkPreviewService.GetActivityLinkPreviewAsync(bulletin.Id);
-            bulletin.LinkPreview = linkPreview;
-            bulletin.LinkPreviewId = linkPreview?.Id;
+            var linkPreview = await _activityLinkPreviewService.GetActivityLinkPreviewAsync(social.Id);
+            social.LinkPreview = linkPreview;
+            social.LinkPreviewId = linkPreview?.Id;
         }
 
-        private static bool IsBulletinHidden(Bulletin bulletin) => bulletin == null || bulletin.IsHidden;
+        private static bool IsBulletinHidden(Social social) => social == null || social.IsHidden;
 
-        private bool IsCacheable(Bulletin bulletin) =>
-            !IsBulletinHidden(bulletin) && IsActualPublishDate(bulletin);
+        private bool IsCacheable(Social social) =>
+            !IsBulletinHidden(social) && IsActualPublishDate(social);
 
-        private static bool IsActualPublishDate(Bulletin bulletin) =>
-            DateTime.Compare(bulletin.PublishDate, DateTime.UtcNow) <= 0;
+        private static bool IsActualPublishDate(Social social) =>
+            DateTime.Compare(social.PublishDate, DateTime.UtcNow) <= 0;
 
-        //private SearchableUintraActivity Map(Bulletin bulletin)
+        //private SearchableUintraActivity Map(Social social)
         //{
-        //    var searchableActivity = bulletin.Map<SearchableUintraActivity>();
-        //    searchableActivity.Url = _linkService.GetLinks(bulletin.Id).Details;
-        //    searchableActivity.UserTagNames = _userTagService.Get(bulletin.Id).Select(t => t.Text);
+        //    var searchableActivity = social.Map<SearchableUintraActivity>();
+        //    searchableActivity.Url = _linkService.GetLinks(social.Id).Details;
+        //    searchableActivity.UserTagNames = _userTagService.Get(social.Id).Select(t => t.Text);
         //    return searchableActivity;
         //}
 

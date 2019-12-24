@@ -7,7 +7,7 @@ using Uintra20.Features.Media;
 
 namespace Uintra20.Features.Bulletins.Models
 {
-    public class BulletinEditModel : IntranetActivityEditModelBase, IContentWithMediaCreateEditModel
+    public class SocialEditModel : IntranetActivityEditModelBase, IContentWithMediaCreateEditModel
     {
         public override string Title { get; set; }
 

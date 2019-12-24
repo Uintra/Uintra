@@ -1,13 +1,12 @@
 ﻿using intra20.Attributes;
 using System.Collections.Generic;
 using Uintra20.Attributes;
-using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Features.Media;
 
 namespace Uintra20.Features.Bulletins.Models
 {
-    public class BulletinCreateModel : IntranetActivityCreateModelBase, IContentWithMediaCreateEditModel
+    public class SocialCreateModel : IntranetActivityCreateModelBase, IContentWithMediaCreateEditModel
     {
         [RequiredVirtual(IsRequired = false)]
         public override string Title { get; set; }

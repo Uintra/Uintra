@@ -4,7 +4,7 @@ using Uintra20.Core.Activity.Entities;
 
 namespace Uintra20.Features.Bulletins
 {
-    public interface IBulletinBase : IIntranetActivity
+    public interface ISocialBase : IIntranetActivity
     {
         int? UmbracoCreatorId { get; set; }
         Guid CreatorId { get; set; }

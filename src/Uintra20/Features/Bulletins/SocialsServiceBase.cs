@@ -1,5 +1,4 @@
 ﻿using Uintra20.Core.Activity;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.LinkPreview;
@@ -11,9 +10,9 @@ using Uintra20.Infrastructure.TypeProviders;
 
 namespace Uintra20.Features.Bulletins
 {
-    public abstract class BulletinsServiceBase<TBulletin> : IntranetActivityService<TBulletin> where TBulletin : BulletinBase
+    public abstract class SocialsServiceBase<TSocial> : IntranetActivityService<TSocial> where TSocial : SocialBase
     {
-        protected BulletinsServiceBase(
+        protected SocialsServiceBase(
             IIntranetActivityRepository activityRepository,
             ICacheService cache,
             IActivityTypeProvider activityTypeProvider,

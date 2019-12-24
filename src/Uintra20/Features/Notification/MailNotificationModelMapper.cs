@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Uintra20.Core.Activity;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
@@ -200,7 +198,7 @@ namespace Uintra20.Features.Notification
                 .Aggregate(source, (acc, pair) => acc.Replace(pair.token, pair.value));
 
         private static string GetTitle(Enum activityType, string title)
-            => activityType is IntranetActivityTypeEnum.Bulletins ? title?.StripHtml().TrimByWordEnd(100) : title;
+            => activityType is IntranetActivityTypeEnum.Socials ? title?.StripHtml().TrimByWordEnd(100) : title;
 
         private void FillNoReplyFromProps(MailBase message)
         {

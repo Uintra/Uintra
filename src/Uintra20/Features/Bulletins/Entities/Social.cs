@@ -10,7 +10,7 @@ using Uintra20.Features.Likes.Models;
 
 namespace Uintra20.Features.Bulletins.Entities
 {
-    public class Bulletin : BulletinBase, IFeedItem, ICommentable, ILikeable, IGroupActivity
+    public class Social : SocialBase, IFeedItem, ICommentable, ILikeable, IGroupActivity
     {
         [JsonIgnore]
         public DateTime SortDate => PublishDate;
