@@ -1,9 +1,9 @@
 <div class="type-and-date">
+
     <p>{{activityType}}</p>
     <p>{{activityDate | date: 'MMM d, y hh:mm'}}</p>
 </div>
-<div 
-    (click)="navigateToActivity()"
-    class="block-subtitle-clamp"
-    [innerHtml]="activityDescription">
-</div>
+<a [routerLink]="'bulletin-details'"
+   [queryParams]="{id: activityId}"
+   class="block-subtitle-clamp"
+   [innerHtml]="activityDescription"></a>

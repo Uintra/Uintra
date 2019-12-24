@@ -7,15 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./latest-activity-item.component.less']
 })
 export class LatestActivityComponent implements OnInit {
-  @Input()
-  public readonly activityType: string;
-  @Input()
-  public readonly activityDate: Date;
+  @Input() activityType: string;
+  @Input() activityDate: Date;
   @Input()
   public readonly activityDescription: string;
   @Input()
   public readonly activityId: string;
-  @Input()
   public readonly activityLink: string;
 
   constructor(
