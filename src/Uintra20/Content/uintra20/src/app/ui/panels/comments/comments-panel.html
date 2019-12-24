@@ -1,47 +1,43 @@
-<!-- <ubl-not-implemented [data]="data"
-                     [description]="data.contentTypeAlias || 'comments panel'"></ubl-not-implemented>
-<section class="comments">
-    <h3 class="comments__title"></h3>
-    <ul class="comments__list">
-        <li class="comments__list-item">
-            <div class="avatar">
-                <div class="avatar__letter"></div>
-            </div>
-            <div class="comments__list-body">
-                <div class="comments__list-holder">
-                    <div class="comments__author-about">
-                        <a href=""
-                           class="comments__author-name"></a>
-                        <span class="comments__author-inactive">[Inactive]</span>
-                        <span class="comments__divider"> - </span>
-                        <span class="comments__author-date">Dec 20, 2019</span>
-                        <span class="comments__divider"> - </span>
-                        <span class="comments__author-time">17:47</span>
-                        <div class="comments__controls">
-                            <ul class="comments__controls-list">
-                                <li class="comments__controls-list-item">
-                                    <a class="comments__controls-list-link js-comment-editlink">Edit</a>
-                                </li>
-                                <li class="comments__controls-list-item">
-                                    <a class="js-comment-delete comments__controls-list-link">Delete</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ul>
-</section> -->
 <ubl-not-implemented [data]="data" [description]="data.contentTypeAlias || 'comments panel'"></ubl-not-implemented>
 <section class="comments-panel">
   <h3 class="comments-panel__title">Comments</h3>
+  <ul class="comments-list">
+    <li class="comment">
+        <app-user-avatar class="comment__avatar" [data]="avatar" big></app-user-avatar>
+        <div>
+            <div class="comment__info">
+                <a class="comment__author-name"></a>
+                <span class="comment__author-inactive">[Inactive]</span>
+                <span class="comment__divider"> - </span>
+                <span class="comment__author-date">Dec 20, 2019</span>
+                <span class="comment__divider"> - </span>
+                <span class="comment__author-time">17:47</span>
+                <a class="js-comment-showReplyLink comments__reply">Reply</a>
+                <div class="comment__controls">
+                    <ul class="comment__controls-list">
+                        <li class="comment__controls-list-item">
+                            <a class="comment__controls-list-link js-comment-editlink">Edit</a>
+                        </li>
+                        <li class="comment__controls-list-item">
+                            <a class="js-comment-delete comment__controls-list-link">Delete</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="comment__content">
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vestibulum fringilla pede sit amet augue. 
+                Aenean massa. Fusce commodo aliquam arcu. Morbi mollis tellus ac sapien.
+            </div>
+            <!-- <app-like-button [likeData]="likeData"></app-like-button> -->
+        </div>
+    </li>
+</ul>
   <h4 class="comments-panel__rte-title">Add comment</h4>
   <app-rich-text-editor placeholder="">
-    <!-- <button submit
+    <button submit
       class="bulletin-popup__submit-button"
       (click)="onCommentSubmit()">
       Send
-    </button> -->
+    </button>
   </app-rich-text-editor>
 </section>
