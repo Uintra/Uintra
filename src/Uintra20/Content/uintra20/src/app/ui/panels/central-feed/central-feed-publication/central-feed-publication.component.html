@@ -19,10 +19,10 @@
   <div class="publication__footer">
     <app-like-button [likeData]="likeData"></app-like-button>
 
-    <button class="publication__comment publication__footer-item">
+    <a class="publication__comment publication__footer-item" routerLink="bulletin-details" [queryParams]="{id: publication.activity.id}">
       <i class="icon-comment"></i>
       {{ commentsCount }}
-    </button>
+    </a>
     <button class="publication__share publication__footer-item">
       <i class="icon-share-icon"></i>
       Anbefal
