@@ -17,14 +17,14 @@ export class LatestActivityComponent implements OnInit {
   public readonly activityDescription: string;
   @Input()
   public readonly activityId: string;
-  public activityLink: string;
+  @Input()
+  public readonly activityLink: string;
 
   constructor(
-    private router: Router,
-    private activityLinkService: ActivityLinkService) { }
+    private router: Router) { }
 
   ngOnInit() {
-    this.activityLink = this.activityLinkService.getBulletinLink(ActivityType.Bulletins, this.activityId);
+    console.log(this.activityLink);
   }
 
   public navigateToActivity = (): void => {
