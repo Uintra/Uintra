@@ -87,9 +87,6 @@
     <Reference Include="Compent.Shared.DependencyInjection.LightInject, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.DependencyInjection.LightInject.0.2.1\lib\net471\Compent.Shared.DependencyInjection.LightInject.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.Shared.Extensions, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Shared.Extensions.0.1.1\lib\net471\Compent.Shared.Extensions.dll</HintPath>
-    </Reference>
     <Reference Include="Compent.Shared.Extensions.Bcl, Version=0.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.Extensions.Bcl.0.1.3\lib\net45\Compent.Shared.Extensions.Bcl.dll</HintPath>
     </Reference>
@@ -161,9 +158,6 @@
     </Reference>
     <Reference Include="ImageProcessor.Web, Version=4.10.0.100, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ImageProcessor.Web.4.10.0.100\lib\net452\ImageProcessor.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="LanguageExt.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LanguageExt.Core.3.3.29\lib\net46\LanguageExt.Core.dll</HintPath>
     </Reference>
     <Reference Include="LazyCache, Version=2.0.1.113, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LazyCache.2.0.1\lib\netstandard2.0\LazyCache.dll</HintPath>
@@ -858,7 +852,7 @@
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
     <Compile Include="App_Plugins\Utils\Сache\CacheDashboard.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\BulletinsController.cs" />
+    <Compile Include="Core\Feed\Controllers\SocialsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
@@ -892,6 +886,12 @@
     <Compile Include="Core\Activity\Models\IntranetActivityPreviewModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\IHaveLightboxPreview.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\ILightboxHelper.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryItemPreviewModel.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryItemViewModel.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxHelper.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxPreviewModel.cs" />
     <Compile Include="Core\Feed\Models\ActivityFeedTabFiltersViewModel.cs" />
     <Compile Include="Core\Feed\Models\FeedActivityViewModel.cs" />
     <Compile Include="Core\Authentication\AuthenticationConfigurator.cs" />
@@ -906,10 +906,10 @@
     <Compile Include="Core\Member\Models\UserPickerModel.cs" />
     <Compile Include="Core\Member\Web\UserApiController.cs" />
     <Compile Include="Core\User\Web\UserApiController.cs" />
-    <Compile Include="Features\Bulletins\Converters\BulletinDetailsPageViewModelConverter.cs" />
-    <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageModel.cs" />
-    <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageViewModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinPreviewModel.cs" />
+    <Compile Include="Features\Bulletins\Converters\SocialDetailsPageViewModelConverter.cs" />
+    <Compile Include="Features\Bulletins\Converters\Models\SocialDetailsPageModel.cs" />
+    <Compile Include="Features\Bulletins\Converters\Models\SocialDetailsPageViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialPreviewModel.cs" />
     <Compile Include="Features\CentralFeed\Providers\ContentProviderBase.cs" />
     <Compile Include="Features\CentralFeed\Providers\FeedContentProviderBase.cs" />
     <Compile Include="Features\CentralFeed\Providers\CentralFeedContentProvider.cs" />
@@ -991,6 +991,7 @@
     <Compile Include="Features\Information\IInformationService.cs" />
     <Compile Include="Features\Information\InformationService.cs" />
     <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
+    <Compile Include="Features\Media\MediaTypeEnum.cs" />
     <Compile Include="Features\Navigation\Models\ActivityFeedTabModel.cs" />
     <Compile Include="Features\Subscribe\ActivitySubscribeSettingDto.cs" />
     <Compile Include="Features\Subscribe\IActivitySubscribeSettingService.cs" />
@@ -1004,8 +1005,8 @@
     <Compile Include="Features\Tagging\UserTags\Models\UserTagItemViewModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\LatestActivitiesPanelViewModelConverter.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\SelectedActivityPropertyEditorConvertor.cs" />
-    <Compile Include="Features\UintraPanels\LastActivities\Helpers\ILatestActivitiesHelper.cs" />
-    <Compile Include="Features\UintraPanels\LastActivities\Helpers\LatestActivitiesHelper.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Helpers\ICentralFeedHelper.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Helpers\CentralFeedHelper.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Injection\LastActivityInjectModule.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelViewModel.cs" />
@@ -1014,24 +1015,23 @@
     <Compile Include="Infrastructure\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\Models\GoogleOAuth.cs" />
-    <Compile Include="Features\Bulletins\AutoMapperProfiles\BulletinsAutoMapperProfile.cs" />
-    <Compile Include="Features\Bulletins\BulletinBase.cs" />
-    <Compile Include="Features\Bulletins\BulletinsService.cs" />
-    <Compile Include="Features\Bulletins\BulletinsServiceBase.cs" />
-    <Compile Include="Features\Bulletins\Entities\Bulletin.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinExtendedCreateModel.cs" />
-    <Compile Include="Features\Bulletins\IBulletinBase.cs" />
-    <Compile Include="Features\Bulletins\IBulletinsService.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinCreateModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinCreationResultModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinEditModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinExtendedEditModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinExtendedViewModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinItemViewModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinPreviewViewModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinViewModel.cs" />
-    <Compile Include="Features\Bulletins\Web\BulletinsControllerBase.cs" />
+    <Compile Include="Features\Bulletins\AutoMapperProfiles\SocialsAutoMapperProfile.cs" />
+    <Compile Include="Features\Bulletins\SocialBase.cs" />
+    <Compile Include="Features\Bulletins\SocialsService.cs" />
+    <Compile Include="Features\Bulletins\SocialsServiceBase.cs" />
+    <Compile Include="Features\Bulletins\Entities\Social.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialExtendedCreateModel.cs" />
+    <Compile Include="Features\Bulletins\ISocialBase.cs" />
+    <Compile Include="Features\Bulletins\ISocialsService.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialCreateModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialCreationResultModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialEditModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialExtendedEditModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialExtendedItemViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialExtendedViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialItemViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialPreviewViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialViewModel.cs" />
     <Compile Include="Infrastructure\Caching\CacheHelper.cs" />
     <Compile Include="Infrastructure\Caching\ICacheService.cs" />
     <Compile Include="Infrastructure\Caching\MemoryCacheService.cs" />
@@ -1087,6 +1087,7 @@
     <Compile Include="Infrastructure\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Infrastructure\Exceptions\IExceptionLogger.cs" />
     <Compile Include="Infrastructure\Extensions\ActivitiesServiceFactoryExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\AutoMapperExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\ContextExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\DateTimeExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
@@ -1097,7 +1098,7 @@
     <Compile Include="Infrastructure\Extensions\ListExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\ModelStateExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\NameValueCollectionExtensions.cs" />
-    <Compile Include="Infrastructure\Extensions\OptionExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\PublishedContentExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\StringExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\TreeExt.cs" />
     <Compile Include="Infrastructure\Extensions\UmbracoMemberExtensions.cs" />
@@ -1192,7 +1193,7 @@
     <Compile Include="Features\Media\VideoConverterLogService.cs" />
     <Compile Include="Features\Media\VideoHelper.cs" />
     <Compile Include="Features\Media\VideoSizeMetadataModel.cs" />
-    <Compile Include="Infrastructure\Ioc\BulletinsInjectModule.cs" />
+    <Compile Include="Infrastructure\Ioc\SocialsInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\NotificationInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\ActivityInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\UintraInjectModule.cs" />
@@ -1464,6 +1465,7 @@
   <ItemGroup>
     <Folder Include="Content\uintra20\src\app\ui\main-layout\" />
     <Folder Include="Core\Feed\Web\" />
+    <Folder Include="Infrastructure\Authentication\" />
     <Folder Include="Infrastructure\Authentication\" />
   </ItemGroup>
   <ItemGroup>

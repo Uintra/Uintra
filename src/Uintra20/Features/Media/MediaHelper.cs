@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Compent.CommandBus;
+using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
-using Compent.CommandBus;
-using Compent.Extensions;
 using UBaseline.Core.Extensions;
+using UBaseline.Core.Media;
 using Uintra20.Core.Controls.FileUpload;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Infrastructure.Caching;
@@ -22,8 +21,8 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using File = System.IO.File;
 using static Uintra20.Infrastructure.Constants.UmbracoAliases.Media;
+using File = System.IO.File;
 using Task = System.Threading.Tasks.Task;
 
 namespace Uintra20.Features.Media
@@ -60,7 +59,6 @@ namespace Uintra20.Features.Media
             _videoConverter = videoConverter;
             _videoConverterLogService = videoConverterLogService;
         }
-
         public IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model, Guid? userId = null)
         {
             if (model.NewMedia.IsNullOrEmpty()) return Enumerable.Empty<int>();
@@ -69,32 +67,12 @@ namespace Uintra20.Features.Media
             var cachedTempMedia = mediaIds.Select(s => _cacheService.Get<TempFile>(s.ToString(), ""));
             var rootMediaId = model.MediaRootId ?? -1;
 
-            var umbracoMediaIds = new List<int>();
-
-            foreach (var file in cachedTempMedia)
-            {
-                var media = CreateMedia(file, rootMediaId, userId);
-                umbracoMediaIds.Add(media.Id);
-            }
-            return umbracoMediaIds;
-        }
-
-        public async Task<IEnumerable<int>> CreateMediaAsync(IContentWithMediaCreateEditModel model, Guid? userId = null)
-        {
-            if (model.NewMedia.IsNullOrEmpty()) return Enumerable.Empty<int>();
-
-            var mediaIds = model.NewMedia.Split(';').Where(s => s.HasValue()).Select(Guid.Parse);
-            var cachedTempMedia = mediaIds.Select(s => _cacheService.Get<TempFile>(s.ToString(), ""));
-            var rootMediaId = model.MediaRootId ?? -1;
-
-            var umbracoMediaIds = new List<int>();
-
-            foreach (var file in cachedTempMedia)
-            {
-                var media = await CreateMediaAsync(file, rootMediaId, userId);
-                umbracoMediaIds.Add(media.Id);
-            }
-            return umbracoMediaIds;
+            return cachedTempMedia
+                .Select(file =>
+                {
+                    var media = CreateMedia(file, rootMediaId, userId);
+                    return media.Id;
+                });
         }
 
         public IMedia CreateMedia(TempFile file, int rootMediaId, Guid? userId = null)
@@ -127,6 +105,7 @@ namespace Uintra20.Features.Media
             {
                 var fileStream = new MemoryStream(file.FileBytes, 0, file.FileBytes.Length, true, true);
                 stream = _imageHelper.NormalizeOrientation(fileStream, Path.GetExtension(file.FileName));
+                fileStream.Close();
             }
 
             media.SetValue(IntranetConstants.IntranetCreatorId, userId.ToString());
@@ -140,52 +119,6 @@ namespace Uintra20.Features.Media
             _mediaService.Save(media);
             return media;
         }
-
-        public async Task<IMedia> CreateMediaAsync(TempFile file, int rootMediaId, Guid? userId = null)
-        {
-            //userId = userId ?? await _intranetMemberService.GetCurrentMemberIdAsync();
-            userId = userId ?? _intranetMemberService.GetCurrentMemberId();
-
-            var mediaTypeAlias = GetMediaTypeAlias(file);
-            var media = _mediaService.CreateMedia(file.FileName, rootMediaId, mediaTypeAlias);
-            if (_videoConverter.NeedConvert(mediaTypeAlias, file.FileName))
-            {
-                media.SetValue(IntranetConstants.IntranetCreatorId, userId.ToString());
-                media.SetValue(UmbracoAliases.Video.ThumbnailUrlPropertyAlias, _videoHelper.CreateConvertingThumbnail());
-                media.SetValue(UmbracoAliases.Video.ConvertInProcessPropertyAlias, true);
-                _mediaService.Save(media);
-
-                await Task.Run(() =>
-                {
-                    _videoConverter.Convert(new MediaConvertModel()
-                    {
-                        File = file,
-                        MediaId = media.Id
-                    });
-                });
-
-                return media;
-            }
-
-            var stream = new MemoryStream(file.FileBytes);
-            if (_imageHelper.IsFileImage(file.FileBytes))
-            {
-                var fileStream = new MemoryStream(file.FileBytes, 0, file.FileBytes.Length, true, true);
-                stream = _imageHelper.NormalizeOrientation(fileStream, Path.GetExtension(file.FileName));
-            }
-
-            media.SetValue(IntranetConstants.IntranetCreatorId, userId.ToString());
-            media.SetValue(Path.GetFileName(file.FileName), stream);
-            stream.Close();
-
-            if (mediaTypeAlias == VideoTypeAlias)
-            {
-                SaveVideoAdditionProperties(media);
-            }
-            _mediaService.Save(media);
-            return media;
-        }
-
         public void DeleteMedia(int mediaId)
         {
             var media = _mediaService.GetById(mediaId);
@@ -279,7 +212,12 @@ namespace Uintra20.Features.Media
         {
             return media.HasProperty(IsDeletedPropertyTypeAlias) && media.Value<bool>(IsDeletedPropertyTypeAlias);
         }
+        public static IEnumerable<string> GetMediaUrls(IEnumerable<int> ids)
+        {
+            var mediaProvider = DependencyResolver.Current.GetService<IMediaProvider>();
 
+            return ids.Select(id => mediaProvider.GetById(id)?.Url).Where(url => url.HasValue());
+        }
         private void SaveVideoAdditionProperties(IMedia media)
         {
             var thumbnailUrl = _videoHelper.CreateThumbnail(media);

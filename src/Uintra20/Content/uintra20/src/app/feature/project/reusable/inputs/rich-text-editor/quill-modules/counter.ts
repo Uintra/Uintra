@@ -33,6 +33,9 @@ export default class Counter {
 
     if (length > this.options.maxLength) {
       container.classList.add('invalid');
+    } else {
+      container.classList.remove('invalid');
+
     }
   }
 

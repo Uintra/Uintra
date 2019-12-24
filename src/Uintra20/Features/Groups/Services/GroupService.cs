@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Compent.Shared.Extensions;
-using LanguageExt;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Models;
@@ -13,9 +10,9 @@ using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Permissions.Models;
 using Uintra20.Infrastructure.Caching;
+using Uintra20.Infrastructure.Extensions;
 using Uintra20.Persistence.Sql;
 using Umbraco.Core.Models.PublishedContent;
-using static LanguageExt.Prelude;
 
 namespace Uintra20.Features.Groups.Services
 {
@@ -70,19 +67,19 @@ namespace Uintra20.Features.Groups.Services
             await UpdateCacheAsync();
         }
 
-        public async Task<GroupModel> GetAsync(Guid id) => 
+        public async Task<GroupModel> GetAsync(Guid id) =>
             (await GetAllAsync()).SingleOrDefault(g => g.Id == id);
-        
 
-        public async Task<IEnumerable<GroupModel>> GetAllNotHiddenAsync() => 
+
+        public async Task<IEnumerable<GroupModel>> GetAllNotHiddenAsync() =>
             (await GetAllAsync()).Where(g => !g.IsHidden);
 
         public async Task<IEnumerable<GroupModel>> GetManyAsync(IEnumerable<Guid> groupIds) =>
-            (await GetAllNotHiddenAsync()).Join(groupIds, g => g.Id, identity, (g, _) => g);
+            (await GetAllNotHiddenAsync()).Join(groupIds, g => g.Id, x => x, (g, _) => g);
 
         public async Task<IEnumerable<GroupModel>> GetAllAsync()
         {
-            var groups = _memoryCacheService.GetOrSetAsync(() =>  _groupRepository.GetAllAsync().Select(x => x.ToList()), GroupCacheKey, GetCacheExpiration());
+            var groups = await _memoryCacheService.GetOrSetAsync(async () => (await _groupRepository.GetAllAsync()).ToList(), GroupCacheKey, GetCacheExpiration());
 
             return groups.Map<IEnumerable<GroupModel>>();
         }
@@ -151,7 +148,10 @@ namespace Uintra20.Features.Groups.Services
         }
 
         private async Task UpdateCacheAsync() =>
-            await _memoryCacheService.SetAsync(() => _groupRepository.GetAllAsync().Select(x => x.ToList()), GroupCacheKey, GetCacheExpiration());
+            await _memoryCacheService.SetAsync(
+                async () => (await _groupRepository.GetAllAsync()).ToList(),
+                GroupCacheKey, 
+                GetCacheExpiration());
 
         #endregion
 
@@ -194,7 +194,7 @@ namespace Uintra20.Features.Groups.Services
             GetAll().Where(g => !g.IsHidden);
 
         public IEnumerable<GroupModel> GetMany(IEnumerable<Guid> groupIds) =>
-            GetAllNotHidden().Join(groupIds, g => g.Id, identity, (g, _) => g);
+            GetAllNotHidden().Join(groupIds, g => g.Id, x => x, (g, _) => g);
 
         public bool CanHide(Guid id) =>
             CanHide(Get(id));

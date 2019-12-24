@@ -5,10 +5,8 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using LanguageExt;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Persistence.Context;
-using static LanguageExt.Prelude;
 
 namespace Uintra20.Persistence.Sql
 {
@@ -49,8 +47,6 @@ namespace Uintra20.Persistence.Sql
         public async Task<IList<T>> GetAllAsync() => await _dbSet.ToListAsync();
 
         public async Task<T> FindAsync(Expression<Func<T, bool>> predicate) => await _dbSet.FirstOrDefaultAsync(predicate);
-
-        public async Task<Option<T>> FindOrNoneAsync(Expression<Func<T, bool>> predicate) => Optional(await _dbSet.FirstOrDefaultAsync(predicate));
 
         public async Task<IList<T>> FindAllAsync(Expression<Func<T, bool>> predicate, int skip = 0, int take = Int32.MaxValue) =>
             await _dbSet.Where(predicate).OrderBy(ent => ent.Id).Skip(skip).Take(take).ToListAsync();
@@ -172,9 +168,7 @@ namespace Uintra20.Persistence.Sql
         public T Get(TKey id) => _dbSet.Find(id);
 
         public T Find(Expression<Func<T, bool>> predicate) => _dbSet.FirstOrDefault(predicate);
-
-        public Option<T> FindOrNone(Expression<Func<T, bool>> predicate) => Optional(_dbSet.FirstOrDefault(predicate));
-
+        
         public IList<T> FindAll(Expression<Func<T, bool>> predicate, int skip = 0, int take = int.MaxValue) =>
             _dbSet.Where(predicate).OrderBy(ent => ent.Id).Skip(skip).Take(take).ToList();
 

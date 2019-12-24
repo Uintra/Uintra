@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Models;
-using Uintra20.Features.Comments.Models;
-using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Likes;
 using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Links.Models;
@@ -11,7 +10,7 @@ using Uintra20.Features.Location.Models;
 
 namespace Uintra20.Core.Activity.Models
 {
-    public abstract class IntranetActivityPreviewModelBase : ILikeable
+    public abstract class IntranetActivityPreviewModelBase : ILikeable, IHaveLightboxPreview
     {
         public Guid Id { get; set; }
         public bool CanEdit { get; set; }
@@ -27,5 +26,6 @@ namespace Uintra20.Core.Activity.Models
         public IEnumerable<LikeModel> Likes { get; set; }
         public bool LikedByCurrentUser { get; set; }
         public int CommentsCount { get; set; }
+        public LightboxPreviewModel MediaPreview { get; set; }
     }
 }

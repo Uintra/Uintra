@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
-using Compent.Shared.Extensions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Permissions.Models;
 using Uintra20.Infrastructure.Caching;
+using Uintra20.Infrastructure.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
-using static LanguageExt.Prelude;
 
 namespace Uintra20.Features.Permissions.Implementation
 {
@@ -47,7 +45,7 @@ namespace Uintra20.Features.Permissions.Implementation
             var groupNamesAssignedToMember = _memberService.GetAllRoles(id);
 
             var memberGroups = allGroups
-                .Join(groupNamesAssignedToMember, group => group.Name, identity, (group, _) => group).ToList();
+                .Join(groupNamesAssignedToMember, group => group.Name, x => x, (group, _) => group).ToList();
 
             return memberGroups;
         }
@@ -82,8 +80,10 @@ namespace Uintra20.Features.Permissions.Implementation
         public void AssignDefaultMemberGroup(int memberId)
         {
             var groups = GetAll();
-            groups.Find(i => i.Name.Equals("UiUser"))
-                .IfSome(j => _memberService.AssignRole(memberId, j.Name));
+            var member = groups.First(i => i.Name.Equals("UiUser"));
+
+            if (member != null)
+                _memberService.AssignRole(memberId, member.Name);
         }
 
         public void ClearCache()
