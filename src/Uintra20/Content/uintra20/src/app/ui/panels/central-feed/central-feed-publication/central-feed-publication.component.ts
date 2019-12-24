@@ -1,8 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import {
-  PublicationsService,
-  IAddLikeRequest
-} from "../helpers/publications.service";
+import { ILikeData } from "src/app/feature/project/reusable/ui-elements/like-button/like-button.interface";
 
 @Component({
   selector: "app-central-feed-publication",
@@ -15,54 +12,23 @@ export class CentralFeedPublicationComponent implements OnInit {
   get commentsCount() {
     return this.publication.activity.commentsCount || "Comment";
   }
-  get likesCount() {
-    return this.newLikesCount || "Like";
-  }
 
-  newLikesCount: number = null;
-  listOfUsersWhoLiked: Array<string> = [];
+  likeData: ILikeData;
 
-  constructor(private publicationsService: PublicationsService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.newLikesCount = this.publication.activity.likes.length;
-    this.listOfUsersWhoLiked = this.publication.activity.likes;
+    this.likeData = {
+      likedByCurrentUser: this.publication.activity.likedByCurrentUser,
+      id: this.publication.activity.id,
+      activityType: this.publication.activity.activityType,
+      likes: this.publication.activity.likes
+    };
   }
 
   getPublicationDate() {
     return this.publication.activity.dates.length
       ? this.publication.activity.dates[0]
       : "";
-  }
-
-  onClickLike() {
-    const canAddLike = this.publication.activity.likedByCurrentUser === false;
-
-    const data: IAddLikeRequest = {
-      entityId: this.publication.activity.id,
-      entityType: this.publication.activity.activityType
-    };
-
-    return canAddLike ? this.addLike(data) : this.removeLike(data);
-  }
-
-  addLike(data) {
-    this.publicationsService
-      .addLike(data)
-      .then((response: Array<string>) => {
-      this.listOfUsersWhoLiked = response;
-    });
-    this.newLikesCount += 1;
-    this.publication.activity.likedByCurrentUser = true;
-  }
-
-  removeLike(data) {
-    this.publicationsService
-      .removeLike(data)
-      .then((response: Array<string>) => {
-        this.listOfUsersWhoLiked = response;
-      });
-    this.newLikesCount -= 1;
-    this.publication.activity.likedByCurrentUser = false;
   }
 }

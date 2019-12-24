@@ -17,20 +17,7 @@
   </div>
 
   <div class="publication__footer">
-    <button
-      class="publication__like publication__footer-item"
-      (click)="onClickLike()"
-      [ngClass]="{
-        'publication__like--active': publication.activity.likedByCurrentUser
-      }"
-    >
-      <i class="icon-like"></i>
-      {{ likesCount }}
-
-      <span class="publication__like-tooltip" *ngIf="listOfUsersWhoLiked?.length">
-        <span *ngFor="let like of listOfUsersWhoLiked">{{ like.user }}</span>
-      </span>
-    </button>
+    <app-like-button [likeData]="likeData"></app-like-button>
 
     <button class="publication__comment publication__footer-item">
       <i class="icon-comment"></i>
