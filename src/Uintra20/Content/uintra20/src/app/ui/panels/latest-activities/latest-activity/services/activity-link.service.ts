@@ -9,6 +9,6 @@ export class ActivityLinkService {
   constructor() { }
 
   public getBulletinLink(type: ActivityType, activityId): string {
-    return `/${type}/details?id=${activityId}`;
+    return `/${type}-details?id=${activityId}`;
   }
 }
