@@ -889,6 +889,8 @@
     <Compile Include="Core\Activity\Models\IntranetActivityPreviewModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
+    <Compile Include="Core\Configuration\ConfigurationProvider.cs" />
+    <Compile Include="Core\Configuration\IConfigurationProvider.cs" />
     <Compile Include="Core\Controls\LightboxGallery\IHaveLightboxPreview.cs" />
     <Compile Include="Core\Controls\LightboxGallery\ILightboxHelper.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryItemPreviewModel.cs" />
@@ -914,6 +916,9 @@
     <Compile Include="Core\Jobs\JobsRegistry.cs" />
     <Compile Include="Core\Jobs\Models\BaseIntranetJob.cs" />
     <Compile Include="Core\Jobs\Models\IIntranetJob.cs" />
+    <Compile Include="Features\Jobs\MontlyMailJob.cs" />
+    <Compile Include="Features\Jobs\ReminderJob.cs" />
+    <Compile Include="Features\Jobs\SendEmailJob.cs" />
     <Compile Include="Features\Jobs\UpdateActivityCacheJob.cs" />
     <Compile Include="Core\Member\Helpers\IMemberServiceHelper.cs" />
     <Compile Include="Core\Member\Helpers\MemberServiceHelper.cs" />
@@ -1006,7 +1011,18 @@
     <Compile Include="Features\Information\InformationService.cs" />
     <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
     <Compile Include="Features\Media\MediaTypeEnum.cs" />
+    <Compile Include="Features\MonthlyMail\IMonthlyEmailService.cs" />
+    <Compile Include="Features\MonthlyMail\MonthlyEmailService.cs" />
+    <Compile Include="Features\MonthlyMail\MonthlyEmailServiceBase.cs" />
     <Compile Include="Features\Navigation\Models\ActivityFeedTabModel.cs" />
+    <Compile Include="Features\Reminder\IReminderableService.cs" />
+    <Compile Include="Features\Reminder\IReminderJob.cs" />
+    <Compile Include="Features\Reminder\IReminderService.cs" />
+    <Compile Include="Features\Reminder\ReminderConfiguration.cs" />
+    <Compile Include="Features\Reminder\ReminderIsAlreadyDeliveredException.cs" />
+    <Compile Include="Features\Reminder\ReminderJob.cs" />
+    <Compile Include="Features\Reminder\ReminderService.cs" />
+    <Compile Include="Features\Reminder\ReminderTypeConfiguration.cs" />
     <Compile Include="Features\Subscribe\ActivitySubscribeSettingDto.cs" />
     <Compile Include="Features\Subscribe\IActivitySubscribeSettingService.cs" />
     <Compile Include="Features\Subscribe\ISubscribableService.cs" />
