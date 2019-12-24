@@ -7,7 +7,7 @@ export const pages = [
     {
         id: 'bulletinDetailsPage',
         path: '__dynamic__',
-        loadChildren: './ui/pages/social-details/module/social-details-page.module#SocialDetailsPageModule'
+        loadChildren: './ui/pages/social-details/social-details-page.module#SocialDetailsPageModule'
     },
     {
         id: 'articlePage',

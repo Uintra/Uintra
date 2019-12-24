@@ -1,15 +1,15 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoginModel } from 'src/app/feature/login/models/login.model';
+import { LoginModel } from 'src/app/ui/pages/login/login.model';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { AuthService } from 'src/app/feature/auth/auth.service';
+import { AuthService } from 'src/app/ui/pages/login/services/auth.service';
 
 @Component({
   selector: 'login-page',
-  templateUrl: './login-page.html',
-  styleUrls: ['./login-page.less'],
+  templateUrl: './login-page.component.html',
+  styleUrls: ['./login-page.component.less'],
   encapsulation: ViewEncapsulation.None
 })
 export class LoginPage implements OnDestroy {

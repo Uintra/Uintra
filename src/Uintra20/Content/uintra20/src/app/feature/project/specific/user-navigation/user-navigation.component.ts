@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/feature/auth/auth.service';
+import { AuthService } from 'src/app/ui/pages/login/services/auth.service';
 
 @Component({
   selector: 'user-navigation',

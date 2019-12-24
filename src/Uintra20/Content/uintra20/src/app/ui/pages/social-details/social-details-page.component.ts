@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'social-details',
-  templateUrl: './social-details-page.html',
-  styleUrls: ['./social-details-page.less'],
+  templateUrl: './social-details-page.component.html',
+  styleUrls: ['./social-details-page.component.less'],
   encapsulation: ViewEncapsulation.None
 })
 export class SocialDetailsPanelComponent implements OnInit {
