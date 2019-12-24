@@ -920,7 +920,7 @@
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
     <Compile Include="App_Plugins\Utils\Сache\CacheDashboard.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Core\Feed\Controllers\BulletinsController.cs" />
+    <Compile Include="Core\Feed\Controllers\SocialsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
@@ -990,10 +990,10 @@
     <Compile Include="Core\Member\Models\UserPickerModel.cs" />
     <Compile Include="Core\Member\Web\UserApiController.cs" />
     <Compile Include="Core\User\Web\UserApiController.cs" />
-    <Compile Include="Features\Bulletins\Converters\BulletinDetailsPageViewModelConverter.cs" />
-    <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageModel.cs" />
-    <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageViewModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinPreviewModel.cs" />
+    <Compile Include="Features\Bulletins\Converters\SocialDetailsPageViewModelConverter.cs" />
+    <Compile Include="Features\Bulletins\Converters\Models\SocialDetailsPageModel.cs" />
+    <Compile Include="Features\Bulletins\Converters\Models\SocialDetailsPageViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialPreviewModel.cs" />
     <Compile Include="Features\CentralFeed\Providers\ContentProviderBase.cs" />
     <Compile Include="Features\CentralFeed\Providers\FeedContentProviderBase.cs" />
     <Compile Include="Features\CentralFeed\Providers\CentralFeedContentProvider.cs" />
@@ -1133,23 +1133,23 @@
     <Compile Include="Infrastructure\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\Models\GoogleOAuth.cs" />
-    <Compile Include="Features\Bulletins\AutoMapperProfiles\BulletinsAutoMapperProfile.cs" />
-    <Compile Include="Features\Bulletins\BulletinBase.cs" />
-    <Compile Include="Features\Bulletins\BulletinsService.cs" />
-    <Compile Include="Features\Bulletins\BulletinsServiceBase.cs" />
-    <Compile Include="Features\Bulletins\Entities\Bulletin.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinExtendedCreateModel.cs" />
-    <Compile Include="Features\Bulletins\IBulletinBase.cs" />
-    <Compile Include="Features\Bulletins\IBulletinsService.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinCreateModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinCreationResultModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinEditModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinExtendedEditModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinExtendedViewModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinItemViewModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinPreviewViewModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinViewModel.cs" />
+    <Compile Include="Features\Bulletins\AutoMapperProfiles\SocialsAutoMapperProfile.cs" />
+    <Compile Include="Features\Bulletins\SocialBase.cs" />
+    <Compile Include="Features\Bulletins\SocialsService.cs" />
+    <Compile Include="Features\Bulletins\SocialsServiceBase.cs" />
+    <Compile Include="Features\Bulletins\Entities\Social.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialExtendedCreateModel.cs" />
+    <Compile Include="Features\Bulletins\ISocialBase.cs" />
+    <Compile Include="Features\Bulletins\ISocialsService.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialCreateModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialCreationResultModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialEditModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialExtendedEditModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialExtendedItemViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialExtendedViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialItemViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialPreviewViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialViewModel.cs" />
     <Compile Include="Infrastructure\Caching\CacheHelper.cs" />
     <Compile Include="Infrastructure\Caching\ICacheService.cs" />
     <Compile Include="Infrastructure\Caching\MemoryCacheService.cs" />
@@ -1311,7 +1311,7 @@
     <Compile Include="Features\Media\VideoConverterLogService.cs" />
     <Compile Include="Features\Media\VideoHelper.cs" />
     <Compile Include="Features\Media\VideoSizeMetadataModel.cs" />
-    <Compile Include="Infrastructure\Ioc\BulletinsInjectModule.cs" />
+    <Compile Include="Infrastructure\Ioc\SocialsInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\NotificationInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\ActivityInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\UintraInjectModule.cs" />
@@ -1656,7 +1656,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\uintra20\src\app\ui\main-layout\" />
-    <Folder Include="Features\Bulletins\Web\" />
     <Folder Include="Infrastructure\Authentication\" />
   </ItemGroup>
   <ItemGroup>

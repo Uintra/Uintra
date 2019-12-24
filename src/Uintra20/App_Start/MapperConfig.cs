@@ -33,7 +33,7 @@ namespace Uintra20
             //Mapper.AddProfile<LightboxAutoMapperProfile>();
             //Mapper.AddProfile<NavigationAutoMapperProfile>();
             //Mapper.AddProfile<EventsAutoMapperProfile>();
-            //Mapper.AddProfile<BulletinsAutoMapperProfile>();
+            //Mapper.AddProfile<SocialsAutoMapperProfile>();
             //Mapper.AddProfile<NotificationAutoMapperProfile>();
             //Mapper.AddProfile<CentralFeedAutoMapperProfile>();
             //Mapper.AddProfile<IntranetUserAutoMapperProfile>();
@@ -71,7 +71,7 @@ namespace Uintra20
             cfg.AddProfile<LightboxAutoMapperProfile>();
             cfg.AddProfile<NavigationAutoMapperProfile>();
             cfg.AddProfile<EventsAutoMapperProfile>();
-            cfg.AddProfile<BulletinsAutoMapperProfile>();
+            cfg.AddProfile<SocialsAutoMapperProfile>();
             cfg.AddProfile<NotificationAutoMapperProfile>();
             cfg.AddProfile<CentralFeedAutoMapperProfile>();
             cfg.AddProfile<IntranetUserAutoMapperProfile>();

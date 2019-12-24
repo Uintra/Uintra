@@ -6,11 +6,11 @@ using Uintra20.Features.Tagging.UserTags.Models;
 
 namespace Uintra20.Core.Bulletin.Converters.Models
 {
-    public class BulletinDetailsPageViewModel : NodeViewModel
+    public class SocialDetailsPageViewModel : NodeViewModel
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
-        public BulletinExtendedViewModel Details { get; set; }
+        public SocialExtendedViewModel Details { get; set; }
         public TagsPickerViewModel Tags { get; set; }
     }
 }

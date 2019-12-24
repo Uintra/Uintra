@@ -21,7 +21,7 @@ namespace Uintra20.Features.Permissions.Implementation
 
         protected ResourceToActionRelation[] BaseSettingsSchema =
         {
-            Of(PermissionResourceTypeEnum.Bulletins,
+            Of(PermissionResourceTypeEnum.Socials,
                 Tree(View,
                     Tree(Create),
                     Tree(Edit,

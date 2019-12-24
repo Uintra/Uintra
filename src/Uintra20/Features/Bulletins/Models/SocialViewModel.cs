@@ -4,7 +4,7 @@ using Uintra20.Features.LinkPreview.Models;
 
 namespace Uintra20.Features.Bulletins.Models
 {
-    public class BulletinViewModel : IntranetActivityViewModelBase
+    public class SocialViewModel : IntranetActivityViewModelBase
     {
         public string Description { get; set; }
         public DateTime PublishDate { get; set; }

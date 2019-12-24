@@ -37,7 +37,7 @@ namespace Uintra20.Infrastructure.Providers
             {
                 case (int)IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsOverviewPage;
                 case (int)IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsOverviewPage;
-                case (int)IntranetActivityTypeEnum.Bulletins: return DocumentTypeAliasConstants.BulletinsOverviewPage;
+                case (int)IntranetActivityTypeEnum.Socials: return DocumentTypeAliasConstants.BulletinsOverviewPage;
                 default:
                     return null;
             }
@@ -49,7 +49,7 @@ namespace Uintra20.Infrastructure.Providers
             {
                 case (int)IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsEditPage;
                 case (int)IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsEditPage;
-                case (int)IntranetActivityTypeEnum.Bulletins: return DocumentTypeAliasConstants.BulletinsEditPage;
+                case (int)IntranetActivityTypeEnum.Socials: return DocumentTypeAliasConstants.BulletinsEditPage;
                 default:
                     return null;
             }
@@ -61,7 +61,7 @@ namespace Uintra20.Infrastructure.Providers
             {
                 case (int)IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsDetailsPage;
                 case (int)IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsDetailsPage;
-                case (int)IntranetActivityTypeEnum.Bulletins: return DocumentTypeAliasConstants.BulletinsDetailsPage;
+                case (int)IntranetActivityTypeEnum.Socials: return DocumentTypeAliasConstants.BulletinsDetailsPage;
                 default:
                     return null;
             }

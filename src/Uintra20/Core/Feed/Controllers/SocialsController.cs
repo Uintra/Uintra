@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
@@ -22,9 +23,9 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Controllers
 {
-    public class BulletinsController
+    public class SocialsController : UBaselineApiController
     {
-        private readonly IBulletinsService<Bulletin> _bulletinsService;
+        private readonly ISocialsService<Social> _socialsService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IMyLinksService _myLinksService;
@@ -33,8 +34,8 @@ namespace Uintra20.Controllers
         private readonly IMentionService _mentionService;
         private readonly IActivityLinkService _activityLinkService;
 
-        public BulletinsController(
-            IBulletinsService<Bulletin> bulletinsService,
+        public SocialsController(
+            ISocialsService<Social> socialsService,
             IMediaHelper mediaHelper,
             IIntranetMemberService<IntranetMember> memberService,
             IMyLinksService myLinksService,
@@ -43,7 +44,7 @@ namespace Uintra20.Controllers
             IMentionService mentionService,
             IActivityLinkService activityLinkService)
         {
-            _bulletinsService = bulletinsService;
+            _socialsService = socialsService;
             _mediaHelper = mediaHelper;
             _memberService = memberService;
             _myLinksService = myLinksService;
@@ -54,12 +55,12 @@ namespace Uintra20.Controllers
         }
 
         [HttpPost]
-        public async Task<BulletinCreationResultModel> CreateExtended(BulletinExtendedCreateModel model)
+        public async Task<SocialCreationResultModel> CreateExtended(SocialExtendedCreateModel model)
         {
-            var result = new BulletinCreationResultModel();
+            var result = new SocialCreationResultModel();
 
             var bulletin = MapToBulletin(model);
-            var createdBulletinId = await _bulletinsService.CreateAsync(bulletin);
+            var createdBulletinId = await _socialsService.CreateAsync(bulletin);
             bulletin.Id = createdBulletinId;
             await OnBulletinCreatedAsync(bulletin, model);
 
@@ -70,10 +71,10 @@ namespace Uintra20.Controllers
         }
 
         [HttpPut]
-        public async Task<HttpResponseMessage> EditExtended(BulletinExtendedEditModel editModel)
+        public async Task<HttpResponseMessage> EditExtended(SocialExtendedEditModel editModel)
         {
             var bulletin = MapToBulletin(editModel);
-            await _bulletinsService.SaveAsync(bulletin);
+            await _socialsService.SaveAsync(bulletin);
             await OnBulletinEditedAsync(bulletin, editModel);
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
@@ -81,15 +82,15 @@ namespace Uintra20.Controllers
         [HttpDelete]
         public async Task<HttpResponseMessage> Delete(Guid id)
         {
-            await _bulletinsService.DeleteAsync(id);
+            await _socialsService.DeleteAsync(id);
             await OnBulletinDeletedAsync(id);
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        private BulletinBase MapToBulletin(BulletinCreateModel model)
+        private SocialBase MapToBulletin(SocialCreateModel model)
         {
-            var bulletin = model.Map<BulletinBase>();
+            var bulletin = model.Map<SocialBase>();
             bulletin.PublishDate = DateTime.UtcNow;
             bulletin.CreatorId = bulletin.OwnerId = _memberService.GetCurrentMemberId();
 
@@ -101,33 +102,33 @@ namespace Uintra20.Controllers
             return bulletin;
         }
 
-        private BulletinBase MapToBulletin(BulletinEditModel editModel)
+        private SocialBase MapToBulletin(SocialEditModel editModel)
         {
-            var bulletin = _bulletinsService.Get(editModel.Id);
-            //bulletin = editModel.Map(bulletin);
+            var bulletin = _socialsService.Get(editModel.Id);
+            //social = editModel.Map(social);
             bulletin.MediaIds = bulletin.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
 
             return bulletin;
         }
 
-        private void OnBulletinEdited(BulletinBase bulletin, BulletinEditModel model)
+        private void OnBulletinEdited(SocialBase social, SocialEditModel model)
         {
-            if (model is BulletinExtendedEditModel extendedModel)
+            if (model is SocialExtendedEditModel extendedModel)
             {
-                _activityTagsHelper.ReplaceTags(bulletin.Id, extendedModel.TagIdsData);
+                _activityTagsHelper.ReplaceTags(social.Id, extendedModel.TagIdsData);
             }
 
-            ResolveMentions(model.Description, bulletin);
+            ResolveMentions(model.Description, social);
         }
 
-        private async Task OnBulletinEditedAsync(BulletinBase bulletin, BulletinEditModel model)
+        private async Task OnBulletinEditedAsync(SocialBase social, SocialEditModel model)
         {
-            if (model is BulletinExtendedEditModel extendedModel)
+            if (model is SocialExtendedEditModel extendedModel)
             {
-                await _activityTagsHelper.ReplaceTagsAsync(bulletin.Id, extendedModel.TagIdsData);
+                await _activityTagsHelper.ReplaceTagsAsync(social.Id, extendedModel.TagIdsData);
             }
 
-            await ResolveMentionsAsync(model.Description, bulletin);
+            await ResolveMentionsAsync(model.Description, social);
         }
 
         private void OnBulletinDeleted(Guid id)
@@ -140,87 +141,87 @@ namespace Uintra20.Controllers
             await _myLinksService.DeleteByActivityIdAsync(id);
         }
 
-        private void OnBulletinCreated(BulletinBase bulletin, BulletinCreateModel model)
+        private void OnBulletinCreated(SocialBase social, SocialCreateModel model)
         {
             var groupId = HttpContext.Current.Request.QueryString.GetGroupIdOrNone();
 
             if (groupId.HasValue)
-                _groupActivityService.AddRelation(groupId.Value, bulletin.Id);
+                _groupActivityService.AddRelation(groupId.Value, social.Id);
 
-            var extendedBulletin = _bulletinsService.Get(bulletin.Id);
+            var extendedBulletin = _socialsService.Get(social.Id);
             extendedBulletin.GroupId = groupId;
 
-            if (model is BulletinExtendedCreateModel extendedModel)
+            if (model is SocialExtendedCreateModel extendedModel)
             {
-                _activityTagsHelper.ReplaceTags(bulletin.Id, extendedModel.TagIdsData);
+                _activityTagsHelper.ReplaceTags(social.Id, extendedModel.TagIdsData);
             }
 
             if (string.IsNullOrEmpty(model.Description))
             {
                 return;
             }
-            ResolveMentions(model.Description, bulletin);
+            ResolveMentions(model.Description, social);
         }
 
-        private async Task OnBulletinCreatedAsync(BulletinBase bulletin, BulletinCreateModel model)
+        private async Task OnBulletinCreatedAsync(SocialBase social, SocialCreateModel model)
         {
             var groupId = HttpContext.Current.Request.QueryString.GetGroupIdOrNone();
 
             if (groupId.HasValue)
-                await _groupActivityService.AddRelationAsync(groupId.Value, bulletin.Id);
+                await _groupActivityService.AddRelationAsync(groupId.Value, social.Id);
 
-            var extendedBulletin = _bulletinsService.Get(bulletin.Id);
+            var extendedBulletin = _socialsService.Get(social.Id);
             extendedBulletin.GroupId = groupId;
 
-            if (model is BulletinExtendedCreateModel extendedModel)
+            if (model is SocialExtendedCreateModel extendedModel)
             {
-                await _activityTagsHelper.ReplaceTagsAsync(bulletin.Id, extendedModel.TagIdsData);
+                await _activityTagsHelper.ReplaceTagsAsync(social.Id, extendedModel.TagIdsData);
             }
 
             if (string.IsNullOrEmpty(model.Description))
             {
                 return;
             }
-            await ResolveMentionsAsync(model.Description, bulletin);
+            await ResolveMentionsAsync(model.Description, social);
         }
 
-        private void ResolveMentions(string text, BulletinBase bulletin)
+        private void ResolveMentions(string text, SocialBase social)
         {
             var mentionIds = new Guid[] { };//_mentionService.GetMentions(text).ToList();//TODO: uncomment when mention service is ready
 
             if (mentionIds.Any())
             {
-                var links = _activityLinkService.GetLinks(bulletin.Id);
+                var links = _activityLinkService.GetLinks(social.Id);
                 const int maxTitleLength = 100;
                 _mentionService.ProcessMention(new MentionModel()
                 {
-                    MentionedSourceId = bulletin.Id,
+                    MentionedSourceId = social.Id,
                     CreatorId = _memberService.GetCurrentMemberId(),
                     MentionedUserIds = mentionIds,
-                    Title = bulletin.Description.StripHtml().TrimByWordEnd(maxTitleLength),
+                    Title = social.Description.StripHtml().TrimByWordEnd(maxTitleLength),
                     Url = links.Details,
-                    ActivityType = IntranetActivityTypeEnum.Bulletins
+                    ActivityType = IntranetActivityTypeEnum.Socials
                 });
 
             }
         }
 
-        private async Task ResolveMentionsAsync(string text, BulletinBase bulletin)
+        private async Task ResolveMentionsAsync(string text, SocialBase social)
         {
             var mentionIds = new Guid[] { };//_mentionService.GetMentions(text).ToList();//TODO: uncomment when mention service is ready
 
             if (mentionIds.Any())
             {
-                var links = await _activityLinkService.GetLinksAsync(bulletin.Id);
+                var links = await _activityLinkService.GetLinksAsync(social.Id);
                 const int maxTitleLength = 100;
                 _mentionService.ProcessMention(new MentionModel()
                 {
-                    MentionedSourceId = bulletin.Id,
+                    MentionedSourceId = social.Id,
                     CreatorId = await _memberService.GetCurrentMemberIdAsync(),
                     MentionedUserIds = mentionIds,
-                    Title = bulletin.Description.StripHtml().TrimByWordEnd(maxTitleLength),
+                    Title = social.Description.StripHtml().TrimByWordEnd(maxTitleLength),
                     Url = links.Details,
-                    ActivityType = IntranetActivityTypeEnum.Bulletins
+                    ActivityType = IntranetActivityTypeEnum.Socials
                 });
 
             }

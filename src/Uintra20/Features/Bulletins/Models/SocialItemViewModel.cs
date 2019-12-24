@@ -8,7 +8,7 @@ using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Features.Bulletins.Models
 {
-    public class BulletinItemViewModel
+    public class SocialItemViewModel
     {
         public Guid Id { get; set; }
 
