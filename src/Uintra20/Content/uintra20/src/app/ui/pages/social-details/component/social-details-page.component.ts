@@ -14,10 +14,8 @@ export class SocialDetailsPanelComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.route.data.subscribe(data => this.data = data);
-   }
+  }
 
   public ngOnInit(): void {
-    console.log(this.data);
-    console.log('Social Detail Works');
   }
 }
