@@ -9,7 +9,6 @@ import { DYNAMIC_COMPONENTS, UmbracoSupportModule } from '@ubaseline/next';
 import { pages } from './ui/pages/pages';
 import { panels } from './ui/panels/panels';
 
-
 @NgModule({
   declarations: [
     AppComponent,

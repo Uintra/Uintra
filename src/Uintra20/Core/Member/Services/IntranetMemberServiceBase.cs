@@ -13,7 +13,6 @@ using Uintra20.Infrastructure.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using static LanguageExt.Prelude;
 using CacheHelper = Uintra20.Infrastructure.Caching.CacheHelper;
 
 
@@ -78,7 +77,7 @@ namespace Uintra20.Core.Member.Services
 		public virtual async Task<IEnumerable<T>> GetManyAsync(IEnumerable<Guid> ids)
 		{
 			return ids.Distinct().Join(await GetAllAsync(),
-				identity,
+				x => x,
 				member => member.Id,
 				(_, member) => member);
 		}
@@ -296,7 +295,7 @@ namespace Uintra20.Core.Member.Services
 		public virtual IEnumerable<T> GetMany(IEnumerable<Guid> ids)
 		{
 			return ids.Distinct().Join(GetAll(),
-				identity,
+				x => x,
 				member => member.Id,
 				(_, member) => member);
 		}

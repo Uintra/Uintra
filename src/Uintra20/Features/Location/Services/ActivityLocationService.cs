@@ -2,9 +2,9 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Compent.Shared.Extensions;
 using Uintra20.Features.Location.Models;
 using Uintra20.Features.Location.Sql;
+using Uintra20.Infrastructure.Extensions;
 using Uintra20.Persistence.Sql;
 
 namespace Uintra20.Features.Location.Services
@@ -23,7 +23,7 @@ namespace Uintra20.Features.Location.Services
             return _locationRepository
                 .AsQueryable()
                 .SingleOrDefault(l => l.ActivityId == activityId)
-                ? .Map<ActivityLocation>();
+                ?.Map<ActivityLocation>();
         }
 
         public void Set(Guid activityId, ActivityLocation location)

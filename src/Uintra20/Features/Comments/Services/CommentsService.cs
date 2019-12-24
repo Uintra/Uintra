@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Compent.Shared.Extensions;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Sql;
 using Uintra20.Infrastructure.Extensions;
@@ -94,7 +93,7 @@ namespace Uintra20.Features.Comments.Services
 
             var commentsToDelete = await GetDescendants(comment);
 
-            commentsToDelete.Iter(async c =>
+            commentsToDelete.ToList().ForEach(async c =>
             {
                 await _commentLinkPreviewService.RemovePreviewRelationsAsync(c.Id);
                 await _commentsRepository.DeleteAsync(c);
@@ -233,7 +232,7 @@ namespace Uintra20.Features.Comments.Services
 
             var commentsToDelete = GetDescendants(comment);
 
-            commentsToDelete.Iter(c =>
+            commentsToDelete.ToList().ForEach(c =>
             {
                 _commentLinkPreviewService.RemovePreviewRelations(c.Id);
                 _commentsRepository.Delete(c);

@@ -1,6 +1,4 @@
 ﻿using Compent.CommandBus;
-using Uintra20.Core.Commands;
-using Uintra20.Core.Member.Commands;
 using Uintra20.Features.Bulletins;
 using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Comments.CommandBus;
@@ -72,7 +70,7 @@ namespace Uintra20
                 .WithHandle<MediaHelper>()
                 //.WithHandle<EventsService>()
                 //.WithHandle<NewsService>()
-                .WithHandle<BulletinsService<Bulletin>>();
+                .WithHandle<SocialsService<Social>>();
         }
 
     }

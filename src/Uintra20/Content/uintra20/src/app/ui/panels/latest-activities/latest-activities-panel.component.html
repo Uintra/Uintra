@@ -1,0 +1,23 @@
+<div>
+    <section>
+        <div class="holder">
+            <h2 class="holder__title">{{title}}</h2>
+            <div
+                *ngFor="let cell of activityCells"
+                class="block-item">
+                <latest-activity 
+                    [activityType]="cell.get().activity.get().type.get()"
+                    [activityDate]="cell.get().activity.get().dates.get()[0]"
+                    [activityDescription]="cell.get().activity.get().description.get()"
+                    [activityLink]="cell.get().options.get().links.get().details.get()">
+                </latest-activity>
+            </div>
+            <button
+                class="holder__button"
+                *ngIf="showAll"
+                (click)="seeAll()">
+                See all
+            </button>
+        </div>
+    </section>
+</div>

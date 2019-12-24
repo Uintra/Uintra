@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LanguageExt;
 using UBaseline.Core.Extensions;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Activity.Sql;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
@@ -132,7 +130,7 @@ namespace Uintra20.Core.Activity
                 cachedList.Add(activity);
             }
 
-            await _cache.SetAsync(() => cachedList.AsTask(), CacheKey, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
+            await _cache.SetAsync(() => Task.FromResult(cachedList), CacheKey, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
 
             return activity;
         }
