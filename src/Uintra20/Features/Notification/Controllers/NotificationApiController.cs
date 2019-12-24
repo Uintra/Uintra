@@ -49,7 +49,7 @@ namespace Uintra20.Features.Notification.Controllers
         public async Task<NotificationListViewModel> Get(int page = 1)
         {
             var take = page * _itemsPerPage;
-            var (notifications, totalCount) = _uiNotifierService.GetMany( await _intranetMemberService.GetCurrentMemberIdAsync(), take);
+            var (notifications, totalCount) = await _uiNotifierService.GetManyAsync( await _intranetMemberService.GetCurrentMemberIdAsync(), take);
 
             var notificationsArray = notifications.ToArray();
 
