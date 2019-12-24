@@ -1464,6 +1464,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\uintra20\src\app\ui\main-layout\" />
+    <Folder Include="Core\Feed\Web\" />
+    <Folder Include="Infrastructure\Authentication\" />
     <Folder Include="Infrastructure\Authentication\" />
   </ItemGroup>
   <ItemGroup>
