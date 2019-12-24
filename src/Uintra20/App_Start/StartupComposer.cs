@@ -22,7 +22,7 @@ namespace Uintra20
 			var configuration = builder
 				.AddLogging(UBaselineConfiguration.EnvironmentName)
 				.AddUBaselineConfiguration()
-                .AddProactiveConfiguration()
+                .AddConfiguration()
                 .Build();
 
 			var assembly = typeof(StartupComposer).Assembly;
