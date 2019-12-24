@@ -21,7 +21,7 @@ export class UserAvatarComponent implements OnInit {
   @Input('big') big: boolean;
 
   // TODO: use default avatar from server
-  readonly defaultAvatar: string = 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png';
+  readonly defaultAvatar: string = '';
 
   constructor() { }
 
