@@ -8,13 +8,13 @@
     </nav>
     <div class="content__wrap">
       <div class="row-flex">
-        <div class="col-sm-8 col-md-10">
+        <div class="col-md-8">
           <div class="aside-opener">
             <span class="icon-window js-aside-opener"></span>
           </div>
           <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
         </div>
-        <div class="col-sm-4 col-md-5 aside">
+        <div class="col-md-4 aside">
           <ubl-dynamic-component [data]="latestActivities[0].get()"></ubl-dynamic-component>
         </div>
       </div>

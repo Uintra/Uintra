@@ -1,4 +1,4 @@
-<ubl-not-implemented [data]="data"
+<!-- <ubl-not-implemented [data]="data"
                      [description]="data.contentTypeAlias || 'comments panel'"></ubl-not-implemented>
 <section class="comments">
     <h3 class="comments__title"></h3>
@@ -32,4 +32,16 @@
             </div>
         </li>
     </ul>
+</section> -->
+<ubl-not-implemented [data]="data" [description]="data.contentTypeAlias || 'comments panel'"></ubl-not-implemented>
+<section class="comments-panel">
+  <h3 class="comments-panel__title">Comments</h3>
+  <h4 class="comments-panel__rte-title">Add comment</h4>
+  <app-rich-text-editor placeholder="">
+    <!-- <button submit
+      class="bulletin-popup__submit-button"
+      (click)="onCommentSubmit()">
+      Send
+    </button> -->
+  </app-rich-text-editor>
 </section>
