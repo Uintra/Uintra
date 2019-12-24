@@ -6,7 +6,7 @@ namespace Uintra20.Infrastructure.Configuration
     public static class UIntraConfiguration
     {
         private const string ConfigFolderPath = @"config\UIntra\";
-        public static IConfigurationBuilder AddProactiveConfiguration(this IConfigurationBuilder configurationBuilder)
+        public static IConfigurationBuilder AddConfiguration(this IConfigurationBuilder configurationBuilder)
         {
             UBaselineConfiguration.AddConfiguration(configurationBuilder,
                 $"{ConfigFolderPath}latestActivitySettings.json");
