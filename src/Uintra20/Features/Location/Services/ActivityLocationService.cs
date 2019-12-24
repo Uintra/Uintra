@@ -2,7 +2,6 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Compent.Shared.Extensions;
 using Uintra20.Features.Location.Models;
 using Uintra20.Features.Location.Sql;
 using Uintra20.Infrastructure.Extensions;

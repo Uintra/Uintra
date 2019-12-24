@@ -14,7 +14,7 @@ export const panels = [
     {
         id: 'latestActivitiesPanel',
         path: '__dynamic__',
-        loadChildren: './ui/panels/latest-activities/module/latest-activities-panel.module#LatestActivitiesPanelModule'
+        loadChildren: './ui/panels/latest-activities/latest-activities-panel.module#LatestActivitiesPanelModule'
     },
 
     {

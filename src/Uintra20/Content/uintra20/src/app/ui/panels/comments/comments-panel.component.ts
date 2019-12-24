@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ICommentsPanel } from './comments-panel.interface';
 
 @Component({
@@ -7,6 +7,14 @@ import { ICommentsPanel } from './comments-panel.interface';
   styleUrls: ['./comments-panel.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class CommentsPanel {
+export class CommentsPanel implements OnInit {
+
   data: ICommentsPanel;
+
+  constructor() {
+  }
+
+  ngOnInit(): void {
+    console.log(this.data);
+  }
 }

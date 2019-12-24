@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web;
 using Compent.Extensions;
-using Compent.Shared.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Bulletin.Converters.Models;

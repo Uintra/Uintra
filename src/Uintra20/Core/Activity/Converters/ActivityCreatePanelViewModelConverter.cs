@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Compent.Extensions;
-using Compent.Shared.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Converters.Models;
 using Uintra20.Core.Member;

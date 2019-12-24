@@ -1,12 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivityLinkService } from '../services/activity-link.service';
 import { ActivityType } from 'src/app/feature/shared/enums/activity-type.enum';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'latest-activity',
-  templateUrl: './latest-activity.component.html',
-  styleUrls: ['./latest-activity.component.less']
+  templateUrl: './latest-activity-item.component.html',
+  styleUrls: ['./latest-activity-item.component.less']
 })
 export class LatestActivityComponent implements OnInit {
   @Input()
@@ -17,14 +16,13 @@ export class LatestActivityComponent implements OnInit {
   public readonly activityDescription: string;
   @Input()
   public readonly activityId: string;
-  public activityLink: string;
+  @Input()
+  public readonly activityLink: string;
 
   constructor(
-    private router: Router,
-    private activityLinkService: ActivityLinkService) { }
+    private router: Router) { }
 
   ngOnInit() {
-    this.activityLink = this.activityLinkService.getBulletinLink(ActivityType.Bulletins, this.activityId);
   }
 
   public navigateToActivity = (): void => {
