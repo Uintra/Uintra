@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CreateSocialContentService {
+export class CreateSocialService {
+  private feedRefreshTrigger = new Subject();
+  feedRefreshTrigger$ = this.feedRefreshTrigger.asObservable();
 
   constructor(
     private http: HttpClient
   ) { }
 
-  // TODO: add interface to data
   submitSocialContent(data) {
     return this.http.post(`/ubaseline/api/bulletins/createExtended`, data).toPromise();
+  }
+
+  refreshFeed() {
+    this.feedRefreshTrigger.next();
   }
 }

@@ -1,0 +1,158 @@
+﻿<div class="container">
+    <div class="umb-pane umb-panel" ng-controller="smtpSettingsController">
+        <umb-header>
+            <div class="umb-headline-editor-wrapper span12 umb-pane ng-scope">
+                <h1 class="ng-binding">Smtp Settings</h1>
+            </div>
+        </umb-header>
+        <div class="umb-panel-body" ng-if="smtpSettings">
+            <div class="umb-pane">
+                <form name="settingsForm"
+                      ng-submit="save()">
+                    <div class="smtp-settings"
+                         style="margin-bottom: 125px;">
+                        <label class="control-label property-name">Email</label>
+                        <div class="controls controls-row">
+                            <input type="text"
+                                   ng-model="smtpSettings.Email"
+                                   class="umb-textstring" />
+                        </div>
+                        <label class="control-label property-name">Display Name</label>
+                        <div class="controls controls-row">
+                            <input type="text"
+                                   ng-model="smtpSettings.DisplayName"
+                                   class="umb-textstring" />
+                        </div>
+                        <label class="control-label property-name">Host</label>
+                        <div class="controls controls-row">
+                            <input type="text"
+                                   ng-model="smtpSettings.Host"
+                                   class="umb-textstring" />
+                        </div>
+                        <label class="control-label property-name">Port</label>
+                        <div class="controls controls-row">
+                            <input type="text"
+                                   ng-model="smtpSettings.Port"
+                                   class="umb-textstring" />
+                        </div>
+                        <label class="control-label property-name">Username</label>
+                        <div class="controls controls-row">
+                            <input type="text"
+                                   ng-model="smtpSettings.Username"
+                                   class="umb-textstring" />
+                        </div>
+                        <label class="control-label property-name">Password</label>
+                        <div class="controls controls-row">
+                            <input type="text"
+                                   ng-model="smtpSettings.Password"
+                                   class="umb-textstring" />
+                        </div>
+                        <label class="control-label property-name">
+                            Timeout (ms)
+                            <small style="width: 160px;line-height: 13px;">
+                                If value will empty then will use max
+                                timeout.
+                            </small>
+                        </label>
+                        <div class="controls controls-row">
+                            <input type="text"
+                                   ng-model="smtpSettings.Timeout"
+                                   class="umb-textstring" />
+                        </div>
+                        <label class="control-label property-name">
+                            Spam time (minutes)
+                            <small style="width: 160px; line-height: 13px;">
+                                If value will empty then we don't use spam
+                                filter
+                            </small>
+                        </label>
+                        <div class="controls controls-row">
+                            <input type="text"
+                                   ng-model="smtpSettings.SpamTime"
+                                   class="umb-textstring" />
+                        </div>
+                        <label class="control-label property-name">
+                            Number of attempts to send
+                            <small style="width: 160px; line-height: 13px;">
+                                If value will empty then will use 1
+                                attempt.
+                            </small>
+                        </label>
+                        <div class="controls controls-row">
+                            <input type="text"
+                                   ng-model="smtpSettings.AttemptsNumber"
+                                   class="umb-textstring" />
+                        </div>
+                        <label class="control-label property-name">
+                            Stupid check code
+                            <small style="width: 160px; line-height: 13px;">
+                                If value will empty then will not use code
+                                for check.
+                            </small>
+                        </label>
+                        <div class="controls controls-row">
+                            <input type="text"
+                                   ng-model="smtpSettings.ValidCode"
+                                   class="umb-textstring" />
+                        </div>
+                        <label class="control-label property-name">Enable Ssl</label>
+                        <div class="controls controls-row">
+                            <input type="checkbox"
+                                   ng-model="smtpSettings.EnableSsl" />
+                        </div>
+                        <label class="control-label property-name">Use Default Credentials</label>
+                        <div class="controls controls-row">
+                            <input type="checkbox"
+                                   ng-model="smtpSettings.UseDefaultCredentials" />
+                        </div>
+                        <label class="control-label property-name">
+                            Is Test Mode
+                            <small style="width: 160px; line-height: 13px;">
+                                If value will true, mail will not sending
+                                but will add in db as IsSent = true
+                            </small>
+                        </label>
+                        <div class="controls controls-row">
+                            <input type="checkbox"
+                                   ng-model="smtpSettings.IsTestMode" />
+                        </div>
+                        <label class="control-label property-name">
+                            Automatic remove old log data (GDPR)
+                            <small style="width: 160px; line-height: 13px;">
+                                if value is true, all mails will be deleted
+                                after N days"
+                            </small>
+                        </label>
+                        <div class="controls controls-row">
+                            <input type="checkbox"
+                                   ng-model="smtpSettings.UseGdpr" />
+                            <div class="controls" ng-if="smtpSettings.UseGdpr">
+                                <input type="number"
+                                       name="gdprDaysCount"
+                                       min="1"
+                                       max="356"
+                                       required
+                                       ng-model="smtpSettings.GdprDaysCount"
+                                       class="umb-textstring" />
+                            </div>
+                        </div>
+                        <div style="bottom: 0 !important; height: 75px; margin: 0;"
+                             detect-fold>
+                            <div class="btn-group">
+                                <button type="submit"
+                                        data-hotkey="ctrl+s"
+                                        class="btn btn-success"
+                                        ng-disabled="isSaveBtnDisable">
+                                    <localize key="buttons_save">Save</localize>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="!smtpSettings">
+                        Please wait, maybe solution is builds or db table is empty.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

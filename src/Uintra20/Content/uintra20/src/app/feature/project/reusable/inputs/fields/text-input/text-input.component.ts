@@ -24,6 +24,7 @@ type InputType = 'text' | 'password' | 'search';
       -moz-box-shadow: none;
       box-shadow: none;
       outline: 0;
+      margin: 0;
     }
   `],
   providers: [

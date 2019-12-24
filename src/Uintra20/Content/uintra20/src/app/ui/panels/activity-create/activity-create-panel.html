@@ -34,6 +34,7 @@
         <app-rich-text-editor [(ngModel)]="description"
                               (addAttachment)="addAttachment()">
           <button submit
+                  [disabled]="isSubmitDisabled"
                   class="bulletin-popup__submit-button"
                   (click)="onSubmit()">
             Submit
@@ -41,4 +42,4 @@
         </app-rich-text-editor>
       </div>
     </div>
-  </section> 
+  </section>
