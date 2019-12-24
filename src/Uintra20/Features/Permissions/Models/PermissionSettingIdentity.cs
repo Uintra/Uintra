@@ -1,5 +1,4 @@
 ﻿using System;
-using LanguageExt;
 
 namespace Uintra20.Features.Permissions.Models
 {
@@ -40,15 +39,15 @@ namespace Uintra20.Features.Permissions.Models
     public struct PermissionSettingSchema : IEquatable<PermissionSettingSchema>
     {
         public PermissionSettingIdentity SettingIdentity { get; }
-        public Option<Enum> ParentActionType { get; }
+        public Enum ParentActionType { get; }
 
-        public PermissionSettingSchema(PermissionSettingIdentity settingIdentity, Option<Enum> parentActionType)
+        public PermissionSettingSchema(PermissionSettingIdentity settingIdentity, Enum parentActionType)
         {
             SettingIdentity = settingIdentity;
             ParentActionType = parentActionType;
         }
 
-        public static PermissionSettingSchema Of(PermissionSettingIdentity settingIdentity, Option<Enum> parentActionType) =>
+        public static PermissionSettingSchema Of(PermissionSettingIdentity settingIdentity, Enum parentActionType) =>
             new PermissionSettingSchema(settingIdentity, parentActionType);
 
         public bool Equals(PermissionSettingSchema other)

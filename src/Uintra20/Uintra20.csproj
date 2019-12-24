@@ -87,9 +87,6 @@
     <Reference Include="Compent.Shared.DependencyInjection.LightInject, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.DependencyInjection.LightInject.0.2.1\lib\net471\Compent.Shared.DependencyInjection.LightInject.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.Shared.Extensions, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Shared.Extensions.0.1.1\lib\net471\Compent.Shared.Extensions.dll</HintPath>
-    </Reference>
     <Reference Include="Compent.Shared.Extensions.Bcl, Version=0.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.Extensions.Bcl.0.1.3\lib\net45\Compent.Shared.Extensions.Bcl.dll</HintPath>
     </Reference>
@@ -161,9 +158,6 @@
     </Reference>
     <Reference Include="ImageProcessor.Web, Version=4.10.0.100, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ImageProcessor.Web.4.10.0.100\lib\net452\ImageProcessor.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="LanguageExt.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LanguageExt.Core.3.3.29\lib\net46\LanguageExt.Core.dll</HintPath>
     </Reference>
     <Reference Include="LazyCache, Version=2.0.1.113, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LazyCache.2.0.1\lib\netstandard2.0\LazyCache.dll</HintPath>
@@ -922,6 +916,8 @@
     <Compile Include="Features\CentralFeed\Services\CentralFeedContentService.cs" />
     <Compile Include="Features\CentralFeed\Providers\ICentralFeedContentProvider.cs" />
     <Compile Include="Features\CentralFeed\Providers\IFeedContentProvider.cs" />
+    <Compile Include="Features\CentralFeed\Settings\LatestActivitySettings.cs" />
+    <Compile Include="Features\CentralFeed\Web\CentralFeedApiController.cs" />
     <Compile Include="Features\Comments\CommandBus\CommentHandle.cs" />
     <Compile Include="Features\Comments\CommandBus\CommentNotificationHandle.cs" />
     <Compile Include="Features\Comments\Converters\CommentsPanelViewModelConverter.cs" />
@@ -939,7 +935,6 @@
     <Compile Include="Core\ReflectionHelper.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedOverviewModel.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedTypeModel.cs" />
-    <Compile Include="Core\Feed\Web\FeedController.cs" />
     <Compile Include="Core\Login\LoginPageViewModel.cs" />
     <Compile Include="Core\Login\LoginPageViewModelConverter.cs" />
     <Compile Include="Core\Login\LoginPageModel.cs" />
@@ -993,7 +988,6 @@
     <Compile Include="Core\Feed\State\IFeedFilterStateService.cs" />
     <Compile Include="Core\Feed\Services\IFeedService.cs" />
     <Compile Include="Core\Feed\Models\FeedItemViewModel.cs" />
-    <Compile Include="Features\CentralFeed\Web\CentralFeedController.cs" />
     <Compile Include="Features\Information\IInformationService.cs" />
     <Compile Include="Features\Information\InformationService.cs" />
     <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
@@ -1011,8 +1005,8 @@
     <Compile Include="Features\Tagging\UserTags\Models\UserTagItemViewModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\LatestActivitiesPanelViewModelConverter.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\SelectedActivityPropertyEditorConvertor.cs" />
-    <Compile Include="Features\UintraPanels\LastActivities\Helpers\ILatestActivitiesPanelHelper.cs" />
-    <Compile Include="Features\UintraPanels\LastActivities\Helpers\LatestActivitiesPanelHelper.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Helpers\ICentralFeedHelper.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Helpers\CentralFeedHelper.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Injection\LastActivityInjectModule.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelViewModel.cs" />
@@ -1079,6 +1073,7 @@
     <Compile Include="Features\Comments\Sql\CommentToLinkPreviewEntity.cs" />
     <Compile Include="Features\Comments\Web\CommentsControllerBase.cs" />
     <Compile Include="Infrastructure\Caching\Web\CacheController.cs" />
+    <Compile Include="Infrastructure\Configuration\UIntraConfiguration.cs" />
     <Compile Include="Infrastructure\Constants\DocumentTypeAliasConstants.cs" />
     <Compile Include="Infrastructure\Constants\GridEditorConstants.cs" />
     <Compile Include="Infrastructure\Constants\IntranetConstants.cs" />
@@ -1093,6 +1088,7 @@
     <Compile Include="Infrastructure\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Infrastructure\Exceptions\IExceptionLogger.cs" />
     <Compile Include="Infrastructure\Extensions\ActivitiesServiceFactoryExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\AutoMapperExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\ContextExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\DateTimeExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
@@ -1103,7 +1099,6 @@
     <Compile Include="Infrastructure\Extensions\ListExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\ModelStateExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\NameValueCollectionExtensions.cs" />
-    <Compile Include="Infrastructure\Extensions\OptionExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\PublishedContentExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\StringExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\TreeExt.cs" />
@@ -1470,8 +1465,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\uintra20\src\app\ui\main-layout\" />
+    <Folder Include="Core\Feed\Web\" />
     <Folder Include="Infrastructure\Authentication\" />
-    <Folder Include="Infrastructure\Configuration\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

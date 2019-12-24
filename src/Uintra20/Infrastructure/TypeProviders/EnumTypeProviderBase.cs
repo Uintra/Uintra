@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Uintra20.Infrastructure.Extensions;
-using static LanguageExt.Prelude;
 
 namespace Uintra20.Infrastructure.TypeProviders
 {
@@ -12,7 +11,7 @@ namespace Uintra20.Infrastructure.TypeProviders
         {
             All = enums.SelectMany(e => Enum.GetValues(e).Cast<Enum>()).ToArray();
             IntTypeDictionary = All.ToDictionary(EnumExtensions.ToInt);
-            StringTypeDictionary = All.ToDictionary(toString);
+            StringTypeDictionary = All.ToDictionary(x => x.ToString());
         }
 
         public Enum[] All { get; }

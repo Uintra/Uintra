@@ -2,7 +2,6 @@
 using System.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
-using static LanguageExt.Prelude;
 
 
 namespace Uintra20.Core.Member.Helpers
@@ -22,7 +21,7 @@ namespace Uintra20.Core.Member.Helpers
         private const string FirstLoginPerformedPropertyName = "firstLoginPerformed";
         public Dictionary<IMember, int?> GetRelatedUserIdsForMembers(IEnumerable<IMember> users)
         {
-            return users.ToDictionary(identity, u => u.GetValue<int?>(RelatedUserPropertyName));
+            return users.ToDictionary(x => x, u => u.GetValue<int?>(RelatedUserPropertyName));
         }
 
         public bool IsFirstLoginPerformed (IMember member) => member.GetValue<bool>(FirstLoginPerformedPropertyName);

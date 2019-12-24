@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using LanguageExt;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Features.Comments.Links;
@@ -133,7 +132,7 @@ namespace Uintra20.Infrastructure.Helpers
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
                 Title = GetNotifierDataTitle(activity).TrimByWordEnd(MaxTitleLength),
-                Url = await _linkService.GetLinksAsync(activity.Id).Select(x => x.Details),
+                Url = (await _linkService.GetLinksAsync(activity.Id))?.Details,
                 NotifierId = notifierId,
                 IsPinned = activity.IsPinned,
                 IsPinActual = activity.IsPinActual
@@ -144,7 +143,7 @@ namespace Uintra20.Infrastructure.Helpers
         {
             var model = new ActivityReminderDataModel
             {
-                Url = await _linkService.GetLinksAsync(activity.Id).Select(x => x.Details),
+                Url = (await _linkService.GetLinksAsync(activity.Id))?.Details,
                 Title = activity.Title,
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
@@ -185,7 +184,7 @@ namespace Uintra20.Infrastructure.Helpers
                 ActivityType = activity.Type,
                 NotifierId = notifierId,
                 CreatedDate = DateTime.UtcNow,
-                Url = await _linkService.GetLinksAsync(activity.Id).Select(x => x.Details),
+                Url = (await _linkService.GetLinksAsync(activity.Id))?.Details,
                 IsPinned = activity.IsPinned,
                 IsPinActual = activity.IsPinActual
             };
@@ -197,7 +196,7 @@ namespace Uintra20.Infrastructure.Helpers
             return new GroupInvitationDataModel
             {
                 Url = $"/groups/room?groupId={groupId}",
-                Title = await _groupService.GetAsync(groupId).Select(x => x.Title),
+                Title = (await _groupService.GetAsync(groupId))?.Title,
                 NotificationType = notificationType,
                 GroupId = groupId,
                 NotifierId = notifierId,

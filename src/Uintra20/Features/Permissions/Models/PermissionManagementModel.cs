@@ -1,5 +1,4 @@
 ﻿using System;
-using LanguageExt;
 
 namespace Uintra20.Features.Permissions.Models
 {
@@ -7,13 +6,13 @@ namespace Uintra20.Features.Permissions.Models
     {
         public IntranetMemberGroup Group { get; }
         public PermissionSettingValues SettingValues { get; }
-        public Option<Enum> ParentActionType { get; }
+        public Enum ParentActionType { get; }
         public PermissionSettingIdentity SettingIdentity { get; }
 
         public PermissionManagementModel(
             IntranetMemberGroup group,
             PermissionSettingIdentity settingIdentity,
-            Option<Enum> parentActionType,
+            Enum parentActionType,
             PermissionSettingValues settingValues)
         {
             Group = group;

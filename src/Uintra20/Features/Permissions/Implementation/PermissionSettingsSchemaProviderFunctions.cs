@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Compent.Extensions.Trees;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions.Trees;
 using Uintra20.Features.Permissions.Models;
 using Uintra20.Infrastructure.Extensions;
 
@@ -35,10 +35,8 @@ namespace Uintra20.Features.Permissions.Implementation
             IEnumerable<PermissionSettingSchema> settingSchema) =>
             settingSchema
                 .Select(setting =>
-                    setting.ParentActionType.Map(parentActionType => (
-                        parentIdentity: PermissionSettingIdentity.Of(parentActionType, setting.SettingIdentity.ResourceType),
-                        childIdentity: setting.SettingIdentity)))
-                .Somes()
+                    (parentIdentity: PermissionSettingIdentity.Of(setting.ParentActionType, setting.SettingIdentity.ResourceType), 
+                        childIdentity: setting.SettingIdentity))
                 .ToLookup(tuple => tuple.parentIdentity, tuple => tuple.childIdentity);
     }
 }
