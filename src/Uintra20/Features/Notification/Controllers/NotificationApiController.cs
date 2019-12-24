@@ -80,8 +80,7 @@ namespace Uintra20.Features.Notification.Controllers
                 ?.NotificationsPopUpCount
                 ?.Value ?? default(int);
 
-            var (notifications, _) = _uiNotifierService
-                .GetMany(_intranetMemberService.GetCurrentMemberId(), itemsCountForPopup);
+            var (notifications, _) = await _uiNotifierService.GetManyAsync(await _intranetMemberService.GetCurrentMemberIdAsync(), itemsCountForPopup);
 
             var notificationsArray = notifications.ToArray();
 
