@@ -1,19 +1,18 @@
-﻿using System;
+﻿using Compent.Shared.Extensions.Bcl;
+using System;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using Uintra20.Attributes;
 using Uintra20.Core.Activity;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Bulletins;
 using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Bulletins.Models;
-using Uintra20.Features.Bulletins.Web;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
@@ -23,11 +22,11 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Controllers
 {
-    [ValidateModel]
-    public class BulletinsController : BulletinsControllerBase
+    public class BulletinsController
     {
         private readonly IBulletinsService<Bulletin> _bulletinsService;
-        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
+        private readonly IMediaHelper _mediaHelper;
+        private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IMyLinksService _myLinksService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityTagsHelper _activityTagsHelper;
@@ -37,16 +36,16 @@ namespace Uintra20.Controllers
         public BulletinsController(
             IBulletinsService<Bulletin> bulletinsService,
             IMediaHelper mediaHelper,
-            IIntranetMemberService<IntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> memberService,
             IMyLinksService myLinksService,
             IGroupActivityService groupActivityService,
             IActivityTagsHelper activityTagsHelper,
             IMentionService mentionService,
             IActivityLinkService activityLinkService)
-            : base(bulletinsService, mediaHelper, intranetMemberService)
         {
             _bulletinsService = bulletinsService;
-            _intranetMemberService = intranetMemberService;
+            _mediaHelper = mediaHelper;
+            _memberService = memberService;
             _myLinksService = myLinksService;
             _groupActivityService = groupActivityService;
             _activityTagsHelper = activityTagsHelper;
@@ -57,16 +56,61 @@ namespace Uintra20.Controllers
         [HttpPost]
         public async Task<BulletinCreationResultModel> CreateExtended(BulletinExtendedCreateModel model)
         {
-            return await Create(model);
+            var result = new BulletinCreationResultModel();
+
+            var bulletin = MapToBulletin(model);
+            var createdBulletinId = await _bulletinsService.CreateAsync(bulletin);
+            bulletin.Id = createdBulletinId;
+            await OnBulletinCreatedAsync(bulletin, model);
+
+            result.Id = createdBulletinId;
+            result.IsSuccess = true;
+
+            return result;
         }
 
         [HttpPut]
-        public async Task<HttpResponseMessage> EditExtended(BulletinExtendedEditModel model)
+        public async Task<HttpResponseMessage> EditExtended(BulletinExtendedEditModel editModel)
         {
-            return await Edit(model);
+            var bulletin = MapToBulletin(editModel);
+            await _bulletinsService.SaveAsync(bulletin);
+            await OnBulletinEditedAsync(bulletin, editModel);
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        protected override void OnBulletinEdited(BulletinBase bulletin, BulletinEditModel model)
+        [HttpDelete]
+        public async Task<HttpResponseMessage> Delete(Guid id)
+        {
+            await _bulletinsService.DeleteAsync(id);
+            await OnBulletinDeletedAsync(id);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        private BulletinBase MapToBulletin(BulletinCreateModel model)
+        {
+            var bulletin = model.Map<BulletinBase>();
+            bulletin.PublishDate = DateTime.UtcNow;
+            bulletin.CreatorId = bulletin.OwnerId = _memberService.GetCurrentMemberId();
+
+            if (model.NewMedia.HasValue())
+            {
+                bulletin.MediaIds = _mediaHelper.CreateMedia(model);
+            }
+
+            return bulletin;
+        }
+
+        private BulletinBase MapToBulletin(BulletinEditModel editModel)
+        {
+            var bulletin = _bulletinsService.Get(editModel.Id);
+            //bulletin = editModel.Map(bulletin);
+            bulletin.MediaIds = bulletin.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
+
+            return bulletin;
+        }
+
+        private void OnBulletinEdited(BulletinBase bulletin, BulletinEditModel model)
         {
             if (model is BulletinExtendedEditModel extendedModel)
             {
@@ -76,7 +120,7 @@ namespace Uintra20.Controllers
             ResolveMentions(model.Description, bulletin);
         }
 
-        protected override async Task OnBulletinEditedAsync(BulletinBase bulletin, BulletinEditModel model)
+        private async Task OnBulletinEditedAsync(BulletinBase bulletin, BulletinEditModel model)
         {
             if (model is BulletinExtendedEditModel extendedModel)
             {
@@ -86,21 +130,21 @@ namespace Uintra20.Controllers
             await ResolveMentionsAsync(model.Description, bulletin);
         }
 
-        protected override void OnBulletinDeleted(Guid id)
+        private void OnBulletinDeleted(Guid id)
         {
             _myLinksService.DeleteByActivityId(id);
         }
 
-        protected override async Task OnBulletinDeletedAsync(Guid id)
+        private async Task OnBulletinDeletedAsync(Guid id)
         {
             await _myLinksService.DeleteByActivityIdAsync(id);
         }
 
-        protected override void OnBulletinCreated(BulletinBase bulletin, BulletinCreateModel model)
+        private void OnBulletinCreated(BulletinBase bulletin, BulletinCreateModel model)
         {
             var groupId = HttpContext.Current.Request.QueryString.GetGroupIdOrNone();
 
-            if(groupId.HasValue)
+            if (groupId.HasValue)
                 _groupActivityService.AddRelation(groupId.Value, bulletin.Id);
 
             var extendedBulletin = _bulletinsService.Get(bulletin.Id);
@@ -118,7 +162,7 @@ namespace Uintra20.Controllers
             ResolveMentions(model.Description, bulletin);
         }
 
-        protected override async Task OnBulletinCreatedAsync(BulletinBase bulletin, BulletinCreateModel model)
+        private async Task OnBulletinCreatedAsync(BulletinBase bulletin, BulletinCreateModel model)
         {
             var groupId = HttpContext.Current.Request.QueryString.GetGroupIdOrNone();
 
@@ -151,7 +195,7 @@ namespace Uintra20.Controllers
                 _mentionService.ProcessMention(new MentionModel()
                 {
                     MentionedSourceId = bulletin.Id,
-                    CreatorId = _intranetMemberService.GetCurrentMemberId(),
+                    CreatorId = _memberService.GetCurrentMemberId(),
                     MentionedUserIds = mentionIds,
                     Title = bulletin.Description.StripHtml().TrimByWordEnd(maxTitleLength),
                     Url = links.Details,
@@ -172,7 +216,7 @@ namespace Uintra20.Controllers
                 _mentionService.ProcessMention(new MentionModel()
                 {
                     MentionedSourceId = bulletin.Id,
-                    CreatorId = await _intranetMemberService.GetCurrentMemberIdAsync(),
+                    CreatorId = await _memberService.GetCurrentMemberIdAsync(),
                     MentionedUserIds = mentionIds,
                     Title = bulletin.Description.StripHtml().TrimByWordEnd(maxTitleLength),
                     Url = links.Details,

@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using Compent.Extensions;
 using System.Linq;
+using System.Web.Mvc;
+using UBaseline.Core.Media;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.CentralFeed.Links;
 using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.Groups.Links;
+using Uintra20.Features.Media;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Bulletins.AutoMapperProfiles
@@ -74,15 +78,14 @@ namespace Uintra20.Features.Bulletins.AutoMapperProfiles
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.Select(m => m.ToString()).JoinWith(",")));
+                .ForMember(dst => dst.Media, o => o.MapFrom(src => MediaHelper.GetMediaUrls(src.MediaIds)));
 
             CreateMap<Bulletin, BulletinPreviewModel>()
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.Owner, o => o.Ignore())
                 .ForMember(dst => dst.LikedByCurrentUser, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.MapFrom(src => src.MediaIds.Select(m => m.ToString()).JoinWith(",")))
-                .ForMember(dst => dst.Media, o => o.MapFrom(src => src.MediaIds.Select(m => m.ToString()).JoinWith(",")))
+                .ForMember(dst => dst.Media, o => o.MapFrom(src => MediaHelper.GetMediaUrls(src.MediaIds)))
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type))
                 .ForMember(dst => dst.Dates, o => o.MapFrom(src => src.PublishDate.ToDateTimeFormat().ToEnumerable()));
 

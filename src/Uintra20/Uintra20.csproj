@@ -852,7 +852,7 @@
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
     <Compile Include="App_Plugins\Utils\Сache\CacheDashboard.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\BulletinsController.cs" />
+    <Compile Include="Core\Feed\Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
@@ -1025,7 +1025,6 @@
     <Compile Include="Features\Bulletins\Models\BulletinItemViewModel.cs" />
     <Compile Include="Features\Bulletins\Models\BulletinPreviewViewModel.cs" />
     <Compile Include="Features\Bulletins\Models\BulletinViewModel.cs" />
-    <Compile Include="Features\Bulletins\Web\BulletinsControllerBase.cs" />
     <Compile Include="Infrastructure\Caching\CacheHelper.cs" />
     <Compile Include="Infrastructure\Caching\ICacheService.cs" />
     <Compile Include="Infrastructure\Caching\MemoryCacheService.cs" />
@@ -1457,7 +1456,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\uintra20\src\app\ui\main-layout\" />
-    <Folder Include="Core\Feed\Web\" />
+    <Folder Include="Features\Bulletins\Web\" />
     <Folder Include="Infrastructure\Authentication\" />
   </ItemGroup>
   <ItemGroup>

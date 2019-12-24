@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Uintra20.Core.Member.Models;
-using Uintra20.Features.Comments.Models;
-using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Likes;
 using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Links.Models;
