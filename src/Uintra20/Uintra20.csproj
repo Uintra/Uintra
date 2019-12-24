@@ -129,6 +129,9 @@
     <Reference Include="Examine, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Examine.1.0.1\lib\net452\Examine.dll</HintPath>
     </Reference>
+    <Reference Include="FluentScheduler, Version=5.3.0.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentScheduler.5.3.0\lib\net40\FluentScheduler.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Apis, Version=1.34.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Google.Apis.1.34.0\lib\net45\Google.Apis.dll</HintPath>
     </Reference>
@@ -901,6 +904,17 @@
     <Compile Include="Core\Authentication\IAuthenticationService.cs" />
     <Compile Include="Core\Authentication\Models\AuthResultModelBase.cs" />
     <Compile Include="Core\Authentication\Models\LoginModelBase.cs" />
+    <Compile Include="Core\Jobs\AutoMapperProfiles\JobAutoMapperProfile.cs" />
+    <Compile Include="Core\Jobs\Configuration\IJobSettingsConfiguration.cs" />
+    <Compile Include="Core\Jobs\Configuration\JobSettingsConfiguration.cs" />
+    <Compile Include="Core\Jobs\Enums\JobRunTypeEnum.cs" />
+    <Compile Include="Core\Jobs\Enums\JobTimeTypeEnum.cs" />
+    <Compile Include="Core\Jobs\IntranetJobFactory.cs" />
+    <Compile Include="Core\Jobs\JobConfiguration.cs" />
+    <Compile Include="Core\Jobs\JobsRegistry.cs" />
+    <Compile Include="Core\Jobs\Models\BaseIntranetJob.cs" />
+    <Compile Include="Core\Jobs\Models\IIntranetJob.cs" />
+    <Compile Include="Features\Jobs\UpdateActivityCacheJob.cs" />
     <Compile Include="Core\Member\Helpers\IMemberServiceHelper.cs" />
     <Compile Include="Core\Member\Helpers\MemberServiceHelper.cs" />
     <Compile Include="Core\Member\Models\UserPickerModel.cs" />
