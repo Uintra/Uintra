@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivityType } from 'src/app/feature/shared/enums/activity-type.enum';
 import { Router } from '@angular/router';
 
 @Component({
