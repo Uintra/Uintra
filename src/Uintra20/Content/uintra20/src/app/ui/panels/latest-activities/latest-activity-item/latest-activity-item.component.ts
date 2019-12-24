@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'latest-activity-item',
+  selector: 'latest-activity',
   templateUrl: './latest-activity-item.component.html',
   styleUrls: ['./latest-activity-item.component.less']
 })

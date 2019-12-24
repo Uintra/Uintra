@@ -1,9 +1,9 @@
-<p>
-    {{activityType}}
-    <br />
-    {{activityDate | date: 'MMM d, y hh:mm'}}
-</p>
-<h3 class="block-subtitle-clamp">
-    <p (click)="navigateToActivity()"
-       [innerHtml]="activityDescription"></p>
-</h3>
+<div class="type-and-date">
+    <p>{{activityType}}</p>
+    <p>{{activityDate | date: 'MMM d, y hh:mm'}}</p>
+</div>
+<div 
+    (click)="navigateToActivity()"
+    class="block-subtitle-clamp"
+    [innerHtml]="activityDescription">
+</div>
