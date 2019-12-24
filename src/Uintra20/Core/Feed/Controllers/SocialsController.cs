@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
@@ -22,7 +23,7 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Controllers
 {
-    public class SocialsController
+    public class SocialsController : UBaselineApiController
     {
         private readonly ISocialsService<Social> _socialsService;
         private readonly IMediaHelper _mediaHelper;
