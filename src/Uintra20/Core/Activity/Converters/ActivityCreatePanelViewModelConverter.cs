@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
-using Compent.Extensions;
+﻿using Compent.Extensions;
+using System;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Converters.Models;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
@@ -18,21 +16,21 @@ namespace Uintra20.Core.Activity.Converters
 {
     public class ActivityCreatePanelViewModelConverter : INodeViewModelConverter<ActivityCreatePanelModel, ActivityCreatePanelViewModel>
     {
-        private readonly IBulletinsService<Features.Bulletins.Entities.Bulletin> _bulletinsService;
+        private readonly ISocialsService<Features.Bulletins.Entities.Social> _socialsService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IPermissionsService _permissionsService;
         private readonly IUserTagService _tagsService;
         private readonly IUserTagProvider _tagProvider;
 
-        public ActivityCreatePanelViewModelConverter(IBulletinsService<Features.Bulletins.Entities.Bulletin> bulletinsService, 
+        public ActivityCreatePanelViewModelConverter(ISocialsService<Features.Bulletins.Entities.Social> socialsService, 
                                                     IIntranetMemberService<IntranetMember> memberService, 
                                                     IActivityTypeProvider activityTypeProvider,
                                                     IPermissionsService permissionsService,
                                                     IUserTagService tagsService,
                                                     IUserTagProvider tagProvider)
         {
-            _bulletinsService = bulletinsService;
+            _socialsService = socialsService;
             _memberService = memberService;
             _activityTypeProvider = activityTypeProvider;
             _permissionsService = permissionsService;
@@ -49,10 +47,10 @@ namespace Uintra20.Core.Activity.Converters
         private void ConvertToBulletins(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
         {
             var currentMember = _memberService.GetCurrentMember();
-            var mediaSettings = _bulletinsService.GetMediaSettings();
+            var mediaSettings = _socialsService.GetMediaSettings();
 
             viewModel.Title = currentMember.DisplayedName;
-            viewModel.ActivityType = _activityTypeProvider[(int)IntranetActivityTypeEnum.Bulletins];
+            viewModel.ActivityType = _activityTypeProvider[(int)IntranetActivityTypeEnum.Socials];
             viewModel.Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable();
             viewModel.Creator = currentMember.Map<MemberViewModel>();
             viewModel.Links = null;//TODO: Research links

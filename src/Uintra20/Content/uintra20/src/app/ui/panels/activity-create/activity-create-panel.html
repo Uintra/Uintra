@@ -35,6 +35,7 @@
                               (addAttachment)="addAttachment()"
                               placeholder="Write a message, post a photo or share a document">
           <button submit
+                  [disabled]="isSubmitDisabled"
                   class="bulletin-popup__submit-button"
                   (click)="onSubmit()">
             Submit
@@ -42,4 +43,4 @@
         </app-rich-text-editor>
       </div>
     </div>
-  </section> 
+  </section>
