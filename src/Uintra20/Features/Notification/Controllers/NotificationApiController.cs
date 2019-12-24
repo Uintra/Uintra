@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
 using UBaseline.Core.Node;
@@ -45,22 +46,22 @@ namespace Uintra20.Features.Notification.Controllers
         }
 
         [HttpGet]
-        public NotificationListViewModel Get(int page = 1)
+        public async Task<NotificationListViewModel> Get(int page = 1)
         {
             var take = page * _itemsPerPage;
-            var (notifications, totalCount) = _uiNotifierService.GetMany(_intranetMemberService.GetCurrentMemberId(), take);
+            var (notifications, totalCount) = _uiNotifierService.GetMany( await _intranetMemberService.GetCurrentMemberIdAsync(), take);
 
             var notificationsArray = notifications.ToArray();
 
             var notNotifiedNotifications = notificationsArray.Where(el => !el.IsNotified).ToArray();
             if (notNotifiedNotifications.Length > 0)
             {
-                _uiNotifierService.Notify(notNotifiedNotifications);
+                await _uiNotifierService.NotifyAsync(notNotifiedNotifications);
             }
 
-            var notificationsViewModels = notificationsArray
-                .Select(MapNotificationToViewModel)
-                .ToArray();
+            var notificationsViewModels = await Task.WhenAll(
+                notificationsArray
+                    .Select(async n => await MapNotificationToViewModelAsync(n)));
 
             var result = new NotificationListViewModel
             {
@@ -72,7 +73,7 @@ namespace Uintra20.Features.Notification.Controllers
         }
 
         [HttpGet]
-        public NotificationListViewModel NotificationList()
+        public async Task<NotificationListViewModel> NotificationList()
         {
             var itemsCountForPopup = _nodeModelService
                 .GetByAlias<NotificationPageModel>("notificationPage", _requestContext.HomeNode.RootId)
@@ -90,13 +91,13 @@ namespace Uintra20.Features.Notification.Controllers
 
             if (notNotifiedNotifications.Length > 0)
             {
-                _uiNotifierService.Notify(notNotifiedNotifications);
+                await _uiNotifierService.NotifyAsync(notNotifiedNotifications);
             }
 
-            var notificationsViewModels = notificationsArray
-                .Take(itemsCountForPopup)
-                .Select(MapNotificationToViewModel)
-                .ToArray();
+            var notificationsViewModels = await Task.WhenAll(
+                notificationsArray
+                    .Take(itemsCountForPopup)
+                    .Select(async n => await MapNotificationToViewModelAsync(n)));
 
             return new NotificationListViewModel
             {
@@ -106,52 +107,54 @@ namespace Uintra20.Features.Notification.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<PopupNotificationViewModel> GetPopupNotifications()
+        public async Task<IEnumerable<PopupNotificationViewModel>> GetPopupNotifications()
         {
-            var receiverId = _intranetMemberService.GetCurrentMemberId();
-            var notifications = _popupNotificationService.Get(receiverId).Map<IEnumerable<PopupNotificationViewModel>>();
+            var receiverId = await _intranetMemberService.GetCurrentMemberIdAsync();
+            var notifications = (await _popupNotificationService.GetAsync(receiverId))
+                .Map<IEnumerable<PopupNotificationViewModel>>();
+
             return notifications;
         }
 
         [HttpGet]
-        public int GetNotNotifiedCount()
+        public async Task<int> GetNotNotifiedCount()
         {
-            var currentMember = _intranetMemberService.GetCurrentMember();
+            var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
 
             var count = currentMember != null
-                ? _uiNotifierService.GetNotNotifiedCount(currentMember.Id)
+                ? await _uiNotifierService.GetNotNotifiedCountAsync(currentMember.Id)
                 : default(int);
 
             return count;
         }
 
         [HttpPost]
-        public void UpdateNotifierSettings(NotifierTypeEnum type, bool isEnabled)
+        public async Task UpdateNotifierSettings(NotifierTypeEnum type, bool isEnabled)
         {
-            var currentMember = _intranetMemberService.GetCurrentMember();
-            _memberNotifiersSettingsService.SetForMember(currentMember.Id, type, isEnabled);
+            var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
+            await _memberNotifiersSettingsService.SetForMemberAsync(currentMember.Id, type, isEnabled);
         }
 
         [HttpPost]
-        public virtual void SetNotificationViewed([FromBody]Guid id)
+        public Task SetNotificationViewed([FromBody]Guid id)
         {
-            _uiNotifierService.ViewNotification(id);
+            return _uiNotifierService.ViewNotificationAsync(id);
         }
 
         [HttpPost]
-        public virtual void SetPopupNotificationViewed([FromBody]Guid id)
+        public Task SetPopupNotificationViewed([FromBody]Guid id)
         {
-            _popupNotificationService.ViewNotification(id);
+            return _popupNotificationService.ViewNotificationAsync(id);
         }
 
-        private NotificationViewModel MapNotificationToViewModel(Sql.Notification notification)
+        private async Task<NotificationViewModel> MapNotificationToViewModelAsync(Sql.Notification notification)
         {
             var result = notification.Map<NotificationViewModel>();
 
             var notifierId = (string)result.Value.notifierId;
 
             result.Notifier = Guid.TryParse(notifierId, out var id)
-                ? _intranetMemberService.Get(id).Map<MemberViewModel>()
+                ? (await _intranetMemberService.GetAsync(id)).Map<MemberViewModel>()
                 : null;
 
             return result;
