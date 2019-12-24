@@ -1,4 +1,9 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
+using FluentScheduler;
+using Uintra20.Core.Configuration;
+using Uintra20.Core.Jobs;
+using Uintra20.Features.Jobs;
+using Uintra20.Features.MonthlyMail;
 using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Configuration.BackofficeSettings.Helpers;
@@ -6,6 +11,10 @@ using Uintra20.Features.Notification.Configuration.BackofficeSettings.Providers;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Models.NotifierTemplates;
 using Uintra20.Features.Notification.Services;
+using Uintra20.Features.Notification.Settings;
+using Uintra20.Features.Reminder;
+using Uintra20.Features.Reminder.Configuration;
+using Uintra20.Features.Reminder.Services;
 using Uintra20.Infrastructure.Helpers;
 
 namespace Uintra20.Infrastructure.Ioc
@@ -32,8 +41,32 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddTransient<IBackofficeSettingsReader, BackofficeSettingsReader>();
             services.AddScoped<INotifierDataHelper, NotifierDataHelper>();
             services.AddScoped<INotifierDataBuilder, NotifierDataBuilder>();
+            services.AddConfiguration<NotificationSettings>();
 
-            return services;
+            services.AddScoped<INotificationSettingCategoryProvider, NotificationSettingCategoryProvider>();
+            services.AddScoped<INotificationSettingsTreeProvider, NotificationSettingsTreeProvider>();
+            services.AddScoped<INotificationContentProvider, NotificationContentProvider>();
+            services.AddScoped(x =>
+            {
+                var result = new NotificationTypeProvider(typeof(NotificationTypeEnum));
+                return (INotificationTypeProvider) result;
+            });
+
+            services.AddScoped<ReminderJob>();
+            services.AddScoped<MontlyMailJob>();
+			services.AddScoped<SendEmailJob>();
+			services.AddScoped<UpdateActivityCacheJob>();
+			services.AddScoped<IJobFactory,IntranetJobFactory>();
+			services.AddScoped<IReminderRunner, ReminderRunner>();
+			services.AddScoped<IReminderService, ReminderService>();
+			services.AddScoped<IMonthlyEmailService,MonthlyEmailService>();
+
+			services.AddSingleton<IConfigurationProvider<ReminderConfiguration>>(i =>
+				new ConfigurationProvider<ReminderConfiguration>(
+					"~/Features/Reminder/reminderConfiguration.json"));
+			
+
+			return services;
         }
     }
 }

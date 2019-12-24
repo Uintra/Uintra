@@ -1,0 +1,11 @@
+﻿<div class="m-b-20 _clearfix">
+    <input class="span9" name="videoLinkInput" ng-model="videoLink.url" ng-change="validateLink()" type="text" placeholder="http://example.com/" ng-required="isRequired" />
+</div>
+<div class="m-b-20 _clearfix">
+    <span class="span9" ng-show="isError()">Incorrect link format</span>
+    <span class="span9" ng-show="isUnknown()">Unknown video url</span>
+</div>
+<div class="m-b-20 _clearfix" ng-if="useAltText">
+    <b class="span3">Alt text: <span class="note">Add video tooltip text</span></b>
+    <input class="span9" type="text" ng-model="videoLink.altText" placeholder="Alt text" />
+</div>

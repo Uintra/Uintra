@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Uintra20.Core.Controls.FileUpload;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
@@ -10,7 +9,6 @@ namespace Uintra20.Features.Media
     public interface IMediaHelper
     {
         IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model, Guid? userId = null);
-        Task<IEnumerable<int>> CreateMediaAsync(IContentWithMediaCreateEditModel model, Guid? userId = null);
         void DeleteMedia(int mediaId);
         void DeleteMedia(string mediaPath);
         void DeleteMedia(IEnumerable<int> mediaIds);
