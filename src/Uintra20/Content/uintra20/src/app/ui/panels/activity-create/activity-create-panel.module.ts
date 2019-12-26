@@ -11,6 +11,7 @@ import { TagMultiselectModule } from 'src/app/feature/project/reusable/inputs/ta
 
 import { DropzoneModule, DropzoneConfigInterface, DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import 'quill-emoji/dist/quill-emoji';
+import { MAX_LENGTH } from './_constants.js';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // TODO: Change this to your upload POST address:
@@ -35,7 +36,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       modules: {
         'emoji-toolbar': true,
         counter: {
-          maxLength: 2000
+          maxLength: MAX_LENGTH
         }
       }
     })

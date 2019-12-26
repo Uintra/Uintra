@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using Compent.Extensions;
-using Compent.Shared.Extensions;
+using AutoMapper;
+using Compent.Shared.Extensions.Bcl;
+using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
@@ -13,11 +14,10 @@ using Uintra20.Features.News.Models;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Infrastructure.Extensions;
-using Umbraco.Web.WebApi;
 
 namespace Uintra20.Features.News.Web
 {
-    public abstract class NewsControllerBase : UmbracoApiController
+    public abstract class NewsControllerBase : UBaselineApiController
     {
         private readonly INewsService<NewsBase> _newsService;
         private readonly IMediaHelper _mediaHelper;

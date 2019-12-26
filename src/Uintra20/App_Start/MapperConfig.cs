@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
+using EmailWorker.Data.Features.EmailWorker;
 using Uintra20.Core.Activity.AutoMapperProfiles;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.AutoMapperProfiles;
@@ -32,7 +33,7 @@ namespace Uintra20
             //Mapper.AddProfile<LightboxAutoMapperProfile>();
             //Mapper.AddProfile<NavigationAutoMapperProfile>();
             //Mapper.AddProfile<EventsAutoMapperProfile>();
-            //Mapper.AddProfile<BulletinsAutoMapperProfile>();
+            //Mapper.AddProfile<SocialsAutoMapperProfile>();
             //Mapper.AddProfile<NotificationAutoMapperProfile>();
             //Mapper.AddProfile<CentralFeedAutoMapperProfile>();
             //Mapper.AddProfile<IntranetUserAutoMapperProfile>();
@@ -70,7 +71,7 @@ namespace Uintra20
             cfg.AddProfile<LightboxAutoMapperProfile>();
             cfg.AddProfile<NavigationAutoMapperProfile>();
             cfg.AddProfile<EventsAutoMapperProfile>();
-            cfg.AddProfile<BulletinsAutoMapperProfile>();
+            cfg.AddProfile<SocialsAutoMapperProfile>();
             cfg.AddProfile<NotificationAutoMapperProfile>();
             cfg.AddProfile<CentralFeedAutoMapperProfile>();
             cfg.AddProfile<IntranetUserAutoMapperProfile>();
@@ -82,6 +83,7 @@ namespace Uintra20
             cfg.AddProfile<SubscribeSettingAutoMapperProfiles>();
             cfg.AddProfile<LocationAutoMapperProfile>();
             cfg.AddProfile<LinkPreviewAutoMapperProfile>();
+            cfg.AddProfile<MailProfile>();
             cfg.AddProfile<NewsAutoMapperProfile>();
 
             Mapper.Initialize(cfg);

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Compent.CommandBus;
-using Compent.Shared.Extensions;
+using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
@@ -18,11 +18,10 @@ using Uintra20.Features.LinkPreview.Models;
 using Uintra20.Features.Links;
 using Uintra20.Infrastructure.Context;
 using Uintra20.Infrastructure.Extensions;
-using Umbraco.Web.WebApi;
 
 namespace Uintra20.Features.Comments.Web
 {
-    public abstract class CommentsControllerBase : UmbracoApiController
+    public abstract class CommentsControllerBase : UBaselineApiController
     {
         private readonly ICommentsService _commentsService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
@@ -45,70 +44,62 @@ namespace Uintra20.Features.Comments.Web
         }
 
         [HttpPost]
-        public virtual CommentsOverviewModel Add([FromBody]CommentCreateModel model)
+        public virtual async Task<CommentsOverviewModel> Add([FromBody] CommentCreateModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return OverView(model.EntityId);
-            }
-
-            var createDto = MapToCreateDto(model, model.EntityId);
+            var createDto = await MapToCreateDtoAsync(model, model.EntityId);
             var command = new AddCommentCommand(model.EntityId, model.EntityType, createDto);
             _commandPublisher.Publish(command);
 
-            OnCommentCreated(createDto.Id);
+            await OnCommentCreatedAsync(createDto.Id);
 
             switch (model.EntityType.ToInt())
             {
                 case int type
                     when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
                     var activityCommentsInfo = GetActivityComments(model.EntityId);
-                    return OverView(activityCommentsInfo);
+                    return await OverViewAsync(activityCommentsInfo.Id, activityCommentsInfo.Comments, activityCommentsInfo.IsReadOnly);
                 default:
-                    return OverView(model.EntityId);
+                    return await OverViewAsync(model.EntityId);
             }
         }
 
         [HttpPut]
-        public virtual CommentsOverviewModel Edit(Guid entityId, ContextType entityType, CommentEditModel model)
+        public virtual async Task<CommentsOverviewModel> Edit(Guid entityId, ContextType entityType,
+            CommentEditModel model)
         {
             var editCommentId = model.Id;
 
-            if (!ModelState.IsValid)
+            var comment = await _commentsService.GetAsync(editCommentId);
+            if (!_commentsService.CanEdit(comment, await _intranetMemberService.GetCurrentMemberIdAsync()))
             {
-                return OverView(editCommentId);
-            }
-
-            var comment = _commentsService.Get(editCommentId);
-            if (!_commentsService.CanEdit(comment, _intranetMemberService.GetCurrentMemberId()))
-            {
-                return OverView(editCommentId);
+                return await OverViewAsync(editCommentId);
             }
 
             var editDto = MapToEditDto(model, editCommentId);
             var command = new EditCommentCommand(entityId, entityType, editDto);
             _commandPublisher.Publish(command);
 
-            OnCommentEdited(editCommentId);
+            await OnCommentEditedAsync(editCommentId);
 
             switch (entityType.ToInt())
             {
                 case int type
                     when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
                     var activityCommentsInfo = GetActivityComments(entityId);
-                    return OverView(activityCommentsInfo);
+                    return await OverViewAsync(activityCommentsInfo.Id, activityCommentsInfo.Comments, activityCommentsInfo.IsReadOnly);
                 default:
-                    return OverView(comment.ActivityId);
+                    return await OverViewAsync(comment.ActivityId);
             }
         }
 
         [HttpDelete]
-        public virtual CommentsOverviewModel Delete(Guid targetId, ContextType targetType, Guid commentId)
+        public virtual async Task<CommentsOverviewModel> Delete(Guid targetId, ContextType targetType, Guid commentId)
         {
-            var comment = _commentsService.Get(commentId);
-            if (!_commentsService.CanDelete(comment, _intranetMemberService.GetCurrentMemberId()))
+            var comment = await _commentsService.GetAsync(commentId);
+
+            if (!_commentsService.CanDelete(comment, await _intranetMemberService.GetCurrentMemberIdAsync()))
             {
-                return OverView(comment.ActivityId);
+                return await OverViewAsync(comment.ActivityId);
             }
 
             var command = new RemoveCommentCommand(targetId, targetType, commentId);
@@ -119,34 +110,28 @@ namespace Uintra20.Features.Comments.Web
                 case int type
                     when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
                     var activityCommentsInfo = GetActivityComments(targetId);
-                    return OverView(activityCommentsInfo);
+                    return await OverViewAsync(activityCommentsInfo.Id, activityCommentsInfo.Comments, activityCommentsInfo.IsReadOnly);
                 default:
-                    return OverView(comment.ActivityId);
+                    return await OverViewAsync(comment.ActivityId);
             }
         }
 
         [HttpGet]
-        public virtual CommentsOverviewModel ContentComments(Guid pageId)
+        public virtual async Task<CommentsOverviewModel> ContentComments(Guid pageId)
         {
-            return OverView(pageId, _commentsService.GetMany(pageId));
+            return await OverViewAsync(pageId, await _commentsService.GetManyAsync(pageId));
         }
 
         [HttpGet]
-        public virtual CommentsOverviewModel OverView(ICommentable commentsInfo)
+        public virtual async Task<CommentPreviewModel> PreView(Guid activityId, string link, bool isReadOnly)
         {
-            return OverView(commentsInfo.Id, commentsInfo.Comments, commentsInfo.IsReadOnly);
-        }
-
-        [HttpGet]
-        public virtual CommentPreviewModel PreView(Guid activityId, string link, bool isReadOnly)
-        {
-            var currentMemberId = _intranetMemberService.GetCurrentMember().Id;
+            var currentMemberId = await _intranetMemberService.GetCurrentMemberIdAsync();
             var model = new CommentPreviewModel
             {
-                Count = _commentsService.GetCount(activityId),
+                Count = await _commentsService.GetCountAsync(activityId),
                 Link = $"{link}#comments",
                 IsReadOnly = isReadOnly,
-                IsExistsUserComment = _commentsService.IsExistsUserComment(activityId, currentMemberId)
+                IsExistsUserComment = await _commentsService.IsExistsUserCommentAsync(activityId, currentMemberId)
             };
 
             return model;
@@ -157,6 +142,11 @@ namespace Uintra20.Features.Comments.Web
             return OverView(activityId, _commentsService.GetMany(activityId));
         }
 
+        protected virtual async Task<CommentsOverviewModel> OverViewAsync(Guid activityId)
+        {
+            return await OverViewAsync(activityId, await _commentsService.GetManyAsync(activityId));
+        }
+
         protected virtual CommentsOverviewModel OverView(Guid activityId, IEnumerable<CommentModel> comments,
             bool isReadOnly = false)
         {
@@ -164,6 +154,21 @@ namespace Uintra20.Features.Comments.Web
             {
                 ActivityId = activityId,
                 Comments = GetCommentViews(comments),
+                ElementId = GetOverviewElementId(activityId),
+                IsReadOnly = isReadOnly
+            };
+
+            return model;
+        }
+
+        protected virtual async Task<CommentsOverviewModel> OverViewAsync(Guid activityId,
+            IEnumerable<CommentModel> comments,
+            bool isReadOnly = false)
+        {
+            var model = new CommentsOverviewModel
+            {
+                ActivityId = activityId,
+                Comments = await GetCommentViewsAsync(comments),
                 ElementId = GetOverviewElementId(activityId),
                 IsReadOnly = isReadOnly
             };
@@ -190,6 +195,29 @@ namespace Uintra20.Features.Comments.Web
             }
         }
 
+        protected virtual async Task<IEnumerable<CommentViewModel>> GetCommentViewsAsync(IEnumerable<CommentModel> comments)
+        {
+            comments = comments.OrderBy(c => c.CreatedDate);
+            var commentsList = comments as List<CommentModel> ?? comments.ToList();
+            var currentMemberId = await _intranetMemberService.GetCurrentMemberIdAsync();
+            var creators = (await _intranetMemberService.GetAllAsync()).ToList();
+            var replies = commentsList.FindAll(_commentsService.IsReply);
+
+            var list = new List<CommentViewModel>();
+
+            foreach (var comment in commentsList.FindAll(c => !_commentsService.IsReply(c)))
+            {
+                var model = GetCommentView(comment, currentMemberId,
+                    creators.SingleOrDefault(c => c.Id == comment.UserId));
+                var commentReplies = replies.FindAll(reply => reply.ParentId == model.Id);
+                model.Replies = commentReplies.Select(reply =>
+                    GetCommentView(reply, currentMemberId, creators.SingleOrDefault(c => c.Id == reply.UserId)));
+                list.Add(model);
+            }
+
+            return list;
+        }
+
         protected virtual CommentViewModel GetCommentView(CommentModel comment, Guid currentMemberId,
             IIntranetMember creator)
         {
@@ -211,9 +239,25 @@ namespace Uintra20.Features.Comments.Web
             return (ICommentable)service.Get(activityId);
         }
 
-        protected virtual CommentCreateDto MapToCreateDto(CommentCreateModel createModel, Guid activityId)
+        protected virtual CommentCreateDto MapToCreateDto(CommentCreateModel createModel,
+            Guid activityId)
         {
             var currentMemberId = _intranetMemberService.GetCurrentMemberId();
+            var dto = new CommentCreateDto(
+                Guid.NewGuid(),
+                currentMemberId,
+                activityId,
+                createModel.Text,
+                createModel.ParentId,
+                createModel.LinkPreviewId);
+
+            return dto;
+        }
+
+        protected virtual async Task<CommentCreateDto> MapToCreateDtoAsync(CommentCreateModel createModel,
+            Guid activityId)
+        {
+            var currentMemberId = await _intranetMemberService.GetCurrentMemberIdAsync();
             var dto = new CommentCreateDto(
                 Guid.NewGuid(),
                 currentMemberId,
@@ -233,6 +277,14 @@ namespace Uintra20.Features.Comments.Web
         protected virtual string GetOverviewElementId(Guid activityId)
         {
             return $"js-comments-overview-{activityId}";
+        }
+
+        protected virtual async Task OnCommentCreatedAsync(Guid commentId)
+        {
+        }
+
+        protected virtual async Task OnCommentEditedAsync(Guid commentId)
+        {
         }
 
         protected virtual void OnCommentCreated(Guid commentId)

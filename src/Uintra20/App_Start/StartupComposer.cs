@@ -5,6 +5,7 @@ using Compent.Shared.Logging.Serilog;
 using LightInject;
 using Microsoft.Extensions.Configuration;
 using UBaseline.Core.Startup;
+using Uintra20.Infrastructure.Configuration;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
 
@@ -17,11 +18,12 @@ namespace Uintra20
         {
             var container = composition.Concrete as IServiceContainer;
 
-			var builder = new JsonConfigurationBuilder(new ConfigurationBuilder());
+            var builder = new JsonConfigurationBuilder(new ConfigurationBuilder());
 			var configuration = builder
 				.AddLogging(UBaselineConfiguration.EnvironmentName)
 				.AddUBaselineConfiguration()
-				.Build();
+                .AddConfiguration()
+                .Build();
 
 			var assembly = typeof(StartupComposer).Assembly;
 

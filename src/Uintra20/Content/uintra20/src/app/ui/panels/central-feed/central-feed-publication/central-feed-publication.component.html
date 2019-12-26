@@ -1,0 +1,36 @@
+<div class="publication publication--important">
+  <app-publication-header
+    [avatar]="publication.activity.owner.photo"
+    [title]="publication.activity.owner.displayedName"
+    class="publication__header"
+  >
+    <div subtitle>
+      {{ getPublicationDate() }} - {{ publication.activity.type }}
+    </div>
+    <div *ngIf="publication.activity.isPinned" label class="publication__label">
+      Important
+    </div>
+  </app-publication-header>
+
+  <div class="publication__content">
+    <div [innerHTML]="publication.activity.description"></div>
+  </div>
+
+  <div class="publication__footer">
+    <app-like-button [likeData]="likeData"></app-like-button>
+
+    <a class="publication__comment publication__footer-item" routerLink="social-details" [queryParams]="{id: publication.activity.id}">
+      <i class="icon-comment"></i>
+      {{ commentsCount }}
+    </a>
+    <button class="publication__share publication__footer-item">
+      <i class="icon-share-icon"></i>
+      Anbefal
+    </button>
+  </div>
+
+    <!-- <pre>
+  {{publication | json}}
+    </pre> -->
+
+</div>

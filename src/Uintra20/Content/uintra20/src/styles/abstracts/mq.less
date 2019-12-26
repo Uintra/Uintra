@@ -1,0 +1,16 @@
+// for media breakpoint
+@screen-sm        : 600px;
+@screen-md        : 900px;
+@screen-lg        : 1200px;
+@screen-xl        : 1600px;
+
+@sm-up            : ~"(min-width: @{screen-sm})";
+@md-up            : ~"(min-width: @{screen-md})";
+@lg-up            : ~"(min-width: @{screen-lg})";
+
+@sm-down          : ~"(max-width: @{screen-sm})";
+@md-down          : ~"(max-width: @{screen-md})";
+@lg-down          : ~"(max-width: @{screen-lg})";
+
+@p                : ~"(orientation: portrait)";
+@l                : ~"(orientation: landscape)";

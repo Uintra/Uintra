@@ -31,7 +31,7 @@ namespace Uintra20.Infrastructure.Extensions
             return context.Request.UrlReferrer?.AbsoluteUri ?? defaultLink;
         }
 
-        public static bool IsMobileBrowser(this HttpRequestBase request)
+        public static bool IsMobileBrowser(this HttpRequest request)
         {
             var userAgent = request.UserAgent();
             if ((b.IsMatch(userAgent) || v.IsMatch(userAgent.Substring(0, 4))))
@@ -42,7 +42,7 @@ namespace Uintra20.Infrastructure.Extensions
             return false;
         }
 
-        public static string UserAgent(this HttpRequestBase request)
+        public static string UserAgent(this HttpRequest request)
         {
             return request.Headers["User-Agent"];
         }
@@ -57,6 +57,19 @@ namespace Uintra20.Infrastructure.Extensions
             }
 
             return currentUser;
+        }
+
+        public static string GetByKey(this HttpRequest request, string key)
+        {
+            var queryParameter = $"?{key}=";
+
+            var ubaselineRequestQuery = request["url"];
+
+            var id = ubaselineRequestQuery
+                .Substring(ubaselineRequestQuery.IndexOf(queryParameter, StringComparison.Ordinal))
+                .Replace(queryParameter, string.Empty);
+
+            return id;
         }
     }
 }

@@ -6,6 +6,7 @@ using Compent.CommandBus;
 using Compent.Extensions;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
+using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
@@ -93,6 +94,10 @@ namespace Uintra20.Features.News
         public override Enum Type => IntranetActivityTypeEnum.News;
 
         public override Enum PermissionActivityType => PermissionResourceTypeEnum.News;
+        public override IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId)
+        {
+            throw new NotImplementedException();
+        }
 
         public MediaSettings GetMediaSettings()
         {

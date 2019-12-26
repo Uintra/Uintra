@@ -21,7 +21,7 @@ namespace Uintra20.Features.Permissions.Implementation
 
         protected ResourceToActionRelation[] BaseSettingsSchema =
         {
-            Of(PermissionResourceTypeEnum.Bulletins,
+            Of(PermissionResourceTypeEnum.Socials,
                 Tree(View,
                     Tree(Create),
                     Tree(Edit,
@@ -70,9 +70,10 @@ namespace Uintra20.Features.Permissions.Implementation
             return children.Concat(children.SelectMany(GetDescendants));
         }
 
-        public virtual PermissionSettingValues GetDefault(PermissionSettingIdentity settingIdentity) =>
-            SettingsOverrides
-                .ItemOrNone(settingIdentity)
-                .IfNone(() => PermissionSettingValues.Of(GlobalIsAllowedDefault, GlobalIsEnabledDefault));
+        public virtual PermissionSettingValues GetDefault(PermissionSettingIdentity settingIdentity)
+        {
+            return SettingsOverrides.ItemOrDefault(settingIdentity) 
+                   ?? PermissionSettingValues.Of(GlobalIsAllowedDefault, GlobalIsEnabledDefault); ;
+        }
     }
 }

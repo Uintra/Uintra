@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-using Compent.Shared.Extensions;
+using AutoMapper;
 using LanguageExt;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;

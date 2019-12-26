@@ -1,1 +1,30 @@
-<ubl-dynamic-component *ngFor="let panel of data.panels?.get()" [data]="panel.get()"></ubl-dynamic-component>
+<form class="login-form"
+      [formGroup]="loginForm"
+      novalidate
+      (ngSubmit)="submit()">
+  <div class="row-flex">
+    <div class="col-12">
+      <div class="logo">
+        <img src="/Content/uintra20/src/assets/img/u-intra-text-logo.svg" alt="Uintra" />
+      </div>
+    </div>
+  </div>
+  <div class="row-flex">
+    <div class="col-12">
+      <input formControlName="login" type="text" placeholder="E-mail" class="input" />
+    </div>
+  </div>
+  <div class="row-flex">
+    <div class="col-12">
+      <input formControlName="password" type="password" placeholder="Password" class="input" />
+    </div>
+  </div>
+  <div class="row-flex">
+    <div class="col-12">
+      <button [disabled]="inProgress" class="btn">Login</button>
+    </div>
+  </div>
+  <ul class="error-list" *ngIf="errors">
+    <li *ngFor="let error of errors">{{error}}</li>
+  </ul>
+</form>

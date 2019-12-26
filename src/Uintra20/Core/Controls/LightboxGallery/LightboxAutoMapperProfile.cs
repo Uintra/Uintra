@@ -11,6 +11,8 @@ namespace Uintra20.Core.Controls.LightboxGallery
             //    .ForMember(d => d.Medias, o => o.Ignore())
             //    .ForMember(d => d.HiddenImagesCount, o => o.Ignore())
             //    .ForMember(d => d.OtherFiles, o => o.Ignore());
+
+            CreateMap<LightboxGalleryItemViewModel, LightboxGalleryItemPreviewModel>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
   <Import Project="..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.props" Condition="Exists('..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.props')" />
   <Import Project="..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.props')" />
   <Import Project="..\..\packages\uSync.8.1.1\build\uSync.props" Condition="Exists('..\..\packages\uSync.8.1.1\build\uSync.props')" />
@@ -71,6 +72,9 @@
     <Reference Include="Compent.LinkPreview.HttpClient, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
+    <Reference Include="Compent.MediaToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.MediaToolkit.1.0.0\lib\net471\Compent.MediaToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Compent.Shared.ConfigurationProvider.Contract, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.ConfigurationProvider.Contract.0.2.0\lib\net471\Compent.Shared.ConfigurationProvider.Contract.dll</HintPath>
     </Reference>
@@ -113,11 +117,17 @@
     <Reference Include="Elmah.Mvc, Version=2.0.0.29988, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="EmailWorker.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Data.1.0.0\lib\net472\EmailWorker.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="EmailWorker.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Web.1.0.0\lib\net472\EmailWorker.Web.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Examine, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Examine.1.0.1\lib\net452\Examine.dll</HintPath>
@@ -191,14 +201,17 @@
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Log4Net.Async, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Log4Net.Async.2.0.4\lib\net40\Log4Net.Async.dll</HintPath>
+    </Reference>
     <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
     </Reference>
     <Reference Include="Markdown, Version=2.0.0.0, Culture=neutral, PublicKeyToken=1b320cc08ad5aa89, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Markdown.2.2.1\lib\net451\Markdown.dll</HintPath>
     </Reference>
-    <Reference Include="MediaToolkit, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MediaToolkit.1.1.0.1\lib\net40\MediaToolkit.dll</HintPath>
+    <Reference Include="MediaToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MediaToolkit.1.0.0\lib\net471\MediaToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -421,9 +434,16 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
@@ -581,6 +601,9 @@
     <Reference Include="Umbraco.Web.UI, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoCms.Web.8.3.0\lib\net472\Umbraco.Web.UI.dll</HintPath>
     </Reference>
+    <Reference Include="UmbracoIdentity, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoIdentity.Core.7.0.0\lib\net472\UmbracoIdentity.dll</HintPath>
+    </Reference>
     <Reference Include="uSync8.BackOffice, Version=8.1.1.72, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\uSync.8.1.1\lib\net472\uSync8.BackOffice.dll</HintPath>
     </Reference>
@@ -595,6 +618,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\compent.uintra\app_plugins\userpicker\backoffice\relateduserpicker\related-user-picker.controller.js">
+      <Link>App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.controller.js</Link>
+    </Content>
+    <Content Include="..\compent.uintra\app_plugins\userpicker\backoffice\relateduserpicker\related-user-picker.html">
+      <Link>App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.html</Link>
+    </Content>
+    <Content Include="..\compent.uintra\app_plugins\userpicker\userpicker\user-picker.directive.html">
+      <Link>App_Plugins\UserPicker\UserPicker\user-picker.directive.html</Link>
+    </Content>
+    <Content Include="..\compent.uintra\app_plugins\userpicker\userpicker\user-picker.directive.js">
+      <Link>App_Plugins\UserPicker\UserPicker\user-picker.directive.js</Link>
+    </Content>
     <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.service.js" />
     <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.controller.js" />
     <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.html" />
@@ -663,6 +698,38 @@
     <Content Include="App_Plugins\PanelThemePicker\prevalue-editor\panel-theme-picker-prevalue.html" />
     <Content Include="App_Plugins\PanelThemePicker\prevalue-editor\theme-selector.directive.html" />
     <Content Include="App_Plugins\PanelThemePicker\prevalue-editor\theme-selector.directive.js" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\7z.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\bmp.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\csv.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\doc.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\file.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\html.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\jpg.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\log.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\pdf.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\png.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\ppt.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\pptx.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\psd.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\rar.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\rtf.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\tiff.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\txt.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\xlsx.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\xml.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\icons\zip.svg" />
+    <Content Include="App_Plugins\SentMails\backoffice\css\umb-styles.css" />
+    <Content Include="App_Plugins\SentMails\backoffice\Mails\mails.js" />
+    <Content Include="App_Plugins\SentMails\backoffice\SentMailsTree\columnSettings.html" />
+    <Content Include="App_Plugins\SentMails\backoffice\SentMailsTree\mails.html" />
+    <Content Include="App_Plugins\SentMails\backoffice\SentMailsTree\settings.html" />
+    <Content Include="App_Plugins\SentMails\backoffice\SentMailsTree\smtpSettings.html" />
+    <Content Include="App_Plugins\SentMails\backoffice\Services\mails.service.js" />
+    <Content Include="App_Plugins\SentMails\backoffice\settings\column\column-settings.js" />
+    <Content Include="App_Plugins\SentMails\backoffice\settings\general\general-settings.css" />
+    <Content Include="App_Plugins\SentMails\backoffice\settings\general\general-settings.js" />
+    <Content Include="App_Plugins\SentMails\backoffice\settings\smtp\smtp-settings.js" />
+    <Content Include="App_Plugins\SentMails\lang\en-us.xml" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\da-DK.xml" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\en-GB.xml" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\en-US.xml" />
@@ -714,6 +781,7 @@
     <Content Include="App_Plugins\uSync8\usync.css" />
     <Content Include="App_Plugins\uSync8\uSyncHub.js" />
     <Content Include="App_Plugins\uSync8\uSyncService.js" />
+    <Content Include="App_Plugins\Utils\Сache\View\developer-cache.html" />
     <Content Include="App_Plugins\VideoPicker\prevalue-editor\styles.css" />
     <Content Include="App_Plugins\VideoPicker\prevalue-editor\video-picker-prevalue.controller.js" />
     <Content Include="App_Plugins\VideoPicker\prevalue-editor\video-picker-prevalue.html" />
@@ -745,6 +813,36 @@
     <Content Include="config\Lang\sv-SE.user.xml" />
     <Content Include="config\Lang\zh-CN.user.xml" />
     <Content Include="config\logviewer.searches.config.js" />
+    <Content Include="Content\uintra20\src\assets\fonts\icomoon.eot" />
+    <Content Include="Content\uintra20\src\assets\fonts\icomoon.svg" />
+    <Content Include="Content\uintra20\src\assets\fonts\icomoon.ttf" />
+    <Content Include="Content\uintra20\src\assets\fonts\icomoon.woff" />
+    <Content Include="Content\uintra20\src\assets\img\logo.svg" />
+    <Content Include="Content\uintra20\src\assets\img\u-intra-text-logo.svg" />
+    <Content Include="Content\uintra20\src\styles\grid.config.less" />
+    <Content Include="Content\uintra20\src\styles\icons\demo-files\demo.css" />
+    <Content Include="Content\uintra20\src\styles\icons\demo-files\demo.js" />
+    <Content Include="Content\uintra20\src\styles\icons\demo.html" />
+    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.eot" />
+    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.svg" />
+    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.ttf" />
+    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.woff" />
+    <Content Include="Content\uintra20\src\styles\icons\Read Me.txt" />
+    <Content Include="Content\uintra20\src\styles\icons\selection.json" />
+    <Content Include="Content\uintra20\src\styles\icons\style.css" />
+    <Content Include="Content\uintra20\src\styles\icons\style.less" />
+    <Content Include="Content\uintra20\src\styles\icons\variables.less" />
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
+    <Content Include="Content\uintra20\src\styles.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\elements.less" />
+    <Content Include="Content\uintra20\src\styles\components\index.less" />
+    <Content Include="Content\uintra20\src\styles\components\form-elements.less" />
+    <Content Include="Content\uintra20\src\styles\reset\index.less" />
+    <Content Include="Content\uintra20\src\styles\reset\reset.less" />
+    <Content Include="config\UIntra\LatestActivitySettings.json" />
+    <None Include="Content\uintra20\src\styles\temp\aside.less" />
+    <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
+    <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
     <Content Include="css\rte.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -753,6 +851,8 @@
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="App_Start\StartupComposer.cs" />
+    <Compile Include="App_Start\UmbracoIdentityOwinStartup.cs" />
+    <Compile Include="App_Start\UmbracoIdentityUserComposer.cs" />
     <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Attributes\GreaterThanAttribute.cs" />
     <Compile Include="Attributes\RequiredIfAllEmpty.cs" />
@@ -761,7 +861,9 @@
     <Compile Include="Attributes\RequiredVirtualAttribute.cs" />
     <Compile Include="Attributes\StringLenghtWithoutHtmlAttribute.cs" />
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
-    <Compile Include="Controllers\BulletinsController.cs" />
+    <Compile Include="App_Plugins\Utils\Сache\CacheDashboard.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Core\Feed\Controllers\SocialsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
@@ -794,17 +896,41 @@
     <Compile Include="Core\Activity\Models\Headers\IntranetActivityItemHeaderViewModel.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityCreateModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityEditModelBase.cs" />
+    <Compile Include="Core\Activity\Models\IntranetActivityPreviewModelBase.cs" />
     <Compile Include="Core\Activity\Models\IntranetActivityViewModelBase.cs" />
     <Compile Include="Core\Activity\Sql\IntranetActivityEntity.cs" />
-    <Compile Include="Features\Bulletins\Converters\BulletinDetailsPageViewModelConverter.cs" />
-    <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageModel.cs" />
-    <Compile Include="Features\Bulletins\Converters\Models\BulletinDetailsPageViewModel.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\IHaveLightboxPreview.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\ILightboxHelper.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryItemPreviewModel.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryItemViewModel.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxHelper.cs" />
+    <Compile Include="Core\Controls\LightboxGallery\LightboxPreviewModel.cs" />
+    <Compile Include="Core\Feed\Models\ActivityFeedTabFiltersViewModel.cs" />
+    <Compile Include="Core\Feed\Models\FeedActivityViewModel.cs" />
+    <Compile Include="Core\Authentication\AuthenticationConfigurator.cs" />
+    <Compile Include="Core\Authentication\AuthenticationService.cs" />
+    <Compile Include="Core\Authentication\CookieAuthenticationProvider.cs" />
+    <Compile Include="Core\Authentication\IAuthenticationProvider.cs" />
+    <Compile Include="Core\Authentication\IAuthenticationService.cs" />
+    <Compile Include="Core\Authentication\Models\AuthResultModelBase.cs" />
+    <Compile Include="Core\Authentication\Models\LoginModelBase.cs" />
+    <Compile Include="Core\Member\Helpers\IMemberServiceHelper.cs" />
+    <Compile Include="Core\Member\Helpers\MemberServiceHelper.cs" />
+    <Compile Include="Core\Member\Models\UserPickerModel.cs" />
+    <Compile Include="Core\Member\Web\UserApiController.cs" />
+    <Compile Include="Core\User\Web\UserApiController.cs" />
+    <Compile Include="Features\Bulletins\Converters\SocialDetailsPageViewModelConverter.cs" />
+    <Compile Include="Features\Bulletins\Converters\Models\SocialDetailsPageModel.cs" />
+    <Compile Include="Features\Bulletins\Converters\Models\SocialDetailsPageViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialPreviewModel.cs" />
     <Compile Include="Features\CentralFeed\Providers\ContentProviderBase.cs" />
     <Compile Include="Features\CentralFeed\Providers\FeedContentProviderBase.cs" />
     <Compile Include="Features\CentralFeed\Providers\CentralFeedContentProvider.cs" />
     <Compile Include="Features\CentralFeed\Services\CentralFeedContentService.cs" />
     <Compile Include="Features\CentralFeed\Providers\ICentralFeedContentProvider.cs" />
     <Compile Include="Features\CentralFeed\Providers\IFeedContentProvider.cs" />
+    <Compile Include="Features\CentralFeed\Settings\LatestActivitySettings.cs" />
+    <Compile Include="Features\CentralFeed\Web\CentralFeedApiController.cs" />
     <Compile Include="Features\Comments\CommandBus\CommentHandle.cs" />
     <Compile Include="Features\Comments\CommandBus\CommentNotificationHandle.cs" />
     <Compile Include="Features\Comments\Converters\CommentsPanelViewModelConverter.cs" />
@@ -819,9 +945,9 @@
     <Compile Include="Core\Member\Services\IIntranetMemberService.cs" />
     <Compile Include="Core\Member\Services\IntranetMemberService.cs" />
     <Compile Include="Core\Member\Services\IntranetMemberServiceBase.cs" />
+    <Compile Include="Core\ReflectionHelper.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedOverviewModel.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedTypeModel.cs" />
-    <Compile Include="Core\Feed\Web\FeedController.cs" />
     <Compile Include="Core\Login\LoginPageViewModel.cs" />
     <Compile Include="Core\Login\LoginPageViewModelConverter.cs" />
     <Compile Include="Core\Login\LoginPageModel.cs" />
@@ -875,10 +1001,10 @@
     <Compile Include="Core\Feed\State\IFeedFilterStateService.cs" />
     <Compile Include="Core\Feed\Services\IFeedService.cs" />
     <Compile Include="Core\Feed\Models\FeedItemViewModel.cs" />
-    <Compile Include="Features\CentralFeed\Web\CentralFeedController.cs" />
     <Compile Include="Features\Information\IInformationService.cs" />
     <Compile Include="Features\Information\InformationService.cs" />
     <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
+    <Compile Include="Features\Media\MediaTypeEnum.cs" />
     <Compile Include="Features\Navigation\Models\ActivityFeedTabModel.cs" />
     <Compile Include="Features\News\AutoMapperPrfiles\NewsAutoMapperProfile.cs" />
     <Compile Include="Features\News\Entities\News.cs" />
@@ -905,8 +1031,8 @@
     <Compile Include="Features\Tagging\UserTags\Models\UserTagItemViewModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\LatestActivitiesPanelViewModelConverter.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\SelectedActivityPropertyEditorConvertor.cs" />
-    <Compile Include="Features\UintraPanels\LastActivities\Helpers\ILatestActivitiesPanelHelper.cs" />
-    <Compile Include="Features\UintraPanels\LastActivities\Helpers\LatestActivitiesPanelHelper.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Helpers\ICentralFeedHelper.cs" />
+    <Compile Include="Features\UintraPanels\LastActivities\Helpers\CentralFeedHelper.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Injection\LastActivityInjectModule.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelViewModel.cs" />
@@ -915,24 +1041,23 @@
     <Compile Include="Infrastructure\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\Models\GoogleOAuth.cs" />
-    <Compile Include="Features\Bulletins\AutoMapperProfiles\BulletinsAutoMapperProfile.cs" />
-    <Compile Include="Features\Bulletins\BulletinBase.cs" />
-    <Compile Include="Features\Bulletins\BulletinsService.cs" />
-    <Compile Include="Features\Bulletins\BulletinsServiceBase.cs" />
-    <Compile Include="Features\Bulletins\Entities\Bulletin.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinExtendedCreateModel.cs" />
-    <Compile Include="Features\Bulletins\IBulletinBase.cs" />
-    <Compile Include="Features\Bulletins\IBulletinsService.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinCreateModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinCreationResultModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinEditModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinExtendedEditModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinExtendedItemViewModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinExtendedViewModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinItemViewModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinPreviewViewModel.cs" />
-    <Compile Include="Features\Bulletins\Models\BulletinViewModel.cs" />
-    <Compile Include="Features\Bulletins\Web\BulletinsControllerBase.cs" />
+    <Compile Include="Features\Bulletins\AutoMapperProfiles\SocialsAutoMapperProfile.cs" />
+    <Compile Include="Features\Bulletins\SocialBase.cs" />
+    <Compile Include="Features\Bulletins\SocialsService.cs" />
+    <Compile Include="Features\Bulletins\SocialsServiceBase.cs" />
+    <Compile Include="Features\Bulletins\Entities\Social.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialExtendedCreateModel.cs" />
+    <Compile Include="Features\Bulletins\ISocialBase.cs" />
+    <Compile Include="Features\Bulletins\ISocialsService.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialCreateModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialCreationResultModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialEditModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialExtendedEditModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialExtendedItemViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialExtendedViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialItemViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialPreviewViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialViewModel.cs" />
     <Compile Include="Infrastructure\Caching\CacheHelper.cs" />
     <Compile Include="Infrastructure\Caching\ICacheService.cs" />
     <Compile Include="Infrastructure\Caching\MemoryCacheService.cs" />
@@ -972,10 +1097,13 @@
     <Compile Include="Features\Comments\Sql\Comment.cs" />
     <Compile Include="Features\Comments\Sql\CommentToLinkPreviewEntity.cs" />
     <Compile Include="Features\Comments\Web\CommentsControllerBase.cs" />
+    <Compile Include="Infrastructure\Caching\Web\CacheController.cs" />
+    <Compile Include="Infrastructure\Configuration\UIntraConfiguration.cs" />
     <Compile Include="Infrastructure\Constants\DocumentTypeAliasConstants.cs" />
     <Compile Include="Infrastructure\Constants\GridEditorConstants.cs" />
     <Compile Include="Infrastructure\Constants\IntranetConstants.cs" />
     <Compile Include="Infrastructure\Constants\UmbracoAliases.cs" />
+    <Compile Include="Infrastructure\Constants\UsersInstallationConstants.cs" />
     <Compile Include="Infrastructure\Context\ContextType.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxAutoMapperProfile.cs" />
     <Compile Include="Core\Controls\LightboxGallery\LightboxGalleryPreviewModel.cs" />
@@ -985,6 +1113,7 @@
     <Compile Include="Infrastructure\Exceptions\ExceptionLogger.cs" />
     <Compile Include="Infrastructure\Exceptions\IExceptionLogger.cs" />
     <Compile Include="Infrastructure\Extensions\ActivitiesServiceFactoryExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\AutoMapperExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\ContextExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\DateTimeExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
@@ -993,8 +1122,9 @@
     <Compile Include="Infrastructure\Extensions\HttpContextExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\IntranetMemberServiceExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\ListExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\ModelStateExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\NameValueCollectionExtensions.cs" />
-    <Compile Include="Infrastructure\Extensions\OptionExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\PublishedContentExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\StringExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\TreeExt.cs" />
     <Compile Include="Infrastructure\Extensions\UmbracoMemberExtensions.cs" />
@@ -1089,7 +1219,7 @@
     <Compile Include="Features\Media\VideoConverterLogService.cs" />
     <Compile Include="Features\Media\VideoHelper.cs" />
     <Compile Include="Features\Media\VideoSizeMetadataModel.cs" />
-    <Compile Include="Infrastructure\Ioc\BulletinsInjectModule.cs" />
+    <Compile Include="Infrastructure\Ioc\SocialsInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\NotificationInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\ActivityInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\UintraInjectModule.cs" />
@@ -1241,6 +1371,15 @@
     <Compile Include="Infrastructure\Utils\EmbeddedResourcesUtils.cs" />
     <Compile Include="Infrastructure\Utils\IEmbeddedResourceService.cs" />
     <Compile Include="Infrastructure\Helpers\XPathHelper.cs" />
+    <Compile Include="Models\UmbracoIdentity\ExternalLoginListViewModel.cs" />
+    <Compile Include="Models\UmbracoIdentity\ForgotPasswordViewModel.cs" />
+    <Compile Include="Models\UmbracoIdentity\LoginViewModel.cs" />
+    <Compile Include="Models\UmbracoIdentity\RegisterViewModel.cs" />
+    <Compile Include="Models\UmbracoIdentity\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\UmbracoIdentity\RoleManagementModel.cs" />
+    <Compile Include="Models\UmbracoIdentity\UmbracoApplicationMember.cs" />
+    <Compile Include="Models\UmbracoIdentity\UmbracoApplicationRole.cs" />
+    <Compile Include="Models\UmbracoIdentity\UserPasswordModel.cs" />
     <Compile Include="Persistence\Context\DbContextFactory.cs" />
     <Compile Include="Persistence\Context\DbObjectContext.cs" />
     <Compile Include="Persistence\Context\IntranetDbContext.cs" />
@@ -1297,6 +1436,26 @@
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\AvailableActivitySelector\package.manifest" />
+    <Content Include="Content\uintra20\src\styles\abstracts\grid.less" />
+    <Content Include="Content\uintra20\src\styles\abstracts\index.less" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-Italic.woff" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-Italic.woff2" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-Bold.woff" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-Bold.woff2" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-Regular.woff" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-Regular.woff2" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-BoldItalic.woff" />
+    <Content Include="Content\uintra20\src\assets\fonts\Muli-BoldItalic.woff2" />
+    <Content Include="Content\uintra20\src\base.less" />
+    <Content Include="Content\uintra20\src\styles\temp\index.less" />
+    <Content Include="Content\uintra20\src\styles\temp\nav.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\index.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\layout.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\form-elements.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\typographic.less" />
+    <Content Include="App_Plugins\SentMails\package.manifest" />
+    <Content Include="Content\uintra20\src\styles\typography\font.less" />
+    <Content Include="Content\uintra20\src\styles\typography\index.less" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
@@ -1309,6 +1468,7 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\InternalServerErrorPage.cshtml" />
     <Content Include="Views\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Base.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1330,8 +1490,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\uintra20\src\app\ui\main-layout\" />
+    <Folder Include="Core\Feed\Web\" />
     <Folder Include="Infrastructure\Authentication\" />
-    <Folder Include="Infrastructure\Configuration\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1361,6 +1525,21 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PipelineCollectFilesPhaseDependsOn>
+    CustomCollectFiles;
+    $(PipelineCollectFilesPhaseDependsOn);
+  </PipelineCollectFilesPhaseDependsOn>
+  </PropertyGroup>
+  <Target Name="CustomCollectFiles">
+    <Message Text="Inside of CustomCollectFiles" Importance="high" />
+    <ItemGroup>
+      <_CustomFiles Include="wwwroot\**\*" Exclude="**\node_modules\**;content\**" />
+      <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
+        <DestinationRelativePath>wwwroot\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+  </Target>
   <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" />
   <Target Name="BeforeBuild">
     <Message Text="Executing TransformXml for Web.$(Configuration).config" Importance="normal" />
@@ -1379,11 +1558,16 @@
     <Error Condition="!Exists('..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.targets'))" />
     <Error Condition="!Exists('..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.props'))" />
     <Error Condition="!Exists('..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.targets'))" />
+    <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
   </Target>
   <Import Project="..\..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />
   <Import Project="..\..\packages\uSync.8.1.1\build\uSync.targets" Condition="Exists('..\..\packages\uSync.8.1.1\build\uSync.targets')" />
   <Import Project="..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.8.3.0\build\UmbracoCms.targets')" />
   <Import Project="..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.targets" Condition="Exists('..\..\packages\Compent.UBaseline.UI.0.2.10\build\Compent.UBaseline.UI.targets')" />
+  <Import Project="..\..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

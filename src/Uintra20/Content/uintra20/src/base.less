@@ -1,13 +1,10 @@
 // Important this file has to import the only mixins and variables.
-@import "./styles/tools/index.less";
-@import "./styles/variables.less";
+@import "./styles/abstracts/variables.less"; 
+@import "./styles/abstracts/mq.less"; 
+@import "./styles/mixins/index.less";
+@import './styles/icons/style.less';
 @import "./styles/grid.config.less";
 @import "@ubaseline/next/css-tools/grid/grid";
 
-@debug: true;
-head {
-	display: none;
-	&::after {
-		.ubl-debug();
-	}
-}
+//components
+@import "./styles/components/index.less";

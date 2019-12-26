@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using LanguageExt;
 
 namespace Uintra20.Infrastructure.Caching
 {
@@ -11,17 +10,7 @@ namespace Uintra20.Infrastructure.Caching
             string cacheKey,
             DateTimeOffset? lifetime = null,
             params string[] itemSuffix) where T : class;
-        Task<Option<T>> GetOrSetAsyncOption<T>(
-            Func<Task<Option<T>>> getItemCallback,
-            string cacheKey,
-            DateTimeOffset? lifetime = null,
-            params string[] itemSuffix) where T : class;
-        Task<Option<T>> GetOrSetAsync<T>(
-            Func<Task<Option<T>>> getItemCallback,
-            string cacheKey,
-            DateTimeOffset? lifetime = null,
-            params string[] itemSuffix) where T : class;
-        Task<Unit> SetAsync<T>(Func<Task<T>> getItemCallback, string cacheKey, DateTimeOffset? lifetime = null, params string[] itemSuffix);
+        Task SetAsync<T>(Func<Task<T>> getItemCallback, string cacheKey, DateTimeOffset? lifetime = null, params string[] itemSuffix);
 
         void Set<T>(string cacheKey, T items, DateTimeOffset? lifeTime = null, params string[] uniqueSuffixes);
         T GetOrSet<T>(string cacheKey, Func<T> getItemCallback, DateTimeOffset? lifeTime = null, params string[] uniqueSuffixes) where T : class;

@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Compent.Extensions;
 using UBaseline.Core.Extensions;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Persistence.Sql;
-using static LanguageExt.Prelude;
 
 namespace Uintra20.Features.Notification.Services
 {
@@ -97,9 +97,9 @@ namespace Uintra20.Features.Notification.Services
         {
             var uiNotifierTypeId = NotifierTypeEnum.UiNotifier.ToInt();
 
-            var basePredicate = expr((Sql.Notification notification) =>
+            Expression<Func<Sql.Notification, bool>> basePredicate = notification =>
                 notification.ReceiverId == receiverId &&
-                notification.NotifierType == uiNotifierTypeId);
+                notification.NotifierType == uiNotifierTypeId;
 
             var predicate = excludeAlreadyNotified
                 ? basePredicate.AndAlso(notification => !notification.IsNotified)
@@ -173,10 +173,11 @@ namespace Uintra20.Features.Notification.Services
         private IList<Sql.Notification> GetNotifications(Guid receiverId, bool excludeAlreadyNotified = false)
         {
             var uiNotifierTypeId = NotifierTypeEnum.UiNotifier.ToInt();
-
-            var basePredicate = expr((Sql.Notification notification) =>
+            
+            Expression<Func<Sql.Notification, bool>> basePredicate = notification =>
                 notification.ReceiverId == receiverId &&
-                notification.NotifierType == uiNotifierTypeId);
+                notification.NotifierType == uiNotifierTypeId;
+
 
             var predicate = excludeAlreadyNotified
                 ? basePredicate.AndAlso(notification => !notification.IsNotified)
