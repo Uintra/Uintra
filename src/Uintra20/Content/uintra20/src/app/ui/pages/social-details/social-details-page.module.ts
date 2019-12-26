@@ -4,6 +4,7 @@ import { AS_DYNAMIC_COMPONENT } from '@ubaseline/next';
 import { RouterModule } from '@angular/router';
 import { UbaselineCoreModule } from '@ubaseline/next';
 import { SocialDetailsPanelComponent } from './social-details-page.component';
+import { LikeButtonModule } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { SocialDetailsPanelComponent } from './social-details-page.component';
   imports: [
     CommonModule,
     RouterModule.forChild([{ path: '', component: SocialDetailsPanelComponent }]),
-    UbaselineCoreModule
+    UbaselineCoreModule,
+    LikeButtonModule,
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: SocialDetailsPanelComponent }

@@ -16,7 +16,7 @@
             <div class="feed-header">
               <a [routerLink]="['/']"
                  class="link-back">Go to List</a>
-              <a routerLink="/{{activityName}}"
+              <a routerLink="/{{activityName.toLowerCase() + '/edit'}}"
                  [queryParams]="{id: details.id}"
                  class="btn link-edit">Edit</a>
             </div>
@@ -35,21 +35,29 @@
                     <span class="feed-item-name">{{details.headerInfo.owner.displayedName}}</span>
                   </a>
                   <span class="feed-item-divider"> - </span>
-                <span class="feed-item-date">{{details.publishDate | date: 'MMM d, y hh:mm'}}</span>
+                  <span class="feed-item-date">{{details.publishDate | date: 'MMM d, y hh:mm'}}</span>
                   <span class="feed-item-divider"> - </span>
-                  <span class="feed-item-category">{{details.activityType}}</span>
+                  <span class="feed-item-category">{{activityName}}</span>
                   <span class="feed-item-inactive"
                         *ngIf="false">[Inactive]</span>
                 </div>
-                <div class="feed-item-text" [innerHtml]="details.description"></div>
-                <div class="feed-item-feed">
-                  
+                <div class="feed-item-text"
+                     [innerHtml]="details.description"></div>
+                <div class="feed-item-tags" *ngIf="tags.length !== 0">
+                  <strong>This activity is tagged</strong>
+                  <div class="tag-list">
+                    <a class="tag-list-item"
+                       [routerLink]="['/search']"
+                       [queryParams]="{query: 123}"
+                       [innerHTML]="123123123"></a>
+                  </div>
                 </div>
+                <!-- <app-like-button [likeData]="likeData"></app-like-button> -->
               </div>
             </div>
-            <ubl-dynamic-component *ngFor="let panel of data.panels.get()"
-                                   [data]="panel.get()"></ubl-dynamic-component>
           </div>
+          <ubl-dynamic-component *ngFor="let panel of data.panels.get()"
+                                 [data]="panel.get()"></ubl-dynamic-component>
         </div>
       </div>
     </div>

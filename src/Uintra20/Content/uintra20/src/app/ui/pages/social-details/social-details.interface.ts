@@ -2,6 +2,7 @@ import { ActivityEnum } from 'src/app/feature/shared/enums/activity-type.enum';
 
 export interface ISocialDetails {
     activityType: ActivityEnum;
+    activityName: string;
     canEdit: boolean;
     description: string;
     headerInfo: IHeaderInfo;
