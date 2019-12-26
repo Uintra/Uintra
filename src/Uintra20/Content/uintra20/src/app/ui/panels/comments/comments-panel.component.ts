@@ -15,6 +15,5 @@ export class CommentsPanel implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data);
   }
 }

@@ -12,12 +12,46 @@
             <span class="icon-window js-aside-opener"></span>
           </div>
           <div class="bulletin-details-content">
-            <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
+            <!-- added -->
+            <div class="feed-header">
+              <a [routerLink]="['/']"
+                 class="link-back">Go to List</a>
+              <a routerLink="/{{activityName}}"
+                 [queryParams]="{id: details.id}"
+                 class="btn link-edit">Edit</a>
+            </div>
+            <div class="feed-item-details">
+              <a [routerLink]="['/profile']"
+                 [queryParams]="{id: details.id}"
+                 class="avatar">
+                <div class="avatar-letter">
+                  1
+                </div>
+              </a>
+              <div class="feed-item-title-holder">
+                <div class="feed-item-meta">
+                  <a [routerLink]="['/profile']"
+                     [queryParams]="{id: details.id}">
+                    <span class="feed-item-name">{{details.headerInfo.owner.displayedName}}</span>
+                  </a>
+                  <span class="feed-item-divider"> - </span>
+                <span class="feed-item-date">{{details.publishDate | date: 'MMM d, y hh:mm'}}</span>
+                  <span class="feed-item-divider"> - </span>
+                  <span class="feed-item-category">{{details.activityType}}</span>
+                  <span class="feed-item-inactive"
+                        *ngIf="false">[Inactive]</span>
+                </div>
+                <div class="feed-item-text" [innerHtml]="details.description"></div>
+                <div class="feed-item-feed">
+                  
+                </div>
+              </div>
+            </div>
+            <ubl-dynamic-component *ngFor="let panel of data.panels.get()"
+                                   [data]="panel.get()"></ubl-dynamic-component>
           </div>
         </div>
       </div>
     </div>
   </div>
 </main>
-
-
