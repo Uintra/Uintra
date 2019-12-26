@@ -12,8 +12,10 @@
       <button class="ql-emoji icon-smily"></button>
       <button class="ql-bold" [title]="'Bold'"></button>
       <button class="ql-italic" [title]="'Italic'"></button>
+      <button *ngIf="isUnderline" class="ql-underline" [title]="'Underline'"></button>
       <button class="ql-link icon-link"></button>
       <button
+        *ngIf="isDropzone"
         class="ql-dropzone icon-attachment"
         (click)="onShowDropdown()"
       ></button>

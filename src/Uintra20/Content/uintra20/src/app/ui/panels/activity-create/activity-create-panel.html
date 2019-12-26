@@ -33,6 +33,7 @@
 
         <app-rich-text-editor [(ngModel)]="description"
                               (addAttachment)="addAttachment()"
+                              [isUnderline]="false"
                               placeholder="Write a message, post a photo or share a document">
           <button submit
                   [disabled]="isSubmitDisabled"

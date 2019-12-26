@@ -4,12 +4,17 @@
   <ul class="comments-list">
     <app-comment-item></app-comment-item>
   </ul>
+
   <h4 class="comments-panel__rte-title">Add comment</h4>
-  <!-- <app-rich-text-editor [(ngModel)]="description" placeholder="">
+  <app-rich-text-editor 
+    [(ngModel)]="description"
+    (addAttachment)="addAttachment()"
+    [isDropzone]="false"
+    placeholder="">
     <button submit
       class="bulletin-popup__submit-button"
       (click)="onCommentSubmit()">
       Send
     </button>
-  </app-rich-text-editor> -->
+  </app-rich-text-editor>
 </section>

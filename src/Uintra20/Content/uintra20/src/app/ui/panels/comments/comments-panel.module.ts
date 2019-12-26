@@ -14,7 +14,11 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     NotImplementedModule,
-    RichTextEditorModule,
+    RichTextEditorModule.configure({
+      modules: {
+        'emoji-toolbar': true,
+      }
+    }),
     UserAvatarModule,
     LikeButtonModule,
     FormsModule

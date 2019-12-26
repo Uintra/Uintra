@@ -35,4 +35,29 @@
     font-size: 13px !important;
     height: 100%;
   }
+
+  dropzone > .dropzone.dz-wrapper {
+    padding: 0 14px !important;
+    height: 0 !important;
+
+    &.dz-started {
+      height: auto !important;
+    }
+
+    .dz-message {
+      border: 0 !important;
+      background: none !important;
+      min-height: 0 !important;
+    }
+
+    .dz-remove {
+      margin-top: 5px;
+      color: #337ab7;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
