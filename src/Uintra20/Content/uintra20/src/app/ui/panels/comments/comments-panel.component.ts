@@ -1,5 +1,6 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
 import { ICommentsPanel } from './comments-panel.interface';
+import { DropzoneComponent } from 'ngx-dropzone-wrapper';
 
 @Component({
   selector: 'comments-panel',
@@ -8,9 +9,11 @@ import { ICommentsPanel } from './comments-panel.interface';
   encapsulation: ViewEncapsulation.None
 })
 export class CommentsPanel implements OnInit {
+  @ViewChild("dropdownRef", { static: false }) dropdownRef: DropzoneComponent;
 
   data: ICommentsPanel;
   description: string = "";
+  files: Array<any> = [];
 
   constructor() {
   }
@@ -19,7 +22,29 @@ export class CommentsPanel implements OnInit {
     console.log(this.data);
   }
 
+  addAttachment() {
+    this.dropdownRef.directiveRef.dropzone().clickableElements[0].click();
+    debugger
+  }
+
+  onUploadSuccess(fileArray: Array<any> = []): void {
+    this.files.push(fileArray);
+  }
+
+  onFileRemoved(removedFile: object) {
+    this.files = this.files.filter(file => {
+      const fileElement = file[0];
+      return fileElement !== removedFile;
+    });
+  }
+
   onCommentSubmit() {
-    
+    console.log(this.data);
+    // const data = {
+    //   EntityId: this.data.activityId;
+    //   EntityType: this.data.
+    //   ParentId: 
+    //   Text: 
+    // }
   }
 }
