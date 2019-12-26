@@ -39,7 +39,7 @@ namespace Uintra20.Features.Comments.Converters
 
         public void Map(CommentsPanelModel node, CommentsPanelViewModel viewModel)
         {
-            if (Guid.TryParse(HttpContext.Current?.Request["id"], out Guid pageId))
+            if (Guid.TryParse(HttpContext.Current?.Request.GetByKey("id"), out Guid pageId))
             {
                 var comments = _commentsService.GetMany(pageId);
 
