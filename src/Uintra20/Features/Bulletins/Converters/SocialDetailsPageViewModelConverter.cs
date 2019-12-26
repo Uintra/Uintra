@@ -31,9 +31,11 @@ namespace Uintra20.Features.Bulletins.Converters
 
         public void Map(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
         {
-            if (Guid.TryParse(HttpContext.Current?.Request["id"], out Guid id))
+            var id = HttpContext.Current.Request.GetByKey("id");
+
+            if (Guid.TryParse(id, out var parseId))
             {
-                viewModel.Details = GetViewModel(id);
+                viewModel.Details = GetViewModel(parseId);
             }
         }
 

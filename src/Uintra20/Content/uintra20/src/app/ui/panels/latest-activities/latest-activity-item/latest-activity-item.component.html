@@ -1,0 +1,9 @@
+<div class="type-and-date">
+
+    <p>{{activityType}}</p>
+    <p>{{activityDate | date: 'MMM d, y hh:mm'}}</p>
+</div>
+<a [routerLink]="'social-details'"
+   [queryParams]="{id: activityId}"
+   class="block-subtitle-clamp"
+   [innerHtml]="activityDescription"></a>

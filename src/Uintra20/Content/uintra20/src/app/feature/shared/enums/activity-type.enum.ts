@@ -1,3 +1,3 @@
 export enum ActivityType {
-    Bulletins = 'bulletins'
+    Bulletins = 'bulletin'// TODO: Rename, bulletin = > social (simultaneously with backend)
 }

@@ -58,5 +58,18 @@ namespace Uintra20.Infrastructure.Extensions
 
             return currentUser;
         }
+
+        public static string GetByKey(this HttpRequest request, string key)
+        {
+            var queryParameter = $"?{key}=";
+
+            var ubaselineRequestQuery = request["url"];
+
+            var id = ubaselineRequestQuery
+                .Substring(ubaselineRequestQuery.IndexOf(queryParameter, StringComparison.Ordinal))
+                .Replace(queryParameter, string.Empty);
+
+            return id;
+        }
     }
 }

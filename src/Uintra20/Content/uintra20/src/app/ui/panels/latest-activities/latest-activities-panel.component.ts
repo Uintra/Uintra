@@ -1,18 +1,17 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { ILatestActivitiesPanel } from '../contract/latest-activities-panel.interface';
+import { ILatestActivitiesPanel } from './latest-activities-panel.interface';
 
 @Component({
   selector: 'latest-activities-panel',
-  templateUrl: './latest-activities-panel.html',
-  styleUrls: ['./latest-activities-panel.less'],
+  templateUrl: './latest-activities-panel.component.html',
+  styleUrls: ['./latest-activities-panel.component.less'],
   encapsulation: ViewEncapsulation.None
 })
 export class LatestActivitiesPanelComponent implements OnInit {
 
-  constructor(
-    private router: Router
-  ) { }
+  constructor() { }
+
   public readonly data: ILatestActivitiesPanel;
   public title: string;
   public activityCells: any;
@@ -22,11 +21,6 @@ export class LatestActivitiesPanelComponent implements OnInit {
     this.title = this.data.title.get();
     this.activityCells = Object.values(this.data.feed.get());
     this.showAll = this.data.showSeeAllButton.get();
-  }
-
-  public seeAll = (): void => {
-    console.log('navigated to bulletins');
-    // this.router.navigate(['bulletins']);
   }
 }
 
