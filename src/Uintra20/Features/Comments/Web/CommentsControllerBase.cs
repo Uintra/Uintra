@@ -64,8 +64,7 @@ namespace Uintra20.Features.Comments.Web
         }
 
         [HttpPut]
-        public virtual async Task<CommentsOverviewModel> Edit(Guid entityId, ContextType entityType,
-            CommentEditModel model)
+        public virtual async Task<CommentsOverviewModel> Edit(CommentEditModel model)
         {
             var editCommentId = model.Id;
 
@@ -76,16 +75,16 @@ namespace Uintra20.Features.Comments.Web
             }
 
             var editDto = MapToEditDto(model, editCommentId);
-            var command = new EditCommentCommand(entityId, entityType, editDto);
+            var command = new EditCommentCommand(model.EntityId, model.EntityType, editDto);
             _commandPublisher.Publish(command);
 
             await OnCommentEditedAsync(editCommentId);
 
-            switch (entityType.ToInt())
+            switch (model.EntityType.ToInt())
             {
                 case int type
                     when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
-                    var activityCommentsInfo = GetActivityComments(entityId);
+                    var activityCommentsInfo = GetActivityComments(model.EntityId);
                     return await OverViewAsync(activityCommentsInfo.Id, activityCommentsInfo.Comments, activityCommentsInfo.IsReadOnly);
                 default:
                     return await OverViewAsync(comment.ActivityId);
