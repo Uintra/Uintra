@@ -2,7 +2,7 @@
     class="like-button"
     (click)="onClickLike()"
     [ngClass]="{
-      'like-button--active': likeData.likedByCurrentUser
+      'like-button--active': likeData?.likedByCurrentUser
     }"
   >
     <i class="icon-like"></i>

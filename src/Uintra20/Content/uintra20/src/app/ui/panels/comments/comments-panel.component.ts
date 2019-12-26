@@ -10,11 +10,16 @@ import { ICommentsPanel } from './comments-panel.interface';
 export class CommentsPanel implements OnInit {
 
   data: ICommentsPanel;
+  description: string = "";
 
   constructor() {
   }
 
   ngOnInit(): void {
     console.log(this.data);
+  }
+
+  onCommentSubmit() {
+    
   }
 }
