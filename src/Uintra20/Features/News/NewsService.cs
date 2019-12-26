@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using Compent.CommandBus;
 using Compent.Extensions;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Activity.Models;
+using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
+using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.Comments.Services;
@@ -18,6 +22,7 @@ using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview;
 using Uintra20.Features.Links;
+using Uintra20.Features.Links.Models;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media;
 using Uintra20.Features.Notification;
@@ -53,6 +58,8 @@ namespace Uintra20.Features.News
         private readonly IUserTagService _userTagService;
         private readonly IActivityLocationService _activityLocationService;
         private readonly IGroupService _groupService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
+        private readonly IIntranetLocalizationService _localizationService;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -72,7 +79,8 @@ namespace Uintra20.Features.News
             IUserTagService userTagService,
             IActivityLinkPreviewService activityLinkPreviewService,
             IGroupService groupService,
-            INotifierDataBuilder notifierDataBuilder)
+            INotifierDataBuilder notifierDataBuilder,
+            IIntranetLocalizationService localizationService)
             : base(intranetActivityRepository, cacheService, intranetMemberService,
                 activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
                 permissionsService)
@@ -90,6 +98,8 @@ namespace Uintra20.Features.News
             _groupService = groupService;
             _notifierDataBuilder = notifierDataBuilder;
             _activityLocationService = activityLocationService;
+            _intranetMemberService = intranetMemberService;
+            _localizationService = localizationService;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.News;
@@ -100,15 +110,29 @@ namespace Uintra20.Features.News
         {
             Entities.News news = Get(activityId);
 
-            var extendedModel = news.Map<IntranetActivityPreviewModelBase>();
+            IActivityLinks links = null;//_feedLinkService.GetLinks(id);//TODO:Uncomment when profile link service is ready
+            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
 
-            extendedModel.HeaderInfo = model.HeaderInfo.Map<ExtendedItemHeaderViewModel>();
-            extendedModel.HeaderInfo.GroupInfo = options.GroupInfo;
+            var viewModel = news.Map<IntranetActivityPreviewModelBase>();
+            viewModel.CanEdit = CanEdit(news);
+            viewModel.Links = links;
+            viewModel.Owner = _intranetMemberService.Get(news).Map<MemberViewModel>();
+            viewModel.Type = _localizationService.Translate(news.Type.ToString());
+            viewModel.LikedByCurrentUser = news.Likes.Any(x => x.UserId == currentMemberId);
+            viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);
+            var dates = news.PublishDate.ToDateTimeFormat().ToEnumerable().ToList();
 
-            extendedModel.LikesInfo = item;
-            extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;
-            extendedModel.IsReadOnly = options.IsReadOnly;
-            return extendedModel;
+            if (news.UnpublishDate.HasValue)
+            {
+                dates.Add(news.UnpublishDate.Value.ToDateTimeFormat());
+            }
+
+            viewModel.Dates = dates;
+
+            _likesService.FillLikes(viewModel);
+            DependencyResolver.Current.GetService<ILightboxHelper>().FillGalleryPreview(viewModel, news.MediaIds);
+
+            return viewModel;
         }
 
         public MediaSettings GetMediaSettings()
