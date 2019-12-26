@@ -221,7 +221,7 @@ namespace Uintra20.Features.Comments.Web
             IIntranetMember creator)
         {
             var model = comment.Map<CommentViewModel>();
-            model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate : default(DateTime?);
+            model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate.ToDateTimeFormat() : null;
             model.CanEdit = _commentsService.CanEdit(comment, currentMemberId);
             model.CanDelete = _commentsService.CanDelete(comment, currentMemberId);
             model.Creator = creator.Map<MemberViewModel>();
