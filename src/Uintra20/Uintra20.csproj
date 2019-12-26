@@ -837,6 +837,9 @@
     <Content Include="Content\uintra20\src\styles\mixins\elements.less" />
     <Content Include="Content\uintra20\src\styles\components\index.less" />
     <Content Include="Content\uintra20\src\styles\components\form-elements.less" />
+    <Content Include="Content\uintra20\src\styles\reset\index.less" />
+    <Content Include="Content\uintra20\src\styles\reset\reset.less" />
+    <Content Include="config\UIntra\LatestActivitySettings.json" />
     <None Include="Content\uintra20\src\styles\temp\aside.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
@@ -1418,7 +1421,6 @@
     <Content Include="App_Plugins\AvailableActivitySelector\package.manifest" />
     <Content Include="Content\uintra20\src\styles\abstracts\grid.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\index.less" />
-    <Content Include="Content\uintra20\src\styles\abstracts\font.less" />
     <Content Include="Content\uintra20\src\assets\fonts\Muli-Italic.woff" />
     <Content Include="Content\uintra20\src\assets\fonts\Muli-Italic.woff2" />
     <Content Include="Content\uintra20\src\assets\fonts\Muli-Bold.woff" />
@@ -1435,6 +1437,8 @@
     <Content Include="Content\uintra20\src\styles\mixins\form-elements.less" />
     <Content Include="Content\uintra20\src\styles\mixins\typographic.less" />
     <Content Include="App_Plugins\SentMails\package.manifest" />
+    <Content Include="Content\uintra20\src\styles\typography\font.less" />
+    <Content Include="Content\uintra20\src\styles\typography\index.less" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
@@ -1471,7 +1475,6 @@
   <ItemGroup>
     <Folder Include="Content\uintra20\src\app\ui\main-layout\" />
     <Folder Include="Core\Feed\Web\" />
-    <Folder Include="Infrastructure\Authentication\" />
     <Folder Include="Infrastructure\Authentication\" />
   </ItemGroup>
   <ItemGroup>
