@@ -74,7 +74,7 @@ namespace Uintra20.Features.Bulletins.AutoMapperProfiles
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.MapFrom(src => MediaHelper.GetMediaUrls(src.MediaIds.ToArray())));
+                .ForMember(dst => dst.Media, o => o.Ignore());
 
             CreateMap<Social, SocialPreviewModel>()
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
@@ -82,7 +82,7 @@ namespace Uintra20.Features.Bulletins.AutoMapperProfiles
                 .ForMember(dst => dst.Owner, o => o.Ignore())
                 .ForMember(dst => dst.MediaPreview, o => o.Ignore())
                 .ForMember(dst => dst.LikedByCurrentUser, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.MapFrom(src => MediaHelper.GetMediaUrls(src.MediaIds.ToArray())))
+                .ForMember(dst => dst.Media, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type))
                 .ForMember(dst => dst.Dates, o => o.MapFrom(src => src.PublishDate.ToDateTimeFormat().ToEnumerable()));
 

@@ -55,6 +55,12 @@
                   </div>
                 </div>
                 <app-like-button [likeData]="likeData"></app-like-button>
+                <div class="feed-item-images" *ngFor="let image of medias">
+                  <div class="gallery-item">
+                      <img class="gallery-image" [src]="image">
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>

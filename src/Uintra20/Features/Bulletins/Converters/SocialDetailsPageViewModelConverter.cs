@@ -1,6 +1,5 @@
 ﻿using Compent.Extensions;
 using System;
-using System.Linq;
 using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
@@ -14,6 +13,7 @@ using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Links.Models;
+using Uintra20.Features.Media;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
 
@@ -21,9 +21,9 @@ namespace Uintra20.Features.Bulletins.Converters
 {
     public class SocialDetailsPageViewModelConverter : INodeViewModelConverter<SocialDetailsPageModel, SocialDetailsPageViewModel>
     {
-        private readonly IFeedLinkService _feedLinkService;
-        private readonly ISocialsService<Social> _socialsService;
-        private readonly IIntranetMemberService<IntranetMember> _memberService;
+        private readonly IFeedLinkService feedLinkService;
+        private readonly ISocialsService<Social> socialsService;
+        private readonly IIntranetMemberService<IntranetMember> memberService;
         private readonly IUserTagService userTagService;
         private readonly ILikesService likesService;
 
@@ -34,9 +34,9 @@ namespace Uintra20.Features.Bulletins.Converters
             IUserTagService userTagService, 
             ILikesService likesService)
         {
-            _feedLinkService = feedLinkService;
-            _socialsService = socialsService;
-            _memberService = memberService;
+            this.feedLinkService = feedLinkService;
+            this.socialsService = socialsService;
+            this.memberService = memberService;
             this.userTagService = userTagService;
             this.likesService = likesService;
         }
@@ -56,20 +56,21 @@ namespace Uintra20.Features.Bulletins.Converters
 
         protected SocialExtendedViewModel GetViewModel(Guid id)
         {
-            var social = _socialsService.Get(id);
+            var social = socialsService.Get(id);
             
             if (social == null) return null;
 
-            IActivityLinks links = null;//_feedLinkService.GetLinks(id);//TODO:Uncomment when profile link service is ready
+            IActivityLinks links = null;//feedLinkService.GetLinks(id);//TODO:Uncomment when profile link service is ready
 
             var viewModel = social.Map<SocialViewModel>();
 
-            viewModel.CanEdit = _socialsService.CanEdit(social);
+            viewModel.Media = MediaHelper.GetMediaUrls(social.MediaIds);
+            viewModel.CanEdit = socialsService.CanEdit(social);
             viewModel.Links = links;
             viewModel.IsReadOnly = false;
             viewModel.HeaderInfo = social.Map<IntranetActivityDetailsHeaderViewModel>();
             viewModel.HeaderInfo.Dates = social.PublishDate.ToDateTimeFormat().ToEnumerable();
-            viewModel.HeaderInfo.Owner = _memberService.Get(social).Map<MemberViewModel>();
+            viewModel.HeaderInfo.Owner = memberService.Get(social).Map<MemberViewModel>();
             viewModel.HeaderInfo.Links = links;
 
             var extendedModel = viewModel.Map<SocialExtendedViewModel>();

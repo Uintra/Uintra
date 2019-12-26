@@ -17,6 +17,7 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
   tags: Array<IUserTag>;
   activityName: string;
   likeData: ILikeData;
+  medias: Array<string>;
 
   constructor(
     private route: ActivatedRoute
@@ -30,7 +31,7 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
     this.details = parsedData.details;
     this.activityName = this.parseActivityType(this.details.activityType);
     this.tags = Object.values(parsedData.tags);
-
+    this.medias = Object.values(parsedData.details.media);
     this.likeData = {
       likedByCurrentUser: parsedData.likedByCurrentUser,
       id: parsedData.details.id,
