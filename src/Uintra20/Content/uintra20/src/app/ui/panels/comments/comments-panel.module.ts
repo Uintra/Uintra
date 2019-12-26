@@ -6,19 +6,16 @@ import { CommentsPanel } from './comments-panel.component';
 import { RichTextEditorModule } from 'src/app/feature/project/reusable/inputs/rich-text-editor/rich-text-editor.module';
 import { UserAvatarModule } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar.module';
 import { LikeButtonModule } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.module';
-import { CommentItemComponent } from './components/comment-item/comment-item.component';
 import { FormsModule } from '@angular/forms';
+import { CommentItemComponent } from './components/comment-item/comment-item.component';
+import { SubcommentItemComponent } from './components/subcomment-item/subcomment-item.component';
 
 @NgModule({
-  declarations: [CommentsPanel, CommentItemComponent],
+  declarations: [CommentsPanel, CommentItemComponent, SubcommentItemComponent],
   imports: [
     CommonModule,
     NotImplementedModule,
-    RichTextEditorModule.configure({
-      modules: {
-        'emoji-toolbar': true,
-      }
-    }),
+    RichTextEditorModule,
     UserAvatarModule,
     LikeButtonModule,
     FormsModule

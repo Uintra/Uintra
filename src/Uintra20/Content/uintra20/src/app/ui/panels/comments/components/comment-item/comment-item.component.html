@@ -1,25 +1,42 @@
 <li class="comment">
-  <app-user-avatar class="comment__avatar" [data]="avatar" big></app-user-avatar>
+  <app-user-avatar class="comment__avatar" [data]="data.creator.photo" big></app-user-avatar>
   <div>
       <div class="comment__info">
-          <a class="comment__author-name">Author</a>
-          <span class="comment__author-inactive">[Inactive] - Dec 20, 2019 - 17:47</span>
-          <button class="comment__reply">Reply</button>
-          <div class="comment__controls">
-              <ul class="comment__controls-list">
-                  <li class="comment__controls-list-item">
-                      <button class="comment__controls-list-btn">Edit</button>
-                  </li>
-                  <li class="comment__controls-list-item">
-                      <button class="comment__controls-list-btn">Delete</button>
-                  </li>
-              </ul>
+        <a class="comment__author-name">{{data.creator.displayedName}}</a>
+        <span class="comment__author-inactive"> - Dec 20, 2019 - 17:47</span>
+        <button class="comment__reply">Reply</button>
+        <div class="comment__controls">
+          <ul class="comment__controls-list">
+            <li class="comment__controls-list-item">
+              <button class="comment__controls-list-btn" (click)="toggleEditingMode()">Edit</button>
+            </li>
+            <li class="comment__controls-list-item">
+              <button class="comment__controls-list-btn" (click)="onCommentDelete()">Delete</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="!isEditing" class="comment__content" innerHTML="{{data.text}}"></div>
+      <app-like-button [likeData]="data.likeModel"></app-like-button>
+
+      <app-rich-text-editor
+        *ngIf="isEditing"
+        [(ngModel)]="data.text"
+        [isDropzone]="false"
+        placeholder="">
+          <div class="flex" submit>
+            <button
+              class="bulletin-popup__submit-button"
+              (click)="cancelEditing()">
+              Cancel
+            </button>
+            <button
+              class="bulletin-popup__submit-button"
+              (click)="onSubmitEditedValue()">
+              Save
+            </button>
           </div>
-      </div>
-      <div class="comment__content">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vestibulum fringilla pede sit amet augue. 
-          Aenean massa. Fusce commodo aliquam arcu. Morbi mollis tellus ac sapien.
-      </div>
-      <app-like-button [likeData]="likeData"></app-like-button>
+      </app-rich-text-editor>
   </div>
+  <!-- TODO subcomments -->
 </li>

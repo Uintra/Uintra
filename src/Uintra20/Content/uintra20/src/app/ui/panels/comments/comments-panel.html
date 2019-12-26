@@ -1,14 +1,18 @@
-<ubl-not-implemented [data]="data" [description]="data.contentTypeAlias || 'comments panel'"></ubl-not-implemented>
 <section class="comments-panel">
   <h3 class="comments-panel__title">Comments</h3>
   <ul class="comments-list">
-    <app-comment-item></app-comment-item>
+    <app-comment-item
+        *ngFor="let comment of data.comments.data" 
+        class="comments-list__item"
+        [data]="comment" 
+        (deleteComment)="deleteComment($event)" 
+        (submitEditedValue)="editComment($event)"
+        [activityType]="data.activityType"></app-comment-item>
   </ul>
 
   <h4 class="comments-panel__rte-title">Add comment</h4>
   <app-rich-text-editor 
     [(ngModel)]="description"
-    (addAttachment)="addAttachment()"
     [isDropzone]="false"
     placeholder="">
     <button submit

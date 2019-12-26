@@ -19,8 +19,8 @@ export class SocialDetailsPanelComponent implements OnInit {
   private addActivityTypeProperty(data) {
     // TODO investigate UmbracoFlatProperty and refactor code below
     data.panels.data.value = data.panels.get().map(panel => {
-      panel.data.activityType = data.details.get().activityType.get();
-      return panel;
+      panel.data.value.activityType = data.details.get().activityType.get();
+      return panel
     })
 
     return data;

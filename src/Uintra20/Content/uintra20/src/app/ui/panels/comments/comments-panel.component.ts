@@ -1,6 +1,6 @@
-import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ICommentsPanel } from './comments-panel.interface';
-import { DropzoneComponent } from 'ngx-dropzone-wrapper';
+import { CommentsService } from './helpers/comments.service';
 
 @Component({
   selector: 'comments-panel',
@@ -9,42 +9,34 @@ import { DropzoneComponent } from 'ngx-dropzone-wrapper';
   encapsulation: ViewEncapsulation.None
 })
 export class CommentsPanel implements OnInit {
-  @ViewChild("dropdownRef", { static: false }) dropdownRef: DropzoneComponent;
-
   data: ICommentsPanel;
   description: string = "";
-  files: Array<any> = [];
 
-  constructor() {
+  constructor(private cs: CommentsService) {
   }
 
   ngOnInit(): void {
     console.log(this.data);
   }
 
-  addAttachment() {
-    this.dropdownRef.directiveRef.dropzone().clickableElements[0].click();
-    debugger
-  }
+  onCommentSubmit() {
+    const data = {
+      EntityId: window.location.href.slice(window.location.href.indexOf('id=') + 3),
+      EntityType: this.data.activityType,
+      ParentId: null,
+      Text: this.description,
+    }
 
-  onUploadSuccess(fileArray: Array<any> = []): void {
-    this.files.push(fileArray);
-  }
-
-  onFileRemoved(removedFile: object) {
-    this.files = this.files.filter(file => {
-      const fileElement = file[0];
-      return fileElement !== removedFile;
+    this.cs.onCreate(data).then( (res: any) => {
+      this.data.comments.data = res.comments;
+      this.description = '';
     });
   }
 
-  onCommentSubmit() {
-    console.log(this.data);
-    // const data = {
-    //   EntityId: this.data.activityId;
-    //   EntityType: this.data.
-    //   ParentId: 
-    //   Text: 
-    // }
+  deleteComment(obj) {
+    this.cs.deleteComment(obj)
+      .then((res: any) => {
+        this.data.comments.data = res.comments.filter(comment => comment.id !== obj.commentId);
+      });
   }
 }
