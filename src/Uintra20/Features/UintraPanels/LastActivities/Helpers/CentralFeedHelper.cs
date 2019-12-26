@@ -159,8 +159,10 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
         private FeedListViewModel GetFeedListViewModel(FeedListModel model, List<IFeedItem> filteredItems,
             Enum centralFeedType)
         {
-            var take = model.Page * _itemsPerPage;
+            var take = _itemsPerPage;
+            var skip = (model.Page - 1) * _itemsPerPage;
             var pagedItemsList = SortForFeed(filteredItems, centralFeedType)
+                .Skip(skip)
                 .Take(take)
                 .ToList();
 
