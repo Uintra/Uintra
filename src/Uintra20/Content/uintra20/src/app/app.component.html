@@ -1,1 +1,29 @@
-<router-outlet></router-outlet>
+<main class="main">
+  <app-header></app-header>
+  <div class="content">
+    <nav class="nav">
+      <div class="nav__header">
+        <!--TODO mobile search-->
+        <div class="nav__search">search div</div>
+        <span class="icon-close js-nav-close"></span>
+      </div>      
+      <!--TODO navigation-->
+      <ul class="nav-list">
+        <li><a href="/">left navigation</a></li>
+      </ul>
+    </nav>
+    <div class="content__wrap">
+      <div class="row-flex">
+        <div class="col-md-8">
+          <div class="aside-opener">
+            <span class="icon-window js-aside-opener"></span>
+          </div>
+          <router-outlet></router-outlet>
+        </div>
+        <div class="col-md-4 aside">
+          <!--<ubl-dynamic-component [data]="latestActivities[0].get()"></ubl-dynamic-component>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

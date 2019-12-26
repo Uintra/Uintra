@@ -817,6 +817,7 @@
     <Content Include="Content\uintra20\src\assets\fonts\icomoon.svg" />
     <Content Include="Content\uintra20\src\assets\fonts\icomoon.ttf" />
     <Content Include="Content\uintra20\src\assets\fonts\icomoon.woff" />
+    <Content Include="Content\uintra20\src\assets\img\admin.svg" />
     <Content Include="Content\uintra20\src\assets\img\logo.svg" />
     <Content Include="Content\uintra20\src\assets\img\u-intra-text-logo.svg" />
     <Content Include="Content\uintra20\src\styles\grid.config.less" />
@@ -1439,6 +1440,7 @@
     <Content Include="App_Plugins\SentMails\package.manifest" />
     <Content Include="Content\uintra20\src\styles\typography\font.less" />
     <Content Include="Content\uintra20\src\styles\typography\index.less" />
+    <Content Include="Content\uintra20\src\styles\temp\search.less" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />

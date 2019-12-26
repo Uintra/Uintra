@@ -20,24 +20,15 @@ head {
   }
 }
 
-.content {
-  display: flex;
-
-  &__wrap {
-    padding: 0;
-    flex-grow: 1;
-
-    @media @md-up {
-      padding: 47px 0 0 45px;
-    }
-  }
-}
-
 body {
     margin: 0;
     background-color: @body-bg;
     color: @body-text-color;
     font: @body-font;
+
+    &.nav--open {
+      overflow: hidden;
+    }
 }
 
 h1 {
@@ -72,6 +63,29 @@ breadcrumb {
   margin: 0 0 20px;
 }
 
-.logo {
-  margin-bottom: 39px;
+.main {
+  .centering;
+  padding: 70px 15px 0 0;
+
+  @media @md-down {
+    padding: 60px 0 0;
+  }
+}
+
+.content {
+  display: flex;
+  overflow: hidden;
+
+  &__wrap {
+    padding: 0;
+    flex-grow: 1;
+
+    @media @md-up {
+      padding: 15px 0 0 15px;
+    }
+
+    @media @lg-up {
+      padding: 47px 0 0 45px;
+    }
+  }
 }
