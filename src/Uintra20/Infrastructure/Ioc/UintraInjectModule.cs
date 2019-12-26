@@ -61,7 +61,7 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<Uintra20.Core.Authentication.IAuthenticationService, Uintra20.Core.Authentication.AuthenticationService>();
             services.AddScoped<IIntranetLocalizationService, LocalizationService>();
 
-            services.AddScoped(typeof(INewsService<News>), typeof(NewsService));
+            services.AddScoped<INewsService<News>, NewsService>();
 
             services.AddScoped<ILightboxHelper, LightboxHelper>();
 

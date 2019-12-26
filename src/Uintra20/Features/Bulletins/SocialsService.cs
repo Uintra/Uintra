@@ -120,7 +120,7 @@ namespace Uintra20.Features.Bulletins
 
             var currentMemberId = _intranetMemberService.GetCurrentMemberId();
 
-            var viewModel = bulletin.Map<SocialPreviewModel>();
+            var viewModel = bulletin.Map<IntranetActivityPreviewModelBase>();
             viewModel.CanEdit = CanEdit(bulletin);
             viewModel.Links = links;
             viewModel.Owner = _intranetMemberService.Get(bulletin).Map<MemberViewModel>();

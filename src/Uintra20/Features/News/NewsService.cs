@@ -27,6 +27,7 @@ using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Caching;
+using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
 using static Uintra20.Features.Notification.Configuration.NotificationTypeEnum;
 
@@ -94,9 +95,20 @@ namespace Uintra20.Features.News
         public override Enum Type => IntranetActivityTypeEnum.News;
 
         public override Enum PermissionActivityType => PermissionResourceTypeEnum.News;
+
         public override IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId)
         {
-            throw new NotImplementedException();
+            Entities.News news = Get(activityId);
+
+            var extendedModel = news.Map<IntranetActivityPreviewModelBase>();
+
+            extendedModel.HeaderInfo = model.HeaderInfo.Map<ExtendedItemHeaderViewModel>();
+            extendedModel.HeaderInfo.GroupInfo = options.GroupInfo;
+
+            extendedModel.LikesInfo = item;
+            extendedModel.LikesInfo.IsReadOnly = options.IsReadOnly;
+            extendedModel.IsReadOnly = options.IsReadOnly;
+            return extendedModel;
         }
 
         public MediaSettings GetMediaSettings()

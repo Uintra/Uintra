@@ -5,6 +5,7 @@ using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Models;
 using Uintra20.Features.Likes;
 using Uintra20.Features.Likes.Models;
+using Uintra20.Features.LinkPreview.Models;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.Location.Models;
 
@@ -27,5 +28,7 @@ namespace Uintra20.Core.Activity.Models
         public bool LikedByCurrentUser { get; set; }
         public int CommentsCount { get; set; }
         public LightboxPreviewModel MediaPreview { get; set; }
+        public string Description { get; set; }
+        public LinkPreviewViewModel LinkPreview { get; set; }
     }
 }
