@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ISocialDetails } from './social-details.interface';
+import { ISocialDetails, IUserTag } from './social-details.interface';
 import { ActivityEnum } from 'src/app/feature/shared/enums/activity-type.enum';
 import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
 
@@ -14,7 +14,7 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
 
   data: any;
   details: ISocialDetails;
-  tags: any;
+  tags: Array<IUserTag>;
   activityName: string;
   likeData: ILikeData;
 
@@ -25,16 +25,18 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.details = JSON.parse(JSON.stringify(this.data.details.get()));
+    const parsedData = JSON.parse(JSON.stringify(this.data));
+
+    this.details = parsedData.details;
     this.activityName = this.parseActivityType(this.details.activityType);
-    this.tags = Object.values(JSON.parse(JSON.stringify(this.data.tags.get())));
-    debugger;
-    // this.likeData = {
-    //   likedByCurrentUser: this.publication.activity.likedByCurrentUser,
-    //   id: this.publication.activity.id,
-    //   activityType: this.publication.activity.activityType,
-    //   likes: this.publication.activity.likes
-    // };
+    this.tags = Object.values(parsedData.tags);
+
+    this.likeData = {
+      likedByCurrentUser: parsedData.likedByCurrentUser,
+      id: parsedData.details.id,
+      activityType: parsedData.details.activityType,
+      likes: Object.values(parsedData.likes)
+    };
   }
 
   public ngOnDestroy(): void {

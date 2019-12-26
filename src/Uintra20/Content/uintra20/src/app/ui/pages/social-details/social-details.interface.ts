@@ -26,3 +26,8 @@ export interface IOwner {
     photo: string;
     photoId: number;
 }
+
+export interface IUserTag {
+    id: string;
+    text: string;
+}

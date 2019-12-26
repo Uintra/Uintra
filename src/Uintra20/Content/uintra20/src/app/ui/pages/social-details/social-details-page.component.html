@@ -43,16 +43,18 @@
                 </div>
                 <div class="feed-item-text"
                      [innerHtml]="details.description"></div>
-                <div class="feed-item-tags" *ngIf="tags.length !== 0">
+                <div class="feed-item-tags"
+                     *ngIf="tags.length !== 0">
                   <strong>This activity is tagged</strong>
-                  <div class="tag-list">
+                  <div class="tag-list"
+                       *ngFor="let tag of tags">
                     <a class="tag-list-item"
                        [routerLink]="['/search']"
-                       [queryParams]="{query: 123}"
-                       [innerHTML]="123123123"></a>
+                       [queryParams]="{query: tag.text}"
+                       [innerHTML]="tag.text"></a>
                   </div>
                 </div>
-                <!-- <app-like-button [likeData]="likeData"></app-like-button> -->
+                <app-like-button [likeData]="likeData"></app-like-button>
               </div>
             </div>
           </div>

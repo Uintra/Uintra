@@ -212,11 +212,14 @@ namespace Uintra20.Features.Media
         {
             return media.HasProperty(IsDeletedPropertyTypeAlias) && media.Value<bool>(IsDeletedPropertyTypeAlias);
         }
-        public static IEnumerable<string> GetMediaUrls(IEnumerable<int> ids)
+        public static string[] GetMediaUrls(int[] ids)
         {
+            if (ids.Length == 0)
+                return Array.Empty<string>();
+
             var mediaProvider = DependencyResolver.Current.GetService<IMediaProvider>();
 
-            return ids.Select(id => mediaProvider.GetById(id)?.Url).Where(url => url.HasValue());
+            return ids.Select(id => mediaProvider.GetById(id)?.Url).Where(url => url.HasValue()).ToArray();
         }
         private void SaveVideoAdditionProperties(IMedia media)
         {
