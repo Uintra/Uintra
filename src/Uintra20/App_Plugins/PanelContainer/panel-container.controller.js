@@ -8,12 +8,14 @@
     $q,
     $timeout,
     formHelper,
-    serverValidationManager)
+    serverValidationManager,
+    notificationsService)
 {
     var vm = this;
     var currentNode = editorState.getCurrent();
     vm.nextOrderIndex = 0;
     vm.selectedPanels = [];
+    var culture = param("cculture") || param("mculture") || "";
 
     $scope.sortableOptions = {
         axis: 'y',
@@ -51,6 +53,11 @@
         vm.setupPanelEditorFor(panel, false, panel.isGlobal);
     }
 
+    vm.copyAnchor = function(url) {
+        sendToClipboard(url);
+        notificationsService.success(`Url copied to clipboard ${url}`);
+    }
+
     vm.showLocalPanelList = function()
     {
         var options = {
@@ -61,7 +68,9 @@
             selectPanel: panel => {
                vm.setupPanelEditorFor(panel, true);
             },
-            close: () => editorService.close()
+            close: () => {
+                editorService.close();
+            }
         }
 
         editorService.open(options);
@@ -72,6 +81,8 @@
         getGlobalPanelTypes().then(response => {
             let panels = getVisiblePanels(response).map(data => {
                 data.isGlobal = true;
+                data.name = `${data.nodeName} (${data.name})`;
+
                 return data;
             });
 
@@ -86,7 +97,7 @@
                         order: vm.nextOrderIndex++
                     });
 
-                    vm.selectedPanels.push(panel)
+                    vm.selectedPanels.push(panel);
                     renderSelected();
                     editorService.close();
                 },
@@ -107,7 +118,18 @@
                 contentTypeAlias: panel.alias,
                 animating: true,
                 close: model => {
-                    editorService.closeAll();
+                    panelContainerResource.getGlobalPanelAnchors(panel.nodeId).then(urls => {
+
+                        let existingPanel = findInTreeModel(vm.globalPanelTypes, panel.nodeId);
+
+                        if (existingPanel)
+                        {
+                            existingPanel.anchors = urls;
+                            renderSelected();
+                        }
+
+                        editorService.closeAll();
+                    })
                 }
             }
 
@@ -168,6 +190,42 @@
 
         editorService.open(options);
     }
+
+    function createAnchoredLinks(anchor)
+    {
+        if (!anchor) return [];
+
+        const links = currentNode.urls.filter(function (i) {
+            return i.isUrl && (!culture || i.culture.toLowerCase() === culture.toLowerCase());
+        });
+
+        return links.map(function (i) { return i.text + "#" + anchor; });
+    }
+
+    function prepareAnchoredLink(panel)
+    {
+        if (!panel) return;
+        let anchorProperty = panel.properties.find( prop => prop.alias === 'anchor');
+
+        if (anchorProperty)
+        {
+            return createAnchoredLinks(anchorProperty.value).filter(l => l.indexOf('localhost') === -1)[0];
+        }
+    }
+
+    function param(name) {
+        var arr = (window.location.href.split(name + '=')[1] || '').split('&');
+        return arr && arr.length > 0 ? arr[0] : "";
+    }
+
+    function sendToClipboard (link) {
+        var el = document.createElement('textarea');
+        el.value = link;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+    };
 
     function validate(model) {
         return new Promise(resolve => {
@@ -329,7 +387,6 @@
                     property.value = existedProperty.value;
                });
            });
-
            return scaffold;
        });
     }
@@ -356,7 +413,7 @@
 
         if (model.isGlobal)
         {
-
+            //TODO
         } else {
             let existModel = $scope.model.value.localPanels.find(p => p.order === panelVm.order);
             if (!existModel) throw new Error(`Can't find panel in exited model`);
@@ -380,7 +437,9 @@
         // update order
         allPanels.forEach((p, idx) => p.order = idx);
     }
-    function panelEditorPropertiesToSaveModel(model, options) {
+
+    function panelEditorPropertiesToSaveModel(model, options)
+    {
         const properties = model.properties.map(prop => {
             return {
                 alias: normalizePropertyAliasForSave(prop),
@@ -466,8 +525,10 @@
 
             if (isGlobal(panel))
             {
-                let existingPanel = vm.globalPanelTypes.find(type => type.nodeId === panel.nodeId);
+                let existingPanel = findInTreeModel(vm.globalPanelTypes, panel.nodeId);
+
                 if (existingPanel) {
+                    existingPanel.anchoredUrl = existingPanel.anchors[0];
                     panelType = JSON.parse(angular.toJson(existingPanel));
                 }
                 if (!panelType) {
@@ -483,6 +544,7 @@
                 {
                     const titleProperty = panel.properties.find( prop => prop.alias === 'title');
                     obj.vmTitle = (titleProperty && titleProperty.value) || 'N/a';
+                    obj.anchoredUrl = prepareAnchoredLink(panel);
 
                     panelType = JSON.parse(angular.toJson(obj));
                 }
@@ -497,13 +559,32 @@
         return updateOrdersFor(vms);
     }
 
+    function findInTreeModel(tree, nodeId) {
+        if (!nodeId) return;
+
+        try {
+            tree.forEach(child => {
+                const match = child.nodeId === nodeId;
+                if (match) throw child;
+
+                if (child.children && child.children.length)
+                {
+                    const deepMatch = findInTreeModel(child.children, nodeId);
+                    if (deepMatch) throw(deepMatch)
+                }
+            });
+        } catch (result) {
+            return result;
+        }
+    }
+
     function isPanelHidden(alias) {
         return $scope.model.config.hiddenPanels.indexOf(alias) !== -1;
-    } 
+    }
 
     function getVisiblePanels(panels) {
         return panels.filter(panel => !isPanelHidden(panel.alias));
-    } 
+    }
 
     function removePanelFromModel(panel)
     {
