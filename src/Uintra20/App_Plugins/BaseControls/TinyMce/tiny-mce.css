@@ -14,3 +14,32 @@ blockquote:after {
 blockquote p{
     display:inline-block;
 }
+
+.mce-tinymce {
+    border: 1px solid #d8d7d9!important;
+    border-radius: 0!important
+}
+
+.mce-panel {
+    background: #f3f3f5!important;
+    border-color: #d8d7d9!important
+}
+
+.mce-btn,.mce-btn-group {
+    border: none!important;
+    background: none!important
+}
+
+.mce-ico {
+    font-size: 12px!important;
+    color: #1e1c1c!important
+}
+
+.mce-ico.mce-i-custom[class*=" icon-"],.mce-ico.mce-i-custom[class^=icon-] {
+    font-family: icomoon;
+    font-size: 16px!important
+}
+
+.rte-editor-preval .control-group .controls>div>label .mce-ico {
+    line-height: 20px
+}
