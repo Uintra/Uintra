@@ -9,6 +9,14 @@ export class CommentsService {
   constructor(private http: HttpClient) { }
 
   onCreate(data) {
-    this.http.post('ubaseline/api/comments/add', data)
+    return this.http.post('/ubaseline/api/comments/add', data).toPromise();
+  }
+
+  deleteComment(data) {
+    return this.http.delete(`ubaseline/api/comments/delete?targetId=${data.targetId}&targetType=${data.targetType}&commentId=${data.commentId}`, {}).toPromise();
+  }
+
+  editComment(data) {
+    return this.http.put('/ubaseline/api/comments/edit', data).toPromise();
   }
 }
