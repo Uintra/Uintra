@@ -9,7 +9,7 @@ activity-create-panel {
       display: flex;
       padding: 14px 66px 14px 15px;
       cursor: text;
-      background: @white;
+      background: @main-color;
 
       @media @md-up {
         padding: 22px 20px;
@@ -114,6 +114,15 @@ activity-create-panel {
   }
 
   .feed-btns {
+    display: none;
 
+    @media @md-up {
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      margin-bottom: 15px;
+      background-color: @main-color;
+      padding: 12px 20px;
+      text-align: right;
+      display: block;
+    }
   }
 }
