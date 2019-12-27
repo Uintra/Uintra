@@ -6,7 +6,7 @@ namespace Uintra20.Features.Permissions
     {
         News = IntranetActivityTypeEnum.News,
         Events = IntranetActivityTypeEnum.Events,
-        Bulletins = IntranetActivityTypeEnum.Bulletins,
+        Socials = IntranetActivityTypeEnum.Socials,
         Groups//,
         //Common = 100
     }

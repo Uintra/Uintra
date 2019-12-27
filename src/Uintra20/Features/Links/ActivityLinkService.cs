@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Compent.Shared.Extensions;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Activity.Helpers;

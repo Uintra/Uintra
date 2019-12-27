@@ -29,6 +29,7 @@ Quill.register("modules/counter", Counter);
 })
 export class RichTextEditorComponent implements ControlValueAccessor {
   @Input("value") _value: string = "";
+  @Input() placeholder: string;
   @Output() addAttachment = new EventEmitter();
 
   config: QuillConfig;

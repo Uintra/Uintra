@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Compent.CommandBus;
-using Compent.Shared.Extensions;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;

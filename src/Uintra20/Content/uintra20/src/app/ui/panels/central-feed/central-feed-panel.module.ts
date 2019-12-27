@@ -14,6 +14,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { CentralFeedFiltersComponent } from './central-feed-filters/central-feed-filters.component';
 import { LikeButtonModule } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [CentralFeedPanel, CentralFeedPublicationComponent, CentralFeedFiltersComponent],
@@ -26,7 +27,8 @@ import { LikeButtonModule } from 'src/app/feature/project/reusable/ui-elements/l
     PublicationHeaderModule,
     FormsModule,
     InfiniteScrollModule,
-    LikeButtonModule
+    LikeButtonModule,
+    RouterModule
   ],
   providers: [{provide: AS_DYNAMIC_COMPONENT, useValue: CentralFeedPanel}],
   entryComponents: [CentralFeedPanel]

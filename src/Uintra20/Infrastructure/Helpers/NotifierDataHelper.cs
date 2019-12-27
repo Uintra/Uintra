@@ -205,6 +205,6 @@ namespace Uintra20.Infrastructure.Helpers
         }
 
         private static string GetNotifierDataTitle(IIntranetActivity activity)
-            => activity.Type is IntranetActivityTypeEnum.Bulletins ? activity.Description.StripHtml() : activity.Title;
+            => activity.Type is IntranetActivityTypeEnum.Socials ? activity.Description.StripHtml() : activity.Title;
     }
 }

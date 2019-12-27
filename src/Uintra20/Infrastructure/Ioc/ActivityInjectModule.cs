@@ -1,11 +1,9 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
 using Uintra20.Core.Activity;
-using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Activity.Factories;
 using Uintra20.Core.Activity.Helpers;
 using Uintra20.Features.Bulletins;
 using Uintra20.Features.Bulletins.Entities;
-using Uintra20.Features.CentralFeed.Links;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Tagging.UserTags;
@@ -15,7 +13,7 @@ using Umbraco.Web;
 
 namespace Uintra20.Infrastructure.Ioc
 {
-	public class ActivityInjectModule: IInjectModule
+    public class ActivityInjectModule: IInjectModule
 	{
 		public IDependencyCollection Register(IDependencyCollection services)
 		{
@@ -30,8 +28,8 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IActivitiesServiceFactory, ActivitiesServiceFactory>();
             services.AddTransient<IActivityLocationService, ActivityLocationService>();
             services.AddScoped<IActivityTagsHelper, ActivityTagsHelper>(); 
-            //services.AddScoped<IIntranetActivityService<Bulletin>, BulletinsService<Bulletin>>();
-            services.AddScoped<IIntranetActivityService, BulletinsService<Bulletin>>();
+            //services.AddScoped<IIntranetActivityService<Social>, SocialsService<Social>>();
+            services.AddScoped<IIntranetActivityService, SocialsService<Social>>();
 
             return services;
 		}
