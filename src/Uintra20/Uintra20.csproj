@@ -1465,6 +1465,8 @@
     <Content Include="App_Plugins\SentMails\package.manifest" />
     <Content Include="Content\uintra20\src\styles\typography\font.less" />
     <Content Include="Content\uintra20\src\styles\typography\index.less" />
+    <Content Include="Content\uintra20\src\styles\typography\titles.less" />
+    <Content Include="Content\uintra20\src\styles\typography\text-formating.less" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
@@ -1499,7 +1501,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\uintra20\src\app\ui\main-layout\" />
     <Folder Include="Core\Feed\Web\" />
     <Folder Include="Infrastructure\Authentication\" />
   </ItemGroup>
