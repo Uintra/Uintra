@@ -1,0 +1,10 @@
+﻿<div ng-controller="ubaselineMicrodataController as vm">
+    Please, set page's microdata, otherwise, you can use this 
+    <a class="btn umb-button__button btn-success umb-button" href="https://technicalseo.com/tools/schema-markup-generator/" target="_blank">Online generator</a> or 
+    <span>
+        <button type="button" class="btn umb-button__button btn-success umb-button" ng-click="vm.initCopyFrom()">Copy from existing page</button>
+    </span>
+    <br>
+    <br>
+    <textarea id="structured-data" ng-change="vm.scriptValueChanged()" ng-blur="vm.scriptValueBlured()" name="structuredData" rows="10" ng-model="vm.scriptValue" style="width: 100%"></textarea>
+</div>
