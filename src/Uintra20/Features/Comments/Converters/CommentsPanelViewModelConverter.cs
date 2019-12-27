@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using UBaseline.Core.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Abstractions;
@@ -39,7 +40,7 @@ namespace Uintra20.Features.Comments.Converters
 
         public void Map(CommentsPanelModel node, CommentsPanelViewModel viewModel)
         {
-            if (Guid.TryParse(HttpContext.Current?.Request.GetByKey("id"), out Guid pageId))
+            if (Guid.TryParse(HttpContext.Current?.Request.TryGetQueryValue<string>("id"), out Guid pageId))
             {
                 var comments = _commentsService.GetMany(pageId);
 
