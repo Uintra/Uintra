@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { DYNAMIC_COMPONENTS, UmbracoSupportModule } from '@ubaseline/next';
 import { pages } from './ui/pages/pages';
 import { panels } from './ui/panels/panels';
+import { NavNotificationsModule } from './feature/project/specific/nav-notifications/nav-notifications.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { panels } from './ui/panels/panels';
       apiPrefix: '/ubaseline/api',
       pages: pages,
       environment: environment
-    })
+    }),
+    NavNotificationsModule
   ],
   providers: [
     { provide: DYNAMIC_COMPONENTS, useValue: panels }

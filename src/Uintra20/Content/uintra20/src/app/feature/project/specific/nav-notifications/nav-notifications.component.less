@@ -1,0 +1,57 @@
+@import "base.less";
+
+:host {
+  display: inline-block;
+  margin-left: auto;
+}
+
+.nav-notification {
+  position: relative;
+  display: inline-block;
+
+  &__button {
+    .reset-button;
+    color: @text-reverse-color;
+    font-size: 26px;
+  }
+
+  &__popup {
+    position: absolute;
+    top: 120%;
+    right: -45px;
+    background: @body-bg;
+    border: 1px solid @border-color;
+    max-width: 450px;
+    width: 100vw;
+
+    &:after,
+    &:before {
+      bottom: 100%;
+      right: 50px;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    &:after {
+      border-color: transparent;
+      border-bottom-color: @body-bg;
+      border-width: 7px;
+      margin-left: -7px;
+    }
+
+    &:before {
+      border-color: transparent;
+      border-bottom-color: @border-color;
+      border-width: 8px;
+      margin-left: -8px;
+    }
+
+    &-item {
+      padding: 20px;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<div class="nav-notification" (clickOutside)="hide()">
+    <button (click)="show()" class="nav-notification__button">
+      <span class="icon-bell-icon"></span>
+    </button>
+      <div *ngIf="isShow" class="nav-notification__popup">
+          <div class="nav-notification__popup-item">
+              1Admin 2Admin has added a like to your comment
+          </div>
+          <div class="nav-notification__popup-item">
+              1Admin 2Admin has added a like to your comment
+          </div>
+          <div class="nav-notification__popup-item">
+              1Admin 2Admin has added a like to your comment
+          </div>
+      </div>
+  </div>
