@@ -6,10 +6,7 @@
   font: inherit;
 }
 
-.button-main() {
-  .reset-button;
-  background: @btn-bg;
-  color: @text-reverse-color;
+.button-default() {
   text-transform: uppercase;
   padding: 6px 15px;
   height: 30px;
@@ -19,12 +16,36 @@
   width: auto;
 
   &:hover {
-    opacity: 0.6;
+    text-decoration: none;
     cursor: pointer;
+  }
+}
+
+.button-blue() {
+  .reset-button;
+  .button-default;
+  background: @btn-bg;
+  color: @text-reverse-color;
+
+  &:hover {
+    opacity: 0.6;       
   }
 
   &[disabled] {
     opacity: 0.5;
+  }
+}
+
+.button-white() {
+  .reset-button;
+  .button-default;
+  background: @main-color;
+  color: @body-text-color;
+  border: 1px solid @grey;
+
+  &:hover {
+    border-color: @btn-bg;
+    color: @btn-bg;
   }
 }
 

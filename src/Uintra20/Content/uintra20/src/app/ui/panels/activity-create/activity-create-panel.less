@@ -115,14 +115,22 @@ activity-create-panel {
 
   .feed-btns {
     display: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    background-color: @main-color;
+    padding: 12px 20px;
 
     @media @md-up {
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-      margin-bottom: 15px;
-      background-color: @main-color;
-      padding: 12px 20px;
-      text-align: right;
-      display: block;
+      display: flex;
+    }
+
+    &__col {
+      flex-grow: 1;
+      opacity: 0;
+
+      .btn-default {
+        margin-right: 16px;
+      }
     }
   }
 }
