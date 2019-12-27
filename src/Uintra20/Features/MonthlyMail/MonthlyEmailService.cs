@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Bulletins;
+using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Links;
 using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Entities;
@@ -19,7 +21,7 @@ namespace Uintra20.Features.MonthlyMail
 {
     public class MonthlyEmailService: MonthlyEmailServiceBase
     {
-	    private readonly ISocialsService<SocialBase> _bulletinsService;
+	    private readonly ISocialsService<Social> _bulletinsService;
 	    //todo uncomment when News and Events will be done
         //private readonly IEventsService<EventBase> _eventsService;
         //private readonly INewsService<NewsBase> _newsService;
@@ -29,14 +31,14 @@ namespace Uintra20.Features.MonthlyMail
 
 
         public MonthlyEmailService(IMailService mailService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             IExceptionLogger logger,
-            ISocialsService<SocialBase> bulletinsService,
+            ISocialsService<Social> bulletinsService,
             //IEventsService<EventBase> eventsService,
             //INewsService<NewsBase> newsService,
             IUserTagRelationService userTagService,
             IActivityLinkService activityLinkService,
-            NotificationSettingsService notificationSettingsService, 
+            INotificationSettingsService notificationSettingsService, 
             INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> notificationModelMapper,
             IApplicationSettings applicationSettings) 
             : base(mailService, intranetMemberService, logger, notificationSettingsService, applicationSettings)

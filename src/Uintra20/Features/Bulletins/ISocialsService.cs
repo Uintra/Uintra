@@ -3,7 +3,7 @@ using Uintra20.Features.Media;
 
 namespace Uintra20.Features.Bulletins
 {
-    public interface ISocialsService<TSocials> : IIntranetActivityService<TSocials> where TSocials : SocialBase
+    public interface ISocialsService<TBase> : IIntranetActivityService<TBase> where TBase : SocialBase
     {
         MediaSettings GetMediaSettings();
     }

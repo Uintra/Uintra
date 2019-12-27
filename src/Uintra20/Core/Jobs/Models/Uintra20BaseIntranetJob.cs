@@ -2,13 +2,13 @@
 
 namespace Uintra20.Core.Jobs.Models
 {
-    public class BaseIntranetJob : IIntranetJob
+    public class Uintra20BaseIntranetJob : IIntranetJob
     {
         private readonly object _lock = new object();
 
         private bool _shuttingDown;
 
-        public BaseIntranetJob()
+        public Uintra20BaseIntranetJob()
         {
             HostingEnvironment.RegisterObject(this);
         }

@@ -5,7 +5,7 @@ using Uintra20.Core.Jobs.Models;
 
 namespace Uintra20.Features.Jobs
 {
-    public class UpdateActivityCacheJob : BaseIntranetJob
+    public class UpdateActivityCacheJob : Uintra20BaseIntranetJob
     {
         private readonly IEnumerable<IIntranetActivityService<IIntranetActivity>> _activityServices;
 

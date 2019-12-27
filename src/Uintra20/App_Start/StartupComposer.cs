@@ -1,10 +1,13 @@
-﻿using Compent.Shared.ConfigurationProvider.Json;
+﻿using System.Web.Mvc;
+using Compent.Shared.ConfigurationProvider.Json;
 using Compent.Shared.DependencyInjection.Contract;
 using Compent.Shared.DependencyInjection.LightInject;
 using Compent.Shared.Logging.Serilog;
+using FluentScheduler;
 using LightInject;
 using Microsoft.Extensions.Configuration;
 using UBaseline.Core.Startup;
+using Uintra20.Core.Jobs;
 using Uintra20.Infrastructure.Configuration;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
@@ -36,8 +39,9 @@ namespace Uintra20
                 .RegisterApiControllers(assembly)
                 .RegisterConverters(assembly);
 
-            //LightInjectWebCommon.Start(composition);
-            MapperConfig.RegisterMappings(composition);
+			composition.Components().Append<UintraApplicationComponent>();
+
+			MapperConfig.RegisterMappings(composition);
         }
     }
 

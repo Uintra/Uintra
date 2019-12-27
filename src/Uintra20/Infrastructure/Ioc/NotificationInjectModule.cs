@@ -2,6 +2,8 @@
 using FluentScheduler;
 using Uintra20.Core.Configuration;
 using Uintra20.Core.Jobs;
+using Uintra20.Core.Jobs.Configuration;
+using Uintra20.Core.Jobs.Models;
 using Uintra20.Features.Jobs;
 using Uintra20.Features.MonthlyMail;
 using Uintra20.Features.Notification;
@@ -52,19 +54,22 @@ namespace Uintra20.Infrastructure.Ioc
                 return (INotificationTypeProvider) result;
             });
 
-            services.AddScoped<ReminderJob>();
-            services.AddScoped<MontlyMailJob>();
-			services.AddScoped<SendEmailJob>();
-			services.AddScoped<UpdateActivityCacheJob>();
-			services.AddScoped<IJobFactory,IntranetJobFactory>();
+            services.AddScopedToCollection<Uintra20BaseIntranetJob, ReminderJob>();
+            //services.AddScopedToCollection<Uintra20BaseIntranetJob, MontlyMailJob>();
+            services.AddScopedToCollection<Uintra20BaseIntranetJob, SendEmailJob>();
+            //services.AddScopedToCollection<Uintra20BaseIntranetJob, UpdateActivityCacheJob>();
+            //services.AddScopedToCollection<Uintra20BaseIntranetJob, GdprMailsJob>();
 			services.AddScoped<IReminderRunner, ReminderRunner>();
 			services.AddScoped<IReminderService, ReminderService>();
 			services.AddScoped<IMonthlyEmailService,MonthlyEmailService>();
+			services.AddTransient<IJobFactory, IntranetJobFactory>();
 
 			services.AddSingleton<IConfigurationProvider<ReminderConfiguration>>(i =>
 				new ConfigurationProvider<ReminderConfiguration>(
 					"~/Features/Reminder/reminderConfiguration.json"));
-			
+			services.AddSingleton<IJobSettingsConfiguration, JobSettingsConfiguration>();
+				
+
 
 			return services;
         }

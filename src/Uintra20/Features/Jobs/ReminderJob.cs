@@ -4,7 +4,7 @@ using Uintra20.Features.Reminder.Services;
 
 namespace Uintra20.Features.Jobs
 {
-    public class ReminderJob : BaseIntranetJob
+    public class ReminderJob : Uintra20BaseIntranetJob
     {
         private readonly IReminderRunner _reminderRunner;
 

@@ -1,8 +1,11 @@
-﻿using Compent.Shared.DependencyInjection.Contract;
+﻿using System.Configuration;
+using Compent.Shared.DependencyInjection.Contract;
+using Localization.Core;
+using Localization.Core.Configuration;
+using Localization.Storage.UDictionary;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Localization;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Information;
@@ -32,7 +35,6 @@ namespace Uintra20.Infrastructure.Ioc
 			services.AddSingleton<IInformationService,InformationService>();
 
             services.AddScoped<ICacheService, MemoryCacheService>();
-            services.AddSingleton<IIntranetMemberGroupService, IntranetMemberGroupService>();
             services.AddScoped<IEmbeddedResourceService, EmbeddedResourceService>();
             services.AddScoped<IExceptionLogger, ExceptionLogger>();
             services.AddScoped<IMediaHelper, MediaHelper>();
@@ -56,10 +58,19 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<ICookieProvider, CookieProvider>();
             services.AddScoped<IMentionService, MentionService>();
             services.AddScoped<ISubscribeService, SubscribeService>();
-            services.AddScoped<Uintra20.Core.Authentication.IAuthenticationService, Uintra20.Core.Authentication.AuthenticationService>();
+            services.AddScoped<IAuthenticationService, Uintra20.Core.Authentication.AuthenticationService>();
             services.AddScoped<IIntranetLocalizationService, LocalizationService>();
+            services.AddScoped<ILocalizationCoreService, LocalizationCoreService>();
+            services.AddScoped<ILocalizationStorageService, LocalizationStorageService>();
+            services.AddScoped<ILocalizationCacheProvider, LocalizationMemoryCacheProvider>();
+            services.AddScoped<ILocalizationCacheService,LocalizationCacheService>();
+            services.AddScoped<ILocalizationSettingsService, LocalizationSettingsService>();
+            services.AddScoped<ILocalizationResourceCacheService, LocalizationResourceCacheService>();
 
-            services.AddScoped<ILightboxHelper, LightboxHelper>();
+			services.AddSingleton(i =>
+	            (ILocalizationConfigurationSection) ConfigurationManager.GetSection("localizationConfiguration"));
+
+			services.AddScoped<ILightboxHelper, LightboxHelper>();
 
 			return services;
 		}

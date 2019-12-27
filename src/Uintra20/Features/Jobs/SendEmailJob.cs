@@ -3,7 +3,7 @@ using Uintra20.Features.Notification.Services;
 
 namespace Uintra20.Features.Jobs
 {
-    public class SendEmailJob : BaseIntranetJob
+    public class SendEmailJob : Uintra20BaseIntranetJob
     {
         private readonly IMailService _mailService;
 

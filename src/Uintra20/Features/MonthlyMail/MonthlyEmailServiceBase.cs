@@ -5,6 +5,7 @@ using System.Text;
 using Compent.Extensions;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Configuration;
@@ -22,14 +23,14 @@ namespace Uintra20.Features.MonthlyMail
     {
         private readonly IMailService _mailService;
         private readonly IExceptionLogger _logger;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
-        private readonly NotificationSettingsService _notificationSettingsService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
+        private readonly INotificationSettingsService _notificationSettingsService;
         private readonly IApplicationSettings _applicationSettings;
 
         protected MonthlyEmailServiceBase(IMailService mailService,
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             IExceptionLogger logger,
-            NotificationSettingsService notificationSettingsService,
+            INotificationSettingsService notificationSettingsService,
             IApplicationSettings applicationSettings)
         {
             _mailService = mailService;

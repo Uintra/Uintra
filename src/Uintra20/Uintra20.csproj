@@ -916,6 +916,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\UintraApplicationComponent.cs" />
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="App_Start\StartupComposer.cs" />
@@ -988,8 +989,9 @@
     <Compile Include="Core\Jobs\IntranetJobFactory.cs" />
     <Compile Include="Core\Jobs\JobConfiguration.cs" />
     <Compile Include="Core\Jobs\JobsRegistry.cs" />
-    <Compile Include="Core\Jobs\Models\BaseIntranetJob.cs" />
+    <Compile Include="Core\Jobs\Models\Uintra20BaseIntranetJob.cs" />
     <Compile Include="Core\Jobs\Models\IIntranetJob.cs" />
+    <Compile Include="Features\Jobs\GdprMailsJob.cs" />
     <Compile Include="Features\Jobs\MontlyMailJob.cs" />
     <Compile Include="Features\Jobs\ReminderJob.cs" />
     <Compile Include="Features\Jobs\SendEmailJob.cs" />
@@ -1220,6 +1222,7 @@
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\EnumExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\EnumTypeExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\FactoryExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\HttpContextExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\IntranetMemberServiceExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\ListExtensions.cs" />

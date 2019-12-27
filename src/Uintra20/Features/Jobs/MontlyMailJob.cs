@@ -3,7 +3,7 @@ using Uintra20.Features.MonthlyMail;
 
 namespace Uintra20.Features.Jobs
 {
-    public class MontlyMailJob : BaseIntranetJob
+    public class MontlyMailJob : Uintra20BaseIntranetJob
     {
         private readonly IMonthlyEmailService _monthlyEmailService;
 
