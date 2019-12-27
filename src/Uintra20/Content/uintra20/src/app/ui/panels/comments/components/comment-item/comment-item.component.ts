@@ -10,7 +10,6 @@ export class CommentItemComponent implements OnInit {
   @Input() data: any;
   @Input() activityType: any;
   @Output() deleteComment = new EventEmitter();
-  @Output() submitEditedValue = new EventEmitter();
 
   isEditing: boolean = false;
   initialValue: any;
