@@ -863,6 +863,7 @@
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
     <Compile Include="App_Plugins\Utils\Сache\CacheDashboard.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Core\Activity\Models\IntranetActivityDetailsViewModel.cs" />
     <Compile Include="Core\Feed\Controllers\SocialsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\FileController.cs" />
@@ -1007,9 +1008,13 @@
     <Compile Include="Features\Media\MediaTypeEnum.cs" />
     <Compile Include="Features\Navigation\Models\ActivityFeedTabModel.cs" />
     <Compile Include="Features\News\AutoMapperPrfiles\NewsAutoMapperProfile.cs" />
+    <Compile Include="Features\News\Converters\Models\NewsDetailsPageModel.cs" />
+    <Compile Include="Features\News\Converters\Models\NewsDetailsPageViewModel.cs" />
+    <Compile Include="Features\News\Converters\NewsDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\News\Entities\News.cs" />
     <Compile Include="Features\News\INewsService.cs" />
     <Compile Include="Features\News\Models\NewsCreateModel.cs" />
+    <Compile Include="Features\News\Models\NewsDetailsViewModel.cs" />
     <Compile Include="Features\News\Models\NewsEditModel.cs" />
     <Compile Include="Features\News\Models\NewsExtendedCreateModel.cs" />
     <Compile Include="Features\News\Models\NewsExtendedEditModel.cs" />
