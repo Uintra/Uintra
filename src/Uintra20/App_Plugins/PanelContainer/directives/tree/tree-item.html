@@ -1,0 +1,16 @@
+<li class="umb-tree-item umb-animated ubl-tree=item">
+    <div class="umb-tree-item__inner" ng-class="{'disabled': model.isDisabled}" ng-style="{'padding-left': level * 20 + 'px'}">
+        <button ng-style="{'visibility': model.children.length ? 'visible' : ''}"
+            class="umb-tree-item__arrow umb-outline btn-reset"
+            ng-click="toggleChildren()"
+            ng-class="{'icon-navigation-right': !!model.children.length && !model.expanded, 'icon-navigation-down': model.expanded}">
+        </button>
+        <i class="icon umb-tree-icon {{model.icon}}"></i>
+        <span class="umb-tree-item__annotation"></span>
+        <a class="umb-tree-item__label umb-outline ng-binding"
+            ng-click="!model.isDisabled && select(model)">{{ model.name }}</a>
+    </div>
+    <ul ng-class="{'collapsed': !model.expanded}">
+        <ubl-tree-item ng-repeat="child in model.children" level="level + 1" model="child"></ubl-tree-item>
+    </ul>
+</li>
