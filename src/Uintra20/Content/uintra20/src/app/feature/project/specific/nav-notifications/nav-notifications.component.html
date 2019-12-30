@@ -1,16 +1,44 @@
 <div class="nav-notification" (clickOutside)="hide()">
-    <button (click)="show()" class="nav-notification__button">
-      <span class="icon-bell-icon"></span>
-    </button>
-      <div *ngIf="isShow" class="nav-notification__popup">
-          <div class="nav-notification__popup-item">
-              1Admin 2Admin has added a like to your comment
-          </div>
-          <div class="nav-notification__popup-item">
-              1Admin 2Admin has added a like to your comment
-          </div>
-          <div class="nav-notification__popup-item">
-              1Admin 2Admin has added a like to your comment
-          </div>
+  <button (click)="show()" class="nav-notification__button">
+    <span class="icon-bell-icon"></span>
+    <span class="nav-notification__count" *ngIf="notificationCount > 0">
+      {{ notificationCount }}
+    </span>
+  </button>
+  <div *ngIf="isShow && notifications" class="nav-notification__popup">
+    <a
+      [routerLink]="notification.value.url"
+      class="nav-notification__popup-item notification-item"
+      *ngFor="let notification of notifications"
+    >
+      <div class="notification-item__avatar">
+        <app-user-avatar
+          big
+          [data]="notification.notifier.photo"
+        ></app-user-avatar>
       </div>
+      <div class="notification-item__content">
+        <div class="notification-item__date">{{ notification.date }}</div>
+        <div
+          class="notification-item__text"
+          [innerHTML]="notification.value.message"
+        ></div>
+      </div>
+      <div
+        *ngIf="notification.value.isPinned"
+        class="notification-item__label"
+        [ngClass]="{
+          'notification-item__label--important': notification.value.isPinned,
+          'notification-item__label--actual': notification.value.isPinActual
+        }"
+      >
+        Important
+      </div>
+    </a>
+
+    <a
+      [routerLink]="'all-notofications'"
+      class="nav-notification__popup-item notification-item notification-item--with-background"
+    >See all notifications</a>
   </div>
+</div>

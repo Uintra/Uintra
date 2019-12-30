@@ -9,10 +9,12 @@ import { DYNAMIC_COMPONENTS, UmbracoSupportModule } from '@ubaseline/next';
 import { pages } from './ui/pages/pages';
 import { panels } from './ui/panels/panels';
 import { NavNotificationsModule } from './feature/project/specific/nav-notifications/nav-notifications.module';
+import { ClickOutsideDirective } from './feature/project/reusable/inputs/tag-multiselect/helpers/click-outside.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ClickOutsideDirective
   ],
   imports: [
     BrowserModule,

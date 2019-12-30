@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavNotificationsComponent } from './nav-notifications.component';
-import { ClickOutsideDirective } from '../../reusable/inputs/tag-multiselect/helpers/click-outside.directive';
-
-
+import { HttpClientModule } from '@angular/common/http';
+import { UserAvatarModule } from '../../reusable/ui-elements/user-avatar/user-avatar.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [NavNotificationsComponent, ClickOutsideDirective],
+  declarations: [NavNotificationsComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule,
+    UserAvatarModule,
+    RouterModule
   ],
   exports: [ NavNotificationsComponent ]
 })

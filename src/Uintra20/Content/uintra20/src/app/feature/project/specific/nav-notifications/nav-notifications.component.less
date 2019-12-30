@@ -51,7 +51,32 @@
     }
 
     &-item {
-      padding: 20px;
+      // padding: 20px;
     }
+  }
+}
+
+.notification-item {
+  display: flex;
+  padding: 20px;
+  text-decoration: none;
+  color: @body-text-color;
+  background: @main-color;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid @border-color;
+  }
+
+  &--with-background {
+    background: @body-bg;
+  }
+
+  &__avatar {
+    margin-right: 20px;
+  }
+
+  &__date {
+    font-size: 11px;
+    line-height: 20px;
   }
 }
