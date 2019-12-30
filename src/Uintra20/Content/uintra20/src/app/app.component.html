@@ -16,20 +16,7 @@
         </ul>
       </nav>
       <div class="content__wrap">
-        <div class="row-flex">
-          <div class="col-md-8">
-            <div class="aside-opener">
-              <span class="icon-window js-aside-opener"></span>
-            </div>
-            <router-outlet></router-outlet>
-          </div>
-          <div class="col-md-4 aside" *ngIf="hasPanels">
-            <ubl-dynamic-component
-              *ngFor="let panel of data.panels.get()"
-              [data]="panel.get()"
-            ></ubl-dynamic-component>
-          </div>
-        </div>
+        <router-outlet></router-outlet>
       </div>
     </div>
   </main>

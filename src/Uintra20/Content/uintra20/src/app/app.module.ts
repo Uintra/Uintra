@@ -20,13 +20,13 @@ import { UserNavigationModule } from './feature/project/specific/user-navigation
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    UserNavigationModule,
     UmbracoSupportModule.configure({
       apiPrefix: '/ubaseline/api',
       pages: pages,
       environment: environment
     }),
     UbaselineCoreModule,
-    UserNavigationModule
   ],
   providers: [
     { provide: DYNAMIC_COMPONENTS, useValue: panels }

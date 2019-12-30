@@ -16,7 +16,10 @@ export class AppComponent {
   data: any;
   latestActivities: any;
   constructor(private router: Router, private route: ActivatedRoute) {
-    this.route.data.subscribe(data => (this.data = data));
+    this.route.data.subscribe(data => {
+      this.data = data;
+      this.hasPanels = data && data.panels && data.panels.get();
+    });
 
     router.events.subscribe(val => {
       if (val instanceof ActivationEnd) {
@@ -25,9 +28,10 @@ export class AppComponent {
         }
       }
     });
+ 
   }
 
   ngOnInit(): void {
-    this.hasPanels = this.data && this.data.panels && this.data.panels.get();
+
   }
 }
