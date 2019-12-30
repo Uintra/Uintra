@@ -28,7 +28,7 @@ export class CommentsPanel implements OnInit {
     }
 
     this.cs.onCreate(data).then( (res: any) => {
-      this.data.comments.data = res.comments;
+      this.data.comments.data.value = res.comments;
       this.description = '';
     });
   }
@@ -36,7 +36,7 @@ export class CommentsPanel implements OnInit {
   deleteComment(obj) {
     this.cs.deleteComment(obj)
       .then((res: any) => {
-        this.data.comments.data = res.comments.filter(comment => comment.id !== obj.commentId);
+        this.data.comments.data.value = res.comments;
       });
   }
 }
