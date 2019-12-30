@@ -15,5 +15,6 @@ namespace Uintra20.Features.CentralFeed.Models
 		public string Name { get; set; }
 		public bool AddToSitemap { get; set; }
 		public string Url { get; set; }
-	}
+        public NodeType NodeType { get; set; }
+    }
 }

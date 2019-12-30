@@ -1,4 +1,6 @@
-<div class="input-wrapper" (clickOutside)="onHideDropdown()">
+<div class="input-wrapper"
+     (clickOutside)="onHideDropdown()"
+     [ngClass]="{ open: isDwopdownShowed }">
     <div class="tag-multiselect">
       <div class="tag-multiselect__input-field" (click)="onShowDropdown()">
         <div
@@ -13,7 +15,7 @@
           (removeTag)="onRemoveTag(tag, $event)"
         ></app-tag-item>
       </div>
-      <button class="tag-multiselect__clear-btn" (click)="onClearSelectedTags()">
+      <button class="tag-multiselect__clear-btn" (click)="onClearSelectedTags()" *ngIf="isAddedTag">
         &times;
       </button>
       <button

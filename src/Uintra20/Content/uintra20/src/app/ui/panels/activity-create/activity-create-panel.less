@@ -36,14 +36,21 @@ activity-create-panel {
   }
 
   .bulletin-popup {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background: #fff;
+    position: fixed;
+    left: 8px;
+    right: 8px;
+    top: 8px;
+    background: @main-color;
     z-index: 13;
     opacity: 0;
     animation: fadeIn 0.2s ease-out forwards;
+
+    @media @md-up {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
 
     &__background {
       position: fixed;
