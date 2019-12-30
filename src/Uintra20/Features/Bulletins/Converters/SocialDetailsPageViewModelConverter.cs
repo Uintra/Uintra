@@ -32,7 +32,7 @@ namespace Uintra20.Features.Bulletins.Converters
 
         public void Map(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
         {
-            var id = HttpContext.Current.Request.TryGetQueryValue<string>("id");
+            var id = HttpContext.Current.Request.GetUbaselineQueryValue("id");
 
             if (Guid.TryParse(id, out var parseId))
             {
