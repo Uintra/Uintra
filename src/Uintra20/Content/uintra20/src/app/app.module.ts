@@ -5,16 +5,16 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
-import { DYNAMIC_COMPONENTS, UmbracoSupportModule } from '@ubaseline/next';
+import { DYNAMIC_COMPONENTS, UmbracoSupportModule, UbaselineCoreModule } from '@ubaseline/next';
 import { pages } from './ui/pages/pages';
 import { panels } from './ui/panels/panels';
 import { HeaderComponent } from './ui/main-layout/header/header.component';
-import { UserNavigationComponent } from 'src/app/feature/project/specific/user-navigation/user-navigation.component';
-
+import { UserNavigationModule } from './feature/project/specific/user-navigation/user-navigation.module';
 
 @NgModule({
   declarations: [
-        AppComponent, HeaderComponent, UserNavigationComponent
+    AppComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +24,9 @@ import { UserNavigationComponent } from 'src/app/feature/project/specific/user-n
       apiPrefix: '/ubaseline/api',
       pages: pages,
       environment: environment
-    })
+    }),
+    UbaselineCoreModule,
+    UserNavigationModule
   ],
   providers: [
     { provide: DYNAMIC_COMPONENTS, useValue: panels }
