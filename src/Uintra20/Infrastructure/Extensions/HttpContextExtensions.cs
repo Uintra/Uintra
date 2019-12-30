@@ -62,6 +62,11 @@ namespace Uintra20.Infrastructure.Extensions
 
         public static string GetUbaselineQueryValue(this HttpRequest request, string key)
         {
+            if (request == null)
+            {
+                return null;
+            }
+
             var url = request["url"];
 
             if (string.IsNullOrWhiteSpace(url) || !Uri.TryCreate(url, UriKind.Absolute, out Uri requestedUrl))
