@@ -27,7 +27,6 @@ namespace Uintra20.Controllers
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IMentionService _mentionService;
         private readonly ICommentLinkHelper _commentLinkHelper;
-        private readonly UmbracoHelper _umbracoHelper;
 
         public CommentsController(
             ICommentsService commentsService,
@@ -44,7 +43,6 @@ namespace Uintra20.Controllers
             _intranetMemberService = intranetMemberService;
             _mentionService = mentionService;
             _commentLinkHelper = commentLinkHelper;
-            _umbracoHelper = umbracoHelper;
         }
 
         protected override async Task OnCommentCreatedAsync(Guid commentId)
@@ -77,7 +75,7 @@ namespace Uintra20.Controllers
 
             if (mentionIds.Any())
             {
-                var content = _umbracoHelper.Content(comment.ActivityId);
+                var content = Umbraco.Web.Composing.Current.UmbracoHelper.Content(comment.ActivityId);
                 _mentionService.ProcessMention(new MentionModel
                 {
                     MentionedSourceId = comment.Id,
@@ -98,7 +96,7 @@ namespace Uintra20.Controllers
 
             if (mentionIds.Any())
             {
-                var content = _umbracoHelper.Content(comment.ActivityId);
+                var content = Umbraco.Web.Composing.Current.UmbracoHelper.Content(comment.ActivityId);
                 _mentionService.ProcessMention(new MentionModel
                 {
                     MentionedSourceId = comment.Id,

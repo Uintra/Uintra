@@ -31,7 +31,6 @@ namespace Uintra20.Features.Media
     {
         private readonly ICacheService _cacheService;
         private readonly IMediaService _mediaService;
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IMediaFolderTypeProvider _mediaFolderTypeProvider;
         private readonly IImageHelper _imageHelper;
@@ -42,7 +41,6 @@ namespace Uintra20.Features.Media
         public MediaHelper(ICacheService cacheService,
             IMediaService mediaService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            UmbracoHelper umbracoHelper,
             IMediaFolderTypeProvider mediaFolderTypeProvider,
             IImageHelper imageHelper,
             IVideoHelper videoHelper,
@@ -52,7 +50,6 @@ namespace Uintra20.Features.Media
             _cacheService = cacheService;
             _mediaService = mediaService;
             _intranetMemberService = intranetMemberService;
-            _umbracoHelper = umbracoHelper;
             _mediaFolderTypeProvider = mediaFolderTypeProvider;
             _imageHelper = imageHelper;
             _videoHelper = videoHelper;
@@ -252,7 +249,7 @@ namespace Uintra20.Features.Media
 
         private IPublishedContent GetMediaFolder(Enum mediaFolderType)
         {
-            var folders = _umbracoHelper.MediaAtRoot().Where(m => m.ContentType.Alias.Equals(FolderTypeAlias));
+            var folders = Umbraco.Web.Composing.Current.UmbracoHelper.MediaAtRoot().Where(m => m.ContentType.Alias.Equals(FolderTypeAlias));
 
             var mediaFolder = folders.SingleOrDefault(f =>
             {
@@ -271,7 +268,7 @@ namespace Uintra20.Features.Media
             mediaFolder.SetValue(FolderConstants.FolderTypePropertyTypeAlias, mediaFolderType.ToString());
             _mediaService.Save(mediaFolder);
 
-            return _umbracoHelper.Media(mediaFolder.Id);
+            return Umbraco.Web.Composing.Current.UmbracoHelper.Media(mediaFolder.Id);
         }
 
         public BroadcastResult Handle(VideoConvertedCommand command)

@@ -28,7 +28,7 @@ namespace Uintra20.Core.Jobs
 
 			foreach (var type in types)
 			{
-				var jobConfiguration = GetConfiguration(types.GetType().Name);
+				var jobConfiguration = GetConfiguration(type.GetType().Name);
 
 				ValidateConfiguration(jobConfiguration);
 
@@ -50,7 +50,7 @@ namespace Uintra20.Core.Jobs
 
 		private Schedule AddJob<T>(T job) where T : IJob
 		{
-			return Schedule<T>();
+			return Schedule(() => job);
 		}
 
 		private JobConfiguration GetConfiguration(string jobName)

@@ -1,11 +1,11 @@
-﻿using Compent.Shared.Extensions.Bcl;
-using System;
+﻿using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Compent.Shared.Extensions.Bcl;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
@@ -21,7 +21,7 @@ using Uintra20.Features.Navigation.Services;
 using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.Extensions;
 
-namespace Uintra20.Controllers
+namespace Uintra20.Core.Feed.Controllers
 {
     public class SocialsController : UBaselineApiController
     {

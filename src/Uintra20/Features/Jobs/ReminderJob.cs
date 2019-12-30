@@ -1,5 +1,4 @@
 ﻿using Uintra20.Core.Jobs.Models;
-using Uintra20.Features.Reminder;
 using Uintra20.Features.Reminder.Services;
 
 namespace Uintra20.Features.Jobs

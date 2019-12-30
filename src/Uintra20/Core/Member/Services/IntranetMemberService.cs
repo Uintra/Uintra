@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Compent.CommandBus;
+using UBaseline.Core.Content;
 using Uintra20.Core.Commands;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.User;
@@ -30,14 +31,14 @@ namespace Uintra20.Core.Member.Services
 			IMediaService mediaService,
 			IMemberService memberService,
 			UmbracoContext umbracoContext,
-			UmbracoHelper umbracoHelper,
 			ICacheService cacheService,
 			ISqlRepository<GroupMember> groupMemberRepository,
 			IIntranetUserService<IntranetUser> intranetUserService,
 			IIntranetMemberGroupService intranetMemberGroupService,
-			ICommandPublisher commandPublisher
+			ICommandPublisher commandPublisher,
+			IContentHelper contentHelper
 		)
-			: base(mediaService, memberService, umbracoContext, umbracoHelper, cacheService, intranetUserService, intranetMemberGroupService)
+			: base(mediaService, memberService, umbracoContext, cacheService, intranetUserService, intranetMemberGroupService, contentHelper)
 		{
 			_groupMemberRepository = groupMemberRepository;
 			_commandPublisher = commandPublisher;

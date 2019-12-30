@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UBaseline.Core.Content;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Models.Dto;
 using Uintra20.Core.User;
@@ -28,27 +29,28 @@ namespace Uintra20.Core.Member.Services
         private readonly IMediaService _mediaService;
         private readonly IMemberService _memberService;
         private readonly UmbracoContext _umbracoContext;
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly ICacheService _cacheService;
         private readonly IIntranetUserService<IntranetUser> _intranetUserService;
         private readonly IIntranetMemberGroupService _intranetMemberGroupService;
+        private readonly IContentHelper _contentHelper;
 
         protected IntranetMemberServiceBase(
             IMediaService mediaService,
             IMemberService memberService,
             UmbracoContext umbracoContext,
-            UmbracoHelper umbracoHelper,
             ICacheService cacheService,
             IIntranetUserService<IntranetUser> intranetUserService,
-            IIntranetMemberGroupService intranetMemberGroupService)
+            IIntranetMemberGroupService intranetMemberGroupService,
+            IContentHelper contentHelper
+        )
         {
             _mediaService = mediaService;
             _memberService = memberService;
             _umbracoContext = umbracoContext;
-            _umbracoHelper = umbracoHelper;
             _cacheService = cacheService;
             _intranetUserService = intranetUserService;
             _intranetMemberGroupService = intranetMemberGroupService;
+            _contentHelper = contentHelper;
         }
 
         public virtual async Task<bool> IsCurrentMemberSuperUserAsync()
@@ -98,7 +100,7 @@ namespace Uintra20.Core.Member.Services
 
         public virtual async Task<T> GetCurrentMemberAsync()
         {
-            var member = _umbracoHelper.MembershipHelper.GetCurrentMember();
+            var member = Umbraco.Web.Composing.Current.UmbracoHelper.MembershipHelper.GetCurrentMember();
             if (member != null) return await GetAsync(member.Id);
 
             var umbracoUser = _umbracoContext.Security.CurrentUser;
@@ -318,7 +320,7 @@ namespace Uintra20.Core.Member.Services
 
         public virtual T GetCurrentMember()
         {
-            var member = _umbracoHelper.MembershipHelper.GetCurrentMember();
+            var member = Umbraco.Web.Composing.Current.UmbracoHelper.MembershipHelper.GetCurrentMember();
             if (member != null) return Get(member.Key);
 
             var umbracoUser = _umbracoContext.Security.CurrentUser;
@@ -446,7 +448,7 @@ namespace Uintra20.Core.Member.Services
 
             var memberPhotoId = photo ?? member.GetMemberImageId(ProfileConstants.Photo);
 
-            var memberPhotoUrl = _umbracoHelper.Media(memberPhotoId)?.Url;
+            var memberPhotoUrl = _contentHelper.EnsureUmbracoContext(ctx=>ctx.Media.GetById(memberPhotoId.GetValueOrDefault())?.Url);
 
             var memberGroups = _intranetMemberGroupService.GetForMember(member.Id).ToArray();
 
@@ -476,7 +478,7 @@ namespace Uintra20.Core.Member.Services
 
             var memberPhotoId = photo ?? member.GetMemberImageId(ProfileConstants.Photo);
 
-            var memberPhotoUrl = _umbracoHelper.Media(memberPhotoId)?.Url;
+            var memberPhotoUrl = _contentHelper.EnsureUmbracoContext(ctx=>ctx.Media.GetById(memberPhotoId.GetValueOrDefault())?.Url) ;
 
             var memberGroups = _intranetMemberGroupService.GetForMember(member.Id).ToArray();
 

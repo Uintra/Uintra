@@ -7,7 +7,6 @@ using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities.Base.Mails;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
-using Uintra20.Infrastructure.Helpers;
 using Uintra20.Infrastructure.Providers;
 using Umbraco.Web;
 
@@ -122,16 +121,17 @@ namespace Uintra20.Features.Notification.Services
 
         private int? GetEmailTemplatePublishedContentId(NotificationTypeEnum mailTemplateTypeEnum)
         {
-            //TODO: research when mail service is ready
-            //var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
-            //string mailTemplateXpath = string.Empty;//XPathHelper.GetXpath(docTypeAliasProvider.GetDataFolder(),
-            //    //docTypeAliasProvider.GetMailTemplateFolder(), docTypeAliasProvider.GetMailTemplate());
-            //var mailTemplates = Umbraco..ContentAtXPath(mailTemplateXpath);
-            //var mailTemplateContent = mailTemplates?.FirstOrDefault(template =>
-            //    template.Value<NotificationTypeEnum>(MailTemplatePropertiesConstants.EmailType) ==
-            //    mailTemplateTypeEnum);
-            //return mailTemplateContent?.Id;
-            return null;
+			//TODO: research when mail service is ready
+			var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
+			string mailTemplateXpath = Uintra20.Core.XPathHelper.GetXpath(
+				docTypeAliasProvider.GetDataFolder(),
+				docTypeAliasProvider.GetMailTemplateFolder(), 
+				docTypeAliasProvider.GetMailTemplate());
+
+			var mailTemplates = Umbraco.Web.Composing.Current.UmbracoHelper.ContentAtXPath(mailTemplateXpath);
+			var mailTemplateContent = mailTemplates?.FirstOrDefault(template =>
+				template.Value<NotificationTypeEnum>(MailTemplatePropertiesConstants.EmailType) == mailTemplateTypeEnum);
+			return mailTemplateContent?.Id;
         }
     }
 }

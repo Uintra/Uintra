@@ -16,14 +16,12 @@ namespace Uintra20.Core.Activity.Helpers
 
         //private readonly IEnumerable<string> _activityXPath;
         //private readonly string[] _baseXPath;
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _aliasProvider;
         private readonly IPublishedContent _baseContent;
 
-        public ActivityPageHelper(Enum activityType, IPublishedContent baseContent, UmbracoHelper umbracoHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
+        public ActivityPageHelper(Enum activityType, IPublishedContent baseContent, IDocumentTypeAliasProvider documentTypeAliasProvider)
         {
-            _umbracoHelper = umbracoHelper;
-            _aliasProvider = documentTypeAliasProvider;
+	        _aliasProvider = documentTypeAliasProvider;
             //_baseXPath = baseXPath.ToArray();
             ActivityType = activityType;
             _baseContent = baseContent;

@@ -55,10 +55,10 @@ namespace Uintra20.Infrastructure.Ioc
             });
 
             services.AddScopedToCollection<Uintra20BaseIntranetJob, ReminderJob>();
-            //services.AddScopedToCollection<Uintra20BaseIntranetJob, MontlyMailJob>();
+            services.AddScopedToCollection<Uintra20BaseIntranetJob, MontlyMailJob>();
             services.AddScopedToCollection<Uintra20BaseIntranetJob, SendEmailJob>();
-            //services.AddScopedToCollection<Uintra20BaseIntranetJob, UpdateActivityCacheJob>();
-            //services.AddScopedToCollection<Uintra20BaseIntranetJob, GdprMailsJob>();
+			services.AddScopedToCollection<Uintra20BaseIntranetJob, UpdateActivityCacheJob>();
+			services.AddScopedToCollection<Uintra20BaseIntranetJob, GdprMailsJob>();
 			services.AddScoped<IReminderRunner, ReminderRunner>();
 			services.AddScoped<IReminderService, ReminderService>();
 			services.AddScoped<IMonthlyEmailService,MonthlyEmailService>();
@@ -67,8 +67,8 @@ namespace Uintra20.Infrastructure.Ioc
 			services.AddSingleton<IConfigurationProvider<ReminderConfiguration>>(i =>
 				new ConfigurationProvider<ReminderConfiguration>(
 					"~/Features/Reminder/reminderConfiguration.json"));
-			services.AddSingleton<IJobSettingsConfiguration, JobSettingsConfiguration>();
-				
+			services.AddSingleton<IJobSettingsConfiguration>(i => JobSettingsConfiguration.Configure);
+
 
 
 			return services;

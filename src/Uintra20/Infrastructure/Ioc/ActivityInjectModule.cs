@@ -9,7 +9,6 @@ using Uintra20.Features.Location.Services;
 using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.Providers;
 using Uintra20.Infrastructure.TypeProviders;
-using Umbraco.Web;
 
 namespace Uintra20.Infrastructure.Ioc
 {
@@ -19,16 +18,13 @@ namespace Uintra20.Infrastructure.Ioc
 		{
             services.AddTransient<IGroupActivityService, GroupActivityService>();
             services.AddTransient<IActivityPageHelperFactory>(provider =>
-                new CacheActivityPageHelperFactory(provider.GetService<UmbracoHelper>(),
-                    provider.GetService<IDocumentTypeAliasProvider>()));//,
-                    //CentralFeedLinkProviderHelper.GetFeedActivitiesXPath(provider.GetService<IDocumentTypeAliasProvider>())));
+                new CacheActivityPageHelperFactory(provider.GetService<IDocumentTypeAliasProvider>()));
             services.AddTransient<IActivityTypeHelper, ActivityTypeHelper>();
             services.AddScoped<IIntranetActivityRepository, IntranetActivityRepository>();
             services.AddScoped<IActivityTypeProvider>(provider => new ActivityTypeProvider(typeof(IntranetActivityTypeEnum)));
             services.AddScoped<IActivitiesServiceFactory, ActivitiesServiceFactory>();
             services.AddTransient<IActivityLocationService, ActivityLocationService>();
-            services.AddScoped<IActivityTagsHelper, ActivityTagsHelper>(); 
-            //services.AddScoped<IIntranetActivityService<Social>, SocialsService<Social>>();
+            services.AddScoped<IActivityTagsHelper, ActivityTagsHelper>();
             services.AddScoped<IIntranetActivityService, SocialsService<Social>>();
 
             return services;

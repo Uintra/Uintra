@@ -11,26 +11,25 @@ namespace Uintra20.Core.Activity.Factories
     public class CacheActivityPageHelperFactory : IActivityPageHelperFactory
     {
         private readonly Dictionary<string, IActivityPageHelper> _cache = new Dictionary<string, IActivityPageHelper>();
-        private readonly IPublishedContent _feedActivitiesContent;
 
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _aliasProvider;
+        private readonly string _feedActivitiesAlias;
 
-        public CacheActivityPageHelperFactory(
-            UmbracoHelper umbracoHelper,
+
+		public CacheActivityPageHelperFactory(
+        
             IDocumentTypeAliasProvider aliasProvider)
         {
-            _umbracoHelper = umbracoHelper;
-            _aliasProvider = aliasProvider;
-            var feedActivitiesAlias = _aliasProvider.GetHomePage();
-            _feedActivitiesContent = _umbracoHelper.ContentAtRoot().First(x => x.ContentType.Alias == feedActivitiesAlias);
+	        _aliasProvider = aliasProvider;
+            _feedActivitiesAlias = _aliasProvider.GetHomePage();
         }
 
         public IActivityPageHelper GetHelper(Enum type)
         {
-            var cacheKey = GetCacheKey(type, _feedActivitiesContent.ContentType.Alias);
+			var feedActivitiesContent = Umbraco.Web.Composing.Current.UmbracoHelper.ContentAtRoot().First(x => x.ContentType.Alias == _feedActivitiesAlias);
+			var cacheKey = GetCacheKey(type, feedActivitiesContent.ContentType.Alias);
             if (!_cache.ContainsKey(cacheKey))
-                return _cache[cacheKey] = CreateNewHelper(type, _feedActivitiesContent);
+                return _cache[cacheKey] = CreateNewHelper(type, feedActivitiesContent);
             return _cache[cacheKey];
         }
 
@@ -41,7 +40,7 @@ namespace Uintra20.Core.Activity.Factories
             switch (type)
             {
                 default:
-                    return new ActivityPageHelper(type, feedActivitiesContent, _umbracoHelper, _aliasProvider);
+                    return new ActivityPageHelper(type, feedActivitiesContent, _aliasProvider);
             }
         }
     }
