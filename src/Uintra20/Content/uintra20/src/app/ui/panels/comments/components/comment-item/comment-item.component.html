@@ -1,42 +1,54 @@
 <li class="comment">
   <app-user-avatar class="comment__avatar" [data]="data.creator.photo" big></app-user-avatar>
-  <div>
-      <div class="comment__info">
-        <a class="comment__author-name">{{data.creator.displayedName}}</a>
-        <span class="comment__author-inactive"> - Dec 20, 2019 - 17:47</span>
-        <button class="comment__reply">Reply</button>
-        <div class="comment__controls">
-          <ul class="comment__controls-list">
-            <li class="comment__controls-list-item">
-              <button class="comment__controls-list-btn" (click)="toggleEditingMode()">Edit</button>
-            </li>
-            <li class="comment__controls-list-item">
-              <button class="comment__controls-list-btn" (click)="onCommentDelete()">Delete</button>
-            </li>
-          </ul>
-        </div>
-      </div>
+  <div class="comment__container">
+      <app-comment-header 
+        [data]="data" 
+        [isReply]="true"
+        (toggleReply)="onToggleReply()"
+        (toggleEditingMode)="toggleEditingMode()"
+        (commentDelete)="onCommentDelete()"></app-comment-header>
       <div *ngIf="!isEditing" class="comment__content" innerHTML="{{data.text}}"></div>
       <!-- <app-like-button [likeData]="data.likeModel"></app-like-button> -->
 
       <app-rich-text-editor
         *ngIf="isEditing"
-        [(ngModel)]="data.text"
+        [(ngModel)]="editedValue"
         [isDropzone]="false"
+        [isEditing]="isEditing"
         placeholder="">
-          <div class="flex" submit>
+          <div class="submit-container" submit>
             <button
-              class="bulletin-popup__submit-button"
-              (click)="cancelEditing()">
+              class="rte__cancel-button"
+              (click)="toggleEditingMode()">
               Cancel
             </button>
             <button
-              class="bulletin-popup__submit-button"
+              class="rte__submit-button"
               (click)="onSubmitEditedValue()">
               Save
             </button>
           </div>
       </app-rich-text-editor>
+
+      <div class="subcomment-container">
+        <app-subcomment-item 
+          class="subcomment-container__item" 
+          *ngFor="let reply of data.replies" 
+          [data]="reply"
+          (submitEditedValue)="onSubmitEditedValue($event)"></app-subcomment-item>
+      </div>
+
+      <app-rich-text-editor
+        *ngIf="isReply"
+        [(ngModel)]="subcommentDescription"
+        [isDropzone]="false"
+        placeholder="">
+            <button submit
+              class="bulletin-popup__submit-button"
+              (click)="onCommentReply()">
+              Send
+            </button>
+          <span reply-close class="reply-close" (click)="onToggleReply()">X</span>
+      </app-rich-text-editor>
   </div>
-  <!-- TODO subcomments -->
 </li>

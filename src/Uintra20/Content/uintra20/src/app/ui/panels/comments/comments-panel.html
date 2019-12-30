@@ -2,10 +2,12 @@
   <h3 class="comments-panel__title">Comments</h3>
   <ul class="comments-list">
     <app-comment-item
-        *ngFor="let comment of data.comments.data.value" 
+        *ngFor="let comment of data.comments.data" 
         class="comments-list__item"
         [data]="comment" 
-        (deleteComment)="deleteComment($event)" 
+        (deleteComment)="deleteComment($event)"
+        (editComment)="editComment($event)"
+        (replyComment)="onCommentSubmit($event)"
         [activityType]="data.activityType"></app-comment-item>
   </ul>
 

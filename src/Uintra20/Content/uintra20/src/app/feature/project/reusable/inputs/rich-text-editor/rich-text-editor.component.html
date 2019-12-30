@@ -3,7 +3,7 @@
   [modules]="config"
   [(ngModel)]="value"
   [placeholder]="placeholder"
-  customToolbarPosition="bottom"
+  customToolbarPosition="getCustomToolbarPosition()"
 >
   <div quill-editor-toolbar class="toolbar">
     <div class="ql-counter" id="counter"></div>
@@ -24,5 +24,7 @@
     <div class="ql-submit-button">
       <ng-content select="[submit]"></ng-content>
     </div>
+
+    <ng-content select="[reply-close]"></ng-content>
   </div>
 </quill-editor>

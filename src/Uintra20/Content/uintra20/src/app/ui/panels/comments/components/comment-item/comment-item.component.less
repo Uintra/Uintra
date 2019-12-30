@@ -3,6 +3,10 @@
 .comment {
   display: flex;
 
+  &__container {
+    width: 100%;
+  }
+
   &__avatar {
     margin-right: 20px;
   }
@@ -10,96 +14,53 @@
   &__content {
     margin-bottom: 10px;
   }
+}
 
-  &__info {
-    margin-bottom: 5px;
-  }
+.submit-container {
+  display: flex;
+}
 
-  &__reply,
-  &__controls-list-btn {
-    border: none;
-    background: transparent;
-    outline: none;
-    color: inherit;
-    cursor: pointer;
-  }
+.subcomment-container {
+  position: relative;
+  margin: 14px 0;
 
-  &__reply {
-    margin: 0 7px;
-    text-decoration: underline;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  &__controls {
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-    width: 11px;
-    height: 17px;
-
-    &:hover .comment__controls-list {
-      visibility: visible;
-      pointer-events: all;
-    }
-    
-    &::before {
-      position: absolute;
-      top: 5px;
-      right: 2px;
-      width: 7px;
-      height: 7px;
-      border: 1px solid @body-text-color;
-      border-width: 0 1px 1px 0;
-      transform: rotate(45deg);
-      content: '';
-      visibility: visible;
-      pointer-events: all;
-      cursor: pointer;
-    }
-  }
-
-  &__controls-list {
-    visibility: hidden;
-    pointer-events: none;
+  &::before {
+    content: "";
+    width: 2px;
+    height: 100%;
+    background-color: #eee;
     position: absolute;
-    top: 13px;
-    right: -13px;
-    min-width: 140px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    border: 1px solid @border-color;
-    box-shadow: 2px 3px 3px rgba(0, 0, 0, .2);
-    background: @key-bg-color;
-    z-index: 10;
-    cursor: pointer;
+    left: -14px;
+  }
 
-    :hover {
-      visibility: visible;
-    }
-
-    &-item {
-      // border: none;
-    }
-
-    &-btn {
-      display: block;
-      width: 100%;
-      text-align: left;
-      padding: 9px 19px 8px;
-      color: @body-text-color;
-      text-decoration: none;
-
-      &:hover {
-        background: #eee;
-      }
-    }
+  &__item:not(:last-child) {
+    display: block;
+    margin-bottom: 12px;
   }
 }
 
-.flex {
+.reply-close {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 25px;
+  height: 25px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+  z-index: 2;
+  cursor: pointer;
+  color: @body-text-color;
+}
+
+.rte {
+  &__cancel-button {
+    background-color: #fff !important;
+    border: 1px solid @alt-btn-border  !important;
+    color: @alt-btn-border !important;
+    margin-right: 5px;
+  }
 }

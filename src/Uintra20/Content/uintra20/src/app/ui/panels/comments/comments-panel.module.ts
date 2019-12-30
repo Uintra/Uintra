@@ -9,9 +9,10 @@ import { LikeButtonModule } from 'src/app/feature/project/reusable/ui-elements/l
 import { FormsModule } from '@angular/forms';
 import { CommentItemComponent } from './components/comment-item/comment-item.component';
 import { SubcommentItemComponent } from './components/subcomment-item/subcomment-item.component';
+import { CommentHeaderComponent } from './components/comment-header/comment-header.component';
 
 @NgModule({
-  declarations: [CommentsPanel, CommentItemComponent, SubcommentItemComponent],
+  declarations: [CommentsPanel, CommentItemComponent, SubcommentItemComponent, CommentHeaderComponent],
   imports: [
     CommonModule,
     NotImplementedModule,

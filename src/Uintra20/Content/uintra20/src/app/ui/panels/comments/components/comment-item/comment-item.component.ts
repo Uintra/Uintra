@@ -10,14 +10,19 @@ export class CommentItemComponent implements OnInit {
   @Input() data: any;
   @Input() activityType: any;
   @Output() deleteComment = new EventEmitter();
+  @Output() editComment = new EventEmitter();
+  @Output() replyComment = new EventEmitter();
 
   isEditing: boolean = false;
+  editedValue: string;
   initialValue: any;
+  isReply: boolean;
+  subcommentDescription: string = "";
 
   constructor(private cs: CommentsService) { }
 
   ngOnInit() {
-    console.log(this.data)
+    this.editedValue = this.data.text;
   }
 
   onCommentDelete() {
@@ -31,21 +36,25 @@ export class CommentItemComponent implements OnInit {
     }
   }
 
-  cancelEditing() {
-    this.data.text = this.initialValue;
-    this.toggleEditingMode();
-  }
-
-  onSubmitEditedValue() {
+  onSubmitEditedValue(subcomment) {
     const data = {
-      Id: this.data.id,
-      EntityId: this.data.activityId,
+      Id: subcomment.id || this.data.id,
+      EntityId: subcomment.entityId || this.data.activityId,
       EntityType: this.activityType,
-      Text: this.data.text,
+      Text: subcomment.text || this.editedValue,
     }
 
     this.cs.editComment(data).then((res: any) => {
+      this.editComment.emit(res.comments);
       this.toggleEditingMode();
     })
+  }
+
+  onToggleReply() {
+    this.isReply = !this.isReply;
+  }
+
+  onCommentReply() {
+    this.replyComment.emit({ parentId: this.data.id, description: this.subcommentDescription });
   }
 }

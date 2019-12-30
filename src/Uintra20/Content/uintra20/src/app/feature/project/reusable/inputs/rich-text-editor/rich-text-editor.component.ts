@@ -32,6 +32,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   @Input() placeholder: string;
   @Input() isDropzone: boolean = true;
   @Input() isUnderline: boolean = true;
+  @Input() isEditing: boolean = false;
   @Output() addAttachment = new EventEmitter();
 
   config: QuillConfig;
@@ -61,5 +62,8 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   }
   registerOnTouched(fn) {
     this.onTouched = fn;
+  }
+  getCustomToolbarPosition() {
+    return this.isEditing ? '' : 'bottom';
   }
 }
