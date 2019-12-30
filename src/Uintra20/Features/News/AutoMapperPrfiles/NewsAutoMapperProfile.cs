@@ -59,6 +59,14 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
                 .ForMember(dst => dst.Dates, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type));
 
+            CreateMap<Entities.News, IntranetActivityDetailsViewModel>()
+                .ForMember(dst => dst.CanEdit, o => o.Ignore())
+                .ForMember(dst => dst.Links, o => o.Ignore())
+                .ForMember(dst => dst.Owner, o => o.Ignore())
+                .ForMember(dst => dst.MediaPreview, o => o.Ignore())
+                .ForMember(dst => dst.Dates, o => o.Ignore())
+                .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type));
+
 
             //CreateMap<NewsBase, NewsItemViewModel>()
             //    .ForMember(dst => dst.Links, o => o.Ignore())

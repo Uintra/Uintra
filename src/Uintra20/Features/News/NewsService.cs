@@ -155,14 +155,21 @@ namespace Uintra20.Features.News
             return items;
         }
 
-        public Task<IEnumerable<IFeedItem>> GetItemsAsync()
+        public async Task<IEnumerable<IFeedItem>> GetItemsAsync()
         {
-            throw new NotImplementedException();
+            var items = await GetOrderedActualItemsAsync();
+            return items;
         }
 
         private IOrderedEnumerable<Entities.News> GetOrderedActualItems()
         {
             var items = GetManyActual().OrderByDescending(i => i.PublishDate);
+            return items;
+        }
+
+        private async Task<IOrderedEnumerable<Entities.News>> GetOrderedActualItemsAsync()
+        {
+            var items = (await GetManyActualAsync()).OrderByDescending(i => i.PublishDate);
             return items;
         }
 
@@ -178,9 +185,16 @@ namespace Uintra20.Features.News
             }
         }
 
-        protected override Task MapBeforeCacheAsync(IList<Entities.News> cached)
+        protected override async Task MapBeforeCacheAsync(IList<Entities.News> cached)
         {
-            throw new NotImplementedException();
+            foreach (var activity in cached)
+            {
+                var entity = activity;
+                entity.Location = await _activityLocationService.GetAsync(entity.Id);
+                entity.GroupId = await _groupActivityService.GetGroupIdAsync(activity.Id);
+                await _commentsService.FillCommentsAsync(entity);
+                await _likesService.FillLikesAsync(entity);
+            }
         }
 
         //protected override void UpdateCache()
@@ -227,9 +241,23 @@ namespace Uintra20.Features.News
             _notificationService.ProcessNotification(notifierData);
         }
 
-        public Task NotifyAsync(Guid entityId, Enum notificationType)
+        public async Task NotifyAsync(Guid entityId, Enum notificationType)
         {
-            throw new NotImplementedException();
+            NotifierData notifierData;
+
+            if (notificationType.In(CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
+            {
+                var comment = await _commentsService.GetAsync(entityId);
+                var parentActivity = await GetAsync(comment.ActivityId);
+                notifierData = await _notifierDataBuilder.GetNotifierDataAsync(comment, parentActivity, notificationType);
+            }
+            else
+            {
+                var activity = await GetAsync(entityId);
+                notifierData = await _notifierDataBuilder.GetNotifierDataAsync(activity, notificationType);
+            }
+
+            await _notificationService.ProcessNotificationAsync(notifierData);
         }
 
         //public void FillIndex()

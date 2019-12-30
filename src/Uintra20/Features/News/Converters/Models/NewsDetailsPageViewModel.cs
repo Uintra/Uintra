@@ -3,6 +3,7 @@ using UBaseline.Shared.MetaData;
 using UBaseline.Shared.Node;
 using UBaseline.Shared.PageSettings;
 using UBaseline.Shared.Property;
+using Uintra20.Core.Activity.Models;
 
 namespace Uintra20.Features.News.Converters.Models
 {
@@ -12,5 +13,6 @@ namespace Uintra20.Features.News.Converters.Models
         public PageSettingsCompositionViewModel PageSettings { get; set; }
         public MetaDataCompositionViewModel MetaData { get; set; }
         public LocalScriptsCompositionViewModel LocalScripts { get; set; }
+        public IntranetActivityDetailsViewModel Details { get; set; }
     }
 }
