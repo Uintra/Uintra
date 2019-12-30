@@ -75,7 +75,7 @@ namespace Uintra20.Controllers
             ResolveMentions(model.Description, news);
         }
 
-        protected virtual async Task OnNewsEditedAsync(NewsBase news, NewsEditModel model)
+        protected override async Task OnNewsEditedAsync(NewsBase news, NewsEditModel model)
         {
             if (model is NewsExtendedEditModel extendedModel)
             {
