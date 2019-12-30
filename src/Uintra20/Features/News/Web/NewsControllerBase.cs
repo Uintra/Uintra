@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using Compent.Shared.Extensions.Bcl;
@@ -39,34 +40,39 @@ namespace Uintra20.Features.News.Web
         }
 
         [HttpPost]
-        public virtual NewsViewModel Create(NewsCreateModel createModel)
+        public virtual async Task<NewsViewModel> Create(NewsCreateModel createModel)
         {
-            var newsBaseCreateModel = MapToNews(createModel);
-            var activityId = _newsService.Create(newsBaseCreateModel);
+            var newsBaseCreateModel = await MapToNewsAsync(createModel);
+            var activityId = await _newsService.CreateAsync(newsBaseCreateModel);
 
-            OnNewsCreated(activityId, createModel);
+            await OnNewsCreatedAsync(activityId, createModel);
 
-            return GetViewModel(_newsService.Get(activityId));
+            return await GetViewModelAsync(_newsService.Get(activityId));
         }
 
         [HttpPost]
-        public virtual NewsViewModel Edit(NewsEditModel editModel)
+        public virtual async Task<NewsViewModel> Edit(NewsEditModel editModel)
         {
             var cachedActivityMedias = _newsService.Get(editModel.Id).MediaIds;
-
+            
             var activity = MapToNews(editModel);
-            _newsService.Save(activity);
+            await _newsService.SaveAsync(activity);
 
             DeleteMedia(cachedActivityMedias.Except(activity.MediaIds));
 
-            OnNewsEdited(activity, editModel);
+            await OnNewsEditedAsync(activity, editModel);
 
-            return GetViewModel(_newsService.Get(editModel.Id));
+            return await GetViewModelAsync(_newsService.Get(editModel.Id));
         }
 
         protected virtual bool IsPinAllowed()
         {
             return _permissionsService.Check(ActivityType, PermissionActionEnum.CanPin);
+        }
+        
+        protected virtual async Task<bool> IsPinAllowedAsync()
+        {
+            return await _permissionsService.CheckAsync(ActivityType, PermissionActionEnum.CanPin);
         }
 
         protected virtual NewsViewModel GetViewModel(NewsBase news)
@@ -75,6 +81,16 @@ namespace Uintra20.Features.News.Web
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
             model.HeaderInfo.Owner = _intranetMemberService.Get(news).Map<MemberViewModel>();
+            model.CanEdit = _newsService.CanEdit(news);
+            return model;
+        }
+
+        protected virtual async Task<NewsViewModel> GetViewModelAsync(NewsBase news)
+        {
+            var model = news.Map<NewsViewModel>();
+            model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
+            model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
+            model.HeaderInfo.Owner = (await _intranetMemberService.GetAsync(news)).Map<MemberViewModel>();
             model.CanEdit = _newsService.CanEdit(news);
             return model;
         }
@@ -89,6 +105,24 @@ namespace Uintra20.Features.News.Web
             news.CreatorId = _intranetMemberService.GetCurrentMemberId();
 
             if (!IsPinAllowed())
+            {
+                news.IsPinned = false;
+                news.EndPinDate = null;
+            }
+
+            return news;
+        }
+
+        protected virtual async Task<NewsBase> MapToNewsAsync(NewsCreateModel createModel)
+        {
+            var news = createModel.Map<NewsBase>();
+            news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
+            news.PublishDate = createModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime(createModel.PublishDate);
+            news.UnpublishDate = createModel.UnpublishDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(createModel.UnpublishDate.Value);
+            news.EndPinDate = createModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(createModel.EndPinDate.Value);
+            news.CreatorId = await _intranetMemberService.GetCurrentMemberIdAsync();
+
+            if (!await IsPinAllowedAsync())
             {
                 news.IsPinned = false;
                 news.EndPinDate = null;
@@ -119,7 +153,15 @@ namespace Uintra20.Features.News.Web
         {
         }
 
+        protected virtual async Task OnNewsCreatedAsync(Guid activityId, NewsCreateModel model)
+        {
+        }
+
         protected virtual void OnNewsEdited(NewsBase news, NewsEditModel model)
+        {
+        }
+
+        protected virtual async Task OnNewsEditedAsync(NewsBase news, NewsEditModel model)
         {
         }
     }

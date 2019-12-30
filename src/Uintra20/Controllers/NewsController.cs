@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using AutoMapper;
@@ -53,15 +54,15 @@ namespace Uintra20.Controllers
         }
 
         [HttpPost]
-        public NewsViewModel EditExtended(NewsExtendedEditModel editModel)
+        public async Task<NewsViewModel> EditExtended(NewsExtendedEditModel editModel)
         {
-            return Edit(editModel);
+            return await Edit(editModel);
         }
 
         [HttpPost]
-        public NewsViewModel CreateExtended(NewsExtendedCreateModel createModel)
+        public async Task<NewsViewModel> CreateExtended(NewsExtendedCreateModel createModel)
         {
-            return Create(createModel);
+            return await Create(createModel);
         }
 
         protected override void OnNewsEdited(NewsBase news, NewsEditModel model)
@@ -72,6 +73,16 @@ namespace Uintra20.Controllers
             }
 
             ResolveMentions(model.Description, news);
+        }
+
+        protected virtual async Task OnNewsEditedAsync(NewsBase news, NewsEditModel model)
+        {
+            if (model is NewsExtendedEditModel extendedModel)
+            {
+                await _activityTagsHelper.ReplaceTagsAsync(news.Id, extendedModel.TagIdsData);
+            }
+
+            await ResolveMentionsAsync(model.Description, news);
         }
 
         protected override NewsViewModel GetViewModel(NewsBase news)
@@ -108,6 +119,25 @@ namespace Uintra20.Controllers
             ResolveMentions(model.Description, news);
         }
 
+        protected override async Task OnNewsCreatedAsync(Guid activityId, NewsCreateModel model)
+        {
+            var news = _newsService.Get(activityId);
+            var groupId = HttpContext.Current.Request.QueryString.GetGroupIdOrNone();
+
+            if (groupId.HasValue)
+            {
+                await _groupActivityService.AddRelationAsync(groupId.Value, activityId);
+                news.GroupId = groupId.Value;
+            }
+
+            if (model is NewsExtendedCreateModel extendedModel)
+            {
+                await _activityTagsHelper.ReplaceTagsAsync(activityId, extendedModel.TagIdsData);
+            }
+
+            await ResolveMentionsAsync(model.Description, news);
+        }
+
         private void ResolveMentions(string text, NewsBase news)
         {
             var mentionIds = _mentionService.GetMentions(text).ToList();
@@ -119,6 +149,26 @@ namespace Uintra20.Controllers
                 {
                     MentionedSourceId = news.Id,
                     CreatorId = _intranetMemberService.GetCurrentMemberId(),
+                    MentionedUserIds = mentionIds,
+                    Title = news.Title.StripHtml(),
+                    Url = links.Details,
+                    ActivityType = IntranetActivityTypeEnum.News
+                });
+
+            }
+        }
+
+        private async Task ResolveMentionsAsync(string text, NewsBase news)
+        {
+            var mentionIds = _mentionService.GetMentions(text).ToList();
+
+            if (mentionIds.Any())
+            {
+                var links = await _activityLinkService.GetLinksAsync(news.Id);
+                _mentionService.ProcessMention(new MentionModel()
+                {
+                    MentionedSourceId = news.Id,
+                    CreatorId = await _intranetMemberService.GetCurrentMemberIdAsync(),
                     MentionedUserIds = mentionIds,
                     Title = news.Title.StripHtml(),
                     Url = links.Details,
