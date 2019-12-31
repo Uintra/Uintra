@@ -19,7 +19,7 @@
     <button submit
       class="bulletin-popup__submit-button"
       [disabled]="isSubmitDisabled"
-      (click)="onCommentSubmit()">
+      (click)="onCommentSubmit($event)">
       Send
     </button>
   </app-rich-text-editor>

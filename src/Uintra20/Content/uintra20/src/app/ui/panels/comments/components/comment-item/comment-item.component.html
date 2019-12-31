@@ -6,7 +6,7 @@
         [isReply]="true"
         (toggleReply)="onToggleReply()"
         (toggleEditingMode)="toggleEditingMode()"
-        (commentDelete)="onCommentDelete()"></app-comment-header>
+        (commentDelete)="onCommentDelete($event)"></app-comment-header>
       <div *ngIf="!isEditing" class="comment__content" innerHTML="{{data.text}}"></div>
       <!-- <app-like-button [likeData]="data.likeModel"></app-like-button> -->
 
@@ -20,7 +20,7 @@
             <button
               class="rte__submit-button"
               [disabled]="isEditSubmitDisabled"
-              (click)="onSubmitEditedValue()">
+              (click)="onSubmitEditedValue($event)">
               Save
             </button>
             <button
