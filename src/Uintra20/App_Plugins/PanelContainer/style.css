@@ -96,3 +96,11 @@
 .custom-invalid {
     /* border-color: #d42054 !important; */
 }
+
+.panels {
+    margin-left: -20px;
+    margin-right: -20px;
+}
+.ubl-tree .umb-tree-item__inner.disabled {
+    opacity: 0.6;
+}

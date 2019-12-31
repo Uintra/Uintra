@@ -10,6 +10,13 @@
         Write a message, post a photo or share a document
       </button>
     </div>
+    <div class="feed-btns">
+      <div class="feed-btns__col">
+        <button class="btn-default">Create Event</button>
+        <button class="btn-default">Create News</button>
+      </div>
+      <button class="btn" (click)="onShowPopUp()">Send</button>
+    </div>
 
     <div class="bulletin-popup__wrapper" *ngIf="isPopupShowing">
       <div class="bulletin-popup__background" (click)="onHidePopUp()"></div>

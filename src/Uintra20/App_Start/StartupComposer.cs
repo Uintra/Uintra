@@ -3,11 +3,16 @@ using Compent.Shared.DependencyInjection.Contract;
 using Compent.Shared.DependencyInjection.LightInject;
 using Compent.Shared.Logging.Serilog;
 using LightInject;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Extensions.Configuration;
+using System.Web;
 using UBaseline.Core.Startup;
 using Uintra20.Infrastructure.Configuration;
+using Uintra20.Models.UmbracoIdentity;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
+using Umbraco.Web;
+using UmbracoIdentity;
 
 namespace Uintra20
 {
@@ -16,6 +21,20 @@ namespace Uintra20
     {
         public void Compose(Composition composition)
         {
+            composition.Register(x =>
+            {
+                //needs to resolve from Owin
+                var owinCtx = x.GetInstance<IHttpContextAccessor>().HttpContext.GetOwinContext();
+                return owinCtx.GetUserManager<UmbracoMembersUserManager<UmbracoApplicationMember>>();
+            }, Lifetime.Request);
+
+            composition.Register(x =>
+            {
+                //needs to resolve from Owin
+                var owinCtx = x.GetInstance<IHttpContextAccessor>().HttpContext.GetOwinContext();
+                return owinCtx.GetUserManager<UmbracoMembersRoleManager<UmbracoApplicationRole>>();
+            }, Lifetime.Request);
+
             var container = composition.Concrete as IServiceContainer;
 
             var builder = new JsonConfigurationBuilder(new ConfigurationBuilder());

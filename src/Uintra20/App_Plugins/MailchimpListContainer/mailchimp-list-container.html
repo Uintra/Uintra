@@ -29,9 +29,9 @@
 
             <label ng-repeat="group in list.availableGroups">
                 <input type="checkbox"
-                       value="{{group.id}}"
-                       ng-checked="list.groups.indexOf(group.id) > -1"
-                       ng-click="vm.toggleGroupSelection(listIndex, group.id)"> {{group.name}}
+                       value="{{group}}"
+                       ng-checked="vm.isChecked(list, group.id)"
+                       ng-click="vm.toggleGroupSelection(listIndex, group)"> {{group.name}}
             </label>
 
             <br />
