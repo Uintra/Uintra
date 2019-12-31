@@ -63,7 +63,8 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   registerOnTouched(fn) {
     this.onTouched = fn;
   }
-  getCustomToolbarPosition() {
-    return this.isEditing ? '' : 'bottom';
+
+  getToolbarClass() {
+    return { 'top-mode': this.isEditing };
   }
 }

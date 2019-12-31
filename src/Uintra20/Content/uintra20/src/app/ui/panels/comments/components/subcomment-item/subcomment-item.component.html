@@ -7,24 +7,27 @@
       (commentDelete)="onCommentDelete()"></app-comment-header>
     <div *ngIf="!isEditing" class="comment__content" innerHTML="{{data.text}}"></div>
     <!-- <app-like-button [likeData]="data.likeModel"></app-like-button> -->
+
+    <app-rich-text-editor
+      *ngIf="isEditing"
+      [(ngModel)]="editedValue"
+      [isDropzone]="false"
+      placeholder="">
+        <div class="submit-container" submit>
+          <button
+            class="rte__cancel-button"
+            (click)="toggleEditingMode()">
+            Cancel
+          </button>
+          <button
+            class="rte__submit-button"
+            [disabled]="!editedValue.length"
+            (click)="onSubmitEditedValue()">
+            Save
+          </button>
+        </div>
+    </app-rich-text-editor>
   </div>
 </div>
 
-<app-rich-text-editor
-  *ngIf="isEditing"
-  [(ngModel)]="editedValue"
-  [isDropzone]="false"
-  placeholder="">
-    <div class="submit-container" submit>
-      <button
-        class="bulletin-popup__submit-button"
-        (click)="toggleEditingMode()">
-        Cancel
-      </button>
-      <button
-        class="bulletin-popup__submit-button"
-        (click)="onSubmitEditedValue()">
-        Save
-      </button>
-    </div>
-</app-rich-text-editor>
+

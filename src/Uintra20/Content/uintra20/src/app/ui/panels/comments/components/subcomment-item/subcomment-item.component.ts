@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class SubcommentItemComponent implements OnInit {
   @Input() data: any;
   @Output() submitEditedValue = new EventEmitter();
+  @Output() deleteComment = new EventEmitter();
 
   isEditing: boolean = false;
   initialValue: string = '';
@@ -34,5 +35,9 @@ export class SubcommentItemComponent implements OnInit {
     }
 
     this.submitEditedValue.emit(data);
+  }
+
+  onCommentDelete() {
+    this.deleteComment.emit(this.data.id);
   }
 }

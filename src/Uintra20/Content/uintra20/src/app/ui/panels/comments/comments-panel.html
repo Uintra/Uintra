@@ -18,6 +18,7 @@
     placeholder="">
     <button submit
       class="bulletin-popup__submit-button"
+      [disabled]="isSubmitDisabled"
       (click)="onCommentSubmit()">
       Send
     </button>

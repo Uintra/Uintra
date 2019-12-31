@@ -19,14 +19,34 @@ export class CommentItemComponent implements OnInit {
   isReply: boolean;
   subcommentDescription: string = "";
 
+  get isSubcommentSubmitDisabled() {
+    if (!this.subcommentDescription) {
+      return true;
+    }
+
+    return false;
+  }
+
+  get isEditSubmitDisabled() {
+    if (!this.editedValue) {
+      return true;
+    }
+
+    return false;
+  }
+
   constructor(private cs: CommentsService) { }
 
   ngOnInit() {
     this.editedValue = this.data.text;
   }
 
-  onCommentDelete() {
-    this.deleteComment.emit({ targetId: this.data.activityId, targetType: this.activityType, commentId: this.data.id });
+  onCommentDelete(subcommentId) {
+    this.deleteComment.emit({ 
+      targetId: this.data.activityId,
+      targetType: this.activityType,
+      commentId: subcommentId || this.data.id 
+    });
   }
 
   toggleEditingMode() {

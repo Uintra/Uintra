@@ -16,16 +16,17 @@
         [isDropzone]="false"
         [isEditing]="isEditing"
         placeholder="">
-          <div class="submit-container" submit>
+          <div class="submit-container" edit>
+            <button
+              class="rte__submit-button"
+              [disabled]="isEditSubmitDisabled"
+              (click)="onSubmitEditedValue()">
+              Save
+            </button>
             <button
               class="rte__cancel-button"
               (click)="toggleEditingMode()">
               Cancel
-            </button>
-            <button
-              class="rte__submit-button"
-              (click)="onSubmitEditedValue()">
-              Save
             </button>
           </div>
       </app-rich-text-editor>
@@ -35,7 +36,8 @@
           class="subcomment-container__item" 
           *ngFor="let reply of data.replies" 
           [data]="reply"
-          (submitEditedValue)="onSubmitEditedValue($event)"></app-subcomment-item>
+          (submitEditedValue)="onSubmitEditedValue($event)"
+          (deleteComment)="onCommentDelete($event)"></app-subcomment-item>
       </div>
 
       <app-rich-text-editor
@@ -45,6 +47,7 @@
         placeholder="">
             <button submit
               class="bulletin-popup__submit-button"
+              [disabled]="isSubcommentSubmitDisabled"
               (click)="onCommentReply()">
               Send
             </button>

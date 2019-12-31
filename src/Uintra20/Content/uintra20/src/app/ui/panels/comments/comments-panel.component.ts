@@ -12,6 +12,14 @@ export class CommentsPanel implements OnInit {
   data: ICommentsPanel;
   description: string = "";
 
+  get isSubmitDisabled() {
+    if (!this.description) {
+      return true;
+    }
+
+    return false;
+  }
+
   constructor(private cs: CommentsService) {
   }
 

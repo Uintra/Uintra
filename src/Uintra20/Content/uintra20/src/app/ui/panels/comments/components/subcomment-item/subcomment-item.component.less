@@ -1,11 +1,26 @@
+@import 'base.less';
+
 .subcomment {
   display: flex;
 
   &__avatar {
     margin-right: 9px;
   }
+
+  &__container {
+    width: 100%;
+  }
 }
 
 .submit-container {
   display: flex;
+}
+
+.rte {
+  &__cancel-button {
+    background-color: #fff !important;
+    border: 1px solid @alt-btn-border  !important;
+    color: @alt-btn-border !important;
+    margin-right: 5px;
+  }
 }
