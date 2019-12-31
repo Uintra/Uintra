@@ -1,47 +1,26 @@
-<!-- <ubl-not-implemented [data]="data"
-                     [description]="data.contentTypeAlias || 'comments panel'"></ubl-not-implemented>
-<section class="comments">
-    <h3 class="comments__title"></h3>
-    <ul class="comments__list">
-        <li class="comments__list-item">
-            <div class="avatar">
-                <div class="avatar__letter"></div>
-            </div>
-            <div class="comments__list-body">
-                <div class="comments__list-holder">
-                    <div class="comments__author-about">
-                        <a href=""
-                           class="comments__author-name"></a>
-                        <span class="comments__author-inactive">[Inactive]</span>
-                        <span class="comments__divider"> - </span>
-                        <span class="comments__author-date">Dec 20, 2019</span>
-                        <span class="comments__divider"> - </span>
-                        <span class="comments__author-time">17:47</span>
-                        <div class="comments__controls">
-                            <ul class="comments__controls-list">
-                                <li class="comments__controls-list-item">
-                                    <a class="comments__controls-list-link js-comment-editlink">Edit</a>
-                                </li>
-                                <li class="comments__controls-list-item">
-                                    <a class="js-comment-delete comments__controls-list-link">Delete</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ul>
-</section> -->
-<ubl-not-implemented [data]="data" [description]="data.contentTypeAlias || 'comments panel'"></ubl-not-implemented>
 <section class="comments-panel">
   <h3 class="comments-panel__title">Comments</h3>
+  <ul class="comments-list">
+    <app-comment-item
+        *ngFor="let comment of data.comments.data" 
+        class="comments-list__item"
+        [data]="comment" 
+        (deleteComment)="deleteComment($event)"
+        (editComment)="editComment($event)"
+        (replyComment)="onCommentSubmit($event)"
+        [activityType]="data.activityType"></app-comment-item>
+  </ul>
+
   <h4 class="comments-panel__rte-title">Add comment</h4>
-  <app-rich-text-editor placeholder="">
-    <!-- <button submit
+  <app-rich-text-editor 
+    [(ngModel)]="description"
+    [isDropzone]="false"
+    placeholder="">
+    <button submit
       class="bulletin-popup__submit-button"
+      [disabled]="isSubmitDisabled"
       (click)="onCommentSubmit()">
       Send
-    </button> -->
+    </button>
   </app-rich-text-editor>
 </section>

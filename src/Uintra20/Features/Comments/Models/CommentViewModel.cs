@@ -12,8 +12,10 @@ namespace Uintra20.Features.Comments.Models
         public Guid Id { get; set; }
         public Guid ActivityId { get; set; }
         public MemberViewModel Creator { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime? ModifyDate { get; set; }
+        //public DateTime CreatedDate { get; set; }
+        //public DateTime? ModifyDate { get; set; }
+        public string CreatedDate { get; set; }
+        public string ModifyDate { get; set; }
         public string Text { get; set; }
         public bool CanEdit { get; set; }
         public bool CanDelete { get; set; }

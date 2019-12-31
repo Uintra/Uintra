@@ -27,7 +27,8 @@ namespace Uintra20.Features.Comments.Services
         #region async
         public async Task<LinkPreview.Models.LinkPreview> GetCommentsLinkPreviewAsync(Guid commentId)
         {
-            var previewIds = (await _previewRelationRepository.FindAllAsync(r => r.CommentId == commentId)).Select(r => r.LinkPreviewId);
+            //var previewIds = (await _previewRelationRepository.FindAllAsync(r => r.CommentId == commentId)).Select(r => r.LinkPreviewId);//TODO: Review bug
+            var previewIds = _previewRelationRepository.FindAll(r => r.CommentId == commentId).Select(r => r.LinkPreviewId);
             var preview = (await _previewRepository.FindAllAsync(entity => previewIds.Contains(entity.Id))).Select(_linkPreviewModelMapper.MapPreview).SingleOrDefault();
             return preview;
         }

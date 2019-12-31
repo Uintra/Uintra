@@ -12,8 +12,11 @@
   widtH: 100%;
   font-size: 13px;
   border: 1px solid #ddd;
-  border-radius: 5px;
   background: #fff;
+
+  .open & {
+    border-color: @black;
+  }
 
   &__input-field {
     display: flex;
@@ -21,7 +24,7 @@
     flex-wrap: wrap;
     flex: 1;
     padding: 6px 9px;
-    min-height: 45px;
+    min-height: 42px;
     background: none;
     border: 0;
     outline: 0;
@@ -56,6 +59,14 @@
       position: relative;
       top: 3px;
     }
+
+    .icon {
+      .open & {
+        transform: rotate(-180deg);
+        display: inline-block;
+        margin: 6px 0 0;
+      }
+    }
   }
 }
 
@@ -80,10 +91,22 @@
   text-align: left;
   padding: 9px 13px;
   border-bottom: 1px solid #ddd;
+  font: 13px/22px Arial, Helvetica, sans-serif;
+
+  &:hover {
+    background: @body-text-color;
+    color: @main-color;
+    cursor: pointer;
+  }
 
   &.selected {
-    background: #bbb;
-    color: #fff;
+    color: #ccc;
+
+    &:hover {
+      cursor: default;
+      background: @main-color;
+      color: #ccc;
+    }
   }
 
   &:focus {

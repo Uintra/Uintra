@@ -20,6 +20,7 @@ export class TagMultiselectComponent implements ControlValueAccessor {
 
   selectedList: Array<ITagData> = [];
   isDwopdownShowed: boolean = false;
+  isAddedTag: boolean = false;
 
   constructor() { }
 
@@ -31,7 +32,8 @@ export class TagMultiselectComponent implements ControlValueAccessor {
   }
 
   onAddTag(tag) {
-    if(this.selectedList.includes(tag)) return;
+    if (this.selectedList.includes(tag)) return;
+    this.isAddedTag = true;
     this.selectedList.push(tag);
     this.onHideDropdown();
   }
@@ -39,10 +41,14 @@ export class TagMultiselectComponent implements ControlValueAccessor {
   onRemoveTag(tag, e) {
     e.event.stopPropagation();
     this.selectedList = this.selectedList.filter(curTag => curTag.id !== tag.id);
+    if (this.selectedList.length == 0) {
+        this.isAddedTag = false;
+    }
   }
 
   onClearSelectedTags() {
     this.selectedList = [];
+    this.isAddedTag = false;
     this.onHideDropdown();
   }
 

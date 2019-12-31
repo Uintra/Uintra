@@ -11,14 +11,17 @@
         <umb-box>
             <umb-box-content>
                 <div class="panels">
-                    <div class="panels__item" ng-repeat="panel in model.panels" ng-click="model.selectPanel(panel)">
+
+                    <ubl-tree model="model.panels" selected="model.selectPanel(panel)"></ubl-tree>
+
+                    <!-- <div class="panels__item" ng-repeat="panel in model.panels" ng-click="model.selectPanel(panel)">
                         <div ng-if="!panel.isGlobal">
                             <i class="icon {{panel.icon}}"></i>{{ panel.name }}
                         </div>
                         <div ng-if="panel.isGlobal">
-                            <i class="icon {{panel.icon}}"></i>{{ panel.nodeName }} ({{ panel.name }}) 
+                            <i class="icon {{panel.icon}}"></i>{{ panel.nodeName }} ({{ panel.name }})
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </umb-box-content>
         </umb-box>
