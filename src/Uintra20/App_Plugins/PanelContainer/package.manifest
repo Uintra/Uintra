@@ -24,7 +24,8 @@
   "javascript": [
     "~/App_Plugins/PanelContainer/panel-container.controller.js",
     "~/App_Plugins/PanelContainer/panel-container.resource.js",
-    "~/App_Plugins/PanelContainer/prevalue/hidden-panels-selector.controller.js"
+    "~/App_Plugins/PanelContainer/prevalue/hidden-panels-selector.controller.js",
+    "~/App_Plugins/PanelContainer/directives/tree.js"
   ],
   "css": [
     "~/App_Plugins/PanelContainer/style.css"

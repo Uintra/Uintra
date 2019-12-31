@@ -1,0 +1,34 @@
+<div class="subcomment">
+  <app-user-avatar class="subcomment__avatar" [data]="data.creator.photo" big></app-user-avatar>
+  <div class="subcomment__container">
+    <app-comment-header 
+      [data]="data" 
+      (toggleEditingMode)="toggleEditingMode()"
+      (commentDelete)="onCommentDelete()"></app-comment-header>
+    <div *ngIf="!isEditing" class="comment__content" innerHTML="{{data.text}}"></div>
+    <!-- <app-like-button [likeData]="data.likeModel"></app-like-button> -->
+
+    <app-rich-text-editor
+      *ngIf="isEditing"
+      [isEditing]="isEditing"
+      [(ngModel)]="editedValue"
+      [isDropzone]="false"
+      placeholder="">
+        <div class="submit-container" edit>
+          <button
+            class="rte__submit-button"
+            [disabled]="isEditSubmitDisabled"
+            (click)="onSubmitEditedValue()">
+            Save
+          </button>
+          <button
+            class="rte__cancel-button"
+            (click)="toggleEditingMode()">
+            Cancel
+          </button>
+        </div>
+    </app-rich-text-editor>
+  </div>
+</div>
+
+

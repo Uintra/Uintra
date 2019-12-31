@@ -1,0 +1,19 @@
+﻿{
+  "propertyEditors": [
+    {
+      "alias": "UBaseline.AnchorField",
+      "name": "UBaseline - Anchor Field",
+      "icon": "icon-anchor",
+      "editor": {
+        "view": "~/App_Plugins/AnchorField/anchor-field.html",
+        "valueType": "STRING"
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/AnchorField/anchor-field.controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/AnchorField/style.css"
+  ]
+}

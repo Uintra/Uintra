@@ -23,19 +23,34 @@
             var categoryId = $scope.model.value[index].categoryId;
 
             $scope.model.value[index].availableGroups = getCategory(listId, categoryId).groups;
+
+            $scope.model.value[index].groups = $scope.model.value[index].groups
+                .filter(function (x) {
+                    var item = $scope.model.value[index].availableGroups.find(y => y.id === x.id);
+                    if (item) {
+                        x.name = item.name;
+                        return true;
+                    }
+                    return false;
+                });
         };
 
-        vm.toggleGroupSelection = function (index, groupId) {
-            var groupIndex = $scope.model.value[index].groups.indexOf(groupId);
+        vm.toggleGroupSelection = function (index, group) {
+            var item = $scope.model.value[index].groups.find(x => x.id === group.id);
+            var groupIndex = $scope.model.value[index].groups.indexOf(item);
 
             if (groupIndex > - 1)
                 $scope.model.value[index].groups.splice(groupIndex, 1);
             else
-                $scope.model.value[index].groups.push(groupId);
+                $scope.model.value[index].groups.push(group);
         };
 
-        vm.addNewList = function() {
+        vm.addNewList = function () {
             $scope.model.value.push(getDefaultValue());
+        };
+
+        vm.isChecked = function (list, groupId) {
+            return list.groups.find(x => x.id === groupId) !== undefined;
         };
 
         init();
@@ -68,7 +83,7 @@
                 if ($scope.model.value.length === 0) {
                     $scope.model.value = [getDefaultValue()];
                 } else {
-                    $scope.model.value.forEach(function(item, index) {
+                    $scope.model.value.forEach(function (item, index) {
                         vm.listChanged(index);
                         vm.categoryChanged(index);
                     });

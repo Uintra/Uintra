@@ -1,6 +1,7 @@
 ﻿using Compent.Extensions;
 using System;
 using System.Web;
+using UBaseline.Core.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Bulletin.Converters.Models;
@@ -31,7 +32,7 @@ namespace Uintra20.Features.Bulletins.Converters
 
         public void Map(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
         {
-            var id = HttpContext.Current.Request.GetByKey("id");
+            var id = HttpContext.Current.Request.GetUbaselineQueryValue("id");
 
             if (Guid.TryParse(id, out var parseId))
             {

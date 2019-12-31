@@ -13,8 +13,18 @@ export class SocialDetailsPanelComponent implements OnInit {
   constructor(
     private route: ActivatedRoute
   ) {
-    this.route.data.subscribe(data => this.data = data);
+    this.route.data.subscribe(data => this.data = this.addActivityTypeProperty(data));
    }
+
+  private addActivityTypeProperty(data) {
+    // TODO investigate UmbracoFlatProperty and refactor code below
+    data.panels.data.value = data.panels.get().map(panel => {
+      panel.data.value.activityType = data.details.get().activityType.get();
+      return panel
+    })
+    
+    return data;
+  }
 
   public ngOnInit(): void {
     console.log(this.data);
