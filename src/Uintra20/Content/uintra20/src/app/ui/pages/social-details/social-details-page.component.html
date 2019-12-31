@@ -14,58 +14,34 @@
           <div class="bulletin-details-content">
             <!-- added -->
             <div class="feed-header">
-              <a [routerLink]="['/']"
-                 class="link-back">Go to List</a>
-              <a routerLink="/{{activityName.toLowerCase() + '/edit'}}"
-                 [queryParams]="{id: details.id}"
-                 class="btn link-edit">Edit</a>
-            </div>
-            <div class="feed-item-details">
-              <a [routerLink]="['/profile']"
-                 [queryParams]="{id: details.id}"
-                 class="avatar">
-                <div class="avatar-letter">
-                  1
-                </div>
-              </a>
-              <div class="feed-item-title-holder">
-                <div class="feed-item-meta">
-                  <a [routerLink]="['/profile']"
-                     [queryParams]="{id: details.id}">
-                    <span class="feed-item-name">{{details.headerInfo.owner.displayedName}}</span>
-                  </a>
-                  <span class="feed-item-divider"> - </span>
-                  <span class="feed-item-date">{{details.publishDate | date: 'MMM d, y hh:mm'}}</span>
-                  <span class="feed-item-divider"> - </span>
-                  <span class="feed-item-category">{{activityName}}</span>
-                  <span class="feed-item-inactive"
-                        *ngIf="false">[Inactive]</span>
-                </div>
-                <div class="feed-item-text"
-                     [innerHtml]="details.description"></div>
-                <div class="feed-item-tags"
-                     *ngIf="tags.length !== 0">
-                  <strong>This activity is tagged</strong>
-                  <div class="tag-list"
-                       *ngFor="let tag of tags">
-                    <a class="tag-list-item"
-                       [routerLink]="['/search']"
-                       [queryParams]="{query: tag.text}"
-                       [innerHTML]="tag.text"></a>
-                  </div>
-                </div>
-                <app-like-button [likeData]="likeData"></app-like-button>
-                <div class="feed-item-images" *ngFor="let image of medias">
-                  <div class="gallery-item">
-                      <img class="gallery-image" [src]="image">
-                  </div>
+              <a [routerLink]="['/']" class="feed-header__back-link">Go to List</a>
 
+              <a routerLink="/{{activityName.toLowerCase() + '/edit'}}" [queryParams]="{id: details.id}"
+                class="feed-header__edit-link">Edit</a>
+            </div>
+
+            <div class="feed-item-details">
+              <app-post-header [details]="details" [activityName]="activityName"></app-post-header>
+
+              <div class="feed-item-text" [innerHtml]="details.description"></div>
+
+              <div class="feed-item-tags" *ngIf="tags.length !== 0">
+                <span class="feed-item-tags__text">This activity is tagged</span>
+                <a *ngFor="let tag of tags" class="feed-item-tags__tag" [routerLink]="['/search']" [queryParams]="{query: tag.text}"
+                  [innerHTML]="tag.text"></a>
+              </div>
+
+              <app-like-button [likeData]="likeData"></app-like-button>
+              
+              <div class="feed-item-images" *ngFor="let image of medias">
+                <div class="gallery-item">
+                  <img class="gallery-image" [src]="image">
                 </div>
               </div>
+              <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()">
+              </ubl-dynamic-component>
             </div>
           </div>
-          <ubl-dynamic-component *ngFor="let panel of data.panels.get()"
-                                 [data]="panel.get()"></ubl-dynamic-component>
         </div>
       </div>
     </div>
