@@ -14,6 +14,14 @@ export class SubcommentItemComponent implements OnInit {
   initialValue: string = '';
   editedValue: string = '';
 
+  get isEditSubmitDisabled() {
+    if (!this.editedValue) {
+      return true;
+    }
+
+    return false;
+  }
+
   constructor() { }
 
   ngOnInit() {

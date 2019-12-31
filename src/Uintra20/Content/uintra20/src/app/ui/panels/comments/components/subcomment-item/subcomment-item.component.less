@@ -17,10 +17,18 @@
 }
 
 .rte {
+  &__submit-button,
   &__cancel-button {
-    background-color: #fff !important;
-    border: 1px solid @alt-btn-border  !important;
-    color: @alt-btn-border !important;
+    margin-bottom: 15px;
+    margin-top: 10px;
+  }
+
+  &__submit-button {
+    .button-blue;
     margin-right: 5px;
+  }
+  
+  &__cancel-button {
+    .button-white;
   }
 }

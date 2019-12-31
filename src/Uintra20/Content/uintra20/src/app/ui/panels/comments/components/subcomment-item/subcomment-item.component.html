@@ -10,20 +10,21 @@
 
     <app-rich-text-editor
       *ngIf="isEditing"
+      [isEditing]="isEditing"
       [(ngModel)]="editedValue"
       [isDropzone]="false"
       placeholder="">
-        <div class="submit-container" submit>
+        <div class="submit-container" edit>
+          <button
+            class="rte__submit-button"
+            [disabled]="isEditSubmitDisabled"
+            (click)="onSubmitEditedValue()">
+            Save
+          </button>
           <button
             class="rte__cancel-button"
             (click)="toggleEditingMode()">
             Cancel
-          </button>
-          <button
-            class="rte__submit-button"
-            [disabled]="!editedValue.length"
-            (click)="onSubmitEditedValue()">
-            Save
           </button>
         </div>
     </app-rich-text-editor>
