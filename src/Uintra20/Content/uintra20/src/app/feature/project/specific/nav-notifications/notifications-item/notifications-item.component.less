@@ -1,0 +1,32 @@
+
+@import "base.less";
+
+:host {
+  display: block;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid @border-color;
+  }
+}
+
+.notification-item {
+  display: flex;
+  padding: 20px;
+  background: @main-color;
+  text-decoration: none;
+  color: @body-text-color;
+  transition: 0.1s;
+
+  &:hover {
+    background: @body-bg;
+  }
+
+  &__avatar {
+    margin-right: 20px;
+  }
+
+  &__date {
+    font-size: 11px;
+    line-height: 20px;
+  }
+}
