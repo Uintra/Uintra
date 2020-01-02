@@ -1,12 +1,22 @@
-<a [routerLink]="['/']" class="site-logo">
+<div class="header">
+  <a href="#" class="burger-menu js-menu-opener">
+    <span class="burger-menu__item"></span>
+  </a>
+
+  <a [routerLink]="['/']" class="site-logo">
     <img src="wwwroot/assets/img/logo.svg" width="21" height="33" alt="uintra">
-</a>
-<div class="header__content">
+  </a>
+
+  <div class="header__content">
 
     <div class="header-center col-8">
       <app-nav-notifications></app-nav-notifications>
     </div>
 
-    <!-- TODO FE Only Add styles -->
-    <user-navigation style="float: right;"></user-navigation>
+    <div class="tools" style="display: none;">
+      notification
+    </div>
+
+    <user-navigation></user-navigation>
+  </div>
 </div>

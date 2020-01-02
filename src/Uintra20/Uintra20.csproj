@@ -890,6 +890,12 @@
     <Content Include="config\logviewer.searches.config.js" />
     <Content Include="Content\uintra20\src\app\app.component.html" />
     <Content Include="Content\uintra20\src\app\app.component.less" />
+    <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\checkbox-input\checkbox-input.component.html" />
+    <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\fields\text-input\text-input.component.html" />
+    <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\radio-link-group\radio-link-group.component.html" />
+    <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\rich-text-editor\rich-text-editor.component.html" />
+    <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\tag-multiselect\tag-item\tag-item.component.html" />
+    <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\tag-multiselect\tag-multiselect.component.html" />
     <Content Include="Content\uintra20\src\app\ui\main-layout\header\header.component.html" />
     <Content Include="Content\uintra20\src\app\ui\pages\article\article-page.html" />
     <Content Include="Content\uintra20\src\app\ui\pages\home\home-page.html" />
@@ -969,6 +975,12 @@
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\AnchorField\package.manifest" />
+    <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\checkbox-input\checkbox-input.component.less" />
+    <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\radio-link-group\radio-link-group.component.less" />
+    <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\rich-text-editor\styles\quill-override.less" />
+    <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\rich-text-editor\rich-text-editor.component.less" />
+    <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\tag-multiselect\tag-item\tag-item.component.less" />
+    <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\tag-multiselect\tag-multiselect.component.less" />
     <None Include="Content\uintra20\src\styles\temp\aside.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
