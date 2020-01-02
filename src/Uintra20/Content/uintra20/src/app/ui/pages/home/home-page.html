@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <app-header></app-header>
 <main>
   <div class="content">
@@ -18,8 +19,19 @@
           <ubl-dynamic-component [data]="latestActivities[0].get()"></ubl-dynamic-component>
         </div>
       </div>
+=======
+<div class="row-flex">
+  <div class="col-md-8">
+    <div class="aside-opener">
+      <span class="icon-window js-aside-opener"></span>
+>>>>>>> release/2.0
     </div>
+    <ubl-dynamic-component
+      *ngFor="let panel of data.panels.get()"
+      [data]="panel.get()"
+    ></ubl-dynamic-component>
   </div>
-</main>
-
-
+  <div class="col-md-4 aside" *ngIf="true">
+    <ubl-dynamic-component [data]="latestActivities.get()"></ubl-dynamic-component>
+  </div>
+</div>
