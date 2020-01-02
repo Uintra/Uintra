@@ -1148,8 +1148,8 @@
     <Compile Include="Features\Notification\Configuration\BackofficeSettings\Providers\NotificationContentProvider.cs" />
     <Compile Include="Features\Notification\Models\NotificationPageModel.cs" />
     <Compile Include="Features\Notification\Models\NotificationPageViewModel.cs" />
+    <Compile Include="Features\Notification\NotificationsPageViewModelConverter.cs" />
     <Compile Include="Features\Notification\Settings\NotificationSettings.cs" />
-    <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationViewModel.cs" />
     <Compile Include="Features\Notification\ViewModel\NotifierViewModel.cs" />
     <Compile Include="Features\Notification\ViewModel\PopupNotificationViewModel.cs" />

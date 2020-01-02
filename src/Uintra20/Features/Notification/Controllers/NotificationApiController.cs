@@ -46,7 +46,7 @@ namespace Uintra20.Features.Notification.Controllers
         }
 
         [HttpGet]
-        public async Task<NotificationListViewModel> Get(int page = 1)
+        public async Task<NotificationViewModel[]> Get(int page = 1)
         {
             var take = page * _itemsPerPage;
             var (notifications, totalCount) = await _uiNotifierService.GetManyAsync( await _intranetMemberService.GetCurrentMemberIdAsync(), take);
@@ -63,20 +63,14 @@ namespace Uintra20.Features.Notification.Controllers
                 notificationsArray
                     .Select(async n => await MapNotificationToViewModelAsync(n)));
 
-            var result = new NotificationListViewModel
-            {
-                Notifications = notificationsViewModels,
-                BlockScrolling = totalCount <= take
-            };
-
-            return result;
+            return notificationsViewModels;
         }
 
         [HttpGet]
-        public async Task<NotificationListViewModel> NotificationList()
+        public async Task<NotificationViewModel[]> NotificationList()
         {
             var itemsCountForPopup = _nodeModelService
-                .GetByAlias<NotificationPageModel>("notificationPage", _requestContext.HomeNode.RootId)
+                .GetByAlias<NotificationsPageModel>("notificationPage", _requestContext.HomeNode.RootId)
                 ?.NotificationsPopUpCount
                 ?.Value ?? default(int);
 
@@ -98,11 +92,7 @@ namespace Uintra20.Features.Notification.Controllers
                     .Take(itemsCountForPopup)
                     .Select(async n => await MapNotificationToViewModelAsync(n)));
 
-            return new NotificationListViewModel
-            {
-                Notifications = notificationsViewModels,
-                BlockScrolling = false
-            };
+            return notificationsViewModels;
         }
 
         [HttpGet]

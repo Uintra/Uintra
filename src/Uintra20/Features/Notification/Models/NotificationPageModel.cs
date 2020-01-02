@@ -4,7 +4,7 @@ using UBaseline.Shared.Title;
 
 namespace Uintra20.Features.Notification.Models
 {
-    public class NotificationPageModel : NodeModel, ITitleContainer
+    public class NotificationsPageModel : NodeModel, ITitleContainer
     {
         public PropertyModel<string> Title { get; set; }
         public PropertyModel<int> NotificationsPopUpCount { get; set; }
