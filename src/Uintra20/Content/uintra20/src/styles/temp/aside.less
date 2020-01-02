@@ -1,7 +1,36 @@
 .aside {
-
+  @media @md-down {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    overflow-y: auto;
+    background: #fff;
+    z-index: 10;
+    display: none;
+  }
 }
 
 .aside-opener {
+  height: 50px;
+  width: 51px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: @main-color;
+  cursor: pointer;
+  border-left: 2px solid @light-grey;
 
+  @media @md-up {
+    display: none;
+  }
+
+  @media @md-down {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    z-index: 1;
+  }
 }

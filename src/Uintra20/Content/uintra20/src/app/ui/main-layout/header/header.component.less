@@ -1,22 +1,73 @@
 @import "base.less";
 
 :host {
-    display: block;
-    background-color: @header-bg;
-    padding: 16px 0;
-    position: fixed;
-    top: 0;
-    left:0;
-    right: 0;
-    height: 70px;
-    z-index: 1;
+  display: block;
+  .header-bar;
 }
-.site-logo {
-    margin-left: 29px;
-    display: inline-block;
-}
+
 .header {
-    &__content {
-        .centering();
+  .centering;
+  .flex-center;
+  height: 100%;
+
+  @media @md-up {
+    padding: 16px 15px;
+  }
+
+  @media @md-down {
+    justify-content: space-between;
+  }
+
+  &__content {
+    .flex-center;
+    justify-content: flex-end;
+
+    @media @md-up {
+      flex-grow: 1;
     }
+  }
+}
+
+.burger-menu {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+  margin-left: -4px;
+
+  @media @md-up {
+    display: none;
+  }
+
+  &__item {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    height: 3px;
+    background: @main-color;
+    border-radius: 3px;
+    top: 13px;
+  }
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    background: @main-color;
+    border-radius: 3px;
+    left: 4px;
+    right: 4px;
+    height: 3px;
+  }
+
+  &:before {
+    top: 4px;
+  }
+
+  &:after {
+    top: 22px;
+  }
+}
+
+.site-logo {
 }
