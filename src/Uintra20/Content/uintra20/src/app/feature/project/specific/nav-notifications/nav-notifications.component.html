@@ -1,44 +1,59 @@
 <div class="nav-notification" (clickOutside)="hide()">
-  <button (click)="show()" class="nav-notification__button">
+  <button (click)="onShow()" class="nav-notification__button">
     <span class="icon-bell-icon"></span>
     <span class="nav-notification__count" *ngIf="notificationCount > 0">
       {{ notificationCount }}
     </span>
   </button>
-  <div *ngIf="isShow && notifications" class="nav-notification__popup">
-    <a
-      [routerLink]="notification.value.url"
-      class="nav-notification__popup-item notification-item"
-      *ngFor="let notification of notifications"
+  <div *ngIf="isShow" class="nav-notification__popup">
+    <div class="nav-notification__spinner-wrapper" *ngIf="isLoading">
+      <div class="nav-notification__spinner"></div>
+    </div>
+
+    <div
+      class="nav-notification__spinner-wrapper"
+      *ngIf="!isLoading && notifications && notifications.length === 0"
     >
-      <div class="notification-item__avatar">
-        <app-user-avatar
-          big
-          [data]="notification.notifier.photo"
-        ></app-user-avatar>
-      </div>
-      <div class="notification-item__content">
-        <div class="notification-item__date">{{ notification.date }}</div>
-        <div
-          class="notification-item__text"
-          [innerHTML]="notification.value.message"
-        ></div>
-      </div>
-      <div
-        *ngIf="notification.value.isPinned"
-        class="notification-item__label"
-        [ngClass]="{
-          'notification-item__label--important': notification.value.isPinned,
-          'notification-item__label--actual': notification.value.isPinActual
-        }"
+      No new notifications
+    </div>
+
+    <ng-container *ngIf="notifications">
+      <!-- TODO: change href to routerlink -->
+      <a
+        [href]="notification.value.url"
+        class="nav-notification__popup-item notification-item"
+        *ngFor="let notification of notifications"
       >
-        Important
-      </div>
-    </a>
+        <div class="notification-item__avatar">
+          <app-user-avatar
+            big
+            [data]="notification.notifier.photo"
+          ></app-user-avatar>
+        </div>
+        <div class="notification-item__content">
+          <div class="notification-item__date">{{ notification.date }}</div>
+          <div
+            class="notification-item__text"
+            [innerHTML]="notification.value.message"
+          ></div>
+        </div>
+        <div
+          *ngIf="notification.value.isPinned"
+          class="notification-item__label"
+          [ngClass]="{
+            'notification-item__label--important': notification.value.isPinned,
+            'notification-item__label--actual': notification.value.isPinActual
+          }"
+        >
+          Important
+        </div>
+      </a>
+    </ng-container>
 
     <a
-      [routerLink]="'all-notofications'"
-      class="nav-notification__popup-item notification-item notification-item--with-background"
-    >See all notifications</a>
+      [routerLink]="'notifications'"
+      class="nav-notification__popup-item notification-item"
+      >See all notifications</a
+    >
   </div>
 </div>

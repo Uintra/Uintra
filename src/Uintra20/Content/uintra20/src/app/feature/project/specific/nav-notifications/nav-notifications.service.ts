@@ -2,11 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface INotificationsListData {
-  blockScrolling: boolean;
-  notifications: Array<INotificationsData>;
-}
-
 export interface INotificationsData {
   id: string;
   date: string;
@@ -45,8 +40,8 @@ export class NavNotificationsService {
     private http: HttpClient
   ) { }
 
-  getNotifications(): Observable<INotificationsListData> {
-    return this.http.get<INotificationsListData>(`/ubaseline/api/notificationApi/NotificationList`);
+  getNotifications(): Observable<INotificationsData[]> {
+    return this.http.get<INotificationsData[]>(`/ubaseline/api/notificationApi/NotificationList`);
   }
 
   getNotifiedCount(): Observable<number> {

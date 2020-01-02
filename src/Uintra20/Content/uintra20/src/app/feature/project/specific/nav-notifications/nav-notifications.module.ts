@@ -4,9 +4,10 @@ import { NavNotificationsComponent } from './nav-notifications.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserAvatarModule } from '../../reusable/ui-elements/user-avatar/user-avatar.module';
 import { RouterModule } from '@angular/router';
+import { ClickOutsideDirective } from './helpers/click-outside.directive';
 
 @NgModule({
-  declarations: [NavNotificationsComponent],
+  declarations: [NavNotificationsComponent, ClickOutsideDirective],
   imports: [
     CommonModule,
     HttpClientModule,
