@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using UBaseline.Core.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Abstractions;
@@ -39,7 +40,7 @@ namespace Uintra20.Features.Comments.Converters
 
         public void Map(CommentsPanelModel node, CommentsPanelViewModel viewModel)
         {
-            if (Guid.TryParse(HttpContext.Current?.Request["id"], out Guid pageId))
+            if (Guid.TryParse(HttpContext.Current?.Request.GetUbaselineQueryValue("id"), out Guid pageId))
             {
                 var comments = _commentsService.GetMany(pageId);
 
@@ -73,7 +74,7 @@ namespace Uintra20.Features.Comments.Converters
             IIntranetMember creator)
         {
             var model = comment.Map<CommentViewModel>();
-            model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate : default(DateTime?);
+            model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate.ToDateTimeFormat() : null;
             model.CanEdit = _commentsService.CanEdit(comment, currentMemberId);
             model.CanDelete = _commentsService.CanDelete(comment, currentMemberId);
             model.Creator = creator.Map<MemberViewModel>();

@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using UBaseline.Core.Extensions;
 using Uintra20.Core.Member;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Infrastructure.Constants;
@@ -59,17 +60,21 @@ namespace Uintra20.Infrastructure.Extensions
             return currentUser;
         }
 
-        public static string GetByKey(this HttpRequest request, string key)
+        public static string GetUbaselineQueryValue(this HttpRequest request, string key)
         {
-            var queryParameter = $"?{key}=";
+            if (request == null)
+            {
+                return null;
+            }
 
-            var ubaselineRequestQuery = request["url"];
+            var url = request["url"];
 
-            var id = ubaselineRequestQuery
-                .Substring(ubaselineRequestQuery.IndexOf(queryParameter, StringComparison.Ordinal))
-                .Replace(queryParameter, string.Empty);
+            if (string.IsNullOrWhiteSpace(url) || !Uri.TryCreate(url, UriKind.Absolute, out Uri requestedUrl))
+            {
+                return null;
+            }
 
-            return id;
+            return HttpUtility.ParseQueryString(requestedUrl.Query).Get(key);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Uintra20.Features.Likes.Converters
 
         public void Map(LikesPanelModel node, LikesPanelViewModel viewModel)
         {
-            if (Guid.TryParse(HttpContext.Current?.Request["id"], out Guid pageId))
+            if (Guid.TryParse(HttpContext.Current?.Request.GetUbaselineQueryValue("id"), out Guid pageId))
             {
                 var likes = _likesService.GetLikeModels(pageId);
 
