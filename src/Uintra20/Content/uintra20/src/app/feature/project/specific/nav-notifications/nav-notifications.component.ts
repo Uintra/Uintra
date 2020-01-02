@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavNotificationsService, INotificationsData, INotificationsListData } from './nav-notifications.service';
+import { NavNotificationsService, INotificationsData } from './nav-notifications.service';
 
 @Component({
   selector: 'app-nav-notifications',
