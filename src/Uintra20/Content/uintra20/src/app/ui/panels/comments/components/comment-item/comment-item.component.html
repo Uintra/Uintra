@@ -1,8 +1,8 @@
 <li class="comment">
   <app-user-avatar class="comment__avatar" [data]="data.creator.photo" big></app-user-avatar>
   <div class="comment__container">
-      <app-comment-header 
-        [data]="data" 
+      <app-comment-header
+        [data]="data"
         [isReply]="true"
         (toggleReply)="onToggleReply()"
         (toggleEditingMode)="toggleEditingMode()"
@@ -32,9 +32,9 @@
       </app-rich-text-editor>
 
       <div class="subcomment-container">
-        <app-subcomment-item 
-          class="subcomment-container__item" 
-          *ngFor="let reply of data.replies" 
+        <app-subcomment-item
+          class="subcomment-container__item"
+          *ngFor="let reply of data.replies"
           [data]="reply"
           (submitEditedValue)="onSubmitEditedValue($event)"
           (deleteComment)="onCommentDelete($event)"></app-subcomment-item>

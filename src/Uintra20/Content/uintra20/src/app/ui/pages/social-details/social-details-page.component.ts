@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ISocialDetails, IUserTag } from './social-details.interface';
 import { ActivityEnum } from 'src/app/feature/shared/enums/activity-type.enum';
 import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
+import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-elements/image-gallery/image-gallery.service';
 
 @Component({
   selector: 'social-details',
@@ -20,7 +21,8 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
   medias: Array<string>;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private imgService: ImageGalleryService
   ) {
     this.route.data.subscribe(data => this.data = this.addActivityTypeProperty(data));
    }
@@ -31,7 +33,7 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
       panel.data.value.activityType = data.details.get().activityType.get();
       return panel
     })
-    
+
     return data;
   }
 
@@ -56,5 +58,9 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
 
   public parseActivityType(activityType: number): string {
     return ActivityEnum[activityType];
+  }
+
+  openGallery() {
+    this.imgService.open();
   }
 }

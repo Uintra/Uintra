@@ -26,7 +26,7 @@ export class CommentsPanel implements OnInit {
   ngOnInit(): void {
   }
 
-  onCommentSubmit(replyData) {
+  onCommentSubmit(replyData?) {
     const data = {
       EntityId: window.location.href.slice(window.location.href.indexOf('id=') + 3),
       EntityType: this.data.activityType,

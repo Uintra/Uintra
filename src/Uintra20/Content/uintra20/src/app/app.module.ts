@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { DYNAMIC_COMPONENTS, UmbracoSupportModule } from '@ubaseline/next';
 import { pages } from './ui/pages/pages';
 import { panels } from './ui/panels/panels';
+import { ImageGalleryModule } from './feature/project/reusable/ui-elements/image-gallery/image-gallery.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { panels } from './ui/panels/panels';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ImageGalleryModule,
     UmbracoSupportModule.configure({
       apiPrefix: '/ubaseline/api',
       pages: pages,
