@@ -28,7 +28,7 @@
   color: @text-reverse-color;
 
   &:hover {
-    opacity: 0.6;       
+    opacity: 0.6;
   }
 
   &[disabled] {
@@ -63,4 +63,14 @@
 
 .error() {
   color: @red;
+}
+
+.pinned() {
+  word-wrap: break-word;
+  background: @select-color;
+  color: @text-reverse-color;
+  font-size: 11px;
+  line-height: 15px;
+  border-radius: 15px;
+  text-transform: uppercase;
 }

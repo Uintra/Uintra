@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavNotificationsService, INotificationsData } from './nav-notifications.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 declare var $: any;
 
@@ -20,7 +21,13 @@ export class NavNotificationsComponent implements OnInit {
   isShow: boolean = false;
   isLoading: boolean = false;
 
-  constructor(private navNotificationsService: NavNotificationsService) { }
+  constructor(private navNotificationsService: NavNotificationsService, private router: Router) {
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        this.hide();
+      }
+    });
+  }
 
   ngOnInit() {
     this.navNotificationsService.getNotifiedCount().subscribe(count => {
@@ -29,30 +36,17 @@ export class NavNotificationsComponent implements OnInit {
     // this.connection = $.hubConnection('/umbraco/backoffice/signalr/hubs');
     // this.proxy = this.connection.createHubProxy('ProcessingHub');
 
-    const notificationsHub = $.connection.notificationsHub;
     this.proxy = $.connection.notificationsHub;
 
     $.connection.hub.start().done(r => {
-      debugger;
-      var count=$.connection.notificationsHub.server.getNotNotifiedCount('28241e2b-e993-4f60-9357-577b5d42eb63');
+
+      this.proxy.server.getNotNotifiedCount('28241e2b-e993-4f60-9357-577b5d42eb63').then((count) => {
+        debugger;
+      });
+
       }).catch(r => {
         debugger;
-
       });
-    // .done(r => {
-    //   debugger;
-    // }).catch(r => {
-    //   debugger;
-
-    // })
-
-
-
-    //   .start().done((data: any) => {
-    //     console.log('Connected to Processing Hub');
-    // }).catch((error: any) => {
-    //     console.log('Hub error -> ' + error);
-    // });
   }
 
   onShow() {
