@@ -60,7 +60,13 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
     return ActivityEnum[activityType];
   }
 
-  openGallery() {
-    this.imgService.open();
+  openGallery(i) {
+    const items = this.medias.map(el => ({
+      src: el,
+      w: 900,
+      h: 600
+    }))
+
+    this.imgService.open(items, i);
   }
 }
