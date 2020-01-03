@@ -1,4 +1,4 @@
-<main>
+
   <div class="content">
     <nav class="nav">
       <ul class="nav-list">
@@ -39,6 +39,9 @@
                   <div class="gallery-item" *ngFor="let image of medias">
                     <img class="gallery-image" [src]="image" (click)="openGallery()">
                   </div>
+              <div class="feed-item-images" *ngFor="let image of medias">
+                <div class="gallery-item">
+                  <img class="gallery-image" [src]="image">
                 </div>
 
                 <ul class="documents-list">
@@ -59,4 +62,4 @@
       </div>
     </div>
   </div>
-</main>
+
