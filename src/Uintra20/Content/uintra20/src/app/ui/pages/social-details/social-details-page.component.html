@@ -34,15 +34,15 @@
 
               <app-like-button class="likes" [likeData]="likeData"></app-like-button>
 
-              <div class="attachments">
-                <ul class="feed-item-images">
+              <div class="attachments"> <!-- Insert here *ngIf="array of images || array of documents" -->
+                <ul class="feed-item-images"> <!-- Insert here *ngIf with array of images -->
                   <li class="feed-item-images__item" *ngFor="let image of medias; index as i">
                     <img class="feed-item-images__image" [src]="image" (click)="openGallery(i)">
                   </li>
                 </ul>
 
-                <ul class="documents-list">
-                  <li class="documents-list__item">
+                <ul class="documents-list"> <!-- Insert here *ngIf with array of documents -->
+                  <li class="documents-list__item"> <!-- Insert here *ngFor with array of documents -->
                     <a class="documents-list__link" href="/media/2201/logo.ttf" target="_blank">
                       <span class="documents-list__icon file-extension">ttf</span>
                       <span class="documents-list__title">logo.ttf</span>

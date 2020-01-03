@@ -12,7 +12,8 @@ export class ImageGalleryService {
   open(items, index) {
     let pswpElement = document.querySelectorAll('.pswp')[0];
 
-    // build items array
+    // build items array, example below
+
     // let items = [
     //     {
     //         src: 'https://placekitten.com/600/400',
