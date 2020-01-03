@@ -1,5 +1,8 @@
 ﻿using Compent.Extensions;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
@@ -74,6 +77,12 @@ namespace Uintra20.Features.Bulletins.Converters
             var viewModel = social.Map<SocialViewModel>();
 
             viewModel.Media = MediaHelper.GetMediaUrls(social.MediaIds);
+            
+
+            var models = GetMediaModels(viewModel.Media);
+            //viewModel.Files = models.Where(IsFileExpr);
+            //viewModel.Images = models.Where(IsImageExpr);
+
             viewModel.CanEdit = _socialsService.CanEdit(social);
             viewModel.Links = links;
             viewModel.IsReadOnly = false;
@@ -85,6 +94,17 @@ namespace Uintra20.Features.Bulletins.Converters
             var extendedModel = viewModel.Map<SocialExtendedViewModel>();
 
             return extendedModel;
+        }
+
+        public IEnumerable<SocialMedia> GetMediaModels(IEnumerable<string> links)
+        {
+            return links.Select(link => new SocialMedia
+            {
+                Link = link,
+                Extension = Path.GetExtension(link),
+                Name = Path.GetFileNameWithoutExtension(link),
+                NameAndExtension = Path.GetFileName(link)
+            });
         }
     }
 }
