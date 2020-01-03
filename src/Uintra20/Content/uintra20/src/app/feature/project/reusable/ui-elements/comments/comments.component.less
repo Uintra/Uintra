@@ -1,0 +1,68 @@
+@import "base.less";
+
+.comments-panel {
+  margin: 0;
+  padding: 24px 0 0;
+  border-top: 1px solid @border-color;
+
+  &__title {
+    margin: 0 0 36px;
+    font-weight: normal;
+  }
+
+  &__rte-title {
+    margin-bottom: 4px;
+  }
+
+  .comments-list {
+    margin-bottom: 20px;
+
+    &__item:not(:last-child) {
+      display: block;
+      margin-bottom: 20px;
+    }
+  }
+
+  .ql-container.ql-snow {
+    border: 1px solid @border-color;
+  }
+
+  .toolbar {
+    border-top: none !important;
+    padding-right: 0 !important;
+  }
+
+  .ql-container {
+    height: 62px;
+  }
+
+  .ql-editor {
+    font-size: 13px !important;
+    height: 100%;
+  }
+
+  dropzone > .dropzone.dz-wrapper {
+    padding: 0 14px !important;
+    height: 0 !important;
+
+    &.dz-started {
+      height: auto !important;
+    }
+
+    .dz-message {
+      border: 0 !important;
+      background: none !important;
+      min-height: 0 !important;
+    }
+
+    .dz-remove {
+      margin-top: 5px;
+      color: #337ab7;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

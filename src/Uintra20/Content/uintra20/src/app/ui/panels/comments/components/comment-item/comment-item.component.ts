@@ -57,11 +57,12 @@ export class CommentItemComponent implements OnInit {
   }
 
   onSubmitEditedValue(subcomment?) {
+    debugger;
     const data = {
-      Id: subcomment.id || this.data.id,
-      EntityId: subcomment.entityId || this.data.activityId,
+      Id: subcomment ? subcomment.id : this.data.id,
+      EntityId: subcomment ? subcomment.entityId : this.data.activityId,
       EntityType: this.activityType,
-      Text: subcomment.text || this.editedValue,
+      Text: subcomment ? subcomment.text : this.editedValue,
     }
 
     this.cs.editComment(data).then((res: any) => {

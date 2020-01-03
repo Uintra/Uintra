@@ -7,6 +7,7 @@ import { SocialDetailsPanelComponent } from './social-details-page.component';
 import { LikeButtonModule } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.module';
 import { UserAvatarModule } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar.module';
 import { PostHeaderComponent } from './components/post-header/post-header.component';
+import { CommentsModule } from 'src/app/feature/project/reusable/ui-elements/comments/comments.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { PostHeaderComponent } from './components/post-header/post-header.compon
     UbaselineCoreModule,
     LikeButtonModule,
     UserAvatarModule,
+    CommentsModule
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: SocialDetailsPanelComponent }

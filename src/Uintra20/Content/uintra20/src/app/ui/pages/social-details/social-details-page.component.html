@@ -50,9 +50,12 @@
                   </li>
                 </ul>
               </div>
-
-              <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()">
-              </ubl-dynamic-component>
+              <app-comments 
+                [comments]="data.comments" 
+                [activityType]="details.activityType">
+            </app-comments>
+              <!-- <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()">
+              </ubl-dynamic-component> -->
             </div>
           </div>
         </div>
