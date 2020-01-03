@@ -39,6 +39,9 @@
                   <div class="gallery-item" *ngFor="let image of medias">
                     <img class="gallery-image" [src]="image" (click)="openGallery()">
                   </div>
+              <div class="feed-item-images" *ngFor="let image of medias">
+                <div class="gallery-item">
+                  <img class="gallery-image" [src]="image">
                 </div>
 
                 <ul class="documents-list">
