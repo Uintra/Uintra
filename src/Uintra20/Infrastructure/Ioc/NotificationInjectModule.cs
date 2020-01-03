@@ -44,7 +44,9 @@ namespace Uintra20.Infrastructure.Ioc
                 return (INotificationTypeProvider) result;
             });
 
-            return services;
+            services.AddScoped<NotificationsHub>();
+
+			return services;
         }
     }
 }
