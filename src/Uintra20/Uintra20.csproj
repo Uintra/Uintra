@@ -898,6 +898,9 @@
     <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\rich-text-editor\rich-text-editor.component.html" />
     <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\tag-multiselect\tag-item\tag-item.component.html" />
     <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\tag-multiselect\tag-multiselect.component.html" />
+    <Content Include="Content\uintra20\src\app\feature\project\specific\nav-notifications\nav-notifications.component.html" />
+    <Content Include="Content\uintra20\src\app\feature\project\specific\nav-notifications\notifications-item\notifications-item.component.html" />
+    <Content Include="Content\uintra20\src\app\feature\project\specific\user-navigation\user-navigation.component.html" />
     <Content Include="Content\uintra20\src\app\ui\main-layout\header\header.component.html" />
     <Content Include="Content\uintra20\src\app\ui\pages\article\article-page.html" />
     <Content Include="Content\uintra20\src\app\ui\pages\home\home-page.html" />
@@ -985,6 +988,9 @@
     <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\tag-multiselect\tag-item\tag-item.component.less" />
     <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\tag-multiselect\tag-multiselect.component.less" />
     <Content Include="Content\uintra20\src\app\ui\pages\notifications\notifications-page.less" />
+    <Content Include="Content\uintra20\src\app\feature\project\specific\nav-notifications\nav-notifications.component.less" />
+    <Content Include="Content\uintra20\src\app\feature\project\specific\nav-notifications\notifications-item\notifications-item.component.less" />
+    <Content Include="Content\uintra20\src\app\feature\project\specific\user-navigation\user-navigation.component.less" />
     <None Include="Content\uintra20\src\styles\temp\aside.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
@@ -1699,6 +1705,15 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Content\uintra20\src\app\feature\project\specific\nav-notifications\helpers\click-outside.directive.ts" />
+    <TypeScriptCompile Include="Content\uintra20\src\app\feature\project\specific\nav-notifications\nav-notifications.component.spec.ts" />
+    <TypeScriptCompile Include="Content\uintra20\src\app\feature\project\specific\nav-notifications\nav-notifications.component.ts" />
+    <TypeScriptCompile Include="Content\uintra20\src\app\feature\project\specific\nav-notifications\nav-notifications.module.ts" />
+    <TypeScriptCompile Include="Content\uintra20\src\app\feature\project\specific\nav-notifications\nav-notifications.service.ts" />
+    <TypeScriptCompile Include="Content\uintra20\src\app\feature\project\specific\nav-notifications\notifications-item\notifications-item.component.spec.ts" />
+    <TypeScriptCompile Include="Content\uintra20\src\app\feature\project\specific\nav-notifications\notifications-item\notifications-item.component.ts" />
+    <TypeScriptCompile Include="Content\uintra20\src\app\feature\project\specific\user-navigation\user-navigation.component.ts" />
+    <TypeScriptCompile Include="Content\uintra20\src\app\feature\project\specific\user-navigation\user-navigation.module.ts" />
     <TypeScriptCompile Include="Content\uintra20\src\app\ui\pages\notifications\notifications-page.component.ts" />
     <TypeScriptCompile Include="Content\uintra20\src\app\ui\pages\notifications\notifications-page.module.ts" />
   </ItemGroup>
