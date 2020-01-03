@@ -7,21 +7,32 @@ using System.Web.Mvc;
 using Uintra20;
 using Uintra20.Core.Authentication;
 using Uintra20.Models.UmbracoIdentity;
+using Umbraco.Web;
 using UmbracoIdentity;
 
 [assembly: OwinStartup("UmbracoIdentityOwinStartup", typeof(UmbracoIdentityOwinStartup))]
 namespace Uintra20
 {
-    public class UmbracoIdentityOwinStartup : UmbracoIdentityOwinStartupBase
+	public class UmbracoIdentityOwinStartup : UmbracoIdentityOwinStartupBase
 	{
-        public override void Configuration(IAppBuilder app)
-        {
-            base.Configuration(app);
+		public override void Configuration(IAppBuilder app)
+		{
+			base.Configuration(app);
 
-            app.Use(AuthenticationHandler);
-        }
+			app.Use(AuthenticationHandler);
+		}
 
-        protected override void ConfigureUmbracoUserManager(IAppBuilder app)
+		protected override void ConfigureMiddleware(IAppBuilder app)
+		{
+
+			// Configure OWIN for authentication.
+			ConfigureUmbracoAuthentication(app);
+
+			app.ConfigureSignalR(GlobalSettings);
+			app.FinalizeMiddlewareConfiguration();
+		}
+
+		protected override void ConfigureUmbracoUserManager(IAppBuilder app)
 		{
 			base.ConfigureUmbracoUserManager(app);
 
@@ -41,17 +52,19 @@ namespace Uintra20
 			app.UseCookieAuthentication(cookieOptions, PipelineStage.Authenticate);
 		}
 
-        private Task AuthenticationHandler(IOwinContext context, Func<Task> continuation)
-        {
-            var authenticationService = DependencyResolver.Current.GetService<IAuthenticationService>();
-            if (authenticationService.IsAuthenticatedRequest(context))
-            {
-                return continuation();
-            }
+		private Task AuthenticationHandler(IOwinContext context, Func<Task> continuation)
+		{
+			var authenticationService = DependencyResolver.Current.GetService<IAuthenticationService>();
+			if (authenticationService.IsAuthenticatedRequest(context))
+			{
+				return continuation();
+			}
 
-            context.Authentication.Challenge(DefaultAuthenticationTypes.ApplicationCookie);
-            return Task.FromResult(0);
-        }
-    }
+			context.Authentication.Challenge(DefaultAuthenticationTypes.ApplicationCookie);
+			return Task.FromResult(0);
+		}
+
+
+	}
 }
 

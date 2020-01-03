@@ -5,7 +5,7 @@ using Uintra20.Features.Notification.Services;
 
 namespace Uintra20.Features.Notification
 {
-	public class NotificationsHub:Hub
+	public class NotificationsHub : Hub
 	{
 		private readonly IUiNotificationService _uiNotificationService;
 
@@ -13,9 +13,10 @@ namespace Uintra20.Features.Notification
 		{
 			_uiNotificationService = uiNotificationService;
 		}
-		public async Task<int> GetNotNotifiedCount(Guid memberId)
+
+		public async Task<int> GetNotNotifiedCount(Guid currentMemberId)
 		{
-			return await _uiNotificationService.GetNotNotifiedCountAsync(memberId);
+			return await _uiNotificationService.GetNotNotifiedCountAsync(currentMemberId);
 		}
 	}
 }
