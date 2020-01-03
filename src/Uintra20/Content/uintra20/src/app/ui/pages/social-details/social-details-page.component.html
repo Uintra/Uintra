@@ -35,11 +35,11 @@
               <app-like-button class="likes" [likeData]="likeData"></app-like-button>
 
               <div class="attachments">
-                <div class="feed-item-images" *ngFor="let image of medias">
-                  <div class="gallery-item">
-                    <img class="gallery-image" [src]="image" (click)="openGallery()">
-                  </div>
-                </div>
+                <ul class="feed-item-images">
+                  <li class="feed-item-images__item" *ngFor="let image of medias; index as i">
+                    <img class="feed-item-images__image" [src]="image" (click)="openGallery(i)">
+                  </li>
+                </ul>
 
                 <ul class="documents-list">
                   <li class="documents-list__item">
