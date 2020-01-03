@@ -30,9 +30,6 @@
                 <a *ngFor="let tag of tags" class="feed-item-tags__tag" [routerLink]="['/search']" [queryParams]="{query: tag.text}"
                   [innerHTML]="tag.text"></a>
               </div>
-
-              <app-like-button [likeData]="likeData"></app-like-button>
-              
               <div class="feed-item-images" *ngFor="let image of medias">
                 <div class="gallery-item">
                   <img class="gallery-image" [src]="image">

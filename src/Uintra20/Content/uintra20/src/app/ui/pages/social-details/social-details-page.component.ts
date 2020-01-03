@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ISocialDetails, IUserTag } from './social-details.interface';
 import { ActivityEnum } from 'src/app/feature/shared/enums/activity-type.enum';
-import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
 
 @Component({
   selector: 'social-details',
@@ -10,13 +9,12 @@ import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-but
   styleUrls: ['./social-details-page.component.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
+export class SocialDetailsPanelComponent implements OnInit {
 
   data: any;
   details: ISocialDetails;
   tags: Array<IUserTag>;
   activityName: string;
-  likeData: ILikeData;
   medias: Array<string>;
 
   constructor(
@@ -42,16 +40,6 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
     this.activityName = this.parseActivityType(this.details.activityType);
     this.tags = Object.values(parsedData.tags);
     this.medias = Object.values(parsedData.details.media);
-    this.likeData = {
-      likedByCurrentUser: parsedData.likedByCurrentUser,
-      id: parsedData.details.id,
-      activityType: parsedData.details.activityType,
-      likes: Object.values(parsedData.likes)
-    };
-  }
-
-  public ngOnDestroy(): void {
-    console.log('died');
   }
 
   public parseActivityType(activityType: number): string {
