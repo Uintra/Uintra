@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\..\packages\Compent.UBaseline.UI.0.2.13\build\Compent.UBaseline.UI.props" Condition="Exists('..\..\packages\Compent.UBaseline.UI.0.2.13\build\Compent.UBaseline.UI.props')" />
   <Import Project="..\..\packages\UmbracoCms.8.4.0\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.8.4.0\build\UmbracoCms.props')" />
   <Import Project="..\..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
@@ -29,6 +30,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <TypeScriptToolsVersion>3.5</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -900,6 +902,7 @@
     <Content Include="Content\uintra20\src\app\ui\pages\article\article-page.html" />
     <Content Include="Content\uintra20\src\app\ui\pages\home\home-page.html" />
     <Content Include="Content\uintra20\src\app\ui\pages\login\login-page.html" />
+    <Content Include="Content\uintra20\src\app\ui\pages\notifications\notifications-page.html" />
     <Content Include="Content\uintra20\src\app\ui\pages\social-details\social-details-page.component.html" />
     <Content Include="Content\uintra20\src\app\ui\panels\activity-create\activity-create-panel.html" />
     <Content Include="Content\uintra20\src\app\ui\panels\central-feed\central-feed-filters\central-feed-filters.component.html" />
@@ -981,6 +984,7 @@
     <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\rich-text-editor\rich-text-editor.component.less" />
     <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\tag-multiselect\tag-item\tag-item.component.less" />
     <Content Include="Content\uintra20\src\app\feature\project\reusable\inputs\tag-multiselect\tag-multiselect.component.less" />
+    <Content Include="Content\uintra20\src\app\ui\pages\notifications\notifications-page.less" />
     <None Include="Content\uintra20\src\styles\temp\aside.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
@@ -1694,6 +1698,10 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Content\uintra20\src\app\ui\pages\notifications\notifications-page.component.ts" />
+    <TypeScriptCompile Include="Content\uintra20\src\app\ui\pages\notifications\notifications-page.module.ts" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -1702,6 +1710,7 @@
     <OutputPath>bin\</OutputPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>
