@@ -931,6 +931,8 @@
     <Compile Include="Features\Comments\Converters\CommentsPanelViewModelConverter.cs" />
     <Compile Include="Features\Comments\Converters\Models\CommentsPanelModel.cs" />
     <Compile Include="Features\Comments\Converters\Models\CommentsPanelViewModel.cs" />
+    <Compile Include="Features\Comments\Helpers\CommentsHelper.cs" />
+    <Compile Include="Features\Comments\Helpers\ICommentsHelper.cs" />
     <Compile Include="Features\Likes\CommandBus\LikeHandle.cs" />
     <Compile Include="Features\Likes\CommandBus\LikeNotificationHandle.cs" />
     <Compile Include="Features\Likes\Converters\LikesPanelViewModelConverter.cs" />
