@@ -5,15 +5,16 @@
       {{ notificationCount }}
     </span>
   </button>
+  <button (click)="subscribe()" class="button">
+    Subscribe to Hub
+  </button>
   <div *ngIf="isShow" class="nav-notification__popup">
     <div class="nav-notification__spinner-wrapper" *ngIf="isLoading">
       <div class="nav-notification__spinner"></div>
     </div>
 
-    <div
-      class="nav-notification__spinner-wrapper"
-      *ngIf="!isLoading && notifications && notifications.length === 0"
-    >
+    <div class="nav-notification__spinner-wrapper"
+         *ngIf="!isLoading && notifications && notifications.length === 0">
       No new notifications
     </div>
 

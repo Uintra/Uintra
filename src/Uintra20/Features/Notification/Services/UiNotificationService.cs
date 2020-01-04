@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
 using UBaseline.Core.Extensions;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Models;
@@ -15,8 +16,8 @@ namespace Uintra20.Features.Notification.Services
     public class UiNotificationService : IUiNotificationService
     {
         private readonly ISqlRepository<Sql.Notification> _notificationRepository;
-
-        public UiNotificationService(ISqlRepository<Sql.Notification> notificationRepository)
+        public UiNotificationService(
+            ISqlRepository<Sql.Notification> notificationRepository)
         {
             _notificationRepository = notificationRepository;
         }
@@ -58,9 +59,10 @@ namespace Uintra20.Features.Notification.Services
                     Type = el.NotificationType.ToInt(),
                     Value = new { el.Message, el.Url, el.NotifierId, el.IsPinned, el.IsPinActual, el.DesktopMessage, el.DesktopTitle, el.IsDesktopNotificationEnabled }.ToJson(),
                     ReceiverId = el.ReceiverId
-                });
+                }).ToList();
 
             await _notificationRepository.AddAsync(notifications);
+            SendNewUiNotificationsArrived(notifications);
         }
 
         public async Task<int> GetNotNotifiedCountAsync(Guid receiverId)
@@ -110,8 +112,6 @@ namespace Uintra20.Features.Notification.Services
 
         #endregion
 
-        #region sync
-
         public (IEnumerable<Sql.Notification> notifications, int totalCount) GetMany(Guid receiverId, int count)
         {
             var notifications = GetNotifications(receiverId);
@@ -136,9 +136,10 @@ namespace Uintra20.Features.Notification.Services
                     Type = el.NotificationType.ToInt(),
                     Value = new { el.Message, el.Url, el.NotifierId, el.IsPinned, el.IsPinActual, el.DesktopMessage, el.DesktopTitle, el.IsDesktopNotificationEnabled }.ToJson(),
                     ReceiverId = el.ReceiverId
-                });
+                }).ToList();
 
             _notificationRepository.Add(notifications);
+            SendNewUiNotificationsArrived(notifications);
         }
 
         public int GetNotNotifiedCount(Guid receiverId)
@@ -170,22 +171,6 @@ namespace Uintra20.Features.Notification.Services
             _notificationRepository.Update(notificationsList);
         }
 
-        private IList<Sql.Notification> GetNotifications(Guid receiverId, bool excludeAlreadyNotified = false)
-        {
-            var uiNotifierTypeId = NotifierTypeEnum.UiNotifier.ToInt();
-            
-            Expression<Func<Sql.Notification, bool>> basePredicate = notification =>
-                notification.ReceiverId == receiverId &&
-                notification.NotifierType == uiNotifierTypeId;
-
-
-            var predicate = excludeAlreadyNotified
-                ? basePredicate.AndAlso(notification => !notification.IsNotified)
-                : basePredicate;
-
-            return _notificationRepository.FindAll(predicate);
-        }
-
         public bool SetNotificationAsNotified(Guid id)
         {
             var notification = _notificationRepository.Get(id);
@@ -198,7 +183,34 @@ namespace Uintra20.Features.Notification.Services
             return true;
         }
 
-        #endregion
+        private IList<Sql.Notification> GetNotifications(Guid receiverId, bool excludeAlreadyNotified = false)
+        {
+            var uiNotifierTypeId = NotifierTypeEnum.UiNotifier.ToInt();
+
+            Expression<Func<Sql.Notification, bool>> basePredicate = notification =>
+                notification.ReceiverId == receiverId &&
+                notification.NotifierType == uiNotifierTypeId;
+
+
+            var predicate = excludeAlreadyNotified
+                ? basePredicate.AndAlso(notification => !notification.IsNotified)
+                : basePredicate;
+
+            return _notificationRepository.FindAll(predicate);
+        }
+
+        private void SendNewUiNotificationsArrived(IEnumerable<Sql.Notification> notifications)
+        {
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<NotificationsHub>();
+
+            notifications
+                .GroupBy(m => m.ReceiverId)
+                .ToList()
+                .ForEach(r =>
+                {
+                    hubContext.Clients.User(r.Key.ToString()).updateNotificationsCount(GetNotNotifiedCount(r.Key));
+                });
+        }
 
     }
 }

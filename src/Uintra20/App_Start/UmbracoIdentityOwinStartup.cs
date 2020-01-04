@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Uintra20;
 using Uintra20.Core.Authentication;
+using Uintra20.Core.Hubs;
 using Uintra20.Models.UmbracoIdentity;
 using Umbraco.Web;
 using UmbracoIdentity;
@@ -24,11 +25,10 @@ namespace Uintra20
 
 		protected override void ConfigureMiddleware(IAppBuilder app)
 		{
-
 			// Configure OWIN for authentication.
 			ConfigureUmbracoAuthentication(app);
 
-			app.ConfigureSignalR(GlobalSettings);
+			app.ConfigureSignalR();
 			app.FinalizeMiddlewareConfiguration();
 		}
 

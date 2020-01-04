@@ -932,9 +932,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
-    <Compile Include="App_Start\LightInjectScopedConnection.cs" />
+    <Compile Include="Infrastructure\Extensions\FactoryExtensions.cs" />
+    <Compile Include="Infrastructure\Ioc\LightInjectScopedConnection.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
-    <Compile Include="App_Start\SignalRStartup.cs" />
+    <Compile Include="Core\Hubs\SignalRStartup.cs" />
     <Compile Include="App_Start\StartupComposer.cs" />
     <Compile Include="App_Start\UmbracoIdentityOwinStartup.cs" />
     <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
@@ -1107,6 +1108,7 @@
     <Compile Include="Features\Notification\NotificationsHub.cs" />
     <Compile Include="Features\Notification\NotificationsPageViewModelConverter.cs" />
     <Compile Include="Features\Notification\Settings\NotificationSettings.cs" />
+    <Compile Include="Core\Hubs\SignalRUserIdProvider.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationViewModel.cs" />
     <Compile Include="Features\Notification\ViewModel\NotifierViewModel.cs" />
     <Compile Include="Features\Notification\ViewModel\PopupNotificationViewModel.cs" />
@@ -1503,11 +1505,11 @@
     <Content Include="App_Plugins\Members\package.manifest" />
     <Content Include="App_Plugins\AvailableActivitySelector\package.manifest" />
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\Bulletins\ActivityLikeAdded.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\Bulletins\CommentAdded.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\Bulletins\CommentEdited.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\Bulletins\CommentReplied.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\Bulletins\UserMention.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\Socials\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\Socials\CommentAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\Socials\CommentEdited.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\Socials\CommentReplied.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\Socials\UserMention.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\CommunicationSettings\CommentLikeAdded.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\CommunicationSettings\CommentReplied.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\CommunicationSettings\GroupInvitation.json" />
@@ -1526,11 +1528,11 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\News\CommentEdited.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\News\CommentReplied.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\DesktopNotifier\News\UserMention.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Bulletins\ActivityLikeAdded.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Bulletins\CommentAdded.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Bulletins\CommentEdited.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Bulletins\CommentReplied.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Bulletins\UserMention.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Socials\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Socials\CommentAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Socials\CommentEdited.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Socials\CommentReplied.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\Socials\UserMention.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\CommentLikeAdded.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\CommentReplied.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\CommunicationSettings\GroupInvitation.json" />
@@ -1550,11 +1552,11 @@
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\News\CommentReplied.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\EmailNotifier\News\UserMention.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\PopupNotifier\Member\Welcome.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\ActivityLikeAdded.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\CommentAdded.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\CommentEdited.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\CommentReplied.json" />
-    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Bulletins\UserMention.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Socials\ActivityLikeAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Socials\CommentAdded.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Socials\CommentEdited.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Socials\CommentReplied.json" />
+    <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\Socials\UserMention.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\CommentLikeAdded.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\CommentReplied.json" />
     <EmbeddedResource Include="BackofficeNotificationSettings\UiNotifier\CommunicationSettings\GroupInvitation.json" />
@@ -1613,7 +1615,7 @@
   <ItemGroup>
     <Folder Include="Content\uintra20\" />
     <Folder Include="Core\Feed\Web\" />
-    <Folder Include="Infrastructure\Authentication\" />
+    <Folder Include="Features\Notification\Commands\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

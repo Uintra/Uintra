@@ -5,11 +5,16 @@ using Microsoft.Owin.Security;
 using System;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Security;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Models.UmbracoIdentity;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
+using Umbraco.Core.Services;
+using Umbraco.Core.Services.Implement;
 using UmbracoIdentity;
 
 namespace Uintra20.Core.Authentication
@@ -19,16 +24,20 @@ namespace Uintra20.Core.Authentication
         private readonly UmbracoMembersUserManager<UmbracoApplicationMember> _userManager;
         private readonly IRuntimeState _runtime;
         private readonly IGlobalSettings _globalSettings;
+        private readonly IMemberService _memberService;
 
         protected IOwinContext OwinContext => HttpContext.Current.GetOwinContext();
 
         public AuthenticationService(
             IRuntimeState runtime,
-            IGlobalSettings globalSettings)
+            IGlobalSettings globalSettings,
+            IMemberService memberService
+        )
         {
             _userManager = Umbraco.Core.Composing.Current.Factory.GetInstance<UmbracoMembersUserManager<UmbracoApplicationMember>>();
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
             _globalSettings = globalSettings ?? throw new ArgumentNullException(nameof(globalSettings));
+            _memberService = memberService;
         }
 
         public bool Validate(string login, string password)
@@ -39,10 +48,13 @@ namespace Uintra20.Core.Authentication
         public async void Login(string login, string password)
         {
             var member = await _userManager.FindAsync(login, password);
+            var identity = await member.GenerateUserIdentityAsync(_userManager);
+            var id= _memberService.GetById(member.Id).Key;
+
+            ((ClaimsIdentity)identity).AddClaim(new Claim("UserId",id.ToString()));
 
             OwinContext.Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            OwinContext.Authentication.SignIn(new AuthenticationProperties() { IsPersistent = true },
-                await member.GenerateUserIdentityAsync(_userManager));
+            OwinContext.Authentication.SignIn(new AuthenticationProperties() {IsPersistent = true}, identity);
         }
 
         public bool Logout()

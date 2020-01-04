@@ -11,8 +11,7 @@ declare var $: any;
 })
 export class NavNotificationsComponent implements OnInit {
 
-  private connection: any;
-  private proxy: any;
+  private notificationsHub: any;
   private ulr: any;
 
 
@@ -28,37 +27,65 @@ export class NavNotificationsComponent implements OnInit {
       }
     });
   }
-
-  ngOnInit() {
-    this.navNotificationsService.getNotifiedCount().subscribe(count => {
-      this.notificationCount = count;
-    });
-    // this.connection = $.hubConnection('/umbraco/backoffice/signalr/hubs');
-    // this.proxy = this.connection.createHubProxy('ProcessingHub');
-
-    this.proxy = $.connection.notificationsHub;
-
-    $.connection.hub.start().done(r => {
-
-      this.proxy.server.getNotNotifiedCount('28241e2b-e993-4f60-9357-577b5d42eb63').then((count) => {
-        debugger;
-      });
-
-      }).catch(r => {
-        debugger;
-      });
+ 
+  ngOnInit() {  
   }
 
+  setNotNotifiedCount() {
+    this.notificationsHub.server.getNotNotifiedCount()
+      .then((data) => {        
+        this.updateNotificationCountValue(data);
+      });
+  } 
+
   onShow() {
-    this.notifications = null;
+    this.notifications = null;    
     this.show();
     this.loadNotifications();
+  }
+
+  updateNotificationCountValue(count: any) {
+    debugger;
+    this.notificationCount = count;
+  }
+
+  subscribe() {   
+
+    this.notificationsHub = $.connection.notificationsHub;
+    this.notificationsHub.client.updateNotificationsCount = this.updateNotificationCountValue;
+
+    $.connection.hub.disconnected(function () {
+      if ($.connection.hub.lastError) { alert("Disconnected. Reason: " + $.connection.hub.lastError.message); }
+    });
+
+    $.connection.hub.reconnected(function () {
+      $.connection
+        .hub
+        .start()
+        .done(r => {
+          this.setNotNotifiedCount();
+        })
+        .catch(r => {
+          console.log(r)
+        });
+
+    });
+
+    $.connection
+      .hub
+      .start()
+      .done(r => {
+        this.setNotNotifiedCount();
+      })
+      .catch(r => {
+        console.log(r)
+      });
   }
 
   loadNotifications() {
     this.isLoading = true;
 
-    this.navNotificationsService.getNotifications().subscribe( (response: INotificationsData[]) => {
+    this.navNotificationsService.getNotifications().subscribe((response: INotificationsData[]) => {
       this.notifications = response;
       this.isLoading = false;
     });

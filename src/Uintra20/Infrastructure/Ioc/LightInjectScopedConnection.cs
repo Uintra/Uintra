@@ -2,9 +2,10 @@
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hosting;
 using Microsoft.AspNet.SignalR.Hubs;
+using Uintra20.Infrastructure.Extensions;
 using Umbraco.Core.Composing;
 
-namespace Uintra20
+namespace Uintra20.Infrastructure.Ioc
 {
 	public class LightInjectScopedConnection : HubDispatcher
 	{

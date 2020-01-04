@@ -70,7 +70,7 @@
       proxies['notificationsHub'] = this.createHubProxy('notificationsHub');
       proxies['notificationsHub'].client = { };
       proxies['notificationsHub'].server = {
-          getNotNotifiedCount: function (memberId) {
+          getNotNotifiedCount: function () {
               return proxies['notificationsHub'].invoke.apply(proxies['notificationsHub'], $.merge(["GetNotNotifiedCount"], $.makeArray(arguments)));
            }
       };
@@ -91,7 +91,7 @@
       return proxies;
   };
 
-  signalR.hub = $.hubConnection("/umbraco/BackOffice/signalr", { useDefaultPath: false });
+  signalR.hub = $.hubConnection("/signalr", { useDefaultPath: false });
   $.extend(signalR, signalR.hub.createHubProxies());
 
 }(window.jQuery, window));
