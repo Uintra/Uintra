@@ -39,7 +39,7 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     const parsedData = JSON.parse(JSON.stringify(this.data));
-
+    
     this.details = parsedData.details;
     this.activityName = this.parseActivityType(this.details.activityType);
     this.tags = Object.values(parsedData.tags);
