@@ -34,27 +34,27 @@ namespace Uintra20.Features.Bulletins.Converters
         private readonly ILikesService _likesService;
         private readonly ICommentsService _commentsService;
         private readonly ICommentsHelper _commentsHelper;
-        private readonly ISocialsService<Social> _socialsService;
+        private readonly ISocialService<Entities.Social> _socialService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly ILightboxHelper _lightboxHelper;
 
         public SocialDetailsPageViewModelConverter(
             IFeedLinkService feedLinkService,
-            ISocialsService<Social> socialsService,
             IIntranetMemberService<IntranetMember> memberService,
             IUserTagService userTagService,
             ILikesService likesService,
             ICommentsService commentsService,
+            ISocialService<Entities.Social> socialsService,
             ICommentsHelper commentsHelper, 
             ILightboxHelper lightboxHelper)
         {
             _feedLinkService = feedLinkService;
-            _socialsService = socialsService;
-            _memberService = memberService;
             _userTagService = userTagService;
             _likesService = likesService;
             _commentsService = commentsService;
             _commentsHelper = commentsHelper;
+            _socialService = socialsService;
+            _memberService = memberService;
             _lightboxHelper = lightboxHelper;
         }
 
@@ -74,9 +74,7 @@ namespace Uintra20.Features.Bulletins.Converters
 
         protected SocialExtendedViewModel GetViewModel(Guid id)
         {
-            var social = _socialsService.Get(id);
-
-            if (social == null) return null;
+            var social = _socialService.Get(id);
 
             IActivityLinks links = null;//feedLinkService.GetLinks(id);//TODO:Uncomment when profile link service is ready
 
@@ -85,7 +83,7 @@ namespace Uintra20.Features.Bulletins.Converters
             viewModel.Media = MediaHelper.GetMediaUrls(social.MediaIds);
 
             viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds);
-            viewModel.CanEdit = _socialsService.CanEdit(social);
+            viewModel.CanEdit = _socialService.CanEdit(social);
             viewModel.Links = links;
             viewModel.IsReadOnly = false;
             viewModel.HeaderInfo = social.Map<IntranetActivityDetailsHeaderViewModel>();
@@ -97,6 +95,5 @@ namespace Uintra20.Features.Bulletins.Converters
 
             return extendedModel;
         }
-        
     }
 }

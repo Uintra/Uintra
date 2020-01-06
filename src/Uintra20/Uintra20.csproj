@@ -859,7 +859,7 @@
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
     <Compile Include="App_Plugins\Utils\Сache\CacheDashboard.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Core\Feed\Controllers\SocialsController.cs" />
+    <Compile Include="Core\Feed\Controllers\SocialController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
@@ -1024,14 +1024,14 @@
     <Compile Include="Infrastructure\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\Models\GoogleOAuth.cs" />
-    <Compile Include="Features\Bulletins\AutoMapperProfiles\SocialsAutoMapperProfile.cs" />
+    <Compile Include="Features\Bulletins\AutoMapperProfiles\SocialAutoMapperProfile.cs" />
     <Compile Include="Features\Bulletins\SocialBase.cs" />
-    <Compile Include="Features\Bulletins\SocialsService.cs" />
-    <Compile Include="Features\Bulletins\SocialsServiceBase.cs" />
+    <Compile Include="Features\Bulletins\SocialService.cs" />
+    <Compile Include="Features\Bulletins\SocialServiceBase.cs" />
     <Compile Include="Features\Bulletins\Entities\Social.cs" />
     <Compile Include="Features\Bulletins\Models\SocialExtendedCreateModel.cs" />
     <Compile Include="Features\Bulletins\ISocialBase.cs" />
-    <Compile Include="Features\Bulletins\ISocialsService.cs" />
+    <Compile Include="Features\Bulletins\ISocialService.cs" />
     <Compile Include="Features\Bulletins\Models\SocialCreateModel.cs" />
     <Compile Include="Features\Bulletins\Models\SocialCreationResultModel.cs" />
     <Compile Include="Features\Bulletins\Models\SocialEditModel.cs" />
@@ -1202,7 +1202,7 @@
     <Compile Include="Features\Media\VideoConverterLogService.cs" />
     <Compile Include="Features\Media\VideoHelper.cs" />
     <Compile Include="Features\Media\VideoSizeMetadataModel.cs" />
-    <Compile Include="Infrastructure\Ioc\SocialsInjectModule.cs" />
+    <Compile Include="Infrastructure\Ioc\SocialInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\NotificationInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\ActivityInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\UintraInjectModule.cs" />
@@ -1454,8 +1454,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\uintra20\" />
-    <Folder Include="Core\Feed\Web\" />
     <Folder Include="Infrastructure\Authentication\" />
   </ItemGroup>
   <ItemGroup>

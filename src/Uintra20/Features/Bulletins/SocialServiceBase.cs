@@ -10,9 +10,9 @@ using Uintra20.Infrastructure.TypeProviders;
 
 namespace Uintra20.Features.Bulletins
 {
-    public abstract class SocialsServiceBase<TSocial> : IntranetActivityService<TSocial> where TSocial : SocialBase
+    public abstract class SocialServiceBase<TSocial> : IntranetActivityService<TSocial> where TSocial : SocialBase
     {
-        protected SocialsServiceBase(
+        protected SocialServiceBase(
             IIntranetActivityRepository activityRepository,
             ICacheService cache,
             IActivityTypeProvider activityTypeProvider,
@@ -22,7 +22,15 @@ namespace Uintra20.Features.Bulletins
             IIntranetMemberService<IntranetMember> intranetMemberService,
             IPermissionsService permissionsService
         )
-            : base(activityRepository, cache, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService)
+            : base(
+                activityRepository, 
+                cache,
+                activityTypeProvider,
+                intranetMediaService, 
+                activityLocationService,
+                activityLinkPreviewService,
+                intranetMemberService,
+                permissionsService)
         {
         }
     }

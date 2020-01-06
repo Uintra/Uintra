@@ -7,14 +7,14 @@ using Uintra20.Features.Notification.Services;
 
 namespace Uintra20.Infrastructure.Ioc
 {
-	public class SocialsInjectModule: IInjectModule
+	public class SocialInjectModule: IInjectModule
 	{
 		public IDependencyCollection Register(IDependencyCollection services)
 		{
-            services.AddScoped<INotifyableService, SocialsService<Social>>();
-            services.AddScoped<ICacheableIntranetActivityService<Social>, SocialsService<Social>>();
-            services.AddScoped<IFeedItemService, SocialsService<Social>>();
-            services.AddScoped<ISocialsService<Social>, SocialsService<Social>>();
+            services.AddScoped<INotifyableService, SocialService<Social>>();
+            services.AddScoped<ICacheableIntranetActivityService<Social>, SocialService<Social>>();
+            services.AddScoped<IFeedItemService, SocialService<Social>>();
+            services.AddScoped<ISocialService<Social>, SocialService<Social>>();
 
             return services;
 		}
