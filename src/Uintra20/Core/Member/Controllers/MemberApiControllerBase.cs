@@ -3,7 +3,7 @@ using System.Web.Http;
 using Uintra20.Core.Member.Abstractions;
 using Umbraco.Web.WebApi;
 
-namespace Uintra20.Core.Member.Web
+namespace Uintra20.Core.Member.Controllers
 {
     public abstract class MemberApiControllerBase : UmbracoAuthorizedApiController
     {
