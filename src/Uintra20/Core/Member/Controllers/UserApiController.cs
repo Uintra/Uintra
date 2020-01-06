@@ -2,7 +2,7 @@
 using Uintra20.Core.User.Web;
 using Umbraco.Core.Services;
 
-namespace Uintra20.Core.Member.Web
+namespace Uintra20.Core.Member.Controllers
 {
     public class UserApiController : UserApiControllerBase
     {
