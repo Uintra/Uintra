@@ -198,7 +198,7 @@ namespace Uintra20.Features.Notification
                 .Aggregate(source, (acc, pair) => acc.Replace(pair.token, pair.value));
 
         private static string GetTitle(Enum activityType, string title)
-            => activityType is IntranetActivityTypeEnum.Socials ? title?.StripHtml().TrimByWordEnd(100) : title;
+            => activityType is IntranetActivityTypeEnum.Social ? title?.StripHtml().TrimByWordEnd(100) : title;
 
         private void FillNoReplyFromProps(MailBase message)
         {
