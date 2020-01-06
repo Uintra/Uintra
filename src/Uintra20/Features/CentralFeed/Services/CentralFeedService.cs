@@ -23,8 +23,11 @@ namespace Uintra20.Features.CentralFeed.Services
 
         public IEnumerable<IFeedItem> GetFeed(Enum type)
         {
-            var service = _feedItemServices.Single(s => s.Type.ToInt() == type.ToInt());
-            return service.GetItems().Where(IsCentralFeedActivity);
+            var service = _feedItemServices.SingleOrDefault(s => s.Type.ToInt() == type.ToInt());
+
+            return service == null
+                   ? Enumerable.Empty<IFeedItem>() 
+                   : service.GetItems().Where(IsCentralFeedActivity);
         }
 
         public IEnumerable<IFeedItem> GetFeed()
