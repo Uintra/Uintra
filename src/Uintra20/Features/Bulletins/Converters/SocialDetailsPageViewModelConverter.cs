@@ -1,15 +1,28 @@
 ﻿using Compent.Extensions;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Bulletin.Converters.Models;
+using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Bulletins.Converters.Models;
+using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Bulletins.Models;
+using Uintra20.Features.Comments.Helpers;
+using Uintra20.Features.Comments.Services;
+using Uintra20.Features.Likes.Models;
+using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Links.Models;
+using Uintra20.Features.Media;
+using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Bulletins.Converters
@@ -17,16 +30,32 @@ namespace Uintra20.Features.Bulletins.Converters
     public class SocialDetailsPageViewModelConverter : INodeViewModelConverter<SocialDetailsPageModel, SocialDetailsPageViewModel>
     {
         private readonly IFeedLinkService _feedLinkService;
+        private readonly IUserTagService _userTagService;
+        private readonly ILikesService _likesService;
+        private readonly ICommentsService _commentsService;
+        private readonly ICommentsHelper _commentsHelper;
         private readonly ISocialService<Entities.Social> _socialService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
+        private readonly ILightboxHelper _lightboxHelper;
 
-        public SocialDetailsPageViewModelConverter(IFeedLinkService feedLinkService,
-            ISocialService<Entities.Social> socialService,
-            IIntranetMemberService<IntranetMember> memberService)
+        public SocialDetailsPageViewModelConverter(
+            IFeedLinkService feedLinkService,
+            IIntranetMemberService<IntranetMember> memberService,
+            IUserTagService userTagService,
+            ILikesService likesService,
+            ICommentsService commentsService,
+            ISocialService<Entities.Social> socialsService,
+            ICommentsHelper commentsHelper, 
+            ILightboxHelper lightboxHelper)
         {
             _feedLinkService = feedLinkService;
-            _socialService = socialService;
+            _userTagService = userTagService;
+            _likesService = likesService;
+            _commentsService = commentsService;
+            _commentsHelper = commentsHelper;
+            _socialService = socialsService;
             _memberService = memberService;
+            _lightboxHelper = lightboxHelper;
         }
 
         public void Map(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
@@ -36,33 +65,34 @@ namespace Uintra20.Features.Bulletins.Converters
             if (Guid.TryParse(id, out var parseId))
             {
                 viewModel.Details = GetViewModel(parseId);
+                viewModel.Tags = _userTagService.Get(parseId);
+                viewModel.Likes = _likesService.GetLikeModels(parseId);
+                viewModel.LikedByCurrentUser = _likesService.LikedByCurrentUser(parseId, viewModel.Details.HeaderInfo.Owner.Id);
+                viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(parseId));
             }
         }
 
         protected SocialExtendedViewModel GetViewModel(Guid id)
         {
-            var bulletin = _socialService.Get(id);
+            var social = _socialService.Get(id);
 
-            if (bulletin == null)
-            {
-                return null;
-            }
+            IActivityLinks links = null;//feedLinkService.GetLinks(id);//TODO:Uncomment when profile link service is ready
 
-            IActivityLinks links = null;//_feedLinkService.GetLinks(id);//TODO:Uncomment when profile link service is ready
+            var viewModel = social.Map<SocialViewModel>();
 
-            var viewModel = bulletin.Map<SocialViewModel>();
+            viewModel.Media = MediaHelper.GetMediaUrls(social.MediaIds);
 
-            viewModel.CanEdit = _socialService.CanEdit(bulletin);
+            viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds);
+            viewModel.CanEdit = _socialService.CanEdit(social);
             viewModel.Links = links;
             viewModel.IsReadOnly = false;
-
-            viewModel.HeaderInfo = bulletin.Map<IntranetActivityDetailsHeaderViewModel>();
-            viewModel.HeaderInfo.Dates = bulletin.PublishDate.ToDateTimeFormat().ToEnumerable();
-            viewModel.HeaderInfo.Owner = _memberService.Get(bulletin).Map<MemberViewModel>();
+            viewModel.HeaderInfo = social.Map<IntranetActivityDetailsHeaderViewModel>();
+            viewModel.HeaderInfo.Dates = social.PublishDate.ToDateTimeFormat().ToEnumerable();
+            viewModel.HeaderInfo.Owner = _memberService.Get(social).Map<MemberViewModel>();
             viewModel.HeaderInfo.Links = links;
 
             var extendedModel = viewModel.Map<SocialExtendedViewModel>();
-            //extendedModel = social.Map(extendedModel);
+
             return extendedModel;
         }
     }

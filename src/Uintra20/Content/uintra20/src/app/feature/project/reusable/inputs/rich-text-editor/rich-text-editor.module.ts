@@ -22,7 +22,7 @@ export class RichTextEditorModule {
       providers: [
         { provide: QUILL_CONFIG_TOKEN, useValue: config }
       ]
-    }
+    };
   }
 }
 

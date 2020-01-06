@@ -52,7 +52,7 @@ export class LikeButtonComponent implements OnInit {
       .then((response: Array<IUserLikeData>) => {
         this.listOfUsersWhoLiked = response;
       });
-    this.newLikesCount -= 1;
+    this.newLikesCount = this.newLikesCount > 1 ? this.newLikesCount - 1 : 0;
     this.likeData.likedByCurrentUser = false;
   }
 }

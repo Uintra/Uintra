@@ -5,3 +5,142 @@
   background: #fff;
   box-shadow: 0 0 2px rgba(0, 0, 0, .2);
 }
+
+.feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+
+  &__back-link {
+    text-decoration: none;
+    position: relative;
+    color: @body-text-color;
+    .left-arrow;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__edit-link {
+    .button-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+}
+
+.feed-item {
+  &__header {
+    display: block;
+    margin-bottom: 25px;
+  }
+
+  &__text {
+    margin-bottom: 25px;
+  }
+}
+
+.feed-item-tags {
+  margin-bottom: 23px;
+
+  &__text {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  &__tag {
+    display: inline-block;
+    text-decoration: none;
+    padding: 5px 10px 3px 9px;
+    background-color: @border-grey;
+    border-radius: 2px;
+    color: @body-text-color;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}
+
+.feed-item-images {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+
+  &__item {
+    flex: 25%;
+    max-width: 25%;
+    flex-shrink: 1;
+    flex-grow: 1;
+    -ms-flex-positive: 1;
+    -ms-flex-negative: 1;
+    overflow: hidden;
+    line-height: 0;
+    padding: 1px;
+
+    @media @md-down {
+      max-width: 33.3%;
+      flex: 33.3%;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+  }
+}
+
+.documents-list {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  max-width: 50%;
+
+  &__item {
+    border-bottom: 1px solid @border-grey;
+    padding: 10px 0;
+
+    &:first-child {
+      border-top: 1px solid @border-grey;
+    }
+  }
+
+  &__link {
+    color: #555;
+  }
+
+  &__title {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 3px 0 0 15px;
+  }
+}
+
+.file-extension {
+  width: 40px;
+  height: 20px;
+  background: #545454;
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 12px;
+  text-align: center;
+  line-height: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 3px 0;
+}
+
+.attachments {
+  margin-bottom: 50px;
+}
+
+.likes {
+  display: inline-block;
+  margin-bottom: 20px;
+}

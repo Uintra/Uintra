@@ -41,11 +41,11 @@ export class CommentItemComponent implements OnInit {
     this.editedValue = this.data.text;
   }
 
-  onCommentDelete(subcommentId) {
-    this.deleteComment.emit({ 
+  onCommentDelete(subcommentId?) {
+    this.deleteComment.emit({
       targetId: this.data.activityId,
       targetType: this.activityType,
-      commentId: subcommentId || this.data.id 
+      commentId: subcommentId || this.data.id
     });
   }
 
@@ -56,12 +56,13 @@ export class CommentItemComponent implements OnInit {
     }
   }
 
-  onSubmitEditedValue(subcomment) {
+  onSubmitEditedValue(subcomment?) {
+    debugger;
     const data = {
-      Id: subcomment.id || this.data.id,
-      EntityId: subcomment.entityId || this.data.activityId,
+      Id: subcomment ? subcomment.id : this.data.id,
+      EntityId: subcomment ? subcomment.entityId : this.data.activityId,
       EntityType: this.activityType,
-      Text: subcomment.text || this.editedValue,
+      Text: subcomment ? subcomment.text : this.editedValue,
     }
 
     this.cs.editComment(data).then((res: any) => {

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { UbaselineCoreModule } from '@ubaseline/next';
+import { UbaselineCoreModule, NotImplementedModule } from '@ubaseline/next';
 import { HomePage } from './home-page.component';
 
 @NgModule({
@@ -10,7 +10,8 @@ import { HomePage } from './home-page.component';
   imports: [
     CommonModule,
       RouterModule.forChild([{ path: '', component: HomePage }]),
-      UbaselineCoreModule
+      UbaselineCoreModule, 
+      NotImplementedModule
   ],
   entryComponents: [HomePage]
 })
