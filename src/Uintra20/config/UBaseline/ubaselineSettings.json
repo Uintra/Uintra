@@ -5,7 +5,10 @@
     "DefaultShortDateFormat": "dd-MM-yyyy",
     "DefaultFullDateFormat": "dd-MM-yyyy HH:mm:ss",
     "PageTitleSeparator": "|",
-    "IndexViewPath": "~/Views/Index.cshtml"
+    "IndexViewPath": "~/Views/Index.cshtml",
+    "PageContentViewPath": "~/Views/UBaseline/PageContent.cshtml",
+    "PropertyViewPathFolder": "~/Views/UBaseline/PropertyEditors",
+    "NavigationViewPath": "~/Views/UBaseline/Navigation.cshtml"
   },
   "RouteSettings": {
     "SPARouteConstraint": "^(?!.*(/umbraco/|/api/|/ubaseline/)).*$",

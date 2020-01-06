@@ -1,0 +1,12 @@
+﻿<div ng-controller="UBaseline.AnchorFieldController as vm">
+    <input type="text" ng-model="model.value" ng-change="vm.valueChanged()" class="umb-property-editor umb-textstring textstring" pattern="{{vm.pattern}}" />
+
+    <div ng-if="vm.showValidationMessage" style="color:red;">Field has invalid format</div>
+
+    <ul ng-if="vm.links && vm.links.length" class="unstyled">
+        <li ng-repeat="link in vm.links track by $index">
+            <button class="btn btn-link btn--copy" ng-click="vm.copyLink(link)"><i class="icon icon-documents"></i></button>
+            <a href="{{link}}" ng-show="link" target="_blank">{{ link }}</a>
+        </li>
+    </ul>
+</div>

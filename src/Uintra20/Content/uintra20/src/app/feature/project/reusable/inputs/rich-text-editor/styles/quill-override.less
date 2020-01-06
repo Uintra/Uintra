@@ -3,6 +3,7 @@
 
 quill-editor {
   display: block;
+  position: relative;
 
   .toolbar {
     display: flex;
@@ -22,6 +23,11 @@ quill-editor {
     svg {
       display: none;
     }
+  }
+
+  .ql-underline {
+    font-size: 14px;
+    margin-right: 8px;
   }
 
   // Customize toolbar icons
@@ -69,6 +75,11 @@ quill-editor {
     padding: 15px 30px;
     border: 0;
     border-top: 1px solid #ccc;
+
+    &.top-mode {
+      padding: 8px;
+      border: 1px solid #ccc !important;
+    }
   }
   .ql-toolbar.ql-snow .ql-formats {
     display: flex;
@@ -88,7 +99,11 @@ quill-editor {
   }
   .ql-snow.ql-toolbar .ql-submit-button button,
   .ql-snow .ql-toolbar .ql-submit-button button {
-    .button-main;
+    .button-blue;
+  }
+
+  .ql-snow.ql-toolbar.top-mode button {
+    border: none;
   }
 
   // Customize symbols counter
@@ -98,5 +113,15 @@ quill-editor {
     &.invalid span {
       color: #c70a0a;
     }
+  }
+}
+
+:host-context(.comments-panel) {
+  & ::ng-deep .ql-container.ql-snow {
+    padding: 6px 10px;
+  }
+
+  & ::ng-deep .ql-editor {
+    padding: 0;
   }
 }

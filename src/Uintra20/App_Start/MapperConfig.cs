@@ -18,7 +18,6 @@ using Uintra20.Features.Permissions.AutoMapperProfiles;
 using Uintra20.Features.Subscribe.AutoMapperProfiles;
 using Uintra20.Features.Tagging.AutoMapperProfiles;
 using Umbraco.Core.Composing;
-using Umbraco.Core.Models.Identity;
 
 namespace Uintra20
 {
@@ -33,7 +32,7 @@ namespace Uintra20
             //Mapper.AddProfile<LightboxAutoMapperProfile>();
             //Mapper.AddProfile<NavigationAutoMapperProfile>();
             //Mapper.AddProfile<EventsAutoMapperProfile>();
-            //Mapper.AddProfile<SocialsAutoMapperProfile>();
+            //Mapper.AddProfile<SocialAutoMapperProfile>();
             //Mapper.AddProfile<NotificationAutoMapperProfile>();
             //Mapper.AddProfile<CentralFeedAutoMapperProfile>();
             //Mapper.AddProfile<IntranetUserAutoMapperProfile>();
@@ -71,7 +70,7 @@ namespace Uintra20
             cfg.AddProfile<LightboxAutoMapperProfile>();
             cfg.AddProfile<NavigationAutoMapperProfile>();
             cfg.AddProfile<EventsAutoMapperProfile>();
-            cfg.AddProfile<SocialsAutoMapperProfile>();
+            cfg.AddProfile<SocialAutoMapperProfile>();
             cfg.AddProfile<NotificationAutoMapperProfile>();
             cfg.AddProfile<CentralFeedAutoMapperProfile>();
             cfg.AddProfile<IntranetUserAutoMapperProfile>();

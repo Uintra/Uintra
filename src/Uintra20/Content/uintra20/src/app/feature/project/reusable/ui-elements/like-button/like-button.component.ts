@@ -19,7 +19,9 @@ export class LikeButtonComponent implements OnInit {
   constructor(private likeButtonService: LikeButtonService) {}
 
   ngOnInit() {
-    this.newLikesCount = this.likeData.likes.length;
+    if (this.likeData.likes) {
+      this.newLikesCount = this.likeData.likes.length;
+    }
     this.listOfUsersWhoLiked = this.likeData.likes;
   }
 
@@ -50,7 +52,7 @@ export class LikeButtonComponent implements OnInit {
       .then((response: Array<IUserLikeData>) => {
         this.listOfUsersWhoLiked = response;
       });
-    this.newLikesCount -= 1;
+    this.newLikesCount = this.newLikesCount > 1 ? this.newLikesCount - 1 : 0;
     this.likeData.likedByCurrentUser = false;
   }
 }

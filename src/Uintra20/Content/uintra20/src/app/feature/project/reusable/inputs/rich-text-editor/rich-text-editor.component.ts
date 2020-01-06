@@ -30,6 +30,9 @@ Quill.register("modules/counter", Counter);
 export class RichTextEditorComponent implements ControlValueAccessor {
   @Input("value") _value: string = "";
   @Input() placeholder: string;
+  @Input() isDropzone: boolean = true;
+  @Input() isUnderline: boolean = true;
+  @Input() isEditing: boolean = false;
   @Output() addAttachment = new EventEmitter();
 
   config: QuillConfig;
@@ -59,5 +62,9 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   }
   registerOnTouched(fn) {
     this.onTouched = fn;
+  }
+
+  getToolbarClass() {
+    return { 'top-mode': this.isEditing };
   }
 }

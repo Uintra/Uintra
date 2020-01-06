@@ -1,0 +1,139 @@
+@import 'base.less';
+
+.comment {
+  &__info {
+    margin-bottom: 5px;
+  }
+
+  &__reply,
+  &__controls-list-btn {
+    border: none;
+    background: transparent;
+    outline: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  &__reply {
+    margin-left: 7px;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  &__controls {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    width: 11px;
+    height: 17px;
+    margin-left: 7px;
+
+    &:hover .comment__controls-list {
+      visibility: visible;
+      pointer-events: all;
+    }
+
+    &::before {
+      position: absolute;
+      top: 5px;
+      right: 2px;
+      width: 7px;
+      height: 7px;
+      border: 1px solid @body-text-color;
+      border-width: 0 1px 1px 0;
+      transform: rotate(45deg);
+      content: '';
+      visibility: visible;
+      pointer-events: all;
+      cursor: pointer;
+    }
+  }
+
+  &__controls-list {
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
+    top: 13px;
+    right: -13px;
+    min-width: 140px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid @border-color;
+    box-shadow: 2px 3px 3px rgba(0, 0, 0, .2);
+    background: @main-color;
+    z-index: 10;
+    cursor: pointer;
+
+    :hover {
+      visibility: visible;
+    }
+
+    &-item {
+      // border: none;
+    }
+
+    &-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 9px 19px 8px;
+      color: @body-text-color;
+      text-decoration: none;
+
+      &:hover {
+        background: #eee;
+      }
+    }
+  }
+
+  &__modified {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0 3px 0 10px;
+    cursor: pointer;
+
+    &:hover .comment__modified-info {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    &-info {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: rgba(0, 0, 0, .9);
+      color: #fff;
+      border-radius: 3px;
+      padding: 5px 10px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity ease-in 200ms 200ms;
+      min-width: 170px;
+    }
+  }
+}
+
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &-pencil {
+    transform: rotate(135deg);
+
+    &::before {
+      content: "\270F";
+    }
+  }
+}

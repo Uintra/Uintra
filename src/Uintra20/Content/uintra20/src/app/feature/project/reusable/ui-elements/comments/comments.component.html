@@ -1,0 +1,28 @@
+<section class="comments-panel">
+    <h3 class="comments-panel__title">Comments</h3>
+    <ul class="comments-list">
+      <app-comment-item
+          *ngFor="let comment of comments.data"
+          class="comments-list__item"
+          [data]="comment"
+          (deleteComment)="deleteComment($event)"
+          (editComment)="editComment($event)"
+          (replyComment)="onCommentSubmit($event)"
+          [activityType]="activityType">
+    </app-comment-item>
+    </ul>
+  
+    <h4 class="comments-panel__rte-title">Add comment</h4>
+    <app-rich-text-editor
+      [(ngModel)]="description"
+      [isDropzone]="false"
+      [isEditing]="false"
+      placeholder="">
+      <button submit
+        class="bulletin-popup__submit-button"
+        [disabled]="isSubmitDisabled"
+        (click)="onCommentSubmit()">
+        Send
+      </button>
+    </app-rich-text-editor>
+  </section>

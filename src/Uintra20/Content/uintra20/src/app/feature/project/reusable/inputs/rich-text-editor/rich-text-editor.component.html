@@ -1,4 +1,5 @@
 <quill-editor
+  *ngIf="!isEditing"
   theme="snow"
   [modules]="config"
   [(ngModel)]="value"
@@ -12,8 +13,10 @@
       <button class="ql-emoji icon-smily"></button>
       <button class="ql-bold" [title]="'Bold'"></button>
       <button class="ql-italic" [title]="'Italic'"></button>
+      <button *ngIf="isUnderline" class="ql-underline" [title]="'Underline'"></button>
       <button class="ql-link icon-link"></button>
       <button
+        *ngIf="isDropzone"
         class="ql-dropzone icon-attachment"
         (click)="onShowDropdown()"
       ></button>
@@ -22,5 +25,38 @@
     <div class="ql-submit-button">
       <ng-content select="[submit]"></ng-content>
     </div>
+
+    <ng-content select="[reply-close]"></ng-content>
   </div>
 </quill-editor>
+
+<div class="reply-mode"
+    *ngIf="isEditing">
+  <quill-editor
+    theme="snow"
+    [modules]="config"
+    [(ngModel)]="value"
+    [placeholder]="placeholder"
+  >
+    <div quill-editor-toolbar class="toolbar" [ngClass]="getToolbarClass()">
+      <div *ngIf="!isEditing" class="ql-counter" id="counter"></div>
+
+      <div class="ql-formats">
+        <button class="ql-emoji icon-smily"></button>
+        <button class="ql-bold" [title]="'Bold'"></button>
+        <button class="ql-italic" [title]="'Italic'"></button>
+        <button *ngIf="isUnderline" class="ql-underline" [title]="'Underline'"></button>
+        <button class="ql-link icon-link"></button>
+        <button
+          *ngIf="isDropzone"
+          class="ql-dropzone icon-attachment"
+          (click)="onShowDropdown()"
+        ></button>
+      </div>
+    </div>
+  </quill-editor>
+
+  <div class="ql-edit-buttons">
+    <ng-content select="[edit]"></ng-content>
+  </div>
+</div>

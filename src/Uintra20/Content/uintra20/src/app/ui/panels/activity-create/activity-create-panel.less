@@ -9,11 +9,15 @@ activity-create-panel {
       display: flex;
       padding: 14px 66px 14px 15px;
       cursor: text;
-      background: @white;
+      background: @main-color;
 
       @media @md-up {
         padding: 22px 20px;
         align-items: center;
+      }
+
+      @media @md-down {
+        height: 50px;
       }
 
       &-placeholder {
@@ -36,14 +40,21 @@ activity-create-panel {
   }
 
   .bulletin-popup {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background: #fff;
+    position: fixed;
+    left: 8px;
+    right: 8px;
+    top: 8px;
+    background: @main-color;
     z-index: 13;
     opacity: 0;
     animation: fadeIn 0.2s ease-out forwards;
+
+    @media @md-up {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
 
     &__background {
       position: fixed;
@@ -109,6 +120,27 @@ activity-create-panel {
 
       &:hover {
         text-decoration: underline;
+      }
+    }
+  }
+
+  .feed-btns {
+    display: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    background-color: @main-color;
+    padding: 12px 20px;
+
+    @media @md-up {
+      display: flex;
+    }
+
+    &__col {
+      flex-grow: 1;
+      opacity: 0;
+
+      .btn-default {
+        margin-right: 16px;
       }
     }
   }
