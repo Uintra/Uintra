@@ -7,7 +7,6 @@ using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.Groups.Links;
-using Uintra20.Features.Media;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Bulletins.AutoMapperProfiles
@@ -75,9 +74,7 @@ namespace Uintra20.Features.Bulletins.AutoMapperProfiles
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.Ignore())
-                .ForMember(dst => dst.Files, o => o.Ignore())
-                .ForMember(dst => dst.Images, o => o.Ignore());
-
+                .ForMember(dst => dst.LightboxPreviewModel, o => o.Ignore());
 
             CreateMap<Social, SocialPreviewModel>()
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
