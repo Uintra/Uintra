@@ -20,6 +20,11 @@
 }
 
 .pswp {
+  & ::ng-deep .pswp__img {
+    position: absolute;
+    margin: auto;
+  }
+
   & ::ng-deep .pswp__zoom-wrap {
     position: absolute;
     width: 100%;
@@ -70,18 +75,6 @@
   & ::ng-deep .pswp__button:before {
     background: none !important;
   }
-
-  // .pswp__button {
-  //   width: 44px;
-  //   height: 44px;
-  //   position: relative;
-  //   background: none;
-  //   cursor: pointer;
-  //   overflow: visible;
-  //   -webkit-appearance: none;
-  //   display: block;
-  //   border: 0;
-  //   padding: 0;
 }
 
 .pswp{
@@ -117,6 +110,7 @@
           background:none !important;
       }
   }
+
   &__counter{
       bottom: 0 !important;
       top: auto !important;
