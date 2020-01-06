@@ -71,31 +71,29 @@
   margin-bottom: 36px;
 
   &__item {
-    position: relative;
-    padding-bottom: 9/16*24%;
-    margin: 1px;
-    flex: 24%;
-    max-width: 24%;
+    flex: 25%;
+    max-width: 25%;
     flex-shrink: 1;
     flex-grow: 1;
     -ms-flex-positive: 1;
     -ms-flex-negative: 1;
     overflow: hidden;
+    line-height: 0;
+    padding: 1px;
 
     @media @md-down {
-      padding-bottom: 9/16*32%;
-      max-width: 32%;
-      flex: 32%;
+      max-width: 33.3%;
+      flex: 33.3%;
     }
   }
 
   &__image {
     width: 100%;
     height: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    // position: absolute;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
   }
 }
 

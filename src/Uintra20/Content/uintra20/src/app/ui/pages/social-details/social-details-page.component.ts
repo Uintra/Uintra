@@ -18,7 +18,8 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
   tags: Array<IUserTag>;
   activityName: string;
   likeData: ILikeData;
-  medias: Array<string>;
+  medias: any;
+  documents: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,11 +40,12 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     const parsedData = JSON.parse(JSON.stringify(this.data));
-    
+    console.log(parsedData);
     this.details = parsedData.details;
     this.activityName = this.parseActivityType(this.details.activityType);
     this.tags = Object.values(parsedData.tags);
-    this.medias = Object.values(parsedData.details.media);
+    this.medias = Object.values(parsedData.details.lightboxPreviewModel.medias);
+    this.documents = Object.values(parsedData.details.lightboxPreviewModel.otherFiles);
     this.likeData = {
       likedByCurrentUser: parsedData.likedByCurrentUser,
       id: parsedData.details.id,
@@ -62,9 +64,9 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
 
   openGallery(i) {
     const items = this.medias.map(el => ({
-      src: el,
-      w: 900,
-      h: 600
+      src: el.url,
+      w: el.width,
+      h: el.height,
     }))
 
     this.imgService.open(items, i);
