@@ -18,8 +18,8 @@ using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Navigation.Services;
-using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.Extensions;
+using Uintra20.Features.Tagging.UserTags;
 
 namespace Uintra20.Controllers
 {
