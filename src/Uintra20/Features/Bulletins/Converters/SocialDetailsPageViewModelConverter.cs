@@ -1,7 +1,6 @@
 ﻿using Compent.Extensions;
 using System;
 using System.Web;
-using UBaseline.Core.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Bulletin.Converters.Models;
@@ -18,15 +17,15 @@ namespace Uintra20.Features.Bulletins.Converters
     public class SocialDetailsPageViewModelConverter : INodeViewModelConverter<SocialDetailsPageModel, SocialDetailsPageViewModel>
     {
         private readonly IFeedLinkService _feedLinkService;
-        private readonly ISocialsService<Entities.Social> _socialsService;
+        private readonly ISocialService<Entities.Social> _socialService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
 
         public SocialDetailsPageViewModelConverter(IFeedLinkService feedLinkService,
-            ISocialsService<Entities.Social> socialsService,
+            ISocialService<Entities.Social> socialService,
             IIntranetMemberService<IntranetMember> memberService)
         {
             _feedLinkService = feedLinkService;
-            _socialsService = socialsService;
+            _socialService = socialService;
             _memberService = memberService;
         }
 
@@ -42,7 +41,7 @@ namespace Uintra20.Features.Bulletins.Converters
 
         protected SocialExtendedViewModel GetViewModel(Guid id)
         {
-            var bulletin = _socialsService.Get(id);
+            var bulletin = _socialService.Get(id);
 
             if (bulletin == null)
             {
@@ -53,7 +52,7 @@ namespace Uintra20.Features.Bulletins.Converters
 
             var viewModel = bulletin.Map<SocialViewModel>();
 
-            viewModel.CanEdit = _socialsService.CanEdit(bulletin);
+            viewModel.CanEdit = _socialService.CanEdit(bulletin);
             viewModel.Links = links;
             viewModel.IsReadOnly = false;
 

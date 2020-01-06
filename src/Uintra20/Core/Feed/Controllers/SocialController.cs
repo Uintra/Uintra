@@ -23,9 +23,9 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Controllers
 {
-    public class SocialsController : UBaselineApiController
+    public class SocialController : UBaselineApiController
     {
-        private readonly ISocialsService<Social> _socialsService;
+        private readonly ISocialService<Social> _socialService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IMyLinksService _myLinksService;
@@ -34,8 +34,8 @@ namespace Uintra20.Controllers
         private readonly IMentionService _mentionService;
         private readonly IActivityLinkService _activityLinkService;
 
-        public SocialsController(
-            ISocialsService<Social> socialsService,
+        public SocialController(
+            ISocialService<Social> socialService,
             IMediaHelper mediaHelper,
             IIntranetMemberService<IntranetMember> memberService,
             IMyLinksService myLinksService,
@@ -44,7 +44,7 @@ namespace Uintra20.Controllers
             IMentionService mentionService,
             IActivityLinkService activityLinkService)
         {
-            _socialsService = socialsService;
+            _socialService = socialService;
             _mediaHelper = mediaHelper;
             _memberService = memberService;
             _myLinksService = myLinksService;
@@ -60,7 +60,7 @@ namespace Uintra20.Controllers
             var result = new SocialCreationResultModel();
 
             var bulletin = MapToBulletin(model);
-            var createdBulletinId = await _socialsService.CreateAsync(bulletin);
+            var createdBulletinId = await _socialService.CreateAsync(bulletin);
             bulletin.Id = createdBulletinId;
             await OnBulletinCreatedAsync(bulletin, model);
 
@@ -74,7 +74,7 @@ namespace Uintra20.Controllers
         public async Task<HttpResponseMessage> EditExtended(SocialExtendedEditModel editModel)
         {
             var bulletin = MapToBulletin(editModel);
-            await _socialsService.SaveAsync(bulletin);
+            await _socialService.SaveAsync(bulletin);
             await OnBulletinEditedAsync(bulletin, editModel);
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
@@ -82,7 +82,7 @@ namespace Uintra20.Controllers
         [HttpDelete]
         public async Task<HttpResponseMessage> Delete(Guid id)
         {
-            await _socialsService.DeleteAsync(id);
+            await _socialService.DeleteAsync(id);
             await OnBulletinDeletedAsync(id);
 
             return new HttpResponseMessage(HttpStatusCode.OK);
@@ -104,7 +104,7 @@ namespace Uintra20.Controllers
 
         private SocialBase MapToBulletin(SocialEditModel editModel)
         {
-            var bulletin = _socialsService.Get(editModel.Id);
+            var bulletin = _socialService.Get(editModel.Id);
             //social = editModel.Map(social);
             bulletin.MediaIds = bulletin.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
 
@@ -148,7 +148,7 @@ namespace Uintra20.Controllers
             if (groupId.HasValue)
                 _groupActivityService.AddRelation(groupId.Value, social.Id);
 
-            var extendedBulletin = _socialsService.Get(social.Id);
+            var extendedBulletin = _socialService.Get(social.Id);
             extendedBulletin.GroupId = groupId;
 
             if (model is SocialExtendedCreateModel extendedModel)
@@ -170,7 +170,7 @@ namespace Uintra20.Controllers
             if (groupId.HasValue)
                 await _groupActivityService.AddRelationAsync(groupId.Value, social.Id);
 
-            var extendedBulletin = _socialsService.Get(social.Id);
+            var extendedBulletin = _socialService.Get(social.Id);
             extendedBulletin.GroupId = groupId;
 
             if (model is SocialExtendedCreateModel extendedModel)
@@ -200,7 +200,7 @@ namespace Uintra20.Controllers
                     MentionedUserIds = mentionIds,
                     Title = social.Description.StripHtml().TrimByWordEnd(maxTitleLength),
                     Url = links.Details,
-                    ActivityType = IntranetActivityTypeEnum.Socials
+                    ActivityType = IntranetActivityTypeEnum.Social
                 });
 
             }
@@ -221,7 +221,7 @@ namespace Uintra20.Controllers
                     MentionedUserIds = mentionIds,
                     Title = social.Description.StripHtml().TrimByWordEnd(maxTitleLength),
                     Url = links.Details,
-                    ActivityType = IntranetActivityTypeEnum.Socials
+                    ActivityType = IntranetActivityTypeEnum.Social
                 });
 
             }

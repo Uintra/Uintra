@@ -12,9 +12,9 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Bulletins.AutoMapperProfiles
 {
-    public class SocialsAutoMapperProfile : Profile
+    public class SocialAutoMapperProfile : Profile
     {
-        public SocialsAutoMapperProfile()
+        public SocialAutoMapperProfile()
         {
             CreateMap<SocialBase, SocialItemViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())

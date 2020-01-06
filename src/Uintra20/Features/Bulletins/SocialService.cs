@@ -39,8 +39,8 @@ using static Uintra20.Features.Notification.Configuration.NotificationTypeEnum;
 
 namespace Uintra20.Features.Bulletins
 {
-    public class SocialsService<T> : SocialsServiceBase<T>,
-        ISocialsService<T>,
+    public class SocialService<T> : SocialServiceBase<T>,
+        ISocialService<T>,
         IFeedItemService,
         INotifyableService,
         //IIndexer,
@@ -63,7 +63,7 @@ namespace Uintra20.Features.Bulletins
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IIntranetLocalizationService _localizationService;
 
-        public SocialsService(
+        public SocialService(
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
@@ -104,9 +104,9 @@ namespace Uintra20.Features.Bulletins
             _localizationService = localizationService;
         }
 
-        public override Enum Type => IntranetActivityTypeEnum.Socials;
+        public override Enum Type => IntranetActivityTypeEnum.Social;
 
-        public override Enum PermissionActivityType => PermissionResourceTypeEnum.Socials;
+        public override Enum PermissionActivityType => PermissionResourceTypeEnum.Social;
         public override IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId)
         {
             var bulletin = Get(activityId);
@@ -144,7 +144,7 @@ namespace Uintra20.Features.Bulletins
         public FeedSettings GetFeedSettings() =>
             new FeedSettings
             {
-                Type = CentralFeedTypeEnum.Socials,
+                Type = CentralFeedTypeEnum.Social,
                 Controller = "Bulletins",
                 HasPinnedFilter = false,
                 HasSubscribersFilter = false,
