@@ -7,12 +7,11 @@ import { CommentsService } from 'src/app/ui/panels/comments/helpers/comments.ser
   styleUrls: ['./comments.component.less']
 })
 export class CommentsComponent implements OnInit {
+  @Input() comments: any;
+  @Input() activityType: number;
 
-  @Input()
-  comments: any;
-  @Input()
-  activityType: number;
   description = '';
+  disabledSubmit: boolean;
 
   get isSubmitDisabled() {
     if (!this.description) {
@@ -25,11 +24,10 @@ export class CommentsComponent implements OnInit {
   constructor(private commentsService: CommentsService) { }
 
   ngOnInit() {
-    console.log(this.comments);
-    console.log(this.activityType);
   }
 
   onCommentSubmit(replyData?) {
+    this.disabledSubmit = true;
     const data = {
       EntityId: window.location.href.slice(window.location.href.indexOf('id=') + 3),
       EntityType: this.activityType,
@@ -40,6 +38,8 @@ export class CommentsComponent implements OnInit {
     this.commentsService.onCreate(data).then( (res: any) => {
       this.comments.data = res.comments;
       this.description = '';
+    }).finally(() => {
+      this.disabledSubmit = false;
     });
   }
 
