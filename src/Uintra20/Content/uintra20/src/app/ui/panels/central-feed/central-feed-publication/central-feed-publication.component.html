@@ -5,7 +5,8 @@
     class="publication__header"
   >
     <div subtitle>
-      {{ getPublicationDate() }} - {{ publication.activity.type }}
+      {{ getPublicationDate() }} -
+      <span class="publication__activity-type" routerLink="social-details" [queryParams]="{id: publication.activity.id}">{{ publication.activity.type }}</span>
     </div>
     <div *ngIf="publication.activity.isPinned" label class="publication__label">
       Important
