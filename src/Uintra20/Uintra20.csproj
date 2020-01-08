@@ -120,8 +120,8 @@
     <Reference Include="EmailWorker.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EmailWorker.Data.1.0.0\lib\net472\EmailWorker.Data.dll</HintPath>
     </Reference>
-    <Reference Include="EmailWorker.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EmailWorker.Web.1.0.0\lib\net472\EmailWorker.Web.dll</HintPath>
+    <Reference Include="EmailWorker.Web, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Web.1.0.0.2\lib\net472\EmailWorker.Web.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
@@ -786,6 +786,7 @@
     <Content Include="App_Plugins\VideoPicker\video-picker.service.js" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="config\grid.editors.config.js" />
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
     <Content Include="config\Lang\da-DK.user.xml" />
     <Content Include="config\Lang\de-DE.user.xml" />
@@ -1371,7 +1372,6 @@
     <Content Include="config\imageprocessor\security.config" />
     <Content Include="config\imageprocessor\processing.config" />
     <Content Include="config\imageprocessor\cache.config" />
-    <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
     <Content Include="config\uSync8.config" />
     <Content Include="App_Plugins\uSync8\package.manifest" />
     <Content Include="App_Plugins\uSync8\addons.json" />
@@ -1392,11 +1392,13 @@
     <Content Include="App_Plugins\MediaPicker\package.manifest" />
     <Content Include="App_Plugins\MailchimpListContainer\package.manifest" />
     <Content Include="App_Plugins\AvailableActivitySelector\package.manifest" />
+    <Content Include="Media\Web.config" />
     <Content Include="App_Plugins\SentMails\package.manifest" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="Media\Web.config" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\InternalServerErrorPage.cshtml" />
     <Content Include="Views\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
