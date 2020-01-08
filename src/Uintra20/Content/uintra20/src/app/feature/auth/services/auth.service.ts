@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoginModel } from '../login/models/login.model';
 import { Observable } from 'rxjs';
+import { ILogin } from '../../login/contracts/login.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public login(body: LoginModel) {
+  public login(body: ILogin) {
     return this.httpClient.post(`${this.apiRoute}login`, body);
   }
 
