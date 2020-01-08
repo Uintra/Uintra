@@ -120,8 +120,8 @@
     <Reference Include="EmailWorker.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EmailWorker.Data.1.0.0\lib\net472\EmailWorker.Data.dll</HintPath>
     </Reference>
-    <Reference Include="EmailWorker.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EmailWorker.Web.1.0.0\lib\net472\EmailWorker.Web.dll</HintPath>
+    <Reference Include="EmailWorker.Web, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Web.1.0.0.2\lib\net472\EmailWorker.Web.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
@@ -618,21 +618,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\compent.uintra\app_plugins\userpicker\backoffice\relateduserpicker\related-user-picker.controller.js">
-      <Link>App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.controller.js</Link>
-    </Content>
-    <Content Include="..\compent.uintra\app_plugins\userpicker\backoffice\relateduserpicker\related-user-picker.html">
-      <Link>App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.html</Link>
-    </Content>
-    <Content Include="..\compent.uintra\app_plugins\userpicker\userpicker\user-picker.directive.html">
-      <Link>App_Plugins\UserPicker\UserPicker\user-picker.directive.html</Link>
-    </Content>
-    <Content Include="..\compent.uintra\app_plugins\userpicker\userpicker\user-picker.directive.js">
-      <Link>App_Plugins\UserPicker\UserPicker\user-picker.directive.js</Link>
-    </Content>
-    <Content Include="App_Plugins\AnchorField\anchor-field.controller.js" />
-    <Content Include="App_Plugins\AnchorField\anchor-field.html" />
-    <Content Include="App_Plugins\AnchorField\style.css" />
     <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.service.js" />
     <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.controller.js" />
     <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.html" />
@@ -683,16 +668,10 @@
     <Content Include="App_Plugins\Members\member-changes-watcher.controller.js" />
     <Content Include="App_Plugins\Members\member-changes-watcher.html" />
     <Content Include="App_Plugins\Members\member.service.js" />
-    <Content Include="App_Plugins\Microdata\microdata.controller.js" />
-    <Content Include="App_Plugins\Microdata\microdata.html" />
-    <Content Include="App_Plugins\Microdata\styles.css" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.html" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
     <Content Include="App_Plugins\PanelContainer\custom-editor.html" />
-    <Content Include="App_Plugins\PanelContainer\directives\tree.js" />
-    <Content Include="App_Plugins\PanelContainer\directives\tree\tree-item.html" />
-    <Content Include="App_Plugins\PanelContainer\directives\tree\tree.html" />
     <Content Include="App_Plugins\PanelContainer\panel-container.controller.js" />
     <Content Include="App_Plugins\PanelContainer\panel-container.html" />
     <Content Include="App_Plugins\PanelContainer\panel-container.resource.js" />
@@ -739,8 +718,6 @@
     <Content Include="App_Plugins\SentMails\backoffice\settings\general\general-settings.js" />
     <Content Include="App_Plugins\SentMails\backoffice\settings\smtp\smtp-settings.js" />
     <Content Include="App_Plugins\SentMails\lang\en-us.xml" />
-    <Content Include="App_Plugins\Shared\directives\key-value-dropdown-list\key-value-dropdown-list.directive.html" />
-    <Content Include="App_Plugins\Shared\directives\key-value-dropdown-list\key-value-dropdown-list.directive.js" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\da-DK.xml" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\en-GB.xml" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\en-US.xml" />
@@ -774,6 +751,10 @@
     <Content Include="App_Plugins\UmbracoStructureManagement\settings\default.html" />
     <Content Include="App_Plugins\UmbracoStructureManagement\settings\umbracoStructureManagementController.js" />
     <Content Include="App_Plugins\UmbracoStructureManagement\umbracoStructureManagementService.js" />
+    <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.controller.js" />
+    <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.html" />
+    <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.html" />
+    <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.js" />
     <Content Include="App_Plugins\uSync8\backoffice\uSync8\dashboard.html" />
     <Content Include="App_Plugins\uSync8\backoffice\uSync8\uSyncDashboardController.js" />
     <Content Include="App_Plugins\uSync8\changeDialog.html" />
@@ -805,6 +786,7 @@
     <Content Include="App_Plugins\VideoPicker\video-picker.service.js" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="config\grid.editors.config.js" />
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
     <Content Include="config\Lang\da-DK.user.xml" />
     <Content Include="config\Lang\de-DE.user.xml" />
@@ -824,89 +806,23 @@
     <Content Include="config\Lang\sv-SE.user.xml" />
     <Content Include="config\Lang\zh-CN.user.xml" />
     <Content Include="config\logviewer.searches.config.js" />
-    <Content Include="Content\uintra20\src\app\app.component.html" />
-    <Content Include="Content\uintra20\src\app\app.component.less" />
-    <Content Include="Content\uintra20\src\app\ui\main-layout\header\header.component.html" />
-    <Content Include="Content\uintra20\src\app\ui\pages\article\article-page.html" />
-    <Content Include="Content\uintra20\src\app\ui\pages\home\home-page.html" />
-    <Content Include="Content\uintra20\src\app\ui\pages\login\login-page.html" />
-    <Content Include="Content\uintra20\src\app\ui\pages\social-details\social-details-page.component.html" />
-    <Content Include="Content\uintra20\src\app\ui\panels\activity-create\activity-create-panel.html" />
-    <Content Include="Content\uintra20\src\app\ui\panels\central-feed\central-feed-filters\central-feed-filters.component.html" />
-    <Content Include="Content\uintra20\src\app\ui\panels\central-feed\central-feed-panel.html" />
-    <Content Include="Content\uintra20\src\app\ui\panels\central-feed\central-feed-publication\central-feed-publication.component.html" />
-    <Content Include="Content\uintra20\src\app\ui\panels\comments\comments-panel.html" />
-    <Content Include="Content\uintra20\src\app\ui\panels\latest-activities\latest-activities-panel.component.html" />
-    <Content Include="Content\uintra20\src\app\ui\panels\likes\likes-panel.html" />
-    <Content Include="Content\uintra20\src\assets\fonts\icomoon.eot" />
-    <Content Include="Content\uintra20\src\assets\fonts\icomoon.svg" />
-    <Content Include="Content\uintra20\src\assets\fonts\icomoon.ttf" />
-    <Content Include="Content\uintra20\src\assets\fonts\icomoon.woff" />
-    <Content Include="Content\uintra20\src\assets\img\logo.svg" />
-    <Content Include="Content\uintra20\src\assets\img\u-intra-text-logo.svg" />
-    <Content Include="Content\uintra20\src\styles\grid.config.less" />
-    <Content Include="Content\uintra20\src\styles\icons\demo-files\demo.css" />
-    <Content Include="Content\uintra20\src\styles\icons\demo-files\demo.js" />
-    <Content Include="Content\uintra20\src\styles\icons\demo.html" />
-    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.eot" />
-    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.svg" />
-    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.ttf" />
-    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.woff" />
-    <Content Include="Content\uintra20\src\styles\icons\Read Me.txt" />
-    <Content Include="Content\uintra20\src\styles\icons\selection.json" />
-    <Content Include="Content\uintra20\src\styles\icons\style.css" />
-    <Content Include="Content\uintra20\src\styles\icons\style.less" />
-    <Content Include="Content\uintra20\src\styles\icons\variables.less" />
-    <Content Include="App_Plugins\UserPicker\package.manifest" />
-    <Content Include="Content\uintra20\src\styles.less" />
-    <Content Include="Content\uintra20\src\styles\mixins\elements.less" />
-    <Content Include="Content\uintra20\src\styles\components\index.less" />
-    <Content Include="Content\uintra20\src\styles\components\form-elements.less" />
-    <Content Include="Content\uintra20\src\styles\reset\index.less" />
-    <Content Include="Content\uintra20\src\styles\reset\reset.less" />
     <Content Include="config\UIntra\LatestActivitySettings.json" />
-    <Content Include="Content\uintra20\src\app\ui\main-layout\header\header.component.less" />
-    <Content Include="Content\uintra20\src\app\ui\pages\article\article-page.less" />
-    <Content Include="Content\uintra20\src\app\ui\pages\home\home-page.less" />
-    <Content Include="Content\uintra20\src\app\ui\pages\login\login-page.less" />
-    <Content Include="Content\uintra20\src\app\ui\pages\social-details\social-details-page.component.less" />
-    <Content Include="Content\uintra20\src\app\ui\panels\activity-create\activity-create-panel.less" />
-    <Content Include="Content\uintra20\src\app\ui\panels\central-feed\central-feed-filters\central-feed-filters.component.less" />
-    <Content Include="Content\uintra20\src\app\ui\panels\central-feed\central-feed-publication\central-feed-publication.component.less" />
-    <Content Include="Content\uintra20\src\app\ui\panels\central-feed\central-feed-panel.less" />
-    <Content Include="Content\uintra20\src\app\ui\panels\comments\comments-panel.less" />
-    <Content Include="Content\uintra20\src\app\ui\panels\latest-activities\latest-activities-panel.component.less" />
-    <Content Include="Content\uintra20\src\app\ui\panels\likes\likes-panel.less" />
     <Content Include="config\umbracoSettings.config" />
-    <Content Include="config\tinyMceConfig.config" />
-    <Content Include="config\serilog.user.config" />
-    <Content Include="config\serilog.config" />
-    <Content Include="config\HealthChecks.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
     <Content Include="config\UBaseline\videoPickerSettings.json" />
     <Content Include="config\UBaseline\ubaselineSettings.json" />
-    <Content Include="config\UBaseline\ubaselineLoggingSettings.json" />
-    <Content Include="config\UBaseline\panelContainerSettings.json" />
     <Content Include="config\Logging\loggingSettings.json" />
-    <Content Include="App_Plugins\VideoPicker\package.manifest" />
-    <Content Include="App_Plugins\UmbracoStructureManagement\package.manifest" />
     <Content Include="App_Plugins\TableEditor\package.manifest" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\package.manifest" />
     <Content Include="App_Plugins\Shared\package.manifest" />
-    <Content Include="App_Plugins\PanelThemePicker\package.manifest" />
     <Content Include="App_Plugins\PanelContainer\package.manifest" />
     <Content Include="App_Plugins\Microdata\package.manifest" />
-    <Content Include="App_Plugins\MediaPicker\package.manifest" />
-    <Content Include="App_Plugins\MailchimpListContainer\package.manifest" />
     <Content Include="App_Plugins\Localization\package.manifest" />
     <Content Include="App_Plugins\KeyValueRadioButtonList\package.manifest" />
     <Content Include="App_Plugins\KeyValueDropdownList\package.manifest" />
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\AnchorField\package.manifest" />
-    <None Include="Content\uintra20\src\styles\temp\aside.less" />
-    <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
-    <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
     <Content Include="css\rte.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -924,7 +840,7 @@
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
     <Compile Include="App_Plugins\Utils\Сache\CacheDashboard.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Core\Feed\Controllers\SocialsController.cs" />
+    <Compile Include="Core\Feed\Controllers\SocialController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
@@ -975,8 +891,10 @@
     <Compile Include="Core\Authentication\Models\LoginModelBase.cs" />
     <Compile Include="Core\Member\Helpers\IMemberServiceHelper.cs" />
     <Compile Include="Core\Member\Helpers\MemberServiceHelper.cs" />
+    <Compile Include="Core\Member\Models\ExtendedProfileEditModel.cs" />
+    <Compile Include="Core\Member\Models\ProfileEditModel.cs" />
     <Compile Include="Core\Member\Models\UserPickerModel.cs" />
-    <Compile Include="Core\Member\Web\UserApiController.cs" />
+    <Compile Include="Core\Member\Controllers\UserApiController.cs" />
     <Compile Include="Core\User\Web\UserApiController.cs" />
     <Compile Include="Features\Bulletins\Converters\SocialDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\Bulletins\Converters\Models\SocialDetailsPageModel.cs" />
@@ -995,6 +913,8 @@
     <Compile Include="Features\Comments\Converters\CommentsPanelViewModelConverter.cs" />
     <Compile Include="Features\Comments\Converters\Models\CommentsPanelModel.cs" />
     <Compile Include="Features\Comments\Converters\Models\CommentsPanelViewModel.cs" />
+    <Compile Include="Features\Comments\Helpers\CommentsHelper.cs" />
+    <Compile Include="Features\Comments\Helpers\ICommentsHelper.cs" />
     <Compile Include="Features\Likes\CommandBus\LikeHandle.cs" />
     <Compile Include="Features\Likes\CommandBus\LikeNotificationHandle.cs" />
     <Compile Include="Features\Likes\Converters\LikesPanelViewModelConverter.cs" />
@@ -1014,7 +934,7 @@
     <Compile Include="Core\Member\Abstractions\IHaveCreator.cs" />
     <Compile Include="Core\Member\Abstractions\IHaveOwner.cs" />
     <Compile Include="Core\Member\Abstractions\IIntranetMember.cs" />
-    <Compile Include="Core\Member\Web\MemberApiControllerBase.cs" />
+    <Compile Include="Core\Member\Controllers\MemberApiControllerBase.cs" />
     <Compile Include="Core\Member\Events\MemberEventService.cs" />
     <Compile Include="Core\TabModelBase.cs" />
     <Compile Include="Core\UmbracoEventServices\IUmbracoContentSavingEventService.cs" />
@@ -1084,17 +1004,19 @@
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelViewModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\SelectedActivityModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\SelectedActivityViewModel.cs" />
+    <Compile Include="Core\Member\Controllers\UserProfileApiController.cs" />
+    <Compile Include="Core\Member\Models\ProfileViewModel.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\ApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\IApplicationSettings.cs" />
     <Compile Include="Infrastructure\ApplicationSettings\Models\GoogleOAuth.cs" />
-    <Compile Include="Features\Bulletins\AutoMapperProfiles\SocialsAutoMapperProfile.cs" />
+    <Compile Include="Features\Bulletins\AutoMapperProfiles\SocialAutoMapperProfile.cs" />
     <Compile Include="Features\Bulletins\SocialBase.cs" />
-    <Compile Include="Features\Bulletins\SocialsService.cs" />
-    <Compile Include="Features\Bulletins\SocialsServiceBase.cs" />
+    <Compile Include="Features\Bulletins\SocialService.cs" />
+    <Compile Include="Features\Bulletins\SocialServiceBase.cs" />
     <Compile Include="Features\Bulletins\Entities\Social.cs" />
     <Compile Include="Features\Bulletins\Models\SocialExtendedCreateModel.cs" />
     <Compile Include="Features\Bulletins\ISocialBase.cs" />
-    <Compile Include="Features\Bulletins\ISocialsService.cs" />
+    <Compile Include="Features\Bulletins\ISocialService.cs" />
     <Compile Include="Features\Bulletins\Models\SocialCreateModel.cs" />
     <Compile Include="Features\Bulletins\Models\SocialCreationResultModel.cs" />
     <Compile Include="Features\Bulletins\Models\SocialEditModel.cs" />
@@ -1265,7 +1187,7 @@
     <Compile Include="Features\Media\VideoConverterLogService.cs" />
     <Compile Include="Features\Media\VideoHelper.cs" />
     <Compile Include="Features\Media\VideoSizeMetadataModel.cs" />
-    <Compile Include="Infrastructure\Ioc\SocialsInjectModule.cs" />
+    <Compile Include="Infrastructure\Ioc\SocialInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\NotificationInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\ActivityInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\UintraInjectModule.cs" />
@@ -1450,38 +1372,33 @@
     <Content Include="config\imageprocessor\security.config" />
     <Content Include="config\imageprocessor\processing.config" />
     <Content Include="config\imageprocessor\cache.config" />
-    <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
     <Content Include="config\uSync8.config" />
     <Content Include="App_Plugins\uSync8\package.manifest" />
     <Content Include="App_Plugins\uSync8\addons.json" />
+    <Content Include="config\umbracoSettings.config" />
+    <Content Include="config\tinyMceConfig.config" />
+    <Content Include="config\serilog.user.config" />
+    <Content Include="config\serilog.config" />
+    <Content Include="config\HealthChecks.config" />
     <Content Include="config\ClientDependency.config" />
     <Content Include="App_Plugins\Members\package.manifest" />
+    <Content Include="config\UBaseline\ubaselineSettings.json" />
+    <Content Include="config\UBaseline\ubaselineLoggingSettings.json" />
+    <Content Include="config\UBaseline\panelContainerSettings.json" />
+    <Content Include="App_Plugins\VideoPicker\package.manifest" />
+    <Content Include="App_Plugins\UmbracoStructureManagement\package.manifest" />
+    <Content Include="App_Plugins\PanelThemePicker\package.manifest" />
+    <Content Include="App_Plugins\PanelContainer\package.manifest" />
+    <Content Include="App_Plugins\MediaPicker\package.manifest" />
+    <Content Include="App_Plugins\MailchimpListContainer\package.manifest" />
     <Content Include="App_Plugins\AvailableActivitySelector\package.manifest" />
-    <Content Include="Content\uintra20\src\styles\abstracts\grid.less" />
-    <Content Include="Content\uintra20\src\styles\abstracts\index.less" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-Italic.woff" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-Italic.woff2" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-Bold.woff" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-Bold.woff2" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-Regular.woff" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-Regular.woff2" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-BoldItalic.woff" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-BoldItalic.woff2" />
-    <Content Include="Content\uintra20\src\base.less" />
-    <Content Include="Content\uintra20\src\styles\temp\index.less" />
-    <Content Include="Content\uintra20\src\styles\temp\nav.less" />
-    <Content Include="Content\uintra20\src\styles\mixins\index.less" />
-    <Content Include="Content\uintra20\src\styles\mixins\layout.less" />
-    <Content Include="Content\uintra20\src\styles\mixins\form-elements.less" />
-    <Content Include="Content\uintra20\src\styles\mixins\typographic.less" />
-    <Content Include="App_Plugins\SentMails\package.manifest" />
-    <Content Include="Content\uintra20\src\styles\typography\font.less" />
-    <Content Include="Content\uintra20\src\styles\typography\index.less" />
-    <Content Include="Content\uintra20\src\styles\typography\titles.less" />
     <Content Include="Media\Web.config" />
-    <Content Include="Content\uintra20\src\styles\typography\text-formating.less" />
+    <Content Include="App_Plugins\SentMails\package.manifest" />
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
+    <Content Include="Media\Web.config" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\InternalServerErrorPage.cshtml" />
     <Content Include="Views\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
@@ -1514,7 +1431,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\Feed\Web\" />
     <Folder Include="Infrastructure\Authentication\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Compent.CommandBus;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Compent.CommandBus;
-using Uintra20.Core.Commands;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.User;
 using Uintra20.Core.User.Models;
@@ -83,7 +82,7 @@ namespace Uintra20.Core.Member.Services
 		{
 			base.UpdateMemberCache(memberId);
 			var member = Get(memberId);
-			_commandPublisher.Publish(new MemberChanged(member));
+			//_commandPublisher.Publish(new MemberChanged(member));
 		}
 
 		public override void UpdateMemberCache(IEnumerable<Guid> memberIds)
@@ -91,7 +90,7 @@ namespace Uintra20.Core.Member.Services
 			var memberIdsList = memberIds.ToList();
 			base.UpdateMemberCache(memberIdsList);
 			var members = GetMany(memberIdsList);
-			_commandPublisher.Publish(new MembersChanged(members));
+			//_commandPublisher.Publish(new MembersChanged(members));
 		}
 
 		//public override async Task UpdateMemberCacheAsync(Guid memberId)

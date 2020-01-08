@@ -67,6 +67,9 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
             var centralFeedType = _feedTypeProvider[model.TypeId];
             var items = GetCentralFeedItems(centralFeedType).ToList();
 
+            if (items.Count == 0)
+                return new FeedListViewModel();
+
             if (IsEmptyFilters(model.FilterState, _feedFilterStateService.CentralFeedCookieExists()))
             {
                 model.FilterState = GetFilterStateModel();

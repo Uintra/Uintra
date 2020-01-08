@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommentsService } from '../../helpers/comments.service';
+import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
 
 @Component({
   selector: 'app-comment-item',
@@ -18,6 +19,7 @@ export class CommentItemComponent implements OnInit {
   initialValue: any;
   isReply: boolean;
   subcommentDescription: string = "";
+  likeModel: ILikeData;
 
   get isSubcommentSubmitDisabled() {
     if (!this.subcommentDescription) {
@@ -39,13 +41,19 @@ export class CommentItemComponent implements OnInit {
 
   ngOnInit() {
     this.editedValue = this.data.text;
+    // this.likeModel = {
+    //   likedByCurrentUser: !this.data.likeModel.canAddLike,
+    //   id: this.data.id,
+    //   activityType: this.activityType,
+    //   likes: this.data.likeModel.likes,
+    // }
   }
 
-  onCommentDelete(subcommentId) {
-    this.deleteComment.emit({ 
+  onCommentDelete(subcommentId?) {
+    this.deleteComment.emit({
       targetId: this.data.activityId,
       targetType: this.activityType,
-      commentId: subcommentId || this.data.id 
+      commentId: subcommentId || this.data.id
     });
   }
 
@@ -56,12 +64,12 @@ export class CommentItemComponent implements OnInit {
     }
   }
 
-  onSubmitEditedValue(subcomment) {
+  onSubmitEditedValue(subcomment?) {
     const data = {
-      Id: subcomment.id || this.data.id,
-      EntityId: subcomment.entityId || this.data.activityId,
+      Id: subcomment ? subcomment.id : this.data.id,
+      EntityId: subcomment ? subcomment.entityId : this.data.activityId,
       EntityType: this.activityType,
-      Text: subcomment.text || this.editedValue,
+      Text: subcomment ? subcomment.text : this.editedValue,
     }
 
     this.cs.editComment(data).then((res: any) => {

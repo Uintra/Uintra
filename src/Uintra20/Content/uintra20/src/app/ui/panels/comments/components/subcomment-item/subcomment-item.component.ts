@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
 
 @Component({
   selector: 'app-subcomment-item',
@@ -7,12 +8,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class SubcommentItemComponent implements OnInit {
   @Input() data: any;
+  @Input() activityType: any;
   @Output() submitEditedValue = new EventEmitter();
   @Output() deleteComment = new EventEmitter();
 
   isEditing: boolean = false;
   initialValue: string = '';
   editedValue: string = '';
+  likeModel: ILikeData;
 
   get isEditSubmitDisabled() {
     if (!this.editedValue) {
@@ -26,6 +29,12 @@ export class SubcommentItemComponent implements OnInit {
 
   ngOnInit() {
     this.editedValue = this.data.text;
+    // this.likeModel = {
+    //   likedByCurrentUser: !this.data.likeModel.canAddLike,
+    //   id: this.data.id,
+    //   activityType: this.activityType,
+    //   likes: this.data.likeModel.likes,
+    // }
   }
 
   toggleEditingMode() {

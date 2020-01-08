@@ -22,3 +22,22 @@
     transform: rotate(360deg);
   }
 }
+
+.white-block() {
+  .shadow();
+  background-color: @main-color;
+}
+
+.header-bar() {
+  background-color: @header-bg;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 1;
+
+  @media @md-up {
+    height: 70px;
+  }
+}
