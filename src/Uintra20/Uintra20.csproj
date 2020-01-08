@@ -867,7 +867,6 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\MemberApiController.cs" />
-    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
@@ -1026,7 +1025,6 @@
     <Compile Include="Features\News\NewsBase.cs" />
     <Compile Include="Features\News\NewsService.cs" />
     <Compile Include="Features\News\NewsServiceBase.cs" />
-    <Compile Include="Features\News\Web\NewsControllerBase.cs" />
     <Compile Include="Features\Subscribe\ActivitySubscribeSettingDto.cs" />
     <Compile Include="Features\Subscribe\IActivitySubscribeSettingService.cs" />
     <Compile Include="Features\Subscribe\ISubscribableService.cs" />
