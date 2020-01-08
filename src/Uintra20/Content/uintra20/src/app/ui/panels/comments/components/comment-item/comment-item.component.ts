@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommentsService } from '../../helpers/comments.service';
+import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
 
 @Component({
   selector: 'app-comment-item',
@@ -18,6 +19,7 @@ export class CommentItemComponent implements OnInit {
   initialValue: any;
   isReply: boolean;
   subcommentDescription: string = "";
+  likeModel: ILikeData;
 
   get isSubcommentSubmitDisabled() {
     if (!this.subcommentDescription) {
@@ -39,6 +41,12 @@ export class CommentItemComponent implements OnInit {
 
   ngOnInit() {
     this.editedValue = this.data.text;
+    // this.likeModel = {
+    //   likedByCurrentUser: !this.data.likeModel.canAddLike,
+    //   id: this.data.id,
+    //   activityType: this.activityType,
+    //   likes: this.data.likeModel.likes,
+    // }
   }
 
   onCommentDelete(subcommentId?) {
@@ -57,7 +65,6 @@ export class CommentItemComponent implements OnInit {
   }
 
   onSubmitEditedValue(subcomment?) {
-    debugger;
     const data = {
       Id: subcomment ? subcomment.id : this.data.id,
       EntityId: subcomment ? subcomment.entityId : this.data.activityId,
