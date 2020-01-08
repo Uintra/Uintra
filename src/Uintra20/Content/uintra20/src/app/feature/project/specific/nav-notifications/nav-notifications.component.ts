@@ -19,14 +19,7 @@ export class NavNotificationsComponent implements OnInit {
   constructor(
     private signalrService: SignalrService,
     private navNotificationsService: NavNotificationsService,
-    private router: Router,
-    private ngZone: NgZone) {
-      router.events.subscribe((val) => {
-        if (val instanceof NavigationEnd) {
-          this.hide();
-        }
-      });
-  }
+    private ngZone: NgZone) { }
 
   ngOnInit() {
     this.navNotificationsService.getNotifiedCount().subscribe((response: number) => {
@@ -53,6 +46,7 @@ export class NavNotificationsComponent implements OnInit {
 
   onShow() {
     this.notifications = null;
+    this.notificationCount = 0;
     this.show();
     this.loadNotifications();
   }

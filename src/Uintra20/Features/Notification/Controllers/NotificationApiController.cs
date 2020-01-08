@@ -12,7 +12,6 @@ using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Services;
-using Uintra20.Features.Notification.Settings;
 using Uintra20.Features.Notification.ViewModel;
 using Uintra20.Infrastructure.Extensions;
 
@@ -20,7 +19,8 @@ namespace Uintra20.Features.Notification.Controllers
 {
     public class NotificationApiController : UBaselineApiController
     {
-        private readonly int _itemsPerPage;
+        protected int ItemsPerPage { get; } = 10;
+        
         private readonly IUBaselineRequestContext _requestContext;
         private readonly INodeModelService _nodeModelService;
         private readonly IUiNotificationService _uiNotifierService;
@@ -28,15 +28,13 @@ namespace Uintra20.Features.Notification.Controllers
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         public NotificationApiController(
-            NotificationSettings notificationSettings,
             IUBaselineRequestContext requestContext,
             INodeModelService nodeModelService,
             IUiNotificationService uiNotifierService,
             IPopupNotificationService popupNotificationService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
             IIntranetMemberService<IntranetMember> intranetMemberService)
-        {
-            _itemsPerPage = notificationSettings.ItemsPerPage;
+        {            
             _requestContext = requestContext;
             _nodeModelService = nodeModelService;
             _uiNotifierService = uiNotifierService;
@@ -48,19 +46,23 @@ namespace Uintra20.Features.Notification.Controllers
         [HttpGet]
         public async Task<NotificationViewModel[]> Get(int page = 1)
         {
-            var take = page * _itemsPerPage;
-            var (notifications, totalCount) = await _uiNotifierService.GetManyAsync( await _intranetMemberService.GetCurrentMemberIdAsync(), take);
+            int skip = (page - 1) * ItemsPerPage;
 
-            var notificationsArray = notifications.ToArray();
+            var notifications =
+                (await _uiNotifierService.GetManyAsync(
+                    await _intranetMemberService.GetCurrentMemberIdAsync()))
+                    .Skip(skip)
+                    .Take(ItemsPerPage);
 
-            var notNotifiedNotifications = notificationsArray.Where(el => !el.IsNotified).ToArray();
-            if (notNotifiedNotifications.Length > 0)
+
+            var notNotifiedNotifications = notifications.Where(el => !el.IsNotified);
+            if (notNotifiedNotifications.Any())
             {
                 await _uiNotifierService.NotifyAsync(notNotifiedNotifications);
             }
 
             var notificationsViewModels = await Task.WhenAll(
-                notificationsArray
+                notifications
                     .Select(async n => await MapNotificationToViewModelAsync(n)));
 
             return notificationsViewModels;
@@ -70,25 +72,26 @@ namespace Uintra20.Features.Notification.Controllers
         public async Task<NotificationViewModel[]> NotificationList()
         {
             var itemsCountForPopup = _nodeModelService
-                .GetByAlias<NotificationsPageModel>("notificationPage", _requestContext.HomeNode.RootId)
+                .GetByAlias<NotificationsPageModel>("notificationsPage", _requestContext.HomeNode.RootId)
                 ?.NotificationsPopUpCount
                 ?.Value ?? default(int);
 
-            var (notifications, _) = await _uiNotifierService.GetManyAsync(await _intranetMemberService.GetCurrentMemberIdAsync(), itemsCountForPopup);
+            var notifications = 
+                (await _uiNotifierService.GetManyAsync(
+                    await _intranetMemberService.GetCurrentMemberIdAsync()))
+                        .Take(itemsCountForPopup);
 
-            var notificationsArray = notifications.ToArray();
 
-            var notNotifiedNotifications = notificationsArray
-                .Where(el => !el.IsNotified)
-                .ToArray();
+            var notNotifiedNotifications = notifications
+                .Where(el => !el.IsNotified);
 
-            if (notNotifiedNotifications.Length > 0)
+            if (notifications.Any())
             {
                 await _uiNotifierService.NotifyAsync(notNotifiedNotifications);
             }
 
             var notificationsViewModels = await Task.WhenAll(
-                notificationsArray
+                notifications
                     .Take(itemsCountForPopup)
                     .Select(async n => await MapNotificationToViewModelAsync(n)));
 

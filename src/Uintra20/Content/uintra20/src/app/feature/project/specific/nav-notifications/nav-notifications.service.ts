@@ -45,6 +45,10 @@ export class NavNotificationsService {
     return this.http.get<INotificationsData[]>(this.api + `/NotificationList`);
   }
 
+  getNotificationsByPage(page: number): Observable<INotificationsData[]> {
+    return this.http.get<INotificationsData[]>(this.api + `/Get?page=${page}`);
+  }
+
   getNotifiedCount(): Observable<number> {
     return this.http.get<number>(this.api + `/GetNotNotifiedCount`);
   }

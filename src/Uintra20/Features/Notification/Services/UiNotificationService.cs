@@ -24,7 +24,7 @@ namespace Uintra20.Features.Notification.Services
 
         #region async
 
-        public async Task<(IEnumerable<Sql.Notification> notifications, int totalCount)> GetManyAsync(Guid receiverId, int count)
+        public async Task<IEnumerable<Sql.Notification>> GetManyAsync(Guid receiverId)
         {
             var notifications = await GetNotificationsAsync(receiverId);
 
@@ -32,7 +32,7 @@ namespace Uintra20.Features.Notification.Services
                 .OrderBy(n => n.IsNotified)
                 .ThenByDescending(n => n.Date);
 
-            return (orderedNotifications, notifications.Count);
+            return orderedNotifications;
         }
 
         public async Task NotifyAsync(IEnumerable<Sql.Notification> notifications)
@@ -112,7 +112,7 @@ namespace Uintra20.Features.Notification.Services
 
         #endregion
 
-        public (IEnumerable<Sql.Notification> notifications, int totalCount) GetMany(Guid receiverId, int count)
+        public IEnumerable<Sql.Notification> GetMany(Guid receiverId)
         {
             var notifications = GetNotifications(receiverId);
 
@@ -120,7 +120,7 @@ namespace Uintra20.Features.Notification.Services
                 .OrderBy(n => n.IsNotified)
                 .ThenByDescending(n => n.Date);
 
-            return (orderedNotifications, notifications.Count);
+            return orderedNotifications;
         }
 
         public void Notify(IEnumerable<UiNotificationMessage> messages)

@@ -7,7 +7,7 @@ namespace Uintra20.Features.Notification.Services
 {
     public interface IUiNotificationService
     {
-        (IEnumerable<Sql.Notification> notifications, int totalCount) GetMany(Guid receiverId, int count);
+        IEnumerable<Sql.Notification> GetMany(Guid receiverId);
         void Notify(IEnumerable<Sql.Notification> notifications);
         void Notify(IEnumerable<UiNotificationMessage> messages);
         int GetNotNotifiedCount(Guid receiverId);
@@ -16,7 +16,7 @@ namespace Uintra20.Features.Notification.Services
         bool SetNotificationAsNotified(Guid id);
 
 
-        Task<(IEnumerable<Sql.Notification> notifications, int totalCount)> GetManyAsync(Guid receiverId, int count);
+        Task<IEnumerable<Sql.Notification>> GetManyAsync(Guid receiverId);
         Task NotifyAsync(IEnumerable<Sql.Notification> notifications);
         Task NotifyAsync(IEnumerable<UiNotificationMessage> messages);
         Task<int> GetNotNotifiedCountAsync(Guid receiverId);
