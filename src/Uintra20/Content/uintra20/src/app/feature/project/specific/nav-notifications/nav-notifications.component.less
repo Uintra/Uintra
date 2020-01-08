@@ -18,7 +18,7 @@
   }
 
   &__count {
-    .pinned;
+    .pinned-button;
     position: absolute;
     top: -5px;
     right: -6px;
@@ -43,11 +43,14 @@
     border: 1px solid @border-color;
     max-width: 450px;
     width: 100vw;
+    .arrow-top(50px);
+  }
 
+  .arrow-top(@offset: 50px) {
     &:after,
     &:before {
       bottom: 100%;
-      right: 50px;
+      right: @offset;
       border: solid transparent;
       content: " ";
       height: 0;
@@ -68,7 +71,7 @@
       border-bottom-color: @border-color;
       border-width: 9px;
       margin-left: -8px;
-      right: 48px;
+      right: @offset - 2px;
     }
   }
 }

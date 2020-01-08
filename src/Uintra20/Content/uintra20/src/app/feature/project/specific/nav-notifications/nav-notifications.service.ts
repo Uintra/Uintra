@@ -17,7 +17,7 @@ export interface INotificationsData {
     email: string;
     loginName: string;
     inactive: boolean;
-  }
+  };
 
   value: {
     message: string;
@@ -35,16 +35,17 @@ export interface INotificationsData {
   providedIn: 'root'
 })
 export class NavNotificationsService {
+  readonly api = '/ubaseline/api/notificationApi';
 
   constructor(
     private http: HttpClient
   ) { }
 
   getNotifications(): Observable<INotificationsData[]> {
-    return this.http.get<INotificationsData[]>(`/ubaseline/api/notificationApi/NotificationList`);
+    return this.http.get<INotificationsData[]>(this.api + `/NotificationList`);
   }
 
   getNotifiedCount(): Observable<number> {
-    return this.http.get<number>(`/ubaseline/api/notificationApi/GetNotNotifiedCount`);
+    return this.http.get<number>(this.api + `/GetNotNotifiedCount`);
   }
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { NavNotificationsService, INotificationsData } from './nav-notifications.service';
 import { NavigationEnd, Router } from '@angular/router';
+import { SignalrService } from './helpers/signalr.service';
 
 declare var $: any;
 
@@ -10,76 +11,35 @@ declare var $: any;
   styleUrls: ['./nav-notifications.component.less']
 })
 export class NavNotificationsComponent implements OnInit {
-
-  private notificationsHub: any;
-  private ulr: any;
-
-
   notifications: INotificationsData[];
   notificationCount: number;
   isShow: boolean = false;
   isLoading: boolean = false;
 
-  constructor(private navNotificationsService: NavNotificationsService, private router: Router) {
-    router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd) {
-        this.hide();
-      }
-    });
-  }
- 
-  ngOnInit() {  
-  }
-
-  setNotNotifiedCount() {
-    this.notificationsHub.server.getNotNotifiedCount()
-      .then((data) => {        
-        this.updateNotificationCountValue(data);
+  constructor(
+    private signalrService: SignalrService,
+    private navNotificationsService: NavNotificationsService,
+    private router: Router,
+    private ngZone: NgZone) {
+      router.events.subscribe((val) => {
+        if (val instanceof NavigationEnd) {
+          this.hide();
+        }
       });
-  } 
-
-  onShow() {
-    this.notifications = null;    
-    this.show();
-    this.loadNotifications();
   }
 
-  updateNotificationCountValue(count: any) {
-    debugger;
-    this.notificationCount = count;
+  ngOnInit() {
+    this.navNotificationsService.getNotifiedCount().subscribe((response: number) => {
+      this.notificationCount = response;
+    });
+
+    this.signalrService.createHub(this.updateNotificationCountValue.bind(this));
   }
 
-  subscribe() {   
-
-    this.notificationsHub = $.connection.notificationsHub;
-    this.notificationsHub.client.updateNotificationsCount = this.updateNotificationCountValue;
-
-    $.connection.hub.disconnected(function () {
-      if ($.connection.hub.lastError) { alert("Disconnected. Reason: " + $.connection.hub.lastError.message); }
+  updateNotificationCountValue(count: number) {
+    this.ngZone.run(() => {
+      this.notificationCount = count;
     });
-
-    $.connection.hub.reconnected(function () {
-      $.connection
-        .hub
-        .start()
-        .done(r => {
-          this.setNotNotifiedCount();
-        })
-        .catch(r => {
-          console.log(r)
-        });
-
-    });
-
-    $.connection
-      .hub
-      .start()
-      .done(r => {
-        this.setNotNotifiedCount();
-      })
-      .catch(r => {
-        console.log(r)
-      });
   }
 
   loadNotifications() {
@@ -91,10 +51,12 @@ export class NavNotificationsComponent implements OnInit {
     });
   }
 
-  show() {
-    this.isShow = true;
+  onShow() {
+    this.notifications = null;
+    this.show();
+    this.loadNotifications();
   }
-  hide() {
-    this.isShow = false;
-  }
+
+  show() { this.isShow = true; }
+  hide() { this.isShow = false; }
 }

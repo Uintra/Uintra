@@ -5,31 +5,27 @@
       {{ notificationCount }}
     </span>
   </button>
-  <button (click)="subscribe()" class="button">
-    Subscribe to Hub
-  </button>
-  <div *ngIf="isShow" class="nav-notification__popup">
+
+  <div [hidden]="!isShow" class="nav-notification__popup">
     <div class="nav-notification__spinner-wrapper" *ngIf="isLoading">
       <div class="nav-notification__spinner"></div>
     </div>
 
-    <div class="nav-notification__spinner-wrapper"
-         *ngIf="!isLoading && notifications && notifications.length === 0">
-      No new notifications
+    <div
+      class="nav-notification__spinner-wrapper"
+      *ngIf="!isLoading && notifications && notifications.length === 0">
+        No new notifications
     </div>
 
     <ng-container *ngIf="notifications">
-      <app-notifications-item [notification]="notification" *ngFor="let notification of notifications"></app-notifications-item>
+      <app-notifications-item
+        [notification]="notification"
+        *ngFor="let notification of notifications"
+      ></app-notifications-item>
     </ng-container>
 
     <app-notifications-item [link]="'notifications'">
       See all notifications
     </app-notifications-item>
-
-    <!-- <a
-      [routerLink]="'notifications'"
-      class="nav-notification__popup-item notification-item"
-      >See all notifications</a
-    > -->
   </div>
 </div>
