@@ -1010,6 +1010,7 @@
     <Compile Include="Features\Media\MediaTypeEnum.cs" />
     <Compile Include="Features\Navigation\Models\ActivityFeedTabModel.cs" />
     <Compile Include="Features\News\AutoMapperPrfiles\NewsAutoMapperProfile.cs" />
+    <Compile Include="Features\News\Controllers\NewsApiController.cs" />
     <Compile Include="Features\News\Converters\Models\NewsDetailsPageModel.cs" />
     <Compile Include="Features\News\Converters\Models\NewsDetailsPageViewModel.cs" />
     <Compile Include="Features\News\Converters\NewsDetailsPageViewModelConverter.cs" />
