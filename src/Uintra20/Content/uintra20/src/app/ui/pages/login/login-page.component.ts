@@ -1,10 +1,11 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoginModel } from 'src/app/feature/login/models/login.model';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { AuthService } from 'src/app/feature/auth/auth.service';
+
+import { ILogin } from '../../../feature/login/contracts/login.interface';
+import { AuthService } from '../../../feature/auth/services/auth.service';
 
 @Component({
   selector: 'login-page',
@@ -16,9 +17,9 @@ export class LoginPage implements OnDestroy {
   private loginSubscription: Subscription;
   public inProgress = false;
   public errors = [];
-  public loginForm: FormGroup = new FormGroup(
+  public loginForm = new FormGroup(
     {
-      login: new FormControl('', Validators.required),
+      login: new FormControl('', Validators.email),
       password: new FormControl('', Validators.required)
     }
   );
@@ -35,12 +36,12 @@ export class LoginPage implements OnDestroy {
   public submit() {
     this.inProgress = true;
 
-    const model = new LoginModel(
-      this.loginForm.value.login,
-      this.loginForm.value.password,
-      this.getCurrentTimeZoneId(),
-      '/'
-    );
+    const model: ILogin = {
+      login: this.loginForm.value.login,
+      password: this.loginForm.value.password,
+      clientTimeZoneId: this.getCurrentTimeZoneId(),
+      returnUrl: '/'
+    };
 
     this.authService.login(model)
       .pipe(
@@ -48,9 +49,12 @@ export class LoginPage implements OnDestroy {
       ).subscribe(
         (next) => { this.router.navigate(['/']); },
         (error) => {
-          this.errors = error.error.message
+          this.errors = [];
+          if (error) {
+            this.errors = error.error.message
             .split('\n')
             .filter(e => e != null && e !== '');
+          }
         }
       );
   }
