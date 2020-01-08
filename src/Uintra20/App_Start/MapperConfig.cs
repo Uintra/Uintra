@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
 using EmailWorker.Data.Features.EmailWorker;
+using EmailWorker.Web.Infrastructure.Extensions;
 using Uintra20.Core.Activity.AutoMapperProfiles;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.AutoMapperProfiles;
@@ -81,7 +82,7 @@ namespace Uintra20
             cfg.AddProfile<SubscribeSettingAutoMapperProfiles>();
             cfg.AddProfile<LocationAutoMapperProfile>();
             cfg.AddProfile<LinkPreviewAutoMapperProfile>();
-            cfg.AddProfile<MailProfile>();
+            cfg.UseMailWorkerMapperProfiles();
             
             Mapper.Initialize(cfg);
             Mapper.AssertConfigurationIsValid();
