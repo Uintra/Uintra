@@ -1392,10 +1392,8 @@
     <Content Include="App_Plugins\MediaPicker\package.manifest" />
     <Content Include="App_Plugins\MailchimpListContainer\package.manifest" />
     <Content Include="App_Plugins\AvailableActivitySelector\package.manifest" />
-    <Content Include="Media\Web.config" />
     <Content Include="App_Plugins\SentMails\package.manifest" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
-    <Content Include="Media\Web.config" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\InternalServerErrorPage.cshtml" />
@@ -1432,6 +1430,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\Authentication\" />
+    <Folder Include="Media\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
