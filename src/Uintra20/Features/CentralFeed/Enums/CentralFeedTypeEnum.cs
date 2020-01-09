@@ -7,7 +7,7 @@ namespace Uintra20.Features.CentralFeed.Enums
         All = 0,
         News = IntranetActivityTypeEnum.News,
         Events = IntranetActivityTypeEnum.Events,
-        Socials = IntranetActivityTypeEnum.Socials,
+        Social = IntranetActivityTypeEnum.Social,
         PagePromotion = IntranetActivityTypeEnum.PagePromotion
     }
 }

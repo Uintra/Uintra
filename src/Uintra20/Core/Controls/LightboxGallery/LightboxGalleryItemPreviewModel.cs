@@ -6,5 +6,8 @@
         public string Name { get; set; }
         public string PreviewUrl { get; set; }
         public bool IsHidden { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public string Extension { get; set; }
     }
 }

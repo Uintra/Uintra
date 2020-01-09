@@ -60,8 +60,8 @@ namespace Uintra20.Features.CentralFeed
 				new ActivityFeedTabViewModel
 				{
 					IsActive = true,
-					Type = CentralFeedTypeEnum.Socials,
-					Title = CentralFeedTypeEnum.Socials.ToString()
+					Type = CentralFeedTypeEnum.Social,
+					Title = CentralFeedTypeEnum.Social.ToString()
 				},
 				new ActivityFeedTabViewModel
 				{

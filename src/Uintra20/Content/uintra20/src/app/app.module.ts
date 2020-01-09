@@ -11,6 +11,7 @@ import { panels } from './ui/panels/panels';
 import { NavNotificationsModule } from './feature/project/specific/nav-notifications/nav-notifications.module';
 import { HeaderComponent } from './ui/main-layout/header/header.component';
 import { UserNavigationModule } from './feature/project/specific/user-navigation/user-navigation.module';
+import { ImageGalleryModule } from './feature/project/reusable/ui-elements/image-gallery/image-gallery.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { UserNavigationModule } from './feature/project/specific/user-navigation
     AppRoutingModule,
     HttpClientModule,
     UserNavigationModule,
+    ImageGalleryModule,
     UmbracoSupportModule.configure({
       apiPrefix: '/ubaseline/api',
       pages: pages,

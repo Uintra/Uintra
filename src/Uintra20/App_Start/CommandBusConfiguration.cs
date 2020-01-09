@@ -70,7 +70,7 @@ namespace Uintra20
                 .WithHandle<MediaHelper>()
                 //.WithHandle<EventsService>()
                 //.WithHandle<NewsService>()
-                .WithHandle<SocialsService<Social>>();
+                .WithHandle<SocialService<Social>>();
         }
 
     }

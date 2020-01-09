@@ -74,3 +74,36 @@
   border-radius: 15px;
   text-transform: uppercase;
 }
+
+.left-arrow() {
+  position: relative;
+  margin-left: 1em;
+
+  &::before {
+    content:"";
+    display: inline-block;
+    width: 0.5em;
+    height: 0.5em;
+    vertical-align: middle;
+
+    border-top: 2px solid currentColor;
+    border-left: 2px solid currentColor;
+    position: absolute;
+    left: -1em;
+    top: 50%;
+    transform: rotate(-45deg) translateY(-50%);
+  }
+
+  &::after {
+    content:"";
+    display: inline-block;
+    width: 0.7em;
+    height: 0.15em;
+    vertical-align: middle;
+    background-color: currentColor;
+    position: absolute;
+    left: -1.05em;
+    top: 50%;
+    // transform: translateY(-50%);
+  }
+}

@@ -5,7 +5,8 @@
     class="publication__header"
   >
     <div subtitle>
-      {{ getPublicationDate() }} - {{ publication.activity.type }}
+      {{ getPublicationDate() }} -
+      <span class="publication__activity-type" routerLink="social-details?id={{publication.activity.id}}">{{ publication.activity.type }}</span>
     </div>
     <div *ngIf="publication.activity.isPinned" label class="publication__label">
       Important
@@ -19,7 +20,7 @@
   <div class="publication__footer">
     <app-like-button [likeData]="likeData"></app-like-button>
 
-    <a class="publication__comment publication__footer-item" routerLink="social-details" [queryParams]="{id: publication.activity.id}">
+  <a class="publication__comment publication__footer-item" routerLink="social-details?id={{publication.activity.id}}">
       <i class="icon-comment"></i>
       {{ commentsCount }}
     </a>

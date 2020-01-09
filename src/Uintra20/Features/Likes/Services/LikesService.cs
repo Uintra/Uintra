@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Compent.Extensions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Likes.Models;
@@ -157,6 +158,15 @@ namespace Uintra20.Features.Likes.Services
         public virtual int GetCount(Guid entityId)
         {
             return (int)_likesRepository.Count(l => l.EntityId == entityId);
+        }
+
+        public virtual bool LikedByCurrentUser(Guid entityId, Guid userId)
+        {
+            var result = !Get(entityId)
+                .Where(l => l.UserId.Equals(userId))
+                .IsEmpty();
+
+            return result;
         }
 
         #endregion
