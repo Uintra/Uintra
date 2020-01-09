@@ -1,7 +1,7 @@
 ﻿using UBaseline.Shared.Node;
 using UBaseline.Shared.Property;
 
-namespace Uintra20.Core.Activity.Converters.Models
+namespace Uintra20.Core.Activity.Models
 {
     public class ActivityCreatePanelModel : NodeModel
     {

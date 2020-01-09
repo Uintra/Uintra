@@ -1,7 +1,7 @@
 ﻿using Compent.Extensions;
 using System;
 using UBaseline.Core.Node;
-using Uintra20.Core.Activity.Converters.Models;
+using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
@@ -27,13 +27,14 @@ namespace Uintra20.Core.Activity.Converters
         private readonly IUserTagService _tagsService;
         private readonly IUserTagProvider _tagProvider;
 
-        public ActivityCreatePanelViewModelConverter(ISocialService<Features.Bulletins.Entities.Social> socialService,
+        public ActivityCreatePanelViewModelConverter(
+            ISocialService<Features.Bulletins.Entities.Social> socialService,
             INewsService<News> newsService,
-                                                    IIntranetMemberService<IntranetMember> memberService,
-                                                    IActivityTypeProvider activityTypeProvider,
-                                                    IPermissionsService permissionsService,
-                                                    IUserTagService tagsService,
-                                                    IUserTagProvider tagProvider)
+            IIntranetMemberService<IntranetMember> memberService,
+            IActivityTypeProvider activityTypeProvider,
+            IPermissionsService permissionsService,
+            IUserTagService tagsService,
+            IUserTagProvider tagProvider)
         {
             _socialService = socialService;
             _memberService = memberService;

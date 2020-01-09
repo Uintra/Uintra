@@ -58,7 +58,7 @@ namespace Uintra20.Features.News.Controllers
         }
 
         [HttpPost]
-        public async Task<NewsViewModel> Create(NewsCreateModel createModel)
+        public async Task<NewsViewModel> Create(NewsExtendedCreateModel createModel)
         {
             var newsBaseCreateModel = await MapToNewsAsync(createModel);
             var activityId = await _newsService.CreateAsync(newsBaseCreateModel);
@@ -68,7 +68,7 @@ namespace Uintra20.Features.News.Controllers
             return await GetViewModelAsync(_newsService.Get(activityId));
         }
 
-        public async Task<NewsViewModel> Edit(NewsEditModel editModel)
+        public async Task<NewsViewModel> Edit(NewsExtendedEditModel editModel)
         {
             var cachedActivityMedias = _newsService.Get(editModel.Id).MediaIds;
 
@@ -82,7 +82,7 @@ namespace Uintra20.Features.News.Controllers
             return await GetViewModelAsync(_newsService.Get(editModel.Id));
         }
 
-        private async Task<NewsBase> MapToNewsAsync(NewsCreateModel createModel)
+        private async Task<NewsBase> MapToNewsAsync(NewsExtendedCreateModel createModel)
         {
             var news = createModel.Map<NewsBase>();
 
@@ -100,7 +100,7 @@ namespace Uintra20.Features.News.Controllers
 
             return news;
         }
-        private NewsBase MapToNews(NewsEditModel editModel)
+        private NewsBase MapToNews(NewsExtendedEditModel editModel)
         {
             var activity = _newsService.Get(editModel.Id);
             activity = Mapper.Map(editModel, activity);
@@ -112,12 +112,10 @@ namespace Uintra20.Features.News.Controllers
 
             return activity;
         }
-        private async Task OnNewsEditedAsync(NewsBase news, NewsEditModel model)
+        private async Task OnNewsEditedAsync(NewsBase news, NewsExtendedEditModel model)
         {
-            if (model is NewsExtendedEditModel extendedModel)
-            {
-                await _activityTagsHelper.ReplaceTagsAsync(news.Id, extendedModel.TagIdsData);
-            }
+
+            await _activityTagsHelper.ReplaceTagsAsync(news.Id, model.TagIdsData);
 
             await ResolveMentionsAsync(model.Description, news);
         }
@@ -141,7 +139,7 @@ namespace Uintra20.Features.News.Controllers
 
             return model;
         }
-        private async Task OnNewsCreatedAsync(Guid activityId, NewsCreateModel model)
+        private async Task OnNewsCreatedAsync(Guid activityId, NewsExtendedCreateModel model)
         {
             var news = _newsService.Get(activityId);
             var groupId = HttpContext.Current.Request.QueryString.GetGroupIdOrNone();
@@ -152,10 +150,7 @@ namespace Uintra20.Features.News.Controllers
                 news.GroupId = groupId.Value;
             }
 
-            if (model is NewsExtendedCreateModel extendedModel)
-            {
-                await _activityTagsHelper.ReplaceTagsAsync(activityId, extendedModel.TagIdsData);
-            }
+            await _activityTagsHelper.ReplaceTagsAsync(activityId, model.TagIdsData);
 
             await ResolveMentionsAsync(model.Description, news);
         }

@@ -5,7 +5,7 @@ using UBaseline.Shared.PageSettings;
 using UBaseline.Shared.Property;
 using Uintra20.Core.Activity.Models;
 
-namespace Uintra20.Features.News.Converters.Models
+namespace Uintra20.Features.News.Models
 {
     public class NewsDetailsPageViewModel : NodeViewModel
     {

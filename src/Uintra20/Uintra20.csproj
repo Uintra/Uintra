@@ -851,8 +851,8 @@
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
-    <Compile Include="Core\Activity\Converters\Models\ActivityCreatePanelModel.cs" />
-    <Compile Include="Core\Activity\Converters\Models\ActivityCreatePanelViewModel.cs" />
+    <Compile Include="Core\Activity\Models\ActivityCreatePanelModel.cs" />
+    <Compile Include="Core\Activity\Models\ActivityCreatePanelViewModel.cs" />
     <Compile Include="Core\Activity\Converters\ActivityCreatePanelViewModelConverter.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
     <Compile Include="Core\Activity\Entities\IntranetActivity.cs" />
@@ -991,8 +991,8 @@
     <Compile Include="Features\Navigation\Models\ActivityFeedTabModel.cs" />
     <Compile Include="Features\News\AutoMapperPrfiles\NewsAutoMapperProfile.cs" />
     <Compile Include="Features\News\Controllers\NewsApiController.cs" />
-    <Compile Include="Features\News\Converters\Models\NewsDetailsPageModel.cs" />
-    <Compile Include="Features\News\Converters\Models\NewsDetailsPageViewModel.cs" />
+    <Compile Include="Features\News\Models\NewsDetailsPageModel.cs" />
+    <Compile Include="Features\News\Models\NewsDetailsPageViewModel.cs" />
     <Compile Include="Features\News\Converters\NewsDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\News\Entities\News.cs" />
     <Compile Include="Features\News\INewsService.cs" />

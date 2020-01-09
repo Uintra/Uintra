@@ -6,7 +6,7 @@ using Uintra20.Core.Member.Models;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.Tagging.UserTags.Models;
 
-namespace Uintra20.Core.Activity.Converters.Models
+namespace Uintra20.Core.Activity.Models
 {
     public class ActivityCreatePanelViewModel : NodeViewModel
     {
