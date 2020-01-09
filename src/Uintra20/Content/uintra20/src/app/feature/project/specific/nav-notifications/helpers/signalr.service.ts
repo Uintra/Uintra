@@ -15,7 +15,7 @@ export class SignalrService {
     this.callbackFunction = callback;
 
     this.notificationsHub = $.connection.notificationsHub;
-    this.notificationsHub.client.updateNotificationsCount = this.callbackFunction.bind(this);
+    this.notificationsHub.client.updateNotifications = this.callbackFunction.bind(this);
 
     $.connection.hub.disconnected(() => {
       if ($.connection.hub.lastError) { console.log('Disconnected. Reason: ' + $.connection.hub.lastError.message); }

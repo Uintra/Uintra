@@ -932,6 +932,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
+    <Compile Include="Features\Bulletins\Web\IFeedHub.cs" />
+    <Compile Include="Features\CentralFeed\CentralFeedHub.cs" />
     <Compile Include="Infrastructure\Extensions\FactoryExtensions.cs" />
     <Compile Include="Infrastructure\Ioc\LightInjectScopedConnection.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
@@ -946,7 +948,7 @@
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
     <Compile Include="App_Plugins\Utils\Сache\CacheDashboard.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Core\Feed\Controllers\SocialsController.cs" />
+    <Compile Include="Features\Bulletins\Web\SocialsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
@@ -1614,6 +1616,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\uintra20\" />
+    <Folder Include="Core\Feed\Controllers\" />
     <Folder Include="Core\Feed\Web\" />
     <Folder Include="Features\Notification\Commands\" />
   </ItemGroup>

@@ -1,19 +1,20 @@
-﻿using Compent.Shared.Extensions.Bcl;
-using System;
+﻿using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Compent.Shared.Extensions.Bcl;
+using Microsoft.AspNet.SignalR;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Bulletins;
 using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Bulletins.Models;
+using Uintra20.Features.CentralFeed;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
@@ -21,9 +22,9 @@ using Uintra20.Features.Navigation.Services;
 using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.Extensions;
 
-namespace Uintra20.Controllers
+namespace Uintra20.Features.Bulletins.Web
 {
-    public class SocialsController : UBaselineApiController
+    public class SocialsController : UBaselineApiController, IFeedHub
     {
         private readonly ISocialsService<Social> _socialsService;
         private readonly IMediaHelper _mediaHelper;
@@ -87,6 +88,11 @@ namespace Uintra20.Controllers
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
+        public void ReloadFeed()
+        {
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<CentralFeedHub>();
+            hubContext.Clients.All().reloadFeed();
+        }
 
         private SocialBase MapToBulletin(SocialCreateModel model)
         {
@@ -119,6 +125,7 @@ namespace Uintra20.Controllers
             }
 
             ResolveMentions(model.Description, social);
+            ReloadFeed();
         }
 
         private async Task OnBulletinEditedAsync(SocialBase social, SocialEditModel model)
@@ -129,16 +136,19 @@ namespace Uintra20.Controllers
             }
 
             await ResolveMentionsAsync(model.Description, social);
+            ReloadFeed();
         }
 
         private void OnBulletinDeleted(Guid id)
         {
             _myLinksService.DeleteByActivityId(id);
+            ReloadFeed();
         }
 
         private async Task OnBulletinDeletedAsync(Guid id)
         {
             await _myLinksService.DeleteByActivityIdAsync(id);
+            ReloadFeed();
         }
 
         private void OnBulletinCreated(SocialBase social, SocialCreateModel model)
@@ -161,6 +171,7 @@ namespace Uintra20.Controllers
                 return;
             }
             ResolveMentions(model.Description, social);
+            ReloadFeed();
         }
 
         private async Task OnBulletinCreatedAsync(SocialBase social, SocialCreateModel model)
@@ -183,6 +194,7 @@ namespace Uintra20.Controllers
                 return;
             }
             await ResolveMentionsAsync(model.Description, social);
+            ReloadFeed();
         }
 
         private void ResolveMentions(string text, SocialBase social)

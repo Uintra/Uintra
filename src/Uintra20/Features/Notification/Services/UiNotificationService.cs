@@ -70,7 +70,12 @@ namespace Uintra20.Features.Notification.Services
             return (await GetNotificationsAsync(receiverId)).Count(el => !el.IsNotified);
         }
 
-        public async Task<IList<Sql.Notification>> GetNotNotifiedNotificationsAsync(Guid receiverId)
+        public async Task<IEnumerable<Sql.Notification>> GetNotNotifiedAsync(Guid receiverId)
+        {
+            return (await GetNotificationsAsync(receiverId)).Where(el => !el.IsNotified);
+        }
+
+        public async Task<IEnumerable<Sql.Notification>> GetNotNotifiedNotificationsAsync(Guid receiverId)
         {
             var notifications = await GetNotificationsAsync(receiverId, true);
             return notifications;
@@ -95,7 +100,7 @@ namespace Uintra20.Features.Notification.Services
             return true;
         }
 
-        private async Task<IList<Sql.Notification>> GetNotificationsAsync(Guid receiverId, bool excludeAlreadyNotified = false)
+        private async Task<IEnumerable<Sql.Notification>> GetNotificationsAsync(Guid receiverId, bool excludeAlreadyNotified = false)
         {
             var uiNotifierTypeId = NotifierTypeEnum.UiNotifier.ToInt();
 
@@ -107,7 +112,7 @@ namespace Uintra20.Features.Notification.Services
                 ? basePredicate.AndAlso(notification => !notification.IsNotified)
                 : basePredicate;
 
-            return (await _notificationRepository.FindAllAsync(predicate)).ToList();
+            return await _notificationRepository.FindAllAsync(predicate);
         }
 
         #endregion
@@ -147,7 +152,12 @@ namespace Uintra20.Features.Notification.Services
             return GetNotifications(receiverId).Count(el => !el.IsNotified);
         }
 
-        public IList<Sql.Notification> GetNotNotifiedNotifications(Guid receiverId)
+        public IEnumerable<Sql.Notification> GetNotNotified(Guid receiverId)
+        {
+            return GetNotifications(receiverId).Where(el => !el.IsNotified);
+        }
+
+        public IEnumerable<Sql.Notification> GetNotNotifiedNotifications(Guid receiverId)
         {
             var notifications = GetNotifications(receiverId, true);
             return notifications;
@@ -208,7 +218,7 @@ namespace Uintra20.Features.Notification.Services
                 .ToList()
                 .ForEach(r =>
                 {
-                    hubContext.Clients.User(r.Key.ToString()).updateNotificationsCount(GetNotNotifiedCount(r.Key));
+                    hubContext.Clients.User(r.Key.ToString()).updateNotifications(GetNotNotified(r.Key));
                 });
         }
 
