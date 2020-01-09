@@ -214,6 +214,8 @@ namespace Uintra20.Features.Media
         }
         public static IEnumerable<string> GetMediaUrls(IEnumerable<int> ids)
         {
+            if (!ids.Any()) return Enumerable.Empty<string>();
+
             var mediaProvider = DependencyResolver.Current.GetService<IMediaProvider>();
 
             return ids.Select(id => mediaProvider.GetById(id)?.Url).Where(url => url.HasValue());

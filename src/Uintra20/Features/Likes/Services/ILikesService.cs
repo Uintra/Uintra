@@ -15,6 +15,7 @@ namespace Uintra20.Features.Likes.Services
         bool CanAdd(Guid userId, Guid entityId);
         void FillLikes(ILikeable entity);
         IEnumerable<LikeModel> GetLikeModels(Guid entityId);
+        bool LikedByCurrentUser(Guid entityId, Guid userId);
 
 
         Task<IEnumerable<Like>> GetAsync(Guid entityId);

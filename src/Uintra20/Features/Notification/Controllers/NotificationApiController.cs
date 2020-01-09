@@ -19,8 +19,8 @@ namespace Uintra20.Features.Notification.Controllers
 {
     public class NotificationApiController : UBaselineApiController
     {
-        protected int ItemsPerPage { get; } = 10;
-        
+        private int ItemsPerPage { get; } = 10;
+
         private readonly IUBaselineRequestContext _requestContext;
         private readonly INodeModelService _nodeModelService;
         private readonly IUiNotificationService _uiNotifierService;
@@ -34,7 +34,7 @@ namespace Uintra20.Features.Notification.Controllers
             IPopupNotificationService popupNotificationService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
             IIntranetMemberService<IntranetMember> intranetMemberService)
-        {            
+        {
             _requestContext = requestContext;
             _nodeModelService = nodeModelService;
             _uiNotifierService = uiNotifierService;
@@ -46,56 +46,59 @@ namespace Uintra20.Features.Notification.Controllers
         [HttpGet]
         public async Task<NotificationViewModel[]> Get(int page = 1)
         {
-            int skip = (page - 1) * ItemsPerPage;
+            var skip = (page - 1) * ItemsPerPage;
 
             var notifications =
                 (await _uiNotifierService.GetManyAsync(
                     await _intranetMemberService.GetCurrentMemberIdAsync()))
                     .Skip(skip)
-                    .Take(ItemsPerPage);
+                    .Take(ItemsPerPage)
+                .ToArray();
 
 
-            var notNotifiedNotifications = notifications.Where(el => !el.IsNotified);
+            var notNotifiedNotifications = notifications.Where(el => !el.IsNotified).ToArray();
             if (notNotifiedNotifications.Any())
             {
                 await _uiNotifierService.NotifyAsync(notNotifiedNotifications);
             }
 
-            var notificationsViewModels = await Task.WhenAll(
-                notifications
-                    .Select(async n => await MapNotificationToViewModelAsync(n)));
-
-            return notificationsViewModels;
+            return await Task.WhenAll(notifications.Select(async n => await MapNotificationToViewModelAsync(n)));
         }
 
         [HttpGet]
-        public async Task<NotificationViewModel[]> NotificationList()
+        public async Task<NotificationListViewModel> NotificationList()
         {
-            var itemsCountForPopup = _nodeModelService
-                .GetByAlias<NotificationsPageModel>("notificationsPage", _requestContext.HomeNode.RootId)
-                ?.NotificationsPopUpCount
-                ?.Value ?? default(int);
+            var notificationPageModel = _nodeModelService
+                .GetByAlias<NotificationsPageModel>("notificationsPage", _requestContext.HomeNode.RootId);
 
-            var notifications = 
+            var itemsCountForPopup = notificationPageModel
+                                         ?.NotificationsPopUpCount
+                                         ?.Value ?? default(int);
+
+            var notifications =
                 (await _uiNotifierService.GetManyAsync(
                     await _intranetMemberService.GetCurrentMemberIdAsync()))
-                        .Take(itemsCountForPopup);
+                        .Take(itemsCountForPopup)
+                .ToArray();
 
 
             var notNotifiedNotifications = notifications
                 .Where(el => !el.IsNotified);
 
-            if (notifications.Any())
-            {
+            if (notifications.Length > 0)
                 await _uiNotifierService.NotifyAsync(notNotifiedNotifications);
-            }
+
 
             var notificationsViewModels = await Task.WhenAll(
                 notifications
                     .Take(itemsCountForPopup)
                     .Select(async n => await MapNotificationToViewModelAsync(n)));
 
-            return notificationsViewModels;
+            return new NotificationListViewModel
+            {
+                NotificationPageUrl = notificationPageModel?.Url ?? string.Empty,
+                Notifications = notificationsViewModels
+            };
         }
 
         [HttpGet]
@@ -137,6 +140,28 @@ namespace Uintra20.Features.Notification.Controllers
         public Task SetPopupNotificationViewed([FromBody]Guid id)
         {
             return _popupNotificationService.ViewNotificationAsync(id);
+        }
+
+        [HttpPost]
+        public Task<bool> Notified(Guid id)
+        {
+            return _uiNotifierService.SetNotificationAsNotifiedAsync(id);
+        }
+
+        [HttpPost]
+        public Task Viewed(Guid id)
+        {
+           return _uiNotifierService.ViewNotificationAsync(id);
+        }
+        public Task ViewPopup([FromBody]Guid id)
+        {
+            return _popupNotificationService.ViewNotificationAsync(id);
+        }
+
+        [HttpPost]
+        public Task View([FromBody]Guid id)
+        {
+            return _uiNotifierService.ViewNotificationAsync(id);
         }
 
         private async Task<NotificationViewModel> MapNotificationToViewModelAsync(Sql.Notification notification)

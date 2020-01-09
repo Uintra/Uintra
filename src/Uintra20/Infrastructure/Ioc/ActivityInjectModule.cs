@@ -28,8 +28,8 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IActivitiesServiceFactory, ActivitiesServiceFactory>();
             services.AddTransient<IActivityLocationService, ActivityLocationService>();
             services.AddScoped<IActivityTagsHelper, ActivityTagsHelper>(); 
-            //services.AddScoped<IIntranetActivityService<Social>, SocialsService<Social>>();
-            services.AddScoped<IIntranetActivityService, SocialsService<Social>>();
+            //services.AddScoped<IIntranetActivityService<Social>, SocialService<Social>>();
+            services.AddScoped<IIntranetActivityService, SocialService<Social>>();
 
             return services;
 		}

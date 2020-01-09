@@ -30,9 +30,9 @@
   </div>
 </quill-editor>
 
-<div class="reply-mode">
+<div class="reply-mode"
+    *ngIf="isEditing">
   <quill-editor
-    *ngIf="isEditing"
     theme="snow"
     [modules]="config"
     [(ngModel)]="value"
@@ -56,7 +56,7 @@
     </div>
   </quill-editor>
 
-  <div class="ql-submit-button">
+  <div class="ql-edit-buttons">
     <ng-content select="[edit]"></ng-content>
   </div>
 </div>
