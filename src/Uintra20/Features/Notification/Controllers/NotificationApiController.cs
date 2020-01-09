@@ -66,12 +66,14 @@ namespace Uintra20.Features.Notification.Controllers
         }
 
         [HttpGet]
-        public async Task<NotificationViewModel[]> NotificationList()
+        public async Task<NotificationListViewModel> NotificationList()
         {
-            var itemsCountForPopup = _nodeModelService
-                .GetByAlias<NotificationsPageModel>("notificationsPage", _requestContext.HomeNode.RootId)
-                ?.NotificationsPopUpCount
-                ?.Value ?? default(int);
+            var notificationPageModel = _nodeModelService
+                .GetByAlias<NotificationsPageModel>("notificationsPage", _requestContext.HomeNode.RootId);
+
+            var itemsCountForPopup = notificationPageModel
+                                         ?.NotificationsPopUpCount
+                                         ?.Value ?? default(int);
 
             var notifications =
                 (await _uiNotifierService.GetManyAsync(
@@ -92,7 +94,11 @@ namespace Uintra20.Features.Notification.Controllers
                     .Take(itemsCountForPopup)
                     .Select(async n => await MapNotificationToViewModelAsync(n)));
 
-            return notificationsViewModels;
+            return new NotificationListViewModel
+            {
+                NotificationPageUrl = notificationPageModel?.Url ?? string.Empty,
+                Notifications = notificationsViewModels
+            };
         }
 
         [HttpGet]
