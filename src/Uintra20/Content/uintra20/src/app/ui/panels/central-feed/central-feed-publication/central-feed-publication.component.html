@@ -18,8 +18,8 @@
   <div class="publication__content">
     <div [innerHTML]="publication.activity.description"></div>
 
-    <div class="gallery" (click)="openGallery()">
-      <div *ngFor="let image of medias" class="gallery__image">
+    <div class="gallery">
+      <div *ngFor="let image of medias; index as i" class="gallery__image" (click)="openGallery(i)">
         <img class="gallery__image-element" [src]="image.url"/>
       </div>
     </div>
