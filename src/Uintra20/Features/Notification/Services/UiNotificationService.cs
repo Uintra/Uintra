@@ -10,6 +10,7 @@ using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Persistence.Sql;
+using Uintra20.Features.Notification.ViewModel;
 
 namespace Uintra20.Features.Notification.Services
 {
@@ -218,7 +219,8 @@ namespace Uintra20.Features.Notification.Services
                 .ToList()
                 .ForEach(r =>
                 {
-                    hubContext.Clients.User(r.Key.ToString()).updateNotifications(GetNotNotified(r.Key));
+                    var notificationViewModels = GetNotNotified(r.Key).Map<IEnumerable<NotificationViewModel>>();
+                    hubContext.Clients.User(r.Key.ToString()).updateNotifications(notificationViewModels);
                 });
         }
 

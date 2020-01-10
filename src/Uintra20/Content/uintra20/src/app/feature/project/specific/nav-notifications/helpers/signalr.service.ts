@@ -28,9 +28,9 @@ export class SignalrService {
   }
 
   private setNotNotifiedCount() {
+
     this.notificationsHub.server.getNotNotifiedCount()
       .then((data) => {
-        this.callbackFunction(data);
       });
   }
 

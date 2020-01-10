@@ -4,6 +4,7 @@
   [href]="notification.value.url"
   class="nav-notification__popup-item notification-item"
   *ngIf="notification"
+  (click)="onMarkAsViewed()"
   [ngClass]="{
     'notification-item--noViewed': !notification.isViewed,
     'notification-item--notified': notification.isNotified

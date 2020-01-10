@@ -9,6 +9,7 @@ import { UmbracoFlatPropertyModel } from '@ubaseline/next';
   styleUrls: ['./notifications-page.less'],
   encapsulation: ViewEncapsulation.None
 })
+// tslint:disable-next-line: component-class-suffix
 export class NotificationsPage {
   data: any;
   notifications: INotificationsData[] = [];
@@ -24,7 +25,6 @@ export class NotificationsPage {
   }
 
   ngOnInit() {
-    // this.notifications = this.data.notifications.toJSON();
     this.currentPage = 1;
     this.getNotifications();
   }
@@ -40,14 +40,9 @@ export class NotificationsPage {
     } else {
       this.isScrollDisabled = true;
     }
-    // const newNotificationsArray = notifications.map(notification => {
-    //   return new UmbracoFlatPropertyModel(notification);
-    // });
-    // Array.prototype.push.apply(this.notifications, newNotificationsArray);
   }
 
   getNotifications() {
-
     this.isLoading = true;
 
     this.navNotificationsService

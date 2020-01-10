@@ -6,8 +6,11 @@
 }
 
 .nav-notification {
-  position: relative;
   display: inline-block;
+
+  @media @md-up {
+    position: relative;
+  }
 
   &__button {
     .reset-button;
@@ -43,7 +46,17 @@
     border: 1px solid @border-color;
     max-width: 450px;
     width: 100vw;
-    .arrow-top(50px);
+
+    @media @md-down {
+      top: @header-height;
+      right: 0;
+      left: 0;
+      max-width: 100%;
+    }
+
+    @media @md-up {
+      .arrow-top(50px);
+    }
   }
 
   .arrow-top(@offset: 50px) {

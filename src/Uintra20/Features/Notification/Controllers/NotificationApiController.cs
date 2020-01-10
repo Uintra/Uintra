@@ -153,13 +153,13 @@ namespace Uintra20.Features.Notification.Controllers
         {
            return _uiNotifierService.ViewNotificationAsync(id);
         }
-        public Task ViewPopup([FromBody]Guid id)
+        public Task ViewPopup([FromUri]Guid id)
         {
             return _popupNotificationService.ViewNotificationAsync(id);
         }
 
         [HttpPost]
-        public Task View([FromBody]Guid id)
+        public Task View(Guid id)
         {
             return _uiNotifierService.ViewNotificationAsync(id);
         }

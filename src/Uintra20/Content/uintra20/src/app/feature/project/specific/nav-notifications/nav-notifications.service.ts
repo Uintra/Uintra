@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface INotificationsListData {
+  notificationPageUrl: string;
+  notifications: Array<INotificationsData>;
+}
+
 export interface INotificationsData {
   id: string;
   date: string;
@@ -41,15 +46,23 @@ export class NavNotificationsService {
     private http: HttpClient
   ) { }
 
-  getNotifications(): Observable<INotificationsData[]> {
-    return this.http.get<INotificationsData[]>(this.api + `/NotificationList`);
+  getNotifications(): Observable<INotificationsListData> {
+    return this.http.get<INotificationsListData>(this.api + `/NotificationList`);
   }
 
-  getNotificationsByPage(page: number): Observable<INotificationsData[]> {
-    return this.http.get<INotificationsData[]>(this.api + `/Get?page=${page}`);
+  getNotificationsByPage(page: number): Observable<INotificationsListData> {
+    return this.http.get<INotificationsListData>(this.api + `/Get?page=${page}`);
   }
 
   getNotifiedCount(): Observable<number> {
     return this.http.get<number>(this.api + `/GetNotNotifiedCount`);
+  }
+
+  markAsViewed(id: string): Observable<number> {
+    return this.http.post<number>(this.api + `/View?id=${id}`, {});
+  }
+
+  markAsNotified(id: string): Observable<boolean> {
+    return this.http.post<boolean>(this.api + `/Notified?id=${id}`, {});
   }
 }

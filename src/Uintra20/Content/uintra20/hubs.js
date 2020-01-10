@@ -82,11 +82,7 @@
 
       proxies['uSyncHub'] = this.createHubProxy('uSyncHub');
       proxies['uSyncHub'].client = { };
-      proxies['uSyncHub'].server = {
-          getTime: function () {
-              return proxies['uSyncHub'].invoke.apply(proxies['uSyncHub'], $.merge(["GetTime"], $.makeArray(arguments)));
-           }
-      };
+      proxies['uSyncHub'].server = { };
 
       return proxies;
   };

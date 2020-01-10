@@ -1,5 +1,5 @@
 <div class="nav-notification" (clickOutside)="hide()">
-  <button (click)="onShow()" class="nav-notification__button">
+  <button (click)="onToggle()" class="nav-notification__button">
     <span class="icon-bell-icon"></span>
     <span class="nav-notification__count" *ngIf="notificationCount > 0">
       {{ notificationCount }}
@@ -24,7 +24,7 @@
       ></app-notifications-item>
     </ng-container>
 
-    <app-notifications-item [link]="'notifications'" (click)="hide()">
+    <app-notifications-item [link]="notificationPageUrl" (click)="hide()">
       See all notifications
     </app-notifications-item>
   </div>
