@@ -3,6 +3,6 @@
     public static class ImageResizeStrategies
     {
         public static CentralFeedImageResizeStrategy ForCentralFeed = new CentralFeedImageResizeStrategy();
-        public static SocialDetailsImageResizeStrategy ForSocialDetails = new SocialDetailsImageResizeStrategy();
+        public static ActivityDetailsImageResizeStrategy ForActivityDetails = new ActivityDetailsImageResizeStrategy();
     }
 }
