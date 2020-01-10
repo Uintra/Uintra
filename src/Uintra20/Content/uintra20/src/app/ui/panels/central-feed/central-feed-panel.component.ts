@@ -1,11 +1,8 @@
-import { Component, ViewEncapsulation, OnInit } from "@angular/core";
-import { ICentralFeedPanel } from "./central-feed-panel.interface";
-import { UmbracoFlatPropertyModel } from "@ubaseline/next";
-import {
-  PublicationsService,
-  IFeedListRequest
-} from "./helpers/publications.service";
-import { CreateSocialService } from "src/app/services/createActivity/create-social.service";
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { ICentralFeedPanel } from './central-feed-panel.interface';
+import { UmbracoFlatPropertyModel } from '@ubaseline/next';
+import { PublicationsService} from './helpers/publications.service';
+import { CreateSocialService } from 'src/app/services/createActivity/create-social.service';
 
 // interface IFilterTab {
 //   type: number;
@@ -44,9 +41,9 @@ import { CreateSocialService } from "src/app/services/createActivity/create-soci
 // }
 
 @Component({
-  selector: "central-feed-panel",
-  templateUrl: "./central-feed-panel.html",
-  styleUrls: ["./central-feed-panel.less"],
+  selector: 'central-feed-panel',
+  templateUrl: './central-feed-panel.html',
+  styleUrls: ['./central-feed-panel.less'],
   encapsulation: ViewEncapsulation.None
 })
 export class CentralFeedPanel implements OnInit {
@@ -56,8 +53,8 @@ export class CentralFeedPanel implements OnInit {
   selectTabFilters: Array<any>;
   selectedTabType: number;
   feed: Array<any> = [];
-  currentPage: number = 1;
-  isFeedLoading: boolean = false;
+  currentPage = 1;
+  isFeedLoading = false;
 
   constructor(
     private publicationsService: PublicationsService,

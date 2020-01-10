@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Strategies.ImageResize;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 using Umbraco.Core.Models.PublishedContent;
@@ -23,17 +24,17 @@ namespace Uintra20.Core.Controls.LightboxGallery
 
         public void FillGalleryPreview(IHaveLightboxPreview model, IEnumerable<int> mediaIds)
         {
-            model.MediaPreview = GetGalleryPreviewModel(mediaIds);
+            model.MediaPreview = GetGalleryPreviewModel(mediaIds, ImageResizeStrategies.ForCentralFeed);
         }
 
-        public LightboxPreviewModel GetGalleryPreviewModel(IEnumerable<int> mediaIds)
+        public LightboxPreviewModel GetGalleryPreviewModel(IEnumerable<int> mediaIds, IImageResizeStrategy strategy)
         {
             var medias = _helper.Media(mediaIds);
 
             var mediasList = medias.ToList();
             var galleryViewModelList = mediasList.Select(MapToMedia).ToList();
 
-            TransformPreviewImage(galleryViewModelList);
+            TransformPreviewImage(galleryViewModelList, strategy);
             var displayedImagesCount = HttpContext.Current.Request.IsMobileBrowser() ? 2 : 3;
 
             List<LightboxGalleryItemViewModel> mediasViewModel = FindMedias(galleryViewModelList);
@@ -78,7 +79,7 @@ namespace Uintra20.Core.Controls.LightboxGallery
             return result;
         }
 
-        private void TransformPreviewImage(List<LightboxGalleryItemViewModel> galleryItems)
+        private void TransformPreviewImage(List<LightboxGalleryItemViewModel> galleryItems, IImageResizeStrategy strategy)
         {
             var imageItems = galleryItems.FindAll(m => m.Type is MediaTypeEnum.Image || m.Type is MediaTypeEnum.Video);
 
@@ -86,7 +87,9 @@ namespace Uintra20.Core.Controls.LightboxGallery
             {
                 var item = imageItems[0];
 
-                item.PreviewUrl = _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, UmbracoAliases.ImageResize.Preview);
+                item.PreviewUrl = _imageHelper.GetImageWithResize(IsVideo(item.Type) 
+                    ? item.PreviewUrl 
+                    : item.Url, strategy.Preview);
 
                 return;
             }
@@ -94,8 +97,8 @@ namespace Uintra20.Core.Controls.LightboxGallery
             foreach (var item in imageItems)
             {
                 item.PreviewUrl = imageItems.Count < 3 ?
-                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, UmbracoAliases.ImageResize.PreviewTwo) :
-                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, UmbracoAliases.ImageResize.Thumbnail);
+                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, strategy.PreviewTwo) :
+                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, strategy.Thumbnail);
             }
         }
 
