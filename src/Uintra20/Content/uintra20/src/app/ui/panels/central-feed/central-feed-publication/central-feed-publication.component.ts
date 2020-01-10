@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ILikeData } from '../../../../feature/project/reusable/ui-elements/like-button/like-button.interface';
 import { Router} from '@angular/router';
+import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-elements/image-gallery/image-gallery.service';
 
 @Component({
   selector: 'app-central-feed-publication',
@@ -8,8 +9,8 @@ import { Router} from '@angular/router';
   styleUrls: ['./central-feed-publication.component.less']
 })
 export class CentralFeedPublicationComponent implements OnInit {
-
   @Input() publication;
+  medias: any;
 
   get commentsCount() {
     return this.publication.activity.commentsCount || 'Comment';
@@ -17,10 +18,12 @@ export class CentralFeedPublicationComponent implements OnInit {
 
   likeData: ILikeData;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private imageGalleryService: ImageGalleryService) {
   }
 
   ngOnInit(): void {
+    this.medias = Object.values(this.publication.activity.mediaPreview.medias);
+
     this.likeData = {
       likedByCurrentUser: this.publication.activity.likedByCurrentUser,
       id: this.publication.activity.id,
@@ -28,6 +31,17 @@ export class CentralFeedPublicationComponent implements OnInit {
       likes: this.publication.activity.likes
     };
   }
+
+  public openGallery(i) {
+    const items = this.medias.map(el => ({
+      src: el.url,
+      w: el.width,
+      h: el.height,
+    }));
+
+    this.imageGalleryService.open(items, i);
+  }
+
 
   getPublicationDate() {
     return this.publication.activity.dates.length

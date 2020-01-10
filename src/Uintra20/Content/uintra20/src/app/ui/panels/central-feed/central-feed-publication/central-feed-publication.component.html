@@ -5,8 +5,8 @@
     class="publication__header">
     <div subtitle>
       {{ getPublicationDate() }} -
-      <a class="publication__activity-type" 
-            [routerLink]="['/social-details']"  
+      <a class="publication__activity-type"
+            [routerLink]="['/social-details']"
             [queryParams]="{id: publication.activity.id}">{{ publication.activity.type }}
     </a>
     </div>
@@ -17,13 +17,19 @@
 
   <div class="publication__content">
     <div [innerHTML]="publication.activity.description"></div>
+
+    <div class="gallery" (click)="openGallery()">
+      <div *ngFor="let image of medias" class="gallery__image">
+        <img class="gallery__image-element" [src]="image.url"/>
+      </div>
+    </div>
   </div>
 
   <div class="publication__footer">
     <app-like-button [likeData]="likeData"></app-like-button>
 
-  <a class="publication__comment publication__footer-item" 
-    [routerLink]="['/social-details']" 
+  <a class="publication__comment publication__footer-item"
+    [routerLink]="['/social-details']"
     [queryParams]="{id: publication.activity.id}">
       <i class="icon-comment"></i>
       {{ commentsCount }}
