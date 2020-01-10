@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UBaseline.Core.Extensions;
+using UBaseline.Core.Node;
+using UBaseline.Core.RequestContext;
+using UBaseline.Shared.HomePage;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Feed;
@@ -12,6 +15,7 @@ using Uintra20.Core.Feed.Settings;
 using Uintra20.Core.Feed.State;
 using Uintra20.Features.CentralFeed;
 using Uintra20.Features.CentralFeed.Enums;
+using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.CentralFeed.Services;
 using Uintra20.Features.CentralFeed.Settings;
 using Uintra20.Features.Links;
@@ -22,7 +26,6 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
 {
     public class CentralFeedHelper : ICentralFeedHelper
     {
-        private readonly int _itemsPerPage;
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly ICentralFeedService _centralFeedService;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
@@ -30,18 +33,20 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
         private readonly IFeedFilterService _centralFeedFilterService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
+        private readonly INodeModelService _nodeModelService;
+        private readonly IUBaselineRequestContext _requestContext;
 
         public CentralFeedHelper(
-            LatestActivitySettings lastActivitySettings,
             IActivitiesServiceFactory activitiesServiceFactory,
             ICentralFeedService centralFeedService,
             IFeedTypeProvider feedTypeProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             IFeedLinkService feedLinkService,
             IFeedFilterService centralFeedFilterService,
-            IFeedFilterStateService<FeedFiltersState> feedFilterStateService)
+            IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
+            INodeModelService nodeModelService,
+            IUBaselineRequestContext requestContext)
         {
-            _itemsPerPage = lastActivitySettings.ItemsPerPage;
             _feedTypeProvider = feedTypeProvider;
             _centralFeedService = centralFeedService;
             _centralFeedTypeProvider = centralFeedTypeProvider;
@@ -49,6 +54,8 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
             _centralFeedFilterService = centralFeedFilterService;
             _feedFilterStateService = feedFilterStateService;
             _activitiesServiceFactory = activitiesServiceFactory;
+            _nodeModelService = nodeModelService;
+            _requestContext = requestContext;
         }
 
         public string AvailableActivityTypes()
@@ -162,9 +169,15 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
         private FeedListViewModel GetFeedListViewModel(FeedListModel model, List<IFeedItem> filteredItems,
             Enum centralFeedType)
         {
-            var take = model.Page * _itemsPerPage;
+
+            var homePageModel = _nodeModelService.GetByAlias<Uintra20.Core.HomePage.HomePageModel>("homePage", _requestContext.HomeNode.RootId);
+            var homePageViewModel = _nodeModelService.GetViewModel<Uintra20.Core.HomePage.HomePageViewModel>(homePageModel);
+            var centralFeedpanel = (CentralFeedPanelViewModel)homePageViewModel.Panels.Value.FirstOrDefault(i => i.ContentTypeAlias.Equals("centralFeedPanel"));
+            var itemsPerPage = centralFeedpanel.ItemsPerRequest;
+            var skip = itemsPerPage * (model.Page - 1);
             var pagedItemsList = SortForFeed(filteredItems, centralFeedType)
-                .Take(take)
+                .Skip(skip)
+                .Take(itemsPerPage)
                 .ToList();
 
             var settings = _centralFeedService
@@ -181,7 +194,7 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
                 Feed = GetFeedItems(pagedItemsList, settings),
                 TabSettings = tabSettings,
                 Type = centralFeedType,
-                BlockScrolling = filteredItems.Count < take,
+                BlockScrolling = filteredItems.Count < itemsPerPage,
                 FilterState = MapToFilterStateViewModel(model.FilterState)
             };
         }

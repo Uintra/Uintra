@@ -87,9 +87,6 @@
     <Reference Include="Compent.Shared.DependencyInjection.LightInject, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.DependencyInjection.LightInject.0.2.1\lib\net471\Compent.Shared.DependencyInjection.LightInject.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.Shared.Extensions, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Shared.Extensions.0.1.1\lib\net471\Compent.Shared.Extensions.dll</HintPath>
-    </Reference>
     <Reference Include="Compent.Shared.Extensions.Bcl, Version=0.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.Extensions.Bcl.0.1.3\lib\net45\Compent.Shared.Extensions.Bcl.dll</HintPath>
     </Reference>
@@ -162,9 +159,6 @@
     <Reference Include="ImageProcessor.Web, Version=4.10.0.100, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ImageProcessor.Web.4.10.0.100\lib\net452\ImageProcessor.Web.dll</HintPath>
     </Reference>
-    <Reference Include="LanguageExt.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LanguageExt.Core.3.3.29\lib\net46\LanguageExt.Core.dll</HintPath>
-    </Reference>
     <Reference Include="LazyCache, Version=2.0.1.113, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LazyCache.2.0.1\lib\netstandard2.0\LazyCache.dll</HintPath>
     </Reference>
@@ -209,9 +203,6 @@
     </Reference>
     <Reference Include="Markdown, Version=2.0.0.0, Culture=neutral, PublicKeyToken=1b320cc08ad5aa89, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Markdown.2.2.1\lib\net451\Markdown.dll</HintPath>
-    </Reference>
-    <Reference Include="MediaToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MediaToolkit.1.0.0\lib\net471\MediaToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -889,6 +880,9 @@
     <Compile Include="Core\Authentication\IAuthenticationService.cs" />
     <Compile Include="Core\Authentication\Models\AuthResultModelBase.cs" />
     <Compile Include="Core\Authentication\Models\LoginModelBase.cs" />
+    <Compile Include="Core\HomePage\HomePageModel.cs" />
+    <Compile Include="Core\HomePage\HomePageViewModel.cs" />
+    <Compile Include="Core\HomePage\HomePageViewModelConverter.cs" />
     <Compile Include="Core\Member\Helpers\IMemberServiceHelper.cs" />
     <Compile Include="Core\Member\Helpers\MemberServiceHelper.cs" />
     <Compile Include="Core\Member\Models\ExtendedProfileEditModel.cs" />
