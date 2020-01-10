@@ -22,5 +22,4 @@ export class HomePage implements OnInit {
       this.latestActivities = this.data.panels.get().filter(p => p.data.contentTypeAlias === 'latestActivitiesPanel')[0];
     }
   }
-
 }

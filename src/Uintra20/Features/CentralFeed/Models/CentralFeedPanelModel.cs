@@ -8,5 +8,6 @@ namespace Uintra20.Features.CentralFeed.Models
 	{
 		public PropertyModel<string> TabType { get; set; }
 		public PanelSettingsCompositionModel PanelSettings { get; set; }
-	}
+        public PropertyModel<int> ItemsPerRequest { get; set; }
+    }
 }

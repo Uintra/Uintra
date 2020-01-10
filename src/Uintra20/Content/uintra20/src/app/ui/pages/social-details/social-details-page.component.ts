@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ISocialDetails, IUserTag } from './social-details.interface';
-import { ActivityEnum } from 'src/app/feature/shared/enums/activity-type.enum';
 import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
 import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-elements/image-gallery/image-gallery.service';
+import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 
 @Component({
   selector: 'social-details',
@@ -11,7 +11,7 @@ import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-element
   styleUrls: ['./social-details-page.component.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
+export class SocialDetailsPanelComponent implements OnInit {
 
   data: any;
   details: ISocialDetails;
@@ -22,27 +22,16 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
   documents: any;
 
   constructor(
-    private route: ActivatedRoute,
-    private imgService: ImageGalleryService
+    private activatedRoute: ActivatedRoute,
+    private imageGalleryService: ImageGalleryService
   ) {
-    this.route.data.subscribe(data => this.data = this.addActivityTypeProperty(data));
+    this.activatedRoute.data.subscribe(data => this.data = data);
    }
 
-  private addActivityTypeProperty(data) {
-    // TODO investigate UmbracoFlatProperty and refactor code below
-    data.panels.data.value = data.panels.get().map(panel => {
-      panel.data.value.activityType = data.details.get().activityType.get();
-      return panel
-    })
-
-    return data;
-  }
-
   public ngOnInit(): void {
-    const parsedData = JSON.parse(JSON.stringify(this.data));
-    console.log(parsedData);
+    const parsedData = ParseHelper.parseUbaselineData(this.data);
     this.details = parsedData.details;
-    this.activityName = this.parseActivityType(this.details.activityType);
+    this.activityName = ParseHelper.parseActivityType(this.details.activityType);
     this.tags = Object.values(parsedData.tags);
     this.medias = Object.values(parsedData.details.lightboxPreviewModel.medias);
     this.documents = Object.values(parsedData.details.lightboxPreviewModel.otherFiles);
@@ -54,21 +43,13 @@ export class SocialDetailsPanelComponent implements OnInit, OnDestroy {
     };
   }
 
-  public ngOnDestroy(): void {
-    console.log('died');
-  }
-
-  public parseActivityType(activityType: number): string {
-    return ActivityEnum[activityType];
-  }
-
-  openGallery(i) {
+  public openGallery(i) {
     const items = this.medias.map(el => ({
       src: el.url,
       w: el.width,
       h: el.height,
-    }))
+    }));
 
-    this.imgService.open(items, i);
+    this.imageGalleryService.open(items, i);
   }
 }
