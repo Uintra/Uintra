@@ -1569,7 +1569,6 @@
     <Content Include="App_Plugins\SentMails\package.manifest" />
     <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
-    <Content Include="Media\Web.config" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
@@ -1610,6 +1609,7 @@
     <Folder Include="Core\Feed\Web\" />
     <Folder Include="Features\Notification\Commands\" />
     <Folder Include="Infrastructure\Authentication\" />
+    <Folder Include="Media\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
