@@ -55,6 +55,7 @@ export class CentralFeedPanel implements OnInit {
   feed: Array<any> = [];
   currentPage = 1;
   isFeedLoading = false;
+  isScrollDisabled = false;
 
   constructor(
     private publicationsService: PublicationsService,
@@ -88,6 +89,7 @@ export class CentralFeedPanel implements OnInit {
     this.publicationsService
       .getPublications(data)
       .then((response: any) => {
+        this.isScrollDisabled = response.feed.length === 0;
         this.concatWithCurrentFeed(response.feed);
       })
       .finally(() => {
@@ -112,6 +114,7 @@ export class CentralFeedPanel implements OnInit {
     this.selectTabFilters = selectTabFilters;
     this.selectedTabType = selectedTabType;
     this.feed = [];
+    this.currentPage = 1;
     this.getPublications();
   }
 }
