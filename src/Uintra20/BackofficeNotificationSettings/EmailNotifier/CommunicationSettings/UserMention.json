@@ -1,0 +1,7 @@
+﻿{
+  "label": "This is an email notification that is sent to the user of when someone mentions him in the comments of post.</br>You can insert the following dynamic values:<br><br>##TaggedBy## - Name of the user that tagged another user<br>##FullName## - Name of the user tagged<br/>##Url## - Link to the comment",
+  "template": {
+    "subject": "User tagging notification",
+    "body": "##TaggedBy## has mentioned you in comments to post: ##Url##"
+  }
+}

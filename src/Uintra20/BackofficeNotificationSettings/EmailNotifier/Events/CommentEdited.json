@@ -1,0 +1,7 @@
+﻿{
+  "label": "This is an email notification that is sent to the creator of the event post when a user edits a comment that has been posted on the original event post.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of event<br>##FullName## - Name of the user who added a comment",
+  "template": {
+    "subject": "Event - comment edited",
+    "body": "##FullName## has edited a comment on your post: ##ActivityTitle##"
+  }
+}

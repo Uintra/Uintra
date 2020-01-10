@@ -1,0 +1,40 @@
+<!-- TODO: change href to routerlink // wait server side solution -->
+
+<a
+  [href]="notification.value.url"
+  class="nav-notification__popup-item notification-item"
+  *ngIf="notification"
+  (click)="onMarkAsViewed()"
+  [ngClass]="{
+    'notification-item--noViewed': !notification.isViewed,
+    'notification-item--notified': notification.isNotified
+  }"
+>
+  <div class="notification-item__avatar">
+    <app-user-avatar
+      big
+      [data]="notification.notifier.photo"
+    ></app-user-avatar>
+  </div>
+  <div class="notification-item__content">
+    <div class="notification-item__date">{{ notification.date }}</div>
+    <div
+      class="notification-item__text"
+      [innerHTML]="notification.value.message"
+    ></div>
+  </div>
+  <div
+    *ngIf="notification.value.isPinned"
+    class="notification-item__label"
+    [ngClass]="{
+      'notification-item__label--important': notification.value.isPinned,
+      'notification-item__label--actual': notification.value.isPinActual
+    }"
+  >
+    Important
+  </div>
+</a>
+
+<a *ngIf="link" class="notification-item" [routerLink]="link">
+  <ng-content></ng-content>
+</a>

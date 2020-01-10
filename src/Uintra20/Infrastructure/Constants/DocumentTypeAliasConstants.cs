@@ -18,9 +18,9 @@
         public const string EventsEditPage = "eventsEditPage";
         public const string EventsDetailsPage = "eventsDetailsPage";
 
-        public const string BulletinsOverviewPage = "bulletinDetailsPage";
-        public const string BulletinsEditPage = "bulletinsEditPage";
-        public const string BulletinsDetailsPage = "bulletinDetailsPage";
+        public const string SocialOverviewPage = "socialDetailsPage";
+        public const string SocialEditPage = "socialEditPage";
+        public const string SocialDetailsPage = "socialDetailsPage";
 
         public const string DataFolder = "dataFolder";
         public const string UserTagFolder = "userTagFolder";

@@ -52,7 +52,7 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.Title = currentMember.DisplayedName;
             viewModel.ActivityType = _activityTypeProvider[(int)IntranetActivityTypeEnum.Social];
             viewModel.Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable();
-            viewModel.Creator = currentMember.Map<MemberViewModel>();
+            viewModel.Creator = currentMember?.Map<MemberViewModel>();
             viewModel.Links = null;//TODO: Research links
             viewModel.AllowedMediaExtensions = null;//mediaSettings.AllowedMediaExtensions; //TODO: uncomment when media settings service is ready
             viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready

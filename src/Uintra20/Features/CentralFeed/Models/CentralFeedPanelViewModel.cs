@@ -1,6 +1,7 @@
 ﻿using System;
 using UBaseline.Shared.Node;
 using UBaseline.Shared.PanelSettings;
+using UBaseline.Shared.Property;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Settings;
 
@@ -16,5 +17,6 @@ namespace Uintra20.Features.CentralFeed.Models
 		public bool AddToSitemap { get; set; }
 		public string Url { get; set; }
         public NodeType NodeType { get; set; }
+        public int ItemsPerRequest { get; set; }
     }
 }

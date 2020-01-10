@@ -30,7 +30,12 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": [],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/signalr/jquery.signalR.min.js",
+              "./hubs.js"
+
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "src",

@@ -1,0 +1,74 @@
+﻿<div ng-controller="notificationSettingController as ctrl">
+    <div class="umb-dashboard__header">
+        <div class="">
+            <ul class="umb-tabs-nav">
+                <li ng-if="ctrl.settings.emailNotifierSetting" class="umb-tab" ng-class="{'umb-tab--active' : ctrl.isEmailTabSelected()}"><a ng-click="ctrl.selectEmailTab()">E-mail notification</a></li>
+                <li ng-if="ctrl.settings.uiNotifierSetting" class="umb-tab" ng-class="{'umb-tab--active' : ctrl.isUiTabSelected()}"><a ng-click="ctrl.selectUiTab()">In-App notification</a></li>
+                <li ng-if="ctrl.settings.popupNotifierSetting" class="umb-tab" ng-class="{'umb-tab--active' : ctrl.isPopupTabSelected()}"><a ng-click="ctrl.selectPopupTab()">Popup notification</a></li>
+                <li ng-if="ctrl.settings.uiNotifierSetting" class="umb-tab" ng-class="{'umb-tab--active' : ctrl.isDesktopTabSelected()}"><a ng-click="ctrl.selectDesktopTab()">Desktop notification</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="umb-panel-body custom-umb-panel-body">
+        <div class="umb-box umb-pane form-horizontal">
+
+            <div class="umb-group-panel__header">
+            <h4>{{ctrl.selectedNotifierSettings.activityTypeName}} - {{ctrl.splitOnUpperCaseCharacters(ctrl.selectedNotifierSettings.notificationTypeName)}}</h4>
+            </div>
+
+            <form class="umb-box-content" name="settingsForm" val-form-manager>
+                <div class="control-group umb-control-group">
+                    <div class="info" ng-bind-html="ctrl.selectedNotifierSettings.notificationInfo"></div>
+                </div>
+                <div class="control-group umb-control-group">
+                    <span class="control-label">Do you want to enable this notification:</span>
+                    <ul class="controls controls-row unstyled">
+                        <li>
+                            <input id="enableNotification" type="radio" ng-model="ctrl.selectedNotifierSettings.isEnabled" ng-value="true" ng-change="ctrl.save()">
+                            <label for="enableNotification">Yes, enable</label>
+                        </li>
+                        <li>
+                            <input id="disableNotification" type="radio" ng-model="ctrl.selectedNotifierSettings.isEnabled" ng-value="false" ng-change="ctrl.save()">
+                            <label for="disableNotification">No, disable</label>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div ng-if="ctrl.emailSubjectControlConfig" ng-show="ctrl.isEmailTabSelected()">
+                    <div class="control-group umb-control-group">
+                        <label class="control-label">E-mail subject:</label>
+                        <text-control class="controls controls-row" config="ctrl.emailSubjectControlConfig"></text-control>
+                    </div>
+                    <div class="control-group umb-control-group">
+                        <label class="control-label">E-mail content:</label>
+                        <rich-text-editor class="controls controls-row" config="ctrl.emailBodyControlConfig"></rich-text-editor>
+                    </div>
+                </div>
+
+                <div ng-if="ctrl.uiMessageControlConfig" ng-show="ctrl.isUiTabSelected()">
+                    <div class="control-group umb-control-group">
+                        <label class="control-label">In-App message:</label>
+                        <rich-text-editor class="controls controls-row" config="ctrl.uiMessageControlConfig"></rich-text-editor>
+                    </div>
+                </div>
+                <div ng-if="ctrl.desktopMessageControlConfig" ng-show="ctrl.isDesktopTabSelected()">
+                    <div class="control-group umb-control-group">
+                        <label class="control-label">Desktop notification title:</label>
+                        <text-control class="controls controls-row" config="ctrl.desktopTitleControlConfig"></text-control>
+                    </div>
+                    <div class="control-group umb-control-group">
+                        <label class="control-label">Desktop notification message:</label>
+                        <text-area-control class="controls controls-row" config="ctrl.desktopMessageControlConfig"></text-area-control>
+                    </div>
+                </div>
+                <div ng-if="ctrl.popupMessageControlConfig" ng-show="ctrl.isPopupTabSelected()">
+                    <div class="control-group umb-control-group">
+                        <label class="control-label">Popup message:</label>
+                        <rich-text-editor class="controls controls-row" config="ctrl.popupMessageControlConfig"></rich-text-editor>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

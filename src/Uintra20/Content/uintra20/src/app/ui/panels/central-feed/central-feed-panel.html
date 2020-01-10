@@ -1,8 +1,3 @@
-<!--<ubl-not-implemented
-  [data]="data"
-  [description]="data.contentTypeAlias || 'central-feed panel'"
-></ubl-not-implemented>-->
-
 <section *ngIf="data && tabs" class="central-feed">
   <app-central-feed-filters
     [tabs]="tabs"
@@ -13,7 +8,8 @@
     class="search-results"
     infiniteScroll
     [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="50"
+    [infiniteScrollThrottle]="250"
+    [infiniteScrollDisabled]="isScrollDisabled"
     (scrolled)="onScroll()"
   >
     <app-central-feed-publication

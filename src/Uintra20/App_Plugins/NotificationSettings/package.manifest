@@ -1,0 +1,16 @@
+﻿{
+  "sections": [
+    {
+      "alias": "notificationSettings",
+      "name": "Notifications"
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/NotificationSettings/backoffice/NotificationSettingsTree/notification-settings.config.js",
+    "~/App_Plugins/NotificationSettings/backoffice/NotificationSettingsTree/notification-settings.controller.js",
+    "~/App_Plugins/NotificationSettings/backoffice/NotificationSettingsTree/notification-settings.service.js"
+  ],
+  "css": [
+    "~/App_Plugins/NotificationSettings/backoffice/NotificationSettingsTree/notification-settings.css"
+  ]
+}

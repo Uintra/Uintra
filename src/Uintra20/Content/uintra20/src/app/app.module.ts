@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { DYNAMIC_COMPONENTS, UmbracoSupportModule, UbaselineCoreModule } from '@ubaseline/next';
 import { pages } from './ui/pages/pages';
 import { panels } from './ui/panels/panels';
+import { NavNotificationsModule } from './feature/project/specific/nav-notifications/nav-notifications.module';
 import { HeaderComponent } from './ui/main-layout/header/header.component';
 import { UserNavigationModule } from './feature/project/specific/user-navigation/user-navigation.module';
 import { ImageGalleryModule } from './feature/project/reusable/ui-elements/image-gallery/image-gallery.module';
@@ -28,6 +29,7 @@ import { ImageGalleryModule } from './feature/project/reusable/ui-elements/image
       pages: pages,
       environment: environment
     }),
+    NavNotificationsModule,
     UbaselineCoreModule,
   ],
   providers: [

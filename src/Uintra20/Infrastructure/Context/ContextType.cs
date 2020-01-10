@@ -6,10 +6,10 @@ namespace Uintra20.Infrastructure.Context
     public enum ContextType
     {
         Empty = 0,
-        News = 2,
-        Events = 4,
-        Bulletins = 8,
-        Activity = News | Events | Bulletins,
+        News = 1,
+        Events = 2,
+        Social = 4,
+        Activity = News | Events | Social,
         Comment = 16,
         CentralFeed = 32,
         GroupFeed = 64,

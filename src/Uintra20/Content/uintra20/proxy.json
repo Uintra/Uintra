@@ -1,4 +1,10 @@
 {
+  "/signalr/*": {
+    "target": "http://uintra20.local.compent.dk",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },  
   "/api/*": {
     "target": "http://uintra20.local.compent.dk",
     "secure": false,

@@ -18,6 +18,8 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.latestActivities = this.data.panels.get().find(p => p.data.contentTypeAlias === 'latestActivitiesPanel');
+    if (this.data.panels) {
+      this.latestActivities = this.data.panels.get().filter(p => p.data.contentTypeAlias === 'latestActivitiesPanel')[0];
+    }
   }
 }

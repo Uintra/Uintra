@@ -3,7 +3,7 @@ using UBaseline.Shared.PageSettings;
 using UBaseline.Shared.PanelContainer;
 using UBaseline.Shared.Property;
 
-namespace Uintra20.Core.Bulletin.Converters.Models
+namespace Uintra20.Features.Bulletins.Converters.Models
 {
     public class SocialDetailsPageModel : NodeModel
     {
