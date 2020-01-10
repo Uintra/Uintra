@@ -50,7 +50,7 @@ export class LoginPage implements OnDestroy {
         (next) => { this.router.navigate(['/']); },
         (error) => {
           this.errors = [];
-          if (error) {
+          if (error.status === 400) {
             this.errors = error.error.message
             .split('\n')
             .filter(e => e != null && e !== '');

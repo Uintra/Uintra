@@ -1,5 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { ILikesPanel } from './likes-panel.interface';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./likes-panel.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class LikesPanel implements OnInit {
+export class LikesPanel {
 
   data: any;
 
@@ -17,8 +16,4 @@ export class LikesPanel implements OnInit {
   ) {
     this.route.data.subscribe(data => this.data = data);
   }
-  ngOnInit(): void {
-    console.log(this.data);
-  }
-
 }

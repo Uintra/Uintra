@@ -9,6 +9,5 @@ namespace Uintra20.Features.Bulletins.Models
         public string Description { get; set; }
         public IEnumerable<string> Media { get; set; }
         public LinkPreviewViewModel LinkPreview { get; set; }
-        
     }
 }

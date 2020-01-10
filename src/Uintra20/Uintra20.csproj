@@ -984,6 +984,10 @@
     <Compile Include="Features\Information\InformationService.cs" />
     <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
     <Compile Include="Features\Media\MediaTypeEnum.cs" />
+    <Compile Include="Features\Media\Strategies\ImageResize\CentralFeedImageResizeStrategy.cs" />
+    <Compile Include="Features\Media\Strategies\ImageResize\IImageResizeStrategy.cs" />
+    <Compile Include="Features\Media\Strategies\ImageResize\ImageResizeStrategies.cs" />
+    <Compile Include="Features\Media\Strategies\ImageResize\ActivityDetailsImageResizeStrategy.cs" />
     <Compile Include="Features\Navigation\Models\ActivityFeedTabModel.cs" />
     <Compile Include="Features\Subscribe\ActivitySubscribeSettingDto.cs" />
     <Compile Include="Features\Subscribe\IActivitySubscribeSettingService.cs" />
