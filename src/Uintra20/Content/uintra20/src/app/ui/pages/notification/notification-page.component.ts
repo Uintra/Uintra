@@ -14,6 +14,5 @@ export class NotificationPage {
     private route: ActivatedRoute
   ) {
     this.route.data.subscribe(data => this.data = data);
-    debugger
   }
 }
