@@ -19,7 +19,7 @@ export class LoginPage implements OnDestroy {
   public errors = [];
   public loginForm = new FormGroup(
     {
-      login: new FormControl('', Validators.email),
+      login: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
     }
   );
