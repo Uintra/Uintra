@@ -31,7 +31,6 @@ export class ActivityCreatePanel implements OnInit {
   constructor(private socialContentService: CreateSocialService) { }
 
   ngOnInit() {
-    debugger;
     this.availableTags = Object.values(
       JSON.parse(JSON.stringify(this.data.tags.get().userTagCollection))
     );
