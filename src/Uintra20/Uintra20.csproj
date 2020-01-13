@@ -894,6 +894,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
+    <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
     <Compile Include="Features\Bulletins\Web\IFeedHub.cs" />
     <Compile Include="Features\Bulletins\Web\SocialController.cs" />
     <Compile Include="Features\CentralFeed\CentralFeedHub.cs" />
