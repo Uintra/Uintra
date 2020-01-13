@@ -10,20 +10,19 @@ import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-element
 })
 export class CentralFeedPublicationComponent implements OnInit {
   @Input() publication;
-  medias: any;
-
+  mediaCount: any;
+  documentsCount: any;
   get commentsCount() {
     return this.publication.activity.commentsCount || 'Comment';
   }
 
   likeData: ILikeData;
 
-  constructor(private router: Router, private imageGalleryService: ImageGalleryService) {
-  }
+  constructor(private imageGalleryService: ImageGalleryService) { }
 
   ngOnInit(): void {
-    this.medias = Object.values(this.publication.activity.mediaPreview.medias);
-
+    this.mediaCount = Object.values(this.publication.activity.mediaPreview.medias).length;
+    this.documentsCount = Object.values(this.publication.activity.mediaPreview.otherFiles).length;
     this.likeData = {
       likedByCurrentUser: this.publication.activity.likedByCurrentUser,
       id: this.publication.activity.id,
@@ -33,7 +32,7 @@ export class CentralFeedPublicationComponent implements OnInit {
   }
 
   public openGallery(i) {
-    const items = this.medias.map(el => ({
+    const items = this.mediaCount.map(el => ({
       src: el.url,
       w: el.width,
       h: el.height,

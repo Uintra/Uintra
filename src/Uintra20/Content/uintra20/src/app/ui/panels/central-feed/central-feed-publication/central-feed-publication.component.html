@@ -1,16 +1,17 @@
 <div class="publication publication--important">
-  <app-publication-header
-    [avatar]="publication.activity.owner.photo"
-    [title]="publication.activity.owner.displayedName"
-    class="publication__header">
+  <app-publication-header [avatar]="publication.activity.owner.photo"
+                          [title]="publication.activity.owner.displayedName"
+                          class="publication__header">
     <div subtitle>
       {{ getPublicationDate() }} -
       <a class="publication__activity-type"
-            [routerLink]="['/social-details']"
-            [queryParams]="{id: publication.activity.id}">{{ publication.activity.type }}
-    </a>
+         [routerLink]="['/social-details']"
+         [queryParams]="{id: publication.activity.id}">{{ publication.activity.type }}
+      </a>
     </div>
-    <div *ngIf="publication.activity.isPinned" label class="publication__label">
+    <div *ngIf="publication.activity.isPinned"
+         label
+         class="publication__label">
       Important
     </div>
   </app-publication-header>
@@ -19,8 +20,11 @@
     <div [innerHTML]="publication.activity.description"></div>
 
     <div class="gallery">
-      <div *ngFor="let image of medias; index as i" class="gallery__image" (click)="openGallery(i)">
-        <img class="gallery__image-element" [src]="image.url"/>
+      <div *ngFor="let image of medias; index as i"
+           class="gallery__image"
+           (click)="openGallery(i)">
+        <img class="gallery__image-element"
+             [src]="image.url" />
       </div>
     </div>
   </div>
@@ -28,9 +32,9 @@
   <div class="publication__footer">
     <app-like-button [likeData]="likeData"></app-like-button>
 
-  <a class="publication__comment publication__footer-item"
-    [routerLink]="['/social-details']"
-    [queryParams]="{id: publication.activity.id}">
+    <a class="publication__comment publication__footer-item"
+       [routerLink]="['/social-details']"
+       [queryParams]="{id: publication.activity.id}">
       <i class="icon-comment"></i>
       {{ commentsCount }}
     </a>
@@ -38,5 +42,9 @@
       <i class="icon-share-icon"></i>
       Anbefal
     </button>
+    <a [routerLink]="['/social-details']"
+       [queryParams]="{id: publication.activity.id}">
+      {{documentsCount}}
+      {{documentsCount > 1 ? 'Files added' : 'File added'}}</a>
   </div>
 </div>
