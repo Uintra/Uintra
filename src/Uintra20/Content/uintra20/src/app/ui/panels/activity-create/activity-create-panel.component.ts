@@ -22,15 +22,16 @@ export class ActivityCreatePanel {
   files: Array<any> = [];
   tags: Array<ITagData> = [];
   description: string = "";
+  inProgress = false;
 
   get isSubmitDisabled() {
-    if (this.description && this.description.length > MAX_LENGTH) {
+    if (this.description && this.description.length > MAX_LENGTH || this.inProgress) {
       return true;
     }
     return !this.description && this.files.length === 0;
   }
 
-  constructor(private socialContentService: CreateSocialService) {}
+  constructor(private socialContentService: CreateSocialService) { }
 
   ngOnInit() {
     this.availableTags = Object.values(
@@ -88,6 +89,7 @@ export class ActivityCreatePanel {
   }
 
   onSubmit() {
+    this.inProgress = true;
     this.socialContentService
       .submitSocialContent({
         description: this.description,
@@ -103,6 +105,7 @@ export class ActivityCreatePanel {
         this.hidePopUp();
       })
       .finally(() => {
+        this.inProgress = false;
         this.resetForm();
       });
   }
