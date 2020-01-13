@@ -10,6 +10,7 @@ import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-element
 })
 export class CentralFeedPublicationComponent implements OnInit {
   @Input() publication;
+  medias: any;
   mediaCount: any;
   documentsCount: any;
   get commentsCount() {
@@ -22,7 +23,8 @@ export class CentralFeedPublicationComponent implements OnInit {
 
   ngOnInit(): void {
     this.mediaCount = Object.values(this.publication.activity.mediaPreview.medias).length;
-    this.documentsCount = Object.values(this.publication.activity.mediaPreview.otherFiles).length;
+    this.medias = Object.values(this.publication.activity.mediaPreview.otherFiles);
+    this.documentsCount = this.medias.length;
     this.likeData = {
       likedByCurrentUser: this.publication.activity.likedByCurrentUser,
       id: this.publication.activity.id,

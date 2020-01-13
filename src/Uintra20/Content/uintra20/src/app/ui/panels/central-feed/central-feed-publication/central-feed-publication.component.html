@@ -42,7 +42,8 @@
       <i class="icon-share-icon"></i>
       Anbefal
     </button>
-    <a [routerLink]="['/social-details']"
+    <a *ngIf="documentsCount"
+       [routerLink]="['/social-details']"
        [queryParams]="{id: publication.activity.id}">
       {{documentsCount}}
       {{documentsCount > 1 ? 'Files added' : 'File added'}}</a>

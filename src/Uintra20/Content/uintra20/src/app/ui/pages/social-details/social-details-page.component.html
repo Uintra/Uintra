@@ -38,7 +38,8 @@
                    (click)="openGallery(i)">
             </li>
           </ul>
-          <h3 class="feed-item__subtitle">Attached documents:</h3>
+          <div *ngIf="documents.length !== 0">
+            <h3 class="feed-item__subtitle">Attached documents:</h3>
           <ul *ngIf="documents"
               class="documents-list">
             <li *ngFor="let document of documents"
@@ -51,6 +52,7 @@
               </a>
             </li>
           </ul>
+          </div>
         </div>
         <app-comments [comments]="data.comments"
                       [activityType]="details.activityType">
