@@ -1,38 +1,43 @@
 ﻿using System;
 using System.Web;
 using UBaseline.Core.Node;
+using UBaseline.Core.RequestContext;
 using Uintra20.Features.Comments.Converters.Models;
 using Uintra20.Features.Comments.Helpers;
 using Uintra20.Features.Comments.Services;
+using Uintra20.Infrastructure.Context;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Comments.Converters
 {
     public class CommentsPanelViewModelConverter : INodeViewModelConverter<CommentsPanelModel, CommentsPanelViewModel>
     {
+        private readonly IUBaselineRequestContext _requestContext;
         private readonly ICommentsService _commentsService;
         private readonly ICommentsHelper _commentsHelper;
 
         public CommentsPanelViewModelConverter(
+            IUBaselineRequestContext requestContext,
             ICommentsService commentsService,
             ICommentsHelper commentsHelper)
         {
+            _requestContext = requestContext;
             _commentsService = commentsService;
             _commentsHelper = commentsHelper;
         }
 
         public void Map(CommentsPanelModel node, CommentsPanelViewModel viewModel)
         {
-            var queryId = HttpContext.Current?.Request.GetUbaselineQueryValue("id");
+            var currentNodeKey = _requestContext.Node?.Key;
 
-            if (!Guid.TryParse(queryId, out var activityId)) 
+            if (!currentNodeKey.HasValue)
                 return;
 
-            var comments = _commentsService.GetMany(activityId);
+            var comments = _commentsService.GetMany(currentNodeKey.Value);
 
-            viewModel.ActivityId = activityId;
+            viewModel.ActivityId = ContextType.ContentPage;
             viewModel.Comments = _commentsHelper.GetCommentViews(comments);
-            viewModel.ElementId = $"js-comments-overview-{activityId}";
+            viewModel.EntityId = currentNodeKey.Value;
         }
     }
 }
