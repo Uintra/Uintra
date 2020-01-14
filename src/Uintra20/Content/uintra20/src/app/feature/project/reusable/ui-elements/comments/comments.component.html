@@ -20,7 +20,7 @@
       placeholder="">
       <button submit
         class="bulletin-popup__submit-button"
-        [disabled]="isSubmitDisabled || disabledSubmit"
+        [disabled]="isSubmitDisabled || inProgress"
         (click)="onCommentSubmit()">
         Send
       </button>
