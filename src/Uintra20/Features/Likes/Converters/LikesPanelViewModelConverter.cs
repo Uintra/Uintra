@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using UBaseline.Core.Node;
-using Uintra20.Core.Member;
-using Uintra20.Core.Member.Abstractions;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Likes.Converters.Models;
-using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Infrastructure.Extensions;
 
@@ -17,31 +12,36 @@ namespace Uintra20.Features.Likes.Converters
     public class LikesPanelViewModelConverter : INodeViewModelConverter<LikesPanelModel, LikesPanelViewModel>
     {
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
+        private readonly IUBaselineRequestContext _requestContext;
         private readonly ILikesService _likesService;
 
-        public LikesPanelViewModelConverter(IIntranetMemberService<IntranetMember> intranetMemberService, ILikesService likesService)
+        public LikesPanelViewModelConverter(
+            IUBaselineRequestContext requestContext,
+            IIntranetMemberService<IntranetMember> intranetMemberService, 
+            ILikesService likesService)
         {
+            _requestContext = requestContext;
             _likesService = likesService;
             _intranetMemberService = intranetMemberService;
         }
 
         public void Map(LikesPanelModel node, LikesPanelViewModel viewModel)
         {
-            if (Guid.TryParse(HttpContext.Current?.Request.GetUbaselineQueryValue("id"), out Guid pageId))
-            {
-                var likes = _likesService.GetLikeModels(pageId);
+            var currentNodeKey = _requestContext.Node?.Key;
 
-                Guid currentMemberId = _intranetMemberService.GetCurrentMemberId();
-                var likeModels = likes as IList<LikeModel> ?? likes.ToList();
-                var canAddLike = likeModels.All(el => el.UserId != currentMemberId);
+            if (!currentNodeKey.HasValue) 
+                return;
 
-                viewModel.EntityId = pageId;
-                viewModel.MemberId = currentMemberId;
-                viewModel.Count = likeModels.Count;
-                viewModel.CanAddLike = canAddLike;
-                viewModel.Users = likeModels.Select(el => el.User);
-                viewModel.ShowTitle = true;
-            }
+            var likes = _likesService.GetLikeModels(currentNodeKey.Value).ToArray();
+
+            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
+            var canAddLike = likes.All(el => el.UserId != currentMemberId);
+
+            viewModel.Likes = likes;
+            viewModel.EntityId = currentNodeKey.Value;
+            viewModel.MemberId = currentMemberId;
+            viewModel.CanAddLike = canAddLike;
+            viewModel.ShowTitle = true;
         }
     }
 }

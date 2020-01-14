@@ -1,5 +1,6 @@
 ﻿using Compent.Extensions;
 using System;
+using System.Linq;
 using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
@@ -56,14 +57,16 @@ namespace Uintra20.Features.Bulletins.Converters
         {
             var id = HttpContext.Current.Request.GetUbaselineQueryValue("id");
 
-            if (Guid.TryParse(id, out var parseId))
-            {
-                viewModel.Details = GetViewModel(parseId);
-                viewModel.Tags = _userTagService.Get(parseId);
-                viewModel.Likes = _likesService.GetLikeModels(parseId);
-                viewModel.LikedByCurrentUser = _likesService.LikedByCurrentUser(parseId, viewModel.Details.HeaderInfo.Owner.Id);
-                viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(parseId));
-            }
+            if (!Guid.TryParse(id, out var parseId)) 
+                return;
+
+            var userId = _memberService.GetCurrentMemberId();
+
+            viewModel.Details = GetViewModel(parseId);
+            viewModel.Tags = _userTagService.Get(parseId);
+            viewModel.Likes = _likesService.GetLikeModels(parseId);
+            viewModel.LikedByCurrentUser = viewModel.Likes.Any(l => l.UserId == userId);
+            viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(parseId));
         }
 
         protected SocialExtendedViewModel GetViewModel(Guid id)

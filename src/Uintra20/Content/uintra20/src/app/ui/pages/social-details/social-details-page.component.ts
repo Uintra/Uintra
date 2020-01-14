@@ -36,7 +36,7 @@ export class SocialDetailsPanelComponent implements OnInit {
     this.medias = Object.values(parsedData.details.lightboxPreviewModel.medias);
     this.documents = Object.values(parsedData.details.lightboxPreviewModel.otherFiles);
     this.likeData = {
-      likedByCurrentUser: parsedData.likedByCurrentUser,
+      likedByCurrentUser: !!(parsedData.likedByCurrentUser),
       id: parsedData.details.id,
       activityType: parsedData.details.activityType,
       likes: Object.values(parsedData.likes)

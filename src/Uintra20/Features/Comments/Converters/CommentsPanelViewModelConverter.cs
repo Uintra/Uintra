@@ -21,18 +21,18 @@ namespace Uintra20.Features.Comments.Converters
             _commentsHelper = commentsHelper;
         }
 
-        public void Map(
-            CommentsPanelModel node, 
-            CommentsPanelViewModel viewModel)
+        public void Map(CommentsPanelModel node, CommentsPanelViewModel viewModel)
         {
-            if (Guid.TryParse(HttpContext.Current?.Request.GetUbaselineQueryValue("id"), out var activityId))
-            {
-                var comments = _commentsService.GetMany(activityId);
+            var queryId = HttpContext.Current?.Request.GetUbaselineQueryValue("id");
 
-                viewModel.ActivityId = activityId;
-                viewModel.Comments = _commentsHelper.GetCommentViews(comments);
-                viewModel.ElementId = $"js-comments-overview-{activityId}";
-            }
+            if (!Guid.TryParse(queryId, out var activityId)) 
+                return;
+
+            var comments = _commentsService.GetMany(activityId);
+
+            viewModel.ActivityId = activityId;
+            viewModel.Comments = _commentsHelper.GetCommentViews(comments);
+            viewModel.ElementId = $"js-comments-overview-{activityId}";
         }
     }
 }
