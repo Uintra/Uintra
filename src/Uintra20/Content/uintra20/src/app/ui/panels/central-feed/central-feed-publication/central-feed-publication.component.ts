@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ILikeData } from '../../../../feature/project/reusable/ui-elements/like-button/like-button.interface';
 import { Router} from '@angular/router';
 import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-elements/image-gallery/image-gallery.service';
+import { IMedia, IDocument } from 'src/app/ui/pages/social-details/social-details.interface';
 
 @Component({
   selector: 'app-central-feed-publication',
@@ -10,10 +11,13 @@ import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-element
 })
 export class CentralFeedPublicationComponent implements OnInit {
   @Input() publication;
-  medias: any;
   mediaCount: any;
-  documents: any;
   documentsCount: any;
+  additionalImages: number;
+
+  medias: Array<IMedia> = new Array<IMedia>();
+  documents: Array<IDocument> = new Array<IDocument>();
+  
   get commentsCount() {
     return this.publication.activity.commentsCount || 'Comment';
   }
@@ -27,6 +31,7 @@ export class CentralFeedPublicationComponent implements OnInit {
     this.mediaCount = this.medias.length;
     this.documents = Object.values(this.publication.activity.mediaPreview.otherFiles);
     this.documentsCount = this.documents.length;
+    this.additionalImages = this.publication.activity.mediaPreview.additionalImages;
     this.likeData = {
       likedByCurrentUser: this.publication.activity.likedByCurrentUser,
       id: this.publication.activity.id,

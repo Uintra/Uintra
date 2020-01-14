@@ -26,6 +26,9 @@
         <img class="gallery__image-element"
              [src]="image.url" />
       </div>
+      <div *ngIf="additionalImages">
+        + {{additionalImages}}
+      </div>
     </div>
   </div>
 
