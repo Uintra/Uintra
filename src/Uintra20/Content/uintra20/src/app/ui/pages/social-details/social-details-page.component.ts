@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ISocialDetails, IUserTag } from './social-details.interface';
+import { ISocialDetails, IUserTag, IMedia, IDocument } from './social-details.interface';
 import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
 import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-elements/image-gallery/image-gallery.service';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
@@ -18,15 +18,15 @@ export class SocialDetailsPanelComponent implements OnInit {
   tags: Array<IUserTag>;
   activityName: string;
   likeData: ILikeData;
-  medias: any;
-  documents: any;
+  medias: Array<IMedia> = new Array<IMedia>();
+  documents: Array<IDocument> = new Array<IDocument>();
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService
   ) {
     this.activatedRoute.data.subscribe(data => this.data = data);
-   }
+  }
 
   public ngOnInit(): void {
     const parsedData = ParseHelper.parseUbaselineData(this.data);

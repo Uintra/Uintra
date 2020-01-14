@@ -31,3 +31,18 @@ export interface IUserTag {
     id: string;
     text: string;
 }
+
+export interface ISocialAttachment {
+    url: string;
+    name: string;
+    previewUrl: string;
+    isHidden: string;
+    width: number;
+    height: number;
+    extension: string;
+}
+
+export interface IMedia  extends ISocialAttachment {
+}
+export interface IDocument extends ISocialAttachment {
+}
