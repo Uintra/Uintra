@@ -52,6 +52,10 @@ export class CommentsComponent {
   }
 
   stripHtml(html: string): string {
+    if (!html) {
+      return '';
+    }
+
     const stripped = html.replace(/<[^>]*>?/gm, '');
 
     return stripped;
