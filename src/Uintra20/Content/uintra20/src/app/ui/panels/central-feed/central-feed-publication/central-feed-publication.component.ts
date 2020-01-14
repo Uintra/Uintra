@@ -12,6 +12,7 @@ export class CentralFeedPublicationComponent implements OnInit {
   @Input() publication;
   medias: any;
   mediaCount: any;
+  documents: any;
   documentsCount: any;
   get commentsCount() {
     return this.publication.activity.commentsCount || 'Comment';
@@ -22,9 +23,10 @@ export class CentralFeedPublicationComponent implements OnInit {
   constructor(private imageGalleryService: ImageGalleryService) { }
 
   ngOnInit(): void {
-    this.mediaCount = Object.values(this.publication.activity.mediaPreview.medias).length;
-    this.medias = Object.values(this.publication.activity.mediaPreview.otherFiles);
-    this.documentsCount = this.medias.length;
+    this.medias = Object.values(this.publication.activity.mediaPreview.medias);
+    this.mediaCount = this.medias.length;
+    this.documents = Object.values(this.publication.activity.mediaPreview.otherFiles);
+    this.documentsCount = this.documents.length;
     this.likeData = {
       likedByCurrentUser: this.publication.activity.likedByCurrentUser,
       id: this.publication.activity.id,
