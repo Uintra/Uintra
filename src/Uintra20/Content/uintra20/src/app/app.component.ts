@@ -15,7 +15,6 @@ export class AppComponent {
 
   data: any;
   latestActivities: any;
-
   constructor(private router: Router, private route: ActivatedRoute) {
     this.route.data.subscribe(data => {
       this.data = data;
