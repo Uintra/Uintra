@@ -7,7 +7,7 @@
       <a [routerLink]="['/profile']" [queryParams]="{id: details.id}" class="details-item__name">
         <span>{{details.headerInfo.owner.displayedName}}</span>
       </a>
-      <span class="details-item__date"> - {{details.publishDate | date: 'MMM d, y hh:mm'}} - </span>
+      <span class="details-item__date"> - {{details.headerInfo.dates[0]}} - </span>
       <span class="details-item__category">{{activityName}}</span>
     </div>
   </div>
