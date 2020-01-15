@@ -10,11 +10,12 @@ import { LoginPage } from "./ui/pages/login/login-page.component";
 export class AppComponent {
   title = "uintra20";
 
-  isLoginPage: boolean = false;
+  isLoginPage: boolean = true;
   hasPanels: boolean = false;
 
   data: any;
   latestActivities: any;
+
   constructor(private router: Router, private route: ActivatedRoute) {
     this.route.data.subscribe(data => {
       this.data = data;
@@ -28,7 +29,7 @@ export class AppComponent {
         }
       }
     });
- 
+
   }
 
   ngOnInit(): void {
