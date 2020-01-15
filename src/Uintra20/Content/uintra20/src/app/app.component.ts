@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, ActivationEnd, Router } from "@angular/router";
+import { ActivatedRoute, ActivationEnd, Router, ActivationStart } from "@angular/router";
 import { LoginPage } from "./ui/pages/login/login-page.component";
 
 @Component({
@@ -15,7 +15,6 @@ export class AppComponent {
 
   data: any;
   latestActivities: any;
-
   constructor(private router: Router, private route: ActivatedRoute) {
     this.route.data.subscribe(data => {
       this.data = data;
@@ -23,7 +22,7 @@ export class AppComponent {
     });
 
     router.events.subscribe(val => {
-      if (val instanceof ActivationEnd) {
+      if (val instanceof ActivationStart) {
         if (val.snapshot.component) {
           this.isLoginPage = val.snapshot.component === LoginPage;
         }

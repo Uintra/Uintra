@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
         const burgerMenu = document.querySelector(".js-menu-opener");
         const body = document.body;
 
+      // TODO: REMOVE IT
         burgerMenu.addEventListener("click", function () {
             body.classList.add("nav--open");
         });
