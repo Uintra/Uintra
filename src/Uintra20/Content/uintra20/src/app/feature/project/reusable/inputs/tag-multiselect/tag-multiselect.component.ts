@@ -24,6 +24,9 @@ export class TagMultiselectComponent implements ControlValueAccessor {
 
   constructor() { }
 
+  onToggleDropdown() {
+    this.isDwopdownShowed = !this.isDwopdownShowed;
+  }
   onShowDropdown() {
     this.isDwopdownShowed = true;
   }

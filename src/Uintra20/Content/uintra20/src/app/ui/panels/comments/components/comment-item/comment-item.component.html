@@ -10,12 +10,10 @@
                         (toggleEditingMode)="toggleEditingMode()"
                         (commentDelete)="onCommentDelete($event)">
     </app-comment-header>
-    <div *ngIf="!isEditing"
-         class="comment__content"
-         [innerHTML]="commentBody"></div>
+    <div *ngIf="!isEditing" class="comment__content" innerHTML="{{data.text}}"></div>
     <!-- <app-like-button [likeData]="likeModel"></app-like-button> -->
     <app-rich-text-editor *ngIf="isEditing"
-                          [(ngModel)]="commentBody"
+                          [(ngModel)]="editedValue"
                           [isDropzone]="false"
                           [isEditing]="isEditing"
                           placeholder="">
@@ -43,7 +41,7 @@
     <app-rich-text-editor *ngIf="isReply"
                           [(ngModel)]="subcommentDescription"
                           [isDropzone]="false"
-                          placeholder="">
+                          placeholder="Reply to comment...">
       <button submit
               class="bulletin-popup__submit-button"
               [disabled]="isSubcommentSubmitDisabled"

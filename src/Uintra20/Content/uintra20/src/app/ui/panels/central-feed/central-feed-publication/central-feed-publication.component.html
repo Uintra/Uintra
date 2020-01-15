@@ -15,10 +15,10 @@
       Important
     </div>
   </app-publication-header>
-
   <div class="publication__content">
-    <div [innerHTML]="publication.activity.description"></div>
-
+    <div [routerLink]="['/social-details']" 
+         [queryParams]="{id:publication.activity.id}"
+         [innerHTML]="publication.activity.description"></div>
     <div class="gallery">
       <div *ngFor="let image of medias; index as i"
            class="gallery__image"
@@ -31,10 +31,8 @@
       </div>
     </div>
   </div>
-
   <div class="publication__footer">
     <app-like-button [likeData]="likeData"></app-like-button>
-
     <a class="publication__comment publication__footer-item"
        [routerLink]="['/social-details']"
        [queryParams]="{id: publication.activity.id}">

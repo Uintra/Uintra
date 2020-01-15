@@ -4,6 +4,7 @@
   [modules]="config"
   [(ngModel)]="value"
   [placeholder]="placeholder"
+  (onEditorCreated)="initEditor($event)"
   customToolbarPosition="bottom"
 >
   <div quill-editor-toolbar class="toolbar">

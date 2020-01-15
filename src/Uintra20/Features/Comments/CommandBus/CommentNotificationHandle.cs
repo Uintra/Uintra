@@ -20,16 +20,21 @@ namespace Uintra20.Features.Comments.CommandBus
         {
             var commentsTargetEntityId = command.TargetId;
 
-            if (ContextExtensions.HasFlagScalar(command.TargetType, ContextType.Activity | ContextType.PagePromotion | ContextType.ContentPage))
-            {
-                var notifiableService = _activitiesServiceFactory.GetNotifyableService(commentsTargetEntityId);
+            var isHasFlag = ContextExtensions
+                .HasFlagScalar(
+                    command.TargetType,
+                    ContextType.Activity | ContextType.PagePromotion | ContextType.ContentPage);
 
-                var notificationType = command.CreateDto.ParentId.HasValue ?
-                    NotificationTypeEnum.CommentReplied :
-                    NotificationTypeEnum.CommentAdded;
+            if (!isHasFlag) 
+                return BroadcastResult.Success;
 
-                notifiableService.Notify(command.CreateDto.ParentId ?? command.CreateDto.Id, notificationType);
-            }
+            var notifiableService = _activitiesServiceFactory.GetNotifyableService(commentsTargetEntityId);
+
+            var notificationType = command.CreateDto.ParentId.HasValue ?
+                NotificationTypeEnum.CommentReplied :
+                NotificationTypeEnum.CommentAdded;
+
+            notifiableService.Notify(command.CreateDto.ParentId ?? command.CreateDto.Id, notificationType);
 
             return BroadcastResult.Success;
         }
@@ -38,11 +43,11 @@ namespace Uintra20.Features.Comments.CommandBus
         {
             var commentsTargetEntityId = command.TargetId;
 
-            if (ContextExtensions.HasFlagScalar(command.TargetType, ContextType.Activity))
-            {
-                var notifiableService = _activitiesServiceFactory.GetNotifyableService(commentsTargetEntityId);
-                notifiableService.Notify(command.EditDto.Id, NotificationTypeEnum.CommentEdited);
-            }
+            if (!ContextExtensions.HasFlagScalar(command.TargetType, ContextType.Activity))
+                return BroadcastResult.Success;
+
+            var notifiableService = _activitiesServiceFactory.GetNotifyableService(commentsTargetEntityId);
+            notifiableService.Notify(command.EditDto.Id, NotificationTypeEnum.CommentEdited);
 
             return BroadcastResult.Success;
         }
