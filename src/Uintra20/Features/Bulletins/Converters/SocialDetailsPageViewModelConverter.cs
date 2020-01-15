@@ -79,7 +79,7 @@ namespace Uintra20.Features.Bulletins.Converters
 
             viewModel.Media = MediaHelper.GetMediaUrls(social.MediaIds);
 
-            viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, ImageResizeStrategies.ForActivityDetails);
+            viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, RenderStrategies.ForActivityDetails);
             viewModel.CanEdit = _socialService.CanEdit(social);
             viewModel.Links = links;
             viewModel.IsReadOnly = false;

@@ -19,7 +19,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   maxFiles: 10,
   maxFilesize: 50,
   addRemoveLinks: true,
-  createImageThumbnails: false
+  createImageThumbnails: true
 };
 
 @NgModule({
