@@ -14,7 +14,7 @@ export interface ICommentData {
 export class CommentsComponent {
   @Input() comments: any;
   @Input() commentDetails: ICommentData;
-  activityType: number;
+  @Input() activityType: number;
   description = '';
   inProgress: boolean;
 
@@ -29,7 +29,6 @@ export class CommentsComponent {
   constructor(private commentsService: CommentsService) { }
 
   onCommentSubmit(replyData?) {
-    this.activityType = this.commentDetails.entityType;
     this.inProgress = true;
     const data = {
       entityId: this.commentDetails.entityId,
