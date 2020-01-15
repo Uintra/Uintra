@@ -14,7 +14,7 @@ export class UserAvatarComponent implements OnInit {
   firstChar: string;
 
   ngOnInit() {
-    if (name) {
+    if (this.name) {
       this.firstChar = this.name.charAt(0);
     }
   }
