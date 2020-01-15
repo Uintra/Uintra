@@ -41,7 +41,7 @@
     <app-rich-text-editor *ngIf="isReply"
                           [(ngModel)]="subcommentDescription"
                           [isDropzone]="false"
-                          placeholder="">
+                          placeholder="Reply to comment...">
       <button submit
               class="bulletin-popup__submit-button"
               [disabled]="isSubcommentSubmitDisabled"
