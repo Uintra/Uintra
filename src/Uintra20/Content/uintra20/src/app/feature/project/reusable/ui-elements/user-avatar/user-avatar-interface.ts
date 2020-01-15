@@ -1,4 +1,4 @@
 export interface IUserAvatar {
     photo: string;
-    firstChar: string;
+    name: string;
 }
