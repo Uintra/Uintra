@@ -1,4 +1,5 @@
 ﻿using System;
+using Uintra20.Features.Links.Models;
 using Uintra20.Features.Notification.Entities.Base;
 
 namespace Uintra20.Features.Notification.Entities
@@ -11,8 +12,8 @@ namespace Uintra20.Features.Notification.Entities
         public Guid ReceiverId { get; set; }
         public Guid GroupId { get; set; }
         public string Title { get; set; }
-        public string Url { get; set; }
         public Enum NotificationType { get; set; }
+        public UintraLinkModel Url { get; set; }
         public bool IsPinned { get; set; }
         public bool IsPinActual { get; set; }
     }

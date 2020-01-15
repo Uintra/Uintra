@@ -12,6 +12,7 @@ namespace Uintra20.Infrastructure.Extensions
     public static class StringExtensions
     {
         private const string GroupIdQueryParam = "groupId";
+
         //private const string ToExtractAchorsTagsPattern = "</?(a|A).*?>";
         private const string ToExtractHtmlTagsPattern = "<.*?>";
         //private const string defaultType = "misc";
@@ -32,8 +33,8 @@ namespace Uintra20.Infrastructure.Extensions
 
         public static IEnumerable<int> ToIntCollection(this string src) =>
             src.IsNullOrEmpty()
-            ? Enumerable.Empty<int>()
-            : src.Split(',').Where(s => s.HasValue()).Select(int.Parse);
+                ? Enumerable.Empty<int>()
+                : src.Split(',').Where(s => s.HasValue()).Select(int.Parse);
 
         //public static string GetMedia(this string str, int count)
         //{
@@ -102,6 +103,26 @@ namespace Uintra20.Infrastructure.Extensions
         public static string AddGroupId(this string url, Guid groupId) =>
             url.AddParameter(GroupIdQueryParam, groupId);
 
+        public static UintraLinkModel AddGroupId(this UintraLinkModel linkModel, Guid groupId)
+        {
+            var param = new UintraLinkParamModel()
+            {
+                Name = "groupId",
+                Value = groupId.ToString()
+            };
+
+            if (!linkModel.Params.Any())
+            {
+                linkModel.BaseUrl += "?";
+            }
+
+            linkModel.Params = linkModel.Params.Append(param);
+            linkModel.OriginalUrl = linkModel.ToString();
+
+            return linkModel;
+        }
+
+
         public static string ToAbsoluteUrl(this string src)
         {
             if (src == null) return null;
@@ -161,20 +182,23 @@ namespace Uintra20.Infrastructure.Extensions
 
         public static UintraLinkModel ToLinkModel(this string url)
         {
+            if (!url.HasValue())
+            {
+                return null;
+            }
+
+            var linkModel = new UintraLinkModel(url);
+
             if (url.Contains('?'))
             {
                 var splitedUrl = url.Split('?');
-                return new UintraLinkModel()
-                {
-                    BaseUrl = splitedUrl[0],
-                    Params = splitedUrl[1].ToParams()
-                };
+                linkModel.BaseUrl = splitedUrl[0];
+                linkModel.Params = splitedUrl[1].ToParams();
+                return linkModel;
             }
 
-            return new UintraLinkModel()
-            {
-                BaseUrl = url
-            };
+            linkModel.BaseUrl = url;
+            return linkModel;
         }
 
         public static IEnumerable<UintraLinkParamModel> ToParams(this string @params)
