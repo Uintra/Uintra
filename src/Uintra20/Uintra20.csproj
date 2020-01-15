@@ -898,6 +898,8 @@
     <Compile Include="Features\Bulletins\Web\IFeedHub.cs" />
     <Compile Include="Features\Bulletins\Web\SocialController.cs" />
     <Compile Include="Features\CentralFeed\CentralFeedHub.cs" />
+    <Compile Include="Features\ContentPage\InjectModule\ContentPageInjectModule.cs" />
+    <Compile Include="Features\ContentPage\Services\ContentPageNotificationService.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />
     <Compile Include="Infrastructure\Extensions\FactoryExtensions.cs" />
     <Compile Include="Infrastructure\Ioc\LightInjectScopedConnection.cs" />
@@ -913,9 +915,9 @@
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
     <Compile Include="App_Plugins\Utils\Сache\CacheDashboard.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Features\Comments\Controllers\CommentsController.cs" />
     <Compile Include="Controllers\FileController.cs" />
-    <Compile Include="Controllers\LikesController.cs" />
+    <Compile Include="Features\Likes\Controllers\LikesController.cs" />
     <Compile Include="Controllers\MemberApiController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
@@ -972,8 +974,8 @@
     <Compile Include="Core\Member\Controllers\UserApiController.cs" />
     <Compile Include="Core\User\Web\UserApiController.cs" />
     <Compile Include="Features\Bulletins\Converters\SocialDetailsPageViewModelConverter.cs" />
-    <Compile Include="Features\Bulletins\Converters\Models\SocialDetailsPageModel.cs" />
-    <Compile Include="Features\Bulletins\Converters\Models\SocialDetailsPageViewModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialDetailsPageModel.cs" />
+    <Compile Include="Features\Bulletins\Models\SocialDetailsPageViewModel.cs" />
     <Compile Include="Features\Bulletins\Models\SocialPreviewModel.cs" />
     <Compile Include="Features\CentralFeed\Providers\ContentProviderBase.cs" />
     <Compile Include="Features\CentralFeed\Providers\FeedContentProviderBase.cs" />
@@ -986,15 +988,15 @@
     <Compile Include="Features\Comments\CommandBus\CommentHandle.cs" />
     <Compile Include="Features\Comments\CommandBus\CommentNotificationHandle.cs" />
     <Compile Include="Features\Comments\Converters\CommentsPanelViewModelConverter.cs" />
-    <Compile Include="Features\Comments\Converters\Models\CommentsPanelModel.cs" />
-    <Compile Include="Features\Comments\Converters\Models\CommentsPanelViewModel.cs" />
+    <Compile Include="Features\Comments\Models\CommentsPanelModel.cs" />
+    <Compile Include="Features\Comments\Models\CommentsPanelViewModel.cs" />
     <Compile Include="Features\Comments\Helpers\CommentsHelper.cs" />
     <Compile Include="Features\Comments\Helpers\ICommentsHelper.cs" />
     <Compile Include="Features\Likes\CommandBus\LikeHandle.cs" />
     <Compile Include="Features\Likes\CommandBus\LikeNotificationHandle.cs" />
     <Compile Include="Features\Likes\Converters\LikesPanelViewModelConverter.cs" />
-    <Compile Include="Features\Likes\Converters\Models\LikesPanelModel.cs" />
-    <Compile Include="Features\Likes\Converters\Models\LikesPanelViewModel.cs" />
+    <Compile Include="Features\Likes\Models\LikesPanelModel.cs" />
+    <Compile Include="Features\Likes\Models\LikesPanelViewModel.cs" />
     <Compile Include="Core\Feed\Models\ActivityFeedTabViewModel.cs" />
     <Compile Include="Core\Member\Services\IIntranetMemberService.cs" />
     <Compile Include="Core\Member\Services\IntranetMemberService.cs" />
@@ -1168,7 +1170,6 @@
     <Compile Include="Features\Comments\Services\ICommentsService.cs" />
     <Compile Include="Features\Comments\Sql\Comment.cs" />
     <Compile Include="Features\Comments\Sql\CommentToLinkPreviewEntity.cs" />
-    <Compile Include="Features\Comments\Web\CommentsControllerBase.cs" />
     <Compile Include="Infrastructure\Caching\Web\CacheController.cs" />
     <Compile Include="Infrastructure\Configuration\UIntraConfiguration.cs" />
     <Compile Include="Infrastructure\Constants\DocumentTypeAliasConstants.cs" />
@@ -1241,7 +1242,6 @@
     <Compile Include="Features\Likes\Services\ILikesService.cs" />
     <Compile Include="Features\Likes\Services\LikesService.cs" />
     <Compile Include="Features\Likes\Sql\Like.cs" />
-    <Compile Include="Features\Likes\Web\LikesControllerBase.cs" />
     <Compile Include="Features\LinkPreview\ActivityLinkPreviewService.cs" />
     <Compile Include="Features\LinkPreview\AutoMapperProfiles\LinkPreviewAutoMapperProfile.cs" />
     <Compile Include="Features\LinkPreview\IActivityLinkPreviewService.cs" />

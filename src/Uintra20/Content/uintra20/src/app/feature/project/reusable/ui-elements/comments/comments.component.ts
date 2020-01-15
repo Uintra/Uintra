@@ -1,6 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { CommentsService } from 'src/app/ui/panels/comments/helpers/comments.service';
 
+export interface ICommentData {
+  entityType: number;
+  entityId: string;
+}
+
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
@@ -8,8 +13,8 @@ import { CommentsService } from 'src/app/ui/panels/comments/helpers/comments.ser
 })
 export class CommentsComponent {
   @Input() comments: any;
+  @Input() commentDetails: ICommentData;
   @Input() activityType: number;
-
   description = '';
   inProgress: boolean;
 
@@ -26,12 +31,11 @@ export class CommentsComponent {
   onCommentSubmit(replyData?) {
     this.inProgress = true;
     const data = {
-      EntityId: window.location.href.slice(window.location.href.indexOf('id=') + 3),
-      EntityType: this.activityType,
-      ParentId: replyData ? replyData.parentId : null,
-      Text: replyData ? replyData.description : this.description,
+      entityId: this.commentDetails.entityId,
+      entityType: this.activityType,
+      parentId: replyData ? replyData.parentId : null,
+      text: replyData ? replyData.description : this.description,
     };
-
     this.commentsService.onCreate(data).then((res: any) => {
       this.comments.data = res.comments;
       this.description = '';
