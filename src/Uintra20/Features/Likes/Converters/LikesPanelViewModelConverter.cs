@@ -3,7 +3,7 @@ using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Likes.Converters.Models;
+using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Infrastructure.Context;
 using Uintra20.Infrastructure.Extensions;

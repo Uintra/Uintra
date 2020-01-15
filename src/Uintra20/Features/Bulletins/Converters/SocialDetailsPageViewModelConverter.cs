@@ -8,7 +8,6 @@ using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Bulletins.Converters.Models;
 using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.Comments.Helpers;
 using Uintra20.Features.Comments.Services;

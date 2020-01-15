@@ -915,9 +915,9 @@
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
     <Compile Include="App_Plugins\Utils\Сache\CacheDashboard.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Features\Comments\Controllers\CommentsController.cs" />
     <Compile Include="Controllers\FileController.cs" />
-    <Compile Include="Controllers\LikesController.cs" />
+    <Compile Include="Features\Likes\Controllers\LikesController.cs" />
     <Compile Include="Controllers\MemberApiController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
@@ -1242,7 +1242,6 @@
     <Compile Include="Features\Likes\Services\ILikesService.cs" />
     <Compile Include="Features\Likes\Services\LikesService.cs" />
     <Compile Include="Features\Likes\Sql\Like.cs" />
-    <Compile Include="Features\Likes\Web\LikesControllerBase.cs" />
     <Compile Include="Features\LinkPreview\ActivityLinkPreviewService.cs" />
     <Compile Include="Features\LinkPreview\AutoMapperProfiles\LinkPreviewAutoMapperProfile.cs" />
     <Compile Include="Features\LinkPreview\IActivityLinkPreviewService.cs" />

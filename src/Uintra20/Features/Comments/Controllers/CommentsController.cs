@@ -1,10 +1,10 @@
-﻿using Compent.CommandBus;
-using Localization.Umbraco.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Compent.CommandBus;
+using Localization.Umbraco.Attributes;
 using UBaseline.Core.Controllers;
 using Uintra20.Attributes;
 using Uintra20.Core.Activity;
@@ -24,7 +24,7 @@ using Uintra20.Infrastructure.Context;
 using Uintra20.Infrastructure.Extensions;
 using Umbraco.Web;
 
-namespace Uintra20.Controllers
+namespace Uintra20.Features.Comments.Controllers
 {
     [ThreadCulture]
     [ValidateModel]

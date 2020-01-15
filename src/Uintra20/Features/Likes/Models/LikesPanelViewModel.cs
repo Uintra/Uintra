@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using UBaseline.Shared.Node;
-using Uintra20.Features.Likes.Models;
 
-namespace Uintra20.Features.Likes.Converters.Models
+namespace Uintra20.Features.Likes.Models
 {
     public class LikesPanelViewModel : NodeViewModel
     {

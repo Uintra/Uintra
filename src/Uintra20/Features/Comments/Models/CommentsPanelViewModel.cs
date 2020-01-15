@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UBaseline.Shared.Node;
-using Uintra20.Features.Comments.Models;
 using Uintra20.Infrastructure.Context;
 
-namespace Uintra20.Features.Comments.Converters.Models
+namespace Uintra20.Features.Comments.Models
 {
     public class CommentsPanelViewModel : NodeViewModel
     {
