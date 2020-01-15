@@ -2,7 +2,9 @@
          *ngIf="data">
   <div class="create-bulletin__input"
        (click)="onShowPopUp()">
-    <app-user-avatar [photo]="data.creator.get().photo"></app-user-avatar>
+    <app-user-avatar 
+      [photo]="userAvatar.photo"
+      [name]="userAvatar.name"></app-user-avatar>
     <button class="create-bulletin__input-placeholder"
             (focus)="onShowPopUp()">Write a message, post a photo or share a document
     </button>
@@ -25,8 +27,8 @@
               (click)="onHidePopUp()">&times;
       </button>
       <app-publication-header class="bulletin-popup__header"
-                              [avatar]="data.creator.get().photo"
-                              [title]="data.creator.get().displayedName">
+                              [avatar]="userAvatar.photo"
+                              [title]="userAvatar.name">
         <div subtitle>{{data.dates.get()[0]}} - {{data.tabType.get()}}</div>
       </app-publication-header>
       <app-tag-multiselect class="bulletin-popup__multiselect"

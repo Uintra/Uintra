@@ -11,10 +11,17 @@ export class UserAvatarComponent implements OnInit {
   @Input() photo: string;
   @Input() name: string;
   @Input('big') big: boolean;
+
   firstChar: string;
 
+  convertToBoolean(): void {
+    this.big = this.big !== undefined;
+  }
+
   ngOnInit() {
-    if (this.name) {
+    this.convertToBoolean();
+
+    if (this.name && typeof this.name === 'string') {
       this.firstChar = this.name.charAt(0);
     }
   }
