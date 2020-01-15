@@ -898,6 +898,8 @@
     <Compile Include="Features\Bulletins\Web\IFeedHub.cs" />
     <Compile Include="Features\Bulletins\Web\SocialController.cs" />
     <Compile Include="Features\CentralFeed\CentralFeedHub.cs" />
+    <Compile Include="Features\Links\Models\UintraLinkModel.cs" />
+    <Compile Include="Features\Links\Models\UintraLinkParamModel.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />
     <Compile Include="Infrastructure\Extensions\FactoryExtensions.cs" />
     <Compile Include="Infrastructure\Ioc\LightInjectScopedConnection.cs" />
