@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommentsService } from '../../helpers/comments.service';
 import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
+import { ICommentCreator } from './comment-item.interface';
+import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
+import { parse } from 'querystring';
 
 @Component({
   selector: 'app-comment-item',
@@ -14,12 +17,14 @@ export class CommentItemComponent implements OnInit {
   @Output() editComment = new EventEmitter();
   @Output() replyComment = new EventEmitter();
 
-  isEditing: boolean = false;
+  isEditing = false;
   editedValue: string;
   initialValue: any;
   isReply: boolean;
-  subcommentDescription: string = "";
+  subcommentDescription: string;
   likeModel: ILikeData;
+  commentCreator: ICommentCreator;
+  commentBody: string;
 
   get isSubcommentSubmitDisabled() {
     if (!this.subcommentDescription) {
@@ -37,10 +42,13 @@ export class CommentItemComponent implements OnInit {
     return false;
   }
 
-  constructor(private cs: CommentsService) { }
+  constructor(private commentsService: CommentsService) { }
 
   ngOnInit() {
     this.editedValue = this.data.text;
+    const parsed = ParseHelper.parseUbaselineData(this.data);
+    this.commentCreator = parsed.creator;
+    this.commentBody = parsed.text;
     // this.likeModel = {
     //   likedByCurrentUser: !this.data.likeModel.canAddLike,
     //   id: this.data.id,
@@ -70,12 +78,12 @@ export class CommentItemComponent implements OnInit {
       EntityId: subcomment ? subcomment.entityId : this.data.activityId,
       EntityType: this.activityType,
       Text: subcomment ? subcomment.text : this.editedValue,
-    }
+    };
 
-    this.cs.editComment(data).then((res: any) => {
+    this.commentsService.editComment(data).then((res: any) => {
       this.editComment.emit(res.comments);
       this.toggleEditingMode();
-    })
+    });
   }
 
   onToggleReply() {

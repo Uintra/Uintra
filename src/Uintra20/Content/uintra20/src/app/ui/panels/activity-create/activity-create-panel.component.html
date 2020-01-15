@@ -2,7 +2,7 @@
          *ngIf="data">
   <div class="create-bulletin__input"
        (click)="onShowPopUp()">
-    <app-user-avatar [data]="data.creator.get().photo"></app-user-avatar>
+    <app-user-avatar [photo]="data.creator.get().photo"></app-user-avatar>
     <button class="create-bulletin__input-placeholder"
             (focus)="onShowPopUp()">Write a message, post a photo or share a document
     </button>
