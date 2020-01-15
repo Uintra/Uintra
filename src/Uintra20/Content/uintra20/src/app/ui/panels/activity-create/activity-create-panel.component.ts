@@ -27,7 +27,7 @@ export class ActivityCreatePanel implements OnInit {
   userAvatar: IUserAvatar;
 
   get isSubmitDisabled() {
-    if (this.description && this.description.length > MAX_LENGTH || this.inProgress) {
+    if (ParseHelper.stripHtml(this.description).length > MAX_LENGTH || this.inProgress) {
       return true;
     }
     return !this.description && this.files.length === 0;

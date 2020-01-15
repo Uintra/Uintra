@@ -5,7 +5,20 @@ export default class ParseHelper {
         return JSON.parse(JSON.stringify(data));
     }
 
-    static parseActivityType = (activityType: number): string =>  {
+    static parseActivityType = (activityType: number): string => {
         return ActivityEnum[activityType];
+    }
+
+    static stripHtml = (html: string): string => {
+        if (!html) {
+            return '';
+        }
+
+        // TODO: merge replaces into one regex
+        const stripped = html
+            .replace(/&nbsp;/g, ' ')
+            .replace(/<[^>]*>?/gm, '');
+
+        return stripped;
     }
 }
