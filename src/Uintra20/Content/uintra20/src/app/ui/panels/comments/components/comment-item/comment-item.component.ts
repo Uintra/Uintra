@@ -69,6 +69,8 @@ export class CommentItemComponent implements OnInit {
     this.isEditing = !this.isEditing;
     if (this.isEditing) {
       this.initialValue = this.data.text;
+    } else {
+      this.editedValue = this.initialValue;
     }
   }
 
@@ -80,10 +82,12 @@ export class CommentItemComponent implements OnInit {
       Text: subcomment ? subcomment.text : this.editedValue,
     };
 
-    this.commentsService.editComment(data).then((res: any) => {
-      this.editComment.emit(res.comments);
-      this.toggleEditingMode();
-    });
+    if (confirm('Are you sure?')) {
+      this.commentsService.editComment(data).then((res: any) => {
+        this.editComment.emit(res.comments);
+        this.toggleEditingMode();
+      });
+    }
   }
 
   onToggleReply() {
