@@ -8,7 +8,7 @@ namespace Uintra20.Features.ContentPage.InjectModule
     {
         public IDependencyCollection Register(IDependencyCollection services)
         {
-            services.AddScoped<INotifyableService, ContentPageNotificationService>();
+            services.AddScopedToCollection<INotifyableService, ContentPageNotificationService>();
 
             return services;
         }
