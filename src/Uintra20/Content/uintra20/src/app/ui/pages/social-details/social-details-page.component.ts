@@ -4,6 +4,7 @@ import { ISocialDetails, IUserTag, IMedia, IDocument } from './social-details.in
 import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
 import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-elements/image-gallery/image-gallery.service';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
+import { ICommentData } from 'src/app/feature/project/reusable/ui-elements/comments/comments.component';
 
 @Component({
   selector: 'social-details',
@@ -20,7 +21,7 @@ export class SocialDetailsPanelComponent implements OnInit {
   likeData: ILikeData;
   medias: Array<IMedia> = new Array<IMedia>();
   documents: Array<IDocument> = new Array<IDocument>();
-
+  commentDetails: ICommentData;
   constructor(
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService
@@ -31,12 +32,16 @@ export class SocialDetailsPanelComponent implements OnInit {
   public ngOnInit(): void {
     const parsedData = ParseHelper.parseUbaselineData(this.data);
     this.details = parsedData.details;
+    this.commentDetails = {
+      entityId: parsedData.details.id,
+      entityType: parsedData.details.activityType
+    };
     this.activityName = ParseHelper.parseActivityType(this.details.activityType);
     this.tags = Object.values(parsedData.tags);
     this.medias = Object.values(parsedData.details.lightboxPreviewModel.medias);
     this.documents = Object.values(parsedData.details.lightboxPreviewModel.otherFiles);
     this.likeData = {
-      likedByCurrentUser: parsedData.likedByCurrentUser,
+      likedByCurrentUser: !!(parsedData.likedByCurrentUser),
       id: parsedData.details.id,
       activityType: parsedData.details.activityType,
       likes: Object.values(parsedData.likes)

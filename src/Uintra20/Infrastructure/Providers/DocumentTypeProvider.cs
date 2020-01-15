@@ -3,7 +3,7 @@ using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using UBaseline.Shared.Node;
 using Uintra20.Core.Activity;
-using Uintra20.Features.Bulletins.Converters.Models;
+using Uintra20.Features.Bulletins.Models;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 

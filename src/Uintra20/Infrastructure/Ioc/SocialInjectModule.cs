@@ -11,7 +11,7 @@ namespace Uintra20.Infrastructure.Ioc
 	{
 		public IDependencyCollection Register(IDependencyCollection services)
 		{
-            services.AddScoped<INotifyableService, SocialService<Social>>();
+			services.AddScopedToCollection<INotifyableService, SocialService<Social>>();
             services.AddScoped<ICacheableIntranetActivityService<Social>, SocialService<Social>>();
             services.AddScoped<IFeedItemService, SocialService<Social>>();
             services.AddScoped<ISocialService<Social>, SocialService<Social>>();
