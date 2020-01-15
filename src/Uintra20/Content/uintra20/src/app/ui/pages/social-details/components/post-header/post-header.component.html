@@ -1,6 +1,6 @@
 <div class="header">
   <a [routerLink]="['/profile']" [queryParams]="{id: details.id}" class="header__avatar">
-    <app-user-avatar [data]="details.headerInfo.owner.photo"></app-user-avatar>
+    <app-user-avatar [photo]="details.headerInfo.owner.photo"></app-user-avatar>
   </a>
   <div class="details">
     <div class="details-item">

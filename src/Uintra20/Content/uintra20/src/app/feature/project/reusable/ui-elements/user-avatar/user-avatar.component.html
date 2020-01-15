@@ -1,8 +1,8 @@
-<img *ngIf="data"
+<img *ngIf="photo"
      class="avatar"
-     src="{{data}}"
+     src="{{photo}}"
      [ngClass]="{'big': big}" />
-<div *ngIf="!data"
+<div *ngIf="!photo"
      class="avatar letter"
      [innerHtml]="firstChar"
      [ngClass]="{'big': big}"></div>
