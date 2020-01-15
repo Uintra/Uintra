@@ -45,7 +45,6 @@ export class CommentItemComponent implements OnInit {
   constructor(private commentsService: CommentsService) { }
 
   ngOnInit() {
-    debugger
     this.editedValue = this.data.text;
     const parsed = ParseHelper.parseUbaselineData(this.data);
     this.commentCreator = parsed.creator;
