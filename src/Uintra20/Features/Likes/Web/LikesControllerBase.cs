@@ -67,7 +67,7 @@ namespace Uintra20.Features.Likes.Web
                 case (int)Comment:
                     return await _likesService.GetLikeModelsAsync(entityId);
 
-                case (int)ContentPage:
+                case (int)ContextType.ContentPage:
                     return await _likesService.GetLikeModelsAsync(entityId);
 
                 case int type when HasFlagScalar(type, ContextType.Activity | PagePromotion):
@@ -89,7 +89,7 @@ namespace Uintra20.Features.Likes.Web
                 case (int)Comment:
                     return await _likesService.GetLikeModelsAsync(entityId);
 
-                case (int)ContentPage:
+                case (int)ContextType.ContentPage:
                     return await _likesService.GetLikeModelsAsync(entityId);
 
                 case int type when HasFlagScalar(type, ContextType.Activity | PagePromotion):

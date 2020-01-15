@@ -898,6 +898,8 @@
     <Compile Include="Features\Bulletins\Web\IFeedHub.cs" />
     <Compile Include="Features\Bulletins\Web\SocialController.cs" />
     <Compile Include="Features\CentralFeed\CentralFeedHub.cs" />
+    <Compile Include="Features\ContentPage\InjectModule\ContentPageInjectModule.cs" />
+    <Compile Include="Features\ContentPage\Services\ContentPageNotificationService.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />
     <Compile Include="Infrastructure\Extensions\FactoryExtensions.cs" />
     <Compile Include="Infrastructure\Ioc\LightInjectScopedConnection.cs" />
@@ -1168,7 +1170,6 @@
     <Compile Include="Features\Comments\Services\ICommentsService.cs" />
     <Compile Include="Features\Comments\Sql\Comment.cs" />
     <Compile Include="Features\Comments\Sql\CommentToLinkPreviewEntity.cs" />
-    <Compile Include="Features\Comments\Web\CommentsControllerBase.cs" />
     <Compile Include="Infrastructure\Caching\Web\CacheController.cs" />
     <Compile Include="Infrastructure\Configuration\UIntraConfiguration.cs" />
     <Compile Include="Infrastructure\Constants\DocumentTypeAliasConstants.cs" />
