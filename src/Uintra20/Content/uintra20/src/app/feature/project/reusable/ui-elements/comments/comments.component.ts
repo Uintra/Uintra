@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommentsService } from 'src/app/ui/panels/comments/helpers/comments.service';
 
 @Component({
@@ -6,28 +6,25 @@ import { CommentsService } from 'src/app/ui/panels/comments/helpers/comments.ser
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.less']
 })
-export class CommentsComponent implements OnInit {
+export class CommentsComponent {
   @Input() comments: any;
   @Input() activityType: number;
 
   description = '';
-  disabledSubmit: boolean;
+  inProgress: boolean;
 
-  get isSubmitDisabled() {
-    if (!this.description) {
-      return true;
-    }
+  get isSubmitDisabled(): boolean {
+    const isEmpty = this.isNullOrWhitespace(this.stripHtml(this.description));
 
-    return false;
+    return isEmpty
+      ? true
+      : false;
   }
 
   constructor(private commentsService: CommentsService) { }
 
-  ngOnInit() {
-  }
-
   onCommentSubmit(replyData?) {
-    this.disabledSubmit = true;
+    this.inProgress = true;
     const data = {
       EntityId: window.location.href.slice(window.location.href.indexOf('id=') + 3),
       EntityType: this.activityType,
@@ -35,11 +32,11 @@ export class CommentsComponent implements OnInit {
       Text: replyData ? replyData.description : this.description,
     };
 
-    this.commentsService.onCreate(data).then( (res: any) => {
+    this.commentsService.onCreate(data).then((res: any) => {
       this.comments.data = res.comments;
       this.description = '';
     }).finally(() => {
-      this.disabledSubmit = false;
+      this.inProgress = false;
     });
   }
 
@@ -52,5 +49,23 @@ export class CommentsComponent implements OnInit {
 
   editComment(comments) {
     this.comments.data = comments;
+  }
+
+  stripHtml(html: string): string {
+    if (!html) {
+      return '';
+    }
+
+    const stripped = html.replace(/<[^>]*>?/gm, '');
+
+    return stripped;
+  }
+
+  isNullOrWhitespace(value: string): boolean {
+    if (!value) {
+      return true;
+    }
+
+    return value.replace(/\s/g, '').length < 1;
   }
 }

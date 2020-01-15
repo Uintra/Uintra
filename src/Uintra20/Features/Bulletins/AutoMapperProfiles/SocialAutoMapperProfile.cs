@@ -84,13 +84,7 @@ namespace Uintra20.Features.Bulletins.AutoMapperProfiles
                 .ForMember(dst => dst.LikedByCurrentUser, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type))
-                .ForMember(dst => dst.Dates, o => o.MapFrom(src => src.PublishDate.ToDateTimeFormat().ToEnumerable()));
-
-            //CreateMap<SocialBase, BulletinsBackofficeViewModel>()
-            //    .ForMember(dst => dst.PublishDate, o => o.MapFrom(s => s.PublishDate.ToIsoUtcString()))
-            //    .ForMember(dst => dst.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
-            //    .ForMember(dst => dst.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
-            //    .ForMember(dst => dst.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
+                .ForMember(dst => dst.Dates, o => o.MapFrom(src => src.PublishDate.ToDateFormat().ToEnumerable()));
 
             CreateMap<SocialBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
