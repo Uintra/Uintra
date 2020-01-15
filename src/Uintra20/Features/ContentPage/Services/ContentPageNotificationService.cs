@@ -87,7 +87,7 @@ namespace Uintra20.Features.ContentPage.Services
                 {
                     var comment = _commentsService.Get(entityId);
                     data.ReceiverIds = comment.UserId.ToEnumerableOfOne();
-                    var currentContentPage = _umbracoHelper.Content(entityId);
+                    var currentContentPage = _umbracoHelper.Content(_requestContext.Node.Id);
                     data.Value = _notifierDataHelper.GetCommentNotifierDataModel(currentContentPage, comment, notificationType, currentMember.Id);
                 }
                     break;
