@@ -4,7 +4,7 @@
       <span class="icon-window js-aside-opener"></span>
     </div>
     <ubl-dynamic-component
-      *ngFor="let panel of data.panels.get()"
+      *ngFor="let panel of otherPanels"
       [data]="panel.get()"
     ></ubl-dynamic-component>
   </div>

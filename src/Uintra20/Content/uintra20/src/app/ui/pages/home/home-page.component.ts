@@ -11,6 +11,7 @@ export class HomePage implements OnInit {
 
   data: any;
   latestActivities: any;
+  otherPanels: any;
   constructor(
     private route: ActivatedRoute
   ) {
@@ -20,6 +21,7 @@ export class HomePage implements OnInit {
   ngOnInit(): void {
     if (this.data.panels) {
       this.latestActivities = this.data.panels.get().filter(p => p.data.contentTypeAlias === 'latestActivitiesPanel')[0];
+      this.otherPanels = this.data.panels.get().filter(p => p.data.contentTypeAlias !== 'latestActivitiesPanel');
     }
   }
 }
