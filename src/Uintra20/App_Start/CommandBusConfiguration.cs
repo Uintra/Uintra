@@ -1,11 +1,11 @@
 ﻿using Compent.CommandBus;
-using Uintra20.Features.Bulletins;
-using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Comments.CommandBus;
 using Uintra20.Features.Comments.CommandBus.Commands;
 using Uintra20.Features.Likes.CommandBus;
 using Uintra20.Features.Likes.CommandBus.Commands;
 using Uintra20.Features.Media;
+using Uintra20.Features.Social;
+using Uintra20.Features.Social.Entities;
 
 namespace Uintra20
 {

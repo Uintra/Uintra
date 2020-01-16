@@ -74,3 +74,4 @@ src/Compent.uIntra/Web.config
 **/Content/workspace/
 **/UBaseline/*
 **/wwwroot/**
+**/media/*

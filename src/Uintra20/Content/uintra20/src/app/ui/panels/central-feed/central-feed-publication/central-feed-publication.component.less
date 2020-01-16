@@ -38,6 +38,14 @@
     font-size: 16px;
   }
 
+  &__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
   &__footer {
     display: flex;
     align-items: center;
@@ -59,16 +67,50 @@
       }
     }
   }
+
+  &__files {
+    margin-left: auto;
+
+    .icon-attachment {
+      font-size: 1.6em;
+      line-height: 15px;
+      margin-right: 0;
+    }
+  }
 }
 
 .gallery {
+  position: relative;
   display: flex;
+  margin: 10px -1px 20px;
+
+  &.items-1 {
+    height: 350px;
+  }
+
+  &.items-2 {
+    height: 165px;
+  }
+
+  &.items-3 {
+    height: 115px;
+  }
 
   &__image {
     cursor: pointer;
+    flex: 1;
+    line-height: 0;
+    background-size: cover;
+    background-position: center center;
+    margin: 0 1px;
+  }
 
-    &-element {
-      max-width: 100%;
-    }
+  &__counter {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 10px 11px;
+    background: rgba(0, 0, 0, 0.5);
+    color: @text-reverse-color;
   }
 }

@@ -12,7 +12,7 @@ namespace Uintra20.Features.Likes.Models
 
         public int Count { get; set; }
 
-        public bool CanAddLike { get; set; }
+        public bool LikedByCurrentUser { get; set; }
 
         public IEnumerable<string> Users { get; set; } = Enumerable.Empty<string>();
 
