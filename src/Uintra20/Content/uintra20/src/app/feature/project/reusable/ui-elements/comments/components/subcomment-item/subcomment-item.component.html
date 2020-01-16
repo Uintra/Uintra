@@ -6,7 +6,7 @@
       (toggleEditingMode)="toggleEditingMode()"
       (commentDelete)="onCommentDelete()"></app-comment-header>
     <div *ngIf="!isEditing" class="comment__content" innerHTML="{{data.text}}"></div>
-    <!-- <app-like-button [likeData]="likeModel"></app-like-button> -->
+    <app-like-button [likeData]="likeModel"></app-like-button>
 
     <app-rich-text-editor
       *ngIf="isEditing"
