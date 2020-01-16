@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CommentsService } from 'src/app/ui/panels/comments/helpers/comments.service';
+import { CommentsService } from './helpers/comments.service';
 
 export interface ICommentData {
   entityType: number;
