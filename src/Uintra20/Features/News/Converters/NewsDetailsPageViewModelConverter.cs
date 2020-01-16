@@ -44,10 +44,9 @@ namespace Uintra20.Features.News.Converters
         {
             var idStr = HttpContext.Current.Request.TryGetQueryValue<string>("id");
 
-            if (Guid.TryParse(idStr, out Guid id))
-            {
+            if (Guid.TryParse(idStr, out var id))
                 viewModel.Details = GetDetails(id);
-            }
+            
         }
 
         private IntranetActivityDetailsViewModel GetDetails(Guid activityId)
