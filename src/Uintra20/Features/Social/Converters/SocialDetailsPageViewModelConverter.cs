@@ -1,14 +1,13 @@
-﻿using Compent.Extensions;
-using System;
+﻿using System;
 using System.Linq;
 using System.Web;
+using Compent.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.Comments.Helpers;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Likes.Services;
@@ -16,10 +15,11 @@ using Uintra20.Features.Links;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.ImageResize;
+using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
 
-namespace Uintra20.Features.Bulletins.Converters
+namespace Uintra20.Features.Social.Converters
 {
     public class SocialDetailsPageViewModelConverter : INodeViewModelConverter<SocialDetailsPageModel, SocialDetailsPageViewModel>
     {

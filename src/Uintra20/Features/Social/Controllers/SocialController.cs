@@ -12,21 +12,20 @@ using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Bulletins.Entities;
-using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.CentralFeed;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Navigation.Services;
+using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.Extensions;
 
-namespace Uintra20.Features.Bulletins.Web
+namespace Uintra20.Features.Social.Controllers
 {
     public class SocialController : UBaselineApiController, IFeedHub
     {
-        private readonly ISocialService<Social> _socialService;
+        private readonly ISocialService<Entities.Social> _socialService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IMyLinksService _myLinksService;
@@ -36,7 +35,7 @@ namespace Uintra20.Features.Bulletins.Web
         private readonly IActivityLinkService _activityLinkService;
 
         public SocialController(
-            ISocialService<Social> socialService,
+            ISocialService<Entities.Social> socialService,
             IMediaHelper mediaHelper,
             IIntranetMemberService<IntranetMember> memberService,
             IMyLinksService myLinksService,

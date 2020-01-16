@@ -7,7 +7,7 @@ using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Tagging.UserTags.Models;
 
-namespace Uintra20.Features.Bulletins.Models
+namespace Uintra20.Features.Social.Models
 {
     public class SocialDetailsPageViewModel : NodeViewModel
     {

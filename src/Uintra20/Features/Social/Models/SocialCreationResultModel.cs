@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra20.Features.Bulletins.Models
+namespace Uintra20.Features.Social.Models
 {
     public class SocialCreationResultModel
     {

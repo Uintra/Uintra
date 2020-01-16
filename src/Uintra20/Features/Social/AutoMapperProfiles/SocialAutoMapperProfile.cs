@@ -1,15 +1,14 @@
-﻿using AutoMapper;
-using Compent.Extensions;
-using System;
+﻿using System;
 using System.Linq;
+using AutoMapper;
+using Compent.Extensions;
 using Uintra20.Core.Activity.Models.Headers;
-using Uintra20.Features.Bulletins.Entities;
-using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.Groups.Links;
+using Uintra20.Features.Social.Models;
 using Uintra20.Infrastructure.Extensions;
 
-namespace Uintra20.Features.Bulletins.AutoMapperProfiles
+namespace Uintra20.Features.Social.AutoMapperProfiles
 {
     public class SocialAutoMapperProfile : Profile
     {
@@ -76,7 +75,7 @@ namespace Uintra20.Features.Bulletins.AutoMapperProfiles
                 .ForMember(dst => dst.Media, o => o.Ignore())
                 .ForMember(dst => dst.LightboxPreviewModel, o => o.Ignore());
 
-            CreateMap<Social, SocialPreviewModel>()
+            CreateMap<Entities.Social, SocialPreviewModel>()
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.Owner, o => o.Ignore())
@@ -137,12 +136,12 @@ namespace Uintra20.Features.Bulletins.AutoMapperProfiles
 
 
 
-            CreateMap<Social, SocialExtendedViewModel>()
+            CreateMap<Entities.Social, SocialExtendedViewModel>()
                 .IncludeBase<SocialBase, SocialViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
 
-            CreateMap<Social, SocialExtendedItemViewModel>()
+            CreateMap<Entities.Social, SocialExtendedItemViewModel>()
                 .IncludeBase<SocialBase, SocialItemViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
@@ -154,19 +153,19 @@ namespace Uintra20.Features.Bulletins.AutoMapperProfiles
             CreateMap<SocialEditModel, SocialExtendedEditModel>()
                 .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => Enumerable.Empty<Guid>()));
 
-            CreateMap<Social, IntranetActivityItemHeaderViewModel>()
+            CreateMap<Entities.Social, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<SocialBase, IntranetActivityItemHeaderViewModel>();
 
-            CreateMap<Social, ActivityTransferCreateModel>();
+            CreateMap<Entities.Social, ActivityTransferCreateModel>();
 
-            CreateMap<Social, ActivityTransferModel>()
-                .IncludeBase<Social, ActivityTransferCreateModel>();
+            CreateMap<Entities.Social, ActivityTransferModel>()
+                .IncludeBase<Entities.Social, ActivityTransferCreateModel>();
 
-            CreateMap<Social, GroupActivityTransferCreateModel>()
-                .IncludeBase<Social, ActivityTransferCreateModel>();
+            CreateMap<Entities.Social, GroupActivityTransferCreateModel>()
+                .IncludeBase<Entities.Social, ActivityTransferCreateModel>();
 
-            CreateMap<Social, GroupActivityTransferModel>()
-                .IncludeBase<Social, GroupActivityTransferCreateModel>();
+            CreateMap<Entities.Social, GroupActivityTransferModel>()
+                .IncludeBase<Entities.Social, GroupActivityTransferCreateModel>();
         }
     }
 }

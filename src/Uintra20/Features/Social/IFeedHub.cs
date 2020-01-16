@@ -1,4 +1,4 @@
-namespace Uintra20.Features.Bulletins.Web
+namespace Uintra20.Features.Social
 {
     public interface IFeedHub
     {

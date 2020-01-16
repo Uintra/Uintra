@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Uintra20.Features.Bulletins.Models
+namespace Uintra20.Features.Social.Models
 {
     public class SocialExtendedCreateModel : SocialCreateModel
     {

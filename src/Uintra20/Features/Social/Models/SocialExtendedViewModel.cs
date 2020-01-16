@@ -1,7 +1,7 @@
 ﻿using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Likes;
 
-namespace Uintra20.Features.Bulletins.Models
+namespace Uintra20.Features.Social.Models
 {
     public class SocialExtendedViewModel : SocialViewModel
     {

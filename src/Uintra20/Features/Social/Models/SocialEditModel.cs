@@ -5,7 +5,7 @@ using Uintra20.Core.Activity.Models;
 using Uintra20.Features.LinkPreview.Models;
 using Uintra20.Features.Media;
 
-namespace Uintra20.Features.Bulletins.Models
+namespace Uintra20.Features.Social.Models
 {
     public class SocialEditModel : IntranetActivityEditModelBase, IContentWithMediaCreateEditModel
     {

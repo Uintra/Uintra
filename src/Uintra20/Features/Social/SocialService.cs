@@ -1,10 +1,10 @@
-﻿using Compent.CommandBus;
-using Compent.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Compent.CommandBus;
+using Compent.Extensions;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Controls.LightboxGallery;
@@ -15,8 +15,6 @@ using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Bulletins.Entities;
-using Uintra20.Features.Bulletins.Models;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups.Services;
@@ -31,13 +29,14 @@ using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
 using static Uintra20.Features.Notification.Configuration.NotificationTypeEnum;
 
-namespace Uintra20.Features.Bulletins
+namespace Uintra20.Features.Social
 {
     public class SocialService<T> : SocialServiceBase<T>,
         ISocialService<T>,
@@ -45,7 +44,7 @@ namespace Uintra20.Features.Bulletins
         INotifyableService,
         //IIndexer,
         IHandle<VideoConvertedCommand> 
-        where T : Social
+        where T : Entities.Social
     {
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
@@ -250,26 +249,26 @@ namespace Uintra20.Features.Bulletins
         //    _activityIndex.Index(searchableActivities);
         //}
 
-        private void FillLinkPreview(Social social)
+        private void FillLinkPreview(Entities.Social social)
         {
             var linkPreview = _activityLinkPreviewService.GetActivityLinkPreview(social.Id);
             social.LinkPreview = linkPreview;
             social.LinkPreviewId = linkPreview?.Id;
         }
 
-        private async Task FillLinkPreviewAsync(Social social)
+        private async Task FillLinkPreviewAsync(Entities.Social social)
         {
             var linkPreview = await _activityLinkPreviewService.GetActivityLinkPreviewAsync(social.Id);
             social.LinkPreview = linkPreview;
             social.LinkPreviewId = linkPreview?.Id;
         }
 
-        private static bool IsBulletinHidden(Social social) => social == null || social.IsHidden;
+        private static bool IsBulletinHidden(Entities.Social social) => social == null || social.IsHidden;
 
-        private bool IsCacheable(Social social) =>
+        private bool IsCacheable(Entities.Social social) =>
             !IsBulletinHidden(social) && IsActualPublishDate(social);
 
-        private static bool IsActualPublishDate(Social social) =>
+        private static bool IsActualPublishDate(Entities.Social social) =>
             DateTime.Compare(social.PublishDate, DateTime.UtcNow) <= 0;
 
         //private SearchableUintraActivity Map(Social social)
