@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Strategies.ImageResize;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 using Umbraco.Core.Models.PublishedContent;
@@ -23,32 +24,52 @@ namespace Uintra20.Core.Controls.LightboxGallery
 
         public void FillGalleryPreview(IHaveLightboxPreview model, IEnumerable<int> mediaIds)
         {
-            model.MediaPreview = GetGalleryPreviewModel(mediaIds);
+            model.MediaPreview = GetGalleryPreviewModel(mediaIds, RenderStrategies.ForCentralFeed);
         }
 
-        public LightboxPreviewModel GetGalleryPreviewModel(IEnumerable<int> mediaIds)
+        public LightboxPreviewModel GetGalleryPreviewModel(IEnumerable<int> mediaIds, IRenderStrategy strategy)
         {
             var medias = _helper.Media(mediaIds);
 
             var mediasList = medias.ToList();
+
             var galleryViewModelList = mediasList.Select(MapToMedia).ToList();
 
-            TransformPreviewImage(galleryViewModelList);
-            var displayedImagesCount = HttpContext.Current.Request.IsMobileBrowser() ? 2 : 3;
+            TransformPreviewImage(galleryViewModelList, strategy);
 
-            List<LightboxGalleryItemViewModel> mediasViewModel = FindMedias(galleryViewModelList);
+            var mediasViewModel = FindMedias(galleryViewModelList);
 
             var galleryPreviewModel = new LightboxPreviewModel
             {
                 Medias = mediasViewModel.Map<IEnumerable<LightboxGalleryItemPreviewModel>>(),
                 OtherFiles = galleryViewModelList.Except(mediasViewModel)
                     .Map<IEnumerable<LightboxGalleryItemPreviewModel>>()
-            }; 
-            galleryPreviewModel.Medias.Skip(displayedImagesCount).ToList().ForEach(i => i.IsHidden = true);
+            };
+
+            galleryPreviewModel.Medias = galleryPreviewModel.Medias
+                .Take(strategy.MediaFilesToDisplay)
+                .Select(MapAsHidden())
+                .ToList();
+
             galleryPreviewModel.HiddenImagesCount = galleryPreviewModel.Medias.Count(i => i.IsHidden);
-            
+
+            var count = mediasViewModel.Count;
+
+            if (count > 2)
+            {
+                galleryPreviewModel.AdditionalImages = Math.Abs(strategy.MediaFilesToDisplay - count);
+            }
+
             return galleryPreviewModel;
         }
+
+        private Func<LightboxGalleryItemPreviewModel, LightboxGalleryItemPreviewModel> MapAsHidden() =>
+            i =>
+            {
+                i.IsHidden = true;
+                
+                return i;
+            };
 
         private LightboxGalleryItemViewModel MapToMedia(IPublishedContent media)
         {
@@ -78,7 +99,7 @@ namespace Uintra20.Core.Controls.LightboxGallery
             return result;
         }
 
-        private void TransformPreviewImage(List<LightboxGalleryItemViewModel> galleryItems)
+        private void TransformPreviewImage(List<LightboxGalleryItemViewModel> galleryItems, IRenderStrategy strategy)
         {
             var imageItems = galleryItems.FindAll(m => m.Type is MediaTypeEnum.Image || m.Type is MediaTypeEnum.Video);
 
@@ -86,7 +107,9 @@ namespace Uintra20.Core.Controls.LightboxGallery
             {
                 var item = imageItems[0];
 
-                item.PreviewUrl = _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, UmbracoAliases.ImageResize.Preview);
+                item.PreviewUrl = _imageHelper.GetImageWithResize(IsVideo(item.Type)
+                    ? item.PreviewUrl
+                    : item.Url, strategy.Preview);
 
                 return;
             }
@@ -94,8 +117,8 @@ namespace Uintra20.Core.Controls.LightboxGallery
             foreach (var item in imageItems)
             {
                 item.PreviewUrl = imageItems.Count < 3 ?
-                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, UmbracoAliases.ImageResize.PreviewTwo) :
-                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, UmbracoAliases.ImageResize.Thumbnail);
+                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, strategy.PreviewTwo) :
+                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, strategy.Thumbnail);
             }
         }
 

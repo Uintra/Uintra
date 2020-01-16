@@ -8,7 +8,7 @@ using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.TypeProviders;
 
-namespace Uintra20.Features.Bulletins
+namespace Uintra20.Features.Social
 {
     public abstract class SocialServiceBase<TSocial> : IntranetActivityService<TSocial> where TSocial : SocialBase
     {

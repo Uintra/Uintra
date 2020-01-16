@@ -14,7 +14,7 @@ export class CreateSocialService {
   ) { }
 
   submitSocialContent(data) {
-    return this.http.post(`/ubaseline/api/social/createExtended`, data).toPromise();
+    return this.http.post('/ubaseline/api/social/createExtended', data).toPromise();
   }
 
   refreshFeed() {

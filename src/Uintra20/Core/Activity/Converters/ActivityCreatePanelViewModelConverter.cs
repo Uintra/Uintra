@@ -5,11 +5,12 @@ using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Bulletins;
 using Uintra20.Features.News;
 using Uintra20.Features.News.Entities;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Social;
+using Uintra20.Features.Social.Entities;
 using Uintra20.Features.Tagging.UserTags.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
@@ -19,8 +20,8 @@ namespace Uintra20.Core.Activity.Converters
 {
     public class ActivityCreatePanelViewModelConverter : INodeViewModelConverter<ActivityCreatePanelModel, ActivityCreatePanelViewModel>
     {
+        private readonly ISocialService<Social> _socialService;
         private readonly INewsService<News> _newsService;
-        private readonly ISocialService<Features.Bulletins.Entities.Social> _socialService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IPermissionsService _permissionsService;
@@ -28,9 +29,9 @@ namespace Uintra20.Core.Activity.Converters
         private readonly IUserTagProvider _tagProvider;
 
         public ActivityCreatePanelViewModelConverter(
-            ISocialService<Features.Bulletins.Entities.Social> socialService,
             INewsService<News> newsService,
-            IIntranetMemberService<IntranetMember> memberService,
+            ISocialService<Social> socialService, 
+            IIntranetMemberService<IntranetMember> memberService, 
             IActivityTypeProvider activityTypeProvider,
             IPermissionsService permissionsService,
             IUserTagService tagsService,
@@ -85,7 +86,7 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.Title = currentMember.DisplayedName;
             viewModel.ActivityType = _activityTypeProvider[(int)IntranetActivityTypeEnum.Social];
             viewModel.Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable();
-            viewModel.Creator = currentMember.Map<MemberViewModel>();
+            viewModel.Creator = currentMember?.Map<MemberViewModel>();
             viewModel.Links = null;//TODO: Research links
             viewModel.AllowedMediaExtensions = null;//mediaSettings.AllowedMediaExtensions; //TODO: uncomment when media settings service is ready
             viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready

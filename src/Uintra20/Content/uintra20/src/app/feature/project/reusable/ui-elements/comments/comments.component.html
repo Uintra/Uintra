@@ -11,16 +11,16 @@
           [activityType]="activityType">
     </app-comment-item>
     </ul>
-  
+
     <h4 class="comments-panel__rte-title">Add comment</h4>
     <app-rich-text-editor
       [(ngModel)]="description"
       [isDropzone]="false"
       [isEditing]="false"
-      placeholder="">
+      placeholder="Write a comment...">
       <button submit
         class="bulletin-popup__submit-button"
-        [disabled]="isSubmitDisabled"
+        [disabled]="isSubmitDisabled || inProgress"
         (click)="onCommentSubmit()">
         Send
       </button>

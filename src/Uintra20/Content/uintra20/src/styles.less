@@ -2,7 +2,7 @@
 
 @import "base.less";
 
-@import "./styles/abstracts/index.less"; 
+@import "./styles/abstracts/index.less";
 @import "./styles/temp/index.less";
 @import "./styles/typography/index.less";
 
@@ -64,4 +64,11 @@ breadcrumb {
       padding: 47px 0 0 45px;
     }
   }
+}
+
+.disable-scroll,
+.disable-scroll body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
 }

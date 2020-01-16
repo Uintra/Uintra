@@ -1,0 +1,90 @@
+@import "base.less";
+
+:host {
+  display: inline-block;
+  margin-left: auto;
+}
+
+.nav-notification {
+  display: inline-block;
+
+  @media @md-up {
+    position: relative;
+  }
+
+  &__button {
+    .reset-button;
+    position: relative;
+    color: @text-reverse-color;
+    font-size: 26px;
+    cursor: pointer;
+  }
+
+  &__count {
+    .pinned-button;
+    position: absolute;
+    top: -5px;
+    right: -6px;
+    padding: 1px 5px 1px;
+    min-width: 18px;
+  }
+
+  &__spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+  }
+  &__spinner {
+    .spinner;
+  }
+
+  &__popup {
+    position: absolute;
+    top: 120%;
+    right: -45px;
+    background: @body-bg;
+    border: 1px solid @border-color;
+    max-width: 450px;
+    width: 100vw;
+
+    @media @md-down {
+      top: @header-height;
+      right: 0;
+      left: 0;
+      max-width: 100%;
+    }
+
+    @media @md-up {
+      .arrow-top(50px);
+    }
+  }
+
+  .arrow-top(@offset: 50px) {
+    &:after,
+    &:before {
+      bottom: 100%;
+      right: @offset;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    &:after {
+      border-color: transparent;
+      border-bottom-color: @main-color;
+      border-width: 7px;
+      margin-left: -7px;
+    }
+
+    &:before {
+      border-color: transparent;
+      border-bottom-color: @border-color;
+      border-width: 9px;
+      margin-left: -8px;
+      right: @offset - 2px;
+    }
+  }
+}

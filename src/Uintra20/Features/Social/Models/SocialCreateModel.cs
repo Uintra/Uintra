@@ -1,10 +1,10 @@
-﻿using intra20.Attributes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using intra20.Attributes;
 using Uintra20.Attributes;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Features.Media;
 
-namespace Uintra20.Features.Bulletins.Models
+namespace Uintra20.Features.Social.Models
 {
     public class SocialCreateModel : IntranetActivityCreateModelBase, IContentWithMediaCreateEditModel
     {

@@ -1,13 +1,13 @@
 <div class="header">
   <a [routerLink]="['/profile']" [queryParams]="{id: details.id}" class="header__avatar">
-    <app-user-avatar [data]="details.headerInfo.owner.photo"></app-user-avatar>
+    <app-user-avatar [photo]="details.headerInfo.owner.photo" [name]="details.headerInfo.owner.displayedName"></app-user-avatar>
   </a>
   <div class="details">
     <div class="details-item">
       <a [routerLink]="['/profile']" [queryParams]="{id: details.id}" class="details-item__name">
         <span>{{details.headerInfo.owner.displayedName}}</span>
       </a>
-      <span class="details-item__date"> - {{details.publishDate | date: 'MMM d, y hh:mm'}} - </span>
+      <span class="details-item__date"> - {{details.headerInfo.dates[0]}} - </span>
       <span class="details-item__category">{{activityName}}</span>
     </div>
   </div>

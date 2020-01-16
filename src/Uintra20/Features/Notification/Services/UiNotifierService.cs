@@ -19,7 +19,7 @@ namespace Uintra20.Features.Notification.Services
         private readonly INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage> _desktopNotificationModelMapper;
         private readonly INotificationSettingsService _notificationSettingsService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
-        private readonly UiNotificationService _notificationsService;
+        private readonly IUiNotificationService _notificationsService;
 
         public Enum Type => NotifierTypeEnum.UiNotifier;
 
@@ -28,7 +28,7 @@ namespace Uintra20.Features.Notification.Services
             INotificationModelMapper<DesktopNotifierTemplate, DesktopNotificationMessage> desktopNotificationModelMapper,
             INotificationSettingsService notificationSettingsService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            UiNotificationService notificationsService)
+            IUiNotificationService notificationsService)
         {
             _notificationModelMapper = notificationModelMapper;
             _notificationSettingsService = notificationSettingsService;

@@ -1,56 +1,77 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CommentsService } from 'src/app/ui/panels/comments/helpers/comments.service';
+import { Component, Input } from '@angular/core';
+import { CommentsService } from './helpers/comments.service';
+
+export interface ICommentData {
+  entityType: number;
+  entityId: string;
+}
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.less']
 })
-export class CommentsComponent implements OnInit {
-
-  @Input()
-  comments: any;
-  @Input()
-  activityType: number;
+export class CommentsComponent {
+  @Input() comments: any;
+  @Input() commentDetails: ICommentData;
+  @Input() activityType: number;
   description = '';
+  inProgress: boolean;
 
-  get isSubmitDisabled() {
-    if (!this.description) {
-      return true;
-    }
+  get isSubmitDisabled(): boolean {
+    const isEmpty = this.isNullOrWhitespace(this.stripHtml(this.description));
 
-    return false;
+    return isEmpty
+      ? true
+      : false;
   }
 
   constructor(private commentsService: CommentsService) { }
 
-  ngOnInit() {
-    console.log(this.comments);
-    console.log(this.activityType);
-  }
-
   onCommentSubmit(replyData?) {
+    this.inProgress = true;
     const data = {
-      EntityId: window.location.href.slice(window.location.href.indexOf('id=') + 3),
-      EntityType: this.activityType,
-      ParentId: replyData ? replyData.parentId : null,
-      Text: replyData ? replyData.description : this.description,
+      entityId: this.commentDetails.entityId,
+      entityType: this.activityType,
+      parentId: replyData ? replyData.parentId : null,
+      text: replyData ? replyData.description : this.description,
     };
-
-    this.commentsService.onCreate(data).then( (res: any) => {
+    this.commentsService.onCreate(data).then((res: any) => {
       this.comments.data = res.comments;
       this.description = '';
+    }).finally(() => {
+      this.inProgress = false;
     });
   }
 
   deleteComment(obj) {
-    this.commentsService.deleteComment(obj)
+    if (confirm('Are you sure?')) {
+      this.commentsService.deleteComment(obj)
       .then((res: any) => {
         this.comments.data = res.comments;
       });
+    }
   }
 
   editComment(comments) {
     this.comments.data = comments;
+  }
+
+  stripHtml(html: string): string {
+    if (!html) {
+      return '';
+    }
+
+    const stripped = html.replace(/<[^>]*>?/gm, '');
+
+    return stripped;
+  }
+
+  isNullOrWhitespace(value: string): boolean {
+    if (!value) {
+      return true;
+    }
+
+    return value.replace(/\s/g, '').length < 1;
   }
 }

@@ -27,6 +27,8 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<ICentralFeedContentProvider, CentralFeedContentProvider>();
             services.AddScoped<IGridHelper, GridHelper>();
 
+            services.AddScoped<CentralFeedHub>();
+
             return services;
 		}
 	}

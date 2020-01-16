@@ -8,7 +8,7 @@ using Uintra20.Features.Groups;
 using Uintra20.Features.Likes;
 using Uintra20.Features.Likes.Models;
 
-namespace Uintra20.Features.Bulletins.Entities
+namespace Uintra20.Features.Social.Entities
 {
     public class Social : SocialBase, IFeedItem, ICommentable, ILikeable, IGroupActivity
     {

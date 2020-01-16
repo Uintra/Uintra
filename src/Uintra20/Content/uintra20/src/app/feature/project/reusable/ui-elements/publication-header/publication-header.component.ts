@@ -1,13 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: "app-publication-header",
-  templateUrl: "./publication-header.component.html",
-  styleUrls: ["./publication-header.component.less"]
+  selector: 'app-publication-header',
+  templateUrl: './publication-header.component.html',
+  styleUrls: ['./publication-header.component.less']
 })
-export class PublicationHeaderComponent {
+export class PublicationHeaderComponent implements OnInit {
+
   @Input() avatar: string;
   @Input() title: string;
 
-  constructor() {}
+  ngOnInit(): void {
+    
+  }
+
 }

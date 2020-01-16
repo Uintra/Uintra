@@ -5,7 +5,6 @@ import { TagItemComponent } from './tag-item/tag-item.component';
 import { ClickOutsideDirective } from './helpers/click-outside.directive';
 
 
-
 @NgModule({
   declarations: [TagMultiselectComponent, TagItemComponent, ClickOutsideDirective],
   imports: [

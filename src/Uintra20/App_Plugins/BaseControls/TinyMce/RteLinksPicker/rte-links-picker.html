@@ -1,0 +1,49 @@
+﻿<div class="links-picker" ng-class="getMainClass()">
+    <table class="table links-table">
+        <thead>
+            <tr>
+                <th>Url/Content</th>
+                <th>Title</th>
+                <th class="alt-text">Alt text</th>
+                <th>Target</th>
+                <th ng-if="config.types.length">Type</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody ng-model="model">
+            <tr class="_not-sortable">
+                <td>
+                    <input type="text" ng-if="model.type == linkTypes.External" ng-model="model.link" placeholder="http://example.com" required />
+                    <input type="email" ng-if="model.type == linkTypes.Email" ng-model="model.prettyLink" placeholder="mail@mail.com" required ng-change="processEmailChange(model)" />
+                    <span ng-if="model.type == linkTypes.Internal || model.type == linkTypes.Media" class="internal-links-picker"
+                          ng-click="model.type == linkTypes.Internal ? internalPicker(model) : mediaPicker(model)">
+                        <i class="icon hover-hide" ng-class="model.icon"></i>
+                        {{model.name}}
+                    </span>
+                </td>
+                <td>
+                    <input type="text" ng-model="model.caption" ng-if="model.type != linkTypes.Email" required />
+                    <input type="text" ng-model="model.prettyCaption" ng-if="model.type == linkTypes.Email" required ng-change="processCaptionChange(model)" />
+                </td>
+                <td class="alt-text"><input type="text" ng-model="model.altText" /></td>
+                <td>
+                    <select ng-options="target.value as target.name for target in config.linkTargets" ng-model="model.target" ng-if="model.type != linkTypes.Email"></select>
+                </td>
+                <td ng-if="config.types.length">
+                    <select ng-options="t as t.name for t in config.types track by t.name" ng-model="model.additionalType"></select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="btn-group add-link-btn">
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Add link<span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li ng-click="addInternalLink()" ng-show="showType('internal')">Internal</li>
+            <li ng-click="addExternalLink()" ng-show="showType('external')">External</li>
+            <li ng-click="addEmailLink()" ng-show="showType('email')">Email</li>
+            <li ng-click="addMediaLink()" ng-show="showType('media')">Media</li>
+        </ul>
+    </div>
+</div>

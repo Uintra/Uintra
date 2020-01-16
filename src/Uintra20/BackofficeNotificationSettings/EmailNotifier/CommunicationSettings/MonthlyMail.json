@@ -1,0 +1,7 @@
+﻿{
+  "label": "This is a monthly email notification that is sent to users who is subscribed to the user tags with the list of the new posts, tagged by these tags.<br>You can insert the following dynamic values:<br><br>##FullName## -  Name of the user (receiver)<br>##ActivityList## - List of tagged activities",
+  "template": {
+    "subject": "Мonthly email notification",
+    "body": "Dear ##FullName##,<br><br> See below list of activities tagged by tags you are interested in: <br><br> ##ActivityList##"
+  }
+}

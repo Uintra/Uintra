@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Uintra20.Core.Activity.Entities;
 
-namespace Uintra20.Features.Bulletins
+namespace Uintra20.Features.Social
 {
     public interface ISocialBase : IIntranetActivity
     {

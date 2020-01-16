@@ -43,7 +43,9 @@ namespace Uintra20.Features.CentralFeed
 			viewModel.Tabs = GetActivityTabs();
 			//viewModel.TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _permissionsService.Check(_permissionResourceTypeProvider[tab.Type.ToInt()], PermissionActionEnum.Create));
 			viewModel.IsFiltersOpened = centralFeedState.IsFiltersOpened;
-		}
+            viewModel.ItemsPerRequest = node.ItemsPerRequest.Value == 0 ? 10 : node.ItemsPerRequest.Value;
+
+        }
 
 
 		private IEnumerable<ActivityFeedTabViewModel> GetTabsWithCreateUrl(IEnumerable<ActivityFeedTabViewModel> tabs) =>
