@@ -14,9 +14,11 @@ using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.CommandBus.Commands;
+using Uintra20.Features.Comments.Helpers;
 using Uintra20.Features.Comments.Links;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Services;
+using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview.Models;
 using Uintra20.Features.Links;
 using Uintra20.Features.Notification;
@@ -30,6 +32,8 @@ namespace Uintra20.Features.Comments.Controllers
     [ValidateModel]
     public class CommentsController : UBaselineApiController
     {
+        private readonly ICommentsHelper _commentsHelper;
+        private readonly ILikesService _likesService;
         private readonly ICommentsService _commentsService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IProfileLinkProvider _profileLinkProvider;
@@ -40,6 +44,8 @@ namespace Uintra20.Features.Comments.Controllers
         private readonly UmbracoHelper _umbracoHelper;
 
         public CommentsController(
+            ICommentsHelper commentsHelper,
+            ILikesService likesService,
             ICommentsService commentsService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
@@ -49,6 +55,8 @@ namespace Uintra20.Features.Comments.Controllers
             ICommentLinkHelper commentLinkHelper,
             UmbracoHelper umbracoHelper)
         {
+            _commentsHelper = commentsHelper;
+            _likesService = likesService;
             _commentsService = commentsService;
             _intranetMemberService = intranetMemberService;
             _profileLinkProvider = profileLinkProvider;
@@ -192,13 +200,17 @@ namespace Uintra20.Features.Comments.Controllers
                 ActivityId = activityId,
                 Comments = await GetCommentViewsAsync(comments),
                 ElementId = GetOverviewElementId(activityId),
-                IsReadOnly = isReadOnly
+                IsReadOnly = isReadOnly,
             };
 
             return model;
         }
+        //TODO Refactor this
         private async Task<IEnumerable<CommentViewModel>> GetCommentViewsAsync(IEnumerable<CommentModel> comments)
         {
+           
+            var memberId = _intranetMemberService.GetCurrentMemberId();
+
             comments = comments.OrderBy(c => c.CreatedDate);
             var commentsList = comments as List<CommentModel> ?? comments.ToList();
             var currentMemberId = await _intranetMemberService.GetCurrentMemberIdAsync();
@@ -209,11 +221,16 @@ namespace Uintra20.Features.Comments.Controllers
 
             foreach (var comment in commentsList.FindAll(c => !_commentsService.IsReply(c)))
             {
+                var likes = _likesService.GetLikeModels(comment.Id).ToArray();
+
                 var model = GetCommentView(comment, currentMemberId,
                     creators.SingleOrDefault(c => c.Id == comment.UserId));
                 var commentReplies = replies.FindAll(reply => reply.ParentId == model.Id);
                 model.Replies = commentReplies.Select(reply =>
                     GetCommentView(reply, currentMemberId, creators.SingleOrDefault(c => c.Id == reply.UserId)));
+                model.LikedByCurrentUser = likes.Any(el => el.UserId == memberId);
+                model.Likes = likes;
+                model.LikeModel = _commentsHelper.GetLikesViewModel(comment.Id);
                 list.Add(model);
             }
 
