@@ -12,6 +12,7 @@ import { NavNotificationsModule } from './feature/project/specific/nav-notificat
 import { HeaderComponent } from './ui/main-layout/header/header.component';
 import { UserNavigationModule } from './feature/project/specific/user-navigation/user-navigation.module';
 import { ImageGalleryModule } from './feature/project/reusable/ui-elements/image-gallery/image-gallery.module';
+import { GoToTopButtonModule } from './feature/project/reusable/ui-elements/go-to-top-button/go-to-top-button.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ImageGalleryModule } from './feature/project/reusable/ui-elements/image
     AppRoutingModule,
     HttpClientModule,
     UserNavigationModule,
+    GoToTopButtonModule,
     ImageGalleryModule,
     UmbracoSupportModule.configure({
       apiPrefix: '/ubaseline/api',
