@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
+import { CommentActivity } from '../../_constants.js';
+import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 
 @Component({
   selector: 'app-subcomment-item',
@@ -29,12 +31,13 @@ export class SubcommentItemComponent implements OnInit {
 
   ngOnInit() {
     this.editedValue = this.data.text;
-    // this.likeModel = {
-    //   likedByCurrentUser: !this.data.likeModel.canAddLike,
-    //   id: this.data.id,
-    //   activityType: this.activityType,
-    //   likes: this.data.likeModel.likes,
-    // }
+    const parsed = ParseHelper.parseUbaselineData(this.data);
+    this.likeModel = {
+      likedByCurrentUser: !!parsed.likeModel.likedByCurrentUser,
+      id: this.data.id,
+      activityType: CommentActivity,
+      likes: parsed.likes,
+    };
   }
 
   toggleEditingMode() {
