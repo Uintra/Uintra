@@ -1,52 +1,63 @@
 <div class="publication publication--important">
-  <app-publication-header [avatar]="publication.activity.owner.photo"
-                          [title]="publication.activity.owner.displayedName"
-                          class="publication__header">
+  <app-publication-header
+    [avatar]="publication.activity.owner.photo"
+    [title]="publication.activity.owner.displayedName"
+    class="publication__header"
+  >
     <div subtitle>
       {{ getPublicationDate() }} -
-      <a class="publication__activity-type"
-         [routerLink]="['/social-details']"
-         [queryParams]="{id: publication.activity.id}">{{ publication.activity.type }}
+      <a
+        class="publication__activity-type"
+        [routerLink]="['/social-details']"
+        [queryParams]="{ id: publication.activity.id }"
+        >{{ publication.activity.type }}
       </a>
     </div>
-    <div *ngIf="publication.activity.isPinned"
-         label
-         class="publication__label">
+    <div *ngIf="publication.activity.isPinned" label class="publication__label">
       Important
     </div>
   </app-publication-header>
   <div class="publication__content">
-    <div [routerLink]="['/social-details']" 
-         [queryParams]="{id:publication.activity.id}"
-         [innerHTML]="publication.activity.description"></div>
-    <div class="gallery">
-      <div *ngFor="let image of medias; index as i"
-           class="gallery__image"
-           (click)="openGallery(i)">
-        <img class="gallery__image-element"
-             [src]="image.url" />
-      </div>
-      <div *ngIf="additionalImages">
-        + {{additionalImages}}
-      </div>
+    <div
+      [routerLink]="['/social-details']"
+      [queryParams]="{ id: publication.activity.id }"
+      [innerHTML]="publication.activity.description"
+    ></div>
+    <div class="gallery" [ngClass]="'items-' + medias.length">
+      <div
+        *ngFor="let image of medias | slice: 0:3; index as i"
+        class="gallery__image"
+        (click)="openGallery(i)"
+        [ngStyle]="{ backgroundImage: 'url(' + image.url + ')' }"
+      ></div>
+      <div class="gallery__counter" *ngIf="additionalImages">+ {{ additionalImages }}</div>
     </div>
-  </div>
-  <div class="publication__footer">
-    <app-like-button [likeData]="likeData"></app-like-button>
-    <a class="publication__comment publication__footer-item"
-       [routerLink]="['/social-details']"
-       [queryParams]="{id: publication.activity.id}">
-      <i class="icon-comment"></i>
-      {{ commentsCount }}
-    </a>
-    <button class="publication__share publication__footer-item">
-      <i class="icon-share-icon"></i>
-      Anbefal
-    </button>
-    <a *ngIf="documentsCount"
-       [routerLink]="['/social-details']"
-       [queryParams]="{id: publication.activity.id}">
-      {{documentsCount}}
-      {{documentsCount > 1 ? 'Files added' : 'File added'}}</a>
+    <div class="publication__footer">
+      <app-like-button [likeData]="likeData"></app-like-button>
+      <a
+        class="publication__comment publication__footer-item"
+        [routerLink]="['/social-details']"
+        [queryParams]="{ id: publication.activity.id }"
+      >
+        <i class="icon-comment"></i>
+        {{ commentsCount }}
+      </a>
+      <button class="publication__share publication__footer-item">
+        <i class="icon-share-icon"></i>
+        Anbefal
+      </button>
+
+      <a
+        class="publication__files publication__footer-item"
+        *ngIf="documentsCount"
+        [routerLink]="['/social-details']"
+        [queryParams]="{ id: publication.activity.id }"
+      >
+        <i class="icon-attachment"></i>
+        {{ documentsCount }}
+        {{ documentsCount > 1 ? "Files added" : "File added" }}</a
+
+      >
+    </div>
   </div>
 </div>

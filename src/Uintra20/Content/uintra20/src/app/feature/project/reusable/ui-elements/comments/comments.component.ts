@@ -45,10 +45,12 @@ export class CommentsComponent {
   }
 
   deleteComment(obj) {
-    this.commentsService.deleteComment(obj)
+    if (confirm('Are you sure?')) {
+      this.commentsService.deleteComment(obj)
       .then((res: any) => {
         this.comments.data = res.comments;
       });
+    }
   }
 
   editComment(comments) {
