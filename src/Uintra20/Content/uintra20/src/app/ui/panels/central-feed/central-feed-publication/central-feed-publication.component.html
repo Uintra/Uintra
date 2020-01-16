@@ -21,8 +21,8 @@
   <div class="publication__content">
     <div
       class="publication__text"
-      [routerLink]="['/social-details']"
-      [queryParams]="{ id: publication.activity.id }"
+      [routerLink]="publication.activity.links.details.baseUrl"
+      [queryParams]="detailsParams"
       [innerHTML]="publication.activity.description"
     ></div>
 
@@ -40,8 +40,8 @@
       <app-like-button [likeData]="likeData"></app-like-button>
       <a
         class="publication__comment publication__footer-item"
-        [routerLink]="['/social-details']"
-        [queryParams]="{ id: publication.activity.id }"
+        [routerLink]="publication.activity.links.details.baseUrl"
+        [queryParams]="detailsParams"
       >
         <i class="icon-comment"></i>
         {{ commentsCount }}
@@ -54,8 +54,8 @@
       <a
         class="publication__files publication__footer-item"
         *ngIf="documentsCount"
-        [routerLink]="['/social-details']"
-        [queryParams]="{ id: publication.activity.id }"
+        [routerLink]="publication.activity.links.details.baseUrl"
+        [queryParams]="detailsParams"
       >
         <i class="icon-attachment"></i>
         {{ documentsCount }}

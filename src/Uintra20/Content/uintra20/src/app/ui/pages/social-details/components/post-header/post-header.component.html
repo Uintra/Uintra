@@ -1,9 +1,12 @@
 <div class="header">
-  <a [routerLink]="['/profile']" [queryParams]="{id: details.id}" class="header__avatar">
+ <!-- TODO: move a to user-avatar component, remove hardcode -->
+  <a [routerLink]=" ['/profile'] " [queryParams]="{id: details.id}" class="header__avatar">
     <app-user-avatar [photo]="details.headerInfo.owner.photo" [name]="details.headerInfo.owner.displayedName"></app-user-avatar>
   </a>
+
   <div class="details">
     <div class="details-item">
+      <!-- TODO: get from details.links -->
       <a [routerLink]="['/profile']" [queryParams]="{id: details.id}" class="details-item__name">
         <span>{{details.headerInfo.owner.displayedName}}</span>
       </a>

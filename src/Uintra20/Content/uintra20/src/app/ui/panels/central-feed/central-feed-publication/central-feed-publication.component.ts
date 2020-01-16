@@ -23,10 +23,10 @@ export class CentralFeedPublicationComponent implements OnInit {
   }
 
   get detailsParams() {
-    return {
-      ...this.publication.activity.links.details.params
-        .map(param => ({ [param.name]: param.value }))
-    };
+    return this.publication.activity.links.details.params.reduce((acc, val) => {
+      acc[val.name] = val.value;
+      return acc;
+    }, {});
   }
 
   likeData: ILikeData;
@@ -48,7 +48,7 @@ export class CentralFeedPublicationComponent implements OnInit {
   }
 
   public openGallery(i) {
-    const items = this.medias.map(el => ({
+    const items = this.mediaCount.map(el => ({
       src: el.url,
       w: el.width,
       h: el.height,
