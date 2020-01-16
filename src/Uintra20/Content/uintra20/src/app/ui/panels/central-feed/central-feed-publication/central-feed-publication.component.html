@@ -17,12 +17,16 @@
       Important
     </div>
   </app-publication-header>
+
   <div class="publication__content">
     <div
+      class="publication__text"
       [routerLink]="['/social-details']"
       [queryParams]="{ id: publication.activity.id }"
       [innerHTML]="publication.activity.description"
     ></div>
+
+
     <div class="gallery" [ngClass]="'items-' + medias.length">
       <div
         *ngFor="let image of medias | slice: 0:3; index as i"

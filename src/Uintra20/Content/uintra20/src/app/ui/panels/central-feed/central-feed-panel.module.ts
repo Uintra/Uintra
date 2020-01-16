@@ -15,9 +15,10 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { CentralFeedFiltersComponent } from './central-feed-filters/central-feed-filters.component';
 import { LikeButtonModule } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.module';
 import { RouterModule } from '@angular/router';
+import { TruncatePipe } from 'src/app/services/pipes/limit-to.pipe';
 
 @NgModule({
-  declarations: [CentralFeedPanel, CentralFeedPublicationComponent, CentralFeedFiltersComponent],
+  declarations: [CentralFeedPanel, CentralFeedPublicationComponent, CentralFeedFiltersComponent, TruncatePipe],
   imports: [
     CommonModule,
     NotImplementedModule,
