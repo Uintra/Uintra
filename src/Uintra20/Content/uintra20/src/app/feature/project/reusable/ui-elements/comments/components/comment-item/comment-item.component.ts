@@ -3,7 +3,7 @@ import { CommentsService } from '../../helpers/comments.service';
 import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
 import { ICommentCreator } from './comment-item.interface';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
-import { parse } from 'querystring';
+import { CommentActivity } from '../../_constants.js';
 
 @Component({
   selector: 'app-comment-item',
@@ -49,12 +49,12 @@ export class CommentItemComponent implements OnInit {
     const parsed = ParseHelper.parseUbaselineData(this.data);
     this.commentCreator = parsed.creator;
     this.commentBody = parsed.text;
-    // this.likeModel = {
-    //   likedByCurrentUser: !this.data.likeModel.canAddLike,
-    //   id: this.data.id,
-    //   activityType: this.activityType,
-    //   likes: this.data.likeModel.likes,
-    // }
+    this.likeModel = {
+      likedByCurrentUser: !!parsed.likeModel.likedByCurrentUser,
+      id: this.data.id,
+      activityType: CommentActivity,
+      likes: parsed.likes,
+    };
   }
 
   onCommentDelete(subcommentId?) {

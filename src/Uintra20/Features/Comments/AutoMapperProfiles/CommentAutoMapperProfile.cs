@@ -24,7 +24,9 @@ namespace Uintra20.Features.Comments.AutoMapperProfiles
                 .ForMember(dst => dst.Replies, o => o.Ignore())
                 .ForMember(dst => dst.LikeModel, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.MapFrom(src => src.CreatedDate.ToDateTimeFormat()))
-                .ForMember(dst => dst.IsReply, o => o.MapFrom(el => !el.ParentId.HasValue));
+                .ForMember(dst => dst.IsReply, o => o.MapFrom(el => !el.ParentId.HasValue))
+                .ForMember(dst => dst.Likes, o => o.Ignore())
+                .ForMember(dst=>dst.LikedByCurrentUser, o=> o.Ignore());
         }
     }
 }

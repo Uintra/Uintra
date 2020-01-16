@@ -59,7 +59,10 @@ namespace Uintra20.Features.Comments.Helpers
             Guid currentMemberId,
             IIntranetMember creator)
         {
+            var likes = _likesService.GetLikeModels(comment.Id).ToArray();
+            var memberId = _intranetMemberService.GetCurrentMemberId();
             var model = comment.Map<CommentViewModel>();
+
             model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate.ToDateTimeFormat() : null;
             model.CanEdit = _commentsService.CanEdit(comment, currentMemberId);
             model.CanDelete = _commentsService.CanDelete(comment, currentMemberId);
@@ -68,8 +71,9 @@ namespace Uintra20.Features.Comments.Helpers
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             model.CreatorProfileUrl = creator == null ? null : _profileLinkProvider.GetProfileLink(creator);
             model.LinkPreview = comment.LinkPreview.Map<LinkPreviewViewModel>();
+            model.LikedByCurrentUser = likes.Any(el => el.UserId == memberId);
+            model.Likes = likes;
             model.LikeModel = GetLikesViewModel(comment.Id);
-
             return model;
         }
 
@@ -79,14 +83,14 @@ namespace Uintra20.Features.Comments.Helpers
 
             var memberId = _intranetMemberService.GetCurrentMemberId();
 
-            var likeList = likes as IList<LikeModel> ?? likes.ToList();
+            var likeList = likes.ToArray();
 
             var result = new LikesViewModel
             {
                 EntityId = commentId,
                 MemberId = memberId,
-                Count = likeList.Count,
-                CanAddLike = likeList.All(el => el.UserId != memberId),
+                Count = likeList.Length,
+                LikedByCurrentUser = likeList.Any(el => el.UserId == memberId),
                 Users = likeList.Select(el => el.User)
             };
 
