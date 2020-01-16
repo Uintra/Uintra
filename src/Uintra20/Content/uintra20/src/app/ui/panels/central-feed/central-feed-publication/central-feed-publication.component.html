@@ -5,8 +5,8 @@
     <div subtitle>
       {{ getPublicationDate() }} -
       <a class="publication__activity-type"
-         [routerLink]="['/social-details']"
-         [queryParams]="{id: publication.activity.id}">{{ publication.activity.type }}
+         [routerLink]="publication.activity.links.details.baseUrl"
+         [queryParams]="detailsParams">{{ publication.activity.type }}
       </a>
     </div>
     <div *ngIf="publication.activity.isPinned"

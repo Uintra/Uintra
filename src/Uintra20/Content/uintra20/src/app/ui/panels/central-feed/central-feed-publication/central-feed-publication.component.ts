@@ -17,9 +17,16 @@ export class CentralFeedPublicationComponent implements OnInit {
 
   medias: Array<IMedia> = new Array<IMedia>();
   documents: Array<IDocument> = new Array<IDocument>();
-  
+
   get commentsCount() {
     return this.publication.activity.commentsCount || 'Comment';
+  }
+
+  get detailsParams() {
+    return {
+      ...this.publication.activity.links.details.params
+        .map(param => ({ [param.name]: param.value }))
+    };
   }
 
   likeData: ILikeData;
