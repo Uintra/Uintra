@@ -17,7 +17,7 @@ export class CentralFeedPublicationComponent implements OnInit {
 
   medias: Array<IMedia> = new Array<IMedia>();
   documents: Array<IDocument> = new Array<IDocument>();
-  
+
   get commentsCount() {
     return this.publication.activity.commentsCount || 'Comment';
   }
@@ -41,7 +41,7 @@ export class CentralFeedPublicationComponent implements OnInit {
   }
 
   public openGallery(i) {
-    const items = this.mediaCount.map(el => ({
+    const items = this.medias.map(el => ({
       src: el.url,
       w: el.width,
       h: el.height,
