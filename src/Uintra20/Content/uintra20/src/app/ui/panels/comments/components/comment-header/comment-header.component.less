@@ -31,9 +31,15 @@
     height: 17px;
     margin-left: 7px;
 
-    &:hover .comment__controls-list {
-      visibility: visible;
-      pointer-events: all;
+    &:hover {
+      &::before {
+        transform: rotate(-135deg);
+      }
+
+      .comment__controls-list {
+        visibility: visible;
+        pointer-events: all;
+      }
     }
 
     &::before {
@@ -70,6 +76,20 @@
 
     :hover {
       visibility: visible;
+    }
+
+    &::after {
+      position: absolute;
+      top: -4px;
+      right: 14px;
+      width: 7px;
+      height: 7px;
+      border: 1px solid @border-color;
+      background: #fff;
+      border-width: 0 1px 1px 0;
+      transform: rotate(-135deg);
+      z-index: -1;
+      content: '';
     }
 
     &-item {
