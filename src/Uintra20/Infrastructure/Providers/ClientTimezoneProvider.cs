@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using TimeZoneConverter;
 
 namespace Uintra20.Infrastructure.Providers
@@ -26,12 +27,9 @@ namespace Uintra20.Infrastructure.Providers
             {
                 var cookieValue = _cookieProvider.Get(ClientTimezoneCookieAlias)?.Value;
 
-                if (string.IsNullOrWhiteSpace(cookieValue))
-                {
-                    return TimeZoneInfo.Utc;
-                }
-
-                return TimeZoneInfo.FindSystemTimeZoneById(cookieValue);
+                return !cookieValue.HasValue() 
+                    ? TimeZoneInfo.Utc 
+                    : TimeZoneInfo.FindSystemTimeZoneById(cookieValue);
             }
         }
     }
