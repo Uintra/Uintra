@@ -870,8 +870,6 @@
     <Content Include="config\Lang\zh-CN.user.xml" />
     <Content Include="config\logviewer.searches.config.js" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
-    <Content Include="config\UIntra\LatestActivitySettings.json" />
-    <Content Include="config\UIntra\LatestActivitySettings.json" />
     <Content Include="config\umbracoSettings.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
     <Content Include="config\UBaseline\videoPickerSettings.json" />
@@ -983,7 +981,6 @@
     <Compile Include="Features\CentralFeed\Services\CentralFeedContentService.cs" />
     <Compile Include="Features\CentralFeed\Providers\ICentralFeedContentProvider.cs" />
     <Compile Include="Features\CentralFeed\Providers\IFeedContentProvider.cs" />
-    <Compile Include="Features\CentralFeed\Settings\LatestActivitySettings.cs" />
     <Compile Include="Features\CentralFeed\Web\CentralFeedApiController.cs" />
     <Compile Include="Features\Comments\CommandBus\CommentHandle.cs" />
     <Compile Include="Features\Comments\CommandBus\CommentNotificationHandle.cs" />
@@ -1171,7 +1168,6 @@
     <Compile Include="Features\Comments\Sql\Comment.cs" />
     <Compile Include="Features\Comments\Sql\CommentToLinkPreviewEntity.cs" />
     <Compile Include="Infrastructure\Caching\Web\CacheController.cs" />
-    <Compile Include="Infrastructure\Configuration\UIntraConfiguration.cs" />
     <Compile Include="Infrastructure\Constants\DocumentTypeAliasConstants.cs" />
     <Compile Include="Infrastructure\Constants\GridEditorConstants.cs" />
     <Compile Include="Infrastructure\Constants\IntranetConstants.cs" />
