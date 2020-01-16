@@ -40,7 +40,8 @@ export default class Counter {
   }
 
   calculate() {
-    const text = this.quill.getText().trim();
+    const text = this.quill.getText();
+
     return text.length;
   }
 }

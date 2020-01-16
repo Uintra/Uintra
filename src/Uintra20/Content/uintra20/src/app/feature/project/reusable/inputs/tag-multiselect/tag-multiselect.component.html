@@ -2,7 +2,7 @@
      (clickOutside)="onHideDropdown()"
      [ngClass]="{ open: isDwopdownShowed }">
     <div class="tag-multiselect">
-      <div class="tag-multiselect__input-field" (click)="onShowDropdown()">
+      <div class="tag-multiselect__input-field" (click)="onToggleDropdown()">
         <div
           *ngIf="selectedList && selectedList.length === 0"
           class="tag-multiselect__placeholder"
@@ -27,7 +27,7 @@
       </button>
     </div>
 
-    <div class="tag-multiselect-dropdown" *ngIf="isDwopdownShowed"> 
+    <div class="tag-multiselect-dropdown" *ngIf="isDwopdownShowed">
       <button
         *ngFor="let tag of availableTags"
         class="tag-multiselect-dropdown-row"

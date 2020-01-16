@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { IUserAvatar } from './user-avatar-interface';
 
 
 @Component({
@@ -7,12 +8,21 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./user-avatar.component.less']
 })
 export class UserAvatarComponent implements OnInit {
-  @Input() data: string;
-  @Input() firstChar: string;
+  @Input() photo: string;
+  @Input() name: string;
   @Input('big') big: boolean;
 
-  ngOnInit() {
+  firstChar: string;
+
+  convertToBoolean(): void {
     this.big = this.big !== undefined;
-    this.data = this.data ;
+  }
+
+  ngOnInit() {
+    this.convertToBoolean();
+
+    if (this.name && typeof this.name === 'string') {
+      this.firstChar = this.name.charAt(0);
+    }
   }
 }

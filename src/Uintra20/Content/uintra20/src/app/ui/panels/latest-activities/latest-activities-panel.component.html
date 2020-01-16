@@ -2,10 +2,11 @@
     <section>
         <div class="holder">
             <h2 class="holder__title">{{title}}</h2>
+            <div class="holder__teaser rte" [innerHTML]="teaser"></div>
             <div
                 *ngFor="let cell of activityCells"
                 class="block-item">
-                <latest-activity 
+                <latest-activity
                     [activityType]="cell.get().activity.get().type.get()"
                     [activityDate]="cell.get().activity.get().dates.get()[0]"
                     [activityId]="cell.get().activity.get().id.get()"

@@ -5,8 +5,9 @@ using Uintra20.Core.Activity.Converters.Models;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Bulletins;
 using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Social;
+using Uintra20.Features.Social.Entities;
 using Uintra20.Features.Tagging.UserTags.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
@@ -16,14 +17,14 @@ namespace Uintra20.Core.Activity.Converters
 {
     public class ActivityCreatePanelViewModelConverter : INodeViewModelConverter<ActivityCreatePanelModel, ActivityCreatePanelViewModel>
     {
-        private readonly ISocialService<Features.Bulletins.Entities.Social> _socialService;
+        private readonly ISocialService<Social> _socialService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IPermissionsService _permissionsService;
         private readonly IUserTagService _tagsService;
         private readonly IUserTagProvider _tagProvider;
 
-        public ActivityCreatePanelViewModelConverter(ISocialService<Features.Bulletins.Entities.Social> socialService, 
+        public ActivityCreatePanelViewModelConverter(ISocialService<Social> socialService, 
                                                     IIntranetMemberService<IntranetMember> memberService, 
                                                     IActivityTypeProvider activityTypeProvider,
                                                     IPermissionsService permissionsService,

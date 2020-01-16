@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, ActivationEnd, Router } from "@angular/router";
+import { ActivatedRoute, ActivationEnd, Router, ActivationStart } from "@angular/router";
 import { LoginPage } from "./ui/pages/login/login-page.component";
 
 @Component({
@@ -10,7 +10,7 @@ import { LoginPage } from "./ui/pages/login/login-page.component";
 export class AppComponent {
   title = "uintra20";
 
-  isLoginPage: boolean = false;
+  isLoginPage: boolean = true;
   hasPanels: boolean = false;
 
   data: any;
@@ -22,13 +22,13 @@ export class AppComponent {
     });
 
     router.events.subscribe(val => {
-      if (val instanceof ActivationEnd) {
+      if (val instanceof ActivationStart) {
         if (val.snapshot.component) {
           this.isLoginPage = val.snapshot.component === LoginPage;
         }
       }
     });
- 
+
   }
 
   ngOnInit(): void {

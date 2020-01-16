@@ -2,10 +2,10 @@
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Factories;
 using Uintra20.Core.Activity.Helpers;
-using Uintra20.Features.Bulletins;
-using Uintra20.Features.Bulletins.Entities;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Location.Services;
+using Uintra20.Features.Social;
+using Uintra20.Features.Social.Entities;
 using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.Providers;
 using Uintra20.Infrastructure.TypeProviders;

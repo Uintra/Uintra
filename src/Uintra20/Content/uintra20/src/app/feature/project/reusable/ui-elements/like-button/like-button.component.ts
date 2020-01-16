@@ -27,7 +27,6 @@ export class LikeButtonComponent implements OnInit {
 
   onClickLike() {
     const canAddLike = this.likeData.likedByCurrentUser === false;
-
     const data: IAddLikeRequest = {
       entityId: this.likeData.id,
       entityType: this.likeData.activityType

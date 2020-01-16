@@ -48,7 +48,7 @@ export class CentralFeedPublicationComponent implements OnInit {
   }
 
   public openGallery(i) {
-    const items = this.mediaCount.map(el => ({
+    const items = this.medias.map(el => ({
       src: el.url,
       w: el.width,
       h: el.height,

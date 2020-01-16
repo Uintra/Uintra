@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SpoilerSectionComponent {
   @Input() title: string;
-  @Input() isSpoilerShowed: boolean = true;
+  @Input() isSpoilerShowed: boolean = false;
 
   constructor() { }
 

@@ -4,6 +4,10 @@ import { ITagData } from 'src/app/feature/project/reusable/inputs/tag-multiselec
 import { DropzoneComponent } from 'ngx-dropzone-wrapper';
 import { MAX_LENGTH } from './_constants.js';
 import { CreateSocialService } from 'src/app/services/createActivity/create-social.service';
+import { IUserAvatar } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar-interface';
+import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
+import { parse } from 'querystring';
+import { ModalService } from 'src/app/services/general/modal.service';
 
 @Component({
   selector: 'activity-create-panel',
@@ -20,20 +24,26 @@ export class ActivityCreatePanel implements OnInit {
   tags: Array<ITagData> = [];
   description = '';
   inProgress = false;
+  userAvatar: IUserAvatar;
 
   get isSubmitDisabled() {
-    if (this.description && this.description.length > MAX_LENGTH || this.inProgress) {
+    if (ParseHelper.stripHtml(this.description).length > MAX_LENGTH || this.inProgress) {
       return true;
     }
     return !this.description && this.files.length === 0;
   }
 
-  constructor(private socialContentService: CreateSocialService) { }
+  constructor(private socialContentService: CreateSocialService, private modalService: ModalService) { }
 
   ngOnInit() {
+    const parsed = ParseHelper.parseUbaselineData(this.data);
     this.availableTags = Object.values(
       JSON.parse(JSON.stringify(this.data.tags.get().userTagCollection))
     );
+    this.userAvatar = {
+      name: parsed.creator.displayedName,
+      photo: parsed.creator.photo
+    };
   }
 
   onShowPopUp() {
@@ -51,10 +61,12 @@ export class ActivityCreatePanel implements OnInit {
   }
 
   hidePopUp() {
+    this.modalService.removeClassFromRoot('disable-scroll');
     this.isPopupShowing = false;
   }
 
   showPopUp() {
+    this.modalService.addClassToRoot('disable-scroll');
     this.isPopupShowing = true;
   }
 
