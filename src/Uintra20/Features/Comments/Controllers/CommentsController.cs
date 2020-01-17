@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Compent.CommandBus;
+using Localization.Umbraco.Attributes;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Compent.CommandBus;
-using Localization.Umbraco.Attributes;
 using UBaseline.Core.Controllers;
 using Uintra20.Attributes;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
-using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
@@ -18,9 +16,6 @@ using Uintra20.Features.Comments.Helpers;
 using Uintra20.Features.Comments.Links;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Services;
-using Uintra20.Features.Likes.Services;
-using Uintra20.Features.LinkPreview.Models;
-using Uintra20.Features.Links;
 using Uintra20.Features.Notification;
 using Uintra20.Infrastructure.Context;
 using Uintra20.Infrastructure.Extensions;
@@ -33,10 +28,8 @@ namespace Uintra20.Features.Comments.Controllers
     public class CommentsController : UBaselineApiController
     {
         private readonly ICommentsHelper _commentsHelper;
-        private readonly ILikesService _likesService;
         private readonly ICommentsService _commentsService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
-        private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly ICommandPublisher _commandPublisher;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IMentionService _mentionService;
@@ -45,10 +38,8 @@ namespace Uintra20.Features.Comments.Controllers
 
         public CommentsController(
             ICommentsHelper commentsHelper,
-            ILikesService likesService,
             ICommentsService commentsService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            IProfileLinkProvider profileLinkProvider,
             ICommandPublisher commandPublisher,
             IActivitiesServiceFactory activitiesServiceFactory,
             IMentionService mentionService,
@@ -56,10 +47,8 @@ namespace Uintra20.Features.Comments.Controllers
             UmbracoHelper umbracoHelper)
         {
             _commentsHelper = commentsHelper;
-            _likesService = likesService;
             _commentsService = commentsService;
             _intranetMemberService = intranetMemberService;
-            _profileLinkProvider = profileLinkProvider;
             _commandPublisher = commandPublisher;
             _activitiesServiceFactory = activitiesServiceFactory;
             _mentionService = mentionService;
@@ -81,37 +70,34 @@ namespace Uintra20.Features.Comments.Controllers
                 case int type
                     when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
                     var activityCommentsInfo = GetActivityComments(model.EntityId);
-                    return await OverViewAsync(activityCommentsInfo.Id, activityCommentsInfo.Comments, activityCommentsInfo.IsReadOnly);
+                    return await _commentsHelper.OverViewAsync(activityCommentsInfo.Id, activityCommentsInfo.Comments, activityCommentsInfo.IsReadOnly);
                 default:
-                    return await OverViewAsync(model.EntityId);
+                    return await _commentsHelper.OverViewAsync(model.EntityId);
             }
         }
 
         [HttpPut]
         public async Task<CommentsOverviewModel> Edit(CommentEditModel model)
         {
-            var editCommentId = model.Id;
-
-            var comment = await _commentsService.GetAsync(editCommentId);
+            var comment = await _commentsService.GetAsync(model.Id);
             if (!_commentsService.CanEdit(comment, await _intranetMemberService.GetCurrentMemberIdAsync()))
-            {
-                return await OverViewAsync(editCommentId);
-            }
+                return await _commentsHelper.OverViewAsync(model.Id);
+            
 
-            var editDto = MapToEditDto(model, editCommentId);
+            var editDto = MapToEditDto(model, model.Id);
             var command = new EditCommentCommand(model.EntityId, model.EntityType, editDto);
             _commandPublisher.Publish(command);
 
-            await OnCommentEditedAsync(editCommentId);
+            await OnCommentEditedAsync(model.Id);
 
             switch (model.EntityType.ToInt())
             {
                 case int type
                     when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
                     var activityCommentsInfo = GetActivityComments(model.EntityId);
-                    return await OverViewAsync(activityCommentsInfo.Id, activityCommentsInfo.Comments, activityCommentsInfo.IsReadOnly);
+                    return await _commentsHelper.OverViewAsync(activityCommentsInfo.Id, activityCommentsInfo.Comments, activityCommentsInfo.IsReadOnly);
                 default:
-                    return await OverViewAsync(comment.ActivityId);
+                    return await _commentsHelper.OverViewAsync(comment.ActivityId);
             }
         }
 
@@ -122,7 +108,7 @@ namespace Uintra20.Features.Comments.Controllers
 
             if (!_commentsService.CanDelete(comment, await _intranetMemberService.GetCurrentMemberIdAsync()))
             {
-                return await OverViewAsync(comment.ActivityId);
+                return await _commentsHelper.OverViewAsync(comment.ActivityId);
             }
 
             var command = new RemoveCommentCommand(targetId, targetType, commentId);
@@ -133,16 +119,16 @@ namespace Uintra20.Features.Comments.Controllers
                 case int type
                     when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
                     var activityCommentsInfo = GetActivityComments(targetId);
-                    return await OverViewAsync(activityCommentsInfo.Id, activityCommentsInfo.Comments, activityCommentsInfo.IsReadOnly);
+                    return await _commentsHelper.OverViewAsync(activityCommentsInfo.Id, activityCommentsInfo.Comments, activityCommentsInfo.IsReadOnly);
                 default:
-                    return await OverViewAsync(comment.ActivityId);
+                    return await _commentsHelper.OverViewAsync(comment.ActivityId);
             }
         }
 
         [HttpGet]
         public async Task<CommentsOverviewModel> ContentComments(Guid pageId)
         {
-            return await OverViewAsync(pageId, await _commentsService.GetManyAsync(pageId));
+            return await _commentsHelper.OverViewAsync(pageId, await _commentsService.GetManyAsync(pageId));
         }
 
         [HttpGet]
@@ -183,78 +169,6 @@ namespace Uintra20.Features.Comments.Controllers
             var service = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(activityId);
 
             return (ICommentable)service.Get(activityId);
-        }
-
-        private async Task<CommentsOverviewModel> OverViewAsync(Guid activityId)
-        {
-            return await OverViewAsync(activityId, await _commentsService.GetManyAsync(activityId));
-        }
-
-        private async Task<CommentsOverviewModel> OverViewAsync(
-            Guid activityId,
-            IEnumerable<CommentModel> comments,
-            bool isReadOnly = false)
-        {
-            var model = new CommentsOverviewModel
-            {
-                ActivityId = activityId,
-                Comments = await GetCommentViewsAsync(comments),
-                ElementId = GetOverviewElementId(activityId),
-                IsReadOnly = isReadOnly,
-            };
-
-            return model;
-        }
-        //TODO Refactor this
-        private async Task<IEnumerable<CommentViewModel>> GetCommentViewsAsync(IEnumerable<CommentModel> comments)
-        {
-           
-            var memberId = _intranetMemberService.GetCurrentMemberId();
-
-            comments = comments.OrderBy(c => c.CreatedDate);
-            var commentsList = comments as List<CommentModel> ?? comments.ToList();
-            var currentMemberId = await _intranetMemberService.GetCurrentMemberIdAsync();
-            var creators = (await _intranetMemberService.GetAllAsync()).ToList();
-            var replies = commentsList.FindAll(_commentsService.IsReply);
-
-            var list = new List<CommentViewModel>();
-
-            foreach (var comment in commentsList.FindAll(c => !_commentsService.IsReply(c)))
-            {
-                var likes = _likesService.GetLikeModels(comment.Id).ToArray();
-
-                var model = GetCommentView(comment, currentMemberId,
-                    creators.SingleOrDefault(c => c.Id == comment.UserId));
-                var commentReplies = replies.FindAll(reply => reply.ParentId == model.Id);
-                model.Replies = commentReplies.Select(reply =>
-                    GetCommentView(reply, currentMemberId, creators.SingleOrDefault(c => c.Id == reply.UserId)));
-                model.LikedByCurrentUser = likes.Any(el => el.UserId == memberId);
-                model.Likes = likes;
-                model.LikeModel = _commentsHelper.GetLikesViewModel(comment.Id);
-                list.Add(model);
-            }
-
-            return list;
-        }
-        private CommentViewModel GetCommentView(
-            CommentModel comment,
-            Guid currentMemberId,
-            IIntranetMember creator)
-        {
-            var model = comment.Map<CommentViewModel>();
-            model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate.ToDateTimeFormat() : null;
-            model.CanEdit = _commentsService.CanEdit(comment, currentMemberId);
-            model.CanDelete = _commentsService.CanDelete(comment, currentMemberId);
-            model.Creator = creator.Map<MemberViewModel>();
-            model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
-            model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
-            model.CreatorProfileUrl = creator == null ? null : _profileLinkProvider.GetProfileLink(creator);
-            model.LinkPreview = comment.LinkPreview.Map<LinkPreviewViewModel>();
-            return model;
-        }
-        private string GetOverviewElementId(Guid activityId)
-        {
-            return $"js-comments-overview-{activityId}";
         }
 
         private async Task OnCommentCreatedAsync(Guid commentId)
@@ -304,23 +218,22 @@ namespace Uintra20.Features.Comments.Controllers
 
         private void ResolveMentions(string text, CommentModel comment)
         {
-            var mentionIds = _mentionService.GetMentions(text).ToList();
+            var mentionIds = _mentionService.GetMentions(text).ToArray();
 
-            if (mentionIds.Any())
+            if (mentionIds.Length == 0) 
+                return;
+
+            var content = _umbracoHelper.Content(comment.ActivityId);
+            _mentionService.ProcessMention(new MentionModel
             {
-                var content = _umbracoHelper.Content(comment.ActivityId);
-                _mentionService.ProcessMention(new MentionModel
-                {
-                    MentionedSourceId = comment.Id,
-                    CreatorId = _intranetMemberService.GetCurrentMemberId(),
-                    MentionedUserIds = mentionIds,
-                    Title = comment.Text.StripHtml().TrimByWordEnd(50),
-                    Url = content != null ? _commentLinkHelper.GetDetailsUrlWithComment(content, comment.Id) :
-                        _commentLinkHelper.GetDetailsUrlWithComment(comment.ActivityId, comment.Id),
-                    ActivityType = CommunicationTypeEnum.CommunicationSettings
-                });
-
-            }
+                MentionedSourceId = comment.Id,
+                CreatorId = _intranetMemberService.GetCurrentMemberId(),
+                MentionedUserIds = mentionIds,
+                Title = comment.Text.StripHtml().TrimByWordEnd(50),
+                Url = content != null ? _commentLinkHelper.GetDetailsUrlWithComment(content, comment.Id) :
+                    _commentLinkHelper.GetDetailsUrlWithComment(comment.ActivityId, comment.Id),
+                ActivityType = CommunicationTypeEnum.CommunicationSettings
+            });
         }
     }
 }
