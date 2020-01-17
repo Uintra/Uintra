@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Compent.Shared.Extensions.Bcl;
+using Microsoft.AspNet.SignalR;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using Compent.Shared.Extensions.Bcl;
-using Microsoft.AspNet.SignalR;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
@@ -125,7 +125,7 @@ namespace Uintra20.Features.Social.Controllers
             }
 
             ResolveMentions(model.Description, social);
-            ReloadFeed();
+            //ReloadFeed();
         }
 
         private async Task OnBulletinEditedAsync(SocialBase social, SocialEditModel model)
@@ -136,19 +136,19 @@ namespace Uintra20.Features.Social.Controllers
             }
 
             await ResolveMentionsAsync(model.Description, social);
-            ReloadFeed();
+            //ReloadFeed();
         }
 
         private void OnBulletinDeleted(Guid id)
         {
             _myLinksService.DeleteByActivityId(id);
-            ReloadFeed();
+            //ReloadFeed();
         }
 
         private async Task OnBulletinDeletedAsync(Guid id)
         {
             await _myLinksService.DeleteByActivityIdAsync(id);
-            ReloadFeed();
+            //ReloadFeed();
         }
 
         private void OnBulletinCreated(SocialBase social, SocialCreateModel model)
@@ -171,7 +171,7 @@ namespace Uintra20.Features.Social.Controllers
                 return;
             }
             ResolveMentions(model.Description, social);
-            ReloadFeed();
+            //ReloadFeed();
         }
 
         private async Task OnBulletinCreatedAsync(SocialBase social, SocialCreateModel model)
@@ -194,7 +194,7 @@ namespace Uintra20.Features.Social.Controllers
                 return;
             }
             await ResolveMentionsAsync(model.Description, social);
-            ReloadFeed();
+            //ReloadFeed();
         }
 
         private void ResolveMentions(string text, SocialBase social)
