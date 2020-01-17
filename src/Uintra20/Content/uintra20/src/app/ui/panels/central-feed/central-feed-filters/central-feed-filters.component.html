@@ -7,7 +7,10 @@
     class="feed-filters__tabs"
   ></app-radio-link-group>
 
-  <div class="feed-filters__bottom">
+  <div
+    *ngIf="selectTabFilters && selectTabFilters.length"
+    class="feed-filters__bottom"
+  >
     <div *ngFor="let filter of selectTabFilters" class="feed-filters__filter">
       <checkbox-input
         [(ngModel)]="filter.isActive"
@@ -17,11 +20,7 @@
       </checkbox-input>
     </div>
 
-    <button
-      *ngIf="selectTabFilters && selectTabFilters.length"
-      (click)="clearFilters()"
-      class="feed-filters__button"
-    >
+    <button (click)="clearFilters()" class="feed-filters__button">
       Clear filters
     </button>
   </div>
