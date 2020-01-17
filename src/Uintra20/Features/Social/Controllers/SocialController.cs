@@ -125,7 +125,6 @@ namespace Uintra20.Features.Social.Controllers
             }
 
             ResolveMentions(model.Description, social);
-            ReloadFeed();
         }
 
         private async Task OnBulletinEditedAsync(SocialBase social, SocialEditModel model)
@@ -136,7 +135,6 @@ namespace Uintra20.Features.Social.Controllers
             }
 
             await ResolveMentionsAsync(model.Description, social);
-            ReloadFeed();
         }
 
         private void OnBulletinDeleted(Guid id)
