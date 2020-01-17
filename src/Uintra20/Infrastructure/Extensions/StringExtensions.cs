@@ -193,7 +193,7 @@ namespace Uintra20.Infrastructure.Extensions
             {
                 var splitedUrl = url.Split('?');
                 linkModel.BaseUrl = splitedUrl[0];
-                linkModel.Params = splitedUrl[1].ToParams();
+                linkModel.Params = splitedUrl[1].ToParams().ToList();
                 return linkModel;
             }
 
