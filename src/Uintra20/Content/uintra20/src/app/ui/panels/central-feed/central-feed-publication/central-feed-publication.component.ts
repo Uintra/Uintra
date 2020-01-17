@@ -25,7 +25,7 @@ export class CentralFeedPublicationComponent implements OnInit {
 
   likeData: ILikeData;
 
-  constructor(private imageGalleryService: ImageGalleryService) { }
+  constructor(private imageGalleryService: ImageGalleryService, private router: Router) { }
 
   ngOnInit(): void {
     this.countToDisplay = this.publication.activity.mediaPreview.filesToDisplay;
@@ -57,5 +57,11 @@ export class CentralFeedPublicationComponent implements OnInit {
     return this.publication.activity.dates.length
       ? this.publication.activity.dates[0]
       : '';
+  }
+
+  checkForRightRoute(e) {
+    if (!e.target.href) {
+      this.router.navigate(['/social-details'], { queryParams: { id: this.publication.activity.id } });
+    }
   }
 }

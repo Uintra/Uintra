@@ -21,9 +21,8 @@
   <div class="publication__content">
     <div
       class="publication__text"
-      [routerLink]="['/social-details']"
-      [queryParams]="{ id: publication.activity.id }"
       [innerHTML]="publication.activity.description"
+      (click)="checkForRightRoute($event)"
     ></div>
 
 
