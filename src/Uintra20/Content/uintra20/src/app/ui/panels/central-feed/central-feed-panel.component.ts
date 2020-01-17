@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ICentralFeedPanel } from './central-feed-panel.interface';
-import { UmbracoFlatPropertyModel } from '@ubaseline/next';
+import { UmbracoFlatPropertyModel, IUmbracoProperty } from '@ubaseline/next';
 import { PublicationsService} from './helpers/publications.service';
 import { CreateSocialService } from 'src/app/services/createActivity/create-social.service';
 
@@ -48,7 +48,7 @@ import { CreateSocialService } from 'src/app/services/createActivity/create-soci
 })
 export class CentralFeedPanel implements OnInit {
   data: ICentralFeedPanel;
-  tabs: Array<UmbracoFlatPropertyModel> = null;
+  tabs: Array<any> = null;
   // TODO: replace 'any' after server side will be done
   selectTabFilters: Array<any>;
   selectedTabType: number;
@@ -63,12 +63,35 @@ export class CentralFeedPanel implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.tabs = Object.values(this.data.tabs.get());
+    this.tabs = this.filtersBuilder();
 
     this.createSocialService.feedRefreshTrigger$.subscribe(() => {
       this.feed = [];
       this.getPublications();
     });
+  }
+
+  filtersBuilder() {
+    let filtersFromServer = Object.values(this.data.tabs.get());
+
+    // TODO: fix ubaselline next and remove it
+    const allOption = new UmbracoFlatPropertyModel({
+      type: '0',
+      isActive: true,
+      links: null,
+      title: "All",
+      filters: [
+        {
+          key: "ShowPinned",
+          title: "Show only Important",
+          isActive: false
+        }
+      ]
+    } as any);
+
+    filtersFromServer.unshift(allOption);
+
+    return filtersFromServer;
   }
 
   getPublications() {
