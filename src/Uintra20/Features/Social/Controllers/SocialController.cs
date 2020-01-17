@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Compent.Shared.Extensions.Bcl;
+using Microsoft.AspNet.SignalR;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using Compent.Shared.Extensions.Bcl;
-using Microsoft.AspNet.SignalR;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
@@ -55,8 +55,11 @@ namespace Uintra20.Features.Social.Controllers
         }
 
         [HttpPost]
-        public async Task<SocialCreationResultModel> CreateExtended(SocialExtendedCreateModel model)
+        public async Task<HttpResponseMessage> CreateExtended(SocialExtendedCreateModel model)
         {
+            if (!IsValidDescription(model.Description))
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+
             var result = new SocialCreationResultModel();
 
             var bulletin = MapToBulletin(model);
@@ -67,12 +70,15 @@ namespace Uintra20.Features.Social.Controllers
             result.Id = createdBulletinId;
             result.IsSuccess = true;
 
-            return result;
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
         [HttpPut]
         public async Task<HttpResponseMessage> EditExtended(SocialExtendedEditModel editModel)
         {
+            if (!IsValidDescription(editModel.Description))
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+
             var bulletin = MapToBulletin(editModel);
             await _socialService.SaveAsync(bulletin);
             await OnBulletinEditedAsync(bulletin, editModel);
@@ -233,8 +239,10 @@ namespace Uintra20.Features.Social.Controllers
                     Url = links.Details,
                     ActivityType = IntranetActivityTypeEnum.Social
                 });
-
             }
         }
+
+        private bool IsValidDescription(string description) =>
+            description.HasValue();
     }
 }
