@@ -91,7 +91,7 @@ namespace Uintra20.Features.Social.Controllers
         public void ReloadFeed()
         {
             var hubContext = GlobalHost.ConnectionManager.GetHubContext<CentralFeedHub>();
-            hubContext.Clients.All().reloadFeed();
+            hubContext.Clients.All.reloadFeed();
         }
 
         private SocialBase MapToBulletin(SocialCreateModel model)
