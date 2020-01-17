@@ -1,5 +1,5 @@
 <div class="subcomment">
-  <app-user-avatar class="subcomment__avatar" [photo]="data.creator.photo" big></app-user-avatar>
+  <app-user-avatar class="subcomment__avatar" [photo]="data.creator.photo" [name]="data.creator.displayedName" big></app-user-avatar>
   <div class="subcomment__container">
     <app-comment-header
       [data]="data"

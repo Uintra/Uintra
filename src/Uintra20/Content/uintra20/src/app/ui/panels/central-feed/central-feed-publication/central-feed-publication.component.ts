@@ -14,6 +14,7 @@ export class CentralFeedPublicationComponent implements OnInit {
   mediaCount: any;
   documentsCount: any;
   additionalImages: number;
+  countToDisplay: number;
 
   medias: Array<IMedia> = new Array<IMedia>();
   documents: Array<IDocument> = new Array<IDocument>();
@@ -27,6 +28,7 @@ export class CentralFeedPublicationComponent implements OnInit {
   constructor(private imageGalleryService: ImageGalleryService) { }
 
   ngOnInit(): void {
+    this.countToDisplay = this.publication.activity.mediaPreview.filesToDisplay;
     this.medias = Object.values(this.publication.activity.mediaPreview.medias);
     this.mediaCount = this.medias.length;
     this.documents = Object.values(this.publication.activity.mediaPreview.otherFiles);
