@@ -13,11 +13,15 @@
         [(ngModel)]="filter.isActive"
         (ngModelChange)="changeFilters()"
       >
-        {{filter.title}}
+        {{ filter.title }}
       </checkbox-input>
     </div>
 
-    <button (click)="clearFilters()" class="feed-filters__button">
+    <button
+      *ngIf="selectTabFilters && selectTabFilters.length"
+      (click)="clearFilters()"
+      class="feed-filters__button"
+    >
       Clear filters
     </button>
   </div>
