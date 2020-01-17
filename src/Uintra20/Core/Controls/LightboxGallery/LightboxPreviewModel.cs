@@ -9,5 +9,6 @@ namespace Uintra20.Core.Controls.LightboxGallery
         public IEnumerable<LightboxGalleryItemPreviewModel> OtherFiles { get; set; } = Enumerable.Empty<LightboxGalleryItemPreviewModel>();
         public int HiddenImagesCount { get; set; }
         public int AdditionalImages { get; set; }
+        public int FilesToDisplay { get; set; }
     }
 }
