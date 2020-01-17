@@ -2,6 +2,7 @@
 
 @publication-bg: @main-color;
 @label-bg: @red;
+@text-line-height: 24px;
 
 .publication {
   .shadow;
@@ -40,10 +41,8 @@
 
   &__text {
     overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    line-height: @text-line-height;
+    max-height: @text-line-height * 3;
   }
 
   &__footer {
