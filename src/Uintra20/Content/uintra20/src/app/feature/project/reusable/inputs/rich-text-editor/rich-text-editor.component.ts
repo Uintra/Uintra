@@ -36,6 +36,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   @Output() addAttachment = new EventEmitter();
 
   config: QuillConfig;
+  editor: any;
 
   get value() {
     return this._value;
@@ -48,6 +49,8 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   constructor(@Inject(QUILL_CONFIG_TOKEN) config: QuillConfig) { }
 
   initEditor(editor) {
+    console.log(editor);
+    this.editor = editor;
     editor.focus();
   }
 
@@ -70,5 +73,13 @@ export class RichTextEditorComponent implements ControlValueAccessor {
 
   getToolbarClass() {
     return { 'top-mode': this.isEditing };
+  }
+
+  test(test) {
+    this.editor.clipboard.dangerouslyPasteHTML(this.editor.getSelection().index, test);
+    // this.editor.setSelection(this.editor.getSelection().index + 1);
+    console.log(this.editor);
+    console.log(this.editor.getSelection());
+    // this.editor.editor.delta.ops.push({'insert': test});
   }
 }

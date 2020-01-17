@@ -1,0 +1,32 @@
+.emoji {
+  position: absolute;
+  bottom: 100%;
+  border: 1px solid #ccc;
+  background: #fff;
+  z-index: 9999;
+  width: 262px;
+  margin: 0 0 -10px;
+  padding: 10px 9px 9px 10px;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -20px 0 0 -20px;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+  }
+
+  &__list-item {
+    width: 32px;
+    height: 32px;
+    margin: 20px 0 0 20px;
+    cursor: pointer;
+  }
+
+  .emoji-icon {
+    width: 32px !important;
+    height: 32px !important;
+  }
+}

@@ -12,6 +12,7 @@
 
     <div class="ql-formats">
       <button class="ql-emoji icon-smily"></button>
+      <app-rich-text-editor-emoji (emojiClick)="test($event)"></app-rich-text-editor-emoji>
       <button class="ql-bold" [title]="'Bold'"></button>
       <button class="ql-italic" [title]="'Italic'"></button>
       <button *ngIf="isUnderline" class="ql-underline" [title]="'Underline'"></button>
