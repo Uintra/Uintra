@@ -47,12 +47,13 @@ namespace Uintra20.Core.Controls.LightboxGallery
             };
 
             galleryPreviewModel.Medias = galleryPreviewModel.Medias
-                .Take(strategy.MediaFilesToDisplay)
                 .Select(MapAsHidden())
                 .ToList();
 
             galleryPreviewModel.HiddenImagesCount = galleryPreviewModel.Medias.Count(i => i.IsHidden);
-
+            
+            galleryPreviewModel.FilesToDisplay = strategy.MediaFilesToDisplay;
+            
             var count = mediasViewModel.Count;
 
             if (count > 2)
