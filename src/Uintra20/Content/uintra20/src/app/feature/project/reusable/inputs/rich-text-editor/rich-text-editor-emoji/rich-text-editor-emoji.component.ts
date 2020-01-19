@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { emojiList } from './helper/emoji-list';
+import { emojiList } from './helpers/emoji-list';
 
 interface IEmoji {
   src: string;

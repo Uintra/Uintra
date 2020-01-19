@@ -4,6 +4,7 @@ import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-but
 import { ICommentCreator } from './comment-item.interface';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { CommentActivity } from '../../_constants.js';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-comment-item',
@@ -42,9 +43,10 @@ export class CommentItemComponent implements OnInit {
     return false;
   }
 
-  constructor(private commentsService: CommentsService) { }
+  constructor(private commentsService: CommentsService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
+    this.data.text = this.sanitizer.bypassSecurityTrustHtml(this.data.text);
     this.editedValue = this.data.text;
     const parsed = ParseHelper.parseUbaselineData(this.data);
     this.commentCreator = parsed.creator;

@@ -37,6 +37,8 @@ export class RichTextEditorComponent implements ControlValueAccessor {
 
   config: QuillConfig;
   editor: any;
+  container: any;
+  isEmojiPalette: boolean = false;
 
   get value() {
     return this._value;
@@ -51,6 +53,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   initEditor(editor) {
     console.log(editor);
     this.editor = editor;
+    this.container = editor.container;
     editor.focus();
   }
 
@@ -75,11 +78,25 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     return { 'top-mode': this.isEditing };
   }
 
-  test(test) {
-    this.editor.clipboard.dangerouslyPasteHTML(this.editor.getSelection().index, test);
-    // this.editor.setSelection(this.editor.getSelection().index + 1);
-    console.log(this.editor);
-    console.log(this.editor.getSelection());
-    // this.editor.editor.delta.ops.push({'insert': test});
+  addEmoji(emoji) {
+    if (this.editor.getSelection()) {
+      this.editor.insertEmbed(this.editor.getSelection().index, 'image', emoji.src);
+      this.editor.setSelection(this.editor.getSelection().index + 1);
+      this.editor.container.querySelectorAll("img").forEach(img => {
+        img.setAttribute('width', '20');
+        img.setAttribute('height', '20');
+        img.setAttribute('style', 'margin: 0 4px; vertical-align: middle');
+      });
+    }
+
+    this.closeEmojiPalette();
+  }
+
+  closeEmojiPalette() {
+    this.isEmojiPalette = false;
+  }
+
+  toggleEmojiPalette() {
+    this.isEmojiPalette = !this.isEmojiPalette;
   }
 }

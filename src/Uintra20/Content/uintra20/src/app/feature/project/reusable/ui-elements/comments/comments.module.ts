@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { CommentItemComponent } from './components/comment-item/comment-item.component';
 import { SubcommentItemComponent } from './components/subcomment-item/subcomment-item.component';
 import { CommentHeaderComponent } from './components/comment-header/comment-header.component';
-import 'quill-emoji/dist/quill-emoji';
 
 @NgModule({
   declarations: [
@@ -19,11 +18,7 @@ import 'quill-emoji/dist/quill-emoji';
   ],
   imports: [
     CommonModule,
-    RichTextEditorModule.configure({
-      modules: {
-        'emoji-toolbar': true,
-      }
-    }),
+    RichTextEditorModule,
     UserAvatarModule,
     LikeButtonModule,
     FormsModule

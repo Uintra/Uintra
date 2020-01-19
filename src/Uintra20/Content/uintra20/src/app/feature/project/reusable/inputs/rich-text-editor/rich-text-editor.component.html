@@ -11,8 +11,10 @@
     <div class="ql-counter" id="counter"></div>
 
     <div class="ql-formats">
-      <button class="ql-emoji icon-smily"></button>
-      <app-rich-text-editor-emoji (emojiClick)="test($event)"></app-rich-text-editor-emoji>
+      <div (clickOutside)="closeEmojiPalette()">
+        <button class="ql-emoji icon-smily" (click)="toggleEmojiPalette()"></button>
+        <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
+      </div>
       <button class="ql-bold" [title]="'Bold'"></button>
       <button class="ql-italic" [title]="'Italic'"></button>
       <button *ngIf="isUnderline" class="ql-underline" [title]="'Underline'"></button>
@@ -44,7 +46,10 @@
       <div *ngIf="!isEditing" class="ql-counter" id="counter"></div>
 
       <div class="ql-formats">
-        <button class="ql-emoji icon-smily"></button>
+        <div (clickOutside)="closeEmojiPalette()">
+          <button class="ql-emoji icon-smily" (click)="toggleEmojiPalette()"></button>
+          <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
+        </div>
         <button class="ql-bold" [title]="'Bold'"></button>
         <button class="ql-italic" [title]="'Italic'"></button>
         <button *ngIf="isUnderline" class="ql-underline" [title]="'Underline'"></button>
