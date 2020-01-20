@@ -17,6 +17,7 @@ using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Navigation.Services;
+using Uintra20.Features.Social.Edit.Models;
 using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.Extensions;
