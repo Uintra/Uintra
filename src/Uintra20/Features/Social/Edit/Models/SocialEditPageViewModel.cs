@@ -8,12 +8,13 @@ using Uintra20.Features.Tagging.UserTags.Models;
 
 namespace Uintra20.Features.Social.Edit.Models
 {
-    public class SocialEditPageViewModel: NodeViewModel
+    public class SocialEditPageViewModel : NodeViewModel
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
         public string Description { get; set; }
         public IEnumerable<UserTag> Tags { get; set; } = Enumerable.Empty<UserTag>();
         public LightboxPreviewModel LightboxPreviewModel { get; set; }
+        public IEnumerable<UserTag> AvailableTags { get; set; } = Enumerable.Empty<UserTag>();
     }
 }
