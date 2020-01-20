@@ -13,7 +13,7 @@ import { DropzoneModule, DropzoneConfigInterface, DROPZONE_CONFIG } from 'ngx-dr
 import 'quill-emoji/dist/quill-emoji';
 import { MAX_LENGTH } from './_constants.js';
 
-const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
+export const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // TODO: Change this to your upload POST address:
   url: '/umbraco/api/file/UploadSingle',
   maxFiles: 10,
