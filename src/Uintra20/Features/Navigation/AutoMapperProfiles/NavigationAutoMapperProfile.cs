@@ -6,6 +6,14 @@ namespace Uintra20.Features.Navigation.AutoMapperProfiles
     {
         public  NavigationAutoMapperProfile()
         {
+            //For new Uintra, need to check maybe it would be solved by automapper itself
+
+            //CreateMap<TopNavigationModel, TopNavigationViewModel>()
+            //    .ForMember(dst => dst.Items, o => o.MapFrom(m => m.Items.Map<IEnumerable<TopNavigationItemViewModel>>()));
+
+
+
+
             //Mapper.CreateMap<MenuItemModel, MenuItemViewModel>();
             //Mapper.CreateMap<MenuModel, MenuViewModel>();
             //Mapper.CreateMap<SubNavigationMenuModel, SubNavigationMenuViewModel>();
