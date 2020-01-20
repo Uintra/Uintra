@@ -12,11 +12,11 @@
               (success)="handleUpload($event)"
               (removedFile)="handleRemove($event)">
     </dropzone>
-    <button class="social-edit-save"
-            (click)="onSubmit()">SAVE</button>
-    <button class="social-edit-delete"
-            (onDelete)="onDelete()">DELETE</button>
-    <a class="social-edit-cancel"
+    <button class="btn"
+            (click)="handleSave()">SAVE</button>
+    <button class="btn"
+            (click)="handleDelete()">DELETE</button>
+    <a class="btn"
        [routerLink]="['/social-details']"
-       [queryParams]="{id: 123}">CANCEL</a>
+       [queryParams]="{id: socialEdit.activityId}">CANCEL</a>
 </section>

@@ -4,4 +4,5 @@ export interface ISocialEdit {
     tags: Array<any>;
     availableTags: Array<any>;
     files: Array<any>;
+    activityId: string;
 }

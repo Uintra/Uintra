@@ -27,11 +27,19 @@ export class SocialEditPageComponent {
     this.socialEdit.availableTags = Object.values(this.socialEdit.availableTags);
   }
 
-  handleUpload(fileArray: Array<any> = []): void {
+  public handleUpload(fileArray: Array<any> = []): void {
     console.log('uploaded');
   }
 
-  handleRemove(removedFile: object): void {
+  public handleRemove(removedFile: object): void {
     console.log('removed');
+  }
+
+  public handleSave(): void {
+    console.log('save');
+  }
+
+  public handleDelete(): void {
+    console.log('delete');
   }
 }

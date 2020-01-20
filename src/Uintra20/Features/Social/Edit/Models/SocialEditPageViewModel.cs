@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UBaseline.Shared.Node;
 using UBaseline.Shared.PageSettings;
@@ -16,5 +17,6 @@ namespace Uintra20.Features.Social.Edit.Models
         public IEnumerable<UserTag> Tags { get; set; } = Enumerable.Empty<UserTag>();
         public LightboxPreviewModel LightboxPreviewModel { get; set; }
         public IEnumerable<UserTag> AvailableTags { get; set; } = Enumerable.Empty<UserTag>();
+        public Guid ActivityId { get; set; }
     }
 }
