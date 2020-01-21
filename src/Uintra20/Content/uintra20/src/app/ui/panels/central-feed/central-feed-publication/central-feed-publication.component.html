@@ -21,13 +21,12 @@
   <div class="publication__content">
     <div
       class="publication__text"
-      [routerLink]="['/social-details']"
-      [queryParams]="{ id: publication.activity.id }"
       [innerHTML]="publication.activity.description"
+      (click)="checkForRightRoute($event)"
     ></div>
 
 
-    <div class="gallery" [ngClass]="'items-' + medias.length">
+    <div class="gallery" [ngClass]="'items-' + countToDisplay">
       <div
         *ngFor="let image of medias | slice: 0:3; index as i"
         class="gallery__image"

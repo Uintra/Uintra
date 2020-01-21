@@ -14,6 +14,7 @@ export class CentralFeedPublicationComponent implements OnInit {
   mediaCount: any;
   documentsCount: any;
   additionalImages: number;
+  countToDisplay: number;
 
   medias: Array<IMedia> = new Array<IMedia>();
   documents: Array<IDocument> = new Array<IDocument>();
@@ -24,9 +25,10 @@ export class CentralFeedPublicationComponent implements OnInit {
 
   likeData: ILikeData;
 
-  constructor(private imageGalleryService: ImageGalleryService) { }
+  constructor(private imageGalleryService: ImageGalleryService, private router: Router) { }
 
   ngOnInit(): void {
+    this.countToDisplay = this.publication.activity.mediaPreview.hiddenImagesCount - this.publication.activity.mediaPreview.additionalImages;
     this.medias = Object.values(this.publication.activity.mediaPreview.medias);
     this.mediaCount = this.medias.length;
     this.documents = Object.values(this.publication.activity.mediaPreview.otherFiles);
@@ -55,5 +57,11 @@ export class CentralFeedPublicationComponent implements OnInit {
     return this.publication.activity.dates.length
       ? this.publication.activity.dates[0]
       : '';
+  }
+
+  checkForRightRoute(e) {
+    if (!e.target.href) {
+      this.router.navigate(['/social-details'], { queryParams: { id: this.publication.activity.id } });
+    }
   }
 }
