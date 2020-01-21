@@ -17,6 +17,7 @@ using Uintra20.Features.Navigation.ModelBuilders.TopMenu;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Features.Navigation.Web;
 using Uintra20.Features.UintraPanels.LastActivities.Helpers;
+using Uintra20.Infrastructure;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
 using Umbraco.Core.Models.PublishedContent;
@@ -29,6 +30,9 @@ namespace Uintra20.Controllers
         protected override string SystemLinkNodePropertyAlias { get; } = "links";
         protected override string SystemLinkSortOrderNodePropertyAlias { get; } = "sort";
         protected override IEnumerable<string> SystemLinksContentAliasPath { get; }
+
+        protected override string DefaultRedirectUrl { get; } = "/";
+        protected override string UmbracoRedirectUrl { get; } = "/umbraco";
 
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;

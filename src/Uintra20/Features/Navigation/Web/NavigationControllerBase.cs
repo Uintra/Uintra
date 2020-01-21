@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using Compent.Extensions;
 using UBaseline.Core.Controllers;
+using Uintra20.Core.Authentication;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
@@ -27,12 +29,18 @@ namespace Uintra20.Features.Navigation.Web
         protected virtual string SystemLinkSortOrderNodePropertyAlias { get; } = string.Empty;
         protected virtual IEnumerable<string> SystemLinksContentAliasPath { get; } = Enumerable.Empty<string>();
 
+        protected virtual string DefaultRedirectUrl { get; } = string.Empty;
+        protected virtual string UmbracoRedirectUrl { get; } = string.Empty;
+
+        private readonly IAuthenticationService _authenticationService;
         private readonly ILeftSideNavigationModelBuilder _leftSideNavigationModelBuilder;
         private readonly ISubNavigationModelBuilder _subNavigationModelBuilder;
         private readonly ITopNavigationModelBuilder _topNavigationModelBuilder;
         private readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IProfileLinkProvider _profileLinkProvider;
+        private readonly INavigationModelsBuilder _navigationModelsBuilder;
+        private readonly UmbracoContext _umbracoContext;
 
         protected NavigationControllerBase(
             ILeftSideNavigationModelBuilder leftSideNavigationModelBuilder,
@@ -40,7 +48,9 @@ namespace Uintra20.Features.Navigation.Web
             ITopNavigationModelBuilder topNavigationModelBuilder,
             ISystemLinksModelBuilder systemLinksModelBuilder,
             IIntranetMemberService<IIntranetMember> intranetMemberService,
-            IProfileLinkProvider profileLinkProvider)
+            IProfileLinkProvider profileLinkProvider,
+            INavigationModelsBuilder navigationModelsBuilder,
+            UmbracoContext umbracoContext)
         {
             _leftSideNavigationModelBuilder = leftSideNavigationModelBuilder;
             _subNavigationModelBuilder = subNavigationModelBuilder;
@@ -48,6 +58,8 @@ namespace Uintra20.Features.Navigation.Web
             _systemLinksModelBuilder = systemLinksModelBuilder;
             _intranetMemberService = intranetMemberService;
             _profileLinkProvider = profileLinkProvider;
+            _umbracoContext = umbracoContext;
+            _navigationModelsBuilder = navigationModelsBuilder;
         }
 
         public virtual MenuViewModel LeftNavigation()
@@ -68,10 +80,9 @@ namespace Uintra20.Features.Navigation.Web
 
         public virtual TopNavigationViewModel TopNavigation()
         {
-            var topNavigation = _topNavigationModelBuilder.Get();
-            var result = topNavigation.Map<TopNavigationViewModel>();
-
-            return result;
+            var model = _navigationModelsBuilder.GetTopNavigationModel();
+            var viewModel = model.Map<TopNavigationViewModel>();
+            return viewModel;
         }
 
         public virtual IEnumerable<SystemLinksViewModel> SystemLinks()
@@ -114,16 +125,20 @@ namespace Uintra20.Features.Navigation.Web
                 : (ActionResult)new EmptyResult();
         }
 
-        public virtual ActionResult GoToUmbracoEditPage(int pageId)
+        public IHttpActionResult LoginToUmbraco()
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
-            var pageUrl = string.Format(NavigationUmbracoConstants.UmbracoEditPageUrl, pageId);
+            var relatedUser = currentMember.RelatedUser;
+            if (!relatedUser.IsValid)
+                return Redirect(DefaultRedirectUrl);
+            _umbracoContext.Security.PerformLogin(relatedUser.Id);
+            return Redirect(UmbracoRedirectUrl);
+        }
 
-            currentMember.RelatedUser
-                .Filter(user => user.IsValid)
-                .IfSome(user => UmbracoContext.Security.PerformLogin(user.Id));
-
-            return Redirect(pageUrl);
+        public IHttpActionResult Logout()
+        {
+            _authenticationService.Logout();
+            return Redirect(DefaultRedirectUrl);
         }
 
         protected virtual IEnumerable<BreadcrumbItemViewModel> GetBreadcrumbsItems()
