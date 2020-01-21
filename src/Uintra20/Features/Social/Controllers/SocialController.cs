@@ -75,24 +75,27 @@ namespace Uintra20.Features.Social.Controllers
         }
 
         [HttpPut]
-        public async Task<HttpResponseMessage> EditExtended(SocialExtendedEditModel editModel)
+        public async Task<IHttpActionResult> Update(SocialExtendedEditModel editModel)
         {
-            if (!IsValidDescription(editModel.Description))
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            if (!IsValidDescription(editModel.Description)) return BadRequest();
 
             var bulletin = MapToBulletin(editModel);
+
             await _socialService.SaveAsync(bulletin);
+
             await OnBulletinEditedAsync(bulletin, editModel);
-            return new HttpResponseMessage(HttpStatusCode.OK);
+
+            return Ok();
         }
 
         [HttpDelete]
-        public async Task<HttpResponseMessage> Delete(Guid id)
+        public async Task<IHttpActionResult> Delete(Guid id)
         {
             await _socialService.DeleteAsync(id);
+
             await OnBulletinDeletedAsync(id);
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return Ok();
         }
 
         public void ReloadFeed()
@@ -115,13 +118,14 @@ namespace Uintra20.Features.Social.Controllers
             return bulletin;
         }
 
-        private SocialBase MapToBulletin(SocialEditModel editModel)
+        private SocialBase MapToBulletin(SocialEditModel socialEditModel)
         {
-            var bulletin = _socialService.Get(editModel.Id);
-            //social = editModel.Map(social);
-            bulletin.MediaIds = bulletin.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
+            var social = _socialService.Get(socialEditModel.Id);
 
-            return bulletin;
+            social.MediaIds = social.MediaIds.Concat(_mediaHelper.CreateMedia(socialEditModel));
+            social.Description = socialEditModel.Description;
+
+            return social;
         }
 
         private void OnBulletinEdited(SocialBase social, SocialEditModel model)
