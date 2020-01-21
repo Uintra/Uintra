@@ -12,7 +12,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { QUILL_CONFIG_TOKEN, QuillConfig } from "ngx-quill";
 import Quill from "quill";
 import Counter from "./quill-modules/counter";
+import { emojiList } from './rich-text-editor-emoji/helpers/emoji-list';
 Quill.register("modules/counter", Counter);
+
 
 @Component({
   selector: "app-rich-text-editor",
@@ -36,8 +38,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   @Output() addAttachment = new EventEmitter();
 
   config: QuillConfig;
-  editor: any;
-  container: any;
+  editor: Quill;
   isEmojiPalette: boolean = false;
 
   get value() {
@@ -51,9 +52,27 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   constructor(@Inject(QUILL_CONFIG_TOKEN) config: QuillConfig) { }
 
   initEditor(editor) {
-    console.log(editor);
     this.editor = editor;
-    this.container = editor.container;
+    this.editor.on('text-change', (delta, source) => {
+      let stringFromDelta = '';
+      this.editor.getContents().ops.forEach(op => {
+        if (typeof op.insert === 'string') {
+          stringFromDelta += op.insert;
+        } else {
+          //instead of images we insert '1' just to know right index
+          stringFromDelta += '1';
+        }
+      });
+
+      emojiList.forEach(emoji => {
+        while (stringFromDelta.includes(emoji.shortcut)) {
+          const index = stringFromDelta.indexOf(emoji.shortcut);
+          this.editor.deleteText(index, emoji.shortcut.length);
+          this.addEmoji(emoji, index);
+          stringFromDelta = stringFromDelta.slice(0, index) + '1' + stringFromDelta.slice(index + emoji.shortcut.length);
+        }
+      })
+    });
     editor.focus();
   }
 
@@ -61,9 +80,10 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.addAttachment.emit();
   }
 
-  onTouched(): any {}
-  onChange(): any {}
-  propagateChange: any = () => {};
+  onTouched(): any { }
+  onChange(): any { }
+  propagateChange(val) {
+  };
   writeValue(value) {
     this.value = value;
   }
@@ -78,16 +98,14 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     return { 'top-mode': this.isEditing };
   }
 
-  addEmoji(emoji) {
-    if (this.editor.getSelection()) {
-      this.editor.insertEmbed(this.editor.getSelection().index, 'image', emoji.src);
-      this.editor.setSelection(this.editor.getSelection().index + 1);
-      this.editor.container.querySelectorAll("img").forEach(img => {
-        img.setAttribute('width', '20');
-        img.setAttribute('height', '20');
-        img.setAttribute('style', 'margin: 0 4px; vertical-align: middle');
-      });
-    }
+  addEmoji(emoji, index?) {
+    this.editor.insertEmbed(index || this.getCursorOrContentLength(), 'image', emoji.src);
+    this.editor.setSelection(index + 1 || this.getCursorOrContentLength() + 1);
+    this.editor.container.querySelectorAll("img").forEach(img => {
+      img.setAttribute('width', '20');
+      img.setAttribute('height', '20');
+      img.setAttribute('style', 'margin: 0 4px; vertical-align: middle');
+    });
 
     this.closeEmojiPalette();
   }
@@ -99,4 +117,18 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   toggleEmojiPalette() {
     this.isEmojiPalette = !this.isEmojiPalette;
   }
+
+  getCursorOrContentLength() {
+    const cursor = this.editor.getSelection();
+    if (cursor) {
+      if (cursor.length) {
+        this.editor.deleteText(cursor.index, cursor.length);
+      }
+      return cursor.index;
+    }
+
+    return this.editor.getContents().ops.length > 1 ? this.editor.getLength() - 1 : 0;
+  }
+
+
 }

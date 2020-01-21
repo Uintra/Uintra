@@ -12,7 +12,7 @@
 
     <div class="ql-formats">
       <div (clickOutside)="closeEmojiPalette()">
-        <button class="ql-emoji icon-smily" (click)="toggleEmojiPalette()"></button>
+        <button class="icon-smily" (click)="toggleEmojiPalette()"></button>
         <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
       </div>
       <button class="ql-bold" [title]="'Bold'"></button>

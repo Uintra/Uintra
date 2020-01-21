@@ -105,8 +105,8 @@ export const emojiList = [
   },
   {
     src: "../../../../../../../assets/emoji/fever.svg",
-    title: "Fever (fever)",
-    shortcut: "fever",
+    title: "Fever (:fever)",
+    shortcut: ":fever",
     width: "20",
     height: "20",
     class: "emoji-icon fever",
