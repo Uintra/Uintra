@@ -893,7 +893,11 @@
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Features\Navigation\INavigationModelsBuilder.cs" />
+    <Compile Include="Core\UbaselineModels\ArticlePageModel.cs" />
+    <Compile Include="Features\Navigation\Models\HeadingPageModel.cs" />
+    <Compile Include="Features\Navigation\Models\IUintraNavigationComposition.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationItem.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationItemViewModel.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationModel.cs" />
