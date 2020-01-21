@@ -2,81 +2,90 @@
 
 @publication-bg: @main-color;
 @label-bg: @red;
+@text-line-height: 24px;
 
 .publication {
-  .shadow;
-  background: @publication-bg;
-  padding: 20px 20px 10px;
+    .shadow;
+    background: @publication-bg;
+    padding: 20px 20px 10px;
 
-  &--important {
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.75), #fff);
-  }
-
-  &__label {
-    background: @label-bg;
-    color: @text-reverse-color;
-    text-transform: uppercase;
-    padding: 9px 14px;
-    border-radius: 50px;
-    font-size: 11px;
-  }
-
-  &__header {
-    margin-bottom: 25px;
-  }
-
-  &__activity-type {
-    cursor: pointer;
-
-    &:hover {
-      color: @link-color;
+    &--important {
+        background: linear-gradient(to top, rgba(255, 255, 255, 0.75), #fff);
     }
-  }
 
-  &__content {
-    margin-bottom: 25px;
-    font-size: 16px;
-  }
-
-  &__text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-  }
-
-  &__footer {
-    display: flex;
-    align-items: center;
-
-    &-item {
-      .reset-button;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      margin-right: 20px;
-
-      i {
-        margin-right: 5px;
-        color: #b2b2b2;
-      }
-      .icon-share-icon {
-        font-size: 22px;
-      }
+    &__label {
+        background: @label-bg;
+        color: @text-reverse-color;
+        text-transform: uppercase;
+        padding: 9px 14px;
+        border-radius: 50px;
+        font-size: 11px;
     }
-  }
 
-  &__files {
-    margin-left: auto;
-
-    .icon-attachment {
-      font-size: 1.6em;
-      line-height: 15px;
-      margin-right: 0;
+    &__header {
+        margin-bottom: 25px;
     }
-  }
+
+    &__activity-type {
+        cursor: pointer;
+
+        &:hover {
+            color: @link-color;
+        }
+    }
+
+    &__content {
+        margin-bottom: 25px;
+        font-size: 16px;
+    }
+
+    &__text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: @text-line-height;
+        max-height: @text-line-height * 3;
+        cursor: pointer;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+
+        &-item {
+            .reset-button;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            margin-right: 20px;
+
+            i {
+                margin-right: 5px;
+                color: #b2b2b2;
+            }
+
+            .icon-share-icon {
+                font-size: 22px;
+            }
+
+            &:hover {
+                color: @link-color;
+            }
+        }
+    }
+
+    &__files {
+        margin-left: auto;
+
+        .icon-attachment {
+            font-size: 1.6em;
+            line-height: 15px;
+            margin-right: 0;
+        }
+    }
 }
 
 .gallery {

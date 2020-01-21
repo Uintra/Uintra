@@ -106,14 +106,14 @@ namespace Uintra20.Features.Likes.Controllers
         private LikesViewModel Likes(IEnumerable<LikeModel> likes, Guid entityId, bool isReadOnly = false, bool showTitle = false)
         {
             var currenMemberId = _intranetMemberService.GetCurrentMemberId();
-            var likeModels = likes as IList<LikeModel> ?? likes.ToList();
-            var canAddLike = likeModels.All(el => el.UserId != currenMemberId);
+            var likeModels = likes.ToArray();
+            var likedByCurrentUser = likeModels.Any(el => el.UserId == currenMemberId);
             var model = new LikesViewModel
             {
                 EntityId = entityId,
                 MemberId = currenMemberId,
-                Count = likeModels.Count,
-                CanAddLike = canAddLike,
+                Count = likeModels.Length,
+                LikedByCurrentUser = likedByCurrentUser,
                 Users = likeModels.Select(el => el.User),
                 IsReadOnly = isReadOnly,
                 ShowTitle = showTitle
@@ -124,14 +124,14 @@ namespace Uintra20.Features.Likes.Controllers
         private async Task<LikesViewModel> LikesAsync(IEnumerable<LikeModel> likes, Guid entityId, bool isReadOnly = false, bool showTitle = false)
         {
             var currenMemberId = await _intranetMemberService.GetCurrentMemberIdAsync();
-            var likeModels = likes as IList<LikeModel> ?? likes.ToList();
-            var canAddLike = likeModels.All(el => el.UserId != currenMemberId);
+            var likeModels = likes.ToArray();
+            var likedByCurrentUser = likeModels.Any(el => el.UserId == currenMemberId);
             var model = new LikesViewModel
             {
                 EntityId = entityId,
                 MemberId = currenMemberId,
-                Count = likeModels.Count,
-                CanAddLike = canAddLike,
+                Count = likeModels.Length,
+                LikedByCurrentUser = likedByCurrentUser,
                 Users = likeModels.Select(el => el.User),
                 IsReadOnly = isReadOnly,
                 ShowTitle = showTitle

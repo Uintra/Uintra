@@ -893,7 +893,14 @@
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
-    <Compile Include="Controllers\NavigationController.cs" />
+    <Compile Include="Features\Navigation\INavigationModelsBuilder.cs" />
+    <Compile Include="Features\Navigation\Models\TopNavigationItem.cs" />
+    <Compile Include="Features\Navigation\Models\TopNavigationItemViewModel.cs" />
+    <Compile Include="Features\Navigation\Models\TopNavigationModel.cs" />
+    <Compile Include="Features\Navigation\Models\TopNavigationViewModel.cs" />
+    <Compile Include="Features\Navigation\NavigationModelsBuilder.cs" />
+    <Compile Include="Features\Navigation\TopNavigationItemTypes.cs" />
+    <Compile Include="Features\Navigation\Web\NavigationController.cs" />
     <Compile Include="Core\Configuration\ConfigurationProvider.cs" />
     <Compile Include="Core\Configuration\IConfigurationProvider.cs" />
     <Compile Include="Features\Groups\ContentServices\GroupContentProvider.cs" />
@@ -1343,6 +1350,8 @@
     <Compile Include="Infrastructure\Ioc\UintraInjectModule.cs" />
     <Compile Include="Infrastructure\Providers\ContentPageContentProvider.cs" />
     <Compile Include="Infrastructure\Providers\IContentPageContentProvider.cs" />
+    <Compile Include="Infrastructure\UintraInformation\IUintraInformationService.cs" />
+    <Compile Include="Infrastructure\UintraInformation\UintraInformationService.cs" />
     <Compile Include="MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Core\Feed\Models\IFeedItem.cs" />
     <Compile Include="Features\CentralFeed\Models\GroupFeed\GroupInfo.cs" />

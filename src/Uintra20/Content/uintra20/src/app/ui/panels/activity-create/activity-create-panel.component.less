@@ -87,7 +87,7 @@ activity-create-panel {
     }
 
     &__multiselect {
-      padding: 21px 30px 16px;
+      padding: 21px 30px 25px;
     }
   }
 
@@ -104,6 +104,7 @@ activity-create-panel {
   dropzone > .dropzone.dz-wrapper {
     padding: 0 14px !important;
     height: 0 !important;
+    overflow: visible;
 
     &.dz-started {
       height: auto !important;
@@ -123,6 +124,10 @@ activity-create-panel {
       &:hover {
         text-decoration: underline;
       }
+    }
+
+    .dz-error-message {
+      top: 150px;
     }
   }
 
