@@ -1,6 +1,6 @@
 export const emojiList = [
   {
-    src: "../../../../../../../assets/emoji/angry.svg",
+    src: "../../../../../../../assets/emoji/smile.svg",
     title: "Smile (:))",
     shortcut: ":)",
     width: "20",
