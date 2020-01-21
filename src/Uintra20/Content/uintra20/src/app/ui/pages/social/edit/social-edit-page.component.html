@@ -8,12 +8,7 @@
                              [availableTags]="socialEdit.availableTags"
                              [(ngModel)]="socialEdit.tags">
         </app-tag-multiselect>
-        <div class="attachments">
-                <label>File(s)</label>
-                <ul *ngFor="let attachment of socialEdit.attachments">
-                        <img [src]="attachment.url">
-                </ul>
-        </div>
+        <!-- TODO Added images here -->
         <dropzone #dropdownRef
                   (success)="handleUpload($event)"
                   (removedFile)="handleRemove($event)">
