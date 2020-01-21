@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ILikeData } from '../../../../feature/project/reusable/ui-elements/like-button/like-button.interface';
 import { Router} from '@angular/router';
-import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-elements/image-gallery/image-gallery.service';
-import { IMedia, IDocument } from 'src/app/ui/pages/social-details/social-details.interface';
+import { IMedia, IDocument } from '../../../pages/social/details/social-details.interface';
+import { ImageGalleryService } from '../../../../feature/project/reusable/ui-elements/image-gallery/image-gallery.service';
 
 @Component({
   selector: 'app-central-feed-publication',

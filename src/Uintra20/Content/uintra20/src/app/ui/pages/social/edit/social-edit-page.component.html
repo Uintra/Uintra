@@ -1,0 +1,31 @@
+<section>
+        <h1 class="social-edit-title">{{socialEdit.name}}</h1>
+        <label for="desciption">Description</label>
+        <app-rich-text-editor [(ngModel)]="socialEdit.description"
+                              [isUnderline]="false"
+                              placeholder="Write a message, post a photo or share a document"></app-rich-text-editor>
+        <app-tag-multiselect class="bulletin-popup__multiselect"
+                             [availableTags]="socialEdit.availableTags"
+                             [(ngModel)]="socialEdit.tags">
+        </app-tag-multiselect>
+        <div class="attachments">
+                <label>File(s)</label>
+                <ul *ngFor="let attachment of socialEdit.attachments">
+                        <img [src]="attachment.url">
+                </ul>
+        </div>
+        <dropzone #dropdownRef
+                  (success)="handleUpload($event)"
+                  (removedFile)="handleRemove($event)">
+        </dropzone>
+        <button class="btn"
+                [disabled]="inProgress"
+                (click)="handleSocialUpdate()">SAVE</button>
+
+        <button class="btn"
+                [disabled]="inProgress"
+                (click)="handleSocialDelete()">DELETE</button>
+        <a class="btn"
+           [routerLink]="['/social-details']"
+           [queryParams]="{id: socialEdit.id}">CANCEL</a>
+</section>
