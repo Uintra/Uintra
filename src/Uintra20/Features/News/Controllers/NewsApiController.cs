@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Models.Headers;
@@ -58,18 +58,26 @@ namespace Uintra20.Features.News.Controllers
         }
 
         [HttpPost]
-        public async Task<NewsViewModel> Create(NewsCreateModel createModel)
+        public async Task<IHttpActionResult> Create(NewsCreateModel createModel)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             var newsBaseCreateModel = await MapToNewsAsync(createModel);
             var activityId = await _newsService.CreateAsync(newsBaseCreateModel);
 
             await OnNewsCreatedAsync(activityId, createModel);
+            var result = await GetViewModelAsync(_newsService.Get(activityId));
 
-            return await GetViewModelAsync(_newsService.Get(activityId));
+            return Ok(result);
         }
 
-        public async Task<NewsViewModel> Edit(NewsEditModel editModel)
+        [HttpPost]
+        public async Task<IHttpActionResult> Edit(NewsEditModel editModel)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             var cachedActivityMedias = _newsService.Get(editModel.Id).MediaIds;
 
             var activity = MapToNews(editModel);
@@ -78,8 +86,9 @@ namespace Uintra20.Features.News.Controllers
             DeleteMedia(cachedActivityMedias.Except(activity.MediaIds));
 
             await OnNewsEditedAsync(activity, editModel);
+            var result = await GetViewModelAsync(_newsService.Get(editModel.Id));
 
-            return await GetViewModelAsync(_newsService.Get(editModel.Id));
+            return Ok(result);
         }
 
         private async Task<NewsBase> MapToNewsAsync(NewsCreateModel createModel)
