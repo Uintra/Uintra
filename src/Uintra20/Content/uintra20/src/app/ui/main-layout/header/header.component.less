@@ -8,6 +8,7 @@
 .header {
   .centering;
   .flex-center;
+  align-items: center;
   height: 100%;
 
   @media @md-up {
@@ -19,13 +20,25 @@
   }
 
   &__content {
-    .flex-center;
-    justify-content: flex-end;
+    display: none;
 
     @media @md-up {
+    .flex-center;
+    justify-content: flex-end;
+    width: 76.5%;
       flex-grow: 1;
+      padding-left: 290px;
+    }
+
+    @media @lg-up {
+      padding-left: 320px;
     }
   }
+}
+
+.header-center {
+  display: flex;
+  width: 100%;
 }
 
 .burger-menu {
@@ -69,14 +82,28 @@
   }
 }
 
-.site-logo {
+.icon {
+  font-size: 20px;
 }
 
-.header-center {
+.groups {
+  color: @main-color;
+  padding: 0 4px;
+  text-decoration: none;
   display: flex;
+  align-items: center;
+}
 
+user-navigation {
   @media @md-down {
-    position: static;
+    display: none;
   }
 }
 
+.notifications-for-mobile {
+  display: flex;
+
+  @media @md-up {
+    display: none;
+  }
+}

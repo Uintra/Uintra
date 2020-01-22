@@ -1,8 +1,9 @@
 @import "base.less";
 
 :host {
-  display: inline-block;
-  margin-left: auto;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
 }
 
 .nav-notification {
@@ -10,13 +11,14 @@
 
   @media @md-up {
     position: relative;
+    top: 2px;
   }
 
   &__button {
     .reset-button;
     position: relative;
     color: @text-reverse-color;
-    font-size: 26px;
+    font-size: 24px;
     cursor: pointer;
   }
 

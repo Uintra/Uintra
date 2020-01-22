@@ -10,7 +10,7 @@
                     [activityType]="cell.get().activity.get().type.get()"
                     [activityDate]="cell.get().activity.get().dates.get()[0]"
                     [activityId]="cell.get().activity.get().id.get()"
-                    [activityDescription]="getSanitizedDescription(cell)">
+                    [activityDescription]="cell.get().activity.get().description.get()">
                 </latest-activity>
             </div>
             <a routerLink="socials"

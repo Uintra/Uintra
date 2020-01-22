@@ -1,4 +1,24 @@
 <!-- TODO: See uintra QA There should be popup with items -->
-<button (click)="logout()"
-        [disabled]="inProgress">Logout
-</button>
+<!-- <button (click)="logout()" [disabled]="inProgress">Logout
+</button> -->
+<div *ngIf="data" class="user-navigation">
+  <a class="user__opener" (click)="toggleUserNavigation($event)">
+    <div class="user__avatar">
+      <div class="avatar__letter">
+        1
+      </div>
+    </div>
+    <span class="user__opener-arrow"></span>
+    <div class="greeting">
+      <strong class="greeting__username">1Admin 2 2Admin 2</strong>
+    </div>
+  </a>
+  <ul class="menu" [ngClass]="{'menu--expanded': isNavigationExpanded}" (clickOutside)="closeUserNavigation()">
+    <li *ngFor="let item of data.items" class="menu__item">
+      <a class="menu__item-link" [href]="item.url">
+        <span class="icon icon-top-navigation-{{item.type}}"></span>
+        {{item.name}}
+      </a>
+    </li>
+  </ul>
+</div>

@@ -8,8 +8,8 @@
       <nav class="nav">
         <div class="nav__header">
           <!--TODO mobile search-->
-          <div class="nav__search">search div</div>
-          <span class="icon-close js-nav-close"></span>
+          <app-search></app-search>
+          <span class="icon-close" (click)="closeLeftNav()"></span>
         </div>
 
         <app-left-navigation></app-left-navigation>
