@@ -12,7 +12,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { QUILL_CONFIG_TOKEN, QuillConfig } from "ngx-quill";
 import Quill from "quill";
 import Counter from "./quill-modules/counter";
+import { emojiList } from './rich-text-editor-emoji/helpers/emoji-list';
+import { EmojiService } from './rich-text-editor-emoji/helpers/emoji.service';
 Quill.register("modules/counter", Counter);
+
 
 @Component({
   selector: "app-rich-text-editor",
@@ -36,6 +39,8 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   @Output() addAttachment = new EventEmitter();
 
   config: QuillConfig;
+  editor: Quill;
+  isEmojiPalette: boolean = false;
 
   get value() {
     return this._value;
@@ -45,9 +50,13 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.propagateChange(val);
   }
 
-  constructor(@Inject(QUILL_CONFIG_TOKEN) config: QuillConfig) { }
+  constructor(@Inject(QUILL_CONFIG_TOKEN) config: QuillConfig, private emojiService: EmojiService) { }
 
   initEditor(editor) {
+    this.editor = editor;
+    this.emojiService.addOnTextChangeCallback(editor)
+    this.emojiService.addStylesToImages(editor);
+
     editor.focus();
   }
 
@@ -55,9 +64,10 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.addAttachment.emit();
   }
 
-  onTouched(): any {}
-  onChange(): any {}
-  propagateChange: any = () => {};
+  onTouched(): any { }
+  onChange(): any { }
+  propagateChange(val) {
+  };
   writeValue(value) {
     this.value = value;
   }
@@ -70,5 +80,23 @@ export class RichTextEditorComponent implements ControlValueAccessor {
 
   getToolbarClass() {
     return { 'top-mode': this.isEditing };
+  }
+
+  closeEmojiPalette() {
+    this.isEmojiPalette = false;
+  }
+
+  toggleEmojiPalette() {
+    this.isEmojiPalette = !this.isEmojiPalette;
+  }
+
+  addEmoji(emoji, index?) {
+    if (index) {
+      this.emojiService.addEmoji(this.editor, emoji, index);
+    }
+
+    this.emojiService.addEmoji(this.editor, emoji);
+
+    this.closeEmojiPalette();
   }
 }
