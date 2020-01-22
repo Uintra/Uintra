@@ -15,6 +15,7 @@ export interface INavigationItem {
   isClickable: boolean;
   isHeading: boolean;
   children: INavigationItem[];
+  level: number;
 
   isSelected: boolean;
 }
