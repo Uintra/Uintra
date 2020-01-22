@@ -1,0 +1,39 @@
+<section>
+    <h3>{{profileEdit.title}}</h3>
+    <button (click)="handleSave()">SAVE</button>
+    <a [routerLink]="['/profile']"
+       [queryParams]="{id: profileEdit.member.id}">CANCEL</a>
+    <br />
+    <form [formGroup]="profileEditForm">
+        <label for="firstName">First name</label>
+        <input formControlName="firstName"
+               type="text"
+               name="firstName"
+               id="firstName" />
+        <br />
+        <label for="lastName">Last name</label>
+        <input formControlName="lastName"
+               type="text"
+               name="lastName"
+               id="lastName" />
+        <br />
+        <label for="email">Email</label>
+        <span></span>
+        <br />
+        <label for="phone">Phone</label>
+        <input type="text"
+               name="phone"
+               id="phone" />
+        <br />
+        <label for="department">Department</label>
+        <input type="text"
+               name="department"
+               id="department" />
+        <br />
+        <label>Tag(s)</label>
+        <!-- <app-tag-multiselect 
+        [availableTags]=""
+        [(ngModel)]="">
+    </app-tag-multiselect>  -->
+    </form>
+</section>
