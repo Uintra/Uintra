@@ -5,7 +5,10 @@ using UBaseline.Shared.Property;
 
 namespace Uintra20.Core.Member.Profile.Models
 {
-    public class ProfilePageModel : NodeModel
+    public class ProfilePageModel : 
+        NodeModel, 
+        IPanelsComposition, 
+        IPageSettingsComposition
     {
         public PropertyModel<PanelContainerModel> Panels { get; set; }
         public PageSettingsCompositionModel PageSettings { get; set; }

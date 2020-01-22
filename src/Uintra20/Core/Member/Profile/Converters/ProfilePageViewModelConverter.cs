@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Member.Entities;
@@ -31,7 +30,6 @@ namespace Uintra20.Core.Member.Profile.Converters
             var member = _memberService.Get(parseId);
 
             viewModel.Profile = member.Map<ProfileViewModel>();
-
         }
     }
 }

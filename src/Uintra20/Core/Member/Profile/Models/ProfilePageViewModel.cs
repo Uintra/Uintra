@@ -5,7 +5,7 @@ using Uintra20.Core.Member.Models;
 
 namespace Uintra20.Core.Member.Profile.Models
 {
-    public class ProfilePageViewModel: NodeViewModel
+    public class ProfilePageViewModel : NodeViewModel
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }

@@ -64,7 +64,19 @@ namespace Uintra20.Infrastructure.Extensions
             this HttpRequest request, 
             string key)
         {
-            return request[key];
+            if (request == null)
+            {
+                return null;
+            }
+
+            var url = request["url"];
+
+            if (string.IsNullOrWhiteSpace(url) || !Uri.TryCreate(url, UriKind.Absolute, out Uri requestedUrl))
+            {
+                return null;
+            }
+
+            return HttpUtility.ParseQueryString(requestedUrl.Query).Get(key);
         }
     }
 }
