@@ -893,8 +893,6 @@
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
-    <Compile Include="Controllers\TestController.cs" />
-    <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Features\Navigation\INavigationModelsBuilder.cs" />
     <Compile Include="Core\UbaselineModels\ArticlePageModel.cs" />
     <Compile Include="Features\Navigation\Models\HeadingPageModel.cs" />
@@ -945,7 +943,6 @@
     <Compile Include="Features\Navigation\NavigationPropertiesConstants.cs" />
     <Compile Include="Features\Navigation\Models\MenuItemModel.cs" />
     <Compile Include="Features\Navigation\Models\MenuModel.cs" />
-    <Compile Include="Features\Navigation\Web\NavigationControllerBase.cs" />
     <Compile Include="Features\Notification\Configuration\NotificationConfiguration.cs" />
     <Compile Include="Features\Notification\Configuration\NotificationTypeConfiguration.cs" />
     <Compile Include="Features\Notification\Configuration\NotifierConfiguration.cs" />
