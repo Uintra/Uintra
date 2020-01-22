@@ -31,6 +31,10 @@ namespace Uintra20.Features.Navigation
 
         public virtual IEnumerable<TreeNavigationItemModel> GetLeftSideNavigation()
         {
+            var test = _nodeModelService.AsEnumerable()
+                .Where(i => i.Level >= 1 && _nodeDirectAccessValidator.HasAccess(i)).OfType<IUintraNavigationComposition>();
+            var testNames = test.Select(x => x.Name).ToList();
+
             var navigationNodes = _nodeModelService.AsEnumerable()
                 .Where(i => i.Level >= 1 && _nodeDirectAccessValidator.HasAccess(i))
                 .OfType<IUintraNavigationComposition>()

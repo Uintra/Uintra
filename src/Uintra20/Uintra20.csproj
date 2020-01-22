@@ -895,6 +895,7 @@
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
+    <Compile Include="Core\UbaselineModels\HomePageModel.cs" />
     <Compile Include="Features\Navigation\INavigationModelsBuilder.cs" />
     <Compile Include="Core\UbaselineModels\ArticlePageModel.cs" />
     <Compile Include="Features\Navigation\Models\HeadingPageModel.cs" />
