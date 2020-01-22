@@ -14,17 +14,14 @@ namespace Uintra20.Features.Navigation.ModelBuilders.LeftSideMenu
 {
     public class LeftSideNavigationModelBuilder : NavigationModelBuilderBase<MenuModel>, ILeftSideNavigationModelBuilder
     {
-        private readonly HttpContext _httpContext;
         private readonly IContentPageContentProvider _contentPageContentPropvider;
 
         public LeftSideNavigationModelBuilder(
-            HttpContext httpContext,
             UmbracoHelper umbracoHelper,
             IConfigurationProvider<NavigationConfiguration> navigationConfigurationProvider,
             IContentPageContentProvider contentPageContentPropvider)
             : base(umbracoHelper, navigationConfigurationProvider)
         {
-            _httpContext = httpContext;
             _contentPageContentPropvider = contentPageContentPropvider;
         }
 
@@ -147,7 +144,7 @@ namespace Uintra20.Features.Navigation.ModelBuilders.LeftSideMenu
             var activeItem = resultMenuItems.Find(item => item.IsActive);
             if (activeItem != null)
             {
-                activeItem.IsClickable = !activeItem.IsHeading && (_httpContext.Request.Url.AbsolutePath.Trim('/') != activeItem.Url.Trim('/'));
+                activeItem.IsClickable = !activeItem.IsHeading && (HttpContext.Current.Request.Url.AbsolutePath.Trim('/') != activeItem.Url.Trim('/'));
                 return;
             }
 

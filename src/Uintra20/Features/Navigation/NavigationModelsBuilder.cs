@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Compent.Extensions;
+using UBaseline.Core.Navigation;
+using UBaseline.Core.Node;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure;
 
@@ -10,10 +13,33 @@ namespace Uintra20.Features.Navigation
     public class NavigationModelsBuilder : INavigationModelsBuilder
     {
         private readonly IUintraInformationService _uintraInformationService;
+        private readonly INodeModelService _nodeModelService;
+        private readonly INodeDirectAccessValidator _nodeDirectAccessValidator;
+        private readonly INavigationBuilder _navigationBuilder;
 
-        public NavigationModelsBuilder(IUintraInformationService uintraInformationService)
+        public NavigationModelsBuilder(
+            IUintraInformationService uintraInformationService,
+            INodeModelService nodeModelService,
+            INodeDirectAccessValidator nodeDirectAccessValidator,
+            INavigationBuilder navigationBuilder)
         {
             _uintraInformationService = uintraInformationService;
+            _nodeModelService = nodeModelService;
+            _nodeDirectAccessValidator = nodeDirectAccessValidator;
+            _navigationBuilder = navigationBuilder;
+        }
+
+        public virtual IEnumerable<TreeNavigationItemModel> GetLeftSideNavigation()
+        {
+            var navigationNodes = _nodeModelService.AsEnumerable()
+                .Where(i => i.Level >= 1 && _nodeDirectAccessValidator.HasAccess(i))
+                .OfType<IUintraNavigationComposition>()
+                .OrderBy(i => i.SortOrder)
+                .Where(i => i.Navigation.ShowInMenu.Value && i.Url.HasValue());
+
+            IEnumerable<TreeNavigationItemModel> items = _navigationBuilder.GetTreeNavigation(navigationNodes);
+
+            return items;
         }
 
         public virtual TopNavigationModel GetTopNavigationModel()
