@@ -13,6 +13,7 @@ import { QUILL_CONFIG_TOKEN, QuillConfig } from "ngx-quill";
 import Quill from "quill";
 import Counter from "./quill-modules/counter";
 import { emojiList } from './rich-text-editor-emoji/helpers/emoji-list';
+import { EmojiService } from './rich-text-editor-emoji/helpers/emoji.service';
 Quill.register("modules/counter", Counter);
 
 
@@ -49,30 +50,13 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.propagateChange(val);
   }
 
-  constructor(@Inject(QUILL_CONFIG_TOKEN) config: QuillConfig) { }
+  constructor(@Inject(QUILL_CONFIG_TOKEN) config: QuillConfig, private emojiService: EmojiService) { }
 
   initEditor(editor) {
     this.editor = editor;
-    this.editor.on('text-change', (delta, source) => {
-      let stringFromDelta = '';
-      this.editor.getContents().ops.forEach(op => {
-        if (typeof op.insert === 'string') {
-          stringFromDelta += op.insert;
-        } else {
-          //instead of images we insert '1' just to know right index
-          stringFromDelta += '1';
-        }
-      });
+    this.emojiService.addOnTextChangeCallback(editor)
+    this.emojiService.addStylesToImages(editor);
 
-      emojiList.forEach(emoji => {
-        while (stringFromDelta.includes(emoji.shortcut)) {
-          const index = stringFromDelta.indexOf(emoji.shortcut);
-          this.editor.deleteText(index, emoji.shortcut.length);
-          this.addEmoji(emoji, index);
-          stringFromDelta = stringFromDelta.slice(0, index) + '1' + stringFromDelta.slice(index + emoji.shortcut.length);
-        }
-      })
-    });
     editor.focus();
   }
 
@@ -98,18 +82,6 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     return { 'top-mode': this.isEditing };
   }
 
-  addEmoji(emoji, index?) {
-    this.editor.insertEmbed(index || this.getCursorOrContentLength(), 'image', emoji.src);
-    this.editor.setSelection(index + 1 || this.getCursorOrContentLength() + 1);
-    this.editor.container.querySelectorAll("img").forEach(img => {
-      img.setAttribute('width', '20');
-      img.setAttribute('height', '20');
-      img.setAttribute('style', 'margin: 0 4px; vertical-align: middle');
-    });
-
-    this.closeEmojiPalette();
-  }
-
   closeEmojiPalette() {
     this.isEmojiPalette = false;
   }
@@ -118,17 +90,13 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.isEmojiPalette = !this.isEmojiPalette;
   }
 
-  getCursorOrContentLength() {
-    const cursor = this.editor.getSelection();
-    if (cursor) {
-      if (cursor.length) {
-        this.editor.deleteText(cursor.index, cursor.length);
-      }
-      return cursor.index;
+  addEmoji(emoji, index?) {
+    if (index) {
+      this.emojiService.addEmoji(this.editor, emoji, index);
     }
 
-    return this.editor.getContents().ops.length > 1 ? this.editor.getLength() - 1 : 0;
+    this.emojiService.addEmoji(this.editor, emoji);
+
+    this.closeEmojiPalette();
   }
-
-
 }

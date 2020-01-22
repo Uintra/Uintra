@@ -46,8 +46,8 @@ export class CommentItemComponent implements OnInit {
   constructor(private commentsService: CommentsService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.data.text = this.sanitizer.bypassSecurityTrustHtml(this.data.text);
     this.editedValue = this.data.text;
+    this.data.text = this.sanitizer.bypassSecurityTrustHtml(this.data.text);
     const parsed = ParseHelper.parseUbaselineData(this.data);
     this.commentCreator = parsed.creator;
     this.commentBody = parsed.text;

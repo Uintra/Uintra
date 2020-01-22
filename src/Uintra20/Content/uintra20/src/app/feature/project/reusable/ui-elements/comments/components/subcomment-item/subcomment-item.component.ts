@@ -31,8 +31,8 @@ export class SubcommentItemComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.data.text = this.sanitizer.bypassSecurityTrustHtml(this.data.text);
     this.editedValue = this.data.text;
+    this.data.text = this.sanitizer.bypassSecurityTrustHtml(this.data.text);
     const parsed = ParseHelper.parseUbaselineData(this.data);
     this.likeModel = {
       likedByCurrentUser: !!parsed.likeModel.likedByCurrentUser,

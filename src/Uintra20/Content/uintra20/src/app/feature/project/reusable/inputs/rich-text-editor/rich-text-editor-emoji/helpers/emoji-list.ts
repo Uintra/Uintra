@@ -1,6 +1,8 @@
+const emojiPath = '../../../../../../../assets/emoji/';
+
 export const emojiList = [
   {
-    src: "../../../../../../../assets/emoji/smile.svg",
+    src: emojiPath + "smile.svg",
     title: "Smile (:))",
     shortcut: ":)",
     width: "20",
@@ -8,7 +10,7 @@ export const emojiList = [
     class: "emoji-icon smile",
   },
   {
-    src: "../../../../../../../assets/emoji/sad.svg",
+    src: emojiPath + "sad.svg",
     title: "Sad (:()",
     shortcut: ":(",
     width: "20",
@@ -16,7 +18,7 @@ export const emojiList = [
     class: "emoji-icon sad",
   },
   {
-    src: "../../../../../../../assets/emoji/wink.svg",
+    src: emojiPath + "wink.svg",
     title: "Wink (;))",
     shortcut: ";)",
     width: "20",
@@ -24,7 +26,7 @@ export const emojiList = [
     class: "emoji-icon wink",
   },
   {
-    src: "../../../../../../../assets/emoji/shocked.svg",
+    src: emojiPath + "shocked.svg",
     title: "Shocked (:|)",
     shortcut: ":|",
     width: "20",
@@ -32,7 +34,7 @@ export const emojiList = [
     class: "emoji-icon shocked",
   },
   {
-    src: "../../../../../../../assets/emoji/tease.svg",
+    src: emojiPath + "tease.svg",
     title: "Tease (:p)",
     shortcut: ":p",
     width: "20",
@@ -40,7 +42,7 @@ export const emojiList = [
     class: "emoji-icon tease",
   },
   {
-    src: "../../../../../../../assets/emoji/funny.svg",
+    src: "funny.svg",
     title: "Funny (:D)",
     shortcut: ":D",
     width: "20",
@@ -48,7 +50,7 @@ export const emojiList = [
     class: "emoji-icon funny",
   },
   {
-    src: "../../../../../../../assets/emoji/angry.svg",
+    src: emojiPath + "angry.svg",
     title: "Angry (:<)",
     shortcut: ":<",
     width: "20",
@@ -56,7 +58,7 @@ export const emojiList = [
     class: "emoji-icon angry",
   },
   {
-    src: "../../../../../../../assets/emoji/skeptical.svg",
+    src: emojiPath + "skeptical.svg",
     title: "Skeptical (:^))",
     shortcut: ":^",
     width: "20",
@@ -64,7 +66,7 @@ export const emojiList = [
     class: "emoji-icon skeptical",
   },
   {
-    src: "../../../../../../../assets/emoji/surprised.svg",
+    src: emojiPath + "surprised.svg",
     title: "Surprised (:o)",
     shortcut: ":o",
     width: "20",
@@ -72,7 +74,7 @@ export const emojiList = [
     class: "emoji-icon surprised",
   },
   {
-    src: "../../../../../../../assets/emoji/great.svg",
+    src: emojiPath + "great.svg",
     title: "Great (:+1)",
     shortcut: ":+1",
     width: "20",
@@ -80,7 +82,7 @@ export const emojiList = [
     class: "emoji-icon great",
   },
   {
-    src: "../../../../../../../assets/emoji/joy.svg",
+    src: emojiPath + "joy.svg",
     title: "Joy (:-))",
     shortcut: ":-)",
     width: "20",
@@ -88,7 +90,7 @@ export const emojiList = [
     class: "emoji-icon joy",
   },
   {
-    src: "../../../../../../../assets/emoji/love.svg",
+    src: emojiPath + "love.svg",
     title: "Love (:x)",
     shortcut: ":x",
     width: "20",
@@ -96,7 +98,7 @@ export const emojiList = [
     class: "emoji-icon love",
   },
   {
-    src: "../../../../../../../assets/emoji/party.svg",
+    src: emojiPath + "party.svg",
     title: "Party (<o))",
     shortcut: "<o",
     width: "20",
@@ -104,7 +106,7 @@ export const emojiList = [
     class: "emoji-icon party",
   },
   {
-    src: "../../../../../../../assets/emoji/fever.svg",
+    src: emojiPath + "fever.svg",
     title: "Fever (:fever)",
     shortcut: ":fever",
     width: "20",
@@ -112,7 +114,7 @@ export const emojiList = [
     class: "emoji-icon fever",
   },
   {
-    src: "../../../../../../../assets/emoji/sleepy.svg",
+    src: emojiPath + "sleepy.svg",
     title: "Sleepy (|-))",
     shortcut: "|-)",
     width: "20",
