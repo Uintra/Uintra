@@ -1,38 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
-using Uintra20.Core.Authentication;
-using Uintra20.Core.Member.Abstractions;
-using Uintra20.Core.Member.Services;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure.Extensions;
-using Umbraco.Web.WebApi;
 
 namespace Uintra20.Features.Navigation.Web
 {
-    public class NavigationController : UmbracoApiController
+    public class IntranetNavigationController : UBaselineApiController
     {
-        protected virtual string DefaultRedirectUrl { get; } = "/";
-        protected virtual string UmbracoRedirectUrl { get; } = "/umbraco";
-
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
-        private readonly IAuthenticationService _authenticationService;
         private readonly INavigationModelsBuilder _navigationModelsBuilder;
 
-        public NavigationController(
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
-            IAuthenticationService authenticationService,
-            INavigationModelsBuilder navigationModelsBuilder)
+        public IntranetNavigationController(INavigationModelsBuilder navigationModelsBuilder)
         {
-            _intranetMemberService = intranetMemberService;
-            _authenticationService = authenticationService;
             _navigationModelsBuilder = navigationModelsBuilder;
         }
 
+        [HttpGet]
         public virtual TopNavigationViewModel TopNavigation()
         {
             var model = _navigationModelsBuilder.GetTopNavigationModel();
@@ -40,22 +23,13 @@ namespace Uintra20.Features.Navigation.Web
             return viewModel;
         }
 
-        public IHttpActionResult LoginToUmbraco()
+        [HttpGet]
+        public virtual MenuViewModel LeftNavigation()
         {
-            var currentMember = _intranetMemberService.GetCurrentMember();
-            var relatedUser = currentMember.RelatedUser;
-            if (!relatedUser.IsValid)
-                return Redirect(DefaultRedirectUrl);
-            UmbracoContext.Security.PerformLogin(relatedUser.Id);
-            return Redirect(UmbracoRedirectUrl);
-        }
+            var leftNavigation = _navigationModelsBuilder.GetLeftSideNavigation();
+            var result = new MenuViewModel { MenuItems = leftNavigation.Map<IEnumerable<MenuItemViewModel>>() };
 
-        public IHttpActionResult Logout()
-        {
-            _authenticationService.Logout();
-            return Redirect(DefaultRedirectUrl);
+            return result;
         }
     }
-
-
 }
