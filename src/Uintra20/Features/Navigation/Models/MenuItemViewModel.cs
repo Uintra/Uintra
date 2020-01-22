@@ -11,6 +11,7 @@ namespace Uintra20.Features.Navigation.Models
         public bool IsHomePage { get; set; }
         public bool IsClickable { get; set; }
         public bool IsHeading { get; set; }
+        public int Level { get; set; }
         public List<MenuItemViewModel> Children { get; set; } = new List<MenuItemViewModel>();
     }
 }
