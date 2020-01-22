@@ -7,7 +7,7 @@ using Uintra20.Core.Member.Models.Dto;
 
 namespace Uintra20.Core.Member.AutoMapperProfiles
 {
-    public class IntranetMemberAutoMapperProfile : Profile
+    public class IntranetMemberAutoMapperProfile : AutoMapper.Profile
     {
 	    public IntranetMemberAutoMapperProfile()
         {

@@ -60,21 +60,11 @@ namespace Uintra20.Infrastructure.Extensions
             return currentUser;
         }
 
-        public static string GetUbaselineQueryValue(this HttpRequest request, string key)
+        public static string GetUbaselineQueryValue(
+            this HttpRequest request, 
+            string key)
         {
-            if (request == null)
-            {
-                return null;
-            }
-
-            var url = request["url"];
-
-            if (string.IsNullOrWhiteSpace(url) || !Uri.TryCreate(url, UriKind.Absolute, out Uri requestedUrl))
-            {
-                return null;
-            }
-
-            return HttpUtility.ParseQueryString(requestedUrl.Query).Get(key);
+            return request[key];
         }
     }
 }

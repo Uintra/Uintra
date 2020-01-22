@@ -894,6 +894,9 @@
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Core\Member\Profile\Converters\ProfilePageViewModelConverter.cs" />
+    <Compile Include="Core\Member\Profile\Models\ProfilePageModel.cs" />
+    <Compile Include="Core\Member\Profile\Models\ProfilePageViewModel.cs" />
     <Compile Include="Features\Navigation\INavigationModelsBuilder.cs" />
     <Compile Include="Core\UbaselineModels\ArticlePageModel.cs" />
     <Compile Include="Features\Navigation\Models\HeadingPageModel.cs" />
@@ -1618,6 +1621,7 @@
   <ItemGroup>
     <Folder Include="Content\uintra20\" />
     <Folder Include="Core\Feed\Web\" />
+    <Folder Include="Core\Member\Profile\Edit\" />
     <Folder Include="Features\Notification\Commands\" />
     <Folder Include="Infrastructure\Authentication\" />
     <Folder Include="Media\" />
