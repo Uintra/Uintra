@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
 import { CommentActivity } from '../../_constants.js';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-subcomment-item',
@@ -27,10 +28,11 @@ export class SubcommentItemComponent implements OnInit {
     return false;
   }
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.editedValue = this.data.text;
+    this.data.text = this.sanitizer.bypassSecurityTrustHtml(this.data.text);
     const parsed = ParseHelper.parseUbaselineData(this.data);
     this.likeModel = {
       likedByCurrentUser: !!parsed.likeModel.likedByCurrentUser,

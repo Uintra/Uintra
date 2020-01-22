@@ -1,11 +1,11 @@
 <div class="subcomment">
-  <app-user-avatar class="subcomment__avatar" [photo]="data.creator.photo" [name]="data.creator.displayedName" big></app-user-avatar>
+  <app-user-avatar class="subcomment__avatar" [photo]="data.creator.photo" [name]="data.creator.displayedName"></app-user-avatar>
   <div class="subcomment__container">
     <app-comment-header
       [data]="data"
       (toggleEditingMode)="toggleEditingMode()"
       (commentDelete)="onCommentDelete()"></app-comment-header>
-    <div *ngIf="!isEditing" class="comment__content" innerHTML="{{data.text}}"></div>
+    <div *ngIf="!isEditing" class="comment__content" [innerHTML]="data.text"></div>
     <app-like-button [likeData]="likeModel"></app-like-button>
 
     <app-rich-text-editor

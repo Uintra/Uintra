@@ -3,6 +3,7 @@ import { ILikeData } from '../../../../feature/project/reusable/ui-elements/like
 import { Router} from '@angular/router';
 import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-elements/image-gallery/image-gallery.service';
 import { IMedia, IDocument } from 'src/app/ui/pages/social-details/social-details.interface';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-central-feed-publication',
@@ -25,10 +26,14 @@ export class CentralFeedPublicationComponent implements OnInit {
 
   likeData: ILikeData;
 
-  constructor(private imageGalleryService: ImageGalleryService) { }
+  constructor(
+    private imageGalleryService: ImageGalleryService,
+    private router: Router,
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    this.countToDisplay = this.publication.activity.mediaPreview.filesToDisplay;
+    this.publication.activity.description = this.sanitizer.bypassSecurityTrustHtml(this.publication.activity.description);
+    this.countToDisplay = this.publication.activity.mediaPreview.hiddenImagesCount - this.publication.activity.mediaPreview.additionalImages;
     this.medias = Object.values(this.publication.activity.mediaPreview.medias);
     this.mediaCount = this.medias.length;
     this.documents = Object.values(this.publication.activity.mediaPreview.otherFiles);
@@ -57,5 +62,11 @@ export class CentralFeedPublicationComponent implements OnInit {
     return this.publication.activity.dates.length
       ? this.publication.activity.dates[0]
       : '';
+  }
+
+  checkForRightRoute(e) {
+    if (!e.target.href) {
+      this.router.navigate(['/social-details'], { queryParams: { id: this.publication.activity.id } });
+    }
   }
 }

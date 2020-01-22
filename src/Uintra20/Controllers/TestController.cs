@@ -1,22 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Compent.Shared.Extensions.Bcl;
 using System.Linq;
-using System.Web;
-using Uintra20.Features.News;
-using Umbraco.Web.WebApi;
+using System.Web.Http;
+using UBaseline.Core.Controllers;
+using UBaseline.Core.Navigation;
+using UBaseline.Core.Node;
+using UBaseline.Core.RequestContext;
+using Uintra20.Features.Navigation.Models;
 
 namespace Uintra20.Controllers
 {
-    public class TestController : UmbracoApiController
+    public class TestController : UBaselineApiController
     {
-        public void Test()
+        private readonly INavigationService _navigationService;
+        private readonly IUBaselineRequestContext _uBaselineRequestContext;
+        private readonly INodeModelService _nodeModelService;
+        private readonly INavigationBuilder _navigationBuilder;
+        private readonly INodeDirectAccessValidator _nodeDirectAccessValidator;
+
+        public TestController(
+            INavigationService navigationService,
+            IUBaselineRequestContext uBaselineRequestContext,
+            INodeModelService nodeModelService,
+            INavigationBuilder navigationBuilder,
+            INodeDirectAccessValidator nodeDirectAccessValidator)
+
         {
-            //var t = new NewsBase()
-            //{
-            //    Title = "Test title",
-            //    Id = new Guid(),
-            //    Type = 
-            //}
+            _navigationService = navigationService;
+            _uBaselineRequestContext = uBaselineRequestContext;
+            _nodeModelService = nodeModelService;
+            _navigationBuilder = navigationBuilder;
+            _nodeDirectAccessValidator = nodeDirectAccessValidator;
+        }
+
+        [HttpGet]
+        public void Menu()
+        {
+            var navigationNodes = _nodeModelService.AsEnumerable()
+                .Where(i => i.Level >= 2 && _nodeDirectAccessValidator.HasAccess(i))
+                .OfType<IUintraNavigationComposition>()
+                .OrderBy(i => i.SortOrder)
+                .Where(i => i.Navigation.ShowInMenu.Value && i.Url.HasValue());
+
+            var items = _navigationBuilder.GetTreeNavigation(navigationNodes);
         }
     }
 }

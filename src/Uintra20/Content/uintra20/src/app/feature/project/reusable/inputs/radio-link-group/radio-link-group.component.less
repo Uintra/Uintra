@@ -1,3 +1,5 @@
+@import 'base.less';
+
 :host {
   display: block;
 }
@@ -8,14 +10,18 @@
   }
 
   &__text {
-    color: #aaa;
+    color: #c9c6d0;
     padding-right: 20px;
     font-size: 18px;
     font-weight: 600;
     cursor: pointer;
 
+    &:hover {
+      color: @btn-bg;
+    }
+
     &.active {
-      color: #000;
+      color: @btn-bg;
     }
   }
 }

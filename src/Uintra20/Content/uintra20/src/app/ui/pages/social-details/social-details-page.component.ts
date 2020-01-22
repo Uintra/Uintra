@@ -5,6 +5,7 @@ import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-but
 import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-elements/image-gallery/image-gallery.service';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { ICommentData } from 'src/app/feature/project/reusable/ui-elements/comments/comments.component';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'social-details',
@@ -22,9 +23,11 @@ export class SocialDetailsPanelComponent implements OnInit {
   medias: Array<IMedia> = new Array<IMedia>();
   documents: Array<IDocument> = new Array<IDocument>();
   commentDetails: ICommentData;
+  detailsDescription: SafeHtml;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private imageGalleryService: ImageGalleryService
+    private imageGalleryService: ImageGalleryService,
+    private sanitizer: DomSanitizer
   ) {
     this.activatedRoute.data.subscribe(data => this.data = data);
   }
@@ -46,6 +49,7 @@ export class SocialDetailsPanelComponent implements OnInit {
       activityType: parsedData.details.activityType,
       likes: Object.values(parsedData.likes)
     };
+    this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(this.details.description);
   }
 
   public openGallery(i) {

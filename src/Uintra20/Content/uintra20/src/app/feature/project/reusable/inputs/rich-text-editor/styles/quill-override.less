@@ -10,6 +10,7 @@ quill-editor {
     align-items: center;
     width: 100%;
     border-top: 1px solid #ddd;
+    position: relative;
   }
 
   // Disable default icon in tollbar
@@ -70,6 +71,13 @@ quill-editor {
       font-style: normal;
       color: #aaa;
     }
+
+    & img {
+      // width: 20px !important;
+      // height: 20px !important;
+      // margin: 0 4px;
+      // vertical-align: middle;
+    }
   }
 
   // Customize toolbar
@@ -116,6 +124,11 @@ quill-editor {
       color: #c70a0a;
     }
   }
+
+  .icon-smily {
+    font-size: 14px;
+    margin-right: 8px;
+  }
 }
 
 :host-context(.comments-panel) {
@@ -126,4 +139,8 @@ quill-editor {
   & ::ng-deep .ql-editor {
     padding: 0;
   }
+}
+
+.hidden {
+  display: none;
 }

@@ -1,8 +1,5 @@
 <div class="row-flex">
   <div class="col-md-8">
-    <div class="aside-opener">
-      <span class="icon-window js-aside-opener"></span>
-    </div>
     <div class="bulletin-details-content">
       <div class="feed-header">
         <a [routerLink]="['/']"
@@ -17,7 +14,7 @@
                          [activityName]="activityName">
         </app-post-header>
         <div class="feed-item__text"
-             [innerHtml]="details.description"></div>
+             [innerHtml]="detailsDescription"></div>
         <div class="feed-item-tags"
              *ngIf="tags.length !== 0">
           <span class="feed-item-tags__text">This activity is tagged</span>
