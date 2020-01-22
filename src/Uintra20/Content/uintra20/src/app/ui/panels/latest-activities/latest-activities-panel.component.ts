@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ILatestActivitiesPanel } from './latest-activities-panel.interface';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'latest-activities-panel',
@@ -10,7 +11,7 @@ import { ILatestActivitiesPanel } from './latest-activities-panel.interface';
 })
 export class LatestActivitiesPanelComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   public readonly data: ILatestActivitiesPanel;
   public title: string;
@@ -23,6 +24,10 @@ export class LatestActivitiesPanelComponent implements OnInit {
     this.teaser = this.data.teaser.get();
     this.activityCells = Object.values(this.data.feed.get());
     this.showAll = this.data.showSeeAllButton.get();
+  }
+
+  getSanitizedDescription(cell) {
+    return this.sanitizer.bypassSecurityTrustHtml(cell.get().activity.get().description.get());
   }
 }
 
