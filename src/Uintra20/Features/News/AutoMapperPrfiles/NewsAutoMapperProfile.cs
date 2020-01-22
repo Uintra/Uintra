@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using AutoMapper;
+﻿using AutoMapper;
 using Compent.Extensions;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Activity.Models.Headers;
@@ -17,7 +13,7 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
     {
         public NewsAutoMapperProfile()
         {
-            CreateMap<Entities.News, NewsExtendedViewModel>()
+            CreateMap<Entities.News, NewsViewModel>()
                 .IncludeBase<NewsBase, NewsViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
@@ -26,16 +22,7 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
             //    .IncludeBase<NewsBase, NewsItemViewModel>()
             //    .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
             //    .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
-
-            CreateMap<NewsEditModel, NewsExtendedEditModel>()
-                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
-
-            CreateMap<NewsCreateModel, NewsExtendedCreateModel>()
-                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
-
-            //CreateMap<Entities.News, NewsBackofficeViewModel>()
-            //    .IncludeBase<NewsBase, NewsBackofficeViewModel>();
-
+            
             CreateMap<Entities.News, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<NewsBase, IntranetActivityItemHeaderViewModel>();
 
@@ -84,6 +71,7 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")))
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty))
                 .AfterMap((s, d) =>
                 {
                     int i = 0;
@@ -95,7 +83,8 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
                 .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
+                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")))
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
 
             CreateMap<NewsCreateModel, NewsBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
@@ -129,7 +118,9 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
+                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")))
+                .ForMember(dst => dst.LikesInfo, o => o.Ignore())
+                .ForMember(dst => dst.CommentsInfo, o => o.Ignore());
 
             //CreateMap<NewsBase, NewsBackofficeViewModel>()
             //    .ForMember(dst => dst.PublishDate, o => o.MapFrom(s => s.PublishDate.ToIsoUtcString()))

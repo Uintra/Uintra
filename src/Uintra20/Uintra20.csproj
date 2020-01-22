@@ -1113,9 +1113,6 @@
     <Compile Include="Features\News\Models\NewsCreateModel.cs" />
     <Compile Include="Features\News\Models\NewsDetailsViewModel.cs" />
     <Compile Include="Features\News\Models\NewsEditModel.cs" />
-    <Compile Include="Features\News\Models\NewsExtendedCreateModel.cs" />
-    <Compile Include="Features\News\Models\NewsExtendedEditModel.cs" />
-    <Compile Include="Features\News\Models\NewsExtendedViewModel.cs" />
     <Compile Include="Features\News\Models\NewsViewModel.cs" />
     <Compile Include="Features\News\NewsBase.cs" />
     <Compile Include="Features\News\NewsService.cs" />
