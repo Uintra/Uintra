@@ -15,6 +15,8 @@ export interface INavigationItem {
   isClickable: boolean;
   isHeading: boolean;
   children: INavigationItem[];
+
+  isSelected: boolean;
 }
 
 @Injectable({
@@ -26,9 +28,6 @@ export class LeftNavigationService {
   constructor(private http: HttpClient) {}
 
   getNavigation(): Observable<INavigationData> {
-    // return this.http.get<INavigationData>(this.api + `/LeftNavigation`);
-    return new Observable(subscriber => {
-      subscriber.next({"menuItems":[{"id":1301,"name":"Central Feed test","url":"/central-feed-test/","isActive":false,"isHomePage":false,"isClickable":false,"isHeading":false,"children":[]},{"id":2511,"name":"Heading 1","url":"/heading-1/","isActive":false,"isHomePage":false,"isClickable":false,"isHeading":false,"children":[{"id":2512,"name":"test page","url":"/heading-1/test-page/","isActive":false,"isHomePage":false,"isClickable":false,"isHeading":false,"children":[]}]}]});
-    });
+    return this.http.get<INavigationData>(this.api + `/LeftNavigation`);
   }
 }

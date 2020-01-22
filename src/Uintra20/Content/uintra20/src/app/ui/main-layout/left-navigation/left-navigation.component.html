@@ -1,3 +1,67 @@
-<ul class="nav-list">
-  <li><a href="/">left navigation</a></li>
+<ul class="nav">
+  <ng-container
+    *ngTemplateOutlet="recursiveMenu; context: { $implicit: navigationItems }">
+  </ng-container>
 </ul>
+
+<ng-template #recursiveMenu let-menus>
+  <li *ngFor="let item of menus" data-toggle="collapse" class="nav__item-list">
+    <a [routerLink]="item.url" class="nav__item-link">
+      {{ item.name }}
+    </a>
+
+    <button
+    *ngIf="item.children.length"
+    class="nav__item-arrow"
+      [ngClass]="{ active: item.isSelected }"
+      (click)="item.isSelected = !item.isSelected"
+    >
+      Expand
+    </button>
+
+    <ng-container *ngIf="item.children.length">
+      <ul
+        class="nav__sub-item"
+        [hidden]="!item.isSelected"
+        [ngClass]="{ active: item.isSelected }"
+      >
+        <ng-container
+          *ngTemplateOutlet=" recursiveMenu; context: { $implicit: item.children }"
+        ></ng-container>
+      </ul>
+    </ng-container>
+  </li>
+</ng-template>
+
+
+
+
+
+
+<!-- <ul class="nav">
+  <app-first-order-item *ngFor="let item of navigationItems" [item]="item">
+    <ul
+      class="nav__list"
+      [hidden]="!item.isSelected"
+      [ngClass]="{ active: item.isSelected }"
+    >
+      <ng-container
+        *ngTemplateOutlet="recursiveMenu; context: { $implicit: item.children }">
+      </ng-container>
+    </ul>
+  </app-first-order-item>
+</ul>
+
+<ng-template #recursiveMenu let-menus>
+  <app-second-order-item *ngFor="let item of menus" [item]="item">
+    <ul
+      class="nav__list"
+      [hidden]="!item.isSelected"
+      [ngClass]="{ active: item.isSelected }"
+    >
+      <ng-container
+        *ngTemplateOutlet="recursiveMenu; context: { $implicit: item.children }"
+      ></ng-container>
+    </ul>
+  </app-second-order-item>
+</ng-template> -->
