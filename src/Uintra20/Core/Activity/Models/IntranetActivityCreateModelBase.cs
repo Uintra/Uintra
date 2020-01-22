@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using intra20.Attributes;
+using Uintra20.Attributes;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.Location.Models;
 
