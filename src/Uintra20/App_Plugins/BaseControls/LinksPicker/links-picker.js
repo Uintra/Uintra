@@ -30,10 +30,10 @@
         }
     };
 
-    var mediaPickerFactory = function ($q, dialogService) {
-        var pickContent = function () {
+    var mediaPickerFactory = function($q, editorService) {
+        var pickContent = function() {
             var deferred = $q.defer();
-            dialogService.mediaPicker({
+            editorService.mediaPicker({
                 multiPicker: false,
                 filterCssClass: "not-allowed not-published",
                 callback: deferred.resolve
@@ -49,15 +49,19 @@
             return target;
         }
 
-        return function (target) {
+        return function(target) {
             return pickContent()
-                .then(function (content) { return map(target, content) });
-        }
-    }
+                .then(
+                    function (content) {
+                        debugger;
+                    return map(target, content);
+                });
+        };
+    };
 
-    var internalPickerFactory = function ($q, dialogService, contentResource, entityResource, config) {
+    var internalPickerFactory = function ($q, editorService, contentResource, entityResource, config) {
         var getStartNodeId = function () {
-            return entityResource.getByQuery(config.startNodeXPath, -1, "Document");
+            return entityResource.getByQuery("$root/homePage", -1, "Document");
         }
 
         var pickContent = function (response) {
@@ -67,12 +71,16 @@
                 startNodeId = response.id;
             }
 
-            dialogService.contentPicker({
+            editorService.contentPicker({
                 multiPicker: false,
                 filterCssClass: "not-allowed not-published",
                 filter: config.allowedAliases.join(','),
                 startNodeId: startNodeId,
-                callback: deferred.resolve
+                close: ()=> editorService.close(),
+                submit: (data)=>{
+                    deferred.resolve(data.selection[0]);
+                    editorService.close();
+                }
             });
             return deferred.promise;
         };
@@ -180,7 +188,7 @@
         };
     };
 
-    var factory = function ($q, dialogService, contentResource, entityResource) {
+    var factory = function ($q, editorService, contentResource, entityResource) {
         return {
             restrict: 'E',
             templateUrl: '/App_Plugins/BaseControls/LinksPicker/links-picker.html',
@@ -193,14 +201,14 @@
                 $scope.config = angular.extend({}, defaultConfig, $scope.configModel);
                 $scope.isSingleMode = isSingleMode($scope.mode);
 
-                var internalPicker = internalPickerFactory($q, dialogService, contentResource, entityResource, $scope.config.internalPicker);
-                var mediaPicker = mediaPickerFactory($q, dialogService);
+                var internalPicker = internalPickerFactory($q, editorService, contentResource, entityResource, $scope.config.internalPicker);
+                var mediaPicker = mediaPickerFactory($q, editorService);
                 init($scope, internalPicker, mediaPicker);
             }
         };
     }
 
-    factory.$inject = ['$q', 'dialogService', 'contentResource', 'entityResource'];
+    factory.$inject = ['$q', 'editorService', 'contentResource', 'entityResource'];
 
     angular.module('umbraco').directive('linksPicker', factory);
 })(angular);
