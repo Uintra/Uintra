@@ -12,7 +12,7 @@ namespace Uintra20.Core.Activity.Models
     {
         public PropertyViewModel<string> TabType { get; set; }
         public string Title { get; set; }
-        public Enum ActivityType { get; set; }
+        public IntranetActivityTypeEnum ActivityType { get; set; }
         public IEnumerable<string> Dates { get; set; }
         public MemberViewModel Creator { get; set; }
         public IActivityCreateLinks Links { get; set; }
