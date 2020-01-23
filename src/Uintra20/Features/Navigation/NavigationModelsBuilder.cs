@@ -34,10 +34,6 @@ namespace Uintra20.Features.Navigation
 
         public virtual IEnumerable<TreeNavigationItemModel> GetLeftSideNavigation()
         {
-            var test = _nodeModelService.AsEnumerable()
-                .Where(i => i.Level >= 1 && _nodeDirectAccessValidator.HasAccess(i)).OfType<IUintraNavigationComposition>();
-            var testNames = test.Select(x => x.Name).ToList();
-
             var navigationNodes = _nodeModelService.AsEnumerable()
                 .Where(i => i.Level >= 1 && _nodeDirectAccessValidator.HasAccess(i))
                 .OfType<IUintraNavigationComposition>()
@@ -57,13 +53,13 @@ namespace Uintra20.Features.Navigation
                 {
                     Name = "Login To Umbraco",
                     Type = TopNavigationItemTypes.LoginToUmbraco,
-                    Url = "/ubaseline/api/IntranetNavigation/logintoumbraco"
+                    Url = "/api/auth/login/umbraco"
                 },
                 new TopNavigationItem()
                 {
                     Name = "Edit Profile",
                     Type = TopNavigationItemTypes.EditProfile,
-                    Url = "/profile-edit"
+                    Url = "/profile-edit" //todo return not stabbed link to edit profile
                 },
                 new TopNavigationItem()
                 {
@@ -75,7 +71,7 @@ namespace Uintra20.Features.Navigation
                 {
                     Name = "Logout",
                     Type = TopNavigationItemTypes.Logout,
-                    Url = "/ubaseline/api/IntranetNavigation/logout"
+                    Url = "/api/auth/logout"
                 }
             };
             var model = new TopNavigationModel()
