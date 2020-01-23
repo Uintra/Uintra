@@ -73,6 +73,7 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.PublishDate = DateTime.UtcNow;
             viewModel.Creator = currentMember.Map<MemberViewModel>();
             viewModel.ActivityType = IntranetActivityTypeEnum.News;
+            viewModel.Links = null;//TODO: Research links
             viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready
             viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.CanPin);
         }
@@ -86,6 +87,7 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.ActivityType = IntranetActivityTypeEnum.Social;
             viewModel.Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable();
             viewModel.Creator = currentMember.Map<MemberViewModel>();
+            viewModel.Links = null;//TODO: Research links
             viewModel.AllowedMediaExtensions = null;//mediaSettings.AllowedMediaExtensions; //TODO: uncomment when media settings service is ready
             viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready
             viewModel.CanCreateBulletin = true; /*_permissionsService.Check(
