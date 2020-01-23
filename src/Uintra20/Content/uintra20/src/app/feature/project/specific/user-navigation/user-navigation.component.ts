@@ -4,6 +4,13 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 
+export const enum LinkType {
+  login = 1,
+  innerLink,
+  externalLink,
+  logout,
+}
+
 @Component({
   selector: 'user-navigation',
   templateUrl: './user-navigation.component.html',
@@ -13,12 +20,6 @@ export class UserNavigationComponent implements OnInit {
   public inProgress: boolean;
   data: any;
   navigationExpanded: boolean;
-  iconList: string[] = [
-    'icon-umbraco-logo',
-    'icon-user-profile',
-    'icon-uintra',
-    'icon-logout'
-  ]
 
   get isNavigationExpanded() {
     return this.navigationExpanded;
@@ -33,7 +34,6 @@ export class UserNavigationComponent implements OnInit {
     this.http.get('/ubaseline/api/IntranetNavigation/TopNavigation')
     .subscribe(res => {
       this.data = res;
-      console.log(res)
     });
   }
 
@@ -55,5 +55,28 @@ export class UserNavigationComponent implements OnInit {
 
   closeUserNavigation() {
     this.navigationExpanded = false;
+  }
+
+  getClass(type) {
+    switch(type) {
+      case LinkType.login:
+        return 'icon-umbraco-logo';
+        break;
+      case LinkType.innerLink:
+        return 'icon-user-profile';
+        break;
+      case LinkType.externalLink:
+        return 'icon-uintra';
+        break;
+      case LinkType.logout:
+        return 'icon-logout';
+        break;
+    }
+  }
+
+  makeRequest(url) {
+    this.http.get(url).subscribe(res => {
+      console.log(res);
+    });
   }
 }

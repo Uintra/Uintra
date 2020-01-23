@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UserNavigationComponent } from './user-navigation.component';
 import { ClickOutsideModule } from '../../reusable/directives/click-outside/click-outside.module';
 import { UserAvatarModule } from '../../reusable/ui-elements/user-avatar/user-avatar.module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -11,7 +12,8 @@ import { UserAvatarModule } from '../../reusable/ui-elements/user-avatar/user-av
   imports: [
     CommonModule,
     ClickOutsideModule,
-    UserAvatarModule
+    UserAvatarModule,
+    RouterModule
   ],
   exports: [
     UserNavigationComponent

@@ -16,8 +16,16 @@
   </div>
   <ul class="menu" [ngClass]="{'menu--expanded': isNavigationExpanded}" (clickOutside)="closeUserNavigation()">
     <li *ngFor="let item of data.items" class="menu__item">
-      <a class="menu__item-link" [href]="item.url">
-        <span class="icon {{iconList[item.type - 1]}}"></span>
+      <div *ngIf="item.type == 1 || item.type == 4" class="menu__item-link" (click)="makeRequest(item.url)">
+        <span class="icon {{getClass(item.type)}}"></span>
+        {{item.name}}
+      </div>
+      <a *ngIf="item.type == 2" class="menu__item-link" [routerLink]="item.url">
+        <span class="icon {{getClass(item.type)}}"></span>
+        {{item.name}}
+      </a>
+      <a *ngIf="item.type == 3" class="menu__item-link" [href]="item.url">
+        <span class="icon {{getClass(item.type)}}"></span>
         {{item.name}}
       </a>
     </li>
