@@ -57,7 +57,7 @@ namespace Uintra20.Features.Navigation
                 {
                     Name = "Login To Umbraco",
                     Type = TopNavigationItemTypes.LoginToUmbraco,
-                    Url = "/umbraco/api/navigation/logintoumbraco"
+                    Url = "/umbraco/ubaseline/api/IntranetNavigation/logintoumbraco"
                 },
                 new TopNavigationItem()
                 {
@@ -75,7 +75,7 @@ namespace Uintra20.Features.Navigation
                 {
                     Name = "Logout",
                     Type = TopNavigationItemTypes.Logout,
-                    Url = "/umbraco/api/navigation/logout"
+                    Url = "/umbraco/ubaseline/api/IntranetNavigation/logout"
                 }
             };
             var model = new TopNavigationModel()
