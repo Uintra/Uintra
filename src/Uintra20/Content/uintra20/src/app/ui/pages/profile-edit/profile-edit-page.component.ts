@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { IProfileEditPage } from './profile-edit-page.interface';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { ProfileService } from './services/profile.service';
 
 @Component({
   selector: 'profile-edit-page',
@@ -17,7 +18,8 @@ export class ProfileEditPage implements OnInit {
   public profileEditForm: FormGroup;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private profileService: ProfileService
   ) {
     this.route.data.subscribe(data => this.data = data);
   }
@@ -57,7 +59,23 @@ export class ProfileEditPage implements OnInit {
     };
   }
 
+  //TODO: pass data
   public handleSave(): void {
-    console.log('saved');
+    const profile = {
+     id: null,
+     firstName: null,
+     lastName: null,
+     phone: null,
+     department: null,
+     photo: null,
+     photoId: null,
+     email : null,
+     profileUrl: null,
+     MediaRootId: null,
+     NewMedia: null,
+     MemberNotifierSettings: null
+    };
+
+    // this.profileService.update(profile);
   }
 }
