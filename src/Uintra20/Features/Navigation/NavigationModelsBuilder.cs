@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Compent.Extensions;
 using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
@@ -14,6 +13,7 @@ namespace Uintra20.Features.Navigation
     {
         private readonly IUintraInformationService _uintraInformationService;
         private readonly INodeModelService _nodeModelService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly INodeDirectAccessValidator _nodeDirectAccessValidator;
         private readonly INavigationBuilder _navigationBuilder;
 
@@ -21,10 +21,12 @@ namespace Uintra20.Features.Navigation
             IUintraInformationService uintraInformationService,
             INodeModelService nodeModelService,
             INodeDirectAccessValidator nodeDirectAccessValidator,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             INavigationBuilder navigationBuilder)
         {
             _uintraInformationService = uintraInformationService;
             _nodeModelService = nodeModelService;
+            _intranetMemberService = intranetMemberService;
             _nodeDirectAccessValidator = nodeDirectAccessValidator;
             _navigationBuilder = navigationBuilder;
         }
@@ -77,6 +79,7 @@ namespace Uintra20.Features.Navigation
             };
             var model = new TopNavigationModel()
             {
+                CurrentMember = _intranetMemberService.GetCurrentMember(),
                 Items = menuItems
             };
 
