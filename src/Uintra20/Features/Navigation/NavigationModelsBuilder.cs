@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure;
 
@@ -10,10 +9,15 @@ namespace Uintra20.Features.Navigation
     public class NavigationModelsBuilder : INavigationModelsBuilder
     {
         private readonly IUintraInformationService _uintraInformationService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
-        public NavigationModelsBuilder(IUintraInformationService uintraInformationService)
+        public NavigationModelsBuilder(
+            IUintraInformationService uintraInformationService,
+            IIntranetMemberService<IntranetMember> intranetMemberService
+            )
         {
             _uintraInformationService = uintraInformationService;
+            _intranetMemberService = intranetMemberService;
         }
 
         public virtual TopNavigationModel GetTopNavigationModel()
@@ -47,6 +51,7 @@ namespace Uintra20.Features.Navigation
             };
             var model = new TopNavigationModel()
             {
+                CurrentMember = _intranetMemberService.GetCurrentMember(),
                 Items = menuItems
             };
 
