@@ -10,6 +10,7 @@ import { INavigationItem, INavigationData } from "./left-navigation.interface";
 })
 export class LeftNavigationService {
   readonly api = "ubaseline/api/IntranetNavigation";
+  readonly openingStateProperty = "nav-opening-state";
   openingState: object;
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
@@ -17,7 +18,7 @@ export class LeftNavigationService {
   setOpeningState(item: INavigationItem) {
     this.openingState[item.id] = !item.isSelected;
     this.cookieService.set(
-      "nav-opening-state",
+      this.openingStateProperty,
       JSON.stringify(this.openingState)
     );
   }
@@ -37,7 +38,7 @@ export class LeftNavigationService {
   }
 
   private setOpenProperties(data: INavigationItem[]): INavigationItem[] {
-    const cookieData = this.cookieService.get("nav-opening-state");
+    const cookieData = this.cookieService.get(this.openingStateProperty);
     this.openingState = JSON.parse(cookieData);
     this.checkNavigationItem(data);
     return data;
