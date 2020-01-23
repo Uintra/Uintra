@@ -908,6 +908,7 @@
     <Compile Include="Features\Navigation\Models\TopNavigationItemViewModel.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationModel.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationViewModel.cs" />
+    <Compile Include="Features\Navigation\NavigationInjectModule.cs" />
     <Compile Include="Features\Navigation\NavigationModelsBuilder.cs" />
     <Compile Include="Features\Navigation\TopNavigationItemTypes.cs" />
     <Compile Include="Features\Navigation\Web\NavigationController.cs" />

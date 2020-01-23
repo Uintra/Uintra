@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
-using UBaseline.Core.Controllers;
+﻿using System.Web.Http;
 using Uintra20.Core.Authentication;
-using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure.Extensions;
@@ -19,12 +13,12 @@ namespace Uintra20.Features.Navigation.Web
         protected virtual string DefaultRedirectUrl { get; } = "/";
         protected virtual string UmbracoRedirectUrl { get; } = "/umbraco";
 
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IAuthenticationService _authenticationService;
         private readonly INavigationModelsBuilder _navigationModelsBuilder;
 
         public NavigationController(
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             IAuthenticationService authenticationService,
             INavigationModelsBuilder navigationModelsBuilder)
         {
@@ -37,6 +31,7 @@ namespace Uintra20.Features.Navigation.Web
         {
             var model = _navigationModelsBuilder.GetTopNavigationModel();
             var viewModel = model.Map<TopNavigationViewModel>();
+
             return viewModel;
         }
 
