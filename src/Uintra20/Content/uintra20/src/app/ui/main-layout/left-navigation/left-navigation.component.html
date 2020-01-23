@@ -7,15 +7,8 @@
 
 <ng-template #recursiveMenu let-menus>
   <li *ngFor="let item of menus" class="left-nav__item">
-    <a
-      class="left-nav__item-link"
-      routerLinkActive="left-nav__item-link--active"
-      [routerLink]="item.url"
-      [ngStyle]="getNestingPadding(item.level)"
-      [routerLinkActiveOptions]="{ exact: true }"
-    >
-      {{ item.name }}
-    </a>
+    <ng-container *ngTemplateOutlet="itemLink; context: { $implicit: item }">
+    </ng-container>
 
     <button
       *ngIf="item.children.length"
@@ -35,10 +28,33 @@
         <ng-container
           *ngTemplateOutlet="
             recursiveMenu;
-            context: { $implicit: item.children, index: i }
+            context: { $implicit: item.children }
           "
         ></ng-container>
       </ul>
     </ng-container>
   </li>
+</ng-template>
+
+<ng-template #itemLink let-item>
+  <span
+    *ngIf="item.isHeading"
+    class="left-nav__item-link"
+    [ngStyle]="getNestingPadding(item.level)"
+  >
+    {{ item.name }}
+  </span>
+
+  <a
+    *ngIf="!item.isHeading"
+    class="left-nav__item-link left-nav__item-link--with-hover"
+    routerLinkActive="active"
+    [routerLink]="item.url"
+    [ngStyle]="getNestingPadding(item.level)"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    {{ item.name }}
+  </a>
+
+  <span class="left-nav__home" *ngIf="item.isHomePage"></span>
 </ng-template>

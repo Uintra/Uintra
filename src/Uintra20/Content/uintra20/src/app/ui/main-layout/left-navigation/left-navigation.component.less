@@ -22,37 +22,42 @@
   &__item-link {
     display: block;
     padding: 11px 48px 9px 19px;
-    color: #261d43;
+    color: @heading-bg;
     word-wrap: break-word;
-    cursor: pointer;
     margin: 0 0 -2px;
     position: relative;
     text-decoration: none;
 
-    &::before {
-      content: "";
-      position: absolute;
-      background: #5776f9;
-      width: 5px;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      display: none;
+    &--with-hover {
+      &::before {
+        content: "";
+        position: absolute;
+        background: @header-bg;
+        width: 5px;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        display: none;
 
-      @media @sm-up {
-        width: 2px;
+        @media @sm-up {
+          width: 2px;
+        }
+      }
+
+      &:hover,
+      &.active {
+        background: @body-bg;
+        text-decoration: none;
+        color: @heading-bg;
+
+        &:before {
+          display:block;
+        }
       }
     }
 
-    &:hover,
-    &--active {
-      background: #f6f6f6;
-      text-decoration: none;
-      color: #261d43;
-
-      &:before {
-        display:block;
-      }
+    &.active {
+      cursor: default;
     }
   }
 
@@ -74,15 +79,25 @@
       right: 21px;
       width: 9px;
       height: 9px;
-      border: solid #555;
+      border: solid @body-text-color;
       border-width: 1px 0 0 1px;
       transform: rotate(225deg);
     }
 
     &.active:after {
       transform: rotate(45deg);
-      border-color: #555;
       top: 20px;
     }
+  }
+
+  &__home {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+    top: 12px;
+    right: 14px;
+    background-image: url("@{home-icon}");
   }
 }
