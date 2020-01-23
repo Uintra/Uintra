@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Compent.Extensions;
@@ -43,7 +44,7 @@ namespace Uintra20.Features.Navigation
                 .OrderBy(i => i.SortOrder)
                 .Where(i => i.Navigation.ShowInMenu.Value && i.Url.HasValue());
 
-            IEnumerable<TreeNavigationItemModel> items = _navigationBuilder.GetTreeNavigation(navigationNodes);
+            var items = _navigationBuilder.GetTreeNavigation(navigationNodes);
 
             return items;
         }

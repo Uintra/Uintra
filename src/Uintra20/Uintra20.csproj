@@ -905,7 +905,7 @@
     <Compile Include="Features\Navigation\NavigationInjectModule.cs" />
     <Compile Include="Features\Navigation\NavigationModelsBuilder.cs" />
     <Compile Include="Features\Navigation\TopNavigationItemTypes.cs" />
-    <Compile Include="Features\Navigation\Web\NavigationController.cs" />
+    <Compile Include="Features\Navigation\Web\IntranetNavigationController.cs" />
     <Compile Include="Core\Configuration\ConfigurationProvider.cs" />
     <Compile Include="Core\Configuration\IConfigurationProvider.cs" />
     <Compile Include="Features\Groups\ContentServices\GroupContentProvider.cs" />

@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Web.Http;
+using UBaseline.Core.Controllers;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure.Extensions;
 
@@ -6,11 +8,9 @@ namespace Uintra20.Features.Navigation.Web
 {
     public class IntranetNavigationController : UBaselineApiController
     {
-        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly INavigationModelsBuilder _navigationModelsBuilder;
 
         public IntranetNavigationController(INavigationModelsBuilder navigationModelsBuilder)
-            IIntranetMemberService<IntranetMember> intranetMemberService,
         {
             _navigationModelsBuilder = navigationModelsBuilder;
         }
