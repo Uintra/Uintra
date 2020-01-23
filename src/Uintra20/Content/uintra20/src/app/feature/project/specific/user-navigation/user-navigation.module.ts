@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserNavigationComponent } from './user-navigation.component';
 import { ClickOutsideModule } from '../../reusable/directives/click-outside/click-outside.module';
+import { UserAvatarModule } from '../../reusable/ui-elements/user-avatar/user-avatar.module';
 
 
 
@@ -9,7 +10,8 @@ import { ClickOutsideModule } from '../../reusable/directives/click-outside/clic
   declarations: [ UserNavigationComponent],
   imports: [
     CommonModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    UserAvatarModule
   ],
   exports: [
     UserNavigationComponent

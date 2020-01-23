@@ -33,6 +33,7 @@ export class UserNavigationComponent implements OnInit {
     this.http.get('/ubaseline/api/IntranetNavigation/TopNavigation')
     .subscribe(res => {
       this.data = res;
+      console.log(res)
     });
   }
 

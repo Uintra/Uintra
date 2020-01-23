@@ -2,17 +2,18 @@
 <!-- <button (click)="logout()" [disabled]="inProgress">Logout
 </button> -->
 <div *ngIf="data" class="user-navigation">
-  <a class="user__opener" (click)="toggleUserNavigation($event)">
+  <div *ngIf="data.currentMember" class="user__opener" (click)="toggleUserNavigation($event)">
+    <div *ngIf="data.currentMember.displayedName" class="user__name">
+      {{data.currentMember.displayedName}}
+    </div>
     <div class="user__avatar">
-      <div class="avatar__letter">
-        1
-      </div>
+      <app-user-avatar
+        *ngIf="data.currentMember.photo || data.currentMember.displayedName"
+        [photo]="data.currentMember.photo"
+        [name]="data.currentMember.displayedName"></app-user-avatar>
     </div>
     <span class="user__opener-arrow"></span>
-    <div class="greeting">
-      <strong class="greeting__username">1Admin 2 2Admin 2</strong>
-    </div>
-  </a>
+  </div>
   <ul class="menu" [ngClass]="{'menu--expanded': isNavigationExpanded}" (clickOutside)="closeUserNavigation()">
     <li *ngFor="let item of data.items" class="menu__item">
       <a class="menu__item-link" [href]="item.url">
