@@ -4,13 +4,14 @@ import { RichTextEditorComponent } from './rich-text-editor.component';
 import { QuillModule, QUILL_CONFIG_TOKEN, QuillConfig } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
 import { RichTextEditorEmojiComponent } from './rich-text-editor-emoji/rich-text-editor-emoji.component';
-import { ClickOutsideDirective } from './helpers/click-outside.directive';
+import { ClickOutsideModule } from '../../directives/click-outside/click-outside.module';
 
 @NgModule({
-  declarations: [RichTextEditorComponent, RichTextEditorEmojiComponent, ClickOutsideDirective],
+  declarations: [RichTextEditorComponent, RichTextEditorEmojiComponent],
   imports: [
     CommonModule,
     FormsModule,
+    ClickOutsideModule,
     QuillModule.forRoot(),
   ],
   exports: [

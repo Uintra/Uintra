@@ -16,7 +16,7 @@
   <ul class="menu" [ngClass]="{'menu--expanded': isNavigationExpanded}" (clickOutside)="closeUserNavigation()">
     <li *ngFor="let item of data.items" class="menu__item">
       <a class="menu__item-link" [href]="item.url">
-        <span class="icon icon-top-navigation-{{item.type}}"></span>
+        <span class="icon {{iconList[item.type - 1]}}"></span>
         {{item.name}}
       </a>
     </li>

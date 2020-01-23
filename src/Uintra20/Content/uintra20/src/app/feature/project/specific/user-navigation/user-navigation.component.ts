@@ -13,6 +13,12 @@ export class UserNavigationComponent implements OnInit {
   public inProgress: boolean;
   data: any;
   navigationExpanded: boolean;
+  iconList: string[] = [
+    'icon-umbraco-logo',
+    'icon-user-profile',
+    'icon-uintra',
+    'icon-logout'
+  ]
 
   get isNavigationExpanded() {
     return this.navigationExpanded;

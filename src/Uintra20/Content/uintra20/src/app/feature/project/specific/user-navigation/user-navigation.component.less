@@ -47,11 +47,37 @@
   &__item-link {
     text-decoration: none;
     color: #555;
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 14px 10px 13px 57px;
     position: relative;
+  }
+}
 
+.icon {
+  position: absolute;
+  left: 10px;
 
+  &::before {
+    color: @btn-bg !important;
+  }
+
+  &-umbraco-logo {
+    font-size: 30px;
+  }
+
+  &-user-profile {
+    font-size: 30px;
+  }
+
+  &-uintra {
+    font-size: 35px;
+  }
+
+  &-logout {
+    font-size: 20px;
+    padding-left: 7px;
+    padding-right: 7px;
   }
 }
 
@@ -60,14 +86,14 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  font: 16px/1.25em muli, Arial, Helvetica, sans-serif;
+  font: @body-font;
+  font-size: 16px;
   padding: 6px 18px 0 0;
   text-align: right;
 }
 .user__opener {
   color: @main-color;
   display: inline-block;
-  float: right;
   position: relative;
   padding: 2px 2px 4px 17px;
   cursor: pointer;
