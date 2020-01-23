@@ -75,7 +75,7 @@ export class UserNavigationComponent implements OnInit {
   }
 
   makeRequest(url) {
-    this.http.get(url).subscribe(res => {
+    this.http.post(url, {}).subscribe(res => {
       console.log(res);
     });
   }
