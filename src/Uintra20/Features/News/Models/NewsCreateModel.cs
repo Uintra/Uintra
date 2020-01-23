@@ -7,7 +7,9 @@ using Uintra20.Features.Media;
 
 namespace Uintra20.Features.News.Models
 {
-    public class NewsCreateModel : IntranetActivityCreateModelBase, IContentWithMediaCreateEditModel
+    public class NewsCreateModel : 
+        IntranetActivityCreateModelBase, 
+        IContentWithMediaCreateEditModel
     {
         [Required, AllowHtml]
         public string Description { get; set; }
@@ -16,7 +18,6 @@ namespace Uintra20.Features.News.Models
         public string Media { get; set; }
         public int? MediaRootId { get; set; }
         public string NewMedia { get; set; }
-
         [RequiredIf("IsPinned", true), GreaterThan("PublishDate")]
         public override DateTime? EndPinDate { get; set; }
         public bool PinAllowed { get; set; }

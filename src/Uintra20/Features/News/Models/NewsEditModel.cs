@@ -7,7 +7,9 @@ using Uintra20.Features.Media;
 
 namespace Uintra20.Features.News.Models
 {
-    public class NewsEditModel : IntranetActivityEditModelBase, IContentWithMediaCreateEditModel
+    public class NewsEditModel : 
+        IntranetActivityEditModelBase, 
+        IContentWithMediaCreateEditModel
     {
         [Required, AllowHtml]
         public string Description { get; set; }

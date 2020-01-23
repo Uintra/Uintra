@@ -96,7 +96,7 @@ namespace Uintra20.Features.News.Controllers
             var news = createModel.Map<NewsBase>();
 
             news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
-            news.PublishDate = createModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime(createModel.PublishDate);//TODO CHECK
+            news.PublishDate = createModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime(createModel.PublishDate);
             news.UnpublishDate = createModel.UnpublishDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(createModel.UnpublishDate.Value);
             news.EndPinDate = createModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(createModel.EndPinDate.Value);
             news.CreatorId = await _intranetMemberService.GetCurrentMemberIdAsync();
@@ -104,8 +104,7 @@ namespace Uintra20.Features.News.Controllers
             if (await IsPinAllowedAsync())
                 return news;
 
-            news.IsPinned = false;
-            news.EndPinDate = null;
+            news.IsPinned = createModel.IsPinned;
 
             return news;
         }
