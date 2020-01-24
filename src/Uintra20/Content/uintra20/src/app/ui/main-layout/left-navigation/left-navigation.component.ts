@@ -1,9 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  LeftNavigationService,
-  INavigationItem,
-  INavigationData
-} from "./left-navigation.service";
+import { INavigationItem } from "./left-navigation.interface";
+import { LeftNavigationService } from "./left-navigation.service";
 
 @Component({
   selector: "app-left-navigation",
@@ -12,14 +9,24 @@ import {
 })
 export class LeftNavigationComponent implements OnInit {
   navigationItems: INavigationItem[];
+  readonly PADDING_STEP = 10;
 
   constructor(private leftNavigationService: LeftNavigationService) {}
 
   ngOnInit() {
     this.leftNavigationService
       .getNavigation()
-      .subscribe((r: INavigationData) => {
-        this.navigationItems = r.menuItems;
+      .subscribe((r: INavigationItem[]) => {
+        this.navigationItems = r;
       });
+  }
+
+  onToggleItem(item: INavigationItem) {
+    this.leftNavigationService.setOpeningState(item);
+    item.isSelected = !item.isSelected;
+  }
+
+  getNestingPadding(level: number) {
+    return level ? { paddingLeft: level * this.PADDING_STEP + "px" } : {};
   }
 }
