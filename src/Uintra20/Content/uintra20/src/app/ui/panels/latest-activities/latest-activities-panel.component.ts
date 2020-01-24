@@ -25,10 +25,6 @@ export class LatestActivitiesPanelComponent implements OnInit {
     this.activityCells = Object.values(this.data.feed.get());
     this.showAll = this.data.showSeeAllButton.get();
   }
-
-  getSanitizedDescription(cell) {
-    return this.sanitizer.bypassSecurityTrustHtml(cell.get().activity.get().description.get());
-  }
 }
 
 

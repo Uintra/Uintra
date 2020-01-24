@@ -1,0 +1,36 @@
+@import 'base.less';
+
+:host {
+  display: block;
+  width: 100%;
+  max-width: 840px;
+}
+
+.search-holder {
+  display: flex;
+  width: 100%;
+  position: relative;
+
+  &__search {
+    width: 100%;
+    margin-right: 10px;
+    background-color: @main-color;
+    border: none;
+    font-size: 16px;
+    line-height: 20px;
+    min-height: 40px;
+    padding: 11px 40px 9px 21px;
+    color: #555;
+  }
+
+  & .icon-search-icon {
+    position: absolute;
+    right: 25px;
+    line-height: 40px;
+    font-size: 30px;
+
+    &::before {
+      color: @black !important;
+    }
+  }
+}
