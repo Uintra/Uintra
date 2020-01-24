@@ -1,0 +1,28 @@
+<section class="profile">
+    <div class="profile-title">
+        <h3>{{profile.title}}</h3>
+    </div>
+    <div class="profile-body">
+        <div class="profile-avatar">
+            <app-user-avatar [photo]="profile.member.photo"
+                             [name]="profile.member.firstName">
+            </app-user-avatar>
+        </div>
+        <div class="profile-data">
+            <p>{{profile.member.firstName}} {{profile.member.lastName}}</p>
+        </div>
+        <div>
+            <span>E:mail</span>
+            <a href="mailto:{{profile.member.email}}">{{profile.member.email}}</a>
+        </div>
+        <div class="profile-phone">
+            <span>Phone</span>
+            <a *ngIf="profile.member.phone"
+               href="tel:+{{profile.member.phone}}">{{profile.member.phone}}</a>
+        </div>
+        <div class="profile-department">
+            <span>Department</span>
+            <span *ngIf="profile.member.department">{{profile.member.department}}</span>
+        </div>
+    </div>
+</section>

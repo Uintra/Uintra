@@ -60,7 +60,9 @@ namespace Uintra20.Infrastructure.Extensions
             return currentUser;
         }
 
-        public static string GetUbaselineQueryValue(this HttpRequest request, string key)
+        public static string GetUbaselineQueryValue(
+            this HttpRequest request, 
+            string key)
         {
             if (request == null)
             {
