@@ -14,6 +14,9 @@ import 'quill-emoji/dist/quill-emoji';
 import { MAX_LENGTH } from './_constants.js';
 import { NewsCreateComponent } from './sections/news-create/news-create.component';
 import { SocialCreateComponent } from './sections/social-create/social-create.component';
+import { TextInputModule } from 'src/app/feature/project/reusable/inputs/fields/text-input/text-input.module';
+import { QuillModule } from 'ngx-quill';
+import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/checkbox-input/checkbox-input.module';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // TODO: Change this to your upload POST address:
@@ -37,6 +40,9 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     TagMultiselectModule,
     FormsModule,
     DropzoneModule,
+    TextInputModule,
+    QuillModule,
+    CheckboxInputModule,
     RichTextEditorModule.configure({
       modules: {
         'emoji-toolbar': true,

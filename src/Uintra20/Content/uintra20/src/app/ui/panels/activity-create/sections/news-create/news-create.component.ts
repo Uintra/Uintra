@@ -10,10 +10,24 @@ import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 export class NewsCreateComponent implements OnInit {
   @Input() data: IActivityCreatePanel;
   panelData: any; //TODO create interface
+  files: Array<any> = [];
+  isPinCheked: boolean;
+  tags: any[];
   constructor() { }
 
   ngOnInit() {
     this.panelData = ParseHelper.parseUbaselineData(this.data);
+    this.tags = this.panelData.tags.userTagCollection;
   }
 
+  onUploadSuccess(fileArray: Array<any> = []): void {
+    this.files.push(fileArray);
+  }
+
+  onFileRemoved(removedFile: object) {
+    this.files = this.files.filter(file => {
+      const fileElement = file[0];
+      return fileElement !== removedFile;
+    });
+  }
 }
