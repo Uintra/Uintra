@@ -1,4 +1,14 @@
 <section>
+  <p>Datetime picker</p>
+
+  <div class="form-group">
+    <sq-datetimepicker [options]="options1" [mode]="'input'" [(ngModel)]="field1" (dpChange)="dp1Change()"></sq-datetimepicker>
+    <sq-datetimepicker [options]="options2" [mode]="'input'" [(ngModel)]="field2"  (dpChange)="dp2Change()"></sq-datetimepicker>
+    <button (click)="onSubmit()">Submit</button>
+  </div>
+</section>
+
+<section>
   <p>Icons</p>
   <p>Please, open src\styles\icons\demo.html</p>
 </section>
