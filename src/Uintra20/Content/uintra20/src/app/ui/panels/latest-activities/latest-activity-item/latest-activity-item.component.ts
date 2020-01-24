@@ -14,16 +14,6 @@ export class LatestActivityComponent implements OnInit {
  // @Input() activityLinks: { details: { baseUrl: string; params: Array<{name: string, value: string}>}};
   @Input() activityLinks: any;
 
-  get detailsParams() {
-    // TODO: fix UmbracoFlatProperty
-    const paramsArray = Object.values(this.activityLinks.details.get().params.get());
-
-    return paramsArray.reduce((acc, val: any) => {
-     acc[val.data.name] = val.data.value;
-      return acc;
-    }, {});
-  }
-
   sanitizedActivityDescription: SafeHtml;
 
   constructor(private sanitizer: DomSanitizer) { }
