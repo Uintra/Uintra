@@ -47,33 +47,39 @@ namespace Uintra20.Features.Navigation
 
         public virtual TopNavigationModel GetTopNavigationModel()
         {
-            var menuItems = new List<TopNavigationItem>()
+            var menuItems = new List<TopNavigationItem>();
+            var currentMember = _intranetMemberService.GetCurrentMember();
+
+            if (currentMember.RelatedUser != null)
             {
-                new TopNavigationItem()
+                menuItems.Add(new TopNavigationItem()
                 {
                     Name = "Login To Umbraco",
                     Type = TopNavigationItemTypes.LoginToUmbraco,
                     Url = "/api/auth/login/umbraco"
-                },
-                new TopNavigationItem()
-                {
-                    Name = "Edit Profile",
-                    Type = TopNavigationItemTypes.EditProfile,
-                    Url = "/profile-edit" //todo return not stabbed link to edit profile
-                },
-                new TopNavigationItem()
-                {
-                    Name = $"Uintra Help v{_uintraInformationService.Version}",
-                    Type = TopNavigationItemTypes.UintraHelp,
-                    Url = _uintraInformationService.DocumentationLink.ToString()
-                },
-                new TopNavigationItem()
-                {
-                    Name = "Logout",
-                    Type = TopNavigationItemTypes.Logout,
-                    Url = "/api/auth/logout"
-                }
-            };
+                });
+            }
+            menuItems.Add(new TopNavigationItem()
+            {
+                Name = "Edit Profile",
+                Type = TopNavigationItemTypes.EditProfile,
+                Url = "/profile-edit" //todo return not stabbed link to edit profile
+            });
+
+            menuItems.Add(new TopNavigationItem()
+            {
+                Name = $"Uintra Help v{_uintraInformationService.Version}",
+                Type = TopNavigationItemTypes.UintraHelp,
+                Url = _uintraInformationService.DocumentationLink.ToString()
+            });
+
+            menuItems.Add(new TopNavigationItem()
+            {
+                Name = "Logout",
+                Type = TopNavigationItemTypes.Logout,
+                Url = "/api/auth/logout"
+            });
+
             var model = new TopNavigationModel()
             {
                 CurrentMember = _intranetMemberService.GetCurrentMember(),
@@ -82,6 +88,5 @@ namespace Uintra20.Features.Navigation
 
             return model;
         }
-
     }
 }

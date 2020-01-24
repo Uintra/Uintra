@@ -94,7 +94,7 @@ namespace Uintra20.Controllers
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
             var relatedUser = currentMember.RelatedUser;
-            if (!relatedUser.IsValid)
+            if (relatedUser == null || !relatedUser.IsValid)
                 return Content(HttpStatusCode.Forbidden, "Member has no related user ");
             _umbracoContext.Security.PerformLogin(relatedUser.Id);
             return Ok();
