@@ -1,7 +1,8 @@
 <!-- TODO: change href to routerlink // wait server side solution -->
 
 <a
-  [href]="notification.value.url"
+  [routerLink]="notification.value.url.baseUrl"
+  [queryParams]="notificationUrlParams"
   class="nav-notification__popup-item notification-item"
   *ngIf="notification"
   (click)="onMarkAsViewed()"
