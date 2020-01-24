@@ -1,0 +1,32 @@
+﻿{
+  "HomePageAlias": "homePage",
+  "Exclude": [ "dataFolder" ],
+  "IsHideFromLeftNavigation": {
+    "Alias": "isHideFromLeftNavigation",
+    "Name": "Hide from Left Navigation",
+    "DefaultValue": false
+  },
+  "IsShowInHomeNavigation": {
+    "Alias": "isShowInHomeNavigation",
+    "Name": "Is show in Home Navigation",
+    "DefaultValue": false
+  },
+  "IsHideFromSubNavigation": {
+    "Alias": "isHideFromSubNavigation",
+    "Name": "Hide from Sub Navigation",
+    "DefaultValue": false
+  },
+  "NavigationName": {
+    "Alias": "navigationName",
+    "Name": "Navigation Name"
+  },
+  "NavigationComposition": {
+    "Alias": "navigationComposition",
+    "Name": "Navigation Composition"
+  },
+  "HomeNavigationComposition": {
+    "Alias": "homeNavigationComposition",
+    "Name": "Home Navigation Composition"
+  },
+  "NavigationTab": "Navigation"
+}

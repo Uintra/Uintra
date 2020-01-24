@@ -49,7 +49,7 @@ namespace Uintra20.Features.CentralFeed
 
 
 		private IEnumerable<ActivityFeedTabViewModel> GetTabsWithCreateUrl(IEnumerable<ActivityFeedTabViewModel> tabs) =>
-			tabs.Where(t => !IsTypeForAllActivities(t.Type) && t.Links.Create.HasValue());
+			tabs.Where(t => !IsTypeForAllActivities(t.Type) && t.Links.Create.OriginalUrl.HasValue());
 
 		private bool IsTypeForAllActivities(Enum type) => type is CentralFeedTypeEnum.All;
 

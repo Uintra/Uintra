@@ -106,7 +106,7 @@ namespace Uintra20.Features.Notification
                     {
                         (ActivityTitle, model.Title),
                         (FullName, _intranetMemberService.Get(model.ReceiverId).DisplayedName),
-                        (Url, model.Url),
+                        (Url, model.Url.ToString()),
                         (Title, model.Title),
                         (TaggedBy, _intranetMemberService.Get(model.NotifierId).DisplayedName),
                         (NotificationType, model.NotificationType.ToString().SplitOnUpperCaseLetters())

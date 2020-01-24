@@ -7,5 +7,7 @@ namespace Uintra20.Features.Navigation.Models
     {
         public IntranetMember CurrentMember { get; set; }
         public IEnumerable<TopNavigationItem> Items { get; set; }
+        //public IIntranetMember CurrentMember { get; set; }
+        //public string CentralUserListUrl { get; set; }
     }
 }

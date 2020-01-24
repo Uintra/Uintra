@@ -4,16 +4,19 @@ import { NavNotificationsComponent } from './nav-notifications.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserAvatarModule } from '../../reusable/ui-elements/user-avatar/user-avatar.module';
 import { RouterModule } from '@angular/router';
-import { ClickOutsideDirective } from './helpers/click-outside.directive';
 import { NotificationsItemComponent } from './notifications-item/notifications-item.component';
+import { ClickOutsideModule } from '../../reusable/directives/click-outside/click-outside.module';
+import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
 
 @NgModule({
-  declarations: [NavNotificationsComponent, ClickOutsideDirective, NotificationsItemComponent],
+  declarations: [NavNotificationsComponent, NotificationsItemComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     UserAvatarModule,
-    RouterModule
+    RouterModule,
+    ClickOutsideModule,
+    UlinkModule
   ],
   exports: [ NavNotificationsComponent, NotificationsItemComponent ]
 })

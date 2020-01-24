@@ -12,6 +12,9 @@ export class UserAvatarComponent implements OnInit {
   @Input() name: string;
   @Input('big') big: boolean;
 
+  @Input() routerLink: string;
+  @Input() queryParams: object;
+
   firstChar: string;
 
   convertToBoolean(): void {

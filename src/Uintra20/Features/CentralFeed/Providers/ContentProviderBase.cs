@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Uintra20.Infrastructure.Helpers;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
@@ -30,7 +29,9 @@ namespace Uintra20.Features.CentralFeed.Providers
             return targetContents.FirstOrDefault();
         }
 
-        //protected virtual IEnumerable<IPublishedContent> GetDescendants(IEnumerable<string> xPath) =>
-        //    _umbracoHelper.ContentAtXPath(XPathHelper.GetDescendantsXpath(xPath));
+        protected virtual IEnumerable<IPublishedContent> GetDescendants(IEnumerable<string> aliasesPath)
+        {
+            return GetContent(aliasesPath).Children;
+        }
     }
 }
