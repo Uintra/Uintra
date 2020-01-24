@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Compent.Extensions;
 using UBaseline.Core.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models;
@@ -11,8 +11,6 @@ using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Comments.Services;
-using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.News.Models;
 using Uintra20.Infrastructure.Extensions;
@@ -24,20 +22,14 @@ namespace Uintra20.Features.News.Converters
         private readonly INewsService<Entities.News> _newsService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IIntranetLocalizationService _localizationService;
-        private readonly ICommentsService _commentsService;
-        private readonly ILikesService _likesService;
 
         public NewsDetailsPageViewModelConverter(INewsService<Entities.News> newsService,
             IIntranetMemberService<IntranetMember> memberService,
-            IIntranetLocalizationService localizationService,
-            ICommentsService commentsService,
-            ILikesService likesService)
+            IIntranetLocalizationService localizationService)
         {
             _newsService = newsService;
             _memberService = memberService;
             _localizationService = localizationService;
-            _likesService = likesService;
-            _commentsService = commentsService;
         }
 
         public void Map(NewsDetailsPageModel node, NewsDetailsPageViewModel viewModel)
