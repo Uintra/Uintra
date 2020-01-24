@@ -4,6 +4,7 @@ import { UserNavigationComponent } from './user-navigation.component';
 import { ClickOutsideModule } from '../../reusable/directives/click-outside/click-outside.module';
 import { UserAvatarModule } from '../../reusable/ui-elements/user-avatar/user-avatar.module';
 import { RouterModule } from '@angular/router';
+import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
 
 
 
@@ -13,7 +14,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     ClickOutsideModule,
     UserAvatarModule,
-    RouterModule
+    RouterModule,
+    UlinkModule,
   ],
   exports: [
     UserNavigationComponent
