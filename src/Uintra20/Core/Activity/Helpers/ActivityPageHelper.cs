@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
+using Uintra20.Features.Links.Models;
 using Uintra20.Infrastructure.Extensions;
-using Uintra20.Infrastructure.Helpers;
 using Uintra20.Infrastructure.Providers;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
@@ -31,33 +29,33 @@ namespace Uintra20.Core.Activity.Helpers
             //_activityXPath = _baseXPath.Append(_aliasProvider.GetOverviewPage(ActivityType));
         }
 
-        public string GetFeedUrl() => GetPageUrl(_baseContent);
+        public UintraLinkModel GetFeedUrl() => GetPageUrl(_baseContent).ToLinkModel();
 
         //public string GetOverviewPageUrl()//TODO: Research overview page
         //{
         //    return GetPageUrl(_activityXPath);
         //}
 
-        public string GetDetailsPageUrl(Guid? activityId = null)
+        public UintraLinkModel GetDetailsPageUrl(Guid? activityId = null)
         {
             var detailsPageContent = _baseContent.Children.FirstOrDefault(x => x.ContentType.Alias == _aliasProvider.GetDetailsPage(ActivityType));
             var detailsPageUrl = GetPageUrl(detailsPageContent);
 
-            return activityId.HasValue ? detailsPageUrl.AddIdParameter(activityId) : detailsPageUrl;
+            return activityId.HasValue ? detailsPageUrl.AddIdParameter(activityId).ToLinkModel() : detailsPageUrl.ToLinkModel();
         }
 
-        public string GetCreatePageUrl()
+        public UintraLinkModel GetCreatePageUrl()
         {
             var createPageContent = _baseContent.Children.FirstOrDefault(x => x.ContentType.Alias == _aliasProvider.GetCreatePage(ActivityType));
 
-            return GetPageUrl(createPageContent);
+            return GetPageUrl(createPageContent).ToLinkModel();
         }
 
-        public string GetEditPageUrl(Guid activityId)
+        public UintraLinkModel GetEditPageUrl(Guid activityId)
         {
             var editPageContent = _baseContent.Children.FirstOrDefault(x => x.ContentType.Alias == _aliasProvider.GetEditPage(ActivityType));
 
-            return GetPageUrl(editPageContent)?.AddIdParameter(activityId);
+            return GetPageUrl(editPageContent)?.AddIdParameter(activityId).ToLinkModel();
         }
 
         private string GetPageUrl(IPublishedContent content)

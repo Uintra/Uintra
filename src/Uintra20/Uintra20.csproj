@@ -903,6 +903,7 @@
     <Compile Include="Features\Navigation\Models\LinksPickerViewModel.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationItem.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationItemViewModel.cs" />
+    <Compile Include="Features\Navigation\NavigationInjectModule.cs" />
     <Compile Include="Features\Navigation\NavigationModelsBuilder.cs" />
     <Compile Include="Features\Navigation\TopNavigationItemTypes.cs" />
     <Compile Include="Features\Navigation\Web\NavigationController.cs" />
@@ -952,6 +953,8 @@
     <Compile Include="Features\Social\IFeedHub.cs" />
     <Compile Include="Features\Social\Controllers\SocialController.cs" />
     <Compile Include="Features\CentralFeed\CentralFeedHub.cs" />
+    <Compile Include="Features\Links\Models\UintraLinkModel.cs" />
+    <Compile Include="Features\Links\Models\UintraLinkParamModel.cs" />
     <Compile Include="Features\ContentPage\InjectModule\ContentPageInjectModule.cs" />
     <Compile Include="Features\ContentPage\Services\ContentPageNotificationService.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />

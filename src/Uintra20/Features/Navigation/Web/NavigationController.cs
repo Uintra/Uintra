@@ -32,6 +32,7 @@ namespace Uintra20.Features.Navigation.Web
         {
             var model = _navigationModelsBuilder.GetTopNavigationModel();
             var viewModel = model.Map<TopNavigationViewModel>();
+
             return viewModel;
         }
 

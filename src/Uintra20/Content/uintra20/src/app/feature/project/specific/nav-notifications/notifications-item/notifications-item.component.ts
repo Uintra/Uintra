@@ -10,6 +10,19 @@ export class NotificationsItemComponent implements OnInit {
   @Input() notification: INotificationsData;
   @Input() link: string;
 
+  get notificationUrlParams() {
+    const params = this.notification.value.url.params;
+
+    if (params && Array.isArray(params)) {
+      return params.reduce((acc, val) => {
+        acc[val.name] = val.value;
+        return acc;
+      }, {});
+    }
+
+    return {};
+  }
+
   constructor(private navNotificationsService: NavNotificationsService) { }
 
   ngOnInit() {

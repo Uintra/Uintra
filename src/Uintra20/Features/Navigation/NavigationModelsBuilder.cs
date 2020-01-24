@@ -5,6 +5,8 @@ using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.HomePage;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure;
 
@@ -17,19 +19,22 @@ namespace Uintra20.Features.Navigation
         private readonly INodeDirectAccessValidator _nodeDirectAccessValidator;
         private readonly INavigationBuilder _navigationBuilder;
         private readonly IUBaselineRequestContext _uBaselineRequestContext;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
         public NavigationModelsBuilder(
             IUintraInformationService uintraInformationService,
             INodeModelService nodeModelService,
             INodeDirectAccessValidator nodeDirectAccessValidator,
             INavigationBuilder navigationBuilder,
-            IUBaselineRequestContext uBaselineRequestContext)
+            IUBaselineRequestContext uBaselineRequestContext,
+            IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _uintraInformationService = uintraInformationService;
             _nodeModelService = nodeModelService;
             _nodeDirectAccessValidator = nodeDirectAccessValidator;
             _navigationBuilder = navigationBuilder;
             _uBaselineRequestContext = uBaselineRequestContext;
+            _intranetMemberService = intranetMemberService;
         }
 
         public virtual IEnumerable<TreeNavigationItemModel> GetLeftSideNavigation()
@@ -89,6 +94,7 @@ namespace Uintra20.Features.Navigation
             };
             var model = new TopNavigationModel()
             {
+                CurrentMember = _intranetMemberService.GetCurrentMember(),
                 Items = menuItems
             };
 
