@@ -1,6 +1,7 @@
 export interface IProfileEditPage {
     member: IMemberEdit;
     title: string;
+    url: string;
 }
 export interface IMemberEdit {
     id: string;
