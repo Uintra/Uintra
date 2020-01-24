@@ -13,7 +13,6 @@ using Uintra20.Features.Media;
 using Uintra20.Features.Navigation;
 using Uintra20.Features.Navigation.Configuration;
 using Uintra20.Features.Navigation.ModelBuilders.SubMenu;
-using Uintra20.Features.Navigation.ModelBuilders.SystemLinks;
 using Uintra20.Features.Navigation.ModelBuilders.TopMenu;
 using Uintra20.Features.Navigation.Services;
 using Uintra20.Features.Permissions;
@@ -75,7 +74,6 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddSingleton<IContentPageContentProvider, ContentPageContentProvider>();
             services.AddScoped<ISubNavigationModelBuilder, SubNavigationModelBuilder>();
             services.AddScoped<ITopNavigationModelBuilder, TopNavigationModelBuilder>();
-            services.AddScoped<ISystemLinksModelBuilder, SystemLinksModelBuilder>();
             services.AddScoped<ISystemLinksService, SystemLinksService>();
             services.AddScoped<IUintraInformationService, UintraInformationService>();
             services.AddScoped<INavigationModelsBuilder, NavigationModelsBuilder>();

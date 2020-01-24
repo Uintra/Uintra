@@ -5,10 +5,8 @@ using UBaseline.Core.Controllers;
 using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
 using Uintra20.Core.HomePage;
-using Uintra20.Features.Navigation.ModelBuilders.SystemLinks;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure.Extensions;
-using Uintra20.Infrastructure.Providers;
 
 namespace Uintra20.Features.Navigation.Web
 {
@@ -16,15 +14,12 @@ namespace Uintra20.Features.Navigation.Web
     {
         private readonly INavigationModelsBuilder _navigationModelsBuilder;
         private readonly INodeModelService _nodeModelService;
-        private readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
 
         public IntranetNavigationController(INavigationModelsBuilder navigationModelsBuilder, 
-            INodeModelService nodeModelService, 
-            ISystemLinksModelBuilder systemLinksModelBuilder)
+            INodeModelService nodeModelService)
         {
             _navigationModelsBuilder = navigationModelsBuilder;
             _nodeModelService = nodeModelService;
-            _systemLinksModelBuilder = systemLinksModelBuilder;
         }
 
         [HttpGet]
@@ -46,9 +41,22 @@ namespace Uintra20.Features.Navigation.Web
         }
 
         [HttpGet]
-        public virtual IEnumerable<SharedLinkItemViewModel> SystemLinks()
+        public virtual IEnumerable<SharedLinkApiViewModel> SystemLinks()
         {
-            return _systemLinksModelBuilder.Get();
+            var models = _nodeModelService.AsEnumerable().OfType<SharedLinkItemModel>();
+
+            var result = models.Select(MapSharedLinkItemModel);
+            return result;
+        }
+
+        private SharedLinkApiViewModel MapSharedLinkItemModel(SharedLinkItemModel model)
+        {
+            return new SharedLinkApiViewModel
+            {
+                LinksGroupTitle = model.LinksGroupTitle,
+                Sort = model.Sort,
+                Links = model.Links.Value.Select(sharedLink => sharedLink.ToViewModel())
+            };
         }
 
         private MenuItemViewModel MapMenuItem(TreeNavigationItemModel model)

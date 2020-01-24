@@ -154,12 +154,15 @@
 
         $scope.processCaptionChange = function (link) {
             link.caption = link.prettyCaption;
+            link.userCaption = link.prettyCaption;
         }
 
         $scope.processEmailChange = function (link) {
             link.link = "mailTo:" + link.prettyLink;
-            link.caption = link.caption ? link.caption : link.prettyLink;
-            link.prettyCaption = link.prettyLink;
+            if (!link.userCaption) {
+                link.caption = link.prettyLink;
+                link.prettyCaption = link.prettyLink;
+            }
         }
 
         $scope.internalPicker = internalPicker;
