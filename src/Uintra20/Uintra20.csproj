@@ -893,10 +893,14 @@
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
+    <Compile Include="Core\UbaselineModels\SharedLinkItemModel.cs" />
+    <Compile Include="Core\UbaselineModels\LinksPicker.cs" />
+    <Compile Include="Core\UbaselineModels\UintraLinksPickerPropertyEditorConverter.cs" />
     <Compile Include="Features\Navigation\INavigationModelsBuilder.cs" />
     <Compile Include="Core\UbaselineModels\ArticlePageModel.cs" />
     <Compile Include="Features\Navigation\Models\HeadingPageModel.cs" />
     <Compile Include="Features\Navigation\Models\IUintraNavigationComposition.cs" />
+    <Compile Include="Features\Navigation\Models\LinksPickerViewModel.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationItem.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationItemViewModel.cs" />
     <Compile Include="Features\Navigation\NavigationModelsBuilder.cs" />
@@ -911,7 +915,6 @@
     <Compile Include="Features\Navigation\Configuration\NavigationConfiguration.cs" />
     <Compile Include="Features\Navigation\Configuration\NavigationItemTypeSettings.cs" />
     <Compile Include="Features\Navigation\Configuration\NavigationPropertySettings.cs" />
-    <Compile Include="Features\Navigation\ModelBuilders\LeftSideMenu\ILeftSideNavigationModelBuilder.cs" />
     <Compile Include="Features\Navigation\ModelBuilders\SubMenu\ISubNavigationModelBuilder.cs" />
     <Compile Include="Features\Navigation\ModelBuilders\SubMenu\SubNavigationModelBuilder.cs" />
     <Compile Include="Features\Navigation\ModelBuilders\SystemLinks\ISystemLinksModelBuilder.cs" />
@@ -926,7 +929,6 @@
     <Compile Include="Features\Navigation\Models\SubNavigationMenuModel.cs" />
     <Compile Include="Features\Navigation\Models\SubNavigationMenuRowModel.cs" />
     <Compile Include="Features\Navigation\Models\SubNavigationMenuViewModel.cs" />
-    <Compile Include="Features\Navigation\Models\SystemLinkItemModel.cs" />
     <Compile Include="Features\Navigation\Models\SystemLinkItemViewModel.cs" />
     <Compile Include="Features\Navigation\Models\SystemLinksModel.cs" />
     <Compile Include="Features\Navigation\Models\SystemLinksViewModel.cs" />
@@ -938,7 +940,6 @@
     <Compile Include="Features\Navigation\Services\ISystemLinksService.cs" />
     <Compile Include="Features\Navigation\Services\SystemLinksService.cs" />
     <Compile Include="Features\Notification\Configuration\NotificationConfigurationProvider.cs" />
-    <Compile Include="Features\Navigation\ModelBuilders\LeftSideMenu\LeftSideNavigationModelBuilder.cs" />
     <Compile Include="Features\Navigation\ModelBuilders\NavigationModelBuilderBase.cs" />
     <Compile Include="Features\Navigation\NavigationPropertiesConstants.cs" />
     <Compile Include="Features\Navigation\Models\MenuItemModel.cs" />

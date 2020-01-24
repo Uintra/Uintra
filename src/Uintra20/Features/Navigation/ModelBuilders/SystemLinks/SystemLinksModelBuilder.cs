@@ -1,70 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
+using UBaseline.Core.Node;
+using Uintra20.Core.UbaselineModels;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Features.Navigation.Services;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web;
 
 namespace Uintra20.Features.Navigation.ModelBuilders.SystemLinks
 {
     public class SystemLinksModelBuilder : ISystemLinksModelBuilder
     {
         private readonly ISystemLinksService _systemLinksService;
+        private readonly INodeModelService _nodeModelService;
 
-        public SystemLinksModelBuilder(ISystemLinksService systemLinksService)
+        public SystemLinksModelBuilder(ISystemLinksService systemLinksService, INodeModelService nodeModelService)
         {
             _systemLinksService = systemLinksService;
+            _nodeModelService = nodeModelService;
         }
 
-        public IEnumerable<SystemLinksModel> Get(
-            IEnumerable<string> contentAliasPath,
-            string titleNodePropertyAlias,
-            string linksNodePropertyAlias,
-            string sortOrderNodePropertyAlias,
-            Func<SystemLinksModel, int> sort)
+        public IEnumerable<SharedLinkItemViewModel> Get()
         {
-            var result = Enumerable.Empty<SystemLinksModel>();
+            var test = _nodeModelService.AsEnumerable().OfType<SharedLinkItemModel>().ToArray();
 
-            if (!contentAliasPath.Any())
-            {
-                return result;
-            }
+            //var result = test.Select(ParseToSystemLinksViewModel)
+            //        .OrderBy(x => x.SortOrder);
 
-            result = _systemLinksService.GetMany(contentAliasPath)
-                    .Select(x => ParseToSystemLinksModel(titleNodePropertyAlias, linksNodePropertyAlias, sortOrderNodePropertyAlias, x))
-                    .OrderBy(sort);
-
-            return result;
+            return null;
         }
 
-        private SystemLinksModel ParseToSystemLinksModel(string titleNodePropertyAlias,
-            string linksNodePropertyAlias, string sortOrderNodePropertyAlias, IPublishedContent content)
-        {
-            var result = new SystemLinksModel();
-
-            var json = content.Value<string>(linksNodePropertyAlias);
-
-            result.LinksGroupTitle = content.Value<string>(titleNodePropertyAlias);
-            result.SortOrder = content.Value<int>(sortOrderNodePropertyAlias);
-            result.SystemLinks = ParseToSystemLinkItems(json);
-
-            return result;
-        }
-
-        private List<SystemLinkItemModel> ParseToSystemLinkItems(string json)
-        {
-
-            var result = new List<SystemLinkItemModel>();
-
-            try
-            {
-                result = JsonConvert.DeserializeObject<List<SystemLinkItemModel>>(json);
-            }
-            catch (Exception ex) { }
-
-            return result;
-        }
+        //private SharedLinkItemViewModel ParseToSystemLinksViewModel(SharedLinkItemModel content)
+        //{
+        //    var result = new SystemLinksViewModel
+        //    {
+        //        SortOrder = content.SortOrder,
+        //        LinksGroupTitle = content.LinksGroupTitle,
+        //        Links = content.Links.Select(x => new SystemLinkItemViewModel
+        //        {
+        //            Url = x.Link, Name = x.Caption, Target = x.Target
+        //        }).ToList()
+        //    };
+            
+        //    return result;
+        //}
     }
 }

@@ -5,8 +5,10 @@ using UBaseline.Core.Controllers;
 using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
 using Uintra20.Core.HomePage;
+using Uintra20.Features.Navigation.ModelBuilders.SystemLinks;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure.Extensions;
+using Uintra20.Infrastructure.Providers;
 
 namespace Uintra20.Features.Navigation.Web
 {
@@ -14,11 +16,15 @@ namespace Uintra20.Features.Navigation.Web
     {
         private readonly INavigationModelsBuilder _navigationModelsBuilder;
         private readonly INodeModelService _nodeModelService;
+        private readonly ISystemLinksModelBuilder _systemLinksModelBuilder;
 
-        public IntranetNavigationController(INavigationModelsBuilder navigationModelsBuilder, INodeModelService nodeModelService)
+        public IntranetNavigationController(INavigationModelsBuilder navigationModelsBuilder, 
+            INodeModelService nodeModelService, 
+            ISystemLinksModelBuilder systemLinksModelBuilder)
         {
             _navigationModelsBuilder = navigationModelsBuilder;
             _nodeModelService = nodeModelService;
+            _systemLinksModelBuilder = systemLinksModelBuilder;
         }
 
         [HttpGet]
@@ -36,6 +42,12 @@ namespace Uintra20.Features.Navigation.Web
             var result = new MenuViewModel { MenuItems = leftNavigation.Select(MapMenuItem) };
 
             return result;
+        }
+
+        [HttpGet]
+        public virtual IEnumerable<SharedLinkItemViewModel> SystemLinks()
+        {
+            return _systemLinksModelBuilder.Get();
         }
 
         private MenuItemViewModel MapMenuItem(TreeNavigationItemModel model)

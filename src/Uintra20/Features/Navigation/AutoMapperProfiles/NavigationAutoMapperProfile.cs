@@ -33,11 +33,11 @@ namespace Uintra20.Features.Navigation.AutoMapperProfiles
 
             //Mapper.CreateMap<MyLinkItemModel, MyLinkItemViewModel>();
 
-            CreateMap<SystemLinksModel, SystemLinksViewModel>();
-            CreateMap<SystemLinkItemModel, SystemLinkItemViewModel>()
-                .ForMember(dst => dst.Name, o => o.MapFrom(el => el.Caption))
-                .ForMember(dst => dst.Url, o => o.MapFrom(el => el.Link))
-                .ForMember(dst => dst.Target, o => o.MapFrom(el => el.Target));
+            //CreateMap<SystemLinksModel, SystemLinksViewModel>();
+            //CreateMap<SystemLinkItemModel, SystemLinkItemViewModel>()
+            //    .ForMember(dst => dst.Name, o => o.MapFrom(el => el.Caption))
+            //    .ForMember(dst => dst.Url, o => o.MapFrom(el => el.Link))
+            //    .ForMember(dst => dst.Target, o => o.MapFrom(el => el.Target));
 
             CreateMap<UserListLinkModel, UserListLinkViewModel>();
 

@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using UBaseline.Shared.Node;
+using UBaseline.Shared.Property;
 
 namespace Uintra20.Features.Navigation.Models
 {
-    public class SystemLinksViewModel
+    public class SharedLinkItemViewModel : NodeViewModel
     {
-        public string LinksGroupTitle { get; set; }
-        public int SortOrder { get; set; }
-        public List<SystemLinkItemViewModel> SystemLinks { get; set; }
+        public PropertyViewModel<string> LinksGroupTitle { get; set; }
+        public PropertyViewModel<int> Sort { get; set; }
+        public PropertyModel<LinksPickerViewModel[]> Links { get; set; }
+        //public IEnumerable<SystemLinkItemViewModel> Links { get; set; } = Enumerable.Empty<SystemLinkItemViewModel>();
 
-        public SystemLinksViewModel()
-        {
-            SystemLinks = new List<SystemLinkItemViewModel>();
-        }
     }
 }
