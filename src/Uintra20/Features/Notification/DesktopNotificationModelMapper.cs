@@ -85,7 +85,7 @@ namespace Uintra20.Features.Notification
                         (FullName, _intranetMemberService.Get(model.ReceiverId).DisplayedName),
                         (TaggedBy, _intranetMemberService.Get(model.NotifierId).DisplayedName),
                         (Title, model.Title),
-                        (Url, model.Url),
+                        (Url, model.Url.ToString()),
                         (NotificationType, model.NotificationType.ToString().SplitOnUpperCaseLetters())
                     };
                     break;

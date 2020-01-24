@@ -24,6 +24,13 @@ export class CentralFeedPublicationComponent implements OnInit {
     return this.publication.activity.commentsCount || 'Comment';
   }
 
+  get detailsParams() {
+    return this.publication.activity.links.details.params.reduce((acc, val) => {
+      acc[val.name] = val.value;
+      return acc;
+    }, {});
+  }
+
   likeData: ILikeData;
 
   constructor(
@@ -48,7 +55,7 @@ export class CentralFeedPublicationComponent implements OnInit {
   }
 
   public openGallery(i) {
-    const items = this.medias.map(el => ({
+    const items = this.mediaCount.map(el => ({
       src: el.url,
       w: el.width,
       h: el.height,

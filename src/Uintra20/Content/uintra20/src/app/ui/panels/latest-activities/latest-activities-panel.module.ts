@@ -4,6 +4,7 @@ import { AS_DYNAMIC_COMPONENT } from '@ubaseline/next';
 import { LatestActivitiesPanelComponent } from './latest-activities-panel.component';
 import { LatestActivityComponent } from './latest-activity-item/latest-activity-item.component';
 import { RouterModule } from '@angular/router';
+import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    UlinkModule
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: LatestActivitiesPanelComponent }

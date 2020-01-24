@@ -1,0 +1,124 @@
+@import 'base.less';
+
+.menu {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  right: 25px;
+  top: 55px;
+  background: @main-color;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #bfbfbf;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, .2);
+  width: 247px;
+  font-size: 14px;
+
+  &--expanded {
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  &__item:not(:first-child) {
+    border-top: 1px solid #bfbfbf;
+  }
+
+  &__item {
+    &:first-child {
+      @media @sm-up {
+        &::before {
+          display: block;
+          content: '';
+          width: 10px;
+          height: 10px;
+          background: @main-color;
+          border: solid #bfbfbf;
+          border-width: 1px 1px 0 0;
+          transform: rotate(-45deg);
+          position: absolute;
+          top: -6px;
+          right: 18px;
+        }
+      }
+    }
+  }
+
+  &__item-link {
+    text-decoration: none;
+    cursor: pointer;
+    color: #555;
+    display: flex;
+    align-items: center;
+    padding: 14px 10px 13px 57px;
+    position: relative;
+  }
+}
+
+.icon {
+  position: absolute;
+  left: 10px;
+
+  &::before {
+    color: @btn-bg !important;
+  }
+
+  &-umbraco-logo {
+    font-size: 30px;
+  }
+
+  &-user-profile {
+    font-size: 30px;
+  }
+
+  &-uintra {
+    font-size: 35px;
+  }
+
+  &-logout {
+    font-size: 20px;
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+}
+
+.user {
+  &__name {
+    display: inline-block;
+    color: @main-color;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font: @body-font;
+    font-size: 16px;
+    font-weight: bold;
+    padding-right: 18px;
+    text-align: right;
+  }
+
+  &__opener {
+    color: @main-color;
+    display: flex;
+    align-items: center;
+    padding: 4px 2px 4px 17px;
+    cursor: pointer;
+    margin-right: 3px;
+  }
+
+  &__avatar {
+    display: inline-block;
+    margin-right: 13px;
+  }
+
+  &__opener-arrow {
+    width: 6px;
+    height: 6px;
+    border: solid @main-color;
+    border-width: 0 1px 1px 0;
+    transform: rotate(45deg);
+  }
+
+  &__menu-item {
+    border-top: 1px solid #bfbfbf;
+  }
+}

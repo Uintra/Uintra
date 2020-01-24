@@ -8,8 +8,8 @@
       {{ getPublicationDate() }} -
       <a
         class="publication__activity-type"
-        [routerLink]="['/social-details']"
-        [queryParams]="{ id: publication.activity.id }"
+        [routerLink]="publication.activity.links.details.baseUrl | ulink"
+        [queryParams]="publication.activity.links.details.params | uparams"
         >{{ publication.activity.type }}
       </a>
     </div>
@@ -21,8 +21,9 @@
   <div class="publication__content">
     <div
       class="publication__text"
+      [routerLink]="publication.activity.links.details.baseUrl | ulink"
+        [queryParams]="publication.activity.links.details.params | uparams"
       [innerHTML]="publication.activity.description"
-      (click)="checkForRightRoute($event)"
     ></div>
 
 
@@ -39,8 +40,8 @@
       <app-like-button [likeData]="likeData"></app-like-button>
       <a
         class="publication__comment publication__footer-item"
-        [routerLink]="['/social-details']"
-        [queryParams]="{ id: publication.activity.id }"
+        [routerLink]="publication.activity.links.details.baseUrl | ulink"
+        [queryParams]="publication.activity.links.details.params | uparams"
       >
         <i class="icon-comment"></i>
         {{ commentsCount }}
@@ -53,8 +54,8 @@
       <a
         class="publication__files publication__footer-item"
         *ngIf="documentsCount"
-        [routerLink]="['/social-details']"
-        [queryParams]="{ id: publication.activity.id }"
+        [routerLink]="publication.activity.links.details.baseUrl | ulink"
+        [queryParams]="publication.activity.links.details.params | uparams"
       >
         <i class="icon-attachment"></i>
         {{ documentsCount }}

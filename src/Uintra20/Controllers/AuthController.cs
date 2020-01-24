@@ -7,7 +7,9 @@ using System.Web.Security;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Authentication.Models;
 using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Helpers;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities.Base;
@@ -16,6 +18,7 @@ using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
 using Uintra20.Models.UmbracoIdentity;
 using Umbraco.Core.Services;
+using Umbraco.Web;
 using UmbracoIdentity;
 
 namespace Uintra20.Controllers
@@ -23,6 +26,9 @@ namespace Uintra20.Controllers
     [RoutePrefix("api/auth")]
     public class AuthController : ApiController
     {
+        protected virtual string DefaultRedirectUrl { get; } = "/";
+        protected virtual string UmbracoRedirectUrl { get; } = "/umbraco";
+
         private readonly UmbracoMembersUserManager<UmbracoApplicationMember> _userManager;
         private readonly IAuthenticationService _authenticationService;
         private readonly IClientTimezoneProvider _clientTimezoneProvider;
@@ -30,6 +36,8 @@ namespace Uintra20.Controllers
         private readonly ICacheableIntranetMemberService _cacheableIntranetMemberService;
         private readonly IMemberService _memberService;
         private readonly INotificationsService _notificationsService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
+        private readonly UmbracoContext _umbracoContext;
 
         public AuthController(
             UmbracoMembersUserManager<UmbracoApplicationMember> userManager,
@@ -38,15 +46,19 @@ namespace Uintra20.Controllers
             IMemberServiceHelper memberServiceHelper,
             ICacheableIntranetMemberService cacheableIntranetMemberService,
             IMemberService memberService,
-            INotificationsService notificationsService)
+            INotificationsService notificationsService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
+            UmbracoContext umbracoContext)
         {
             _userManager = userManager;
-            this._authenticationService = authenticationService;
-            this._clientTimezoneProvider = clientTimezoneProvider;
+            _authenticationService = authenticationService;
+            _clientTimezoneProvider = clientTimezoneProvider;
             _memberServiceHelper = memberServiceHelper;
             _cacheableIntranetMemberService = cacheableIntranetMemberService;
             _memberService = memberService;
             _notificationsService = notificationsService;
+            _intranetMemberService = intranetMemberService;
+            _umbracoContext = umbracoContext;
         }
 
         [HttpPost]
@@ -74,6 +86,18 @@ namespace Uintra20.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("login/umbraco")]
+        public IHttpActionResult LoginToUmbraco()
+        {
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            var relatedUser = currentMember.RelatedUser;
+            if (!relatedUser.IsValid)
+                return Redirect(DefaultRedirectUrl);
+            _umbracoContext.Security.PerformLogin(relatedUser.Id);
+            return Redirect(UmbracoRedirectUrl);
         }
 
         [HttpPost]

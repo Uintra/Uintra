@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using Uintra20.Features.Media;
+using Uintra20.Features.Navigation;
 using Uintra20.Infrastructure.Constants;
+using Uintra20.Infrastructure.Providers;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
@@ -71,6 +71,59 @@ namespace Uintra20.Infrastructure.Extensions
                     throw new Exception($"undefined document type - {content.ContentType.Alias}");
 
             }
+        }
+
+        public static bool GetHideInNavigation(this IPublishedContent content)
+        {
+            var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
+
+            if (content.IsComposedOf(docTypeAliasProvider.GetNavigationComposition()))
+            {
+                var isHideFromLeftNavigationPropName = content.Value<bool>(NavigationPropertiesConstants.IsHideFromLeftNavigationPropName);
+
+                return isHideFromLeftNavigationPropName;
+            }
+
+            return true;
+        }
+
+        public static bool IsShowPageInSubNavigation(this IPublishedContent content)
+        {
+            var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
+
+            if (content.IsComposedOf(docTypeAliasProvider.GetNavigationComposition()))
+            {
+                var isHideFromSubNavigation = content.Value<bool>(NavigationPropertiesConstants.IsHideFromSubNavigationPropName);
+
+                return !isHideFromSubNavigation;
+            }
+
+            return true;
+        }
+
+        public static string GetNavigationName(this IPublishedContent content)
+        {
+            var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
+            if (content.IsComposedOf(docTypeAliasProvider.GetNavigationComposition()))
+            {
+                var navigationName = content.Value<string>(NavigationPropertiesConstants.NavigationNamePropName);
+
+                return navigationName;
+            }
+
+            return string.Empty;
+        }
+
+        public static bool IsHeading(this IPublishedContent publishedContent)
+        {
+            var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
+            return publishedContent.ContentType.Alias.Equals(docTypeAliasProvider.GetHeading());
+        }
+
+        public static bool IsContentPage(this IPublishedContent publishedContent)
+        {
+            var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
+            return publishedContent.ContentType.Alias.Equals(docTypeAliasProvider.GetContentPage());
         }
     }
 }
