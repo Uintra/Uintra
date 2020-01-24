@@ -13,13 +13,16 @@ import { HeaderComponent } from './ui/main-layout/header/header.component';
 import { UserNavigationModule } from './feature/project/specific/user-navigation/user-navigation.module';
 import { ImageGalleryModule } from './feature/project/reusable/ui-elements/image-gallery/image-gallery.module';
 import { GoToTopButtonModule } from './feature/project/reusable/ui-elements/go-to-top-button/go-to-top-button.module';
+import { LeftNavigationModule } from './ui/main-layout/left-navigation/left-navigation.module';
+import { HeaderModule } from './ui/main-layout/header/header.module';
+import { SearchModule } from './feature/project/reusable/inputs/search/search.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent
+    AppComponent
   ],
   imports: [
+    HeaderModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -32,6 +35,8 @@ import { GoToTopButtonModule } from './feature/project/reusable/ui-elements/go-t
       environment: environment
     }),
     NavNotificationsModule,
+    LeftNavigationModule,
+    SearchModule,
     UbaselineCoreModule,
   ],
   providers: [
