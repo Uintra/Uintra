@@ -1,4 +1,6 @@
-﻿namespace Uintra20.Core.Member.Models
+﻿using Uintra20.Core.Member.Models;
+
+namespace Uintra20.Core.Member.Profile.Models
 {
     public class ProfileViewModel
     {

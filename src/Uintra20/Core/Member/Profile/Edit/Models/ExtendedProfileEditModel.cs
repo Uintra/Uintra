@@ -1,4 +1,4 @@
-﻿namespace Uintra20.Core.Member.Models
+﻿namespace Uintra20.Core.Member.Profile.Edit.Models
 {
     public class ExtendedProfileEditModel : ProfileEditModel
     {
