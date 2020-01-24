@@ -78,6 +78,11 @@
       proxies['previewHub'] = this.createHubProxy('previewHub');
       proxies['previewHub'].client = { };
       proxies['previewHub'].server = {
+    };
+
+      proxies['centralFeedHub'] = this.createHubProxy('centralFeedHub');
+      proxies['centralFeedHub'].client = { };
+      proxies['centralFeedHub'].server = {
       };
 
       proxies['uSyncHub'] = this.createHubProxy('uSyncHub');

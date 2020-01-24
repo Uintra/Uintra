@@ -26,7 +26,13 @@ export interface INotificationsData {
 
   value: {
     message: string;
-    url: string;
+    url: {
+      baseUrl: string;
+      params: Array<{
+        name: string;
+        value: string;
+      }>;
+    };
     notifierId: string;
     isPinned: boolean;
     isPinActual: boolean;

@@ -115,7 +115,7 @@ namespace Uintra20.Features.Social
                 return null;
             }
 
-            IActivityLinks links = null;//_feedLinkService.GetLinks(id);//TODO:Uncomment when profile link service is ready
+            IActivityLinks links = _linkService.GetLinks(activityId);
 
             var currentMemberId = _intranetMemberService.GetCurrentMemberId();
 

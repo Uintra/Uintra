@@ -2,10 +2,10 @@
 {
     public interface IActivityCreateLinks
     {
-        string Feed { get; }
-        string Overview { get; }
-        string Create { get; }
-        string Owner { get; }
-        string DetailsNoId { get; }
+        UintraLinkModel Feed { get; }
+        UintraLinkModel Overview { get; }
+        UintraLinkModel Create { get; }
+        UintraLinkModel Owner { get; }
+        UintraLinkModel DetailsNoId { get; }
     }
 }

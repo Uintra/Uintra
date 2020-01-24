@@ -4,6 +4,7 @@ using System.Linq;
 using Uintra20.Core.Member.Models;
 using Uintra20.Features.Likes.Models;
 using Uintra20.Features.LinkPreview.Models;
+using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Features.Comments.Models
 {
@@ -23,7 +24,7 @@ namespace Uintra20.Features.Comments.Models
         public string ElementOverviewId { get; set; }
         public string CommentViewId { get; set; }
         public IEnumerable<CommentViewModel> Replies { get; set; } = Enumerable.Empty<CommentViewModel>();
-        public string CreatorProfileUrl { get; set; }
+        public UintraLinkModel CreatorProfileUrl { get; set; }
         public LinkPreviewViewModel LinkPreview { get; set; }
         public LikesViewModel LikeModel { get; set; }
         public bool LikedByCurrentUser { get; set; }

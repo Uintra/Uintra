@@ -1,7 +1,7 @@
 ﻿using System;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.User;
+using Uintra20.Features.Links.Models;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Links
@@ -15,10 +15,10 @@ namespace Uintra20.Features.Links
             _intranetUserContentProvider = intranetUserContentProvider;
         }
 
-        public string GetProfileLink(IIntranetMember member) =>
+        public UintraLinkModel GetProfileLink(IIntranetMember member) =>
             GetProfileLink(member.Id);
 
-        public string GetProfileLink(Guid userId) =>
-            _intranetUserContentProvider.GetProfilePage()?.Url?.AddIdParameter(userId);
+        public UintraLinkModel GetProfileLink(Guid userId) =>
+            _intranetUserContentProvider.GetProfilePage()?.Url?.AddIdParameter(userId).ToLinkModel();
     }
 }
