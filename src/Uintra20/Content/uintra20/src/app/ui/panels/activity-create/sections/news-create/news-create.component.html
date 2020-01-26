@@ -3,22 +3,24 @@
   <h2 class="news-create-panel__title">News</h2>
   <div class="owner form-row">
     <h3 class="owner__title subtitle">Owner</h3>
-    <app-tag-multiselect class="owner__multiselect"></app-tag-multiselect>
+    <app-select [items]="tags" [defaultItem]="tags[0].id"></app-select>
   </div>
   <div class="news-title form-row">
-    <h3 class="news-title__title subtitle">Title</h3>
-    <text-input type="text" aria-label="Title"></text-input>
+    <h3 class="news-title__title subtitle required">Title</h3>
+    <text-input type="text" aria-label="Title" class="news-title__input"></text-input>
   </div>
   <div class="description form-row">
-    <h3 class="description__title subtitle">News description</h3>
-    <app-rich-text-editor class="description__rte" [isEditing]="true"></app-rich-text-editor>
+    <h3 class="description__title subtitle required">News description</h3>
+    <app-rich-text-editor
+      class="description__rte"
+      [isEditing]="true"
+      [isDropzone]="false"
+      [isEventsOrNews]="true"
+      [placeholder]="''"></app-rich-text-editor>
   </div>
-  <quill-editor
-  theme="snow"
-></quill-editor>
   <div class="tags form-row">
     <h3 class="tags__title subtitle">Tag(s)</h3>
-    <app-tag-multiselect class="tags__multiselect" [availableTags]="data.tags.get().userTagCollection.get()"></app-tag-multiselect>
+    <app-tag-multiselect class="tags__multiselect" [availableTags]="tags"></app-tag-multiselect>
   </div>
   <div class="datepickers form-row">
     <div class="datepickers-publish">
@@ -32,7 +34,7 @@
   </div>
   <div class="location form-row">
     <h3 class="location__title subtitle">Location</h3>
-    <text-input type="text" aria-label="Location"></text-input>
+    <text-input type="text" aria-label="Location" class="location__input"></text-input>
     <!-- map -->
   </div>
   <div class="pin-block form-row">
@@ -48,13 +50,18 @@
       </div>
       <div class="pin-info__datepicker">
         <h5 class="pin-info__datepicker-title subtitle">Date to unpin</h5>
-        <!-- Insert datepicker -->
+        <!-- unpin datepicker -->
       </div>
     </div>
   </div>
   <div class="dropzone-holder form-row">
     <h3 class="dropzone-holder__title subtitle">File(s)</h3>
-    <dropzone [ngClass]="{'files-loaded': files.length}" #dropdownRef [message]="'Insert image'" (success)="onUploadSuccess($event)" (removedFile)="onFileRemoved($event)"></dropzone>
+    <dropzone
+      [ngClass]="{'files-loaded': files.length}"
+      #dropdownRef
+      message="<span class='custom-message icon-upload'>Insert image</span>"
+      (success)="onUploadSuccess($event)"
+      (removedFile)="onFileRemoved($event)"></dropzone>
   </div>
   <div class="buttons">
     <button class="buttons__submit">Submit</button>

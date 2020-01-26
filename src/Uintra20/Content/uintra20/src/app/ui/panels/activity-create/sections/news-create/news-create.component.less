@@ -1,6 +1,9 @@
 @import 'base.less';
 
 :host {
+  font: @body-font;
+  font-size: 13px;
+
   & ::ng-deep {
     .dropzone {
       border-style: dashed !important;
@@ -20,18 +23,46 @@
       background-color: @main-color !important;
       display: flex !important;
       justify-content: center !important;
+      overflow: visible !important;
     }
 
     .dropzone.dz-clickable .dz-message, .dropzone.dz-clickable .dz-message * {
       cursor: pointer;
     }
 
-    .dz-text {
-      width: auto !important;
+    .files-loaded ::ng-deep .dz-message,
+    .dz-started ::ng-deep .dz-message {
+      display: none !important;
     }
 
-    .files-loaded ::ng-deep .dz-message {
-      display: none !important;
+    .custom-message {
+      font: @body-font;
+      font-size: 14px;
+      position: relative;
+
+      &::before {
+        position: absolute;
+        top: -10px;
+        left: -40px;
+        font-size: 30px;
+        color: @icon-black;
+      }
+    }
+
+    .ql-editor {
+      border: 1px solid @border-color;
+      border-top: none;
+      height: 149px;
+      padding: 6px 10px !important;
+      margin: 0 !important;
+    }
+
+    .ql-toolbar button {
+      margin: 0;
+    }
+
+    .icon-smily {
+      font-size: 18px;
     }
   }
 }
@@ -47,12 +78,33 @@
 }
 
 .subtitle {
-  font: @body-font;
   font-size: 13px;
   line-height: 22px;
   font-weight: bold;
   color: @body-text-color ;
-  margin-bottom: 3px;
+  margin: 0 0 3px;
+}
+
+.required {
+  &::after {
+    content: '*';
+    color: red;
+    margin-left: 2px;
+  }
+}
+
+.news-title__input,
+.location__input {
+  border: 1px solid @border-color;
+}
+
+.datepickers {
+  display: flex;
+
+  &-publish,
+  &-unpublish {
+    flex: 50%;
+  }
 }
 
 .pin-info {

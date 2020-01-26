@@ -17,7 +17,7 @@ export class NewsCreateComponent implements OnInit {
 
   ngOnInit() {
     this.panelData = ParseHelper.parseUbaselineData(this.data);
-    this.tags = this.panelData.tags.userTagCollection;
+    this.tags = Object.values(this.panelData.tags.userTagCollection);
   }
 
   onUploadSuccess(fileArray: Array<any> = []): void {

@@ -42,7 +42,7 @@ export const emojiList = [
     class: "emoji-icon tease",
   },
   {
-    src: "funny.svg",
+    src: emojiPath + "funny.svg",
     title: "Funny (:D)",
     shortcut: ":D",
     width: "20",

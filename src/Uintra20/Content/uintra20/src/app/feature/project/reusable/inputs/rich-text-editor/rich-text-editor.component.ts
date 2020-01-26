@@ -12,7 +12,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { QUILL_CONFIG_TOKEN, QuillConfig } from "ngx-quill";
 import Quill from "quill";
 import Counter from "./quill-modules/counter";
-import { emojiList } from './rich-text-editor-emoji/helpers/emoji-list';
 import { EmojiService } from './rich-text-editor-emoji/helpers/emoji.service';
 Quill.register("modules/counter", Counter);
 
@@ -36,11 +35,13 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   @Input() isDropzone: boolean = true;
   @Input() isUnderline: boolean = true;
   @Input() isEditing: boolean = false;
+  @Input() isEventsOrNews: boolean = false;
   @Output() addAttachment = new EventEmitter();
 
   config: QuillConfig;
   editor: Quill;
   isEmojiPalette: boolean = false;
+  test: false;
 
   get value() {
     return this._value;
@@ -57,7 +58,9 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.emojiService.addOnTextChangeCallback(editor)
     this.emojiService.addStylesToImages(editor);
 
-    editor.focus();
+    if (!this.isEventsOrNews) {
+      editor.focus();
+    }
   }
 
   onShowDropdown() {

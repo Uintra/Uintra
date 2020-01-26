@@ -25,6 +25,7 @@
     "@types/signalr": "^2.2.35",
     "@ubaseline/next": "file:../ubaseline-next-0.0.15.tgz",
     "jquery": "^3.4.1",
+    "ng-select2": "^1.2.2",
     "ngx-dropzone": "^2.2.2",
     "ngx-dropzone-wrapper": "^8.0.0",
     "ngx-eonasdan-datetimepicker": "^1.0.6",
@@ -35,6 +36,7 @@
     "quill-delta": "^4.2.1",
     "quill-emoji": "^0.1.7",
     "rxjs": "~6.4.0",
+    "select2": "^4.0.12",
     "signalr": "^2.4.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

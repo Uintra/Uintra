@@ -17,6 +17,7 @@ import { SocialCreateComponent } from './sections/social-create/social-create.co
 import { TextInputModule } from 'src/app/feature/project/reusable/inputs/fields/text-input/text-input.module';
 import { QuillModule } from 'ngx-quill';
 import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/checkbox-input/checkbox-input.module';
+import { SelectModule } from 'src/app/feature/project/reusable/inputs/select/select.module';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // TODO: Change this to your upload POST address:
@@ -43,6 +44,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     TextInputModule,
     QuillModule,
     CheckboxInputModule,
+    SelectModule,
     RichTextEditorModule.configure({
       modules: {
         'emoji-toolbar': true,
