@@ -18,6 +18,7 @@ import { TextInputModule } from 'src/app/feature/project/reusable/inputs/fields/
 import { QuillModule } from 'ngx-quill';
 import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/checkbox-input/checkbox-input.module';
 import { SelectModule } from 'src/app/feature/project/reusable/inputs/select/select.module';
+import { DatepickerFromToModule } from 'src/app/feature/project/reusable/inputs/datepicker-from-to/datepicker-from-to.module';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // TODO: Change this to your upload POST address:
@@ -45,6 +46,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     QuillModule,
     CheckboxInputModule,
     SelectModule,
+    DatepickerFromToModule,
     RichTextEditorModule.configure({
       modules: {
         'emoji-toolbar': true,

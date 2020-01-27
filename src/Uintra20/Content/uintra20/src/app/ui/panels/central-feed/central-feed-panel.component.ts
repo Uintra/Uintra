@@ -132,7 +132,7 @@ export class CentralFeedPanel implements OnInit {
 
   concatWithCurrentFeed(data): void {
     this.ngZone.run(() => {
-      this.feed = this.feed.concat(data);
+      this.feed = this.feed.concat(data) ;
     });
   }
 
