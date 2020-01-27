@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Results;
+using System.Web.Mvc;
 using System.Web.Security;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Authentication.Models;
@@ -23,12 +26,9 @@ using UmbracoIdentity;
 
 namespace Uintra20.Controllers
 {
-    [RoutePrefix("api/auth")]
+    [System.Web.Http.RoutePrefix("api/auth")]
     public class AuthController : ApiController
     {
-        protected virtual string DefaultRedirectUrl { get; } = "/";
-        protected virtual string UmbracoRedirectUrl { get; } = "/umbraco";
-
         private readonly UmbracoMembersUserManager<UmbracoApplicationMember> _userManager;
         private readonly IAuthenticationService _authenticationService;
         private readonly IClientTimezoneProvider _clientTimezoneProvider;
@@ -61,9 +61,9 @@ namespace Uintra20.Controllers
             _umbracoContext = umbracoContext;
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [Route("login")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.Route("login")]
         public async Task<IHttpActionResult> Login(LoginModelBase loginModel)
         {
             if (!ModelState.IsValid)
@@ -88,20 +88,20 @@ namespace Uintra20.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        [Route("login/umbraco")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("login/umbraco")]
         public IHttpActionResult LoginToUmbraco()
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
             var relatedUser = currentMember.RelatedUser;
-            if (!relatedUser.IsValid)
-                return Redirect(DefaultRedirectUrl);
+            if (relatedUser == null || !relatedUser.IsValid)
+                return Content(HttpStatusCode.Forbidden, "Member has no related user ");
             _umbracoContext.Security.PerformLogin(relatedUser.Id);
-            return Redirect(UmbracoRedirectUrl);
+            return Ok();
         }
 
-        [HttpPost]
-        [Route("logout")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("logout")]
         public IHttpActionResult Logout()
         {
             _authenticationService.Logout();

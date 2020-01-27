@@ -5,8 +5,10 @@ using Uintra20.Core.Member.Services;
 using Compent.Extensions;
 using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
+using Uintra20.Core.User;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure;
+using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Navigation
 {
@@ -17,19 +19,22 @@ namespace Uintra20.Features.Navigation
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly INodeDirectAccessValidator _nodeDirectAccessValidator;
         private readonly INavigationBuilder _navigationBuilder;
+        private readonly IIntranetUserContentProvider _intranetUserContentProvider;
 
         public NavigationModelsBuilder(
             IUintraInformationService uintraInformationService,
             INodeModelService nodeModelService,
             INodeDirectAccessValidator nodeDirectAccessValidator,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            INavigationBuilder navigationBuilder)
+            INavigationBuilder navigationBuilder,
+            IIntranetUserContentProvider intranetUserContentProvider)
         {
             _uintraInformationService = uintraInformationService;
             _nodeModelService = nodeModelService;
             _intranetMemberService = intranetMemberService;
             _nodeDirectAccessValidator = nodeDirectAccessValidator;
             _navigationBuilder = navigationBuilder;
+            _intranetUserContentProvider = intranetUserContentProvider;
         }
 
         public virtual IEnumerable<TreeNavigationItemModel> GetLeftSideNavigation()
@@ -47,33 +52,39 @@ namespace Uintra20.Features.Navigation
 
         public virtual TopNavigationModel GetTopNavigationModel()
         {
-            var menuItems = new List<TopNavigationItem>()
+            var menuItems = new List<TopNavigationItem>();
+            var currentMember = _intranetMemberService.GetCurrentMember();
+
+            if (currentMember.RelatedUser != null)
             {
-                new TopNavigationItem()
+                menuItems.Add(new TopNavigationItem()
                 {
                     Name = "Login To Umbraco",
                     Type = TopNavigationItemTypes.LoginToUmbraco,
-                    Url = "/api/auth/login/umbraco"
-                },
-                new TopNavigationItem()
-                {
-                    Name = "Edit Profile",
-                    Type = TopNavigationItemTypes.EditProfile,
-                    Url = "/profile-edit" //todo return not stabbed link to edit profile
-                },
-                new TopNavigationItem()
-                {
-                    Name = $"Uintra Help v{_uintraInformationService.Version}",
-                    Type = TopNavigationItemTypes.UintraHelp,
-                    Url = _uintraInformationService.DocumentationLink.ToString()
-                },
-                new TopNavigationItem()
-                {
-                    Name = "Logout",
-                    Type = TopNavigationItemTypes.Logout,
-                    Url = "/api/auth/logout"
-                }
-            };
+                    Url = "/api/auth/login/umbraco".ToLinkModel()
+                });
+            }
+            menuItems.Add(new TopNavigationItem()
+            {
+                Name = "Edit Profile",
+                Type = TopNavigationItemTypes.EditProfile,
+                Url = _intranetUserContentProvider.GetProfilePage().Url.AddIdParameter(currentMember.Id).ToLinkModel(),
+            });
+
+            menuItems.Add(new TopNavigationItem()
+            {
+                Name = $"Uintra Help v{_uintraInformationService.Version}",
+                Type = TopNavigationItemTypes.UintraHelp,
+                Url = _uintraInformationService.DocumentationLink.ToString().ToLinkModel()
+            });
+
+            menuItems.Add(new TopNavigationItem()
+            {
+                Name = "Logout",
+                Type = TopNavigationItemTypes.Logout,
+                Url = "/api/auth/logout".ToLinkModel()
+            });
+
             var model = new TopNavigationModel()
             {
                 CurrentMember = _intranetMemberService.GetCurrentMember(),
@@ -82,6 +93,5 @@ namespace Uintra20.Features.Navigation
 
             return model;
         }
-
     }
 }

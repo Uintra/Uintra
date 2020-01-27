@@ -9,7 +9,6 @@ using UBaseline.Core.RequestContext;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Notification.ViewModel;
@@ -54,7 +53,6 @@ namespace Uintra20.Features.Notification.Controllers
                     .Skip(skip)
                     .Take(ItemsPerPage)
                 .ToArray();
-
 
             var notNotifiedNotifications = notifications.Where(el => !el.IsNotified).ToArray();
             if (notNotifiedNotifications.Any())
@@ -124,13 +122,6 @@ namespace Uintra20.Features.Notification.Controllers
         }
 
         [HttpPost]
-        public async Task UpdateNotifierSettings(NotifierTypeEnum type, bool isEnabled)
-        {
-            var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
-            await _memberNotifiersSettingsService.SetForMemberAsync(currentMember.Id, type, isEnabled);
-        }
-
-        [HttpPost]
         public Task SetNotificationViewed([FromBody]Guid id)
         {
             return _uiNotifierService.ViewNotificationAsync(id);
@@ -176,6 +167,5 @@ namespace Uintra20.Features.Notification.Controllers
 
             return result;
         }
-
     }
 }
