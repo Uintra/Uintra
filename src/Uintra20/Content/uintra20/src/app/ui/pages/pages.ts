@@ -35,6 +35,10 @@ export const pages = [
     id: 'uintraewsetailsagePage',
     path: '__dynamic__',
     loadChildren: './ui/pages/uintraewsetailsage/uintraewsetailsage-page.module#UintraewsetailsagePageModule'
-  }
+  },
+  {
+    id: 'uintraNewsEditPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/uintra-news-edit/uintra-news-edit-page.module#UintraNewsEditPageModule'
+  },
 ];
-
