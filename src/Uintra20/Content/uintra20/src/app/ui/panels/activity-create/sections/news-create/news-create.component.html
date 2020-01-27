@@ -22,15 +22,8 @@
     <h3 class="tags__title subtitle">Tag(s)</h3>
     <app-tag-multiselect class="tags__multiselect" [availableTags]="tags"></app-tag-multiselect>
   </div>
-  <div class="datepickers form-row">
-    <div class="datepickers-publish">
-      <h3 class="datepickers-publish__title subtitle">News Publish date</h3>
-      <!-- publish datepicker -->
-    </div>
-    <div class="datepickers-unpublish">
-      <h3 class="datepickers-unpublish__title subtitle">Unpublish date</h3>
-      <!-- unpublish datepicker -->
-    </div>
+  <div class="form-row">
+    <app-datepicker-from-to (setValue)="setValue($event)"></app-datepicker-from-to>
   </div>
   <div class="location form-row">
     <h3 class="location__title subtitle">Location</h3>
@@ -64,7 +57,7 @@
       (removedFile)="onFileRemoved($event)"></dropzone>
   </div>
   <div class="buttons">
-    <button class="buttons__submit">Submit</button>
+    <button class="buttons__submit" (submit)="onSubmit()">Submit</button>
     <button class="buttons__cancel">Cancel</button>
   </div>
   {{panelData | json}}

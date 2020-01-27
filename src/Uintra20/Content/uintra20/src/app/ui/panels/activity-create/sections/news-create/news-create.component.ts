@@ -30,4 +30,12 @@ export class NewsCreateComponent implements OnInit {
       return fileElement !== removedFile;
     });
   }
+
+  setValue(value) {
+    // debugger;
+  }
+
+  onSubmit() {
+    debugger;
+  }
 }
