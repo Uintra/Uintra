@@ -2,10 +2,25 @@
   <p>Datetime picker</p>
 
   <div class="form-group">
-    <sq-datetimepicker [options]="options1" [mode]="'input'" [(ngModel)]="field1" (dpChange)="dp1Change()"></sq-datetimepicker>
-    <sq-datetimepicker [options]="options2" [mode]="'input'" [(ngModel)]="field2"  (dpChange)="dp2Change()"></sq-datetimepicker>
-    <button (click)="onSubmit()">Submit</button>
+    <div class="form-group__input">
+      <sq-datetimepicker
+        [options]="options1"
+        [mode]="'input'"
+        [(ngModel)]="field1"
+        (dpChange)="dp1Change()"
+      ></sq-datetimepicker>
+    </div>
+    <div class="form-group__input">
+      <sq-datetimepicker
+        [options]="options2"
+        [mode]="'input'"
+        [(ngModel)]="field2"
+        (dpChange)="dp2Change()"
+      ></sq-datetimepicker>
+    </div>
   </div>
+
+  <button (click)="onSubmit()">Submit</button>
 </section>
 
 <section>
@@ -70,10 +85,15 @@
 
 <section>
   <p>Publication header</p>
-  <app-publication-header [avatar]="'https://cataas.com/cat?width=200&height=200'" [title]="'Publication header title'">
-      <p subtitle>Ultrices gravida dictum fusce ut placerat. Dui nunc mattis enim ut tellus
-      elementum sagittis.</p>
-      <div label class="publication__label">Important</div>
+  <app-publication-header
+    [avatar]="'https://cataas.com/cat?width=200&height=200'"
+    [title]="'Publication header title'"
+  >
+    <p subtitle>
+      Ultrices gravida dictum fusce ut placerat. Dui nunc mattis enim ut tellus
+      elementum sagittis.
+    </p>
+    <div label class="publication__label">Important</div>
   </app-publication-header>
 </section>
 
