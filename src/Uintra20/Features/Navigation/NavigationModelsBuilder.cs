@@ -68,7 +68,7 @@ namespace Uintra20.Features.Navigation
             {
                 Name = "Edit Profile",
                 Type = TopNavigationItemTypes.EditProfile,
-                Url = _intranetUserContentProvider.GetProfilePage().Url.AddIdParameter(currentMember.Id).ToLinkModel(),
+                Url = _intranetUserContentProvider.GetEditPage().Url.ToLinkModel(),
             });
 
             menuItems.Add(new TopNavigationItem()
