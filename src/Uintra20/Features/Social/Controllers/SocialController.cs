@@ -57,7 +57,7 @@ namespace Uintra20.Features.Social.Controllers
         [HttpPost]
         public async Task<HttpResponseMessage> CreateExtended(SocialExtendedCreateModel model)
         {
-            if (!IsValidDescription(model.Description))
+            if (!ModelState.IsValid)
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
 
             var result = new SocialCreationResultModel();
@@ -76,7 +76,7 @@ namespace Uintra20.Features.Social.Controllers
         [HttpPut]
         public async Task<HttpResponseMessage> EditExtended(SocialExtendedEditModel editModel)
         {
-            if (!IsValidDescription(editModel.Description))
+            if (!ModelState.IsValid)
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
 
             var bulletin = MapToBulletin(editModel);
@@ -241,8 +241,5 @@ namespace Uintra20.Features.Social.Controllers
                 });
             }
         }
-
-        private bool IsValidDescription(string description) =>
-            description.HasValue();
     }
 }

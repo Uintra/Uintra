@@ -57,10 +57,7 @@ namespace Uintra20
                 .RegisterApiControllers(assembly)
                 .RegisterConverters(assembly);
 
-            //LightInjectWebCommon.Start(composition);
             MapperConfig.RegisterMappings(composition);
-
-            DependencyResolver.Current.GetService<IConfigurationProvider<NavigationConfiguration>>().Initialize();
         }
     }
 

@@ -2,6 +2,7 @@
 using AutoMapper;
 using UBaseline.Core.Navigation;
 using Uintra20.Features.Navigation.Models;
+using Uintra20.Features.Navigation.Models.MyLinks;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Navigation.AutoMapperProfiles
@@ -18,14 +19,10 @@ namespace Uintra20.Features.Navigation.AutoMapperProfiles
 
 
             CreateMap<TreeNavigationItemModel, MenuItemViewModel>()
-                .ForMember(dst => dst.Id, o => o.MapFrom(src => src.Id))
-                .ForMember(dst => dst.IsActive, o => o.MapFrom(src => src.IsActive))
-                .ForMember(dst => dst.IsClickable, o => o.MapFrom(src => src.IsActive))
-                .ForMember(dst => dst.IsHeading, o => o.MapFrom(src => false))
-                .ForMember(dst => dst.IsHomePage, o => o.MapFrom(src => src.Level == 1))
-                .ForMember(dst => dst.Name, o => o.MapFrom(src => src.Title))
-                .ForMember(dst => dst.Url, o => o.MapFrom(src => src.Url))
-                .ForMember(dst => dst.Children, o => o.MapFrom(src => src.Children));
+                .ForMember(dst => dst.IsClickable, o => o.Ignore())
+                .ForMember(dst => dst.IsHeading, o => o.Ignore())
+                .ForMember(dst => dst.IsHomePage, o => o.Ignore())
+                .ForMember(dst => dst.Name, o => o.MapFrom(src => src.Title));
 
             CreateMap<TopNavigationItem, TopNavigationItemViewModel>();
 
@@ -36,13 +33,13 @@ namespace Uintra20.Features.Navigation.AutoMapperProfiles
             CreateMap<SubNavigationMenuModel, SubNavigationMenuViewModel>();
             //CreateMap<TopNavigationModel, TopNavigationViewModel>();
 
-            //Mapper.CreateMap<MyLinkItemModel, MyLinkItemViewModel>();
+            CreateMap<MyLinkItemModel, MyLinkItemViewModel>();
 
-            CreateMap<SystemLinksModel, SystemLinksViewModel>();
-            CreateMap<SystemLinkItemModel, SystemLinkItemViewModel>()
-                .ForMember(dst => dst.Name, o => o.MapFrom(el => el.Caption))
-                .ForMember(dst => dst.Url, o => o.MapFrom(el => el.Link))
-                .ForMember(dst => dst.Target, o => o.MapFrom(el => el.Target));
+            //CreateMap<SystemLinksModel, SystemLinksViewModel>();
+            //CreateMap<SystemLinkItemModel, SystemLinkItemViewModel>()
+            //    .ForMember(dst => dst.Name, o => o.MapFrom(el => el.Caption))
+            //    .ForMember(dst => dst.Url, o => o.MapFrom(el => el.Link))
+            //    .ForMember(dst => dst.Target, o => o.MapFrom(el => el.Target));
 
             CreateMap<UserListLinkModel, UserListLinkViewModel>();
 

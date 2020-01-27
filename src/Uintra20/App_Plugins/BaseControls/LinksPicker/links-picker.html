@@ -38,11 +38,11 @@
             </tr>
         </tbody>
     </table>
-    <div class="btn-group add-link-btn">
-        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <div class="dropdown btn-group add-link-btn">
+        <button type="button" class="btn btn-info dropdown-toggle" ng-click="toggleAddDropdown()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Add link<span class="caret"></span>
         </button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu" ng-click="addDropdownClose()" on-outside-click="addDropdownClose()" ng-show="addDropdownShow">
             <li ng-click="addInternalLink()" ng-show="showType('internal')">Internal</li>
             <li ng-click="addExternalLink()" ng-show="showType('external')">External</li>
             <li ng-click="addEmailLink()" ng-show="showType('email')">Email</li>

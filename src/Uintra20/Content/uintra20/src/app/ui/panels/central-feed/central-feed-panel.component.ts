@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit, NgZone } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { ICentralFeedPanel } from './central-feed-panel.interface';
 import { UmbracoFlatPropertyModel, IUmbracoProperty } from '@ubaseline/next';
 import { PublicationsService} from './helpers/publications.service';
@@ -47,7 +47,7 @@ import { SignalrService } from './helpers/signalr.service';
   styleUrls: ['./central-feed-panel.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class CentralFeedPanel implements OnInit {
+export class CentralFeedPanel implements OnInit, OnDestroy {
   data: ICentralFeedPanel;
   tabs: Array<any> = null;
   // TODO: replace 'any' after server side will be done
@@ -71,6 +71,12 @@ export class CentralFeedPanel implements OnInit {
     this.createSocialService.feedRefreshTrigger$.subscribe(() => {
       this.reloadFeed();
     });
+
+    this.signalrService.createHub(this.reloadFeed.bind(this));
+  }
+
+  ngOnDestroy(): void {
+    this.signalrService.hubConnectionStop();
   }
 
   filtersBuilder() {

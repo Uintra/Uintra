@@ -1,14 +1,13 @@
 ﻿using UBaseline.Shared.Node;
 using UBaseline.Shared.PageSettings;
-using UBaseline.Shared.PanelContainer;
 using UBaseline.Shared.Property;
 
 namespace Uintra20.Features.News.Models
 {
-    public class UintraNewsEditPageViewModel : 
-        NodeViewModel
+    public class UintraNewsEditPageViewModel : NodeViewModel
     {
-        public PropertyModel<PanelContainerModel> Panels { get; set; }
-        public PageSettingsCompositionModel PageSettings { get; set; }
+        public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
+        public PageSettingsCompositionViewModel PageSettings { get; set; }
+        public NewsViewModel Details { get; set; }
     }
 }
