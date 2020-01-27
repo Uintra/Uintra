@@ -893,10 +893,11 @@
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
-    <Compile Include="Controllers\TestController.cs" />
-    <Compile Include="Controllers\NavigationController.cs" />
-    <Compile Include="Core\UbaselineModels\HomePageModel.cs" />
+    <Compile Include="Features\Navigation\Models\SharedLinkApiViewModel.cs" />
+    <Compile Include="Features\Navigation\Models\SharedLinkItemModel.cs" />
+    <Compile Include="Core\UbaselineModels\UintraLinksPickerModel.cs" />
     <Compile Include="Core\Member\Profile\Converters\ProfilePageViewModelConverter.cs" />
+    <Compile Include="Core\UbaselineModels\UintraLinksPickerPropertyEditorConverter.cs" />
     <Compile Include="Core\Member\Profile\Edit\Converters\ProfileEditPageViewModelConverter.cs" />
     <Compile Include="Core\Member\Profile\Edit\Models\ProfileEditPageModel.cs" />
     <Compile Include="Core\Member\Profile\Edit\Models\ProfileEditPageViewModel.cs" />
@@ -906,6 +907,7 @@
     <Compile Include="Core\UbaselineModels\ArticlePageModel.cs" />
     <Compile Include="Features\Navigation\Models\HeadingPageModel.cs" />
     <Compile Include="Features\Navigation\Models\IUintraNavigationComposition.cs" />
+    <Compile Include="Core\UbaselineModels\UintraLinksPickerViewModel.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationItem.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationItemViewModel.cs" />
     <Compile Include="Features\Navigation\NavigationInjectModule.cs" />
@@ -921,11 +923,8 @@
     <Compile Include="Features\Navigation\Configuration\NavigationConfiguration.cs" />
     <Compile Include="Features\Navigation\Configuration\NavigationItemTypeSettings.cs" />
     <Compile Include="Features\Navigation\Configuration\NavigationPropertySettings.cs" />
-    <Compile Include="Features\Navigation\ModelBuilders\LeftSideMenu\ILeftSideNavigationModelBuilder.cs" />
     <Compile Include="Features\Navigation\ModelBuilders\SubMenu\ISubNavigationModelBuilder.cs" />
     <Compile Include="Features\Navigation\ModelBuilders\SubMenu\SubNavigationModelBuilder.cs" />
-    <Compile Include="Features\Navigation\ModelBuilders\SystemLinks\ISystemLinksModelBuilder.cs" />
-    <Compile Include="Features\Navigation\ModelBuilders\SystemLinks\SystemLinksModelBuilder.cs" />
     <Compile Include="Features\Navigation\ModelBuilders\TopMenu\ITopNavigationModelBuilder.cs" />
     <Compile Include="Features\Navigation\ModelBuilders\TopMenu\TopNavigationModelBuilder.cs" />
     <Compile Include="Features\Navigation\Models\BreadcrumbItemViewModel.cs" />
@@ -936,10 +935,7 @@
     <Compile Include="Features\Navigation\Models\SubNavigationMenuModel.cs" />
     <Compile Include="Features\Navigation\Models\SubNavigationMenuRowModel.cs" />
     <Compile Include="Features\Navigation\Models\SubNavigationMenuViewModel.cs" />
-    <Compile Include="Features\Navigation\Models\SystemLinkItemModel.cs" />
-    <Compile Include="Features\Navigation\Models\SystemLinkItemViewModel.cs" />
-    <Compile Include="Features\Navigation\Models\SystemLinksModel.cs" />
-    <Compile Include="Features\Navigation\Models\SystemLinksViewModel.cs" />
+    <Compile Include="Features\Navigation\Models\SharedLinkItemViewModel.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationExtendedViewModel.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationModel.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationViewModel.cs" />
@@ -948,12 +944,10 @@
     <Compile Include="Features\Navigation\Services\ISystemLinksService.cs" />
     <Compile Include="Features\Navigation\Services\SystemLinksService.cs" />
     <Compile Include="Features\Notification\Configuration\NotificationConfigurationProvider.cs" />
-    <Compile Include="Features\Navigation\ModelBuilders\LeftSideMenu\LeftSideNavigationModelBuilder.cs" />
     <Compile Include="Features\Navigation\ModelBuilders\NavigationModelBuilderBase.cs" />
     <Compile Include="Features\Navigation\NavigationPropertiesConstants.cs" />
     <Compile Include="Features\Navigation\Models\MenuItemModel.cs" />
     <Compile Include="Features\Navigation\Models\MenuModel.cs" />
-    <Compile Include="Features\Navigation\Web\NavigationControllerBase.cs" />
     <Compile Include="Features\Notification\Configuration\NotificationConfiguration.cs" />
     <Compile Include="Features\Notification\Configuration\NotificationTypeConfiguration.cs" />
     <Compile Include="Features\Notification\Configuration\NotifierConfiguration.cs" />

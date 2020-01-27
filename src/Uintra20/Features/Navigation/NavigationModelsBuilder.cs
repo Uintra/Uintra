@@ -6,6 +6,8 @@ using Compent.Extensions;
 using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
 using Uintra20.Core.User;
+using UBaseline.Core.RequestContext;
+using Uintra20.Core.HomePage;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure;
 using Uintra20.Infrastructure.Extensions;
@@ -20,6 +22,7 @@ namespace Uintra20.Features.Navigation
         private readonly INodeDirectAccessValidator _nodeDirectAccessValidator;
         private readonly INavigationBuilder _navigationBuilder;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
+        private readonly IUBaselineRequestContext _uBaselineRequestContext;
 
         public NavigationModelsBuilder(
             IUintraInformationService uintraInformationService,
@@ -27,25 +30,39 @@ namespace Uintra20.Features.Navigation
             INodeDirectAccessValidator nodeDirectAccessValidator,
             IIntranetMemberService<IntranetMember> intranetMemberService,
             INavigationBuilder navigationBuilder,
-            IIntranetUserContentProvider intranetUserContentProvider)
+            IIntranetUserContentProvider intranetUserContentProvider,
+            IUBaselineRequestContext uBaselineRequestContext)
         {
             _uintraInformationService = uintraInformationService;
             _nodeModelService = nodeModelService;
-            _intranetMemberService = intranetMemberService;
             _nodeDirectAccessValidator = nodeDirectAccessValidator;
             _navigationBuilder = navigationBuilder;
             _intranetUserContentProvider = intranetUserContentProvider;
+            _uBaselineRequestContext = uBaselineRequestContext;
+            _intranetMemberService = intranetMemberService;
         }
 
         public virtual IEnumerable<TreeNavigationItemModel> GetLeftSideNavigation()
         {
             var navigationNodes = _nodeModelService.AsEnumerable()
-                .Where(i => i.Level >= 1 && _nodeDirectAccessValidator.HasAccess(i))
+                .Where(i => i.Level >= 1 && _nodeDirectAccessValidator.HasAccess(i) && !(i is HomePageModel))
                 .OfType<IUintraNavigationComposition>()
                 .OrderBy(i => i.SortOrder)
                 .Where(i => i.Navigation.ShowInMenu.Value && i.Url.HasValue());
 
             var items = _navigationBuilder.GetTreeNavigation(navigationNodes);
+
+            var home = _nodeModelService.AsEnumerable().OfType<HomePageModel>().First();
+            items = items.Prepend(new TreeNavigationItemModel
+            {
+                Id = home.Id,
+                IsActive = IsActive(home.Id),
+                Level = home.Level,
+                ParentId = home.ParentId,
+                SortOrder = home.SortOrder,
+                Title = home.Navigation.NavigationTitle,
+                Url = home.Url
+            });
 
             return items;
         }
@@ -92,6 +109,13 @@ namespace Uintra20.Features.Navigation
             };
 
             return model;
+        }
+
+        protected virtual bool IsActive(int nodeId)
+        {
+            return _uBaselineRequestContext.Node != null &&
+                   (_uBaselineRequestContext.Node.Id == nodeId ||
+                    _uBaselineRequestContext.Node.ParentIds.HasValue(i => i == nodeId));
         }
     }
 }

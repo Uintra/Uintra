@@ -96,7 +96,7 @@
 
         var mapContentResourceTo = function (model) {
             return function (resource) {
-                model.link = resource.urls.join() || "";
+                model.link = resource.urls.map(function (url) { return url.text }).join() || "";
                 return model;
             };
         };
@@ -112,6 +112,18 @@
 
 
     var init = function ($scope, internalPicker, mediaPicker) {
+        $scope.addDropdownShow = false;
+
+        $scope.toggleAddDropdown = function() {
+            $scope.addDropdownShow = !$scope.addDropdownShow;
+        }
+
+        var addDropdownClose = function () {
+            $scope.addDropdownShow = false;
+        }
+
+        $scope.addDropdownClose = addDropdownClose;
+
         $scope.linkTypes = {
             Internal: 0,
             External: 1,
@@ -142,12 +154,15 @@
 
         $scope.processCaptionChange = function (link) {
             link.caption = link.prettyCaption;
+            link.userCaption = link.prettyCaption;
         }
 
         $scope.processEmailChange = function (link) {
             link.link = "mailTo:" + link.prettyLink;
-            link.caption = link.caption ? link.caption : link.prettyLink;
-            link.prettyCaption = link.prettyLink;
+            if (!link.userCaption) {
+                link.caption = link.prettyLink;
+                link.prettyCaption = link.prettyLink;
+            }
         }
 
         $scope.internalPicker = internalPicker;
@@ -158,7 +173,7 @@
         };
 
         $scope.addEmailLink = function () {
-            updater({ link: "", caption: "", type: $scope.linkTypes.Email });
+            updater({ link: "", caption: "", target: "_self", type: $scope.linkTypes.Email });
         };
 
         $scope.addExternalLink = function () {

@@ -25,6 +25,7 @@
     "@types/signalr": "^2.2.35",
     "@ubaseline/next": "file:../ubaseline-next-0.0.15.tgz",
     "jquery": "^3.4.1",
+    "ngx-cookie-service": "^2.3.0",
     "ngx-dropzone-wrapper": "^8.0.0",
     "ngx-infinite-scroll": "^8.0.1",
     "ngx-quill": "^7.3.12",

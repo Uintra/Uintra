@@ -12,9 +12,7 @@ using Uintra20.Features.Information;
 using Uintra20.Features.Media;
 using Uintra20.Features.Navigation;
 using Uintra20.Features.Navigation.Configuration;
-using Uintra20.Features.Navigation.ModelBuilders.LeftSideMenu;
 using Uintra20.Features.Navigation.ModelBuilders.SubMenu;
-using Uintra20.Features.Navigation.ModelBuilders.SystemLinks;
 using Uintra20.Features.Navigation.ModelBuilders.TopMenu;
 using Uintra20.Features.Navigation.Services;
 using Uintra20.Features.Permissions;
@@ -72,12 +70,10 @@ namespace Uintra20.Infrastructure.Ioc
 
             services.AddScoped<ILightboxHelper, LightboxHelper>();
 
-            services.AddScoped<ILeftSideNavigationModelBuilder, LeftSideNavigationModelBuilder>();
             services.AddSingleton<IConfigurationProvider<NavigationConfiguration>>(provider => new ConfigurationProvider<NavigationConfiguration>("~/App_Plugins/Navigation/config/navigationConfiguration.json"));
             services.AddSingleton<IContentPageContentProvider, ContentPageContentProvider>();
             services.AddScoped<ISubNavigationModelBuilder, SubNavigationModelBuilder>();
             services.AddScoped<ITopNavigationModelBuilder, TopNavigationModelBuilder>();
-            services.AddScoped<ISystemLinksModelBuilder, SystemLinksModelBuilder>();
             services.AddScoped<ISystemLinksService, SystemLinksService>();
             services.AddScoped<IUintraInformationService, UintraInformationService>();
             services.AddScoped<INavigationModelsBuilder, NavigationModelsBuilder>();

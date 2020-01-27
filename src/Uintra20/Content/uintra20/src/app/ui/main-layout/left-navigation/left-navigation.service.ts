@@ -1,34 +1,57 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-export interface INavigationData {
-  menuItems: INavigationItem[];
-}
-
-export interface INavigationItem {
-  id: number;
-  name: string;
-  url: string;
-  isActive: boolean;
-  isHomePage: boolean;
-  isClickable: boolean;
-  isHeading: boolean;
-  children: INavigationItem[];
-}
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { CookieService } from "ngx-cookie-service";
+import { map } from "rxjs/operators";
+import { INavigationItem, INavigationData } from "./left-navigation.interface";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class LeftNavigationService {
-  readonly api = 'ubaseline/api/IntranetNavigation';
+  readonly api = "ubaseline/api/IntranetNavigation";
+  readonly openingStateProperty = "nav-opening-state";
+  openingState: object;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
-  getNavigation(): Observable<INavigationData> {
-    // return this.http.get<INavigationData>(this.api + `/LeftNavigation`);
-    return new Observable(subscriber => {
-      subscriber.next({"menuItems":[{"id":1301,"name":"Central Feed test","url":"/central-feed-test/","isActive":false,"isHomePage":false,"isClickable":false,"isHeading":false,"children":[]},{"id":2511,"name":"Heading 1","url":"/heading-1/","isActive":false,"isHomePage":false,"isClickable":false,"isHeading":false,"children":[{"id":2512,"name":"test page","url":"/heading-1/test-page/","isActive":false,"isHomePage":false,"isClickable":false,"isHeading":false,"children":[]}]}]});
+  setOpeningState(item: INavigationItem) {
+    this.openingState[item.id] = !item.isSelected;
+    this.cookieService.set(
+      this.openingStateProperty,
+      JSON.stringify(this.openingState)
+    );
+  }
+
+  getNavigation(): Observable<INavigationItem[]> {
+    return this.http.get<INavigationData>(this.api + `/LeftNavigation`).pipe(
+      map(r => this.correctNestingLevel(r)),
+      map(r => this.setOpenProperties(r))
+    );
+  }
+
+  private correctNestingLevel(data: INavigationData): INavigationItem[] {
+    return data.menuItems.map(item => {
+      item.level = 0;
+      return item;
+    });
+  }
+
+  private setOpenProperties(data: INavigationItem[]): INavigationItem[] {
+    const cookieData = this.cookieService.get(this.openingStateProperty);
+    this.openingState = JSON.parse(cookieData);
+    this.checkNavigationItem(data);
+    return data;
+  }
+
+  private checkNavigationItem(data) {
+    return data.map(item => {
+      if (this.openingState.hasOwnProperty(item.id)) {
+        item.isSelected = this.openingState[item.id];
+      }
+      if (item.children.length) {
+        this.checkNavigationItem(item.children);
+      }
     });
   }
 }
