@@ -893,6 +893,13 @@
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
+    <Compile Include="Features\Navigation\ApplicationSettings\INavigationApplicationSettings.cs" />
+    <Compile Include="Features\Navigation\ApplicationSettings\NavigationApplicationSettings.cs" />
+    <Compile Include="Features\Navigation\EqualityComparers\MyLinkItemModelComparer.cs" />
+    <Compile Include="Features\Navigation\Exception\MyLinksDuplicatedException.cs" />
+    <Compile Include="Features\Navigation\IMyLinksHelper.cs" />
+    <Compile Include="Features\Navigation\Models\MyLinks\MyLinkItemModel.cs" />
+    <Compile Include="Features\Navigation\Models\MyLinks\MyLinkItemViewModel.cs" />
     <Compile Include="Features\Navigation\Models\SharedLinkApiViewModel.cs" />
     <Compile Include="Features\Navigation\Models\SharedLinkItemModel.cs" />
     <Compile Include="Core\UbaselineModels\UintraLinksPickerModel.cs" />
@@ -904,9 +911,11 @@
     <Compile Include="Core\UbaselineModels\UintraLinksPickerViewModel.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationItem.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationItemViewModel.cs" />
+    <Compile Include="Features\Navigation\MyLinksHelper.cs" />
     <Compile Include="Features\Navigation\NavigationInjectModule.cs" />
     <Compile Include="Features\Navigation\NavigationModelsBuilder.cs" />
     <Compile Include="Features\Navigation\TopNavigationItemTypes.cs" />
+    <Compile Include="Features\Navigation\Web\MyLinksController.cs" />
     <Compile Include="Features\Navigation\Web\NavigationController.cs" />
     <Compile Include="Core\Configuration\ConfigurationProvider.cs" />
     <Compile Include="Core\Configuration\IConfigurationProvider.cs" />
@@ -914,13 +923,8 @@
     <Compile Include="Features\Groups\ContentServices\IGroupContentProvider.cs" />
     <Compile Include="Features\Groups\Helpers\GroupHelper.cs" />
     <Compile Include="Features\Groups\Helpers\IGroupHelper.cs" />
-    <Compile Include="Features\Navigation\Configuration\NavigationConfiguration.cs" />
     <Compile Include="Features\Navigation\Configuration\NavigationItemTypeSettings.cs" />
     <Compile Include="Features\Navigation\Configuration\NavigationPropertySettings.cs" />
-    <Compile Include="Features\Navigation\ModelBuilders\SubMenu\ISubNavigationModelBuilder.cs" />
-    <Compile Include="Features\Navigation\ModelBuilders\SubMenu\SubNavigationModelBuilder.cs" />
-    <Compile Include="Features\Navigation\ModelBuilders\TopMenu\ITopNavigationModelBuilder.cs" />
-    <Compile Include="Features\Navigation\ModelBuilders\TopMenu\TopNavigationModelBuilder.cs" />
     <Compile Include="Features\Navigation\Models\BreadcrumbItemViewModel.cs" />
     <Compile Include="Features\Navigation\Models\LeftNavigationUserMenuViewModel.cs" />
     <Compile Include="Features\Navigation\Models\MenuItemViewModel.cs" />
@@ -935,10 +939,7 @@
     <Compile Include="Features\Navigation\Models\TopNavigationViewModel.cs" />
     <Compile Include="Features\Navigation\Models\UserListLinkModel.cs" />
     <Compile Include="Features\Navigation\Models\UserListLinkViewModel.cs" />
-    <Compile Include="Features\Navigation\Services\ISystemLinksService.cs" />
-    <Compile Include="Features\Navigation\Services\SystemLinksService.cs" />
     <Compile Include="Features\Notification\Configuration\NotificationConfigurationProvider.cs" />
-    <Compile Include="Features\Navigation\ModelBuilders\NavigationModelBuilderBase.cs" />
     <Compile Include="Features\Navigation\NavigationPropertiesConstants.cs" />
     <Compile Include="Features\Navigation\Models\MenuItemModel.cs" />
     <Compile Include="Features\Navigation\Models\MenuModel.cs" />
@@ -1666,6 +1667,7 @@
   <ItemGroup>
     <Folder Include="Content\uintra20\" />
     <Folder Include="Core\Feed\Web\" />
+    <Folder Include="Features\Navigation\ModelBuilders\" />
     <Folder Include="Features\Notification\Commands\" />
     <Folder Include="Infrastructure\Authentication\" />
     <Folder Include="Media\" />

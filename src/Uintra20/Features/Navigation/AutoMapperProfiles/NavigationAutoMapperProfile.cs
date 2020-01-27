@@ -2,6 +2,7 @@
 using AutoMapper;
 using UBaseline.Core.Navigation;
 using Uintra20.Features.Navigation.Models;
+using Uintra20.Features.Navigation.Models.MyLinks;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Navigation.AutoMapperProfiles
@@ -31,7 +32,7 @@ namespace Uintra20.Features.Navigation.AutoMapperProfiles
             CreateMap<SubNavigationMenuModel, SubNavigationMenuViewModel>();
             //CreateMap<TopNavigationModel, TopNavigationViewModel>();
 
-            //Mapper.CreateMap<MyLinkItemModel, MyLinkItemViewModel>();
+            CreateMap<MyLinkItemModel, MyLinkItemViewModel>();
 
             //CreateMap<SystemLinksModel, SystemLinksViewModel>();
             //CreateMap<SystemLinkItemModel, SystemLinkItemViewModel>()
