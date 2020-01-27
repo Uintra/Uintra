@@ -17,7 +17,7 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.News.Converters
 {
-    public class NewsDetailsPageViewModelConverter : INodeViewModelConverter<NewsDetailsPageModel, NewsDetailsPageViewModel>
+    public class NewsDetailsPageViewModelConverter : INodeViewModelConverter<UintraNewsDetailsPageModel, UintraNewsDetailsPageViewModel>
     {
         private readonly INewsService<Entities.News> _newsService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
@@ -32,7 +32,7 @@ namespace Uintra20.Features.News.Converters
             _localizationService = localizationService;
         }
 
-        public void Map(NewsDetailsPageModel node, NewsDetailsPageViewModel viewModel)
+        public void Map(UintraNewsDetailsPageModel node, UintraNewsDetailsPageViewModel viewModel)
         {
             var idStr = HttpContext.Current.Request.TryGetQueryValue<string>("id");
 

@@ -19,5 +19,10 @@ export const pages = [
     path: '__dynamic__',
     loadChildren: './ui/pages/social-details/social-details-page.module#SocialDetailsPageModule',
     cache: false
+  },
+  {
+    id: 'uintraewsetailsagePage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/uintraewsetailsage/uintraewsetailsage-page.module#UintraewsetailsagePageModule'
   }
 ];

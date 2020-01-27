@@ -1157,8 +1157,8 @@
     <Compile Include="Features\Notification\ViewModel\PopupNotificationViewModel.cs" />
     <Compile Include="Features\News\AutoMapperPrfiles\NewsAutoMapperProfile.cs" />
     <Compile Include="Features\News\Controllers\NewsApiController.cs" />
-    <Compile Include="Features\News\Models\NewsDetailsPageModel.cs" />
-    <Compile Include="Features\News\Models\NewsDetailsPageViewModel.cs" />
+    <Compile Include="Features\News\Models\UintraNewsDetailsPageModel.cs" />
+    <Compile Include="Features\News\Models\UintraNewsDetailsPageViewModel.cs" />
     <Compile Include="Features\News\Converters\NewsDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\News\Entities\News.cs" />
     <Compile Include="Features\News\INewsService.cs" />

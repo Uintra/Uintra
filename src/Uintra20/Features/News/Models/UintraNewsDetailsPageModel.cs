@@ -5,7 +5,7 @@ using UBaseline.Shared.Property;
 
 namespace Uintra20.Features.News.Models
 {
-    public class NewsDetailsPageModel : NodeModel
+    public class UintraNewsDetailsPageModel : NodeModel
     {
         public PropertyModel<PanelContainerModel> Panels { get; set; }
         public PageSettingsCompositionModel PageSettings { get; set; }
