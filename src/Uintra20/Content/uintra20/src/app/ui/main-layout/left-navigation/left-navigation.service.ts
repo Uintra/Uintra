@@ -13,14 +13,14 @@ export class LeftNavigationService {
   readonly openingStateProperty = "nav-opening-state";
   openingState: object;
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) {      
+    this.updateOpeningState();
+  }
 
-  setOpeningState(item: INavigationItem) {
-    this.openingState[item.id] = !item.isSelected;
-    this.cookieService.set(
-      this.openingStateProperty,
-      JSON.stringify(this.openingState)
-    );
+  setOpeningState(item: INavigationItem) {    
+    this.openingState[item.id] = !item.isActive;
+    this.cookieService.set(this.openingStateProperty, JSON.stringify(this.openingState));
+    this.updateOpeningState();
   }
 
   getNavigation(): Observable<INavigationItem[]> {
@@ -38,9 +38,9 @@ export class LeftNavigationService {
   }
 
   private setOpenProperties(data: INavigationItem[]): INavigationItem[] {
-    const cookieData = this.cookieService.get(this.openingStateProperty);
-    this.openingState = JSON.parse(cookieData);
-    this.checkNavigationItem(data);
+    if (this.openingState) {      
+      this.checkNavigationItem(data);
+    }    
     return data;
   }
 
@@ -53,5 +53,15 @@ export class LeftNavigationService {
         this.checkNavigationItem(item.children);
       }
     });
+  }
+
+  private updateOpeningState() {
+    let cookieData = this.cookieService.get(this.openingStateProperty);
+    if (cookieData) {
+      this.openingState = JSON.parse(cookieData);
+    }
+    else {
+      this.openingState = [];
+    }
   }
 }
