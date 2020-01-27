@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 declare var $: any;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class SignalrService {
   private centralFeedHub;
   private callbackFunction;
 
-  constructor() { }
+  constructor() {}
 
   public createHub(callback) {
     this.callbackFunction = callback;
@@ -18,7 +18,11 @@ export class SignalrService {
     this.centralFeedHub.client.reloadFeed = this.callbackFunction.bind(this);
 
     $.connection.hub.disconnected(() => {
-      if ($.connection.hub.lastError) { console.log('Disconnected. Reason: ' + $.connection.hub.lastError.message); }
+      if ($.connection.hub.lastError) {
+        console.log(
+          "Disconnected. Reason: " + $.connection.hub.lastError.message
+        );
+      }
     });
     $.connection.hub.reconnected(() => {
       this.hubConnectionStart();
@@ -30,7 +34,13 @@ export class SignalrService {
   private hubConnectionStart() {
     $.connection.hub
       .start()
-      .done(() => { console.log('success') })
+      .done(() => {
+        console.log("success");
+      })
       .catch(r => console.log(r));
+  }
+
+  public hubConnectionStop() {
+    $.connection.hub.stop();
   }
 }
