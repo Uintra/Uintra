@@ -29,8 +29,7 @@
             ],
             "styles": [
               "src/styles.less",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",

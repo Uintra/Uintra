@@ -3,6 +3,7 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 interface datePickerOptioms {
   minDate?: string;
   maxDate?: string;
+  showClear?: boolean;
 }
 
 @Component({
@@ -15,8 +16,12 @@ export class DatepickerFromToComponent implements OnInit {
 
   fromDate = null;
   toDate = null;
-  optFrom: datePickerOptioms = {};
-  optTo: datePickerOptioms = {};
+  optFrom: datePickerOptioms = {
+    showClear: true
+  };
+  optTo: datePickerOptioms = {
+    showClear: true
+  };
 
   constructor() {}
 
@@ -45,5 +50,9 @@ export class DatepickerFromToComponent implements OnInit {
       from: this.fromDate ? this.fromDate.format() : null,
       to: this.toDate ? this.toDate.format() : null
     };
+  }
+
+  resetDate() {
+
   }
 }

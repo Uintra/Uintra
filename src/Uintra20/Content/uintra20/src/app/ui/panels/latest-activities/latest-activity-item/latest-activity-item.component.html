@@ -3,7 +3,7 @@
   <p>{{activityType}}</p>
   <p>{{activityDate | date: 'MMM d, y hh:mm'}}</p>
 </div>
-<a [routerLink]="activityLinks?.details.get().baseUrl | ulink"
- [queryParams]="activityLinks?.details.get().params | uparams"
+<a [routerLink]="activityLinks?.details?.get().baseUrl | ulink"
+ [queryParams]="activityLinks?.details?.get().params | uparams"
  class="block-subtitle-clamp"
  [innerHtml]="activityDescription"></a>
