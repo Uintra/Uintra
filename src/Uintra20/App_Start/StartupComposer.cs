@@ -6,7 +6,10 @@ using LightInject;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Extensions.Configuration;
 using System.Web;
+using System.Web.Mvc;
 using UBaseline.Core.Startup;
+using Uintra20.Core.Configuration;
+using Uintra20.Features.Navigation.Configuration;
 using Uintra20.Models.UmbracoIdentity;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
@@ -54,7 +57,6 @@ namespace Uintra20
                 .RegisterApiControllers(assembly)
                 .RegisterConverters(assembly);
 
-            //LightInjectWebCommon.Start(composition);
             MapperConfig.RegisterMappings(composition);
         }
     }

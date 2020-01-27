@@ -39,8 +39,8 @@ namespace Uintra20.Features.Notification
                 case ActivityNotifierDataModel model:
                     tokens = new[]
                      {
-                        (Url, model.Url),
-                        (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
+                        (Url, model.Url.ToString()),
+                        (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url.ToString())),
                         (ActivityType, model.ActivityType.ToString()),
                         (FullName,_intranetMemberService.Get(model.NotifierId).DisplayedName),
                         (NotifierFullName, receiver.DisplayedName)
@@ -49,8 +49,8 @@ namespace Uintra20.Features.Notification
                 case ActivityReminderDataModel model:
                     tokens = new[]
                     {
-                        (Url, model.Url),
-                        (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
+                        (Url, model.Url.ToString()),
+                        (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url.ToString())),
                         (ActivityType, model.ActivityType.ToString()),
                         (StartDate, model.StartDate.ToShortDateString()),
                         (FullName, receiver.DisplayedName)
@@ -59,16 +59,16 @@ namespace Uintra20.Features.Notification
                 case CommentNotifierDataModel model:
                     tokens = new[]
                     {
-                        (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
-                        (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
+                        (Url, HtmlHelper.CreateLink(model.Title, model.Url.ToString())),
+                        (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url.ToString())),
                         (FullName,_intranetMemberService.Get(model.NotifierId).DisplayedName)
                     };
                     break;
                 case LikesNotifierDataModel model:
                     tokens = new[]
                     {
-                        (Url, model.Url),
-                        (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url)),
+                        (Url, model.Url.ToString()),
+                        (ActivityTitle, HtmlHelper.CreateLink(GetTitle(model.ActivityType, model.Title), model.Url.ToString())),
                         (ActivityType, model.ActivityType.ToString()),
                         (FullName,_intranetMemberService.Get(model.NotifierId).DisplayedName),
                         (CreatedDate, model.CreatedDate.ToShortDateString())
@@ -84,8 +84,8 @@ namespace Uintra20.Features.Notification
                 case UserMentionNotifierDataModel model:
                     tokens = new[]
                     {
-                        (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
-                        (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
+                        (Url, HtmlHelper.CreateLink(model.Title, model.Url.ToString())),
+                        (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url.ToString())),
                         (FullName, _intranetMemberService.Get(model.ReceiverId).DisplayedName),
                         (TaggedBy, _intranetMemberService.Get(model.NotifierId).DisplayedName)
                     };
@@ -93,9 +93,9 @@ namespace Uintra20.Features.Notification
                 case GroupInvitationDataModel model:
                     tokens = new[]
                     {
-                        (Url, HtmlHelper.CreateLink(model.Title, model.Url)),
+                        (Url, HtmlHelper.CreateLink(model.Title, model.Url.ToString())),
                         (Title, model.Title),
-                        (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url)),
+                        (ActivityTitle, HtmlHelper.CreateLink(model.Title, model.Url.ToString())),
                         (FullName, _intranetMemberService.Get(model.ReceiverId).DisplayedName),
                         (TaggedBy, _intranetMemberService.Get(model.NotifierId).DisplayedName)
                     };

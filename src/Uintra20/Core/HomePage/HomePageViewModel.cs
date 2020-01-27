@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using UBaseline.Shared.Node;
+﻿using UBaseline.Shared.Node;
 using UBaseline.Shared.Property;
 
 namespace Uintra20.Core.HomePage

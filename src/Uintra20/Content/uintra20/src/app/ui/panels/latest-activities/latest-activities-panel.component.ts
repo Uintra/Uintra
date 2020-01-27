@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ILatestActivitiesPanel } from './latest-activities-panel.interface';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'latest-activities-panel',
@@ -10,7 +11,7 @@ import { ILatestActivitiesPanel } from './latest-activities-panel.interface';
 })
 export class LatestActivitiesPanelComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   public readonly data: ILatestActivitiesPanel;
   public title: string;

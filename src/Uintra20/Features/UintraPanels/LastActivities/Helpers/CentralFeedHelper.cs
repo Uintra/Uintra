@@ -15,10 +15,13 @@ using Uintra20.Core.Feed.State;
 using Uintra20.Features.CentralFeed;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.CentralFeed.Models;
+using Uintra20.Features.CentralFeed.Providers;
 using Uintra20.Features.CentralFeed.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.UintraPanels.LastActivities.Models;
 using Uintra20.Infrastructure.Extensions;
+using Umbraco.Core.Models.PublishedContent;
+using Umbraco.Web;
 
 namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
 {
@@ -33,6 +36,7 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INodeModelService _nodeModelService;
         private readonly IUBaselineRequestContext _requestContext;
+        private readonly ICentralFeedContentProvider _contentProvider;
 
         public CentralFeedHelper(
             IActivitiesServiceFactory activitiesServiceFactory,
@@ -43,7 +47,8 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
             IFeedFilterService centralFeedFilterService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             INodeModelService nodeModelService,
-            IUBaselineRequestContext requestContext)
+            IUBaselineRequestContext requestContext,
+            ICentralFeedContentProvider contentProvider)
         {
             _feedTypeProvider = feedTypeProvider;
             _centralFeedService = centralFeedService;
@@ -54,6 +59,7 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
             _activitiesServiceFactory = activitiesServiceFactory;
             _nodeModelService = nodeModelService;
             _requestContext = requestContext;
+            _contentProvider = contentProvider;
         }
 
         public string AvailableActivityTypes()
@@ -102,6 +108,16 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
 
             return (latestActivities.activities.Count() < latestActivities.totalCount, feedItems);
         }
+
+        public bool IsCentralFeedPage(IPublishedContent page)
+        {
+            return IsHomePage(page) || IsSubPage(page);
+        }
+        private bool IsHomePage(IPublishedContent page) =>
+            _contentProvider.GetOverviewPage().Id == page.Id;
+
+        private bool IsSubPage(IPublishedContent page) =>
+            _contentProvider.GetRelatedPages().Any(c => c.IsAncestorOrSelf(page));
 
         private IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items,
             IEnumerable<FeedSettings> settings)

@@ -72,20 +72,18 @@ namespace Uintra20.Features.Social.Converters
         {
             var social = _socialService.Get(id);
 
-            IActivityLinks links = null;//feedLinkService.GetLinks(id);//TODO:Uncomment when profile link service is ready
-
             var viewModel = social.Map<SocialViewModel>();
 
             viewModel.Media = MediaHelper.GetMediaUrls(social.MediaIds);
 
             viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, RenderStrategies.ForActivityDetails);
             viewModel.CanEdit = _socialService.CanEdit(social);
-            viewModel.Links = links;
+            viewModel.Links = _feedLinkService.GetLinks(id);
             viewModel.IsReadOnly = false;
             viewModel.HeaderInfo = social.Map<IntranetActivityDetailsHeaderViewModel>();
             viewModel.HeaderInfo.Dates = social.PublishDate.ToDateTimeFormat().ToEnumerable();
             viewModel.HeaderInfo.Owner = _memberService.Get(social).Map<MemberViewModel>();
-            viewModel.HeaderInfo.Links = links;
+            viewModel.HeaderInfo.Links = _feedLinkService.GetLinks(id);
 
             var extendedModel = viewModel.Map<SocialExtendedViewModel>();
 

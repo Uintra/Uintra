@@ -3,6 +3,7 @@ import { ILikeData } from '../../../../feature/project/reusable/ui-elements/like
 import { Router} from '@angular/router';
 import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-elements/image-gallery/image-gallery.service';
 import { IMedia, IDocument } from 'src/app/ui/pages/social-details/social-details.interface';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-central-feed-publication',
@@ -23,11 +24,22 @@ export class CentralFeedPublicationComponent implements OnInit {
     return this.publication.activity.commentsCount || 'Comment';
   }
 
+  get detailsParams() {
+    return this.publication.activity.links.details.params.reduce((acc, val) => {
+      acc[val.name] = val.value;
+      return acc;
+    }, {});
+  }
+
   likeData: ILikeData;
 
-  constructor(private imageGalleryService: ImageGalleryService, private router: Router) { }
+  constructor(
+    private imageGalleryService: ImageGalleryService,
+    private router: Router,
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
+    this.publication.activity.description = this.sanitizer.bypassSecurityTrustHtml(this.publication.activity.description);
     this.countToDisplay = this.publication.activity.mediaPreview.hiddenImagesCount - this.publication.activity.mediaPreview.additionalImages;
     this.medias = Object.values(this.publication.activity.mediaPreview.medias);
     this.mediaCount = this.medias.length;
@@ -43,7 +55,7 @@ export class CentralFeedPublicationComponent implements OnInit {
   }
 
   public openGallery(i) {
-    const items = this.medias.map(el => ({
+    const items = this.mediaCount.map(el => ({
       src: el.url,
       w: el.width,
       h: el.height,

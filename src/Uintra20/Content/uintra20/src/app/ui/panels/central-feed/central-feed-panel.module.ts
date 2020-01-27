@@ -16,6 +16,7 @@ import { CentralFeedFiltersComponent } from './central-feed-filters/central-feed
 import { LikeButtonModule } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.module';
 import { RouterModule } from '@angular/router';
 import { TruncatePipe } from 'src/app/services/pipes/limit-to.pipe';
+import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
 
 @NgModule({
   declarations: [CentralFeedPanel, CentralFeedPublicationComponent, CentralFeedFiltersComponent, TruncatePipe],
@@ -29,7 +30,8 @@ import { TruncatePipe } from 'src/app/services/pipes/limit-to.pipe';
     FormsModule,
     InfiniteScrollModule,
     LikeButtonModule,
-    RouterModule
+    RouterModule,
+    UlinkModule
   ],
   providers: [{provide: AS_DYNAMIC_COMPONENT, useValue: CentralFeedPanel}],
   entryComponents: [CentralFeedPanel]

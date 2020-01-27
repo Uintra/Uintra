@@ -1,22 +1,24 @@
 <div class="header">
-  <a href="#" class="burger-menu js-menu-opener">
+  <div class="burger-menu" (click)="openLeftNav()">
     <span class="burger-menu__item"></span>
-  </a>
+  </div>
 
   <a [routerLink]="['/']" class="site-logo">
     <img src="wwwroot/assets/img/logo.svg" width="21" height="33" alt="uintra">
   </a>
 
   <div class="header__content">
-
-    <div class="header-center col-8">
+    <div class="header-center">
+      <app-search></app-search>
+      <a href="#" class="groups">
+        <span class="icon icon-group"></span>
+      </a>
       <app-nav-notifications></app-nav-notifications>
     </div>
 
-    <div class="tools" style="display: none;">
-      notification
-    </div>
-
-    <user-navigation></user-navigation>
   </div>
+  <user-navigation></user-navigation>
+
+  <!-- TODO: fix nav-notifications styles for mobile  -->
+
 </div>
