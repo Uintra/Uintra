@@ -7,9 +7,10 @@ import { RouterModule } from '@angular/router';
 import { NotificationsItemComponent } from './notifications-item/notifications-item.component';
 import { ClickOutsideModule } from '../../reusable/directives/click-outside/click-outside.module';
 import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
+import { NotificationCountComponent } from './notification-count/notification-count.component';
 
 @NgModule({
-  declarations: [NavNotificationsComponent, NotificationsItemComponent],
+  declarations: [NavNotificationsComponent, NotificationsItemComponent, NotificationCountComponent],
   imports: [
     CommonModule,
     HttpClientModule,
