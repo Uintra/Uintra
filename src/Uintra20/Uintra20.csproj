@@ -947,6 +947,8 @@
     <Compile Include="Features\Navigation\Models\UserListLinkViewModel.cs" />
     <Compile Include="Features\Navigation\Services\ISystemLinksService.cs" />
     <Compile Include="Features\Navigation\Services\SystemLinksService.cs" />
+    <Compile Include="Features\News\Models\UintraNewsEditPageModel.cs" />
+    <Compile Include="Features\News\Models\UintraNewsEditPageViewModel.cs" />
     <Compile Include="Features\Notification\Configuration\NotificationConfigurationProvider.cs" />
     <Compile Include="Features\Navigation\ModelBuilders\LeftSideMenu\LeftSideNavigationModelBuilder.cs" />
     <Compile Include="Features\Navigation\ModelBuilders\NavigationModelBuilderBase.cs" />

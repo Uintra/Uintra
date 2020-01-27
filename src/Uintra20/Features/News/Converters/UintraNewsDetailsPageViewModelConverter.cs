@@ -11,7 +11,6 @@ using Uintra20.Core.Member.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.News.Models;
-using Uintra20.Features.Social.Models;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.News.Converters

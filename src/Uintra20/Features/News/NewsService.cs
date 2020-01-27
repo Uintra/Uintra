@@ -108,9 +108,10 @@ namespace Uintra20.Features.News
 
         public override IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId)
         {
-            Entities.News news = Get(activityId);
+            var news = Get(activityId);
 
-            IActivityLinks links = null;//_feedLinkService.GetLinks(id);//TODO:Uncomment when profile link service is ready
+            var links = _linkService.GetLinks(activityId);
+
             var currentMemberId = _intranetMemberService.GetCurrentMemberId();
 
             var viewModel = news.Map<IntranetActivityPreviewModelBase>();
