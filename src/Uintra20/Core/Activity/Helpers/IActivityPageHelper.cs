@@ -5,11 +5,10 @@ namespace Uintra20.Core.Activity.Helpers
 {
     public interface IActivityPageHelper
     {
-        Enum ActivityType { get; }
         UintraLinkModel GetFeedUrl();
         //string GetOverviewPageUrl();//TODO: Research overview page
-        UintraLinkModel GetDetailsPageUrl(Guid? activityId = null);
-        UintraLinkModel GetCreatePageUrl();
-        UintraLinkModel GetEditPageUrl(Guid activityId);
+        UintraLinkModel GetDetailsPageUrl(Enum activityType, Guid? activityId = null);
+        UintraLinkModel GetCreatePageUrl(Enum activityType);
+        UintraLinkModel GetEditPageUrl(Enum activityType, Guid activityId);
     }
 }

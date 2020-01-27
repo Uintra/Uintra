@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Linq;
 using System.Web;
-using Compent.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
@@ -12,7 +12,6 @@ using Uintra20.Features.Comments.Helpers;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Links;
-using Uintra20.Features.Links.Models;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.ImageResize;
 using Uintra20.Features.Social.Models;

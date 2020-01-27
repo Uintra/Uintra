@@ -997,8 +997,6 @@
     <Compile Include="Core\Activity\Converters\ActivityCreatePanelViewModelConverter.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
     <Compile Include="Core\Activity\Entities\IntranetActivity.cs" />
-    <Compile Include="Core\Activity\Factories\CacheActivityPageHelperFactory.cs" />
-    <Compile Include="Core\Activity\Factories\IActivityPageHelperFactory.cs" />
     <Compile Include="Core\Activity\Helpers\ActivityPageHelper.cs" />
     <Compile Include="Core\Activity\Helpers\ActivityTypeHelper.cs" />
     <Compile Include="Core\Activity\Helpers\IActivityPageHelper.cs" />
@@ -1165,7 +1163,7 @@
     <Compile Include="Features\News\Controllers\NewsApiController.cs" />
     <Compile Include="Features\News\Models\UintraNewsDetailsPageModel.cs" />
     <Compile Include="Features\News\Models\UintraNewsDetailsPageViewModel.cs" />
-    <Compile Include="Features\News\Converters\NewsDetailsPageViewModelConverter.cs" />
+    <Compile Include="Features\News\Converters\UintraNewsDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\News\Entities\News.cs" />
     <Compile Include="Features\News\INewsService.cs" />
     <Compile Include="Features\News\Models\NewsCreateModel.cs" />
