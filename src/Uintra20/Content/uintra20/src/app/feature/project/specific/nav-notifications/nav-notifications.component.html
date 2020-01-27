@@ -1,9 +1,7 @@
 <div class="nav-notification" (clickOutside)="hide()">
   <button (click)="onToggle()" class="nav-notification__button">
     <span class="icon-bell-icon"></span>
-    <span class="nav-notification__count" *ngIf="notificationCount > 0">
-      {{ notificationCount }}
-    </span>
+    <app-notification-count [count]="notificationCount"></app-notification-count>
   </button>
 
   <div [hidden]="!isShow" class="nav-notification__popup">

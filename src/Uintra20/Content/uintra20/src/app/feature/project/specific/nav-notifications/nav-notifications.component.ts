@@ -1,11 +1,12 @@
-import { Component, OnInit, NgZone } from "@angular/core";
+import { Component, OnInit, NgZone, ChangeDetectorRef } from "@angular/core";
 import {
   NavNotificationsService,
   INotificationsData,
   INotificationsListData
 } from "./nav-notifications.service";
 import { SignalrService } from "./helpers/signalr.service";
-import { DesktopNotificationService } from './helpers/desktop-notification.service';
+import { DesktopNotificationService } from "./helpers/desktop-notification.service";
+import { Subject } from 'rxjs';
 
 declare let $: any;
 
@@ -27,7 +28,7 @@ export class NavNotificationsComponent implements OnInit {
     private desktopNotificationService: DesktopNotificationService,
     private signalrService: SignalrService,
     private navNotificationsService: NavNotificationsService,
-    private ngZone: NgZone
+    private ngNotificationZone: NgZone
   ) {}
 
   ngOnInit() {
@@ -48,31 +49,37 @@ export class NavNotificationsComponent implements OnInit {
 
   getNewNotification(notifications = []) {
     if (this.permission === "granted") {
-      this.ngZone.runOutsideAngular(() => {
-
-        const notificationsForDesktop = notifications.filter(
-          notification => notification.Value.isDesktopNotificationEnabled
-        );
-        const notificationsForWeb = notifications.filter(
-          notification => !notification.Value.isDesktopNotificationEnabled
-        );
-
-        this.desktopNotificationService.createNotifications(notificationsForDesktop)
-
-        this.setNotificationCount(notificationsForWeb.length);
-      });
+      this.createDesktopNotifications(notifications);
     } else {
       this.setNotificationCount(notifications.length);
     }
   }
 
-  setNotificationCount(count: number) {
-    this.ngZone.run(() => {
+  private setNotificationCount(count: number) {
+    this.ngNotificationZone.run(() => {
       this.notificationCount = count;
     });
   }
 
-  loadNotifications() {
+  private createDesktopNotifications(notifications) {
+    this.ngNotificationZone.runOutsideAngular(() => {
+
+      const notificationsForDesktop = notifications.filter(
+        notification => notification.Value.isDesktopNotificationEnabled
+      );
+      const notificationsForWeb = notifications.filter(
+        notification => !notification.Value.isDesktopNotificationEnabled
+      );
+
+      this.desktopNotificationService.createNotifications(
+        notificationsForDesktop
+      );
+
+      this.setNotificationCount(notificationsForWeb.length);
+    });
+  }
+
+  private loadNotifications() {
     this.isLoading = true;
 
     this.navNotificationsService
