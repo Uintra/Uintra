@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { IActivityCreatePanel } from './activity-create-panel.interface';
 import { CreateSocialService } from 'src/app/services/createActivity/create-social.service';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';

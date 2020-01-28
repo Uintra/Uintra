@@ -14,13 +14,15 @@ using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.ImageResize;
+using Uintra20.Features.Social.Details.Models;
 using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
 
-namespace Uintra20.Features.Social.Converters
+namespace Uintra20.Features.Social.Details.Converters
 {
-    public class SocialDetailsPageViewModelConverter : INodeViewModelConverter<SocialDetailsPageModel, SocialDetailsPageViewModel>
+    public class SocialDetailsPageViewModelConverter : 
+        INodeViewModelConverter<SocialDetailsPageModel, SocialDetailsPageViewModel>
     {
         private readonly IFeedLinkService _feedLinkService;
         private readonly IUserTagService _userTagService;
