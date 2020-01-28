@@ -27,10 +27,24 @@ export class SocialEditPageComponent {
   }
 
   private onParse = (): void => {
-    this.socialEdit = ParseHelper.parseUbaselineData(this.data);
-    this.socialEdit.tags = Object.values(this.socialEdit.tags);
-    this.socialEdit.availableTags = Object.values(this.socialEdit.availableTags);
-    this.socialEdit.lightboxPreviewModel = Object.values(this.socialEdit.lightboxPreviewModel);
+    const parsedSocialEdit = ParseHelper.parseUbaselineData(this.data);
+
+    // TODO: Imvestigate about parsing ubaseline data
+    this.socialEdit = {
+      description: parsedSocialEdit.description,
+      tags: Object.values(parsedSocialEdit.tags),
+      availableTags: Object.values(parsedSocialEdit.availableTags),
+      lightboxPreviewModel: {
+        medias: Object.values(parsedSocialEdit.lightboxPreviewModel.medias),
+        otherFiles: Object.values(parsedSocialEdit.lightboxPreviewModel.medias),
+        filesToDisplay: parsedSocialEdit.lightboxPreviewModel.filesToDisplay,
+        additionalImages: parsedSocialEdit.lightboxPreviewModel.additionalImages,
+        hiddenImagesCount: parsedSocialEdit.lightboxPreviewModel.hiddenImagesCount
+      },
+      id: parsedSocialEdit.id,
+      name: parsedSocialEdit.name,
+      tagIdsData: new Array<string>()
+    };
   }
 
   public handleUpload(fileArray: Array<any> = []): void {
@@ -42,11 +56,9 @@ export class SocialEditPageComponent {
   }
 
   public handleSocialUpdate(): void {
-    const populated = this.clone(this.socialEdit);
-    populated.tagIdsData = this.socialEdit.tags.map( t => t.id);
-
+    this.socialEdit.tagIdsData = this.socialEdit.tags.map(t => t.id);
     this.inProgress = true;
-    this.socialService.update(populated)
+    this.socialService.update(this.socialEdit)
       .pipe(finalize(() => this.inProgress = false))
       .subscribe(
         (next) => {
@@ -67,10 +79,5 @@ export class SocialEditPageComponent {
           // this.router.navigate(['/socials']); // TODO: socials doesnt exist, uncomment code when it will be done.
         },
       );
-  }
-
-  //TODO: Research about deep copy then
-  private clone(obj: any): any {
-    return Object.assign({}, obj);
   }
 }
