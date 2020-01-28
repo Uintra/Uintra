@@ -36,6 +36,6 @@ export class NewsCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger;
+    // debugger;
   }
 }

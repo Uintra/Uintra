@@ -57,7 +57,7 @@
       (removedFile)="onFileRemoved($event)"></dropzone>
   </div>
   <div class="buttons">
-    <button class="buttons__submit" (submit)="onSubmit()">Submit</button>
+    <button class="buttons__submit" (click)="onSubmit()">Submit</button>
     <button class="buttons__cancel">Cancel</button>
   </div>
   {{panelData | json}}

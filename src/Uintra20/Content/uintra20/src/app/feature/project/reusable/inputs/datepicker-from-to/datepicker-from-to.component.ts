@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import * as moment from "moment";
 
 interface datePickerOptioms {
   minDate?: string;
@@ -12,6 +13,7 @@ interface datePickerOptioms {
   styleUrls: ["./datepicker-from-to.component.less"]
 })
 export class DatepickerFromToComponent implements OnInit {
+  @Input() initialValues: { from: string; to: string } = null;
   @Output() setValue = new EventEmitter();
 
   fromDate = null;
@@ -26,7 +28,12 @@ export class DatepickerFromToComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.fromDate = new Date();
+    if (this.initialValues) {
+      this.fromDate = moment(this.initialValues.from);
+      this.toDate = moment(this.initialValues.to);
+    } else {
+      this.fromDate = moment();
+    }
   }
 
   fromDateChange() {
@@ -52,7 +59,5 @@ export class DatepickerFromToComponent implements OnInit {
     };
   }
 
-  resetDate() {
-
-  }
+  resetDate() {}
 }
