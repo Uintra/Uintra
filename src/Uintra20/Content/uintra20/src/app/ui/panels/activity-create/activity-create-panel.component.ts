@@ -2,12 +2,11 @@ import { Component, ViewEncapsulation, ViewChild, OnInit } from '@angular/core';
 import { IActivityCreatePanel } from './activity-create-panel.interface';
 import { ITagData } from 'src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.interface';
 import { DropzoneComponent } from 'ngx-dropzone-wrapper';
-import { MAX_LENGTH } from './_constants.js';
 import { CreateSocialService } from 'src/app/services/createActivity/create-social.service';
 import { IUserAvatar } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar-interface';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
-import { parse } from 'querystring';
 import { ModalService } from 'src/app/services/general/modal.service';
+import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
 
 @Component({
   selector: 'activity-create-panel',

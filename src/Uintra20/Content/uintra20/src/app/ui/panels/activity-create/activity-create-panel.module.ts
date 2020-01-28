@@ -11,16 +11,8 @@ import { TagMultiselectModule } from 'src/app/feature/project/reusable/inputs/ta
 
 import { DropzoneModule, DropzoneConfigInterface, DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import 'quill-emoji/dist/quill-emoji';
-import { MAX_LENGTH } from './_constants.js';
-
-export const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
-  // TODO: Change this to your upload POST address:
-  url: '/umbraco/api/file/UploadSingle',
-  maxFiles: 10,
-  maxFilesize: 50,
-  addRemoveLinks: true,
-  createImageThumbnails: true
-};
+import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
+import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.const';
 
 @NgModule({
   declarations: [ActivityCreatePanel],
