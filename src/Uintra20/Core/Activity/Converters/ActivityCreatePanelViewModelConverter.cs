@@ -1,5 +1,7 @@
 ﻿using Compent.Extensions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models;
@@ -10,6 +12,7 @@ using Uintra20.Features.News;
 using Uintra20.Features.News.Entities;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Permissions.Models;
 using Uintra20.Features.Social;
 using Uintra20.Features.Social.Entities;
 using Uintra20.Features.Tagging.UserTags.Models;
@@ -52,21 +55,18 @@ namespace Uintra20.Core.Activity.Converters
             switch (Enum.Parse(typeof(IntranetActivityTypeEnum), node.TabType))
             {
                 case IntranetActivityTypeEnum.Social:
-                    {
-                        ConvertToBulletins(node, viewModel);
+                        ConvertToBulletins(viewModel);
                         break;
-                    }
+
                 case IntranetActivityTypeEnum.News:
-                    {
-                        ConvertToNews(node, viewModel);
+                        ConvertToNews(viewModel);
                         break;
-                    }
-            }
-            //ConvertToBulletins(node, viewModel);
+                    
+            }            
             viewModel.Tags = GetTagsViewModel();
         }
 
-        private void ConvertToNews(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
+        private void ConvertToNews(ActivityCreatePanelViewModel viewModel)
         {
             var mediaSettings = _newsService.GetMediaSettings();
             var currentMember = _memberService.GetCurrentMember();
@@ -77,9 +77,14 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.Links = null;//TODO: Research links
             viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready
             viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.CanPin);
+
+            viewModel.CanEditOwner = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.EditOwner);
+
+            if (viewModel.CanEditOwner)
+                viewModel.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(PermissionActionEnum.Create, viewModel.ActivityType));
         }
 
-        private void ConvertToBulletins(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
+        private void ConvertToBulletins(ActivityCreatePanelViewModel viewModel)
         {
             var cookies = HttpContext.Current.Request.Cookies;
             var currentMember = _memberService.GetCurrentMember();
@@ -96,6 +101,13 @@ namespace Uintra20.Core.Activity.Converters
                 PermissionResourceTypeEnum.Bulletins,
                 PermissionActionEnum.Create);*/ //TODO: uncomment when permissons service is ready
         }
+
+        private IEnumerable<IntranetMember> GetUsersWithAccess(PermissionSettingIdentity permissionSettingIdentity) =>
+            _memberService
+                .GetAll()
+                .Where(member => _permissionsService.Check(member, permissionSettingIdentity))
+                .OrderBy(user => user.DisplayedName)
+                .ToArray();
 
         private TagsPickerViewModel GetTagsViewModel()
         {

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UBaseline.Shared.Node;
 using UBaseline.Shared.Property;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.Tagging.UserTags.Models;
@@ -22,5 +24,7 @@ namespace Uintra20.Core.Activity.Models
         public TagsPickerViewModel Tags { get; set; }
         public DateTime PublishDate { get; set; }
         public bool PinAllowed { get; set; }
+        public bool CanEditOwner { get; set; }
+        public IEnumerable<IntranetMember> Members { get; set; } = Enumerable.Empty<IntranetMember>();
     }
 }
