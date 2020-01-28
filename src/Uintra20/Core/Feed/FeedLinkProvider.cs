@@ -2,6 +2,7 @@
 using Uintra20.Core.Activity.Factories;
 using Uintra20.Core.Activity.Helpers;
 using Uintra20.Features.Links;
+using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Core.Feed
 {
@@ -16,7 +17,7 @@ namespace Uintra20.Core.Feed
             _profileLinkProvider = profileLinkProvider;
         }
 
-        protected virtual string GetProfileLink(Guid userId) => _profileLinkProvider.GetProfileLink(userId);
+        protected UintraLinkModel  GetProfileLink(Guid userId) => _profileLinkProvider.GetProfileLink(userId);
 
         protected IActivityPageHelper GetPageHelper(Enum type) => _pageHelperFactory.GetHelper(type);
     }

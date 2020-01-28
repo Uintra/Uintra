@@ -2,7 +2,7 @@
 {
     public class ActivityLinks : ActivityCreateLinks, IActivityLinks
     {
-        public string Details { get; set; }
-        public string Edit { get; set; }
+        public UintraLinkModel Details { get; set; }
+        public UintraLinkModel Edit { get; set; }
     }
 }

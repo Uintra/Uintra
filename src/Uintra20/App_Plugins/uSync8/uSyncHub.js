@@ -5,7 +5,7 @@
 
         var scripts = [
             Umbraco.Sys.ServerVariables.umbracoSettings.umbracoPath + '/lib/signalr/jquery.signalR.js',
-            Umbraco.Sys.ServerVariables.umbracoSettings.umbracoPath + '/backoffice/signalr/hubs'];
+            '/signalr/hubs'];
 
         var resource = {
             initHub: initHub

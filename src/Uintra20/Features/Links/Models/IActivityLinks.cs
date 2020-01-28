@@ -2,7 +2,7 @@
 {
     public interface IActivityLinks : IActivityCreateLinks
     {
-        string Details { get; }
-        string Edit { get; }
+        UintraLinkModel Details { get; }
+        UintraLinkModel Edit { get; }
     }
 }

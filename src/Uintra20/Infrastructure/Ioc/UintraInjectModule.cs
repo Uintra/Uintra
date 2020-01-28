@@ -1,12 +1,15 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
 using Uintra20.Core.Authentication;
+using Uintra20.Core.Configuration;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Localization;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Groups.ContentServices;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Information;
 using Uintra20.Features.Media;
+using Uintra20.Features.Navigation.Configuration;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Implementation;
 using Uintra20.Features.Permissions.Interfaces;
@@ -43,7 +46,6 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IVideoConverterLogService, VideoConverterLogService>();
             services.AddScoped<IIntranetMediaService, IntranetMediaService>();
             services.AddSingleton<IDocumentTypeAliasProvider, DocumentTypeProvider>();
-            //services.AddScoped<IXPathProvider, XPathProvider>();
             services.AddScoped<IGroupService, GroupService>();
             services.AddSingleton<IIntranetMemberGroupService, IntranetMemberGroupService>();
             services.AddSingleton<IPermissionSettingsSchemaProvider, PermissionSettingsSchemaProvider>();
@@ -56,12 +58,17 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<ICookieProvider, CookieProvider>();
             services.AddScoped<IMentionService, MentionService>();
             services.AddScoped<ISubscribeService, SubscribeService>();
-            services.AddScoped<Uintra20.Core.Authentication.IAuthenticationService, Uintra20.Core.Authentication.AuthenticationService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IIntranetLocalizationService, LocalizationService>();
 
             services.AddScoped<ILightboxHelper, LightboxHelper>();
 
-			return services;
+            services.AddSingleton<IContentPageContentProvider, ContentPageContentProvider>();
+            
+            services.AddScoped<IGroupHelper, GroupHelper>();
+            services.AddScoped<IGroupContentProvider, GroupContentProvider>();
+
+            return services;
 		}
 	}
 }

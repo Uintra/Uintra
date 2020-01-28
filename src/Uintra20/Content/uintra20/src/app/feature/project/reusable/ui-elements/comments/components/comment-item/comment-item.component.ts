@@ -4,6 +4,7 @@ import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-but
 import { ICommentCreator } from './comment-item.interface';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { CommentActivity } from '../../_constants.js';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-comment-item',
@@ -24,7 +25,7 @@ export class CommentItemComponent implements OnInit {
   subcommentDescription: string;
   likeModel: ILikeData;
   commentCreator: ICommentCreator;
-  commentBody: string;
+  sanitizedContent: SafeHtml;
 
   get isSubcommentSubmitDisabled() {
     if (!this.subcommentDescription) {
@@ -42,13 +43,13 @@ export class CommentItemComponent implements OnInit {
     return false;
   }
 
-  constructor(private commentsService: CommentsService) { }
+  constructor(private commentsService: CommentsService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.editedValue = this.data.text;
+    this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(this.data.text);
     const parsed = ParseHelper.parseUbaselineData(this.data);
     this.commentCreator = parsed.creator;
-    this.commentBody = parsed.text;
     this.likeModel = {
       likedByCurrentUser: !!parsed.likeModel.likedByCurrentUser,
       id: this.data.id,

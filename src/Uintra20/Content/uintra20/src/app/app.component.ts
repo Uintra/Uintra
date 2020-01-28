@@ -34,4 +34,8 @@ export class AppComponent {
   ngOnInit(): void {
 
   }
+
+  closeLeftNav() {
+    document.body.classList.remove("nav--open")
+  }
 }

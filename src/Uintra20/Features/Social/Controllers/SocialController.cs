@@ -58,7 +58,7 @@ namespace Uintra20.Features.Social.Controllers
         [HttpPost]
         public async Task<HttpResponseMessage> CreateExtended(SocialExtendedCreateModel model)
         {
-            if (!IsValidDescription(model.Description))
+            if (!ModelState.IsValid)
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
 
             var result = new SocialCreationResultModel();
@@ -77,7 +77,7 @@ namespace Uintra20.Features.Social.Controllers
         [HttpPut]
         public async Task<IHttpActionResult> Update(SocialExtendedEditModel editModel)
         {
-            if (!IsValidDescription(editModel.Description)) return BadRequest();
+            if (!ModelState.IsValid) return BadRequest();
 
             var bulletin = MapToBulletin(editModel);
 
@@ -101,7 +101,7 @@ namespace Uintra20.Features.Social.Controllers
         public void ReloadFeed()
         {
             var hubContext = GlobalHost.ConnectionManager.GetHubContext<CentralFeedHub>();
-            hubContext.Clients.All().reloadFeed();
+            hubContext.Clients.All.reloadFeed();
         }
 
         private SocialBase MapToBulletin(SocialCreateModel model)
@@ -136,7 +136,6 @@ namespace Uintra20.Features.Social.Controllers
             }
 
             ResolveMentions(model.Description, social);
-            //ReloadFeed();
         }
 
         private async Task OnBulletinEditedAsync(SocialBase social, SocialEditModel model)
@@ -147,19 +146,18 @@ namespace Uintra20.Features.Social.Controllers
             }
 
             await ResolveMentionsAsync(model.Description, social);
-            //ReloadFeed();
         }
 
         private void OnBulletinDeleted(Guid id)
         {
             _myLinksService.DeleteByActivityId(id);
-            //ReloadFeed();
+            ReloadFeed();
         }
 
         private async Task OnBulletinDeletedAsync(Guid id)
         {
             await _myLinksService.DeleteByActivityIdAsync(id);
-            //ReloadFeed();
+            ReloadFeed();
         }
 
         private void OnBulletinCreated(SocialBase social, SocialCreateModel model)
@@ -182,7 +180,7 @@ namespace Uintra20.Features.Social.Controllers
                 return;
             }
             ResolveMentions(model.Description, social);
-            //ReloadFeed();
+            ReloadFeed();
         }
 
         private async Task OnBulletinCreatedAsync(SocialBase social, SocialCreateModel model)
@@ -205,7 +203,7 @@ namespace Uintra20.Features.Social.Controllers
                 return;
             }
             await ResolveMentionsAsync(model.Description, social);
-            //ReloadFeed();
+            ReloadFeed();
         }
 
         private void ResolveMentions(string text, SocialBase social)
@@ -248,8 +246,5 @@ namespace Uintra20.Features.Social.Controllers
                 });
             }
         }
-
-        private bool IsValidDescription(string description) =>
-            description.HasValue();
     }
 }

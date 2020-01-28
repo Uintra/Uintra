@@ -1,4 +1,39 @@
-<!-- TODO: See uintra QA There should be popup with items -->
-<button (click)="logout()"
-        [disabled]="inProgress">Logout
-</button>
+<div *ngIf="data" class="user-navigation">
+  <div *ngIf="data.currentMember" class="user__opener" (click)="toggleUserNavigation($event)">
+    <div *ngIf="data.currentMember.displayedName" class="user__name">
+      {{data.currentMember.displayedName}}
+    </div>
+    <div class="user__avatar">
+      <app-user-avatar
+        *ngIf="data.currentMember.photo || data.currentMember.displayedName"
+        [photo]="data.currentMember.photo"
+        [name]="data.currentMember.displayedName"></app-user-avatar>
+    </div>
+    <span class="user__opener-arrow"></span>
+  </div>
+  <ul class="menu" [ngClass]="{'menu--expanded': isNavigationExpanded}" (clickOutside)="closeUserNavigation()">
+    <li *ngFor="let item of data.items" class="menu__item">
+      <button
+        *ngIf="item.type == 1 || item.type == 4"
+        [disabled]="inProgress"
+        class="menu__item-link menu__item-link--btn"
+        (click)="redirect(item.url, item.type)">
+        <span class="icon {{getClass(item.type)}}"></span>
+        {{item.name}}
+      </button>
+      <a
+        *ngIf="item.type == 2"
+        class="menu__item-link"
+        [routerLink]="item.url.baseUrl | ulink"
+        [queryParams]="item.url.params | uparams"
+        (click)="closeUserNavigation()">
+        <span class="icon {{getClass(item.type)}}"></span>
+        {{item.name}}
+      </a>
+      <a *ngIf="item.type == 3" class="menu__item-link" [href]="item.url.originalUrl">
+        <span class="icon {{getClass(item.type)}}"></span>
+        {{item.name}}
+      </a>
+    </li>
+  </ul>
+</div>

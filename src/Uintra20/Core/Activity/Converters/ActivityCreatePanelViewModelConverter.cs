@@ -1,5 +1,6 @@
 ﻿using Compent.Extensions;
 using System;
+using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Converters.Models;
 using Uintra20.Core.Member.Entities;
@@ -47,6 +48,7 @@ namespace Uintra20.Core.Activity.Converters
 
         private void ConvertToBulletins(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
         {
+            var cookies = HttpContext.Current.Request.Cookies;
             var currentMember = _memberService.GetCurrentMember();
             var mediaSettings = _socialService.GetMediaSettings();
 
