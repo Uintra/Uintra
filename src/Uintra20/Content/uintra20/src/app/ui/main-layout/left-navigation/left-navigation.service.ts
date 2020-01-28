@@ -13,11 +13,11 @@ export class LeftNavigationService {
   readonly openingStateProperty = "nav-opening-state";
   openingState: object;
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {      
+  constructor(private http: HttpClient, private cookieService: CookieService) {
     this.updateOpeningState();
   }
 
-  setOpeningState(item: INavigationItem) {    
+  setOpeningState(item: INavigationItem) {
     this.openingState[item.id] = !item.isActive;
     this.cookieService.set(this.openingStateProperty, JSON.stringify(this.openingState));
     this.updateOpeningState();
@@ -38,9 +38,9 @@ export class LeftNavigationService {
   }
 
   private setOpenProperties(data: INavigationItem[]): INavigationItem[] {
-    if (this.openingState) {      
+    if (this.openingState) {
       this.checkNavigationItem(data);
-    }    
+    }
     return data;
   }
 

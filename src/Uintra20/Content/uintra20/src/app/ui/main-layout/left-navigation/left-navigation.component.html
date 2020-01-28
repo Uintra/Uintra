@@ -1,9 +1,13 @@
-<ul class="left-nav">
-  <ng-container
-    *ngTemplateOutlet="recursiveMenu; context: { $implicit: navigationItems }"
-  >
-  </ng-container>
-</ul>
+<div class="navigation-wrapper">
+  <ul class="left-nav">
+    <ng-container
+      *ngTemplateOutlet="recursiveMenu; context: { $implicit: navigationItems }"
+    >
+    </ng-container>
+  </ul>
+
+  <app-shared-links></app-shared-links>
+</div>
 
 <ng-template #recursiveMenu let-menus>
   <li *ngFor="let item of menus" class="left-nav__item">
