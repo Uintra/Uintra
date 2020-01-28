@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "@agm/core": "^1.1.0",
     "@angular/animations": "~8.2.11",
     "@angular/common": "~8.2.11",
     "@angular/compiler": "~8.2.11",
@@ -26,8 +27,8 @@
     "@ubaseline/next": "file:../ubaseline-next-0.0.15.tgz",
     "jquery": "^3.4.1",
     "ng-select2": "^1.2.2",
-    "ngx-dropzone": "^2.2.2",
     "ngx-cookie-service": "^2.3.0",
+    "ngx-dropzone": "^2.2.2",
     "ngx-dropzone-wrapper": "^8.0.0",
     "ngx-eonasdan-datetimepicker": "^1.0.6",
     "ngx-infinite-scroll": "^8.0.1",
