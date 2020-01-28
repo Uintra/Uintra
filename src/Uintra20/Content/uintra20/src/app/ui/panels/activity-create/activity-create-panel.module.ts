@@ -21,7 +21,7 @@ import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/che
 import { SelectModule } from 'src/app/feature/project/reusable/inputs/select/select.module';
 import { DatepickerFromToModule } from 'src/app/feature/project/reusable/inputs/datepicker-from-to/datepicker-from-to.module';
 import { AgmCoreModule } from '@agm/core';
-import { GOOGLE_MAPS_API_KEY } from 'src/app/constants/maps/google-maps.const';
+import { GOOGLE_MAPS_CONFIG } from 'src/app/constants/maps/google-maps.const';
 
 @NgModule({
   declarations: [
@@ -50,8 +50,8 @@ import { GOOGLE_MAPS_API_KEY } from 'src/app/constants/maps/google-maps.const';
       }
     }),
     AgmCoreModule.forRoot({
-      apiKey: GOOGLE_MAPS_API_KEY
-    })
+      apiKey: GOOGLE_MAPS_CONFIG.API_KEY
+    }),
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: ActivityCreatePanel },

@@ -27,7 +27,23 @@
   </div>
   <div class="location form-row">
     <h3 class="location__title subtitle">Location</h3>
-    <text-input type="text" aria-label="Location" class="location__input"></text-input>
+    <text-input 
+      type="text" 
+      aria-label="Location" 
+      class="location__input"
+      [(ngModel)]="googleMapsModel.locationName"></text-input>
+    <agm-map 
+      [latitude]="defaultCoordinates.latitude" 
+      [longitude]="defaultCoordinates.longitude"
+      [zoom]="googleMapsModel.zoom"
+      (mapClick)="handleMapClicked($event)" 
+      [disableDefaultUI]="googleMapsModel.disableDefaultUI"
+      [zoomControl]="googleMapsModel.zoomControl">
+      <agm-marker 
+        [latitude]="googleMapsModel.coordinates.latitude" 
+        [longitude]="googleMapsModel.coordinates.longitude">
+      </agm-marker>
+    </agm-map>
     <!-- map -->
   </div>
   <div class="pin-block form-row">
