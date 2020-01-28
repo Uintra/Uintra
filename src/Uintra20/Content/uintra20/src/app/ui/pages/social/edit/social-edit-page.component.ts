@@ -54,8 +54,6 @@ export class SocialEditPageComponent {
 
           this.router.navigate([route]);
         },
-        (error) => { },
-        () => { }
       );
   }
 
@@ -68,8 +66,6 @@ export class SocialEditPageComponent {
         (next) => {
           // this.router.navigate(['/socials']); // TODO: socials doesnt exist, uncomment code when it will be done.
         },
-        (error) => { },
-        () => { }
       );
   }
 
