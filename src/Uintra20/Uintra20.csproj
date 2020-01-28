@@ -957,6 +957,14 @@
     <Compile Include="Features\Notification\Configuration\NotifierConfiguration.cs" />
     <Compile Include="Features\Notification\Exceptions\MissingNotifierConfigurationException.cs" />
     <Compile Include="Features\Notification\Exceptions\OutOfRangeNotifierConfigurationException.cs" />
+    <Compile Include="Features\Social\Details\Converters\SocialDetailsPageViewModelConverter.cs" />
+    <Compile Include="Features\Social\Details\Models\SocialDetailsPageModel.cs" />
+    <Compile Include="Features\Social\Details\Models\SocialDetailsPageViewModel.cs" />
+    <Compile Include="Features\Social\Edit\Converters\SocialEditPageViewModelConverter.cs" />
+    <Compile Include="Features\Social\Edit\Models\SocialEditModel.cs" />
+    <Compile Include="Features\Social\Edit\Models\SocialEditPageModel.cs" />
+    <Compile Include="Features\Social\Edit\Models\SocialEditPageViewModel.cs" />
+    <Compile Include="Features\Social\Edit\Models\SocialExtendedEditModel.cs" />
     <Compile Include="Features\Social\IFeedHub.cs" />
     <Compile Include="Features\Social\Controllers\SocialController.cs" />
     <Compile Include="Features\CentralFeed\CentralFeedHub.cs" />
@@ -1040,9 +1048,6 @@
     <Compile Include="Core\Member\Models\UserPickerModel.cs" />
     <Compile Include="Core\Member\Controllers\UserApiController.cs" />
     <Compile Include="Core\User\Web\UserApiController.cs" />
-    <Compile Include="Features\Social\Converters\SocialDetailsPageViewModelConverter.cs" />
-    <Compile Include="Features\Social\Models\SocialDetailsPageModel.cs" />
-    <Compile Include="Features\Social\Models\SocialDetailsPageViewModel.cs" />
     <Compile Include="Features\Social\Models\SocialPreviewModel.cs" />
     <Compile Include="Features\CentralFeed\Providers\ContentProviderBase.cs" />
     <Compile Include="Features\CentralFeed\Providers\FeedContentProviderBase.cs" />
@@ -1205,8 +1210,6 @@
     <Compile Include="Features\Social\ISocialService.cs" />
     <Compile Include="Features\Social\Models\SocialCreateModel.cs" />
     <Compile Include="Features\Social\Models\SocialCreationResultModel.cs" />
-    <Compile Include="Features\Social\Models\SocialEditModel.cs" />
-    <Compile Include="Features\Social\Models\SocialExtendedEditModel.cs" />
     <Compile Include="Features\Social\Models\SocialExtendedItemViewModel.cs" />
     <Compile Include="Features\Social\Models\SocialExtendedViewModel.cs" />
     <Compile Include="Features\Social\Models\SocialItemViewModel.cs" />

@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ILogin } from '../../login/contracts/login.interface';
+import { ILoginPage } from 'src/app/ui/pages/login/login-page.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
   private apiRoute = 'api/auth/';
 
   constructor(private httpClient: HttpClient) { }
 
-  public login(body: ILogin) {
+  public login(body: ILoginPage) {
     return this.httpClient.post(`${this.apiRoute}login`, body);
   }
 

@@ -17,6 +17,7 @@ using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Navigation.Services;
+using Uintra20.Features.Social.Edit.Models;
 using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.Extensions;
@@ -74,24 +75,27 @@ namespace Uintra20.Features.Social.Controllers
         }
 
         [HttpPut]
-        public async Task<HttpResponseMessage> EditExtended(SocialExtendedEditModel editModel)
+        public async Task<IHttpActionResult> Update(SocialExtendedEditModel editModel)
         {
-            if (!ModelState.IsValid)
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            if (!ModelState.IsValid) return BadRequest();
 
             var bulletin = MapToBulletin(editModel);
+
             await _socialService.SaveAsync(bulletin);
+
             await OnBulletinEditedAsync(bulletin, editModel);
-            return new HttpResponseMessage(HttpStatusCode.OK);
+
+            return Ok();
         }
 
         [HttpDelete]
-        public async Task<HttpResponseMessage> Delete(Guid id)
+        public async Task<IHttpActionResult> Delete(Guid id)
         {
             await _socialService.DeleteAsync(id);
+
             await OnBulletinDeletedAsync(id);
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return Ok();
         }
 
         public void ReloadFeed()
@@ -114,13 +118,14 @@ namespace Uintra20.Features.Social.Controllers
             return bulletin;
         }
 
-        private SocialBase MapToBulletin(SocialEditModel editModel)
+        private SocialBase MapToBulletin(SocialEditModel socialEditModel)
         {
-            var bulletin = _socialService.Get(editModel.Id);
-            //social = editModel.Map(social);
-            bulletin.MediaIds = bulletin.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
+            var social = _socialService.Get(socialEditModel.Id);
 
-            return bulletin;
+            social.MediaIds = social.MediaIds.Concat(_mediaHelper.CreateMedia(socialEditModel));
+            social.Description = socialEditModel.Description;
+
+            return social;
         }
 
         private void OnBulletinEdited(SocialBase social, SocialEditModel model)

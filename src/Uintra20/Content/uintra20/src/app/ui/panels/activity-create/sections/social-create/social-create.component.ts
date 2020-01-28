@@ -6,7 +6,7 @@ import { IUserAvatar } from 'src/app/feature/project/reusable/ui-elements/user-a
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { CreateSocialService } from 'src/app/services/createActivity/create-social.service';
 import { ModalService } from 'src/app/services/general/modal.service';
-import { MAX_LENGTH } from '../../_constants.js';
+import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
 
 @Component({
   selector: 'app-social-create',

@@ -3,9 +3,8 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-
-import { ILogin } from '../../../feature/login/contracts/login.interface';
-import { AuthService } from '../../../feature/auth/services/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { ILoginPage } from './login-page.interface';
 
 @Component({
   selector: 'login-page',
@@ -36,7 +35,7 @@ export class LoginPage implements OnDestroy {
   public submit() {
     this.inProgress = true;
 
-    const model: ILogin = {
+    const model: ILoginPage = {
       login: this.loginForm.value.login,
       password: this.loginForm.value.password,
       clientTimeZoneId: this.getCurrentTimeZoneId(),

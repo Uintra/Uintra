@@ -9,25 +9,17 @@ import { PublicationHeaderModule } from 'src/app/feature/project/reusable/ui-ele
 import { UserAvatarModule } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar.module';
 import { TagMultiselectModule } from 'src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.module';
 
-import { DropzoneModule, DropzoneConfigInterface, DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
+import { DropzoneModule, DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import 'quill-emoji/dist/quill-emoji';
-import { MAX_LENGTH } from './_constants.js';
-import { NewsCreateComponent } from './sections/news-create/news-create.component';
+import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
+import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.const';
 import { SocialCreateComponent } from './sections/social-create/social-create.component';
+import { NewsCreateComponent } from './sections/news-create/news-create.component';
 import { TextInputModule } from 'src/app/feature/project/reusable/inputs/fields/text-input/text-input.module';
 import { QuillModule } from 'ngx-quill';
 import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/checkbox-input/checkbox-input.module';
 import { SelectModule } from 'src/app/feature/project/reusable/inputs/select/select.module';
 import { DatepickerFromToModule } from 'src/app/feature/project/reusable/inputs/datepicker-from-to/datepicker-from-to.module';
-
-const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
-  // TODO: Change this to your upload POST address:
-  url: '/umbraco/api/file/UploadSingle',
-  maxFiles: 10,
-  maxFilesize: 50,
-  addRemoveLinks: true,
-  createImageThumbnails: true
-};
 
 @NgModule({
   declarations: [
@@ -65,4 +57,4 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   ],
   entryComponents: [ActivityCreatePanel]
 })
-export class ActivityCreatePanelModule {}
+export class ActivityCreatePanelModule { }

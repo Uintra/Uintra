@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Uintra20.Features.Social.Models
+namespace Uintra20.Features.Social.Edit.Models
 {
     public class SocialExtendedEditModel : SocialEditModel
     {
