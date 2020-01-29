@@ -1,5 +1,5 @@
 export interface IDatePickerOptions {
-  minDate?: string;
-  maxDate?: string;
+  minDate?: any;  // moment
+  maxDate?: any;  // moment
   showClear?: boolean;
 }
