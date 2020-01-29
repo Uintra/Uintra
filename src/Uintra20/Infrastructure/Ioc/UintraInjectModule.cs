@@ -1,6 +1,5 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
 using Uintra20.Core.Authentication;
-using Uintra20.Core.Configuration;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Services;
@@ -9,7 +8,8 @@ using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Information;
 using Uintra20.Features.Media;
-using Uintra20.Features.Navigation.Configuration;
+using Uintra20.Features.News;
+using Uintra20.Features.News.Entities;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Implementation;
 using Uintra20.Features.Permissions.Interfaces;
@@ -24,7 +24,7 @@ using Uintra20.Infrastructure.Utils;
 
 namespace Uintra20.Infrastructure.Ioc
 {
-	public class UintraInjectModule: IInjectModule
+    public class UintraInjectModule: IInjectModule
 	{
 		public IDependencyCollection Register(IDependencyCollection services)
 		{
@@ -60,6 +60,8 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<ISubscribeService, SubscribeService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IIntranetLocalizationService, LocalizationService>();
+
+            services.AddScoped<INewsService<News>, NewsService>();
 
             services.AddScoped<ILightboxHelper, LightboxHelper>();
 

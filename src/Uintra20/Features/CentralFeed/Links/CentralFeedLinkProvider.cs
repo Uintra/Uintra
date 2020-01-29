@@ -1,4 +1,4 @@
-﻿using Uintra20.Core.Activity.Factories;
+﻿using Uintra20.Core.Activity.Helpers;
 using Uintra20.Core.Feed;
 using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.Links;
@@ -6,43 +6,45 @@ using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Features.CentralFeed.Links
 {
-    public class CentralFeedLinkProvider : FeedLinkProvider, ICentralFeedLinkProvider
+    public class CentralFeedLinkProvider : 
+        FeedLinkProvider, 
+        ICentralFeedLinkProvider
     {
         public CentralFeedLinkProvider(
-            IActivityPageHelperFactory pageHelperFactory,
-            IProfileLinkProvider profileLinkProvider)
-            : base(pageHelperFactory, profileLinkProvider)
+            IActivityPageHelper activityPageHelper, 
+            IProfileLinkProvider profileLinkProvider) 
+            : base(activityPageHelper, profileLinkProvider)
         {
         }
 
         public IActivityLinks GetLinks(ActivityTransferModel activity)
         {
-            var helper = GetPageHelper(activity.Type);
-
-            return new ActivityLinks
+            var result =  new ActivityLinks
             {
-                Feed = helper.GetFeedUrl(),
+                Feed = _activityPageHelper.GetFeedUrl(),
                 Overview = null,//helper.GetOverviewPageUrl(),//TODO: Research overview pages
-                Create = helper.GetCreatePageUrl(),
-                Details = helper.GetDetailsPageUrl(activity.Id),
-                Edit = helper.GetEditPageUrl(activity.Id),
+                Create = _activityPageHelper.GetCreatePageUrl(activity.Type),
+                Details = _activityPageHelper.GetDetailsPageUrl(activity.Type, activity.Id),
+                Edit = _activityPageHelper.GetEditPageUrl(activity.Type, activity.Id),
                 Owner = GetProfileLink(activity.OwnerId),
-                DetailsNoId = helper.GetDetailsPageUrl()
+                DetailsNoId = _activityPageHelper.GetDetailsPageUrl(activity.Type)
             };
+
+            return result;
         }
 
-        public IActivityCreateLinks GetCreateLinks(ActivityTransferCreateModel model)
+        public IActivityCreateLinks GetCreateLinks(ActivityTransferCreateModel activity)
         {
-            var helper = GetPageHelper(model.Type);
-
             return new ActivityCreateLinks
             {
-                Feed = helper.GetFeedUrl(),
+                Feed = _activityPageHelper.GetFeedUrl(),
                 Overview = null,//helper.GetOverviewPageUrl(),//TODO: Research overview pages
-                Create = helper.GetCreatePageUrl(),
-                Owner = GetProfileLink(model.OwnerId),
-                DetailsNoId = helper.GetDetailsPageUrl()
+                Create = _activityPageHelper.GetCreatePageUrl(activity.Type),
+                Owner = GetProfileLink(activity.OwnerId),
+                DetailsNoId = _activityPageHelper.GetDetailsPageUrl(activity.Type)
             };
         }
+
+        
     }
 }

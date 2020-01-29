@@ -240,7 +240,7 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
         private IList<IFeedItem> SortForFeed(IEnumerable<IFeedItem> items, Enum type)
         {
             var sortedItems = Sort(items, type);
-            return SortByPin(sortedItems).ToList();
+            return SortByPin(sortedItems).ToArray();
         }
 
         private IEnumerable<IFeedItem> SortByPin(IEnumerable<IFeedItem> items) =>
@@ -249,11 +249,11 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
         private (IEnumerable<IFeedItem> activities, int totalCount) GetLatestActivities(Enum activityType,
             int activityAmount)
         {
-            var items = GetCentralFeedItems(activityType).ToList();
+            var items = GetCentralFeedItems(activityType).ToArray();
             var filteredItems = FilterLatestActivities(items).Take(activityAmount);
             var sortedItems = Sort(filteredItems, activityType);
 
-            return (sortedItems, items.Count);
+            return (sortedItems, items.Length);
         }
 
         private FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<int, FeedSettings> settings)

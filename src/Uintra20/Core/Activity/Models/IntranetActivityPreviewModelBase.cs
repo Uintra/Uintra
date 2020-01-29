@@ -10,7 +10,7 @@ using Uintra20.Features.Location.Models;
 
 namespace Uintra20.Core.Activity.Models
 {
-    public abstract class IntranetActivityPreviewModelBase : ILikeable, IHaveLightboxPreview
+    public class IntranetActivityPreviewModelBase : ILikeable, IHaveLightboxPreview
     {
         public Guid Id { get; set; }
         public bool CanEdit { get; set; }
@@ -27,5 +27,6 @@ namespace Uintra20.Core.Activity.Models
         public bool LikedByCurrentUser { get; set; }
         public int CommentsCount { get; set; }
         public LightboxPreviewModel MediaPreview { get; set; }
+        public string Description { get; set; }
     }
 }

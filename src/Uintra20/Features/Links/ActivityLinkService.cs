@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Activity.Helpers;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.CentralFeed.Links;
@@ -25,7 +24,7 @@ namespace Uintra20.Features.Links
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
-        
+
         public ActivityLinkService(
             ICentralFeedLinkProvider centralFeedLinkProvider,
             IGroupFeedLinkProvider groupFeedLinkProvider,
@@ -47,19 +46,14 @@ namespace Uintra20.Features.Links
             var groupId = _groupActivityService.GetGroupId(activityId);
 
             var activity = GetActivity(activityId);
-            IActivityLinks result;
-            if (groupId.HasValue)
-            {
-                var activityModel = activity.Map<GroupActivityTransferModel>();
-                activityModel.GroupId = groupId.Value;
-                result = _groupFeedLinkProvider.GetLinks(activityModel);
-            }
-            else
-            {
-                var activityModel = activity.Map<ActivityTransferModel>();
-                result = _centralFeedLinkProvider.GetLinks(activityModel);
-            }
-            return result;
+
+            if (!groupId.HasValue)
+                return _centralFeedLinkProvider.GetLinks(activity.Map<ActivityTransferModel>());
+
+            var activityModel = activity.Map<GroupActivityTransferModel>();
+            activityModel.GroupId = groupId.Value;
+            return _groupFeedLinkProvider.GetLinks(activityModel);
+
         }
 
         public async Task<IActivityLinks> GetLinksAsync(Guid activityId)

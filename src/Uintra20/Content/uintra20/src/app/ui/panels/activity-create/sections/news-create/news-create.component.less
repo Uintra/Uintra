@@ -1,0 +1,129 @@
+@import 'base.less';
+
+:host {
+  font: @body-font;
+  font-size: 13px;
+
+  & ::ng-deep {
+    .dropzone {
+      border-style: dashed !important;
+      border-radius: 10px !important;
+      min-height: 0 !important;
+      min-height: initial !important;
+      border-width: 1px !important;
+      z-index: 0;
+      padding: 15px 20px !important;
+    }
+
+    .dropzone .dz-message {
+      position: relative;
+      text-align: center;
+      margin: 2em 0 !important;
+      border: none !important;
+      background-color: @main-color !important;
+      display: flex !important;
+      justify-content: center !important;
+      overflow: visible !important;
+    }
+
+    .dropzone.dz-clickable .dz-message, .dropzone.dz-clickable .dz-message * {
+      cursor: pointer;
+    }
+
+    .files-loaded ::ng-deep .dz-message,
+    .dz-started ::ng-deep .dz-message {
+      display: none !important;
+    }
+
+    .custom-message {
+      font: @body-font;
+      font-size: 14px;
+      position: relative;
+
+      &::before {
+        position: absolute;
+        top: -10px;
+        left: -40px;
+        font-size: 30px;
+        color: @icon-black;
+      }
+    }
+
+    .ql-editor {
+      border: 1px solid @border-color;
+      border-top: none;
+      height: 149px;
+      padding: 6px 10px !important;
+      margin: 0 !important;
+    }
+
+    .ql-toolbar button {
+      margin: 0;
+    }
+
+    .icon-smily {
+      font-size: 18px;
+    }
+  }
+}
+
+.news-create-panel {
+  background-color: @main-color;
+  padding: 20px 20px 33px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+}
+
+.form-row {
+  margin-bottom: 25px;
+}
+
+.subtitle {
+  .subtitle();
+}
+
+.required {
+  &::after {
+    content: '*';
+    color: red;
+    margin-left: 2px;
+  }
+}
+
+.news-title__input,
+.location__input {
+  border: 1px solid @border-color;
+}
+
+.datepickers {
+  display: flex;
+
+  &-publish,
+  &-unpublish {
+    flex: 50%;
+  }
+}
+
+.pin-info {
+  padding-right: 40px;
+  padding-left: 40px;
+
+  &__box {
+    padding: 10px 0;
+  }
+
+  &__text {
+    padding-bottom: 10px;
+  }
+}
+
+.buttons {
+  margin-top: 50px;
+  &__submit {
+    .button;
+    margin-right: 10px;
+  }
+
+  &__cancel {
+    .button-white;
+  }
+}

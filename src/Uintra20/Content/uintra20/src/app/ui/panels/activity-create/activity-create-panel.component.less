@@ -1,154 +1,61 @@
-@import "base.less";
+@import 'base.less';
 
-activity-create-panel {
-  .create-bulletin {
-    position: relative;
-    .shadow;
+// Styles for Select2 that need to be encapsulated
 
-    &__input {
-      display: flex;
-      padding: 14px 66px 14px 15px;
-      cursor: text;
-      background: @main-color;
+.select2-dropdown {
+  background-color: @main-color;
+  border: 1px solid @border-color;
+  border-radius: 4px;
+  border-top-left-radius: unset;
+  border-top-right-radius: unset;
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 100%;
+}
 
-      @media @md-up {
-        padding: 22px 20px;
-        align-items: center;
-      }
+.select2-search--dropdown {
+  display: block;
+  padding: 4px;
+}
 
-      @media @md-down {
-        height: 50px;
-      }
+.select2-search--dropdown .select2-search__field {
+  padding: 4px;
+  width: 100%;
+  border: 1px solid @border-color;
+}
 
-      &-placeholder {
-        .reset-button;
-        border: 0;
-        cursor: text;
-        text-align: left;
+.select2-results__option {
+  padding: 6px;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
 
-        @media @md-up {
-          margin-left: 10px;
-        }
-      }
+.select2-results__option[aria-selected] {
+  cursor: pointer;
+}
 
-      @media @md-down {
-        app-user-avatar {
-          display: none;
-        }
-      }
-    }
-  }
+.select2-container--default .select2-results__option--highlighted[aria-selected=true], .select2-container--default .select2-results__option[aria-selected=true] {
+  background-color: #fff !important;
+  color: @border-color !important;
+  pointer-events: none;
+  cursor: default;
+}
 
-  .bulletin-popup {
-    position: fixed;
-    left: 8px;
-    right: 8px;
-    top: 8px;
-    background: @main-color;
-    z-index: 13;
-    opacity: 0;
-    animation: fadeIn 0.2s ease-out forwards;
-    max-height: 80vh;
-    overflow: auto;
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: #5c5c5c;
+  color: white;
+}
 
-    @media @md-up {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-    }
+.select2-container--default .select2-results > .select2-results__options {
+  max-height: 204px;
+  overflow-y: auto;
+}
 
-    &__background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 12;
-      opacity: 0;
-      animation: fadeIn 0.1s ease-out forwards;
-    }
-
-    &__close-button {
-      .reset-button;
-      position: absolute;
-      right: 17px;
-      top: 10px;
-      width: 31px;
-      height: 31px;
-      z-index: 14;
-      font-size: 1.8em;
-      cursor: pointer;
-    }
-
-    &__header {
-      padding: 21px 40px 16px 30px;
-    }
-
-    &__multiselect {
-      padding: 21px 30px 25px;
-    }
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
-  }
-
-  dropzone > .dropzone.dz-wrapper {
-    padding: 0 14px !important;
-    height: 0 !important;
-    overflow: visible;
-
-    &.dz-started {
-      height: auto !important;
-    }
-
-    .dz-message {
-      border: 0 !important;
-      background: none !important;
-      min-height: 0 !important;
-    }
-
-    .dz-remove {
-      margin-top: 5px;
-      color: #337ab7;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    .dz-error-message {
-      top: 150px;
-    }
-  }
-
-  .feed-btns {
-    display: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
-    background-color: @main-color;
-    padding: 12px 20px;
-
-    @media @md-up {
-      display: flex;
-    }
-
-    &__col {
-      flex-grow: 1;
-      opacity: 0;
-
-      .btn-default {
-        margin-right: 16px;
-      }
-    }
-  }
+.select2-results__options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
-using EmailWorker.Data.Features.EmailWorker;
 using EmailWorker.Web.Infrastructure.Extensions;
 using Uintra20.Core.Activity.AutoMapperProfiles;
 using Uintra20.Core.Controls.LightboxGallery;
@@ -12,6 +11,7 @@ using Uintra20.Features.Groups.AutoMapperProfiles;
 using Uintra20.Features.LinkPreview.AutoMapperProfiles;
 using Uintra20.Features.Location.AutoMapperProfiles;
 using Uintra20.Features.Navigation.AutoMapperProfiles;
+using Uintra20.Features.News.AutoMapperPrfiles;
 using Uintra20.Features.Notification.AutoMapperProfiles;
 using Uintra20.Features.Permissions.AutoMapperProfiles;
 using Uintra20.Features.Social.AutoMapperProfiles;
@@ -27,7 +27,7 @@ namespace Uintra20
         {
             //Mapper.AddProfile<PermissionsAutoMapperProfile>();
             //Mapper.AddProfile<CommentAutoMapperProfile>();
-            ////Mapper.AddProfile<NewsAutoMapperProfile>();
+            
             ////Mapper.AddProfile<Core.News.NewsAutoMapperProfile>();
             //Mapper.AddProfile<LightboxAutoMapperProfile>();
             //Mapper.AddProfile<NavigationAutoMapperProfile>();
@@ -83,7 +83,8 @@ namespace Uintra20
             cfg.AddProfile<LocationAutoMapperProfile>();
             cfg.AddProfile<LinkPreviewAutoMapperProfile>();
             cfg.UseMailWorkerMapperProfiles();
-            
+            cfg.AddProfile<NewsAutoMapperProfile>();
+
             Mapper.Initialize(cfg);
             Mapper.AssertConfigurationIsValid();
         }
