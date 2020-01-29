@@ -23,6 +23,7 @@ export class NewsFormComponent implements OnInit {
   pinDate: IPinedData;
 
   newsForm: INewsForm;
+  location:string;
 
   constructor(private newsCreateService: CreateActivityService) {}
 
@@ -80,5 +81,8 @@ export class NewsFormComponent implements OnInit {
       id: member.id,
       text: member.displayedName
     }));
+  }
+  public handleAddressChanged(address): void {
+    this.location = address;
   }
 }
