@@ -1,6 +1,6 @@
 <div class="pin-block form-row">
   <h3 class="pin-block__title subtitle">Set as important</h3>
-  <checkbox-input [(ngModel)]="isPinCheked">Pin post to top of feed</checkbox-input>
+  <checkbox-input [(ngModel)]="isPinCheked" (ngModelChange)='onAcceptedChange()'>Pin post to top of feed</checkbox-input>
   <div *ngIf="isPinCheked" class="pin-info">
     <div class="pin-info__box">
       <div class="pin-info__text">

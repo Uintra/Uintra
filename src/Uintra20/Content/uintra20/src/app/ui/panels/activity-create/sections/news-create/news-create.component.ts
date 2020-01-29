@@ -61,8 +61,7 @@ export class NewsCreateComponent implements OnInit {
   }
 
   editPinDate(pinDate: IPinedData) {
-    this.pinDate = pinDate;
-    console.log(this.pinDate);
+    this.pinDate = pinDate && pinDate.isPinCheked ? pinDate : null;
   }
 
   private getOwners(): ISelectItem[] {
