@@ -28,8 +28,7 @@
   <div class="location form-row">
 
     <h3 class="location__title subtitle">Location</h3>
-    <text-input type="text" aria-label="Location" class="location__input"></text-input>
-    <!-- map -->
+    <app-location-picker></app-location-picker>
   </div>
   <app-pin-activity [isPinCheked] = 'isPinCheked' (dateChaneg)='editPinDate($event)'></app-pin-activity>
   <div class="dropzone-holder form-row">

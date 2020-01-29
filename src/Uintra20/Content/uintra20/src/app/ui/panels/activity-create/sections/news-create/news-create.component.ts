@@ -1,3 +1,4 @@
+/// <reference types="@types/googlemaps" />
 import { Component, OnInit, Input } from '@angular/core';
 import { IActivityCreatePanel } from '../../activity-create-panel.interface';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
@@ -75,3 +76,4 @@ export class NewsCreateComponent implements OnInit {
     return result;
   }
 }
+

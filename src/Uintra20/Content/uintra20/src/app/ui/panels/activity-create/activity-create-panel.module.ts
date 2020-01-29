@@ -11,17 +11,18 @@ import { TagMultiselectModule } from 'src/app/feature/project/reusable/inputs/ta
 
 import { DropzoneModule, DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import 'quill-emoji/dist/quill-emoji';
-import { NewsCreateComponent } from './sections/news-create/news-create.component';
+import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
+import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.const';
 import { SocialCreateComponent } from './sections/social-create/social-create.component';
+import { NewsCreateComponent } from './sections/news-create/news-create.component';
 import { TextInputModule } from 'src/app/feature/project/reusable/inputs/fields/text-input/text-input.module';
 import { QuillModule } from 'ngx-quill';
 import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/checkbox-input/checkbox-input.module';
 import { SelectModule } from 'src/app/feature/project/reusable/inputs/select/select.module';
 import { DatepickerFromToModule } from 'src/app/feature/project/reusable/inputs/datepicker-from-to/datepicker-from-to.module';
-import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
-import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.const';
 import { SqDatetimepickerModule } from 'ngx-eonasdan-datetimepicker';
 import { PinActivityComponent } from './pin-activity/pin-activity.component';
+import { LocationPickerModule } from 'src/app/feature/project/reusable/ui-elements/location-picker/location-picker.module';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { PinActivityComponent } from './pin-activity/pin-activity.component';
           maxLength: MAX_LENGTH
         }
       }
-    })
+    }),
+    LocationPickerModule
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: ActivityCreatePanel },
@@ -61,4 +63,4 @@ import { PinActivityComponent } from './pin-activity/pin-activity.component';
   ],
   entryComponents: [ActivityCreatePanel]
 })
-export class ActivityCreatePanelModule {}
+export class ActivityCreatePanelModule { }

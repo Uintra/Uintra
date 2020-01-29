@@ -1,0 +1,18 @@
+<input class="search-input"
+       type="text"
+       (keydown.enter)="$event.preventDefault()"
+       autocorrect="off"
+       autocapitalize="off"
+       spellcheck="off"
+       #search
+       [(ngModel)]="address" />
+<agm-map [latitude]="defaultCoordinates.latitude"
+         [longitude]="defaultCoordinates.longitude"
+         [zoom]="googleMapsModel.zoom"
+         (mapClick)="handleMapClicked($event)"
+         [disableDefaultUI]="googleMapsModel.disableDefaultUI"
+         [zoomControl]="googleMapsModel.zoomControl">
+  <agm-marker [latitude]="googleMapsModel.coordinates.latitude"
+              [longitude]="googleMapsModel.coordinates.longitude">
+  </agm-marker>
+</agm-map>
