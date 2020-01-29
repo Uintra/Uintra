@@ -20,8 +20,7 @@ import { QuillModule } from 'ngx-quill';
 import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/checkbox-input/checkbox-input.module';
 import { SelectModule } from 'src/app/feature/project/reusable/inputs/select/select.module';
 import { DatepickerFromToModule } from 'src/app/feature/project/reusable/inputs/datepicker-from-to/datepicker-from-to.module';
-import { AgmCoreModule } from '@agm/core';
-import { GOOGLE_MAPS_CONFIG } from 'src/app/constants/maps/google-maps.const';
+import { LocationPickerModule } from 'src/app/feature/project/reusable/ui-elements/location-picker/location-picker.module';
 
 @NgModule({
   declarations: [
@@ -49,10 +48,7 @@ import { GOOGLE_MAPS_CONFIG } from 'src/app/constants/maps/google-maps.const';
         }
       }
     }),
-    AgmCoreModule.forRoot({
-      apiKey: GOOGLE_MAPS_CONFIG.API_KEY,
-      libraries: ['geometry', 'places']
-    }),
+    LocationPickerModule
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: ActivityCreatePanel },

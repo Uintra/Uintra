@@ -1,4 +1,4 @@
-import { ICoordinates } from 'src/app/ui/panels/activity-create/sections/news-create/news-create.component';
+import { ICoordinates } from 'src/app/feature/project/reusable/ui-elements/location-picker/location-picker.interface';
 
 export interface GoogleMapsConfig {
     API_KEY: string;

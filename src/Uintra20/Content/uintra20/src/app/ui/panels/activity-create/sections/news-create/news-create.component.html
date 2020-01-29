@@ -27,27 +27,7 @@
   </div>
   <div class="location form-row">
     <h3 class="location__title subtitle">Location</h3>
-    <input 
-      type="text"
-      (keydown.enter)="$event.preventDefault()" 
-      autocorrect="off" 
-      autocapitalize="off" 
-      spellcheck="off" 
-      #search
-      [(ngModel)]="googleMapsModel.address" />
-    <agm-map 
-      [latitude]="defaultCoordinates.latitude" 
-      [longitude]="defaultCoordinates.longitude"
-      [zoom]="googleMapsModel.zoom"
-      (mapClick)="handleMapClicked($event)" 
-      [disableDefaultUI]="googleMapsModel.disableDefaultUI"
-      [zoomControl]="googleMapsModel.zoomControl">
-      <agm-marker 
-        [latitude]="googleMapsModel.coordinates.latitude" 
-        [longitude]="googleMapsModel.coordinates.longitude">
-      </agm-marker>
-    </agm-map>
-    <!-- map -->
+    <app-location-picker></app-location-picker>
   </div>
   <div class="pin-block form-row">
     <h3 class="pin-block__title subtitle">Set as important</h3>
