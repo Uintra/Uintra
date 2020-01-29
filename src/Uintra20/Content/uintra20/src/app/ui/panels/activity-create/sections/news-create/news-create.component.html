@@ -27,11 +27,14 @@
   </div>
   <div class="location form-row">
     <h3 class="location__title subtitle">Location</h3>
-    <text-input 
-      type="text" 
-      aria-label="Location" 
-      class="location__input"
-      [(ngModel)]="googleMapsModel.locationName"></text-input>
+    <input 
+      type="text"
+      (keydown.enter)="$event.preventDefault()" 
+      autocorrect="off" 
+      autocapitalize="off" 
+      spellcheck="off" 
+      #search
+      [(ngModel)]="googleMapsModel.address" />
     <agm-map 
       [latitude]="defaultCoordinates.latitude" 
       [longitude]="defaultCoordinates.longitude"

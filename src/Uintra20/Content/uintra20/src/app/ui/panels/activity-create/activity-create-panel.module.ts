@@ -50,7 +50,8 @@ import { GOOGLE_MAPS_CONFIG } from 'src/app/constants/maps/google-maps.const';
       }
     }),
     AgmCoreModule.forRoot({
-      apiKey: GOOGLE_MAPS_CONFIG.API_KEY
+      apiKey: GOOGLE_MAPS_CONFIG.API_KEY,
+      libraries: ['geometry', 'places']
     }),
   ],
   providers: [
