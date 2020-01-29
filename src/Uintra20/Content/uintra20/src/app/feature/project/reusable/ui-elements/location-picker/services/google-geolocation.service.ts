@@ -5,21 +5,20 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GoogleGeolocationService {
-  private geoCoder;
 
-  constructor() {
-    this.geoCoder = new google.maps.Geocoder;
-  }
+  getAddress(lat, lng, callback) {
+    const geoCoder = new google.maps.Geocoder;
 
-  public getAddress(latitude, longitude): any {
-    this.geoCoder.geocode(
+    geoCoder.geocode(
       {
-        'location': {
-          lat: latitude,
-          lng: longitude
+        location: {
+          lat,
+          lng
         }
-      }, (results, status) => {
-        return results[0].formatted_address;
+      }, (results = [], status) => {
+        if (status === 'OK' && results.length) {
+          callback(results[0].formatted_address);
+        }
       });
   }
 }

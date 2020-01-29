@@ -1,8 +1,9 @@
-/// <reference types="@types/googlemaps" />
+
 import { Component, ViewChild, OnInit, ElementRef, NgZone, Input } from '@angular/core';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { GOOGLE_MAPS_CONFIG } from 'src/app/constants/maps/google-maps.const';
 import { IGoogleMapsModel, ICoordinates } from './location-picker.interface';
+import { GoogleGeolocationService } from './services/google-geolocation.service';
 
 @Component({
   selector: 'app-location-picker',
@@ -10,8 +11,6 @@ import { IGoogleMapsModel, ICoordinates } from './location-picker.interface';
   styleUrls: ['./location-picker.component.less']
 })
 export class LocationPickerComponent implements OnInit {
-
-  private geoCoder;
 
   @Input() address: string;
   @ViewChild('search', { static: false })
@@ -21,10 +20,28 @@ export class LocationPickerComponent implements OnInit {
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private googleGeolocationService: GoogleGeolocationService
   ) { }
 
   public ngOnInit(): void {
+    this.onInit();
+    this.setupInputListener();
+  }
+
+  public handleMapClicked($event: MouseEvent): void {
+    const latitude = $event.coords.lat;
+    const longitude = $event.coords.lng;
+
+    this.googleMapsModel.coordinates = {
+      latitude,
+      longitude,
+    };
+    this.updateDefaultCoordinates(latitude, longitude);
+    this.googleGeolocationService.getAddress(latitude, longitude, r => this.address = r);
+  }
+
+  private onInit(): void {
     this.address = '';
     this.googleMapsModel = {
       coordinates: GOOGLE_MAPS_CONFIG.DEFAULT_COORDINATES,
@@ -32,12 +49,11 @@ export class LocationPickerComponent implements OnInit {
       disableDefaultUI: GOOGLE_MAPS_CONFIG.DISABLE_DEFAULT_UI,
       zoomControl: GOOGLE_MAPS_CONFIG.ZOOM_CONTROL
     };
+  }
 
+  private setupInputListener(): void {
     this.mapsAPILoader.load().then(() => {
-
-      this.geoCoder = new google.maps.Geocoder;
-
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
         types: ["address"]
       });
       autocomplete.addListener("place_changed", () => {
@@ -50,34 +66,14 @@ export class LocationPickerComponent implements OnInit {
 
           this.googleMapsModel.coordinates.latitude = place.geometry.location.lat();
           this.googleMapsModel.coordinates.longitude = place.geometry.location.lng();
-          this.defaultCoordinates.latitude = place.geometry.location.lat();
-          this.defaultCoordinates.longitude = place.geometry.location.lng();
+          this.updateDefaultCoordinates(place.geometry.location.lat(), place.geometry.location.lng());
         });
       });
     });
   }
 
-  public handleMapClicked($event: MouseEvent): void {
-    this.googleMapsModel.coordinates = {
-      latitude: $event.coords.lat,
-      longitude: $event.coords.lng,
-    };
-    this.getAddress($event.coords.lat, $event.coords.lng);
-  }
-
-  getAddress(lat, lng) {
-    this.geoCoder.geocode(
-      {
-        location: {
-          lat,
-          lng
-        }
-      }, (results = [], status) => {
-        if (status === 'OK' && results.length) {
-          this.address = results[0].formatted_address;
-          this.defaultCoordinates.latitude = lat;
-          this.defaultCoordinates.longitude = lng;
-        }
-      });
+  private updateDefaultCoordinates(lat, long): void {
+    this.defaultCoordinates.latitude = lat;
+    this.defaultCoordinates.longitude = long;
   }
 }
