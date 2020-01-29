@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IActivityCreatePanel } from '../../activity-create-panel.interface';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { ISelectItem } from 'src/app/feature/project/reusable/inputs/select/select.component';
-import { CreateActivityService } from 'src/app/services/createActivity/create-activity.service';
+import { CreateActivityService, INewsCreateModel } from 'src/app/services/createActivity/create-activity.service';
 
 export interface INewsOwner{
   id: string;
@@ -49,10 +49,13 @@ export class NewsCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.newsCreateService
-    //   .submitNewsContent({
-    //     //TODO Add model
-    //   });
+    const requestModel: INewsCreateModel = {
+
+    };
+    this.newsCreateService
+      .submitNewsContent({
+        //TODO Add model
+      });
   }
 
   editPinDate(pinDate) {
