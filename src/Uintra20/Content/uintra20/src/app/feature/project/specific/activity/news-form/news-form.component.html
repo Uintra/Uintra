@@ -37,7 +37,7 @@
   </div>
   <div class="location form-row">
     <h3 class="location__title subtitle">Location</h3>
-    <app-location-picker></app-location-picker>
+    <app-location-picker (addressChanged)="handleAddressChanged($event)"></app-location-picker>
   </div>
   <app-pin-activity
     [isPinCheked]="isPinCheked"
