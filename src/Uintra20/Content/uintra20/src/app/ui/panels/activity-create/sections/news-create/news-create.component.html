@@ -30,7 +30,7 @@
     <h3 class="location__title subtitle">Location</h3>
     <app-location-picker></app-location-picker>
   </div>
-  <app-pin-activity [isPinCheked] = 'isPinCheked' (dateChaneg)='editPinDate($event)'></app-pin-activity>
+  <app-pin-activity [isPinCheked] = 'isPinCheked' (dateChange)='editPinDate($event)'></app-pin-activity>
   <div class="dropzone-holder form-row">
     <h3 class="dropzone-holder__title subtitle">File(s)</h3>
     <dropzone

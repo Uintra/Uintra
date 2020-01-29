@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IDatePickerOptioms } from 'src/app/feature/shared/interfaces/idatePickerOptioms';
+import { IDatePickerOptions } from 'src/app/feature/shared/interfaces/idatePickerOptions';
 import * as moment from "moment";
 
 @Component({
@@ -9,8 +9,8 @@ import * as moment from "moment";
 })
 export class PinActivityComponent implements OnInit {
   @Input() isPinCheked: boolean;
-  @Output() dateChaneg = new EventEmitter();
-  options: IDatePickerOptioms;
+  @Output() dateChange = new EventEmitter();
+  options: IDatePickerOptions;
   pinDate = null;
 
   constructor() { }
@@ -23,6 +23,6 @@ export class PinActivityComponent implements OnInit {
   }
 
   onDateChange() {
-    this.dateChaneg.emit(this.pinDate ? this.pinDate.format() : "");
+    this.dateChange.emit(this.pinDate ? this.pinDate.format() : "");
   }
 }
