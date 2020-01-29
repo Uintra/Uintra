@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
+using UBaseline.Shared.PanelContainer;
+using Uintra20.Core.Activity.Models;
 using Uintra20.Features.Links.Models;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
@@ -42,10 +45,25 @@ namespace Uintra20.Core.Activity.Helpers
 
         public UintraLinkModel GetCreatePageUrl(Enum activityType)
         {
-            var pageAlias = _aliasProvider.GetCreatePage(activityType);
-            var detailsPageUrl = _nodeModelService.GetByAlias(pageAlias, _uBaselineRequestContext.Node.RootId)?.Url;
+            var createUrl = _nodeModelService
+                .AsEnumerable()
+                .Where(n => n is IPanelsComposition panel)
+                .FirstOrDefault(n =>
+                {
+                    var panels = ((IPanelsComposition)n).Panels.Value.Panels;
+                    var isLocalActivityCreate = panels
+                        .OfType<LocalPanelModel>()
+                        .Any(lp => lp.Node is ActivityCreatePanelModel ac && ac.TabType.Value == activityType.ToString());
 
-            return detailsPageUrl.ToLinkModel();
+                    var isGlobalActivityCreate = panels
+                        .OfType<GlobalPanelModel>()
+                        .Any(lp => _nodeModelService.Get(lp.NodeId) is ActivityCreatePanelModel ac && ac.TabType.Value == activityType.ToString());
+
+                    return isLocalActivityCreate || isGlobalActivityCreate;
+                })
+                ?.Url;
+
+            return createUrl.ToLinkModel();
         }
 
         public UintraLinkModel GetEditPageUrl(Enum activityType, Guid activityId)

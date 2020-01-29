@@ -2,7 +2,6 @@
 using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Profile.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Infrastructure.Extensions;
@@ -23,7 +22,7 @@ namespace Uintra20.Core.Member.Profile.Converters
             ProfilePageModel node, 
             ProfilePageViewModel viewModel)
         {
-            var id = HttpContext.Current.Request.GetUbaselineQueryValue("id");
+            var id = HttpContext.Current.Request.GetRequestQueryValue("id");
 
             if (!Guid.TryParse(id, out var parseId))  return;
 

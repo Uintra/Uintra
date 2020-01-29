@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Compent.Shared.Extensions.Bcl;
+using System;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using UBaseline.Core.Extensions;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Infrastructure.Constants;
 
@@ -60,21 +59,18 @@ namespace Uintra20.Infrastructure.Extensions
             return currentUser;
         }
 
-        public static string GetUbaselineQueryValue(
+        public static string GetRequestQueryValue(
             this HttpRequest request, 
             string key)
         {
             if (request == null)
-            {
                 return null;
-            }
+            
 
             var url = request["url"];
 
-            if (string.IsNullOrWhiteSpace(url) || !Uri.TryCreate(url, UriKind.Absolute, out Uri requestedUrl))
-            {
+            if (!url.HasValue() || !Uri.TryCreate(url, UriKind.Absolute, out var requestedUrl))
                 return null;
-            }
 
             return HttpUtility.ParseQueryString(requestedUrl.Query).Get(key);
         }

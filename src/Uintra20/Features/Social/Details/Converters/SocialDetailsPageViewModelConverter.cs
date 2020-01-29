@@ -55,7 +55,7 @@ namespace Uintra20.Features.Social.Details.Converters
 
         public void Map(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
         {
-            var id = HttpContext.Current.Request.GetUbaselineQueryValue("id");
+            var id = HttpContext.Current.Request.GetRequestQueryValue("id");
 
             if (!Guid.TryParse(id, out var parseId)) 
                 return;

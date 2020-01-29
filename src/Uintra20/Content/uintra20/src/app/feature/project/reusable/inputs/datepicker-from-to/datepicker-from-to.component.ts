@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from "@angular/core";
 import * as moment from "moment";
 import { IDatePickerOptions } from "src/app/feature/shared/interfaces/idatePickerOptions";
 
@@ -14,7 +14,7 @@ export class DatepickerFromToComponent implements OnInit {
   fromDate = null;
   toDate = null;
   optFrom: IDatePickerOptions = {
-    minDate: moment().format(),
+    minDate: moment(),
     showClear: true
   };
   optTo: IDatePickerOptions = {
