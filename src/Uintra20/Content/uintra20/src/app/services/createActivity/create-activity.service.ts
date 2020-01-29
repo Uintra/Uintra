@@ -10,6 +10,15 @@ export interface ISocialCreateModel {
 }
 
 export interface INewsCreateModel {
+  ownerId: string;
+  title: string;
+  description: string;
+  publishDate: string;
+  unpublishDate?: string;
+  media?: string;
+  mediaRootId?: number;
+  endPinDate?: string;
+  tagIdsData: string[];
 
 }
 
@@ -24,7 +33,7 @@ export class CreateActivityService {
     private http: HttpClient
   ) { }
 
-  submitSocialContent(data: ISocialCreateModel) { //TODO Interface for type
+  submitSocialContent(data: ISocialCreateModel) {
     return this.http.post('/ubaseline/api/social/createExtended', data).toPromise();
   }
 

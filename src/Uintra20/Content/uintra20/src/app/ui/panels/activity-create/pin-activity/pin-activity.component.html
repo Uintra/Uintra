@@ -7,7 +7,7 @@
         Note: Enabling this will mark the post as "Important". It will be pinned to the top until you manually unpin it.
         To automatically unpin the post set the date below, the psot will remain being marked "Important".
       </div>
-      <checkbox-input>Accept</checkbox-input>
+      <checkbox-input [(ngModel)]="pinedDateValue.isAccepted" (ngModelChange)='onAcceptedChange()'>Accept</checkbox-input>
     </div>
     <div class="pin-info__datepicker">
       <h5 class="pin-info__datepicker-title subtitle">Date to unpin</h5>

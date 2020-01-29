@@ -4,8 +4,9 @@ import { IActivityCreatePanel } from '../../activity-create-panel.interface';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { ISelectItem } from 'src/app/feature/project/reusable/inputs/select/select.component';
 import { CreateActivityService, INewsCreateModel } from 'src/app/services/createActivity/create-activity.service';
+import { IPinedData } from '../../pin-activity/pin-activity.component';
 
-export interface INewsOwner{
+export interface INewsOwner {
   id: string;
   displayedName: string;
 }
@@ -23,7 +24,7 @@ export class NewsCreateComponent implements OnInit {
   tags: any[];
   owners: ISelectItem[];
   defaultOwner: ISelectItem;
-  pinDate: string;
+  pinDate: IPinedData;
 
   constructor(private newsCreateService: CreateActivityService) { }
 
@@ -50,17 +51,18 @@ export class NewsCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    const requestModel: INewsCreateModel = {
+    // const requestModel: INewsCreateModel = {
 
-    };
-    this.newsCreateService
-      .submitNewsContent({
-        //TODO Add model
-      });
+    // };
+    // this.newsCreateService
+    //   .submitNewsContent({
+    //     //TODO Add model
+    //   });
   }
 
-  editPinDate(pinDate) {
+  editPinDate(pinDate: IPinedData) {
     this.pinDate = pinDate;
+    console.log(this.pinDate);
   }
 
   private getOwners(): ISelectItem[] {
