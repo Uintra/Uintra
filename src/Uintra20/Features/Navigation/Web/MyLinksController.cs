@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Navigation.Exception;
@@ -18,16 +19,19 @@ namespace Uintra20.Features.Navigation.Web
     {
         private readonly IMyLinksHelper _myLinksHelper;
         private readonly IMyLinksService _myLinksService;
+        private readonly IUBaselineRequestContext _uBaselineRequestContext;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
-        
+
         public MyLinksController(
             IMyLinksHelper myLinksHelper,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            IMyLinksService myLinksService)
+            IMyLinksService myLinksService,
+            IUBaselineRequestContext uBaselineRequestContext)
         {
             _myLinksHelper = myLinksHelper;
             _intranetMemberService = intranetMemberService;
             _myLinksService = myLinksService;
+            _uBaselineRequestContext = uBaselineRequestContext;
         }
 
         [HttpGet]
@@ -37,8 +41,9 @@ namespace Uintra20.Features.Navigation.Web
         }
 
         [HttpPost]
-        public virtual async Task<IEnumerable<MyLinkItemViewModel>> Add([FromUri] int contentId)
+        public virtual async Task<IEnumerable<MyLinkItemViewModel>> Add()
         {
+            var contentId = _uBaselineRequestContext.Node.Id;
             var model = GetLinkDto(contentId, HttpContext.Current.Request.UrlReferrer?.Query);
 
             if (await _myLinksService.GetAsync(model) != null)

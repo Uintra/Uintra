@@ -13,17 +13,21 @@ export class MyLinksComponent implements OnInit {
   constructor(private myLinksService: MyLinksService) {}
 
   ngOnInit() {
-    this.getLinks();
-  }
-
-  getLinks() {
     this.myLinksService.getMyLinks().subscribe(r => {
       this.myLinks = r;
     });
   }
 
-  onAddLink(contentId = "") {
-    this.myLinksService.addMyLinks(contentId).subscribe(r => {});
+  onAddLink() {
+    this.myLinksService.addMyLinks().subscribe(r => {
+      this.myLinks = r;
+    });
+  }
+
+  onRemoveLink(link) {
+    this.myLinksService.removeMyLink(link.id).subscribe(r => {
+      this.myLinks = r;
+    });
   }
 
   onToggle() {
@@ -32,11 +36,5 @@ export class MyLinksComponent implements OnInit {
 
   onDND(links: Array<IMyLink>) {
     this.myLinksService.setSortState(links);
-  }
-
-  onRemoveLink(link) {
-    this.myLinksService.removeMyLink(link.id).subscribe(r => {
-      this.myLinks = r;
-    });
   }
 }

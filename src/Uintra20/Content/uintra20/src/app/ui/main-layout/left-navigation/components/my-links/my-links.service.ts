@@ -23,8 +23,10 @@ export class MyLinksService {
     this.updateSortState();
   }
 
-  addMyLinks(data: string): Observable<void> {
-    return this.http.post<void>(this.api + `/Add`, {});
+  addMyLinks(): Observable<Array<IMyLink>> {
+    return this.http
+      .post<Array<IMyLink>>(this.api + `/Add`, {})
+      .pipe(map(links => this.sortLinks(links)));
   }
 
   getMyLinks(): Observable<Array<IMyLink>> {
