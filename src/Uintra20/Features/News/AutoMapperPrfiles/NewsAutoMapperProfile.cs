@@ -13,8 +13,24 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
     {
         public NewsAutoMapperProfile()
         {
+            CreateMap<NewsBase, NewsViewModel>()
+                .ForMember(dst => dst.UnpublishDate, o => o.MapFrom(s => s.UnpublishDate))
+                .ForMember(dst => dst.OwnerId, o => o.MapFrom(s => s.OwnerId))
+                .ForMember(dst => dst.IsPinned, o => o.MapFrom(s => s.IsPinned))
+                .ForMember(dst => dst.EndPinDate, o => o.MapFrom(s => s.EndPinDate))
+                .ForMember(dst => dst.Location, o => o.MapFrom(s => s.Location))
+                .ForMember(dst => dst.Links, o => o.Ignore())
+                .ForMember(dst => dst.CanEdit, o => o.Ignore())
+                .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
+                .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
+                .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
+                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")))
+                .ForMember(dst => dst.LikesInfo, o => o.Ignore())
+                .ForMember(dst => dst.CommentsInfo, o => o.Ignore());
+
             CreateMap<Entities.News, NewsViewModel>()
                 .IncludeBase<NewsBase, NewsViewModel>()
+                .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
 
@@ -111,16 +127,6 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
                 });
-
-            CreateMap<NewsBase, NewsViewModel>()
-                .ForMember(dst => dst.Links, o => o.Ignore())
-                .ForMember(dst => dst.CanEdit, o => o.Ignore())
-                .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
-                .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
-                .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")))
-                .ForMember(dst => dst.LikesInfo, o => o.Ignore())
-                .ForMember(dst => dst.CommentsInfo, o => o.Ignore());
 
             //CreateMap<NewsBase, NewsBackofficeViewModel>()
             //    .ForMember(dst => dst.PublishDate, o => o.MapFrom(s => s.PublishDate.ToIsoUtcString()))

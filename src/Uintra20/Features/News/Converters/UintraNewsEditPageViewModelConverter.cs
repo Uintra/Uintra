@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using UBaseline.Core.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Models.Headers;
@@ -40,7 +39,7 @@ namespace Uintra20.Features.News.Converters
         }
         public void Map(UintraNewsEditPageModel node, UintraNewsEditPageViewModel viewModel)
         {
-            var idStr = HttpContext.Current.Request.TryGetQueryValue<string>("id");
+            var idStr = HttpContext.Current.Request.GetRequestQueryValue("id");
 
             if (!Guid.TryParse(idStr, out var id))
                 return;
