@@ -12,7 +12,7 @@ export class NewsCreateComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit( ) {
   }
 
   onSubmit() {

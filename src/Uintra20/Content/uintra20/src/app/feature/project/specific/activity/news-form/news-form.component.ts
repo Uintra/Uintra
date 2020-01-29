@@ -4,6 +4,7 @@ import { IActivityCreatePanel } from "src/app/ui/panels/activity-create/activity
 import { IPinedData } from "../pin-activity/pin-activity.component";
 import { ISelectItem } from "../../../reusable/inputs/select/select.component";
 import { CreateActivityService } from "src/app/services/createActivity/create-activity.service";
+import { INewsForm } from "./news-form.interface";
 
 @Component({
   selector: "app-news-form",
@@ -13,12 +14,15 @@ import { CreateActivityService } from "src/app/services/createActivity/create-ac
 export class NewsFormComponent implements OnInit {
   @Input() data: IActivityCreatePanel;
   panelData: any; //TODO create interface
+
   files: Array<any> = [];
   isPinCheked: boolean;
   tags: any[];
   owners: ISelectItem[];
   defaultOwner: ISelectItem;
   pinDate: IPinedData;
+
+  newsForm: INewsForm;
 
   constructor(private newsCreateService: CreateActivityService) {}
 
