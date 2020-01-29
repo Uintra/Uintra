@@ -34,7 +34,7 @@ namespace Uintra20.Features.Social.Edit.Converters
             SocialEditPageModel node,
             SocialEditPageViewModel viewModel)
         {
-            var id = HttpContext.Current.Request.GetUbaselineQueryValue("id");
+            var id = HttpContext.Current.Request.GetRequestQueryValue("id");
 
             if (!Guid.TryParse(id, out var parsedId)) return;
 
