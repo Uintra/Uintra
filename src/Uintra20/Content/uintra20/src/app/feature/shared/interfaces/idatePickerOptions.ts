@@ -1,4 +1,4 @@
-export interface IDatePickerOptioms {
+export interface IDatePickerOptions {
   minDate?: string;
   maxDate?: string;
   showClear?: boolean;
