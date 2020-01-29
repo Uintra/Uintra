@@ -1,30 +1,27 @@
 <section class="profile">
     <div class="profile__header">
         <h2 class="profile__title">{{profile.title}}</h2>
-        <button type="button" class="btn btn-default">Edit</button>
+        <button type="button" class="button button-default">Edit</button>
     </div>
 
     <div class="user-block">
-        <div class="profile-avatar">
-            <app-user-avatar [photo]="profile.member.photo"
-                             [name]="profile.member.firstName">
-            </app-user-avatar>
-        </div>
-        <div class="profile-data">
-            <p>{{profile.member.firstName}} {{profile.member.lastName}}</p>
-        </div>
-        <div>
-            <span>E:mail</span>
-            <a href="mailto:{{profile.member.email}}">{{profile.member.email}}</a>
-        </div>
-        <div class="profile-phone">
-            <span>Phone</span>
+      <div class="user-block__col">
+        <app-user-avatar [photo]="profile.member.photo"
+          [name]="profile.member.firstName">
+        </app-user-avatar>
+      </div>
+      <div class="user-block__col">
+        <p>{{profile.member.firstName}} {{profile.member.lastName}}</p>
+        <p>role position</p>
+      </div>
+      <div class="user-block__col">
+        <span>E:mail</span>
+        <a href="mailto:{{profile.member.email}}">{{profile.member.email}}</a>
+        <span>Phone</span>
             <a *ngIf="profile.member.phone"
                href="tel:+{{profile.member.phone}}">{{profile.member.phone}}</a>
-        </div>
-        <div class="profile-department">
-            <span>Department</span>
-            <span *ngIf="profile.member.department">{{profile.member.department}}</span>
-        </div>
+        <span>Department</span>
+        <span *ngIf="profile.member.department">{{profile.member.department}}</span>
+      </div>
     </div>
 </section>

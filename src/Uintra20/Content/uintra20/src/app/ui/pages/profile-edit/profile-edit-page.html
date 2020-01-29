@@ -2,42 +2,48 @@
     <div class="profile__header">
       <h2 class="profile__title">{{profileEdit.title}}</h2>
       <div class="profile__btns">
-        <button (click)="handleSave()" [disabled]="profileEditForm.invalid" class="btn">SAVE</button>
-        <a [routerLink]="['/profile']" [queryParams]="{id: profileEdit.member.id}" class="btn btn-default">CANCEL</a>
+        <button (click)="handleSave()" [disabled]="profileEditForm.invalid" class="button">SAVE</button>
+        <a [routerLink]="['/profile']" [queryParams]="{id: profileEdit.member.id}" class="button button-default">CANCEL</a>
       </div>
     </div>
-    <div class="user-block">
-      <form [formGroup]="profileEditForm">
-        <label for="firstName">First name </label>
-        <input formControlName="firstName"
-               type="text"
-               name="firstName"
-               id="firstName" />
-        <br />
-        <label for="lastName">Last name </label>
-        <input formControlName="lastName"
-               type="text"
-               name="lastName"
-               id="lastName" />
-        <br />
-        <label for="email">Email </label>
-       <span>{{profileEdit.member.email}}</span>
-        <br />
-        <label for="phone">Phone </label>
-        <input type="text"
-               name="phone"
-               id="phone" />
-        <br />
-        <label for="department">Department </label>
-        <input type="text"
-               name="department"
-               id="department" />
-        <br />
-        <label>Tag(s) </label>
+      <form [formGroup]="profileEditForm" class="form">
+        <div class="user-block">
+          <div class="user-block__col">
+            <div>Avatar</div>
+          </div>
+          <div class="user-block__col">
+            <div class="form__row">
+              <label for="firstName">First name </label>
+              <input formControlName="firstName" type="text" name="firstName" id="firstName" class="input"/>
+            </div>
+            <div class="form__row">
+              <label for="lastName">Last name </label>
+              <input formControlName="lastName" type="text" name="lastName" id="lastName" class="input"/>
+            </div>
+            <div class="form__row">
+              <label for="">Notification</label>
+              <input type="checkbox">
+            </div>
+          </div>
+          <div class="user-block__col">
+            <div class="form__row">
+              <label for="email">Email </label>
+              <div>{{profileEdit.member.email}}</div>
+            </div>
+            <div class="form__row">
+              <label for="phone">Phone </label>
+              <input type="text" name="phone" id="phone" class="input"/>
+            </div>
+            <div class="form__row">
+              <label for="department">Department </label>
+              <input type="text" name="department" id="department" class="input"/>
+            </div>
+          </div>
+        </div>
+        <!-- <label>Tag(s) </label> -->
         <!-- <app-tag-multiselect
         [availableTags]=""
         [(ngModel)]="">
     </app-tag-multiselect>  -->
     </form>
-    </div>
 </section>

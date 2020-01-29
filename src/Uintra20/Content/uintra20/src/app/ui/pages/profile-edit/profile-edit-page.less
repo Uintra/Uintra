@@ -1,6 +1,5 @@
 @import "base.less";
-@import "./../../../../styles/temp/profile/user-block.less";
-@import "./../../../../styles/temp/profile/profile.less";
+@import "./../../../../styles/temp/profile.less";
 
 .profile {
   &__header {
@@ -16,5 +15,17 @@
       height: 1px;
       background: @border-color;
     }
+  }
+}
+
+.form {
+  &__row {
+    display: flex;
+    align-items: center;
+  }
+
+  label {
+    flex: 0 0 100px;
+    padding: 0 5px 0 0;
   }
 }
