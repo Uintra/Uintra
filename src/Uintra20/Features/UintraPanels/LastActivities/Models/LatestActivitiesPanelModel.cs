@@ -1,11 +1,11 @@
-﻿using UBaseline.Shared.Node;
+﻿using UBaseline.Shared.Panel;
 using UBaseline.Shared.Property;
 using UBaseline.Shared.Title;
 
 namespace Uintra20.Features.UintraPanels.LastActivities.Models
 {
-    public class LatestActivitiesPanelModel : 
-        NodeModel,
+    public class LatestActivitiesPanelModel :
+        PanelModel,
         ITitleContainer
     {
         public PropertyModel<string> Title { get; set; }

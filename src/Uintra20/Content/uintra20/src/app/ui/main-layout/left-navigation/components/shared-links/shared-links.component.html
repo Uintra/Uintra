@@ -1,0 +1,58 @@
+<ul class="left-nav">
+  <li class="left-nav__item">
+    <span class="left-nav__item-link">
+      <span class="icon-link left-nav__shared-icon"></span>
+      Shared Links
+    </span>
+
+    <button
+      class="left-nav__arrow"
+      [ngClass]="{ active: isOpen }"
+      (click)="onToggle()"
+    >
+      Expand
+    </button>
+
+    <ul
+      *ngFor="let sharedLinksItem of sharedLinks"
+      class="left-nav__sub-item left-nav__sub-item--with-offset"
+      [hidden]="!isOpen"
+      [ngClass]="{ active: sharedLinksItem.isSelected }"
+    >
+      <li class="left-nav__item">
+        <span class="left-nav__item-link">
+          {{ sharedLinksItem.linksGroupTitle }}
+        </span>
+      </li>
+
+      <li *ngFor="let link of sharedLinksItem.links" class="left-nav__item">
+        <ng-container
+          *ngTemplateOutlet="itemLink; context: { $implicit: link }"
+        >
+        </ng-container>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<ng-template #itemLink let-link>
+  <a
+    *ngIf="link.url.params"
+    class="left-nav__item-link left-nav__item-link--inside left-nav__item-link--with-hover"
+    routerLinkActive="active"
+    [routerLink]="link.url.baseUrl | ulink"
+    [queryParams]="link.url.params | uparams"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    {{ link.name }}
+  </a>
+
+  <a
+    *ngIf="!link.url.params"
+    class="left-nav__item-link left-nav__item-link--inside left-nav__item-link--with-hover"
+    [href]="link.url.originalUrl"
+    target="{{ link.target }}"
+  >
+    {{ link.name }}
+  </a>
+</ng-template>

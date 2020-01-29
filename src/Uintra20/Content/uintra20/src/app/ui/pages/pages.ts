@@ -17,7 +17,13 @@ export const pages = [
   {
     id: 'socialDetailsPage',
     path: '__dynamic__',
-    loadChildren: './ui/pages/social-details/social-details-page.module#SocialDetailsPageModule',
+    loadChildren: './ui/pages/social/details/social-details-page.module#SocialDetailsPageModule',
+    cache: false
+  },
+  {
+    id: 'socialEditPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/social/edit/social-edit-page.module#SocialEditPageModule',
     cache: false
   },
   {
@@ -30,6 +36,10 @@ export const pages = [
     id: 'profileEditPage',
     path: '__dynamic__',
     loadChildren: './ui/pages/profile-edit/profile-edit-page.module#ProfileEditPageModule'
-  }
+  },
+  {
+    id: 'uintraNewsEditPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/uintra-news-edit/uintra-news-edit-page.module#UintraNewsEditPageModule'
+  },
 ];
-

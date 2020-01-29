@@ -1,0 +1,61 @@
+<div class="row-flex">
+  <div class="col-md-8">
+    <div class="bulletin-details-content">
+      <div class="feed-header">
+        <!-- TODO: get from details.links -->
+        <a [routerLink]="['/']"
+           class="feed-header__back-link">Go to List</a>
+        <!-- TODO: get from details.links -->
+        <a [routerLink]="['/social-edit']"
+           [queryParams]="{id: details.id}"
+           class="feed-header__edit-link">Edit</a>
+      </div>
+      <div class="feed-item">
+        <app-post-header class="feed-item__header"
+                         [details]="details"
+                         [activityName]="activityName">
+        </app-post-header>
+        <div class="feed-item__text"
+             [innerHtml]="detailsDescription"></div>
+        <div class="feed-item-tags"
+             *ngIf="tags.length !== 0">
+          <span class="feed-item-tags__text">This activity is tagged</span>
+          <!-- TODO: get from details.links -->
+          <a *ngFor="let tag of tags"
+             class="feed-item-tags__tag"
+             [routerLink]="['/search']"
+             [queryParams]="{query: tag.text}"
+             [innerHTML]="tag.text"></a>
+        </div>
+        <app-like-button class="likes"
+                         [likeData]="likeData"></app-like-button>
+        <div class="attachments">
+          <ul class="feed-item-images">
+            <li class="feed-item-images__item"
+                *ngFor="let image of medias; index as i">
+              <img class="feed-item-images__image"
+                   [src]="image.previewUrl"
+                   (click)="openGallery(i)">
+            </li>
+          </ul>
+          <div *ngIf="documents.length !== 0">
+            <h3 class="feed-item__subtitle">Attached documents:</h3>
+          <ul *ngIf="documents"
+              class="documents-list">
+            <li *ngFor="let document of documents"
+                class="documents-list__item">
+              <a class="documents-list__link"
+                 [href]="document.url"
+                 target="_blank">
+                <span class="documents-list__icon file-extension">{{document.extension}}</span>
+                <span class="documents-list__title">{{document.name}}</span>
+              </a>
+            </li>
+          </ul>
+          </div>
+        </div>
+        <app-comments [activityType]='commentDetails.entityType' [comments]="data.comments" [commentDetails]="commentDetails"></app-comments>
+      </div>
+    </div>
+  </div>
+</div>

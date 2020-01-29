@@ -1,12 +1,18 @@
 ﻿using Compent.Extensions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using UBaseline.Core.Node;
-using Uintra20.Core.Activity.Converters.Models;
+using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.News;
+using Uintra20.Features.News.Entities;
+using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Permissions.Models;
 using Uintra20.Features.Social;
 using Uintra20.Features.Social.Entities;
 using Uintra20.Features.Tagging.UserTags.Models;
@@ -19,18 +25,21 @@ namespace Uintra20.Core.Activity.Converters
     public class ActivityCreatePanelViewModelConverter : INodeViewModelConverter<ActivityCreatePanelModel, ActivityCreatePanelViewModel>
     {
         private readonly ISocialService<Social> _socialService;
+        private readonly INewsService<News> _newsService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IPermissionsService _permissionsService;
         private readonly IUserTagService _tagsService;
         private readonly IUserTagProvider _tagProvider;
 
-        public ActivityCreatePanelViewModelConverter(ISocialService<Social> socialService, 
-                                                    IIntranetMemberService<IntranetMember> memberService, 
-                                                    IActivityTypeProvider activityTypeProvider,
-                                                    IPermissionsService permissionsService,
-                                                    IUserTagService tagsService,
-                                                    IUserTagProvider tagProvider)
+        public ActivityCreatePanelViewModelConverter(
+            INewsService<News> newsService,
+            ISocialService<Social> socialService, 
+            IIntranetMemberService<IntranetMember> memberService, 
+            IActivityTypeProvider activityTypeProvider,
+            IPermissionsService permissionsService,
+            IUserTagService tagsService,
+            IUserTagProvider tagProvider)
         {
             _socialService = socialService;
             _memberService = memberService;
@@ -38,24 +47,53 @@ namespace Uintra20.Core.Activity.Converters
             _permissionsService = permissionsService;
             _tagsService = tagsService;
             _tagProvider = tagProvider;
+            _newsService = newsService;
         }
 
         public void Map(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
         {
-            ConvertToBulletins(node, viewModel);
+            switch (Enum.Parse(typeof(IntranetActivityTypeEnum), node.TabType))
+            {
+                case IntranetActivityTypeEnum.Social:
+                        ConvertToBulletins(viewModel);
+                        break;
+
+                case IntranetActivityTypeEnum.News:
+                        ConvertToNews(viewModel);
+                        break;
+                    
+            }            
             viewModel.Tags = GetTagsViewModel();
         }
 
-        private void ConvertToBulletins(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
+        private void ConvertToNews(ActivityCreatePanelViewModel viewModel)
+        {
+            var mediaSettings = _newsService.GetMediaSettings();
+            var currentMember = _memberService.GetCurrentMember();
+
+            viewModel.PublishDate = DateTime.UtcNow;
+            viewModel.Creator = currentMember.Map<MemberViewModel>();
+            viewModel.ActivityType = IntranetActivityTypeEnum.News;
+            viewModel.Links = null;//TODO: Research links
+            viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready
+            viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.CanPin);
+
+            viewModel.CanEditOwner = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.EditOwner);
+
+            if (viewModel.CanEditOwner)
+                viewModel.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(PermissionActionEnum.Create, viewModel.ActivityType));
+        }
+
+        private void ConvertToBulletins(ActivityCreatePanelViewModel viewModel)
         {
             var cookies = HttpContext.Current.Request.Cookies;
             var currentMember = _memberService.GetCurrentMember();
             var mediaSettings = _socialService.GetMediaSettings();
 
             viewModel.Title = currentMember.DisplayedName;
-            viewModel.ActivityType = _activityTypeProvider[(int)IntranetActivityTypeEnum.Social];
+            viewModel.ActivityType = IntranetActivityTypeEnum.Social;
             viewModel.Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable();
-            viewModel.Creator = currentMember?.Map<MemberViewModel>();
+            viewModel.Creator = currentMember.Map<MemberViewModel>();
             viewModel.Links = null;//TODO: Research links
             viewModel.AllowedMediaExtensions = null;//mediaSettings.AllowedMediaExtensions; //TODO: uncomment when media settings service is ready
             viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready
@@ -63,6 +101,13 @@ namespace Uintra20.Core.Activity.Converters
                 PermissionResourceTypeEnum.Bulletins,
                 PermissionActionEnum.Create);*/ //TODO: uncomment when permissons service is ready
         }
+
+        private IEnumerable<IntranetMember> GetUsersWithAccess(PermissionSettingIdentity permissionSettingIdentity) =>
+            _memberService
+                .GetAll()
+                .Where(member => _permissionsService.Check(member, permissionSettingIdentity))
+                .OrderBy(user => user.DisplayedName)
+                .ToArray();
 
         private TagsPickerViewModel GetTagsViewModel()
         {

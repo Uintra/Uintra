@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnInit, NgZone, OnDestroy } from '@angula
 import { ICentralFeedPanel } from './central-feed-panel.interface';
 import { UmbracoFlatPropertyModel, IUmbracoProperty } from '@ubaseline/next';
 import { PublicationsService} from './helpers/publications.service';
-import { CreateSocialService } from 'src/app/services/createActivity/create-social.service';
+import { CreateActivityService } from 'src/app/services/createActivity/create-activity.service';
 import { SignalrService } from './helpers/signalr.service';
 
 // interface IFilterTab {
@@ -60,7 +60,7 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
 
   constructor(
     private publicationsService: PublicationsService,
-    private createSocialService: CreateSocialService,
+    private createSocialService: CreateActivityService,
     private signalrService: SignalrService,
     private ngZone: NgZone
   ) {}
@@ -138,7 +138,7 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
 
   concatWithCurrentFeed(data): void {
     this.ngZone.run(() => {
-      this.feed = this.feed.concat(data);
+      this.feed = this.feed.concat(data) ;
     });
   }
 

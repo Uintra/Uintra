@@ -279,6 +279,7 @@ namespace Uintra20.Features.Permissions.Implementation
 
         public virtual bool Check(IIntranetMember member, PermissionSettingIdentity settingIdentity)
         {
+            return true; //TODO Remove this check after member groups permissions will be done
             if (member.Groups == null) return false;
 
             var permission = GetAll()
