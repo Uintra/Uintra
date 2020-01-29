@@ -3,6 +3,7 @@ import { IDatePickerOptions } from 'src/app/feature/shared/interfaces/idatePicke
 import * as moment from "moment";
 
 export interface IPinedData {
+  isPinCheked: boolean;
   isAccepted: boolean;
   pinDate: string;
 }
@@ -17,6 +18,7 @@ export class PinActivityComponent implements OnInit {
   options: IDatePickerOptions;
   pinDate = null;
   pinedDateValue: IPinedData = {
+    isPinCheked: false,
     isAccepted: false,
     pinDate: ""
   };
@@ -24,6 +26,7 @@ export class PinActivityComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.pinedDateValue.isPinCheked = this.isPinCheked;
     this.options = {
       showClear: true,
       minDate: moment().format()
@@ -35,6 +38,7 @@ export class PinActivityComponent implements OnInit {
     this.dateChange.emit(this.pinedDateValue);
   }
   onAcceptedChange() {
+    this.pinedDateValue.isPinCheked = this.isPinCheked;
     this.dateChange.emit(this.pinedDateValue);
   }
 }
