@@ -102,9 +102,9 @@ export class SocialCreateComponent implements OnInit {
     this.socialContentService
       .submitSocialContent({
         description: this.description,
-        OwnerId: this.panelData.creator.id,
-        NewMedia: this.getMediaIdsForResponse(),
-        TagIdsData: this.getTagsForResponse()
+        ownerId: this.panelData.creator.id,
+        newMedia: this.getMediaIdsForResponse(),
+        tagIdsData: this.getTagsForResponse()
       })
       .then(response => {
         this.hidePopUp();
