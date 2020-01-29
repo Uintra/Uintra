@@ -3,7 +3,7 @@
   <h2 class="news-create-panel__title">News</h2>
   <div class="owner form-row">
     <h3 class="owner__title subtitle">Owner</h3>
-    <app-select [items]="tags" [defaultItem]="tags[0].id"></app-select>
+    <app-select [items]="owners" [defaultItem]="defaultOwner.id"></app-select>
   </div>
   <div class="news-title form-row">
     <h3 class="news-title__title subtitle required">Title</h3>
@@ -26,26 +26,11 @@
     <app-datepicker-from-to (setValue)="setValue($event)"></app-datepicker-from-to>
   </div>
   <div class="location form-row">
+
     <h3 class="location__title subtitle">Location</h3>
     <app-location-picker></app-location-picker>
   </div>
-  <div class="pin-block form-row">
-    <h3 class="pin-block__title subtitle">Set as important</h3>
-    <checkbox-input [(ngModel)]="isPinCheked">Pin post to top of feed</checkbox-input>
-    <div *ngIf="isPinCheked" class="pin-info">
-      <div class="pin-info__box">
-        <div class="pin-info__text">
-          Note: Enabling this will mark the post as "Important". It will be pinned to the top until you manually unpin it.
-          To automatically unpin the post set the date below, the psot will remain being marked "Important".
-        </div>
-        <checkbox-input>Accept</checkbox-input>
-      </div>
-      <div class="pin-info__datepicker">
-        <h5 class="pin-info__datepicker-title subtitle">Date to unpin</h5>
-        <!-- unpin datepicker -->
-      </div>
-    </div>
-  </div>
+  <app-pin-activity [isPinCheked] = 'isPinCheked' (dateChaneg)='editPinDate($event)'></app-pin-activity>
   <div class="dropzone-holder form-row">
     <h3 class="dropzone-holder__title subtitle">File(s)</h3>
     <dropzone
@@ -59,5 +44,4 @@
     <button class="buttons__submit" (click)="onSubmit()">Submit</button>
     <button class="buttons__cancel">Cancel</button>
   </div>
-  {{panelData | json}}
 </section>

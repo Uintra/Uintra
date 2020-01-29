@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 
-interface ISelectItem {
+export interface ISelectItem {
   id: string;
   text: string;
   selected?: boolean;

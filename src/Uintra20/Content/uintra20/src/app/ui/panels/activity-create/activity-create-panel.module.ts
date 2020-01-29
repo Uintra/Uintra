@@ -20,13 +20,16 @@ import { QuillModule } from 'ngx-quill';
 import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/checkbox-input/checkbox-input.module';
 import { SelectModule } from 'src/app/feature/project/reusable/inputs/select/select.module';
 import { DatepickerFromToModule } from 'src/app/feature/project/reusable/inputs/datepicker-from-to/datepicker-from-to.module';
+import { SqDatetimepickerModule } from 'ngx-eonasdan-datetimepicker';
+import { PinActivityComponent } from './pin-activity/pin-activity.component';
 import { LocationPickerModule } from 'src/app/feature/project/reusable/ui-elements/location-picker/location-picker.module';
 
 @NgModule({
   declarations: [
     ActivityCreatePanel,
     SocialCreateComponent,
-    NewsCreateComponent],
+    NewsCreateComponent,
+    PinActivityComponent],
   imports: [
     CommonModule,
     NotImplementedModule,
@@ -40,6 +43,7 @@ import { LocationPickerModule } from 'src/app/feature/project/reusable/ui-elemen
     CheckboxInputModule,
     SelectModule,
     DatepickerFromToModule,
+    SqDatetimepickerModule,
     RichTextEditorModule.configure({
       modules: {
         'emoji-toolbar': true,

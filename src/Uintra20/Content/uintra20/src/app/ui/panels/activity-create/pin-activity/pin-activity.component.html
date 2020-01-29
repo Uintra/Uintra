@@ -1,0 +1,22 @@
+<div class="pin-block form-row">
+  <h3 class="pin-block__title subtitle">Set as important</h3>
+  <checkbox-input [(ngModel)]="isPinCheked">Pin post to top of feed</checkbox-input>
+  <div *ngIf="isPinCheked" class="pin-info">
+    <div class="pin-info__box">
+      <div class="pin-info__text">
+        Note: Enabling this will mark the post as "Important". It will be pinned to the top until you manually unpin it.
+        To automatically unpin the post set the date below, the psot will remain being marked "Important".
+      </div>
+      <checkbox-input>Accept</checkbox-input>
+    </div>
+    <div class="pin-info__datepicker">
+      <h5 class="pin-info__datepicker-title subtitle">Date to unpin</h5>
+      <!--TODO add css-->
+      <sq-datetimepicker
+      [(ngModel)]="pinDate"
+      [options] = 'options'
+      [mode]="'input'"
+      (dpChange)='onDateChange()'></sq-datetimepicker>
+    </div>
+  </div>
+</div>
