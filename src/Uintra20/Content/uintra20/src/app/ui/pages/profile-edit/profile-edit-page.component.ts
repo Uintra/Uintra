@@ -58,7 +58,9 @@ export class ProfileEditPage implements OnInit {
         profileUrl: parsed.profile.profileUrl,
         mediaRootId: parsed.profile.mediaRootId,
         newMedia: parsed.profile.newMedia,
-        memberNotifierSettings: parsed.profile.memberNotifierSettings
+        memberNotifierSettings: parsed.profile.memberNotifierSettings,
+        tags: Object.values(parsed.tags),
+        availableTags: Object.values(parsed.availableTags)
       }
     };
   }
