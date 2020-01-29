@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import * as moment from "moment";
-import { IDatePickerOptioms } from 'src/app/feature/shared/interfaces/idatePickerOptioms';
+import { IDatePickerOptions } from 'src/app/feature/shared/interfaces/idatePickerOptions';
 
 @Component({
   selector: "app-datepicker-from-to",
@@ -13,7 +13,7 @@ export class DatepickerFromToComponent implements OnInit {
 
   fromDate = null;
   toDate = null;
-  optFrom: IDatePickerOptioms = {
+  optFrom: IDatePickerOptions = {
     showClear: true
   };
   optTo: IDatePickerOptioms = {
