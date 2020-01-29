@@ -1,13 +1,14 @@
 ﻿.profile {
   .white-block();
   padding: 40px 20px;
+  font-size: 16px;
 
   &__header {
     display: flex;
     align-items: center;
     margin-bottom: 40px;
 
-    .btn {
+    .button {
       margin-left: 10px;
     }
   }
@@ -18,8 +19,21 @@
     margin: 0;
     flex-grow: 1;
   }
+
+  .avatar {
+    width: 90px !important;
+    height: 90px !important;
+  }
 }
 
 .user-block {
   display: flex;
+
+  &__col {
+    flex-grow: 1;
+
+    &:first-child {
+      flex: 0 0 90px;
+    }
+  }
 }

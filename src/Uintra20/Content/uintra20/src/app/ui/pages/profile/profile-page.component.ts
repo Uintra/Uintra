@@ -18,20 +18,7 @@ export class ProfilePage implements OnInit {
 
   public ngOnInit(): void {
     this.route.data.subscribe(data => this.data = data);
-
-    // this.onParse();
-
-    this.profile = {
-      member: {
-        photo: 'https://uintra20.local.compent.dk:4200/media/n04hu24e/black15.jpg',
-        firstName: 'Nastya',
-        lastName: 'Vasylyk',
-        email: 'ast@compent.net',
-        phone: '+48693604340',
-        department: 'IT-depart',
-      },
-      title: 'Profile details'
-    };
+    this.onParse();
   }
 
   private onParse(): void {
