@@ -21,15 +21,14 @@ import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/che
 import { SelectModule } from 'src/app/feature/project/reusable/inputs/select/select.module';
 import { DatepickerFromToModule } from 'src/app/feature/project/reusable/inputs/datepicker-from-to/datepicker-from-to.module';
 import { SqDatetimepickerModule } from 'ngx-eonasdan-datetimepicker';
-import { PinActivityComponent } from './pin-activity/pin-activity.component';
 import { LocationPickerModule } from 'src/app/feature/project/reusable/ui-elements/location-picker/location-picker.module';
+import { NewsFormModule } from 'src/app/feature/project/specific/activity/news-form/news-form.module';
 
 @NgModule({
   declarations: [
     ActivityCreatePanel,
     SocialCreateComponent,
-    NewsCreateComponent,
-    PinActivityComponent],
+    NewsCreateComponent],
   imports: [
     CommonModule,
     NotImplementedModule,
@@ -52,7 +51,8 @@ import { LocationPickerModule } from 'src/app/feature/project/reusable/ui-elemen
         }
       }
     }),
-    LocationPickerModule
+    LocationPickerModule,
+    NewsFormModule
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: ActivityCreatePanel },

@@ -1,0 +1,60 @@
+<!--TODO HTML-->
+<section class="news-create-panel">
+  <h2 class="news-create-panel__title">News</h2>
+  <div class="owner form-row">
+    <h3 class="owner__title subtitle">Owner</h3>
+    <app-select [items]="owners" [defaultItem]="defaultOwner.id"></app-select>
+  </div>
+  <div class="news-title form-row">
+    <h3 class="news-title__title subtitle required">Title</h3>
+    <text-input
+      type="text"
+      aria-label="Title"
+      class="news-title__input"
+    ></text-input>
+  </div>
+  <div class="description form-row">
+    <h3 class="description__title subtitle required">News description</h3>
+    <app-rich-text-editor
+      class="description__rte"
+      [isEditing]="true"
+      [isDropzone]="false"
+      [isEventsOrNews]="true"
+      [placeholder]="''"
+    ></app-rich-text-editor>
+  </div>
+  <div class="tags form-row">
+    <h3 class="tags__title subtitle">Tag(s)</h3>
+    <app-tag-multiselect
+      class="tags__multiselect"
+      [availableTags]="tags"
+    ></app-tag-multiselect>
+  </div>
+  <div class="form-row">
+    <app-datepicker-from-to
+      (setValue)="setValue($event)"
+    ></app-datepicker-from-to>
+  </div>
+  <div class="location form-row">
+    <h3 class="location__title subtitle">Location</h3>
+    <app-location-picker></app-location-picker>
+  </div>
+  <app-pin-activity
+    [isPinCheked]="isPinCheked"
+    (dateChange)="editPinDate($event)"
+  ></app-pin-activity>
+  <div class="dropzone-holder form-row">
+    <h3 class="dropzone-holder__title subtitle">File(s)</h3>
+    <dropzone
+      [ngClass]="{ 'files-loaded': files.length }"
+      #dropdownRef
+      message="<span class='custom-message icon-upload'>Insert image</span>"
+      (success)="onUploadSuccess($event)"
+      (removedFile)="onFileRemoved($event)"
+    ></dropzone>
+  </div>
+  <div class="buttons">
+    <button class="buttons__submit" (click)="onSubmit()">Submit</button>
+    <button class="buttons__cancel">Cancel</button>
+  </div>
+</section>
