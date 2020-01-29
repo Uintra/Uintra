@@ -12,11 +12,15 @@
     <div class="pin-info__datepicker">
       <h5 class="pin-info__datepicker-title subtitle">Date to unpin</h5>
       <!--TODO add css-->
+      <div class="datepicker">
       <sq-datetimepicker
+      [groupClass]="'udatepicker'"
+        [inputClass]="'udatepicker-input'"
       [(ngModel)]="pinDate"
       [options] = 'options'
       [mode]="'input'"
       (dpChange)='onDateChange()'></sq-datetimepicker>
     </div>
+  </div>
   </div>
 </div>
