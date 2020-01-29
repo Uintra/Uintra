@@ -1,5 +1,20 @@
 @import "base.less";
+@import "./../../../../styles/temp/profile/user-block.less";
+@import "./../../../../styles/temp/profile/profile.less";
 
-profile-edit-page {
+.profile {
+  &__header {
+    padding-bottom: 40px;
+    position: relative;
 
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: -10px;
+      right: -10px;
+      height: 1px;
+      background: @border-color;
+    }
+  }
 }

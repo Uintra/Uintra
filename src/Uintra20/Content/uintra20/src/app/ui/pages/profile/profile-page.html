@@ -1,8 +1,10 @@
 <section class="profile">
-    <div class="profile-title">
-        <h3>{{profile.title}}</h3>
+    <div class="profile__header">
+        <h2 class="profile__title">{{profile.title}}</h2>
+        <button type="button" class="btn btn-default">Edit</button>
     </div>
-    <div class="profile-body">
+
+    <div class="user-block">
         <div class="profile-avatar">
             <app-user-avatar [photo]="profile.member.photo"
                              [name]="profile.member.firstName">

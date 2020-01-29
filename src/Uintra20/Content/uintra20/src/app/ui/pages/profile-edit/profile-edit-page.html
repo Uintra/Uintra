@@ -1,10 +1,13 @@
-<section>
-    <h3>{{profileEdit.title}}</h3>
-    <button (click)="handleSave()" [disabled]="profileEditForm.invalid" >SAVE</button>
-    <a [routerLink]="['/profile']"
-       [queryParams]="{id: profileEdit.member.id}">CANCEL</a>
-    <br />
-    <form [formGroup]="profileEditForm">
+<section class="profile">
+    <div class="profile__header">
+      <h2 class="profile__title">{{profileEdit.title}}</h2>
+      <div class="profile__btns">
+        <button (click)="handleSave()" [disabled]="profileEditForm.invalid" class="btn">SAVE</button>
+        <a [routerLink]="['/profile']" [queryParams]="{id: profileEdit.member.id}" class="btn btn-default">CANCEL</a>
+      </div>
+    </div>
+    <div class="user-block">
+      <form [formGroup]="profileEditForm">
         <label for="firstName">First name </label>
         <input formControlName="firstName"
                type="text"
@@ -31,9 +34,10 @@
                id="department" />
         <br />
         <label>Tag(s) </label>
-        <!-- <app-tag-multiselect 
+        <!-- <app-tag-multiselect
         [availableTags]=""
         [(ngModel)]="">
     </app-tag-multiselect>  -->
     </form>
+    </div>
 </section>
