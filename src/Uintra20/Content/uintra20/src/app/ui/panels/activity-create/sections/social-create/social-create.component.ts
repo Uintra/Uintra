@@ -4,7 +4,7 @@ import { DropzoneComponent } from 'ngx-dropzone-wrapper';
 import { ITagData } from 'src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.interface';
 import { IUserAvatar } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar-interface';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
-import { CreateSocialService } from 'src/app/services/createActivity/create-social.service';
+import { CreateActivityService } from 'src/app/services/createActivity/create-activity.service';
 import { ModalService } from 'src/app/services/general/modal.service';
 import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
 
@@ -23,6 +23,7 @@ export class SocialCreateComponent implements OnInit {
   description = '';
   inProgress = false;
   userAvatar: IUserAvatar;
+  panelData: any; // TODO change any type
 
   get isSubmitDisabled() {
     if (ParseHelper.stripHtml(this.description).length > MAX_LENGTH || this.inProgress) {
@@ -31,16 +32,16 @@ export class SocialCreateComponent implements OnInit {
     return !this.description && this.files.length === 0;
   }
 
-  constructor(private socialContentService: CreateSocialService, private modalService: ModalService) { }
+  constructor(private socialContentService: CreateActivityService, private modalService: ModalService) { }
 
   ngOnInit() {
-    const parsed = ParseHelper.parseUbaselineData(this.data);
+    this.panelData = ParseHelper.parseUbaselineData(this.data);
     this.availableTags = Object.values(
       JSON.parse(JSON.stringify(this.data.tags.get().userTagCollection))
     );
     this.userAvatar = {
-      name: parsed.creator.displayedName,
-      photo: parsed.creator.photo
+      name: this.panelData.creator.displayedName,
+      photo: this.panelData.creator.photo
     };
   }
 
@@ -101,7 +102,7 @@ export class SocialCreateComponent implements OnInit {
     this.socialContentService
       .submitSocialContent({
         description: this.description,
-        OwnerId: 'cb6969e1-ac68-4cae-88a3-8b1cbc453ef7',
+        OwnerId: this.panelData.creator.id,
         NewMedia: this.getMediaIdsForResponse(),
         TagIdsData: this.getTagsForResponse()
       })

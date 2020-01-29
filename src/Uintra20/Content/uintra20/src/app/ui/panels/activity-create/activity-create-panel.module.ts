@@ -20,12 +20,15 @@ import { SelectModule } from 'src/app/feature/project/reusable/inputs/select/sel
 import { DatepickerFromToModule } from 'src/app/feature/project/reusable/inputs/datepicker-from-to/datepicker-from-to.module';
 import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
 import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.const';
+import { SqDatetimepickerModule } from 'ngx-eonasdan-datetimepicker';
+import { PinActivityComponent } from './pin-activity/pin-activity.component';
 
 @NgModule({
   declarations: [
     ActivityCreatePanel,
     SocialCreateComponent,
-    NewsCreateComponent],
+    NewsCreateComponent,
+    PinActivityComponent],
   imports: [
     CommonModule,
     NotImplementedModule,
@@ -39,6 +42,7 @@ import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.co
     CheckboxInputModule,
     SelectModule,
     DatepickerFromToModule,
+    SqDatetimepickerModule,
     RichTextEditorModule.configure({
       modules: {
         'emoji-toolbar': true,

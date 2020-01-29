@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IActivityCreatePanel } from '../../activity-create-panel.interface';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { ISelectItem } from 'src/app/feature/project/reusable/inputs/select/select.component';
+import { CreateActivityService } from 'src/app/services/createActivity/create-activity.service';
 
 export interface INewsOwner{
   id: string;
@@ -21,15 +22,15 @@ export class NewsCreateComponent implements OnInit {
   tags: any[];
   owners: ISelectItem[];
   defaultOwner: ISelectItem;
+  pinDate: string;
 
-  constructor() { }
+  constructor(private newsCreateService: CreateActivityService) { }
 
   ngOnInit() {
     this.panelData = ParseHelper.parseUbaselineData(this.data);
     this.tags = Object.values(this.panelData.tags.userTagCollection);
     this.owners = this.getOwners();
     this.defaultOwner = this.owners.find(x => x.id == this.panelData.creator.id);
-    debugger
   }
 
   onUploadSuccess(fileArray: Array<any> = []): void {
@@ -48,7 +49,14 @@ export class NewsCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    // debugger;
+    // this.newsCreateService
+    //   .submitNewsContent({
+    //     //TODO Add model
+    //   });
+  }
+
+  editPinDate(pinDate) {
+    this.pinDate = pinDate;
   }
 
   private getOwners(): ISelectItem[] {
