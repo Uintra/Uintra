@@ -1,0 +1,69 @@
+@import "../../styles/link.less";
+
+:host {
+  display: block;
+  margin: 15px 0;
+  padding: 10px 0;
+  border-top: 2px solid @body-bg;
+}
+
+.left-nav {
+  &__star-icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+  }
+  &__item-drag-icon {
+    display: inline-block;
+    font-size: 15px;
+    margin-left: -10px;
+    margin-right: 12px;
+    vertical-align: middle;
+  }
+  &__item-remove {
+    .reset-button;
+    cursor: pointer;
+    font-size: 18px;
+    position: absolute;
+    z-index: 2;
+    right: 22px;
+    top: 8px;
+
+    .left-nav__item:not(:hover) & {
+      display: none;
+    }
+  }
+  &__add-btn-wrapper {
+    padding: 8px 20px;
+    line-height: 1;
+  }
+}
+
+/* in-flight clone */
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  pointer-events: none;
+  list-style: none;
+}
+/* high-performance display:none; helper */
+.gu-hide {
+  left: -9999px !important;
+}
+/* added to mirrorContainer (default = body) while dragging */
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+/* added to the source element while its mirror is dragged */
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}

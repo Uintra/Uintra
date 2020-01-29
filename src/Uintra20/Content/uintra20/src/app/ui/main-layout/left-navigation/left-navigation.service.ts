@@ -56,12 +56,7 @@ export class LeftNavigationService {
   }
 
   private updateOpeningState() {
-    let cookieData = this.cookieService.get(this.openingStateProperty);
-    if (cookieData) {
-      this.openingState = JSON.parse(cookieData);
-    }
-    else {
-      this.openingState = [];
-    }
+    const cookieData = this.cookieService.get(this.openingStateProperty);
+    this.openingState = cookieData ? JSON.parse(cookieData) : [];
   }
 }
