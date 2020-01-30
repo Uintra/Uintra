@@ -100,7 +100,12 @@ export class ProfileEditPage implements OnInit {
     }
   }
 
-  public handlePhotoDelete(): void {
+  public handleUpload($event): void {
+    this.profileEdit.member.newMedia = $event[0].upload.uuid;
+  }
+
+  public handleRemove($event): void {
+    this.profileEdit.member.newMedia = null;
     this.profileService.deletePhoto(this.profileEdit.member.photoId);
   }
 }
