@@ -16,11 +16,19 @@
       background: @border-color;
     }
   }
+
+  &__tags {
+    margin-left: 65px;
+
+    @media @sm-up {
+      margin-left: 110px;
+    }
+  }
 }
 
 .form {
-  &__col {
-
+  @media @lg-down {
+    display: block;
   }
 
   &__row {
@@ -29,8 +37,13 @@
   }
 
   label {
-    flex: 0 0 120px;
-    padding: 0 10px 0 20px;
+    flex: 0 0 105px;
+    padding: 0 5px;
+
+    @media @sm-up {
+      flex: 0 0 120px;
+      padding: 0 10px 0 20px;
+    }
   }
 
   .input {
