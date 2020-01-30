@@ -1,13 +1,17 @@
 <div class="publication-header">
   <div class="publication-header__avatar">
-    <app-user-avatar [photo]="avatar"
-                     [name]="title"
-                     big></app-user-avatar>
+    <app-user-avatar [photo]="avatar" [name]="title" big></app-user-avatar>
   </div>
 
   <div class="publication-header__content">
-    <h3 class="publication-header__title"
-        *ngIf="title">{{ title }}</h3>
+    <a
+      *ngIf="title"
+      class="publication-header__title"
+      [routerLink]='baseUrl | ulink'
+      [queryParams]='params | uparams'>
+      {{ title }}
+    </a>
+    <ng-container *ngIf='false'>{{ title }}</ng-container>
     <div class="publication-header__subtitle">
       <ng-content select="[subtitle]"></ng-content>
     </div>

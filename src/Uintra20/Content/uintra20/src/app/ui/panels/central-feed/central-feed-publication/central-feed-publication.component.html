@@ -2,6 +2,8 @@
   <app-publication-header
     [avatar]="publication.activity.owner.photo"
     [title]="publication.activity.owner.displayedName"
+    [baseUrl]="publication.activity.links?.owner.baseUrl"
+    [params]="publication.activity.links?.owner.params"
     class="publication__header"
   >
     <div subtitle>
@@ -12,6 +14,12 @@
         [queryParams]="publication.activity.links?.details.params | uparams"
         >{{ publication.activity.type }}
       </a>
+      <a
+        *ngIf="publication.activity?.location"
+        [href]="'https://www.google.co.uk/maps?q=' + publication.activity.location.address"
+        class="icon-pin-icon publication__location-link">
+        {{publication.activity.location.shortAddress}}
+      </a>
     </div>
     <div *ngIf="publication.activity.isPinned" label class="publication__label">
       Important
@@ -19,6 +27,7 @@
   </app-publication-header>
 
   <div class="publication__content">
+    <p *ngIf="publication.activity?.title" class="publication__title">{{publication.activity.title}}</p>
     <div
       class="publication__text"
         [routerLink]="publication.activity.links?.details.baseUrl | ulink"

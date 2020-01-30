@@ -22,7 +22,9 @@ using Uintra20.Infrastructure.TypeProviders;
 namespace Uintra20.Core.Activity
 {
     //TODO need investigation of async methods
-    public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity>, ICacheableIntranetActivityService<TActivity> where TActivity : IIntranetActivity
+    public abstract class IntranetActivityService<TActivity> : 
+        IIntranetActivityService<TActivity>, 
+        ICacheableIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
         public abstract Enum Type { get; }
         public abstract Enum PermissionActivityType { get; }
