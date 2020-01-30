@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Compent.Extensions;
+using System;
+using System.Linq;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Features.CentralFeed.Models;
@@ -87,7 +89,7 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")))
-                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty))
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => Enumerable.Empty<Guid>()))
                 .AfterMap((s, d) =>
                 {
                     int i = 0;
@@ -100,7 +102,7 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")))
-                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => string.Empty));
+                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => Enumerable.Empty<Guid>()));
 
             CreateMap<NewsCreateModel, NewsBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())

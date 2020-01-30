@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Uintra20.Attributes;
@@ -21,6 +22,6 @@ namespace Uintra20.Features.News.Models
         [RequiredIf("IsPinned", true), GreaterThan("PublishDate")]
         public override DateTime? EndPinDate { get; set; }
         public bool PinAllowed { get; set; }
-        public string TagIdsData { get; set; }
+        public IEnumerable<Guid> TagIdsData { get; set; }
     }
 }
