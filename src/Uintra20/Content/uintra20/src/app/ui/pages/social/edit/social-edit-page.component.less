@@ -2,15 +2,53 @@
 
 .social-edit {
   .white-block();
-  padding: 26px 20px 10px;
+  padding: 36px 20px;
 
   &__title {
     margin: 0 0 25px;
   }
 }
 
-.form {
-  display: block;
+:host {
+  .form {
+    display: block;
+
+    &__label {
+      margin: 0 0 3px;
+      display: block;
+    }
+
+    &__row-btns {
+      .button {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  & ::ng-deep {
+    .ql-editor {
+      padding: 0;
+    }
+
+    .dz-message {
+      margin: ;
+    }
+
+    .dropzone {
+      border-style: dashed !important;
+      border-radius: 10px !important;
+      min-height: 0 !important;
+      min-height: initial !important;
+      border-width: 1px !important;
+      z-index: 0;
+      padding: 15px 20px !important;
+    }
+
+    .dz-message {
+      border: none !important;
+      background: inherit !important;
+    }
+  }
 }
 
 .bulletin-popup {
@@ -46,9 +84,5 @@
 
     &__header {
       padding: 21px 40px 16px 30px;
-    }
-
-    &__multiselect {
-      padding: 21px 30px 25px;
     }
   }

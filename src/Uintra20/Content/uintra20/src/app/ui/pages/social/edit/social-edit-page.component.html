@@ -43,11 +43,11 @@
         [disabled]="inProgress"
         (click)="handleSocialUpdate()">SAVE</button>
 
-      <button class="button button--default"
+      <button class="button button-default"
         [disabled]="inProgress"
         (click)="handleSocialDelete()">DELETE</button>
 
-      <a class="button button--default"
+      <a class="button button-default"
         [routerLink]="['/social-details']"
         [queryParams]="{id: socialEdit.id}">CANCEL</a>
     </div>
