@@ -1,11 +1,12 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from "@angular/core";
 import * as moment from "moment";
-import { IDatePickerOptions } from "src/app/feature/shared/interfaces/idatePickerOptions";
+import { IDatePickerOptions } from "src/app/feature/shared/interfaces/DatePickerOptions";
 
 @Component({
   selector: "app-datepicker-from-to",
   templateUrl: "./datepicker-from-to.component.html",
-  styleUrls: ["./datepicker-from-to.component.less"]
+  styleUrls: ["./datepicker-from-to.component.less"],
+  encapsulation: ViewEncapsulation.None
 })
 export class DatepickerFromToComponent implements OnInit {
   @Input() initialValues: { from: string; to: string } = null;
