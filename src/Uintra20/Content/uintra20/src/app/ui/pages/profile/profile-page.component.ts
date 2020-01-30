@@ -31,6 +31,7 @@ export class ProfilePage implements OnInit {
         email: parsed.profile.email,
         phone: parsed.profile.phone,
         department: parsed.profile.department,
+        tags: Object.values(parsed.tags)
       },
       title: parsed.name
     };

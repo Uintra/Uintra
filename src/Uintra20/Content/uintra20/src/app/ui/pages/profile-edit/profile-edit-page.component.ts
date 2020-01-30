@@ -14,11 +14,12 @@ import { NotifierTypeEnum } from 'src/app/feature/shared/enums/notifier-type.enu
   encapsulation: ViewEncapsulation.None
 })
 export class ProfileEditPage implements OnInit {
-
+  files = [];
   private data: any;
   public profileEdit: IProfileEditPage;
   public profileEditForm: FormGroup;
   public inProgress = false;
+  public isUploaded = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -73,15 +74,16 @@ export class ProfileEditPage implements OnInit {
       id: this.profileEdit.member.id,
       firstName: this.profileEditForm.value.firstName,
       lastName: this.profileEditForm.value.lastName,
-      phone: this.profileEdit.member.phone,
-      department: this.profileEdit.member.department,
+      phone: this.profileEditForm.value.phone,
+      department: this.profileEditForm.value.department,
       photo: this.profileEdit.member.photo,
       photoId: this.profileEdit.member.photoId,
       email: this.profileEdit.member.email,
       profileUrl: this.profileEdit.member.profileUrl,
       mediaRootId: this.profileEdit.member.mediaRootId,
       newMedia: this.profileEdit.member.newMedia,
-      memberNotifierSettings: this.profileEdit.member.memberNotifierSettings
+      memberNotifierSettings: this.profileEdit.member.memberNotifierSettings,
+      tagIdsData: this.profileEdit.member.tags.map(t => t.id)
     };
 
     this.profileService.update(profile)
@@ -100,12 +102,16 @@ export class ProfileEditPage implements OnInit {
     }
   }
 
-  public handleUpload($event): void {
+  public handleAvatarUpload($event): void {
+    this.isUploaded = true;
     this.profileEdit.member.newMedia = $event[0].upload.uuid;
   }
 
-  public handleRemove($event): void {
-    this.profileEdit.member.newMedia = null;
-    this.profileService.deletePhoto(this.profileEdit.member.photoId);
+  public handleAvatarDelete(): void {
+    // this.profileService.deletePhoto(this.profileEdit.member.photoId).subscribe(
+    //   () => {
+        this.profileEdit.member.photo = null;
+    //   }
+    // );
   }
 }

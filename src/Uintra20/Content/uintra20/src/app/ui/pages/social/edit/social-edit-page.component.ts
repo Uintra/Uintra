@@ -1,9 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import ParseHelper from '../../../../feature/shared/helpers/parse.helper';
-import { ISocialEdit } from './social-edit-page.interface';
-import { SocialService } from '../services/social.service';
 import { finalize } from 'rxjs/operators';
+import { ActivityService } from 'src/app/feature/project/specific/activity/activity.service';
+import { ISocialEdit } from 'src/app/feature/project/specific/activity/activity.interfaces';
 
 @Component({
   selector: 'social-edit',
@@ -12,14 +12,14 @@ import { finalize } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class SocialEditPageComponent {
-
+  files = [];
   private data: any;
   public inProgress = false;
   public socialEdit: ISocialEdit;
 
   constructor(
     private route: ActivatedRoute,
-    private socialService: SocialService,
+    private socialService: ActivityService,
     private router: Router
   ) {
     this.route.data.subscribe(data => this.data = data);
@@ -28,9 +28,10 @@ export class SocialEditPageComponent {
 
   private onParse = (): void => {
     const parsedSocialEdit = ParseHelper.parseUbaselineData(this.data);
-
+    debugger
     // TODO: Imvestigate about parsing ubaseline data
     this.socialEdit = {
+      ownerId: parsedSocialEdit.ownerId,
       description: parsedSocialEdit.description,
       tags: Object.values(parsedSocialEdit.tags),
       availableTags: Object.values(parsedSocialEdit.availableTags),
@@ -58,7 +59,7 @@ export class SocialEditPageComponent {
   public handleSocialUpdate(): void {
     this.socialEdit.tagIdsData = this.socialEdit.tags.map(t => t.id);
     this.inProgress = true;
-    this.socialService.update(this.socialEdit)
+    this.socialService.updateSocial(this.socialEdit)
       .pipe(finalize(() => this.inProgress = false))
       .subscribe(
         (next) => {
@@ -72,7 +73,7 @@ export class SocialEditPageComponent {
   // TODO: Add usage of alertify or smth similiar
   public handleSocialDelete(): void {
     this.inProgress = true;
-    this.socialService.delete(this.socialEdit.id)
+    this.socialService.deleteSocial(this.socialEdit.id)
       .pipe(finalize(() => this.inProgress = false))
       .subscribe(
         (next) => {

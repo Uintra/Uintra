@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Sql;
@@ -48,10 +49,16 @@ namespace Uintra20.Features.Notification.Services
 
         public async Task SetForMemberAsync(Guid memberId, Enum notifierType, bool isEnabled)
         {
-            var dbEntry = await _memberNotifierSettingRepository
-                .FindAsync(e => e.MemberId == memberId && e.NotifierType == notifierType.ToInt());
-            dbEntry.IsEnabled = isEnabled;
-            await _memberNotifierSettingRepository.UpdateAsync(dbEntry);
+            var numericNotifier = notifierType.ToInt();
+
+            Expression<Func<MemberNotifierSetting, bool>> notifierExpr = e => 
+                e.MemberId == memberId && e.NotifierType == numericNotifier;
+
+            var result = await _memberNotifierSettingRepository.FindAsync(notifierExpr);
+
+            result.IsEnabled = isEnabled;
+
+            await _memberNotifierSettingRepository.UpdateAsync(result);
         }
 
         #endregion

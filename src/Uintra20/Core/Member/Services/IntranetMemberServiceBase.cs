@@ -104,7 +104,7 @@ namespace Uintra20.Core.Member.Services
             var umbracoUser = _umbracoContext.Security.CurrentUser;
             if (umbracoUser != null) return await GetByUserIdAsync(umbracoUser.Id);
 
-            return await Task.FromResult(default(T));
+            return default(T);
         }
 
         public virtual async Task<IEnumerable<T>> GetByGroupAsync(int memberGroupId)
