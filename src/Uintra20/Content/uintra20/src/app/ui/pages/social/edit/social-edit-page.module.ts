@@ -30,7 +30,6 @@ import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.co
       HttpClientModule,
       RichTextEditorModule.configure({
         modules: {
-          'emoji-toolbar': true,
           counter: {
             maxLength: MAX_LENGTH
           }
