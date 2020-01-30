@@ -81,7 +81,8 @@ export class ProfileEditPage implements OnInit {
       profileUrl: this.profileEdit.member.profileUrl,
       mediaRootId: this.profileEdit.member.mediaRootId,
       newMedia: this.profileEdit.member.newMedia,
-      memberNotifierSettings: this.profileEdit.member.memberNotifierSettings
+      memberNotifierSettings: this.profileEdit.member.memberNotifierSettings,
+      tagIdsData: this.profileEdit.member.tags.map(t => t.id)
     };
 
     this.profileService.update(profile)

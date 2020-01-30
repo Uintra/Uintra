@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Uintra20.Features.Media;
 
 namespace Uintra20.Core.Member.Profile.Edit.Models
@@ -21,5 +22,6 @@ namespace Uintra20.Core.Member.Profile.Edit.Models
         public int? MediaRootId { get; set; }
         public string NewMedia { get; set; }
         public IDictionary<Enum, bool> MemberNotifierSettings { get; set; }
+        public IEnumerable<Guid> TagIdsData { get; set; } = Enumerable.Empty<Guid>();
     }
 }

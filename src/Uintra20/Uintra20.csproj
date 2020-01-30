@@ -1043,7 +1043,6 @@
     <Compile Include="Core\HomePage\HomePageViewModelConverter.cs" />
     <Compile Include="Core\Member\Helpers\IMemberServiceHelper.cs" />
     <Compile Include="Core\Member\Helpers\MemberServiceHelper.cs" />
-    <Compile Include="Core\Member\Profile\Edit\Models\ExtendedProfileEditModel.cs" />
     <Compile Include="Core\Member\Profile\Edit\Models\ProfileEditModel.cs" />
     <Compile Include="Core\Member\Models\UserPickerModel.cs" />
     <Compile Include="Core\Member\Controllers\UserApiController.cs" />
