@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { IActivityCreatePanel } from "../../activity-create-panel.interface";
-import { CreateActivityService } from "src/app/feature/project/specific/activity/create-activity.service";
-import { INewsCreateModel } from "src/app/feature/project/specific/activity/create-activity.interface";
 import ParseHelper from "src/app/feature/shared/helpers/parse.helper";
 import { Router } from "@angular/router";
 import { ParamsPipe } from "src/app/services/pipes/link/params.pipe";
+import { ActivityService } from 'src/app/feature/project/specific/activity/activity.service';
+import { INewsCreateModel } from 'src/app/feature/project/specific/activity/activity.interfaces';
 
 @Component({
   selector: "app-news-create",
@@ -21,7 +21,7 @@ export class NewsCreateComponent implements OnInit {
   panelData;
 
   constructor(
-    private createActivityService: CreateActivityService,
+      private activityService: ActivityService,
     private router: Router,
     private paramsPipe: ParamsPipe
   ) {}
@@ -41,7 +41,7 @@ export class NewsCreateComponent implements OnInit {
   }
 
   onSubmit(data) {
-    this.createActivityService
+      this.activityService
       .submitNewsContent(data)
       .subscribe((r: any) => {
         // const params = this.paramsPipe.transform(r.params);
