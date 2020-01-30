@@ -44,8 +44,11 @@
         </div>
     </form>
     <!-- <label>Tag(s) </label> -->
-    <app-tag-multiselect
+    <div class="profile__tags">
+      <label>Tags </label>
+      <app-tag-multiselect
         [availableTags]="profileEdit.member.availableTags"
         [(ngModel)]="profileEdit.member.tags">
-    </app-tag-multiselect>
+      </app-tag-multiselect>
+    </div>
 </section>
