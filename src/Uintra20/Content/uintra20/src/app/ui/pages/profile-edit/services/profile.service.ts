@@ -7,10 +7,10 @@ import { Observable } from 'rxjs';
 })
 export class ProfileService {
 
-  private prefix = 'api/memberProfile';
+  private prefix = 'ubaseline/api/memberProfile';
   private routeTree = {
     edit: `${this.prefix}/edit`,
-    updateNotifierSettings: `${this.prefix}/updateNotifierSettings`,
+    updateNotifierSettings: `${this.prefix}/UpdateNotificationSettings`,
     deletePhoto: `${this.prefix}deletePhoto`
   };
 
