@@ -36,7 +36,7 @@ export class NewsCreateComponent implements OnInit {
 
   onSubmit(data) {
     this.createActivityService.submitNewsContent(data).subscribe((r) => {
-      debugger;
+      console.log(r);
     })
   }
 }
