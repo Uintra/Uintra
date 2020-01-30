@@ -5,6 +5,7 @@ import { IProfileEditPage } from './profile-edit-page.interface';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ProfileService } from './services/profile.service';
 import { finalize } from 'rxjs/operators';
+import { NotifierTypeEnum } from 'src/app/feature/shared/enums/notifier-type.enum';
 
 @Component({
   selector: 'profile-edit-page',
@@ -18,7 +19,6 @@ export class ProfileEditPage implements OnInit {
   public profileEdit: IProfileEditPage;
   public profileEditForm: FormGroup;
   public inProgress = false;
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -91,18 +91,15 @@ export class ProfileEditPage implements OnInit {
       );
   }
 
-  // TODO: Use alertify on delete action, then pass settings
-  public handleUpdateNotificationSettings(): void {
-
-      const settingsModel = {
-        notifierTypeEnum: null,
-        isEnabled: null
-      };
-
-      this.profileService.updateNotificationSettings(settingsModel);
+  public handleUpdateNotificationSettings($event): void {
+    if (confirm('Are you sure')) {
+      this.profileService.updateNotificationSettings({
+        notifierTypeEnum: NotifierTypeEnum[NotifierTypeEnum.EmailNotifier],
+        isEnabled: $event.target.checked
+      }).subscribe();
+    }
   }
 
-  // TODO: Use alertify on delete action
   public handlePhotoDelete(): void {
     this.profileService.deletePhoto(this.profileEdit.member.photoId);
   }
