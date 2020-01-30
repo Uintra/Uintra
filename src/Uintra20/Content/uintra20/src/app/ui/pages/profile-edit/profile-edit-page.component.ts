@@ -19,6 +19,7 @@ export class ProfileEditPage implements OnInit {
   public profileEdit: IProfileEditPage;
   public profileEditForm: FormGroup;
   public inProgress = false;
+  public isUploaded = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -101,12 +102,16 @@ export class ProfileEditPage implements OnInit {
     }
   }
 
-  public handleUpload($event): void {
+  public handleAvatarUpload($event): void {
+    this.isUploaded = true;
     this.profileEdit.member.newMedia = $event[0].upload.uuid;
   }
 
-  public handleRemove($event): void {
-    this.profileEdit.member.newMedia = null;
-    this.profileService.deletePhoto(this.profileEdit.member.photoId);
+  public handleAvatarRemove(): void {
+    this.profileService.deletePhoto(this.profileEdit.member.photoId).subscribe(
+      () => {
+        this.profileEdit.member.photo = null;
+      }
+    );
   }
 }

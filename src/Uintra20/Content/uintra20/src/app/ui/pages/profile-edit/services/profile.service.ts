@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class ProfileService {
   private routeTree = {
     edit: `${this.prefix}/edit`,
     updateNotifierSettings: `${this.prefix}/UpdateNotificationSettings`,
-    deletePhoto: `${this.prefix}deletePhoto`
+    deletePhoto: `${this.prefix}/DeletePhoto`
   };
 
   constructor(private httpClient: HttpClient) { }
@@ -24,7 +24,9 @@ export class ProfileService {
     return this.httpClient.put<Response>(this.routeTree.updateNotifierSettings, settings);
   }
 
-  public deletePhoto(photoId): Observable<HttpEvent<Response>> {
-    return this.httpClient.delete<Response>(this.routeTree.deletePhoto, photoId);
+  public deletePhoto(photoId): Observable<Response> {
+    return this.httpClient.delete<Response>(this.routeTree.deletePhoto, {
+      params: new HttpParams().set("photoId", photoId)
+    });
   }
 }
