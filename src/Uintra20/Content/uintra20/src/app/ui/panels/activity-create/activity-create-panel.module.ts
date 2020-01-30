@@ -24,6 +24,7 @@ import { SqDatetimepickerModule } from 'ngx-eonasdan-datetimepicker';
 import { LocationPickerModule } from 'src/app/feature/project/reusable/ui-elements/location-picker/location-picker.module';
 import { NewsFormModule } from 'src/app/feature/project/specific/activity/news-form/news-form.module';
 
+// TODO: remove unusable modules
 @NgModule({
   declarations: [
     ActivityCreatePanel,

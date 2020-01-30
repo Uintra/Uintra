@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IDatePickerOptions } from 'src/app/feature/shared/interfaces/idatePickerOptions';
+import { IDatePickerOptions } from 'src/app/feature/shared/interfaces/DatePickerOptions';
 import * as moment from "moment";
 
 export interface IPinedData {
