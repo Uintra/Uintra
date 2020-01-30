@@ -21,6 +21,7 @@ using Uintra20.Infrastructure.TypeProviders;
 
 namespace Uintra20.Core.Activity
 {
+    //TODO need investigation of async methods
     public abstract class IntranetActivityService<TActivity> : IIntranetActivityService<TActivity>, ICacheableIntranetActivityService<TActivity> where TActivity : IIntranetActivity
     {
         public abstract Enum Type { get; }
@@ -120,8 +121,8 @@ namespace Uintra20.Core.Activity
 
         public virtual async Task<TActivity> UpdateActivityCacheAsync(Guid activityId)
         {
-            var activity = await GetFromSqlAsync(activityId);
-            var cached = await GetAllAsync(true);
+            var activity = GetFromSql(activityId);
+            var cached = GetAll(true);
             var cachedList = (cached as List<TActivity> ?? cached.ToList()).FindAll(s => s.Id != activityId);
 
             if (activity != null)
@@ -130,7 +131,7 @@ namespace Uintra20.Core.Activity
                 cachedList.Add(activity);
             }
 
-            await _cache.SetAsync(() => Task.FromResult(cachedList), CacheKey, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
+            _cache.Set(CacheKey, cachedList, CacheHelper.GetMidnightUtcDateTimeOffset(), ActivityCacheSuffix);
 
             return activity;
         }
