@@ -85,7 +85,7 @@ namespace Uintra20.Core.Activity
             return cached;
         }
 
-        public virtual Task<Guid> CreateAsync(IIntranetActivity activity) => CreateAsync(activity, null);
+        public virtual async Task<Guid> CreateAsync(IIntranetActivity activity) => await CreateAsync(activity, null);
 
         public virtual async Task SaveAsync(IIntranetActivity activity) => await SaveAsync(activity, null);
         public abstract IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId);
@@ -189,14 +189,9 @@ namespace Uintra20.Core.Activity
 
         private async Task<IList<TActivity>> GetAllFromSqlAsync()
         {
-            var activities = await Task.WhenAll((await _activityRepository.GetManyAsync(Type))
-                .Select(async model => await MapInternalAsync(model)));
-
-            //TODO Remove this, or if not works reimplement to syncronus
-            //var activities = await (await _activityRepository.GetManyAsync(Type)).SelectAsync(async model => await MapInternalAsync(model));
-            await MapBeforeCacheAsync(activities);
-
-            return activities;
+            var activities = await (await _activityRepository.GetManyAsync(Type)).SelectAsync(async model => await MapInternalAsync(model));
+            await MapBeforeCacheAsync(activities.ToList());
+            return activities.ToList();
         }
 
         protected virtual async Task<bool> CanPerformAsync(IIntranetActivity activity, PermissionActionEnum action, PermissionActionEnum administrationAction)
