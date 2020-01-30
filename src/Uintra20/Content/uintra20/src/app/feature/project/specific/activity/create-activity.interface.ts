@@ -19,8 +19,8 @@ export interface INewsCreateModel {
 
   isPinned?: boolean;
   activityLocationEditModel?: {
-    address: string;
-    shortAddress: string;
+    address?: string;
+    shortAddress?: string;
   };
   newMedia?: string;
 }
