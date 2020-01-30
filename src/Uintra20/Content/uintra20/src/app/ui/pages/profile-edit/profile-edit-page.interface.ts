@@ -1,9 +1,11 @@
+import { ITagData } from 'src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.interface';
+
 export interface IProfileEditPage {
-    member: IMemberEdit;
+    member: IProfile;
     title: string;
     url: string;
 }
-export interface IMemberEdit {
+export interface IProfile {
     id: string;
     firstName: string;
     lastName: string;
@@ -16,4 +18,6 @@ export interface IMemberEdit {
     mediaRootId: string;
     newMedia: string;
     memberNotifierSettings: string;
+    tags: Array<ITagData>;
+    availableTags: Array<ITagData>;
 }

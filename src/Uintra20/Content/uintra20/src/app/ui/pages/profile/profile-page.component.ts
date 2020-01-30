@@ -18,7 +18,6 @@ export class ProfilePage implements OnInit {
 
   public ngOnInit(): void {
     this.route.data.subscribe(data => this.data = data);
-
     this.onParse();
   }
 

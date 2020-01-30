@@ -5,6 +5,7 @@ import { IProfileEditPage } from './profile-edit-page.interface';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ProfileService } from './services/profile.service';
 import { finalize } from 'rxjs/operators';
+import { NotifierTypeEnum } from 'src/app/feature/shared/enums/notifier-type.enum';
 
 @Component({
   selector: 'profile-edit-page',
@@ -18,7 +19,6 @@ export class ProfileEditPage implements OnInit {
   public profileEdit: IProfileEditPage;
   public profileEditForm: FormGroup;
   public inProgress = false;
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -37,6 +37,8 @@ export class ProfileEditPage implements OnInit {
       {
         firstName: new FormControl(this.profileEdit.member.firstName, Validators.required),
         lastName: new FormControl(this.profileEdit.member.lastName, Validators.required),
+        phone: new FormControl(this.profileEdit.member.phone),
+        department: new FormControl(this.profileEdit.member.department)
       }
     );
   }
@@ -58,7 +60,9 @@ export class ProfileEditPage implements OnInit {
         profileUrl: parsed.profile.profileUrl,
         mediaRootId: parsed.profile.mediaRootId,
         newMedia: parsed.profile.newMedia,
-        memberNotifierSettings: parsed.profile.memberNotifierSettings
+        memberNotifierSettings: parsed.profile.memberNotifierSettings,
+        tags: Object.values(parsed.tags),
+        availableTags: Object.values(parsed.availableTags)
       }
     };
   }
@@ -87,19 +91,21 @@ export class ProfileEditPage implements OnInit {
       );
   }
 
-  // TODO: Use alertify on delete action, then pass settings
-  public handleUpdateNotificationSettings(): void {
-
-      const settingsModel = {
-        notifierTypeEnum: null,
-        isEnabled: null
-      };
-
-      this.profileService.updateNotificationSettings(settingsModel);
+  public handleUpdateNotificationSettings($event): void {
+    if (confirm('Are you sure')) {
+      this.profileService.updateNotificationSettings({
+        notifierTypeEnum: NotifierTypeEnum[NotifierTypeEnum.EmailNotifier],
+        isEnabled: $event.target.checked
+      }).subscribe();
+    }
   }
 
-  // TODO: Use alertify on delete action
-  public handlePhotoDelete(): void {
+  public handleUpload($event): void {
+    this.profileEdit.member.newMedia = $event[0].upload.uuid;
+  }
+
+  public handleRemove($event): void {
+    this.profileEdit.member.newMedia = null;
     this.profileService.deletePhoto(this.profileEdit.member.photoId);
   }
 }

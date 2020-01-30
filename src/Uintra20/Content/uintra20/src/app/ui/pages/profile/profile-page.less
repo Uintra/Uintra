@@ -1,5 +1,79 @@
 @import "base.less";
+@import "./../../../../styles/temp/profile.less";
 
-profile-page {
+.profile {
+  &__row {
+    margin-bottom: 30px;
+  }
 
+  &__desc{
+    margin-bottom: 48px;
+  }
+}
+
+.button-default {
+  text-transform: none;
+}
+
+.user-block {
+  margin-bottom: 30px;
+}
+
+.user-role {
+  margin-bottom: 27px;
+  display: block;
+}
+
+label {
+  font-size: inherit;
+  padding-right: 10px;
+}
+
+.form {
+  @media @sm-down {
+    flex-direction: column;
+    padding-left: 20px;
+  }
+
+  &__col {
+    &:first-child {
+      @media @sm-up {
+        flex: 0 0 243px;
+        padding-left: 20px;
+      }
+    }
+  }
+
+  &__row {
+    margin: 0;
+  }
+
+  label {
+    flex-basis: 60px;
+    flex-shrink: 0;
+  }
+}
+
+.tags {
+  .list-reset();
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  &__item {
+    background-color: #dddddd;
+    font-size: 13px;
+    line-height: 1.69;
+    border-radius: 2px;
+    margin-right: 10px;
+    padding: 7px 10px 5px;
+
+    @media @md-down {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.m-b {
+  margin-bottom: 20px;
 }
