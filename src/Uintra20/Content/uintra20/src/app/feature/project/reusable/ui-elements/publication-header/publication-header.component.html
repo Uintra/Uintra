@@ -7,7 +7,13 @@
 
   <div class="publication-header__content">
     <h3 class="publication-header__title"
-        *ngIf="title">{{ title }}</h3>
+        *ngIf="title">
+        <a *ngIf='true'
+        [routerLink]='baseUrl | ulink'
+        [queryParams]='params | uparams'
+        >{{ title }}</a>
+        <ng-container *ngIf='false'>{{ title }}</ng-container>
+    </h3>
     <div class="publication-header__subtitle">
       <ng-content select="[subtitle]"></ng-content>
     </div>

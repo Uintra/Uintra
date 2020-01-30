@@ -2,6 +2,8 @@
   <app-publication-header
     [avatar]="publication.activity.owner.photo"
     [title]="publication.activity.owner.displayedName"
+    [baseUrl]="publication.activity.links?.owner.baseUrl"
+    [params]="publication.activity.links?.owner.params"
     class="publication__header"
   >
     <div subtitle>
