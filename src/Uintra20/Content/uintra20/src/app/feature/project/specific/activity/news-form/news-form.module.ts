@@ -8,11 +8,11 @@ import { RichTextEditorModule } from "../../../reusable/inputs/rich-text-editor/
 import { MAX_LENGTH } from "src/app/constants/activity/create/activity-create-const";
 import { TagMultiselectModule } from "../../../reusable/inputs/tag-multiselect/tag-multiselect.module";
 import { LocationPickerModule } from "../../../reusable/ui-elements/location-picker/location-picker.module";
-import { DropzoneModule } from "ngx-dropzone-wrapper";
 import { PinActivityModule } from "../pin-activity/pin-activity.module";
 import { SqDatetimepickerModule } from 'ngx-eonasdan-datetimepicker';
 import { FormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
+import { DropzoneWrapperModule } from '../../../reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
 
 @NgModule({
   declarations: [NewsFormComponent],
@@ -20,7 +20,7 @@ import { QuillModule } from 'ngx-quill';
     CommonModule,
     TagMultiselectModule,
     FormsModule,
-    DropzoneModule,
+    DropzoneWrapperModule,
     TextInputModule,
     QuillModule,
     SelectModule,
