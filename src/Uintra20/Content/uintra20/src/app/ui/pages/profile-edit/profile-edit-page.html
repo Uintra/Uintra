@@ -9,13 +9,14 @@
       <form [formGroup]="profileEditForm">
         <div class="user-block">
           <div class="user-block__col _avatar">
-            <span class="icon-close avatar-remove"></span>
+            
             <div *ngIf="profileEdit.member.photo">
+              <span class="icon-close avatar-remove" (click)="handleAvatarDelete()"></span>
               <img [src]="profileEdit.member.photo" class="avatar">
             </div>
-            <div *ngIf="!profileEdit.member.photo">
+            <div *ngIf="isUploaded || !profileEdit.member.photo">
               <dropzone #dropdownRef
-                  (success)="handleUpload($event)"
+                  (success)="handleAvatarUpload($event)"
                   (removedFile)="handleRemove($event)">
              </dropzone>
             </div>

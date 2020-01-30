@@ -107,11 +107,11 @@ export class ProfileEditPage implements OnInit {
     this.profileEdit.member.newMedia = $event[0].upload.uuid;
   }
 
-  public handleAvatarRemove(): void {
-    this.profileService.deletePhoto(this.profileEdit.member.photoId).subscribe(
-      () => {
+  public handleAvatarDelete(): void {
+    // this.profileService.deletePhoto(this.profileEdit.member.photoId).subscribe(
+    //   () => {
         this.profileEdit.member.photo = null;
-      }
-    );
+    //   }
+    // );
   }
 }
