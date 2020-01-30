@@ -45,7 +45,8 @@ namespace Uintra20.Features.News.Controllers
             IActivityTagsHelper activityTagsHelper,
             IActivityLinkService activityLinkService,
             IMentionService mentionService,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService
+            )
         {
             _intranetMemberService = intranetMemberService;
             _newsService = newsService;
@@ -67,9 +68,9 @@ namespace Uintra20.Features.News.Controllers
             var activityId = await _newsService.CreateAsync(newsBaseCreateModel);
 
             await OnNewsCreatedAsync(activityId, createModel);
-            var result = await GetViewModelAsync(_newsService.Get(activityId));
+            var newsViewModel = await GetViewModelAsync(_newsService.Get(activityId));
 
-            return Ok(result);
+            return Ok(newsViewModel.Links.Details);
         }
 
         [HttpPost]
@@ -86,9 +87,9 @@ namespace Uintra20.Features.News.Controllers
             DeleteMedia(cachedActivityMedias.Except(activity.MediaIds));
 
             await OnNewsEditedAsync(activity, editModel);
-            var result = await GetViewModelAsync(_newsService.Get(editModel.Id));
+            var newsViewModel = await GetViewModelAsync(_newsService.Get(editModel.Id));
 
-            return Ok(result);
+            return Ok(newsViewModel.Links.Details);
         }
 
         private async Task<NewsBase> MapToNewsAsync(NewsCreateModel createModel)
@@ -143,6 +144,8 @@ namespace Uintra20.Features.News.Controllers
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
             model.HeaderInfo.Owner = (await _intranetMemberService.GetAsync(news)).Map<MemberViewModel>();
+            model.Links = await _activityLinkService.GetLinksAsync(model.Id);
+            model.HeaderInfo.Links = await _activityLinkService.GetLinksAsync(model.Id);
             model.CanEdit = _newsService.CanEdit(news);
 
             return model;

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from "@angular/core";
 import * as moment from "moment";
 import { IDatePickerOptions } from "src/app/feature/shared/interfaces/DatePickerOptions";
+import { IDatepickerData } from './datepiker-from-to.interface';
 
 @Component({
   selector: "app-datepicker-from-to",
@@ -10,7 +11,7 @@ import { IDatePickerOptions } from "src/app/feature/shared/interfaces/DatePicker
 })
 export class DatepickerFromToComponent implements OnInit {
   @Input() initialValues: { from: string; to: string } = null;
-  @Output() setValue = new EventEmitter();
+  @Output() handleChange = new EventEmitter();
 
   fromDate = null;
   toDate = null;
@@ -38,7 +39,7 @@ export class DatepickerFromToComponent implements OnInit {
       ...this.optTo,
       minDate: this.fromDate
     };
-    this.setValue.emit(this.buildDateObject());
+    this.handleChange.emit(this.buildDateObject());
   }
 
   toDateChange() {
@@ -46,10 +47,10 @@ export class DatepickerFromToComponent implements OnInit {
       ...this.optFrom,
       maxDate: this.toDate
     };
-    this.setValue.emit(this.buildDateObject());
+    this.handleChange.emit(this.buildDateObject());
   }
 
-  buildDateObject() {
+  buildDateObject(): IDatepickerData {
     return {
       from: this.fromDate ? this.fromDate.format() : null,
       to: this.toDate ? this.toDate.format() : null

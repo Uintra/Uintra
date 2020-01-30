@@ -35,17 +35,21 @@
   </div>
   <div class="form-row">
     <app-datepicker-from-to
-      (setValue)="setDatePickerValue($event)"
+      (handleChange)="setDatePickerValue($event)"
     ></app-datepicker-from-to>
   </div>
   <div class="location form-row">
     <h3 class="location__title subtitle">Location</h3>
-    <app-location-picker (addressChanged)="handleAddressChanged($event)"></app-location-picker>
+    <app-location-picker
+      (handleChange)="setLocationValue($event)"
+    ></app-location-picker>
   </div>
+
   <app-pin-activity
-    [isPinCheked]="isPinCheked"
-    (dateChange)="editPinDate($event)"
+    [isPinCheked]="newsData.isPinned"
+    (handleChange)="setPinValue($event)"
   ></app-pin-activity>
+
   <div class="dropzone-holder form-row">
     <h3 class="dropzone-holder__title subtitle">File(s)</h3>
     <dropzone
