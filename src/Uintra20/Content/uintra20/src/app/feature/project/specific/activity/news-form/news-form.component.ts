@@ -9,7 +9,7 @@ import {
 import { IPinedData } from "../pin-activity/pin-activity.component";
 import { ISelectItem } from "../../../reusable/inputs/select/select.component";
 import { INewsForm } from "./news-form.interface";
-import { INewsCreateModel } from "../create-activity.interface";
+import { INewsCreateModel } from "../activity.interfaces";
 
 @Component({
   selector: "app-news-form",

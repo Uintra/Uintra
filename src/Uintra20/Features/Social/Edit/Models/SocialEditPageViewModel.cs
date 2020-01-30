@@ -11,6 +11,7 @@ namespace Uintra20.Features.Social.Edit.Models
 {
     public class SocialEditPageViewModel : NodeViewModel
     {
+        public Guid OwnerId { get; set; }
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
         public string Description { get; set; }

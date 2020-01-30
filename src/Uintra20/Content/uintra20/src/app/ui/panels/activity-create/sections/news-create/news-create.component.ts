@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IActivityCreatePanel } from '../../activity-create-panel.interface';
-import { CreateActivityService } from 'src/app/feature/project/specific/activity/create-activity.service';
-import { INewsCreateModel } from 'src/app/feature/project/specific/activity/create-activity.interface';
+import { ActivityService } from 'src/app/feature/project/specific/activity/activity.service';
+import { INewsCreateModel } from 'src/app/feature/project/specific/activity/activity.interfaces';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 
 @Component({
@@ -18,7 +18,7 @@ export class NewsCreateComponent implements OnInit {
 
   panelData;
 
-  constructor(private createActivityService: CreateActivityService) { }
+  constructor(private activityService: ActivityService) { }
 
   ngOnInit() {
     this.panelData = ParseHelper.parseUbaselineData(this.data);
@@ -35,7 +35,7 @@ export class NewsCreateComponent implements OnInit {
   }
 
   onSubmit(data) {
-    this.createActivityService.submitNewsContent(data).subscribe((r) => {
+    this.activityService.submitNewsContent(data).subscribe((r) => {
       debugger;
     })
   }
