@@ -1,3 +1,5 @@
+@import 'base.less';
+
 // TODO: move to global mixin and check 'h3' name
 @text-color: #262626;
 @text-color--light: #555;
@@ -28,7 +30,12 @@
   &__title {
     .h3;
     color: @text-color;
+    text-decoration: none;
     margin-bottom: 5px;
+
+    &:hover {
+      color: @link-color;
+    }
   }
 
   &__subtitle {
