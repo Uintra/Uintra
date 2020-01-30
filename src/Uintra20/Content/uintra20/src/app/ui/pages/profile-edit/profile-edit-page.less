@@ -16,13 +16,22 @@
       background: @border-color;
     }
   }
+}
 
-  &__tags {
-    margin-left: 65px;
+.user-block {
+  ._avatar {
+    position: relative;
+  }
 
-    @media @sm-up {
-      margin-left: 110px;
-    }
+  .avatar {
+    border-radius: 50%;
+    background: #eee;
+  }
+
+  .avatar-remove {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }
 

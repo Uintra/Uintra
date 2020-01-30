@@ -16,10 +16,6 @@
             <h2>{{profile.member.firstName}} {{profile.member.lastName}}</h2>
             <!-- <span class="user-role">role position</span> -->
           </div>
-          <div class="form__row">
-            <label>Department</label>
-            <span *ngIf="profile.member.department">{{profile.member.department}}</span>
-          </div>
         </div>
         <div class="form__col">
           <div class="form__row">
@@ -31,16 +27,16 @@
             <a *ngIf="profile.member.phone"
                href="tel:+{{profile.member.phone}}">{{profile.member.phone}}</a>
           </div>
+          <div class="form__row">
+            <label>Department</label>
+            <span *ngIf="profile.member.department">{{profile.member.department}}</span>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="profile__row">
       <!-- <button type="button" class="button button-default">Write message to {{profile.member.firstName}}</button> -->
-    </div>
-
-    <div class="profile__desc">
-      
     </div>
 
     <div class="user-info">
@@ -67,8 +63,8 @@
           <label>Tags subscription:</label>
         </div>
         <div class="col-md-9">
-          <ul class="tags" *ngFor="let tag of profile.member.tags">
-          <li class="tags__item">{{tag.text}}</li>
+          <ul class="tags">
+            <li class="tags__item" *ngFor="let tag of profile.member.tags">{{tag.text}}</li>
           </ul>
         </div>
       </div>

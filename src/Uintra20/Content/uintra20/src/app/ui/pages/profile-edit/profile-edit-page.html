@@ -9,9 +9,9 @@
       <form [formGroup]="profileEditForm">
         <div class="user-block">
           <div class="user-block__col _avatar">
-            <div>Avatar</div>
+            <span class="icon-close avatar-remove"></span>
             <div *ngIf="profileEdit.member.photo">
-              <img [src]="profileEdit.member.photo" style="width: 50px; height: 50px;">
+              <img [src]="profileEdit.member.photo" class="avatar">
             </div>
             <div *ngIf="!profileEdit.member.photo">
               <dropzone #dropdownRef
@@ -48,13 +48,13 @@
                 <label for="department">Department </label>
                 <input formControlName="department" type="text" name="department" id="department" class="input"/>
               </div>
-            </div>
-            <div class="form_rows">
-              <label>Tags </label>
-              <app-tag-multiselect
-                [availableTags]="profileEdit.member.availableTags"
-                [(ngModel)]="profileEdit.member.tags" [ngModelOptions]="{standalone: true}">
-              </app-tag-multiselect>
+              <div class="form__row">
+                <label>Tags </label>
+                <app-tag-multiselect
+                  [availableTags]="profileEdit.member.availableTags"
+                  [(ngModel)]="profileEdit.member.tags" [ngModelOptions]="{standalone: true}">
+                </app-tag-multiselect>
+              </div>
             </div>
           </div>
         </div>
