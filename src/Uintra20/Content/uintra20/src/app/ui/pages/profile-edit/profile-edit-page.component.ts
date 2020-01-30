@@ -37,6 +37,8 @@ export class ProfileEditPage implements OnInit {
       {
         firstName: new FormControl(this.profileEdit.member.firstName, Validators.required),
         lastName: new FormControl(this.profileEdit.member.lastName, Validators.required),
+        phone: new FormControl(this.profileEdit.member.phone),
+        department: new FormControl(this.profileEdit.member.department)
       }
     );
   }
