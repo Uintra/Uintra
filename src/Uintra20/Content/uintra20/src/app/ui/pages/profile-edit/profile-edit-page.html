@@ -10,10 +10,15 @@
         <div class="user-block">
           <div class="user-block__col _avatar">
             <div>Avatar</div>
-            <dropzone #dropdownRef
+            <div *ngIf="profileEdit.member.photo">
+              <img [src]="profileEdit.member.photo" style="width: 50px; height: 50px;">
+            </div>
+            <div *ngIf="!profileEdit.member.photo">
+              <dropzone #dropdownRef
                   (success)="handleUpload($event)"
                   (removedFile)="handleRemove($event)">
-        </dropzone>
+             </dropzone>
+            </div>
           </div>
           <div class="user-block__col form">
             <div class="form__col">
