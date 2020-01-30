@@ -31,6 +31,7 @@ export class PinActivityComponent implements OnInit {
       showClear: true,
       minDate: moment().format()
     };
+    this.pinDate = moment().format();
   }
 
   onDateChange() {
