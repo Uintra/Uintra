@@ -10,7 +10,6 @@ import { UserAvatarModule } from 'src/app/feature/project/reusable/ui-elements/u
 import { TagMultiselectModule } from 'src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.module';
 
 import { DropzoneModule, DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
-import 'quill-emoji/dist/quill-emoji';
 import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
 import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.const';
 import { SocialCreateComponent } from './sections/social-create/social-create.component';
@@ -23,6 +22,7 @@ import { DatepickerFromToModule } from 'src/app/feature/project/reusable/inputs/
 import { SqDatetimepickerModule } from 'ngx-eonasdan-datetimepicker';
 import { LocationPickerModule } from 'src/app/feature/project/reusable/ui-elements/location-picker/location-picker.module';
 import { NewsFormModule } from 'src/app/feature/project/specific/activity/news-form/news-form.module';
+import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
 
 // TODO: remove unusable modules
 @NgModule({
@@ -46,14 +46,14 @@ import { NewsFormModule } from 'src/app/feature/project/specific/activity/news-f
     SqDatetimepickerModule,
     RichTextEditorModule.configure({
       modules: {
-        'emoji-toolbar': true,
         counter: {
           maxLength: MAX_LENGTH
         }
       }
     }),
     LocationPickerModule,
-    NewsFormModule
+    NewsFormModule,
+    UlinkModule
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: ActivityCreatePanel },
