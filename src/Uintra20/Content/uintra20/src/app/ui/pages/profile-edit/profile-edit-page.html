@@ -21,7 +21,6 @@
             </div>
           </div>
           <div class="user-block__col form">
-            <div class="form__col">
               <div class="form__row">
                 <label for="firstName">First name </label>
                 <input formControlName="firstName" type="text" name="firstName" id="firstName" class="input"/>
@@ -30,12 +29,6 @@
                 <label for="lastName">Last name </label>
                 <input formControlName="lastName" type="text" name="lastName" id="lastName" class="input"/>
               </div>
-              <div class="form__row">
-                <label for="">Notification</label>
-                <input [checked]="profileEdit.member.memberNotifierSettings.emailNotifier" type="checkbox" (click)="handleUpdateNotificationSettings($event)">
-              </div>
-            </div>
-            <div class="form__col">
               <div class="form__row">
                 <label for="email">Email </label>
                 <div>{{profileEdit.member.email}}</div>
@@ -55,7 +48,10 @@
                   [(ngModel)]="profileEdit.member.tags" [ngModelOptions]="{standalone: true}">
                 </app-tag-multiselect>
               </div>
-            </div>
+              <div class="form__row">
+                <label for="">Notification</label>
+                <input [checked]="profileEdit.member.memberNotifierSettings.emailNotifier" type="checkbox" (click)="handleUpdateNotificationSettings($event)">
+              </div>
           </div>
         </div>
     </form>
