@@ -12,7 +12,7 @@ import { finalize } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class SocialEditPageComponent {
-
+  files = [];
   private data: any;
   public inProgress = false;
   public socialEdit: ISocialEdit;

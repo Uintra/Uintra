@@ -4,8 +4,10 @@
     <div class="form__row">
       <label for="desciption">Description</label>
       <app-rich-text-editor
+        [isEditing]="true"
         [(ngModel)]="socialEdit.description"
-        [isUnderline]="false"
+        [isUnderline]="true"
+        [isDropzone]="false"
         placeholder="Write a message, post a photo or share a document">
       </app-rich-text-editor>
     </div>
@@ -33,10 +35,10 @@
       </div>
     </div>
     <div class="form__row">
-      <dropzone #dropdownRef
+      <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
           (success)="handleUpload($event)"
           (removedFile)="handleRemove($event)">
-      </dropzone>
+      </app-dropzone-wrapper>
     </div>
     <div class="form__row-btns">
       <button class="button"

@@ -16,6 +16,88 @@
       background: @border-color;
     }
   }
+
+  app-tag-multiselect {
+    width: 100%;
+  }
+
+  .dropzone.dz-wrapper {
+    height: 60px;
+    width: 60px;
+    overflow: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100% !important;
+
+    @media @sm-up {
+      height: 90px;
+      width: 90px;
+    }
+
+    .dz-image {
+      height: 60px;
+      width: 60px;
+      border-radius: 100%;
+
+      @media @sm-up {
+        height: 90px;
+        width: 90px;
+      }
+    }
+
+    .custom-message::before {
+      display: none;
+    }
+
+    .dz-message {
+      margin: 0 !important;
+    }
+
+    .dz-text {
+      padding: 0 !important;
+    }
+
+    .dz-details {
+      padding: 0 !important;
+      bottom: 0;
+    }
+
+    .dz-remove {
+      position: absolute;
+      right: -15px;
+      top: -15px;
+      width: 31px;
+      height: 31px;
+      padding: 5px;
+      z-index: 999;
+      text-indent: -9999px;
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        right: 8px;
+        height: 2px;
+        background: #303030;
+        transform: rotate(45deg);
+        margin-top: -1px;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        right: 8px;
+        height: 2px;
+        background: #303030;
+        transform: rotate(-45deg);
+        margin-top: -1px;
+      }
+    }
+  }
 }
 
 .user-block {

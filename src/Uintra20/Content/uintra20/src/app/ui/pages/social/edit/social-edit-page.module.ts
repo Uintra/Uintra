@@ -5,11 +5,10 @@ import { UbaselineCoreModule, AS_DYNAMIC_COMPONENT } from '@ubaseline/next';
 import { RichTextEditorModule } from 'src/app/feature/project/reusable/inputs/rich-text-editor/rich-text-editor.module';
 import { TagMultiselectModule } from 'src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.module';
 import { FormsModule } from '@angular/forms';
-import { DropzoneModule, DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { SocialEditPageComponent } from './social-edit-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
-import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.const';
+import { DropzoneWrapperModule } from 'src/app/feature/project/reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
 
 @NgModule({
   declarations:
@@ -26,7 +25,7 @@ import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.co
       UbaselineCoreModule,
       TagMultiselectModule,
       FormsModule,
-      DropzoneModule,
+      DropzoneWrapperModule,
       HttpClientModule,
       RichTextEditorModule.configure({
         modules: {
@@ -38,11 +37,7 @@ import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.co
     ],
   providers:
     [
-      { provide: AS_DYNAMIC_COMPONENT, useValue: SocialEditPageComponent },
-      {
-        provide: DROPZONE_CONFIG,
-        useValue: DEFAULT_DROPZONE_CONFIG
-      }
+      { provide: AS_DYNAMIC_COMPONENT, useValue: SocialEditPageComponent }
     ],
   entryComponents:
     [

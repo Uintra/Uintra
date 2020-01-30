@@ -14,7 +14,7 @@ import { NotifierTypeEnum } from 'src/app/feature/shared/enums/notifier-type.enu
   encapsulation: ViewEncapsulation.None
 })
 export class ProfileEditPage implements OnInit {
-
+  files = [];
   private data: any;
   public profileEdit: IProfileEditPage;
   public profileEditForm: FormGroup;
