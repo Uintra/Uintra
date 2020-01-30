@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IDatePickerOptions } from 'src/app/feature/shared/interfaces/idatePickerOptions';
+import { IDatePickerOptions } from 'src/app/feature/shared/interfaces/DatePickerOptions';
 import * as moment from "moment";
 
 export interface IPinedData {
@@ -13,8 +13,9 @@ export interface IPinedData {
   styleUrls: ['./pin-activity.component.less']
 })
 export class PinActivityComponent implements OnInit {
-  @Input() isPinCheked: boolean;
-  @Output() dateChange = new EventEmitter<IPinedData>();
+  @Input() isPinCheked: boolean;;
+  @Output() handleChange = new EventEmitter<IPinedData>();
+
   options: IDatePickerOptions;
   pinDate = null;
   pinedDateValue: IPinedData = {
@@ -29,16 +30,17 @@ export class PinActivityComponent implements OnInit {
     this.pinedDateValue.isPinCheked = this.isPinCheked;
     this.options = {
       showClear: true,
-      minDate: moment().format()
+      minDate: moment()
     };
+    this.pinDate = moment();
   }
 
   onDateChange() {
     this.pinedDateValue.pinDate = this.pinDate ? this.pinDate.format() : "";
-    this.dateChange.emit(this.pinedDateValue);
+    this.handleChange.emit(this.pinedDateValue);
   }
   onAcceptedChange() {
     this.pinedDateValue.isPinCheked = this.isPinCheked;
-    this.dateChange.emit(this.pinedDateValue);
+    this.handleChange.emit(this.pinedDateValue);
   }
 }

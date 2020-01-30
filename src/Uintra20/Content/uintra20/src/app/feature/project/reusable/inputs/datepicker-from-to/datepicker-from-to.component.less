@@ -1,10 +1,13 @@
 @import "base.less";
+@import "src/styles/libs/datepicker/bootstrap.less";
 
 .subtitle {
   .subtitle();
 }
 .datepicker {
-  & ::ng-deep .udatepicker-input {
+  .bootstrap;
+
+  .udatepicker-input {
     .input;
   }
 }

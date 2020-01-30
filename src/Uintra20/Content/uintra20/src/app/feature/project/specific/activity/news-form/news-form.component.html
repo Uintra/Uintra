@@ -1,5 +1,5 @@
 <!--TODO HTML-->
-<section class="news-create-panel">
+<section class="news-create-panel" *ngIf="newsData">
   <h2 class="news-create-panel__title">News</h2>
   <div class="owner form-row">
     <h3 class="owner__title subtitle">Owner</h3>
@@ -8,6 +8,7 @@
   <div class="news-title form-row">
     <h3 class="news-title__title subtitle required">Title</h3>
     <text-input
+      [(ngModel)]="newsData.title"
       type="text"
       aria-label="Title"
       class="news-title__input"
@@ -16,6 +17,7 @@
   <div class="description form-row">
     <h3 class="description__title subtitle required">News description</h3>
     <app-rich-text-editor
+      [(ngModel)]="newsData.description"
       class="description__rte"
       [isEditing]="true"
       [isDropzone]="false"
@@ -28,21 +30,26 @@
     <app-tag-multiselect
       class="tags__multiselect"
       [availableTags]="tags"
+      [(ngModel)]="selectedTags"
     ></app-tag-multiselect>
   </div>
   <div class="form-row">
     <app-datepicker-from-to
-      (setValue)="setValue($event)"
+      (handleChange)="setDatePickerValue($event)"
     ></app-datepicker-from-to>
   </div>
   <div class="location form-row">
     <h3 class="location__title subtitle">Location</h3>
-    <app-location-picker (addressChanged)="handleAddressChanged($event)"></app-location-picker>
+    <app-location-picker
+      (handleChange)="setLocationValue($event)"
+    ></app-location-picker>
   </div>
+
   <app-pin-activity
-    [isPinCheked]="isPinCheked"
-    (dateChange)="editPinDate($event)"
+    [isPinCheked]="newsData.isPinned"
+    (handleChange)="setPinValue($event)"
   ></app-pin-activity>
+
   <div class="dropzone-holder form-row">
     <h3 class="dropzone-holder__title subtitle">File(s)</h3>
     <dropzone

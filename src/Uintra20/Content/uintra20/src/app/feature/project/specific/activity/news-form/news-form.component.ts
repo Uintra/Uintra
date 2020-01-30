@@ -1,88 +1,111 @@
-import { Component, OnInit, Input } from "@angular/core";
-import ParseHelper from "src/app/feature/shared/helpers/parse.helper";
-import { IActivityCreatePanel } from "src/app/ui/panels/activity-create/activity-create-panel.interface";
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation
+} from "@angular/core";
 import { IPinedData } from "../pin-activity/pin-activity.component";
 import { ISelectItem } from "../../../reusable/inputs/select/select.component";
-import { CreateActivityService } from "src/app/services/createActivity/create-activity.service";
-import { INewsForm } from "./news-form.interface";
+import { INewsCreateModel } from "../create-activity.interface";
+import { IDatepickerData } from "../../../reusable/inputs/datepicker-from-to/datepiker-from-to.interface";
+import { ITagData } from "../../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
+import { IOwner } from "src/app/feature/shared/interfaces/Owner";
 
 @Component({
   selector: "app-news-form",
   templateUrl: "./news-form.component.html",
-  styleUrls: ["./news-form.component.less"]
+  styleUrls: ["./news-form.component.less"],
+  encapsulation: ViewEncapsulation.None
 })
 export class NewsFormComponent implements OnInit {
-  @Input() data: IActivityCreatePanel;
-  panelData: any; //TODO create interface
+  @Input() data: INewsCreateModel;
 
+  @Input() members: Array<any>;
+  @Input() creator: IOwner;
+  @Input() tags: ITagData[];
+
+  @Output() handleSubmit = new EventEmitter();
+  @Output() handleCancel = new EventEmitter();
+
+  newsData: INewsCreateModel;
   files: Array<any> = [];
-  isPinCheked: boolean;
-  tags: any[];
+  selectedTags: ITagData[] = [];
+  isAccepted: boolean;
   owners: ISelectItem[];
   defaultOwner: ISelectItem;
-  pinDate: IPinedData;
 
-  newsForm: INewsForm;
-  location:string;
-
-  constructor(private newsCreateService: CreateActivityService) {}
+  constructor() {}
 
   ngOnInit() {
-    this.panelData = ParseHelper.parseUbaselineData(this.data);
-    this.tags = Object.values(this.panelData.tags.userTagCollection);
     this.owners = this.getOwners();
-    this.defaultOwner = this.owners.find(
-      x => x.id == this.panelData.creator.id
-    );
+    this.defaultOwner = this.owners.find(x => x.id === this.creator.id);
+    this.setInitialData();
   }
 
+  private setInitialData(): void {
+    this.newsData = {
+      ownerId: this.data.ownerId,
+      title: "",
+      description: "",
+      publishDate: null,
+      activityLocationEditModel: {}
+    };
+  }
+
+  // File functions
   onUploadSuccess(fileArray: Array<any> = []): void {
     this.files.push(fileArray);
   }
-
   onFileRemoved(removedFile: object) {
-    this.files = this.files.filter(file => {
-      const fileElement = file[0];
-      return fileElement !== removedFile;
-    });
+    this.files = this.files.filter(file => file[0] !== removedFile);
   }
 
-  setValue(value) {
-    // debugger;
+  // Set date functions
+  setDatePickerValue(value: IDatepickerData = {}) {
+    this.newsData.publishDate = value.from;
+    this.newsData.unpublishDate = value.to;
+  }
+  setPinValue(value: IPinedData) {
+    this.newsData.endPinDate = value.pinDate;
+    this.newsData.isPinned = value.isPinCheked;
+    this.isAccepted = value.isAccepted;
+  }
+  setLocationValue(value: string): void {
+    this.newsData.activityLocationEditModel.address = value;
   }
 
+  // Main submit function
   onSubmit() {
-    // const requestModel: INewsCreateModel = {
-    // };
-    // this.newsCreateService
-    //   .submitNewsContent({
-    //     //TODO Add model
-    //   });
+    this.newsDataBuilder();
+    this.handleSubmit.emit(this.newsData);
+  }
+  private newsDataBuilder(): void {
+    this.newsData.newMedia = this.getMediaIdsForResponse();
+    this.newsData.tagIdsData = this.getTagsForResponse();
   }
 
-  editPinDate(pinDate: IPinedData) {
-    this.pinDate = pinDate && pinDate.isPinCheked ? pinDate : null;
+  // TODO: move to service
+  private getTagsForResponse(): string[] {
+    return this.selectedTags.map(tag => tag.id);
   }
-
+  private getMediaIdsForResponse(): string {
+    return this.files.map(file => file[1]).join(";");
+  }
   private getOwners(): ISelectItem[] {
     return [
-      ...this.getMembers(),
+      ...this.getMembers(this.members),
       {
-        id: this.panelData.creator.id,
-        text: this.panelData.creator.displayedName
+        id: this.creator.id,
+        text: this.creator.displayedName
       }
     ];
   }
-
-  private getMembers(): ISelectItem[] {
-    const members = Object.values(this.panelData.members) as Array<any> || [];
-
+  private getMembers(members = []): ISelectItem[] {
     return members.map(member => ({
       id: member.id,
       text: member.displayedName
     }));
-  }
-  public handleAddressChanged(address): void {
-    this.location = address;
   }
 }

@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnInit, NgZone, OnDestroy } from '@angula
 import { ICentralFeedPanel } from './central-feed-panel.interface';
 import { UmbracoFlatPropertyModel, IUmbracoProperty } from '@ubaseline/next';
 import { PublicationsService} from './helpers/publications.service';
-import { CreateActivityService } from 'src/app/services/createActivity/create-activity.service';
+import { CreateActivityService } from 'src/app/feature/project/specific/activity/create-activity.service';
 import { SignalrService } from './helpers/signalr.service';
 
 // interface IFilterTab {

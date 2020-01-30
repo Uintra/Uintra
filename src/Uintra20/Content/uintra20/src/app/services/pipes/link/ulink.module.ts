@@ -6,6 +6,7 @@ import { ParamsPipe } from "./params.pipe";
 @NgModule({
   declarations: [LinkPipe, ParamsPipe],
   imports: [CommonModule],
-  exports: [LinkPipe, ParamsPipe]
+  exports: [LinkPipe, ParamsPipe],
+  providers:    [ LinkPipe, ParamsPipe ]
 })
 export class UlinkModule {}

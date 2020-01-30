@@ -13,7 +13,7 @@ import { GoogleGeolocationService } from './services/google-geolocation.service'
 export class LocationPickerComponent implements OnInit {
 
   address: string;
-  @Output() addressChanged = new EventEmitter<string>();
+  @Output() handleChange = new EventEmitter<string>();
 
   @ViewChild('search', { static: false })
   public searchElementRef: ElementRef;
@@ -43,7 +43,7 @@ export class LocationPickerComponent implements OnInit {
     this.googleGeolocationService.getAddress(latitude, longitude, r => {
       this.address = r;
 
-      this.addressChanged.emit(this.address);
+      this.handleChange.emit(this.address);
     });
   }
 
@@ -70,9 +70,17 @@ export class LocationPickerComponent implements OnInit {
             return;
           }
 
-          this.googleMapsModel.coordinates.latitude = place.geometry.location.lat();
-          this.googleMapsModel.coordinates.longitude = place.geometry.location.lng();
-          this.updateDefaultCoordinates(place.geometry.location.lat(), place.geometry.location.lng());
+          const lat = place.geometry.location.lat();
+          const lng = place.geometry.location.lng();
+
+          this.googleMapsModel.coordinates.latitude = lat;
+          this.googleMapsModel.coordinates.longitude = lng;
+          this.updateDefaultCoordinates(lat, lng);
+
+          this.googleGeolocationService.getAddress(lat, lng, r => {
+            this.address = r;
+            this.handleChange.emit(this.address);
+          });
         });
       });
     });
