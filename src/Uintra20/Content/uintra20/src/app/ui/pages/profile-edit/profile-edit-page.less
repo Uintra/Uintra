@@ -16,20 +16,29 @@
       background: @border-color;
     }
   }
+}
 
-  &__tags {
-    margin-left: 65px;
+.user-block {
+  ._avatar {
+    position: relative;
+  }
 
-    @media @sm-up {
-      margin-left: 110px;
-    }
+  .avatar {
+    border-radius: 50%;
+    background: #eee;
+  }
+
+  .avatar-remove {
+    position: absolute;
+    top: -13px;
+    right: -13px;
+    cursor: pointer;
+    padding: 5px;
   }
 }
 
 .form {
-  @media @lg-down {
-    display: block;
-  }
+  display: block;
 
   &__row {
     display: flex;

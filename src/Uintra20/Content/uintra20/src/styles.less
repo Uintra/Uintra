@@ -53,7 +53,10 @@ breadcrumb {
 
 .content {
   display: flex;
-  overflow: hidden;
+
+  @media @sm-up {
+    overflow: hidden;
+  }
 
   &__wrap {
     padding: 0;

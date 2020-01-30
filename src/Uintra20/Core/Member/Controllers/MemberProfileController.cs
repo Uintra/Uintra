@@ -47,7 +47,7 @@ namespace Uintra20.Core.Member.Controllers
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> Edit(ProfileEditModel model)
+        public async Task<IHttpActionResult> Edit([FromBody] ProfileEditModel model)
         {
             var newMedias = _mediaHelper.CreateMedia(model).ToArray();
 
@@ -64,11 +64,11 @@ namespace Uintra20.Core.Member.Controllers
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> UpdateNotifierSettings(NotifierTypeEnum type, bool isEnabled)
+        public async Task<IHttpActionResult> UpdateNotificationSettings([FromBody] ProfileEditNotificationSettings settings)
         {
             var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
 
-            await _memberNotifiersSettingsService.SetForMemberAsync(currentMember.Id, type, isEnabled);
+            await _memberNotifiersSettingsService.SetForMemberAsync(currentMember.Id, settings.NotifierTypeEnum, settings.IsEnabled);
 
             return Ok();
         }
