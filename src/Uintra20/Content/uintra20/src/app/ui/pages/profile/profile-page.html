@@ -14,7 +14,7 @@
         <div class="form__col">
           <div class="form__row">
             <h2>{{profile.member.firstName}} {{profile.member.lastName}}</h2>
-            <span class="user-role">role position</span>
+            <!-- <span class="user-role">role position</span> -->
           </div>
           <div class="form__row">
             <label>Department</label>
@@ -36,11 +36,11 @@
     </div>
 
     <div class="profile__row">
-      <button type="button" class="button button-default">Write message to {{profile.member.firstName}}</button>
+      <!-- <button type="button" class="button button-default">Write message to {{profile.member.firstName}}</button> -->
     </div>
 
     <div class="profile__desc">
-      Lorem ipsum dolor sit amet,sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat
+      
     </div>
 
     <div class="user-info">
@@ -48,29 +48,27 @@
         <div class="col-md-3">
           <label>Birthday:</label>
         </div>
-        <div class="col-md-9">Dec 21, 1995</div>
+        <div class="col-md-9"></div>
       </div>
       <div class="row-flex m-b">
         <div class="col-md-3">
           <label>Interested in:</label>
         </div>
-        <div class="col-md-9">Board games, fishing, crossfit, long walks on the beach</div>
+        <div class="col-md-9"></div>
       </div>
       <div class="row-flex m-b">
         <div class="col-md-3">
           <label>Work experience:</label>
         </div>
-        <div class="col-md-9">Project management, photoshop, Excel, Word, Visio</div>
+        <div class="col-md-9"></div>
       </div>
       <div class="row-flex m-b">
         <div class="col-md-3">
           <label>Tags subscription:</label>
         </div>
         <div class="col-md-9">
-          <ul class="tags">
-            <li class="tags__item">First assigned label</li>
-            <li class="tags__item">Second assigned label</li>
-            <li class="tags__item">Second assigned label</li>
+          <ul class="tags" *ngFor="let tag of profile.member.tags">
+          <li class="tags__item">{{tag.text}}</li>
           </ul>
         </div>
       </div>
