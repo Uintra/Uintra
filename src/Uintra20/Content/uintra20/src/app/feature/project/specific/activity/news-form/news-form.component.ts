@@ -8,10 +8,11 @@ import {
 } from "@angular/core";
 import { IPinedData } from "../pin-activity/pin-activity.component";
 import { ISelectItem } from "../../../reusable/inputs/select/select.component";
-import { INewsCreateModel } from "../create-activity.interface";
 import { IDatepickerData } from "../../../reusable/inputs/datepicker-from-to/datepiker-from-to.interface";
 import { ITagData } from "../../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { IOwner } from "src/app/feature/shared/interfaces/Owner";
+import { INewsForm } from "./news-form.interface";
+import { INewsCreateModel } from '../activity.interfaces';
 
 @Component({
   selector: "app-news-form",

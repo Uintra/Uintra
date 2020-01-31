@@ -28,7 +28,6 @@ import { QuillModule } from 'ngx-quill';
     SqDatetimepickerModule,
     RichTextEditorModule.configure({
       modules: {
-        'emoji-toolbar': true,
         counter: {
           maxLength: MAX_LENGTH
         }
