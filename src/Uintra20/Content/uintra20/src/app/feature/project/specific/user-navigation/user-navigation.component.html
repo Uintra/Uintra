@@ -21,6 +21,7 @@
         <span class="icon {{getClass(item.type)}}"></span>
         {{item.name}}
       </button>
+      <a *ngIf="item.type == 1" #umbracoLink href="umbraco" target="_blank" style="display: none;"></a>
       <a
         *ngIf="item.type == 2"
         class="menu__item-link"

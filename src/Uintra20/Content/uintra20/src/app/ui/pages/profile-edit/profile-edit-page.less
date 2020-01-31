@@ -1,5 +1,143 @@
 @import "base.less";
+@import "./../../../../styles/temp/profile.less";
 
-profile-edit-page {
+.profile {
+  &__header {
+    padding-bottom: 40px;
+    position: relative;
 
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: -10px;
+      right: -10px;
+      height: 1px;
+      background: @border-color;
+    }
+  }
+
+  app-tag-multiselect {
+    width: 100%;
+  }
+
+  .dropzone.dz-wrapper {
+    height: 60px;
+    width: 60px;
+    overflow: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100% !important;
+
+    @media @sm-up {
+      height: 90px;
+      width: 90px;
+    }
+
+    .dz-image {
+      height: 60px;
+      width: 60px;
+      border-radius: 100%;
+
+      @media @sm-up {
+        height: 90px;
+        width: 90px;
+      }
+    }
+
+    .custom-message::before {
+      display: none;
+    }
+
+    .dz-message {
+      margin: 0 !important;
+    }
+
+    .dz-text {
+      padding: 0 !important;
+    }
+
+    .dz-details {
+      padding: 0 !important;
+      bottom: 0;
+    }
+
+    .dz-remove {
+      position: absolute;
+      right: -15px;
+      top: -15px;
+      width: 31px;
+      height: 31px;
+      padding: 5px;
+      z-index: 999;
+      text-indent: -9999px;
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        right: 8px;
+        height: 2px;
+        background: #303030;
+        transform: rotate(45deg);
+        margin-top: -1px;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        right: 8px;
+        height: 2px;
+        background: #303030;
+        transform: rotate(-45deg);
+        margin-top: -1px;
+      }
+    }
+  }
+}
+
+.user-block {
+  ._avatar {
+    position: relative;
+  }
+
+  .avatar {
+    border-radius: 50%;
+    background: #eee;
+  }
+
+  .avatar-remove {
+    position: absolute;
+    top: -13px;
+    right: -13px;
+    cursor: pointer;
+    padding: 5px;
+  }
+}
+
+.form {
+  display: block;
+
+  &__row {
+    display: flex;
+    align-items: center;
+  }
+
+  label {
+    flex: 0 0 105px;
+    padding: 0 5px;
+
+    @media @sm-up {
+      flex: 0 0 120px;
+      padding: 0 10px 0 20px;
+    }
+  }
+
+  .input {
+    margin: 0;
+  }
 }

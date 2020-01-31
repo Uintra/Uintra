@@ -18,7 +18,6 @@ export class ProfilePage implements OnInit {
 
   public ngOnInit(): void {
     this.route.data.subscribe(data => this.data = data);
-
     this.onParse();
   }
 
@@ -32,6 +31,7 @@ export class ProfilePage implements OnInit {
         email: parsed.profile.email,
         phone: parsed.profile.phone,
         department: parsed.profile.department,
+        tags: Object.values(parsed.tags)
       },
       title: parsed.name
     };

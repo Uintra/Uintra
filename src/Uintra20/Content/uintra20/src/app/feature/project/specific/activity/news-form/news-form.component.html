@@ -55,13 +55,11 @@
 
   <div class="dropzone-holder form-row">
     <h3 class="dropzone-holder__title subtitle">File(s)</h3>
-    <dropzone
-      [ngClass]="{ 'files-loaded': files.length }"
-      #dropdownRef
-      message="<span class='custom-message icon-upload'>Insert image</span>"
+    <app-dropzone-wrapper
+      [filesLength]="files.length"
       (success)="onUploadSuccess($event)"
       (removedFile)="onFileRemoved($event)"
-    ></dropzone>
+    ></app-dropzone-wrapper>
   </div>
 
   <div class="form-row" *ngIf="isShowValidation">

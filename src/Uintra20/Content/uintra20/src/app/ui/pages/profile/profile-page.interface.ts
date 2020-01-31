@@ -1,3 +1,5 @@
+import { IUserTag } from '../social/details/social-details.interface';
+
 export interface IProfilePage {
     title: string;
     member: IMember;
@@ -9,4 +11,5 @@ export interface IMember {
     email: string;
     phone: string;
     department: string;
+    tags: Array<IUserTag>;
 }

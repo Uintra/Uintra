@@ -43,9 +43,9 @@ namespace Uintra20.Features.Navigation.Web
         [HttpGet]
         public virtual IEnumerable<SharedLinkApiViewModel> SystemLinks()
         {
-            var models = _nodeModelService.AsEnumerable().OfType<SharedLinkItemModel>();
+            var sharedLinks = _nodeModelService.AsEnumerable().OfType<SharedLinkItemModel>();
 
-            var result = models.Select(MapSharedLinkItemModel);
+            var result = sharedLinks.Select(MapSharedLinkItemModel).OrderBy(sl=>sl.Sort);
             return result;
         }
 

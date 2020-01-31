@@ -36,7 +36,7 @@ export class NewsFormComponent implements OnInit {
   owners: ISelectItem[];
   defaultOwner: ISelectItem;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     this.owners = this.getOwners();
@@ -80,8 +80,10 @@ export class NewsFormComponent implements OnInit {
     this.newsData.isPinned = value.isPinCheked;
     this.isAccepted = value.isAccepted;
   }
-  setLocationValue(value: string): void {
-    this.newsData.activityLocationEditModel.address = value;
+  setLocationValue(location: ILocationResult): void {
+    this.newsData.activityLocationEditModel.address = location.address;
+    this.newsData.activityLocationEditModel.shortAddress = location.shortAddress;
+    
   }
 
   // Main submit function

@@ -12,7 +12,7 @@ import { ISocialEdit } from 'src/app/feature/project/specific/activity/activity.
   encapsulation: ViewEncapsulation.None
 })
 export class SocialEditPageComponent {
-
+  files = [];
   private data: any;
   public inProgress = false;
   public socialEdit: ISocialEdit;
@@ -36,7 +36,7 @@ export class SocialEditPageComponent {
       availableTags: Object.values(parsedSocialEdit.availableTags),
       lightboxPreviewModel: {
         medias: Object.values(parsedSocialEdit.lightboxPreviewModel.medias),
-        otherFiles: Object.values(parsedSocialEdit.lightboxPreviewModel.medias),
+        otherFiles: Object.values(parsedSocialEdit.lightboxPreviewModel.otherFiles),
         filesToDisplay: parsedSocialEdit.lightboxPreviewModel.filesToDisplay,
         additionalImages: parsedSocialEdit.lightboxPreviewModel.additionalImages,
         hiddenImagesCount: parsedSocialEdit.lightboxPreviewModel.hiddenImagesCount
@@ -47,12 +47,20 @@ export class SocialEditPageComponent {
     };
   }
 
-  public handleUpload(fileArray: Array<any> = []): void {
-    console.log('uploaded');
+  public handleImageUpload(): void {
+
   }
 
-  public handleRemove(removedFile: object): void {
-    console.log('removed');
+  public handleImageRemove(image): void {
+    this.socialEdit.lightboxPreviewModel.medias = this.socialEdit.lightboxPreviewModel.medias.filter(m => m !== image);
+  }
+
+  public handleFileUpload(): void {
+
+  }
+
+  public handleFileRemove(file): void {
+    this.socialEdit.lightboxPreviewModel.otherFiles = this.socialEdit.lightboxPreviewModel.otherFiles.filter(m => m !== file);
   }
 
   public handleSocialUpdate(): void {
