@@ -106,7 +106,7 @@ export class ProfileEditPage implements OnInit {
   processAvatarUpload(fileArray: Array<any> = []): void {
     this.files.push(fileArray);
     this.isUploaded = true;
-    this.profileEdit.member.newMedia = fileArray[0].upload.uuid;
+    this.profileEdit.member.newMedia = fileArray[1];
   }
 
   processAvatarDelete() {
