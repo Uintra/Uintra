@@ -16,8 +16,7 @@ export class SocialEditPageComponent {
   private data: any;
   public inProgress = false;
   public socialEdit: ISocialEdit;
-  public uploadedImages: Array<object>;
-  public uploadedFiles: Array<object>;
+  public uploadedData: Array<any> = new Array<any>();
 
   constructor(
     private route: ActivatedRoute,
@@ -51,20 +50,20 @@ export class SocialEditPageComponent {
 
   public handleImageRemove(image): void {
     this.socialEdit.lightboxPreviewModel.medias =
-    this.socialEdit.lightboxPreviewModel.medias.filter(m => m !== image);
+      this.socialEdit.lightboxPreviewModel.medias.filter(m => m !== image);
   }
 
   public handleFileRemove(file): void {
     this.socialEdit.lightboxPreviewModel.otherFiles =
-    this.socialEdit.lightboxPreviewModel.otherFiles.filter(m => m !== file);
+      this.socialEdit.lightboxPreviewModel.otherFiles.filter(m => m !== file);
   }
 
-  public handleUpload(uploadObj): void {
-
+  public handleUpload(file: Array<object>): void {
+    this.uploadedData.push(file);
   }
 
-  public handleRemove(removeFile: object): void {
-    this.handleFileRemove(removeFile);
+  public handleRemove(file: object): void {
+    this.uploadedData = this.uploadedData.filter(d => d[0] !== file);
   }
 
   public handleSocialUpdate(): void {
