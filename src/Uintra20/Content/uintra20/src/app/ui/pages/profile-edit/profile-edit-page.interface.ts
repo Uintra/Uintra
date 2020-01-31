@@ -17,7 +17,13 @@ export interface IProfile {
     profileUrl: string;
     mediaRootId: string;
     newMedia: string;
-    memberNotifierSettings: string;
+    memberNotifierSettings: IMemberNotifierSettings;
     tags: Array<ITagData>;
     availableTags: Array<ITagData>;
+}
+export interface IMemberNotifierSettings {
+  uiNotifier: boolean;
+  desktopNotifier: boolean;
+  emailNotifier: string;
+  popupNotifier: boolean;
 }

@@ -114,4 +114,12 @@ export class ProfileEditPage implements OnInit {
     //   }
     // );
   }
+
+  // File functions
+  onUploadSuccess(fileArray: Array<any> = []): void {
+    this.files.push(fileArray);
+  }
+  onFileRemoved(removedFile: object) {
+    this.files = this.files.filter(file => file[0] !== removedFile);
+  }
 }
