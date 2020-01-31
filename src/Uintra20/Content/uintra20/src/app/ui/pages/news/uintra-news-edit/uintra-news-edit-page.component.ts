@@ -43,8 +43,8 @@ export class UintraNewsEditPage implements OnInit{
 
       isPinned: this.details.isPinned,
       location: {
-        address: this.details.this.details.address,
-        shortAddress:  this.details.this.details.shortAddress,
+        address: this.details.address,
+        shortAddress:  this.details.shortAddress,
       }
     }
   }

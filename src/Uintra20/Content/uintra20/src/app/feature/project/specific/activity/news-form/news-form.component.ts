@@ -57,7 +57,7 @@ export class NewsFormComponent implements OnInit {
       ownerId: this.data.ownerId,
       title: this.data.title || "",
       description: this.data.description || "",
-      publishDate: null,
+      publishDate: undefined,
       location: {
         address: (this.data.location && this.data.location.address) || null,
         shortAddress:
@@ -68,8 +68,8 @@ export class NewsFormComponent implements OnInit {
     };
 
     this.initialDates = {
-      from: this.data.publishDate || null,
-      to: this.data.unpublishDate || null
+      from: this.data.publishDate || undefined,
+      to: this.data.unpublishDate || undefined
     };
     this.initialLocation =
       (this.data.location && this.data.location.address) || null;

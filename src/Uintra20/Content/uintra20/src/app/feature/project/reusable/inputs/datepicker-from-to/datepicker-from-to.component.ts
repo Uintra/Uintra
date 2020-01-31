@@ -16,7 +16,8 @@ export class DatepickerFromToComponent implements OnInit {
   fromDate = null;
   toDate = null;
   optFrom: IDatePickerOptions = {
-    minDate: moment(),
+    // Set if it is create news
+    // minDate: moment(),
     showClear: true
   };
   optTo: IDatePickerOptions = {
