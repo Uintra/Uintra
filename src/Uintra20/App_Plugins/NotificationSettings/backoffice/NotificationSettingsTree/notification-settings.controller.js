@@ -72,7 +72,6 @@
             notificationSettingsService.getSettings(params.activityType, params.notificationType).then(
                 function (result) {
                     self.settings = result.data;
-                    console.log(self.settings);
                     if (self.settings.emailNotifierSetting !== null) {
                         self.selectEmailTab();
                         initEmailControlConfig();
