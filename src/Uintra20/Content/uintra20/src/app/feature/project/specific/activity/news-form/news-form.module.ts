@@ -11,7 +11,7 @@ import { LocationPickerModule } from "../../../reusable/ui-elements/location-pic
 import { DropzoneModule } from "ngx-dropzone-wrapper";
 import { PinActivityModule } from "../pin-activity/pin-activity.module";
 import { SqDatetimepickerModule } from 'ngx-eonasdan-datetimepicker';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 
 @NgModule({

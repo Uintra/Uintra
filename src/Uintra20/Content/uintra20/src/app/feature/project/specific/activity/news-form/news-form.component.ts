@@ -11,7 +11,6 @@ import { ISelectItem } from "../../../reusable/inputs/select/select.component";
 import { IDatepickerData } from "../../../reusable/inputs/datepicker-from-to/datepiker-from-to.interface";
 import { ITagData } from "../../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { IOwner } from "src/app/feature/shared/interfaces/Owner";
-import { INewsForm } from "./news-form.interface";
 import { INewsCreateModel } from '../activity.interfaces';
 
 @Component({
@@ -64,7 +63,7 @@ export class NewsFormComponent implements OnInit {
     this.files = this.files.filter(file => file[0] !== removedFile);
   }
 
-  // Set date functions
+  // Data set functions
   setDatePickerValue(value: IDatepickerData = {}) {
     this.newsData.publishDate = value.from;
     this.newsData.unpublishDate = value.to;
@@ -90,14 +89,14 @@ export class NewsFormComponent implements OnInit {
     }
   }
 
-  private newsDataBuilder(): void {
-    this.newsData.newMedia = this.getMediaIdsForResponse();
-    this.newsData.tagIdsData = this.getTagsForResponse();
-  }
-
   private validate(): boolean {
     const pinValid = this.newsData.isPinned ? this.isAccepted : true;
     return this.newsData.title && this.newsData.description && pinValid;
+  }
+
+  private newsDataBuilder(): void {
+    this.newsData.newMedia = this.getMediaIdsForResponse();
+    this.newsData.tagIdsData = this.getTagsForResponse();
   }
 
   // TODO: move to service
