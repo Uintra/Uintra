@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ISocialDetails } from '../../activity.interfaces';
+import { ISocialDetails, ILocation } from '../../activity.interfaces';
 
 @Component({
   selector: 'app-detailas-header',
@@ -9,10 +9,16 @@ import { ISocialDetails } from '../../activity.interfaces';
 export class DetailasHeaderComponent implements OnInit {
   @Input() details: ISocialDetails;
   @Input() activityName: string;
+  @Input() location?: ILocation;
+
+  googleMapUrl: string;
 
   constructor() { }
 
   ngOnInit() {
+    if (this.location && this.location.address) {
+      this.googleMapUrl = `http://maps.google.co.uk/maps?q=${this.location.address}`;
+    }
   }
 
 }

@@ -11,8 +11,7 @@ import { ISelectItem } from "../../../reusable/inputs/select/select.component";
 import { IDatepickerData } from "../../../reusable/inputs/datepicker-from-to/datepiker-from-to.interface";
 import { ITagData } from "../../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { INewsCreateModel, IOwner } from "../activity.interfaces";
-import { ILocationResult } from '../../../reusable/ui-elements/location-picker/location-picker.interface';
-import * as moment from "moment";
+import { ILocationResult } from "../../../reusable/ui-elements/location-picker/location-picker.interface";
 
 @Component({
   selector: "app-news-form",
@@ -41,8 +40,9 @@ export class NewsFormComponent implements OnInit {
     from: string;
     to: string;
   };
+  initialLocation: string;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.owners = this.getOwners();
@@ -53,15 +53,16 @@ export class NewsFormComponent implements OnInit {
   }
 
   private setInitialData(): void {
-
     this.newsData = {
       ownerId: this.data.ownerId,
       title: this.data.title || "",
       description: this.data.description || "",
       publishDate: null,
-      location: {},
-      // newMedia: this.data.media
-
+      location: {
+        address: (this.data.location && this.data.location.address) || null,
+        shortAddress:
+          (this.data.location && this.data.location.shortAddress) || null
+      },
       endPinDate: this.data.endPinDate || null,
       isPinned: this.data.isPinned || false
     };
@@ -69,7 +70,9 @@ export class NewsFormComponent implements OnInit {
     this.initialDates = {
       from: this.data.publishDate || null,
       to: this.data.unpublishDate || null
-    }
+    };
+    this.initialLocation =
+      (this.data.location && this.data.location.address) || null;
   }
 
   // File functions
@@ -93,7 +96,6 @@ export class NewsFormComponent implements OnInit {
   setLocationValue(location: ILocationResult): void {
     this.newsData.location.address = location.address;
     this.newsData.location.shortAddress = location.shortAddress;
-
   }
 
   // Main submit function

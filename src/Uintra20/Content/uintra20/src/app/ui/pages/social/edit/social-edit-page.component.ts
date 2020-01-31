@@ -59,7 +59,7 @@ export class SocialEditPageComponent {
     this.socialEdit.lightboxPreviewModel.medias = this.socialEdit.lightboxPreviewModel.medias.filter(m => m !== image);
   }
 
-  public handleFileUpload(): void {
+  public handleFileUpload(e): void {
 
   }
 

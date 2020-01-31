@@ -41,11 +41,11 @@ export class UintraNewsEditPage implements OnInit{
       // mediaRootId: number;
       // tagIdsData?: string[];
 
-      isPinned: this.details.isPinned
-      // activityLocationEditModel?: {
-      //   address?: string;
-      //   shortAddress?: string;
-      // };
+      isPinned: this.details.isPinned,
+      location: {
+        address: this.details.this.details.address,
+        shortAddress:  this.details.this.details.shortAddress,
+      }
     }
   }
 

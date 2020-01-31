@@ -58,6 +58,11 @@ export interface ISocialDetails {
   isReadOnly: boolean;
   publishDate: Date;
   links: IActivityLinks;
+  location: ILocation;
+}
+export interface ILocation {
+  address: string;
+  shortAddress: string;
 }
 export interface IHeaderInfo {
   activityId: string;

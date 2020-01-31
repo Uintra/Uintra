@@ -1,5 +1,5 @@
 
-import { Component, ViewChild, OnInit, ElementRef, NgZone, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, OnInit, ElementRef, NgZone, Output, EventEmitter, Input } from '@angular/core';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { GOOGLE_MAPS_CONFIG } from 'src/app/constants/maps/google-maps.const';
 import { IGoogleMapsModel, ICoordinates } from './location-picker.interface';
@@ -11,6 +11,7 @@ import { GoogleGeolocationService } from './services/google-geolocation.service'
   styleUrls: ['./location-picker.component.less']
 })
 export class LocationPickerComponent implements OnInit {
+  @Input() initialValues: string;
 
   address: string;
   @Output() handleChange = new EventEmitter<string>();
@@ -29,6 +30,8 @@ export class LocationPickerComponent implements OnInit {
   public ngOnInit(): void {
     this.onInit();
     this.setupInputListener();
+
+    // TODO: set initial value
   }
 
   public handleMapClicked($event: MouseEvent): void {
