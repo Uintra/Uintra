@@ -1,7 +1,7 @@
 @import "base.less";
 @import "./../../../../styles/temp/profile.less";
 
-.profile {
+.profile--edit {
   &__header {
     padding-bottom: 40px;
     position: relative;
@@ -39,10 +39,17 @@
       height: 60px;
       width: 60px;
       border-radius: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       @media @sm-up {
         height: 90px;
         width: 90px;
+      }
+
+      img {
+        width: 100%;
       }
     }
 
@@ -98,46 +105,50 @@
       }
     }
   }
-}
 
-.user-block {
-  ._avatar {
-    position: relative;
-  }
+  .user-block {
+    ._avatar {
+      position: relative;
+    }
 
-  .avatar {
-    border-radius: 50%;
-    background: #eee;
-  }
+    .avatar {
+      border-radius: 50%;
+      background: #eee;
+    }
 
-  .avatar-remove {
-    position: absolute;
-    top: -13px;
-    right: -13px;
-    cursor: pointer;
-    padding: 5px;
-  }
-}
-
-.form {
-  display: block !important;
-
-  &__row {
-    display: flex;
-    align-items: center;
-  }
-
-  label {
-    flex: 0 0 105px;
-    padding: 0 5px;
-
-    @media @sm-up {
-      flex: 0 0 120px;
-      padding: 0 10px 0 20px;
+    .avatar-remove {
+      position: absolute;
+      top: -13px;
+      right: -13px;
+      cursor: pointer;
+      padding: 5px;
     }
   }
 
-  .input {
-    margin: 0;
+  .form {
+    display: block !important;
+
+    &__row {
+      display: flex;
+      align-items: center;
+    }
+
+    label {
+      flex: 0 0 105px;
+      padding: 0 5px;
+
+      @media @sm-up {
+        flex: 0 0 120px;
+        padding: 0 10px 0 20px;
+      }
+    }
+
+    .checkbox-input {
+      padding: 0;
+    }
+
+    .input {
+      margin: 0;
+    }
   }
 }

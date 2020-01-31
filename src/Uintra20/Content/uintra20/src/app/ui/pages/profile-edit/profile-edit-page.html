@@ -1,4 +1,4 @@
-<section class="profile">
+<section class="profile profile--edit">
     <div class="profile__header">
       <h2 class="profile__title">{{profileEdit.title}}</h2>
       <div class="profile__btns">
@@ -51,8 +51,8 @@
               </div>
               <div class="form__row">
                 <label for="">Notification</label>
-                <checkbox-input 
-                  [isChecked]="profileEdit.member.memberNotifierSettings.emailNotifier" 
+                <checkbox-input
+                  [isChecked]="profileEdit.member.memberNotifierSettings.emailNotifier"
                   (click)="handleUpdateNotificationSettings($event)">
               </checkbox-input>
               </div>
