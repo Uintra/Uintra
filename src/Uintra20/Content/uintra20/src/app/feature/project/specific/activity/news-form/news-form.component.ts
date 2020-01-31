@@ -11,6 +11,7 @@ import { ISelectItem } from "../../../reusable/inputs/select/select.component";
 import { IDatepickerData } from "../../../reusable/inputs/datepicker-from-to/datepiker-from-to.interface";
 import { ITagData } from "../../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { INewsCreateModel, IOwner } from "../activity.interfaces";
+import { ILocationResult } from '../../../reusable/ui-elements/location-picker/location-picker.interface';
 
 @Component({
   selector: "app-news-form",
