@@ -80,6 +80,8 @@
 
     &__footer {
         display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
         align-items: center;
 
         &-item {
@@ -103,11 +105,13 @@
                 color: @link-color;
             }
         }
+
+      &-left-block {
+        display: flex;
+      }
     }
 
     &__files {
-        margin-left: auto;
-
         .icon-attachment {
             font-size: 1.6em;
             line-height: 15px;
