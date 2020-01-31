@@ -13,6 +13,7 @@ export class DesktopNotificationService {
     from(notificationsForDesktop)
       .pipe(zip(interval(1000), a => a))
       .subscribe(notification => {
+        debugger
         this.createDesktopNotifications(notification);
       });
   }
@@ -21,12 +22,13 @@ export class DesktopNotificationService {
     const avatar =
       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDFBMDYyNzUxMzZCMTFFOTk5NDJENkNBN0M1NDVGQTAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDFBMDYyNzYxMzZCMTFFOTk5NDJENkNBN0M1NDVGQTAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowMUEwNjI3MzEzNkIxMUU5OTk0MkQ2Q0E3QzU0NUZBMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowMUEwNjI3NDEzNkIxMUU5OTk0MkQ2Q0E3QzU0NUZBMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pk3TRCkAAAFHSURBVHja7JfZaoRAEEXLBUSRuIAbPor//zs++WKQEXFJK6jgkpQwZMGgaeI0DBaIIjT30H1raW5ZlgQAXoBNEO4DYAGGwSMFQ33CA+O4AC4AkXZhXdfrM00TOI4Dqqo+DiBJEsjzHO4lhBACtm2D7/vnH0Hbtt/EMXAXbrcbDMPwGICfxZPjuPXdNA1bE87zzBbgvhOnAvzWu1AcvXA6gCRJm/9RXNO08wFM09wUMgwDZFk+HwCNZlkW8PznUkEQwHVdKhPiQPJ2ZCKqqgrKslxTDYW2UhFBFEUBz/OOVkayC4BnG8fxKnxkeEIQBNR1HYIg2MsMIu45Pooi6Pv+T1mCokVRrN9hGNJ7AMtr13V0TUYU1x6RZRk9QJqmVMXla2DfoO6G2OHGcaSGQC+gKf8lC66p+AJ4WgDml1OsA68s0/BdgAEAmjaocUhguUgAAAAASUVORK5CYII=";
     const _this = this;
+    debugger
 
     const objParam = {
       body: notification.Value.desktopMessage,
       icon: avatar,
       requireInteraction: true,
-      timeout: 10000
+      timeout: 5000
     };
 
     this.navNotificationsService
@@ -36,6 +38,10 @@ export class DesktopNotificationService {
       notification.Value.desktopTitle,
       objParam
     );
+
+    setTimeout(() => {
+      newDeskNotification.close();
+    }, 5000);
 
     newDeskNotification.onclick = function() {
       const pushWindow = this;
