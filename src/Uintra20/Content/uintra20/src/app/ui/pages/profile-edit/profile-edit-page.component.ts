@@ -94,6 +94,7 @@ export class ProfileEditPage implements OnInit {
   }
 
   public handleUpdateNotificationSettings($event): void {
+    $event.preventDefault();
     if (confirm('Are you sure')) {
       this.profileService.updateNotificationSettings({
         notifierTypeEnum: NotifierTypeEnum[NotifierTypeEnum.EmailNotifier],
@@ -102,24 +103,19 @@ export class ProfileEditPage implements OnInit {
     }
   }
 
-  public handleAvatarUpload($event): void {
-    this.isUploaded = true;
-    this.profileEdit.member.newMedia = $event[0].upload.uuid;
-  }
-
-  public handleAvatarDelete(): void {
-    // this.profileService.deletePhoto(this.profileEdit.member.photoId).subscribe(
-    //   () => {
-        this.profileEdit.member.photo = null;
-    //   }
-    // );
-  }
-
-  // File functions
-  onUploadSuccess(fileArray: Array<any> = []): void {
+  processAvatarUpload(fileArray: Array<any> = []): void {
     this.files.push(fileArray);
+    this.isUploaded = true;
+    this.profileEdit.member.newMedia = fileArray[0].upload.uuid;
   }
-  onFileRemoved(removedFile: object) {
-    this.files = this.files.filter(file => file[0] !== removedFile);
+
+  processAvatarDelete() {
+    this.profileService.deletePhoto(this.profileEdit.member.photoId)
+      .subscribe(
+        () => {
+          this.files = [];
+          this.profileEdit.member.photo = null;
+        }
+      );
   }
 }
