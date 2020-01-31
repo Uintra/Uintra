@@ -1,0 +1,27 @@
+<div class="header">
+  <!-- TODO: move a to user-avatar component, remove hardcode -->
+  <app-user-avatar
+    class="header__avatar"
+    [routerLink]="['/profile']"
+    [queryParams]="{ id: details.id }"
+    [photo]="details.headerInfo.owner.photo"
+    [name]="details.headerInfo.owner.displayedName"
+  ></app-user-avatar>
+
+  <div class="details">
+    <div class="details-item">
+      <!-- TODO: get from details.links -->
+      <a
+        [routerLink]="['/profile']"
+        [queryParams]="{ id: details.id }"
+        class="details-item__name"
+      >
+        <span>{{ details.headerInfo.owner.displayedName }}</span>
+      </a>
+      <span class="details-item__date">
+        - {{ details.headerInfo.dates[0] }} -
+      </span>
+      <span class="details-item__category">{{ activityName }}</span>
+    </div>
+  </div>
+</div>

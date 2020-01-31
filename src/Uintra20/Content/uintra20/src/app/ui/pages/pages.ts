@@ -40,6 +40,13 @@ export const pages = [
   {
     id: 'uintraNewsEditPage',
     path: '__dynamic__',
-    loadChildren: './ui/pages/uintra-news-edit/uintra-news-edit-page.module#UintraNewsEditPageModule'
+    loadChildren: './ui/pages/news/uintra-news-edit/uintra-news-edit-page.module#UintraNewsEditPageModule'
+  },
+  {
+    id: 'uintraNewsDetailsPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/news/uintra-news-details/uintra-news-details-page.module#UintraNewsDetailsPageModule'
   },
 ];
+
+

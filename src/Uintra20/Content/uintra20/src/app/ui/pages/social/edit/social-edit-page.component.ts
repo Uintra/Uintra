@@ -28,7 +28,6 @@ export class SocialEditPageComponent {
 
   private onParse = (): void => {
     const parsedSocialEdit = ParseHelper.parseUbaselineData(this.data);
-    debugger
     // TODO: Imvestigate about parsing ubaseline data
     this.socialEdit = {
       ownerId: parsedSocialEdit.ownerId,

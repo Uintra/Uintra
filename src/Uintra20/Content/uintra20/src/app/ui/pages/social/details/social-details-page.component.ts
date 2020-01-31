@@ -39,6 +39,7 @@ export class SocialDetailsPanelComponent implements OnInit {
       entityId: parsedData.details.id,
       entityType: parsedData.details.activityType
     };
+
     this.activityName = ParseHelper.parseActivityType(this.details.activityType);
     this.tags = Object.values(parsedData.tags);
     this.medias = Object.values(parsedData.details.lightboxPreviewModel.medias);
