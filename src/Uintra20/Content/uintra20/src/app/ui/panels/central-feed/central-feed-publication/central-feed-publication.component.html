@@ -38,27 +38,30 @@
 
     <div class="gallery" [ngClass]="'items-' + countToDisplay">
       <div
-        *ngFor="let image of medias | slice: 0:3; index as i"
+        *ngFor="let image of medias | slice: 0:countToDisplay; index as i"
         class="gallery__image"
         (click)="openGallery(i)"
-        [ngStyle]="{ backgroundImage: 'url(' + image.url + ')' }"
+        [ngStyle]="{ backgroundImage: 'url(' + image.previewUrl + ')' }"
       ></div>
       <div class="gallery__counter" *ngIf="additionalImages">+ {{ additionalImages }}</div>
     </div>
     <div class="publication__footer">
-      <app-like-button [likeData]="likeData"></app-like-button>
-      <a
-        class="publication__comment publication__footer-item"
-        [routerLink]="publication.activity.links?.details.baseUrl | ulink"
-        [queryParams]="publication.activity.links?.details.params | uparams"
-      >
-        <i class="icon-comment"></i>
-        {{ commentsCount }}
-      </a>
-      <button class="publication__share publication__footer-item">
-        <i class="icon-share-icon"></i>
-        Anbefal
-      </button>
+      <div class="publication__footer-left-block">
+        <app-like-button [likeData]="likeData"></app-like-button>
+        <a
+          class="publication__comment publication__footer-item"
+          [routerLink]="publication.activity.links?.details.baseUrl | ulink"
+          [queryParams]="publication.activity.links?.details.params | uparams"
+        >
+          <i class="icon-comment"></i>
+          {{ commentsCount }}
+        </a>
+        <button class="publication__share publication__footer-item">
+          <i class="icon-share-icon"></i>
+          Anbefal
+        </button>
+      </div>
+
 
       <a
         class="publication__files publication__footer-item"

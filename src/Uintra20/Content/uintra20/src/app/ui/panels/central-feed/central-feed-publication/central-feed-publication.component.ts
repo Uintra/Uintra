@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, HostListener } from '@angular/core';
 import { ILikeData } from '../../../../feature/project/reusable/ui-elements/like-button/like-button.interface';
 import { Router} from '@angular/router';
 import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-elements/image-gallery/image-gallery.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IMedia, IDocument } from 'src/app/ui/pages/social/details/social-details.interface';
+import { MqService } from 'src/app/services/general/mq.service';
 
 @Component({
   selector: 'app-central-feed-publication',
@@ -12,7 +13,13 @@ import { IMedia, IDocument } from 'src/app/ui/pages/social/details/social-detail
 })
 export class CentralFeedPublicationComponent implements OnInit {
   @Input() publication;
-  mediaCount: any;
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    this.deviceWidth = window.innerWidth;
+    this.countToDisplay = this.medias.length > 2 ? this.getItemsCountToDisplay() : this.medias.length;
+    this.additionalImages = this.medias.length - this.countToDisplay;
+  }
+  deviceWidth: number;
   documentsCount: any;
   additionalImages: number;
   countToDisplay: number;
@@ -29,16 +36,16 @@ export class CentralFeedPublicationComponent implements OnInit {
   constructor(
     private imageGalleryService: ImageGalleryService,
     private router: Router,
-    private sanitizer: DomSanitizer) { }
+    private sanitizer: DomSanitizer,
+    private mq: MqService) { }
 
   ngOnInit(): void {
     this.publication.activity.description = this.sanitizer.bypassSecurityTrustHtml(this.publication.activity.description);
-    this.countToDisplay = this.publication.activity.mediaPreview.hiddenImagesCount - this.publication.activity.mediaPreview.additionalImages;
     this.medias = Object.values(this.publication.activity.mediaPreview.medias);
-    this.mediaCount = this.medias.length;
+    this.countToDisplay = this.medias.length > 2 ? this.getItemsCountToDisplay() : this.medias.length;
+    this.additionalImages = this.medias.length - this.countToDisplay;
     this.documents = Object.values(this.publication.activity.mediaPreview.otherFiles);
     this.documentsCount = this.documents.length;
-    this.additionalImages = this.publication.activity.mediaPreview.additionalImages;
     this.likeData = {
       likedByCurrentUser: this.publication.activity.likedByCurrentUser,
       id: this.publication.activity.id,
@@ -48,7 +55,7 @@ export class CentralFeedPublicationComponent implements OnInit {
   }
 
   public openGallery(i) {
-    const items = this.mediaCount.map(el => ({
+    const items = this.medias.map(el => ({
       src: el.url,
       w: el.width,
       h: el.height,
@@ -68,5 +75,13 @@ export class CentralFeedPublicationComponent implements OnInit {
     if (!e.target.href) {
       this.router.navigate(['/social-details'], { queryParams: { id: this.publication.activity.id } });
     }
+  }
+
+  getItemsCountToDisplay() {
+    if (!this.mq.isTablet(this.deviceWidth)) {
+      return 2;
+    }
+
+    return 3;
   }
 }
