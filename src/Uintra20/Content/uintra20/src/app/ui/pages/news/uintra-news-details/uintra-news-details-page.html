@@ -13,12 +13,12 @@
         >
       </div>
       <div class="feed-item">
-        <app-post-header
+        <app-detailas-header
           class="feed-item__header"
           [details]="details"
           [activityName]="activityName"
-        >
-        </app-post-header>
+        ></app-detailas-header>
+
         <div class="feed-item__title" [innerHtml]="detailsTitle"></div>
         <div class="feed-item__text" [innerHtml]="detailsDescription"></div>
         <div class="feed-item-tags" *ngIf="tags.length !== 0">

@@ -3,7 +3,7 @@ import { ILikeData } from '../../../../feature/project/reusable/ui-elements/like
 import { Router} from '@angular/router';
 import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-elements/image-gallery/image-gallery.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { IMedia, IDocument } from 'src/app/ui/pages/social/details/social-details.interface';
+import { IMedia, IDocument } from 'src/app/feature/project/specific/activity/activity.interfaces';
 
 @Component({
   selector: 'app-central-feed-publication',

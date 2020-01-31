@@ -5,12 +5,7 @@ import { ICommentData } from "src/app/feature/project/reusable/ui-elements/comme
 import { SafeHtml, DomSanitizer } from "@angular/platform-browser";
 import { ImageGalleryService } from "src/app/feature/project/reusable/ui-elements/image-gallery/image-gallery.service";
 import ParseHelper from "src/app/feature/shared/helpers/parse.helper";
-import {
-  ISocialDetails,
-  IMedia,
-  IDocument
-} from "./uintra-news-details-page.interface";
-import { IUserTag } from "../../social/details/social-details.interface";
+import { ISocialDetails, IUserTag, IMedia, IDocument } from 'src/app/feature/project/specific/activity/activity.interfaces';
 
 @Component({
   selector: "uintra-news-details-page",

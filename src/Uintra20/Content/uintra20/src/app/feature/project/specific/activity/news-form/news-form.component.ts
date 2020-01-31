@@ -10,8 +10,7 @@ import { IPinedData } from "../pin-activity/pin-activity.component";
 import { ISelectItem } from "../../../reusable/inputs/select/select.component";
 import { IDatepickerData } from "../../../reusable/inputs/datepicker-from-to/datepiker-from-to.interface";
 import { ITagData } from "../../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
-import { IOwner } from "src/app/feature/shared/interfaces/Owner";
-import { INewsCreateModel } from '../activity.interfaces';
+import { INewsCreateModel, IOwner } from "../activity.interfaces";
 
 @Component({
   selector: "app-news-form",
