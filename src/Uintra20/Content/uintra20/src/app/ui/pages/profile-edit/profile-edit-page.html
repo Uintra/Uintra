@@ -17,7 +17,7 @@
             <div *ngIf="isUploaded || !profileEdit.member.photo">
               <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
                 (success)="processAvatarUpload($event)"
-                (removedFile)="processAvatarDelete($event)">
+                (removedFile)="processAvatarDelete()">
               </app-dropzone-wrapper>
             </div>
           </div>
