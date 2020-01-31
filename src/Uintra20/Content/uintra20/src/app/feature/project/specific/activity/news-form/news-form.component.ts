@@ -29,6 +29,7 @@ export class NewsFormComponent implements OnInit {
   @Output() handleSubmit = new EventEmitter();
   @Output() handleCancel = new EventEmitter();
 
+  isShowValidation: boolean;
   newsData: INewsCreateModel;
   files: Array<any> = [];
   selectedTags: ITagData[] = [];
@@ -78,12 +79,24 @@ export class NewsFormComponent implements OnInit {
 
   // Main submit function
   onSubmit() {
-    this.newsDataBuilder();
-    this.handleSubmit.emit(this.newsData);
+    this.isShowValidation = true;
+
+    if (this.validate()) {
+      this.newsDataBuilder();
+      this.handleSubmit.emit(this.newsData);
+    } else {
+      // TODO: scroll to invalid input
+    }
   }
+
   private newsDataBuilder(): void {
     this.newsData.newMedia = this.getMediaIdsForResponse();
     this.newsData.tagIdsData = this.getTagsForResponse();
+  }
+
+  private validate(): boolean {
+    const pinValid = this.newsData.isPinned ? this.isAccepted : true;
+    return this.newsData.title && this.newsData.description && pinValid;
   }
 
   // TODO: move to service

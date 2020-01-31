@@ -8,16 +8,18 @@
   <div class="news-title form-row">
     <h3 class="news-title__title subtitle required">Title</h3>
     <text-input
-      [(ngModel)]="newsData.title"
+    [(ngModel)]="newsData.title"
       type="text"
       aria-label="Title"
       class="news-title__input"
+      [ngClass]="{'invalid': isShowValidation && !newsData.title}"
     ></text-input>
   </div>
   <div class="description form-row">
     <h3 class="description__title subtitle required">News description</h3>
     <app-rich-text-editor
-      [(ngModel)]="newsData.description"
+    [(ngModel)]="newsData.description"
+    [ngClass]="{'invalid': isShowValidation && !newsData.description}"
       class="description__rte"
       [isEditing]="true"
       [isDropzone]="false"
@@ -60,6 +62,26 @@
       (removedFile)="onFileRemoved($event)"
     ></dropzone>
   </div>
+
+  <div class="form-row" *ngIf="isShowValidation">
+    <div *ngIf="!newsData.title"
+        class="alert alert-danger">
+        A title is required
+    </div>
+
+    <div *ngIf="!newsData.description"
+        class="alert alert-danger">
+        A description is required
+    </div>
+
+    <div *ngIf="newsData.isPinned && !isAccepted"
+        class="alert alert-danger">
+        Accept should be checked
+    </div>
+  </div>
+
+
+
   <div class="buttons">
     <button class="buttons__submit" (click)="onSubmit()">Submit</button>
     <button class="buttons__cancel">Cancel</button>
