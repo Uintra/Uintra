@@ -2,14 +2,19 @@
   <div class="col-md-8">
     <div class="bulletin-details-content">
       <div class="feed-header">
-        <!-- TODO: get from details.links -->
-        <a [routerLink]="['/']" class="feed-header__back-link">Go to List</a>
-        <!-- TODO: get from details.links -->
         <a
-          [routerLink]="['/social-edit']"
-          [queryParams]="{id: details.id}"
+          [routerLink]="data.details.get().links.get().feed.get().baseUrl | ulink"
+          [queryParams]="data.details.get().links.get().feed.get().params | uparams"
+          class="feed-header__back-link"
+          >Go to List</a
+        >
+
+        <a
+        [routerLink]="data.details.get().links.get().edit.get().baseUrl | ulink"
+          [queryParams]="data.details.get().links.get().edit.get().params | uparams"
           class="feed-header__edit-link"
           >Edit</a
+
         >
       </div>
       <div class="feed-item">

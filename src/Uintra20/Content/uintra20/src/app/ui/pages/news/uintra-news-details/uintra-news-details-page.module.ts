@@ -8,6 +8,7 @@ import { LikeButtonModule } from "src/app/feature/project/reusable/ui-elements/l
 import { UserAvatarModule } from "src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar.module";
 import { CommentsModule } from "src/app/feature/project/reusable/ui-elements/comments/comments.module";
 import { DetailasHeaderModule } from "src/app/feature/project/specific/activity/details/detailas-header/detailas-header.module";
+import { UlinkModule } from "src/app/services/pipes/link/ulink.module";
 
 @NgModule({
   declarations: [UintraNewsDetailsPage],
@@ -18,7 +19,8 @@ import { DetailasHeaderModule } from "src/app/feature/project/specific/activity/
     LikeButtonModule,
     UserAvatarModule,
     CommentsModule,
-    DetailasHeaderModule
+    DetailasHeaderModule,
+    UlinkModule
   ],
   providers: [],
   entryComponents: [UintraNewsDetailsPage]

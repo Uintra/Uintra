@@ -1,1 +1,14 @@
-<ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
+<!-- <app-news-form
+  [data]="newsData"
+  [members]="members"
+  [creator]="creator"
+  [tags]="tags"
+  (handleSubmit)="onSubmit($event)"
+></app-news-form>
+ -->
+
+<app-news-form
+  [data]="newsData"
+  [members]="members"
+  (handleSubmit)="onSubmit($event)"
+></app-news-form>

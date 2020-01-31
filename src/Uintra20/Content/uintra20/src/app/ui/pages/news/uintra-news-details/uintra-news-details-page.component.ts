@@ -14,6 +14,7 @@ import { ISocialDetails, IUserTag, IMedia, IDocument } from 'src/app/feature/pro
   encapsulation: ViewEncapsulation.None
 })
 export class UintraNewsDetailsPage implements OnInit {
+  parsedData: any;
   data: any;
   details: ISocialDetails;
   tags: Array<IUserTag>;
@@ -33,27 +34,28 @@ export class UintraNewsDetailsPage implements OnInit {
   }
 
   public ngOnInit(): void {
-    const parsedData = ParseHelper.parseUbaselineData(this.data);
-    this.details = parsedData.details;
+    this.parsedData = ParseHelper.parseUbaselineData(this.data);
+
+    this.details = this.parsedData.details;
     this.commentDetails = {
-      entityId: parsedData.details.id,
-      entityType: parsedData.details.activityType
+      entityId: this.parsedData.details.id,
+      entityType: this.parsedData.details.activityType
     };
     this.activityName = ParseHelper.parseActivityType(
       this.details.activityType
     );
 
-    this.tags = Object.values(parsedData.tags);
-    this.medias = Object.values(parsedData.details.lightboxPreviewModel.medias);
+    this.tags = Object.values(this.parsedData.tags);
+    this.medias = Object.values(this.parsedData.details.lightboxPreviewModel.medias);
     this.documents = Object.values(
-      parsedData.details.lightboxPreviewModel.otherFiles
+      this.parsedData.details.lightboxPreviewModel.otherFiles
     );
 
     this.likeData = {
-      likedByCurrentUser: !!parsedData.likedByCurrentUser,
-      id: parsedData.details.id,
-      activityType: parsedData.details.activityType,
-      likes: Object.values(parsedData.likes)
+      likedByCurrentUser: !!this.parsedData.likedByCurrentUser,
+      id: this.parsedData.details.id,
+      activityType: this.parsedData.details.activityType,
+      likes: Object.values(this.parsedData.likes)
     };
 
     this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(

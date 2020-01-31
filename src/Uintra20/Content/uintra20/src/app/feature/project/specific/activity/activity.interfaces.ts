@@ -57,6 +57,7 @@ export interface ISocialDetails {
   isPinned: boolean;
   isReadOnly: boolean;
   publishDate: Date;
+  links: IActivityLinks;
 }
 export interface IHeaderInfo {
   activityId: string;
@@ -91,3 +92,22 @@ export interface ISocialAttachment {
 
 export interface IMedia extends ISocialAttachment {}
 export interface IDocument extends ISocialAttachment {}
+
+
+
+// TODO: maybe global interfaces
+interface IActivityLinks {
+  details: IULink;
+  edit: IULink;
+  feed: IULink;
+  overview: IULink;
+  create: IULink;
+  owner: IULink;
+  detailsNoId: IULink;
+}
+
+interface IULink {
+  originalUrl: string;
+  baseUrl: string;
+  params: Array<{ name: string; value: string; }>;
+}

@@ -40,17 +40,25 @@ export class NewsFormComponent implements OnInit {
 
   ngOnInit() {
     this.owners = this.getOwners();
-    this.defaultOwner = this.owners.find(x => x.id === this.creator.id);
+    this.defaultOwner = this.creator
+      ? this.owners.find(x => x.id === this.creator.id)
+      : null;
     this.setInitialData();
   }
 
   private setInitialData(): void {
+
     this.newsData = {
       ownerId: this.data.ownerId,
-      title: "",
-      description: "",
-      publishDate: null,
-      activityLocationEditModel: {}
+      title: this.data.title || "",
+      description: this.data.description || "",
+      publishDate: this.data.publishDate || null,
+      activityLocationEditModel: {},
+      // newMedia: this.data.media
+
+      unpublishDate: this.data.unpublishDate || null,
+      endPinDate: this.data.endPinDate || null,
+      isPinned: this.data.isPinned || null
     };
   }
 
@@ -106,13 +114,16 @@ export class NewsFormComponent implements OnInit {
     return this.files.map(file => file[1]).join(";");
   }
   private getOwners(): ISelectItem[] {
-    return [
-      ...this.getMembers(this.members),
-      {
+    const owners = this.getMembers(this.members);
+
+    if (this.creator) {
+      owners.push({
         id: this.creator.id,
         text: this.creator.displayedName
-      }
-    ];
+      });
+    }
+
+    return owners;
   }
   private getMembers(members = []): ISelectItem[] {
     return members.map(member => ({
