@@ -37,7 +37,7 @@
   </div>
   <div class="form-row">
     <app-datepicker-from-to
-      [initialValues]="{from: newsData.publishDate, to: newsData.unpublishDate}"
+      [initialValues]="initialDates"
       (handleChange)="setDatePickerValue($event)"
     ></app-datepicker-from-to>
   </div>

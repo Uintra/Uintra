@@ -21,7 +21,7 @@ export interface INewsCreateModel {
   tagIdsData?: string[];
 
   isPinned?: boolean;
-  activityLocationEditModel?: {
+  location?: {
     address?: string;
     shortAddress?: string;
   };

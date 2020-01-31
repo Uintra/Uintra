@@ -12,6 +12,7 @@ import { IDatepickerData } from "../../../reusable/inputs/datepicker-from-to/dat
 import { ITagData } from "../../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { INewsCreateModel, IOwner } from "../activity.interfaces";
 import { ILocationResult } from '../../../reusable/ui-elements/location-picker/location-picker.interface';
+import * as moment from "moment";
 
 @Component({
   selector: "app-news-form",
@@ -36,6 +37,10 @@ export class NewsFormComponent implements OnInit {
   isAccepted: boolean;
   owners: ISelectItem[];
   defaultOwner: ISelectItem;
+  initialDates: {
+    from: string;
+    to: string;
+  };
 
   constructor() { }
 
@@ -53,14 +58,18 @@ export class NewsFormComponent implements OnInit {
       ownerId: this.data.ownerId,
       title: this.data.title || "",
       description: this.data.description || "",
-      publishDate: this.data.publishDate || null,
-      activityLocationEditModel: {},
+      publishDate: null,
+      location: {},
       // newMedia: this.data.media
 
-      unpublishDate: this.data.unpublishDate || null,
       endPinDate: this.data.endPinDate || null,
-      isPinned: this.data.isPinned || null
+      isPinned: this.data.isPinned || false
     };
+
+    this.initialDates = {
+      from: this.data.publishDate || null,
+      to: this.data.unpublishDate || null
+    }
   }
 
   // File functions
@@ -82,9 +91,9 @@ export class NewsFormComponent implements OnInit {
     this.isAccepted = value.isAccepted;
   }
   setLocationValue(location: ILocationResult): void {
-    this.newsData.activityLocationEditModel.address = location.address;
-    this.newsData.activityLocationEditModel.shortAddress = location.shortAddress;
-    
+    this.newsData.location.address = location.address;
+    this.newsData.location.shortAddress = location.shortAddress;
+
   }
 
   // Main submit function

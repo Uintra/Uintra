@@ -27,8 +27,8 @@ export class DatepickerFromToComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.initialValues) {
-      this.fromDate = moment(this.initialValues.from);
-      this.toDate = moment(this.initialValues.to);
+      this.fromDate = this.initialValues.from ? moment(this.initialValues.from) : moment();
+      this.toDate = this.initialValues.to && moment(this.initialValues.to);
     } else {
       this.fromDate = moment();
     }
