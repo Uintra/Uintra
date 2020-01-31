@@ -40,10 +40,9 @@ export class LocationPickerComponent implements OnInit {
       longitude,
     };
     this.updateDefaultCoordinates(latitude, longitude);
-    this.googleGeolocationService.getAddress(latitude, longitude, r => {
-      this.address = r;
-
-      this.handleChange.emit(this.address);
+    this.googleGeolocationService.getAddress(latitude, longitude, result => {
+      this.address = result.address;
+      this.handleChange.emit(result);
     });
   }
 
@@ -77,8 +76,8 @@ export class LocationPickerComponent implements OnInit {
           this.googleMapsModel.coordinates.longitude = lng;
           this.updateDefaultCoordinates(lat, lng);
 
-          this.googleGeolocationService.getAddress(lat, lng, r => {
-            this.address = r;
+          this.googleGeolocationService.getAddress(lat, lng, result => {
+            this.address = result;
             this.handleChange.emit(this.address);
           });
         });

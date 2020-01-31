@@ -17,7 +17,10 @@ export class GoogleGeolocationService {
         }
       }, (results = [], status) => {
         if (status === 'OK' && results.length) {
-          callback(results[0].formatted_address);
+          callback({
+            address: results[0].formatted_address,
+            shortAddress: results[0].address_components[2].long_name
+          });
         }
       });
   }
