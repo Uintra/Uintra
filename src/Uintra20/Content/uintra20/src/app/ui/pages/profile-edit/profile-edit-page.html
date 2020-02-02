@@ -1,4 +1,4 @@
-<section class="profile">
+<section class="profile profile--edit">
     <div class="profile__header">
       <h2 class="profile__title">{{profileEdit.title}}</h2>
       <div class="profile__btns">
@@ -11,13 +11,13 @@
           <div class="user-block__col _avatar">
 
             <div *ngIf="profileEdit.member.photo">
-              <span class="icon-close avatar-remove" (click)="handleAvatarDelete()"></span>
+              <span class="icon-close avatar-remove" (click)="processAvatarDelete()"></span>
               <img [src]="profileEdit.member.photo" class="avatar">
             </div>
             <div *ngIf="isUploaded || !profileEdit.member.photo">
               <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
-                (success)="onUploadSuccess($event)"
-                (removedFile)="onFileRemoved($event)">
+                (success)="processAvatarUpload($event)"
+                (removedFile)="processAvatarDelete()">
               </app-dropzone-wrapper>
             </div>
           </div>
@@ -51,7 +51,10 @@
               </div>
               <div class="form__row">
                 <label for="">Notification</label>
-                <input [checked]="profileEdit.member.memberNotifierSettings.emailNotifier" type="checkbox" (click)="handleUpdateNotificationSettings($event)">
+                <checkbox-input
+                  [isChecked]="profileEdit.member.memberNotifierSettings.emailNotifier"
+                  (click)="handleUpdateNotificationSettings($event)">
+              </checkbox-input>
               </div>
           </div>
         </div>
