@@ -1,7 +1,21 @@
+@import "base.less";
 @import "./styles/link.less";
 
 :host {
   display: block;
+}
+
+.navigation-wrapper {
+  position: fixed;
+  display: block;
+  height: calc(100vh - @header-height);
+
+  @media @sm-up {
+    height: calc(100vh - @header-height-md);
+  }
+}
+
+.navigation-content {
   padding: 50px 32px 0 0;
   font-size: 16px;
   line-height: 22px;
