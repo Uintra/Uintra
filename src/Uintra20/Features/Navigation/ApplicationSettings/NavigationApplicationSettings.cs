@@ -4,8 +4,8 @@ namespace Uintra20.Features.Navigation.ApplicationSettings
 {
     public class NavigationApplicationSettings : ConfigurationSection, INavigationApplicationSettings
     {
-        private const string MyLinksBulletinsTitleLengthKey = "MyLinks.BulletinsTitleLength";
+        private const string MyLinksActivityTitleLengthKey = "MyLinks.ActivityTitleLength";
 
-        public int MyLinksBulletinsTitleLength => int.Parse(ConfigurationManager.AppSettings[MyLinksBulletinsTitleLengthKey]);
+        public int MyLinksActivityTitleLength => int.Parse(ConfigurationManager.AppSettings[MyLinksActivityTitleLengthKey]);
     }
 }
