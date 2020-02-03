@@ -86,15 +86,15 @@ namespace Uintra20.Features.Navigation
 
             var contents = _nodeModelService.GetByIds(links.Select(el => el.ContentId));
 
-            var models = await Task.WhenAll(links.Join(contents,
+            var models = links.Join(contents,
                 link => link.ContentId,
                 content => content.Id,
-                async (link, content) => new MyLinkItemModel
+                (link, content) => new MyLinkItemModel
                 {
                     Id = link.Id,
-                    Name = link.ActivityId.HasValue ? await GetLinkNameAsync(link.ActivityId.Value) : GetNavigationName(content),
+                    Name = link.ActivityId.HasValue ? GetLinkName(link.ActivityId.Value) : GetNavigationName(content),
                     Url = GetUrl(link, content)
-                }));
+                });
 
             return models.Distinct(_myLinkItemModelComparer);
         }
@@ -150,7 +150,7 @@ namespace Uintra20.Features.Navigation
 
             if (activity.Type is IntranetActivityTypeEnum.Social)
             {
-                var lengthForPreview = _navigationApplicationSettings.MyLinksBulletinsTitleLength;
+                var lengthForPreview = _navigationApplicationSettings.MyLinksActivityTitleLength;
                 var description = activity.Description.StripHtml();
                 return description.Length > lengthForPreview ? description.Substring(0, lengthForPreview) + "..." : description;
             }

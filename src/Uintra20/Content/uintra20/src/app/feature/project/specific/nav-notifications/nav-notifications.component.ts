@@ -55,6 +55,10 @@ export class NavNotificationsComponent implements OnInit {
     }
   }
 
+  handleClick() {
+    this.hide();
+  }
+
   private setNotificationCount(count: number) {
     this.ngNotificationZone.run(() => {
       this.notificationCount = count;

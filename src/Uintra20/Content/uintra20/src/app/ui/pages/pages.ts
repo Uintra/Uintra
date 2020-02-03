@@ -35,7 +35,8 @@ export const pages = [
   {
     id: 'profileEditPage',
     path: '__dynamic__',
-    loadChildren: './ui/pages/profile-edit/profile-edit-page.module#ProfileEditPageModule'
+    loadChildren: './ui/pages/profile-edit/profile-edit-page.module#ProfileEditPageModule',
+    cache: false
   },
   {
     id: 'uintraNewsEditPage',

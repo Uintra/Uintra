@@ -6,11 +6,13 @@ using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Models.Headers;
+using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Strategies.ImageResize;
 using Uintra20.Features.News.Models;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
@@ -29,6 +31,7 @@ namespace Uintra20.Features.News.Converters
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IUserTagService _userTagService;
         private readonly IUserTagProvider _userTagProvider;
+        private readonly ILightboxHelper _lightboxHelper;
 
         public UintraNewsEditPageViewModelConverter(
             IPermissionsService permissionsService,
@@ -36,7 +39,8 @@ namespace Uintra20.Features.News.Converters
             INewsService<Entities.News> newsService,
             IIntranetMemberService<IntranetMember> memberService, 
             IUserTagService userTagService, 
-            IUserTagProvider userTagProvider)
+            IUserTagProvider userTagProvider, 
+            ILightboxHelper lightboxHelper)
         {
             _permissionsService = permissionsService;
             _feedLinkService = feedLinkService;
@@ -44,6 +48,7 @@ namespace Uintra20.Features.News.Converters
             _memberService = memberService;
             _userTagService = userTagService;
             _userTagProvider = userTagProvider;
+            _lightboxHelper = lightboxHelper;
         }
         public void Map(UintraNewsEditPageModel node, UintraNewsEditPageViewModel viewModel)
         {
@@ -86,6 +91,7 @@ namespace Uintra20.Features.News.Converters
             details.HeaderInfo.Links = _feedLinkService.GetLinks(activityId);
             details.Tags = _userTagService.Get(news.Id);
             details.AvailableTags = _userTagProvider.GetAll();
+            details.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(news.MediaIds, RenderStrategies.ForActivityDetails);
 
             return details;
         }

@@ -16,6 +16,7 @@ export class SocialEditPageComponent {
   private data: any;
   public inProgress = false;
   public socialEdit: ISocialEdit;
+  public uploadedData: Array<any> = new Array<any>();
 
   constructor(
     private route: ActivatedRoute,
@@ -43,34 +44,47 @@ export class SocialEditPageComponent {
       },
       id: parsedSocialEdit.id,
       name: parsedSocialEdit.name,
-      tagIdsData: new Array<string>()
+      tagIdsData: new Array<string>(),
+      newMedia: null,
+      media: null
     };
   }
 
-  public handleImageUpload(): void {
-
-  }
-
   public handleImageRemove(image): void {
-    this.socialEdit.lightboxPreviewModel.medias = this.socialEdit.lightboxPreviewModel.medias.filter(m => m !== image);
-  }
-
-  public handleFileUpload(e): void {
-
+    this.socialEdit.lightboxPreviewModel.medias =
+      this.socialEdit.lightboxPreviewModel.medias.filter(m => m !== image);
   }
 
   public handleFileRemove(file): void {
-    this.socialEdit.lightboxPreviewModel.otherFiles = this.socialEdit.lightboxPreviewModel.otherFiles.filter(m => m !== file);
+    this.socialEdit.lightboxPreviewModel.otherFiles =
+      this.socialEdit.lightboxPreviewModel.otherFiles.filter(m => m !== file);
+  }
+
+  public handleUpload(file: Array<object>): void {
+    this.uploadedData.push(file);
+  }
+
+  public handleRemove(file: object): void {
+    this.uploadedData = this.uploadedData.filter(d => d[0] !== file);
   }
 
   public handleSocialUpdate(): void {
+    this.socialEdit.media = '';
+
+    const otherFilesIds = this.socialEdit.lightboxPreviewModel.otherFiles
+      .map(m => m.id);
+    const mediaIds = this.socialEdit.lightboxPreviewModel.medias
+      .map(m => m.id);
+
+    this.socialEdit.media = otherFilesIds.concat(mediaIds).join(';');
+    this.socialEdit.newMedia = this.uploadedData.map(u => u[1]).join(';');
     this.socialEdit.tagIdsData = this.socialEdit.tags.map(t => t.id);
     this.inProgress = true;
     this.socialService.updateSocial(this.socialEdit)
       .pipe(finalize(() => this.inProgress = false))
       .subscribe(
         (next) => {
-          const route = `social-details?id=${this.socialEdit.id}`; // TODO Fix after adding linkService on backend
+          const route = 'social-details?id=' + this.socialEdit.id; // TODO Fix after adding linkService on backend
 
           this.router.navigate([route]);
         },

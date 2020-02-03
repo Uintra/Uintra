@@ -15,7 +15,7 @@ namespace Uintra20.Features.Navigation.Web
         private readonly INavigationModelsBuilder _navigationModelsBuilder;
         private readonly INodeModelService _nodeModelService;
 
-        public IntranetNavigationController(INavigationModelsBuilder navigationModelsBuilder, 
+        public IntranetNavigationController(INavigationModelsBuilder navigationModelsBuilder,
             INodeModelService nodeModelService)
         {
             _navigationModelsBuilder = navigationModelsBuilder;
@@ -43,9 +43,9 @@ namespace Uintra20.Features.Navigation.Web
         [HttpGet]
         public virtual IEnumerable<SharedLinkApiViewModel> SystemLinks()
         {
-            var sharedLinks = _nodeModelService.AsEnumerable().OfType<SharedLinkItemModel>();
+            var sharedLinks = _nodeModelService.AsEnumerable().OfType<SharedLinkItemModel>().Where(sl => sl.Links.Value != null);
 
-            var result = sharedLinks.Select(MapSharedLinkItemModel).OrderBy(sl=>sl.Sort);
+            var result = sharedLinks.Select(MapSharedLinkItemModel).OrderBy(sl => sl.Sort);
             return result;
         }
 

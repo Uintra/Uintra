@@ -1,9 +1,8 @@
-﻿using Compent.Shared.Extensions.Bcl;
+﻿using AutoMapper;
+using Compent.Shared.Extensions.Bcl;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -56,10 +55,9 @@ namespace Uintra20.Features.Social.Controllers
         }
 
         [HttpPost]
-        public async Task<HttpResponseMessage> CreateExtended(SocialExtendedCreateModel model)
+        public async Task<IHttpActionResult> CreateExtended(SocialExtendedCreateModel model)
         {
-            if (!ModelState.IsValid)
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            if (!ModelState.IsValid) return BadRequest();
 
             var result = new SocialCreationResultModel();
 
@@ -71,7 +69,7 @@ namespace Uintra20.Features.Social.Controllers
             result.Id = createdBulletinId;
             result.IsSuccess = true;
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return Ok();
         }
 
         [HttpPut]
@@ -122,8 +120,9 @@ namespace Uintra20.Features.Social.Controllers
         {
             var social = _socialService.Get(socialEditModel.Id);
 
+            social = Mapper.Map(socialEditModel, social);
+
             social.MediaIds = social.MediaIds.Concat(_mediaHelper.CreateMedia(socialEditModel));
-            social.Description = socialEditModel.Description;
 
             return social;
         }
@@ -175,11 +174,11 @@ namespace Uintra20.Features.Social.Controllers
                 _activityTagsHelper.ReplaceTags(social.Id, extendedModel.TagIdsData);
             }
 
-            if (string.IsNullOrEmpty(model.Description))
+            if (model.Description.HasValue())
             {
-                return;
+                ResolveMentions(model.Description, social);
             }
-            ResolveMentions(model.Description, social);
+            
             ReloadFeed();
         }
 
@@ -198,11 +197,11 @@ namespace Uintra20.Features.Social.Controllers
                 await _activityTagsHelper.ReplaceTagsAsync(social.Id, extendedModel.TagIdsData);
             }
 
-            if (string.IsNullOrEmpty(model.Description))
+            if (model.Description.HasValue())
             {
-                return;
+                await ResolveMentionsAsync(model.Description, social);
             }
-            await ResolveMentionsAsync(model.Description, social);
+            
             ReloadFeed();
         }
 

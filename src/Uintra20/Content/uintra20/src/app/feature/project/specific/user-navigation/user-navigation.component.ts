@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -16,7 +16,6 @@ export enum IconType {
   styleUrls: ['./user-navigation.component.less']
 })
 export class UserNavigationComponent implements OnInit {
-  @ViewChild('umbracoLink', {static: false}) umbracoLinkRef: ElementRef;
   public inProgress: boolean;
   data: any;
   navigationExpanded: boolean;
@@ -56,7 +55,9 @@ export class UserNavigationComponent implements OnInit {
       this.http.post(url.originalUrl, null).pipe(
         finalize(() => this.inProgress = false)
       ).subscribe(
-        (next) => { this.umbracoLinkRef.nativeElement.click() },
+        (next) => {
+          window.open(window.location.origin + "/umbraco", "_blank");
+        },
         (error) => {
           if (error.status === 403) {
             console.error(error.message);
