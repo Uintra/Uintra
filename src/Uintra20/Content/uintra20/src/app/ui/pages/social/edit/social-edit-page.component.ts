@@ -44,7 +44,8 @@ export class SocialEditPageComponent {
       },
       id: parsedSocialEdit.id,
       name: parsedSocialEdit.name,
-      tagIdsData: new Array<string>()
+      tagIdsData: new Array<string>(),
+      newMedia: null
     };
   }
 
@@ -67,6 +68,7 @@ export class SocialEditPageComponent {
   }
 
   public handleSocialUpdate(): void {
+    this.socialEdit.newMedia = this.uploadedData.map(u => u[1]).join(';');
     this.socialEdit.tagIdsData = this.socialEdit.tags.map(t => t.id);
     this.inProgress = true;
     this.socialService.updateSocial(this.socialEdit)

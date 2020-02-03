@@ -37,6 +37,7 @@ export interface ISocialEdit {
   id: string;
   name: string;
   tagIdsData: Array<string>;
+  newMedia: string;
 }
 
 export interface ILightBoxPreviewModel {
