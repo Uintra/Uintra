@@ -1,7 +1,8 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
-import { INewsCreateModel } from 'src/app/feature/project/specific/activity/activity.interfaces';
+import { INewsCreateModel, IOwner } from 'src/app/feature/project/specific/activity/activity.interfaces';
+import { ITagData } from 'src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.interface';
 
 @Component({
   selector: 'uintra-news-edit-page',
@@ -15,7 +16,9 @@ export class UintraNewsEditPage implements OnInit{
   newsData: INewsCreateModel;
   panelData: any;
   details: any;
-  members: any;
+  members: IOwner[];
+  creator: IOwner;
+  tags: ITagData[];
 
   constructor(
     private route: ActivatedRoute
@@ -26,7 +29,9 @@ export class UintraNewsEditPage implements OnInit{
   ngOnInit(): void {
     this.panelData = ParseHelper.parseUbaselineData(this.data);
     this.details = this.panelData.details;
-    this.members = (Object.values(this.data.members) as Array<any>) || [];
+    this.members = (Object.values(this.panelData.members) as Array<any>) || [];
+    this.creator = this.details.headerInfo.owner;
+    this.tags = Object.values(this.details.availableTags) || [];
 
     this.newsData = {
       ownerId: this.details.ownerId,

@@ -46,6 +46,7 @@ export class NewsFormComponent implements OnInit {
 
   ngOnInit() {
     this.owners = this.getOwners();
+
     this.defaultOwner = this.creator
       ? this.owners.find(x => x.id === this.creator.id)
       : null;
@@ -64,7 +65,8 @@ export class NewsFormComponent implements OnInit {
           (this.data.location && this.data.location.shortAddress) || null
       },
       endPinDate: this.data.endPinDate || null,
-      isPinned: this.data.isPinned || false
+      isPinned: this.data.isPinned || false,
+      media: this.data.media || null
     };
 
     this.initialDates = {
@@ -73,6 +75,10 @@ export class NewsFormComponent implements OnInit {
     };
     this.initialLocation =
       (this.data.location && this.data.location.address) || null;
+
+    if (this.newsData.isPinned) {
+      this.isAccepted = true;
+    }
   }
 
   // File functions
@@ -81,6 +87,12 @@ export class NewsFormComponent implements OnInit {
   }
   onFileRemoved(removedFile: object) {
     this.files = this.files.filter(file => file[0] !== removedFile);
+  }
+  handleImageRemove(image) {
+    debugger;
+  }
+  handleFileRemove(file) {
+    debugger;
   }
 
   // Data set functions
@@ -129,7 +141,6 @@ export class NewsFormComponent implements OnInit {
   }
   private getOwners(): ISelectItem[] {
     const owners = this.getMembers(this.members);
-
     if (this.creator) {
       owners.push({
         id: this.creator.id,

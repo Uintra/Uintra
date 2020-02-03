@@ -51,10 +51,6 @@ export class SocialEditPageComponent {
 
   }
 
-  // TODO: fix it
-  handleUpload(e) {}
-  handleRemove(e) {}
-
   public handleImageRemove(image): void {
     this.socialEdit.lightboxPreviewModel.medias = this.socialEdit.lightboxPreviewModel.medias.filter(m => m !== image);
   }
