@@ -11,14 +11,15 @@ import { INavigationItem, INavigationData } from "./left-navigation.interface";
 export class LeftNavigationService {
   readonly api = "ubaseline/api/IntranetNavigation";
   readonly openingStateProperty = "nav-opening-state";
-  openingState: object;
+  openingState: object = {};
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
     this.updateOpeningState();
   }
 
   setOpeningState(item: INavigationItem) {
-    this.openingState[item.id] = !item.isActive;
+    this.openingState = { ...this.openingState, [item.id]: !item.isSelected };
+
     this.cookieService.set(this.openingStateProperty, JSON.stringify(this.openingState));
     this.updateOpeningState();
   }

@@ -16,6 +16,7 @@ export interface IMyLink {
 export class MyLinksService {
   readonly api = "ubaseline/api/MyLinks";
   readonly sortStateProperty = "nav-my-links-state";
+  readonly openStateProperty = "nav-my-links-open";
 
   sortState: Array<string>;
 
@@ -39,6 +40,15 @@ export class MyLinksService {
     return this.http
       .delete<Array<IMyLink>>(this.api + `/Remove?id=${id}`)
       .pipe(map(links => this.sortLinks(links)));
+  }
+
+  setOpenState(openState: boolean = false): void {
+    this.cookieService.set(this.openStateProperty, openState.toString());
+  }
+
+  getOpenState(): boolean {
+    const cookieData = this.cookieService.get(this.openStateProperty);
+    return cookieData === "true";
   }
 
   private sortLinks(links: Array<IMyLink>): Array<IMyLink> {
