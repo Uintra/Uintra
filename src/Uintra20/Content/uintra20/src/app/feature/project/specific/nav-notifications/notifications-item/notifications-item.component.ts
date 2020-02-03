@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { INotificationsData, NavNotificationsService } from '../nav-notifications.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { INotificationsData, NavNotificationsService } from '../nav-notification
 export class NotificationsItemComponent implements OnInit {
   @Input() notification: INotificationsData;
   @Input() link: string;
+  @Output() handleClick = new EventEmitter();
 
   get notificationUrlParams() {
     const params = this.notification.value.url.params;
@@ -29,6 +30,7 @@ export class NotificationsItemComponent implements OnInit {
   }
 
   onMarkAsViewed() {
+    this.handleClick.emit();
     this.navNotificationsService.markAsViewed(this.notification.id).subscribe(r => {
       this.notification.isViewed = true;
     });

@@ -17,6 +17,7 @@
 
     <ng-container *ngIf="notifications">
       <app-notifications-item
+      (handleClick)="handleClick()"
         [notification]="notification"
         *ngFor="let notification of notifications"
       ></app-notifications-item>
