@@ -28,14 +28,18 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")))
                 .ForMember(dst => dst.LikesInfo, o => o.Ignore())
+                .ForMember(dst => dst.LightboxPreviewModel, o => o.Ignore())
                 .ForMember(dst => dst.CommentsInfo, o => o.Ignore())
-                .ForMember(dst => dst.LightboxPreviewModel, o => o.Ignore());
+                .ForMember(dst => dst.Tags, o => o.Ignore())
+                .ForMember(dst => dst.AvailableTags, o => o.Ignore());
 
             CreateMap<Entities.News, NewsViewModel>()
                 .IncludeBase<NewsBase, NewsViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
-                .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
+                .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el))
+                .ForMember(dst => dst.Tags, o => o.Ignore())
+                .ForMember(dst => dst.AvailableTags, o => o.Ignore());
 
 
             //CreateMap<Entities.News, NewsExtendedItemViewModel>()
