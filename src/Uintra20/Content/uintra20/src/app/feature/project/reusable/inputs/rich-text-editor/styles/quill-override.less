@@ -1,4 +1,5 @@
 @import "base.less";
+
 @editor-height: 24px * 5;
 
 quill-editor {
@@ -60,16 +61,30 @@ quill-editor {
   }
 
   .ql-editor {
-    padding: 0 30px;
+    padding: 0 15px;
     margin: 14px 0;
     font-size: 16px;
     line-height: 24px;
     max-height: @editor-height;
 
+    @media @sm-up {
+      padding: 0 30px;
+    }
+
     &.ql-blank::before {
-      left: 30px;
+      left: 15px;
       font-style: normal;
       color: #aaa;
+
+      font-style: normal;
+      opacity: 1;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      @media @sm-up {
+        left: 30px;
+      }
     }
 
     & img {
@@ -82,9 +97,13 @@ quill-editor {
 
   // Customize toolbar
   .ql-toolbar.ql-snow {
-    padding: 15px 30px;
+    padding: 15px;
     border: 0;
     border-top: 1px solid #ccc;
+
+    @media @sm-up {
+      padding: 15px 30px;
+    }
 
     &.top-mode {
       padding: 8px;

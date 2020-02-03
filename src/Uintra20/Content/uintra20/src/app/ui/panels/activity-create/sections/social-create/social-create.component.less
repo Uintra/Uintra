@@ -114,11 +114,19 @@
   }
 
   &__header {
-    padding: 21px 40px 16px 30px;
+    padding: 21px 40px 16px 15px;
+
+    @media @sm-up {
+      padding: 21px 40px 16px 30px;
+    }
   }
 
   &__multiselect {
-    padding: 21px 30px 25px;
+    padding: 21px 15px 25px;
+
+    @media @sm-up {
+      padding: 21px 30px 25px;
+    }
   }
 }
 
