@@ -172,11 +172,11 @@ namespace Uintra20.Features.Social.Controllers
                 _activityTagsHelper.ReplaceTags(social.Id, extendedModel.TagIdsData);
             }
 
-            if (string.IsNullOrEmpty(model.Description))
+            if (model.Description.HasValue())
             {
-                return;
+                ResolveMentions(model.Description, social);
             }
-            ResolveMentions(model.Description, social);
+            
             ReloadFeed();
         }
 
@@ -195,11 +195,11 @@ namespace Uintra20.Features.Social.Controllers
                 await _activityTagsHelper.ReplaceTagsAsync(social.Id, extendedModel.TagIdsData);
             }
 
-            if (string.IsNullOrEmpty(model.Description))
+            if (model.Description.HasValue())
             {
-                return;
+                await ResolveMentionsAsync(model.Description, social);
             }
-            await ResolveMentionsAsync(model.Description, social);
+            
             ReloadFeed();
         }
 
