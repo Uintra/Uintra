@@ -36,7 +36,7 @@
     </div>
     <div class="form__row">
       <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
-          (success)="handleFileUpload($event)"
+          (success)="handleUpload($event)"
           (removedFile)="handleFileRemove($event)">
       </app-dropzone-wrapper>
     </div>
