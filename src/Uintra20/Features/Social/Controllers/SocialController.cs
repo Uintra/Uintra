@@ -1,4 +1,5 @@
-﻿using Compent.Shared.Extensions.Bcl;
+﻿using AutoMapper;
+using Compent.Shared.Extensions.Bcl;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Linq;
@@ -119,8 +120,9 @@ namespace Uintra20.Features.Social.Controllers
         {
             var social = _socialService.Get(socialEditModel.Id);
 
+            social = Mapper.Map(socialEditModel, social);
+
             social.MediaIds = social.MediaIds.Concat(_mediaHelper.CreateMedia(socialEditModel));
-            social.Description = socialEditModel.Description;
 
             return social;
         }
