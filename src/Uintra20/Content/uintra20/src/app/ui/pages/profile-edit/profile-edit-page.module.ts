@@ -5,6 +5,8 @@ import { UbaselineCoreModule } from '@ubaseline/next';
 import { ProfileEditPage } from './profile-edit-page.component';
 import { TagMultiselectModule } from 'src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DropzoneWrapperModule } from 'src/app/feature/project/reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
+import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/checkbox-input/checkbox-input.module';
 
 @NgModule({
   declarations: [ProfileEditPage],
@@ -15,6 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TagMultiselectModule,
     FormsModule,
     ReactiveFormsModule,
+    DropzoneWrapperModule,
+    CheckboxInputModule
   ],
   entryComponents: [ProfileEditPage]
 })

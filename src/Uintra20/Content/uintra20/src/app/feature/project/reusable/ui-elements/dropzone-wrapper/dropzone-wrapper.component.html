@@ -1,0 +1,7 @@
+<dropzone
+  [ngClass]="{ 'files-loaded': filesLength }"
+  #dropdownRef
+  [message]="message"
+  (success)="onUploadSuccess($event)"
+  (removedFile)="onFileRemoved($event)"
+></dropzone>

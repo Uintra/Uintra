@@ -1,26 +1,57 @@
-<section>
-        <h1 class="social-edit-title">{{socialEdit.name}}</h1>
-        <label for="desciption">Description</label>
-        <app-rich-text-editor [(ngModel)]="socialEdit.description"
-                              [isUnderline]="false"
-                              placeholder="Write a message, post a photo or share a document"></app-rich-text-editor>
-        <app-tag-multiselect class="bulletin-popup__multiselect"
-                             [availableTags]="socialEdit.availableTags"
-                             [(ngModel)]="socialEdit.tags">
-        </app-tag-multiselect>
-        <!-- TODO Added images here -->
-        <dropzone #dropdownRef
-                  (success)="handleUpload($event)"
-                  (removedFile)="handleRemove($event)">
-        </dropzone>
-        <button class="btn"
-                [disabled]="inProgress"
-                (click)="handleSocialUpdate()">SAVE</button>
+<section class="social-edit">
+  <h1 class="social-edit__title">{{socialEdit.name}}</h1>
+  <div class="form">
+    <div class="form__row">
+      <label for="desciption">Description</label>
+      <app-rich-text-editor
+        [isEditing]="true"
+        [(ngModel)]="socialEdit.description"
+        [isUnderline]="true"
+        [isDropzone]="false"
+        placeholder="Write a message, post a photo or share a document">
+      </app-rich-text-editor>
+    </div>
+    <div class="form__row">
+      <label>Tags</label>
+      <app-tag-multiselect class="bulletin-popup__multiselect"
+        [availableTags]="socialEdit.availableTags"
+        [(ngModel)]="socialEdit.tags">
+      </app-tag-multiselect>
+    </div>
+    <!-- TODO Added images here -->
+    <div class="form__row">
+      <label>Files</label>
+      <div class="images">
+        <div class="images__item" *ngFor="let media of socialEdit.lightboxPreviewModel.medias">
+          <span class="icon-close" (click)="handleImageRemove(media)"></span>
+          <img [src]="media.previewUrl">
+          <span class="images__item-name">{{media.name}}</span>
+        </div>
+        <div class="images__item" *ngFor="let file of socialEdit.lightboxPreviewModel.otherFiles">
+            <span class="icon-close" (click)="handleFileRemove(file)"></span>
+            <span class="images__item-name">{{file.name}}</span>
+            <span class="images__item-name">{{file.extension}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="form__row">
+      <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
+          (success)="handleUpload($event)"
+          (removedFile)="handleRemove($event)">
+      </app-dropzone-wrapper>
+    </div>
+    <div class="form__row-btns">
+      <button class="button"
+        [disabled]="inProgress"
+        (click)="handleSocialUpdate()">SAVE</button>
 
-        <button class="btn"
-                [disabled]="inProgress"
-                (click)="handleSocialDelete()">DELETE</button>
-        <a class="btn"
-           [routerLink]="['/social-details']"
-           [queryParams]="{id: socialEdit.id}">CANCEL</a>
+      <button class="button button-default"
+        [disabled]="inProgress"
+        (click)="handleSocialDelete()">DELETE</button>
+
+      <a class="button button-default"
+        [routerLink]="['/social-details']"
+        [queryParams]="{id: socialEdit.id}">CANCEL</a>
+    </div>
+  </div>
 </section>

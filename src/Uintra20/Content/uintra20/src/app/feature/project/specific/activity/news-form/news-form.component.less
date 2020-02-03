@@ -10,51 +10,6 @@
   padding: 20px 20px 33px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 
-  .dropzone {
-    border-style: dashed !important;
-    border-radius: 10px !important;
-    min-height: 0 !important;
-    min-height: initial !important;
-    border-width: 1px !important;
-    z-index: 0;
-    padding: 15px 20px !important;
-  }
-
-  .dropzone .dz-message {
-    position: relative;
-    text-align: center;
-    margin: 2em 0 !important;
-    border: none !important;
-    background-color: @main-color !important;
-    display: flex !important;
-    justify-content: center !important;
-    overflow: visible !important;
-  }
-
-  .dropzone.dz-clickable .dz-message,
-  .dropzone.dz-clickable .dz-message * {
-    cursor: pointer;
-  }
-
-  .files-loaded ::ng-deep .dz-message,
-  .dz-started ::ng-deep .dz-message {
-    display: none !important;
-  }
-
-  .custom-message {
-    font: @body-font;
-    font-size: 14px;
-    position: relative;
-
-    &::before {
-      position: absolute;
-      top: -10px;
-      left: -40px;
-      font-size: 30px;
-      color: @icon-black;
-    }
-  }
-
   .ql-editor {
     border: 1px solid @border-color;
     border-top: none;

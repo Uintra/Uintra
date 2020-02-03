@@ -4,7 +4,7 @@ import { DropzoneComponent } from 'ngx-dropzone-wrapper';
 import { ITagData } from 'src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.interface';
 import { IUserAvatar } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar-interface';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
-import { CreateActivityService } from 'src/app/feature/project/specific/activity/create-activity.service';
+import { ActivityService } from 'src/app/feature/project/specific/activity/activity.service';
 import { ModalService } from 'src/app/services/general/modal.service';
 import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
 
@@ -32,7 +32,7 @@ export class SocialCreateComponent implements OnInit {
     return !this.description && this.files.length === 0;
   }
 
-  constructor(private socialContentService: CreateActivityService, private modalService: ModalService) { }
+  constructor(private socialContentService: ActivityService, private modalService: ModalService) { }
 
   ngOnInit() {
     this.panelData = ParseHelper.parseUbaselineData(this.data);

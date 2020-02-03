@@ -1,7 +1,111 @@
 @import "base.less";
 
-social-edit-page {
+.social-edit {
+  .white-block();
+  padding: 36px 20px;
 
+  &__title {
+    margin: 0 0 25px;
+  }
+
+  .form {
+    display: block;
+
+    &__label {
+      margin: 0 0 3px;
+      display: block;
+    }
+
+    &__row {
+      margin-bottom: 25px;
+    }
+
+    &__row-btns {
+      .button {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .ql-editor {
+    border: 1px solid #ccc;
+    border-top: none;
+    height: 149px;
+    padding: 6px 10px;
+    margin: 0;
+  }
+}
+
+.images {
+  margin: 0 0 0 -2px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+
+  &__item {
+    position: relative;
+    padding: 0 0 2px 2px;
+    flex-grow: 1;
+    max-width: 25%;
+    flex-shrink: 1;
+
+    &-name {
+      display: block;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .icon-close {
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      width: 25px;
+      height: 25px;
+      padding: 7px;
+      text-align: center;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+      cursor: pointer;
+      color: #555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+:host {
+  & ::ng-deep {
+    .ql-editor {
+      padding: 0;
+    }
+
+    .dz-message {
+      margin: ;
+    }
+
+    .dropzone {
+      border-style: dashed !important;
+      border-radius: 10px !important;
+      min-height: 0 !important;
+      min-height: initial !important;
+      border-width: 1px !important;
+      z-index: 0;
+      padding: 15px 20px !important;
+    }
+
+    .dz-message {
+      border: none !important;
+      background: inherit !important;
+    }
+  }
 }
 
 .bulletin-popup {
@@ -37,9 +141,5 @@ social-edit-page {
 
     &__header {
       padding: 21px 40px 16px 30px;
-    }
-
-    &__multiselect {
-      padding: 21px 30px 25px;
     }
   }

@@ -8,10 +8,12 @@ import {
 } from "@angular/core";
 import { IPinedData } from "../pin-activity/pin-activity.component";
 import { ISelectItem } from "../../../reusable/inputs/select/select.component";
-import { INewsCreateModel } from "../create-activity.interface";
 import { IDatepickerData } from "../../../reusable/inputs/datepicker-from-to/datepiker-from-to.interface";
 import { ITagData } from "../../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { IOwner } from "src/app/feature/shared/interfaces/Owner";
+import { INewsForm } from "./news-form.interface";
+import { INewsCreateModel } from '../activity.interfaces';
+import { ILocationResult } from '../../../reusable/ui-elements/location-picker/location-picker.interface';
 
 @Component({
   selector: "app-news-form",
@@ -36,7 +38,7 @@ export class NewsFormComponent implements OnInit {
   owners: ISelectItem[];
   defaultOwner: ISelectItem;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     this.owners = this.getOwners();
@@ -72,8 +74,10 @@ export class NewsFormComponent implements OnInit {
     this.newsData.isPinned = value.isPinCheked;
     this.isAccepted = value.isAccepted;
   }
-  setLocationValue(value: string): void {
-    this.newsData.activityLocationEditModel.address = value;
+  setLocationValue(location: ILocationResult): void {
+    this.newsData.activityLocationEditModel.address = location.address;
+    this.newsData.activityLocationEditModel.shortAddress = location.shortAddress;
+    
   }
 
   // Main submit function

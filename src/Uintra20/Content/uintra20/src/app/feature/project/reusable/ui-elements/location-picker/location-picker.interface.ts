@@ -9,3 +9,8 @@ export interface ICoordinates {
     latitude: number;
     longitude: number;
 }
+export interface ILocationResult {
+    address: string;
+    shortAddress: string;
+}
+

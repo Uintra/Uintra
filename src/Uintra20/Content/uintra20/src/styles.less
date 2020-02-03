@@ -7,7 +7,7 @@
 @import "./styles/typography/index.less";
 
 
-@import "./styles/libs/datepicker/bootstrap-datetimepicker-build.less";
+// @import "./styles/libs/datepicker/bootstrap-datetimepicker-build.less";
 
 
 @debug: true;
@@ -53,12 +53,19 @@ breadcrumb {
 
 .content {
   display: flex;
-  overflow: hidden;
+
+  @media @sm-up {
+    overflow: hidden;
+  }
 
   &__wrap {
     padding: 0;
     flex-grow: 1;
     width: 100%;
+
+    @media @md-down {
+      overflow: hidden;
+    }
 
     @media @md-up {
       padding: 15px 0 0 15px;
