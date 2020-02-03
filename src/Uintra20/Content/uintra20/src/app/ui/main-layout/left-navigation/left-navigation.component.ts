@@ -1,13 +1,16 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from "@angular/core";
 import { INavigationItem } from "./left-navigation.interface";
 import { LeftNavigationService } from "./left-navigation.service";
+import SimpleScrollbar from "simple-scrollbar";
 
 @Component({
   selector: "app-left-navigation",
   templateUrl: "./left-navigation.component.html",
   styleUrls: ["./left-navigation.component.less"]
 })
-export class LeftNavigationComponent implements OnInit {
+export class LeftNavigationComponent implements OnInit, AfterViewInit {
+  @ViewChild("wrapper", {static: false}) wrapperView: ElementRef;
+
   navigationItems: INavigationItem[];
   readonly PADDING_STEP = 10;
 
@@ -19,6 +22,10 @@ export class LeftNavigationComponent implements OnInit {
       .subscribe((r: INavigationItem[]) => {
         this.navigationItems = r;
       });
+  }
+
+  ngAfterViewInit(){
+    SimpleScrollbar.initEl(this.wrapperView.nativeElement);
   }
 
   onToggleItem(item: INavigationItem) {

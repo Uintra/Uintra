@@ -2,6 +2,6 @@
 {
     public interface INavigationApplicationSettings
     {
-        int MyLinksBulletinsTitleLength { get; }
+        int MyLinksActivityTitleLength { get; }
     }
 }
