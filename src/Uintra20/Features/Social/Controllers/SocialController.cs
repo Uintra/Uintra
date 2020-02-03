@@ -2,8 +2,6 @@
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -56,10 +54,9 @@ namespace Uintra20.Features.Social.Controllers
         }
 
         [HttpPost]
-        public async Task<HttpResponseMessage> CreateExtended(SocialExtendedCreateModel model)
+        public async Task<IHttpActionResult> CreateExtended(SocialExtendedCreateModel model)
         {
-            if (!ModelState.IsValid)
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            if (!ModelState.IsValid) return BadRequest();
 
             var result = new SocialCreationResultModel();
 
@@ -71,7 +68,7 @@ namespace Uintra20.Features.Social.Controllers
             result.Id = createdBulletinId;
             result.IsSuccess = true;
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return Ok();
         }
 
         [HttpPut]
