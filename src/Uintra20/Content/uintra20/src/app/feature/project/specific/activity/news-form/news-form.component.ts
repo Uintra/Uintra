@@ -69,10 +69,12 @@ export class NewsFormComponent implements OnInit {
       media: this.data.media || null
     };
 
+    this.selectedTags = this.data.tags;
     this.initialDates = {
       from: this.data.publishDate || undefined,
       to: this.data.unpublishDate || undefined
     };
+
     this.initialLocation =
       (this.data.location && this.data.location.address) || null;
 
@@ -88,11 +90,19 @@ export class NewsFormComponent implements OnInit {
   onFileRemoved(removedFile: object) {
     this.files = this.files.filter(file => file[0] !== removedFile);
   }
-  handleImageRemove(image) {
-    debugger;
+  // handleImageRemove(image) {
+  //   debugger;
+  // }
+  // handleFileRemove(file) {
+  //   debugger;
+  // }
+  public handleImageRemove(image): void {
+    this.newsData.media.medias =
+      this.newsData.media.medias.filter(m => m !== image);
   }
-  handleFileRemove(file) {
-    debugger;
+  public handleFileRemove(file): void {
+    this.newsData.media.otherFiles =
+      this.newsData.media.otherFiles.filter(m => m !== file);
   }
 
   // Data set functions
@@ -134,7 +144,7 @@ export class NewsFormComponent implements OnInit {
 
   // TODO: move to service
   private getTagsForResponse(): string[] {
-    return this.selectedTags.map(tag => tag.id);
+    return this.selectedTags ? this.selectedTags.map(tag => tag.id) : [];
   }
   private getMediaIdsForResponse(): string {
     return this.files.map(file => file[1]).join(";");

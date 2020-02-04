@@ -40,7 +40,10 @@ export class UintraNewsEditPage implements OnInit{
       publishDate: this.details.publishDate,
 
       unpublishDate: this.details.unpublishDate,
-      media: this.details.media,
+      media: {
+        medias: (Object.values(this.details.lightboxPreviewModel.medias) as Array<any>) || [],
+        otherFiles: (Object.values(this.details.lightboxPreviewModel.otherFiles) as Array<any>) || [],
+      },
 
       endPinDate: this.details.endPinDate,
       // mediaRootId: number;
@@ -48,13 +51,14 @@ export class UintraNewsEditPage implements OnInit{
 
       isPinned: this.details.isPinned,
       location: {
-        address: this.details.address,
-        shortAddress:  this.details.shortAddress,
-      }
+        address: this.details.location.address,
+        shortAddress:  this.details.location.shortAddress,
+      },
+      tags: (Object.values(this.details.tags) as Array<any>) || []
     }
   }
 
   onSubmit(event) {
-
+    // debugger;
   }
 }
