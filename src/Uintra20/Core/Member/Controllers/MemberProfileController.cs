@@ -26,8 +26,12 @@ namespace Uintra20.Core.Member.Controllers
         [HttpPut]
         public async Task<IHttpActionResult> Edit([FromBody] ProfileEditModel model)
         {
-            await _profileService.Edit(model);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
 
+            await _profileService.Edit(model);
             return Ok();
         }
 
