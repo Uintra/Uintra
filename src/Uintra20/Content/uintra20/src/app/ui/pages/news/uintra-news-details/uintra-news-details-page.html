@@ -10,6 +10,7 @@
         >
 
         <a
+        *ngIf="data.details.get().canEdit.get()"
         [routerLink]="data.details.get().links.get().edit.get().baseUrl | ulink"
           [queryParams]="data.details.get().links.get().edit.get().params | uparams"
           class="feed-header__edit-link"

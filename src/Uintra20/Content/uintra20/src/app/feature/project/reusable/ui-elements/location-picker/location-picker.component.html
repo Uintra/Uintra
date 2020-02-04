@@ -11,7 +11,8 @@
          [zoom]="googleMapsModel.zoom"
          (mapClick)="handleMapClicked($event)"
          [disableDefaultUI]="googleMapsModel.disableDefaultUI"
-         [zoomControl]="googleMapsModel.zoomControl">
+         [zoomControl]="googleMapsModel.zoomControl"
+         (mapReady)="mapReady()">
   <agm-marker [latitude]="googleMapsModel.coordinates.latitude"
               [longitude]="googleMapsModel.coordinates.longitude">
   </agm-marker>

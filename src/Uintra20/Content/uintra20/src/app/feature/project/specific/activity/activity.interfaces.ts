@@ -15,7 +15,10 @@ export interface INewsCreateModel {
   publishDate: string;
 
   unpublishDate?: string;
-  media?: Array<any>;
+  media?: {
+    medias?: any[];
+    otherFiles?: any[]
+  };
   mediaRootId?: number;
   endPinDate?: string;
   tagIdsData?: string[];
@@ -26,6 +29,7 @@ export interface INewsCreateModel {
     shortAddress?: string;
   };
   newMedia?: string;
+  tags?: ITagData[];
 }
 
 export interface ISocialEdit {

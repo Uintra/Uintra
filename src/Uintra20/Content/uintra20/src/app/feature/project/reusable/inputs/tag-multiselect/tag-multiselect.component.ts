@@ -1,12 +1,11 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ITagData } from './tag-multiselect.interface';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
+import { Component, Input, forwardRef } from "@angular/core";
+import { ITagData } from "./tag-multiselect.interface";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 @Component({
-  selector: 'app-tag-multiselect',
-  templateUrl: './tag-multiselect.component.html',
-  styleUrls: ['./tag-multiselect.component.less'],
+  selector: "app-tag-multiselect",
+  templateUrl: "./tag-multiselect.component.html",
+  styleUrls: ["./tag-multiselect.component.less"],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -22,7 +21,7 @@ export class TagMultiselectComponent implements ControlValueAccessor {
   isDwopdownShowed: boolean = false;
   isAddedTag: boolean = false;
 
-  constructor() { }
+  constructor() {}
 
   onToggleDropdown() {
     this.isDwopdownShowed = !this.isDwopdownShowed;
@@ -43,9 +42,11 @@ export class TagMultiselectComponent implements ControlValueAccessor {
 
   onRemoveTag(tag, e) {
     e.event.stopPropagation();
-    this.selectedList = this.selectedList.filter(curTag => curTag.id !== tag.id);
+    this.selectedList = this.selectedList.filter(
+      curTag => curTag.id !== tag.id
+    );
     if (this.selectedList.length == 0) {
-        this.isAddedTag = false;
+      this.isAddedTag = false;
     }
   }
 
@@ -55,10 +56,21 @@ export class TagMultiselectComponent implements ControlValueAccessor {
     this.onHideDropdown();
   }
 
-  onTouched(): any { }
+  selectedCheck(tag: ITagData): boolean {
+    const selectedArray = this.selectedList.filter(listItem => listItem.id === tag.id);
+    return !!selectedArray.length;
+  }
+
+  onTouched(): any {}
   onChange(): any {}
-  propagateChange: any = () => { };
-  writeValue(value) { this.selectedList = value; }
-  registerOnChange(fn) { this.propagateChange = fn; }
-  registerOnTouched(fn) { this.onTouched = fn; }
+  propagateChange: any = () => {};
+  writeValue(value) {
+    this.selectedList = value;
+  }
+  registerOnChange(fn) {
+    this.propagateChange = fn;
+  }
+  registerOnTouched(fn) {
+    this.onTouched = fn;
+  }
 }

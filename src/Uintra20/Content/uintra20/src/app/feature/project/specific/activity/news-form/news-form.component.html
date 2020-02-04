@@ -72,14 +72,36 @@
     </div>
   </div> -->
 
-  <div class="dropzone-holder form-row">
+  <div class="form-row" *ngIf="newsData.media">
+    <label>Files</label>
+    <div class="images">
+      <div class="images__item" *ngFor="let media of newsData.media.medias">
+        <span class="icon-close" (click)="handleImageRemove(media)"></span>
+        <img [src]="media.previewUrl">
+        <span class="images__item-name">{{media.name}}</span>
+      </div>
+      <div class="images__item" *ngFor="let file of newsData.media.otherFiles">
+          <span class="icon-close" (click)="handleFileRemove(file)"></span>
+          <span class="images__item-name">{{file.name}}</span>
+          <span class="images__item-name">{{file.extension}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
+        (success)="onUploadSuccess($event)"
+        (removedFile)="onFileRemoved($event)">
+    </app-dropzone-wrapper>
+  </div>
+
+  <!-- <div class="dropzone-holder form-row">
     <h3 class="dropzone-holder__title subtitle">File(s)</h3>
     <app-dropzone-wrapper
       [filesLength]="files.length"
       (success)="onUploadSuccess($event)"
       (removedFile)="onFileRemoved($event)"
     ></app-dropzone-wrapper>
-  </div>
+  </div> -->
 
   <div class="form-row" *ngIf="isShowValidation">
     <div *ngIf="!newsData.title"
