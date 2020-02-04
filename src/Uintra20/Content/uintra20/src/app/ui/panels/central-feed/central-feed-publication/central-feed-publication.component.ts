@@ -40,6 +40,7 @@ export class CentralFeedPublicationComponent implements OnInit {
     private mq: MqService) { }
 
   ngOnInit(): void {
+    this.deviceWidth = window.innerWidth;
     this.publication.activity.description = this.sanitizer.bypassSecurityTrustHtml(this.publication.activity.description);
     this.medias = Object.values(this.publication.activity.mediaPreview.medias);
     this.countToDisplay = this.medias.length > 2 ? this.getItemsCountToDisplay() : this.medias.length;
