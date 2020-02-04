@@ -16,9 +16,11 @@ export class SharedLinksComponent implements OnInit {
     this.sharedLinksService.getSharedLinks().subscribe(r => {
       this.sharedLinks = r;
     });
+    this.isOpen = this.sharedLinksService.getOpenState();
   }
 
   onToggle() {
     this.isOpen = !this.isOpen;
+    this.sharedLinksService.setOpenState(this.isOpen);
   }
 }

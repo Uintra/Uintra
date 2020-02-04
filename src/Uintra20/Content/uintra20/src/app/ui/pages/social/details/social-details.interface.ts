@@ -33,6 +33,7 @@ export interface IUserTag {
 }
 
 export interface ISocialAttachment {
+    id: number;
     url: string;
     name: string;
     previewUrl: string;

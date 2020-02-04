@@ -23,7 +23,7 @@
     color: #555;
 
     @media @md-up {
-      max-width: 92.5%;
+      max-width: 100%;
     }
   }
 
@@ -31,10 +31,8 @@
     flex-shrink: 0;
     line-height: 40px;
     font-size: 30px;
-
-    @media @md-down {
-      margin-right: 10px;
-    }
+    position: absolute;
+    right: 20px;
 
     &::before {
       color: @black !important;

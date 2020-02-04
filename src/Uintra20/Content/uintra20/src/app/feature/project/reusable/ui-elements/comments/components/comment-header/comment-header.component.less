@@ -1,6 +1,15 @@
 @import 'base.less';
 
 .comment {
+  &__author-name {
+    text-decoration: none;
+    color: @body-text-color;
+
+    &:hover {
+      color: @link-color;
+    }
+  }
+
   &__info {
     margin-bottom: 5px;
   }

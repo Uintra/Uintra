@@ -16,6 +16,7 @@ export class MyLinksComponent implements OnInit {
     this.myLinksService.getMyLinks().subscribe(r => {
       this.myLinks = r;
     });
+    this.isOpen = this.myLinksService.getOpenState();
   }
 
   onAddLink() {
@@ -32,6 +33,7 @@ export class MyLinksComponent implements OnInit {
 
   onToggle() {
     this.isOpen = !this.isOpen;
+    this.myLinksService.setOpenState(this.isOpen);
   }
 
   onDND(links: Array<IMyLink>) {

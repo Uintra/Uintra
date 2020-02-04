@@ -45,7 +45,8 @@ export class SocialEditPageComponent {
       id: parsedSocialEdit.id,
       name: parsedSocialEdit.name,
       tagIdsData: new Array<string>(),
-      newMedia: null
+      newMedia: null,
+      media: null
     };
   }
 
@@ -68,6 +69,14 @@ export class SocialEditPageComponent {
   }
 
   public handleSocialUpdate(): void {
+    this.socialEdit.media = '';
+
+    const otherFilesIds = this.socialEdit.lightboxPreviewModel.otherFiles
+      .map(m => m.id);
+    const mediaIds = this.socialEdit.lightboxPreviewModel.medias
+      .map(m => m.id);
+
+    this.socialEdit.media = otherFilesIds.concat(mediaIds).join(';');
     this.socialEdit.newMedia = this.uploadedData.map(u => u[1]).join(';');
     this.socialEdit.tagIdsData = this.socialEdit.tags.map(t => t.id);
     this.inProgress = true;
@@ -75,7 +84,7 @@ export class SocialEditPageComponent {
       .pipe(finalize(() => this.inProgress = false))
       .subscribe(
         (next) => {
-          const route = `social-details?id=${this.socialEdit.id}`; // TODO Fix after adding linkService on backend
+          const route = 'social-details?id=' + this.socialEdit.id; // TODO Fix after adding linkService on backend
 
           this.router.navigate([route]);
         },

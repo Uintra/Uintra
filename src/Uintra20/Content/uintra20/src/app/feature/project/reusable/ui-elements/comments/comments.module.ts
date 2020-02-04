@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { CommentItemComponent } from './components/comment-item/comment-item.component';
 import { SubcommentItemComponent } from './components/subcomment-item/subcomment-item.component';
 import { CommentHeaderComponent } from './components/comment-header/comment-header.component';
+import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { CommentHeaderComponent } from './components/comment-header/comment-head
     RichTextEditorModule,
     UserAvatarModule,
     LikeButtonModule,
+    RouterModule,
+    UlinkModule,
     FormsModule
   ],
   exports: [
