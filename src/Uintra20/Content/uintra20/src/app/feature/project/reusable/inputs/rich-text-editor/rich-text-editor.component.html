@@ -10,7 +10,9 @@
   <div quill-editor-toolbar class="toolbar">
     <div class="ql-counter" id="counter"></div>
 
-    <div class="ql-formats" *ngIf="isEventsOrNews; then eventsOrNewsCreate; else comments"></div>
+    <div class="ql-formats-wrapper">
+      <div class="ql-formats" *ngIf="isEventsOrNews; then eventsOrNewsCreate; else comments"></div>
+    </div>
 
     <div class="ql-submit-button">
       <ng-content select="[submit]"></ng-content>
@@ -31,7 +33,9 @@
     <div quill-editor-toolbar class="toolbar" [ngClass]="getToolbarClass()">
       <div *ngIf="!isEditing" class="ql-counter" id="counter"></div>
 
-      <div class="ql-formats" *ngIf="isEventsOrNews; then eventsOrNewsCreate; else comments"></div>
+      <div class="ql-formats-wrapper">
+        <div class="ql-formats" *ngIf="isEventsOrNews; then eventsOrNewsCreate; else comments"></div>
+      </div>
     </div>
   </quill-editor>
 

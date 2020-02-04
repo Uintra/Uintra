@@ -110,8 +110,15 @@ quill-editor {
       border: 1px solid #ccc !important;
     }
   }
-  .ql-toolbar.ql-snow .ql-formats {
+
+  .ql-toolbar.ql-snow .ql-formats,
+  .ql-formats-wrapper {
     display: flex;
+    flex-wrap: wrap;
+  }
+
+  .ql-toolbar button {
+    margin-bottom: 5px;
   }
 
   // Customize buttons
@@ -149,7 +156,8 @@ quill-editor {
     margin-right: 8px;
   }
 
-  .ql-container .ql-tooltip.ql-editing, .ql-container .ql-tooltip.ql-flip {
+  .ql-container .ql-tooltip.ql-editing, .ql-container .ql-tooltip.ql-flip,
+  .ql-container .ql-tooltip {
     margin: 0 !important;
     top: -20px !important;
     left: 50% !important;
