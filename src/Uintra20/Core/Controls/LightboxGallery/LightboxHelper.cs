@@ -77,6 +77,7 @@ namespace Uintra20.Core.Controls.LightboxGallery
             var result = new LightboxGalleryItemViewModel
             {
                 Id = media.Id,
+                Key = media.Key,
                 Url = media.Url,
                 Name = media.Name,
                 Extension = media.GetMediaExtension(),
