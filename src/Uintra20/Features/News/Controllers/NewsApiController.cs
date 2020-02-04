@@ -73,7 +73,7 @@ namespace Uintra20.Features.News.Controllers
             return Ok(newsViewModel.Links.Details);
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IHttpActionResult> Edit(NewsEditModel editModel)
         {
             if (!ModelState.IsValid)
