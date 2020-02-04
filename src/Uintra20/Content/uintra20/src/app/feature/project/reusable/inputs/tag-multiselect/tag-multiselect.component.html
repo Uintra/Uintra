@@ -32,7 +32,7 @@
         *ngFor="let tag of availableTags"
         class="tag-multiselect-dropdown-row"
         (click)="onAddTag(tag)"
-        [ngClass]="{ selected: selectedList.includes(tag) }"
+        [ngClass]="{ selected: selectedCheck(tag) }"
       >
         <div class="tag-multiselect-dropdown-row__text">
           {{ tag.text }}
