@@ -893,6 +893,19 @@
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
+    <Compile Include="Features\Groups\GroupTypeEnum.cs" />
+    <Compile Include="Features\Groups\Links\GroupLinkProvider.cs" />
+    <Compile Include="Features\Groups\Links\IGroupLinkProvider.cs" />
+    <Compile Include="Features\Groups\Models\GroupCreateModel.cs" />
+    <Compile Include="Features\Groups\Models\GroupEditModel.cs" />
+    <Compile Include="Features\Groups\Models\GroupInfoViewModel.cs" />
+    <Compile Include="Features\Groups\Models\GroupMemberSubscriptionModel.cs" />
+    <Compile Include="Features\Groups\Models\GroupViewModel.cs" />
+    <Compile Include="Features\Groups\Services\GroupMediaService.cs" />
+    <Compile Include="Features\Groups\Services\GroupMemberService.cs" />
+    <Compile Include="Features\Groups\Services\IGroupMediaService.cs" />
+    <Compile Include="Features\Groups\Services\IGroupMemberService.cs" />
+    <Compile Include="Features\Groups\Web\GroupController.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\INavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\NavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\EqualityComparers\MyLinkItemModelComparer.cs" />

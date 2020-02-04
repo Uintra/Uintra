@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
+using UBaseline.Core.Node;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Navigation.Exception;
@@ -18,21 +20,26 @@ namespace Uintra20.Features.Navigation.Web
     {
         private readonly IMyLinksHelper _myLinksHelper;
         private readonly IMyLinksService _myLinksService;
+        private readonly INodeModelService _nodeModelService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         
         public MyLinksController(
             IMyLinksHelper myLinksHelper,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            IMyLinksService myLinksService)
+            IMyLinksService myLinksService,
+            INodeModelService nodeModelService)
         {
             _myLinksHelper = myLinksHelper;
             _intranetMemberService = intranetMemberService;
             _myLinksService = myLinksService;
+            _nodeModelService = nodeModelService;
         }
 
         [HttpGet]
         public virtual async Task<IEnumerable<MyLinkItemViewModel>> List()
         {
+            IEnumerable<NodeRouteModel> t = _nodeModelService.GetRoutes();
+
             return await GetMyLinkItemViewModelAsync();
         }
 
