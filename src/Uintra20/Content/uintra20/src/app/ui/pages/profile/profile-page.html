@@ -1,7 +1,13 @@
 <section class="profile">
     <div class="profile__header">
         <h2 class="profile__title">{{profile.title}}</h2>
-        <button type="button" class="button button-default">Edit</button>
+        <a
+          *ngIf="data.editProfileLink.data.value"
+          [routerLink]="data.editProfileLink.data.baseUrl | ulink"
+          [queryParams]='data.editProfileLink.data.params | uparams'
+          class="button button-default">
+          Edit
+        </a>
     </div>
 
     <div class="user-block">
