@@ -10,7 +10,7 @@
       <button class="button-default">Create Event</button>
       <button class="button-default">Create News</button>
     </div>
-    <button class="btn" (click)="onShowPopUp()">Send</button>
+    <button class="button" (click)="onShowPopUp()">Send</button>
   </div>
   <div class="bulletin-popup__wrapper" *ngIf="isPopupShowing">
     <div class="bulletin-popup__background" (click)="onHidePopUp()"></div>
@@ -26,7 +26,7 @@
       (addAttachment)="addAttachment()"
       [isUnderline]="false"
       placeholder="Write a message, post a photo or share a document">
-        <button submit [disabled]="isSubmitDisabled" class="bulletin-popup__submit-button" (click)="onSubmit()">Submit</button>
+        <button submit [disabled]="isSubmitDisabled" class="bulletin-popup__submit-button" (click)="onSubmit()">Send</button>
       </app-rich-text-editor>
     </div>
   </div>

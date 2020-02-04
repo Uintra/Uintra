@@ -2,17 +2,20 @@ export const pages = [
   {
     id: 'homePage',
     path: '__dynamic__',
-    loadChildren: './ui/pages/home/home-page.module#HomePageModule'
+    loadChildren: './ui/pages/home/home-page.module#HomePageModule',
+    cache: false
   },
   {
     id: 'articlePage',
     path: '__dynamic__',
-    loadChildren: './ui/pages/article/article-page.module#ArticlePageModule'
+    loadChildren: './ui/pages/article/article-page.module#ArticlePageModule',
+    cache: false
   },
   {
     id: 'notificationsPage',
     path: '__dynamic__',
-    loadChildren: './ui/pages/notifications/notifications-page.module#NotificationsPageModule'
+    loadChildren: './ui/pages/notifications/notifications-page.module#NotificationsPageModule',
+    cache: false
   },
   {
     id: 'socialDetailsPage',
@@ -41,12 +44,14 @@ export const pages = [
   {
     id: 'uintraNewsEditPage',
     path: '__dynamic__',
-    loadChildren: './ui/pages/news/uintra-news-edit/uintra-news-edit-page.module#UintraNewsEditPageModule'
+    loadChildren: './ui/pages/news/uintra-news-edit/uintra-news-edit-page.module#UintraNewsEditPageModule',
+    cache: false
   },
   {
     id: 'uintraNewsDetailsPage',
     path: '__dynamic__',
-    loadChildren: './ui/pages/news/uintra-news-details/uintra-news-details-page.module#UintraNewsDetailsPageModule'
+    loadChildren: './ui/pages/news/uintra-news-details/uintra-news-details-page.module#UintraNewsDetailsPageModule',
+    cache: false
   },
 ];
 
