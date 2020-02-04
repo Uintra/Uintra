@@ -1,17 +1,21 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
-import { INewsCreateModel, IOwner } from 'src/app/feature/project/specific/activity/activity.interfaces';
-import { ITagData } from 'src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.interface';
+import { Component, ViewEncapsulation, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import ParseHelper from "src/app/feature/shared/helpers/parse.helper";
+import {
+  INewsCreateModel,
+  IOwner
+} from "src/app/feature/project/specific/activity/activity.interfaces";
+import { ITagData } from "src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.interface";
+import { ActivityService } from "src/app/feature/project/specific/activity/activity.service";
+import { ParamsPipe } from 'src/app/services/pipes/link/params.pipe';
 
 @Component({
-  selector: 'uintra-news-edit-page',
-  templateUrl: './uintra-news-edit-page.html',
-  styleUrls: ['./uintra-news-edit-page.less'],
+  selector: "uintra-news-edit-page",
+  templateUrl: "./uintra-news-edit-page.html",
+  styleUrls: ["./uintra-news-edit-page.less"],
   encapsulation: ViewEncapsulation.None
 })
-export class UintraNewsEditPage implements OnInit{
-
+export class UintraNewsEditPage implements OnInit {
   data: any;
   newsData: INewsCreateModel;
   panelData: any;
@@ -21,9 +25,12 @@ export class UintraNewsEditPage implements OnInit{
   tags: ITagData[];
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private activityService: ActivityService,
+    private router: Router,
+    private paramsPipe: ParamsPipe
   ) {
-    this.route.data.subscribe(data => this.data = data);
+    this.route.data.subscribe(data => (this.data = data));
   }
 
   ngOnInit(): void {
@@ -41,24 +48,44 @@ export class UintraNewsEditPage implements OnInit{
 
       unpublishDate: this.details.unpublishDate,
       media: {
-        medias: (Object.values(this.details.lightboxPreviewModel.medias) as Array<any>) || [],
-        otherFiles: (Object.values(this.details.lightboxPreviewModel.otherFiles) as Array<any>) || [],
+        medias:
+          (Object.values(this.details.lightboxPreviewModel.medias) as Array<
+            any
+          >) || [],
+        otherFiles:
+          (Object.values(this.details.lightboxPreviewModel.otherFiles) as Array<
+            any
+          >) || []
       },
-
       endPinDate: this.details.endPinDate,
-      // mediaRootId: number;
-      // tagIdsData?: string[];
 
       isPinned: this.details.isPinned,
       location: {
         address: this.details.location.address,
-        shortAddress:  this.details.location.shortAddress,
+        shortAddress: this.details.location.shortAddress
       },
       tags: (Object.values(this.details.tags) as Array<any>) || []
-    }
+    };
   }
 
-  onSubmit(event) {
-    // debugger;
+  onSubmit(data) {
+    const copyObject = this.requesModelBuilder(data);
+
+    this.activityService.updateNews(copyObject).subscribe((r: any) => {
+      const params = this.paramsPipe.transform(r.params);
+      this.router.navigate([r.baseUrl], { queryParams: params });
+    });
+  }
+
+  requesModelBuilder(data) {
+    const copyObject = JSON.parse(JSON.stringify(data));
+
+    const otherFilesIds = copyObject.media.otherFiles.map(m => m.id);
+    const mediaIds = copyObject.media.medias.map(m => m.id);
+
+    copyObject.media = otherFilesIds.concat(mediaIds).join(";");
+    copyObject['id'] = this.details.id;
+
+    return copyObject;
   }
 }

@@ -9,6 +9,7 @@ import { RichTextEditorModule } from "src/app/feature/project/reusable/inputs/ri
 import { MAX_LENGTH } from "src/app/constants/activity/create/activity-create-const";
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.const';
+import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
 
 @NgModule({
   declarations: [UintraNewsEditPage],
@@ -17,6 +18,7 @@ import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.co
     RouterModule.forChild([{ path: "", component: UintraNewsEditPage }]),
     UbaselineCoreModule,
     NewsFormModule,
+    UlinkModule,
     RichTextEditorModule.configure({
       modules: {
         counter: {

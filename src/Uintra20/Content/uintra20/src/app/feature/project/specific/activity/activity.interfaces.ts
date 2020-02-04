@@ -43,6 +43,11 @@ export interface ISocialEdit {
   tagIdsData: Array<string>;
   newMedia: string;
   media: string;
+
+  location?: {
+    address?: string;
+    shortAddress?: string;
+  }
 }
 
 export interface ILightBoxPreviewModel {
@@ -93,6 +98,7 @@ export interface IUserTag {
 
 export interface ISocialAttachment {
   id: string;
+  key: string;
   url: string;
   name: string;
   previewUrl: string;

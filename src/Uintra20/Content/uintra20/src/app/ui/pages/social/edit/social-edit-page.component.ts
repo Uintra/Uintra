@@ -72,14 +72,15 @@ export class SocialEditPageComponent {
     this.socialEdit.media = '';
 
     const otherFilesIds = this.socialEdit.lightboxPreviewModel.otherFiles
-      .map(m => m.id);
+      .map(m => m.key);
     const mediaIds = this.socialEdit.lightboxPreviewModel.medias
-      .map(m => m.id);
+      .map(m => m.key);
 
     this.socialEdit.media = otherFilesIds.concat(mediaIds).join(';');
     this.socialEdit.newMedia = this.uploadedData.map(u => u[1]).join(';');
     this.socialEdit.tagIdsData = this.socialEdit.tags.map(t => t.id);
     this.inProgress = true;
+
     this.socialService.updateSocial(this.socialEdit)
       .pipe(finalize(() => this.inProgress = false))
       .subscribe(
