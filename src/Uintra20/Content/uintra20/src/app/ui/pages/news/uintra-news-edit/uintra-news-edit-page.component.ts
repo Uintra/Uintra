@@ -7,7 +7,7 @@ import {
 } from "src/app/feature/project/specific/activity/activity.interfaces";
 import { ITagData } from "src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { ActivityService } from "src/app/feature/project/specific/activity/activity.service";
-import { ParamsPipe } from 'src/app/services/pipes/link/params.pipe';
+import { ParamsPipe } from "src/app/services/pipes/link/params.pipe";
 
 @Component({
   selector: "uintra-news-edit-page",
@@ -83,8 +83,8 @@ export class UintraNewsEditPage implements OnInit {
     const otherFilesIds = copyObject.media.otherFiles.map(m => m.id);
     const mediaIds = copyObject.media.medias.map(m => m.id);
 
-    copyObject.media = otherFilesIds.concat(mediaIds).join(";");
-    copyObject['id'] = this.details.id;
+    copyObject.media = otherFilesIds.concat(mediaIds).join(",");
+    copyObject["id"] = this.details.id;
 
     return copyObject;
   }

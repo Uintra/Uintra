@@ -76,8 +76,8 @@ export class SocialEditPageComponent {
     const mediaIds = this.socialEdit.lightboxPreviewModel.medias
       .map(m => m.key);
 
-    this.socialEdit.media = otherFilesIds.concat(mediaIds).join(';');
-    this.socialEdit.newMedia = this.uploadedData.map(u => u[1]).join(';');
+    this.socialEdit.media = otherFilesIds.concat(mediaIds).join(',');
+    this.socialEdit.newMedia = this.uploadedData.map(u => u[1]).join(',');
     this.socialEdit.tagIdsData = this.socialEdit.tags.map(t => t.id);
     this.inProgress = true;
 

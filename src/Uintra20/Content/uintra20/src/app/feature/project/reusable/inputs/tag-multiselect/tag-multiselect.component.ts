@@ -36,8 +36,9 @@ export class TagMultiselectComponent implements ControlValueAccessor {
   onAddTag(tag) {
     if (this.selectedList.includes(tag)) return;
     this.isAddedTag = true;
-    this.selectedList.push(tag);
+    this.selectedList = [...this.selectedList, tag];
     this.onHideDropdown();
+    this.writeValue(this.selectedList);
   }
 
   onRemoveTag(tag, e) {
@@ -48,6 +49,7 @@ export class TagMultiselectComponent implements ControlValueAccessor {
     if (this.selectedList.length == 0) {
       this.isAddedTag = false;
     }
+    this.writeValue(this.selectedList);
   }
 
   onClearSelectedTags() {
@@ -57,19 +59,33 @@ export class TagMultiselectComponent implements ControlValueAccessor {
   }
 
   selectedCheck(tag: ITagData): boolean {
-    const selectedArray = this.selectedList.filter(listItem => listItem.id === tag.id);
-    return !!selectedArray.length;
+    if (Array.isArray(this.selectedList)) {
+      const selectedArray = this.selectedList.filter(
+        listItem => listItem.id === tag.id
+      );
+      return !!selectedArray.length;
+    }
+
+    return false;
   }
 
-  onTouched(): any {}
-  onChange(): any {}
+
   propagateChange: any = () => {};
   writeValue(value) {
     this.selectedList = value;
+    this.onChange(this.selectedList);
   }
+
+
+  onChange: any = () => {
+  };
+  onTouched: any = () => {
+  };
+
   registerOnChange(fn) {
-    this.propagateChange = fn;
+    this.onChange = fn;
   }
+
   registerOnTouched(fn) {
     this.onTouched = fn;
   }

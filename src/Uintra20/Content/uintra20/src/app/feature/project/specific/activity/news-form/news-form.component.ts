@@ -69,7 +69,7 @@ export class NewsFormComponent implements OnInit {
       media: this.data.media || null
     };
 
-    this.selectedTags = this.data.tags;
+    this.selectedTags = this.data.tags || [];
     this.initialDates = {
       from: this.data.publishDate || undefined,
       to: this.data.unpublishDate || undefined
@@ -90,12 +90,6 @@ export class NewsFormComponent implements OnInit {
   onFileRemoved(removedFile: object) {
     this.files = this.files.filter(file => file[0] !== removedFile);
   }
-  // handleImageRemove(image) {
-  //   debugger;
-  // }
-  // handleFileRemove(file) {
-  //   debugger;
-  // }
   public handleImageRemove(image): void {
     this.newsData.media.medias =
       this.newsData.media.medias.filter(m => m !== image);
