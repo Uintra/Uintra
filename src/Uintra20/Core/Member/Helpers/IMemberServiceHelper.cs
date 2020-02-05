@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Models;
 using Umbraco.Core.Models;
 
 namespace Uintra20.Core.Member.Helpers
@@ -9,5 +11,6 @@ namespace Uintra20.Core.Member.Helpers
         bool IsFirstLoginPerformed(IMember member);
         void SetFirstLoginPerformed(IMember member);
         IEnumerable<PropertyType> GetAvailableProfileProperties();
+        MemberViewModel ToViewModel(IIntranetMember member);
     }
 }

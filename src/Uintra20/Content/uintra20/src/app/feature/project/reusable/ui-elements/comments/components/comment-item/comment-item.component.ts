@@ -76,19 +76,12 @@ export class CommentItemComponent implements OnInit {
   }
 
   onSubmitEditedValue(subcomment?) {
-    const data = {
-      Id: subcomment ? subcomment.id : this.data.id,
-      EntityId: subcomment ? subcomment.entityId : this.data.activityId,
-      EntityType: this.activityType,
-      Text: subcomment ? subcomment.text : this.editedValue,
-    };
-
-    if (confirm('Are you sure?')) {
-      this.commentsService.editComment(data).then((res: any) => {
+    this.commentsService.editComment(
+      this.buildComment(subcomment)
+      ).then((res: any) => {
         this.editComment.emit(res.comments);
         this.toggleEditingMode();
       });
-    }
   }
 
   onToggleReply() {
@@ -97,5 +90,14 @@ export class CommentItemComponent implements OnInit {
 
   onCommentReply() {
     this.replyComment.emit({ parentId: this.data.id, description: this.subcommentDescription });
+  }
+
+  private buildComment(subcomment?) {
+    return {
+      Id: subcomment ? subcomment.id : this.data.id,
+      EntityId: subcomment ? subcomment.entityId : this.data.activityId,
+      EntityType: this.activityType,
+      Text: subcomment ? subcomment.text : this.editedValue,
+    };
   }
 }

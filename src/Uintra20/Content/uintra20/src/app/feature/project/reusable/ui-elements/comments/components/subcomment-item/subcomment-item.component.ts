@@ -15,9 +15,9 @@ export class SubcommentItemComponent implements OnInit {
   @Output() submitEditedValue = new EventEmitter();
   @Output() deleteComment = new EventEmitter();
 
-  isEditing: boolean = false;
-  initialValue: string = '';
-  editedValue: string = '';
+  isEditing = false;
+  initialValue = '';
+  editedValue = '';
   likeModel: ILikeData;
 
   get isEditSubmitDisabled() {
@@ -30,7 +30,7 @@ export class SubcommentItemComponent implements OnInit {
 
   constructor(private sanitizer: DomSanitizer) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.editedValue = this.data.text;
     this.data.text = this.sanitizer.bypassSecurityTrustHtml(this.data.text);
     const parsed = ParseHelper.parseUbaselineData(this.data);
@@ -42,24 +42,22 @@ export class SubcommentItemComponent implements OnInit {
     };
   }
 
-  toggleEditingMode() {
+  public toggleEditingMode(): void {
     this.isEditing = !this.isEditing;
     if (this.isEditing) {
       this.initialValue = this.data.text;
     }
   }
 
-  onSubmitEditedValue() {
-    const data = {
+  public onSubmitEditedValue(): void {
+    this.submitEditedValue.emit({
       id: this.data.id,
       entityId: this.data.activityId,
       text: this.editedValue,
-    }
-
-    this.submitEditedValue.emit(data);
+    });
   }
 
-  onCommentDelete() {
+  public onCommentDelete(): void {
     this.deleteComment.emit(this.data.id);
   }
 }

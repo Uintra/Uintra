@@ -6,6 +6,7 @@ using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.Helpers;
@@ -32,6 +33,7 @@ namespace Uintra20.Features.Social.Details.Converters
         private readonly ISocialService<Entities.Social> _socialService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly ILightboxHelper _lightboxHelper;
+        private readonly IMemberServiceHelper _memberHelper;
 
         public SocialDetailsPageViewModelConverter(
             IFeedLinkService feedLinkService,
@@ -41,7 +43,8 @@ namespace Uintra20.Features.Social.Details.Converters
             ICommentsService commentsService,
             ISocialService<Entities.Social> socialsService,
             ICommentsHelper commentsHelper,
-            ILightboxHelper lightboxHelper)
+            ILightboxHelper lightboxHelper,
+            IMemberServiceHelper memberHelper)
         {
             _feedLinkService = feedLinkService;
             _userTagService = userTagService;
@@ -51,6 +54,7 @@ namespace Uintra20.Features.Social.Details.Converters
             _socialService = socialsService;
             _memberService = memberService;
             _lightboxHelper = lightboxHelper;
+            _memberHelper = memberHelper;
         }
 
         public void Map(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
@@ -83,7 +87,7 @@ namespace Uintra20.Features.Social.Details.Converters
             viewModel.IsReadOnly = false;
             viewModel.HeaderInfo = social.Map<IntranetActivityDetailsHeaderViewModel>();
             viewModel.HeaderInfo.Dates = social.PublishDate.ToDateTimeFormat().ToEnumerable();
-            viewModel.HeaderInfo.Owner = _memberService.Get(social).Map<MemberViewModel>();
+            viewModel.HeaderInfo.Owner = _memberHelper.ToViewModel(_memberService.Get(social));
             viewModel.HeaderInfo.Links = _feedLinkService.GetLinks(id);
 
             var extendedModel = viewModel.Map<SocialExtendedViewModel>();

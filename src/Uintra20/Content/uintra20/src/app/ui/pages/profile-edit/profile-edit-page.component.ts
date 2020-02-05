@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
-import { IProfileEditPage } from './profile-edit-page.interface';
+import { IProfileEditPage } from '../../../feature/shared/interfaces/pages/profile/edit/profile-edit-page.interface';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ProfileService } from './services/profile.service';
 import { finalize } from 'rxjs/operators';
@@ -61,7 +61,7 @@ export class ProfileEditPage implements OnInit {
         profileUrl: parsed.profile.profileUrl,
         mediaRootId: parsed.profile.mediaRootId,
         newMedia: parsed.profile.newMedia,
-        memberNotifierSettings: parsed.profile.memberNotifierSettings,
+        memberNotifierSettings: ParseHelper.parseUbaselineData(this.data.profile.data.memberNotifierSettings),
         tags: Object.values(parsed.tags),
         availableTags: Object.values(parsed.availableTags)
       }
@@ -88,28 +88,34 @@ export class ProfileEditPage implements OnInit {
 
     this.profileService.update(profile)
       .pipe(finalize(() => this.inProgress = false))
-      .subscribe(
-        () => this.router.navigate([this.profileEdit.url])
-      );
+      .subscribe((next: any) => this.router.navigate([next.originalUrl]));
   }
 
-  public handleUpdateNotificationSettings($event): void {
-    $event.preventDefault();
+  public handleUpdateNotificationSettings(event): void {
+    event.preventDefault();
     if (confirm('Are you sure')) {
       this.profileService.updateNotificationSettings({
         notifierTypeEnum: NotifierTypeEnum[NotifierTypeEnum.EmailNotifier],
-        isEnabled: $event.target.checked
-      }).subscribe();
+        isEnabled: event.target.checked
+      }).subscribe(
+        (next) => { },
+        (error) => {
+          this.profileEdit.member.memberNotifierSettings.emailNotifier =
+            !this.profileEdit.member.memberNotifierSettings.emailNotifier;
+        }
+      );
+    } else {
+      this.profileEdit.member.memberNotifierSettings.emailNotifier = !event.target.checked;
     }
   }
 
-  processAvatarUpload(fileArray: Array<any> = []): void {
+  public processAvatarUpload(fileArray: Array<any> = []): void {
     this.files.push(fileArray);
     this.isUploaded = true;
     this.profileEdit.member.newMedia = fileArray[1];
   }
 
-  processAvatarDelete() {
+  public processAvatarDelete(): void {
     this.profileService.deletePhoto(this.profileEdit.member.photoId)
       .subscribe(
         () => {

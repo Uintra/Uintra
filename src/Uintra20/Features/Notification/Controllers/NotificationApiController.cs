@@ -7,6 +7,7 @@ using UBaseline.Core.Controllers;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification.Models;
@@ -26,13 +27,15 @@ namespace Uintra20.Features.Notification.Controllers
         private readonly IPopupNotificationService _popupNotificationService;
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
+        private readonly IMemberServiceHelper _memberHelper;
         public NotificationApiController(
             IUBaselineRequestContext requestContext,
             INodeModelService nodeModelService,
             IUiNotificationService uiNotifierService,
             IPopupNotificationService popupNotificationService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
-            IIntranetMemberService<IntranetMember> intranetMemberService)
+            IIntranetMemberService<IntranetMember> intranetMemberService,
+            IMemberServiceHelper memberHelper)
         {
             _requestContext = requestContext;
             _nodeModelService = nodeModelService;
@@ -40,6 +43,7 @@ namespace Uintra20.Features.Notification.Controllers
             _popupNotificationService = popupNotificationService;
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
             _intranetMemberService = intranetMemberService;
+            _memberHelper = memberHelper;
         }
 
         [HttpGet]
@@ -162,7 +166,7 @@ namespace Uintra20.Features.Notification.Controllers
             var notifierId = (string)result.Value.notifierId;
 
             result.Notifier = Guid.TryParse(notifierId, out var id)
-                ? (await _intranetMemberService.GetAsync(id)).Map<MemberViewModel>()
+                ? _memberHelper.ToViewModel(await _intranetMemberService.GetAsync(id))
                 : null;
 
             return result;
