@@ -111,13 +111,13 @@ export class ProfileEditPage implements OnInit {
     }
   }
 
-  processAvatarUpload(fileArray: Array<any> = []): void {
+  public processAvatarUpload(fileArray: Array<any> = []): void {
     this.files.push(fileArray);
     this.isUploaded = true;
     this.profileEdit.member.newMedia = fileArray[1];
   }
 
-  processAvatarDelete() {
+  public processAvatarDelete(): void {
     this.profileService.deletePhoto(this.profileEdit.member.photoId)
       .subscribe(
         () => {
