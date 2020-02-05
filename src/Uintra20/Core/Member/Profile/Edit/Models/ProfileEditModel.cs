@@ -9,9 +9,9 @@ namespace Uintra20.Core.Member.Profile.Edit.Models
     public class ProfileEditModel : IContentWithMediaCreateEditModel
     {
         public Guid Id { get; set; }
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "First name required")]
         public string FirstName { get; set; }
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Last name required")]
         public string LastName { get; set; }
         public string Phone { get; set; }
         public string Department { get; set; }

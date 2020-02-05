@@ -10,23 +10,19 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Core.Member.Profile.Converters
 {
-    public class ProfilePageViewModelConverter : 
-        INodeViewModelConverter<ProfilePageModel, ProfilePageViewModel>
+    public class ProfilePageViewModelConverter : INodeViewModelConverter<ProfilePageModel, ProfilePageViewModel>
     {
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IUserTagService _userTagService;
-        private readonly IUserTagProvider _userTagProvider;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
 
         public ProfilePageViewModelConverter(
             IIntranetMemberService<IntranetMember> memberService, 
-            IUserTagService userTagService, 
-            IUserTagProvider userTagProvider,
+            IUserTagService userTagService,
             IIntranetUserContentProvider intranetUserContentProvider)
         {
             _memberService = memberService;
             _userTagService = userTagService;
-            _userTagProvider = userTagProvider;
             _intranetUserContentProvider = intranetUserContentProvider;
         }
 

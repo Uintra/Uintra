@@ -10,7 +10,7 @@ import { IProfilePage } from './profile-page.interface';
   encapsulation: ViewEncapsulation.None
 })
 export class ProfilePage implements OnInit {
-  private data: any;
+  public data: any;
   public profile: IProfilePage;
 
   constructor(private route: ActivatedRoute) {
