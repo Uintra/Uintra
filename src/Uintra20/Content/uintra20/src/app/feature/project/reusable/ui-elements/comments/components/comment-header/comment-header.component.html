@@ -1,5 +1,10 @@
-<div class="comment__info">
-  <a class="comment__author-name">{{data.creator.displayedName}}</a>
+<div *ngIf="data" class="comment__info">
+  <a
+    class="comment__author-name"
+    [routerLink]='data.creatorProfileUrl.baseUrl | ulink'
+    [queryParams]='data.creatorProfileUrl.params | uparams'>
+    {{data.creator.displayedName}}
+  </a>
   <span class="comment__author-inactive"> - {{data.createdDate}}</span>
   <div class="comment__modified" *ngIf="data.modifyDate">
     <span class="glyphicon glyphicon-pencil"></span>

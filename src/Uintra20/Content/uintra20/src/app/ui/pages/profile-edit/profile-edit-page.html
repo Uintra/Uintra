@@ -53,7 +53,7 @@
                 <label for="">Notification</label>
                 <checkbox-input
                   [isChecked]="profileEdit.member.memberNotifierSettings.emailNotifier"
-                  (click)="handleUpdateNotificationSettings($event)">
+                  (change)="handleUpdateNotificationSettings($event)">
               </checkbox-input>
               </div>
           </div>

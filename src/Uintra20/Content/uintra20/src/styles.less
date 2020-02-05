@@ -27,7 +27,7 @@ head {
 
 body {
     margin: 0;
-    background-color: @body-bg;
+    background-color: @main-body-bg;
     color: @body-text-color;
     font: @body-font;
 
@@ -35,6 +35,7 @@ body {
       overflow: hidden;
     }
 }
+
 /* apply to correct element */
 
 breadcrumb {
@@ -60,7 +61,7 @@ breadcrumb {
   // }
 
   &__wrap {
-    padding: 0 15px;
+    padding: 0;
     flex-grow: 1;
     width: 100%;
 
@@ -78,6 +79,13 @@ breadcrumb {
   }
 }
 
+comments-panel {
+  .comments-panel {
+    @media @md-down {
+      padding: 0 15px;
+    }
+  }
+}
 .disable-scroll,
 .disable-scroll body {
   margin: 0;

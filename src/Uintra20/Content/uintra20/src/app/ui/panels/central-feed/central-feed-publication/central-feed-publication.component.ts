@@ -44,9 +44,8 @@ export class CentralFeedPublicationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.publication.activity.description = this.sanitizer.bypassSecurityTrustHtml(
-      this.publication.activity.description
-    );
+    this.deviceWidth = window.innerWidth;
+    this.publication.activity.description = this.sanitizer.bypassSecurityTrustHtml(this.publication.activity.description);
     this.medias = Object.values(this.publication.activity.mediaPreview.medias);
     this.countToDisplay =
       this.medias.length > 2

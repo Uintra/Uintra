@@ -1,7 +1,8 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
-import { IProfilePage } from './profile-page.interface';
+import { IProfilePage } from 'src/app/feature/shared/interfaces/pages/profile/profile-page.interface';
+
 
 @Component({
   selector: 'profile-page',
@@ -10,7 +11,7 @@ import { IProfilePage } from './profile-page.interface';
   encapsulation: ViewEncapsulation.None
 })
 export class ProfilePage implements OnInit {
-  private data: any;
+  public data: any;
   public profile: IProfilePage;
 
   constructor(private route: ActivatedRoute) {
@@ -31,9 +32,10 @@ export class ProfilePage implements OnInit {
         email: parsed.profile.email,
         phone: parsed.profile.phone,
         department: parsed.profile.department,
-        tags: Object.values(parsed.tags)
+        tags: Object.values(parsed.tags),
       },
-      title: parsed.name
+      title: parsed.name,
+      link: parsed.editProfileLink
     };
   }
 }

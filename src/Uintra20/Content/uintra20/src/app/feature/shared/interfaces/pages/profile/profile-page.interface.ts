@@ -3,7 +3,9 @@ import { IUserTag } from "src/app/feature/project/specific/activity/activity.int
 export interface IProfilePage {
   title: string;
   member: IMember;
+  link: ILinkModel;
 }
+
 export interface IMember {
   photo: string;
   firstName: string;
@@ -12,4 +14,10 @@ export interface IMember {
   phone: string;
   department: string;
   tags: Array<IUserTag>;
+}
+
+export interface ILinkModel {
+  originalUrl: string;
+  baseUrl: string;
+  params: Array<string>;
 }
