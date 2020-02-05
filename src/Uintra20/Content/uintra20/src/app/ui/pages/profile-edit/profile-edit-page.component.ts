@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
-import { IProfileEditPage } from './profile-edit-page.interface';
+import { IProfileEditPage } from '../../../feature/shared/interfaces/pages/profile/edit/profile-edit-page.interface';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ProfileService } from './services/profile.service';
 import { finalize } from 'rxjs/operators';
@@ -111,13 +111,13 @@ export class ProfileEditPage implements OnInit {
     }
   }
 
-  processAvatarUpload(fileArray: Array<any> = []): void {
+  public processAvatarUpload(fileArray: Array<any> = []): void {
     this.files.push(fileArray);
     this.isUploaded = true;
     this.profileEdit.member.newMedia = fileArray[1];
   }
 
-  processAvatarDelete() {
+  public processAvatarDelete(): void {
     this.profileService.deletePhoto(this.profileEdit.member.photoId)
       .subscribe(
         () => {
