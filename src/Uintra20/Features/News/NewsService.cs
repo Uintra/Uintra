@@ -14,6 +14,7 @@ using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
 using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.CentralFeed.Enums;
@@ -60,6 +61,7 @@ namespace Uintra20.Features.News
         private readonly IGroupService _groupService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IIntranetLocalizationService _localizationService;
+        private readonly IMemberServiceHelper _memberHelper;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -80,7 +82,8 @@ namespace Uintra20.Features.News
             IActivityLinkPreviewService activityLinkPreviewService,
             IGroupService groupService,
             INotifierDataBuilder notifierDataBuilder,
-            IIntranetLocalizationService localizationService)
+            IIntranetLocalizationService localizationService,
+            IMemberServiceHelper memberHelper)
             : base(intranetActivityRepository, cacheService, intranetMemberService,
                 activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
                 permissionsService)
@@ -100,6 +103,7 @@ namespace Uintra20.Features.News
             _activityLocationService = activityLocationService;
             _intranetMemberService = intranetMemberService;
             _localizationService = localizationService;
+            _memberHelper = memberHelper;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.News;
@@ -117,7 +121,7 @@ namespace Uintra20.Features.News
             var viewModel = news.Map<IntranetActivityPreviewModelBase>();
             viewModel.CanEdit = CanEdit(news);
             viewModel.Links = links;
-            viewModel.Owner = _intranetMemberService.Get(news).Map<MemberViewModel>();
+            viewModel.Owner = _memberHelper.ToViewModel(_intranetMemberService.Get(news));
             viewModel.Type = _localizationService.Translate(news.Type.ToString());
             viewModel.LikedByCurrentUser = news.Likes.Any(x => x.UserId == currentMemberId);
             viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);

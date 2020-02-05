@@ -17,10 +17,11 @@ namespace Uintra20.Core.Member.Helpers
         private readonly IMemberTypeService _memberTypeService;
         private readonly IImageHelper _imageHelper;
 
-        public MemberServiceHelper(IMemberService memberService, IMemberTypeService memberTypeService)
+        public MemberServiceHelper(IMemberService memberService, IMemberTypeService memberTypeService, IImageHelper imageHelper)
         {
             _memberService = memberService;
             _memberTypeService = memberTypeService;
+            _imageHelper = imageHelper;
         }
 
         private const string RelatedUserPropertyName = "relatedUser";
@@ -51,6 +52,11 @@ namespace Uintra20.Core.Member.Helpers
 
         public MemberViewModel ToViewModel(IIntranetMember member)
         {
+            if (member == null)
+            {
+                return null;
+            }
+
             var result = member.Map<MemberViewModel>();
             result.Photo = _imageHelper.GetImageWithResize(member.Photo, RenderStrategies.ForMemberProfile.Thumbnail);
 

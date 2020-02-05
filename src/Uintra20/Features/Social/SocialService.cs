@@ -13,6 +13,7 @@ using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
 using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.CentralFeed.Enums;
@@ -61,6 +62,7 @@ namespace Uintra20.Features.Social
         private readonly INotifierDataBuilder _notifierDataBuilder;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IIntranetLocalizationService _localizationService;
+        private readonly IMemberServiceHelper _memberHelper;
 
         public SocialService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -82,7 +84,8 @@ namespace Uintra20.Features.Social
             IActivityLinkPreviewService activityLinkPreviewService,
             IGroupService groupService,
             INotifierDataBuilder notifierDataBuilder,
-            IIntranetLocalizationService localizationService)
+            IIntranetLocalizationService localizationService,
+            IMemberServiceHelper memberHelper)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
                 activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService)
         {
@@ -101,6 +104,7 @@ namespace Uintra20.Features.Social
             _notifierDataBuilder = notifierDataBuilder;
             _intranetMemberService = intranetMemberService;
             _localizationService = localizationService;
+            _memberHelper = memberHelper;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.Social;
@@ -122,7 +126,7 @@ namespace Uintra20.Features.Social
             var viewModel = bulletin.Map<SocialPreviewModel>();
             viewModel.CanEdit = CanEdit(bulletin);
             viewModel.Links = links;
-            viewModel.Owner = _intranetMemberService.Get(bulletin).Map<MemberViewModel>();
+            viewModel.Owner = _memberHelper.ToViewModel(_intranetMemberService.Get(bulletin));
             viewModel.Type = _localizationService.Translate(bulletin.Type.ToString());
             viewModel.LikedByCurrentUser = bulletin.Likes.Any(x => x.UserId == currentMemberId);
             viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);

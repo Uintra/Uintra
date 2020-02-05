@@ -7,6 +7,7 @@ using UBaseline.Core.Node;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Links;
@@ -25,17 +26,20 @@ namespace Uintra20.Features.News.Converters
         private readonly IFeedLinkService _feedLinkService;
         private readonly INewsService<Entities.News> _newsService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
+        private readonly IMemberServiceHelper _memberHelper;
 
         public UintraNewsEditPageViewModelConverter(
             IPermissionsService permissionsService,
             IFeedLinkService feedLinkService,
             INewsService<Entities.News> newsService,
-            IIntranetMemberService<IntranetMember> memberService)
+            IIntranetMemberService<IntranetMember> memberService,
+            IMemberServiceHelper memberHelper)
         {
             _permissionsService = permissionsService;
             _feedLinkService = feedLinkService;
             _newsService = newsService;
             _memberService = memberService;
+            _memberHelper = memberHelper;
         }
         public void Map(UintraNewsEditPageModel node, UintraNewsEditPageViewModel viewModel)
         {
@@ -74,7 +78,7 @@ namespace Uintra20.Features.News.Converters
             details.IsReadOnly = false;
             details.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             details.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
-            details.HeaderInfo.Owner = _memberService.Get(news).Map<MemberViewModel>();
+            details.HeaderInfo.Owner = _memberHelper.ToViewModel(_memberService.Get(news));
             details.HeaderInfo.Links = _feedLinkService.GetLinks(activityId);
 
             return details;
