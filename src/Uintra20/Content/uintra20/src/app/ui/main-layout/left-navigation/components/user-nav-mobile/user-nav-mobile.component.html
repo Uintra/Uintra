@@ -1,17 +1,17 @@
-<ul class="user-nav">
+<ul *ngIf="data" class="user-nav">
   <li class="user-nav__item">
-    <a class="user-nav__user">
-      <!-- <app-user-avatar 
+    <a class="user-nav__link user-nav__user">
+      <app-user-avatar 
         class="user-nav__user-avatar"
-        [photo]="commentCreator.photo"
-        [name]="commentCreator.displayedName">
-      </app-user-avatar> -->
+        [photo]="data.currentMember.photo"
+        [name]="data.currentMember.displayedName">
+      </app-user-avatar>
       <span class="user-nav__user-name">Name</span>
     </a>
   </li>
-  <li class="user-nav__item">
-    <a class="user-nav__logout">
-      Logout
-    </a>
+  <li class="user-nav__item" *ngFor="let item of data.items">
+    <button class="user-nav__link user-nav__btn" (click)="handleRequest(item.type, item.url.baseUrl)" [disabled]="false">
+      {{item.name}}
+    </button>
   </li>
 </ul>

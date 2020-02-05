@@ -1,0 +1,65 @@
+@import 'base.less';
+
+.user-nav {
+  &__item {
+    position: relative;
+  }
+
+  &__link {
+    display: block;
+    width: 100%;
+    padding: 11px 48px 9px 60px;
+    color: @heading-bg;
+    word-wrap: break-word;
+    margin: 0 0 -2px;
+    position: relative;
+    text-decoration: none;
+    text-align: left;
+    font-weight: 600;
+    cursor: pointer;
+    
+    &::before {
+      content: "";
+      position: absolute;
+      background: @header-bg;
+      width: 5px;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      display: none;
+
+      @media @sm-up {
+        width: 2px;
+      }
+    }
+
+    &:hover,
+    &.active {
+      background: @body-bg;
+      text-decoration: none;
+      color: @heading-bg;
+
+      &:before {
+        display:block;
+      }
+    }
+  }
+
+  &__btn {
+    font-family: "muli", Arial, Helvetica, sans-serif;;
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+
+    &-avatar {
+      position: absolute;
+      left: 19px;
+    }
+  }
+}
