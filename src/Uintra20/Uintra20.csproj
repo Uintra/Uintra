@@ -1450,6 +1450,7 @@
     <Compile Include="Features\Media\VideoConverterLogService.cs" />
     <Compile Include="Features\Media\VideoHelper.cs" />
     <Compile Include="Features\Media\VideoSizeMetadataModel.cs" />
+    <Compile Include="Infrastructure\Ioc\NewsInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\SocialInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\NotificationInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\ActivityInjectModule.cs" />
