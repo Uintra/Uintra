@@ -6,12 +6,26 @@
         [photo]="data.currentMember.photo"
         [name]="data.currentMember.displayedName">
       </app-user-avatar>
-      <span class="user-nav__user-name">Name</span>
+      <span class="user-nav__user-name">{{data.currentMember.displayedName}}</span>
     </a>
   </li>
   <li class="user-nav__item" *ngFor="let item of data.items">
-    <button class="user-nav__link user-nav__btn" (click)="handleRequest(item.type, item.url.baseUrl)" [disabled]="false">
-      {{item.name}}
-    </button>
+    <button
+        *ngIf="item.type == 1 || item.type == 4"
+        [disabled]="inProgress"
+        class="user-nav__link user-nav__btn"
+        (click)="redirect(item.url, item.type)">
+        {{item.name}}
+      </button>
+      <a
+        *ngIf="item.type == 2"
+        class="user-nav__link"
+        [routerLink]="item.url.baseUrl | ulink"
+        [queryParams]="item.url.params | uparams">
+        {{item.name}}
+      </a>
+      <a *ngIf="item.type == 3" class="user-nav__link" [href]="item.url.originalUrl" target="_blank">
+        {{item.name}}
+      </a>
   </li>
 </ul>

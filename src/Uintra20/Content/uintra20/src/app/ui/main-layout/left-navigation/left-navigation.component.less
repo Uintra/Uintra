@@ -9,10 +9,20 @@
   position: fixed;
   display: block;
   height: calc(100vh - @header-height);
+  position: relative;
 
   @media @sm-up {
     height: calc(100vh - @header-height-md);
   }
+
+  &::before {
+    content: '';
+    background-color: white;
+    width: 1500px;
+    height: 100%;
+    position: absolute;
+    right: 100%;
+  } 
 }
 
 .navigation-content {
