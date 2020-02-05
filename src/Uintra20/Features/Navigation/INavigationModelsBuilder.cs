@@ -7,6 +7,7 @@ namespace Uintra20.Features.Navigation
     public interface INavigationModelsBuilder
     {
         IEnumerable<TreeNavigationItemModel> GetLeftSideNavigation();
+        TopNavigationModel GetMobileNavigation();
         TopNavigationModel GetTopNavigationModel();
     }
 }
