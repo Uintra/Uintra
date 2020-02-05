@@ -56,22 +56,6 @@
     (handleChange)="setPinValue($event)"
   ></app-pin-activity>
 
-  <!-- <div class="form-row">
-    <label>Files</label>
-    <div class="images">
-      <div class="images__item" *ngFor="let media of socialEdit.lightboxPreviewModel.medias">
-        <span class="icon-close" (click)="handleImageRemove(media)"></span>
-        <img [src]="media.previewUrl">
-        <span class="images__item-name">{{media.name}}</span>
-      </div>
-      <div class="images__item" *ngFor="let file of socialEdit.lightboxPreviewModel.otherFiles">
-          <span class="icon-close" (click)="handleFileRemove(file)"></span>
-          <span class="images__item-name">{{file.name}}</span>
-          <span class="images__item-name">{{file.extension}}</span>
-      </div>
-    </div>
-  </div> -->
-
   <div class="form-row" *ngIf="newsData.media">
     <label>Files</label>
     <div class="images">
@@ -94,14 +78,6 @@
     </app-dropzone-wrapper>
   </div>
 
-  <!-- <div class="dropzone-holder form-row">
-    <h3 class="dropzone-holder__title subtitle">File(s)</h3>
-    <app-dropzone-wrapper
-      [filesLength]="files.length"
-      (success)="onUploadSuccess($event)"
-      (removedFile)="onFileRemoved($event)"
-    ></app-dropzone-wrapper>
-  </div> -->
 
   <div class="form-row" *ngIf="isShowValidation">
     <div *ngIf="!newsData.title"
@@ -118,8 +94,13 @@
         class="alert alert-danger">
         Accept should be checked
     </div>
-  </div>
 
+    <div *ngIf="isInvalidEndPinDate"
+        class="alert alert-danger">
+        Unpin date should be between the Publish date and the Unpublish date
+    </div>
+
+  </div>
 
 
   <div class="buttons">

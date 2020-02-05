@@ -12,6 +12,7 @@ import { IDatepickerData } from "../../../reusable/inputs/datepicker-from-to/dat
 import { ITagData } from "../../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { INewsCreateModel, IOwner } from "../activity.interfaces";
 import { ILocationResult } from "../../../reusable/ui-elements/location-picker/location-picker.interface";
+import { NewsFormService } from "./news-form.service";
 
 @Component({
   selector: "app-news-form",
@@ -42,34 +43,22 @@ export class NewsFormComponent implements OnInit {
   };
   initialLocation: string;
 
-  constructor() {}
+  constructor(private newsFormService: NewsFormService) {}
 
   ngOnInit() {
+    this.newsData = this.newsFormService.getNewsDataInitialValue(this.data);
+    this.setInitialData();
+  }
+
+  private setInitialData(): void {
     this.owners = this.getOwners();
 
     this.defaultOwner = this.creator
       ? this.owners.find(x => x.id === this.creator.id)
       : null;
-    this.setInitialData();
-  }
-
-  private setInitialData(): void {
-    this.newsData = {
-      ownerId: this.data.ownerId,
-      title: this.data.title || "",
-      description: this.data.description || "",
-      publishDate: undefined,
-      location: {
-        address: (this.data.location && this.data.location.address) || null,
-        shortAddress:
-          (this.data.location && this.data.location.shortAddress) || null
-      },
-      endPinDate: this.data.endPinDate || null,
-      isPinned: this.data.isPinned || false,
-      media: this.data.media || null
-    };
 
     this.selectedTags = this.data.tags || [];
+
     this.initialDates = {
       from: this.data.publishDate || undefined,
       to: this.data.unpublishDate || undefined
@@ -83,6 +72,14 @@ export class NewsFormComponent implements OnInit {
     }
   }
 
+  get isInvalidEndPinDate() {
+    return (
+      this.newsData.isPinned &&
+      (this.newsData.endPinDate < this.newsData.publishDate ||
+        this.newsData.endPinDate > this.newsData.unpublishDate)
+    );
+  }
+
   // File functions
   onUploadSuccess(fileArray: Array<any> = []): void {
     this.files.push(fileArray);
@@ -91,12 +88,14 @@ export class NewsFormComponent implements OnInit {
     this.files = this.files.filter(file => file[0] !== removedFile);
   }
   public handleImageRemove(image): void {
-    this.newsData.media.medias =
-      this.newsData.media.medias.filter(m => m !== image);
+    this.newsData.media.medias = this.newsData.media.medias.filter(
+      m => m !== image
+    );
   }
   public handleFileRemove(file): void {
-    this.newsData.media.otherFiles =
-      this.newsData.media.otherFiles.filter(m => m !== file);
+    this.newsData.media.otherFiles = this.newsData.media.otherFiles.filter(
+      m => m !== file
+    );
   }
 
   // Data set functions
@@ -128,7 +127,12 @@ export class NewsFormComponent implements OnInit {
 
   private validate(): boolean {
     const pinValid = this.newsData.isPinned ? this.isAccepted : true;
-    return this.newsData.title && this.newsData.description && pinValid;
+    return (
+      this.newsData.title &&
+      this.newsData.description &&
+      pinValid &&
+      !this.isInvalidEndPinDate
+    );
   }
 
   private newsDataBuilder(): void {
