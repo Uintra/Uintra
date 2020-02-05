@@ -67,6 +67,25 @@ namespace Uintra20.Features.Navigation
             return items;
         }
 
+        public virtual TopNavigationModel GetMobileNavigation()
+        {
+            var model = new TopNavigationModel
+            {
+                CurrentMember = _intranetMemberService.GetCurrentMember(),
+                Items = new List<TopNavigationItem>
+                {
+                    new TopNavigationItem
+                    {
+                        Name = "Logout",
+                        Type = TopNavigationItemTypes.Logout,
+                        Url = "/api/auth/logout".ToLinkModel()
+                    }
+                }
+            };
+
+            return model;
+        }
+
         public virtual TopNavigationModel GetTopNavigationModel()
         {
             var menuItems = new List<TopNavigationItem>();

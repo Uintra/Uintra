@@ -23,6 +23,15 @@ namespace Uintra20.Features.Navigation.Web
         }
 
         [HttpGet]
+        public virtual TopNavigationViewModel MobileNavigation()
+        {
+            var model = _navigationModelsBuilder.GetMobileNavigation();
+            var viewModel = model.Map<TopNavigationViewModel>();
+
+            return viewModel;
+        }
+
+        [HttpGet]
         public virtual TopNavigationViewModel TopNavigation()
         {
             var model = _navigationModelsBuilder.GetTopNavigationModel();
