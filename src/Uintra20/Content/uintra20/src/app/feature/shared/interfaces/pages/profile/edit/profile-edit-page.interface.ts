@@ -5,6 +5,7 @@ export interface IProfileEditPage {
     title: string;
     url: string;
 }
+
 export interface IProfile {
     id: string;
     firstName: string;
@@ -21,6 +22,7 @@ export interface IProfile {
     tags: Array<ITagData>;
     availableTags: Array<ITagData>;
 }
+
 export interface IMemberNotifierSettings {
   uiNotifier: boolean;
   desktopNotifier: boolean;
