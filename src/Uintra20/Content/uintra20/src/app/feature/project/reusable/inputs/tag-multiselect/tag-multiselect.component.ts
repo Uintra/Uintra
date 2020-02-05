@@ -18,41 +18,42 @@ export class TagMultiselectComponent implements ControlValueAccessor {
   @Input() availableTags: Array<ITagData>;
 
   selectedList: Array<ITagData> = [];
-  isDwopdownShowed: boolean = false;
-  isAddedTag: boolean = false;
+  isDwopdownShowed = false;
+  isAddedTag = false;
 
-  constructor() {}
+  constructor() { }
 
-  onToggleDropdown() {
+  public onToggleDropdown(): void {
     this.isDwopdownShowed = !this.isDwopdownShowed;
   }
-  onShowDropdown() {
+  public onShowDropdown(): void {
     this.isDwopdownShowed = true;
   }
-  onHideDropdown() {
+  public onHideDropdown(): void {
     this.isDwopdownShowed = false;
   }
 
-  onAddTag(tag) {
-    if (this.selectedList.includes(tag)) return;
+  public onAddTag(tag): void {
+    if (this.selectedList.filter(t => t.id === tag.id).length) { return; }
+
     this.isAddedTag = true;
     this.selectedList = [...this.selectedList, tag];
     this.onHideDropdown();
     this.writeValue(this.selectedList);
   }
 
-  onRemoveTag(tag, e) {
+  public onRemoveTag(tag, e): void {
     e.event.stopPropagation();
     this.selectedList = this.selectedList.filter(
       curTag => curTag.id !== tag.id
     );
-    if (this.selectedList.length == 0) {
+    if (this.selectedList.length === 0) {
       this.isAddedTag = false;
     }
     this.writeValue(this.selectedList);
   }
 
-  onClearSelectedTags() {
+  public onClearSelectedTags(): void {
     this.selectedList = [];
     this.isAddedTag = false;
     this.onHideDropdown();
@@ -69,18 +70,19 @@ export class TagMultiselectComponent implements ControlValueAccessor {
     return false;
   }
 
+  propagateChange: any = () => {
+  }
 
-  propagateChange: any = () => {};
   writeValue(value) {
-    this.selectedList = value;
+    this.selectedList = value || [];
     this.onChange(this.selectedList);
   }
 
-
   onChange: any = () => {
-  };
+  }
+
   onTouched: any = () => {
-  };
+  }
 
   registerOnChange(fn) {
     this.onChange = fn;
