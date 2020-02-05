@@ -26,7 +26,12 @@
       (addAttachment)="addAttachment()"
       [isUnderline]="false"
       placeholder="Write a message, post a photo or share a document">
-        <button submit [disabled]="isSubmitDisabled" class="bulletin-popup__submit-button" (click)="onSubmit()">Send</button>
+
+        <button submit [disabled]="isSubmitDisabled" class="bulletin-popup__submit-button" (click)="onSubmit()">
+          <span *ngIf="inProgress" class="bulletin-popup__submit-button-spinner"></span>
+          <span *ngIf="!inProgress">Send</span>
+        </button>
+
       </app-rich-text-editor>
     </div>
   </div>
