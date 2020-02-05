@@ -970,6 +970,7 @@
     <Compile Include="Core\Member\Profile\Edit\Models\ProfileEditNotificationSettings.cs" />
     <Compile Include="Core\Member\Profile\Services\IProfileService.cs" />
     <Compile Include="Core\Member\Profile\Services\ProfileService.cs" />
+    <Compile Include="Features\Media\Strategies\ImageResize\MemberProfileRenderStrategy.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\INavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\NavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\EqualityComparers\MyLinkItemModelComparer.cs" />

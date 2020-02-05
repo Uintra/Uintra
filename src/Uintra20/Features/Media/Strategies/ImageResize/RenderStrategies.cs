@@ -4,5 +4,6 @@
     {
         public static CentralFeedRenderStrategy ForCentralFeed = new CentralFeedRenderStrategy();
         public static ActivityDetailsRenderStrategy ForActivityDetails = new ActivityDetailsRenderStrategy();
+        public static MemberProfileRenderStrategy ForMemberProfile = new MemberProfileRenderStrategy();
     }
 }
