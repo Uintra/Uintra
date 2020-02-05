@@ -2,7 +2,6 @@
 using UBaseline.Core.Node;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Profile.Edit.Models;
-using Uintra20.Core.Member.Profile.Services;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Tagging.UserTags.Services;
