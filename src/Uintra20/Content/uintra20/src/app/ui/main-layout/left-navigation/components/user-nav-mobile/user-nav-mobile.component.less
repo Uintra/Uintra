@@ -1,6 +1,12 @@
 @import 'base.less';
 
 .user-nav {
+  display: none;
+  
+  @media @md-down {
+    display: block;
+  }
+
   &__item {
     position: relative;
   }
