@@ -10,6 +10,7 @@ using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Services;
@@ -36,6 +37,7 @@ namespace Uintra20.Features.News.Controllers
         private readonly IActivityLinkService _activityLinkService;
         private readonly IMentionService _mentionService;
         private readonly IPermissionsService _permissionsService;
+        private readonly IMemberServiceHelper _memberHelper;
 
         public NewsApiController(
             IIntranetMemberService<IntranetMember> intranetMemberService,
@@ -46,8 +48,8 @@ namespace Uintra20.Features.News.Controllers
             IActivityTagsHelper activityTagsHelper,
             IActivityLinkService activityLinkService,
             IMentionService mentionService,
-            IPermissionsService permissionsService
-            )
+            IPermissionsService permissionsService,
+            IMemberServiceHelper memberHelper)
         {
             _intranetMemberService = intranetMemberService;
             _newsService = newsService;
@@ -57,6 +59,7 @@ namespace Uintra20.Features.News.Controllers
             _activityLinkService = activityLinkService;
             _mentionService = mentionService;
             _permissionsService = permissionsService;
+            _memberHelper = memberHelper;
         }
 
         [HttpPost]
@@ -146,7 +149,7 @@ namespace Uintra20.Features.News.Controllers
 
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
-            model.HeaderInfo.Owner = (await _intranetMemberService.GetAsync(news)).Map<MemberViewModel>();
+            model.HeaderInfo.Owner = _memberHelper.ToViewModel(await _intranetMemberService.GetAsync(news));
             model.Links = await _activityLinkService.GetLinksAsync(model.Id);
             model.HeaderInfo.Links = await _activityLinkService.GetLinksAsync(model.Id);
             model.CanEdit = _newsService.CanEdit(news);

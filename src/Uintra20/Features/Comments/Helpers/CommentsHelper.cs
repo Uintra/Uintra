@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.Models;
@@ -22,17 +23,20 @@ namespace Uintra20.Features.Comments.Helpers
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly ILikesService _likesService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
+        private readonly IMemberServiceHelper _memberHelper;
 
         public CommentsHelper(
             ICommentsService commentsService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
-            ILikesService likesService)
+            ILikesService likesService,
+            IMemberServiceHelper memberHelper)
         {
             _commentsService = commentsService;
             _intranetMemberService = intranetMemberService;
             _profileLinkProvider = profileLinkProvider;
             _likesService = likesService;
+            _memberHelper = memberHelper;
         }
 
         public virtual async Task<CommentsOverviewModel> OverViewAsync(Guid activityId)
@@ -103,7 +107,7 @@ namespace Uintra20.Features.Comments.Helpers
             model.ModifyDate = _commentsService.WasChanged(comment) ? comment.ModifyDate.ToDateTimeFormat() : null;
             model.CanEdit = _commentsService.CanEdit(comment, currentMemberId);
             model.CanDelete = _commentsService.CanDelete(comment, currentMemberId);
-            model.Creator = creator?.Map<MemberViewModel>();
+            model.Creator = _memberHelper.ToViewModel(creator);
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             model.CreatorProfileUrl = creator == null ? null : _profileLinkProvider.GetProfileLink(creator);

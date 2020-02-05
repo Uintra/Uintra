@@ -6,6 +6,7 @@ using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.News;
@@ -31,6 +32,7 @@ namespace Uintra20.Core.Activity.Converters
         private readonly IPermissionsService _permissionsService;
         private readonly IUserTagService _tagsService;
         private readonly IUserTagProvider _tagProvider;
+        private readonly IMemberServiceHelper _memberHelper;
 
         public ActivityCreatePanelViewModelConverter(
             INewsService<News> newsService,
@@ -39,7 +41,8 @@ namespace Uintra20.Core.Activity.Converters
             IActivityTypeProvider activityTypeProvider,
             IPermissionsService permissionsService,
             IUserTagService tagsService,
-            IUserTagProvider tagProvider)
+            IUserTagProvider tagProvider,
+            IMemberServiceHelper memberHelper)
         {
             _socialService = socialService;
             _memberService = memberService;
@@ -48,6 +51,7 @@ namespace Uintra20.Core.Activity.Converters
             _tagsService = tagsService;
             _tagProvider = tagProvider;
             _newsService = newsService;
+            _memberHelper = memberHelper;
         }
 
         public void Map(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
@@ -72,7 +76,7 @@ namespace Uintra20.Core.Activity.Converters
             var currentMember = _memberService.GetCurrentMember();
 
             viewModel.PublishDate = DateTime.UtcNow;
-            viewModel.Creator = currentMember.Map<MemberViewModel>();
+            viewModel.Creator = _memberHelper.ToViewModel(currentMember);
             viewModel.ActivityType = IntranetActivityTypeEnum.News;
             viewModel.Links = null;//TODO: Research links
             viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready
@@ -93,7 +97,7 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.Title = currentMember.DisplayedName;
             viewModel.ActivityType = IntranetActivityTypeEnum.Social;
             viewModel.Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable();
-            viewModel.Creator = currentMember.Map<MemberViewModel>();
+            viewModel.Creator = _memberHelper.ToViewModel(currentMember);
             viewModel.Links = null;//TODO: Research links
             viewModel.AllowedMediaExtensions = null;//mediaSettings.AllowedMediaExtensions; //TODO: uncomment when media settings service is ready
             viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready
