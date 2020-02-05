@@ -31,6 +31,9 @@ export class ProfileEditPage implements OnInit {
   public ngOnInit(): void {
     this.onParse();
     this.onInitForm();
+    // remove line below once it's okay on back end
+    this.profileEdit.member.memberNotifierSettings.emailNotifier = false;
+    console.log(this.profileEdit.member.memberNotifierSettings);
   }
 
   private onInitForm = (): void => {
@@ -93,13 +96,15 @@ export class ProfileEditPage implements OnInit {
       );
   }
 
-  public handleUpdateNotificationSettings($event): void {
-    $event.preventDefault();
+  public handleUpdateNotificationSettings(event): void {
+    event.preventDefault();
     if (confirm('Are you sure')) {
       this.profileService.updateNotificationSettings({
         notifierTypeEnum: NotifierTypeEnum[NotifierTypeEnum.EmailNotifier],
-        isEnabled: $event.target.checked
+        isEnabled: event.target.checked
       }).subscribe();
+    } else {
+      this.profileEdit.member.memberNotifierSettings.emailNotifier = !event.target.checked;
     }
   }
 

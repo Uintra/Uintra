@@ -24,6 +24,6 @@ export interface IProfile {
 export interface IMemberNotifierSettings {
   uiNotifier: boolean;
   desktopNotifier: boolean;
-  emailNotifier: string;
+  emailNotifier: boolean;
   popupNotifier: boolean;
 }
