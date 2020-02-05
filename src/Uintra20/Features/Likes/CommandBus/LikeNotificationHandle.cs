@@ -23,7 +23,7 @@ namespace Uintra20.Features.Likes.CommandBus
             switch (command.EntityType.ToInt())
             {
                 case (int)ContextType.Comment:
-                    if (ContextExtensions.HasFlagScalar(command.EntityType, ContextType.Activity | ContextType.PagePromotion | ContextType.ContentPage))
+                    if (ContextExtensions.HasFlagScalar(command.EntityType, ContextType.Comment | ContextType.Activity | ContextType.PagePromotion | ContextType.ContentPage))
                     {
                         var service = _activitiesServiceFactory.GetNotifyableService(command.EntityId);
                         service.Notify(likeTargetEntityId, NotificationTypeEnum.CommentLikeAdded);

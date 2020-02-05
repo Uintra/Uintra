@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ISocialDetails, IUserTag, IMedia, IDocument } from './social-details.interface';
+
 import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
 import { ImageGalleryService } from 'src/app/feature/project/reusable/ui-elements/image-gallery/image-gallery.service';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { ICommentData } from 'src/app/feature/project/reusable/ui-elements/comments/comments.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ISocialDetails, IUserTag, IMedia, IDocument } from 'src/app/feature/project/specific/activity/activity.interfaces';
 
 @Component({
   selector: 'social-details',
@@ -39,6 +40,7 @@ export class SocialDetailsPanelComponent implements OnInit {
       entityId: parsedData.details.id,
       entityType: parsedData.details.activityType
     };
+
     this.activityName = ParseHelper.parseActivityType(this.details.activityType);
     this.tags = Object.values(parsedData.tags);
     this.medias = Object.values(parsedData.details.lightboxPreviewModel.medias);

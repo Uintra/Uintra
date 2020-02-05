@@ -44,8 +44,8 @@ export class NewsCreateComponent implements OnInit {
       this.activityService
       .submitNewsContent(data)
       .subscribe((r: any) => {
-        // const params = this.paramsPipe.transform(r.params);
-        this.router.navigate([r.originalUrl]);
+        const params = this.paramsPipe.transform(r.params);
+        this.router.navigate([r.baseUrl], { queryParams: params });
       });
   }
 }

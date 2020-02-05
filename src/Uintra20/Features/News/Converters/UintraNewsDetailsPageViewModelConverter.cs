@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
+using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
@@ -13,6 +14,7 @@ using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Strategies.ImageResize;
 using Uintra20.Features.News.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
@@ -28,6 +30,7 @@ namespace Uintra20.Features.News.Converters
         private readonly IFeedLinkService _feedLinkService;
         private readonly INewsService<Entities.News> _newsService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
+        private readonly ILightboxHelper _lightBoxHelper;
         private readonly IMemberServiceHelper _memberHelper;
 
         public UintraNewsDetailsPageViewModelConverter(
@@ -38,6 +41,7 @@ namespace Uintra20.Features.News.Converters
             IFeedLinkService feedLinkService,
             INewsService<Entities.News> newsService,
             IIntranetMemberService<IntranetMember> memberService,
+            ILightboxHelper lightBoxHelper,
             IMemberServiceHelper memberHelper)
         {
             _commentsService = commentsService;
@@ -48,6 +52,7 @@ namespace Uintra20.Features.News.Converters
             _newsService = newsService;
             _memberService = memberService;
             _memberHelper = memberHelper;
+            _lightBoxHelper = lightBoxHelper;
         }
 
         public void Map(UintraNewsDetailsPageModel node, UintraNewsDetailsPageViewModel viewModel)
@@ -74,7 +79,8 @@ namespace Uintra20.Features.News.Converters
             var details = news.Map<NewsViewModel>();
 
             details.Media = MediaHelper.GetMediaUrls(news.MediaIds);
-            
+
+            details.LightboxPreviewModel = _lightBoxHelper.GetGalleryPreviewModel(news.MediaIds, RenderStrategies.ForActivityDetails);
             details.CanEdit = _newsService.CanEdit(news);
             details.Links = _feedLinkService.GetLinks(activityId);
             details.IsReadOnly = false;

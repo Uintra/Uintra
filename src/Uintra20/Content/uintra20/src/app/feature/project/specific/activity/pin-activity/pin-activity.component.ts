@@ -13,7 +13,9 @@ export interface IPinedData {
   styleUrls: ['./pin-activity.component.less']
 })
 export class PinActivityComponent implements OnInit {
-  @Input() isPinCheked: boolean;;
+  @Input() isPinCheked: boolean;
+  @Input() isAccepted: boolean;
+  @Input() endPinDate: string;
   @Output() handleChange = new EventEmitter<IPinedData>();
 
   options: IDatePickerOptions;
@@ -27,12 +29,18 @@ export class PinActivityComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.pinedDateValue.isPinCheked = this.isPinCheked;
+    this.pinedDateValue = {
+      isPinCheked: this.isPinCheked,
+      isAccepted: this.isAccepted,
+      pinDate: this.endPinDate
+    };
+
     this.options = {
       showClear: true,
       minDate: moment()
     };
-    this.pinDate = moment();
+
+    this.pinDate = this.endPinDate ? moment(this.endPinDate) : moment();
   }
 
   onDateChange() {

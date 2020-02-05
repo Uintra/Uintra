@@ -5,6 +5,7 @@ namespace Uintra20.Core.Controls.LightboxGallery
     public class LightboxGalleryItemPreviewModel
     {
         public int Id { get; set; }
+        public Guid Key { get; set; }
         public string Url { get; set; }
         public string Name { get; set; }
         public string PreviewUrl { get; set; }
