@@ -4,6 +4,7 @@ using EmailWorker.Web.Infrastructure.Extensions;
 using Uintra20.Core.Activity.AutoMapperProfiles;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.AutoMapperProfiles;
+using Uintra20.Core.Member.Profile.Edit.Mappers;
 using Uintra20.Features.CentralFeed.AutoMapperProfiles;
 using Uintra20.Features.Comments.AutoMapperProfiles;
 using Uintra20.Features.Events.AutoMapperProfiles;
@@ -84,6 +85,7 @@ namespace Uintra20
             cfg.AddProfile<LinkPreviewAutoMapperProfile>();
             cfg.UseMailWorkerMapperProfiles();
             cfg.AddProfile<NewsAutoMapperProfile>();
+            cfg.AddProfile<ProfileEditProfile>();
 
             Mapper.Initialize(cfg);
             Mapper.AssertConfigurationIsValid();

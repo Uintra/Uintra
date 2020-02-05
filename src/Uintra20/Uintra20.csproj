@@ -967,7 +967,10 @@
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
+    <Compile Include="Core\Member\Profile\Edit\Mappers\ProfileEditProfile.cs" />
+    <Compile Include="Core\Member\Profile\Edit\Models\ProfileEditModel.cs" />
     <Compile Include="Core\Member\Profile\Edit\Models\ProfileEditNotificationSettings.cs" />
+    <Compile Include="Core\Member\Profile\ProfileModel.cs" />
     <Compile Include="Core\Member\Profile\Services\IProfileService.cs" />
     <Compile Include="Core\Member\Profile\Services\ProfileService.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\INavigationApplicationSettings.cs" />
@@ -1120,7 +1123,7 @@
     <Compile Include="Core\HomePage\HomePageViewModelConverter.cs" />
     <Compile Include="Core\Member\Helpers\IMemberServiceHelper.cs" />
     <Compile Include="Core\Member\Helpers\MemberServiceHelper.cs" />
-    <Compile Include="Core\Member\Profile\Edit\Models\ProfileEditModel.cs" />
+    <Compile Include="Core\Member\Profile\Edit\Models\ProfileEditViewModel.cs" />
     <Compile Include="Core\Member\Models\UserPickerModel.cs" />
     <Compile Include="Core\Member\Controllers\UserApiController.cs" />
     <Compile Include="Core\User\Web\UserApiController.cs" />
