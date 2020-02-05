@@ -23,6 +23,7 @@ import { SqDatetimepickerModule } from 'ngx-eonasdan-datetimepicker';
 import { LocationPickerModule } from 'src/app/feature/project/reusable/ui-elements/location-picker/location-picker.module';
 import { NewsFormModule } from 'src/app/feature/project/specific/activity/news-form/news-form.module';
 import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
+import { RouterModule } from '@angular/router';
 
 // TODO: remove unusable modules
 @NgModule({
@@ -32,7 +33,7 @@ import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
     NewsCreateComponent],
   imports: [
     CommonModule,
-    NotImplementedModule,
+    RouterModule,
     PublicationHeaderModule,
     UserAvatarModule,
     TagMultiselectModule,

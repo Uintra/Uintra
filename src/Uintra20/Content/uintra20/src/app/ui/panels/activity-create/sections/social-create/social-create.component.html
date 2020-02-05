@@ -6,10 +6,12 @@
     </button>
   </div>
   <div class="feed-btns">
-    <div class="feed-btns__col">
-      <button class="button-default">Create Event</button>
-      <button class="button-default">Create News</button>
-    </div>
+      <a class="button-default" 
+        [routerLink]="['/events-create']"
+        disabled>Create Event</a>
+        <!-- TODO Removed disable attribute, when create event will be done -->
+      <a class="button-default"
+              [routerLink]="['/news-create']">Create News</a>
     <button class="button" (click)="onShowPopUp()">Send</button>
   </div>
   <div class="bulletin-popup__wrapper" *ngIf="isPopupShowing">
