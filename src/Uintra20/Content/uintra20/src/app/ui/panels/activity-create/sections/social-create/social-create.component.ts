@@ -32,7 +32,9 @@ export class SocialCreateComponent implements OnInit {
     return !this.description && this.files.length === 0;
   }
 
-  constructor(private socialContentService: ActivityService, private modalService: ModalService) { }
+  constructor(
+    private socialContentService: ActivityService, 
+    private modalService: ModalService) { }
 
   ngOnInit() {
     this.panelData = ParseHelper.parseUbaselineData(this.data);

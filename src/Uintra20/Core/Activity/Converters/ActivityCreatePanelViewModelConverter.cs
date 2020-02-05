@@ -9,6 +9,7 @@ using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Links;
 using Uintra20.Features.News;
 using Uintra20.Features.News.Entities;
 using Uintra20.Features.Permissions;
@@ -33,6 +34,7 @@ namespace Uintra20.Core.Activity.Converters
         private readonly IUserTagService _tagsService;
         private readonly IUserTagProvider _tagProvider;
         private readonly IMemberServiceHelper _memberHelper;
+        private readonly IFeedLinkService _feedLinkService;
 
         public ActivityCreatePanelViewModelConverter(
             INewsService<News> newsService,
@@ -42,7 +44,8 @@ namespace Uintra20.Core.Activity.Converters
             IPermissionsService permissionsService,
             IUserTagService tagsService,
             IUserTagProvider tagProvider,
-            IMemberServiceHelper memberHelper)
+            IMemberServiceHelper memberHelper, 
+            IFeedLinkService feedLinkService)
         {
             _socialService = socialService;
             _memberService = memberService;
@@ -52,6 +55,7 @@ namespace Uintra20.Core.Activity.Converters
             _tagProvider = tagProvider;
             _newsService = newsService;
             _memberHelper = memberHelper;
+            _feedLinkService = feedLinkService;
         }
 
         public void Map(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
@@ -59,7 +63,7 @@ namespace Uintra20.Core.Activity.Converters
             switch (Enum.Parse(typeof(IntranetActivityTypeEnum), node.TabType))
             {
                 case IntranetActivityTypeEnum.Social:
-                        ConvertToBulletins(viewModel);
+                        ConvertToSocials(viewModel);
                         break;
 
                 case IntranetActivityTypeEnum.News:
@@ -68,6 +72,10 @@ namespace Uintra20.Core.Activity.Converters
                     
             }            
             viewModel.Tags = GetTagsViewModel();
+
+            //TODO: Uncomment when events create will be done
+            //viewModel.CreateEventsLink = _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create.OriginalUrl;
+            viewModel.CreateNewsLink = _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create.OriginalUrl;
         }
 
         private void ConvertToNews(ActivityCreatePanelViewModel viewModel)
@@ -88,7 +96,7 @@ namespace Uintra20.Core.Activity.Converters
                 viewModel.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(PermissionActionEnum.Create, viewModel.ActivityType));
         }
 
-        private void ConvertToBulletins(ActivityCreatePanelViewModel viewModel)
+        private void ConvertToSocials(ActivityCreatePanelViewModel viewModel)
         {
             var cookies = HttpContext.Current.Request.Cookies;
             var currentMember = _memberService.GetCurrentMember();

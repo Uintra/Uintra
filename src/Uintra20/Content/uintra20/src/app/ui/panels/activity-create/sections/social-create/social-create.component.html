@@ -8,10 +8,10 @@
   <div class="feed-btns">
       <a class="button-default" 
         [routerLink]="['/events-create']"
-        disabled>Create Event</a>
-        <!-- TODO Removed disable attribute, when create event will be done -->
+        >Create Event</a>
+          <!-- TODO Add correct param to routerLink when event create will be done -->
       <a class="button-default"
-              [routerLink]="['/news-create']">Create News</a>
+              [routerLink]="[panelData.createNewsLink]">Create News</a>
     <button class="button" (click)="onShowPopUp()">Send</button>
   </div>
   <div class="bulletin-popup__wrapper" *ngIf="isPopupShowing">
