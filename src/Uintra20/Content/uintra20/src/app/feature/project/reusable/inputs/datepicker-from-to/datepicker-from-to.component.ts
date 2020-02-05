@@ -16,7 +16,8 @@ export class DatepickerFromToComponent implements OnInit {
   fromDate = null;
   toDate = null;
   optFrom: IDatePickerOptions = {
-    minDate: moment(),
+    // Set if it is create news
+    // minDate: moment(),
     showClear: true
   };
   optTo: IDatePickerOptions = {
@@ -26,9 +27,10 @@ export class DatepickerFromToComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+
     if (this.initialValues) {
-      this.fromDate = moment(this.initialValues.from);
-      this.toDate = moment(this.initialValues.to);
+      this.fromDate = this.initialValues.from ? moment(this.initialValues.from) : moment();
+      this.toDate = this.initialValues.to ? moment(this.initialValues.to) : null;
     } else {
       this.fromDate = moment();
     }

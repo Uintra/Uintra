@@ -18,6 +18,7 @@ using Uintra20.Features.Media;
 using Uintra20.Features.News.Models;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Permissions.Models;
 using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.Extensions;
 
@@ -73,7 +74,7 @@ namespace Uintra20.Features.News.Controllers
             return Ok(newsViewModel.Links.Details);
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IHttpActionResult> Edit(NewsEditModel editModel)
         {
             if (!ModelState.IsValid)
@@ -111,13 +112,15 @@ namespace Uintra20.Features.News.Controllers
         }
         private NewsBase MapToNews(NewsEditModel editModel)
         {
+            var currentMember = _intranetMemberService.GetCurrentMember();
+
             var activity = _newsService.Get(editModel.Id);
             activity = Mapper.Map(editModel, activity);
             activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
             activity.PublishDate = editModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.PublishDate);
             activity.UnpublishDate = editModel.UnpublishDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.UnpublishDate.Value);
             activity.EndPinDate = editModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.EndPinDate.Value);
-            activity.IsPinned = editModel.PinAllowed && activity.IsPinned;
+            activity.IsPinned = _permissionsService.Check(currentMember, PermissionSettingIdentity.Of(PermissionActionEnum.CanPin, IntranetActivityTypeEnum.News)) && activity.IsPinned;
 
             return activity;
         }

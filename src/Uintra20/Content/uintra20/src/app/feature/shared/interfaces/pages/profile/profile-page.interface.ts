@@ -1,23 +1,23 @@
-import { IUserTag } from 'src/app/ui/pages/social/details/social-details.interface';
+import { IUserTag } from "src/app/feature/project/specific/activity/activity.interfaces";
 
 export interface IProfilePage {
-    title: string;
-    member: IMember;
-    link: ILinkModel;
+  title: string;
+  member: IMember;
+  link: ILinkModel;
 }
 
 export interface IMember {
-    photo: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    department: string;
-    tags: Array<IUserTag>;
+  photo: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  department: string;
+  tags: Array<IUserTag>;
 }
 
 export interface ILinkModel {
-    originalUrl: string;
-    baseUrl: string;
-    params: Array<string>;
+  originalUrl: string;
+  baseUrl: string;
+  params: Array<string>;
 }
