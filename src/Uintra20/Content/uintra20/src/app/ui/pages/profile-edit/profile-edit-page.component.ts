@@ -88,9 +88,7 @@ export class ProfileEditPage implements OnInit {
 
     this.profileService.update(profile)
       .pipe(finalize(() => this.inProgress = false))
-      .subscribe(
-        () => this.router.navigate([this.profileEdit.url])
-      );
+      .subscribe((next: any) => this.router.navigate([next.originalUrl]));
   }
 
   public handleUpdateNotificationSettings(event): void {

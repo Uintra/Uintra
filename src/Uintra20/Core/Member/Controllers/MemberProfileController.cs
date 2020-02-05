@@ -3,16 +3,21 @@ using System.Web.Http;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Member.Profile.Edit.Models;
 using Uintra20.Core.Member.Profile.Services;
+using Uintra20.Features.Links;
 
 namespace Uintra20.Core.Member.Controllers
 {
     public class MemberProfileController : UBaselineApiController
     {
         private readonly IProfileService _profileService;
+        private readonly IProfileLinkProvider _profileLinkProvider;
 
-        public MemberProfileController(IProfileService profileService)
+        public MemberProfileController(
+            IProfileService profileService, 
+            IProfileLinkProvider profileLinkProvider)
         {
             _profileService = profileService;
+            _profileLinkProvider = profileLinkProvider;
         }
 
         [HttpGet]
@@ -26,14 +31,13 @@ namespace Uintra20.Core.Member.Controllers
         [HttpPut]
         public async Task<IHttpActionResult> Edit([FromBody] ProfileEditModel editModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
+            if (!ModelState.IsValid) return BadRequest();
 
             await _profileService.Edit(editModel);
 
-            return Ok();
+            var result = _profileLinkProvider.GetProfileLink(editModel.Id);
+
+            return Ok(result);
         }
 
         [HttpPut]
