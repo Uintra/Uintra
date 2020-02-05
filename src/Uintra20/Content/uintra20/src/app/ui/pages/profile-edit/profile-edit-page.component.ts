@@ -31,9 +31,6 @@ export class ProfileEditPage implements OnInit {
   public ngOnInit(): void {
     this.onParse();
     this.onInitForm();
-    // remove line below once it's okay on back end
-    this.profileEdit.member.memberNotifierSettings.emailNotifier = false;
-    console.log(this.profileEdit.member.memberNotifierSettings);
   }
 
   private onInitForm = (): void => {
@@ -64,7 +61,7 @@ export class ProfileEditPage implements OnInit {
         profileUrl: parsed.profile.profileUrl,
         mediaRootId: parsed.profile.mediaRootId,
         newMedia: parsed.profile.newMedia,
-        memberNotifierSettings: parsed.profile.memberNotifierSettings,
+        memberNotifierSettings: ParseHelper.parseUbaselineData(this.data.profile.data.memberNotifierSettings),
         tags: Object.values(parsed.tags),
         availableTags: Object.values(parsed.availableTags)
       }
@@ -102,7 +99,13 @@ export class ProfileEditPage implements OnInit {
       this.profileService.updateNotificationSettings({
         notifierTypeEnum: NotifierTypeEnum[NotifierTypeEnum.EmailNotifier],
         isEnabled: event.target.checked
-      }).subscribe();
+      }).subscribe(
+        (next) => { },
+        (error) => {
+          this.profileEdit.member.memberNotifierSettings.emailNotifier =
+            !this.profileEdit.member.memberNotifierSettings.emailNotifier;
+        }
+      );
     } else {
       this.profileEdit.member.memberNotifierSettings.emailNotifier = !event.target.checked;
     }
