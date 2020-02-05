@@ -7,14 +7,23 @@ import { SharedLinksComponent } from "./components/shared-links/shared-links.com
 import { UlinkModule } from "src/app/services/pipes/link/ulink.module";
 import { MyLinksComponent } from "./components/my-links/my-links.component";
 import { DragulaModule } from "ng2-dragula";
+import { UserNavMobileComponent } from './components/user-nav-mobile/user-nav-mobile.component';
+import { UserAvatarModule } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar.module';
 
 @NgModule({
   declarations: [
     LeftNavigationComponent,
     SharedLinksComponent,
-    MyLinksComponent
+    MyLinksComponent,
+    UserNavMobileComponent
   ],
-  imports: [CommonModule, RouterModule, UlinkModule, DragulaModule.forRoot()],
+  imports: [
+    CommonModule, 
+    RouterModule,
+    UlinkModule, 
+    DragulaModule.forRoot(),
+    UserAvatarModule
+  ],
   providers: [CookieService],
   exports: [LeftNavigationComponent]
 })
