@@ -11,7 +11,7 @@
         >Create Event</a>
           <!-- TODO Add correct param to routerLink when event create will be done -->
       <a class="button-default"
-              [routerLink]="[panelData.createNewsLink]">Create News</a>
+              [routerLink]="[panelData.createNewsLink.originalUrl]">Create News</a>
     <button class="button" (click)="onShowPopUp()">Send</button>
   </div>
   <div class="bulletin-popup__wrapper" *ngIf="isPopupShowing">

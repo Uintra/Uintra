@@ -26,7 +26,7 @@ namespace Uintra20.Core.Activity.Models
         public bool PinAllowed { get; set; }
         public bool CanEditOwner { get; set; }
         public IEnumerable<IntranetMember> Members { get; set; } = Enumerable.Empty<IntranetMember>();
-        public string CreateNewsLink { get; set; }
-        public string CreateEventsLink { get; set; }
+        public UintraLinkModel CreateNewsLink { get; set; }
+        public UintraLinkModel CreateEventsLink { get; set; }
     }
 }

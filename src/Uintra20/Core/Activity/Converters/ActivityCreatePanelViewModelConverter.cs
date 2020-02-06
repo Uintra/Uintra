@@ -74,8 +74,8 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.Tags = GetTagsViewModel();
 
             //TODO: Uncomment when events create will be done
-            //viewModel.CreateEventsLink = _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create.OriginalUrl;
-            viewModel.CreateNewsLink = _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create.OriginalUrl;
+            //viewModel.CreateEventsLink = _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create;
+            viewModel.CreateNewsLink = _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create;
         }
 
         private void ConvertToNews(ActivityCreatePanelViewModel viewModel)
