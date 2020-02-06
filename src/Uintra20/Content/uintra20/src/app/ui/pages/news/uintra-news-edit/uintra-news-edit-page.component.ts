@@ -73,7 +73,7 @@ export class UintraNewsEditPage implements OnInit {
     const copyObject = this.requesModelBuilder(data);
 
     this.activityService.updateNews(copyObject).subscribe((r: any) => {
-      this.routerResolverService.removePageRouter(r);
+      this.routerResolverService.removePageRouter(r.baseUrl);
       this.router.navigate([r.originalUrl]);
     });
   }
