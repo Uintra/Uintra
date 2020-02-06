@@ -12,7 +12,7 @@
 
     <app-shared-links></app-shared-links>
     <app-my-links></app-my-links>
-    <app-user-nav-mobile (closeLeftNavigation)="closeLeftNav()"></app-user-nav-mobile>
+    <app-user-nav-mobile *ngIf="isNotDesktop" (closeLeftNavigation)="closeLeftNav()"></app-user-nav-mobile>
   </div>
 </div>
 
