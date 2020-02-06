@@ -8,13 +8,17 @@ using System.Web;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
+using Uintra20.Core.Activity.Models.Headers;
+using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.CentralFeed;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Strategies.ImageResize;
 using Uintra20.Features.Navigation.Services;
 using Uintra20.Features.Social.Edit.Models;
 using Uintra20.Features.Social.Models;
@@ -33,6 +37,9 @@ namespace Uintra20.Features.Social.Controllers
         private readonly IActivityTagsHelper _activityTagsHelper;
         private readonly IMentionService _mentionService;
         private readonly IActivityLinkService _activityLinkService;
+        private readonly ILightboxHelper _lightboxHelper;
+        private readonly IMemberServiceHelper _memberHelper;
+        private readonly IFeedLinkService _feedLinkService;
 
         public SocialController(
             ISocialService<Entities.Social> socialService,
@@ -42,7 +49,10 @@ namespace Uintra20.Features.Social.Controllers
             IGroupActivityService groupActivityService,
             IActivityTagsHelper activityTagsHelper,
             IMentionService mentionService,
-            IActivityLinkService activityLinkService)
+            IActivityLinkService activityLinkService,
+            ILightboxHelper lightboxHelper,
+            IMemberServiceHelper memberHelper,
+            IFeedLinkService feedLinkService)
         {
             _socialService = socialService;
             _mediaHelper = mediaHelper;
@@ -52,6 +62,9 @@ namespace Uintra20.Features.Social.Controllers
             _activityTagsHelper = activityTagsHelper;
             _mentionService = mentionService;
             _activityLinkService = activityLinkService;
+            _lightboxHelper = lightboxHelper;
+            _memberHelper = memberHelper;
+            _feedLinkService = feedLinkService;
         }
 
         [HttpPost]
@@ -69,7 +82,9 @@ namespace Uintra20.Features.Social.Controllers
             result.Id = createdBulletinId;
             result.IsSuccess = true;
 
-            return Ok();
+            var viewModel = await GetViewModelAsync(createdBulletinId);
+
+            return Ok(viewModel.Links.Details);
         }
 
         [HttpPut]
@@ -83,7 +98,9 @@ namespace Uintra20.Features.Social.Controllers
 
             await OnBulletinEditedAsync(bulletin, editModel);
 
-            return Ok();
+            var model = await GetViewModelAsync(bulletin.Id);
+
+            return Ok(model.Links.Details);
         }
 
         [HttpDelete]
@@ -114,6 +131,28 @@ namespace Uintra20.Features.Social.Controllers
             }
 
             return bulletin;
+        }
+
+        protected async Task<SocialExtendedViewModel> GetViewModelAsync(Guid id)
+        {
+            var social = _socialService.Get(id);
+
+            var viewModel = social.Map<SocialViewModel>();
+
+            viewModel.Media = MediaHelper.GetMediaUrls(social.MediaIds);
+
+            viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, RenderStrategies.ForActivityDetails);
+            viewModel.CanEdit = _socialService.CanEdit(social);
+            viewModel.Links = await _feedLinkService.GetLinksAsync(id);
+            viewModel.IsReadOnly = false;
+            viewModel.HeaderInfo = social.Map<IntranetActivityDetailsHeaderViewModel>();
+            viewModel.HeaderInfo.Dates = social.PublishDate.ToDateTimeFormat().ToEnumerable();
+            viewModel.HeaderInfo.Owner = _memberHelper.ToViewModel(_memberService.Get(social));
+            viewModel.HeaderInfo.Links = await _feedLinkService.GetLinksAsync(id);
+
+            var extendedModel = viewModel.Map<SocialExtendedViewModel>();
+
+            return extendedModel;
         }
 
         private SocialBase MapToBulletin(SocialEditModel socialEditModel)
@@ -178,7 +217,7 @@ namespace Uintra20.Features.Social.Controllers
             {
                 ResolveMentions(model.Description, social);
             }
-            
+
             ReloadFeed();
         }
 
@@ -201,7 +240,7 @@ namespace Uintra20.Features.Social.Controllers
             {
                 await ResolveMentionsAsync(model.Description, social);
             }
-            
+
             ReloadFeed();
         }
 
