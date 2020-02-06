@@ -1,6 +1,5 @@
 <a
-  [routerLink]="notification.value.url.baseUrl | ulink"
-  [queryParams]="notification.value.url.params | uparams"
+  [routerLink]="notification.value.url.originalUrl | ulink"
   class="nav-notification__popup-item notification-item"
   *ngIf="notification"
   (click)="onMarkAsViewed()"

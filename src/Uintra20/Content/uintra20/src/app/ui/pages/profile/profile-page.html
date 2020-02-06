@@ -3,8 +3,7 @@
         <h2 class="profile__title">{{profile.title}}</h2>
         <a
           *ngIf="data.editProfileLink.data.value"
-          [routerLink]="data.editProfileLink.data.baseUrl | ulink"
-          [queryParams]='data.editProfileLink.data.params | uparams'
+          [routerLink]="data.editProfileLink.data.originalUrl | ulink"
           class="button button-default">
           Edit
         </a>

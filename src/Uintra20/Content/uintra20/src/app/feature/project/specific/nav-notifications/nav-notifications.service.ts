@@ -27,6 +27,7 @@ export interface INotificationsData {
   value: {
     message: string;
     url: {
+      originalUrl: string;
       baseUrl: string;
       params: Array<{
         name: string;

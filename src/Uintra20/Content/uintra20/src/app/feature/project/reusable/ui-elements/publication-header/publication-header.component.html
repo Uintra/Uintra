@@ -7,8 +7,7 @@
     <a
       *ngIf="title"
       class="publication-header__title"
-      [routerLink]='baseUrl | ulink'
-      [queryParams]='params | uparams'>
+      [routerLink]='originalUrl | ulink'>
       {{ title }}
     </a>
     <ng-container *ngIf='false'>{{ title }}</ng-container>
