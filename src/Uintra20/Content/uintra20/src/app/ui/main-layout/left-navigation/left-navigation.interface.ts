@@ -1,6 +1,4 @@
-import { IOwner } from 'src/app/feature/shared/interfaces/Owner';
-import { IMyLink } from './components/my-links/my-links.service';
-import { ISharedLink } from './components/shared-links/shared-links.service';
+import { IOwner } from 'src/app/feature/project/specific/activity/activity.interfaces';
 
 export interface INavigationData {
   menuItems: INavigationItem[];
