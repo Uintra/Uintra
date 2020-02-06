@@ -5,9 +5,9 @@
       <label for="desciption">Description</label>
       <app-rich-text-editor
         [isEditing]="true"
+        [isUnderline]="true"
         [(ngModel)]="socialEdit.description"
         formControlName="description"
-        [isUnderline]="true"
         [isDropzone]="false"
         placeholder="Write a message, post a photo or share a document">
       </app-rich-text-editor>
@@ -16,7 +16,8 @@
       <label>Tags</label>
       <app-tag-multiselect class="bulletin-popup__multiselect"
         [availableTags]="socialEdit.availableTags"
-        [(ngModel)]="socialEdit.tags">
+        [(ngModel)]="socialEdit.tags"
+        [ngModelOptions]="{standalone: true}" >
       </app-tag-multiselect>
     </div>
     <!-- TODO Added images here -->
