@@ -2,7 +2,7 @@
   <app-publication-header
     [avatar]="publication.activity.owner.photo"
     [title]="publication.activity.owner.displayedName"
-    [baseUrl]="publication.activity.links?.owner.baseUrl"
+    [originalUrl]="publication.activity.links?.owner.originalUrl"
     [params]="publication.activity.links?.owner.params"
     class="publication__header"
   >
@@ -10,8 +10,7 @@
       {{ getPublicationDate() }} -
       <a
         class="publication__activity-type"
-        [routerLink]="publication.activity.links?.details.baseUrl | ulink"
-        [queryParams]="publication.activity.links?.details.params | uparams"
+        [routerLink]="publication.activity.links?.details.originalUrl | ulink"
         >{{ publication.activity.type }}
       </a>
       <a
@@ -30,8 +29,7 @@
     <p *ngIf="publication.activity?.title" class="publication__title">{{publication.activity.title}}</p>
     <div
       class="publication__text"
-        [routerLink]="publication.activity.links?.details.baseUrl | ulink"
-        [queryParams]="publication.activity.links?.details.params | uparams"
+        [routerLink]="publication.activity.links?.details.originalUrl | ulink"
       [innerHTML]="publication.activity.description"
     ></div>
 
@@ -50,8 +48,7 @@
         <app-like-button [likeData]="likeData"></app-like-button>
         <a
           class="publication__comment publication__footer-item"
-          [routerLink]="publication.activity.links?.details.baseUrl | ulink"
-          [queryParams]="publication.activity.links?.details.params | uparams"
+          [routerLink]="publication.activity.links?.details.originalUrl | ulink"
         >
           <i class="icon-comment"></i>
           {{ commentsCount }}
@@ -66,8 +63,7 @@
       <a
         class="publication__files publication__footer-item"
         *ngIf="documentsCount"
-        [routerLink]="publication.activity.links?.details.baseUrl | ulink"
-        [queryParams]="publication.activity.links?.details.params | uparams"
+        [routerLink]="publication.activity.links?.details.originalUrl | ulink"
       >
         <i class="icon-attachment"></i>
         {{ documentsCount }}

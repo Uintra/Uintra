@@ -7,7 +7,7 @@ import { UmbracoFlatPropertyModel } from "@ubaseline/next";
 export class LinkPipe implements PipeTransform {
   transform(value: UmbracoFlatPropertyModel | string): string {
     const isUFP = value instanceof UmbracoFlatPropertyModel;
-
+debugger
     if (isUFP) {
       return (value as UmbracoFlatPropertyModel).get();
     }
