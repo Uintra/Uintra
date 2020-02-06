@@ -14,11 +14,18 @@
 
   &__item-link {
     display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    word-wrap: break-word;
+
     padding: 11px 48px 9px 19px;
     color: @heading-bg;
-    word-wrap: break-word;
     margin: 0 0 -2px;
-    position: relative;
+
     text-decoration: none;
 
     &--inside {
