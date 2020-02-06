@@ -8,8 +8,6 @@ using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Information;
 using Uintra20.Features.Media;
-using Uintra20.Features.News;
-using Uintra20.Features.News.Entities;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Implementation;
 using Uintra20.Features.Permissions.Interfaces;
@@ -60,8 +58,6 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<ISubscribeService, SubscribeService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IIntranetLocalizationService, LocalizationService>();
-
-            services.AddScoped<INewsService<News>, NewsService>();
 
             services.AddScoped<ILightboxHelper, LightboxHelper>();
 

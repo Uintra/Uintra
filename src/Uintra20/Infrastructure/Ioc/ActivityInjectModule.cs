@@ -3,8 +3,7 @@ using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Helpers;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Location.Services;
-using Uintra20.Features.Social;
-using Uintra20.Features.Social.Entities;
+
 using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.TypeProviders;
 
@@ -21,10 +20,8 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IActivityTypeProvider>(provider => new ActivityTypeProvider(typeof(IntranetActivityTypeEnum)));
             services.AddScoped<IActivitiesServiceFactory, ActivitiesServiceFactory>();
             services.AddTransient<IActivityLocationService, ActivityLocationService>();
-            services.AddScoped<IActivityTagsHelper, ActivityTagsHelper>(); 
-            //services.AddScoped<IIntranetActivityService<Social>, SocialService<Social>>();
-            services.AddScoped<IIntranetActivityService, SocialService<Social>>();
-
+            services.AddScoped<IActivityTagsHelper, ActivityTagsHelper>();
+            
             return services;
 		}
 	}

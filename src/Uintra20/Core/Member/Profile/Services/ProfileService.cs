@@ -50,11 +50,11 @@ namespace Uintra20.Core.Member.Profile.Services
             await _memberNotifiersSettingsService.SetForMemberAsync(member.Id, settings.NotifierTypeEnum, settings.IsEnabled);
         }
 
-        public async Task Edit(ProfileEditModel model)
+        public async Task Edit(ProfileEditModel editModel)
         {
-            var newMedias = _mediaHelper.CreateMedia(model).ToArray();
+            var newMedias = _mediaHelper.CreateMedia(editModel).ToArray();
 
-            var member = model.Map<UpdateMemberDto>();
+            var member = editModel.Map<UpdateMemberDto>();
 
             member.NewMedia = newMedias.Length > 0
                 ? newMedias.First()
@@ -62,14 +62,14 @@ namespace Uintra20.Core.Member.Profile.Services
 
             await _intranetMemberService.UpdateAsync(member);
 
-            await _userTagService.ReplaceAsync(model.Id, model.TagIdsData);
+            await _userTagService.ReplaceAsync(editModel.Id, editModel.TagIdsData);
         }
 
-        public async Task<ProfileEditModel> GetCurrentUserProfile()
+        public async Task<ProfileEditViewModel> GetCurrentUserProfile()
         {
             var member = await _intranetMemberService.GetCurrentMemberAsync();
 
-            var result = member.Map<ProfileEditModel>();
+            var result = member.Map<ProfileEditViewModel>();
 
             result.MemberNotifierSettings = _memberNotifiersSettingsService.GetForMember(member.Id);
 

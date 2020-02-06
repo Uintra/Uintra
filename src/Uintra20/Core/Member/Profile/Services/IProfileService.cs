@@ -7,7 +7,7 @@ namespace Uintra20.Core.Member.Profile.Services
     {
         Task Delete(int photoId);
         Task UpdateNotificationSettings(ProfileEditNotificationSettings settings);
-        Task Edit(ProfileEditModel model);
-        Task<ProfileEditModel> GetCurrentUserProfile();
+        Task Edit(ProfileEditModel editModel);
+        Task<ProfileEditViewModel> GetCurrentUserProfile();
     }
 }

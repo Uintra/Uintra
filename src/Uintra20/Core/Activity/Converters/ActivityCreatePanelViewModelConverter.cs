@@ -6,8 +6,10 @@ using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Links;
 using Uintra20.Features.News;
 using Uintra20.Features.News.Entities;
 using Uintra20.Features.Permissions;
@@ -31,6 +33,8 @@ namespace Uintra20.Core.Activity.Converters
         private readonly IPermissionsService _permissionsService;
         private readonly IUserTagService _tagsService;
         private readonly IUserTagProvider _tagProvider;
+        private readonly IMemberServiceHelper _memberHelper;
+        private readonly IFeedLinkService _feedLinkService;
 
         public ActivityCreatePanelViewModelConverter(
             INewsService<News> newsService,
@@ -39,7 +43,9 @@ namespace Uintra20.Core.Activity.Converters
             IActivityTypeProvider activityTypeProvider,
             IPermissionsService permissionsService,
             IUserTagService tagsService,
-            IUserTagProvider tagProvider)
+            IUserTagProvider tagProvider,
+            IMemberServiceHelper memberHelper, 
+            IFeedLinkService feedLinkService)
         {
             _socialService = socialService;
             _memberService = memberService;
@@ -48,6 +54,8 @@ namespace Uintra20.Core.Activity.Converters
             _tagsService = tagsService;
             _tagProvider = tagProvider;
             _newsService = newsService;
+            _memberHelper = memberHelper;
+            _feedLinkService = feedLinkService;
         }
 
         public void Map(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
@@ -55,7 +63,7 @@ namespace Uintra20.Core.Activity.Converters
             switch (Enum.Parse(typeof(IntranetActivityTypeEnum), node.TabType))
             {
                 case IntranetActivityTypeEnum.Social:
-                        ConvertToBulletins(viewModel);
+                        ConvertToSocials(viewModel);
                         break;
 
                 case IntranetActivityTypeEnum.News:
@@ -64,6 +72,10 @@ namespace Uintra20.Core.Activity.Converters
                     
             }            
             viewModel.Tags = GetTagsViewModel();
+
+            //TODO: Uncomment when events create will be done
+            //viewModel.CreateEventsLink = _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create;
+            viewModel.CreateNewsLink = _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create;
         }
 
         private void ConvertToNews(ActivityCreatePanelViewModel viewModel)
@@ -72,7 +84,7 @@ namespace Uintra20.Core.Activity.Converters
             var currentMember = _memberService.GetCurrentMember();
 
             viewModel.PublishDate = DateTime.UtcNow;
-            viewModel.Creator = currentMember.Map<MemberViewModel>();
+            viewModel.Creator = _memberHelper.ToViewModel(currentMember);
             viewModel.ActivityType = IntranetActivityTypeEnum.News;
             viewModel.Links = null;//TODO: Research links
             viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready
@@ -84,7 +96,7 @@ namespace Uintra20.Core.Activity.Converters
                 viewModel.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(PermissionActionEnum.Create, viewModel.ActivityType));
         }
 
-        private void ConvertToBulletins(ActivityCreatePanelViewModel viewModel)
+        private void ConvertToSocials(ActivityCreatePanelViewModel viewModel)
         {
             var cookies = HttpContext.Current.Request.Cookies;
             var currentMember = _memberService.GetCurrentMember();
@@ -93,7 +105,7 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.Title = currentMember.DisplayedName;
             viewModel.ActivityType = IntranetActivityTypeEnum.Social;
             viewModel.Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable();
-            viewModel.Creator = currentMember.Map<MemberViewModel>();
+            viewModel.Creator = _memberHelper.ToViewModel(currentMember);
             viewModel.Links = null;//TODO: Research links
             viewModel.AllowedMediaExtensions = null;//mediaSettings.AllowedMediaExtensions; //TODO: uncomment when media settings service is ready
             viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready

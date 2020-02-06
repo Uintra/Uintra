@@ -3,21 +3,23 @@
   <h2 class="news-create-panel__title">News</h2>
   <div class="owner form-row">
     <h3 class="owner__title subtitle">Owner</h3>
-    <app-select [items]="owners" [defaultItem]="defaultOwner.id"></app-select>
+    <app-select *ngIf="defaultOwner" [items]="owners" [defaultItem]="defaultOwner.id"></app-select>
   </div>
   <div class="news-title form-row">
     <h3 class="news-title__title subtitle required">Title</h3>
     <text-input
-      [(ngModel)]="newsData.title"
+    [(ngModel)]="newsData.title"
       type="text"
       aria-label="Title"
       class="news-title__input"
+      [ngClass]="{'invalid': isShowValidation && !newsData.title}"
     ></text-input>
   </div>
   <div class="description form-row">
     <h3 class="description__title subtitle required">News description</h3>
     <app-rich-text-editor
-      [(ngModel)]="newsData.description"
+    [(ngModel)]="newsData.description"
+    [ngClass]="{'invalid': isShowValidation && !newsData.description}"
       class="description__rte"
       [isEditing]="true"
       [isDropzone]="false"
@@ -35,29 +37,72 @@
   </div>
   <div class="form-row">
     <app-datepicker-from-to
+      [initialValues]="initialDates"
       (handleChange)="setDatePickerValue($event)"
     ></app-datepicker-from-to>
   </div>
   <div class="location form-row">
     <h3 class="location__title subtitle">Location</h3>
     <app-location-picker
+      [initialValues]="initialLocation"
       (handleChange)="setLocationValue($event)"
     ></app-location-picker>
   </div>
 
   <app-pin-activity
     [isPinCheked]="newsData.isPinned"
+    [isAccepted]="isAccepted"
+    [endPinDate]="newsData.endPinDate"
     (handleChange)="setPinValue($event)"
   ></app-pin-activity>
 
-  <div class="dropzone-holder form-row">
-    <h3 class="dropzone-holder__title subtitle">File(s)</h3>
-    <app-dropzone-wrapper
-      [filesLength]="files.length"
-      (success)="onUploadSuccess($event)"
-      (removedFile)="onFileRemoved($event)"
-    ></app-dropzone-wrapper>
+  <div class="form-row" *ngIf="newsData.media">
+    <label>Files</label>
+    <div class="images">
+      <div class="images__item" *ngFor="let media of newsData.media.medias">
+        <span class="icon-close" (click)="handleImageRemove(media)"></span>
+        <img [src]="media.previewUrl">
+        <span class="images__item-name">{{media.name}}</span>
+      </div>
+      <div class="images__item" *ngFor="let file of newsData.media.otherFiles">
+          <span class="icon-close" (click)="handleFileRemove(file)"></span>
+          <span class="images__item-name">{{file.name}}</span>
+          <span class="images__item-name">{{file.extension}}</span>
+      </div>
+    </div>
   </div>
+  <div class="form-row">
+    <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
+        (success)="onUploadSuccess($event)"
+        (removedFile)="onFileRemoved($event)">
+    </app-dropzone-wrapper>
+  </div>
+
+
+  <div class="form-row" *ngIf="isShowValidation">
+    <div *ngIf="!newsData.title"
+        class="alert alert-danger">
+        A title is required
+    </div>
+
+    <div *ngIf="!newsData.description"
+        class="alert alert-danger">
+        A description is required
+    </div>
+
+    <div *ngIf="newsData.isPinned && !isAccepted"
+        class="alert alert-danger">
+        Accept should be checked
+    </div>
+
+    <div *ngIf="isInvalidEndPinDate"
+        class="alert alert-danger">
+        Unpin date should be between the Publish date and the Unpublish date
+    </div>
+
+  </div>
+
+
   <div class="buttons">
     <button class="buttons__submit" (click)="onSubmit()">Submit</button>
     <button class="buttons__cancel">Cancel</button>

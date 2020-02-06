@@ -25,10 +25,15 @@ export class ActivityService {
     return this.http.put("/ubaseline/api/social/Update", model);
   }
 
+
   public deleteSocial(id: string) {
     return this.http.delete("/ubaseline/api/social/Delete", {
       params: new HttpParams().set("id", id)
     });
+  }
+
+  updateNews(model: INewsCreateModel) {
+    return this.http.put("/ubaseline/api/newsApi/edit", model);
   }
 
   submitNewsContent(data: INewsCreateModel) {

@@ -39,7 +39,7 @@ namespace Uintra20.Core.Member.Profile.Edit.Converters
         {
             var member = _intranetMemberService.GetCurrentMember();
 
-            viewModel.Profile = member.Map<ProfileEditModel>();
+            viewModel.Profile = member.Map<ProfileEditViewModel>();
             viewModel.Tags = _userTagService.Get(member.Id);
             viewModel.AvailableTags = _userTagProvider.GetAll();
             viewModel.Profile.MemberNotifierSettings = _memberNotifiersSettingsService.GetForMember(member.Id);

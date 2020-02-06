@@ -22,6 +22,14 @@
         - {{ details.headerInfo.dates[0] }} -
       </span>
       <span class="details-item__category">{{ activityName }}</span>
+      <a
+        class="details-item__location"
+        *ngIf="googleMapUrl && location.shortAddress"
+        [href]="googleMapUrl"
+        target="_blank"
+        >
+        <span class="icon-pin-icon"></span>
+        {{ location.shortAddress }}</a>
     </div>
   </div>
 </div>
