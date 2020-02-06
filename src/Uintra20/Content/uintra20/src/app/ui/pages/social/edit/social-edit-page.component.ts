@@ -5,6 +5,7 @@ import { finalize } from 'rxjs/operators';
 import { ActivityService } from 'src/app/feature/project/specific/activity/activity.service';
 import { ISocialEdit } from 'src/app/feature/project/specific/activity/activity.interfaces';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { RouterResolverService } from 'src/app/services/general/router-resolver.service';
 
 @Component({
   selector: 'social-edit',
@@ -23,7 +24,8 @@ export class SocialEditPageComponent {
   constructor(
     private route: ActivatedRoute,
     private socialService: ActivityService,
-    private router: Router
+    private router: Router,
+    private routerResolverService: RouterResolverService
   ) {
     this.route.data.subscribe(data => this.data = data);
     this.onParse();
@@ -88,11 +90,9 @@ export class SocialEditPageComponent {
     this.socialService.updateSocial(this.socialEdit)
       .pipe(finalize(() => this.inProgress = false))
       .subscribe(
-        (next) => {
-          const route = 'social-details?id=' + this.socialEdit.id; // TODO Fix after adding linkService on backend
-          // debugger;
-          // this.routerResolverService.removePageRouter(r);
-          this.router.navigate([route]);
+        (next: any) => {
+          this.routerResolverService.removePageRouter(next.baseUrl);
+          this.router.navigate([next.originalUrl]);
         },
       );
   }

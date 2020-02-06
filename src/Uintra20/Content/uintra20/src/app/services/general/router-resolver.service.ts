@@ -8,8 +8,8 @@ export class RouterResolverService {
 
   constructor( private router: Router) { }
 
-  removePageRouter(url) {
-    const baseUrl = url.baseUrl.replace(/\%2F/g, '').substr(1);
+  removePageRouter(url: string) {
+    const baseUrl = url.replace(/\%2F/g, '').substr(1);
     this.router.config = this.router.config.filter(route => route.path !== baseUrl);
   }
 }
