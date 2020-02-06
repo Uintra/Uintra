@@ -49,7 +49,8 @@ export class SocialEditPageComponent {
       name: parsedSocialEdit.name,
       tagIdsData: new Array<string>(),
       newMedia: null,
-      media: null
+      media: null,
+      mediaRootId: parsedSocialEdit.mediaRootId
     };
   }
 
@@ -75,9 +76,9 @@ export class SocialEditPageComponent {
     this.socialEdit.media = '';
 
     const otherFilesIds = this.socialEdit.lightboxPreviewModel.otherFiles
-      .map(m => m.key);
+      .map(m => m.id);
     const mediaIds = this.socialEdit.lightboxPreviewModel.medias
-      .map(m => m.key);
+      .map(m => m.id);
 
     this.socialEdit.media = otherFilesIds.concat(mediaIds).join(',');
     this.socialEdit.newMedia = this.uploadedData.map(u => u[1]).join(',');

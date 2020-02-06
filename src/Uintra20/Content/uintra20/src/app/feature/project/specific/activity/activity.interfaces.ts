@@ -43,6 +43,7 @@ export interface ISocialEdit {
   tagIdsData: Array<string>;
   newMedia: string;
   media: string;
+  mediaRootId: number;
 
   location?: {
     address?: string;

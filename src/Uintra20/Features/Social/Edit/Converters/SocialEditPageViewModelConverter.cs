@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using UBaseline.Core.Localization;
 using UBaseline.Core.Node;
@@ -7,6 +8,7 @@ using Uintra20.Features.Media.Strategies.ImageResize;
 using Uintra20.Features.Social.Edit.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
+using Umbraco.Core.Services;
 
 namespace Uintra20.Features.Social.Edit.Converters
 {
@@ -18,19 +20,22 @@ namespace Uintra20.Features.Social.Edit.Converters
         private readonly IUserTagService _userTagService;
         private readonly IUserTagProvider _userTagProvider;
         private readonly ILightboxHelper _lightboxHelper;
+        private readonly IMediaService _mediaService;
 
         public SocialEditPageViewModelConverter(
             ILocalizationModelService localizationModelService,
             ISocialService<Entities.Social> socialService,
             IUserTagService userTagService,
             ILightboxHelper lightboxHelper, 
-            IUserTagProvider userTagProvider)
+            IUserTagProvider userTagProvider, 
+            IMediaService mediaService)
         {
             _localizationModelService = localizationModelService;
             _socialService = socialService;
             _userTagService = userTagService;
             _lightboxHelper = lightboxHelper;
             _userTagProvider = userTagProvider;
+            _mediaService = mediaService;
         }
 
         public void Map(
@@ -50,6 +55,8 @@ namespace Uintra20.Features.Social.Edit.Converters
             viewModel.Tags = _userTagService.Get(parsedId);
             viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, RenderStrategies.ForActivityDetails);
             viewModel.AvailableTags = _userTagProvider.GetAll();
+            viewModel.MediaRootId = _mediaService.GetRootMedia()
+                .First(m => m.ContentType.Alias == "Folder" && m.Name == "Members Content").Id;
         }
     }
 }
