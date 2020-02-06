@@ -8,6 +8,7 @@ import {
 import { ITagData } from "src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { ActivityService } from "src/app/feature/project/specific/activity/activity.service";
 import { ParamsPipe } from "src/app/services/pipes/link/params.pipe";
+import { RouterResolverService } from 'src/app/services/general/router-resolver.service';
 
 @Component({
   selector: "uintra-news-edit-page",
@@ -28,7 +29,7 @@ export class UintraNewsEditPage implements OnInit {
     private route: ActivatedRoute,
     private activityService: ActivityService,
     private router: Router,
-    private paramsPipe: ParamsPipe
+    private routerResolverService: RouterResolverService
   ) {
     this.route.data.subscribe(data => (this.data = data));
   }
@@ -72,7 +73,7 @@ export class UintraNewsEditPage implements OnInit {
     const copyObject = this.requesModelBuilder(data);
 
     this.activityService.updateNews(copyObject).subscribe((r: any) => {
-      const params = this.paramsPipe.transform(r.params);
+      this.routerResolverService.removePageRouter(r);
       this.router.navigate([r.originalUrl]);
     });
   }
