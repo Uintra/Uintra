@@ -4,6 +4,7 @@ import ParseHelper from '../../../../feature/shared/helpers/parse.helper';
 import { finalize } from 'rxjs/operators';
 import { ActivityService } from 'src/app/feature/project/specific/activity/activity.service';
 import { ISocialEdit } from 'src/app/feature/project/specific/activity/activity.interfaces';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'social-edit',
@@ -17,6 +18,7 @@ export class SocialEditPageComponent {
   public inProgress = false;
   public socialEdit: ISocialEdit;
   public uploadedData: Array<any> = new Array<any>();
+  public socialEditForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,6 +27,7 @@ export class SocialEditPageComponent {
   ) {
     this.route.data.subscribe(data => this.data = data);
     this.onParse();
+    this.initSocialEditForm();
   }
 
   private onParse = (): void => {
@@ -102,5 +105,10 @@ export class SocialEditPageComponent {
           // this.router.navigate(['/socials']); // TODO: socials doesnt exist, uncomment code when it will be done.
         },
       );
+  }
+  private initSocialEditForm(): void {
+    this.socialEditForm = new FormGroup({
+      description: new FormControl(this.socialEdit.description, Validators.required)
+    });
   }
 }

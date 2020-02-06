@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { UbaselineCoreModule, AS_DYNAMIC_COMPONENT } from '@ubaseline/next';
 import { RichTextEditorModule } from 'src/app/feature/project/reusable/inputs/rich-text-editor/rich-text-editor.module';
 import { TagMultiselectModule } from 'src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SocialEditPageComponent } from './social-edit-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
@@ -25,6 +25,7 @@ import { DropzoneWrapperModule } from 'src/app/feature/project/reusable/ui-eleme
       UbaselineCoreModule,
       TagMultiselectModule,
       FormsModule,
+      ReactiveFormsModule,
       DropzoneWrapperModule,
       HttpClientModule,
       RichTextEditorModule.configure({
