@@ -1,7 +1,7 @@
 <ul *ngIf="data" class="user-nav">
   <li class="user-nav__item">
     <a class="user-nav__link user-nav__user">
-      <app-user-avatar 
+      <app-user-avatar
         class="user-nav__user-avatar"
         [photo]="data.currentMember.photo"
         [name]="data.currentMember.displayedName">
@@ -21,10 +21,16 @@
         *ngIf="item.type == 2"
         class="user-nav__link"
         [routerLink]="item.url.baseUrl | ulink"
-        [queryParams]="item.url.params | uparams">
+        [queryParams]="item.url.params | uparams"
+        (click)="onLinkClick()">
         {{item.name}}
       </a>
-      <a *ngIf="item.type == 3" class="user-nav__link" [href]="item.url.originalUrl" target="_blank">
+      <a
+        *ngIf="item.type == 3"
+        class="user-nav__link"
+        [href]="item.url.originalUrl"
+        target="_blank"
+        (click)="onLinkClick()">
         {{item.name}}
       </a>
   </li>
