@@ -36,6 +36,7 @@ export class CentralFeedFiltersComponent implements OnInit {
     this.setInitValues();
     this.selectTabFilters = this.selectTabFilters
       .map(filter => ({ ...filter, isActive: false }));
+    this.setSelectedTab(this.tabs.find(tab => tab.get().isActive.get() === true).get().type.get());
   }
 
   setInitValues() {

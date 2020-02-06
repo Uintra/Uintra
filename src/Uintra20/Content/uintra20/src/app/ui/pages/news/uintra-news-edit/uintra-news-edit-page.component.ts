@@ -84,7 +84,7 @@ export class UintraNewsEditPage implements OnInit {
     const otherFilesIds = copyObject.media.otherFiles.map(m => m.id);
     const mediaIds = copyObject.media.medias.map(m => m.id);
 
-    copyObject.media = otherFilesIds.concat(mediaIds).join(",");
+    copyObject.media = otherFilesIds.concat(mediaIds).join(',');
     copyObject["id"] = this.details.id;
 
     return copyObject;

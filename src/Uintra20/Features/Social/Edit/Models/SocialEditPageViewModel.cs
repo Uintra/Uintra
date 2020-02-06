@@ -19,5 +19,6 @@ namespace Uintra20.Features.Social.Edit.Models
         public LightboxPreviewModel LightboxPreviewModel { get; set; }
         public IEnumerable<UserTag> AvailableTags { get; set; } = Enumerable.Empty<UserTag>();
         public Guid Id { get; set; }
+        public int MediaRootId { get; set; }
     }
 }
