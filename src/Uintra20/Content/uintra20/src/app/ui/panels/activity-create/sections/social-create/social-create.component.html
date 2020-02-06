@@ -6,12 +6,14 @@
     </button>
   </div>
   <div class="feed-btns">
-      <a class="button-default" 
+    <div class="feed-btns__other-activities">
+      <a class="button-default"
         [routerLink]="['/events-create']"
         >Create Event</a>
           <!-- TODO Add correct param to routerLink when event create will be done -->
       <a class="button-default"
               [routerLink]="[panelData.createNewsLink.originalUrl]">Create News</a>
+    </div>
     <button class="button" (click)="onShowPopUp()">Send</button>
   </div>
   <div class="bulletin-popup__wrapper" *ngIf="isPopupShowing">
