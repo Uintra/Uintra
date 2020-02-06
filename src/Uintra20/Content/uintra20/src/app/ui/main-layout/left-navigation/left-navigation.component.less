@@ -6,12 +6,25 @@
 }
 
 .navigation-wrapper {
-  position: fixed;
+  position: relative;
   display: block;
   height: calc(100vh - @header-height);
 
   @media @sm-up {
     height: calc(100vh - @header-height-md);
+  }
+
+  @media @md-up {
+    position: fixed;
+  }
+
+  &::before {
+    content: '';
+    background-color: @main-color;
+    width: 9999px;
+    height: 100%;
+    position: absolute;
+    right: 0;
   }
 }
 
