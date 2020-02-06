@@ -1054,6 +1054,8 @@
     <Compile Include="Features\ContentPage\InjectModule\ContentPageInjectModule.cs" />
     <Compile Include="Features\ContentPage\Services\ContentPageNotificationService.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />
+    <Compile Include="Infrastructure\Context\IIntranetRequestContext.cs" />
+    <Compile Include="Infrastructure\Context\IntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Extensions\FactoryExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\InconsistentDataException.cs" />
     <Compile Include="Infrastructure\Extensions\UmbracoHelperExtensions.cs" />

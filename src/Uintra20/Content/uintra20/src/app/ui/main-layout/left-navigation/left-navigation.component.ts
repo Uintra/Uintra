@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from "@angular/core";
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, ViewEncapsulation } from "@angular/core";
 import { INavigationItem } from "./left-navigation.interface";
 import { LeftNavigationService } from "./left-navigation.service";
 import SimpleScrollbar from "simple-scrollbar";
@@ -35,5 +35,9 @@ export class LeftNavigationComponent implements OnInit, AfterViewInit {
 
   getNestingPadding(level: number) {
     return level ? { paddingLeft: level * this.PADDING_STEP + "px" } : {};
+  }
+
+  closeLeftNav() {
+    document.body.classList.remove("nav--open")
   }
 }
