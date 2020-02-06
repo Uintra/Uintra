@@ -90,7 +90,7 @@ export class SocialEditPageComponent {
       .subscribe(
         (next) => {
           const route = 'social-details?id=' + this.socialEdit.id; // TODO Fix after adding linkService on backend
-          debugger;
+          // debugger;
           // this.routerResolverService.removePageRouter(r);
           this.router.navigate([route]);
         },
