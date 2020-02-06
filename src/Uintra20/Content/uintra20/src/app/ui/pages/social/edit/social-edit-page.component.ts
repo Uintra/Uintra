@@ -4,6 +4,7 @@ import ParseHelper from '../../../../feature/shared/helpers/parse.helper';
 import { finalize } from 'rxjs/operators';
 import { ActivityService } from 'src/app/feature/project/specific/activity/activity.service';
 import { ISocialEdit } from 'src/app/feature/project/specific/activity/activity.interfaces';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'social-edit',
@@ -17,6 +18,7 @@ export class SocialEditPageComponent {
   public inProgress = false;
   public socialEdit: ISocialEdit;
   public uploadedData: Array<any> = new Array<any>();
+  public socialEditForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,6 +27,7 @@ export class SocialEditPageComponent {
   ) {
     this.route.data.subscribe(data => this.data = data);
     this.onParse();
+    this.initSocialEditForm();
   }
 
   private onParse = (): void => {
@@ -46,7 +49,8 @@ export class SocialEditPageComponent {
       name: parsedSocialEdit.name,
       tagIdsData: new Array<string>(),
       newMedia: null,
-      media: null
+      media: null,
+      mediaRootId: parsedSocialEdit.mediaRootId
     };
   }
 
@@ -72,9 +76,9 @@ export class SocialEditPageComponent {
     this.socialEdit.media = '';
 
     const otherFilesIds = this.socialEdit.lightboxPreviewModel.otherFiles
-      .map(m => m.key);
+      .map(m => m.id);
     const mediaIds = this.socialEdit.lightboxPreviewModel.medias
-      .map(m => m.key);
+      .map(m => m.id);
 
     this.socialEdit.media = otherFilesIds.concat(mediaIds).join(',');
     this.socialEdit.newMedia = this.uploadedData.map(u => u[1]).join(',');
@@ -102,5 +106,10 @@ export class SocialEditPageComponent {
           // this.router.navigate(['/socials']); // TODO: socials doesnt exist, uncomment code when it will be done.
         },
       );
+  }
+  private initSocialEditForm(): void {
+    this.socialEditForm = new FormGroup({
+      description: new FormControl(this.socialEdit.description, Validators.required)
+    });
   }
 }

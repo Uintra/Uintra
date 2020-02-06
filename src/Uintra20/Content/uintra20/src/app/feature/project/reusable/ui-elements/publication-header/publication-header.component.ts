@@ -9,7 +9,7 @@ export class PublicationHeaderComponent implements OnInit {
 
   @Input() avatar: string;
   @Input() title: string;
-  @Input() baseUrl?: string;
+  @Input() originalUrl?: string;
   @Input() params?: Array<any>;
 
   ngOnInit(): void {

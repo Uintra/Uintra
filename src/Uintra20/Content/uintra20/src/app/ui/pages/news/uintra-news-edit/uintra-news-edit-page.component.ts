@@ -73,7 +73,7 @@ export class UintraNewsEditPage implements OnInit {
 
     this.activityService.updateNews(copyObject).subscribe((r: any) => {
       const params = this.paramsPipe.transform(r.params);
-      this.router.navigate([r.baseUrl], { queryParams: params });
+      this.router.navigate([r.originalUrl]);
     });
   }
 
@@ -83,7 +83,7 @@ export class UintraNewsEditPage implements OnInit {
     const otherFilesIds = copyObject.media.otherFiles.map(m => m.id);
     const mediaIds = copyObject.media.medias.map(m => m.id);
 
-    copyObject.media = otherFilesIds.concat(mediaIds).join(",");
+    copyObject.media = otherFilesIds.concat(mediaIds).join(',');
     copyObject["id"] = this.details.id;
 
     return copyObject;
