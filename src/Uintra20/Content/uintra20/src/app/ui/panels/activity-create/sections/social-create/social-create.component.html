@@ -6,9 +6,13 @@
     </button>
   </div>
   <div class="feed-btns">
-    <div class="feed-btns__col">
-      <button class="button-default">Create Event</button>
-      <button class="button-default">Create News</button>
+    <div class="feed-btns__other-activities">
+      <a class="button-default"
+        [routerLink]="['/events-create']"
+        >Create Event</a>
+          <!-- TODO Add correct param to routerLink when event create will be done -->
+      <a class="button-default"
+              [routerLink]="[panelData.createNewsLink.originalUrl]">Create News</a>
     </div>
     <button class="button" (click)="onShowPopUp()">Send</button>
   </div>
