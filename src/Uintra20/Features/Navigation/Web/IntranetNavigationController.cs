@@ -5,6 +5,7 @@ using UBaseline.Core.Controllers;
 using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
 using Uintra20.Core.HomePage;
+using Uintra20.Core.Member.Helpers;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure.Extensions;
 
@@ -14,12 +15,16 @@ namespace Uintra20.Features.Navigation.Web
     {
         private readonly INavigationModelsBuilder _navigationModelsBuilder;
         private readonly INodeModelService _nodeModelService;
+        private readonly IMemberServiceHelper _memberServiceHelper;
 
-        public IntranetNavigationController(INavigationModelsBuilder navigationModelsBuilder,
-            INodeModelService nodeModelService)
+        public IntranetNavigationController(
+            INavigationModelsBuilder navigationModelsBuilder,
+            INodeModelService nodeModelService,
+            IMemberServiceHelper memberServiceHelper)
         {
             _navigationModelsBuilder = navigationModelsBuilder;
             _nodeModelService = nodeModelService;
+            _memberServiceHelper = memberServiceHelper;
         }
 
         [HttpGet]
@@ -36,7 +41,7 @@ namespace Uintra20.Features.Navigation.Web
         {
             var model = _navigationModelsBuilder.GetTopNavigationModel();
             var viewModel = model.Map<TopNavigationViewModel>();
-
+            viewModel.CurrentMember = _memberServiceHelper.ToViewModel(model.CurrentMember);
             return viewModel;
         }
 
