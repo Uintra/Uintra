@@ -1,4 +1,4 @@
-<section class="social-edit">
+<section class="social-edit" [formGroup]="socialEditForm">
   <h1 class="social-edit__title">{{socialEdit.name}}</h1>
   <div class="form">
     <div class="form__row">
@@ -6,6 +6,7 @@
       <app-rich-text-editor
         [isEditing]="true"
         [(ngModel)]="socialEdit.description"
+        formControlName="description"
         [isUnderline]="true"
         [isDropzone]="false"
         placeholder="Write a message, post a photo or share a document">
@@ -42,7 +43,7 @@
     </div>
     <div class="form__row-btns">
       <button class="button"
-        [disabled]="inProgress"
+        [disabled]="inProgress || socialEditForm.invalid"
         (click)="handleSocialUpdate()">SAVE</button>
 
       <button class="button button-default"

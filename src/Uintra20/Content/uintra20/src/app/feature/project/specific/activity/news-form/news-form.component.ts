@@ -145,7 +145,7 @@ export class NewsFormComponent implements OnInit {
     return this.selectedTags ? this.selectedTags.map(tag => tag.id) : [];
   }
   private getMediaIdsForResponse(): string {
-    return this.files.map(file => file[1]).join(";");
+    return this.files.map(file => file[1]).join(',');
   }
   private getOwners(): ISelectItem[] {
     const owners = this.getMembers(this.members);

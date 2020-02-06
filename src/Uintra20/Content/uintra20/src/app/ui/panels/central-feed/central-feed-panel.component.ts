@@ -76,7 +76,7 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.signalrService.hubConnectionStop();
+    // this.signalrService.hubConnectionStop();
   }
 
   filtersBuilder() {

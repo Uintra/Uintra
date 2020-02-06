@@ -29,4 +29,8 @@ export class MqService {
   isTablet(width: number): boolean {
     return width >= config.minWidthTablet;
   }
+
+  mdDown (width: number): boolean {
+    return width < config.minWidthLaptop;
+  }
 }

@@ -1,8 +1,7 @@
 <div *ngIf="data" class="comment__info">
   <a
     class="comment__author-name"
-    [routerLink]='data.creatorProfileUrl.baseUrl | ulink'
-    [queryParams]='data.creatorProfileUrl.params | uparams'>
+    [routerLink]='data.creatorProfileUrl.originalUrl | ulink'>
     {{data.creator.displayedName}}
   </a>
   <span class="comment__author-inactive"> - {{data.createdDate}}</span>
