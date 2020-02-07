@@ -33,7 +33,7 @@ export class SocialCreateComponent implements OnInit {
   }
 
   constructor(
-    private socialContentService: ActivityService, 
+    private socialContentService: ActivityService,
     private modalService: ModalService) { }
 
   public ngOnInit(): void {
@@ -51,12 +51,13 @@ export class SocialCreateComponent implements OnInit {
     this.showPopUp();
   }
   onHidePopUp() {
-    if (this.description || this.tags.length || this.files.length) {
+    if (this.description || this.files.length) {
       if (confirm('Are you sure?')) {
         this.resetForm();
         this.hidePopUp();
       }
     } else {
+      this.resetForm();
       this.hidePopUp();
     }
   }
