@@ -2,9 +2,9 @@ import { Component, OnInit, Input } from "@angular/core";
 import { IActivityCreatePanel } from "../../activity-create-panel.interface";
 import ParseHelper from "src/app/feature/shared/helpers/parse.helper";
 import { Router } from "@angular/router";
-import { ParamsPipe } from "src/app/services/pipes/link/params.pipe";
 import { ActivityService } from 'src/app/feature/project/specific/activity/activity.service';
 import { INewsCreateModel } from 'src/app/feature/project/specific/activity/activity.interfaces';
+import { RouterResolverService } from 'src/app/services/general/router-resolver.service';
 
 @Component({
   selector: "app-news-create",
@@ -23,7 +23,7 @@ export class NewsCreateComponent implements OnInit {
   constructor(
       private activityService: ActivityService,
     private router: Router,
-    private paramsPipe: ParamsPipe
+    private routerResolverService: RouterResolverService
   ) {}
 
   ngOnInit() {
@@ -44,7 +44,7 @@ export class NewsCreateComponent implements OnInit {
       this.activityService
       .submitNewsContent(data)
       .subscribe((r: any) => {
-        const params = this.paramsPipe.transform(r.params);
+        this.routerResolverService.removePageRouter(r.originalUrl);
         this.router.navigate([r.originalUrl]);
       });
   }
