@@ -58,7 +58,7 @@ namespace Uintra20.Core.Member.Helpers
             }
 
             var result = member.Map<MemberViewModel>();
-            result.Photo = _imageHelper.GetImageWithResize(member.Photo, PresetStrategies.ForMemberProfile.Thumbnail);
+            result.Photo = _imageHelper.GetImageWithResize(member.Photo, PresetStrategies.ForMemberProfile.ThumbnailPreset);
 
             return result;
         }

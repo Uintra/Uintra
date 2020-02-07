@@ -51,7 +51,7 @@ namespace Uintra20.Core.Member.Profile.Converters
             }
 
             viewModel.Profile = member.Map<ProfileViewModel>();
-            viewModel.Profile.Photo = _imageHelper.GetImageWithResize(member.Photo, PresetStrategies.ForMemberProfile.Thumbnail);
+            viewModel.Profile.Photo = _imageHelper.GetImageWithResize(member.Photo, PresetStrategies.ForMemberProfile.ThumbnailPreset);
             viewModel.Tags = _userTagService.Get(member.Id);
         }
     }

@@ -111,7 +111,7 @@ namespace Uintra20.Core.Controls.LightboxGallery
 
                 item.PreviewUrl = _imageHelper.GetImageWithResize(IsVideo(item.Type)
                     ? item.PreviewUrl
-                    : item.Url, strategy.Preview);
+                    : item.Url, strategy.PreviewPreset);
 
                 return;
             }
@@ -119,8 +119,8 @@ namespace Uintra20.Core.Controls.LightboxGallery
             foreach (var item in imageItems)
             {
                 item.PreviewUrl = imageItems.Count < 3 ?
-                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, strategy.PreviewTwo) :
-                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, strategy.Thumbnail);
+                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, strategy.PreviewTwoPreset) :
+                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, strategy.ThumbnailPreset);
             }
         }
 
