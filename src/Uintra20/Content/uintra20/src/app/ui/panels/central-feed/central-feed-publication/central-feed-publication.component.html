@@ -29,8 +29,8 @@
   <div class="publication__content">
     <p *ngIf="publication.activity?.title" class="publication__title">{{publication.activity.title}}</p>
     <div
-      class="publication__text"
-        [routerLink]="publication.activity.links?.details.originalUrl | ulink"
+      class="publication__text rte"
+      [routerLink]="publication.activity.links?.details.originalUrl | ulink"
       [innerHTML]="publication.activity.description"
     ></div>
 
