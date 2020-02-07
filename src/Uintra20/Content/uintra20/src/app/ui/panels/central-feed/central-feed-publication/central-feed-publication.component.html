@@ -15,10 +15,14 @@
       </a>
       <a
         *ngIf="publication.activity?.location"
-        [href]="'https://www.google.co.uk/maps?q=' + publication.activity.location.address"
+        [href]="
+          'https://www.google.co.uk/maps?q=' +
+          publication.activity.location.address
+        "
         class="icon-pin-icon publication__location-link"
-        target="_blank">
-        {{publication.activity.location.shortAddress}}
+        target="_blank"
+      >
+        {{ publication.activity.location.shortAddress }}
       </a>
     </div>
     <div *ngIf="publication.activity.isPinned" label class="publication__label">
@@ -27,13 +31,15 @@
   </app-publication-header>
 
   <div class="publication__content">
-    <p *ngIf="publication.activity?.title" class="publication__title">{{publication.activity.title}}</p>
-    <div
-      class="publication__text"
-        [routerLink]="publication.activity.links?.details.originalUrl | ulink"
-      [innerHTML]="publication.activity.description"
-    ></div>
-
+    <a class="publication__clickable-aria" [routerLink]="publication.activity.links?.details.originalUrl | ulink">
+      <p *ngIf="publication.activity?.title" class="publication__title">
+        {{ publication.activity.title }}
+      </p>
+      <div
+        class="publication__text"
+        [innerHTML]="publication.activity.description"
+      ></div>
+    </a>
 
     <div class="gallery" [ngClass]="'items-' + countToDisplay">
       <div
@@ -42,7 +48,9 @@
         (click)="openGallery(i)"
         [ngStyle]="{ backgroundImage: 'url(' + image.previewUrl + ')' }"
       ></div>
-      <div class="gallery__counter" *ngIf="additionalImages">+ {{ additionalImages }}</div>
+      <div class="gallery__counter" *ngIf="additionalImages">
+        + {{ additionalImages }}
+      </div>
     </div>
     <div class="publication__footer">
       <div class="publication__footer-left-block">
@@ -60,7 +68,6 @@
         </button>
       </div>
 
-
       <a
         class="publication__files publication__footer-item"
         *ngIf="documentsCount"
@@ -69,7 +76,6 @@
         <i class="icon-attachment"></i>
         {{ documentsCount }}
         {{ documentsCount > 1 ? "Files added" : "File added" }}</a
-
       >
     </div>
   </div>
