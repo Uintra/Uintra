@@ -122,9 +122,11 @@ namespace Uintra20.Features.News
             viewModel.CanEdit = CanEdit(news);
             viewModel.Links = links;
             viewModel.Owner = _memberHelper.ToViewModel(_intranetMemberService.Get(news));
+            viewModel.IsPinActual = IsPinActual(news);
             viewModel.Type = _localizationService.Translate(news.Type.ToString());
             viewModel.LikedByCurrentUser = news.Likes.Any(x => x.UserId == currentMemberId);
             viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);
+            
             var dates = news.PublishDate.ToDateTimeFormat().ToEnumerable().ToList();
 
             if (news.UnpublishDate.HasValue)

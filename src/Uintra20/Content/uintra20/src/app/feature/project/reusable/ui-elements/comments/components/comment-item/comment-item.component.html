@@ -2,6 +2,8 @@
   <app-user-avatar class="comment__avatar"
                    [photo]="commentCreator.photo"
                    [name]="commentCreator.displayedName"
+                   [routerLink]="data.creatorProfileUrl.baseUrl"
+                   [queryParams]="data.creatorProfileUrl.params"
                    big></app-user-avatar>
   <div class="comment__container">
     <app-comment-header [data]="data"

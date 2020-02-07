@@ -1,6 +1,11 @@
 <div class="publication-header">
   <div class="publication-header__avatar">
-    <app-user-avatar [photo]="avatar" [name]="title" big></app-user-avatar>
+    <app-user-avatar
+      [photo]="avatar"
+      [name]="title"
+      [routerLink]='originalUrl'
+      [queryParams]="params"
+      big></app-user-avatar>
   </div>
 
   <div class="publication-header__content">
