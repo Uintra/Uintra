@@ -16,7 +16,8 @@
       <a
         *ngIf="publication.activity?.location"
         [href]="'https://www.google.co.uk/maps?q=' + publication.activity.location.address"
-        class="icon-pin-icon publication__location-link">
+        class="icon-pin-icon publication__location-link"
+        target="_blank">
         {{publication.activity.location.shortAddress}}
       </a>
     </div>
