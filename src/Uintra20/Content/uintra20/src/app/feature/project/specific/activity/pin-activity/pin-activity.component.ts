@@ -33,8 +33,8 @@ export class PinActivityComponent implements OnInit {
     this.pinActivityService.publishDates$.subscribe((dates: IDatepickerData) => {
       this.options = {
         ...this.options,
-        minDate: dates.from ? moment(dates.from) : false,
-        maxDate: dates.to ? moment(dates.to) : false
+        minDate: dates.from ? moment(dates.from).subtract(1, "minutes") : false,
+        maxDate: dates.to ? moment(dates.to).add(1, "minutes") : false
       };
     });
   }
