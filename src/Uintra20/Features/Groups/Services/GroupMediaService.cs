@@ -67,15 +67,13 @@ namespace Uintra20.Features.Groups.Services
 
         public IEnumerable<int> CreateGroupMedia(IContentWithMediaCreateEditModel model, Guid groupId, Guid creatorId)
         {
-            model.MediaRootId = GetOrCreateGroupMediaFolder(groupId).Id;
-            var media = _mediaHelper.CreateMedia(model, creatorId);
+            var media = _mediaHelper.CreateMedia(model, MediaFolderTypeEnum.GroupsContent, creatorId);
             return media;
         }
 
         public async Task<IEnumerable<int>> CreateGroupMediaAsync(IContentWithMediaCreateEditModel model, Guid groupId, Guid creatorId)
         {
-            model.MediaRootId = (await GetOrCreateGroupMediaFolderAsync(groupId)).Id;
-            var media = _mediaHelper.CreateMedia(model, creatorId);
+            var media = _mediaHelper.CreateMedia(model, MediaFolderTypeEnum.GroupsContent, creatorId);
             return media;
         }
 

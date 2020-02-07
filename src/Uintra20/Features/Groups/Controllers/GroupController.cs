@@ -6,9 +6,14 @@ using AutoMapper;
 using Compent.CommandBus;
 using UBaseline.Core.Controllers;
 using UBaseline.Core.Media;
+using UBaseline.Core.Node;
+using UBaseline.Shared.Node;
 using Uintra20.Attributes;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
+using Uintra20.Core.UbaselineModels;
+using Uintra20.Features.Groups.CommandBus.Commands;
+using Uintra20.Features.Groups.Links;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
@@ -16,16 +21,14 @@ using Uintra20.Features.Media;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
-using Umbraco.Core.Models.PublishedContent;
 
-namespace Uintra20.Features.Groups.Web
+namespace Uintra20.Features.Groups.Controllers
 {
     [ValidateModel]
     public class GroupController : UBaselineApiController
     {
         private const int ItemsPerPage = 10;
 
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IGroupService _groupService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IMediaHelper _mediaHelper;
@@ -35,6 +38,8 @@ namespace Uintra20.Features.Groups.Web
         private readonly IImageHelper _imageHelper;
         private readonly ICommandPublisher _commandPublisher;
         private readonly IMediaModelService _mediaModelService;
+        private readonly INodeModelService _nodeModelService;
+        private readonly IGroupLinkProvider _groupLinkProvider;
 
         public GroupController(
             IGroupService groupService,
@@ -43,12 +48,12 @@ namespace Uintra20.Features.Groups.Web
             IGroupMediaService groupMediaService,
             IIntranetMemberService<IGroupMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
-            IDocumentTypeAliasProvider documentTypeAliasProvider,
             IImageHelper imageHelper,
             ICommandPublisher commandPublisher,
-            IMediaModelService mediaModelService)
+            IMediaModelService mediaModelService,
+            INodeModelService nodeModelService,
+            IGroupLinkProvider groupLinkProvider)
         {
-            _documentTypeAliasProvider = documentTypeAliasProvider;
             _groupService = groupService;
             _groupMemberService = groupMemberService;
             _mediaHelper = mediaHelper;
@@ -58,22 +63,24 @@ namespace Uintra20.Features.Groups.Web
             _imageHelper = imageHelper;
             _commandPublisher = commandPublisher;
             _mediaModelService = mediaModelService;
+            _nodeModelService = nodeModelService;
+            _groupLinkProvider = groupLinkProvider;
         }
 
         public GroupLeftNavigationMenuViewModel LeftNavigation()
         {
-            var groupPageXpath = XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetGroupOverviewPage());
-            var groupPage = _umbracoHelper.TypedContentSingleAtXPath(groupPageXpath);
+            var rootGroupPage = _nodeModelService.AsEnumerable().OfType<UintraGroupsPageModel>().First();
 
-            var isPageActive = GetIsPageActiveFunc(_umbracoHelper.AssignedContentItem);
-
-            var menuItems = GetMenuItems(groupPage);
+            var menuItems = GetMenuItems(rootGroupPage);
 
             var result = new GroupLeftNavigationMenuViewModel
             {
                 Items = menuItems,
-                GroupOverviewPageUrl = groupPage.Url,
-                IsActive = isPageActive(groupPage)
+                GroupPageItem = new GroupLeftNavigationItemViewModel
+                {
+                    Link = rootGroupPage.Url.ToLinkModel(),
+                    Title = rootGroupPage.GroupNavigation.NavigationTitle
+                }
             };
 
             return result;
@@ -85,7 +92,7 @@ namespace Uintra20.Features.Groups.Web
             var group = _groupService.Get(model.Id);
             group = Mapper.Map(model, group);
             group.ImageId = model.Media?.Split(',').First().ToNullableInt();
-            var createdMedias = _mediaHelper.CreateMedia(model).ToList();
+            var createdMedias = _mediaHelper.CreateMedia(model, MediaFolderTypeEnum.GroupsContent).ToList();
             if (createdMedias.Any())
             {
                 group.ImageId = createdMedias.First();
@@ -98,9 +105,15 @@ namespace Uintra20.Features.Groups.Web
         [HttpPost]
         public GroupModel Create(GroupCreateModel createModel)
         {
-            var groupId = _groupMemberService.Create(createModel);
+            var currentMemberId = _memberService.GetCurrentMember().Id;
 
-            return _groupService.Get(groupId); ;
+            var groupId = _groupMemberService.Create(createModel, new GroupMemberSubscriptionModel
+            {
+                IsAdmin = true,
+                MemberId = currentMemberId
+            });
+
+            return _groupService.Get(groupId);
         }
 
         [HttpGet]
@@ -133,21 +146,21 @@ namespace Uintra20.Features.Groups.Web
         }
 
         [HttpPost]
-        public virtual ActionResult Hide(Guid id)
+        public virtual IHttpActionResult Hide(Guid id)
         {
             var canHide = _groupService.CanHide(id);
-            if (canHide)
-            {
-                var command = new HideGroupCommand(id);
-                _commandPublisher.Publish(command);
-            }
 
-            return Json(canHide ? _groupLinkProvider.GetGroupsOverviewLink() :
-                _groupLinkProvider.GetGroupLink(id));
+            if (!canHide) return Ok(_groupLinkProvider.GetGroupLink(id));
+
+            var command = new HideGroupCommand(id);
+            _commandPublisher.Publish(command);
+
+            return Ok(_groupLinkProvider.GetGroupsOverviewLink());
+
         }
 
         [HttpPost]
-        public virtual oRedirectToUmbracoPageResult Subscribe(Guid groupId)
+        public virtual IHttpActionResult Subscribe(Guid groupId)
         {
             var currentMember = _memberService.GetCurrentMember();
 
@@ -166,29 +179,20 @@ namespace Uintra20.Features.Groups.Web
                 _groupMemberService.Add(groupId, subscription);
             }
 
-            return oRedirectToCurrentUmbracoPage(Request.QueryString);
+            return Ok(_groupLinkProvider.GetGroupLink(groupId));
         }
 
-        private IEnumerable<GroupLeftNavigationItemViewModel> GetMenuItems(IPublishedContent rootGroupPage)
+        private IEnumerable<GroupLeftNavigationItemViewModel> GetMenuItems(UintraGroupsPageModel rootGroupPage)
         {
-            var isPageActive = GetIsPageActiveFunc(_umbracoHelper.AssignedContentItem);
+            var groupPageChildren = _nodeModelService.AsEnumerable().Where(x =>
+                x is IGroupNavigationComposition navigation && navigation.GroupNavigation.ShowInMenu &&
+                x.ParentId == rootGroupPage.Id);
 
-            var groupPageChildren = rootGroupPage.Children.Where(el => el.IsShowPageInSubNavigation()).ToList();
-
-            foreach (var subPage in groupPageChildren)
+            return groupPageChildren.Select(x => new GroupLeftNavigationItemViewModel
             {
-                if (subPage.IsShowPageInSubNavigation())
-                {
-                    if (_groupService.ValidatePermission(subPage))
-                    {
-                        yield return MapToLeftNavigationItem(subPage, isPageActive);
-                    }
-                }
-                else
-                {
-                    yield return MapToLeftNavigationItem(subPage, isPageActive);
-                }
-            }
+                Title = ((IGroupNavigationComposition) x).GroupNavigation.NavigationTitle,
+                Link = x.Url.ToLinkModel()
+            });
         }
 
         private IEnumerable<GroupViewModel> GetListModel(bool isMyGroupsPage, int page)
@@ -223,22 +227,6 @@ namespace Uintra20.Features.Groups.Web
             }
 
             return groupModel;
-        }
-
-
-        private static Func<IPublishedContent, bool> GetIsPageActiveFunc(IPublishedContent currentPage)
-        {
-            return p => currentPage.Id == p.Id;
-        }
-
-        private static GroupLeftNavigationItemViewModel MapToLeftNavigationItem(IPublishedContent page, Func<IPublishedContent, bool> isPageActive)
-        {
-            return new GroupLeftNavigationItemViewModel
-            {
-                Name = page.GetNavigationName(),
-                Url = page.Url,
-                IsActive = isPageActive(page)
-            };
         }
     }
 }

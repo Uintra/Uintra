@@ -136,7 +136,7 @@ namespace Uintra20.Features.Social
             return viewModel;
         }
 
-        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
+        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.SocialsContent);
 
         //protected override void UpdateCache()
         //{

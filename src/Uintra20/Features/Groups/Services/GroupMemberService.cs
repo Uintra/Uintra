@@ -147,40 +147,41 @@ namespace Uintra20.Features.Groups.Services
             return member.GroupIds.Contains(groupId);
         }
 
-        public Guid Create(GroupCreateModel model)
+        public Guid Create(GroupCreateModel model, GroupMemberSubscriptionModel creator)
         {
             var group = model.Map<GroupModel>();
 
             group.GroupTypeId = GroupTypeEnum.Open.ToInt();
 
-            var createdMedias = _mediaHelper.CreateMedia(model).ToList();
+            var createdMedias = _mediaHelper.CreateMedia(model, MediaFolderTypeEnum.GroupsContent).ToList();
 
             group.ImageId = createdMedias.Any()
                 ? (int?)createdMedias.First()
                 : null;
 
             var groupId = _groupService.Create(group);
-            Add(groupId, model.Creator);
+
+            Add(groupId, creator);
 
             _groupMediaService.GroupTitleChanged(groupId, @group.Title);
 
             return groupId;
         }
 
-        public async Task<Guid> CreateAsync(GroupCreateModel model)
+        public async Task<Guid> CreateAsync(GroupCreateModel model, GroupMemberSubscriptionModel creator)
         {
             var group = model.Map<GroupModel>();
 
             group.GroupTypeId = GroupTypeEnum.Open.ToInt();
 
-            var createdMedias = _mediaHelper.CreateMedia(model).ToList();
+            var createdMedias = _mediaHelper.CreateMedia(model, MediaFolderTypeEnum.GroupsContent).ToList();
 
             group.ImageId = createdMedias.Any()
                 ? (int?)createdMedias.First()
                 : null;
 
             var groupId = await _groupService.CreateAsync(group);
-            await AddAsync(groupId, model.Creator);
+            await AddAsync(groupId, creator);
 
             await _groupMediaService.GroupTitleChangedAsync(groupId, @group.Title);
 

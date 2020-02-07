@@ -34,8 +34,8 @@ namespace Uintra20.Features.Groups.Services
 
         bool IsGroupMember(Guid groupId, IGroupMember member);
 
-        Guid Create(GroupCreateModel model);
-        Task<Guid> CreateAsync(GroupCreateModel model);
+        Guid Create(GroupCreateModel model, GroupMemberSubscriptionModel creator);
+        Task<Guid> CreateAsync(GroupCreateModel model, GroupMemberSubscriptionModel creator);
 
         GroupMember GetByMemberId(Guid id);
         Task<GroupMember> GetByMemberIdAsync(Guid id);

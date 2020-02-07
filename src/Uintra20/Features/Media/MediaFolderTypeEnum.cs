@@ -19,8 +19,8 @@ namespace Uintra20.Features.Media
         [Display(Name = "Members Content")]
         MembersContent,
 
-        [Display(Name = "Bulletins Content")]
-        BulletinsContent,
+        [Display(Name = "Socials Content")]
+        SocialsContent,
 
         [Display(Name = "Comments Content")]
         CommentsContent,

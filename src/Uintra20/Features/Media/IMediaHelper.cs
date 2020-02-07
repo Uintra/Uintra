@@ -8,7 +8,7 @@ namespace Uintra20.Features.Media
 {
     public interface IMediaHelper
     {
-        IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model, Guid? userId = null);
+        IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model, MediaFolderTypeEnum mediaFolderType, Guid? userId = null);
         void DeleteMedia(int mediaId);
         void DeleteMedia(string mediaPath);
         void DeleteMedia(IEnumerable<int> mediaIds);
