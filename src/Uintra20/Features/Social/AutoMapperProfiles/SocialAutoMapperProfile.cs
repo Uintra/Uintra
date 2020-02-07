@@ -78,6 +78,7 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
 
             CreateMap<Entities.Social, SocialPreviewModel>()
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.Owner, o => o.Ignore())
                 .ForMember(dst => dst.MediaPreview, o => o.Ignore())
