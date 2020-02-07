@@ -2,7 +2,10 @@
   Error: owner.link is null <br/>
 </pre>
 
-<div class="publication publication--important" *ngIf="publication?.activity?.links?.owner?.originalUrl">
+<div
+  class="publication publication--important"
+  *ngIf="publication?.activity?.links?.owner?.originalUrl"
+>
   <app-publication-header
     [avatar]="publication.activity.owner.photo"
     [title]="publication.activity.owner.displayedName"
@@ -29,13 +32,23 @@
         {{ publication.activity.location.shortAddress }}
       </a>
     </div>
-    <div *ngIf="publication.activity.isPinned" label class="publication__label">
+    <div
+      *ngIf="publication.activity.isPinned"
+      label
+      class="publication__label"
+      [ngClass]="{
+        'publication__label--no-actual': !publication.activity.isPinActual
+      }"
+    >
       Important
     </div>
   </app-publication-header>
 
   <div class="publication__content">
-    <a class="publication__clickable-aria" [routerLink]="publication.activity.links?.details.originalUrl | ulink">
+    <a
+      class="publication__clickable-aria"
+      [routerLink]="publication.activity.links?.details.originalUrl | ulink"
+    >
       <p *ngIf="publication.activity?.title" class="publication__title">
         {{ publication.activity.title }}
       </p>
