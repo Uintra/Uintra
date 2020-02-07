@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { CommentsService } from './helpers/comments.service';
-import { DomSanitizer } from '@angular/platform-browser';
 
 export interface ICommentData {
   entityType: number;
@@ -27,7 +26,7 @@ export class CommentsComponent {
       : false;
   }
 
-  constructor(private commentsService: CommentsService, private sanitizer: DomSanitizer) { }
+  constructor(private commentsService: CommentsService) { }
 
   onCommentSubmit(replyData?) {
     this.inProgress = true;

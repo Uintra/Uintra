@@ -57,6 +57,12 @@
         font-size: 16px;
     }
 
+    &__clickable-aria {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
     &__title {
       font-size: 18px;
       margin-bottom: 5px;
@@ -70,6 +76,7 @@
     &__text {
         overflow: hidden;
         text-overflow: ellipsis;
+        overflow-wrap: break-word;
         line-height: @text-line-height;
         max-height: @text-line-height * 3;
         cursor: pointer;
