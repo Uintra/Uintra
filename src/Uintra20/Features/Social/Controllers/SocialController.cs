@@ -18,7 +18,7 @@ using Uintra20.Features.CentralFeed;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
-using Uintra20.Features.Media.Strategies.ImageResize;
+using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.Navigation.Services;
 using Uintra20.Features.Social.Edit.Models;
 using Uintra20.Features.Social.Models;
@@ -141,7 +141,7 @@ namespace Uintra20.Features.Social.Controllers
 
             viewModel.Media = MediaHelper.GetMediaUrls(social.MediaIds);
 
-            viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, RenderStrategies.ForActivityDetails);
+            viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, PresetStrategies.ForActivityDetails);
             viewModel.CanEdit = _socialService.CanEdit(social);
             viewModel.Links = await _feedLinkService.GetLinksAsync(id);
             viewModel.IsReadOnly = false;

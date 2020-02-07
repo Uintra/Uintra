@@ -3,7 +3,7 @@ using System.Linq;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Models;
 using Uintra20.Features.Media;
-using Uintra20.Features.Media.Strategies.ImageResize;
+using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Infrastructure.Extensions;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -58,7 +58,7 @@ namespace Uintra20.Core.Member.Helpers
             }
 
             var result = member.Map<MemberViewModel>();
-            result.Photo = _imageHelper.GetImageWithResize(member.Photo, RenderStrategies.ForMemberProfile.Thumbnail);
+            result.Photo = _imageHelper.GetImageWithResize(member.Photo, PresetStrategies.ForMemberProfile.Thumbnail);
 
             return result;
         }
