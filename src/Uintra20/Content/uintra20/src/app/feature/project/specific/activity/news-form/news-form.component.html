@@ -12,14 +12,15 @@
       type="text"
       aria-label="Title"
       class="news-title__input"
-      [ngClass]="{'invalid': isShowValidation && !newsData.title}"
+      [ngClass]="{'invalid': isShowValidation && !newsData.title.trim()}"
+      [maxLength]="400"
     ></text-input>
   </div>
   <div class="description form-row">
     <h3 class="description__title subtitle required">News description</h3>
     <app-rich-text-editor
     [(ngModel)]="newsData.description"
-    [ngClass]="{'invalid': isShowValidation && !newsData.description}"
+    [ngClass]="{'invalid': isShowValidation && !newsData.description.trim()}"
       class="description__rte"
       [isEditing]="true"
       [isDropzone]="false"
@@ -80,12 +81,12 @@
 
 
   <div class="form-row" *ngIf="isShowValidation">
-    <div *ngIf="!newsData.title"
+    <div *ngIf="!newsData.title.trim()"
         class="alert alert-danger">
         A title is required
     </div>
 
-    <div *ngIf="!newsData.description"
+    <div *ngIf="!newsData.description.trim()"
         class="alert alert-danger">
         A description is required
     </div>
