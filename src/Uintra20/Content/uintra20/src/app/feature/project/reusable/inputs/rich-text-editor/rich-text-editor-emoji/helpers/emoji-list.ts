@@ -1,4 +1,4 @@
-const emojiPath = '../../../../../../../assets/emoji/';
+const emojiPath = 'wwwroot/assets/emoji/';
 
 export const emojiList = [
   {
