@@ -18,8 +18,10 @@ export class PinActivityComponent implements OnInit {
   @Input() isPinCheked: boolean;
   @Input() isAccepted: boolean;
   @Input() endPinDate: string;
-  @Input() pinDateRange: IDatePickerOptions = null;
   @Output() handleChange = new EventEmitter<IPinedData>();
+
+  @Input() publishDate: string = null;
+  @Input() unpublishDate: string = null;
 
   options: IDatePickerOptions;
   pinDate = null;
@@ -33,8 +35,8 @@ export class PinActivityComponent implements OnInit {
     this.pinActivityService.publishDates$.subscribe((dates: IDatepickerData) => {
       this.options = {
         ...this.options,
-        minDate: dates.from ? moment(dates.from).subtract(1, "minutes") : false,
-        maxDate: dates.to ? moment(dates.to).add(1, "minutes") : false
+        minDate: dates.from ? moment(dates.from).subtract(5, "minutes") : false,
+        maxDate: dates.to ? moment(dates.to).add(5, "minutes") : false
       };
     });
   }
@@ -48,7 +50,6 @@ export class PinActivityComponent implements OnInit {
 
     this.options = {
       showClose: true,
-      minDate: moment()
     };
 
     this.pinDate = this.endPinDate ? moment(this.endPinDate) : moment();
