@@ -91,7 +91,7 @@ export class SocialEditPageComponent {
       .pipe(finalize(() => this.inProgress = false))
       .subscribe(
         (next: any) => {
-          this.routerResolverService.removePageRouter(next.baseUrl);
+          this.routerResolverService.removePageRouter(next.originalUrl);
           this.router.navigate([next.originalUrl]);
         },
       );

@@ -1,14 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { emojiList } from './helpers/emoji-list';
+import { emojiList, IEmoji } from './helpers/emoji-list';
 
-interface IEmoji {
-  src: string;
-  title: string;
-  shortcut: string;
-  width: string;
-  height: string;
-  class: string;
-}
 
 @Component({
   selector: 'app-rich-text-editor-emoji',

@@ -9,6 +9,7 @@
       class="left-nav__arrow"
       [ngClass]="{ active: isOpen }"
       (click)="onToggle()"
+      *ngIf="myLinks && myLinks.length"
     >
       Expand
     </button>

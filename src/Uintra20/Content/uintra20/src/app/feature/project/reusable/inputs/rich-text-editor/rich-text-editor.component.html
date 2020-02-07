@@ -48,17 +48,18 @@
   <button class="ql-bold" [title]="'Bold'"></button>
   <button class="ql-italic" [title]="'Italic'"></button>
   <button *ngIf="isUnderline" class="ql-underline" [title]="'Underline'"></button>
-  <button class="ql-link icon-link"></button>
+  <button class="ql-link icon-link" [title]="'Link'"></button>
   <button
     *ngIf="isDropzone"
     class="ql-dropzone icon-attachment"
     (click)="onShowDropdown()"
+    [title]="'Attachments'"
   ></button>
 </ng-template>
 
 <ng-template #comments>
   <div (clickOutside)="closeEmojiPalette()">
-    <button class="icon-smily" (click)="toggleEmojiPalette()"></button>
+    <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'"></button>
     <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
   </div>
   <ng-container *ngTemplateOutlet="default"></ng-container>
@@ -75,7 +76,7 @@
   <button type="button" class="ql-list" value="ordered"></button>
   <button type="button" class="ql-list" value="bullet"></button>
   <div (clickOutside)="closeEmojiPalette()">
-    <button class="icon-smily" (click)="toggleEmojiPalette()"></button>
+    <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'"></button>
     <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
   </div>
   <button type="button" class="ql-clean"></button>
