@@ -13,6 +13,7 @@
       aria-label="Title"
       class="news-title__input"
       [ngClass]="{'invalid': isShowValidation && !newsData.title}"
+      [maxLength]="400"
     ></text-input>
   </div>
   <div class="description form-row">
