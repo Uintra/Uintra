@@ -1,6 +1,6 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Authentication;
-using Uintra20.Core.Configuration;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Services;
@@ -9,7 +9,6 @@ using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Information;
 using Uintra20.Features.Media;
-using Uintra20.Features.Navigation.Configuration;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Implementation;
 using Uintra20.Features.Permissions.Interfaces;
@@ -17,6 +16,7 @@ using Uintra20.Features.Permissions.TypeProviders;
 using Uintra20.Features.Subscribe;
 using Uintra20.Infrastructure.ApplicationSettings;
 using Uintra20.Infrastructure.Caching;
+using Uintra20.Infrastructure.Context;
 using Uintra20.Infrastructure.Exceptions;
 using Uintra20.Infrastructure.Providers;
 using Uintra20.Infrastructure.TypeProviders;
@@ -24,7 +24,7 @@ using Uintra20.Infrastructure.Utils;
 
 namespace Uintra20.Infrastructure.Ioc
 {
-	public class UintraInjectModule: IInjectModule
+    public class UintraInjectModule: IInjectModule
 	{
 		public IDependencyCollection Register(IDependencyCollection services)
 		{
@@ -67,6 +67,10 @@ namespace Uintra20.Infrastructure.Ioc
             
             services.AddScoped<IGroupHelper, GroupHelper>();
             services.AddScoped<IGroupContentProvider, GroupContentProvider>();
+
+
+
+            services.AddScoped<IUBaselineRequestContext, IntranetRequestContext>();
 
             return services;
 		}

@@ -10,20 +10,8 @@
   <div quill-editor-toolbar class="toolbar">
     <div class="ql-counter" id="counter"></div>
 
-    <div class="ql-formats">
-      <div (clickOutside)="closeEmojiPalette()">
-        <button class="icon-smily" (click)="toggleEmojiPalette()"></button>
-        <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
-      </div>
-      <button class="ql-bold" [title]="'Bold'"></button>
-      <button class="ql-italic" [title]="'Italic'"></button>
-      <button *ngIf="isUnderline" class="ql-underline" [title]="'Underline'"></button>
-      <button class="ql-link icon-link"></button>
-      <button
-        *ngIf="isDropzone"
-        class="ql-dropzone icon-attachment"
-        (click)="onShowDropdown()"
-      ></button>
+    <div class="ql-formats-wrapper">
+      <div class="ql-formats" *ngIf="isEventsOrNews; then eventsOrNewsCreate; else comments"></div>
     </div>
 
     <div class="ql-submit-button">
@@ -34,8 +22,7 @@
   </div>
 </quill-editor>
 
-<div class="reply-mode"
-    *ngIf="isEditing">
+<div class="reply-mode" *ngIf="isEditing">
   <quill-editor
     theme="snow"
     [modules]="config"
@@ -46,20 +33,8 @@
     <div quill-editor-toolbar class="toolbar" [ngClass]="getToolbarClass()">
       <div *ngIf="!isEditing" class="ql-counter" id="counter"></div>
 
-      <div class="ql-formats">
-        <div (clickOutside)="closeEmojiPalette()">
-          <button class="icon-smily" (click)="toggleEmojiPalette()"></button>
-          <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
-        </div>
-        <button class="ql-bold" [title]="'Bold'"></button>
-        <button class="ql-italic" [title]="'Italic'"></button>
-        <button *ngIf="isUnderline" class="ql-underline" [title]="'Underline'"></button>
-        <button class="ql-link icon-link"></button>
-        <button
-          *ngIf="isDropzone"
-          class="ql-dropzone icon-attachment"
-          (click)="onShowDropdown()"
-        ></button>
+      <div class="ql-formats-wrapper">
+        <div class="ql-formats" *ngIf="isEventsOrNews; then eventsOrNewsCreate; else comments"></div>
       </div>
     </div>
   </quill-editor>
@@ -68,3 +43,41 @@
     <ng-content select="[edit]"></ng-content>
   </div>
 </div>
+
+<ng-template #default>
+  <button class="ql-bold" [title]="'Bold'"></button>
+  <button class="ql-italic" [title]="'Italic'"></button>
+  <button *ngIf="isUnderline" class="ql-underline" [title]="'Underline'"></button>
+  <button class="ql-link icon-link" [title]="'Link'"></button>
+  <button
+    *ngIf="isDropzone"
+    class="ql-dropzone icon-attachment"
+    (click)="onShowDropdown()"
+    [title]="'Attachments'"
+  ></button>
+</ng-template>
+
+<ng-template #comments>
+  <div (clickOutside)="closeEmojiPalette()">
+    <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'"></button>
+    <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
+  </div>
+  <ng-container *ngTemplateOutlet="default"></ng-container>
+</ng-template>
+
+<ng-template #eventsOrNewsCreate>
+  <select class="ql-header">
+    <option value="1">Heading 1</option>
+    <option value="2">Heading 2</option>
+    <option value="3">Heading 3</option>
+    <option value="" selected>Normal</option>
+  </select>
+  <ng-container *ngTemplateOutlet="default"></ng-container>
+  <button type="button" class="ql-list" value="ordered"></button>
+  <button type="button" class="ql-list" value="bullet"></button>
+  <div (clickOutside)="closeEmojiPalette()">
+    <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'"></button>
+    <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
+  </div>
+  <button type="button" class="ql-clean"></button>
+</ng-template>

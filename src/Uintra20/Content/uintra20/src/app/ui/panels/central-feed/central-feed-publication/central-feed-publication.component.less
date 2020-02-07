@@ -28,15 +28,43 @@
 
     &__activity-type {
         cursor: pointer;
+        color: @body-text-color;
+        text-decoration: none;
 
         &:hover {
             color: @link-color;
         }
     }
 
+    &__location-link {
+      font-size: 13px;
+      font-family: @font !important;
+      color: @body-text-color;
+      text-decoration: none;
+
+      &::before {
+        font-family: 'icomoon';
+        color: @body-text-color;
+      }
+
+      &:hover {
+        color: @link-color;
+      }
+    }
+
     &__content {
         margin-bottom: 25px;
         font-size: 16px;
+    }
+
+    &__title {
+      font-size: 18px;
+      margin-bottom: 5px;
+      color: @heading-bg;
+
+      @media @sm-up {
+        font-size: 20px;
+      }
     }
 
     &__text {
@@ -52,6 +80,8 @@
 
     &__footer {
         display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
         align-items: center;
 
         &-item {
@@ -75,11 +105,13 @@
                 color: @link-color;
             }
         }
+
+      &-left-block {
+        display: flex;
+      }
     }
 
     &__files {
-        margin-left: auto;
-
         .icon-attachment {
             font-size: 1.6em;
             line-height: 15px;

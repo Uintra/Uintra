@@ -26,7 +26,7 @@ export class DesktopNotificationService {
       body: notification.Value.desktopMessage,
       icon: avatar,
       requireInteraction: true,
-      timeout: 10000
+      timeout: 5000
     };
 
     this.navNotificationsService
@@ -37,13 +37,17 @@ export class DesktopNotificationService {
       objParam
     );
 
+    setTimeout(() => {
+      newDeskNotification.close();
+    }, 5000);
+
     newDeskNotification.onclick = function() {
       const pushWindow = this;
 
       _this.navNotificationsService
         .markAsViewed(notification.Id)
         .subscribe(r => {
-          const destUrl = window.location.origin + notification.Value.url;
+          const destUrl = window.location.origin + notification.Value.url.originalUrl;
           window.focus();
           window.location.assign(destUrl);
           if (_this.equals(destUrl, window.location.href)) {

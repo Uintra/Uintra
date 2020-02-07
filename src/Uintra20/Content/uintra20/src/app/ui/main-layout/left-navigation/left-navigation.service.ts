@@ -11,14 +11,15 @@ import { INavigationItem, INavigationData } from "./left-navigation.interface";
 export class LeftNavigationService {
   readonly api = "ubaseline/api/IntranetNavigation";
   readonly openingStateProperty = "nav-opening-state";
-  openingState: object;
+  openingState: object = {};
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {      
+  constructor(private http: HttpClient, private cookieService: CookieService) {
     this.updateOpeningState();
   }
 
-  setOpeningState(item: INavigationItem) {    
-    this.openingState[item.id] = !item.isActive;
+  setOpeningState(item: INavigationItem) {
+    this.openingState = { ...this.openingState, [item.id]: !item.isSelected };
+
     this.cookieService.set(this.openingStateProperty, JSON.stringify(this.openingState));
     this.updateOpeningState();
   }
@@ -38,9 +39,9 @@ export class LeftNavigationService {
   }
 
   private setOpenProperties(data: INavigationItem[]): INavigationItem[] {
-    if (this.openingState) {      
+    if (this.openingState) {
       this.checkNavigationItem(data);
-    }    
+    }
     return data;
   }
 
@@ -56,12 +57,7 @@ export class LeftNavigationService {
   }
 
   private updateOpeningState() {
-    let cookieData = this.cookieService.get(this.openingStateProperty);
-    if (cookieData) {
-      this.openingState = JSON.parse(cookieData);
-    }
-    else {
-      this.openingState = [];
-    }
+    const cookieData = this.cookieService.get(this.openingStateProperty);
+    this.openingState = cookieData ? JSON.parse(cookieData) : [];
   }
 }

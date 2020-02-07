@@ -10,11 +10,12 @@ using Uintra20.Features.Location.Models;
 
 namespace Uintra20.Core.Activity.Models
 {
-    public abstract class IntranetActivityPreviewModelBase : ILikeable, IHaveLightboxPreview
+    public class IntranetActivityPreviewModelBase : ILikeable, IHaveLightboxPreview
     {
         public Guid Id { get; set; }
         public bool CanEdit { get; set; }
         public bool IsPinned { get; set; }
+        public bool IsPinActual { get; set; }
         public string Title { get; set; }
         public MemberViewModel Owner { get; set; }
         public IEnumerable<string> Dates { get; set; } = Enumerable.Empty<string>();
@@ -27,5 +28,6 @@ namespace Uintra20.Core.Activity.Models
         public bool LikedByCurrentUser { get; set; }
         public int CommentsCount { get; set; }
         public LightboxPreviewModel MediaPreview { get; set; }
+        public string Description { get; set; }
     }
 }

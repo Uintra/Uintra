@@ -24,13 +24,12 @@
       <a
         *ngIf="item.type == 2"
         class="menu__item-link"
-        [routerLink]="item.url.baseUrl | ulink"
-        [queryParams]="item.url.params | uparams"
+        [routerLink]="item.url.originalUrl | ulink"
         (click)="closeUserNavigation()">
         <span class="icon {{getClass(item.type)}}"></span>
         {{item.name}}
       </a>
-      <a *ngIf="item.type == 3" class="menu__item-link" [href]="item.url.originalUrl">
+      <a *ngIf="item.type == 3" class="menu__item-link" [href]="item.url.originalUrl" target="_blank">
         <span class="icon {{getClass(item.type)}}"></span>
         {{item.name}}
       </a>

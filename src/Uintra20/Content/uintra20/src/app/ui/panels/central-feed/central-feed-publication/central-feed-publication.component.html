@@ -2,15 +2,23 @@
   <app-publication-header
     [avatar]="publication.activity.owner.photo"
     [title]="publication.activity.owner.displayedName"
+    [originalUrl]="publication.activity.links?.owner.originalUrl"
+    [params]="publication.activity.links?.owner.params"
     class="publication__header"
   >
     <div subtitle>
       {{ getPublicationDate() }} -
       <a
         class="publication__activity-type"
-        [routerLink]="publication.activity.links?.details.baseUrl | ulink"
-        [queryParams]="publication.activity.links?.details.params | uparams"
+        [routerLink]="publication.activity.links?.details.originalUrl | ulink"
         >{{ publication.activity.type }}
+      </a>
+      <a
+        *ngIf="publication.activity?.location"
+        [href]="'https://www.google.co.uk/maps?q=' + publication.activity.location.address"
+        class="icon-pin-icon publication__location-link"
+        target="_blank">
+        {{publication.activity.location.shortAddress}}
       </a>
     </div>
     <div *ngIf="publication.activity.isPinned" label class="publication__label">
@@ -19,43 +27,44 @@
   </app-publication-header>
 
   <div class="publication__content">
+    <p *ngIf="publication.activity?.title" class="publication__title">{{publication.activity.title}}</p>
     <div
       class="publication__text"
-      [routerLink]="publication.activity.links?.details.baseUrl | ulink"
-        [queryParams]="publication.activity.links?.details.params | uparams"
+        [routerLink]="publication.activity.links?.details.originalUrl | ulink"
       [innerHTML]="publication.activity.description"
     ></div>
 
 
     <div class="gallery" [ngClass]="'items-' + countToDisplay">
       <div
-        *ngFor="let image of medias | slice: 0:3; index as i"
+        *ngFor="let image of medias | slice: 0:countToDisplay; index as i"
         class="gallery__image"
         (click)="openGallery(i)"
-        [ngStyle]="{ backgroundImage: 'url(' + image.url + ')' }"
+        [ngStyle]="{ backgroundImage: 'url(' + image.previewUrl + ')' }"
       ></div>
       <div class="gallery__counter" *ngIf="additionalImages">+ {{ additionalImages }}</div>
     </div>
     <div class="publication__footer">
-      <app-like-button [likeData]="likeData"></app-like-button>
-      <a
-        class="publication__comment publication__footer-item"
-        [routerLink]="publication.activity.links?.details.baseUrl | ulink"
-        [queryParams]="publication.activity.links?.details.params | uparams"
-      >
-        <i class="icon-comment"></i>
-        {{ commentsCount }}
-      </a>
-      <button class="publication__share publication__footer-item">
-        <i class="icon-share-icon"></i>
-        Anbefal
-      </button>
+      <div class="publication__footer-left-block">
+        <app-like-button [likeData]="likeData"></app-like-button>
+        <a
+          class="publication__comment publication__footer-item"
+          [routerLink]="publication.activity.links?.details.originalUrl | ulink"
+        >
+          <i class="icon-comment"></i>
+          {{ commentsCount }}
+        </a>
+        <button class="publication__share publication__footer-item">
+          <i class="icon-share-icon"></i>
+          Anbefal
+        </button>
+      </div>
+
 
       <a
         class="publication__files publication__footer-item"
         *ngIf="documentsCount"
-        [routerLink]="publication.activity.links?.details.baseUrl | ulink"
-        [queryParams]="publication.activity.links?.details.params | uparams"
+        [routerLink]="publication.activity.links?.details.originalUrl | ulink"
       >
         <i class="icon-attachment"></i>
         {{ documentsCount }}

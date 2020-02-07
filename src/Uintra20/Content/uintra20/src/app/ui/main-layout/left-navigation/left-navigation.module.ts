@@ -3,10 +3,27 @@ import { CommonModule } from "@angular/common";
 import { LeftNavigationComponent } from "./left-navigation.component";
 import { RouterModule } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
+import { SharedLinksComponent } from "./components/shared-links/shared-links.component";
+import { UlinkModule } from "src/app/services/pipes/link/ulink.module";
+import { MyLinksComponent } from "./components/my-links/my-links.component";
+import { DragulaModule } from "ng2-dragula";
+import { UserNavMobileComponent } from './components/user-nav-mobile/user-nav-mobile.component';
+import { UserAvatarModule } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar.module';
 
 @NgModule({
-  declarations: [LeftNavigationComponent],
-  imports: [CommonModule, RouterModule],
+  declarations: [
+    LeftNavigationComponent,
+    SharedLinksComponent,
+    MyLinksComponent,
+    UserNavMobileComponent
+  ],
+  imports: [
+    CommonModule, 
+    RouterModule,
+    UlinkModule, 
+    DragulaModule.forRoot(),
+    UserAvatarModule
+  ],
   providers: [CookieService],
   exports: [LeftNavigationComponent]
 })

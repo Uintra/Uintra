@@ -1,0 +1,36 @@
+<ul *ngIf="data" class="user-nav">
+  <li class="user-nav__item">
+    <a class="user-nav__link user-nav__user">
+      <app-user-avatar
+        class="user-nav__user-avatar"
+        [photo]="data.currentMember.photo"
+        [name]="data.currentMember.displayedName">
+      </app-user-avatar>
+      <span class="user-nav__user-name">{{data.currentMember.displayedName}}</span>
+    </a>
+  </li>
+  <li class="user-nav__item" *ngFor="let item of data.items">
+    <button
+        *ngIf="item.type == 1 || item.type == 4"
+        [disabled]="inProgress"
+        class="user-nav__link user-nav__btn"
+        (click)="redirect(item.url, item.type)">
+        {{item.name}}
+      </button>
+      <a
+        *ngIf="item.type == 2"
+        class="user-nav__link"
+        [routerLink]="item.url.originalUrl | ulink"
+        (click)="onLinkClick()">
+        {{item.name}}
+      </a>
+      <a
+        *ngIf="item.type == 3"
+        class="user-nav__link"
+        [href]="item.url.originalUrl"
+        target="_blank"
+        (click)="onLinkClick()">
+        {{item.name}}
+      </a>
+  </li>
+</ul>

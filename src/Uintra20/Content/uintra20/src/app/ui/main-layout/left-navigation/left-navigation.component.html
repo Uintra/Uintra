@@ -1,9 +1,20 @@
-<ul class="left-nav">
-  <ng-container
-    *ngTemplateOutlet="recursiveMenu; context: { $implicit: navigationItems }"
-  >
-  </ng-container>
-</ul>
+<div class="navigation-wrapper" #wrapper ss-container>
+  <div class="navigation-content">
+    <ul class="left-nav">
+      <ng-container
+        *ngTemplateOutlet="
+          recursiveMenu;
+          context: { $implicit: navigationItems }
+        "
+      >
+      </ng-container>
+    </ul>
+
+    <app-shared-links></app-shared-links>
+    <app-my-links></app-my-links>
+    <app-user-nav-mobile *ngIf="isNotDesktop" (closeLeftNavigation)="closeLeftNav()"></app-user-nav-mobile>
+  </div>
+</div>
 
 <ng-template #recursiveMenu let-menus>
   <li *ngFor="let item of menus" class="left-nav__item">

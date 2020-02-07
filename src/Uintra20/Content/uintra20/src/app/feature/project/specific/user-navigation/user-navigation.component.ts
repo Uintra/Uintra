@@ -55,7 +55,9 @@ export class UserNavigationComponent implements OnInit {
       this.http.post(url.originalUrl, null).pipe(
         finalize(() => this.inProgress = false)
       ).subscribe(
-        (next) => { this.router.navigate(['/umbraco']); },
+        (next) => {
+          window.open(window.location.origin + "/umbraco", "_blank");
+        },
         (error) => {
           if (error.status === 403) {
             console.error(error.message);

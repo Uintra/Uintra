@@ -8,7 +8,7 @@ namespace Uintra20.Core.Member.AutoMapperProfiles
     {
 	    public IntranetUserAutoMapperProfile()
         {
-            //Mapper.CreateMap<ProfileEditModel, UpdateMemberDto>()
+            //Mapper.CreateMap<ProfileEditViewModel, UpdateMemberDto>()
             //    .ForMember(dst => dst.DeleteMedia, o => o.Ignore())
             //    .ForMember(dst => dst.NewMedia, o => o.Ignore());
 

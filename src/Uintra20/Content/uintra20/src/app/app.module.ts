@@ -17,6 +17,9 @@ import { LeftNavigationModule } from './ui/main-layout/left-navigation/left-navi
 import { HeaderModule } from './ui/main-layout/header/header.module';
 import { SearchModule } from './feature/project/reusable/inputs/search/search.module';
 
+import {UrlSerializer} from '@angular/router';
+import { CustomUrlSerializer } from './CustomUrlSerializer';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -40,7 +43,8 @@ import { SearchModule } from './feature/project/reusable/inputs/search/search.mo
     UbaselineCoreModule,
   ],
   providers: [
-    { provide: DYNAMIC_COMPONENTS, useValue: panels }
+    { provide: DYNAMIC_COMPONENTS, useValue: panels },
+    { provide: UrlSerializer, useClass: CustomUrlSerializer }
   ],
   bootstrap: [AppComponent]
 })

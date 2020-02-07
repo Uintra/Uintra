@@ -20,8 +20,6 @@
   }
 
   &__content {
-    display: none;
-
     @media @md-up {
     .flex-center;
     justify-content: flex-end;
@@ -32,6 +30,12 @@
 
     @media @lg-up {
       padding-left: 320px;
+    }
+  }
+
+  &__search {
+    @media @md-down {
+      display: none;
     }
   }
 }
@@ -92,6 +96,10 @@
   text-decoration: none;
   display: flex;
   align-items: center;
+
+  @media @md-down {
+    display: none;
+  }
 }
 
 user-navigation {

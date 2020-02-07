@@ -1,10 +1,11 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
-import { IProfileEditPage } from './profile-edit-page.interface';
+import { IProfileEditPage } from '../../../feature/shared/interfaces/pages/profile/edit/profile-edit-page.interface';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ProfileService } from './services/profile.service';
 import { finalize } from 'rxjs/operators';
+import { NotifierTypeEnum } from 'src/app/feature/shared/enums/notifier-type.enum';
 
 @Component({
   selector: 'profile-edit-page',
@@ -13,12 +14,12 @@ import { finalize } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class ProfileEditPage implements OnInit {
-
+  files = [];
   private data: any;
   public profileEdit: IProfileEditPage;
   public profileEditForm: FormGroup;
   public inProgress = false;
-
+  public isUploaded = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -37,6 +38,8 @@ export class ProfileEditPage implements OnInit {
       {
         firstName: new FormControl(this.profileEdit.member.firstName, Validators.required),
         lastName: new FormControl(this.profileEdit.member.lastName, Validators.required),
+        phone: new FormControl(this.profileEdit.member.phone),
+        department: new FormControl(this.profileEdit.member.department)
       }
     );
   }
@@ -58,7 +61,9 @@ export class ProfileEditPage implements OnInit {
         profileUrl: parsed.profile.profileUrl,
         mediaRootId: parsed.profile.mediaRootId,
         newMedia: parsed.profile.newMedia,
-        memberNotifierSettings: parsed.profile.memberNotifierSettings
+        memberNotifierSettings: ParseHelper.parseUbaselineData(this.data.profile.data.memberNotifierSettings),
+        tags: Object.values(parsed.tags),
+        availableTags: Object.values(parsed.availableTags)
       }
     };
   }
@@ -69,37 +74,54 @@ export class ProfileEditPage implements OnInit {
       id: this.profileEdit.member.id,
       firstName: this.profileEditForm.value.firstName,
       lastName: this.profileEditForm.value.lastName,
-      phone: this.profileEdit.member.phone,
-      department: this.profileEdit.member.department,
+      phone: this.profileEditForm.value.phone,
+      department: this.profileEditForm.value.department,
       photo: this.profileEdit.member.photo,
       photoId: this.profileEdit.member.photoId,
       email: this.profileEdit.member.email,
       profileUrl: this.profileEdit.member.profileUrl,
       mediaRootId: this.profileEdit.member.mediaRootId,
       newMedia: this.profileEdit.member.newMedia,
-      memberNotifierSettings: this.profileEdit.member.memberNotifierSettings
+      memberNotifierSettings: this.profileEdit.member.memberNotifierSettings,
+      tagIdsData: this.profileEdit.member.tags.map(t => t.id)
     };
 
     this.profileService.update(profile)
       .pipe(finalize(() => this.inProgress = false))
-      .subscribe(
-        () => this.router.navigate([this.profileEdit.url])
+      .subscribe((next: any) => this.router.navigate([next.originalUrl]));
+  }
+
+  public handleUpdateNotificationSettings(event): void {
+    event.preventDefault();
+    if (confirm('Are you sure')) {
+      this.profileService.updateNotificationSettings({
+        notifierTypeEnum: NotifierTypeEnum[NotifierTypeEnum.EmailNotifier],
+        isEnabled: event.target.checked
+      }).subscribe(
+        (next) => { },
+        (error) => {
+          this.profileEdit.member.memberNotifierSettings.emailNotifier =
+            !this.profileEdit.member.memberNotifierSettings.emailNotifier;
+        }
       );
+    } else {
+      this.profileEdit.member.memberNotifierSettings.emailNotifier = !event.target.checked;
+    }
   }
 
-  // TODO: Use alertify on delete action, then pass settings
-  public handleUpdateNotificationSettings(): void {
-
-      const settingsModel = {
-        notifierTypeEnum: null,
-        isEnabled: null
-      };
-
-      this.profileService.updateNotificationSettings(settingsModel);
+  public processAvatarUpload(fileArray: Array<any> = []): void {
+    this.files.push(fileArray);
+    this.isUploaded = true;
+    this.profileEdit.member.newMedia = fileArray[1];
   }
 
-  // TODO: Use alertify on delete action
-  public handlePhotoDelete(): void {
-    this.profileService.deletePhoto(this.profileEdit.member.photoId);
+  public processAvatarDelete(): void {
+    this.profileService.deletePhoto(this.profileEdit.member.photoId)
+      .subscribe(
+        () => {
+          this.files = [];
+          this.profileEdit.member.photo = null;
+        }
+      );
   }
 }

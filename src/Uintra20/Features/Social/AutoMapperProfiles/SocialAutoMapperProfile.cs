@@ -5,6 +5,7 @@ using Compent.Extensions;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.Groups.Links;
+using Uintra20.Features.Social.Edit.Models;
 using Uintra20.Features.Social.Models;
 using Uintra20.Infrastructure.Extensions;
 
@@ -77,11 +78,11 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
 
             CreateMap<Entities.Social, SocialPreviewModel>()
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.Owner, o => o.Ignore())
                 .ForMember(dst => dst.MediaPreview, o => o.Ignore())
                 .ForMember(dst => dst.LikedByCurrentUser, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type))
                 .ForMember(dst => dst.Dates, o => o.MapFrom(src => src.PublishDate.ToDateFormat().ToEnumerable()))
                 .ForMember(dst => dst.CommentsCount, o => o.MapFrom(s => s.Comments.Count()));

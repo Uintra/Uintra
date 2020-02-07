@@ -1,6 +1,5 @@
 <a
-  [routerLink]="notification.value.url.baseUrl | ulink"
-  [queryParams]="notification.value.url.params | uparams"
+  [routerLink]="notification.value.url.originalUrl | ulink"
   class="nav-notification__popup-item notification-item"
   *ngIf="notification"
   (click)="onMarkAsViewed()"
@@ -13,6 +12,7 @@
     <app-user-avatar
       big
       [photo]="notification.notifier.photo"
+      [name]='notification.notifier.displayedName'
     ></app-user-avatar>
   </div>
   <div class="notification-item__content">

@@ -7,6 +7,10 @@
 @import "./styles/typography/index.less";
 
 
+@import "./styles/libs/datepicker/bootstrap-datetimepicker-build.less";
+@import "./styles/libs/simple-scroll/styles.less";
+
+
 @debug: true;
 
 * {
@@ -23,7 +27,7 @@ head {
 
 body {
     margin: 0;
-    background-color: @body-bg;
+    background-color: @main-body-bg;
     color: @body-text-color;
     font: @body-font;
 
@@ -31,6 +35,7 @@ body {
       overflow: hidden;
     }
 }
+
 /* apply to correct element */
 
 breadcrumb {
@@ -50,12 +55,19 @@ breadcrumb {
 
 .content {
   display: flex;
-  overflow: hidden;
+
+  // @media @sm-up {
+  //   overflow: hidden;
+  // }
 
   &__wrap {
     padding: 0;
     flex-grow: 1;
     width: 100%;
+
+    @media @md-down {
+      overflow: hidden;
+    }
 
     @media @md-up {
       padding: 15px 0 0 15px;
@@ -67,6 +79,13 @@ breadcrumb {
   }
 }
 
+comments-panel {
+  .comments-panel {
+    @media @md-down {
+      padding: 0 15px;
+    }
+  }
+}
 .disable-scroll,
 .disable-scroll body {
   margin: 0;

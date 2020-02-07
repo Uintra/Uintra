@@ -15,6 +15,7 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<ICacheableIntranetActivityService<Social>, SocialService<Social>>();
             services.AddScoped<IFeedItemService, SocialService<Social>>();
             services.AddScoped<ISocialService<Social>, SocialService<Social>>();
+            services.AddScoped<IIntranetActivityService, SocialService<Social>>();
 
             return services;
 		}

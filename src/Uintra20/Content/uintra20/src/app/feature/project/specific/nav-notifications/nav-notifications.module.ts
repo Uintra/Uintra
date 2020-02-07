@@ -8,6 +8,7 @@ import { NotificationsItemComponent } from './notifications-item/notifications-i
 import { ClickOutsideModule } from '../../reusable/directives/click-outside/click-outside.module';
 import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
 import { NotificationCountComponent } from './notification-count/notification-count.component';
+import { PinActivityModule } from '../activity/pin-activity/pin-activity.module';
 
 @NgModule({
   declarations: [NavNotificationsComponent, NotificationsItemComponent, NotificationCountComponent],
@@ -17,7 +18,8 @@ import { NotificationCountComponent } from './notification-count/notification-co
     UserAvatarModule,
     RouterModule,
     ClickOutsideModule,
-    UlinkModule
+    UlinkModule,
+    PinActivityModule
   ],
   exports: [ NavNotificationsComponent, NotificationsItemComponent ]
 })

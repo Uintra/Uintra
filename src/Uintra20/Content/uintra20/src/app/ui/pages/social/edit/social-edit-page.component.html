@@ -1,0 +1,59 @@
+<section class="social-edit" [formGroup]="socialEditForm">
+  <h1 class="social-edit__title">{{socialEdit.name}}</h1>
+  <div class="form">
+    <div class="form__row">
+      <label for="desciption">Description</label>
+      <app-rich-text-editor
+        [isEditing]="true"
+        [isUnderline]="true"
+        [(ngModel)]="socialEdit.description"
+        formControlName="description"
+        [isDropzone]="false"
+        placeholder="Write a message, post a photo or share a document">
+      </app-rich-text-editor>
+    </div>
+    <div class="form__row">
+      <label>Tags</label>
+      <app-tag-multiselect class="bulletin-popup__multiselect"
+        [availableTags]="socialEdit.availableTags"
+        [(ngModel)]="socialEdit.tags"
+        [ngModelOptions]="{standalone: true}" >
+      </app-tag-multiselect>
+    </div>
+    <!-- TODO Added images here -->
+    <div class="form__row">
+      <label>Files</label>
+      <div class="images">
+        <div class="images__item" *ngFor="let media of socialEdit.lightboxPreviewModel.medias">
+          <span class="icon-close" (click)="handleImageRemove(media)"></span>
+          <img [src]="media.previewUrl">
+          <span class="images__item-name">{{media.name}}</span>
+        </div>
+        <div class="images__item" *ngFor="let file of socialEdit.lightboxPreviewModel.otherFiles">
+            <span class="icon-close" (click)="handleFileRemove(file)"></span>
+            <span class="images__item-name">{{file.name}}</span>
+            <span class="images__item-name">{{file.extension}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="form__row">
+      <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
+          (success)="handleUpload($event)"
+          (removedFile)="handleFileRemove($event)">
+      </app-dropzone-wrapper>
+    </div>
+    <div class="form__row-btns">
+      <button class="button"
+        [disabled]="inProgress || socialEditForm.invalid"
+        (click)="handleSocialUpdate()">SAVE</button>
+
+      <button class="button button-default"
+        [disabled]="inProgress"
+        (click)="handleSocialDelete()">DELETE</button>
+
+      <a class="button button-default"
+        [routerLink]="['/social-details']"
+        [queryParams]="{id: socialEdit.id}">CANCEL</a>
+    </div>
+  </div>
+</section>

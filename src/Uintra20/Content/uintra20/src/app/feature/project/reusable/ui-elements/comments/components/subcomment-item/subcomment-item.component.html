@@ -1,5 +1,10 @@
 <div class="subcomment">
-  <app-user-avatar class="subcomment__avatar" [photo]="data.creator.photo" [name]="data.creator.displayedName"></app-user-avatar>
+  <app-user-avatar
+    class="subcomment__avatar"
+    [photo]="data.creator.photo"
+    [name]="data.creator.displayedName"
+    [routerLink]="data.creatorProfileUrl.baseUrl"
+    [queryParams]="data.creatorProfileUrl.params"></app-user-avatar>
   <div class="subcomment__container">
     <app-comment-header
       [data]="data"
@@ -7,7 +12,6 @@
       (commentDelete)="onCommentDelete()"></app-comment-header>
     <div *ngIf="!isEditing" class="comment__content" [innerHTML]="data.text"></div>
     <app-like-button [likeData]="likeModel"></app-like-button>
-
     <app-rich-text-editor
       *ngIf="isEditing"
       [isEditing]="isEditing"

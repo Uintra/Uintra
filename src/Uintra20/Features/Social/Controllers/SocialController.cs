@@ -1,22 +1,26 @@
-﻿using Compent.Shared.Extensions.Bcl;
+﻿using AutoMapper;
+using Compent.Shared.Extensions.Bcl;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
+using Uintra20.Core.Activity.Models.Headers;
+using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.CentralFeed;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Strategies.ImageResize;
 using Uintra20.Features.Navigation.Services;
+using Uintra20.Features.Social.Edit.Models;
 using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.Extensions;
@@ -33,6 +37,9 @@ namespace Uintra20.Features.Social.Controllers
         private readonly IActivityTagsHelper _activityTagsHelper;
         private readonly IMentionService _mentionService;
         private readonly IActivityLinkService _activityLinkService;
+        private readonly ILightboxHelper _lightboxHelper;
+        private readonly IMemberServiceHelper _memberHelper;
+        private readonly IFeedLinkService _feedLinkService;
 
         public SocialController(
             ISocialService<Entities.Social> socialService,
@@ -42,7 +49,10 @@ namespace Uintra20.Features.Social.Controllers
             IGroupActivityService groupActivityService,
             IActivityTagsHelper activityTagsHelper,
             IMentionService mentionService,
-            IActivityLinkService activityLinkService)
+            IActivityLinkService activityLinkService,
+            ILightboxHelper lightboxHelper,
+            IMemberServiceHelper memberHelper,
+            IFeedLinkService feedLinkService)
         {
             _socialService = socialService;
             _mediaHelper = mediaHelper;
@@ -52,13 +62,15 @@ namespace Uintra20.Features.Social.Controllers
             _activityTagsHelper = activityTagsHelper;
             _mentionService = mentionService;
             _activityLinkService = activityLinkService;
+            _lightboxHelper = lightboxHelper;
+            _memberHelper = memberHelper;
+            _feedLinkService = feedLinkService;
         }
 
         [HttpPost]
-        public async Task<HttpResponseMessage> CreateExtended(SocialExtendedCreateModel model)
+        public async Task<IHttpActionResult> CreateExtended(SocialExtendedCreateModel model)
         {
-            if (!ModelState.IsValid)
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            if (!ModelState.IsValid) return BadRequest();
 
             var result = new SocialCreationResultModel();
 
@@ -70,28 +82,35 @@ namespace Uintra20.Features.Social.Controllers
             result.Id = createdBulletinId;
             result.IsSuccess = true;
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            var viewModel = await GetViewModelAsync(createdBulletinId);
+
+            return Ok(viewModel.Links.Details);
         }
 
         [HttpPut]
-        public async Task<HttpResponseMessage> EditExtended(SocialExtendedEditModel editModel)
+        public async Task<IHttpActionResult> Update(SocialExtendedEditModel editModel)
         {
-            if (!ModelState.IsValid)
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            if (!ModelState.IsValid) return BadRequest();
 
             var bulletin = MapToBulletin(editModel);
+
             await _socialService.SaveAsync(bulletin);
+
             await OnBulletinEditedAsync(bulletin, editModel);
-            return new HttpResponseMessage(HttpStatusCode.OK);
+
+            var model = await GetViewModelAsync(bulletin.Id);
+
+            return Ok(model.Links.Details);
         }
 
         [HttpDelete]
-        public async Task<HttpResponseMessage> Delete(Guid id)
+        public async Task<IHttpActionResult> Delete(Guid id)
         {
             await _socialService.DeleteAsync(id);
+
             await OnBulletinDeletedAsync(id);
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return Ok();
         }
 
         public void ReloadFeed()
@@ -114,13 +133,37 @@ namespace Uintra20.Features.Social.Controllers
             return bulletin;
         }
 
-        private SocialBase MapToBulletin(SocialEditModel editModel)
+        protected async Task<SocialExtendedViewModel> GetViewModelAsync(Guid id)
         {
-            var bulletin = _socialService.Get(editModel.Id);
-            //social = editModel.Map(social);
-            bulletin.MediaIds = bulletin.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
+            var social = _socialService.Get(id);
 
-            return bulletin;
+            var viewModel = social.Map<SocialViewModel>();
+
+            viewModel.Media = MediaHelper.GetMediaUrls(social.MediaIds);
+
+            viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, RenderStrategies.ForActivityDetails);
+            viewModel.CanEdit = _socialService.CanEdit(social);
+            viewModel.Links = await _feedLinkService.GetLinksAsync(id);
+            viewModel.IsReadOnly = false;
+            viewModel.HeaderInfo = social.Map<IntranetActivityDetailsHeaderViewModel>();
+            viewModel.HeaderInfo.Dates = social.PublishDate.ToDateTimeFormat().ToEnumerable();
+            viewModel.HeaderInfo.Owner = _memberHelper.ToViewModel(_memberService.Get(social));
+            viewModel.HeaderInfo.Links = await _feedLinkService.GetLinksAsync(id);
+
+            var extendedModel = viewModel.Map<SocialExtendedViewModel>();
+
+            return extendedModel;
+        }
+
+        private SocialBase MapToBulletin(SocialEditModel socialEditModel)
+        {
+            var social = _socialService.Get(socialEditModel.Id);
+
+            social = Mapper.Map(socialEditModel, social);
+
+            social.MediaIds = social.MediaIds.Concat(_mediaHelper.CreateMedia(socialEditModel));
+
+            return social;
         }
 
         private void OnBulletinEdited(SocialBase social, SocialEditModel model)
@@ -170,11 +213,11 @@ namespace Uintra20.Features.Social.Controllers
                 _activityTagsHelper.ReplaceTags(social.Id, extendedModel.TagIdsData);
             }
 
-            if (string.IsNullOrEmpty(model.Description))
+            if (model.Description.HasValue())
             {
-                return;
+                ResolveMentions(model.Description, social);
             }
-            ResolveMentions(model.Description, social);
+
             ReloadFeed();
         }
 
@@ -193,11 +236,11 @@ namespace Uintra20.Features.Social.Controllers
                 await _activityTagsHelper.ReplaceTagsAsync(social.Id, extendedModel.TagIdsData);
             }
 
-            if (string.IsNullOrEmpty(model.Description))
+            if (model.Description.HasValue())
             {
-                return;
+                await ResolveMentionsAsync(model.Description, social);
             }
-            await ResolveMentionsAsync(model.Description, social);
+
             ReloadFeed();
         }
 

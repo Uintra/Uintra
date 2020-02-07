@@ -10,6 +10,7 @@ import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/che
 import { UserAvatarModule } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar.module';
 import { SpoilerSectionModule } from 'src/app/feature/project/reusable/ui-elements/spoiler-section/spoiler-section.module';
 import { PublicationHeaderModule } from 'src/app/feature/project/reusable/ui-elements/publication-header/publication-header.module';
+import { SqDatetimepickerModule } from 'ngx-eonasdan-datetimepicker';
 
 @NgModule({
   declarations: [DeveloperUIKitPage],
@@ -22,7 +23,8 @@ import { PublicationHeaderModule } from 'src/app/feature/project/reusable/ui-ele
     CheckboxInputModule,
     UserAvatarModule,
     SpoilerSectionModule,
-    PublicationHeaderModule
+    PublicationHeaderModule,
+    SqDatetimepickerModule
   ],
   exports: [
     DeveloperUIKitPage

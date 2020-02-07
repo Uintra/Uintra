@@ -9,7 +9,7 @@
 
   <div class="header__content">
     <div class="header-center">
-      <app-search></app-search>
+      <app-search class="header__search"></app-search>
       <a href="#" class="groups">
         <span class="icon icon-group"></span>
       </a>
@@ -17,7 +17,7 @@
     </div>
 
   </div>
-  <user-navigation></user-navigation>
+  <user-navigation *ngIf="isDesktopGeter"></user-navigation>
 
   <!-- TODO: fix nav-notifications styles for mobile  -->
 

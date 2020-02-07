@@ -1,25 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Uintra20.Features.Media;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Uintra20.Core.Member.Profile.Edit.Models
 {
-    public class ProfileEditModel : IContentWithMediaCreateEditModel
+    public class ProfileEditModel: ProfileModel
     {
-        public Guid Id { get; set; }
         [Required(AllowEmptyStrings = false)]
-        public string FirstName { get; set; }
+        public override string FirstName { get; set; }
         [Required(AllowEmptyStrings = false)]
-        public string LastName { get; set; }
-        public string Phone { get; set; }
-        public string Department { get; set; }
-        public string Photo { get; set; }
-        public int? PhotoId { get; set; }
-        public string Email { get; set; }
-        public string ProfileUrl { get; set; }
-        public int? MediaRootId { get; set; }
-        public string NewMedia { get; set; }
-        public IDictionary<Enum, bool> MemberNotifierSettings { get; set; }
+        public override string LastName { get; set; }
     }
 }

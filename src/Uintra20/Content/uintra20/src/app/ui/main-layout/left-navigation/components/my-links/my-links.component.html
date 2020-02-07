@@ -1,0 +1,48 @@
+<ul class="left-nav">
+  <li class="left-nav__item">
+    <span class="left-nav__item-link">
+      <span class="icon-star left-nav__star-icon"></span>
+      My Links
+    </span>
+
+    <button
+      class="left-nav__arrow"
+      [ngClass]="{ active: isOpen }"
+      (click)="onToggle()"
+      *ngIf="myLinks && myLinks.length"
+    >
+      Expand
+    </button>
+
+    <ul
+      dragula="MyLinks"
+      [(dragulaModel)]="myLinks"
+      (dragulaModelChange)="onDND($event)"
+      class="left-nav__sub-item left-nav__sub-item--with-offset"
+      [hidden]="!isOpen"
+      [ngClass]="{ active: isOpen }"
+    >
+      <li *ngFor="let link of myLinks" class="left-nav__item">
+
+        <a
+          class="left-nav__item-link left-nav__item-link--inside left-nav__item-link--with-hover"
+          [href]="link.url"
+        >
+        <span class="icon-drag left-nav__item-drag-icon"></span>
+          {{ link.name }}
+        </a>
+
+        <button (click)="onRemoveLink(link)" class="left-nav__item-remove">&times;</button>
+      </li>
+
+
+    </ul>
+
+
+    <div class="left-nav__add-btn-wrapper">
+      <button class="button-default" (click)="onAddLink()">Add to my links</button>
+    </div>
+
+
+  </li>
+</ul>

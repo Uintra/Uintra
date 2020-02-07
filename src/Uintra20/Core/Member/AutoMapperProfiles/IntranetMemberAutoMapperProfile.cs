@@ -32,13 +32,7 @@ namespace Uintra20.Core.Member.AutoMapperProfiles
             //    .ForMember(dst => dst.IsGroupAdmin, o => o.Ignore())
             //    .ForMember(dst => dst.IsCreator, o => o.Ignore());
 
-            CreateMap<IIntranetMember, ProfileEditModel>()
-                .ForMember(dst => dst.MediaRootId, o => o.Ignore())
-                .ForMember(dst => dst.NewMedia, o => o.Ignore())
-                .ForMember(dst => dst.MemberNotifierSettings, o => o.Ignore())
-                .ForMember(dst => dst.ProfileUrl, o => o.Ignore())
-                .ForMember(dst => dst.Photo, o => o.MapFrom(user => user.Photo.HasValue() ? user.Photo : string.Empty))
-                .ForMember(dst => dst.PhotoId, o => o.MapFrom(user => user.PhotoId));
+            
 
             CreateMap<Google.Apis.Admin.Directory.directory_v1.Data.User, CreateMemberDto>()
                 .ForMember(dst => dst.FirstName, o => o.Ignore())
@@ -77,10 +71,6 @@ namespace Uintra20.Core.Member.AutoMapperProfiles
                     }
                 });
 
-
-            CreateMap<ProfileEditModel, ExtendedProfileEditModel>()
-                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(i => string.Empty));
-
             CreateMap<IIntranetMember, UpdateMemberDto>()
                 .ForMember(dst => dst.DeleteMedia, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore());
@@ -89,10 +79,6 @@ namespace Uintra20.Core.Member.AutoMapperProfiles
             //    .ForMember(dst => dst.Id, o => o.MapFrom(u => Guid.Parse(u.Id.ToString())))
             //    .ForMember(dst => dst.Value, o => o.MapFrom(u => u.FullName))
             //    .ForMember(dst => dst.Url, o => o.Ignore());
-
-            CreateMap<ProfileEditModel, UpdateMemberDto>()
-                .ForMember(dst => dst.DeleteMedia, o => o.Ignore())
-                .ForMember(dst => dst.NewMedia, o => o.Ignore());
         }
     }
 }
