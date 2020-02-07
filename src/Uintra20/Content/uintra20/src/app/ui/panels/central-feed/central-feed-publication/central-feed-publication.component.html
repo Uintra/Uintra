@@ -1,4 +1,8 @@
-<div class="publication publication--important">
+<pre *ngIf="!publication?.activity?.links?.owner?.originalUrl">
+  Error: owner.link is null <br/>
+</pre>
+
+<div class="publication publication--important" *ngIf="publication?.activity?.links?.owner?.originalUrl">
   <app-publication-header
     [avatar]="publication.activity.owner.photo"
     [title]="publication.activity.owner.displayedName"

@@ -51,6 +51,8 @@
   </div>
 
   <app-pin-activity
+    [publishDate]="newsData.publishDate"
+    [unpublishDate]="newsData.unpublishDate"
     [isPinCheked]="newsData.isPinned"
     [isAccepted]="isAccepted"
     [endPinDate]="newsData.endPinDate"

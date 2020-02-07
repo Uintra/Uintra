@@ -132,8 +132,8 @@ export class NewsFormComponent implements OnInit {
     return (
       this.newsData.title &&
       this.newsData.description &&
-      pinValid &&
-      !this.isInvalidEndPinDate
+      pinValid
+      // !this.isInvalidEndPinDate
     );
   }
 
