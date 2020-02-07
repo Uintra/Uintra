@@ -893,6 +893,9 @@
   <ItemGroup>
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
+    <Compile Include="Core\UbaselineModels\GroupNavigationCompositionModel.cs" />
+    <Compile Include="Core\UbaselineModels\GroupNavigationCompositionViewModel.cs" />
+    <Compile Include="Core\UbaselineModels\IGroupNavigationComposition.cs" />
     <Compile Include="Features\Groups\GroupTypeEnum.cs" />
     <Compile Include="Features\Groups\Links\GroupLinkProvider.cs" />
     <Compile Include="Features\Groups\Links\IGroupLinkProvider.cs" />
