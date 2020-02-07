@@ -68,6 +68,7 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
                 .ForMember(dst => dst.MediaPreview, o => o.Ignore())
                 .ForMember(dst => dst.LikedByCurrentUser, o => o.Ignore())
                 .ForMember(dst => dst.Dates, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type));
 
             CreateMap<Entities.News, IntranetActivityDetailsViewModel>()

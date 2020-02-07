@@ -15,6 +15,7 @@ namespace Uintra20.Core.Activity.Models
         public Guid Id { get; set; }
         public bool CanEdit { get; set; }
         public bool IsPinned { get; set; }
+        public bool IsPinActual { get; set; }
         public string Title { get; set; }
         public MemberViewModel Owner { get; set; }
         public IEnumerable<string> Dates { get; set; } = Enumerable.Empty<string>();
