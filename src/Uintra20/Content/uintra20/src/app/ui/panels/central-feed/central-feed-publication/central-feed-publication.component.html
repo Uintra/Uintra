@@ -21,7 +21,7 @@
         >{{ publication.activity.type }}
       </a>
       <a
-        *ngIf="publication.activity?.location"
+        *ngIf="publication.activity?.location?.address && publication.activity?.location?.shortAddress"
         [href]="
           'https://www.google.co.uk/maps?q=' +
           publication.activity.location.address
