@@ -13,7 +13,7 @@ using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
-using Uintra20.Features.Media.Strategies.ImageResize;
+using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.News.Models;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
@@ -95,7 +95,7 @@ namespace Uintra20.Features.News.Converters
             details.HeaderInfo.Links = _feedLinkService.GetLinks(activityId);
             details.Tags = _userTagService.Get(news.Id);
             details.AvailableTags = _userTagProvider.GetAll();
-            details.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(news.MediaIds, RenderStrategies.ForActivityDetails);
+            details.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(news.MediaIds, PresetStrategies.ForActivityDetails);
 
             return details;
         }

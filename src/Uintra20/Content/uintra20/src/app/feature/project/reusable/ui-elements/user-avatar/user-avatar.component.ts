@@ -8,24 +8,32 @@ import { IUserAvatar } from './user-avatar-interface';
   styleUrls: ['./user-avatar.component.less']
 })
 export class UserAvatarComponent implements OnInit {
-  @Input() photo: string;
-  @Input() name: string;
-  @Input('big') big: boolean;
-
-  @Input() routerLink: string;
-  @Input() queryParams: object;
+  @Input() public photo: string;
+  @Input() public name: string;
+  @Input('big') public big: boolean;
+  @Input() public routerLink: string;
+  @Input() public queryParams: object;
 
   firstChar: string;
 
-  convertToBoolean(): void {
-    this.big = this.big !== undefined;
+  public ngOnInit(): void {
+    this.convertToBoolean();
+    this.validateImagePreset();
+    this.initFirstlLetter();
+  }
+  private validateImagePreset(): void {
+    if (this.photo.startsWith('?')) {
+      this.photo = '';
+    }
   }
 
-  ngOnInit() {
-    this.convertToBoolean();
-
+  private initFirstlLetter(): void {
     if (this.name && typeof this.name === 'string') {
       this.firstChar = this.name.charAt(0);
     }
+  }
+
+  private convertToBoolean(): void {
+    this.big = this.big !== undefined;
   }
 }

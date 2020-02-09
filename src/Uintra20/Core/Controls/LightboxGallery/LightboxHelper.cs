@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Uintra20.Features.Media;
-using Uintra20.Features.Media.Strategies.ImageResize;
+using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 using Umbraco.Core.Models.PublishedContent;
@@ -24,10 +24,10 @@ namespace Uintra20.Core.Controls.LightboxGallery
 
         public void FillGalleryPreview(IHaveLightboxPreview model, IEnumerable<int> mediaIds)
         {
-            model.MediaPreview = GetGalleryPreviewModel(mediaIds, RenderStrategies.ForCentralFeed);
+            model.MediaPreview = GetGalleryPreviewModel(mediaIds, PresetStrategies.ForCentralFeed);
         }
 
-        public LightboxPreviewModel GetGalleryPreviewModel(IEnumerable<int> mediaIds, IRenderStrategy strategy)
+        public LightboxPreviewModel GetGalleryPreviewModel(IEnumerable<int> mediaIds, IPresetStrategy strategy)
         {
             var medias = _helper.Media(mediaIds);
 
@@ -101,7 +101,7 @@ namespace Uintra20.Core.Controls.LightboxGallery
             return result;
         }
 
-        private void TransformPreviewImage(List<LightboxGalleryItemViewModel> galleryItems, IRenderStrategy strategy)
+        private void TransformPreviewImage(List<LightboxGalleryItemViewModel> galleryItems, IPresetStrategy strategy)
         {
             var imageItems = galleryItems.FindAll(m => m.Type is MediaTypeEnum.Image || m.Type is MediaTypeEnum.Video);
 
@@ -111,7 +111,7 @@ namespace Uintra20.Core.Controls.LightboxGallery
 
                 item.PreviewUrl = _imageHelper.GetImageWithResize(IsVideo(item.Type)
                     ? item.PreviewUrl
-                    : item.Url, strategy.Preview);
+                    : item.Url, strategy.PreviewPreset);
 
                 return;
             }
@@ -119,8 +119,8 @@ namespace Uintra20.Core.Controls.LightboxGallery
             foreach (var item in imageItems)
             {
                 item.PreviewUrl = imageItems.Count < 3 ?
-                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, strategy.PreviewTwo) :
-                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, strategy.Thumbnail);
+                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, strategy.PreviewTwoPreset) :
+                    _imageHelper.GetImageWithResize(IsVideo(item.Type) ? item.PreviewUrl : item.Url, strategy.ThumbnailPreset);
             }
         }
 
