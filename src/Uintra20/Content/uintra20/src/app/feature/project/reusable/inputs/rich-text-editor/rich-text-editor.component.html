@@ -66,18 +66,18 @@
 </ng-template>
 
 <ng-template #eventsOrNewsCreate>
-  <select class="ql-header">
+  <select class="ql-header" [title]="'Font size'">
     <option value="1">Heading 1</option>
     <option value="2">Heading 2</option>
     <option value="3">Heading 3</option>
     <option value="" selected>Normal</option>
   </select>
   <ng-container *ngTemplateOutlet="default"></ng-container>
-  <button type="button" class="ql-list" value="ordered"></button>
-  <button type="button" class="ql-list" value="bullet"></button>
+  <button type="button" class="ql-list" value="ordered" [title]="'Ordered list'"></button>
+  <button type="button" class="ql-list" value="bullet" [title]="'Bullet list'"></button>
   <div (clickOutside)="closeEmojiPalette()">
     <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'"></button>
     <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
   </div>
-  <button type="button" class="ql-clean"></button>
+  <button type="button" class="ql-clean" [title]="'Clean'"></button>
 </ng-template>
