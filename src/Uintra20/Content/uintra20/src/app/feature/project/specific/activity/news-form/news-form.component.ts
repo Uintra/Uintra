@@ -142,6 +142,10 @@ export class NewsFormComponent implements OnInit {
     this.newsData.tagIdsData = this.getTagsForResponse();
   }
 
+  changeOwner(e) {
+    this.newsData.ownerId = e;
+  }
+
   // TODO: move to service
   private getTagsForResponse(): string[] {
     return this.selectedTags ? this.selectedTags.map(tag => tag.id) : [];

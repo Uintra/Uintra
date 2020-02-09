@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface ISelectItem {
   id: string;
@@ -10,7 +11,14 @@ export interface ISelectItem {
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.less']
+  styleUrls: ['./select.component.less'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SelectComponent),
+      multi: true
+    }
+  ]
 })
 export class SelectComponent implements OnInit {
   @Input() items: ISelectItem[] = [];
@@ -24,5 +32,31 @@ export class SelectComponent implements OnInit {
     if (this.defaultItem) {
       this.selectedItem = this.defaultItem;
     }
+  }
+
+  onSelectChange(e) {
+    this.writeValue(e);
+  }
+
+  propagateChange: any = () => {
+  }
+
+  writeValue(value) {
+    this.selectedItem = value;
+    this.onChange(this.selectedItem);
+  }
+
+  onChange: any = () => {
+  }
+
+  onTouched: any = () => {
+  }
+
+  registerOnChange(fn) {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn) {
+    this.onTouched = fn;
   }
 }

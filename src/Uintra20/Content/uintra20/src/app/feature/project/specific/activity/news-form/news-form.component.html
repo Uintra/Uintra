@@ -3,7 +3,7 @@
   <h2 class="news-create-panel__title">News</h2>
   <div class="owner form-row">
     <h3 class="owner__title subtitle">Owner</h3>
-    <app-select *ngIf="defaultOwner" [items]="owners" [defaultItem]="defaultOwner.id"></app-select>
+    <app-select *ngIf="defaultOwner" [items]="owners" [ngModel]="defaultOwner" (ngModelChange)="changeOwner($event)"></app-select>
   </div>
   <div class="news-title form-row">
     <h3 class="news-title__title subtitle required">Title</h3>
