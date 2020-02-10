@@ -14,6 +14,7 @@ import { INewsCreateModel, IOwner } from "../activity.interfaces";
 import { ILocationResult } from "../../../reusable/ui-elements/location-picker/location-picker.interface";
 import { NewsFormService } from "./news-form.service";
 import { PinActivityService } from '../pin-activity/pin-activity.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-news-form",
@@ -43,8 +44,13 @@ export class NewsFormComponent implements OnInit {
     to: string;
   };
   initialLocation: string;
+  routerSubscription: any;
 
-  constructor(private newsFormService: NewsFormService, private pinActivityService: PinActivityService) {}
+  constructor(
+    private newsFormService: NewsFormService, 
+    private pinActivityService: PinActivityService,
+    private router: Router
+    ) {}
 
   ngOnInit() {
     this.newsData = this.newsFormService.getNewsDataInitialValue(this.data);
@@ -127,6 +133,11 @@ export class NewsFormComponent implements OnInit {
     }
   }
 
+  //Main cancel function
+  onCancel() {
+    this.router.navigate(['/']);
+  }
+
   private validate(): boolean {
     const pinValid = this.newsData.isPinned ? this.isAccepted : true;
     return (
@@ -135,6 +146,19 @@ export class NewsFormComponent implements OnInit {
       pinValid
       // !this.isInvalidEndPinDate
     );
+  }
+
+  checkIfDataChanged() {
+    return this.newsData.ownerId !== this.defaultOwner.id 
+      || this.newsData.title.length
+      || this.newsData.description.length
+      || this.selectedTags.length
+      || this.initialDates.from !== this.newsData.publishDate
+      || this.initialDates.to !== this.newsData.unpublishDate
+      || this.initialLocation !== this.newsData.location.address
+      || this.newsData.location.shortAddress
+      || this.newsData.isPinned
+      || this.files.length;
   }
 
   private newsDataBuilder(): void {
