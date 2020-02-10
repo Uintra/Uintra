@@ -14,7 +14,7 @@ using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
-using Uintra20.Features.Media.Strategies.ImageResize;
+using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.Social.Details.Models;
 using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
@@ -81,7 +81,7 @@ namespace Uintra20.Features.Social.Details.Converters
 
             viewModel.Media = MediaHelper.GetMediaUrls(social.MediaIds);
 
-            viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, RenderStrategies.ForActivityDetails);
+            viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, PresetStrategies.ForActivityDetails);
             viewModel.CanEdit = _socialService.CanEdit(social);
             viewModel.Links = _feedLinkService.GetLinks(id);
             viewModel.IsReadOnly = false;

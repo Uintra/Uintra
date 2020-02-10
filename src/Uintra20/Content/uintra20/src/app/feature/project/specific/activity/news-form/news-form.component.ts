@@ -13,6 +13,7 @@ import { ITagData } from "../../../reusable/inputs/tag-multiselect/tag-multisele
 import { INewsCreateModel, IOwner } from "../activity.interfaces";
 import { ILocationResult } from "../../../reusable/ui-elements/location-picker/location-picker.interface";
 import { NewsFormService } from "./news-form.service";
+import { PinActivityService } from '../pin-activity/pin-activity.service';
 
 @Component({
   selector: "app-news-form",
@@ -43,7 +44,7 @@ export class NewsFormComponent implements OnInit {
   };
   initialLocation: string;
 
-  constructor(private newsFormService: NewsFormService) {}
+  constructor(private newsFormService: NewsFormService, private pinActivityService: PinActivityService) {}
 
   ngOnInit() {
     this.newsData = this.newsFormService.getNewsDataInitialValue(this.data);
@@ -100,6 +101,7 @@ export class NewsFormComponent implements OnInit {
 
   // Data set functions
   setDatePickerValue(value: IDatepickerData = {}) {
+    this.pinActivityService.setPublishDates(value);
     this.newsData.publishDate = value.from;
     this.newsData.unpublishDate = value.to;
   }
@@ -130,14 +132,18 @@ export class NewsFormComponent implements OnInit {
     return (
       this.newsData.title &&
       this.newsData.description &&
-      pinValid &&
-      !this.isInvalidEndPinDate
+      pinValid
+      // !this.isInvalidEndPinDate
     );
   }
 
   private newsDataBuilder(): void {
     this.newsData.newMedia = this.getMediaIdsForResponse();
     this.newsData.tagIdsData = this.getTagsForResponse();
+  }
+
+  changeOwner(e) {
+    this.newsData.ownerId = e;
   }
 
   // TODO: move to service

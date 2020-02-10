@@ -973,7 +973,7 @@
     <Compile Include="Core\Member\Profile\ProfileModel.cs" />
     <Compile Include="Core\Member\Profile\Services\IProfileService.cs" />
     <Compile Include="Core\Member\Profile\Services\ProfileService.cs" />
-    <Compile Include="Features\Media\Strategies\ImageResize\MemberProfileRenderStrategy.cs" />
+    <Compile Include="Features\Media\Strategies\Preset\MemberProfilePresetStrategy.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\INavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\NavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\EqualityComparers\MyLinkItemModelComparer.cs" />
@@ -1214,10 +1214,10 @@
     <Compile Include="Features\Information\InformationService.cs" />
     <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
     <Compile Include="Features\Media\MediaTypeEnum.cs" />
-    <Compile Include="Features\Media\Strategies\ImageResize\CentralFeedRenderStrategy.cs" />
-    <Compile Include="Features\Media\Strategies\ImageResize\IRenderStrategy.cs" />
-    <Compile Include="Features\Media\Strategies\ImageResize\RenderStrategies.cs" />
-    <Compile Include="Features\Media\Strategies\ImageResize\ActivityDetailsRenderStrategy.cs" />
+    <Compile Include="Features\Media\Strategies\Preset\CentralFeedPresetStrategy.cs" />
+    <Compile Include="Features\Media\Strategies\Preset\IPresetStrategy.cs" />
+    <Compile Include="Features\Media\Strategies\Preset\PresetStrategies.cs" />
+    <Compile Include="Features\Media\Strategies\Preset\ActivityDetailsPresetStrategy.cs" />
     <Compile Include="Features\Navigation\Models\ActivityFeedTabModel.cs" />
     <Compile Include="Features\Notification\Configuration\BackofficeSettings\Models\TreeNodeModel.cs" />
     <Compile Include="Features\Notification\Configuration\BackofficeSettings\Providers\INotificationSettingCategoryProvider.cs" />

@@ -37,6 +37,7 @@ export class TextInputComponent extends AbstractFieldClass {
   @Input() ariaLabel = '';
   @Input() role = 'textbox';
   @Input() placeholder: string;
+  @Input() maxLength: number;
 
   constructor() {
     super();
