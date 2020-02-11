@@ -2,7 +2,6 @@
 using UBaseline.Shared.PageSettings;
 using UBaseline.Shared.PanelContainer;
 using UBaseline.Shared.Property;
-using Uintra20.Core.UbaselineModels;
 
 namespace Uintra20.Features.Groups.Models
 {
