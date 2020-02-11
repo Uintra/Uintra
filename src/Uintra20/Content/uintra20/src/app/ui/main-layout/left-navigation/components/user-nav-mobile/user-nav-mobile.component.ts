@@ -20,7 +20,6 @@ export class UserNavMobileComponent implements OnInit {
     this.http.get('/ubaseline/api/IntranetNavigation/TopNavigation')
     .subscribe((res: any) => {
       this.data = res;
-      console.log(this.data)
     });
   }
 
