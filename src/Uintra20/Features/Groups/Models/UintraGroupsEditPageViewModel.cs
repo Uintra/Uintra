@@ -4,10 +4,11 @@ using UBaseline.Shared.Property;
 
 namespace Uintra20.Features.Groups.Models
 {
-    public class UintraGroupsPageViewModel : NodeViewModel
+    public class UintraGroupsEditPageViewModel : NodeViewModel
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
         public GroupNavigationCompositionViewModel GroupNavigation { get; set; }
+        public GroupInfoViewModel Info { get; set; }
     }
 }

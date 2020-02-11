@@ -5,10 +5,10 @@ using UBaseline.Shared.Property;
 
 namespace Uintra20.Features.Groups.Models
 {
-    public class UintraGroupsCreatePageModel : NodeModel, IPanelsComposition, IGroupNavigationComposition, IPageSettingsComposition
+    public class UintraGroupsEditPageModel : NodeModel, IPanelsComposition, IGroupNavigationComposition, IPageSettingsComposition
     {
-        public PropertyModel<PanelContainerModel> Panels { get; set; }
         public GroupNavigationCompositionModel GroupNavigation { get; set; }
+        public PropertyModel<PanelContainerModel> Panels { get; set; }
         public PageSettingsCompositionModel PageSettings { get; set; }
     }
 }
