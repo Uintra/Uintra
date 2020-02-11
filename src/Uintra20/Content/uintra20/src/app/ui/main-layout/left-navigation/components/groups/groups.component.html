@@ -1,1 +1,31 @@
-<p>groups works!</p>
+<ul *ngIf="data" class="left-nav">
+  <li class="left-nav__item">
+    <a
+      [routerLink]="data.groupPageItem?.link?.originalUrl | ulink"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="left-nav__item-link left-nav__item-link--with-hover">
+      <span class="icon-groups left-nav__shared-icon"></span>
+      Groups
+    </a>
+
+    <button
+      class="left-nav__arrow"
+      [ngClass]="{ active: isOpen }"
+      (click)="onToggle()"
+    >
+      Expand
+    </button>
+  </li>
+  <ul *ngIf="isOpen">
+    <li *ngFor="let item of data.items" class="left-nav__sub-item--with-offset left-nav__item">
+      <a
+        [routerLink]="item.link?.originalUrl | ulink"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="left-nav__item-link left-nav__item-link--with-hover">
+        {{item.title}}
+      </a>
+    </li>
+  </ul>
+</ul>
