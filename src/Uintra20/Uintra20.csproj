@@ -974,6 +974,8 @@
     <Compile Include="Core\Member\Profile\Services\IProfileService.cs" />
     <Compile Include="Core\Member\Profile\Services\ProfileService.cs" />
     <Compile Include="Features\CentralFeed\Models\LoadableFeedItemModel.cs" />
+    <Compile Include="Features\Groups\Services\GroupFeedService.cs" />
+    <Compile Include="Features\Groups\Services\IGroupFeedService.cs" />
     <Compile Include="Features\Media\Strategies\Preset\MemberProfilePresetStrategy.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\INavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\NavigationApplicationSettings.cs" />
