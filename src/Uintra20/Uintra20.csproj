@@ -973,6 +973,8 @@
     <Compile Include="Core\Member\Profile\ProfileModel.cs" />
     <Compile Include="Core\Member\Profile\Services\IProfileService.cs" />
     <Compile Include="Core\Member\Profile\Services\ProfileService.cs" />
+    <Compile Include="Features\CentralFeed\Builders\ActivityTabsBuilder.cs" />
+    <Compile Include="Features\CentralFeed\Builders\IActivityTabsBuilder.cs" />
     <Compile Include="Features\CentralFeed\Models\LoadableFeedItemModel.cs" />
     <Compile Include="Features\Groups\Services\GroupFeedService.cs" />
     <Compile Include="Features\Groups\Services\IGroupFeedService.cs" />
