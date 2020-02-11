@@ -40,7 +40,6 @@ namespace Uintra20.Features.CentralFeed.Helpers
         private readonly IGroupFeedService _groupFeedService;
         private readonly IFeedFilterService _feedFilterService;
 
-
         public CentralFeedHelper(
             IActivitiesServiceFactory activitiesServiceFactory,
             ICentralFeedService centralFeedService,
@@ -124,7 +123,7 @@ namespace Uintra20.Features.CentralFeed.Helpers
             
             return new LoadableFeedItemModel
             {
-                IsShowMore = latestActivities.activities.Count() < latestActivities.totalCount,
+                IsShowMore = latestActivities.activities.Count() < latestActivities.TotalCount,
                 FeedItems = feedItems
             };
         }
@@ -271,16 +270,18 @@ namespace Uintra20.Features.CentralFeed.Helpers
                 .ToArray();
         }
 
-
-
-        private (IEnumerable<IFeedItem> activities, int totalCount) GetLatestActivities(Enum activityType,
+        private CountableLatestActivities GetLatestActivities(Enum activityType,
             int activityAmount)
         {
             var items = GetCentralFeedItems(activityType).ToArray();
             var filteredItems = FilterLatestActivities(items).Take(activityAmount);
             var sortedItems = Sort(filteredItems, activityType);
 
-            return (sortedItems, items.Length);
+            return new CountableLatestActivities
+            {
+                activities = sortedItems,
+                TotalCount = items.Length
+            };
         }
 
         private FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<int, FeedSettings> settings)
