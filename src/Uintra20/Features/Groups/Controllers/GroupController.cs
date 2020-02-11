@@ -188,7 +188,7 @@ namespace Uintra20.Features.Groups.Controllers
                 x is IGroupNavigationComposition navigation && navigation.GroupNavigation.ShowInMenu &&
                 x.ParentId == rootGroupPage.Id);
 
-            return groupPageChildren.Select(x => new GroupLeftNavigationItemViewModel
+            return groupPageChildren.OrderBy(x => ((IGroupNavigationComposition)x).GroupNavigation.SortOrder.Value).Select(x => new GroupLeftNavigationItemViewModel
             {
                 Title = ((IGroupNavigationComposition) x).GroupNavigation.NavigationTitle,
                 Link = x.Url.ToLinkModel()

@@ -7,5 +7,6 @@ namespace Uintra20.Features.Groups.Models
     {
         public PropertyViewModel<string> NavigationTitle { get; set; }
         public PropertyViewModel<bool> ShowInMenu { get; set; }
+        public PropertyViewModel<int> SortOrder { get; set; }
     }
 }
