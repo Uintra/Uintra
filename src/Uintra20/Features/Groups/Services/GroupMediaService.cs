@@ -67,7 +67,17 @@ namespace Uintra20.Features.Groups.Services
 
         public IEnumerable<int> CreateGroupMedia(IContentWithMediaCreateEditModel model, Guid groupId, Guid creatorId)
         {
-            var media = _mediaHelper.CreateMedia(model, MediaFolderTypeEnum.GroupsContent, creatorId);
+            var groupFolder = GetOrCreateGroupMediaFolder(groupId);
+
+            var media = _mediaHelper.CreateMedia(model, MediaFolderTypeEnum.GroupsContent, creatorId, groupFolder.Id);
+            return media;
+        }
+
+        public async Task<IEnumerable<int>> CreateGroupMediaAsync(IContentWithMediaCreateEditModel model, Guid groupId, Guid creatorId)
+        {
+            var groupFolder = await GetOrCreateGroupMediaFolderAsync(groupId);
+
+            var media = _mediaHelper.CreateMedia(model, MediaFolderTypeEnum.GroupsContent, creatorId, groupFolder.Id);
             return media;
         }
 
@@ -75,7 +85,7 @@ namespace Uintra20.Features.Groups.Services
         {
             var groupFolderSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent, createFolderIfNotExists: true);
 
-            var medias = _mediaService.GetPagedChildren(groupFolderSettings.MediaRootId ?? -1, 1, Int32.MaxValue, out _);
+            var medias = _mediaService.GetPagedChildren(groupFolderSettings.MediaRootId ?? -1, 0, Int32.MaxValue, out _);
             var groupFolder = medias.FirstOrDefault(s =>
             {
                 if (s.HasProperty(GroupIdPropertyTypeAlias))
@@ -101,7 +111,7 @@ namespace Uintra20.Features.Groups.Services
         {
             var groupFolderSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent, createFolderIfNotExists: true);
 
-            var medias = _mediaService.GetPagedChildren(groupFolderSettings.MediaRootId ?? -1, 1, Int32.MaxValue, out _);
+            var medias = _mediaService.GetPagedChildren(groupFolderSettings.MediaRootId ?? -1, 0, Int32.MaxValue, out _);
             var groupFolder = medias.FirstOrDefault(s =>
             {
                 if (s.HasProperty(GroupIdPropertyTypeAlias))

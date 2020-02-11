@@ -59,15 +59,24 @@ namespace Uintra20.Features.Media
             _videoConverter = videoConverter;
             _videoConverterLogService = videoConverterLogService;
         }
-        public IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model, MediaFolderTypeEnum mediaFolderType, Guid? userId = null)
+        public IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model, MediaFolderTypeEnum mediaFolderType, Guid? userId = null, int? mediaRootId = null)
         {
             if (model.NewMedia.IsNullOrEmpty()) return Enumerable.Empty<int>();
 
             var mediaIds = model.NewMedia.Split(',').Where(s => s.HasValue()).Select(Guid.Parse);
             var cachedTempMedia = mediaIds.Select(s => _cacheService.Get<TempFile>(s.ToString(), ""));
 
-            var settings = GetMediaFolderSettings(mediaFolderType, createFolderIfNotExists: true);
-            var rootMediaId = settings.MediaRootId ?? -1;
+            int rootMediaId;
+
+            if (mediaRootId.HasValue)
+            {
+                rootMediaId = mediaRootId.Value;
+            }
+            else
+            {
+                var settings = GetMediaFolderSettings(mediaFolderType, createFolderIfNotExists: true);
+                rootMediaId = settings.MediaRootId ?? -1;
+            }
 
             return cachedTempMedia
                 .Select(file =>
