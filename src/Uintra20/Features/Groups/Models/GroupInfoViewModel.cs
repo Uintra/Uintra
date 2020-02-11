@@ -1,18 +1,16 @@
 ﻿using System;
-using Uintra20.Core.Member.Models;
+using System.Collections.Generic;
+using System.Linq;
+using Uintra20.Core.Controls.LightboxGallery;
 
 namespace Uintra20.Features.Groups.Models
 {
-    public class GroupInfoViewModel
+    public class GroupInfoViewModel : IHaveLightboxPreview
     {
         public Guid Id { get; set; }
-        public string GroupImageUrl { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public MemberViewModel Creator { get; set; }
-        public bool IsMember { get; set; }
-        public int MembersCount { get; set; }
-        public bool CanUnsubscribe { get; set; }
-        public string CreatorProfileUrl { get; set; }
+        public IEnumerable<string> Media { get; set; } = Enumerable.Empty<string>();
+        public LightboxPreviewModel MediaPreview { get; set; }
     }
 }

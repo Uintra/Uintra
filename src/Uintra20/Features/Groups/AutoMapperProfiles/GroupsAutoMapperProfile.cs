@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
+using Compent.Extensions;
+using EmailWorker.Data.Infrastructure;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Sql;
 using Uintra20.Features.Navigation.Models;
@@ -52,15 +55,8 @@ namespace Uintra20.Features.Groups.AutoMapperProfiles
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description));
 
             CreateMap<GroupModel, GroupInfoViewModel>()
-                .ForMember(d => d.MembersCount, o => o.Ignore())
-                .ForMember(d => d.Creator, o => o.Ignore())
-                .ForMember(d => d.IsMember, o => o.Ignore())
-                .ForMember(d => d.GroupImageUrl, o => o.Ignore())
-                .ForMember(d => d.CanUnsubscribe, o => o.Ignore())
-                .ForMember(d => d.CreatorProfileUrl, o => o.Ignore())
-                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
-                .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
-                .ForMember(d => d.Title, o => o.MapFrom(s => s.Title));
+                .ForMember(d => d.MediaPreview, o => o.Ignore())
+                .ForMember(d => d.Media, o => o.MapFrom(s => s.ImageId.HasValue ? s.ImageId.ToString().ToEnumerable() : Enumerable.Empty<string>()));
 
             CreateMap<GroupModel, GroupViewModel>()
                .ForMember(d => d.MembersCount, o => o.Ignore())

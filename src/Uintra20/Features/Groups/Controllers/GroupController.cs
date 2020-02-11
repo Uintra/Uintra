@@ -11,7 +11,6 @@ using Uintra20.Attributes;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
-using Uintra20.Core.UbaselineModels;
 using Uintra20.Features.Groups.CommandBus.Commands;
 using Uintra20.Features.Groups.Links;
 using Uintra20.Features.Groups.Models;
@@ -70,8 +69,16 @@ namespace Uintra20.Features.Groups.Controllers
         public GroupLeftNavigationMenuViewModel LeftNavigation()
         {
             var rootGroupPage = _nodeModelService.AsEnumerable().OfType<UintraGroupsPageModel>().First();
-            
-            var menuItems = GetMenuItems(rootGroupPage);
+
+            var groupPageChildren = _nodeModelService.AsEnumerable().Where(x =>
+                x is IGroupNavigationComposition navigation && navigation.GroupNavigation.ShowInMenu &&
+                x.ParentId == rootGroupPage.Id);
+
+            var menuItems = groupPageChildren.OrderBy(x => ((IGroupNavigationComposition)x).GroupNavigation.SortOrder.Value).Select(x => new GroupLeftNavigationItemViewModel
+            {
+                Title = ((IGroupNavigationComposition)x).GroupNavigation.NavigationTitle,
+                Link = x.Url.ToLinkModel()
+            });
 
             var result = new GroupLeftNavigationMenuViewModel
             {
@@ -119,30 +126,25 @@ namespace Uintra20.Features.Groups.Controllers
         [HttpGet]
         public virtual IEnumerable<GroupViewModel> List(bool isMyGroupsPage = false, int page = 1)
         {
-            IEnumerable<GroupViewModel> model = GetListModel(isMyGroupsPage, page);
-            return model;
-        }
-
-        [HttpGet]
-        public GroupInfoViewModel Info(Guid groupId)
-        {
-            var group = _groupService.Get(groupId);
-
-            var groupInfo = group.Map<GroupInfoViewModel>();
+            var take = page * ItemsPerPage;
+            var skip = (page - 1) * ItemsPerPage;
             var currentMember = _memberService.GetCurrentMember();
-            groupInfo.IsMember = _groupMemberService.IsGroupMember(group.Id, currentMember.Id);
-            groupInfo.CanUnsubscribe = group.CreatorId != currentMember.Id;
 
-            groupInfo.Creator = _memberService.Get(group.CreatorId).Map<MemberViewModel>();
-            groupInfo.MembersCount = _groupMemberService.GetMembersCount(group.Id);
-            groupInfo.CreatorProfileUrl = _profileLinkProvider.GetProfileLink(group.CreatorId).OriginalUrl;
+            var allGroups = isMyGroupsPage
+                ? _groupService.GetMany(currentMember.GroupIds).ToList()
+                : _groupService.GetAllNotHidden().ToList();
 
-            if (group.ImageId.HasValue)
-            {
-                groupInfo.GroupImageUrl = _imageHelper.GetImageWithPreset(_mediaModelService.Get(group.ImageId.Value).Url, UmbracoAliases.ImagePresets.GroupImageThumbnail);
-            }
+            bool IsCurrentMemberInGroup(GroupModel g) => isMyGroupsPage || _groupMemberService.IsGroupMember(g.Id, currentMember.Id);
 
-            return groupInfo;
+            var groups = allGroups
+                .Select(g => MapGroupViewModel(g, IsCurrentMemberInGroup(g)))
+                .OrderByDescending(g => g.Creator.Id == currentMember.Id)
+                .ThenByDescending(s => s.IsMember)
+                .ThenBy(g => g.Title)
+                .Skip(skip)
+                .Take(take);
+
+            return groups;
         }
 
         [HttpPost]
@@ -182,38 +184,6 @@ namespace Uintra20.Features.Groups.Controllers
             return Ok(_groupLinkProvider.GetGroupLink(groupId));
         }
 
-        private IEnumerable<GroupLeftNavigationItemViewModel> GetMenuItems(UintraGroupsPageModel rootGroupPage)
-        {
-            var groupPageChildren = _nodeModelService.AsEnumerable().Where(x =>
-                x is IGroupNavigationComposition navigation && navigation.GroupNavigation.ShowInMenu &&
-                x.ParentId == rootGroupPage.Id);
-
-            return groupPageChildren.OrderBy(x => ((IGroupNavigationComposition)x).GroupNavigation.SortOrder.Value).Select(x => new GroupLeftNavigationItemViewModel
-            {
-                Title = ((IGroupNavigationComposition) x).GroupNavigation.NavigationTitle,
-                Link = x.Url.ToLinkModel()
-            });
-        }
-
-        private IEnumerable<GroupViewModel> GetListModel(bool isMyGroupsPage, int page)
-        {
-            var take = page * ItemsPerPage;
-            var currentMember = _memberService.GetCurrentMember();
-
-            var allGroups = isMyGroupsPage
-                ? _groupService.GetMany(currentMember.GroupIds).ToList()
-                : _groupService.GetAllNotHidden().ToList();
-
-            bool IsCurrentMemberInGroup(GroupModel g) => isMyGroupsPage || _groupMemberService.IsGroupMember(g.Id, currentMember.Id);
-
-            var groups = allGroups
-                .Select(g => MapGroupViewModel(g, IsCurrentMemberInGroup(g)))
-                .OrderByDescending(g => g.Creator.Id == currentMember.Id)
-                .ThenByDescending(s => s.IsMember)
-                .ThenBy(g => g.Title);
-
-            return groups;
-        }
         private GroupViewModel MapGroupViewModel(GroupModel group, bool isCurrentUserMember)
         {
             var groupModel = group.Map<GroupViewModel>();
