@@ -71,12 +71,6 @@ namespace Uintra20.Features.Groups.Services
             return media;
         }
 
-        public async Task<IEnumerable<int>> CreateGroupMediaAsync(IContentWithMediaCreateEditModel model, Guid groupId, Guid creatorId)
-        {
-            var media = _mediaHelper.CreateMedia(model, MediaFolderTypeEnum.GroupsContent, creatorId);
-            return media;
-        }
-
         private IMedia GetOrCreateGroupMediaFolder(Guid groupId)
         {
             var groupFolderSettings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent, createFolderIfNotExists: true);

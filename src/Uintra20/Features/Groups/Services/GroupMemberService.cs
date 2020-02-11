@@ -4,6 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Sql;
 using Uintra20.Features.Media;
@@ -15,6 +17,7 @@ namespace Uintra20.Features.Groups.Services
     public class GroupMemberService : IGroupMemberService
     {
         private readonly ISqlRepository<GroupMember> _groupMemberRepository;
+        private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly ICacheableIntranetMemberService _memberCacheService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IGroupService _groupService;
@@ -25,13 +28,15 @@ namespace Uintra20.Features.Groups.Services
             ICacheableIntranetMemberService memberCacheService,
             IMediaHelper mediaHelper,
             IGroupService groupService,
-            IGroupMediaService groupMediaService)
+            IGroupMediaService groupMediaService,
+            IIntranetMemberService<IntranetMember> memberService)
         {
             _groupMemberRepository = groupMemberRepository;
             _memberCacheService = memberCacheService;
             _mediaHelper = mediaHelper;
             _groupService = groupService;
             _groupMediaService = groupMediaService;
+            _memberService = memberService;
         }
 
         public void Add(Guid groupId, GroupMemberSubscriptionModel model)
@@ -150,6 +155,7 @@ namespace Uintra20.Features.Groups.Services
         public Guid Create(GroupCreateModel model, GroupMemberSubscriptionModel creator)
         {
             var group = model.Map<GroupModel>();
+            group.CreatorId = _memberService.GetCurrentMemberId();
 
             group.GroupTypeId = GroupTypeEnum.Open.ToInt();
 
@@ -171,6 +177,7 @@ namespace Uintra20.Features.Groups.Services
         public async Task<Guid> CreateAsync(GroupCreateModel model, GroupMemberSubscriptionModel creator)
         {
             var group = model.Map<GroupModel>();
+            group.CreatorId = await _memberService.GetCurrentMemberIdAsync();
 
             group.GroupTypeId = GroupTypeEnum.Open.ToInt();
 

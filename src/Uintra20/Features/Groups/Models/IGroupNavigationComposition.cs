@@ -1,4 +1,4 @@
-﻿namespace Uintra20.Core.UbaselineModels
+﻿namespace Uintra20.Features.Groups.Models
 {
     public interface IGroupNavigationComposition
     {
