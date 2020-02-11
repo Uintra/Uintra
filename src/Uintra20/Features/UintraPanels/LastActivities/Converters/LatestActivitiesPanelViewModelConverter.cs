@@ -4,7 +4,8 @@ using Uintra20.Features.UintraPanels.LastActivities.Models;
 
 namespace Uintra20.Features.UintraPanels.LastActivities.Converters
 {
-    public class LatestActivitiesPanelViewModelConverter : INodeViewModelConverter<LatestActivitiesPanelModel, LatestActivitiesPanelViewModel>
+    public class LatestActivitiesPanelViewModelConverter :
+        INodeViewModelConverter<LatestActivitiesPanelModel, LatestActivitiesPanelViewModel>
     {
         private readonly ICentralFeedHelper _centralFeedHelper;
 
@@ -12,12 +13,13 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Converters
         {
             _centralFeedHelper = centralFeedHelper;
         }
+
         public void Map(LatestActivitiesPanelModel node, LatestActivitiesPanelViewModel viewModel)
         {
-            var (isShowMore, feedItems) = _centralFeedHelper.GetFeedItems(node);
+            var feed = _centralFeedHelper.GetFeedItems(node);
 
-            viewModel.Feed = feedItems;
-            viewModel.ShowSeeAllButton = isShowMore;
+            viewModel.Feed = feed.FeedItems;
+            viewModel.ShowSeeAllButton = feed.IsShowMore;
         }
     }
 }

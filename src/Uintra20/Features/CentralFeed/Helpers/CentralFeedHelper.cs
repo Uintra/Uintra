@@ -97,7 +97,7 @@ namespace Uintra20.Features.CentralFeed.Helpers
             return centralFeedModel;
         }
 
-        public (bool isShowMore, IEnumerable<FeedItemViewModel> feedItems) GetFeedItems(LatestActivitiesPanelModel node)
+        public LoadableFeedItemModel GetFeedItems(LatestActivitiesPanelModel node)
         {
             var settings = _centralFeedService.GetAllSettings();
             var centralFeedType = _centralFeedTypeProvider[node.ActivityType.Value.Id];
@@ -105,7 +105,12 @@ namespace Uintra20.Features.CentralFeed.Helpers
             var latestActivities = GetLatestActivities(centralFeedType, node.CountToDisplay.Value);
             var feedItems = GetFeedItems(latestActivities.activities, settings).ToArray();
 
-            return (latestActivities.activities.Count() < latestActivities.totalCount, feedItems);
+            //return (latestActivities.activities.Count() < latestActivities.totalCount, feedItems);
+            return new LoadableFeedItemModel
+            {
+                IsShowMore = latestActivities.activities.Count() < latestActivities.totalCount,
+                FeedItems = feedItems
+            };
         }
 
         public bool IsCentralFeedPage(IPublishedContent page)
