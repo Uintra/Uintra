@@ -1,0 +1,28 @@
+@import "../../styles/link.less";
+
+:host {
+  display: block;
+  margin: 15px 0;
+  padding: 10px 0;
+  border-top: 2px solid @body-bg;
+  position: relative;
+}
+
+.left-nav {
+  &__shared-icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+  }
+
+  &__sub-item--with-offset {
+    .left-nav__item-link {
+      padding-left: 50px;
+      font-weight: normal;
+    }
+  }
+
+  &__item-link {
+    padding-right: 0;
+  }
+}

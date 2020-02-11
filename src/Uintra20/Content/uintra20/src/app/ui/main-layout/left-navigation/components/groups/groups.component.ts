@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { GroupsService, IGroupsData } from './groups.service';
 
 @Component({
   selector: 'left-nav-groups',
@@ -7,15 +7,20 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./groups.component.less']
 })
 export class GroupsComponent implements OnInit {
-  data: any;
+  data: IGroupsData;
+  isOpen: boolean;
 
-  constructor(private http: HttpClient) { }
+  constructor(private groupsService: GroupsService) { }
 
   ngOnInit() {
-    this.http.get('/ubaseline/api/Group/LeftNavigation').subscribe(res => {
+    this.groupsService.getGroupsLinks().subscribe(res => {
       this.data = res;
-      console.log(res);
-    })
+    });
+    this.isOpen = this.groupsService.getOpenState();
   }
 
+  onToggle() {
+    this.isOpen = !this.isOpen;
+    this.groupsService.setOpenState(this.isOpen);
+  }
 }
