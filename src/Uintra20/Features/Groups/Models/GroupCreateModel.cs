@@ -10,7 +10,7 @@ namespace Uintra20.Features.Groups.Models
         public string Title { get; set; }
         [Required, AllowHtml]
         public string Description { get; set; }
-        public string AllowedMediaExtensions { get; set; }
+        //public string AllowedMediaExtensions { get; set; }
         public string Media { get; set; }
         public string NewMedia { get; set; }
     }

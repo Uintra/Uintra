@@ -1,7 +1,7 @@
 ﻿using UBaseline.Shared.Node;
 using UBaseline.Shared.Property;
 
-namespace Uintra20.Core.UbaselineModels
+namespace Uintra20.Features.Groups.Models
 {
     public class GroupNavigationCompositionModel : ICompositionModel
     {

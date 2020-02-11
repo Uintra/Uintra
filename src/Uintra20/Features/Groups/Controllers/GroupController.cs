@@ -7,8 +7,8 @@ using Compent.CommandBus;
 using UBaseline.Core.Controllers;
 using UBaseline.Core.Media;
 using UBaseline.Core.Node;
-using UBaseline.Shared.Node;
 using Uintra20.Attributes;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Core.UbaselineModels;
@@ -20,7 +20,6 @@ using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
-using Uintra20.Infrastructure.Providers;
 
 namespace Uintra20.Features.Groups.Controllers
 {
@@ -32,7 +31,7 @@ namespace Uintra20.Features.Groups.Controllers
         private readonly IGroupService _groupService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IIntranetMemberService<IGroupMember> _memberService;
+        private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IGroupMediaService _groupMediaService;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly IImageHelper _imageHelper;
@@ -46,7 +45,7 @@ namespace Uintra20.Features.Groups.Controllers
             IGroupMemberService groupMemberService,
             IMediaHelper mediaHelper,
             IGroupMediaService groupMediaService,
-            IIntranetMemberService<IGroupMember> intranetMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             IProfileLinkProvider profileLinkProvider,
             IImageHelper imageHelper,
             ICommandPublisher commandPublisher,
@@ -67,10 +66,11 @@ namespace Uintra20.Features.Groups.Controllers
             _groupLinkProvider = groupLinkProvider;
         }
 
+        [HttpGet]
         public GroupLeftNavigationMenuViewModel LeftNavigation()
         {
             var rootGroupPage = _nodeModelService.AsEnumerable().OfType<UintraGroupsPageModel>().First();
-
+            
             var menuItems = GetMenuItems(rootGroupPage);
 
             var result = new GroupLeftNavigationMenuViewModel
@@ -79,7 +79,7 @@ namespace Uintra20.Features.Groups.Controllers
                 GroupPageItem = new GroupLeftNavigationItemViewModel
                 {
                     Link = rootGroupPage.Url.ToLinkModel(),
-                    Title = rootGroupPage.GroupNavigation.NavigationTitle
+                    Title = ((IGroupNavigationComposition)rootGroupPage).GroupNavigation.NavigationTitle
                 }
             };
 

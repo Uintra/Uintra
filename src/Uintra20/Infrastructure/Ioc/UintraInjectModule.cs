@@ -3,10 +3,6 @@ using UBaseline.Core.RequestContext;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Localization;
-using Uintra20.Core.Member.Services;
-using Uintra20.Features.Groups.ContentServices;
-using Uintra20.Features.Groups.Helpers;
-using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Information;
 using Uintra20.Features.Media;
 using Uintra20.Features.Permissions;
@@ -35,7 +31,6 @@ namespace Uintra20.Infrastructure.Ioc
 			services.AddSingleton<IInformationService,InformationService>();
 
             services.AddScoped<ICacheService, MemoryCacheService>();
-            services.AddSingleton<IIntranetMemberGroupService, IntranetMemberGroupService>();
             services.AddScoped<IEmbeddedResourceService, EmbeddedResourceService>();
             services.AddScoped<IExceptionLogger, ExceptionLogger>();
             services.AddScoped<IMediaHelper, MediaHelper>();
@@ -46,17 +41,16 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IVideoConverterLogService, VideoConverterLogService>();
             services.AddScoped<IIntranetMediaService, IntranetMediaService>();
             services.AddSingleton<IDocumentTypeAliasProvider, DocumentTypeProvider>();
-            services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<IIntranetMemberGroupProvider, IntranetMemberGroupProvider>();
             services.AddSingleton<IIntranetMemberGroupService, IntranetMemberGroupService>();
             services.AddSingleton<IPermissionSettingsSchemaProvider, PermissionSettingsSchemaProvider>();
             services.AddScoped<IPermissionsService, PermissionsService>();
             services.AddScoped<IPermissionActionTypeProvider>(provider => new PermissionActionTypeProvider(typeof(PermissionActionEnum)));
             services.AddScoped<IPermissionResourceTypeProvider>(provider => new PermissionActivityTypeProvider(typeof(PermissionResourceTypeEnum)));
-            services.AddScoped<IIntranetMemberGroupProvider, IntranetMemberGroupProvider>();
             services.AddScoped<IDateTimeFormatProvider, DateTimeFormatProvider>();
             services.AddScoped<IClientTimezoneProvider, ClientTimezoneProvider>();
             services.AddScoped<ICookieProvider, CookieProvider>();
-            services.AddScoped<IMentionService, MentionService>();
+            
             services.AddScoped<ISubscribeService, SubscribeService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IIntranetLocalizationService, LocalizationService>();
@@ -65,11 +59,6 @@ namespace Uintra20.Infrastructure.Ioc
 
             services.AddSingleton<IContentPageContentProvider, ContentPageContentProvider>();
             
-            services.AddScoped<IGroupHelper, GroupHelper>();
-            services.AddScoped<IGroupContentProvider, GroupContentProvider>();
-
-
-
             services.AddScoped<IUBaselineRequestContext, IntranetRequestContext>();
 
             return services;

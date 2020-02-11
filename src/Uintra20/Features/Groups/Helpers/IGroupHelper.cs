@@ -4,7 +4,6 @@ namespace Uintra20.Features.Groups.Helpers
 {
     public interface IGroupHelper
     {
-        bool IsGroupPage(IPublishedContent currentPage);
-        bool IsGroupRoomPage(IPublishedContent currentPage);
+
     }
 }
