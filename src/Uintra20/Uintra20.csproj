@@ -979,6 +979,7 @@
     <Compile Include="Core\UbaselineModels\GenericPropertiesCompositionViewModel.cs" />
     <Compile Include="Core\UbaselineModels\IGenericPropertiesComposition.cs" />
     <Compile Include="Core\UbaselineModels\ImageModel.cs" />
+    <Compile Include="Features\Groups\Models\GroupDocumentViewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupNavigationCompositionModel.cs" />
     <Compile Include="Features\Groups\Models\GroupNavigationCompositionViewModel.cs" />
     <Compile Include="Features\Groups\Models\IGroupNavigationComposition.cs" />

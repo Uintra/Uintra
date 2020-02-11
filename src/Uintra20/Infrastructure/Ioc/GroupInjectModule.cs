@@ -16,6 +16,7 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IGroupMemberService, GroupMemberService>();
             services.AddScoped<IGroupMediaService, GroupMediaService>();
             services.AddScoped<IGroupLinkProvider, GroupLinkProvider>();
+            services.AddScoped<IGroupDocumentsService, GroupDocumentsService>();
 
             return services;
         }
