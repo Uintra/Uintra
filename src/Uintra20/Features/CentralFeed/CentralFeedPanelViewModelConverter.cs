@@ -1,6 +1,7 @@
 ﻿using Compent.Shared.Extensions.Bcl;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Feed;
 using Uintra20.Core.Feed.Models;
@@ -8,6 +9,7 @@ using Uintra20.Core.Feed.State;
 using Uintra20.Core.Localization;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.CentralFeed.Models;
+using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.CentralFeed
 {
@@ -42,6 +44,7 @@ namespace Uintra20.Features.CentralFeed
 			//viewModel.TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _permissionsService.Check(_permissionResourceTypeProvider[tab.Type.ToInt()], PermissionActionEnum.Create));
 			viewModel.IsFiltersOpened = centralFeedState.IsFiltersOpened;
             viewModel.ItemsPerRequest = node.ItemsPerRequest.Value == 0 ? 10 : node.ItemsPerRequest.Value;
+            viewModel.GroupId = HttpContext.Current.Request.GetRequestQueryValue("groupId").TryParseGuid();
         }
 
 		private IEnumerable<ActivityFeedTabViewModel> GetTabsWithCreateUrl(IEnumerable<ActivityFeedTabViewModel> tabs) =>
