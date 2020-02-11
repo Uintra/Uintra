@@ -1,5 +1,5 @@
 ﻿using UBaseline.Core.Node;
-using Uintra20.Features.UintraPanels.LastActivities.Helpers;
+using Uintra20.Features.CentralFeed.Helpers;
 using Uintra20.Features.UintraPanels.LastActivities.Models;
 
 namespace Uintra20.Features.UintraPanels.LastActivities.Converters

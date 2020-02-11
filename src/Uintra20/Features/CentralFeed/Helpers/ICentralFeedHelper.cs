@@ -3,7 +3,7 @@ using Uintra20.Core.Feed.Models;
 using Uintra20.Features.UintraPanels.LastActivities.Models;
 using Umbraco.Core.Models.PublishedContent;
 
-namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
+namespace Uintra20.Features.CentralFeed.Helpers
 {
     public interface ICentralFeedHelper
     {

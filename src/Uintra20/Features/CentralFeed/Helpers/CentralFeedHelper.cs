@@ -1,7 +1,7 @@
-﻿using Compent.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.Extensions;
 using UBaseline.Core.Extensions;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
@@ -12,7 +12,6 @@ using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
 using Uintra20.Core.Feed.State;
-using Uintra20.Features.CentralFeed;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.CentralFeed.Providers;
@@ -23,7 +22,7 @@ using Uintra20.Infrastructure.Extensions;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
-namespace Uintra20.Features.UintraPanels.LastActivities.Helpers
+namespace Uintra20.Features.CentralFeed.Helpers
 {
     public class CentralFeedHelper : ICentralFeedHelper
     {
