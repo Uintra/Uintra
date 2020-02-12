@@ -972,6 +972,7 @@
     <Compile Include="Core\UbaselineModels\GenericPropertiesCompositionViewModel.cs" />
     <Compile Include="Core\UbaselineModels\IGenericPropertiesComposition.cs" />
     <Compile Include="Core\UbaselineModels\ImageModel.cs" />
+    <Compile Include="Core\UbaselineModels\EnumDropdownListPropertyEditorConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsDocumentsPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsEditPageViewModelConverter.cs" />

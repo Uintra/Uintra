@@ -267,13 +267,11 @@ namespace Uintra20.Features.Media
 
         private FolderModel GetMediaFolder(Enum mediaFolderType)
         {
-            //var folders = _umbracoHelper.MediaAtRoot().Where(m => m.ContentType.Alias.Equals(FolderTypeAlias));
-
             var folders = _mediaModelService.AsEnumerable().OfType<FolderModel>().Where(x => x.ParentId == -1);
 
             var mediaFolder = folders.SingleOrDefault(f =>
             {
-                var folderType = string.Empty;//f.FolderType.Value;
+                var folderType = f.FolderType.Value;
                 return folderType.HasValue() && folderType.Equals(mediaFolderType.ToString());
             });
 
