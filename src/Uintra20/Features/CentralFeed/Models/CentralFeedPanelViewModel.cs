@@ -1,7 +1,6 @@
 ﻿using System;
 using UBaseline.Shared.Node;
 using UBaseline.Shared.PanelSettings;
-using UBaseline.Shared.Property;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Settings;
 
@@ -9,7 +8,8 @@ namespace Uintra20.Features.CentralFeed.Models
 {
 	public class CentralFeedPanelViewModel : FeedOverviewModel, INodeViewModel
 	{
-		public PanelSettingsCompositionViewModel PanelSettings { get; set; }
+        public int Id { get; set;}
+        public PanelSettingsCompositionViewModel PanelSettings { get; set; }
 		public Enum Type { get; set; }
 		public FeedTabSettings TabSettings { get; set; }
 		public string ContentTypeAlias { get; set; }

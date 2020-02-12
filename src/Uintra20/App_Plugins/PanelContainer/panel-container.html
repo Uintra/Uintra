@@ -7,7 +7,7 @@
             <div class="panel">
                 <div class="panel__label" ng-if="!panel.isGlobal" ng-click="vm.editPanel(panel)">
                     <i class="icon {{panel.icon}}"></i>
-                    <span>{{ panel.name }} | Local panel title: {{ panel.vmTitle }}</span>
+                    <span>{{ panel.name }} | Local panel{{ panel.vmTitle ? ' title: ' + panel.vmTitle : '' }}</span>
                 </div>
                 <div class="panel__label" ng-if="panel.isGlobal" ng-click="vm.editPanel(panel)">
                     <i class="icon {{panel.icon}}"></i>{{ panel.name }} | Node id: {{ panel.nodeId }} | Global panel title: {{ panel.nodeName }}

@@ -1,0 +1,61 @@
+﻿<div ng-controller="utmConfigurationController as vm">
+    <label>UTM parameters</label>
+    <umb-load-indicator ng-show="vm.working"></umb-load-indicator>
+
+    <label>
+        <input type="checkbox" ng-model="model.value.isVisible" />
+        Panel visible (default)
+    </label>
+
+    <div ng-hide="vm.working || !vm.utmParameters">
+        <table>
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                    <th>Visible</th>
+                    <th>Hide</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span>?</span>
+                        <select ng-model="vm.utmParameter" data-ng-options="parameter.value as parameter.value for parameter in vm.utmParameters"></select>
+                        <span>=</span>
+                    </td>
+                    <td>
+                        <input type="text" ng-model="vm.utmValue" />
+                    </td>
+                    <td>
+                        <input type="radio" ng-model="vm.utmVisible" ng-value="true" />
+                    </td>
+                    <td>
+                        <input type="radio" ng-model="vm.utmVisible" ng-value="false" />
+                    </td>
+                    <td>
+                        <button type="button" ng-click="vm.addParameter()">Add</button>
+                    </td>
+                </tr>
+                <tr ng-repeat="query in model.value.queries">
+                    <td>
+                        <span>?</span>
+                        <label>{{query.parameterName}}</label>
+                        <span>=</span>
+                    </td>
+                    <td>{{query.parameterValue}}</td>
+                    <td>
+                        <input type="radio" ng-model="query.isVisible" ng-value="true" disabled />
+                    </td>
+                    <td>
+                        <input type="radio" ng-model="query.isVisible" ng-value="false" disabled />
+                    </td>
+                    <td>
+                        <button type="button" ng-click="vm.removeParameter($index)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
