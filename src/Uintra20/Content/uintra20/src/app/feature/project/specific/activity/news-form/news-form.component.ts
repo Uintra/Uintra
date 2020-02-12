@@ -143,7 +143,7 @@ export class NewsFormComponent implements OnInit {
   }
 
   changeOwner(e) {
-    this.newsData.ownerId = e;
+    this.newsData.ownerId = e.id;
   }
 
   // TODO: move to service
