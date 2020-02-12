@@ -968,8 +968,6 @@
     <Compile Include="Features\Media\Strategies\Preset\MemberProfilePresetStrategy.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\INavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\NavigationApplicationSettings.cs" />
-    <Compile Include="Features\Navigation\EqualityComparers\MyLinkItemModelComparer.cs" />
-    <Compile Include="Features\Navigation\Exception\MyLinksDuplicatedException.cs" />
     <Compile Include="Features\Navigation\IMyLinksHelper.cs" />
     <Compile Include="Features\Navigation\Models\MyLinks\MyLinkItemModel.cs" />
     <Compile Include="Features\Navigation\Models\MyLinks\MyLinkItemViewModel.cs" />

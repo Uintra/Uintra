@@ -28,7 +28,6 @@ namespace Uintra20.Features.Navigation
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INavigationApplicationSettings _navigationApplicationSettings;
         private readonly IGroupService _groupService;
-        private readonly IEqualityComparer<MyLinkItemModel> _myLinkItemModelComparer;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly INodeModelService _nodeModelService;
@@ -40,7 +39,6 @@ namespace Uintra20.Features.Navigation
             IActivitiesServiceFactory activitiesServiceFactory,
             INavigationApplicationSettings navigationApplicationSettings,
             IGroupService groupService,
-            IEqualityComparer<MyLinkItemModel> myLinkItemModelComparer,
             INodeModelService nodeModelService,
             IActivityTypeProvider activityTypeProvider)
         {
@@ -49,7 +47,6 @@ namespace Uintra20.Features.Navigation
             _activitiesServiceFactory = activitiesServiceFactory;
             _navigationApplicationSettings = navigationApplicationSettings;
             _groupService = groupService;
-            _myLinkItemModelComparer = myLinkItemModelComparer;
             _nodeModelService = nodeModelService;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _activityTypeProvider = activityTypeProvider;
@@ -70,11 +67,13 @@ namespace Uintra20.Features.Navigation
                 (link, content) => new MyLinkItemModel
                 {
                     Id = link.Id,
+                    ContentId=content.Id,
+                    ActivityId=link.ActivityId,
                     Name = link.ActivityId.HasValue ? GetLinkName(link.ActivityId.Value) : GetNavigationName(content),
                     Url = GetUrl(link, content)
                 });
 
-            return models.Distinct(_myLinkItemModelComparer);
+            return models;
         }
 
         public async Task<IEnumerable<MyLinkItemModel>> GetMenuAsync()
@@ -92,11 +91,13 @@ namespace Uintra20.Features.Navigation
                 (link, content) => new MyLinkItemModel
                 {
                     Id = link.Id,
+                    ActivityId=link.ActivityId,
+                    ContentId=content.Id,
                     Name = link.ActivityId.HasValue ? GetLinkName(link.ActivityId.Value) : GetNavigationName(content),
                     Url = GetUrl(link, content)
                 });
 
-            return models.Distinct(_myLinkItemModelComparer);
+            return models;
         }
 
         public bool IsActivityLink(int contentId)
@@ -184,7 +185,10 @@ namespace Uintra20.Features.Navigation
         {
             if(content is IUintraNavigationComposition navigationModel)
             {
-                return navigationModel.Navigation.NavigationTitle;
+                if (navigationModel.Navigation.NavigationTitle.Value.HasValue())
+                {
+                    return navigationModel.Navigation.NavigationTitle.Value;
+                }
             }
 
             return content.Name;
