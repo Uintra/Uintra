@@ -8,6 +8,7 @@ import { RichTextEditorModule } from 'src/app/feature/project/reusable/inputs/ri
 import { TextInputModule } from 'src/app/feature/project/reusable/inputs/fields/text-input/text-input.module';
 import { DropzoneWrapperModule } from 'src/app/feature/project/reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
 import { FormsModule } from '@angular/forms';
+import { GroupsWrapperModule } from 'src/app/feature/project/specific/groups-wrapper/groups-wrapper.module';
 
 @NgModule({
   declarations: [UintraGroupsCreatePage],
@@ -19,6 +20,7 @@ import { FormsModule } from '@angular/forms';
     RichTextEditorModule,
     FormsModule,
     DropzoneWrapperModule,
+    GroupsWrapperModule,
   ],
   entryComponents: [UintraGroupsCreatePage]
 })
