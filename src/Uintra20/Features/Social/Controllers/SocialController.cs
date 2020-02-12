@@ -127,7 +127,7 @@ namespace Uintra20.Features.Social.Controllers
 
             if (model.NewMedia.HasValue())
             {
-                bulletin.MediaIds = _mediaHelper.CreateMedia(model);
+                bulletin.MediaIds = _mediaHelper.CreateMedia(model, MediaFolderTypeEnum.SocialsContent);
             }
 
             return bulletin;
@@ -161,7 +161,7 @@ namespace Uintra20.Features.Social.Controllers
 
             social = Mapper.Map(socialEditModel, social);
 
-            social.MediaIds = social.MediaIds.Concat(_mediaHelper.CreateMedia(socialEditModel));
+            social.MediaIds = social.MediaIds.Concat(_mediaHelper.CreateMedia(socialEditModel, MediaFolderTypeEnum.SocialsContent));
 
             return social;
         }

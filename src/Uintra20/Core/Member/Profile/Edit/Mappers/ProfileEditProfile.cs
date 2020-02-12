@@ -10,7 +10,6 @@ namespace Uintra20.Core.Member.Profile.Edit.Mappers
         public ProfileEditProfile()
         {
             CreateMap<IIntranetMember, ProfileEditViewModel>()
-                .ForMember(dst => dst.MediaRootId, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore())
                 .ForMember(dst => dst.MemberNotifierSettings, o => o.Ignore())
                 .ForMember(dst => dst.ProfileUrl, o => o.Ignore())

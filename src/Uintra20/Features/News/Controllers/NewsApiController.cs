@@ -100,7 +100,7 @@ namespace Uintra20.Features.News.Controllers
         {
             var news = createModel.Map<NewsBase>();
 
-            news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel));
+            news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(createModel, MediaFolderTypeEnum.NewsContent));
             news.PublishDate = createModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime(createModel.PublishDate);
             news.UnpublishDate = createModel.UnpublishDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(createModel.UnpublishDate.Value);
             news.EndPinDate = createModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(createModel.EndPinDate.Value);
@@ -119,7 +119,7 @@ namespace Uintra20.Features.News.Controllers
 
             var activity = _newsService.Get(editModel.Id);
             activity = Mapper.Map(editModel, activity);
-            activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel));
+            activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel, MediaFolderTypeEnum.NewsContent));
             activity.PublishDate = editModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.PublishDate);
             activity.UnpublishDate = editModel.UnpublishDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.UnpublishDate.Value);
             activity.EndPinDate = editModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.EndPinDate.Value);
