@@ -3,6 +3,8 @@ using AutoMapper;
 using Compent.Extensions;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Sql;
+using Uintra20.Features.Groups.Models;
+using Uintra20.Features.Groups.Sql;
 
 namespace Uintra20.Features.Groups.AutoMapperProfiles
 {
@@ -10,9 +12,9 @@ namespace Uintra20.Features.Groups.AutoMapperProfiles
     {
         public GroupsAutoMapperProfile()
         {
-
-            CreateMap<Group, GroupModel>();
-            CreateMap<GroupModel, Group>();
+            
+            CreateMap<Group, GroupModel>().ReverseMap();
+            
 
             //CreateMap<GroupModel, BackofficeGroupViewModel>()
             //    .ForMember(d => d.CreateDate, o => o.MapFrom(s => s.CreatedDate))
