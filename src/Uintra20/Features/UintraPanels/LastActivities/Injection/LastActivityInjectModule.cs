@@ -1,5 +1,5 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
-using Uintra20.Features.UintraPanels.LastActivities.Helpers;
+using Uintra20.Features.CentralFeed.Helpers;
 
 namespace Uintra20.Features.UintraPanels.LastActivities.Injection
 {
