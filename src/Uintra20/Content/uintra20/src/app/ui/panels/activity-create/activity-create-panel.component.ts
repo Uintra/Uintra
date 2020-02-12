@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, Output, EventEmitter } from '@angular/core';
 import { IActivityCreatePanel } from './activity-create-panel.interface';
 import { ActivityEnum } from 'src/app/feature/shared/enums/activity-type.enum';
 
@@ -9,6 +9,7 @@ import { ActivityEnum } from 'src/app/feature/shared/enums/activity-type.enum';
   encapsulation: ViewEncapsulation.None
 })
 export class ActivityCreatePanel implements OnInit {
+  @Output() dataChanged = new EventEmitter();
   data: IActivityCreatePanel;
   activityTypes = ActivityEnum;
   activityType: ActivityEnum;
@@ -17,5 +18,10 @@ export class ActivityCreatePanel implements OnInit {
 
   ngOnInit() {
     this.activityType = this.data.activityType.get();
+  }
+
+  onDataChanged() {
+    debugger
+    this.dataChanged.emit();
   }
 }

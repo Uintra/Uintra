@@ -19,6 +19,7 @@ import { SearchModule } from './feature/project/reusable/inputs/search/search.mo
 
 import {UrlSerializer} from '@angular/router';
 import { CustomUrlSerializer } from './CustomUrlSerializer';
+import { CanDeactivateGuard } from './services/general/can-deactivate.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { CustomUrlSerializer } from './CustomUrlSerializer';
   ],
   providers: [
     { provide: DYNAMIC_COMPONENTS, useValue: panels },
-    { provide: UrlSerializer, useClass: CustomUrlSerializer }
+    { provide: UrlSerializer, useClass: CustomUrlSerializer },
+    CanDeactivateGuard
   ],
   bootstrap: [AppComponent]
 })

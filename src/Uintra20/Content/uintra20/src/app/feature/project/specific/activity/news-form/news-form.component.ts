@@ -15,6 +15,7 @@ import { ILocationResult } from "../../../reusable/ui-elements/location-picker/l
 import { NewsFormService } from "./news-form.service";
 import { PinActivityService } from '../pin-activity/pin-activity.service';
 import { Router } from '@angular/router';
+import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
 
 @Component({
   selector: "app-news-form",
@@ -29,6 +30,7 @@ export class NewsFormComponent implements OnInit {
   @Input() creator: IOwner;
   @Input() tags: ITagData[];
 
+  @Output() dataChanged = new EventEmitter();
   @Output() handleSubmit = new EventEmitter();
   @Output() handleCancel = new EventEmitter();
 
@@ -49,7 +51,8 @@ export class NewsFormComponent implements OnInit {
   constructor(
     private newsFormService: NewsFormService, 
     private pinActivityService: PinActivityService,
-    private router: Router
+    private router: Router,
+    private hasDataChangedService: HasDataChangedService
     ) {}
 
   ngOnInit() {
@@ -90,6 +93,8 @@ export class NewsFormComponent implements OnInit {
   // File functions
   onUploadSuccess(fileArray: Array<any> = []): void {
     this.files.push(fileArray);
+    this.hasDataChangedService.onDataChanged();
+
   }
   onFileRemoved(removedFile: object) {
     this.files = this.files.filter(file => file[0] !== removedFile);
