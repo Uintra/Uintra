@@ -973,6 +973,12 @@
     <Compile Include="Core\Member\Profile\ProfileModel.cs" />
     <Compile Include="Core\Member\Profile\Services\IProfileService.cs" />
     <Compile Include="Core\Member\Profile\Services\ProfileService.cs" />
+    <Compile Include="Features\CentralFeed\Builders\ActivityTabsBuilder.cs" />
+    <Compile Include="Features\CentralFeed\Builders\IActivityTabsBuilder.cs" />
+    <Compile Include="Features\CentralFeed\Models\CountableLatestActivities.cs" />
+    <Compile Include="Features\CentralFeed\Models\LoadableFeedItemModel.cs" />
+    <Compile Include="Features\Groups\Services\GroupFeedService.cs" />
+    <Compile Include="Features\Groups\Services\IGroupFeedService.cs" />
     <Compile Include="Features\Media\Strategies\Preset\MemberProfilePresetStrategy.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\INavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\NavigationApplicationSettings.cs" />
@@ -1270,8 +1276,8 @@
     <Compile Include="Features\Tagging\UserTags\Models\UserTagItemViewModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\LatestActivitiesPanelViewModelConverter.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Converters\SelectedActivityPropertyEditorConvertor.cs" />
-    <Compile Include="Features\UintraPanels\LastActivities\Helpers\ICentralFeedHelper.cs" />
-    <Compile Include="Features\UintraPanels\LastActivities\Helpers\CentralFeedHelper.cs" />
+    <Compile Include="Features\CentralFeed\Helpers\ICentralFeedHelper.cs" />
+    <Compile Include="Features\CentralFeed\Helpers\CentralFeedHelper.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Injection\LastActivityInjectModule.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelViewModel.cs" />

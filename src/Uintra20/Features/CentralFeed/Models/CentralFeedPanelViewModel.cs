@@ -18,5 +18,6 @@ namespace Uintra20.Features.CentralFeed.Models
 		public string Url { get; set; }
         public NodeType NodeType { get; set; }
         public int ItemsPerRequest { get; set; }
+        public Guid? GroupId { get; set; }
     }
 }
