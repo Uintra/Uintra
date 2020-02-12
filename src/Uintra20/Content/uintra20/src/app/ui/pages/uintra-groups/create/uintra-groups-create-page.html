@@ -8,7 +8,7 @@
         <text-input
           type="text"
           aria-label="Title"
-          [maxLength]="200"
+          [maxLength]="TITLE_MAX_LENGTH"
           class="groups-create__title-input"
           [ngClass]="{'invalid': isShowValidation && !title || isShowValidation && title.length > 200}"
           [(ngModel)]="title"
@@ -42,8 +42,8 @@
         <li *ngIf="!title" class="validation-errors__title">
           A title is required
         </li>
-        <li *ngIf="title.length > 200" class="validation-errors__title">
-          A title shouldn't have more than 200 chars
+        <li *ngIf="title.length > TITLE_MAX_LENGTH" class="validation-errors__title">
+          A title shouldn't have more than {{TITLE_MAX_LENGTH}} chars
         </li>
         <li *ngIf="!description" class="validation-errors__description">
           A description is required

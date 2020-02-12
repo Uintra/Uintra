@@ -1,7 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
+import { GroupsService } from 'src/app/ui/main-layout/left-navigation/components/groups/groups.service';
+import { MAX_FILES_FOR_SINGLE } from 'src/app/constants/dropzone/drop-zone.const';
+import { TITLE_MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const'
 
 @Component({
   selector: 'uintra-groups-create-page',
@@ -16,20 +18,17 @@ export class UintraGroupsCreatePage {
   files: any[] = [];
   isShowValidation: boolean = false;
   inProgress: boolean = false;
+  TITLE_MAX_LENGTH: number = TITLE_MAX_LENGTH;
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
+    private groupsService: GroupsService
   ) {
     this.route.data.subscribe(data => this.data = data);
   }
 
   get isSubmitDisabled() {
     return this.inProgress;
-  }
-
-  ngOnInit() {
-
   }
 
   onUploadSuccess(fileArray: Array<any> = []): void {
@@ -51,14 +50,14 @@ export class UintraGroupsCreatePage {
         media: null
       }
 
-      this.http.post('/ubaseline/api/Group/Create', groupCreateModel).pipe(
+    this.groupsService.createGroup(groupCreateModel).pipe(
         finalize(() => this.inProgress = false)
       ).subscribe(res => {});
     }
   }
 
-  validate() {
-    if (this.title && this.description && this.files.length < 2) {
+  validate(): boolean {
+    if (this.title && this.description && this.files.length <= MAX_FILES_FOR_SINGLE) {
       return true;
     }
 

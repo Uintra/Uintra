@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation, HostBinding, Input, Output, EventEmitter, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, HostBinding, Input, Output, EventEmitter } from '@angular/core';
+import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.const';
 
 export interface IDropzoneConfig {
   maxFiles?: number;
@@ -24,9 +25,7 @@ export class DropzoneWrapperComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (this.maxFiles) {
-      this.config.maxFiles = this.maxFiles;
-    }
+    this.config.maxFiles = this.maxFiles || DEFAULT_DROPZONE_CONFIG.maxFiles;
     this.className = 'dropzone-wrapper';
     this.message = `<span class='custom-message icon-upload'>${this.customMessage ? this.customMessage : 'Insert image'}</span>`;
   }
