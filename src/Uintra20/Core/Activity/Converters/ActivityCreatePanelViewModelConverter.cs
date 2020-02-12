@@ -2,12 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Helpers;
-using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.News;
@@ -20,7 +18,6 @@ using Uintra20.Features.Social.Entities;
 using Uintra20.Features.Tagging.UserTags.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
-using Uintra20.Infrastructure.TypeProviders;
 
 namespace Uintra20.Core.Activity.Converters
 {
@@ -29,9 +26,7 @@ namespace Uintra20.Core.Activity.Converters
         private readonly ISocialService<Social> _socialService;
         private readonly INewsService<News> _newsService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
-        private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly IPermissionsService _permissionsService;
-        private readonly IUserTagService _tagsService;
         private readonly IUserTagProvider _tagProvider;
         private readonly IMemberServiceHelper _memberHelper;
         private readonly IFeedLinkService _feedLinkService;
@@ -40,18 +35,14 @@ namespace Uintra20.Core.Activity.Converters
             INewsService<News> newsService,
             ISocialService<Social> socialService, 
             IIntranetMemberService<IntranetMember> memberService, 
-            IActivityTypeProvider activityTypeProvider,
             IPermissionsService permissionsService,
-            IUserTagService tagsService,
             IUserTagProvider tagProvider,
             IMemberServiceHelper memberHelper, 
             IFeedLinkService feedLinkService)
         {
             _socialService = socialService;
             _memberService = memberService;
-            _activityTypeProvider = activityTypeProvider;
             _permissionsService = permissionsService;
-            _tagsService = tagsService;
             _tagProvider = tagProvider;
             _newsService = newsService;
             _memberHelper = memberHelper;
@@ -87,8 +78,8 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.Creator = _memberHelper.ToViewModel(currentMember);
             viewModel.ActivityType = IntranetActivityTypeEnum.News;
             viewModel.Links = null;//TODO: Research links
-            viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready
             viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.CanPin);
+            viewModel.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
 
             viewModel.CanEditOwner = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.EditOwner);
 
@@ -98,7 +89,6 @@ namespace Uintra20.Core.Activity.Converters
 
         private void ConvertToSocials(ActivityCreatePanelViewModel viewModel)
         {
-            var cookies = HttpContext.Current.Request.Cookies;
             var currentMember = _memberService.GetCurrentMember();
             var mediaSettings = _socialService.GetMediaSettings();
 
@@ -107,11 +97,10 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable();
             viewModel.Creator = _memberHelper.ToViewModel(currentMember);
             viewModel.Links = null;//TODO: Research links
-            viewModel.AllowedMediaExtensions = null;//mediaSettings.AllowedMediaExtensions; //TODO: uncomment when media settings service is ready
-            viewModel.MediaRootId = null;//mediaSettings.MediaRootId; //TODO: uncomment when media settings service is ready
-            viewModel.CanCreateBulletin = true; /*_permissionsService.Check(
-                PermissionResourceTypeEnum.Bulletins,
-                PermissionActionEnum.Create);*/ //TODO: uncomment when permissons service is ready
+            viewModel.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
+            viewModel.CanCreateBulletin = true; _permissionsService.Check(
+                PermissionResourceTypeEnum.Social,
+                PermissionActionEnum.Create);
         }
 
         private IEnumerable<IntranetMember> GetUsersWithAccess(PermissionSettingIdentity permissionSettingIdentity) =>
