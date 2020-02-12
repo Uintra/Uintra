@@ -58,7 +58,7 @@
 </ng-template>
 
 <ng-template #comments>
-  <div (clickOutside)="closeEmojiPalette()">
+  <div *ngIf="isEmoji" (clickOutside)="closeEmojiPalette()">
     <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'"></button>
     <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
   </div>
@@ -75,7 +75,7 @@
   <ng-container *ngTemplateOutlet="default"></ng-container>
   <button type="button" class="ql-list" value="ordered"></button>
   <button type="button" class="ql-list" value="bullet"></button>
-  <div (clickOutside)="closeEmojiPalette()">
+  <div *ngIf="isEmoji" (clickOutside)="closeEmojiPalette()">
     <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'"></button>
     <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
   </div>
