@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using UBaseline.Core.Navigation;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Features.Navigation.Models.MyLinks;
-using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Navigation.AutoMapperProfiles
 {

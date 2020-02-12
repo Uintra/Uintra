@@ -14,7 +14,7 @@ using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
-using Uintra20.Features.Media.Strategies.ImageResize;
+using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.News.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
@@ -80,7 +80,7 @@ namespace Uintra20.Features.News.Converters
 
             details.Media = MediaHelper.GetMediaUrls(news.MediaIds);
 
-            details.LightboxPreviewModel = _lightBoxHelper.GetGalleryPreviewModel(news.MediaIds, RenderStrategies.ForActivityDetails);
+            details.LightboxPreviewModel = _lightBoxHelper.GetGalleryPreviewModel(news.MediaIds, PresetStrategies.ForActivityDetails);
             details.CanEdit = _newsService.CanEdit(news);
             details.Links = _feedLinkService.GetLinks(activityId);
             details.IsReadOnly = false;

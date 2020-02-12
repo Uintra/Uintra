@@ -26,6 +26,7 @@ export const pages = [
     path: "__dynamic__",
     loadChildren:
       "./ui/pages/social/edit/social-edit-page.module#SocialEditPageModule",
+    cache: false
   },
   {
     id: "profilePage",
@@ -37,12 +38,14 @@ export const pages = [
     path: "__dynamic__",
     loadChildren:
       "./ui/pages/profile-edit/profile-edit-page.module#ProfileEditPageModule",
+    cache: false
   },
   {
     id: "uintraNewsEditPage",
     path: "__dynamic__",
     loadChildren:
       "./ui/pages/news/uintra-news-edit/uintra-news-edit-page.module#UintraNewsEditPageModule",
+    cache: false
   },
   {
     id: "uintraNewsDetailsPage",

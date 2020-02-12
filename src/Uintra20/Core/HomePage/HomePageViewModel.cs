@@ -5,6 +5,7 @@ namespace Uintra20.Core.HomePage
 {
     public class HomePageViewModel : INodeViewModel
     {
+        public int Id { get; set; }
         public string ContentTypeAlias { get; set; }
         public string Name { get; set; }
         public bool AddToSitemap { get; set; }

@@ -116,11 +116,11 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
     this.selectTabFilters.forEach(filter => {
       FilterState[filter.key] = filter.isActive;
     });
-
     const data = {
       TypeId: this.selectedTabType,
       FilterState,
-      Page: this.currentPage
+      Page: this.currentPage,
+      groupId: this.data.groupId.data.value
     };
 
     this.isFeedLoading = true;

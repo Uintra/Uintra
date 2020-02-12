@@ -4,7 +4,7 @@ using System.Web;
 using UBaseline.Core.Localization;
 using UBaseline.Core.Node;
 using Uintra20.Core.Controls.LightboxGallery;
-using Uintra20.Features.Media.Strategies.ImageResize;
+using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.Social.Edit.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
@@ -53,7 +53,7 @@ namespace Uintra20.Features.Social.Edit.Converters
             viewModel.Description = social.Description;
             viewModel.Name = _localizationModelService["Social.Edit"];
             viewModel.Tags = _userTagService.Get(parsedId);
-            viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, RenderStrategies.ForActivityDetails);
+            viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, PresetStrategies.ForActivityDetails);
             viewModel.AvailableTags = _userTagProvider.GetAll();
             viewModel.MediaRootId = _mediaService.GetRootMedia()
                 .First(m => m.ContentType.Alias == "Folder" && m.Name == "Members Content").Id;

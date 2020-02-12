@@ -25,7 +25,7 @@
         ></app-detailas-header>
 
         <div class="feed-item__title" [innerHtml]="detailsTitle"></div>
-        <div class="feed-item__text" [innerHtml]="detailsDescription"></div>
+        <div class="feed-item__text rte" [innerHtml]="detailsDescription"></div>
         <div class="feed-item-tags" *ngIf="tags.length !== 0">
           <span class="feed-item-tags__text">This activity is tagged</span>
           <!-- TODO: get from details.links -->

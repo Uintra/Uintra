@@ -1,7 +1,14 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  ViewEncapsulation
+} from "@angular/core";
 import * as moment from "moment";
 import { IDatePickerOptions } from "src/app/feature/shared/interfaces/DatePickerOptions";
-import { IDatepickerData } from './datepiker-from-to.interface';
+import { IDatepickerData } from "./datepiker-from-to.interface";
 
 @Component({
   selector: "app-datepicker-from-to",
@@ -18,37 +25,75 @@ export class DatepickerFromToComponent implements OnInit {
   optFrom: IDatePickerOptions = {
     // Set if it is create news
     // minDate: moment(),
-    showClear: true
+    useCurrent: false,
+    showClose: true
   };
   optTo: IDatePickerOptions = {
-    showClear: true
+    showClear: true,
+    useCurrent: false,
+    showClose: true
   };
+
+  minDate: any;
 
   constructor() {}
 
   ngOnInit(): void {
+    this.fromDate =
+      this.initialValues && this.initialValues.from
+        ? moment(this.initialValues.from)
+        : moment();
 
-    if (this.initialValues) {
-      this.fromDate = this.initialValues.from ? moment(this.initialValues.from) : moment();
-      this.toDate = this.initialValues.to ? moment(this.initialValues.to) : null;
-    } else {
-      this.fromDate = moment();
-    }
+    this.toDate =
+      this.initialValues && this.initialValues.to
+        ? moment(this.initialValues.to)
+        : null;
+
+    this.minDate =
+      this.initialValues && this.initialValues.from
+        ? moment(this.initialValues.from)
+        : moment();
+
+    this.setOptionsInitialValues();
+  }
+
+  setOptionsInitialValues() {
+    this.optFrom = {
+      ...this.optFrom,
+      minDate: this.minDate.subtract(5, "minutes")
+    };
+    this.optTo = {
+      ...this.optTo,
+      minDate: this.minDate.subtract(5, "minutes")
+    };
   }
 
   fromDateChange() {
-    this.optTo = {
-      ...this.optTo,
-      minDate: this.fromDate
-    };
+    this.optTo =
+      this.toDate && !this.fromDate
+        ? {
+            ...this.optTo,
+            minDate: false
+          }
+        : {
+            ...this.optTo,
+            minDate: this.fromDate.subtract(5, "minutes")
+          };
+
     this.handleChange.emit(this.buildDateObject());
   }
 
   toDateChange() {
-    this.optFrom = {
-      ...this.optFrom,
-      maxDate: this.toDate
-    };
+    this.optFrom = this.toDate
+      ? {
+          ...this.optFrom,
+          maxDate: this.toDate.add(5, "minutes")
+        }
+      : {
+          ...this.optFrom,
+          maxDate: false
+        };
+
     this.handleChange.emit(this.buildDateObject());
   }
 
@@ -58,6 +103,4 @@ export class DatepickerFromToComponent implements OnInit {
       to: this.toDate ? this.toDate.format() : null
     };
   }
-
-  resetDate() {}
 }

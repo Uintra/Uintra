@@ -6,18 +6,21 @@
         set: function (key, value) { this[key] = value; }
     }
 
-    const controller = function ($scope, editorService, mediaResource, notificationsService) {
+    const controller = function ($scope, editorService, mediaResource, notificationsService, $filter) {
         const self = this;
         const defaultMedia = { src: "" };
 
         self.getAllImages = function () {
             if (angular.isArray($scope.model.value.image)) {
+                sortCrops($scope.model.value.image);
                 return $scope.model.value.image;
             } else {
                 var result = $scope.model.value.image === null ? [] : [$scope.model.value.image];
                 if (!$scope.model.value.image) {
                     $scope.model.value = null;
                 }
+                result.forEach(function (index, item) { sortCrops(item); });
+
                 return result;
             }
         }
@@ -101,6 +104,14 @@
             });
         }
 
+        function sortCrops(image) {
+            if (image && image.crops) {
+                image.crops = $filter('orderBy')(image.crops, function (i) {
+                    return i.width * i.height;
+                }, true);
+            }
+        }
+
         function getAlt(media) {
             if (!media || !media.tabs)
                 return '';
@@ -149,6 +160,8 @@
             if (extention !== 'svg' && $scope.config.imageExtentions.indexOf(extention) > -1) {
                 newModel.crops = angular.copy($scope.config.crops);
                 newModel.focalPoint = angular.copy($scope.config.focalPoint);
+
+                sortCrops(newModel);
             }
 
             if ($scope.config.multiMode) {
@@ -249,20 +262,33 @@
 
             // Important $scope.model.value may has a video property.
             // Don't make $scope.model.value as null the space of this controller has to be $scope.model.value.image
-            if (angular.isString($scope.model.value) || $scope.model.value === null || $scope.model.value.image === null)
+            if (angular.isString($scope.model.value) || $scope.model.value === null || ($scope.model.value && $scope.model.value.image === null))
                 return $scope.model.value = { image: null };
 
-            if (angular.isArray($scope.model.value.image))
-                $scope.model.value.image.forEach(item => fillMediaContentCache(item.mediaId));
+            if ($scope.model.value && $scope.model.value.image) {
+                if (angular.isArray($scope.model.value.image))
+                    $scope.model.value.image.forEach(item => fillMediaContentCache(item.mediaId));
+                else
+                    fillMediaContentCache($scope.model.value.image.mediaId);
+            }
 
-            // Here image is defined and isn't an array.
-            fillMediaContentCache($scope.model.value.image.mediaId);
+            if ($scope.model.value && $scope.model.value.image) {
+                if (angular.isArray($scope.model.value.image)) {
+                    $scope.model.value.image.forEach(function (item) {
+                        if (item.crops && item.crops.length > 0)
+                            updateCropSettings(item);
+                    });
+                } else {
+                    if ($scope.model.value.image.crops && $scope.model.value.image.crops.length > 0)
+                        updateCropSettings($scope.model.value.image);
+                }
+            }
         }
 
         init();
     }
 
-    controller.$inject = ["$scope", "editorService", "mediaResource", "notificationsService"];
+    controller.$inject = ["$scope", "editorService", "mediaResource", "notificationsService", "$filter"];
 
     angular.module("umbraco").controller("imagePickerExtendedController", controller);
     angular.module("umbraco").directive("ublImagePicker", () => {

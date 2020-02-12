@@ -1,10 +1,15 @@
 ﻿<div ng-controller="UBaseline.ContentPreviewController as vm">
-    <div>
-        Width:<input type="number" ng-model="vm.width">
-        Height:<input type="number" ng-model="vm.height">
-        <input type="button" ng-click="vm.refresh()" value="Refresh"/>
+    <div ng-hide="vm.showPreview">
+        <h2>Preview is not available. Please save or publish current node before see the preview</h2>
     </div>
-    <div>
-        <iframe class="js-preview-frame" src="{{vm.previewUrl}}" style="width:{{vm.width}}px;height:{{vm.height}}px;border:none;overflow:hidden;"></iframe>
+    <div ng-show="vm.showPreview">
+        <div>
+            Width:<input type="number" ng-model="vm.width">
+            Height:<input type="number" ng-model="vm.height">
+            <input type="button" ng-click="vm.refresh()" value="Refresh" />
+        </div>
+        <div>
+            <iframe class="js-preview-frame" src="{{vm.previewUrl}}" style="width:{{vm.width}}px;height:{{vm.height}}px;border:none;overflow:hidden;"></iframe>
+        </div>
     </div>
 </div>
