@@ -1,10 +1,8 @@
 ﻿using System.Linq;
 using AutoMapper;
 using Compent.Extensions;
-using EmailWorker.Data.Infrastructure;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Sql;
-using Uintra20.Features.Navigation.Models;
 
 namespace Uintra20.Features.Groups.AutoMapperProfiles
 {
@@ -56,6 +54,7 @@ namespace Uintra20.Features.Groups.AutoMapperProfiles
 
             CreateMap<GroupModel, GroupInfoViewModel>()
                 .ForMember(d => d.MediaPreview, o => o.Ignore())
+                .ForMember(d => d.CanHide, o => o.Ignore())
                 .ForMember(d => d.Media, o => o.MapFrom(s => s.ImageId.HasValue ? s.ImageId.ToString().ToEnumerable() : Enumerable.Empty<string>()));
 
             CreateMap<GroupModel, GroupViewModel>()

@@ -12,5 +12,7 @@ namespace Uintra20.Features.Groups.Models
         public string Description { get; set; }
         public IEnumerable<string> Media { get; set; } = Enumerable.Empty<string>();
         public LightboxPreviewModel MediaPreview { get; set; }
+        public bool CanHide { get; set; }
+        public bool IsHidden { get; set; }
     }
 }

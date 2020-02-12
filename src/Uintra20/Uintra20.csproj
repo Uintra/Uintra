@@ -980,10 +980,13 @@
     <Compile Include="Core\UbaselineModels\IGenericPropertiesComposition.cs" />
     <Compile Include="Core\UbaselineModels\ImageModel.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsCreatePageViewModelConverter.cs" />
+    <Compile Include="Features\Groups\Converters\UintraGroupsDocumentsPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsEditPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Models\GroupDocumentViewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupNavigationCompositionModel.cs" />
     <Compile Include="Features\Groups\Models\GroupNavigationCompositionViewModel.cs" />
+    <Compile Include="Features\Groups\Models\UintraGroupsDocumentsPageModel.cs" />
+    <Compile Include="Features\Groups\Models\UintraGroupsDocumentsPageViewModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsEditPageModel.cs" />
     <Compile Include="Features\Groups\Models\IGroupNavigationComposition.cs" />
     <Compile Include="Features\Groups\CommandBus\Commands\GroupCommand.cs" />
