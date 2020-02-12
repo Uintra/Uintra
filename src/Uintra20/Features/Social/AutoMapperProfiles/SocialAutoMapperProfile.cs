@@ -26,7 +26,6 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
             CreateMap<SocialBase, SocialEditModel>()
               .ForMember(dst => dst.Links, o => o.Ignore())
               .ForMember(dst => dst.ActivityType, o => o.Ignore())
-              .ForMember(dst => dst.MediaRootId, o => o.Ignore())
               .ForMember(dst => dst.NewMedia, o => o.Ignore())
               .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.Select(m=>m.ToString()).JoinWith(",")))
               .ForMember(dst => dst.CanDelete, o => o.Ignore());

@@ -95,10 +95,10 @@ namespace Uintra20.Infrastructure.Extensions
             return $"{url.TrimEnd('/')}?{queryCollection}";
         }
 
-        //public static int? ToNullableInt(this string src) =>
-        //    int.TryParse(src, out var result)
-        //    ? result
-        //    : new int?();
+        public static int? ToNullableInt(this string src) =>
+            int.TryParse(src, out var result)
+            ? result
+            : new int?();
 
         public static string AddGroupId(this string url, Guid groupId) =>
             url.AddParameter(GroupIdQueryParam, groupId);

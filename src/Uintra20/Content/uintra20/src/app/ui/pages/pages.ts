@@ -52,5 +52,12 @@ export const pages = [
     path: "__dynamic__",
     loadChildren:
       "./ui/pages/news/uintra-news-details/uintra-news-details-page.module#UintraNewsDetailsPageModule",
-  }
+  },
+  {
+    id: 'uintraGroupsCreatePage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/uintra-groups/create/uintra-groups-create-page.module#UintraGroupsCreatePageModule'
+  },
 ];
+
+

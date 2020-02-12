@@ -1,11 +1,10 @@
 ﻿using System;
 using Uintra20.Core.User.Models;
-using Uintra20.Features.Groups;
 using Uintra20.Features.Permissions.Models;
 
 namespace Uintra20.Core.Member.Abstractions
 {
-    public interface IIntranetMember: IGroupMember
+    public interface IIntranetMember
 	{
         Guid Id { get; set; }
         string DisplayedName { get; }

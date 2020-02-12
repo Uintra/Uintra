@@ -69,6 +69,7 @@ namespace Uintra20.Features.News.Converters
             if (viewModel.CanEditOwner)
                 viewModel.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(PermissionActionEnum.Create, IntranetActivityTypeEnum.News));
 
+            viewModel.AllowedMediaExtensions = _newsService.GetMediaSettings().AllowedMediaExtensions;
         }
 
         //TODO Refactor this code. Method is duplicated in ActivityCreatePanelConverter

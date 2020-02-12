@@ -1,0 +1,12 @@
+<div class="umb-editor umb-radiobuttons" ng-controller="EnumList">
+    <ul class="unstyled">
+        <li ng-repeat="(key, val) in enumItems">
+            <label class="radio">
+                <input type="radio" name="checkboxlist"
+                       value="{{key}}"
+                       ng-model="model.value" />
+                {{val}}
+            </label>
+        </li>
+    </ul>
+</div>

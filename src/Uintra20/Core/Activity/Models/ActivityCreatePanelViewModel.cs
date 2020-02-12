@@ -19,7 +19,6 @@ namespace Uintra20.Core.Activity.Models
         public MemberViewModel Creator { get; set; }
         public IActivityCreateLinks Links { get; set; }
         public string AllowedMediaExtensions { get; set; }
-        public int? MediaRootId { get; set; }
         public bool CanCreateBulletin { get; set; }
         public TagsPickerViewModel Tags { get; set; }
         public DateTime PublishDate { get; set; }
