@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Uintra20.Features.Groups.Models;
+using Uintra20.Features.Groups.Sql;
 
 namespace Uintra20.Features.Groups.AutoMapperProfiles
 {
@@ -6,9 +8,9 @@ namespace Uintra20.Features.Groups.AutoMapperProfiles
     {
         public GroupsAutoMapperProfile()
         {
-
-            //Mapper.CreateMap<Group, GroupModel>();
-            //Mapper.CreateMap<GroupModel, Group>();
+            
+            CreateMap<Group, GroupModel>().ReverseMap();
+            
 
             //Mapper.CreateMap<GroupModel, BackofficeGroupViewModel>()
             //    .ForMember(d => d.CreateDate, o => o.MapFrom(s => s.CreatedDate))
