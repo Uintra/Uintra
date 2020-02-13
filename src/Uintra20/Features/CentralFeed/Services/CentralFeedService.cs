@@ -26,14 +26,15 @@ namespace Uintra20.Features.CentralFeed.Services
             var service = _feedItemServices.SingleOrDefault(s => s.Type.ToInt() == type.ToInt());
 
             return service == null
-                   ? Enumerable.Empty<IFeedItem>() 
-                   : service.GetItems().Where(IsCentralFeedActivity);
+                ? Enumerable.Empty<IFeedItem>()
+                : service.GetItems(); //.Where(IsCentralFeedActivity);
         }
 
         public IEnumerable<IFeedItem> GetFeed()
         {
             var items = _feedItemServices.SelectMany(service => service.GetItems());
-            return items.Where(IsCentralFeedActivity);
+            //return items.Where(IsCentralFeedActivity);
+            return items;
         }
 
         private bool IsCentralFeedActivity(IFeedItem item) =>

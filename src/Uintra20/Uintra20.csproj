@@ -966,6 +966,8 @@
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
     <Compile Include="Controllers\EnumController.cs" />
+    <Compile Include="Core\Activity\FeedActivityHelper.cs" />
+    <Compile Include="Core\Activity\IFeedActivityHelper.cs" />
     <Compile Include="Core\UbaselineModels\FileModel.cs" />
     <Compile Include="Core\UbaselineModels\FolderModel.cs" />
     <Compile Include="Core\UbaselineModels\GenericPropertiesCompositionModel.cs" />
@@ -976,6 +978,7 @@
     <Compile Include="Features\Groups\Converters\UintraGroupsCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsDocumentsPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsEditPageViewModelConverter.cs" />
+    <Compile Include="Features\Groups\Models\GroupFeedPreviewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupLinksModel.cs" />
     <Compile Include="Features\Groups\Models\GroupDocumentViewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupNavigationCompositionModel.cs" />
