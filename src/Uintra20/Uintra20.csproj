@@ -978,6 +978,8 @@
     <Compile Include="Features\Groups\Converters\UintraGroupsCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsDocumentsPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsEditPageViewModelConverter.cs" />
+    <Compile Include="Features\Groups\Converters\UintraGroupsMembersPageViewModelConverter.cs" />
+    <Compile Include="Features\Groups\Converters\UintraGroupsRoomPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Models\GroupFeedPreviewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupLinksModel.cs" />
     <Compile Include="Features\Groups\Models\GroupDocumentViewModel.cs" />
@@ -1007,8 +1009,12 @@
     <Compile Include="Features\Groups\Models\UintraGroupsCreatePageModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsCreatePageViewModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsEditPageViewModel.cs" />
+    <Compile Include="Features\Groups\Models\UintraGroupsMembersPageModel.cs" />
+    <Compile Include="Features\Groups\Models\UintraGroupsMembersPageViewModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsPageModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsPageViewModel.cs" />
+    <Compile Include="Features\Groups\Models\UintraGroupsRoomPageModel.cs" />
+    <Compile Include="Features\Groups\Models\UintraGroupsRoomPageViewModel.cs" />
     <Compile Include="Features\Groups\Services\GroupDocumentsService.cs" />
     <Compile Include="Features\Groups\Services\GroupMediaService.cs" />
     <Compile Include="Features\Groups\Services\GroupMemberService.cs" />
