@@ -43,9 +43,6 @@ namespace Uintra20.Core.Member.Profile.Edit.Converters
             viewModel.Tags = _userTagService.Get(member.Id);
             viewModel.AvailableTags = _userTagProvider.GetAll();
             viewModel.Profile.MemberNotifierSettings = _memberNotifiersSettingsService.GetForMember(member.Id);
-
-            viewModel.Profile.MediaRootId = _mediaService.GetRootMedia()
-                .First(m => m.ContentType.Alias == "Folder" && m.Name == "Members Content")?.Id;
         }
     }
 }

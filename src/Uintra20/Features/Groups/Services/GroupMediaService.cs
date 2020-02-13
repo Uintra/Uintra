@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UBaseline.Shared.Media;
 using Uintra20.Core.Controls.FileUpload;
 using Uintra20.Features.Media;
 using Umbraco.Core.Models;
@@ -39,7 +40,7 @@ namespace Uintra20.Features.Groups.Services
             _mediaService.Save(groupFolder);
         }
 
-        public IMedia CreateGroupMedia(string name, byte[] file, Guid groupId)
+        public IMediaModel CreateGroupMedia(string name, byte[] file, Guid groupId)
         {
             var groupFolder = GetOrCreateGroupMediaFolder(groupId);
 
@@ -52,7 +53,7 @@ namespace Uintra20.Features.Groups.Services
             return media;
         }
 
-        public async Task<IMedia> CreateGroupMediaAsync(string name, byte[] file, Guid groupId)
+        public async Task<IMediaModel> CreateGroupMediaAsync(string name, byte[] file, Guid groupId)
         {
             var groupFolder = await GetOrCreateGroupMediaFolderAsync(groupId);
 

@@ -10,7 +10,6 @@
     [avatar]="publication.activity.owner.photo"
     [title]="publication.activity.owner.displayedName"
     [originalUrl]="publication.activity.links?.owner.originalUrl"
-    [params]="publication.activity.links?.owner.params"
     class="publication__header"
   >
     <div subtitle>
@@ -47,7 +46,7 @@
   <div class="publication__content">
     <a
       class="publication__clickable-aria"
-      [routerLink]="publication.activity.links?.details.originalUrl | ulink"
+      [routerLink]="publication.activity.links?.details?.originalUrl | ulink"
     >
       <p *ngIf="publication.activity?.title" class="publication__title">
         {{ publication.activity.title }}

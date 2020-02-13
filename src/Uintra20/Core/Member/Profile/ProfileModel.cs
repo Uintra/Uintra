@@ -16,7 +16,6 @@ namespace Uintra20.Core.Member.Profile
         public int? PhotoId { get; set; }
         public string Email { get; set; }
         public string ProfileUrl { get; set; }
-        public int? MediaRootId { get; set; }
         public string NewMedia { get; set; }
         public IEnumerable<Guid> TagIdsData { get; set; } = Enumerable.Empty<Guid>();
     }
