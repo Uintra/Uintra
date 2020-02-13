@@ -981,6 +981,7 @@
     <Compile Include="Features\Groups\Converters\UintraGroupsMembersPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsRoomPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Models\GroupFeedPreviewModel.cs" />
+    <Compile Include="Features\Groups\Models\GroupHeaderViewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupLinksModel.cs" />
     <Compile Include="Features\Groups\Models\GroupDocumentViewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupNavigationCompositionModel.cs" />

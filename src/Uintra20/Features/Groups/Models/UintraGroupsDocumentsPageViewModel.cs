@@ -1,4 +1,5 @@
-﻿using UBaseline.Shared.Node;
+﻿using System;
+using UBaseline.Shared.Node;
 using UBaseline.Shared.PageSettings;
 using UBaseline.Shared.Property;
 
@@ -10,6 +11,6 @@ namespace Uintra20.Features.Groups.Models
         public PageSettingsCompositionViewModel PageSettings { get; set; }
         public GroupNavigationCompositionViewModel GroupNavigation { get; set; }
         public string AllowedMediaExtensions { get; set; }
-        public GroupLinksModel Links { get; set; }
+        public Guid? GroupId { get; set; }
     }
 }

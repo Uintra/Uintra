@@ -147,6 +147,21 @@ namespace Uintra20.Features.Groups.Controllers
             return groups;
         }
 
+        [HttpGet]
+        public GroupHeaderViewModel Header(Guid groupId)
+        {
+            var group = _groupService.Get(groupId);
+            var canEdit = _groupService.CanEdit(group);
+
+            var links = _groupLinkProvider.GetGroupLinks(groupId, canEdit);
+
+            return new GroupHeaderViewModel
+            {
+                Title = group.Title,
+                GroupLinks = links
+            };
+        }
+
         [HttpPost]
         public virtual IHttpActionResult Hide(Guid id)
         {
