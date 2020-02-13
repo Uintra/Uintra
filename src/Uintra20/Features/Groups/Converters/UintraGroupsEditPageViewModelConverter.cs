@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Controls.LightboxGallery;
+using Uintra20.Features.Groups.Links;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Media;
@@ -15,12 +16,14 @@ namespace Uintra20.Features.Groups.Converters
         private readonly IGroupService _groupService;
         private readonly ILightboxHelper _lightboxHelper;
         private readonly IMediaHelper _mediaHelper;
+        private readonly IGroupLinkProvider _groupLinkProvider;
 
-        public UintraGroupsEditPageViewModelConverter(IGroupService groupService, ILightboxHelper lightboxHelper, IMediaHelper mediaHelper)
+        public UintraGroupsEditPageViewModelConverter(IGroupService groupService, ILightboxHelper lightboxHelper, IMediaHelper mediaHelper, IGroupLinkProvider groupLinkProvider)
         {
             _lightboxHelper = lightboxHelper;
             _groupService = groupService;
             _mediaHelper = mediaHelper;
+            _groupLinkProvider = groupLinkProvider;
         }
 
         public void Map(UintraGroupsEditPageModel node, UintraGroupsEditPageViewModel viewModel)
@@ -35,6 +38,10 @@ namespace Uintra20.Features.Groups.Converters
                 return;
 
             viewModel.Info = GetInfo(id);
+
+            var canEdit = _groupService.CanEdit(id);
+
+            viewModel.Links = _groupLinkProvider.GetGroupLinks(id, canEdit);
         }
 
         public GroupInfoViewModel GetInfo(Guid groupId)

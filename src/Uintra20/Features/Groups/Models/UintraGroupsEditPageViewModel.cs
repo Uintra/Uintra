@@ -11,5 +11,6 @@ namespace Uintra20.Features.Groups.Models
         public GroupNavigationCompositionViewModel GroupNavigation { get; set; }
         public GroupInfoViewModel Info { get; set; }
         public string AllowedMediaExtensions { get; set; }
+        public GroupLinksModel Links { get; set; }
     }
 }
