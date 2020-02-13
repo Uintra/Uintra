@@ -5,5 +5,8 @@ export interface IUlinkWithTitle {
 export interface IULink {
   originalUrl: string;
   baseUrl: string;
-  params: Array<object>;
+  params: Array<{
+    name: string;
+    value: string;
+  }>;
 }
