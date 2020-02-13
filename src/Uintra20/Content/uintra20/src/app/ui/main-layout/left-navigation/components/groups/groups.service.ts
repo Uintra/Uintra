@@ -9,11 +9,12 @@ export interface IGroupsData {
   groupPageItem: IUlinkWithTitle;
   items: IUlinkWithTitle[];
 }
-export interface ICreateGroupModel {
+export interface IGroupModel {
   title: string;
   description: string;
   newMedia: string;
-  media: string | null;
+  media: string[] | null;
+  id?: string;
 }
 export interface ICreateGroupResponse {
   id: string;
@@ -39,8 +40,16 @@ export class GroupsService {
     return this.http.get<IGroupsData>(groupsApi + `/LeftNavigation`);
   }
 
-  createGroup(groupCreateModel: ICreateGroupModel): Observable<ICreateGroupResponse> {
+  createGroup(groupCreateModel: IGroupModel): Observable<ICreateGroupResponse> {
     return this.http.post<ICreateGroupResponse>(groupsApi + '/Create', groupCreateModel)
+  }
+
+  editGroup(groupEditModel: IGroupModel): Observable<ICreateGroupResponse> {
+    return this.http.post<ICreateGroupResponse>(groupsApi + '/Edit', groupEditModel)
+  }
+
+  hideGroup(id: string) {
+    return this.http.post<any>(groupsApi + `/Hide?groupId=${id}`, {});
   }
 
   setOpenState(openState: boolean = false): void {

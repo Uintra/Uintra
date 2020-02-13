@@ -15,6 +15,7 @@ export class DropzoneWrapperComponent implements OnInit {
   @Input() customMessage: string;
   @Input() filesLength: number;
   @Input() maxFiles: number;
+  @Input() disabled: boolean = false;
   @Output() success = new EventEmitter();
   @Output() removedFile = new EventEmitter();
   @HostBinding('class') className: string;
