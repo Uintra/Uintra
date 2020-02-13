@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, NgZone, ChangeDetectorRef, OnDestroy } from "@angular/core";
 import {
   NavNotificationsService,
   INotificationsData,
@@ -15,7 +15,7 @@ declare let $: any;
   templateUrl: "./nav-notifications.component.html",
   styleUrls: ["./nav-notifications.component.less"]
 })
-export class NavNotificationsComponent implements OnInit {
+export class NavNotificationsComponent implements OnInit, OnDestroy {
   notifications: INotificationsData[];
   notificationCount: number;
   notificationPageUrl: string;
@@ -37,14 +37,22 @@ export class NavNotificationsComponent implements OnInit {
       .subscribe((response: number) => {
         this.notificationCount = response;
       });
-
-    this.signalrService.createHub(this.getNewNotification.bind(this));
+    
+    this.signalrService.startHub();
+    this.signalrService.getUpdateNotificationsSubjects().subscribe(notifications => {      
+      this.getNewNotification(notifications)
+    })
 
     if ("Notification" in window) {
       Notification.requestPermission(status => {
         return (this.permission = status);
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    //debugger;
+    //this.signalrService.hubConnectionStop();
   }
 
   getNewNotification(notifications = []) {

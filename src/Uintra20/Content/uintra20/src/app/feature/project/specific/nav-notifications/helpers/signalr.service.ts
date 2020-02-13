@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 declare var $: any;
 
@@ -6,38 +7,57 @@ declare var $: any;
   providedIn: 'root'
 })
 export class SignalrService {
-  private notificationsHub;
-  private callbackFunction;
+  private uintraHub;  
 
   constructor() { }
 
-  public createHub(callback) {
-    this.callbackFunction = callback;
-
-    this.notificationsHub = $.connection.notificationsHub;
-    this.notificationsHub.client.updateNotifications = this.callbackFunction.bind(this);
+  public startHub() {    
+    this.uintraHub = $.connection.uintraHub;
+    this.uintraHub.notificationSubject = new Subject<any>();
+    this.uintraHub.centralFeedSubject = new Subject<any>();
+    this.uintraHub.client.updateNotifications = this.broadcastUpdateNotifications;    
+    this.uintraHub.client.reloadFeed = this.broadcastReloadFeed;
 
     $.connection.hub.disconnected(() => {
-      if ($.connection.hub.lastError) { console.log('Disconnected. Reason: ' + $.connection.hub.lastError.message); }
+      if ($.connection.hub.lastError) { console.log('UintraHub connection: disconnected.reason: ' + $.connection.hub.lastError.message); }
     });
     $.connection.hub.reconnected(() => {
-      this.hubConnectionStart();
+      this.hubConnectionStart("reconnected");
     });
 
-    this.hubConnectionStart();
+    this.hubConnectionStart("started");
+  }  
+
+  private hubConnectionStart(logmessage: string) {    
+    if ($.connection.hub.state === $.signalR.connectionState.disconnected) {
+      $.connection.hub
+        .start()
+        .done(r => {
+          console.log("UintraHub connection:" + logmessage);          
+        })
+        .catch(r => console.log(r));
+    }   
   }
 
-  private setNotNotifiedCount() {
-
-    this.notificationsHub.server.getNotNotifiedCount()
-      .then((data) => {
-      });
+  public getUpdateNotificationsSubjects(): Observable<any> {
+    return this.uintraHub.notificationSubject.asObservable();
   }
 
-  private hubConnectionStart() {
-    $.connection.hub
-      .start()
-      .done(r => this.setNotNotifiedCount())
-      .catch(r => console.log(r));
+  public getReloadFeedSubjects(): Observable<any> {
+    return this.uintraHub.centralFeedSubject.asObservable();
+  }
+
+  private broadcastUpdateNotifications(notifications = []) {    
+    this.notificationSubject.next(notifications);
+  }
+
+  private broadcastReloadFeed() {    
+    this.centralFeedSubject.next();
+  }
+
+  public hubConnectionStop() {
+    debugger;
+    $.connection.centralFeedHub.server.onDisconnected();
+    console.log("UintraHub connection: closed");
   }
 }
