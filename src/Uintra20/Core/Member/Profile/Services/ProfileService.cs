@@ -52,7 +52,7 @@ namespace Uintra20.Core.Member.Profile.Services
 
         public async Task Edit(ProfileEditModel editModel)
         {
-            var newMedias = _mediaHelper.CreateMedia(editModel).ToArray();
+            var newMedias = _mediaHelper.CreateMedia(editModel, MediaFolderTypeEnum.MembersContent).ToArray();
 
             var member = editModel.Map<UpdateMemberDto>();
 

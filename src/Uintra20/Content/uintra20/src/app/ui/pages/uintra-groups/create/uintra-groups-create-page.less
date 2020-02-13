@@ -1,0 +1,71 @@
+@import "base.less";
+
+uintra-groups-create-page {
+  .groups-create {
+    background-color: @main-color;
+    padding: 20px 21px 33px;
+    .shadow;
+
+    @media @md-up {
+      margin-top: 57px;
+    }
+
+    &__row {
+      margin-bottom: 25px;
+
+      &--top {
+        margin-top: 25px;
+      }
+    }
+
+    &__title {
+      font-size: 25px;
+      font-weight: normal;
+      color: @heading-bg;
+    }
+
+    &__title-input {
+      border: 1px solid @border-color;
+    }
+  }
+
+  .subtitle {
+    font-size: 13px;
+    line-height: 22px;
+    color: @body-text-color;
+    margin-bottom: 3px;
+  }
+
+  .required {
+    &::after {
+      content: "*";
+      color: @validation-color;
+      margin-left: 2px;
+    }
+  }
+
+  .invalid {
+    box-shadow: 0 0 5px @validation-color;
+    outline-color: @validation-color;
+  }
+
+  .validation-errors {
+    list-style: disc;
+    color: @validation-color;
+    padding-left: 20px;
+  }
+
+  .ql-editor {
+    border: 1px solid @border-color;
+    border-top: none;
+    margin: 0 !important;
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    height: 62px !important;
+  }
+
+  dropzone > .dropzone.dz-wrapper.dz-single .dz-preview {
+    width: auto;
+    height: auto;
+  }
+}

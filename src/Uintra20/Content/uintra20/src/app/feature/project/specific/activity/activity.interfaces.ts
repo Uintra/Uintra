@@ -1,5 +1,6 @@
 import { ITagData } from "../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { ActivityEnum } from "src/app/feature/shared/enums/activity-type.enum";
+import { IULink } from 'src/app/feature/shared/interfaces/IULink';
 
 export interface ISocialCreateModel {
   description: string;
@@ -123,10 +124,4 @@ interface IActivityLinks {
   create: IULink;
   owner: IULink;
   detailsNoId: IULink;
-}
-
-interface IULink {
-  originalUrl: string;
-  baseUrl: string;
-  params: Array<{ name: string; value: string; }>;
 }

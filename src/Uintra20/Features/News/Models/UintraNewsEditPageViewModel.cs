@@ -14,5 +14,6 @@ namespace Uintra20.Features.News.Models
         public NewsViewModel Details { get; set; }
         public bool CanEditOwner { get; set; }
         public IEnumerable<IntranetMember> Members { get; set; } = Enumerable.Empty<IntranetMember>();
+        public string AllowedMediaExtensions { get; set; }
     }
 }
