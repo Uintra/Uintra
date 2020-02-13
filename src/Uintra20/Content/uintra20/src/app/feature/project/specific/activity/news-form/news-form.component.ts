@@ -25,12 +25,10 @@ import { HasDataChangedService } from 'src/app/services/general/has-data-changed
 })
 export class NewsFormComponent implements OnInit {
   @Input() data: INewsCreateModel;
-
   @Input() members: Array<any>;
   @Input() creator: IOwner;
   @Input() tags: ITagData[];
 
-  @Output() dataChanged = new EventEmitter();
   @Output() handleSubmit = new EventEmitter();
   @Output() handleCancel = new EventEmitter();
 
@@ -49,7 +47,7 @@ export class NewsFormComponent implements OnInit {
   routerSubscription: any;
 
   constructor(
-    private newsFormService: NewsFormService, 
+    private newsFormService: NewsFormService,
     private pinActivityService: PinActivityService,
     private router: Router,
     private hasDataChangedService: HasDataChangedService
@@ -93,6 +91,7 @@ export class NewsFormComponent implements OnInit {
   // File functions
   onUploadSuccess(fileArray: Array<any> = []): void {
     this.files.push(fileArray);
+    console.log(this.files);
     this.hasDataChangedService.onDataChanged();
 
   }
@@ -154,7 +153,7 @@ export class NewsFormComponent implements OnInit {
   }
 
   checkIfDataChanged() {
-    return this.newsData.ownerId !== this.defaultOwner.id 
+    return this.newsData.ownerId !== this.defaultOwner.id
       || this.newsData.title.length
       || this.newsData.description.length
       || this.selectedTags.length

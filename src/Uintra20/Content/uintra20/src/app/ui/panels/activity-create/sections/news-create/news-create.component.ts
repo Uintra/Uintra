@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { IActivityCreatePanel } from "../../activity-create-panel.interface";
 import ParseHelper from "src/app/feature/shared/helpers/parse.helper";
 import { Router } from "@angular/router";
@@ -13,7 +13,6 @@ import { RouterResolverService } from 'src/app/services/general/router-resolver.
 })
 export class NewsCreateComponent implements OnInit {
   @Input() data: IActivityCreatePanel;
-  @Output() dataChanged = new EventEmitter();
   newsData: INewsCreateModel;
   members: Array<any>;
   creator: any;
@@ -48,9 +47,5 @@ export class NewsCreateComponent implements OnInit {
         this.routerResolverService.removePageRouter(r.originalUrl);
         this.router.navigate([r.originalUrl]);
       });
-  }
-
-  onDataChanged() {
-    this.dataChanged.emit();
   }
 }

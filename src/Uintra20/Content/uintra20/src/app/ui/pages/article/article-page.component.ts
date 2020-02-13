@@ -11,7 +11,6 @@ import { HasDataChangedService } from 'src/app/services/general/has-data-changed
 })
 export class ArticlePage implements DeactivationGuarded {
   data: any;
-  hasDataChanged: boolean = false;
 
   constructor(
     private route: ActivatedRoute,

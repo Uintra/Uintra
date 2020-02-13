@@ -9,7 +9,6 @@ import { ActivityEnum } from 'src/app/feature/shared/enums/activity-type.enum';
   encapsulation: ViewEncapsulation.None
 })
 export class ActivityCreatePanel implements OnInit {
-  @Output() dataChanged = new EventEmitter();
   data: IActivityCreatePanel;
   activityTypes = ActivityEnum;
   activityType: ActivityEnum;
@@ -18,10 +17,5 @@ export class ActivityCreatePanel implements OnInit {
 
   ngOnInit() {
     this.activityType = this.data.activityType.get();
-  }
-
-  onDataChanged() {
-    debugger
-    this.dataChanged.emit();
   }
 }
