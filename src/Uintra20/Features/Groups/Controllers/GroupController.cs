@@ -147,6 +147,21 @@ namespace Uintra20.Features.Groups.Controllers
             return groups;
         }
 
+        [HttpGet]
+        public GroupHeaderViewModel Header(Guid groupId)
+        {
+            var group = _groupService.Get(groupId);
+            var canEdit = _groupService.CanEdit(group);
+
+            var links = _groupLinkProvider.GetGroupLinks(groupId, canEdit);
+
+            return new GroupHeaderViewModel
+            {
+                Title = group.Title,
+                GroupLinks = links
+            };
+        }
+
         [HttpPost]
         public virtual IHttpActionResult Hide(Guid id)
         {
@@ -190,7 +205,7 @@ namespace Uintra20.Features.Groups.Controllers
             groupModel.IsMember = isCurrentUserMember;
             groupModel.MembersCount = _groupMemberService.GetMembersCount(group.Id);
             groupModel.Creator = _memberService.Get(group.CreatorId).Map<MemberViewModel>();
-            //groupModel.GroupUrl = _groupLinkProvider.GetGroupLink(group.Id);//TODO: Research
+            groupModel.GroupUrl = _groupLinkProvider.GetGroupRoomLink(group.Id);
             if (groupModel.HasImage)
             {
                 groupModel.GroupImageUrl = _imageHelper.GetImageWithPreset(_mediaModelService.Get(group.ImageId.Value).Url, UmbracoAliases.ImagePresets.GroupImageThumbnail);
