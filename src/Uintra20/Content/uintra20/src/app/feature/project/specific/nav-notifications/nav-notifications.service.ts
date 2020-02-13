@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { IULink } from 'src/app/feature/shared/interfaces/IULink';
 
 export interface INotificationsListData {
   notificationPageUrl: string;
@@ -26,14 +27,7 @@ export interface INotificationsData {
 
   value: {
     message: string;
-    url: {
-      originalUrl: string;
-      baseUrl: string;
-      params: Array<{
-        name: string;
-        value: string;
-      }>;
-    };
+    url: IULink;
     notifierId: string;
     isPinned: boolean;
     isPinActual: boolean;
