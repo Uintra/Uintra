@@ -976,6 +976,7 @@
     <Compile Include="Features\Groups\Converters\UintraGroupsCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsDocumentsPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsEditPageViewModelConverter.cs" />
+    <Compile Include="Features\Groups\Models\GroupLinksModel.cs" />
     <Compile Include="Features\Groups\Models\GroupDocumentViewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupNavigationCompositionModel.cs" />
     <Compile Include="Features\Groups\Models\GroupNavigationCompositionViewModel.cs" />
@@ -1057,8 +1058,6 @@
     <Compile Include="Core\Configuration\IConfigurationProvider.cs" />
     <Compile Include="Features\Groups\ContentServices\GroupContentProvider.cs" />
     <Compile Include="Features\Groups\ContentServices\IGroupContentProvider.cs" />
-    <Compile Include="Features\Groups\Helpers\GroupHelper.cs" />
-    <Compile Include="Features\Groups\Helpers\IGroupHelper.cs" />
     <Compile Include="Features\Navigation\Configuration\NavigationItemTypeSettings.cs" />
     <Compile Include="Features\Navigation\Configuration\NavigationPropertySettings.cs" />
     <Compile Include="Features\Navigation\Models\BreadcrumbItemViewModel.cs" />

@@ -152,7 +152,7 @@ namespace Uintra20.Features.Groups.Controllers
         {
             var canHide = _groupService.CanHide(id);
 
-            if (!canHide) return Ok(_groupLinkProvider.GetGroupLink(id));
+            if (!canHide) return Ok(_groupLinkProvider.GetGroupRoomLink(id));
 
             var command = new HideGroupCommand(id);
             _commandPublisher.Publish(command);
@@ -181,7 +181,7 @@ namespace Uintra20.Features.Groups.Controllers
                 _groupMemberService.Add(groupId, subscription);
             }
 
-            return Ok(_groupLinkProvider.GetGroupLink(groupId));
+            return Ok(_groupLinkProvider.GetGroupRoomLink(groupId));
         }
 
         private GroupViewModel MapGroupViewModel(GroupModel group, bool isCurrentUserMember)
