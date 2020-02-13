@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web.Mvc;
 using UBaseline.Core.Extensions;
 using UBaseline.Core.Media;
+using UBaseline.Shared.Media;
 using Uintra20.Core.Controls.FileUpload;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
@@ -23,6 +24,7 @@ using Umbraco.Core.Services;
 using Umbraco.Web;
 using static Uintra20.Infrastructure.Constants.UmbracoAliases.Media;
 using File = System.IO.File;
+using FolderModel = Uintra20.Core.UbaselineModels.FolderModel;
 using Task = System.Threading.Tasks.Task;
 
 namespace Uintra20.Features.Media
@@ -30,8 +32,8 @@ namespace Uintra20.Features.Media
     public class MediaHelper : IMediaHelper, IHandle<VideoConvertedCommand>
     {
         private readonly ICacheService _cacheService;
+        private readonly IMediaModelService _mediaModelService;
         private readonly IMediaService _mediaService;
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IMediaFolderTypeProvider _mediaFolderTypeProvider;
         private readonly IImageHelper _imageHelper;
@@ -40,9 +42,9 @@ namespace Uintra20.Features.Media
         private readonly IVideoConverterLogService _videoConverterLogService;
 
         public MediaHelper(ICacheService cacheService,
-            IMediaService mediaService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            UmbracoHelper umbracoHelper,
+            IMediaModelService mediaModelService,
+            IMediaService mediaService,
             IMediaFolderTypeProvider mediaFolderTypeProvider,
             IImageHelper imageHelper,
             IVideoHelper videoHelper,
@@ -50,9 +52,9 @@ namespace Uintra20.Features.Media
             IVideoConverterLogService videoConverterLogService)
         {
             _cacheService = cacheService;
-            _mediaService = mediaService;
             _intranetMemberService = intranetMemberService;
-            _umbracoHelper = umbracoHelper;
+            _mediaModelService = mediaModelService;
+            _mediaService = mediaService;
             _mediaFolderTypeProvider = mediaFolderTypeProvider;
             _imageHelper = imageHelper;
             _videoHelper = videoHelper;
@@ -86,7 +88,7 @@ namespace Uintra20.Features.Media
                 });
         }
 
-        public IMedia CreateMedia(TempFile file, int rootMediaId, Guid? userId = null)
+        public IMediaModel CreateMedia(TempFile file, int rootMediaId, Guid? userId = null)
         {
             userId = userId ?? _intranetMemberService.GetCurrentMemberId();
 
@@ -108,7 +110,7 @@ namespace Uintra20.Features.Media
                     });
                 });
 
-                return media;
+                return _mediaModelService.Get(media.Id);
             }
 
             var stream = new MemoryStream(file.FileBytes);
@@ -128,7 +130,7 @@ namespace Uintra20.Features.Media
                 SaveVideoAdditionProperties(media);
             }
             _mediaService.Save(media);
-            return media;
+            return _mediaModelService.Get(media.Id);
         }
         public void DeleteMedia(int mediaId)
         {
@@ -219,10 +221,10 @@ namespace Uintra20.Features.Media
             };
         }
 
-        public bool IsMediaDeleted(IPublishedContent media)
-        {
-            return media.HasProperty(IsDeletedPropertyTypeAlias) && media.Value<bool>(IsDeletedPropertyTypeAlias);
-        }
+        //public bool IsMediaDeleted(IPublishedContent media)
+        //{
+        //    return media.HasProperty(IsDeletedPropertyTypeAlias) && media.Value<bool>(IsDeletedPropertyTypeAlias);
+        //}
         public static IEnumerable<string> GetMediaUrls(IEnumerable<int> ids)
         {
             if (!ids.Any()) return Enumerable.Empty<string>();
@@ -248,9 +250,9 @@ namespace Uintra20.Features.Media
             return _imageHelper.IsFileImage(file.FileBytes) ? ImageTypeAlias : FileTypeAlias;
         }
 
-        private string GetAllowedMediaExtensions(IPublishedContent mediaFolderContent)
+        private string GetAllowedMediaExtensions(FolderModel mediaFolderContent)
         {
-            var allowedMediaExtensions = mediaFolderContent.Value(FolderConstants.AllowedMediaExtensionsPropertyTypeAlias, defaultValue: string.Empty);
+            var allowedMediaExtensions = mediaFolderContent.AllowedMediaExtensions ?? string.Empty;
 
             var result = allowedMediaExtensions
                 .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
@@ -263,20 +265,20 @@ namespace Uintra20.Features.Media
             return result.JoinWith();
         }
 
-        private IPublishedContent GetMediaFolder(Enum mediaFolderType)
+        private FolderModel GetMediaFolder(Enum mediaFolderType)
         {
-            var folders = _umbracoHelper.MediaAtRoot().Where(m => m.ContentType.Alias.Equals(FolderTypeAlias));
+            var folders = _mediaModelService.AsEnumerable().OfType<FolderModel>().Where(x => x.ParentId == -1);
 
             var mediaFolder = folders.SingleOrDefault(f =>
             {
-                var folderType = f.Value<string>(FolderConstants.FolderTypePropertyTypeAlias);
+                var folderType = f.FolderType.Value;
                 return folderType.HasValue() && folderType.Equals(mediaFolderType.ToString());
             });
 
             return mediaFolder;
         }
-
-        private IPublishedContent CreateMediaFolder(Enum mediaFolderType)
+         
+        private FolderModel CreateMediaFolder(Enum mediaFolderType)
         {
             var mediaFolderTypeEnum = (MediaFolderTypeEnum)mediaFolderType;
             var folderName = mediaFolderTypeEnum.GetAttribute<DisplayAttribute>().Name;
@@ -284,7 +286,7 @@ namespace Uintra20.Features.Media
             mediaFolder.SetValue(FolderConstants.FolderTypePropertyTypeAlias, mediaFolderType.ToString());
             _mediaService.Save(mediaFolder);
 
-            return _umbracoHelper.Media(mediaFolder.Id);
+            return _mediaModelService.Get<FolderModel>(mediaFolder.Id);
         }
 
         public BroadcastResult Handle(VideoConvertedCommand command)
