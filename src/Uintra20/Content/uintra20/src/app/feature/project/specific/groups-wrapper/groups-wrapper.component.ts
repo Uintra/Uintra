@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GroupsService, IGroupsdata } from 'src/app/ui/main-layout/left-navigation/components/groups/groups.service';
+import { GroupsService, IGroupsData } from 'src/app/ui/main-layout/left-navigation/components/groups/groups.service';
 import { IUlinkWithTitle } from 'src/app/feature/shared/interfaces/IULink';
 
 @Component({
@@ -13,7 +13,7 @@ export class GroupsWrapperComponent implements OnInit {
   constructor(private groupsService: GroupsService) { }
 
   ngOnInit() {
-    this.groupsService.getGroupsLinks().subscribe((res: IGroupsdata) => {
+    this.groupsService.getGroupsLinks().subscribe((res: IGroupsData) => {
       this.tabs = [res.groupPageItem, ...res.items];
     })
   }
