@@ -5,6 +5,7 @@ import { TextInputModule } from '../../../reusable/inputs/fields/text-input/text
 import { RichTextEditorModule } from '../../../reusable/inputs/rich-text-editor/rich-text-editor.module';
 import { FormsModule } from '@angular/forms';
 import { DropzoneWrapperModule } from '../../../reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
+import { DropzoneExistingImagesModule } from '../../../reusable/ui-elements/dropzone-existing-images/dropzone-existing-images.module';
 
 
 
@@ -16,6 +17,7 @@ import { DropzoneWrapperModule } from '../../../reusable/ui-elements/dropzone-wr
     RichTextEditorModule,
     FormsModule,
     DropzoneWrapperModule,
+    DropzoneExistingImagesModule,
   ],
   exports: [GroupsFormComponent]
 })

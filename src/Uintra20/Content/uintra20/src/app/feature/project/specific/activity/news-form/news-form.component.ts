@@ -89,7 +89,7 @@ export class NewsFormComponent implements OnInit {
   onFileRemoved(removedFile: object) {
     this.files = this.files.filter(file => file[0] !== removedFile);
   }
-  public handleImageRemove(image): void {
+  handleImageRemove(image): void {
     this.newsData.media.medias = this.newsData.media.medias.filter(
       m => m !== image
     );

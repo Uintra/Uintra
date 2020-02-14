@@ -32,18 +32,13 @@
     margin-bottom: 15px;
 
     &-link {
-      color: @heading-bg;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
+      .alt-link;
     }
   }
 }
 
 .tabs {
-  display: none;
+  display: flex;
   position: relative;
   font-size: 13px;
   line-height: 15px;
@@ -51,8 +46,8 @@
   padding-left: 0;
   padding-right: 0;
 
-  @media @md-up {
-    display: flex;
+  @media @md-down {
+    display: none;
   }
 
   &__item:not(:last-child) {
