@@ -22,7 +22,6 @@ export interface IEditGroupData {
 })
 export class GroupsFormComponent {
   @Input() data: any;
-  // @Input('edit') edit: boolean;
   title: string = "";
   description: string = "";
   medias: IMedia[] = [];
