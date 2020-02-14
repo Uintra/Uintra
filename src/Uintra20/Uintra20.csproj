@@ -1109,6 +1109,7 @@
     <Compile Include="Infrastructure\Extensions\FactoryExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\InconsistentDataException.cs" />
     <Compile Include="Infrastructure\Extensions\UmbracoHelperExtensions.cs" />
+    <Compile Include="Infrastructure\Helpers\TransferRequestHelper.cs" />
     <Compile Include="Infrastructure\Ioc\GroupInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\LightInjectScopedConnection.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
@@ -1662,7 +1663,6 @@
     <Compile Include="Infrastructure\Utils\EmbeddedResourceService.cs" />
     <Compile Include="Infrastructure\Utils\EmbeddedResourcesUtils.cs" />
     <Compile Include="Infrastructure\Utils\IEmbeddedResourceService.cs" />
-    <Compile Include="Infrastructure\Helpers\XPathHelper.cs" />
     <Compile Include="Models\UmbracoIdentity\ExternalLoginListViewModel.cs" />
     <Compile Include="Models\UmbracoIdentity\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\UmbracoIdentity\LoginViewModel.cs" />

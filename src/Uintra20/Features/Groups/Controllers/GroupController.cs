@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Http;
 using AutoMapper;
 using Compent.CommandBus;
@@ -110,6 +112,18 @@ namespace Uintra20.Features.Groups.Controllers
         public GroupModel Edit(GroupEditModel model)
         {
             var group = _groupService.Get(model.Id);
+
+            if (group == null || group.IsHidden)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            if (_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Edit,
+                PermissionResourceTypeEnum.Groups)))
+            {
+                throw new HttpResponseException(HttpStatusCode.Forbidden);
+            }
+
             group = Mapper.Map(model, group);
             group.ImageId = model.Media?.Split(',').First().ToNullableInt();
             var createdMedias = _mediaHelper.CreateMedia(model, MediaFolderTypeEnum.GroupsContent).ToList();
@@ -125,6 +139,12 @@ namespace Uintra20.Features.Groups.Controllers
         [HttpPost]
         public GroupModel Create(GroupCreateModel createModel)
         {
+            if (_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
+                PermissionResourceTypeEnum.Groups)))
+            {
+                throw new HttpResponseException(HttpStatusCode.Forbidden);
+            }
+
             var currentMemberId = _memberService.GetCurrentMember().Id;
 
             var groupId = _groupMemberService.Create(createModel, new GroupMemberSubscriptionModel
@@ -163,6 +183,13 @@ namespace Uintra20.Features.Groups.Controllers
         [HttpPost]
         public virtual IHttpActionResult Hide(Guid id)
         {
+            var group = _groupService.Get(id);
+
+            if (group == null || group.IsHidden)
+            {
+                return NotFound();
+            }
+
             var canHide = _groupService.CanHide(id);
 
             if (!canHide) return Ok(_groupLinkProvider.GetGroupRoomLink(id));
@@ -178,6 +205,13 @@ namespace Uintra20.Features.Groups.Controllers
         public virtual IHttpActionResult Subscribe(Guid groupId)
         {
             var currentMember = _memberService.GetCurrentMember();
+
+            var group = _groupService.Get(groupId);
+
+            if (group == null || group.IsHidden)
+            {
+                return NotFound();
+            }
 
             if (_groupMemberService.IsGroupMember(groupId, currentMember.Id))
             {
