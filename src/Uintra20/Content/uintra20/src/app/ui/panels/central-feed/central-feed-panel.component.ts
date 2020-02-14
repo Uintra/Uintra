@@ -1,9 +1,9 @@
-import { Component, ViewEncapsulation, OnInit, NgZone, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, NgZone } from '@angular/core';
 import { ICentralFeedPanel } from './central-feed-panel.interface';
 import { UmbracoFlatPropertyModel, IUmbracoProperty } from '@ubaseline/next';
-import { PublicationsService} from './helpers/publications.service';
+import { PublicationsService } from './helpers/publications.service';
 import { ActivityService } from 'src/app/feature/project/specific/activity/activity.service';
-import { SignalrService } from './helpers/signalr.service';
+import { SignalrService } from '../../../feature/project/specific/nav-notifications/helpers/signalr.service';
 
 // interface IFilterTab {
 //   type: number;
@@ -47,7 +47,7 @@ import { SignalrService } from './helpers/signalr.service';
   styleUrls: ['./central-feed-panel.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class CentralFeedPanel implements OnInit, OnDestroy {
+export class CentralFeedPanel implements OnInit {
   data: ICentralFeedPanel;
   tabs: Array<any> = null;
   // TODO: replace 'any' after server side will be done
@@ -63,7 +63,7 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
     private socialService: ActivityService,
     private signalrService: SignalrService,
     private ngZone: NgZone
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.tabs = this.filtersBuilder();
@@ -72,11 +72,9 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
       this.reloadFeed();
     });
 
-    this.signalrService.createHub(this.reloadFeed.bind(this));
-  }
-
-  ngOnDestroy(): void {
-    // this.signalrService.hubConnectionStop();
+    this.signalrService.getReloadFeedSubjects().subscribe(s => {    
+      this.reloadFeed();
+    });
   }
 
   filtersBuilder() {
@@ -138,7 +136,7 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
 
   concatWithCurrentFeed(data): void {
     this.ngZone.run(() => {
-      this.feed = this.feed.concat(data) ;
+      this.feed = this.feed.concat(data);
     });
   }
 

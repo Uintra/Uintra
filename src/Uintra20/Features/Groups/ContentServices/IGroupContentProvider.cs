@@ -1,14 +1,15 @@
-﻿using Uintra20.Features.CentralFeed.Providers;
-using Umbraco.Core.Models.PublishedContent;
+﻿using UBaseline.Shared.Node;
 
 namespace Uintra20.Features.Groups.ContentServices
 {
-    public interface IGroupContentProvider : IFeedContentProvider
+    public interface IGroupContentProvider
     {
-        IPublishedContent GetMyGroupsOverviewPage();
-        IPublishedContent GetDeactivatedGroupPage();
-        IPublishedContent GetGroupRoomPage();
-        IPublishedContent GetCreateGroupPage();
-        IPublishedContent GetEditPage();
+        NodeModel GetGroupsOverviewPage();
+        NodeModel GetGroupCreatePage();
+        NodeModel GetMyGroupsPage();
+        NodeModel GetGroupRoomPage();
+        NodeModel GetGroupEditPage();
+        NodeModel GetGroupDocumentsPage();
+        NodeModel GetGroupMembersPage();
     }
 }
