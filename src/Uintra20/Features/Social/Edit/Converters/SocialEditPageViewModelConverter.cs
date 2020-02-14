@@ -43,6 +43,11 @@ namespace Uintra20.Features.Social.Edit.Converters
 
             var social = _socialService.Get(parsedId);
 
+            if (!_socialService.CanEdit(parsedId))
+            {
+                return;
+            }
+
             viewModel.OwnerId = social.OwnerId;
             viewModel.Id = social.Id; //TODO Use link service to navigate from social edit page
             viewModel.Description = social.Description;

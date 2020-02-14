@@ -3,6 +3,7 @@ using Compent.Shared.Extensions.Bcl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -68,6 +69,12 @@ namespace Uintra20.Features.News.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
+            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
+                PermissionResourceTypeEnum.News)))
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
+
             var newsBaseCreateModel = await MapToNewsAsync(createModel);
             var activityId = await _newsService.CreateAsync(newsBaseCreateModel);
 
@@ -82,6 +89,12 @@ namespace Uintra20.Features.News.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest();
+
+            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Edit,
+                PermissionResourceTypeEnum.News)))
+            {
+                return Ok((await _activityLinkService.GetLinksAsync(editModel.Id)).Details);
+            }
 
             var cachedActivityMedias = _newsService.Get(editModel.Id).MediaIds;
 

@@ -69,7 +69,7 @@ namespace Uintra20.Features.News.Converters
             viewModel.Likes = _likesService.GetLikeModels(id);
             viewModel.LikedByCurrentUser = viewModel.Likes.Any(l => l.UserId == userId);
             viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(id));
-
+            viewModel.CanEdit = _newsService.CanEdit(id);
         }
 
         private NewsViewModel GetDetails(Guid activityId)

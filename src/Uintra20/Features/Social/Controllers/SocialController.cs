@@ -3,6 +3,7 @@ using Compent.Shared.Extensions.Bcl;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -20,6 +21,9 @@ using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.Navigation.Services;
+using Uintra20.Features.Permissions;
+using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Permissions.Models;
 using Uintra20.Features.Social.Edit.Models;
 using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags;
@@ -40,6 +44,7 @@ namespace Uintra20.Features.Social.Controllers
         private readonly ILightboxHelper _lightboxHelper;
         private readonly IMemberServiceHelper _memberHelper;
         private readonly IFeedLinkService _feedLinkService;
+        private readonly IPermissionsService _permissionsService;
 
         public SocialController(
             ISocialService<Entities.Social> socialService,
@@ -52,7 +57,8 @@ namespace Uintra20.Features.Social.Controllers
             IActivityLinkService activityLinkService,
             ILightboxHelper lightboxHelper,
             IMemberServiceHelper memberHelper,
-            IFeedLinkService feedLinkService)
+            IFeedLinkService feedLinkService,
+            IPermissionsService permissionsService)
         {
             _socialService = socialService;
             _mediaHelper = mediaHelper;
@@ -65,12 +71,19 @@ namespace Uintra20.Features.Social.Controllers
             _lightboxHelper = lightboxHelper;
             _memberHelper = memberHelper;
             _feedLinkService = feedLinkService;
+            _permissionsService = permissionsService;
         }
 
         [HttpPost]
         public async Task<IHttpActionResult> CreateExtended(SocialExtendedCreateModel model)
         {
             if (!ModelState.IsValid) return BadRequest();
+
+            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
+                PermissionResourceTypeEnum.Social)))
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
 
             var result = new SocialCreationResultModel();
 
@@ -91,6 +104,12 @@ namespace Uintra20.Features.Social.Controllers
         public async Task<IHttpActionResult> Update(SocialExtendedEditModel editModel)
         {
             if (!ModelState.IsValid) return BadRequest();
+
+            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Edit,
+                PermissionResourceTypeEnum.Social)))
+            {
+                return Ok((await _activityLinkService.GetLinksAsync(editModel.Id)).Details);
+            }
 
             var bulletin = MapToBulletin(editModel);
 

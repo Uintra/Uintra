@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Http;
 using AutoMapper;
 using Compent.CommandBus;
@@ -109,19 +107,19 @@ namespace Uintra20.Features.Groups.Controllers
         }
 
         [HttpPost]
-        public GroupModel Edit(GroupEditModel model)
+        public IHttpActionResult Edit(GroupEditModel model)
         {
             var group = _groupService.Get(model.Id);
 
             if (group == null || group.IsHidden)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
             }
 
-            if (_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Edit,
+            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Edit,
                 PermissionResourceTypeEnum.Groups)))
             {
-                throw new HttpResponseException(HttpStatusCode.Forbidden);
+                return Ok(_groupLinkProvider.GetGroupRoomLink(model.Id));
             }
 
             group = Mapper.Map(model, group);
@@ -133,16 +131,17 @@ namespace Uintra20.Features.Groups.Controllers
             }
             _groupService.Edit(group);
             _groupMediaService.GroupTitleChanged(group.Id, group.Title);
-            return _groupService.Get(model.Id);
+
+            return Ok(_groupLinkProvider.GetGroupRoomLink(model.Id));
         }
 
         [HttpPost]
-        public GroupModel Create(GroupCreateModel createModel)
+        public IHttpActionResult Create(GroupCreateModel createModel)
         {
-            if (_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
+            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
                 PermissionResourceTypeEnum.Groups)))
             {
-                throw new HttpResponseException(HttpStatusCode.Forbidden);
+                return Ok(_groupLinkProvider.GetGroupsOverviewLink());
             }
 
             var currentMemberId = _memberService.GetCurrentMember().Id;
@@ -153,7 +152,7 @@ namespace Uintra20.Features.Groups.Controllers
                 MemberId = currentMemberId
             });
 
-            return _groupService.Get(groupId);
+            return Ok(_groupLinkProvider.GetGroupRoomLink(groupId));
         }
 
         [HttpGet]

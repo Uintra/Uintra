@@ -71,6 +71,7 @@ namespace Uintra20.Features.Social.Details.Converters
             viewModel.Likes = _likesService.GetLikeModels(parseId);
             viewModel.LikedByCurrentUser = viewModel.Likes.Any(l => l.UserId == userId);
             viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(parseId));
+            viewModel.CanEdit = _socialService.CanEdit(parseId);
         }
 
         protected SocialExtendedViewModel GetViewModel(Guid id)

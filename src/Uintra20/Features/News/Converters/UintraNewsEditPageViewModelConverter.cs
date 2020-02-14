@@ -9,7 +9,6 @@ using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Helpers;
-using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
@@ -61,7 +60,11 @@ namespace Uintra20.Features.News.Converters
             if (!Guid.TryParse(idStr, out var id))
                 return;
 
-            var userId = _memberService.GetCurrentMemberId();
+            if (!_newsService.CanEdit(id))
+            {
+                return;
+            }
+
             viewModel.Details = GetDetails(id);
 
             viewModel.CanEditOwner = _permissionsService.Check(IntranetActivityTypeEnum.News, PermissionActionEnum.EditOwner);

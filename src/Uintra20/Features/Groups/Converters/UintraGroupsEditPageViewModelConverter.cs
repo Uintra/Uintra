@@ -28,19 +28,22 @@ namespace Uintra20.Features.Groups.Converters
 
         public void Map(UintraGroupsEditPageModel node, UintraGroupsEditPageViewModel viewModel)
         {
-            var settings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent);
-
-            viewModel.AllowedMediaExtensions = settings?.AllowedMediaExtensions;
-
             var idStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
 
             if (!Guid.TryParse(idStr, out var id))
                 return;
 
-            viewModel.Info = GetInfo(id);
-
             var canEdit = _groupService.CanEdit(id);
 
+            if (!canEdit)
+            {
+                return;
+            }
+
+            var settings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent);
+
+            viewModel.AllowedMediaExtensions = settings?.AllowedMediaExtensions;
+            viewModel.Info = GetInfo(id);
             viewModel.Links = _groupLinkProvider.GetGroupLinks(id, canEdit);
         }
 

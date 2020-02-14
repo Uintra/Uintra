@@ -18,5 +18,6 @@ namespace Uintra20.Features.News.Models
         public IEnumerable<LikeModel> Likes { get; set; } = Enumerable.Empty<LikeModel>();
         public IEnumerable<CommentViewModel> Comments = Enumerable.Empty<CommentViewModel>();
         public bool LikedByCurrentUser { get; set; }
+        public bool CanEdit { get; set; }
     }
 }
