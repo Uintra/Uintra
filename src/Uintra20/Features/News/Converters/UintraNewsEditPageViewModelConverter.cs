@@ -60,7 +60,9 @@ namespace Uintra20.Features.News.Converters
             if (!Guid.TryParse(idStr, out var id))
                 return;
 
-            if (!_newsService.CanEdit(id))
+            viewModel.CanEdit = _newsService.CanEdit(id);
+
+            if (!viewModel.CanEdit)
             {
                 return;
             }

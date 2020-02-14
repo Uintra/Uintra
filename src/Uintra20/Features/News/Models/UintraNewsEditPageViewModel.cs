@@ -16,5 +16,6 @@ namespace Uintra20.Features.News.Models
         public bool PinAllowed { get; set; }
         public IEnumerable<IntranetMember> Members { get; set; } = Enumerable.Empty<IntranetMember>();
         public string AllowedMediaExtensions { get; set; }
+        public bool CanEdit { get; set; }
     }
 }

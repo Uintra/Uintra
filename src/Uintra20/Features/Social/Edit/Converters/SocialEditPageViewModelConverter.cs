@@ -40,13 +40,15 @@ namespace Uintra20.Features.Social.Edit.Converters
             var id = HttpContext.Current.Request.GetRequestQueryValue("id");
 
             if (!Guid.TryParse(id, out var parsedId)) return;
+            
+            viewModel.CanEdit = _socialService.CanEdit(parsedId);
 
-            var social = _socialService.Get(parsedId);
-
-            if (!_socialService.CanEdit(parsedId))
+            if (!viewModel.CanEdit)
             {
                 return;
             }
+
+            var social = _socialService.Get(parsedId);
 
             viewModel.OwnerId = social.OwnerId;
             viewModel.Id = social.Id; //TODO Use link service to navigate from social edit page
