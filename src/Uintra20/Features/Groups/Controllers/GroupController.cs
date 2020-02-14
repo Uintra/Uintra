@@ -15,8 +15,10 @@ using Uintra20.Features.Groups.CommandBus.Commands;
 using Uintra20.Features.Groups.Links;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
-using Uintra20.Features.Links;
 using Uintra20.Features.Media;
+using Uintra20.Features.Permissions;
+using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Permissions.Models;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 
@@ -32,12 +34,12 @@ namespace Uintra20.Features.Groups.Controllers
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IGroupMediaService _groupMediaService;
-        private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly IImageHelper _imageHelper;
         private readonly ICommandPublisher _commandPublisher;
         private readonly IMediaModelService _mediaModelService;
         private readonly INodeModelService _nodeModelService;
         private readonly IGroupLinkProvider _groupLinkProvider;
+        private readonly IPermissionsService _permissionsService;
 
         public GroupController(
             IGroupService groupService,
@@ -45,24 +47,24 @@ namespace Uintra20.Features.Groups.Controllers
             IMediaHelper mediaHelper,
             IGroupMediaService groupMediaService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            IProfileLinkProvider profileLinkProvider,
             IImageHelper imageHelper,
             ICommandPublisher commandPublisher,
             IMediaModelService mediaModelService,
             INodeModelService nodeModelService,
-            IGroupLinkProvider groupLinkProvider)
+            IGroupLinkProvider groupLinkProvider,
+            IPermissionsService permissionsService)
         {
             _groupService = groupService;
             _groupMemberService = groupMemberService;
             _mediaHelper = mediaHelper;
             _memberService = intranetMemberService;
             _groupMediaService = groupMediaService;
-            _profileLinkProvider = profileLinkProvider;
             _imageHelper = imageHelper;
             _commandPublisher = commandPublisher;
             _mediaModelService = mediaModelService;
             _nodeModelService = nodeModelService;
             _groupLinkProvider = groupLinkProvider;
+            _permissionsService = permissionsService;
         }
 
         [HttpGet]
@@ -73,6 +75,17 @@ namespace Uintra20.Features.Groups.Controllers
             var groupPageChildren = _nodeModelService.AsEnumerable().Where(x =>
                 x is IGroupNavigationComposition navigation && navigation.GroupNavigation.ShowInMenu &&
                 x.ParentId == rootGroupPage.Id);
+
+            groupPageChildren = groupPageChildren.Where(x =>
+            {
+                if (x is UintraGroupsCreatePageModel)
+                {
+                    return _permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
+                        PermissionResourceTypeEnum.Groups));
+                }
+
+                return true;
+            });
 
             var menuItems = groupPageChildren.OrderBy(x => ((IGroupNavigationComposition)x).GroupNavigation.SortOrder.Value).Select(x => new GroupLeftNavigationItemViewModel
             {
