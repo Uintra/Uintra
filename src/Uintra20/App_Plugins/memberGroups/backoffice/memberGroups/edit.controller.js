@@ -8,13 +8,13 @@ app.controller('memberGroups.editController',
         $location,
         navigationService,
         $scope) {
-
+        
         var vm = this;
         var inProgress = false;
         vm.memberGroup = null;
         var memberGroupId = $routeParams.id;
         vm.isButtonDisabled = true;
-
+        vm.isEditLoafed = false;
         var notification = {
             SUCCESS: 'Success',
             ERROR: 'Error',
@@ -46,14 +46,16 @@ app.controller('memberGroups.editController',
         } else {
             memberGroupsService
                 .getPermissions(memberGroupId)
-                .success(function (groupPermissionModel) {
-                    vm.memberGroup = groupPermissionModel.memberGroup;
-                    vm.permissions = groupPermissionModel.permissions;
-                    vm.isSuperUser = groupPermissionModel.isSuperUser;
+                .then(function (groupPermissionModel) {
+                    vm.isEditLoafed = true;
+                    let data = groupPermissionModel.data;
+                    vm.memberGroup = data.memberGroup;
+                    vm.permissions = data.permissions;
+                    vm.isSuperUser = data.isSuperUser;
 
-                    vm.groupedPermissions = groupByResourceTypeName(groupPermissionModel.permissions);
+                    vm.groupedPermissions = groupByResourceTypeName(data.permissions);
 
-                    var currentGroupName = groupPermissionModel.memberGroup.name;
+                    var currentGroupName = data.memberGroup.name;
                     $scope.$watch(function (scope) { return vm.memberGroup.name; }, function (newValue, oldValue) {
                         vm.isButtonDisabled = currentGroupName === newValue || !newValue;
                     });

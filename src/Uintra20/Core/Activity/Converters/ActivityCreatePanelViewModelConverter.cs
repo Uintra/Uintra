@@ -84,7 +84,7 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.CanEditOwner = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.EditOwner);
 
             if (viewModel.CanEditOwner)
-                viewModel.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(PermissionActionEnum.Create, viewModel.ActivityType));
+                viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, viewModel.ActivityType));
         }
 
         private void ConvertToSocials(ActivityCreatePanelViewModel viewModel)

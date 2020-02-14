@@ -96,11 +96,12 @@ namespace Uintra20.Features.Groups.Services
         public async Task<bool> CanEditAsync(GroupModel @group) =>
             await CanPerformAsync(group);
 
+        //TODO Remove stubs
         public async Task<bool> ValidatePermissionAsync(IPublishedContent content)
         {
             if (content.ContentType.Alias == GroupsCreatePage)
             {
-                return await _permissionsService.CheckAsync(PermissionSettingIdentity.Of(PermissionActionEnum.Create, PermissionResourceType));
+                return await _permissionsService.CheckAsync(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceType));
             }
 
             return true;
@@ -223,11 +224,12 @@ namespace Uintra20.Features.Groups.Services
             return act;
         }
 
+        //TODO Remove stubs
         public bool ValidatePermission(IPublishedContent content)
         {
             if (content.ContentType.Alias == GroupsCreatePage)
             {
-                return _permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create, PermissionResourceType));
+                return _permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceType));
             }
 
             return true;

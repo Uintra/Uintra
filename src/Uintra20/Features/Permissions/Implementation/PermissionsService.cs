@@ -65,7 +65,7 @@ namespace Uintra20.Features.Permissions.Implementation
                 .Settings
                 .Select(settingSchema =>
                 {
-                    var settingValues = storedPerms.ItemOrDefault(settingSchema.SettingIdentity) 
+                    var settingValues = storedPerms.ItemOrDefault(settingSchema.SettingIdentity)
                                 ?? _permissionSettingsSchema.GetDefault(settingSchema.SettingIdentity);
 
                     return PermissionManagementModel.Of(group, settingSchema, settingValues);
@@ -153,9 +153,8 @@ namespace Uintra20.Features.Permissions.Implementation
 
         public async Task<bool> CheckAsync(Enum resourceType, Enum actionType)
         {
-            //var member = await _intranetMemberService.GetCurrentMemberAsync();
-            var member = _intranetMemberService.GetCurrentMember();
-            return await CheckAsync(member, PermissionSettingIdentity.Of(actionType, resourceType));
+            var member = await _intranetMemberService.GetCurrentMemberAsync();
+            return await CheckAsync(member, new PermissionSettingIdentity(actionType, resourceType));
         }
 
         protected virtual async Task<IEnumerable<PermissionModel>> CurrentCacheGetAsync()
@@ -277,6 +276,7 @@ namespace Uintra20.Features.Permissions.Implementation
             CurrentCache = null;
         }
 
+        //TODO Remove hardcode
         public virtual bool Check(IIntranetMember member, PermissionSettingIdentity settingIdentity)
         {
             return true; //TODO Remove this check after member groups permissions will be done
@@ -304,20 +304,22 @@ namespace Uintra20.Features.Permissions.Implementation
         public virtual bool Check(Enum resourceType, Enum action)
         {
             var member = _intranetMemberService.GetCurrentMember();
-            return Check(member, PermissionSettingIdentity.Of(action, resourceType));
+            return Check(member, new PermissionSettingIdentity(action, resourceType));
         }
 
-        protected virtual PermissionModel Map(PermissionEntity entity) =>
-            PermissionModel.Of(
-                PermissionSettingIdentity.Of(
-                    _intranetActionTypeProvider[entity.ActionId],
-                    _resourceTypeProvider[entity.ResourceTypeId]
-                ),
-                PermissionSettingValues.Of(
-                    entity.IsAllowed,
-                    entity.IsEnabled
-                ),
-                _intranetMemberGroupProvider[entity.IntranetMemberGroupId]);
+        protected virtual PermissionModel Map(PermissionEntity entity)
+        {
+            var action = _intranetActionTypeProvider[entity.ActionId];
+            var resourceType = _resourceTypeProvider[entity.ResourceTypeId];
+            var settingIdentity = new PermissionSettingIdentity(action, resourceType);
+
+            var settingValues = new PermissionSettingValues(entity.IsAllowed, entity.IsEnabled);
+            var group = _intranetMemberGroupProvider[entity.IntranetMemberGroupId];
+
+            var result = new PermissionModel(Guid.NewGuid(), settingIdentity, settingValues, group);
+
+            return result;
+        }
 
         public static PermissionEntity UpdateEntity(PermissionEntity entity, PermissionUpdateModel update)
         {

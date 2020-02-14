@@ -67,7 +67,7 @@ namespace Uintra20.Features.News.Converters
             viewModel.CanEditOwner = _permissionsService.Check(IntranetActivityTypeEnum.News, PermissionActionEnum.EditOwner);
 
             if (viewModel.CanEditOwner)
-                viewModel.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(PermissionActionEnum.Create, IntranetActivityTypeEnum.News));
+                viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, IntranetActivityTypeEnum.News));
 
             viewModel.AllowedMediaExtensions = _newsService.GetMediaSettings().AllowedMediaExtensions;
         }

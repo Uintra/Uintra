@@ -123,7 +123,11 @@ namespace Uintra20.Features.News.Controllers
             activity.PublishDate = editModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.PublishDate);
             activity.UnpublishDate = editModel.UnpublishDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.UnpublishDate.Value);
             activity.EndPinDate = editModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.EndPinDate.Value);
-            activity.IsPinned = _permissionsService.Check(currentMember, PermissionSettingIdentity.Of(PermissionActionEnum.CanPin, IntranetActivityTypeEnum.News)) && activity.IsPinned;
+
+            activity.IsPinned = _permissionsService.Check(
+                                    currentMember, 
+                                    new PermissionSettingIdentity(PermissionActionEnum.CanPin, IntranetActivityTypeEnum.News)) 
+                                && activity.IsPinned;
 
             return activity;
         }

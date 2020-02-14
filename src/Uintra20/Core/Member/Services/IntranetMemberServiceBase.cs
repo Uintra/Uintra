@@ -312,7 +312,7 @@ namespace Uintra20.Core.Member.Services
 
         public virtual IEnumerable<T> GetAll()
         {
-            var members = _cacheService.GetOrSet(MembersCacheKey, () => GetAllFromSql().ToList(), CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
+            var members = _cacheService.GetOrSet(MembersCacheKey, () => GetAllFromSql().ToList(), CacheHelper.GetMidnightUtcDateTimeOffset());
             return members;
         }
 
