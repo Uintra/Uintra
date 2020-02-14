@@ -158,6 +158,7 @@ namespace Uintra20.Features.Groups.Controllers
             return new GroupHeaderViewModel
             {
                 Title = group.Title,
+                RoomPageLink = links.GroupRoomPage,
                 GroupLinks = links
             };
         }
