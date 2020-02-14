@@ -63,4 +63,9 @@ export const pages = [
     path: '__dynamic__',
     loadChildren: './ui/pages/uintra-groups/edit/uintra-groups-edit-page.module#UintraGroupsEditPageModule'
   },
+  {
+    id: 'uintraGroupsPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/uintra-groups/uintra-groups-page.module#UintraGroupsPageModule'
+  }
 ];
