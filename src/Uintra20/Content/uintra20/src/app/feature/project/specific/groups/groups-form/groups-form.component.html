@@ -9,7 +9,7 @@
         aria-label="Title"
         [maxLength]="TITLE_MAX_LENGTH"
         class="groups-create__title-input"
-        [ngClass]="{'invalid': isShowValidation && !title || isShowValidation && title.length > 200}"
+        [ngClass]="{'invalid': getTitleValidationState()}"
         [(ngModel)]="title"
       ></text-input>
     </div>
@@ -29,13 +29,7 @@
 
     <div class="groups-create__row">
       <h3 class="subtitle">Group image</h3>
-      <div *ngIf="data" class="images">
-        <div class="images__item" *ngFor="let media of medias">
-          <span class="icon-close" (click)="onImageRemove()"></span>
-          <img [src]="media.previewUrl">
-          <span class="images__item-name">{{media.name}}</span>
-        </div>
-      </div>
+      <app-dropzone-existing-images [medias]="medias" (removeImage)="onImageRemove()"></app-dropzone-existing-images>
       <app-dropzone-wrapper
         [maxFiles]="1"
         [disabled]="medias.length > 0 || files.length > 0"

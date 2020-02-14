@@ -1,8 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Attribute } from '@angular/core';
 import { TITLE_MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
-import { GroupsService } from 'src/app/ui/main-layout/left-navigation/components/groups/groups.service';
+import { GroupsService } from 'src/app/feature/project/specific/groups/groups.service';
 import { finalize } from 'rxjs/operators';
 import { MAX_FILES_FOR_SINGLE } from 'src/app/constants/dropzone/drop-zone.const';
+import { IMedia } from '../../activity/activity.interfaces';
+
+export interface IEditGroupData {
+  id?: string;
+  title?: string;
+  description?: string;
+  media?: {0: string};
+  mediaPreview?: {
+    medias: Array<IMedia>;
+  }
+}
 
 @Component({
   selector: 'groups-form',
@@ -11,10 +22,9 @@ import { MAX_FILES_FOR_SINGLE } from 'src/app/constants/dropzone/drop-zone.const
 })
 export class GroupsFormComponent {
   @Input() data: any;
-  @Input('edit') edit: boolean;
   title: string = "";
   description: string = "";
-  medias: any[] = [];
+  medias: IMedia[] = [];
   isShowValidation: boolean = false;
   inProgress: boolean = false;
   TITLE_MAX_LENGTH: number = TITLE_MAX_LENGTH;
@@ -22,6 +32,7 @@ export class GroupsFormComponent {
   files: any[] = [];
 
   constructor(
+    @Attribute('edit') public edit: any,
     private groupsService: GroupsService
   ) { }
 
@@ -95,5 +106,9 @@ export class GroupsFormComponent {
       this.description = this.data.description;
       this.medias = Object.values(this.data.mediaPreview.medias);
     }
+  }
+
+  getTitleValidationState() {
+    return (this.isShowValidation && !this.title) || (this.isShowValidation && this.title.length > TITLE_MAX_LENGTH)
   }
 }
