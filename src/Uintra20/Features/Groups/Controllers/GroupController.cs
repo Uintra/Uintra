@@ -94,7 +94,7 @@ namespace Uintra20.Features.Groups.Controllers
         }
 
         [HttpPost]
-        public GroupModel Edit(GroupEditModel model)
+        public IHttpActionResult Edit(GroupEditModel model)
         {
             var group = _groupService.Get(model.Id);
             group = Mapper.Map(model, group);
@@ -106,11 +106,12 @@ namespace Uintra20.Features.Groups.Controllers
             }
             _groupService.Edit(group);
             _groupMediaService.GroupTitleChanged(group.Id, group.Title);
-            return _groupService.Get(model.Id);
+
+            return Ok(_groupLinkProvider.GetGroupRoomLink(group.Id)); ;
         }
 
         [HttpPost]
-        public GroupModel Create(GroupCreateModel createModel)
+        public IHttpActionResult Create(GroupCreateModel createModel)
         {
             var currentMemberId = _memberService.GetCurrentMember().Id;
 
@@ -120,7 +121,7 @@ namespace Uintra20.Features.Groups.Controllers
                 MemberId = currentMemberId
             });
 
-            return _groupService.Get(groupId);
+            return Ok(_groupLinkProvider.GetGroupRoomLink(groupId));
         }
 
         [HttpGet]
