@@ -1,9 +1,9 @@
-import { Component, ViewEncapsulation, OnInit, NgZone } from '@angular/core';
-import { ICentralFeedPanel } from './central-feed-panel.interface';
-import { UmbracoFlatPropertyModel, IUmbracoProperty } from '@ubaseline/next';
-import { PublicationsService } from './helpers/publications.service';
-import { ActivityService } from 'src/app/feature/project/specific/activity/activity.service';
-import { SignalrService } from '../../../feature/project/specific/nav-notifications/helpers/signalr.service';
+import { Component, ViewEncapsulation, OnInit, NgZone } from "@angular/core";
+import { ICentralFeedPanel } from "./central-feed-panel.interface";
+import { UmbracoFlatPropertyModel, IUmbracoProperty } from "@ubaseline/next";
+import { PublicationsService } from "./helpers/publications.service";
+import { ActivityService } from "src/app/feature/project/specific/activity/activity.service";
+import { SignalrService } from "src/app/services/general/signalr.service";
 
 // interface IFilterTab {
 //   type: number;
@@ -42,9 +42,9 @@ import { SignalrService } from '../../../feature/project/specific/nav-notificati
 // }
 
 @Component({
-  selector: 'central-feed-panel',
-  templateUrl: './central-feed-panel.html',
-  styleUrls: ['./central-feed-panel.less'],
+  selector: "central-feed-panel",
+  templateUrl: "./central-feed-panel.html",
+  styleUrls: ["./central-feed-panel.less"],
   encapsulation: ViewEncapsulation.None
 })
 export class CentralFeedPanel implements OnInit {
@@ -63,7 +63,7 @@ export class CentralFeedPanel implements OnInit {
     private socialService: ActivityService,
     private signalrService: SignalrService,
     private ngZone: NgZone
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.tabs = this.filtersBuilder();
@@ -72,7 +72,7 @@ export class CentralFeedPanel implements OnInit {
       this.reloadFeed();
     });
 
-    this.signalrService.getReloadFeedSubjects().subscribe(s => {    
+    this.signalrService.getReloadFeedSubjects().subscribe(s => {
       this.reloadFeed();
     });
   }
@@ -82,7 +82,7 @@ export class CentralFeedPanel implements OnInit {
 
     // TODO: fix ubaselline next and remove it
     const allOption = new UmbracoFlatPropertyModel({
-      type: '0',
+      type: "0",
       isActive: true,
       links: null,
       title: "All",
@@ -101,7 +101,7 @@ export class CentralFeedPanel implements OnInit {
   }
 
   reloadFeed(): void {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       window.scrollTo(0, 0);
     }
     this.resetFeed();
