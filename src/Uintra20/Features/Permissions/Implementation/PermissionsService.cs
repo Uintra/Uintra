@@ -14,7 +14,6 @@ using Uintra20.Features.Permissions.TypeProviders;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Persistence.Sql;
-using static Uintra20.Infrastructure.Extensions.EnumerableExtensions;
 
 namespace Uintra20.Features.Permissions.Implementation
 {
@@ -194,6 +193,8 @@ namespace Uintra20.Features.Permissions.Implementation
             }
         }
 
+        public Task<bool> ContainsDefaultPermissionsAsync() =>
+            _permissionsRepository.ExistsAsync(_ => true);
         public virtual IEnumerable<PermissionModel> GetAll() =>
             CurrentCache;
 

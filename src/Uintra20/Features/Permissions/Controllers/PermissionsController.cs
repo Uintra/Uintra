@@ -32,8 +32,9 @@ namespace Uintra20.Features.Permissions.Controllers
             _intranetMemberGroupProvider = intranetMemberGroupProvider;
             _permissionsService = permissionsService;
         }
+
         [HttpGet]
-        public virtual GroupPermissionsViewModel Get(int memberGroupId)
+        public GroupPermissionsViewModel Get(int memberGroupId)
         {
             var isSuperUser = _intranetMemberService.IsCurrentMemberSuperUser;
             var memberGroup = _intranetMemberGroupProvider[memberGroupId];
@@ -54,7 +55,7 @@ namespace Uintra20.Features.Permissions.Controllers
         }
 
         [HttpPost]
-        public virtual GroupPermissionsViewModel Save(PermissionUpdateViewModel update)
+        public GroupPermissionsViewModel Save(PermissionUpdateViewModel update)
         {
             var settingIdentity = new PermissionSettingIdentity(
                 _actionTypeProvider[update.ActionId],

@@ -966,6 +966,7 @@
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
     <Compile Include="Controllers\EnumController.cs" />
+    <Compile Include="Core\AdminSection\Controllers\AdminController.cs" />
     <Compile Include="Core\Member\Controllers\MemberGroupTreeController.cs" />
     <Compile Include="Core\UbaselineModels\FileModel.cs" />
     <Compile Include="Core\UbaselineModels\FolderModel.cs" />
@@ -1090,6 +1091,7 @@
     <Compile Include="Features\Notification\Exceptions\MissingNotifierConfigurationException.cs" />
     <Compile Include="Features\Notification\Exceptions\OutOfRangeNotifierConfigurationException.cs" />
     <Compile Include="Features\Permissions\Controllers\PermissionsController.cs" />
+    <Compile Include="Features\Permissions\Migrations\DefaultMemberGroupPermissionsInitializer.cs" />
     <Compile Include="Features\Permissions\Models\GroupPermissionsViewModel.cs" />
     <Compile Include="Features\Permissions\Models\MemberGroupViewModel.cs" />
     <Compile Include="Features\Permissions\Models\PermissionUpdateViewModel.cs" />

@@ -6,16 +6,17 @@ namespace Uintra20.Infrastructure.ApplicationSettings
 {
     public interface IApplicationSettings
     {
+        bool DaytimeSavingOffset { get; }
+        bool UmbracoUseSsl { get; }
+        int MonthlyEmailJobDay { get; }
+        Guid QaKey { get; }
         string MailNotificationNoReplyEmail { get; }
         string MailNotificationNoReplyName { get; }
-        int MonthlyEmailJobDay { get; }
-        IEnumerable<string> VideoFileTypes { get; }
-        string MemberApiAuthentificationEmail { get; }
+        string MemberApiAuthenticationEmail { get; }
         string UintraDocumentationLinkTemplate { get; }
-        Guid QaKey { get; }
+        string AdminControllerSecretKey { get; }
+        IEnumerable<string> VideoFileTypes { get; }
         GoogleOAuth GoogleOAuth { get; }
-        bool UmbracoUseSSL { get; }
         IEnumerable<string> UintraSuperUsers { get; }
-        bool DaytimeSavingOffset { get; }
     }
 }

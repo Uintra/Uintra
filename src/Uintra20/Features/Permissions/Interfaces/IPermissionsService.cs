@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Features.Permissions.Models;
 
@@ -9,6 +8,7 @@ namespace Uintra20.Features.Permissions.Interfaces
 {
     public interface IPermissionsService
     {
+        Task<bool> ContainsDefaultPermissionsAsync();
         IEnumerable<PermissionModel> GetAll();
         IEnumerable<PermissionManagementModel> GetForGroup(IntranetMemberGroup group);
         PermissionModel Save(PermissionUpdateModel update);
@@ -17,7 +17,6 @@ namespace Uintra20.Features.Permissions.Interfaces
         bool Check(IIntranetMember member, PermissionSettingIdentity settingsIdentity);
         bool Check(PermissionSettingIdentity settingsIdentity);
         bool Check(Enum resourceType, Enum actionType);
-
         Task<IEnumerable<PermissionModel>> GetAllAsync();
         Task<IEnumerable<PermissionManagementModel>> GetForGroupAsync(IntranetMemberGroup group);
         Task<PermissionModel> SaveAsync(PermissionUpdateModel update);

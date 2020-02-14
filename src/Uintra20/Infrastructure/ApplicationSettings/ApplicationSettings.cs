@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Compent.Shared.Extensions.Bcl;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -15,31 +16,33 @@ namespace Uintra20.Infrastructure.ApplicationSettings
         private const string MonthlyEmailJobDayKey = "MonthlyEmailJobDay";
         private const string VideoFileTypesKey = "VideoFileTypes";
         private const string QaKeyKey = "QaKey";
-        private const string MemberApiAuthentificationEmailKey = "MemberApiAuthentificationEmail";
+        private const string MemberApiAuthenticationEmailKey = "MemberApiAuthentificationEmail";
         private const string GoogleClientIdKey = "Google.OAuth.ClientId";
         private const string GoogleDomainKey = "Google.OAuth.Domain";
         private const string GoogleEnabledKey = "Google.OAuth.Enabled";
         private const string UmbracoUseSSLKey = "umbracoUseSSL";
+        private const string AdminSecretKey = "AdminControllerSecretKey";
         private const string UintraDocumentationLinkTemplateKey = "UintraDocumentationLinkTemplate";
         public const string MailNotificationNoReplyEmailKey = "Notifications.Mail.NoReplyEmail";
         public const string MailNotificationNoReplyNameKey = "Notifications.Mail.NoReplyName";
         public const string UintraSuperUsersKey = "UintraSuperUsers";
         public const string DaytimeSavingOffsetKey = "DaytimeSavingOffset";
-
+        
         public string MailNotificationNoReplyEmail => AppSettings[MailNotificationNoReplyEmailKey];
         public string MailNotificationNoReplyName => AppSettings[MailNotificationNoReplyNameKey];
+
+        public string AdminControllerSecretKey => AppSettings["AdminSecretKey"];
 
         public IEnumerable<string> VideoFileTypes => AppSettings[VideoFileTypesKey]
             .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
             .Select(el => el.Trim());
 
         public bool DaytimeSavingOffset => bool.Parse(AppSettings[DaytimeSavingOffsetKey]);
-
         public Guid QaKey => Guid.Parse(AppSettings[QaKeyKey]);
 
         public int MonthlyEmailJobDay => Convert.ToInt32(AppSettings[MonthlyEmailJobDayKey]);
 
-        public string MemberApiAuthentificationEmail => AppSettings[MemberApiAuthentificationEmailKey];
+        public string MemberApiAuthenticationEmail => AppSettings[MemberApiAuthenticationEmailKey];
 
         public string UintraDocumentationLinkTemplate => AppSettings[UintraDocumentationLinkTemplateKey];
 
@@ -49,20 +52,29 @@ namespace Uintra20.Infrastructure.ApplicationSettings
             {
                 if (_googleOAuth != null)
                     return _googleOAuth;
-                _googleOAuth = new GoogleOAuth() { ClientId = string.Empty };
-                if (bool.TryParse(AppSettings[GoogleEnabledKey], out var enabled) && enabled)
+
+                _googleOAuth = new GoogleOAuth
                 {
-                    var clientId = AppSettings[GoogleClientIdKey];
-                    if (string.IsNullOrWhiteSpace(clientId)) throw new ArgumentNullException("Google client id");
-                    _googleOAuth.ClientId = clientId;
-                    _googleOAuth.Domain = AppSettings[GoogleDomainKey];
-                    _googleOAuth.Enabled = enabled;
-                }
+                    ClientId = string.Empty
+                };
+
+                if (!bool.TryParse(AppSettings[GoogleEnabledKey], out var enabled) || !enabled) 
+                    return _googleOAuth;
+
+                var clientId = AppSettings[GoogleClientIdKey];
+
+                if (!clientId.HasValue())
+                    throw new ArgumentNullException("Google client id");
+
+                _googleOAuth.ClientId = clientId;
+                _googleOAuth.Domain = AppSettings[GoogleDomainKey];
+                _googleOAuth.Enabled = true;
+
                 return _googleOAuth;
             }
         }
 
-        public bool UmbracoUseSSL => bool.TryParse(AppSettings[UmbracoUseSSLKey], out var enabled) && enabled;
+        public bool UmbracoUseSsl => bool.TryParse(AppSettings[UmbracoUseSSLKey], out var enabled) && enabled;
 
         public IEnumerable<string> UintraSuperUsers
         {
