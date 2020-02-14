@@ -2,14 +2,16 @@
   <div *ngIf="data" class="groups-header-wrapper">
     <div class="groups-header">
       <h2 class="groups-header__title">
-        <a class="groups-header__title-link">
-          {{data.title}}
+        <a
+          [routerLink]="data.title.link.originalUrl | ulink"
+          class="groups-header__title-link">
+          {{data.title.title}}
         </a>
       </h2>
       <ul *ngIf="data.groupLinks" class="tabs col-md-8">
         <li *ngFor="let tab of data.groupLinks" class="tabs__item">
           <a
-            [routerLink]="tab.originalUrl | ulink"
+            [routerLink]="tab.link.originalUrl | ulink"
             class="tabs__item-link"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }">
@@ -18,7 +20,7 @@
         </li>
         <li *ngIf="data.groupEditPageLink" class="tabs__item tabs__item--settings">
           <a
-            [routerLink]="data.groupEditPageLink.originalUrl | ulink"
+            [routerLink]="data.groupEditPageLink.link.originalUrl | ulink"
             class="tabs__item-link tabs__item-link--settings"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }">

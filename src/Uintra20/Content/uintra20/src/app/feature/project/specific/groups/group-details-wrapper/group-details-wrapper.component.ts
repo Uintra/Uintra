@@ -1,5 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GroupsService } from '../groups.service';
+import { IUlinkWithTitle } from 'src/app/feature/shared/interfaces/IULink';
+
+export interface IGroupDetailsHeaderMapedData {
+  title: IUlinkWithTitle;
+  groupLinks: IUlinkWithTitle[];
+  groupEditPageLink: IUlinkWithTitle;
+}
 
 @Component({
   selector: 'app-group-details-wrapper',
@@ -9,21 +16,20 @@ import { GroupsService } from '../groups.service';
 export class GroupDetailsWrapperComponent implements OnInit {
   @Input() id: string;
 
-  data: any;
+  data: IGroupDetailsHeaderMapedData;
 
   constructor(private groupsService: GroupsService) { }
 
   ngOnInit() {
     this.groupsService.getGroupDetailsLinks(this.id).subscribe(res => {
-      console.log(res);
       this.data = {
-        title: res.title,
+        title: {link: {...res.groupLinks.groupRoomPage}, title: res.title},
         groupLinks: [
-          {...res.groupLinks.groupRoomPage, title: 'All'},
-          {...res.groupLinks.groupDocumentsPage, title: 'Group Documents'},
-          {...res.groupLinks.groupMembersPage, title: 'Group Members'},
+          {link: {...res.groupLinks.groupRoomPage}, title: 'All'},
+          {link: {...res.groupLinks.groupDocumentsPage}, title: 'Group Documents'},
+          {link: {...res.groupLinks.groupMembersPage}, title: 'Group Members'},
         ],
-        groupEditPageLink: {...res.groupLinks.groupEditPage, title: 'Settings'},
+        groupEditPageLink: {link: {...res.groupLinks.groupEditPage}, title: 'Settings'},
       }
     })
   }
