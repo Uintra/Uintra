@@ -1,0 +1,54 @@
+@import "base.less";
+
+uintra-groups-members-page {
+  .group-members {
+    .shadow;
+    background-color: @main-color;
+    padding: 20px;
+
+    &-wrapper {
+      padding-top: 95px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    &__title {
+      font-size: 25px;
+      font-weight: 400;
+      line-height: 0.88;
+      color: @heading-bg;
+      margin-bottom: 28px;
+    }
+
+    &__search-title {
+      font-size: 13px;
+      line-height: 22px;
+      margin-bottom: 2px;
+    }
+  }
+
+  .search {
+    border: 1px solid @border-color;
+
+    &-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
+  }
+
+  .icon-search-icon {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 30px;
+
+    &:before {
+      color: @heading-bg;
+    }
+  }
+
+  .pop-up-btn {
+    display: block;
+    margin-left: auto;
+  }
+}
