@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { CookieService } from 'ngx-cookie-service';
-import { IUlinkWithTitle } from 'src/app/feature/shared/interfaces/IULink';
+import { IUlinkWithTitle, IULink } from 'src/app/feature/shared/interfaces/IULink';
 import { groupsApi } from 'src/app/constants/general/general.const';
 
 export interface IGroupsData {
@@ -27,6 +27,15 @@ export interface ICreateGroupResponse {
   isHidden: boolean;
   groupTypeId: number;
 }
+export interface IGroupDetailsHeaderData {
+  title: string;
+  groupLinks: {
+    groupRoomPage: IULink;
+    groupDocumentsPage: IULink;
+    groupMembersPage: IULink;
+    groupEditPage?: IULink;
+  }
+}
 
 @Injectable({
   providedIn: "root"
@@ -38,6 +47,10 @@ export class GroupsService {
 
   getGroupsLinks(): Observable<IGroupsData> {
     return this.http.get<IGroupsData>(groupsApi + `/LeftNavigation`);
+  }
+
+  getGroupDetailsLinks(id: string): Observable<IGroupDetailsHeaderData> {
+    return this.http.get<IGroupDetailsHeaderData>(groupsApi + `/Header?groupId=${id}`);
   }
 
   createGroup(groupCreateModel: IGroupModel): Observable<ICreateGroupResponse> {

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TITLE_MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
-import { GroupsService } from 'src/app/ui/main-layout/left-navigation/components/groups/groups.service';
+import { GroupsService } from 'src/app/feature/project/specific/groups/groups.service';
 import { finalize } from 'rxjs/operators';
 import { MAX_FILES_FOR_SINGLE } from 'src/app/constants/dropzone/drop-zone.const';
 

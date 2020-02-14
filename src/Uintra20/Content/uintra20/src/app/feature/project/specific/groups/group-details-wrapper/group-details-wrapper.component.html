@@ -1,0 +1,32 @@
+<div class="groups">
+  <div *ngIf="data" class="groups-header-wrapper">
+    <div class="groups-header">
+      <h2 class="groups-header__title">
+        <a class="groups-header__title-link">
+          {{data.title}}
+        </a>
+      </h2>
+      <ul *ngIf="data.groupLinks" class="tabs col-md-8">
+        <li *ngFor="let tab of data.groupLinks" class="tabs__item">
+          <a
+            [routerLink]="tab.originalUrl | ulink"
+            class="tabs__item-link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
+            {{tab.title}}
+          </a>
+        </li>
+        <li *ngIf="data.groupEditPageLink" class="tabs__item tabs__item--settings">
+          <a
+            [routerLink]="data.groupEditPageLink.originalUrl | ulink"
+            class="tabs__item-link tabs__item-link--settings"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
+            {{data.groupEditPageLink.title}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <ng-content></ng-content>
+</div>

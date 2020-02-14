@@ -16,7 +16,6 @@ export class UintraGroupsEditPage {
   ) {
     this.route.data.subscribe(data => {
       this.data = ParseHelper.parseUbaselineData(data);
-      console.log(this.data)
     });
   }
 }
