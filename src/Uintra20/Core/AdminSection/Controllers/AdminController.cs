@@ -21,7 +21,6 @@ namespace Uintra20.Core.AdminSection.Controllers
         {
             if (!secretApiKey.HasValue() || !_applicationSettings.AdminControllerSecretKey.Equals(secretApiKey))
                 return BadRequest();
-            
 
             await new DefaultMemberGroupPermissionsInitializer().SetupDefaultPermissions();
             return Ok();

@@ -95,16 +95,11 @@ namespace Uintra20.Features.Groups.Services
 
         public async Task<bool> CanEditAsync(GroupModel @group) =>
             await CanPerformAsync(group);
-
-        //TODO Remove stubs
+        
         public async Task<bool> ValidatePermissionAsync(IPublishedContent content)
         {
-            if (content.ContentType.Alias == GroupsCreatePage)
-            {
-                return await _permissionsService.CheckAsync(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceType));
-            }
-
-            return true;
+            return content.ContentType.Alias != GroupsCreatePage ||
+                   await _permissionsService.CheckAsync(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceType));
         }
 
         public async Task<bool> IsActivityFromActiveGroupAsync(IGroupActivity groupActivity) =>
@@ -223,16 +218,11 @@ namespace Uintra20.Features.Groups.Services
 
             return act;
         }
-
-        //TODO Remove stubs
+        
         public bool ValidatePermission(IPublishedContent content)
         {
-            if (content.ContentType.Alias == GroupsCreatePage)
-            {
-                return _permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceType));
-            }
-
-            return true;
+            return content.ContentType.Alias != GroupsCreatePage 
+                   || _permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceType));
         }
 
         public void Hide(Guid id)

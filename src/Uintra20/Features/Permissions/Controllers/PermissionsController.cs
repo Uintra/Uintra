@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
@@ -34,13 +35,12 @@ namespace Uintra20.Features.Permissions.Controllers
         }
 
         [HttpGet]
-        public GroupPermissionsViewModel Get(int memberGroupId)
+        public async Task<GroupPermissionsViewModel> Get(int memberGroupId)
         {
-            var isSuperUser = _intranetMemberService.IsCurrentMemberSuperUser;
+            var isSuperUser = await _intranetMemberService.IsCurrentMemberSuperUserAsync();
             var memberGroup = _intranetMemberGroupProvider[memberGroupId];
 
-            var permissions = _permissionsService
-                .GetForGroup(memberGroup)
+            var permissions = (await _permissionsService.GetForGroupAsync(memberGroup))
                 .Map<IEnumerable<PermissionViewModel>>()
                 .OrderBy(i => i.ResourceTypeId);
 
@@ -55,7 +55,7 @@ namespace Uintra20.Features.Permissions.Controllers
         }
 
         [HttpPost]
-        public GroupPermissionsViewModel Save(PermissionUpdateViewModel update)
+        public async Task<GroupPermissionsViewModel> Save(PermissionUpdateViewModel update)
         {
             var settingIdentity = new PermissionSettingIdentity(
                 _actionTypeProvider[update.ActionId],
@@ -64,9 +64,9 @@ namespace Uintra20.Features.Permissions.Controllers
             var targetGroup = _intranetMemberGroupProvider[update.IntranetMemberGroupId];
 
             var mappedUpdate = new PermissionUpdateModel(targetGroup, settingValue, settingIdentity);
-            _permissionsService.Save(mappedUpdate);
+            await _permissionsService.SaveAsync(mappedUpdate);
 
-            return Get(update.IntranetMemberGroupId);
+            return await Get(update.IntranetMemberGroupId);
         }
     }
 }
