@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Models;
+using Uintra20.Features.CentralFeed.Models.GroupFeed;
 using Uintra20.Features.Likes;
 using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Links.Models;
@@ -29,5 +30,6 @@ namespace Uintra20.Core.Activity.Models
         public int CommentsCount { get; set; }
         public LightboxPreviewModel MediaPreview { get; set; }
         public string Description { get; set; }
+        public GroupInfo? GroupInfo { get; set; }
     }
 }

@@ -81,6 +81,7 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.Owner, o => o.Ignore())
                 .ForMember(dst => dst.MediaPreview, o => o.Ignore())
+                .ForMember(dst => dst.GroupInfo, o => o.Ignore())
                 .ForMember(dst => dst.LikedByCurrentUser, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type))
                 .ForMember(dst => dst.Dates, o => o.MapFrom(src => src.PublishDate.ToDateFormat().ToEnumerable()))

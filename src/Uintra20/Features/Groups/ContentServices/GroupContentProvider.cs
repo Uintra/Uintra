@@ -29,8 +29,8 @@ namespace Uintra20.Features.Groups.ContentServices
             return _nodeModelService.AsEnumerable().OfType<UintraMyGroupsPageModel>().First();
         }
 
-        public NodeModel GetGroupRoomPage() => null;
-            //_nodeModelService.AsEnumerable().OfType<UintraGroups>();
+        public NodeModel GetGroupRoomPage() => 
+            _nodeModelService.AsEnumerable().OfType<UintraGroupsRoomPageModel>().First();
 
         public NodeModel GetGroupEditPage() =>
             _nodeModelService.AsEnumerable().OfType<UintraGroupsEditPageModel>().First();
@@ -38,8 +38,8 @@ namespace Uintra20.Features.Groups.ContentServices
         public NodeModel GetGroupDocumentsPage() =>
             _nodeModelService.AsEnumerable().OfType<UintraGroupsDocumentsPageModel>().First();
 
-        public NodeModel GetGroupMembersPage() => null;
-         //_nodeModelService.AsEnumerable().OfType<UintraGr>().First();
+        public NodeModel GetGroupMembersPage() => 
+            _nodeModelService.AsEnumerable().OfType<UintraGroupsMembersPageModel>().First();
 
          
     }
