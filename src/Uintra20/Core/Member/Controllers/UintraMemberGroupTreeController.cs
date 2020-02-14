@@ -10,14 +10,13 @@ using Umbraco.Web.Trees;
 
 namespace Uintra20.Core.Member.Controllers
 {
-
-    [Tree("member", "memberGroups", TreeTitle = "Member Groups", SortOrder = 1)]
-    [PluginController("memberGroups")]
-    public class MemberGroupTreeController : TreeController
+    [Tree("member", "uintraMemberGroups", TreeTitle = "Uintra Member Groups", SortOrder = 2)]
+    [PluginController("UintraGroupMember")]
+    public class UintraMemberGroupTreeController : TreeController
     {
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
-        public MemberGroupTreeController(IIntranetMemberService<IntranetMember> intranetMemberService)
+        public UintraMemberGroupTreeController(IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _intranetMemberService = intranetMemberService;
         }

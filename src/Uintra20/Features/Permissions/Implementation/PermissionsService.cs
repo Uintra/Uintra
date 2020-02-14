@@ -48,15 +48,33 @@ namespace Uintra20.Features.Permissions.Implementation
         }
 
         #region async
-
-        public async Task<IEnumerable<PermissionModel>> GetAllAsync()
+        protected virtual Task<IEnumerable<PermissionModel>> CurrentCacheAsync
         {
-            return await CurrentCacheGetAsync();
+            get
+            {
+                return _cacheService.GetOrSetAsync(
+                    async () =>
+                    {
+                        var result = await _permissionsRepository.AsNoTrackingAsync();
+                        return MapAll(result);
+                    },
+                    BasePermissionCacheKey);
+            }
+            set
+            {
+                if (value == null)
+                    _cacheService.Remove(BasePermissionCacheKey);
+                else
+                    _cacheService.SetAsync(() => value, BasePermissionCacheKey);
+            }
         }
-
+        public Task<IEnumerable<PermissionModel>> GetAllAsync()
+        {
+            return CurrentCacheAsync;
+        }
         public async Task<IEnumerable<PermissionManagementModel>> GetForGroupAsync(IntranetMemberGroup group)
         {
-            var storedPerms = (await GetAllAsync())
+            var storedPerms = (await CurrentCacheAsync)
                 .Where(i => i.Group.Id == group.Id)
                 .ToDictionary(permission => permission.SettingIdentity, permission => permission.SettingValues);
 
@@ -107,7 +125,7 @@ namespace Uintra20.Features.Permissions.Implementation
         {
             if (member.Groups == null) return false;
 
-            var permission = (await GetAllAsync()).Where(p => member.Groups.Select(g => g.Id).Contains(p.Group.Id) && p.SettingIdentity.Equals(settingsIdentity));
+            var permission = (await CurrentCacheAsync).Where(p => member.Groups.Select(g => g.Id).Contains(p.Group.Id) && p.SettingIdentity.Equals(settingsIdentity));
 
             var isAllowed = permission
                 .ToList()
@@ -118,8 +136,7 @@ namespace Uintra20.Features.Permissions.Implementation
 
         public async Task<bool> CheckAsync(PermissionSettingIdentity settingsIdentity)
         {
-            //var member = await _intranetMemberService.GetCurrentMemberAsync();
-            var member = _intranetMemberService.GetCurrentMember();
+            var member = await _intranetMemberService.GetCurrentMemberAsync();
             return await CheckAsync(member, settingsIdentity);
         }
 
@@ -127,25 +144,6 @@ namespace Uintra20.Features.Permissions.Implementation
         {
             var member = await _intranetMemberService.GetCurrentMemberAsync();
             return await CheckAsync(member, new PermissionSettingIdentity(actionType, resourceType));
-        }
-
-        protected virtual async Task<IEnumerable<PermissionModel>> CurrentCacheGetAsync()
-        {
-            return await _cacheService.GetOrSetAsync(
-                async () =>
-                {
-                    var permissionEntities = await _permissionsRepository.AsNoTrackingAsync();
-                    return MapAll(permissionEntities);
-                },
-                BasePermissionCacheKey);
-        }
-
-        protected virtual async Task CurrentCachSetAsync(IEnumerable<PermissionModel> value)
-        {
-            if (value == null)
-                _cacheService.Remove(BasePermissionCacheKey);
-            else
-                await _cacheService.SetAsync(() => Task.FromResult(value), BasePermissionCacheKey);
         }
 
         protected virtual async Task<PermissionEntity> CreateActualEntityAsync(PermissionUpdateModel updateModel)
@@ -194,7 +192,7 @@ namespace Uintra20.Features.Permissions.Implementation
 
         public virtual IEnumerable<PermissionManagementModel> GetForGroup(IntranetMemberGroup group)
         {
-            var storedPerms = GetAll()
+            var storedPerms = CurrentCache
                 .Where(i => i.Group.Id == group.Id)
                 .ToDictionary(permission => permission.SettingIdentity, permission => permission.SettingValues);
 
@@ -250,7 +248,7 @@ namespace Uintra20.Features.Permissions.Implementation
             if (member.Groups == null) 
                 return false;
 
-            var permission = GetAll().Where(p => 
+            var permission = CurrentCache.Where(p => 
                 member.Groups.Select(g => g.Id).Contains(p.Group.Id) 
                 && p.SettingIdentity.Equals(settingIdentity));
 

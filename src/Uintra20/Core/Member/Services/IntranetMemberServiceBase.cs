@@ -320,7 +320,7 @@ namespace Uintra20.Core.Member.Services
         {
             var member = _umbracoHelper.MembershipHelper.GetCurrentMember();
             if (member != null) return Get(member.Key);
-
+            
             var umbracoUser = _umbracoContext.Security.CurrentUser;
             if (umbracoUser != null) return GetByUserId(umbracoUser.Id);
 

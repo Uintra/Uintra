@@ -130,6 +130,7 @@ app.controller('memberGroups.editController',
 
         changeButtonState(control.button.state.INIT);
 
+
         vm.save = function () {
             changeButtonState(control.button.state.BUSY);
             if (vm.isCreate) {

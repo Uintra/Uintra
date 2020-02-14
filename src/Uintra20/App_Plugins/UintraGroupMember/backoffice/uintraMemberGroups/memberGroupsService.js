@@ -12,7 +12,7 @@
         //};
 
         self.create = function (memberGroupName) {
-            return $http.post(baseUrl + 'Create', { name: memberGroupName });
+            return $http.post(permissionBaseUrl + 'Create', { name: memberGroupName });
         };
 
         self.save = function (memberGroupId, memberGroupName) {
@@ -20,7 +20,7 @@
         };
 
         self.delete = function (memberGroupId) {
-            return $http.post(baseUrl + 'Delete', { id: memberGroupId });
+            return $http.post(permissionBaseUrl + 'Delete', { id: memberGroupId });
         };
 
         self.getPermissions = function(memberGroupId) {
