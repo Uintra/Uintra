@@ -51,7 +51,18 @@ namespace Uintra20.Core.Activity.Converters
 
         public void Map(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
         {
-            switch (Enum.Parse(typeof(IntranetActivityTypeEnum), node.TabType))
+            var activityType = (IntranetActivityTypeEnum)Enum.Parse(typeof(IntranetActivityTypeEnum), node.TabType);
+            var currentMember = _memberService.GetCurrentMember();
+
+            viewModel.ActivityType = activityType;
+            viewModel.Creator = _memberHelper.ToViewModel(currentMember);
+            viewModel.PinAllowed = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.CanPin);
+            viewModel.CanCreate = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.Create);
+            viewModel.CanEditOwner = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.EditOwner);
+            if (viewModel.CanEditOwner)
+                viewModel.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(viewModel.ActivityType, viewModel.ActivityType));
+
+            switch (activityType)
             {
                 case IntranetActivityTypeEnum.Social:
                         ConvertToSocials(viewModel);
@@ -65,26 +76,20 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.Tags = GetTagsViewModel();
 
             //TODO: Uncomment when events create will be done
-            //viewModel.CreateEventsLink = _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create;
-            viewModel.CreateNewsLink = _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create;
+            //viewModel.CreateEventsLink = _permissionsService.Check(IntranetActivityTypeEnum.Events, PermissionActionEnum.Create) ? 
+            //    _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create
+            //    : null;
+            viewModel.CreateNewsLink = _permissionsService.Check(IntranetActivityTypeEnum.News, PermissionActionEnum.Create) ?
+                _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create
+                : null;
         }
 
         private void ConvertToNews(ActivityCreatePanelViewModel viewModel)
         {
             var mediaSettings = _newsService.GetMediaSettings();
-            var currentMember = _memberService.GetCurrentMember();
 
             viewModel.PublishDate = DateTime.UtcNow;
-            viewModel.Creator = _memberHelper.ToViewModel(currentMember);
-            viewModel.ActivityType = IntranetActivityTypeEnum.News;
-            viewModel.Links = null;//TODO: Research links
-            viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.CanPin);
             viewModel.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
-
-            viewModel.CanEditOwner = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.EditOwner);
-
-            if (viewModel.CanEditOwner)
-                viewModel.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(PermissionActionEnum.Create, viewModel.ActivityType));
         }
 
         private void ConvertToSocials(ActivityCreatePanelViewModel viewModel)
@@ -93,14 +98,8 @@ namespace Uintra20.Core.Activity.Converters
             var mediaSettings = _socialService.GetMediaSettings();
 
             viewModel.Title = currentMember.DisplayedName;
-            viewModel.ActivityType = IntranetActivityTypeEnum.Social;
             viewModel.Dates = DateTime.UtcNow.ToDateFormat().ToEnumerable();
-            viewModel.Creator = _memberHelper.ToViewModel(currentMember);
-            viewModel.Links = null;//TODO: Research links
             viewModel.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
-            viewModel.CanCreateBulletin = true; _permissionsService.Check(
-                PermissionResourceTypeEnum.Social,
-                PermissionActionEnum.Create);
         }
 
         private IEnumerable<IntranetMember> GetUsersWithAccess(PermissionSettingIdentity permissionSettingIdentity) =>

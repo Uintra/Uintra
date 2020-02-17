@@ -17,6 +17,9 @@ using Uintra20.Features.Groups.Links;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Media;
+using Uintra20.Features.Permissions;
+using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Permissions.Models;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 
@@ -37,6 +40,7 @@ namespace Uintra20.Features.Groups.Controllers
         private readonly IMediaModelService _mediaModelService;
         private readonly INodeModelService _nodeModelService;
         private readonly IGroupLinkProvider _groupLinkProvider;
+        private readonly IPermissionsService _permissionsService;
 
         public GroupController(
             IGroupService groupService,
@@ -48,7 +52,8 @@ namespace Uintra20.Features.Groups.Controllers
             ICommandPublisher commandPublisher,
             IMediaModelService mediaModelService,
             INodeModelService nodeModelService,
-            IGroupLinkProvider groupLinkProvider)
+            IGroupLinkProvider groupLinkProvider,
+            IPermissionsService permissionsService)
         {
             _groupService = groupService;
             _groupMemberService = groupMemberService;
@@ -60,6 +65,7 @@ namespace Uintra20.Features.Groups.Controllers
             _mediaModelService = mediaModelService;
             _nodeModelService = nodeModelService;
             _groupLinkProvider = groupLinkProvider;
+            _permissionsService = permissionsService;
         }
 
         [HttpGet]
@@ -70,6 +76,17 @@ namespace Uintra20.Features.Groups.Controllers
             var groupPageChildren = _nodeModelService.AsEnumerable().Where(x =>
                 x is IGroupNavigationComposition navigation && navigation.GroupNavigation.ShowInMenu &&
                 x.ParentId == rootGroupPage.Id);
+
+            groupPageChildren = groupPageChildren.Where(x =>
+            {
+                if (x is UintraGroupsCreatePageModel)
+                {
+                    return _permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
+                        PermissionResourceTypeEnum.Groups));
+                }
+
+                return true;
+            });
 
             var menuItems = groupPageChildren.OrderBy(x => ((IGroupNavigationComposition)x).GroupNavigation.SortOrder.Value).Select(x => new GroupLeftNavigationItemViewModel
             {
@@ -93,7 +110,19 @@ namespace Uintra20.Features.Groups.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Edit(GroupEditModel model)
         {
-            var group = await _groupService.GetAsync(model.Id);
+            var group = _groupService.Get(model.Id);
+
+            if (group == null || group.IsHidden)
+            {
+                return NotFound();
+            }
+
+            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Edit,
+                PermissionResourceTypeEnum.Groups)))
+            {
+                return Ok(_groupLinkProvider.GetGroupRoomLink(model.Id));
+            }
+
             group = Mapper.Map(model, group);
             group.ImageId = model.Media?.Split(',').First().ToNullableInt();
             var createdMedias = _mediaHelper.CreateMedia(model, MediaFolderTypeEnum.GroupsContent).ToList();
@@ -110,6 +139,12 @@ namespace Uintra20.Features.Groups.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Create(GroupCreateModel createModel)
         {
+            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
+                PermissionResourceTypeEnum.Groups)))
+            {
+                return Ok(_groupLinkProvider.GetGroupsOverviewLink());
+            }
+
             var currentMemberId = await _memberService.GetCurrentMemberIdAsync();
 
             var groupId = await _groupMemberService.CreateAsync(createModel, new GroupMemberSubscriptionModel
@@ -164,6 +199,13 @@ namespace Uintra20.Features.Groups.Controllers
         [HttpPost]
         public virtual async Task<IHttpActionResult> Hide(Guid id)
         {
+            var group = await _groupService.GetAsync(id);
+
+            if (group == null || group.IsHidden)
+            {
+                return NotFound();
+            }
+
             var canHide = await _groupService.CanHideAsync(id);
 
             if (!canHide) return Ok(_groupLinkProvider.GetGroupRoomLink(id));
@@ -179,6 +221,13 @@ namespace Uintra20.Features.Groups.Controllers
         public virtual async Task<IHttpActionResult> Subscribe(Guid groupId)
         {
             var currentMember = await _memberService.GetCurrentMemberAsync();
+
+            var group = await _groupService.GetAsync(groupId);
+
+            if (group == null || group.IsHidden)
+            {
+                return NotFound();
+            }
 
             if (await _groupMemberService.IsGroupMemberAsync(groupId, currentMember.Id))
             {
