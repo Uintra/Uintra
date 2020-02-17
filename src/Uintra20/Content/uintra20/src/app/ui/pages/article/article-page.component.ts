@@ -26,14 +26,11 @@ export class ArticlePage implements DeactivationGuarded {
 
   canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
-      this.isShow = true;
-
-      if (this.isConfirm) {
+      if(confirm('Are you sure?')) {
         return true;
       }
-      return new Observable<boolean>(subs => {
-        this.subscriber = subs;
-      });
+
+      return false;
     }
 
     return true;
