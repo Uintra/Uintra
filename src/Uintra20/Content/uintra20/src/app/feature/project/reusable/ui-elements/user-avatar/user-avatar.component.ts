@@ -22,7 +22,7 @@ export class UserAvatarComponent implements OnInit {
     this.initFirstlLetter();
   }
   private validateImagePreset(): void {
-    if (this.photo.startsWith('?')) {
+    if (this.photo && this.photo.startsWith('?')) {
       this.photo = '';
     }
   }
