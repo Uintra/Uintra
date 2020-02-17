@@ -62,6 +62,7 @@ namespace Uintra20.Features.News
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IIntranetLocalizationService _localizationService;
         private readonly IMemberServiceHelper _memberHelper;
+        private readonly IFeedActivityHelper _feedActivityHelper;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -83,7 +84,8 @@ namespace Uintra20.Features.News
             IGroupService groupService,
             INotifierDataBuilder notifierDataBuilder,
             IIntranetLocalizationService localizationService,
-            IMemberServiceHelper memberHelper)
+            IMemberServiceHelper memberHelper,
+            IFeedActivityHelper feedActivityHelper)
             : base(intranetActivityRepository, cacheService, intranetMemberService,
                 activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
                 permissionsService)
@@ -104,6 +106,7 @@ namespace Uintra20.Features.News
             _intranetMemberService = intranetMemberService;
             _localizationService = localizationService;
             _memberHelper = memberHelper;
+            _feedActivityHelper = feedActivityHelper;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.News;
@@ -126,7 +129,8 @@ namespace Uintra20.Features.News
             viewModel.Type = _localizationService.Translate(news.Type.ToString());
             viewModel.LikedByCurrentUser = news.Likes.Any(x => x.UserId == currentMemberId);
             viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);
-            
+            viewModel.GroupInfo = _feedActivityHelper.GetGroupInfo(activityId);
+
             var dates = news.PublishDate.ToDateTimeFormat().ToEnumerable().ToList();
 
             if (news.UnpublishDate.HasValue)

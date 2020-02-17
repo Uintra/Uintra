@@ -3,6 +3,7 @@ using Compent.Shared.Extensions.Bcl;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
@@ -24,6 +25,7 @@ using Uintra20.Features.Navigation.Services;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Permissions.Models;
+using Uintra20.Features.Notification;
 using Uintra20.Features.Social.Edit.Models;
 using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags;
@@ -97,6 +99,7 @@ namespace Uintra20.Features.Social.Controllers
 
             var viewModel = await GetViewModelAsync(createdBulletinId);
 
+            ReloadFeed();
             return Ok(viewModel.Links.Details);
         }
 
@@ -118,7 +121,7 @@ namespace Uintra20.Features.Social.Controllers
             await OnBulletinEditedAsync(bulletin, editModel);
 
             var model = await GetViewModelAsync(bulletin.Id);
-
+            ReloadFeed();
             return Ok(model.Links.Details);
         }
 
@@ -129,12 +132,13 @@ namespace Uintra20.Features.Social.Controllers
 
             await OnBulletinDeletedAsync(id);
 
+            ReloadFeed();
             return Ok();
         }
 
         public void ReloadFeed()
         {
-            var hubContext = GlobalHost.ConnectionManager.GetHubContext<CentralFeedHub>();
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<UintraHub>();
             hubContext.Clients.All.reloadFeed();
         }
 
@@ -208,13 +212,12 @@ namespace Uintra20.Features.Social.Controllers
         private void OnBulletinDeleted(Guid id)
         {
             _myLinksService.DeleteByActivityId(id);
-            ReloadFeed();
         }
 
         private async Task OnBulletinDeletedAsync(Guid id)
         {
             await _myLinksService.DeleteByActivityIdAsync(id);
-            ReloadFeed();
+
         }
 
         private void OnBulletinCreated(SocialBase social, SocialCreateModel model)
@@ -236,8 +239,6 @@ namespace Uintra20.Features.Social.Controllers
             {
                 ResolveMentions(model.Description, social);
             }
-
-            ReloadFeed();
         }
 
         private async Task OnBulletinCreatedAsync(SocialBase social, SocialCreateModel model)
@@ -259,8 +260,6 @@ namespace Uintra20.Features.Social.Controllers
             {
                 await ResolveMentionsAsync(model.Description, social);
             }
-
-            ReloadFeed();
         }
 
         private void ResolveMentions(string text, SocialBase social)

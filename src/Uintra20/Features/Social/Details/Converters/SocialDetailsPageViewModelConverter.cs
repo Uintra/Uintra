@@ -7,7 +7,6 @@ using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Helpers;
-using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.Helpers;
 using Uintra20.Features.Comments.Services;
@@ -65,31 +64,37 @@ namespace Uintra20.Features.Social.Details.Converters
                 return;
 
             var userId = _memberService.GetCurrentMemberId();
+            var social = _socialService.Get(parseId);
 
-            viewModel.Details = GetViewModel(parseId);
+            viewModel.Details = GetViewModel(social);
             viewModel.Tags = _userTagService.Get(parseId);
             viewModel.Likes = _likesService.GetLikeModels(parseId);
             viewModel.LikedByCurrentUser = viewModel.Likes.Any(l => l.UserId == userId);
             viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(parseId));
             viewModel.CanEdit = _socialService.CanEdit(parseId);
+
+            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            if (!Guid.TryParse(groupIdStr, out var groupId) || social.GroupId != groupId)
+                return;
+
+            viewModel.RequiresGroupHeader = true;
+            viewModel.GroupId = groupId;
         }
 
-        protected SocialExtendedViewModel GetViewModel(Guid id)
+        protected SocialExtendedViewModel GetViewModel(Entities.Social social)
         {
-            var social = _socialService.Get(id);
-
             var viewModel = social.Map<SocialViewModel>();
 
             viewModel.Media = MediaHelper.GetMediaUrls(social.MediaIds);
 
             viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, PresetStrategies.ForActivityDetails);
             viewModel.CanEdit = _socialService.CanEdit(social);
-            viewModel.Links = _feedLinkService.GetLinks(id);
+            viewModel.Links = _feedLinkService.GetLinks(social.Id);
             viewModel.IsReadOnly = false;
             viewModel.HeaderInfo = social.Map<IntranetActivityDetailsHeaderViewModel>();
             viewModel.HeaderInfo.Dates = social.PublishDate.ToDateTimeFormat().ToEnumerable();
             viewModel.HeaderInfo.Owner = _memberHelper.ToViewModel(_memberService.Get(social));
-            viewModel.HeaderInfo.Links = _feedLinkService.GetLinks(id);
+            viewModel.HeaderInfo.Links = _feedLinkService.GetLinks(social.Id);
 
             var extendedModel = viewModel.Map<SocialExtendedViewModel>();
 

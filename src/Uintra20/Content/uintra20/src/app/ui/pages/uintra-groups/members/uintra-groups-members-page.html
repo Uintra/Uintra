@@ -1,0 +1,21 @@
+<app-group-details-wrapper [id]="data?.groupId">
+  <div class="page-wrapper">
+    <div class="group-members-wrapper col-md-8">
+      <div class="group-members">
+        <h2 class="group-members__title">
+          Group Members
+        </h2>
+        <h3 class="group-members__search-title">Search people</h3>
+        <div class="search-wrapper">
+          <text-input
+            type="search"
+            placeholder="Search for name, phone number, e-mail or anything else"
+            class="search">
+          </text-input>
+          <span class="icon-search-icon"></span>
+        </div>
+        <button class="button-default pop-up-btn">Invite member</button>
+      </div>
+    </div>
+  </div>
+</app-group-details-wrapper>

@@ -12,13 +12,13 @@ namespace Uintra20.Features.Links.Models
         }
         public string OriginalUrl { get; set; }
         public string BaseUrl { get; set; }
-        public IEnumerable<UintraLinkParamModel> Params { get; set; }
+        public IEnumerable<UintraLinkParamModel> Params { get; set; } = Enumerable.Empty<UintraLinkParamModel>();
 
         public override string ToString()
         {
             if (Params.Any())
             {
-                return $"{BaseUrl}?" + Params.JoinToString("&");
+                return $"{BaseUrl.TrimEnd('/', '?')}?" + Params.JoinToString("&");
             }
 
             return BaseUrl;

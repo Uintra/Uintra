@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GroupsService, IGroupsData } from 'src/app/ui/main-layout/left-navigation/components/groups/groups.service';
+import { GroupsService, IGroupsData } from 'src/app/feature/project/specific/groups/groups.service';
 import { IUlinkWithTitle } from 'src/app/feature/shared/interfaces/IULink';
 
 @Component({

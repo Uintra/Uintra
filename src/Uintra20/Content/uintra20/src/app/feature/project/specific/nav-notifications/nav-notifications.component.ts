@@ -1,12 +1,11 @@
-import { Component, OnInit, NgZone, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, NgZone, OnDestroy } from "@angular/core";
 import {
   NavNotificationsService,
   INotificationsData,
   INotificationsListData
 } from "./nav-notifications.service";
-import { SignalrService } from "./helpers/signalr.service";
 import { DesktopNotificationService } from "./helpers/desktop-notification.service";
-import { Subject } from 'rxjs';
+import { SignalrService } from "src/app/services/general/signalr.service";
 
 declare let $: any;
 
@@ -15,7 +14,7 @@ declare let $: any;
   templateUrl: "./nav-notifications.component.html",
   styleUrls: ["./nav-notifications.component.less"]
 })
-export class NavNotificationsComponent implements OnInit {
+export class NavNotificationsComponent implements OnInit, OnDestroy {
   notifications: INotificationsData[];
   notificationCount: number;
   notificationPageUrl: string;
@@ -38,13 +37,22 @@ export class NavNotificationsComponent implements OnInit {
         this.notificationCount = response;
       });
 
-    this.signalrService.createHub(this.getNewNotification.bind(this));
+    this.signalrService.startHub();
+    this.signalrService
+      .getUpdateNotificationsSubjects()
+      .subscribe(notifications => {
+        this.getNewNotification(notifications);
+      });
 
     if ("Notification" in window) {
       Notification.requestPermission(status => {
         return (this.permission = status);
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    //this.signalrService.hubConnectionStop();
   }
 
   getNewNotification(notifications = []) {
@@ -67,7 +75,6 @@ export class NavNotificationsComponent implements OnInit {
 
   private createDesktopNotifications(notifications) {
     this.ngNotificationZone.runOutsideAngular(() => {
-
       const notificationsForDesktop = notifications.filter(
         notification => notification.Value.isDesktopNotificationEnabled
       );

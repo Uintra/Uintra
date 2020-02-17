@@ -2,6 +2,7 @@
   [ngClass]="{ 'files-loaded': filesLength }"
   #dropdownRef
   [config]="config"
+  [disabled]="disabled"
   [message]="message"
   (success)="onUploadSuccess($event)"
   (removedFile)="onFileRemoved($event)"

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using Compent.CommandBus;
@@ -107,7 +108,7 @@ namespace Uintra20.Features.Groups.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Edit(GroupEditModel model)
+        public async Task<IHttpActionResult> Edit(GroupEditModel model)
         {
             var group = _groupService.Get(model.Id);
 
@@ -129,14 +130,14 @@ namespace Uintra20.Features.Groups.Controllers
             {
                 group.ImageId = createdMedias.First();
             }
-            _groupService.Edit(group);
-            _groupMediaService.GroupTitleChanged(group.Id, group.Title);
+            await _groupService.EditAsync(group);
+            await _groupMediaService.GroupTitleChangedAsync(group.Id, group.Title);
 
-            return Ok(_groupLinkProvider.GetGroupRoomLink(model.Id));
+            return Ok(_groupLinkProvider.GetGroupRoomLink(group.Id));
         }
 
         [HttpPost]
-        public IHttpActionResult Create(GroupCreateModel createModel)
+        public async Task<IHttpActionResult> Create(GroupCreateModel createModel)
         {
             if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
                 PermissionResourceTypeEnum.Groups)))
@@ -144,9 +145,9 @@ namespace Uintra20.Features.Groups.Controllers
                 return Ok(_groupLinkProvider.GetGroupsOverviewLink());
             }
 
-            var currentMemberId = _memberService.GetCurrentMember().Id;
+            var currentMemberId = await _memberService.GetCurrentMemberIdAsync();
 
-            var groupId = _groupMemberService.Create(createModel, new GroupMemberSubscriptionModel
+            var groupId = await _groupMemberService.CreateAsync(createModel, new GroupMemberSubscriptionModel
             {
                 IsAdmin = true,
                 MemberId = currentMemberId
@@ -156,20 +157,20 @@ namespace Uintra20.Features.Groups.Controllers
         }
 
         [HttpGet]
-        public virtual IEnumerable<GroupViewModel> List(bool isMyGroupsPage = false, int page = 1)
+        public virtual async Task<IEnumerable<GroupViewModel>> List(bool isMyGroupsPage = false, int page = 1)
         {
             var take = page * ItemsPerPage;
             var skip = (page - 1) * ItemsPerPage;
-            var currentMember = _memberService.GetCurrentMember();
+            var currentMember = await _memberService.GetCurrentMemberAsync();
 
-            var allGroups = isMyGroupsPage
-                ? _groupService.GetMany(currentMember.GroupIds).ToList()
-                : _groupService.GetAllNotHidden().ToList();
+            var allGroups = await (isMyGroupsPage
+                ? _groupService.GetManyAsync(currentMember.GroupIds)
+                : _groupService.GetAllNotHiddenAsync());
 
-            bool IsCurrentMemberInGroup(GroupModel g) => isMyGroupsPage || _groupMemberService.IsGroupMember(g.Id, currentMember.Id);
+            async Task<bool> IsCurrentMemberInGroupAsync(GroupModel g) => isMyGroupsPage || await _groupMemberService.IsGroupMemberAsync(g.Id, currentMember.Id);
 
-            var groups = allGroups
-                .Select(g => MapGroupViewModel(g, IsCurrentMemberInGroup(g)))
+            var groups = (await allGroups
+                .SelectAsync(g => MapGroupViewModelAsync(g, IsCurrentMemberInGroupAsync(g))))
                 .OrderByDescending(g => g.Creator.Id == currentMember.Id)
                 .ThenByDescending(s => s.IsMember)
                 .ThenBy(g => g.Title)
@@ -179,17 +180,33 @@ namespace Uintra20.Features.Groups.Controllers
             return groups;
         }
 
-        [HttpPost]
-        public virtual IHttpActionResult Hide(Guid id)
+        [HttpGet]
+        public async Task<GroupHeaderViewModel> Header(Guid groupId)
         {
-            var group = _groupService.Get(id);
+            var group = await _groupService.GetAsync(groupId);
+            var canEdit = await _groupService.CanEditAsync(group);
+
+            var links = _groupLinkProvider.GetGroupLinks(groupId, canEdit);
+
+            return new GroupHeaderViewModel
+            {
+                Title = group.Title,
+                RoomPageLink = links.GroupRoomPage,
+                GroupLinks = links
+            };
+        }
+
+        [HttpPost]
+        public virtual async Task<IHttpActionResult> Hide(Guid id)
+        {
+            var group = await _groupService.GetAsync(id);
 
             if (group == null || group.IsHidden)
             {
                 return NotFound();
             }
 
-            var canHide = _groupService.CanHide(id);
+            var canHide = await _groupService.CanHideAsync(id);
 
             if (!canHide) return Ok(_groupLinkProvider.GetGroupRoomLink(id));
 
@@ -201,20 +218,20 @@ namespace Uintra20.Features.Groups.Controllers
         }
 
         [HttpPost]
-        public virtual IHttpActionResult Subscribe(Guid groupId)
+        public virtual async Task<IHttpActionResult> Subscribe(Guid groupId)
         {
-            var currentMember = _memberService.GetCurrentMember();
+            var currentMember = await _memberService.GetCurrentMemberAsync();
 
-            var group = _groupService.Get(groupId);
+            var group = await _groupService.GetAsync(groupId);
 
             if (group == null || group.IsHidden)
             {
                 return NotFound();
             }
 
-            if (_groupMemberService.IsGroupMember(groupId, currentMember.Id))
+            if (await _groupMemberService.IsGroupMemberAsync(groupId, currentMember.Id))
             {
-                _groupMemberService.Remove(groupId, currentMember.Id);
+                await _groupMemberService.RemoveAsync(groupId, currentMember.Id);
             }
             else
             {
@@ -224,19 +241,19 @@ namespace Uintra20.Features.Groups.Controllers
                     IsAdmin = false
                 };
 
-                _groupMemberService.Add(groupId, subscription);
+                await _groupMemberService.AddAsync(groupId, subscription);
             }
 
             return Ok(_groupLinkProvider.GetGroupRoomLink(groupId));
         }
 
-        private GroupViewModel MapGroupViewModel(GroupModel group, bool isCurrentUserMember)
+        private async Task<GroupViewModel> MapGroupViewModelAsync(GroupModel group, Task<bool> isCurrentUserMember)
         {
             var groupModel = group.Map<GroupViewModel>();
-            groupModel.IsMember = isCurrentUserMember;
-            groupModel.MembersCount = _groupMemberService.GetMembersCount(group.Id);
+            groupModel.IsMember = await isCurrentUserMember;
+            groupModel.MembersCount = await _groupMemberService.GetMembersCountAsync(group.Id);
             groupModel.Creator = _memberService.Get(group.CreatorId).Map<MemberViewModel>();
-            //groupModel.GroupUrl = _groupLinkProvider.GetGroupLink(group.Id);//TODO: Research
+            groupModel.GroupUrl = _groupLinkProvider.GetGroupRoomLink(group.Id);
             if (groupModel.HasImage)
             {
                 groupModel.GroupImageUrl = _imageHelper.GetImageWithPreset(_mediaModelService.Get(group.ImageId.Value).Url, UmbracoAliases.ImagePresets.GroupImageThumbnail);

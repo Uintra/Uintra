@@ -67,15 +67,22 @@ namespace Uintra20.Features.News.Converters
                 return;
             }
 
-            viewModel.Details = GetDetails(id);
+            var news = _newsService.Get(id);
 
+            viewModel.Details = GetDetails(news);
             viewModel.CanEditOwner = _permissionsService.Check(IntranetActivityTypeEnum.News, PermissionActionEnum.EditOwner);
+            viewModel.AllowedMediaExtensions = _newsService.GetMediaSettings().AllowedMediaExtensions;
+            viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.CanPin);
 
             if (viewModel.CanEditOwner)
                 viewModel.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(PermissionActionEnum.Create, IntranetActivityTypeEnum.News));
 
-            viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.CanPin);
-            viewModel.AllowedMediaExtensions = _newsService.GetMediaSettings().AllowedMediaExtensions;
+            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            if (!Guid.TryParse(groupIdStr, out var groupId) || news.GroupId != groupId)
+                return;
+
+            viewModel.RequiresGroupHeader = true;
+            viewModel.GroupId = groupId;
         }
 
         //TODO Refactor this code. Method is duplicated in ActivityCreatePanelConverter
@@ -86,20 +93,20 @@ namespace Uintra20.Features.News.Converters
                 .OrderBy(user => user.DisplayedName)
                 .ToArray();
 
-        private NewsViewModel GetDetails(Guid activityId)
+        private NewsViewModel GetDetails(Entities.News news)
         {
-            var news = _newsService.Get(activityId);
+            
             var details = news.Map<NewsViewModel>();
 
             details.Media = MediaHelper.GetMediaUrls(news.MediaIds);
 
             details.CanEdit = _newsService.CanEdit(news);
-            details.Links = _feedLinkService.GetLinks(activityId);
+            details.Links = _feedLinkService.GetLinks(news.Id);
             details.IsReadOnly = false;
             details.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             details.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
             details.HeaderInfo.Owner = _memberHelper.ToViewModel(_memberService.Get(news));
-            details.HeaderInfo.Links = _feedLinkService.GetLinks(activityId);
+            details.HeaderInfo.Links = _feedLinkService.GetLinks(news.Id);
             details.Tags = _userTagService.Get(news.Id);
             details.AvailableTags = _userTagProvider.GetAll();
             details.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(news.MediaIds, PresetStrategies.ForActivityDetails);

@@ -60,6 +60,13 @@ namespace Uintra20.Features.Social.Edit.Converters
 
             var mediaSettings = _socialService.GetMediaSettings();
             viewModel.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
+
+            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            if (!Guid.TryParse(groupIdStr, out var groupId) || social.GroupId != groupId)
+                return;
+
+            viewModel.RequiresGroupHeader = true;
+            viewModel.GroupId = groupId;
         }
     }
 }
