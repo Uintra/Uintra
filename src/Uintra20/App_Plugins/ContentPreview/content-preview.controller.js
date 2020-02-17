@@ -1,9 +1,9 @@
 ﻿function contentPreviewController($scope, editorState, contentEditingHelper,
-    eventsService, navigationService, umbRequestHelper, $http, $q, contentResource, angularHelper)
-{
+    eventsService, navigationService, umbRequestHelper, $http, $q, contentResource, angularHelper) {
     var vm = this;
-    vm.culture = param("cculture");
-    vm.previewUrl = "/umbraco/preview/?id=" + editorState.current.id + "#?culture=" + vm.culture;
+    vm.showPreview = editorState.current.id ? true : false;
+    vm.culture = getParameterFromUrl("cculture");
+    vm.previewUrl = getNodePreviewUrl(editorState.current.id);
     vm.width = 1200;
     vm.height = 750;
     var infiniteMode = $scope.infiniteModel && $scope.infiniteModel.infiniteMode;
@@ -30,18 +30,13 @@
         performSave({ saveMethod: contentResource.save, action: "save" }).then(function (data) {
             var iframe = document.getElementsByClassName("js-preview-frame")[0];
             iframe.src = iframe.src;
+            vm.showPreview = true;
         }, function (err) {
         });
-        
+
     };
 
-    function param(name) {
-        var arr = (window.location.href.split(name + '=')[1] || '').split('&');
-        return arr && arr.length > 0 ? arr[0] : "";
-    }
-
     function performSave(args) {
-
         var fieldsToRollback = checkValidility();
 
         //Used to check validility of nested form - coming from Content Apps mostly
@@ -56,16 +51,16 @@
             showNotifications: args.showNotifications,
             softRedirect: true
         }).then(function (data) {
-                //needs to be manually set for infinite editing mode
-                vm.page.isNew = false;
+            //needs to be manually set for infinite editing mode
+            vm.page.isNew = false;
 
-                eventsService.emit("content.saved", { content: $scope.content, action: args.action });
+            eventsService.emit("content.saved", { content: $scope.content, action: args.action });
 
-                resetNestedFieldValiation(fieldsToRollback);
-                ensureDirtyIsSetIfAnyVariantIsDirty();
+            resetNestedFieldValiation(fieldsToRollback);
+            ensureDirtyIsSetIfAnyVariantIsDirty();
 
-                return $q.when(data);
-            },
+            return $q.when(data);
+        },
             function (err) {
                 syncTreeNode($scope.content, $scope.content.path);
 
@@ -99,8 +94,8 @@
             umbRequestHelper.resourcePromise(
                 $http.get(content.treeNodeUrl),
                 'Failed to retrieve data for child node ' + content.id).then(function (node) {
-                $scope.page.menu.currentNode = node;
-            });
+                    $scope.page.menu.currentNode = node;
+                });
         }
     }
 
@@ -190,5 +185,28 @@
 
         return childFieldsToMarkAsValid;
     }
+
+    function getParameterFromUrl(name) {
+        var arr = (window.location.href.split(name + '=')[1] || '').split('&');
+        return arr && arr.length > 0 ? arr[0] : "";
+    }
+
+    function getNodePreviewUrl(nodeId) {
+        var culture = getParameterFromUrl("cculture");
+        return "/umbraco/preview/?id=" + nodeId + "#?culture=" + culture; // don't change this url, it's umbraco format for preview url 
+    }
+
+    function nodeSaved(event) {
+        if (event.detail.id) {
+            document.querySelector(".js-preview-frame").src = getNodePreviewUrl(event.detail.id);
+            vm.showPreview = true;
+        }
+    }
+
+    document.addEventListener("nodeSaved", nodeSaved);
+
+    $scope.$on('$destroy', function () {
+        document.removeEventListener("nodeSaved", nodeSaved);
+    });
 }
 angular.module("umbraco").controller("UBaseline.ContentPreviewController", contentPreviewController);

@@ -49,5 +49,8 @@
     "ReceiverApiUrl": "https://ubaseline-qa.compent2.dk/umbraco/api/packageManagementWebHook/saveConsumer",
     "Attempts": 10,
     "Timeout": 120 // in seconds 
+  },
+  "SocialSettings": {
+    "DefaultImagePath": "/wwwroot/assets/img/social-logo.png"
   }
 }

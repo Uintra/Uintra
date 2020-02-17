@@ -63,6 +63,7 @@ namespace Uintra20.Features.Social
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IIntranetLocalizationService _localizationService;
         private readonly IMemberServiceHelper _memberHelper;
+        private readonly IFeedActivityHelper _feedActivityHelper;
 
         public SocialService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -85,7 +86,8 @@ namespace Uintra20.Features.Social
             IGroupService groupService,
             INotifierDataBuilder notifierDataBuilder,
             IIntranetLocalizationService localizationService,
-            IMemberServiceHelper memberHelper)
+            IMemberServiceHelper memberHelper,
+            IFeedActivityHelper feedActivityHelper)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
                 activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService)
         {
@@ -105,6 +107,7 @@ namespace Uintra20.Features.Social
             _intranetMemberService = intranetMemberService;
             _localizationService = localizationService;
             _memberHelper = memberHelper;
+            _feedActivityHelper = feedActivityHelper;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.Social;
@@ -130,13 +133,14 @@ namespace Uintra20.Features.Social
             viewModel.Type = _localizationService.Translate(bulletin.Type.ToString());
             viewModel.LikedByCurrentUser = bulletin.Likes.Any(x => x.UserId == currentMemberId);
             viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);
+            viewModel.GroupInfo = _feedActivityHelper.GetGroupInfo(activityId);
             _likesService.FillLikes(viewModel);
             DependencyResolver.Current.GetService<ILightboxHelper>().FillGalleryPreview(viewModel, bulletin.MediaIds);
 
             return viewModel;
         }
 
-        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.BulletinsContent);
+        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.SocialsContent);
 
         //protected override void UpdateCache()
         //{

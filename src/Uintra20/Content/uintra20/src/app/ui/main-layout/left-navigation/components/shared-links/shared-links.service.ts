@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { CookieService } from 'ngx-cookie-service';
+import { IULink } from 'src/app/feature/shared/interfaces/IULink';
 
 export interface ISharedNavData {
   linksGroupTitle: string;
@@ -11,11 +12,7 @@ export interface ISharedNavData {
 
 export interface ISharedLink {
   name: string;
-  url: {
-    originalUrl: string;
-    baseUrl: string;
-    params: Array<object>;
-  };
+  url: IULink;
   target: "_self" | "_blank";
 }
 

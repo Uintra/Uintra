@@ -16,8 +16,9 @@ namespace Uintra20.Core.Member.AutoMapperProfiles
             CreateMap<IIntranetMember, ProfileViewModel>()
                 .ForMember(dst => dst.EditingMember, o => o.MapFrom(user => user))
                 .ForMember(dst => dst.Photo, o => o.MapFrom(user => user.Photo.HasValue() ? user.Photo : string.Empty))
-                .ForMember(dst => dst.PhotoId, o => o.MapFrom(user => user.PhotoId));
-
+                .ForMember(dst => dst.PhotoId, o => o.MapFrom(user => user.PhotoId))
+                .ForMember(dst => dst.AllowedMediaExtensions, o => o.Ignore());
+            //TODO How to handle Allowed Media Extensions?
             CreateMap<IIntranetMember, MemberViewModel>()
                 .ForMember(dst => dst.Id, o => o.MapFrom(user => user.Id))
                 .ForMember(dst => dst.DisplayedName, o => o.MapFrom(user => user.DisplayedName))

@@ -16,7 +16,6 @@ namespace Uintra20.Features.Social.Edit.Models
         public string Description { get; set; }
         public DateTime PublishDate { get; set; }
         public string Media { get; set; }
-        public int? MediaRootId { get; set; }
 
         [RequiredIfAllEmpty(DependancyProperties = new[] { nameof(Description), nameof(Media) })]
         public string NewMedia { get; set; }

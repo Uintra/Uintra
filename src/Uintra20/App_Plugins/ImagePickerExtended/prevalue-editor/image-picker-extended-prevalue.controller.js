@@ -1,7 +1,7 @@
 ﻿(function (angular) {
     'use strict';
 
-    const controller = function ($scope, notificationsService) {
+    const controller = function ($scope, notificationsService, $filter) {
         const self = this;
 
         const defaultItem = {
@@ -26,6 +26,9 @@
                 },
                 multiMode: false
             };
+        }
+        else if ($scope.model.value.crops) {
+            $scope.model.value.crops = sortCrops($scope.model.value.crops);
         }
 
         self.remove = function (item) {
@@ -77,9 +80,17 @@
                 media: self.newItem.media
             });
 
+            $scope.model.value.crops = sortCrops($scope.model.value.crops);
+
             self.newItem = createNewItem();
             self.hasError = false;
         };
+
+        function sortCrops(crops) {
+            return $filter('orderBy')(crops, function (i) {
+                return i.width * i.height;
+            }, true);
+        }
 
         function getElementIndexByPrevalueText(name) {
             for (var i = 0; i < $scope.model.value.crops.length; i++) {
@@ -94,28 +105,9 @@
         function createNewItem() {
             return Object.assign({}, defaultItem);
         }
-
-        $scope.sortableOptions = {
-            axis: 'y',
-            containment: 'parent',
-            cursor: 'move',
-            items: '> div.control-group',
-            tolerance: 'pointer',
-            update: function (e, ui) {
-                const newIndex = ui.item.index();
-                const movedPrevalueText = $('input[type="text"]', ui.item).val();
-                const originalIndex = getElementIndexByPrevalueText(movedPrevalueText);
-
-                if (originalIndex > -1) {
-                    const movedElement = $scope.model.value.crops[originalIndex];
-                    $scope.model.value.crops.splice(originalIndex, 1);
-                    $scope.model.value.crops.splice(newIndex, 0, movedElement);
-                }
-            }
-        };
     }
 
-    controller.$inject = ["$scope", "notificationsService"];
+    controller.$inject = ["$scope", "notificationsService", "$filter"];
 
     angular.module("umbraco").controller("imagePickerExtendedPreValueController", controller);
 })(angular);

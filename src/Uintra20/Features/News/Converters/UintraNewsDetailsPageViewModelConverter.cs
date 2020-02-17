@@ -62,32 +62,39 @@ namespace Uintra20.Features.News.Converters
             if (!Guid.TryParse(idStr, out var id))
                 return;
 
+            var news = _newsService.Get(id);
+
             var userId = _memberService.GetCurrentMemberId();
 
-            viewModel.Details = GetDetails(id);
+            viewModel.Details = GetDetails(news);
             viewModel.Tags = _userTagService.Get(id);
             viewModel.Likes = _likesService.GetLikeModels(id);
             viewModel.LikedByCurrentUser = viewModel.Likes.Any(l => l.UserId == userId);
             viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(id));
+            viewModel.CanEdit = _newsService.CanEdit(id);
 
+            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            if (!Guid.TryParse(groupIdStr, out var groupId) || news.GroupId != groupId)
+                return;
+
+            viewModel.RequiresGroupHeader = true;
+            viewModel.GroupId = groupId;
         }
 
-        private NewsViewModel GetDetails(Guid activityId)
+        private NewsViewModel GetDetails(Entities.News news)
         {
-            var news = _newsService.Get(activityId);
-
             var details = news.Map<NewsViewModel>();
 
             details.Media = MediaHelper.GetMediaUrls(news.MediaIds);
 
             details.LightboxPreviewModel = _lightBoxHelper.GetGalleryPreviewModel(news.MediaIds, PresetStrategies.ForActivityDetails);
             details.CanEdit = _newsService.CanEdit(news);
-            details.Links = _feedLinkService.GetLinks(activityId);
+            details.Links = _feedLinkService.GetLinks(news.Id);
             details.IsReadOnly = false;
             details.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             details.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
             details.HeaderInfo.Owner = _memberHelper.ToViewModel(_memberService.Get(news));
-            details.HeaderInfo.Links = _feedLinkService.GetLinks(activityId);
+            details.HeaderInfo.Links = _feedLinkService.GetLinks(news.Id);
 
 
             return details;

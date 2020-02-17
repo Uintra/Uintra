@@ -69,5 +69,12 @@ namespace Uintra20.Infrastructure.Extensions
 
             return result.SelectMany(x => x);
         }
+
+        public static IEnumerable<T> ToEnumerableOfOne<T>(this T obj)
+        {
+            return obj == null 
+                ? Enumerable.Empty<T>() 
+                : Enumerable.Repeat<T>(obj, 1);
+        }
     }
 }

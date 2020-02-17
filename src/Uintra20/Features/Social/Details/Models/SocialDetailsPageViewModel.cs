@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UBaseline.Shared.Node;
 using UBaseline.Shared.PageSettings;
@@ -19,5 +20,8 @@ namespace Uintra20.Features.Social.Details.Models
         public IEnumerable<LikeModel> Likes { get; set; } = Enumerable.Empty<LikeModel>();
         public IEnumerable<CommentViewModel> Comments = Enumerable.Empty<CommentViewModel>();
         public bool LikedByCurrentUser { get; set; }
+        public Guid? GroupId { get; set; }
+        public bool RequiresGroupHeader { get; set; }
+        public bool CanEdit { get; set; }
     }
 }

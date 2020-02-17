@@ -13,8 +13,6 @@ namespace Uintra20.Features.Social.Models
         [RequiredIfEmpty(OtherProperty = nameof(NewMedia)), StringLengthWithoutHtml(2000)]
         public string Description { get; set; }
 
-        public int? MediaRootId { get; set; }
-
         public string AllowedMediaExtensions { get; set; }
 
         public IEnumerable<string> Dates { get; set; }

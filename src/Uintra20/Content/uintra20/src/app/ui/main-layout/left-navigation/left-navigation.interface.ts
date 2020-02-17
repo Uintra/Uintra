@@ -1,4 +1,5 @@
 import { IOwner } from 'src/app/feature/project/specific/activity/activity.interfaces';
+import { IULink } from 'src/app/feature/shared/interfaces/IULink';
 
 export interface INavigationData {
   menuItems: INavigationItem[];
@@ -21,10 +22,6 @@ export interface IMobileUserNavigation {
 }
 export interface ITopNavigationLink {
   name: string;
-  url: {
-    originalUrl: string;
-    baseUrl: string;
-    params: Array<object>;
-  };
+  url: IULink;
   type: number;
 }
