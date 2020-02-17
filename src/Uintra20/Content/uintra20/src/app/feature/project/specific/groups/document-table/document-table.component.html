@@ -1,34 +1,48 @@
-<table class="custom-table">
-  <thead>
-    <tr class="custom-table__header">
-      <th
-        *ngFor="let headerCell of tableHeader"
-        (click)="onSort(headerCell.key)"
-        class="custom-table__header-cell"
-        [ngClass]="{
-          sort: sortedBy === headerCell.key,
-          asc: sortedBy === headerCell.key && isAsc
-        }"
-      >
-        {{ headerCell.text }}
-      </th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let document of documents" class="custom-table__row">
-      <td><div class="file-extension">{{ document.type }}</div></td>
-      <td>{{ document.name }}</td>
-      <td><img src="{{ document.photo }}" />{{ document.displayedName }}</td>
-      <td>{{ document.createDate }}</td>
-      <td>
-        <button
-          class="custom-table__remove-button"
-          (click)="onRemove(document.id)"
+<div class="custom-table-wrapper">
+  <table class="custom-table">
+    <thead>
+      <tr class="custom-table__header">
+        <th
+          *ngFor="let headerCell of tableHeader"
+          (click)="onSort(headerCell.key)"
+          class="custom-table__header-cell"
+          [ngClass]="{
+            sort: sortedBy === headerCell.key,
+            asc: sortedBy === headerCell.key && isAsc
+          }"
         >
-          <span class="icon-close"></span>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+          {{ headerCell.text }}
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let document of documents" class="custom-table__row">
+        <td>
+          <div class="file-extension">{{ document.type }}</div>
+        </td>
+        <td>{{ document.name }}</td>
+        <td>
+          <div class="user-data">
+            <app-user-avatar
+              [photo]="document.photo"
+              [name]="document.displayedName"
+            ></app-user-avatar>
+            <div class="user-data__name">
+              {{ document.displayedName }}
+            </div>
+          </div>
+        </td>
+        <td>{{ document.createDate }}</td>
+        <td>
+          <button
+            class="custom-table__remove-button"
+            (click)="onRemove(document.id)"
+          >
+            <span class="icon-close"></span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
