@@ -71,7 +71,7 @@ namespace Uintra20.Features.Groups.Controllers
                 {
                     CanDelete = CanDelete(currentMember, group, groupMembers, s),
                     Id = document.Id,
-                    CreateDate = s.CreateDate,
+                    CreateDate = s.CreateDate.ToString("dd.MM.yyyy"),
                     Name = s.Name,
                     Type = s is FileModel file ? file.UmbracoExtension : ((ImageModel)s).UmbracoExtension,
                     Creator = creator.Map<MemberViewModel>(),
