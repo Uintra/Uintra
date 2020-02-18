@@ -3,9 +3,11 @@ using Compent.Shared.Extensions.Bcl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.SignalR;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Models.Headers;
@@ -17,15 +19,17 @@ using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.News.Models;
+using Uintra20.Features.Notification;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Permissions.Models;
+using Uintra20.Features.Social;
 using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.News.Controllers
 {
-    public class NewsApiController : UBaselineApiController
+    public class NewsApiController : UBaselineApiController,IFeedHub
     {
         private const PermissionResourceTypeEnum ActivityType = PermissionResourceTypeEnum.News;
 
@@ -68,12 +72,19 @@ namespace Uintra20.Features.News.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
+            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
+                PermissionResourceTypeEnum.News)))
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
+
             var newsBaseCreateModel = await MapToNewsAsync(createModel);
             var activityId = await _newsService.CreateAsync(newsBaseCreateModel);
 
             await OnNewsCreatedAsync(activityId, createModel);
             var newsViewModel = await GetViewModelAsync(_newsService.Get(activityId));
 
+            ReloadFeed();
             return Ok(newsViewModel.Links.Details);
         }
 
@@ -82,6 +93,12 @@ namespace Uintra20.Features.News.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest();
+
+            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Edit,
+                PermissionResourceTypeEnum.News)))
+            {
+                return Ok((await _activityLinkService.GetLinksAsync(editModel.Id)).Details);
+            }
 
             var cachedActivityMedias = _newsService.Get(editModel.Id).MediaIds;
 
@@ -93,7 +110,14 @@ namespace Uintra20.Features.News.Controllers
             await OnNewsEditedAsync(activity, editModel);
             var newsViewModel = await GetViewModelAsync(_newsService.Get(editModel.Id));
 
+            ReloadFeed();
             return Ok(newsViewModel.Links.Details);
+        }
+
+        public void ReloadFeed()
+        {
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<UintraHub>();
+            hubContext.Clients.All.reloadFeed();
         }
 
         private async Task<NewsBase> MapToNewsAsync(NewsCreateModel createModel)
