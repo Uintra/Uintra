@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewEncapsulation, HostBinding, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, HostBinding, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.const';
+import { DropzoneComponent } from 'ngx-dropzone-wrapper';
 
 export interface IDropzoneConfig {
   maxFiles?: number;
@@ -12,6 +13,7 @@ export interface IDropzoneConfig {
   encapsulation: ViewEncapsulation.None
 })
 export class DropzoneWrapperComponent implements OnInit {
+  @ViewChild(DropzoneComponent, { static: false }) dropdownRef?: DropzoneComponent;
   @Input() customMessage: string;
   @Input() filesLength: number;
   @Input() maxFiles: number;
@@ -37,5 +39,9 @@ export class DropzoneWrapperComponent implements OnInit {
 
   onFileRemoved(event) {
     this.removedFile.emit(event);
+  }
+
+  handleReset() {
+    this.dropdownRef.directiveRef.reset();
   }
 }

@@ -73,5 +73,11 @@ export const pages = [
     path: '__dynamic__',
     loadChildren: './ui/pages/uintra-groups/room/uintra-groups-room-page.module#UintraGroupsRoomPageModule'
   },
+  {
+    id: "uintraGroupsDocumentsPage",
+    path: "__dynamic__",
+    loadChildren:
+      "./ui/pages/uintra-groups/documents/uintra-groups-documents-page.module#UintraGroupsDocumentsPageModule"
+  }
 ];
 

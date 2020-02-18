@@ -13,10 +13,12 @@ import { map } from "rxjs/operators";
 export class DocumentTableService {
   groupDocumentApi = "ubaseline/api/GroupDocuments";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  removeDocuments(documentId: string, groupId: string) {
-    // TODO: remove documnet
+  removeDocument(fileId: string, groupId: string) {
+    return this.http.delete(
+      this.groupDocumentApi + `/Delete?groupId=${groupId}&documentId=${fileId}`
+    );
   }
 
   getGroupDocuments(groupId: string): Observable<IGroupDocument[]> {
