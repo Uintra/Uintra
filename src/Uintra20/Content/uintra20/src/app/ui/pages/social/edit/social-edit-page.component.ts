@@ -48,6 +48,7 @@ export class SocialEditPageComponent {
         hiddenImagesCount: parsedSocialEdit.lightboxPreviewModel.hiddenImagesCount
       },
       id: parsedSocialEdit.id,
+      groupId: parsedSocialEdit.groupId,
       name: parsedSocialEdit.name,
       tagIdsData: new Array<string>(),
       newMedia: null,
