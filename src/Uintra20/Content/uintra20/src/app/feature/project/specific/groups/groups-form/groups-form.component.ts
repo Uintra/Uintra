@@ -37,7 +37,6 @@ export class GroupsFormComponent {
   constructor(
     private groupsService: GroupsService,
     private router: Router,
-    private routerResolverService: RouterResolverService,
   ) { }
 
   ngOnInit() {
