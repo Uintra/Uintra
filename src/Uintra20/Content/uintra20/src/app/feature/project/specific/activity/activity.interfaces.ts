@@ -7,6 +7,7 @@ export interface ISocialCreateModel {
   ownerId: string;
   newMedia: string;
   tagIdsData: string[];
+  groupId?: string;
 }
 
 export interface INewsCreateModel {

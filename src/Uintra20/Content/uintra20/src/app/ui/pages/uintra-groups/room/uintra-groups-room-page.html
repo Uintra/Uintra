@@ -4,14 +4,33 @@
       <div *ngIf="data" class="col-md-8">
         <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
       </div>
-      <div class="col-md-4">
-        <div class="right-column">
-          <h2 class="right-column__title">Title</h2>
-          <img class="right-column__image" src="https://picsum.photos/id/237/380/690">
+      <div *ngIf="parsedData" class="col-md-4">
+        <div *ngIf="parsedData?.groupInfo" class="right-column">
+          <h2 *ngIf="parsedData?.groupInfo?.title" class="right-column__title">
+            {{parsedData.groupInfo.title}}
+          </h2>
+          <img
+            *ngIf="parsedData?.groupInfo?.hasImage"
+            class="right-column__image"
+            [src]="parsedData.groupInfo.groupImageUrl">
           <div class="right-column__info">
-            <div class="right-column__info-description">Description with innerHTML</div>
-            <span>Amount of members - </span>
-            <span>Owner: </span>
+            <div
+              *ngIf="parsedData?.groupInfo?.description"
+              class="right-column__info-description"
+              [innerHTML]="parsedData.groupInfo?.description">
+            </div>
+            <span *ngIf="parsedData?.groupInfo?.membersCount">
+              {{parsedData.groupInfo.membersCount}} {{parsedData.groupInfo.membersCount ? 'member' : 'members'}} -
+            </span>
+            <span *ngIf="parsedData?.groupInfo?.creator">
+              Owner:
+              <a
+                class="right-column__info-owner-link"
+                [routerLink]="['/profile']"
+                [queryParams]="{ id: parsedData.groupInfo.creator.id }">
+                 {{parsedData.groupInfo.creator.displayedName}}
+              </a>
+            </span>
           </div>
         </div>
       </div>
