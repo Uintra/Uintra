@@ -47,8 +47,8 @@ namespace Uintra20.Features.Permissions.Controllers
         public async Task<GroupPermissionsViewModel> Get(int memberGroupId)
         {
             var isSuperUser = _intranetMemberService.IsCurrentMemberSuperUser;
-            //var memberGroup = _intranetMemberGroupProvider[memberGroupId];
-            var memberGroup = _intranetMemberGroupService.GetAll().First(x => x.Id == memberGroupId);
+            var memberGroup = _intranetMemberGroupProvider[memberGroupId];
+            //var memberGroup = _intranetMemberGroupService.GetAll().First(x => x.Id == memberGroupId);
 
             var permissions = (await _permissionsService.GetForGroupAsync(memberGroup))
                 .Map<IEnumerable<PermissionViewModel>>()
@@ -67,16 +67,7 @@ namespace Uintra20.Features.Permissions.Controllers
         [HttpPost]
         public Task<GroupPermissionsViewModel> Create(MemberGroupCreateModel model)
         {
-            //var umbracoMember = new MemberGroup
-            //{
-            //    Name = model.Name
-            //};
-            //_memberGroupService.Save(umbracoMember);
-
             var id = _intranetMemberGroupService.Create(model.Name);
-            _intranetMemberGroupService.ClearCache();
-
-            //TODO Set Default permissions
 
             return Get(id);
         }
@@ -88,8 +79,8 @@ namespace Uintra20.Features.Permissions.Controllers
                 _actionTypeProvider[update.ActionId],
                 _resourceTypeProvider[update.ResourceTypeId]);
             var settingValue = new PermissionSettingValues(update.Allowed, update.Enabled);
-            //var targetGroup = _intranetMemberGroupProvider[update.IntranetMemberGroupId];
-            var targetGroup = _intranetMemberGroupService.GetAll().First(x => x.Id == update.IntranetMemberGroupId);
+            var targetGroup = _intranetMemberGroupProvider[update.IntranetMemberGroupId];
+            //var targetGroup = _intranetMemberGroupService.GetAll().First(x => x.Id == update.IntranetMemberGroupId);
 
             var mappedUpdate = new PermissionUpdateModel(targetGroup, settingValue, settingIdentity);
             await _permissionsService.SaveAsync(mappedUpdate);
@@ -105,8 +96,7 @@ namespace Uintra20.Features.Permissions.Controllers
 
             await _permissionsService.DeletePermissionsForMemberGroupAsync(groupId);
 
-            _memberGroupService.Delete(group);
-            _intranetMemberGroupService.ClearCache();
+            _intranetMemberGroupService.Delete(groupId);
 
             return Ok();
         }
