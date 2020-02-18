@@ -1,13 +1,27 @@
 @import "base.less";
 
 uintra-groups-documents-page {
-  .group-members {
+  .group-documents {
     .shadow;
     background-color: @main-color;
     padding: 20px;
+    min-height: calc(100vh - 281px);
 
     &-wrapper {
       padding-top: 95px;
+    }
+
+    &__title {
+      margin-bottom: 6px;
+    }
+
+    &__dropzone {
+      margin-bottom: 30px;
+    }
+
+    .dropzone-wrapper {
+      display: block;
+      margin-bottom: 16px;
     }
   }
 }
