@@ -42,7 +42,7 @@
     }
   }
 
-  &__subtitle {
+  &__subtitle-container {
     .small;
     color: @text-color--light;
   }
@@ -50,4 +50,15 @@
   &__label {
     margin-left: auto;
   }
+
+  &__group {
+    &-link {
+      .link;
+    }
+  }
+}
+
+.icon-group {
+  font-size: 13px;
+  color: @body-text-color;
 }
