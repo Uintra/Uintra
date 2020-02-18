@@ -241,15 +241,13 @@ namespace Uintra20.Features.Social.Controllers
             }
         }
 
-        private async Task OnBulletinCreatedAsync(SocialBase social, SocialCreateModel model)
+        private async Task OnBulletinCreatedAsync(SocialBase social, SocialExtendedCreateModel model)
         {
-            var groupId = HttpContext.Current.Request.QueryString.GetGroupIdOrNone();
-
-            if (groupId.HasValue)
-                await _groupActivityService.AddRelationAsync(groupId.Value, social.Id);
+            if (model.GroupId.HasValue)
+                await _groupActivityService.AddRelationAsync(model.GroupId.Value, social.Id);
 
             var extendedBulletin = _socialService.Get(social.Id);
-            extendedBulletin.GroupId = groupId;
+            extendedBulletin.GroupId = model.GroupId;
 
             if (model is SocialExtendedCreateModel extendedModel)
             {
