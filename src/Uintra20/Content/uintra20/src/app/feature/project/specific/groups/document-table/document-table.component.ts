@@ -1,6 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { DocumentTableService } from "./document-table.service";
 import { IGroupDocument } from "./document-table.interface";
+import { UintraGroupsService } from "src/app/ui/pages/uintra-groups/documents/uintra-groups-documents-page.service";
 
 @Component({
   selector: "app-document-table",
@@ -8,6 +9,7 @@ import { IGroupDocument } from "./document-table.interface";
   styleUrls: ["./document-table.component.less"]
 })
 export class DocumentTableComponent implements OnInit {
+  @Input() groupId: string;
   documents: IGroupDocument[] = [];
 
   isAsc: boolean = true;
@@ -32,16 +34,24 @@ export class DocumentTableComponent implements OnInit {
     }
   ];
 
-  constructor(private documentTableService: DocumentTableService) {}
+  constructor(
+    private documentTableService: DocumentTableService,
+    private uintraGroupsService: UintraGroupsService
+  ) {}
 
   ngOnInit() {
-    this.documentTableService
-      .getGroupDocuments("dca05b7e-26b2-476b-8194-e307406711a3")
-      .subscribe(r => {
-        this.documents = r;
-      });
-
+    this.getDocuments();
     this.onSort("name");
+
+    this.uintraGroupsService.documentsRefreshTrigger$.subscribe(() => {
+      this.getDocuments();
+    });
+  }
+
+  getDocuments() {
+    this.documentTableService.getGroupDocuments(this.groupId).subscribe(r => {
+      this.documents = r;
+    });
   }
 
   onSort(key: string) {
@@ -58,6 +68,12 @@ export class DocumentTableComponent implements OnInit {
   }
 
   onRemove(id: string) {
-    this.documentTableService.removeDocuments(id, "dca05b7e-26b2-476b-8194-e307406711a3");
+    if (confirm("Are you sure?")) {
+      this.documentTableService
+        .removeDocument(id, this.groupId)
+        .subscribe(r => {
+          this.getDocuments();
+        });
+    }
   }
 }

@@ -138,8 +138,8 @@ namespace Uintra20.Features.Groups.Controllers
 
             var mediaGenericProperties = (IGenericPropertiesComposition)media;
 
-            if (string.IsNullOrWhiteSpace(mediaGenericProperties.GenericProperties.IntranetUserId.Value)
-            && Guid.TryParse(mediaGenericProperties.GenericProperties.IntranetUserId, out Guid result))
+            if (!string.IsNullOrWhiteSpace(mediaGenericProperties.GenericProperties.IntranetUserId.Value)
+            && Guid.TryParse(mediaGenericProperties.GenericProperties.IntranetUserId.Value, out Guid result))
             {
                 mediaCreator = result;
             }
