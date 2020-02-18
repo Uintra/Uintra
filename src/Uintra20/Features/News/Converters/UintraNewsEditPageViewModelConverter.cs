@@ -77,7 +77,7 @@ namespace Uintra20.Features.News.Converters
             if (viewModel.CanEditOwner)
                 viewModel.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(PermissionActionEnum.Create, IntranetActivityTypeEnum.News));
 
-            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            var groupIdStr = HttpContext.Current.Request["groupId"];
             if (!Guid.TryParse(groupIdStr, out var groupId) || news.GroupId != groupId)
                 return;
 

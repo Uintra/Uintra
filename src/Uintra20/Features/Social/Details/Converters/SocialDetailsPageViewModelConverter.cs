@@ -73,7 +73,7 @@ namespace Uintra20.Features.Social.Details.Converters
             viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(parseId));
             viewModel.CanEdit = _socialService.CanEdit(parseId);
 
-            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            var groupIdStr = HttpContext.Current.Request["groupId"];
             if (!Guid.TryParse(groupIdStr, out var groupId) || social.GroupId != groupId)
                 return;
 
