@@ -12,9 +12,10 @@ namespace Uintra20.Features.Groups.Converters
         private readonly IMediaHelper _mediaHelper;
         private readonly IPermissionsService _permissionsService;
 
-        public UintraGroupsCreatePageViewModelConverter(IMediaHelper mediaHelper)
+        public UintraGroupsCreatePageViewModelConverter(IMediaHelper mediaHelper, IPermissionsService permissionsService)
         {
             _mediaHelper = mediaHelper;
+            _permissionsService = permissionsService;
         }
 
         public void Map(UintraGroupsCreatePageModel node, UintraGroupsCreatePageViewModel viewModel)
