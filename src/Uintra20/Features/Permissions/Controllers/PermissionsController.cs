@@ -22,6 +22,7 @@ namespace Uintra20.Features.Permissions.Controllers
         private readonly IPermissionActionTypeProvider _actionTypeProvider;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IIntranetMemberGroupProvider _intranetMemberGroupProvider;
+        private readonly IIntranetMemberGroupService _intranetMemberGroupService;
         private readonly IPermissionsService _permissionsService;
 
         public PermissionsController(
@@ -30,7 +31,8 @@ namespace Uintra20.Features.Permissions.Controllers
             IPermissionActionTypeProvider actionTypeProvider,
             IIntranetMemberService<IntranetMember> intranetMemberService,
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService,
+            IIntranetMemberGroupService intranetMemberGroupService)
         {
             _memberGroupService = memberGroupService;
             _resourceTypeProvider = resourceTypeProvider;
@@ -38,13 +40,15 @@ namespace Uintra20.Features.Permissions.Controllers
             _intranetMemberService = intranetMemberService;
             _intranetMemberGroupProvider = intranetMemberGroupProvider;
             _permissionsService = permissionsService;
+            _intranetMemberGroupService = intranetMemberGroupService;
         }
         
         [HttpGet]
         public async Task<GroupPermissionsViewModel> Get(int memberGroupId)
         {
             var isSuperUser = _intranetMemberService.IsCurrentMemberSuperUser;
-            var memberGroup = _intranetMemberGroupProvider[memberGroupId];
+            //var memberGroup = _intranetMemberGroupProvider[memberGroupId];
+            var memberGroup = _intranetMemberGroupService.GetAll().First(x => x.Id == memberGroupId);
 
             var permissions = (await _permissionsService.GetForGroupAsync(memberGroup))
                 .Map<IEnumerable<PermissionViewModel>>()
@@ -61,17 +65,20 @@ namespace Uintra20.Features.Permissions.Controllers
 
         //TODO Refactor this method
         [HttpPost]
-        public async Task<GroupPermissionsViewModel> Create(MemberGroupCreateModel model)
+        public Task<GroupPermissionsViewModel> Create(MemberGroupCreateModel model)
         {
-            var umbracoMember = new MemberGroup
-            {
-                Name = model.Name
-            };
-            _memberGroupService.Save(umbracoMember);
-            
+            //var umbracoMember = new MemberGroup
+            //{
+            //    Name = model.Name
+            //};
+            //_memberGroupService.Save(umbracoMember);
+
+            var id = _intranetMemberGroupService.Create(model.Name);
+            _intranetMemberGroupService.ClearCache();
+
             //TODO Set Default permissions
 
-            return await Get(umbracoMember.Id);
+            return Get(id);
         }
 
         [HttpPost]
@@ -81,7 +88,8 @@ namespace Uintra20.Features.Permissions.Controllers
                 _actionTypeProvider[update.ActionId],
                 _resourceTypeProvider[update.ResourceTypeId]);
             var settingValue = new PermissionSettingValues(update.Allowed, update.Enabled);
-            var targetGroup = _intranetMemberGroupProvider[update.IntranetMemberGroupId];
+            //var targetGroup = _intranetMemberGroupProvider[update.IntranetMemberGroupId];
+            var targetGroup = _intranetMemberGroupService.GetAll().First(x => x.Id == update.IntranetMemberGroupId);
 
             var mappedUpdate = new PermissionUpdateModel(targetGroup, settingValue, settingIdentity);
             await _permissionsService.SaveAsync(mappedUpdate);
@@ -90,13 +98,17 @@ namespace Uintra20.Features.Permissions.Controllers
         }
 
         //TODO Implement correct logic
-        //[HttpGet]
-        //public IHttpActionResult Delete(int groupId)
-        //{
-        //    var group = _memberGroupService.GetById(groupId);
-        //    _memberGroupService.Delete(group);
+        [HttpDelete]
+        public async Task<IHttpActionResult> Delete(int groupId)
+        {
+            var group = _memberGroupService.GetById(groupId);
 
-        //    return Ok();
-        //}
+            await _permissionsService.DeletePermissionsForMemberGroupAsync(groupId);
+
+            _memberGroupService.Delete(group);
+            _intranetMemberGroupService.ClearCache();
+
+            return Ok();
+        }
     }
 }

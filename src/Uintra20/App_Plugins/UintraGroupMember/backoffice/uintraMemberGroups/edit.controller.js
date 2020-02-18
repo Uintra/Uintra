@@ -8,7 +8,7 @@ app.controller('memberGroups.editController',
         $location,
         navigationService,
         $scope) {
-        
+
         var vm = this;
         var inProgress = false;
         vm.memberGroup = null;
@@ -96,7 +96,7 @@ app.controller('memberGroups.editController',
 
             memberGroupsService
                 .toggle(request)
-                .then(function(response) {
+                .then(function (response) {
                     permission.enabled = !permission.enabled;
                     if (permission.enabled)
                         notificationsService.success(notification.SUCCESS, notification.PERMISSION.ENABLED);
@@ -116,7 +116,7 @@ app.controller('memberGroups.editController',
             request.allowed = !permission.allowed;
             memberGroupsService
                 .toggle(request)
-                .then(function(groupPermissionModel) {
+                .then(function (groupPermissionModel) {
                     vm.permissions = groupPermissionModel.permissions;
                     vm.groupedPermissions = groupByResourceTypeName(groupPermissionModel.permissions);
                     if (!permission.allowed) {
@@ -144,8 +144,8 @@ app.controller('memberGroups.editController',
                             notificationsService.error(notification.ERROR, notification.INVALID_GROUP_NAME);
                             changeButtonState(control.button.state.SUCCESS);
                         }
-                    })
-                    .error(function (error) {
+                    },
+                    function (error) {
                         changeButtonState(control.button.state.SUCCESS);
                     });
 

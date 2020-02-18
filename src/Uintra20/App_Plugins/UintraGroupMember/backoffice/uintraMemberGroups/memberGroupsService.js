@@ -20,7 +20,7 @@
         };
 
         self.delete = function (memberGroupId) {
-            return $http.post(permissionBaseUrl + 'Delete', { id: memberGroupId });
+            return $http.delete(permissionBaseUrl + 'Delete?groupId=' + memberGroupId);
         };
 
         self.getPermissions = function(memberGroupId) {
