@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Member.Entities;
@@ -67,6 +68,15 @@ namespace Uintra20.Core.Activity.Converters
             //TODO: Uncomment when events create will be done
             //viewModel.CreateEventsLink = _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create;
             viewModel.CreateNewsLink = _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create;
+
+            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            if (!Guid.TryParse(groupIdStr, out var groupId))
+                return;
+
+            viewModel.GroupId = groupId;
+
+            viewModel.CreateNewsLink = viewModel.CreateNewsLink.AddGroupId(groupId);
+            //viewModel.CreateEventsLink = viewModel.CreateEventsLink.AddGroupId(groupId);
         }
 
         private void ConvertToNews(ActivityCreatePanelViewModel viewModel)

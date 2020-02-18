@@ -24,6 +24,7 @@ namespace Uintra20.Core.Activity.Models
         public DateTime PublishDate { get; set; }
         public bool PinAllowed { get; set; }
         public bool CanEditOwner { get; set; }
+        public Guid? GroupId { get; set; }
         public IEnumerable<IntranetMember> Members { get; set; } = Enumerable.Empty<IntranetMember>();
         public UintraLinkModel CreateNewsLink { get; set; }
         public UintraLinkModel CreateEventsLink { get; set; }
