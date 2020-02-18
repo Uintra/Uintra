@@ -19,7 +19,6 @@ export class UintraGroupsRoomPage {
     this.route.data.subscribe(data => {
       this.data = data;
       this.parsedData = ParseHelper.parseUbaselineData(data);
-      console.log(this.parsedData);
     });
   }
 }

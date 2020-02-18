@@ -47,7 +47,6 @@ export class SocialCreateComponent implements OnInit {
       name: this.panelData.creator.displayedName,
       photo: this.panelData.creator.photo
     };
-    console.log(this.panelData);
   }
 
   onShowPopUp() {
