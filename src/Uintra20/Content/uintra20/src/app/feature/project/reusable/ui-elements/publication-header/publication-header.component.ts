@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IUlinkWithTitle } from 'src/app/feature/shared/interfaces/IULink';
+import { IUlinkWithTitle, IULink } from 'src/app/feature/shared/interfaces/IULink';
 
 @Component({
   selector: 'app-publication-header',
@@ -12,7 +12,7 @@ export class PublicationHeaderComponent implements OnInit {
   @Input() title: string;
   @Input() originalUrl?: string;
   @Input() params?: Array<any>;
-  @Input() groupInfo?: IUlinkWithTitle;
+  @Input() groupInfo?: {title: string, url: IULink};
 
   ngOnInit(): void {
 
