@@ -22,6 +22,7 @@ export interface IEditGroupData {
 })
 export class GroupsFormComponent {
   @Input() data: any;
+  @Input('edit') edit: any;
   title: string = "";
   description: string = "";
   medias: IMedia[] = [];
@@ -32,7 +33,6 @@ export class GroupsFormComponent {
   files: any[] = [];
 
   constructor(
-    @Attribute('edit') public edit: any,
     private groupsService: GroupsService
   ) { }
 
