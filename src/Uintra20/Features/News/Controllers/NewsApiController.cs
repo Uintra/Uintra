@@ -183,12 +183,11 @@ namespace Uintra20.Features.News.Controllers
         private async Task OnNewsCreatedAsync(Guid activityId, NewsCreateModel model)
         {
             var news = _newsService.Get(activityId);
-            var groupId = HttpContext.Current.Request.QueryString.GetGroupIdOrNone();
 
-            if (groupId.HasValue)
+            if (model.GroupId.HasValue)
             {
-                await _groupActivityService.AddRelationAsync(groupId.Value, activityId);
-                news.GroupId = groupId.Value;
+                await _groupActivityService.AddRelationAsync(model.GroupId.Value, activityId);
+                news.GroupId = model.GroupId.Value;
             }
 
             await _activityTagsHelper.ReplaceTagsAsync(activityId, model.TagIdsData);
