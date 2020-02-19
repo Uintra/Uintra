@@ -42,6 +42,7 @@ export interface ISocialEdit {
   lightboxPreviewModel: ILightBoxPreviewModel;
   id: string;
   groupId?: string;
+  links: IActivityLinks;
   name: string;
   tagIdsData: Array<string>;
   newMedia: string;

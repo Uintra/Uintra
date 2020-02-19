@@ -26,8 +26,7 @@
               Owner:
               <a
                 class="right-column__info-owner-link"
-                [routerLink]="['/profile']"
-                [queryParams]="{ id: parsedData.groupInfo.creator.id }">
+                [routerLink]="parsedData.groupInfo.creator.profileLink.originalUrl | ulink">
                  {{parsedData.groupInfo.creator.displayedName}}
               </a>
             </span>

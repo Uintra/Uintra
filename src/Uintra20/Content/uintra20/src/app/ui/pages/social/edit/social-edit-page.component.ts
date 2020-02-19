@@ -49,6 +49,7 @@ export class SocialEditPageComponent {
       },
       id: parsedSocialEdit.id,
       groupId: parsedSocialEdit.groupId,
+      links: parsedSocialEdit.links,
       name: parsedSocialEdit.name,
       tagIdsData: new Array<string>(),
       newMedia: null,
