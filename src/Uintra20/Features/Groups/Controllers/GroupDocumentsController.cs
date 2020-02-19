@@ -74,7 +74,7 @@ namespace Uintra20.Features.Groups.Controllers
                     CreateDate = s.CreateDate.ToString("dd.MM.yyyy"),
                     Name = s.Name,
                     Type = s is FileModel file ? file.UmbracoExtension : ((ImageModel)s).UmbracoExtension,
-                    Creator = (await creator).Map<MemberViewModel>(),
+                    Creator = (await creator).ToViewModel(),
                     FileUrl = s.Url
                 };
                 return model;

@@ -3,7 +3,6 @@ using Compent.Shared.Extensions.Bcl;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Linq;
-using System.Threading;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
@@ -13,10 +12,8 @@ using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.CentralFeed;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
@@ -44,7 +41,6 @@ namespace Uintra20.Features.Social.Controllers
         private readonly IMentionService _mentionService;
         private readonly IActivityLinkService _activityLinkService;
         private readonly ILightboxHelper _lightboxHelper;
-        private readonly IMemberServiceHelper _memberHelper;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IPermissionsService _permissionsService;
 
@@ -58,7 +54,6 @@ namespace Uintra20.Features.Social.Controllers
             IMentionService mentionService,
             IActivityLinkService activityLinkService,
             ILightboxHelper lightboxHelper,
-            IMemberServiceHelper memberHelper,
             IFeedLinkService feedLinkService,
             IPermissionsService permissionsService)
         {
@@ -71,7 +66,6 @@ namespace Uintra20.Features.Social.Controllers
             _mentionService = mentionService;
             _activityLinkService = activityLinkService;
             _lightboxHelper = lightboxHelper;
-            _memberHelper = memberHelper;
             _feedLinkService = feedLinkService;
             _permissionsService = permissionsService;
         }
@@ -170,7 +164,7 @@ namespace Uintra20.Features.Social.Controllers
             viewModel.IsReadOnly = false;
             viewModel.HeaderInfo = social.Map<IntranetActivityDetailsHeaderViewModel>();
             viewModel.HeaderInfo.Dates = social.PublishDate.ToDateTimeFormat().ToEnumerable();
-            viewModel.HeaderInfo.Owner = _memberHelper.ToViewModel(_memberService.Get(social));
+            viewModel.HeaderInfo.Owner = _memberService.Get(social).ToViewModel();
             viewModel.HeaderInfo.Links = await _feedLinkService.GetLinksAsync(id);
 
             var extendedModel = viewModel.Map<SocialExtendedViewModel>();
