@@ -81,7 +81,7 @@ namespace Uintra20.Features.Social.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
+            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create,
                 PermissionResourceTypeEnum.Social)))
             {
                 return StatusCode(HttpStatusCode.Forbidden);
@@ -108,7 +108,7 @@ namespace Uintra20.Features.Social.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Edit,
+            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Edit,
                 PermissionResourceTypeEnum.Social)))
             {
                 return Ok((await _activityLinkService.GetLinksAsync(editModel.Id)).Details);

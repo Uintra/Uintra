@@ -20,7 +20,7 @@ namespace Uintra20.Features.Groups.Converters
 
         public void Map(UintraGroupsCreatePageModel node, UintraGroupsCreatePageViewModel viewModel)
         {
-            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
+            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create,
                 PermissionResourceTypeEnum.Groups)))
             {
                 return;
