@@ -14,12 +14,9 @@
       <div class="col-md-8">
         <div class="bulletin-details-content">
           <div class="feed-header">
-            <!-- TODO: get from details.links -->
-            <a [routerLink]="['/']" class="feed-header__back-link">Go to List</a>
-            <!-- TODO: get from details.links -->
+            <a [routerLink]="details?.links?.feed?.originalUrl" class="feed-header__back-link">Go to List</a>
             <a
-              [routerLink]="['/social-edit']"
-              [queryParams]="{ id: details.id }"
+              [routerLink]="details?.links?.edit?.originalUrl"
               class="feed-header__edit-link"
               >Edit</a
             >
