@@ -9,6 +9,7 @@ import { UserAvatarModule } from "src/app/feature/project/reusable/ui-elements/u
 import { CommentsModule } from "src/app/feature/project/reusable/ui-elements/comments/comments.module";
 import { DetailasHeaderModule } from "src/app/feature/project/specific/activity/details/detailas-header/detailas-header.module";
 import { GroupDetailsWrapperModule } from 'src/app/feature/project/specific/groups/group-details-wrapper/group-details-wrapper.module';
+import { AttachmentsModule } from 'src/app/feature/project/specific/activity/details/attachments/attachments.module';
 
 @NgModule({
   declarations: [SocialDetailsPanelComponent],
@@ -23,6 +24,7 @@ import { GroupDetailsWrapperModule } from 'src/app/feature/project/specific/grou
     CommentsModule,
     DetailasHeaderModule,
     GroupDetailsWrapperModule,
+    AttachmentsModule,
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: SocialDetailsPanelComponent }

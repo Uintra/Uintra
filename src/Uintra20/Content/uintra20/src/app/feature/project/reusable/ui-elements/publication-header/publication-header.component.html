@@ -19,7 +19,7 @@
       <ng-content select="[subtitle]"></ng-content>
       <span *ngIf="groupInfo" class="publication-header__group">
         >
-        <a [routerLink]="groupInfo.url?.originalUrl" class="publication-header__group-link">
+        <a [routerLink]="groupInfo.url?.originalUrl | ulink" class="publication-header__group-link">
           <span class="icon-group"></span>
           {{groupInfo.title}}
         </a>

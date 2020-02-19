@@ -1,6 +1,5 @@
 ﻿<div ng-controller="memberGroups.editController as vm" ng-show="vm.memberGroup">
     <umb-editor-view>
-
         <umb-editor-header name="vm.memberGroup.name"
                            hide-alias="true"
                            hide-description="true"
@@ -8,21 +7,19 @@
         </umb-editor-header>
 
         <umb-editor-container class="form-horizontal">
-
-            <umb-property property="vm.property">
-                <input type="text" ng-model="vm.memberGroup.name" />
-            </umb-property>
-
+            
+            <input type="text" ng-model="vm.memberGroup.name"/>
+            
             <div ng-repeat="element in vm.groupedPermissions">
-                <umb-property property="vm.getProperty(element[0])">
+                <div>{{element[0]}}</div>
                     <table border="0" cellspacing="10" cellpadding="5">
                         <tr>
-                            <th align="left" style="min-width:130px">Permission</th>
+                            <th align="left" style="min-width: 130px">Permission</th>
                             <th align="center">Allowed Permission</th>
                             <th ng-if="vm.isSuperUser" align="center">Enable Setting</th>
                         </tr>
                         <tr ng-repeat="permission in element[1]">
-                            <td >
+                            <td>
                                 <span>{{permission.actionName}}</span>
                             </td>
                             <td align="center">
@@ -36,8 +33,7 @@
 
                         </tr>
                     </table>
-
-                </umb-property>
+                
             </div>
 
         </umb-editor-container>

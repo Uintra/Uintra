@@ -6,7 +6,6 @@ using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.News;
@@ -29,7 +28,6 @@ namespace Uintra20.Core.Activity.Converters
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IPermissionsService _permissionsService;
         private readonly IUserTagProvider _tagProvider;
-        private readonly IMemberServiceHelper _memberHelper;
         private readonly IFeedLinkService _feedLinkService;
 
         public ActivityCreatePanelViewModelConverter(
@@ -38,7 +36,6 @@ namespace Uintra20.Core.Activity.Converters
             IIntranetMemberService<IntranetMember> memberService, 
             IPermissionsService permissionsService,
             IUserTagProvider tagProvider,
-            IMemberServiceHelper memberHelper, 
             IFeedLinkService feedLinkService)
         {
             _socialService = socialService;
@@ -46,7 +43,6 @@ namespace Uintra20.Core.Activity.Converters
             _permissionsService = permissionsService;
             _tagProvider = tagProvider;
             _newsService = newsService;
-            _memberHelper = memberHelper;
             _feedLinkService = feedLinkService;
         }
 
@@ -56,12 +52,12 @@ namespace Uintra20.Core.Activity.Converters
             var currentMember = _memberService.GetCurrentMember();
 
             viewModel.ActivityType = activityType;
-            viewModel.Creator = _memberHelper.ToViewModel(currentMember);
+            viewModel.Creator = currentMember.ToViewModel();
             viewModel.PinAllowed = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.CanPin);
             viewModel.CanCreate = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.Create);
             viewModel.CanEditOwner = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.EditOwner);
             if (viewModel.CanEditOwner)
-                viewModel.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(viewModel.ActivityType, viewModel.ActivityType));
+                viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(viewModel.ActivityType, viewModel.ActivityType));
 
             switch (activityType)
             {

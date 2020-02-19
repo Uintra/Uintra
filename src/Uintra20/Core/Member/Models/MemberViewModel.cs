@@ -1,4 +1,5 @@
 ﻿using System;
+using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Core.Member.Models
 {
@@ -11,5 +12,6 @@ namespace Uintra20.Core.Member.Models
         public string Email { get; set; }
         public string LoginName { get; set; }
         public bool Inactive { get; set; }
+        public UintraLinkModel ProfileLink { get; set; }   
     }
 }

@@ -6,6 +6,7 @@ import { UbaselineCoreModule } from '@ubaseline/next';
 import { UintraGroupsRoomPage } from './uintra-groups-room-page.component';
 import { GroupDetailsWrapperModule } from 'src/app/feature/project/specific/groups/group-details-wrapper/group-details-wrapper.module';
 import { ActivityCreatePanelModule } from 'src/app/ui/panels/activity-create/activity-create-panel.module';
+import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
 
 @NgModule({
   declarations: [UintraGroupsRoomPage],
@@ -15,6 +16,7 @@ import { ActivityCreatePanelModule } from 'src/app/ui/panels/activity-create/act
     UbaselineCoreModule,
     GroupDetailsWrapperModule,
     ActivityCreatePanelModule,
+    UlinkModule,
   ],
   entryComponents: [UintraGroupsRoomPage]
 })

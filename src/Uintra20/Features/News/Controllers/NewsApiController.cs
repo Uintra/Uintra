@@ -5,14 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.SignalR;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Services;
@@ -41,7 +39,6 @@ namespace Uintra20.Features.News.Controllers
         private readonly IActivityLinkService _activityLinkService;
         private readonly IMentionService _mentionService;
         private readonly IPermissionsService _permissionsService;
-        private readonly IMemberServiceHelper _memberHelper;
 
         public NewsApiController(
             IIntranetMemberService<IntranetMember> intranetMemberService,
@@ -52,8 +49,7 @@ namespace Uintra20.Features.News.Controllers
             IActivityTagsHelper activityTagsHelper,
             IActivityLinkService activityLinkService,
             IMentionService mentionService,
-            IPermissionsService permissionsService,
-            IMemberServiceHelper memberHelper)
+            IPermissionsService permissionsService)
         {
             _intranetMemberService = intranetMemberService;
             _newsService = newsService;
@@ -63,7 +59,6 @@ namespace Uintra20.Features.News.Controllers
             _activityLinkService = activityLinkService;
             _mentionService = mentionService;
             _permissionsService = permissionsService;
-            _memberHelper = memberHelper;
         }
 
         [HttpPost]
@@ -72,7 +67,7 @@ namespace Uintra20.Features.News.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
+            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create,
                 PermissionResourceTypeEnum.News)))
             {
                 return StatusCode(HttpStatusCode.Forbidden);
@@ -94,7 +89,7 @@ namespace Uintra20.Features.News.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Edit,
+            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Edit,
                 PermissionResourceTypeEnum.News)))
             {
                 return Ok((await _activityLinkService.GetLinksAsync(editModel.Id)).Details);
@@ -147,7 +142,11 @@ namespace Uintra20.Features.News.Controllers
             activity.PublishDate = editModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.PublishDate);
             activity.UnpublishDate = editModel.UnpublishDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.UnpublishDate.Value);
             activity.EndPinDate = editModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.EndPinDate.Value);
-            activity.IsPinned = _permissionsService.Check(currentMember, PermissionSettingIdentity.Of(PermissionActionEnum.CanPin, IntranetActivityTypeEnum.News)) && activity.IsPinned;
+
+            activity.IsPinned = _permissionsService.Check(
+                                    currentMember, 
+                                    new PermissionSettingIdentity(PermissionActionEnum.CanPin, IntranetActivityTypeEnum.News)) 
+                                && activity.IsPinned;
 
             return activity;
         }
@@ -173,7 +172,7 @@ namespace Uintra20.Features.News.Controllers
 
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
-            model.HeaderInfo.Owner = _memberHelper.ToViewModel(await _intranetMemberService.GetAsync(news));
+            model.HeaderInfo.Owner = (await _intranetMemberService.GetAsync(news)).ToViewModel();
             model.Links = await _activityLinkService.GetLinksAsync(model.Id);
             model.HeaderInfo.Links = await _activityLinkService.GetLinksAsync(model.Id);
             model.CanEdit = _newsService.CanEdit(news);

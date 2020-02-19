@@ -10,8 +10,5 @@
             IsAllowed = isAllowed;
             IsEnabled = isEnabled;
         }
-
-        public static PermissionSettingValues Of(bool isAllowed, bool isEnabled) =>
-            new PermissionSettingValues(isAllowed, isEnabled);
     }
 }

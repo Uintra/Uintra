@@ -14,13 +14,14 @@ namespace Uintra20.Features.Groups.Converters
 
         public UintraGroupsCreatePageViewModelConverter(IMediaHelper mediaHelper, IPermissionsService permissionsService)
         {
+            _permissionsService = permissionsService;
             _mediaHelper = mediaHelper;
             _permissionsService = permissionsService;
         }
 
         public void Map(UintraGroupsCreatePageModel node, UintraGroupsCreatePageViewModel viewModel)
         {
-            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
+            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create,
                 PermissionResourceTypeEnum.Groups)))
             {
                 return;

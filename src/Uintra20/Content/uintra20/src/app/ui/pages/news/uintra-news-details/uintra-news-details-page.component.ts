@@ -35,7 +35,6 @@ export class UintraNewsDetailsPage implements OnInit {
 
   public ngOnInit(): void {
     this.parsedData = ParseHelper.parseUbaselineData(this.data);
-    console.log(this.parsedData)
 
     this.details = this.parsedData.details;
     this.commentDetails = {
