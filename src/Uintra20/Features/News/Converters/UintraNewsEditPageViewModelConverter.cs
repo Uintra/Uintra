@@ -8,7 +8,6 @@ using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
@@ -32,7 +31,6 @@ namespace Uintra20.Features.News.Converters
         private readonly IUserTagService _userTagService;
         private readonly IUserTagProvider _userTagProvider;
         private readonly ILightboxHelper _lightboxHelper;
-        private readonly IMemberServiceHelper _memberHelper;
 
         public UintraNewsEditPageViewModelConverter(
             IPermissionsService permissionsService,
@@ -41,8 +39,7 @@ namespace Uintra20.Features.News.Converters
             IIntranetMemberService<IntranetMember> memberService, 
             IUserTagService userTagService, 
             IUserTagProvider userTagProvider, 
-            ILightboxHelper lightboxHelper,
-            IMemberServiceHelper memberHelper)
+            ILightboxHelper lightboxHelper)
         {
             _permissionsService = permissionsService;
             _feedLinkService = feedLinkService;
@@ -51,7 +48,6 @@ namespace Uintra20.Features.News.Converters
             _userTagService = userTagService;
             _userTagProvider = userTagProvider;
             _lightboxHelper = lightboxHelper;
-            _memberHelper = memberHelper;
         }
         public void Map(UintraNewsEditPageModel node, UintraNewsEditPageViewModel viewModel)
         {
@@ -77,7 +73,7 @@ namespace Uintra20.Features.News.Converters
             if (viewModel.CanEditOwner)
                 viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, IntranetActivityTypeEnum.News));
 
-            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            var groupIdStr = HttpContext.Current.Request["groupId"];
             if (!Guid.TryParse(groupIdStr, out var groupId) || news.GroupId != groupId)
                 return;
 
@@ -105,7 +101,7 @@ namespace Uintra20.Features.News.Converters
             details.IsReadOnly = false;
             details.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             details.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
-            details.HeaderInfo.Owner = _memberHelper.ToViewModel(_memberService.Get(news));
+            details.HeaderInfo.Owner = _memberService.Get(news).ToViewModel();
             details.HeaderInfo.Links = _feedLinkService.GetLinks(news.Id);
             details.Tags = _userTagService.Get(news.Id);
             details.AvailableTags = _userTagProvider.GetAll();

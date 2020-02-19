@@ -22,5 +22,6 @@ namespace Uintra20.Features.News.Models
         public override DateTime? EndPinDate { get; set; }
         public bool PinAllowed { get; set; }
         public IEnumerable<Guid> TagIdsData { get; set; }
+        public Guid? GroupId { get; set; }
     }
 }

@@ -25,6 +25,8 @@ export class SocialDetailsPanelComponent implements OnInit {
   documents: Array<IDocument> = new Array<IDocument>();
   commentDetails: ICommentData;
   detailsDescription: SafeHtml;
+  groupId: string;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,
@@ -40,7 +42,7 @@ export class SocialDetailsPanelComponent implements OnInit {
       entityId: parsedData.details.id,
       entityType: parsedData.details.activityType
     };
-
+    this.groupId = parsedData.groupId;
     this.activityName = ParseHelper.parseActivityType(this.details.activityType);
     this.tags = Object.values(parsedData.tags);
     this.medias = Object.values(parsedData.details.lightboxPreviewModel.medias);

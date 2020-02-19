@@ -2,6 +2,7 @@
 using System.Linq;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Models;
+using Uintra20.Core.User;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Infrastructure.Extensions;
@@ -16,12 +17,15 @@ namespace Uintra20.Core.Member.Helpers
         private readonly IMemberService _memberService;
         private readonly IMemberTypeService _memberTypeService;
         private readonly IImageHelper _imageHelper;
+        private readonly IIntranetUserContentProvider _intranetUserContentProvider;
 
-        public MemberServiceHelper(IMemberService memberService, IMemberTypeService memberTypeService, IImageHelper imageHelper)
+        public MemberServiceHelper(IMemberService memberService, IMemberTypeService memberTypeService,
+            IImageHelper imageHelper, IIntranetUserContentProvider intranetUserContentProvider)
         {
             _memberService = memberService;
             _memberTypeService = memberTypeService;
             _imageHelper = imageHelper;
+            _intranetUserContentProvider = intranetUserContentProvider;
         }
 
         private const string RelatedUserPropertyName = "relatedUser";
@@ -59,6 +63,7 @@ namespace Uintra20.Core.Member.Helpers
 
             var result = member.Map<MemberViewModel>();
             result.Photo = _imageHelper.GetImageWithResize(member.Photo, PresetStrategies.ForMemberProfile.ThumbnailPreset);
+            result.ProfileLink = _intranetUserContentProvider.GetProfilePage().Url.ToLinkModel().AddParameter("id", member.Id.ToString());
 
             return result;
         }

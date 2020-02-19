@@ -6,8 +6,6 @@ using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Helpers;
-using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.Helpers;
 using Uintra20.Features.Comments.Services;
@@ -31,7 +29,6 @@ namespace Uintra20.Features.News.Converters
         private readonly INewsService<Entities.News> _newsService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly ILightboxHelper _lightBoxHelper;
-        private readonly IMemberServiceHelper _memberHelper;
 
         public UintraNewsDetailsPageViewModelConverter(
             ICommentsService commentsService,
@@ -41,8 +38,7 @@ namespace Uintra20.Features.News.Converters
             IFeedLinkService feedLinkService,
             INewsService<Entities.News> newsService,
             IIntranetMemberService<IntranetMember> memberService,
-            ILightboxHelper lightBoxHelper,
-            IMemberServiceHelper memberHelper)
+            ILightboxHelper lightBoxHelper)
         {
             _commentsService = commentsService;
             _userTagService = userTagService;
@@ -51,7 +47,6 @@ namespace Uintra20.Features.News.Converters
             _feedLinkService = feedLinkService;
             _newsService = newsService;
             _memberService = memberService;
-            _memberHelper = memberHelper;
             _lightBoxHelper = lightBoxHelper;
         }
 
@@ -73,7 +68,7 @@ namespace Uintra20.Features.News.Converters
             viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(id));
             viewModel.CanEdit = _newsService.CanEdit(id);
 
-            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            var groupIdStr = HttpContext.Current.Request["groupId"];
             if (!Guid.TryParse(groupIdStr, out var groupId) || news.GroupId != groupId)
                 return;
 
@@ -93,7 +88,7 @@ namespace Uintra20.Features.News.Converters
             details.IsReadOnly = false;
             details.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             details.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
-            details.HeaderInfo.Owner = _memberHelper.ToViewModel(_memberService.Get(news));
+            details.HeaderInfo.Owner = _memberService.Get(news).ToViewModel();
             details.HeaderInfo.Links = _feedLinkService.GetLinks(news.Id);
 
 

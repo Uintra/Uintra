@@ -56,6 +56,7 @@ export class CentralFeedPanel implements OnInit {
   feed: Array<any> = [];
   currentPage = 1;
   isFeedLoading = false;
+  isResponseFailed = false;
   isScrollDisabled = false;
 
   constructor(
@@ -128,6 +129,10 @@ export class CentralFeedPanel implements OnInit {
       .then((response: any) => {
         this.isScrollDisabled = response.feed.length === 0;
         this.concatWithCurrentFeed(response.feed);
+        this.isResponseFailed = false;
+      })
+      .catch((err) => {
+        this.isResponseFailed = true;
       })
       .finally(() => {
         this.isFeedLoading = false;

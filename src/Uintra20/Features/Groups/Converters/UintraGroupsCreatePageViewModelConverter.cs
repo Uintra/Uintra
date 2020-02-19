@@ -16,6 +16,7 @@ namespace Uintra20.Features.Groups.Converters
         {
             _permissionsService = permissionsService;
             _mediaHelper = mediaHelper;
+            _permissionsService = permissionsService;
         }
 
         public void Map(UintraGroupsCreatePageModel node, UintraGroupsCreatePageViewModel viewModel)

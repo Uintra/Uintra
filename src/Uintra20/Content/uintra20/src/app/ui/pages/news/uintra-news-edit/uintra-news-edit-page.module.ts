@@ -10,6 +10,7 @@ import { MAX_LENGTH } from "src/app/constants/activity/create/activity-create-co
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.const';
 import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
+import { GroupDetailsWrapperModule } from 'src/app/feature/project/specific/groups/group-details-wrapper/group-details-wrapper.module';
 
 @NgModule({
   declarations: [UintraNewsEditPage],
@@ -25,7 +26,8 @@ import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
           maxLength: MAX_LENGTH
         }
       }
-    })
+    }),
+    GroupDetailsWrapperModule,
   ],
   entryComponents: [UintraNewsEditPage],
   providers: [{
