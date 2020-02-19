@@ -1,0 +1,13 @@
+﻿@using UBaseline.Shared.ImagePicker
+@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+@{
+    var value = Model.Value<PictureViewModel>();
+}
+
+@if (value != null)
+{
+    <div>
+        @Html.Partial("UBaselineImage", value)
+    </div>
+}

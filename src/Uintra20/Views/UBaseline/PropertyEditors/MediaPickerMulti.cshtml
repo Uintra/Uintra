@@ -1,0 +1,21 @@
+﻿@using Compent.Shared.Extensions.Bcl
+@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+@{
+    var value = Model.Value<IEnumerable<UBaseline.Shared.Media.IMediaViewModel>>();
+}
+
+@if (value.HasValue())
+{
+    <div>
+        <ul>
+            @foreach (var model in value)
+            {
+        if (model != null)
+        {
+            @Html.Partial("UmbracoMediaPicker", model)
+        }
+    }
+        </ul>
+    </div>
+}
