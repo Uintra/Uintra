@@ -16,17 +16,6 @@ export interface IGroupModel {
   media: string[] | null;
   id?: string;
 }
-// export interface ICreateGroupResponse {
-//   id: string;
-//   title: string;
-//   description: string;
-//   createdDate: string;
-//   updatedDate: string;
-//   creatorId: string;
-//   imageId?: string;
-//   isHidden: boolean;
-//   groupTypeId: number;
-// }
 export interface IGroupDetailsHeaderData {
   title: string;
   groupLinks: {
@@ -63,6 +52,10 @@ export class GroupsService {
 
   hideGroup(id: string) {
     return this.http.post<any>(groupsApi + `/Hide?groupId=${id}`, {});
+  }
+
+  getGroups(isMyGroups: boolean, pageNumber: number) {
+    return this.http.get(`/ubaseline/api/Group/List?isMyGroupsPage=${isMyGroups}&page=${pageNumber}`);
   }
 
   setOpenState(openState: boolean = false): void {

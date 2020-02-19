@@ -1,5 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
+import { GroupsService } from 'src/app/feature/project/specific/groups/groups.service';
 
 @Component({
   selector: 'uintra-groups-page',
@@ -12,9 +14,12 @@ export class UintraGroupsPage implements OnInit {
   private data: any;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
-    this.route.data.subscribe(data => this.data = data);
+    this.route.data.subscribe(data => {
+      this.data = ParseHelper.parseUbaselineData(data);
+      console.log(this.data);
+    });
   }
 
   public ngOnInit(): void {

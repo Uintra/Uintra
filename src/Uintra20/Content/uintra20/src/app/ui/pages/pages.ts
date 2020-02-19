@@ -82,7 +82,7 @@ export const pages = [
   {
     id: 'uintraGroupsPage',
     path: '__dynamic__',
-    loadChildren: './ui/pages/uintra-groups/uintra-groups-page.module#UintraGroupsPageModule'
+    loadChildren: './ui/pages/uintra-groups/groups-page/uintra-groups-page.module#UintraGroupsPageModule'
   },
 ];
 
