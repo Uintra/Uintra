@@ -60,7 +60,7 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.CanCreate = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.Create);
             viewModel.CanEditOwner = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.EditOwner);
             if (viewModel.CanEditOwner)
-                viewModel.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(viewModel.ActivityType, viewModel.ActivityType));
+                viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(viewModel.ActivityType, viewModel.ActivityType));
 
             switch (activityType)
             {
