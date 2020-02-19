@@ -136,7 +136,8 @@ app.controller('memberGroups.editController',
             if (vm.isCreate) {
                 memberGroupsService
                     .create(vm.memberGroup.name)
-                    .then(function (createdMemberGroupId) {
+                    .then(function (response) {
+                        const createdMemberGroupId = response.data.memberGroup.id;
                         if (createdMemberGroupId > 0) {
                             syncTree(createdMemberGroupId);
                             $location.url('/' + $routeParams.section + '/' + $routeParams.tree + '/' + $routeParams.method + '/' + createdMemberGroupId);
