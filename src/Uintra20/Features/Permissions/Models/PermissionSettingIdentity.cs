@@ -12,10 +12,6 @@ namespace Uintra20.Features.Permissions.Models
             ResourceType = resourceType;
             Action = action;
         }
-
-        public static PermissionSettingIdentity Of(Enum action, Enum resourceType) =>
-            new PermissionSettingIdentity(action, resourceType);
-
         public bool Equals(PermissionSettingIdentity other)
         {
             return Equals(ResourceType, other.ResourceType) && Equals(Action, other.Action);
@@ -46,10 +42,6 @@ namespace Uintra20.Features.Permissions.Models
             SettingIdentity = settingIdentity;
             ParentActionType = parentActionType;
         }
-
-        public static PermissionSettingSchema Of(PermissionSettingIdentity settingIdentity, Enum parentActionType) =>
-            new PermissionSettingSchema(settingIdentity, parentActionType);
-
         public bool Equals(PermissionSettingSchema other)
         {
             return SettingIdentity.Equals(other.SettingIdentity) && Equals(ParentActionType, other.ParentActionType);

@@ -57,6 +57,9 @@ namespace Uintra20.Features.Permissions.Implementation
             if (group != null) return group.Id;
             _memberGroupService.Save(new MemberGroup { Name = name });
             group = _memberGroupService.GetByName(name);
+
+            CurrentCache = CurrentCache.Append(group.Map<IntranetMemberGroup>());
+
             return group.Id;
         }
 
@@ -68,6 +71,9 @@ namespace Uintra20.Features.Permissions.Implementation
             var memberGroup = _memberGroupService.GetById(id);
             memberGroup.Name = name;
             _memberGroupService.Save(memberGroup);
+
+            CurrentCache = CurrentCache.Where(x => x.Id != id).Append(memberGroup.Map<IntranetMemberGroup>());
+
             return true;
         }
 
@@ -75,6 +81,8 @@ namespace Uintra20.Features.Permissions.Implementation
         {
             var group = _memberGroupService.GetById(id);
             _memberGroupService.Delete(group);
+
+            CurrentCache = CurrentCache.Where(x => x.Id != id);
         }
 
         public void AssignDefaultMemberGroup(int memberId)

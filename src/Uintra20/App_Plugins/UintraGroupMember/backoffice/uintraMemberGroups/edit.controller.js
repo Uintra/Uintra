@@ -14,7 +14,6 @@ app.controller('memberGroups.editController',
         vm.memberGroup = null;
         var memberGroupId = $routeParams.id;
         vm.isButtonDisabled = true;
-
         var notification = {
             SUCCESS: 'Success',
             ERROR: 'Error',
@@ -46,14 +45,15 @@ app.controller('memberGroups.editController',
         } else {
             memberGroupsService
                 .getPermissions(memberGroupId)
-                .success(function (groupPermissionModel) {
-                    vm.memberGroup = groupPermissionModel.memberGroup;
-                    vm.permissions = groupPermissionModel.permissions;
-                    vm.isSuperUser = groupPermissionModel.isSuperUser;
+                .then(function (groupPermissionModel) {
+                    let data = groupPermissionModel.data;
+                    vm.memberGroup = data.memberGroup;
+                    vm.permissions = data.permissions;
+                    vm.isSuperUser = data.isSuperUser;
 
-                    vm.groupedPermissions = groupByResourceTypeName(groupPermissionModel.permissions);
+                    vm.groupedPermissions = groupByResourceTypeName(data.permissions);
 
-                    var currentGroupName = groupPermissionModel.memberGroup.name;
+                    var currentGroupName = data.memberGroup.name;
                     $scope.$watch(function (scope) { return vm.memberGroup.name; }, function (newValue, oldValue) {
                         vm.isButtonDisabled = currentGroupName === newValue || !newValue;
                     });
@@ -96,14 +96,12 @@ app.controller('memberGroups.editController',
 
             memberGroupsService
                 .toggle(request)
-                .success(function (response) {
+                .then(function (response) {
                     permission.enabled = !permission.enabled;
                     if (permission.enabled)
                         notificationsService.success(notification.SUCCESS, notification.PERMISSION.ENABLED);
                     else
                         notificationsService.warning(notification.SUCCESS, notification.PERMISSION.DISABLED);
-                })
-                .always(function () {
                     inProgress = false;
                 });
         };
@@ -118,29 +116,27 @@ app.controller('memberGroups.editController',
             request.allowed = !permission.allowed;
             memberGroupsService
                 .toggle(request)
-                .success(function (groupPermissionModel) {
+                .then(function (groupPermissionModel) {
                     vm.permissions = groupPermissionModel.permissions;
                     vm.groupedPermissions = groupByResourceTypeName(groupPermissionModel.permissions);
                     if (!permission.allowed) {
                         notificationsService.success(notification.SUCCESS, notification.PERMISSION.ALLOWED);
-                    }
-                    else {
+                    } else {
                         notificationsService.warning(notification.SUCCESS, notification.PERMISSION.DISALLOWED);
                     }
-                })
-                .always(function () {
                     inProgress = false;
                 });
         };
 
         changeButtonState(control.button.state.INIT);
 
+
         vm.save = function () {
             changeButtonState(control.button.state.BUSY);
             if (vm.isCreate) {
                 memberGroupsService
                     .create(vm.memberGroup.name)
-                    .success(function (createdMemberGroupId) {
+                    .then(function (createdMemberGroupId) {
                         if (createdMemberGroupId > 0) {
                             syncTree(createdMemberGroupId);
                             $location.url('/' + $routeParams.section + '/' + $routeParams.tree + '/' + $routeParams.method + '/' + createdMemberGroupId);
@@ -148,8 +144,8 @@ app.controller('memberGroups.editController',
                             notificationsService.error(notification.ERROR, notification.INVALID_GROUP_NAME);
                             changeButtonState(control.button.state.SUCCESS);
                         }
-                    })
-                    .error(function (error) {
+                    },
+                    function (error) {
                         changeButtonState(control.button.state.SUCCESS);
                     });
 
@@ -157,15 +153,13 @@ app.controller('memberGroups.editController',
             }
             memberGroupsService
                 .save(memberGroupId, vm.memberGroup.name)
-                .success(function (result) {
-                    if (result === 'true') {
+                .then(function (result) {
+                    if (result.data === 'true') {
                         notificationsService.success(notification.SUCCESS, notification.MEMBER_SAVED);
                         syncTree(memberGroupId);
                     } else {
                         notificationsService.error(notification.ERROR, notification.GROUP_EXIST);
                     }
-                })
-                .always(function () {
                     changeButtonState(control.button.state.SUCCESS);
                 });
         };

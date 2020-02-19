@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
@@ -17,6 +16,7 @@ using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Services;
+using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
 using Uintra20.Models.UmbracoIdentity;
