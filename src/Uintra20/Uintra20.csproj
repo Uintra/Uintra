@@ -723,14 +723,6 @@
     <Content Include="App_Plugins\MediaPicker\prevalue-editor\media.prevalue.html" />
     <Content Include="App_Plugins\MediaPicker\prevalue-editor\media.prevalue.js" />
     <Content Include="App_Plugins\MediaPicker\styles.css" />
-    <Content Include="App_Plugins\Members\backoffice\memberGroups\delete.controller.js" />
-    <Content Include="App_Plugins\Members\backoffice\memberGroups\delete.html" />
-    <Content Include="App_Plugins\Members\backoffice\memberGroups\edit.controller.js" />
-    <Content Include="App_Plugins\Members\backoffice\memberGroups\edit.html" />
-    <Content Include="App_Plugins\Members\backoffice\memberGroups\memberGroupsService.js" />
-    <Content Include="App_Plugins\Members\member-changes-watcher.controller.js" />
-    <Content Include="App_Plugins\Members\member-changes-watcher.html" />
-    <Content Include="App_Plugins\Members\member.service.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.html" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
@@ -813,6 +805,12 @@
     <Content Include="App_Plugins\TableEditor\js\table-editor-row-control.directive.js" />
     <Content Include="App_Plugins\TableEditor\js\table-editor.controller.js" />
     <Content Include="App_Plugins\TableEditor\views\table-editor.html" />
+    <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\delete.controller.js" />
+    <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\delete.html" />
+    <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\edit.controller.js" />
+    <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\edit.html" />
+    <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\memberGroupsService.js" />
+    <Content Include="App_Plugins\UintraGroupMember\member.service.js" />
     <Content Include="App_Plugins\UmbracoStructureManagement\backoffice\UmbracoStructureManagement\dashboard.html" />
     <Content Include="App_Plugins\UmbracoStructureManagement\backoffice\UmbracoStructureManagement\umbracoStructureManagementDashboardController.js" />
     <Content Include="App_Plugins\UmbracoStructureManagement\components\umbracoStructureManagementReportView.html" />
@@ -966,6 +964,9 @@
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
     <Compile Include="Controllers\EnumController.cs" />
+    <Compile Include="Core\AdminSection\Controllers\AdminController.cs" />
+    <Compile Include="Core\Member\Controllers\UintraMemberGroupTreeController.cs" />
+    <Compile Include="Core\Member\Models\MemberGroupCreateModel.cs" />
     <Compile Include="Core\Activity\FeedActivityHelper.cs" />
     <Compile Include="Core\Activity\IFeedActivityHelper.cs" />
     <Compile Include="Core\UbaselineModels\FileModel.cs" />
@@ -1098,6 +1099,12 @@
     <Compile Include="Features\Notification\Configuration\NotifierConfiguration.cs" />
     <Compile Include="Features\Notification\Exceptions\MissingNotifierConfigurationException.cs" />
     <Compile Include="Features\Notification\Exceptions\OutOfRangeNotifierConfigurationException.cs" />
+    <Compile Include="Features\Permissions\Controllers\PermissionsController.cs" />
+    <Compile Include="Features\Permissions\Migrations\DefaultMemberGroupPermissionsInitializer.cs" />
+    <Compile Include="Features\Permissions\Models\GroupPermissionsViewModel.cs" />
+    <Compile Include="Features\Permissions\Models\MemberGroupViewModel.cs" />
+    <Compile Include="Features\Permissions\Models\PermissionUpdateViewModel.cs" />
+    <Compile Include="Features\Permissions\Models\PermissionViewModel.cs" />
     <Compile Include="Features\Social\Details\Converters\SocialDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\Social\Details\Models\SocialDetailsPageModel.cs" />
     <Compile Include="Features\Social\Details\Models\SocialDetailsPageViewModel.cs" />
@@ -1714,7 +1721,6 @@
     <Content Include="config\serilog.config" />
     <Content Include="config\HealthChecks.config" />
     <Content Include="config\ClientDependency.config" />
-    <Content Include="App_Plugins\Members\package.manifest" />
     <Content Include="config\UBaseline\ubaselineSettings.json" />
     <Content Include="App_Plugins\PanelContainer\package.manifest" />
     <Content Include="App_Plugins\AvailableActivitySelector\package.manifest" />
@@ -1831,6 +1837,7 @@
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\AnchorField\package.manifest" />
+    <Content Include="App_Plugins\UintraGroupMember\package.manifest" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Index.cshtml" />

@@ -11,24 +11,13 @@ namespace Uintra20.Features.Permissions.Models
 
         public PermissionManagementModel(
             IntranetMemberGroup group,
-            PermissionSettingIdentity settingIdentity,
-            Enum parentActionType,
+            PermissionSettingSchema permissionSettingHierarchicalItem,
             PermissionSettingValues settingValues)
         {
             Group = group;
-            SettingIdentity = settingIdentity;
-            ParentActionType = parentActionType;
+            SettingIdentity = permissionSettingHierarchicalItem.SettingIdentity;
+            ParentActionType = permissionSettingHierarchicalItem.ParentActionType;
             SettingValues = settingValues;
         }
-
-        public static PermissionManagementModel Of(
-            IntranetMemberGroup group,
-            PermissionSettingSchema permissionSettingHierarchicalItem,
-            PermissionSettingValues settingValues) =>
-            new PermissionManagementModel(
-                group,
-                permissionSettingHierarchicalItem.SettingIdentity,
-                permissionSettingHierarchicalItem.ParentActionType,
-                settingValues);
     }
 }

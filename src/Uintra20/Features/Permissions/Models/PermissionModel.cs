@@ -9,16 +9,16 @@ namespace Uintra20.Features.Permissions.Models
         public PermissionSettingValues SettingValues { get; }
         public PermissionSettingIdentity SettingIdentity { get; }
 
-        private PermissionModel(Guid id, IntranetMemberGroup group, PermissionSettingIdentity settingIdentity, PermissionSettingValues settingValues)
+        public PermissionModel(
+            Guid id, 
+            PermissionSettingIdentity settingIdentity, 
+            PermissionSettingValues settingValues, 
+            IntranetMemberGroup group)
         {
             Id = id;
             Group = group;
             SettingIdentity = settingIdentity;
             SettingValues = settingValues;
         }
-
-        public static PermissionModel Of(PermissionSettingIdentity settingIdentity, PermissionSettingValues settingValues,
-            IntranetMemberGroup group) =>
-            new PermissionModel(Guid.NewGuid(), group, settingIdentity, settingValues);
     }
 }
