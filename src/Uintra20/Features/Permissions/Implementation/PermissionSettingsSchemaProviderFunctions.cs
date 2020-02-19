@@ -9,7 +9,6 @@ namespace Uintra20.Features.Permissions.Implementation
 {
     public static class PermissionSettingsSchemaProviderFunctions
     {
-
         public static PermissionSettingSchema[] BuildSettings(
             IEnumerable<ResourceToActionRelation> hierarchy) =>
             hierarchy.SelectMany(resourceActions =>
@@ -23,20 +22,25 @@ namespace Uintra20.Features.Permissions.Implementation
                 .WithAttachedParents()
                 .Flatten();
 
-            var settings = treeWithParents.Select(hierarchicalItem =>
-                PermissionSettingSchema.Of(
-                    PermissionSettingIdentity.Of(hierarchicalItem.current, resource),
-                    hierarchicalItem.parent));
+            var settings = treeWithParents
+                .Select(item =>
+                {
+                    var permissionIdentity = new PermissionSettingIdentity(item.current, resource);
+                    return new PermissionSettingSchema(permissionIdentity, item.parent);
+                });
 
             return settings;
         }
 
-        public static ILookup<PermissionSettingIdentity, PermissionSettingIdentity> BuildSettingsByParentSettingIdentityLookup(
-            IEnumerable<PermissionSettingSchema> settingSchema) =>
+        public static ILookup<PermissionSettingIdentity, PermissionSettingIdentity>
+            BuildSettingsByParentSettingIdentityLookup(
+                IEnumerable<PermissionSettingSchema> settingSchema) =>
             settingSchema
                 .Select(setting =>
-                    (parentIdentity: PermissionSettingIdentity.Of(setting.ParentActionType, setting.SettingIdentity.ResourceType), 
-                        childIdentity: setting.SettingIdentity))
-                .ToLookup(tuple => tuple.parentIdentity, tuple => tuple.childIdentity);
+                {
+                    var identity = new PermissionSettingIdentity(setting.ParentActionType, setting.SettingIdentity.ResourceType);
+                    return (parentIdentity: identity, childIdentity: setting.SettingIdentity);
+                 })
+                 .ToLookup(tuple => tuple.parentIdentity, tuple => tuple.childIdentity);
     }
 }

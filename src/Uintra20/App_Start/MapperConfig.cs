@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
 using EmailWorker.Data.Features.EmailWorker;
+using EmailWorker.Web.Infrastructure.Extensions;
 using Uintra20.Core.Activity.AutoMapperProfiles;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Jobs.AutoMapperProfiles;
 using Uintra20.Core.Member.AutoMapperProfiles;
-using Uintra20.Features.Bulletins.AutoMapperProfiles;
+using Uintra20.Core.Member.Profile.Edit.Mappers;
 using Uintra20.Features.CentralFeed.AutoMapperProfiles;
 using Uintra20.Features.Comments.AutoMapperProfiles;
 using Uintra20.Features.Events.AutoMapperProfiles;
@@ -13,12 +14,13 @@ using Uintra20.Features.Groups.AutoMapperProfiles;
 using Uintra20.Features.LinkPreview.AutoMapperProfiles;
 using Uintra20.Features.Location.AutoMapperProfiles;
 using Uintra20.Features.Navigation.AutoMapperProfiles;
+using Uintra20.Features.News.AutoMapperPrfiles;
 using Uintra20.Features.Notification.AutoMapperProfiles;
 using Uintra20.Features.Permissions.AutoMapperProfiles;
+using Uintra20.Features.Social.AutoMapperProfiles;
 using Uintra20.Features.Subscribe.AutoMapperProfiles;
 using Uintra20.Features.Tagging.AutoMapperProfiles;
 using Umbraco.Core.Composing;
-using Umbraco.Core.Models.Identity;
 
 namespace Uintra20
 {
@@ -28,12 +30,12 @@ namespace Uintra20
         {
             //Mapper.AddProfile<PermissionsAutoMapperProfile>();
             //Mapper.AddProfile<CommentAutoMapperProfile>();
-            ////Mapper.AddProfile<NewsAutoMapperProfile>();
+            
             ////Mapper.AddProfile<Core.News.NewsAutoMapperProfile>();
             //Mapper.AddProfile<LightboxAutoMapperProfile>();
             //Mapper.AddProfile<NavigationAutoMapperProfile>();
             //Mapper.AddProfile<EventsAutoMapperProfile>();
-            //Mapper.AddProfile<SocialsAutoMapperProfile>();
+            //Mapper.AddProfile<SocialAutoMapperProfile>();
             //Mapper.AddProfile<NotificationAutoMapperProfile>();
             //Mapper.AddProfile<CentralFeedAutoMapperProfile>();
             //Mapper.AddProfile<IntranetUserAutoMapperProfile>();
@@ -71,7 +73,7 @@ namespace Uintra20
             cfg.AddProfile<LightboxAutoMapperProfile>();
             cfg.AddProfile<NavigationAutoMapperProfile>();
             cfg.AddProfile<EventsAutoMapperProfile>();
-            cfg.AddProfile<SocialsAutoMapperProfile>();
+            cfg.AddProfile<SocialAutoMapperProfile>();
             cfg.AddProfile<NotificationAutoMapperProfile>();
             cfg.AddProfile<CentralFeedAutoMapperProfile>();
             cfg.AddProfile<IntranetUserAutoMapperProfile>();
@@ -83,6 +85,9 @@ namespace Uintra20
             cfg.AddProfile<SubscribeSettingAutoMapperProfiles>();
             cfg.AddProfile<LocationAutoMapperProfile>();
             cfg.AddProfile<LinkPreviewAutoMapperProfile>();
+            cfg.UseMailWorkerMapperProfiles();
+            cfg.AddProfile<NewsAutoMapperProfile>();
+            cfg.AddProfile<ProfileEditProfile>();
             cfg.AddProfile<JobAutoMapperProfile>();
 			cfg.AddProfile<MailProfile>();
             

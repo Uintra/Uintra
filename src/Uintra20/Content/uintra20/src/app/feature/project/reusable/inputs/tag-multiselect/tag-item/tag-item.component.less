@@ -1,16 +1,11 @@
 @import 'base.less';
 
-.reset-button() {
-  background: none;
-  border: 0;
-  outline: 0;
-  padding: 0;
-}
-
 .tag {
   display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: baseline;
   background: #ddd;
-  padding: 7px 13px;
+  padding: 3px 10px;
   border-radius: 3px;
   margin-right: 5px;
   margin-bottom: 3px;
@@ -18,7 +13,7 @@
 
   &__remove {
     .reset-button;
-    margin-left: 10px;
+    margin-right: 5px;
     font-size: 1.4em;
     line-height: 13px;
     color: #999;

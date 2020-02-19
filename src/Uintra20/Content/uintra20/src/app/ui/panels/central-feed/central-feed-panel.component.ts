@@ -1,11 +1,9 @@
-import { Component, ViewEncapsulation, OnInit } from "@angular/core";
+import { Component, ViewEncapsulation, OnInit, NgZone } from "@angular/core";
 import { ICentralFeedPanel } from "./central-feed-panel.interface";
-import { UmbracoFlatPropertyModel } from "@ubaseline/next";
-import {
-  PublicationsService,
-  IFeedListRequest
-} from "./helpers/publications.service";
-import { CreateSocialService } from "src/app/services/createActivity/create-social.service";
+import { UmbracoFlatPropertyModel, IUmbracoProperty } from "@ubaseline/next";
+import { PublicationsService } from "./helpers/publications.service";
+import { ActivityService } from "src/app/feature/project/specific/activity/activity.service";
+import { SignalrService } from "src/app/services/general/signalr.service";
 
 // interface IFilterTab {
 //   type: number;
@@ -51,39 +49,76 @@ import { CreateSocialService } from "src/app/services/createActivity/create-soci
 })
 export class CentralFeedPanel implements OnInit {
   data: ICentralFeedPanel;
-  tabs: Array<UmbracoFlatPropertyModel> = null;
+  tabs: Array<any> = null;
   // TODO: replace 'any' after server side will be done
   selectTabFilters: Array<any>;
   selectedTabType: number;
   feed: Array<any> = [];
-  currentPage: number = 1;
-  isFeedLoading: boolean = false;
+  currentPage = 1;
+  isFeedLoading = false;
+  isScrollDisabled = false;
 
   constructor(
     private publicationsService: PublicationsService,
-    private createSocialService: CreateSocialService
+    private socialService: ActivityService,
+    private signalrService: SignalrService,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit() {
-    this.tabs = Object.values(this.data.tabs.get());
+    this.tabs = this.filtersBuilder();
 
-    this.createSocialService.feedRefreshTrigger$.subscribe(() => {
-      this.feed = [];
-      this.getPublications();
+    this.socialService.feedRefreshTrigger$.subscribe(() => {
+      this.reloadFeed();
+    });
+
+    this.signalrService.getReloadFeedSubjects().subscribe(s => {
+      this.reloadFeed();
     });
   }
 
-  getPublications() {
+  filtersBuilder() {
+    let filtersFromServer = Object.values(this.data.tabs.get());
+
+    // TODO: fix ubaselline next and remove it
+    const allOption = new UmbracoFlatPropertyModel({
+      type: "0",
+      isActive: true,
+      links: null,
+      title: "All",
+      filters: [
+        {
+          key: "ShowPinned",
+          title: "Show only Important",
+          isActive: false
+        }
+      ]
+    } as any);
+
+    filtersFromServer.unshift(allOption);
+
+    return filtersFromServer;
+  }
+
+  reloadFeed(): void {
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
+    this.resetFeed();
+    this.getPublications();
+  }
+
+  getPublications(): void {
     const FilterState = {};
 
     this.selectTabFilters.forEach(filter => {
       FilterState[filter.key] = filter.isActive;
     });
-
     const data = {
       TypeId: this.selectedTabType,
       FilterState,
-      Page: this.currentPage
+      Page: this.currentPage,
+      groupId: this.data.groupId.data.value
     };
 
     this.isFeedLoading = true;
@@ -91,6 +126,7 @@ export class CentralFeedPanel implements OnInit {
     this.publicationsService
       .getPublications(data)
       .then((response: any) => {
+        this.isScrollDisabled = response.feed.length === 0;
         this.concatWithCurrentFeed(response.feed);
       })
       .finally(() => {
@@ -98,23 +134,29 @@ export class CentralFeedPanel implements OnInit {
       });
   }
 
-  concatWithCurrentFeed(data) {
-    this.feed = this.feed.concat(data);
+  concatWithCurrentFeed(data): void {
+    this.ngZone.run(() => {
+      this.feed = this.feed.concat(data);
+    });
   }
 
-  onLoadMore() {
+  onLoadMore(): void {
     this.currentPage += 1;
     this.getPublications();
   }
 
-  onScroll() {
+  onScroll(): void {
     this.onLoadMore();
   }
 
-  selectFilters({ selectedTabType, selectTabFilters }) {
+  resetFeed(): void {
+    this.feed = [];
+    this.currentPage = 1;
+  }
+
+  selectFilters({ selectedTabType, selectTabFilters }): void {
     this.selectTabFilters = selectTabFilters;
     this.selectedTabType = selectedTabType;
-    this.feed = [];
-    this.getPublications();
+    this.reloadFeed();
   }
 }

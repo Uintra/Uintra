@@ -2,7 +2,7 @@
 {
     public class NotificationListViewModel
     {
+        public string NotificationPageUrl { get; set; }
         public NotificationViewModel[] Notifications { get; set; }
-        public bool BlockScrolling { get; set; }
     }
 }

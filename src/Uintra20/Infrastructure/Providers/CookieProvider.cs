@@ -22,9 +22,9 @@ namespace Uintra20.Infrastructure.Providers
         public virtual void Save(HttpCookie cookie)
         {
             cookie.Domain = GetDomain();
-            cookie.Secure = _applicationSettings.UmbracoUseSSL;
+            cookie.Secure = _applicationSettings.UmbracoUseSsl;
             cookie.HttpOnly = true;
-            HttpContext.Current.Request.Cookies.Add(cookie);
+            HttpContext.Current.Response.Cookies.Add(cookie);
         }
 
         public virtual void Save(string name, string value, DateTime expireDate)

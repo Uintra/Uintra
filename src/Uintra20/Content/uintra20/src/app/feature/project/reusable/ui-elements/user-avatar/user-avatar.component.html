@@ -1,1 +1,33 @@
-<img class="avatar" src="{{data}}" [ngClass]="{'big': big}"/>
+<!-- TODO: refactor it -->
+
+<ng-container *ngIf="routerLink">
+  <a [routerLink]="routerLink" [queryParams]="queryParams">
+    <img
+      *ngIf="photo"
+      class="avatar"
+      src="{{ photo }}"
+      [ngClass]="{ big: big }"
+    />
+    <div
+      *ngIf="!photo"
+      class="avatar letter"
+      [innerHtml]="firstChar"
+      [ngClass]="{ big: big }"
+    ></div>
+  </a>
+</ng-container>
+
+<ng-container *ngIf="!routerLink">
+  <img
+    *ngIf="photo"
+    class="avatar"
+    src="{{ photo }}"
+    [ngClass]="{ big: big }"
+  />
+  <div
+    *ngIf="!photo"
+    class="avatar letter"
+    [innerHtml]="firstChar"
+    [ngClass]="{ big: big }"
+  ></div> </ng-container
+>

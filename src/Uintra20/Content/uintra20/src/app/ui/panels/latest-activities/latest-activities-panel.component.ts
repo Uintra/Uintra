@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
 import { ILatestActivitiesPanel } from './latest-activities-panel.interface';
 
 @Component({
@@ -14,11 +13,13 @@ export class LatestActivitiesPanelComponent implements OnInit {
 
   public readonly data: ILatestActivitiesPanel;
   public title: string;
+  public teaser: string;
   public activityCells: any;
   public showAll: false;
 
   public ngOnInit(): void {
     this.title = this.data.title.get();
+    this.teaser = this.data.teaser.get();
     this.activityCells = Object.values(this.data.feed.get());
     this.showAll = this.data.showSeeAllButton.get();
   }

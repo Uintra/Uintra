@@ -106,7 +106,7 @@ namespace Uintra20.Core.Member.Services
             var umbracoUser = _umbracoContext.Security.CurrentUser;
             if (umbracoUser != null) return await GetByUserIdAsync(umbracoUser.Id);
 
-            return await Task.FromResult(default(T));
+            return default(T);
         }
 
         public virtual async Task<IEnumerable<T>> GetByGroupAsync(int memberGroupId)
@@ -314,7 +314,7 @@ namespace Uintra20.Core.Member.Services
 
         public virtual IEnumerable<T> GetAll()
         {
-            var members = _cacheService.GetOrSet(MembersCacheKey, () => GetAllFromSql().ToList(), CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
+            var members = _cacheService.GetOrSet(MembersCacheKey, () => GetAllFromSql().ToList(), CacheHelper.GetMidnightUtcDateTimeOffset());
             return members;
         }
 
@@ -322,7 +322,7 @@ namespace Uintra20.Core.Member.Services
         {
             var member = Umbraco.Web.Composing.Current.UmbracoHelper.MembershipHelper.GetCurrentMember();
             if (member != null) return Get(member.Key);
-
+            
             var umbracoUser = _umbracoContext.Security.CurrentUser;
             if (umbracoUser != null) return GetByUserId(umbracoUser.Id);
 
@@ -340,43 +340,38 @@ namespace Uintra20.Core.Member.Services
             return members;
         }
 
-        public virtual bool Update(UpdateMemberDto dto)
-        {
-            var member = _memberService.GetByKey(dto.Id);
-            var isPresent = member != null;
-            if (isPresent)
+		public virtual bool Update(UpdateMemberDto dto)
+		{
+			var member = _memberService.GetByKey(dto.Id);
+            if (member == null) 
+                return false;
+
+            member.SetValue(ProfileConstants.FirstName, dto.FirstName);
+            member.SetValue(ProfileConstants.LastName, dto.LastName);
+            member.SetValue(ProfileConstants.Phone, dto.Phone);
+            member.SetValue(ProfileConstants.Department, dto.Department);
+
+            var mediaId = member.GetValueOrDefault<int?>(ProfileConstants.Photo);
+
+            if (dto.NewMedia.HasValue)
+                member.SetValue(ProfileConstants.Photo, dto.NewMedia.Value);
+
+            if (dto.DeleteMedia)
+                member.SetValue(ProfileConstants.Photo, null);
+
+            if ((dto.NewMedia.HasValue || dto.DeleteMedia) && mediaId.HasValue)
             {
-                member.SetValue(ProfileConstants.FirstName, dto.FirstName);
-                member.SetValue(ProfileConstants.LastName, dto.LastName);
-                member.SetValue(ProfileConstants.Phone, dto.Phone);
-                member.SetValue(ProfileConstants.Department, dto.Department);
-
-                var mediaId = member.GetValueOrDefault<int?>(ProfileConstants.Photo);
-
-                if (dto.NewMedia.HasValue)
-                {
-                    member.SetValue(ProfileConstants.Photo, dto.NewMedia.Value);
-                }
-
-                if (dto.DeleteMedia)
-                {
-                    member.SetValue(ProfileConstants.Photo, null);
-                }
-
-                if ((dto.NewMedia.HasValue || dto.DeleteMedia) && mediaId.HasValue)
-                {
-                    var media = _mediaService.GetById(mediaId.Value);
-                    if (media != null)
-                        _mediaService.Delete(media);
-                }
-
-                _memberService.Save(member, false);
-
-                UpdateMemberCache(dto.Id);
+                var media = _mediaService.GetById(mediaId.Value);
+                if (media != null)
+                    _mediaService.Delete(media);
             }
 
-            return isPresent;
-        }
+            _memberService.Save(member, false);
+
+            UpdateMemberCache(dto.Id);
+
+            return true;
+		}
 
         public virtual Guid Create(CreateMemberDto dto)
         {
@@ -400,19 +395,18 @@ namespace Uintra20.Core.Member.Services
         {
             var member = _memberService.GetByKey(id);
 
-            if (member == null)
-            {
-                return null;
-            }
+			if (member == null)			
+				return null;
+			
 
-            var dto = new ReadMemberDto
-            {
-                LastName = member.GetValue<string>(ProfileConstants.LastName),
-                FirstName = member.GetValue<string>(ProfileConstants.FirstName),
-                Phone = member.GetValue<string>(ProfileConstants.Phone),
-                Department = member.GetValue<string>(ProfileConstants.Department),
-                Email = member.Email
-            };
+			var dto = new ReadMemberDto
+			{
+				LastName = member.GetValue<string>(ProfileConstants.LastName),
+				FirstName = member.GetValue<string>(ProfileConstants.FirstName),
+				Phone = member.GetValue<string>(ProfileConstants.Phone),
+				Department = member.GetValue<string>(ProfileConstants.Department),
+				Email = member.Email
+			};
 
             return dto;
         }
@@ -421,14 +415,14 @@ namespace Uintra20.Core.Member.Services
         {
             var member = _memberService.GetByKey(id);
 
-            if (member != null)
-            {
-                _memberService.Delete(member);
-                DeleteFromCache(member.Key);
-            }
+            if (member == null) 
+                return false;
 
-            return member != null;
-        }
+            _memberService.Delete(member);
+            DeleteFromCache(member.Key);
+
+            return true;
+		}
 
         protected virtual T GetFromSqlOrNone(Guid id) =>
             Map(_memberService.GetByKey(id));
@@ -527,41 +521,31 @@ namespace Uintra20.Core.Member.Services
             var updatedMember = GetFromSqlOrNone(memberId);
             var allCachedMembers = GetAll();
 
-            IEnumerable<T> updatedCache;
 
-            if (updatedMember != null)
-            {
-                updatedCache = allCachedMembers.WithUpdatedElement(el => el.Id == memberId, updatedMember);
-            }
-            else
-            {
-                updatedCache = allCachedMembers.Where(el => el.Id != memberId);
-            }
+            var updatedCache = updatedMember != null
+                ? allCachedMembers.WithUpdatedElement(el => el.Id == memberId, updatedMember)
+                : allCachedMembers.Where(el => el.Id != memberId);
 
-            _cacheService.Set(MembersCacheKey, updatedCache.ToList(), CacheHelper.GetMidnightUtcDateTimeOffset());
-        }
+			_cacheService.Set(MembersCacheKey, updatedCache.ToArray(), CacheHelper.GetMidnightUtcDateTimeOffset());
+		}
 
-        public virtual void UpdateMemberCache(IEnumerable<Guid> memberIds)
-        {
-            var allCachedMembers = GetAll();
+		public virtual void UpdateMemberCache(IEnumerable<Guid> memberIds)
+		{
+			var allCachedMembers = GetAll()
+                .ToArray();
 
-            foreach (var memberId in memberIds)
-            {
-                IEnumerable<T> updatedCache;
-                T updatedMember = GetFromSqlOrNone(memberId);
-
-                if (updatedMember != null)
+            var updatedMembers = memberIds
+                .SelectMany(id =>
                 {
-                    updatedCache = allCachedMembers.WithUpdatedElement(el => el.Id == memberId, updatedMember);
-                }
-                else
-                {
-                    updatedCache = allCachedMembers.Where(el => el.Id != memberId);
-                }
-            }
+                    var member = GetFromSqlOrNone(id);
+                    return member != null
+                        ? allCachedMembers.WithUpdatedElement(el => el.Id == id, member)
+                        : allCachedMembers.Where(el => el.Id != id);
+                })
+                .ToArray();
 
-            _cacheService.Set(MembersCacheKey, allCachedMembers.ToList(), CacheHelper.GetMidnightUtcDateTimeOffset());
-        }
+			_cacheService.Set(MembersCacheKey, updatedMembers, CacheHelper.GetMidnightUtcDateTimeOffset());
+		}
 
         public virtual void DeleteFromCache(Guid memberId)
         {

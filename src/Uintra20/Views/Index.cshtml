@@ -1,20 +1,40 @@
+@using Compent.Shared.Extensions.Bcl @model UBaseline.Core.IndexPage.IndexPageModel
 <!doctype html>
 <html lang="en">
 <head>
+    @Html.Raw(Model.HeaderScript)
+    @Html.Raw(Model.HeaderLocalScript)
     <meta charset="utf-8">
     <base href="/">
+    <title>@Model.Title</title>
+
+    @if (Model.MetaData != null)
+    {
+        <meta name="title" content="@Model.MetaData.MetaTitle">
+        <meta name="description" content="@Model.MetaData.MetaDescription">
+        <meta property="og:title" content="@Model.MetaData.SocialTitle">
+        <meta property="og:description" content="@Model.MetaData.SocialDescription">
+        if (Model.MetaData.SocialImageUrl.HasValue())
+        {
+            <meta property="og:image" content="@Model.MetaData.SocialImageUrl">
+        }
+        <link rel="canonical" href="@Model.MetaData.CanonicalUrl" />
+    }
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="wwwroot/favicon.ico">
     
-<link rel="stylesheet" href="/wwwroot/styles.645711df06ba017f775e.css"></head>
+<link rel="stylesheet" href="/wwwroot/styles.b8da898e8272aad2a779.css"></head>
 <body>
+    @Html.Raw(Model.BodyScript)
+    @Html.Raw(Model.BodyLocalScript)
     <app-root></app-root>
+    @Html.Raw(Model.FooterScript)
 
+    @Html.Raw(Model.FooterLocalScript)
     
     
     
     
     
-    
-<script src="/wwwroot/runtime-es2015.4f293711cc090de17a3f.js" type="module"></script><script src="/wwwroot/runtime-es5.4f293711cc090de17a3f.js" nomodule defer></script><script src="/wwwroot/polyfills-es5.c6d7099f8b4f279dee63.js" nomodule defer></script><script src="/wwwroot/polyfills-es2015.7c4fff09cda350f2d479.js" type="module"></script><script src="/wwwroot/main-es2015.850ff255669696719921.js" type="module"></script><script src="/wwwroot/main-es5.850ff255669696719921.js" nomodule defer></script></body>
+<script src="/wwwroot/runtime.d04e7d07af71656df39a.js" defer></script><script src="/wwwroot/polyfills-es5.49126d14e3e6ef7089b8.js" nomodule defer></script><script src="/wwwroot/polyfills.4a729d35b7f5a57fd988.js" defer></script><script src="/wwwroot/scripts.755336941a50856dad23.js" defer></script><script src="/wwwroot/main.6c07aa115ff9ec9dc9dc.js" defer></script></body>
 </html>

@@ -1,17 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { AS_DYNAMIC_COMPONENT, NotImplementedModule } from '@ubaseline/next';
+import { AS_DYNAMIC_COMPONENT } from '@ubaseline/next';
 import { CommentsPanel } from './comments-panel.component';
-import { RichTextEditorModule } from 'src/app/feature/project/reusable/inputs/rich-text-editor/rich-text-editor.module';
+import { CommentsModule } from 'src/app/feature/project/reusable/ui-elements/comments/comments.module';
 
 @NgModule({
   declarations: [CommentsPanel],
-  imports: [
-    CommonModule,
-    NotImplementedModule,
-    RichTextEditorModule
-  ],
+  imports: [CommonModule, CommentsModule],
   providers: [{provide: AS_DYNAMIC_COMPONENT, useValue: CommentsPanel}],
   entryComponents: [CommentsPanel]
 })

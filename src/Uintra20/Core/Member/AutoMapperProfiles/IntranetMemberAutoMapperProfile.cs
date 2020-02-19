@@ -1,20 +1,24 @@
 ﻿using AutoMapper;
+using Compent.Extensions;
 using System.Linq;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Models.Dto;
+using Uintra20.Core.Member.Profile.Edit.Models;
+using Uintra20.Core.Member.Profile.Models;
 
 namespace Uintra20.Core.Member.AutoMapperProfiles
 {
-    public class IntranetMemberAutoMapperProfile : Profile
+    public class IntranetMemberAutoMapperProfile : AutoMapper.Profile
     {
 	    public IntranetMemberAutoMapperProfile()
         {
-            //Mapper.CreateMap<IIntranetMember, ProfileViewModel>()
-            //    .ForMember(dst => dst.EditingMember, o => o.MapFrom(user => user))
-            //    .ForMember(dst => dst.Photo, o => o.MapFrom(user => user.Photo.IfNone(() => string.Empty)))
-            //    .ForMember(dst => dst.PhotoId, o => o.MapFrom(user => user.PhotoId.ToNullable()));
-
+            CreateMap<IIntranetMember, ProfileViewModel>()
+                .ForMember(dst => dst.EditingMember, o => o.MapFrom(user => user))
+                .ForMember(dst => dst.Photo, o => o.MapFrom(user => user.Photo.HasValue() ? user.Photo : string.Empty))
+                .ForMember(dst => dst.PhotoId, o => o.MapFrom(user => user.PhotoId))
+                .ForMember(dst => dst.AllowedMediaExtensions, o => o.Ignore());
+            //TODO How to handle Allowed Media Extensions?
             CreateMap<IIntranetMember, MemberViewModel>()
                 .ForMember(dst => dst.Id, o => o.MapFrom(user => user.Id))
                 .ForMember(dst => dst.DisplayedName, o => o.MapFrom(user => user.DisplayedName))
@@ -29,13 +33,7 @@ namespace Uintra20.Core.Member.AutoMapperProfiles
             //    .ForMember(dst => dst.IsGroupAdmin, o => o.Ignore())
             //    .ForMember(dst => dst.IsCreator, o => o.Ignore());
 
-            //Mapper.CreateMap<IIntranetMember, ProfileEditModel>()
-            //    .ForMember(dst => dst.MediaRootId, o => o.Ignore())
-            //    .ForMember(dst => dst.NewMedia, o => o.Ignore())
-            //    .ForMember(dst => dst.MemberNotifierSettings, o => o.Ignore())
-            //    .ForMember(dst => dst.ProfileUrl, o => o.Ignore())
-            //    .ForMember(dst => dst.Photo, o => o.MapFrom(user => user.Photo.IfNone(() => string.Empty)))
-            //    .ForMember(dst => dst.PhotoId, o => o.MapFrom(user => user.PhotoId.ToNullable()));
+            
 
             CreateMap<Google.Apis.Admin.Directory.directory_v1.Data.User, CreateMemberDto>()
                 .ForMember(dst => dst.FirstName, o => o.Ignore())
@@ -74,10 +72,6 @@ namespace Uintra20.Core.Member.AutoMapperProfiles
                     }
                 });
 
-
-            //Mapper.CreateMap<ProfileEditModel, ExtendedProfileEditModel>()
-            //    .ForMember(dst => dst.TagIdsData, o => o.MapFrom(i => string.Empty));
-
             CreateMap<IIntranetMember, UpdateMemberDto>()
                 .ForMember(dst => dst.DeleteMedia, o => o.Ignore())
                 .ForMember(dst => dst.NewMedia, o => o.Ignore());
@@ -86,7 +80,6 @@ namespace Uintra20.Core.Member.AutoMapperProfiles
             //    .ForMember(dst => dst.Id, o => o.MapFrom(u => Guid.Parse(u.Id.ToString())))
             //    .ForMember(dst => dst.Value, o => o.MapFrom(u => u.FullName))
             //    .ForMember(dst => dst.Url, o => o.Ignore());
-
         }
     }
 }

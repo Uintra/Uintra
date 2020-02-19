@@ -1,0 +1,4 @@
+<div *ngIf='data'>
+  <app-social-create *ngIf='activityType == activityTypes.Socials' [data]='data'></app-social-create>
+  <app-news-create *ngIf='activityType == activityTypes.News' [data]='data'></app-news-create>
+</div>

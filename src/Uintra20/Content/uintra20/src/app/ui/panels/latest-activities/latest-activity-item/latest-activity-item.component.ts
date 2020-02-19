@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'latest-activity',
@@ -10,8 +11,14 @@ export class LatestActivityComponent implements OnInit {
   @Input() activityDate: Date;
   @Input() activityId: string;
   @Input() activityDescription: string;
+ // @Input() activityLinks: { details: { baseUrl: string; params: Array<{name: string, value: string}>}};
+  @Input() activityLinks: any;
 
-  constructor() { }
+  sanitizedActivityDescription: SafeHtml;
 
-  ngOnInit() { }
+  constructor(private sanitizer: DomSanitizer) { }
+
+  ngOnInit() {
+    this.sanitizedActivityDescription = this.sanitizer.bypassSecurityTrustHtml(this.activityDescription);
+  }
 }

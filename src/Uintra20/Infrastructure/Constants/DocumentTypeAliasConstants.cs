@@ -10,17 +10,17 @@
 
         public const string NewsOverviewPage = "newsOverviewPage";
         public const string NewsCreatePage = "newsCreatePage";
-        public const string NewsEditPage = "newsEditPage";
-        public const string NewsDetailsPage = "newsDetailsPage";
+        public const string NewsEditPage = "uintraNewsEditPage";
+        public const string NewsDetailsPage = "uintraNewsDetailsPage";
 
         public const string EventsOverviewPage = "eventsOverviewPage";
         public const string EventsCreatePage = "eventsCreatePage";
         public const string EventsEditPage = "eventsEditPage";
         public const string EventsDetailsPage = "eventsDetailsPage";
 
-        public const string BulletinsOverviewPage = "bulletinDetailsPage";
-        public const string BulletinsEditPage = "bulletinsEditPage";
-        public const string BulletinsDetailsPage = "bulletinDetailsPage";
+        public const string SocialOverviewPage = "socialDetailsPage";
+        public const string SocialEditPage = "socialEditPage";
+        public const string SocialDetailsPage = "socialDetailsPage";
 
         public const string DataFolder = "dataFolder";
         public const string UserTagFolder = "userTagFolder";

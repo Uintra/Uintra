@@ -1,34 +1,40 @@
 {
+  "/signalr/*": {
+    "target": "https://uintra20.local.compent.dk",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
   "/api/*": {
-    "target": "http://uintra20.local.compent.dk",
+    "target": "https://uintra20.local.compent.dk",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/umbraco/api/*": {
-    "target": "http://uintra20.local.compent.dk",
+    "target": "https://uintra20.local.compent.dk",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/ubaseline/api/*": {
-    "target": "http://uintra20.local.compent.dk",
+    "target": "https://uintra20.local.compent.dk",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/media/*": {
-    "target": "http://uintra20.local.compent.dk",
+    "target": "https://uintra20.local.compent.dk",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "wwwroot/favicon.ico": {
-    "target": "http://localhost:4200/favicon.ico",
+    "target": "https://uintra20.local.compent.dk:4200/favicon.ico",
     "secure": false
   },
   "/wwwroot/*": {
-    "target": "http://localhost:4200",
+    "target": "https://uintra20.local.compent.dk:4200",
     "secure": false,
     "pathRewrite": {
       "^/wwwroot": ""

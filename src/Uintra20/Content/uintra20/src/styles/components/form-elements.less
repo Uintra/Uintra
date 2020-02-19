@@ -1,16 +1,39 @@
 .input {
-  .input();
+  .input;
   width: 100%;
   margin-bottom: 20px;
 }
 
-.btn {
-  .button-main();
+.button {
+  .button-blue;
+
+  &-default {
+    .button-white;
+  }
 }
 
 .error-list {
-  .error();
+  .error;
   padding: 0 0 0 21px;
   margin: 20px 0 0;
   text-align: left;
+}
+
+label {
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1.69;
+  color: @body-text-color;
+}
+
+.form {
+  display: flex;
+
+  &__col {
+    flex-grow: 1;
+  }
+
+  &__row {
+    margin-bottom: 10px;
+  }
 }

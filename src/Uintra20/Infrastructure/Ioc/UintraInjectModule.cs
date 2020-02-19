@@ -3,6 +3,7 @@ using Compent.Shared.DependencyInjection.Contract;
 using Localization.Core;
 using Localization.Core.Configuration;
 using Localization.Storage.UDictionary;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Localization;
@@ -17,6 +18,7 @@ using Uintra20.Features.Permissions.TypeProviders;
 using Uintra20.Features.Subscribe;
 using Uintra20.Infrastructure.ApplicationSettings;
 using Uintra20.Infrastructure.Caching;
+using Uintra20.Infrastructure.Context;
 using Uintra20.Infrastructure.Exceptions;
 using Uintra20.Infrastructure.Providers;
 using Uintra20.Infrastructure.TypeProviders;
@@ -24,7 +26,7 @@ using Uintra20.Infrastructure.Utils;
 
 namespace Uintra20.Infrastructure.Ioc
 {
-	public class UintraInjectModule: IInjectModule
+    public class UintraInjectModule: IInjectModule
 	{
 		public IDependencyCollection Register(IDependencyCollection services)
 		{
@@ -45,20 +47,18 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IVideoConverterLogService, VideoConverterLogService>();
             services.AddScoped<IIntranetMediaService, IntranetMediaService>();
             services.AddSingleton<IDocumentTypeAliasProvider, DocumentTypeProvider>();
-            //services.AddScoped<IXPathProvider, XPathProvider>();
-            services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<IIntranetMemberGroupProvider, IntranetMemberGroupProvider>();
             services.AddSingleton<IIntranetMemberGroupService, IntranetMemberGroupService>();
             services.AddSingleton<IPermissionSettingsSchemaProvider, PermissionSettingsSchemaProvider>();
             services.AddScoped<IPermissionsService, PermissionsService>();
             services.AddScoped<IPermissionActionTypeProvider>(provider => new PermissionActionTypeProvider(typeof(PermissionActionEnum)));
             services.AddScoped<IPermissionResourceTypeProvider>(provider => new PermissionActivityTypeProvider(typeof(PermissionResourceTypeEnum)));
-            services.AddScoped<IIntranetMemberGroupProvider, IntranetMemberGroupProvider>();
             services.AddScoped<IDateTimeFormatProvider, DateTimeFormatProvider>();
             services.AddScoped<IClientTimezoneProvider, ClientTimezoneProvider>();
             services.AddScoped<ICookieProvider, CookieProvider>();
-            services.AddScoped<IMentionService, MentionService>();
+            
             services.AddScoped<ISubscribeService, SubscribeService>();
-            services.AddScoped<IAuthenticationService, Uintra20.Core.Authentication.AuthenticationService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IIntranetLocalizationService, LocalizationService>();
             services.AddScoped<ILocalizationCoreService, LocalizationCoreService>();
             services.AddScoped<ILocalizationStorageService, LocalizationStorageService>();
@@ -72,7 +72,11 @@ namespace Uintra20.Infrastructure.Ioc
 
 			services.AddScoped<ILightboxHelper, LightboxHelper>();
 
-			return services;
+            services.AddSingleton<IContentPageContentProvider, ContentPageContentProvider>();
+            
+            services.AddScoped<IUBaselineRequestContext, IntranetRequestContext>();
+
+            return services;
 		}
 	}
 }

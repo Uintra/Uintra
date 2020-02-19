@@ -1,5 +1,5 @@
 ﻿
-namespace Compent.Uintra.Core.Updater.Migrations._0._0._0._1.Constants
+namespace Uintra20.Infrastructure.Constants
 {
     public class UsersInstallationConstants
     {

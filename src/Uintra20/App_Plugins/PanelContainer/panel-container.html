@@ -7,14 +7,14 @@
             <div class="panel">
                 <div class="panel__label" ng-if="!panel.isGlobal" ng-click="vm.editPanel(panel)">
                     <i class="icon {{panel.icon}}"></i>
-                    <span>{{ panel.name }} | Local panel title: {{ panel.vmTitle }}</span>
+                    <span>{{ panel.name }} | Local panel{{ panel.vmTitle ? ' title: ' + panel.vmTitle : '' }}</span>
                 </div>
                 <div class="panel__label" ng-if="panel.isGlobal" ng-click="vm.editPanel(panel)">
                     <i class="icon {{panel.icon}}"></i>{{ panel.name }} | Node id: {{ panel.nodeId }} | Global panel title: {{ panel.nodeName }}
                 </div>
                 <div class="panel__actions">
-                    <a ng-if="panel.isGlobal" class="btn-outline btn-round" ng-click="vm.editPanel(panel)"><i class="icon icon-edit"></i></a>
-                    <a ng-if="!panel.isGlobal" class="btn-outline btn-round" ng-click="vm.editPanel(panel)"><i class="icon icon-edit"></i></a>
+                    <a class="btn-outline btn-round" ng-click="vm.editPanel(panel)"><i class="icon icon-edit"></i></a>
+                    <a ng-if="panel.anchoredUrl" class="btn-outline btn-round" ng-click="vm.copyAnchor(panel.anchoredUrl)"><i class="icon icon-documents"></i></a>
                     <a class="btn-outline btn-round" ng-mouseup="vm.allowDrag(false)" ng-mousedown="vm.allowDrag(true)"><i class="icon icon-navigation"></i></a>
                     <a class="btn-outline btn-round" ng-click="vm.removePanel(panel)"><i class="icon icon-trash"></i></a>
                 </div>

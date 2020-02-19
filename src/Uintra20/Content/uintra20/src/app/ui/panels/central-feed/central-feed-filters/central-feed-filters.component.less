@@ -1,25 +1,27 @@
+@import "base.less";
+
 .feed-filters {
   &__tabs {
     margin-bottom: 20px;
   }
+
   &__bottom {
     display: flex;
+    justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 20px;
   }
+
   &__filter {
     margin-right: 30px;
   }
+
   &__button {
+    .button-white;
     margin-left: auto;
-    outline: 0;
-    background: #fff;
-    color: #555;
-    border: 1px solid #8f8f8f;
-    padding: 6px 15px;
-    border-radius: 30px;
-    font-size: 12px;
-    font-weight: 600;
-    width: auto;
+  }
+
+  &__wrapper {
+    display: flex;
   }
 }

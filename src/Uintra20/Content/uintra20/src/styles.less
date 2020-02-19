@@ -1,9 +1,14 @@
+@import "./styles/reset/index.less";
+
 @import "base.less";
 
-@import "./styles/abstracts/index.less"; 
+@import "./styles/abstracts/index.less";
 @import "./styles/temp/index.less";
 @import "./styles/typography/index.less";
-@import "./styles/reset/index.less";
+
+
+@import "./styles/libs/datepicker/bootstrap-datetimepicker-build.less";
+@import "./styles/libs/simple-scroll/styles.less";
 
 
 @debug: true;
@@ -20,50 +25,17 @@ head {
   }
 }
 
-.content {
-  display: flex;
-
-  &__wrap {
-    padding: 0;
-    flex-grow: 1;
-
-    @media @md-up {
-      padding: 47px 0 0 45px;
-    }
-  }
-}
-
 body {
     margin: 0;
-    background-color: @body-bg;
+    background-color: @main-body-bg;
     color: @body-text-color;
     font: @body-font;
+
+    &.nav--open {
+      overflow: hidden;
+    }
 }
 
-h1 {
-  font: bold 26px/22px @font;
-  color: @body-text-color;
-}
-
-h2 {
-  font: bold 20px/22px @font;
-  color: @body-text-color;
-}
-
-h3 {
-  font: bold 18px/22px @font;
-  color: @body-text-color;
-}
-
-h4 {
-  font: bold 13px/22px @font;
-  color: @body-text-color;
-}
-
-h5 {
-  font: 16px/22px @font;
-  color: @body-text-color;
-}
 /* apply to correct element */
 
 breadcrumb {
@@ -72,6 +44,55 @@ breadcrumb {
   margin: 0 0 20px;
 }
 
-.logo {
-  margin-bottom: 39px;
+.main {
+  .centering;
+  padding: 70px 15px 0 0;
+
+  @media @md-down {
+    padding: 60px 0 0;
+  }
+}
+
+.content {
+  display: flex;
+
+  // @media @sm-up {
+  //   overflow: hidden;
+  // }
+
+  &__wrap {
+    padding: 0;
+    flex-grow: 1;
+    width: 100%;
+  }
+}
+
+.page-wrapper {
+  padding: 0;
+
+  @media @md-down {
+    overflow: hidden;
+  }
+
+  @media @md-up {
+    padding: 15px 0 0 15px;
+  }
+
+  @media @lg-up {
+    padding: 47px 0 0 45px;
+  }
+}
+
+comments-panel {
+  .comments-panel {
+    @media @md-down {
+      padding: 0 15px;
+    }
+  }
+}
+.disable-scroll,
+.disable-scroll body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
 }

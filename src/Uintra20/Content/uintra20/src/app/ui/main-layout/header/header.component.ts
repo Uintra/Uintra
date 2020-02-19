@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { MqService } from 'src/app/services/general/mq.service';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +7,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.less']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  @HostListener("window:resize", ["$event"])
+  getScreenSize(event?) {
+    this.deviceWidth = window.innerWidth;
+    this.isDesktop = this.mq.isLaptop(this.deviceWidth);
   }
 
+  deviceWidth: number;
+  isDesktop: boolean;
+
+  constructor(private mq: MqService) { }
+
+  get isDesktopGeter() {
+    return this.isDesktop;
+  }
+
+  ngOnInit() {
+    this.deviceWidth = window.innerWidth;
+    this.isDesktop = this.mq.isLaptop(this.deviceWidth);
+  }
+
+  openLeftNav() {
+    document.body.classList.add("nav--open")
+  }
 }

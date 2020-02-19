@@ -1,8 +1,9 @@
 ﻿{
   "propertyEditors": [
     {
-      "name": "Related User picker",
+      "name": "Related user picker",
       "alias": "custom.RelatedUserPicker",
+      "hideLabel": true,
       "editor": {
         "view": "~/App_Plugins/UserPicker/backoffice/RelatedUserPicker/related-user-picker.html"
       }

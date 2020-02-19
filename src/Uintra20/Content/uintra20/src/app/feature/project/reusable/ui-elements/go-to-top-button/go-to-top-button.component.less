@@ -1,0 +1,39 @@
+@import "base.less";
+
+.go-to-top-button {
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  left: 19px;
+  background: #555;
+  border-radius: 5px 5px 0 0;
+  text-indent: -9999px;
+  overflow: hidden;
+  width: 41px;
+  height: 41px;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+
+  &:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    border: solid @text-reverse-color;
+    border-width: 0 2px 2px 0;
+    transform: rotate(-135deg);
+    margin: -2px 0 0 -7px;
+    content: "";
+  }
+
+  @media @md-up {
+    left: 229px;
+  }
+
+  &.show-scrollTop {
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
+  }
+}

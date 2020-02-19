@@ -123,15 +123,17 @@ namespace Uintra20.Features.Notification.Services
         {
 			//TODO: research when mail service is ready
 			var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
-			string mailTemplateXpath = Uintra20.Core.XPathHelper.GetXpath(
-				docTypeAliasProvider.GetDataFolder(),
-				docTypeAliasProvider.GetMailTemplateFolder(), 
-				docTypeAliasProvider.GetMailTemplate());
+            string mailTemplateXpath = Uintra20.Core.XPathHelper.GetXpath(
+                docTypeAliasProvider.GetDataFolder(),
+                docTypeAliasProvider.GetMailTemplateFolder(),
+                docTypeAliasProvider.GetMailTemplate());
 
-			var mailTemplates = Umbraco.Web.Composing.Current.UmbracoHelper.ContentAtXPath(mailTemplateXpath);
-			var mailTemplateContent = mailTemplates?.FirstOrDefault(template =>
-				template.Value<NotificationTypeEnum>(MailTemplatePropertiesConstants.EmailType) == mailTemplateTypeEnum);
-			return mailTemplateContent?.Id;
+            var mailTemplates = Umbraco.Web.Composing.Current.UmbracoHelper.ContentAtXPath(mailTemplateXpath);
+            var mailTemplateContent = mailTemplates?.FirstOrDefault(template =>
+                template.Value<NotificationTypeEnum>(MailTemplatePropertiesConstants.EmailType) == mailTemplateTypeEnum);
+            return mailTemplateContent?.Id;
+
+            return null;
         }
     }
 }

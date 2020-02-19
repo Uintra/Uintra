@@ -4,15 +4,20 @@
         function ($scope, sentMailsService) {
 
             $scope.isSaveBtnDisable = false;
+            $scope.loading = true;
             $scope.smtpSettings = {};
+            $scope.isBadResponse = true;
 
             sentMailsService.getSmtpSettings()
                 .then(
                     function (resolve) {
                         $scope.smtpSettings = resolve.data;
+                        $scope.loading = false;
+                        $scope.isBadResponse = false;
                     },
                     function (reject) {
                         alert('Fail. See details in console. ');
+                        $scope.loading = false;
                         console.log(reject);
                     });
 

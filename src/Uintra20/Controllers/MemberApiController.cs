@@ -1,13 +1,12 @@
-﻿using Uintra20.Core.Member;
-using Uintra20.Core.Member.Abstractions;
-using Uintra20.Core.Member.Web;
+﻿using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Controllers;
 
 namespace Uintra20.Controllers
 {
-	public class MemberApiController:MemberApiControllerBase
-	{
-		public MemberApiController(ICacheableIntranetMemberService cacheableIntranetMemberService) : base(cacheableIntranetMemberService)
-		{
-		}
-	}
+    public class MemberApiController : MemberApiControllerBase
+    {
+        public MemberApiController(ICacheableIntranetMemberService cacheableIntranetMemberService) : base(cacheableIntranetMemberService)
+        {
+        }
+    }
 }

@@ -1,0 +1,5 @@
+﻿{
+  "javascript": [
+    "~/App_Plugins/Shared/directives/key-value-dropdown-list/key-value-dropdown-list.directive.js"
+  ]
+}

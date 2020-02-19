@@ -5,7 +5,7 @@ login-page {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  height: 100vh;
+  height: 70vh;
 }
 
 .login-form {
@@ -21,4 +21,27 @@ login-page {
     max-width: 459px;
     padding: 42px 99px 41px 96px;
   }
+
+  &__bottom-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__forgot-password {
+    font-size: 13px;
+    line-height: 1.69;
+    color: @link-color;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.logo {
+  max-width: 150px;
+  margin: 0 auto 30px;
 }

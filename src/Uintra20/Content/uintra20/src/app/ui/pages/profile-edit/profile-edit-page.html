@@ -1,0 +1,62 @@
+<section class="profile profile--edit page-wrapper">
+    <div class="profile__header">
+      <h2 class="profile__title">{{profileEdit.title}}</h2>
+      <div class="profile__btns">
+        <button (click)="handleSave()" [disabled]="profileEditForm.invalid" class="button">SAVE</button>
+        <a [routerLink]="['/profile']" [queryParams]="{id: profileEdit.member.id}" class="button button-default">CANCEL</a>
+      </div>
+    </div>
+      <form [formGroup]="profileEditForm">
+        <div class="user-block">
+          <div class="user-block__col _avatar">
+
+            <div *ngIf="profileEdit.member.photo">
+              <span class="icon-close avatar-remove" (click)="processAvatarDelete()"></span>
+              <img [src]="profileEdit.member.photo" class="avatar">
+            </div>
+            <div *ngIf="isUploaded || !profileEdit.member.photo">
+              <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
+                (success)="processAvatarUpload($event)"
+                (removedFile)="processAvatarDelete()">
+              </app-dropzone-wrapper>
+            </div>
+          </div>
+          <div class="user-block__col form">
+              <div class="form__row">
+                <label for="firstName">First name </label>
+                <input formControlName="firstName" type="text" name="firstName" id="firstName" class="input"/>
+              </div>
+              <div class="form__row">
+                <label for="lastName">Last name </label>
+                <input formControlName="lastName" type="text" name="lastName" id="lastName" class="input"/>
+              </div>
+              <div class="form__row">
+                <label for="email">Email </label>
+                <div>{{profileEdit.member.email}}</div>
+              </div>
+              <div class="form__row">
+                <label for="phone">Phone </label>
+                <input formControlName="phone" type="text" name="phone" id="phone" class="input"/>
+              </div>
+              <div class="form__row">
+                <label for="department">Department </label>
+                <input formControlName="department" type="text" name="department" id="department" class="input"/>
+              </div>
+              <div class="form__row">
+                <label>Tags </label>
+                <app-tag-multiselect
+                  [availableTags]="profileEdit.member.availableTags"
+                  [(ngModel)]="profileEdit.member.tags" [ngModelOptions]="{standalone: true}">
+                </app-tag-multiselect>
+              </div>
+              <div class="form__row">
+                <label for="">Notification</label>
+                <checkbox-input
+                  [isChecked]="profileEdit.member.memberNotifierSettings.emailNotifier"
+                  (change)="handleUpdateNotificationSettings($event)">
+              </checkbox-input>
+              </div>
+          </div>
+        </div>
+    </form>
+</section>

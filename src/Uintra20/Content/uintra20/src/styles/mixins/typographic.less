@@ -3,3 +3,29 @@
   margin: 0;
   list-style: none;
 }
+
+.subtitle() {
+  font-size: 13px;
+  line-height: 22px;
+  font-weight: bold;
+  color: @body-text-color;
+  margin: 0 0 3px;
+}
+
+.link() {
+  color: @dark-grey;
+  text-decoration: none;
+
+  &:hover {
+    color: @blue;
+  }
+}
+
+.alt-link() {
+  color: @heading-bg;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

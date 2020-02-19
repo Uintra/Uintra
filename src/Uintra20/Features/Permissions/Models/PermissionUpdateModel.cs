@@ -6,7 +6,7 @@
         public PermissionSettingIdentity SettingIdentity { get; }
         public PermissionSettingValues SettingValues { get; }
 
-        private PermissionUpdateModel(
+        public PermissionUpdateModel(
             IntranetMemberGroup group,
             PermissionSettingValues settingValues,
             PermissionSettingIdentity settingIdentity)
@@ -15,11 +15,5 @@
             SettingIdentity = settingIdentity;
             SettingValues = settingValues;
         }
-
-        public static PermissionUpdateModel Of(
-            IntranetMemberGroup group,
-            PermissionSettingValues settingValues,
-            PermissionSettingIdentity identity) =>
-            new PermissionUpdateModel(group, settingValues, identity);
     }
 }

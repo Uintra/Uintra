@@ -1,10 +1,20 @@
 <div class="publication-header">
   <div class="publication-header__avatar">
-    <app-user-avatar [data]="avatar" big></app-user-avatar>
+    <app-user-avatar
+      [photo]="avatar"
+      [name]="title"
+      [routerLink]='originalUrl'
+      big></app-user-avatar>
   </div>
 
   <div class="publication-header__content">
-    <h3 class="publication-header__title" *ngIf="title">{{ title }}</h3>
+    <a
+      *ngIf="title"
+      class="publication-header__title"
+      [routerLink]='originalUrl | ulink'>
+      {{ title }}
+    </a>
+    <ng-container *ngIf='false'>{{ title }}</ng-container>
     <div class="publication-header__subtitle">
       <ng-content select="[subtitle]"></ng-content>
     </div>

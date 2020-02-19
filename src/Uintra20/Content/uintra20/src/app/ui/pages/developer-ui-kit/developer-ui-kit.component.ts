@@ -9,6 +9,4 @@ import { Component, ViewEncapsulation } from '@angular/core';
 export class DeveloperUIKitPage {
   testValue: string = 'test value';
   testBoolean: boolean = false;
-
-  constructor() {}
 }

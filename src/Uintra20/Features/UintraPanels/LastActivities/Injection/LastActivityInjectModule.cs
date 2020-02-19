@@ -1,6 +1,5 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
-using Uintra20.Features.CentralFeed.Settings;
-using Uintra20.Features.UintraPanels.LastActivities.Helpers;
+using Uintra20.Features.CentralFeed.Helpers;
 
 namespace Uintra20.Features.UintraPanels.LastActivities.Injection
 {
@@ -8,7 +7,6 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Injection
     {
         public IDependencyCollection Register(IDependencyCollection services)
         {
-            services.AddConfiguration<LatestActivitySettings>();
             services.AddScoped<ICentralFeedHelper, CentralFeedHelper>();
 
             return services;

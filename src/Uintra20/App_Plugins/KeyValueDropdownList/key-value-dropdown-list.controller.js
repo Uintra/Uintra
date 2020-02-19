@@ -42,7 +42,12 @@
             return newItems;
         }
         $scope.updateSingleDropdownValue = function () {
-            $scope.model.value = [$scope.model.singleDropdownValue];
+            if ($scope.model.singleDropdownValue) {
+                $scope.model.value = [$scope.model.singleDropdownValue];
+            }
+            else {
+                $scope.model.value = "";
+            }
         };
         if (angular.isArray($scope.model.config.values.items)) {
             //PP: I dont think this will happen, but we have tests that expect it to happen..
@@ -70,7 +75,6 @@
         }
         // if we run in single mode we'll store the value in a local variable
         // so we can pass an array as the model as our PropertyValueEditor expects that
-        $scope.model.singleDropdownValue = '';
         if (!Object.toBoolean($scope.model.config.multiple) && $scope.model.value) {
             $scope.model.singleDropdownValue = Array.isArray($scope.model.value) ? $scope.model.value[0] : $scope.model.value;
         }

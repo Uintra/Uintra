@@ -5,7 +5,8 @@
                 <h1 class="ng-binding">Smtp Settings</h1>
             </div>
         </umb-header>
-        <div class="umb-panel-body" ng-if="smtpSettings">
+        <div ng-if="loading">loading...</div>
+        <div class="umb-panel-body" ng-if="!isBadResponse">
             <div class="umb-pane">
                 <form name="settingsForm"
                       ng-submit="save()">

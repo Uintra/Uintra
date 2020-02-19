@@ -1,3 +1,5 @@
+@import "base.less";
+
 .spoiler-section {
   &__header {
     display: flex;
@@ -23,11 +25,18 @@
     box-shadow: inset 0 0 0 1px #ccc;
     background: #fff;
 
+    @media @md-down {
+      margin: 0 -1px;
+    }
+
     .spoiler-section__content {
       display: block;
     }
+
     .spoiler-section__icon {
       transform: rotate(0);
+      display: flex;
+      align-items: flex-end;
     }
   }
 }

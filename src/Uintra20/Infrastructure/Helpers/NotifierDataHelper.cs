@@ -117,7 +117,7 @@ namespace Uintra20.Infrastructure.Helpers
             Guid receiverId) =>
             new GroupInvitationDataModel
             {
-                Url = $"/groups/room?groupId={groupId}",
+                Url = $"/groups/room?groupId={groupId}".ToLinkModel(),
                 Title = _groupService.Get(groupId).Title,
                 NotificationType = notificationType,
                 GroupId = groupId,
@@ -195,7 +195,7 @@ namespace Uintra20.Infrastructure.Helpers
         {
             return new GroupInvitationDataModel
             {
-                Url = $"/groups/room?groupId={groupId}",
+                Url = $"/groups/room?groupId={groupId}".ToLinkModel(),
                 Title = (await _groupService.GetAsync(groupId))?.Title,
                 NotificationType = notificationType,
                 GroupId = groupId,
@@ -205,6 +205,6 @@ namespace Uintra20.Infrastructure.Helpers
         }
 
         private static string GetNotifierDataTitle(IIntranetActivity activity)
-            => activity.Type is IntranetActivityTypeEnum.Socials ? activity.Description.StripHtml() : activity.Title;
+            => activity.Type is IntranetActivityTypeEnum.Social ? activity.Description.StripHtml() : activity.Title;
     }
 }

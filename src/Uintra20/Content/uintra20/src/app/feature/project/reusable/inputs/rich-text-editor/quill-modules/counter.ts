@@ -1,6 +1,6 @@
-import 'quill';
+import "quill";
 
-const CONTAINER_ID = '#counter';
+const CONTAINER_ID = "#counter";
 
 export interface Config {
   container: string;
@@ -15,14 +15,18 @@ export interface QuillInstance {
 export default class Counter {
   constructor(public quill: QuillInstance, public options: Config) {
     // For SSR
-    if (!document) { return; }
+    if (!document) {
+      return;
+    }
 
     const container = document.querySelector(CONTAINER_ID);
-    if(!container) { return; }
+    if (!container) {
+      return;
+    }
 
     this.setHTML(container);
 
-    this.quill.on('text-change', () => {
+    this.quill.on("text-change", () => {
       this.setHTML(container);
     });
   }
@@ -32,15 +36,19 @@ export default class Counter {
     container.innerHTML = `<span>${length}</span> / ${this.options.maxLength}`;
 
     if (length > this.options.maxLength) {
-      container.classList.add('invalid');
+      container.classList.add("invalid");
     } else {
-      container.classList.remove('invalid');
-
+      container.classList.remove("invalid");
     }
   }
 
   calculate() {
-    const text = this.quill.getText().trim();
+    const text = this.removeBr(this.quill.getText());
+
     return text.length;
+  }
+
+  private removeBr(text: string): string {
+    return text.replace(/\n/g, "");
   }
 }

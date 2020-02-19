@@ -19,13 +19,14 @@ export class LikeButtonComponent implements OnInit {
   constructor(private likeButtonService: LikeButtonService) {}
 
   ngOnInit() {
-    this.newLikesCount = this.likeData.likes.length;
+    if (this.likeData.likes) {
+      this.newLikesCount = this.likeData.likes.length;
+    }
     this.listOfUsersWhoLiked = this.likeData.likes;
   }
 
   onClickLike() {
     const canAddLike = this.likeData.likedByCurrentUser === false;
-
     const data: IAddLikeRequest = {
       entityId: this.likeData.id,
       entityType: this.likeData.activityType
@@ -50,7 +51,7 @@ export class LikeButtonComponent implements OnInit {
       .then((response: Array<IUserLikeData>) => {
         this.listOfUsersWhoLiked = response;
       });
-    this.newLikesCount -= 1;
+    this.newLikesCount = this.newLikesCount > 1 ? this.newLikesCount - 1 : 0;
     this.likeData.likedByCurrentUser = false;
   }
 }

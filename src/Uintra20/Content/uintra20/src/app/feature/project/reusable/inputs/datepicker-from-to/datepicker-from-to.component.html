@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-6">
+    <h3 class="subtitle">News Publish date</h3>
+    <div class="datepicker">
+      <sq-datetimepicker
+        [groupClass]="'udatepicker'"
+        [inputClass]="'udatepicker-input'"
+        [options]="optFrom"
+        [mode]="'input'"
+        [(ngModel)]="fromDate"
+        (dpChange)="fromDateChange()"
+
+      ></sq-datetimepicker>
+    </div>
+  </div>
+  <div class="col-6">
+    <h3 class="subtitle">Unpublish date</h3>
+    <div class="datepicker">
+      <sq-datetimepicker
+        [groupClass]="'udatepicker'"
+        [inputClass]="'udatepicker-input'"
+        [options]="optTo"
+        [mode]="'input'"
+        [(ngModel)]="toDate"
+        (dpChange)="toDateChange()"
+
+      ></sq-datetimepicker>
+    </div>
+  </div>
+</div>

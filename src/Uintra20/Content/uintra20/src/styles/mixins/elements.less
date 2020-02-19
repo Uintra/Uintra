@@ -6,8 +6,8 @@
   &:after {
     content: " ";
     display: block;
-    width: 48px;
-    height: 48px;
+    width: 80%;
+    height: 80%;
     border-radius: 50%;
     border: 6px solid currentColor;
     border-color: currentColor transparent currentColor transparent;
@@ -20,5 +20,24 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+.white-block() {
+  .shadow();
+  background-color: @main-color;
+}
+
+.header-bar() {
+  background-color: @header-bg;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: @header-height;
+  z-index: 1;
+
+  @media @md-up {
+    height: @header-height-md;
   }
 }

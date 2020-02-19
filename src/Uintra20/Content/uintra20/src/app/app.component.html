@@ -1,1 +1,26 @@
-<router-outlet></router-outlet>
+<main class="main">
+  <ng-container *ngIf="!isLoginPage">
+    <app-header></app-header>
+  </ng-container>
+
+  <div class="content">
+    <ng-container *ngIf="!isLoginPage">
+      <nav class="nav">
+        <div class="nav__header">
+          <!--TODO mobile search-->
+          <app-search></app-search>
+          <button class="nav__close" (click)="closeLeftNav()"></button>
+        </div>
+
+        <app-left-navigation></app-left-navigation>
+      </nav>
+    </ng-container>
+
+    <div class="content__wrap">
+      <app-go-to-top-button></app-go-to-top-button>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</main>
+
+<app-image-gallery></app-image-gallery>

@@ -30,7 +30,15 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": [],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/signalr/jquery.signalR.min.js",
+              "./hubs.js",
+              "./node_modules/moment/min/moment.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "./node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js",
+              "./node_modules/select2/dist/js/select2.min.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "src",
@@ -74,7 +82,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "uintra20:build",
-            "proxyConfig": "./proxy.json"
+            "proxyConfig": "./proxy.json",
+            "ssl": true,
+            "sslKey": "./node_modules/browser-sync/lib/server/certs/server.key",
+            "sslCert": "./node_modules/browser-sync/lib/server/certs/server.crt"
           },
           "configurations": {
             "production": {

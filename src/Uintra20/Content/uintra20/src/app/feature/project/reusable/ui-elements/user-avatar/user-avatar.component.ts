@@ -1,32 +1,39 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { IUserAvatar } from './user-avatar-interface';
+
 
 @Component({
   selector: 'app-user-avatar',
-  templateUrl: "./user-avatar.component.html",
-  styles: [`
-    .avatar {
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      background: #eee;
-    }
-    .avatar.big {
-      width: 60px;
-      height: 60px;
-    }
-  `]
+  templateUrl: './user-avatar.component.html',
+  styleUrls: ['./user-avatar.component.less']
 })
 export class UserAvatarComponent implements OnInit {
-  @Input() data: string;
-  @Input('big') big: boolean;
+  @Input() public photo: string;
+  @Input() public name: string;
+  @Input('big') public big: boolean;
+  @Input() public routerLink: string;
+  @Input() public queryParams: object;
 
-  // TODO: use default avatar from server
-  readonly defaultAvatar: string = '';
+  firstChar: string;
 
-  constructor() { }
+  public ngOnInit(): void {
+    this.convertToBoolean();
+    this.validateImagePreset();
+    this.initFirstlLetter();
+  }
+  private validateImagePreset(): void {
+    if (this.photo.startsWith('?')) {
+      this.photo = '';
+    }
+  }
 
-  ngOnInit() {
+  private initFirstlLetter(): void {
+    if (this.name && typeof this.name === 'string') {
+      this.firstChar = this.name.charAt(0);
+    }
+  }
+
+  private convertToBoolean(): void {
     this.big = this.big !== undefined;
-    this.data = this.data || this.defaultAvatar;
   }
 }

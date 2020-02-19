@@ -1,54 +1,168 @@
 @import "base.less";
 
-@publication-bg: @white;
+@publication-bg: @main-color;
 @label-bg: @red;
+@text-line-height: 24px;
 
 .publication {
-  .shadow;
-  background: @publication-bg;
-  padding: 20px 20px 10px;
+    .shadow;
+    background: @publication-bg;
+    padding: 20px 20px 10px;
 
-  &--important {
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.75), #fff);
-  }
+    &--important {
+        background: linear-gradient(to top, rgba(255, 255, 255, 0.75), #fff);
+    }
 
-  &__label {
-    background: @label-bg;
-    color: @text-reverse-color;
-    text-transform: uppercase;
-    padding: 9px 14px;
-    border-radius: 50px;
-    font-size: 11px;
-  }
+    &__label {
+        background: @label-bg;
+        color: @text-reverse-color;
+        text-transform: uppercase;
+        padding: 9px 14px;
+        border-radius: 50px;
+        font-size: 11px;
 
-  &__header {
-    margin-bottom: 25px;
-  }
+        &--no-actual {
+          opacity: 0.5;
+        }
+    }
 
-  &__content {
-    margin-bottom: 25px;
-    font-size: 16px;
-  }
+    &__header {
+        margin-bottom: 25px;
+    }
 
-  &__footer {
-    display: flex;
-    align-items: center;
+    &__activity-type {
+        cursor: pointer;
+        color: @body-text-color;
+        text-decoration: none;
 
-    &-item {
-      .reset-button;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
+        &:hover {
+            color: @link-color;
+        }
+    }
+
+    &__location-link {
+      font-size: 13px;
+      font-family: @font !important;
+      color: @body-text-color;
       text-decoration: none;
-      margin-right: 20px;
 
-      i {
-        margin-right: 5px;
-        color: #b2b2b2;
+      &::before {
+        font-family: 'icomoon';
+        color: @body-text-color;
       }
-      .icon-share-icon {
-        font-size: 22px;
+
+      &:hover {
+        color: @link-color;
       }
     }
+
+    &__content {
+        margin-bottom: 25px;
+        font-size: 16px;
+    }
+
+    &__clickable-aria {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    &__title {
+      font-size: 18px;
+      margin-bottom: 5px;
+      color: @heading-bg;
+
+      @media @sm-up {
+        font-size: 20px;
+      }
+    }
+
+    &__text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        overflow-wrap: break-word;
+        line-height: @text-line-height;
+        max-height: @text-line-height * 3;
+        cursor: pointer;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+
+        &-item {
+            .reset-button;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            margin-right: 20px;
+
+            i {
+                margin-right: 5px;
+                color: #b2b2b2;
+            }
+
+            .icon-share-icon {
+                font-size: 22px;
+            }
+
+            &:hover {
+                color: @link-color;
+            }
+        }
+
+      &-left-block {
+        display: flex;
+      }
+    }
+
+    &__files {
+        .icon-attachment {
+            font-size: 1.6em;
+            line-height: 15px;
+            margin-right: 0;
+        }
+    }
+}
+
+.gallery {
+  position: relative;
+  display: flex;
+  margin: 10px -1px 20px;
+
+  &.items-1 {
+    height: 350px;
+  }
+
+  &.items-2 {
+    height: 165px;
+  }
+
+  &.items-3 {
+    height: 115px;
+  }
+
+  &__image {
+    cursor: pointer;
+    flex: 1;
+    line-height: 0;
+    background-size: cover;
+    background-position: center center;
+    margin: 0 1px;
+  }
+
+  &__counter {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 10px 11px;
+    background: rgba(0, 0, 0, 0.5);
+    color: @text-reverse-color;
   }
 }

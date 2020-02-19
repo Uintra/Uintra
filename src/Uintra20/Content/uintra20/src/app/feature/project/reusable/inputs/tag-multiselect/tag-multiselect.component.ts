@@ -1,12 +1,11 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ITagData } from './tag-multiselect.interface';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
+import { Component, Input, forwardRef } from "@angular/core";
+import { ITagData } from "./tag-multiselect.interface";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 @Component({
-  selector: 'app-tag-multiselect',
-  templateUrl: './tag-multiselect.component.html',
-  styleUrls: ['./tag-multiselect.component.less'],
+  selector: "app-tag-multiselect",
+  templateUrl: "./tag-multiselect.component.html",
+  styleUrls: ["./tag-multiselect.component.less"],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -19,37 +18,77 @@ export class TagMultiselectComponent implements ControlValueAccessor {
   @Input() availableTags: Array<ITagData>;
 
   selectedList: Array<ITagData> = [];
-  isDwopdownShowed: boolean = false;
+  isDwopdownShowed = false;
+  isAddedTag = false;
 
   constructor() { }
 
-  onShowDropdown() {
+  public onToggleDropdown(): void {
+    this.isDwopdownShowed = !this.isDwopdownShowed;
+  }
+  public onShowDropdown(): void {
     this.isDwopdownShowed = true;
   }
-  onHideDropdown() {
+  public onHideDropdown(): void {
     this.isDwopdownShowed = false;
   }
 
-  onAddTag(tag) {
-    if(this.selectedList.includes(tag)) return;
-    this.selectedList.push(tag);
+  public onAddTag(tag): void {
+    if (this.selectedList.filter(t => t.id === tag.id).length) { return; }
+
+    this.isAddedTag = true;
+    this.selectedList = [...this.selectedList, tag];
     this.onHideDropdown();
+    this.writeValue(this.selectedList);
   }
 
-  onRemoveTag(tag, e) {
+  public onRemoveTag(tag, e): void {
     e.event.stopPropagation();
-    this.selectedList = this.selectedList.filter(curTag => curTag.id !== tag.id);
+    this.selectedList = this.selectedList.filter(
+      curTag => curTag.id !== tag.id
+    );
+    if (this.selectedList.length === 0) {
+      this.isAddedTag = false;
+    }
+    this.writeValue(this.selectedList);
   }
 
-  onClearSelectedTags() {
+  public onClearSelectedTags(): void {
     this.selectedList = [];
+    this.isAddedTag = false;
     this.onHideDropdown();
   }
 
-  onTouched(): any { }
-  onChange(): any {}
-  propagateChange: any = () => { };
-  writeValue(value) { this.selectedList = value; }
-  registerOnChange(fn) { this.propagateChange = fn; }
-  registerOnTouched(fn) { this.onTouched = fn; }
+  selectedCheck(tag: ITagData): boolean {
+    if (Array.isArray(this.selectedList)) {
+      const selectedArray = this.selectedList.filter(
+        listItem => listItem.id === tag.id
+      );
+      return !!selectedArray.length;
+    }
+
+    return false;
+  }
+
+  propagateChange: any = () => {
+  }
+
+  writeValue(value) {
+    this.selectedList = value || [];
+    this.onChange(this.selectedList);
+  }
+
+  onChange: any = () => {
+  }
+
+  onTouched: any = () => {
+  }
+
+  registerOnChange(fn) {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn) {
+    this.onTouched = fn;
+  }
 }

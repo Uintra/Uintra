@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -157,6 +158,15 @@ namespace Uintra20.Features.Likes.Services
         public virtual int GetCount(Guid entityId)
         {
             return (int)_likesRepository.Count(l => l.EntityId == entityId);
+        }
+
+        public virtual bool LikedByCurrentUser(Guid entityId, Guid userId)
+        {
+            var result = !Get(entityId)
+                .Where(l => l.UserId.Equals(userId))
+                .IsEmpty();
+
+            return result;
         }
 
         #endregion

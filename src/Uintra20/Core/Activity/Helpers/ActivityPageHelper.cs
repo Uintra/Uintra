@@ -1,66 +1,77 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using Compent.Extensions;
+using UBaseline.Core.Node;
+using UBaseline.Core.RequestContext;
+using UBaseline.Shared.PanelContainer;
+using Uintra20.Core.Activity.Models;
+using Uintra20.Features.Links.Models;
 using Uintra20.Infrastructure.Extensions;
-using Uintra20.Infrastructure.Helpers;
 using Uintra20.Infrastructure.Providers;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web;
 
 namespace Uintra20.Core.Activity.Helpers
 {
     public class ActivityPageHelper : IActivityPageHelper//TODO: Needs research
     {
-        public Enum ActivityType { get; }
-
-        //private readonly IEnumerable<string> _activityXPath;
-        //private readonly string[] _baseXPath;
         private readonly IDocumentTypeAliasProvider _aliasProvider;
-        private readonly IPublishedContent _baseContent;
+        private readonly INodeModelService _nodeModelService;
+        private readonly IUBaselineRequestContext _uBaselineRequestContext;
 
-        public ActivityPageHelper(Enum activityType, IPublishedContent baseContent, IDocumentTypeAliasProvider documentTypeAliasProvider)
+        public ActivityPageHelper(
+            IDocumentTypeAliasProvider aliasProvider,
+            INodeModelService nodeModelService,
+            IUBaselineRequestContext uBaselineRequestContext)
         {
-	        _aliasProvider = documentTypeAliasProvider;
-            //_baseXPath = baseXPath.ToArray();
-            ActivityType = activityType;
-            _baseContent = baseContent;
+            _aliasProvider = aliasProvider;
+            _nodeModelService = nodeModelService;
+            _uBaselineRequestContext = uBaselineRequestContext;
 
-            //_activityXPath = _baseXPath.Append(_aliasProvider.GetOverviewPage(ActivityType));
         }
 
-        public string GetFeedUrl() => GetPageUrl(_baseContent);
+        public UintraLinkModel GetFeedUrl() =>
+            _uBaselineRequestContext
+                .HomeNode
+                .Url
+                .ToLinkModel();
 
-        //public string GetOverviewPageUrl()//TODO: Research overview page
-        //{
-        //    return GetPageUrl(_activityXPath);
-        //}
-
-        public string GetDetailsPageUrl(Guid? activityId = null)
+        public UintraLinkModel GetDetailsPageUrl(Enum activityType, Guid? activityId = null)
         {
-            var detailsPageContent = _baseContent.Children.FirstOrDefault(x => x.ContentType.Alias == _aliasProvider.GetDetailsPage(ActivityType));
-            var detailsPageUrl = GetPageUrl(detailsPageContent);
-
-            return activityId.HasValue ? detailsPageUrl.AddIdParameter(activityId) : detailsPageUrl;
+            var pageAlias = _aliasProvider.GetDetailsPage(activityType);
+            var detailsPageUrl = _nodeModelService.GetByAlias(pageAlias, _uBaselineRequestContext.Node.RootId)?.Url;
+            
+            return activityId.HasValue
+                ? detailsPageUrl.AddIdParameter(activityId).ToLinkModel()
+                : detailsPageUrl.ToLinkModel();
         }
 
-        public string GetCreatePageUrl()
+        public UintraLinkModel GetCreatePageUrl(Enum activityType)
         {
-            var createPageContent = _baseContent.Children.FirstOrDefault(x => x.ContentType.Alias == _aliasProvider.GetCreatePage(ActivityType));
+            var createUrl = _nodeModelService
+                .AsEnumerable()
+                .Where(n => n is IPanelsComposition panel)
+                .FirstOrDefault(n =>
+                {
+                    var panels = ((IPanelsComposition)n).Panels.Value.Panels;
+                    var isLocalActivityCreate = panels
+                        .OfType<LocalPanelModel>()
+                        .Any(lp => lp.Node is ActivityCreatePanelModel ac && ac.TabType.Value == activityType.ToString());
 
-            return GetPageUrl(createPageContent);
+                    var isGlobalActivityCreate = panels
+                        .OfType<GlobalPanelModel>()
+                        .Any(lp => _nodeModelService.Get(lp.NodeId) is ActivityCreatePanelModel ac && ac.TabType.Value == activityType.ToString());
+
+                    return isLocalActivityCreate || isGlobalActivityCreate;
+                })
+                ?.Url;
+
+            return createUrl.ToLinkModel();
         }
 
-        public string GetEditPageUrl(Guid activityId)
+        public UintraLinkModel GetEditPageUrl(Enum activityType, Guid activityId)
         {
-            var editPageContent = _baseContent.Children.FirstOrDefault(x => x.ContentType.Alias == _aliasProvider.GetEditPage(ActivityType));
+            var pageAlias = _aliasProvider.GetEditPage(activityType);
+            var detailsPageUrl = _nodeModelService.GetByAlias(pageAlias, _uBaselineRequestContext.Node.RootId)?.Url;
 
-            return GetPageUrl(editPageContent)?.AddIdParameter(activityId);
-        }
-
-        private string GetPageUrl(IPublishedContent content)
-        {
-            return content?.Url(mode:UrlMode.Absolute);
+            return detailsPageUrl.AddIdParameter(activityId).ToLinkModel();
         }
     }
 }

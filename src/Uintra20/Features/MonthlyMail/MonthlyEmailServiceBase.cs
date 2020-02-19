@@ -7,6 +7,7 @@ using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Links.Models;
 using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities;
@@ -89,7 +90,7 @@ namespace Uintra20.Features.MonthlyMail
 
 
         protected (IIntranetMember user, MonthlyMailDataModel monthlyMail)? TryGetMonthlyMail(
-            IEnumerable<(IIntranetActivity activity, string detailsLink)> activities,
+            IEnumerable<(IIntranetActivity activity, UintraLinkModel detailsLink)> activities,
             IIntranetMember member)
         {
             var activityList = activities.AsList();
@@ -105,7 +106,7 @@ namespace Uintra20.Features.MonthlyMail
             }
         }
 
-        protected abstract IEnumerable<(IIntranetActivity activity, string detailsLink)> GetUserActivitiesFilteredByUserTags(Guid userId);
+        protected abstract IEnumerable<(IIntranetActivity activity, UintraLinkModel detailsLink)> GetUserActivitiesFilteredByUserTags(Guid userId);
 
         protected abstract MailBase GetMonthlyMailModel(IIntranetMember receiver, MonthlyMailDataModel dataModel, EmailNotifierTemplate template);
 
@@ -122,7 +123,7 @@ namespace Uintra20.Features.MonthlyMail
             return currentDate.Day != _applicationSettings.MonthlyEmailJobDay;
         }
 
-        private string GetActivityListString(IEnumerable<(IIntranetActivity activity, string link)> activities) => activities
+        private string GetActivityListString(IEnumerable<(IIntranetActivity activity, UintraLinkModel link)> activities) => activities
             .Aggregate(
                 new StringBuilder(),
                 (builder, activity) => builder.AppendLine($"<a href='{activity.link}'>{activity.activity.Title}</a></br>"))

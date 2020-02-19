@@ -6,6 +6,8 @@ using Uintra20.Core.Jobs.Configuration;
 using Uintra20.Core.Jobs.Models;
 using Uintra20.Features.Jobs;
 using Uintra20.Features.MonthlyMail;
+using Microsoft.AspNet.SignalR;
+using Uintra20.Core.Hubs;
 using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Configuration.BackofficeSettings.Helpers;
@@ -25,9 +27,9 @@ namespace Uintra20.Infrastructure.Ioc
     {
         public IDependencyCollection Register(IDependencyCollection services)
         {
-            services.AddScoped<INotifierService, UiNotifierService>();
-            services.AddScoped<INotifierService, PopupNotifierService>();
-            services.AddScoped<INotifierService, MailNotifierService>();
+            services.AddScopedToCollection<INotifierService, UiNotifierService>();
+            services.AddScopedToCollection<INotifierService, PopupNotifierService>();
+            services.AddScopedToCollection<INotifierService, MailNotifierService>();
             services.AddScoped<INotificationsService, NotificationsService>();
             services.AddScoped<IUiNotificationService, UiNotificationService>();
             services.AddScoped<IPopupNotificationService, PopupNotificationsService>();
@@ -69,9 +71,11 @@ namespace Uintra20.Infrastructure.Ioc
 					"~/Features/Reminder/reminderConfiguration.json"));
 			services.AddSingleton<IJobSettingsConfiguration>(i => JobSettingsConfiguration.Configure);
 
+            services.AddScoped<UintraHub>();
 
+            services.AddScoped<IUserIdProvider, SignalRUserIdProvider>();
 
-			return services;
+            return services;
         }
     }
 }

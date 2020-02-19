@@ -7,12 +7,11 @@ using UBaseline.Core.Controllers;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Services;
-using Uintra20.Features.Notification.Settings;
 using Uintra20.Features.Notification.ViewModel;
 using Uintra20.Infrastructure.Extensions;
 
@@ -20,88 +19,87 @@ namespace Uintra20.Features.Notification.Controllers
 {
     public class NotificationApiController : UBaselineApiController
     {
-        private readonly int _itemsPerPage;
+        private int ItemsPerPage { get; } = 10;
+
         private readonly IUBaselineRequestContext _requestContext;
         private readonly INodeModelService _nodeModelService;
         private readonly IUiNotificationService _uiNotifierService;
         private readonly IPopupNotificationService _popupNotificationService;
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
+        private readonly IMemberServiceHelper _memberHelper;
         public NotificationApiController(
-            NotificationSettings notificationSettings,
             IUBaselineRequestContext requestContext,
             INodeModelService nodeModelService,
             IUiNotificationService uiNotifierService,
             IPopupNotificationService popupNotificationService,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
-            IIntranetMemberService<IntranetMember> intranetMemberService)
+            IIntranetMemberService<IntranetMember> intranetMemberService,
+            IMemberServiceHelper memberHelper)
         {
-            _itemsPerPage = notificationSettings.ItemsPerPage;
             _requestContext = requestContext;
             _nodeModelService = nodeModelService;
             _uiNotifierService = uiNotifierService;
             _popupNotificationService = popupNotificationService;
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
             _intranetMemberService = intranetMemberService;
+            _memberHelper = memberHelper;
         }
 
         [HttpGet]
-        public async Task<NotificationListViewModel> Get(int page = 1)
+        public async Task<NotificationViewModel[]> Get(int page = 1)
         {
-            var take = page * _itemsPerPage;
-            var (notifications, totalCount) = await _uiNotifierService.GetManyAsync( await _intranetMemberService.GetCurrentMemberIdAsync(), take);
+            var skip = (page - 1) * ItemsPerPage;
 
-            var notificationsArray = notifications.ToArray();
+            var notifications =
+                (await _uiNotifierService.GetManyAsync(
+                    await _intranetMemberService.GetCurrentMemberIdAsync()))
+                    .Skip(skip)
+                    .Take(ItemsPerPage)
+                .ToArray();
 
-            var notNotifiedNotifications = notificationsArray.Where(el => !el.IsNotified).ToArray();
-            if (notNotifiedNotifications.Length > 0)
+            var notNotifiedNotifications = notifications.Where(el => !el.IsNotified).ToArray();
+            if (notNotifiedNotifications.Any())
             {
                 await _uiNotifierService.NotifyAsync(notNotifiedNotifications);
             }
 
-            var notificationsViewModels = await Task.WhenAll(
-                notificationsArray
-                    .Select(async n => await MapNotificationToViewModelAsync(n)));
-
-            var result = new NotificationListViewModel
-            {
-                Notifications = notificationsViewModels,
-                BlockScrolling = totalCount <= take
-            };
-
-            return result;
+            return await Task.WhenAll(notifications.Select(async n => await MapNotificationToViewModelAsync(n)));
         }
 
         [HttpGet]
         public async Task<NotificationListViewModel> NotificationList()
         {
-            var itemsCountForPopup = _nodeModelService
-                .GetByAlias<NotificationPageModel>("notificationPage", _requestContext.HomeNode.RootId)
-                ?.NotificationsPopUpCount
-                ?.Value ?? default(int);
+            var notificationPageModel = _nodeModelService
+                .GetByAlias<NotificationsPageModel>("notificationsPage", _requestContext.HomeNode.RootId);
 
-            var (notifications, _) = await _uiNotifierService.GetManyAsync(await _intranetMemberService.GetCurrentMemberIdAsync(), itemsCountForPopup);
+            var itemsCountForPopup = notificationPageModel
+                                         ?.NotificationsPopUpCount
+                                         ?.Value ?? default(int);
 
-            var notificationsArray = notifications.ToArray();
-
-            var notNotifiedNotifications = notificationsArray
-                .Where(el => !el.IsNotified)
+            var notifications =
+                (await _uiNotifierService.GetManyAsync(
+                    await _intranetMemberService.GetCurrentMemberIdAsync()))
+                        .Take(itemsCountForPopup)
                 .ToArray();
 
-            if (notNotifiedNotifications.Length > 0)
-            {
+
+            var notNotifiedNotifications = notifications
+                .Where(el => !el.IsNotified);
+
+            if (notifications.Length > 0)
                 await _uiNotifierService.NotifyAsync(notNotifiedNotifications);
-            }
+
 
             var notificationsViewModels = await Task.WhenAll(
-                notificationsArray
+                notifications
                     .Take(itemsCountForPopup)
                     .Select(async n => await MapNotificationToViewModelAsync(n)));
 
             return new NotificationListViewModel
             {
-                Notifications = notificationsViewModels,
-                BlockScrolling = false
+                NotificationPageUrl = notificationPageModel?.Url ?? string.Empty,
+                Notifications = notificationsViewModels
             };
         }
 
@@ -128,13 +126,6 @@ namespace Uintra20.Features.Notification.Controllers
         }
 
         [HttpPost]
-        public async Task UpdateNotifierSettings(NotifierTypeEnum type, bool isEnabled)
-        {
-            var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
-            await _memberNotifiersSettingsService.SetForMemberAsync(currentMember.Id, type, isEnabled);
-        }
-
-        [HttpPost]
         public Task SetNotificationViewed([FromBody]Guid id)
         {
             return _uiNotifierService.ViewNotificationAsync(id);
@@ -146,6 +137,28 @@ namespace Uintra20.Features.Notification.Controllers
             return _popupNotificationService.ViewNotificationAsync(id);
         }
 
+        [HttpPost]
+        public Task<bool> Notified(Guid id)
+        {
+            return _uiNotifierService.SetNotificationAsNotifiedAsync(id);
+        }
+
+        [HttpPost]
+        public Task Viewed(Guid id)
+        {
+           return _uiNotifierService.ViewNotificationAsync(id);
+        }
+        public Task ViewPopup([FromUri]Guid id)
+        {
+            return _popupNotificationService.ViewNotificationAsync(id);
+        }
+
+        [HttpPost]
+        public Task View(Guid id)
+        {
+            return _uiNotifierService.ViewNotificationAsync(id);
+        }
+
         private async Task<NotificationViewModel> MapNotificationToViewModelAsync(Sql.Notification notification)
         {
             var result = notification.Map<NotificationViewModel>();
@@ -153,11 +166,10 @@ namespace Uintra20.Features.Notification.Controllers
             var notifierId = (string)result.Value.notifierId;
 
             result.Notifier = Guid.TryParse(notifierId, out var id)
-                ? (await _intranetMemberService.GetAsync(id)).Map<MemberViewModel>()
+                ? _memberHelper.ToViewModel(await _intranetMemberService.GetAsync(id))
                 : null;
 
             return result;
         }
-
     }
 }

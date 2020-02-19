@@ -1,7 +1,24 @@
-<a [routerLink]="['/']" class="site-logo">
+<div class="header">
+  <div class="burger-menu" (click)="openLeftNav()">
+    <span class="burger-menu__item"></span>
+  </div>
+
+  <a [routerLink]="['/']" class="site-logo">
     <img src="wwwroot/assets/img/logo.svg" width="21" height="33" alt="uintra">
-</a>
-<div class="header__content">
-    <!-- TODO FE Only Add styles -->
-    <user-navigation style="float: right;"></user-navigation>   
+  </a>
+
+  <div class="header__content">
+    <div class="header-center">
+      <app-search class="header__search"></app-search>
+      <a href="#" class="groups">
+        <span class="icon icon-group"></span>
+      </a>
+      <app-nav-notifications></app-nav-notifications>
+    </div>
+
+  </div>
+  <user-navigation *ngIf="isDesktopGeter"></user-navigation>
+
+  <!-- TODO: fix nav-notifications styles for mobile  -->
+
 </div>

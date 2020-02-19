@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Compent.Shared.Extensions.Bcl;
+using System;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using Uintra20.Core.Member;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Infrastructure.Constants;
 
@@ -59,17 +59,20 @@ namespace Uintra20.Infrastructure.Extensions
             return currentUser;
         }
 
-        public static string GetByKey(this HttpRequest request, string key)
+        public static string GetRequestQueryValue(
+            this HttpRequest request, 
+            string key)
         {
-            var queryParameter = $"?{key}=";
+            if (request == null)
+                return null;
+            
 
-            var ubaselineRequestQuery = request["url"];
+            var url = request["url"];
 
-            var id = ubaselineRequestQuery
-                .Substring(ubaselineRequestQuery.IndexOf(queryParameter, StringComparison.Ordinal))
-                .Replace(queryParameter, string.Empty);
+            if (!url.HasValue() || !Uri.TryCreate(url, UriKind.Absolute, out var requestedUrl))
+                return null;
 
-            return id;
+            return HttpUtility.ParseQueryString(requestedUrl.Query).Get(key);
         }
     }
 }

@@ -1,36 +1,98 @@
-<div class="publication publication--important">
+<pre *ngIf="!publication?.activity?.links?.owner?.originalUrl">
+  Error: owner.link is null <br/>
+</pre>
+
+<div
+  class="publication publication--important"
+  *ngIf="publication?.activity?.links?.owner?.originalUrl"
+>
   <app-publication-header
     [avatar]="publication.activity.owner.photo"
     [title]="publication.activity.owner.displayedName"
+    [originalUrl]="publication.activity.links?.owner.originalUrl"
     class="publication__header"
   >
     <div subtitle>
-      {{ getPublicationDate() }} - {{ publication.activity.type }}
+      {{ getPublicationDate() }} -
+      <a
+        class="publication__activity-type"
+        [routerLink]="publication.activity.links?.details.originalUrl | ulink"
+        >{{ publication.activity.type }}
+      </a>
+      <a
+        *ngIf="publication.activity?.location?.address && publication.activity?.location?.shortAddress"
+        [href]="
+          'https://www.google.co.uk/maps?q=' +
+          publication.activity.location.address
+        "
+        class="icon-pin-icon publication__location-link"
+        target="_blank"
+      >
+        {{ publication.activity.location.shortAddress }}
+      </a>
     </div>
-    <div *ngIf="publication.activity.isPinned" label class="publication__label">
+    <div
+      *ngIf="publication.activity.isPinned"
+      label
+      class="publication__label"
+      [ngClass]="{
+        'publication__label--no-actual': !publication.activity.isPinActual
+      }"
+    >
       Important
     </div>
   </app-publication-header>
 
   <div class="publication__content">
-    <div [innerHTML]="publication.activity.description"></div>
-  </div>
-
-  <div class="publication__footer">
-    <app-like-button [likeData]="likeData"></app-like-button>
-
-    <a class="publication__comment publication__footer-item" routerLink="social-details" [queryParams]="{id: publication.activity.id}">
-      <i class="icon-comment"></i>
-      {{ commentsCount }}
+    <a
+      class="publication__clickable-aria"
+      [routerLink]="publication.activity.links?.details?.originalUrl | ulink"
+    >
+      <p *ngIf="publication.activity?.title" class="publication__title">
+        {{ publication.activity.title }}
+      </p>
+      <div
+        class="publication__text rte"
+        [innerHTML]="publication.activity.description"
+      ></div>
     </a>
-    <button class="publication__share publication__footer-item">
-      <i class="icon-share-icon"></i>
-      Anbefal
-    </button>
+
+    <div class="gallery" [ngClass]="'items-' + countToDisplay">
+      <div
+        *ngFor="let image of medias | slice: 0:countToDisplay; index as i"
+        class="gallery__image"
+        (click)="openGallery(i)"
+        [ngStyle]="{ backgroundImage: 'url(' + image.previewUrl + ')' }"
+      ></div>
+      <div class="gallery__counter" *ngIf="additionalImages">
+        + {{ additionalImages }}
+      </div>
+    </div>
+    <div class="publication__footer">
+      <div class="publication__footer-left-block">
+        <app-like-button [likeData]="likeData"></app-like-button>
+        <a
+          class="publication__comment publication__footer-item"
+          [routerLink]="publication.activity.links?.details.originalUrl | ulink"
+        >
+          <i class="icon-comment"></i>
+          {{ commentsCount }}
+        </a>
+        <button class="publication__share publication__footer-item">
+          <i class="icon-share-icon"></i>
+          Anbefal
+        </button>
+      </div>
+
+      <a
+        class="publication__files publication__footer-item"
+        *ngIf="documentsCount"
+        [routerLink]="publication.activity.links?.details.originalUrl | ulink"
+      >
+        <i class="icon-attachment"></i>
+        {{ documentsCount }}
+        {{ documentsCount > 1 ? "Files added" : "File added" }}</a
+      >
+    </div>
   </div>
-
-    <!-- <pre>
-  {{publication | json}}
-    </pre> -->
-
 </div>

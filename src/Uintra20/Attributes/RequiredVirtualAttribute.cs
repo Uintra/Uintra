@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace intra20.Attributes
+namespace Uintra20.Attributes
 {
     public class RequiredVirtualAttribute : RequiredAttribute
     {
