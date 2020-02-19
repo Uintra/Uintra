@@ -56,13 +56,11 @@ namespace Uintra20.Features.Social
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
-        private readonly IUserTagService _userTagService;
         private readonly IActivityLinkPreviewService _activityLinkPreviewService;
         private readonly IGroupService _groupService;
         private readonly INotifierDataBuilder _notifierDataBuilder;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IIntranetLocalizationService _localizationService;
-        private readonly IMemberServiceHelper _memberHelper;
         private readonly IFeedActivityHelper _feedActivityHelper;
 
         public SocialService(
@@ -100,13 +98,11 @@ namespace Uintra20.Features.Social
             _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
-            _userTagService = userTagService;
             _activityLinkPreviewService = activityLinkPreviewService;
             _groupService = groupService;
             _notifierDataBuilder = notifierDataBuilder;
             _intranetMemberService = intranetMemberService;
             _localizationService = localizationService;
-            _memberHelper = memberHelper;
             _feedActivityHelper = feedActivityHelper;
         }
 
@@ -129,7 +125,7 @@ namespace Uintra20.Features.Social
             var viewModel = bulletin.Map<SocialPreviewModel>();
             viewModel.CanEdit = CanEdit(bulletin);
             viewModel.Links = links;
-            viewModel.Owner = _memberHelper.ToViewModel(_intranetMemberService.Get(bulletin));
+            viewModel.Owner = _intranetMemberService.Get(bulletin).ToViewModel();
             viewModel.Type = _localizationService.Translate(bulletin.Type.ToString());
             viewModel.LikedByCurrentUser = bulletin.Likes.Any(x => x.UserId == currentMemberId);
             viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);

@@ -8,7 +8,6 @@ using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Helpers;
-using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Services;
@@ -25,9 +24,7 @@ namespace Uintra20.Features.Notification.Controllers
         private readonly INodeModelService _nodeModelService;
         private readonly IUiNotificationService _uiNotifierService;
         private readonly IPopupNotificationService _popupNotificationService;
-        private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
-        private readonly IMemberServiceHelper _memberHelper;
         public NotificationApiController(
             IUBaselineRequestContext requestContext,
             INodeModelService nodeModelService,
@@ -41,9 +38,7 @@ namespace Uintra20.Features.Notification.Controllers
             _nodeModelService = nodeModelService;
             _uiNotifierService = uiNotifierService;
             _popupNotificationService = popupNotificationService;
-            _memberNotifiersSettingsService = memberNotifiersSettingsService;
             _intranetMemberService = intranetMemberService;
-            _memberHelper = memberHelper;
         }
 
         [HttpGet]
@@ -166,7 +161,7 @@ namespace Uintra20.Features.Notification.Controllers
             var notifierId = (string)result.Value.notifierId;
 
             result.Notifier = Guid.TryParse(notifierId, out var id)
-                ? _memberHelper.ToViewModel(await _intranetMemberService.GetAsync(id))
+                ? (await _intranetMemberService.GetAsync(id)).ToViewModel()
                 : null;
 
             return result;

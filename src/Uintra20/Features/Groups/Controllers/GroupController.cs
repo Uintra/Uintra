@@ -252,7 +252,7 @@ namespace Uintra20.Features.Groups.Controllers
             var groupModel = group.Map<GroupViewModel>();
             groupModel.IsMember = await isCurrentUserMember;
             groupModel.MembersCount = await _groupMemberService.GetMembersCountAsync(group.Id);
-            groupModel.Creator = _memberService.Get(group.CreatorId).Map<MemberViewModel>();
+            groupModel.Creator = _memberService.Get(group.CreatorId).ToViewModel();
             groupModel.GroupUrl = _groupLinkProvider.GetGroupRoomLink(group.Id);
             if (groupModel.HasImage)
             {
