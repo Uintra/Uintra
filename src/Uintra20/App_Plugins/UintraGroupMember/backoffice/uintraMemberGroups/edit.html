@@ -8,31 +8,36 @@
 
         <umb-editor-container class="form-horizontal">
             
-            <input type="text" ng-model="vm.memberGroup.name"/>
+            <!-- <input type="text" ng-model="vm.memberGroup.name"/> -->
             
-            <div ng-repeat="element in vm.groupedPermissions">
-                <div>{{element[0]}}</div>
+            <div class="umb-group-panel" ng-repeat="element in vm.groupedPermissions">
+                <div class="umb-group-panel__header">{{element[0]}}</div>
+
+                <div class="umb-group-panel__content">
+                
                     <table border="0" cellspacing="10" cellpadding="5">
                         <tr>
                             <th align="left" style="min-width: 130px">Permission</th>
-                            <th align="center">Allowed Permission</th>
-                            <th ng-if="vm.isSuperUser" align="center">Enable Setting</th>
+                            <th >Allowed Permission</th>
+                            <th ng-if="vm.isSuperUser" >Enable Setting</th>
                         </tr>
                         <tr ng-repeat="permission in element[1]">
                             <td>
                                 <span>{{permission.actionName}}</span>
                             </td>
-                            <td align="center">
+                            <td >
                                 <umb-toggle checked="permission.allowed" disabled="vm.isParentDisabled(permission) || !permission.enabled" on-click="vm.toggleAllowed(permission)">
                                 </umb-toggle>
                             </td>
-                            <td ng-if="vm.isSuperUser" align="center">
+                            <td ng-if="vm.isSuperUser" >
                                 <umb-toggle checked="permission.enabled" on-click="vm.toggleEnabled(permission)">
                                 </umb-toggle>
                             </td>
 
                         </tr>
                     </table>
+                        
+                </div>
                 
             </div>
 
