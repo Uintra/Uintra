@@ -36,16 +36,17 @@ export class NewsCreateComponent implements OnInit {
       ownerId: this.creator.id,
       title: null,
       description: null,
-      publishDate: null
+      publishDate: null,
     };
   }
 
   onSubmit(data) {
-      this.activityService
-      .submitNewsContent(data)
-      .subscribe((r: any) => {
-        this.routerResolverService.removePageRouter(r.originalUrl);
-        this.router.navigate([r.originalUrl]);
-      });
+    if (this.panelData.groupId) {data.groupId = this.panelData.groupId}
+    this.activityService
+    .submitNewsContent(data)
+    .subscribe((r: any) => {
+      this.routerResolverService.removePageRouter(r.originalUrl);
+      this.router.navigate([r.originalUrl]);
+    });
   }
 }

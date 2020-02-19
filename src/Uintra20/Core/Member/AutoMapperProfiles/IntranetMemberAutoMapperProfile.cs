@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using Compent.Extensions;
+﻿using Compent.Extensions;
 using System.Linq;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Models.Dto;
-using Uintra20.Core.Member.Profile.Edit.Models;
 using Uintra20.Core.Member.Profile.Models;
 
 namespace Uintra20.Core.Member.AutoMapperProfiles
@@ -25,6 +23,7 @@ namespace Uintra20.Core.Member.AutoMapperProfiles
                 .ForMember(dst => dst.Email, o => o.MapFrom(user => user.Email))
                 .ForMember(dst => dst.LoginName, o => o.MapFrom(user => user.LoginName))
                 .ForMember(dst => dst.Photo, o => o.MapFrom(user => user.Photo))
+                .ForMember(dst => dst.ProfileLink, o => o.Ignore())
                 .ForMember(dst => dst.PhotoId, o => o.MapFrom(user => user.PhotoId));
 
             //Mapper.CreateMap<IIntranetMember, MemberModel>()

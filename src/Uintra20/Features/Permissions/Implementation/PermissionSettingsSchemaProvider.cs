@@ -7,7 +7,6 @@ using static Compent.Extensions.Trees.TreeExtensions;
 using static Uintra20.Features.Permissions.Implementation.PermissionSettingsSchemaProviderFunctions;
 using static Uintra20.Features.Permissions.Models.ResourceToActionRelation;
 using static Uintra20.Features.Permissions.PermissionActionEnum;
-using static Uintra20.Features.Permissions.PermissionResourceTypeEnum;
 
 namespace Uintra20.Features.Permissions.Implementation
 {
@@ -52,7 +51,7 @@ namespace Uintra20.Features.Permissions.Implementation
         };
 
         public virtual PermissionSettingValues DefaultSettingsValues =>
-            PermissionSettingValues.Of(GlobalIsAllowedDefault, GlobalIsEnabledDefault);
+            new PermissionSettingValues(GlobalIsAllowedDefault, GlobalIsEnabledDefault);
 
         public virtual PermissionSettingSchema[] Settings { get; }
 
@@ -70,10 +69,8 @@ namespace Uintra20.Features.Permissions.Implementation
             return children.Concat(children.SelectMany(GetDescendants));
         }
 
-        public virtual PermissionSettingValues GetDefault(PermissionSettingIdentity settingIdentity)
-        {
-            return SettingsOverrides.ItemOrDefault(settingIdentity) 
-                   ?? PermissionSettingValues.Of(GlobalIsAllowedDefault, GlobalIsEnabledDefault); ;
-        }
+        public virtual PermissionSettingValues GetDefault(PermissionSettingIdentity settingIdentity) =>
+            SettingsOverrides.ItemOrDefault(settingIdentity) 
+            ?? new PermissionSettingValues(GlobalIsAllowedDefault, GlobalIsEnabledDefault);
     }
 }

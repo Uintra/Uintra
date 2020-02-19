@@ -16,17 +16,6 @@ export interface IGroupModel {
   media: string[] | null;
   id?: string;
 }
-export interface ICreateGroupResponse {
-  id: string;
-  title: string;
-  description: string;
-  createdDate: string;
-  updatedDate: string;
-  creatorId: string;
-  imageId?: string;
-  isHidden: boolean;
-  groupTypeId: number;
-}
 export interface IGroupDetailsHeaderData {
   title: string;
   groupLinks: {
@@ -53,12 +42,12 @@ export class GroupsService {
     return this.http.get<IGroupDetailsHeaderData>(groupsApi + `/Header?groupId=${id}`);
   }
 
-  createGroup(groupCreateModel: IGroupModel): Observable<ICreateGroupResponse> {
-    return this.http.post<ICreateGroupResponse>(groupsApi + '/Create', groupCreateModel)
+  createGroup(groupCreateModel: IGroupModel): Observable<IULink> {
+    return this.http.post<IULink>(groupsApi + '/Create', groupCreateModel)
   }
 
-  editGroup(groupEditModel: IGroupModel): Observable<ICreateGroupResponse> {
-    return this.http.post<ICreateGroupResponse>(groupsApi + '/Edit', groupEditModel)
+  editGroup(groupEditModel: IGroupModel): Observable<IULink> {
+    return this.http.post<IULink>(groupsApi + '/Edit', groupEditModel)
   }
 
   hideGroup(id: string) {

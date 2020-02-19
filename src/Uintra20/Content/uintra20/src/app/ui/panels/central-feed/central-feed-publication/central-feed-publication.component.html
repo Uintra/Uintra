@@ -10,9 +10,10 @@
     [avatar]="publication.activity.owner.photo"
     [title]="publication.activity.owner.displayedName"
     [originalUrl]="publication.activity.links?.owner.originalUrl"
+    [groupInfo]="publication.activity?.groupInfo"
     class="publication__header"
   >
-    <div subtitle>
+    <div class="publication__subtitle" subtitle>
       {{ getPublicationDate() }} -
       <a
         class="publication__activity-type"

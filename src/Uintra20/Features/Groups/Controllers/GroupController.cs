@@ -81,7 +81,7 @@ namespace Uintra20.Features.Groups.Controllers
             {
                 if (x is UintraGroupsCreatePageModel)
                 {
-                    return _permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
+                    return _permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create,
                         PermissionResourceTypeEnum.Groups));
                 }
 
@@ -117,7 +117,7 @@ namespace Uintra20.Features.Groups.Controllers
                 return NotFound();
             }
 
-            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Edit,
+            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Edit,
                 PermissionResourceTypeEnum.Groups)))
             {
                 return Ok(_groupLinkProvider.GetGroupRoomLink(model.Id));
@@ -139,7 +139,7 @@ namespace Uintra20.Features.Groups.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Create(GroupCreateModel createModel)
         {
-            if (!_permissionsService.Check(PermissionSettingIdentity.Of(PermissionActionEnum.Create,
+            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create,
                 PermissionResourceTypeEnum.Groups)))
             {
                 return Ok(_groupLinkProvider.GetGroupsOverviewLink());
@@ -252,7 +252,7 @@ namespace Uintra20.Features.Groups.Controllers
             var groupModel = group.Map<GroupViewModel>();
             groupModel.IsMember = await isCurrentUserMember;
             groupModel.MembersCount = await _groupMemberService.GetMembersCountAsync(group.Id);
-            groupModel.Creator = _memberService.Get(group.CreatorId).Map<MemberViewModel>();
+            groupModel.Creator = _memberService.Get(group.CreatorId).ToViewModel();
             groupModel.GroupUrl = _groupLinkProvider.GetGroupRoomLink(group.Id);
             if (groupModel.HasImage)
             {

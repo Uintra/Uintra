@@ -4,6 +4,8 @@ import { GroupsService } from 'src/app/feature/project/specific/groups/groups.se
 import { finalize } from 'rxjs/operators';
 import { MAX_FILES_FOR_SINGLE } from 'src/app/constants/dropzone/drop-zone.const';
 import { IMedia } from '../../activity/activity.interfaces';
+import { Router } from '@angular/router';
+import { RouterResolverService } from 'src/app/services/general/router-resolver.service';
 
 export interface IEditGroupData {
   id?: string;
@@ -22,6 +24,7 @@ export interface IEditGroupData {
 })
 export class GroupsFormComponent {
   @Input() data: any;
+  @Input('edit') edit: any;
   title: string = "";
   description: string = "";
   medias: IMedia[] = [];
@@ -32,8 +35,8 @@ export class GroupsFormComponent {
   files: any[] = [];
 
   constructor(
-    @Attribute('edit') public edit: any,
-    private groupsService: GroupsService
+    private groupsService: GroupsService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -71,14 +74,18 @@ export class GroupsFormComponent {
       if (!this.edit) {
         this.groupsService.createGroup(groupModel).pipe(
           finalize(() => this.inProgress = false)
-        ).subscribe(res => {});
+        ).subscribe(res => {
+          this.router.navigate([res.originalUrl]);
+        });
       } else {
         if (this.data && this.data.media && this.data.media.length) {
           groupModel.media = this.medias[0];
         }
         this.groupsService.editGroup(groupModel).pipe(
           finalize(() => this.inProgress = false)
-        ).subscribe(res => {});
+        ).subscribe(res => {
+          this.router.navigate([res.originalUrl]);
+        });
       }
     }
   }

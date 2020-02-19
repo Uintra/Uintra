@@ -15,15 +15,13 @@ namespace Uintra20.Features.Permissions.TypeProviders
 
         public IEnumerable<IntranetMemberGroup> All => _groupService.GetAll();
 
-        public IDictionary<int, IntranetMemberGroup> IntTypeDictionary { get; }
+        public IDictionary<int, IntranetMemberGroup> IntTypeDictionary => All.ToDictionary(group => group.Id);
 
-        public IDictionary<string, IntranetMemberGroup> StringTypeDictionary { get; }
+        public IDictionary<string, IntranetMemberGroup> StringTypeDictionary => All.ToDictionary(group => group.Name);
 
         public IntranetMemberGroupProvider(IIntranetMemberGroupService groupService)
         {
             _groupService = groupService;
-            IntTypeDictionary = All.ToDictionary(group => group.Id);
-            StringTypeDictionary = All.ToDictionary(group => group.Name);
         }
     }
 }
