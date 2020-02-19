@@ -16,17 +16,6 @@ export interface IGroupModel {
   media: string[] | null;
   id?: string;
 }
-// export interface ICreateGroupResponse {
-//   id: string;
-//   title: string;
-//   description: string;
-//   createdDate: string;
-//   updatedDate: string;
-//   creatorId: string;
-//   imageId?: string;
-//   isHidden: boolean;
-//   groupTypeId: number;
-// }
 export interface IGroupDetailsHeaderData {
   title: string;
   groupLinks: {
