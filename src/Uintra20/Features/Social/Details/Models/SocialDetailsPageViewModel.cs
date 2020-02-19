@@ -22,5 +22,6 @@ namespace Uintra20.Features.Social.Details.Models
         public bool LikedByCurrentUser { get; set; }
         public Guid? GroupId { get; set; }
         public bool RequiresGroupHeader { get; set; }
+        public bool CanEdit { get; set; }
     }
 }

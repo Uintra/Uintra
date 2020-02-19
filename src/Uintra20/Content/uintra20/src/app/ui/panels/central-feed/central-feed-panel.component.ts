@@ -1,9 +1,9 @@
-import { Component, ViewEncapsulation, OnInit, NgZone, OnDestroy } from '@angular/core';
-import { ICentralFeedPanel } from './central-feed-panel.interface';
-import { UmbracoFlatPropertyModel, IUmbracoProperty } from '@ubaseline/next';
-import { PublicationsService} from './helpers/publications.service';
-import { ActivityService } from 'src/app/feature/project/specific/activity/activity.service';
-import { SignalrService } from './helpers/signalr.service';
+import { Component, ViewEncapsulation, OnInit, NgZone } from "@angular/core";
+import { ICentralFeedPanel } from "./central-feed-panel.interface";
+import { UmbracoFlatPropertyModel, IUmbracoProperty } from "@ubaseline/next";
+import { PublicationsService } from "./helpers/publications.service";
+import { ActivityService } from "src/app/feature/project/specific/activity/activity.service";
+import { SignalrService } from "src/app/services/general/signalr.service";
 
 // interface IFilterTab {
 //   type: number;
@@ -42,12 +42,12 @@ import { SignalrService } from './helpers/signalr.service';
 // }
 
 @Component({
-  selector: 'central-feed-panel',
-  templateUrl: './central-feed-panel.html',
-  styleUrls: ['./central-feed-panel.less'],
+  selector: "central-feed-panel",
+  templateUrl: "./central-feed-panel.html",
+  styleUrls: ["./central-feed-panel.less"],
   encapsulation: ViewEncapsulation.None
 })
-export class CentralFeedPanel implements OnInit, OnDestroy {
+export class CentralFeedPanel implements OnInit {
   data: ICentralFeedPanel;
   tabs: Array<any> = null;
   // TODO: replace 'any' after server side will be done
@@ -56,6 +56,7 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
   feed: Array<any> = [];
   currentPage = 1;
   isFeedLoading = false;
+  isResponseFailed = false;
   isScrollDisabled = false;
 
   constructor(
@@ -72,11 +73,9 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
       this.reloadFeed();
     });
 
-    this.signalrService.createHub(this.reloadFeed.bind(this));
-  }
-
-  ngOnDestroy(): void {
-    // this.signalrService.hubConnectionStop();
+    this.signalrService.getReloadFeedSubjects().subscribe(s => {
+      this.reloadFeed();
+    });
   }
 
   filtersBuilder() {
@@ -84,7 +83,7 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
 
     // TODO: fix ubaselline next and remove it
     const allOption = new UmbracoFlatPropertyModel({
-      type: '0',
+      type: "0",
       isActive: true,
       links: null,
       title: "All",
@@ -103,7 +102,7 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
   }
 
   reloadFeed(): void {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       window.scrollTo(0, 0);
     }
     this.resetFeed();
@@ -130,6 +129,10 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
       .then((response: any) => {
         this.isScrollDisabled = response.feed.length === 0;
         this.concatWithCurrentFeed(response.feed);
+        this.isResponseFailed = false;
+      })
+      .catch((err) => {
+        this.isResponseFailed = true;
       })
       .finally(() => {
         this.isFeedLoading = false;
@@ -138,7 +141,7 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
 
   concatWithCurrentFeed(data): void {
     this.ngZone.run(() => {
-      this.feed = this.feed.concat(data) ;
+      this.feed = this.feed.concat(data);
     });
   }
 

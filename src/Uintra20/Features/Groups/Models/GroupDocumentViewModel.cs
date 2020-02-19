@@ -12,7 +12,7 @@ namespace Uintra20.Features.Groups.Models
         public string Type { get; set; }
         public string Name { get; set; }
         public MemberViewModel Creator { get; set; }
-        public DateTime CreateDate { get; set; }
+        public string CreateDate { get; set; }
         public bool CanDelete { get; set; }
         public string FileUrl { get; set; }
     }

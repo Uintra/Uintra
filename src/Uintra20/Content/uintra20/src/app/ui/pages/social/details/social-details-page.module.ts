@@ -8,6 +8,7 @@ import { LikeButtonModule } from "src/app/feature/project/reusable/ui-elements/l
 import { UserAvatarModule } from "src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar.module";
 import { CommentsModule } from "src/app/feature/project/reusable/ui-elements/comments/comments.module";
 import { DetailasHeaderModule } from "src/app/feature/project/specific/activity/details/detailas-header/detailas-header.module";
+import { GroupDetailsWrapperModule } from 'src/app/feature/project/specific/groups/group-details-wrapper/group-details-wrapper.module';
 
 @NgModule({
   declarations: [SocialDetailsPanelComponent],
@@ -20,7 +21,8 @@ import { DetailasHeaderModule } from "src/app/feature/project/specific/activity/
     LikeButtonModule,
     UserAvatarModule,
     CommentsModule,
-    DetailasHeaderModule
+    DetailasHeaderModule,
+    GroupDetailsWrapperModule,
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: SocialDetailsPanelComponent }

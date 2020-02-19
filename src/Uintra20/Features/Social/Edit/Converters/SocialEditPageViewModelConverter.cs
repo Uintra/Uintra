@@ -40,6 +40,13 @@ namespace Uintra20.Features.Social.Edit.Converters
             var id = HttpContext.Current.Request.GetRequestQueryValue("id");
 
             if (!Guid.TryParse(id, out var parsedId)) return;
+            
+            viewModel.CanEdit = _socialService.CanEdit(parsedId);
+
+            if (!viewModel.CanEdit)
+            {
+                return;
+            }
 
             var social = _socialService.Get(parsedId);
 
@@ -54,7 +61,7 @@ namespace Uintra20.Features.Social.Edit.Converters
             var mediaSettings = _socialService.GetMediaSettings();
             viewModel.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
 
-            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            var groupIdStr = HttpContext.Current.Request["groupId"];
             if (!Guid.TryParse(groupIdStr, out var groupId) || social.GroupId != groupId)
                 return;
 

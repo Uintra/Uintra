@@ -1,0 +1,21 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { UbaselineCoreModule } from '@ubaseline/next';
+import { UintraGroupsRoomPage } from './uintra-groups-room-page.component';
+import { GroupDetailsWrapperModule } from 'src/app/feature/project/specific/groups/group-details-wrapper/group-details-wrapper.module';
+import { ActivityCreatePanelModule } from 'src/app/ui/panels/activity-create/activity-create-panel.module';
+
+@NgModule({
+  declarations: [UintraGroupsRoomPage],
+  imports: [
+    CommonModule,
+    RouterModule.forChild([{path: "", component: UintraGroupsRoomPage}]),
+    UbaselineCoreModule,
+    GroupDetailsWrapperModule,
+    ActivityCreatePanelModule,
+  ],
+  entryComponents: [UintraGroupsRoomPage]
+})
+export class UintraGroupsRoomPageModule {}

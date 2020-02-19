@@ -9,6 +9,7 @@ import { SocialEditPageComponent } from './social-edit-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
 import { DropzoneWrapperModule } from 'src/app/feature/project/reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
+import { GroupDetailsWrapperModule } from 'src/app/feature/project/specific/groups/group-details-wrapper/group-details-wrapper.module';
 
 @NgModule({
   declarations:
@@ -28,6 +29,7 @@ import { DropzoneWrapperModule } from 'src/app/feature/project/reusable/ui-eleme
       ReactiveFormsModule,
       DropzoneWrapperModule,
       HttpClientModule,
+      GroupDetailsWrapperModule,
       RichTextEditorModule.configure({
         modules: {
           counter: {

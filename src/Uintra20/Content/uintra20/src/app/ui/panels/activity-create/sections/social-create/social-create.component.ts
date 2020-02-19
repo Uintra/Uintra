@@ -7,6 +7,7 @@ import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { ActivityService } from 'src/app/feature/project/specific/activity/activity.service';
 import { ModalService } from 'src/app/services/general/modal.service';
 import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
+import { ISocialCreateModel } from 'src/app/feature/project/specific/activity/activity.interfaces';
 
 @Component({
   selector: 'app-social-create',
@@ -103,13 +104,15 @@ export class SocialCreateComponent implements OnInit {
 
   onSubmit() {
     this.inProgress = true;
+    const requestModel: ISocialCreateModel = {
+      description: this.description,
+      ownerId: this.panelData.creator.id,
+      newMedia: this.getMediaIdsForResponse(),
+      tagIdsData: this.getTagsForResponse()
+    };
+    if (this.panelData.groupId) {requestModel.groupId = this.panelData.groupId}
     this.socialContentService
-      .submitSocialContent({
-        description: this.description,
-        ownerId: this.panelData.creator.id,
-        newMedia: this.getMediaIdsForResponse(),
-        tagIdsData: this.getTagsForResponse()
-      })
+      .submitSocialContent(requestModel)
       .then(response => {
         this.hidePopUp();
         this.socialContentService.refreshFeed();

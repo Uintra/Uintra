@@ -7,6 +7,7 @@ export interface ISocialCreateModel {
   ownerId: string;
   newMedia: string;
   tagIdsData: string[];
+  groupId?: string;
 }
 
 export interface INewsCreateModel {
@@ -40,6 +41,7 @@ export interface ISocialEdit {
   availableTags: Array<ITagData>;
   lightboxPreviewModel: ILightBoxPreviewModel;
   id: string;
+  groupId: string;
   name: string;
   tagIdsData: Array<string>;
   newMedia: string;

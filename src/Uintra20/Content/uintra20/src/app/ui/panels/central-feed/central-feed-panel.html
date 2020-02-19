@@ -20,5 +20,7 @@
     <div *ngIf="isFeedLoading" class="central-feed__loader-wrapper">
       <div class="central-feed__loader"></div>
     </div>
+
+    <div *ngIf="!isFeedLoading && !isResponseFailed && !feed.length" class="central-feed__empty-feed">Nothing has been posted yet!</div>
   </div>
 </section>

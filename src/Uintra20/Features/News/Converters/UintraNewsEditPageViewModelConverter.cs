@@ -60,16 +60,24 @@ namespace Uintra20.Features.News.Converters
             if (!Guid.TryParse(idStr, out var id))
                 return;
 
+            viewModel.CanEdit = _newsService.CanEdit(id);
+
+            if (!viewModel.CanEdit)
+            {
+                return;
+            }
+
             var news = _newsService.Get(id);
 
             viewModel.Details = GetDetails(news);
             viewModel.CanEditOwner = _permissionsService.Check(IntranetActivityTypeEnum.News, PermissionActionEnum.EditOwner);
             viewModel.AllowedMediaExtensions = _newsService.GetMediaSettings().AllowedMediaExtensions;
+            viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.CanPin);
 
             if (viewModel.CanEditOwner)
                 viewModel.Members = GetUsersWithAccess(PermissionSettingIdentity.Of(PermissionActionEnum.Create, IntranetActivityTypeEnum.News));
-            
-            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+
+            var groupIdStr = HttpContext.Current.Request["groupId"];
             if (!Guid.TryParse(groupIdStr, out var groupId) || news.GroupId != groupId)
                 return;
 
