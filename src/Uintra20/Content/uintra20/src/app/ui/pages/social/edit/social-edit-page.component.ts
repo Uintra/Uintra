@@ -41,8 +41,8 @@ export class SocialEditPageComponent {
       tags: Object.values(parsedSocialEdit.tags),
       availableTags: Object.values(parsedSocialEdit.availableTags),
       lightboxPreviewModel: {
-        medias: Object.values(parsedSocialEdit.lightboxPreviewModel.medias),
-        otherFiles: Object.values(parsedSocialEdit.lightboxPreviewModel.otherFiles),
+        medias: Object.values(parsedSocialEdit.lightboxPreviewModel.medias || []),
+        otherFiles: Object.values(parsedSocialEdit.lightboxPreviewModel.otherFiles || []),
         filesToDisplay: parsedSocialEdit.lightboxPreviewModel.filesToDisplay,
         additionalImages: parsedSocialEdit.lightboxPreviewModel.additionalImages,
         hiddenImagesCount: parsedSocialEdit.lightboxPreviewModel.hiddenImagesCount
