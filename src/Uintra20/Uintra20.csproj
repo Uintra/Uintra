@@ -967,6 +967,8 @@
     <Compile Include="Core\AdminSection\Controllers\AdminController.cs" />
     <Compile Include="Core\Member\Controllers\UintraMemberGroupTreeController.cs" />
     <Compile Include="Core\Member\Models\MemberGroupCreateModel.cs" />
+    <Compile Include="Core\Activity\FeedActivityHelper.cs" />
+    <Compile Include="Core\Activity\IFeedActivityHelper.cs" />
     <Compile Include="Core\UbaselineModels\FileModel.cs" />
     <Compile Include="Core\UbaselineModels\FolderModel.cs" />
     <Compile Include="Core\UbaselineModels\GenericPropertiesCompositionModel.cs" />
@@ -977,6 +979,10 @@
     <Compile Include="Features\Groups\Converters\UintraGroupsCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsDocumentsPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsEditPageViewModelConverter.cs" />
+    <Compile Include="Features\Groups\Converters\UintraGroupsMembersPageViewModelConverter.cs" />
+    <Compile Include="Features\Groups\Converters\UintraGroupsRoomPageViewModelConverter.cs" />
+    <Compile Include="Features\Groups\Models\GroupFeedPreviewModel.cs" />
+    <Compile Include="Features\Groups\Models\GroupHeaderViewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupLinksModel.cs" />
     <Compile Include="Features\Groups\Models\GroupDocumentViewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupNavigationCompositionModel.cs" />
@@ -1005,8 +1011,12 @@
     <Compile Include="Features\Groups\Models\UintraGroupsCreatePageModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsCreatePageViewModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsEditPageViewModel.cs" />
+    <Compile Include="Features\Groups\Models\UintraGroupsMembersPageModel.cs" />
+    <Compile Include="Features\Groups\Models\UintraGroupsMembersPageViewModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsPageModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsPageViewModel.cs" />
+    <Compile Include="Features\Groups\Models\UintraGroupsRoomPageModel.cs" />
+    <Compile Include="Features\Groups\Models\UintraGroupsRoomPageViewModel.cs" />
     <Compile Include="Features\Groups\Services\GroupDocumentsService.cs" />
     <Compile Include="Features\Groups\Services\GroupMediaService.cs" />
     <Compile Include="Features\Groups\Services\GroupMemberService.cs" />
@@ -1115,6 +1125,7 @@
     <Compile Include="Infrastructure\Extensions\FactoryExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\InconsistentDataException.cs" />
     <Compile Include="Infrastructure\Extensions\UmbracoHelperExtensions.cs" />
+    <Compile Include="Infrastructure\Helpers\TransferRequestHelper.cs" />
     <Compile Include="Infrastructure\Ioc\GroupInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\LightInjectScopedConnection.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
@@ -1668,7 +1679,6 @@
     <Compile Include="Infrastructure\Utils\EmbeddedResourceService.cs" />
     <Compile Include="Infrastructure\Utils\EmbeddedResourcesUtils.cs" />
     <Compile Include="Infrastructure\Utils\IEmbeddedResourceService.cs" />
-    <Compile Include="Infrastructure\Helpers\XPathHelper.cs" />
     <Compile Include="Models\UmbracoIdentity\ExternalLoginListViewModel.cs" />
     <Compile Include="Models\UmbracoIdentity\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\UmbracoIdentity\LoginViewModel.cs" />

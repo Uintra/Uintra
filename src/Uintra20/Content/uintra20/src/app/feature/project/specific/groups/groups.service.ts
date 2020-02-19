@@ -2,18 +2,19 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { CookieService } from 'ngx-cookie-service';
-import { IUlinkWithTitle } from 'src/app/feature/shared/interfaces/IULink';
+import { IUlinkWithTitle, IULink } from 'src/app/feature/shared/interfaces/IULink';
 import { groupsApi } from 'src/app/constants/general/general.const';
 
 export interface IGroupsData {
   groupPageItem: IUlinkWithTitle;
   items: IUlinkWithTitle[];
 }
-export interface ICreateGroupModel {
+export interface IGroupModel {
   title: string;
   description: string;
   newMedia: string;
-  media: string | null;
+  media: string[] | null;
+  id?: string;
 }
 export interface ICreateGroupResponse {
   id: string;
@@ -25,6 +26,15 @@ export interface ICreateGroupResponse {
   imageId?: string;
   isHidden: boolean;
   groupTypeId: number;
+}
+export interface IGroupDetailsHeaderData {
+  title: string;
+  groupLinks: {
+    groupRoomPage: IULink;
+    groupDocumentsPage: IULink;
+    groupMembersPage: IULink;
+    groupEditPage?: IULink;
+  }
 }
 
 @Injectable({
@@ -39,8 +49,20 @@ export class GroupsService {
     return this.http.get<IGroupsData>(groupsApi + `/LeftNavigation`);
   }
 
-  createGroup(groupCreateModel: ICreateGroupModel): Observable<ICreateGroupResponse> {
+  getGroupDetailsLinks(id: string): Observable<IGroupDetailsHeaderData> {
+    return this.http.get<IGroupDetailsHeaderData>(groupsApi + `/Header?groupId=${id}`);
+  }
+
+  createGroup(groupCreateModel: IGroupModel): Observable<ICreateGroupResponse> {
     return this.http.post<ICreateGroupResponse>(groupsApi + '/Create', groupCreateModel)
+  }
+
+  editGroup(groupEditModel: IGroupModel): Observable<ICreateGroupResponse> {
+    return this.http.post<ICreateGroupResponse>(groupsApi + '/Edit', groupEditModel)
+  }
+
+  hideGroup(id: string) {
+    return this.http.post<any>(groupsApi + `/Hide?groupId=${id}`, {});
   }
 
   setOpenState(openState: boolean = false): void {

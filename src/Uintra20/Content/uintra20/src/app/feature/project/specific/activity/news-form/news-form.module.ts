@@ -13,6 +13,7 @@ import { SqDatetimepickerModule } from 'ngx-eonasdan-datetimepicker';
 import { FormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { DropzoneWrapperModule } from '../../../reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
+import { DropzoneExistingImagesModule } from '../../../reusable/ui-elements/dropzone-existing-images/dropzone-existing-images.module';
 
 @NgModule({
   declarations: [NewsFormComponent],
@@ -34,7 +35,8 @@ import { DropzoneWrapperModule } from '../../../reusable/ui-elements/dropzone-wr
       }
     }),
     LocationPickerModule,
-    PinActivityModule
+    PinActivityModule,
+    DropzoneExistingImagesModule,
   ],
   exports: [NewsFormComponent]
 })

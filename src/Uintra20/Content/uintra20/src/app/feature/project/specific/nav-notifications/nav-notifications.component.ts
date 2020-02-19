@@ -1,12 +1,11 @@
-import { Component, OnInit, NgZone, ChangeDetectorRef, OnDestroy } from "@angular/core";
+import { Component, OnInit, NgZone, OnDestroy } from "@angular/core";
 import {
   NavNotificationsService,
   INotificationsData,
   INotificationsListData
 } from "./nav-notifications.service";
-import { SignalrService } from "./helpers/signalr.service";
 import { DesktopNotificationService } from "./helpers/desktop-notification.service";
-import { Subject } from 'rxjs';
+import { SignalrService } from "src/app/services/general/signalr.service";
 
 declare let $: any;
 
@@ -37,11 +36,13 @@ export class NavNotificationsComponent implements OnInit, OnDestroy {
       .subscribe((response: number) => {
         this.notificationCount = response;
       });
-    
+
     this.signalrService.startHub();
-    this.signalrService.getUpdateNotificationsSubjects().subscribe(notifications => {      
-      this.getNewNotification(notifications)
-    })
+    this.signalrService
+      .getUpdateNotificationsSubjects()
+      .subscribe(notifications => {
+        this.getNewNotification(notifications);
+      });
 
     if ("Notification" in window) {
       Notification.requestPermission(status => {
@@ -51,7 +52,6 @@ export class NavNotificationsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    //debugger;
     //this.signalrService.hubConnectionStop();
   }
 
@@ -75,7 +75,6 @@ export class NavNotificationsComponent implements OnInit, OnDestroy {
 
   private createDesktopNotifications(notifications) {
     this.ngNotificationZone.runOutsideAngular(() => {
-
       const notificationsForDesktop = notifications.filter(
         notification => notification.Value.isDesktopNotificationEnabled
       );

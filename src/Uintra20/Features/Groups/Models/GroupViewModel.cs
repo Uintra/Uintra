@@ -1,5 +1,6 @@
 ﻿using System;
 using Uintra20.Core.Member.Models;
+using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Features.Groups.Models
 {
@@ -7,7 +8,7 @@ namespace Uintra20.Features.Groups.Models
     {
         public Guid Id { get; set; }
         public bool HasImage { get; set; }
-        public string GroupUrl { get; set; }
+        public UintraLinkModel GroupUrl { get; set; }
         public string GroupImageUrl { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
