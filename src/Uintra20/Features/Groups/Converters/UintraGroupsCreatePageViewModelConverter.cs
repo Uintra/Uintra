@@ -14,6 +14,7 @@ namespace Uintra20.Features.Groups.Converters
 
         public UintraGroupsCreatePageViewModelConverter(IMediaHelper mediaHelper, IPermissionsService permissionsService)
         {
+            _permissionsService = permissionsService;
             _mediaHelper = mediaHelper;
             _permissionsService = permissionsService;
         }
