@@ -11,7 +11,7 @@
     <ng-container *ngIf="title || originalUrl">
       <a
         *ngIf="title && originalUrl"
-        class="publication-header__title"
+        class="publication-header__title publication-header__title--link"
         [routerLink]='originalUrl | ulink'>
         {{ title }}
       </a>
