@@ -50,14 +50,15 @@ namespace Uintra20.Core.Activity.Converters
         {
             var activityType = (IntranetActivityTypeEnum)Enum.Parse(typeof(IntranetActivityTypeEnum), node.TabType);
             var currentMember = _memberService.GetCurrentMember();
+            var permissionResourceType = (PermissionResourceTypeEnum)activityType;
 
             viewModel.ActivityType = activityType;
             viewModel.Creator = currentMember.ToViewModel();
-            viewModel.PinAllowed = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.CanPin);
-            viewModel.CanCreate = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.Create);
-            viewModel.CanEditOwner = _permissionsService.Check(viewModel.ActivityType, PermissionActionEnum.EditOwner);
+            viewModel.PinAllowed = _permissionsService.Check(permissionResourceType, PermissionActionEnum.CanPin);
+            viewModel.CanCreate = _permissionsService.Check(permissionResourceType, PermissionActionEnum.Create);
+            viewModel.CanEditOwner = _permissionsService.Check(permissionResourceType, PermissionActionEnum.EditOwner);
             if (viewModel.CanEditOwner)
-                viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(viewModel.ActivityType, viewModel.ActivityType));
+                viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, permissionResourceType));
 
             switch (activityType)
             {
@@ -73,10 +74,10 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.Tags = GetTagsViewModel();
 
             //TODO: Uncomment when events create will be done
-            //viewModel.CreateEventsLink = _permissionsService.Check(IntranetActivityTypeEnum.Events, PermissionActionEnum.Create) ? 
+            //viewModel.CreateEventsLink = _permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.Create) ? 
             //    _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create
             //    : null;
-            viewModel.CreateNewsLink = _permissionsService.Check(IntranetActivityTypeEnum.News, PermissionActionEnum.Create) ?
+            viewModel.CreateNewsLink = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.Create) ?
                 _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create
                 : null;
 
