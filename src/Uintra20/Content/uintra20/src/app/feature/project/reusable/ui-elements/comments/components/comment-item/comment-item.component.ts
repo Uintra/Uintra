@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommentsService } from '../../helpers/comments.service';
 import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-button/like-button.interface';
-import { ICommentCreator } from './comment-item.interface';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { CommentActivity } from '../../_constants.js';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ICreator } from 'src/app/feature/shared/interfaces/general.interface';
 
 @Component({
   selector: 'app-comment-item',
@@ -24,7 +24,7 @@ export class CommentItemComponent implements OnInit {
   isReply: boolean;
   subcommentDescription: string;
   likeModel: ILikeData;
-  commentCreator: ICommentCreator;
+  commentCreator: ICreator;
   sanitizedContent: SafeHtml;
 
   get isSubcommentSubmitDisabled() {

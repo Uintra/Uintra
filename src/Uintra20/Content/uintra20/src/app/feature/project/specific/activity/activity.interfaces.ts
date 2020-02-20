@@ -1,6 +1,6 @@
 import { ITagData } from "../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { ActivityEnum } from "src/app/feature/shared/enums/activity-type.enum";
-import { IULink } from 'src/app/feature/shared/interfaces/IULink';
+import { IULink } from 'src/app/feature/shared/interfaces/general.interface';
 
 export interface ISocialCreateModel {
   description: string;
