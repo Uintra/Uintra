@@ -880,7 +880,6 @@
     <Content Include="config\Lang\zh-CN.user.xml" />
     <Content Include="config\logviewer.searches.config.js" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
-    <Content Include="config\umbracoSettings.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
     <Content Include="Content\uintra20\src\assets\bootstrap-fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\uintra20\src\assets\emoji\angry.svg" />
@@ -1837,6 +1836,7 @@
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\AnchorField\package.manifest" />
     <Content Include="App_Plugins\UintraGroupMember\package.manifest" />
+    <None Include="config\umbracoSettings.config" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Index.cshtml" />
