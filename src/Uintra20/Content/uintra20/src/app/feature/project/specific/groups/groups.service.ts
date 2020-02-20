@@ -30,8 +30,8 @@ export class GroupsService {
     return this.http.post<IULink>(groupsApi + '/Edit', groupEditModel)
   }
 
-  hideGroup(id: string) {
-    return this.http.post<any>(groupsApi + `/Hide?groupId=${id}`, {});
+  hideGroup(id: string): Observable<IULink> {
+    return this.http.post<IULink>(groupsApi + `/Hide?id=${id}`, {});
   }
 
   getGroups(isMyGroups: boolean, pageNumber: number) {

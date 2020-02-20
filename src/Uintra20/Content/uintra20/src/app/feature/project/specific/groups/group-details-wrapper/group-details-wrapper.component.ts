@@ -29,7 +29,7 @@ export class GroupDetailsWrapperComponent implements OnInit {
           {link: {...res.groupLinks.groupDocumentsPage}, title: 'Group Documents'},
           {link: {...res.groupLinks.groupMembersPage}, title: 'Group Members'},
         ],
-        groupEditPageLink: {link: {...res.groupLinks.groupEditPage}, title: 'Settings'},
+        groupEditPageLink: res.groupLinks.groupEditPage ? {link: {...res.groupLinks.groupEditPage}, title: 'Settings'} : null,
       }
     })
   }
