@@ -1128,6 +1128,7 @@
     <Compile Include="Features\Notification\Configuration\NotifierConfiguration.cs" />
     <Compile Include="Features\Notification\Exceptions\MissingNotifierConfigurationException.cs" />
     <Compile Include="Features\Notification\Exceptions\OutOfRangeNotifierConfigurationException.cs" />
+    <Compile Include="Features\Notification\Models\MailTemplateModel.cs" />
     <Compile Include="Features\Permissions\Controllers\PermissionsController.cs" />
     <Compile Include="Features\Permissions\Migrations\DefaultMemberGroupPermissionsInitializer.cs" />
     <Compile Include="Features\Permissions\Models\GroupPermissionsViewModel.cs" />
