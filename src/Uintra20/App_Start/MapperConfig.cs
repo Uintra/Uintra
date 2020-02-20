@@ -89,7 +89,7 @@ namespace Uintra20
             cfg.AddProfile<NewsAutoMapperProfile>();
             cfg.AddProfile<ProfileEditProfile>();
             cfg.AddProfile<JobAutoMapperProfile>();
-			cfg.AddProfile<MailProfile>();
+            //cfg.AddProfile<MailProfile>();
             
             Mapper.Initialize(cfg);
             Mapper.AssertConfigurationIsValid();

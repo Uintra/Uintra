@@ -214,6 +214,24 @@ namespace Uintra20.Features.News
         //    FillIndex();
         //}
 
+        public override bool IsActual(IIntranetActivity activity)
+        {
+            var news = (NewsBase)activity;
+            var isActual = base.IsActual(news);
+
+            if (!isActual) return false;
+
+            if (IsExpired(news))
+            {
+                news.IsHidden = true;
+                news.UnpublishDate = null;
+                Save(news);
+                return false;
+            }
+
+            return news.PublishDate <= DateTime.UtcNow || IsOwner(news);
+        }
+
         public override Entities.News UpdateActivityCache(Guid id)
         {
             var cachedNews = Get(id);
