@@ -50,7 +50,9 @@ export class SocialCreateComponent implements OnInit {
   }
 
   onShowPopUp() {
-    this.showPopUp();
+    if(this.panelData.canCreate) {
+      this.showPopUp();
+    }
   }
   onHidePopUp() {
     if (this.description || this.files.length) {
@@ -124,5 +126,11 @@ export class SocialCreateComponent implements OnInit {
         this.inProgress = false;
         this.resetForm();
       });
+  }
+
+  canCreatePosts() {
+    if (this.panelData) {
+      return this.panelData.canCreate || this.panelData.createNewsLink || this.panelData.createEventsLink;
+    }
   }
 }

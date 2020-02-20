@@ -59,7 +59,7 @@
         {{edit ? 'Save' : 'Create'}}
       </button>
       <button
-        *ngIf="edit"
+        *ngIf="edit && data.canHide"
         class="button-default"
         (click)="onHide()">
         Hide
