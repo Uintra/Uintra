@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GroupsService, IGroupsData } from 'src/app/feature/project/specific/groups/groups.service';
+import { GroupsService } from 'src/app/feature/project/specific/groups/groups.service';
 import { IUlinkWithTitle } from 'src/app/feature/shared/interfaces/general.interface';
+import { IGroupsData } from '../groups.interface';
 
 @Component({
   selector: 'app-groups-wrapper',
