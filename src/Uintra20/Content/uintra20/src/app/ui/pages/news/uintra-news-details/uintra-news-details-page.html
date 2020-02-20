@@ -16,17 +16,15 @@
           <div class="feed-header">
             <a
               [routerLink]="data.details.get().links.get().feed.get().originalUrl | ulink"
-              class="feed-header__back-link"
-              >Go to List</a
-            >
-
+              class="feed-header__back-link">
+              Go to List
+            </a>
             <a
-            *ngIf="data.details.get().canEdit.get()"
-            [routerLink]="data.details.get().links.get().edit.get().originalUrl | ulink"
-              class="feed-header__edit-link"
-              >Edit</a
-
-            >
+              *ngIf="data.details.get().canEdit.get()"
+              [routerLink]="data.details.get().links.get().edit.get().originalUrl | ulink"
+              class="feed-header__edit-link">
+              Edit
+            </a>
           </div>
           <div class="feed-item">
             <app-detailas-header
