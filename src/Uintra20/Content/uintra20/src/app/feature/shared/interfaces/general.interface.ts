@@ -10,3 +10,12 @@ export interface IULink {
     value: string;
   }>;
 }
+export interface ICreator {
+  id: string;
+  displayedName: string;
+  photo: string;
+  photoId: number;
+  email: string;
+  loginName: string;
+  inactive: boolean;
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GroupsService, IGroupsData } from 'src/app/feature/project/specific/groups/groups.service';
+import { GroupsService } from 'src/app/feature/project/specific/groups/groups.service';
+import { IGroupsData } from 'src/app/feature/project/specific/groups/groups.interface';
 
 @Component({
   selector: 'left-nav-groups',

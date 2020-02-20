@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IULink } from 'src/app/feature/shared/interfaces/IULink';
+import { IULink } from 'src/app/feature/shared/interfaces/general.interface';
 
 @Component({
   selector: 'app-publication-header',
