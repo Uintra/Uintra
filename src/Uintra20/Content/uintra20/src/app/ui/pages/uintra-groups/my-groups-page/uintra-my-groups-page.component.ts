@@ -1,13 +1,13 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'uintra-groups-page',
-  templateUrl: './uintra-groups-page.html',
-  styleUrls: ['./uintra-groups-page.less'],
+  selector: 'uintra-my-groups-page',
+  templateUrl: './uintra-my-groups-page.html',
+  styleUrls: ['./uintra-my-groups-page.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class UintraGroupsPage {
+export class UintraMyGroupsPage {
   data: any;
 
   constructor(

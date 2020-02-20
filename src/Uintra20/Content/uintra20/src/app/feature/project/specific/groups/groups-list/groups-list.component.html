@@ -1,43 +1,40 @@
 <div class="page-wrapper">
-  <ul class="groups-list">
-    <li class="groups-list-item">
-      <a class="groups-list-item__link">
+  <ul
+    class="groups-list"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="250"
+    [infiniteScrollDisabled]="isScrollDisabled"
+    (scrolled)="onScroll()">
+    <li *ngFor="let group of groups" class="groups-list-item">
+      <a class="groups-list-item__link" [routerLink]="group.groupUrl.originalUrl | ulink">
         <div class="groups-list-item__image-wrapper">
-          <img class="groups-list-item__image">
-        <!-- Add avatar in case if there no image -->
+          <img *ngIf="group.groupImageUrl" class="groups-list-item__image" [src]="group.groupImageUrl">
+          <app-user-avatar
+            *ngIf="!group.groupImageUrl"
+            class="groups-list-item__avatar"
+            [name]="group.creator?.displayedName"
+            big>
+          </app-user-avatar>
         </div>
         <div class="groups-list-item__info">
-          <h3 class="groups-list-item__info-title">Title</h3>
-          <div class="groups-list-item__info-description">Description</div>
-          <p class="groups-list-item__info-members">Members</p>
+          <h3 *ngIf="group.title" class="groups-list-item__info-title">{{group.title}}</h3>
+          <div
+            *ngIf="group.description"
+            class="groups-list-item__info-description"
+            [innerHTML]="group.description">
+          </div>
+          <p
+            *ngIf="group.membersCount || group.membersCount === 0"
+            class="groups-list-item__info-members">
+            {{group.membersCount}} {{group.membersCount !== 1 ? 'members' : 'member'}}
+          </p>
         </div>
+        <span class="icon-checkmark"></span>
       </a>
     </li>
-    <li class="groups-list-item">
-      <a class="groups-list-item__link">
-        <div class="groups-list-item__image-wrapper">
-          <img class="groups-list-item__image">
-        <!-- Add avatar in case if there no image -->
-        </div>
-        <div class="groups-list-item__info">
-          <h3 class="groups-list-item__info-title">Title</h3>
-          <div class="groups-list-item__info-description">Description</div>
-          <p class="groups-list-item__info-members">Members</p>
-        </div>
-      </a>
-    </li>
-    <li class="groups-list-item">
-      <a class="groups-list-item__link">
-        <div class="groups-list-item__image-wrapper">
-          <img class="groups-list-item__image">
-        <!-- Add avatar in case if there no image -->
-        </div>
-        <div class="groups-list-item__info">
-          <h3 class="groups-list-item__info-title">Title</h3>
-          <div class="groups-list-item__info-description">Description</div>
-          <p class="groups-list-item__info-members">Members</p>
-        </div>
-      </a>
-    </li>
+    <div *ngIf="isGroupsLoading" class="groups-list__loader-wrapper">
+      <div class="groups-list__loader"></div>
+    </div>
   </ul>
 </div>

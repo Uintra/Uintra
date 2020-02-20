@@ -2,29 +2,9 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { CookieService } from 'ngx-cookie-service';
-import { IUlinkWithTitle, IULink } from 'src/app/feature/shared/interfaces/IULink';
+import { IULink } from 'src/app/feature/shared/interfaces/general.interface';
 import { groupsApi } from 'src/app/constants/general/general.const';
-
-export interface IGroupsData {
-  groupPageItem: IUlinkWithTitle;
-  items: IUlinkWithTitle[];
-}
-export interface IGroupModel {
-  title: string;
-  description: string;
-  newMedia: string;
-  media: string[] | null;
-  id?: string;
-}
-export interface IGroupDetailsHeaderData {
-  title: string;
-  groupLinks: {
-    groupRoomPage: IULink;
-    groupDocumentsPage: IULink;
-    groupMembersPage: IULink;
-    groupEditPage?: IULink;
-  }
-}
+import { IGroupsData, IGroupDetailsHeaderData, IGroupModel } from './groups.interface';
 
 @Injectable({
   providedIn: "root"
@@ -55,7 +35,7 @@ export class GroupsService {
   }
 
   getGroups(isMyGroups: boolean, pageNumber: number) {
-    return this.http.get(`/ubaseline/api/Group/List?isMyGroupsPage=${isMyGroups}&page=${pageNumber}`);
+    return this.http.get(`/ubaseline/api/Group/List?isMyGroupsPage=${isMyGroups}&page=${pageNumber}`).toPromise();
   }
 
   setOpenState(openState: boolean = false): void {
