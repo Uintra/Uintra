@@ -8,13 +8,19 @@
   </div>
 
   <div class="publication-header__content">
-    <a
-      *ngIf="title"
-      class="publication-header__title"
-      [routerLink]='originalUrl | ulink'>
-      {{ title }}
-    </a>
-    <ng-container *ngIf='false'>{{ title }}</ng-container>
+    <ng-container *ngIf="title || originalUrl">
+      <a
+        *ngIf="title && originalUrl"
+        class="publication-header__title"
+        [routerLink]='originalUrl | ulink'>
+        {{ title }}
+      </a>
+      <p
+        *ngIf="title"
+        class="publication-header__title">
+        {{ title }}
+      </p>
+    </ng-container>
     <div class="publication-header__subtitle-container">
       <ng-content select="[subtitle]"></ng-content>
       <span *ngIf="groupInfo" class="publication-header__group">
