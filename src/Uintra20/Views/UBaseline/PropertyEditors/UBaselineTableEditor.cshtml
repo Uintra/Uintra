@@ -1,0 +1,25 @@
+﻿@using UBaseline.Shared.TableEditor
+@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+@{
+    var value = Model.Value<TableEditorModel>();
+}
+
+@if (value != null)
+{
+    <div>
+        <table class="table-panel__table">
+            <tbody>
+                @foreach (var row in value.Cells)
+                {
+                    <tr>
+                        @foreach (var cell in row)
+                        {
+                            <td>@cell.Value</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

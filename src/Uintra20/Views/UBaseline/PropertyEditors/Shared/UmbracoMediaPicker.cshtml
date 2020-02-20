@@ -1,0 +1,18 @@
+﻿@using UBaseline.Shared.Media
+@model UBaseline.Shared.Media.IMediaViewModel
+
+@if (Model != null)
+{
+    switch (Model)
+    {
+        case FileViewModel file:
+        
+            break;
+        case ImageViewModel image:
+            if (image.UmbracoFile?.Value != null)
+            {
+                @Html.Partial("UBaselineImage", image.UmbracoFile.Value)
+            }
+            break;
+    }
+}

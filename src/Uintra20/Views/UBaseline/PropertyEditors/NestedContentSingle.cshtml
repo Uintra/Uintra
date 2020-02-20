@@ -1,0 +1,9 @@
+﻿@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+@{
+    var value = Model.Value<UBaseline.Shared.Node.INodeViewModel>();
+}
+
+<section>
+    @Html.Action("Index", "PageContent", new { node = value })
+</section>

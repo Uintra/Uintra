@@ -107,7 +107,6 @@ app.controller('memberGroups.editController',
         };
 
         vm.toggleAllowed = function (permission) {
-
             if (inProgress) return;
 
             inProgress = true;
@@ -117,8 +116,8 @@ app.controller('memberGroups.editController',
             memberGroupsService
                 .toggle(request)
                 .then(function (groupPermissionModel) {
-                    vm.permissions = groupPermissionModel.permissions;
-                    vm.groupedPermissions = groupByResourceTypeName(groupPermissionModel.permissions);
+                    vm.permissions = groupPermissionModel.data.permissions;
+                    vm.groupedPermissions = groupByResourceTypeName(groupPermissionModel.data.permissions);
                     if (!permission.allowed) {
                         notificationsService.success(notification.SUCCESS, notification.PERMISSION.ALLOWED);
                     } else {
@@ -136,7 +135,8 @@ app.controller('memberGroups.editController',
             if (vm.isCreate) {
                 memberGroupsService
                     .create(vm.memberGroup.name)
-                    .then(function (createdMemberGroupId) {
+                    .then(function (response) {
+                        const createdMemberGroupId = response.data.memberGroup.id;
                         if (createdMemberGroupId > 0) {
                             syncTree(createdMemberGroupId);
                             $location.url('/' + $routeParams.section + '/' + $routeParams.tree + '/' + $routeParams.method + '/' + createdMemberGroupId);
