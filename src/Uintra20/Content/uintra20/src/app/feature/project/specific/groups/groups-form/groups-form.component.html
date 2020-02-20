@@ -61,6 +61,7 @@
       <button
         *ngIf="edit && data.canHide"
         class="button-default"
+        [disabled]="hidingInProgress"
         (click)="onHide()">
         Hide
       </button>
