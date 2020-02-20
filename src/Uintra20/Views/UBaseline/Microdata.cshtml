@@ -1,0 +1,7 @@
+﻿@using Compent.Shared.Extensions.Bcl
+@model string
+
+@if (Model.HasValue())
+{
+    @Html.Raw(Json.Decode(Model))
+}

@@ -1,5 +1,5 @@
 import { IOwner } from 'src/app/feature/project/specific/activity/activity.interfaces';
-import { IULink } from 'src/app/feature/shared/interfaces/IULink';
+import { IULink } from 'src/app/feature/shared/interfaces/general.interface';
 
 export interface INavigationData {
   menuItems: INavigationItem[];

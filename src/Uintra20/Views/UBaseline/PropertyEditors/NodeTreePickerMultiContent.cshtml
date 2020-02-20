@@ -1,0 +1,15 @@
+﻿@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+@{
+    var value = Model.Value<IEnumerable<UBaseline.Shared.Node.INodeViewModel>>();
+}
+
+@if (value != null)
+{
+    foreach (var panel in value)
+    {
+        <section>
+            @Html.Action("Index", "PageContent", new { node = panel })
+        </section>
+    }
+}
