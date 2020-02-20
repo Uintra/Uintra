@@ -6,6 +6,7 @@ import { UbaselineCoreModule } from '@ubaseline/next';
 import { UintraGroupsMembersPage } from './uintra-groups-members-page.component';
 import { GroupDetailsWrapperModule } from 'src/app/feature/project/specific/groups/group-details-wrapper/group-details-wrapper.module';
 import { TextInputModule } from 'src/app/feature/project/reusable/inputs/fields/text-input/text-input.module';
+import { UserAvatarModule } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar.module';
 
 @NgModule({
   declarations: [UintraGroupsMembersPage],
@@ -15,6 +16,7 @@ import { TextInputModule } from 'src/app/feature/project/reusable/inputs/fields/
     UbaselineCoreModule,
     GroupDetailsWrapperModule,
     TextInputModule,
+    UserAvatarModule
   ],
   entryComponents: [UintraGroupsMembersPage]
 })
