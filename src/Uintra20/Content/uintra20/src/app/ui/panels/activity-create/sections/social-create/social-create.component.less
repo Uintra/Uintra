@@ -80,13 +80,23 @@
   opacity: 0;
   animation: fadeIn 0.2s ease-out forwards;
   max-height: 80vh;
-  overflow: auto;
+  overflow: visible;
 
   @media @md-up {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
+  }
+
+  & ::ng-deep .publication-header__content {
+    padding: 0;
+  }
+
+  & ::ng-deep .publication-header__title {
+    &:hover {
+      color: @text-color;
+    }
   }
 
   &__background {
