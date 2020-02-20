@@ -50,3 +50,80 @@ uintra-groups-members-page {
     margin-left: auto;
   }
 }
+
+.members-list {
+  margin-bottom: 20px;
+  margin-top: 30px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid @border-color;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+
+  &__avatar {
+    margin-right: 10px;
+  }
+
+  &__name {
+    flex: 1 0 30%;
+    max-width: 30%;
+    padding: 0 8px;
+
+    font-size: 16px;
+    line-height: 1.38;
+    font-weight: 700;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &__info {
+    flex: 1 0 40%;
+    max-width: 40%;
+    padding: 8px;
+
+    font-size: 13px;
+    line-height: 22px;
+    color: @body-text-color;
+    word-break: break-all;
+  }
+  &__group {
+    flex: 1 0 20%;
+    max-width: 20%;
+    padding: 8px;
+  }
+  &__remove {
+    text-align: right;
+    padding: 8px;
+
+    &-button {
+      .reset-button;
+      cursor: pointer;
+    }
+  }
+
+  @media @md-down {
+    &__item {
+      align-items: flex-start;
+      padding: 20px 10px;
+    }
+    &__avatar {
+      margin-top: 8px;
+    }
+    &__content {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    &__info,
+    &__group {
+      max-width: 100%;
+    }
+  }
+}
