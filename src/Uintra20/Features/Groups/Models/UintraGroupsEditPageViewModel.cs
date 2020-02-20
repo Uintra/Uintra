@@ -13,5 +13,6 @@ namespace Uintra20.Features.Groups.Models
         public GroupInfoViewModel Info { get; set; }
         public string AllowedMediaExtensions { get; set; }
         public Guid? GroupId { get; set; }
+        public bool CanEdit { get; set; }
     }
 }

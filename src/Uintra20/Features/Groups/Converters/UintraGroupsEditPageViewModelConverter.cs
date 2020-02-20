@@ -30,9 +30,9 @@ namespace Uintra20.Features.Groups.Converters
             if (!Guid.TryParse(idStr, out var id))
                 return;
 
-            var canEdit = _groupService.CanEdit(id);
+            viewModel.CanEdit = _groupService.CanEdit(id);
 
-            if (!canEdit)
+            if (!viewModel.CanEdit)
             {
                 return;
             }
