@@ -10,5 +10,6 @@ namespace Uintra20.Features.Groups.Models
         public PageSettingsCompositionViewModel PageSettings { get; set; }
         public GroupNavigationCompositionViewModel GroupNavigation { get; set; }
         public string AllowedMediaExtensions { get; set; }
+        public bool CanCreate { get; set; }
     }
 }
