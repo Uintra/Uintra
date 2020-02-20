@@ -1,5 +1,5 @@
 <div class="custom-table-wrapper">
-  <table class="custom-table">
+  <table class="custom-table" *ngIf="documents && documents.length">
     <thead>
       <tr class="custom-table__header">
         <th
@@ -45,4 +45,7 @@
       </tr>
     </tbody>
   </table>
+  <div *ngIf="!documents || !documents.length" class="custom-table__no-documents">
+    Documents list is empty
+  </div>
 </div>

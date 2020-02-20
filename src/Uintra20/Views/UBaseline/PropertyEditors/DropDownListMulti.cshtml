@@ -1,0 +1,12 @@
+﻿@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+<div>
+    <ul>
+        @foreach (var item in Model.Value<string[]>())
+        {
+            <li>
+                @item
+            </li>
+        }
+    </ul>
+</div>

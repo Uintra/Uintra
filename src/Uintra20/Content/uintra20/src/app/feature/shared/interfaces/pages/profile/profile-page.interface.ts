@@ -1,5 +1,5 @@
 import { IUserTag } from "src/app/feature/project/specific/activity/activity.interfaces";
-import { IULink } from '../../IULink';
+import { IULink } from '../../general.interface';
 
 export interface IProfilePage {
   title: string;

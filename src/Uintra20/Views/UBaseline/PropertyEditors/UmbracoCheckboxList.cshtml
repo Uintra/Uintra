@@ -1,0 +1,17 @@
+﻿@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+@{
+    var value = Model.Value<string[]>();
+}
+
+@if (value != null)
+{
+    <div>
+        <ul>
+            @foreach (var item in value)
+            {
+                <li>@item</li>
+            }
+        </ul>
+    </div>
+}

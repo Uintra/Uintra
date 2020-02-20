@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GroupsService } from '../groups.service';
-import { IUlinkWithTitle } from 'src/app/feature/shared/interfaces/IULink';
+import { IUlinkWithTitle } from 'src/app/feature/shared/interfaces/general.interface';
 
 export interface IGroupDetailsHeaderMapedData {
   title: IUlinkWithTitle;

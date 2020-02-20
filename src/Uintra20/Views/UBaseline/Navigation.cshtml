@@ -1,0 +1,12 @@
+﻿@using Compent.Shared.Extensions.Bcl
+@model IEnumerable<UBaseline.Core.Navigation.TopNavigationItemModel>
+
+@if (Model?.HasValue() == true)
+{
+    <nav style="width:500px;">
+        @foreach (var item in Model)
+        {
+            <a href="@item.Url">@item.Title</a>
+        }
+    </nav>
+}
