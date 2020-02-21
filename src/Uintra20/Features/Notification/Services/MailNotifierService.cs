@@ -106,7 +106,6 @@ namespace Uintra20.Features.Notification.Services
                 case (int)NotificationTypeEnum.CommentLikeAdded:
                 case (int)NotificationTypeEnum.MonthlyMail:
                 case (int)IntranetActivityTypeEnum.ContentPage:
-                case (int)IntranetActivityTypeEnum.PagePromotion:
                     activityType = CommunicationTypeEnum.CommunicationSettings;
                     break;
                 default:
