@@ -12,5 +12,6 @@ namespace Uintra20.Features.Groups.Models
         public GroupNavigationCompositionViewModel GroupNavigation { get; set; }
         public string AllowedMediaExtensions { get; set; }
         public Guid? GroupId { get; set; }
+        public bool CanUpload { get; set; }
     }
 }
