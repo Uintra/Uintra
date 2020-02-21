@@ -7,6 +7,8 @@ import { ProfileService } from './services/profile.service';
 import { finalize } from 'rxjs/operators';
 import { NotifierTypeEnum } from 'src/app/feature/shared/enums/notifier-type.enum';
 import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
+import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'profile-edit-page',
@@ -25,7 +27,8 @@ export class ProfileEditPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private profileService: ProfileService,
-    private addButtonService: AddButtonService
+    private addButtonService: AddButtonService,
+    private hasDataChangedService: HasDataChangedService,
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
@@ -128,5 +131,17 @@ export class ProfileEditPage implements OnInit {
           this.profileEdit.member.photo = null;
         }
       );
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.hasDataChangedService.hasDataChanged) {
+      if(confirm('Are you sure?')) {
+        return true;
+      }
+
+      return false;
+    }
+
+    return true;
   }
 }

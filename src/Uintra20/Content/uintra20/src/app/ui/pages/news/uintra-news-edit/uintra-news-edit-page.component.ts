@@ -10,6 +10,8 @@ import { ActivityService } from "src/app/feature/project/specific/activity/activ
 import { ParamsPipe } from "src/app/services/pipes/link/params.pipe";
 import { RouterResolverService } from 'src/app/services/general/router-resolver.service';
 import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
+import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: "uintra-news-edit-page",
@@ -31,7 +33,8 @@ export class UintraNewsEditPage implements OnInit {
     private activityService: ActivityService,
     private router: Router,
     private routerResolverService: RouterResolverService,
-    private addButtonService: AddButtonService
+    private addButtonService: AddButtonService,
+    private hasDataChangedService: HasDataChangedService,
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
@@ -93,5 +96,17 @@ export class UintraNewsEditPage implements OnInit {
     copyObject["id"] = this.details.id;
 
     return copyObject;
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.hasDataChangedService.hasDataChanged) {
+      if(confirm('Are you sure?')) {
+        return true;
+      }
+
+      return false;
+    }
+
+    return true;
   }
 }

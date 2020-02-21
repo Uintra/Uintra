@@ -1,7 +1,7 @@
 <div>
   <ng-select2
     [options]="{width: '100%'}"
-    [ngModel]="selectedItem.id"
+    [ngModel]="selectedItem?.id"
     (ngModelChange)="onSelectChange($event)"
     [data]="items">
   </ng-select2>

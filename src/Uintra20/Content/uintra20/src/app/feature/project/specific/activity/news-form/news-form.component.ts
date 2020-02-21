@@ -33,7 +33,7 @@ export class NewsFormComponent implements OnInit {
   @Output() handleSubmit = new EventEmitter();
   @Output() handleCancel = new EventEmitter();
   @HostListener('window:beforeunload') doSomething() {
-    return false;
+    return !this.hasDataChangedService.hasDataChanged;
   }
 
   isShowValidation: boolean;
@@ -96,56 +96,44 @@ export class NewsFormComponent implements OnInit {
   // File functions
   onUploadSuccess(fileArray: Array<any> = []): void {
     this.files.push(fileArray);
-    if (this.checkIfDataChanged()) {
-      this.hasDataChangedService.onDataChanged();
-    }
+    this.hasDataChangedService.onDataChanged();
   }
   onFileRemoved(removedFile: object) {
     this.files = this.files.filter(file => file[0] !== removedFile);
-    if (this.checkIfDataChanged()) {
-      this.hasDataChangedService.onDataChanged();
-    }
+    this.hasDataChangedService.onDataChanged();
   }
   public handleImageRemove(image): void {
     this.newsData.media.medias = this.newsData.media.medias.filter(
       m => m !== image
     );
-    if (this.checkIfDataChanged()) {
-      this.hasDataChangedService.onDataChanged();
-    }
+    this.hasDataChangedService.onDataChanged();
   }
   public handleFileRemove(file): void {
     this.newsData.media.otherFiles = this.newsData.media.otherFiles.filter(
       m => m !== file
     );
-    if (this.checkIfDataChanged()) {
-      this.hasDataChangedService.onDataChanged();
-    }
+    this.hasDataChangedService.onDataChanged();
   }
 
   // Data set functions
   setDatePickerValue(value: IDatepickerData = {}) {
+    if (this.newsData.publishDate) {
+      this.hasDataChangedService.onDataChanged();
+    }
     this.pinActivityService.setPublishDates(value);
     this.newsData.publishDate = value.from;
     this.newsData.unpublishDate = value.to;
-    // if (this.checkIfDataChanged()) {
-    //   this.hasDataChangedService.onDataChanged();
-    // }
   }
   setPinValue(value: IPinedData) {
     this.newsData.endPinDate = value.pinDate;
     this.newsData.isPinned = value.isPinCheked;
     this.isAccepted = value.isAccepted;
-    // if (this.checkIfDataChanged()) {
-    //   this.hasDataChangedService.onDataChanged();
-    // }
+    this.hasDataChangedService.onDataChanged();
   }
   setLocationValue(location: ILocationResult): void {
     this.newsData.location.address = location.address;
     this.newsData.location.shortAddress = location.shortAddress;
-    if (this.checkIfDataChanged()) {
-      this.hasDataChangedService.onDataChanged();
-    }
+    this.hasDataChangedService.onDataChanged();
   }
 
   // Main submit function
@@ -175,19 +163,6 @@ export class NewsFormComponent implements OnInit {
     );
   }
 
-  checkIfDataChanged() {
-    return this.newsData.ownerId !== this.defaultOwner.id
-      || this.newsData.title.length
-      || this.newsData.description.length
-      || this.selectedTags.length
-      || this.initialDates.from !== this.newsData.publishDate
-      || this.initialDates.to !== this.newsData.unpublishDate
-      || this.initialLocation !== this.newsData.location.address
-      || this.newsData.location.shortAddress
-      || this.newsData.isPinned
-      || this.files.length;
-  }
-
   private newsDataBuilder(): void {
     this.newsData.newMedia = this.getMediaIdsForResponse();
     this.newsData.tagIdsData = this.getTagsForResponse();
@@ -195,9 +170,23 @@ export class NewsFormComponent implements OnInit {
 
   changeOwner(e) {
     this.newsData.ownerId = e;
-    // if (this.checkIfDataChanged()) {
-    //   this.hasDataChangedService.onDataChanged();
-    // }
+    if (this.defaultOwner.id !== e.id) {
+      this.hasDataChangedService.onDataChanged();
+    }
+  }
+
+  onTitleChange(e) {
+    if (this.newsData.title != e) {
+      this.hasDataChangedService.onDataChanged();
+    }
+    this.newsData.title = e;
+  }
+
+  onDescriptionChange(e) {
+    if (this.newsData.description != e) {
+      this.hasDataChangedService.onDataChanged();
+    }
+    this.newsData.description = e;
   }
 
   // TODO: move to service

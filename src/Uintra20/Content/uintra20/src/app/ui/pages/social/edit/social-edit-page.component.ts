@@ -7,6 +7,8 @@ import { ISocialEdit } from 'src/app/feature/project/specific/activity/activity.
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RouterResolverService } from 'src/app/services/general/router-resolver.service';
 import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
+import { Observable } from 'rxjs';
+import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
 
 @Component({
   selector: 'social-edit',
@@ -27,7 +29,8 @@ export class SocialEditPageComponent {
     private socialService: ActivityService,
     private router: Router,
     private routerResolverService: RouterResolverService,
-    private addButtonService: AddButtonService
+    private addButtonService: AddButtonService,
+    private hasDataChangedService: HasDataChangedService,
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
@@ -119,5 +122,17 @@ export class SocialEditPageComponent {
     this.socialEditForm = new FormGroup({
       description: new FormControl(this.socialEdit.description, Validators.required)
     });
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.hasDataChangedService.hasDataChanged) {
+      if(confirm('Are you sure?')) {
+        return true;
+      }
+
+      return false;
+    }
+
+    return true;
   }
 }
