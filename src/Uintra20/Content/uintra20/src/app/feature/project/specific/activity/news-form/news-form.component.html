@@ -20,7 +20,7 @@
     <h3 class="description__title subtitle required">News description</h3>
     <app-rich-text-editor
     [(ngModel)]="newsData.description"
-    [ngClass]="{'invalid': isShowValidation && !newsData.description.trim()}"
+    [ngClass]="{'invalid': isShowValidation && !getStripDescription()}"
       class="description__rte"
       [isEditing]="true"
       [isDropzone]="false"
