@@ -1,8 +1,6 @@
 <div ng-controller="EnumList">
-
     <select name="dropDownList"
             class="umb-editor umb-dropdown"
             ng-model="model.value"
-            ng-options="e as e for e in enumItems"></select>
-
+            ng-options="item.key as item.value for item in enumItems"></select>
 </div>

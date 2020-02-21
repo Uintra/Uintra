@@ -5,6 +5,7 @@ import { GroupsService } from 'src/app/feature/project/specific/groups/groups.se
 import { IGroupRoomData } from 'src/app/feature/project/specific/groups/groups.interface';
 import { RouterResolverService } from 'src/app/services/general/router-resolver.service';
 import { IULink } from 'src/app/feature/shared/interfaces/general.interface';
+import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
 
 @Component({
   selector: 'uintra-groups-room-page',
@@ -22,10 +23,12 @@ export class UintraGroupsRoomPage {
     private groupsService: GroupsService,
     private router: Router,
     private routerResolverService: RouterResolverService,
+    private addButtonService: AddButtonService
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
       this.parsedData = ParseHelper.parseUbaselineData(data);
+      this.addButtonService.setPageId(data.id);
     });
   }
 

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Linq;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
-using UBaseline.Shared.PanelContainer;
-using Uintra20.Core.Activity.Models;
 using Uintra20.Features.Links.Models;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
@@ -37,7 +34,7 @@ namespace Uintra20.Core.Activity.Helpers
         {
             var pageAlias = _aliasProvider.GetDetailsPage(activityType);
             var detailsPageUrl = _nodeModelService.GetByAlias(pageAlias, _uBaselineRequestContext.Node.RootId)?.Url;
-            
+
             return activityId.HasValue
                 ? detailsPageUrl.AddIdParameter(activityId).ToLinkModel()
                 : detailsPageUrl.ToLinkModel();
@@ -45,25 +42,26 @@ namespace Uintra20.Core.Activity.Helpers
 
         public UintraLinkModel GetCreatePageUrl(Enum activityType)
         {
-            var createUrl = _nodeModelService
-                .AsEnumerable()
-                .Where(n => n is IPanelsComposition panel)
-                .FirstOrDefault(n =>
-                {
-                    var panels = ((IPanelsComposition)n).Panels.Value.Panels;
-                    var isLocalActivityCreate = panels
-                        .OfType<LocalPanelModel>()
-                        .Any(lp => lp.Node is ActivityCreatePanelModel ac && ac.TabType.Value == activityType.ToString());
 
-                    var isGlobalActivityCreate = panels
-                        .OfType<GlobalPanelModel>()
-                        .Any(lp => _nodeModelService.Get(lp.NodeId) is ActivityCreatePanelModel ac && ac.TabType.Value == activityType.ToString());
+            var intranetActivityType = activityType is IntranetActivityTypeEnum @enum ? @enum : 0;
+            var pageAlias = _aliasProvider.GetCreatePage(activityType);
 
-                    return isLocalActivityCreate || isGlobalActivityCreate;
-                })
-                ?.Url;
+            switch (intranetActivityType)
+            {
+                case IntranetActivityTypeEnum.News:
+                case IntranetActivityTypeEnum.Events:
+                    {
+                        var createPage = _nodeModelService.GetByAlias(pageAlias, _uBaselineRequestContext.Node.RootId)?.Url?.ToLinkModel();
+                        return createPage;
+                    }
 
-            return createUrl.ToLinkModel();
+                case IntranetActivityTypeEnum.Social:
+                    return null;
+                case IntranetActivityTypeEnum.ContentPage:
+                    return null;
+            }
+
+            return null;
         }
 
         public UintraLinkModel GetEditPageUrl(Enum activityType, Guid activityId)

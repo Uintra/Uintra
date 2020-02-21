@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
+using Uintra20.Attributes;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
@@ -30,6 +31,7 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Social.Controllers
 {
+    [ValidateModel]
     public class SocialController : UBaselineApiController, IFeedHub
     {
         private readonly ISocialService<Entities.Social> _socialService;
@@ -71,10 +73,8 @@ namespace Uintra20.Features.Social.Controllers
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> CreateExtended(SocialExtendedCreateModel model)
+        public async Task<IHttpActionResult> CreateExtended(SocialCreateModel model)
         {
-            if (!ModelState.IsValid) return BadRequest();
-
             if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create,
                 PermissionResourceTypeEnum.Social)))
             {
@@ -98,10 +98,8 @@ namespace Uintra20.Features.Social.Controllers
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> Update(SocialExtendedEditModel editModel)
+        public async Task<IHttpActionResult> Update(SocialEditModel editModel)
         {
-            if (!ModelState.IsValid) return BadRequest();
-
             if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Edit,
                 PermissionResourceTypeEnum.Social)))
             {
@@ -185,20 +183,15 @@ namespace Uintra20.Features.Social.Controllers
 
         private void OnBulletinEdited(SocialBase social, SocialEditModel model)
         {
-            if (model is SocialExtendedEditModel extendedModel)
-            {
-                _activityTagsHelper.ReplaceTags(social.Id, extendedModel.TagIdsData);
-            }
+
+            _activityTagsHelper.ReplaceTags(social.Id, model.TagIdsData);
 
             ResolveMentions(model.Description, social);
         }
 
         private async Task OnBulletinEditedAsync(SocialBase social, SocialEditModel model)
         {
-            if (model is SocialExtendedEditModel extendedModel)
-            {
-                await _activityTagsHelper.ReplaceTagsAsync(social.Id, extendedModel.TagIdsData);
-            }
+            await _activityTagsHelper.ReplaceTagsAsync(social.Id, model.TagIdsData);
 
             await ResolveMentionsAsync(model.Description, social);
         }
@@ -224,10 +217,8 @@ namespace Uintra20.Features.Social.Controllers
             var extendedBulletin = _socialService.Get(social.Id);
             extendedBulletin.GroupId = groupId;
 
-            if (model is SocialExtendedCreateModel extendedModel)
-            {
-                _activityTagsHelper.ReplaceTags(social.Id, extendedModel.TagIdsData);
-            }
+
+            _activityTagsHelper.ReplaceTags(social.Id, model.TagIdsData);
 
             if (model.Description.HasValue())
             {
@@ -235,7 +226,7 @@ namespace Uintra20.Features.Social.Controllers
             }
         }
 
-        private async Task OnBulletinCreatedAsync(SocialBase social, SocialExtendedCreateModel model)
+        private async Task OnBulletinCreatedAsync(SocialBase social, SocialCreateModel model)
         {
             if (model.GroupId.HasValue)
                 await _groupActivityService.AddRelationAsync(model.GroupId.Value, social.Id);
@@ -243,10 +234,7 @@ namespace Uintra20.Features.Social.Controllers
             var extendedBulletin = _socialService.Get(social.Id);
             extendedBulletin.GroupId = model.GroupId;
 
-            if (model is SocialExtendedCreateModel extendedModel)
-            {
-                await _activityTagsHelper.ReplaceTagsAsync(social.Id, extendedModel.TagIdsData);
-            }
+            await _activityTagsHelper.ReplaceTagsAsync(social.Id, model.TagIdsData);
 
             if (model.Description.HasValue())
             {

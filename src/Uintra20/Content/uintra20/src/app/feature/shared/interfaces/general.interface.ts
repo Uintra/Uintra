@@ -18,4 +18,5 @@ export interface ICreator {
   email: string;
   loginName: string;
   inactive: boolean;
+  profileLink?: IULink;
 }

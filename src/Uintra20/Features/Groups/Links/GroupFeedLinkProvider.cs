@@ -25,7 +25,6 @@ namespace Uintra20.Features.Groups.Links
                 Details = _activityPageHelper.GetDetailsPageUrl(activity.Type, activity.Id).AddGroupId(activity.GroupId),
                 Edit = _activityPageHelper.GetEditPageUrl(activity.Type, activity.Id).AddGroupId(activity.GroupId),
                 Owner = GetProfileLink(activity.OwnerId),
-                DetailsNoId = _activityPageHelper.GetDetailsPageUrl(activity.Type).AddGroupId(activity.GroupId)
             };
         }
 
@@ -38,7 +37,6 @@ namespace Uintra20.Features.Groups.Links
                 Overview = null,//helper.GetOverviewPageUrl().AddGroupId(model.GroupId),//TODO: Research overview pages
                 Create = _activityPageHelper.GetCreatePageUrl(model.Type)?.AddGroupId(model.GroupId),
                 Owner = GetProfileLink(model.OwnerId),
-                DetailsNoId = _activityPageHelper.GetDetailsPageUrl(model.Type).AddGroupId(model.GroupId)
             };
         }
     }

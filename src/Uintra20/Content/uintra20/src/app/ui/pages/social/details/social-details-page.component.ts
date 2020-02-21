@@ -7,6 +7,7 @@ import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { ICommentData } from 'src/app/feature/project/reusable/ui-elements/comments/comments.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ISocialDetails, IUserTag, IMedia, IDocument } from 'src/app/feature/project/specific/activity/activity.interfaces';
+import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
 
 @Component({
   selector: 'social-details',
@@ -30,9 +31,13 @@ export class SocialDetailsPanelComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private addButtonService: AddButtonService
   ) {
-    this.activatedRoute.data.subscribe(data => this.data = data);
+    this.activatedRoute.data.subscribe(data => {
+      this.data = data;
+      this.addButtonService.setPageId(data.id);
+    });
   }
 
   public ngOnInit(): void {

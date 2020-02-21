@@ -7,6 +7,7 @@ using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.News;
 using Uintra20.Features.News.Entities;
@@ -29,6 +30,7 @@ namespace Uintra20.Core.Activity.Converters
         private readonly IPermissionsService _permissionsService;
         private readonly IUserTagProvider _tagProvider;
         private readonly IFeedLinkService _feedLinkService;
+        private readonly IGroupMemberService _groupMemberService;
 
         public ActivityCreatePanelViewModelConverter(
             INewsService<News> newsService,
@@ -36,7 +38,8 @@ namespace Uintra20.Core.Activity.Converters
             IIntranetMemberService<IntranetMember> memberService, 
             IPermissionsService permissionsService,
             IUserTagProvider tagProvider,
-            IFeedLinkService feedLinkService)
+            IFeedLinkService feedLinkService,
+            IGroupMemberService groupMemberService)
         {
             _socialService = socialService;
             _memberService = memberService;
@@ -44,6 +47,7 @@ namespace Uintra20.Core.Activity.Converters
             _tagProvider = tagProvider;
             _newsService = newsService;
             _feedLinkService = feedLinkService;
+            _groupMemberService = groupMemberService;
         }
 
         public void Map(ActivityCreatePanelModel node, ActivityCreatePanelViewModel viewModel)
@@ -52,11 +56,26 @@ namespace Uintra20.Core.Activity.Converters
             var currentMember = _memberService.GetCurrentMember();
             var permissionResourceType = (PermissionResourceTypeEnum)activityType;
 
+            viewModel.CanCreate = _permissionsService.Check(permissionResourceType, PermissionActionEnum.Create);
+
+            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            Guid? groupId = null;
+            if (Guid.TryParse(groupIdStr, out var parsedGroupId))
+            {
+                groupId = parsedGroupId;
+                viewModel.CanCreate = viewModel.CanCreate &&
+                                         _groupMemberService.IsGroupMember(parsedGroupId, currentMember.Id);
+            }
+
+            if (!viewModel.CanCreate)
+            {
+                return;
+            }
+
+            viewModel.CanEditOwner = _permissionsService.Check(permissionResourceType, PermissionActionEnum.EditOwner);
             viewModel.ActivityType = activityType;
             viewModel.Creator = currentMember.ToViewModel();
             viewModel.PinAllowed = _permissionsService.Check(permissionResourceType, PermissionActionEnum.CanPin);
-            viewModel.CanCreate = _permissionsService.Check(permissionResourceType, PermissionActionEnum.Create);
-            viewModel.CanEditOwner = _permissionsService.Check(permissionResourceType, PermissionActionEnum.EditOwner);
             if (viewModel.CanEditOwner)
                 viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, permissionResourceType));
 
@@ -81,13 +100,12 @@ namespace Uintra20.Core.Activity.Converters
                 _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create
                 : null;
 
-            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
-            if (!Guid.TryParse(groupIdStr, out var groupId))
+            if(!groupId.HasValue)
                 return;
 
             viewModel.GroupId = groupId;
 
-            viewModel.CreateNewsLink = viewModel.CreateNewsLink?.AddGroupId(groupId);
+            viewModel.CreateNewsLink = viewModel.CreateNewsLink?.AddGroupId(groupId.Value);
             //viewModel.CreateEventsLink = viewModel.CreateEventsLink?.AddGroupId(groupId);
 
 
