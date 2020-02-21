@@ -1,8 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { GroupsService } from 'src/app/feature/project/specific/groups/groups.service';
 import { IGroupRoomData } from 'src/app/feature/project/specific/groups/groups.interface';
+import { RouterResolverService } from 'src/app/services/general/router-resolver.service';
+import { IULink } from 'src/app/feature/shared/interfaces/general.interface';
 
 @Component({
   selector: 'uintra-groups-room-page',
@@ -18,6 +20,8 @@ export class UintraGroupsRoomPage {
   constructor(
     private route: ActivatedRoute,
     private groupsService: GroupsService,
+    private router: Router,
+    private routerResolverService: RouterResolverService,
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
@@ -28,7 +32,7 @@ export class UintraGroupsRoomPage {
   toggleSubscribe() {
     this.isLoading = true;
     this.groupsService.toggleSubscribe(this.parsedData.groupId)
-      .then(res => {
+      .then((res: IULink) => {
         if (this.parsedData.groupInfo.isMember) {
           this.parsedData.groupInfo.membersCount -= 1;
           this.parsedData.groupInfo.isMember = false;
@@ -36,6 +40,7 @@ export class UintraGroupsRoomPage {
           this.parsedData.groupInfo.membersCount += 1;
           this.parsedData.groupInfo.isMember = true;
         }
+        this.routerResolverService.removePageRouter(res.originalUrl);
       })
       .finally(() => {
         this.isLoading = false;
