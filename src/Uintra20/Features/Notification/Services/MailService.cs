@@ -27,8 +27,9 @@ namespace Uintra20.Features.Notification.Services
 
         public void Send(MailBase mail)
         {
-	        var email = mail as IEmailBase;
-	        if (email != null)
+            var email = mail; //as IEmailBase;//TODO: Research for what IEmailBase
+
+            if (email != null)
 			{
 				foreach (var recipient in mail.Recipients)
 				{
@@ -55,7 +56,7 @@ namespace Uintra20.Features.Notification.Services
 
         public void ProcessMails(int? count = null, int? mailId = null)
         {
-            _emailJobSenderService.SendMails(string.Empty, count, mailId);
+            var result = _emailJobSenderService.SendMails(string.Empty, count, mailId);
         }
 
         public void SendMailByTypeAndDay(MailBase mail, string email, DateTime date,
