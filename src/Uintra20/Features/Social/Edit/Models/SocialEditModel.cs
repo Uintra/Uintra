@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 using Uintra20.Attributes;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Features.LinkPreview.Models;
@@ -22,5 +22,6 @@ namespace Uintra20.Features.Social.Edit.Models
         public LinkPreviewViewModel LinkPreview { get; set; }
         public int? LinkPreviewId { get; set; }
         public bool CanDelete { get; set; }
+        public IEnumerable<Guid> TagIdsData { get; set; }
     }
 }
