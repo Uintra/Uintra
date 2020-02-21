@@ -1,7 +1,7 @@
 {
   "PanelContainerSettings": {
     "ParentFolderName": "Panels",
-    "HiddenPanelAliases": [ "basePanel" ],
+    "HiddenPanelAliases": [ "basePanel", "mapPanel" ],
     "GlobalPanelFolderXPath": "//*[@isDoc and @id=$nodeId]/ancestor-or-self::*[@isDoc]/dataFolder/panelsFolder//*[@isDoc]",
     "PanelItemSettings": [
       //{

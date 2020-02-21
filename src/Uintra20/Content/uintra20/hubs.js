@@ -67,23 +67,18 @@
       registerHubProxies(proxies, false);
     });
 
-    proxies['notificationsHub'] = this.createHubProxy('notificationsHub');
-    proxies['notificationsHub'].client = {};
-    proxies['notificationsHub'].server = {
+    proxies['uintraHub'] = this.createHubProxy('uintraHub');
+    proxies['uintraHub'].client = {};
+    proxies['uintraHub'].server = {
       getNotNotifiedCount: function () {
-        return proxies['notificationsHub'].invoke.apply(proxies['notificationsHub'], $.merge(["GetNotNotifiedCount"], $.makeArray(arguments)));
+        return proxies['uintraHub'].invoke.apply(proxies['uintraHub'], $.merge(["GetNotNotifiedCount"], $.makeArray(arguments)));
       }
     };
 
     proxies['previewHub'] = this.createHubProxy('previewHub');
     proxies['previewHub'].client = {};
     proxies['previewHub'].server = {
-    };
-
-    proxies['centralFeedHub'] = this.createHubProxy('centralFeedHub');
-    proxies['centralFeedHub'].client = {};
-    proxies['centralFeedHub'].server = {
-    };
+    };    
 
     proxies['uSyncHub'] = this.createHubProxy('uSyncHub');
     proxies['uSyncHub'].client = {};

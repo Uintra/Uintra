@@ -6,8 +6,6 @@ using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Helpers;
-using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.Helpers;
 using Uintra20.Features.Comments.Services;
@@ -33,7 +31,6 @@ namespace Uintra20.Features.Social.Details.Converters
         private readonly ISocialService<Entities.Social> _socialService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly ILightboxHelper _lightboxHelper;
-        private readonly IMemberServiceHelper _memberHelper;
 
         public SocialDetailsPageViewModelConverter(
             IFeedLinkService feedLinkService,
@@ -43,8 +40,7 @@ namespace Uintra20.Features.Social.Details.Converters
             ICommentsService commentsService,
             ISocialService<Entities.Social> socialsService,
             ICommentsHelper commentsHelper,
-            ILightboxHelper lightboxHelper,
-            IMemberServiceHelper memberHelper)
+            ILightboxHelper lightboxHelper)
         {
             _feedLinkService = feedLinkService;
             _userTagService = userTagService;
@@ -54,7 +50,6 @@ namespace Uintra20.Features.Social.Details.Converters
             _socialService = socialsService;
             _memberService = memberService;
             _lightboxHelper = lightboxHelper;
-            _memberHelper = memberHelper;
         }
 
         public void Map(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
@@ -65,30 +60,37 @@ namespace Uintra20.Features.Social.Details.Converters
                 return;
 
             var userId = _memberService.GetCurrentMemberId();
+            var social = _socialService.Get(parseId);
 
-            viewModel.Details = GetViewModel(parseId);
+            viewModel.Details = GetViewModel(social);
             viewModel.Tags = _userTagService.Get(parseId);
             viewModel.Likes = _likesService.GetLikeModels(parseId);
             viewModel.LikedByCurrentUser = viewModel.Likes.Any(l => l.UserId == userId);
             viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(parseId));
+            viewModel.CanEdit = _socialService.CanEdit(parseId);
+
+            var groupIdStr = HttpContext.Current.Request["groupId"];
+            if (!Guid.TryParse(groupIdStr, out var groupId) || social.GroupId != groupId)
+                return;
+
+            viewModel.RequiresGroupHeader = true;
+            viewModel.GroupId = groupId;
         }
 
-        protected SocialExtendedViewModel GetViewModel(Guid id)
+        protected SocialExtendedViewModel GetViewModel(Entities.Social social)
         {
-            var social = _socialService.Get(id);
-
             var viewModel = social.Map<SocialViewModel>();
 
             viewModel.Media = MediaHelper.GetMediaUrls(social.MediaIds);
 
             viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, PresetStrategies.ForActivityDetails);
             viewModel.CanEdit = _socialService.CanEdit(social);
-            viewModel.Links = _feedLinkService.GetLinks(id);
+            viewModel.Links = _feedLinkService.GetLinks(social.Id);
             viewModel.IsReadOnly = false;
             viewModel.HeaderInfo = social.Map<IntranetActivityDetailsHeaderViewModel>();
             viewModel.HeaderInfo.Dates = social.PublishDate.ToDateTimeFormat().ToEnumerable();
-            viewModel.HeaderInfo.Owner = _memberHelper.ToViewModel(_memberService.Get(social));
-            viewModel.HeaderInfo.Links = _feedLinkService.GetLinks(id);
+            viewModel.HeaderInfo.Owner = _memberService.Get(social).ToViewModel();
+            viewModel.HeaderInfo.Links = _feedLinkService.GetLinks(social.Id);
 
             var extendedModel = viewModel.Map<SocialExtendedViewModel>();
 

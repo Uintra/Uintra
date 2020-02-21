@@ -205,7 +205,7 @@ namespace Uintra20.Core.Activity
             var isOwner = ownerId == currentMember.Id;
 
             var act = isOwner ? action : administrationAction;
-            var result = await _permissionsService.CheckAsync(currentMember, PermissionSettingIdentity.Of(act, PermissionActivityType));
+            var result = await _permissionsService.CheckAsync(currentMember, new PermissionSettingIdentity(act, PermissionActivityType));
 
             return result;
         }
@@ -365,7 +365,7 @@ namespace Uintra20.Core.Activity
             var isOwner = ownerId == currentMember.Id;
 
             var act = isOwner ? action : administrationAction;
-            var result = _permissionsService.Check(currentMember, PermissionSettingIdentity.Of(act, PermissionActivityType));
+            var result = _permissionsService.Check(currentMember, new PermissionSettingIdentity(act, PermissionActivityType));
 
             return result;
         }

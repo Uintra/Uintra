@@ -1,0 +1,72 @@
+<app-group-details-wrapper [id]="data?.groupId">
+  <div class="page-wrapper row-flex">
+    <div class="group-members-wrapper col-md-8">
+      <div class="group-members">
+        <h2 class="group-members__title">
+          Group Members
+        </h2>
+        <h3 class="group-members__search-title">Search people</h3>
+        <div class="search-wrapper">
+          <text-input
+            type="search"
+            placeholder="Search for name, phone number, e-mail or anything else"
+            class="search"
+          >
+          </text-input>
+          <span class="icon-search-icon"></span>
+        </div>
+        <button class="button-default pop-up-btn">Invite member</button>
+
+        <div class="members-list">
+          <div class="members-list__item">
+            <div class="members-list__avatar">
+              <app-user-avatar></app-user-avatar>
+            </div>
+
+            <div class="members-list__content">
+              <div class="members-list__name">admin 123111111</div>
+
+              <div class="members-list__info">
+                <p>Email:admin@testmember.com</p>
+                <p>Phone:123123</p>
+                <p>Department:123123</p>
+              </div>
+              <div class="members-list__group">
+                <span>Group Admin</span>
+              </div>
+            </div>
+            <div class="members-list__remove">
+              <button class="members-list__remove-button">
+                <span class="icon-close"></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="members-list__item">
+            <div class="members-list__avatar">
+              <app-user-avatar></app-user-avatar>
+            </div>
+
+            <div class="members-list__content">
+              <div class="members-list__name">erg</div>
+
+              <div class="members-list__info">
+                <p>Email:admin@trgergergestmember.com</p>
+                <p>Phone:123123</p>
+                <p>Department:123123</p>
+              </div>
+              <div class="members-list__group">
+                <span>Admin</span>
+              </div>
+            </div>
+            <div class="members-list__remove">
+              <button class="members-list__remove-button">
+                <span class="icon-close"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-group-details-wrapper>

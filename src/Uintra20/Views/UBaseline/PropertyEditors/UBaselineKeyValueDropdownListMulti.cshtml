@@ -1,0 +1,11 @@
+﻿@using UBaseline.Shared.Models
+@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+<div>
+    <ul>
+        @foreach (var item in Model.Value<KeyValueModel<string, string>[]>())
+        {
+            <li>@item.Value</li>
+        }
+    </ul>
+</div>

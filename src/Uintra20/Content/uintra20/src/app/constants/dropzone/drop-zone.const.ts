@@ -8,3 +8,4 @@ export const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     addRemoveLinks: true,
     createImageThumbnails: true
 };
+export const MAX_FILES_FOR_SINGLE = 1;

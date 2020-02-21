@@ -1,16 +1,24 @@
-<!-- <app-news-form
-  [data]="newsData"
-  [members]="members"
-  [creator]="creator"
-  [tags]="tags"
-  (handleSubmit)="onSubmit($event)"
-></app-news-form>
- -->
+<ng-container *ngIf="panelData?.canEdit">
+  <app-group-details-wrapper *ngIf="panelData?.groupId" [id]="panelData.groupId">
+    <div class="page-wrapper">
+      <app-news-form
+        class="group-details-padding"
+        [data]="newsData"
+        [members]="members"
+        [creator]="creator"
+        [tags]="tags"
+        (handleSubmit)="onSubmit($event)"
+      ></app-news-form>
+    </div>
+  </app-group-details-wrapper>
 
-<app-news-form
-  [data]="newsData"
-  [members]="members"
-  [creator]="creator"
-  [tags]="tags"
-  (handleSubmit)="onSubmit($event)"
-></app-news-form>
+  <div *ngIf="!panelData?.groupId" class="page-wrapper">
+    <app-news-form
+      [data]="newsData"
+      [members]="members"
+      [creator]="creator"
+      [tags]="tags"
+      (handleSubmit)="onSubmit($event)"
+    ></app-news-form>
+  </div>
+</ng-container>

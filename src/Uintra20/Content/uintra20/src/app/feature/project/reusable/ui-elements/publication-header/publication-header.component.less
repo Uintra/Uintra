@@ -37,12 +37,14 @@
     text-decoration: none;
     margin-bottom: 5px;
 
-    &:hover {
-      color: @link-color;
+    &--link {
+      &:hover {
+        color: @link-color;
+      }
     }
   }
 
-  &__subtitle {
+  &__subtitle-container {
     .small;
     color: @text-color--light;
   }
@@ -50,4 +52,15 @@
   &__label {
     margin-left: auto;
   }
+
+  &__group {
+    &-link {
+      .link;
+    }
+  }
+}
+
+.icon-group {
+  font-size: 13px;
+  color: @body-text-color;
 }

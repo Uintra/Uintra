@@ -1,9 +1,12 @@
 ﻿using Compent.CommandBus;
 using Uintra20.Features.Comments.CommandBus;
 using Uintra20.Features.Comments.CommandBus.Commands;
+using Uintra20.Features.Groups.CommandBus;
+using Uintra20.Features.Groups.CommandBus.Commands;
 using Uintra20.Features.Likes.CommandBus;
 using Uintra20.Features.Likes.CommandBus.Commands;
 using Uintra20.Features.Media;
+using Uintra20.Features.News;
 using Uintra20.Features.Social;
 using Uintra20.Features.Social.Entities;
 
@@ -55,13 +58,13 @@ namespace Uintra20
 
         private static void ConfigureGroupBindings(BindingBuilder builder)
         {
-            //builder.HandleCommand<HideGroupCommand>()
-            //    .WithHandle<GroupHandle>()
-            //    .WithHandle<GroupActivitiesHandle>();
+            builder.HandleCommand<HideGroupCommand>()
+                .WithHandle<GroupHandle>()
+                .WithHandle<GroupActivitiesHandle>();
 
-            //builder.HandleCommand<UnhideGroupCommand>()
-            //    .WithHandle<GroupHandle>()
-            //    .WithHandle<GroupActivitiesHandle>();
+            builder.HandleCommand<UnhideGroupCommand>()
+                .WithHandle<GroupHandle>()
+                .WithHandle<GroupActivitiesHandle>();
         }
 
         private static void ConfigureMediaBindings(BindingBuilder builder)

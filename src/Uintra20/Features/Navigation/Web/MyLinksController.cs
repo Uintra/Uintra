@@ -7,7 +7,6 @@ using UBaseline.Core.Controllers;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Navigation.Exception;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Features.Navigation.Models.MyLinks;
 using Uintra20.Features.Navigation.Services;
@@ -44,11 +43,12 @@ namespace Uintra20.Features.Navigation.Web
         public virtual async Task<IEnumerable<MyLinkItemViewModel>> Add()
         {
             var contentId = _uBaselineRequestContext.Node.Id;
+
             var model = GetLinkDto(contentId, HttpContext.Current.Request.UrlReferrer?.Query);
 
             if (await _myLinksService.GetAsync(model) != null)
             {
-                throw new MyLinksDuplicatedException(model);
+                return await GetMyLinkItemViewModelAsync();
             }
 
             await _myLinksService.CreateAsync(model);

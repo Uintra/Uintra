@@ -9,13 +9,15 @@ import { MyLinksComponent } from "./components/my-links/my-links.component";
 import { DragulaModule } from "ng2-dragula";
 import { UserNavMobileComponent } from './components/user-nav-mobile/user-nav-mobile.component';
 import { UserAvatarModule } from 'src/app/feature/project/reusable/ui-elements/user-avatar/user-avatar.module';
+import { GroupsComponent } from './components/groups/groups.component';
 
 @NgModule({
   declarations: [
     LeftNavigationComponent,
     SharedLinksComponent,
     MyLinksComponent,
-    UserNavMobileComponent
+    UserNavMobileComponent,
+    GroupsComponent
   ],
   imports: [
     CommonModule, 

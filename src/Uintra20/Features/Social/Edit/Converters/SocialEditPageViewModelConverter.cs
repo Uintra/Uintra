@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Linq;
 using System.Web;
 using UBaseline.Core.Localization;
 using UBaseline.Core.Node;
 using Uintra20.Core.Controls.LightboxGallery;
+using Uintra20.Features.Links;
 using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.Social.Edit.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
-using Umbraco.Core.Services;
 
 namespace Uintra20.Features.Social.Edit.Converters
 {
@@ -20,22 +19,22 @@ namespace Uintra20.Features.Social.Edit.Converters
         private readonly IUserTagService _userTagService;
         private readonly IUserTagProvider _userTagProvider;
         private readonly ILightboxHelper _lightboxHelper;
-        private readonly IMediaService _mediaService;
+        private readonly IFeedLinkService _feedLinkService;
 
         public SocialEditPageViewModelConverter(
             ILocalizationModelService localizationModelService,
             ISocialService<Entities.Social> socialService,
             IUserTagService userTagService,
-            ILightboxHelper lightboxHelper, 
-            IUserTagProvider userTagProvider, 
-            IMediaService mediaService)
+            ILightboxHelper lightboxHelper,
+            IUserTagProvider userTagProvider,
+            IFeedLinkService feedLinkService)
         {
             _localizationModelService = localizationModelService;
             _socialService = socialService;
             _userTagService = userTagService;
             _lightboxHelper = lightboxHelper;
             _userTagProvider = userTagProvider;
-            _mediaService = mediaService;
+            _feedLinkService = feedLinkService;
         }
 
         public void Map(
@@ -45,6 +44,13 @@ namespace Uintra20.Features.Social.Edit.Converters
             var id = HttpContext.Current.Request.GetRequestQueryValue("id");
 
             if (!Guid.TryParse(id, out var parsedId)) return;
+            
+            viewModel.CanEdit = _socialService.CanEdit(parsedId);
+
+            if (!viewModel.CanEdit)
+            {
+                return;
+            }
 
             var social = _socialService.Get(parsedId);
 
@@ -55,8 +61,17 @@ namespace Uintra20.Features.Social.Edit.Converters
             viewModel.Tags = _userTagService.Get(parsedId);
             viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, PresetStrategies.ForActivityDetails);
             viewModel.AvailableTags = _userTagProvider.GetAll();
-            viewModel.MediaRootId = _mediaService.GetRootMedia()
-                .First(m => m.ContentType.Alias == "Folder" && m.Name == "Members Content").Id;
+            viewModel.Links = _feedLinkService.GetLinks(social.Id);
+
+            var mediaSettings = _socialService.GetMediaSettings();
+            viewModel.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
+
+            var groupIdStr = HttpContext.Current.Request["groupId"];
+            if (!Guid.TryParse(groupIdStr, out var groupId) || social.GroupId != groupId)
+                return;
+
+            viewModel.RequiresGroupHeader = true;
+            viewModel.GroupId = groupId;
         }
     }
 }

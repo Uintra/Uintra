@@ -242,7 +242,13 @@
                     if (property.validation.pattern && property.validation.pattern.length)
                     {
                         const error = validateByPattern(property.value, property.alias, property.validation.pattern)
-                        if (!error) Object.assign(result.ModelState, error)
+                        if (error) Object.assign(result.ModelState, error)
+                    }
+
+                    if (property.config.maxChars)
+                    {
+                        const error = validateByMaxChars(property.value, property.alias, property.config.maxChars)
+                        if (error) Object.assign(result.ModelState, error)
                     }
                 });
 
@@ -328,6 +334,11 @@
         } catch (err) {
             console.error(`Invalid reqular expression ${pattern}`);
         }
+    }
+
+    function validateByMaxChars(value, alias, maxChars)
+    {
+        if (angular.isString(value) && value.length > maxChars) return formatValidationError(alias, `Value is invalid, the string is longer than ${maxChars} characters`);
     }
 
     function formatValidationError(alias, message)
@@ -543,7 +554,7 @@
                 if (obj)
                 {
                     const titleProperty = panel.properties.find( prop => prop.alias === 'title');
-                    obj.vmTitle = (titleProperty && titleProperty.value) || 'N/a';
+                    obj.vmTitle = titleProperty && titleProperty.value;
                     obj.anchoredUrl = prepareAnchoredLink(panel);
 
                     panelType = JSON.parse(angular.toJson(obj));

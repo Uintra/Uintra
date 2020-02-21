@@ -1,0 +1,59 @@
+@import "base.less";
+
+uintra-groups-room-page {
+  .group-room-wrapper {
+    padding-top: 95px;
+  }
+
+  .right-column {
+    .white-block;
+
+    @media @md-down {
+      display: none;
+    }
+
+    &__title {
+      .panel-heading;
+    }
+
+    &__image {
+      max-width: 100%;
+    }
+
+    &__info {
+      font-size: 13px;
+      font-weight: bold;
+      padding: 30px 20px 20px;
+
+      &-description {
+        font-weight: normal;
+        font-size: 14px;
+        margin-bottom: 18px;
+      }
+
+      &-members {
+        margin-bottom: 20px;
+      }
+
+      &-owner-link {
+        .alt-link;
+        color: @link-color;
+      }
+
+      &-subscribe {
+        .button-blue;
+      }
+
+      &-unsubscribe {
+        &-text {
+          font-weight: normal;
+          margin-bottom: 10px;
+        }
+
+        &-btn {
+          .button-blue;
+        }
+      }
+    }
+  }
+}

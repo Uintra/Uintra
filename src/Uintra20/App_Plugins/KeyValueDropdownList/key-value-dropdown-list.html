@@ -6,7 +6,7 @@
             ng-model="model.singleDropdownValue"
             ng-options="item.value as item.value for item in model.config.values.items"
             ng-required="model.validation.mandatory">
-        <option></option>
+        <option value="">Please select</option>
     </select>
 
     <!--NOTE: This ng-switch is required because ng-multiple doesn't actually support dynamic bindings with multi-select lists -->

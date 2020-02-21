@@ -24,6 +24,7 @@ import { LocationPickerModule } from 'src/app/feature/project/reusable/ui-elemen
 import { NewsFormModule } from 'src/app/feature/project/specific/activity/news-form/news-form.module';
 import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
 import { RouterModule } from '@angular/router';
+import { GroupDetailsWrapperModule } from 'src/app/feature/project/specific/groups/group-details-wrapper/group-details-wrapper.module';
 
 // TODO: remove unusable modules
 @NgModule({
@@ -54,7 +55,8 @@ import { RouterModule } from '@angular/router';
     }),
     LocationPickerModule,
     NewsFormModule,
-    UlinkModule
+    UlinkModule,
+    GroupDetailsWrapperModule,
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: ActivityCreatePanel },

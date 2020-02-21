@@ -1,0 +1,59 @@
+﻿<div ng-controller="memberGroups.editController as vm" ng-show="vm.memberGroup">
+    <umb-editor-view>
+        <umb-editor-header name="vm.memberGroup.name"
+                           hide-alias="true"
+                           hide-description="true"
+                           hide-icon="true">
+        </umb-editor-header>
+
+        <umb-editor-container class="form-horizontal">
+            
+            <!-- <input type="text" ng-model="vm.memberGroup.name"/> -->
+            
+            <div class="umb-group-panel" ng-repeat="element in vm.groupedPermissions">
+                <div class="umb-group-panel__header">{{element[0]}}</div>
+
+                <div class="umb-group-panel__content">
+                
+                    <table border="0" cellspacing="10" cellpadding="5">
+                        <tr>
+                            <th align="left" style="min-width: 130px">Permission</th>
+                            <th >Allowed Permission</th>
+                            <th ng-if="vm.isSuperUser" >Enable Setting</th>
+                        </tr>
+                        <tr ng-repeat="permission in element[1]">
+                            <td>
+                                <span>{{permission.actionName}}</span>
+                            </td>
+                            <td >
+                                <umb-toggle checked="permission.allowed" disabled="vm.isParentDisabled(permission) || !permission.enabled" on-click="vm.toggleAllowed(permission)">
+                                </umb-toggle>
+                            </td>
+                            <td ng-if="vm.isSuperUser" >
+                                <umb-toggle checked="permission.enabled" on-click="vm.toggleEnabled(permission)">
+                                </umb-toggle>
+                            </td>
+
+                        </tr>
+                    </table>
+                        
+                </div>
+                
+            </div>
+
+        </umb-editor-container>
+
+        <umb-editor-footer>
+            <umb-editor-footer-content-right>
+                <umb-button action="vm.save()"
+                            type="button"
+                            button-style="success"
+                            state="vm.buttonState"
+                            shortcut="ctrl+c"
+                            label="Save"
+                            disabled="vm.isButtonDisabled || vm.buttonState === 'busy'">
+                </umb-button>
+            </umb-editor-footer-content-right>
+        </umb-editor-footer>
+    </umb-editor-view>
+</div>

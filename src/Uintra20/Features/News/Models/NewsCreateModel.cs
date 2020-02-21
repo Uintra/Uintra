@@ -17,11 +17,11 @@ namespace Uintra20.Features.News.Models
         public DateTime PublishDate { get; set; }
         public DateTime? UnpublishDate { get; set; }
         public string Media { get; set; }
-        public int? MediaRootId { get; set; }
         public string NewMedia { get; set; }
         [RequiredIf("IsPinned", true), GreaterThan("PublishDate")]
         public override DateTime? EndPinDate { get; set; }
         public bool PinAllowed { get; set; }
         public IEnumerable<Guid> TagIdsData { get; set; }
+        public Guid? GroupId { get; set; }
     }
 }

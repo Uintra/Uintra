@@ -19,12 +19,12 @@ namespace Uintra20.Core.Activity.Models
         public MemberViewModel Creator { get; set; }
         public IActivityCreateLinks Links { get; set; }
         public string AllowedMediaExtensions { get; set; }
-        public int? MediaRootId { get; set; }
-        public bool CanCreateBulletin { get; set; }
+        public bool CanCreate { get; set; }
         public TagsPickerViewModel Tags { get; set; }
         public DateTime PublishDate { get; set; }
         public bool PinAllowed { get; set; }
         public bool CanEditOwner { get; set; }
+        public Guid? GroupId { get; set; }
         public IEnumerable<IntranetMember> Members { get; set; } = Enumerable.Empty<IntranetMember>();
         public UintraLinkModel CreateNewsLink { get; set; }
         public UintraLinkModel CreateEventsLink { get; set; }

@@ -52,5 +52,43 @@ export const pages = [
     path: "__dynamic__",
     loadChildren:
       "./ui/pages/news/uintra-news-details/uintra-news-details-page.module#UintraNewsDetailsPageModule",
-  }
+  },
+  {
+    id: 'uintraGroupsCreatePage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/uintra-groups/create/uintra-groups-create-page.module#UintraGroupsCreatePageModule'
+  },
+  {
+    id: 'uintraGroupsEditPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/uintra-groups/edit/uintra-groups-edit-page.module#UintraGroupsEditPageModule'
+  },
+  {
+    id: 'uintraGroupsMembersPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/uintra-groups/members/uintra-groups-members-page.module#UintraGroupsMembersPageModule'
+  },
+  {
+    id: 'uintraGroupsRoomPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/uintra-groups/room/uintra-groups-room-page.module#UintraGroupsRoomPageModule'
+  },
+  {
+    id: "uintraGroupsDocumentsPage",
+    path: "__dynamic__",
+    loadChildren:
+      "./ui/pages/uintra-groups/documents/uintra-groups-documents-page.module#UintraGroupsDocumentsPageModule"
+  },
+  {
+    id: 'uintraGroupsPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/uintra-groups/groups-page/uintra-groups-page.module#UintraGroupsPageModule'
+  },
+  {
+    id: 'uintraMyGroupsPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/uintra-groups/my-groups-page/uintra-my-groups-page.module#UintraMyGroupsPageModule'
+  },
 ];
+
+

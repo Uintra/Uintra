@@ -1,0 +1,12 @@
+﻿@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+@{
+    var value = Model.Value<UBaseline.Shared.Link.LinkViewModel>();
+}
+
+@if (value != null)
+{
+    <div>
+        @Html.Partial("UBaselineLink", value)
+    </div>
+}

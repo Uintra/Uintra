@@ -1,7 +1,18 @@
 <app-news-form
+  *ngIf="!panelData?.groupId"
   [data]="newsData"
   [members]="members"
   [creator]="creator"
   [tags]="tags"
   (handleSubmit)="onSubmit($event)"
 ></app-news-form>
+
+<app-group-details-wrapper *ngIf="panelData?.groupId" [id]="panelData.groupId">
+  <app-news-form
+    [data]="newsData"
+    [members]="members"
+    [creator]="creator"
+    [tags]="tags"
+    (handleSubmit)="onSubmit($event)"
+  ></app-news-form>
+</app-group-details-wrapper>

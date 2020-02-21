@@ -1,58 +1,46 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Compent.Extensions;
-using Uintra20.Features.CentralFeed.Providers;
-using Uintra20.Infrastructure.Providers;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web;
+﻿using System.Linq;
+using UBaseline.Core.Node;
+using UBaseline.Shared.Node;
+using Uintra20.Features.Groups.Models;
 
 namespace Uintra20.Features.Groups.ContentServices
 {
-    public class GroupContentProvider : FeedContentProviderBase, IGroupContentProvider
+    public class GroupContentProvider : IGroupContentProvider
     {
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        protected override IEnumerable<string> OverviewAliasPath { get; }
+        private readonly INodeModelService _nodeModelService;
 
-        public GroupContentProvider(IDocumentTypeAliasProvider documentTypeAliasProvider, UmbracoHelper umbracoHelper)
-            : base(umbracoHelper)
+        public GroupContentProvider(INodeModelService nodeModelService)
         {
-            _documentTypeAliasProvider = documentTypeAliasProvider;
-            OverviewAliasPath = new[] { _documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetGroupOverviewPage() };
+            _nodeModelService = nodeModelService;
+        }
+        
+        public NodeModel GetGroupsOverviewPage()
+        {
+            return _nodeModelService.AsEnumerable().OfType<UintraGroupsPageModel>().First();
         }
 
-        public override IEnumerable<IPublishedContent> GetRelatedPages() =>
-            GetGroupRoomPage().Children;
+        public NodeModel GetGroupCreatePage()
+        {
+            return _nodeModelService.AsEnumerable().OfType<UintraGroupsCreatePageModel>().First();
+        }
 
-        public IPublishedContent GetGroupRoomPage() =>
-            _documentTypeAliasProvider.GetGroupRoomPage()
-                .Pipe(OverviewAliasPath.Append)
-                .Pipe(GetContent);
+        public NodeModel GetMyGroupsPage()
+        {
+            return _nodeModelService.AsEnumerable().OfType<UintraMyGroupsPageModel>().First();
+        }
 
-        public IPublishedContent GetCreateGroupPage() =>
-            _documentTypeAliasProvider.GetGroupCreatePage()
-                .Pipe(OverviewAliasPath.Append)
-                .Pipe(GetContent);
+        public NodeModel GetGroupRoomPage() => 
+            _nodeModelService.AsEnumerable().OfType<UintraGroupsRoomPageModel>().First();
 
-        public IPublishedContent GetEditPage() =>
-            _documentTypeAliasProvider.GetGroupEditPage()
-                .Pipe(GetXPathAtGroupRoom)
-                .Pipe(GetContent);
+        public NodeModel GetGroupEditPage() =>
+            _nodeModelService.AsEnumerable().OfType<UintraGroupsEditPageModel>().First();
 
-        public IPublishedContent GetMyGroupsOverviewPage() =>
-            _documentTypeAliasProvider
-                .GetGroupMyGroupsOverviewPage()
-                .Pipe(GetXPathAtGroupRoom)
-                .Pipe(GetContent);
+        public NodeModel GetGroupDocumentsPage() =>
+            _nodeModelService.AsEnumerable().OfType<UintraGroupsDocumentsPageModel>().First();
 
-        public IPublishedContent GetDeactivatedGroupPage() =>
-            _documentTypeAliasProvider
-                .GetGroupDeactivatedPage()
-                .Pipe(GetXPathAtGroupRoom)
-                .Pipe(GetContent);
+        public NodeModel GetGroupMembersPage() => 
+            _nodeModelService.AsEnumerable().OfType<UintraGroupsMembersPageModel>().First();
 
-        private IEnumerable<string> GetXPathAtGroupRoom(string pageAlias) =>
-            OverviewAliasPath
-                .Append(_documentTypeAliasProvider.GetGroupRoomPage())
-                .Append(pageAlias);
+         
     }
 }

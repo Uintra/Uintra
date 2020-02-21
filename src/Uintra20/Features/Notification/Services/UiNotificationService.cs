@@ -212,7 +212,7 @@ namespace Uintra20.Features.Notification.Services
 
         private void SendNewUiNotificationsArrived(IEnumerable<Sql.Notification> notifications)
         {
-            var hubContext = GlobalHost.ConnectionManager.GetHubContext<NotificationsHub>();
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<UintraHub>();
 
             notifications
                 .GroupBy(m => m.ReceiverId)

@@ -38,19 +38,21 @@
 
   .custom-message {
     font: @body-font;
-    font-size: 14px;
+    font-size: 15px;
     position: relative;
 
-    &::before {
-      position: absolute;
-      top: -10px;
-      left: -40px;
-      font-size: 30px;
-      color: @icon-black;
+    .icon-upload {
+      &::before {
+        position: absolute;
+        top: -8px;
+        left: -40px;
+        font-size: 30px;
+        color: @icon-black;
+      }
     }
   }
 
   .dz-error-message {
-    top: 150px !important;
+    top: 85px !important;
   }
 }

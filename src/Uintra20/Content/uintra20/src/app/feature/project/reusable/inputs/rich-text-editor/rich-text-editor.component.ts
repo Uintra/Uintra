@@ -35,6 +35,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   @Input() isDropzone: boolean = true;
   @Input() isUnderline: boolean = true;
   @Input() isEditing: boolean = false;
+  @Input() isEmoji: boolean = true;
   @Input() isEventsOrNews: boolean = false;
   @Output() addAttachment = new EventEmitter();
 

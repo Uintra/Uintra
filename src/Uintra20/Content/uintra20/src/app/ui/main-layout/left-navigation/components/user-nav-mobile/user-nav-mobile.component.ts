@@ -20,7 +20,6 @@ export class UserNavMobileComponent implements OnInit {
     this.http.get('/ubaseline/api/IntranetNavigation/TopNavigation')
     .subscribe((res: any) => {
       this.data = res;
-      console.log(this.data)
     });
   }
 
@@ -48,11 +47,11 @@ export class UserNavMobileComponent implements OnInit {
         finalize(() => this.inProgress = false)
       ).subscribe(
         (next) => {
-          this.router.navigate(['/login']);
           this.onLinkClick();
+          window.location.href = '/login';
         },
         (error) => {
-          if (error.status === 400 || error.status === 403) {
+          if (error.status === 400) {
             console.error(error.message);
           }
         },

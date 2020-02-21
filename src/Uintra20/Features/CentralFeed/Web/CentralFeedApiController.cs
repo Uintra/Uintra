@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Feed.Models;
-using Uintra20.Features.UintraPanels.LastActivities.Helpers;
+using Uintra20.Features.CentralFeed.Helpers;
 
 namespace Uintra20.Features.CentralFeed.Web
 {

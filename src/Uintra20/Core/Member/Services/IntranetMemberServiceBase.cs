@@ -312,7 +312,7 @@ namespace Uintra20.Core.Member.Services
 
         public virtual IEnumerable<T> GetAll()
         {
-            var members = _cacheService.GetOrSet(MembersCacheKey, () => GetAllFromSql().ToList(), CacheHelper.GetMidnightUtcDateTimeOffset()).ToList();
+            var members = _cacheService.GetOrSet(MembersCacheKey, () => GetAllFromSql().ToList(), CacheHelper.GetMidnightUtcDateTimeOffset());
             return members;
         }
 
@@ -320,7 +320,7 @@ namespace Uintra20.Core.Member.Services
         {
             var member = _umbracoHelper.MembershipHelper.GetCurrentMember();
             if (member != null) return Get(member.Key);
-
+            
             var umbracoUser = _umbracoContext.Security.CurrentUser;
             if (umbracoUser != null) return GetByUserId(umbracoUser.Id);
 

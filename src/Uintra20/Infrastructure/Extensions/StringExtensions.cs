@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using Compent.Extensions;
-using UBaseline.Shared.Link;
 using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Infrastructure.Extensions
@@ -95,26 +94,26 @@ namespace Uintra20.Infrastructure.Extensions
             return $"{url.TrimEnd('/')}?{queryCollection}";
         }
 
-        //public static int? ToNullableInt(this string src) =>
-        //    int.TryParse(src, out var result)
-        //    ? result
-        //    : new int?();
+        public static int? ToNullableInt(this string src) =>
+            int.TryParse(src, out var result)
+            ? result
+            : new int?();
 
         public static string AddGroupId(this string url, Guid groupId) =>
             url.AddParameter(GroupIdQueryParam, groupId);
 
         public static UintraLinkModel AddGroupId(this UintraLinkModel linkModel, Guid groupId)
         {
+            return linkModel.AddParameter("groupId", groupId.ToString());
+        }
+
+        public static UintraLinkModel AddParameter(this UintraLinkModel linkModel, string parameterName, string value)
+        {
             var param = new UintraLinkParamModel()
             {
-                Name = "groupId",
-                Value = groupId.ToString()
+                Name = parameterName,
+                Value = value
             };
-
-            if (!linkModel.Params.Any())
-            {
-                linkModel.BaseUrl += "?";
-            }
 
             linkModel.Params = linkModel.Params.Append(param);
             linkModel.OriginalUrl = linkModel.ToString();

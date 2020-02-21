@@ -1,9 +1,10 @@
 import { IUserTag } from "src/app/feature/project/specific/activity/activity.interfaces";
+import { IULink } from '../../general.interface';
 
 export interface IProfilePage {
   title: string;
   member: IMember;
-  link: ILinkModel;
+  link: IULink;
 }
 
 export interface IMember {
@@ -14,10 +15,4 @@ export interface IMember {
   phone: string;
   department: string;
   tags: Array<IUserTag>;
-}
-
-export interface ILinkModel {
-  originalUrl: string;
-  baseUrl: string;
-  params: Array<string>;
 }
