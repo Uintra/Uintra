@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using EmailWorker.Data.Features.EmailWorker;
+using UBaseline.Core.Node;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities.Base.Mails;
-using Uintra20.Infrastructure.Constants;
-using Uintra20.Infrastructure.Extensions;
-using Uintra20.Infrastructure.Providers;
-using Umbraco.Web;
+using Uintra20.Features.Notification.Models;
 
 namespace Uintra20.Features.Notification.Services
 {
@@ -16,14 +13,17 @@ namespace Uintra20.Features.Notification.Services
     {
         private readonly IEmailJobSenderService _emailJobSenderService;
         private readonly ISentMailsService _sentMailsService;
+        private readonly INodeModelService _nodeModelService;
 
         public MailService(
 			IEmailJobSenderService emailJobSenderService,
-			ISentMailsService sentMailsService)
+			ISentMailsService sentMailsService,
+            INodeModelService nodeModelService)
 		{
 			_emailJobSenderService = emailJobSenderService;
 			_sentMailsService = sentMailsService;
-		}
+            _nodeModelService = nodeModelService;
+        }
 
         public void Send(MailBase mail)
         {
@@ -64,7 +64,7 @@ namespace Uintra20.Features.Notification.Services
 			var query = new EmailLogQuery
 			{
 				StartCreateDate = new DateTime(date.Year, date.Month, date.Day),
-				TypeId = GetEmailTemplatePublishedContentId(mailTemplateTypeEnum),
+				TypeId = GetEmailTemplateId(mailTemplateTypeEnum),
 				ToEmail = email
 			};
 
@@ -108,7 +108,7 @@ namespace Uintra20.Features.Notification.Services
 			var query = new EmailLogQuery
 			{
 				StartCreateDate = new DateTime(date.Year, date.Month, date.Day),
-				TypeId = GetEmailTemplatePublishedContentId(mailTemplateTypeEnum),
+				TypeId = GetEmailTemplateId(mailTemplateTypeEnum),
 				ToEmail = email
 			};
 
@@ -119,21 +119,12 @@ namespace Uintra20.Features.Notification.Services
 			}
 		}
 
-        private int? GetEmailTemplatePublishedContentId(NotificationTypeEnum mailTemplateTypeEnum)
+        private int? GetEmailTemplateId(NotificationTypeEnum mailTemplateTypeEnum)
         {
-			//TODO: research when mail service is ready
-			var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
-            string mailTemplateXpath = Uintra20.Core.XPathHelper.GetXpath(
-                docTypeAliasProvider.GetDataFolder(),
-                docTypeAliasProvider.GetMailTemplateFolder(),
-                docTypeAliasProvider.GetMailTemplate());
+            var mailTemplates = _nodeModelService.AsEnumerable().OfType<MailTemplateModel>();
 
-            var mailTemplates = Umbraco.Web.Composing.Current.UmbracoHelper.ContentAtXPath(mailTemplateXpath);
-            var mailTemplateContent = mailTemplates?.FirstOrDefault(template =>
-                template.Value<NotificationTypeEnum>(MailTemplatePropertiesConstants.EmailType) == mailTemplateTypeEnum);
+            var mailTemplateContent = mailTemplates.FirstOrDefault(template => template.EmailType.Value == mailTemplateTypeEnum.ToString());
             return mailTemplateContent?.Id;
-
-            return null;
         }
     }
 }

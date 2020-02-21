@@ -993,6 +993,7 @@
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
     <Compile Include="Controllers\EnumController.cs" />
+    <Compile Include="Controllers\QaController.cs" />
     <Compile Include="Core\AdminSection\Controllers\AdminController.cs" />
     <Compile Include="Core\Member\Controllers\UintraMemberGroupTreeController.cs" />
     <Compile Include="Core\Member\Models\MemberGroupCreateModel.cs" />
@@ -1153,7 +1154,6 @@
     <Compile Include="Infrastructure\Context\IIntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Context\IntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Extensions\InconsistentDataException.cs" />
-    <Compile Include="Infrastructure\Extensions\UmbracoHelperExtensions.cs" />
     <Compile Include="Infrastructure\Helpers\TransferRequestHelper.cs" />
     <Compile Include="Infrastructure\Ioc\GroupInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\LightInjectScopedConnection.cs" />
