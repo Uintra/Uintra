@@ -6,6 +6,7 @@ import { ActivityService } from 'src/app/feature/project/specific/activity/activ
 import { ISocialEdit } from 'src/app/feature/project/specific/activity/activity.interfaces';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RouterResolverService } from 'src/app/services/general/router-resolver.service';
+import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
 
 @Component({
   selector: 'social-edit',
@@ -25,9 +26,13 @@ export class SocialEditPageComponent {
     private route: ActivatedRoute,
     private socialService: ActivityService,
     private router: Router,
-    private routerResolverService: RouterResolverService
+    private routerResolverService: RouterResolverService,
+    private addButtonService: AddButtonService
   ) {
-    this.route.data.subscribe(data => this.data = data);
+    this.route.data.subscribe(data => {
+      this.data = data;
+      this.addButtonService.setPageId(data.id);
+    });
     this.onParse();
     this.initSocialEditForm();
   }
