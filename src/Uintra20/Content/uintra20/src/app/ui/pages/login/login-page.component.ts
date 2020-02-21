@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ILoginPage } from './login-page.interface';
+import * as moment from "moment-timezone";
 
 @Component({
   selector: 'login-page',
@@ -59,6 +60,6 @@ export class LoginPage implements OnDestroy {
   }
 
   private getCurrentTimeZoneId() {
-    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    return moment.tz.guess();
   }
 }
