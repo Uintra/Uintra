@@ -19,17 +19,28 @@
               class="right-column__info-description"
               [innerHTML]="parsedData.groupInfo?.description">
             </div>
-            <span *ngIf="parsedData?.groupInfo?.membersCount">
-              {{parsedData.groupInfo.membersCount}} {{parsedData.groupInfo.membersCount ? 'member' : 'members'}} -
-            </span>
-            <span *ngIf="parsedData?.groupInfo?.creator">
-              Owner:
-              <a
-                class="right-column__info-owner-link"
-                [routerLink]="parsedData.groupInfo.creator.profileLink.originalUrl | ulink">
-                 {{parsedData.groupInfo.creator.displayedName}}
-              </a>
-            </span>
+            <div class="right-column__info-members">
+              <span *ngIf="parsedData?.groupInfo?.membersCount">
+                {{parsedData.groupInfo.membersCount}} {{parsedData.groupInfo.membersCount === 1 ? 'member' : 'members'}} -
+              </span>
+              <span *ngIf="parsedData?.groupInfo?.creator">
+                Owner:
+                <a
+                  class="right-column__info-owner-link"
+                  [routerLink]="parsedData.groupInfo.creator.profileLink.originalUrl | ulink">
+                  {{parsedData.groupInfo.creator.displayedName}}
+                </a>
+              </span>
+            </div>
+            <ng-container>
+              <p *ngIf="parsedData?.groupInfo?.isMember" class="right-column__info-unsubscribe-text">You are subscribed</p>
+              <button
+                class="right-column__info-subscribe"
+                [disabled]="isLoading"
+                (click)="toggleSubscribe()">
+                {{parsedData.groupInfo.isMember ? 'Unsubscribe' : 'Subscribe'}}
+              </button>
+            </ng-container>
           </div>
         </div>
       </div>

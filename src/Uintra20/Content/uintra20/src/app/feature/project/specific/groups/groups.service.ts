@@ -35,7 +35,11 @@ export class GroupsService {
   }
 
   getGroups(isMyGroups: boolean, pageNumber: number) {
-    return this.http.get(`/ubaseline/api/Group/List?isMyGroupsPage=${isMyGroups}&page=${pageNumber}`).toPromise();
+    return this.http.get(groupsApi + `/List?isMyGroupsPage=${isMyGroups}&page=${pageNumber}`).toPromise();
+  }
+
+  toggleSubscribe(groupId: string) {
+    return this.http.post(groupsApi + `/subscribe?groupId=${groupId}`, {}).toPromise();
   }
 
   setOpenState(openState: boolean = false): void {

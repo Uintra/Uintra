@@ -31,3 +31,7 @@ export interface IGroupDetailsHeaderData {
     groupEditPage?: IULink;
   }
 }
+export interface IGroupRoomData {
+  groupId: string;
+  groupInfo: IGroupsListItem;
+}
