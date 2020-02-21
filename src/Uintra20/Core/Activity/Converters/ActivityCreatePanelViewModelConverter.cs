@@ -107,6 +107,8 @@ namespace Uintra20.Core.Activity.Converters
 
             viewModel.CreateNewsLink = viewModel.CreateNewsLink?.AddGroupId(groupId.Value);
             //viewModel.CreateEventsLink = viewModel.CreateEventsLink?.AddGroupId(groupId);
+
+
         }
 
         private void ConvertToNews(ActivityCreatePanelViewModel viewModel)

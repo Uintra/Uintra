@@ -70,7 +70,7 @@ export class UserNavigationComponent implements OnInit {
       this.http.post(url.originalUrl, null).pipe(
         finalize(() => this.inProgress = false)
       ).subscribe(
-        (next) => { this.router.navigate(['/login']); }
+        (next) => { window.location.href = '/login'; }
       )
     }
   }
