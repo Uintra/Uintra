@@ -6,6 +6,7 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ProfileService } from './services/profile.service';
 import { finalize } from 'rxjs/operators';
 import { NotifierTypeEnum } from 'src/app/feature/shared/enums/notifier-type.enum';
+import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
 
 @Component({
   selector: 'profile-edit-page',
@@ -23,9 +24,13 @@ export class ProfileEditPage implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private addButtonService: AddButtonService
   ) {
-    this.route.data.subscribe(data => this.data = data);
+    this.route.data.subscribe(data => {
+      this.data = data;
+      this.addButtonService.setPageId(data.id);
+    });
   }
 
   public ngOnInit(): void {

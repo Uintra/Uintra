@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { INotificationsData, NavNotificationsService } from 'src/app/feature/project/specific/nav-notifications/nav-notifications.service';
 import { UmbracoFlatPropertyModel } from '@ubaseline/next';
+import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
 
 @Component({
   selector: 'notifications-page',
@@ -19,9 +20,13 @@ export class NotificationsPage {
 
   constructor(
     private route: ActivatedRoute,
-    private navNotificationsService: NavNotificationsService
+    private navNotificationsService: NavNotificationsService,
+    private addButtonService: AddButtonService
   ) {
-    this.route.data.subscribe(data => this.data = data);
+    this.route.data.subscribe(data => {
+      this.data = data;
+      this.addButtonService.setPageId(data.id);
+    });
   }
 
   ngOnInit() {

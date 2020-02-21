@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { DeactivationGuarded } from "src/app/services/general/can-deactivate.service";
 import { HasDataChangedService } from "src/app/services/general/has-data-changed.service";
 import { Observable, Subject, BehaviorSubject, Subscriber } from "rxjs";
+import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
 
 @Component({
   selector: "article-page",
@@ -19,8 +20,13 @@ export class ArticlePage implements DeactivationGuarded {
 
   constructor(
     private route: ActivatedRoute,
+    private addButtonService: AddButtonService,
     private hasDataChangedService: HasDataChangedService
   ) {
+    this.route.data.subscribe(data => {
+      this.data = data;
+      this.addButtonService.setPageId(data.id);
+    });
     this.route.data.subscribe(data => (this.data = data));
   }
 
