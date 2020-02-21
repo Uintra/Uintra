@@ -51,7 +51,7 @@ namespace Uintra20.Core.Activity.Helpers
                 case IntranetActivityTypeEnum.News:
                 case IntranetActivityTypeEnum.Events:
                     {
-                        var createPage = _nodeModelService.GetByAlias(pageAlias, _uBaselineRequestContext.Node.RootId).Url.ToLinkModel();
+                        var createPage = _nodeModelService.GetByAlias(pageAlias, _uBaselineRequestContext.Node.RootId)?.Url?.ToLinkModel();
                         return createPage;
                     }
 
