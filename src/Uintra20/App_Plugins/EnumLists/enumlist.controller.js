@@ -6,7 +6,7 @@ angular.module("umbraco").controller("EnumList",
             if ($scope.model.value === "") {
                 var i = parseInt($scope.model.config.defaultValueIndex);
                 if (!isNaN(i)) {
-                    $scope.model.value = response.data[i];
+                    $scope.model.value = response.data[i].key;
                 }
             }
         });

@@ -2,7 +2,7 @@
   <div class="page-wrapper row-flex">
     <div class="group-documents-wrapper col-md-8">
       <div class="group-documents">
-        <div class="group-documents__dropzone">
+        <div class="group-documents__dropzone" *ngIf="data?.canUpload.get()">
           <h4 class="group-documents__title">Upload new group document</h4>
 
           <app-dropzone-wrapper

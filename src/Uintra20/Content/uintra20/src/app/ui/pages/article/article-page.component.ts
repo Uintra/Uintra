@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
 
 @Component({
   selector: 'article-page',
@@ -11,8 +12,12 @@ export class ArticlePage {
   data: any;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private addButtonService: AddButtonService
   ) {
-    this.route.data.subscribe(data => this.data = data);
+    this.route.data.subscribe(data => {
+      this.data = data;
+      this.addButtonService.setPageId(data.id);
+    });
   }
 }

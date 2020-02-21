@@ -9,6 +9,7 @@ import { ITagData } from "src/app/feature/project/reusable/inputs/tag-multiselec
 import { ActivityService } from "src/app/feature/project/specific/activity/activity.service";
 import { ParamsPipe } from "src/app/services/pipes/link/params.pipe";
 import { RouterResolverService } from 'src/app/services/general/router-resolver.service';
+import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
 
 @Component({
   selector: "uintra-news-edit-page",
@@ -29,9 +30,13 @@ export class UintraNewsEditPage implements OnInit {
     private route: ActivatedRoute,
     private activityService: ActivityService,
     private router: Router,
-    private routerResolverService: RouterResolverService
+    private routerResolverService: RouterResolverService,
+    private addButtonService: AddButtonService
   ) {
-    this.route.data.subscribe(data => (this.data = data));
+    this.route.data.subscribe(data => {
+      this.data = data;
+      this.addButtonService.setPageId(data.id);
+    });
   }
 
   ngOnInit(): void {

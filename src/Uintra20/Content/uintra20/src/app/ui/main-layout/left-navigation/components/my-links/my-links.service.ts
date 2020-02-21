@@ -8,6 +8,7 @@ export interface IMyLink {
   id: string;
   name: string;
   url: string;
+  contentId?: number;
 }
 
 @Injectable({

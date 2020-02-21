@@ -1,3 +1,4 @@
+
 <ul class="left-nav">
   <li class="left-nav__item">
     <span class="left-nav__item-link">
@@ -39,7 +40,7 @@
     </ul>
 
 
-    <div class="left-nav__add-btn-wrapper">
+    <div class="left-nav__add-btn-wrapper" *ngIf="isShowAddButton">
       <button class="button-default" (click)="onAddLink()">Add to my links</button>
     </div>
 

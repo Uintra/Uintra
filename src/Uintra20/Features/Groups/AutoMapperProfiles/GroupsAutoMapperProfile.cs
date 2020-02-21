@@ -65,6 +65,7 @@ namespace Uintra20.Features.Groups.AutoMapperProfiles
                .ForMember(d => d.IsMember, o => o.Ignore())
                .ForMember(d => d.GroupImageUrl, o => o.Ignore())
                .ForMember(d => d.GroupUrl, o => o.Ignore())
+               .ForMember(d => d.IsCreator, o => o.Ignore())
                .ForMember(d => d.HasImage, o => o.MapFrom(s => s.ImageId.HasValue))
                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))

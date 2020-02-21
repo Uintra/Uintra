@@ -24,9 +24,8 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
 
             CreateMap<SocialBase, SocialEditModel>()
-              .ForMember(dst => dst.Links, o => o.Ignore())
-              .ForMember(dst => dst.ActivityType, o => o.Ignore())
               .ForMember(dst => dst.NewMedia, o => o.Ignore())
+              .ForMember(dst => dst.TagIdsData, o => o.Ignore())
               .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.Select(m=>m.ToString()).JoinWith(",")))
               .ForMember(dst => dst.CanDelete, o => o.Ignore());
 
@@ -147,13 +146,6 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
                 .IncludeBase<SocialBase, SocialItemViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
-
-            CreateMap<SocialCreateModel, SocialExtendedCreateModel>()
-                .ForMember(dst => dst.GroupId, o => o.Ignore())
-                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => Enumerable.Empty<Guid>()));
-
-            CreateMap<SocialEditModel, SocialExtendedEditModel>()
-                .ForMember(dst => dst.TagIdsData, o => o.MapFrom(el => Enumerable.Empty<Guid>()));
 
             CreateMap<Entities.Social, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<SocialBase, IntranetActivityItemHeaderViewModel>();

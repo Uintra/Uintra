@@ -82,7 +82,7 @@
         A title is required
     </div>
 
-    <div *ngIf="!newsData.description.trim()"
+    <div *ngIf="!getStripDescription()"
         class="alert alert-danger">
         A description is required
     </div>
