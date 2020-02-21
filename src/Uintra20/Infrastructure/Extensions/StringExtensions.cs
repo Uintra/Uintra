@@ -112,7 +112,7 @@ namespace Uintra20.Infrastructure.Extensions
             var param = new UintraLinkParamModel()
             {
                 Name = parameterName,
-                Value = value
+                Data = value
             };
 
             linkModel.Params = linkModel.Params.Append(param);
@@ -209,7 +209,7 @@ namespace Uintra20.Infrastructure.Extensions
                 yield return new UintraLinkParamModel()
                 {
                     Name = nameAndValue[0],
-                    Value = nameAndValue[1]
+                    Data = nameAndValue[1]
                 };
             }
         }

@@ -27,7 +27,6 @@ namespace Uintra20.Features.CentralFeed.Links
                 Details = _activityPageHelper.GetDetailsPageUrl(activity.Type, activity.Id),
                 Edit = _activityPageHelper.GetEditPageUrl(activity.Type, activity.Id),
                 Owner = GetProfileLink(activity.OwnerId),
-                DetailsNoId = _activityPageHelper.GetDetailsPageUrl(activity.Type)
             };
 
             return result;
@@ -41,7 +40,6 @@ namespace Uintra20.Features.CentralFeed.Links
                 Overview = null,//helper.GetOverviewPageUrl(),//TODO: Research overview pages
                 Create = _activityPageHelper.GetCreatePageUrl(activity.Type),
                 Owner = GetProfileLink(activity.OwnerId),
-                DetailsNoId = _activityPageHelper.GetDetailsPageUrl(activity.Type)
             };
         }
 
