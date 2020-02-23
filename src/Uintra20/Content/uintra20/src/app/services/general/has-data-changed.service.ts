@@ -18,4 +18,8 @@ export class HasDataChangedService {
   onDataChanged() {
     this.hasDataChanged = true;
   }
+
+  reset() {
+    this.hasDataChanged = false;
+  }
 }

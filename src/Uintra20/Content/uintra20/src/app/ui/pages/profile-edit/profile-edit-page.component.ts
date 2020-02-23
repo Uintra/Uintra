@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { IProfileEditPage } from '../../../feature/shared/interfaces/pages/profile/edit/profile-edit-page.interface';
@@ -17,6 +17,9 @@ import { Observable } from 'rxjs';
   encapsulation: ViewEncapsulation.None
 })
 export class ProfileEditPage implements OnInit {
+  @HostListener('window:beforeunload') checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged || this.checkIfdataChanged();
+  }
   files = [];
   private data: any;
   public profileEdit: IProfileEditPage;
@@ -121,6 +124,7 @@ export class ProfileEditPage implements OnInit {
     this.files.push(fileArray);
     this.isUploaded = true;
     this.profileEdit.member.newMedia = fileArray[1];
+    this.hasDataChangedService.onDataChanged();
   }
 
   public processAvatarDelete(): void {
@@ -129,13 +133,29 @@ export class ProfileEditPage implements OnInit {
         () => {
           this.files = [];
           this.profileEdit.member.photo = null;
+          this.hasDataChangedService.onDataChanged();
         }
       );
   }
 
+  onTagsChange(e) {
+    if (this.profileEdit.member.tags != e) {
+      this.hasDataChangedService.onDataChanged();
+    }
+    this.profileEdit.member.tags = e;
+  }
+
+  checkIfdataChanged() {
+    return this.profileEdit.member.firstName !== this.profileEditForm.value.firstName ||
+      this.profileEdit.member.lastName !== this.profileEditForm.value.lastName ||
+      this.profileEdit.member.phone !== this.profileEditForm.value.phone ||
+      this.profileEdit.member.department !== this.profileEditForm.value.department;
+  }
+
   canDeactivate(): Observable<boolean> | boolean {
-    if (this.hasDataChangedService.hasDataChanged) {
+    if (this.hasDataChangedService.hasDataChanged || this.checkIfdataChanged()) {
       if(confirm('Are you sure?')) {
+        this.hasDataChangedService.reset();
         return true;
       }
 

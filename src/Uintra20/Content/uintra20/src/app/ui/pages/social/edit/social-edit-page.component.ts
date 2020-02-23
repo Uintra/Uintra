@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import ParseHelper from '../../../../feature/shared/helpers/parse.helper';
 import { finalize } from 'rxjs/operators';
@@ -17,6 +17,9 @@ import { HasDataChangedService } from 'src/app/services/general/has-data-changed
   encapsulation: ViewEncapsulation.None
 })
 export class SocialEditPageComponent {
+  @HostListener('window:beforeunload') checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged;
+  }
   files = [];
   private data: any;
   public inProgress = false;
@@ -69,19 +72,37 @@ export class SocialEditPageComponent {
   public handleImageRemove(image): void {
     this.socialEdit.lightboxPreviewModel.medias =
       this.socialEdit.lightboxPreviewModel.medias.filter(m => m !== image);
+    this.hasDataChangedService.onDataChanged();
+
   }
 
   public handleFileRemove(file): void {
     this.socialEdit.lightboxPreviewModel.otherFiles =
       this.socialEdit.lightboxPreviewModel.otherFiles.filter(m => m !== file);
+    this.hasDataChangedService.onDataChanged();
   }
 
   public handleUpload(file: Array<object>): void {
     this.uploadedData.push(file);
+    this.hasDataChangedService.onDataChanged();
   }
 
   public handleRemove(file: object): void {
     this.uploadedData = this.uploadedData.filter(d => d[0] !== file);
+  }
+
+  onTagsChange(e) {
+    if (this.socialEdit.tags != e) {
+      this.hasDataChangedService.onDataChanged();
+    }
+    this.socialEdit.tags = e;
+  }
+
+  onDescriptionChange(e) {
+    if (this.socialEdit.description != e) {
+      this.hasDataChangedService.onDataChanged();
+    }
+    this.socialEdit.description = e;
   }
 
   public handleSocialUpdate(): void {
@@ -127,6 +148,7 @@ export class SocialEditPageComponent {
   canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
       if(confirm('Are you sure?')) {
+        this.hasDataChangedService.reset();
         return true;
       }
 

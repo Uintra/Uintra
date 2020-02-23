@@ -11,7 +11,8 @@
           [maxLength]="TITLE_MAX_LENGTH"
           class="groups-create__title-input"
           [ngClass]="{'invalid': getTitleValidationState()}"
-          [(ngModel)]="title"
+          [ngModel]="title"
+          (ngModelChange)="onTitleChange($event)"
         ></text-input>
       </div>
 
@@ -24,7 +25,8 @@
           [isEmoji]="false"
           placeholder=""
           [ngClass]="{'invalid': isShowValidation && !description}"
-          [(ngModel)]="description">
+          [ngModel]="description"
+          (ngModelChange)="onDescriptionChange($event)">
         </app-rich-text-editor>
       </div>
 

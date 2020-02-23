@@ -4,6 +4,8 @@ import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { GroupsService } from 'src/app/feature/project/specific/groups/groups.service';
 import { IGroupRoomData } from 'src/app/feature/project/specific/groups/groups.interface';
 import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
+import { Observable } from 'rxjs';
+import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
 
 @Component({
   selector: 'uintra-groups-room-page',
@@ -19,7 +21,8 @@ export class UintraGroupsRoomPage {
   constructor(
     private route: ActivatedRoute,
     private groupsService: GroupsService,
-    private addButtonService: AddButtonService
+    private addButtonService: AddButtonService,
+    private hasDataChangedService: HasDataChangedService,
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
@@ -43,5 +46,18 @@ export class UintraGroupsRoomPage {
       .finally(() => {
         this.isLoading = false;
       })
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.hasDataChangedService.hasDataChanged) {
+      if(confirm('Are you sure?')) {
+        this.hasDataChangedService.reset();
+        return true;
+      }
+
+      return false;
+    }
+
+    return true;
   }
 }

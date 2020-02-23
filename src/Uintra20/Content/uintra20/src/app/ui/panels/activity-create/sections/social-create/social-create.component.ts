@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
 import { IActivityCreatePanel } from '../../activity-create-panel.interface';
 import { DropzoneComponent } from 'ngx-dropzone-wrapper';
 import { ITagData } from 'src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.interface';
@@ -8,6 +8,7 @@ import { ActivityService } from 'src/app/feature/project/specific/activity/activ
 import { ModalService } from 'src/app/services/general/modal.service';
 import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
 import { ISocialCreateModel } from 'src/app/feature/project/specific/activity/activity.interfaces';
+import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
 
 @Component({
   selector: 'app-social-create',
@@ -17,6 +18,9 @@ import { ISocialCreateModel } from 'src/app/feature/project/specific/activity/ac
 export class SocialCreateComponent implements OnInit {
   @Input() data: IActivityCreatePanel;
   @ViewChild('dropdownRef', { static: false }) dropdownRef: DropzoneComponent;
+  @HostListener('window:beforeunload') doSomething() {
+    return !this.hasDataChangedService.hasDataChanged;
+  }
   availableTags: Array<ITagData> = [];
   isPopupShowing = false;
   tags: Array<ITagData> = [];
@@ -36,7 +40,8 @@ export class SocialCreateComponent implements OnInit {
 
   constructor(
     private socialContentService: ActivityService,
-    private modalService: ModalService) { }
+    private modalService: ModalService,
+    private hasDataChangedService: HasDataChangedService) { }
 
   public ngOnInit(): void {
     this.panelData = ParseHelper.parseUbaselineData(this.data);
@@ -59,6 +64,7 @@ export class SocialCreateComponent implements OnInit {
       if (confirm('Are you sure?')) {
         this.resetForm();
         this.hidePopUp();
+        this.hasDataChangedService.reset();
       }
     } else {
       this.resetForm();
@@ -82,6 +88,7 @@ export class SocialCreateComponent implements OnInit {
 
   onUploadSuccess(fileArray: Array<any> = []): void {
     this.files.push(fileArray);
+    this.hasDataChangedService.onDataChanged();
   }
 
   onFileRemoved(removedFile: object) {
@@ -89,6 +96,16 @@ export class SocialCreateComponent implements OnInit {
       const fileElement = file[0];
       return fileElement !== removedFile;
     });
+  }
+
+  onTagsChange(e) {
+    this.tags = e;
+  }
+
+  onDescriptionChange(e) {
+    debugger
+    this.description = e;
+    this.hasDataChangedService.onDataChanged();
   }
 
   getMediaIdsForResponse() {

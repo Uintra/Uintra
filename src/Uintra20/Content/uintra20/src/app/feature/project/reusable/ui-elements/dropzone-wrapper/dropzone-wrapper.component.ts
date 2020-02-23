@@ -28,6 +28,7 @@ export class DropzoneWrapperComponent implements OnInit {
   @Input() filesLength: number;
   @Input() maxFiles: number;
   @Input() disabled: boolean = false;
+  @Input() withImage: boolean = true;
   @Output() success = new EventEmitter();
   @Output() removedFile = new EventEmitter();
   @HostBinding("class") className: string;
@@ -40,7 +41,7 @@ export class DropzoneWrapperComponent implements OnInit {
   ngOnInit() {
     this.config.maxFiles = this.maxFiles || DEFAULT_DROPZONE_CONFIG.maxFiles;
     this.className = "dropzone-wrapper";
-    this.message = `<span class='custom-message'><span class='icon-upload'></span>${
+    this.message = `${this.withImage ? "<span class='custom-message'><span class='icon-upload'>" : ''}</span>${
       this.customMessage ? this.customMessage : "Insert image"
     }</span>`;
   }

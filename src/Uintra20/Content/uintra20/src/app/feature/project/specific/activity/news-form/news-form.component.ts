@@ -32,7 +32,7 @@ export class NewsFormComponent implements OnInit {
 
   @Output() handleSubmit = new EventEmitter();
   @Output() handleCancel = new EventEmitter();
-  @HostListener('window:beforeunload') doSomething() {
+  @HostListener('window:beforeunload') checkIfDataChanged() {
     return !this.hasDataChangedService.hasDataChanged;
   }
 

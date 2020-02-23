@@ -28,6 +28,7 @@ export class UintraGroupsCreatePage {
   canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
       if(confirm('Are you sure?')) {
+        this.hasDataChangedService.reset();
         return true;
       }
 
