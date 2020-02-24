@@ -15,5 +15,6 @@ namespace Uintra20.Features.Groups.Models
         public MemberViewModel Creator { get; set; }
         public bool IsMember { get; set; }
         public int MembersCount { get; set; }
+        public bool IsCreator { get; set; }
     }
 }

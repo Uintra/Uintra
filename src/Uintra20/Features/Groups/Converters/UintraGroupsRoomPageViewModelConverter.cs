@@ -62,6 +62,7 @@ namespace Uintra20.Features.Groups.Converters
 
             var groupModel = group.Map<GroupViewModel>();
             groupModel.IsMember = _groupMemberService.IsGroupMember(group.Id, currentMemberId);
+            groupModel.IsCreator = group.CreatorId == currentMemberId;
             groupModel.MembersCount = _groupMemberService.GetMembersCount(group.Id);
             groupModel.Creator = _memberService.Get(group.CreatorId).ToViewModel();
             groupModel.GroupUrl = _groupLinkProvider.GetGroupRoomLink(group.Id);

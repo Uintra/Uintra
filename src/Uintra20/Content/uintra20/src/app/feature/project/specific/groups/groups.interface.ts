@@ -10,6 +10,7 @@ export interface IGroupsListItem {
   creator: ICreator;
   isMember: boolean;
   membersCount: number;
+  isCreator?: boolean;
 }
 export interface IGroupsData {
   groupPageItem: IUlinkWithTitle;
