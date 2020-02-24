@@ -21,7 +21,7 @@
     <app-rich-text-editor
     [ngModel]="newsData.description"
     (ngModelChange)="onDescriptionChange($event)"
-    [ngClass]="{'invalid': isShowValidation && !newsData.description.trim()}"
+    [ngClass]="{'invalid': isShowValidation && !getStripDescription()}"
       class="description__rte"
       [isEditing]="true"
       [isDropzone]="false"
@@ -83,7 +83,7 @@
         A title is required
     </div>
 
-    <div *ngIf="!newsData.description.trim()"
+    <div *ngIf="!getStripDescription()"
         class="alert alert-danger">
         A description is required
     </div>

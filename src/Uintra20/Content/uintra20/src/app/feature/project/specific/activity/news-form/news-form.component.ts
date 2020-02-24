@@ -155,12 +155,16 @@ export class NewsFormComponent implements OnInit {
 
   private validate(): boolean {
     const pinValid = this.newsData.isPinned ? this.isAccepted : true;
+    const title = this.newsData.title.trim();
+
     return (
-      this.newsData.title &&
-      this.newsData.description &&
-      pinValid
+      title && this.getStripDescription() && pinValid
       // !this.isInvalidEndPinDate
     );
+  }
+
+  getStripDescription() {
+    return this.newsData.description.replace(/&nbsp;/g, " ").replace(/<[^>]*>?/gm, "").trim();
   }
 
   private newsDataBuilder(): void {
@@ -194,7 +198,7 @@ export class NewsFormComponent implements OnInit {
     return this.selectedTags ? this.selectedTags.map(tag => tag.id) : [];
   }
   private getMediaIdsForResponse(): string {
-    return this.files.map(file => file[1]).join(',');
+    return this.files.map(file => file[1]).join(",");
   }
   private getOwners(): ISelectItem[] {
     const owners = this.getMembers(this.members);

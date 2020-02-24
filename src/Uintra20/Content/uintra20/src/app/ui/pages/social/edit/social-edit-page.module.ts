@@ -11,6 +11,7 @@ import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-co
 import { DropzoneWrapperModule } from 'src/app/feature/project/reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
 import { GroupDetailsWrapperModule } from 'src/app/feature/project/specific/groups/group-details-wrapper/group-details-wrapper.module';
 import { CanDeactivateGuard } from 'src/app/services/general/can-deactivate.service';
+import { DropzoneExistingImagesModule } from 'src/app/feature/project/reusable/ui-elements/dropzone-existing-images/dropzone-existing-images.module';
 
 @NgModule({
   declarations:
@@ -31,6 +32,7 @@ import { CanDeactivateGuard } from 'src/app/services/general/can-deactivate.serv
       DropzoneWrapperModule,
       HttpClientModule,
       GroupDetailsWrapperModule,
+      DropzoneExistingImagesModule,
       RichTextEditorModule.configure({
         modules: {
           counter: {
