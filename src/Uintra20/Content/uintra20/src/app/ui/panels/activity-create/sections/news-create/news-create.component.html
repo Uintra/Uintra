@@ -5,6 +5,7 @@
   [creator]="creator"
   [tags]="tags"
   (handleSubmit)="onSubmit($event)"
+  (handleCancel)="onCancel($event)"
 ></app-news-form>
 
 <app-group-details-wrapper *ngIf="panelData?.groupId" [id]="panelData.groupId">
@@ -14,5 +15,6 @@
     [creator]="creator"
     [tags]="tags"
     (handleSubmit)="onSubmit($event)"
+    (handleCancel)="onCancel($event)"
   ></app-news-form>
 </app-group-details-wrapper>
