@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
+using Uintra20.Core.UbaselineModels;
 using Uintra20.Features.Links.Models;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
@@ -9,6 +11,8 @@ namespace Uintra20.Core.Activity.Helpers
 {
     public class ActivityPageHelper : IActivityPageHelper//TODO: Needs research
     {
+        private const string NewsCreateName = "News Create";
+
         private readonly IDocumentTypeAliasProvider _aliasProvider;
         private readonly INodeModelService _nodeModelService;
         private readonly IUBaselineRequestContext _uBaselineRequestContext;
@@ -49,19 +53,19 @@ namespace Uintra20.Core.Activity.Helpers
             switch (intranetActivityType)
             {
                 case IntranetActivityTypeEnum.News:
+                {
+                    var createPage = _nodeModelService.AsEnumerable().OfType<ArticlePageModel>()
+                                    .Single(x => x.Name.Equals(NewsCreateName, StringComparison.CurrentCultureIgnoreCase));
+
+                    return createPage.Url.ToLinkModel();
+                }
                 case IntranetActivityTypeEnum.Events:
                     {
-                        var createPage = _nodeModelService.GetByAlias(pageAlias, _uBaselineRequestContext.Node.RootId)?.Url?.ToLinkModel();
-                        return createPage;
+                        return null;
                     }
-
-                case IntranetActivityTypeEnum.Social:
-                    return null;
-                case IntranetActivityTypeEnum.ContentPage:
+                default:
                     return null;
             }
-
-            return null;
         }
 
         public UintraLinkModel GetEditPageUrl(Enum activityType, Guid activityId)

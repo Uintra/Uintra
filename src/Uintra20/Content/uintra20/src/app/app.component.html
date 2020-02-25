@@ -1,10 +1,10 @@
 <main class="main">
-  <ng-container *ngIf="!isLoginPage">
+  <ng-container *ngIf="!isLoginPage && hasLeftLoginPage">
     <app-header></app-header>
   </ng-container>
 
   <div class="content">
-    <ng-container *ngIf="!isLoginPage">
+    <ng-container *ngIf="!isLoginPage && hasLeftLoginPage">
       <nav class="nav">
         <div class="nav__header">
           <!--TODO mobile search-->

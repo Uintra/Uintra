@@ -204,6 +204,11 @@ namespace Uintra20.Features.Groups.Services
         public bool CanEdit(GroupModel group) =>
             CanPerform(group);
 
+        public bool CanCreate()
+        {
+            return _permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceTypeEnum.Groups));
+        }
+
         public bool CanPerform(GroupModel group)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();

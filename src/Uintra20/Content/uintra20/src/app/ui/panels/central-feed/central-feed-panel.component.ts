@@ -69,9 +69,9 @@ export class CentralFeedPanel implements OnInit {
   ngOnInit() {
     this.tabs = this.filtersBuilder();
 
-    this.socialService.feedRefreshTrigger$.subscribe(() => {
-      this.reloadFeed();
-    });
+    // this.socialService.feedRefreshTrigger$.subscribe(() => {
+    //   this.reloadFeed();
+    // });
 
     this.signalrService.getReloadFeedSubjects().subscribe(s => {
       this.reloadFeed();

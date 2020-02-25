@@ -8,18 +8,22 @@ namespace Uintra20.Features.Groups.Links
 {
     public class GroupFeedLinkProvider : FeedLinkProvider, IGroupFeedLinkProvider
     {
+        private readonly IGroupLinkProvider _groupLinkProvider;
+
         public GroupFeedLinkProvider(
             IActivityPageHelper activityPageHelper,
-            IProfileLinkProvider profileLinkProvider)
+            IProfileLinkProvider profileLinkProvider,
+            IGroupLinkProvider groupLinkProvider)
             : base(activityPageHelper, profileLinkProvider)
         {
+            _groupLinkProvider = groupLinkProvider;
         }
 
         public IActivityLinks GetLinks(GroupActivityTransferModel activity)
         {
             return new ActivityLinks
             {
-                Feed = _activityPageHelper.GetFeedUrl()?.AddGroupId(activity.GroupId),
+                Feed = _groupLinkProvider.GetGroupRoomLink(activity.GroupId),
                 Overview = null,//helper.GetOverviewPageUrl().AddGroupId(activity.GroupId),//TODO: Research overview pages
                 Create = _activityPageHelper.GetCreatePageUrl(activity.Type)?.AddGroupId(activity.GroupId),
                 Details = _activityPageHelper.GetDetailsPageUrl(activity.Type, activity.Id).AddGroupId(activity.GroupId),
@@ -33,7 +37,7 @@ namespace Uintra20.Features.Groups.Links
 
             return new ActivityCreateLinks
             {
-                Feed = _activityPageHelper.GetFeedUrl()?.AddGroupId(model.GroupId),
+                Feed = _groupLinkProvider.GetGroupRoomLink(model.GroupId),
                 Overview = null,//helper.GetOverviewPageUrl().AddGroupId(model.GroupId),//TODO: Research overview pages
                 Create = _activityPageHelper.GetCreatePageUrl(model.Type)?.AddGroupId(model.GroupId),
                 Owner = GetProfileLink(model.OwnerId),

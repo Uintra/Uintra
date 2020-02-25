@@ -49,4 +49,8 @@ export class NewsCreateComponent implements OnInit {
       this.router.navigate([r.originalUrl]);
     });
   }
+
+  onCancel() {
+    this.router.navigate([this.panelData.links.feed.originalUrl]);
+  }
 }
