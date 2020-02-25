@@ -51,6 +51,7 @@ export class DocumentTableComponent implements OnInit {
   getDocuments() {
     this.documentTableService.getGroupDocuments(this.groupId).subscribe(r => {
       this.documents = r;
+      console.log(this.documents);
     });
   }
 
