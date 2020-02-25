@@ -103,7 +103,6 @@ export class SocialCreateComponent implements OnInit {
   }
 
   onDescriptionChange(e) {
-    debugger
     this.description = e;
     this.hasDataChangedService.onDataChanged();
   }

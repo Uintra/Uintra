@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
 import { Observable } from 'rxjs';
 import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
+import { CanDeactivateGuard } from 'src/app/services/general/can-deactivate.service';
 
 @Component({
   selector: 'home-page',
@@ -19,6 +20,7 @@ export class HomePage implements OnInit {
     private route: ActivatedRoute,
     private addButtonService: AddButtonService,
     private hasDataChangedService: HasDataChangedService,
+    private canDeactivateService: CanDeactivateGuard,
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
@@ -35,12 +37,7 @@ export class HomePage implements OnInit {
 
   canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
-      if(confirm('Are you sure?')) {
-        this.hasDataChangedService.reset();
-        return true;
-      }
-
-      return false;
+      this.canDeactivateService.canDeacrivateConfirm();
     }
 
     return true;

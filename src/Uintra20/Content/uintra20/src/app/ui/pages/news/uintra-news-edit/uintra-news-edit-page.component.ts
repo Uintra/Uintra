@@ -12,6 +12,7 @@ import { RouterResolverService } from 'src/app/services/general/router-resolver.
 import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
 import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
 import { Observable } from 'rxjs';
+import { CanDeactivateGuard } from 'src/app/services/general/can-deactivate.service';
 
 @Component({
   selector: "uintra-news-edit-page",
@@ -35,6 +36,7 @@ export class UintraNewsEditPage implements OnInit {
     private routerResolverService: RouterResolverService,
     private addButtonService: AddButtonService,
     private hasDataChangedService: HasDataChangedService,
+    private canDeactivateService: CanDeactivateGuard,
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
@@ -100,12 +102,7 @@ export class UintraNewsEditPage implements OnInit {
 
   canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
-      if(confirm('Are you sure?')) {
-        this.hasDataChangedService.reset();
-        return true;
-      }
-
-      return false;
+      this.canDeactivateService.canDeacrivateConfirm();
     }
 
     return true;

@@ -150,7 +150,7 @@ export class NewsFormComponent implements OnInit {
 
   //Main cancel function
   onCancel() {
-    this.router.navigate(['/']);
+    this.handleCancel.emit();
   }
 
   private validate(): boolean {
@@ -172,9 +172,9 @@ export class NewsFormComponent implements OnInit {
     this.newsData.tagIdsData = this.getTagsForResponse();
   }
 
-  changeOwner(e) {
-    this.newsData.ownerId = e;
-    if (this.defaultOwner.id !== e.id) {
+  changeOwner(owner: ISelectItem) {
+    this.newsData.ownerId = owner.id;
+    if (this.defaultOwner.id !== owner.id) {
       this.hasDataChangedService.onDataChanged();
     }
   }
