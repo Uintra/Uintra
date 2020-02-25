@@ -45,6 +45,7 @@ export class UintraGroupsRoomPage {
           this.parsedData.groupInfo.isMember = true;
         }
         this.routerResolverService.removePageRouter(res.originalUrl);
+        document.location.reload();
       })
       .finally(() => {
         this.isLoading = false;
