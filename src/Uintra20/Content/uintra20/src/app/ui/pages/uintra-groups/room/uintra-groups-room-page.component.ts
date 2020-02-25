@@ -34,6 +34,7 @@ export class UintraGroupsRoomPage {
       this.data = data;
       this.parsedData = ParseHelper.parseUbaselineData(data);
       this.addButtonService.setPageId(data.id);
+      this.routerResolverService.removePageRouter(this.parsedData.groupInfo.groupUrl.originalUrl);
     });
   }
 

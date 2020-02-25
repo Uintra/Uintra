@@ -31,7 +31,8 @@ export class GroupsFormComponent {
   }
   title: string = "";
   description: string = "";
-  medias: IMedia[] = [];
+  medias: string[] = [];
+  mediasPreview: IMedia[] = [];
   isShowValidation: boolean = false;
   inProgress: boolean = false;
   hidingInProgress: boolean = false;
@@ -65,6 +66,7 @@ export class GroupsFormComponent {
 
   onImageRemove() {
     this.medias = [];
+    this.mediasPreview = [];
     this.hasDataChangedService.onDataChanged();
   }
 
@@ -100,7 +102,7 @@ export class GroupsFormComponent {
           this.router.navigate([res.originalUrl]);
         });
       } else {
-        if (this.data && this.data.media && this.data.media.length) {
+        if (this.medias && this.medias.length) {
           groupModel.media = this.medias[0];
         }
         this.groupsService.editGroup(groupModel).pipe(
@@ -137,7 +139,8 @@ export class GroupsFormComponent {
     if (this.data) {
       this.title = this.data.title;
       this.description = this.data.description;
-      this.medias = Object.values(this.data.mediaPreview.medias);
+      this.mediasPreview = Object.values(this.data.mediaPreview.medias);
+      this.medias = Object.values(this.data.media);
     }
   }
 
