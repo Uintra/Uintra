@@ -108,7 +108,7 @@ export class SocialCreateComponent implements OnInit {
   }
 
   getMediaIdsForResponse() {
-    return this.files.map(file => file[1]).join(';');
+    return this.files.map(file => file[1]).join(',');
   }
   getTagsForResponse() {
     return this.tags.map(tag => tag.id);
