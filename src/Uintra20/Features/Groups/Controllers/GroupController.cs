@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -117,10 +118,9 @@ namespace Uintra20.Features.Groups.Controllers
                 return NotFound();
             }
 
-            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Edit,
-                PermissionResourceTypeEnum.Groups)))
+            if (!_groupService.CanEdit(group))
             {
-                return Ok(_groupLinkProvider.GetGroupRoomLink(model.Id));
+                return StatusCode(HttpStatusCode.Forbidden);
             }
 
             group = Mapper.Map(model, group);
@@ -139,10 +139,9 @@ namespace Uintra20.Features.Groups.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Create(GroupCreateModel createModel)
         {
-            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create,
-                PermissionResourceTypeEnum.Groups)))
+            if (!_groupService.CanCreate())
             {
-                return Ok(_groupLinkProvider.GetGroupsOverviewLink());
+                return StatusCode(HttpStatusCode.Forbidden);
             }
 
             var currentMemberId = await _memberService.GetCurrentMemberIdAsync();
@@ -150,7 +149,7 @@ namespace Uintra20.Features.Groups.Controllers
             var groupId = await _groupMemberService.CreateAsync(createModel, new GroupMemberSubscriptionModel
             {
                 IsAdmin = true,
-                MemberId = currentMemberId
+                MemberId = currentMemberId,
             });
 
             return Ok(_groupLinkProvider.GetGroupRoomLink(groupId));
