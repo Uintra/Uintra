@@ -11,12 +11,13 @@ import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DEFAULT_DROPZONE_CONFIG } from 'src/app/constants/dropzone/drop-zone.const';
 import { UlinkModule } from 'src/app/services/pipes/link/ulink.module';
 import { GroupDetailsWrapperModule } from 'src/app/feature/project/specific/groups/group-details-wrapper/group-details-wrapper.module';
+import { CanDeactivateGuard } from 'src/app/services/general/can-deactivate.service';
 
 @NgModule({
   declarations: [UintraNewsEditPage],
   imports: [
     CommonModule,
-    RouterModule.forChild([{ path: "", component: UintraNewsEditPage }]),
+    RouterModule.forChild([{ path: "", component: UintraNewsEditPage, canDeactivate: [CanDeactivateGuard]}]),
     UbaselineCoreModule,
     NewsFormModule,
     UlinkModule,
