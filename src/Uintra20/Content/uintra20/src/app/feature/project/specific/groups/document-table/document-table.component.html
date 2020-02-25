@@ -36,6 +36,7 @@
         <td>{{ document.createDate }}</td>
         <td>
           <button
+            *ngIf="document.canDelete"
             class="custom-table__remove-button"
             (click)="onRemove(document.id)"
           >
