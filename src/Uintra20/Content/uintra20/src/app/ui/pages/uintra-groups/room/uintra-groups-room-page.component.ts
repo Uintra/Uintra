@@ -33,8 +33,9 @@ export class UintraGroupsRoomPage {
   }
 
   toggleSubscribe() {
-    this.isLoading = true;
-    this.groupsService.toggleSubscribe(this.parsedData.groupId)
+    if (!this.parsedData.groupInfo.isMember || confirm('Are you sure?')) {
+      this.isLoading = true;
+      this.groupsService.toggleSubscribe(this.parsedData.groupId)
       .then((res: IULink) => {
         if (this.parsedData.groupInfo.isMember) {
           this.parsedData.groupInfo.membersCount -= 1;
@@ -48,5 +49,6 @@ export class UintraGroupsRoomPage {
       .finally(() => {
         this.isLoading = false;
       })
+    }
   }
 }
