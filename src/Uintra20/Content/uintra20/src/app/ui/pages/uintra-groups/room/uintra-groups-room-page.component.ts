@@ -38,8 +38,9 @@ export class UintraGroupsRoomPage {
   }
 
   toggleSubscribe() {
-    this.isLoading = true;
-    this.groupsService.toggleSubscribe(this.parsedData.groupId)
+    if (!this.parsedData.groupInfo.isMember || confirm('Are you sure?')) {
+      this.isLoading = true;
+      this.groupsService.toggleSubscribe(this.parsedData.groupId)
       .then((res: IULink) => {
         if (this.parsedData.groupInfo.isMember) {
           this.parsedData.groupInfo.membersCount -= 1;
@@ -49,10 +50,12 @@ export class UintraGroupsRoomPage {
           this.parsedData.groupInfo.isMember = true;
         }
         this.routerResolverService.removePageRouter(res.originalUrl);
+        document.location.reload();
       })
       .finally(() => {
         this.isLoading = false;
       })
+    }
   }
 
   canDeactivate(): Observable<boolean> | boolean {

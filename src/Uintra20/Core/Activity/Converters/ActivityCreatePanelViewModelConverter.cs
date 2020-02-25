@@ -78,6 +78,9 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.PinAllowed = _permissionsService.Check(permissionResourceType, PermissionActionEnum.CanPin);
             if (viewModel.CanEditOwner)
                 viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, permissionResourceType));
+            viewModel.Links = groupId.HasValue ? 
+                _feedLinkService.GetCreateLinks(activityType, groupId.Value)
+                : _feedLinkService.GetCreateLinks(activityType);
 
             switch (activityType)
             {
