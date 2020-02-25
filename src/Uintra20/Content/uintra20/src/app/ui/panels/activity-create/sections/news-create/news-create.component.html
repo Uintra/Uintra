@@ -4,6 +4,7 @@
   [members]="members"
   [creator]="creator"
   [tags]="tags"
+  [isSubmitLoading]="isSubmitLoading"
   (handleSubmit)="onSubmit($event)"
   (handleCancel)="onCancel()"
 ></app-news-form>
@@ -14,6 +15,7 @@
     [members]="members"
     [creator]="creator"
     [tags]="tags"
+    [isSubmitLoading]="isSubmitLoading"
     (handleSubmit)="onSubmit($event)"
     (handleCancel)="onCancel()"
   ></app-news-form>
