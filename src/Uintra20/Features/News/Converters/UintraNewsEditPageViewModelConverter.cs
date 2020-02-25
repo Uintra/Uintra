@@ -36,9 +36,9 @@ namespace Uintra20.Features.News.Converters
             IPermissionsService permissionsService,
             IFeedLinkService feedLinkService,
             INewsService<Entities.News> newsService,
-            IIntranetMemberService<IntranetMember> memberService, 
-            IUserTagService userTagService, 
-            IUserTagProvider userTagProvider, 
+            IIntranetMemberService<IntranetMember> memberService,
+            IUserTagService userTagService,
+            IUserTagProvider userTagProvider,
             ILightboxHelper lightboxHelper)
         {
             _permissionsService = permissionsService;
@@ -66,12 +66,12 @@ namespace Uintra20.Features.News.Converters
             var news = _newsService.Get(id);
 
             viewModel.Details = GetDetails(news);
-            viewModel.CanEditOwner = _permissionsService.Check(IntranetActivityTypeEnum.News, PermissionActionEnum.EditOwner);
+            viewModel.CanEditOwner = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.EditOwner);
             viewModel.AllowedMediaExtensions = _newsService.GetMediaSettings().AllowedMediaExtensions;
             viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.CanPin);
 
             if (viewModel.CanEditOwner)
-                viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, IntranetActivityTypeEnum.News));
+                viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceTypeEnum.News));
 
             var groupIdStr = HttpContext.Current.Request["groupId"];
             if (!Guid.TryParse(groupIdStr, out var groupId) || news.GroupId != groupId)
@@ -91,7 +91,7 @@ namespace Uintra20.Features.News.Converters
 
         private NewsViewModel GetDetails(Entities.News news)
         {
-            
+
             var details = news.Map<NewsViewModel>();
 
             details.Media = MediaHelper.GetMediaUrls(news.MediaIds);
