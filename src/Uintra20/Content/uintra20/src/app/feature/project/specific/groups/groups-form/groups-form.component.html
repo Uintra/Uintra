@@ -32,7 +32,7 @@
 
       <div class="groups-create__row">
         <h3 class="subtitle">Group image</h3>
-        <app-dropzone-existing-images [medias]="medias" (removeImage)="onImageRemove()"></app-dropzone-existing-images>
+        <app-dropzone-existing-images [medias]="mediasPreview" (removeImage)="onImageRemove()"></app-dropzone-existing-images>
         <app-dropzone-wrapper
           [maxFiles]="1"
           [disabled]="medias.length > 0 || files.length > 0"

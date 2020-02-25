@@ -84,6 +84,7 @@ export class UintraNewsEditPage implements OnInit {
 
     this.activityService.updateNews(copyObject).subscribe((r: any) => {
       this.routerResolverService.removePageRouter(r.originalUrl);
+      this.hasDataChangedService.reset();
       this.router.navigate([r.originalUrl]);
     });
   }
