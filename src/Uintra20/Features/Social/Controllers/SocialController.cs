@@ -120,6 +120,11 @@ namespace Uintra20.Features.Social.Controllers
         [HttpDelete]
         public async Task<IHttpActionResult> Delete(Guid id)
         {
+            if (!await _socialService.CanDeleteAsync(id))
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
+
             await _socialService.DeleteAsync(id);
 
             await OnBulletinDeletedAsync(id);

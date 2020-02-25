@@ -24,6 +24,7 @@ namespace Uintra20.Features.Social.Edit.Models
         public Guid? GroupId { get; set; }
         public bool RequiresGroupHeader { get; set; }
         public bool CanEdit { get; set; }
+        public bool CanDelete { get; set; }
         public IActivityLinks Links { get; set; }
     }
 }

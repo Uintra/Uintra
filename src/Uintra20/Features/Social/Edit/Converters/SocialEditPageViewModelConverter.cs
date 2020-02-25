@@ -46,6 +46,7 @@ namespace Uintra20.Features.Social.Edit.Converters
             if (!Guid.TryParse(id, out var parsedId)) return;
             
             viewModel.CanEdit = _socialService.CanEdit(parsedId);
+            viewModel.CanDelete = _socialService.CanDelete(parsedId);
 
             if (!viewModel.CanEdit)
             {

@@ -75,13 +75,13 @@ namespace Uintra20.Core.Activity.Converters
                 _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create
                 : null;
 
-            if (!groupId.HasValue)
-                return;
+            if (groupId.HasValue)
+            {
+                viewModel.GroupId = groupId;
 
-            viewModel.GroupId = groupId;
-
-            viewModel.CreateNewsLink = viewModel.CreateNewsLink?.AddGroupId(groupId.Value);
-            //viewModel.CreateEventsLink = viewModel.CreateEventsLink?.AddGroupId(groupId);
+                viewModel.CreateNewsLink = viewModel.CreateNewsLink?.AddGroupId(groupId.Value);
+                //viewModel.CreateEventsLink = viewModel.CreateEventsLink?.AddGroupId(groupId);
+            }
 
             if (!viewModel.CanCreate)
             {
