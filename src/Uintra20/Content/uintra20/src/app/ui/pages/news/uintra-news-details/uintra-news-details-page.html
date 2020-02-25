@@ -15,13 +15,13 @@
         <div class="bulletin-details-content">
           <div class="feed-header">
             <a
-              [routerLink]="data.details.get().links.get().feed.get().originalUrl | ulink"
+              [routerLink]="parsedData.details.links.feed.originalUrl | ulink"
               class="feed-header__back-link">
               Go to List
             </a>
             <a
-              *ngIf="data.details.get().canEdit.get()"
-              [routerLink]="data.details.get().links.get().edit.get().originalUrl | ulink"
+              *ngIf="parsedData.details.canEdit"
+              [routerLink]="parsedData.details.links.edit.originalUrl | ulink"
               class="feed-header__edit-link">
               Edit
             </a>
