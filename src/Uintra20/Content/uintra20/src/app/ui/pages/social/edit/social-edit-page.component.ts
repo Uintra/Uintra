@@ -125,6 +125,7 @@ export class SocialEditPageComponent {
       .subscribe(
         (next: any) => {
           this.routerResolverService.removePageRouter(next.originalUrl);
+          this.hasDataChangedService.reset();
           this.router.navigate([next.originalUrl]);
         },
       );

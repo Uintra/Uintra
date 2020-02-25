@@ -101,7 +101,10 @@ export class ProfileEditPage implements OnInit {
 
     this.profileService.update(profile)
       .pipe(finalize(() => this.inProgress = false))
-      .subscribe((next: any) => this.router.navigate([next.originalUrl]));
+      .subscribe((next: any) => {
+        this.hasDataChangedService.reset();
+        this.router.navigate([next.originalUrl]);
+      });
   }
 
   public handleUpdateNotificationSettings(event): void {

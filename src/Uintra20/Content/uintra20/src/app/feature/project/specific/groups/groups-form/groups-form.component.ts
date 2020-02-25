@@ -99,6 +99,7 @@ export class GroupsFormComponent {
         this.groupsService.createGroup(groupModel).pipe(
           finalize(() => this.inProgress = false)
         ).subscribe(res => {
+          this.hasDataChangedService.reset();
           this.router.navigate([res.originalUrl]);
         });
       } else {
@@ -108,6 +109,7 @@ export class GroupsFormComponent {
         this.groupsService.editGroup(groupModel).pipe(
           finalize(() => this.inProgress = false)
         ).subscribe(res => {
+          this.hasDataChangedService.reset();
           this.router.navigate([res.originalUrl]);
         });
       }
@@ -117,6 +119,7 @@ export class GroupsFormComponent {
   onHide() {
     this.hidingInProgress = true;
     this.groupsService.hideGroup(this.data.id).subscribe(res => {
+      this.hasDataChangedService.reset();
       this.router.navigate([res.originalUrl]);
       this.hidingInProgress = false;
     })
