@@ -9,6 +9,7 @@
         [tags]="tags"
         [pinAllowed]="panelData?.pinAllowed"
         (handleSubmit)="onSubmit($event)"
+        (handleCancel)="onCancel()"
       ></app-news-form>
     </div>
   </app-group-details-wrapper>
@@ -21,6 +22,7 @@
       [tags]="tags"
       [pinAllowed]="panelData?.pinAllowed"
       (handleSubmit)="onSubmit($event)"
+      (handleCancel)="onCancel()"
     ></app-news-form>
   </div>
 </ng-container>
