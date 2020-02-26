@@ -173,9 +173,13 @@ export class NewsFormComponent implements OnInit {
     this.newsData.tagIdsData = this.getTagsForResponse();
   }
 
-  changeOwner(owner: ISelectItem) {
-    this.newsData.ownerId = owner.id;
-    if (this.defaultOwner.id !== owner.id) {
+  changeOwner(owner: ISelectItem | string) {
+    if (typeof owner === "string") {
+      this.newsData.ownerId = owner;
+    } else {
+      this.newsData.ownerId = owner.id;
+    }
+    if (this.defaultOwner.id !== owner) {
       this.hasDataChangedService.onDataChanged();
     }
   }
