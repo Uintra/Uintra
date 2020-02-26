@@ -31,7 +31,6 @@ namespace Uintra20.Features.CentralFeed.Helpers
         private readonly ICentralFeedService _centralFeedService;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IFeedLinkService _feedLinkService;
-        private readonly IFeedFilterService _centralFeedFilterService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INodeModelService _nodeModelService;
@@ -46,7 +45,6 @@ namespace Uintra20.Features.CentralFeed.Helpers
             IFeedTypeProvider feedTypeProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             IFeedLinkService feedLinkService,
-            IFeedFilterService centralFeedFilterService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             INodeModelService nodeModelService,
             IUBaselineRequestContext requestContext,
@@ -58,7 +56,6 @@ namespace Uintra20.Features.CentralFeed.Helpers
             _centralFeedService = centralFeedService;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _feedLinkService = feedLinkService;
-            _centralFeedFilterService = centralFeedFilterService;
             _feedFilterStateService = feedFilterStateService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _nodeModelService = nodeModelService;
@@ -95,9 +92,7 @@ namespace Uintra20.Features.CentralFeed.Helpers
             var filteredItems = _feedFilterService.ApplyFilters(items, model.FilterState, tabSettings).ToList();
 
             var centralFeedModel = CreateFeedList(model, filteredItems, centralFeedType);
-            var filterState = MapToFilterState(centralFeedModel.FilterState);
-            _feedFilterStateService.SaveFiltersState(filterState);
-
+            
             return centralFeedModel;
         }
 
@@ -167,17 +162,6 @@ namespace Uintra20.Features.CentralFeed.Helpers
             return type is CentralFeedTypeEnum.All
                 ? _groupFeedService.GetFeed(groupId).OrderByDescending(item => item.PublishDate)
                 : _groupFeedService.GetFeed(type, groupId);
-        }
-
-        private FeedFiltersState MapToFilterState(FeedFilterStateViewModel model)
-        {
-            return new FeedFiltersState
-            {
-                PinnedFilterSelected = model.ShowPinned,
-                BulletinFilterSelected = model.IncludeBulletin,
-                SubscriberFilterSelected = model.ShowSubscribed,
-                IsFiltersOpened = _feedFilterStateService.GetFiltersState().IsFiltersOpened
-            };
         }
 
         private bool IsEmptyFilters(FeedFilterStateModel filterState)
