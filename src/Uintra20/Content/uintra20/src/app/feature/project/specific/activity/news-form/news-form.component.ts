@@ -179,7 +179,7 @@ export class NewsFormComponent implements OnInit {
     } else {
       this.newsData.ownerId = owner.id;
     }
-    if (this.defaultOwner.id !== owner) {
+    if (this.defaultOwner.id !== this.newsData.ownerId) {
       this.hasDataChangedService.onDataChanged();
     }
   }
