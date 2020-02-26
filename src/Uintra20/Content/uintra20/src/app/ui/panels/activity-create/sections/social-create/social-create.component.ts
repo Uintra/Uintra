@@ -104,7 +104,9 @@ export class SocialCreateComponent implements OnInit {
 
   onDescriptionChange(e) {
     this.description = e;
-    this.hasDataChangedService.onDataChanged();
+    if (e) {
+      this.hasDataChangedService.onDataChanged();
+    }
   }
 
   getMediaIdsForResponse() {
