@@ -4,7 +4,10 @@
   [members]="members"
   [creator]="creator"
   [tags]="tags"
+  [pinAllowed]="panelData?.pinAllowed"
+  [isSubmitLoading]="isSubmitLoading"
   (handleSubmit)="onSubmit($event)"
+  (handleCancel)="onCancel()"
 ></app-news-form>
 
 <app-group-details-wrapper *ngIf="panelData?.groupId" [id]="panelData.groupId">
@@ -13,6 +16,9 @@
     [members]="members"
     [creator]="creator"
     [tags]="tags"
+    [pinAllowed]="panelData?.pinAllowed"
+    [isSubmitLoading]="isSubmitLoading"
     (handleSubmit)="onSubmit($event)"
+    (handleCancel)="onCancel()"
   ></app-news-form>
 </app-group-details-wrapper>

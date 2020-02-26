@@ -67,6 +67,22 @@ namespace Uintra20.Core.Activity.Converters
                                          _groupMemberService.IsGroupMember(parsedGroupId, currentMember.Id);
             }
 
+            //TODO: Uncomment when events create will be done
+            //viewModel.CreateEventsLink = _permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.Create) ? 
+            //    _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create
+            //    : null;
+            viewModel.CreateNewsLink = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.Create) ?
+                _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create
+                : null;
+
+            if (groupId.HasValue)
+            {
+                viewModel.GroupId = groupId;
+
+                viewModel.CreateNewsLink = viewModel.CreateNewsLink?.AddGroupId(groupId.Value);
+                //viewModel.CreateEventsLink = viewModel.CreateEventsLink?.AddGroupId(groupId);
+            }
+
             if (!viewModel.CanCreate)
             {
                 return;
@@ -78,6 +94,9 @@ namespace Uintra20.Core.Activity.Converters
             viewModel.PinAllowed = _permissionsService.Check(permissionResourceType, PermissionActionEnum.CanPin);
             if (viewModel.CanEditOwner)
                 viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, permissionResourceType));
+            viewModel.Links = groupId.HasValue ? 
+                _feedLinkService.GetCreateLinks(activityType, groupId.Value)
+                : _feedLinkService.GetCreateLinks(activityType);
 
             switch (activityType)
             {
@@ -91,24 +110,6 @@ namespace Uintra20.Core.Activity.Converters
                     
             }            
             viewModel.Tags = GetTagsViewModel();
-
-            //TODO: Uncomment when events create will be done
-            //viewModel.CreateEventsLink = _permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.Create) ? 
-            //    _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create
-            //    : null;
-            viewModel.CreateNewsLink = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.Create) ?
-                _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create
-                : null;
-
-            if(!groupId.HasValue)
-                return;
-
-            viewModel.GroupId = groupId;
-
-            viewModel.CreateNewsLink = viewModel.CreateNewsLink?.AddGroupId(groupId.Value);
-            //viewModel.CreateEventsLink = viewModel.CreateEventsLink?.AddGroupId(groupId);
-
-
         }
 
         private void ConvertToNews(ActivityCreatePanelViewModel viewModel)

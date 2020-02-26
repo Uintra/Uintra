@@ -49,6 +49,7 @@ export interface ISocialEdit {
   media: string;
   mediaRootId: number;
   canEdit?: boolean;
+  canDelete?: boolean;
 
   location?: {
     address?: string;

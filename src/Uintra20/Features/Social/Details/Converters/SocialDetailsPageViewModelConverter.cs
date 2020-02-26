@@ -13,6 +13,8 @@ using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.Preset;
+using Uintra20.Features.Permissions;
+using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Social.Details.Models;
 using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
@@ -31,6 +33,7 @@ namespace Uintra20.Features.Social.Details.Converters
         private readonly ISocialService<Entities.Social> _socialService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly ILightboxHelper _lightboxHelper;
+        private readonly IPermissionsService _permissionsService;
 
         public SocialDetailsPageViewModelConverter(
             IFeedLinkService feedLinkService,
@@ -40,7 +43,8 @@ namespace Uintra20.Features.Social.Details.Converters
             ICommentsService commentsService,
             ISocialService<Entities.Social> socialsService,
             ICommentsHelper commentsHelper,
-            ILightboxHelper lightboxHelper)
+            ILightboxHelper lightboxHelper,
+            IPermissionsService permissionsService)
         {
             _feedLinkService = feedLinkService;
             _userTagService = userTagService;
@@ -50,6 +54,7 @@ namespace Uintra20.Features.Social.Details.Converters
             _socialService = socialsService;
             _memberService = memberService;
             _lightboxHelper = lightboxHelper;
+            _permissionsService = permissionsService;
         }
 
         public void Map(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
@@ -58,6 +63,13 @@ namespace Uintra20.Features.Social.Details.Converters
 
             if (!Guid.TryParse(id, out var parseId)) 
                 return;
+
+            viewModel.CanView = _permissionsService.Check(PermissionResourceTypeEnum.Social, PermissionActionEnum.View);
+
+            if (!viewModel.CanView)
+            {
+                return;
+            }
 
             var userId = _memberService.GetCurrentMemberId();
             var social = _socialService.Get(parseId);

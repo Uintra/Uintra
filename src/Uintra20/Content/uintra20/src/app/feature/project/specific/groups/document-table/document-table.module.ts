@@ -5,7 +5,10 @@ import { UserAvatarModule } from "../../../reusable/ui-elements/user-avatar/user
 
 @NgModule({
   declarations: [DocumentTableComponent],
-  imports: [CommonModule, UserAvatarModule],
+  imports: [
+    CommonModule,
+    UserAvatarModule,
+  ],
   exports: [DocumentTableComponent]
 })
 export class DocumentTableModule {}

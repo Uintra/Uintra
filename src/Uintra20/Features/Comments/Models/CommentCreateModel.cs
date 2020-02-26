@@ -14,7 +14,7 @@ namespace Uintra20.Features.Comments.Models
 
         public Guid? ParentId { get; set; }
 
-        [Required(ErrorMessage = "*"), AllowHtml, EmptyHtml]
+        [Required(ErrorMessage = "*"), AllowHtml]
         public string Text { get; set; }
 
         public int? LinkPreviewId { get; set; }

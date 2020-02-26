@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
 import { TITLE_MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
 import { GroupsService } from 'src/app/feature/project/specific/groups/groups.service';
 import { finalize } from 'rxjs/operators';
@@ -6,6 +6,7 @@ import { MAX_FILES_FOR_SINGLE } from 'src/app/constants/dropzone/drop-zone.const
 import { IMedia } from '../../activity/activity.interfaces';
 import { Router } from '@angular/router';
 import { RouterResolverService } from 'src/app/services/general/router-resolver.service';
+import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
 
 export interface IEditGroupData {
   id?: string;
@@ -25,9 +26,13 @@ export interface IEditGroupData {
 export class GroupsFormComponent {
   @Input() data: any;
   @Input('edit') edit: any;
+  @HostListener('window:beforeunload') checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged;
+  }
   title: string = "";
   description: string = "";
-  medias: IMedia[] = [];
+  medias: string[] = [];
+  mediasPreview: IMedia[] = [];
   isShowValidation: boolean = false;
   inProgress: boolean = false;
   hidingInProgress: boolean = false;
@@ -38,6 +43,7 @@ export class GroupsFormComponent {
   constructor(
     private groupsService: GroupsService,
     private router: Router,
+    private hasDataChangedService: HasDataChangedService,
   ) { }
 
   ngOnInit() {
@@ -51,6 +57,7 @@ export class GroupsFormComponent {
 
   onUploadSuccess(fileArray: Array<any> = []): void {
     this.files.push(fileArray);
+    this.hasDataChangedService.onDataChanged();
   }
 
   onFileRemoved(removedFile: object) {
@@ -59,6 +66,22 @@ export class GroupsFormComponent {
 
   onImageRemove() {
     this.medias = [];
+    this.mediasPreview = [];
+    this.hasDataChangedService.onDataChanged();
+  }
+
+  onTitleChange(e) {
+    if (this.title != e) {
+      this.hasDataChangedService.onDataChanged();
+    }
+    this.title = e;
+  }
+
+  onDescriptionChange(e) {
+    if (this.description != e) {
+      this.hasDataChangedService.onDataChanged();
+    }
+    this.description = e;
   }
 
   onSubmit() {
@@ -76,15 +99,17 @@ export class GroupsFormComponent {
         this.groupsService.createGroup(groupModel).pipe(
           finalize(() => this.inProgress = false)
         ).subscribe(res => {
+          this.hasDataChangedService.reset();
           this.router.navigate([res.originalUrl]);
         });
       } else {
-        if (this.data && this.data.media && this.data.media.length) {
+        if (this.medias && this.medias.length) {
           groupModel.media = this.medias[0];
         }
         this.groupsService.editGroup(groupModel).pipe(
           finalize(() => this.inProgress = false)
         ).subscribe(res => {
+          this.hasDataChangedService.reset();
           this.router.navigate([res.originalUrl]);
         });
       }
@@ -94,6 +119,7 @@ export class GroupsFormComponent {
   onHide() {
     this.hidingInProgress = true;
     this.groupsService.hideGroup(this.data.id).subscribe(res => {
+      this.hasDataChangedService.reset();
       this.router.navigate([res.originalUrl]);
       this.hidingInProgress = false;
     })
@@ -116,7 +142,8 @@ export class GroupsFormComponent {
     if (this.data) {
       this.title = this.data.title;
       this.description = this.data.description;
-      this.medias = Object.values(this.data.mediaPreview.medias);
+      this.mediasPreview = Object.values(this.data.mediaPreview.medias);
+      this.medias = Object.values(this.data.media);
     }
   }
 
