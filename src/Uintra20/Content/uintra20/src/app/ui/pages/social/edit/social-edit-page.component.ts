@@ -140,7 +140,7 @@ export class SocialEditPageComponent {
       .pipe(finalize(() => this.inProgress = false))
       .subscribe(
         (next) => {
-          // this.router.navigate(['/socials']); // TODO: socials doesnt exist, uncomment code when it will be done.
+          this.router.navigate([this.socialEdit.links.feed.originalUrl]);
         },
       );
   }
