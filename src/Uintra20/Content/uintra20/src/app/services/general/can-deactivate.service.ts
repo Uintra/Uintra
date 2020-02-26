@@ -16,7 +16,7 @@ export class CanDeactivateGuard implements CanDeactivate<DeactivationGuarded> {
   }
 
   canDeacrivateConfirm() {
-    if(confirm('Are you sure?')) {
+    if(confirm('Are you sure? Changes you made may not be saved.')) {
       this.hasDataChangedService.reset();
       return true;
     }
