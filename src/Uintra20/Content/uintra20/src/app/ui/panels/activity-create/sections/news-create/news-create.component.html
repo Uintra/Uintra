@@ -4,6 +4,8 @@
   [members]="members"
   [creator]="creator"
   [tags]="tags"
+  [pinAllowed]="panelData?.pinAllowed"
+  [isSubmitLoading]="isSubmitLoading"
   (handleSubmit)="onSubmit($event)"
   (handleCancel)="onCancel()"
 ></app-news-form>
@@ -14,6 +16,8 @@
     [members]="members"
     [creator]="creator"
     [tags]="tags"
+    [pinAllowed]="panelData?.pinAllowed"
+    [isSubmitLoading]="isSubmitLoading"
     (handleSubmit)="onSubmit($event)"
     (handleCancel)="onCancel()"
   ></app-news-form>

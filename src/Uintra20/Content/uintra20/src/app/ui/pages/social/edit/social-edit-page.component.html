@@ -56,7 +56,9 @@
             [disabled]="inProgress || socialEditForm.invalid"
             (click)="handleSocialUpdate()">SAVE</button>
 
-          <button class="button button-default"
+          <button
+            *ngIf="socialEdit?.canDelete"
+            class="button button-default"
             [disabled]="inProgress"
             (click)="handleSocialDelete()">DELETE</button>
 

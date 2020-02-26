@@ -10,12 +10,14 @@
   <div quill-editor-toolbar class="toolbar">
     <div class="ql-counter" id="counter"></div>
 
-    <div class="ql-formats-wrapper">
-      <div class="ql-formats" *ngIf="isEventsOrNews; then eventsOrNewsCreate; else comments"></div>
-    </div>
+    <div class="toolbar__second-row">
+      <div class="ql-formats-wrapper">
+        <div class="ql-formats" *ngIf="isEventsOrNews; then eventsOrNewsCreate; else comments"></div>
+      </div>
 
-    <div class="ql-submit-button">
-      <ng-content select="[submit]"></ng-content>
+      <div class="ql-submit-button">
+        <ng-content select="[submit]"></ng-content>
+      </div>
     </div>
 
     <ng-content select="[reply-close]"></ng-content>
@@ -58,7 +60,7 @@
 </ng-template>
 
 <ng-template #comments>
-  <div *ngIf="isEmoji" (clickOutside)="closeEmojiPalette()">
+  <div *ngIf="isEmoji" class="emoji-container" (clickOutside)="closeEmojiPalette()">
     <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'"></button>
     <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
   </div>
@@ -75,7 +77,7 @@
   <ng-container *ngTemplateOutlet="default"></ng-container>
   <button type="button" class="ql-list" value="ordered" [title]="'Ordered list'"></button>
   <button type="button" class="ql-list" value="bullet" [title]="'Bullet list'"></button>
-  <div *ngIf="isEmoji" (clickOutside)="closeEmojiPalette()">
+  <div *ngIf="isEmoji" class="emoji-container" (clickOutside)="closeEmojiPalette()">
     <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'"></button>
     <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
   </div>

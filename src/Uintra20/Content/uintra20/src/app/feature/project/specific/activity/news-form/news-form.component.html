@@ -2,7 +2,7 @@
   <h2 class="news-create-panel__title">News</h2>
   <div class="owner form-row">
     <h3 class="owner__title subtitle">Owner</h3>
-    <app-select *ngIf="defaultOwner" [items]="owners" [ngModel]="defaultOwner" (ngModelChange)="changeOwner($event)"></app-select>
+    <app-select [items]="owners" [ngModel]="defaultOwner" (ngModelChange)="changeOwner($event)"></app-select>
   </div>
   <div class="news-title form-row">
     <h3 class="news-title__title subtitle required">Title</h3>
@@ -52,6 +52,7 @@
   </div>
 
   <app-pin-activity
+    *ngIf="pinAllowed"
     [publishDate]="newsData.publishDate"
     [unpublishDate]="newsData.unpublishDate"
     [isPinCheked]="newsData.isPinned"
@@ -102,7 +103,7 @@
 
 
   <div class="buttons">
-    <button class="buttons__submit" (click)="onSubmit()">Submit</button>
+    <button class="buttons__submit" [disabled]="isSubmitLoading" (click)="onSubmit()">Submit</button>
     <button class="buttons__cancel" (click)="onCancel()">Cancel</button>
   </div>
 </section>

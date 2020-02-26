@@ -31,6 +31,10 @@ export class SelectComponent implements OnInit {
   ngOnInit() {
     if (this.defaultItem) {
       this.selectedItem = this.defaultItem;
+    } else {
+      if (this.items.length) {
+        this.selectedItem = this.items[0];
+      }
     }
   }
 
