@@ -29,6 +29,7 @@ export class NewsFormComponent implements OnInit {
   @Input() members: Array<any>;
   @Input() creator: IOwner;
   @Input() tags: ITagData[];
+  @Input() pinAllowed: boolean;
   @Input() isSubmitLoading: boolean;
 
   @Output() handleSubmit = new EventEmitter();

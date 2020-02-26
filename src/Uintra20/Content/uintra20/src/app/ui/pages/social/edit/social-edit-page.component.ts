@@ -47,6 +47,7 @@ export class SocialEditPageComponent {
 
   private onParse = (): void => {
     const parsedSocialEdit = ParseHelper.parseUbaselineData(this.data);
+
     // TODO: Imvestigate about parsing ubaseline data
     this.socialEdit = {
       ownerId: parsedSocialEdit.ownerId,
@@ -63,6 +64,7 @@ export class SocialEditPageComponent {
       id: parsedSocialEdit.id,
       groupId: parsedSocialEdit.groupId,
       links: parsedSocialEdit.links,
+      canDelete: parsedSocialEdit.canDelete,
       name: parsedSocialEdit.name,
       tagIdsData: new Array<string>(),
       newMedia: null,

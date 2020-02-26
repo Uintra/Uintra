@@ -52,6 +52,7 @@
   </div>
 
   <app-pin-activity
+    *ngIf="pinAllowed"
     [publishDate]="newsData.publishDate"
     [unpublishDate]="newsData.unpublishDate"
     [isPinCheked]="newsData.isPinned"
