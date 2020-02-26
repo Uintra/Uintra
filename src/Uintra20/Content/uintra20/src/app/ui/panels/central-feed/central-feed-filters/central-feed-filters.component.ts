@@ -43,13 +43,13 @@ export class CentralFeedFiltersComponent implements OnInit {
 
   clearFilters() {
     this.centralFeedFiltersService.setFilteringState("");
+    this.filtersState = [];
     this.setInitValues();
 
     this.selectTabFilters = this.selectTabFilters.map(filter => ({
       ...filter,
       isActive: false
     }));
-    this.setFiltersState();
     this.setSelectedTab(
       this.tabs.find(tab => tab.get().isActive.get() === true).get().type.get()
     );
