@@ -27,13 +27,5 @@ namespace Uintra20.Features.CentralFeed.Web
         {
             return _centralFeedHelper.GetFeedListViewModel(model);
         }
-
-        [System.Web.Mvc.HttpGet]
-        public virtual void OpenFilters()
-        {
-            var feedState = _feedFilterStateService.GetFiltersState();
-            feedState.IsFiltersOpened = !feedState.IsFiltersOpened;
-            _feedFilterStateService.SaveFiltersState(feedState);
-        }
     }
 }
