@@ -20,16 +20,14 @@
       <a
         *ngIf="item.type == 2"
         class="user-nav__link"
-        [routerLink]="item.url.originalUrl | ulink"
-        (click)="onLinkClick()">
+        [routerLink]="item.url.originalUrl | ulink">
         {{item.name}}
       </a>
       <a
         *ngIf="item.type == 3"
         class="user-nav__link"
         [href]="item.url.originalUrl"
-        target="_blank"
-        (click)="onLinkClick()">
+        target="_blank">
         {{item.name}}
       </a>
   </li>
