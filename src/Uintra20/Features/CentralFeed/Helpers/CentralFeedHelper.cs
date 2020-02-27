@@ -102,7 +102,7 @@ namespace Uintra20.Features.CentralFeed.Helpers
             var centralFeedType = _centralFeedTypeProvider[node.ActivityType.Value.Id];
 
             var latestActivities = GetLatestActivities(centralFeedType, node.CountToDisplay.Value);
-            var feedItems = GetFeedItems(latestActivities.activities, settings).ToArray();
+            var feedItems = GetFeedItems(latestActivities.activities, settings, false).ToArray();
 
             return new LoadableFeedItemModel
             {
@@ -123,13 +123,13 @@ namespace Uintra20.Features.CentralFeed.Helpers
             _contentProvider.GetRelatedPages().Any(c => c.IsAncestorOrSelf(page));
 
         private IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items,
-            IEnumerable<FeedSettings> settings)
+            IEnumerable<FeedSettings> settings, bool isGroupFeed)
         {
             var activitySettings = settings
                 .ToDictionary(s => s.Type.ToInt());
 
             var result = items
-                .Select(i => MapFeedItemToViewModel(i, activitySettings));
+                .Select(i => MapFeedItemToViewModel(i, activitySettings, isGroupFeed));
 
             return result;
         }
@@ -198,7 +198,7 @@ namespace Uintra20.Features.CentralFeed.Helpers
             return new FeedListViewModel
             {
                 Version = _centralFeedService.GetFeedVersion(filteredItems),
-                Feed = GetFeedItems(pagedItemsList, settings),
+                Feed = GetFeedItems(pagedItemsList, settings, model.GroupId.HasValue),
                 TabSettings = tabSettings,
                 Type = centralFeedType,
                 BlockScrolling = filteredItems.Count() < itemsPerPage,
@@ -252,11 +252,11 @@ namespace Uintra20.Features.CentralFeed.Helpers
             };
         }
 
-        private FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<int, FeedSettings> settings)
+        private FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<int, FeedSettings> settings, bool isGroupFeed)
         {
             var options = GetActivityFeedOptions(i.Id);
 
-            var activity = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(i.Type).GetPreviewModel(i.Id);
+            var activity = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(i.Type).GetPreviewModel(i.Id, !isGroupFeed);
 
             return new FeedItemViewModel
             {
