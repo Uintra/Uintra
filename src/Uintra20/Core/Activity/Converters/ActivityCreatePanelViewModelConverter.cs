@@ -83,13 +83,14 @@ namespace Uintra20.Core.Activity.Converters
                 //viewModel.CreateEventsLink = viewModel.CreateEventsLink?.AddGroupId(groupId);
             }
 
+            viewModel.ActivityType = activityType;
+
             if (!viewModel.CanCreate)
             {
                 return;
             }
 
             viewModel.CanEditOwner = _permissionsService.Check(permissionResourceType, PermissionActionEnum.EditOwner);
-            viewModel.ActivityType = activityType;
             viewModel.Creator = currentMember.ToViewModel();
             viewModel.PinAllowed = _permissionsService.Check(permissionResourceType, PermissionActionEnum.CanPin);
             if (viewModel.CanEditOwner)
