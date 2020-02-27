@@ -4,6 +4,7 @@ import { DeactivationGuarded, CanDeactivateGuard } from "src/app/services/genera
 import { HasDataChangedService } from "src/app/services/general/has-data-changed.service";
 import { Observable } from "rxjs";
 import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
+import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 
 @Component({
   selector: "article-page",
@@ -11,8 +12,9 @@ import { AddButtonService } from '../../main-layout/left-navigation/components/m
   styleUrls: ["./article-page.less"],
   encapsulation: ViewEncapsulation.None
 })
-export class ArticlePage implements DeactivationGuarded {
+export class ArticlePage {
   data: any;
+  parsedData: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,6 +24,7 @@ export class ArticlePage implements DeactivationGuarded {
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
+      this.parsedData = ParseHelper.parseUbaselineData(data);
       this.addButtonService.setPageId(data.id);
     });
   }

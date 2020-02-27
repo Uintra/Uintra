@@ -126,35 +126,30 @@ namespace Uintra20.Features.News.Controllers
             news.CreatorId = await _intranetMemberService.GetCurrentMemberIdAsync();
 
             if (await IsPinAllowedAsync())
-                return news;
-
-            news.IsPinned = createModel.IsPinned;
+            {
+                news.IsPinned = createModel.IsPinned;
+            }
 
             return news;
         }
         private NewsBase MapToNews(NewsEditModel editModel)
         {
-            var currentMember = _intranetMemberService.GetCurrentMember();
+            var news = _newsService.Get(editModel.Id);
+            news = Mapper.Map(editModel, news);
+            news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(editModel, MediaFolderTypeEnum.NewsContent));
+            news.PublishDate = editModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.PublishDate);
+            news.UnpublishDate = editModel.UnpublishDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.UnpublishDate.Value);
+            news.EndPinDate = editModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.EndPinDate.Value);
 
-            var activity = _newsService.Get(editModel.Id);
-            activity = Mapper.Map(editModel, activity);
-            activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel, MediaFolderTypeEnum.NewsContent));
-            activity.PublishDate = editModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.PublishDate);
-            activity.UnpublishDate = editModel.UnpublishDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.UnpublishDate.Value);
-            activity.EndPinDate = editModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.EndPinDate.Value);
-
-            activity.IsPinned = _permissionsService.Check(
-                                    currentMember, 
-                                    new PermissionSettingIdentity(PermissionActionEnum.CanPin, IntranetActivityTypeEnum.News)) 
-                                && activity.IsPinned;
-
-            return activity;
+            if (IsPinAllowed())
+            {
+                news.IsPinned = editModel.IsPinned;
+            }
+            return news;
         }
         private async Task OnNewsEditedAsync(NewsBase news, NewsEditModel model)
         {
-
             await _activityTagsHelper.ReplaceTagsAsync(news.Id, model.TagIdsData);
-
             await ResolveMentionsAsync(model.Description, news);
         }
 
@@ -165,6 +160,11 @@ namespace Uintra20.Features.News.Controllers
         private Task<bool> IsPinAllowedAsync()
         {
             return _permissionsService.CheckAsync(ActivityType, PermissionActionEnum.CanPin);
+        }
+
+        private bool IsPinAllowed()
+        {
+            return _permissionsService.Check(ActivityType, PermissionActionEnum.CanPin);
         }
         private async Task<NewsViewModel> GetViewModelAsync(NewsBase news)
         {

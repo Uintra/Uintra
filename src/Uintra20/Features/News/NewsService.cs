@@ -103,7 +103,7 @@ namespace Uintra20.Features.News
 
         public override Enum PermissionActivityType => PermissionResourceTypeEnum.News;
 
-        public override IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId)
+        public override IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId, bool showGroupTitle)
         {
             var news = Get(activityId);
 
@@ -119,7 +119,7 @@ namespace Uintra20.Features.News
             viewModel.Type = _localizationService.Translate(news.Type.ToString());
             viewModel.LikedByCurrentUser = news.Likes.Any(x => x.UserId == currentMemberId);
             viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);
-            viewModel.GroupInfo = _feedActivityHelper.GetGroupInfo(activityId);
+            viewModel.GroupInfo = showGroupTitle ? _feedActivityHelper.GetGroupInfo(activityId) : null;
 
             var dates = news.PublishDate.ToDateTimeFormat().ToEnumerable().ToList();
 
