@@ -1,7 +1,6 @@
 import { Component, Input, HostListener } from '@angular/core';
 import { TITLE_MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
 import { GroupsService } from 'src/app/feature/project/specific/groups/groups.service';
-import { finalize } from 'rxjs/operators';
 import { MAX_FILES_FOR_SINGLE } from 'src/app/constants/dropzone/drop-zone.const';
 import { IMedia } from '../../activity/activity.interfaces';
 import { Router } from '@angular/router';
@@ -96,21 +95,25 @@ export class GroupsFormComponent {
       }
 
       if (!this.edit) {
-        this.groupsService.createGroup(groupModel).pipe(
-          finalize(() => this.inProgress = false)
-        ).subscribe(res => {
+        this.groupsService.createGroup(groupModel)
+        .subscribe(res => {
           this.hasDataChangedService.reset();
           this.router.navigate([res.originalUrl]);
+        },
+        (err: any) => {
+          this.inProgress = false;
         });
       } else {
         if (this.medias && this.medias.length) {
           groupModel.media = this.medias[0];
         }
-        this.groupsService.editGroup(groupModel).pipe(
-          finalize(() => this.inProgress = false)
-        ).subscribe(res => {
+        this.groupsService.editGroup(groupModel)
+        .subscribe(res => {
           this.hasDataChangedService.reset();
           this.router.navigate([res.originalUrl]);
+        },
+        (err: any) => {
+          this.inProgress = false;
         });
       }
     }

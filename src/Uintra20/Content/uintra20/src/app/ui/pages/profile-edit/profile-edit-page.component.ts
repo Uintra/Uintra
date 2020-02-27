@@ -4,7 +4,6 @@ import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { IProfileEditPage } from '../../../feature/shared/interfaces/pages/profile/edit/profile-edit-page.interface';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ProfileService } from './services/profile.service';
-import { finalize } from 'rxjs/operators';
 import { NotifierTypeEnum } from 'src/app/feature/shared/enums/notifier-type.enum';
 import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
 import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
@@ -100,10 +99,12 @@ export class ProfileEditPage implements OnInit {
     };
 
     this.profileService.update(profile)
-      .pipe(finalize(() => this.inProgress = false))
       .subscribe((next: any) => {
         this.hasDataChangedService.reset();
         this.router.navigate([next.originalUrl]);
+      },
+      (err) => {
+        this.inProgress = false;
       });
   }
 
