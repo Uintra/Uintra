@@ -101,6 +101,11 @@ export class UintraNewsEditPage implements OnInit {
     return copyObject;
   }
 
+  onCancel() {
+    this.hasDataChangedService.reset();
+    this.router.navigate([this.panelData.links.feed.originalUrl]);
+  }
+
   canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
       this.canDeactivateService.canDeacrivateConfirm();

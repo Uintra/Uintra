@@ -32,7 +32,6 @@ export class UserNavMobileComponent implements OnInit {
       ).subscribe(
         (next) => {
           window.open(window.location.origin + "/umbraco", "_blank");
-          this.onLinkClick();
         },
         (error) => {
           if (error.status === 400 || error.status === 403) {
@@ -47,7 +46,6 @@ export class UserNavMobileComponent implements OnInit {
         finalize(() => this.inProgress = false)
       ).subscribe(
         (next) => {
-          this.onLinkClick();
           window.location.href = '/login';
         },
         (error) => {
@@ -57,10 +55,6 @@ export class UserNavMobileComponent implements OnInit {
         },
       )
     }
-  }
-
-  onLinkClick() {
-    this.closeLeftNavigation.emit();
   }
 }
 

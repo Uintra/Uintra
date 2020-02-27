@@ -3,6 +3,7 @@ import { INavigationItem } from "./left-navigation.interface";
 import { LeftNavigationService } from "./left-navigation.service";
 import SimpleScrollbar from "simple-scrollbar";
 import { MqService } from 'src/app/services/general/mq.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: "app-left-navigation",
@@ -24,7 +25,14 @@ export class LeftNavigationComponent implements OnInit, AfterViewInit {
 
   constructor(
     private leftNavigationService: LeftNavigationService,
-    private mq: MqService) {}
+    private mq: MqService,
+    private router: Router) {
+      this.router.events.subscribe(val => {
+        if (val instanceof NavigationEnd) {
+          this.closeLeftNav();
+        }
+      })
+    }
 
   get isNotDesktop() {
     return this.isMobile;

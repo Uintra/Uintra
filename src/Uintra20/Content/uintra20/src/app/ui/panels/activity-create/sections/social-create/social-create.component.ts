@@ -64,7 +64,6 @@ export class SocialCreateComponent implements OnInit {
       if (confirm('Are you sure?')) {
         this.resetForm();
         this.hidePopUp();
-        this.hasDataChangedService.reset();
       }
     } else {
       this.resetForm();
@@ -75,6 +74,7 @@ export class SocialCreateComponent implements OnInit {
   hidePopUp() {
     this.modalService.removeClassFromRoot('disable-scroll');
     this.isPopupShowing = false;
+    this.hasDataChangedService.reset();
   }
 
   showPopUp() {

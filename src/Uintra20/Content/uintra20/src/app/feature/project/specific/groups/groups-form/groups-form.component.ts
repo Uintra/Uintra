@@ -142,7 +142,7 @@ export class GroupsFormComponent {
     if (this.data) {
       this.title = this.data.title;
       this.description = this.data.description;
-      this.mediasPreview = Object.values(this.data.mediaPreview.medias);
+      this.mediasPreview = this.data.mediaPreview ? Object.values(this.data.mediaPreview.medias) : [];
       this.medias = Object.values(this.data.media);
     }
   }
