@@ -964,6 +964,8 @@
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
     <Compile Include="Controllers\EnumController.cs" />
     <Compile Include="Core\AdminSection\Controllers\AdminController.cs" />
+    <Compile Include="Core\Article\ArticlePageViewModel.cs" />
+    <Compile Include="Core\Article\ArticlePageViewModelConverter.cs" />
     <Compile Include="Core\Member\Controllers\UintraMemberGroupTreeController.cs" />
     <Compile Include="Core\Member\Models\MemberGroupCreateModel.cs" />
     <Compile Include="Core\Activity\FeedActivityHelper.cs" />
@@ -1052,7 +1054,7 @@
     <Compile Include="Core\Member\Profile\Models\ProfilePageModel.cs" />
     <Compile Include="Core\Member\Profile\Models\ProfilePageViewModel.cs" />
     <Compile Include="Features\Navigation\INavigationModelsBuilder.cs" />
-    <Compile Include="Core\UbaselineModels\ArticlePageModel.cs" />
+    <Compile Include="Core\Article\ArticlePageModel.cs" />
     <Compile Include="Features\Navigation\Models\HeadingPageModel.cs" />
     <Compile Include="Features\Navigation\Models\IUintraNavigationComposition.cs" />
     <Compile Include="Core\UbaselineModels\UintraLinksPickerViewModel.cs" />
