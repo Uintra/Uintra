@@ -71,7 +71,7 @@
     </div>
     <div class="publication__footer">
       <div class="publication__footer-left-block">
-        <app-like-button [likeData]="likeData"></app-like-button>
+        <app-like-button [likeData]="likeData" [isDisabled]="!publication?.activity?.isGroupMember"></app-like-button>
         <a
           class="publication__comment publication__footer-item"
           [routerLink]="publication.activity.links?.details.originalUrl | ulink"

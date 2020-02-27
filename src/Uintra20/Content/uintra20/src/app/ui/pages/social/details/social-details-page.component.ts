@@ -27,6 +27,7 @@ export class SocialDetailsPanelComponent implements OnInit {
   commentDetails: ICommentData;
   detailsDescription: SafeHtml;
   groupId: string;
+  isGroupMember: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -43,10 +44,12 @@ export class SocialDetailsPanelComponent implements OnInit {
   public ngOnInit(): void {
     const parsedData = ParseHelper.parseUbaselineData(this.data);
     this.details = parsedData.details;
+    console.log(parsedData)
     this.commentDetails = {
       entityId: parsedData.details.id,
       entityType: parsedData.details.activityType
     };
+    this.isGroupMember = parsedData.isGroupMember;
     this.groupId = parsedData.groupId;
     this.activityName = ParseHelper.parseActivityType(this.details.activityType);
     this.tags = Object.values(parsedData.tags);
