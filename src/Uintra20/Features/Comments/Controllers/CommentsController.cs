@@ -65,7 +65,7 @@ namespace Uintra20.Features.Comments.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Add([FromBody] CommentCreateModel model)
         {
-            if (model.EntityType != IntranetEntityTypeEnum.ContentPage)
+            if (model.EntityType.Is(IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Events))
             {
                 var member = await _intranetMemberService.GetCurrentMemberAsync();
                 var activityGroupId = _groupActivityService.GetGroupId(model.EntityId);

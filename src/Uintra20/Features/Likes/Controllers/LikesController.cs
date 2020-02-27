@@ -3,6 +3,7 @@ using Localization.Umbraco.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
@@ -10,14 +11,15 @@ using Uintra20.Attributes;
 using Uintra20.Core;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
+using Uintra20.Core.Activity.Helpers;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Comments.Services;
+using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.CommandBus.Commands;
 using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Likes.Services;
-using Uintra20.Infrastructure.Context;
 using Uintra20.Infrastructure.Extensions;
-using static Uintra20.Infrastructure.Extensions.ContextExtensions;
 
 namespace Uintra20.Features.Likes.Controllers
 {
@@ -29,17 +31,26 @@ namespace Uintra20.Features.Likes.Controllers
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly ILikesService _likesService;
         private readonly ICommandPublisher _commandPublisher;
+        private readonly IGroupActivityService _groupActivityService;
+        private readonly ICommentsService _commentsService;
+        private readonly IActivityTypeHelper _activityTypeHelper;
 
         public LikesController(
             IActivitiesServiceFactory activitiesServiceFactory,
             IIntranetMemberService<IntranetMember> intranetMemberService,
             ILikesService likesService,
-            ICommandPublisher commandPublisher)
+            ICommandPublisher commandPublisher,
+            IGroupActivityService groupActivityService,
+            ICommentsService commentsService,
+            IActivityTypeHelper activityTypeHelper)
         {
             _activitiesServiceFactory = activitiesServiceFactory;
             _intranetMemberService = intranetMemberService;
             _likesService = likesService;
             _commandPublisher = commandPublisher;
+            _groupActivityService = groupActivityService;
+            _commentsService = commentsService;
+            _activityTypeHelper = activityTypeHelper;
         }
 
         [HttpGet]
@@ -48,12 +59,6 @@ namespace Uintra20.Features.Likes.Controllers
             return await _likesService.GetLikeModelsAsync(pageId);
         }
 
-        //[HttpGet]
-        //public virtual LikesViewModel Likes(ILikeable likesInfo)
-        //{
-        //    return likesInfo.Likes;
-        //}
-
         [HttpGet]
         public async Task<IEnumerable<LikeModel>> CommentLikes(Guid commentId)
         {
@@ -61,22 +66,27 @@ namespace Uintra20.Features.Likes.Controllers
         }
 
         [HttpPost]
-        public async Task<IEnumerable<LikeModel>> AddLike([FromUri]Guid entityId, [FromUri]IntranetEntityTypeEnum entityType)
+        public async Task<IHttpActionResult> AddLike([FromUri]Guid entityId, [FromUri]IntranetEntityTypeEnum entityType)
         {
+            if (!await CanAddLikeAsync(entityId, entityType))
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
+
             var command = new AddLikeCommand(entityId, entityType, await _intranetMemberService.GetCurrentMemberIdAsync());
             _commandPublisher.Publish(command);
 
             switch (entityType)
             {
                 case IntranetEntityTypeEnum.Comment:
-                    return await _likesService.GetLikeModelsAsync(entityId);
+                    return Ok(await _likesService.GetLikeModelsAsync(entityId));
 
                 case IntranetEntityTypeEnum.ContentPage:
-                    return await _likesService.GetLikeModelsAsync(entityId);
+                    return Ok(await _likesService.GetLikeModelsAsync(entityId));
 
                 case IntranetEntityTypeEnum type when type.Is(IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.Events):
                     var activityLikeInfo = GetActivityLikes(entityId);
-                    return activityLikeInfo.Likes;
+                    return Ok(activityLikeInfo.Likes);
                 default:
                     throw new IndexOutOfRangeException();
             }
@@ -104,40 +114,27 @@ namespace Uintra20.Features.Likes.Controllers
             }
         }
 
-        private LikesViewModel Likes(IEnumerable<LikeModel> likes, Guid entityId, bool isReadOnly = false, bool showTitle = false)
+        private async Task<bool> CanAddLikeAsync(Guid entityId, IntranetEntityTypeEnum entityType)
         {
-            var currenMemberId = _intranetMemberService.GetCurrentMemberId();
-            var likeModels = likes.ToArray();
-            var likedByCurrentUser = likeModels.Any(el => el.UserId == currenMemberId);
-            var model = new LikesViewModel
+            if (entityType.Is(IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Events))
             {
-                EntityId = entityId,
-                MemberId = currenMemberId,
-                Count = likeModels.Length,
-                LikedByCurrentUser = likedByCurrentUser,
-                Users = likeModels.Select(el => el.User),
-                IsReadOnly = isReadOnly,
-                ShowTitle = showTitle
-            };
-            return model;
-        }
+                var member = await _intranetMemberService.GetCurrentMemberAsync();
+                var activityGroupId = _groupActivityService.GetGroupId(entityId);
 
-        private async Task<LikesViewModel> LikesAsync(IEnumerable<LikeModel> likes, Guid entityId, bool isReadOnly = false, bool showTitle = false)
-        {
-            var currenMemberId = await _intranetMemberService.GetCurrentMemberIdAsync();
-            var likeModels = likes.ToArray();
-            var likedByCurrentUser = likeModels.Any(el => el.UserId == currenMemberId);
-            var model = new LikesViewModel
+                if (activityGroupId.HasValue && !member.GroupIds.Contains(activityGroupId.Value))
+                {
+                    return false;
+                }
+            }
+            else if (entityType.Is(IntranetEntityTypeEnum.Comment))
             {
-                EntityId = entityId,
-                MemberId = currenMemberId,
-                Count = likeModels.Length,
-                LikedByCurrentUser = likedByCurrentUser,
-                Users = likeModels.Select(el => el.User),
-                IsReadOnly = isReadOnly,
-                ShowTitle = showTitle
-            };
-            return model;
+                var comment = await _commentsService.GetAsync(entityId);
+                var activityType = _activityTypeHelper.GetActivityType(comment.ActivityId);
+
+                return await CanAddLikeAsync(comment.ActivityId, (IntranetEntityTypeEnum)activityType);
+            }
+
+            return true;
         }
 
         private ILikeable GetActivityLikes(Guid activityId)
