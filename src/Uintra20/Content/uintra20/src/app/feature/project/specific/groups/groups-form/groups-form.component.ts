@@ -24,7 +24,8 @@ export interface IEditGroupData {
 })
 export class GroupsFormComponent {
   @Input() data: any;
-  @Input('edit') edit: any;
+  @Input() allowedExtensions: string;
+  @Input('edit') edit: any;    
   @HostListener('window:beforeunload') checkIfDataChanged() {
     return !this.hasDataChangedService.hasDataChanged;
   }

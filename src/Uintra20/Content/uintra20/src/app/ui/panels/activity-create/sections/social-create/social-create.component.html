@@ -2,7 +2,7 @@
   <div class="create-bulletin__input" (click)="onShowPopUp()">
     <app-user-avatar [photo]="userAvatar?.photo" [name]="userAvatar?.name"></app-user-avatar>
     <button class="create-bulletin__input-placeholder"
-        (focus)="onShowPopUp()">Write a message, post a photo or share a document
+        (focus)="onShowPopUp()">{{getPlaceholder()}}
     </button>
   </div>
   <div class="feed-btns">
@@ -42,7 +42,7 @@
       (ngModelChange)="onDescriptionChange($event)"
       (addAttachment)="addAttachment()"
       [isUnderline]="false"
-      placeholder="Write a message, post a photo or share a document">
+      [placeholder]="getPlaceholder()">
 
         <button submit [disabled]="isSubmitDisabled" class="bulletin-popup__submit-button" (click)="onSubmit()">
           <span *ngIf="inProgress" class="bulletin-popup__submit-button-spinner"></span>
