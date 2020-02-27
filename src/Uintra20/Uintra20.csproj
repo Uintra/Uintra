@@ -964,6 +964,7 @@
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
     <Compile Include="Controllers\EnumController.cs" />
     <Compile Include="Core\AdminSection\Controllers\AdminController.cs" />
+    <Compile Include="Core\IntranetEntityTypeEnum.cs" />
     <Compile Include="Core\Member\Controllers\UintraMemberGroupTreeController.cs" />
     <Compile Include="Core\Member\Models\MemberGroupCreateModel.cs" />
     <Compile Include="Core\Activity\FeedActivityHelper.cs" />

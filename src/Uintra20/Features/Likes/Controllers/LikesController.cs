@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
 using Uintra20.Attributes;
+using Uintra20.Core;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member.Entities;
@@ -60,20 +61,20 @@ namespace Uintra20.Features.Likes.Controllers
         }
 
         [HttpPost]
-        public async Task<IEnumerable<LikeModel>> AddLike([FromUri]Guid entityId, [FromUri]ContextType entityType)
+        public async Task<IEnumerable<LikeModel>> AddLike([FromUri]Guid entityId, [FromUri]IntranetEntityTypeEnum entityType)
         {
             var command = new AddLikeCommand(entityId, entityType, await _intranetMemberService.GetCurrentMemberIdAsync());
             _commandPublisher.Publish(command);
 
-            switch (entityType.ToInt())
+            switch (entityType)
             {
-                case (int)ContextType.Comment:
+                case IntranetEntityTypeEnum.Comment:
                     return await _likesService.GetLikeModelsAsync(entityId);
 
-                case (int)ContextType.ContentPage:
+                case IntranetEntityTypeEnum.ContentPage:
                     return await _likesService.GetLikeModelsAsync(entityId);
 
-                case int type when HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
+                case IntranetEntityTypeEnum type when type.Is(IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.Events):
                     var activityLikeInfo = GetActivityLikes(entityId);
                     return activityLikeInfo.Likes;
                 default:
@@ -82,20 +83,20 @@ namespace Uintra20.Features.Likes.Controllers
         }
 
         [HttpPost]
-        public async Task<IEnumerable<LikeModel>> RemoveLike(Guid entityId, ContextType entityType)
+        public async Task<IEnumerable<LikeModel>> RemoveLike(Guid entityId, IntranetEntityTypeEnum entityType)
         {
             var command = new RemoveLikeCommand(entityId, entityType, await _intranetMemberService.GetCurrentMemberIdAsync());
             _commandPublisher.Publish(command);
 
-            switch (entityType.ToInt())
+            switch (entityType)
             {
-                case (int)ContextType.Comment:
+                case IntranetEntityTypeEnum.Comment:
                     return await _likesService.GetLikeModelsAsync(entityId);
 
-                case (int)ContextType.ContentPage:
+                case IntranetEntityTypeEnum.ContentPage:
                     return await _likesService.GetLikeModelsAsync(entityId);
 
-                case int type when HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
+                case IntranetEntityTypeEnum type when type.Is(IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.Events):
                     var activityLikeInfo = GetActivityLikes(entityId);
                     return activityLikeInfo.Likes;
                 default:

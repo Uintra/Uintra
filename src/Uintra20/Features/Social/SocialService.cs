@@ -120,17 +120,20 @@ namespace Uintra20.Features.Social
 
             var links = _linkService.GetLinks(activityId);
 
-            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
+            var currentMember = _intranetMemberService.GetCurrentMember();
 
             var viewModel = bulletin.Map<SocialPreviewModel>();
             viewModel.CanEdit = CanEdit(bulletin);
             viewModel.Links = links;
             viewModel.Owner = _intranetMemberService.Get(bulletin).ToViewModel();
             viewModel.Type = _localizationService.Translate(bulletin.Type.ToString());
-            viewModel.LikedByCurrentUser = bulletin.Likes.Any(x => x.UserId == currentMemberId);
+            viewModel.LikedByCurrentUser = bulletin.Likes.Any(x => x.UserId == currentMember.Id);
             viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);
             viewModel.GroupInfo = _feedActivityHelper.GetGroupInfo(activityId);
-            _likesService.FillLikes(viewModel);
+            viewModel.IsGroupMember = !bulletin.GroupId.HasValue || currentMember.GroupIds.Contains(bulletin.GroupId.Value);
+            var likes = _likesService.GetLikeModels(bulletin.Id);
+            viewModel.Likes = likes;
+
             DependencyResolver.Current.GetService<ILightboxHelper>().FillGalleryPreview(viewModel, bulletin.MediaIds);
 
             return viewModel;

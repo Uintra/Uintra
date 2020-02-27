@@ -7,9 +7,7 @@ namespace Uintra20.Features.Likes
     public interface ILikeable
     {
         Guid Id { get; }
-
         IEnumerable<LikeModel> Likes { get; set; }
-
         bool IsReadOnly { get; set; }
     }
 }

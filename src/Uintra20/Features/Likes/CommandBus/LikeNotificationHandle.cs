@@ -1,4 +1,5 @@
 ﻿using Compent.CommandBus;
+using Uintra20.Core;
 using Uintra20.Core.Activity;
 using Uintra20.Features.Likes.CommandBus.Commands;
 using Uintra20.Features.Notification.Configuration;
@@ -20,17 +21,14 @@ namespace Uintra20.Features.Likes.CommandBus
         {
             var likeTargetEntityId = command.EntityId;
 
-            switch (command.EntityType.ToInt())
+            switch (command.EntityType)
             {
-                case (int)ContextType.Comment:
-                    if (ContextExtensions.HasFlagScalar(command.EntityType, ContextType.Comment | ContextType.Activity | ContextType.PagePromotion | ContextType.ContentPage))
-                    {
-                        var service = _activitiesServiceFactory.GetNotifyableService(command.EntityId);
-                        service.Notify(likeTargetEntityId, NotificationTypeEnum.CommentLikeAdded);
-                    }
+                case IntranetEntityTypeEnum.Comment:
+                    var service = _activitiesServiceFactory.GetNotifyableService(command.EntityId);
+                    service.Notify(likeTargetEntityId, NotificationTypeEnum.CommentLikeAdded);
                     break;
 
-                case int type when ContextExtensions.HasFlagScalar(type, ContextType.Activity):
+                case IntranetEntityTypeEnum type when type.Is(IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.Events):
                     var notifiableService = _activitiesServiceFactory.GetNotifyableService(likeTargetEntityId);
                     notifiableService.Notify(likeTargetEntityId, NotificationTypeEnum.ActivityLikeAdded);
                     break;

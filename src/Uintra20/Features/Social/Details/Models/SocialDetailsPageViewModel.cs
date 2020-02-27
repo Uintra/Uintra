@@ -24,5 +24,6 @@ namespace Uintra20.Features.Social.Details.Models
         public bool RequiresGroupHeader { get; set; }
         public bool CanEdit { get; set; }
         public bool CanView { get; set; }
+        public bool IsGroupMember { get; set; }
     }
 }
