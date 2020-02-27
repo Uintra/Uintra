@@ -6,7 +6,6 @@ import { ActivityService } from 'src/app/feature/project/specific/activity/activ
 import { INewsCreateModel } from 'src/app/feature/project/specific/activity/activity.interfaces';
 import { RouterResolverService } from 'src/app/services/general/router-resolver.service';
 import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
-import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: "app-news-create",
@@ -51,11 +50,13 @@ export class NewsCreateComponent implements OnInit {
 
     this.activityService
     .submitNewsContent(data)
-    .pipe(finalize(() => this.isSubmitLoading = false))
     .subscribe((r: any) => {
       this.routerResolverService.removePageRouter(r.originalUrl);
       this.hasDataChangedService.reset();
       this.router.navigate([r.originalUrl]);
+    },
+    (err) => {
+      this.isSubmitLoading = false;
     });
   }
 

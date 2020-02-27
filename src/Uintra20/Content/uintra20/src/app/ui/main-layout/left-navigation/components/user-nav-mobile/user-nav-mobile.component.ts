@@ -2,7 +2,6 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IMobileUserNavigation } from '../../left-navigation.interface';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-nav-mobile',
@@ -27,9 +26,8 @@ export class UserNavMobileComponent implements OnInit {
     this.inProgress = true;
 
     if (type == 1) {
-      this.http.post(url.originalUrl, null).pipe(
-        finalize(() => this.inProgress = false)
-      ).subscribe(
+      this.http.post(url.originalUrl, null)
+      .subscribe(
         (next) => {
           window.open(window.location.origin + "/umbraco", "_blank");
         },
@@ -37,14 +35,14 @@ export class UserNavMobileComponent implements OnInit {
           if (error.status === 400 || error.status === 403) {
             console.error(error.message);
           }
+          this.inProgress = false;
         },
       );
     }
 
     if (type == 4) {
-      this.http.post(url.originalUrl, null).pipe(
-        finalize(() => this.inProgress = false)
-      ).subscribe(
+      this.http.post(url.originalUrl, null)
+      .subscribe(
         (next) => {
           window.location.href = '/login';
         },
@@ -52,6 +50,7 @@ export class UserNavMobileComponent implements OnInit {
           if (error.status === 400) {
             console.error(error.message);
           }
+          this.inProgress = false;
         },
       )
     }
