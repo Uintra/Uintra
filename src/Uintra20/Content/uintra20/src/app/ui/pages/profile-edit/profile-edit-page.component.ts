@@ -18,7 +18,7 @@ import { CanDeactivateGuard } from 'src/app/services/general/can-deactivate.serv
 })
 export class ProfileEditPage implements OnInit {
   @HostListener('window:beforeunload') checkIfDataChanged() {
-    return !this.hasDataChangedService.hasDataChanged || this.checkIfdataChanged();
+    return !this.hasDataChangedService.hasDataChanged || !this.checkIfdataChanged();
   }
   files = [];
   private data: any;
@@ -160,7 +160,7 @@ export class ProfileEditPage implements OnInit {
 
   canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged || this.checkIfdataChanged()) {
-      this.canDeactivateService.canDeacrivateConfirm();
+      return this.canDeactivateService.canDeacrivateConfirm();
     }
 
     return true;

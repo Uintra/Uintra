@@ -155,7 +155,7 @@ export class SocialEditPageComponent {
 
   canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
-      this.canDeactivateService.canDeacrivateConfirm();
+      return this.canDeactivateService.canDeacrivateConfirm();
     }
 
     return true;
