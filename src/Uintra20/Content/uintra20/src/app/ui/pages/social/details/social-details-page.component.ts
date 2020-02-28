@@ -44,7 +44,6 @@ export class SocialDetailsPanelComponent implements OnInit {
   public ngOnInit(): void {
     const parsedData = ParseHelper.parseUbaselineData(this.data);
     this.details = parsedData.details;
-    console.log(parsedData)
     this.commentDetails = {
       entityId: parsedData.details.id,
       entityType: parsedData.details.activityType

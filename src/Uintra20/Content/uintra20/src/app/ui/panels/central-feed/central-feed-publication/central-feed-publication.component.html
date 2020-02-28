@@ -77,7 +77,7 @@
           [routerLink]="publication.activity.links?.details.originalUrl | ulink"
         >
           <i class="icon-comment"></i>
-          {{ commentsCount }}
+          {{ publication?.activity?.isGroupMember ? commentsCount : '' }}
         </a>
         <button class="publication__share publication__footer-item">
           <i class="icon-share-icon"></i>
