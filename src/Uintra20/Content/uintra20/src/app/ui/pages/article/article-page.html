@@ -1,10 +1,12 @@
 <app-group-details-wrapper *ngIf="parsedData && parsedData.groupId" [id]="parsedData.groupId">
-  <div class="page-wrapper">
-    <ubl-dynamic-component
-      *ngFor="let panel of data.panels.get()"
-      [data]="panel.get()"
-    >
-    </ubl-dynamic-component>
+  <div class="group-details-padding">
+    <div class="page-wrapper">
+      <ubl-dynamic-component
+        *ngFor="let panel of data.panels.get()"
+        [data]="panel.get()"
+      >
+      </ubl-dynamic-component>
+    </div>
   </div>
 </app-group-details-wrapper>
 
