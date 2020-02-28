@@ -7,6 +7,7 @@ using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Helpers;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Infrastructure.Extensions;
@@ -19,17 +20,20 @@ namespace Uintra20.Features.Likes.Converters
         private readonly IUBaselineRequestContext _requestContext;
         private readonly ILikesService _likesService;
         private readonly IActivityTypeHelper _activityTypeHelper;
+        private readonly IGroupActivityService _groupActivityService;
         
         public LikesPanelViewModelConverter(
             IUBaselineRequestContext requestContext,
             IIntranetMemberService<IntranetMember> intranetMemberService, 
             ILikesService likesService,
-            IActivityTypeHelper activityTypeHelper)
+            IActivityTypeHelper activityTypeHelper,
+            IGroupActivityService groupActivityService)
         {
             _requestContext = requestContext;
             _likesService = likesService;
             _intranetMemberService = intranetMemberService;
             _activityTypeHelper = activityTypeHelper;
+            _groupActivityService = groupActivityService;
         }
 
         public void Map(LikesPanelModel node, LikesPanelViewModel viewModel)
@@ -47,13 +51,18 @@ namespace Uintra20.Features.Likes.Converters
             if (!id.HasValue)
                 return;
 
-            var likes = _likesService.GetLikeModels(id.Value).ToArray();
+            var groupId = _groupActivityService.GetGroupId(activityId);
+            var currentMember = _intranetMemberService.GetCurrentMember();
 
-            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
+            viewModel.IsGroupMember = !groupId.HasValue || currentMember.GroupIds.Contains(groupId.Value);
+
+            if (!viewModel.IsGroupMember) return;
+
+            var likes = _likesService.GetLikeModels(id.Value).ToArray();
 
             viewModel.Likes = likes;
             viewModel.EntityId = id.Value;
-            viewModel.LikedByCurrentUser = likes.Any(el => el.UserId == currentMemberId);
+            viewModel.LikedByCurrentUser = likes.Any(el => el.UserId == currentMember.Id);
             viewModel.ActivityType = activityType;
         }
     }
