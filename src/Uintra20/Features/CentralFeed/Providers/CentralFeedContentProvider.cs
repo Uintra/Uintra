@@ -4,7 +4,6 @@ using Compent.Shared.Extensions.Bcl;
 using Uintra20.Infrastructure.Providers;
 using Uintra20.Infrastructure.TypeProviders;
 using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web;
 
 namespace Uintra20.Features.CentralFeed.Providers
 {
@@ -17,9 +16,7 @@ namespace Uintra20.Features.CentralFeed.Providers
 
         public CentralFeedContentProvider(
             IDocumentTypeAliasProvider documentTypeAliasProvider,
-            UmbracoHelper umbracoHelper, 
             IActivityTypeProvider activityTypeProvider)
-            : base(umbracoHelper)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _activityTypeProvider = activityTypeProvider;

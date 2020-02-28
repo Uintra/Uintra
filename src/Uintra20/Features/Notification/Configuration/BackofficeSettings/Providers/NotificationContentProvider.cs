@@ -10,9 +10,7 @@ namespace Uintra20.Features.Notification.Configuration.BackofficeSettings.Provid
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
 
         public NotificationContentProvider(
-            UmbracoHelper umbracoHelper, 
-            IDocumentTypeAliasProvider documentTypeAliasProvider)
-            : base(umbracoHelper)
+	        IDocumentTypeAliasProvider documentTypeAliasProvider)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
         }

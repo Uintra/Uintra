@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using UBaseline.Shared.Node;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Features.Comments.Links;
@@ -10,7 +11,6 @@ using Uintra20.Features.Links;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities;
 using Uintra20.Infrastructure.Extensions;
-using Umbraco.Core.Models.PublishedContent;
 
 namespace Uintra20.Infrastructure.Helpers
 {
@@ -46,7 +46,7 @@ namespace Uintra20.Infrastructure.Helpers
             };
         }
 
-        public CommentNotifierDataModel GetCommentNotifierDataModel(IPublishedContent content, CommentModel comment, Enum notificationType, Guid notifierId)
+        public CommentNotifierDataModel GetCommentNotifierDataModel(INodeModel content, CommentModel comment, Enum notificationType, Guid notifierId)
         {
             return new CommentNotifierDataModel
             {

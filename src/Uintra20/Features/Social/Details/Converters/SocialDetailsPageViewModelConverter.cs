@@ -71,15 +71,16 @@ namespace Uintra20.Features.Social.Details.Converters
                 return;
             }
 
-            var userId = _memberService.GetCurrentMemberId();
+            var member = _memberService.GetCurrentMember();
             var social = _socialService.Get(parseId);
 
             viewModel.Details = GetViewModel(social);
             viewModel.Tags = _userTagService.Get(parseId);
             viewModel.Likes = _likesService.GetLikeModels(parseId);
-            viewModel.LikedByCurrentUser = viewModel.Likes.Any(l => l.UserId == userId);
+            viewModel.LikedByCurrentUser = viewModel.Likes.Any(l => l.UserId == member.Id);
             viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(parseId));
             viewModel.CanEdit = _socialService.CanEdit(parseId);
+            viewModel.IsGroupMember = !social.GroupId.HasValue || member.GroupIds.Contains(social.GroupId.Value);
 
             var groupIdStr = HttpContext.Current.Request["groupId"];
             if (!Guid.TryParse(groupIdStr, out var groupId) || social.GroupId != groupId)

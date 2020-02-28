@@ -8,7 +8,7 @@ namespace Uintra20.Features.CentralFeed.Providers
     {
         protected abstract IEnumerable<string> OverviewAliasPath { get; }
 
-        protected FeedContentProviderBase(UmbracoHelper umbracoHelper) : base(umbracoHelper)
+        protected FeedContentProviderBase() : base()
         { }
 
         public virtual IPublishedContent GetOverviewPage() =>

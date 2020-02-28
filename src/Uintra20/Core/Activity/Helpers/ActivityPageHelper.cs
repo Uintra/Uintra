@@ -38,11 +38,12 @@ namespace Uintra20.Core.Activity.Helpers
         public UintraLinkModel GetDetailsPageUrl(Enum activityType, Guid? activityId = null)
         {
             var pageAlias = _aliasProvider.GetDetailsPage(activityType);
-            var detailsPageUrl = _nodeModelService.GetByAlias(pageAlias, _uBaselineRequestContext.Node.RootId)?.Url;
-
+            var currentNode = _uBaselineRequestContext.Node;
+            var detailsPageUrl = currentNode != null ? _nodeModelService.GetByAlias(pageAlias, currentNode.RootId)?.Url : null;
+            
             return activityId.HasValue
-                ? detailsPageUrl.AddIdParameter(activityId).ToLinkModel()
-                : detailsPageUrl.ToLinkModel();
+                ? detailsPageUrl?.AddIdParameter(activityId).ToLinkModel()
+                : detailsPageUrl?.ToLinkModel();
         }
 
         public UintraLinkModel GetCreatePageUrl(Enum activityType)
@@ -72,9 +73,10 @@ namespace Uintra20.Core.Activity.Helpers
         public UintraLinkModel GetEditPageUrl(Enum activityType, Guid activityId)
         {
             var pageAlias = _aliasProvider.GetEditPage(activityType);
-            var detailsPageUrl = _nodeModelService.GetByAlias(pageAlias, _uBaselineRequestContext.Node.RootId)?.Url;
+            var currentNode = _uBaselineRequestContext.Node;
+            var detailsPageUrl = currentNode != null ? _nodeModelService.GetByAlias(pageAlias, currentNode.RootId)?.Url : null;
 
-            return detailsPageUrl.AddIdParameter(activityId).ToLinkModel();
+            return detailsPageUrl?.AddIdParameter(activityId)?.ToLinkModel();
         }
     }
 }

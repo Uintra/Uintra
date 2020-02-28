@@ -71,15 +71,16 @@ namespace Uintra20.Features.News.Converters
 
             var news = _newsService.Get(id);
 
-            var userId = _memberService.GetCurrentMemberId();
+            var member = _memberService.GetCurrentMember();
 
             viewModel.Details = GetDetails(news);
             viewModel.Tags = _userTagService.Get(id);
             viewModel.Likes = _likesService.GetLikeModels(id);
-            viewModel.LikedByCurrentUser = viewModel.Likes.Any(l => l.UserId == userId);
+            viewModel.LikedByCurrentUser = viewModel.Likes.Any(l => l.UserId == member.Id);
             viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(id));
             viewModel.CanEdit = _newsService.CanEdit(id);
-           
+            viewModel.IsGroupMember = !news.GroupId.HasValue || member.GroupIds.Contains(news.GroupId.Value);
+
             var groupIdStr = HttpContext.Current.Request["groupId"];
             if (!Guid.TryParse(groupIdStr, out var groupId) || news.GroupId != groupId)
                 return;

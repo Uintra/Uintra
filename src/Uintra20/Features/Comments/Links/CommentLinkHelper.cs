@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using UBaseline.Shared.Node;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Links.Models;
 using Uintra20.Infrastructure.Extensions;
-using Umbraco.Core.Models.PublishedContent;
 
 namespace Uintra20.Features.Comments.Links
 {
@@ -22,7 +22,7 @@ namespace Uintra20.Features.Comments.Links
         public UintraLinkModel GetDetailsUrlWithComment(Guid activityId, Guid commentId) =>
             $"{_linkService.GetLinks(activityId).Details}#{_commentsService.GetCommentViewId(commentId)}".ToLinkModel();
 
-        public UintraLinkModel GetDetailsUrlWithComment(IPublishedContent content, Guid commentId) =>
+        public UintraLinkModel GetDetailsUrlWithComment(INodeModel content, Guid commentId) =>
             $"{content.Url}#{_commentsService.GetCommentViewId(commentId)}".ToLinkModel();
 
         public async Task<UintraLinkModel> GetDetailsUrlWithCommentAsync(Guid activityId, Guid commentId) =>

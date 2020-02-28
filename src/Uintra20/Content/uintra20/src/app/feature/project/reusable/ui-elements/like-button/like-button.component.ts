@@ -9,6 +9,7 @@ import { ILikeData, IUserLikeData } from "./like-button.interface";
 })
 export class LikeButtonComponent implements OnInit {
   @Input() likeData: ILikeData;
+  @Input() isDisabled: boolean = false;
   newLikesCount: number = null;
   listOfUsersWhoLiked: Array<IUserLikeData> = [];
 

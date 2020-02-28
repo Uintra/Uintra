@@ -109,7 +109,7 @@ namespace Uintra20.Features.News
 
             var links = _linkService.GetLinks(activityId);
 
-            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
+            var currentMember = _intranetMemberService.GetCurrentMember();
 
             var viewModel = news.Map<IntranetActivityPreviewModelBase>();
             viewModel.CanEdit = CanEdit(news);
@@ -117,8 +117,11 @@ namespace Uintra20.Features.News
             viewModel.Owner = _intranetMemberService.Get(news).ToViewModel();
             viewModel.IsPinActual = IsPinActual(news);
             viewModel.Type = _localizationService.Translate(news.Type.ToString());
-            viewModel.LikedByCurrentUser = news.Likes.Any(x => x.UserId == currentMemberId);
+            viewModel.LikedByCurrentUser = news.Likes.Any(x => x.UserId == currentMember.Id);
             viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);
+            viewModel.IsGroupMember = !news.GroupId.HasValue || currentMember.GroupIds.Contains(news.GroupId.Value);
+            var likes = _likesService.GetLikeModels(news.Id);
+            viewModel.Likes = likes;
             viewModel.GroupInfo = showGroupTitle ? _feedActivityHelper.GetGroupInfo(activityId) : null;
 
             var dates = news.PublishDate.ToDateTimeFormat().ToEnumerable().ToList();
@@ -129,8 +132,6 @@ namespace Uintra20.Features.News
             }
 
             viewModel.Dates = dates;
-
-            _likesService.FillLikes(viewModel);
             DependencyResolver.Current.GetService<ILightboxHelper>().FillGalleryPreview(viewModel, news.MediaIds);
 
             return viewModel;
@@ -203,6 +204,24 @@ namespace Uintra20.Features.News
         //    base.UpdateCache();
         //    FillIndex();
         //}
+
+        public override bool IsActual(IIntranetActivity activity)
+        {
+            var news = (NewsBase)activity;
+            var isActual = base.IsActual(news);
+
+            if (!isActual) return false;
+
+            if (IsExpired(news))
+            {
+                news.IsHidden = true;
+                news.UnpublishDate = null;
+                Save(news);
+                return false;
+            }
+
+            return news.PublishDate <= DateTime.UtcNow || IsOwner(news);
+        }
 
         public override Entities.News UpdateActivityCache(Guid id)
         {
