@@ -23,5 +23,6 @@ namespace Uintra20.Features.News.Models
         public bool RequiresGroupHeader { get; set; }
         public bool CanEdit { get; set; }
         public bool CanView { get; set; }
+        public bool IsGroupMember { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Compent.CommandBus;
+using Uintra20.Core;
 using Uintra20.Core.Activity;
 using Uintra20.Features.Comments.CommandBus.Commands;
 using Uintra20.Features.Notification.Configuration;
@@ -20,10 +21,8 @@ namespace Uintra20.Features.Comments.CommandBus
         {
             var commentsTargetEntityId = command.TargetId;
 
-            var isHasFlag = ContextExtensions
-                .HasFlagScalar(
-                    command.TargetType,
-                    ContextType.Activity | ContextType.PagePromotion | ContextType.ContentPage);
+            var isHasFlag = command.TargetType.Is(IntranetEntityTypeEnum.ContentPage, IntranetEntityTypeEnum.News,
+                                                            IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.Events);
 
             if (!isHasFlag) 
                 return BroadcastResult.Success;
@@ -43,7 +42,7 @@ namespace Uintra20.Features.Comments.CommandBus
         {
             var commentsTargetEntityId = command.TargetId;
 
-            if (!ContextExtensions.HasFlagScalar(command.TargetType, ContextType.Activity))
+            if (command.TargetType.Is(IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.Events))
                 return BroadcastResult.Success;
 
             var notifiableService = _activitiesServiceFactory.GetNotifyableService(commentsTargetEntityId);

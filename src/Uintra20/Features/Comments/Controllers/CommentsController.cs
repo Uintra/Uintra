@@ -2,11 +2,13 @@
 using Localization.Umbraco.Attributes;
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
 using UBaseline.Core.Node;
 using Uintra20.Attributes;
+using Uintra20.Core;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member.Entities;
@@ -17,6 +19,7 @@ using Uintra20.Features.Comments.Helpers;
 using Uintra20.Features.Comments.Links;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Services;
+using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Notification;
 using Uintra20.Infrastructure.Context;
 using Uintra20.Infrastructure.Extensions;
@@ -36,6 +39,7 @@ namespace Uintra20.Features.Comments.Controllers
         private readonly IMentionService _mentionService;
         private readonly ICommentLinkHelper _commentLinkHelper;
         private readonly INodeModelService _nodeModelService;
+        private readonly IGroupActivityService _groupActivityService;
 
         public CommentsController(
             ICommentsHelper commentsHelper,
@@ -45,6 +49,7 @@ namespace Uintra20.Features.Comments.Controllers
             IActivitiesServiceFactory activitiesServiceFactory,
             IMentionService mentionService,
             ICommentLinkHelper commentLinkHelper,
+            IGroupActivityService groupActivityService,
             INodeModelService nodeModelService)
         {
             _commentsHelper = commentsHelper;
@@ -54,26 +59,38 @@ namespace Uintra20.Features.Comments.Controllers
             _activitiesServiceFactory = activitiesServiceFactory;
             _mentionService = mentionService;
             _commentLinkHelper = commentLinkHelper;
+            _groupActivityService = groupActivityService;
             _nodeModelService = nodeModelService;
         }
 
         [HttpPost]
-        public async Task<CommentsOverviewModel> Add([FromBody] CommentCreateModel model)
+        public async Task<IHttpActionResult> Add([FromBody] CommentCreateModel model)
         {
+            if (model.EntityType.Is(IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Events))
+            {
+                var member = await _intranetMemberService.GetCurrentMemberAsync();
+                var activityGroupId = _groupActivityService.GetGroupId(model.EntityId);
+
+                if(activityGroupId.HasValue && !member.GroupIds.Contains(activityGroupId.Value))
+                {
+                    return StatusCode(HttpStatusCode.Forbidden);
+                }
+            }
+
             var createDto = await MapToCreateDtoAsync(model, model.EntityId);
             var command = new AddCommentCommand(model.EntityId, model.EntityType, createDto);
             _commandPublisher.Publish(command);
 
             await OnCommentCreatedAsync(createDto.Id);
 
-            switch (model.EntityType.ToInt())
+            switch (model.EntityType)
             {
-                case int type
-                    when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
+                case IntranetEntityTypeEnum type
+                    when type.Is(IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.Events):
                     var activityCommentsInfo = GetActivityComments(model.EntityId);
-                    return await _commentsHelper.OverViewAsync(activityCommentsInfo.Id, activityCommentsInfo.Comments, activityCommentsInfo.IsReadOnly);
+                    return Ok(await _commentsHelper.OverViewAsync(activityCommentsInfo.Id, activityCommentsInfo.Comments, activityCommentsInfo.IsReadOnly));
                 default:
-                    return await _commentsHelper.OverViewAsync(model.EntityId);
+                    return Ok(await _commentsHelper.OverViewAsync(model.EntityId));
             }
         }
 
@@ -91,10 +108,10 @@ namespace Uintra20.Features.Comments.Controllers
 
             await OnCommentEditedAsync(model.Id);
 
-            switch (model.EntityType.ToInt())
+            switch (model.EntityType)
             {
-                case int type
-                    when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
+                case IntranetEntityTypeEnum type
+                    when type.Is(IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.Events):
                     var activityCommentsInfo = GetActivityComments(model.EntityId);
                     return await _commentsHelper.OverViewAsync(activityCommentsInfo.Id, activityCommentsInfo.Comments, activityCommentsInfo.IsReadOnly);
                 default:
@@ -103,7 +120,7 @@ namespace Uintra20.Features.Comments.Controllers
         }
 
         [HttpDelete]
-        public async Task<CommentsOverviewModel> Delete(Guid targetId, ContextType targetType, Guid commentId)
+        public async Task<CommentsOverviewModel> Delete(Guid targetId, IntranetEntityTypeEnum targetType, Guid commentId)
         {
             var comment = await _commentsService.GetAsync(commentId);
 
@@ -115,10 +132,10 @@ namespace Uintra20.Features.Comments.Controllers
             var command = new RemoveCommentCommand(targetId, targetType, commentId);
             _commandPublisher.Publish(command);
 
-            switch (targetType.ToInt())
+            switch (targetType)
             {
-                case int type
-                    when ContextExtensions.HasFlagScalar(type, ContextType.Activity | ContextType.PagePromotion):
+                case IntranetEntityTypeEnum type
+                    when type.Is(IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.Events):
                     var activityCommentsInfo = GetActivityComments(targetId);
                     return await _commentsHelper.OverViewAsync(activityCommentsInfo.Id, activityCommentsInfo.Comments, activityCommentsInfo.IsReadOnly);
                 default:

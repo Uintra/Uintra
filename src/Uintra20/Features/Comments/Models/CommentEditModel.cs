@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using Uintra20.Infrastructure.Context;
+using Uintra20.Core;
 
 namespace Uintra20.Features.Comments.Models
 {
@@ -11,7 +11,7 @@ namespace Uintra20.Features.Comments.Models
 
         public Guid EntityId { get; set; }
 
-        public ContextType EntityType { get; set; }
+        public IntranetEntityTypeEnum EntityType { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "*"), AllowHtml]
         public string Text { get; set; }

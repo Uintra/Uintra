@@ -1,5 +1,6 @@
 ﻿using System;
 using Compent.CommandBus;
+using Uintra20.Core;
 using Uintra20.Core.Activity;
 using Uintra20.Features.Comments.CommandBus.Commands;
 using Uintra20.Features.Comments.Services;
@@ -46,7 +47,7 @@ namespace Uintra20.Features.Comments.CommandBus
 
         private void UpdateCache(Enum commentsTargetType, Guid commentsTargetEntityId)
         {
-            if (HasFlagScalar(commentsTargetType, ContextType.Activity | ContextType.PagePromotion))
+            if (commentsTargetType.Is(IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.Events))
             {
                 var activityService = _activitiesServiceFactory.GetCacheableIntranetActivityService(commentsTargetEntityId);
                 activityService.UpdateActivityCache(commentsTargetEntityId);
