@@ -101,6 +101,7 @@ export class ProfileEditPage implements OnInit {
     this.profileService.update(profile)
       .subscribe((next: any) => {
         this.hasDataChangedService.reset();
+        this.resetDataChecker();
         this.router.navigate([next.originalUrl]);
       },
       (err) => {
@@ -156,6 +157,13 @@ export class ProfileEditPage implements OnInit {
       this.profileEdit.member.lastName !== this.profileEditForm.value.lastName ||
       this.profileEdit.member.phone !== this.profileEditForm.value.phone ||
       this.profileEdit.member.department !== this.profileEditForm.value.department;
+  }
+
+  resetDataChecker() {
+    this.profileEdit.member.firstName = this.profileEditForm.value.firstName;
+    this.profileEdit.member.lastName = this.profileEditForm.value.lastName;
+    this.profileEdit.member.phone = this.profileEditForm.value.phone;
+    this.profileEdit.member.department = this.profileEditForm.value.department;
   }
 
   canDeactivate(): Observable<boolean> | boolean {
