@@ -68,7 +68,7 @@ namespace Uintra20.Core.Jobs.Configuration
         {
             if (value == null)
             {
-                return default;
+                return default(T);
             }
 
             var converter = TypeDescriptor.GetConverter(typeof(T));
@@ -78,7 +78,7 @@ namespace Uintra20.Core.Jobs.Configuration
                 return (T)converter.ConvertFrom(value);
             }
 
-            return default;
+            return default(T);
         }
     }
 

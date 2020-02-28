@@ -13,7 +13,7 @@ namespace Uintra20.Infrastructure.Extensions
     {
         public static T EnsureScope<T>(this IFactory factory, Func<IServiceContainer, T> action)
         {
-            T result = default;
+            T result = default(T);
             var serviceContainer = factory.Concrete as IServiceContainer;
             if (HttpContext.Current == null)
                 HttpContext.Current.InitDefault();

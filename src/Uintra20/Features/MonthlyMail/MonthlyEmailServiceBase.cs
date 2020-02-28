@@ -102,7 +102,7 @@ namespace Uintra20.Features.MonthlyMail
             }
             else
             {
-                return default;
+                return default((IIntranetMember user, MonthlyMailDataModel monthlyMail));
             }
         }
 

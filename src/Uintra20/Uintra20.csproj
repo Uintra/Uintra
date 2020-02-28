@@ -976,10 +976,8 @@
     <Content Include="Content\uintra20\src\styles\mixins\elements.less" />
     <Content Include="Content\uintra20\src\styles\components\index.less" />
     <Content Include="Content\uintra20\src\styles\components\form-elements.less" />
-    <Content Include="config\UIntra\LatestActivitySettings.json" />
     <Content Include="Content\uintra20\src\styles\reset\index.less" />
     <Content Include="Content\uintra20\src\styles\reset\reset.less" />
-    <Content Include="config\UIntra\LatestActivitySettings.json" />
     <None Include="Content\uintra20\src\styles\temp\aside.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
     <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
