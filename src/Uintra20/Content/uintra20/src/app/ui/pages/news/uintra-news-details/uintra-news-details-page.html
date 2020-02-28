@@ -61,10 +61,10 @@
                   />
                 </li>
               </ul>
-              <div *ngIf="documents.length !== 0">
+              <ng-container *ngIf="documents.length !== 0">
                 <h3 class="feed-item__subtitle">Attached documents:</h3>
                 <app-attachments [documents]="documents"></app-attachments>
-              </div>
+              </ng-container>
             </div>
             <app-comments
               [activityType]="commentDetails.entityType"
