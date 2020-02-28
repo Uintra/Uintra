@@ -7,9 +7,6 @@ using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Comments.Helpers;
-using Uintra20.Features.Comments.Services;
-using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.Preset;
@@ -23,10 +20,7 @@ namespace Uintra20.Features.News.Converters
 {
     public class UintraNewsDetailsPageViewModelConverter : INodeViewModelConverter<UintraNewsDetailsPageModel, UintraNewsDetailsPageViewModel>
     {
-        private readonly ICommentsService _commentsService;
         private readonly IUserTagService _userTagService;
-        private readonly ILikesService _likesService;
-        private readonly ICommentsHelper _commentsHelper;
         private readonly IFeedLinkService _feedLinkService;
         private readonly INewsService<Entities.News> _newsService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
@@ -34,20 +28,14 @@ namespace Uintra20.Features.News.Converters
         private readonly IPermissionsService _permissionsService;
 
         public UintraNewsDetailsPageViewModelConverter(
-            ICommentsService commentsService,
             IUserTagService userTagService,
-            ILikesService likesService,
-            ICommentsHelper commentsHelper, 
             IFeedLinkService feedLinkService,
             INewsService<Entities.News> newsService,
             IIntranetMemberService<IntranetMember> memberService,
             ILightboxHelper lightBoxHelper,
             IPermissionsService permissionsService)
         {
-            _commentsService = commentsService;
             _userTagService = userTagService;
-            _likesService = likesService;
-            _commentsHelper = commentsHelper;
             _feedLinkService = feedLinkService;
             _newsService = newsService;
             _memberService = memberService;
@@ -75,9 +63,6 @@ namespace Uintra20.Features.News.Converters
 
             viewModel.Details = GetDetails(news);
             viewModel.Tags = _userTagService.Get(id);
-            viewModel.Likes = _likesService.GetLikeModels(id);
-            viewModel.LikedByCurrentUser = viewModel.Likes.Any(l => l.UserId == member.Id);
-            viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(id));
             viewModel.CanEdit = _newsService.CanEdit(id);
             viewModel.IsGroupMember = !news.GroupId.HasValue || member.GroupIds.Contains(news.GroupId.Value);
 

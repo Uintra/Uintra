@@ -7,9 +7,6 @@ using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Comments.Helpers;
-using Uintra20.Features.Comments.Services;
-using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.Preset;
@@ -27,9 +24,6 @@ namespace Uintra20.Features.Social.Details.Converters
     {
         private readonly IFeedLinkService _feedLinkService;
         private readonly IUserTagService _userTagService;
-        private readonly ILikesService _likesService;
-        private readonly ICommentsService _commentsService;
-        private readonly ICommentsHelper _commentsHelper;
         private readonly ISocialService<Entities.Social> _socialService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly ILightboxHelper _lightboxHelper;
@@ -39,18 +33,12 @@ namespace Uintra20.Features.Social.Details.Converters
             IFeedLinkService feedLinkService,
             IIntranetMemberService<IntranetMember> memberService,
             IUserTagService userTagService,
-            ILikesService likesService,
-            ICommentsService commentsService,
             ISocialService<Entities.Social> socialsService,
-            ICommentsHelper commentsHelper,
             ILightboxHelper lightboxHelper,
             IPermissionsService permissionsService)
         {
             _feedLinkService = feedLinkService;
             _userTagService = userTagService;
-            _likesService = likesService;
-            _commentsService = commentsService;
-            _commentsHelper = commentsHelper;
             _socialService = socialsService;
             _memberService = memberService;
             _lightboxHelper = lightboxHelper;
@@ -76,9 +64,6 @@ namespace Uintra20.Features.Social.Details.Converters
 
             viewModel.Details = GetViewModel(social);
             viewModel.Tags = _userTagService.Get(parseId);
-            viewModel.Likes = _likesService.GetLikeModels(parseId);
-            viewModel.LikedByCurrentUser = viewModel.Likes.Any(l => l.UserId == member.Id);
-            viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(parseId));
             viewModel.CanEdit = _socialService.CanEdit(parseId);
             viewModel.IsGroupMember = !social.GroupId.HasValue || member.GroupIds.Contains(social.GroupId.Value);
 
