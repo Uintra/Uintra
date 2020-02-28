@@ -1,12 +1,13 @@
 import { ITagData } from "../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { ActivityEnum } from "src/app/feature/shared/enums/activity-type.enum";
-import { IULink } from 'src/app/feature/shared/interfaces/IULink';
+import { IULink } from 'src/app/feature/shared/interfaces/general.interface';
 
 export interface ISocialCreateModel {
   description: string;
   ownerId: string;
   newMedia: string;
   tagIdsData: string[];
+  groupId?: string;
 }
 
 export interface INewsCreateModel {
@@ -40,11 +41,15 @@ export interface ISocialEdit {
   availableTags: Array<ITagData>;
   lightboxPreviewModel: ILightBoxPreviewModel;
   id: string;
+  groupId?: string;
+  links: IActivityLinks;
   name: string;
   tagIdsData: Array<string>;
   newMedia: string;
   media: string;
   mediaRootId: number;
+  canEdit?: boolean;
+  canDelete?: boolean;
 
   location?: {
     address?: string;

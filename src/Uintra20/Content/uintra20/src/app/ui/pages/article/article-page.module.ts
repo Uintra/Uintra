@@ -4,13 +4,16 @@ import { RouterModule } from '@angular/router';
 
 import { UbaselineCoreModule } from '@ubaseline/next';
 import { ArticlePage } from './article-page.component';
+import { CanDeactivateGuard } from 'src/app/services/general/can-deactivate.service';
+import { GroupDetailsWrapperModule } from 'src/app/feature/project/specific/groups/group-details-wrapper/group-details-wrapper.module';
 
 @NgModule({
   declarations: [ArticlePage],
   imports: [
     CommonModule,
-    RouterModule.forChild([{path: "", component: ArticlePage}]),
+    RouterModule.forChild([{path: "", component: ArticlePage, canDeactivate: [CanDeactivateGuard]}]),
     UbaselineCoreModule,
+    GroupDetailsWrapperModule,
   ],
   exports: [
     ArticlePage

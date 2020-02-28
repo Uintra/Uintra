@@ -5,14 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.SignalR;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Services;
@@ -41,7 +39,6 @@ namespace Uintra20.Features.News.Controllers
         private readonly IActivityLinkService _activityLinkService;
         private readonly IMentionService _mentionService;
         private readonly IPermissionsService _permissionsService;
-        private readonly IMemberServiceHelper _memberHelper;
 
         public NewsApiController(
             IIntranetMemberService<IntranetMember> intranetMemberService,
@@ -52,8 +49,7 @@ namespace Uintra20.Features.News.Controllers
             IActivityTagsHelper activityTagsHelper,
             IActivityLinkService activityLinkService,
             IMentionService mentionService,
-            IPermissionsService permissionsService,
-            IMemberServiceHelper memberHelper)
+            IPermissionsService permissionsService)
         {
             _intranetMemberService = intranetMemberService;
             _newsService = newsService;
@@ -63,7 +59,6 @@ namespace Uintra20.Features.News.Controllers
             _activityLinkService = activityLinkService;
             _mentionService = mentionService;
             _permissionsService = permissionsService;
-            _memberHelper = memberHelper;
         }
 
         [HttpPost]
@@ -131,35 +126,30 @@ namespace Uintra20.Features.News.Controllers
             news.CreatorId = await _intranetMemberService.GetCurrentMemberIdAsync();
 
             if (await IsPinAllowedAsync())
-                return news;
-
-            news.IsPinned = createModel.IsPinned;
+            {
+                news.IsPinned = createModel.IsPinned;
+            }
 
             return news;
         }
         private NewsBase MapToNews(NewsEditModel editModel)
         {
-            var currentMember = _intranetMemberService.GetCurrentMember();
+            var news = _newsService.Get(editModel.Id);
+            news = Mapper.Map(editModel, news);
+            news.MediaIds = news.MediaIds.Concat(_mediaHelper.CreateMedia(editModel, MediaFolderTypeEnum.NewsContent));
+            news.PublishDate = editModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.PublishDate);
+            news.UnpublishDate = editModel.UnpublishDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.UnpublishDate.Value);
+            news.EndPinDate = editModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.EndPinDate.Value);
 
-            var activity = _newsService.Get(editModel.Id);
-            activity = Mapper.Map(editModel, activity);
-            activity.MediaIds = activity.MediaIds.Concat(_mediaHelper.CreateMedia(editModel, MediaFolderTypeEnum.NewsContent));
-            activity.PublishDate = editModel.PublishDate.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.PublishDate);
-            activity.UnpublishDate = editModel.UnpublishDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.UnpublishDate.Value);
-            activity.EndPinDate = editModel.EndPinDate?.ToUniversalTime().WithCorrectedDaylightSavingTime(editModel.EndPinDate.Value);
-
-            activity.IsPinned = _permissionsService.Check(
-                                    currentMember, 
-                                    new PermissionSettingIdentity(PermissionActionEnum.CanPin, IntranetActivityTypeEnum.News)) 
-                                && activity.IsPinned;
-
-            return activity;
+            if (IsPinAllowed())
+            {
+                news.IsPinned = editModel.IsPinned;
+            }
+            return news;
         }
         private async Task OnNewsEditedAsync(NewsBase news, NewsEditModel model)
         {
-
             await _activityTagsHelper.ReplaceTagsAsync(news.Id, model.TagIdsData);
-
             await ResolveMentionsAsync(model.Description, news);
         }
 
@@ -171,13 +161,18 @@ namespace Uintra20.Features.News.Controllers
         {
             return _permissionsService.CheckAsync(ActivityType, PermissionActionEnum.CanPin);
         }
+
+        private bool IsPinAllowed()
+        {
+            return _permissionsService.Check(ActivityType, PermissionActionEnum.CanPin);
+        }
         private async Task<NewsViewModel> GetViewModelAsync(NewsBase news)
         {
             var model = news.Map<NewsViewModel>();
 
             model.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             model.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
-            model.HeaderInfo.Owner = _memberHelper.ToViewModel(await _intranetMemberService.GetAsync(news));
+            model.HeaderInfo.Owner = (await _intranetMemberService.GetAsync(news)).ToViewModel();
             model.Links = await _activityLinkService.GetLinksAsync(model.Id);
             model.HeaderInfo.Links = await _activityLinkService.GetLinksAsync(model.Id);
             model.CanEdit = _newsService.CanEdit(news);
@@ -187,12 +182,11 @@ namespace Uintra20.Features.News.Controllers
         private async Task OnNewsCreatedAsync(Guid activityId, NewsCreateModel model)
         {
             var news = _newsService.Get(activityId);
-            var groupId = HttpContext.Current.Request.QueryString.GetGroupIdOrNone();
 
-            if (groupId.HasValue)
+            if (model.GroupId.HasValue)
             {
-                await _groupActivityService.AddRelationAsync(groupId.Value, activityId);
-                news.GroupId = groupId.Value;
+                await _groupActivityService.AddRelationAsync(model.GroupId.Value, activityId);
+                news.GroupId = model.GroupId.Value;
             }
 
             await _activityTagsHelper.ReplaceTagsAsync(activityId, model.TagIdsData);

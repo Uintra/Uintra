@@ -56,6 +56,7 @@ export class CentralFeedPanel implements OnInit {
   feed: Array<any> = [];
   currentPage = 1;
   isFeedLoading = false;
+  isResponseFailed = false;
   isScrollDisabled = false;
 
   constructor(
@@ -68,9 +69,9 @@ export class CentralFeedPanel implements OnInit {
   ngOnInit() {
     this.tabs = this.filtersBuilder();
 
-    this.socialService.feedRefreshTrigger$.subscribe(() => {
-      this.reloadFeed();
-    });
+    // this.socialService.feedRefreshTrigger$.subscribe(() => {
+    //   this.reloadFeed();
+    // });
 
     this.signalrService.getReloadFeedSubjects().subscribe(s => {
       this.reloadFeed();
@@ -112,7 +113,7 @@ export class CentralFeedPanel implements OnInit {
     const FilterState = {};
 
     this.selectTabFilters.forEach(filter => {
-      FilterState[filter.key] = filter.isActive;
+      FilterState[filter.key] = !!filter.isActive;
     });
     const data = {
       TypeId: this.selectedTabType,
@@ -128,6 +129,10 @@ export class CentralFeedPanel implements OnInit {
       .then((response: any) => {
         this.isScrollDisabled = response.feed.length === 0;
         this.concatWithCurrentFeed(response.feed);
+        this.isResponseFailed = false;
+      })
+      .catch((err) => {
+        this.isResponseFailed = true;
       })
       .finally(() => {
         this.isFeedLoading = false;

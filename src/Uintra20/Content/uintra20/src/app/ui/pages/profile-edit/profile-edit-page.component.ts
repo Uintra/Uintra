@@ -1,11 +1,14 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { IProfileEditPage } from '../../../feature/shared/interfaces/pages/profile/edit/profile-edit-page.interface';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ProfileService } from './services/profile.service';
-import { finalize } from 'rxjs/operators';
 import { NotifierTypeEnum } from 'src/app/feature/shared/enums/notifier-type.enum';
+import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
+import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
+import { Observable } from 'rxjs';
+import { CanDeactivateGuard } from 'src/app/services/general/can-deactivate.service';
 
 @Component({
   selector: 'profile-edit-page',
@@ -14,6 +17,9 @@ import { NotifierTypeEnum } from 'src/app/feature/shared/enums/notifier-type.enu
   encapsulation: ViewEncapsulation.None
 })
 export class ProfileEditPage implements OnInit {
+  @HostListener('window:beforeunload') checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged || !this.checkIfdataChanged();
+  }
   files = [];
   private data: any;
   public profileEdit: IProfileEditPage;
@@ -23,9 +29,15 @@ export class ProfileEditPage implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private addButtonService: AddButtonService,
+    private hasDataChangedService: HasDataChangedService,
+    private canDeactivateService: CanDeactivateGuard,
   ) {
-    this.route.data.subscribe(data => this.data = data);
+    this.route.data.subscribe(data => {
+      this.data = data;
+      this.addButtonService.setPageId(data.id);
+    });
   }
 
   public ngOnInit(): void {
@@ -87,8 +99,13 @@ export class ProfileEditPage implements OnInit {
     };
 
     this.profileService.update(profile)
-      .pipe(finalize(() => this.inProgress = false))
-      .subscribe((next: any) => this.router.navigate([next.originalUrl]));
+      .subscribe((next: any) => {
+        this.hasDataChangedService.reset();
+        this.router.navigate([next.originalUrl]);
+      },
+      (err) => {
+        this.inProgress = false;
+      });
   }
 
   public handleUpdateNotificationSettings(event): void {
@@ -113,6 +130,7 @@ export class ProfileEditPage implements OnInit {
     this.files.push(fileArray);
     this.isUploaded = true;
     this.profileEdit.member.newMedia = fileArray[1];
+    this.hasDataChangedService.onDataChanged();
   }
 
   public processAvatarDelete(): void {
@@ -121,7 +139,30 @@ export class ProfileEditPage implements OnInit {
         () => {
           this.files = [];
           this.profileEdit.member.photo = null;
+          this.hasDataChangedService.onDataChanged();
         }
       );
+  }
+
+  onTagsChange(e) {
+    if (this.profileEdit.member.tags != e) {
+      this.hasDataChangedService.onDataChanged();
+    }
+    this.profileEdit.member.tags = e;
+  }
+
+  checkIfdataChanged() {
+    return this.profileEdit.member.firstName !== this.profileEditForm.value.firstName ||
+      this.profileEdit.member.lastName !== this.profileEditForm.value.lastName ||
+      this.profileEdit.member.phone !== this.profileEditForm.value.phone ||
+      this.profileEdit.member.department !== this.profileEditForm.value.department;
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.hasDataChangedService.hasDataChanged || this.checkIfdataChanged()) {
+      return this.canDeactivateService.canDeacrivateConfirm();
+    }
+
+    return true;
   }
 }

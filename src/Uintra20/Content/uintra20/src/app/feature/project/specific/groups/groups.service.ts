@@ -2,40 +2,9 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { CookieService } from 'ngx-cookie-service';
-import { IUlinkWithTitle, IULink } from 'src/app/feature/shared/interfaces/IULink';
+import { IULink } from 'src/app/feature/shared/interfaces/general.interface';
 import { groupsApi } from 'src/app/constants/general/general.const';
-
-export interface IGroupsData {
-  groupPageItem: IUlinkWithTitle;
-  items: IUlinkWithTitle[];
-}
-export interface IGroupModel {
-  title: string;
-  description: string;
-  newMedia: string;
-  media: string[] | null;
-  id?: string;
-}
-export interface ICreateGroupResponse {
-  id: string;
-  title: string;
-  description: string;
-  createdDate: string;
-  updatedDate: string;
-  creatorId: string;
-  imageId?: string;
-  isHidden: boolean;
-  groupTypeId: number;
-}
-export interface IGroupDetailsHeaderData {
-  title: string;
-  groupLinks: {
-    groupRoomPage: IULink;
-    groupDocumentsPage: IULink;
-    groupMembersPage: IULink;
-    groupEditPage?: IULink;
-  }
-}
+import { IGroupsData, IGroupDetailsHeaderData, IGroupModel } from './groups.interface';
 
 @Injectable({
   providedIn: "root"
@@ -53,16 +22,24 @@ export class GroupsService {
     return this.http.get<IGroupDetailsHeaderData>(groupsApi + `/Header?groupId=${id}`);
   }
 
-  createGroup(groupCreateModel: IGroupModel): Observable<ICreateGroupResponse> {
-    return this.http.post<ICreateGroupResponse>(groupsApi + '/Create', groupCreateModel)
+  createGroup(groupCreateModel: IGroupModel): Observable<IULink> {
+    return this.http.post<IULink>(groupsApi + '/Create', groupCreateModel)
   }
 
-  editGroup(groupEditModel: IGroupModel): Observable<ICreateGroupResponse> {
-    return this.http.post<ICreateGroupResponse>(groupsApi + '/Edit', groupEditModel)
+  editGroup(groupEditModel: IGroupModel): Observable<IULink> {
+    return this.http.post<IULink>(groupsApi + '/Edit', groupEditModel)
   }
 
-  hideGroup(id: string) {
-    return this.http.post<any>(groupsApi + `/Hide?groupId=${id}`, {});
+  hideGroup(id: string): Observable<IULink> {
+    return this.http.post<IULink>(groupsApi + `/Hide?id=${id}`, {});
+  }
+
+  getGroups(isMyGroups: boolean, pageNumber: number) {
+    return this.http.get(groupsApi + `/List?isMyGroupsPage=${isMyGroups}&page=${pageNumber}`).toPromise();
+  }
+
+  toggleSubscribe(groupId: string) {
+    return this.http.post(groupsApi + `/subscribe?groupId=${groupId}`, {}).toPromise();
   }
 
   setOpenState(openState: boolean = false): void {

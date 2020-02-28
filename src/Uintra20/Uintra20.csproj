@@ -883,7 +883,6 @@
     <Content Include="config\Lang\zh-CN.user.xml" />
     <Content Include="config\logviewer.searches.config.js" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
-    <Content Include="config\umbracoSettings.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
     <Content Include="Content\uintra20\src\assets\bootstrap-fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\uintra20\src\assets\emoji\angry.svg" />
@@ -995,6 +994,8 @@
     <Compile Include="Controllers\EnumController.cs" />
     <Compile Include="Controllers\QaController.cs" />
     <Compile Include="Core\AdminSection\Controllers\AdminController.cs" />
+    <Compile Include="Core\Article\ArticlePageViewModel.cs" />
+    <Compile Include="Core\Article\ArticlePageViewModelConverter.cs" />
     <Compile Include="Core\Member\Controllers\UintraMemberGroupTreeController.cs" />
     <Compile Include="Core\Member\Models\MemberGroupCreateModel.cs" />
     <Compile Include="Core\Activity\FeedActivityHelper.cs" />
@@ -1083,7 +1084,7 @@
     <Compile Include="Core\Member\Profile\Models\ProfilePageModel.cs" />
     <Compile Include="Core\Member\Profile\Models\ProfilePageViewModel.cs" />
     <Compile Include="Features\Navigation\INavigationModelsBuilder.cs" />
-    <Compile Include="Core\UbaselineModels\ArticlePageModel.cs" />
+    <Compile Include="Core\Article\ArticlePageModel.cs" />
     <Compile Include="Features\Navigation\Models\HeadingPageModel.cs" />
     <Compile Include="Features\Navigation\Models\IUintraNavigationComposition.cs" />
     <Compile Include="Core\UbaselineModels\UintraLinksPickerViewModel.cs" />
@@ -1143,7 +1144,6 @@
     <Compile Include="Features\Social\Edit\Models\SocialEditModel.cs" />
     <Compile Include="Features\Social\Edit\Models\SocialEditPageModel.cs" />
     <Compile Include="Features\Social\Edit\Models\SocialEditPageViewModel.cs" />
-    <Compile Include="Features\Social\Edit\Models\SocialExtendedEditModel.cs" />
     <Compile Include="Features\Social\IFeedHub.cs" />
     <Compile Include="Features\Social\Controllers\SocialController.cs" />
     <Compile Include="Features\Links\Models\UintraLinkModel.cs" />
@@ -1410,7 +1410,6 @@
     <Compile Include="Features\Social\SocialService.cs" />
     <Compile Include="Features\Social\SocialServiceBase.cs" />
     <Compile Include="Features\Social\Entities\Social.cs" />
-    <Compile Include="Features\Social\Models\SocialExtendedCreateModel.cs" />
     <Compile Include="Features\Social\ISocialBase.cs" />
     <Compile Include="Features\Social\ISocialService.cs" />
     <Compile Include="Features\Social\Models\SocialCreateModel.cs" />
@@ -1771,7 +1770,6 @@
     <Content Include="config\uSync8.config" />
     <Content Include="App_Plugins\uSync8\package.manifest" />
     <Content Include="App_Plugins\uSync8\addons.json" />
-    <Content Include="config\umbracoSettings.config" />
     <Content Include="config\tinyMceConfig.config" />
     <Content Include="config\serilog.user.config" />
     <Content Include="config\serilog.config" />
@@ -1897,6 +1895,7 @@
     <Content Include="Content\uintra20\src\styles\typography\font.less" />
     <Content Include="Content\uintra20\src\styles\typography\index.less" />
     <Content Include="Features\Reminder\Configuration\reminderConfiguration.json" />
+    <None Include="config\umbracoSettings.config" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Index.cshtml" />

@@ -14,8 +14,6 @@ using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
 using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Helpers;
-using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.Comments.Services;
@@ -23,7 +21,6 @@ using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview;
 using Uintra20.Features.Links;
-using Uintra20.Features.Links.Models;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media;
 using Uintra20.Features.Notification;
@@ -31,7 +28,6 @@ using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
-using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
@@ -56,12 +52,10 @@ namespace Uintra20.Features.News
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkService _linkService;
         private readonly INotifierDataBuilder _notifierDataBuilder;
-        private readonly IUserTagService _userTagService;
         private readonly IActivityLocationService _activityLocationService;
         private readonly IGroupService _groupService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IIntranetLocalizationService _localizationService;
-        private readonly IMemberServiceHelper _memberHelper;
         private readonly IFeedActivityHelper _feedActivityHelper;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
@@ -79,12 +73,10 @@ namespace Uintra20.Features.News
             IGroupActivityService groupActivityService,
             IActivityLinkService linkService,
             IActivityLocationService activityLocationService,
-            IUserTagService userTagService,
             IActivityLinkPreviewService activityLinkPreviewService,
             IGroupService groupService,
             INotifierDataBuilder notifierDataBuilder,
             IIntranetLocalizationService localizationService,
-            IMemberServiceHelper memberHelper,
             IFeedActivityHelper feedActivityHelper)
             : base(intranetActivityRepository, cacheService, intranetMemberService,
                 activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
@@ -99,13 +91,11 @@ namespace Uintra20.Features.News
             _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
             _linkService = linkService;
-            _userTagService = userTagService;
             _groupService = groupService;
             _notifierDataBuilder = notifierDataBuilder;
             _activityLocationService = activityLocationService;
             _intranetMemberService = intranetMemberService;
             _localizationService = localizationService;
-            _memberHelper = memberHelper;
             _feedActivityHelper = feedActivityHelper;
         }
 
@@ -113,7 +103,7 @@ namespace Uintra20.Features.News
 
         public override Enum PermissionActivityType => PermissionResourceTypeEnum.News;
 
-        public override IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId)
+        public override IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId, bool showGroupTitle)
         {
             var news = Get(activityId);
 
@@ -124,12 +114,12 @@ namespace Uintra20.Features.News
             var viewModel = news.Map<IntranetActivityPreviewModelBase>();
             viewModel.CanEdit = CanEdit(news);
             viewModel.Links = links;
-            viewModel.Owner = _memberHelper.ToViewModel(_intranetMemberService.Get(news));
+            viewModel.Owner = _intranetMemberService.Get(news).ToViewModel();
             viewModel.IsPinActual = IsPinActual(news);
             viewModel.Type = _localizationService.Translate(news.Type.ToString());
             viewModel.LikedByCurrentUser = news.Likes.Any(x => x.UserId == currentMemberId);
             viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);
-            viewModel.GroupInfo = _feedActivityHelper.GetGroupInfo(activityId);
+            viewModel.GroupInfo = showGroupTitle ? _feedActivityHelper.GetGroupInfo(activityId) : null;
 
             var dates = news.PublishDate.ToDateTimeFormat().ToEnumerable().ToList();
 

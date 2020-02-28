@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { IProfilePage } from 'src/app/feature/shared/interfaces/pages/profile/profile-page.interface';
+import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
 
 
 @Component({
@@ -14,11 +15,14 @@ export class ProfilePage implements OnInit {
   public data: any;
   public profile: IProfilePage;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private addButtonService: AddButtonService) {
   }
 
   public ngOnInit(): void {
-    this.route.data.subscribe(data => this.data = data);
+    this.route.data.subscribe(data => {
+      this.data = data;
+      this.addButtonService.setPageId(data.id);
+    });
     this.onParse();
   }
 

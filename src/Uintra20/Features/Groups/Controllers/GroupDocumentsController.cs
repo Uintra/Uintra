@@ -8,7 +8,6 @@ using UBaseline.Core.Media;
 using UBaseline.Shared.Media;
 using Uintra20.Attributes;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Core.UbaselineModels;
 using Uintra20.Features.Groups.Models;
@@ -47,49 +46,59 @@ namespace Uintra20.Features.Groups.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<GroupDocumentViewModel> List(Guid groupId)
+        public async Task<IEnumerable<GroupDocumentViewModel>> List(Guid groupId)
         {
-            var groupDocumentsList = _groupDocumentsService.GetByGroup(groupId).ToList();
+            var groupDocumentsList = await _groupDocumentsService.GetByGroupAsync(groupId);
             var mediaIdsList = groupDocumentsList.Select(s => s.MediaId).ToList();
             var medias = _mediaService.GetByIds(mediaIdsList);
-            var group = _groupService.Get(groupId);
-            var groupMembers = _groupMemberService.GetGroupMemberByGroup(groupId);
-            var currentMember = _intranetMemberService.GetCurrentMember();
-            var docs = medias.Select(s =>
+            var group = await _groupService.GetAsync(groupId);
+            var groupMembers = await _groupMemberService.GetGroupMemberByGroupAsync(groupId);
+            var currentMemberId = await _intranetMemberService.GetCurrentMemberIdAsync();
+            var documentTasks = medias.Select(async s =>
             {
-                Guid? intranetCreator = null;
-
-                if (!string.IsNullOrWhiteSpace(((IGenericPropertiesComposition) s).GenericProperties.IntranetUserId)
-                && Guid.TryParse(((IGenericPropertiesComposition)s).GenericProperties.IntranetUserId, out Guid result))
+                IntranetMember creator;
+                if (TryParseIntranetCreatorId(s, out var intranetCreatorId))
                 {
-                    intranetCreator = result;
+                    creator = await _intranetMemberService.GetAsync(intranetCreatorId);
+                }
+                else
+                {
+                    creator = await _intranetMemberService.GetByUserIdAsync(s.CreatorId);
                 }
 
-                var creator = intranetCreator.HasValue ? _intranetMemberService.Get(intranetCreator.Value) : _intranetMemberService.GetByUserId(s.CreatorId);
                 var document = groupDocumentsList.First(f => f.MediaId == s.Id);
                 var model = new GroupDocumentViewModel
                 {
-                    CanDelete = CanDelete(currentMember, group, groupMembers, s),
+                    CanDelete = CanDelete(currentMemberId, group, groupMembers, s),
                     Id = document.Id,
-                    CreateDate = s.CreateDate,
+                    CreateDate = s.CreateDate.ToString("dd.MM.yyyy"),
                     Name = s.Name,
                     Type = s is FileModel file ? file.UmbracoExtension : ((ImageModel)s).UmbracoExtension,
-                    Creator = creator.Map<MemberViewModel>(),
+                    Creator = creator.ToViewModel(),
                     FileUrl = s.Url
                 };
                 return model;
-            });
+            }).ToArray();
 
-            docs = docs.OrderBy(x => x.Name);
+            var documents = await Task.WhenAll(documentTasks);
+
+            var docs = documents.OrderBy(x => x.Name);
 
             return docs;
+        }
+
+        private static bool TryParseIntranetCreatorId(IMediaModel s, out Guid intranetCreatorId)
+        {
+            intranetCreatorId = Guid.Empty;
+            return !string.IsNullOrWhiteSpace(((IGenericPropertiesComposition)s).GenericProperties.IntranetUserId) && Guid.TryParse(((IGenericPropertiesComposition)s).GenericProperties.IntranetUserId, out intranetCreatorId);
         }
 
         [HttpPost]
         public async Task<IHttpActionResult> Upload(GroupDocumentCreateModel model)
         {
             var creatorId = await _intranetMemberService.GetCurrentMemberIdAsync();
-            IEnumerable<int> createdMediasIds = _groupMediaService.CreateGroupMedia(model, model.GroupId, creatorId);
+
+            IEnumerable<int> createdMediasIds = await _groupMediaService.CreateGroupMediaAsync(model, model.GroupId, creatorId);
 
             await _groupDocumentsService.CreateAsync(createdMediasIds.Select(i =>
             {
@@ -105,51 +114,42 @@ namespace Uintra20.Features.Groups.Controllers
         }
 
         [HttpDelete]
-        public IHttpActionResult Delete(Guid groupId, Guid documentId)
+        public async Task<IHttpActionResult> Delete(Guid groupId, Guid documentId)
         {
-            var document = _groupDocumentsService.Get(documentId);
+            var document = await _groupDocumentsService.GetAsync(documentId);
             if (document.GroupId != groupId)
             {
                 throw new Exception("Can't delete document because it does not belong to this group!");
             }
 
-            var currentUser = _intranetMemberService.GetCurrentMember();
-            var group = _groupService.Get(groupId);
-            var groupMembers = _groupMemberService.GetGroupMemberByGroup(groupId);
+            var currentUserId = await _intranetMemberService.GetCurrentMemberIdAsync();
+            var group = await _groupService.GetAsync(groupId);
+            var groupMembers = await _groupMemberService.GetGroupMemberByGroupAsync(groupId);
             var media = _mediaService.Get(document.MediaId);
-            var canDelete = CanDelete(currentUser, group, groupMembers, media);
+            var canDelete = CanDelete(currentUserId, group, groupMembers, media);
             if (canDelete)
             {
                 _mediaService.Remove(media.Id);
-                _groupDocumentsService.Delete(document);
+                await _groupDocumentsService.DeleteAsync(document);
                 return Ok();
             }
 
             return BadRequest();
         }
 
-        private bool CanDelete(
-            IntranetMember currentMember,
-            GroupModel groupModel,
-            IEnumerable<GroupMember> groupMembers,
-            IMediaModel media)
+        private bool CanDelete(Guid currentMemberId, GroupModel groupModel, IEnumerable<GroupMember> groupMembers, IMediaModel media)
         {
-            Guid? mediaCreator = null;
-
-            var mediaGenericProperties = (IGenericPropertiesComposition)media;
-
-            if (string.IsNullOrWhiteSpace(mediaGenericProperties.GenericProperties.IntranetUserId.Value)
-            && Guid.TryParse(mediaGenericProperties.GenericProperties.IntranetUserId, out Guid result))
+            if (TryParseIntranetCreatorId(media, out var mediaCreatorId))
             {
-                mediaCreator = result;
+                var isMemberAdmin = _groupMemberService.IsMemberAdminOfGroup(currentMemberId, groupModel.Id);
+
+                return currentMemberId == groupModel.CreatorId || 
+                       isMemberAdmin || 
+                       mediaCreatorId == currentMemberId &&
+                       groupMembers.Any(s => s.MemberId == currentMemberId);
             }
 
-            var isMemberAdmin = _groupMemberService.IsMemberAdminOfGroup(currentMember.Id, groupModel.Id);
-
-
-            return currentMember.Id == groupModel.CreatorId || isMemberAdmin ||
-                   mediaCreator.HasValue && mediaCreator.Value == currentMember.Id &&
-                   groupMembers.Any(s => s.MemberId == currentMember.Id);
+            return false;
         }
     }
 }

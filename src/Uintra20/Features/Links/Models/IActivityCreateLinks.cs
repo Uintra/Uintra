@@ -6,6 +6,5 @@
         UintraLinkModel Overview { get; }
         UintraLinkModel Create { get; }
         UintraLinkModel Owner { get; }
-        UintraLinkModel DetailsNoId { get; }
     }
 }

@@ -42,8 +42,7 @@ namespace Uintra20.Features.Notification.Services
             var isCommunicationSettings = data.NotificationType.In(
                 NotificationTypeEnum.CommentLikeAdded,
                 NotificationTypeEnum.MonthlyMail,
-                IntranetActivityTypeEnum.ContentPage,
-                IntranetActivityTypeEnum.PagePromotion);
+                IntranetActivityTypeEnum.ContentPage);
 
             var identity = new ActivityEventIdentity(isCommunicationSettings
                     ? CommunicationTypeEnum.CommunicationSettings
@@ -81,8 +80,7 @@ namespace Uintra20.Features.Notification.Services
             var isCommunicationSettings = data.NotificationType.In(
                 NotificationTypeEnum.CommentLikeAdded,
                 NotificationTypeEnum.MonthlyMail,
-                IntranetActivityTypeEnum.ContentPage,
-                IntranetActivityTypeEnum.PagePromotion);
+                IntranetActivityTypeEnum.ContentPage);
 
             var identity = new ActivityEventIdentity(isCommunicationSettings
                     ? CommunicationTypeEnum.CommunicationSettings

@@ -23,5 +23,6 @@ namespace Uintra20.Features.Social.Details.Models
         public Guid? GroupId { get; set; }
         public bool RequiresGroupHeader { get; set; }
         public bool CanEdit { get; set; }
+        public bool CanView { get; set; }
     }
 }

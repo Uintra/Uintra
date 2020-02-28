@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -117,10 +118,9 @@ namespace Uintra20.Features.Groups.Controllers
                 return NotFound();
             }
 
-            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Edit,
-                PermissionResourceTypeEnum.Groups)))
+            if (!_groupService.CanEdit(group))
             {
-                return Ok(_groupLinkProvider.GetGroupRoomLink(model.Id));
+                return StatusCode(HttpStatusCode.Forbidden);
             }
 
             group = Mapper.Map(model, group);
@@ -139,10 +139,9 @@ namespace Uintra20.Features.Groups.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Create(GroupCreateModel createModel)
         {
-            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create,
-                PermissionResourceTypeEnum.Groups)))
+            if (!_groupService.CanCreate())
             {
-                return Ok(_groupLinkProvider.GetGroupsOverviewLink());
+                return StatusCode(HttpStatusCode.Forbidden);
             }
 
             var currentMemberId = await _memberService.GetCurrentMemberIdAsync();
@@ -150,7 +149,7 @@ namespace Uintra20.Features.Groups.Controllers
             var groupId = await _groupMemberService.CreateAsync(createModel, new GroupMemberSubscriptionModel
             {
                 IsAdmin = true,
-                MemberId = currentMemberId
+                MemberId = currentMemberId,
             });
 
             return Ok(_groupLinkProvider.GetGroupRoomLink(groupId));
@@ -167,10 +166,9 @@ namespace Uintra20.Features.Groups.Controllers
                 ? _groupService.GetManyAsync(currentMember.GroupIds)
                 : _groupService.GetAllNotHiddenAsync());
 
-            async Task<bool> IsCurrentMemberInGroupAsync(GroupModel g) => isMyGroupsPage || await _groupMemberService.IsGroupMemberAsync(g.Id, currentMember.Id);
 
-            var groups = (await allGroups
-                .SelectAsync(g => MapGroupViewModelAsync(g, IsCurrentMemberInGroupAsync(g))))
+            var groups = allGroups
+                .Select(g => MapGroupViewModel(g, currentMember.Id))
                 .OrderByDescending(g => g.Creator.Id == currentMember.Id)
                 .ThenByDescending(s => s.IsMember)
                 .ThenBy(g => g.Title)
@@ -247,12 +245,12 @@ namespace Uintra20.Features.Groups.Controllers
             return Ok(_groupLinkProvider.GetGroupRoomLink(groupId));
         }
 
-        private async Task<GroupViewModel> MapGroupViewModelAsync(GroupModel group, Task<bool> isCurrentUserMember)
+        private GroupViewModel MapGroupViewModel(GroupModel group,Guid currentMemberId)
         {
             var groupModel = group.Map<GroupViewModel>();
-            groupModel.IsMember = await isCurrentUserMember;
-            groupModel.MembersCount = await _groupMemberService.GetMembersCountAsync(group.Id);
-            groupModel.Creator = _memberService.Get(group.CreatorId).Map<MemberViewModel>();
+            groupModel.IsMember = _groupMemberService.IsGroupMember(groupModel.Id, currentMemberId);
+            groupModel.MembersCount = _groupMemberService.GetMembersCount(group.Id);
+            groupModel.Creator = _memberService.Get(group.CreatorId).ToViewModel();
             groupModel.GroupUrl = _groupLinkProvider.GetGroupRoomLink(group.Id);
             if (groupModel.HasImage)
             {

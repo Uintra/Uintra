@@ -104,10 +104,15 @@ namespace Uintra20.Infrastructure.Extensions
 
         public static UintraLinkModel AddGroupId(this UintraLinkModel linkModel, Guid groupId)
         {
+            return linkModel.AddParameter("groupId", groupId.ToString());
+        }
+
+        public static UintraLinkModel AddParameter(this UintraLinkModel linkModel, string parameterName, string value)
+        {
             var param = new UintraLinkParamModel()
             {
-                Name = "groupId",
-                Value = groupId.ToString()
+                Name = parameterName,
+                Data = value
             };
 
             linkModel.Params = linkModel.Params.Append(param);
@@ -204,7 +209,7 @@ namespace Uintra20.Infrastructure.Extensions
                 yield return new UintraLinkParamModel()
                 {
                     Name = nameAndValue[0],
-                    Value = nameAndValue[1]
+                    Data = nameAndValue[1]
                 };
             }
         }

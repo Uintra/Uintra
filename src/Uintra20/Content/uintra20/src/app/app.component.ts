@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, ActivationEnd, Router, ActivationStart } from "@angular/router";
+import { ActivatedRoute, ActivationEnd, Router, ActivationStart, NavigationEnd, ChildActivationStart } from "@angular/router";
 import { LoginPage } from "./ui/pages/login/login-page.component";
 
 @Component({
@@ -11,6 +11,7 @@ export class AppComponent {
   title = "uintra20";
 
   isLoginPage: boolean = true;
+  hasLeftLoginPage: boolean = true;
   hasPanels: boolean = false;
 
   data: any;
@@ -25,10 +26,15 @@ export class AppComponent {
       if (val instanceof ActivationStart) {
         if (val.snapshot.component) {
           this.isLoginPage = val.snapshot.component === LoginPage;
+          if (this.isLoginPage) {
+            this.hasLeftLoginPage = false;
+          }
         }
       }
+      if (!this.isLoginPage && val instanceof ChildActivationStart) {
+        this.hasLeftLoginPage = true;
+      }
     });
-
   }
 
   ngOnInit(): void {

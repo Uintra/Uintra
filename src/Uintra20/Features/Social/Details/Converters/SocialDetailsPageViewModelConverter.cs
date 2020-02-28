@@ -6,7 +6,6 @@ using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.Helpers;
 using Uintra20.Features.Comments.Services;
@@ -14,6 +13,8 @@ using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.Preset;
+using Uintra20.Features.Permissions;
+using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Social.Details.Models;
 using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
@@ -32,7 +33,7 @@ namespace Uintra20.Features.Social.Details.Converters
         private readonly ISocialService<Entities.Social> _socialService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly ILightboxHelper _lightboxHelper;
-        private readonly IMemberServiceHelper _memberHelper;
+        private readonly IPermissionsService _permissionsService;
 
         public SocialDetailsPageViewModelConverter(
             IFeedLinkService feedLinkService,
@@ -43,7 +44,7 @@ namespace Uintra20.Features.Social.Details.Converters
             ISocialService<Entities.Social> socialsService,
             ICommentsHelper commentsHelper,
             ILightboxHelper lightboxHelper,
-            IMemberServiceHelper memberHelper)
+            IPermissionsService permissionsService)
         {
             _feedLinkService = feedLinkService;
             _userTagService = userTagService;
@@ -53,7 +54,7 @@ namespace Uintra20.Features.Social.Details.Converters
             _socialService = socialsService;
             _memberService = memberService;
             _lightboxHelper = lightboxHelper;
-            _memberHelper = memberHelper;
+            _permissionsService = permissionsService;
         }
 
         public void Map(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
@@ -62,6 +63,13 @@ namespace Uintra20.Features.Social.Details.Converters
 
             if (!Guid.TryParse(id, out var parseId)) 
                 return;
+
+            viewModel.CanView = _permissionsService.Check(PermissionResourceTypeEnum.Social, PermissionActionEnum.View);
+
+            if (!viewModel.CanView)
+            {
+                return;
+            }
 
             var userId = _memberService.GetCurrentMemberId();
             var social = _socialService.Get(parseId);
@@ -73,7 +81,7 @@ namespace Uintra20.Features.Social.Details.Converters
             viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(parseId));
             viewModel.CanEdit = _socialService.CanEdit(parseId);
 
-            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            var groupIdStr = HttpContext.Current.Request["groupId"];
             if (!Guid.TryParse(groupIdStr, out var groupId) || social.GroupId != groupId)
                 return;
 
@@ -93,7 +101,7 @@ namespace Uintra20.Features.Social.Details.Converters
             viewModel.IsReadOnly = false;
             viewModel.HeaderInfo = social.Map<IntranetActivityDetailsHeaderViewModel>();
             viewModel.HeaderInfo.Dates = social.PublishDate.ToDateTimeFormat().ToEnumerable();
-            viewModel.HeaderInfo.Owner = _memberHelper.ToViewModel(_memberService.Get(social));
+            viewModel.HeaderInfo.Owner = _memberService.Get(social).ToViewModel();
             viewModel.HeaderInfo.Links = _feedLinkService.GetLinks(social.Id);
 
             var extendedModel = viewModel.Map<SocialExtendedViewModel>();

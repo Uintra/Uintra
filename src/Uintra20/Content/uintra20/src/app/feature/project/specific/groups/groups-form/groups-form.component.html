@@ -1,67 +1,73 @@
-<div class="groups-create-wrapper page-wrapper">
-  <div class="groups-create col-md-8">
-    <h2 class="groups-create__row groups-create__title">{{edit ? 'Edit group settings' : 'Create Group'}}</h2>
+<div class="groups-create-wrapper page-wrapper row-flex">
+  <div class="col-md-8">
+    <div class="groups-create">
+      <h2 class="groups-create__row groups-create__title">{{edit ? 'Edit group settings' : 'Create Group'}}</h2>
 
-    <div class="groups-create__row">
-      <h3 class="subtitle required">Group title</h3>
-      <text-input
-        type="text"
-        aria-label="Title"
-        [maxLength]="TITLE_MAX_LENGTH"
-        class="groups-create__title-input"
-        [ngClass]="{'invalid': getTitleValidationState()}"
-        [(ngModel)]="title"
-      ></text-input>
+      <div class="groups-create__row">
+        <h3 class="subtitle required">Group title</h3>
+        <text-input
+          type="text"
+          aria-label="Title"
+          [maxLength]="TITLE_MAX_LENGTH"
+          class="groups-create__title-input"
+          [ngClass]="{'invalid': getTitleValidationState()}"
+          [ngModel]="title"
+          (ngModelChange)="onTitleChange($event)"
+        ></text-input>
+      </div>
+
+      <div class="groups-create__row">
+        <h3 class="subtitle required">Description</h3>
+        <app-rich-text-editor
+          [isEditing]="true"
+          [isDropzone]="false"
+          [isUnderline]="false"
+          [isEmoji]="false"
+          placeholder=""
+          [ngClass]="{'invalid': isShowValidation && !description}"
+          [ngModel]="description"
+          (ngModelChange)="onDescriptionChange($event)">
+        </app-rich-text-editor>
+      </div>
+
+      <div class="groups-create__row">
+        <h3 class="subtitle">Group image</h3>
+        <app-dropzone-existing-images [medias]="mediasPreview" (removeImage)="onImageRemove()"></app-dropzone-existing-images>
+        <app-dropzone-wrapper
+          [maxFiles]="1"
+          [disabled]="medias.length > 0 || files.length > 0"
+          [filesLength]="files.length"
+          [allowedExtensions]="allowedExtensions"
+          (success)="onUploadSuccess($event)"
+          (removedFile)="onFileRemoved($event)">
+        </app-dropzone-wrapper>
+      </div>
+
+      <ul *ngIf="isShowValidation" class="validation-errors">
+        <li *ngIf="!title" class="validation-errors__title">
+          A title is required
+        </li>
+        <li *ngIf="title.length > TITLE_MAX_LENGTH" class="validation-errors__title">
+          A title shouldn't have more than {{TITLE_MAX_LENGTH}} chars
+        </li>
+        <li *ngIf="!description" class="validation-errors__description">
+          A description is required
+        </li>
+      </ul>
+
+      <button
+        class="groups-create__row--top groups-create__row button"
+        [disabled]="isSubmitDisabled"
+        (click)="onSubmit()">
+        {{edit ? 'Save' : 'Create'}}
+      </button>
+      <button
+        *ngIf="edit && data.canHide"
+        class="button-default"
+        [disabled]="hidingInProgress"
+        (click)="onHide()">
+        Hide
+      </button>
     </div>
-
-    <div class="groups-create__row">
-      <h3 class="subtitle required">Description</h3>
-      <app-rich-text-editor
-        [isEditing]="true"
-        [isDropzone]="false"
-        [isUnderline]="false"
-        [isEmoji]="false"
-        placeholder=""
-        [ngClass]="{'invalid': isShowValidation && !description}"
-        [(ngModel)]="description">
-      </app-rich-text-editor>
-    </div>
-
-    <div class="groups-create__row">
-      <h3 class="subtitle">Group image</h3>
-      <app-dropzone-existing-images [medias]="medias" (removeImage)="onImageRemove()"></app-dropzone-existing-images>
-      <app-dropzone-wrapper
-        [maxFiles]="1"
-        [disabled]="medias.length > 0 || files.length > 0"
-        [filesLength]="files.length"
-        (success)="onUploadSuccess($event)"
-        (removedFile)="onFileRemoved($event)">
-      </app-dropzone-wrapper>
-    </div>
-
-    <ul *ngIf="isShowValidation" class="validation-errors">
-      <li *ngIf="!title" class="validation-errors__title">
-        A title is required
-      </li>
-      <li *ngIf="title.length > TITLE_MAX_LENGTH" class="validation-errors__title">
-        A title shouldn't have more than {{TITLE_MAX_LENGTH}} chars
-      </li>
-      <li *ngIf="!description" class="validation-errors__description">
-        A description is required
-      </li>
-    </ul>
-
-    <button
-      class="groups-create__row--top groups-create__row button"
-      [disabled]="isSubmitDisabled"
-      (click)="onSubmit()">
-      {{edit ? 'Save' : 'Create'}}
-    </button>
-    <button
-      *ngIf="edit"
-      class="button-default"
-      (click)="onHide()">
-      Hide
-    </button>
   </div>
 </div>

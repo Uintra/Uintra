@@ -2,9 +2,9 @@ import { Component, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { finalize } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ILoginPage } from './login-page.interface';
+import * as moment from "moment-timezone";
 
 @Component({
   selector: 'login-page',
@@ -43,9 +43,7 @@ export class LoginPage implements OnDestroy {
     };
 
     this.authService.login(model)
-      .pipe(
-        finalize(() => this.inProgress = false)
-      ).subscribe(
+      .subscribe(
         (next) => { this.router.navigate(['/']); },
         (error) => {
           this.errors = [];
@@ -54,11 +52,12 @@ export class LoginPage implements OnDestroy {
             .split('\n')
             .filter(e => e != null && e !== '');
           }
+          this.inProgress = false;
         }
       );
   }
 
   private getCurrentTimeZoneId() {
-    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    return moment.tz.guess();
   }
 }

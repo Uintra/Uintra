@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IULink } from 'src/app/feature/shared/interfaces/IULink';
+import { IULink } from 'src/app/feature/shared/interfaces/general.interface';
 
 export interface INotificationsListData {
   notificationPageUrl: string;

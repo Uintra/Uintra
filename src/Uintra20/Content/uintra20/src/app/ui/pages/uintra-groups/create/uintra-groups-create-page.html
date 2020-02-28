@@ -1,3 +1,3 @@
-<app-groups-wrapper>
-  <groups-form></groups-form>
+<app-groups-wrapper *ngIf="data?.canCreate">
+  <groups-form [allowedExtensions]="data?.allowedMediaExtensions"></groups-form>
 </app-groups-wrapper>

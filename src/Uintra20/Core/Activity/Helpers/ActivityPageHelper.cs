@@ -2,8 +2,8 @@
 using System.Linq;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
-using UBaseline.Shared.PanelContainer;
-using Uintra20.Core.Activity.Models;
+using Uintra20.Core.Article;
+using Uintra20.Core.UbaselineModels;
 using Uintra20.Features.Links.Models;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
@@ -12,6 +12,8 @@ namespace Uintra20.Core.Activity.Helpers
 {
     public class ActivityPageHelper : IActivityPageHelper//TODO: Needs research
     {
+        private const string NewsCreateName = "News Create";
+
         private readonly IDocumentTypeAliasProvider _aliasProvider;
         private readonly INodeModelService _nodeModelService;
         private readonly IUBaselineRequestContext _uBaselineRequestContext;
@@ -46,25 +48,26 @@ namespace Uintra20.Core.Activity.Helpers
 
         public UintraLinkModel GetCreatePageUrl(Enum activityType)
         {
-            var createUrl = _nodeModelService
-                .AsEnumerable()
-                .Where(n => n is IPanelsComposition panel)
-                .FirstOrDefault(n =>
+
+            var intranetActivityType = activityType is IntranetActivityTypeEnum @enum ? @enum : 0;
+            var pageAlias = _aliasProvider.GetCreatePage(activityType);
+
+            switch (intranetActivityType)
+            {
+                case IntranetActivityTypeEnum.News:
                 {
-                    var panels = ((IPanelsComposition)n).Panels.Value.Panels;
-                    var isLocalActivityCreate = panels
-                        .OfType<LocalPanelModel>()
-                        .Any(lp => lp.Node is ActivityCreatePanelModel ac && ac.TabType.Value == activityType.ToString());
+                    var createPage = _nodeModelService.AsEnumerable().OfType<ArticlePageModel>()
+                                    .Single(x => x.Name.Equals(NewsCreateName, StringComparison.CurrentCultureIgnoreCase));
 
-                    var isGlobalActivityCreate = panels
-                        .OfType<GlobalPanelModel>()
-                        .Any(lp => _nodeModelService.Get(lp.NodeId) is ActivityCreatePanelModel ac && ac.TabType.Value == activityType.ToString());
-
-                    return isLocalActivityCreate || isGlobalActivityCreate;
-                })
-                ?.Url;
-
-            return createUrl.ToLinkModel();
+                    return createPage.Url.ToLinkModel();
+                }
+                case IntranetActivityTypeEnum.Events:
+                    {
+                        return null;
+                    }
+                default:
+                    return null;
+            }
         }
 
         public UintraLinkModel GetEditPageUrl(Enum activityType, Guid activityId)

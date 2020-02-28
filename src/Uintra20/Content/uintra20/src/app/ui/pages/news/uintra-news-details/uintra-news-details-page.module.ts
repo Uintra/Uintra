@@ -9,6 +9,8 @@ import { UserAvatarModule } from "src/app/feature/project/reusable/ui-elements/u
 import { CommentsModule } from "src/app/feature/project/reusable/ui-elements/comments/comments.module";
 import { DetailasHeaderModule } from "src/app/feature/project/specific/activity/details/detailas-header/detailas-header.module";
 import { UlinkModule } from "src/app/services/pipes/link/ulink.module";
+import { GroupDetailsWrapperModule } from 'src/app/feature/project/specific/groups/group-details-wrapper/group-details-wrapper.module';
+import { AttachmentsModule } from 'src/app/feature/project/specific/activity/details/attachments/attachments.module';
 
 @NgModule({
   declarations: [UintraNewsDetailsPage],
@@ -20,7 +22,9 @@ import { UlinkModule } from "src/app/services/pipes/link/ulink.module";
     UserAvatarModule,
     CommentsModule,
     DetailasHeaderModule,
-    UlinkModule
+    UlinkModule,
+    GroupDetailsWrapperModule,
+    AttachmentsModule,
   ],
   providers: [],
   entryComponents: [UintraNewsDetailsPage]

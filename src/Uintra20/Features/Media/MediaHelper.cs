@@ -65,7 +65,7 @@ namespace Uintra20.Features.Media
         {
             if (model.NewMedia.IsNullOrEmpty()) return Enumerable.Empty<int>();
 
-            var mediaIds = model.NewMedia.Split(',').Where(s => s.HasValue()).Select(Guid.Parse);
+            var mediaIds = model.NewMedia.Split(',').Where(s => s.HasValue()).Select(Guid.Parse).ToList();
             var cachedTempMedia = mediaIds.Select(s => _cacheService.Get<TempFile>(s.ToString(), ""));
 
             int rootMediaId;
@@ -80,12 +80,14 @@ namespace Uintra20.Features.Media
                 rootMediaId = settings.MediaRootId ?? -1;
             }
 
-            return cachedTempMedia
-                .Select(file =>
+            var createdMediaIds= cachedTempMedia.Select(file =>
                 {
                     var media = CreateMedia(file, rootMediaId, userId);
                     return media.Id;
-                });
+                })
+                .ToList();
+
+            return createdMediaIds;
         }
 
         public IMediaModel CreateMedia(TempFile file, int rootMediaId, Guid? userId = null)

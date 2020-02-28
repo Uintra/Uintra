@@ -1,0 +1,30 @@
+<app-group-details-wrapper [id]="data?.groupId">
+  <div class="page-wrapper row-flex">
+    <div class="group-documents-wrapper col-md-8">
+      <div class="group-documents">
+        <div class="group-documents__dropzone" *ngIf="data?.canUpload.get()">
+          <h4 class="group-documents__title">Upload new group document</h4>
+
+          <app-dropzone-wrapper
+            #dropdownRef
+            [filesLength]="file ? 1 : 0"
+            (success)="onUploadSuccess($event)"
+          >
+          </app-dropzone-wrapper>
+
+          <button
+            [disabled]="!hasUploadPossible"
+            (click)="onUploadFile()"
+            class="button"
+          >
+            Upload
+          </button>
+        </div>
+
+        <app-document-table [groupId]="data.groupId.get()"></app-document-table>
+      </div>
+    </div>
+  </div>
+</app-group-details-wrapper>
+
+<!-- <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component> -->
