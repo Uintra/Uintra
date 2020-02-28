@@ -1,8 +1,14 @@
-﻿using Compent.Shared.DependencyInjection.Contract;
+﻿using System.Configuration;
+using Compent.Shared.DependencyInjection.Contract;
+using Localization.Core;
+using Localization.Core.Configuration;
+using Localization.Storage.UDictionary;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Localization;
+using Uintra20.Core.Member.Services;
+using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Information;
 using Uintra20.Features.Media;
 using Uintra20.Features.Permissions;
@@ -54,8 +60,17 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<ISubscribeService, SubscribeService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IIntranetLocalizationService, LocalizationService>();
+            services.AddScoped<ILocalizationCoreService, LocalizationCoreService>();
+            services.AddScoped<ILocalizationStorageService, LocalizationStorageService>();
+            services.AddScoped<ILocalizationCacheProvider, LocalizationMemoryCacheProvider>();
+            services.AddScoped<ILocalizationCacheService,LocalizationCacheService>();
+            services.AddScoped<ILocalizationSettingsService, LocalizationSettingsService>();
+            services.AddScoped<ILocalizationResourceCacheService, LocalizationResourceCacheService>();
 
-            services.AddScoped<ILightboxHelper, LightboxHelper>();
+			services.AddSingleton(i =>
+	            (ILocalizationConfigurationSection) ConfigurationManager.GetSection("localizationConfiguration"));
+
+			services.AddScoped<ILightboxHelper, LightboxHelper>();
 
             services.AddSingleton<IContentPageContentProvider, ContentPageContentProvider>();
             

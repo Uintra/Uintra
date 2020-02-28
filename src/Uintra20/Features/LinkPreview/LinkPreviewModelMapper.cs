@@ -7,16 +7,13 @@ namespace Uintra20.Features.LinkPreview
 {
     public class LinkPreviewModelMapper
     {
-        private const string defaultPreviewImagePath = "/content/images/preview.png";
+        private const string DefaultPreviewImagePath = "/content/images/preview.png";
         private readonly ILinkPreviewUriProvider _linkPreviewUriProvider;
-        private readonly UmbracoHelper _umbracoHelper;
 
         public LinkPreviewModelMapper(
-            ILinkPreviewUriProvider linkPreviewUriProvider,
-            UmbracoHelper umbracoHelper)
+            ILinkPreviewUriProvider linkPreviewUriProvider)
         {
             _linkPreviewUriProvider = linkPreviewUriProvider;
-            _umbracoHelper = umbracoHelper;
         }
 
         public Models.LinkPreview MapPreview(LinkPreviewEntity entity)
@@ -31,7 +28,7 @@ namespace Uintra20.Features.LinkPreview
 
             if (entity.MediaId.HasValue)
             {
-                var media = _umbracoHelper.Media(entity.MediaId);
+                var media = Umbraco.Web.Composing.Current.UmbracoHelper.Media(entity.MediaId);
                 result.ImageUri = media != null ? new Uri(media.Url, UriKind.Relative) : null;
             }
             else
@@ -42,7 +39,7 @@ namespace Uintra20.Features.LinkPreview
 
             if (result.ImageUri == null)
             {
-                result.ImageUri = new Uri(defaultPreviewImagePath, UriKind.Relative);
+                result.ImageUri = new Uri(DefaultPreviewImagePath, UriKind.Relative);
             }
             return result;
         }

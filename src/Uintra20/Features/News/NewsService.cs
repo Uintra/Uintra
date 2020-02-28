@@ -103,7 +103,7 @@ namespace Uintra20.Features.News
 
         public override Enum PermissionActivityType => PermissionResourceTypeEnum.News;
 
-        public override IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId)
+        public override IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId, bool showGroupTitle)
         {
             var news = Get(activityId);
 
@@ -119,10 +119,10 @@ namespace Uintra20.Features.News
             viewModel.Type = _localizationService.Translate(news.Type.ToString());
             viewModel.LikedByCurrentUser = news.Likes.Any(x => x.UserId == currentMember.Id);
             viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);
-            viewModel.GroupInfo = _feedActivityHelper.GetGroupInfo(activityId);
             viewModel.IsGroupMember = !news.GroupId.HasValue || currentMember.GroupIds.Contains(news.GroupId.Value);
             var likes = _likesService.GetLikeModels(news.Id);
             viewModel.Likes = likes;
+            viewModel.GroupInfo = showGroupTitle ? _feedActivityHelper.GetGroupInfo(activityId) : null;
 
             var dates = news.PublishDate.ToDateTimeFormat().ToEnumerable().ToList();
 
@@ -204,6 +204,24 @@ namespace Uintra20.Features.News
         //    base.UpdateCache();
         //    FillIndex();
         //}
+
+        public override bool IsActual(IIntranetActivity activity)
+        {
+            var news = (NewsBase)activity;
+            var isActual = base.IsActual(news);
+
+            if (!isActual) return false;
+
+            if (IsExpired(news))
+            {
+                news.IsHidden = true;
+                news.UnpublishDate = null;
+                Save(news);
+                return false;
+            }
+
+            return news.PublishDate <= DateTime.UtcNow || IsOwner(news);
+        }
 
         public override Entities.News UpdateActivityCache(Guid id)
         {

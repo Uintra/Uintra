@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
+using UBaseline.Core.Node;
 using Uintra20.Attributes;
 using Uintra20.Core;
 using Uintra20.Core.Activity;
@@ -37,7 +38,7 @@ namespace Uintra20.Features.Comments.Controllers
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly IMentionService _mentionService;
         private readonly ICommentLinkHelper _commentLinkHelper;
-        private readonly UmbracoHelper _umbracoHelper;
+        private readonly INodeModelService _nodeModelService;
         private readonly IGroupActivityService _groupActivityService;
 
         public CommentsController(
@@ -48,8 +49,8 @@ namespace Uintra20.Features.Comments.Controllers
             IActivitiesServiceFactory activitiesServiceFactory,
             IMentionService mentionService,
             ICommentLinkHelper commentLinkHelper,
-            UmbracoHelper umbracoHelper,
-            IGroupActivityService groupActivityService)
+            IGroupActivityService groupActivityService,
+            INodeModelService nodeModelService)
         {
             _commentsHelper = commentsHelper;
             _commentsService = commentsService;
@@ -58,8 +59,8 @@ namespace Uintra20.Features.Comments.Controllers
             _activitiesServiceFactory = activitiesServiceFactory;
             _mentionService = mentionService;
             _commentLinkHelper = commentLinkHelper;
-            _umbracoHelper = umbracoHelper;
             _groupActivityService = groupActivityService;
+            _nodeModelService = nodeModelService;
         }
 
         [HttpPost]
@@ -218,7 +219,7 @@ namespace Uintra20.Features.Comments.Controllers
 
             if (mentionIds.Any())
             {
-                var content = _umbracoHelper.Content(comment.ActivityId);
+                var content = _nodeModelService.AsEnumerable().FirstOrDefault(x => x.Key == comment.ActivityId);
                 _mentionService.ProcessMention(new MentionModel
                 {
                     MentionedSourceId = comment.Id,
@@ -240,7 +241,7 @@ namespace Uintra20.Features.Comments.Controllers
             if (mentionIds.Length == 0) 
                 return;
 
-            var content = _umbracoHelper.Content(comment.ActivityId);
+            var content = _nodeModelService.AsEnumerable().FirstOrDefault(x => x.Key == comment.ActivityId);
             _mentionService.ProcessMention(new MentionModel
             {
                 MentionedSourceId = comment.Id,

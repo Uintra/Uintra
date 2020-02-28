@@ -67,6 +67,10 @@ quill-editor {
     border: 0;
   }
 
+  .ql-snow .ql-tooltip {
+    z-index: 10;
+  }
+
   .ql-editor {
     padding: 0 15px;
     margin: 14px 0;
@@ -162,6 +166,14 @@ quill-editor {
   .icon-smily {
     font-size: 14px;
     margin-right: 8px;
+  }
+
+  .ql-container .ql-tooltip.ql-editing, .ql-container .ql-tooltip.ql-flip,
+  .ql-container .ql-tooltip {
+    margin: 0 !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
   }
 }
 

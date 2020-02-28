@@ -131,6 +131,9 @@
     <Reference Include="Examine, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Examine.1.0.1\lib\net452\Examine.dll</HintPath>
     </Reference>
+    <Reference Include="FluentScheduler, Version=5.3.0.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentScheduler.5.3.0\lib\net40\FluentScheduler.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Apis, Version=1.34.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Google.Apis.1.34.0\lib\net45\Google.Apis.dll</HintPath>
     </Reference>
@@ -955,15 +958,44 @@
     <Content Include="Content\uintra20\src\assets\img\admin.svg" />
     <Content Include="Content\uintra20\src\assets\img\logo.svg" />
     <Content Include="Content\uintra20\src\assets\img\u-intra-text-logo.svg" />
+    <Content Include="Content\uintra20\src\styles\grid.config.less" />
+    <Content Include="Content\uintra20\src\styles\icons\demo-files\demo.css" />
+    <Content Include="Content\uintra20\src\styles\icons\demo-files\demo.js" />
+    <Content Include="Content\uintra20\src\styles\icons\demo.html" />
+    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.eot" />
+    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.svg" />
+    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.ttf" />
+    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.woff" />
+    <Content Include="Content\uintra20\src\styles\icons\Read Me.txt" />
+    <Content Include="Content\uintra20\src\styles\icons\selection.json" />
+    <Content Include="Content\uintra20\src\styles\icons\style.css" />
+    <Content Include="Content\uintra20\src\styles\icons\style.less" />
+    <Content Include="Content\uintra20\src\styles\icons\variables.less" />
+    <Content Include="App_Plugins\UserPicker\package.manifest" />
+    <Content Include="Content\uintra20\src\styles.less" />
+    <Content Include="Content\uintra20\src\styles\mixins\elements.less" />
+    <Content Include="Content\uintra20\src\styles\components\index.less" />
+    <Content Include="Content\uintra20\src\styles\components\form-elements.less" />
+    <Content Include="config\UIntra\LatestActivitySettings.json" />
+    <Content Include="Content\uintra20\src\styles\reset\index.less" />
+    <Content Include="Content\uintra20\src\styles\reset\reset.less" />
+    <Content Include="config\UIntra\LatestActivitySettings.json" />
+    <None Include="Content\uintra20\src\styles\temp\aside.less" />
+    <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
+    <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
     <Content Include="css\rte.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\UintraApplicationComponent.cs" />
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
     <Compile Include="Controllers\EnumController.cs" />
+    <Compile Include="Controllers\QaController.cs" />
     <Compile Include="Core\AdminSection\Controllers\AdminController.cs" />
+    <Compile Include="Core\Article\ArticlePageViewModel.cs" />
+    <Compile Include="Core\Article\ArticlePageViewModelConverter.cs" />
     <Compile Include="Core\IntranetEntityTypeEnum.cs" />
     <Compile Include="Core\Member\Controllers\UintraMemberGroupTreeController.cs" />
     <Compile Include="Core\Member\Models\MemberGroupCreateModel.cs" />
@@ -1053,7 +1085,7 @@
     <Compile Include="Core\Member\Profile\Models\ProfilePageModel.cs" />
     <Compile Include="Core\Member\Profile\Models\ProfilePageViewModel.cs" />
     <Compile Include="Features\Navigation\INavigationModelsBuilder.cs" />
-    <Compile Include="Core\UbaselineModels\ArticlePageModel.cs" />
+    <Compile Include="Core\Article\ArticlePageModel.cs" />
     <Compile Include="Features\Navigation\Models\HeadingPageModel.cs" />
     <Compile Include="Features\Navigation\Models\IUintraNavigationComposition.cs" />
     <Compile Include="Core\UbaselineModels\UintraLinksPickerViewModel.cs" />
@@ -1099,6 +1131,7 @@
     <Compile Include="Features\Notification\Configuration\NotifierConfiguration.cs" />
     <Compile Include="Features\Notification\Exceptions\MissingNotifierConfigurationException.cs" />
     <Compile Include="Features\Notification\Exceptions\OutOfRangeNotifierConfigurationException.cs" />
+    <Compile Include="Features\Notification\Models\MailTemplateModel.cs" />
     <Compile Include="Features\Permissions\Controllers\PermissionsController.cs" />
     <Compile Include="Features\Permissions\Migrations\DefaultMemberGroupPermissionsInitializer.cs" />
     <Compile Include="Features\Permissions\Models\GroupPermissionsViewModel.cs" />
@@ -1121,9 +1154,7 @@
     <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />
     <Compile Include="Infrastructure\Context\IIntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Context\IntranetRequestContext.cs" />
-    <Compile Include="Infrastructure\Extensions\FactoryExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\InconsistentDataException.cs" />
-    <Compile Include="Infrastructure\Extensions\UmbracoHelperExtensions.cs" />
     <Compile Include="Infrastructure\Helpers\TransferRequestHelper.cs" />
     <Compile Include="Infrastructure\Ioc\GroupInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\LightInjectScopedConnection.cs" />
@@ -1191,6 +1222,21 @@
     <Compile Include="Core\HomePage\HomePageModel.cs" />
     <Compile Include="Core\HomePage\HomePageViewModel.cs" />
     <Compile Include="Core\HomePage\HomePageViewModelConverter.cs" />
+    <Compile Include="Core\Jobs\AutoMapperProfiles\JobAutoMapperProfile.cs" />
+    <Compile Include="Core\Jobs\Configuration\IJobSettingsConfiguration.cs" />
+    <Compile Include="Core\Jobs\Configuration\JobSettingsConfiguration.cs" />
+    <Compile Include="Core\Jobs\Enums\JobRunTypeEnum.cs" />
+    <Compile Include="Core\Jobs\Enums\JobTimeTypeEnum.cs" />
+    <Compile Include="Core\Jobs\IntranetJobFactory.cs" />
+    <Compile Include="Core\Jobs\JobConfiguration.cs" />
+    <Compile Include="Core\Jobs\JobsRegistry.cs" />
+    <Compile Include="Core\Jobs\Models\Uintra20BaseIntranetJob.cs" />
+    <Compile Include="Core\Jobs\Models\IIntranetJob.cs" />
+    <Compile Include="Features\Jobs\GdprMailsJob.cs" />
+    <Compile Include="Features\Jobs\MontlyMailJob.cs" />
+    <Compile Include="Features\Jobs\ReminderJob.cs" />
+    <Compile Include="Features\Jobs\SendEmailJob.cs" />
+    <Compile Include="Features\Jobs\UpdateActivityCacheJob.cs" />
     <Compile Include="Core\Member\Helpers\IMemberServiceHelper.cs" />
     <Compile Include="Core\Member\Helpers\MemberServiceHelper.cs" />
     <Compile Include="Core\Member\Profile\Edit\Models\ProfileEditViewModel.cs" />
@@ -1285,7 +1331,18 @@
     <Compile Include="Features\Media\Strategies\Preset\IPresetStrategy.cs" />
     <Compile Include="Features\Media\Strategies\Preset\PresetStrategies.cs" />
     <Compile Include="Features\Media\Strategies\Preset\ActivityDetailsPresetStrategy.cs" />
+    <Compile Include="Features\MonthlyMail\IMonthlyEmailService.cs" />
+    <Compile Include="Features\MonthlyMail\MonthlyEmailService.cs" />
+    <Compile Include="Features\MonthlyMail\MonthlyEmailServiceBase.cs" />
     <Compile Include="Features\Navigation\Models\ActivityFeedTabModel.cs" />
+    <Compile Include="Features\Reminder\Services\IReminderableService.cs" />
+    <Compile Include="Features\Reminder\Services\IReminderRunner.cs" />
+    <Compile Include="Features\Reminder\Services\IReminderService.cs" />
+    <Compile Include="Features\Reminder\Configuration\ReminderConfiguration.cs" />
+    <Compile Include="Features\Reminder\Exceptions\ReminderIsAlreadyDeliveredException.cs" />
+    <Compile Include="Features\Reminder\Services\ReminderRunner.cs" />
+    <Compile Include="Features\Reminder\Services\ReminderService.cs" />
+    <Compile Include="Features\Reminder\Configuration\ReminderTypeConfiguration.cs" />
     <Compile Include="Features\Notification\Configuration\BackofficeSettings\Models\TreeNodeModel.cs" />
     <Compile Include="Features\Notification\Configuration\BackofficeSettings\Providers\INotificationSettingCategoryProvider.cs" />
     <Compile Include="Features\Notification\Configuration\BackofficeSettings\Providers\INotificationSettingsTreeProvider.cs" />
@@ -1422,6 +1479,7 @@
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\EnumExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\EnumTypeExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\FactoryExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\HttpContextExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\IntranetMemberServiceExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\ListExtensions.cs" />
@@ -1835,6 +1893,9 @@
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\AnchorField\package.manifest" />
     <Content Include="App_Plugins\UintraGroupMember\package.manifest" />
+    <Content Include="Content\uintra20\src\styles\typography\font.less" />
+    <Content Include="Content\uintra20\src\styles\typography\index.less" />
+    <Content Include="Features\Reminder\Configuration\reminderConfiguration.json" />
     <None Include="config\umbracoSettings.config" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />

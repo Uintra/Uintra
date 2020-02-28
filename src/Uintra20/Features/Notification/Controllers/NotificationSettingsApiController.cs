@@ -1,5 +1,4 @@
-﻿using System;
-using Compent.Extensions;
+﻿using Compent.Extensions;
 using System.Web.Http;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Configuration.BackofficeSettings.Providers;

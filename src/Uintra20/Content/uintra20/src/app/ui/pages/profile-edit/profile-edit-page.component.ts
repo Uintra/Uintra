@@ -4,7 +4,6 @@ import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { IProfileEditPage } from '../../../feature/shared/interfaces/pages/profile/edit/profile-edit-page.interface';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ProfileService } from './services/profile.service';
-import { finalize } from 'rxjs/operators';
 import { NotifierTypeEnum } from 'src/app/feature/shared/enums/notifier-type.enum';
 import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
 import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
@@ -19,7 +18,7 @@ import { CanDeactivateGuard } from 'src/app/services/general/can-deactivate.serv
 })
 export class ProfileEditPage implements OnInit {
   @HostListener('window:beforeunload') checkIfDataChanged() {
-    return !this.hasDataChangedService.hasDataChanged || this.checkIfdataChanged();
+    return !this.hasDataChangedService.hasDataChanged || !this.checkIfdataChanged();
   }
   files = [];
   private data: any;
@@ -100,10 +99,13 @@ export class ProfileEditPage implements OnInit {
     };
 
     this.profileService.update(profile)
-      .pipe(finalize(() => this.inProgress = false))
       .subscribe((next: any) => {
         this.hasDataChangedService.reset();
+        this.resetDataChecker();
         this.router.navigate([next.originalUrl]);
+      },
+      (err) => {
+        this.inProgress = false;
       });
   }
 
@@ -157,9 +159,16 @@ export class ProfileEditPage implements OnInit {
       this.profileEdit.member.department !== this.profileEditForm.value.department;
   }
 
+  resetDataChecker() {
+    this.profileEdit.member.firstName = this.profileEditForm.value.firstName;
+    this.profileEdit.member.lastName = this.profileEditForm.value.lastName;
+    this.profileEdit.member.phone = this.profileEditForm.value.phone;
+    this.profileEdit.member.department = this.profileEditForm.value.department;
+  }
+
   canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged || this.checkIfdataChanged()) {
-      this.canDeactivateService.canDeacrivateConfirm();
+      return this.canDeactivateService.canDeacrivateConfirm();
     }
 
     return true;
