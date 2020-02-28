@@ -37,7 +37,7 @@ export class HomePage implements OnInit {
 
   canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
-      this.canDeactivateService.canDeacrivateConfirm();
+      return this.canDeactivateService.canDeacrivateConfirm();
     }
 
     return true;
