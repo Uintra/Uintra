@@ -8,7 +8,7 @@
   </div>
 </app-group-details-wrapper>
 
-<div class="page-wrapper" *ngIf="!data?.groupId">
+<div class="page-wrapper" *ngIf="!parsedData?.groupId">
   <ubl-dynamic-component
     *ngFor="let panel of data.panels.get()"
     [data]="panel.get()"
