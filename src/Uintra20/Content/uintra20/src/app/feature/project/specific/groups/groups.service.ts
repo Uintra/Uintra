@@ -4,7 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { CookieService } from 'ngx-cookie-service';
 import { IULink } from 'src/app/feature/shared/interfaces/general.interface';
 import { groupsApi } from 'src/app/constants/general/general.const';
-import { IGroupsData, IGroupDetailsHeaderData, IGroupModel } from './groups.interface';
+import { IGroupsData, IGroupDetailsHeaderData, IGroupModel, IBreadcrumbsItem } from './groups.interface';
 
 @Injectable({
   providedIn: "root"
@@ -40,6 +40,10 @@ export class GroupsService {
 
   toggleSubscribe(groupId: string) {
     return this.http.post(groupsApi + `/subscribe?groupId=${groupId}`, {}).toPromise();
+  }
+
+  getBreadcrumbs(): Observable<IBreadcrumbsItem[]> {
+    return this.http.post<IBreadcrumbsItem[]>("/ubaseline/api/intranetNavigation/Breadcrumbs", {});
   }
 
   setOpenState(openState: boolean = false): void {

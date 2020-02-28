@@ -36,3 +36,8 @@ export interface IGroupRoomData {
   groupId: string;
   groupInfo: IGroupsListItem;
 }
+export interface IBreadcrumbsItem {
+  name: string;
+  url: string;
+  isClickable: boolean;
+}

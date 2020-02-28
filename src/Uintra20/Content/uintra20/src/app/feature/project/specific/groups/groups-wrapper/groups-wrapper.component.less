@@ -1,21 +1,34 @@
 @import 'base.less';
 
-.tabs {
-  display: none;
-  position: relative;
-  font-size: 20px;
-  line-height: 22px;
+.groups-header {
   max-width: 1552px;
   margin: 0 auto;
   padding: 15px 20px 20px;
 
   @media @md-up {
-    display: flex;
     padding: 15px 0 20px 330px;
   }
 
   @media @lg-up {
     padding-left: 355px;
+  }
+
+  &-wrapper {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    background-color: @main-color;
+  }
+}
+
+.tabs {
+  display: none;
+  font-size: 20px;
+  line-height: 22px;
+
+  @media @md-up {
+    display: flex;
   }
 
   &__item:not(:last-child) {
@@ -33,10 +46,33 @@
   }
 }
 
-.groups-header {
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  right: 0;
-  background-color: @main-color;
+.breadcrumbs {
+  display: flex;
+  font-size: 11px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+
+    &-text {
+      color: @body-text-color;
+
+      &--link {
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+}
+
+.icon-linkarrow {
+  font-size: 13px;
+  color: @border-color;
+  margin: 0 4px;
 }

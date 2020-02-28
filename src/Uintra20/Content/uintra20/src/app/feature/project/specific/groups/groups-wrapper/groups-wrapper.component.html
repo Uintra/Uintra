@@ -1,16 +1,33 @@
 <div class="groups">
-  <div class="groups-header">
-    <ul *ngIf="tabs" class="tabs">
-      <li *ngFor="let tab of tabs" class="tabs__item">
-        <a
-          [routerLink]="tab.link?.originalUrl | ulink"
-          class="tabs__item-link"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }">
-          {{tab.title}}
-        </a>
-      </li>
-    </ul>
+  <div class="groups-header-wrapper">
+    <div class="groups-header">
+      <ul *ngIf="breadcrumbs" class="breadcrumbs">
+        <li *ngFor="let item of breadcrumbs; index as i" class="breadcrumbs__item">
+          <span *ngIf="i !== 0" class="icon-linkarrow"></span>
+          <a
+            *ngIf="item.isClickable"
+            [routerLink]="item.url"
+            class="breadcrumbs__item-text breadcrumbs__item-text--link"
+          >
+            {{item.name}}
+          </a>
+          <p *ngIf="!item.isClickable" class="breadcrumbs__item-text">
+            {{item.name}}
+          </p>
+        </li>
+      </ul>
+      <ul *ngIf="tabs" class="tabs">
+        <li *ngFor="let tab of tabs" class="tabs__item">
+          <a
+            [routerLink]="tab.link?.originalUrl | ulink"
+            class="tabs__item-link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
+            {{tab.title}}
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
   <ng-content></ng-content>
 </div>
