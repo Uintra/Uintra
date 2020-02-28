@@ -7,12 +7,13 @@ import { TagMultiselectModule } from 'src/app/feature/project/reusable/inputs/ta
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropzoneWrapperModule } from 'src/app/feature/project/reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
 import { CheckboxInputModule } from 'src/app/feature/project/reusable/inputs/checkbox-input/checkbox-input.module';
+import { CanDeactivateGuard } from 'src/app/services/general/can-deactivate.service';
 
 @NgModule({
   declarations: [ProfileEditPage],
   imports: [
     CommonModule,
-    RouterModule.forChild([{ path: '', component: ProfileEditPage }]),
+    RouterModule.forChild([{ path: '', component: ProfileEditPage, canDeactivate: [CanDeactivateGuard]}]),
     UbaselineCoreModule,
     TagMultiselectModule,
     FormsModule,

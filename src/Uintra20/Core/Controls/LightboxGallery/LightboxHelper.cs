@@ -13,12 +13,11 @@ namespace Uintra20.Core.Controls.LightboxGallery
 {
     public class LightboxHelper : ILightboxHelper
     {
-        private readonly UmbracoHelper _helper;
-        private readonly IImageHelper _imageHelper;
+	    private readonly IImageHelper _imageHelper;
 
-        public LightboxHelper(UmbracoHelper helper, IImageHelper imageHelper)
+        public LightboxHelper(IImageHelper imageHelper)
         {
-            _helper = helper;
+     
             _imageHelper = imageHelper;
         }
 
@@ -29,7 +28,7 @@ namespace Uintra20.Core.Controls.LightboxGallery
 
         public LightboxPreviewModel GetGalleryPreviewModel(IEnumerable<int> mediaIds, IPresetStrategy strategy)
         {
-            var medias = _helper.Media(mediaIds);
+            var medias = Umbraco.Web.Composing.Current.UmbracoHelper.Media(mediaIds);
 
             var mediasList = medias.ToList();
 

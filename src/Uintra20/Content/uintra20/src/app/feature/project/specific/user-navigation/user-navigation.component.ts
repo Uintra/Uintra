@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -52,9 +51,8 @@ export class UserNavigationComponent implements OnInit {
     this.inProgress = true;
 
     if (type == 1) {
-      this.http.post(url.originalUrl, null).pipe(
-        finalize(() => this.inProgress = false)
-      ).subscribe(
+      this.http.post(url.originalUrl, null)
+      .subscribe(
         (next) => {
           window.open(window.location.origin + "/umbraco", "_blank");
         },
@@ -62,15 +60,18 @@ export class UserNavigationComponent implements OnInit {
           if (error.status === 403) {
             console.error(error.message);
           }
+          this.inProgress = false;
         },
       );
     }
 
     if (type == 4) {
-      this.http.post(url.originalUrl, null).pipe(
-        finalize(() => this.inProgress = false)
-      ).subscribe(
-        (next) => { window.location.href = '/login'; }
+      this.http.post(url.originalUrl, null)
+      .subscribe(
+        (next) => { window.location.href = '/login'; },
+        (error) => {
+          this.inProgress = false;
+        }
       )
     }
   }

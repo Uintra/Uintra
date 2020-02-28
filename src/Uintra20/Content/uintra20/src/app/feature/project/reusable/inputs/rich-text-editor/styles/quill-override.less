@@ -7,13 +7,20 @@ quill-editor {
   position: relative;
 
   .toolbar {
-    display: flex;
-    align-items: center;
     width: 100%;
     border-top: 1px solid #ddd;
+
+    @media @sm-up {
+      display: flex;
+      align-items: center;
+    }
+
+    &__second-row {
+      display: flex;
+    }
   }
 
-  // Disable default icon in tollbar
+  // Disable default icon in toolbar
   .ql-link,
   .ql-italic,
   .ql-bold,
@@ -58,6 +65,10 @@ quill-editor {
   // Reset editor styles
   .ql-container.ql-snow {
     border: 0;
+  }
+
+  .ql-snow .ql-tooltip {
+    z-index: 10;
   }
 
   .ql-editor {
@@ -108,6 +119,10 @@ quill-editor {
   .ql-formats-wrapper {
     display: flex;
     flex-wrap: wrap;
+
+    @media @sm-down {
+      margin-left: auto;
+    }
   }
 
   .ql-toolbar button {
@@ -139,6 +154,10 @@ quill-editor {
   .ql-counter {
     margin-right: auto;
 
+    @media @sm-down {
+      margin-bottom: 5px;
+    }
+
     &.invalid span {
       color: #c70a0a;
     }
@@ -147,6 +166,14 @@ quill-editor {
   .icon-smily {
     font-size: 14px;
     margin-right: 8px;
+  }
+
+  .ql-container .ql-tooltip.ql-editing, .ql-container .ql-tooltip.ql-flip,
+  .ql-container .ql-tooltip {
+    margin: 0 !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -158,6 +185,10 @@ quill-editor {
   & ::ng-deep .ql-editor {
     padding: 0;
   }
+}
+
+.emoji-container {
+  position: relative;
 }
 
 .hidden {

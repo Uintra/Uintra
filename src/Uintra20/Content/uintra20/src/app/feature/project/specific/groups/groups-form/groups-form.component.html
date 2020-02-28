@@ -11,7 +11,8 @@
           [maxLength]="TITLE_MAX_LENGTH"
           class="groups-create__title-input"
           [ngClass]="{'invalid': getTitleValidationState()}"
-          [(ngModel)]="title"
+          [ngModel]="title"
+          (ngModelChange)="onTitleChange($event)"
         ></text-input>
       </div>
 
@@ -24,17 +25,19 @@
           [isEmoji]="false"
           placeholder=""
           [ngClass]="{'invalid': isShowValidation && !description}"
-          [(ngModel)]="description">
+          [ngModel]="description"
+          (ngModelChange)="onDescriptionChange($event)">
         </app-rich-text-editor>
       </div>
 
       <div class="groups-create__row">
         <h3 class="subtitle">Group image</h3>
-        <app-dropzone-existing-images [medias]="medias" (removeImage)="onImageRemove()"></app-dropzone-existing-images>
+        <app-dropzone-existing-images [medias]="mediasPreview" (removeImage)="onImageRemove()"></app-dropzone-existing-images>
         <app-dropzone-wrapper
           [maxFiles]="1"
           [disabled]="medias.length > 0 || files.length > 0"
           [filesLength]="files.length"
+          [allowedExtensions]="allowedExtensions"
           (success)="onUploadSuccess($event)"
           (removedFile)="onFileRemoved($event)">
         </app-dropzone-wrapper>

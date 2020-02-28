@@ -30,7 +30,7 @@
             {{group.membersCount}} {{group.membersCount !== 1 ? 'members' : 'member'}}
           </p>
         </div>
-        <span class="icon-checkmark"></span>
+        <span *ngIf="group.isMember" class="icon-checkmark"></span>
       </a>
     </li>
     <div *ngIf="isGroupsLoading" class="groups-list__loader-wrapper">

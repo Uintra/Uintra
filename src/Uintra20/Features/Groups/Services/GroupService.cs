@@ -88,13 +88,13 @@ namespace Uintra20.Features.Groups.Services
             await CanHideAsync(await GetAsync(id));
 
         public async Task<bool> CanHideAsync(GroupModel @group) =>
-            await CanPerformAsync(group);
+            await CanPerformAsync(group, PermissionActionEnum.HideOther);
 
         public async Task<bool> CanEditAsync(Guid id) =>
             await CanEditAsync(await GetAsync(id));
 
         public async Task<bool> CanEditAsync(GroupModel @group) =>
-            await CanPerformAsync(group);
+            await CanPerformAsync(group, PermissionActionEnum.EditOther);
         
         public async Task<bool> ValidatePermissionAsync(IPublishedContent content)
         {
@@ -127,20 +127,13 @@ namespace Uintra20.Features.Groups.Services
             await EditAsync(group);
         }
 
-        public async Task<bool> CanPerformAsync(GroupModel group)
+        public async Task<bool> CanPerformAsync(GroupModel group, PermissionActionEnum otherAction)
         {
-            //var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
-            var currentMember = _intranetMemberService.GetCurrentMember();
+            var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
 
             var isOwner = group.CreatorId == currentMember.Id;
 
-            var groupMember = await _groupMemberRepository.FindAsync(m => m.GroupId == group.Id && m.MemberId == currentMember.Id);
-
-            if (groupMember == null) return false;
-
-            var act = isOwner || groupMember.IsAdmin;
-
-            return act;
+            return isOwner || await _permissionsService.CheckAsync(PermissionResourceTypeEnum.Groups, otherAction);
         }
 
         private async Task UpdateCacheAsync() =>
@@ -195,28 +188,27 @@ namespace Uintra20.Features.Groups.Services
         public bool CanHide(Guid id) =>
             CanHide(Get(id));
 
-        public bool CanHide(GroupModel group) =>
-            CanPerform(group);
+        public bool CanHide(GroupModel group) => 
+            CanPerform(@group, PermissionActionEnum.HideOther);
 
         public bool CanEdit(Guid id) =>
             CanEdit(Get(id));
 
         public bool CanEdit(GroupModel group) =>
-            CanPerform(group);
+            CanPerform(group, PermissionActionEnum.EditOther);
 
-        public bool CanPerform(GroupModel group)
+        public bool CanCreate()
+        {
+            return _permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceTypeEnum.Groups));
+        }
+
+        public bool CanPerform(GroupModel group, PermissionActionEnum otherAction)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
 
             var isOwner = group.CreatorId == currentMember.Id;
-
-            var groupMember = _groupMemberRepository.Find(m => m.GroupId == group.Id && m.MemberId == currentMember.Id);
-
-            if (groupMember == null) return false;
-
-            var act = isOwner || groupMember.IsAdmin;
-
-            return act;
+            
+            return isOwner || _permissionsService.Check(PermissionResourceTypeEnum.Groups, otherAction);
         }
         
         public bool ValidatePermission(IPublishedContent content)

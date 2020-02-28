@@ -6,6 +6,9 @@ import { IGroupRoomData } from 'src/app/feature/project/specific/groups/groups.i
 import { RouterResolverService } from 'src/app/services/general/router-resolver.service';
 import { IULink } from 'src/app/feature/shared/interfaces/general.interface';
 import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
+import { Observable } from 'rxjs';
+import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
+import { CanDeactivateGuard } from 'src/app/services/general/can-deactivate.service';
 
 @Component({
   selector: 'uintra-groups-room-page',
@@ -23,18 +26,22 @@ export class UintraGroupsRoomPage {
     private groupsService: GroupsService,
     private router: Router,
     private routerResolverService: RouterResolverService,
-    private addButtonService: AddButtonService
+    private addButtonService: AddButtonService,
+    private hasDataChangedService: HasDataChangedService,
+    private canDeactivateService: CanDeactivateGuard,
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
       this.parsedData = ParseHelper.parseUbaselineData(data);
       this.addButtonService.setPageId(data.id);
+      this.routerResolverService.removePageRouter(this.parsedData.groupInfo.groupUrl.originalUrl);
     });
   }
 
   toggleSubscribe() {
-    this.isLoading = true;
-    this.groupsService.toggleSubscribe(this.parsedData.groupId)
+    if (!this.parsedData.groupInfo.isMember || confirm('Are you sure?')) {
+      this.isLoading = true;
+      this.groupsService.toggleSubscribe(this.parsedData.groupId)
       .then((res: IULink) => {
         if (this.parsedData.groupInfo.isMember) {
           this.parsedData.groupInfo.membersCount -= 1;
@@ -44,9 +51,19 @@ export class UintraGroupsRoomPage {
           this.parsedData.groupInfo.isMember = true;
         }
         this.routerResolverService.removePageRouter(res.originalUrl);
+        document.location.reload();
       })
       .finally(() => {
         this.isLoading = false;
       })
+    }
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.hasDataChangedService.hasDataChanged) {
+      return this.canDeactivateService.canDeacrivateConfirm();
+    }
+
+    return true;
   }
 }

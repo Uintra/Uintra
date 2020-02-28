@@ -14,6 +14,8 @@ using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.News.Models;
+using Uintra20.Features.Permissions;
+using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
 
@@ -29,6 +31,7 @@ namespace Uintra20.Features.News.Converters
         private readonly INewsService<Entities.News> _newsService;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly ILightboxHelper _lightBoxHelper;
+        private readonly IPermissionsService _permissionsService;
 
         public UintraNewsDetailsPageViewModelConverter(
             ICommentsService commentsService,
@@ -38,7 +41,8 @@ namespace Uintra20.Features.News.Converters
             IFeedLinkService feedLinkService,
             INewsService<Entities.News> newsService,
             IIntranetMemberService<IntranetMember> memberService,
-            ILightboxHelper lightBoxHelper)
+            ILightboxHelper lightBoxHelper,
+            IPermissionsService permissionsService)
         {
             _commentsService = commentsService;
             _userTagService = userTagService;
@@ -48,6 +52,7 @@ namespace Uintra20.Features.News.Converters
             _newsService = newsService;
             _memberService = memberService;
             _lightBoxHelper = lightBoxHelper;
+            _permissionsService = permissionsService;
         }
 
         public void Map(UintraNewsDetailsPageModel node, UintraNewsDetailsPageViewModel viewModel)
@@ -57,16 +62,24 @@ namespace Uintra20.Features.News.Converters
             if (!Guid.TryParse(idStr, out var id))
                 return;
 
+            viewModel.CanView = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.View);
+
+            if (!viewModel.CanView)
+            {
+                return;
+            }
+
             var news = _newsService.Get(id);
 
-            var userId = _memberService.GetCurrentMemberId();
+            var member = _memberService.GetCurrentMember();
 
             viewModel.Details = GetDetails(news);
             viewModel.Tags = _userTagService.Get(id);
             viewModel.Likes = _likesService.GetLikeModels(id);
-            viewModel.LikedByCurrentUser = viewModel.Likes.Any(l => l.UserId == userId);
+            viewModel.LikedByCurrentUser = viewModel.Likes.Any(l => l.UserId == member.Id);
             viewModel.Comments = _commentsHelper.GetCommentViews(_commentsService.GetMany(id));
             viewModel.CanEdit = _newsService.CanEdit(id);
+            viewModel.IsGroupMember = !news.GroupId.HasValue || member.GroupIds.Contains(news.GroupId.Value);
 
             var groupIdStr = HttpContext.Current.Request["groupId"];
             if (!Guid.TryParse(groupIdStr, out var groupId) || news.GroupId != groupId)

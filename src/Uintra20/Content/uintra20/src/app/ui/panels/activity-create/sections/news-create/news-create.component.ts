@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { ActivityService } from 'src/app/feature/project/specific/activity/activity.service';
 import { INewsCreateModel } from 'src/app/feature/project/specific/activity/activity.interfaces';
 import { RouterResolverService } from 'src/app/services/general/router-resolver.service';
+import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
 
 @Component({
   selector: "app-news-create",
@@ -17,13 +18,15 @@ export class NewsCreateComponent implements OnInit {
   members: Array<any>;
   creator: any;
   tags: Array<any>;
+  isSubmitLoading: boolean = false;
 
   panelData;
 
   constructor(
-      private activityService: ActivityService,
+    private activityService: ActivityService,
     private router: Router,
-    private routerResolverService: RouterResolverService
+    private routerResolverService: RouterResolverService,
+    private hasDataChangedService: HasDataChangedService,
   ) {}
 
   ngOnInit() {
@@ -41,12 +44,24 @@ export class NewsCreateComponent implements OnInit {
   }
 
   onSubmit(data) {
-    if (this.panelData.groupId) {data.groupId = this.panelData.groupId}
+    if (this.panelData.groupId) {data.groupId = this.panelData.groupId};
+
+    this.isSubmitLoading = true;
+
     this.activityService
     .submitNewsContent(data)
     .subscribe((r: any) => {
       this.routerResolverService.removePageRouter(r.originalUrl);
+      this.hasDataChangedService.reset();
       this.router.navigate([r.originalUrl]);
+    },
+    (err) => {
+      this.isSubmitLoading = false;
     });
+  }
+
+  onCancel() {
+    this.hasDataChangedService.reset();
+    this.router.navigate([this.panelData.links.feed.originalUrl]);
   }
 }

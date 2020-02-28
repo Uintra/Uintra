@@ -8,27 +8,28 @@ namespace Uintra20.Core.User
     public class IntranetUserContentProvider : IIntranetUserContentProvider
     {
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        private readonly IPublishedContent _baseContent;
+        private readonly string _baseAlias;
 
-        public IntranetUserContentProvider(UmbracoHelper umbracoHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
+        public IntranetUserContentProvider(IDocumentTypeAliasProvider documentTypeAliasProvider)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
-            var baseAlias = _documentTypeAliasProvider.GetHomePage();
-            _baseContent = umbracoHelper.ContentAtRoot().First(x => x.ContentType.Alias == baseAlias);
+            _baseAlias = _documentTypeAliasProvider.GetHomePage();
         }
 
         public IPublishedContent GetProfilePage()
         {
-            var profilePageAlias = _documentTypeAliasProvider.GetProfilePage();
-            var profilePageContent = _baseContent.Children.FirstOrDefault(x => x.ContentType.Alias == profilePageAlias);
+			var baseContent = Umbraco.Web.Composing.Current.UmbracoHelper.ContentAtRoot().First(x => x.ContentType.Alias == _baseAlias);
+			var profilePageAlias = _documentTypeAliasProvider.GetProfilePage();
+            var profilePageContent = baseContent.Children.FirstOrDefault(x => x.ContentType.Alias == profilePageAlias);
 
             return profilePageContent;
         }
 
         public IPublishedContent GetEditPage()
         {
-            var editPageAlias = _documentTypeAliasProvider.GetProfileEditPage();
-            var editPageContent = _baseContent.Children.FirstOrDefault(x => x.ContentType.Alias == editPageAlias);
+	        var baseContent = Umbraco.Web.Composing.Current.UmbracoHelper.ContentAtRoot().First(x => x.ContentType.Alias == _baseAlias);
+			var editPageAlias = _documentTypeAliasProvider.GetProfileEditPage();
+            var editPageContent = baseContent.Children.FirstOrDefault(x => x.ContentType.Alias == editPageAlias);
             
             return editPageContent;
         }

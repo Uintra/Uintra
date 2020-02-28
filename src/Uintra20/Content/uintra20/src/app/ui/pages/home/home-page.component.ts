@@ -1,6 +1,9 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
+import { Observable } from 'rxjs';
+import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
+import { CanDeactivateGuard } from 'src/app/services/general/can-deactivate.service';
 
 @Component({
   selector: 'home-page',
@@ -15,7 +18,9 @@ export class HomePage implements OnInit {
   otherPanels: any;
   constructor(
     private route: ActivatedRoute,
-    private addButtonService: AddButtonService
+    private addButtonService: AddButtonService,
+    private hasDataChangedService: HasDataChangedService,
+    private canDeactivateService: CanDeactivateGuard,
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
@@ -28,5 +33,13 @@ export class HomePage implements OnInit {
       this.latestActivities = this.data.panels.get().filter(p => p.data.contentTypeAlias === 'latestActivitiesPanel')[0];
       this.otherPanels = this.data.panels.get().filter(p => p.data.contentTypeAlias !== 'latestActivitiesPanel');
     }
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.hasDataChangedService.hasDataChanged) {
+      return this.canDeactivateService.canDeacrivateConfirm();
+    }
+
+    return true;
   }
 }

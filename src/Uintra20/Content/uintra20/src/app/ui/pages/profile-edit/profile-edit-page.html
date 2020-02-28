@@ -16,6 +16,7 @@
             </div>
             <div *ngIf="isUploaded || !profileEdit.member.photo">
               <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
+                [withImage]="false"
                 (success)="processAvatarUpload($event)"
                 (removedFile)="processAvatarDelete()">
               </app-dropzone-wrapper>
@@ -46,7 +47,8 @@
                 <label>Tags </label>
                 <app-tag-multiselect
                   [availableTags]="profileEdit.member.availableTags"
-                  [(ngModel)]="profileEdit.member.tags" [ngModelOptions]="{standalone: true}">
+                  [ngModel]="profileEdit.member.tags" [ngModelOptions]="{standalone: true}"
+                  (ngModelChange)="onTagsChange($event)">
                 </app-tag-multiselect>
               </div>
               <div class="form__row">

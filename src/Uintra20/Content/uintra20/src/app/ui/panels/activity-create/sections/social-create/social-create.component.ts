@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
 import { IActivityCreatePanel } from '../../activity-create-panel.interface';
 import { DropzoneComponent } from 'ngx-dropzone-wrapper';
 import { ITagData } from 'src/app/feature/project/reusable/inputs/tag-multiselect/tag-multiselect.interface';
@@ -8,6 +8,8 @@ import { ActivityService } from 'src/app/feature/project/specific/activity/activ
 import { ModalService } from 'src/app/services/general/modal.service';
 import { MAX_LENGTH } from 'src/app/constants/activity/create/activity-create-const';
 import { ISocialCreateModel } from 'src/app/feature/project/specific/activity/activity.interfaces';
+import { HasDataChangedService } from 'src/app/services/general/has-data-changed.service';
+import { MqService } from 'src/app/services/general/mq.service';
 
 @Component({
   selector: 'app-social-create',
@@ -17,6 +19,14 @@ import { ISocialCreateModel } from 'src/app/feature/project/specific/activity/ac
 export class SocialCreateComponent implements OnInit {
   @Input() data: IActivityCreatePanel;
   @ViewChild('dropdownRef', { static: false }) dropdownRef: DropzoneComponent;
+  @HostListener('window:beforeunload') doSomething() {
+    return !this.hasDataChangedService.hasDataChanged;
+  }
+  @HostListener("window:resize", ["$event"])
+  getScreenSize(event?) {
+    this.deviceWidth = window.innerWidth;
+  }
+  deviceWidth: number;
   availableTags: Array<ITagData> = [];
   isPopupShowing = false;
   tags: Array<ITagData> = [];
@@ -36,7 +46,9 @@ export class SocialCreateComponent implements OnInit {
 
   constructor(
     private socialContentService: ActivityService,
-    private modalService: ModalService) { }
+    private modalService: ModalService,
+    private hasDataChangedService: HasDataChangedService,
+    private mq: MqService) { }
 
   public ngOnInit(): void {
     this.panelData = ParseHelper.parseUbaselineData(this.data);
@@ -47,6 +59,8 @@ export class SocialCreateComponent implements OnInit {
       name: this.panelData.creator.displayedName,
       photo: this.panelData.creator.photo
     };
+    this.deviceWidth = window.innerWidth;
+    this.getPlaceholder();
   }
 
   onShowPopUp() {
@@ -69,6 +83,7 @@ export class SocialCreateComponent implements OnInit {
   hidePopUp() {
     this.modalService.removeClassFromRoot('disable-scroll');
     this.isPopupShowing = false;
+    this.hasDataChangedService.reset();
   }
 
   showPopUp() {
@@ -82,6 +97,7 @@ export class SocialCreateComponent implements OnInit {
 
   onUploadSuccess(fileArray: Array<any> = []): void {
     this.files.push(fileArray);
+    this.hasDataChangedService.onDataChanged();
   }
 
   onFileRemoved(removedFile: object) {
@@ -91,8 +107,19 @@ export class SocialCreateComponent implements OnInit {
     });
   }
 
+  onTagsChange(e) {
+    this.tags = e;
+  }
+
+  onDescriptionChange(e) {
+    this.description = e;
+    if (e) {
+      this.hasDataChangedService.onDataChanged();
+    }
+  }
+
   getMediaIdsForResponse() {
-    return this.files.map(file => file[1]).join(';');
+    return this.files.map(file => file[1]).join(',');
   }
   getTagsForResponse() {
     return this.tags.map(tag => tag.id);
@@ -130,7 +157,11 @@ export class SocialCreateComponent implements OnInit {
 
   canCreatePosts() {
     if (this.panelData) {
-      return this.panelData.canCreate || this.panelData.createNewsLink || this.panelData.createEventsLink;
+      return this.panelData.canCreate || this.panelData.createEventsLink || this.panelData.createNewsLink;
     }
+  }
+
+  getPlaceholder() {
+    return this.mq.isTablet(this.deviceWidth) ? 'Write a message, post a photo or share a document' : 'Write bulletin';
   }
 }

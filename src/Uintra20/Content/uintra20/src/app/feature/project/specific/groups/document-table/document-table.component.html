@@ -21,7 +21,7 @@
         <td>
           <div class="file-extension">{{ document.type }}</div>
         </td>
-        <td>{{ document.name }}</td>
+        <td><a href="{{document.fileUrl}}" class="file-link" target="_blank">{{ document.name }}</a></td>
         <td>
           <div class="user-data">
             <app-user-avatar
@@ -36,6 +36,7 @@
         <td>{{ document.createDate }}</td>
         <td>
           <button
+            *ngIf="document.canDelete"
             class="custom-table__remove-button"
             (click)="onRemove(document.id)"
           >

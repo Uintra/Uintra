@@ -18,6 +18,7 @@ namespace Uintra20.Features.Groups.Services
         bool CanHide(GroupModel group);
         bool CanEdit(Guid id);
         bool CanEdit(GroupModel group);
+        bool CanCreate();
         bool ValidatePermission(IPublishedContent content);
         bool IsActivityFromActiveGroup(IGroupActivity groupActivity);
         bool IsMemberCreator(Guid memberId, Guid groupId);

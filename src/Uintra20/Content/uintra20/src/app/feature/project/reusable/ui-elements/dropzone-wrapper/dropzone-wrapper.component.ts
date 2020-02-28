@@ -13,6 +13,7 @@ import { DropzoneComponent } from "ngx-dropzone-wrapper";
 
 export interface IDropzoneConfig {
   maxFiles?: number;
+  acceptedFiles?: string;
 }
 
 @Component({
@@ -28,6 +29,8 @@ export class DropzoneWrapperComponent implements OnInit {
   @Input() filesLength: number;
   @Input() maxFiles: number;
   @Input() disabled: boolean = false;
+  @Input() withImage: boolean = true;
+  @Input() allowedExtensions: string;
   @Output() success = new EventEmitter();
   @Output() removedFile = new EventEmitter();
   @HostBinding("class") className: string;
@@ -39,8 +42,9 @@ export class DropzoneWrapperComponent implements OnInit {
 
   ngOnInit() {
     this.config.maxFiles = this.maxFiles || DEFAULT_DROPZONE_CONFIG.maxFiles;
+    this.config.acceptedFiles = this.allowedExtensions ? this.allowedExtensions : null;
     this.className = "dropzone-wrapper";
-    this.message = `<span class='custom-message'><span class='icon-upload'></span>${
+    this.message = `${this.withImage ? "<span class='custom-message'><span class='icon-upload'>" : ''}</span>${
       this.customMessage ? this.customMessage : "Insert image"
     }</span>`;
   }

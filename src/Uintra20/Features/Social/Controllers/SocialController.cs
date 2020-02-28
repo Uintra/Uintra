@@ -7,6 +7,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Compent.Shared.Extensions.Bcl;
 using UBaseline.Core.Controllers;
 using Uintra20.Attributes;
 using Uintra20.Core.Activity;
@@ -120,6 +121,11 @@ namespace Uintra20.Features.Social.Controllers
         [HttpDelete]
         public async Task<IHttpActionResult> Delete(Guid id)
         {
+            if (!await _socialService.CanDeleteAsync(id))
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
+
             await _socialService.DeleteAsync(id);
 
             await OnBulletinDeletedAsync(id);

@@ -31,7 +31,6 @@ namespace Uintra20.Features.CentralFeed.Helpers
         private readonly ICentralFeedService _centralFeedService;
         private readonly IFeedTypeProvider _centralFeedTypeProvider;
         private readonly IFeedLinkService _feedLinkService;
-        private readonly IFeedFilterService _centralFeedFilterService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INodeModelService _nodeModelService;
@@ -46,19 +45,17 @@ namespace Uintra20.Features.CentralFeed.Helpers
             IFeedTypeProvider feedTypeProvider,
             IFeedTypeProvider centralFeedTypeProvider,
             IFeedLinkService feedLinkService,
-            IFeedFilterService centralFeedFilterService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             INodeModelService nodeModelService,
             IUBaselineRequestContext requestContext,
-            ICentralFeedContentProvider contentProvider, 
-            IGroupFeedService groupFeedService, 
+            ICentralFeedContentProvider contentProvider,
+            IGroupFeedService groupFeedService,
             IFeedFilterService feedFilterService)
         {
             _feedTypeProvider = feedTypeProvider;
             _centralFeedService = centralFeedService;
             _centralFeedTypeProvider = centralFeedTypeProvider;
             _feedLinkService = feedLinkService;
-            _centralFeedFilterService = centralFeedFilterService;
             _feedFilterStateService = feedFilterStateService;
             _activitiesServiceFactory = activitiesServiceFactory;
             _nodeModelService = nodeModelService;
@@ -74,7 +71,7 @@ namespace Uintra20.Features.CentralFeed.Helpers
                 .GetAllSettings()
                 .Where(s => !s.ExcludeFromAvailableActivityTypes)
                 .Select(s => (Id: s.Type.ToInt(), Name: s.Type.ToString()))
-                .Select(a => new {a.Id, a.Name})
+                .Select(a => new { a.Id, a.Name })
                 .OrderBy(el => el.Id)
                 .ToJson();
         }
@@ -82,34 +79,20 @@ namespace Uintra20.Features.CentralFeed.Helpers
         public FeedListViewModel GetFeedListViewModel(FeedListModel model)
         {
             var centralFeedType = _feedTypeProvider[model.TypeId];
-            if (IsEmptyFilters(model.FilterState, _feedFilterStateService.CentralFeedCookieExists()))
+
+            if (IsEmptyFilters(model.FilterState))
             {
                 model.FilterState = GetFilterStateModel();
             }
 
-            var items = Enumerable.Empty<IFeedItem>();
-            var filteredItems = Enumerable.Empty<IFeedItem>();
-            FeedSettings tabSettings;
+            var items = model.GroupId.HasValue ? GetGroupFeedItems(centralFeedType, model.GroupId.Value).ToList() : GetCentralFeedItems(centralFeedType).ToList();
+            if (!items.Any()) return new FeedListViewModel();
 
-            if (model.GroupId.HasValue)
-            {
-                items = GetGroupFeedItems(centralFeedType, model.GroupId.Value);
-                if (!items.Any()) return new FeedListViewModel();
-                tabSettings = _groupFeedService.GetSettings(centralFeedType);
-                filteredItems = _feedFilterService.ApplyFilters(items, model.FilterState, tabSettings);
-            }
-            else
-            {
-                items = GetCentralFeedItems(centralFeedType).ToList();
-                if (!items.Any()) return new FeedListViewModel();
-                tabSettings = _centralFeedService.GetSettings(centralFeedType);
-                filteredItems = _centralFeedFilterService.ApplyFilters(items, model.FilterState, tabSettings);
-            }
+            var tabSettings = _groupFeedService.GetSettings(centralFeedType);
+            var filteredItems = _feedFilterService.ApplyFilters(items, model.FilterState, tabSettings).ToList();
 
             var centralFeedModel = CreateFeedList(model, filteredItems, centralFeedType);
-            var filterState = MapToFilterState(centralFeedModel.FilterState);
-            _feedFilterStateService.SaveFiltersState(filterState);
-
+            
             return centralFeedModel;
         }
 
@@ -119,8 +102,8 @@ namespace Uintra20.Features.CentralFeed.Helpers
             var centralFeedType = _centralFeedTypeProvider[node.ActivityType.Value.Id];
 
             var latestActivities = GetLatestActivities(centralFeedType, node.CountToDisplay.Value);
-            var feedItems = GetFeedItems(latestActivities.activities, settings).ToArray();
-            
+            var feedItems = GetFeedItems(latestActivities.activities, settings, false).ToArray();
+
             return new LoadableFeedItemModel
             {
                 IsShowMore = latestActivities.activities.Count() < latestActivities.TotalCount,
@@ -140,13 +123,13 @@ namespace Uintra20.Features.CentralFeed.Helpers
             _contentProvider.GetRelatedPages().Any(c => c.IsAncestorOrSelf(page));
 
         private IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items,
-            IEnumerable<FeedSettings> settings)
+            IEnumerable<FeedSettings> settings, bool isGroupFeed)
         {
             var activitySettings = settings
                 .ToDictionary(s => s.Type.ToInt());
 
             var result = items
-                .Select(i => MapFeedItemToViewModel(i, activitySettings));
+                .Select(i => MapFeedItemToViewModel(i, activitySettings, isGroupFeed));
 
             return result;
         }
@@ -181,20 +164,9 @@ namespace Uintra20.Features.CentralFeed.Helpers
                 : _groupFeedService.GetFeed(type, groupId);
         }
 
-        private FeedFiltersState MapToFilterState(FeedFilterStateViewModel model)
+        private bool IsEmptyFilters(FeedFilterStateModel filterState)
         {
-            return new FeedFiltersState
-            {
-                PinnedFilterSelected = model.ShowPinned,
-                BulletinFilterSelected = model.IncludeBulletin,
-                SubscriberFilterSelected = model.ShowSubscribed,
-                IsFiltersOpened = _feedFilterStateService.GetFiltersState().IsFiltersOpened
-            };
-        }
-
-        private bool IsEmptyFilters(FeedFilterStateModel filterState, bool isCookiesExist)
-        {
-            return !isCookiesExist || filterState == null || !IsAnyFilterSet(filterState);
+            return !_feedFilterStateService.CentralFeedCookieExists() || filterState == null || !IsAnyFilterSet(filterState);
         }
 
         private bool IsAnyFilterSet(FeedFilterStateModel filterState)
@@ -204,16 +176,12 @@ namespace Uintra20.Features.CentralFeed.Helpers
                    || filterState.ShowSubscribed.HasValue;
         }
 
-        private FeedListViewModel CreateFeedList(
-            FeedListModel model, 
-            IEnumerable<IFeedItem> filteredItems,
-            Enum centralFeedType)
+        private FeedListViewModel CreateFeedList(FeedListModel model, List<IFeedItem> filteredItems, Enum centralFeedType)
         {
-            var homePageModel = _nodeModelService.GetByAlias<Uintra20.Core.HomePage.HomePageModel>("homePage", _requestContext.HomeNode.RootId);
-            var homePageViewModel = _nodeModelService.GetViewModel<Uintra20.Core.HomePage.HomePageViewModel>(homePageModel);
-            var centralFeedpanel = (CentralFeedPanelViewModel)homePageViewModel.Panels.Value.FirstOrDefault(i => i.ContentTypeAlias.Equals("centralFeedPanel"));
-            var itemsPerPage = centralFeedpanel.ItemsPerRequest;
+            var centralFeedPanel = GetCentralFeedPanel();
+            var itemsPerPage = centralFeedPanel.ItemsPerRequest;
             var skip = itemsPerPage * (model.Page - 1);
+
             var pagedItemsList = SortForFeed(filteredItems, centralFeedType)
                 .Skip(skip)
                 .Take(itemsPerPage)
@@ -230,7 +198,7 @@ namespace Uintra20.Features.CentralFeed.Helpers
             return new FeedListViewModel
             {
                 Version = _centralFeedService.GetFeedVersion(filteredItems),
-                Feed = GetFeedItems(pagedItemsList, settings),
+                Feed = GetFeedItems(pagedItemsList, settings, model.GroupId.HasValue),
                 TabSettings = tabSettings,
                 Type = centralFeedType,
                 BlockScrolling = filteredItems.Count() < itemsPerPage,
@@ -284,11 +252,11 @@ namespace Uintra20.Features.CentralFeed.Helpers
             };
         }
 
-        private FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<int, FeedSettings> settings)
+        private FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<int, FeedSettings> settings, bool isGroupFeed)
         {
             var options = GetActivityFeedOptions(i.Id);
 
-            var activity = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(i.Type).GetPreviewModel(i.Id);
+            var activity = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(i.Type).GetPreviewModel(i.Id, !isGroupFeed);
 
             return new FeedItemViewModel
             {
@@ -314,6 +282,14 @@ namespace Uintra20.Features.CentralFeed.Helpers
             var items = activities.Join(settings, item => item.Type.ToInt(), type => type.ToInt(), (item, _) => item);
 
             return items;
+        }
+
+        private CentralFeedPanelViewModel GetCentralFeedPanel()
+        {
+            var homePageModel = _nodeModelService.GetByAlias<Core.HomePage.HomePageModel>("homePage", _requestContext.HomeNode.RootId);
+            var homePageViewModel = _nodeModelService.GetViewModel<Core.HomePage.HomePageViewModel>(homePageModel);
+            var centralFeedPanel = (CentralFeedPanelViewModel)homePageViewModel.Panels.Value.FirstOrDefault(i => i.ContentTypeAlias.Equals("centralFeedPanel"));
+            return centralFeedPanel;
         }
     }
 }

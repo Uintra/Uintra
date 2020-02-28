@@ -10,14 +10,11 @@ namespace Uintra20.Infrastructure.Providers
     public class ContentPageContentProvider : ContentProviderBase, IContentPageContentProvider
     {
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly IEnumerable<string> _baseXPath;
 
-        public ContentPageContentProvider(IDocumentTypeAliasProvider documentTypeAliasProvider,
-            UmbracoHelper umbracoHelper) : base(umbracoHelper)
+        public ContentPageContentProvider(IDocumentTypeAliasProvider documentTypeAliasProvider)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
-            _umbracoHelper = umbracoHelper;
             _baseXPath = new[] { _documentTypeAliasProvider.GetHomePage() };
         }
 
