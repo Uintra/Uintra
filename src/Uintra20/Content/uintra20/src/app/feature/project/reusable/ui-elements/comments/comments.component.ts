@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommentsService } from './helpers/comments.service';
+import { RTEStripHTMLService } from '../../inputs/rich-text-editor/helpers/rte-strip-html.service';
 
 export interface ICommentData {
   entityType: number;
@@ -20,14 +21,17 @@ export class CommentsComponent {
   inProgress: boolean;
 
   get isSubmitDisabled(): boolean {
-    const isEmpty = this.isNullOrWhitespace(this.stripHtml(this.description));
+    const isEmpty = this.stripHTML.isEmpty(this.description);
 
     return isEmpty
       ? true
       : false;
   }
 
-  constructor(private commentsService: CommentsService) { }
+  constructor(
+    private commentsService: CommentsService,
+    private stripHTML: RTEStripHTMLService
+  ) { }
 
   onCommentSubmit(replyData?) {
     this.inProgress = true;
@@ -56,23 +60,5 @@ export class CommentsComponent {
 
   editComment(comments) {
     this.comments.data = comments;
-  }
-
-  stripHtml(html: string): string {
-    if (!html) {
-      return '';
-    }
-
-    const stripped = html.replace(/<[^>]*>?/gm, '');
-
-    return stripped;
-  }
-
-  isNullOrWhitespace(value: string): boolean {
-    if (!value) {
-      return true;
-    }
-
-    return value.replace(/\s/g, '').length < 1;
   }
 }
