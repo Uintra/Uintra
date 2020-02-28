@@ -103,7 +103,7 @@ export class UintraNewsEditPage implements OnInit {
 
   onCancel() {
     this.hasDataChangedService.reset();
-    this.router.navigate([this.panelData.links.feed.originalUrl]);
+    this.router.navigate([this.details.links.details.originalUrl]);
   }
 
   canDeactivate(): Observable<boolean> | boolean {
