@@ -31,6 +31,7 @@ steps:
   inputs:
     solution: '$(solution)'
     vsVersion: '16.0'
+    msbuildArgs: '/p:langversion=latest'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
@@ -54,6 +55,6 @@ steps:
   inputs:
     solution: '$(solution)'
     vsVersion: '16.0'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+    msbuildArgs: '/p:langversion=latest /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
