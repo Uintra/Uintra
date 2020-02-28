@@ -40,7 +40,7 @@
                 [innerHTML]="tag.text"
               ></a>
             </div>
-            <app-like-button class="likes" [likeData]="likeData"></app-like-button>
+            <app-like-button class="likes" [likeData]="likeData" [isDisabled]="!isGroupMember"></app-like-button>
             <div class="attachments">
               <ul class="feed-item-images">
                 <li
@@ -61,6 +61,7 @@
               [activityType]="commentDetails.entityType"
               [comments]="data.comments"
               [commentDetails]="commentDetails"
+              [isGroupMember]="isGroupMember"
             ></app-comments>
           </div>
         </div>

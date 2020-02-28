@@ -1,17 +1,17 @@
 <section class="comments-panel">
-    <h3 class="comments-panel__title">Comments</h3>
+  <h3 class="comments-panel__title">Comments</h3>
+  <ng-container *ngIf="isGroupMember">
     <ul class="comments-list">
       <app-comment-item
-          *ngFor="let comment of comments.data"
-          class="comments-list__item"
-          [data]="comment"
-          (deleteComment)="deleteComment($event)"
-          (editComment)="editComment($event)"
-          (replyComment)="onCommentSubmit($event)"
-          [activityType]="activityType">
-    </app-comment-item>
+        *ngFor="let comment of comments.data"
+        class="comments-list__item"
+        [data]="comment"
+        [activityType]="activityType"
+        (deleteComment)="deleteComment($event)"
+        (editComment)="editComment($event)"
+        (replyComment)="onCommentSubmit($event)">
+      </app-comment-item>
     </ul>
-
     <h4 class="comments-panel__rte-title">Add comment</h4>
     <app-rich-text-editor
       [(ngModel)]="description"
@@ -25,4 +25,6 @@
         Send
       </button>
     </app-rich-text-editor>
-  </section>
+  </ng-container>
+  <p *ngIf="!isGroupMember"class="comments-panel__restriction">Only subscribed person can comment activity in the group</p>
+</section>

@@ -1,14 +1,17 @@
 <button
-    class="like-button"
-    (click)="onClickLike()"
-    [ngClass]="{
-      'like-button--active': likeData?.likedByCurrentUser
-    }"
-  >
-    <i class="icon-like"></i>
+  class="like-button"
+  [disabled]="isDisabled"
+  (click)="onClickLike()"
+  [ngClass]="{
+    'like-button--active': likeData?.likedByCurrentUser && !isDisabled
+  }"
+>
+  <i class="icon-like"></i>
+  <ng-container *ngIf="!isDisabled">
     {{ likesCount }}
 
     <span class="like-button-tooltip" *ngIf="listOfUsersWhoLiked?.length">
       <span *ngFor="let like of listOfUsersWhoLiked">{{ like.user }}</span>
     </span>
-  </button>
+  </ng-container>
+</button>

@@ -15,6 +15,7 @@ export class CommentsComponent {
   @Input() comments: any;
   @Input() commentDetails: ICommentData;
   @Input() activityType: number;
+  @Input() isGroupMember: boolean = true;
   description = '';
   inProgress: boolean;
 
