@@ -4,7 +4,6 @@ using UBaseline.Core.Media;
 using UBaseline.Core.Node;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Helpers;
-using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Links;
 using Uintra20.Features.Groups.Models;

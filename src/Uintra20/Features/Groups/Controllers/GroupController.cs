@@ -11,7 +11,6 @@ using UBaseline.Core.Media;
 using UBaseline.Core.Node;
 using Uintra20.Attributes;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.CommandBus.Commands;
 using Uintra20.Features.Groups.Links;

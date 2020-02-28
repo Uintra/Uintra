@@ -16,7 +16,6 @@ using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Models.NotifierTemplates;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Notification.Settings;
-using Uintra20.Features.Reminder;
 using Uintra20.Features.Reminder.Configuration;
 using Uintra20.Features.Reminder.Services;
 using Uintra20.Infrastructure.Helpers;

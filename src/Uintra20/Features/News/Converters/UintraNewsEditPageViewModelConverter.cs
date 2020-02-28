@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using UBaseline.Core.Node;
-using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;

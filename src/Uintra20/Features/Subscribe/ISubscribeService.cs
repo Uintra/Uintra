@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Uintra20.Persistence.Sql;
 
 namespace Uintra20.Features.Subscribe
 {

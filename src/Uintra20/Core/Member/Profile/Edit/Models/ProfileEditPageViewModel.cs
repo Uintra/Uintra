@@ -3,7 +3,6 @@ using System.Linq;
 using UBaseline.Shared.Node;
 using UBaseline.Shared.PageSettings;
 using UBaseline.Shared.Property;
-using Uintra20.Core.Member.Models;
 using Uintra20.Features.Tagging.UserTags.Models;
 
 namespace Uintra20.Core.Member.Profile.Edit.Models

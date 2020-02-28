@@ -1,4 +1,3 @@
-using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Activity.Models;
 
 namespace Uintra20.Core.Feed.Models

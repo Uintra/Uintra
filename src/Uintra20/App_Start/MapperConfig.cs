@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
-using EmailWorker.Data.Features.EmailWorker;
 using EmailWorker.Web.Infrastructure.Extensions;
 using Uintra20.Core.Activity.AutoMapperProfiles;
 using Uintra20.Core.Controls.LightboxGallery;

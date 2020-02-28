@@ -3,8 +3,6 @@ using AutoMapper;
 using Compent.Extensions;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Sql;
-using Uintra20.Features.Groups.Models;
-using Uintra20.Features.Groups.Sql;
 
 namespace Uintra20.Features.Groups.AutoMapperProfiles
 {

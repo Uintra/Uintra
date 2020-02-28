@@ -3,7 +3,6 @@ using System.Linq;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.Article;
-using Uintra20.Core.UbaselineModels;
 using Uintra20.Features.Links.Models;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;

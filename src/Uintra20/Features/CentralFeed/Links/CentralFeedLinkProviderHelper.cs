@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Compent.Extensions;
-using Uintra20.Infrastructure.Providers;
+﻿using Uintra20.Infrastructure.Providers;
 
 namespace Uintra20.Features.CentralFeed.Links
 {

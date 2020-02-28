@@ -7,10 +7,8 @@ using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Helpers;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Likes.Services;
-using Uintra20.Infrastructure.Context;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Likes.Converters

@@ -1,5 +1,4 @@
 ﻿using Uintra20.Core.Member.Models;
-using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Core.Member.Profile.Models
 {

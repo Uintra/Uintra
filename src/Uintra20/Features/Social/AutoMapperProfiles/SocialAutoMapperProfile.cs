@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AutoMapper;
 using Compent.Extensions;
 using Uintra20.Core.Activity.Models.Headers;

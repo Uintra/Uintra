@@ -9,7 +9,6 @@ using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Permissions.Models;
 using Uintra20.Features.Permissions.TypeProviders;
 using Uintra20.Infrastructure.Extensions;
-using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web.WebApi;
 
