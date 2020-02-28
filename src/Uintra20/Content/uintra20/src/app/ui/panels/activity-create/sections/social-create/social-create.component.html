@@ -42,7 +42,7 @@
       (ngModelChange)="onDescriptionChange($event)"
       (addAttachment)="addAttachment()"
       [isUnderline]="false"
-      [placeholder]="getPlaceholder()">
+      placeholder="Write a message, post a photo or share a document">
 
         <button submit [disabled]="isSubmitDisabled" class="bulletin-popup__submit-button" (click)="onSubmit()">
           <span *ngIf="inProgress" class="bulletin-popup__submit-button-spinner"></span>
