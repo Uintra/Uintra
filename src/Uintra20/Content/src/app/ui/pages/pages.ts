@@ -3,23 +3,27 @@ export const pages = [
     id: "homePage",
     path: "__dynamic__",
     loadChildren: "./ui/pages/home/home-page.module#HomePageModule",
+    cache: false
   },
   {
     id: "articlePage",
     path: "__dynamic__",
     loadChildren: "./ui/pages/article/article-page.module#ArticlePageModule",
+    cache: false
   },
   {
     id: "notificationsPage",
     path: "__dynamic__",
     loadChildren:
       "./ui/pages/notifications/notifications-page.module#NotificationsPageModule",
+    cache: false
   },
   {
     id: "socialDetailsPage",
     path: "__dynamic__",
     loadChildren:
       "./ui/pages/social/details/social-details-page.module#SocialDetailsPageModule",
+    cache: false
   },
   {
     id: "socialEditPage",
@@ -31,7 +35,9 @@ export const pages = [
   {
     id: "profilePage",
     path: "__dynamic__",
-    loadChildren: "./ui/pages/profile/profile-details/profile-page.module#ProfilePageModule",
+    loadChildren:
+      "./ui/pages/profile/profile-details/profile-page.module#ProfilePageModule",
+    cache: false
   },
   {
     id: "profileEditPage",
@@ -52,43 +58,55 @@ export const pages = [
     path: "__dynamic__",
     loadChildren:
       "./ui/pages/news/uintra-news-details/uintra-news-details-page.module#UintraNewsDetailsPageModule",
+    cache: false
   },
   {
-    id: 'uintraGroupsCreatePage',
-    path: '__dynamic__',
-    loadChildren: './ui/pages/uintra-groups/create/uintra-groups-create-page.module#UintraGroupsCreatePageModule'
+    id: "uintraGroupsCreatePage",
+    path: "__dynamic__",
+    loadChildren:
+      "./ui/pages/uintra-groups/create/uintra-groups-create-page.module#UintraGroupsCreatePageModule",
+    cache: false
   },
   {
-    id: 'uintraGroupsEditPage',
-    path: '__dynamic__',
-    loadChildren: './ui/pages/uintra-groups/edit/uintra-groups-edit-page.module#UintraGroupsEditPageModule'
+    id: "uintraGroupsEditPage",
+    path: "__dynamic__",
+    loadChildren:
+      "./ui/pages/uintra-groups/edit/uintra-groups-edit-page.module#UintraGroupsEditPageModule",
+    cache: false
   },
   {
-    id: 'uintraGroupsMembersPage',
-    path: '__dynamic__',
-    loadChildren: './ui/pages/uintra-groups/members/uintra-groups-members-page.module#UintraGroupsMembersPageModule'
+    id: "uintraGroupsMembersPage",
+    path: "__dynamic__",
+    loadChildren:
+      "./ui/pages/uintra-groups/members/uintra-groups-members-page.module#UintraGroupsMembersPageModule",
+    cache: false
   },
   {
-    id: 'uintraGroupsRoomPage',
-    path: '__dynamic__',
-    loadChildren: './ui/pages/uintra-groups/room/uintra-groups-room-page.module#UintraGroupsRoomPageModule'
+    id: "uintraGroupsRoomPage",
+    path: "__dynamic__",
+    loadChildren:
+      "./ui/pages/uintra-groups/room/uintra-groups-room-page.module#UintraGroupsRoomPageModule",
+    cache: false
   },
   {
     id: "uintraGroupsDocumentsPage",
     path: "__dynamic__",
     loadChildren:
-      "./ui/pages/uintra-groups/documents/uintra-groups-documents-page.module#UintraGroupsDocumentsPageModule"
+      "./ui/pages/uintra-groups/documents/uintra-groups-documents-page.module#UintraGroupsDocumentsPageModule",
+    cache: false
   },
   {
-    id: 'uintraGroupsPage',
-    path: '__dynamic__',
-    loadChildren: './ui/pages/uintra-groups/groups-page/uintra-groups-page.module#UintraGroupsPageModule'
+    id: "uintraGroupsPage",
+    path: "__dynamic__",
+    loadChildren:
+      "./ui/pages/uintra-groups/groups-page/uintra-groups-page.module#UintraGroupsPageModule",
+    cache: false
   },
   {
-    id: 'uintraMyGroupsPage',
-    path: '__dynamic__',
-    loadChildren: './ui/pages/uintra-groups/my-groups-page/uintra-my-groups-page.module#UintraMyGroupsPageModule'
-  },
+    id: "uintraMyGroupsPage",
+    path: "__dynamic__",
+    loadChildren:
+      "./ui/pages/uintra-groups/my-groups-page/uintra-my-groups-page.module#UintraMyGroupsPageModule",
+    cache: false
+  }
 ];
-
-
