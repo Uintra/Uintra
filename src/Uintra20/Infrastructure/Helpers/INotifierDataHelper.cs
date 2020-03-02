@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using UBaseline.Shared.Node;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities;
-using Umbraco.Core.Models.PublishedContent;
 
 namespace Uintra20.Infrastructure.Helpers
 {
@@ -13,7 +13,7 @@ namespace Uintra20.Infrastructure.Helpers
         ActivityNotifierDataModel GetActivityNotifierDataModel(IIntranetActivity activity, Enum notificationType, Guid notifierId);
         ActivityReminderDataModel GetActivityReminderDataModel(IIntranetActivity activity, Enum notificationType);
         CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, CommentModel comment, Enum notificationType, Guid notifierId);
-        CommentNotifierDataModel GetCommentNotifierDataModel(IPublishedContent content, CommentModel comment, Enum notificationType, Guid notifierId);
+        CommentNotifierDataModel GetCommentNotifierDataModel(INodeModel content, CommentModel comment, Enum notificationType, Guid notifierId);
         LikesNotifierDataModel GetLikesNotifierDataModel(IIntranetActivity activity, Enum notificationType, Guid notifierId);
         GroupInvitationDataModel GetGroupInvitationDataModel(NotificationTypeEnum notificationType, Guid groupId, Guid notifierId, Guid receiverId);
 

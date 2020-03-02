@@ -22,7 +22,7 @@ namespace Uintra20.Core.Activity
         //Task<IEnumerable<TActivity>> GetAllAsync(bool includeHidden = false);
         Task<Guid> CreateAsync(IIntranetActivity activity);
         Task SaveAsync(IIntranetActivity activity);
-        IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId);
+        IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId, bool showGroupTitle);
     }
 
 

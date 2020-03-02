@@ -89,7 +89,7 @@ namespace Uintra20.Features.Groups.Controllers
 
         private static bool TryParseIntranetCreatorId(IMediaModel s, out Guid intranetCreatorId)
         {
-            intranetCreatorId = default;
+            intranetCreatorId = Guid.Empty;
             return !string.IsNullOrWhiteSpace(((IGenericPropertiesComposition)s).GenericProperties.IntranetUserId) && Guid.TryParse(((IGenericPropertiesComposition)s).GenericProperties.IntranetUserId, out intranetCreatorId);
         }
 

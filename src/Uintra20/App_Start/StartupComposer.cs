@@ -57,7 +57,9 @@ namespace Uintra20
                 .RegisterApiControllers(assembly)
                 .RegisterConverters(assembly);
 
-            MapperConfig.RegisterMappings(composition);
+			composition.Components().Append<UintraApplicationComponent>();
+
+			MapperConfig.RegisterMappings(composition);
         }
     }
 

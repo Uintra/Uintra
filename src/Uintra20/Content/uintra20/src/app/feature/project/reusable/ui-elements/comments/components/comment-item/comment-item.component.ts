@@ -5,6 +5,7 @@ import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { CommentActivity } from '../../_constants.js';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ICreator } from 'src/app/feature/shared/interfaces/general.interface';
+import { RTEStripHTMLService } from '../../../../inputs/rich-text-editor/helpers/rte-strip-html.service';
 
 @Component({
   selector: 'app-comment-item',
@@ -21,29 +22,24 @@ export class CommentItemComponent implements OnInit {
   isEditing = false;
   editedValue: string;
   initialValue: any;
-  isReply: boolean;
+  isReply: boolean = false;
   subcommentDescription: string;
   likeModel: ILikeData;
   commentCreator: ICreator;
   sanitizedContent: SafeHtml;
 
   get isSubcommentSubmitDisabled() {
-    if (!this.subcommentDescription) {
-      return true;
-    }
-
-    return false;
+    return this.stripHTML.isEmpty(this.subcommentDescription);
   }
 
   get isEditSubmitDisabled() {
-    if (!this.editedValue) {
-      return true;
-    }
-
-    return false;
+    return this.stripHTML.isEmpty(this.editedValue);
   }
 
-  constructor(private commentsService: CommentsService, private sanitizer: DomSanitizer) { }
+  constructor(
+    private commentsService: CommentsService,
+    private sanitizer: DomSanitizer,
+    private stripHTML: RTEStripHTMLService) { }
 
   ngOnInit() {
     this.editedValue = this.data.text;

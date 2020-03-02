@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import ParseHelper from '../../../../feature/shared/helpers/parse.helper';
-import { finalize } from 'rxjs/operators';
 import { ActivityService } from 'src/app/feature/project/specific/activity/activity.service';
 import { ISocialEdit } from 'src/app/feature/project/specific/activity/activity.interfaces';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -47,6 +46,7 @@ export class SocialEditPageComponent {
 
   private onParse = (): void => {
     const parsedSocialEdit = ParseHelper.parseUbaselineData(this.data);
+
     // TODO: Imvestigate about parsing ubaseline data
     this.socialEdit = {
       ownerId: parsedSocialEdit.ownerId,
@@ -63,6 +63,7 @@ export class SocialEditPageComponent {
       id: parsedSocialEdit.id,
       groupId: parsedSocialEdit.groupId,
       links: parsedSocialEdit.links,
+      canDelete: parsedSocialEdit.canDelete,
       name: parsedSocialEdit.name,
       tagIdsData: new Array<string>(),
       newMedia: null,
@@ -121,13 +122,15 @@ export class SocialEditPageComponent {
     this.inProgress = true;
 
     this.socialService.updateSocial(this.socialEdit)
-      .pipe(finalize(() => this.inProgress = false))
       .subscribe(
         (next: any) => {
           this.routerResolverService.removePageRouter(next.originalUrl);
           this.hasDataChangedService.reset();
           this.router.navigate([next.originalUrl]);
         },
+        (err: any) => {
+          this.inProgress = false;
+        }
       );
   }
 
@@ -135,10 +138,12 @@ export class SocialEditPageComponent {
   public handleSocialDelete(): void {
     this.inProgress = true;
     this.socialService.deleteSocial(this.socialEdit.id)
-      .pipe(finalize(() => this.inProgress = false))
       .subscribe(
         (next) => {
-          // this.router.navigate(['/socials']); // TODO: socials doesnt exist, uncomment code when it will be done.
+          this.router.navigate([this.socialEdit.links.feed.originalUrl]);
+        },
+        (err) => {
+          this.inProgress = false;
         },
       );
   }
@@ -150,7 +155,7 @@ export class SocialEditPageComponent {
 
   canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
-      this.canDeactivateService.canDeacrivateConfirm();
+      return this.canDeactivateService.canDeacrivateConfirm();
     }
 
     return true;

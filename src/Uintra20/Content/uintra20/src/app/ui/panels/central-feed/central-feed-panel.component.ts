@@ -113,7 +113,7 @@ export class CentralFeedPanel implements OnInit {
     const FilterState = {};
 
     this.selectTabFilters.forEach(filter => {
-      FilterState[filter.key] = filter.isActive;
+      FilterState[filter.key] = !!filter.isActive;
     });
     const data = {
       TypeId: this.selectedTabType,

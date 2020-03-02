@@ -31,5 +31,6 @@ namespace Uintra20.Core.Activity.Models
         public LightboxPreviewModel MediaPreview { get; set; }
         public string Description { get; set; }
         public GroupInfo? GroupInfo { get; set; }
+        public bool IsGroupMember { get; set; }
     }
 }

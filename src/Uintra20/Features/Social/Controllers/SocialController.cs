@@ -7,6 +7,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Compent.Shared.Extensions.Bcl;
 using UBaseline.Core.Controllers;
 using Uintra20.Attributes;
 using Uintra20.Core.Activity;

@@ -9,7 +9,7 @@
   <app-publication-header
     [avatar]="publication.activity.owner?.photo"
     [title]="publication.activity.owner?.displayedName"
-    [originalUrl]="publication.activity.links?.owner?.originalUrl"
+    [originalUrl]="publication?.activity?.links?.owner?.originalUrl"
     [groupInfo]="publication.activity?.groupInfo"
     class="publication__header"
   >
@@ -17,7 +17,7 @@
       {{ getPublicationDate() }} -
       <a
         class="publication__activity-type"
-        [routerLink]="publication.activity.links?.details.originalUrl | ulink"
+        [routerLink]="publication.activity.links?.details?.originalUrl | ulink"
         >{{ publication.activity.type }}
       </a>
       <a
@@ -71,13 +71,13 @@
     </div>
     <div class="publication__footer">
       <div class="publication__footer-left-block">
-        <app-like-button [likeData]="likeData"></app-like-button>
+        <app-like-button [likeData]="likeData" [isDisabled]="!publication?.activity?.isGroupMember"></app-like-button>
         <a
           class="publication__comment publication__footer-item"
-          [routerLink]="publication.activity.links?.details.originalUrl | ulink"
+          [routerLink]="publication.activity.links?.details?.originalUrl | ulink"
         >
           <i class="icon-comment"></i>
-          {{ commentsCount }}
+          {{ publication?.activity?.isGroupMember ? commentsCount : '' }}
         </a>
         <button class="publication__share publication__footer-item">
           <i class="icon-share-icon"></i>
@@ -88,7 +88,7 @@
       <a
         class="publication__files publication__footer-item"
         *ngIf="documentsCount"
-        [routerLink]="publication.activity.links?.details.originalUrl | ulink"
+        [routerLink]="publication.activity.links?.details?.originalUrl | ulink"
       >
         <i class="icon-attachment"></i>
         {{ documentsCount }}

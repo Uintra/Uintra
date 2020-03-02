@@ -3,6 +3,7 @@ import { ILikeData } from 'src/app/feature/project/reusable/ui-elements/like-but
 import { CommentActivity } from '../../_constants.js';
 import ParseHelper from 'src/app/feature/shared/helpers/parse.helper';
 import { DomSanitizer } from '@angular/platform-browser';
+import { RTEStripHTMLService } from '../../../../inputs/rich-text-editor/helpers/rte-strip-html.service.js';
 
 @Component({
   selector: 'app-subcomment-item',
@@ -21,14 +22,10 @@ export class SubcommentItemComponent implements OnInit {
   likeModel: ILikeData;
 
   get isEditSubmitDisabled() {
-    if (!this.editedValue) {
-      return true;
-    }
-
-    return false;
+    return this.stripHTML.isEmpty(this.editedValue);
   }
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer, private stripHTML: RTEStripHTMLService) { }
 
   public ngOnInit(): void {
     this.editedValue = this.data.text;

@@ -7,14 +7,15 @@
 
           <app-dropzone-wrapper
             #dropdownRef
-            [filesLength]="file ? 1 : 0"
+            [filesLength]="files.length"
             (success)="onUploadSuccess($event)"
+            (removedFile)="onFileRemoved($event)"
           >
           </app-dropzone-wrapper>
 
           <button
-            [disabled]="!hasUploadPossible"
-            (click)="onUploadFile()"
+            [disabled]="!isUploadPossible"
+            (click)="onUploadFiles()"
             class="button"
           >
             Upload

@@ -2,7 +2,7 @@
   <div class="create-bulletin__input" (click)="onShowPopUp()">
     <app-user-avatar [photo]="userAvatar?.photo" [name]="userAvatar?.name"></app-user-avatar>
     <button class="create-bulletin__input-placeholder"
-        (focus)="onShowPopUp()">Write a message, post a photo or share a document
+        (focus)="onShowPopUp()">{{getPlaceholder()}}
     </button>
   </div>
   <div class="feed-btns">

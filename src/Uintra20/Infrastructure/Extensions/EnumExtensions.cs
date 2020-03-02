@@ -32,6 +32,11 @@ namespace Uintra20.Infrastructure.Extensions
                 .GetCustomAttribute<TAttribute>();
         }
 
+        public static bool Is(this Enum enumToSearch, params Enum[] enums)
+        {
+            return enums.Contains(enumToSearch);
+        }
+
         public static string GetDisplayName(this Enum enumValue)
         {
             var name = enumValue.GetAttribute<DisplayAttribute>()?.Name;

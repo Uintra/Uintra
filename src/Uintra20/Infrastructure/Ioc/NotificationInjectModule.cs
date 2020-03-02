@@ -1,4 +1,11 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
+using FluentScheduler;
+using Uintra20.Core.Configuration;
+using Uintra20.Core.Jobs;
+using Uintra20.Core.Jobs.Configuration;
+using Uintra20.Core.Jobs.Models;
+using Uintra20.Features.Jobs;
+using Uintra20.Features.MonthlyMail;
 using Microsoft.AspNet.SignalR;
 using Uintra20.Core.Hubs;
 using Uintra20.Features.Notification;
@@ -9,6 +16,9 @@ using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Models.NotifierTemplates;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Notification.Settings;
+using Uintra20.Features.Reminder;
+using Uintra20.Features.Reminder.Configuration;
+using Uintra20.Features.Reminder.Services;
 using Uintra20.Infrastructure.Helpers;
 
 namespace Uintra20.Infrastructure.Ioc
@@ -45,6 +55,21 @@ namespace Uintra20.Infrastructure.Ioc
                 var result = new NotificationTypeProvider(typeof(NotificationTypeEnum));
                 return (INotificationTypeProvider) result;
             });
+
+            services.AddScopedToCollection<Uintra20BaseIntranetJob, ReminderJob>();
+            services.AddScopedToCollection<Uintra20BaseIntranetJob, MontlyMailJob>();
+            services.AddScopedToCollection<Uintra20BaseIntranetJob, SendEmailJob>();
+			services.AddScopedToCollection<Uintra20BaseIntranetJob, UpdateActivityCacheJob>();
+			services.AddScopedToCollection<Uintra20BaseIntranetJob, GdprMailsJob>();
+			services.AddScoped<IReminderRunner, ReminderRunner>();
+			services.AddScoped<IReminderService, ReminderService>();
+			services.AddScoped<IMonthlyEmailService,MonthlyEmailService>();
+			services.AddTransient<IJobFactory, IntranetJobFactory>();
+
+			services.AddSingleton<IConfigurationProvider<ReminderConfiguration>>(i =>
+				new ConfigurationProvider<ReminderConfiguration>(
+					"~/Features/Reminder/reminderConfiguration.json"));
+			services.AddSingleton<IJobSettingsConfiguration>(i => JobSettingsConfiguration.Configure);
 
             services.AddScoped<UintraHub>();
 

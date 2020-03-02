@@ -11,19 +11,16 @@ namespace Uintra20.Features.Tagging.UserTags.Services
 {
     public class UserTagProvider : IUserTagProvider
     {
-        private readonly UmbracoHelper _umbracoHelper;
+	    private readonly INodeModelService _nodeModelService;
 
-        private readonly INodeModelService _nodeModelService;
-
-        public UserTagProvider(INodeModelService nodeModelService, UmbracoHelper umbracoHelper)
+        public UserTagProvider(INodeModelService nodeModelService)
         {
-            _umbracoHelper = umbracoHelper;
-            _nodeModelService = nodeModelService;
+	        _nodeModelService = nodeModelService;
         }
 
         public virtual UserTag Get(Guid tagId)
         {
-            var umbracoNode = _umbracoHelper.Content(tagId);
+            var umbracoNode = Umbraco.Web.Composing.Current.UmbracoHelper.Content(tagId);
             return Map(umbracoNode);
         }
 

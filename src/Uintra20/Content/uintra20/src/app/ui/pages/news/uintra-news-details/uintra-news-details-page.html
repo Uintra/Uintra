@@ -47,7 +47,7 @@
                 [innerHTML]="tag.text"
               ></a>
             </div>
-            <app-like-button class="likes" [likeData]="likeData"></app-like-button>
+            <app-like-button class="likes" [likeData]="likeData" [isDisabled]="!parsedData?.isGroupMember"></app-like-button>
             <div class="attachments">
               <ul class="feed-item-images">
                 <li
@@ -61,15 +61,16 @@
                   />
                 </li>
               </ul>
-              <div *ngIf="documents.length !== 0">
+              <ng-container *ngIf="documents.length !== 0">
                 <h3 class="feed-item__subtitle">Attached documents:</h3>
                 <app-attachments [documents]="documents"></app-attachments>
-              </div>
+              </ng-container>
             </div>
             <app-comments
               [activityType]="commentDetails.entityType"
               [comments]="data.comments"
               [commentDetails]="commentDetails"
+              [isGroupMember]="parsedData.isGroupMember"
             ></app-comments>
           </div>
         </div>
