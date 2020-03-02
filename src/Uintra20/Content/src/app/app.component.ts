@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router, ActivationStart, ChildActivationStart } from "@angular/router";
 import { LoginPage } from "./ui/pages/login/login-page.component";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-root",
@@ -16,7 +17,10 @@ export class AppComponent {
 
   data: any;
   latestActivities: any;
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private translateService: TranslateService) {
     this.route.data.subscribe(data => {
       this.data = data;
       this.hasPanels = data && data.panels && data.panels.get();
@@ -37,6 +41,9 @@ export class AppComponent {
     });
   }
 
+  ngOnInit() {
+    this.translateService.use('');
+  }
 
   closeLeftNav() {
     document.body.classList.remove("nav--open")
