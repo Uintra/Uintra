@@ -23,12 +23,12 @@
 }
 
 .tabs {
-  display: none;
+  display: flex;
   font-size: 20px;
   line-height: 22px;
 
-  @media @md-up {
-    display: flex;
+  @media @md-down {
+    display: none;
   }
 
   &__item:not(:last-child) {
@@ -44,35 +44,4 @@
       color: @heading-bg;
     }
   }
-}
-
-.breadcrumbs {
-  display: flex;
-  font-size: 11px;
-  text-transform: uppercase;
-  margin-bottom: 15px;
-
-  &__item {
-    display: flex;
-    align-items: center;
-
-    &-text {
-      color: @body-text-color;
-
-      &--link {
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-  }
-
-}
-
-.icon-linkarrow {
-  font-size: 13px;
-  color: @border-color;
-  margin: 0 4px;
 }
