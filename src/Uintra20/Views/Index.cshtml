@@ -1,40 +1,18 @@
-@using Compent.Shared.Extensions.Bcl @model UBaseline.Core.IndexPage.IndexPageModel
 <!doctype html>
 <html lang="en">
 <head>
-    @Html.Raw(Model.HeaderScript)
-    @Html.Raw(Model.HeaderLocalScript)
     <meta charset="utf-8">
     <base href="/">
-    <title>@Model.Title</title>
-
-    @if (Model.MetaData != null)
-    {
-        <meta name="title" content="@Model.MetaData.MetaTitle">
-        <meta name="description" content="@Model.MetaData.MetaDescription">
-        <meta property="og:title" content="@Model.MetaData.SocialTitle">
-        <meta property="og:description" content="@Model.MetaData.SocialDescription">
-        if (Model.MetaData.SocialImageUrl.HasValue())
-        {
-            <meta property="og:image" content="@Model.MetaData.SocialImageUrl">
-        }
-        <link rel="canonical" href="@Model.MetaData.CanonicalUrl" />
-    }
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="wwwroot/favicon.ico">
-    
+        <link rel="stylesheet" href="/wwwroot/assets/gerlands/style.css">
+	  
 <link rel="stylesheet" href="/wwwroot/styles.e525a255cb02b2422515.css"></head>
 <body>
-    @Html.Raw(Model.BodyScript)
-    @Html.Raw(Model.BodyLocalScript)
+    
+    
     <app-root></app-root>
-    @Html.Raw(Model.FooterScript)
-
-    @Html.Raw(Model.FooterLocalScript)
     
     
-    
-    
-    
-<script src="/wwwroot/runtime.eb213ee995e695b9d793.js" defer></script><script src="/wwwroot/polyfills-es5.e8a757fd805e061780da.js" nomodule defer></script><script src="/wwwroot/polyfills.351995d953b1fa47d5cd.js" defer></script><script src="/wwwroot/scripts.755336941a50856dad23.js" defer></script><script src="/wwwroot/main.4c6246ef6e4a8e9f4624.js" defer></script></body>
+<script src="/wwwroot/runtime.7f3ab653e67b75d4ab4f.js" defer></script><script src="/wwwroot/polyfills-es5.2716a252ff08731c6aed.js" nomodule defer></script><script src="/wwwroot/polyfills.351995d953b1fa47d5cd.js" defer></script><script src="/wwwroot/scripts.755336941a50856dad23.js" defer></script><script src="/wwwroot/main.e9d4ffa319ee1893e814.js" defer></script></body>
 </html>

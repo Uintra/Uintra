@@ -1118,6 +1118,9 @@
     <Compile Include="Features\News\Converters\UintraNewsEditPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Models\UintraMyGroupsPageModel.cs" />
     <Compile Include="Features\Groups\Models\UintraMyGroupsPageViewModel.cs" />
+    <Compile Include="Features\News\Models\NewsCreateDataViewModel.cs" />
+    <Compile Include="Features\News\Models\UintraNewsCreatePageModel.cs" />
+    <Compile Include="Features\News\Models\UintraNewsCreatePageViewModel.cs" />
     <Compile Include="Features\News\Models\UintraNewsEditPageModel.cs" />
     <Compile Include="Features\News\Models\UintraNewsEditPageViewModel.cs" />
     <Compile Include="Features\Notification\Configuration\NotificationConfigurationProvider.cs" />
