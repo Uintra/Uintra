@@ -1104,7 +1104,7 @@
     <Compile Include="Features\Navigation\Models\BreadcrumbItemViewModel.cs" />
     <Compile Include="Features\Navigation\Models\LeftNavigationUserMenuViewModel.cs" />
     <Compile Include="Features\Navigation\Models\MenuItemViewModel.cs" />
-    <Compile Include="Features\Navigation\Models\MenuViewModel.cs" />
+    <Compile Include="Features\Navigation\Models\LeftNavigationViewModel.cs" />
     <Compile Include="Features\Navigation\Models\SubNavigationMenuItemModel.cs" />
     <Compile Include="Features\Navigation\Models\SubNavigationMenuModel.cs" />
     <Compile Include="Features\Navigation\Models\SubNavigationMenuRowModel.cs" />
