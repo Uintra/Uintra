@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 import { DYNAMIC_COMPONENTS, UmbracoSupportModule, UbaselineCoreModule } from '@ubaseline/next';
@@ -20,6 +20,8 @@ import { GoToTopButtonModule } from './feature/reusable/ui-elements/go-to-top-bu
 import { ImageGalleryModule } from './feature/reusable/ui-elements/image-gallery/image-gallery.module';
 import { NavNotificationsModule } from './feature/specific/nav-notifications/nav-notifications.module';
 import { SearchModule } from './feature/reusable/inputs/search/search.module';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslationsLoader } from './shared/services/general/translations-loader';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,12 @@ import { SearchModule } from './feature/reusable/inputs/search/search.module';
     LeftNavigationModule,
     SearchModule,
     UbaselineCoreModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useClass: TranslationsLoader,
+      }
+    }),
   ],
   providers: [
     { provide: DYNAMIC_COMPONENTS, useValue: panels },

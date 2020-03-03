@@ -2,7 +2,7 @@
   <div class="create-bulletin__input" (click)="onShowPopUp()">
     <app-user-avatar [photo]="userAvatar?.photo" [name]="userAvatar?.name"></app-user-avatar>
     <button class="create-bulletin__input-placeholder"
-        (focus)="onShowPopUp()">{{getPlaceholder()}}
+        (focus)="onShowPopUp()">{{getPlaceholder() | translate}}
     </button>
   </div>
   <div class="feed-btns">
