@@ -48,23 +48,21 @@ namespace Uintra20.Features.News.Converters
             _userTagProvider = userTagProvider;
             _lightboxHelper = lightboxHelper;
         }
+
         public void Map(UintraNewsEditPageModel node, UintraNewsEditPageViewModel viewModel)
         {
-            var idStr = HttpContext.Current.Request.GetRequestQueryValue("id");
+            var requestId = HttpContext.Current.Request.GetRequestQueryValue("id");
 
-            if (!Guid.TryParse(idStr, out var id))
-                return;
+            if (!Guid.TryParse(requestId, out var parsedId)) return;
 
-            viewModel.CanEdit = _newsService.CanEdit(id);
+            viewModel.CanEdit = _newsService.CanEdit(parsedId);
 
-            if (!viewModel.CanEdit)
-            {
-                return;
-            }
+            if (!viewModel.CanEdit) return;
 
-            var news = _newsService.Get(id);
+            var news = _newsService.Get(parsedId);
 
             viewModel.Details = GetDetails(news);
+            viewModel.Links = _feedLinkService.GetLinks(news.Id);
             viewModel.CanEditOwner = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.EditOwner);
             viewModel.AllowedMediaExtensions = _newsService.GetMediaSettings().AllowedMediaExtensions;
             viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.CanPin);
@@ -72,8 +70,9 @@ namespace Uintra20.Features.News.Converters
             if (viewModel.CanEditOwner)
                 viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceTypeEnum.News));
 
-            var groupIdStr = HttpContext.Current.Request["groupId"];
-            if (!Guid.TryParse(groupIdStr, out var groupId) || news.GroupId != groupId)
+            var requestGroupId = HttpContext.Current.Request["groupId"];
+
+            if (!Guid.TryParse(requestGroupId, out var groupId) || news.GroupId != groupId)
                 return;
 
             viewModel.RequiresGroupHeader = true;
@@ -90,18 +89,15 @@ namespace Uintra20.Features.News.Converters
 
         private NewsViewModel GetDetails(Entities.News news)
         {
-
             var details = news.Map<NewsViewModel>();
 
             details.Media = MediaHelper.GetMediaUrls(news.MediaIds);
-
             details.CanEdit = _newsService.CanEdit(news);
             details.Links = _feedLinkService.GetLinks(news.Id);
             details.IsReadOnly = false;
             details.HeaderInfo = news.Map<IntranetActivityDetailsHeaderViewModel>();
             details.HeaderInfo.Dates = news.PublishDate.ToDateTimeFormat().ToEnumerable();
             details.HeaderInfo.Owner = _memberService.Get(news).ToViewModel();
-            details.HeaderInfo.Links = _feedLinkService.GetLinks(news.Id);
             details.Tags = _userTagService.Get(news.Id);
             details.AvailableTags = _userTagProvider.GetAll();
             details.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(news.MediaIds, PresetStrategies.ForActivityDetails);
