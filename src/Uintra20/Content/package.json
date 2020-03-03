@@ -22,6 +22,8 @@
     "@angular/platform-browser": "~8.2.11",
     "@angular/platform-browser-dynamic": "~8.2.11",
     "@angular/router": "~8.2.11",
+    "@ngx-translate/core": "^12.1.2",
+    "@ngx-translate/http-loader": "^4.0.0",
     "@types/jquery": "^3.3.31",
     "@types/signalr": "^2.2.35",
     "@ubaseline/next": "file:./ubaseline-next-0.0.17.tgz",

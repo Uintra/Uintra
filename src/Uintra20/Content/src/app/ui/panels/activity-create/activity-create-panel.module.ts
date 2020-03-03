@@ -25,6 +25,9 @@ import { PublicationHeaderModule } from 'src/app/feature/reusable/ui-elements/pu
 import { UserAvatarModule } from 'src/app/feature/reusable/ui-elements/user-avatar/user-avatar.module';
 import { TagMultiselectModule } from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.module';
 import { RichTextEditorModule } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslationsLoader } from 'src/app/shared/services/general/translations-loader';
 
 // TODO: remove unusable modules
 @NgModule({
@@ -57,6 +60,12 @@ import { RichTextEditorModule } from 'src/app/feature/reusable/inputs/rich-text-
     NewsFormModule,
     UlinkModule,
     GroupDetailsWrapperModule,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateModule,
+        deps: [HttpClient],
+        useClass: TranslationsLoader},
+    })
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: ActivityCreatePanel },
