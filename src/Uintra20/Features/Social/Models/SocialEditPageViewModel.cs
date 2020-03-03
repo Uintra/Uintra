@@ -8,7 +8,7 @@ using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.Tagging.UserTags.Models;
 
-namespace Uintra20.Features.Social.Edit.Models
+namespace Uintra20.Features.Social.Models
 {
     public class SocialEditPageViewModel : NodeViewModel
     {

@@ -4,12 +4,12 @@ using UBaseline.Core.Localization;
 using UBaseline.Core.Node;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Features.Links;
+using Uintra20.Features.Social.Models;
 using Uintra20.Features.Media.Strategies.Preset;
-using Uintra20.Features.Social.Edit.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
 
-namespace Uintra20.Features.Social.Edit.Converters
+namespace Uintra20.Features.Social.Converters
 {
     public class SocialEditPageViewModelConverter
         : INodeViewModelConverter<SocialEditPageModel, SocialEditPageViewModel>
