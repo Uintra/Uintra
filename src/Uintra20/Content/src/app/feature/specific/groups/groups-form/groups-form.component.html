@@ -1,10 +1,10 @@
 <div class="groups-create-wrapper page-wrapper row-flex">
   <div class="col-md-8">
     <div class="groups-create">
-      <h2 class="groups-create__row groups-create__title">{{edit ? 'Edit group settings' : 'Create Group'}}</h2>
+      <h2 class="groups-create__row groups-create__title">{{getFormTitleLbl()}}</h2>
 
       <div class="groups-create__row">
-        <h3 class="subtitle required">Group title</h3>
+        <h3 class="subtitle required">{{getGroupTitleLbl()}}</h3>
         <text-input
           type="text"
           aria-label="Title"
@@ -17,7 +17,7 @@
       </div>
 
       <div class="groups-create__row">
-        <h3 class="subtitle required">Description</h3>
+        <h3 class="subtitle required">{{getDescriptionLbl()}}</h3>
         <app-rich-text-editor
           [isEditing]="true"
           [isDropzone]="false"
@@ -31,7 +31,7 @@
       </div>
 
       <div class="groups-create__row">
-        <h3 class="subtitle">Group image</h3>
+        <h3 class="subtitle">{{getGroupImageLbl()}}</h3>
         <app-dropzone-existing-images [medias]="mediasPreview" (removeImage)="onImageRemove()"></app-dropzone-existing-images>
         <app-dropzone-wrapper
           [maxFiles]="1"
@@ -45,13 +45,13 @@
 
       <ul *ngIf="isShowValidation" class="validation-errors">
         <li *ngIf="!title" class="validation-errors__title">
-          A title is required
+          {{'groupEdit.TitleRequired.lbl' | translate}}
         </li>
         <li *ngIf="title.length > TITLE_MAX_LENGTH" class="validation-errors__title">
           A title shouldn't have more than {{TITLE_MAX_LENGTH}} chars
         </li>
         <li *ngIf="!description" class="validation-errors__description">
-          A description is required
+          {{'groupEdit.DescriptionRequired.lbl' | translate}}
         </li>
       </ul>
 
@@ -59,14 +59,14 @@
         class="groups-create__row--top groups-create__row button"
         [disabled]="isSubmitDisabled"
         (click)="onSubmit()">
-        {{edit ? 'Save' : 'Create'}}
+        {{getSubmitBtn()}}
       </button>
       <button
         *ngIf="edit && data.canHide"
         class="button-default"
         [disabled]="hidingInProgress"
         (click)="onHide()">
-        Hide
+        {{'groupEdit.Hide.btn' | translate}}
       </button>
     </div>
   </div>

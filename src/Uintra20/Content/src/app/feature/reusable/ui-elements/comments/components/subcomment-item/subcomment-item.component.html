@@ -23,12 +23,12 @@
             class="rte__submit-button"
             [disabled]="isEditSubmitDisabled"
             (click)="onSubmitEditedValue()">
-            Save
+            {{'commentsOverView.EditComment.btn' | translate}}
           </button>
           <button
             class="rte__cancel-button"
             (click)="toggleEditingMode()">
-            Cancel
+            {{'commentsview.HideBtn.Text' | translate}}
           </button>
         </div>
     </app-rich-text-editor>

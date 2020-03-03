@@ -40,7 +40,7 @@
         'publication__label--no-actual': !publication.activity.isPinActual
       }"
     >
-      Important
+      {{'activity.Pinned.lbl' | translate}}
     </div>
   </app-publication-header>
 
@@ -92,8 +92,8 @@
       >
         <i class="icon-attachment"></i>
         {{ documentsCount }}
-        {{ documentsCount > 1 ? "Files added" : "File added" }}</a
-      >
+        {{getDocumentsText()}}
+      </a>
     </div>
   </div>
 </div>

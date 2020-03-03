@@ -16,7 +16,7 @@
       <h1 class="social-edit__title">{{socialEdit.name}}</h1>
       <div class="form">
         <div class="form__row">
-          <label for="desciption">Description</label>
+          <label for="desciption">{{'bulletinsEdit.Description.lbl' | translate}}</label>
           <app-rich-text-editor
             [isEditing]="true"
             [isUnderline]="true"
@@ -24,11 +24,11 @@
             (ngModelChange)="onDescriptionChange($event)"
             formControlName="description"
             [isDropzone]="false"
-            placeholder="Write a message, post a photo or share a document">
+            [placeholder]="'bulletinsCreate.FormPlaceholder.lbl' | translate">
           </app-rich-text-editor>
         </div>
         <div class="form__row">
-          <label>Tags</label>
+          <label>{{'userTagsPicker.AddTags.lbl' | translate}}</label>
           <app-tag-multiselect class="bulletin-popup__multiselect"
             [availableTags]="socialEdit.availableTags"
             [ngModel]="socialEdit.tags"
@@ -37,7 +37,7 @@
           </app-tag-multiselect>
         </div>
         <div class="form__row">
-          <label>Files</label>
+          <label>{{'bulletinsEdit.UploadFiles.lbl' | translate}}</label>
           <app-dropzone-existing-images
             [medias]="socialEdit.lightboxPreviewModel.medias"
             [otherFiles]="socialEdit.lightboxPreviewModel.otherFiles"
@@ -54,16 +54,16 @@
         <div class="form__row-btns">
           <button class="button"
             [disabled]="inProgress || socialEditForm.invalid"
-            (click)="handleSocialUpdate()">SAVE</button>
+            (click)="handleSocialUpdate()">{{'bulletinsEdit.Edit.btn' | translate}}</button>
 
           <button
             *ngIf="socialEdit?.canDelete"
             class="button button-default"
             [disabled]="inProgress"
-            (click)="handleSocialDelete()">DELETE</button>
+            (click)="handleSocialDelete()">{{'bulletinsEdit.Delete.btn' | translate}}</button>
 
           <a class="button button-default"
-            [routerLink]="socialEdit?.links?.details?.originalUrl">CANCEL</a>
+            [routerLink]="socialEdit?.links?.details?.originalUrl">{{'common.AreYouSure.Cancel'  | translate}}</a>
         </div>
       </div>
     </section>

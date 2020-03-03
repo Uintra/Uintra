@@ -12,17 +12,17 @@
         class="button-default"
         [routerLink]="['/events-create']"
         >
-        Create Event
+        {{'centralFeed.CreateLink_Events.lnk' | translate}}
       </a>
           <!-- TODO Add correct param to routerLink when event create will be done -->
       <a
         *ngIf="panelData.createNewsLink"
         class="button-default"
         [routerLink]="panelData.createNewsLink.originalUrl | ulink">
-        Create News
+        {{'centralFeed.CreateLink_News.lnk' | translate}}
       </a>
     </div>
-    <button class="button" [disabled]="!panelData.canCreate" (click)="onShowPopUp()">Send</button>
+    <button class="button" [disabled]="!panelData.canCreate" (click)="onShowPopUp()">{{'bulletinsCreate.ExpandBulletin.lbl' | translate}}</button>
   </div>
   <div class="bulletin-popup__wrapper" *ngIf="isPopupShowing">
     <div class="bulletin-popup__background" (click)="onHidePopUp()"></div>
@@ -42,11 +42,11 @@
       (ngModelChange)="onDescriptionChange($event)"
       (addAttachment)="addAttachment()"
       [isUnderline]="false"
-      placeholder="Write a message, post a photo or share a document">
+      [placeholder]="'bulletinsCreate.FormPlaceholder.lbl' | translate">
 
         <button submit [disabled]="isSubmitDisabled" class="bulletin-popup__submit-button" (click)="onSubmit()">
           <span *ngIf="inProgress" class="bulletin-popup__submit-button-spinner"></span>
-          <span *ngIf="!inProgress">Send</span>
+          <span *ngIf="!inProgress">{{'bulletinsCreate.Post.lbl' | translate}}</span>
         </button>
 
       </app-rich-text-editor>

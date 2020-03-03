@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { IProfileEditPage } from 'src/app/shared/interfaces/pages/profile/profile-edit-page.interface';
 import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'profile-edit-page',
@@ -33,6 +34,7 @@ export class ProfileEditPage implements OnInit {
     private addButtonService: AddButtonService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
+    private translate: TranslateService,
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
@@ -111,7 +113,7 @@ export class ProfileEditPage implements OnInit {
 
   public handleUpdateNotificationSettings(event): void {
     event.preventDefault();
-    if (confirm('Are you sure')) {
+    if (confirm(this.translate.instant('common.AreYouSure'))) {
       this.profileService.updateNotificationSettings({
         notifierTypeEnum: NotifierTypeEnum[NotifierTypeEnum.EmailNotifier],
         isEnabled: event.target.checked

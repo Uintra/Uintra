@@ -10,6 +10,7 @@ import { CommentsModule } from 'src/app/feature/reusable/ui-elements/comments/co
 import { DetailasHeaderModule } from 'src/app/feature/specific/activity/details/detailas-header/detailas-header.module';
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
 import { AttachmentsModule } from 'src/app/feature/specific/activity/details/attachments/attachments.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [SocialDetailsPanelComponent],
@@ -25,6 +26,7 @@ import { AttachmentsModule } from 'src/app/feature/specific/activity/details/att
     DetailasHeaderModule,
     GroupDetailsWrapperModule,
     AttachmentsModule,
+    TranslateModule,
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: SocialDetailsPanelComponent }

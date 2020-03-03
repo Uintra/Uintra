@@ -3,7 +3,9 @@
       <h2 class="profile__title">{{profileEdit.title}}</h2>
       <div class="profile__btns">
         <button (click)="handleSave()" [disabled]="profileEditForm.invalid" class="button">SAVE</button>
-        <a [routerLink]="['/profile']" [queryParams]="{id: profileEdit.member.id}" class="button button-default">CANCEL</a>
+        <a [routerLink]="['/profile']" [queryParams]="{id: profileEdit.member.id}" class="button button-default">
+          {{'common.AreYouSure.Cancel' | translate}}
+        </a>
       </div>
     </div>
       <form [formGroup]="profileEditForm">
@@ -44,7 +46,7 @@
                 <input formControlName="department" type="text" name="department" id="department" class="input"/>
               </div>
               <div class="form__row">
-                <label>Tags </label>
+                <label>{{'userTagsPicker.AddTags.lbl' | translate}}</label>
                 <app-tag-multiselect
                   [availableTags]="profileEdit.member.availableTags"
                   [ngModel]="profileEdit.member.tags" [ngModelOptions]="{standalone: true}"

@@ -17,6 +17,7 @@ import { NewsFormService } from "./news-form.service";
 import { PinActivityService } from '../pin-activity/pin-activity.service';
 import { Router } from '@angular/router';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-news-form",
@@ -31,6 +32,7 @@ export class NewsFormComponent implements OnInit {
   @Input() tags: ITagData[];
   @Input() pinAllowed: boolean;
   @Input() isSubmitLoading: boolean;
+  @Input('edit') edit: any;
 
   @Output() handleSubmit = new EventEmitter();
   @Output() handleCancel = new EventEmitter();
@@ -57,10 +59,12 @@ export class NewsFormComponent implements OnInit {
     private newsFormService: NewsFormService,
     private pinActivityService: PinActivityService,
     private router: Router,
-    private hasDataChangedService: HasDataChangedService
+    private hasDataChangedService: HasDataChangedService,
+    private translate: TranslateService,
     ) {}
 
   ngOnInit() {
+    this.edit = this.edit !== undefined;
     this.newsData = this.newsFormService.getNewsDataInitialValue(this.data);
     this.setInitialData();
   }
@@ -222,5 +226,37 @@ export class NewsFormComponent implements OnInit {
       id: member.id,
       text: member.displayedName
     }));
+  }
+
+  getFormTitleLbl() {
+    return this.edit ? this.translate.instant('newsEdit.Title.lbl') : this.translate.instant('newsCreatePage.Title.lbl');
+  }
+
+  getOwnerLbl() {
+    return this.edit ? this.translate.instant('newsEdit.Owner.lbl') : this.translate.instant('newsCreate.Owner.lbl');
+  }
+
+  getTitleLbl() {
+    return this.edit ? this.translate.instant('newsEdit.Title.lbl') : this.translate.instant('newsCreate.Title.lbl');
+  }
+
+  getDescriptionLbl() {
+    return this.edit ? this.translate.instant('newsEdit.Description.lbl') : this.translate.instant('newsCreate.Description.lbl');
+  }
+
+  getFilesLbl() {
+    return this.edit ? this.translate.instant('newsEdit.UploadFiles.lbl') : this.translate.instant('newsCreate.UploadFiles.lbl');
+  }
+
+  getTitleValidationMessage() {
+    return this.edit ? this.translate.instant('newsEdit.TitleRequired.btn') : this.translate.instant('createNews.TitleRequired.lbl');
+  }
+
+  getDescriptionValidationMessage() {
+    return this.edit ? this.translate.instant('newsEdit.DescriptionRequired.btn') : this.translate.instant('createNews.DescriptionRequired.lbl');
+  }
+
+  getSubmitBtn() {
+    return this.edit ? this.translate.instant('newsEdit.Edit.btn') : this.translate.instant('newsCreate.Create.btn');
   }
 }

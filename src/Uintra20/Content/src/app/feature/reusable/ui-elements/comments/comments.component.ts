@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommentsService } from './helpers/comments.service';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface ICommentData {
   entityType: number;
@@ -27,7 +28,9 @@ export class CommentsComponent {
       : false;
   }
 
-  constructor(private commentsService: CommentsService) { }
+  constructor(
+    private commentsService: CommentsService,
+    private translate: TranslateService) { }
 
   onCommentSubmit(replyData?) {
     this.inProgress = true;
@@ -46,7 +49,7 @@ export class CommentsComponent {
   }
 
   deleteComment(obj) {
-    if (confirm('Are you sure?')) {
+    if (confirm(this.translate.instant('common.AreYouSure'))) {
       this.commentsService.deleteComment(obj)
       .then((res: any) => {
         this.comments.data = res.comments;

@@ -4,6 +4,7 @@ import { UmbracoFlatPropertyModel, IUmbracoProperty } from "@ubaseline/next";
 import { PublicationsService } from "./helpers/publications.service";
 import { SignalrService } from "src/app/shared/services/general/signalr.service";
 import { ActivityService } from 'src/app/feature/specific/activity/activity.service';
+import { TranslateService } from '@ngx-translate/core';
 
 // interface IFilterTab {
 //   type: number;
@@ -63,7 +64,8 @@ export class CentralFeedPanel implements OnInit {
     private publicationsService: PublicationsService,
     private socialService: ActivityService,
     private signalrService: SignalrService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private translate: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -82,11 +84,11 @@ export class CentralFeedPanel implements OnInit {
       type: "0",
       isActive: true,
       links: null,
-      title: "All",
+      title: this.translate.instant('centralFeed.Filter.All.lnk'),
       filters: [
         {
           key: "ShowPinned",
-          title: "Show only Important",
+          title: this.translate.instant('centralFeedList.ShowPinned.chkbx'),
           isActive: false
         }
       ]

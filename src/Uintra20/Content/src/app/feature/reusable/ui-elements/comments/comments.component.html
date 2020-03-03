@@ -1,5 +1,5 @@
 <section class="comments-panel">
-  <h3 class="comments-panel__title">Comments</h3>
+  <h3 class="comments-panel__title">{{'commentsOverView.Title.lbl' | translate}}</h3>
   <ng-container *ngIf="isGroupMember">
     <ul class="comments-list">
       <app-comment-item
@@ -12,7 +12,7 @@
         (replyComment)="onCommentSubmit($event)">
       </app-comment-item>
     </ul>
-    <h4 class="comments-panel__rte-title">Add comment</h4>
+    <h4 class="comments-panel__rte-title">{{'commentsOverView.AddComment.lbl' | translate}}</h4>
     <app-rich-text-editor
       [(ngModel)]="description"
       [isDropzone]="false"
@@ -22,9 +22,9 @@
         class="bulletin-popup__submit-button"
         [disabled]="isSubmitDisabled || inProgress"
         (click)="onCommentSubmit()">
-        Send
+        {{'commentsCreate.AddComment.btn' | translate}}
       </button>
     </app-rich-text-editor>
   </ng-container>
-  <p *ngIf="!isGroupMember"class="comments-panel__restriction">Only subscribed person can comment activity in the group</p>
+  <p *ngIf="!isGroupMember"class="comments-panel__restriction">{{'comments.ReadonlyClick.Message.lbl' | translate}}</p>
 </section>

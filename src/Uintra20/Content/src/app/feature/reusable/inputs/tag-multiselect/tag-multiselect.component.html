@@ -7,7 +7,7 @@
           *ngIf="selectedList && selectedList.length === 0"
           class="tag-multiselect__placeholder"
         >
-          Tags
+          {{'userTagsPicker.Placeholder.lbl' | translate}}
         </div>
         <app-tag-item
           *ngFor="let tag of selectedList"

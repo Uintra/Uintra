@@ -3,7 +3,7 @@
     <div class="group-documents-wrapper col-md-8">
       <div class="group-documents">
         <div class="group-documents__dropzone" *ngIf="data?.canUpload.get()">
-          <h4 class="group-documents__title">Upload new group document</h4>
+          <h4 class="group-documents__title">{{'groupDocument.Upload.lbl' | translate}}</h4>
 
           <app-dropzone-wrapper
             #dropdownRef
@@ -17,7 +17,7 @@
             (click)="onUploadFile()"
             class="button"
           >
-            Upload
+            {{'groupdocumentS.CREATE.BTN' | translate}}
           </button>
         </div>
 

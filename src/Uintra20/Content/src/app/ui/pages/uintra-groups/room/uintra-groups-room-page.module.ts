@@ -8,6 +8,7 @@ import { ActivityCreatePanelModule } from 'src/app/ui/panels/activity-create/act
 import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [UintraGroupsRoomPage],
@@ -18,6 +19,7 @@ import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group
     GroupDetailsWrapperModule,
     ActivityCreatePanelModule,
     UlinkModule,
+    TranslateModule,
   ],
   entryComponents: [UintraGroupsRoomPage]
 })
