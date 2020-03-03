@@ -5,7 +5,7 @@ using UBaseline.Shared.Property;
 
 namespace Uintra20.Features.Groups.Models
 {
-    public class UintraGroupsDocumentsPageViewModel : NodeViewModel
+    public class UintraGroupsDocumentsPageViewModel : NodeViewModel, IGroupHeader
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
@@ -13,5 +13,6 @@ namespace Uintra20.Features.Groups.Models
         public string AllowedMediaExtensions { get; set; }
         public Guid? GroupId { get; set; }
         public bool CanUpload { get; set; }
+        public GroupHeaderViewModel GroupHeader { get; set; }
     }
 }
