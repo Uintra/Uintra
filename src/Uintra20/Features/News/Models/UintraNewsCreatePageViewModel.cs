@@ -9,5 +9,6 @@ namespace Uintra20.Features.News.Models
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
         public NewsCreateDataViewModel Data { get; set; }
+        public bool CanCreate { get; set; }
     }
 }

@@ -11,11 +11,10 @@ namespace Uintra20.Features.Social.Models
     public class SocialCreateDataViewModel
     {
         public string Title { get; set; }
-        public IEnumerable<string> Dates { get; set; }
+        public string Date { get; set; }
         public MemberViewModel Creator { get; set; }
         public IActivityCreateLinks Links { get; set; }
         public string AllowedMediaExtensions { get; set; }
-        public bool CanCreate { get; set; }
         public IEnumerable<UserTag> Tags { get; set; }
         public bool PinAllowed { get; set; }
         public bool CanEditOwner { get; set; }
