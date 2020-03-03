@@ -17,11 +17,9 @@ import { CanDeactivateGuard } from 'src/app/services/general/can-deactivate.serv
   encapsulation: ViewEncapsulation.None
 })
 export class SocialEditPageComponent {
-  @HostListener('window:beforeunload') checkIfDataChanged() {
-    return !this.hasDataChangedService.hasDataChanged;
-  }
-  files = [];
+
   private data: any;
+  public files: Array<any> = new Array<any>();
   public inProgress = false;
   public socialEdit: ISocialEdit;
   public uploadedData: Array<any> = new Array<any>();
@@ -46,8 +44,6 @@ export class SocialEditPageComponent {
 
   private onParse = (): void => {
     const parsedSocialEdit = ParseHelper.parseUbaselineData(this.data);
-
-    // TODO: Imvestigate about parsing ubaseline data
     this.socialEdit = {
       ownerId: parsedSocialEdit.ownerId,
       description: parsedSocialEdit.description,
@@ -63,7 +59,8 @@ export class SocialEditPageComponent {
       id: parsedSocialEdit.id,
       groupId: parsedSocialEdit.groupId,
       links: parsedSocialEdit.links,
-      canDelete: parsedSocialEdit.canDelete,
+      canDelete: !!parsedSocialEdit.canDelete,
+      canEdit: !!parsedSocialEdit.canEdit,
       name: parsedSocialEdit.name,
       tagIdsData: new Array<string>(),
       newMedia: null,
@@ -72,11 +69,14 @@ export class SocialEditPageComponent {
     };
   }
 
+  @HostListener('window:beforeunload') checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged;
+  }
+
   public handleImageRemove(image): void {
     this.socialEdit.lightboxPreviewModel.medias =
       this.socialEdit.lightboxPreviewModel.medias.filter(m => m !== image);
     this.hasDataChangedService.onDataChanged();
-
   }
 
   public handleFileRemove(file): void {
@@ -94,14 +94,14 @@ export class SocialEditPageComponent {
     this.uploadedData = this.uploadedData.filter(d => d[0] !== file);
   }
 
-  onTagsChange(e) {
+  public onTagsChange(e): void {
     if (this.socialEdit.tags != e) {
       this.hasDataChangedService.onDataChanged();
     }
     this.socialEdit.tags = e;
   }
 
-  onDescriptionChange(e) {
+  public onDescriptionChange(e): void {
     if (this.socialEdit.description != e) {
       this.hasDataChangedService.onDataChanged();
     }
