@@ -113,7 +113,7 @@ export class ProfileEditPage implements OnInit {
 
   public handleUpdateNotificationSettings(event): void {
     event.preventDefault();
-    if (confirm(this.translate.instant('common.AreYouSure'))) {
+    if (confirm(this.translate.instant('profile.NotifierSettings.Confirmation.lbl'))) {
       this.profileService.updateNotificationSettings({
         notifierTypeEnum: NotifierTypeEnum[NotifierTypeEnum.EmailNotifier],
         isEnabled: event.target.checked
@@ -137,7 +137,8 @@ export class ProfileEditPage implements OnInit {
   }
 
   public processAvatarDelete(): void {
-    this.profileService.deletePhoto(this.profileEdit.member.photoId)
+    if (confirm(this.translate.instant('profile.DeletePhotoConfirm.lbl'))) {
+      this.profileService.deletePhoto(this.profileEdit.member.photoId)
       .subscribe(
         () => {
           this.files = [];
@@ -145,6 +146,7 @@ export class ProfileEditPage implements OnInit {
           this.hasDataChangedService.onDataChanged();
         }
       );
+    }
   }
 
   onTagsChange(e) {

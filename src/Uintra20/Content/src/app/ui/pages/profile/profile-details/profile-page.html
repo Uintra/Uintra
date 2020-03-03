@@ -22,16 +22,16 @@
       </div>
       <div class="form__col">
         <div class="form__row">
-          <label>E:mail</label>
+          <label>{{'profile.Overview.Email.lbl' | translate}} </label>
           <a href="mailto:{{profile.member.email}}">{{profile.member.email}}</a>
         </div>
         <div class="form__row">
-          <label>Phone</label>
+          <label>{{'profile.Overview.Phone.lbl' | translate}}</label>
           <a *ngIf="profile.member.phone"
              href="tel:+{{profile.member.phone}}">{{profile.member.phone}}</a>
         </div>
         <div class="form__row">
-          <label>Department</label>
+          <label>{{'profile.Overview.Department.lbl' | translate}} </label>
           <span *ngIf="profile.member.department">{{profile.member.department}}</span>
         </div>
       </div>
@@ -43,7 +43,7 @@
   <div class="user-info">
     <div class="row-flex m-b">
       <div class="col-md-3">
-        <label>Tags subscription:</label>
+        <label>{{'userList.DetailsPopup.Tags.lbl' | translate}}</label>
       </div>
       <div class="col-md-9">
         <ul class="tags">
