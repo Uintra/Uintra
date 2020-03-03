@@ -1,69 +1,65 @@
-<ng-container *ngIf="!socialEdit?.canEdit">
+<ng-container *ngIf="socialEdit?.canEdit">
   <ng-container *ngIf="!socialEdit?.groupId">
     <ng-container *ngTemplateOutlet="component"></ng-container>
   </ng-container>
-
-  <app-group-details-wrapper *ngIf="socialEdit?.groupId" [id]="socialEdit.groupId">
+  <app-group-details-wrapper *ngIf="socialEdit?.groupId"
+                             [id]="socialEdit.groupId">
     <div class="group-details-padding">
       <ng-container *ngTemplateOutlet="component"></ng-container>
     </div>
   </app-group-details-wrapper>
 </ng-container>
-
 <ng-template #component>
   <div class="page-wrapper">
-    <section class="social-edit" [formGroup]="socialEditForm">
+    <section class="social-edit"
+             [formGroup]="socialEditForm">
       <h1 class="social-edit__title">{{socialEdit.name}}</h1>
       <div class="form">
         <div class="form__row">
           <label for="desciption">Description</label>
-          <app-rich-text-editor
-            [isEditing]="true"
-            [isUnderline]="true"
-            [ngModel]="socialEdit.description"
-            (ngModelChange)="onDescriptionChange($event)"
-            formControlName="description"
-            [isDropzone]="false"
-            placeholder="Write a message, post a photo or share a document">
+          <app-rich-text-editor [isEditing]="true"
+                                [isUnderline]="true"
+                                [ngModel]="socialEdit.description"
+                                (ngModelChange)="onDescriptionChange($event)"
+                                formControlName="description"
+                                [isDropzone]="false"
+                                placeholder="Write a message, post a photo or share a document">
           </app-rich-text-editor>
         </div>
         <div class="form__row">
           <label>Tags</label>
           <app-tag-multiselect class="bulletin-popup__multiselect"
-            [availableTags]="socialEdit.availableTags"
-            [ngModel]="socialEdit.tags"
-            (ngModelChange)="onTagsChange($event)"
-            [ngModelOptions]="{standalone: true}" >
+                               [availableTags]="socialEdit.availableTags"
+                               [ngModel]="socialEdit.tags"
+                               (ngModelChange)="onTagsChange($event)"
+                               [ngModelOptions]="{standalone: true}">
           </app-tag-multiselect>
         </div>
         <div class="form__row">
           <label>Files</label>
-          <app-dropzone-existing-images
-            [medias]="socialEdit.lightboxPreviewModel.medias"
-            [otherFiles]="socialEdit.lightboxPreviewModel.otherFiles"
-            (removeImage)="handleImageRemove($event)"
-            (removeFile)="handleFileRemove($event)">
+          <app-dropzone-existing-images [medias]="socialEdit.lightboxPreviewModel.medias"
+                                        [otherFiles]="socialEdit.lightboxPreviewModel.otherFiles"
+                                        (removeImage)="handleImageRemove($event)"
+                                        (removeFile)="handleFileRemove($event)">
           </app-dropzone-existing-images>
         </div>
         <div class="form__row">
-          <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
-              (success)="handleUpload($event)"
-              (removedFile)="handleFileRemove($event)">
+          <app-dropzone-wrapper #dropdownRef
+                                [filesLength]="files.length"
+                                (success)="handleUpload($event)"
+                                (removedFile)="handleFileRemove($event)">
           </app-dropzone-wrapper>
         </div>
         <div class="form__row-btns">
           <button class="button"
-            [disabled]="inProgress || socialEditForm.invalid"
-            (click)="handleSocialUpdate()">SAVE</button>
-
-          <button
-            *ngIf="socialEdit?.canDelete"
-            class="button button-default"
-            [disabled]="inProgress"
-            (click)="handleSocialDelete()">DELETE</button>
-
+                  [disabled]="inProgress || socialEditForm.invalid"
+                  (click)="handleSocialUpdate()">SAVE</button>
+          <button *ngIf="socialEdit?.canDelete"
+                  class="button button-default"
+                  [disabled]="inProgress"
+                  (click)="handleSocialDelete()">DELETE</button>
           <a class="button button-default"
-            [routerLink]="socialEdit?.links?.details?.originalUrl">CANCEL</a>
+             [routerLink]="socialEdit?.links?.details?.originalUrl">CANCEL</a>
         </div>
       </div>
     </section>

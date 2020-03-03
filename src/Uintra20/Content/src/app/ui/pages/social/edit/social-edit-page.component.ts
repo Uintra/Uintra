@@ -11,17 +11,15 @@ import { ActivityService } from "src/app/feature/specific/activity/activity.serv
 import { ISocialEdit } from 'src/app/feature/specific/activity/activity.interfaces';
 
 @Component({
-  selector: "social-edit",
-  templateUrl: "./social-edit-page.component.html",
-  styleUrls: ["./social-edit-page.component.less"],
+  selector: 'social-edit',
+  templateUrl: './social-edit-page.component.html',
+  styleUrls: ['./social-edit-page.component.less'],
   encapsulation: ViewEncapsulation.None
 })
 export class SocialEditPageComponent {
-  @HostListener("window:beforeunload") checkIfDataChanged() {
-    return !this.hasDataChangedService.hasDataChanged;
-  }
-  files = [];
+
   private data: any;
+  public files: Array<any> = new Array<any>();
   public inProgress = false;
   public socialEdit: ISocialEdit;
   public uploadedData: Array<any> = new Array<any>();
@@ -46,49 +44,44 @@ export class SocialEditPageComponent {
 
   private onParse = (): void => {
     const parsedSocialEdit = ParseHelper.parseUbaselineData(this.data);
-
-    // TODO: Imvestigate about parsing ubaseline data
     this.socialEdit = {
       ownerId: parsedSocialEdit.ownerId,
       description: parsedSocialEdit.description,
       tags: Object.values(parsedSocialEdit.tags),
       availableTags: Object.values(parsedSocialEdit.availableTags),
       lightboxPreviewModel: {
-        medias: Object.values(
-          parsedSocialEdit.lightboxPreviewModel.medias || []
-        ),
-        otherFiles: Object.values(
-          parsedSocialEdit.lightboxPreviewModel.otherFiles || []
-        ),
+        medias: Object.values(parsedSocialEdit.lightboxPreviewModel.medias || []),
+        otherFiles: Object.values(parsedSocialEdit.lightboxPreviewModel.otherFiles || []),
         filesToDisplay: parsedSocialEdit.lightboxPreviewModel.filesToDisplay,
-        additionalImages:
-          parsedSocialEdit.lightboxPreviewModel.additionalImages,
-        hiddenImagesCount:
-          parsedSocialEdit.lightboxPreviewModel.hiddenImagesCount
+        additionalImages: parsedSocialEdit.lightboxPreviewModel.additionalImages,
+        hiddenImagesCount: parsedSocialEdit.lightboxPreviewModel.hiddenImagesCount
       },
       id: parsedSocialEdit.id,
       groupId: parsedSocialEdit.groupId,
       links: parsedSocialEdit.links,
-      canDelete: parsedSocialEdit.canDelete,
+      canDelete: !!parsedSocialEdit.canDelete,
+      canEdit: !!parsedSocialEdit.canEdit,
       name: parsedSocialEdit.name,
       tagIdsData: new Array<string>(),
       newMedia: null,
       media: null,
       mediaRootId: parsedSocialEdit.mediaRootId
     };
-  };
+  }
+
+  @HostListener('window:beforeunload') checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged;
+  }
 
   public handleImageRemove(image): void {
-    this.socialEdit.lightboxPreviewModel.medias = this.socialEdit.lightboxPreviewModel.medias.filter(
-      m => m !== image
-    );
+    this.socialEdit.lightboxPreviewModel.medias =
+      this.socialEdit.lightboxPreviewModel.medias.filter(m => m !== image);
     this.hasDataChangedService.onDataChanged();
   }
 
   public handleFileRemove(file): void {
-    this.socialEdit.lightboxPreviewModel.otherFiles = this.socialEdit.lightboxPreviewModel.otherFiles.filter(
-      m => m !== file
-    );
+    this.socialEdit.lightboxPreviewModel.otherFiles =
+      this.socialEdit.lightboxPreviewModel.otherFiles.filter(m => m !== file);
     this.hasDataChangedService.onDataChanged();
   }
 
@@ -101,14 +94,14 @@ export class SocialEditPageComponent {
     this.uploadedData = this.uploadedData.filter(d => d[0] !== file);
   }
 
-  onTagsChange(e) {
+  public onTagsChange(e): void {
     if (this.socialEdit.tags != e) {
       this.hasDataChangedService.onDataChanged();
     }
     this.socialEdit.tags = e;
   }
 
-  onDescriptionChange(e) {
+  public onDescriptionChange(e): void {
     if (this.socialEdit.description != e) {
       this.hasDataChangedService.onDataChanged();
     }
@@ -116,48 +109,47 @@ export class SocialEditPageComponent {
   }
 
   public handleSocialUpdate(): void {
-    this.socialEdit.media = "";
+    this.socialEdit.media = '';
 
-    const otherFilesIds = this.socialEdit.lightboxPreviewModel.otherFiles.map(
-      m => m.id
-    );
-    const mediaIds = this.socialEdit.lightboxPreviewModel.medias.map(m => m.id);
+    const otherFilesIds = this.socialEdit.lightboxPreviewModel.otherFiles
+      .map(m => m.id);
+    const mediaIds = this.socialEdit.lightboxPreviewModel.medias
+      .map(m => m.id);
 
-    this.socialEdit.media = otherFilesIds.concat(mediaIds).join(",");
-    this.socialEdit.newMedia = this.uploadedData.map(u => u[1]).join(",");
+    this.socialEdit.media = otherFilesIds.concat(mediaIds).join(',');
+    this.socialEdit.newMedia = this.uploadedData.map(u => u[1]).join(',');
     this.socialEdit.tagIdsData = this.socialEdit.tags.map(t => t.id);
     this.inProgress = true;
 
-    this.socialService.updateSocial(this.socialEdit).subscribe(
-      (next: any) => {
-        this.routerResolverService.removePageRouter(next.originalUrl);
-        this.hasDataChangedService.reset();
-        this.router.navigate([next.originalUrl]);
-      },
-      (err: any) => {
-        this.inProgress = false;
-      }
-    );
+    this.socialService.updateSocial(this.socialEdit)
+      .subscribe(
+        (next: any) => {
+          this.routerResolverService.removePageRouter(next.originalUrl);
+          this.hasDataChangedService.reset();
+          this.router.navigate([next.originalUrl]);
+        },
+        (err: any) => {
+          this.inProgress = false;
+        }
+      );
   }
 
   // TODO: Add usage of alertify or smth similiar
   public handleSocialDelete(): void {
     this.inProgress = true;
-    this.socialService.deleteSocial(this.socialEdit.id).subscribe(
-      next => {
-        this.router.navigate([this.socialEdit.links.feed.originalUrl]);
-      },
-      err => {
-        this.inProgress = false;
-      }
-    );
+    this.socialService.deleteSocial(this.socialEdit.id)
+      .subscribe(
+        (next) => {
+          this.router.navigate([this.socialEdit.links.feed.originalUrl]);
+        },
+        (err) => {
+          this.inProgress = false;
+        },
+      );
   }
   private initSocialEditForm(): void {
     this.socialEditForm = new FormGroup({
-      description: new FormControl(
-        this.socialEdit.description,
-        Validators.required
-      )
+      description: new FormControl(this.socialEdit.description, Validators.required)
     });
   }
 
