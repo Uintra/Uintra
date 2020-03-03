@@ -6,6 +6,7 @@ using UBaseline.Core.Node;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Social.Models;
@@ -28,6 +29,7 @@ namespace Uintra20.Features.Social.Converters
         private readonly IUserTagProvider _tagProvider;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IGroupMemberService _groupMemberService;
+        private readonly IGroupHelper _groupHelper;
 
         public SocialCreatePageViewModelConverter(
             ISocialService<Entities.Social> socialService,
@@ -35,7 +37,8 @@ namespace Uintra20.Features.Social.Converters
             IPermissionsService permissionsService,
             IUserTagProvider tagProvider,
             IFeedLinkService feedLinkService,
-            IGroupMemberService groupMemberService)
+            IGroupMemberService groupMemberService,
+            IGroupHelper groupHelper)
         {
             _socialService = socialService;
             _memberService = memberService;
@@ -43,20 +46,24 @@ namespace Uintra20.Features.Social.Converters
             _tagProvider = tagProvider;
             _feedLinkService = feedLinkService;
             _groupMemberService = groupMemberService;
+            _groupHelper = groupHelper;
         }
 
         public void Map(SocialCreatePageModel node, SocialCreatePageViewModel viewModel)
         {
-            if(!HasPermission())
+            var groupId = GetGroupId();
+
+            if (!HasPermission(groupId))
             {
                 return;
             }
 
             viewModel.CanCreate = true;
-            viewModel.Data = GetData();
+            viewModel.Data = GetData(groupId);
+            viewModel.GroupHeader = groupId.HasValue ? _groupHelper.GetHeader(groupId.Value) : null;
         }
 
-        private SocialCreateDataViewModel GetData()
+        private SocialCreateDataViewModel GetData(Guid? groupId)
         {
             var model = new SocialCreateDataViewModel();
 
@@ -77,7 +84,7 @@ namespace Uintra20.Features.Social.Converters
             model.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
             model.Tags = _tagProvider.GetAll();
             model.Creator = currentMember.ToViewModel();
-            model.GroupId = GetGroupId();
+            model.GroupId = groupId;
 
             model.Title = currentMember.DisplayedName;
             model.Date = DateTime.UtcNow.ToDateFormat();
@@ -92,10 +99,9 @@ namespace Uintra20.Features.Social.Converters
             return Guid.TryParse(groupIdStr, out var parsedGroupId) ? (Guid?)parsedGroupId : null;
         }
 
-        private bool HasPermission()
+        private bool HasPermission(Guid? groupId)
         {
             var hasPermission = _permissionsService.Check(PermissionType, PermissionActionEnum.Create);
-            var groupId = GetGroupId();
 
             if (groupId.HasValue)
             {
