@@ -9,5 +9,6 @@ namespace Uintra20.Features.Social.Models
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
         public SocialCreateDataViewModel Data { get; set; }
+        public bool CanCreate { get; set; }
     }
 }

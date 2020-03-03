@@ -19,7 +19,6 @@ namespace Uintra20.Features.News.Models
         public DateTime PublishDate { get; set; }
         public Guid? GroupId { get; set; }
 
-        public bool CanCreate { get; set; }
         public bool PinAllowed { get; set; }
         public bool CanEditOwner { get; set; }
     }

@@ -47,6 +47,12 @@ namespace Uintra20.Features.News.Converters
 
         public void Map(UintraNewsCreatePageModel node, UintraNewsCreatePageViewModel viewModel)
         {
+            if (!HasPermission())
+            {
+                return;
+            }
+
+            viewModel.CanCreate = true;
             viewModel.Data = GetData();
         }
 
@@ -56,23 +62,7 @@ namespace Uintra20.Features.News.Converters
 
             var currentMember = _memberService.GetCurrentMember();
 
-            model.CanCreate = _permissionsService.Check(PermissionType, PermissionActionEnum.Create);
-
-            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
-            if (Guid.TryParse(groupIdStr, out var parsedGroupId))
-            {
-                model.GroupId = parsedGroupId;
-                model.CanCreate = model.CanCreate &&
-                                         _groupMemberService.IsGroupMember(parsedGroupId, currentMember.Id);
-            }
-
-            if (!model.CanCreate)
-            {
-                return null;
-            }
-
             model.CanEditOwner = _permissionsService.Check(PermissionType, PermissionActionEnum.EditOwner);
-            model.Creator = currentMember.ToViewModel();
             model.PinAllowed = _permissionsService.Check(PermissionType, PermissionActionEnum.CanPin);
 
             if (model.CanEditOwner)
@@ -84,11 +74,35 @@ namespace Uintra20.Features.News.Converters
             
             var mediaSettings = _newsService.GetMediaSettings();
 
-            model.PublishDate = DateTime.UtcNow;
-            model.Tags = _tagProvider.GetAll();
             model.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
+            model.Tags = _tagProvider.GetAll();
+            model.Creator = currentMember.ToViewModel();
+            model.GroupId = GetGroupId();
+
+            model.PublishDate = DateTime.UtcNow;
 
             return model;
+        }
+
+        private static Guid? GetGroupId()
+        {
+            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+
+            return Guid.TryParse(groupIdStr, out var parsedGroupId) ? (Guid?)parsedGroupId : null;
+        }
+
+        private bool HasPermission()
+        {
+            var hasPermission = _permissionsService.Check(PermissionType, PermissionActionEnum.Create);
+            var groupId = GetGroupId();
+
+            if (groupId.HasValue)
+            {
+                hasPermission = hasPermission &&
+                                _groupMemberService.IsGroupMember(groupId.Value, _memberService.GetCurrentMemberId());
+            }
+
+            return hasPermission;
         }
 
         private IEnumerable<IntranetMember> GetUsersWithAccess(PermissionSettingIdentity permissionSettingIdentity) =>
