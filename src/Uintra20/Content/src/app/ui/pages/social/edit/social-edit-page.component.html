@@ -1,18 +1,18 @@
-<ng-container *ngIf="!socialEdit?.canEdit">
+<ng-container *ngIf="socialEdit?.canEdit">
   <ng-container *ngIf="!socialEdit?.groupId">
     <ng-container *ngTemplateOutlet="component"></ng-container>
   </ng-container>
-
-  <app-group-details-wrapper *ngIf="socialEdit?.groupId" [id]="socialEdit.groupId">
+  <app-group-details-wrapper *ngIf="socialEdit?.groupId"
+                             [id]="socialEdit.groupId">
     <div class="group-details-padding">
       <ng-container *ngTemplateOutlet="component"></ng-container>
     </div>
   </app-group-details-wrapper>
 </ng-container>
-
 <ng-template #component>
   <div class="page-wrapper">
-    <section class="social-edit" [formGroup]="socialEditForm">
+    <section class="social-edit"
+             [formGroup]="socialEditForm">
       <h1 class="social-edit__title">{{socialEdit.name}}</h1>
       <div class="form">
         <div class="form__row">
@@ -30,10 +30,10 @@
         <div class="form__row">
           <label>{{'userTagsPicker.AddTags.lbl' | translate}}</label>
           <app-tag-multiselect class="bulletin-popup__multiselect"
-            [availableTags]="socialEdit.availableTags"
-            [ngModel]="socialEdit.tags"
-            (ngModelChange)="onTagsChange($event)"
-            [ngModelOptions]="{standalone: true}" >
+                               [availableTags]="socialEdit.availableTags"
+                               [ngModel]="socialEdit.tags"
+                               (ngModelChange)="onTagsChange($event)"
+                               [ngModelOptions]="{standalone: true}">
           </app-tag-multiselect>
         </div>
         <div class="form__row">
@@ -46,9 +46,10 @@
           </app-dropzone-existing-images>
         </div>
         <div class="form__row">
-          <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
-              (success)="handleUpload($event)"
-              (removedFile)="handleFileRemove($event)">
+          <app-dropzone-wrapper #dropdownRef
+                                [filesLength]="files.length"
+                                (success)="handleUpload($event)"
+                                (removedFile)="handleFileRemove($event)">
           </app-dropzone-wrapper>
         </div>
         <div class="form__row-btns">
