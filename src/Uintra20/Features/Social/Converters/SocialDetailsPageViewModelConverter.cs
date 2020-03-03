@@ -1,7 +1,7 @@
-﻿using Compent.Extensions;
-using System;
+﻿using System;
 using System.Linq;
 using System.Web;
+using Compent.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
@@ -12,12 +12,11 @@ using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
-using Uintra20.Features.Social.Details.Models;
 using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
 
-namespace Uintra20.Features.Social.Details.Converters
+namespace Uintra20.Features.Social.Converters
 {
     public class SocialDetailsPageViewModelConverter : 
         INodeViewModelConverter<SocialDetailsPageModel, SocialDetailsPageViewModel>

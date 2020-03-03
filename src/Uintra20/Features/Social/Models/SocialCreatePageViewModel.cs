@@ -2,12 +2,12 @@
 using UBaseline.Shared.PageSettings;
 using UBaseline.Shared.Property;
 
-namespace Uintra20.Features.News.Models
+namespace Uintra20.Features.Social.Models
 {
-    public class UintraNewsCreatePageViewModel : NodeViewModel
+    public class SocialCreatePageViewModel : NodeViewModel
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
-        public NewsCreateDataViewModel Data { get; set; }
+        public SocialCreateDataViewModel Data { get; set; }
     }
 }

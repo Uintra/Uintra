@@ -3,11 +3,9 @@ using UBaseline.Shared.PageSettings;
 using UBaseline.Shared.PanelContainer;
 using UBaseline.Shared.Property;
 
-namespace Uintra20.Features.Social.Details.Models
+namespace Uintra20.Features.Social.Models
 {
-    public class SocialDetailsPageModel : 
-        NodeModel, 
-        IPanelsComposition
+    public class SocialEditPageModel : NodeModel
     {
         public PropertyModel<PanelContainerModel> Panels { get; set; }
         public PageSettingsCompositionModel PageSettings { get; set; }

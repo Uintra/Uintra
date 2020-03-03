@@ -6,10 +6,9 @@ using UBaseline.Shared.PageSettings;
 using UBaseline.Shared.Property;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Likes.Models;
-using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags.Models;
 
-namespace Uintra20.Features.Social.Details.Models
+namespace Uintra20.Features.Social.Models
 {
     public class SocialDetailsPageViewModel : NodeViewModel
     {
