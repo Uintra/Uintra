@@ -14,7 +14,7 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.CentralFeed.Services
 {
-    public class CentralFeedService : FeedService, ICentralFeedService
+    public class CentralFeedService : FeedSettingsService, ICentralFeedService
     {
         private readonly IEnumerable<IFeedItemService> _feedItemServices;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;

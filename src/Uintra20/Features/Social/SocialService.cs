@@ -8,16 +8,13 @@ using Uintra20.Core.Activity;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
-using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview;
-using Uintra20.Features.Links;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media;
 using Uintra20.Features.Notification;
@@ -25,7 +22,6 @@ using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
-using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.TypeProviders;
 using static Uintra20.Features.Notification.Configuration.NotificationTypeEnum;
@@ -98,7 +94,6 @@ namespace Uintra20.Features.Social
             new FeedSettings
             {
                 Type = CentralFeedTypeEnum.Social,
-                Controller = "Bulletins",
                 HasPinnedFilter = false,
                 HasSubscribersFilter = false,
             };

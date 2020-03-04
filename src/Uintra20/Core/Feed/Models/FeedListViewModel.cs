@@ -11,9 +11,7 @@ namespace Uintra20.Core.Feed.Models
         public Enum Type { get; set; }
         public IEnumerable<IntranetActivityPreviewModelBase> Feed { get; set; } = Enumerable.Empty<IntranetActivityPreviewModelBase>();
         public FeedTabSettings TabSettings { get; set; }
-        public long Version { get; set; }
         public bool BlockScrolling { get; set; }
-        public FeedFilterStateViewModel FilterState { get; set; }
         public bool IsReadOnly { get; set; }
     }
 }

@@ -94,7 +94,6 @@ namespace Uintra20.Features.News
             new FeedSettings
             {
                 Type = CentralFeedTypeEnum.News,
-                Controller = "News",
                 HasSubscribersFilter = false,
                 HasPinnedFilter = true,
             };

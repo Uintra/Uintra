@@ -1,5 +1,4 @@
-﻿using Compent.Shared.Extensions.Bcl;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UBaseline.Core.Controllers;
@@ -63,47 +62,39 @@ namespace Uintra20.Features.CentralFeed.Web
             var items = model.GroupId.HasValue ? _centralFeedHelper.GetGroupFeedItems(centralFeedType, model.GroupId.Value).ToList() : _centralFeedHelper.GetCentralFeedItems(centralFeedType).ToList();
             if (!items.Any()) return new FeedListViewModel();
 
-            var tabSettings = _groupFeedService.GetSettings(centralFeedType);
+            var tabSettings = GetTabSettings(model.GroupId.HasValue, centralFeedType);
+
             var filteredItems = _feedFilterService.ApplyFilters(items, model.FilterState, tabSettings).ToList();
 
-            var centralFeedModel = CreateFeedList(model, filteredItems, centralFeedType);
+            var centralFeedModel = GetFeedListModel(model, filteredItems, centralFeedType);
 
             return centralFeedModel;
         }
 
-
-        private FeedListViewModel CreateFeedList(FeedListModel model, List<IFeedItem> filteredItems, Enum centralFeedType)
+        private FeedListViewModel GetFeedListModel(FeedListModel model, List<IFeedItem> filteredItems, Enum centralFeedType)
         {
             var centralFeedPanel = GetCentralFeedPanel();
-            var itemsPerPage = centralFeedPanel.ItemsPerRequest;
-            var skip = itemsPerPage * (model.Page - 1);
 
             var feed = SortForFeed(filteredItems, centralFeedType)
-                .Skip(skip)
-                .Take(itemsPerPage)
+                .Skip(centralFeedPanel.ItemsPerRequest * (model.Page - 1))
+                .Take(centralFeedPanel.ItemsPerRequest)
                 .Select(fi => _feedPresentationService.GetPreviewModel(fi, model.GroupId.HasValue))
                 .ToList();
 
 
-            var settings = _centralFeedService
-                .GetAllSettings()
-                .AsList();
-
-            var tabSettings = settings
-                .Single(s => s.Type.ToInt() == model.TypeId)
-                .Map<FeedTabSettings>();
-
             return new FeedListViewModel
             {
-                Version = _centralFeedService.GetFeedVersion(filteredItems),
                 Feed = feed,
-                TabSettings = tabSettings,
+                TabSettings = GetTabSettings(model),
                 Type = centralFeedType,
-                BlockScrolling = filteredItems.Count() < itemsPerPage,
-                FilterState = MapToFilterStateViewModel(model.FilterState)
+                BlockScrolling = filteredItems.Count < centralFeedPanel.ItemsPerRequest,
             };
         }
 
+        private FeedSettings GetTabSettings(bool isGroupFeed, Enum centralFeedType)
+        {
+            return isGroupFeed ? _groupFeedService.GetSettings(centralFeedType) : _centralFeedService.GetSettings(centralFeedType);
+        }
 
         private IEnumerable<IFeedItem> SortForFeed(IEnumerable<IFeedItem> items, Enum type)
         {
@@ -121,15 +112,12 @@ namespace Uintra20.Features.CentralFeed.Web
             return centralFeedPanel;
         }
 
-        private FeedFilterStateViewModel MapToFilterStateViewModel(FeedFilterStateModel model)
+        private FeedTabSettings GetTabSettings(FeedListModel model)
         {
-            return new FeedFilterStateViewModel
-            {
-                ShowPinned = model.ShowPinned ?? false,
-                IncludeBulletin = model.IncludeBulletin ?? false,
-                ShowSubscribed = model.ShowSubscribed ?? false
-            };
+            return _centralFeedService
+                .GetAllSettings()
+                .Single(s => s.Type.ToInt() == model.TypeId)
+                .Map<FeedTabSettings>();
         }
-
     }
 }

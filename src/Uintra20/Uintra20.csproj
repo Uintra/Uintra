@@ -1220,8 +1220,8 @@
     <Compile Include="Features\CentralFeed\Services\ICentralFeedService.cs" />
     <Compile Include="Core\Feed\Services\IFeedContentService.cs" />
     <Compile Include="Core\Feed\Services\IFeedFilterService.cs" />
-    <Compile Include="Core\Feed\Services\FeedService.cs" />
-    <Compile Include="Core\Feed\Services\IFeedService.cs" />
+    <Compile Include="Core\Feed\Services\FeedSettingsService.cs" />
+    <Compile Include="Core\Feed\Services\IFeedSettingsService.cs" />
     <Compile Include="Features\Information\IInformationService.cs" />
     <Compile Include="Features\Information\InformationService.cs" />
     <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
