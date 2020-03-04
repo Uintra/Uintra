@@ -14,6 +14,8 @@ export class CommentsPanel implements OnInit {
   comments: any;
   commentDetails: ICommentData;
   activityType: number;
+  commentsActivity: number;
+  isGroupMember: boolean;
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.activatedRoute.data.subscribe(data => this.data = data);
@@ -26,5 +28,7 @@ export class CommentsPanel implements OnInit {
       entityId: parsedData.entityId,
       entityType: parsedData.activityId
     };
+    this.commentsActivity = parsedData.commentsType;
+    this.isGroupMember = parsedData.isGroupMember;
   }
 }

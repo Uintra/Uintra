@@ -37,6 +37,7 @@
                            *ngFor="let reply of data.replies"
                            [data]="reply"
                            [activityType]="activityType"
+                           [commentsActivity]="commentsActivity"
                            (submitEditedValue)="onSubmitEditedValue($event)"
                            (deleteComment)="onCommentDelete($event)"></app-subcomment-item>
     </div>

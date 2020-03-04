@@ -40,9 +40,8 @@
                 [innerHTML]="tag.text"
               ></a>
             </div>
-            <app-like-button class="likes" [likeData]="likeData" [isDisabled]="!isGroupMember"></app-like-button>
-            <div class="attachments">
-              <ul class="feed-item-images">
+            <div *ngIf="medias.length !== 0 || documents.length !== 0" class="attachments">
+              <ul *ngIf="medias.length !== 0" class="feed-item-images">
                 <li
                   class="feed-item-images__item"
                   *ngFor="let image of medias; index as i"
@@ -61,12 +60,11 @@
                 <app-attachments [documents]="documents"></app-attachments>
               </ng-container>
             </div>
-            <app-comments
-              [activityType]="commentDetails.entityType"
-              [comments]="data.comments"
-              [commentDetails]="commentDetails"
-              [isGroupMember]="isGroupMember"
-            ></app-comments>
+            <ubl-dynamic-component
+              *ngFor="let panel of data.panels.get()"
+              [data]="panel.get()"
+            >
+            </ubl-dynamic-component>
           </div>
         </div>
       </div>

@@ -16,6 +16,7 @@ export class CommentsComponent {
   @Input() comments: any;
   @Input() commentDetails: ICommentData;
   @Input() activityType: number;
+  @Input() commentsActivity: number;
   @Input() isGroupMember: boolean = true;
   description = '';
   inProgress: boolean;
@@ -30,7 +31,7 @@ export class CommentsComponent {
 
   constructor(
     private commentsService: CommentsService,
-    private translate: TranslateService) { }
+    private translate: TranslateService) { console.log(this.activityType, this.commentsActivity) }
 
   onCommentSubmit(replyData?) {
     this.inProgress = true;

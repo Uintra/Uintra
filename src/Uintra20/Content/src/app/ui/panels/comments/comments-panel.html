@@ -1,1 +1,8 @@
-<app-comments *ngIf='commentDetails' [comments]="data.comments" [commentDetails]="commentDetails" [activityType]='activityType'></app-comments>
+<app-comments
+  *ngIf='commentDetails'
+  [comments]="data.comments"
+  [commentDetails]="commentDetails"
+  [activityType]='activityType'
+  [isGroupMember]="isGroupMember"
+  [commentsActivity]="commentsActivity"
+></app-comments>
