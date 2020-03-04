@@ -9,6 +9,6 @@ namespace Uintra20.Core.Activity.Helpers
         //string GetOverviewPageUrl();//TODO: Research overview page
         UintraLinkModel GetDetailsPageUrl(Enum activityType, Guid? activityId = null);
         UintraLinkModel GetCreatePageUrl(Enum activityType);
-        UintraLinkModel GetEditPageUrl(Enum activityType, Guid activityId);
+        UintraLinkModel GetEditPageUrl(Enum activityType, Guid? activityId = null);
     }
 }

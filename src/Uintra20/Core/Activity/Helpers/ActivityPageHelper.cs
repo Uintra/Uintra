@@ -6,24 +6,18 @@ using Uintra20.Features.Links.Models;
 using Uintra20.Features.News.Models;
 using Uintra20.Features.Social.Models;
 using Uintra20.Infrastructure.Extensions;
-using Uintra20.Infrastructure.Providers;
 
 namespace Uintra20.Core.Activity.Helpers
 {
     public class ActivityPageHelper : IActivityPageHelper//TODO: Needs research
     {
-        private const string NewsCreateName = "News Create";
-
-        private readonly IDocumentTypeAliasProvider _aliasProvider;
         private readonly INodeModelService _nodeModelService;
         private readonly IUBaselineRequestContext _uBaselineRequestContext;
 
         public ActivityPageHelper(
-            IDocumentTypeAliasProvider aliasProvider,
             INodeModelService nodeModelService,
             IUBaselineRequestContext uBaselineRequestContext)
         {
-            _aliasProvider = aliasProvider;
             _nodeModelService = nodeModelService;
             _uBaselineRequestContext = uBaselineRequestContext;
 
@@ -79,7 +73,6 @@ namespace Uintra20.Core.Activity.Helpers
         {
 
             var intranetActivityType = activityType is IntranetActivityTypeEnum @enum ? @enum : 0;
-            var pageAlias = _aliasProvider.GetCreatePage(activityType);
 
             switch (intranetActivityType)
             {
@@ -100,13 +93,44 @@ namespace Uintra20.Core.Activity.Helpers
             }
         }
 
-        public UintraLinkModel GetEditPageUrl(Enum activityType, Guid activityId)
+        public UintraLinkModel GetEditPageUrl(Enum activityType, Guid? activityId = null)
         {
-            var pageAlias = _aliasProvider.GetEditPage(activityType);
-            var currentNode = _uBaselineRequestContext.Node;
-            var detailsPageUrl = currentNode != null ? _nodeModelService.GetByAlias(pageAlias, currentNode.RootId)?.Url : null;
+            var intranetActivityType = activityType is IntranetActivityTypeEnum @enum ? @enum : 0;
+            UintraLinkModel editPageUrl;
 
-            return detailsPageUrl?.AddIdParameter(activityId)?.ToLinkModel();
+            switch (intranetActivityType)
+            {
+                case IntranetActivityTypeEnum.News:
+                {
+                    var editPage = _nodeModelService.AsEnumerable()
+                        .OfType<UintraNewsEditPageModel>()
+                        .Single();
+
+                    editPageUrl = editPage.Url.ToLinkModel();
+                    break;
+                }
+                case IntranetActivityTypeEnum.Events:
+                {
+                    editPageUrl = null;
+                    break;
+                }
+                case IntranetActivityTypeEnum.Social:
+                {
+                    var editPage = _nodeModelService.AsEnumerable()
+                        .OfType<SocialEditPageModel>()
+                        .Single();
+
+                    editPageUrl = editPage.Url.ToLinkModel();
+                    break;
+                }
+                default:
+                    editPageUrl = null;
+                    break;
+            }
+
+            return activityId.HasValue
+                ? editPageUrl?.AddParameter("id", activityId.ToString())
+                : editPageUrl;
         }
     }
 }
