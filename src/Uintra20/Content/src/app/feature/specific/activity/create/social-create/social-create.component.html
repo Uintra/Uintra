@@ -29,7 +29,7 @@
     <div class="bulletin-popup">
       <button class="bulletin-popup__close-button" (click)="onHidePopUp()">&times;</button>
       <app-publication-header class="bulletin-popup__header" [avatar]="userAvatar?.photo" [title]="userAvatar.name">
-        <div subtitle>{{data.dates.get()[0]}} - {{data.tabType.get()}}</div>
+        <div subtitle>{{panelData.date}} - Social</div>
       </app-publication-header>
       <app-tag-multiselect
         class="bulletin-popup__multiselect"

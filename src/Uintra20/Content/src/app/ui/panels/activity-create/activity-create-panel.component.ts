@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { IActivityCreatePanel } from './activity-create-panel.interface';
 import { ActivityEnum } from 'src/app/shared/enums/activity-type.enum';
 

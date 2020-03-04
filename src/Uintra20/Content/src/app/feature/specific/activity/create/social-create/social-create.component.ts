@@ -5,7 +5,7 @@ import {
   ViewChild,
   HostListener
 } from "@angular/core";
-import { IActivityCreatePanel } from "../../activity-create-panel.interface";
+import { IActivityCreatePanel } from "../../../../../ui/panels/activity-create/activity-create-panel.interface";
 import { DropzoneComponent } from "ngx-dropzone-wrapper";
 import ParseHelper from "src/app/shared/utils/parse.helper";
 import { ModalService } from "src/app/shared/services/general/modal.service";
@@ -62,9 +62,7 @@ export class SocialCreateComponent implements OnInit {
 
   public ngOnInit(): void {
     this.panelData = ParseHelper.parseUbaselineData(this.data);
-    this.availableTags = Object.values(
-      JSON.parse(JSON.stringify(this.data.tags.get().userTagCollection))
-    );
+    this.availableTags = Object.values(this.panelData.tags);
     this.userAvatar = {
       name: this.panelData.creator.displayedName,
       photo: this.panelData.creator.photo

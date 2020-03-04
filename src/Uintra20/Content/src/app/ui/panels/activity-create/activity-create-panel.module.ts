@@ -7,7 +7,7 @@ import { ActivityCreatePanel } from './activity-create-panel.component';
 
 import { DropzoneModule, DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DEFAULT_DROPZONE_CONFIG } from 'src/app/shared/constants/dropzone/drop-zone.const';
-import { SocialCreateComponent } from './sections/social-create/social-create.component';
+import { SocialCreateComponent } from '../../../feature/specific/activity/create/social-create/social-create.component';
 import { NewsCreateComponent } from './sections/news-create/news-create.component';
 import { QuillModule } from 'ngx-quill';
 import { SqDatetimepickerModule } from 'ngx-eonasdan-datetimepicker';
@@ -28,12 +28,12 @@ import { RichTextEditorModule } from 'src/app/feature/reusable/inputs/rich-text-
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslationsLoader } from 'src/app/shared/services/general/translations-loader';
+import { SocialCreateModule } from '../../../feature/specific/activity/create/social-create/social-create.module';
 
 // TODO: remove unusable modules
 @NgModule({
   declarations: [
     ActivityCreatePanel,
-    SocialCreateComponent,
     NewsCreateComponent],
   imports: [
     CommonModule,
@@ -60,12 +60,8 @@ import { TranslationsLoader } from 'src/app/shared/services/general/translations
     NewsFormModule,
     UlinkModule,
     GroupDetailsWrapperModule,
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateModule,
-        deps: [HttpClient],
-        useClass: TranslationsLoader},
-    })
+    TranslateModule,
+    SocialCreateModule,
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: ActivityCreatePanel },
