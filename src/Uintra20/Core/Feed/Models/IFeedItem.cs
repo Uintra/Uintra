@@ -17,5 +17,6 @@ namespace Uintra20.Core.Feed.Models
         bool IsPinned { get; }
 
         bool IsPinActual { get; }
+
     }
 }

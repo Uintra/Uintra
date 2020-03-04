@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 using Compent.CommandBus;
 using Compent.Extensions;
 using Uintra20.Core.Activity;
-using Uintra20.Core.Activity.Models;
-using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
@@ -28,10 +25,8 @@ using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
-using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Caching;
-using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
 using static Uintra20.Features.Notification.Configuration.NotificationTypeEnum;
 
@@ -53,14 +48,10 @@ namespace Uintra20.Features.Social
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IGroupActivityService _groupActivityService;
-        private readonly IActivityLinkService _linkService;
         private readonly IActivityLinkPreviewService _activityLinkPreviewService;
         private readonly IGroupService _groupService;
         private readonly INotifierDataBuilder _notifierDataBuilder;
-        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
-        private readonly IIntranetLocalizationService _localizationService;
-        private readonly IFeedActivityHelper _feedActivityHelper;
-
+        
         public SocialService(
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -75,15 +66,11 @@ namespace Uintra20.Features.Social
             IMediaHelper mediaHelper,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
-            IActivityLinkService linkService,
             IActivityLocationService activityLocationService,
-            IUserTagService userTagService,
             IActivityLinkPreviewService activityLinkPreviewService,
             IGroupService groupService,
-            INotifierDataBuilder notifierDataBuilder,
-            IIntranetLocalizationService localizationService,
-            IMemberServiceHelper memberHelper,
-            IFeedActivityHelper feedActivityHelper)
+            INotifierDataBuilder notifierDataBuilder
+            )
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
                 activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService)
         {
@@ -95,55 +82,17 @@ namespace Uintra20.Features.Social
             _mediaHelper = mediaHelper;
             _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
-            _linkService = linkService;
             _activityLinkPreviewService = activityLinkPreviewService;
             _groupService = groupService;
             _notifierDataBuilder = notifierDataBuilder;
-            _intranetMemberService = intranetMemberService;
-            _localizationService = localizationService;
-            _feedActivityHelper = feedActivityHelper;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.Social;
 
         public override Enum PermissionActivityType => PermissionResourceTypeEnum.Social;
-        public override IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId, bool showGroupTitle)
-        {
-            var bulletin = Get(activityId);
-
-            if (bulletin == null)
-            {
-                return null;
-            }
-
-            var links = _linkService.GetLinks(activityId);
-
-            var currentMember = _intranetMemberService.GetCurrentMember();
-
-            var viewModel = bulletin.Map<SocialPreviewModel>();
-            viewModel.CanEdit = CanEdit(bulletin);
-            viewModel.Links = links;
-            viewModel.Owner = _intranetMemberService.Get(bulletin).ToViewModel();
-            viewModel.Type = _localizationService.Translate(bulletin.Type.ToString());
-            viewModel.LikedByCurrentUser = bulletin.Likes.Any(x => x.UserId == currentMember.Id);
-            viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);
-            viewModel.IsGroupMember = !bulletin.GroupId.HasValue || currentMember.GroupIds.Contains(bulletin.GroupId.Value);
-            var likes = _likesService.GetLikeModels(bulletin.Id);
-            viewModel.Likes = likes;
-            viewModel.GroupInfo = showGroupTitle ? _feedActivityHelper.GetGroupInfo(activityId) : null;
-
-            DependencyResolver.Current.GetService<ILightboxHelper>().FillGalleryPreview(viewModel, bulletin.MediaIds);
-
-            return viewModel;
-        }
 
         public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.SocialsContent);
 
-        //protected override void UpdateCache()
-        //{
-        //    base.UpdateCache();
-        //    FillIndex();
-        //}
 
         public FeedSettings GetFeedSettings() =>
             new FeedSettings

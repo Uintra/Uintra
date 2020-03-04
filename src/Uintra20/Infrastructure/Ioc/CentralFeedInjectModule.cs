@@ -25,7 +25,8 @@ namespace Uintra20.Infrastructure.Ioc
 			services.AddScoped<IFeedFilterService, FeedFilterService>();
 			services.AddScoped<IGroupFeedService, GroupFeedService>();
 			services.AddScoped<ICentralFeedService, CentralFeedService>();
-			services.AddScoped<IFeedLinkService, ActivityLinkService>();
+            services.AddScoped<IFeedPresentationService, FeedPresentationService>();
+            services.AddScoped<IFeedLinkService, ActivityLinkService>();
             services.AddScoped<ICentralFeedContentService, CentralFeedContentService>();
             services.AddScoped<ICentralFeedContentProvider, CentralFeedContentProvider>();
             services.AddScoped<IGridHelper, GridHelper>();

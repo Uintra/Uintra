@@ -17,7 +17,7 @@ export class LatestActivitiesPanelComponent implements OnInit {
   public activityCells: any;
   public showAll: false;
 
-  public ngOnInit(): void {
+  public ngOnInit(): void {    
     this.title = this.data.title.get();
     this.teaser = this.data.teaser.get();
     this.activityCells = Object.values(this.data.feed.get());

@@ -17,8 +17,6 @@ using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.CentralFeed.Providers;
 using Uintra20.Features.CentralFeed.Services;
 using Uintra20.Features.Groups.Services;
-using Uintra20.Features.Links;
-using Uintra20.Features.UintraPanels.LastActivities.Models;
 using Uintra20.Infrastructure.Extensions;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
@@ -29,40 +27,37 @@ namespace Uintra20.Features.CentralFeed.Helpers
     {
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly ICentralFeedService _centralFeedService;
-        private readonly IFeedTypeProvider _centralFeedTypeProvider;
-        private readonly IFeedLinkService _feedLinkService;
         private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
-        private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INodeModelService _nodeModelService;
         private readonly IUBaselineRequestContext _requestContext;
         private readonly ICentralFeedContentProvider _contentProvider;
         private readonly IGroupFeedService _groupFeedService;
         private readonly IFeedFilterService _feedFilterService;
+        private readonly IFeedPresentationService _feedPresentationService;
 
         public CentralFeedHelper(
             IActivitiesServiceFactory activitiesServiceFactory,
             ICentralFeedService centralFeedService,
             IFeedTypeProvider feedTypeProvider,
-            IFeedTypeProvider centralFeedTypeProvider,
-            IFeedLinkService feedLinkService,
             IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             INodeModelService nodeModelService,
             IUBaselineRequestContext requestContext,
             ICentralFeedContentProvider contentProvider,
             IGroupFeedService groupFeedService,
-            IFeedFilterService feedFilterService)
+            IFeedFilterService feedFilterService,
+            IFeedPresentationService feedPresentationService
+            )
         {
             _feedTypeProvider = feedTypeProvider;
             _centralFeedService = centralFeedService;
-            _centralFeedTypeProvider = centralFeedTypeProvider;
-            _feedLinkService = feedLinkService;
             _feedFilterStateService = feedFilterStateService;
-            _activitiesServiceFactory = activitiesServiceFactory;
+            activitiesServiceFactory.GetServices<IIntranetActivityService<IIntranetActivity>>();
             _nodeModelService = nodeModelService;
             _requestContext = requestContext;
             _contentProvider = contentProvider;
             _groupFeedService = groupFeedService;
             _feedFilterService = feedFilterService;
+            _feedPresentationService = feedPresentationService;
         }
 
         public string AvailableActivityTypes()
@@ -76,7 +71,7 @@ namespace Uintra20.Features.CentralFeed.Helpers
                 .ToJson();
         }
 
-        public FeedListViewModel GetFeedListViewModel(FeedListModel model)
+        public FeedListViewModel GetFeedItems(FeedListModel model)
         {
             var centralFeedType = _feedTypeProvider[model.TypeId];
 
@@ -92,24 +87,11 @@ namespace Uintra20.Features.CentralFeed.Helpers
             var filteredItems = _feedFilterService.ApplyFilters(items, model.FilterState, tabSettings).ToList();
 
             var centralFeedModel = CreateFeedList(model, filteredItems, centralFeedType);
-            
+
             return centralFeedModel;
         }
 
-        public LoadableFeedItemModel GetFeedItems(LatestActivitiesPanelModel node)
-        {
-            var settings = _centralFeedService.GetAllSettings();
-            var centralFeedType = _centralFeedTypeProvider[node.ActivityType.Value.Id];
 
-            var latestActivities = GetLatestActivities(centralFeedType, node.CountToDisplay.Value);
-            var feedItems = GetFeedItems(latestActivities.activities, settings, false).ToArray();
-
-            return new LoadableFeedItemModel
-            {
-                IsShowMore = latestActivities.activities.Count() < latestActivities.TotalCount,
-                FeedItems = feedItems
-            };
-        }
 
         public bool IsCentralFeedPage(IPublishedContent page)
         {
@@ -121,18 +103,6 @@ namespace Uintra20.Features.CentralFeed.Helpers
 
         private bool IsSubPage(IPublishedContent page) =>
             _contentProvider.GetRelatedPages().Any(c => c.IsAncestorOrSelf(page));
-
-        private IEnumerable<FeedItemViewModel> GetFeedItems(IEnumerable<IFeedItem> items,
-            IEnumerable<FeedSettings> settings, bool isGroupFeed)
-        {
-            var activitySettings = settings
-                .ToDictionary(s => s.Type.ToInt());
-
-            var result = items
-                .Select(i => MapFeedItemToViewModel(i, activitySettings, isGroupFeed));
-
-            return result;
-        }
 
         private IEnumerable<IFeedItem> Sort(IEnumerable<IFeedItem> sortedItems, Enum type)
         {
@@ -182,10 +152,12 @@ namespace Uintra20.Features.CentralFeed.Helpers
             var itemsPerPage = centralFeedPanel.ItemsPerRequest;
             var skip = itemsPerPage * (model.Page - 1);
 
-            var pagedItemsList = SortForFeed(filteredItems, centralFeedType)
+            var feed = SortForFeed(filteredItems, centralFeedType)
                 .Skip(skip)
                 .Take(itemsPerPage)
+                .Select(fi => _feedPresentationService.GetPreviewModel(fi, model.GroupId.HasValue))
                 .ToList();
+
 
             var settings = _centralFeedService
                 .GetAllSettings()
@@ -198,7 +170,7 @@ namespace Uintra20.Features.CentralFeed.Helpers
             return new FeedListViewModel
             {
                 Version = _centralFeedService.GetFeedVersion(filteredItems),
-                Feed = GetFeedItems(pagedItemsList, settings, model.GroupId.HasValue),
+                Feed = feed,
                 TabSettings = tabSettings,
                 Type = centralFeedType,
                 BlockScrolling = filteredItems.Count() < itemsPerPage,
@@ -238,51 +210,6 @@ namespace Uintra20.Features.CentralFeed.Helpers
                 .ToArray();
         }
 
-        private CountableLatestActivities GetLatestActivities(Enum activityType,
-            int activityAmount)
-        {
-            var items = GetCentralFeedItems(activityType).ToArray();
-            var filteredItems = FilterLatestActivities(items).Take(activityAmount);
-            var sortedItems = Sort(filteredItems, activityType);
-
-            return new CountableLatestActivities
-            {
-                activities = sortedItems,
-                TotalCount = items.Length
-            };
-        }
-
-        private FeedItemViewModel MapFeedItemToViewModel(IFeedItem i, Dictionary<int, FeedSettings> settings, bool isGroupFeed)
-        {
-            var options = GetActivityFeedOptions(i.Id);
-
-            var activity = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(i.Type).GetPreviewModel(i.Id, !isGroupFeed);
-
-            return new FeedItemViewModel
-            {
-                Activity = activity,
-                Options = options
-            };
-        }
-
-        private ActivityFeedOptions GetActivityFeedOptions(Guid activityId)
-        {
-            return new ActivityFeedOptions
-            {
-                Links = _feedLinkService.GetLinks(activityId)
-            };
-        }
-
-        private IEnumerable<IFeedItem> FilterLatestActivities(IEnumerable<IFeedItem> activities)
-        {
-            var settings = _centralFeedService.GetAllSettings()
-                .Where(s => !s.ExcludeFromLatestActivities)
-                .Select(s => s.Type);
-
-            var items = activities.Join(settings, item => item.Type.ToInt(), type => type.ToInt(), (item, _) => item);
-
-            return items;
-        }
 
         private CentralFeedPanelViewModel GetCentralFeedPanel()
         {
