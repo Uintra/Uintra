@@ -19,6 +19,5 @@ export class UintraNewsCreatePage {
       this.data = data;
       this.parsedData = ParseHelper.parseUbaselineData(this.data);
     });
-    console.log(this.data);
   }
 }

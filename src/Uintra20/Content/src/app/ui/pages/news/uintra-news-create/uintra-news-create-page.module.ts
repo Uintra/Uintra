@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { UbaselineCoreModule } from '@ubaseline/next';
 import { UintraNewsCreatePage } from './uintra-news-create-page.component';
 import { NewsCreateModule } from 'src/app/ui/panels/activity-create/sections/news-create/news-create.module';
+import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
 
 @NgModule({
   declarations: [UintraNewsCreatePage],
@@ -13,6 +14,7 @@ import { NewsCreateModule } from 'src/app/ui/panels/activity-create/sections/new
     RouterModule.forChild([{path: "", component: UintraNewsCreatePage}]),
     UbaselineCoreModule,
     NewsCreateModule,
+    GroupDetailsWrapperModule,
   ],
   entryComponents: [UintraNewsCreatePage]
 })
