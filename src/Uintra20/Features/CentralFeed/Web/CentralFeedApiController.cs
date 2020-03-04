@@ -9,7 +9,6 @@ using Uintra20.Core.Feed;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
-using Uintra20.Core.Feed.State;
 using Uintra20.Features.CentralFeed.Helpers;
 using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.CentralFeed.Services;
@@ -23,7 +22,6 @@ namespace Uintra20.Features.CentralFeed.Web
         private readonly ICentralFeedHelper _centralFeedHelper;
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly IGroupFeedService _groupFeedService;
-        private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
         private readonly ICentralFeedService _centralFeedService;
         private readonly IFeedPresentationService _feedPresentationService;
         private readonly IFeedFilterService _feedFilterService;
@@ -34,7 +32,6 @@ namespace Uintra20.Features.CentralFeed.Web
             ICentralFeedHelper centralFeedHelper,
             IFeedTypeProvider feedTypeProvider,
             IGroupFeedService groupFeedService,
-            IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             ICentralFeedService centralFeedService,
             IFeedPresentationService feedPresentationService,
             IFeedFilterService feedFilterService,
@@ -45,7 +42,6 @@ namespace Uintra20.Features.CentralFeed.Web
             _centralFeedHelper = centralFeedHelper;
             _feedTypeProvider = feedTypeProvider;
             _groupFeedService = groupFeedService;
-            _feedFilterStateService = feedFilterStateService;
             _centralFeedService = centralFeedService;
             _feedPresentationService = feedPresentationService;
             _feedFilterService = feedFilterService;
@@ -63,11 +59,6 @@ namespace Uintra20.Features.CentralFeed.Web
         public FeedListViewModel FeedList(FeedListModel model)
         {
             var centralFeedType = _feedTypeProvider[model.TypeId];
-
-            if (IsEmptyFilters(model.FilterState))
-            {
-                model.FilterState = GetFilterStateModel();
-            }
 
             var items = model.GroupId.HasValue ? _centralFeedHelper.GetGroupFeedItems(centralFeedType, model.GroupId.Value).ToList() : _centralFeedHelper.GetCentralFeedItems(centralFeedType).ToList();
             if (!items.Any()) return new FeedListViewModel();
@@ -138,32 +129,6 @@ namespace Uintra20.Features.CentralFeed.Web
                 IncludeBulletin = model.IncludeBulletin ?? false,
                 ShowSubscribed = model.ShowSubscribed ?? false
             };
-        }
-
-        private FeedFilterStateModel GetFilterStateModel()
-        {
-            var stateModel = _feedFilterStateService.GetFiltersState();
-
-            var result = new FeedFilterStateModel
-            {
-                ShowPinned = stateModel.PinnedFilterSelected,
-                IncludeBulletin = stateModel.BulletinFilterSelected,
-                ShowSubscribed = stateModel.SubscriberFilterSelected
-            };
-
-            return result;
-        }
-
-        private bool IsEmptyFilters(FeedFilterStateModel filterState)
-        {
-            return !_feedFilterStateService.CentralFeedCookieExists() || filterState == null || !IsAnyFilterSet(filterState);
-        }
-
-        private bool IsAnyFilterSet(FeedFilterStateModel filterState)
-        {
-            return filterState.ShowPinned.HasValue
-                   || filterState.IncludeBulletin.HasValue
-                   || filterState.ShowSubscribed.HasValue;
         }
 
     }

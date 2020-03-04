@@ -1200,7 +1200,6 @@
     <Compile Include="Core\User\Models\IntranetUser.cs" />
     <Compile Include="Core\User\IntranetUserContentProvider.cs" />
     <Compile Include="Core\User\IntranetUserService.cs" />
-    <Compile Include="Features\CentralFeed\State\CentralFeedFilterStateService.cs" />
     <Compile Include="Features\CentralFeed\CentralFeedItemComparer.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedPanelModel.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedPanelViewModel.cs" />
@@ -1210,7 +1209,6 @@
     <Compile Include="Features\CentralFeed\Constants\CentralFeedConstants.cs" />
     <Compile Include="Core\Feed\Services\FeedContentServiceBase.cs" />
     <Compile Include="Core\Feed\Services\FeedFilterService.cs" />
-    <Compile Include="Core\Feed\State\FeedFiltersState.cs" />
     <Compile Include="Core\Feed\Models\FeedFilterStateModel.cs" />
     <Compile Include="Core\Feed\Models\FeedFilterStateViewModel.cs" />
     <Compile Include="Core\Feed\Models\FeedListModel.cs" />
@@ -1223,7 +1221,6 @@
     <Compile Include="Core\Feed\Services\IFeedContentService.cs" />
     <Compile Include="Core\Feed\Services\IFeedFilterService.cs" />
     <Compile Include="Core\Feed\Services\FeedService.cs" />
-    <Compile Include="Core\Feed\State\IFeedFilterStateService.cs" />
     <Compile Include="Core\Feed\Services\IFeedService.cs" />
     <Compile Include="Features\Information\IInformationService.cs" />
     <Compile Include="Features\Information\InformationService.cs" />
