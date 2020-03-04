@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Compent.Extensions;
 using UBaseline.Core.Node;
@@ -9,8 +8,7 @@ using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.CentralFeed;
-using Uintra20.Features.CentralFeed.Enums;
+using Uintra20.Features.CentralFeed.Helpers;
 using Uintra20.Features.CentralFeed.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.UintraPanels.LastActivities.Models;
@@ -26,6 +24,7 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Converters
         private readonly IIntranetLocalizationService _intranetLocalizationService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IActivityLinkService _linkService;
+        private readonly ICentralFeedHelper _centralFeedHelper;
         private readonly ILogger _logger;
 
         public LatestActivitiesPanelViewModelConverter(
@@ -34,6 +33,7 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Converters
             IIntranetLocalizationService intranetLocalizationService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
             IActivityLinkService linkService,
+            ICentralFeedHelper centralFeedHelper,
             ILogger logger)
         {
             _feedTypeProvider = feedTypeProvider;
@@ -41,29 +41,28 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Converters
             _intranetLocalizationService = intranetLocalizationService;
             _intranetMemberService = intranetMemberService;
             _linkService = linkService;
+            _centralFeedHelper = centralFeedHelper;
             _logger = logger;
         }
 
         public void Map(LatestActivitiesPanelModel node, LatestActivitiesPanelViewModel viewModel)
         {
-
             var centralFeedType = _feedTypeProvider[node.ActivityType.Value.Id];
 
-            var allItems = GetCentralFeedItems(centralFeedType).ToList();
+            var allItems = _centralFeedHelper.GetCentralFeedItems(centralFeedType).ToList();
             var filteredItems = FilterLatestActivities(allItems).Take(node.CountToDisplay.Value);
-            var sortedItems = Sort(filteredItems, centralFeedType).Select(Convert).ToList();
+            var sortedItems = _centralFeedHelper.Sort(filteredItems, centralFeedType).Select(Convert).ToList();
 
             viewModel.Feed = sortedItems;
             viewModel.ShowSeeAllButton = sortedItems.Count < allItems.Count;
 
         }
 
-
         public LatestActivitiesItemViewModel Convert(IFeedItem item)
         {
             if (item is IntranetActivity activity)
             {
-                var latestActivityModel = new LatestActivitiesItemViewModel()
+                var latestActivityModel = new LatestActivitiesItemViewModel
                 {
                     Id = activity.Id,
                     Type = _intranetLocalizationService.Translate(activity.Type.ToString()),
@@ -80,13 +79,6 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Converters
             return null;
         }
 
-        private IEnumerable<IFeedItem> GetCentralFeedItems(Enum centralFeedType)
-        {
-            return centralFeedType is CentralFeedTypeEnum.All
-                ? _centralFeedService.GetFeed().OrderByDescending(item => item.PublishDate)
-                : _centralFeedService.GetFeed(centralFeedType);
-        }
-
         private IEnumerable<IFeedItem> FilterLatestActivities(IEnumerable<IFeedItem> activities)
         {
             var settings = _centralFeedService.GetAllSettings()
@@ -96,22 +88,6 @@ namespace Uintra20.Features.UintraPanels.LastActivities.Converters
             var items = activities.Join(settings, item => item.Type.ToInt(), type => type.ToInt(), (item, _) => item);
 
             return items;
-        }
-
-        private IEnumerable<IFeedItem> Sort(IEnumerable<IFeedItem> sortedItems, Enum type)
-        {
-            IEnumerable<IFeedItem> result;
-            switch (type)
-            {
-                case CentralFeedTypeEnum.All:
-                    result = sortedItems.OrderBy(i => i, new CentralFeedItemComparer());
-                    break;
-                default:
-                    result = sortedItems.OrderByDescending(el => el.PublishDate);
-                    break;
-            }
-
-            return result;
         }
     }
 }
