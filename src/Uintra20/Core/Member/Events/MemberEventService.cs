@@ -28,10 +28,15 @@ namespace Uintra20.Core.Member.Events
             _intranetMemberGroupService = intranetMemberGroupService;
         }
 
-        public void ProcessMemberCreated(IMemberService sender, NewEventArgs<IMember> args)
+        public void ProcessMemberCreated(IMemberService sender, SaveEventArgs<IMember> args)
         {
-            var member = args.Entity;
-            _intranetMemberGroupService.AssignDefaultMemberGroup(member.Id);
+            var members = args.SavedEntities;
+
+            foreach (var member in members)
+            {
+                _intranetMemberGroupService.AssignDefaultMemberGroup(member.Id);
+                _cacheableIntranetMemberService.UpdateMemberCache(member.Id);
+            }
         }
 
         public void ProcessMemberDeleting(IMemberService sender, DeleteEventArgs<IMember> args)

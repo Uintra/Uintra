@@ -1006,6 +1006,7 @@
     <Compile Include="Core\UbaselineModels\IGenericPropertiesComposition.cs" />
     <Compile Include="Core\UbaselineModels\ImageModel.cs" />
     <Compile Include="Core\UbaselineModels\EnumDropdownListPropertyEditorConverter.cs" />
+    <Compile Include="Core\UmbracoEventServices\UmbracoEventsModule.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsDocumentsPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsEditPageViewModelConverter.cs" />
@@ -1579,6 +1580,7 @@
     <Compile Include="Infrastructure\Ioc\NotificationInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\ActivityInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\UintraInjectModule.cs" />
+    <Compile Include="Infrastructure\Ioc\UmbracoEventsInjectModule.cs" />
     <Compile Include="Infrastructure\Providers\ContentPageContentProvider.cs" />
     <Compile Include="Infrastructure\Providers\IContentPageContentProvider.cs" />
     <Compile Include="Infrastructure\UintraInformation\IUintraInformationService.cs" />
