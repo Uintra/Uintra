@@ -4,6 +4,7 @@ using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.News.Models;
+using Uintra20.Features.Social.Models;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
 
@@ -36,13 +37,42 @@ namespace Uintra20.Core.Activity.Helpers
 
         public UintraLinkModel GetDetailsPageUrl(Enum activityType, Guid? activityId = null)
         {
-            var pageAlias = _aliasProvider.GetDetailsPage(activityType);
-            var currentNode = _uBaselineRequestContext.Node;
-            var detailsPageUrl = currentNode != null ? _nodeModelService.GetByAlias(pageAlias, currentNode.RootId)?.Url : null;
-            
+            var intranetActivityType = activityType is IntranetActivityTypeEnum @enum ? @enum : 0;
+            UintraLinkModel detailsPageUrl;
+
+            switch (intranetActivityType)
+            {
+                case IntranetActivityTypeEnum.News:
+                {
+                    var detailsPage = _nodeModelService.AsEnumerable()
+                        .OfType<UintraNewsDetailsPageModel>()
+                        .Single();
+
+                    detailsPageUrl = detailsPage.Url.ToLinkModel();
+                    break;
+                }
+                case IntranetActivityTypeEnum.Events:
+                {
+                    detailsPageUrl = null;
+                    break;
+                }
+                case IntranetActivityTypeEnum.Social:
+                {
+                    var detailsPage = _nodeModelService.AsEnumerable()
+                        .OfType<SocialDetailsPageModel>()
+                        .Single();
+
+                    detailsPageUrl = detailsPage.Url.ToLinkModel();
+                    break;
+                }
+                default:
+                    detailsPageUrl = null;
+                    break;
+            }
+
             return activityId.HasValue
-                ? detailsPageUrl?.AddIdParameter(activityId).ToLinkModel()
-                : detailsPageUrl?.ToLinkModel();
+                ? detailsPageUrl?.AddParameter("id", activityId.ToString())
+                : detailsPageUrl;
         }
 
         public UintraLinkModel GetCreatePageUrl(Enum activityType)
