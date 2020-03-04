@@ -29,12 +29,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslationsLoader } from 'src/app/shared/services/general/translations-loader';
 import { SocialCreateModule } from '../../../feature/specific/activity/create/social-create/social-create.module';
+import { NewsCreateModule } from './sections/news-create/news-create.module';
 
 // TODO: remove unusable modules
 @NgModule({
   declarations: [
-    ActivityCreatePanel,
-    NewsCreateComponent],
+    ActivityCreatePanel
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -62,6 +63,7 @@ import { SocialCreateModule } from '../../../feature/specific/activity/create/so
     GroupDetailsWrapperModule,
     TranslateModule,
     SocialCreateModule,
+    NewsCreateModule,
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: ActivityCreatePanel },

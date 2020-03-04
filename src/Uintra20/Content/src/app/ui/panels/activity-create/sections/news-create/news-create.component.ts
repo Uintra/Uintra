@@ -33,7 +33,7 @@ export class NewsCreateComponent implements OnInit {
     this.panelData = ParseHelper.parseUbaselineData(this.data);
     this.members = (Object.values(this.panelData.members) as Array<any>) || [];
     this.creator = this.panelData.creator;
-    this.tags = Object.values(this.panelData.tags.userTagCollection);
+    this.tags = Object.values(this.panelData.tags);
 
     this.newsData = {
       ownerId: this.creator.id,
