@@ -1011,7 +1011,6 @@
     <Compile Include="Features\Groups\Converters\UintraGroupsEditPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsMembersPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsRoomPageViewModelConverter.cs" />
-    <Compile Include="Features\Groups\Models\GroupFeedPreviewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupHeaderViewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupLinksModel.cs" />
     <Compile Include="Features\Groups\Models\GroupDocumentViewModel.cs" />
@@ -1374,7 +1373,6 @@
     <Compile Include="Features\News\Entities\News.cs" />
     <Compile Include="Features\News\INewsService.cs" />
     <Compile Include="Features\News\Models\NewsCreateModel.cs" />
-    <Compile Include="Features\News\Models\NewsDetailsViewModel.cs" />
     <Compile Include="Features\News\Models\NewsEditModel.cs" />
     <Compile Include="Features\News\Models\NewsViewModel.cs" />
     <Compile Include="Features\News\NewsBase.cs" />
@@ -1416,7 +1414,6 @@
     <Compile Include="Features\Social\Models\SocialExtendedItemViewModel.cs" />
     <Compile Include="Features\Social\Models\SocialExtendedViewModel.cs" />
     <Compile Include="Features\Social\Models\SocialItemViewModel.cs" />
-    <Compile Include="Features\Social\Models\SocialPreviewViewModel.cs" />
     <Compile Include="Features\Social\Models\SocialViewModel.cs" />
     <Compile Include="Infrastructure\Caching\CacheHelper.cs" />
     <Compile Include="Infrastructure\Caching\ICacheService.cs" />
