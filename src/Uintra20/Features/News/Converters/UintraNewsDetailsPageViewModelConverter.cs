@@ -2,11 +2,11 @@
 using System;
 using System.Linq;
 using System.Web;
-using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.Preset;
@@ -18,7 +18,7 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.News.Converters
 {
-    public class UintraNewsDetailsPageViewModelConverter : INodeViewModelConverter<UintraNewsDetailsPageModel, UintraNewsDetailsPageViewModel>
+    public class UintraNewsDetailsPageViewModelConverter : UintraRestrictedNodeViewModelConverter<UintraNewsDetailsPageModel, UintraNewsDetailsPageViewModel>
     {
         private readonly IUserTagService _userTagService;
         private readonly IFeedLinkService _feedLinkService;
@@ -33,7 +33,9 @@ namespace Uintra20.Features.News.Converters
             INewsService<Entities.News> newsService,
             IIntranetMemberService<IntranetMember> memberService,
             ILightboxHelper lightBoxHelper,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService,
+            IErrorLinksService errorLinksService)
+        : base(errorLinksService)
         {
             _userTagService = userTagService;
             _feedLinkService = feedLinkService;
@@ -43,21 +45,24 @@ namespace Uintra20.Features.News.Converters
             _permissionsService = permissionsService;
         }
 
-        public void Map(UintraNewsDetailsPageModel node, UintraNewsDetailsPageViewModel viewModel)
+        public override ConverterResponseModel MapViewModel(UintraNewsDetailsPageModel node, UintraNewsDetailsPageViewModel viewModel)
         {
             var idStr = HttpContext.Current.Request.GetRequestQueryValue("id");
 
             if (!Guid.TryParse(idStr, out var id))
-                return;
+                return NotFoundResult();
+            
+            var news = _newsService.Get(id);
 
-            viewModel.CanView = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.View);
-
-            if (!viewModel.CanView)
+            if (news == null)
             {
-                return;
+                return NotFoundResult();
             }
 
-            var news = _newsService.Get(id);
+            if (!_permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.View))
+            {
+                return ForbiddenResult();
+            }
 
             var member = _memberService.GetCurrentMember();
 
@@ -67,11 +72,13 @@ namespace Uintra20.Features.News.Converters
             viewModel.IsGroupMember = !news.GroupId.HasValue || member.GroupIds.Contains(news.GroupId.Value);
 
             var groupIdStr = HttpContext.Current.Request["groupId"];
-            if (!Guid.TryParse(groupIdStr, out var groupId) || news.GroupId != groupId)
-                return;
+            if (Guid.TryParse(groupIdStr, out var groupId) && news.GroupId == groupId)
+            {
+                viewModel.RequiresGroupHeader = true;
+                viewModel.GroupId = groupId;
+            }
 
-            viewModel.RequiresGroupHeader = true;
-            viewModel.GroupId = groupId;
+            return OkResult();
         }
 
         private NewsViewModel GetDetails(Entities.News news)

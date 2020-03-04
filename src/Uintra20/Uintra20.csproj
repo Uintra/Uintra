@@ -1001,11 +1001,15 @@
     <Compile Include="Core\Activity\IFeedActivityHelper.cs" />
     <Compile Include="Core\UbaselineModels\FileModel.cs" />
     <Compile Include="Core\UbaselineModels\FolderModel.cs" />
+    <Compile Include="Core\UbaselineModels\ForbiddenPageModel.cs" />
     <Compile Include="Core\UbaselineModels\GenericPropertiesCompositionModel.cs" />
     <Compile Include="Core\UbaselineModels\GenericPropertiesCompositionViewModel.cs" />
     <Compile Include="Core\UbaselineModels\IGenericPropertiesComposition.cs" />
     <Compile Include="Core\UbaselineModels\ImageModel.cs" />
     <Compile Include="Core\UbaselineModels\EnumDropdownListPropertyEditorConverter.cs" />
+    <Compile Include="Core\UbaselineModels\RestrictedNode\ConverterResponseModel.cs" />
+    <Compile Include="Core\UbaselineModels\RestrictedNode\UintraRestrictedNodeViewModel.cs" />
+    <Compile Include="Core\UbaselineModels\RestrictedNode\UintraRestrictedNodeViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsDocumentsPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsEditPageViewModelConverter.cs" />
@@ -1065,6 +1069,8 @@
     <Compile Include="Features\CentralFeed\Models\LoadableFeedItemModel.cs" />
     <Compile Include="Features\Groups\Services\GroupFeedService.cs" />
     <Compile Include="Features\Groups\Services\IGroupFeedService.cs" />
+    <Compile Include="Features\Links\ErrorLinksService.cs" />
+    <Compile Include="Features\Links\IErrorLinksService.cs" />
     <Compile Include="Features\Media\Strategies\Preset\MemberProfilePresetStrategy.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\INavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\NavigationApplicationSettings.cs" />
@@ -1073,9 +1079,9 @@
     <Compile Include="Features\Navigation\Models\MyLinks\MyLinkItemViewModel.cs" />
     <Compile Include="Features\Navigation\Models\SharedLinkApiViewModel.cs" />
     <Compile Include="Features\Navigation\Models\SharedLinkItemModel.cs" />
-    <Compile Include="Core\UbaselineModels\UintraLinksPickerModel.cs" />
+    <Compile Include="Core\LinksPicker\UintraLinksPickerModel.cs" />
     <Compile Include="Core\Member\Profile\Converters\ProfilePageViewModelConverter.cs" />
-    <Compile Include="Core\UbaselineModels\UintraLinksPickerPropertyEditorConverter.cs" />
+    <Compile Include="Core\LinksPicker\UintraLinksPickerPropertyEditorConverter.cs" />
     <Compile Include="Core\Member\Profile\Edit\Converters\ProfileEditPageViewModelConverter.cs" />
     <Compile Include="Core\Member\Profile\Edit\Models\ProfileEditPageModel.cs" />
     <Compile Include="Core\Member\Profile\Edit\Models\ProfileEditPageViewModel.cs" />
@@ -1085,7 +1091,7 @@
     <Compile Include="Core\Article\ArticlePageModel.cs" />
     <Compile Include="Features\Navigation\Models\HeadingPageModel.cs" />
     <Compile Include="Features\Navigation\Models\IUintraNavigationComposition.cs" />
-    <Compile Include="Core\UbaselineModels\UintraLinksPickerViewModel.cs" />
+    <Compile Include="Core\LinksPicker\UintraLinksPickerViewModel.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationItem.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationItemViewModel.cs" />
     <Compile Include="Features\Navigation\MyLinksHelper.cs" />
@@ -1359,7 +1365,6 @@
     <Compile Include="Features\Notification\Models\NotificationPageModel.cs" />
     <Compile Include="Features\Notification\Models\NotificationPageViewModel.cs" />
     <Compile Include="Features\Notification\NotificationsHub.cs" />
-    <Compile Include="Features\Notification\NotificationsPageViewModelConverter.cs" />
     <Compile Include="Features\Notification\Settings\NotificationSettings.cs" />
     <Compile Include="Core\Hubs\SignalRUserIdProvider.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationViewModel.cs" />

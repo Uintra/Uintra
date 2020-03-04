@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Web;
 using UBaseline.Core.Media;
-using UBaseline.Core.Node;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Services;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Links;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
+using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Groups.Converters
 {
-    public class UintraGroupsRoomPageViewModelConverter : INodeViewModelConverter<UintraGroupsRoomPageModel, UintraGroupsRoomPageViewModel>
+    public class UintraGroupsRoomPageViewModelConverter : UintraRestrictedNodeViewModelConverter<UintraGroupsRoomPageModel, UintraGroupsRoomPageViewModel>
     {
         private readonly IGroupMemberService _groupMemberService;
-        private readonly IMemberServiceHelper _memberServiceHelper;
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IGroupLinkProvider _groupLinkProvider;
         private readonly IImageHelper _imageHelper;
@@ -26,15 +25,15 @@ namespace Uintra20.Features.Groups.Converters
 
         public UintraGroupsRoomPageViewModelConverter(
             IGroupMemberService groupMemberService,
-            IMemberServiceHelper memberServiceHelper,
             IIntranetMemberService<IntranetMember> memberService,
             IGroupLinkProvider groupLinkProvider,
             IImageHelper imageHelper,
             IMediaModelService mediaModelService,
-            IGroupService groupService)
+            IGroupService groupService,
+            IErrorLinksService errorLinksService)
+        : base(errorLinksService)
         {
             _groupMemberService = groupMemberService;
-            _memberServiceHelper = memberServiceHelper;
             _memberService = memberService;
             _groupLinkProvider = groupLinkProvider;
             _imageHelper = imageHelper;
@@ -42,21 +41,28 @@ namespace Uintra20.Features.Groups.Converters
             _groupService = groupService;
         }
 
-        public void Map(UintraGroupsRoomPageModel node, UintraGroupsRoomPageViewModel viewModel)
+        public override ConverterResponseModel MapViewModel(UintraGroupsRoomPageModel node, UintraGroupsRoomPageViewModel viewModel)
         {
             var idStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
 
             if (!Guid.TryParse(idStr, out var id))
-                return;
+                return NotFoundResult();
+
+            var group = _groupService.Get(id);
+
+            if(group == null)
+            {
+                return NotFoundResult();
+            }
 
             viewModel.GroupId = id;
-            viewModel.GroupInfo = GetGroupInfo(id);
+            viewModel.GroupInfo = GetGroupInfo(group);
+
+            return OkResult();
         }
 
-        public GroupViewModel GetGroupInfo(Guid groupId)
+        public GroupViewModel GetGroupInfo(GroupModel group)
         {
-            var group = _groupService.Get(groupId);
-
             var currentMemberId = _memberService.GetCurrentMemberId();
 
             var groupModel = group.Map<GroupViewModel>();

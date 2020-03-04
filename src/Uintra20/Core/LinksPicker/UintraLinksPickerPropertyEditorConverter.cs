@@ -6,7 +6,7 @@ using UBaseline.Shared.Property;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
-namespace Uintra20.Core.UbaselineModels
+namespace Uintra20.Core.LinksPicker
 {
     public class LinksPickerPropertyEditorConverter : PropertyEditorConverter<UintraLinksPickerModel[], UintraLinksPickerViewModel[]>
     {

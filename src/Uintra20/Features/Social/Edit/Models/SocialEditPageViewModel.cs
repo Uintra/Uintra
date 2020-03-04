@@ -5,12 +5,13 @@ using UBaseline.Shared.Node;
 using UBaseline.Shared.PageSettings;
 using UBaseline.Shared.Property;
 using Uintra20.Core.Controls.LightboxGallery;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.Tagging.UserTags.Models;
 
 namespace Uintra20.Features.Social.Edit.Models
 {
-    public class SocialEditPageViewModel : NodeViewModel
+    public class SocialEditPageViewModel : UintraRestrictedNodeViewModel
     {
         public Guid OwnerId { get; set; }
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
@@ -23,7 +24,6 @@ namespace Uintra20.Features.Social.Edit.Models
         public string AllowedMediaExtensions { get; set; }
         public Guid? GroupId { get; set; }
         public bool RequiresGroupHeader { get; set; }
-        public bool CanEdit { get; set; }
         public bool CanDelete { get; set; }
         public IActivityLinks Links { get; set; }
     }

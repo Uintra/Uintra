@@ -4,7 +4,7 @@ using System.Web;
 using Compent.Extensions;
 using Uintra20.Infrastructure.Extensions;
 
-namespace Uintra20.Core.UbaselineModels
+namespace Uintra20.Core.LinksPicker
 {
     public class UintraLinksPickerModel
     {

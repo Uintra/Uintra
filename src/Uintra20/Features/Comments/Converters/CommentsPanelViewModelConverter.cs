@@ -8,15 +8,17 @@ using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Helpers;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Comments.Helpers;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups.Services;
+using Uintra20.Features.Links;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Comments.Converters
 {
-    public class CommentsPanelViewModelConverter : INodeViewModelConverter<CommentsPanelModel, CommentsPanelViewModel>
+    public class CommentsPanelViewModelConverter : UintraRestrictedNodeViewModelConverter<CommentsPanelModel, CommentsPanelViewModel>
     {
         private readonly IUBaselineRequestContext _requestContext;
         private readonly ICommentsService _commentsService;
@@ -31,7 +33,9 @@ namespace Uintra20.Features.Comments.Converters
             ICommentsHelper commentsHelper,
             IActivityTypeHelper activityTypeHelper,
             IGroupActivityService groupActivityService,
-            IIntranetMemberService<IntranetMember> intranetMemberService)
+            IIntranetMemberService<IntranetMember> intranetMemberService,
+            IErrorLinksService errorLinksService)
+        : base(errorLinksService)
         {
             _requestContext = requestContext;
             _commentsService = commentsService;
@@ -41,7 +45,7 @@ namespace Uintra20.Features.Comments.Converters
             _intranetMemberService = intranetMemberService;
         }
 
-        public void Map(CommentsPanelModel node, CommentsPanelViewModel viewModel)
+        public override ConverterResponseModel MapViewModel(CommentsPanelModel node, CommentsPanelViewModel viewModel)
         {
             var activityIdStr = HttpContext.Current.Request.GetRequestQueryValue("id");
 
@@ -54,14 +58,14 @@ namespace Uintra20.Features.Comments.Converters
                         : activityId;
 
             if (!id.HasValue)
-                return;
-            
+                return NotFoundResult();
+
             var groupId = _groupActivityService.GetGroupId(activityId);
             var currentMember = _intranetMemberService.GetCurrentMember();
 
             viewModel.IsGroupMember = !groupId.HasValue || currentMember.GroupIds.Contains(groupId.Value);
 
-            if(!viewModel.IsGroupMember) return;
+            if (!viewModel.IsGroupMember) return ForbiddenResult();
 
             var comments = _commentsService.GetMany(id.Value);
 
@@ -69,6 +73,8 @@ namespace Uintra20.Features.Comments.Converters
             viewModel.ActivityType = activityType;
             viewModel.EntityId = id.Value;
             viewModel.CommentsType = IntranetEntityTypeEnum.Comment;
+
+            return OkResult();
         }
     }
 }

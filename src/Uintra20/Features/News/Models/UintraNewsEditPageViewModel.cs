@@ -5,11 +5,12 @@ using UBaseline.Shared.Node;
 using UBaseline.Shared.PageSettings;
 using UBaseline.Shared.Property;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Features.News.Models
 {
-    public class UintraNewsEditPageViewModel : NodeViewModel
+    public class UintraNewsEditPageViewModel : UintraRestrictedNodeViewModel
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
@@ -20,7 +21,6 @@ namespace Uintra20.Features.News.Models
         public string AllowedMediaExtensions { get; set; }
         public Guid? GroupId { get; set; }
         public bool RequiresGroupHeader { get; set; }
-        public bool CanEdit { get; set; }
         public IActivityLinks Links { get; set; }
     }
 }
