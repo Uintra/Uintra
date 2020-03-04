@@ -5,6 +5,7 @@ import { LatestActivitiesPanelComponent } from './latest-activities-panel.compon
 import { LatestActivityComponent } from './latest-activity-item/latest-activity-item.component';
 import { RouterModule } from '@angular/router';
 import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
   imports: [
     CommonModule,
     RouterModule,
-    UlinkModule
+    UlinkModule,
+    TranslateModule,
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: LatestActivitiesPanelComponent }

@@ -55,12 +55,12 @@ export class UintraNewsDetailsPage implements OnInit {
       this.parsedData.details.lightboxPreviewModel.otherFiles
     );
 
-    this.likeData = {
-      likedByCurrentUser: !!this.parsedData.likedByCurrentUser,
-      id: this.parsedData.details.id,
-      activityType: this.parsedData.details.activityType,
-      likes: Object.values(this.parsedData.likes)
-    };
+    // this.likeData = {
+    //   likedByCurrentUser: !!this.parsedData.likedByCurrentUser,
+    //   id: this.parsedData.details.id,
+    //   activityType: this.parsedData.details.activityType,
+    //   likes: Object.values(this.parsedData.likes)
+    // };
 
     this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(
       this.details.description

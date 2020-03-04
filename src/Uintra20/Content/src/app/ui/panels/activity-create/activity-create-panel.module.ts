@@ -60,12 +60,7 @@ import { TranslationsLoader } from 'src/app/shared/services/general/translations
     NewsFormModule,
     UlinkModule,
     GroupDetailsWrapperModule,
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateModule,
-        deps: [HttpClient],
-        useClass: TranslationsLoader},
-    })
+    TranslateModule,
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: ActivityCreatePanel },

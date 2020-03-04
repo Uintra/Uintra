@@ -8,6 +8,7 @@ import {
 } from "src/app/feature/specific/activity/activity.interfaces";
 import { ILikeData } from "src/app/feature/reusable/ui-elements/like-button/like-button.interface";
 import { ImageGalleryService } from "src/app/feature/reusable/ui-elements/image-gallery/image-gallery.service";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-central-feed-publication",
@@ -43,7 +44,8 @@ export class CentralFeedPublicationComponent implements OnInit {
     private imageGalleryService: ImageGalleryService,
     private router: Router,
     private sanitizer: DomSanitizer,
-    private mq: MqService
+    private mq: MqService,
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -99,5 +101,11 @@ export class CentralFeedPublicationComponent implements OnInit {
     }
 
     return 3;
+  }
+
+  getDocumentsText() {
+    return this.documentsCount > 1
+      ? this.translate.instant('lightboxGallery.Count.Many.lbl')
+      : this.translate.instant('lightboxGallery.Count.One.lbl');
   }
 }

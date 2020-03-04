@@ -14,9 +14,12 @@
                     [activityDescription]="cell.get().activity.get().description.get()">
                 </latest-activity>
             </div>
-            <a routerLink="socials"
-                class="holder__button"
-                *ngIf="showAll">See all</a>
+            <a
+              routerLink="socials"
+              class="holder__button"
+              *ngIf="showAll">
+              {{'latestActivities.SeeAll.btn' | translate}}
+            </a>
         </div>
     </section>
 </div>

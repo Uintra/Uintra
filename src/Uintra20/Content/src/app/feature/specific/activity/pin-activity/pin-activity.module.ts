@@ -4,6 +4,7 @@ import { PinActivityComponent } from './pin-activity.component';
 import { CheckboxInputModule } from '../../../reusable/inputs/checkbox-input/checkbox-input.module';
 import { SqDatetimepickerModule } from 'ngx-eonasdan-datetimepicker';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -13,7 +14,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     CheckboxInputModule,
     SqDatetimepickerModule,
-    FormsModule
+    FormsModule,
+    TranslateModule,
   ],
   exports: [ PinActivityComponent ]
 })

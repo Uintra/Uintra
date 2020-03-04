@@ -16,6 +16,7 @@ import { ITagData } from "src/app/feature/reusable/inputs/tag-multiselect/tag-mu
 import { IUserAvatar } from "src/app/feature/reusable/ui-elements/user-avatar/user-avatar-interface";
 import { ActivityService } from "src/app/feature/specific/activity/activity.service";
 import { ISocialCreateModel } from "src/app/feature/specific/activity/activity.interfaces";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-social-create",
@@ -57,7 +58,8 @@ export class SocialCreateComponent implements OnInit {
     private socialContentService: ActivityService,
     private modalService: ModalService,
     private hasDataChangedService: HasDataChangedService,
-    private mq: MqService
+    private mq: MqService,
+    private translate: TranslateService,
   ) {}
 
   public ngOnInit(): void {
@@ -80,7 +82,7 @@ export class SocialCreateComponent implements OnInit {
   }
   onHidePopUp() {
     if (this.description || this.files.length) {
-      if (confirm("Are you sure?")) {
+      if (confirm(this.translate.instant('common.AreYouSure'))) {
         this.resetForm();
         this.hidePopUp();
       }
