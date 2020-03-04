@@ -20,6 +20,7 @@ export class UintraGroupsRoomPage {
   data: any;
   parsedData: IGroupRoomData;
   isLoading: boolean;
+  socialCreateData: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +37,13 @@ export class UintraGroupsRoomPage {
       this.addButtonService.setPageId(data.id);
       this.routerResolverService.removePageRouter(this.parsedData.groupInfo.groupUrl.originalUrl);
     });
+  }
+
+  ngOnInit() {
+    this.socialCreateData = this.data.socialCreateModel.get().data.get();
+    this.socialCreateData.canCreate = this.data.socialCreateModel.get().canCreate.get();
+    this.socialCreateData.createNewsLink = this.data.createNewsLink.get();
+    this.socialCreateData.createEventsLink = this.data.createEventsLink.get();
   }
 
   toggleSubscribe() {

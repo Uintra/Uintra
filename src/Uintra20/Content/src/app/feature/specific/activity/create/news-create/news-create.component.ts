@@ -1,11 +1,10 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { IActivityCreatePanel } from "../../activity-create-panel.interface";
 import ParseHelper from "src/app/shared/utils/parse.helper";
 import { Router } from "@angular/router";
 import { RouterResolverService } from "src/app/shared/services/general/router-resolver.service";
 import { HasDataChangedService } from "src/app/shared/services/general/has-data-changed.service";
 import { ActivityService } from "src/app/feature/specific/activity/activity.service";
-import { INewsCreateModel } from "src/app/feature/specific/activity/activity.interfaces";
+import { INewsCreateModel, IActivityCreatePanel } from "src/app/feature/specific/activity/activity.interfaces";
 
 @Component({
   selector: "app-news-create",
