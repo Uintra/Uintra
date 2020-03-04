@@ -2,8 +2,8 @@
 using System.Linq;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
-using Uintra20.Core.Article;
 using Uintra20.Features.Links.Models;
+using Uintra20.Features.News.Models;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
 
@@ -55,8 +55,9 @@ namespace Uintra20.Core.Activity.Helpers
             {
                 case IntranetActivityTypeEnum.News:
                 {
-                    var createPage = _nodeModelService.AsEnumerable().OfType<ArticlePageModel>()
-                                    .Single(x => x.Name.Equals(NewsCreateName, StringComparison.CurrentCultureIgnoreCase));
+                    var createPage = _nodeModelService.AsEnumerable()
+                                    .OfType<UintraNewsCreatePageModel>()
+                                    .Single();
 
                     return createPage.Url.ToLinkModel();
                 }
