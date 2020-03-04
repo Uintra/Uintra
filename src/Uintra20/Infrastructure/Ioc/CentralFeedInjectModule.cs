@@ -4,6 +4,7 @@ using Uintra20.Core.Feed.Services;
 using Uintra20.Features.CentralFeed;
 using Uintra20.Features.CentralFeed.Builders;
 using Uintra20.Features.CentralFeed.Enums;
+using Uintra20.Features.CentralFeed.Helpers;
 using Uintra20.Features.CentralFeed.Providers;
 using Uintra20.Features.CentralFeed.Services;
 using Uintra20.Features.Groups.Services;
@@ -19,7 +20,8 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddSingleton<IFeedTypeProvider>(d => new CentralFeedTypeProvider(typeof(CentralFeedTypeEnum)));
             services.AddScoped<IFeedFilterService, FeedFilterService>();
 			services.AddScoped<IGroupFeedService, GroupFeedService>();
-			services.AddScoped<ICentralFeedService, CentralFeedService>();
+            services.AddScoped<ICentralFeedHelper, CentralFeedHelper>();
+            services.AddScoped<ICentralFeedService, CentralFeedService>();
             services.AddScoped<IFeedPresentationService, FeedPresentationService>();
             services.AddScoped<IFeedLinkService, ActivityLinkService>();
             services.AddScoped<ICentralFeedContentService, CentralFeedContentService>();

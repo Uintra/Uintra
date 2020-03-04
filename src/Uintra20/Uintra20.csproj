@@ -1294,7 +1294,6 @@
     <Compile Include="Features\UintraPanels\LastActivities\Converters\SelectedActivityPropertyEditorConvertor.cs" />
     <Compile Include="Features\CentralFeed\Helpers\ICentralFeedHelper.cs" />
     <Compile Include="Features\CentralFeed\Helpers\CentralFeedHelper.cs" />
-    <Compile Include="Features\UintraPanels\LastActivities\Injection\LastActivityInjectModule.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelViewModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\SelectedActivityModel.cs" />
