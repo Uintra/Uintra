@@ -5,7 +5,6 @@ import {
   ViewChild,
   HostListener
 } from "@angular/core";
-import { IActivityCreatePanel } from "../../../../../ui/panels/activity-create/activity-create-panel.interface";
 import { DropzoneComponent } from "ngx-dropzone-wrapper";
 import ParseHelper from "src/app/shared/utils/parse.helper";
 import { ModalService } from "src/app/shared/services/general/modal.service";
@@ -15,7 +14,7 @@ import { MAX_LENGTH } from "src/app/shared/constants/activity/activity-create.co
 import { ITagData } from "src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { IUserAvatar } from "src/app/feature/reusable/ui-elements/user-avatar/user-avatar-interface";
 import { ActivityService } from "src/app/feature/specific/activity/activity.service";
-import { ISocialCreateModel } from "src/app/feature/specific/activity/activity.interfaces";
+import { ISocialCreateModel, IActivityCreatePanel } from "src/app/feature/specific/activity/activity.interfaces";
 
 @Component({
   selector: "app-social-create",

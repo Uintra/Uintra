@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { UbaselineCoreModule } from '@ubaseline/next';
 import { UintraNewsCreatePage } from './uintra-news-create-page.component';
-import { NewsCreateModule } from 'src/app/ui/panels/activity-create/sections/news-create/news-create.module';
+import { NewsCreateModule } from 'src/app/feature/specific/activity/create/news-create/news-create.module';
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
 
 @NgModule({
