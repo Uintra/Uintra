@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Sql;
+using Uintra20.Infrastructure.Extensions;
 using Uintra20.Persistence.Sql;
 
 namespace Uintra20.Features.Groups.Services
@@ -10,10 +13,17 @@ namespace Uintra20.Features.Groups.Services
     public class GroupDocumentsService : IGroupDocumentsService
     {
         private readonly ISqlRepository<GroupDocument> _repository;
+        private readonly IGroupMemberService _groupMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
-        public GroupDocumentsService(ISqlRepository<GroupDocument> repository)
+        public GroupDocumentsService(
+            ISqlRepository<GroupDocument> repository,
+            IGroupMemberService groupMemberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _repository = repository;
+            _groupMemberService = groupMemberService;
+            _intranetMemberService = intranetMemberService;
         }
 
         public GroupDocument Get(Guid documentId)
@@ -78,6 +88,16 @@ namespace Uintra20.Features.Groups.Services
         public Task DeleteAsync(GroupDocument document)
         {
             return _repository.DeleteAsync(document);
+        }
+
+        public bool CanUpload(Guid groupId)
+        {
+            return _groupMemberService.IsGroupMember(groupId, _intranetMemberService.GetCurrentMemberId());
+        }
+
+        public async Task<bool> CanUploadAsync(Guid groupId)
+        {
+            return await _groupMemberService.IsGroupMemberAsync(groupId, await _intranetMemberService.GetCurrentMemberIdAsync());
         }
     }
 }

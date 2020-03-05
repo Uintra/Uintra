@@ -7,7 +7,7 @@ using Uintra20.Features.Social.Models;
 
 namespace Uintra20.Features.Groups.Models
 {
-    public class UintraGroupsRoomPageViewModel : NodeViewModel
+    public class UintraGroupsRoomPageViewModel : NodeViewModel, IGroupHeader
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
@@ -17,5 +17,6 @@ namespace Uintra20.Features.Groups.Models
         public SocialCreatePageViewModel SocialCreateModel { get; set; }
         public UintraLinkModel CreateNewsLink { get; set; }
         public UintraLinkModel CreateEventsLink { get; set; }
+        public GroupHeaderViewModel GroupHeader { get; set; }
     }
 }

@@ -5,11 +5,11 @@ using UBaseline.Shared.Property;
 
 namespace Uintra20.Features.Groups.Models
 {
-    public class UintraGroupsMembersPageViewModel : NodeViewModel
+    public class UintraGroupsMembersPageViewModel : NodeViewModel, IGroupHeader
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
         public GroupNavigationCompositionViewModel GroupNavigation { get; set; }
-        public Guid? GroupId { get; set; }
+        public GroupHeaderViewModel GroupHeader { get; set; }
     }
 }

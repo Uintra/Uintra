@@ -13,6 +13,7 @@ import {
 import { ILikeData } from "src/app/feature/reusable/ui-elements/like-button/like-button.interface";
 import { ICommentData } from "src/app/feature/reusable/ui-elements/comments/comments.component";
 import { ImageGalleryService } from "src/app/feature/reusable/ui-elements/image-gallery/image-gallery.service";
+import { IGroupDetailsHeaderData } from 'src/app/feature/specific/groups/groups.interface';
 
 @Component({
   selector: "social-details",
@@ -30,7 +31,7 @@ export class SocialDetailsPanelComponent implements OnInit {
   documents: Array<IDocument> = new Array<IDocument>();
   commentDetails: ICommentData;
   detailsDescription: SafeHtml;
-  groupId: string;
+  groupHeader: IGroupDetailsHeaderData;
   isGroupMember: boolean;
 
   constructor(
@@ -53,7 +54,7 @@ export class SocialDetailsPanelComponent implements OnInit {
       entityType: parsedData.details.activityType
     };
     this.isGroupMember = parsedData.isGroupMember;
-    this.groupId = parsedData.groupId;
+    this.groupHeader = parsedData.groupHeader;
     this.activityName = ParseHelper.parseActivityType(
       this.details.activityType
     );

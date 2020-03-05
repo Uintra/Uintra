@@ -1,8 +1,8 @@
-<ng-container *ngIf="!parsedData?.groupId">
+<ng-container *ngIf="!parsedData?.groupHeader">
   <ng-container *ngTemplateOutlet="component"></ng-container>
 </ng-container>
 
-<app-group-details-wrapper *ngIf="parsedData?.groupId" [id]="parsedData.groupId">
+<app-group-details-wrapper *ngIf="parsedData?.groupHeader" [data]="parsedData.groupHeader">
   <div class="group-details-padding">
     <ng-container *ngTemplateOutlet="component"></ng-container>
   </div>

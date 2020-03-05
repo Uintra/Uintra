@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { GroupsService } from '../groups.service';
 import { IBreadcrumbsItem } from '../groups.interface';
 import { IUlinkWithTitle } from 'src/app/shared/interfaces/general.interface';
+import { IGroupDetailsHeaderData } from '../groups.interface';
 
 export interface IGroupDetailsHeaderMapedData {
   title: IUlinkWithTitle;
@@ -15,28 +16,26 @@ export interface IGroupDetailsHeaderMapedData {
   styleUrls: ['./group-details-wrapper.component.less']
 })
 export class GroupDetailsWrapperComponent implements OnInit {
-  @Input() id: string;
+  @Input() data: IGroupDetailsHeaderData;
 
+  mapedData: IGroupDetailsHeaderMapedData;
   breadcrumbs: IBreadcrumbsItem[];
-  data: IGroupDetailsHeaderMapedData;
 
   constructor(private groupsService: GroupsService) { }
 
-  ngOnInit() {
-    this.groupsService.getBreadcrumbs().subscribe((res: IBreadcrumbsItem[]) => {
-      this.breadcrumbs = res;
-    });
-    this.groupsService.getGroupDetailsLinks(this.id).subscribe(res => {
-      this.data = {
-        title: {link: {...res.groupLinks.groupRoomPage}, title: res.title},
+    ngOnInit() {
+      this.groupsService.getBreadcrumbs().subscribe((res: IBreadcrumbsItem[]) => {
+            this.breadcrumbs = res;
+      });
+      this.mapedData = {
+        title: {link: {...this.data.groupLinks.groupRoomPage}, title: this.data.title},
         groupLinks: [
-          {link: {...res.groupLinks.groupRoomPage}, title: 'All'},
-          {link: {...res.groupLinks.groupDocumentsPage}, title: 'Group Documents'},
-          {link: {...res.groupLinks.groupMembersPage}, title: 'Group Members'},
+          {link: {...this.data.groupLinks.groupRoomPage}, title: 'All'},
+          {link: {...this.data.groupLinks.groupDocumentsPage}, title: 'Group Documents'},
+          {link: {...this.data.groupLinks.groupMembersPage}, title: 'Group Members'},
         ],
-        groupEditPageLink: res.groupLinks.groupEditPage ? {link: {...res.groupLinks.groupEditPage}, title: 'Settings'} : null,
+        groupEditPageLink: this.data.groupLinks.groupEditPage ? {link: {...this.data.groupLinks.groupEditPage}, title: 'Settings'} : null,
       }
-    });
   }
 
 }

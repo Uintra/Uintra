@@ -7,6 +7,7 @@ using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.Preset;
@@ -27,6 +28,7 @@ namespace Uintra20.Features.Social.Converters
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly ILightboxHelper _lightboxHelper;
         private readonly IPermissionsService _permissionsService;
+        private readonly IGroupHelper _groupHelper;
 
         public SocialDetailsPageViewModelConverter(
             IFeedLinkService feedLinkService,
@@ -34,7 +36,8 @@ namespace Uintra20.Features.Social.Converters
             IUserTagService userTagService,
             ISocialService<Entities.Social> socialsService,
             ILightboxHelper lightboxHelper,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService,
+            IGroupHelper groupHelper)
         {
             _feedLinkService = feedLinkService;
             _userTagService = userTagService;
@@ -42,6 +45,7 @@ namespace Uintra20.Features.Social.Converters
             _memberService = memberService;
             _lightboxHelper = lightboxHelper;
             _permissionsService = permissionsService;
+            _groupHelper = groupHelper;
         }
 
         public void Map(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
@@ -70,8 +74,7 @@ namespace Uintra20.Features.Social.Converters
             if (!Guid.TryParse(groupIdStr, out var groupId) || social.GroupId != groupId)
                 return;
 
-            viewModel.RequiresGroupHeader = true;
-            viewModel.GroupId = groupId;
+            viewModel.GroupHeader = _groupHelper.GetHeader(groupId);
         }
 
         protected SocialExtendedViewModel GetViewModel(Entities.Social social)
