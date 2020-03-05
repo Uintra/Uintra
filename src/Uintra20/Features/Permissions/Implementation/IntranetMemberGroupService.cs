@@ -87,11 +87,12 @@ namespace Uintra20.Features.Permissions.Implementation
 
         public void AssignDefaultMemberGroup(int memberId)
         {
-            var groups = GetAll();
-            var member = groups.First(i => i.Name.Equals("UiUser"));
-
-            if (member != null)
-                _memberService.AssignRole(memberId, member.Name);
+            var uiUserGroup = GetAll().First(i => i.Name.Equals("UiUser"));
+            
+            if (uiUserGroup != null)
+            {
+                _memberService.AssignRole(memberId, uiUserGroup.Name);
+            }
         }
 
         public void ClearCache()
