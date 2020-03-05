@@ -7,6 +7,7 @@ import { UintraGroupsDocumentsPage } from "./uintra-groups-documents-page.compon
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
 import { DropzoneWrapperModule } from 'src/app/feature/reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
 import { DocumentTableModule } from 'src/app/feature/specific/groups/document-table/document-table.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [UintraGroupsDocumentsPage],
@@ -16,7 +17,8 @@ import { DocumentTableModule } from 'src/app/feature/specific/groups/document-ta
     UbaselineCoreModule,
     GroupDetailsWrapperModule,
     DropzoneWrapperModule,
-    DocumentTableModule
+    DocumentTableModule,
+    TranslateModule,
   ],
   entryComponents: [UintraGroupsDocumentsPage]
 })

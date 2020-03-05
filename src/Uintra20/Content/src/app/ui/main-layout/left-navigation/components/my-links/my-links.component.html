@@ -3,7 +3,7 @@
   <li class="left-nav__item">
     <span class="left-nav__item-link">
       <span class="icon-star left-nav__star-icon"></span>
-      My Links
+      {{'links.Menu.lbl' | translate}}
     </span>
 
     <button
@@ -41,7 +41,9 @@
 
 
     <div class="left-nav__add-btn-wrapper" *ngIf="isShowAddButton">
-      <button class="button-default" (click)="onAddLink()">Add to my links</button>
+      <button class="button-default" (click)="onAddLink()">
+        {{'myLinks.Add.lbl' | translate}}
+      </button>
     </div>
 
 

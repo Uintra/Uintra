@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -8,6 +9,7 @@ using Uintra20.Core.Member.Services;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Permissions.Models;
 using Uintra20.Features.Permissions.TypeProviders;
+using Uintra20.Infrastructure.ApplicationSettings;
 using Uintra20.Infrastructure.Extensions;
 using Umbraco.Core.Services;
 using Umbraco.Web.WebApi;
@@ -23,6 +25,7 @@ namespace Uintra20.Features.Permissions.Controllers
         private readonly IIntranetMemberGroupProvider _intranetMemberGroupProvider;
         private readonly IIntranetMemberGroupService _intranetMemberGroupService;
         private readonly IPermissionsService _permissionsService;
+        private readonly IApplicationSettings _applicationSettings;
 
         public PermissionsController(
             IMemberGroupService memberGroupService,
@@ -31,7 +34,8 @@ namespace Uintra20.Features.Permissions.Controllers
             IIntranetMemberService<IntranetMember> intranetMemberService,
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
             IPermissionsService permissionsService,
-            IIntranetMemberGroupService intranetMemberGroupService)
+            IIntranetMemberGroupService intranetMemberGroupService, 
+            IApplicationSettings applicationSettings)
         {
             _memberGroupService = memberGroupService;
             _resourceTypeProvider = resourceTypeProvider;
@@ -40,15 +44,14 @@ namespace Uintra20.Features.Permissions.Controllers
             _intranetMemberGroupProvider = intranetMemberGroupProvider;
             _permissionsService = permissionsService;
             _intranetMemberGroupService = intranetMemberGroupService;
+            _applicationSettings = applicationSettings;
         }
         
         [HttpGet]
         public async Task<GroupPermissionsViewModel> Get(int memberGroupId)
         {
-            var isSuperUser = _intranetMemberService.IsCurrentMemberSuperUser;
+            var isSuperUser = IsSuperUser();
             var memberGroup = _intranetMemberGroupProvider[memberGroupId];
-            //var memberGroup = _intranetMemberGroupService.GetAll().First(x => x.Id == memberGroupId);
-
             var permissions = (await _permissionsService.GetForGroupAsync(memberGroup))
                 .Map<IEnumerable<PermissionViewModel>>()
                 .OrderBy(i => i.ResourceTypeId);
@@ -59,6 +62,7 @@ namespace Uintra20.Features.Permissions.Controllers
                 Permissions = permissions,
                 MemberGroup = memberGroup.Map<MemberGroupViewModel>()
             };
+
             return model;
         }
 
@@ -98,6 +102,17 @@ namespace Uintra20.Features.Permissions.Controllers
             _intranetMemberGroupService.Delete(groupId);
 
             return Ok();
+        }
+
+        private bool IsSuperUser()
+        {
+            var superUsers = _applicationSettings.UintraSuperUsers;
+
+            var member = _intranetMemberService.GetCurrentMember();
+
+            var isSuperUser = superUsers.Contains(member.Email, StringComparison.InvariantCultureIgnoreCase);
+
+            return isSuperUser;
         }
     }
 }

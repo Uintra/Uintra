@@ -8,18 +8,18 @@
   <div class="comment__modified" *ngIf="data.modifyDate">
     <span class="glyphicon glyphicon-pencil"></span>
     <div class="comment__modified-info">
-      Edited at
+      {{'commentsView.ModifyDate.lbl' | translate}}
       <span class="comment__modify-date">{{data.modifyDate}}</span>
     </div>
   </div>
-  <button *ngIf="data.isReply" class="comment__reply" (click)="onToggleReply()">Reply</button>
+  <button *ngIf="data.isReply" class="comment__reply" (click)="onToggleReply()">{{'commentsView.Reply.lnk' | translate}}</button>
   <div *ngIf="data.canDelete || data.canEdit" class="comment__controls">
     <ul class="comment__controls-list">
       <li *ngIf="data.canEdit" class="comment__controls-list-item">
-        <button class="comment__controls-list-btn" (click)="onToggleEditingMode()">Edit</button>
+        <button class="comment__controls-list-btn" (click)="onToggleEditingMode()">{{'commentsView.Edit.lbl' | translate}}</button>
       </li>
       <li class="comment__controls-list-item">
-        <button *ngIf="data.canDelete" class="comment__controls-list-btn" (click)="onCommentDelete()">Delete</button>
+        <button *ngIf="data.canDelete" class="comment__controls-list-btn" (click)="onCommentDelete()">{{'commentsView.Delete.lbl' | translate}}</button>
       </li>
     </ul>
   </div>

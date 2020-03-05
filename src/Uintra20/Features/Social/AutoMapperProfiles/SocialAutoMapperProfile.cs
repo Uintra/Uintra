@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
 using Compent.Extensions;
+using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.Groups.Links;
@@ -72,7 +73,7 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
                 .ForMember(dst => dst.Media, o => o.Ignore())
                 .ForMember(dst => dst.LightboxPreviewModel, o => o.Ignore());
 
-            CreateMap<Entities.Social, SocialPreviewModel>()
+            CreateMap<Entities.Social, IntranetActivityPreviewModelBase>()
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .ForMember(dst => dst.Links, o => o.Ignore())

@@ -11,7 +11,6 @@ export class TranslationsLoader implements TranslateLoader {
 
     getTranslation(lang: string): Observable<any>
     {
-      console.log('fired')
         return this.http.get("ubaseline/api/localization/getAll");
     }
 

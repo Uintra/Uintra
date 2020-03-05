@@ -5,7 +5,7 @@ using Uintra20.Core.Feed.Services;
 
 namespace Uintra20.Features.CentralFeed.Services
 {
-    public interface ICentralFeedService : IFeedService
+    public interface ICentralFeedService : IFeedSettingsService
     {
         IEnumerable<IFeedItem> GetFeed(Enum type);
         IEnumerable<IFeedItem> GetFeed();

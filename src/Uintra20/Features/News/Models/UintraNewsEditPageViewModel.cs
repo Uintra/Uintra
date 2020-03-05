@@ -7,6 +7,7 @@ using UBaseline.Shared.Property;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Features.Groups;
 using Uintra20.Features.Groups.Models;
+using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Features.News.Models
 {
@@ -20,6 +21,7 @@ namespace Uintra20.Features.News.Models
         public IEnumerable<IntranetMember> Members { get; set; } = Enumerable.Empty<IntranetMember>();
         public string AllowedMediaExtensions { get; set; }
         public bool CanEdit { get; set; }
+        public IActivityLinks Links { get; set; }
         public GroupHeaderViewModel GroupHeader { get; set; }
     }
 }

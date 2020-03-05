@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
+using System.Web.Mvc;
+using Compent.Extensions;
 using UBaseline.Core.Controllers;
 using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
+using UBaseline.Core.RequestContext;
+using UBaseline.Shared.Navigation;
+using UBaseline.Shared.Node;
 using Uintra20.Core.HomePage;
-using Uintra20.Core.Member.Helpers;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure.Extensions;
+using Umbraco.Core.Models.PublishedContent;
 
 namespace Uintra20.Features.Navigation.Web
 {
@@ -15,19 +19,19 @@ namespace Uintra20.Features.Navigation.Web
     {
         private readonly INavigationModelsBuilder _navigationModelsBuilder;
         private readonly INodeModelService _nodeModelService;
-        private readonly IMemberServiceHelper _memberServiceHelper;
+        private readonly IUBaselineRequestContext _uBaselineRequestContext;
 
         public IntranetNavigationController(
             INavigationModelsBuilder navigationModelsBuilder,
             INodeModelService nodeModelService,
-            IMemberServiceHelper memberServiceHelper)
+            IUBaselineRequestContext uBaselineRequestContext)
         {
             _navigationModelsBuilder = navigationModelsBuilder;
             _nodeModelService = nodeModelService;
-            _memberServiceHelper = memberServiceHelper;
+            _uBaselineRequestContext = uBaselineRequestContext;
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         public virtual TopNavigationViewModel MobileNavigation()
         {
             var model = _navigationModelsBuilder.GetMobileNavigation();
@@ -36,7 +40,7 @@ namespace Uintra20.Features.Navigation.Web
             return viewModel;
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         public virtual TopNavigationViewModel TopNavigation()
         {
             var model = _navigationModelsBuilder.GetTopNavigationModel();
@@ -45,22 +49,27 @@ namespace Uintra20.Features.Navigation.Web
             return viewModel;
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         public virtual MenuViewModel LeftNavigation()
         {
-            IEnumerable<TreeNavigationItemModel> leftNavigation = _navigationModelsBuilder.GetLeftSideNavigation();
+            var leftNavigation = _navigationModelsBuilder.GetLeftSideNavigation();
             var result = new MenuViewModel { MenuItems = leftNavigation.Select(MapMenuItem) };
 
             return result;
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         public virtual IEnumerable<SharedLinkApiViewModel> SystemLinks()
         {
             var sharedLinks = _nodeModelService.AsEnumerable().OfType<SharedLinkItemModel>().Where(sl => sl.Links.Value != null);
 
             var result = sharedLinks.Select(MapSharedLinkItemModel).OrderBy(sl => sl.Sort);
             return result;
+        }
+
+        public virtual IEnumerable<BreadcrumbItemViewModel> Breadcrumbs()
+        {
+            return _navigationModelsBuilder.GetBreadcrumbsItems().ToList();
         }
 
         private SharedLinkApiViewModel MapSharedLinkItemModel(SharedLinkItemModel model)

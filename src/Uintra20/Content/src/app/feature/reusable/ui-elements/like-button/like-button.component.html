@@ -14,4 +14,7 @@
       <span *ngFor="let like of listOfUsersWhoLiked">{{ like.user }}</span>
     </span>
   </ng-container>
+  <span *ngIf="isDisabled" class="like-button-tooltip">
+    {{'likes.ReadonlyClick.Message.lbl' | translate}}
+  </span>
 </button>

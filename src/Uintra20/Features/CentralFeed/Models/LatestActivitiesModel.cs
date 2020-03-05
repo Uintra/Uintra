@@ -4,10 +4,9 @@ using Uintra20.Core.Feed.Models;
 
 namespace Uintra20.Features.CentralFeed.Models
 {
-    public class LoadableFeedItemModel
+    public class LatestActivitiesModel
     {
         public bool IsShowMore { get; set; }
-        public IEnumerable<FeedItemViewModel> FeedItems { get; set; } =
-            Enumerable.Empty<FeedItemViewModel>();
+        public IEnumerable<LatestActivitiesItemViewModel> FeedItems { get; set; } = Enumerable.Empty<LatestActivitiesItemViewModel>();
     }
 }

@@ -7,7 +7,6 @@
                    big></app-user-avatar>
   <div class="comment__container">
     <app-comment-header [data]="data"
-                        [isReply]="true"
                         (toggleReply)="onToggleReply()"
                         (toggleEditingMode)="toggleEditingMode()"
                         (commentDelete)="onCommentDelete($event)">
@@ -24,11 +23,11 @@
         <button class="rte__submit-button"
                 [disabled]="isEditSubmitDisabled"
                 (click)="onSubmitEditedValue()">
-          Save
+          {{'commentsOverView.EditComment.btn' | translate}}
         </button>
         <button class="rte__cancel-button"
                 (click)="toggleEditingMode()">
-          Cancel
+          {{'commentsview.HideBtn.Text' | translate}}
         </button>
       </div>
     </app-rich-text-editor>
@@ -37,10 +36,12 @@
                            *ngFor="let reply of data.replies"
                            [data]="reply"
                            [activityType]="activityType"
+                           [commentsActivity]="commentsActivity"
                            (submitEditedValue)="onSubmitEditedValue($event)"
                            (deleteComment)="onCommentDelete($event)"></app-subcomment-item>
     </div>
     <app-rich-text-editor *ngIf="isReply"
+                          [isEditing]="false"
                           [(ngModel)]="subcommentDescription"
                           [isDropzone]="false"
                           placeholder="Reply to comment...">

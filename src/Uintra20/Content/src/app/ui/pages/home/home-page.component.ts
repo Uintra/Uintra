@@ -15,6 +15,7 @@ export class HomePage implements OnInit {
 
   data: any;
   latestActivities: any;
+  socialCreateData: any;
   otherPanels: any;
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +34,10 @@ export class HomePage implements OnInit {
       this.latestActivities = this.data.panels.get().filter(p => p.data.contentTypeAlias === 'latestActivitiesPanel')[0];
       this.otherPanels = this.data.panels.get().filter(p => p.data.contentTypeAlias !== 'latestActivitiesPanel');
     }
+    this.socialCreateData = this.data.socialCreateModel.get().data.get();
+    this.socialCreateData.canCreate = this.data.socialCreateModel.get().canCreate.get();
+    this.socialCreateData.createNewsLink = this.data.createNewsLink.get();
+    this.socialCreateData.createEventsLink = this.data.createEventsLink.get();
   }
 
   canDeactivate(): Observable<boolean> | boolean {

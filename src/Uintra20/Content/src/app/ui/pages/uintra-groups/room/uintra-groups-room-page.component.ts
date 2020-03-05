@@ -9,6 +9,7 @@ import { HasDataChangedService } from 'src/app/shared/services/general/has-data-
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { IGroupRoomData } from 'src/app/feature/specific/groups/groups.interface';
 import { GroupsService } from 'src/app/feature/specific/groups/groups.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'uintra-groups-room-page',
@@ -20,6 +21,7 @@ export class UintraGroupsRoomPage {
   data: any;
   parsedData: IGroupRoomData;
   isLoading: boolean;
+  socialCreateData: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +31,7 @@ export class UintraGroupsRoomPage {
     private addButtonService: AddButtonService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
+    private translate: TranslateService,
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
@@ -38,8 +41,15 @@ export class UintraGroupsRoomPage {
     });
   }
 
+  ngOnInit() {
+    this.socialCreateData = this.data.socialCreateModel.get().data.get();
+    this.socialCreateData.canCreate = this.data.socialCreateModel.get().canCreate.get();
+    this.socialCreateData.createNewsLink = this.data.createNewsLink.get();
+    this.socialCreateData.createEventsLink = this.data.createEventsLink.get();
+  }
+
   toggleSubscribe() {
-    if (!this.parsedData.groupInfo.isMember || confirm('Are you sure?')) {
+    if (!this.parsedData.groupInfo.isMember || confirm(this.translate.instant('groupInfo.Unsubscribe.Message.lnk'))) {
       this.isLoading = true;
       this.groupsService.toggleSubscribe(this.parsedData.groupId)
       .then((res: IULink) => {
@@ -57,6 +67,18 @@ export class UintraGroupsRoomPage {
         this.isLoading = false;
       })
     }
+  }
+
+  getMembersText() {
+    return this.parsedData.groupInfo.membersCount === 1
+      ? this.translate.instant('groupInfo.OneMemberCount.lbl')
+      : this.translate.instant('groupInfo.MembersCount.lbl');
+  }
+
+  getSubscribeBtn() {
+    return this.parsedData.groupInfo.isMember
+      ? this.translate.instant('groupInfo.Unsubscribe.lnk')
+      : this.translate.instant('groupInfo.Subscribe.lnk');
   }
 
   canDeactivate(): Observable<boolean> | boolean {

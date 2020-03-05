@@ -1,60 +1,60 @@
-<pre *ngIf="!publication?.activity?.links?.owner?.originalUrl">
+<pre *ngIf="!publication?.links?.owner?.originalUrl">
   Error: owner.link is null <br/>
 </pre>
 
 <div
   class="publication publication--important"
-  *ngIf="publication?.activity?.links?.owner?.originalUrl"
+  *ngIf="publication?.links?.owner?.originalUrl"
 >
   <app-publication-header
-    [avatar]="publication.activity.owner?.photo"
-    [title]="publication.activity.owner?.displayedName"
-    [originalUrl]="publication.activity.links?.owner?.originalUrl"
-    [groupInfo]="publication.activity?.groupInfo"
+    [avatar]="publication.owner?.photo"
+    [title]="publication.owner?.displayedName"
+    [originalUrl]="publication.links?.owner?.originalUrl"
+    [groupInfo]="publication.groupInfo"
     class="publication__header"
   >
     <div class="publication__subtitle" subtitle>
       {{ getPublicationDate() }} -
       <a
-        class="publication__activity-type"
-        [routerLink]="publication.activity.links?.details.originalUrl | ulink"
-        >{{ publication.activity.type }}
+        class="publication__-type"
+        [routerLink]="publication.links?.details?.originalUrl | ulink"
+        >{{ publication.type }}
       </a>
       <a
-        *ngIf="publication.activity?.location?.address && publication.activity?.location?.shortAddress"
+        *ngIf="publication.location?.address && publication.location?.shortAddress"
         [href]="
           'https://www.google.co.uk/maps?q=' +
-          publication.activity.location.address
+          publication.location.address
         "
         class="icon-pin-icon publication__location-link"
         target="_blank"
       >
-        {{ publication.activity.location.shortAddress }}
+        {{ publication.location.shortAddress }}
       </a>
     </div>
     <div
-      *ngIf="publication.activity.isPinned"
+      *ngIf="publication.isPinned"
       label
       class="publication__label"
       [ngClass]="{
-        'publication__label--no-actual': !publication.activity.isPinActual
+        'publication__label--no-actual': !publication.isPinActual
       }"
     >
-      Important
+      {{'Pinned.lbl' | translate}}
     </div>
   </app-publication-header>
 
   <div class="publication__content">
     <a
       class="publication__clickable-aria"
-      [routerLink]="publication.activity.links?.details?.originalUrl | ulink"
+      [routerLink]="publication.links?.details?.originalUrl | ulink"
     >
-      <p *ngIf="publication.activity?.title" class="publication__title">
-        {{ publication.activity.title }}
+      <p *ngIf="publication.title" class="publication__title">
+        {{ publication.title }}
       </p>
       <div
         class="publication__text rte"
-        [innerHTML]="publication.activity.description"
+        [innerHTML]="publication.description"
       ></div>
     </a>
 
@@ -71,13 +71,13 @@
     </div>
     <div class="publication__footer">
       <div class="publication__footer-left-block">
-        <app-like-button [likeData]="likeData" [isDisabled]="!publication?.activity?.isGroupMember"></app-like-button>
+        <app-like-button [likeData]="likeData" [isDisabled]="!publication?.isGroupMember"></app-like-button>
         <a
           class="publication__comment publication__footer-item"
-          [routerLink]="publication.activity.links?.details.originalUrl | ulink"
+          [routerLink]="publication.links?.details?.originalUrl | ulink"
         >
           <i class="icon-comment"></i>
-          {{ publication?.activity?.isGroupMember ? commentsCount : '' }}
+          {{ publication?.isGroupMember ? commentsCount : '' }}
         </a>
         <button class="publication__share publication__footer-item">
           <i class="icon-share-icon"></i>
@@ -88,12 +88,12 @@
       <a
         class="publication__files publication__footer-item"
         *ngIf="documentsCount"
-        [routerLink]="publication.activity.links?.details.originalUrl | ulink"
+        [routerLink]="publication.links?.details?.originalUrl | ulink"
       >
         <i class="icon-attachment"></i>
         {{ documentsCount }}
-        {{ documentsCount > 1 ? "Files added" : "File added" }}</a
-      >
+        {{getDocumentsText()}}
+      </a>
     </div>
   </div>
 </div>

@@ -1,11 +1,17 @@
 <section class="news-create-panel" *ngIf="newsData">
-  <h2 class="news-create-panel__title form-row">News</h2>
+  <h2 class="news-create-panel__title form-row">
+    {{getFormTitleLbl()}}
+  </h2>
   <div *ngIf="owners?.length > 1" class="owner form-row">
-    <h3 class="owner__title subtitle">Owner</h3>
+    <h3 class="owner__title subtitle">
+      {{getOwnerLbl()}}
+    </h3>
     <app-select [items]="owners" [ngModel]="defaultOwner" (ngModelChange)="changeOwner($event)"></app-select>
   </div>
   <div class="news-title form-row">
-    <h3 class="news-title__title subtitle required">Title</h3>
+    <h3 class="news-title__title subtitle required">
+      {{getTitleLbl()}}
+    </h3>
     <text-input
       [ngModel]="newsData.title"
       (ngModelChange)="onTitleChange($event)"
@@ -17,7 +23,9 @@
     ></text-input>
   </div>
   <div class="description form-row">
-    <h3 class="description__title subtitle required">News description</h3>
+    <h3 class="description__title subtitle required">
+      {{getDescriptionLbl()}}
+    </h3>
     <app-rich-text-editor
     [ngModel]="newsData.description"
     (ngModelChange)="onDescriptionChange($event)"
@@ -30,7 +38,7 @@
     ></app-rich-text-editor>
   </div>
   <div class="tags form-row">
-    <h3 class="tags__title subtitle">Tag(s)</h3>
+    <h3 class="tags__title subtitle">{{'userTagsPicker.AddTags.lbl' | translate}}</h3>
     <app-tag-multiselect
       class="tags__multiselect"
       [availableTags]="tags"
@@ -44,7 +52,7 @@
     ></app-datepicker-from-to>
   </div>
   <div class="location form-row">
-    <h3 class="location__title subtitle">Location</h3>
+    <h3 class="location__title subtitle">{{'activity.Location.lbl' | translate}}</h3>
     <app-location-picker
       [initialValues]="initialLocation"
       (handleChange)="setLocationValue($event)"
@@ -62,7 +70,7 @@
   ></app-pin-activity>
 
   <div class="form-row" *ngIf="newsData.media">
-    <label>Files</label>
+    <label>{{getFilesLbl()}}</label>
     <app-dropzone-existing-images
       [medias]="newsData.media.medias"
       [otherFiles]="newsData.media.otherFiles"
@@ -81,12 +89,12 @@
   <div class="form-row" *ngIf="isShowValidation">
     <div *ngIf="!newsData.title.trim()"
         class="alert alert-danger">
-        A title is required
+        {{getTitleValidationMessage()}}
     </div>
 
     <div *ngIf="!getStripDescription()"
         class="alert alert-danger">
-        A description is required
+        {{getDescriptionValidationMessage()}}
     </div>
 
     <div *ngIf="newsData.isPinned && !isAccepted"
@@ -103,7 +111,9 @@
 
 
   <div class="buttons">
-    <button class="buttons__submit" [disabled]="isSubmitLoading" (click)="onSubmit()">Submit</button>
-    <button class="buttons__cancel" (click)="onCancel()">Cancel</button>
+    <button class="buttons__submit" [disabled]="isSubmitLoading" (click)="onSubmit()">
+      {{getSubmitBtn()}}
+    </button>
+    <button class="buttons__cancel" (click)="onCancel()">{{'common.AreYouSure.Cancel' | translate}}</button>
   </div>
 </section>

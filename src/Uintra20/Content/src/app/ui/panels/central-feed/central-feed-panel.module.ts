@@ -14,6 +14,7 @@ import { RadioLinkGroupModule } from "src/app/feature/reusable/inputs/radio-link
 import { CheckboxInputModule } from "src/app/feature/reusable/inputs/checkbox-input/checkbox-input.module";
 import { PublicationHeaderModule } from "src/app/feature/reusable/ui-elements/publication-header/publication-header.module";
 import { LikeButtonModule } from "src/app/feature/reusable/ui-elements/like-button/like-button.module";
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { LikeButtonModule } from "src/app/feature/reusable/ui-elements/like-butt
     InfiniteScrollModule,
     LikeButtonModule,
     RouterModule,
-    UlinkModule
+    UlinkModule,
+    TranslateModule,
   ],
   providers: [{ provide: AS_DYNAMIC_COMPONENT, useValue: CentralFeedPanel }],
   entryComponents: [CentralFeedPanel]
