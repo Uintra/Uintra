@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IGroupsData } from 'src/app/feature/specific/groups/groups.interface';
 import { GroupsService } from 'src/app/feature/specific/groups/groups.service';
 
@@ -8,15 +8,12 @@ import { GroupsService } from 'src/app/feature/specific/groups/groups.service';
   styleUrls: ['./groups.component.less']
 })
 export class GroupsComponent implements OnInit {
-  data: IGroupsData;
+  @Input() data: IGroupsData;
   isOpen: boolean;
 
   constructor(private groupsService: GroupsService) { }
 
   ngOnInit() {
-    this.groupsService.getGroupsLinks().subscribe(res => {
-      this.data = res;
-    });
     this.isOpen = this.groupsService.getOpenState();
   }
 
