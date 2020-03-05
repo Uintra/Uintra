@@ -35,7 +35,7 @@ export class GroupsService {
   }
 
   getBreadcrumbs(): Observable<IBreadcrumbsItem[]> {
-    return this.http.post<IBreadcrumbsItem[]>("/ubaseline/api/intranetNavigation/Breadcrumbs", {});
+    return this.http.get<IBreadcrumbsItem[]>("/ubaseline/api/intranetNavigation/Breadcrumbs");
   }
 
   setOpenState(openState: boolean = false): void {
