@@ -1,7 +1,7 @@
 <section class="comments-panel">
   <h3 class="comments-panel__title">{{'commentsOverView.Title.lbl' | translate}}</h3>
   <ng-container *ngIf="isGroupMember">
-    <ul *ngIf="comments" class="comments-list">
+    <ul class="comments-list">
       <app-comment-item
         *ngFor="let comment of comments.data"
         class="comments-list__item"
