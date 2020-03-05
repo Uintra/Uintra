@@ -12,11 +12,8 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IUmbracoMemberAssignedRolesEventService, MemberEventService>();
             services.AddScoped<IUmbracoMemberRemovedRolesEventService, MemberEventService>();
             services.AddScoped<IUmbracoMemberDeletingEventService, MemberEventService>();
-            
             //services.AddScoped<IUmbracoContentPublishedEventService, SearchContentEventService>();
             //services.AddScoped<IUmbracoContentUnPublishedEventService, SearchContentEventService>();
-            //services.AddScoped<IUmbracoContentUnPublishedEventService, PagePromotionEventService>();
-            //services.AddScoped<IUmbracoContentPublishedEventService, PagePromotionEventService>();
             //services.AddScoped<IUmbracoMediaTrashedEventService, SearchMediaEventService>();
             //services.AddScoped<IUmbracoMediaSavedEventService, SearchMediaEventService>();
             //services.AddScoped<IUmbracoMediaSavingEventService, SearchMediaEventService>();
