@@ -33,7 +33,7 @@ export interface IGroupDetailsHeaderData {
   }
 }
 export interface IGroupRoomData {
-  groupId: string;
+  groupHeader: IGroupDetailsHeaderData;
   groupInfo: IGroupsListItem;
 }
 export interface IBreadcrumbsItem {
