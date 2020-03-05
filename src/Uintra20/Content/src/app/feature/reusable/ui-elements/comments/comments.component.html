@@ -1,7 +1,7 @@
 <section class="comments-panel">
   <h3 class="comments-panel__title">Comments</h3>
   <ng-container *ngIf="isGroupMember">
-    <ul class="comments-list">
+    <ul *ngIf="comments" class="comments-list">
       <app-comment-item
         *ngFor="let comment of comments.data"
         class="comments-list__item"
