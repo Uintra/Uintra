@@ -1,4 +1,4 @@
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\packages\Compent.UBaseline.UI.0.2.15-beta05\build\Compent.UBaseline.UI.props" Condition="Exists('..\..\packages\Compent.UBaseline.UI.0.2.15-beta05\build\Compent.UBaseline.UI.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\..\packages\UmbracoCms.8.4.0\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.8.4.0\build\UmbracoCms.props')" />
@@ -917,7 +917,9 @@
     <Compile Include="Features\Groups\Converters\UintraGroupsDocumentsPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsEditPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsMembersPageViewModelConverter.cs" />
+    <Compile Include="Features\Groups\Converters\UintraGroupsPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsRoomPageViewModelConverter.cs" />
+    <Compile Include="Features\Groups\Converters\UintraMyGroupsPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Helpers\GroupHelper.cs" />
     <Compile Include="Features\Groups\Helpers\IGroupHelper.cs" />
     <Compile Include="Features\Groups\IGroupHeader.cs" />

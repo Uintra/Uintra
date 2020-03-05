@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using UBaseline.Core.Media;
+using UBaseline.Core.Node;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
@@ -9,6 +10,9 @@ using Uintra20.Features.Groups.Links;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Media;
+using Uintra20.Features.Permissions;
+using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Permissions.Models;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 
@@ -23,6 +27,8 @@ namespace Uintra20.Features.Groups.Helpers
         private readonly IImageHelper _imageHelper;
         private readonly IMediaModelService _mediaModelService;
         private readonly ILightboxHelper _lightboxHelper;
+        private readonly INodeModelService _nodeModelService;
+        private readonly IPermissionsService _permissionsService;
 
         public GroupHelper(
             IGroupService groupService, 
@@ -31,7 +37,9 @@ namespace Uintra20.Features.Groups.Helpers
             IIntranetMemberService<IntranetMember> memberService,
             IImageHelper imageHelper,
             IMediaModelService mediaModelService,
-            ILightboxHelper lightboxHelper)
+            ILightboxHelper lightboxHelper,
+            INodeModelService nodeModelService,
+            IPermissionsService permissionsService)
         {
             _groupService = groupService;
             _groupLinkProvider = groupLinkProvider;
@@ -42,6 +50,8 @@ namespace Uintra20.Features.Groups.Helpers
             _mediaModelService = mediaModelService;
             _groupService = groupService;
             _lightboxHelper = lightboxHelper;
+            _nodeModelService = nodeModelService;
+            _permissionsService = permissionsService;
         }
 
         public GroupHeaderViewModel GetHeader(Guid groupId)
@@ -146,6 +156,44 @@ namespace Uintra20.Features.Groups.Helpers
             }
 
             return groupInfo;
+        }
+
+        public GroupLeftNavigationMenuViewModel GroupNavigation()
+        {
+            var rootGroupPage = _nodeModelService.AsEnumerable().OfType<UintraGroupsPageModel>().First();
+
+            var groupPageChildren = _nodeModelService.AsEnumerable().Where(x =>
+                x is IGroupNavigationComposition navigation && navigation.GroupNavigation.ShowInMenu &&
+                x.ParentId == rootGroupPage.Id);
+
+            groupPageChildren = groupPageChildren.Where(x =>
+            {
+                if (x is UintraGroupsCreatePageModel)
+                {
+                    return _permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create,
+                        PermissionResourceTypeEnum.Groups));
+                }
+
+                return true;
+            });
+
+            var menuItems = groupPageChildren.OrderBy(x => ((IGroupNavigationComposition)x).GroupNavigation.SortOrder.Value).Select(x => new GroupLeftNavigationItemViewModel
+            {
+                Title = ((IGroupNavigationComposition)x).GroupNavigation.NavigationTitle,
+                Link = x.Url.ToLinkModel()
+            });
+
+            var result = new GroupLeftNavigationMenuViewModel
+            {
+                Items = menuItems,
+                GroupPageItem = new GroupLeftNavigationItemViewModel
+                {
+                    Link = rootGroupPage.Url.ToLinkModel(),
+                    Title = ((IGroupNavigationComposition)rootGroupPage).GroupNavigation.NavigationTitle
+                }
+            };
+
+            return result;
         }
     }
 }

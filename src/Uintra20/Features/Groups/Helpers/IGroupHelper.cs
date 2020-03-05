@@ -12,5 +12,6 @@ namespace Uintra20.Features.Groups.Helpers
         Task<GroupViewModel> GetGroupViewModelAsync(Guid groupId);
         GroupInfoViewModel GetInfoViewModel(Guid groupId);
         Task<GroupInfoViewModel> GetInfoViewModelAsync(Guid groupId);
+        GroupLeftNavigationMenuViewModel GroupNavigation();
     }
 }

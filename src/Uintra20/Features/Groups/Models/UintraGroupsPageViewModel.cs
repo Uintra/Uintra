@@ -9,5 +9,6 @@ namespace Uintra20.Features.Groups.Models
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
         public GroupNavigationCompositionViewModel GroupNavigation { get; set; }
+        public GroupLeftNavigationMenuViewModel Navigation { get; set; }
     }
 }
