@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { DocumentTableService } from "./document-table.service";
 import { IGroupDocument } from "./document-table.interface";
 import { UintraGroupsService } from "src/app/ui/pages/uintra-groups/documents/uintra-groups-documents-page.service";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-document-table",
@@ -17,26 +18,27 @@ export class DocumentTableComponent implements OnInit {
 
   tableHeader = [
     {
-      text: "Document type",
+      text: this.translate.instant('groupDocuments.Table.Type.lbl'),
       key: "type"
     },
     {
-      text: "Document",
+      text: this.translate.instant('groupDocuments.Table.Name.lbl'),
       key: "name"
     },
     {
-      text: "Added by",
+      text: this.translate.instant('groupDocuments.Table.Creator.lbl'),
       key: "displayedName"
     },
     {
-      text: "Date",
+      text: this.translate.instant('groupDocuments.Table.Date.lbl'),
       key: "createDate"
     }
   ];
 
   constructor(
     private documentTableService: DocumentTableService,
-    private uintraGroupsService: UintraGroupsService
+    private uintraGroupsService: UintraGroupsService,
+    private translate: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -51,7 +53,6 @@ export class DocumentTableComponent implements OnInit {
   getDocuments() {
     this.documentTableService.getGroupDocuments(this.groupId).subscribe(r => {
       this.documents = r;
-      console.log(this.documents);
     });
   }
 
@@ -69,7 +70,7 @@ export class DocumentTableComponent implements OnInit {
   }
 
   onRemove(id: string) {
-    if (confirm("Are you sure?")) {
+    if (confirm(this.translate.instant('groupDocuments.Delete.ConfirmText.lbl'))) {
       this.documentTableService
         .removeDocument(id, this.groupId)
         .subscribe(r => {

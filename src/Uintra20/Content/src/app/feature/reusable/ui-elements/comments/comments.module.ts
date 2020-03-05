@@ -10,6 +10,7 @@ import { SubcommentItemComponent } from './components/subcomment-item/subcomment
 import { CommentHeaderComponent } from './components/comment-header/comment-header.component';
 import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { RouterModule } from '@angular/router';
     LikeButtonModule,
     RouterModule,
     UlinkModule,
-    FormsModule
+    FormsModule,
+    TranslateModule,
   ],
   exports: [
     CommentsComponent

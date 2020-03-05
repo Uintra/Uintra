@@ -5,6 +5,7 @@ using UBaseline.Shared.Node;
 using UBaseline.Shared.PageSettings;
 using UBaseline.Shared.Property;
 using Uintra20.Core.Member.Entities;
+using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Features.News.Models
 {
@@ -20,5 +21,6 @@ namespace Uintra20.Features.News.Models
         public Guid? GroupId { get; set; }
         public bool RequiresGroupHeader { get; set; }
         public bool CanEdit { get; set; }
+        public IActivityLinks Links { get; set; }
     }
 }

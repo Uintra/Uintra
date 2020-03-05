@@ -45,12 +45,25 @@
   font-weight: bold;
   padding-left: 0;
 
-  &__item:not(:last-child) {
+  @media @md-down {
+    padding-right: 0;
+  }
+
+  &__left-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__item {
     margin-right: 25px;
+
+    @media @sm-down {
+      margin-bottom: 5px;
+    }
   }
 
   &__item--settings {
-    margin-left: auto;
+    margin: 0 0 0 auto;
   }
 
   &__item-link {

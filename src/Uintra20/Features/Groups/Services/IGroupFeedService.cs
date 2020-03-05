@@ -5,7 +5,7 @@ using Uintra20.Core.Feed.Services;
 
 namespace Uintra20.Features.Groups.Services
 {
-    public interface IGroupFeedService : IFeedService
+    public interface IGroupFeedService : IFeedSettingsService
     {
         IEnumerable<IFeedItem> GetFeed(Enum type, Guid groupId);
         IEnumerable<IFeedItem> GetFeed(Guid groupId);

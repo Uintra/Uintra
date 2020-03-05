@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GroupDetailsWrapperComponent } from './group-details-wrapper.component';
 import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
 import { RouterModule } from '@angular/router';
+import { BreadcrumbsModule } from 'src/app/shared/ui-elements/breadcrumbs/breadcrumbs.module';
 
 
 
@@ -12,6 +13,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     UlinkModule,
+    BreadcrumbsModule,
   ],
   exports: [GroupDetailsWrapperComponent]
 })

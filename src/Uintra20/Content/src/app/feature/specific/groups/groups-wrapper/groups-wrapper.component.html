@@ -1,16 +1,19 @@
 <div class="groups">
-  <div class="groups-header">
-    <ul *ngIf="tabs" class="tabs">
-      <li *ngFor="let tab of tabs" class="tabs__item">
-        <a
-          [routerLink]="tab.link?.originalUrl | ulink"
-          class="tabs__item-link"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }">
-          {{tab.title}}
-        </a>
-      </li>
-    </ul>
+  <div class="groups-header-wrapper">
+    <div class="groups-header">
+      <app-breadcrumbs [breadcrumbs]="breadcrumbs"></app-breadcrumbs>
+      <ul *ngIf="tabs" class="tabs">
+        <li *ngFor="let tab of tabs" class="tabs__item">
+          <a
+            [routerLink]="tab.link?.originalUrl | ulink"
+            class="tabs__item-link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
+            {{tab.title}}
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
   <ng-content></ng-content>
 </div>

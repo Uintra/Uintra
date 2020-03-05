@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommentsService } from '../../helpers/comments.service';
 import ParseHelper from 'src/app/shared/utils/parse.helper';
-import { CommentActivity } from '../../_constants.js';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ICreator } from 'src/app/shared/interfaces/general.interface';
 import { ILikeData } from '../../../like-button/like-button.interface';
+import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text-editor/helpers/rte-strip-html.service';
 
 @Component({
   selector: 'app-comment-item',
@@ -14,6 +14,7 @@ import { ILikeData } from '../../../like-button/like-button.interface';
 export class CommentItemComponent implements OnInit {
   @Input() data: any;
   @Input() activityType: any;
+  @Input() commentsActivity: any;
   @Output() deleteComment = new EventEmitter();
   @Output() editComment = new EventEmitter();
   @Output() replyComment = new EventEmitter();
@@ -21,29 +22,24 @@ export class CommentItemComponent implements OnInit {
   isEditing = false;
   editedValue: string;
   initialValue: any;
-  isReply: boolean;
+  isReply: boolean = false;
   subcommentDescription: string;
   likeModel: ILikeData;
   commentCreator: ICreator;
   sanitizedContent: SafeHtml;
 
   get isSubcommentSubmitDisabled() {
-    if (!this.subcommentDescription) {
-      return true;
-    }
-
-    return false;
+    return this.stripHTML.isEmpty(this.subcommentDescription);
   }
 
   get isEditSubmitDisabled() {
-    if (!this.editedValue) {
-      return true;
-    }
-
-    return false;
+    return this.stripHTML.isEmpty(this.editedValue);
   }
 
-  constructor(private commentsService: CommentsService, private sanitizer: DomSanitizer) { }
+  constructor(
+    private commentsService: CommentsService,
+    private sanitizer: DomSanitizer,
+    private stripHTML: RTEStripHTMLService) { }
 
   ngOnInit() {
     this.editedValue = this.data.text;
@@ -53,7 +49,7 @@ export class CommentItemComponent implements OnInit {
     this.likeModel = {
       likedByCurrentUser: !!parsed.likeModel.likedByCurrentUser,
       id: this.data.id,
-      activityType: CommentActivity,
+      activityType: this.commentsActivity,
       likes: parsed.likes,
     };
   }

@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 using Compent.CommandBus;
 using Compent.Extensions;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
-using Uintra20.Core.Activity.Models;
-using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
-using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.CentralFeed.Enums;
@@ -20,7 +16,6 @@ using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview;
-using Uintra20.Features.Links;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media;
 using Uintra20.Features.Notification;
@@ -29,7 +24,6 @@ using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Infrastructure.Caching;
-using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
 using static Uintra20.Features.Notification.Configuration.NotificationTypeEnum;
 
@@ -50,13 +44,9 @@ namespace Uintra20.Features.News
         //private readonly IDocumentIndexer _documentIndexer;
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IGroupActivityService _groupActivityService;
-        private readonly IActivityLinkService _linkService;
         private readonly INotifierDataBuilder _notifierDataBuilder;
         private readonly IActivityLocationService _activityLocationService;
         private readonly IGroupService _groupService;
-        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
-        private readonly IIntranetLocalizationService _localizationService;
-        private readonly IFeedActivityHelper _feedActivityHelper;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -71,13 +61,10 @@ namespace Uintra20.Features.News
             IActivityTypeProvider activityTypeProvider,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
-            IActivityLinkService linkService,
             IActivityLocationService activityLocationService,
             IActivityLinkPreviewService activityLinkPreviewService,
             IGroupService groupService,
-            INotifierDataBuilder notifierDataBuilder,
-            IIntranetLocalizationService localizationService,
-            IFeedActivityHelper feedActivityHelper)
+            INotifierDataBuilder notifierDataBuilder)
             : base(intranetActivityRepository, cacheService, intranetMemberService,
                 activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
                 permissionsService)
@@ -90,63 +77,23 @@ namespace Uintra20.Features.News
             //_documentIndexer = documentIndexer;
             _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
-            _linkService = linkService;
             _groupService = groupService;
             _notifierDataBuilder = notifierDataBuilder;
             _activityLocationService = activityLocationService;
-            _intranetMemberService = intranetMemberService;
-            _localizationService = localizationService;
-            _feedActivityHelper = feedActivityHelper;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.News;
 
         public override Enum PermissionActivityType => PermissionResourceTypeEnum.News;
 
-        public override IntranetActivityPreviewModelBase GetPreviewModel(Guid activityId, bool showGroupTitle)
-        {
-            var news = Get(activityId);
-
-            var links = _linkService.GetLinks(activityId);
-
-            var currentMember = _intranetMemberService.GetCurrentMember();
-
-            var viewModel = news.Map<IntranetActivityPreviewModelBase>();
-            viewModel.CanEdit = CanEdit(news);
-            viewModel.Links = links;
-            viewModel.Owner = _intranetMemberService.Get(news).ToViewModel();
-            viewModel.IsPinActual = IsPinActual(news);
-            viewModel.Type = _localizationService.Translate(news.Type.ToString());
-            viewModel.LikedByCurrentUser = news.Likes.Any(x => x.UserId == currentMember.Id);
-            viewModel.CommentsCount = _commentsService.GetCount(viewModel.Id);
-            viewModel.IsGroupMember = !news.GroupId.HasValue || currentMember.GroupIds.Contains(news.GroupId.Value);
-            var likes = _likesService.GetLikeModels(news.Id);
-            viewModel.Likes = likes;
-            viewModel.GroupInfo = showGroupTitle ? _feedActivityHelper.GetGroupInfo(activityId) : null;
-
-            var dates = news.PublishDate.ToDateTimeFormat().ToEnumerable().ToList();
-
-            if (news.UnpublishDate.HasValue)
-            {
-                dates.Add(news.UnpublishDate.Value.ToDateTimeFormat());
-            }
-
-            viewModel.Dates = dates;
-            DependencyResolver.Current.GetService<ILightboxHelper>().FillGalleryPreview(viewModel, news.MediaIds);
-
-            return viewModel;
-        }
-
         public MediaSettings GetMediaSettings()
         {
             return _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.NewsContent);
         }
-
         public FeedSettings GetFeedSettings() =>
             new FeedSettings
             {
                 Type = CentralFeedTypeEnum.News,
-                Controller = "News",
                 HasSubscribersFilter = false,
                 HasPinnedFilter = true,
             };

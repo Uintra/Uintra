@@ -5,6 +5,7 @@ import { UbaselineCoreModule } from '@ubaseline/next';
 import { ProfilePage } from './profile-page.component';
 import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
 import { UserAvatarModule } from 'src/app/feature/reusable/ui-elements/user-avatar/user-avatar.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ProfilePage],
@@ -13,7 +14,8 @@ import { UserAvatarModule } from 'src/app/feature/reusable/ui-elements/user-avat
     RouterModule.forChild([{ path: '', component: ProfilePage }]),
     UbaselineCoreModule,
     UserAvatarModule,
-    UlinkModule
+    UlinkModule,
+    TranslateModule,
   ],
   entryComponents: [ProfilePage]
 })

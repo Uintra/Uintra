@@ -6,6 +6,7 @@ import { RouterResolverService } from 'src/app/shared/services/general/router-re
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { TITLE_MAX_LENGTH } from 'src/app/shared/constants/activity/activity-create.const';
 import { GroupsService } from '../groups.service';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface IEditGroupData {
   id?: string;
@@ -44,6 +45,7 @@ export class GroupsFormComponent {
     private groupsService: GroupsService,
     private router: Router,
     private hasDataChangedService: HasDataChangedService,
+    private translate: TranslateService,
   ) { }
 
   ngOnInit() {
@@ -153,5 +155,25 @@ export class GroupsFormComponent {
 
   getTitleValidationState() {
     return (this.isShowValidation && !this.title) || (this.isShowValidation && this.title.length > TITLE_MAX_LENGTH)
+  }
+
+  getFormTitleLbl() {
+    return this.edit ? this.translate.instant('groupEdit.PageTitle.lbl') : this.translate.instant('groupCreate.FormTitle.lbl');
+  }
+
+  getGroupTitleLbl() {
+    return this.edit ? this.translate.instant('groupEdit.Title.lbl') : this.translate.instant('groupCreate.GroupTitle.lbl');
+  }
+
+  getDescriptionLbl() {
+    return this.edit ? this.translate.instant('groupEdit.Description.lbl') : this.translate.instant('groupCreate.Description.lbl');
+  }
+
+  getGroupImageLbl() {
+    return this.edit ? this.translate.instant('groupEdit.GroupImage.lbl') : this.translate.instant('groupCreate.GroupImage.lbl');
+  }
+
+  getSubmitBtn() {
+    return this.edit ? this.translate.instant('groupEdit.Update.btn') : this.translate.instant('groupCreate.Create.btn');
   }
 }

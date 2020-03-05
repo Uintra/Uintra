@@ -10,6 +10,7 @@ import { DragulaModule } from "ng2-dragula";
 import { UserNavMobileComponent } from './components/user-nav-mobile/user-nav-mobile.component';
 import { GroupsComponent } from './components/groups/groups.component';
 import { UserAvatarModule } from 'src/app/feature/reusable/ui-elements/user-avatar/user-avatar.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UserAvatarModule } from 'src/app/feature/reusable/ui-elements/user-avat
     RouterModule,
     UlinkModule,
     DragulaModule.forRoot(),
-    UserAvatarModule
+    UserAvatarModule,
+    TranslateModule,
   ],
   providers: [CookieService],
   exports: [LeftNavigationComponent]

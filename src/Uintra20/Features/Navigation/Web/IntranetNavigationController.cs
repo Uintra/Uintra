@@ -67,6 +67,12 @@ namespace Uintra20.Features.Navigation.Web
             return result;
         }
 
+        [HttpGet]
+        public virtual IEnumerable<BreadcrumbItemViewModel> Breadcrumbs()
+        {
+            return _navigationModelsBuilder.GetBreadcrumbsItems().ToList();
+        }
+
         private IEnumerable<SharedLinkApiViewModel> GetSharedLinks()
         {
             var sharedLinks = _nodeModelService.AsEnumerable().OfType<SharedLinkItemModel>().Where(sl => sl.Links.Value != null);
@@ -117,7 +123,7 @@ namespace Uintra20.Features.Navigation.Web
 
             return result;
         }
-
+        
         protected virtual async Task<IEnumerable<MyLinkItemViewModel>> GetMyLinksAsync()
         {
             var linkModels = await _myLinksHelper.GetMenuAsync();
