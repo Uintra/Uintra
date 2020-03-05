@@ -2,6 +2,7 @@
   <div class="page-wrapper">
     <div class="group-details-padding row-flex">
       <div *ngIf="data" class="col-md-8">
+        <app-social-create *ngIf="socialCreateData?.canCreate" [data]="socialCreateData"></app-social-create>
         <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
       </div>
       <div *ngIf="parsedData" class="col-md-4">

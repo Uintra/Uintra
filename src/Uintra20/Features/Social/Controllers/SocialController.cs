@@ -24,7 +24,6 @@ using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Permissions.Models;
 using Uintra20.Features.Notification;
-using Uintra20.Features.Social.Edit.Models;
 using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.Extensions;

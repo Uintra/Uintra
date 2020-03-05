@@ -5,7 +5,6 @@ using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.Groups.Links;
-using Uintra20.Features.Social.Edit.Models;
 using Uintra20.Features.Social.Models;
 using Uintra20.Infrastructure.Extensions;
 
