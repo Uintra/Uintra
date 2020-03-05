@@ -74,7 +74,9 @@ namespace Uintra20.Features.Navigation.Web
         {
             var sharedLinks = _nodeModelService.AsEnumerable().OfType<SharedLinkItemModel>().Where(sl => sl.Links.Value != null);
 
-            var result = sharedLinks.OrderBy(sl => sl.Sort).Select(MapSharedLinkItemModel);
+            sharedLinks = sharedLinks.ToArray();
+
+            var result = sharedLinks.OrderBy(sl => sl.Sort.Value).Select(MapSharedLinkItemModel);
             return result;
         }
 
