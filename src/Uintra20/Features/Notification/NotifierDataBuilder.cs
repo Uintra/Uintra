@@ -162,9 +162,6 @@ namespace Uintra20.Features.Notification
                 case CommentEdited:
                     return OwnerId(activity);
 
-                //case CommentLikeAdded when activity is PagePromotionBase:
-                //    return OwnerId(comment);
-
                 case CommentLikeAdded:
                     return currentMember.Id == comment.UserId ? new List<Guid>() : OwnerId(comment);
 
