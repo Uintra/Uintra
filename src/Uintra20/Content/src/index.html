@@ -1,9 +1,6 @@
-@using Compent.Shared.Extensions.Bcl @model UBaseline.Core.IndexPage.IndexPageModel
 <!doctype html>
 <html lang="en">
 <head>
-    @Html.Raw(Model.HeaderScript)
-    @Html.Raw(Model.HeaderLocalScript)
     <meta charset="utf-8">
     <base href="/">
     <title>@Model.Title</title>
@@ -14,7 +11,7 @@
         <meta property="og:description" content="@Model.MetaData.SocialDescription">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="wwwroot/favicon.ico">
-    
+
 </head>
 <body>
     <app-root></app-root>

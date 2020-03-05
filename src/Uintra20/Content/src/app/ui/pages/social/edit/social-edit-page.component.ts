@@ -57,7 +57,7 @@ export class SocialEditPageComponent {
         hiddenImagesCount: parsedSocialEdit.lightboxPreviewModel.hiddenImagesCount
       },
       id: parsedSocialEdit.id,
-      groupId: parsedSocialEdit.groupId,
+      groupHeader: parsedSocialEdit.groupHeader,
       links: parsedSocialEdit.links,
       canDelete: !!parsedSocialEdit.canDelete,
       canEdit: !!parsedSocialEdit.canEdit,

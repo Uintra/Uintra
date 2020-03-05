@@ -14,8 +14,6 @@ namespace Uintra20
 		{
 			JobManager.JobFactory = DependencyResolver.Current.GetService<IJobFactory>();
 			JobManager.Initialize(new JobsRegistry());
-
-            UmbracoEventsModule.RegisterEvents();
         }
 		public void Terminate()
 		{

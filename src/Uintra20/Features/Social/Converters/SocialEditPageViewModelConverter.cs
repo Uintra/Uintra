@@ -3,6 +3,7 @@ using System.Web;
 using UBaseline.Core.Localization;
 using UBaseline.Core.Node;
 using Uintra20.Core.Controls.LightboxGallery;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Links;
 using Uintra20.Features.Social.Models;
 using Uintra20.Features.Media.Strategies.Preset;
@@ -20,6 +21,7 @@ namespace Uintra20.Features.Social.Converters
         private readonly IUserTagProvider _userTagProvider;
         private readonly ILightboxHelper _lightboxHelper;
         private readonly IFeedLinkService _feedLinkService;
+        private readonly IGroupHelper _groupHelper;
 
         public SocialEditPageViewModelConverter(
             ILocalizationModelService localizationModelService,
@@ -27,7 +29,8 @@ namespace Uintra20.Features.Social.Converters
             IUserTagService userTagService,
             ILightboxHelper lightboxHelper,
             IUserTagProvider userTagProvider,
-            IFeedLinkService feedLinkService)
+            IFeedLinkService feedLinkService,
+            IGroupHelper groupHelper)
         {
             _localizationModelService = localizationModelService;
             _socialService = socialService;
@@ -35,6 +38,7 @@ namespace Uintra20.Features.Social.Converters
             _lightboxHelper = lightboxHelper;
             _userTagProvider = userTagProvider;
             _feedLinkService = feedLinkService;
+            _groupHelper = groupHelper;
         }
 
         public void Map(
@@ -71,8 +75,7 @@ namespace Uintra20.Features.Social.Converters
             if (!Guid.TryParse(groupIdStr, out var groupId) || social.GroupId != groupId)
                 return;
 
-            viewModel.RequiresGroupHeader = true;
-            viewModel.GroupId = groupId;
+            viewModel.GroupHeader = _groupHelper.GetHeader(groupId);
         }
     }
 }

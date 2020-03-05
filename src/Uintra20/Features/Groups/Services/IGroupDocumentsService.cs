@@ -17,5 +17,7 @@ namespace Uintra20.Features.Groups.Services
         Task<GroupDocument> GetAsync(Guid documentId);
         void Delete(GroupDocument document);
         Task DeleteAsync(GroupDocument document);
+        bool CanUpload(Guid groupId);
+        Task<bool> CanUploadAsync(Guid groupId);
     }
 }

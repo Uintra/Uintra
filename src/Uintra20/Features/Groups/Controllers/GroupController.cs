@@ -128,22 +128,6 @@ namespace Uintra20.Features.Groups.Controllers
             return groups;
         }
 
-        [HttpGet]
-        public async Task<GroupHeaderViewModel> Header(Guid groupId)
-        {
-            var group = await _groupService.GetAsync(groupId);
-            var canEdit = await _groupService.CanEditAsync(group);
-
-            var links = _groupLinkProvider.GetGroupLinks(groupId, canEdit);
-
-            return new GroupHeaderViewModel
-            {
-                Title = group.Title,
-                RoomPageLink = links.GroupRoomPage,
-                GroupLinks = links
-            };
-        }
-
         [HttpPost]
         public virtual async Task<IHttpActionResult> Hide(Guid id)
         {

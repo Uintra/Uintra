@@ -7,6 +7,7 @@ using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.Preset;
@@ -26,6 +27,7 @@ namespace Uintra20.Features.News.Converters
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly ILightboxHelper _lightBoxHelper;
         private readonly IPermissionsService _permissionsService;
+        private readonly IGroupHelper _groupHelper;
 
         public UintraNewsDetailsPageViewModelConverter(
             IUserTagService userTagService,
@@ -33,7 +35,8 @@ namespace Uintra20.Features.News.Converters
             INewsService<Entities.News> newsService,
             IIntranetMemberService<IntranetMember> memberService,
             ILightboxHelper lightBoxHelper,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService,
+            IGroupHelper groupHelper)
         {
             _userTagService = userTagService;
             _feedLinkService = feedLinkService;
@@ -41,6 +44,7 @@ namespace Uintra20.Features.News.Converters
             _memberService = memberService;
             _lightBoxHelper = lightBoxHelper;
             _permissionsService = permissionsService;
+            _groupHelper = groupHelper;
         }
 
         public void Map(UintraNewsDetailsPageModel node, UintraNewsDetailsPageViewModel viewModel)
@@ -70,8 +74,7 @@ namespace Uintra20.Features.News.Converters
             if (!Guid.TryParse(groupIdStr, out var groupId) || news.GroupId != groupId)
                 return;
 
-            viewModel.RequiresGroupHeader = true;
-            viewModel.GroupId = groupId;
+            viewModel.GroupHeader = _groupHelper.GetHeader(groupId);
         }
 
         private NewsViewModel GetDetails(Entities.News news)

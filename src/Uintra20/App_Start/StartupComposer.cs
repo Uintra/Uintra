@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Extensions.Configuration;
 using System.Web;
 using UBaseline.Core.Startup;
+using Uintra20.Core.UmbracoEventServices;
 using Uintra20.Models.UmbracoIdentity;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
@@ -57,6 +58,7 @@ namespace Uintra20
 			composition.Components().Append<UintraApplicationComponent>();
 
 			MapperConfig.RegisterMappings(composition);
+            UmbracoEventsModule.RegisterEvents();
         }
     }
 
