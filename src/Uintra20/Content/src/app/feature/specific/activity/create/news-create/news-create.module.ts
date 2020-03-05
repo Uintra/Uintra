@@ -47,15 +47,6 @@ import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
     LocationPickerModule,
     NewsFormModule,
     UlinkModule,
-    GroupDetailsWrapperModule,
-    TranslateModule,
-  ],
-  providers: [
-    { provide: AS_DYNAMIC_COMPONENT, useValue: ActivityCreatePanel },
-    {
-      provide: DROPZONE_CONFIG,
-      useValue: DEFAULT_DROPZONE_CONFIG
-    }
   ],
   exports: [NewsCreateComponent]
 })
