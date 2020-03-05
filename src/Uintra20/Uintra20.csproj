@@ -1185,9 +1185,6 @@
     <Compile Include="Controllers\MemberApiController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
-    <Compile Include="Core\Activity\Models\ActivityCreatePanelModel.cs" />
-    <Compile Include="Core\Activity\Models\ActivityCreatePanelViewModel.cs" />
-    <Compile Include="Core\Activity\Converters\ActivityCreatePanelViewModelConverter.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
     <Compile Include="Core\Activity\Entities\IntranetActivity.cs" />
     <Compile Include="Core\Activity\Helpers\ActivityPageHelper.cs" />
