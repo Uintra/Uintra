@@ -7,7 +7,6 @@
                    big></app-user-avatar>
   <div class="comment__container">
     <app-comment-header [data]="data"
-                        [isReply]="true"
                         (toggleReply)="onToggleReply()"
                         (toggleEditingMode)="toggleEditingMode()"
                         (commentDelete)="onCommentDelete($event)">
@@ -42,6 +41,7 @@
                            (deleteComment)="onCommentDelete($event)"></app-subcomment-item>
     </div>
     <app-rich-text-editor *ngIf="isReply"
+                          [isEditing]="false"
                           [(ngModel)]="subcommentDescription"
                           [isDropzone]="false"
                           placeholder="Reply to comment...">

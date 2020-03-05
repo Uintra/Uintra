@@ -5,7 +5,6 @@ using UBaseline.Core.Controllers;
 using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
 using Uintra20.Core.HomePage;
-using Uintra20.Core.Member.Helpers;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure.Extensions;
 
@@ -15,16 +14,13 @@ namespace Uintra20.Features.Navigation.Web
     {
         private readonly INavigationModelsBuilder _navigationModelsBuilder;
         private readonly INodeModelService _nodeModelService;
-        private readonly IMemberServiceHelper _memberServiceHelper;
 
         public IntranetNavigationController(
             INavigationModelsBuilder navigationModelsBuilder,
-            INodeModelService nodeModelService,
-            IMemberServiceHelper memberServiceHelper)
+            INodeModelService nodeModelService)
         {
             _navigationModelsBuilder = navigationModelsBuilder;
             _nodeModelService = nodeModelService;
-            _memberServiceHelper = memberServiceHelper;
         }
 
         [HttpGet]
@@ -48,7 +44,7 @@ namespace Uintra20.Features.Navigation.Web
         [HttpGet]
         public virtual MenuViewModel LeftNavigation()
         {
-            IEnumerable<TreeNavigationItemModel> leftNavigation = _navigationModelsBuilder.GetLeftSideNavigation();
+            var leftNavigation = _navigationModelsBuilder.GetLeftSideNavigation();
             var result = new MenuViewModel { MenuItems = leftNavigation.Select(MapMenuItem) };
 
             return result;
@@ -61,6 +57,11 @@ namespace Uintra20.Features.Navigation.Web
 
             var result = sharedLinks.Select(MapSharedLinkItemModel).OrderBy(sl => sl.Sort);
             return result;
+        }
+
+        public virtual IEnumerable<BreadcrumbItemViewModel> Breadcrumbs()
+        {
+            return _navigationModelsBuilder.GetBreadcrumbsItems().ToList();
         }
 
         private SharedLinkApiViewModel MapSharedLinkItemModel(SharedLinkItemModel model)

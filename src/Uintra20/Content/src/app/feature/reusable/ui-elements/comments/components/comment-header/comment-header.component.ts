@@ -7,7 +7,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CommentHeaderComponent implements OnInit {
   @Input() data: any;
-  @Input() isReply: any;
   @Output() toggleReply = new EventEmitter();
   @Output() toggleEditingMode = new EventEmitter();
   @Output() commentDelete = new EventEmitter();

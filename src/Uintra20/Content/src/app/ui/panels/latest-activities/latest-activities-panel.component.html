@@ -7,11 +7,11 @@
                 *ngFor="let cell of activityCells"
                 class="block-item">
                 <latest-activity
-                    [activityType]="cell.get().activity.get().type.get()"
-                    [activityDate]="cell.get().activity.get().dates.get()[0]"
-                    [activityId]="cell.get().activity.get().id.get()"
-                    [activityLinks]="cell.get().activity.get().links.get()"
-                    [activityDescription]="cell.get().activity.get().description.get()">
+                    [activityType]="cell.get().type.get()"
+                    [activityDate]="cell.get().dates.get()[0]"
+                    [activityId]="cell.get().id.get()"
+                    [activityLinks]="cell.get().links.get()"
+                    [activityDescription]="cell.get().description.get()">
                 </latest-activity>
             </div>
             <a

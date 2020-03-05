@@ -27,7 +27,7 @@ namespace Uintra20.Core.User.Web
         [HttpGet]
         public virtual IEnumerable<UserPickerModel> NotAssignedToMemberUsers(int? selectedUserId)
         {
-            var users = _userService.GetAll(0, int.MaxValue, out _);
+            var users = _userService.GetAll(0, int.MaxValue, out _).Where( i => i.Id != -1);
 
             var relatedUserIdsDictionary = _memberServiceHelper.GetRelatedUserIdsForMembers(_memberService.GetAllMembers());
             var unassignedUsers = users.Where(u => !relatedUserIdsDictionary.Values.Contains(u.Id) || u.Id == selectedUserId);

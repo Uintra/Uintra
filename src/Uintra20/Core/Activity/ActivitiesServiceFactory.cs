@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using UBaseline.Core.Extensions;
 using Uintra20.Core.Activity.Helpers;
 using Umbraco.Core.Composing;
@@ -26,6 +27,11 @@ namespace Uintra20.Core.Activity
         {
             var services= Current.Factory.EnsureScope(s=>(IEnumerable<TService>)s.GetAllInstances(typeof(TService)));
             return services.FirstOrDefault(s => Equals(s.Type, type));
+        }
+
+        public IEnumerable<TService> GetServices<TService>() where TService : class, ITypedService
+        {
+            return DependencyResolver.Current.GetServices<TService>();
         }
     }
 }

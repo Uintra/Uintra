@@ -3,7 +3,7 @@ using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using UBaseline.Shared.Node;
 using Uintra20.Core.Activity;
-using Uintra20.Features.Social.Details.Models;
+using Uintra20.Features.Social.Models;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 
@@ -73,7 +73,7 @@ namespace Uintra20.Infrastructure.Providers
             {
                 case (int)IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsDetailsPage;
                 case (int)IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsDetailsPage;
-                case (int)IntranetActivityTypeEnum.Social: return GetUbaselinePage<SocialDetailsPageModel>(DocumentTypeAliasConstants.SocialDetailsPage);
+                case (int)IntranetActivityTypeEnum.Social: return DocumentTypeAliasConstants.SocialDetailsPage;
                 default:
                     return null;
             }

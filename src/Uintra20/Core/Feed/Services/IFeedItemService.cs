@@ -11,7 +11,6 @@ namespace Uintra20.Core.Feed.Services
         Enum Type { get; }
         FeedSettings GetFeedSettings();
         IEnumerable<IFeedItem> GetItems();
-
         Task<IEnumerable<IFeedItem>> GetItemsAsync();
     }
 }
