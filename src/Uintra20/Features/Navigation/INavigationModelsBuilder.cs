@@ -9,5 +9,6 @@ namespace Uintra20.Features.Navigation
         IEnumerable<TreeNavigationItemModel> GetLeftSideNavigation();
         TopNavigationModel GetMobileNavigation();
         TopNavigationModel GetTopNavigationModel();
+        IEnumerable<BreadcrumbItemViewModel> GetBreadcrumbsItems();
     }
 }

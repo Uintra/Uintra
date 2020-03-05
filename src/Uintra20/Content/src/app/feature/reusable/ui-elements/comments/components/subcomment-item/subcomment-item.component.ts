@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ILikeData } from '../../../like-button/like-button.interface.js';
+import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text-editor/helpers/rte-strip-html.service.js';
 
 @Component({
   selector: 'app-subcomment-item',
@@ -21,14 +22,10 @@ export class SubcommentItemComponent implements OnInit {
   likeModel: ILikeData;
 
   get isEditSubmitDisabled() {
-    if (!this.editedValue) {
-      return true;
-    }
-
-    return false;
+    return this.stripHTML.isEmpty(this.editedValue);
   }
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer, private stripHTML: RTEStripHTMLService) { }
 
   public ngOnInit(): void {
     this.editedValue = this.data.text;

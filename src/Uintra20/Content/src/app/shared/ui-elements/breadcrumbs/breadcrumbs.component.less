@@ -1,0 +1,35 @@
+@import 'base.less';
+
+.breadcrumbs {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &__item {
+    display: inline;
+
+    &-text {
+      display: inline;
+      color: @body-text-color;
+
+      &--link {
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+}
+
+.icon-linkarrow {
+  font-size: 13px;
+  color: @border-color;
+  margin: 0 4px;
+}
