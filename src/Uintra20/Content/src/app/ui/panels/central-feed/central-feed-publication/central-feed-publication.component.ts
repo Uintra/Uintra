@@ -8,6 +8,7 @@ import {
 } from "src/app/feature/specific/activity/activity.interfaces";
 import { ILikeData } from "src/app/feature/reusable/ui-elements/like-button/like-button.interface";
 import { ImageGalleryService } from "src/app/feature/reusable/ui-elements/image-gallery/image-gallery.service";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-central-feed-publication",
@@ -34,7 +35,7 @@ export class CentralFeedPublicationComponent implements OnInit {
   documents: Array<IDocument> = new Array<IDocument>();
 
   get commentsCount() {
-    return this.publication.activity.commentsCount || "Comment";
+    return this.publication.commentsCount || "Comment";
   }
 
   likeData: ILikeData;
@@ -43,29 +44,30 @@ export class CentralFeedPublicationComponent implements OnInit {
     private imageGalleryService: ImageGalleryService,
     private router: Router,
     private sanitizer: DomSanitizer,
-    private mq: MqService
+    private mq: MqService,
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
     this.deviceWidth = window.innerWidth;
-    this.publication.activity.description = this.sanitizer.bypassSecurityTrustHtml(
-      this.publication.activity.description
+    this.publication.description = this.sanitizer.bypassSecurityTrustHtml(
+      this.publication.description
     );
-    this.medias = Object.values(this.publication.activity.mediaPreview.medias);
+    this.medias = Object.values(this.publication.mediaPreview.medias);
     this.countToDisplay =
       this.medias.length > 2
         ? this.getItemsCountToDisplay()
         : this.medias.length;
     this.additionalImages = this.medias.length - this.countToDisplay;
     this.documents = Object.values(
-      this.publication.activity.mediaPreview.otherFiles
+      this.publication.mediaPreview.otherFiles
     );
     this.documentsCount = this.documents.length;
     this.likeData = {
-      likedByCurrentUser: this.publication.activity.likedByCurrentUser,
-      id: this.publication.activity.id,
-      activityType: this.publication.activity.activityType,
-      likes: this.publication.activity.likes
+      likedByCurrentUser: this.publication.likedByCurrentUser,
+      id: this.publication.id,
+      activityType: this.publication.activityType,
+      likes: this.publication.likes
     };
   }
 
@@ -80,15 +82,15 @@ export class CentralFeedPublicationComponent implements OnInit {
   }
 
   getPublicationDate() {
-    return this.publication.activity.dates.length
-      ? this.publication.activity.dates[0]
+    return this.publication.dates.length
+      ? this.publication.dates[0]
       : "";
   }
 
   checkForRightRoute(e) {
     if (!e.target.href) {
       this.router.navigate(["/social-details"], {
-        queryParams: { id: this.publication.activity.id }
+        queryParams: { id: this.publication.id }
       });
     }
   }
@@ -99,5 +101,11 @@ export class CentralFeedPublicationComponent implements OnInit {
     }
 
     return 3;
+  }
+
+  getDocumentsText() {
+    return this.documentsCount > 1
+      ? this.translate.instant('lightboxGallery.Count.Many.lbl')
+      : this.translate.instant('lightboxGallery.Count.One.lbl');
   }
 }

@@ -1,6 +1,7 @@
 import { ITagData } from "../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { ActivityEnum } from "src/app/shared/enums/activity-type.enum";
 import { IULink } from 'src/app/shared/interfaces/general.interface';
+import { UmbracoFlatPropertyModel } from '@ubaseline/next';
 import { IGroupDetailsHeaderData } from '../groups/groups.interface';
 
 export interface ISocialCreateModel {
@@ -130,4 +131,15 @@ interface IActivityLinks {
   create: IULink;
   owner: IULink;
   detailsNoId: IULink;
+}
+
+export interface IActivityCreatePanel {
+  contentTypeAlias: UmbracoFlatPropertyModel;
+  creator: UmbracoFlatPropertyModel;
+  dates: UmbracoFlatPropertyModel;
+  tabType: UmbracoFlatPropertyModel;
+  tags: UmbracoFlatPropertyModel;
+  activityType: UmbracoFlatPropertyModel;
+
+  members: UmbracoFlatPropertyModel;
 }

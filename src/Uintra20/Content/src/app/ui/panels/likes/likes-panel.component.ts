@@ -11,6 +11,7 @@ export interface ILikesPanelData {
   showTitle: boolean;
   likes: any;
   contentTypeAlias: string;
+  isGroupMember: boolean;
 }
 
 @Component({
@@ -23,6 +24,7 @@ export class LikesPanel {
   data: any;
   panelData: ILikesPanelData;
   likeData: ILikeData;
+  isDisabled: boolean;
   constructor(
     private route: ActivatedRoute) {
     this.route.data.subscribe(data => this.data = data);
@@ -36,5 +38,6 @@ export class LikesPanel {
       likes: Object.values(this.panelData.likes),
       activityType: this.panelData.activityType
     };
+    this.isDisabled = this.panelData.isGroupMember;
   }
 }

@@ -6,6 +6,7 @@ import { RichTextEditorModule } from '../../../reusable/inputs/rich-text-editor/
 import { FormsModule } from '@angular/forms';
 import { DropzoneWrapperModule } from '../../../reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
 import { DropzoneExistingImagesModule } from '../../../reusable/ui-elements/dropzone-existing-images/dropzone-existing-images.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -18,6 +19,7 @@ import { DropzoneExistingImagesModule } from '../../../reusable/ui-elements/drop
     FormsModule,
     DropzoneWrapperModule,
     DropzoneExistingImagesModule,
+    TranslateModule,
   ],
   exports: [GroupsFormComponent]
 })

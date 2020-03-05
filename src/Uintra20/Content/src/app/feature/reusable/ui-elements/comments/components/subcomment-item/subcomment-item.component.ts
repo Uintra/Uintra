@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { CommentActivity } from '../../_constants.js';
 import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ILikeData } from '../../../like-button/like-button.interface.js';
+import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text-editor/helpers/rte-strip-html.service.js';
 
 @Component({
   selector: 'app-subcomment-item',
@@ -12,6 +12,7 @@ import { ILikeData } from '../../../like-button/like-button.interface.js';
 export class SubcommentItemComponent implements OnInit {
   @Input() data: any;
   @Input() activityType: any;
+  @Input() commentsActivity: any;
   @Output() submitEditedValue = new EventEmitter();
   @Output() deleteComment = new EventEmitter();
 
@@ -21,14 +22,10 @@ export class SubcommentItemComponent implements OnInit {
   likeModel: ILikeData;
 
   get isEditSubmitDisabled() {
-    if (!this.editedValue) {
-      return true;
-    }
-
-    return false;
+    return this.stripHTML.isEmpty(this.editedValue);
   }
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer, private stripHTML: RTEStripHTMLService) { }
 
   public ngOnInit(): void {
     this.editedValue = this.data.text;
@@ -37,7 +34,7 @@ export class SubcommentItemComponent implements OnInit {
     this.likeModel = {
       likedByCurrentUser: !!parsed.likeModel.likedByCurrentUser,
       id: this.data.id,
-      activityType: CommentActivity,
+      activityType: this.commentsActivity,
       likes: parsed.likes,
     };
   }

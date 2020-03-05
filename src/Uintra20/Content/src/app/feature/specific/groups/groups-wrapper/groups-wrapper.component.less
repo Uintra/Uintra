@@ -1,21 +1,34 @@
 @import 'base.less';
 
-.tabs {
-  display: none;
-  position: relative;
-  font-size: 20px;
-  line-height: 22px;
+.groups-header {
   max-width: 1552px;
   margin: 0 auto;
   padding: 15px 20px 20px;
 
   @media @md-up {
-    display: flex;
     padding: 15px 0 20px 330px;
   }
 
   @media @lg-up {
     padding-left: 355px;
+  }
+
+  &-wrapper {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    background-color: @main-color;
+  }
+}
+
+.tabs {
+  display: flex;
+  font-size: 20px;
+  line-height: 22px;
+
+  @media @md-down {
+    display: none;
   }
 
   &__item:not(:last-child) {
@@ -31,12 +44,4 @@
       color: @heading-bg;
     }
   }
-}
-
-.groups-header {
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  right: 0;
-  background-color: @main-color;
 }

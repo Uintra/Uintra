@@ -9,6 +9,7 @@ import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
 import { NotificationCountComponent } from './notification-count/notification-count.component';
 import { PinActivityModule } from '../activity/pin-activity/pin-activity.module';
 import { ClickOutsideModule } from 'src/app/shared/directives/click-outside/click-outside.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [NavNotificationsComponent, NotificationsItemComponent, NotificationCountComponent],
@@ -19,7 +20,8 @@ import { ClickOutsideModule } from 'src/app/shared/directives/click-outside/clic
     RouterModule,
     ClickOutsideModule,
     UlinkModule,
-    PinActivityModule
+    PinActivityModule,
+    TranslateModule,
   ],
   exports: [ NavNotificationsComponent, NotificationsItemComponent ]
 })

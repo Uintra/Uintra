@@ -12,6 +12,7 @@ import { DropzoneWrapperModule } from "src/app/feature/reusable/ui-elements/drop
 import { GroupDetailsWrapperModule } from "src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module";
 import { RichTextEditorModule } from "src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.module";
 import { DropzoneExistingImagesModule } from 'src/app/feature/reusable/ui-elements/dropzone-existing-images/dropzone-existing-images.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [SocialEditPageComponent],
@@ -38,7 +39,8 @@ import { DropzoneExistingImagesModule } from 'src/app/feature/reusable/ui-elemen
           maxLength: MAX_LENGTH
         }
       }
-    })
+    }),
+    TranslateModule,
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: SocialEditPageComponent }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GroupsService } from '../groups.service';
+import { IBreadcrumbsItem } from '../groups.interface';
 import { IUlinkWithTitle } from 'src/app/shared/interfaces/general.interface';
 import { IGroupDetailsHeaderData } from '../groups.interface';
 
@@ -18,10 +19,14 @@ export class GroupDetailsWrapperComponent implements OnInit {
   @Input() data: IGroupDetailsHeaderData;
 
   mapedData: IGroupDetailsHeaderMapedData;
+  breadcrumbs: IBreadcrumbsItem[];
 
   constructor(private groupsService: GroupsService) { }
 
-  ngOnInit() {
+    ngOnInit() {
+      this.groupsService.getBreadcrumbs().subscribe((res: IBreadcrumbsItem[]) => {
+            this.breadcrumbs = res;
+      });
       this.mapedData = {
         title: {link: {...this.data.groupLinks.groupRoomPage}, title: this.data.title},
         groupLinks: [

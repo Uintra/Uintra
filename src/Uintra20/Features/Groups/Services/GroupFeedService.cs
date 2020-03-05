@@ -11,7 +11,7 @@ using Uintra20.Infrastructure.Extensions;
 namespace Uintra20.Features.Groups.Services
 {
     public class GroupFeedService :
-        FeedService,
+        FeedSettingsService,
         IGroupFeedService
     {
         private readonly IGroupActivityService _groupActivityService;

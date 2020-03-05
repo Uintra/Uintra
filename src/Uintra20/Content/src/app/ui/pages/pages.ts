@@ -108,5 +108,12 @@ export const pages = [
     loadChildren:
       "./ui/pages/uintra-groups/my-groups-page/uintra-my-groups-page.module#UintraMyGroupsPageModule",
     cache: false
-  }
+  },
+  {
+    id: 'uintraNewsCreatePage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/news/uintra-news-create/uintra-news-create-page.module#UintraNewsCreatePageModule',
+    cache: false
+  },
 ];
+

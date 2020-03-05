@@ -1,6 +1,7 @@
 <div class="groups">
   <div *ngIf="mapedData" class="groups-header-wrapper">
     <div class="groups-header">
+      <app-breadcrumbs [breadcrumbs]="breadcrumbs"></app-breadcrumbs>
       <h2 class="groups-header__title">
         <a
           [routerLink]="mapedData.title.link.originalUrl | ulink"

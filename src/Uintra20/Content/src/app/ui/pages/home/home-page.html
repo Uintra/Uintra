@@ -1,6 +1,10 @@
 <div class="page-wrapper">
   <div class="row-flex">
     <div class="col-md-8">
+      <app-social-create
+        *ngIf='socialCreateData'
+        [data]='socialCreateData'>
+      </app-social-create>
       <ubl-dynamic-component
         *ngFor="let panel of otherPanels"
         [data]="panel.get()"

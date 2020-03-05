@@ -2,8 +2,12 @@
     <div class="profile__header">
       <h2 class="profile__title">{{profileEdit.title}}</h2>
       <div class="profile__btns">
-        <button (click)="handleSave()" [disabled]="profileEditForm.invalid" class="button">SAVE</button>
-        <a [routerLink]="['/profile']" [queryParams]="{id: profileEdit.member.id}" class="button button-default">CANCEL</a>
+        <button (click)="handleSave()" [disabled]="profileEditForm.invalid" class="button">
+          {{'profile.Save.btn' | translate}}
+        </button>
+        <a [routerLink]="['/profile']" [queryParams]="{id: profileEdit.member.id}" class="button button-default">
+          {{'common.AreYouSure.Cancel' | translate}}
+        </a>
       </div>
     </div>
       <form [formGroup]="profileEditForm">
@@ -24,27 +28,51 @@
           </div>
           <div class="user-block__col form">
               <div class="form__row">
-                <label for="firstName">First name </label>
-                <input formControlName="firstName" type="text" name="firstName" id="firstName" class="input"/>
+                <label for="firstName">{{'profile.FirstName.lbl' | translate}} </label>
+                <input
+                  formControlName="firstName"
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  class="input"
+                  [placeholder]="'profile.FirstName.Placeholder' | translate"/>
               </div>
               <div class="form__row">
-                <label for="lastName">Last name </label>
-                <input formControlName="lastName" type="text" name="lastName" id="lastName" class="input"/>
+                <label for="lastName">{{'profile.LastName.lbl' | translate}} </label>
+                <input
+                  formControlName="lastName"
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  class="input"
+                  [placeholder]="'profile.LastName.Placeholder' | translate"/>
               </div>
               <div class="form__row">
-                <label for="email">Email </label>
+                <label for="email">{{'profile.Email.lbl' | translate}} </label>
                 <div>{{profileEdit.member.email}}</div>
               </div>
               <div class="form__row">
-                <label for="phone">Phone </label>
-                <input formControlName="phone" type="text" name="phone" id="phone" class="input"/>
+                <label for="phone">{{'profile.Phone.lbl' | translate}} </label>
+                <input
+                  formControlName="phone"
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  class="input"
+                  [placeholder]="'profile.Phone.Placeholder' | translate"/>
               </div>
               <div class="form__row">
-                <label for="department">Department </label>
-                <input formControlName="department" type="text" name="department" id="department" class="input"/>
+                <label for="department">{{'profile.Department.lbl' | translate}} </label>
+                <input
+                  formControlName="department"
+                  type="text"
+                  name="department"
+                  id="department"
+                  class="input"
+                  [placeholder]="'profile.Department.Placeholder' | translate"/>
               </div>
               <div class="form__row">
-                <label>Tags </label>
+                <label>{{'userTagsPicker.AddTags.lbl' | translate}}</label>
                 <app-tag-multiselect
                   [availableTags]="profileEdit.member.availableTags"
                   [ngModel]="profileEdit.member.tags" [ngModelOptions]="{standalone: true}"
@@ -52,10 +80,11 @@
                 </app-tag-multiselect>
               </div>
               <div class="form__row">
-                <label for="">Notification</label>
+                <label for="">{{'profile.EmailNotifications.Title.lbl' | translate}}</label>
                 <checkbox-input
                   [isChecked]="profileEdit.member.memberNotifierSettings.emailNotifier"
                   (change)="handleUpdateNotificationSettings($event)">
+                  {{'profile.EmailNotifications.lbl' | translate}}
               </checkbox-input>
               </div>
           </div>

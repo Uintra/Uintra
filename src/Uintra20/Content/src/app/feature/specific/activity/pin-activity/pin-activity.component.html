@@ -1,18 +1,21 @@
 <div class="pin-block form-row">
-  <h3 class="pin-block__title subtitle">Set as important</h3>
-  <checkbox-input [(ngModel)]="isPinCheked" (ngModelChange)='onAcceptedChange()'>Pin post to top of feed
+  <h3 class="pin-block__title subtitle">{{'pin.Activity.lbl' | translate}}</h3>
+  <checkbox-input [(ngModel)]="isPinCheked" (ngModelChange)='onAcceptedChange()'>
+    {{'pin.SetPinned.lbl' | translate}}
   </checkbox-input>
   <div *ngIf="isPinCheked" class="pin-info">
     <div class="pin-info__box">
       <div class="pin-info__text">
-        Note: Enabling this will mark the post as "Important". It will be pinned to the top until you manually unpin it.
-        To automatically unpin the post set the date below, the psot will remain being marked "Important".
+        {{'pin.AcceptPinText.lbl' | translate}}
       </div>
-      <checkbox-input [(ngModel)]="pinedDateValue.isAccepted" (ngModelChange)='onAcceptedChange()'>Accept
+      <checkbox-input [(ngModel)]="pinedDateValue.isAccepted" (ngModelChange)='onAcceptedChange()'>
+        {{'pin.AcceptPin.lbl' | translate}}
       </checkbox-input>
     </div>
     <div class="pin-info__datepicker">
-      <h5 class="pin-info__datepicker-title subtitle">Date to unpin</h5>
+      <h5 class="pin-info__datepicker-title subtitle">
+        {{'pin.EndPinDate.lbl' | translate} }
+      </h5>
       <!--TODO add css-->
       <div class="datepicker">
         <sq-datetimepicker [groupClass]="'udatepicker'" [inputClass]="'udatepicker-input'" [(ngModel)]="pinDate"

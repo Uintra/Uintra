@@ -17,13 +17,13 @@
             <a
               [routerLink]="parsedData.details.links.feed.originalUrl | ulink"
               class="feed-header__back-link">
-              Go to List
+              {{'detailsView.GoToList.lbl' | translate}}
             </a>
             <a
               *ngIf="parsedData.details.canEdit"
               [routerLink]="parsedData.details.links.edit.originalUrl | ulink"
               class="feed-header__edit-link">
-              Edit
+              {{'detailsView.Edit.lbl' | translate}}
             </a>
           </div>
           <div class="feed-item">
@@ -37,7 +37,7 @@
             <div class="feed-item__title" [innerHtml]="detailsTitle"></div>
             <div class="feed-item__text rte" [innerHtml]="detailsDescription"></div>
             <div class="feed-item-tags" *ngIf="tags.length !== 0">
-              <span class="feed-item-tags__text">This activity is tagged</span>
+              <span class="feed-item-tags__text">{{'userTagsView.Title.lbl' | translate}}</span>
               <!-- TODO: get from details.links -->
               <a
                 *ngFor="let tag of tags"
@@ -47,9 +47,8 @@
                 [innerHTML]="tag.text"
               ></a>
             </div>
-            <app-like-button class="likes" [likeData]="likeData" [isDisabled]="!parsedData?.isGroupMember"></app-like-button>
-            <div class="attachments">
-              <ul class="feed-item-images">
+            <div *ngIf="medias.length !== 0 || documents.length !== 0" class="attachments">
+              <ul *ngIf="medias.length !== 0" class="feed-item-images">
                 <li
                   class="feed-item-images__item"
                   *ngFor="let image of medias; index as i"
@@ -62,16 +61,17 @@
                 </li>
               </ul>
               <ng-container *ngIf="documents.length !== 0">
-                <h3 class="feed-item__subtitle">Attached documents:</h3>
+                <h3 class="feed-item__subtitle">
+                  {{'lightboxGallery.AttachedDocuments.lbl' | translate}}
+                </h3>
                 <app-attachments [documents]="documents"></app-attachments>
               </ng-container>
             </div>
-            <app-comments
-              [activityType]="commentDetails.entityType"
-              [comments]="data.comments"
-              [commentDetails]="commentDetails"
-              [isGroupMember]="parsedData.isGroupMember"
-            ></app-comments>
+            <ubl-dynamic-component
+              *ngFor="let panel of data.panels.get()"
+              [data]="panel.get()"
+            >
+            </ubl-dynamic-component>
           </div>
         </div>
       </div>

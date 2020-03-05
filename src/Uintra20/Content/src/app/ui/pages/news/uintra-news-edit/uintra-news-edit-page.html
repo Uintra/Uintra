@@ -2,6 +2,7 @@
   <app-group-details-wrapper *ngIf="panelData?.groupHeader" [data]="panelData.groupHeader">
     <div class="page-wrapper">
       <app-news-form
+        edit
         class="group-details-padding"
         [data]="newsData"
         [members]="members"
@@ -16,6 +17,7 @@
 
   <div *ngIf="!panelData?.groupHeader" class="page-wrapper">
     <app-news-form
+      edit
       [data]="newsData"
       [members]="members"
       [creator]="creator"

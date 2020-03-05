@@ -8,6 +8,7 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
 import { TagMultiselectModule } from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.module';
 import { DropzoneWrapperModule } from 'src/app/feature/reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
 import { CheckboxInputModule } from 'src/app/feature/reusable/inputs/checkbox-input/checkbox-input.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ProfileEditPage],
@@ -19,7 +20,8 @@ import { CheckboxInputModule } from 'src/app/feature/reusable/inputs/checkbox-in
     FormsModule,
     ReactiveFormsModule,
     DropzoneWrapperModule,
-    CheckboxInputModule
+    CheckboxInputModule,
+    TranslateModule,
   ],
   entryComponents: [ProfileEditPage]
 })

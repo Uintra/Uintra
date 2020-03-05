@@ -1,4 +1,4 @@
-﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\packages\Compent.UBaseline.UI.0.2.15-beta05\build\Compent.UBaseline.UI.props" Condition="Exists('..\..\packages\Compent.UBaseline.UI.0.2.15-beta05\build\Compent.UBaseline.UI.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\..\packages\UmbracoCms.8.4.0\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.8.4.0\build\UmbracoCms.props')" />
@@ -884,103 +884,7 @@
     <Content Include="config\logviewer.searches.config.js" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
-    <Content Include="Content\uintra20\src\assets\bootstrap-fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\angry.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\fever.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\funny.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\great.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\joy.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\love.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\party.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\sad.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\shocked.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\skeptical.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\sleepy.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\smile.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\surprised.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\tease.svg" />
-    <Content Include="Content\uintra20\src\assets\emoji\wink.svg" />
-    <Content Include="Content\uintra20\src\assets\fonts\icomoon.svg" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound1.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound10.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound11.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound12.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound13.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound14.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound15.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound16.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound17.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound18.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound19.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound2.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound20.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound21.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound22.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound23.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound24.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound25.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound26.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound27.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound28.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound29.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound3.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound30.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound31.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound32.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound33.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound34.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound35.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound36.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound4.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound5.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound6.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound7.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound8.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\audio\sound9.mp3" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_i1.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_i2.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_i3.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_i4.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_i5.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_i6.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_n1.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_n2.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_n3.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_n4.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_n5.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_n6.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_n7.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_n8.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-ball_n9.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\balls\b-head-decor_newyear.png" />
-    <Content Include="Content\uintra20\src\assets\gerlands\script.js" />
-    <Content Include="Content\uintra20\src\assets\gerlands\style.css" />
-    <Content Include="Content\uintra20\src\assets\img\admin.svg" />
-    <Content Include="Content\uintra20\src\assets\img\logo.svg" />
-    <Content Include="Content\uintra20\src\assets\img\u-intra-text-logo.svg" />
-    <Content Include="Content\uintra20\src\styles\grid.config.less" />
-    <Content Include="Content\uintra20\src\styles\icons\demo-files\demo.css" />
-    <Content Include="Content\uintra20\src\styles\icons\demo-files\demo.js" />
-    <Content Include="Content\uintra20\src\styles\icons\demo.html" />
-    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.eot" />
-    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.svg" />
-    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.ttf" />
-    <Content Include="Content\uintra20\src\styles\icons\fonts\icomoon.woff" />
-    <Content Include="Content\uintra20\src\styles\icons\Read Me.txt" />
-    <Content Include="Content\uintra20\src\styles\icons\selection.json" />
-    <Content Include="Content\uintra20\src\styles\icons\style.css" />
-    <Content Include="Content\uintra20\src\styles\icons\style.less" />
-    <Content Include="Content\uintra20\src\styles\icons\variables.less" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
-    <Content Include="Content\uintra20\src\styles.less" />
-    <Content Include="Content\uintra20\src\styles\mixins\elements.less" />
-    <Content Include="Content\uintra20\src\styles\components\index.less" />
-    <Content Include="Content\uintra20\src\styles\components\form-elements.less" />
-    <Content Include="Content\uintra20\src\styles\reset\index.less" />
-    <Content Include="Content\uintra20\src\styles\reset\reset.less" />
-    <None Include="Content\uintra20\src\styles\temp\aside.less" />
-    <Content Include="Content\uintra20\src\styles\abstracts\mq.less" />
-    <Content Include="Content\uintra20\src\styles\abstracts\variables.less" />
     <Content Include="css\rte.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -994,7 +898,9 @@
     <Compile Include="Core\AdminSection\Controllers\AdminController.cs" />
     <Compile Include="Core\Article\ArticlePageViewModel.cs" />
     <Compile Include="Core\Article\ArticlePageViewModelConverter.cs" />
+    <Compile Include="Core\Feed\Services\FeedPresentationService.cs" />
     <Compile Include="Core\IntranetEntityTypeEnum.cs" />
+    <Compile Include="Core\Feed\Models\LatestActivitiesItemViewModel.cs" />
     <Compile Include="Core\Member\Controllers\UintraMemberGroupTreeController.cs" />
     <Compile Include="Core\Member\Models\MemberGroupCreateModel.cs" />
     <Compile Include="Core\Activity\FeedActivityHelper.cs" />
@@ -1006,6 +912,7 @@
     <Compile Include="Core\UbaselineModels\IGenericPropertiesComposition.cs" />
     <Compile Include="Core\UbaselineModels\ImageModel.cs" />
     <Compile Include="Core\UbaselineModels\EnumDropdownListPropertyEditorConverter.cs" />
+    <Compile Include="Core\UmbracoEventServices\UmbracoEventsModule.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsDocumentsPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsEditPageViewModelConverter.cs" />
@@ -1014,7 +921,6 @@
     <Compile Include="Features\Groups\Helpers\GroupHelper.cs" />
     <Compile Include="Features\Groups\Helpers\IGroupHelper.cs" />
     <Compile Include="Features\Groups\IGroupHeader.cs" />
-    <Compile Include="Features\Groups\Models\GroupFeedPreviewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupHeaderViewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupLinksModel.cs" />
     <Compile Include="Features\Groups\Models\GroupDocumentViewModel.cs" />
@@ -1066,7 +972,7 @@
     <Compile Include="Features\CentralFeed\Builders\ActivityTabsBuilder.cs" />
     <Compile Include="Features\CentralFeed\Builders\IActivityTabsBuilder.cs" />
     <Compile Include="Features\CentralFeed\Models\CountableLatestActivities.cs" />
-    <Compile Include="Features\CentralFeed\Models\LoadableFeedItemModel.cs" />
+    <Compile Include="Features\CentralFeed\Models\LatestActivitiesModel.cs" />
     <Compile Include="Features\Groups\Services\GroupFeedService.cs" />
     <Compile Include="Features\Groups\Services\IGroupFeedService.cs" />
     <Compile Include="Features\Media\Strategies\Preset\MemberProfilePresetStrategy.cs" />
@@ -1188,9 +1094,6 @@
     <Compile Include="Controllers\MemberApiController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
-    <Compile Include="Core\Activity\Models\ActivityCreatePanelModel.cs" />
-    <Compile Include="Core\Activity\Models\ActivityCreatePanelViewModel.cs" />
-    <Compile Include="Core\Activity\Converters\ActivityCreatePanelViewModelConverter.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
     <Compile Include="Core\Activity\Entities\IntranetActivity.cs" />
     <Compile Include="Core\Activity\Helpers\ActivityPageHelper.cs" />
@@ -1252,7 +1155,6 @@
     <Compile Include="Core\Member\Models\UserPickerModel.cs" />
     <Compile Include="Core\Member\Controllers\UserApiController.cs" />
     <Compile Include="Core\User\Web\UserApiController.cs" />
-    <Compile Include="Features\Social\Models\SocialPreviewModel.cs" />
     <Compile Include="Features\CentralFeed\Providers\ContentProviderBase.cs" />
     <Compile Include="Features\CentralFeed\Providers\FeedContentProviderBase.cs" />
     <Compile Include="Features\CentralFeed\Providers\CentralFeedContentProvider.cs" />
@@ -1306,7 +1208,6 @@
     <Compile Include="Core\User\Models\IntranetUser.cs" />
     <Compile Include="Core\User\IntranetUserContentProvider.cs" />
     <Compile Include="Core\User\IntranetUserService.cs" />
-    <Compile Include="Features\CentralFeed\State\CentralFeedFilterStateService.cs" />
     <Compile Include="Features\CentralFeed\CentralFeedItemComparer.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedPanelModel.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedPanelViewModel.cs" />
@@ -1316,7 +1217,6 @@
     <Compile Include="Features\CentralFeed\Constants\CentralFeedConstants.cs" />
     <Compile Include="Core\Feed\Services\FeedContentServiceBase.cs" />
     <Compile Include="Core\Feed\Services\FeedFilterService.cs" />
-    <Compile Include="Core\Feed\State\FeedFiltersState.cs" />
     <Compile Include="Core\Feed\Models\FeedFilterStateModel.cs" />
     <Compile Include="Core\Feed\Models\FeedFilterStateViewModel.cs" />
     <Compile Include="Core\Feed\Models\FeedListModel.cs" />
@@ -1328,10 +1228,8 @@
     <Compile Include="Features\CentralFeed\Services\ICentralFeedService.cs" />
     <Compile Include="Core\Feed\Services\IFeedContentService.cs" />
     <Compile Include="Core\Feed\Services\IFeedFilterService.cs" />
-    <Compile Include="Core\Feed\Services\FeedService.cs" />
-    <Compile Include="Core\Feed\State\IFeedFilterStateService.cs" />
-    <Compile Include="Core\Feed\Services\IFeedService.cs" />
-    <Compile Include="Core\Feed\Models\FeedItemViewModel.cs" />
+    <Compile Include="Core\Feed\Services\FeedSettingsService.cs" />
+    <Compile Include="Core\Feed\Services\IFeedSettingsService.cs" />
     <Compile Include="Features\Information\IInformationService.cs" />
     <Compile Include="Features\Information\InformationService.cs" />
     <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
@@ -1385,7 +1283,6 @@
     <Compile Include="Features\News\Entities\News.cs" />
     <Compile Include="Features\News\INewsService.cs" />
     <Compile Include="Features\News\Models\NewsCreateModel.cs" />
-    <Compile Include="Features\News\Models\NewsDetailsViewModel.cs" />
     <Compile Include="Features\News\Models\NewsEditModel.cs" />
     <Compile Include="Features\News\Models\NewsViewModel.cs" />
     <Compile Include="Features\News\NewsBase.cs" />
@@ -1405,7 +1302,6 @@
     <Compile Include="Features\UintraPanels\LastActivities\Converters\SelectedActivityPropertyEditorConvertor.cs" />
     <Compile Include="Features\CentralFeed\Helpers\ICentralFeedHelper.cs" />
     <Compile Include="Features\CentralFeed\Helpers\CentralFeedHelper.cs" />
-    <Compile Include="Features\UintraPanels\LastActivities\Injection\LastActivityInjectModule.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\LatestActivitiesPanelViewModel.cs" />
     <Compile Include="Features\UintraPanels\LastActivities\Models\SelectedActivityModel.cs" />
@@ -1427,7 +1323,6 @@
     <Compile Include="Features\Social\Models\SocialExtendedItemViewModel.cs" />
     <Compile Include="Features\Social\Models\SocialExtendedViewModel.cs" />
     <Compile Include="Features\Social\Models\SocialItemViewModel.cs" />
-    <Compile Include="Features\Social\Models\SocialPreviewViewModel.cs" />
     <Compile Include="Features\Social\Models\SocialViewModel.cs" />
     <Compile Include="Infrastructure\Caching\CacheHelper.cs" />
     <Compile Include="Infrastructure\Caching\ICacheService.cs" />
@@ -1593,6 +1488,7 @@
     <Compile Include="Infrastructure\Ioc\NotificationInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\ActivityInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\UintraInjectModule.cs" />
+    <Compile Include="Infrastructure\Ioc\UmbracoEventsInjectModule.cs" />
     <Compile Include="Infrastructure\Providers\ContentPageContentProvider.cs" />
     <Compile Include="Infrastructure\Providers\IContentPageContentProvider.cs" />
     <Compile Include="Infrastructure\UintraInformation\IUintraInformationService.cs" />
@@ -1863,22 +1759,6 @@
     <Content Include="App_Plugins\BaseControls\package.manifest" />
     <Content Include="App_Plugins\BaseControls\TinyMce\Configs\faq-panel-config.json" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
-    <Content Include="Content\uintra20\src\assets\.gitkeep" />
-    <Content Include="Content\uintra20\src\assets\bootstrap-fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\uintra20\src\assets\bootstrap-fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\uintra20\src\assets\bootstrap-fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\uintra20\src\assets\bootstrap-fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Content\uintra20\src\assets\fonts\icomoon.eot" />
-    <Content Include="Content\uintra20\src\assets\fonts\icomoon.ttf" />
-    <Content Include="Content\uintra20\src\assets\fonts\icomoon.woff" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-Bold.woff" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-Bold.woff2" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-BoldItalic.woff" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-BoldItalic.woff2" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-Italic.woff" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-Italic.woff2" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-Regular.woff" />
-    <Content Include="Content\uintra20\src\assets\fonts\Muli-Regular.woff2" />
     <Content Include="App_Plugins\EnumLists\package.manifest" />
     <Content Include="config\UBaseline\videoPickerSettings.json" />
     <Content Include="config\UBaseline\ubaselineLoggingSettings.json" />
@@ -1902,8 +1782,6 @@
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\AnchorField\package.manifest" />
     <Content Include="App_Plugins\UintraGroupMember\package.manifest" />
-    <Content Include="Content\uintra20\src\styles\typography\font.less" />
-    <Content Include="Content\uintra20\src\styles\typography\index.less" />
     <Content Include="Features\Reminder\Configuration\reminderConfiguration.json" />
     <None Include="config\umbracoSettings.config" />
     <None Include="packages.config" />
@@ -1990,6 +1868,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\" />
     <Folder Include="Core\Feed\Web\" />
     <Folder Include="Features\Navigation\ModelBuilders\" />
     <Folder Include="Features\Notification\Commands\" />

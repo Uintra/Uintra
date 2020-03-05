@@ -14,6 +14,7 @@ import { QuillModule } from 'ngx-quill';
 import { DropzoneWrapperModule } from '../../../reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
 import { DropzoneExistingImagesModule } from '../../../reusable/ui-elements/dropzone-existing-images/dropzone-existing-images.module';
 import { MAX_LENGTH } from 'src/app/shared/constants/activity/activity-create.const';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [NewsFormComponent],
@@ -37,6 +38,7 @@ import { MAX_LENGTH } from 'src/app/shared/constants/activity/activity-create.co
     LocationPickerModule,
     PinActivityModule,
     DropzoneExistingImagesModule,
+    TranslateModule,
   ],
   exports: [NewsFormComponent]
 })

@@ -1,4 +1,4 @@
-<app-spoiler-section [title]="'Filter'" [(ngModel)]="isOpen" (ngModelChange)="handleOpen($event)" class="feed-filters">
+<app-spoiler-section [title]="'centralFeedList.OpenFilters.lbl' | translate" [(ngModel)]="isOpen" (ngModelChange)="handleOpen($event)" class="feed-filters">
   <app-radio-link-group
     *ngIf="tabs"
     [links]="tabs"
@@ -20,7 +20,7 @@
     </div>
 
     <button (click)="clearFilters()" class="feed-filters__button">
-      Clear filters
+      {{'centralFeedList.ClearFilters.btn' | translate}}
     </button>
   </div>
 </app-spoiler-section>
