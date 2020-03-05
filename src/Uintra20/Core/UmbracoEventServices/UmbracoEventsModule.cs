@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -10,12 +12,12 @@ namespace Uintra20.Core.UmbracoEventServices
     {
         public static void RegisterEvents()
         {
-            MemberService.AssignedRoles += ProcessMemberAssignedRoles;
-            MemberService.RemovedRoles += ProcessMemberRemovedRoles;
-            MemberService.Deleting += ProcessMemberDeleting;
-            MemberService.Saved += ProcessMemberCreated;
-            MemberGroupService.Deleting += ProcessMemberGroupDeliting;
-            MemberGroupService.Saved += ProcessMemberGroupSaved;
+            MemberService.AssignedRoles += AssignedRolesHandler;
+            MemberService.RemovedRoles += MemberRemovedRolesHandler;
+            MemberService.Deleting += MemberDeletingHandler;
+            MemberService.Saved += MemberCreateOrUpdateHandler;
+            MemberGroupService.Deleting += MemberGroupDeletingHandler;
+            MemberGroupService.Saved += MemberGroupSavedHandler;
 
             //ContentService.Published += ProcessContentPublished;
             //ContentService.UnPublished += ProcessContentUnPublished;
@@ -26,7 +28,7 @@ namespace Uintra20.Core.UmbracoEventServices
             //MediaService.Saving += ProcessMediaSaving;
         }
 
-        private static void ProcessMemberRemovedRoles(IMemberService sender, RolesEventArgs e)
+        private static void MemberRemovedRolesHandler(IMemberService sender, RolesEventArgs e)
         {
             var services = DependencyResolver.Current.GetServices<IUmbracoMemberRemovedRolesEventService>();
 
@@ -36,7 +38,7 @@ namespace Uintra20.Core.UmbracoEventServices
             }
         }
 
-        private static void ProcessMemberAssignedRoles(IMemberService sender, RolesEventArgs e)
+        private static void AssignedRolesHandler(IMemberService sender, RolesEventArgs e)
         {
             var services = DependencyResolver.Current.GetServices<IUmbracoMemberAssignedRolesEventService>();
 
@@ -46,7 +48,7 @@ namespace Uintra20.Core.UmbracoEventServices
             }
         }
 
-        private static void ProcessMemberGroupSaved(IMemberGroupService sender, SaveEventArgs<IMemberGroup> e)
+        private static void MemberGroupSavedHandler(IMemberGroupService sender, SaveEventArgs<IMemberGroup> e)
         {
             var services = DependencyResolver.Current.GetServices<IUmbracoMemberGroupSavedEventService>();
 
@@ -56,7 +58,7 @@ namespace Uintra20.Core.UmbracoEventServices
             }
         }
 
-        private static void ProcessMemberCreated(IMemberService sender, SaveEventArgs<IMember> e)
+        private static void MemberCreateOrUpdateHandler(IMemberService sender, SaveEventArgs<IMember> e)
         {
             var services = DependencyResolver.Current.GetServices<IUmbracoMemberCreatedEventService>();
 
@@ -76,7 +78,7 @@ namespace Uintra20.Core.UmbracoEventServices
             }
         }
 
-        private static void ProcessMemberGroupDeliting(IMemberGroupService sender, DeleteEventArgs<IMemberGroup> e)
+        private static void MemberGroupDeletingHandler(IMemberGroupService sender, DeleteEventArgs<IMemberGroup> e)
         {
             var services = DependencyResolver.Current.GetServices<IUmbracoMemberGroupDeletingEventService>();
 
@@ -116,7 +118,7 @@ namespace Uintra20.Core.UmbracoEventServices
             }
         }
 
-        private static void ProcessMemberDeleting(IMemberService sender, DeleteEventArgs<IMember> e)
+        private static void MemberDeletingHandler(IMemberService sender, DeleteEventArgs<IMember> e)
         {
             var services = DependencyResolver.Current.GetServices<IUmbracoMemberDeletingEventService>();
 

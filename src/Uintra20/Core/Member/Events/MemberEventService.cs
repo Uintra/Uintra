@@ -66,6 +66,7 @@ namespace Uintra20.Core.Member.Events
         {
             foreach (var memberId in e.MemberIds)
             {
+                _intranetMemberGroupService.AssignDefaultMemberGroup(memberId);
                 _cacheableIntranetMemberService.UpdateMemberCache(memberId);
             }
         }
