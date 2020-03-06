@@ -35,8 +35,12 @@ export class SocialEditPageComponent {
     private canDeactivateService: CanDeactivateGuard
   ) {
     this.route.data.subscribe(data => {
-      this.data = data;
-      this.addButtonService.setPageId(data.id);
+      if (!data.requiresRedirect.get()) {
+        this.data = data;
+        this.addButtonService.setPageId(data.id);
+      } else {
+        this.router.navigate([data.errorLink.get().originalUrl.get()]);
+      }
     });
     this.onParse();
     this.initSocialEditForm();
